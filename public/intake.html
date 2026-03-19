@@ -1,54 +1,124 @@
-app.post("/intake", async (req, res) => {
-  try {
-    const { email, tenant_slug, mode, answers } = req.body;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Garvey BII Intake</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 760px; margin: 24px auto; }
+    .bar-wrap { width: 100%; background: #eee; border-radius: 8px; height: 16px; margin: 12px 0; }
+    .bar { height: 100%; width: 0%; border-radius: 8px; background: #2f7cf6; }
+    .choices button { margin-right: 8px; margin-bottom: 8px; }
+    .selected { background-color: #2f7cf6; color: #fff; }
+  </style>
+</head>
+<body>
+  <h1>Business Intelligence Intake</h1>
 
-    // 1. Create session
-    const sessionResult = await pool.query(
-      "INSERT INTO intake_sessions (email, tenant_slug, mode) VALUES ($1, $2, $3) RETURNING *",
-      [email, tenant_slug, mode]
-    );
+  <label>Email <input id="email" type="email" value="test@email.com" /></label>
+  <label>Tenant Slug <input id="tenant" value="test-business" /></label>
+  <label>Mode
+    <select id="mode" onchange="resetFlow()">
+      <option value="quick">25 Questions</option>
+      <option value="deep">60 Questions</option>
+    </select>
+  </label>
 
-    const session = sessionResult.rows[0];
+  <p id="sectionLabel"></p>
+  <p id="questionLabel"></p>
+  <div class="bar-wrap"><div class="bar" id="progressBar"></div></div>
+  <p id="percent"></p>
 
-    // 2. Save responses
-    for (let i = 0; i < answers.length; i++) {
-      await pool.query(
-        "INSERT INTO intake_responses (session_id, question_id, answer) VALUES ($1, $2, $3)",
-        [session.id, i + 1, answers[i]]
-      );
+  <div class="choices">
+    <button onclick="selectAnswer('A')">A</button>
+    <button onclick="selectAnswer('B')">B</button>
+    <button onclick="selectAnswer('C')">C</button>
+    <button onclick="selectAnswer('D')">D</button>
+  </div>
+
+  <button id="submitBtn" onclick="submitIntake()" disabled>Submit Intake</button>
+
+  <h2>Result</h2>
+  <pre id="result"></pre>
+
+  <script>
+    const sectionNames = ["Vision", "Operations", "Growth", "Customer", "Systems"];
+    let answers = [];
+
+    function totalQuestions() {
+      return document.getElementById("mode").value === "deep" ? 60 : 25;
     }
 
-    // 3. Score
-    const roleScores = scoreAssessment(answers);
+    function renderQuestion() {
+      const total = totalQuestions();
+      const index = answers.length;
 
-    const { primary, secondary } = getTopRoles(roleScores);
+      document.getElementById("questionLabel").innerText =
+        index < total ? `Question ${index + 1} of ${total}` : `Completed ${total} of ${total}`;
 
-    // 4. Generate recommendations
-    const recommendations = generateRecommendations(primary, secondary);
+      const sectionIndex = Math.min(Math.floor((index / total) * sectionNames.length), sectionNames.length - 1);
+      document.getElementById("sectionLabel").innerText =
+        `Section: ${sectionNames[sectionIndex]}`;
 
-    // 5. Save result
-    await pool.query(
-      "INSERT INTO intake_results (session_id, primary_role, secondary_role, role_scores, recommendations) VALUES ($1, $2, $3, $4, $5)",
-      [
-        session.id,
-        primary,
-        secondary,
-        roleScores,
-        recommendations
-      ]
-    );
+      const percent = Math.round((answers.length / total) * 100);
+      document.getElementById("progressBar").style.width = `${percent}%`;
+      document.getElementById("percent").innerText = `${percent}% complete`;
+      document.getElementById("submitBtn").disabled = answers.length !== total;
+    }
 
-    // 6. Return response
-    res.json({
-      success: true,
-      primary_role: primary,
-      secondary_role: secondary,
-      scores: roleScores,
-      recommendations
-    });
+    function clearSelection() {
+      document.querySelectorAll('.choices button').forEach((btn) => btn.classList.remove('selected'));
+    }
 
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Intake failed" });
-  }
-});
+    function selectAnswer(value) {
+      const total = totalQuestions();
+      if (answers.length >= total) return;
+
+      answers.push(value);
+      clearSelection();
+      const selectedButton = Array.from(document.querySelectorAll('.choices button'))
+        .find((btn) => btn.innerText === value);
+      if (selectedButton) selectedButton.classList.add('selected');
+
+      setTimeout(clearSelection, 120);
+      hydrateFromQuery();
+    renderQuestion();
+    }
+
+    function resetFlow() {
+      answers = [];
+      document.getElementById("result").innerText = "";
+      clearSelection();
+      hydrateFromQuery();
+    renderQuestion();
+    }
+
+
+    function hydrateFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      const tenant = params.get("tenant");
+      if (tenant) {
+        document.getElementById("tenant").value = tenant;
+      }
+    }
+
+    async function submitIntake() {
+      const email = document.getElementById("email").value;
+      const tenant_slug = document.getElementById("tenant").value;
+      const mode = document.getElementById("mode").value;
+
+      const res = await fetch("/intake", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, tenant_slug, mode, answers })
+      });
+
+      const data = await res.json();
+      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+    }
+
+    hydrateFromQuery();
+    renderQuestion();
+  </script>
+</body>
+</html>
