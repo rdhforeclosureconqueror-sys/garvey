@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+</head>
+<body>
+  <h1>Business Dashboard</h1>
+
+  <p id="users"></p>
+  <p id="visits"></p>
+  <p id="actions"></p>
+  <p id="points"></p>
+
+  <script>
+    async function load() {
+      const res = await fetch("/dashboard");
+      const data = await res.json();
+
+      document.getElementById("users").innerText =
+        "Users: " + data.total_users;
+
+      document.getElementById("visits").innerText =
+        "Visits: " + data.total_visits;
+
+      document.getElementById("actions").innerText =
+        "Actions: " + data.total_actions;
+
+      document.getElementById("points").innerText =
+        "Points Issued: " + data.total_points;
+    }
+
+    load();
+  </script>
+</body>
+</html>
