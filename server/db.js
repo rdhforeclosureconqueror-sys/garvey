@@ -1,23 +1,13 @@
-const { Pool } = require("pg");
+const { Pool } = require('pg');
 
-const connectionString = process.env.DATABASE_URL;
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
-const pool = new Pool(
-  connectionString
-    ? {
-        connectionString,
-        ssl: connectionString.includes("localhost")
-          ? false
-          : { rejectUnauthorized: false }
-      }
-    : {
-        host: process.env.PGHOST || "127.0.0.1",
-        port: Number(process.env.PGPORT || 5432),
-        user: process.env.PGUSER || "postgres",
-        password: process.env.PGPASSWORD || "postgres",
-        database: process.env.PGDATABASE || "garvey"
-      }
-);
+module.exports = pool;
 
 async function initializeDatabase() {
   await pool.query(`
