@@ -76,16 +76,19 @@ async function findTenantUser(tenantId, email, client = pool) {
 }
 
 async function tenantMiddleware(req, res, next) {
-  const tenant = await getTenantBySlug(req.params.slug);
+  const { slug } = req.params;
+  const tenant = await getTenantBySlug(slug);
 
   if (!tenant) {
-    return res.status(404).json({ error: "Tenant not found", tenant_slug: req.params.slug });
+    return res.status(404).json({ error: "Tenant not found", tenant_slug: slug });
   }
 
   req.tenant = tenant;
-  req.tenantConfig = await getTenantConfig(tenant.id);
+  req.tenantConfig = (await getTenantConfig(tenant.id)) || {};
   return next();
 }
+
+
 
 app.get("/join/:slug", async (req, res) => {
   const tenant = await getTenantBySlug(req.params.slug);

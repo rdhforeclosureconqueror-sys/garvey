@@ -59,7 +59,11 @@ async function checkIntakePipeline(baseUrl) {
   if (!deepRes.ok) return false;
 
   const deepJson = await deepRes.json();
-  return Boolean(deepJson.primary_role && deepJson.secondary_role && deepJson.config);
+  return Boolean(
+    deepJson.primary_role &&
+    deepJson.secondary_role &&
+    deepJson.config
+  );
 }
 
 async function checkAdminConfigFlow(baseUrl) {
@@ -71,7 +75,9 @@ async function checkAdminConfigFlow(baseUrl) {
   const updateRes = await fetch(`${baseUrl}/t/${tenantSlug}/admin/config`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ config: { reward_system: false, referral_system: false } })
+    body: JSON.stringify({
+      config: { reward_system: false, referral_system: false }
+    })
   });
 
   if (!updateRes.ok) return false;
@@ -110,15 +116,18 @@ async function runVerification(baseUrl) {
 
   const dbReady = await checkDatabase();
   if (!dbReady) return status;
+
   status.phase1 = "PASS";
 
   const intakeReady = await checkIntakePipeline(baseUrl);
   if (!intakeReady) return status;
+
   status.phase2 = "PASS";
   status.phase3 = "PASS";
 
   const adminReady = await checkAdminConfigFlow(baseUrl);
   if (!adminReady) return status;
+
   status.phase8 = "PASS";
 
   status.system = "HEALTHY";

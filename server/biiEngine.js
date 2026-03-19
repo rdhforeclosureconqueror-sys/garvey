@@ -44,7 +44,12 @@ function getTopRoles(roles) {
 
 function generateRecommendations(primary, secondary, mode) {
   return {
-    systems: ["behavior_tracking", "reward_engine", "customer_data_capture", "engagement_sequences"],
+    systems: [
+      "behavior_tracking",
+      "reward_engine",
+      "customer_data_capture",
+      "engagement_sequences"
+    ],
     focus: `${primary} + ${secondary}`,
     operating_mode: mode,
     message:
@@ -60,10 +65,20 @@ function generateRecommendations(primary, secondary, mode) {
 function generateTenantConfig(primary, secondary) {
   const config = {
     reward_system: ["builder", "resource_generator", "steward"].includes(primary),
-    engagement_engine: ["connector", "nurturer", "educator"].includes(primary) || secondary === "connector",
-    email_marketing: ["operator", "resource_generator"].includes(secondary),
-    content_engine: ["educator", "architect", "connector"].includes(primary) || secondary === "educator",
-    referral_system: ["connector", "resource_generator", "nurturer"].includes(primary)
+
+    engagement_engine:
+      ["connector", "nurturer", "educator"].includes(primary) ||
+      secondary === "connector",
+
+    email_marketing:
+      ["operator", "resource_generator"].includes(secondary),
+
+    content_engine:
+      ["educator", "architect", "connector"].includes(primary) ||
+      secondary === "educator",
+
+    referral_system:
+      ["connector", "resource_generator", "nurturer"].includes(primary)
   };
 
   if (primary === "architect" || secondary === "architect") {
