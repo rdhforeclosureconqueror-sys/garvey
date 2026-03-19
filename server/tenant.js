@@ -1,11 +1,25 @@
-const pool = require("./db");
+const { pool } = require("./db");
 
-async function getTenant(slug) {
-  const result = await pool.query(
-    "SELECT * FROM tenants WHERE slug=$1",
-    [slug]
-  );
-  return result.rows[0];
+async function getTenantBySlug(slug) {
+  const result = await pool.query("SELECT * FROM tenants WHERE slug = $1", [slug]);
+  return result.rows[0] || null;
 }
 
-module.exports = { getTenant };
+async function ensureTenant(slug) {
+  let tenant = await getTenantBySlug(slug);
+
+  if (!tenant) {
+    const create = await pool.query(
+      "INSERT INTO tenants (name, slug) VALUES ($1, $2) RETURNING *",
+      [slug, slug]
+    );
+    tenant = create.rows[0];
+  }
+
+  return tenant;
+}
+
+module.exports = {
+  getTenantBySlug,
+  ensureTenant
+};
