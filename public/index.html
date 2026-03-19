@@ -40,6 +40,7 @@
   </div>
 
   <pre id="result"></pre>
+
   <a href="/dashboard.html">Go to dashboard</a> |
   <a href="/intake.html">Go to intake</a>
 
@@ -50,17 +51,27 @@
     }
 
     async function post(path, body) {
-      const res = await fetch(tenantPath(path), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      });
-      const data = await res.json();
-      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+      try {
+        const res = await fetch(tenantPath(path), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+
+        const data = await res.json();
+
+        document.getElementById("result").innerText =
+          JSON.stringify(data, null, 2);
+      } catch (err) {
+        document.getElementById("result").innerText =
+          `Error: ${err.message}`;
+      }
     }
 
     async function checkin() {
-      await post("/checkin", { email: document.getElementById("email").value });
+      await post("/checkin", {
+        email: document.getElementById("email").value
+      });
     }
 
     async function action(type) {
@@ -74,7 +85,8 @@
       await post("/review", {
         email: document.getElementById("email").value,
         text: document.getElementById("reviewText").value,
-        media_type: document.getElementById("mediaType").value || undefined
+        media_type:
+          document.getElementById("mediaType").value || undefined
       });
     }
 

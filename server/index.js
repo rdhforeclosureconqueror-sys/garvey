@@ -60,7 +60,7 @@ async function tenantMiddleware(req, res, next) {
   }
 
   req.tenant = tenant;
-  req.tenantConfig = await getTenantConfig(tenant.id);
+  req.tenantConfig = (await getTenantConfig(tenant.id)) || {};
   return next();
 }
 
@@ -103,7 +103,10 @@ app.post("/t/:slug/checkin", tenantMiddleware, async (req, res) => {
       event: "checkin",
       points_added: pointsToAdd,
       points: updatedUser.rows[0].points,
-      message: pointsToAdd > 0 ? `You earned ${pointsToAdd} points!` : "Rewards are disabled for this tenant."
+      message:
+        pointsToAdd > 0
+          ? `You earned ${pointsToAdd} points!`
+          : "Rewards are disabled for this tenant."
     });
   } catch (error) {
     console.error(error);
@@ -138,7 +141,10 @@ app.post("/t/:slug/action", tenantMiddleware, async (req, res) => {
       action_type: actionType,
       points_added: points,
       points: updatedUser.rows[0].points,
-      message: points > 0 ? `You earned ${points} points!` : "Action tracked. Rewards currently disabled."
+      message:
+        points > 0
+          ? `You earned ${points} points!`
+          : "Action tracked. Rewards currently disabled."
     });
   } catch (error) {
     console.error(error);
@@ -178,7 +184,10 @@ app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
       review: reviewResult.rows[0],
       points_added: points,
       points: updatedUser.rows[0].points,
-      message: points > 0 ? `Thanks! You earned ${points} points for your review.` : "Thanks! Review captured."
+      message:
+        points > 0
+          ? `Thanks! You earned ${points} points for your review.`
+          : "Thanks! Review captured."
     });
   } catch (error) {
     console.error(error);
@@ -201,8 +210,8 @@ app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
 
     await client.query("BEGIN");
 
-    const referrer = await ensureTenantUser(req.tenant.id, email);
-    const referred = await ensureTenantUser(req.tenant.id, referredEmail);
+    const referrer = await ensureTenantUser(req.tenant.id, email, client);
+    const referred = await ensureTenantUser(req.tenant.id, referredEmail, client);
     const pointsEach = rewardPointsEnabled(req.tenantConfig) ? 10 : 0;
 
     await client.query(
@@ -269,7 +278,15 @@ app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
   try {
     const tenantId = req.tenant.id;
 
-    const [users, visits, actions, points, topActions, pointsDistribution, dailyActivity] = await Promise.all([
+    const [
+      users,
+      visits,
+      actions,
+      points,
+      topActions,
+      pointsDistribution,
+      dailyActivity
+    ] = await Promise.all([
       pool.query("SELECT COUNT(*)::int AS total_users FROM users WHERE tenant_id = $1", [tenantId]),
       pool.query("SELECT COUNT(*)::int AS total_visits FROM visits WHERE tenant_id = $1", [tenantId]),
       pool.query("SELECT COUNT(*)::int AS total_actions FROM actions WHERE tenant_id = $1", [tenantId]),
@@ -359,7 +376,6 @@ app.get("/t/:slug/config", tenantMiddleware, async (req, res) => {
 
 app.post("/intake", async (req, res) => {
   const client = await pool.connect();
-
   try {
     const { email, tenant_slug: tenantSlug, mode = "quick", answers = [] } = req.body;
 

@@ -56,7 +56,11 @@
       document.getElementById("questionLabel").innerText =
         index < total ? `Question ${index + 1} of ${total}` : `Completed ${total} of ${total}`;
 
-      const sectionIndex = Math.min(Math.floor((index / total) * sectionNames.length), sectionNames.length - 1);
+      const sectionIndex = Math.min(
+        Math.floor((index / total) * sectionNames.length),
+        sectionNames.length - 1
+      );
+
       document.getElementById("sectionLabel").innerText =
         `Section: ${sectionNames[sectionIndex]}`;
 
@@ -67,7 +71,8 @@
     }
 
     function clearSelection() {
-      document.querySelectorAll('.choices button').forEach((btn) => btn.classList.remove('selected'));
+      document.querySelectorAll('.choices button')
+        .forEach((btn) => btn.classList.remove('selected'));
     }
 
     function selectAnswer(value) {
@@ -76,23 +81,23 @@
 
       answers.push(value);
       clearSelection();
+
       const selectedButton = Array.from(document.querySelectorAll('.choices button'))
         .find((btn) => btn.innerText === value);
+
       if (selectedButton) selectedButton.classList.add('selected');
 
       setTimeout(clearSelection, 120);
-      hydrateFromQuery();
-    renderQuestion();
+      renderQuestion(); // ✅ no hydrate here
     }
 
     function resetFlow() {
       answers = [];
       document.getElementById("result").innerText = "";
       clearSelection();
-      hydrateFromQuery();
-    renderQuestion();
+      hydrateFromQuery(); // ✅ valid here
+      renderQuestion();
     }
-
 
     function hydrateFromQuery() {
       const params = new URLSearchParams(window.location.search);
@@ -114,10 +119,11 @@
       });
 
       const data = await res.json();
-      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+      document.getElementById("result").innerText =
+        JSON.stringify(data, null, 2);
     }
 
-    hydrateFromQuery();
+    hydrateFromQuery(); // ✅ initial load support (QR / join flow)
     renderQuestion();
   </script>
 </body>
