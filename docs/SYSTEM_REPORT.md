@@ -1,31 +1,35 @@
-# Garvey System Report
+# Garvey Final System Validation Report
 
-## 1) System Purpose
-Garvey is a multi-tenant behavior + intelligence platform that tracks customer behavior, issues rewards, collects business-intelligence intake responses, generates tenant-level configuration, and exposes analytics for business optimization.
+## Executive Summary
+Garvey is a multi-tenant SaaS behavior + intelligence platform for business operators. It captures customer behavior, rewards engagement, performs business-intelligence intake scoring, generates tenant-specific configuration, and surfaces actionable analytics in a tenant-safe way.
 
----
-
-## 2) Core Components
-- **Behavior Engine:** tenant-scoped checkin/action/wishlist tracking.
-- **Customer Experience Engine:** review capture, referral engine, QR join routing.
-- **BII Engine:** intake session persistence, role scoring, recommendations.
-- **Config Activation Layer:** tenant_config-driven feature gates.
-- **Analytics Dashboard API:** aggregate counts, top actions, points distribution, daily activity.
-- **Verification Engine:** system health and phase checks via `/verify`.
+It solves:
+- fragmented customer behavior tracking
+- non-personalized business setup
+- lack of config-driven feature control
+- weak operational visibility
 
 ---
 
-## 3) Data Flow Map
-1. **User** starts via `/join/:slug` or `/intake.html`.
-2. **Intake** (`POST /intake`) stores session + responses.
-3. **Scoring** computes role profile.
-4. **Config** is generated + saved in `tenant_config`.
-5. **Behavior** endpoints use config gates for rewards/content/referrals.
-6. **Dashboard** reads tenant analytics aggregates.
+## System Architecture
+
+### Engines
+1. Behavior Engine (`checkin`, `action`, `wishlist`)
+2. BII Engine (`/intake`, scoring, recommendations)
+3. Config Activation Engine (feature gating via `tenant_config`)
+4. Customer Experience Engine (`join`, `review`, `referral`)
+5. Analytics Engine (top actions, points distribution, daily activity)
+6. Verification Engine (`/verify`)
+7. Admin Control Engine (`/t/:slug/admin/config` GET/POST)
 
 ---
 
-## 4) Endpoint Map
+## Data Flow
+User → Intake → Scoring → Config → Behavior → Dashboard
+
+---
+
+## Endpoint Map
 - `GET /health`
 - `GET /verify`
 - `GET /join/:slug`
@@ -37,87 +41,93 @@ Garvey is a multi-tenant behavior + intelligence platform that tracks customer b
 - `POST /t/:slug/wishlist`
 - `GET /t/:slug/dashboard`
 - `GET /t/:slug/config`
+- `GET /t/:slug/admin/config`
+- `POST /t/:slug/admin/config`
 
 ---
 
-## 5) File Map
+## File Map
 
 ### Backend
-- `server/index.js` — API routes, feature gates, transactions, structured logging.
+- `server/index.js` — API routes, tenant middleware, config gating, transactions, structured logging.
 - `server/db.js` — PostgreSQL pool + schema bootstrap + indexes.
-- `server/tenant.js` — tenant lookup/creation + tenant config resolution.
-- `server/biiEngine.js` — intake scoring + recommendations + config generation.
-- `server/verify.js` — automated verification checks.
+- `server/tenant.js` — tenant lookup/create/config resolution.
+- `server/biiEngine.js` — role scoring + recommendations + config generation.
+- `server/verify.js` — automated verification checks (including admin flows).
 
 ### Frontend
-- `public/index.html` — customer interaction UI (checkin/action/review/referral/wishlist).
-- `public/intake.html` — intake UI (25/60 flow, progress, section guidance, submit).
-- `public/dashboard.html` — tenant analytics display including upgraded metrics.
+- `public/index.html` — behavior + CX test panel.
+- `public/intake.html` — intake UI (25/60 flow, progress, section guidance).
+- `public/dashboard.html` — analytics dashboard.
+- `public/admin.html` — tenant admin config control UI.
 
 ---
 
-## 6) Phase Verification Report
+## Phase Verification Report
 
 ### Phase 1 — Behavior Engine
 - **Status:** PASS  
-- Tenant-scoped events validated (`checkin`, `action`, `wishlist`)
-- Points accumulation verified
-- Dashboard reflects accurate counts
+- Tenant-scoped behavior tracking verified
 
 ### Phase 2 — BII Engine
 - **Status:** PASS  
-- Intake sessions + responses persisted
-- Role scoring and recommendations generated
-- Results stored in `intake_results`
+- Intake sessions, scoring, and recommendations validated
 
 ### Phase 3 — Auto Config Generation
 - **Status:** PASS  
-- Tenant config generated and persisted
-- `/config` endpoint returns correct data
+- Config generation and persistence verified
 
 ### Phase 3.5 — Hardening
 - **Status:** PASS  
-- Structured JSON logging implemented
-- Transactional intake path (BEGIN/COMMIT/ROLLBACK)
-- Tenant safety constraints enforced
-- `/health` endpoint verified
+- Structured logging + transactional safety + tenant isolation verified
 
 ### Phase 4 — Customer Experience Engine
 - **Status:** PASS  
-- `/join/:slug` routing functional
-- Review + referral flows implemented
-- Reward feedback messaging active
+- Join, review, referral flows functional
 
 ### Phase 5 — Analytics Upgrade
 - **Status:** PASS  
-- Top actions calculated
-- Points distribution buckets added
-- Daily activity tracking implemented
+- Top actions, points distribution, and daily activity implemented
 
 ### Phase 6 — Config-Driven Activation
 - **Status:** PASS  
-- Feature gating enforced via `tenant_config`
-- Disabled features return proper 403 responses
+- Feature gating enforced with proper 403 responses
 
 ### Phase 7 — Verification Engine
 - **Status:** PASS  
-- `/verify` endpoint validates DB, endpoints, and system readiness
+- `/verify` validates system health and readiness
+
+### Phase 8 — Admin Control Engine
+- **Status:** PASS  
+- Admin config GET/POST working
+- Config overrides safely merged and sanitized
+- Runtime behavior reflects config changes immediately
 
 ---
 
-## 7) Deployment Readiness
+## Issues Found + Fixes Applied
+- Added config sanitization to prevent arbitrary config injection
+- Implemented admin config endpoints for live tenant control
+- Fixed tenant-safe user upsert logic
+- Ensured transaction safety in referral + intake flows
+- Expanded verification to include admin and runtime config checks
+
+---
+
+## Deployment Readiness
 - `npm start` boots server
 - PostgreSQL schema auto-initializes
-- Health + verification endpoints active
+- `/health` and `/verify` endpoints active
 - Tenant-scoped APIs stable and consistent
 - Ready for deployment (Render) with `DATABASE_URL`
 
 ---
 
-## 8) Testing Summary
+## Testing Summary
 - End-to-end API flows validated via curl
-- PostgreSQL setup + schema verified
+- PostgreSQL setup and schema verified
 - Tenant isolation confirmed
-- Review/referral persistence confirmed
-- Config gating behavior verified (403 cases)
+- Review/referral persistence verified
+- Config gating behavior validated (403 cases)
+- Admin config updates verified against live runtime behavior
 - Dashboard analytics correctness validated

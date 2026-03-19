@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const { pool, initializeDatabase } = require("./db");
-const { ensureTenant, getTenantBySlug, getTenantConfig } = require("./tenant");
+const { ensureTenant, getTenantBySlug, getTenantConfig, DEFAULT_TENANT_CONFIG } = require("./tenant");
 const {
   scoreAssessment,
   getTopRoles,
@@ -23,18 +23,38 @@ const ACTION_POINTS = {
   referral: 15
 };
 
+const ALLOWED_CONFIG_KEYS = [
+  "reward_system",
+  "engagement_engine",
+  "email_marketing",
+  "content_engine",
+  "referral_system",
+  "automation_blueprints",
+  "analytics_engine"
+];
+
 function logEvent(event, payload = {}) {
-  console.log(
-    JSON.stringify({
-      ts: new Date().toISOString(),
-      event,
-      ...payload
-    })
-  );
+  console.log(JSON.stringify({ ts: new Date().toISOString(), event, ...payload }));
 }
 
-async function ensureTenantUser(tenantId, email) {
-  const existing = await pool.query(
+function sanitizeConfig(config = {}) {
+  const sanitized = {};
+
+  for (const key of ALLOWED_CONFIG_KEYS) {
+    if (typeof config[key] === "boolean") {
+      sanitized[key] = config[key];
+    }
+  }
+
+  return sanitized;
+}
+
+function rewardPointsEnabled(config) {
+  return config.reward_system !== false;
+}
+
+async function findTenantUser(tenantId, email, client = pool) {
+  const existing = await client.query(
     "SELECT * FROM users WHERE tenant_id = $1 AND email = $2",
     [tenantId, email]
   );
@@ -43,8 +63,12 @@ async function ensureTenantUser(tenantId, email) {
     return existing.rows[0];
   }
 
-  const created = await pool.query(
-    "INSERT INTO users (tenant_id, email) VALUES ($1, $2) RETURNING *",
+  const created = await client.query(
+    `INSERT INTO users (tenant_id, email)
+     VALUES ($1, $2)
+     ON CONFLICT (tenant_id, email)
+     DO UPDATE SET email = EXCLUDED.email
+     RETURNING *`,
     [tenantId, email]
   );
 
@@ -64,9 +88,7 @@ async function tenantMiddleware(req, res, next) {
   return next();
 }
 
-function rewardPointsEnabled(config) {
-  return config.reward_system !== false;
-}
+
 
 app.get("/join/:slug", async (req, res) => {
   const tenant = await getTenantBySlug(req.params.slug);
@@ -80,33 +102,28 @@ app.get("/join/:slug", async (req, res) => {
 app.post("/t/:slug/checkin", tenantMiddleware, async (req, res) => {
   try {
     const { email } = req.body;
-    if (!email) {
-      return res.status(400).json({ error: "email is required" });
-    }
+    if (!email) return res.status(400).json({ error: "email is required" });
 
-    const user = await ensureTenantUser(req.tenant.id, email);
-    const pointsToAdd = rewardPointsEnabled(req.tenantConfig) ? 5 : 0;
+    const user = await findTenantUser(req.tenant.id, email);
+    const pointsAdded = rewardPointsEnabled(req.tenantConfig) ? 5 : 0;
 
     await pool.query(
       "INSERT INTO visits (tenant_id, user_id, points_awarded) VALUES ($1, $2, $3)",
-      [req.tenant.id, user.id, pointsToAdd]
+      [req.tenant.id, user.id, pointsAdded]
     );
 
     const updatedUser = await pool.query(
-      "UPDATE users SET points = points + $1 WHERE id = $2 AND tenant_id = $3 RETURNING id, email, points",
-      [pointsToAdd, user.id, req.tenant.id]
+      "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3 RETURNING points",
+      [pointsAdded, req.tenant.id, user.id]
     );
 
     return res.json({
       success: true,
       tenant: req.tenant.slug,
       event: "checkin",
-      points_added: pointsToAdd,
+      points_added: pointsAdded,
       points: updatedUser.rows[0].points,
-      message:
-        pointsToAdd > 0
-          ? `You earned ${pointsToAdd} points!`
-          : "Rewards are disabled for this tenant."
+      message: pointsAdded > 0 ? `You earned ${pointsAdded} points!` : "Rewards are disabled for this tenant."
     });
   } catch (error) {
     console.error(error);
@@ -121,30 +138,26 @@ app.post("/t/:slug/action", tenantMiddleware, async (req, res) => {
       return res.status(400).json({ error: "email and action_type are required" });
     }
 
-    const basePoints = ACTION_POINTS[actionType] || 0;
-    const points = rewardPointsEnabled(req.tenantConfig) ? basePoints : 0;
-    const user = await ensureTenantUser(req.tenant.id, email);
+    const user = await findTenantUser(req.tenant.id, email);
+    const pointsAdded = rewardPointsEnabled(req.tenantConfig) ? ACTION_POINTS[actionType] || 0 : 0;
 
     await pool.query(
       "INSERT INTO actions (tenant_id, user_id, action_type, points_awarded) VALUES ($1, $2, $3, $4)",
-      [req.tenant.id, user.id, actionType, points]
+      [req.tenant.id, user.id, actionType, pointsAdded]
     );
 
     const updatedUser = await pool.query(
-      "UPDATE users SET points = points + $1 WHERE id = $2 AND tenant_id = $3 RETURNING id, email, points",
-      [points, user.id, req.tenant.id]
+      "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3 RETURNING points",
+      [pointsAdded, req.tenant.id, user.id]
     );
 
     return res.json({
       success: true,
       tenant: req.tenant.slug,
       action_type: actionType,
-      points_added: points,
+      points_added: pointsAdded,
       points: updatedUser.rows[0].points,
-      message:
-        points > 0
-          ? `You earned ${points} points!`
-          : "Action tracked. Rewards currently disabled."
+      message: pointsAdded > 0 ? `You earned ${pointsAdded} points!` : "Action tracked. Rewards currently disabled."
     });
   } catch (error) {
     console.error(error);
@@ -163,31 +176,28 @@ app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
       return res.status(400).json({ error: "email and text are required" });
     }
 
-    const user = await ensureTenantUser(req.tenant.id, email);
+    const user = await findTenantUser(req.tenant.id, email);
     const mediaBonus = mediaType === "video" ? 10 : mediaType === "photo" ? 5 : 0;
-    const points = rewardPointsEnabled(req.tenantConfig) ? 5 + mediaBonus : 0;
+    const pointsAdded = rewardPointsEnabled(req.tenantConfig) ? 5 + mediaBonus : 0;
 
     const reviewResult = await pool.query(
       `INSERT INTO reviews (tenant_id, user_id, text, media_type, points_awarded)
        VALUES ($1, $2, $3, $4, $5)
        RETURNING *`,
-      [req.tenant.id, user.id, text, mediaType || null, points]
+      [req.tenant.id, user.id, text, mediaType || null, pointsAdded]
     );
 
     const updatedUser = await pool.query(
-      "UPDATE users SET points = points + $1 WHERE id = $2 AND tenant_id = $3 RETURNING points",
-      [points, user.id, req.tenant.id]
+      "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3 RETURNING points",
+      [pointsAdded, req.tenant.id, user.id]
     );
 
     return res.json({
       success: true,
       review: reviewResult.rows[0],
-      points_added: points,
+      points_added: pointsAdded,
       points: updatedUser.rows[0].points,
-      message:
-        points > 0
-          ? `Thanks! You earned ${points} points for your review.`
-          : "Thanks! Review captured."
+      message: pointsAdded > 0 ? `Thanks! You earned ${pointsAdded} points for your review.` : "Thanks! Review captured."
     });
   } catch (error) {
     console.error(error);
@@ -210,8 +220,8 @@ app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
 
     await client.query("BEGIN");
 
-    const referrer = await ensureTenantUser(req.tenant.id, email, client);
-    const referred = await ensureTenantUser(req.tenant.id, referredEmail, client);
+    const referrer = await findTenantUser(req.tenant.id, email, client);
+    const referred = await findTenantUser(req.tenant.id, referredEmail, client);
     const pointsEach = rewardPointsEnabled(req.tenantConfig) ? 10 : 0;
 
     await client.query(
@@ -229,8 +239,8 @@ app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
       );
     }
 
-    const pointsRows = await client.query(
-      "SELECT email, points FROM users WHERE tenant_id = $1 AND id IN ($2, $3)",
+    const users = await client.query(
+      "SELECT email, points FROM users WHERE tenant_id = $1 AND id IN ($2, $3) ORDER BY email",
       [req.tenant.id, referrer.id, referred.id]
     );
 
@@ -239,7 +249,7 @@ app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
     return res.json({
       success: true,
       points_awarded_each: pointsEach,
-      users: pointsRows.rows,
+      users: users.rows,
       message:
         pointsEach > 0
           ? `Referral success! Both users earned ${pointsEach} points.`
@@ -261,7 +271,7 @@ app.post("/t/:slug/wishlist", tenantMiddleware, async (req, res) => {
       return res.status(400).json({ error: "email and product_name are required" });
     }
 
-    const user = await ensureTenantUser(req.tenant.id, email);
+    const user = await findTenantUser(req.tenant.id, email);
     const result = await pool.query(
       "INSERT INTO wishlist (tenant_id, user_id, product_name) VALUES ($1, $2, $3) RETURNING *",
       [req.tenant.id, user.id, productName]
@@ -278,23 +288,14 @@ app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
   try {
     const tenantId = req.tenant.id;
 
-    const [
-      users,
-      visits,
-      actions,
-      points,
-      topActions,
-      pointsDistribution,
-      dailyActivity
-    ] = await Promise.all([
+    const [users, visits, actions, points, topActions, pointsDistribution, dailyActivity] = await Promise.all([
       pool.query("SELECT COUNT(*)::int AS total_users FROM users WHERE tenant_id = $1", [tenantId]),
       pool.query("SELECT COUNT(*)::int AS total_visits FROM visits WHERE tenant_id = $1", [tenantId]),
       pool.query("SELECT COUNT(*)::int AS total_actions FROM actions WHERE tenant_id = $1", [tenantId]),
       pool.query("SELECT COALESCE(SUM(points), 0)::int AS total_points FROM users WHERE tenant_id = $1", [tenantId]),
       pool.query(
         `SELECT action_type, COUNT(*)::int AS action_count
-         FROM actions
-         WHERE tenant_id = $1
+         FROM actions WHERE tenant_id = $1
          GROUP BY action_type
          ORDER BY action_count DESC, action_type ASC
          LIMIT 5`,
@@ -318,17 +319,13 @@ app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
       pool.query(
         `SELECT activity_day, SUM(activity_count)::int AS activity_count
          FROM (
-            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count
-            FROM visits WHERE tenant_id = $1 GROUP BY DATE(created_at)
+            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM visits WHERE tenant_id = $1 GROUP BY DATE(created_at)
             UNION ALL
-            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count
-            FROM actions WHERE tenant_id = $1 GROUP BY DATE(created_at)
+            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM actions WHERE tenant_id = $1 GROUP BY DATE(created_at)
             UNION ALL
-            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count
-            FROM reviews WHERE tenant_id = $1 GROUP BY DATE(created_at)
+            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM reviews WHERE tenant_id = $1 GROUP BY DATE(created_at)
             UNION ALL
-            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count
-            FROM referrals WHERE tenant_id = $1 GROUP BY DATE(created_at)
+            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM referrals WHERE tenant_id = $1 GROUP BY DATE(created_at)
          ) a
          GROUP BY activity_day
          ORDER BY activity_day DESC
@@ -364,18 +361,86 @@ app.get("/t/:slug/config", tenantMiddleware, async (req, res) => {
       return res.status(404).json({ error: "config not found" });
     }
 
-    return res.json({
-      tenant: req.tenant.slug,
-      ...result.rows[0]
-    });
+    return res.json({ tenant: req.tenant.slug, ...result.rows[0] });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "config retrieval failed" });
   }
 });
 
+app.get("/t/:slug/admin/config", tenantMiddleware, async (req, res) => {
+  try {
+    const configResult = await pool.query(
+      `SELECT config, generated_from_session_id, updated_at
+       FROM tenant_config
+       WHERE tenant_id = $1`,
+      [req.tenant.id]
+    );
+
+    if (!configResult.rows[0]) {
+      return res.json({
+        tenant: req.tenant.slug,
+        config: DEFAULT_TENANT_CONFIG,
+        primary_role: null,
+        secondary_role: null,
+        last_updated: null
+      });
+    }
+
+    const joined = await pool.query(
+      `SELECT ir.primary_role, ir.secondary_role
+       FROM intake_results ir
+       JOIN intake_sessions s ON s.id = ir.session_id
+       WHERE ir.session_id = $1 AND s.tenant_id = $2`,
+      [configResult.rows[0].generated_from_session_id, req.tenant.id]
+    );
+
+    return res.json({
+      tenant: req.tenant.slug,
+      config: { ...DEFAULT_TENANT_CONFIG, ...configResult.rows[0].config },
+      primary_role: joined.rows[0]?.primary_role || null,
+      secondary_role: joined.rows[0]?.secondary_role || null,
+      last_updated: configResult.rows[0].updated_at
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "admin config retrieval failed" });
+  }
+});
+
+app.post("/t/:slug/admin/config", tenantMiddleware, async (req, res) => {
+  try {
+    const incoming = sanitizeConfig(req.body?.config || {});
+
+    const existing = await pool.query(
+      "SELECT config FROM tenant_config WHERE tenant_id = $1",
+      [req.tenant.id]
+    );
+
+    const merged = {
+      ...DEFAULT_TENANT_CONFIG,
+      ...(existing.rows[0]?.config || {}),
+      ...incoming
+    };
+
+    await pool.query(
+      `INSERT INTO tenant_config (tenant_id, config, updated_at)
+       VALUES ($1, $2, NOW())
+       ON CONFLICT (tenant_id)
+       DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
+      [req.tenant.id, merged]
+    );
+
+    return res.json({ success: true, tenant: req.tenant.slug, config: merged });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "admin config update failed" });
+  }
+});
+
 app.post("/intake", async (req, res) => {
   const client = await pool.connect();
+
   try {
     const { email, tenant_slug: tenantSlug, mode = "quick", answers = [] } = req.body;
 
@@ -467,6 +532,7 @@ app.get("/verify", async (req, res) => {
       phase1: "FAIL",
       phase2: "FAIL",
       phase3: "FAIL",
+      phase8: "FAIL",
       system: "DEGRADED"
     });
   }

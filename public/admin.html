@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Garvey Admin Control</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 760px; margin: 24px auto; }
+    .row { margin-bottom: 10px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    label { display: flex; gap: 8px; align-items: center; }
+  </style>
+</head>
+<body>
+  <h1>Tenant Admin Control</h1>
+
+  <div class="row">
+    <input id="tenant" placeholder="Tenant slug" value="test-business" />
+    <button onclick="loadConfig()">Load Config</button>
+  </div>
+
+  <h3>Role Display</h3>
+  <p id="roles">Primary: - | Secondary: -</p>
+  <p id="updated">Last updated: -</p>
+
+  <h3>Config Toggles</h3>
+  <div class="grid" id="toggles"></div>
+
+  <div class="row">
+    <button onclick="saveConfig()">Save Config</button>
+  </div>
+
+  <pre id="result"></pre>
+
+  <script>
+    const keys = [
+      ["reward_system", "Reward System"],
+      ["engagement_engine", "Engagement Engine"],
+      ["email_marketing", "Email Marketing"],
+      ["content_engine", "Content Engine"],
+      ["referral_system", "Referral System"],
+      ["automation_blueprints", "Automation Blueprints"],
+      ["analytics_engine", "Analytics Engine"]
+    ];
+
+    function renderToggles(config = {}) {
+      const root = document.getElementById("toggles");
+      root.innerHTML = "";
+
+      keys.forEach(([key, label]) => {
+        const wrapper = document.createElement("label");
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.id = `cfg_${key}`;
+        input.checked = Boolean(config[key]);
+
+        const span = document.createElement("span");
+        span.innerText = label;
+
+        wrapper.appendChild(input);
+        wrapper.appendChild(span);
+        root.appendChild(wrapper);
+      });
+    }
+
+    function readConfigFromForm() {
+      const config = {};
+      keys.forEach(([key]) => {
+        config[key] = document.getElementById(`cfg_${key}`).checked;
+      });
+      return config;
+    }
+
+    async function loadConfig() {
+      const tenant = document.getElementById("tenant").value;
+      const res = await fetch(`/t/${tenant}/admin/config`);
+      const data = await res.json();
+      if (!res.ok) {
+        document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+        return;
+      }
+
+      renderToggles(data.config);
+      document.getElementById("roles").innerText =
+        `Primary: ${data.primary_role || "-"} | Secondary: ${data.secondary_role || "-"}`;
+      document.getElementById("updated").innerText =
+        `Last updated: ${data.last_updated || "-"}`;
+      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+    }
+
+    async function saveConfig() {
+      const tenant = document.getElementById("tenant").value;
+      const config = readConfigFromForm();
+
+      const res = await fetch(`/t/${tenant}/admin/config`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ config })
+      });
+
+      const data = await res.json();
+      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+      if (res.ok) {
+        await loadConfig();
+      }
+    }
+
+    renderToggles();
+  </script>
+</body>
+</html>

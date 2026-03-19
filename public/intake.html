@@ -45,6 +45,14 @@
     const sectionNames = ["Vision", "Operations", "Growth", "Customer", "Systems"];
     let answers = [];
 
+    function hydrateFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      const tenant = params.get("tenant");
+      if (tenant) {
+        document.getElementById("tenant").value = tenant;
+      }
+    }
+
     function totalQuestions() {
       return document.getElementById("mode").value === "deep" ? 60 : 25;
     }
@@ -88,23 +96,15 @@
       if (selectedButton) selectedButton.classList.add('selected');
 
       setTimeout(clearSelection, 120);
-      renderQuestion(); // ✅ no hydrate here
+      renderQuestion();
     }
 
     function resetFlow() {
       answers = [];
       document.getElementById("result").innerText = "";
       clearSelection();
-      hydrateFromQuery(); // ✅ valid here
+      hydrateFromQuery();
       renderQuestion();
-    }
-
-    function hydrateFromQuery() {
-      const params = new URLSearchParams(window.location.search);
-      const tenant = params.get("tenant");
-      if (tenant) {
-        document.getElementById("tenant").value = tenant;
-      }
     }
 
     async function submitIntake() {
@@ -123,7 +123,7 @@
         JSON.stringify(data, null, 2);
     }
 
-    hydrateFromQuery(); // ✅ initial load support (QR / join flow)
+    hydrateFromQuery();
     renderQuestion();
   </script>
 </body>

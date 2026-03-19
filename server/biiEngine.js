@@ -77,7 +77,6 @@ function generateTenantConfig(primary, secondary) {
       ["educator", "architect", "connector"].includes(primary) ||
       secondary === "educator",
 
-    // ✅ keep this (Phase 4 + 6 dependency)
     referral_system:
       ["connector", "resource_generator", "nurturer"].includes(primary)
   };
