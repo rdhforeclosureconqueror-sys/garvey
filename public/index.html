@@ -1,68 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Earn Rewards</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Garvey Behavior Engine</title>
 </head>
 <body>
-  <h1>Join & Earn Rewards 🎉</h1>
+  <h1>Garvey Customer Experience Engine</h1>
+  <p>Test check-in, actions, reviews, referrals, and wishlist per tenant.</p>
 
-  <input id="email" placeholder="Enter email" />
+  <input id="tenant" placeholder="Tenant slug" value="test-business" />
+  <input id="email" placeholder="Email" value="test@email.com" />
 
-  <br><br>
+  <div style="margin-top:12px;">
+    <button onclick="checkin()">Check In (+5)</button>
+    <button onclick="action('review')">Review Action (+5)</button>
+    <button onclick="action('photo')">Photo Action (+10)</button>
+    <button onclick="action('video')">Video Action (+20)</button>
+  </div>
 
-  <button onclick="checkin()">Check In (+5)</button>
-  <button onclick="action('review')">Review (+5)</button>
-  <button onclick="action('photo')">Photo (+10)</button>
-  <button onclick="action('video')">Video (+20)</button>
+  <div style="margin-top:12px;">
+    <input id="reviewText" placeholder="Write review" value="Great service!" />
+    <select id="mediaType">
+      <option value="">No media</option>
+      <option value="photo">Photo</option>
+      <option value="video">Video</option>
+    </select>
+    <button onclick="review()">Submit Review</button>
+  </div>
 
-  <br><br>
+  <div style="margin-top:12px;">
+    <input id="referredEmail" placeholder="Referred email" value="friend@email.com" />
+    <button onclick="referral()">Submit Referral</button>
+  </div>
 
-  <input id="product" placeholder="Wishlist item" />
-  <button onclick="wishlist()">Add Wishlist</button>
+  <div style="margin-top:12px;">
+    <input id="product" placeholder="Wishlist item" value="Premium Bundle" />
+    <button onclick="wishlist()">Add Wishlist</button>
+  </div>
 
-  <p id="result"></p>
+  <pre id="result"></pre>
+  <a href="/dashboard.html">Go to dashboard</a> |
+  <a href="/intake.html">Go to intake</a> |
+  <a href="/admin.html">Go to admin</a>
 
   <script>
-    async function checkin() {
-      const email = document.getElementById("email").value;
+    function tenantPath(path) {
+      const tenant = document.getElementById("tenant").value;
+      return `/t/${tenant}${path}`;
+    }
 
-      const res = await fetch("/checkin", {
+    async function post(path, body) {
+      const res = await fetch(tenantPath(path), {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ email })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
       });
-
       const data = await res.json();
-      document.getElementById("result").innerText =
-        "Points: " + data.points;
+      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+    }
+
+    async function checkin() {
+      await post("/checkin", { email: document.getElementById("email").value });
     }
 
     async function action(type) {
-      const email = document.getElementById("email").value;
-
-      const res = await fetch("/action", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ email, action_type: type })
+      await post("/action", {
+        email: document.getElementById("email").value,
+        action_type: type
       });
+    }
 
-      const data = await res.json();
-      document.getElementById("result").innerText =
-        "Earned " + data.points_added + " points!";
+    async function review() {
+      await post("/review", {
+        email: document.getElementById("email").value,
+        text: document.getElementById("reviewText").value,
+        media_type: document.getElementById("mediaType").value || undefined
+      });
+    }
+
+    async function referral() {
+      await post("/referral", {
+        email: document.getElementById("email").value,
+        referred_email: document.getElementById("referredEmail").value
+      });
     }
 
     async function wishlist() {
-      const email = document.getElementById("email").value;
-      const product = document.getElementById("product").value;
-
-      await fetch("/wishlist", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ email, product_name: product })
+      await post("/wishlist", {
+        email: document.getElementById("email").value,
+        product_name: document.getElementById("product").value
       });
-
-      document.getElementById("result").innerText =
-        "Wishlist saved!";
     }
   </script>
 </body>
