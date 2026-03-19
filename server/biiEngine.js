@@ -1,8 +1,8 @@
 const scoringMap = {
-  A: { architect: 1, educator: 1 },
-  B: { builder: 1, operator: 1 },
-  C: { connector: 1, nurturer: 1 },
-  D: { resource_generator: 1, protector: 1, steward: 1 }
+  A: { architect: 2, educator: 1, builder: 1 },
+  B: { builder: 2, operator: 2 },
+  C: { connector: 2, nurturer: 2, educator: 1 },
+  D: { resource_generator: 2, protector: 2, steward: 2 }
 };
 
 function initializeRoles() {
@@ -19,15 +19,15 @@ function initializeRoles() {
   };
 }
 
-function scoreAssessment(answers) {
+function scoreAssessment(answers = []) {
   const roles = initializeRoles();
 
-  answers.forEach(ans => {
-    const map = scoringMap[ans];
-    if (!map) return;
+  answers.forEach((answer) => {
+    const roleWeightMap = scoringMap[answer];
+    if (!roleWeightMap) return;
 
-    Object.keys(map).forEach(role => {
-      roles[role] += map[role];
+    Object.entries(roleWeightMap).forEach(([role, weight]) => {
+      roles[role] += weight;
     });
   });
 
@@ -35,29 +35,50 @@ function scoreAssessment(answers) {
 }
 
 function getTopRoles(roles) {
-  const sorted = Object.entries(roles)
-    .sort((a, b) => b[1] - a[1]);
-
+  const sortedRoles = Object.entries(roles).sort((a, b) => b[1] - a[1]);
   return {
-    primary: sorted[0][0],
-    secondary: sorted[1][0]
+    primary: sortedRoles[0][0],
+    secondary: sortedRoles[1][0]
   };
 }
 
-function generateRecommendations(primary, secondary) {
+function generateRecommendations(primary, secondary, mode) {
   return {
-    systems: [
-      "behavior_tracking",
-      "reward_engine",
-      "customer_data_capture"
-    ],
+    systems: ["behavior_tracking", "reward_engine", "customer_data_capture", "engagement_sequences"],
     focus: `${primary} + ${secondary}`,
-    message: "Your system should support your natural strengths while stabilizing weak areas."
+    operating_mode: mode,
+    message:
+      "Your system should amplify your primary strengths while adding process support for secondary strengths.",
+    next_steps: [
+      "Enable role-aligned feature flags",
+      "Prioritize automated engagement loops",
+      "Track conversion actions on the dashboard"
+    ]
   };
+}
+
+function generateTenantConfig(primary, secondary) {
+  const config = {
+    reward_system: ["builder", "resource_generator", "steward"].includes(primary),
+    engagement_engine: ["connector", "nurturer", "educator"].includes(primary) || secondary === "connector",
+    email_marketing: ["operator", "resource_generator"].includes(secondary),
+    content_engine: ["educator", "architect"].includes(primary) || secondary === "educator"
+  };
+
+  if (primary === "architect" || secondary === "architect") {
+    config.automation_blueprints = true;
+  }
+
+  if (primary === "operator") {
+    config.analytics_engine = true;
+  }
+
+  return config;
 }
 
 module.exports = {
   scoreAssessment,
   getTopRoles,
-  generateRecommendations
+  generateRecommendations,
+  generateTenantConfig
 };

@@ -1,68 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Earn Rewards</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Garvey Behavior Engine</title>
 </head>
 <body>
-  <h1>Join & Earn Rewards 🎉</h1>
+  <h1>Garvey Behavior Engine</h1>
+  <p>Test check-in, actions, and wishlist per tenant.</p>
 
-  <input id="email" placeholder="Enter email" />
+  <input id="tenant" placeholder="Tenant slug" value="test-business" />
+  <input id="email" placeholder="Email" value="test@email.com" />
 
-  <br><br>
+  <div style="margin-top:12px;">
+    <button onclick="checkin()">Check In (+5)</button>
+    <button onclick="action('review')">Review (+5)</button>
+    <button onclick="action('photo')">Photo (+10)</button>
+    <button onclick="action('video')">Video (+20)</button>
+  </div>
 
-  <button onclick="checkin()">Check In (+5)</button>
-  <button onclick="action('review')">Review (+5)</button>
-  <button onclick="action('photo')">Photo (+10)</button>
-  <button onclick="action('video')">Video (+20)</button>
-
-  <br><br>
-
-  <input id="product" placeholder="Wishlist item" />
-  <button onclick="wishlist()">Add Wishlist</button>
+  <div style="margin-top:12px;">
+    <input id="product" placeholder="Wishlist item" value="Premium Bundle" />
+    <button onclick="wishlist()">Add Wishlist</button>
+  </div>
 
   <p id="result"></p>
+  <a href="/dashboard.html">Go to dashboard</a> |
+  <a href="/intake.html">Go to intake</a>
 
   <script>
+    function tenantPath(path) {
+      const tenant = document.getElementById("tenant").value;
+      return `/t/${tenant}${path}`;
+    }
+
     async function checkin() {
       const email = document.getElementById("email").value;
-
-      const res = await fetch("/checkin", {
+      const res = await fetch(tenantPath("/checkin"), {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email })
       });
-
       const data = await res.json();
-      document.getElementById("result").innerText =
-        "Points: " + data.points;
+      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
     }
 
     async function action(type) {
       const email = document.getElementById("email").value;
-
-      const res = await fetch("/action", {
+      const res = await fetch(tenantPath("/action"), {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, action_type: type })
       });
-
       const data = await res.json();
-      document.getElementById("result").innerText =
-        "Earned " + data.points_added + " points!";
+      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
     }
 
     async function wishlist() {
       const email = document.getElementById("email").value;
-      const product = document.getElementById("product").value;
-
-      await fetch("/wishlist", {
+      const product_name = document.getElementById("product").value;
+      const res = await fetch(tenantPath("/wishlist"), {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ email, product_name: product })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, product_name })
       });
-
-      document.getElementById("result").innerText =
-        "Wishlist saved!";
+      const data = await res.json();
+      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
     }
   </script>
 </body>
