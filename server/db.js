@@ -41,6 +41,7 @@ async function initializeDatabase() {
       id SERIAL PRIMARY KEY,
       tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
       user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      points_awarded INTEGER NOT NULL DEFAULT 0,
       created_at TIMESTAMPTZ DEFAULT NOW()
     );
 
@@ -59,6 +60,26 @@ async function initializeDatabase() {
       user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       product_name TEXT NOT NULL,
       created_at TIMESTAMPTZ DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS reviews (
+      id SERIAL PRIMARY KEY,
+      tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      text TEXT NOT NULL,
+      media_type TEXT,
+      points_awarded INTEGER NOT NULL DEFAULT 0,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS referrals (
+      id SERIAL PRIMARY KEY,
+      tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      referrer_user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      referred_user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      points_awarded_each INTEGER NOT NULL DEFAULT 0,
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      UNIQUE (tenant_id, referrer_user_id, referred_user_id)
     );
 
     CREATE TABLE IF NOT EXISTS intake_sessions (
@@ -95,6 +116,11 @@ async function initializeDatabase() {
       created_at TIMESTAMPTZ DEFAULT NOW(),
       updated_at TIMESTAMPTZ DEFAULT NOW()
     );
+
+    CREATE INDEX IF NOT EXISTS idx_actions_tenant_created_at ON actions(tenant_id, created_at);
+    CREATE INDEX IF NOT EXISTS idx_visits_tenant_created_at ON visits(tenant_id, created_at);
+    CREATE INDEX IF NOT EXISTS idx_reviews_tenant_created_at ON reviews(tenant_id, created_at);
+    CREATE INDEX IF NOT EXISTS idx_referrals_tenant_created_at ON referrals(tenant_id, created_at);
   `);
 }
 

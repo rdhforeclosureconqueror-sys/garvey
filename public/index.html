@@ -6,17 +6,32 @@
   <title>Garvey Behavior Engine</title>
 </head>
 <body>
-  <h1>Garvey Behavior Engine</h1>
-  <p>Test check-in, actions, and wishlist per tenant.</p>
+  <h1>Garvey Customer Experience Engine</h1>
+  <p>Test check-in, actions, reviews, referrals, and wishlist per tenant.</p>
 
   <input id="tenant" placeholder="Tenant slug" value="test-business" />
   <input id="email" placeholder="Email" value="test@email.com" />
 
   <div style="margin-top:12px;">
     <button onclick="checkin()">Check In (+5)</button>
-    <button onclick="action('review')">Review (+5)</button>
-    <button onclick="action('photo')">Photo (+10)</button>
-    <button onclick="action('video')">Video (+20)</button>
+    <button onclick="action('review')">Review Action (+5)</button>
+    <button onclick="action('photo')">Photo Action (+10)</button>
+    <button onclick="action('video')">Video Action (+20)</button>
+  </div>
+
+  <div style="margin-top:12px;">
+    <input id="reviewText" placeholder="Write review" value="Great service!" />
+    <select id="mediaType">
+      <option value="">No media</option>
+      <option value="photo">Photo</option>
+      <option value="video">Video</option>
+    </select>
+    <button onclick="review()">Submit Review</button>
+  </div>
+
+  <div style="margin-top:12px;">
+    <input id="referredEmail" placeholder="Referred email" value="friend@email.com" />
+    <button onclick="referral()">Submit Referral</button>
   </div>
 
   <div style="margin-top:12px;">
@@ -24,7 +39,8 @@
     <button onclick="wishlist()">Add Wishlist</button>
   </div>
 
-  <p id="result"></p>
+  <pre id="result"></pre>
+
   <a href="/dashboard.html">Go to dashboard</a> |
   <a href="/intake.html">Go to intake</a>
 
@@ -34,38 +50,58 @@
       return `/t/${tenant}${path}`;
     }
 
+    async function post(path, body) {
+      try {
+        const res = await fetch(tenantPath(path), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+
+        const data = await res.json();
+
+        document.getElementById("result").innerText =
+          JSON.stringify(data, null, 2);
+      } catch (err) {
+        document.getElementById("result").innerText =
+          `Error: ${err.message}`;
+      }
+    }
+
     async function checkin() {
-      const email = document.getElementById("email").value;
-      const res = await fetch(tenantPath("/checkin"), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
+      await post("/checkin", {
+        email: document.getElementById("email").value
       });
-      const data = await res.json();
-      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
     }
 
     async function action(type) {
-      const email = document.getElementById("email").value;
-      const res = await fetch(tenantPath("/action"), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, action_type: type })
+      await post("/action", {
+        email: document.getElementById("email").value,
+        action_type: type
       });
-      const data = await res.json();
-      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+    }
+
+    async function review() {
+      await post("/review", {
+        email: document.getElementById("email").value,
+        text: document.getElementById("reviewText").value,
+        media_type:
+          document.getElementById("mediaType").value || undefined
+      });
+    }
+
+    async function referral() {
+      await post("/referral", {
+        email: document.getElementById("email").value,
+        referred_email: document.getElementById("referredEmail").value
+      });
     }
 
     async function wishlist() {
-      const email = document.getElementById("email").value;
-      const product_name = document.getElementById("product").value;
-      const res = await fetch(tenantPath("/wishlist"), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, product_name })
+      await post("/wishlist", {
+        email: document.getElementById("email").value,
+        product_name: document.getElementById("product").value
       });
-      const data = await res.json();
-      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
     }
   </script>
 </body>
