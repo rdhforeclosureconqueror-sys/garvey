@@ -1,2 +1,54 @@
-<h1>Business Intake</h1>
-<p>This is where your BII system will live.</p>
+app.post("/intake", async (req, res) => {
+  try {
+    const { email, tenant_slug, mode, answers } = req.body;
+
+    // 1. Create session
+    const sessionResult = await pool.query(
+      "INSERT INTO intake_sessions (email, tenant_slug, mode) VALUES ($1, $2, $3) RETURNING *",
+      [email, tenant_slug, mode]
+    );
+
+    const session = sessionResult.rows[0];
+
+    // 2. Save responses
+    for (let i = 0; i < answers.length; i++) {
+      await pool.query(
+        "INSERT INTO intake_responses (session_id, question_id, answer) VALUES ($1, $2, $3)",
+        [session.id, i + 1, answers[i]]
+      );
+    }
+
+    // 3. Score
+    const roleScores = scoreAssessment(answers);
+
+    const { primary, secondary } = getTopRoles(roleScores);
+
+    // 4. Generate recommendations
+    const recommendations = generateRecommendations(primary, secondary);
+
+    // 5. Save result
+    await pool.query(
+      "INSERT INTO intake_results (session_id, primary_role, secondary_role, role_scores, recommendations) VALUES ($1, $2, $3, $4, $5)",
+      [
+        session.id,
+        primary,
+        secondary,
+        roleScores,
+        recommendations
+      ]
+    );
+
+    // 6. Return response
+    res.json({
+      success: true,
+      primary_role: primary,
+      secondary_role: secondary,
+      scores: roleScores,
+      recommendations
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Intake failed" });
+  }
+});
