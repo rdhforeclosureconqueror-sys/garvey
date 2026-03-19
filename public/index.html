@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Earn Rewards</title>
+</head>
+<body>
+  <h1>Join & Earn Rewards 🎉</h1>
+
+  <input id="email" placeholder="Enter email" />
+
+  <br><br>
+
+  <button onclick="checkin()">Check In (+5)</button>
+  <button onclick="action('review')">Review (+5)</button>
+  <button onclick="action('photo')">Photo (+10)</button>
+  <button onclick="action('video')">Video (+20)</button>
+
+  <br><br>
+
+  <input id="product" placeholder="Wishlist item" />
+  <button onclick="wishlist()">Add Wishlist</button>
+
+  <p id="result"></p>
+
+  <script>
+    async function checkin() {
+      const email = document.getElementById("email").value;
+
+      const res = await fetch("/checkin", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ email })
+      });
+
+      const data = await res.json();
+      document.getElementById("result").innerText =
+        "Points: " + data.points;
+    }
+
+    async function action(type) {
+      const email = document.getElementById("email").value;
+
+      const res = await fetch("/action", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ email, action_type: type })
+      });
+
+      const data = await res.json();
+      document.getElementById("result").innerText =
+        "Earned " + data.points_added + " points!";
+    }
+
+    async function wishlist() {
+      const email = document.getElementById("email").value;
+      const product = document.getElementById("product").value;
+
+      await fetch("/wishlist", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ email, product_name: product })
+      });
+
+      document.getElementById("result").innerText =
+        "Wishlist saved!";
+    }
+  </script>
+</body>
+</html>
