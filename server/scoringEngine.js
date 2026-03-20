@@ -1,7 +1,7 @@
 // FILE: server/scoringEngine.js
 // ✅ Aligned to server/index.js (expects scoreAnswers(answers, questionRows))
 // ✅ Works with BOTH JSON weight shapes:
-//    1) option-based: q.weights = { A: {role: n}, B: {...}, ... }
+//    1) option-based: q.weights = { A: {role: n}, B: {...}, C: {...}, D: {...} }
 //    2) role-based:   q.weights = { role: n, role2: n, ... }
 // ✅ Safe fallback for legacy flat columns (q[role])
 // ✅ Lowercase role keys (matches tenant config + rest of server)
@@ -37,7 +37,6 @@ function isPlainObject(value) {
 
 function addRoleWeights(scores, roleWeights) {
   if (!isPlainObject(roleWeights)) return;
-
   for (const r of roles) {
     if (Object.prototype.hasOwnProperty.call(roleWeights, r)) {
       scores[r] += coerceNumber(roleWeights[r]);
@@ -61,17 +60,20 @@ function scoreAnswers(answers = [], questions = []) {
 
     const w = q.weights;
 
-    // Shape 1: option-based weights, use selected answer
-    // q.weights = { A: { architect: 2, ... }, B: {...}, ... }
-    if (isPlainObject(w) && ["A", "B", "C", "D"].some((k) => Object.prototype.hasOwnProperty.call(w, k))) {
+    // Shape 1: option-based weights
+    if (
+      isPlainObject(w) &&
+      (Object.prototype.hasOwnProperty.call(w, "A") ||
+        Object.prototype.hasOwnProperty.call(w, "B") ||
+        Object.prototype.hasOwnProperty.call(w, "C") ||
+        Object.prototype.hasOwnProperty.call(w, "D"))
+    ) {
       const option = String(item.answer || "").toUpperCase();
-      const roleWeights = w?.[option];
-      addRoleWeights(scores, roleWeights);
+      addRoleWeights(scores, w[option]);
       continue;
     }
 
-    // Shape 2: role-based weights (qid contributes same regardless of option)
-    // q.weights = { architect: 1, operator: 0, ... }
+    // Shape 2: role-based weights
     if (isPlainObject(w)) {
       addRoleWeights(scores, w);
       continue;
