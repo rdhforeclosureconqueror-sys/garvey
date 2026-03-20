@@ -1,265 +1,349 @@
+<!-- FILE: public/intake.html -->
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>UJAMAA Role Assessment</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Garvey Intake</title>
 
-<style>
-body {
-  font-family: Arial;
-  background: #000;
-  color: white;
-  text-align: center;
-  padding: 30px;
-}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      text-align: center;
+      padding: 24px;
+    }
 
-.card {
-  background: #111;
-  border: 2px solid gold;
-  padding: 30px;
-  border-radius: 16px;
-  max-width: 650px;
-  margin: auto;
-}
+    .card {
+      background: #111;
+      border: 2px solid gold;
+      padding: 24px;
+      border-radius: 16px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
 
-h1 { color: gold; }
+    h1 { color: gold; margin-top: 0; }
 
-.section {
-  color: red;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
+    .section {
+      color: #ef4444;
+      font-weight: bold;
+      margin: 10px 0 6px;
+    }
 
-.tip {
-  color: #22c55e;
-  font-size: 14px;
-  margin-bottom: 20px;
-}
+    .tip {
+      color: #22c55e;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
 
-.btn {
-  display: block;
-  width: 100%;
-  padding: 14px;
-  margin: 10px 0;
-  border: 2px solid black;
-  border-radius: 10px;
-  background: gold;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-}
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 2px solid #000;
+      background: gold;
+      color: #000;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: left;
+      line-height: 1.25;
+    }
 
-.btn:hover {
-  background: red;
-  color: white;
-}
+    .btn:hover { background: #ef4444; color: #fff; }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-.progress {
-  margin-top: 10px;
-  color: #94a3b8;
-}
+    .progress {
+      margin-top: 10px;
+      color: #94a3b8;
+      font-size: 14px;
+    }
 
-#results {
-  margin-top: 20px;
-}
-</style>
+    #results { margin-top: 18px; text-align: left; }
 
+    select, input {
+      padding: 10px;
+      margin: 8px 0;
+      width: min(520px, 92%);
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #0b1020;
+      color: #fff;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 10px 0 6px;
+    }
+
+    .meta {
+      color: #94a3b8;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    a { color: #93c5fd; }
+    a:hover { color: #bfdbfe; }
+
+    .bar {
+      height: 10px;
+      background: #222;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .bar > div {
+      height: 100%;
+      width: 0%;
+      background: #22c55e;
+      transition: width 120ms linear;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="card">
+    <h1>Garvey Role Assessment</h1>
 
-<div class="card">
-  <h1>UJAMAA Role Assessment</h1>
+    <div class="row">
+      <input id="email" placeholder="Enter Email" value="test@email.com" />
+      <select id="mode" title="Mode">
+        <option value="25">Quick (25 Questions)</option>
+        <option value="60">Deep (60 Questions)</option>
+      </select>
+    </div>
 
-  <input id="email" placeholder="Enter Email" style="padding:10px; width:80%; margin-bottom:15px;" />
+    <div class="meta" id="tenantMeta"></div>
 
-  <div class="section" id="sectionTitle"></div>
-  <div class="tip" id="sectionTip"></div>
+    <div class="section" id="sectionTitle"></div>
+    <div class="tip" id="sectionTip"></div>
 
-  <div class="progress" id="progress">Loading...</div>
-  <div class="question" id="questionText"></div>
-  <div id="optionsContainer"></div>
+    <div class="progress" id="progress">Loading…</div>
+    <div class="bar"><div id="progressBarFill"></div></div>
 
-  <div id="results"></div>
-</div>
+    <div style="margin-top:12px; font-size:18px;" id="questionText"></div>
+    <div id="optionsContainer"></div>
 
-<script>
-let questions = [];
-let currentIndex = 0;
-let answers = [];
-let sectionSize = 0;
+    <div id="results"></div>
 
-const sections = [
-  { name: "Identity", tip: "This section reveals how you naturally see and express yourself." },
-  { name: "Decision Making", tip: "This shows how you think and make choices under pressure." },
-  { name: "Community Role", tip: "This identifies your natural position within a team or system." },
-  { name: "Execution Style", tip: "This shows how you take action and build results." }
-];
+    <div class="meta" style="margin-top:14px;">
+      <a href="/dashboard.html">Dashboard</a> |
+      <a href="/admin.html">Admin</a> |
+      <a href="/voc.html">VOC</a> |
+      <a href="/index.html">CX Engine</a>
+    </div>
+  </div>
 
-function getSection(index) {
-  return sections[Math.min(Math.floor(index / sectionSize), 3)];
-}
+  <script>
+    let questions = [];
+    let currentIndex = 0;
+    let answers = [];
+    let sectionSize = 1;
 
-const API_URL = "https://garveybackend.onrender.com/api/questions?mode=25";
+    const sections = [
+      { name: "Identity", tip: "How you naturally express yourself." },
+      { name: "Decision Making", tip: "How you think under pressure." },
+      { name: "Community Role", tip: "Your natural position in a system." },
+      { name: "Execution", tip: "How you take action and build." }
+    ];
 
-async function loadQuestions() {
-  try {
-    const res = await fetch(API_URL);
-    const data = await res.json();
-    questions = data.questions || [];
-
-    if (!questions.length) {
-      throw new Error("No questions returned");
+    function getTenant() {
+      const params = new URLSearchParams(window.location.search);
+      return (params.get("tenant") || "").trim();
     }
 
-    sectionSize = Math.floor(questions.length / 4);
-
-    showQuestion();
-  } catch (err) {
-    console.error(err);
-    document.getElementById("questionText").innerText = "❌ Failed to load questions";
-  }
-}
-
-function showQuestion() {
-  const q = questions[currentIndex];
-
-  if (!q) {
-    submitAssessment();
-    return;
-  }
-
-  const section = getSection(currentIndex);
-
-  document.getElementById("sectionTitle").innerText = `🔥 ${section.name}`;
-  document.getElementById("sectionTip").innerText = section.tip;
-
-  document.getElementById("questionText").innerText = q.question;
-  document.getElementById("progress").innerText =
-    `Question ${currentIndex + 1} of ${questions.length}`;
-
-  const container = document.getElementById("optionsContainer");
-  container.innerHTML = "";
-
-  const options = {
-    A: q.option_a,
-    B: q.option_b,
-    C: q.option_c,
-    D: q.option_d
-  };
-
-  Object.entries(options).forEach(([key, value]) => {
-    const btn = document.createElement("button");
-    btn.className = "btn";
-    btn.innerText = `${key}: ${value}`;
-    btn.onclick = () => handleAnswer(q.qid, key);
-    container.appendChild(btn);
-  });
-}
-
-function handleAnswer(qid, option) {
-  answers.push({ qid, answer: option });
-  currentIndex++;
-
-  if (sectionSize && currentIndex % sectionSize === 0 && currentIndex !== 0) {
-    alert("✅ Section complete — we now understand this aspect of you.");
-  }
-
-  showQuestion();
-}
-
-async function submitAssessment() {
-  const email = document.getElementById("email").value.trim();
-  const tenant = new URLSearchParams(window.location.search).get("tenant");
-
-  if (!email) {
-    alert("Please enter your email");
-    return;
-  }
-
-  if (!tenant) {
-    document.getElementById("questionText").innerText =
-      "⚠️ Invalid access link. Please use your invite link.";
-    return;
-  }
-
-  try {
-    const res = await fetch("https://garveybackend.onrender.com/api/intake", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email,
-        tenant,
-        answers
-      })
-    });
-
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(text);
+    function setMeta() {
+      const tenant = getTenant();
+      document.getElementById("tenantMeta").innerText = tenant
+        ? `Tenant: ${tenant}`
+        : "⚠️ Missing tenant. Open with: /intake.html?tenant=test-business";
     }
 
-    const data = await res.json();
-    renderResults(data);
+    function getSection(index) {
+      const safeSize = Math.max(sectionSize, 1);
+      const idx = Math.min(Math.floor(index / safeSize), sections.length - 1);
+      return sections[idx];
+    }
 
-  } catch (err) {
-    console.error("SUBMIT ERROR:", err);
-    document.getElementById("questionText").innerText =
-      "❌ Submission failed. Check console.";
-  }
-}
+    function setProgress() {
+      const total = Math.max(questions.length, 1);
+      const pct = Math.round((currentIndex / total) * 100);
+      document.getElementById("progressBarFill").style.width = `${pct}%`;
+      document.getElementById("progress").innerText = questions.length
+        ? `Question ${Math.min(currentIndex + 1, questions.length)} of ${questions.length} (${pct}%)`
+        : "Loading…";
+    }
 
-function renderResults(data) {
-  if (!data || !data.primary_role) {
-    document.getElementById("questionText").innerText =
-      "❌ No results returned from server";
-    return;
-  }
+    function clearResults() {
+      document.getElementById("results").innerHTML = "";
+    }
 
-  document.getElementById("questionText").innerText = "🎯 Your Results";
-  document.getElementById("optionsContainer").innerHTML = "";
+    async function loadQuestions() {
+      try {
+        clearResults();
+        answers = [];
+        currentIndex = 0;
 
-  const container = document.getElementById("results");
+        const mode = document.getElementById("mode").value;
+        const res = await fetch(`/api/questions?mode=${encodeURIComponent(mode)}`);
+        const data = await res.json();
 
-  container.innerHTML = `
-    <h2 style="color:gold;">Primary: ${data.primary_role}</h2>
-    <h3 style="color:red;">Secondary: ${data.secondary_role}</h3>
-    <div id="scores"></div>
-  `;
+        if (!res.ok) throw new Error(data?.error || "Failed to load questions");
 
-  if (data.scores) {
-    renderScoreBars(data.scores);
-  }
-}
+        questions = Array.isArray(data.questions) ? data.questions : [];
+        if (!questions.length) throw new Error("No questions returned");
 
-function renderScoreBars(scores) {
-  const container = document.getElementById("scores");
+        sectionSize = Math.max(1, Math.floor(questions.length / sections.length));
+        showQuestion();
+      } catch (err) {
+        console.error(err);
+        document.getElementById("questionText").innerText = "❌ Failed to load questions";
+        document.getElementById("optionsContainer").innerHTML = "";
+        document.getElementById("sectionTitle").innerText = "";
+        document.getElementById("sectionTip").innerText = "";
+        document.getElementById("progress").innerText = err.message;
+        document.getElementById("progressBarFill").style.width = "0%";
+      }
+    }
 
-  Object.entries(scores).forEach(([role, value]) => {
-    const bar = document.createElement("div");
+    function showQuestion() {
+      setProgress();
 
-    bar.innerHTML = `
-      <div style="margin:10px 0;">
-        <strong>${role}</strong>
-        <div style="background:#222;">
-          <div style="
-            width:${value * 5}px;
-            background:green;
-            height:10px;
-          "></div>
-        </div>
-      </div>
-    `;
+      const q = questions[currentIndex];
+      if (!q) {
+        submitAssessment();
+        return;
+      }
 
-    container.appendChild(bar);
-  });
-}
+      const section = getSection(currentIndex);
+      document.getElementById("sectionTitle").innerText = `🔥 ${section.name}`;
+      document.getElementById("sectionTip").innerText = section.tip;
 
-loadQuestions();
-</script>
+      document.getElementById("questionText").innerText = q.question || "(missing question text)";
 
+      const container = document.getElementById("optionsContainer");
+      container.innerHTML = "";
+
+      const options = [
+        ["A", q.option_a],
+        ["B", q.option_b],
+        ["C", q.option_c],
+        ["D", q.option_d]
+      ];
+
+      for (const [key, value] of options) {
+        const btn = document.createElement("button");
+        btn.className = "btn";
+        btn.innerText = `${key}: ${value || ""}`;
+        btn.disabled = !value;
+        btn.onclick = () => handleAnswer(q.qid, key);
+        container.appendChild(btn);
+      }
+    }
+
+    function handleAnswer(qid, option) {
+      answers.push({ qid, answer: option });
+      currentIndex += 1;
+
+      if (sectionSize && currentIndex % sectionSize === 0 && currentIndex !== 0 && currentIndex < questions.length) {
+        alert("✅ Section complete");
+      }
+
+      showQuestion();
+    }
+
+    async function submitAssessment() {
+      const email = document.getElementById("email").value.trim();
+      const tenant = getTenant();
+
+      if (!email) {
+        alert("Enter email");
+        return;
+      }
+
+      if (!tenant) {
+        document.getElementById("questionText").innerText =
+          "⚠️ Invalid access link (missing tenant)";
+        document.getElementById("optionsContainer").innerHTML = "";
+        return;
+      }
+
+      try {
+        document.getElementById("questionText").innerText = "Submitting…";
+        document.getElementById("optionsContainer").innerHTML = "";
+        setProgress();
+
+        const res = await fetch("/api/intake", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, tenant, answers })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data?.error || "Submission failed");
+
+        renderResults(data);
+      } catch (err) {
+        console.error(err);
+        document.getElementById("questionText").innerText = "❌ Submission failed";
+        document.getElementById("results").innerHTML = `<div class="meta">Error: ${err.message}</div>`;
+      }
+    }
+
+    function renderResults(data) {
+      document.getElementById("questionText").innerText = "🎯 Your Results";
+
+      const container = document.getElementById("results");
+      const primary = data.primary_role || "(missing primary_role)";
+      const secondary = data.secondary_role || "(missing secondary_role)";
+
+      container.innerHTML = `
+        <h2 style="color:gold; margin: 6px 0;">Primary: ${primary}</h2>
+        <h3 style="color:#ef4444; margin: 6px 0;">Secondary: ${secondary}</h3>
+        <div id="scores"></div>
+      `;
+
+      renderScoreBars(data.scores || {});
+    }
+
+    function renderScoreBars(scores) {
+      const container = document.getElementById("scores");
+      container.innerHTML = "";
+
+      const entries = Object.entries(scores);
+      if (!entries.length) {
+        container.innerHTML = `<div class="meta">No score breakdown returned.</div>`;
+        return;
+      }
+
+      for (const [role, value] of entries) {
+        const pct = Math.max(0, Math.min(100, Number(value) * 5));
+        const row = document.createElement("div");
+        row.style.margin = "10px 0";
+        row.innerHTML = `
+          <div style="display:flex; justify-content:space-between;">
+            <strong>${role}</strong>
+            <span class="meta">${value}</span>
+          </div>
+          <div style="background:#222; border-radius:999px; overflow:hidden; height:10px;">
+            <div style="width:${pct}%; background:#22c55e; height:10px;"></div>
+          </div>
+        `;
+        container.appendChild(row);
+      }
+    }
+
+    document.getElementById("mode").addEventListener("change", loadQuestions);
+
+    setMeta();
+    loadQuestions();
+  </script>
 </body>
 </html>

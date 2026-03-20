@@ -1,51 +1,35 @@
-const express = require("express");
-const router = express.Router();
-const { pool } = require("./db");
+// FILE: server/questions.js
+// Keep this file simple: export question retrieval helpers (optional).
+// ✅ No seeding here (seeding lives in server/seedQuestions.js)
+// ✅ No Express router here (routing lives in server/index.js)
 
-router.get("/api/questions", async (req, res) => {
-  try {
-    const mode = String(req.query.mode || "25");
+"use strict";
 
-    let type = mode === "60" ? "full" : "fast";
-    let limit = mode === "60" ? 60 : 25;
+async function fetchQuestionsByMode(pool, mode = "25") {
+  const modeStr = String(mode || "25");
+  const type = modeStr === "60" ? "full" : "fast";
+  const limit = modeStr === "60" ? 60 : 25;
 
-    const result = await pool.query(
-      `SELECT * FROM questions
-       WHERE type = $1
-       ORDER BY id ASC
-       LIMIT $2`,
-      [type, limit]
-    );
+  const result = await pool.query(
+    `SELECT qid, question, options, weights, type
+     FROM questions
+     WHERE type = $1
+     ORDER BY id ASC
+     LIMIT $2`,
+    [type, limit]
+  );
 
-    const raw = result.rows;
+  const questions = result.rows.map((q) => ({
+    qid: q.qid,
+    question: q.question,
+    option_a: q.options?.A || "",
+    option_b: q.options?.B || "",
+    option_c: q.options?.C || "",
+    option_d: q.options?.D || "",
+    type: q.type
+  }));
 
-    console.log("📊 QUESTIONS DEBUG:", {
-      mode,
-      type,
-      count: raw.length
-    });
+  return { mode: modeStr, type, count: questions.length, questions };
+}
 
-    const questions = raw.map((q) => ({
-      qid: q.qid,
-      question: q.question,
-      option_a: q.options?.A || "",
-      option_b: q.options?.B || "",
-      option_c: q.options?.C || "",
-      option_d: q.options?.D || "",
-      type: q.type
-    }));
-
-    res.json({
-      mode,
-      type,
-      count: questions.length,
-      questions
-    });
-
-  } catch (err) {
-    console.error("❌ API ERROR:", err);
-    res.status(500).json({ error: "Failed to fetch questions" });
-  }
-});
-
-module.exports = router;
+module.exports = { fetchQuestionsByMode };

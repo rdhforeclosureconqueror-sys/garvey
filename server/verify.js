@@ -1,3 +1,12 @@
+// FILE: server/verify.js
+// ✅ Resolved conflicts
+// ✅ Aligned to current server/index.js source-of-truth:
+//    - legacy UI intake: POST /intake supports quick(25) + deep(60)
+//    - api intake exists, but verify() here intentionally validates legacy /verify pipeline
+// ✅ Keeps formatting consistent and removes duplicate/conflict markers
+
+"use strict";
+
 const { pool } = require("./db");
 const { analyzeTenantPerformance } = require("./adaptiveEngine");
 
@@ -15,7 +24,9 @@ const requiredTables = [
   "voc_sessions",
   "voc_responses",
   "voc_results",
-  "tenant_config"
+  "tenant_config",
+  "questions",
+  "results"
 ];
 
 async function checkDatabase() {
@@ -63,11 +74,7 @@ async function checkIntakePipeline(baseUrl) {
   if (!deepRes.ok) return false;
 
   const deepJson = await deepRes.json();
-  return Boolean(
-    deepJson.primary_role &&
-    deepJson.secondary_role &&
-    deepJson.config
-  );
+  return Boolean(deepJson.primary_role && deepJson.secondary_role && deepJson.config);
 }
 
 async function checkAdminConfigFlow(baseUrl) {
@@ -127,10 +134,10 @@ async function checkVOCPipeline(baseUrl) {
   const json = await response.json();
   return Boolean(
     json.customer_profile &&
-    json.engagement_style &&
-    json.buying_trigger &&
-    json.friction_point &&
-    json.loyalty_driver
+      json.engagement_style &&
+      json.buying_trigger &&
+      json.friction_point &&
+      json.loyalty_driver
   );
 }
 
@@ -138,13 +145,11 @@ async function checkAdaptiveEngine(baseUrl) {
   const tenantRes = await fetch(`${baseUrl}/t/verify-tenant/config`);
   if (!tenantRes.ok) return false;
 
-  const tenantRow = await pool.query(
-    "SELECT id FROM tenants WHERE slug = 'verify-tenant'"
-  );
+  const tenantRow = await pool.query("SELECT id FROM tenants WHERE slug = 'verify-tenant'");
   if (!tenantRow.rows[0]) return false;
 
   const result = await analyzeTenantPerformance(tenantRow.rows[0].id);
-  return Boolean(result.config && result.config.system_adjustments_log);
+  return Boolean(result?.config && result.config.system_adjustments_log);
 }
 
 async function runVerification(baseUrl) {
@@ -178,6 +183,4 @@ async function runVerification(baseUrl) {
   return status;
 }
 
-module.exports = {
-  runVerification
-};
+module.exports = { runVerification };

@@ -3,7 +3,7 @@
 ## Executive Summary
 Garvey is a multi-tenant SaaS behavior + intelligence platform for business operators. It captures customer behavior, rewards engagement, performs business-intelligence intake scoring, generates tenant-specific configuration, and surfaces actionable analytics in a tenant-safe way.
 
-Phases 9–11 extend the system with a full BII verification API layer, including question seeding, scoring validation, and end-to-end intake testing.
+Phases 9–11 extend the system with a complete BII verification layer from database to seeded questions to intake scoring to persisted results. Existing multi-tenant behavior, VOC, adaptive, and admin engines remain intact.
 
 ---
 
@@ -27,8 +27,8 @@ Phases 9–11 extend the system with a full BII verification API layer, includin
 ---
 
 ## Data Flow
-User → Intake → Scoring → Config → Behavior → Dashboard  
-Verification Layer → Validates entire pipeline (DB → Questions → Intake → Results)
+User → Intake → Scoring → Results → Config → Behavior → Dashboard  
+Verification Layer → Validates the pipeline (DB → Questions → Scoring → Intake → Results)
 
 ---
 
@@ -66,12 +66,13 @@ Verification Layer → Validates entire pipeline (DB → Questions → Intake �
 ## File Map
 
 ### Backend
-- `server/index.js` — unified API layer (platform + verification endpoints)
+- `server/index.js` — unified API layer (platform + verification endpoints), initialization orchestration
 - `server/db.js` — schema bootstrap + compatibility extensions
 - `server/tenant.js` — tenant resolution + config handling
 - `server/biiEngine.js` — legacy scoring + recommendations
-- `server/scoringEngine.js` — new scoring system (Phase 10)
-- `server/questions.js` — seeded question engine (Phase 11)
+- `server/scoringEngine.js` — new scoring system (Phase 10): `scoreAnswers()` and `getTopRoles()`
+- `server/seedQuestions.js` — pure seeding module invoked on startup
+- `server/questions.js` — question source/definitions used by seeding + API translation
 - `server/verify.js` — verification runner (legacy + extended)
 - `server/adaptiveEngine.js` — adaptive config tuning
 - `server/vocEngine.js` — voice-of-customer pipeline
@@ -83,10 +84,12 @@ Verification Layer → Validates entire pipeline (DB → Questions → Intake �
 - `public/admin.html` — admin config UI
 - `public/voc.html` — VOC intake UI
 
+### Docs
+- `docs/SYSTEM_REPORT.md` — this report
+
 ---
 
 ## Phase Status
-
 - Phase 1 — PASS (Behavior Engine)
 - Phase 2 — PASS (BII Intake + Scoring)
 - Phase 3 — PASS (Config Generation)

@@ -1,3 +1,4 @@
+<!-- FILE: public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,19 +63,14 @@
         });
 
         const data = await res.json();
-
-        document.getElementById("result").innerText =
-          JSON.stringify(data, null, 2);
+        document.getElementById("result").innerText = JSON.stringify(data, null, 2);
       } catch (err) {
-        document.getElementById("result").innerText =
-          `Error: ${err.message}`;
+        document.getElementById("result").innerText = `Error: ${err.message}`;
       }
     }
 
     async function checkin() {
-      await post("/checkin", {
-        email: document.getElementById("email").value
-      });
+      await post("/checkin", { email: document.getElementById("email").value });
     }
 
     async function action(type) {
@@ -88,8 +84,7 @@
       await post("/review", {
         email: document.getElementById("email").value,
         text: document.getElementById("reviewText").value,
-        media_type:
-          document.getElementById("mediaType").value || undefined
+        media_type: document.getElementById("mediaType").value || undefined
       });
     }
 

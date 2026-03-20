@@ -1,101 +1,70 @@
-const { pool } = require("./db");
+// FILE: server/seedQuestions.js
+// ✅ Pure module: async function seed(pool)
+// ✅ No DB import
+// ✅ No process.exit()
+// ✅ Logs exactly:
+//    - "Seeding questions..."
+//    - "Questions already exist"
 
-async function seed() {
-  try {
-    console.log("🧹 Clearing old questions...");
-    await pool.query("DELETE FROM questions;");
+"use strict";
 
-    const roles = [
-      "Architect","Operator","Steward","Builder",
-      "Connector","Protector","Nurturer","Educator","ResourceGenerator"
-    ];
+const ROLES = [
+  "architect",
+  "operator",
+  "steward",
+  "builder",
+  "connector",
+  "protector",
+  "nurturer",
+  "educator",
+  "resource_generator"
+];
 
-    function generateWeights(primaryIndex) {
-      const weights = {};
-      roles.forEach(r => { weights[r] = 0; });
-
-      const primary = roles[primaryIndex % roles.length];
-      const secondary = roles[(primaryIndex + 3) % roles.length];
-
-      weights[primary] = 2;
-      weights[secondary] = 1;
-
-      return weights;
-    }
-
-    function buildOptions(type) {
-      return type === "full"
-        ? {
-            A: "Strategize and design systems",
-            B: "Take action and execute quickly",
-            C: "Support and guide people",
-            D: "Connect and unify others"
-          }
-        : {
-            A: "Think first",
-            B: "Act first",
-            C: "Help others",
-            D: "Bring people together"
-          };
-    }
-
-    const insertQuery = `
-      INSERT INTO questions (qid, question, options, weights, type)
-      VALUES ($1,$2,$3::jsonb,$4::jsonb,$5)
-      ON CONFLICT (qid) DO UPDATE SET
-        question = EXCLUDED.question,
-        options = EXCLUDED.options,
-        weights = EXCLUDED.weights,
-        type = EXCLUDED.type
-    `;
-
-    // 🔥 FULL (60)
-    for (let i = 1; i <= 60; i++) {
-      const options = buildOptions("full");
-
-      const weights = {
-        A: generateWeights(0),
-        B: generateWeights(1),
-        C: generateWeights(2),
-        D: generateWeights(3)
-      };
-
-      await pool.query(insertQuery, [
-        `Q${i}`,
-        `Question ${i}: How do you naturally respond in real-world situations?`,
-        JSON.stringify(options),
-        JSON.stringify(weights),
-        "full"
-      ]);
-    }
-
-    // ⚡ FAST (25)
-    for (let i = 1; i <= 25; i++) {
-      const options = buildOptions("fast");
-
-      const weights = {
-        A: generateWeights(0),
-        B: generateWeights(1),
-        C: generateWeights(2),
-        D: generateWeights(3)
-      };
-
-      await pool.query(insertQuery, [
-        `FQ${i}`,
-        `Quick Question ${i}: What feels most natural to you?`,
-        JSON.stringify(options),
-        JSON.stringify(weights),
-        "fast"
-      ]);
-    }
-
-    console.log("✅ Questions seeded successfully");
-    process.exit();
-
-  } catch (err) {
-    console.error("❌ SEED ERROR:", err);
-    process.exit(1);
+function buildWeights(index) {
+  const weights = {};
+  for (let roleIndex = 0; roleIndex < ROLES.length; roleIndex += 1) {
+    const role = ROLES[roleIndex];
+    const value =
+      (index + roleIndex) % ROLES.length === 0 ? 2 : (index + roleIndex) % 3 === 0 ? 1 : 0;
+    weights[role] = value;
   }
+  return weights;
 }
 
-seed();
+function buildOptions(i) {
+  return {
+    A: `Option A for Question ${i}`,
+    B: `Option B for Question ${i}`,
+    C: `Option C for Question ${i}`,
+    D: `Option D for Question ${i}`
+  };
+}
+
+async function seed(pool) {
+  const existing = await pool.query("SELECT COUNT(*)::int AS count FROM questions");
+  if ((existing.rows[0]?.count || 0) > 0) {
+    console.log("Questions already exist");
+    return existing.rows[0].count;
+  }
+
+  console.log("Seeding questions...");
+
+  for (let i = 1; i <= 60; i += 1) {
+    await pool.query(
+      `INSERT INTO questions (qid, question, options, weights, type)
+       VALUES ($1, $2, $3, $4, $5)
+       ON CONFLICT (qid) DO NOTHING`,
+      [
+        `Q${i}`,
+        `Question ${i}`,
+        buildOptions(i),
+        buildWeights(i),
+        i <= 25 ? "fast" : "full"
+      ]
+    );
+  }
+
+  return 60;
+}
+
+module.exports = { seed };
