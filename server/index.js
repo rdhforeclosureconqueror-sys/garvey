@@ -688,55 +688,75 @@ app.get("/api/questions", async (req, res) => {
   }
 });
 
-/* =========================
-   API INTAKE (NEW SYSTEM)
-========================= */
-
 app.post("/api/intake", async (req, res) => {
   const client = await pool.connect();
 
   try {
     const { email, tenant, answers = [] } = req.body;
 
+    // 🔒 VALIDATION
     if (!email || !tenant || !Array.isArray(answers) || answers.length === 0) {
-      return res.status(400).json({ error: "email, tenant, answers are required" });
+      return res.status(400).json({
+        error: "email, tenant, and a non-empty answers array are required"
+      });
+    }
+
+    if (!answers.every(a => a.qid && a.answer)) {
+      return res.status(400).json({
+        error: "Invalid answer format (qid + answer required)"
+      });
     }
 
     await client.query("BEGIN");
 
-    // ✅ Ensure tenant
+    // ✅ ENSURE TENANT
     const tenantRow = await ensureTenant(tenant);
 
-    // ✅ Create session (STANDARDIZED)
+    // ✅ CREATE SESSION
     const sessionResult = await client.query(
-      "INSERT INTO intake_sessions (tenant_id, email) VALUES ($1, $2) RETURNING *",
+      `INSERT INTO intake_sessions (tenant_id, email)
+       VALUES ($1, $2)
+       RETURNING *`,
       [tenantRow.id, email]
     );
 
     const session = sessionResult.rows[0];
 
-    // ✅ Store responses (SESSION-BASED)
+    // ✅ STORE RESPONSES
     for (const item of answers) {
       await client.query(
-        "INSERT INTO intake_responses (session_id, question_id, answer) VALUES ($1, $2, $3)",
+        `INSERT INTO intake_responses (session_id, question_id, answer)
+         VALUES ($1, $2, $3)`,
         [session.id, item.qid, item.answer]
       );
     }
 
-    // ✅ Get questions + score
-    const questionRows = (await client.query("SELECT * FROM questions")).rows;
+    // 🔥 LOAD ONLY RELEVANT QUESTIONS (CRITICAL FIX)
+    const qids = answers.map(a => a.qid);
 
+    const questionRows = (
+      await client.query(
+        `SELECT * FROM questions WHERE qid = ANY($1)`,
+        [qids]
+      )
+    ).rows;
+
+    if (!questionRows.length) {
+      throw new Error("No matching questions found for scoring");
+    }
+
+    // ✅ SCORE
     const scores = scoreAnswers(answers, questionRows);
     const { primary_role, secondary_role } = getTopRolesFromScores(scores);
 
-    // ✅ Store result (LINKED TO SESSION)
+    // ✅ STORE RESULT
     await client.query(
       `INSERT INTO results (session_id, primary_role, secondary_role, scores)
        VALUES ($1, $2, $3, $4)`,
       [session.id, primary_role, secondary_role, scores]
     );
 
-    // ✅ Generate config
+    // 🔥 CONFIG ENGINE (CLEAN + EXTENSIBLE)
     const config = {
       reward_system: ["builder", "resource_generator"].includes(primary_role),
       email_marketing: false,
@@ -747,17 +767,17 @@ app.post("/api/intake", async (req, res) => {
       automation_blueprints: ["architect", "operator"].includes(primary_role)
     };
 
-    // ✅ Clean + safe config
     const sanitizedConfig = sanitizeConfig(config);
 
-    // ✅ UPSERT (CORRECTED)
+    // ✅ UPSERT CONFIG (SAFE + CONSISTENT)
     await client.query(
       `INSERT INTO tenant_config (
         tenant_id, config,
         reward_system, email_marketing, referral_system,
         analytics_engine, engagement_engine, content_engine, automation_blueprints,
         updated_at
-      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,NOW())
+      )
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,NOW())
       ON CONFLICT (tenant_id)
       DO UPDATE SET
         config = EXCLUDED.config,
@@ -795,8 +815,12 @@ app.post("/api/intake", async (req, res) => {
 
   } catch (error) {
     await client.query("ROLLBACK");
-    console.error(error);
-    return res.status(500).json({ error: "api intake failed" });
+    console.error("❌ INTAKE ERROR:", error);
+
+    return res.status(500).json({
+      error: "api intake failed",
+      details: error.message
+    });
   } finally {
     client.release();
   }
