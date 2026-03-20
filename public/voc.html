@@ -1,29 +1,31 @@
-<!-- FILE: public/admin.html -->
+<!-- FILE: public/voc.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Garvey Admin Control</title>
+  <title>Garvey VOC Intake</title>
 
   <style>
-    body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:24px; }
-    .card { background:#111; border:2px solid gold; padding:24px; border-radius:16px; max-width:820px; margin:0 auto; }
-    h1 { color: gold; margin: 0 0 10px; }
-    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:10px 0 14px; }
-    input {
-      padding:10px; margin:0; width:min(520px,92%);
+    body { font-family: Arial, sans-serif; background:#000; color:#fff; text-align:center; padding:24px; }
+    .card { background:#111; border:2px solid gold; padding:24px; border-radius:16px; max-width:760px; margin:0 auto; }
+    h1 { color: gold; margin-top: 0; }
+    .row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:10px 0 6px; }
+    select, input {
+      padding:10px; margin:8px 0; width:min(520px,92%);
       border-radius:10px; border:1px solid #334155; background:#0b1020; color:#fff;
     }
-    button {
-      padding:10px 14px; border-radius:10px; border:2px solid #000;
-      background:gold; color:#000; font-weight:700; cursor:pointer;
-    }
-    button:hover { background:#ef4444; color:#fff; }
-    .grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px; }
-    label { display:flex; gap:10px; align-items:center; padding:10px; border-radius:10px; background:#0b1020; border:1px solid #334155; }
     .meta { color:#94a3b8; font-size:12px; margin-top:6px; }
-    pre { background:#0b1020; border:1px solid #334155; border-radius:10px; padding:12px; overflow:auto; }
+    .bar { height:10px; background:#222; border-radius:999px; overflow:hidden; margin-top:10px; }
+    .bar > div { height:100%; width:0%; background:#22c55e; transition: width 120ms linear; }
+    .btn {
+      display:block; width:100%; padding:14px; margin:10px 0;
+      border-radius:10px; border:2px solid #000; background:gold; color:#000;
+      font-weight:700; cursor:pointer; text-align:center;
+    }
+    .btn:hover { background:#ef4444; color:#fff; }
+    .btn:disabled { opacity:0.6; cursor:not-allowed; }
+    pre { background:#0b1020; border:1px solid #334155; border-radius:10px; padding:12px; overflow:auto; text-align:left; }
     a { color:#93c5fd; } a:hover { color:#bfdbfe; }
     .err { color:#fca5a5; }
   </style>
@@ -31,27 +33,34 @@
 
 <body>
   <div class="card">
-    <h1>Tenant Admin Control</h1>
+    <h1>Customer Voice (VOC) Intake</h1>
 
     <div class="row">
+      <input id="email" placeholder="Email" value="customer@test.com" />
       <input id="tenant" placeholder="Tenant slug" value="test-business" />
-      <button id="loadBtn" type="button">Load Config</button>
-      <button id="saveBtn" type="button">Save Config</button>
     </div>
 
     <div class="meta" id="apiMeta"></div>
+    <div class="meta" id="progressText">Loading…</div>
+    <div class="bar"><div id="progressFill"></div></div>
 
-    <h3 style="margin:16px 0 6px; color:#93c5fd;">Config</h3>
-    <div class="grid" id="toggles"></div>
+    <div style="margin-top:14px;">
+      <button class="btn" type="button" onclick="selectAnswer('A')">A</button>
+      <button class="btn" type="button" onclick="selectAnswer('B')">B</button>
+      <button class="btn" type="button" onclick="selectAnswer('C')">C</button>
+      <button class="btn" type="button" onclick="selectAnswer('D')">D</button>
+    </div>
 
-    <h3 style="margin:16px 0 6px; color:#93c5fd;">Result</h3>
+    <button class="btn" id="submitBtn" type="button" disabled onclick="submitVOC()">Submit VOC</button>
+
+    <h3 style="color:#93c5fd; margin-top:18px;">Result</h3>
     <div class="meta" id="status"></div>
     <pre id="result">{}</pre>
 
     <div class="meta" style="margin-top:14px;">
       <a href="/intake.html">Intake</a> |
       <a href="/dashboard.html">Dashboard</a> |
-      <a href="/voc.html">VOC</a> |
+      <a href="/admin.html">Admin</a> |
       <a href="/index.html">CX Engine</a>
     </div>
   </div>
@@ -65,33 +74,15 @@
       return "";
     })();
 
-    const KEYS = [
-      ["reward_system", "Reward System"],
-      ["engagement_engine", "Engagement Engine"],
-      ["email_marketing", "Email Marketing"],
-      ["content_engine", "Content Engine"],
-      ["referral_system", "Referral System"],
-      ["automation_blueprints", "Automation Blueprints"],
-      ["analytics_engine", "Analytics Engine"]
-    ];
-
-    function getTenantFromQuery() {
-      const params = new URLSearchParams(window.location.search);
-      return (params.get("tenant") || "").trim();
-    }
-
-    async function readJsonOrText(res) {
-      const ct = (res.headers.get("content-type") || "").toLowerCase();
-      if (ct.includes("application/json")) return await res.json();
-      return await res.text();
-    }
+    // NEW SYSTEM NOTE:
+    // This UI still collects 25 A/B/C/D answers.
+    // It POSTs to /voc-intake on the backend (your server/index.js implements it).
+    const TOTAL = 25;
+    const answers = [];
 
     function setMeta() {
       document.getElementById("apiMeta").innerText =
         API_BASE ? `API: ${API_BASE}` : "API: same-origin";
-
-      const qTenant = getTenantFromQuery();
-      if (qTenant) document.getElementById("tenant").value = qTenant;
     }
 
     function setStatus(msg, isErr = false) {
@@ -100,106 +91,67 @@
       el.innerText = msg || "";
     }
 
-    function renderToggles(config = {}) {
-      const root = document.getElementById("toggles");
-      root.innerHTML = "";
+    function render() {
+      const pct = Math.round((answers.length / TOTAL) * 100);
+      document.getElementById("progressFill").style.width = `${pct}%`;
+      document.getElementById("progressText").innerText =
+        answers.length < TOTAL
+          ? `Question ${answers.length + 1} of ${TOTAL} (${pct}%)`
+          : `Completed ${TOTAL} of ${TOTAL} (100%)`;
 
-      for (const [key, label] of KEYS) {
-        const wrapper = document.createElement("label");
-
-        const input = document.createElement("input");
-        input.type = "checkbox";
-        input.id = `cfg_${key}`;
-        input.checked = Boolean(config[key]);
-
-        const span = document.createElement("span");
-        span.innerText = label;
-
-        wrapper.appendChild(input);
-        wrapper.appendChild(span);
-        root.appendChild(wrapper);
-      }
+      document.getElementById("submitBtn").disabled = answers.length !== TOTAL;
     }
 
-    function readConfigFromForm() {
-      const config = {};
-      for (const [key] of KEYS) {
-        config[key] = Boolean(document.getElementById(`cfg_${key}`).checked);
-      }
-      return config;
+    function selectAnswer(answer) {
+      if (answers.length >= TOTAL) return;
+      answers.push(answer);
+      render();
     }
 
-    async function loadConfig() {
-      const tenant = (document.getElementById("tenant").value || "").trim();
-      if (!tenant) {
-        setStatus("Tenant slug is required.", true);
+    async function readJsonOrText(res) {
+      const ct = (res.headers.get("content-type") || "").toLowerCase();
+      if (ct.includes("application/json")) return await res.json();
+      return await res.text();
+    }
+
+    async function submitVOC() {
+      const email = (document.getElementById("email").value || "").trim();
+      const tenant_slug = (document.getElementById("tenant").value || "").trim();
+
+      if (!email || !tenant_slug) {
+        setStatus("Email and tenant slug are required.", true);
         return;
       }
 
-      try {
-        setStatus("Loading…");
-        const res = await fetch(`${API_BASE}/api/admin/config/${encodeURIComponent(tenant)}`);
-        const data = await readJsonOrText(res);
-
-        if (!res.ok) {
-          const msg = typeof data === "string" ? data : (data?.error || "Failed to load config");
-          setStatus(msg, true);
-          document.getElementById("result").innerText = JSON.stringify(data, null, 2);
-          return;
-        }
-
-        const cfg = data.config || data; // tolerate either shape
-        renderToggles(cfg);
-        setStatus("Loaded.");
-        document.getElementById("result").innerText = JSON.stringify(data, null, 2);
-      } catch (err) {
-        console.error(err);
-        setStatus(`Error: ${err.message}`, true);
-      }
-    }
-
-    async function saveConfig() {
-      const tenant = (document.getElementById("tenant").value || "").trim();
-      if (!tenant) {
-        setStatus("Tenant slug is required.", true);
-        return;
-      }
+      const payload = { email, tenant_slug, answers };
 
       try {
-        setStatus("Saving…");
-        const config = readConfigFromForm();
-
-        const res = await fetch(`${API_BASE}/api/admin/config`, {
+        setStatus("Submitting…");
+        const res = await fetch(`${API_BASE}/voc-intake`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ tenant, config })
+          body: JSON.stringify(payload)
         });
 
         const data = await readJsonOrText(res);
 
         if (!res.ok) {
-          const msg = typeof data === "string" ? data : (data?.error || "Failed to save config");
+          const msg = typeof data === "string" ? data : (data?.error || "VOC submit failed");
           setStatus(msg, true);
           document.getElementById("result").innerText = JSON.stringify(data, null, 2);
           return;
         }
 
-        setStatus("Saved.");
+        setStatus("Submitted.");
         document.getElementById("result").innerText = JSON.stringify(data, null, 2);
-
-        // Re-load to reflect canonical stored value
-        await loadConfig();
       } catch (err) {
         console.error(err);
         setStatus(`Error: ${err.message}`, true);
       }
     }
 
-    document.getElementById("loadBtn").addEventListener("click", loadConfig);
-    document.getElementById("saveBtn").addEventListener("click", saveConfig);
-
     setMeta();
-    renderToggles({});
+    render();
   </script>
 </body>
 </html>
