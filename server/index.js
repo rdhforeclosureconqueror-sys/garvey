@@ -627,41 +627,63 @@ app.get("/api/verify/db", async (req, res) => {
   }
 });
 
-app.get("/api/verify/scoring", async (req, res) => {
-  try {
-    const questions = (await pool.query("SELECT * FROM questions ORDER BY id LIMIT 3")).rows;
-    const answers = questions.map((q) => ({ qid: q.qid, answer: "A" }));
-    const scores = scoreAnswers(answers, questions);
-    const sample = getTopRolesFromScores(scores);
-
-    return res.json({ status: "SCORING_OK", sample_result: sample });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ status: "SCORING_FAIL" });
-  }
-});
-
 app.get("/api/questions", async (req, res) => {
   try {
     const mode = String(req.query.mode || "25");
+
+    // ✅ RESTORE TYPE LOGIC
+    const type = mode === "60" ? "full" : "fast";
     const limit = mode === "60" ? 60 : 25;
 
     const result = await pool.query(
       `SELECT qid, question, options, weights, type
        FROM questions
-       ORDER BY id
-       LIMIT $1`,
-      [limit]
+       WHERE type = $1
+       ORDER BY id ASC
+       LIMIT $2`,
+      [type, limit]
     );
+
+    const raw = result.rows;
+
+    console.log("📊 QUESTIONS DEBUG:", {
+      mode,
+      type,
+      count: raw.length
+    });
+
+    if (!raw.length) {
+      return res.json({
+        warning: "No questions found",
+        mode,
+        type,
+        count: 0,
+        questions: []
+      });
+    }
+
+    // ✅ FIX FRONTEND COMPATIBILITY
+    const questions = raw.map((q) => ({
+      qid: q.qid,
+      question: q.question,
+
+      option_a: q.options?.A || "",
+      option_b: q.options?.B || "",
+      option_c: q.options?.C || "",
+      option_d: q.options?.D || "",
+
+      type: q.type
+    }));
 
     return res.json({
       mode,
-      count: result.rows.length,
-      questions: result.rows
+      type,
+      count: questions.length,
+      questions
     });
-    
+
   } catch (error) {
-    console.error(error);
+    console.error("❌ QUESTIONS API ERROR:", error);
     return res.status(500).json({ error: "questions fetch failed" });
   }
 });
