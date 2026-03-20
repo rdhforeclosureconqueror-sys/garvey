@@ -2,6 +2,7 @@ const { pool } = require("./db");
 
 async function seed() {
   try {
+    console.log("🧹 Clearing old questions...");
     await pool.query(`DELETE FROM questions;`);
 
     const roles = [
@@ -9,12 +10,12 @@ async function seed() {
       "Connector","Protector","Nurturer","Educator","ResourceGenerator"
     ];
 
-    function generateWeights(index) {
+    function generateWeights(primaryIndex) {
       const weights = {};
       roles.forEach(r => weights[r] = 0);
 
-      const primary = roles[index % roles.length];
-      const secondary = roles[(index + 3) % roles.length];
+      const primary = roles[primaryIndex % roles.length];
+      const secondary = roles[(primaryIndex + 3) % roles.length];
 
       weights[primary] = 2;
       weights[secondary] = 1;
@@ -22,13 +23,27 @@ async function seed() {
       return weights;
     }
 
-    for (let i = 1; i <= 60; i++) {
-      const options = {
-        A: "Strategize and design",
-        B: "Take action immediately",
-        C: "Support and guide others",
-        D: "Connect and unify people"
+    function buildOptions(type) {
+      if (type === "full") {
+        return {
+          A: "Strategize and design systems",
+          B: "Take action and execute quickly",
+          C: "Support and guide people",
+          D: "Connect and unify others"
+        };
+      }
+
+      return {
+        A: "Think first",
+        B: "Act first",
+        C: "Help others",
+        D: "Bring people together"
       };
+    }
+
+    // 🔥 FULL 60 QUESTIONS
+    for (let i = 1; i <= 60; i++) {
+      const options = buildOptions("full");
 
       const weights = {
         A: generateWeights(0),
@@ -39,10 +54,10 @@ async function seed() {
 
       await pool.query(
         `INSERT INTO questions (qid, question, options, weights, type)
-         VALUES ($1, $2, $3, $4, $5)`,
+         VALUES ($1, $2, $3::jsonb, $4::jsonb, $5)`,
         [
           `Q${i}`,
-          `Question ${i}: How do you naturally respond?`,
+          `Question ${i}: How do you naturally respond in real situations?`,
           JSON.stringify(options),
           JSON.stringify(weights),
           "full"
@@ -50,13 +65,9 @@ async function seed() {
       );
     }
 
+    // ⚡ FAST 25 QUESTIONS
     for (let i = 1; i <= 25; i++) {
-      const options = {
-        A: "Think first",
-        B: "Act first",
-        C: "Help others",
-        D: "Bring people together"
-      };
+      const options = buildOptions("fast");
 
       const weights = {
         A: generateWeights(0),
@@ -67,10 +78,10 @@ async function seed() {
 
       await pool.query(
         `INSERT INTO questions (qid, question, options, weights, type)
-         VALUES ($1, $2, $3, $4, $5)`,
+         VALUES ($1, $2, $3::jsonb, $4::jsonb, $5)`,
         [
           `FQ${i}`,
-          `Quick Question ${i}: What feels natural?`,
+          `Quick Question ${i}: What feels most natural to you?`,
           JSON.stringify(options),
           JSON.stringify(weights),
           "fast"
@@ -78,11 +89,11 @@ async function seed() {
       );
     }
 
-    console.log("🔥 QUESTIONS SEEDED (MATCHED TO YOUR DB)");
+    console.log("🔥 ALL QUESTIONS SEEDED SUCCESSFULLY");
     process.exit();
 
   } catch (err) {
-    console.error("❌ ERROR:", err);
+    console.error("❌ SEED ERROR:", err);
     process.exit(1);
   }
 }
