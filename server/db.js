@@ -1,103 +1,112 @@
-const { Pool } = require("pg");
-
-const connectionString = process.env.DATABASE_URL;
-
-// 🔥 CREATE POOL
-const pool = new Pool(
-connectionString
-? {
-connectionString,
-ssl: connectionString.includes("localhost")
-? false
-: { rejectUnauthorized: false }
-}
-: {
-host: process.env.PGHOST || "127.0.0.1",
-port: Number(process.env.PGPORT || 5432),
-user: process.env.PGUSER || "postgres",
-password: process.env.PGPASSWORD || "postgres",
-database: process.env.PGDATABASE || "garvey"
-}
-);
-
-// 🔥 IMPORT SEED (SAFE — NO CIRCULAR DEP)
-const { seed } = require("./seedQuestions");
-
-// 🔥 INIT FUNCTION
-async function initializeDatabase() {
-console.log("🧠 Initializing database...");
-
-// ✅ CREATE TABLES
-await pool.query(`
+async function seed(pool) {
+try {
+console.log("🌱 Seeding questions...");
 
 ```
-CREATE TABLE IF NOT EXISTS tenants (
-  id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL,
-  slug TEXT NOT NULL UNIQUE,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
+// 🧹 Clear existing questions
+await pool.query(`DELETE FROM questions;`);
 
-CREATE TABLE IF NOT EXISTS intake_sessions (
-  id SERIAL PRIMARY KEY,
-  tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
-  email TEXT NOT NULL,
-  mode TEXT,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
+const roles = [
+  "Architect","Operator","Steward","Builder",
+  "Connector","Protector","Nurturer","Educator","ResourceGenerator"
+];
 
-CREATE TABLE IF NOT EXISTS intake_responses (
-  id SERIAL PRIMARY KEY,
-  session_id INTEGER REFERENCES intake_sessions(id) ON DELETE CASCADE,
-  question_id TEXT,
-  answer TEXT NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
+function generateWeights(primaryIndex) {
+  const weights = {};
+  roles.forEach(r => { weights[r] = 0; });
 
-CREATE TABLE IF NOT EXISTS intake_results (
-  id SERIAL PRIMARY KEY,
-  session_id INTEGER NOT NULL REFERENCES intake_sessions(id) ON DELETE CASCADE,
-  primary_role TEXT NOT NULL,
-  secondary_role TEXT NOT NULL,
-  role_scores JSONB NOT NULL,
-  recommendations JSONB NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
+  const primary = roles[primaryIndex % roles.length];
+  const secondary = roles[(primaryIndex + 3) % roles.length];
 
--- 🔥 QUESTIONS TABLE
-CREATE TABLE IF NOT EXISTS questions (
-  id SERIAL PRIMARY KEY,
-  qid TEXT UNIQUE,
-  question TEXT,
-  options JSONB,
-  weights JSONB,
-  type TEXT
-);
+  weights[primary] = 2;
+  weights[secondary] = 1;
 
-CREATE INDEX IF NOT EXISTS idx_questions_qid ON questions(qid);
-```
+  return weights;
+}
 
-`);
+function buildOptions(type) {
+  if (type === "full") {
+    return {
+      A: "Strategize and design systems",
+      B: "Take action and execute quickly",
+      C: "Support and guide people",
+      D: "Connect and unify others"
+    };
+  }
 
-// 🔥 CHECK IF QUESTIONS EXIST
-const result = await pool.query(
-`SELECT COUNT(*)::int AS count FROM questions`
-);
+  return {
+    A: "Think first",
+    B: "Act first",
+    C: "Help others",
+    D: "Bring people together"
+  };
+}
 
-const count = result.rows[0].count;
+// 🔥 FULL (60 QUESTIONS)
+for (let i = 1; i <= 60; i++) {
+  const options = buildOptions("full");
 
-// 🔥 AUTO-SEED (SAFE)
-if (count === 0) {
-console.log("🌱 No questions found → seeding now...");
-await seed(pool); // ✅ CRITICAL FIX
+  const weights = {
+    A: generateWeights(0),
+    B: generateWeights(1),
+    C: generateWeights(2),
+    D: generateWeights(3)
+  };
+
+  await pool.query(
+    `INSERT INTO questions (qid, question, options, weights, type)
+     VALUES ($1,$2,$3::jsonb,$4::jsonb,$5)
+     ON CONFLICT (qid) DO UPDATE SET
+       question = EXCLUDED.question,
+       options = EXCLUDED.options,
+       weights = EXCLUDED.weights,
+       type = EXCLUDED.type`,
+    [
+      `Q${i}`,
+      `Question ${i}: How do you naturally respond in real-world situations?`,
+      JSON.stringify(options),
+      JSON.stringify(weights),
+      "full"
+    ]
+  );
+}
+
+// ⚡ FAST (25 QUESTIONS)
+for (let i = 1; i <= 25; i++) {
+  const options = buildOptions("fast");
+
+  const weights = {
+    A: generateWeights(0),
+    B: generateWeights(1),
+    C: generateWeights(2),
+    D: generateWeights(3)
+  };
+
+  await pool.query(
+    `INSERT INTO questions (qid, question, options, weights, type)
+     VALUES ($1,$2,$3::jsonb,$4::jsonb,$5)
+     ON CONFLICT (qid) DO UPDATE SET
+       question = EXCLUDED.question,
+       options = EXCLUDED.options,
+       weights = EXCLUDED.weights,
+       type = EXCLUDED.type`,
+    [
+      `FQ${i}`,
+      `Quick Question ${i}: What feels most natural to you?`,
+      JSON.stringify(options),
+      JSON.stringify(weights),
+      "fast"
+    ]
+  );
+}
+
 console.log("✅ Questions seeded successfully");
-} else {
-console.log(`✅ Questions already exist (${count})`);
+```
+
+} catch (err) {
+console.error("❌ SEED ERROR:", err);
+throw err;
 }
 }
 
-// 🔥 EXPORTS
-module.exports = {
-pool,
-initializeDatabase
-};
+module.exports = { seed };
