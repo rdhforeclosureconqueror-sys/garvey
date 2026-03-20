@@ -1,3 +1,4 @@
+<!-- FILE: public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +41,8 @@
   </div>
 
   <pre id="result"></pre>
+
+  <!-- ✅ Keep ALL navigation (including VOC) -->
   <a href="/dashboard.html">Go to dashboard</a> |
   <a href="/intake.html">Go to intake</a> |
   <a href="/admin.html">Go to admin</a> |
@@ -52,13 +55,18 @@
     }
 
     async function post(path, body) {
-      const res = await fetch(tenantPath(path), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      });
-      const data = await res.json();
-      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+      try {
+        const res = await fetch(tenantPath(path), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+
+        const data = await res.json();
+        document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+      } catch (err) {
+        document.getElementById("result").innerText = `Error: ${err.message}`;
+      }
     }
 
     async function checkin() {

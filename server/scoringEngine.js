@@ -1,3 +1,13 @@
+// FILE: server/scoringEngine.js
+// ✅ Aligned to server/index.js (expects scoreAnswers(answers, questionRows))
+// ✅ Works with BOTH JSON weight shapes:
+//    1) option-based: q.weights = { A: {role: n}, B: {...}, ... }
+//    2) role-based:   q.weights = { role: n, role2: n, ... }
+// ✅ Safe fallback for legacy flat columns (q[role])
+// ✅ Lowercase role keys (matches tenant config + rest of server)
+
+"use strict";
+
 const roles = [
   "architect",
   "operator",
@@ -11,15 +21,32 @@ const roles = [
 ];
 
 function emptyScores() {
-  return roles.reduce((acc, role) => ({ ...acc, [role]: 0 }), {});
+  const scores = {};
+  for (const r of roles) scores[r] = 0;
+  return scores;
 }
 
-function extractWeight(question, role) {
-  if (question?.weights && typeof question.weights === "object") {
-    return Number(question.weights[role] || 0);
-  }
+function coerceNumber(value) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : 0;
+}
 
-  return Number(question?.[role] || 0);
+function isPlainObject(value) {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+function addRoleWeights(scores, roleWeights) {
+  if (!isPlainObject(roleWeights)) return;
+
+  for (const r of roles) {
+    if (Object.prototype.hasOwnProperty.call(roleWeights, r)) {
+      scores[r] += coerceNumber(roleWeights[r]);
+    }
+  }
+}
+
+function extractLegacyRoleWeight(questionRow, role) {
+  return coerceNumber(questionRow?.[role]);
 }
 
 function scoreAnswers(answers = [], questions = []) {
@@ -27,11 +54,32 @@ function scoreAnswers(answers = [], questions = []) {
   const questionMap = new Map(questions.map((q) => [q.qid, q]));
 
   for (const item of answers) {
+    if (!item || !item.qid) continue;
+
     const q = questionMap.get(item.qid);
     if (!q) continue;
 
-    for (const role of roles) {
-      scores[role] += extractWeight(q, role);
+    const w = q.weights;
+
+    // Shape 1: option-based weights, use selected answer
+    // q.weights = { A: { architect: 2, ... }, B: {...}, ... }
+    if (isPlainObject(w) && ["A", "B", "C", "D"].some((k) => Object.prototype.hasOwnProperty.call(w, k))) {
+      const option = String(item.answer || "").toUpperCase();
+      const roleWeights = w?.[option];
+      addRoleWeights(scores, roleWeights);
+      continue;
+    }
+
+    // Shape 2: role-based weights (qid contributes same regardless of option)
+    // q.weights = { architect: 1, operator: 0, ... }
+    if (isPlainObject(w)) {
+      addRoleWeights(scores, w);
+      continue;
+    }
+
+    // Fallback: legacy flat columns per role
+    for (const r of roles) {
+      scores[r] += extractLegacyRoleWeight(q, r);
     }
   }
 
@@ -39,10 +87,22 @@ function scoreAnswers(answers = [], questions = []) {
 }
 
 function getTopRoles(scores) {
-  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const entries = Object.entries(scores || {}).filter(([, v]) => Number.isFinite(Number(v)));
+
+  if (entries.length === 0) {
+    return { primary_role: null, secondary_role: null };
+  }
+
+  // Stable tiebreaker: score desc, then role name asc
+  entries.sort((a, b) => {
+    const diff = coerceNumber(b[1]) - coerceNumber(a[1]);
+    if (diff !== 0) return diff;
+    return String(a[0]).localeCompare(String(b[0]));
+  });
+
   return {
-    primary_role: sorted[0]?.[0] || null,
-    secondary_role: sorted[1]?.[0] || null
+    primary_role: entries[0]?.[0] || null,
+    secondary_role: entries[1]?.[0] || null
   };
 }
 

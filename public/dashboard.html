@@ -1,3 +1,4 @@
+<!-- FILE: public/dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +37,8 @@
       const data = await res.json();
 
       if (!res.ok) {
-        document.getElementById("analytics").innerText = data.error || "Failed to load dashboard.";
+        document.getElementById("analytics").innerText =
+          data.error || "Failed to load dashboard.";
         return;
       }
 
@@ -45,33 +47,38 @@
       document.getElementById("actions").innerText = `Actions: ${data.total_actions}`;
       document.getElementById("points").innerText = `Points Issued: ${data.total_points}`;
 
+      // Top Actions
       const topActions = document.getElementById("topActions");
       topActions.innerHTML = "";
-      data.top_actions.forEach((row) => {
+      (data.top_actions || []).forEach((row) => {
         const li = document.createElement("li");
         li.innerText = `${row.action_type}: ${row.action_count}`;
         topActions.appendChild(li);
       });
 
+      // Points Distribution
       const pointsDistribution = document.getElementById("pointsDistribution");
       pointsDistribution.innerHTML = "";
-      data.points_distribution.forEach((row) => {
+      (data.points_distribution || []).forEach((row) => {
         const li = document.createElement("li");
         li.innerText = `${row.bucket}: ${row.user_count} users`;
         pointsDistribution.appendChild(li);
       });
 
+      // Daily Activity
       const dailyActivity = document.getElementById("dailyActivity");
       dailyActivity.innerHTML = "";
-      data.daily_activity.forEach((row) => {
+      (data.daily_activity || []).forEach((row) => {
         const li = document.createElement("li");
         li.innerText = `${row.activity_day}: ${row.activity_count}`;
         dailyActivity.appendChild(li);
       });
 
-      const actionsPerUser = data.total_users > 0
-        ? (data.total_actions / data.total_users).toFixed(2)
-        : "0.00";
+      // Simple Analytics
+      const actionsPerUser =
+        data.total_users > 0
+          ? (data.total_actions / data.total_users).toFixed(2)
+          : "0.00";
 
       document.getElementById("analytics").innerText =
         `Actions per user: ${actionsPerUser}. Refresh after new actions to see live changes.`;

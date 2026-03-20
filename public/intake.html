@@ -1,108 +1,349 @@
+<!-- FILE: public/intake.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Garvey BII Intake</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Garvey Intake</title>
+
   <style>
-    body { font-family: Arial, sans-serif; max-width: 760px; margin: 24px auto; }
-    .bar-wrap { width: 100%; background: #eee; border-radius: 8px; height: 16px; margin: 12px 0; }
-    .bar { height: 100%; width: 0%; border-radius: 8px; background: #2f7cf6; }
-    .choices button { margin-right: 8px; margin-bottom: 8px; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: #111;
+      border: 2px solid gold;
+      padding: 24px;
+      border-radius: 16px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    h1 { color: gold; margin-top: 0; }
+
+    .section {
+      color: #ef4444;
+      font-weight: bold;
+      margin: 10px 0 6px;
+    }
+
+    .tip {
+      color: #22c55e;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 2px solid #000;
+      background: gold;
+      color: #000;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: left;
+      line-height: 1.25;
+    }
+
+    .btn:hover { background: #ef4444; color: #fff; }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .progress {
+      margin-top: 10px;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    #results { margin-top: 18px; text-align: left; }
+
+    select, input {
+      padding: 10px;
+      margin: 8px 0;
+      width: min(520px, 92%);
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #0b1020;
+      color: #fff;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 10px 0 6px;
+    }
+
+    .meta {
+      color: #94a3b8;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    a { color: #93c5fd; }
+    a:hover { color: #bfdbfe; }
+
+    .bar {
+      height: 10px;
+      background: #222;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .bar > div {
+      height: 100%;
+      width: 0%;
+      background: #22c55e;
+      transition: width 120ms linear;
+    }
   </style>
 </head>
+
 <body>
-  <h1>Business Intelligence Intake</h1>
+  <div class="card">
+    <h1>Garvey Role Assessment</h1>
 
-  <label>Email <input id="email" type="email" value="test@email.com" /></label>
-  <label>Tenant Slug <input id="tenant" value="test-business" /></label>
-  <label>Mode
-    <select id="mode" onchange="resetFlow()">
-      <option value="quick">25 Questions</option>
-      <option value="deep">60 Questions</option>
-    </select>
-  </label>
+    <div class="row">
+      <input id="email" placeholder="Enter Email" value="test@email.com" />
+      <select id="mode" title="Mode">
+        <option value="25">Quick (25 Questions)</option>
+        <option value="60">Deep (60 Questions)</option>
+      </select>
+    </div>
 
-  <p id="sectionLabel"></p>
-  <p id="questionLabel"></p>
-  <div class="bar-wrap"><div class="bar" id="progressBar"></div></div>
-  <p id="percent"></p>
+    <div class="meta" id="tenantMeta"></div>
 
-  <div class="choices">
-    <button onclick="selectAnswer('A')">A</button>
-    <button onclick="selectAnswer('B')">B</button>
-    <button onclick="selectAnswer('C')">C</button>
-    <button onclick="selectAnswer('D')">D</button>
+    <div class="section" id="sectionTitle"></div>
+    <div class="tip" id="sectionTip"></div>
+
+    <div class="progress" id="progress">Loading…</div>
+    <div class="bar"><div id="progressBarFill"></div></div>
+
+    <div style="margin-top:12px; font-size:18px;" id="questionText"></div>
+    <div id="optionsContainer"></div>
+
+    <div id="results"></div>
+
+    <div class="meta" style="margin-top:14px;">
+      <a href="/dashboard.html">Dashboard</a> |
+      <a href="/admin.html">Admin</a> |
+      <a href="/voc.html">VOC</a> |
+      <a href="/index.html">CX Engine</a>
+    </div>
   </div>
 
-  <button id="submitBtn" onclick="submitIntake()" disabled>Submit Intake</button>
-
-  <h2>Result</h2>
-  <pre id="result"></pre>
-
   <script>
-    const sectionNames = ["Vision", "Operations", "Growth", "Customer", "Systems"];
+    let questions = [];
+    let currentIndex = 0;
     let answers = [];
+    let sectionSize = 1;
 
-    function hydrateFromQuery() {
+    const sections = [
+      { name: "Identity", tip: "How you naturally express yourself." },
+      { name: "Decision Making", tip: "How you think under pressure." },
+      { name: "Community Role", tip: "Your natural position in a system." },
+      { name: "Execution", tip: "How you take action and build." }
+    ];
+
+    function getTenant() {
       const params = new URLSearchParams(window.location.search);
-      const tenant = params.get("tenant");
-      if (tenant) {
-        document.getElementById("tenant").value = tenant;
+      return (params.get("tenant") || "").trim();
+    }
+
+    function setMeta() {
+      const tenant = getTenant();
+      document.getElementById("tenantMeta").innerText = tenant
+        ? `Tenant: ${tenant}`
+        : "⚠️ Missing tenant. Open with: /intake.html?tenant=test-business";
+    }
+
+    function getSection(index) {
+      const safeSize = Math.max(sectionSize, 1);
+      const idx = Math.min(Math.floor(index / safeSize), sections.length - 1);
+      return sections[idx];
+    }
+
+    function setProgress() {
+      const total = Math.max(questions.length, 1);
+      const pct = Math.round((currentIndex / total) * 100);
+      document.getElementById("progressBarFill").style.width = `${pct}%`;
+      document.getElementById("progress").innerText = questions.length
+        ? `Question ${Math.min(currentIndex + 1, questions.length)} of ${questions.length} (${pct}%)`
+        : "Loading…";
+    }
+
+    function clearResults() {
+      document.getElementById("results").innerHTML = "";
+    }
+
+    async function loadQuestions() {
+      try {
+        clearResults();
+        answers = [];
+        currentIndex = 0;
+
+        const mode = document.getElementById("mode").value;
+        const res = await fetch(`/api/questions?mode=${encodeURIComponent(mode)}`);
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data?.error || "Failed to load questions");
+
+        questions = Array.isArray(data.questions) ? data.questions : [];
+        if (!questions.length) throw new Error("No questions returned");
+
+        sectionSize = Math.max(1, Math.floor(questions.length / sections.length));
+        showQuestion();
+      } catch (err) {
+        console.error(err);
+        document.getElementById("questionText").innerText = "❌ Failed to load questions";
+        document.getElementById("optionsContainer").innerHTML = "";
+        document.getElementById("sectionTitle").innerText = "";
+        document.getElementById("sectionTip").innerText = "";
+        document.getElementById("progress").innerText = err.message;
+        document.getElementById("progressBarFill").style.width = "0%";
       }
     }
 
-    function totalQuestions() {
-      return document.getElementById("mode").value === "deep" ? 60 : 25;
+    function showQuestion() {
+      setProgress();
+
+      const q = questions[currentIndex];
+      if (!q) {
+        submitAssessment();
+        return;
+      }
+
+      const section = getSection(currentIndex);
+      document.getElementById("sectionTitle").innerText = `🔥 ${section.name}`;
+      document.getElementById("sectionTip").innerText = section.tip;
+
+      document.getElementById("questionText").innerText = q.question || "(missing question text)";
+
+      const container = document.getElementById("optionsContainer");
+      container.innerHTML = "";
+
+      const options = [
+        ["A", q.option_a],
+        ["B", q.option_b],
+        ["C", q.option_c],
+        ["D", q.option_d]
+      ];
+
+      for (const [key, value] of options) {
+        const btn = document.createElement("button");
+        btn.className = "btn";
+        btn.innerText = `${key}: ${value || ""}`;
+        btn.disabled = !value;
+        btn.onclick = () => handleAnswer(q.qid, key);
+        container.appendChild(btn);
+      }
     }
 
-    function renderQuestion() {
-      const total = totalQuestions();
-      const index = answers.length;
-      document.getElementById("questionLabel").innerText =
-        index < total ? `Question ${index + 1} of ${total}` : `Completed ${total} of ${total}`;
+    function handleAnswer(qid, option) {
+      answers.push({ qid, answer: option });
+      currentIndex += 1;
 
-      const sectionIndex = Math.min(Math.floor((index / total) * sectionNames.length), sectionNames.length - 1);
-      document.getElementById("sectionLabel").innerText = `Section: ${sectionNames[sectionIndex]}`;
+      if (sectionSize && currentIndex % sectionSize === 0 && currentIndex !== 0 && currentIndex < questions.length) {
+        alert("✅ Section complete");
+      }
 
-      const percent = Math.round((answers.length / total) * 100);
-      document.getElementById("progressBar").style.width = `${percent}%`;
-      document.getElementById("percent").innerText = `${percent}% complete`;
-      document.getElementById("submitBtn").disabled = answers.length !== total;
+      showQuestion();
     }
 
-    function selectAnswer(value) {
-      if (answers.length >= totalQuestions()) return;
-      answers.push(value);
-      renderQuestion();
+    async function submitAssessment() {
+      const email = document.getElementById("email").value.trim();
+      const tenant = getTenant();
+
+      if (!email) {
+        alert("Enter email");
+        return;
+      }
+
+      if (!tenant) {
+        document.getElementById("questionText").innerText =
+          "⚠️ Invalid access link (missing tenant)";
+        document.getElementById("optionsContainer").innerHTML = "";
+        return;
+      }
+
+      try {
+        document.getElementById("questionText").innerText = "Submitting…";
+        document.getElementById("optionsContainer").innerHTML = "";
+        setProgress();
+
+        const res = await fetch("/api/intake", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, tenant, answers })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data?.error || "Submission failed");
+
+        renderResults(data);
+      } catch (err) {
+        console.error(err);
+        document.getElementById("questionText").innerText = "❌ Submission failed";
+        document.getElementById("results").innerHTML = `<div class="meta">Error: ${err.message}</div>`;
+      }
     }
 
-    function resetFlow() {
-      answers = [];
-      document.getElementById("result").innerText = "";
-      renderQuestion();
+    function renderResults(data) {
+      document.getElementById("questionText").innerText = "🎯 Your Results";
+
+      const container = document.getElementById("results");
+      const primary = data.primary_role || "(missing primary_role)";
+      const secondary = data.secondary_role || "(missing secondary_role)";
+
+      container.innerHTML = `
+        <h2 style="color:gold; margin: 6px 0;">Primary: ${primary}</h2>
+        <h3 style="color:#ef4444; margin: 6px 0;">Secondary: ${secondary}</h3>
+        <div id="scores"></div>
+      `;
+
+      renderScoreBars(data.scores || {});
     }
 
-    async function submitIntake() {
-      const payload = {
-        email: document.getElementById("email").value,
-        tenant_slug: document.getElementById("tenant").value,
-        mode: document.getElementById("mode").value,
-        answers
-      };
+    function renderScoreBars(scores) {
+      const container = document.getElementById("scores");
+      container.innerHTML = "";
 
-      const res = await fetch("/intake", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
+      const entries = Object.entries(scores);
+      if (!entries.length) {
+        container.innerHTML = `<div class="meta">No score breakdown returned.</div>`;
+        return;
+      }
 
-      const data = await res.json();
-      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+      for (const [role, value] of entries) {
+        const pct = Math.max(0, Math.min(100, Number(value) * 5));
+        const row = document.createElement("div");
+        row.style.margin = "10px 0";
+        row.innerHTML = `
+          <div style="display:flex; justify-content:space-between;">
+            <strong>${role}</strong>
+            <span class="meta">${value}</span>
+          </div>
+          <div style="background:#222; border-radius:999px; overflow:hidden; height:10px;">
+            <div style="width:${pct}%; background:#22c55e; height:10px;"></div>
+          </div>
+        `;
+        container.appendChild(row);
+      }
     }
 
-    hydrateFromQuery();
-    renderQuestion();
+    document.getElementById("mode").addEventListener("change", loadQuestions);
+
+    setMeta();
+    loadQuestions();
   </script>
 </body>
 </html>

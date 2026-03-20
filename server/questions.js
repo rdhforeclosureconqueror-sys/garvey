@@ -1,44 +1,35 @@
-const { pool } = require("./db");
-const { roles } = require("./scoringEngine");
+// FILE: server/questions.js
+// Keep this file simple: export question retrieval helpers (optional).
+// ✅ No seeding here (seeding lives in server/seedQuestions.js)
+// ✅ No Express router here (routing lives in server/index.js)
 
-function roleWeightFor(i, roleIndex) {
-  return (i + roleIndex) % roles.length === 0 ? 2 : (i + roleIndex) % 3 === 0 ? 1 : 0;
+"use strict";
+
+async function fetchQuestionsByMode(pool, mode = "25") {
+  const modeStr = String(mode || "25");
+  const type = modeStr === "60" ? "full" : "fast";
+  const limit = modeStr === "60" ? 60 : 25;
+
+  const result = await pool.query(
+    `SELECT qid, question, options, weights, type
+     FROM questions
+     WHERE type = $1
+     ORDER BY id ASC
+     LIMIT $2`,
+    [type, limit]
+  );
+
+  const questions = result.rows.map((q) => ({
+    qid: q.qid,
+    question: q.question,
+    option_a: q.options?.A || "",
+    option_b: q.options?.B || "",
+    option_c: q.options?.C || "",
+    option_d: q.options?.D || "",
+    type: q.type
+  }));
+
+  return { mode: modeStr, type, count: questions.length, questions };
 }
 
-async function seedQuestions() {
-  const existing = await pool.query("SELECT COUNT(*)::int AS count FROM questions");
-  if (existing.rows[0].count > 0) return existing.rows[0].count;
-
-  for (let i = 1; i <= 60; i += 1) {
-    const qid = `Q${i}`;
-    const type = i <= 25 ? "core" : "extended";
-
-    const roleValues = roles.map((role, index) => roleWeightFor(i, index));
-
-    await pool.query(
-      `INSERT INTO questions (
-        qid, question, option_a, option_b, option_c, option_d,
-        architect, operator, steward, builder, connector, protector, nurturer, educator, resource_generator, type
-      ) VALUES (
-        $1, $2, $3, $4, $5, $6,
-        $7, $8, $9, $10, $11, $12, $13, $14, $15, $16
-      )`,
-      [
-        qid,
-        `Question ${i}`,
-        "Option A",
-        "Option B",
-        "Option C",
-        "Option D",
-        ...roleValues,
-        type
-      ]
-    );
-  }
-
-  return 60;
-}
-
-module.exports = {
-  seedQuestions
-};
+module.exports = { fetchQuestionsByMode };

@@ -1,16 +1,30 @@
+/* FILE: server/index.js (PART 1/3)
+   Paste PART 1, then PART 2, then PART 3 directly after.
+*/
+"use strict";
+
 const express = require("express");
 const path = require("path");
+
 const { pool, initializeDatabase } = require("./db");
-const { ensureTenant, getTenantBySlug, getTenantConfig, DEFAULT_TENANT_CONFIG } = require("./tenant");
+const {
+  ensureTenant,
+  getTenantBySlug,
+  getTenantConfig,
+  DEFAULT_TENANT_CONFIG
+} = require("./tenant");
+
 const {
   scoreAssessment,
   getTopRoles,
   generateRecommendations,
   generateTenantConfig
 } = require("./biiEngine");
+
 const { runVerification } = require("./verify");
 const { scoreVOCAnswers, generateVOCProfile, mergeVOCIntoConfig } = require("./vocEngine");
 const { runAdaptiveCycle } = require("./adaptiveEngine");
+
 const { scoreAnswers, getTopRoles: getTopRolesFromScores } = require("./scoringEngine");
 const { seed } = require("./seedQuestions");
 
@@ -25,6 +39,7 @@ app.use((req, res, next) => {
   if (req.method === "OPTIONS") return res.sendStatus(200);
   return next();
 });
+
 app.use(express.static(path.join(__dirname, "..", "public")));
 
 const ACTION_POINTS = {
@@ -50,18 +65,14 @@ function logEvent(event, payload = {}) {
 
 function sanitizeConfig(config = {}) {
   const sanitized = {};
-
   for (const key of ALLOWED_CONFIG_KEYS) {
-    if (typeof config[key] === "boolean") {
-      sanitized[key] = config[key];
-    }
+    if (typeof config[key] === "boolean") sanitized[key] = config[key];
   }
-
   return sanitized;
 }
 
 function rewardPointsEnabled(config) {
-  return config.reward_system !== false;
+  return config?.reward_system !== false;
 }
 
 async function findTenantUser(tenantId, email, client = pool) {
@@ -69,10 +80,7 @@ async function findTenantUser(tenantId, email, client = pool) {
     "SELECT * FROM users WHERE tenant_id = $1 AND email = $2",
     [tenantId, email]
   );
-
-  if (existing.rows[0]) {
-    return existing.rows[0];
-  }
+  if (existing.rows[0]) return existing.rows[0];
 
   const created = await client.query(
     `INSERT INTO users (tenant_id, email)
@@ -87,23 +95,30 @@ async function findTenantUser(tenantId, email, client = pool) {
 }
 
 async function tenantMiddleware(req, res, next) {
-  const tenant = await getTenantBySlug(req.params.slug);
+  try {
+    const { slug } = req.params;
+    const tenant = await getTenantBySlug(slug);
 
-  if (!tenant) {
-    return res.status(404).json({ error: "Tenant not found", tenant_slug: req.params.slug });
+    if (!tenant) {
+      return res.status(404).json({ error: "Tenant not found", tenant_slug: slug });
+    }
+
+    req.tenant = tenant;
+    req.tenantConfig = (await getTenantConfig(tenant.id)) || {};
+    return next();
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "tenant middleware failed" });
   }
-
-  req.tenant = tenant;
-  req.tenantConfig = await getTenantConfig(tenant.id);
-  return next();
 }
+
+/* =========================
+   CORE ROUTES + TENANT ACTIONS
+========================= */
 
 app.get("/join/:slug", async (req, res) => {
   const tenant = await getTenantBySlug(req.params.slug);
-  if (!tenant) {
-    return res.status(404).json({ error: "Tenant not found" });
-  }
-
+  if (!tenant) return res.status(404).json({ error: "Tenant not found" });
   return res.redirect(`/intake.html?tenant=${tenant.slug}`);
 });
 
@@ -215,7 +230,6 @@ app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
 
 app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
   const client = await pool.connect();
-
   try {
     if (req.tenantConfig.referral_system === false) {
       return res.status(403).json({ error: "referral system disabled for this tenant" });
@@ -272,6 +286,10 @@ app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
   }
 });
 
+/* =========================
+   PART 2 START (server/index.js PART 2/3)
+========================= */
+
 app.post("/t/:slug/wishlist", tenantMiddleware, async (req, res) => {
   try {
     const { email, product_name: productName } = req.body;
@@ -296,51 +314,54 @@ app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
   try {
     const tenantId = req.tenant.id;
 
-    const [users, visits, actions, points, topActions, pointsDistribution, dailyActivity] = await Promise.all([
-      pool.query("SELECT COUNT(*)::int AS total_users FROM users WHERE tenant_id = $1", [tenantId]),
-      pool.query("SELECT COUNT(*)::int AS total_visits FROM visits WHERE tenant_id = $1", [tenantId]),
-      pool.query("SELECT COUNT(*)::int AS total_actions FROM actions WHERE tenant_id = $1", [tenantId]),
-      pool.query("SELECT COALESCE(SUM(points), 0)::int AS total_points FROM users WHERE tenant_id = $1", [tenantId]),
-      pool.query(
-        `SELECT action_type, COUNT(*)::int AS action_count
-         FROM actions WHERE tenant_id = $1
-         GROUP BY action_type
-         ORDER BY action_count DESC, action_type ASC
-         LIMIT 5`,
-        [tenantId]
-      ),
-      pool.query(
-        `SELECT
-            CASE
-              WHEN points < 10 THEN '0-9'
-              WHEN points < 25 THEN '10-24'
-              WHEN points < 50 THEN '25-49'
-              ELSE '50+'
-            END AS bucket,
-            COUNT(*)::int AS user_count
-         FROM users
-         WHERE tenant_id = $1
-         GROUP BY bucket
-         ORDER BY bucket`,
-        [tenantId]
-      ),
-      pool.query(
-        `SELECT activity_day, SUM(activity_count)::int AS activity_count
-         FROM (
-            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM visits WHERE tenant_id = $1 GROUP BY DATE(created_at)
-            UNION ALL
-            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM actions WHERE tenant_id = $1 GROUP BY DATE(created_at)
-            UNION ALL
-            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM reviews WHERE tenant_id = $1 GROUP BY DATE(created_at)
-            UNION ALL
-            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM referrals WHERE tenant_id = $1 GROUP BY DATE(created_at)
-         ) a
-         GROUP BY activity_day
-         ORDER BY activity_day DESC
-         LIMIT 14`,
-        [tenantId]
-      )
-    ]);
+    const [users, visits, actions, points, topActions, pointsDistribution, dailyActivity] =
+      await Promise.all([
+        pool.query("SELECT COUNT(*)::int AS total_users FROM users WHERE tenant_id = $1", [tenantId]),
+        pool.query("SELECT COUNT(*)::int AS total_visits FROM visits WHERE tenant_id = $1", [tenantId]),
+        pool.query("SELECT COUNT(*)::int AS total_actions FROM actions WHERE tenant_id = $1", [tenantId]),
+        pool.query("SELECT COALESCE(SUM(points), 0)::int AS total_points FROM users WHERE tenant_id = $1", [
+          tenantId
+        ]),
+        pool.query(
+          `SELECT action_type, COUNT(*)::int AS action_count
+           FROM actions WHERE tenant_id = $1
+           GROUP BY action_type
+           ORDER BY action_count DESC, action_type ASC
+           LIMIT 5`,
+          [tenantId]
+        ),
+        pool.query(
+          `SELECT
+              CASE
+                WHEN points < 10 THEN '0-9'
+                WHEN points < 25 THEN '10-24'
+                WHEN points < 50 THEN '25-49'
+                ELSE '50+'
+              END AS bucket,
+              COUNT(*)::int AS user_count
+           FROM users
+           WHERE tenant_id = $1
+           GROUP BY bucket
+           ORDER BY bucket`,
+          [tenantId]
+        ),
+        pool.query(
+          `SELECT activity_day, SUM(activity_count)::int AS activity_count
+           FROM (
+              SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM visits WHERE tenant_id = $1 GROUP BY DATE(created_at)
+              UNION ALL
+              SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM actions WHERE tenant_id = $1 GROUP BY DATE(created_at)
+              UNION ALL
+              SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM reviews WHERE tenant_id = $1 GROUP BY DATE(created_at)
+              UNION ALL
+              SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM referrals WHERE tenant_id = $1 GROUP BY DATE(created_at)
+           ) a
+           GROUP BY activity_day
+           ORDER BY activity_day DESC
+           LIMIT 14`,
+          [tenantId]
+        )
+      ]);
 
     return res.json({
       tenant: req.tenant.slug,
@@ -358,6 +379,10 @@ app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
   }
 });
 
+/* =========================
+   TENANT CONFIG + ADMIN
+========================= */
+
 app.get("/t/:slug/config", tenantMiddleware, async (req, res) => {
   try {
     const result = await pool.query(
@@ -365,10 +390,7 @@ app.get("/t/:slug/config", tenantMiddleware, async (req, res) => {
       [req.tenant.id]
     );
 
-    if (!result.rows[0]) {
-      return res.status(404).json({ error: "config not found" });
-    }
-
+    if (!result.rows[0]) return res.status(404).json({ error: "config not found" });
     return res.json({ tenant: req.tenant.slug, ...result.rows[0] });
   } catch (error) {
     console.error(error);
@@ -405,7 +427,7 @@ app.get("/t/:slug/admin/config", tenantMiddleware, async (req, res) => {
 
     return res.json({
       tenant: req.tenant.slug,
-      config: { ...DEFAULT_TENANT_CONFIG, ...configResult.rows[0].config },
+      config: { ...DEFAULT_TENANT_CONFIG, ...(configResult.rows[0].config || {}) },
       primary_role: joined.rows[0]?.primary_role || null,
       secondary_role: joined.rows[0]?.secondary_role || null,
       last_updated: configResult.rows[0].updated_at
@@ -419,11 +441,7 @@ app.get("/t/:slug/admin/config", tenantMiddleware, async (req, res) => {
 app.post("/t/:slug/admin/config", tenantMiddleware, async (req, res) => {
   try {
     const incoming = sanitizeConfig(req.body?.config || {});
-
-    const existing = await pool.query(
-      "SELECT config FROM tenant_config WHERE tenant_id = $1",
-      [req.tenant.id]
-    );
+    const existing = await pool.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [req.tenant.id]);
 
     const merged = {
       ...DEFAULT_TENANT_CONFIG,
@@ -446,9 +464,12 @@ app.post("/t/:slug/admin/config", tenantMiddleware, async (req, res) => {
   }
 });
 
+/* =========================
+   LEGACY UI INTAKE (Phases 1–8)
+========================= */
+
 app.post("/intake", async (req, res) => {
   const client = await pool.connect();
-
   try {
     const { email, tenant_slug: tenantSlug, mode = "quick", answers = [] } = req.body;
 
@@ -472,22 +493,16 @@ app.post("/intake", async (req, res) => {
     const session = sessionResult.rows[0];
 
     for (let i = 0; i < answers.length; i += 1) {
-      await client.query(
-        "INSERT INTO intake_responses (session_id, question_id, answer) VALUES ($1, $2, $3)",
-        [session.id, i + 1, answers[i]]
-      );
+      await client.query("INSERT INTO intake_responses (session_id, question_id, answer) VALUES ($1, $2, $3)", [
+        session.id,
+        i + 1,
+        answers[i]
+      ]);
     }
 
     const roleScores = scoreAssessment(answers);
     const { primary, secondary } = getTopRoles(roleScores);
     const recommendations = generateRecommendations(primary, secondary, mode);
-
-    logEvent("intake_result", {
-      tenant_slug: tenant.slug,
-      session_id: session.id,
-      primary_role: primary,
-      secondary_role: secondary
-    });
 
     await client.query(
       `INSERT INTO intake_results (session_id, primary_role, secondary_role, role_scores, recommendations)
@@ -506,7 +521,7 @@ app.post("/intake", async (req, res) => {
       [tenant.id, config, session.id]
     );
 
-    logEvent("config_generated", { tenant_slug: tenant.slug, config, source_session_id: session.id });
+    logEvent("config_generated", { tenant_slug: tenant.slug, source_session_id: session.id });
 
     await client.query("COMMIT");
 
@@ -529,10 +544,16 @@ app.post("/intake", async (req, res) => {
   }
 });
 
+/* =========================
+   PART 3 START (server/index.js PART 3/3)
+========================= */
+
+/* =========================
+   VOC INTAKE
+========================= */
 
 app.post("/voc-intake", async (req, res) => {
   const client = await pool.connect();
-
   try {
     const { email, tenant_slug: tenantSlug, answers = [] } = req.body;
 
@@ -552,18 +573,20 @@ app.post("/voc-intake", async (req, res) => {
     const session = sessionResult.rows[0];
 
     for (let i = 0; i < answers.length; i += 1) {
-      await client.query(
-        "INSERT INTO voc_responses (session_id, question_id, answer) VALUES ($1, $2, $3)",
-        [session.id, i + 1, answers[i]]
-      );
+      await client.query("INSERT INTO voc_responses (session_id, question_id, answer) VALUES ($1, $2, $3)", [
+        session.id,
+        i + 1,
+        answers[i]
+      ]);
     }
 
     const scores = scoreVOCAnswers(answers);
     const vocResult = generateVOCProfile(scores);
 
     await client.query(
-      `INSERT INTO voc_results (session_id, customer_profile, engagement_style, buying_trigger, friction_point, loyalty_driver)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
+      `INSERT INTO voc_results (
+        session_id, customer_profile, engagement_style, buying_trigger, friction_point, loyalty_driver
+      ) VALUES ($1, $2, $3, $4, $5, $6)`,
       [
         session.id,
         vocResult.customer_profile,
@@ -574,10 +597,9 @@ app.post("/voc-intake", async (req, res) => {
       ]
     );
 
-    const existingConfigResult = await client.query(
-      "SELECT config FROM tenant_config WHERE tenant_id = $1",
-      [tenant.id]
-    );
+    const existingConfigResult = await client.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [
+      tenant.id
+    ]);
 
     const mergedConfig = mergeVOCIntoConfig(
       {
@@ -591,20 +613,12 @@ app.post("/voc-intake", async (req, res) => {
       `INSERT INTO tenant_config (tenant_id, config, updated_at)
        VALUES ($1, $2, NOW())
        ON CONFLICT (tenant_id)
-       DO UPDATE SET config = EXCLUDED.config,
-                     updated_at = NOW()`,
+       DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
       [tenant.id, mergedConfig]
     );
 
     await client.query("COMMIT");
-
-    return res.json({
-      customer_profile: vocResult.customer_profile,
-      engagement_style: vocResult.engagement_style,
-      buying_trigger: vocResult.buying_trigger,
-      friction_point: vocResult.friction_point,
-      loyalty_driver: vocResult.loyalty_driver
-    });
+    return res.json(vocResult);
   } catch (error) {
     await client.query("ROLLBACK");
     console.error(error);
@@ -614,6 +628,9 @@ app.post("/voc-intake", async (req, res) => {
   }
 });
 
+/* =========================
+   VERIFY + QUESTIONS + API (Phases 9–11)
+========================= */
 
 app.get("/api/verify/db", async (req, res) => {
   try {
@@ -625,13 +642,22 @@ app.get("/api/verify/db", async (req, res) => {
   }
 });
 
+app.get("/api/verify/questions", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT COUNT(*)::int AS count FROM questions");
+    return res.json({ status: "QUESTIONS_OK", count: result.rows[0].count });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ status: "QUESTIONS_FAIL" });
+  }
+});
+
 app.get("/api/verify/scoring", async (req, res) => {
   try {
     const questions = (await pool.query("SELECT * FROM questions ORDER BY id LIMIT 3")).rows;
     const answers = questions.map((q) => ({ qid: q.qid, answer: "A" }));
     const scores = scoreAnswers(answers, questions);
     const sample = getTopRolesFromScores(scores);
-
     return res.json({ status: "SCORING_OK", sample_result: sample });
   } catch (error) {
     console.error(error);
@@ -639,18 +665,73 @@ app.get("/api/verify/scoring", async (req, res) => {
   }
 });
 
+app.get("/api/verify/intake", async (req, res) => {
+  const client = await pool.connect();
+  try {
+    const tenantRow = await ensureTenant("verify-intake-tenant");
+    const questions = (await pool.query("SELECT qid FROM questions ORDER BY id LIMIT 5")).rows;
+
+    const payload = {
+      email: "verify-intake@garvey.test",
+      tenant: tenantRow.slug || "verify-intake-tenant",
+      answers: questions.map((q, i) => ({ qid: q.qid, answer: ["A", "B", "C", "D"][i % 4] }))
+    };
+
+    await client.query("BEGIN");
+
+    const sessionResult = await client.query(
+      `INSERT INTO intake_sessions (tenant_id, email)
+       VALUES ($1, $2)
+       RETURNING *`,
+      [tenantRow.id, payload.email]
+    );
+
+    const session = sessionResult.rows[0];
+
+    for (const item of payload.answers) {
+      await client.query(
+        `INSERT INTO intake_responses (session_id, question_id, answer)
+         VALUES ($1, $2, $3)`,
+        [session.id, item.qid, item.answer]
+      );
+    }
+
+    const questionRows = (await client.query(`SELECT * FROM questions WHERE qid = ANY($1)`, [questions.map((q) => q.qid)]))
+      .rows;
+
+    const scores = scoreAnswers(payload.answers, questionRows);
+    const result = getTopRolesFromScores(scores);
+
+    await client.query(
+      `INSERT INTO results (session_id, primary_role, secondary_role, scores)
+       VALUES ($1, $2, $3, $4)`,
+      [session.id, result.primary_role, result.secondary_role, scores]
+    );
+
+    await client.query("COMMIT");
+    return res.json({ status: "INTAKE_OK", result });
+  } catch (error) {
+    await client.query("ROLLBACK");
+    console.error(error);
+    return res.status(500).json({ status: "INTAKE_FAIL", error: error.message });
+  } finally {
+    client.release();
+  }
+});
+
 app.get("/api/questions", async (req, res) => {
   try {
     const mode = String(req.query.mode || "25");
-    const mappedType = mode === "60" ? "full" : "fast";
+    const type = mode === "60" ? "full" : "fast";
     const limit = mode === "60" ? 60 : 25;
 
     const result = await pool.query(
-      `SELECT qid, question, options
+      `SELECT qid, question, options, weights, type
        FROM questions
-       ORDER BY id
-       LIMIT $1`,
-      [limit]
+       WHERE type = $1
+       ORDER BY id ASC
+       LIMIT $2`,
+      [type, limit]
     );
 
     const questions = result.rows.map((q) => ({
@@ -660,10 +741,10 @@ app.get("/api/questions", async (req, res) => {
       option_b: q.options?.B || "",
       option_c: q.options?.C || "",
       option_d: q.options?.D || "",
-      type: mappedType
+      type: q.type
     }));
 
-    return res.json({ mode, count: questions.length, questions });
+    return res.json({ mode, type, count: questions.length, questions });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "questions fetch failed" });
@@ -671,43 +752,74 @@ app.get("/api/questions", async (req, res) => {
 });
 
 app.post("/api/intake", async (req, res) => {
+  const client = await pool.connect();
   try {
     const { email, tenant, answers = [] } = req.body;
 
     if (!email || !tenant || !Array.isArray(answers) || answers.length === 0) {
-      return res.status(400).json({ error: "email, tenant, answers are required" });
+      return res.status(400).json({
+        error: "email, tenant, and a non-empty answers array are required"
+      });
     }
+
+    if (!answers.every((a) => a && a.qid && a.answer)) {
+      return res.status(400).json({ error: "Invalid answer format (qid + answer required)" });
+    }
+
+    await client.query("BEGIN");
 
     const tenantRow = await ensureTenant(tenant);
-    const questionRows = (await pool.query("SELECT * FROM questions")).rows;
+
+    const sessionResult = await client.query(
+      `INSERT INTO intake_sessions (tenant_id, email)
+       VALUES ($1, $2)
+       RETURNING *`,
+      [tenantRow.id, email]
+    );
+
+    const session = sessionResult.rows[0];
 
     for (const item of answers) {
-      await pool.query(
-        "INSERT INTO intake_responses (email, tenant, qid, answer) VALUES ($1, $2, $3, $4)",
-        [email, tenant, item.qid, item.answer]
+      await client.query(
+        `INSERT INTO intake_responses (session_id, question_id, answer)
+         VALUES ($1, $2, $3)`,
+        [session.id, item.qid, item.answer]
       );
     }
+
+    const qids = answers.map((a) => a.qid);
+    const questionRows = (await client.query(`SELECT * FROM questions WHERE qid = ANY($1)`, [qids])).rows;
+
+    if (!questionRows.length) throw new Error("No matching questions found for scoring");
 
     const scores = scoreAnswers(answers, questionRows);
     const { primary_role, secondary_role } = getTopRolesFromScores(scores);
 
-    await pool.query(
-      "INSERT INTO results (email, tenant, primary_role, secondary_role, scores) VALUES ($1, $2, $3, $4, $5)",
-      [email, tenant, primary_role, secondary_role, scores]
+    await client.query(
+      `INSERT INTO results (session_id, primary_role, secondary_role, scores)
+       VALUES ($1, $2, $3, $4)`,
+      [session.id, primary_role, secondary_role, scores]
     );
 
-    const rewardSystem = ["builder", "resource_generator"].includes(primary_role);
-    const contentEngine = ["educator", "connector"].includes(primary_role);
-    const referralSystem = ["connector", "nurturer"].includes(primary_role);
-    const engagementEngine = ["connector", "educator", "nurturer"].includes(primary_role);
-    const automationBlueprints = ["architect", "operator"].includes(primary_role);
+    const config = sanitizeConfig({
+      reward_system: ["builder", "resource_generator"].includes(primary_role),
+      email_marketing: false,
+      referral_system: ["connector", "nurturer"].includes(primary_role),
+      analytics_engine: false,
+      engagement_engine: ["connector", "educator", "nurturer"].includes(primary_role),
+      content_engine: ["educator", "connector"].includes(primary_role),
+      automation_blueprints: ["architect", "operator"].includes(primary_role)
+    });
 
-    await pool.query(
+    await client.query(
       `INSERT INTO tenant_config (
-        tenant_id, tenant, config, reward_system, email_marketing, referral_system,
-        analytics_engine, engagement_engine, content_engine, automation_blueprints, updated_at
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, NOW())
-      ON CONFLICT (tenant)
+        tenant_id, config,
+        reward_system, email_marketing, referral_system,
+        analytics_engine, engagement_engine, content_engine, automation_blueprints,
+        updated_at
+      )
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,NOW())
+      ON CONFLICT (tenant_id)
       DO UPDATE SET
         config = EXCLUDED.config,
         reward_system = EXCLUDED.reward_system,
@@ -720,37 +832,45 @@ app.post("/api/intake", async (req, res) => {
         updated_at = NOW()`,
       [
         tenantRow.id,
-        tenant,
-        {
-          reward_system: rewardSystem,
-          email_marketing: false,
-          referral_system: referralSystem,
-          analytics_engine: false,
-          engagement_engine: engagementEngine,
-          content_engine: contentEngine,
-          automation_blueprints: automationBlueprints
-        },
-        rewardSystem,
-        false,
-        referralSystem,
-        false,
-        engagementEngine,
-        contentEngine,
-        automationBlueprints
+        config,
+        config.reward_system,
+        config.email_marketing,
+        config.referral_system,
+        config.analytics_engine,
+        config.engagement_engine,
+        config.content_engine,
+        config.automation_blueprints
       ]
     );
 
-    return res.json({ primary_role, secondary_role, scores });
+    await client.query("COMMIT");
+
+    return res.json({
+      success: true,
+      session_id: session.id,
+      primary_role,
+      secondary_role,
+      scores,
+      config
+    });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "api intake failed" });
+    await client.query("ROLLBACK");
+    console.error("api_intake_failed", error);
+    return res.status(500).json({ error: "api intake failed", details: error.message });
+  } finally {
+    client.release();
   }
 });
 
 app.get("/api/results/:email", async (req, res) => {
   try {
     const result = await pool.query(
-      "SELECT * FROM results WHERE email = $1 ORDER BY created_at DESC LIMIT 1",
+      `SELECT r.*, s.email
+       FROM results r
+       JOIN intake_sessions s ON s.id = r.session_id
+       WHERE s.email = $1
+       ORDER BY r.created_at DESC NULLS LAST, r.id DESC
+       LIMIT 1`,
       [req.params.email]
     );
 
@@ -768,35 +888,20 @@ app.post("/api/admin/config", async (req, res) => {
     if (!tenant) return res.status(400).json({ error: "tenant required" });
 
     const tenantRow = await ensureTenant(tenant);
-    const existing = await pool.query("SELECT * FROM tenant_config WHERE tenant = $1", [tenant]);
+    const existing = await pool.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [tenantRow.id]);
 
     const merged = {
-      reward_system: Boolean(config.reward_system ?? existing.rows[0]?.reward_system ?? false),
-      email_marketing: Boolean(config.email_marketing ?? existing.rows[0]?.email_marketing ?? false),
-      referral_system: Boolean(config.referral_system ?? existing.rows[0]?.referral_system ?? false),
-      analytics_engine: Boolean(config.analytics_engine ?? existing.rows[0]?.analytics_engine ?? false),
-      engagement_engine: Boolean(config.engagement_engine ?? existing.rows[0]?.engagement_engine ?? false),
-      content_engine: Boolean(config.content_engine ?? existing.rows[0]?.content_engine ?? false),
-      automation_blueprints: Boolean(config.automation_blueprints ?? existing.rows[0]?.automation_blueprints ?? false)
+      ...DEFAULT_TENANT_CONFIG,
+      ...(existing.rows[0]?.config || {}),
+      ...sanitizeConfig(config)
     };
 
     await pool.query(
-      `INSERT INTO tenant_config (
-        tenant_id, tenant, config, reward_system, email_marketing, referral_system,
-        analytics_engine, engagement_engine, content_engine, automation_blueprints, updated_at
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, NOW())
-      ON CONFLICT (tenant)
-      DO UPDATE SET
-        config = EXCLUDED.config,
-        reward_system = EXCLUDED.reward_system,
-        email_marketing = EXCLUDED.email_marketing,
-        referral_system = EXCLUDED.referral_system,
-        analytics_engine = EXCLUDED.analytics_engine,
-        engagement_engine = EXCLUDED.engagement_engine,
-        content_engine = EXCLUDED.content_engine,
-        automation_blueprints = EXCLUDED.automation_blueprints,
-        updated_at = NOW()`,
-      [tenantRow.id, tenant, merged, merged.reward_system, merged.email_marketing, merged.referral_system, merged.analytics_engine, merged.engagement_engine, merged.content_engine, merged.automation_blueprints]
+      `INSERT INTO tenant_config (tenant_id, config, updated_at)
+       VALUES ($1, $2, NOW())
+       ON CONFLICT (tenant_id)
+       DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
+      [tenantRow.id, merged]
     );
 
     return res.json({ tenant, config: merged });
@@ -808,62 +913,27 @@ app.post("/api/admin/config", async (req, res) => {
 
 app.get("/api/admin/config/:tenant", async (req, res) => {
   try {
+    const tenantRow = await getTenantBySlug(req.params.tenant);
+    if (!tenantRow) return res.status(404).json({ error: "tenant not found" });
+
     const result = await pool.query(
-      `SELECT tenant, reward_system, email_marketing, referral_system,
-              analytics_engine, engagement_engine, content_engine, automation_blueprints, updated_at
-       FROM tenant_config WHERE tenant = $1`,
-      [req.params.tenant]
+      `SELECT config, updated_at
+       FROM tenant_config
+       WHERE tenant_id = $1`,
+      [tenantRow.id]
     );
 
     if (!result.rows[0]) return res.status(404).json({ error: "tenant config not found" });
-    return res.json(result.rows[0]);
+    return res.json({ tenant: tenantRow.slug, ...result.rows[0] });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "api admin config fetch failed" });
   }
 });
 
-app.get("/api/verify/questions", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT COUNT(*)::int AS count FROM questions");
-    return res.json({ status: "QUESTIONS_OK", count: result.rows[0].count });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ status: "QUESTIONS_FAIL" });
-  }
-});
-
-app.get("/api/verify/intake", async (req, res) => {
-  try {
-    const questions = (await pool.query("SELECT qid FROM questions ORDER BY id LIMIT 5")).rows;
-    const payload = {
-      email: "verify-intake@garvey.test",
-      tenant: "verify-intake-tenant",
-      answers: questions.map((q, i) => ({ qid: q.qid, answer: ["A", "B", "C", "D"][i % 4] }))
-    };
-
-    const questionRows = (await pool.query("SELECT * FROM questions")).rows;
-    for (const item of payload.answers) {
-      await pool.query(
-        "INSERT INTO intake_responses (email, tenant, qid, answer) VALUES ($1, $2, $3, $4)",
-        [payload.email, payload.tenant, item.qid, item.answer]
-      );
-    }
-
-    const scores = scoreAnswers(payload.answers, questionRows);
-    const result = getTopRolesFromScores(scores);
-
-    await pool.query(
-      "INSERT INTO results (email, tenant, primary_role, secondary_role, scores) VALUES ($1, $2, $3, $4, $5)",
-      [payload.email, payload.tenant, result.primary_role, result.secondary_role, scores]
-    );
-
-    return res.json({ status: "INTAKE_OK", result });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ status: "INTAKE_FAIL" });
-  }
-});
+/* =========================
+   FINAL VERIFY + HEALTH
+========================= */
 
 app.get("/verify", async (req, res) => {
   try {
@@ -888,15 +958,20 @@ app.get("/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
-initializeDatabase()
-  .then(async () => {
+/* =========================
+   SERVER STARTUP
+========================= */
+
+(async () => {
+  try {
+    await initializeDatabase();
     await seed(pool);
 
     const intervalMs = Number(process.env.ADAPTIVE_INTERVAL_MS || 300000);
     setInterval(async () => {
       try {
         const results = await runAdaptiveCycle();
-        logEvent("adaptive_cycle", { tenant_count: results.length });
+        logEvent("adaptive_cycle", { tenant_count: Array.isArray(results) ? results.length : null });
       } catch (error) {
         console.error("adaptive_cycle_failed", error);
       }
@@ -905,8 +980,8 @@ initializeDatabase()
     app.listen(PORT, () => {
       console.log(`Garvey server listening on port ${PORT}`);
     });
-  })
-  .catch((error) => {
+  } catch (error) {
     console.error("Database initialization failed", error);
     process.exit(1);
-  });
+  }
+})();

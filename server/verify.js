@@ -1,3 +1,12 @@
+// FILE: server/verify.js
+// ✅ Resolved conflicts
+// ✅ Aligned to current server/index.js source-of-truth:
+//    - legacy UI intake: POST /intake supports quick(25) + deep(60)
+//    - api intake exists, but verify() here intentionally validates legacy /verify pipeline
+// ✅ Keeps formatting consistent and removes duplicate/conflict markers
+
+"use strict";
+
 const { pool } = require("./db");
 const { analyzeTenantPerformance } = require("./adaptiveEngine");
 
@@ -15,11 +24,14 @@ const requiredTables = [
   "voc_sessions",
   "voc_responses",
   "voc_results",
-  "tenant_config"
+  "tenant_config",
+  "questions",
+  "results"
 ];
 
 async function checkDatabase() {
   await pool.query("SELECT 1");
+
   const tableResult = await pool.query(
     `SELECT table_name
      FROM information_schema.tables
@@ -31,22 +43,38 @@ async function checkDatabase() {
 }
 
 async function checkIntakePipeline(baseUrl) {
-  const payload = {
+  const quickPayload = {
     email: "verify@garvey.test",
     tenant_slug: "verify-tenant",
     mode: "quick",
     answers: Array.from({ length: 25 }, (_, i) => ["A", "B", "C", "D"][i % 4])
   };
 
-  const response = await fetch(`${baseUrl}/intake`, {
+  const deepPayload = {
+    email: "verify@garvey.test",
+    tenant_slug: "verify-tenant",
+    mode: "deep",
+    answers: Array.from({ length: 60 }, (_, i) => ["A", "B", "C", "D"][i % 4])
+  };
+
+  const quickRes = await fetch(`${baseUrl}/intake`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(quickPayload)
   });
 
-  if (!response.ok) return false;
-  const json = await response.json();
-  return Boolean(json.primary_role && json.secondary_role && json.config);
+  if (!quickRes.ok) return false;
+
+  const deepRes = await fetch(`${baseUrl}/intake`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(deepPayload)
+  });
+
+  if (!deepRes.ok) return false;
+
+  const deepJson = await deepRes.json();
+  return Boolean(deepJson.primary_role && deepJson.secondary_role && deepJson.config);
 }
 
 async function checkAdminConfigFlow(baseUrl) {
@@ -55,12 +83,15 @@ async function checkAdminConfigFlow(baseUrl) {
   const getRes = await fetch(`${baseUrl}/t/${tenantSlug}/admin/config`);
   if (!getRes.ok) return false;
 
-  const postRes = await fetch(`${baseUrl}/t/${tenantSlug}/admin/config`, {
+  const updateRes = await fetch(`${baseUrl}/t/${tenantSlug}/admin/config`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ config: { reward_system: false, referral_system: false } })
+    body: JSON.stringify({
+      config: { reward_system: false, referral_system: false }
+    })
   });
-  if (!postRes.ok) return false;
+
+  if (!updateRes.ok) return false;
 
   const checkinRes = await fetch(`${baseUrl}/t/${tenantSlug}/checkin`, {
     method: "POST",
@@ -69,13 +100,17 @@ async function checkAdminConfigFlow(baseUrl) {
   });
 
   if (!checkinRes.ok) return false;
+
   const checkinJson = await checkinRes.json();
   if (checkinJson.points_added !== 0) return false;
 
   const referralRes = await fetch(`${baseUrl}/t/${tenantSlug}/referral`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: "verify@garvey.test", referred_email: "verify2@garvey.test" })
+    body: JSON.stringify({
+      email: "verify@garvey.test",
+      referred_email: "verify-ref@example.com"
+    })
   });
 
   return referralRes.status === 403;
@@ -114,7 +149,7 @@ async function checkAdaptiveEngine(baseUrl) {
   if (!tenantRow.rows[0]) return false;
 
   const result = await analyzeTenantPerformance(tenantRow.rows[0].id);
-  return Boolean(result.config && result.config.system_adjustments_log);
+  return Boolean(result?.config && result.config.system_adjustments_log);
 }
 
 async function runVerification(baseUrl) {
@@ -148,6 +183,4 @@ async function runVerification(baseUrl) {
   return status;
 }
 
-module.exports = {
-  runVerification
-};
+module.exports = { runVerification };
