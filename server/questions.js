@@ -1,17 +1,27 @@
 // FILE: server/questions.js
-// Keep this file simple: export question retrieval helpers (optional).
+// ✅ New-only helper (optional): DB → frontend-compatible shape
 // ✅ No seeding here (seeding lives in server/seedQuestions.js)
 // ✅ No Express router here (routing lives in server/index.js)
 
 "use strict";
 
-async function fetchQuestionsByMode(pool, mode = "25") {
+function normalizeMode(mode) {
   const modeStr = String(mode || "25");
+  if (!["25", "60"].includes(modeStr)) {
+    const err = new Error("mode must be 25 or 60");
+    err.statusCode = 400;
+    throw err;
+  }
+  return modeStr;
+}
+
+async function fetchQuestionsByMode(pool, mode = "25") {
+  const modeStr = normalizeMode(mode);
   const type = modeStr === "60" ? "full" : "fast";
   const limit = modeStr === "60" ? 60 : 25;
 
   const result = await pool.query(
-    `SELECT qid, question, options, weights, type
+    `SELECT qid, question, options, type
      FROM questions
      WHERE type = $1
      ORDER BY id ASC
