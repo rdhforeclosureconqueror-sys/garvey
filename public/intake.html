@@ -1,132 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Garvey BII Intake</title>
+  <meta charset="UTF-8">
+  <title>UJAMAA Intake</title>
+
   <style>
-    body { font-family: Arial, sans-serif; max-width: 760px; margin: 24px auto; }
-    .bar-wrap { width: 100%; background: #eee; border-radius: 8px; height: 16px; margin: 12px 0; }
-    .bar { height: 100%; width: 0%; border-radius: 8px; background: #2f7cf6; }
-    .choices button { margin-right: 8px; margin-bottom: 8px; }
-    .selected { background-color: #2f7cf6; color: #fff; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #38bdf8;
+      color: black;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    #progress {
+      margin-bottom: 15px;
+      opacity: 0.7;
+    }
   </style>
+
 </head>
+
 <body>
-  <h1>Business Intelligence Intake</h1>
 
-  <label>Email <input id="email" type="email" value="test@email.com" /></label>
-  <label>Tenant Slug <input id="tenant" value="test-business" /></label>
-  <label>Mode
-    <select id="mode" onchange="resetFlow()">
-      <option value="quick">25 Questions</option>
-      <option value="deep">60 Questions</option>
-    </select>
-  </label>
-
-  <p id="sectionLabel"></p>
-  <p id="questionLabel"></p>
-  <div class="bar-wrap"><div class="bar" id="progressBar"></div></div>
-  <p id="percent"></p>
-
-  <div class="choices">
-    <button onclick="selectAnswer('A')">A</button>
-    <button onclick="selectAnswer('B')">B</button>
-    <button onclick="selectAnswer('C')">C</button>
-    <button onclick="selectAnswer('D')">D</button>
+  <div class="card">
+    <h2>UJAMAA Role Assessment</h2>
+    <div id="progress">Loading questions...</div>
+    <div id="question"></div>
+    <div id="answers"></div>
   </div>
 
-  <button id="submitBtn" onclick="submitIntake()" disabled>Submit Intake</button>
-
-  <h2>Result</h2>
-  <pre id="result"></pre>
-
   <script>
-    const sectionNames = ["Vision", "Operations", "Growth", "Customer", "Systems"];
+    let questions = [];
+    let currentIndex = 0;
     let answers = [];
 
-    function hydrateFromQuery() {
-      const params = new URLSearchParams(window.location.search);
-      const tenant = params.get("tenant");
-      if (tenant) {
-        document.getElementById("tenant").value = tenant;
+    const email = prompt("Enter your email:");
+    const tenant = "default";
+
+    // LOAD QUESTIONS FROM BACKEND
+    async function loadQuestions() {
+      try {
+        const res = await fetch("/api/questions");
+        const data = await res.json();
+
+        questions = data.questions || data;
+
+        if (!questions.length) {
+          document.getElementById("question").innerText = "No questions found.";
+          return;
+        }
+
+        renderQuestion();
+      } catch (err) {
+        console.error(err);
+        document.getElementById("question").innerText = "Error loading questions.";
       }
     }
 
-    function totalQuestions() {
-      return document.getElementById("mode").value === "deep" ? 60 : 25;
-    }
-
+    // DISPLAY CURRENT QUESTION
     function renderQuestion() {
-      const total = totalQuestions();
-      const index = answers.length;
+      const q = questions[currentIndex];
 
-      document.getElementById("questionLabel").innerText =
-        index < total
-          ? `Question ${index + 1} of ${total}`
-          : `Completed ${total} of ${total}`;
+      document.getElementById("progress").innerText =
+        `Question ${currentIndex + 1} of ${questions.length}`;
 
-      const sectionIndex = Math.min(
-        Math.floor((index / total) * sectionNames.length),
-        sectionNames.length - 1
-      );
+      document.getElementById("question").innerText = q.question;
 
-      document.getElementById("sectionLabel").innerText =
-        `Section: ${sectionNames[sectionIndex]}`;
+      const answersDiv = document.getElementById("answers");
+      answersDiv.innerHTML = "";
 
-      const percent = Math.round((answers.length / total) * 100);
-      document.getElementById("progressBar").style.width = `${percent}%`;
-      document.getElementById("percent").innerText = `${percent}% complete`;
-      document.getElementById("submitBtn").disabled = answers.length !== total;
-    }
-
-    function clearSelection() {
-      document.querySelectorAll('.choices button')
-        .forEach((btn) => btn.classList.remove('selected'));
-    }
-
-    function selectAnswer(value) {
-      const total = totalQuestions();
-      if (answers.length >= total) return;
-
-      answers.push(value);
-      clearSelection();
-
-      const selectedButton = Array.from(document.querySelectorAll('.choices button'))
-        .find((btn) => btn.innerText === value);
-
-      if (selectedButton) selectedButton.classList.add('selected');
-
-      setTimeout(clearSelection, 120);
-      renderQuestion();
-    }
-
-    function resetFlow() {
-      answers = [];
-      document.getElementById("result").innerText = "";
-      clearSelection();
-      hydrateFromQuery();
-      renderQuestion();
-    }
-
-    async function submitIntake() {
-      const email = document.getElementById("email").value;
-      const tenant_slug = document.getElementById("tenant").value;
-      const mode = document.getElementById("mode").value;
-
-      const res = await fetch("/intake", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, tenant_slug, mode, answers })
+      ["a", "b", "c", "d"].forEach(letter => {
+        const btn = document.createElement("button");
+        btn.innerText = q[`option_${letter}`] || letter.toUpperCase();
+        btn.onclick = () => handleAnswer(q.qid, letter.toUpperCase());
+        answersDiv.appendChild(btn);
       });
-
-      const data = await res.json();
-      document.getElementById("result").innerText =
-        JSON.stringify(data, null, 2);
     }
 
-    hydrateFromQuery();
-    renderQuestion();
+    // HANDLE USER ANSWER
+    function handleAnswer(qid, answer) {
+      answers.push({ qid, answer });
+
+      currentIndex++;
+
+      if (currentIndex < questions.length) {
+        renderQuestion();
+      } else {
+        submitAnswers();
+      }
+    }
+
+    // SUBMIT RESULTS TO BACKEND
+    async function submitAnswers() {
+      try {
+        const res = await fetch("/api/intake", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            email,
+            tenant,
+            answers
+          })
+        });
+
+        const result = await res.json();
+
+        document.querySelector(".card").innerHTML = `
+          <h2>Results</h2>
+          <p><strong>Primary Role:</strong> ${result.primary_role}</p>
+          <p><strong>Secondary Role:</strong> ${result.secondary_role}</p>
+        `;
+      } catch (err) {
+        console.error(err);
+        document.querySelector(".card").innerHTML = "Error submitting results.";
+      }
+    }
+
+    // START SYSTEM
+    loadQuestions();
   </script>
+
 </body>
 </html>
