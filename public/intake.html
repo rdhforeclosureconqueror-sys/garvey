@@ -53,6 +53,8 @@
   </div>
 
   <script>
+    const BASE_URL = "https://garveybackend.onrender.com";
+
     let questions = [];
     let currentIndex = 0;
     let answers = [];
@@ -63,7 +65,12 @@
     // LOAD QUESTIONS FROM BACKEND
     async function loadQuestions() {
       try {
-        const res = await fetch("/api/questions");
+        const res = await fetch(`${BASE_URL}/api/questions`);
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch questions");
+        }
+
         const data = await res.json();
 
         questions = data.questions || data;
@@ -74,6 +81,7 @@
         }
 
         renderQuestion();
+
       } catch (err) {
         console.error(err);
         document.getElementById("question").innerText = "Error loading questions.";
@@ -87,7 +95,7 @@
       document.getElementById("progress").innerText =
         `Question ${currentIndex + 1} of ${questions.length}`;
 
-      document.getElementById("question").innerText = q.question;
+      document.getElementById("question").innerText = q.question || "No question text";
 
       const answersDiv = document.getElementById("answers");
       answersDiv.innerHTML = "";
@@ -116,7 +124,7 @@
     // SUBMIT RESULTS TO BACKEND
     async function submitAnswers() {
       try {
-        const res = await fetch("/api/intake", {
+        const res = await fetch(`${BASE_URL}/api/intake`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -128,6 +136,10 @@
           })
         });
 
+        if (!res.ok) {
+          throw new Error("Failed to submit answers");
+        }
+
         const result = await res.json();
 
         document.querySelector(".card").innerHTML = `
@@ -135,6 +147,7 @@
           <p><strong>Primary Role:</strong> ${result.primary_role}</p>
           <p><strong>Secondary Role:</strong> ${result.secondary_role}</p>
         `;
+
       } catch (err) {
         console.error(err);
         document.querySelector(".card").innerHTML = "Error submitting results.";
