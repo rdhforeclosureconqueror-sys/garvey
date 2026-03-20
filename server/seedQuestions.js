@@ -41,7 +41,6 @@ async function seed() {
       };
     }
 
-    // 🔥 FULL 60 QUESTIONS
     for (let i = 1; i <= 60; i++) {
       const options = buildOptions("full");
 
@@ -70,7 +69,6 @@ async function seed() {
       );
     }
 
-    // ⚡ FAST 25 QUESTIONS
     for (let i = 1; i <= 25; i++) {
       const options = buildOptions("fast");
 
@@ -100,12 +98,11 @@ async function seed() {
     }
 
     console.log("🔥 ALL QUESTIONS SEEDED SUCCESSFULLY");
-    process.exit();
 
   } catch (err) {
     console.error("❌ SEED ERROR:", err);
-    process.exit(1);
+    throw err; // 🔥 important for db.js to catch
   }
 }
 
-seed();
+module.exports = { seed };
