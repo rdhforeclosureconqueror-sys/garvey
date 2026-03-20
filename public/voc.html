@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Garvey VOC Intake</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 760px; margin: 24px auto; }
+    .bar-wrap { width: 100%; background: #eee; border-radius: 8px; height: 16px; margin: 12px 0; }
+    .bar { height: 100%; width: 0%; border-radius: 8px; background: #17a34a; }
+    .choices button { margin-right: 8px; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Customer Voice (VOC) Intake</h1>
+
+  <label>Email <input id="email" value="customer@test.com" /></label>
+  <label>Tenant Slug <input id="tenant" value="test-business" /></label>
+
+  <p id="questionLabel"></p>
+  <div class="bar-wrap"><div class="bar" id="progressBar"></div></div>
+  <p id="percent"></p>
+
+  <div class="choices">
+    <button onclick="selectAnswer('A')">A</button>
+    <button onclick="selectAnswer('B')">B</button>
+    <button onclick="selectAnswer('C')">C</button>
+    <button onclick="selectAnswer('D')">D</button>
+  </div>
+
+  <button id="submitBtn" disabled onclick="submitVOC()">Submit VOC</button>
+
+  <h3>Result</h3>
+  <pre id="result"></pre>
+
+  <script>
+    const TOTAL = 25;
+    const answers = [];
+
+    function render() {
+      document.getElementById("questionLabel").innerText =
+        answers.length < TOTAL
+          ? `Question ${answers.length + 1} of ${TOTAL}`
+          : `Completed ${TOTAL} of ${TOTAL}`;
+
+      const percent = Math.round((answers.length / TOTAL) * 100);
+      document.getElementById("progressBar").style.width = `${percent}%`;
+      document.getElementById("percent").innerText = `${percent}% complete`;
+      document.getElementById("submitBtn").disabled = answers.length !== TOTAL;
+    }
+
+    function selectAnswer(answer) {
+      if (answers.length >= TOTAL) return;
+      answers.push(answer);
+      render();
+    }
+
+    async function submitVOC() {
+      const payload = {
+        email: document.getElementById("email").value,
+        tenant_slug: document.getElementById("tenant").value,
+        answers
+      };
+
+      const res = await fetch("/voc-intake", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+    }
+
+    render();
+  </script>
+</body>
+</html>
