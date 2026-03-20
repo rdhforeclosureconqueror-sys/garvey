@@ -1,5 +1,6 @@
 // FILE: server/biiEngine.js
-// Resolved: keep identical behavior; only formatting differences existed.
+// ✅ Legacy BII engine kept intact (behavior unchanged).
+// ✅ Conflict markers removed; formatting normalized.
 
 "use strict";
 
@@ -27,14 +28,14 @@ function initializeRoles() {
 function scoreAssessment(answers = []) {
   const roles = initializeRoles();
 
-  answers.forEach((answer) => {
+  for (const answer of answers) {
     const roleWeightMap = scoringMap[answer];
-    if (!roleWeightMap) return;
+    if (!roleWeightMap) continue;
 
-    Object.entries(roleWeightMap).forEach(([role, weight]) => {
+    for (const [role, weight] of Object.entries(roleWeightMap)) {
       roles[role] += weight;
-    });
-  });
+    }
+  }
 
   return roles;
 }
@@ -42,8 +43,8 @@ function scoreAssessment(answers = []) {
 function getTopRoles(roles) {
   const sortedRoles = Object.entries(roles).sort((a, b) => b[1] - a[1]);
   return {
-    primary: sortedRoles[0][0],
-    secondary: sortedRoles[1][0]
+    primary: sortedRoles[0]?.[0] || null,
+    secondary: sortedRoles[1]?.[0] || null
   };
 }
 
