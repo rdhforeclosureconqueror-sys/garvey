@@ -647,12 +647,18 @@ app.get("/api/questions", async (req, res) => {
     const limit = mode === "60" ? 60 : 25;
 
     const result = await pool.query(
-      `SELECT qid, question, option_a, option_b, option_c, option_d, type
+      `SELECT qid, question, options, weights, type
        FROM questions
        ORDER BY id
        LIMIT $1`,
       [limit]
     );
+
+    return res.json({
+      mode,
+      count: result.rows.length,
+      questions: result.rows
+    });
 
     return res.json({ mode, count: result.rows.length, questions: result.rows });
   } catch (error) {
