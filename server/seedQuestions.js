@@ -54,10 +54,15 @@ async function seed() {
 
       await pool.query(
         `INSERT INTO questions (qid, question, options, weights, type)
-         VALUES ($1, $2, $3::jsonb, $4::jsonb, $5)`,
+         VALUES ($1, $2, $3::jsonb, $4::jsonb, $5)
+         ON CONFLICT (qid) DO UPDATE SET
+           question = EXCLUDED.question,
+           options = EXCLUDED.options,
+           weights = EXCLUDED.weights,
+           type = EXCLUDED.type`,
         [
           `Q${i}`,
-          `Question ${i}: How do you naturally respond in real situations?`,
+          `Question ${i}: How do you naturally respond in real-world situations?`,
           JSON.stringify(options),
           JSON.stringify(weights),
           "full"
@@ -78,7 +83,12 @@ async function seed() {
 
       await pool.query(
         `INSERT INTO questions (qid, question, options, weights, type)
-         VALUES ($1, $2, $3::jsonb, $4::jsonb, $5)`,
+         VALUES ($1, $2, $3::jsonb, $4::jsonb, $5)
+         ON CONFLICT (qid) DO UPDATE SET
+           question = EXCLUDED.question,
+           options = EXCLUDED.options,
+           weights = EXCLUDED.weights,
+           type = EXCLUDED.type`,
         [
           `FQ${i}`,
           `Quick Question ${i}: What feels most natural to you?`,
