@@ -1,10 +1,10 @@
-function buildSeeder(pool) {
-return async function seed() {
+function seedQuestions(pool) {
+return (async () => {
 try {
 console.log("🌱 Seeding questions...");
 
 ```
-  await pool.query(`DELETE FROM questions;`);
+  await pool.query("DELETE FROM questions;");
 
   const roles = [
     "Architect","Operator","Steward","Builder",
@@ -13,7 +13,7 @@ console.log("🌱 Seeding questions...");
 
   function generateWeights(primaryIndex) {
     const weights = {};
-    roles.forEach(r => { weights[r] = 0; });
+    roles.forEach(r => weights[r] = 0);
 
     const primary = roles[primaryIndex % roles.length];
     const secondary = roles[(primaryIndex + 3) % roles.length];
@@ -40,7 +40,6 @@ console.log("🌱 Seeding questions...");
         };
   }
 
-  // FULL
   for (let i = 1; i <= 60; i++) {
     const options = buildOptions("full");
 
@@ -69,7 +68,6 @@ console.log("🌱 Seeding questions...");
     );
   }
 
-  // FAST
   for (let i = 1; i <= 25; i++) {
     const options = buildOptions("fast");
 
@@ -106,7 +104,7 @@ console.log("🌱 Seeding questions...");
 }
 ```
 
-};
+})();
 }
 
-module.exports = { buildSeeder };
+module.exports = { seedQuestions };
