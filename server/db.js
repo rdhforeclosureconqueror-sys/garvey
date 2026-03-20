@@ -19,9 +19,11 @@ const pool = new Pool(
       }
 );
 
+// 🔥 IMPORT SEED FUNCTION
+const { seed } = require("./seedQuestions");
+
 async function initializeDatabase() {
-  // 🔥 FORCE CLEAN QUESTIONS TABLE (NEW SYSTEM)
-  await pool.query(`DROP TABLE IF EXISTS questions;`);
+  console.log("🧠 Initializing database...");
 
   await pool.query(`
 
@@ -112,33 +114,6 @@ async function initializeDatabase() {
     created_at TIMESTAMPTZ DEFAULT NOW()
   );
 
-  -- VOC SYSTEM
-  CREATE TABLE IF NOT EXISTS voc_sessions (
-    id SERIAL PRIMARY KEY,
-    tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
-    email TEXT NOT NULL,
-    created_at TIMESTAMPTZ DEFAULT NOW()
-  );
-
-  CREATE TABLE IF NOT EXISTS voc_responses (
-    id SERIAL PRIMARY KEY,
-    session_id INTEGER NOT NULL REFERENCES voc_sessions(id) ON DELETE CASCADE,
-    question_id INTEGER NOT NULL,
-    answer TEXT NOT NULL,
-    created_at TIMESTAMPTZ DEFAULT NOW()
-  );
-
-  CREATE TABLE IF NOT EXISTS voc_results (
-    session_id INTEGER PRIMARY KEY REFERENCES voc_sessions(id) ON DELETE CASCADE,
-    customer_profile TEXT NOT NULL,
-    engagement_style TEXT NOT NULL,
-    buying_trigger TEXT NOT NULL,
-    friction_point TEXT NOT NULL,
-    loyalty_driver TEXT NOT NULL,
-    created_at TIMESTAMPTZ DEFAULT NOW()
-  );
-
-  -- RESULTS
   CREATE TABLE IF NOT EXISTS results (
     id SERIAL PRIMARY KEY,
     session_id INTEGER REFERENCES intake_sessions(id) ON DELETE CASCADE,
@@ -148,37 +123,31 @@ async function initializeDatabase() {
     created_at TIMESTAMPTZ DEFAULT NOW()
   );
 
-  -- 🔥 FINAL QUESTIONS SYSTEM (JSON BASED)
-  CREATE TABLE questions (
+  -- 🔥 QUESTIONS TABLE (JSON SYSTEM)
+  CREATE TABLE IF NOT EXISTS questions (
     id SERIAL PRIMARY KEY,
-    qid TEXT,
+    qid TEXT UNIQUE,
     question TEXT,
     options JSONB,
     weights JSONB,
     type TEXT
   );
 
-  -- TENANT CONFIG
-  CREATE TABLE IF NOT EXISTS tenant_config (
-    id SERIAL PRIMARY KEY,
-    tenant_id INTEGER UNIQUE REFERENCES tenants(id) ON DELETE CASCADE,
-    config JSONB NOT NULL DEFAULT '{}'::jsonb,
-    generated_from_session_id INTEGER REFERENCES intake_sessions(id) ON DELETE SET NULL,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW(),
-    reward_system BOOLEAN DEFAULT false,
-    email_marketing BOOLEAN DEFAULT false,
-    referral_system BOOLEAN DEFAULT false,
-    analytics_engine BOOLEAN DEFAULT false,
-    engagement_engine BOOLEAN DEFAULT false,
-    content_engine BOOLEAN DEFAULT false,
-    automation_blueprints BOOLEAN DEFAULT false
-  );
-
-  -- INDEXES
   CREATE INDEX IF NOT EXISTS idx_questions_qid ON questions(qid);
 
   `);
+
+  // 🔥 AUTO-SEED LOGIC (CRITICAL FIX)
+  const result = await pool.query(`SELECT COUNT(*)::int AS count FROM questions`);
+  const count = result.rows[0].count;
+
+  if (count === 0) {
+    console.log("🌱 No questions found → seeding now...");
+    await seed();
+    console.log("✅ Questions seeded automatically");
+  } else {
+    console.log(`✅ Questions already exist (${count})`);
+  }
 }
 
 module.exports = { pool, initializeDatabase };
