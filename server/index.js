@@ -659,8 +659,7 @@ app.get("/api/questions", async (req, res) => {
       count: result.rows.length,
       questions: result.rows
     });
-
-    return res.json({ mode, count: result.rows.length, questions: result.rows });
+    
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "questions fetch failed" });
