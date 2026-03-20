@@ -16,18 +16,18 @@
       border-radius:10px; border:1px solid #334155; background:#0b1020; color:#fff;
     }
     .meta { color:#94a3b8; font-size:12px; margin-top:6px; }
+    .err { color:#fca5a5; }
     .bar { height:10px; background:#222; border-radius:999px; overflow:hidden; margin-top:10px; }
     .bar > div { height:100%; width:0%; background:#22c55e; transition: width 120ms linear; }
     .btn {
       display:block; width:100%; padding:14px; margin:10px 0;
       border-radius:10px; border:2px solid #000; background:gold; color:#000;
-      font-weight:700; cursor:pointer; text-align:center;
+      font-weight:700; cursor:pointer; text-align:left; line-height:1.25;
     }
     .btn:hover { background:#ef4444; color:#fff; }
     .btn:disabled { opacity:0.6; cursor:not-allowed; }
     pre { background:#0b1020; border:1px solid #334155; border-radius:10px; padding:12px; overflow:auto; text-align:left; }
     a { color:#93c5fd; } a:hover { color:#bfdbfe; }
-    .err { color:#fca5a5; }
   </style>
 </head>
 
@@ -41,20 +41,17 @@
     </div>
 
     <div class="meta" id="apiMeta"></div>
+    <div class="meta" id="status"></div>
+
     <div class="meta" id="progressText">Loading…</div>
     <div class="bar"><div id="progressFill"></div></div>
 
-    <div style="margin-top:14px;">
-      <button class="btn" type="button" onclick="selectAnswer('A')">A</button>
-      <button class="btn" type="button" onclick="selectAnswer('B')">B</button>
-      <button class="btn" type="button" onclick="selectAnswer('C')">C</button>
-      <button class="btn" type="button" onclick="selectAnswer('D')">D</button>
-    </div>
+    <div style="margin-top:14px; font-size:18px;" id="questionText"></div>
+    <div id="optionsContainer"></div>
 
-    <button class="btn" id="submitBtn" type="button" disabled onclick="submitVOC()">Submit VOC</button>
+    <button class="btn" id="submitBtn" type="button" disabled>Submit VOC</button>
 
     <h3 style="color:#93c5fd; margin-top:18px;">Result</h3>
-    <div class="meta" id="status"></div>
     <pre id="result">{}</pre>
 
     <div class="meta" style="margin-top:14px;">
@@ -72,39 +69,23 @@
       return "";
     })();
 
-    const TOTAL = 25;
-    const answers = [];
+    let questions = [];
+    let answers = [];
+    let currentIndex = 0;
+
+    function qs(id) { return document.getElementById(id); }
 
     function setMeta() {
-      document.getElementById("apiMeta").innerText =
-        API_BASE ? `API: ${API_BASE}` : "API: same-origin";
-
+      qs("apiMeta").innerText = API_BASE ? `API: ${API_BASE}` : "API: same-origin";
       const params = new URLSearchParams(window.location.search);
       const t = (params.get("tenant") || "").trim();
-      if (t) document.getElementById("tenant").value = t;
+      if (t) qs("tenant").value = t;
     }
 
     function setStatus(msg, isErr = false) {
-      const el = document.getElementById("status");
+      const el = qs("status");
       el.className = isErr ? "meta err" : "meta";
       el.innerText = msg || "";
-    }
-
-    function render() {
-      const pct = Math.round((answers.length / TOTAL) * 100);
-      document.getElementById("progressFill").style.width = `${pct}%`;
-      document.getElementById("progressText").innerText =
-        answers.length < TOTAL
-          ? `Question ${answers.length + 1} of ${TOTAL} (${pct}%)`
-          : `Completed ${TOTAL} of ${TOTAL} (100%)`;
-
-      document.getElementById("submitBtn").disabled = answers.length !== TOTAL;
-    }
-
-    function selectAnswer(answer) {
-      if (answers.length >= TOTAL) return;
-      answers.push(answer);
-      render();
     }
 
     async function readJsonOrText(res) {
@@ -113,17 +94,91 @@
       return await res.text();
     }
 
-    async function submitVOC() {
-      const email = (document.getElementById("email").value || "").trim();
-      const tenant_slug = (document.getElementById("tenant").value || "").trim();
+    function setProgress() {
+      const total = Math.max(questions.length, 1);
+      const pct = Math.round((currentIndex / total) * 100);
+      qs("progressFill").style.width = `${pct}%`;
+      qs("progressText").innerText = questions.length
+        ? `Question ${Math.min(currentIndex + 1, questions.length)} of ${questions.length} (${pct}%)`
+        : "Loading…";
+      qs("submitBtn").disabled = currentIndex < questions.length;
+    }
 
-      if (!email || !tenant_slug) {
-        setStatus("Email and tenant slug are required.", true);
+    async function loadVocQuestions() {
+      try {
+        setStatus("Loading…");
+        qs("result").innerText = "{}";
+        answers = [];
+        currentIndex = 0;
+
+        // Reuse fast questions for VOC UI until/unless you add VOC-specific table/routes.
+        const res = await fetch(`${API_BASE}/api/questions?mode=25`);
+        const data = await readJsonOrText(res);
+
+        if (!res.ok) {
+          const msg = typeof data === "string" ? data : (data?.error || "Failed to load questions");
+          throw new Error(msg);
+        }
+
+        questions = Array.isArray(data.questions) ? data.questions : [];
+        if (!questions.length) throw new Error("No questions returned");
+
+        showQuestion();
+        setStatus("OK");
+      } catch (err) {
+        console.error(err);
+        qs("questionText").innerText = "❌ Failed to load questions";
+        qs("optionsContainer").innerHTML = "";
+        setProgress();
+        setStatus(err.message, true);
+      }
+    }
+
+    function showQuestion() {
+      setProgress();
+      const q = questions[currentIndex];
+      if (!q) {
+        qs("questionText").innerText = "Ready to submit VOC";
+        qs("optionsContainer").innerHTML = "";
         return;
       }
 
+      qs("questionText").innerText = q.question || "(missing question text)";
+      const container = qs("optionsContainer");
+      container.innerHTML = "";
+
+      const options = [
+        ["A", q.option_a],
+        ["B", q.option_b],
+        ["C", q.option_c],
+        ["D", q.option_d]
+      ];
+
+      for (const [key, value] of options) {
+        const btn = document.createElement("button");
+        btn.className = "btn";
+        btn.innerText = `${key}: ${value || ""}`;
+        btn.disabled = !value;
+        btn.onclick = () => {
+          // For VOC backend: it expects array of "A/B/C/D" (not qid objects)
+          answers.push(key);
+          currentIndex += 1;
+          showQuestion();
+        };
+        container.appendChild(btn);
+      }
+    }
+
+    async function submitVOC() {
+      const email = (qs("email").value || "").trim();
+      const tenant_slug = (qs("tenant").value || "").trim();
+
+      if (!email || !tenant_slug) return setStatus("Email and tenant slug are required.", true);
+      if (!answers.length) return setStatus("No answers captured.", true);
+
       try {
         setStatus("Submitting…");
+
         const res = await fetch(`${API_BASE}/voc-intake`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -134,21 +189,21 @@
 
         if (!res.ok) {
           const msg = typeof data === "string" ? data : (data?.error || "VOC submit failed");
-          setStatus(msg, true);
-          document.getElementById("result").innerText = JSON.stringify(data, null, 2);
-          return;
+          throw new Error(msg);
         }
 
         setStatus("Submitted.");
-        document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+        qs("result").innerText = JSON.stringify(data, null, 2);
       } catch (err) {
         console.error(err);
-        setStatus(`Error: ${err.message}`, true);
+        setStatus(err.message, true);
       }
     }
 
+    qs("submitBtn").addEventListener("click", submitVOC);
+
     setMeta();
-    render();
+    loadVocQuestions();
   </script>
 </body>
 </html>
