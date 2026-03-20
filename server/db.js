@@ -1,8 +1,10 @@
 /* FILE: server/db.js
-   NEW-ONLY schema (no legacy columns).
-   Matches NEW server/index.js contract:
-   - /api/intake writes intake_responses.question_id = qid (TEXT)
-   - questions uses JSONB: options, weights, plus type ("fast" | "full")
+   NEW-only schema, but deployment-safe (idempotent).
+   - Creates tables if missing
+   - Adds missing columns if table already exists
+   - Fixes column types if old DB differs (e.g., question_id int -> text)
+   - Adds FK constraints + indexes if missing
+
    Exports ONLY: { pool, initializeDatabase }
 */
 "use strict";
@@ -28,6 +30,10 @@ const pool = new Pool(
 
 async function initializeDatabase() {
   await pool.query(`
+    /* =========================
+       BASE TABLES
+    ========================= */
+
     CREATE TABLE IF NOT EXISTS tenants (
       id SERIAL PRIMARY KEY,
       name TEXT NOT NULL DEFAULT '',
@@ -89,7 +95,10 @@ async function initializeDatabase() {
       UNIQUE (tenant_id, referrer_user_id, referred_user_id)
     );
 
-    /* NEW intake pipeline */
+    /* =========================
+       NEW INTAKE PIPELINE
+    ========================= */
+
     CREATE TABLE IF NOT EXISTS intake_sessions (
       id SERIAL PRIMARY KEY,
       tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
@@ -115,7 +124,10 @@ async function initializeDatabase() {
       created_at TIMESTAMPTZ DEFAULT NOW()
     );
 
-    /* Questions JSONB engine */
+    /* =========================
+       QUESTIONS (JSONB engine)
+    ========================= */
+
     CREATE TABLE IF NOT EXISTS questions (
       id SERIAL PRIMARY KEY,
       qid TEXT UNIQUE,
@@ -125,7 +137,10 @@ async function initializeDatabase() {
       type TEXT NOT NULL
     );
 
-    /* Tenant config (new-only) */
+    /* =========================
+       TENANT CONFIG (new-only)
+    ========================= */
+
     CREATE TABLE IF NOT EXISTS tenant_config (
       id SERIAL PRIMARY KEY,
       tenant_id INTEGER UNIQUE REFERENCES tenants(id) ON DELETE CASCADE,
@@ -133,10 +148,112 @@ async function initializeDatabase() {
       updated_at TIMESTAMPTZ DEFAULT NOW()
     );
 
+    /* =========================
+       MIGRATIONS / COMPATIBILITY
+       (Only to satisfy NEW server contract)
+    ========================= */
+
+    -- Ensure required columns exist (fixes: "column session_id does not exist")
+    ALTER TABLE IF EXISTS results ADD COLUMN IF NOT EXISTS session_id INTEGER;
+    ALTER TABLE IF EXISTS results ADD COLUMN IF NOT EXISTS primary_role TEXT;
+    ALTER TABLE IF EXISTS results ADD COLUMN IF NOT EXISTS secondary_role TEXT;
+    ALTER TABLE IF EXISTS results ADD COLUMN IF NOT EXISTS scores JSONB NOT NULL DEFAULT '{}'::jsonb;
+    ALTER TABLE IF EXISTS results ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT NOW();
+
+    ALTER TABLE IF EXISTS intake_sessions ADD COLUMN IF NOT EXISTS tenant_id INTEGER;
+    ALTER TABLE IF EXISTS intake_sessions ADD COLUMN IF NOT EXISTS email TEXT;
+    ALTER TABLE IF EXISTS intake_sessions ADD COLUMN IF NOT EXISTS mode TEXT NOT NULL DEFAULT 'fast';
+    ALTER TABLE IF EXISTS intake_sessions ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT NOW();
+
+    ALTER TABLE IF EXISTS intake_responses ADD COLUMN IF NOT EXISTS session_id INTEGER;
+    ALTER TABLE IF EXISTS intake_responses ADD COLUMN IF NOT EXISTS question_id TEXT;
+    ALTER TABLE IF EXISTS intake_responses ADD COLUMN IF NOT EXISTS answer TEXT;
+    ALTER TABLE IF EXISTS intake_responses ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT NOW();
+
+    ALTER TABLE IF EXISTS questions ADD COLUMN IF NOT EXISTS qid TEXT;
+    ALTER TABLE IF EXISTS questions ADD COLUMN IF NOT EXISTS question TEXT;
+    ALTER TABLE IF EXISTS questions ADD COLUMN IF NOT EXISTS options JSONB NOT NULL DEFAULT '{}'::jsonb;
+    ALTER TABLE IF EXISTS questions ADD COLUMN IF NOT EXISTS weights JSONB NOT NULL DEFAULT '{}'::jsonb;
+    ALTER TABLE IF EXISTS questions ADD COLUMN IF NOT EXISTS type TEXT;
+
+    ALTER TABLE IF EXISTS tenant_config ADD COLUMN IF NOT EXISTS tenant_id INTEGER;
+    ALTER TABLE IF EXISTS tenant_config ADD COLUMN IF NOT EXISTS config JSONB NOT NULL DEFAULT '{}'::jsonb;
+    ALTER TABLE IF EXISTS tenant_config ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT NOW();
+
+    /* =========================
+       TYPE FIXES (safe)
+    ========================= */
+
+    -- If an older DB had intake_responses.question_id as INTEGER, migrate it to TEXT.
+    DO $$
+    BEGIN
+      IF EXISTS (
+        SELECT 1
+        FROM information_schema.columns
+        WHERE table_schema='public'
+          AND table_name='intake_responses'
+          AND column_name='question_id'
+          AND data_type <> 'text'
+      ) THEN
+        EXECUTE 'ALTER TABLE intake_responses ALTER COLUMN question_id TYPE TEXT USING question_id::text';
+      END IF;
+    END $$;
+
+    /* =========================
+       FK CONSTRAINTS (add if missing)
+    ========================= */
+
+    -- results.session_id -> intake_sessions.id
+    DO $$
+    BEGIN
+      IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint
+        WHERE conname = 'results_session_id_fkey'
+      ) THEN
+        BEGIN
+          EXECUTE 'ALTER TABLE results
+                   ADD CONSTRAINT results_session_id_fkey
+                   FOREIGN KEY (session_id) REFERENCES intake_sessions(id) ON DELETE CASCADE';
+        EXCEPTION WHEN duplicate_object THEN
+          -- ignore if created concurrently
+        END;
+      END IF;
+    END $$;
+
+    -- intake_responses.session_id -> intake_sessions.id
+    DO $$
+    BEGIN
+      IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint
+        WHERE conname = 'intake_responses_session_id_fkey'
+      ) THEN
+        BEGIN
+          EXECUTE 'ALTER TABLE intake_responses
+                   ADD CONSTRAINT intake_responses_session_id_fkey
+                   FOREIGN KEY (session_id) REFERENCES intake_sessions(id) ON DELETE CASCADE';
+        EXCEPTION WHEN duplicate_object THEN
+        END;
+      END IF;
+    END $$;
+
+    /* =========================
+       INDEXES
+    ========================= */
+
     CREATE INDEX IF NOT EXISTS idx_questions_type ON questions(type);
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_questions_qid_unique ON questions(qid);
     CREATE INDEX IF NOT EXISTS idx_questions_qid ON questions(qid);
+
+    CREATE INDEX IF NOT EXISTS idx_intake_sessions_tenant_id ON intake_sessions(tenant_id);
     CREATE INDEX IF NOT EXISTS idx_intake_responses_session_id ON intake_responses(session_id);
+    CREATE INDEX IF NOT EXISTS idx_intake_responses_question_id ON intake_responses(question_id);
+
     CREATE INDEX IF NOT EXISTS idx_results_session_id ON results(session_id);
+
+    CREATE INDEX IF NOT EXISTS idx_actions_tenant_created_at ON actions(tenant_id, created_at);
+    CREATE INDEX IF NOT EXISTS idx_visits_tenant_created_at ON visits(tenant_id, created_at);
+    CREATE INDEX IF NOT EXISTS idx_reviews_tenant_created_at ON reviews(tenant_id, created_at);
+    CREATE INDEX IF NOT EXISTS idx_referrals_tenant_created_at ON referrals(tenant_id, created_at);
   `);
 }
 
