@@ -3,89 +3,174 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Garvey Dashboard</title>
+
+  <style>
+    body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:24px; }
+    .card { background:#111; border:2px solid gold; padding:24px; border-radius:16px; max-width:820px; margin:0 auto; }
+    h1 { color: gold; margin: 0 0 8px; }
+    input {
+      padding:10px; margin:8px 0; width:min(520px,92%);
+      border-radius:10px; border:1px solid #334155; background:#0b1020; color:#fff;
+    }
+    button {
+      padding:10px 14px; border-radius:10px; border:2px solid #000;
+      background:gold; color:#000; font-weight:700; cursor:pointer;
+    }
+    button:hover { background:#ef4444; color:#fff; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:10px 0 14px; }
+    .meta { color:#94a3b8; font-size:12px; margin-top:4px; }
+    ul { padding-left: 18px; }
+    h2 { margin-top: 18px; color:#93c5fd; }
+    a { color:#93c5fd; } a:hover { color:#bfdbfe; }
+    .err { color:#fca5a5; }
+  </style>
 </head>
 <body>
-  <h1>Tenant Dashboard</h1>
-  <input id="tenant" placeholder="Tenant slug" value="test-business" />
-  <button onclick="loadDashboard()">Load Dashboard</button>
+  <div class="card">
+    <h1>Tenant Dashboard</h1>
 
-  <ul>
-    <li id="users">Users: -</li>
-    <li id="visits">Visits: -</li>
-    <li id="actions">Actions: -</li>
-    <li id="points">Points Issued: -</li>
-  </ul>
+    <div class="row">
+      <input id="tenant" placeholder="Tenant slug" value="test-business" />
+      <button id="loadBtn" type="button">Load Dashboard</button>
+    </div>
 
-  <h2>Top Actions</h2>
-  <ul id="topActions"></ul>
+    <div class="meta" id="apiMeta"></div>
 
-  <h2>Points Distribution</h2>
-  <ul id="pointsDistribution"></ul>
+    <ul>
+      <li id="users">Users: -</li>
+      <li id="visits">Visits: -</li>
+      <li id="actions">Actions: -</li>
+      <li id="points">Points Issued: -</li>
+    </ul>
 
-  <h2>Daily Activity (last 14 days)</h2>
-  <ul id="dailyActivity"></ul>
+    <h2>Top Actions</h2>
+    <ul id="topActions"></ul>
 
-  <h2>Simple Analytics</h2>
-  <p id="analytics"></p>
+    <h2>Points Distribution</h2>
+    <ul id="pointsDistribution"></ul>
+
+    <h2>Daily Activity (last 14 days)</h2>
+    <ul id="dailyActivity"></ul>
+
+    <h2>Simple Analytics</h2>
+    <p id="analytics" class="meta"></p>
+
+    <div class="meta" style="margin-top:14px;">
+      <a href="/intake.html">Intake</a> |
+      <a href="/admin.html">Admin</a> |
+      <a href="/voc.html">VOC</a> |
+      <a href="/index.html">CX Engine</a>
+    </div>
+  </div>
 
   <script>
-    async function loadDashboard() {
-      const tenant = document.getElementById("tenant").value;
-      const res = await fetch(`/t/${tenant}/dashboard`);
-      const data = await res.json();
+    // If hosted on a static frontend (garveyfrontend.onrender.com),
+    // calls must hit the backend (garveybackend.onrender.com).
+    const API_BASE = (() => {
+      const host = window.location.hostname || "";
+      if (host.includes("garveyfrontend")) return "https://garveybackend.onrender.com";
+      return "";
+    })();
 
-      if (!res.ok) {
-        document.getElementById("analytics").innerText =
-          data.error || "Failed to load dashboard.";
+    function getTenantFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      return (params.get("tenant") || "").trim();
+    }
+
+    async function readJsonOrText(res) {
+      const ct = (res.headers.get("content-type") || "").toLowerCase();
+      if (ct.includes("application/json")) return await res.json();
+      return await res.text();
+    }
+
+    function setMeta() {
+      document.getElementById("apiMeta").innerText =
+        API_BASE ? `API: ${API_BASE}` : "API: same-origin";
+
+      const qTenant = getTenantFromQuery();
+      if (qTenant) document.getElementById("tenant").value = qTenant;
+    }
+
+    function clearLists() {
+      document.getElementById("topActions").innerHTML = "";
+      document.getElementById("pointsDistribution").innerHTML = "";
+      document.getElementById("dailyActivity").innerHTML = "";
+    }
+
+    function setError(msg) {
+      document.getElementById("analytics").className = "meta err";
+      document.getElementById("analytics").innerText = msg || "Failed to load dashboard.";
+    }
+
+    function setOk(msg) {
+      document.getElementById("analytics").className = "meta";
+      document.getElementById("analytics").innerText = msg || "";
+    }
+
+    async function loadDashboard() {
+      const tenant = (document.getElementById("tenant").value || "").trim();
+      if (!tenant) {
+        setError("Tenant slug is required.");
         return;
       }
 
-      document.getElementById("users").innerText = `Users: ${data.total_users}`;
-      document.getElementById("visits").innerText = `Visits: ${data.total_visits}`;
-      document.getElementById("actions").innerText = `Actions: ${data.total_actions}`;
-      document.getElementById("points").innerText = `Points Issued: ${data.total_points}`;
+      try {
+        setOk("Loading…");
+        clearLists();
 
-      // Top Actions
-      const topActions = document.getElementById("topActions");
-      topActions.innerHTML = "";
-      (data.top_actions || []).forEach((row) => {
-        const li = document.createElement("li");
-        li.innerText = `${row.action_type}: ${row.action_count}`;
-        topActions.appendChild(li);
-      });
+        const res = await fetch(`${API_BASE}/t/${encodeURIComponent(tenant)}/dashboard`);
+        const data = await readJsonOrText(res);
 
-      // Points Distribution
-      const pointsDistribution = document.getElementById("pointsDistribution");
-      pointsDistribution.innerHTML = "";
-      (data.points_distribution || []).forEach((row) => {
-        const li = document.createElement("li");
-        li.innerText = `${row.bucket}: ${row.user_count} users`;
-        pointsDistribution.appendChild(li);
-      });
+        if (!res.ok) {
+          const msg = typeof data === "string" ? data : (data?.error || "Failed to load dashboard.");
+          setError(msg);
+          return;
+        }
 
-      // Daily Activity
-      const dailyActivity = document.getElementById("dailyActivity");
-      dailyActivity.innerHTML = "";
-      (data.daily_activity || []).forEach((row) => {
-        const li = document.createElement("li");
-        li.innerText = `${row.activity_day}: ${row.activity_count}`;
-        dailyActivity.appendChild(li);
-      });
+        document.getElementById("users").innerText = `Users: ${data.total_users ?? 0}`;
+        document.getElementById("visits").innerText = `Visits: ${data.total_visits ?? 0}`;
+        document.getElementById("actions").innerText = `Actions: ${data.total_actions ?? 0}`;
+        document.getElementById("points").innerText = `Points Issued: ${data.total_points ?? 0}`;
 
-      // Simple Analytics
-      const actionsPerUser =
-        data.total_users > 0
-          ? (data.total_actions / data.total_users).toFixed(2)
-          : "0.00";
+        const topActions = document.getElementById("topActions");
+        (data.top_actions || []).forEach((row) => {
+          const li = document.createElement("li");
+          li.innerText = `${row.action_type}: ${row.action_count}`;
+          topActions.appendChild(li);
+        });
 
-      document.getElementById("analytics").innerText =
-        `Actions per user: ${actionsPerUser}. Refresh after new actions to see live changes.`;
+        const pointsDistribution = document.getElementById("pointsDistribution");
+        (data.points_distribution || []).forEach((row) => {
+          const li = document.createElement("li");
+          li.innerText = `${row.bucket}: ${row.user_count} users`;
+          pointsDistribution.appendChild(li);
+        });
+
+        const dailyActivity = document.getElementById("dailyActivity");
+        (data.daily_activity || []).forEach((row) => {
+          const li = document.createElement("li");
+          li.innerText = `${row.activity_day}: ${row.activity_count}`;
+          dailyActivity.appendChild(li);
+        });
+
+        const totalUsers = Number(data.total_users || 0);
+        const totalActions = Number(data.total_actions || 0);
+        const actionsPerUser = totalUsers > 0 ? (totalActions / totalUsers).toFixed(2) : "0.00";
+
+        setOk(`Actions per user: ${actionsPerUser}. Refresh after new actions to see live changes.`);
+      } catch (err) {
+        console.error(err);
+        setError(`Error: ${err.message}`);
+      }
     }
 
-    setInterval(loadDashboard, 10000);
+    document.getElementById("loadBtn").addEventListener("click", loadDashboard);
+
+    setMeta();
     loadDashboard();
+    setInterval(loadDashboard, 10000);
   </script>
 </body>
 </html>
