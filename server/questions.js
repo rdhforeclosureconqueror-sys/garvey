@@ -1,44 +1,77 @@
+```javascript id="p9n1xz"
+const express = require("express");
+const router = express.Router();
 const { pool } = require("./db");
-const { roles } = require("./scoringEngine");
 
-function roleWeightFor(i, roleIndex) {
-  return (i + roleIndex) % roles.length === 0 ? 2 : (i + roleIndex) % 3 === 0 ? 1 : 0;
-}
+router.get("/api/questions", async (req, res) => {
+  try {
+    const mode = String(req.query.mode || "25");
 
-async function seedQuestions() {
-  const existing = await pool.query("SELECT COUNT(*)::int AS count FROM questions");
-  if (existing.rows[0].count > 0) return existing.rows[0].count;
+    // 🔥 MAP MODE → TYPE (FIXED)
+    let type;
+    let limit;
 
-  for (let i = 1; i <= 60; i += 1) {
-    const qid = `Q${i}`;
-    const type = i <= 25 ? "core" : "extended";
+    if (mode === "60") {
+      type = "extended";
+      limit = 60;
+    } else {
+      type = "core";
+      limit = 25;
+    }
 
-    const roleValues = roles.map((role, index) => roleWeightFor(i, index));
-
-    await pool.query(
-      `INSERT INTO questions (
-        qid, question, option_a, option_b, option_c, option_d,
-        architect, operator, steward, builder, connector, protector, nurturer, educator, resource_generator, type
-      ) VALUES (
-        $1, $2, $3, $4, $5, $6,
-        $7, $8, $9, $10, $11, $12, $13, $14, $15, $16
-      )`,
-      [
-        qid,
-        `Question ${i}`,
-        "Option A",
-        "Option B",
-        "Option C",
-        "Option D",
-        ...roleValues,
-        type
-      ]
+    const result = await pool.query(
+      `SELECT *
+       FROM questions
+       WHERE type = $1
+       ORDER BY id ASC
+       LIMIT $2`,
+      [type, limit]
     );
+
+    const raw = result.rows;
+
+    // 🚨 DEBUG OUTPUT
+    console.log("📊 QUESTIONS DEBUG:");
+    console.log("mode:", mode);
+    console.log("type:", type);
+    console.log("count:", raw.length);
+
+    if (!raw.length) {
+      return res.status(200).json({
+        warning: "No questions found",
+        mode,
+        type,
+        count: 0,
+        questions: []
+      });
+    }
+
+    // 🔒 LOCKED API FORMAT
+    const questions = raw.map((q) => ({
+      qid: q.qid,
+      question: q.question,
+      option_a: q.option_a || "",
+      option_b: q.option_b || "",
+      option_c: q.option_c || "",
+      option_d: q.option_d || "",
+      type: q.type
+    }));
+
+    return res.json({
+      mode,
+      type,
+      count: questions.length,
+      questions
+    });
+
+  } catch (error) {
+    console.error("❌ QUESTIONS API ERROR:", error);
+
+    return res.status(500).json({
+      error: "Failed to fetch questions"
+    });
   }
+});
 
-  return 60;
-}
-
-module.exports = {
-  seedQuestions
-};
+module.exports = router;
+```
