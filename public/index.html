@@ -3,68 +3,148 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Garvey Behavior Engine</title>
+
+  <style>
+    body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:24px; }
+    .card { background:#111; border:2px solid gold; padding:24px; border-radius:16px; max-width:860px; margin:0 auto; }
+    h1 { color: gold; margin: 0 0 8px; }
+    p { color:#cbd5e1; margin: 0 0 14px; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:10px 0 12px; }
+    input, select {
+      padding:10px; margin:0;
+      width:min(520px,92%);
+      border-radius:10px; border:1px solid #334155; background:#0b1020; color:#fff;
+    }
+    button {
+      padding:10px 14px; border-radius:10px; border:2px solid #000;
+      background:gold; color:#000; font-weight:700; cursor:pointer;
+    }
+    button:hover { background:#ef4444; color:#fff; }
+    .meta { color:#94a3b8; font-size:12px; margin-top:6px; }
+    .err { color:#fca5a5; }
+    pre { background:#0b1020; border:1px solid #334155; border-radius:10px; padding:12px; overflow:auto; }
+    a { color:#93c5fd; } a:hover { color:#bfdbfe; }
+    .btnrow { display:flex; gap:10px; flex-wrap:wrap; margin:10px 0; }
+  </style>
 </head>
+
 <body>
-  <h1>Garvey Customer Experience Engine</h1>
-  <p>Test check-in, actions, reviews, referrals, and wishlist per tenant.</p>
+  <div class="card">
+    <h1>Garvey Customer Experience Engine</h1>
+    <p>Test check-in, actions, reviews, referrals, and wishlist per tenant.</p>
 
-  <input id="tenant" placeholder="Tenant slug" value="test-business" />
-  <input id="email" placeholder="Email" value="test@email.com" />
+    <div class="row">
+      <input id="tenant" placeholder="Tenant slug" value="test-business" />
+      <input id="email" placeholder="Email" value="test@email.com" />
+    </div>
 
-  <div style="margin-top:12px;">
-    <button onclick="checkin()">Check In (+5)</button>
-    <button onclick="action('review')">Review Action (+5)</button>
-    <button onclick="action('photo')">Photo Action (+10)</button>
-    <button onclick="action('video')">Video Action (+20)</button>
+    <div class="meta" id="apiMeta"></div>
+    <div class="meta" id="status"></div>
+
+    <div class="btnrow">
+      <button type="button" onclick="checkin()">Check In (+5)</button>
+      <button type="button" onclick="action('review')">Review Action (+5)</button>
+      <button type="button" onclick="action('photo')">Photo Action (+10)</button>
+      <button type="button" onclick="action('video')">Video Action (+20)</button>
+    </div>
+
+    <div class="row">
+      <input id="reviewText" placeholder="Write review" value="Great service!" />
+      <select id="mediaType" style="width:min(240px,92%);">
+        <option value="">No media</option>
+        <option value="photo">Photo</option>
+        <option value="video">Video</option>
+      </select>
+      <button type="button" onclick="review()">Submit Review</button>
+    </div>
+
+    <div class="row">
+      <input id="referredEmail" placeholder="Referred email" value="friend@email.com" />
+      <button type="button" onclick="referral()">Submit Referral</button>
+    </div>
+
+    <div class="row">
+      <input id="product" placeholder="Wishlist item" value="Premium Bundle" />
+      <button type="button" onclick="wishlist()">Add Wishlist</button>
+    </div>
+
+    <h3 style="color:#93c5fd; margin:16px 0 6px;">Result</h3>
+    <pre id="result">{}</pre>
+
+    <div class="meta" style="margin-top:14px;">
+      <a href="/dashboard.html">Dashboard</a> |
+      <a href="/intake.html">Intake</a> |
+      <a href="/admin.html">Admin</a> |
+      <a href="/voc.html">VOC</a>
+    </div>
   </div>
-
-  <div style="margin-top:12px;">
-    <input id="reviewText" placeholder="Write review" value="Great service!" />
-    <select id="mediaType">
-      <option value="">No media</option>
-      <option value="photo">Photo</option>
-      <option value="video">Video</option>
-    </select>
-    <button onclick="review()">Submit Review</button>
-  </div>
-
-  <div style="margin-top:12px;">
-    <input id="referredEmail" placeholder="Referred email" value="friend@email.com" />
-    <button onclick="referral()">Submit Referral</button>
-  </div>
-
-  <div style="margin-top:12px;">
-    <input id="product" placeholder="Wishlist item" value="Premium Bundle" />
-    <button onclick="wishlist()">Add Wishlist</button>
-  </div>
-
-  <pre id="result"></pre>
-
-  <!-- ✅ Keep ALL navigation (including VOC) -->
-  <a href="/dashboard.html">Go to dashboard</a> |
-  <a href="/intake.html">Go to intake</a> |
-  <a href="/admin.html">Go to admin</a> |
-  <a href="/voc.html">Go to VOC</a>
 
   <script>
+    // If hosted on a static frontend (garveyfrontend.onrender.com),
+    // calls must hit the backend (garveybackend.onrender.com).
+    const API_BASE = (() => {
+      const host = window.location.hostname || "";
+      if (host.includes("garveyfrontend")) return "https://garveybackend.onrender.com";
+      return "";
+    })();
+
+    function setMeta() {
+      document.getElementById("apiMeta").innerText =
+        API_BASE ? `API: ${API_BASE}` : "API: same-origin";
+
+      const params = new URLSearchParams(window.location.search);
+      const t = (params.get("tenant") || "").trim();
+      if (t) document.getElementById("tenant").value = t;
+    }
+
+    function setStatus(msg, isErr = false) {
+      const el = document.getElementById("status");
+      el.className = isErr ? "meta err" : "meta";
+      el.innerText = msg || "";
+    }
+
+    async function readJsonOrText(res) {
+      const ct = (res.headers.get("content-type") || "").toLowerCase();
+      if (ct.includes("application/json")) return await res.json();
+      return await res.text();
+    }
+
     function tenantPath(path) {
-      const tenant = document.getElementById("tenant").value;
-      return `/t/${tenant}${path}`;
+      const tenant = (document.getElementById("tenant").value || "").trim();
+      return `${API_BASE}/t/${encodeURIComponent(tenant)}${path}`;
     }
 
     async function post(path, body) {
+      const tenant = (document.getElementById("tenant").value || "").trim();
+      if (!tenant) {
+        setStatus("Tenant slug is required.", true);
+        return;
+      }
+
       try {
+        setStatus("Sending…");
         const res = await fetch(tenantPath(path), {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body)
         });
 
-        const data = await res.json();
-        document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+        const data = await readJsonOrText(res);
+        document.getElementById("result").innerText =
+          typeof data === "string" ? data : JSON.stringify(data, null, 2);
+
+        if (!res.ok) {
+          const msg = typeof data === "string" ? data : (data?.error || "Request failed");
+          setStatus(msg, true);
+          return;
+        }
+
+        setStatus("OK");
       } catch (err) {
+        console.error(err);
+        setStatus(`Error: ${err.message}`, true);
         document.getElementById("result").innerText = `Error: ${err.message}`;
       }
     }
@@ -81,10 +161,11 @@
     }
 
     async function review() {
+      const media = document.getElementById("mediaType").value || undefined;
       await post("/review", {
         email: document.getElementById("email").value,
         text: document.getElementById("reviewText").value,
-        media_type: document.getElementById("mediaType").value || undefined
+        media_type: media
       });
     }
 
@@ -101,6 +182,8 @@
         product_name: document.getElementById("product").value
       });
     }
+
+    setMeta();
   </script>
 </body>
 </html>
