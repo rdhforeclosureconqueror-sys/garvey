@@ -1,4 +1,3 @@
-```javascript id="p9n1xz"
 const express = require("express");
 const router = express.Router();
 const { pool } = require("./db");
@@ -7,15 +6,15 @@ router.get("/api/questions", async (req, res) => {
   try {
     const mode = String(req.query.mode || "25");
 
-    // 🔥 MAP MODE → TYPE (FIXED)
+    // 🔥 FIX TYPE MAPPING (CORRECT WITH DB)
     let type;
     let limit;
 
     if (mode === "60") {
-      type = "extended";
+      type = "full";
       limit = 60;
     } else {
-      type = "core";
+      type = "fast";
       limit = 25;
     }
 
@@ -30,14 +29,14 @@ router.get("/api/questions", async (req, res) => {
 
     const raw = result.rows;
 
-    // 🚨 DEBUG OUTPUT
+    // 🔥 DEBUG LOG (CRITICAL)
     console.log("📊 QUESTIONS DEBUG:");
     console.log("mode:", mode);
     console.log("type:", type);
     console.log("count:", raw.length);
 
     if (!raw.length) {
-      return res.status(200).json({
+      return res.json({
         warning: "No questions found",
         mode,
         type,
@@ -46,14 +45,16 @@ router.get("/api/questions", async (req, res) => {
       });
     }
 
-    // 🔒 LOCKED API FORMAT
+    // 🔥 TRANSLATE JSON → FRONTEND FORMAT
     const questions = raw.map((q) => ({
       qid: q.qid,
       question: q.question,
-      option_a: q.option_a || "",
-      option_b: q.option_b || "",
-      option_c: q.option_c || "",
-      option_d: q.option_d || "",
+
+      option_a: q.options?.A || "",
+      option_b: q.options?.B || "",
+      option_c: q.options?.C || "",
+      option_d: q.options?.D || "",
+
       type: q.type
     }));
 
@@ -74,4 +75,3 @@ router.get("/api/questions", async (req, res) => {
 });
 
 module.exports = router;
-```
