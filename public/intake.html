@@ -7,104 +7,29 @@
   <title>Garvey Intake</title>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
-      text-align: center;
-      padding: 24px;
-    }
-
-    .card {
-      background: #111;
-      border: 2px solid gold;
-      padding: 24px;
-      border-radius: 16px;
-      max-width: 760px;
-      margin: 0 auto;
-    }
-
+    body { font-family: Arial, sans-serif; background:#000; color:#fff; text-align:center; padding:24px; }
+    .card { background:#111; border:2px solid gold; padding:24px; border-radius:16px; max-width:760px; margin:0 auto; }
     h1 { color: gold; margin-top: 0; }
-
-    .section {
-      color: #ef4444;
-      font-weight: bold;
-      margin: 10px 0 6px;
-    }
-
-    .tip {
-      color: #22c55e;
-      font-size: 14px;
-      margin-bottom: 14px;
-    }
-
+    .section { color:#ef4444; font-weight:bold; margin:10px 0 6px; }
+    .tip { color:#22c55e; font-size:14px; margin-bottom:14px; }
     .btn {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      margin: 10px 0;
-      border-radius: 10px;
-      border: 2px solid #000;
-      background: gold;
-      color: #000;
-      font-weight: 700;
-      cursor: pointer;
-      text-align: left;
-      line-height: 1.25;
+      display:block; width:100%; padding:14px; margin:10px 0;
+      border-radius:10px; border:2px solid #000; background:gold; color:#000;
+      font-weight:700; cursor:pointer; text-align:left; line-height:1.25;
     }
-
-    .btn:hover { background: #ef4444; color: #fff; }
-    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-
-    .progress {
-      margin-top: 10px;
-      color: #94a3b8;
-      font-size: 14px;
-    }
-
-    #results { margin-top: 18px; text-align: left; }
-
+    .btn:hover { background:#ef4444; color:#fff; }
+    .btn:disabled { opacity:0.6; cursor:not-allowed; }
+    .progress { margin-top:10px; color:#94a3b8; font-size:14px; }
+    #results { margin-top:18px; text-align:left; }
     select, input {
-      padding: 10px;
-      margin: 8px 0;
-      width: min(520px, 92%);
-      border-radius: 10px;
-      border: 1px solid #334155;
-      background: #0b1020;
-      color: #fff;
+      padding:10px; margin:8px 0; width:min(520px,92%);
+      border-radius:10px; border:1px solid #334155; background:#0b1020; color:#fff;
     }
-
-    .row {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 10px 0 6px;
-    }
-
-    .meta {
-      color: #94a3b8;
-      font-size: 12px;
-      margin-top: 6px;
-    }
-
-    a { color: #93c5fd; }
-    a:hover { color: #bfdbfe; }
-
-    .bar {
-      height: 10px;
-      background: #222;
-      border-radius: 999px;
-      overflow: hidden;
-      margin-top: 10px;
-    }
-
-    .bar > div {
-      height: 100%;
-      width: 0%;
-      background: #22c55e;
-      transition: width 120ms linear;
-    }
+    .row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:10px 0 6px; }
+    .meta { color:#94a3b8; font-size:12px; margin-top:6px; }
+    a { color:#93c5fd; } a:hover { color:#bfdbfe; }
+    .bar { height:10px; background:#222; border-radius:999px; overflow:hidden; margin-top:10px; }
+    .bar > div { height:100%; width:0%; background:#22c55e; transition: width 120ms linear; }
   </style>
 </head>
 
@@ -121,6 +46,7 @@
     </div>
 
     <div class="meta" id="tenantMeta"></div>
+    <div class="meta" id="apiMeta"></div>
 
     <div class="section" id="sectionTitle"></div>
     <div class="tip" id="sectionTip"></div>
@@ -142,6 +68,15 @@
   </div>
 
   <script>
+    // IMPORTANT:
+    // If this page is hosted on a separate static frontend (garveyfrontend.onrender.com),
+    // "/api/*" calls must hit the backend (garveybackend.onrender.com).
+    const API_BASE = (() => {
+      const host = window.location.hostname || "";
+      if (host.includes("garveyfrontend")) return "https://garveybackend.onrender.com";
+      return "";
+    })();
+
     let questions = [];
     let currentIndex = 0;
     let answers = [];
@@ -164,6 +99,9 @@
       document.getElementById("tenantMeta").innerText = tenant
         ? `Tenant: ${tenant}`
         : "⚠️ Missing tenant. Open with: /intake.html?tenant=test-business";
+
+      document.getElementById("apiMeta").innerText =
+        API_BASE ? `API: ${API_BASE}` : "API: same-origin";
     }
 
     function getSection(index) {
@@ -185,6 +123,12 @@
       document.getElementById("results").innerHTML = "";
     }
 
+    async function readJsonOrText(res) {
+      const ct = (res.headers.get("content-type") || "").toLowerCase();
+      if (ct.includes("application/json")) return await res.json();
+      return await res.text();
+    }
+
     async function loadQuestions() {
       try {
         clearResults();
@@ -192,10 +136,15 @@
         currentIndex = 0;
 
         const mode = document.getElementById("mode").value;
-        const res = await fetch(`/api/questions?mode=${encodeURIComponent(mode)}`);
-        const data = await res.json();
+        const url = `${API_BASE}/api/questions?mode=${encodeURIComponent(mode)}`;
 
-        if (!res.ok) throw new Error(data?.error || "Failed to load questions");
+        const res = await fetch(url);
+        const data = await readJsonOrText(res);
+
+        if (!res.ok) {
+          const msg = typeof data === "string" ? data : (data?.error || "Failed to load questions");
+          throw new Error(msg);
+        }
 
         questions = Array.isArray(data.questions) ? data.questions : [];
         if (!questions.length) throw new Error("No questions returned");
@@ -269,8 +218,7 @@
       }
 
       if (!tenant) {
-        document.getElementById("questionText").innerText =
-          "⚠️ Invalid access link (missing tenant)";
+        document.getElementById("questionText").innerText = "⚠️ Invalid access link (missing tenant)";
         document.getElementById("optionsContainer").innerHTML = "";
         return;
       }
@@ -280,14 +228,19 @@
         document.getElementById("optionsContainer").innerHTML = "";
         setProgress();
 
-        const res = await fetch("/api/intake", {
+        const url = `${API_BASE}/api/intake`;
+        const res = await fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, tenant, answers })
         });
 
-        const data = await res.json();
-        if (!res.ok) throw new Error(data?.error || "Submission failed");
+        const data = await readJsonOrText(res);
+
+        if (!res.ok) {
+          const msg = typeof data === "string" ? data : (data?.error || "Submission failed");
+          throw new Error(msg);
+        }
 
         renderResults(data);
       } catch (err) {
@@ -305,8 +258,8 @@
       const secondary = data.secondary_role || "(missing secondary_role)";
 
       container.innerHTML = `
-        <h2 style="color:gold; margin: 6px 0;">Primary: ${primary}</h2>
-        <h3 style="color:#ef4444; margin: 6px 0;">Secondary: ${secondary}</h3>
+        <h2 style="color:gold; margin:6px 0;">Primary: ${primary}</h2>
+        <h3 style="color:#ef4444; margin:6px 0;">Secondary: ${secondary}</h3>
         <div id="scores"></div>
       `;
 
