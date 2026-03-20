@@ -35,6 +35,11 @@
       font-size: 16px;
     }
 
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     #progress {
       margin-bottom: 15px;
       opacity: 0.7;
@@ -58,8 +63,9 @@
     let questions = [];
     let currentIndex = 0;
     let answers = [];
+    let isSubmitting = false;
 
-    const email = prompt("Enter your email:");
+    const email = prompt("Enter your email:") || "guest@test.com";
     const tenant = "default";
 
     // LOAD QUESTIONS FROM BACKEND
@@ -68,14 +74,14 @@
         const res = await fetch(`${BASE_URL}/api/questions`);
 
         if (!res.ok) {
-          throw new Error("Failed to fetch questions");
+          throw new Error(`Failed to fetch questions: ${res.status}`);
         }
 
         const data = await res.json();
 
         questions = data.questions || data;
 
-        if (!questions.length) {
+        if (!Array.isArray(questions) || questions.length === 0) {
           document.getElementById("question").innerText = "No questions found.";
           return;
         }
@@ -83,7 +89,7 @@
         renderQuestion();
 
       } catch (err) {
-        console.error(err);
+        console.error("LOAD ERROR:", err);
         document.getElementById("question").innerText = "Error loading questions.";
       }
     }
@@ -92,10 +98,16 @@
     function renderQuestion() {
       const q = questions[currentIndex];
 
+      if (!q) {
+        document.getElementById("question").innerText = "Invalid question data.";
+        return;
+      }
+
       document.getElementById("progress").innerText =
         `Question ${currentIndex + 1} of ${questions.length}`;
 
-      document.getElementById("question").innerText = q.question || "No question text";
+      document.getElementById("question").innerText =
+        q.question || "No question text";
 
       const answersDiv = document.getElementById("answers");
       answersDiv.innerHTML = "";
@@ -110,6 +122,8 @@
 
     // HANDLE USER ANSWER
     function handleAnswer(qid, answer) {
+      if (isSubmitting) return;
+
       answers.push({ qid, answer });
 
       currentIndex++;
@@ -123,6 +137,12 @@
 
     // SUBMIT RESULTS TO BACKEND
     async function submitAnswers() {
+      if (isSubmitting) return;
+      isSubmitting = true;
+
+      document.getElementById("question").innerText = "Submitting...";
+      document.getElementById("answers").innerHTML = "";
+
       try {
         const res = await fetch(`${BASE_URL}/api/intake`, {
           method: "POST",
@@ -132,25 +152,32 @@
           body: JSON.stringify({
             email,
             tenant,
-            answers
+            answers,
+            mode: "assessment" // 🔥 REQUIRED FIX
           })
         });
 
         if (!res.ok) {
-          throw new Error("Failed to submit answers");
+          const text = await res.text();
+          throw new Error(`Server error: ${res.status} - ${text}`);
         }
 
         const result = await res.json();
 
         document.querySelector(".card").innerHTML = `
           <h2>Results</h2>
-          <p><strong>Primary Role:</strong> ${result.primary_role}</p>
-          <p><strong>Secondary Role:</strong> ${result.secondary_role}</p>
+          <p><strong>Primary Role:</strong> ${result.primary_role || "N/A"}</p>
+          <p><strong>Secondary Role:</strong> ${result.secondary_role || "N/A"}</p>
         `;
 
       } catch (err) {
-        console.error(err);
-        document.querySelector(".card").innerHTML = "Error submitting results.";
+        console.error("SUBMIT ERROR:", err);
+
+        document.querySelector(".card").innerHTML = `
+          <h2>Error</h2>
+          <p>Something went wrong submitting your results.</p>
+          <pre style="color:red;">${err.message}</pre>
+        `;
       }
     }
 
