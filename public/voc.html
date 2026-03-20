@@ -66,23 +66,22 @@
   </div>
 
   <script>
-    // If hosted on a static frontend (garveyfrontend.onrender.com),
-    // calls must hit the backend (garveybackend.onrender.com).
     const API_BASE = (() => {
       const host = window.location.hostname || "";
       if (host.includes("garveyfrontend")) return "https://garveybackend.onrender.com";
       return "";
     })();
 
-    // NEW SYSTEM NOTE:
-    // This UI still collects 25 A/B/C/D answers.
-    // It POSTs to /voc-intake on the backend (your server/index.js implements it).
     const TOTAL = 25;
     const answers = [];
 
     function setMeta() {
       document.getElementById("apiMeta").innerText =
         API_BASE ? `API: ${API_BASE}` : "API: same-origin";
+
+      const params = new URLSearchParams(window.location.search);
+      const t = (params.get("tenant") || "").trim();
+      if (t) document.getElementById("tenant").value = t;
     }
 
     function setStatus(msg, isErr = false) {
@@ -123,14 +122,12 @@
         return;
       }
 
-      const payload = { email, tenant_slug, answers };
-
       try {
         setStatus("Submitting…");
         const res = await fetch(`${API_BASE}/voc-intake`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          body: JSON.stringify({ email, tenant_slug, answers })
         });
 
         const data = await readJsonOrText(res);
