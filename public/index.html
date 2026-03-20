@@ -82,8 +82,6 @@
   </div>
 
   <script>
-    // If hosted on a static frontend (garveyfrontend.onrender.com),
-    // calls must hit the backend (garveybackend.onrender.com).
     const API_BASE = (() => {
       const host = window.location.hostname || "";
       if (host.includes("garveyfrontend")) return "https://garveybackend.onrender.com";
