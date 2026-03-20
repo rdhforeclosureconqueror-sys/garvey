@@ -1,4 +1,5 @@
 const { pool } = require("./db");
+const { analyzeTenantPerformance } = require("./adaptiveEngine");
 
 const requiredTables = [
   "tenants",
@@ -11,6 +12,9 @@ const requiredTables = [
   "intake_sessions",
   "intake_responses",
   "intake_results",
+  "voc_sessions",
+  "voc_responses",
+  "voc_results",
   "tenant_config"
 ];
 
@@ -105,30 +109,70 @@ async function checkAdminConfigFlow(baseUrl) {
   return referralRes.status === 403;
 }
 
+async function checkVOCPipeline(baseUrl) {
+  const payload = {
+    email: "verify@garvey.test",
+    tenant_slug: "verify-tenant",
+    answers: Array.from({ length: 25 }, (_, i) => ["A", "B", "C", "D"][i % 4])
+  };
+
+  const response = await fetch(`${baseUrl}/voc-intake`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) return false;
+
+  const json = await response.json();
+  return Boolean(
+    json.customer_profile &&
+    json.engagement_style &&
+    json.buying_trigger &&
+    json.friction_point &&
+    json.loyalty_driver
+  );
+}
+
+async function checkAdaptiveEngine(baseUrl) {
+  const tenantRes = await fetch(`${baseUrl}/t/verify-tenant/config`);
+  if (!tenantRes.ok) return false;
+
+  const tenantRow = await pool.query(
+    "SELECT id FROM tenants WHERE slug = 'verify-tenant'"
+  );
+  if (!tenantRow.rows[0]) return false;
+
+  const result = await analyzeTenantPerformance(tenantRow.rows[0].id);
+  return Boolean(result.config && result.config.system_adjustments_log);
+}
+
 async function runVerification(baseUrl) {
   const status = {
     phase1: "FAIL",
     phase2: "FAIL",
     phase3: "FAIL",
     phase8: "FAIL",
+    phase9: "FAIL",
+    phase10: "FAIL",
     system: "DEGRADED"
   };
 
-  const dbReady = await checkDatabase();
-  if (!dbReady) return status;
-
+  if (!(await checkDatabase())) return status;
   status.phase1 = "PASS";
 
-  const intakeReady = await checkIntakePipeline(baseUrl);
-  if (!intakeReady) return status;
-
+  if (!(await checkIntakePipeline(baseUrl))) return status;
   status.phase2 = "PASS";
   status.phase3 = "PASS";
 
-  const adminReady = await checkAdminConfigFlow(baseUrl);
-  if (!adminReady) return status;
-
+  if (!(await checkAdminConfigFlow(baseUrl))) return status;
   status.phase8 = "PASS";
+
+  if (!(await checkVOCPipeline(baseUrl))) return status;
+  status.phase9 = "PASS";
+
+  if (!(await checkAdaptiveEngine(baseUrl))) return status;
+  status.phase10 = "PASS";
 
   status.system = "HEALTHY";
   return status;

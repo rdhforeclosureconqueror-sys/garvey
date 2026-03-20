@@ -62,7 +62,9 @@
       const index = answers.length;
 
       document.getElementById("questionLabel").innerText =
-        index < total ? `Question ${index + 1} of ${total}` : `Completed ${total} of ${total}`;
+        index < total
+          ? `Question ${index + 1} of ${total}`
+          : `Completed ${total} of ${total}`;
 
       const sectionIndex = Math.min(
         Math.floor((index / total) * sectionNames.length),

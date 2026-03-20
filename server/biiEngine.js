@@ -65,20 +65,10 @@ function generateRecommendations(primary, secondary, mode) {
 function generateTenantConfig(primary, secondary) {
   const config = {
     reward_system: ["builder", "resource_generator", "steward"].includes(primary),
-
-    engagement_engine:
-      ["connector", "nurturer", "educator"].includes(primary) ||
-      secondary === "connector",
-
-    email_marketing:
-      ["operator", "resource_generator"].includes(secondary),
-
-    content_engine:
-      ["educator", "architect", "connector"].includes(primary) ||
-      secondary === "educator",
-
-    referral_system:
-      ["connector", "resource_generator", "nurturer"].includes(primary)
+    engagement_engine: ["connector", "nurturer", "educator"].includes(primary) || secondary === "connector",
+    email_marketing: ["operator", "resource_generator"].includes(secondary),
+    content_engine: ["educator", "architect", "connector"].includes(primary) || secondary === "educator",
+    referral_system: ["connector", "resource_generator", "nurturer"].includes(primary)
   };
 
   if (primary === "architect" || secondary === "architect") {

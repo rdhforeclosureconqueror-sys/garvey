@@ -9,11 +9,22 @@ const {
   generateTenantConfig
 } = require("./biiEngine");
 const { runVerification } = require("./verify");
+const { scoreVOCAnswers, generateVOCProfile, mergeVOCIntoConfig } = require("./vocEngine");
+const { runAdaptiveCycle } = require("./adaptiveEngine");
+const { scoreAnswers, getTopRoles: getTopRolesFromScores } = require("./scoringEngine");
+const { seedQuestions } = require("./questions");
 
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
 
 app.use(express.json());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if (req.method === "OPTIONS") return res.sendStatus(200);
+  return next();
+});
 app.use(express.static(path.join(__dirname, "..", "public")));
 
 const ACTION_POINTS = {
@@ -85,11 +96,10 @@ async function tenantMiddleware(req, res, next) {
 
   req.tenant = tenant;
   req.tenantConfig = (await getTenantConfig(tenant.id)) || {};
+
   return next();
 }
-
-
-
+  
 app.get("/join/:slug", async (req, res) => {
   const tenant = await getTenantBySlug(req.params.slug);
   if (!tenant) {
@@ -521,6 +531,254 @@ app.post("/intake", async (req, res) => {
   }
 });
 
+/* =========================
+   VOC INTAKE
+========================= */
+
+app.post("/voc-intake", async (req, res) => {
+  const client = await pool.connect();
+
+  try {
+    const { email, tenant_slug: tenantSlug, answers = [] } = req.body;
+
+    if (!email || !tenantSlug || !Array.isArray(answers) || answers.length === 0) {
+      return res.status(400).json({ error: "email, tenant_slug, and answers are required" });
+    }
+
+    const tenant = await ensureTenant(tenantSlug);
+
+    await client.query("BEGIN");
+
+    const sessionResult = await client.query(
+      "INSERT INTO voc_sessions (tenant_id, email) VALUES ($1, $2) RETURNING *",
+      [tenant.id, email]
+    );
+
+    const session = sessionResult.rows[0];
+
+    for (let i = 0; i < answers.length; i += 1) {
+      await client.query(
+        "INSERT INTO voc_responses (session_id, question_id, answer) VALUES ($1, $2, $3)",
+        [session.id, i + 1, answers[i]]
+      );
+    }
+
+    const scores = scoreVOCAnswers(answers);
+    const vocResult = generateVOCProfile(scores);
+
+    await client.query(
+      `INSERT INTO voc_results (
+        session_id, customer_profile, engagement_style, buying_trigger, friction_point, loyalty_driver
+      ) VALUES ($1, $2, $3, $4, $5, $6)`,
+      [
+        session.id,
+        vocResult.customer_profile,
+        vocResult.engagement_style,
+        vocResult.buying_trigger,
+        vocResult.friction_point,
+        vocResult.loyalty_driver
+      ]
+    );
+
+    const existingConfigResult = await client.query(
+      "SELECT config FROM tenant_config WHERE tenant_id = $1",
+      [tenant.id]
+    );
+
+    const mergedConfig = mergeVOCIntoConfig(
+      {
+        ...DEFAULT_TENANT_CONFIG,
+        ...(existingConfigResult.rows[0]?.config || {})
+      },
+      vocResult
+    );
+
+    await client.query(
+      `INSERT INTO tenant_config (tenant_id, config, updated_at)
+       VALUES ($1, $2, NOW())
+       ON CONFLICT (tenant_id)
+       DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
+      [tenant.id, mergedConfig]
+    );
+
+    await client.query("COMMIT");
+
+    return res.json(vocResult);
+  } catch (error) {
+    await client.query("ROLLBACK");
+    console.error(error);
+    return res.status(500).json({ error: "VOC intake failed" });
+  } finally {
+    client.release();
+  }
+});
+
+/* =========================
+   VERIFY + QUESTIONS
+========================= */
+
+app.get("/api/verify/db", async (req, res) => {
+  try {
+    await pool.query("SELECT 1");
+    return res.json({ status: "DB_OK" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ status: "DB_FAIL" });
+  }
+});
+
+app.get("/api/verify/scoring", async (req, res) => {
+  try {
+    const questions = (await pool.query("SELECT * FROM questions ORDER BY id LIMIT 3")).rows;
+    const answers = questions.map((q) => ({ qid: q.qid, answer: "A" }));
+    const scores = scoreAnswers(answers, questions);
+    const sample = getTopRolesFromScores(scores);
+
+    return res.json({ status: "SCORING_OK", sample_result: sample });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ status: "SCORING_FAIL" });
+  }
+});
+
+app.get("/api/questions", async (req, res) => {
+  try {
+    const mode = String(req.query.mode || "25");
+    const limit = mode === "60" ? 60 : 25;
+
+    const result = await pool.query(
+      `SELECT qid, question, option_a, option_b, option_c, option_d, type
+       FROM questions
+       ORDER BY id
+       LIMIT $1`,
+      [limit]
+    );
+
+    return res.json({ mode, count: result.rows.length, questions: result.rows });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "questions fetch failed" });
+  }
+});
+
+/* =========================
+   API INTAKE (NEW SYSTEM)
+========================= */
+
+app.post("/api/intake", async (req, res) => {
+  const client = await pool.connect();
+
+  try {
+    const { email, tenant, answers = [] } = req.body;
+
+    if (!email || !tenant || !Array.isArray(answers) || answers.length === 0) {
+      return res.status(400).json({ error: "email, tenant, answers are required" });
+    }
+
+    await client.query("BEGIN");
+
+    // ✅ Ensure tenant
+    const tenantRow = await ensureTenant(tenant);
+
+    // ✅ Create session (STANDARDIZED)
+    const sessionResult = await client.query(
+      "INSERT INTO intake_sessions (tenant_id, email) VALUES ($1, $2) RETURNING *",
+      [tenantRow.id, email]
+    );
+
+    const session = sessionResult.rows[0];
+
+    // ✅ Store responses (SESSION-BASED)
+    for (const item of answers) {
+      await client.query(
+        "INSERT INTO intake_responses (session_id, question_id, answer) VALUES ($1, $2, $3)",
+        [session.id, item.qid, item.answer]
+      );
+    }
+
+    // ✅ Get questions + score
+    const questionRows = (await client.query("SELECT * FROM questions")).rows;
+
+    const scores = scoreAnswers(answers, questionRows);
+    const { primary_role, secondary_role } = getTopRolesFromScores(scores);
+
+    // ✅ Store result (LINKED TO SESSION)
+    await client.query(
+      `INSERT INTO results (session_id, primary_role, secondary_role, scores)
+       VALUES ($1, $2, $3, $4)`,
+      [session.id, primary_role, secondary_role, scores]
+    );
+
+    // ✅ Generate config
+    const config = {
+      reward_system: ["builder", "resource_generator"].includes(primary_role),
+      email_marketing: false,
+      referral_system: ["connector", "nurturer"].includes(primary_role),
+      analytics_engine: false,
+      engagement_engine: ["connector", "educator", "nurturer"].includes(primary_role),
+      content_engine: ["educator", "connector"].includes(primary_role),
+      automation_blueprints: ["architect", "operator"].includes(primary_role)
+    };
+
+    // ✅ Clean + safe config
+    const sanitizedConfig = sanitizeConfig(config);
+
+    // ✅ UPSERT (CORRECTED)
+    await client.query(
+      `INSERT INTO tenant_config (
+        tenant_id, config,
+        reward_system, email_marketing, referral_system,
+        analytics_engine, engagement_engine, content_engine, automation_blueprints,
+        updated_at
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,NOW())
+      ON CONFLICT (tenant_id)
+      DO UPDATE SET
+        config = EXCLUDED.config,
+        reward_system = EXCLUDED.reward_system,
+        email_marketing = EXCLUDED.email_marketing,
+        referral_system = EXCLUDED.referral_system,
+        analytics_engine = EXCLUDED.analytics_engine,
+        engagement_engine = EXCLUDED.engagement_engine,
+        content_engine = EXCLUDED.content_engine,
+        automation_blueprints = EXCLUDED.automation_blueprints,
+        updated_at = NOW()`,
+      [
+        tenantRow.id,
+        sanitizedConfig,
+        sanitizedConfig.reward_system,
+        sanitizedConfig.email_marketing,
+        sanitizedConfig.referral_system,
+        sanitizedConfig.analytics_engine,
+        sanitizedConfig.engagement_engine,
+        sanitizedConfig.content_engine,
+        sanitizedConfig.automation_blueprints
+      ]
+    );
+
+    await client.query("COMMIT");
+
+    return res.json({
+      success: true,
+      session_id: session.id,
+      primary_role,
+      secondary_role,
+      scores,
+      config: sanitizedConfig
+    });
+
+  } catch (error) {
+    await client.query("ROLLBACK");
+    console.error(error);
+    return res.status(500).json({ error: "api intake failed" });
+  } finally {
+    client.release();
+  }
+});
+
+/* =========================
+   FINAL VERIFY
+========================= */
+
 app.get("/verify", async (req, res) => {
   try {
     const baseUrl = `${req.protocol}://${req.get("host")}`;
@@ -533,6 +791,8 @@ app.get("/verify", async (req, res) => {
       phase2: "FAIL",
       phase3: "FAIL",
       phase8: "FAIL",
+      phase9: "FAIL",
+      phase10: "FAIL",
       system: "DEGRADED"
     });
   }
@@ -543,7 +803,19 @@ app.get("/health", (req, res) => {
 });
 
 initializeDatabase()
-  .then(() => {
+  .then(async () => {
+    await seedQuestions();
+
+    const intervalMs = Number(process.env.ADAPTIVE_INTERVAL_MS || 300000);
+    setInterval(async () => {
+      try {
+        const results = await runAdaptiveCycle();
+        logEvent("adaptive_cycle", { tenant_count: results.length });
+      } catch (error) {
+        console.error("adaptive_cycle_failed", error);
+      }
+    }, intervalMs);
+
     app.listen(PORT, () => {
       console.log(`Garvey server listening on port ${PORT}`);
     });
