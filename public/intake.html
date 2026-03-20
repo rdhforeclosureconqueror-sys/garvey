@@ -73,15 +73,22 @@ let questions = [];
 let currentIndex = 0;
 let answers = [];
 
-// 🔥 CHANGE THIS IF NEEDED
-const API_URL = "/questions?type=fast";
+// ✅ CORRECT BACKEND URL
+const API_URL = "https://garveybackend.onrender.com/api/questions?mode=25";
 
 async function loadQuestions() {
   try {
     const res = await fetch(API_URL);
+
+    if (!res.ok) {
+      throw new Error("Network response was not ok");
+    }
+
     const data = await res.json();
 
-    questions = data;
+    // ✅ FIX: correct data structure
+    questions = data.questions;
+
     showQuestion();
 
   } catch (err) {
@@ -107,11 +114,16 @@ function showQuestion() {
   document.getElementById("progress").innerText =
     `Question ${currentIndex + 1} of ${questions.length}`;
 
-  // OPTIONS
+  // OPTIONS (FIXED MAPPING)
   const container = document.getElementById("optionsContainer");
   container.innerHTML = "";
 
-  const options = q.options;
+  const options = {
+    A: q.option_a,
+    B: q.option_b,
+    C: q.option_c,
+    D: q.option_d
+  };
 
   Object.entries(options).forEach(([key, value]) => {
     const btn = document.createElement("button");
@@ -126,7 +138,7 @@ function showQuestion() {
 }
 
 function handleAnswer(qid, option) {
-  answers.push({ qid, option });
+  answers.push({ qid, answer: option });
 
   currentIndex++;
   showQuestion();
