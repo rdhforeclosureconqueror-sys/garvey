@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>UJAMAA Intake</title>
+  <title>UJAMAA Role Assessment</title>
 
   <style>
     body {
@@ -16,33 +17,43 @@
     .card {
       background: #1e293b;
       padding: 30px;
-      border-radius: 10px;
+      border-radius: 16px;
       max-width: 600px;
       margin: auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
     }
 
-    button {
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .question {
+      font-size: 20px;
+      margin: 20px 0;
+    }
+
+    .btn {
       display: block;
       width: 100%;
+      padding: 15px;
       margin: 10px 0;
-      padding: 12px;
       border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      background: #38bdf8;
+      border-radius: 10px;
+      background: #22c55e;
       color: black;
       font-weight: bold;
-      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
     }
 
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+    .btn:hover {
+      background: #16a34a;
     }
 
-    #progress {
-      margin-bottom: 15px;
-      opacity: 0.7;
+    .progress {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #94a3b8;
     }
   </style>
 
@@ -50,140 +61,79 @@
 
 <body>
 
-  <div class="card">
-    <h2>UJAMAA Role Assessment</h2>
-    <div id="progress">Loading questions...</div>
-    <div id="question"></div>
-    <div id="answers"></div>
-  </div>
+<div class="card">
+  <h1>UJAMAA Role Assessment</h1>
+  <div class="progress" id="progress">Loading...</div>
+  <div class="question" id="questionText"></div>
+  <div id="optionsContainer"></div>
+</div>
 
-  <script>
-    const BASE_URL = "https://garveybackend.onrender.com";
+<script>
+let questions = [];
+let currentIndex = 0;
+let answers = [];
 
-    let questions = [];
-    let currentIndex = 0;
-    let answers = [];
-    let isSubmitting = false;
+// 🔥 CHANGE THIS IF NEEDED
+const API_URL = "/questions?type=fast";
 
-    const email = prompt("Enter your email:") || "guest@test.com";
-    const tenant = "default";
+async function loadQuestions() {
+  try {
+    const res = await fetch(API_URL);
+    const data = await res.json();
 
-    // LOAD QUESTIONS FROM BACKEND
-    async function loadQuestions() {
-      try {
-        const res = await fetch(`${BASE_URL}/api/questions`);
+    questions = data;
+    showQuestion();
 
-        if (!res.ok) {
-          throw new Error(`Failed to fetch questions: ${res.status}`);
-        }
+  } catch (err) {
+    console.error(err);
+    document.getElementById("questionText").innerText = "❌ Failed to load questions";
+  }
+}
 
-        const data = await res.json();
+function showQuestion() {
+  const q = questions[currentIndex];
 
-        questions = data.questions || data;
+  if (!q) {
+    document.getElementById("questionText").innerText = "✅ Complete!";
+    document.getElementById("optionsContainer").innerHTML = "";
+    console.log("Final Answers:", answers);
+    return;
+  }
 
-        if (!Array.isArray(questions) || questions.length === 0) {
-          document.getElementById("question").innerText = "No questions found.";
-          return;
-        }
+  // QUESTION TEXT
+  document.getElementById("questionText").innerText = q.question;
 
-        renderQuestion();
+  // PROGRESS
+  document.getElementById("progress").innerText =
+    `Question ${currentIndex + 1} of ${questions.length}`;
 
-      } catch (err) {
-        console.error("LOAD ERROR:", err);
-        document.getElementById("question").innerText = "Error loading questions.";
-      }
-    }
+  // OPTIONS
+  const container = document.getElementById("optionsContainer");
+  container.innerHTML = "";
 
-    // DISPLAY CURRENT QUESTION
-    function renderQuestion() {
-      const q = questions[currentIndex];
+  const options = q.options;
 
-      if (!q) {
-        document.getElementById("question").innerText = "Invalid question data.";
-        return;
-      }
+  Object.entries(options).forEach(([key, value]) => {
+    const btn = document.createElement("button");
 
-      document.getElementById("progress").innerText =
-        `Question ${currentIndex + 1} of ${questions.length}`;
+    btn.className = "btn";
+    btn.innerText = `${key}: ${value}`;
 
-      document.getElementById("question").innerText =
-        q.question || "No question text";
+    btn.onclick = () => handleAnswer(q.qid, key);
 
-      const answersDiv = document.getElementById("answers");
-      answersDiv.innerHTML = "";
+    container.appendChild(btn);
+  });
+}
 
-      ["a", "b", "c", "d"].forEach(letter => {
-        const btn = document.createElement("button");
-        btn.innerText = q[`option_${letter}`] || letter.toUpperCase();
-        btn.onclick = () => handleAnswer(q.qid, letter.toUpperCase());
-        answersDiv.appendChild(btn);
-      });
-    }
+function handleAnswer(qid, option) {
+  answers.push({ qid, option });
 
-    // HANDLE USER ANSWER
-    function handleAnswer(qid, answer) {
-      if (isSubmitting) return;
+  currentIndex++;
+  showQuestion();
+}
 
-      answers.push({ qid, answer });
-
-      currentIndex++;
-
-      if (currentIndex < questions.length) {
-        renderQuestion();
-      } else {
-        submitAnswers();
-      }
-    }
-
-    // SUBMIT RESULTS TO BACKEND
-    async function submitAnswers() {
-      if (isSubmitting) return;
-      isSubmitting = true;
-
-      document.getElementById("question").innerText = "Submitting...";
-      document.getElementById("answers").innerHTML = "";
-
-      try {
-        const res = await fetch(`${BASE_URL}/api/intake`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            email,
-            tenant,
-            answers,
-            mode: "assessment"
-          })
-        });
-
-        if (!res.ok) {
-          const text = await res.text();
-          throw new Error(`Server error: ${res.status} - ${text}`);
-        }
-
-        const result = await res.json();
-
-        document.querySelector(".card").innerHTML = `
-          <h2>Results</h2>
-          <p><strong>Primary Role:</strong> ${result.primary_role || "N/A"}</p>
-          <p><strong>Secondary Role:</strong> ${result.secondary_role || "N/A"}</p>
-        `;
-
-      } catch (err) {
-        console.error("SUBMIT ERROR:", err);
-
-        document.querySelector(".card").innerHTML = `
-          <h2>Error</h2>
-          <p>Something went wrong submitting your results.</p>
-          <pre style="color:red;">${err.message}</pre>
-        `;
-      }
-    }
-
-    // START SYSTEM
-    loadQuestions();
-  </script>
+loadQuestions();
+</script>
 
 </body>
 </html>
