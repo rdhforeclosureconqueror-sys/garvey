@@ -23,9 +23,7 @@ body {
   margin: auto;
 }
 
-h1 {
-  color: gold;
-}
+h1 { color: gold; }
 
 .section {
   color: red;
@@ -90,8 +88,8 @@ h1 {
 let questions = [];
 let currentIndex = 0;
 let answers = [];
+let sectionSize = 0;
 
-// 🔥 SECTION SYSTEM (4 PHASES)
 const sections = [
   { name: "Identity", tip: "This section reveals how you naturally see and express yourself." },
   { name: "Decision Making", tip: "This shows how you think and make choices under pressure." },
@@ -100,18 +98,28 @@ const sections = [
 ];
 
 function getSection(index) {
-  const size = Math.floor(questions.length / 4);
-  return sections[Math.min(Math.floor(index / size), 3)];
+  return sections[Math.min(Math.floor(index / sectionSize), 3)];
 }
 
-// API
 const API_URL = "https://garveybackend.onrender.com/api/questions?mode=25";
 
 async function loadQuestions() {
-  const res = await fetch(API_URL);
-  const data = await res.json();
-  questions = data.questions;
-  showQuestion();
+  try {
+    const res = await fetch(API_URL);
+    const data = await res.json();
+    questions = data.questions || [];
+
+    if (!questions.length) {
+      throw new Error("No questions returned");
+    }
+
+    sectionSize = Math.floor(questions.length / 4);
+
+    showQuestion();
+  } catch (err) {
+    console.error(err);
+    document.getElementById("questionText").innerText = "❌ Failed to load questions";
+  }
 }
 
 function showQuestion() {
@@ -152,11 +160,9 @@ function showQuestion() {
 
 function handleAnswer(qid, option) {
   answers.push({ qid, answer: option });
-
   currentIndex++;
 
-  // SECTION TRANSITION MESSAGE
-  if (currentIndex % Math.floor(questions.length / 4) === 0) {
+  if (sectionSize && currentIndex % sectionSize === 0 && currentIndex !== 0) {
     alert("✅ Section complete — we now understand this aspect of you.");
   }
 
@@ -164,27 +170,55 @@ function handleAnswer(qid, option) {
 }
 
 async function submitAssessment() {
-  const email = document.getElementById("email").value;
-  const tenant = new URLSearchParams(window.location.search).get("tenant") || "default";
+  const email = document.getElementById("email").value.trim();
+  const tenant = new URLSearchParams(window.location.search).get("tenant");
 
-  const res = await fetch("https://garveybackend.onrender.com/api/intake", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      email,
-      tenant,
-      answers
-    })
-  });
+  if (!email) {
+    alert("Please enter your email");
+    return;
+  }
 
-  const data = await res.json();
+  if (!tenant) {
+    document.getElementById("questionText").innerText =
+      "⚠️ Invalid access link. Please use your invite link.";
+    return;
+  }
 
-  renderResults(data);
+  try {
+    const res = await fetch("https://garveybackend.onrender.com/api/intake", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email,
+        tenant,
+        answers
+      })
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text);
+    }
+
+    const data = await res.json();
+    renderResults(data);
+
+  } catch (err) {
+    console.error("SUBMIT ERROR:", err);
+    document.getElementById("questionText").innerText =
+      "❌ Submission failed. Check console.";
+  }
 }
 
 function renderResults(data) {
+  if (!data || !data.primary_role) {
+    document.getElementById("questionText").innerText =
+      "❌ No results returned from server";
+    return;
+  }
+
   document.getElementById("questionText").innerText = "🎯 Your Results";
   document.getElementById("optionsContainer").innerHTML = "";
 
@@ -196,7 +230,9 @@ function renderResults(data) {
     <div id="scores"></div>
   `;
 
-  renderScoreBars(data.scores);
+  if (data.scores) {
+    renderScoreBars(data.scores);
+  }
 }
 
 function renderScoreBars(scores) {
