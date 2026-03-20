@@ -810,7 +810,7 @@ app.get("/health", (req, res) => {
 
 initializeDatabase()
   .then(async () => {
-    await seedQuestions();
+    // await seedQuestions();
 
     const intervalMs = Number(process.env.ADAPTIVE_INTERVAL_MS || 300000);
     setInterval(async () => {
