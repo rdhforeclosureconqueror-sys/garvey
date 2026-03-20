@@ -1,39 +1,72 @@
+
+<!-- FILE: public/admin.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Garvey Admin Control</title>
+
   <style>
-    body { font-family: Arial, sans-serif; max-width: 760px; margin: 24px auto; }
-    .row { margin-bottom: 10px; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    label { display: flex; gap: 8px; align-items: center; }
+    body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:24px; }
+    .card { background:#111; border:2px solid gold; padding:24px; border-radius:16px; max-width:820px; margin:0 auto; }
+    h1 { color: gold; margin: 0 0 10px; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:10px 0 14px; }
+    input {
+      padding:10px; margin:0; width:min(520px,92%);
+      border-radius:10px; border:1px solid #334155; background:#0b1020; color:#fff;
+    }
+    button {
+      padding:10px 14px; border-radius:10px; border:2px solid #000;
+      background:gold; color:#000; font-weight:700; cursor:pointer;
+    }
+    button:hover { background:#ef4444; color:#fff; }
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px; }
+    label { display:flex; gap:10px; align-items:center; padding:10px; border-radius:10px; background:#0b1020; border:1px solid #334155; }
+    .meta { color:#94a3b8; font-size:12px; margin-top:6px; }
+    pre { background:#0b1020; border:1px solid #334155; border-radius:10px; padding:12px; overflow:auto; }
+    a { color:#93c5fd; } a:hover { color:#bfdbfe; }
+    .err { color:#fca5a5; }
   </style>
 </head>
+
 <body>
-  <h1>Tenant Admin Control</h1>
+  <div class="card">
+    <h1>Tenant Admin Control</h1>
 
-  <div class="row">
-    <input id="tenant" placeholder="Tenant slug" value="test-business" />
-    <button onclick="loadConfig()">Load Config</button>
+    <div class="row">
+      <input id="tenant" placeholder="Tenant slug" value="test-business" />
+      <button id="loadBtn" type="button">Load Config</button>
+      <button id="saveBtn" type="button">Save Config</button>
+    </div>
+
+    <div class="meta" id="apiMeta"></div>
+
+    <h3 style="margin:16px 0 6px; color:#93c5fd;">Config</h3>
+    <div class="grid" id="toggles"></div>
+
+    <h3 style="margin:16px 0 6px; color:#93c5fd;">Result</h3>
+    <div class="meta" id="status"></div>
+    <pre id="result">{}</pre>
+
+    <div class="meta" style="margin-top:14px;">
+      <a href="/intake.html">Intake</a> |
+      <a href="/dashboard.html">Dashboard</a> |
+      <a href="/voc.html">VOC</a> |
+      <a href="/index.html">CX Engine</a>
+    </div>
   </div>
-
-  <h3>Role Display</h3>
-  <p id="roles">Primary: - | Secondary: -</p>
-  <p id="updated">Last updated: -</p>
-
-  <h3>Config Toggles</h3>
-  <div class="grid" id="toggles"></div>
-
-  <div class="row">
-    <button onclick="saveConfig()">Save Config</button>
-  </div>
-
-  <pre id="result"></pre>
 
   <script>
-    const keys = [
+    // If hosted on a static frontend (garveyfrontend.onrender.com),
+    // calls must hit the backend (garveybackend.onrender.com).
+    const API_BASE = (() => {
+      const host = window.location.hostname || "";
+      if (host.includes("garveyfrontend")) return "https://garveybackend.onrender.com";
+      return "";
+    })();
+
+    const KEYS = [
       ["reward_system", "Reward System"],
       ["engagement_engine", "Engagement Engine"],
       ["email_marketing", "Email Marketing"],
@@ -43,12 +76,38 @@
       ["analytics_engine", "Analytics Engine"]
     ];
 
+    function getTenantFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      return (params.get("tenant") || "").trim();
+    }
+
+    async function readJsonOrText(res) {
+      const ct = (res.headers.get("content-type") || "").toLowerCase();
+      if (ct.includes("application/json")) return await res.json();
+      return await res.text();
+    }
+
+    function setMeta() {
+      document.getElementById("apiMeta").innerText =
+        API_BASE ? `API: ${API_BASE}` : "API: same-origin";
+
+      const qTenant = getTenantFromQuery();
+      if (qTenant) document.getElementById("tenant").value = qTenant;
+    }
+
+    function setStatus(msg, isErr = false) {
+      const el = document.getElementById("status");
+      el.className = isErr ? "meta err" : "meta";
+      el.innerText = msg || "";
+    }
+
     function renderToggles(config = {}) {
       const root = document.getElementById("toggles");
       root.innerHTML = "";
 
-      keys.forEach(([key, label]) => {
+      for (const [key, label] of KEYS) {
         const wrapper = document.createElement("label");
+
         const input = document.createElement("input");
         input.type = "checkbox";
         input.id = `cfg_${key}`;
@@ -60,52 +119,88 @@
         wrapper.appendChild(input);
         wrapper.appendChild(span);
         root.appendChild(wrapper);
-      });
+      }
     }
 
     function readConfigFromForm() {
       const config = {};
-      keys.forEach(([key]) => {
-        config[key] = document.getElementById(`cfg_${key}`).checked;
-      });
+      for (const [key] of KEYS) {
+        config[key] = Boolean(document.getElementById(`cfg_${key}`).checked);
+      }
       return config;
     }
 
     async function loadConfig() {
-      const tenant = document.getElementById("tenant").value;
-      const res = await fetch(`/t/${tenant}/admin/config`);
-      const data = await res.json();
-      if (!res.ok) {
-        document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+      const tenant = (document.getElementById("tenant").value || "").trim();
+      if (!tenant) {
+        setStatus("Tenant slug is required.", true);
         return;
       }
 
-      renderToggles(data.config);
-      document.getElementById("roles").innerText =
-        `Primary: ${data.primary_role || "-"} | Secondary: ${data.secondary_role || "-"}`;
-      document.getElementById("updated").innerText =
-        `Last updated: ${data.last_updated || "-"}`;
-      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
-    }
+      try {
+        setStatus("Loading…");
+        const res = await fetch(`${API_BASE}/api/admin/config/${encodeURIComponent(tenant)}`);
+        const data = await readJsonOrText(res);
 
-    async function saveConfig() {
-      const tenant = document.getElementById("tenant").value;
-      const config = readConfigFromForm();
+        if (!res.ok) {
+          const msg = typeof data === "string" ? data : (data?.error || "Failed to load config");
+          setStatus(msg, true);
+          document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+          return;
+        }
 
-      const res = await fetch(`/t/${tenant}/admin/config`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ config })
-      });
-
-      const data = await res.json();
-      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
-      if (res.ok) {
-        await loadConfig();
+        const cfg = data.config || data; // tolerate either shape
+        renderToggles(cfg);
+        setStatus("Loaded.");
+        document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+      } catch (err) {
+        console.error(err);
+        setStatus(`Error: ${err.message}`, true);
       }
     }
 
-    renderToggles();
+    async function saveConfig() {
+      const tenant = (document.getElementById("tenant").value || "").trim();
+      if (!tenant) {
+        setStatus("Tenant slug is required.", true);
+        return;
+      }
+
+      try {
+        setStatus("Saving…");
+        const config = readConfigFromForm();
+
+        const res = await fetch(`${API_BASE}/api/admin/config`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tenant, config })
+        });
+
+        const data = await readJsonOrText(res);
+
+        if (!res.ok) {
+          const msg = typeof data === "string" ? data : (data?.error || "Failed to save config");
+          setStatus(msg, true);
+          document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+          return;
+        }
+
+        setStatus("Saved.");
+        document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+
+        // Re-load to reflect canonical stored value
+        await loadConfig();
+      } catch (err) {
+        console.error(err);
+        setStatus(`Error: ${err.message}`, true);
+      }
+    }
+
+    document.getElementById("loadBtn").addEventListener("click", loadConfig);
+    document.getElementById("saveBtn").addEventListener("click", saveConfig);
+
+    setMeta();
+    renderToggles({});
   </script>
 </body>
 </html>
