@@ -25,7 +25,11 @@ function buildWeights(index) {
   for (let roleIndex = 0; roleIndex < ROLES.length; roleIndex += 1) {
     const role = ROLES[roleIndex];
     const value =
-      (index + roleIndex) % ROLES.length === 0 ? 2 : (index + roleIndex) % 3 === 0 ? 1 : 0;
+      (index + roleIndex) % ROLES.length === 0
+        ? 2
+        : (index + roleIndex) % 3 === 0
+          ? 1
+          : 0;
     weights[role] = value;
   }
   return weights;
@@ -54,13 +58,7 @@ async function seed(pool) {
       `INSERT INTO questions (qid, question, options, weights, type)
        VALUES ($1, $2, $3, $4, $5)
        ON CONFLICT (qid) DO NOTHING`,
-      [
-        `Q${i}`,
-        `Question ${i}`,
-        buildOptions(i),
-        buildWeights(i),
-        i <= 25 ? "fast" : "full"
-      ]
+      [`Q${i}`, `Question ${i}`, buildOptions(i), buildWeights(i), i <= 25 ? "fast" : "full"]
     );
   }
 
