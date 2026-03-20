@@ -13,7 +13,7 @@ console.log("🌱 Seeding questions...");
 
   function generateWeights(primaryIndex) {
     const weights = {};
-    roles.forEach(r => weights[r] = 0);
+    roles.forEach(r => { weights[r] = 0; });
 
     const primary = roles[primaryIndex % roles.length];
     const secondary = roles[(primaryIndex + 3) % roles.length];
@@ -40,6 +40,17 @@ console.log("🌱 Seeding questions...");
         };
   }
 
+  const insertQuery = `
+    INSERT INTO questions (qid, question, options, weights, type)
+    VALUES ($1,$2,$3::jsonb,$4::jsonb,$5)
+    ON CONFLICT (qid) DO UPDATE SET
+      question = EXCLUDED.question,
+      options = EXCLUDED.options,
+      weights = EXCLUDED.weights,
+      type = EXCLUDED.type
+  `;
+
+  // FULL
   for (let i = 1; i <= 60; i++) {
     const options = buildOptions("full");
 
@@ -50,24 +61,16 @@ console.log("🌱 Seeding questions...");
       D: generateWeights(3)
     };
 
-    await pool.query(
-      `INSERT INTO questions (qid, question, options, weights, type)
-       VALUES ($1,$2,$3::jsonb,$4::jsonb,$5)
-       ON CONFLICT (qid) DO UPDATE SET
-         question = EXCLUDED.question,
-         options = EXCLUDED.options,
-         weights = EXCLUDED.weights,
-         type = EXCLUDED.type`,
-      [
-        `Q${i}`,
-        `Question ${i}: How do you naturally respond in real-world situations?`,
-        JSON.stringify(options),
-        JSON.stringify(weights),
-        "full"
-      ]
-    );
+    await pool.query(insertQuery, [
+      `Q${i}`,
+      `Question ${i}: How do you naturally respond in real-world situations?`,
+      JSON.stringify(options),
+      JSON.stringify(weights),
+      "full"
+    ]);
   }
 
+  // FAST
   for (let i = 1; i <= 25; i++) {
     const options = buildOptions("fast");
 
@@ -78,22 +81,13 @@ console.log("🌱 Seeding questions...");
       D: generateWeights(3)
     };
 
-    await pool.query(
-      `INSERT INTO questions (qid, question, options, weights, type)
-       VALUES ($1,$2,$3::jsonb,$4::jsonb,$5)
-       ON CONFLICT (qid) DO UPDATE SET
-         question = EXCLUDED.question,
-         options = EXCLUDED.options,
-         weights = EXCLUDED.weights,
-         type = EXCLUDED.type`,
-      [
-        `FQ${i}`,
-        `Quick Question ${i}: What feels most natural to you?`,
-        JSON.stringify(options),
-        JSON.stringify(weights),
-        "fast"
-      ]
-    );
+    await pool.query(insertQuery, [
+      `FQ${i}`,
+      `Quick Question ${i}: What feels most natural to you?`,
+      JSON.stringify(options),
+      JSON.stringify(weights),
+      "fast"
+    ]);
   }
 
   console.log("✅ Questions seeded successfully");
