@@ -5,7 +5,6 @@
 // ✅ Logs exactly:
 //    - "Seeding questions..."
 //    - "Questions already exist"
-
 "use strict";
 
 const ROLES = [
@@ -20,19 +19,32 @@ const ROLES = [
   "resource_generator"
 ];
 
-function buildWeights(index) {
-  const weights = {};
-  for (let roleIndex = 0; roleIndex < ROLES.length; roleIndex += 1) {
-    const role = ROLES[roleIndex];
-    const value =
-      (index + roleIndex) % ROLES.length === 0
-        ? 2
-        : (index + roleIndex) % 3 === 0
-          ? 1
-          : 0;
-    weights[role] = value;
-  }
-  return weights;
+function emptyRoleMap() {
+  const m = {};
+  for (const r of ROLES) m[r] = 0;
+  return m;
+}
+
+// IMPORTANT: scoringEngine expects: question.weights[ANSWER_LETTER] -> { role: number }
+function buildOptionWeights(i) {
+  const A = emptyRoleMap();
+  const B = emptyRoleMap();
+  const C = emptyRoleMap();
+  const D = emptyRoleMap();
+
+  A[ROLES[i % ROLES.length]] = 2;
+  A[ROLES[(i + 2) % ROLES.length]] = 1;
+
+  B[ROLES[(i + 1) % ROLES.length]] = 2;
+  B[ROLES[(i + 4) % ROLES.length]] = 1;
+
+  C[ROLES[(i + 3) % ROLES.length]] = 2;
+  C[ROLES[(i + 6) % ROLES.length]] = 1;
+
+  D[ROLES[(i + 5) % ROLES.length]] = 2;
+  D[ROLES[(i + 7) % ROLES.length]] = 1;
+
+  return { A, B, C, D };
 }
 
 function buildOptions(i) {
@@ -58,7 +70,13 @@ async function seed(pool) {
       `INSERT INTO questions (qid, question, options, weights, type)
        VALUES ($1, $2, $3, $4, $5)
        ON CONFLICT (qid) DO NOTHING`,
-      [`Q${i}`, `Question ${i}`, buildOptions(i), buildWeights(i), i <= 25 ? "fast" : "full"]
+      [
+        `Q${i}`,
+        `Question ${i}`,
+        buildOptions(i),
+        buildOptionWeights(i),
+        i <= 25 ? "fast" : "full"
+      ]
     );
   }
 
