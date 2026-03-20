@@ -2,110 +2,19 @@ const { pool } = require("./db");
 
 async function seed() {
   try {
-    // CLEAN START
-    await pool.query(`DELETE FROM question_map;`);
-    await pool.query(`DELETE FROM question_options;`);
     await pool.query(`DELETE FROM questions;`);
 
-    // =========================
-    // ROLES
-    // =========================
     const roles = [
-      "Architect",
-      "Operator",
-      "Steward",
-      "Builder",
-      "Connector",
-      "Protector",
-      "Nurturer",
-      "Educator",
-      "ResourceGenerator"
+      "Architect","Operator","Steward","Builder",
+      "Connector","Protector","Nurturer","Educator","ResourceGenerator"
     ];
 
-    // =========================
-    // QUESTION GENERATOR
-    // =========================
-    function createQuestion(qid, text, type = "full") {
-      return {
-        qid,
-        text,
-        type
-      };
-    }
+    function generateWeights(index) {
+      const weights = {};
+      roles.forEach(r => weights[r] = 0);
 
-    const questions = [];
-
-    // =========================
-    // BUILD 60 QUESTIONS
-    // =========================
-    for (let i = 1; i <= 60; i++) {
-      questions.push(
-        createQuestion(
-          `Q${i}`,
-          `Question ${i}: What best describes your natural behavior in this situation?`,
-          "full"
-        )
-      );
-    }
-
-    // =========================
-    // BUILD 25 QUESTIONS (FAST)
-    // =========================
-    for (let i = 1; i <= 25; i++) {
-      questions.push(
-        createQuestion(
-          `FQ${i}`,
-          `Quick Question ${i}: What feels most natural to you?`,
-          "fast"
-        )
-      );
-    }
-
-    // =========================
-    // INSERT QUESTIONS
-    // =========================
-    for (const q of questions) {
-      await pool.query(
-        `INSERT INTO questions (qid, question, type) VALUES ($1, $2, $3)`,
-        [q.qid, q.text, q.type]
-      );
-    }
-
-    // =========================
-    // OPTIONS
-    // =========================
-    const options = ["A", "B", "C", "D"];
-
-    for (const q of questions) {
-      for (const opt of options) {
-        await pool.query(
-          `INSERT INTO question_options (qid, option) VALUES ($1, $2)`,
-          [q.qid, opt]
-        );
-      }
-    }
-
-    // =========================
-    // WEIGHT ENGINE (CRITICAL)
-    // =========================
-    function getWeights(optionIndex) {
-      const weights = {
-        Architect: 0,
-        Operator: 0,
-        Steward: 0,
-        Builder: 0,
-        Connector: 0,
-        Protector: 0,
-        Nurturer: 0,
-        Educator: 0,
-        ResourceGenerator: 0
-      };
-
-      // ROTATING ROLE LOGIC
-      const roleKeys = Object.keys(weights);
-
-      const primary = roleKeys[optionIndex];
-      const secondary = roleKeys[(optionIndex + 3) % roleKeys.length];
+      const primary = roles[index % roles.length];
+      const secondary = roles[(index + 3) % roles.length];
 
       weights[primary] = 2;
       weights[secondary] = 1;
@@ -113,38 +22,63 @@ async function seed() {
       return weights;
     }
 
-    // =========================
-    // INSERT MAPPING
-    // =========================
-    for (const q of questions) {
-      options.forEach(async (opt, index) => {
-        const w = getWeights(index);
+    for (let i = 1; i <= 60; i++) {
+      const options = {
+        A: "Strategize and design",
+        B: "Take action immediately",
+        C: "Support and guide others",
+        D: "Connect and unify people"
+      };
 
-        await pool.query(
-          `
-          INSERT INTO question_map
-          (qid, option, architect, operator, steward, builder, connector, protector, nurturer, educator, resourcegenerator, type)
-          VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
-          `,
-          [
-            q.qid,
-            opt,
-            w.Architect,
-            w.Operator,
-            w.Steward,
-            w.Builder,
-            w.Connector,
-            w.Protector,
-            w.Nurturer,
-            w.Educator,
-            w.ResourceGenerator,
-            q.type
-          ]
-        );
-      });
+      const weights = {
+        A: generateWeights(0),
+        B: generateWeights(1),
+        C: generateWeights(2),
+        D: generateWeights(3)
+      };
+
+      await pool.query(
+        `INSERT INTO questions (qid, question, options, weights, type)
+         VALUES ($1, $2, $3, $4, $5)`,
+        [
+          `Q${i}`,
+          `Question ${i}: How do you naturally respond?`,
+          JSON.stringify(options),
+          JSON.stringify(weights),
+          "full"
+        ]
+      );
     }
 
-    console.log("🔥 FULL SYSTEM SEEDED (60 + 25 QUESTIONS)");
+    for (let i = 1; i <= 25; i++) {
+      const options = {
+        A: "Think first",
+        B: "Act first",
+        C: "Help others",
+        D: "Bring people together"
+      };
+
+      const weights = {
+        A: generateWeights(0),
+        B: generateWeights(1),
+        C: generateWeights(2),
+        D: generateWeights(3)
+      };
+
+      await pool.query(
+        `INSERT INTO questions (qid, question, options, weights, type)
+         VALUES ($1, $2, $3, $4, $5)`,
+        [
+          `FQ${i}`,
+          `Quick Question ${i}: What feels natural?`,
+          JSON.stringify(options),
+          JSON.stringify(weights),
+          "fast"
+        ]
+      );
+    }
+
+    console.log("🔥 QUESTIONS SEEDED (MATCHED TO YOUR DB)");
     process.exit();
 
   } catch (err) {
