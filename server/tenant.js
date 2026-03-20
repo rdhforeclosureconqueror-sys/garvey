@@ -1,3 +1,6 @@
+// FILE: server/tenant.js
+"use strict";
+
 const { pool } = require("./db");
 
 const DEFAULT_TENANT_CONFIG = {
@@ -5,26 +8,35 @@ const DEFAULT_TENANT_CONFIG = {
   engagement_engine: true,
   email_marketing: false,
   content_engine: true,
-  referral_system: true
+  referral_system: true,
+  automation_blueprints: false,
+  analytics_engine: false
 };
 
 async function getTenantBySlug(slug) {
-  const result = await pool.query("SELECT * FROM tenants WHERE slug = $1", [slug]);
+  const clean = String(slug || "").trim();
+  if (!clean) return null;
+
+  const result = await pool.query("SELECT * FROM tenants WHERE slug = $1", [clean]);
   return result.rows[0] || null;
 }
 
 async function ensureTenant(slug) {
-  let tenant = await getTenantBySlug(slug);
+  const clean = String(slug || "").trim();
+  if (!clean) throw new Error("tenant slug is required");
 
-  if (!tenant) {
-    const create = await pool.query(
-      "INSERT INTO tenants (name, slug) VALUES ($1, $2) RETURNING *",
-      [slug, slug]
-    );
-    tenant = create.rows[0];
-  }
+  const existing = await getTenantBySlug(clean);
+  if (existing) return existing;
 
-  return tenant;
+  const created = await pool.query(
+    `INSERT INTO tenants (name, slug)
+     VALUES ($1, $2)
+     ON CONFLICT (slug) DO UPDATE SET slug = EXCLUDED.slug
+     RETURNING *`,
+    [clean, clean]
+  );
+
+  return created.rows[0];
 }
 
 async function getTenantConfig(tenantId) {
