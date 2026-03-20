@@ -1,4 +1,4 @@
-const { Pool } = require("pg");
+const { Pool } = require('pg');
 
 const connectionString = process.env.DATABASE_URL;
 
@@ -6,7 +6,9 @@ const pool = new Pool(
   connectionString
     ? {
         connectionString,
-        ssl: connectionString.includes("localhost") ? false : { rejectUnauthorized: false }
+        ssl: connectionString.includes("localhost")
+          ? false
+          : { rejectUnauthorized: false }
       }
     : {
         host: process.env.PGHOST || "127.0.0.1",
@@ -109,6 +111,7 @@ async function initializeDatabase() {
       created_at TIMESTAMPTZ DEFAULT NOW()
     );
 
+    -- VOC SYSTEM (Phase 11)
     CREATE TABLE IF NOT EXISTS voc_sessions (
       id SERIAL PRIMARY KEY,
       tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
@@ -134,6 +137,7 @@ async function initializeDatabase() {
       created_at TIMESTAMPTZ DEFAULT NOW()
     );
 
+    -- API RESULTS STORAGE (Phase 9–11)
     CREATE TABLE IF NOT EXISTS results (
       id SERIAL PRIMARY KEY,
       email TEXT,
@@ -144,6 +148,7 @@ async function initializeDatabase() {
       created_at TIMESTAMPTZ DEFAULT NOW()
     );
 
+    -- QUESTIONS ENGINE
     CREATE TABLE IF NOT EXISTS questions (
       id SERIAL PRIMARY KEY,
       qid TEXT,
@@ -164,6 +169,7 @@ async function initializeDatabase() {
       type TEXT
     );
 
+    -- TENANT CONFIG (HYBRID SAFE)
     CREATE TABLE IF NOT EXISTS tenant_config (
       id SERIAL PRIMARY KEY,
       tenant_id INTEGER UNIQUE REFERENCES tenants(id) ON DELETE CASCADE,

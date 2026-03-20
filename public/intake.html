@@ -9,6 +9,7 @@
     .bar-wrap { width: 100%; background: #eee; border-radius: 8px; height: 16px; margin: 12px 0; }
     .bar { height: 100%; width: 0%; border-radius: 8px; background: #2f7cf6; }
     .choices button { margin-right: 8px; margin-bottom: 8px; }
+    .selected { background-color: #2f7cf6; color: #fff; }
   </style>
 </head>
 <body>
@@ -59,11 +60,19 @@
     function renderQuestion() {
       const total = totalQuestions();
       const index = answers.length;
-      document.getElementById("questionLabel").innerText =
-        index < total ? `Question ${index + 1} of ${total}` : `Completed ${total} of ${total}`;
 
-      const sectionIndex = Math.min(Math.floor((index / total) * sectionNames.length), sectionNames.length - 1);
-      document.getElementById("sectionLabel").innerText = `Section: ${sectionNames[sectionIndex]}`;
+      document.getElementById("questionLabel").innerText =
+        index < total
+          ? `Question ${index + 1} of ${total}`
+          : `Completed ${total} of ${total}`;
+
+      const sectionIndex = Math.min(
+        Math.floor((index / total) * sectionNames.length),
+        sectionNames.length - 1
+      );
+
+      document.getElementById("sectionLabel").innerText =
+        `Section: ${sectionNames[sectionIndex]}`;
 
       const percent = Math.round((answers.length / total) * 100);
       document.getElementById("progressBar").style.width = `${percent}%`;
@@ -71,34 +80,49 @@
       document.getElementById("submitBtn").disabled = answers.length !== total;
     }
 
+    function clearSelection() {
+      document.querySelectorAll('.choices button')
+        .forEach((btn) => btn.classList.remove('selected'));
+    }
+
     function selectAnswer(value) {
-      if (answers.length >= totalQuestions()) return;
+      const total = totalQuestions();
+      if (answers.length >= total) return;
+
       answers.push(value);
+      clearSelection();
+
+      const selectedButton = Array.from(document.querySelectorAll('.choices button'))
+        .find((btn) => btn.innerText === value);
+
+      if (selectedButton) selectedButton.classList.add('selected');
+
+      setTimeout(clearSelection, 120);
       renderQuestion();
     }
 
     function resetFlow() {
       answers = [];
       document.getElementById("result").innerText = "";
+      clearSelection();
+      hydrateFromQuery();
       renderQuestion();
     }
 
     async function submitIntake() {
-      const payload = {
-        email: document.getElementById("email").value,
-        tenant_slug: document.getElementById("tenant").value,
-        mode: document.getElementById("mode").value,
-        answers
-      };
+      const email = document.getElementById("email").value;
+      const tenant_slug = document.getElementById("tenant").value;
+      const mode = document.getElementById("mode").value;
 
       const res = await fetch("/intake", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ email, tenant_slug, mode, answers })
       });
 
       const data = await res.json();
-      document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+      document.getElementById("result").innerText =
+        JSON.stringify(data, null, 2);
     }
 
     hydrateFromQuery();

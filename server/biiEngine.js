@@ -44,7 +44,12 @@ function getTopRoles(roles) {
 
 function generateRecommendations(primary, secondary, mode) {
   return {
-    systems: ["behavior_tracking", "reward_engine", "customer_data_capture", "engagement_sequences"],
+    systems: [
+      "behavior_tracking",
+      "reward_engine",
+      "customer_data_capture",
+      "engagement_sequences"
+    ],
     focus: `${primary} + ${secondary}`,
     operating_mode: mode,
     message:

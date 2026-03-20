@@ -1,32 +1,56 @@
-# Garvey Final System Validation Report (Phases 9–11)
+# Garvey Final System Validation Report (Phases 1–11)
 
 ## Executive Summary
-Garvey now has a fully testable BII verification layer from database to questions to intake scoring to persisted results. Existing multi-tenant behavior, VOC, adaptive, and admin engines remain intact.
+Garvey is a multi-tenant SaaS behavior + intelligence platform for business operators. It captures customer behavior, rewards engagement, performs business-intelligence intake scoring, generates tenant-specific configuration, and surfaces actionable analytics in a tenant-safe way.
+
+Phases 9–11 extend the system with a full BII verification API layer, including question seeding, scoring validation, and end-to-end intake testing.
+
+---
 
 ## System Architecture
-1. Database Layer (questions, intake responses, results, tenant config)
-2. Questions Layer (`seedQuestions`, `/api/questions`)
-3. Intake + Scoring Layer (`/api/intake`, `scoreAnswers`, `getTopRoles`)
-4. Results + Admin Config Layer (`/api/results/:email`, `/api/admin/config`)
-5. Verification Layer (`/api/verify/db|questions|scoring|intake`)
+
+### Core Engines
+1. Behavior Engine (`checkin`, `action`, `wishlist`)
+2. BII Engine (`/intake`, scoring, recommendations)
+3. Config Activation Engine (feature gating via `tenant_config`)
+4. Customer Experience Engine (`join`, `review`, `referral`)
+5. Analytics Engine (top actions, points distribution, daily activity)
+6. Verification Engine (`/verify`)
+7. Admin Control Engine (`/t/:slug/admin/config`)
+
+### Extended (Phases 9–11)
+8. Database Layer (questions, intake responses, results compatibility)
+9. Scoring Engine (`scoreAnswers`, `getTopRoles`)
+10. Questions Engine (`seedQuestions`, `/api/questions`)
+11. Verification API Layer (`/api/verify/*`, `/api/intake`, `/api/results`)
+
+---
+
+## Data Flow
+User → Intake → Scoring → Config → Behavior → Dashboard  
+Verification Layer → Validates entire pipeline (DB → Questions → Intake → Results)
+
+---
 
 ## Endpoint Map
-### Existing Platform Endpoints
-- `/health`
-- `/verify`
-- `/join/:slug`
-- `/intake`
-- `/voc-intake`
-- `/t/:slug/checkin`
-- `/t/:slug/action`
-- `/t/:slug/review`
-- `/t/:slug/referral`
-- `/t/:slug/wishlist`
-- `/t/:slug/dashboard`
-- `/t/:slug/config`
-- `/t/:slug/admin/config` (GET/POST)
 
-### New Verification/API Endpoints
+### Core Platform Endpoints
+- `GET /health`
+- `GET /verify`
+- `GET /join/:slug`
+- `POST /intake`
+- `POST /voc-intake`
+- `POST /t/:slug/checkin`
+- `POST /t/:slug/action`
+- `POST /t/:slug/review`
+- `POST /t/:slug/referral`
+- `POST /t/:slug/wishlist`
+- `GET /t/:slug/dashboard`
+- `GET /t/:slug/config`
+- `GET /t/:slug/admin/config`
+- `POST /t/:slug/admin/config`
+
+### Phase 9–11 API + Verification Endpoints
 - `GET /api/verify/db`
 - `GET /api/verify/questions`
 - `GET /api/verify/scoring`
@@ -37,23 +61,77 @@ Garvey now has a fully testable BII verification layer from database to question
 - `POST /api/admin/config`
 - `GET /api/admin/config/:tenant`
 
-## File Map (Updated)
-- `server/db.js` — schema bootstrap including questions/results compatibility tables.
-- `server/scoringEngine.js` — `scoreAnswers()` and `getTopRoles()`.
-- `server/questions.js` — `seedQuestions()` for 60 seeded questions.
-- `server/index.js` — API/verify routes, CORS, intake pipeline, existing platform endpoints.
-- `docs/SYSTEM_REPORT.md` — final status and verification map.
+---
+
+## File Map
+
+### Backend
+- `server/index.js` — unified API layer (platform + verification endpoints)
+- `server/db.js` — schema bootstrap + compatibility extensions
+- `server/tenant.js` — tenant resolution + config handling
+- `server/biiEngine.js` — legacy scoring + recommendations
+- `server/scoringEngine.js` — new scoring system (Phase 10)
+- `server/questions.js` — seeded question engine (Phase 11)
+- `server/verify.js` — verification runner (legacy + extended)
+- `server/adaptiveEngine.js` — adaptive config tuning
+- `server/vocEngine.js` — voice-of-customer pipeline
+
+### Frontend
+- `public/index.html` — behavior + CX UI
+- `public/intake.html` — intake UI (25/60 flow)
+- `public/dashboard.html` — analytics dashboard
+- `public/admin.html` — admin config UI
+- `public/voc.html` — VOC intake UI
+
+---
 
 ## Phase Status
-- Phase 9 (Database Layer) — PASS
-- Phase 10 (Scoring Engine) — PASS
-- Phase 11 (Questions + API + Verify) — PASS
+
+- Phase 1 — PASS (Behavior Engine)
+- Phase 2 — PASS (BII Intake + Scoring)
+- Phase 3 — PASS (Config Generation)
+- Phase 3.5 — PASS (Hardening + Logging)
+- Phase 4 — PASS (Customer Experience)
+- Phase 5 — PASS (Analytics)
+- Phase 6 — PASS (Config Gating)
+- Phase 7 — PASS (Verification Engine)
+- Phase 8 — PASS (Admin Control)
+- Phase 9 — PASS (Database Layer)
+- Phase 10 — PASS (Scoring Engine)
+- Phase 11 — PASS (Questions + API + Verify)
+
+---
+
+## Issues Found + Fixes Applied
+- Added compatibility fields to avoid breaking existing schema
+- Introduced safe config sanitization to prevent injection
+- Fixed tenant-safe upsert logic for users
+- Ensured transaction safety across intake + referral flows
+- Added verification APIs for granular pipeline validation
+- Preserved backward compatibility with existing `/verify` system
+
+---
 
 ## Deployment Readiness
-- DB bootstrap on startup: enabled
-- Seed questions on startup: enabled
-- CORS + JSON middleware: enabled
-- Verification endpoints: enabled
-- System remains compatible with Phases 1–10
+- DB auto-initialization on startup
+- Question seeding enabled
+- CORS + JSON middleware active
+- `/health`, `/verify`, and `/api/verify/*` operational
+- Fully tenant-safe architecture
+- Ready for deployment (Render with `DATABASE_URL`)
 
-GARVEY SYSTEM FULLY OPERATIONAL
+---
+
+## Testing Summary
+- End-to-end API flows validated via curl
+- DB schema + compatibility verified
+- Intake (25 + 60) validated
+- Scoring engine validated independently
+- Admin config updates verified
+- Verification endpoints confirmed PASS
+- Dashboard analytics validated
+
+---
+
+## Final Status
+GARVEY SYSTEM FULLY OPERATIONAL (PHASES 1–11 COMPLETE)
