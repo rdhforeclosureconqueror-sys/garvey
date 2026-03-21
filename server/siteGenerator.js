@@ -1,131 +1,137 @@
-/* =========================
-   FILE: server/siteGenerator.js
-   Multi-tenant website generator (Command B)
-   - Generates HTML strings from tenant + config
-   - Keep it simple: landing page MVP
-========================= */
+// FILE: server/siteGenerator.js
+// Command B: config-driven multi-tenant site pages stored in tenant_sites.pages JSONB
+//
+// API usage (server/index.js already wired):
+// - POST /api/site/generate  { tenant, site, features }
+// - GET  /t/:slug/site       renders landing HTML
+//
+// generateTenantSite(...) returns:
+// { version: number, pages: { landing: "<html...>", checkout: "...", community: "..." } }
+
 "use strict";
 
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+function esc(str) {
+  return String(str ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
-function normalizeHexColor(value, fallback = "#d4af37") {
-  const s = String(value || "").trim();
-  if (/^#[0-9a-fA-F]{6}$/.test(s)) return s;
-  return fallback;
+function bool(v, fallback) {
+  if (typeof v === "boolean") return v;
+  return Boolean(fallback);
 }
 
-function buildLandingHtml({ tenantSlug, site, features }) {
-  const businessName = escapeHtml(site.business_name || tenantSlug);
-  const industry = escapeHtml(site.industry || "business");
-  const rewardName = escapeHtml(site.reward_name || "Rewards");
-  const primaryColor = normalizeHexColor(site.primary_color, "#d4af37");
-  const logoUrl = escapeHtml(site.logo_url || "");
-  const headline = escapeHtml(site.headline || `Join ${businessName} & Earn ${rewardName}`);
-  const subhead = escapeHtml(
-    site.subhead ||
-      `Become part of the ${industry} community. Earn points for visits, reviews, referrals, and engagement.`
-  );
+function pickTheme(site = {}) {
+  const primary = site.primary_color || "#facc15"; // gold
+  const bg = site.bg_color || "#000000";
+  const card = site.card_color || "#111111";
+  const text = site.text_color || "#ffffff";
+  const accent = site.accent_color || "#ef4444";
+  return { primary, bg, card, text, accent };
+}
 
-  const showQuiz = features.quiz !== false; // default true
-  const showRewards = features.rewards !== false; // default true
-  const showReviews = features.reviews !== false; // default true
-  const showReferrals = features.referrals !== false; // default true
+function landingHtml({ tenantSlug, config }) {
+  const site = config?.site || {};
+  const features = config?.features || {};
+  const theme = pickTheme(site);
 
-  const ctaHref = `/join/${encodeURIComponent(tenantSlug)}`;
-  const intakeHref = `/intake.html?tenant=${encodeURIComponent(tenantSlug)}`;
-  const dashboardHref = `/dashboard.html?tenant=${encodeURIComponent(tenantSlug)}`;
+  const businessName = site.business_name || tenantSlug;
+  const headline = site.headline || `Join ${businessName} Community & Earn Rewards`;
+  const subhead =
+    site.subheadline ||
+    "Earn points for check-ins, reviews, referrals, and get personalized recommendations.";
 
-  const logoBlock = logoUrl
-    ? `<img src="${logoUrl}" alt="${businessName} logo" style="max-height:72px; max-width:240px; margin:0 auto 14px; display:block;" />`
-    : "";
+  const rewardName = site.reward_name || "Credits";
+
+  const showRewards = bool(features.rewards, true);
+  const showIntake = bool(features.quiz, true);
+  const showReviews = bool(features.reviews, true);
+  const showStore = bool(features.store, false);
+
+  const intakeLink = `/intake.html?tenant=${encodeURIComponent(tenantSlug)}`;
+  const cxLink = `/index.html?tenant=${encodeURIComponent(tenantSlug)}`;
+  const dashLink = `/dashboard.html?tenant=${encodeURIComponent(tenantSlug)}`;
+  const adminLink = `/admin.html?tenant=${encodeURIComponent(tenantSlug)}`;
+  const vocLink = `/voc.html?tenant=${encodeURIComponent(tenantSlug)}`;
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>${businessName} • Community</title>
+  <title>${esc(businessName)} — Community</title>
   <style>
-    body { font-family: Arial, sans-serif; background:#000; color:#fff; margin:0; padding:0; }
-    .wrap { max-width: 980px; margin: 0 auto; padding: 28px 18px; }
-    .card { background:#0f172a; border:2px solid ${primaryColor}; border-radius:18px; padding:24px; }
-    h1 { color:${primaryColor}; margin: 8px 0 10px; font-size: 34px; }
-    p { color:#cbd5e1; line-height:1.45; }
-    .cta { display:inline-block; padding:12px 16px; border-radius:12px; background:${primaryColor}; color:#000; font-weight:800; text-decoration:none; margin-top:14px; }
-    .cta:hover { filter: brightness(0.95); }
-    .grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
-    .tile { background:#0b1020; border:1px solid #334155; border-radius:14px; padding:14px; }
-    .tile h3 { margin:0 0 6px; color:#93c5fd; font-size: 16px; }
-    .meta { color:#94a3b8; font-size:12px; margin-top: 14px; }
-    .links a { color:#93c5fd; text-decoration:none; }
-    .links a:hover { color:#bfdbfe; }
-    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+    body { font-family: Arial, sans-serif; background:${esc(theme.bg)}; color:${esc(theme.text)}; padding:24px; }
+    .card { background:${esc(theme.card)}; border:2px solid ${esc(theme.primary)}; padding:24px; border-radius:16px; max-width:860px; margin:0 auto; }
+    h1 { color:${esc(theme.primary)}; margin:0 0 8px; }
+    p { color:#cbd5e1; margin:0 0 14px; }
+    .ctaRow { display:flex; gap:12px; flex-wrap:wrap; margin:14px 0; }
+    a.btn { display:inline-block; padding:12px 14px; border-radius:12px; border:2px solid #000; background:${esc(
+      theme.primary
+    )}; color:#000; font-weight:800; text-decoration:none; }
+    a.btn:hover { background:${esc(theme.accent)}; color:#fff; }
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:14px; }
+    .box { background:#0b1020; border:1px solid #334155; border-radius:12px; padding:14px; }
+    .label { color:#93c5fd; font-weight:700; margin-bottom:6px; }
+    .meta { color:#94a3b8; font-size:12px; margin-top:14px; }
+    .pill { display:inline-block; padding:4px 10px; border-radius:999px; background:#111827; border:1px solid #334155; color:#e5e7eb; font-size:12px; margin-right:6px; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      ${logoBlock}
-      <div class="meta">Tenant: ${escapeHtml(tenantSlug)}</div>
-      <h1>${headline}</h1>
-      <p>${subhead}</p>
+  <div class="card">
+    <div class="pill">Tenant: ${esc(tenantSlug)}</div>
+    ${showRewards ? `<div class="pill">Rewards: ${esc(rewardName)}</div>` : ""}
+    ${showStore ? `<div class="pill">Store: enabled</div>` : `<div class="pill">Store: off</div>`}
 
-      <a class="cta" href="${ctaHref}">Join & Start Earning</a>
+    <h1>${esc(headline)}</h1>
+    <p>${esc(subhead)}</p>
 
-      <div class="grid">
-        ${
-          showRewards
-            ? `<div class="tile"><h3>${rewardName}</h3><p>Earn points for actions and unlock offers.</p></div>`
-            : ""
-        }
-        ${
-          showQuiz
-            ? `<div class="tile"><h3>Owner Intelligence Quiz</h3><p>Take the assessment to unlock recommendations.</p><div class="meta"><a class="links" href="${intakeHref}">Open Intake</a></div></div>`
-            : ""
-        }
-        ${
-          showReviews
-            ? `<div class="tile"><h3>Reviews</h3><p>Leave a review and earn points (if enabled).</p></div>`
-            : ""
-        }
-        ${
-          showReferrals
-            ? `<div class="tile"><h3>Referrals</h3><p>Invite others and earn bonus credits (if enabled).</p></div>`
-            : ""
-        }
+    <div class="ctaRow">
+      ${showIntake ? `<a class="btn" href="${esc(intakeLink)}">Take the Assessment</a>` : ""}
+      <a class="btn" href="${esc(cxLink)}">Earn Points (Actions)</a>
+      <a class="btn" href="${esc(dashLink)}">Owner Dashboard</a>
+    </div>
+
+    <div class="grid">
+      <div class="box">
+        <div class="label">What you can do</div>
+        <ul>
+          <li>Check in and earn points</li>
+          ${showReviews ? "<li>Leave reviews (photo/video optional)</li>" : ""}
+          <li>Refer friends to grow the community</li>
+          <li>Join the list for offers + updates</li>
+        </ul>
       </div>
 
-      <div class="meta links">
-        <a href="${intakeHref}">Intake</a> •
-        <a href="/index.html?tenant=${encodeURIComponent(tenantSlug)}">CX Engine</a> •
-        <a href="/admin.html?tenant=${encodeURIComponent(tenantSlug)}">Admin</a> •
-        <a href="${dashboardHref}">Dashboard</a>
+      <div class="box">
+        <div class="label">Owner controls</div>
+        <ul>
+          <li><a href="${esc(adminLink)}">Admin config</a> (toggle features)</li>
+          <li><a href="${esc(dashLink)}">Dashboard</a> (analytics)</li>
+          <li><a href="${esc(vocLink)}">VOC Intake</a> (customer voice)</li>
+        </ul>
       </div>
+    </div>
+
+    <div class="meta">
+      Generated by Garvey Site Generator (Command B). Preview route: <code>/t/${esc(tenantSlug)}/site</code>
     </div>
   </div>
 </body>
 </html>`;
 }
 
-function generateTenantSite({ tenantSlug, config = {} }) {
-  const site = config.site || {};
-  const features = (config.features && typeof config.features === "object") ? config.features : {};
+function generateTenantSite({ tenantSlug, config }) {
+  const version = 1;
 
-  const landing = buildLandingHtml({ tenantSlug, site, features });
-
-  return {
-    version: 1,
-    pages: {
-      landing
-    }
+  const pages = {
+    landing: landingHtml({ tenantSlug, config })
   };
+
+  return { version, pages };
 }
 
 module.exports = { generateTenantSite };
