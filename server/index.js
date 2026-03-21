@@ -17,7 +17,7 @@
 
 const express = require("express");
 const path = require("path");
-
+const { generateTenantSite } = require("./siteGenerator");
 const { pool, initializeDatabase } = require("./db");
 const { ensureTenant, getTenantBySlug, getTenantConfig, DEFAULT_TENANT_CONFIG } = require("./tenant");
 const { runAdaptiveCycle } = require("./adaptiveEngine");
