@@ -1,7 +1,9 @@
-// FILE: server/db.js
-// NEW-ONLY schema + safe upgrades (create tables + add missing columns)
-// Exports ONLY: { pool, initializeDatabase }
-
+/* =========================
+   FILE: server/db.js
+   ADD THIS TABLE + EXPORTS (merge into your current db.js)
+   - Keeps your NEW-ONLY schema intact
+   - Adds tenant_sites for generated pages
+========================= */
 "use strict";
 
 const { Pool } = require("pg");
@@ -97,8 +99,8 @@ async function initializeDatabase() {
     CREATE TABLE IF NOT EXISTS intake_responses (
       id SERIAL PRIMARY KEY,
       session_id INTEGER NOT NULL REFERENCES intake_sessions(id) ON DELETE CASCADE,
-      question_id TEXT NOT NULL,  -- qid like "Q1"
-      answer TEXT NOT NULL,       -- "A"|"B"|"C"|"D"
+      question_id TEXT NOT NULL,
+      answer TEXT NOT NULL,
       created_at TIMESTAMPTZ DEFAULT NOW()
     );
 
@@ -127,22 +129,20 @@ async function initializeDatabase() {
       updated_at TIMESTAMPTZ DEFAULT NOW()
     );
 
-    /* Safe “add missing columns” upgrades */
-    ALTER TABLE questions ADD COLUMN IF NOT EXISTS qid TEXT;
-    ALTER TABLE questions ADD COLUMN IF NOT EXISTS question TEXT;
-    ALTER TABLE questions ADD COLUMN IF NOT EXISTS options JSONB NOT NULL DEFAULT '{}'::jsonb;
-    ALTER TABLE questions ADD COLUMN IF NOT EXISTS weights JSONB NOT NULL DEFAULT '{}'::jsonb;
-    ALTER TABLE questions ADD COLUMN IF NOT EXISTS type TEXT;
-
-    ALTER TABLE intake_sessions ADD COLUMN IF NOT EXISTS mode TEXT NOT NULL DEFAULT 'fast';
-    ALTER TABLE intake_responses ADD COLUMN IF NOT EXISTS question_id TEXT;
-    ALTER TABLE tenant_config ADD COLUMN IF NOT EXISTS config JSONB NOT NULL DEFAULT '{}'::jsonb;
-    ALTER TABLE tenant_config ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT NOW();
+    /* ✅ NEW: generated website pages per tenant */
+    CREATE TABLE IF NOT EXISTS tenant_sites (
+      id SERIAL PRIMARY KEY,
+      tenant_id INTEGER UNIQUE REFERENCES tenants(id) ON DELETE CASCADE,
+      pages JSONB NOT NULL DEFAULT '{}'::jsonb,
+      version INTEGER NOT NULL DEFAULT 1,
+      updated_at TIMESTAMPTZ DEFAULT NOW()
+    );
 
     CREATE INDEX IF NOT EXISTS idx_questions_type ON questions(type);
     CREATE INDEX IF NOT EXISTS idx_questions_qid ON questions(qid);
     CREATE INDEX IF NOT EXISTS idx_intake_responses_session_id ON intake_responses(session_id);
     CREATE INDEX IF NOT EXISTS idx_results_session_id ON results(session_id);
+    CREATE INDEX IF NOT EXISTS idx_tenant_sites_tenant_id ON tenant_sites(tenant_id);
   `);
 }
 
