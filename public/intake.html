@@ -1,26 +1,35 @@
-<!-- FILE: public/intake.html -->
+<!-- =========================
+FILE: public/intake.html
+Adaptive question selection
+========================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Garvey Intake</title>
+
   <style>
     body { font-family: Arial, sans-serif; background:#000; color:#fff; text-align:center; padding:24px; }
     .card { background:#111; border:2px solid gold; padding:24px; border-radius:16px; max-width:760px; margin:0 auto; }
-    h1 { color: gold; margin-top:0; }
+    h1 { color: gold; margin-top: 0; }
     .section { color:#ef4444; font-weight:bold; margin:10px 0 6px; }
     .tip { color:#22c55e; font-size:14px; margin-bottom:14px; }
     .progress { margin-top:10px; color:#94a3b8; font-size:14px; }
     .bar { height:10px; background:#222; border-radius:999px; overflow:hidden; margin-top:10px; }
     .bar > div { height:100%; width:0%; background:#22c55e; transition: width 120ms linear; }
-
-    .btn { display:block; width:100%; padding:14px; margin:10px 0; border-radius:10px; border:2px solid #000;
-      background:gold; color:#000; font-weight:700; cursor:pointer; text-align:left; line-height:1.25; }
+    .btn {
+      display:block; width:100%; padding:14px; margin:10px 0; border-radius:10px;
+      border:2px solid #000; background:gold; color:#000; font-weight:700; cursor:pointer;
+      text-align:left; line-height:1.25;
+    }
     .btn:hover { background:#ef4444; color:#fff; }
     .btn:disabled { opacity:0.6; cursor:not-allowed; }
-
-    select, input { padding:10px; margin:8px 0; width:min(520px,92%); border-radius:10px; border:1px solid #334155; background:#0b1020; color:#fff; }
+    #results { margin-top:18px; text-align:left; }
+    select, input {
+      padding:10px; margin:8px 0; width:min(520px,92%);
+      border-radius:10px; border:1px solid #334155; background:#0b1020; color:#fff;
+    }
     .row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:10px 0 6px; }
     .meta { color:#94a3b8; font-size:12px; margin-top:6px; }
     .err { color:#fca5a5; }
@@ -69,6 +78,10 @@
       return "";
     })();
 
+    const ROLES = [
+      "architect","operator","steward","builder","connector","protector","nurturer","educator","resource_generator"
+    ];
+
     const sections = [
       { name: "Identity", tip: "How you naturally express yourself." },
       { name: "Decision Making", tip: "How you think under pressure." },
@@ -76,9 +89,18 @@
       { name: "Execution", tip: "How you take action and build." }
     ];
 
+    let allQuestions = [];
+    let remainingQids = new Set();
     let answers = [];
-    let current = null;
-    let totalTarget = 25;
+    let currentQid = null;
+    let scores = {};
+    let sectionSize = 1;
+
+    function emptyScores() {
+      const s = {};
+      for (const r of ROLES) s[r] = 0;
+      return s;
+    }
 
     function getTenant() {
       const params = new URLSearchParams(window.location.search);
@@ -95,28 +117,129 @@
         : "⚠️ Missing tenant. Open with: /intake.html?tenant=test-business";
     }
 
-    function setProgress() {
-      const done = answers.length;
-      const pct = Math.round((done / totalTarget) * 100);
-      document.getElementById("progressBarFill").style.width = `${pct}%`;
-      document.getElementById("progress").innerText =
-        `Question ${Math.min(done + 1, totalTarget)} of ${totalTarget} (${pct}%)`;
+    function getSectionByIndex(idx) {
+      const safeSize = Math.max(sectionSize, 1);
+      const sidx = Math.min(Math.floor(idx / safeSize), sections.length - 1);
+      return sections[sidx];
     }
 
-    function getSectionByIndex(index) {
-      const sectionSize = Math.max(1, Math.floor(totalTarget / sections.length));
-      const idx = Math.min(Math.floor(index / sectionSize), sections.length - 1);
-      return sections[idx];
+    function setProgress() {
+      const total = Math.max(allQuestions.length, 1);
+      const done = answers.length;
+      const pct = Math.round((done / total) * 100);
+      document.getElementById("progressBarFill").style.width = `${pct}%`;
+      document.getElementById("progress").innerText =
+        allQuestions.length
+          ? `Question ${Math.min(done + 1, allQuestions.length)} of ${allQuestions.length} (${pct}%)`
+          : "Loading…";
+    }
+
+    function clearResults() {
+      document.getElementById("results").innerHTML = "";
+    }
+
+    function coerceNum(v) {
+      const n = Number(v);
+      return Number.isFinite(n) ? n : 0;
+    }
+
+    function topRolesFromScores(s) {
+      const entries = Object.entries(s || {}).map(([k, v]) => [k, coerceNum(v)]);
+      entries.sort((a, b) => (b[1] - a[1]) || String(a[0]).localeCompare(String(b[0])));
+      return { primary: entries[0]?.[0] || null, secondary: entries[1]?.[0] || null };
+    }
+
+    function applyAnswerToScores(question, answerLetter) {
+      const w = question?.weights;
+      if (!w || typeof w !== "object") return;
+
+      const option = String(answerLetter || "").toUpperCase();
+      const roleWeights = w[option];
+
+      if (!roleWeights || typeof roleWeights !== "object") return;
+
+      for (const r of ROLES) {
+        if (Object.prototype.hasOwnProperty.call(roleWeights, r)) {
+          scores[r] += coerceNum(roleWeights[r]);
+        }
+      }
+    }
+
+    function discriminationScore(question, r1, r2) {
+      const w = question?.weights;
+      if (!w || typeof w !== "object") return 0;
+
+      const diffs = [];
+      for (const opt of ["A","B","C","D"]) {
+        const rw = w[opt];
+        if (!rw || typeof rw !== "object") continue;
+        const d = coerceNum(rw[r1]) - coerceNum(rw[r2]);
+        diffs.push(d);
+      }
+      if (diffs.length < 2) return 0;
+
+      const min = Math.min(...diffs);
+      const max = Math.max(...diffs);
+      return Math.abs(max - min);
+    }
+
+    function pickNextQuestion() {
+      if (remainingQids.size === 0) return null;
+
+      // First question: just pick the first in order
+      if (answers.length === 0) {
+        const first = allQuestions.find(q => remainingQids.has(q.qid));
+        return first || null;
+      }
+
+      const { primary, secondary } = topRolesFromScores(scores);
+      const r1 = primary || ROLES[0];
+      const r2 = secondary || ROLES[1];
+
+      let best = null;
+      let bestScore = -Infinity;
+
+      for (const q of allQuestions) {
+        if (!remainingQids.has(q.qid)) continue;
+
+        // Prefer questions that best separate current top roles
+        const disc = discriminationScore(q, r1, r2);
+
+        // Slight bonus for questions that also touch top roles at all
+        const w = q.weights || {};
+        const bonus =
+          ["A","B","C","D"].reduce((acc, opt) => {
+            const rw = w[opt];
+            if (!rw) return acc;
+            return acc + coerceNum(rw[r1]) + coerceNum(rw[r2]);
+          }, 0);
+
+        const score = disc * 10 + bonus;
+
+        if (score > bestScore) {
+          bestScore = score;
+          best = q;
+        }
+      }
+
+      return best || allQuestions.find(q => remainingQids.has(q.qid)) || null;
     }
 
     function renderQuestion(q) {
-      current = q;
-      const idx = answers.length;
-      const section = getSectionByIndex(idx);
+      setProgress();
 
+      if (!q) {
+        submitAssessment();
+        return;
+      }
+
+      currentQid = q.qid;
+
+      const section = getSectionByIndex(answers.length);
       document.getElementById("sectionTitle").innerText = `🔥 ${section.name}`;
       document.getElementById("sectionTip").innerText = section.tip;
-      document.getElementById("questionText").innerText = q?.question || "(missing question text)";
+
+      document.getElementById("questionText").innerText = q.question || "(missing question text)";
 
       const container = document.getElementById("optionsContainer");
       container.innerHTML = "";
@@ -133,47 +256,58 @@
         btn.className = "btn";
         btn.innerText = `${key}: ${value || ""}`;
         btn.disabled = !value;
-        btn.onclick = () => choose(key);
+        btn.onclick = () => handleAnswer(key);
         container.appendChild(btn);
       }
-
-      setProgress();
     }
 
-    async function fetchNext() {
-      const mode = document.getElementById("mode").value;
-      totalTarget = mode === "60" ? 60 : 25;
+    function handleAnswer(letter) {
+      const q = allQuestions.find(x => x.qid === currentQid);
+      if (!q) return;
 
-      const res = await fetch(`${API_BASE}/api/questions/next`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mode, answers })
-      });
+      answers.push({ qid: q.qid, answer: letter });
+      remainingQids.delete(q.qid);
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || "Failed to fetch next question");
+      applyAnswerToScores(q, letter);
 
-      if (data.done) return null;
-      return data.question;
+      if (sectionSize && answers.length % sectionSize === 0 && answers.length < allQuestions.length) {
+        alert("✅ Section complete");
+      }
+
+      renderQuestion(pickNextQuestion());
     }
 
-    async function choose(option) {
-      if (!current?.qid) return;
+    async function loadQuestions() {
+      try {
+        clearResults();
+        answers = [];
+        scores = emptyScores();
+        currentQid = null;
 
-      answers.push({ qid: current.qid, answer: option });
+        const mode = document.getElementById("mode").value;
 
-      if (answers.length >= totalTarget) {
-        await submitAssessment();
-        return;
+        const url = `${API_BASE}/api/questions?mode=${encodeURIComponent(mode)}&include_weights=1`;
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data?.error || "Failed to load questions");
+
+        allQuestions = Array.isArray(data.questions) ? data.questions : [];
+        if (!allQuestions.length) throw new Error("No questions returned (seed may have failed)");
+
+        remainingQids = new Set(allQuestions.map(q => q.qid));
+        sectionSize = Math.max(1, Math.floor(allQuestions.length / sections.length));
+
+        renderQuestion(pickNextQuestion());
+      } catch (err) {
+        console.error(err);
+        document.getElementById("questionText").innerText = "❌ Failed to load questions";
+        document.getElementById("optionsContainer").innerHTML = "";
+        document.getElementById("sectionTitle").innerText = "";
+        document.getElementById("sectionTip").innerText = "";
+        document.getElementById("progress").innerText = err.message;
+        document.getElementById("progressBarFill").style.width = "0%";
       }
-
-      const next = await fetchNext();
-      if (!next) {
-        await submitAssessment();
-        return;
-      }
-
-      renderQuestion(next);
     }
 
     async function submitAssessment() {
@@ -211,25 +345,34 @@
 
     function renderResults(data) {
       document.getElementById("questionText").innerText = "🎯 Your Results";
+
       const container = document.getElementById("results");
+      const primary = data.primary_role || "(missing primary_role)";
+      const secondary = data.secondary_role || "(missing secondary_role)";
 
       container.innerHTML = `
-        <h2 style="color:gold; margin: 6px 0;">Primary: ${data.primary_role || "(missing)"}</h2>
-        <h3 style="color:#ef4444; margin: 6px 0;">Secondary: ${data.secondary_role || "(missing)"}</h3>
-        <div class="meta">Session: ${data.session_id || "(missing)"}</div>
+        <h2 style="color:gold; margin: 6px 0;">Primary: ${primary}</h2>
+        <h3 style="color:#ef4444; margin: 6px 0;">Secondary: ${secondary}</h3>
         <div id="scores"></div>
       `;
 
-      const scoresEl = document.getElementById("scores");
-      const entries = Object.entries(data.scores || {});
+      renderScoreBars(data.scores || {});
+    }
+
+    function renderScoreBars(s) {
+      const container = document.getElementById("scores");
+      container.innerHTML = "";
+
+      const entries = Object.entries(s);
       if (!entries.length) {
-        scoresEl.innerHTML = `<div class="meta">No score breakdown returned.</div>`;
+        container.innerHTML = `<div class="meta">No score breakdown returned.</div>`;
         return;
       }
 
-      entries.sort((a,b) => Number(b[1]) - Number(a[1]));
+      entries.sort((a,b) => (Number(b[1]) - Number(a[1])) || String(a[0]).localeCompare(String(b[0])));
+
       for (const [role, value] of entries) {
-        const pct = Math.max(0, Math.min(100, Number(value) * 10));
+        const pct = Math.max(0, Math.min(100, Number(value) * 5));
         const row = document.createElement("div");
         row.style.margin = "10px 0";
         row.innerHTML = `
@@ -241,35 +384,14 @@
             <div style="width:${pct}%; background:#22c55e; height:10px;"></div>
           </div>
         `;
-        scoresEl.appendChild(row);
+        container.appendChild(row);
       }
     }
 
-    async function resetAndStart() {
-      answers = [];
-      document.getElementById("results").innerHTML = "";
-      document.getElementById("questionText").innerText = "Loading…";
-      document.getElementById("optionsContainer").innerHTML = "";
-
-      const first = await fetchNext();
-      if (!first) throw new Error("No question returned (seed/bank empty?)");
-      renderQuestion(first);
-    }
-
-    document.getElementById("mode").addEventListener("change", () => {
-      resetAndStart().catch((e) => {
-        console.error(e);
-        document.getElementById("questionText").innerText = "❌ Failed to start";
-        document.getElementById("results").innerHTML = `<div class="meta err">${e.message}</div>`;
-      });
-    });
+    document.getElementById("mode").addEventListener("change", loadQuestions);
 
     setMeta();
-    resetAndStart().catch((e) => {
-      console.error(e);
-      document.getElementById("questionText").innerText = "❌ Failed to start";
-      document.getElementById("results").innerHTML = `<div class="meta err">${e.message}</div>`;
-    });
+    loadQuestions();
   </script>
 </body>
 </html>
