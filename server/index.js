@@ -409,40 +409,95 @@ app.post("/api/admin/config", async (req, res) => {
    QUESTIONS API
 ========================= */
 
-app.get("/api/questions", async (req, res) => {
+// Adaptive next-question picker
+app.post("/api/questions/next", async (req, res) => {
   try {
-    const mode = String(req.query.mode || "25");
-    if (!["25", "60"].includes(mode)) return res.status(400).json({ error: "mode must be 25 or 60" });
+    const mode = String(req.body?.mode || "25");
+    if (!["25", "60"].includes(mode)) {
+      return res.status(400).json({ error: "mode must be 25 or 60" });
+    }
 
     const type = mode === "60" ? "full" : "fast";
     const limit = mode === "60" ? 60 : 25;
 
-    const result = await pool.query(
-      `SELECT qid, question, options, type
-       FROM questions
-       WHERE type = $1
-       ORDER BY id ASC
-       LIMIT $2`,
-      [type, limit]
-    );
+    const answers = Array.isArray(req.body?.answers) ? req.body.answers : [];
+    const answeredQids = new Set(answers.map((a) => a?.qid).filter(Boolean));
 
-    const questions = result.rows.map((q) => ({
-      qid: q.qid,
-      question: q.question,
-      option_a: q.options?.A || "",
-      option_b: q.options?.B || "",
-      option_c: q.options?.C || "",
-      option_d: q.options?.D || "",
-      type: q.type
-    }));
+    // Pull the whole bank for this mode
+    const bank = (
+      await pool.query(
+        `SELECT qid, question, options, weights, type
+         FROM questions
+         WHERE type = $1
+         ORDER BY id ASC
+         LIMIT $2`,
+        [type, limit]
+      )
+    ).rows;
 
-    return res.json({ mode, type, count: questions.length, questions });
+    // If no bank loaded, fail clearly
+    if (!bank.length) return res.status(500).json({ error: "question bank empty (seed?)" });
+
+    // If finished
+    if (answeredQids.size >= bank.length) {
+      return res.json({ done: true, question: null });
+    }
+
+    // Score current progress using your scoringEngine
+    const scores = scoreAnswers(answers, bank);
+    const top = getTopRoles(scores);
+    const primary = top.primary_role;
+    const secondary = top.secondary_role;
+
+    // Choose candidate question that best separates primary vs secondary.
+    // Heuristic: for each remaining question, compute max |wA[p]-wA[s]| across options,
+    // pick the question with highest separation.
+    let best = null;
+    let bestScore = -1;
+
+    for (const q of bank) {
+      if (!q?.qid || answeredQids.has(q.qid)) continue;
+
+      const w = q.weights || {};
+      const opts = ["A", "B", "C", "D"];
+
+      let sep = 0;
+      for (const o of opts) {
+        const rw = (w && w[o]) || {};
+        const p = Number(rw?.[primary] || 0);
+        const s = Number(rw?.[secondary] || 0);
+        sep = Math.max(sep, Math.abs(p - s));
+      }
+
+      if (sep > bestScore) {
+        bestScore = sep;
+        best = q;
+      }
+    }
+
+    // Fallback: first unanswered
+    if (!best) {
+      best = bank.find((q) => q?.qid && !answeredQids.has(q.qid));
+    }
+
+    // Return in frontend flat shape
+    return res.json({
+      done: false,
+      question: {
+        qid: best.qid,
+        question: best.question,
+        option_a: best.options?.A || "",
+        option_b: best.options?.B || "",
+        option_c: best.options?.C || "",
+        option_d: best.options?.D || "",
+        type: best.type
+      }
+    });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "questions fetch failed" });
+    console.error("questions_next_failed", error);
+    return res.status(500).json({ error: "questions next failed" });
   }
 });
-
 /* =========================
    INTAKE API
 ========================= */
