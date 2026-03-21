@@ -20,116 +20,66 @@ const ROLES = [
   "resource_generator"
 ];
 
-/**
- * Deterministic role picking so seeding is stable across runs.
- * This is not “smart adaptive” yet; it just makes the bank coherent and non-repetitive.
- */
-function pickRole(i, offset) {
-  return ROLES[(i + offset) % ROLES.length];
+// Each option is designed to bias toward 2 roles strongly and 1 role lightly.
+const OPTION_ROLE_MAP = {
+  A: ["architect", "educator", "steward"],
+  B: ["operator", "builder", "architect"],
+  C: ["connector", "nurturer", "educator"],
+  D: ["resource_generator", "protector", "steward"]
+};
+
+function buildOptionWeights(optionKey) {
+  const [primary, secondary, tertiary] = OPTION_ROLE_MAP[optionKey];
+  const w = {};
+  for (const r of ROLES) w[r] = 0;
+  w[primary] = 2;
+  w[secondary] = 1;
+  w[tertiary] = 1;
+  return w;
 }
 
-/**
- * Option-based weights shape:
- * weights = { A:{role:n}, B:{...}, C:{...}, D:{...} }
- * Compatible with your scoringEngine.js (Shape 1).
- */
-function buildOptionWeights(i) {
-  const a1 = pickRole(i, 0);
-  const a2 = pickRole(i, 3);
-
-  const b1 = pickRole(i, 1);
-  const b2 = pickRole(i, 4);
-
-  const c1 = pickRole(i, 2);
-  const c2 = pickRole(i, 5);
-
-  const d1 = pickRole(i, 6);
-  const d2 = pickRole(i, 7);
-
+function buildWeights() {
+  // option-based weights
   return {
-    A: { [a1]: 2, [a2]: 1 },
-    B: { [b1]: 2, [b2]: 1 },
-    C: { [c1]: 2, [c2]: 1 },
-    D: { [d1]: 2, [d2]: 1 }
+    A: buildOptionWeights("A"),
+    B: buildOptionWeights("B"),
+    C: buildOptionWeights("C"),
+    D: buildOptionWeights("D")
   };
 }
 
-/**
- * Prompts vary by section. 60 questions split into 4 sections of 15.
- */
-const SECTION_DEFS = [
-  {
-    name: "Identity",
-    prompts: [
-      "How do you naturally express yourself as a leader?",
-      "What does leadership look like for you day-to-day?",
-      "When things go wrong, what’s your first instinct?"
-    ],
-    options: {
-      A: "I design the system before acting.",
-      B: "I act quickly and iterate in motion.",
-      C: "I focus on people and alignment.",
-      D: "I protect stability and reduce risk."
-    }
-  },
-  {
-    name: "Decision Making",
-    prompts: [
-      "When you need a decision fast, what do you trust most?",
-      "How do you choose what to work on next?",
-      "What do you optimize for when resources are tight?"
-    ],
-    options: {
-      A: "Clarity and structure.",
-      B: "Speed and execution.",
-      C: "Consensus and support.",
-      D: "Security and sustainability."
-    }
-  },
-  {
-    name: "Community Role",
-    prompts: [
-      "In a group, what role do you fall into naturally?",
-      "What’s your default value to a team?",
-      "How do you create momentum with other people?"
-    ],
-    options: {
-      A: "Architecting the plan and roles.",
-      B: "Driving tasks to completion.",
-      C: "Connecting and nurturing relationships.",
-      D: "Protecting standards and outcomes."
-    }
-  },
-  {
-    name: "Execution",
-    prompts: [
-      "When building something new, what’s your approach?",
-      "What’s your strongest habit during execution?",
-      "How do you create repeatable results?"
-    ],
-    options: {
-      A: "I build repeatable systems.",
-      B: "I push consistent output.",
-      C: "I empower and teach others.",
-      D: "I secure resources and remove threats."
-    }
-  }
+// Make questions actually different by cycling themes
+const THEMES = [
+  { name: "Identity", stem: "How do you naturally express yourself when leading?" },
+  { name: "Decision Making", stem: "When decisions are uncertain, what do you default to?" },
+  { name: "Community Role", stem: "In a group, what role do you naturally take?" },
+  { name: "Execution", stem: "When it’s time to execute, what’s your first move?" }
 ];
 
-function sectionForQuestion(i) {
-  // i is 1..60
-  const idx = Math.min(Math.floor((i - 1) / 15), SECTION_DEFS.length - 1);
-  return SECTION_DEFS[idx];
+function buildQuestionText(i) {
+  const t = THEMES[(i - 1) % THEMES.length];
+  return `(${t.name}) ${t.stem}`;
 }
 
-function promptForQuestion(i) {
-  const sec = sectionForQuestion(i);
-  const p = sec.prompts[(i - 1) % sec.prompts.length];
-  return `[${sec.name}] ${p}`;
-}
+function buildOptions(i, type) {
+  // Keep options stable & meaningful (not “Option A for Question X”)
+  // Slightly different wording between fast/full if you want.
+  if (type === "fast") {
+    return {
+      A: "I zoom out, design the system, and clarify the plan.",
+      B: "I move fast, execute, and adjust in motion.",
+      C: "I align people, communicate, and keep everyone moving together.",
+      D: "I secure resources, reduce risk, and protect the mission."
+    };
+  }
 
-function optionsForQuestion(i) {
-  return sectionForQuestion(i).options;
+  // full (more descriptive)
+  return {
+    A: "I architect the system: define the strategy, structure, and long-term approach.",
+    B: "I execute aggressively: prioritize action, speed, and operational output.",
+    C: "I build community: connect people, nurture relationships, and drive engagement.",
+    D: "I protect & resource: secure assets, reduce risk, and stabilize performance."
+  };
 }
 
 async function seed(pool) {
@@ -142,20 +92,12 @@ async function seed(pool) {
   console.log("Seeding questions...");
 
   for (let i = 1; i <= 60; i += 1) {
-    const qid = `Q${i}`;
     const type = i <= 25 ? "fast" : "full";
-
     await pool.query(
       `INSERT INTO questions (qid, question, options, weights, type)
        VALUES ($1, $2, $3, $4, $5)
        ON CONFLICT (qid) DO NOTHING`,
-      [
-        qid,
-        promptForQuestion(i),
-        optionsForQuestion(i),
-        buildOptionWeights(i),
-        type
-      ]
+      [`Q${i}`, buildQuestionText(i), buildOptions(i, type), buildWeights(), type]
     );
   }
 
