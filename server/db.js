@@ -16,9 +16,7 @@ const pool = new Pool(
   connectionString
     ? {
         connectionString,
-        ssl: connectionString.includes("localhost")
-          ? false
-          : { rejectUnauthorized: false }
+        ssl: connectionString.includes("localhost") ? false : { rejectUnauthorized: false }
       }
     : {
         host: process.env.PGHOST || "127.0.0.1",
@@ -92,7 +90,6 @@ async function initializeDatabase() {
       UNIQUE (tenant_id, referrer_user_id, referred_user_id)
     );
 
-    /* NEW intake pipeline */
     CREATE TABLE IF NOT EXISTS intake_sessions (
       id SERIAL PRIMARY KEY,
       tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
@@ -104,8 +101,8 @@ async function initializeDatabase() {
     CREATE TABLE IF NOT EXISTS intake_responses (
       id SERIAL PRIMARY KEY,
       session_id INTEGER NOT NULL REFERENCES intake_sessions(id) ON DELETE CASCADE,
-      question_id TEXT NOT NULL,  -- qid like "Q1"
-      answer TEXT NOT NULL,       -- "A" | "B" | "C" | "D"
+      question_id TEXT NOT NULL,
+      answer TEXT NOT NULL,
       created_at TIMESTAMPTZ DEFAULT NOW()
     );
 
@@ -118,7 +115,6 @@ async function initializeDatabase() {
       created_at TIMESTAMPTZ DEFAULT NOW()
     );
 
-    /* Questions JSONB engine */
     CREATE TABLE IF NOT EXISTS questions (
       id SERIAL PRIMARY KEY,
       qid TEXT UNIQUE,
@@ -128,7 +124,6 @@ async function initializeDatabase() {
       type TEXT NOT NULL
     );
 
-    /* Tenant config (new-only) */
     CREATE TABLE IF NOT EXISTS tenant_config (
       id SERIAL PRIMARY KEY,
       tenant_id INTEGER UNIQUE REFERENCES tenants(id) ON DELETE CASCADE,
@@ -136,21 +131,19 @@ async function initializeDatabase() {
       updated_at TIMESTAMPTZ DEFAULT NOW()
     );
 
-    /* ✅ Website pages per tenant (generator output) */
+    -- Command B: generated site pages per tenant
     CREATE TABLE IF NOT EXISTS tenant_sites (
       id SERIAL PRIMARY KEY,
       tenant_id INTEGER UNIQUE REFERENCES tenants(id) ON DELETE CASCADE,
-      pages JSONB NOT NULL DEFAULT '{}'::jsonb,
       version INTEGER NOT NULL DEFAULT 1,
+      pages JSONB NOT NULL DEFAULT '{}'::jsonb,
       updated_at TIMESTAMPTZ DEFAULT NOW()
     );
 
-    /* Indexes */
     CREATE INDEX IF NOT EXISTS idx_questions_type ON questions(type);
     CREATE INDEX IF NOT EXISTS idx_questions_qid ON questions(qid);
     CREATE INDEX IF NOT EXISTS idx_intake_responses_session_id ON intake_responses(session_id);
     CREATE INDEX IF NOT EXISTS idx_results_session_id ON results(session_id);
-    CREATE INDEX IF NOT EXISTS idx_tenant_sites_tenant_id ON tenant_sites(tenant_id);
   `);
 }
 
