@@ -1,0 +1,272 @@
+<!-- =========================
+FILE: public/site_intake.html
+Website Spec Intake (connector)
+========================= -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Garvey Website Spec Intake</title>
+
+  <style>
+    body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:24px; text-align:center; }
+    .card { background:#111; border:2px solid gold; padding:24px; border-radius:16px; max-width:860px; margin:0 auto; text-align:left; }
+    h1 { color: gold; margin:0 0 6px; text-align:center; }
+    .meta { color:#94a3b8; font-size:12px; margin-top:6px; }
+    .err { color:#fca5a5; }
+    .ok { color:#86efac; }
+    .row { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    label { display:block; margin-top:12px; }
+    input, textarea {
+      width:100%;
+      padding:10px;
+      border-radius:10px;
+      border:1px solid #334155;
+      background:#0b1020;
+      color:#fff;
+      margin-top:6px;
+    }
+    textarea { min-height: 92px; resize: vertical; }
+    .btn {
+      display:block; width:100%; padding:14px; margin:14px 0 0; border-radius:10px;
+      border:2px solid #000; background:gold; color:#000; font-weight:700; cursor:pointer;
+      text-align:center;
+    }
+    .btn:hover { background:#ef4444; color:#fff; }
+    .checks { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px; }
+    .check { display:flex; gap:10px; align-items:flex-start; border:1px solid #334155; border-radius:12px; padding:10px; background:#0b1020; }
+    .check input { width:auto; margin-top:2px; }
+    a { color:#93c5fd; } a:hover { color:#bfdbfe; }
+    code { color:#bfdbfe; }
+    @media (max-width: 820px) { .row { grid-template-columns: 1fr; } .checks { grid-template-columns: 1fr; } }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>Website Spec Intake</h1>
+    <div class="meta" style="text-align:center;">
+      This will save into <code>tenant_config.site</code> and generate your website at <code>/t/:slug/site</code>.
+    </div>
+
+    <div class="row" style="margin-top:12px;">
+      <div>
+        <label>Tenant (slug) <span class="err">*</span>
+          <input id="tenant" placeholder="test-business" required />
+        </label>
+        <div class="meta">Example: <code>/site_intake.html?tenant=test-business</code></div>
+      </div>
+      <div>
+        <label>Email (optional)
+          <input id="email" placeholder="test@email.com" />
+        </label>
+        <div class="meta">Only used for convenience (prefill / tracking later).</div>
+      </div>
+    </div>
+
+    <label>Business Name <span class="err">*</span>
+      <input id="business_name" placeholder="Garvey Coffee Co." required />
+    </label>
+
+    <div class="row">
+      <div>
+        <label>Headline <span class="err">*</span>
+          <input id="headline" placeholder="Your neighborhood coffee, elevated." required />
+        </label>
+      </div>
+      <div>
+        <label>Primary Color (hex)
+          <input id="primary_color" placeholder="#f59e0b" />
+        </label>
+      </div>
+    </div>
+
+    <label>Subheadline
+      <input id="subheadline" placeholder="Rewards, reviews, and community—powered by UJAMAA." />
+    </label>
+
+    <div class="row">
+      <div>
+        <label>CTA Text <span class="err">*</span>
+          <input id="cta_text" placeholder="Book Now" required />
+        </label>
+      </div>
+      <div>
+        <label>CTA URL <span class="err">*</span>
+          <input id="cta_url" placeholder="https://calendly.com/..." required />
+        </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>Industry
+          <input id="industry" placeholder="Restaurant / Salon / Services / ..." />
+        </label>
+      </div>
+      <div>
+        <label>Logo URL (optional)
+          <input id="logo_url" placeholder="https://..." />
+        </label>
+      </div>
+    </div>
+
+    <label>Services / Products (one per line) <span class="err">*</span>
+      <textarea id="services" placeholder="Cold brew&#10;Espresso&#10;Catering" required></textarea>
+    </label>
+
+    <div class="row">
+      <div>
+        <label>Location
+          <input id="location" placeholder="123 Main St, Chicago, IL" />
+        </label>
+      </div>
+      <div>
+        <label>Hours
+          <textarea id="hours" placeholder="Mon–Fri 8am–6pm&#10;Sat 9am–4pm&#10;Sun Closed"></textarea>
+        </label>
+      </div>
+    </div>
+
+    <h3 style="color:gold; margin:16px 0 6px;">Features</h3>
+    <div class="checks">
+      <label class="check"><input id="feat_rewards" type="checkbox" checked /> Rewards</label>
+      <label class="check"><input id="feat_quiz" type="checkbox" checked /> Quiz/Assessment</label>
+      <label class="check"><input id="feat_reviews" type="checkbox" checked /> Reviews</label>
+      <label class="check"><input id="feat_referrals" type="checkbox" /> Referrals</label>
+      <label class="check"><input id="feat_wishlist" type="checkbox" /> Wishlist</label>
+      <label class="check"><input id="feat_store" type="checkbox" /> Store</label>
+    </div>
+
+    <button id="submitBtn" class="btn">✅ Save + Generate My Website</button>
+    <div id="status" class="meta"></div>
+
+    <div class="meta" style="margin-top:14px; text-align:center;">
+      <a id="previewLink" href="#">Preview Tenant Site</a> |
+      <a href="/intake.html">Back to Intake</a> |
+      <a href="/index.html">CX Engine</a>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = (() => {
+      const host = window.location.hostname || "";
+      if (host.includes("garveyfrontend")) return "https://garveybackend.onrender.com";
+      return "";
+    })();
+
+    function qs(name) {
+      const u = new URL(window.location.href);
+      return (u.searchParams.get(name) || "").trim();
+    }
+
+    function setStatus(msg, kind) {
+      const el = document.getElementById("status");
+      el.textContent = msg;
+      el.className = "meta " + (kind || "");
+    }
+
+    function parseLines(v) {
+      return String(v || "").split("\n").map(s => s.trim()).filter(Boolean);
+    }
+
+    function requiredValue(id) {
+      const el = document.getElementById(id);
+      return (el?.value || "").trim();
+    }
+
+    function tenantSitePath(tenant) {
+      return `/t/${encodeURIComponent(tenant)}/site`;
+    }
+
+    function getPayload() {
+      const tenant = requiredValue("tenant");
+
+      const site = {
+        business_name: requiredValue("business_name"),
+        headline: requiredValue("headline"),
+        subheadline: (document.getElementById("subheadline").value || "").trim(),
+        primary_color: (document.getElementById("primary_color").value || "").trim(),
+        logo_url: (document.getElementById("logo_url").value || "").trim(),
+        industry: (document.getElementById("industry").value || "").trim(),
+        services: parseLines(document.getElementById("services").value),
+        cta_text: requiredValue("cta_text"),
+        cta_url: requiredValue("cta_url"),
+        location: (document.getElementById("location").value || "").trim(),
+        hours: (document.getElementById("hours").value || "").trim(),
+      };
+
+      const features = {
+        rewards: document.getElementById("feat_rewards").checked,
+        quiz: document.getElementById("feat_quiz").checked,
+        reviews: document.getElementById("feat_reviews").checked,
+        referrals: document.getElementById("feat_referrals").checked,
+        wishlist: document.getElementById("feat_wishlist").checked,
+        store: document.getElementById("feat_store").checked,
+      };
+
+      return { tenant, site, features };
+    }
+
+    function validate(payload) {
+      if (!payload.tenant) return "Tenant is required.";
+      if (!payload.site.business_name) return "Business name is required.";
+      if (!payload.site.headline) return "Headline is required.";
+      if (!payload.site.cta_text) return "CTA text is required.";
+      if (!payload.site.cta_url) return "CTA URL is required.";
+      if (!Array.isArray(payload.site.services) || payload.site.services.length === 0) return "At least one service/product is required.";
+      return "";
+    }
+
+    async function postGenerate(payload) {
+      const res = await fetch(`${API_BASE}/api/site/generate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) throw new Error(data.error || data.message || `Generate failed (${res.status})`);
+      return data;
+    }
+
+    function updatePreviewLink() {
+      const tenant = requiredValue("tenant");
+      const a = document.getElementById("previewLink");
+      if (!tenant) {
+        a.href = "#";
+        a.onclick = (e) => { e.preventDefault(); setStatus("Enter a tenant to preview.", "err"); };
+        return;
+      }
+      a.href = tenantSitePath(tenant);
+      a.onclick = null;
+    }
+
+    (function init() {
+      const tenant = qs("tenant");
+      const email = qs("email");
+      if (tenant) document.getElementById("tenant").value = tenant;
+      if (email) document.getElementById("email").value = email;
+      updatePreviewLink();
+
+      document.getElementById("tenant").addEventListener("input", updatePreviewLink);
+    })();
+
+    document.getElementById("submitBtn").addEventListener("click", async () => {
+      try {
+        const payload = getPayload();
+        const err = validate(payload);
+        if (err) return setStatus("❌ " + err, "err");
+
+        setStatus("Saving + generating…");
+        await postGenerate(payload);
+
+        setStatus("✅ Generated. Redirecting…", "ok");
+        window.location.href = tenantSitePath(payload.tenant);
+      } catch (e) {
+        setStatus("❌ " + (e.message || "Failed"), "err");
+      }
+    });
+  </script>
+</body>
+</html>
