@@ -1,20 +1,35 @@
-<!-- =========================
-FILE: server/index.js
-- /api/questions include_weights support
-- Command B site generator endpoints + /t/:slug/site
-========================= -->
+/* FILE: server/index.js
+   NEW-ONLY SOURCE OF TRUTH (no legacy /intake)
+
+   ✅ /t/:slug/*  = behavior engine endpoints (checkin/action/review/referral/wishlist/dashboard)
+   ✅ /api/*      = questions/intake/results/admin/verify (new engine)
+   ✅ /voc-intake = VOC intake (optional, if vocEngine exists)
+   ✅ Startup: initializeDatabase() -> seed(pool) -> listen -> adaptive cycle
+
+   IMPORTANT:
+   - Do NOT put plain text lines starting with "/" in this file.
+*/
+
 "use strict";
 
 const express = require("express");
 const path = require("path");
 
 const { pool, initializeDatabase } = require("./db");
-const { ensureTenant, getTenantBySlug, getTenantConfig } = require("./tenant");
-const { runAdaptiveCycle } = require("./adaptiveEngine");
+const { ensureTenant, getTenantBySlug, getTenantConfig, DEFAULT_TENANT_CONFIG } = require("./tenant");
 
-const { scoreAnswers, getTopRoles } = require("./scoringEngine");
 const { seed } = require("./seedQuestions");
-const { generateTenantSite } = require("./siteGenerator");
+const { runAdaptiveCycle } = require("./adaptiveEngine");
+const { scoreAnswers, getTopRoles } = require("./scoringEngine");
+
+// Optional VOC engine (comment out if not present)
+let vocEngine = null;
+try {
+  // eslint-disable-next-line global-require
+  vocEngine = require("./vocEngine");
+} catch (e) {
+  vocEngine = null;
+}
 
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
@@ -27,12 +42,52 @@ app.use((req, res, next) => {
   if (req.method === "OPTIONS") return res.sendStatus(200);
   return next();
 });
+
 app.use(express.static(path.join(__dirname, "..", "public")));
 
-const ACTION_POINTS = { review: 5, photo: 10, video: 20, referral: 15 };
+/* =========================
+   CONSTANTS + HELPERS
+========================= */
+
+const ACTION_POINTS = {
+  review: 5,
+  photo: 10,
+  video: 20,
+  referral: 15
+};
+
+const ALLOWED_CONFIG_KEYS = [
+  "reward_system",
+  "engagement_engine",
+  "email_marketing",
+  "content_engine",
+  "referral_system",
+  "automation_blueprints",
+  "analytics_engine",
+  // adaptive engine fields
+  "reward_multiplier",
+  "review_incentive_bonus",
+  "system_adjustments_log",
+  // voc profile (optional)
+  "voc_profile"
+];
 
 function logEvent(event, payload = {}) {
   console.log(JSON.stringify({ ts: new Date().toISOString(), event, ...payload }));
+}
+
+function sanitizeConfig(config = {}) {
+  const sanitized = {};
+  for (const key of ALLOWED_CONFIG_KEYS) {
+    if (config[key] === undefined) continue;
+
+    if (typeof config[key] === "boolean") sanitized[key] = config[key];
+    else if (typeof config[key] === "number") sanitized[key] = config[key];
+    else if (Array.isArray(config[key]) || (config[key] && typeof config[key] === "object")) {
+      sanitized[key] = config[key];
+    }
+  }
+  return sanitized;
 }
 
 function rewardPointsEnabled(config) {
@@ -62,16 +117,13 @@ async function tenantMiddleware(req, res, next) {
   try {
     const { slug } = req.params;
     const tenant = await getTenantBySlug(slug);
-
-    if (!tenant) {
-      return res.status(404).json({ error: "Tenant not found", tenant_slug: slug });
-    }
+    if (!tenant) return res.status(404).json({ error: "Tenant not found", tenant_slug: slug });
 
     req.tenant = tenant;
     req.tenantConfig = (await getTenantConfig(tenant.id)) || {};
     return next();
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({ error: "tenant middleware failed" });
   }
 }
@@ -79,20 +131,26 @@ async function tenantMiddleware(req, res, next) {
 /* =========================
    HEALTH
 ========================= */
+
 app.get("/health", (req, res) => res.json({ status: "ok" }));
 
 /* =========================
-   PLATFORM ROUTES (behavior engine)
+   JOIN
 ========================= */
+
 app.get("/join/:slug", async (req, res) => {
   const tenant = await getTenantBySlug(req.params.slug);
   if (!tenant) return res.status(404).json({ error: "Tenant not found" });
   return res.redirect(`/intake.html?tenant=${tenant.slug}`);
 });
 
+/* =========================
+   PLATFORM ROUTES (/t/:slug/*)
+========================= */
+
 app.post("/t/:slug/checkin", tenantMiddleware, async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email } = req.body || {};
     if (!email) return res.status(400).json({ error: "email is required" });
 
     const user = await findTenantUser(req.tenant.id, email);
@@ -115,18 +173,16 @@ app.post("/t/:slug/checkin", tenantMiddleware, async (req, res) => {
       points_added: pointsAdded,
       points: updatedUser.rows[0].points
     });
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({ error: "checkin failed" });
   }
 });
 
 app.post("/t/:slug/action", tenantMiddleware, async (req, res) => {
   try {
-    const { email, action_type: actionType } = req.body;
-    if (!email || !actionType) {
-      return res.status(400).json({ error: "email and action_type are required" });
-    }
+    const { email, action_type: actionType } = req.body || {};
+    if (!email || !actionType) return res.status(400).json({ error: "email and action_type are required" });
 
     const user = await findTenantUser(req.tenant.id, email);
     const pointsAdded = rewardPointsEnabled(req.tenantConfig) ? ACTION_POINTS[actionType] || 0 : 0;
@@ -148,15 +204,15 @@ app.post("/t/:slug/action", tenantMiddleware, async (req, res) => {
       points_added: pointsAdded,
       points: updatedUser.rows[0].points
     });
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({ error: "action failed" });
   }
 });
 
 app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
   try {
-    const { email, text, media_type: mediaType } = req.body;
+    const { email, text, media_type: mediaType } = req.body || {};
     if (!email || !text) return res.status(400).json({ error: "email and text are required" });
 
     const user = await findTenantUser(req.tenant.id, email);
@@ -182,8 +238,8 @@ app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
       points_added: pointsAdded,
       points: updatedUser.rows[0].points
     });
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({ error: "review failed" });
   }
 });
@@ -191,10 +247,8 @@ app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
 app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
   const client = await pool.connect();
   try {
-    const { email, referred_email: referredEmail } = req.body;
-    if (!email || !referredEmail) {
-      return res.status(400).json({ error: "email and referred_email are required" });
-    }
+    const { email, referred_email: referredEmail } = req.body || {};
+    if (!email || !referredEmail) return res.status(400).json({ error: "email and referred_email are required" });
 
     await client.query("BEGIN");
 
@@ -223,16 +277,10 @@ app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
     );
 
     await client.query("COMMIT");
-
-    return res.json({
-      success: true,
-      tenant: req.tenant.slug,
-      points_awarded_each: pointsEach,
-      users: users.rows
-    });
-  } catch (error) {
+    return res.json({ success: true, tenant: req.tenant.slug, points_awarded_each: pointsEach, users: users.rows });
+  } catch (err) {
     await client.query("ROLLBACK");
-    console.error(error);
+    console.error(err);
     return res.status(500).json({ error: "referral failed" });
   } finally {
     client.release();
@@ -241,10 +289,8 @@ app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
 
 app.post("/t/:slug/wishlist", tenantMiddleware, async (req, res) => {
   try {
-    const { email, product_name: productName } = req.body;
-    if (!email || !productName) {
-      return res.status(400).json({ error: "email and product_name are required" });
-    }
+    const { email, product_name: productName } = req.body || {};
+    if (!email || !productName) return res.status(400).json({ error: "email and product_name are required" });
 
     const user = await findTenantUser(req.tenant.id, email);
     const result = await pool.query(
@@ -253,106 +299,98 @@ app.post("/t/:slug/wishlist", tenantMiddleware, async (req, res) => {
     );
 
     return res.json({ success: true, tenant: req.tenant.slug, wishlist_entry: result.rows[0] });
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({ error: "wishlist failed" });
   }
 });
 
-/* =========================
-   COMMAND B: TENANT SITE
-========================= */
-app.get("/t/:slug/site", tenantMiddleware, async (req, res) => {
+/** Dashboard data for public/dashboard.html */
+app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
   try {
     const tenantId = req.tenant.id;
 
-    const siteRow = (
-      await pool.query("SELECT version, pages FROM tenant_sites WHERE tenant_id = $1", [tenantId])
-    ).rows[0];
-
-    if (siteRow?.pages?.landing) {
-      res.setHeader("Content-Type", "text/html; charset=utf-8");
-      return res.status(200).send(siteRow.pages.landing);
-    }
-
-    const cfgRow = (await pool.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [tenantId])).rows[0];
-    const config = cfgRow?.config || {};
-
-    const generated = generateTenantSite({ tenantSlug: req.tenant.slug, config });
-
-    await pool.query(
-      `INSERT INTO tenant_sites (tenant_id, version, pages, updated_at)
-       VALUES ($1, $2, $3, NOW())
-       ON CONFLICT (tenant_id)
-       DO UPDATE SET version = EXCLUDED.version, pages = EXCLUDED.pages, updated_at = NOW()`,
-      [tenantId, generated.version, generated.pages]
-    );
-
-    res.setHeader("Content-Type", "text/html; charset=utf-8");
-    return res.status(200).send(generated.pages.landing);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "site render failed" });
-  }
-});
-
-app.post("/api/site/generate", async (req, res) => {
-  try {
-    const { tenant, site = {}, features = {} } = req.body || {};
-    if (!tenant) return res.status(400).json({ error: "tenant is required" });
-
-    const tenantRow = await ensureTenant(String(tenant).trim());
-    const tenantId = tenantRow.id;
-
-    const config = { site, features };
-
-    const generated = generateTenantSite({ tenantSlug: tenantRow.slug, config });
-
-    await pool.query(
-      `INSERT INTO tenant_sites (tenant_id, version, pages, updated_at)
-       VALUES ($1, $2, $3, NOW())
-       ON CONFLICT (tenant_id)
-       DO UPDATE SET version = EXCLUDED.version, pages = EXCLUDED.pages, updated_at = NOW()`,
-      [tenantId, generated.version, generated.pages]
-    );
-
-    // Store config snapshot too (optional but useful)
-    await pool.query(
-      `INSERT INTO tenant_config (tenant_id, config, updated_at)
-       VALUES ($1, $2, NOW())
-       ON CONFLICT (tenant_id)
-       DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
-      [tenantId, config]
-    );
+    const [users, visits, actions, points, topActions, pointsDistribution, dailyActivity] = await Promise.all([
+      pool.query("SELECT COUNT(*)::int AS total_users FROM users WHERE tenant_id = $1", [tenantId]),
+      pool.query("SELECT COUNT(*)::int AS total_visits FROM visits WHERE tenant_id = $1", [tenantId]),
+      pool.query("SELECT COUNT(*)::int AS total_actions FROM actions WHERE tenant_id = $1", [tenantId]),
+      pool.query("SELECT COALESCE(SUM(points), 0)::int AS total_points FROM users WHERE tenant_id = $1", [tenantId]),
+      pool.query(
+        `SELECT action_type, COUNT(*)::int AS action_count
+         FROM actions WHERE tenant_id = $1
+         GROUP BY action_type
+         ORDER BY action_count DESC, action_type ASC
+         LIMIT 5`,
+        [tenantId]
+      ),
+      pool.query(
+        `SELECT
+            CASE
+              WHEN points < 10 THEN '0-9'
+              WHEN points < 25 THEN '10-24'
+              WHEN points < 50 THEN '25-49'
+              ELSE '50+'
+            END AS bucket,
+            COUNT(*)::int AS user_count
+         FROM users
+         WHERE tenant_id = $1
+         GROUP BY bucket
+         ORDER BY bucket`,
+        [tenantId]
+      ),
+      pool.query(
+        `SELECT activity_day, SUM(activity_count)::int AS activity_count
+         FROM (
+            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM visits WHERE tenant_id = $1 GROUP BY DATE(created_at)
+            UNION ALL
+            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM actions WHERE tenant_id = $1 GROUP BY DATE(created_at)
+            UNION ALL
+            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM reviews WHERE tenant_id = $1 GROUP BY DATE(created_at)
+            UNION ALL
+            SELECT DATE(created_at) AS activity_day, COUNT(*)::int AS activity_count FROM referrals WHERE tenant_id = $1 GROUP BY DATE(created_at)
+         ) a
+         GROUP BY activity_day
+         ORDER BY activity_day DESC
+         LIMIT 14`,
+        [tenantId]
+      )
+    ]);
 
     return res.json({
-      success: true,
-      tenant: tenantRow.slug,
-      version: generated.version,
-      pages: Object.keys(generated.pages)
+      tenant: req.tenant.slug,
+      total_users: users.rows[0].total_users,
+      total_visits: visits.rows[0].total_visits,
+      total_actions: actions.rows[0].total_actions,
+      total_points: points.rows[0].total_points,
+      top_actions: topActions.rows,
+      points_distribution: pointsDistribution.rows,
+      daily_activity: dailyActivity.rows
     });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "site generate failed" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "dashboard failed" });
   }
 });
 
 /* =========================
-   NEW-ONLY API (questions / intake / results / verify)
+   NEW-ONLY API (/api/*)
 ========================= */
+
+/**
+ * GET /api/questions?mode=25|60&include_weights=1
+ */
 app.get("/api/questions", async (req, res) => {
   try {
     const mode = String(req.query.mode || "25");
-    if (!["25", "60"].includes(mode)) {
-      return res.status(400).json({ error: "mode must be 25 or 60" });
-    }
+    if (!["25", "60"].includes(mode)) return res.status(400).json({ error: "mode must be 25 or 60" });
 
     const includeWeights = String(req.query.include_weights || "0") === "1";
     const type = mode === "60" ? "full" : "fast";
     const limit = mode === "60" ? 60 : 25;
 
+    const cols = includeWeights ? "qid, question, options, weights, type" : "qid, question, options, type";
     const result = await pool.query(
-      `SELECT qid, question, options, weights, type
+      `SELECT ${cols}
        FROM questions
        WHERE type = $1
        ORDER BY id ASC
@@ -361,7 +399,7 @@ app.get("/api/questions", async (req, res) => {
     );
 
     const questions = result.rows.map((q) => {
-      const base = {
+      const shaped = {
         qid: q.qid,
         question: q.question,
         option_a: q.options?.A || "",
@@ -370,13 +408,13 @@ app.get("/api/questions", async (req, res) => {
         option_d: q.options?.D || "",
         type: q.type
       };
-      if (includeWeights) base.weights = q.weights || {};
-      return base;
+      if (includeWeights) shaped.weights = q.weights || {};
+      return shaped;
     });
 
     return res.json({ mode, type, count: questions.length, questions });
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({ error: "questions fetch failed" });
   }
 });
@@ -384,12 +422,10 @@ app.get("/api/questions", async (req, res) => {
 app.post("/api/intake", async (req, res) => {
   const client = await pool.connect();
   try {
-    const { email, tenant, answers = [] } = req.body;
-
+    const { email, tenant, answers = [] } = req.body || {};
     if (!email || !tenant || !Array.isArray(answers) || answers.length === 0) {
       return res.status(400).json({ error: "email, tenant, answers are required" });
     }
-
     if (!answers.every((a) => a && a.qid && a.answer)) {
       return res.status(400).json({ error: "Invalid answer format (qid + answer required)" });
     }
@@ -398,12 +434,13 @@ app.post("/api/intake", async (req, res) => {
 
     const tenantRow = await ensureTenant(tenant);
 
+    const mode = answers.length > 25 ? "full" : "fast";
     const session = (
       await client.query(
         `INSERT INTO intake_sessions (tenant_id, email, mode)
          VALUES ($1, $2, $3)
          RETURNING *`,
-        [tenantRow.id, email, answers.length > 25 ? "full" : "fast"]
+        [tenantRow.id, email, mode]
       )
     ).rows[0];
 
@@ -417,7 +454,6 @@ app.post("/api/intake", async (req, res) => {
 
     const qids = answers.map((a) => a.qid);
     const questionRows = (await client.query(`SELECT * FROM questions WHERE qid = ANY($1)`, [qids])).rows;
-
     if (!questionRows.length) throw new Error("No matching questions found for scoring");
 
     const scores = scoreAnswers(answers, questionRows);
@@ -429,15 +465,15 @@ app.post("/api/intake", async (req, res) => {
       [session.id, primary_role, secondary_role, scores]
     );
 
-    const config = {
+    const config = sanitizeConfig({
+      ...DEFAULT_TENANT_CONFIG,
       reward_system: ["builder", "resource_generator"].includes(primary_role),
-      email_marketing: false,
       referral_system: ["connector", "nurturer"].includes(primary_role),
       analytics_engine: primary_role === "operator",
       engagement_engine: ["connector", "educator", "nurturer"].includes(primary_role),
       content_engine: ["educator", "connector"].includes(primary_role),
       automation_blueprints: ["architect", "operator"].includes(primary_role)
-    };
+    });
 
     await client.query(
       `INSERT INTO tenant_config (tenant_id, config, updated_at)
@@ -457,10 +493,10 @@ app.post("/api/intake", async (req, res) => {
       scores,
       config
     });
-  } catch (error) {
+  } catch (err) {
     await client.query("ROLLBACK");
-    console.error("api_intake_failed", error);
-    return res.status(500).json({ error: "api intake failed", details: error.message });
+    console.error("api_intake_failed", err);
+    return res.status(500).json({ error: "api intake failed", details: err.message });
   } finally {
     client.release();
   }
@@ -468,6 +504,9 @@ app.post("/api/intake", async (req, res) => {
 
 app.get("/api/results/:email", async (req, res) => {
   try {
+    const email = String(req.params.email || "").trim();
+    if (!email) return res.status(400).json({ error: "email required" });
+
     const result = await pool.query(
       `SELECT r.*
        FROM results r
@@ -475,33 +514,80 @@ app.get("/api/results/:email", async (req, res) => {
        WHERE s.email = $1
        ORDER BY r.created_at DESC, r.id DESC
        LIMIT 1`,
-      [req.params.email]
+      [email]
     );
 
     if (!result.rows[0]) return res.status(404).json({ error: "result not found" });
     return res.json(result.rows[0]);
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({ error: "results lookup failed" });
   }
 });
 
+/* Admin config endpoints used by public/admin.html */
+app.get("/api/admin/config/:tenant", async (req, res) => {
+  try {
+    const tenantSlug = String(req.params.tenant || "").trim();
+    const tenantRow = await getTenantBySlug(tenantSlug);
+    if (!tenantRow) return res.status(404).json({ error: "tenant not found" });
+
+    const cfg = await pool.query(`SELECT config, updated_at FROM tenant_config WHERE tenant_id = $1`, [tenantRow.id]);
+    const config = { ...DEFAULT_TENANT_CONFIG, ...(cfg.rows[0]?.config || {}) };
+
+    return res.json({ tenant: tenantRow.slug, config, updated_at: cfg.rows[0]?.updated_at || null });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "api admin config fetch failed" });
+  }
+});
+
+app.post("/api/admin/config", async (req, res) => {
+  try {
+    const { tenant, config = {} } = req.body || {};
+    if (!tenant) return res.status(400).json({ error: "tenant required" });
+
+    const tenantRow = await ensureTenant(String(tenant));
+    const existing = await pool.query(`SELECT config FROM tenant_config WHERE tenant_id = $1`, [tenantRow.id]);
+
+    const merged = {
+      ...DEFAULT_TENANT_CONFIG,
+      ...(existing.rows[0]?.config || {}),
+      ...sanitizeConfig(config)
+    };
+
+    await pool.query(
+      `INSERT INTO tenant_config (tenant_id, config, updated_at)
+       VALUES ($1, $2, NOW())
+       ON CONFLICT (tenant_id)
+       DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
+      [tenantRow.id, merged]
+    );
+
+    return res.json({ tenant: tenantRow.slug, config: merged });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "api admin config update failed" });
+  }
+});
+
+/* Verify endpoints */
 app.get("/api/verify/db", async (req, res) => {
   try {
     await pool.query("SELECT 1");
     return res.json({ status: "DB_OK" });
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({ status: "DB_FAIL" });
   }
 });
 
 app.get("/api/verify/questions", async (req, res) => {
   try {
-    const result = await pool.query("SELECT COUNT(*)::int AS count FROM questions");
-    return res.json({ status: "QUESTIONS_OK", count: result.rows[0].count });
-  } catch (error) {
-    console.error(error);
+    const r = await pool.query("SELECT COUNT(*)::int AS count FROM questions");
+    return res.json({ status: "QUESTIONS_OK", count: r.rows[0].count });
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({ status: "QUESTIONS_FAIL" });
   }
 });
@@ -513,15 +599,86 @@ app.get("/api/verify/scoring", async (req, res) => {
     const scores = scoreAnswers(answers, qs);
     const top = getTopRoles(scores);
     return res.json({ status: "SCORING_OK", sample: top });
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({ status: "SCORING_FAIL" });
+  }
+});
+
+/* VOC intake (optional) */
+app.post("/voc-intake", async (req, res) => {
+  if (!vocEngine) return res.status(404).json({ error: "VOC engine not installed" });
+
+  const client = await pool.connect();
+  try {
+    const { email, tenant_slug: tenantSlug, answers = [] } = req.body || {};
+    if (!email || !tenantSlug || !Array.isArray(answers) || answers.length === 0) {
+      return res.status(400).json({ error: "email, tenant_slug, and answers are required" });
+    }
+
+    const tenant = await ensureTenant(tenantSlug);
+
+    await client.query("BEGIN");
+
+    const session = (
+      await client.query(
+        "INSERT INTO voc_sessions (tenant_id, email) VALUES ($1, $2) RETURNING *",
+        [tenant.id, email]
+      )
+    ).rows[0];
+
+    for (let i = 0; i < answers.length; i += 1) {
+      await client.query(
+        "INSERT INTO voc_responses (session_id, question_id, answer) VALUES ($1, $2, $3)",
+        [session.id, i + 1, answers[i]]
+      );
+    }
+
+    const scores = vocEngine.scoreVOCAnswers(answers);
+    const vocResult = vocEngine.generateVOCProfile(scores);
+
+    await client.query(
+      `INSERT INTO voc_results (session_id, customer_profile, engagement_style, buying_trigger, friction_point, loyalty_driver)
+       VALUES ($1, $2, $3, $4, $5, $6)`,
+      [
+        session.id,
+        vocResult.customer_profile,
+        vocResult.engagement_style,
+        vocResult.buying_trigger,
+        vocResult.friction_point,
+        vocResult.loyalty_driver
+      ]
+    );
+
+    const existingCfg = await client.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [tenant.id]);
+    const mergedConfig = vocEngine.mergeVOCIntoConfig(
+      { ...DEFAULT_TENANT_CONFIG, ...(existingCfg.rows[0]?.config || {}) },
+      vocResult
+    );
+
+    await client.query(
+      `INSERT INTO tenant_config (tenant_id, config, updated_at)
+       VALUES ($1, $2, NOW())
+       ON CONFLICT (tenant_id)
+       DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
+      [tenant.id, mergedConfig]
+    );
+
+    await client.query("COMMIT");
+    return res.json(vocResult);
+  } catch (err) {
+    await client.query("ROLLBACK");
+    console.error(err);
+    return res.status(500).json({ error: "VOC intake failed" });
+  } finally {
+    client.release();
   }
 });
 
 /* =========================
    SERVER STARTUP
 ========================= */
+
 (async () => {
   try {
     await initializeDatabase();
@@ -532,14 +689,16 @@ app.get("/api/verify/scoring", async (req, res) => {
       try {
         const results = await runAdaptiveCycle();
         logEvent("adaptive_cycle", { tenant_count: Array.isArray(results) ? results.length : null });
-      } catch (error) {
-        console.error("adaptive_cycle_failed", error);
+      } catch (err) {
+        console.error("adaptive_cycle_failed", err);
       }
     }, intervalMs);
 
-    app.listen(PORT, () => console.log(`Garvey server listening on port ${PORT}`));
-  } catch (error) {
-    console.error("Database initialization failed", error);
+    app.listen(PORT, () => {
+      console.log(`Garvey server listening on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error("Database initialization failed", err);
     process.exit(1);
   }
 })();
