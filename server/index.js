@@ -1,13 +1,10 @@
-/* FILE: server/index.js
-   NEW-ONLY SOURCE OF TRUTH (no legacy /intake)
+/* FILE: server/index.js (PART 1/3)
+   NEW-ONLY SOURCE OF TRUTH (no legacy /intake server routes)
 
-   ✅ /t/:slug/*  = behavior engine endpoints (checkin/action/review/referral/wishlist/dashboard)
-   ✅ /api/*      = questions/intake/results/admin/verify (new engine)
-   ✅ /voc-intake = VOC intake (optional, if vocEngine exists)
+   ✅ /t/:slug/*  = behavior engine endpoints + dashboard + optional site render
+   ✅ /api/*      = questions/intake/results/admin/verify/site-generate
+   ✅ /voc-intake = optional (only if vocEngine exists)
    ✅ Startup: initializeDatabase() -> seed(pool) -> listen -> adaptive cycle
-
-   IMPORTANT:
-   - Do NOT put plain text lines starting with "/" in this file.
 */
 
 "use strict";
@@ -16,25 +13,39 @@ const express = require("express");
 const path = require("path");
 
 const { pool, initializeDatabase } = require("./db");
-const { ensureTenant, getTenantBySlug, getTenantConfig, DEFAULT_TENANT_CONFIG } = require("./tenant");
+const {
+  ensureTenant,
+  getTenantBySlug,
+  getTenantConfig,
+  DEFAULT_TENANT_CONFIG
+} = require("./tenant");
 
 const { seed } = require("./seedQuestions");
 const { runAdaptiveCycle } = require("./adaptiveEngine");
 const { scoreAnswers, getTopRoles } = require("./scoringEngine");
 
-// Optional VOC engine (comment out if not present)
+// Optional VOC engine (won't crash if missing)
 let vocEngine = null;
 try {
   // eslint-disable-next-line global-require
   vocEngine = require("./vocEngine");
-} catch (e) {
+} catch (_) {
   vocEngine = null;
+}
+
+// Optional Site Generator (won't crash if missing)
+let siteGenerator = null;
+try {
+  // eslint-disable-next-line global-require
+  siteGenerator = require("./siteGenerator");
+} catch (_) {
+  siteGenerator = null;
 }
 
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
 
-app.use(express.json());
+app.use(express.json({ limit: "1mb" }));
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
@@ -49,14 +60,14 @@ app.use(express.static(path.join(__dirname, "..", "public")));
    CONSTANTS + HELPERS
 ========================= */
 
-const ACTION_POINTS = {
+const ACTION_POINTS = Object.freeze({
   review: 5,
   photo: 10,
   video: 20,
   referral: 15
-};
+});
 
-const ALLOWED_CONFIG_KEYS = [
+const ALLOWED_CONFIG_KEYS = Object.freeze([
   "reward_system",
   "engagement_engine",
   "email_marketing",
@@ -68,9 +79,12 @@ const ALLOWED_CONFIG_KEYS = [
   "reward_multiplier",
   "review_incentive_bonus",
   "system_adjustments_log",
-  // voc profile (optional)
-  "voc_profile"
-];
+  // voc
+  "voc_profile",
+  // site generator
+  "site",
+  "features"
+]);
 
 function logEvent(event, payload = {}) {
   console.log(JSON.stringify({ ts: new Date().toISOString(), event, ...payload }));
@@ -94,10 +108,16 @@ function rewardPointsEnabled(config) {
   return config?.reward_system !== false;
 }
 
+function normalizeEmail(email) {
+  return String(email || "").trim().toLowerCase();
+}
+
 async function findTenantUser(tenantId, email, client = pool) {
+  const normalized = normalizeEmail(email);
+
   const existing = await client.query(
     "SELECT * FROM users WHERE tenant_id = $1 AND email = $2",
-    [tenantId, email]
+    [tenantId, normalized]
   );
   if (existing.rows[0]) return existing.rows[0];
 
@@ -107,7 +127,7 @@ async function findTenantUser(tenantId, email, client = pool) {
      ON CONFLICT (tenant_id, email)
      DO UPDATE SET email = EXCLUDED.email
      RETURNING *`,
-    [tenantId, email]
+    [tenantId, normalized]
   );
 
   return created.rows[0];
@@ -115,7 +135,7 @@ async function findTenantUser(tenantId, email, client = pool) {
 
 async function tenantMiddleware(req, res, next) {
   try {
-    const { slug } = req.params;
+    const slug = String(req.params.slug || "").trim();
     const tenant = await getTenantBySlug(slug);
     if (!tenant) return res.status(404).json({ error: "Tenant not found", tenant_slug: slug });
 
@@ -129,24 +149,19 @@ async function tenantMiddleware(req, res, next) {
 }
 
 /* =========================
-   HEALTH
+   HEALTH + JOIN
 ========================= */
 
 app.get("/health", (req, res) => res.json({ status: "ok" }));
-
-/* =========================
-   JOIN
-========================= */
 
 app.get("/join/:slug", async (req, res) => {
   const tenant = await getTenantBySlug(req.params.slug);
   if (!tenant) return res.status(404).json({ error: "Tenant not found" });
   return res.redirect(`/intake.html?tenant=${tenant.slug}`);
 });
-
-/* =========================
-   PLATFORM ROUTES (/t/:slug/*)
-========================= */
+/* FILE: server/index.js (PART 2/3)
+   PLATFORM ROUTES (/t/:slug/*) + DASHBOARD + SITE
+*/
 
 app.post("/t/:slug/checkin", tenantMiddleware, async (req, res) => {
   try {
@@ -182,10 +197,12 @@ app.post("/t/:slug/checkin", tenantMiddleware, async (req, res) => {
 app.post("/t/:slug/action", tenantMiddleware, async (req, res) => {
   try {
     const { email, action_type: actionType } = req.body || {};
-    if (!email || !actionType) return res.status(400).json({ error: "email and action_type are required" });
+    if (!email || !actionType) {
+      return res.status(400).json({ error: "email and action_type are required" });
+    }
 
     const user = await findTenantUser(req.tenant.id, email);
-    const pointsAdded = rewardPointsEnabled(req.tenantConfig) ? ACTION_POINTS[actionType] || 0 : 0;
+    const pointsAdded = rewardPointsEnabled(req.tenantConfig) ? (ACTION_POINTS[actionType] || 0) : 0;
 
     await pool.query(
       "INSERT INTO actions (tenant_id, user_id, action_type, points_awarded) VALUES ($1, $2, $3, $4)",
@@ -217,7 +234,7 @@ app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
 
     const user = await findTenantUser(req.tenant.id, email);
     const mediaBonus = mediaType === "video" ? 10 : mediaType === "photo" ? 5 : 0;
-    const pointsAdded = rewardPointsEnabled(req.tenantConfig) ? 5 + mediaBonus : 0;
+    const pointsAdded = rewardPointsEnabled(req.tenantConfig) ? (5 + mediaBonus) : 0;
 
     const reviewResult = await pool.query(
       `INSERT INTO reviews (tenant_id, user_id, text, media_type, points_awarded)
@@ -265,19 +282,25 @@ app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
     );
 
     if (pointsEach > 0) {
+      // ✅ deploy-safe: use ANY(int[]) instead of IN($3,$4)
       await client.query(
-        "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id IN ($3, $4)",
-        [pointsEach, req.tenant.id, referrer.id, referred.id]
+        "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = ANY($3::int[])",
+        [pointsEach, req.tenant.id, [referrer.id, referred.id]]
       );
     }
 
     const users = await client.query(
-      "SELECT email, points FROM users WHERE tenant_id = $1 AND id IN ($2, $3) ORDER BY email",
-      [req.tenant.id, referrer.id, referred.id]
+      "SELECT email, points FROM users WHERE tenant_id = $1 AND id = ANY($2::int[]) ORDER BY email",
+      [req.tenant.id, [referrer.id, referred.id]]
     );
 
     await client.query("COMMIT");
-    return res.json({ success: true, tenant: req.tenant.slug, points_awarded_each: pointsEach, users: users.rows });
+    return res.json({
+      success: true,
+      tenant: req.tenant.slug,
+      points_awarded_each: pointsEach,
+      users: users.rows
+    });
   } catch (err) {
     await client.query("ROLLBACK");
     console.error(err);
@@ -305,7 +328,6 @@ app.post("/t/:slug/wishlist", tenantMiddleware, async (req, res) => {
   }
 });
 
-/** Dashboard data for public/dashboard.html */
 app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
   try {
     const tenantId = req.tenant.id;
@@ -373,12 +395,76 @@ app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
 });
 
 /* =========================
-   NEW-ONLY API (/api/*)
+   TENANT SITE (optional)
 ========================= */
 
-/**
- * GET /api/questions?mode=25|60&include_weights=1
- */
+app.get("/t/:slug/site", tenantMiddleware, async (req, res) => {
+  if (!siteGenerator) return res.status(404).send("siteGenerator not installed");
+
+  try {
+    const row = await pool.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [req.tenant.id]);
+    const cfg = { ...DEFAULT_TENANT_CONFIG, ...(row.rows[0]?.config || {}) };
+
+    const generated = siteGenerator.generateTenantSite({
+      tenantSlug: req.tenant.slug,
+      config: { site: cfg.site || {}, features: cfg.features || {} }
+    });
+
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    return res.status(200).send(generated.pages.landing);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("site render failed");
+  }
+});
+
+app.post("/api/site/generate", async (req, res) => {
+  if (!siteGenerator) return res.status(404).json({ error: "siteGenerator not installed" });
+
+  try {
+    const { tenant, site = {}, features = {} } = req.body || {};
+    if (!tenant) return res.status(400).json({ error: "tenant required" });
+
+    const tenantRow = await ensureTenant(String(tenant));
+    const existing = await pool.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [tenantRow.id]);
+    const base = { ...DEFAULT_TENANT_CONFIG, ...(existing.rows[0]?.config || {}) };
+
+    const merged = sanitizeConfig({
+      ...base,
+      site: { ...(base.site || {}), ...site },
+      features: { ...(base.features || {}), ...features }
+    });
+
+    await pool.query(
+      `INSERT INTO tenant_config (tenant_id, config, updated_at)
+       VALUES ($1, $2, NOW())
+       ON CONFLICT (tenant_id)
+       DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
+      [tenantRow.id, merged]
+    );
+
+    const generated = siteGenerator.generateTenantSite({
+      tenantSlug: tenantRow.slug,
+      config: { site: merged.site || {}, features: merged.features || {} }
+    });
+
+    return res.json({
+      success: true,
+      tenant: tenantRow.slug,
+      version: generated.version,
+      preview: `/t/${tenantRow.slug}/site`,
+      pages: Object.keys(generated.pages)
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "site generate failed", details: err.message });
+  }
+});
+
+/* FILE: server/index.js (PART 3/3)
+   NEW ENGINE API (/api/*) + VOC + STARTUP
+*/
+
 app.get("/api/questions", async (req, res) => {
   try {
     const mode = String(req.query.mode || "25");
@@ -389,6 +475,7 @@ app.get("/api/questions", async (req, res) => {
     const limit = mode === "60" ? 60 : 25;
 
     const cols = includeWeights ? "qid, question, options, weights, type" : "qid, question, options, type";
+
     const result = await pool.query(
       `SELECT ${cols}
        FROM questions
@@ -432,15 +519,15 @@ app.post("/api/intake", async (req, res) => {
 
     await client.query("BEGIN");
 
-    const tenantRow = await ensureTenant(tenant);
+    const tenantRow = await ensureTenant(String(tenant));
+    const intakeMode = answers.length > 25 ? "full" : "fast";
 
-    const mode = answers.length > 25 ? "full" : "fast";
     const session = (
       await client.query(
         `INSERT INTO intake_sessions (tenant_id, email, mode)
          VALUES ($1, $2, $3)
          RETURNING *`,
-        [tenantRow.id, email, mode]
+        [tenantRow.id, normalizeEmail(email), intakeMode]
       )
     ).rows[0];
 
@@ -453,7 +540,7 @@ app.post("/api/intake", async (req, res) => {
     }
 
     const qids = answers.map((a) => a.qid);
-    const questionRows = (await client.query(`SELECT * FROM questions WHERE qid = ANY($1)`, [qids])).rows;
+    const questionRows = (await client.query("SELECT * FROM questions WHERE qid = ANY($1)", [qids])).rows;
     if (!questionRows.length) throw new Error("No matching questions found for scoring");
 
     const scores = scoreAnswers(answers, questionRows);
@@ -504,7 +591,7 @@ app.post("/api/intake", async (req, res) => {
 
 app.get("/api/results/:email", async (req, res) => {
   try {
-    const email = String(req.params.email || "").trim();
+    const email = normalizeEmail(req.params.email);
     if (!email) return res.status(400).json({ error: "email required" });
 
     const result = await pool.query(
@@ -526,13 +613,31 @@ app.get("/api/results/:email", async (req, res) => {
 });
 
 /* Admin config endpoints used by public/admin.html */
+app.get("/api/admin/config", async (req, res) => {
+  try {
+    const tenantSlug = String(req.query.tenant || "").trim();
+    if (!tenantSlug) return res.status(400).json({ error: "tenant query param required" });
+
+    const tenantRow = await getTenantBySlug(tenantSlug);
+    if (!tenantRow) return res.status(404).json({ error: "tenant not found" });
+
+    const cfg = await pool.query("SELECT config, updated_at FROM tenant_config WHERE tenant_id = $1", [tenantRow.id]);
+    const config = { ...DEFAULT_TENANT_CONFIG, ...(cfg.rows[0]?.config || {}) };
+
+    return res.json({ tenant: tenantRow.slug, config, updated_at: cfg.rows[0]?.updated_at || null });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "api admin config fetch failed" });
+  }
+});
+
 app.get("/api/admin/config/:tenant", async (req, res) => {
   try {
     const tenantSlug = String(req.params.tenant || "").trim();
     const tenantRow = await getTenantBySlug(tenantSlug);
     if (!tenantRow) return res.status(404).json({ error: "tenant not found" });
 
-    const cfg = await pool.query(`SELECT config, updated_at FROM tenant_config WHERE tenant_id = $1`, [tenantRow.id]);
+    const cfg = await pool.query("SELECT config, updated_at FROM tenant_config WHERE tenant_id = $1", [tenantRow.id]);
     const config = { ...DEFAULT_TENANT_CONFIG, ...(cfg.rows[0]?.config || {}) };
 
     return res.json({ tenant: tenantRow.slug, config, updated_at: cfg.rows[0]?.updated_at || null });
@@ -548,13 +653,13 @@ app.post("/api/admin/config", async (req, res) => {
     if (!tenant) return res.status(400).json({ error: "tenant required" });
 
     const tenantRow = await ensureTenant(String(tenant));
-    const existing = await pool.query(`SELECT config FROM tenant_config WHERE tenant_id = $1`, [tenantRow.id]);
+    const existing = await pool.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [tenantRow.id]);
 
-    const merged = {
+    const merged = sanitizeConfig({
       ...DEFAULT_TENANT_CONFIG,
       ...(existing.rows[0]?.config || {}),
-      ...sanitizeConfig(config)
-    };
+      ...config
+    });
 
     await pool.query(
       `INSERT INTO tenant_config (tenant_id, config, updated_at)
@@ -616,22 +721,23 @@ app.post("/voc-intake", async (req, res) => {
       return res.status(400).json({ error: "email, tenant_slug, and answers are required" });
     }
 
-    const tenant = await ensureTenant(tenantSlug);
+    const tenant = await ensureTenant(String(tenantSlug));
 
     await client.query("BEGIN");
 
     const session = (
-      await client.query(
-        "INSERT INTO voc_sessions (tenant_id, email) VALUES ($1, $2) RETURNING *",
-        [tenant.id, email]
-      )
+      await client.query("INSERT INTO voc_sessions (tenant_id, email) VALUES ($1, $2) RETURNING *", [
+        tenant.id,
+        normalizeEmail(email)
+      ])
     ).rows[0];
 
     for (let i = 0; i < answers.length; i += 1) {
-      await client.query(
-        "INSERT INTO voc_responses (session_id, question_id, answer) VALUES ($1, $2, $3)",
-        [session.id, i + 1, answers[i]]
-      );
+      await client.query("INSERT INTO voc_responses (session_id, question_id, answer) VALUES ($1, $2, $3)", [
+        session.id,
+        i + 1,
+        answers[i]
+      ]);
     }
 
     const scores = vocEngine.scoreVOCAnswers(answers);
@@ -661,7 +767,7 @@ app.post("/voc-intake", async (req, res) => {
        VALUES ($1, $2, NOW())
        ON CONFLICT (tenant_id)
        DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
-      [tenant.id, mergedConfig]
+      [tenant.id, sanitizeConfig(mergedConfig)]
     );
 
     await client.query("COMMIT");
