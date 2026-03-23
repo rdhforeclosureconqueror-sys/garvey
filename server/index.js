@@ -1,9 +1,8 @@
 // FILE: server/index.js
 // ✅ FULL FILE replacement (same routes)
-// ✅ Change: /api/intake now merges deriveTenantConfigPatch() into tenant_config.site/features
-// ✅ Change: /api/intake now preserves existing tenant_config.site/features before overwrite
-//
-// NOTE: This file is based on your pasted server/index.js structure. :contentReference[oaicite:1]{index=1}
+// ✅ Keeps: all existing /t/:slug/* routes, /api/* routes, VOC routes, verify routes
+// ✅ Keeps: /api/intake deriveTenantConfigPatch merge into tenant_config.site/features
+// ✅ Adds: DB-backed Kanban (schema init + API mount at /api/kanban)
 
 "use strict";
 
@@ -25,6 +24,10 @@ const {
   getTopRoles,
   deriveTenantConfigPatch,
 } = require("./scoringEngine");
+
+// ✅ Kanban (NEW)
+const { initializeKanbanSchema } = require("./kanbanDb");
+const kanbanRoutes = require("./kanbanRoutes");
 
 // Optional VOC engine (won't crash if missing)
 let vocEngine = null;
@@ -161,6 +164,12 @@ app.get("/join/:slug", async (req, res) => {
   if (!tenant) return res.status(404).json({ error: "Tenant not found" });
   return res.redirect(`/intake.html?tenant=${tenant.slug}`);
 });
+
+/* =========================
+   KANBAN API (NEW)
+   Mounts: /api/kanban/*
+========================= */
+app.use("/api/kanban", kanbanRoutes({ pool, ensureTenant }));
 
 /* =========================
    PLATFORM ROUTES (/t/:slug/*)
@@ -554,7 +563,6 @@ app.post("/api/intake", async (req, res) => {
       [session.id, primary_role, secondary_role, scores]
     );
 
-    // ✅ IMPORTANT: preserve existing tenant_config + merge derived site/features patch
     const existingCfgRow = await client.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [tenantRow.id]);
     const existingCfg = existingCfgRow.rows[0]?.config || {};
     const base = { ...DEFAULT_TENANT_CONFIG, ...existingCfg };
@@ -810,6 +818,9 @@ app.post("/voc-intake", async (req, res) => {
     await initializeDatabase();
     await seed(pool);
 
+    // ✅ NEW: ensure Kanban schema exists
+    await initializeKanbanSchema(pool);
+
     const intervalMs = Number(process.env.ADAPTIVE_INTERVAL_MS || 300000);
     setInterval(async () => {
       try {
@@ -821,7 +832,7 @@ app.post("/voc-intake", async (req, res) => {
     }, intervalMs);
 
     app.listen(PORT, () => {
-      console.log(`Garvey server listening on port ${PORT}`);
+      console.log(`Server listening on port ${PORT}`);
     });
   } catch (err) {
     console.error("Database initialization failed", err);
