@@ -3,11 +3,15 @@
 // ✅ Keeps: all existing /t/:slug/* routes, /api/* routes, VOC routes, verify routes
 // ✅ Keeps: /api/intake deriveTenantConfigPatch merge into tenant_config.site/features
 // ✅ Adds: DB-backed Kanban (schema init + API mount at /api/kanban)
+// ✅ Adds: Templates plugin
+//    - GET  /api/templates (reads public/templates/registry.json)
+//    - POST /api/templates/select (stores tenant_config.site.template_id)
 
 "use strict";
 
 const express = require("express");
 const path = require("path");
+const fs = require("fs/promises");
 
 const { pool, initializeDatabase } = require("./db");
 const {
@@ -25,7 +29,7 @@ const {
   deriveTenantConfigPatch,
 } = require("./scoringEngine");
 
-// ✅ Kanban (NEW)
+// ✅ Kanban
 const { initializeKanbanSchema } = require("./kanbanDb");
 const kanbanRoutes = require("./kanbanRoutes");
 
@@ -153,6 +157,14 @@ async function tenantMiddleware(req, res, next) {
   }
 }
 
+async function readTemplateRegistry() {
+  const registryPath = path.join(__dirname, "..", "public", "templates", "registry.json");
+  const raw = await fs.readFile(registryPath, "utf8");
+  const parsed = JSON.parse(raw);
+  const templates = Array.isArray(parsed?.templates) ? parsed.templates : [];
+  return { templates };
+}
+
 /* =========================
    HEALTH + JOIN
 ========================= */
@@ -166,8 +178,62 @@ app.get("/join/:slug", async (req, res) => {
 });
 
 /* =========================
-   KANBAN API (NEW)
-   Mounts: /api/kanban/*
+   TEMPLATES PLUGIN (NEW)
+========================= */
+
+// Returns the template registry from /public/templates/registry.json
+app.get("/api/templates", async (req, res) => {
+  try {
+    const data = await readTemplateRegistry();
+    return res.json({ success: true, ...data });
+  } catch (err) {
+    console.error("templates_registry_failed", err);
+    return res.status(500).json({ success: false, error: "templates registry read failed" });
+  }
+});
+
+// Stores selection at tenant_config.site.template_id
+app.post("/api/templates/select", async (req, res) => {
+  try {
+    const { tenant, template_id: templateId } = req.body || {};
+    if (!tenant || !templateId) {
+      return res.status(400).json({ error: "tenant and template_id are required" });
+    }
+
+    // Validate template exists in registry (prevents typos)
+    const registry = await readTemplateRegistry();
+    const exists = registry.templates.some((t) => String(t.id).trim() === String(templateId).trim());
+    if (!exists) {
+      return res.status(400).json({ error: "unknown template_id", template_id: templateId });
+    }
+
+    const tenantRow = await ensureTenant(String(tenant));
+    const existing = await pool.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [tenantRow.id]);
+    const base = { ...DEFAULT_TENANT_CONFIG, ...(existing.rows[0]?.config || {}) };
+
+    const merged = sanitizeConfig({
+      ...base,
+      site: { ...(base.site || {}), template_id: String(templateId).trim() },
+      features: { ...(base.features || {}) },
+    });
+
+    await pool.query(
+      `INSERT INTO tenant_config (tenant_id, config, updated_at)
+       VALUES ($1, $2, NOW())
+       ON CONFLICT (tenant_id)
+       DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
+      [tenantRow.id, merged]
+    );
+
+    return res.json({ success: true, tenant: tenantRow.slug, template_id: String(templateId).trim() });
+  } catch (err) {
+    console.error("templates_select_failed", err);
+    return res.status(500).json({ error: "template select failed" });
+  }
+});
+
+/* =========================
+   KANBAN API
 ========================= */
 app.use("/api/kanban", kanbanRoutes({ pool, ensureTenant }));
 
@@ -818,7 +884,7 @@ app.post("/voc-intake", async (req, res) => {
     await initializeDatabase();
     await seed(pool);
 
-    // ✅ NEW: ensure Kanban schema exists
+    // ✅ ensure Kanban schema exists
     await initializeKanbanSchema(pool);
 
     const intervalMs = Number(process.env.ADAPTIVE_INTERVAL_MS || 300000);
