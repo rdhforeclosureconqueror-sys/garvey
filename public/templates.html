@@ -1,0 +1,35 @@
+<!-- FILE: public/templates.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Website Templates</title>
+  <link rel="stylesheet" href="/templates.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="card header">
+      <div class="row">
+        <a class="btn" id="backToTenantSite" href="#">← Back to Tenant Site</a>
+        <span class="pill" id="tenantPill"></span>
+      </div>
+      <h1>Choose Your Website Template</h1>
+      <div class="muted">
+        Preview templates instantly. When you click “Select”, we’ll store it for this tenant.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <button class="btn" id="reload">Reload Templates</button>
+        <span class="muted" id="status"></span>
+      </div>
+    </div>
+
+    <div id="grid" class="grid"></div>
+  </div>
+
+  <script src="/templates.js"></script>
+</body>
+</html>
