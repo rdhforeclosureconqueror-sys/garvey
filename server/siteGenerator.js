@@ -1,12 +1,18 @@
 // FILE: server/siteGenerator.js
-// Command B: config-driven multi-tenant site pages stored in tenant_sites.pages JSONB
-//
+// Command B: config-driven multi-tenant site pages stored in tenant_config (NOT tenant_sites)
 // API usage (server/index.js already wired):
 // - POST /api/site/generate  { tenant, site, features }
 // - GET  /t/:slug/site       renders landing HTML
 //
 // generateTenantSite(...) returns:
-// { version: number, pages: { landing: "<html...>", checkout: "...", community: "..." } }
+// { version: number, pages: { landing: "<html...>" } }
+//
+// ✅ Backward compatible: existing defaults/routes/strings preserved
+// ✅ Adds optional support for:
+// - site.template (supports "persona:*", "minimal", "storefront")
+// - site.value_props (array)
+// - site.cta_text / site.cta_link (override top CTA)
+// - site.meta.primary/secondary/readiness (pills)
 
 "use strict";
 
@@ -33,6 +39,19 @@ function pickTheme(site = {}) {
   return { primary, bg, card, text, accent };
 }
 
+function asStringArray(v) {
+  if (!Array.isArray(v)) return [];
+  return v.map((x) => String(x ?? "").trim()).filter(Boolean);
+}
+
+function templateLayout(templateKey = "") {
+  const key = String(templateKey || "").toLowerCase();
+  if (key === "minimal") return "minimal";
+  if (key === "storefront") return "storefront";
+  if (key.startsWith("persona:")) return "persona";
+  return "default";
+}
+
 function landingHtml({ tenantSlug, config }) {
   const site = config?.site || {};
   const features = config?.features || {};
@@ -51,11 +70,92 @@ function landingHtml({ tenantSlug, config }) {
   const showReviews = bool(features.reviews, true);
   const showStore = bool(features.store, false);
 
+  // KEEP SAME ROUTES/LINKS
   const intakeLink = `/intake.html?tenant=${encodeURIComponent(tenantSlug)}`;
   const cxLink = `/index.html?tenant=${encodeURIComponent(tenantSlug)}`;
   const dashLink = `/dashboard.html?tenant=${encodeURIComponent(tenantSlug)}`;
   const adminLink = `/admin.html?tenant=${encodeURIComponent(tenantSlug)}`;
   const vocLink = `/voc.html?tenant=${encodeURIComponent(tenantSlug)}`;
+
+  const layout = templateLayout(site.template);
+
+  const valueProps = asStringArray(site.value_props);
+  const primary = site?.meta?.primary ? String(site.meta.primary) : "";
+  const secondary = site?.meta?.secondary ? String(site.meta.secondary) : "";
+  const readiness = Number.isFinite(Number(site?.meta?.readiness))
+    ? Number(site.meta.readiness)
+    : null;
+
+  const ctaText =
+    site.cta_text || (showIntake ? "Take the Assessment" : "Earn Points (Actions)");
+  const ctaLink = site.cta_link || (showIntake ? intakeLink : cxLink);
+
+  const pills = [
+    `<div class="pill">Tenant: ${esc(tenantSlug)}</div>`,
+    showRewards ? `<div class="pill">Rewards: ${esc(rewardName)}</div>` : "",
+    showStore ? `<div class="pill">Store: enabled</div>` : `<div class="pill">Store: off</div>`,
+    primary ? `<div class="pill">Primary: ${esc(primary)}</div>` : "",
+    secondary ? `<div class="pill">Secondary: ${esc(secondary)}</div>` : "",
+    readiness != null ? `<div class="pill">Readiness: ${esc(readiness)}%</div>` : "",
+  ].filter(Boolean);
+
+  const ctaRowHtml = `
+    <div class="ctaRow">
+      <a class="btn" href="${esc(ctaLink)}">${esc(ctaText)}</a>
+      ${showIntake ? `<a class="btn" href="${esc(intakeLink)}">Take the Assessment</a>` : ""}
+      <a class="btn" href="${esc(cxLink)}">Earn Points (Actions)</a>
+      <a class="btn" href="${esc(dashLink)}">Owner Dashboard</a>
+    </div>
+  `;
+
+  const valuePropsHtml =
+    valueProps.length > 0
+      ? `
+      <div class="box">
+        <div class="label">What you’ll get</div>
+        <ul>
+          ${valueProps.map((p) => `<li>${esc(p)}</li>`).join("\n")}
+        </ul>
+      </div>
+    `
+      : "";
+
+  const whatYouCanDoHtml = `
+      <div class="box">
+        <div class="label">What you can do</div>
+        <ul>
+          <li>Check in and earn points</li>
+          ${showReviews ? "<li>Leave reviews (photo/video optional)</li>" : ""}
+          <li>Refer friends to grow the community</li>
+          <li>Join the list for offers + updates</li>
+        </ul>
+      </div>
+  `;
+
+  const ownerControlsHtml = `
+      <div class="box">
+        <div class="label">Owner controls</div>
+        <ul>
+          <li><a href="${esc(adminLink)}">Admin config</a> (toggle features)</li>
+          <li><a href="${esc(dashLink)}">Dashboard</a> (analytics)</li>
+          <li><a href="${esc(vocLink)}">VOC Intake</a> (customer voice)</li>
+        </ul>
+      </div>
+  `;
+
+  let gridInner = "";
+
+  if (layout === "minimal") {
+    gridInner = `${valuePropsHtml || ""}${ownerControlsHtml}`;
+  } else if (layout === "storefront") {
+    gridInner = `${valuePropsHtml || ""}${whatYouCanDoHtml}${ownerControlsHtml}`;
+  } else {
+    // default/persona
+    gridInner = `${whatYouCanDoHtml}${ownerControlsHtml}`;
+    if (valuePropsHtml) gridInner = `${valuePropsHtml}${gridInner}`;
+  }
+
+  const gridHtml = `<div class="grid">${gridInner}</div>`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -78,46 +178,24 @@ function landingHtml({ tenantSlug, config }) {
     .label { color:#93c5fd; font-weight:700; margin-bottom:6px; }
     .meta { color:#94a3b8; font-size:12px; margin-top:14px; }
     .pill { display:inline-block; padding:4px 10px; border-radius:999px; background:#111827; border:1px solid #334155; color:#e5e7eb; font-size:12px; margin-right:6px; }
+    code { color:#e2e8f0; }
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="pill">Tenant: ${esc(tenantSlug)}</div>
-    ${showRewards ? `<div class="pill">Rewards: ${esc(rewardName)}</div>` : ""}
-    ${showStore ? `<div class="pill">Store: enabled</div>` : `<div class="pill">Store: off</div>`}
+    ${pills.join("\n")}
 
     <h1>${esc(headline)}</h1>
     <p>${esc(subhead)}</p>
 
-    <div class="ctaRow">
-      ${showIntake ? `<a class="btn" href="${esc(intakeLink)}">Take the Assessment</a>` : ""}
-      <a class="btn" href="${esc(cxLink)}">Earn Points (Actions)</a>
-      <a class="btn" href="${esc(dashLink)}">Owner Dashboard</a>
-    </div>
+    ${ctaRowHtml}
 
-    <div class="grid">
-      <div class="box">
-        <div class="label">What you can do</div>
-        <ul>
-          <li>Check in and earn points</li>
-          ${showReviews ? "<li>Leave reviews (photo/video optional)</li>" : ""}
-          <li>Refer friends to grow the community</li>
-          <li>Join the list for offers + updates</li>
-        </ul>
-      </div>
-
-      <div class="box">
-        <div class="label">Owner controls</div>
-        <ul>
-          <li><a href="${esc(adminLink)}">Admin config</a> (toggle features)</li>
-          <li><a href="${esc(dashLink)}">Dashboard</a> (analytics)</li>
-          <li><a href="${esc(vocLink)}">VOC Intake</a> (customer voice)</li>
-        </ul>
-      </div>
-    </div>
+    ${gridHtml}
 
     <div class="meta">
-      Generated by Garvey Site Generator (Command B). Preview route: <code>/t/${esc(tenantSlug)}/site</code>
+      Generated by Garvey Site Generator (Command B). Preview route: <code>/t/${esc(
+        tenantSlug
+      )}/site</code>
     </div>
   </div>
 </body>
@@ -128,7 +206,7 @@ function generateTenantSite({ tenantSlug, config }) {
   const version = 1;
 
   const pages = {
-    landing: landingHtml({ tenantSlug, config })
+    landing: landingHtml({ tenantSlug, config }),
   };
 
   return { version, pages };
