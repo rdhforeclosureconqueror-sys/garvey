@@ -1,0 +1,47 @@
+<!-- FILE: public/garvey.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Idea → Funding Pathway</title>
+  <link rel="stylesheet" href="/garvey.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="row">
+        <div class="pill" id="tenantPill"></div>
+        <a class="btn" id="siteBtn" href="#">View Generated Site</a>
+      </div>
+      <h1>Idea → Funding Pathway</h1>
+      <div class="muted">Pick a phase. Each phase has a Kanban board so you never guess what’s next.</div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="gap:12px">
+        <a class="btn" id="g" href="#">G — Gather</a>
+        <a class="btn" id="a" href="#">A — Assess</a>
+        <a class="btn" id="r" href="#">R — Route</a>
+        <a class="btn" id="v" href="#">V — Value</a>
+        <a class="btn" id="e" href="#">E — Evaluate</a>
+        <a class="btn" id="y" href="#">Y — Yield</a>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  const p = new URLSearchParams(location.search);
+  const tenant = (p.get("tenant") || "").trim();
+  document.getElementById("tenantPill").textContent = "Tenant: " + (tenant || "(missing)");
+  document.getElementById("siteBtn").href = tenant ? `/t/${encodeURIComponent(tenant)}/site` : "#";
+
+  const pages = { g:"garvey-g.html", a:"garvey-a.html", r:"garvey-r.html", v:"garvey-v.html", e:"garvey-e.html", y:"garvey-y.html" };
+  for (const k of Object.keys(pages)) {
+    document.getElementById(k).href = `/${pages[k]}?tenant=${encodeURIComponent(tenant)}`;
+  }
+})();
+</script>
+</body>
+</html>
