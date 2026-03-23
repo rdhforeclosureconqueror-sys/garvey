@@ -1,11 +1,9 @@
-/* FILE: server/index.js (PART 1/3)
-   NEW-ONLY SOURCE OF TRUTH (no legacy /intake server routes)
-
-   ✅ /t/:slug/*  = behavior engine endpoints + dashboard + optional site render
-   ✅ /api/*      = questions/intake/results/admin/verify/site-generate
-   ✅ /voc-intake = optional (only if vocEngine exists)
-   ✅ Startup: initializeDatabase() -> seed(pool) -> listen -> adaptive cycle
-*/
+// FILE: server/index.js
+// ✅ FULL FILE replacement (same routes)
+// ✅ Change: /api/intake now merges deriveTenantConfigPatch() into tenant_config.site/features
+// ✅ Change: /api/intake now preserves existing tenant_config.site/features before overwrite
+//
+// NOTE: This file is based on your pasted server/index.js structure. :contentReference[oaicite:1]{index=1}
 
 "use strict";
 
@@ -17,12 +15,16 @@ const {
   ensureTenant,
   getTenantBySlug,
   getTenantConfig,
-  DEFAULT_TENANT_CONFIG
+  DEFAULT_TENANT_CONFIG,
 } = require("./tenant");
 
 const { seed } = require("./seedQuestions");
 const { runAdaptiveCycle } = require("./adaptiveEngine");
-const { scoreAnswers, getTopRoles } = require("./scoringEngine");
+const {
+  scoreAnswers,
+  getTopRoles,
+  deriveTenantConfigPatch,
+} = require("./scoringEngine");
 
 // Optional VOC engine (won't crash if missing)
 let vocEngine = null;
@@ -64,7 +66,7 @@ const ACTION_POINTS = Object.freeze({
   review: 5,
   photo: 10,
   video: 20,
-  referral: 15
+  referral: 15,
 });
 
 const ALLOWED_CONFIG_KEYS = Object.freeze([
@@ -83,7 +85,7 @@ const ALLOWED_CONFIG_KEYS = Object.freeze([
   "voc_profile",
   // site generator
   "site",
-  "features"
+  "features",
 ]);
 
 function logEvent(event, payload = {}) {
@@ -159,9 +161,10 @@ app.get("/join/:slug", async (req, res) => {
   if (!tenant) return res.status(404).json({ error: "Tenant not found" });
   return res.redirect(`/intake.html?tenant=${tenant.slug}`);
 });
-/* FILE: server/index.js (PART 2/3)
-   PLATFORM ROUTES (/t/:slug/*) + DASHBOARD + SITE
-*/
+
+/* =========================
+   PLATFORM ROUTES (/t/:slug/*)
+========================= */
 
 app.post("/t/:slug/checkin", tenantMiddleware, async (req, res) => {
   try {
@@ -186,7 +189,7 @@ app.post("/t/:slug/checkin", tenantMiddleware, async (req, res) => {
       tenant: req.tenant.slug,
       event: "checkin",
       points_added: pointsAdded,
-      points: updatedUser.rows[0].points
+      points: updatedUser.rows[0].points,
     });
   } catch (err) {
     console.error(err);
@@ -219,7 +222,7 @@ app.post("/t/:slug/action", tenantMiddleware, async (req, res) => {
       tenant: req.tenant.slug,
       action_type: actionType,
       points_added: pointsAdded,
-      points: updatedUser.rows[0].points
+      points: updatedUser.rows[0].points,
     });
   } catch (err) {
     console.error(err);
@@ -253,7 +256,7 @@ app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
       tenant: req.tenant.slug,
       review: reviewResult.rows[0],
       points_added: pointsAdded,
-      points: updatedUser.rows[0].points
+      points: updatedUser.rows[0].points,
     });
   } catch (err) {
     console.error(err);
@@ -282,7 +285,6 @@ app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
     );
 
     if (pointsEach > 0) {
-      // ✅ deploy-safe: use ANY(int[]) instead of IN($3,$4)
       await client.query(
         "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = ANY($3::int[])",
         [pointsEach, req.tenant.id, [referrer.id, referred.id]]
@@ -299,7 +301,7 @@ app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
       success: true,
       tenant: req.tenant.slug,
       points_awarded_each: pointsEach,
-      users: users.rows
+      users: users.rows,
     });
   } catch (err) {
     await client.query("ROLLBACK");
@@ -375,7 +377,7 @@ app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
          ORDER BY activity_day DESC
          LIMIT 14`,
         [tenantId]
-      )
+      ),
     ]);
 
     return res.json({
@@ -386,7 +388,7 @@ app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
       total_points: points.rows[0].total_points,
       top_actions: topActions.rows,
       points_distribution: pointsDistribution.rows,
-      daily_activity: dailyActivity.rows
+      daily_activity: dailyActivity.rows,
     });
   } catch (err) {
     console.error(err);
@@ -407,7 +409,7 @@ app.get("/t/:slug/site", tenantMiddleware, async (req, res) => {
 
     const generated = siteGenerator.generateTenantSite({
       tenantSlug: req.tenant.slug,
-      config: { site: cfg.site || {}, features: cfg.features || {} }
+      config: { site: cfg.site || {}, features: cfg.features || {} },
     });
 
     res.setHeader("Content-Type", "text/html; charset=utf-8");
@@ -432,7 +434,7 @@ app.post("/api/site/generate", async (req, res) => {
     const merged = sanitizeConfig({
       ...base,
       site: { ...(base.site || {}), ...site },
-      features: { ...(base.features || {}), ...features }
+      features: { ...(base.features || {}), ...features },
     });
 
     await pool.query(
@@ -445,7 +447,7 @@ app.post("/api/site/generate", async (req, res) => {
 
     const generated = siteGenerator.generateTenantSite({
       tenantSlug: tenantRow.slug,
-      config: { site: merged.site || {}, features: merged.features || {} }
+      config: { site: merged.site || {}, features: merged.features || {} },
     });
 
     return res.json({
@@ -453,7 +455,7 @@ app.post("/api/site/generate", async (req, res) => {
       tenant: tenantRow.slug,
       version: generated.version,
       preview: `/t/${tenantRow.slug}/site`,
-      pages: Object.keys(generated.pages)
+      pages: Object.keys(generated.pages),
     });
   } catch (err) {
     console.error(err);
@@ -461,9 +463,9 @@ app.post("/api/site/generate", async (req, res) => {
   }
 });
 
-/* FILE: server/index.js (PART 3/3)
-   NEW ENGINE API (/api/*) + VOC + STARTUP
-*/
+/* =========================
+   NEW ENGINE API (/api/*)
+========================= */
 
 app.get("/api/questions", async (req, res) => {
   try {
@@ -493,7 +495,7 @@ app.get("/api/questions", async (req, res) => {
         option_b: q.options?.B || "",
         option_c: q.options?.C || "",
         option_d: q.options?.D || "",
-        type: q.type
+        type: q.type,
       };
       if (includeWeights) shaped.weights = q.weights || {};
       return shaped;
@@ -552,14 +554,32 @@ app.post("/api/intake", async (req, res) => {
       [session.id, primary_role, secondary_role, scores]
     );
 
-    const config = sanitizeConfig({
-      ...DEFAULT_TENANT_CONFIG,
+    // ✅ IMPORTANT: preserve existing tenant_config + merge derived site/features patch
+    const existingCfgRow = await client.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [tenantRow.id]);
+    const existingCfg = existingCfgRow.rows[0]?.config || {};
+    const base = { ...DEFAULT_TENANT_CONFIG, ...existingCfg };
+
+    const roleFlags = {
       reward_system: ["builder", "resource_generator"].includes(primary_role),
       referral_system: ["connector", "nurturer"].includes(primary_role),
       analytics_engine: primary_role === "operator",
       engagement_engine: ["connector", "educator", "nurturer"].includes(primary_role),
       content_engine: ["educator", "connector"].includes(primary_role),
-      automation_blueprints: ["architect", "operator"].includes(primary_role)
+      automation_blueprints: ["architect", "operator"].includes(primary_role),
+    };
+
+    const patch = deriveTenantConfigPatch({
+      tenantSlug: tenantRow.slug,
+      primary_role,
+      secondary_role,
+      scores,
+    });
+
+    const mergedConfig = sanitizeConfig({
+      ...base,
+      ...roleFlags,
+      site: { ...(base.site || {}), ...(patch.site || {}) },
+      features: { ...(base.features || {}), ...(patch.features || {}) },
     });
 
     await client.query(
@@ -567,7 +587,7 @@ app.post("/api/intake", async (req, res) => {
        VALUES ($1, $2, NOW())
        ON CONFLICT (tenant_id)
        DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
-      [tenantRow.id, config]
+      [tenantRow.id, mergedConfig]
     );
 
     await client.query("COMMIT");
@@ -578,7 +598,7 @@ app.post("/api/intake", async (req, res) => {
       primary_role,
       secondary_role,
       scores,
-      config
+      config: mergedConfig,
     });
   } catch (err) {
     await client.query("ROLLBACK");
@@ -658,7 +678,7 @@ app.post("/api/admin/config", async (req, res) => {
     const merged = sanitizeConfig({
       ...DEFAULT_TENANT_CONFIG,
       ...(existing.rows[0]?.config || {}),
-      ...config
+      ...config,
     });
 
     await pool.query(
@@ -728,7 +748,7 @@ app.post("/voc-intake", async (req, res) => {
     const session = (
       await client.query("INSERT INTO voc_sessions (tenant_id, email) VALUES ($1, $2) RETURNING *", [
         tenant.id,
-        normalizeEmail(email)
+        normalizeEmail(email),
       ])
     ).rows[0];
 
@@ -736,7 +756,7 @@ app.post("/voc-intake", async (req, res) => {
       await client.query("INSERT INTO voc_responses (session_id, question_id, answer) VALUES ($1, $2, $3)", [
         session.id,
         i + 1,
-        answers[i]
+        answers[i],
       ]);
     }
 
@@ -752,7 +772,7 @@ app.post("/voc-intake", async (req, res) => {
         vocResult.engagement_style,
         vocResult.buying_trigger,
         vocResult.friction_point,
-        vocResult.loyalty_driver
+        vocResult.loyalty_driver,
       ]
     );
 
