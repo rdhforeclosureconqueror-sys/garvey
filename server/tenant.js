@@ -1,4 +1,7 @@
 // FILE: server/tenant.js
+// ✅ CHANGE: DEFAULT_TENANT_CONFIG now includes site/features containers
+//           so merges are stable and siteGenerator always has objects.
+
 "use strict";
 
 const { pool } = require("./db");
@@ -10,7 +13,19 @@ const DEFAULT_TENANT_CONFIG = {
   content_engine: true,
   referral_system: true,
   automation_blueprints: false,
-  analytics_engine: false
+  analytics_engine: false,
+
+  // Safe defaults for site generator + future extensions
+  site: {},
+  features: {},
+
+  // Safe defaults for adaptive engine fields (optional but stable)
+  reward_multiplier: 1,
+  review_incentive_bonus: 0,
+  system_adjustments_log: [],
+
+  // VOC placeholder
+  voc_profile: null
 };
 
 async function getTenantBySlug(slug) {
@@ -40,10 +55,7 @@ async function ensureTenant(slug) {
 }
 
 async function getTenantConfig(tenantId) {
-  const result = await pool.query(
-    "SELECT config FROM tenant_config WHERE tenant_id = $1",
-    [tenantId]
-  );
+  const result = await pool.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [tenantId]);
 
   return {
     ...DEFAULT_TENANT_CONFIG,
