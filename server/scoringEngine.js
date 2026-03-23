@@ -5,6 +5,7 @@
 //    2) role-based:   q.weights = { role: n, role2: n, ... }
 // ✅ Safe fallback for legacy flat columns (q[role])
 // ✅ Lowercase role keys (matches tenant config + rest of server)
+// ✅ NEW: deriveTenantConfigPatch() to bridge scoring → tenant_config → siteGenerator (no route changes)
 
 "use strict";
 
@@ -17,7 +18,7 @@ const roles = [
   "protector",
   "nurturer",
   "educator",
-  "resource_generator"
+  "resource_generator",
 ];
 
 function emptyScores() {
@@ -50,9 +51,9 @@ function extractLegacyRoleWeight(questionRow, role) {
 
 function scoreAnswers(answers = [], questions = []) {
   const scores = emptyScores();
-  const questionMap = new Map(questions.map((q) => [q.qid, q]));
+  const questionMap = new Map((questions || []).map((q) => [q.qid, q]));
 
-  for (const item of answers) {
+  for (const item of answers || []) {
     if (!item || !item.qid) continue;
 
     const q = questionMap.get(item.qid);
@@ -89,7 +90,9 @@ function scoreAnswers(answers = [], questions = []) {
 }
 
 function getTopRoles(scores) {
-  const entries = Object.entries(scores || {}).filter(([, v]) => Number.isFinite(Number(v)));
+  const entries = Object.entries(scores || {}).filter(([, v]) =>
+    Number.isFinite(Number(v))
+  );
 
   if (entries.length === 0) {
     return { primary_role: null, secondary_role: null };
@@ -104,12 +107,92 @@ function getTopRoles(scores) {
 
   return {
     primary_role: entries[0]?.[0] || null,
-    secondary_role: entries[1]?.[0] || null
+    secondary_role: entries[1]?.[0] || null,
   };
+}
+
+function clampInt(n, min, max) {
+  const x = Math.round(coerceNumber(n));
+  return Math.max(min, Math.min(max, x));
+}
+
+/**
+ * Bridge: scoring → tenant_config patch for siteGenerator consumption.
+ * /api/intake can merge this into tenant_config.site + tenant_config.features before sanitizeConfig().
+ *
+ * Returns: { site: {...}, features: {...} }
+ * - Does NOT overwrite business_name by default (avoid clobbering owner edits).
+ * - Uses safe optional fields that siteGenerator can ignore if not present.
+ */
+function deriveTenantConfigPatch({ tenantSlug, primary_role, secondary_role, scores }) {
+  const primary = String(primary_role || "").toLowerCase();
+  const secondary = String(secondary_role || "").toLowerCase();
+
+  const values = Object.values(scores || {}).map(coerceNumber);
+  const total = values.reduce((a, b) => a + b, 0) || 1;
+  const top =
+    primary && scores && Object.prototype.hasOwnProperty.call(scores, primary)
+      ? coerceNumber(scores[primary])
+      : 0;
+
+  const readiness = clampInt((top / total) * 100, 0, 100);
+
+  const roleHeadlineMap = {
+    architect: "Build the plan. Execute with confidence.",
+    operator: "Tight operations. Better experiences.",
+    steward: "Trust, consistency, and long-term value.",
+    builder: "Turn ideas into results—fast.",
+    connector: "Grow through community and referrals.",
+    protector: "Protect quality, safety, and standards.",
+    nurturer: "Care-led experiences customers remember.",
+    educator: "Teach, guide, and earn loyalty.",
+    resource_generator: "Find leverage, unlock resources, scale smarter.",
+  };
+
+  const features = {
+    rewards: true,
+    quiz: true,
+    reviews: true,
+    store: false,
+  };
+
+  const site = {
+    template: primary ? `persona:${primary}` : "",
+    headline: roleHeadlineMap[primary] || "",
+    subheadline: primary
+      ? `Your current focus: ${primary}${secondary ? ` • Next: ${secondary}` : ""}.`
+      : "",
+    value_props: primary
+      ? [
+          `Personalized actions for ${primary} strengths`,
+          "Earn points for check-ins, reviews, and referrals",
+          "Get recommendations that improve over time",
+        ]
+      : [],
+    cta_text: readiness < 50 ? "Take the Assessment" : "Earn Points (Actions)",
+    cta_link:
+      readiness < 50
+        ? `/intake.html?tenant=${encodeURIComponent(tenantSlug || "")}`
+        : `/index.html?tenant=${encodeURIComponent(tenantSlug || "")}`,
+    meta: {
+      readiness,
+      primary,
+      secondary,
+    },
+  };
+
+  // conservative persona emphasis
+  if (primary === "connector") {
+    features.rewards = true;
+    features.reviews = true;
+  }
+
+  return { site, features };
 }
 
 module.exports = {
   roles,
   scoreAnswers,
-  getTopRoles
+  getTopRoles,
+  deriveTenantConfigPatch,
 };
