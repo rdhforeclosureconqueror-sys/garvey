@@ -1,0 +1,68 @@
+<!-- FILE: public/garvey-r.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GARVEY — R (Route)</title>
+  <link rel="stylesheet" href="/garvey.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="row">
+      <a class="btn" id="back" href="#">Back to Hub</a>
+      <div class="pill" id="tenantPill"></div>
+      <a class="btn" id="siteBtn" href="#">View Site</a>
+    </div>
+    <h1>R — Route</h1>
+    <div class="muted">
+      This phase turns identity into an execution path. The Kanban board is your official route map.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Route Rules (simple + professional)</h2>
+    <ul>
+      <li>If stuck: move card to <b>Blocked</b> and write what’s blocking it.</li>
+      <li>If you finish: move to <b>Done</b> immediately.</li>
+      <li>If it’s unclear: create a card titled “Decision Needed” and assign a due date (later).</li>
+    </ul>
+    <div class="muted">No guessing. The board is the truth.</div>
+  </div>
+
+  <div id="kanban"></div>
+</div>
+
+<script type="module">
+import { ensureBoard, getBoard, getCards, createCard, moveCard, renderKanban } from "/garvey-kanban.js";
+
+const p = new URLSearchParams(location.search);
+const tenant = (p.get("tenant") || "").trim();
+
+document.getElementById("tenantPill").textContent = "Tenant: " + (tenant || "(missing)");
+document.getElementById("back").href = "/garvey.html?tenant=" + encodeURIComponent(tenant);
+document.getElementById("siteBtn").href = tenant ? `/t/${encodeURIComponent(tenant)}/site` : "#";
+
+const phase = "R";
+const mount = document.getElementById("kanban");
+
+async function refresh() {
+  await ensureBoard(tenant);
+  const b = await getBoard(tenant);
+  const c = await getCards(tenant, phase);
+  renderKanban({
+    mount,
+    tenant,
+    phase,
+    columns: b.columns || [],
+    cards: c.cards || [],
+    onCreate: async (payload) => { await createCard(payload); await refresh(); },
+    onMove: async (id, to) => { await moveCard(id, to); await refresh(); },
+  });
+}
+
+refresh();
+</script>
+</body>
+</html>
