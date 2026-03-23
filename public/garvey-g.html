@@ -1,0 +1,53 @@
+<!-- FILE: public/garvey-g.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GARVEY — G (Gather)</title>
+  <link rel="stylesheet" href="/garvey.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="row">
+      <a class="btn" id="back" href="#">Back to Hub</a>
+      <div class="pill" id="tenantPill"></div>
+    </div>
+    <h1>G — Gather</h1>
+    <div class="muted">Define the business. Capture basics. Start organized.</div>
+  </div>
+
+  <div id="kanban"></div>
+</div>
+
+<script type="module">
+import { ensureBoard, getBoard, getCards, createCard, moveCard, renderKanban } from "/garvey-kanban.js";
+
+const p = new URLSearchParams(location.search);
+const tenant = (p.get("tenant") || "").trim();
+document.getElementById("tenantPill").textContent = "Tenant: " + (tenant || "(missing)");
+document.getElementById("back").href = "/garvey.html?tenant=" + encodeURIComponent(tenant);
+
+const phase = "G";
+const mount = document.getElementById("kanban");
+
+async function refresh() {
+  await ensureBoard(tenant);
+  const b = await getBoard(tenant);
+  const c = await getCards(tenant, phase);
+  renderKanban({
+    mount,
+    tenant,
+    phase,
+    columns: b.columns || [],
+    cards: c.cards || [],
+    onCreate: async (payload) => { await createCard(payload); await refresh(); },
+    onMove: async (id, to) => { await moveCard(id, to); await refresh(); },
+  });
+}
+
+refresh();
+</script>
+</body>
+</html>
