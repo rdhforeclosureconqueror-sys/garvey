@@ -1,0 +1,74 @@
+<!-- FILE: public/garvey-a.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GARVEY — A (Assess)</title>
+  <link rel="stylesheet" href="/garvey.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="row">
+      <a class="btn" id="back" href="#">Back to Hub</a>
+      <div class="pill" id="tenantPill"></div>
+      <a class="btn" id="intakeBtn" href="#">Run Assessment</a>
+      <a class="btn" id="siteBtn" href="#">View Site</a>
+    </div>
+    <h1>A — Assess</h1>
+    <div class="muted">
+      Take the assessment to generate your identity + recommended configuration automatically.
+      This phase is where the system “locks in” direction.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>What happens here</h2>
+    <ul>
+      <li>Complete Assessment (intake)</li>
+      <li>Scoring generates identity</li>
+      <li>Site config is updated automatically</li>
+      <li>Kanban tracks action tasks</li>
+    </ul>
+    <div class="muted">
+      Tip: After you submit the assessment, return here and start moving tasks forward.
+    </div>
+  </div>
+
+  <div id="kanban"></div>
+</div>
+
+<script type="module">
+import { ensureBoard, getBoard, getCards, createCard, moveCard, renderKanban } from "/garvey-kanban.js";
+
+const p = new URLSearchParams(location.search);
+const tenant = (p.get("tenant") || "").trim();
+
+document.getElementById("tenantPill").textContent = "Tenant: " + (tenant || "(missing)");
+document.getElementById("back").href = "/garvey.html?tenant=" + encodeURIComponent(tenant);
+document.getElementById("intakeBtn").href = "/intake.html?tenant=" + encodeURIComponent(tenant);
+document.getElementById("siteBtn").href = tenant ? `/t/${encodeURIComponent(tenant)}/site` : "#";
+
+const phase = "A";
+const mount = document.getElementById("kanban");
+
+async function refresh() {
+  await ensureBoard(tenant);
+  const b = await getBoard(tenant);
+  const c = await getCards(tenant, phase);
+  renderKanban({
+    mount,
+    tenant,
+    phase,
+    columns: b.columns || [],
+    cards: c.cards || [],
+    onCreate: async (payload) => { await createCard(payload); await refresh(); },
+    onMove: async (id, to) => { await moveCard(id, to); await refresh(); },
+  });
+}
+
+refresh();
+</script>
+</body>
+</html>
