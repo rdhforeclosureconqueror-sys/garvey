@@ -1,4 +1,9 @@
 // FILE: server/siteGenerator.js
+// ✅ FULL FILE replacement
+// ✅ Keeps existing layout logic + links
+// ✅ Adds “Website Templates” CTA to /templates.html?tenant=...
+// ✅ If site.template_id exists: shows “Open Website” link to /templates/<id>/index.html
+
 "use strict";
 
 function esc(str) {
@@ -62,6 +67,13 @@ function landingHtml({ tenantSlug, config }) {
   const vocLink = `/voc.html?tenant=${encodeURIComponent(tenantSlug)}`;
   const pathwayLink = `/garvey.html?tenant=${encodeURIComponent(tenantSlug)}`;
 
+  // ✅ NEW: templates plugin links
+  const templatesGalleryLink = `/templates.html?tenant=${encodeURIComponent(tenantSlug)}`;
+  const selectedTemplateId = site?.template_id ? String(site.template_id).trim() : "";
+  const selectedTemplateLink = selectedTemplateId
+    ? `/templates/${encodeURIComponent(selectedTemplateId)}/index.html`
+    : "";
+
   const layout = templateLayout(site.template);
 
   const valueProps = asStringArray(site.value_props);
@@ -82,11 +94,19 @@ function landingHtml({ tenantSlug, config }) {
     primary ? `<div class="pill">Primary: ${esc(primary)}</div>` : "",
     secondary ? `<div class="pill">Secondary: ${esc(secondary)}</div>` : "",
     readiness != null ? `<div class="pill">Readiness: ${esc(readiness)}%</div>` : "",
+    selectedTemplateId ? `<div class="pill">Template: ${esc(selectedTemplateId)}</div>` : "",
   ].filter(Boolean);
+
+  const templatesBtn = `<a class="btn" href="${esc(templatesGalleryLink)}">Website Templates</a>`;
+  const openTemplateBtn = selectedTemplateLink
+    ? `<a class="btn" href="${esc(selectedTemplateLink)}" target="_blank" rel="noreferrer">Open Website</a>`
+    : "";
 
   const ctaRowHtml = `
     <div class="ctaRow">
       <a class="btn" href="${esc(pathwayLink)}">Continue Idea → Funding Pathway</a>
+      ${templatesBtn}
+      ${openTemplateBtn}
       <a class="btn" href="${esc(ctaLink)}">${esc(ctaText)}</a>
       ${showIntake ? `<a class="btn" href="${esc(intakeLink)}">Take the Assessment</a>` : ""}
       <a class="btn" href="${esc(cxLink)}">Earn Points (Actions)</a>
@@ -176,7 +196,9 @@ function landingHtml({ tenantSlug, config }) {
     ${gridHtml}
 
     <div class="meta">
-      Preview route: <code>/t/${esc(tenantSlug)}/site</code> • Pathway: <code>/garvey.html?tenant=${esc(tenantSlug)}</code>
+      Preview route: <code>/t/${esc(tenantSlug)}/site</code>
+      • Pathway: <code>/garvey.html?tenant=${esc(tenantSlug)}</code>
+      • Templates: <code>/templates.html?tenant=${esc(tenantSlug)}</code>
     </div>
   </div>
 </body>
