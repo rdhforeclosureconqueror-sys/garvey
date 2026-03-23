@@ -1,0 +1,22 @@
+/* FILE: public/garvey.css */
+:root {
+  --bg: #000;
+  --card: #0b1020;
+  --border: #334155;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --primary: #facc15;
+  --accent: #ef4444;
+}
+
+body { background: var(--bg); color: var(--text); font-family: Arial, sans-serif; margin: 0; }
+a { color: #93c5fd; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 22px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+.row { display:flex; gap: 10px; flex-wrap: wrap; align-items:center; }
+.btn { display:inline-block; padding: 10px 12px; border-radius: 10px; border: 2px solid #000; background: var(--primary); color: #000; font-weight: 800; cursor:pointer; }
+.btn:hover { background: var(--accent); color:#fff; }
+.pill { display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--border); color: var(--text); }
+.muted { color: var(--muted); font-size: 12px; }
+h1,h2,h3 { margin: 8px 0; }
