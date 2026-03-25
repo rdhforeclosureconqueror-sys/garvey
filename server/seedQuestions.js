@@ -1,207 +1,130 @@
-// FILE: server/seedQuestions.js
-// ✅ Pure module: async function seed(pool)
-// ✅ No DB import
-// ✅ No process.exit()
-// ✅ Logs exactly:
-//    - "Seeding questions..."
-//    - "Questions already exist"
-//
-// ✅ Fixes your current issue:
-// - Seeds REAL question text + REAL option text (not repeating)
-// - Stores OPTION-BASED WEIGHTS so scoring changes per answer:
-//   weights = { A:{role:n}, B:{...}, C:{...}, D:{...} }
-// - Includes type mapping: 1..25 => "fast", 26..60 => "full"
-
 "use strict";
 
-const ROLES = [
-  "architect",
-  "operator",
-  "steward",
-  "builder",
-  "connector",
-  "protector",
-  "nurturer",
-  "educator",
-  "resource_generator"
-];
+const { getQuestions } = require("./intelligenceEngine");
 
-const SECTIONS = [
-  {
-    name: "Identity",
-    prompt: "How do you naturally express yourself as an owner?"
-  },
-  {
-    name: "Decision Making",
-    prompt: "How do you decide when things get uncertain?"
-  },
-  {
-    name: "Community Role",
-    prompt: "What role do you naturally play in teams and partnerships?"
-  },
-  {
-    name: "Execution",
-    prompt: "How do you move work from idea to reality?"
+function optionLetter(idx) {
+  return ["A", "B", "C", "D"][idx];
+}
+
+function mappingFor(question, idx) {
+  const maps = question.options[idx].maps;
+  if (question.type === "business_owner") {
+    return maps;
   }
-];
-
-const OPTION_BANK = [
-  {
-    A: "I design the plan before taking action.",
-    B: "I act quickly and refine along the way.",
-    C: "I listen, guide, and build trust first.",
-    D: "I connect people and create alignment."
-  },
-  {
-    A: "I create systems so the business can scale.",
-    B: "I focus on output and daily execution.",
-    C: "I protect the culture and customer experience.",
-    D: "I grow relationships and networks."
-  },
-  {
-    A: "I prefer clarity, structure, and strategy.",
-    B: "I prefer momentum, testing, and speed.",
-    C: "I prefer support, care, and stability.",
-    D: "I prefer collaboration and community."
-  },
-  {
-    A: "I map the whole journey end-to-end.",
-    B: "I ship the next step immediately.",
-    C: "I coach and develop people.",
-    D: "I build partnerships and referral loops."
-  }
-];
-
-function pickSection(i) {
-  return SECTIONS[(i - 1) % SECTIONS.length];
+  return { archetype: maps[0], personality: maps[1] };
 }
 
-function buildQuestionText(i, type) {
-  const section = pickSection(i);
-  const depth = type === "full" ? " (deeper)" : "";
-  return `[${section.name}] Q${i}${depth}: ${section.prompt}`;
-}
-
-function buildOptions(i, type) {
-  const base = OPTION_BANK[(i - 1) % OPTION_BANK.length];
-
-  if (type === "fast") {
-    return {
-      A: base.A,
-      B: base.B,
-      C: base.C,
-      D: base.D
-    };
-  }
-
-  // "full" adds a little more specificity (still deterministic)
-  return {
-    A: `${base.A} (systems + planning)`,
-    B: `${base.B} (execution + iteration)`,
-    C: `${base.C} (people + protection)`,
-    D: `${base.D} (network + alignment)`
-  };
-}
-
-/**
- * Deterministic role-pairing so the assessment is consistent.
- * Each option pushes two roles strongly + one lightly.
- */
-function weightsForOption(i, optionLetter) {
-  const idx = (i + optionLetter.charCodeAt(0)) % ROLES.length;
-  const primary = ROLES[idx];
-  const secondary = ROLES[(idx + 3) % ROLES.length];
-  const tertiary = ROLES[(idx + 6) % ROLES.length];
-
-  const w = {};
-  for (const r of ROLES) w[r] = 0;
-  w[primary] = 2;
-  w[secondary] = 1;
-  w[tertiary] = 1;
-  return w;
-}
-
-function buildWeights(i) {
-  return {
-    A: weightsForOption(i, "A"),
-    B: weightsForOption(i, "B"),
-    C: weightsForOption(i, "C"),
-    D: weightsForOption(i, "D")
-  };
-}
-
-async function upsertQuestion(pool, q) {
-  await pool.query(
-    `INSERT INTO questions (qid, question, options, weights, type)
-     VALUES ($1, $2, $3, $4, $5)
-     ON CONFLICT (qid)
-     DO UPDATE SET
-       question = EXCLUDED.question,
-       options  = EXCLUDED.options,
-       weights  = EXCLUDED.weights,
-       type     = EXCLUDED.type`,
-    [q.qid, q.question, q.options, q.weights, q.type]
-  );
-}
-
-/**
- * If questions already exist, we *repair* any rows that are missing JSON fields
- * without changing your required logs.
- */
-async function repairExistingQuestions(pool) {
-  // Repair missing JSON columns / bad rows (no extra logs)
-  const rows = (
-    await pool.query(
-      `SELECT qid, question, options, weights, type
-       FROM questions
-       WHERE qid IS NULL
-          OR question IS NULL
-          OR options IS NULL
-          OR weights IS NULL
-          OR type IS NULL`
-    )
-  ).rows;
-
-  for (const row of rows) {
-    const qid = row.qid || "Q1";
-    const n = Number(String(qid).replace(/[^0-9]/g, "")) || 1;
-    const type = n <= 25 ? "fast" : "full";
-
-    await upsertQuestion(pool, {
-      qid,
-      type,
-      question: row.question || buildQuestionText(n, type),
-      options: row.options && typeof row.options === "object" ? row.options : buildOptions(n, type),
-      weights: row.weights && typeof row.weights === "object" ? row.weights : buildWeights(n)
-    });
-  }
+function optionText(question, idx) {
+  return question.options[idx].text;
 }
 
 async function seed(pool) {
-  const existing = await pool.query("SELECT COUNT(*)::int AS count FROM questions");
-  const count = existing.rows[0]?.count || 0;
+  const business = getQuestions("business_owner");
+  const customer = getQuestions("customer");
+  const all = [...business, ...customer];
 
-  if (count > 0) {
-    console.log("Questions already exist");
-    await repairExistingQuestions(pool);
-    return count;
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    await client.query(
+      `DELETE FROM questions
+       WHERE assessment_type IN ('business_owner', 'customer')`
+    );
+
+    for (const question of all) {
+      const optionA = optionText(question, 0);
+      const optionB = optionText(question, 1);
+      const optionC = optionText(question, 2);
+      const optionD = optionText(question, 3);
+
+      const mappingA = mappingFor(question, 0);
+      const mappingB = mappingFor(question, 1);
+      const mappingC = mappingFor(question, 2);
+      const mappingD = mappingFor(question, 3);
+
+      await client.query(
+        `INSERT INTO questions (
+          qid,
+          question,
+          options,
+          weights,
+          type,
+          assessment_type,
+          question_text,
+          option_a,
+          option_b,
+          option_c,
+          option_d,
+          mapping_a,
+          mapping_b,
+          mapping_c,
+          mapping_d
+        ) VALUES (
+          $1,
+          $2,
+          $3,
+          '{}'::jsonb,
+          $4,
+          $5,
+          $6,
+          $7,
+          $8,
+          $9,
+          $10,
+          $11,
+          $12,
+          $13,
+          $14
+        )
+        ON CONFLICT (qid)
+        DO UPDATE SET
+          question = EXCLUDED.question,
+          options = EXCLUDED.options,
+          weights = EXCLUDED.weights,
+          type = EXCLUDED.type,
+          assessment_type = EXCLUDED.assessment_type,
+          question_text = EXCLUDED.question_text,
+          option_a = EXCLUDED.option_a,
+          option_b = EXCLUDED.option_b,
+          option_c = EXCLUDED.option_c,
+          option_d = EXCLUDED.option_d,
+          mapping_a = EXCLUDED.mapping_a,
+          mapping_b = EXCLUDED.mapping_b,
+          mapping_c = EXCLUDED.mapping_c,
+          mapping_d = EXCLUDED.mapping_d`,
+        [
+          question.qid,
+          question.question,
+          {
+            [optionLetter(0)]: optionA,
+            [optionLetter(1)]: optionB,
+            [optionLetter(2)]: optionC,
+            [optionLetter(3)]: optionD,
+          },
+          question.type === "business_owner" ? "business_owner" : "customer",
+          question.type,
+          question.question,
+          optionA,
+          optionB,
+          optionC,
+          optionD,
+          mappingA,
+          mappingB,
+          mappingC,
+          mappingD,
+        ]
+      );
+    }
+
+    await client.query("COMMIT");
+    return all.length;
+  } catch (err) {
+    await client.query("ROLLBACK");
+    throw err;
+  } finally {
+    client.release();
   }
-
-  console.log("Seeding questions...");
-
-  for (let i = 1; i <= 60; i += 1) {
-    const type = i <= 25 ? "fast" : "full";
-
-    await upsertQuestion(pool, {
-      qid: `Q${i}`,
-      question: buildQuestionText(i, type),
-      options: buildOptions(i, type),
-      weights: buildWeights(i),
-      type
-    });
-  }
-
-  return 60;
 }
 
 module.exports = { seed };

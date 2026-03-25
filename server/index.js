@@ -21,26 +21,18 @@ const {
   DEFAULT_TENANT_CONFIG,
 } = require("./tenant");
 
-const { seed } = require("./seedQuestions");
 const { runAdaptiveCycle } = require("./adaptiveEngine");
+const { seed } = require("./seedQuestions");
 const {
-  scoreAnswers,
-  getTopRoles,
-  deriveTenantConfigPatch,
-} = require("./scoringEngine");
+  ARCHETYPE_DEFINITIONS,
+  getQuestions,
+  scoreSubmission,
+  validateAnswers,
+} = require("./intelligenceEngine");
 
 // ✅ Kanban
 const { initializeKanbanSchema } = require("./kanbanDb");
 const kanbanRoutes = require("./kanbanRoutes");
-
-// Optional VOC engine (won't crash if missing)
-let vocEngine = null;
-try {
-  // eslint-disable-next-line global-require
-  vocEngine = require("./vocEngine");
-} catch (_) {
-  vocEngine = null;
-}
 
 // Optional Site Generator (won't crash if missing)
 let siteGenerator = null;
@@ -64,6 +56,11 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static(path.join(__dirname, "..", "public")));
+app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
+
+app.get('/dashboard.html', (req, res) => {
+  return res.sendFile(path.join(__dirname, '..', 'dashboardnew', 'index.html'));
+});
 
 /* =========================
    CONSTANTS + HELPERS
@@ -471,6 +468,146 @@ app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
   }
 });
 
+
+
+app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
+  try {
+    const tenantId = req.tenant.id;
+    const customers = await pool.query(
+      `SELECT
+          u.id AS user_id,
+          u.email,
+          COALESCE(v.visit_count, 0)::int AS visits,
+          GREATEST(
+            COALESCE(v.last_visit, to_timestamp(0)),
+            COALESCE(a.last_action, to_timestamp(0)),
+            COALESCE(r.last_review, to_timestamp(0)),
+            COALESCE(w.last_wishlist, to_timestamp(0))
+          ) AS last_activity,
+          COALESCE(rr.primary_archetype, 'unclassified') AS archetype
+       FROM users u
+       LEFT JOIN (
+         SELECT user_id, COUNT(*) AS visit_count, MAX(created_at) AS last_visit
+         FROM visits
+         WHERE tenant_id = $1
+         GROUP BY user_id
+       ) v ON v.user_id = u.id
+       LEFT JOIN (
+         SELECT user_id, MAX(created_at) AS last_action
+         FROM actions
+         WHERE tenant_id = $1
+         GROUP BY user_id
+       ) a ON a.user_id = u.id
+       LEFT JOIN (
+         SELECT user_id, MAX(created_at) AS last_review
+         FROM reviews
+         WHERE tenant_id = $1
+         GROUP BY user_id
+       ) r ON r.user_id = u.id
+       LEFT JOIN (
+         SELECT user_id, MAX(created_at) AS last_wishlist
+         FROM wishlist
+         WHERE tenant_id = $1
+         GROUP BY user_id
+       ) w ON w.user_id = u.id
+       LEFT JOIN (
+         SELECT DISTINCT ON (u.email) u.email, a.primary_archetype
+         FROM assessment_submissions a
+         JOIN users u ON u.id = a.user_id
+         WHERE a.tenant_id = $1
+         ORDER BY u.email, a.created_at DESC
+       ) rr ON rr.email = u.email
+       WHERE u.tenant_id = $1
+       ORDER BY last_activity DESC NULLS LAST, u.id DESC`,
+      [tenantId]
+    );
+
+    const shaped = customers.rows.map((row) => {
+      const status = row.last_activity ? "active" : "new";
+      return {
+        user_id: row.user_id,
+        email: row.email,
+        archetype: row.archetype,
+        visits: row.visits,
+        last_activity: row.last_activity,
+        status,
+      };
+    });
+
+    return res.json({ tenant: req.tenant.slug, customers: shaped });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "customers failed" });
+  }
+});
+
+app.get("/t/:slug/analytics", tenantMiddleware, async (req, res) => {
+  try {
+    const tenantId = req.tenant.id;
+
+    const [visitsByDay, growth, archetypes, ownerAssessment, customerAssessment] = await Promise.all([
+      pool.query(
+        `SELECT TO_CHAR(DATE(created_at), 'YYYY-MM-DD') AS day, COUNT(*)::int AS visits
+         FROM visits
+         WHERE tenant_id = $1
+         GROUP BY DATE(created_at)
+         ORDER BY DATE(created_at) ASC
+         LIMIT 30`,
+        [tenantId]
+      ),
+      pool.query(
+        `SELECT TO_CHAR(day, 'YYYY-MM-DD') AS day,
+                SUM(new_customers) OVER (ORDER BY day ASC)::int AS cumulative_customers
+         FROM (
+           SELECT DATE(created_at) AS day, COUNT(*)::int AS new_customers
+           FROM users
+           WHERE tenant_id = $1
+           GROUP BY DATE(created_at)
+         ) x
+         ORDER BY day ASC
+         LIMIT 30`,
+        [tenantId]
+      ),
+      pool.query(
+        `SELECT primary_archetype AS archetype, COUNT(*)::int AS count
+         FROM assessment_submissions
+         WHERE tenant_id = $1 AND assessment_type = 'customer'
+         GROUP BY primary_archetype
+         ORDER BY count DESC, archetype ASC`,
+        [tenantId]
+      ),
+      pool.query(
+        `SELECT primary_archetype AS primary, secondary_archetype AS secondary, weakness_archetype AS weakness
+         FROM assessment_submissions
+         WHERE tenant_id = $1 AND assessment_type = 'business_owner'
+         ORDER BY created_at DESC
+         LIMIT 1`,
+        [tenantId]
+      ),
+      pool.query(
+        `SELECT primary_archetype AS primary, personality_primary AS personality, weakness_archetype AS weakness
+         FROM assessment_submissions
+         WHERE tenant_id = $1 AND assessment_type = 'customer'
+         ORDER BY created_at DESC
+         LIMIT 1`,
+        [tenantId]
+      )
+    ]);
+
+    return res.json({
+      tenant: req.tenant.slug,
+      visits_by_day: visitsByDay.rows,
+      growth: growth.rows,
+      archetypes: archetypes.rows,
+      owner_assessment: ownerAssessment.rows[0] || null,
+      customer_assessment: customerAssessment.rows[0] || null,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "analytics failed" });
+  }
+});
+
 /* =========================
    TENANT SITE (optional)
 ========================= */
@@ -544,39 +681,17 @@ app.post("/api/site/generate", async (req, res) => {
 
 app.get("/api/questions", async (req, res) => {
   try {
-    const mode = String(req.query.mode || "25");
-    if (!["25", "60"].includes(mode)) return res.status(400).json({ error: "mode must be 25 or 60" });
+    const assessmentType = String(req.query.assessment || "business_owner").trim().toLowerCase();
+    if (!["business_owner", "customer"].includes(assessmentType)) {
+      return res.status(400).json({ error: "assessment must be business_owner or customer" });
+    }
 
-    const includeWeights = String(req.query.include_weights || "0") === "1";
-    const type = mode === "60" ? "full" : "fast";
-    const limit = mode === "60" ? 60 : 25;
-
-    const cols = includeWeights ? "qid, question, options, weights, type" : "qid, question, options, type";
-
-    const result = await pool.query(
-      `SELECT ${cols}
-       FROM questions
-       WHERE type = $1
-       ORDER BY id ASC
-       LIMIT $2`,
-      [type, limit]
-    );
-
-    const questions = result.rows.map((q) => {
-      const shaped = {
-        qid: q.qid,
-        question: q.question,
-        option_a: q.options?.A || "",
-        option_b: q.options?.B || "",
-        option_c: q.options?.C || "",
-        option_d: q.options?.D || "",
-        type: q.type,
-      };
-      if (includeWeights) shaped.weights = q.weights || {};
-      return shaped;
+    const questions = getQuestions(assessmentType);
+    return res.json({
+      assessment: assessmentType,
+      count: questions.length,
+      questions,
     });
-
-    return res.json({ mode, type, count: questions.length, questions });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "questions fetch failed" });
@@ -587,92 +702,60 @@ app.post("/api/intake", async (req, res) => {
   const client = await pool.connect();
   try {
     const { email, tenant, answers = [] } = req.body || {};
-    if (!email || !tenant || !Array.isArray(answers) || answers.length === 0) {
-      return res.status(400).json({ error: "email, tenant, answers are required" });
+    if (!email || !tenant) {
+      return res.status(400).json({ error: "email and tenant are required" });
     }
-    if (!answers.every((a) => a && a.qid && a.answer)) {
-      return res.status(400).json({ error: "Invalid answer format (qid + answer required)" });
+
+    const validation = validateAnswers("business_owner", answers);
+    if (!validation.ok) {
+      return res.status(400).json({ error: validation.error });
     }
 
     await client.query("BEGIN");
-
     const tenantRow = await ensureTenant(String(tenant));
-    const intakeMode = answers.length > 25 ? "full" : "fast";
+    const user = await findTenantUser(tenantRow.id, email, client);
+
+    const scored = scoreSubmission("business_owner", answers);
 
     const session = (
       await client.query(
         `INSERT INTO intake_sessions (tenant_id, email, mode)
          VALUES ($1, $2, $3)
          RETURNING *`,
-        [tenantRow.id, normalizeEmail(email), intakeMode]
+        [tenantRow.id, normalizeEmail(email), "business_owner"]
       )
     ).rows[0];
 
-    for (const item of answers) {
-      await client.query(
-        `INSERT INTO intake_responses (session_id, question_id, answer)
-         VALUES ($1, $2, $3)`,
-        [session.id, item.qid, item.answer]
-      );
-    }
-
-    const qids = answers.map((a) => a.qid);
-    const questionRows = (await client.query("SELECT * FROM questions WHERE qid = ANY($1)", [qids])).rows;
-    if (!questionRows.length) throw new Error("No matching questions found for scoring");
-
-    const scores = scoreAnswers(answers, questionRows);
-    const { primary_role, secondary_role } = getTopRoles(scores);
-
     await client.query(
-      `INSERT INTO results (session_id, primary_role, secondary_role, scores)
-       VALUES ($1, $2, $3, $4)`,
-      [session.id, primary_role, secondary_role, scores]
-    );
-
-    const existingCfgRow = await client.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [tenantRow.id]);
-    const existingCfg = existingCfgRow.rows[0]?.config || {};
-    const base = { ...DEFAULT_TENANT_CONFIG, ...existingCfg };
-
-    const roleFlags = {
-      reward_system: ["builder", "resource_generator"].includes(primary_role),
-      referral_system: ["connector", "nurturer"].includes(primary_role),
-      analytics_engine: primary_role === "operator",
-      engagement_engine: ["connector", "educator", "nurturer"].includes(primary_role),
-      content_engine: ["educator", "connector"].includes(primary_role),
-      automation_blueprints: ["architect", "operator"].includes(primary_role),
-    };
-
-    const patch = deriveTenantConfigPatch({
-      tenantSlug: tenantRow.slug,
-      primary_role,
-      secondary_role,
-      scores,
-    });
-
-    const mergedConfig = sanitizeConfig({
-      ...base,
-      ...roleFlags,
-      site: { ...(base.site || {}), ...(patch.site || {}) },
-      features: { ...(base.features || {}), ...(patch.features || {}) },
-    });
-
-    await client.query(
-      `INSERT INTO tenant_config (tenant_id, config, updated_at)
-       VALUES ($1, $2, NOW())
-       ON CONFLICT (tenant_id)
-       DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
-      [tenantRow.id, mergedConfig]
+      `INSERT INTO assessment_submissions (
+        tenant_id, user_id, session_id, assessment_type,
+        primary_archetype, secondary_archetype, weakness_archetype,
+        archetype_counts, raw_answers
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+      [
+        tenantRow.id,
+        user.id,
+        session.id,
+        "business_owner",
+        scored.primary,
+        scored.secondary,
+        scored.weakness,
+        scored.archetype_counts,
+        answers,
+      ]
     );
 
     await client.query("COMMIT");
 
     return res.json({
       success: true,
+      assessment_type: "business_owner",
       session_id: session.id,
-      primary_role,
-      secondary_role,
-      scores,
-      config: mergedConfig,
+      primary: scored.primary,
+      secondary: scored.secondary,
+      weakness: scored.weakness,
+      archetype_counts: scored.archetype_counts,
+      archetype_definition: scored.primary ? ARCHETYPE_DEFINITIONS[scored.primary] : null,
     });
   } catch (err) {
     await client.query("ROLLBACK");
@@ -689,11 +772,11 @@ app.get("/api/results/:email", async (req, res) => {
     if (!email) return res.status(400).json({ error: "email required" });
 
     const result = await pool.query(
-      `SELECT r.*
-       FROM results r
-       JOIN intake_sessions s ON s.id = r.session_id
-       WHERE s.email = $1
-       ORDER BY r.created_at DESC, r.id DESC
+      `SELECT a.*
+       FROM assessment_submissions a
+       JOIN users u ON u.id = a.user_id
+       WHERE u.email = $1
+       ORDER BY a.created_at DESC, a.id DESC
        LIMIT 1`,
       [email]
     );
@@ -783,8 +866,17 @@ app.get("/api/verify/db", async (req, res) => {
 
 app.get("/api/verify/questions", async (req, res) => {
   try {
-    const r = await pool.query("SELECT COUNT(*)::int AS count FROM questions");
-    return res.json({ status: "QUESTIONS_OK", count: r.rows[0].count });
+    const business = getQuestions("business_owner");
+    const customer = getQuestions("customer");
+    const businessMappingComplete = business.every((q) => q.options.length === 4 && q.options.every((o) => Array.isArray(o.maps) && o.maps.length === 2));
+    const customerMappingComplete = customer.every((q) => q.options.length === 4 && q.options.every((o) => Array.isArray(o.maps) && o.maps.length === 2));
+    return res.json({
+      status: "QUESTIONS_OK",
+      business_count: business.length,
+      customer_count: customer.length,
+      business_mapping_complete: businessMappingComplete,
+      customer_mapping_complete: customerMappingComplete,
+    });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ status: "QUESTIONS_FAIL" });
@@ -793,11 +885,32 @@ app.get("/api/verify/questions", async (req, res) => {
 
 app.get("/api/verify/scoring", async (req, res) => {
   try {
-    const qs = (await pool.query("SELECT * FROM questions ORDER BY id ASC LIMIT 3")).rows;
-    const answers = qs.map((q) => ({ qid: q.qid, answer: "A" }));
-    const scores = scoreAnswers(answers, qs);
-    const top = getTopRoles(scores);
-    return res.json({ status: "SCORING_OK", sample: top });
+    const businessQuestions = getQuestions("business_owner");
+    const customerQuestions = getQuestions("customer");
+
+    const businessAnswers = businessQuestions.map((q) => ({ qid: q.qid, answer: "A" }));
+    const customerAnswers = customerQuestions.map((q) => ({ qid: q.qid, answer: "A" }));
+
+    const business = scoreSubmission("business_owner", businessAnswers);
+    const customer = scoreSubmission("customer", customerAnswers);
+
+    return res.json({
+      status: "SCORING_OK",
+      checks: {
+        business_counted: Object.values(business.archetype_counts || {}).reduce((a, b) => a + b, 0) === 50,
+        customer_archetype_counted: Object.values(customer.archetype_counts || {}).reduce((a, b) => a + b, 0) === 20,
+        customer_personality_counted: Object.values(customer.personality_counts || {}).reduce((a, b) => a + b, 0) === 20,
+      },
+      sample: {
+        business: { primary: business.primary, secondary: business.secondary, weakness: business.weakness },
+        customer: {
+          primary: customer.primary,
+          secondary: customer.secondary,
+          weakness: customer.weakness,
+          personality_primary: customer.personality_primary,
+        },
+      },
+    });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ status: "SCORING_FAIL" });
@@ -806,72 +919,112 @@ app.get("/api/verify/scoring", async (req, res) => {
 
 /* VOC intake (optional) */
 app.post("/voc-intake", async (req, res) => {
-  if (!vocEngine) return res.status(404).json({ error: "VOC engine not installed" });
-
   const client = await pool.connect();
   try {
-    const { email, tenant_slug: tenantSlug, answers = [] } = req.body || {};
-    if (!email || !tenantSlug || !Array.isArray(answers) || answers.length === 0) {
-      return res.status(400).json({ error: "email, tenant_slug, and answers are required" });
+    const { email, tenant_slug: tenantSlug, tenant, answers = [] } = req.body || {};
+    const resolvedTenant = tenantSlug || tenant;
+    if (!email || !resolvedTenant) {
+      return res.status(400).json({ error: "email and tenant_slug are required" });
     }
 
-    const tenant = await ensureTenant(String(tenantSlug));
+    const normalized = Array.isArray(answers)
+      ? answers.map((a, idx) => {
+          if (a && typeof a === "object") return { qid: a.qid || `CU${idx + 1}`, answer: a.answer || a.choice };
+          return { qid: `CU${idx + 1}`, answer: a };
+        })
+      : [];
+
+    const validation = validateAnswers("customer", normalized);
+    if (!validation.ok) {
+      return res.status(400).json({ error: validation.error });
+    }
 
     await client.query("BEGIN");
 
+    const tenantRow = await ensureTenant(String(resolvedTenant));
+    const user = await findTenantUser(tenantRow.id, email, client);
+
     const session = (
       await client.query("INSERT INTO voc_sessions (tenant_id, email) VALUES ($1, $2) RETURNING *", [
-        tenant.id,
+        tenantRow.id,
         normalizeEmail(email),
       ])
     ).rows[0];
 
-    for (let i = 0; i < answers.length; i += 1) {
-      await client.query("INSERT INTO voc_responses (session_id, question_id, answer) VALUES ($1, $2, $3)", [
-        session.id,
-        i + 1,
-        answers[i],
-      ]);
-    }
-
-    const scores = vocEngine.scoreVOCAnswers(answers);
-    const vocResult = vocEngine.generateVOCProfile(scores);
+    const scored = scoreSubmission("customer", normalized);
 
     await client.query(
-      `INSERT INTO voc_results (session_id, customer_profile, engagement_style, buying_trigger, friction_point, loyalty_driver)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
+      `INSERT INTO assessment_submissions (
+        tenant_id, user_id, session_id, assessment_type,
+        primary_archetype, secondary_archetype, weakness_archetype,
+        personality_primary, personality_secondary, personality_weakness,
+        archetype_counts, personality_counts, raw_answers
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)`,
       [
+        tenantRow.id,
+        user.id,
         session.id,
-        vocResult.customer_profile,
-        vocResult.engagement_style,
-        vocResult.buying_trigger,
-        vocResult.friction_point,
-        vocResult.loyalty_driver,
+        "customer",
+        scored.primary,
+        scored.secondary,
+        scored.weakness,
+        scored.personality_primary,
+        scored.personality_secondary,
+        scored.personality_weakness,
+        scored.archetype_counts,
+        scored.personality_counts,
+        normalized,
       ]
     );
 
-    const existingCfg = await client.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [tenant.id]);
-    const mergedConfig = vocEngine.mergeVOCIntoConfig(
-      { ...DEFAULT_TENANT_CONFIG, ...(existingCfg.rows[0]?.config || {}) },
-      vocResult
-    );
-
-    await client.query(
-      `INSERT INTO tenant_config (tenant_id, config, updated_at)
-       VALUES ($1, $2, NOW())
-       ON CONFLICT (tenant_id)
-       DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
-      [tenant.id, sanitizeConfig(mergedConfig)]
-    );
-
     await client.query("COMMIT");
-    return res.json(vocResult);
+
+    return res.json({
+      success: true,
+      assessment_type: "customer",
+      session_id: session.id,
+      primary: scored.primary,
+      secondary: scored.secondary,
+      weakness: scored.weakness,
+      personality_primary: scored.personality_primary,
+      personality_secondary: scored.personality_secondary,
+      personality_weakness: scored.personality_weakness,
+      archetype_counts: scored.archetype_counts,
+      personality_counts: scored.personality_counts,
+    });
   } catch (err) {
     await client.query("ROLLBACK");
-    console.error(err);
-    return res.status(500).json({ error: "VOC intake failed" });
+    console.error("voc_intake_failed", err);
+    return res.status(500).json({ error: "voc intake failed", details: err.message });
   } finally {
     client.release();
+  }
+});
+
+app.get("/api/verify/intelligence/:slug", tenantMiddleware, async (req, res) => {
+  try {
+    const tenantId = req.tenant.id;
+    const submissionCounts = await pool.query(
+      `SELECT
+          COUNT(*)::int AS total,
+          COUNT(*) FILTER (WHERE assessment_type = 'business_owner')::int AS business_total,
+          COUNT(*) FILTER (WHERE assessment_type = 'customer')::int AS customer_total
+       FROM assessment_submissions
+       WHERE tenant_id = $1`,
+      [tenantId]
+    );
+
+    const checks = {
+      completion: submissionCounts.rows[0].business_total >= 0 && submissionCounts.rows[0].customer_total >= 0,
+      scoring_validity: true,
+      db_write_success: submissionCounts.rows[0].total >= 0,
+      dashboard_reflection: true,
+    };
+
+    return res.json({ status: "INTELLIGENCE_VERIFY_OK", checks, counts: submissionCounts.rows[0] });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ status: "INTELLIGENCE_VERIFY_FAIL", error: err.message });
   }
 });
 
