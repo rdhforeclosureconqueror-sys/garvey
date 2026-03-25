@@ -1,119 +1,224 @@
 "use strict";
 
 /*
-🔥 NEW BII ENGINE (DB-ALIGNED)
-- No static scoringMap
-- Works with mapping_a/b/c/d
-- Accepts structured answers
+🔥 NEW BII ENGINE — ALIGNED WITH NEW SYSTEM
+
+- Uses REAL mappings from intake (mapping_a, mapping_b, etc.)
+- Supports BOTH business_owner + customer
+- Produces:
+  → primary
+  → secondary
+  → weakness
+  → improvement plan
 */
 
-function initializeRoles() {
+// ==================================================
+// ARCHETYPE DEFINITIONS
+// ==================================================
+
+const ARCHETYPES = {
+  builder: {
+    traits: "action-oriented",
+    strength: "execution",
+    weakness: "inconsistency",
+    improve: "implement routines and tracking systems"
+  },
+  architect: {
+    traits: "strategic",
+    strength: "systems",
+    weakness: "overthinking",
+    improve: "set execution deadlines"
+  },
+  operator: {
+    traits: "structured",
+    strength: "stability",
+    weakness: "rigidity",
+    improve: "introduce flexibility"
+  },
+  connector: {
+    traits: "relationship-driven",
+    strength: "networking",
+    weakness: "lack of systems",
+    improve: "track interactions and follow-ups"
+  },
+  resource: {
+    traits: "opportunity-focused",
+    strength: "revenue generation",
+    weakness: "poor retention",
+    improve: "build repeat systems"
+  },
+  protector: {
+    traits: "risk-aware",
+    strength: "risk control",
+    weakness: "fear-based hesitation",
+    improve: "test low-risk actions"
+  },
+  nurturer: {
+    traits: "care-driven",
+    strength: "loyalty",
+    weakness: "underpricing",
+    improve: "set boundaries and pricing standards"
+  },
+  educator: {
+    traits: "knowledge-focused",
+    strength: "trust building",
+    weakness: "low monetization",
+    improve: "package and sell knowledge"
+  }
+};
+
+// ==================================================
+// HELPERS
+// ==================================================
+
+function normalizeKey(key) {
+  return String(key || "").toLowerCase().replace(/\s+/g, "_");
+}
+
+function initializeScores() {
   return {
-    architect: 0,
-    educator: 0,
     builder: 0,
+    architect: 0,
     operator: 0,
     connector: 0,
-    nurturer: 0,
-    resource_generator: 0,
+    resource: 0,
     protector: 0,
-    steward: 0
+    nurturer: 0,
+    educator: 0
   };
 }
 
-/*
-answers format expected:
-
-[
-  {
-    selected: "A",
-    mapping: ["Builder","Resource"]
-  }
-]
-*/
+// ==================================================
+// CORE SCORING ENGINE
+// ==================================================
 
 function scoreAssessment(answers = []) {
-  const roles = initializeRoles();
+  const scores = initializeScores();
 
   for (const answer of answers) {
-    const mappings = answer.mapping || [];
+    const mapping = answer.mapping;
 
-    for (const role of mappings) {
-      const key = role.toLowerCase().replace(" ", "_");
+    // BUSINESS OWNER → array
+    if (Array.isArray(mapping)) {
+      for (const role of mapping) {
+        const key = normalizeKey(role);
+        if (scores[key] !== undefined) {
+          scores[key] += 1;
+        }
+      }
+    }
 
-      if (roles[key] !== undefined) {
-        roles[key] += 2; // consistent weight
+    // CUSTOMER → object
+    if (mapping && typeof mapping === "object") {
+      if (mapping.archetype) {
+        const key = normalizeKey(mapping.archetype);
+        if (scores[key] !== undefined) {
+          scores[key] += 1;
+        }
       }
     }
   }
 
-  return roles;
+  return scores;
 }
 
-function getTopRoles(roles) {
-  const sorted = Object.entries(roles).sort((a, b) => b[1] - a[1]);
+// ==================================================
+// ROLE RANKING
+// ==================================================
+
+function getTopRoles(scores) {
+  const sorted = Object.entries(scores)
+    .sort((a, b) => b[1] - a[1]);
 
   return {
     primary: sorted[0]?.[0] || null,
-    secondary: sorted[1]?.[0] || null
+    secondary: sorted[1]?.[0] || null,
+    weakness: sorted[sorted.length - 1]?.[0] || null
   };
 }
 
-/*
-🔥 NEW: ROLE DEVELOPMENT SYSTEM
-*/
-function generateRoleGrowthPlan(roles) {
-  const weakest = Object.entries(roles)
-    .sort((a, b) => a[1] - b[1])
-    .slice(0, 3)
-    .map(([role]) => role);
+// ==================================================
+// IMPROVEMENT ENGINE
+// ==================================================
 
-  const rolePlans = {
-    architect: "Study system design, create workflows, map business processes",
-    builder: "Execute daily tasks, build offers, launch quickly",
-    operator: "Track metrics, optimize processes, refine systems",
-    connector: "Network, build relationships, expand reach",
-    nurturer: "Focus on customer care and retention",
-    educator: "Create content, teach, build authority",
-    resource_generator: "Focus on monetization and revenue streams",
-    protector: "Secure assets, risk management, compliance",
-    steward: "Maintain systems, ensure consistency and stability"
-  };
+function generateRecommendations(primary, secondary, weakness) {
+  const primaryData = ARCHETYPES[primary] || {};
+  const weaknessData = ARCHETYPES[weakness] || {};
 
-  return weakest.map(role => ({
-    role,
-    improvement: rolePlans[role] || "Develop foundational skills"
-  }));
-}
-
-function generateRecommendations(primary, secondary) {
   return {
     focus: `${primary} + ${secondary}`,
-    strategy:
-      "Build around your strengths while reinforcing weaker roles",
+    primary_strength: primaryData.strength,
+    weakness: weakness,
+    improvement: weaknessData.improve,
+
     systems: [
-      "engagement_engine",
-      "reward_system",
-      "analytics_engine",
-      "automation_loops"
+      "behavior_tracking",
+      "reward_engine",
+      "customer_data_capture",
+      "engagement_sequences"
+    ],
+
+    message:
+      "Build systems that amplify your strengths and correct your weakest area.",
+
+    next_steps: [
+      `Double down on ${primary}`,
+      `Support ${secondary} with systems`,
+      `Fix ${weakness} using: ${weaknessData.improve}`
     ]
   };
 }
 
+// ==================================================
+// TENANT CONFIG ENGINE
+// ==================================================
+
 function generateTenantConfig(primary, secondary) {
   return {
-    reward_system: ["builder", "resource_generator"].includes(primary),
-    engagement_engine: ["connector", "nurturer"].includes(primary),
-    content_engine: ["educator", "architect"].includes(primary),
-    referral_system: ["connector", "resource_generator"].includes(primary),
-    analytics_engine: secondary === "operator"
+    reward_system: ["builder", "resource"].includes(primary),
+    engagement_engine:
+      ["connector", "nurturer", "educator"].includes(primary),
+    analytics_engine: primary === "operator",
+    content_engine:
+      ["educator", "architect", "connector"].includes(primary),
+    referral_system:
+      ["connector", "resource", "nurturer"].includes(primary)
   };
 }
+
+// ==================================================
+// MASTER FUNCTION
+// ==================================================
+
+function runBII(answers = []) {
+  const scores = scoreAssessment(answers);
+
+  const { primary, secondary, weakness } = getTopRoles(scores);
+
+  const recommendations = generateRecommendations(
+    primary,
+    secondary,
+    weakness
+  );
+
+  const config = generateTenantConfig(primary, secondary);
+
+  return {
+    scores,
+    primary,
+    secondary,
+    weakness,
+    recommendations,
+    config
+  };
+}
+
+// ==================================================
 
 module.exports = {
   scoreAssessment,
   getTopRoles,
   generateRecommendations,
   generateTenantConfig,
-  generateRoleGrowthPlan
+  runBII
 };
