@@ -2,10 +2,9 @@
 
 const { getQuestions } = require("./intelligenceEngine");
 
-// 🔹 Safe helpers
-function optionLetter(idx) {
-  return ["A", "B", "C", "D"][idx];
-}
+// ================================
+// HELPERS
+// ================================
 
 function safeOptionText(question, idx) {
   return question?.options?.[idx]?.text || "";
@@ -15,11 +14,9 @@ function safeMapping(question, idx) {
   const maps = question?.options?.[idx]?.maps || [];
 
   if (question.type === "business_owner") {
-    // Ensure array format
     return Array.isArray(maps) ? maps : [];
   }
 
-  // Ensure object format for customer
   return {
     archetype: maps[0] || null,
     personality: maps[1] || null,
@@ -27,13 +24,12 @@ function safeMapping(question, idx) {
 }
 
 function buildOptionsObject(a, b, c, d) {
-  return {
-    A: a,
-    B: b,
-    C: c,
-    D: d,
-  };
+  return { A: a, B: b, C: c, D: d };
 }
+
+// ================================
+// MAIN SEED FUNCTION
+// ================================
 
 async function seed(pool) {
   const business = getQuestions("business_owner") || [];
@@ -41,21 +37,26 @@ async function seed(pool) {
   const all = [...business, ...customer];
 
   console.log("🌱 Seeding questions...");
-  console.log(`➡️ Total questions: ${all.length}`);
+  console.log(`➡️ Business: ${business.length}`);
+  console.log(`➡️ Customer: ${customer.length}`);
+  console.log(`➡️ Total: ${all.length}`);
+
+  if (!all.length) {
+    throw new Error("❌ No questions loaded from intelligenceEngine");
+  }
 
   const client = await pool.connect();
 
   try {
     await client.query("BEGIN");
 
-    // 🔥 Clean existing
+    // Clean existing
     await client.query(`
       DELETE FROM questions
       WHERE assessment_type IN ('business_owner', 'customer')
     `);
 
     for (const question of all) {
-      // 🔹 Safe extraction
       const optionA = safeOptionText(question, 0);
       const optionB = safeOptionText(question, 1);
       const optionC = safeOptionText(question, 2);
@@ -66,19 +67,9 @@ async function seed(pool) {
       const mappingC = safeMapping(question, 2);
       const mappingD = safeMapping(question, 3);
 
-      const optionsObject = buildOptionsObject(
-        optionA,
-        optionB,
-        optionC,
-        optionD
+      const optionsJSON = JSON.stringify(
+        buildOptionsObject(optionA, optionB, optionC, optionD)
       );
-
-      // 🔥 CRITICAL: stringify ALL json fields
-      const optionsJSON = JSON.stringify(optionsObject);
-      const mappingAJSON = JSON.stringify(mappingA);
-      const mappingBJSON = JSON.stringify(mappingB);
-      const mappingCJSON = JSON.stringify(mappingC);
-      const mappingDJSON = JSON.stringify(mappingD);
 
       await client.query(
         `
@@ -137,16 +128,18 @@ async function seed(pool) {
           question.question,
           optionsJSON,
           question.type,
-          question.type === "business_owner" ? "business_owner" : "customer",
+          question.type === "business_owner"
+            ? "business_owner"
+            : "customer",
           question.question,
           optionA,
           optionB,
           optionC,
           optionD,
-          mappingAJSON,
-          mappingBJSON,
-          mappingCJSON,
-          mappingDJSON,
+          JSON.stringify(mappingA),
+          JSON.stringify(mappingB),
+          JSON.stringify(mappingC),
+          JSON.stringify(mappingD),
         ]
       );
     }
@@ -166,4 +159,26 @@ async function seed(pool) {
   }
 }
 
-module.exports = seed;
+// ================================
+// EXPORT (IMPORTANT FIX)
+// ================================
+
+module.exports = { seed };
+
+// ================================
+// DIRECT RUN SUPPORT (BIG UPGRADE)
+// ================================
+
+if (require.main === module) {
+  const { pool } = require("./db");
+
+  seed(pool)
+    .then((count) => {
+      console.log(`🔥 SEEDED ${count} QUESTIONS`);
+      process.exit(0);
+    })
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
+}
