@@ -22,7 +22,16 @@ let currentIndex = 0;
 let answers = [];
 
 // ================================
-// ROLE DEFINITIONS (INTELLIGENCE)
+// DETECT ASSESSMENT TYPE (BIG UPGRADE)
+// ================================
+
+function getAssessmentType() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("assessment") || "business_owner";
+}
+
+// ================================
+// ROLE DEFINITIONS
 // ================================
 
 const ROLE_DEFINITIONS = {
@@ -88,12 +97,18 @@ const ROLE_DEFINITIONS = {
 
 async function loadQuestions() {
   try {
+    const assessment = getAssessmentType();
+
+    console.log("📡 Loading:", assessment);
+
     const res = await fetch(
-      `${API_BASE}/api/questions?assessment=business_owner&ts=${Date.now()}`,
+      `${API_BASE}/api/questions?assessment=${assessment}&ts=${Date.now()}`,
       { cache: "no-store" }
     );
 
     const data = await res.json();
+
+    console.log("📦 API RESPONSE:", data);
 
     questions = data.questions || [];
 
@@ -107,9 +122,12 @@ async function loadQuestions() {
     renderQuestion();
 
   } catch (err) {
-    console.error(err);
-    document.getElementById("questionText").innerText =
-      "❌ Failed to load questions";
+    console.error("❌ LOAD ERROR:", err);
+
+    const el = document.getElementById("questionText");
+    if (el) {
+      el.innerText = "❌ Failed to load questions";
+    }
   }
 }
 
@@ -125,9 +143,16 @@ function renderQuestion() {
     return;
   }
 
-  document.getElementById("questionText").innerText = q.question_text;
-
+  const questionEl = document.getElementById("questionText");
   const container = document.getElementById("optionsContainer");
+
+  if (!questionEl || !container) {
+    console.error("❌ Missing DOM elements");
+    return;
+  }
+
+  questionEl.innerText = q.question_text || "No question text";
+
   container.innerHTML = "";
 
   const options = [
@@ -140,7 +165,7 @@ function renderQuestion() {
   for (const [key, value] of options) {
     const btn = document.createElement("button");
     btn.className = "btn";
-    btn.innerText = `${key}: ${value}`;
+    btn.innerText = `${key}: ${value || "..."}`;
     btn.onclick = () => handleAnswer(key);
     container.appendChild(btn);
   }
@@ -169,13 +194,17 @@ function handleAnswer(letter) {
 // ================================
 
 function updateProgress() {
-  const total = questions.length;
+  const total = questions.length || 1;
   const done = currentIndex;
   const pct = Math.round((done / total) * 100);
 
-  document.getElementById("progressBarFill").style.width = pct + "%";
-  document.getElementById("progress").innerText =
-    `Question ${done + 1} of ${total} (${pct}%)`;
+  const bar = document.getElementById("progressBarFill");
+  const text = document.getElementById("progress");
+
+  if (bar) bar.style.width = pct + "%";
+  if (text) {
+    text.innerText = `Question ${done + 1} of ${total} (${pct}%)`;
+  }
 }
 
 // ================================
@@ -183,28 +212,44 @@ function updateProgress() {
 // ================================
 
 async function submitAssessment() {
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("email")?.value;
   const tenant = new URLSearchParams(window.location.search).get("tenant");
+  const assessment = getAssessmentType();
 
-  const res = await fetch(`${API_BASE}/api/intake`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      email,
-      tenant,
-      answers
-    })
-  });
+  if (!email) {
+    alert("Please enter your email");
+    return;
+  }
 
-  const data = await res.json();
+  const endpoint =
+    assessment === "customer" ? "/voc-intake" : "/api/intake";
 
-  renderResults(data);
+  try {
+    const res = await fetch(`${API_BASE}${endpoint}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email,
+        tenant,
+        answers
+      })
+    });
+
+    const data = await res.json();
+
+    console.log("📊 RESULT:", data);
+
+    renderResults(data);
+
+  } catch (err) {
+    console.error("❌ SUBMIT ERROR:", err);
+  }
 }
 
 // ================================
-// RESULTS (UPGRADED)
+// RESULTS
 // ================================
 
 function renderResults(data) {
@@ -216,16 +261,19 @@ function renderResults(data) {
   const s = ROLE_DEFINITIONS[secondary] || {};
   const w = ROLE_DEFINITIONS[weakness] || {};
 
-  document.getElementById("questionText").innerText =
-    "🎯 Your Business Profile";
+  const questionEl = document.getElementById("questionText");
+  const container = document.getElementById("optionsContainer");
 
-  document.getElementById("optionsContainer").innerHTML = `
+  if (!questionEl || !container) return;
+
+  questionEl.innerText = "🎯 Your Profile";
+
+  container.innerHTML = `
     <div style="text-align:left; max-width:700px; margin:auto">
 
       <h2>🔥 Primary: ${p.title || primary}</h2>
       <p>${p.description || ""}</p>
 
-      <h3>Strengths:</h3>
       <ul>${(p.strengths || []).map(x => `<li>${x}</li>`).join("")}</ul>
 
       <hr>
@@ -238,15 +286,14 @@ function renderResults(data) {
       <h2>⚠️ Weak Area: ${w.title || weakness}</h2>
       <p>${w.description || ""}</p>
 
-      <h3>How to Improve:</h3>
       <ul>${(w.improvement || []).map(x => `<li>${x}</li>`).join("")}</ul>
 
       <hr>
 
-      <h3>🚀 System Strategy</h3>
+      <h3>🚀 Strategy</h3>
       <p>
         Build around <b>${primary}</b>, support with <b>${secondary}</b>,
-        and improve <b>${weakness}</b>.
+        and strengthen <b>${weakness}</b>.
       </p>
 
     </div>
