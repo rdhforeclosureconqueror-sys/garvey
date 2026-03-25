@@ -107,7 +107,7 @@ FILE: public/index.html
       const enc = encodeURIComponent(tenant);
 
       document.getElementById("siteLink").href = `${API_BASE}/t/${enc}/site`;
-      document.getElementById("dashLink").href = `/dashboard.html?tenant=${enc}`;
+      document.getElementById("dashLink").href = `${API_BASE}/t/${enc}/site`;
       document.getElementById("intakeLink").href = `/intake.html?tenant=${enc}`;
       document.getElementById("adminLink").href = `/admin.html?tenant=${enc}`;
       document.getElementById("vocLink").href = `/voc.html?tenant=${enc}`;
