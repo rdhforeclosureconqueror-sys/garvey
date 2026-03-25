@@ -136,7 +136,40 @@ async function initializeDatabase() {
       question TEXT NOT NULL DEFAULT '',
       options JSONB NOT NULL DEFAULT '{}'::jsonb,
       weights JSONB NOT NULL DEFAULT '{}'::jsonb,
-      type TEXT NOT NULL DEFAULT 'fast'
+      type TEXT NOT NULL DEFAULT 'fast',
+      assessment_type TEXT,
+      question_text TEXT,
+      option_a TEXT,
+      option_b TEXT,
+      option_c TEXT,
+      option_d TEXT,
+      mapping_a JSONB,
+      mapping_b JSONB,
+      mapping_c JSONB,
+      mapping_d JSONB
+    );
+
+    /* =========================
+       TENANT CONFIG
+    ========================= */
+
+
+    CREATE TABLE IF NOT EXISTS assessment_submissions (
+      id SERIAL PRIMARY KEY,
+      tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      session_id INTEGER,
+      assessment_type TEXT NOT NULL,
+      primary_archetype TEXT,
+      secondary_archetype TEXT,
+      weakness_archetype TEXT,
+      personality_primary TEXT,
+      personality_secondary TEXT,
+      personality_weakness TEXT,
+      archetype_counts JSONB NOT NULL DEFAULT '{}'::jsonb,
+      personality_counts JSONB,
+      raw_answers JSONB NOT NULL DEFAULT '[]'::jsonb,
+      created_at TIMESTAMPTZ DEFAULT NOW()
     );
 
     /* =========================
@@ -265,6 +298,17 @@ async function initializeDatabase() {
     ALTER TABLE questions ADD COLUMN IF NOT EXISTS weights JSONB NOT NULL DEFAULT '{}'::jsonb;
     ALTER TABLE questions ADD COLUMN IF NOT EXISTS type TEXT NOT NULL DEFAULT 'fast';
 
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS assessment_type TEXT;
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS question_text TEXT;
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS option_a TEXT;
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS option_b TEXT;
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS option_c TEXT;
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS option_d TEXT;
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS mapping_a JSONB;
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS mapping_b JSONB;
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS mapping_c JSONB;
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS mapping_d JSONB;
+
 
     ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS tenant_id INTEGER;
     ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS user_id INTEGER;
@@ -300,6 +344,8 @@ async function initializeDatabase() {
 
     CREATE UNIQUE INDEX IF NOT EXISTS idx_questions_qid_unique ON questions(qid);
     CREATE INDEX IF NOT EXISTS idx_questions_type ON questions(type);
+
+    CREATE INDEX IF NOT EXISTS idx_questions_assessment_type ON questions(assessment_type);
 
     CREATE INDEX IF NOT EXISTS idx_intake_responses_session_id ON intake_responses(session_id);
     CREATE INDEX IF NOT EXISTS idx_intake_responses_question_id ON intake_responses(question_id);

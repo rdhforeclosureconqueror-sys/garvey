@@ -22,6 +22,7 @@ const {
 } = require("./tenant");
 
 const { runAdaptiveCycle } = require("./adaptiveEngine");
+const { seed } = require("./seedQuestions");
 const {
   ARCHETYPE_DEFINITIONS,
   getQuestions,
