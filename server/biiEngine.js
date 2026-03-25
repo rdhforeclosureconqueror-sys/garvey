@@ -1,15 +1,11 @@
-// FILE: server/biiEngine.js
-// ✅ Legacy BII engine kept intact (behavior unchanged).
-// ✅ Conflict markers removed; formatting normalized.
-
 "use strict";
 
-const scoringMap = {
-  A: { architect: 2, educator: 1, builder: 1 },
-  B: { builder: 2, operator: 2 },
-  C: { connector: 2, nurturer: 2, educator: 1 },
-  D: { resource_generator: 2, protector: 2, steward: 2 }
-};
+/*
+🔥 NEW BII ENGINE (DB-ALIGNED)
+- No static scoringMap
+- Works with mapping_a/b/c/d
+- Accepts structured answers
+*/
 
 function initializeRoles() {
   return {
@@ -25,15 +21,29 @@ function initializeRoles() {
   };
 }
 
+/*
+answers format expected:
+
+[
+  {
+    selected: "A",
+    mapping: ["Builder","Resource"]
+  }
+]
+*/
+
 function scoreAssessment(answers = []) {
   const roles = initializeRoles();
 
   for (const answer of answers) {
-    const roleWeightMap = scoringMap[answer];
-    if (!roleWeightMap) continue;
+    const mappings = answer.mapping || [];
 
-    for (const [role, weight] of Object.entries(roleWeightMap)) {
-      roles[role] += weight;
+    for (const role of mappings) {
+      const key = role.toLowerCase().replace(" ", "_");
+
+      if (roles[key] !== undefined) {
+        roles[key] += 2; // consistent weight
+      }
     }
   }
 
@@ -41,58 +51,69 @@ function scoreAssessment(answers = []) {
 }
 
 function getTopRoles(roles) {
-  const sortedRoles = Object.entries(roles).sort((a, b) => b[1] - a[1]);
+  const sorted = Object.entries(roles).sort((a, b) => b[1] - a[1]);
+
   return {
-    primary: sortedRoles[0]?.[0] || null,
-    secondary: sortedRoles[1]?.[0] || null
+    primary: sorted[0]?.[0] || null,
+    secondary: sorted[1]?.[0] || null
   };
 }
 
-function generateRecommendations(primary, secondary, mode) {
+/*
+🔥 NEW: ROLE DEVELOPMENT SYSTEM
+*/
+function generateRoleGrowthPlan(roles) {
+  const weakest = Object.entries(roles)
+    .sort((a, b) => a[1] - b[1])
+    .slice(0, 3)
+    .map(([role]) => role);
+
+  const rolePlans = {
+    architect: "Study system design, create workflows, map business processes",
+    builder: "Execute daily tasks, build offers, launch quickly",
+    operator: "Track metrics, optimize processes, refine systems",
+    connector: "Network, build relationships, expand reach",
+    nurturer: "Focus on customer care and retention",
+    educator: "Create content, teach, build authority",
+    resource_generator: "Focus on monetization and revenue streams",
+    protector: "Secure assets, risk management, compliance",
+    steward: "Maintain systems, ensure consistency and stability"
+  };
+
+  return weakest.map(role => ({
+    role,
+    improvement: rolePlans[role] || "Develop foundational skills"
+  }));
+}
+
+function generateRecommendations(primary, secondary) {
   return {
-    systems: [
-      "behavior_tracking",
-      "reward_engine",
-      "customer_data_capture",
-      "engagement_sequences"
-    ],
     focus: `${primary} + ${secondary}`,
-    operating_mode: mode,
-    message:
-      "Your system should amplify your primary strengths while adding process support for secondary strengths.",
-    next_steps: [
-      "Enable role-aligned feature flags",
-      "Prioritize automated engagement loops",
-      "Track conversion actions on the dashboard"
+    strategy:
+      "Build around your strengths while reinforcing weaker roles",
+    systems: [
+      "engagement_engine",
+      "reward_system",
+      "analytics_engine",
+      "automation_loops"
     ]
   };
 }
 
 function generateTenantConfig(primary, secondary) {
-  const config = {
-    reward_system: ["builder", "resource_generator", "steward"].includes(primary),
-    engagement_engine:
-      ["connector", "nurturer", "educator"].includes(primary) || secondary === "connector",
-    email_marketing: ["operator", "resource_generator"].includes(secondary),
-    content_engine:
-      ["educator", "architect", "connector"].includes(primary) || secondary === "educator",
-    referral_system: ["connector", "resource_generator", "nurturer"].includes(primary)
+  return {
+    reward_system: ["builder", "resource_generator"].includes(primary),
+    engagement_engine: ["connector", "nurturer"].includes(primary),
+    content_engine: ["educator", "architect"].includes(primary),
+    referral_system: ["connector", "resource_generator"].includes(primary),
+    analytics_engine: secondary === "operator"
   };
-
-  if (primary === "architect" || secondary === "architect") {
-    config.automation_blueprints = true;
-  }
-
-  if (primary === "operator") {
-    config.analytics_engine = true;
-  }
-
-  return config;
 }
 
 module.exports = {
   scoreAssessment,
   getTopRoles,
   generateRecommendations,
-  generateTenantConfig
+  generateTenantConfig,
+  generateRoleGrowthPlan
 };
