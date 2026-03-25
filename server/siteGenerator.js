@@ -9,11 +9,6 @@ function esc(str) {
     .replaceAll("'", "&#039;");
 }
 
-function bool(v, fallback) {
-  if (typeof v === "boolean") return v;
-  return Boolean(fallback);
-}
-
 function pickTheme(site = {}) {
   return {
     primary: site.primary_color || "#facc15",
@@ -31,7 +26,6 @@ function asStringArray(v) {
 
 function landingHtml({ tenantSlug, config }) {
   const site = config?.site || {};
-  const features = config?.features || {};
   const theme = pickTheme(site);
 
   const businessName = site.business_name || tenantSlug;
@@ -42,8 +36,8 @@ function landingHtml({ tenantSlug, config }) {
   const vocLink = `/voc.html?tenant=${tenantSlug}`;
   const dashLink = `/dashboard.html?tenant=${tenantSlug}`;
   const pathwayLink = `/garvey.html?tenant=${tenantSlug}`;
-
   const templatesLink = `/templates.html?tenant=${tenantSlug}`;
+
   const selectedTemplateId = site?.template_id || "";
   const selectedTemplateLink = selectedTemplateId
     ? `/templates/${selectedTemplateId}/index.html`
@@ -51,15 +45,112 @@ function landingHtml({ tenantSlug, config }) {
 
   const valueProps = asStringArray(site.value_props);
 
-  // =========================
-  // ✅ NEW CTA SYSTEM
-  // =========================
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>${esc(businessName)}</title>
 
-  const ctaRowHtml = `
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, ${theme.bg}, #020617);
+  color: ${theme.text};
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.hero h1 {
+  font-size: 36px;
+  color: ${theme.primary};
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: #cbd5e1;
+  font-size: 16px;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.btn {
+  padding: 14px 18px;
+  background: ${theme.primary};
+  color: black;
+  font-weight: bold;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  background: ${theme.accent};
+  color: white;
+}
+
+.section {
+  margin-top: 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.box {
+  background: ${theme.card};
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid #334155;
+}
+
+.label {
+  color: ${theme.primary};
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.footer {
+  margin-top: 50px;
+  text-align: center;
+  color: #64748b;
+  font-size: 12px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>${esc(headline)}</h1>
+    <p>${esc(subhead)}</p>
+
     <div class="ctaRow">
 
       <a class="btn" href="${esc(intakeLink)}">
-        🧠 Business Owner Assessment
+        🧠 Start Assessment
       </a>
 
       <a class="btn" href="${esc(vocLink)}">
@@ -67,16 +158,16 @@ function landingHtml({ tenantSlug, config }) {
       </a>
 
       <a class="btn" href="${esc(pathwayLink)}">
-        🚀 Idea → Funding Pathway
+        🚀 Funding Pathway
       </a>
 
       <a class="btn" href="${esc(templatesLink)}">
-        🎨 Website Templates
+        🎨 Templates
       </a>
 
       ${selectedTemplateLink ? `
         <a class="btn" href="${esc(selectedTemplateLink)}" target="_blank">
-          🌐 Open Website
+          🌐 View Website
         </a>
       ` : ""}
 
@@ -85,79 +176,43 @@ function landingHtml({ tenantSlug, config }) {
       </a>
 
     </div>
-  `;
+  </div>
 
-  const valuePropsHtml = valueProps.length
-    ? `<div class="box">
-        <div class="label">What you get</div>
-        <ul>${valueProps.map(p => `<li>${esc(p)}</li>`).join("")}</ul>
-      </div>`
-    : "";
-
-  const gridHtml = `
+  <div class="section">
     <div class="grid">
-      ${valuePropsHtml}
+
+      ${
+        valueProps.length
+          ? `
+        <div class="box">
+          <div class="label">What you get</div>
+          <ul>
+            ${valueProps.map(p => `<li>${esc(p)}</li>`).join("")}
+          </ul>
+        </div>
+      `
+          : ""
+      }
+
+      <div class="box">
+        <div class="label">Next Steps</div>
+        <ul>
+          <li>Complete your assessment</li>
+          <li>Choose your website template</li>
+          <li>Activate your dashboard</li>
+          <li>Start earning engagement points</li>
+        </ul>
+      </div>
+
     </div>
-  `;
+  </div>
 
-  return `
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>${esc(businessName)}</title>
-
-<style>
-body {
-  font-family: Arial;
-  background: ${theme.bg};
-  color: ${theme.text};
-  padding: 20px;
-}
-.card {
-  max-width: 900px;
-  margin: auto;
-  background: ${theme.card};
-  padding: 20px;
-  border-radius: 12px;
-}
-h1 { color: ${theme.primary}; }
-
-.ctaRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 20px 0;
-}
-
-.btn {
-  padding: 12px;
-  background: ${theme.primary};
-  color: black;
-  font-weight: bold;
-  border-radius: 10px;
-  text-decoration: none;
-}
-
-.btn:hover {
-  background: ${theme.accent};
-  color: white;
-}
-</style>
-
-</head>
-
-<body>
-<div class="card">
-
-<h1>${esc(headline)}</h1>
-<p>${esc(subhead)}</p>
-
-${ctaRowHtml}
-
-${gridHtml}
+  <div class="footer">
+    Powered by Garvey System • ${esc(tenantSlug)}
+  </div>
 
 </div>
+
 </body>
 </html>
 `;
@@ -165,7 +220,7 @@ ${gridHtml}
 
 function generateTenantSite({ tenantSlug, config }) {
   return {
-    version: 2,
+    version: 3,
     pages: {
       landing: landingHtml({ tenantSlug, config })
     }
