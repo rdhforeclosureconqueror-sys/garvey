@@ -1,21 +1,98 @@
 <script>
+"use strict";
+
+// ================================
+// API BASE (AUTO DETECT)
+// ================================
+
 const API_BASE = (() => {
   const host = window.location.hostname || "";
-  if (host.includes("garveyfrontend")) return "https://garveybackend.onrender.com";
+  if (host.includes("garveyfrontend")) {
+    return "https://garveybackend.onrender.com";
+  }
   return "";
 })();
+
+// ================================
+// STATE
+// ================================
 
 let questions = [];
 let currentIndex = 0;
 let answers = [];
 
 // ================================
-// LOAD QUESTIONS (NEW SYSTEM)
+// ROLE DEFINITIONS (INTELLIGENCE)
+// ================================
+
+const ROLE_DEFINITIONS = {
+  architect: {
+    title: "Architect",
+    description: "Visionary system builder.",
+    strengths: ["Planning", "Innovation", "Systems thinking"],
+    improvement: ["Execute faster", "Work with builders"]
+  },
+  builder: {
+    title: "Builder",
+    description: "Execution-focused creator.",
+    strengths: ["Action", "Momentum"],
+    improvement: ["Add structure", "Track progress"]
+  },
+  operator: {
+    title: "Operator",
+    description: "Efficiency and systems manager.",
+    strengths: ["Organization", "Optimization"],
+    improvement: ["Be flexible", "Adapt faster"]
+  },
+  connector: {
+    title: "Connector",
+    description: "Relationship and network builder.",
+    strengths: ["Networking", "Influence"],
+    improvement: ["Follow up", "Build systems"]
+  },
+  nurturer: {
+    title: "Nurturer",
+    description: "Community and care focused.",
+    strengths: ["Empathy", "Retention"],
+    improvement: ["Scale systems", "Set boundaries"]
+  },
+  educator: {
+    title: "Educator",
+    description: "Knowledge and authority builder.",
+    strengths: ["Teaching", "Content"],
+    improvement: ["Take action faster"]
+  },
+  resource_generator: {
+    title: "Resource Generator",
+    description: "Money and opportunity creator.",
+    strengths: ["Revenue", "Growth"],
+    improvement: ["Build systems"]
+  },
+  protector: {
+    title: "Protector",
+    description: "Risk and security manager.",
+    strengths: ["Awareness", "Defense"],
+    improvement: ["Take calculated risks"]
+  },
+  steward: {
+    title: "Steward",
+    description: "Long-term stability builder.",
+    strengths: ["Consistency", "Sustainability"],
+    improvement: ["Adapt to change"]
+  }
+};
+
+// ================================
+// LOAD QUESTIONS
 // ================================
 
 async function loadQuestions() {
   try {
-    const res = await fetch(`${API_BASE}/api/questions?assessment=business_owner
+    const res = await fetch(
+      `${API_BASE}/api/questions?assessment=business_owner&ts=${Date.now()}`,
+      { cache: "no-store" }
+    );
+
     const data = await res.json();
 
     questions = data.questions || [];
@@ -31,12 +108,13 @@ async function loadQuestions() {
 
   } catch (err) {
     console.error(err);
-    document.getElementById("questionText").innerText = "❌ Failed to load questions";
+    document.getElementById("questionText").innerText =
+      "❌ Failed to load questions";
   }
 }
 
 // ================================
-// RENDER QUESTION (FIXED)
+// RENDER QUESTION
 // ================================
 
 function renderQuestion() {
@@ -71,7 +149,7 @@ function renderQuestion() {
 }
 
 // ================================
-// HANDLE ANSWER (NEW)
+// HANDLE ANSWER
 // ================================
 
 function handleAnswer(letter) {
@@ -101,7 +179,7 @@ function updateProgress() {
 }
 
 // ================================
-// SUBMIT (UNCHANGED BUT CLEAN)
+// SUBMIT
 // ================================
 
 async function submitAssessment() {
@@ -126,20 +204,59 @@ async function submitAssessment() {
 }
 
 // ================================
-// RESULTS
+// RESULTS (UPGRADED)
 // ================================
 
 function renderResults(data) {
-  document.getElementById("questionText").innerText = "🎯 Results";
+  const primary = data.primary;
+  const secondary = data.secondary;
+  const weakness = data.weakness;
+
+  const p = ROLE_DEFINITIONS[primary] || {};
+  const s = ROLE_DEFINITIONS[secondary] || {};
+  const w = ROLE_DEFINITIONS[weakness] || {};
+
+  document.getElementById("questionText").innerText =
+    "🎯 Your Business Profile";
 
   document.getElementById("optionsContainer").innerHTML = `
-    <h2>Primary: ${data.primary}</h2>
-    <h3>Secondary: ${data.secondary}</h3>
-    <h4>Weakness: ${data.weakness}</h4>
+    <div style="text-align:left; max-width:700px; margin:auto">
+
+      <h2>🔥 Primary: ${p.title || primary}</h2>
+      <p>${p.description || ""}</p>
+
+      <h3>Strengths:</h3>
+      <ul>${(p.strengths || []).map(x => `<li>${x}</li>`).join("")}</ul>
+
+      <hr>
+
+      <h2>⚡ Secondary: ${s.title || secondary}</h2>
+      <p>${s.description || ""}</p>
+
+      <hr>
+
+      <h2>⚠️ Weak Area: ${w.title || weakness}</h2>
+      <p>${w.description || ""}</p>
+
+      <h3>How to Improve:</h3>
+      <ul>${(w.improvement || []).map(x => `<li>${x}</li>`).join("")}</ul>
+
+      <hr>
+
+      <h3>🚀 System Strategy</h3>
+      <p>
+        Build around <b>${primary}</b>, support with <b>${secondary}</b>,
+        and improve <b>${weakness}</b>.
+      </p>
+
+    </div>
   `;
 }
 
 // ================================
+// INIT
+// ================================
 
 loadQuestions();
+
 </script>
