@@ -679,6 +679,9 @@ app.post("/api/site/generate", async (req, res) => {
    NEW ENGINE API (/api/*)
 ========================= */
 
+// ================================
+// QUESTIONS API
+// ================================
 
 app.get("/api/questions", async (req, res) => {
   try {
@@ -686,6 +689,7 @@ app.get("/api/questions", async (req, res) => {
       req.query.assessment || "business_owner"
     ).trim().toLowerCase();
 
+    // 🔒 STRICT VALIDATION
     if (!["business_owner", "customer"].includes(assessmentType)) {
       return res.status(400).json({
         error: "assessment must be business_owner or customer",
@@ -713,34 +717,71 @@ app.get("/api/questions", async (req, res) => {
       [assessmentType]
     );
 
+    // 🔥 DEBUG LOG (CRITICAL)
+    console.log("📊 QUESTIONS FETCH:", {
+      type: assessmentType,
+      count: rows.length,
+    });
+
+    // 🔒 SAFETY CHECK
+    if (!rows.length) {
+      return res.status(404).json({
+        error: "no questions found for this assessment",
+        assessment: assessmentType,
+      });
+    }
+
     return res.json({
+      success: true,
       assessment: assessmentType,
       count: rows.length,
       questions: rows,
     });
 
   } catch (err) {
-    console.error(err);
+    console.error("questions_fetch_failed", err);
     return res.status(500).json({
       error: "questions fetch failed",
     });
   }
 });
 
+
+// ================================
+// BUSINESS OWNER INTAKE
+// ================================
+
 app.post("/api/intake", async (req, res) => {
   const client = await pool.connect();
+
   try {
+    // 🔥 DEBUG (SEE FRONTEND PAYLOAD)
+    console.log("📥 INCOMING BUSINESS INTAKE:", req.body);
+
     const { email, tenant, answers = [] } = req.body || {};
+
+    // 🔒 STRICT VALIDATION
     if (!email || !tenant) {
-      return res.status(400).json({ error: "email and tenant are required" });
+      return res.status(400).json({
+        error: "email and tenant are required",
+      });
+    }
+
+    if (!Array.isArray(answers) || !answers.length) {
+      return res.status(400).json({
+        error: "answers array is required",
+      });
     }
 
     const validation = validateAnswers("business_owner", answers);
     if (!validation.ok) {
-      return res.status(400).json({ error: validation.error });
+      return res.status(400).json({
+        error: validation.error,
+      });
     }
 
     await client.query("BEGIN");
+
     const tenantRow = await ensureTenant(String(tenant));
     const user = await findTenantUser(tenantRow.id, email, client);
 
@@ -757,9 +798,15 @@ app.post("/api/intake", async (req, res) => {
 
     await client.query(
       `INSERT INTO assessment_submissions (
-        tenant_id, user_id, session_id, assessment_type,
-        primary_archetype, secondary_archetype, weakness_archetype,
-        archetype_counts, raw_answers
+        tenant_id,
+        user_id,
+        session_id,
+        assessment_type,
+        primary_archetype,
+        secondary_archetype,
+        weakness_archetype,
+        archetype_counts,
+        raw_answers
       ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
       [
         tenantRow.id,
@@ -784,12 +831,21 @@ app.post("/api/intake", async (req, res) => {
       secondary: scored.secondary,
       weakness: scored.weakness,
       archetype_counts: scored.archetype_counts,
-      archetype_definition: scored.primary ? ARCHETYPE_DEFINITIONS[scored.primary] : null,
+      archetype_definition: scored.primary
+        ? ARCHETYPE_DEFINITIONS[scored.primary]
+        : null,
     });
+
   } catch (err) {
     await client.query("ROLLBACK");
+
     console.error("api_intake_failed", err);
-    return res.status(500).json({ error: "api intake failed", details: err.message });
+
+    return res.status(500).json({
+      error: "api intake failed",
+      details: err.message,
+    });
+
   } finally {
     client.release();
   }
@@ -798,42 +854,65 @@ app.post("/api/intake", async (req, res) => {
 app.get("/api/results/:email", async (req, res) => {
   try {
     const email = normalizeEmail(req.params.email);
-    if (!email) return res.status(400).json({ error: "email required" });
+    const type = String(req.query.type || "").trim().toLowerCase();
 
-    const result = await pool.query(
-      `SELECT a.*
-       FROM assessment_submissions a
-       JOIN users u ON u.id = a.user_id
-       WHERE u.email = $1
-       ORDER BY a.created_at DESC, a.id DESC
-       LIMIT 1`,
-      [email]
-    );
+    if (!email) {
+      return res.status(400).json({ error: "email required" });
+    }
 
-    if (!result.rows[0]) return res.status(404).json({ error: "result not found" });
-    return res.json(result.rows[0]);
+    // 🔒 OPTIONAL FILTER
+    let query = `
+      SELECT a.*
+      FROM assessment_submissions a
+      JOIN users u ON u.id = a.user_id
+      WHERE u.email = $1
+    `;
+
+    const params = [email];
+
+    if (type) {
+      if (!["business_owner", "customer"].includes(type)) {
+        return res.status(400).json({
+          error: "type must be business_owner or customer",
+        });
+      }
+
+      query += " AND a.assessment_type = $2";
+      params.push(type);
+    }
+
+    query += `
+      ORDER BY a.created_at DESC, a.id DESC
+      LIMIT 1
+    `;
+
+    const result = await pool.query(query, params);
+
+    if (!result.rows[0]) {
+      return res.status(404).json({
+        error: "result not found",
+        email,
+        type: type || "any",
+      });
+    }
+
+    // 🔥 DEBUG
+    console.log("📊 RESULT FETCH:", {
+      email,
+      type: type || "any",
+      found: true,
+    });
+
+    return res.json({
+      success: true,
+      result: result.rows[0],
+    });
+
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: "results lookup failed" });
-  }
-});
-
-/* Admin config endpoints used by public/admin.html */
-app.get("/api/admin/config", async (req, res) => {
-  try {
-    const tenantSlug = String(req.query.tenant || "").trim();
-    if (!tenantSlug) return res.status(400).json({ error: "tenant query param required" });
-
-    const tenantRow = await getTenantBySlug(tenantSlug);
-    if (!tenantRow) return res.status(404).json({ error: "tenant not found" });
-
-    const cfg = await pool.query("SELECT config, updated_at FROM tenant_config WHERE tenant_id = $1", [tenantRow.id]);
-    const config = { ...DEFAULT_TENANT_CONFIG, ...(cfg.rows[0]?.config || {}) };
-
-    return res.json({ tenant: tenantRow.slug, config, updated_at: cfg.rows[0]?.updated_at || null });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: "api admin config fetch failed" });
+    console.error("results_lookup_failed", err);
+    return res.status(500).json({
+      error: "results lookup failed",
+    });
   }
 });
 
