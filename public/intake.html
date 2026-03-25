@@ -15,7 +15,7 @@ let answers = [];
 
 async function loadQuestions() {
   try {
-    const res = await fetch(`${API_BASE}/api/questions`);
+    const res = await fetch(`${API_BASE}/api/questions?assessment=business_owner
     const data = await res.json();
 
     questions = data.questions || [];
