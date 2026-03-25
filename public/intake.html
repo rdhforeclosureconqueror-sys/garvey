@@ -1,224 +1,145 @@
-"use strict";
+<script>
+const API_BASE = (() => {
+  const host = window.location.hostname || "";
+  if (host.includes("garveyfrontend")) return "https://garveybackend.onrender.com";
+  return "";
+})();
 
-/*
-🔥 NEW BII ENGINE — ALIGNED WITH NEW SYSTEM
+let questions = [];
+let currentIndex = 0;
+let answers = [];
 
-- Uses REAL mappings from intake (mapping_a, mapping_b, etc.)
-- Supports BOTH business_owner + customer
-- Produces:
-  → primary
-  → secondary
-  → weakness
-  → improvement plan
-*/
+// ================================
+// LOAD QUESTIONS (NEW SYSTEM)
+// ================================
 
-// ==================================================
-// ARCHETYPE DEFINITIONS
-// ==================================================
+async function loadQuestions() {
+  try {
+    const res = await fetch(`${API_BASE}/api/questions`);
+    const data = await res.json();
 
-const ARCHETYPES = {
-  builder: {
-    traits: "action-oriented",
-    strength: "execution",
-    weakness: "inconsistency",
-    improve: "implement routines and tracking systems"
-  },
-  architect: {
-    traits: "strategic",
-    strength: "systems",
-    weakness: "overthinking",
-    improve: "set execution deadlines"
-  },
-  operator: {
-    traits: "structured",
-    strength: "stability",
-    weakness: "rigidity",
-    improve: "introduce flexibility"
-  },
-  connector: {
-    traits: "relationship-driven",
-    strength: "networking",
-    weakness: "lack of systems",
-    improve: "track interactions and follow-ups"
-  },
-  resource: {
-    traits: "opportunity-focused",
-    strength: "revenue generation",
-    weakness: "poor retention",
-    improve: "build repeat systems"
-  },
-  protector: {
-    traits: "risk-aware",
-    strength: "risk control",
-    weakness: "fear-based hesitation",
-    improve: "test low-risk actions"
-  },
-  nurturer: {
-    traits: "care-driven",
-    strength: "loyalty",
-    weakness: "underpricing",
-    improve: "set boundaries and pricing standards"
-  },
-  educator: {
-    traits: "knowledge-focused",
-    strength: "trust building",
-    weakness: "low monetization",
-    improve: "package and sell knowledge"
-  }
-};
+    questions = data.questions || [];
 
-// ==================================================
-// HELPERS
-// ==================================================
-
-function normalizeKey(key) {
-  return String(key || "").toLowerCase().replace(/\s+/g, "_");
-}
-
-function initializeScores() {
-  return {
-    builder: 0,
-    architect: 0,
-    operator: 0,
-    connector: 0,
-    resource: 0,
-    protector: 0,
-    nurturer: 0,
-    educator: 0
-  };
-}
-
-// ==================================================
-// CORE SCORING ENGINE
-// ==================================================
-
-function scoreAssessment(answers = []) {
-  const scores = initializeScores();
-
-  for (const answer of answers) {
-    const mapping = answer.mapping;
-
-    // BUSINESS OWNER → array
-    if (Array.isArray(mapping)) {
-      for (const role of mapping) {
-        const key = normalizeKey(role);
-        if (scores[key] !== undefined) {
-          scores[key] += 1;
-        }
-      }
+    if (!questions.length) {
+      throw new Error("No questions returned");
     }
 
-    // CUSTOMER → object
-    if (mapping && typeof mapping === "object") {
-      if (mapping.archetype) {
-        const key = normalizeKey(mapping.archetype);
-        if (scores[key] !== undefined) {
-          scores[key] += 1;
-        }
-      }
-    }
+    currentIndex = 0;
+    answers = [];
+
+    renderQuestion();
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById("questionText").innerText = "❌ Failed to load questions";
+  }
+}
+
+// ================================
+// RENDER QUESTION (FIXED)
+// ================================
+
+function renderQuestion() {
+  const q = questions[currentIndex];
+
+  if (!q) {
+    submitAssessment();
+    return;
   }
 
-  return scores;
+  document.getElementById("questionText").innerText = q.question_text;
+
+  const container = document.getElementById("optionsContainer");
+  container.innerHTML = "";
+
+  const options = [
+    ["A", q.option_a],
+    ["B", q.option_b],
+    ["C", q.option_c],
+    ["D", q.option_d]
+  ];
+
+  for (const [key, value] of options) {
+    const btn = document.createElement("button");
+    btn.className = "btn";
+    btn.innerText = `${key}: ${value}`;
+    btn.onclick = () => handleAnswer(key);
+    container.appendChild(btn);
+  }
+
+  updateProgress();
 }
 
-// ==================================================
-// ROLE RANKING
-// ==================================================
+// ================================
+// HANDLE ANSWER (NEW)
+// ================================
 
-function getTopRoles(scores) {
-  const sorted = Object.entries(scores)
-    .sort((a, b) => b[1] - a[1]);
+function handleAnswer(letter) {
+  const q = questions[currentIndex];
 
-  return {
-    primary: sorted[0]?.[0] || null,
-    secondary: sorted[1]?.[0] || null,
-    weakness: sorted[sorted.length - 1]?.[0] || null
-  };
+  answers.push({
+    qid: q.qid,
+    answer: letter
+  });
+
+  currentIndex++;
+  renderQuestion();
 }
 
-// ==================================================
-// IMPROVEMENT ENGINE
-// ==================================================
+// ================================
+// PROGRESS
+// ================================
 
-function generateRecommendations(primary, secondary, weakness) {
-  const primaryData = ARCHETYPES[primary] || {};
-  const weaknessData = ARCHETYPES[weakness] || {};
+function updateProgress() {
+  const total = questions.length;
+  const done = currentIndex;
+  const pct = Math.round((done / total) * 100);
 
-  return {
-    focus: `${primary} + ${secondary}`,
-    primary_strength: primaryData.strength,
-    weakness: weakness,
-    improvement: weaknessData.improve,
-
-    systems: [
-      "behavior_tracking",
-      "reward_engine",
-      "customer_data_capture",
-      "engagement_sequences"
-    ],
-
-    message:
-      "Build systems that amplify your strengths and correct your weakest area.",
-
-    next_steps: [
-      `Double down on ${primary}`,
-      `Support ${secondary} with systems`,
-      `Fix ${weakness} using: ${weaknessData.improve}`
-    ]
-  };
+  document.getElementById("progressBarFill").style.width = pct + "%";
+  document.getElementById("progress").innerText =
+    `Question ${done + 1} of ${total} (${pct}%)`;
 }
 
-// ==================================================
-// TENANT CONFIG ENGINE
-// ==================================================
+// ================================
+// SUBMIT (UNCHANGED BUT CLEAN)
+// ================================
 
-function generateTenantConfig(primary, secondary) {
-  return {
-    reward_system: ["builder", "resource"].includes(primary),
-    engagement_engine:
-      ["connector", "nurturer", "educator"].includes(primary),
-    analytics_engine: primary === "operator",
-    content_engine:
-      ["educator", "architect", "connector"].includes(primary),
-    referral_system:
-      ["connector", "resource", "nurturer"].includes(primary)
-  };
+async function submitAssessment() {
+  const email = document.getElementById("email").value;
+  const tenant = new URLSearchParams(window.location.search).get("tenant");
+
+  const res = await fetch(`${API_BASE}/api/intake`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      email,
+      tenant,
+      answers
+    })
+  });
+
+  const data = await res.json();
+
+  renderResults(data);
 }
 
-// ==================================================
-// MASTER FUNCTION
-// ==================================================
+// ================================
+// RESULTS
+// ================================
 
-function runBII(answers = []) {
-  const scores = scoreAssessment(answers);
+function renderResults(data) {
+  document.getElementById("questionText").innerText = "🎯 Results";
 
-  const { primary, secondary, weakness } = getTopRoles(scores);
-
-  const recommendations = generateRecommendations(
-    primary,
-    secondary,
-    weakness
-  );
-
-  const config = generateTenantConfig(primary, secondary);
-
-  return {
-    scores,
-    primary,
-    secondary,
-    weakness,
-    recommendations,
-    config
-  };
+  document.getElementById("optionsContainer").innerHTML = `
+    <h2>Primary: ${data.primary}</h2>
+    <h3>Secondary: ${data.secondary}</h3>
+    <h4>Weakness: ${data.weakness}</h4>
+  `;
 }
 
-// ==================================================
+// ================================
 
-module.exports = {
-  scoreAssessment,
-  getTopRoles,
-  generateRecommendations,
-  generateTenantConfig,
-  runBII
-};
+loadQuestions();
+</script>
