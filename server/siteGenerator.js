@@ -1,9 +1,3 @@
-// FILE: server/siteGenerator.js
-// ✅ FULL FILE replacement
-// ✅ Keeps existing layout logic + links
-// ✅ Adds “Website Templates” CTA to /templates.html?tenant=...
-// ✅ If site.template_id exists: shows “Open Website” link to /templates/<id>/index.html
-
 "use strict";
 
 function esc(str) {
@@ -21,25 +15,18 @@ function bool(v, fallback) {
 }
 
 function pickTheme(site = {}) {
-  const primary = site.primary_color || "#facc15";
-  const bg = site.bg_color || "#000000";
-  const card = site.card_color || "#111111";
-  const text = site.text_color || "#ffffff";
-  const accent = site.accent_color || "#ef4444";
-  return { primary, bg, card, text, accent };
+  return {
+    primary: site.primary_color || "#facc15",
+    bg: site.bg_color || "#000000",
+    card: site.card_color || "#111111",
+    text: site.text_color || "#ffffff",
+    accent: site.accent_color || "#ef4444"
+  };
 }
 
 function asStringArray(v) {
   if (!Array.isArray(v)) return [];
-  return v.map((x) => String(x ?? "").trim()).filter(Boolean);
-}
-
-function templateLayout(templateKey = "") {
-  const key = String(templateKey || "").toLowerCase();
-  if (key === "minimal") return "minimal";
-  if (key === "storefront") return "storefront";
-  if (key.startsWith("persona:")) return "persona";
-  return "default";
+  return v.map(x => String(x ?? "").trim()).filter(Boolean);
 }
 
 function landingHtml({ tenantSlug, config }) {
@@ -48,167 +35,141 @@ function landingHtml({ tenantSlug, config }) {
   const theme = pickTheme(site);
 
   const businessName = site.business_name || tenantSlug;
-  const headline = site.headline || `Join ${businessName} Community & Earn Rewards`;
-  const subhead =
-    site.subheadline ||
-    "Earn points for check-ins, reviews, referrals, and get personalized recommendations.";
+  const headline = site.headline || `Join ${businessName}`;
+  const subhead = site.subheadline || "Build your system. Grow your business.";
 
-  const rewardName = site.reward_name || "Credits";
+  const intakeLink = `/intake.html?tenant=${tenantSlug}&assessment=business_owner`;
+  const vocLink = `/voc.html?tenant=${tenantSlug}`;
+  const dashLink = `/dashboard.html?tenant=${tenantSlug}`;
+  const pathwayLink = `/garvey.html?tenant=${tenantSlug}`;
 
-  const showRewards = bool(features.rewards, true);
-  const showIntake = bool(features.quiz, true);
-  const showReviews = bool(features.reviews, true);
-  const showStore = bool(features.store, false);
-
-  const intakeLink = `/intake.html?tenant=${encodeURIComponent(tenantSlug)}`;
-  const cxLink = `/index.html?tenant=${encodeURIComponent(tenantSlug)}`;
-  const dashLink = `/dashboard.html?tenant=${encodeURIComponent(tenantSlug)}`;
-  const adminLink = `/admin.html?tenant=${encodeURIComponent(tenantSlug)}`;
-  const vocLink = `/voc.html?tenant=${encodeURIComponent(tenantSlug)}`;
-  const pathwayLink = `/garvey.html?tenant=${encodeURIComponent(tenantSlug)}`;
-
-  // ✅ NEW: templates plugin links
-  const templatesGalleryLink = `/templates.html?tenant=${encodeURIComponent(tenantSlug)}`;
-  const selectedTemplateId = site?.template_id ? String(site.template_id).trim() : "";
+  const templatesLink = `/templates.html?tenant=${tenantSlug}`;
+  const selectedTemplateId = site?.template_id || "";
   const selectedTemplateLink = selectedTemplateId
-    ? `/templates/${encodeURIComponent(selectedTemplateId)}/index.html`
+    ? `/templates/${selectedTemplateId}/index.html`
     : "";
-
-  const layout = templateLayout(site.template);
 
   const valueProps = asStringArray(site.value_props);
-  const primary = site?.meta?.primary ? String(site.meta.primary) : "";
-  const secondary = site?.meta?.secondary ? String(site.meta.secondary) : "";
-  const readiness = Number.isFinite(Number(site?.meta?.readiness))
-    ? Number(site.meta.readiness)
-    : null;
 
-  const ctaText =
-    site.cta_text || (showIntake ? "Take the Assessment" : "Earn Points (Actions)");
-  const ctaLink = site.cta_link || (showIntake ? intakeLink : cxLink);
-
-  const pills = [
-    `<div class="pill">Tenant: ${esc(tenantSlug)}</div>`,
-    showRewards ? `<div class="pill">Rewards: ${esc(rewardName)}</div>` : "",
-    showStore ? `<div class="pill">Store: enabled</div>` : `<div class="pill">Store: off</div>`,
-    primary ? `<div class="pill">Primary: ${esc(primary)}</div>` : "",
-    secondary ? `<div class="pill">Secondary: ${esc(secondary)}</div>` : "",
-    readiness != null ? `<div class="pill">Readiness: ${esc(readiness)}%</div>` : "",
-    selectedTemplateId ? `<div class="pill">Template: ${esc(selectedTemplateId)}</div>` : "",
-  ].filter(Boolean);
-
-  const templatesBtn = `<a class="btn" href="${esc(templatesGalleryLink)}">Website Templates</a>`;
-  const openTemplateBtn = selectedTemplateLink
-    ? `<a class="btn" href="${esc(selectedTemplateLink)}" target="_blank" rel="noreferrer">Open Website</a>`
-    : "";
+  // =========================
+  // ✅ NEW CTA SYSTEM
+  // =========================
 
   const ctaRowHtml = `
     <div class="ctaRow">
-      <a class="btn" href="${esc(pathwayLink)}">Continue Idea → Funding Pathway</a>
-      ${templatesBtn}
-      ${openTemplateBtn}
-      <a class="btn" href="${esc(ctaLink)}">${esc(ctaText)}</a>
-      ${showIntake ? `<a class="btn" href="${esc(intakeLink)}">Take the Assessment</a>` : ""}
-      <a class="btn" href="${esc(cxLink)}">Earn Points (Actions)</a>
-      <a class="btn" href="${esc(dashLink)}">Owner Dashboard</a>
+
+      <a class="btn" href="${esc(intakeLink)}">
+        🧠 Business Owner Assessment
+      </a>
+
+      <a class="btn" href="${esc(vocLink)}">
+        🗣️ Voice of Customer
+      </a>
+
+      <a class="btn" href="${esc(pathwayLink)}">
+        🚀 Idea → Funding Pathway
+      </a>
+
+      <a class="btn" href="${esc(templatesLink)}">
+        🎨 Website Templates
+      </a>
+
+      ${selectedTemplateLink ? `
+        <a class="btn" href="${esc(selectedTemplateLink)}" target="_blank">
+          🌐 Open Website
+        </a>
+      ` : ""}
+
+      <a class="btn" href="${esc(dashLink)}">
+        📊 Dashboard
+      </a>
+
     </div>
   `;
 
-  const valuePropsHtml =
-    valueProps.length > 0
-      ? `
-      <div class="box">
-        <div class="label">What you’ll get</div>
-        <ul>
-          ${valueProps.map((p) => `<li>${esc(p)}</li>`).join("\n")}
-        </ul>
-      </div>
-    `
-      : "";
+  const valuePropsHtml = valueProps.length
+    ? `<div class="box">
+        <div class="label">What you get</div>
+        <ul>${valueProps.map(p => `<li>${esc(p)}</li>`).join("")}</ul>
+      </div>`
+    : "";
 
-  const whatYouCanDoHtml = `
-      <div class="box">
-        <div class="label">What you can do</div>
-        <ul>
-          <li>Check in and earn points</li>
-          ${showReviews ? "<li>Leave reviews (photo/video optional)</li>" : ""}
-          <li>Refer friends to grow the community</li>
-          <li>Join the list for offers + updates</li>
-        </ul>
-      </div>
+  const gridHtml = `
+    <div class="grid">
+      ${valuePropsHtml}
+    </div>
   `;
 
-  const ownerControlsHtml = `
-      <div class="box">
-        <div class="label">Owner controls</div>
-        <ul>
-          <li><a href="${esc(adminLink)}">Admin config</a> (toggle features)</li>
-          <li><a href="${esc(dashLink)}">Dashboard</a> (analytics)</li>
-          <li><a href="${esc(vocLink)}">VOC Intake</a> (customer voice)</li>
-        </ul>
-      </div>
-  `;
-
-  let gridInner = "";
-
-  if (layout === "minimal") {
-    gridInner = `${valuePropsHtml || ""}${ownerControlsHtml}`;
-  } else if (layout === "storefront") {
-    gridInner = `${valuePropsHtml || ""}${whatYouCanDoHtml}${ownerControlsHtml}`;
-  } else {
-    gridInner = `${whatYouCanDoHtml}${ownerControlsHtml}`;
-    if (valuePropsHtml) gridInner = `${valuePropsHtml}${gridInner}`;
-  }
-
-  const gridHtml = `<div class="grid">${gridInner}</div>`;
-
-  return `<!DOCTYPE html>
-<html lang="en">
+  return `
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>${esc(businessName)} — Community</title>
-  <style>
-    body { font-family: Arial, sans-serif; background:${esc(theme.bg)}; color:${esc(theme.text)}; padding:24px; }
-    .card { background:${esc(theme.card)}; border:2px solid ${esc(theme.primary)}; padding:24px; border-radius:16px; max-width:980px; margin:0 auto; }
-    h1 { color:${esc(theme.primary)}; margin:0 0 8px; }
-    p { color:#cbd5e1; margin:0 0 14px; }
-    .ctaRow { display:flex; gap:12px; flex-wrap:wrap; margin:14px 0; }
-    a.btn { display:inline-block; padding:12px 14px; border-radius:12px; border:2px solid #000; background:${esc(theme.primary)}; color:#000; font-weight:800; text-decoration:none; }
-    a.btn:hover { background:${esc(theme.accent)}; color:#fff; }
-    .grid { display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:14px; }
-    .box { background:#0b1020; border:1px solid #334155; border-radius:12px; padding:14px; }
-    .label { color:#93c5fd; font-weight:700; margin-bottom:6px; }
-    .meta { color:#94a3b8; font-size:12px; margin-top:14px; }
-    .pill { display:inline-block; padding:4px 10px; border-radius:999px; background:#111827; border:1px solid #334155; color:#e5e7eb; font-size:12px; margin-right:6px; }
-    code { color:#e2e8f0; }
-  </style>
+<meta charset="UTF-8">
+<title>${esc(businessName)}</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: ${theme.bg};
+  color: ${theme.text};
+  padding: 20px;
+}
+.card {
+  max-width: 900px;
+  margin: auto;
+  background: ${theme.card};
+  padding: 20px;
+  border-radius: 12px;
+}
+h1 { color: ${theme.primary}; }
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.btn {
+  padding: 12px;
+  background: ${theme.primary};
+  color: black;
+  font-weight: bold;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: ${theme.accent};
+  color: white;
+}
+</style>
+
 </head>
+
 <body>
-  <div class="card">
-    ${pills.join("\n")}
+<div class="card">
 
-    <h1>${esc(headline)}</h1>
-    <p>${esc(subhead)}</p>
+<h1>${esc(headline)}</h1>
+<p>${esc(subhead)}</p>
 
-    ${ctaRowHtml}
+${ctaRowHtml}
 
-    ${gridHtml}
+${gridHtml}
 
-    <div class="meta">
-      Preview route: <code>/t/${esc(tenantSlug)}/site</code>
-      • Pathway: <code>/garvey.html?tenant=${esc(tenantSlug)}</code>
-      • Templates: <code>/templates.html?tenant=${esc(tenantSlug)}</code>
-    </div>
-  </div>
+</div>
 </body>
-</html>`;
+</html>
+`;
 }
 
 function generateTenantSite({ tenantSlug, config }) {
-  const version = 1;
-  const pages = { landing: landingHtml({ tenantSlug, config }) };
-  return { version, pages };
+  return {
+    version: 2,
+    pages: {
+      landing: landingHtml({ tenantSlug, config })
+    }
+  };
 }
 
 module.exports = { generateTenantSite };
