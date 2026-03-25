@@ -1,458 +1,224 @@
-<!-- =========================
-FILE: public/intake.html
-Adaptive question selection + Website Spec Intake gate
-========================= -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Garvey Intake</title>
+"use strict";
 
-  <style>
-    body { font-family: Arial, sans-serif; background:#000; color:#fff; text-align:center; padding:24px; }
-    .card { background:#111; border:2px solid gold; padding:24px; border-radius:16px; max-width:760px; margin:0 auto; }
-    h1 { color: gold; margin-top: 0; }
-    .section { color:#ef4444; font-weight:bold; margin:10px 0 6px; }
-    .tip { color:#22c55e; font-size:14px; margin-bottom:14px; }
-    .progress { margin-top:10px; color:#94a3b8; font-size:14px; }
-    .bar { height:10px; background:#222; border-radius:999px; overflow:hidden; margin-top:10px; }
-    .bar > div { height:100%; width:0%; background:#22c55e; transition: width 120ms linear; }
-    .btn {
-      display:block; width:100%; padding:14px; margin:10px 0; border-radius:10px;
-      border:2px solid #000; background:gold; color:#000; font-weight:700; cursor:pointer;
-      text-align:left; line-height:1.25;
-    }
-    .btn:hover { background:#ef4444; color:#fff; }
-    .btn:disabled { opacity:0.6; cursor:not-allowed; }
-    #results { margin-top:18px; text-align:left; }
-    select, input, textarea {
-      padding:10px; margin:8px 0; width:min(520px,92%);
-      border-radius:10px; border:1px solid #334155; background:#0b1020; color:#fff;
-    }
-    textarea { min-height: 92px; resize: vertical; }
-    .row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:10px 0 6px; }
-    .meta { color:#94a3b8; font-size:12px; margin-top:6px; }
-    .err { color:#fca5a5; }
-    .ok { color:#86efac; }
-    a { color:#93c5fd; } a:hover { color:#bfdbfe; }
+/*
+🔥 NEW BII ENGINE — ALIGNED WITH NEW SYSTEM
 
-    .panel {
-      margin-top:16px;
-      padding:14px;
-      border:1px solid #334155;
-      border-radius:12px;
-      background:#0b1020;
-    }
-    .panel label { display:flex; gap:10px; align-items:flex-start; cursor:pointer; }
-    .panel input[type="checkbox"] { width:auto; margin-top:2px; }
-    .panel .btn {
-      text-align:center;
-      margin-top:12px;
-    }
-  </style>
-</head>
+- Uses REAL mappings from intake (mapping_a, mapping_b, etc.)
+- Supports BOTH business_owner + customer
+- Produces:
+  → primary
+  → secondary
+  → weakness
+  → improvement plan
+*/
 
-<body>
-  <div class="card">
-    <h1>Garvey Role Assessment</h1>
+// ==================================================
+// ARCHETYPE DEFINITIONS
+// ==================================================
 
-    <div class="row">
-      <input id="email" placeholder="Enter Email" value="test@email.com" />
-      <select id="mode" title="Mode">
-        <option value="25">Quick (25 Questions)</option>
-        <option value="60">Deep (60 Questions)</option>
-      </select>
-    </div>
+const ARCHETYPES = {
+  builder: {
+    traits: "action-oriented",
+    strength: "execution",
+    weakness: "inconsistency",
+    improve: "implement routines and tracking systems"
+  },
+  architect: {
+    traits: "strategic",
+    strength: "systems",
+    weakness: "overthinking",
+    improve: "set execution deadlines"
+  },
+  operator: {
+    traits: "structured",
+    strength: "stability",
+    weakness: "rigidity",
+    improve: "introduce flexibility"
+  },
+  connector: {
+    traits: "relationship-driven",
+    strength: "networking",
+    weakness: "lack of systems",
+    improve: "track interactions and follow-ups"
+  },
+  resource: {
+    traits: "opportunity-focused",
+    strength: "revenue generation",
+    weakness: "poor retention",
+    improve: "build repeat systems"
+  },
+  protector: {
+    traits: "risk-aware",
+    strength: "risk control",
+    weakness: "fear-based hesitation",
+    improve: "test low-risk actions"
+  },
+  nurturer: {
+    traits: "care-driven",
+    strength: "loyalty",
+    weakness: "underpricing",
+    improve: "set boundaries and pricing standards"
+  },
+  educator: {
+    traits: "knowledge-focused",
+    strength: "trust building",
+    weakness: "low monetization",
+    improve: "package and sell knowledge"
+  }
+};
 
-    <div class="meta" id="apiMeta"></div>
-    <div class="meta" id="tenantMeta"></div>
+// ==================================================
+// HELPERS
+// ==================================================
 
-    <div class="section" id="sectionTitle"></div>
-    <div class="tip" id="sectionTip"></div>
+function normalizeKey(key) {
+  return String(key || "").toLowerCase().replace(/\s+/g, "_");
+}
 
-    <div class="progress" id="progress">Loading…</div>
-    <div class="bar"><div id="progressBarFill"></div></div>
+function initializeScores() {
+  return {
+    builder: 0,
+    architect: 0,
+    operator: 0,
+    connector: 0,
+    resource: 0,
+    protector: 0,
+    nurturer: 0,
+    educator: 0
+  };
+}
 
-    <div style="margin-top:12px; font-size:18px;" id="questionText"></div>
-    <div id="optionsContainer"></div>
+// ==================================================
+// CORE SCORING ENGINE
+// ==================================================
 
-    <div id="results"></div>
+function scoreAssessment(answers = []) {
+  const scores = initializeScores();
 
-    <div class="meta" style="margin-top:14px;">
-      <a href="/dashboard.html">Dashboard</a> |
-      <a href="/admin.html">Admin</a> |
-      <a href="/voc.html">VOC</a> |
-      <a href="/index.html">CX Engine</a>
-    </div>
-  </div>
+  for (const answer of answers) {
+    const mapping = answer.mapping;
 
-  <script>
-    const API_BASE = (() => {
-      const host = window.location.hostname || "";
-      if (host.includes("garveyfrontend")) return "https://garveybackend.onrender.com";
-      return "";
-    })();
-
-    const ROLES = [
-      "architect","operator","steward","builder","connector","protector","nurturer","educator","resource_generator"
-    ];
-
-    const sections = [
-      { name: "Identity", tip: "How you naturally express yourself." },
-      { name: "Decision Making", tip: "How you think under pressure." },
-      { name: "Community Role", tip: "Your natural position in a system." },
-      { name: "Execution", tip: "How you take action and build." }
-    ];
-
-    let allQuestions = [];
-    let remainingQids = new Set();
-    let answers = [];
-    let currentQid = null;
-    let scores = {};
-    let sectionSize = 1;
-
-    function emptyScores() {
-      const s = {};
-      for (const r of ROLES) s[r] = 0;
-      return s;
-    }
-
-    function getTenant() {
-      const params = new URLSearchParams(window.location.search);
-      return (params.get("tenant") || "").trim();
-    }
-
-    function setMeta() {
-      document.getElementById("apiMeta").innerText =
-        API_BASE ? `API: ${API_BASE}` : "API: same-origin";
-
-      const tenant = getTenant();
-      document.getElementById("tenantMeta").innerText = tenant
-        ? `Tenant: ${tenant}`
-        : "⚠️ Missing tenant. Open with: /intake.html?tenant=test-business";
-    }
-
-    function getSectionByIndex(idx) {
-      const safeSize = Math.max(sectionSize, 1);
-      const sidx = Math.min(Math.floor(idx / safeSize), sections.length - 1);
-      return sections[sidx];
-    }
-
-    function setProgress() {
-      const total = Math.max(allQuestions.length, 1);
-      const done = answers.length;
-      const pct = Math.round((done / total) * 100);
-      document.getElementById("progressBarFill").style.width = `${pct}%`;
-      document.getElementById("progress").innerText =
-        allQuestions.length
-          ? `Question ${Math.min(done + 1, allQuestions.length)} of ${allQuestions.length} (${pct}%)`
-          : "Loading…";
-    }
-
-    function clearResults() {
-      document.getElementById("results").innerHTML = "";
-    }
-
-    function coerceNum(v) {
-      const n = Number(v);
-      return Number.isFinite(n) ? n : 0;
-    }
-
-    function topRolesFromScores(s) {
-      const entries = Object.entries(s || {}).map(([k, v]) => [k, coerceNum(v)]);
-      entries.sort((a, b) => (b[1] - a[1]) || String(a[0]).localeCompare(String(b[0])));
-      return { primary: entries[0]?.[0] || null, secondary: entries[1]?.[0] || null };
-    }
-
-    function applyAnswerToScores(question, answerLetter) {
-      const w = question?.weights;
-      if (!w || typeof w !== "object") return;
-
-      const option = String(answerLetter || "").toUpperCase();
-      const roleWeights = w[option];
-
-      if (!roleWeights || typeof roleWeights !== "object") return;
-
-      for (const r of ROLES) {
-        if (Object.prototype.hasOwnProperty.call(roleWeights, r)) {
-          scores[r] += coerceNum(roleWeights[r]);
+    // BUSINESS OWNER → array
+    if (Array.isArray(mapping)) {
+      for (const role of mapping) {
+        const key = normalizeKey(role);
+        if (scores[key] !== undefined) {
+          scores[key] += 1;
         }
       }
     }
 
-    function discriminationScore(question, r1, r2) {
-      const w = question?.weights;
-      if (!w || typeof w !== "object") return 0;
-
-      const diffs = [];
-      for (const opt of ["A","B","C","D"]) {
-        const rw = w[opt];
-        if (!rw || typeof rw !== "object") continue;
-        const d = coerceNum(rw[r1]) - coerceNum(rw[r2]);
-        diffs.push(d);
-      }
-      if (diffs.length < 2) return 0;
-
-      const min = Math.min(...diffs);
-      const max = Math.max(...diffs);
-      return Math.abs(max - min);
-    }
-
-    function pickNextQuestion() {
-      if (remainingQids.size === 0) return null;
-
-      if (answers.length === 0) {
-        const first = allQuestions.find(q => remainingQids.has(q.qid));
-        return first || null;
-      }
-
-      const { primary, secondary } = topRolesFromScores(scores);
-      const r1 = primary || ROLES[0];
-      const r2 = secondary || ROLES[1];
-
-      let best = null;
-      let bestScore = -Infinity;
-
-      for (const q of allQuestions) {
-        if (!remainingQids.has(q.qid)) continue;
-
-        const disc = discriminationScore(q, r1, r2);
-
-        const w = q.weights || {};
-        const bonus =
-          ["A","B","C","D"].reduce((acc, opt) => {
-            const rw = w[opt];
-            if (!rw) return acc;
-            return acc + coerceNum(rw[r1]) + coerceNum(rw[r2]);
-          }, 0);
-
-        const score = disc * 10 + bonus;
-
-        if (score > bestScore) {
-          bestScore = score;
-          best = q;
+    // CUSTOMER → object
+    if (mapping && typeof mapping === "object") {
+      if (mapping.archetype) {
+        const key = normalizeKey(mapping.archetype);
+        if (scores[key] !== undefined) {
+          scores[key] += 1;
         }
       }
-
-      return best || allQuestions.find(q => remainingQids.has(q.qid)) || null;
     }
+  }
 
-    function renderQuestion(q) {
-      setProgress();
+  return scores;
+}
 
-      if (!q) {
-        submitAssessment();
-        return;
-      }
+// ==================================================
+// ROLE RANKING
+// ==================================================
 
-      currentQid = q.qid;
+function getTopRoles(scores) {
+  const sorted = Object.entries(scores)
+    .sort((a, b) => b[1] - a[1]);
 
-      const section = getSectionByIndex(answers.length);
-      document.getElementById("sectionTitle").innerText = `🔥 ${section.name}`;
-      document.getElementById("sectionTip").innerText = section.tip;
+  return {
+    primary: sorted[0]?.[0] || null,
+    secondary: sorted[1]?.[0] || null,
+    weakness: sorted[sorted.length - 1]?.[0] || null
+  };
+}
 
-      document.getElementById("questionText").innerText = q.question || "(missing question text)";
+// ==================================================
+// IMPROVEMENT ENGINE
+// ==================================================
 
-      const container = document.getElementById("optionsContainer");
-      container.innerHTML = "";
+function generateRecommendations(primary, secondary, weakness) {
+  const primaryData = ARCHETYPES[primary] || {};
+  const weaknessData = ARCHETYPES[weakness] || {};
 
-      const options = [
-        ["A", q.option_a],
-        ["B", q.option_b],
-        ["C", q.option_c],
-        ["D", q.option_d]
-      ];
+  return {
+    focus: `${primary} + ${secondary}`,
+    primary_strength: primaryData.strength,
+    weakness: weakness,
+    improvement: weaknessData.improve,
 
-      for (const [key, value] of options) {
-        const btn = document.createElement("button");
-        btn.className = "btn";
-        btn.innerText = `${key}: ${value || ""}`;
-        btn.disabled = !value;
-        btn.onclick = () => handleAnswer(key);
-        container.appendChild(btn);
-      }
-    }
+    systems: [
+      "behavior_tracking",
+      "reward_engine",
+      "customer_data_capture",
+      "engagement_sequences"
+    ],
 
-    function handleAnswer(letter) {
-      const q = allQuestions.find(x => x.qid === currentQid);
-      if (!q) return;
+    message:
+      "Build systems that amplify your strengths and correct your weakest area.",
 
-      answers.push({ qid: q.qid, answer: letter });
-      remainingQids.delete(q.qid);
+    next_steps: [
+      `Double down on ${primary}`,
+      `Support ${secondary} with systems`,
+      `Fix ${weakness} using: ${weaknessData.improve}`
+    ]
+  };
+}
 
-      applyAnswerToScores(q, letter);
+// ==================================================
+// TENANT CONFIG ENGINE
+// ==================================================
 
-      if (sectionSize && answers.length % sectionSize === 0 && answers.length < allQuestions.length) {
-        alert("✅ Section complete");
-      }
+function generateTenantConfig(primary, secondary) {
+  return {
+    reward_system: ["builder", "resource"].includes(primary),
+    engagement_engine:
+      ["connector", "nurturer", "educator"].includes(primary),
+    analytics_engine: primary === "operator",
+    content_engine:
+      ["educator", "architect", "connector"].includes(primary),
+    referral_system:
+      ["connector", "resource", "nurturer"].includes(primary)
+  };
+}
 
-      renderQuestion(pickNextQuestion());
-    }
+// ==================================================
+// MASTER FUNCTION
+// ==================================================
 
-    async function loadQuestions() {
-      try {
-        clearResults();
-        answers = [];
-        scores = emptyScores();
-        currentQid = null;
+function runBII(answers = []) {
+  const scores = scoreAssessment(answers);
 
-        const mode = document.getElementById("mode").value;
+  const { primary, secondary, weakness } = getTopRoles(scores);
 
-        const url = `${API_BASE}/api/questions?mode=${encodeURIComponent(mode)}&include_weights=1`;
-        const res = await fetch(url);
-        const data = await res.json();
+  const recommendations = generateRecommendations(
+    primary,
+    secondary,
+    weakness
+  );
 
-        if (!res.ok) throw new Error(data?.error || "Failed to load questions");
+  const config = generateTenantConfig(primary, secondary);
 
-        allQuestions = Array.isArray(data.questions) ? data.questions : [];
-        if (!allQuestions.length) throw new Error("No questions returned (seed may have failed)");
+  return {
+    scores,
+    primary,
+    secondary,
+    weakness,
+    recommendations,
+    config
+  };
+}
 
-        remainingQids = new Set(allQuestions.map(q => q.qid));
-        sectionSize = Math.max(1, Math.floor(allQuestions.length / sections.length));
+// ==================================================
 
-        renderQuestion(pickNextQuestion());
-      } catch (err) {
-        console.error(err);
-        document.getElementById("questionText").innerText = "❌ Failed to load questions";
-        document.getElementById("optionsContainer").innerHTML = "";
-        document.getElementById("sectionTitle").innerText = "";
-        document.getElementById("sectionTip").innerText = "";
-        document.getElementById("progress").innerText = err.message;
-        document.getElementById("progressBarFill").style.width = "0%";
-      }
-    }
-
-    async function submitAssessment() {
-      const email = document.getElementById("email").value.trim();
-      const tenant = getTenant();
-
-      if (!email) { alert("Enter email"); return; }
-      if (!tenant) {
-        document.getElementById("questionText").innerText = "⚠️ Invalid access link (missing tenant)";
-        document.getElementById("optionsContainer").innerHTML = "";
-        return;
-      }
-
-      try {
-        document.getElementById("questionText").innerText = "Submitting…";
-        document.getElementById("optionsContainer").innerHTML = "";
-        setProgress();
-
-        const res = await fetch(`${API_BASE}/api/intake`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, tenant, answers })
-        });
-
-        const data = await res.json();
-        if (!res.ok) throw new Error(data?.error || "Submission failed");
-
-        renderResults(data);
-      } catch (err) {
-        console.error(err);
-        document.getElementById("questionText").innerText = "❌ Submission failed";
-        document.getElementById("results").innerHTML = `<div class="meta err">Error: ${err.message}</div>`;
-      }
-    }
-
-    function renderResults(data) {
-      document.getElementById("questionText").innerText = "🎯 Your Results";
-
-      const container = document.getElementById("results");
-      const primary = data.primary_role || "(missing primary_role)";
-      const secondary = data.secondary_role || "(missing secondary_role)";
-
-      container.innerHTML = `
-        <h2 style="color:gold; margin: 6px 0;">Primary: ${primary}</h2>
-        <h3 style="color:#ef4444; margin: 6px 0;">Secondary: ${secondary}</h3>
-        <div id="scores"></div>
-
-        <div class="panel">
-          <label>
-            <input id="needWebsite" type="checkbox" />
-            <div>
-              <div style="font-weight:700;">I need a website</div>
-              <div class="meta">If checked, you’ll complete Website Spec Intake to generate your tenant site.</div>
-            </div>
-          </label>
-
-          <button id="siteIntakeBtn" class="btn" style="display:none;">
-            ✅ Continue to Website Specs
-          </button>
-
-          <div class="meta" id="siteIntakeHint"></div>
-        </div>
-      `;
-
-      renderScoreBars(data.scores || {});
-      wireWebsiteGate();
-    }
-
-    function wireWebsiteGate() {
-      const cb = document.getElementById("needWebsite");
-      const btn = document.getElementById("siteIntakeBtn");
-      const hint = document.getElementById("siteIntakeHint");
-
-      const tenant = getTenant();
-      const email = (document.getElementById("email")?.value || "").trim();
-
-      if (!tenant) {
-        hint.innerHTML = `<span class="err">Missing tenant. Open intake with <code>?tenant=test-business</code>.</span>`;
-        return;
-      }
-
-      cb.addEventListener("change", () => {
-        btn.style.display = cb.checked ? "block" : "none";
-        hint.textContent = cb.checked
-          ? "Next step: fill out your Website Spec Intake to generate your site."
-          : "";
-      });
-
-      btn.addEventListener("click", () => {
-        if (!cb.checked) return;
-
-        const url = new URL("/site_intake.html", window.location.origin);
-        url.searchParams.set("tenant", tenant);
-        if (email) url.searchParams.set("email", email);
-
-        window.location.href = url.toString().replace(window.location.origin, "");
-      });
-    }
-
-    function renderScoreBars(s) {
-      const container = document.getElementById("scores");
-      container.innerHTML = "";
-
-      const entries = Object.entries(s);
-      if (!entries.length) {
-        container.innerHTML = `<div class="meta">No score breakdown returned.</div>`;
-        return;
-      }
-
-      entries.sort((a,b) => (Number(b[1]) - Number(a[1])) || String(a[0]).localeCompare(String(b[0])));
-
-      for (const [role, value] of entries) {
-        const pct = Math.max(0, Math.min(100, Number(value) * 5));
-        const row = document.createElement("div");
-        row.style.margin = "10px 0";
-        row.innerHTML = `
-          <div style="display:flex; justify-content:space-between;">
-            <strong>${role}</strong>
-            <span class="meta">${value}</span>
-          </div>
-          <div style="background:#222; border-radius:999px; overflow:hidden; height:10px;">
-            <div style="width:${pct}%; background:#22c55e; height:10px;"></div>
-          </div>
-        `;
-        container.appendChild(row);
-      }
-    }
-
-    document.getElementById("mode").addEventListener("change", loadQuestions);
-
-    setMeta();
-    loadQuestions();
-  </script>
-</body>
-</html>
+module.exports = {
+  scoreAssessment,
+  getTopRoles,
+  generateRecommendations,
+  generateTenantConfig,
+  runBII
+};
