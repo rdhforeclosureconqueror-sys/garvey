@@ -949,38 +949,37 @@ app.get("/api/verify/scoring", async (req, res) => {
 /* VOC intake (optional) */
 app.post("/voc-intake", async (req, res) => {
   const client = await pool.connect();
+
   try {
-    const { email, tenant_slug: tenantSlug, tenant, answers = [] } = req.body || {};
-    const resolvedTenant = tenantSlug || tenant;
-    if (!email || !resolvedTenant) {
-      return res.status(400).json({ error: "email and tenant_slug are required" });
+    const { email, tenant, answers = [] } = req.body || {};
+
+    if (!email || !tenant) {
+      return res.status(400).json({ error: "email and tenant are required" });
     }
 
-    const normalized = Array.isArray(answers)
-      ? answers.map((a, idx) => {
-          if (a && typeof a === "object") return { qid: a.qid || `CU${idx + 1}`, answer: a.answer || a.choice };
-          return { qid: `CU${idx + 1}`, answer: a };
-        })
-      : [];
+    // ✅ enforce correct structure
+    if (!Array.isArray(answers) || !answers.length) {
+      return res.status(400).json({ error: "answers required" });
+    }
 
-    const validation = validateAnswers("customer", normalized);
+    const validation = validateAnswers("customer", answers);
     if (!validation.ok) {
       return res.status(400).json({ error: validation.error });
     }
 
     await client.query("BEGIN");
 
-    const tenantRow = await ensureTenant(String(resolvedTenant));
+    const tenantRow = await ensureTenant(String(tenant));
     const user = await findTenantUser(tenantRow.id, email, client);
 
     const session = (
-      await client.query("INSERT INTO voc_sessions (tenant_id, email) VALUES ($1, $2) RETURNING *", [
-        tenantRow.id,
-        normalizeEmail(email),
-      ])
+      await client.query(
+        "INSERT INTO voc_sessions (tenant_id, email) VALUES ($1, $2) RETURNING *",
+        [tenantRow.id, normalizeEmail(email)]
+      )
     ).rows[0];
 
-    const scored = scoreSubmission("customer", normalized);
+    const scored = scoreSubmission("customer", answers);
 
     await client.query(
       `INSERT INTO assessment_submissions (
@@ -1002,7 +1001,7 @@ app.post("/voc-intake", async (req, res) => {
         scored.personality_weakness,
         scored.archetype_counts,
         scored.personality_counts,
-        normalized,
+        answers,
       ]
     );
 
@@ -1018,13 +1017,13 @@ app.post("/voc-intake", async (req, res) => {
       personality_primary: scored.personality_primary,
       personality_secondary: scored.personality_secondary,
       personality_weakness: scored.personality_weakness,
-      archetype_counts: scored.archetype_counts,
-      personality_counts: scored.personality_counts,
     });
+
   } catch (err) {
     await client.query("ROLLBACK");
     console.error("voc_intake_failed", err);
     return res.status(500).json({ error: "voc intake failed", details: err.message });
+
   } finally {
     client.release();
   }
