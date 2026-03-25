@@ -1025,25 +1025,44 @@ app.get("/api/verify/scoring", async (req, res) => {
   }
 });
 
-/* VOC intake (optional) */
+/* VOC intake (finalized) */
 app.post("/voc-intake", async (req, res) => {
   const client = await pool.connect();
 
   try {
+    // 🔥 DEBUG (CRITICAL — DO NOT REMOVE)
+    console.log("📥 INCOMING VOC:", req.body);
+
     const { email, tenant, answers = [] } = req.body || {};
 
+    // 🔒 STRICT VALIDATION
     if (!email || !tenant) {
-      return res.status(400).json({ error: "email and tenant are required" });
+      return res.status(400).json({
+        error: "email and tenant are required",
+      });
     }
 
-    // ✅ enforce correct structure
     if (!Array.isArray(answers) || !answers.length) {
-      return res.status(400).json({ error: "answers required" });
+      return res.status(400).json({
+        error: "answers required",
+      });
+    }
+
+    // 🔒 STRUCTURE CHECK (NEW — IMPORTANT)
+    const invalid = answers.find(
+      (a) => !a || typeof a.qid === "undefined" || !a.answer
+    );
+    if (invalid) {
+      return res.status(400).json({
+        error: "invalid answer format — must be { qid, answer }",
+      });
     }
 
     const validation = validateAnswers("customer", answers);
     if (!validation.ok) {
-      return res.status(400).json({ error: validation.error });
+      return res.status(400).json({
+        error: validation.error,
+      });
     }
 
     await client.query("BEGIN");
@@ -1053,7 +1072,9 @@ app.post("/voc-intake", async (req, res) => {
 
     const session = (
       await client.query(
-        "INSERT INTO voc_sessions (tenant_id, email) VALUES ($1, $2) RETURNING *",
+        `INSERT INTO voc_sessions (tenant_id, email)
+         VALUES ($1, $2)
+         RETURNING *`,
         [tenantRow.id, normalizeEmail(email)]
       )
     ).rows[0];
@@ -1062,10 +1083,19 @@ app.post("/voc-intake", async (req, res) => {
 
     await client.query(
       `INSERT INTO assessment_submissions (
-        tenant_id, user_id, session_id, assessment_type,
-        primary_archetype, secondary_archetype, weakness_archetype,
-        personality_primary, personality_secondary, personality_weakness,
-        archetype_counts, personality_counts, raw_answers
+        tenant_id,
+        user_id,
+        session_id,
+        assessment_type,
+        primary_archetype,
+        secondary_archetype,
+        weakness_archetype,
+        personality_primary,
+        personality_secondary,
+        personality_weakness,
+        archetype_counts,
+        personality_counts,
+        raw_answers
       ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)`,
       [
         tenantRow.id,
@@ -1090,24 +1120,36 @@ app.post("/voc-intake", async (req, res) => {
       success: true,
       assessment_type: "customer",
       session_id: session.id,
+
+      // 🔥 CORE RESULTS
       primary: scored.primary,
       secondary: scored.secondary,
       weakness: scored.weakness,
+
+      // 🔥 PERSONALITY
       personality_primary: scored.personality_primary,
       personality_secondary: scored.personality_secondary,
       personality_weakness: scored.personality_weakness,
+
+      // 🔥 COUNTS (NEW — VERY USEFUL FOR DASHBOARD)
+      archetype_counts: scored.archetype_counts,
+      personality_counts: scored.personality_counts,
     });
 
   } catch (err) {
     await client.query("ROLLBACK");
+
     console.error("voc_intake_failed", err);
-    return res.status(500).json({ error: "voc intake failed", details: err.message });
+
+    return res.status(500).json({
+      error: "voc intake failed",
+      details: err.message,
+    });
 
   } finally {
     client.release();
   }
 });
-
 app.get("/api/verify/intelligence/:slug", tenantMiddleware, async (req, res) => {
   try {
     const tenantId = req.tenant.id;
