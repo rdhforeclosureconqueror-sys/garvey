@@ -175,6 +175,29 @@ async function initializeDatabase() {
     /* =========================
        TENANT CONFIG
     ========================= */
+
+
+    CREATE TABLE IF NOT EXISTS assessment_submissions (
+      id SERIAL PRIMARY KEY,
+      tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      session_id INTEGER,
+      assessment_type TEXT NOT NULL,
+      primary_archetype TEXT,
+      secondary_archetype TEXT,
+      weakness_archetype TEXT,
+      personality_primary TEXT,
+      personality_secondary TEXT,
+      personality_weakness TEXT,
+      archetype_counts JSONB NOT NULL DEFAULT '{}'::jsonb,
+      personality_counts JSONB,
+      raw_answers JSONB NOT NULL DEFAULT '[]'::jsonb,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    );
+
+    /* =========================
+       TENANT CONFIG
+    ========================= */
     CREATE TABLE IF NOT EXISTS tenant_config (
       id SERIAL PRIMARY KEY,
       tenant_id INTEGER UNIQUE REFERENCES tenants(id) ON DELETE CASCADE,

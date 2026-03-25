@@ -1035,7 +1035,6 @@ app.get("/api/verify/intelligence/:slug", tenantMiddleware, async (req, res) => 
 (async () => {
   try {
     await initializeDatabase();
-    await seed(pool);
 
     // ✅ ensure Kanban schema exists
     await initializeKanbanSchema(pool);
