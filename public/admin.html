@@ -12,7 +12,7 @@
     h1 { color: gold; margin: 0 0 10px; }
     .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:10px 0 14px; }
     input {
-      padding:10px; margin:0; width:min(520px,92%);
+      padding:10px; width:min(520px,92%);
       border-radius:10px; border:1px solid #334155; background:#0b1020; color:#fff;
     }
     button {
@@ -26,6 +26,7 @@
     pre { background:#0b1020; border:1px solid #334155; border-radius:10px; padding:12px; overflow:auto; }
     a { color:#93c5fd; } a:hover { color:#bfdbfe; }
     .err { color:#fca5a5; }
+    .navlinks { margin-top:14px; display:flex; flex-wrap:wrap; gap:10px; }
   </style>
 </head>
 
@@ -35,8 +36,8 @@
 
     <div class="row">
       <input id="tenant" placeholder="Tenant slug" value="test-business" />
-      <button id="loadBtn" type="button">Load Config</button>
-      <button id="saveBtn" type="button">Save Config</button>
+      <button id="loadBtn">Load Config</button>
+      <button id="saveBtn">Save Config</button>
     </div>
 
     <div class="meta" id="apiMeta"></div>
@@ -48,11 +49,12 @@
     <div class="meta" id="status"></div>
     <pre id="result">{}</pre>
 
-    <div class="meta" style="margin-top:14px;">
-      <a href="/intake.html">Intake</a> |
-      <a href="/dashboard.html">Dashboard</a> |
-      <a href="/voc.html">VOC</a> |
-      <a href="/index.html">CX Engine</a>
+    <!-- 🔥 FIXED NAV -->
+    <div class="navlinks">
+      <a id="intakeBusiness">🧠 Business Intake</a>
+      <a id="intakeCustomer">🗣️ VOC Intake</a>
+      <a id="dashboardLink">📊 Dashboard</a>
+      <a id="siteLink">🌐 Site</a>
     </div>
   </div>
 
@@ -73,13 +75,39 @@
       ["analytics_engine", "Analytics Engine"]
     ];
 
+    function getTenant() {
+      return (document.getElementById("tenant").value || "").trim() || "test-business";
+    }
+
     function setMeta() {
       document.getElementById("apiMeta").innerText =
         API_BASE ? `API: ${API_BASE}` : "API: same-origin";
 
       const params = new URLSearchParams(window.location.search);
-      const t = (params.get("tenant") || "").trim();
+      const t = params.get("tenant");
       if (t) document.getElementById("tenant").value = t;
+
+      syncLinks();
+    }
+
+    /* ================================
+       🔥 CRITICAL FIX (LINK ROUTING)
+    ================================ */
+
+    function syncLinks() {
+      const tenant = encodeURIComponent(getTenant());
+
+      document.getElementById("intakeBusiness").href =
+        `/intake.html?tenant=${tenant}&assessment=business_owner`;
+
+      document.getElementById("intakeCustomer").href =
+        `/intake.html?tenant=${tenant}&assessment=customer`;
+
+      document.getElementById("dashboardLink").href =
+        `/dashboard.html?tenant=${tenant}`;
+
+      document.getElementById("siteLink").href =
+        `${API_BASE}/t/${tenant}/site`;
     }
 
     async function readJsonOrText(res) {
@@ -100,6 +128,7 @@
 
       for (const [key, label] of KEYS) {
         const wrapper = document.createElement("label");
+
         const input = document.createElement("input");
         input.type = "checkbox";
         input.id = `cfg_${key}`;
@@ -123,42 +152,43 @@
     }
 
     async function loadConfig() {
-      const tenant = (document.getElementById("tenant").value || "").trim();
-      if (!tenant) return setStatus("Tenant slug is required.", true);
+      const tenant = getTenant();
+      if (!tenant) return setStatus("Tenant required", true);
 
       try {
         setStatus("Loading…");
-        const res = await fetch(`${API_BASE}/api/admin/config/${encodeURIComponent(tenant)}`);
+
+        const res = await fetch(`${API_BASE}/api/admin/config/${tenant}`);
         const data = await readJsonOrText(res);
 
         document.getElementById("result").innerText =
           typeof data === "string" ? data : JSON.stringify(data, null, 2);
 
         if (!res.ok) {
-          const msg = typeof data === "string" ? data : (data?.error || "Failed to load config");
-          return setStatus(msg, true);
+          return setStatus(data?.error || "Load failed", true);
         }
 
         renderToggles(data.config || {});
-        setStatus("Loaded.");
+        setStatus("Loaded");
       } catch (err) {
-        console.error(err);
-        setStatus(`Error: ${err.message}`, true);
+        setStatus(err.message, true);
       }
     }
 
     async function saveConfig() {
-      const tenant = (document.getElementById("tenant").value || "").trim();
-      if (!tenant) return setStatus("Tenant slug is required.", true);
+      const tenant = getTenant();
+      if (!tenant) return setStatus("Tenant required", true);
 
       try {
         setStatus("Saving…");
-        const config = readConfigFromForm();
 
         const res = await fetch(`${API_BASE}/api/admin/config`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ tenant, config })
+          body: JSON.stringify({
+            tenant,
+            config: readConfigFromForm()
+          })
         });
 
         const data = await readJsonOrText(res);
@@ -167,18 +197,17 @@
           typeof data === "string" ? data : JSON.stringify(data, null, 2);
 
         if (!res.ok) {
-          const msg = typeof data === "string" ? data : (data?.error || "Failed to save config");
-          return setStatus(msg, true);
+          return setStatus(data?.error || "Save failed", true);
         }
 
-        setStatus("Saved.");
-        await loadConfig();
+        setStatus("Saved");
+        loadConfig();
       } catch (err) {
-        console.error(err);
-        setStatus(`Error: ${err.message}`, true);
+        setStatus(err.message, true);
       }
     }
 
+    document.getElementById("tenant").addEventListener("input", syncLinks);
     document.getElementById("loadBtn").addEventListener("click", loadConfig);
     document.getElementById("saveBtn").addEventListener("click", saveConfig);
 
