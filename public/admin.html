@@ -1,218 +1,91 @@
-<!-- FILE: public/admin.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Garvey Admin Control</title>
+<meta charset="UTF-8">
+<title>Garvey Experience Engine</title>
 
-  <style>
-    body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:24px; }
-    .card { background:#111; border:2px solid gold; padding:24px; border-radius:16px; max-width:820px; margin:0 auto; }
-    h1 { color: gold; margin: 0 0 10px; }
-    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:10px 0 14px; }
-    input {
-      padding:10px; width:min(520px,92%);
-      border-radius:10px; border:1px solid #334155; background:#0b1020; color:#fff;
-    }
-    button {
-      padding:10px 14px; border-radius:10px; border:2px solid #000;
-      background:gold; color:#000; font-weight:700; cursor:pointer;
-    }
-    button:hover { background:#ef4444; color:#fff; }
-    .grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px; }
-    label { display:flex; gap:10px; align-items:center; padding:10px; border-radius:10px; background:#0b1020; border:1px solid #334155; }
-    .meta { color:#94a3b8; font-size:12px; margin-top:6px; }
-    pre { background:#0b1020; border:1px solid #334155; border-radius:10px; padding:12px; overflow:auto; }
-    a { color:#93c5fd; } a:hover { color:#bfdbfe; }
-    .err { color:#fca5a5; }
-    .navlinks { margin-top:14px; display:flex; flex-wrap:wrap; gap:10px; }
-  </style>
+<style>
+body {
+  font-family: Arial;
+  background:#000;
+  color:#fff;
+  padding:24px;
+}
+
+.card {
+  background:#111;
+  border:2px solid gold;
+  padding:24px;
+  border-radius:16px;
+  max-width:900px;
+  margin:auto;
+}
+
+h1 { color:gold; }
+
+.btn {
+  padding:12px;
+  background:gold;
+  color:black;
+  font-weight:bold;
+  border-radius:10px;
+  text-decoration:none;
+  display:inline-block;
+  margin:6px;
+}
+
+.btn:hover {
+  background:red;
+  color:white;
+}
+</style>
 </head>
 
 <body>
-  <div class="card">
-    <h1>Tenant Admin Control</h1>
 
-    <div class="row">
-      <input id="tenant" placeholder="Tenant slug" value="test-business" />
-      <button id="loadBtn">Load Config</button>
-      <button id="saveBtn">Save Config</button>
-    </div>
+<div class="card">
 
-    <div class="meta" id="apiMeta"></div>
+<h1>Garvey Experience Engine</h1>
 
-    <h3 style="margin:16px 0 6px; color:#93c5fd;">Config</h3>
-    <div class="grid" id="toggles"></div>
+<div id="tenantDisplay"></div>
 
-    <h3 style="margin:16px 0 6px; color:#93c5fd;">Result</h3>
-    <div class="meta" id="status"></div>
-    <pre id="result">{}</pre>
+<div>
 
-    <!-- 🔥 FIXED NAV -->
-    <div class="navlinks">
-      <a id="intakeBusiness">🧠 Business Intake</a>
-      <a id="intakeCustomer">🗣️ VOC Intake</a>
-      <a id="dashboardLink">📊 Dashboard</a>
-      <a id="siteLink">🌐 Site</a>
-    </div>
-  </div>
+<a class="btn" id="businessBtn">🧠 Business Assessment</a>
+<a class="btn" id="vocBtn">🗣️ Customer VOC</a>
+<a class="btn" id="actionsBtn">⚡ Earn Points</a>
+<a class="btn" id="dashboardBtn">📊 Dashboard</a>
 
-  <script>
-    const API_BASE = (() => {
-      const host = window.location.hostname || "";
-      if (host.includes("garveyfrontend")) return "https://garveybackend.onrender.com";
-      return "";
-    })();
+</div>
 
-    const KEYS = [
-      ["reward_system", "Reward System"],
-      ["engagement_engine", "Engagement Engine"],
-      ["email_marketing", "Email Marketing"],
-      ["content_engine", "Content Engine"],
-      ["referral_system", "Referral System"],
-      ["automation_blueprints", "Automation Blueprints"],
-      ["analytics_engine", "Analytics Engine"]
-    ];
+</div>
 
-    function getTenant() {
-      return (document.getElementById("tenant").value || "").trim() || "test-business";
-    }
+<script>
+function getTenant() {
+  return new URLSearchParams(window.location.search).get("tenant") || "test-business";
+}
 
-    function setMeta() {
-      document.getElementById("apiMeta").innerText =
-        API_BASE ? `API: ${API_BASE}` : "API: same-origin";
+function init() {
+  const t = getTenant();
+  const enc = encodeURIComponent(t);
 
-      const params = new URLSearchParams(window.location.search);
-      const t = params.get("tenant");
-      if (t) document.getElementById("tenant").value = t;
+  document.getElementById("tenantDisplay").innerText = "Tenant: " + t;
 
-      syncLinks();
-    }
+  document.getElementById("businessBtn").href =
+    `/intake.html?tenant=${enc}&assessment=business_owner`;
 
-    /* ================================
-       🔥 CRITICAL FIX (LINK ROUTING)
-    ================================ */
+  document.getElementById("vocBtn").href =
+    `/voc.html?tenant=${enc}`;
 
-    function syncLinks() {
-      const tenant = encodeURIComponent(getTenant());
+  document.getElementById("actionsBtn").href =
+    `/index.html?tenant=${enc}`;
 
-      document.getElementById("intakeBusiness").href =
-        `/intake.html?tenant=${tenant}&assessment=business_owner`;
+  document.getElementById("dashboardBtn").href =
+    `/dashboard.html?tenant=${enc}`;
+}
 
-      document.getElementById("intakeCustomer").href =
-        `/intake.html?tenant=${tenant}&assessment=customer`;
+init();
+</script>
 
-      document.getElementById("dashboardLink").href =
-        `/dashboard.html?tenant=${tenant}`;
-
-      document.getElementById("siteLink").href =
-        `${API_BASE}/t/${tenant}/site`;
-    }
-
-    async function readJsonOrText(res) {
-      const ct = (res.headers.get("content-type") || "").toLowerCase();
-      if (ct.includes("application/json")) return await res.json();
-      return await res.text();
-    }
-
-    function setStatus(msg, isErr = false) {
-      const el = document.getElementById("status");
-      el.className = isErr ? "meta err" : "meta";
-      el.innerText = msg || "";
-    }
-
-    function renderToggles(config = {}) {
-      const root = document.getElementById("toggles");
-      root.innerHTML = "";
-
-      for (const [key, label] of KEYS) {
-        const wrapper = document.createElement("label");
-
-        const input = document.createElement("input");
-        input.type = "checkbox";
-        input.id = `cfg_${key}`;
-        input.checked = Boolean(config[key]);
-
-        const span = document.createElement("span");
-        span.innerText = label;
-
-        wrapper.appendChild(input);
-        wrapper.appendChild(span);
-        root.appendChild(wrapper);
-      }
-    }
-
-    function readConfigFromForm() {
-      const config = {};
-      for (const [key] of KEYS) {
-        config[key] = Boolean(document.getElementById(`cfg_${key}`).checked);
-      }
-      return config;
-    }
-
-    async function loadConfig() {
-      const tenant = getTenant();
-      if (!tenant) return setStatus("Tenant required", true);
-
-      try {
-        setStatus("Loading…");
-
-        const res = await fetch(`${API_BASE}/api/admin/config/${tenant}`);
-        const data = await readJsonOrText(res);
-
-        document.getElementById("result").innerText =
-          typeof data === "string" ? data : JSON.stringify(data, null, 2);
-
-        if (!res.ok) {
-          return setStatus(data?.error || "Load failed", true);
-        }
-
-        renderToggles(data.config || {});
-        setStatus("Loaded");
-      } catch (err) {
-        setStatus(err.message, true);
-      }
-    }
-
-    async function saveConfig() {
-      const tenant = getTenant();
-      if (!tenant) return setStatus("Tenant required", true);
-
-      try {
-        setStatus("Saving…");
-
-        const res = await fetch(`${API_BASE}/api/admin/config`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            tenant,
-            config: readConfigFromForm()
-          })
-        });
-
-        const data = await readJsonOrText(res);
-
-        document.getElementById("result").innerText =
-          typeof data === "string" ? data : JSON.stringify(data, null, 2);
-
-        if (!res.ok) {
-          return setStatus(data?.error || "Save failed", true);
-        }
-
-        setStatus("Saved");
-        loadConfig();
-      } catch (err) {
-        setStatus(err.message, true);
-      }
-    }
-
-    document.getElementById("tenant").addEventListener("input", syncLinks);
-    document.getElementById("loadBtn").addEventListener("click", loadConfig);
-    document.getElementById("saveBtn").addEventListener("click", saveConfig);
-
-    setMeta();
-    renderToggles({});
-  </script>
 </body>
 </html>
