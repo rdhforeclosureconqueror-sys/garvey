@@ -22,7 +22,32 @@ let currentIndex = 0;
 let answers = [];
 
 // ================================
-// DETECT ASSESSMENT TYPE (BIG UPGRADE)
+// HELPERS (🔥 NEW CORE FIX)
+// ================================
+
+function safeParse(val) {
+  try {
+    return JSON.parse(val || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function normalizeQuestions(rawQuestions = []) {
+  return rawQuestions.map(q => ({
+    id: q.qid,
+    text: q.question_text,
+    options: [
+      { key: "A", text: q.option_a, maps: safeParse(q.mapping_a) },
+      { key: "B", text: q.option_b, maps: safeParse(q.mapping_b) },
+      { key: "C", text: q.option_c, maps: safeParse(q.mapping_c) },
+      { key: "D", text: q.option_d, maps: safeParse(q.mapping_d) }
+    ]
+  }));
+}
+
+// ================================
+// DETECT ASSESSMENT TYPE
 // ================================
 
 function getAssessmentType() {
@@ -31,7 +56,7 @@ function getAssessmentType() {
 }
 
 // ================================
-// ROLE DEFINITIONS
+// ROLE DEFINITIONS (UNCHANGED)
 // ================================
 
 const ROLE_DEFINITIONS = {
@@ -92,7 +117,7 @@ const ROLE_DEFINITIONS = {
 };
 
 // ================================
-// LOAD QUESTIONS
+// LOAD QUESTIONS (🔥 FIXED)
 // ================================
 
 async function loadQuestions() {
@@ -108,9 +133,9 @@ async function loadQuestions() {
 
     const data = await res.json();
 
-    console.log("📦 API RESPONSE:", data);
+    console.log("📦 RAW:", data);
 
-    questions = data.questions || [];
+    questions = normalizeQuestions(data.questions);
 
     if (!questions.length) {
       throw new Error("No questions returned");
@@ -132,7 +157,7 @@ async function loadQuestions() {
 }
 
 // ================================
-// RENDER QUESTION
+// RENDER QUESTION (🔥 FIXED)
 // ================================
 
 function renderQuestion() {
@@ -151,37 +176,30 @@ function renderQuestion() {
     return;
   }
 
-  questionEl.innerText = q.question_text || "No question text";
+  questionEl.innerText = q.text || "No question";
 
   container.innerHTML = "";
 
-  const options = [
-    ["A", q.option_a],
-    ["B", q.option_b],
-    ["C", q.option_c],
-    ["D", q.option_d]
-  ];
-
-  for (const [key, value] of options) {
+  q.options.forEach(opt => {
     const btn = document.createElement("button");
     btn.className = "btn";
-    btn.innerText = `${key}: ${value || "..."}`;
-    btn.onclick = () => handleAnswer(key);
+    btn.innerText = `${opt.key}: ${opt.text || "..."}`;
+    btn.onclick = () => handleAnswer(opt.key);
     container.appendChild(btn);
-  }
+  });
 
   updateProgress();
 }
 
 // ================================
-// HANDLE ANSWER
+// HANDLE ANSWER (🔥 FIXED)
 // ================================
 
 function handleAnswer(letter) {
   const q = questions[currentIndex];
 
   answers.push({
-    qid: q.qid,
+    qid: q.id,
     answer: letter
   });
 
@@ -190,7 +208,7 @@ function handleAnswer(letter) {
 }
 
 // ================================
-// PROGRESS
+// PROGRESS (🔥 FIXED)
 // ================================
 
 function updateProgress() {
@@ -203,12 +221,12 @@ function updateProgress() {
 
   if (bar) bar.style.width = pct + "%";
   if (text) {
-    text.innerText = `Question ${done + 1} of ${total} (${pct}%)`;
+    text.innerText = `Question ${Math.min(done + 1, total)} of ${total} (${pct}%)`;
   }
 }
 
 // ================================
-// SUBMIT
+// SUBMIT (🔥 FIXED ROUTING)
 // ================================
 
 async function submitAssessment() {
@@ -222,9 +240,13 @@ async function submitAssessment() {
   }
 
   const endpoint =
-    assessment === "customer" ? "/voc-intake" : "/api/intake";
+    assessment === "customer"
+      ? "/voc-intake"
+      : "/api/intake";
 
   try {
+    console.log("🚀 Submitting:", answers);
+
     const res = await fetch(`${API_BASE}${endpoint}`, {
       method: "POST",
       headers: {
@@ -249,7 +271,7 @@ async function submitAssessment() {
 }
 
 // ================================
-// RESULTS
+// RESULTS (UNCHANGED BUT STABLE)
 // ================================
 
 function renderResults(data) {
