@@ -2,49 +2,87 @@
 
 const { getQuestions } = require("./intelligenceEngine");
 
+// 🔹 Safe helpers
 function optionLetter(idx) {
   return ["A", "B", "C", "D"][idx];
 }
 
-function mappingFor(question, idx) {
-  const maps = question.options[idx].maps;
-  if (question.type === "business_owner") {
-    return maps;
-  }
-  return { archetype: maps[0], personality: maps[1] };
+function safeOptionText(question, idx) {
+  return question?.options?.[idx]?.text || "";
 }
 
-function optionText(question, idx) {
-  return question.options[idx].text;
+function safeMapping(question, idx) {
+  const maps = question?.options?.[idx]?.maps || [];
+
+  if (question.type === "business_owner") {
+    // Ensure array format
+    return Array.isArray(maps) ? maps : [];
+  }
+
+  // Ensure object format for customer
+  return {
+    archetype: maps[0] || null,
+    personality: maps[1] || null,
+  };
+}
+
+function buildOptionsObject(a, b, c, d) {
+  return {
+    A: a,
+    B: b,
+    C: c,
+    D: d,
+  };
 }
 
 async function seed(pool) {
-  const business = getQuestions("business_owner");
-  const customer = getQuestions("customer");
+  const business = getQuestions("business_owner") || [];
+  const customer = getQuestions("customer") || [];
   const all = [...business, ...customer];
 
+  console.log("🌱 Seeding questions...");
+  console.log(`➡️ Total questions: ${all.length}`);
+
   const client = await pool.connect();
+
   try {
     await client.query("BEGIN");
 
-    await client.query(
-      `DELETE FROM questions
-       WHERE assessment_type IN ('business_owner', 'customer')`
-    );
+    // 🔥 Clean existing
+    await client.query(`
+      DELETE FROM questions
+      WHERE assessment_type IN ('business_owner', 'customer')
+    `);
 
     for (const question of all) {
-      const optionA = optionText(question, 0);
-      const optionB = optionText(question, 1);
-      const optionC = optionText(question, 2);
-      const optionD = optionText(question, 3);
+      // 🔹 Safe extraction
+      const optionA = safeOptionText(question, 0);
+      const optionB = safeOptionText(question, 1);
+      const optionC = safeOptionText(question, 2);
+      const optionD = safeOptionText(question, 3);
 
-      const mappingA = mappingFor(question, 0);
-      const mappingB = mappingFor(question, 1);
-      const mappingC = mappingFor(question, 2);
-      const mappingD = mappingFor(question, 3);
+      const mappingA = safeMapping(question, 0);
+      const mappingB = safeMapping(question, 1);
+      const mappingC = safeMapping(question, 2);
+      const mappingD = safeMapping(question, 3);
+
+      const optionsObject = buildOptionsObject(
+        optionA,
+        optionB,
+        optionC,
+        optionD
+      );
+
+      // 🔥 CRITICAL: stringify ALL json fields
+      const optionsJSON = JSON.stringify(optionsObject);
+      const mappingAJSON = JSON.stringify(mappingA);
+      const mappingBJSON = JSON.stringify(mappingB);
+      const mappingCJSON = JSON.stringify(mappingC);
+      const mappingDJSON = JSON.stringify(mappingD);
 
       await client.query(
-        `INSERT INTO questions (
+        `
+        INSERT INTO questions (
           qid,
           question,
           options,
@@ -63,7 +101,7 @@ async function seed(pool) {
         ) VALUES (
           $1,
           $2,
-          $3,
+          $3::jsonb,
           '{}'::jsonb,
           $4,
           $5,
@@ -72,10 +110,10 @@ async function seed(pool) {
           $8,
           $9,
           $10,
-          $11,
-          $12,
-          $13,
-          $14
+          $11::jsonb,
+          $12::jsonb,
+          $13::jsonb,
+          $14::jsonb
         )
         ON CONFLICT (qid)
         DO UPDATE SET
@@ -92,36 +130,37 @@ async function seed(pool) {
           mapping_a = EXCLUDED.mapping_a,
           mapping_b = EXCLUDED.mapping_b,
           mapping_c = EXCLUDED.mapping_c,
-          mapping_d = EXCLUDED.mapping_d`,
+          mapping_d = EXCLUDED.mapping_d
+        `,
         [
           question.qid,
           question.question,
-          {
-            [optionLetter(0)]: optionA,
-            [optionLetter(1)]: optionB,
-            [optionLetter(2)]: optionC,
-            [optionLetter(3)]: optionD,
-          },
-          question.type === "business_owner" ? "business_owner" : "customer",
+          optionsJSON,
           question.type,
+          question.type === "business_owner" ? "business_owner" : "customer",
           question.question,
           optionA,
           optionB,
           optionC,
           optionD,
-          mappingA,
-          mappingB,
-          mappingC,
-          mappingD,
+          mappingAJSON,
+          mappingBJSON,
+          mappingCJSON,
+          mappingDJSON,
         ]
       );
     }
 
     await client.query("COMMIT");
+
+    console.log("✅ Seed complete");
     return all.length;
+
   } catch (err) {
     await client.query("ROLLBACK");
+    console.error("❌ Seed failed:", err);
     throw err;
+
   } finally {
     client.release();
   }
