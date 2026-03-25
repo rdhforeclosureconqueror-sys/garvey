@@ -127,4 +127,4 @@ async function seed(pool) {
   }
 }
 
-module.exports = { seed };
+module.exports = seed;
