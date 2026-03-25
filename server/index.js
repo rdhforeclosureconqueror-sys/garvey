@@ -22,7 +22,7 @@ const {
 } = require("./tenant");
 
 const { runAdaptiveCycle } = require("./adaptiveEngine");
-const { seed } = require("./seedQuestions");
+const seed = require("./seedQuestions");
 const {
   ARCHETYPE_DEFINITIONS,
   getQuestions,
@@ -679,22 +679,51 @@ app.post("/api/site/generate", async (req, res) => {
    NEW ENGINE API (/api/*)
 ========================= */
 
+
 app.get("/api/questions", async (req, res) => {
   try {
-    const assessmentType = String(req.query.assessment || "business_owner").trim().toLowerCase();
+    const assessmentType = String(
+      req.query.assessment || "business_owner"
+    ).trim().toLowerCase();
+
     if (!["business_owner", "customer"].includes(assessmentType)) {
-      return res.status(400).json({ error: "assessment must be business_owner or customer" });
+      return res.status(400).json({
+        error: "assessment must be business_owner or customer",
+      });
     }
 
-    const questions = getQuestions(assessmentType);
+    const { rows } = await pool.query(
+      `
+      SELECT 
+        qid,
+        assessment_type,
+        question_text,
+        option_a,
+        option_b,
+        option_c,
+        option_d,
+        mapping_a,
+        mapping_b,
+        mapping_c,
+        mapping_d
+      FROM questions
+      WHERE assessment_type = $1
+      ORDER BY qid ASC
+      `,
+      [assessmentType]
+    );
+
     return res.json({
       assessment: assessmentType,
-      count: questions.length,
-      questions,
+      count: rows.length,
+      questions: rows,
     });
+
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "questions fetch failed" });
+    return res.status(500).json({
+      error: "questions fetch failed",
+    });
   }
 });
 
