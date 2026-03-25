@@ -142,6 +142,29 @@ async function initializeDatabase() {
     /* =========================
        TENANT CONFIG
     ========================= */
+
+
+    CREATE TABLE IF NOT EXISTS assessment_submissions (
+      id SERIAL PRIMARY KEY,
+      tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      session_id INTEGER,
+      assessment_type TEXT NOT NULL,
+      primary_archetype TEXT,
+      secondary_archetype TEXT,
+      weakness_archetype TEXT,
+      personality_primary TEXT,
+      personality_secondary TEXT,
+      personality_weakness TEXT,
+      archetype_counts JSONB NOT NULL DEFAULT '{}'::jsonb,
+      personality_counts JSONB,
+      raw_answers JSONB NOT NULL DEFAULT '[]'::jsonb,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    );
+
+    /* =========================
+       TENANT CONFIG
+    ========================= */
     CREATE TABLE IF NOT EXISTS tenant_config (
       id SERIAL PRIMARY KEY,
       tenant_id INTEGER UNIQUE REFERENCES tenants(id) ON DELETE CASCADE,
@@ -242,6 +265,22 @@ async function initializeDatabase() {
     ALTER TABLE questions ADD COLUMN IF NOT EXISTS weights JSONB NOT NULL DEFAULT '{}'::jsonb;
     ALTER TABLE questions ADD COLUMN IF NOT EXISTS type TEXT NOT NULL DEFAULT 'fast';
 
+
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS tenant_id INTEGER;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS user_id INTEGER;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS session_id INTEGER;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS assessment_type TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS primary_archetype TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS secondary_archetype TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS weakness_archetype TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS personality_primary TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS personality_secondary TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS personality_weakness TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS archetype_counts JSONB NOT NULL DEFAULT '{}'::jsonb;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS personality_counts JSONB;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS raw_answers JSONB NOT NULL DEFAULT '[]'::jsonb;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT NOW();
+
     ALTER TABLE tenant_config ADD COLUMN IF NOT EXISTS tenant_id INTEGER;
     ALTER TABLE tenant_config ADD COLUMN IF NOT EXISTS config JSONB NOT NULL DEFAULT '{}'::jsonb;
     ALTER TABLE tenant_config ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT NOW();
@@ -254,6 +293,10 @@ async function initializeDatabase() {
     CREATE INDEX IF NOT EXISTS idx_actions_tenant_created_at ON actions(tenant_id, created_at);
     CREATE INDEX IF NOT EXISTS idx_reviews_tenant_created_at ON reviews(tenant_id, created_at);
     CREATE INDEX IF NOT EXISTS idx_referrals_tenant_created_at ON referrals(tenant_id, created_at);
+
+
+    CREATE INDEX IF NOT EXISTS idx_assessment_submissions_tenant_created ON assessment_submissions(tenant_id, created_at);
+    CREATE INDEX IF NOT EXISTS idx_assessment_submissions_user ON assessment_submissions(tenant_id, user_id);
 
     CREATE UNIQUE INDEX IF NOT EXISTS idx_questions_qid_unique ON questions(qid);
     CREATE INDEX IF NOT EXISTS idx_questions_type ON questions(type);
