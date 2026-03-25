@@ -1,9 +1,9 @@
 <script>
 "use strict";
 
-// ================================
-// API BASE (AUTO DETECT)
-// ================================
+/* ================================
+   API BASE (AUTO DETECT)
+================================ */
 
 const API_BASE = (() => {
   const host = window.location.hostname || "";
@@ -13,112 +13,74 @@ const API_BASE = (() => {
   return "";
 })();
 
-// ================================
-// STATE
-// ================================
+/* ================================
+   STATE
+================================ */
 
 let questions = [];
 let currentIndex = 0;
 let answers = [];
 
-// ================================
-// HELPERS (🔥 NEW CORE FIX)
-// ================================
+/* ================================
+   HELPERS (BULLETPROOF)
+================================ */
 
 function safeParse(val) {
+  if (!val) return [];
+  if (Array.isArray(val)) return val;
+
   try {
-    return JSON.parse(val || "[]");
+    return JSON.parse(val);
   } catch {
     return [];
   }
 }
 
 function normalizeQuestions(rawQuestions = []) {
-  return rawQuestions.map(q => ({
-    id: q.qid,
-    text: q.question_text,
+  return rawQuestions.map((q, i) => ({
+    id: q.qid || q.id || `q_${i}`,
+    text: q.question_text || q.text || "No question text",
     options: [
       { key: "A", text: q.option_a, maps: safeParse(q.mapping_a) },
       { key: "B", text: q.option_b, maps: safeParse(q.mapping_b) },
       { key: "C", text: q.option_c, maps: safeParse(q.mapping_c) },
       { key: "D", text: q.option_d, maps: safeParse(q.mapping_d) }
-    ]
+    ].filter(o => o.text) // remove empty options
   }));
 }
 
-// ================================
-// DETECT ASSESSMENT TYPE
-// ================================
+/* ================================
+   DETECT ASSESSMENT
+================================ */
 
 function getAssessmentType() {
   const params = new URLSearchParams(window.location.search);
   return params.get("assessment") || "business_owner";
 }
 
-// ================================
-// ROLE DEFINITIONS (UNCHANGED)
-// ================================
+function getTenant() {
+  return new URLSearchParams(window.location.search).get("tenant") || "test-business";
+}
+
+/* ================================
+   ROLE DEFINITIONS
+================================ */
 
 const ROLE_DEFINITIONS = {
-  architect: {
-    title: "Architect",
-    description: "Visionary system builder.",
-    strengths: ["Planning", "Innovation", "Systems thinking"],
-    improvement: ["Execute faster", "Work with builders"]
-  },
-  builder: {
-    title: "Builder",
-    description: "Execution-focused creator.",
-    strengths: ["Action", "Momentum"],
-    improvement: ["Add structure", "Track progress"]
-  },
-  operator: {
-    title: "Operator",
-    description: "Efficiency and systems manager.",
-    strengths: ["Organization", "Optimization"],
-    improvement: ["Be flexible", "Adapt faster"]
-  },
-  connector: {
-    title: "Connector",
-    description: "Relationship and network builder.",
-    strengths: ["Networking", "Influence"],
-    improvement: ["Follow up", "Build systems"]
-  },
-  nurturer: {
-    title: "Nurturer",
-    description: "Community and care focused.",
-    strengths: ["Empathy", "Retention"],
-    improvement: ["Scale systems", "Set boundaries"]
-  },
-  educator: {
-    title: "Educator",
-    description: "Knowledge and authority builder.",
-    strengths: ["Teaching", "Content"],
-    improvement: ["Take action faster"]
-  },
-  resource_generator: {
-    title: "Resource Generator",
-    description: "Money and opportunity creator.",
-    strengths: ["Revenue", "Growth"],
-    improvement: ["Build systems"]
-  },
-  protector: {
-    title: "Protector",
-    description: "Risk and security manager.",
-    strengths: ["Awareness", "Defense"],
-    improvement: ["Take calculated risks"]
-  },
-  steward: {
-    title: "Steward",
-    description: "Long-term stability builder.",
-    strengths: ["Consistency", "Sustainability"],
-    improvement: ["Adapt to change"]
-  }
+  architect: { title: "Architect", description: "Visionary system builder.", strengths: ["Planning","Innovation"], improvement: ["Execute faster"] },
+  builder: { title: "Builder", description: "Execution-focused creator.", strengths: ["Action"], improvement: ["Structure"] },
+  operator: { title: "Operator", description: "Efficiency manager.", strengths: ["Organization"], improvement: ["Adapt"] },
+  connector: { title: "Connector", description: "Network builder.", strengths: ["Relationships"], improvement: ["Follow up"] },
+  nurturer: { title: "Nurturer", description: "Community builder.", strengths: ["Empathy"], improvement: ["Boundaries"] },
+  educator: { title: "Educator", description: "Teacher.", strengths: ["Knowledge"], improvement: ["Action"] },
+  resource_generator: { title: "Resource Generator", description: "Money creator.", strengths: ["Revenue"], improvement: ["Systems"] },
+  protector: { title: "Protector", description: "Risk manager.", strengths: ["Security"], improvement: ["Risk-taking"] },
+  steward: { title: "Steward", description: "Stability builder.", strengths: ["Consistency"], improvement: ["Flexibility"] }
 };
 
-// ================================
-// LOAD QUESTIONS (🔥 FIXED)
-// ================================
+/* ================================
+   LOAD QUESTIONS
+================================ */
 
 async function loadQuestions() {
   try {
@@ -133,12 +95,18 @@ async function loadQuestions() {
 
     const data = await res.json();
 
-    console.log("📦 RAW:", data);
+    console.log("📦 RAW RESPONSE:", data);
+
+    if (!data || !data.questions) {
+      throw new Error("Invalid response format");
+    }
 
     questions = normalizeQuestions(data.questions);
 
+    console.log("✅ NORMALIZED:", questions);
+
     if (!questions.length) {
-      throw new Error("No questions returned");
+      throw new Error("No questions found after normalization");
     }
 
     currentIndex = 0;
@@ -148,17 +116,13 @@ async function loadQuestions() {
 
   } catch (err) {
     console.error("❌ LOAD ERROR:", err);
-
-    const el = document.getElementById("questionText");
-    if (el) {
-      el.innerText = "❌ Failed to load questions";
-    }
+    showError("Failed to load questions");
   }
 }
 
-// ================================
-// RENDER QUESTION (🔥 FIXED)
-// ================================
+/* ================================
+   RENDER QUESTION
+================================ */
 
 function renderQuestion() {
   const q = questions[currentIndex];
@@ -176,14 +140,14 @@ function renderQuestion() {
     return;
   }
 
-  questionEl.innerText = q.text || "No question";
+  questionEl.innerText = q.text;
 
   container.innerHTML = "";
 
   q.options.forEach(opt => {
     const btn = document.createElement("button");
     btn.className = "btn";
-    btn.innerText = `${opt.key}: ${opt.text || "..."}`;
+    btn.innerText = `${opt.key}: ${opt.text}`;
     btn.onclick = () => handleAnswer(opt.key);
     container.appendChild(btn);
   });
@@ -191,12 +155,13 @@ function renderQuestion() {
   updateProgress();
 }
 
-// ================================
-// HANDLE ANSWER (🔥 FIXED)
-// ================================
+/* ================================
+   HANDLE ANSWER
+================================ */
 
 function handleAnswer(letter) {
   const q = questions[currentIndex];
+  if (!q) return;
 
   answers.push({
     qid: q.id,
@@ -207,9 +172,9 @@ function handleAnswer(letter) {
   renderQuestion();
 }
 
-// ================================
-// PROGRESS (🔥 FIXED)
-// ================================
+/* ================================
+   PROGRESS
+================================ */
 
 function updateProgress() {
   const total = questions.length || 1;
@@ -220,18 +185,16 @@ function updateProgress() {
   const text = document.getElementById("progress");
 
   if (bar) bar.style.width = pct + "%";
-  if (text) {
-    text.innerText = `Question ${Math.min(done + 1, total)} of ${total} (${pct}%)`;
-  }
+  if (text) text.innerText = `Question ${Math.min(done + 1, total)} of ${total} (${pct}%)`;
 }
 
-// ================================
-// SUBMIT (🔥 FIXED ROUTING)
-// ================================
+/* ================================
+   SUBMIT
+================================ */
 
 async function submitAssessment() {
   const email = document.getElementById("email")?.value;
-  const tenant = new URLSearchParams(window.location.search).get("tenant");
+  const tenant = getTenant();
   const assessment = getAssessmentType();
 
   if (!email) {
@@ -245,18 +208,12 @@ async function submitAssessment() {
       : "/api/intake";
 
   try {
-    console.log("🚀 Submitting:", answers);
+    console.log("🚀 SUBMIT:", answers);
 
     const res = await fetch(`${API_BASE}${endpoint}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email,
-        tenant,
-        answers
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, tenant, answers })
     });
 
     const data = await res.json();
@@ -267,21 +224,18 @@ async function submitAssessment() {
 
   } catch (err) {
     console.error("❌ SUBMIT ERROR:", err);
+    showError("Submission failed");
   }
 }
 
-// ================================
-// RESULTS (UNCHANGED BUT STABLE)
-// ================================
+/* ================================
+   RESULTS
+================================ */
 
 function renderResults(data) {
-  const primary = data.primary;
-  const secondary = data.secondary;
-  const weakness = data.weakness;
-
-  const p = ROLE_DEFINITIONS[primary] || {};
-  const s = ROLE_DEFINITIONS[secondary] || {};
-  const w = ROLE_DEFINITIONS[weakness] || {};
+  const p = ROLE_DEFINITIONS[data.primary] || {};
+  const s = ROLE_DEFINITIONS[data.secondary] || {};
+  const w = ROLE_DEFINITIONS[data.weakness] || {};
 
   const questionEl = document.getElementById("questionText");
   const container = document.getElementById("optionsContainer");
@@ -291,40 +245,42 @@ function renderResults(data) {
   questionEl.innerText = "🎯 Your Profile";
 
   container.innerHTML = `
-    <div style="text-align:left; max-width:700px; margin:auto">
+    <h2>🔥 ${p.title || data.primary}</h2>
+    <p>${p.description || ""}</p>
 
-      <h2>🔥 Primary: ${p.title || primary}</h2>
-      <p>${p.description || ""}</p>
+    <h3>⚡ ${s.title || data.secondary}</h3>
+    <p>${s.description || ""}</p>
 
-      <ul>${(p.strengths || []).map(x => `<li>${x}</li>`).join("")}</ul>
+    <h3>⚠️ ${w.title || data.weakness}</h3>
+    <p>${w.description || ""}</p>
 
-      <hr>
+    <hr>
 
-      <h2>⚡ Secondary: ${s.title || secondary}</h2>
-      <p>${s.description || ""}</p>
-
-      <hr>
-
-      <h2>⚠️ Weak Area: ${w.title || weakness}</h2>
-      <p>${w.description || ""}</p>
-
-      <ul>${(w.improvement || []).map(x => `<li>${x}</li>`).join("")}</ul>
-
-      <hr>
-
-      <h3>🚀 Strategy</h3>
-      <p>
-        Build around <b>${primary}</b>, support with <b>${secondary}</b>,
-        and strengthen <b>${weakness}</b>.
-      </p>
-
-    </div>
+    <button onclick="goToDashboard()">Go to Dashboard</button>
   `;
 }
 
-// ================================
-// INIT
-// ================================
+/* ================================
+   NAVIGATION
+================================ */
+
+function goToDashboard() {
+  const tenant = getTenant();
+  window.location.href = `/dashboard.html?tenant=${tenant}`;
+}
+
+/* ================================
+   ERROR DISPLAY
+================================ */
+
+function showError(msg) {
+  const el = document.getElementById("questionText");
+  if (el) el.innerText = "❌ " + msg;
+}
+
+/* ================================
+   INIT
+================================ */
 
 loadQuestions();
 
