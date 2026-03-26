@@ -32,6 +32,29 @@ const BUSINESS_QUESTION_TOPICS = [
   "Execution vs planning"
 ];
 
+const CUSTOMER_QUESTION_TOPICS = [
+  "When choosing between similar businesses",
+  "What keeps you coming back",
+  "How you decide what to buy",
+  "What matters most in a first visit",
+  "How you evaluate value",
+  "How quickly you expect service",
+  "How much social proof matters",
+  "How you respond to promotions",
+  "How you compare convenience vs experience",
+  "What makes a brand trustworthy",
+  "How you prefer communication",
+  "How you react after a poor experience",
+  "How you prefer checkout and payment",
+  "What influences referrals",
+  "How often you explore new options",
+  "How important personalization is",
+  "How you engage with loyalty programs",
+  "What drives bigger purchases",
+  "How price changes affect your decisions",
+  "What creates long-term loyalty"
+];
+
 const BUSINESS_MAPPING = [
   { A: ["Builder", "Resource"], B: ["Architect", "Operator"], C: ["Connector", "Nurturer"], D: ["Protector", "Educator"] },
   { A: ["Resource", "Builder"], B: ["Architect", "Operator"], C: ["Nurturer", "Educator"], D: ["Connector", "Nurturer"] },
@@ -99,7 +122,12 @@ function buildBusinessQuestions() {
     qid: `BO${index + 1}`,
     type: "business_owner",
     question: BUSINESS_QUESTION_TOPICS[index],
-    options: ["A", "B", "C", "D"].map((key) => ({ text: `Option ${key}`, maps: maps[key] }))
+    options: [
+      { key: "A", text: "Move quickly and capture immediate opportunities" },
+      { key: "B", text: "Design a clear structure before acting" },
+      { key: "C", text: "Focus on relationships and customer trust first" },
+      { key: "D", text: "Reduce risk and protect long-term stability" },
+    ].map((opt) => ({ text: opt.text, maps: maps[opt.key] }))
   }));
 }
 
@@ -107,8 +135,13 @@ function buildCustomerQuestions() {
   return CUSTOMER_MAPPING.map((maps, index) => ({
     qid: `CU${index + 1}`,
     type: "customer",
-    question: `Customer Question ${index + 1}`,
-    options: ["A", "B", "C", "D"].map((key) => ({ text: `Option ${key}`, maps: maps[key] }))
+    question: CUSTOMER_QUESTION_TOPICS[index],
+    options: [
+      { key: "A", text: "Best value for the price is my top priority" },
+      { key: "B", text: "Consistency and trust keep me loyal" },
+      { key: "C", text: "Quality of experience matters most to me" },
+      { key: "D", text: "What people are talking about influences me" },
+    ].map((opt) => ({ text: opt.text, maps: maps[opt.key] }))
   }));
 }
 

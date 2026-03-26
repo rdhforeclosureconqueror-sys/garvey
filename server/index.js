@@ -22,7 +22,7 @@ const {
 } = require("./tenant");
 
 const { runAdaptiveCycle } = require("./adaptiveEngine");
-const seed = require("./seedQuestions");
+const { seed } = require("./seedQuestions");
 const {
   ARCHETYPE_DEFINITIONS,
   getQuestions,
@@ -235,6 +235,220 @@ app.post("/api/templates/select", async (req, res) => {
 app.use("/api/kanban", kanbanRoutes({ pool, ensureTenant }));
 
 /* =========================
+   REWARDS SERVICE HELPERS
+========================= */
+
+async function getTenantContextBySlug(slug) {
+  const tenant = await getTenantBySlug(String(slug || "").trim());
+  if (!tenant) return null;
+  const tenantConfig = (await getTenantConfig(tenant.id)) || {};
+  return { tenant, tenantConfig };
+}
+
+async function processCheckinReward({ tenant, tenantConfig, email }) {
+  const user = await findTenantUser(tenant.id, email);
+  const pointsAdded = rewardPointsEnabled(tenantConfig) ? 5 : 0;
+
+  await pool.query(
+    "INSERT INTO visits (tenant_id, user_id, points_awarded) VALUES ($1, $2, $3)",
+    [tenant.id, user.id, pointsAdded]
+  );
+
+  const updatedUser = await pool.query(
+    "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3 RETURNING points",
+    [pointsAdded, tenant.id, user.id]
+  );
+
+  return {
+    success: true,
+    tenant: tenant.slug,
+    event: "checkin",
+    points_added: pointsAdded,
+    points: updatedUser.rows[0].points,
+  };
+}
+
+async function processActionReward({ tenant, tenantConfig, email, actionType }) {
+  const user = await findTenantUser(tenant.id, email);
+  const pointsAdded = rewardPointsEnabled(tenantConfig) ? (ACTION_POINTS[actionType] || 0) : 0;
+
+  await pool.query(
+    "INSERT INTO actions (tenant_id, user_id, action_type, points_awarded) VALUES ($1, $2, $3, $4)",
+    [tenant.id, user.id, actionType, pointsAdded]
+  );
+
+  const updatedUser = await pool.query(
+    "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3 RETURNING points",
+    [pointsAdded, tenant.id, user.id]
+  );
+
+  return {
+    success: true,
+    tenant: tenant.slug,
+    action_type: actionType,
+    points_added: pointsAdded,
+    points: updatedUser.rows[0].points,
+  };
+}
+
+async function processReviewReward({ tenant, tenantConfig, email, text, mediaType }) {
+  const user = await findTenantUser(tenant.id, email);
+  const mediaBonus = mediaType === "video" ? 10 : mediaType === "photo" ? 5 : 0;
+  const pointsAdded = rewardPointsEnabled(tenantConfig) ? (5 + mediaBonus) : 0;
+
+  const reviewResult = await pool.query(
+    `INSERT INTO reviews (tenant_id, user_id, text, media_type, points_awarded)
+     VALUES ($1, $2, $3, $4, $5)
+     RETURNING *`,
+    [tenant.id, user.id, text, mediaType || null, pointsAdded]
+  );
+
+  const updatedUser = await pool.query(
+    "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3 RETURNING points",
+    [pointsAdded, tenant.id, user.id]
+  );
+
+  return {
+    success: true,
+    tenant: tenant.slug,
+    review: reviewResult.rows[0],
+    points_added: pointsAdded,
+    points: updatedUser.rows[0].points,
+  };
+}
+
+async function processReferralReward({ tenant, tenantConfig, email, referredEmail }) {
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    const referrer = await findTenantUser(tenant.id, email, client);
+    const referred = await findTenantUser(tenant.id, referredEmail, client);
+    const pointsEach = rewardPointsEnabled(tenantConfig) ? 10 : 0;
+
+    await client.query(
+      `INSERT INTO referrals (tenant_id, referrer_user_id, referred_user_id, points_awarded_each)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT (tenant_id, referrer_user_id, referred_user_id)
+       DO NOTHING`,
+      [tenant.id, referrer.id, referred.id, pointsEach]
+    );
+
+    if (pointsEach > 0) {
+      await client.query(
+        "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = ANY($3::int[])",
+        [pointsEach, tenant.id, [referrer.id, referred.id]]
+      );
+    }
+
+    const users = await client.query(
+      "SELECT email, points FROM users WHERE tenant_id = $1 AND id = ANY($2::int[]) ORDER BY email",
+      [tenant.id, [referrer.id, referred.id]]
+    );
+
+    await client.query("COMMIT");
+    return {
+      success: true,
+      tenant: tenant.slug,
+      points_awarded_each: pointsEach,
+      users: users.rows,
+    };
+  } catch (err) {
+    await client.query("ROLLBACK");
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
+async function processWishlistReward({ tenant, email, productName }) {
+  const user = await findTenantUser(tenant.id, email);
+  const result = await pool.query(
+    "INSERT INTO wishlist (tenant_id, user_id, product_name) VALUES ($1, $2, $3) RETURNING *",
+    [tenant.id, user.id, productName]
+  );
+  return { success: true, tenant: tenant.slug, wishlist_entry: result.rows[0] };
+}
+
+async function fetchRewardsStatus({ tenant, email }) {
+  if (!email) {
+    const totals = await pool.query(
+      `SELECT COUNT(*)::int AS users, COALESCE(SUM(points),0)::int AS total_points
+       FROM users WHERE tenant_id = $1`,
+      [tenant.id]
+    );
+    return {
+      success: true,
+      tenant: tenant.slug,
+      user: null,
+      totals: totals.rows[0],
+      eligible_rewards: ["checkin", "action", "review", "referral", "wishlist"],
+    };
+  }
+
+  const user = await findTenantUser(tenant.id, email);
+  const recent = await pool.query(
+    `SELECT 'visit' AS event_type, created_at FROM visits WHERE tenant_id = $1 AND user_id = $2
+     UNION ALL
+     SELECT 'action' AS event_type, created_at FROM actions WHERE tenant_id = $1 AND user_id = $2
+     UNION ALL
+     SELECT 'review' AS event_type, created_at FROM reviews WHERE tenant_id = $1 AND user_id = $2
+     UNION ALL
+     SELECT 'wishlist' AS event_type, created_at FROM wishlist WHERE tenant_id = $1 AND user_id = $2
+     ORDER BY created_at DESC
+     LIMIT 10`,
+    [tenant.id, user.id]
+  );
+
+  return {
+    success: true,
+    tenant: tenant.slug,
+    user: { email: user.email, points: user.points },
+    recent_events: recent.rows,
+    eligible_rewards: ["checkin", "action", "review", "referral", "wishlist"],
+  };
+}
+
+async function fetchRewardsHistory({ tenant, email, limit = 50 }) {
+  if (!email) {
+    return {
+      success: true,
+      tenant: tenant.slug,
+      history: [],
+      limitation: "email is required for per-customer reward history",
+    };
+  }
+
+  const user = await findTenantUser(tenant.id, email);
+  const safeLimit = Math.max(1, Math.min(Number(limit) || 50, 200));
+  const history = await pool.query(
+    `SELECT * FROM (
+      SELECT 'visit'::text AS event_type, created_at, points_awarded::int AS points_delta, NULL::text AS detail
+      FROM visits WHERE tenant_id = $1 AND user_id = $2
+      UNION ALL
+      SELECT 'action'::text AS event_type, created_at, points_awarded::int AS points_delta, action_type::text AS detail
+      FROM actions WHERE tenant_id = $1 AND user_id = $2
+      UNION ALL
+      SELECT 'review'::text AS event_type, created_at, points_awarded::int AS points_delta, media_type::text AS detail
+      FROM reviews WHERE tenant_id = $1 AND user_id = $2
+      UNION ALL
+      SELECT 'wishlist'::text AS event_type, created_at, 0::int AS points_delta, product_name::text AS detail
+      FROM wishlist WHERE tenant_id = $1 AND user_id = $2
+    ) x
+    ORDER BY created_at DESC
+    LIMIT $3`,
+    [tenant.id, user.id, safeLimit]
+  );
+
+  return {
+    success: true,
+    tenant: tenant.slug,
+    user: { email: user.email, points: user.points },
+    history: history.rows,
+  };
+}
+
+/* =========================
    PLATFORM ROUTES (/t/:slug/*)
 ========================= */
 
@@ -243,26 +457,12 @@ app.post("/t/:slug/checkin", tenantMiddleware, async (req, res) => {
     const { email } = req.body || {};
     if (!email) return res.status(400).json({ error: "email is required" });
 
-    const user = await findTenantUser(req.tenant.id, email);
-    const pointsAdded = rewardPointsEnabled(req.tenantConfig) ? 5 : 0;
-
-    await pool.query(
-      "INSERT INTO visits (tenant_id, user_id, points_awarded) VALUES ($1, $2, $3)",
-      [req.tenant.id, user.id, pointsAdded]
-    );
-
-    const updatedUser = await pool.query(
-      "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3 RETURNING points",
-      [pointsAdded, req.tenant.id, user.id]
-    );
-
-    return res.json({
-      success: true,
-      tenant: req.tenant.slug,
-      event: "checkin",
-      points_added: pointsAdded,
-      points: updatedUser.rows[0].points,
+    const payload = await processCheckinReward({
+      tenant: req.tenant,
+      tenantConfig: req.tenantConfig,
+      email,
     });
+    return res.json(payload);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "checkin failed" });
@@ -276,26 +476,13 @@ app.post("/t/:slug/action", tenantMiddleware, async (req, res) => {
       return res.status(400).json({ error: "email and action_type are required" });
     }
 
-    const user = await findTenantUser(req.tenant.id, email);
-    const pointsAdded = rewardPointsEnabled(req.tenantConfig) ? (ACTION_POINTS[actionType] || 0) : 0;
-
-    await pool.query(
-      "INSERT INTO actions (tenant_id, user_id, action_type, points_awarded) VALUES ($1, $2, $3, $4)",
-      [req.tenant.id, user.id, actionType, pointsAdded]
-    );
-
-    const updatedUser = await pool.query(
-      "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3 RETURNING points",
-      [pointsAdded, req.tenant.id, user.id]
-    );
-
-    return res.json({
-      success: true,
-      tenant: req.tenant.slug,
-      action_type: actionType,
-      points_added: pointsAdded,
-      points: updatedUser.rows[0].points,
+    const payload = await processActionReward({
+      tenant: req.tenant,
+      tenantConfig: req.tenantConfig,
+      email,
+      actionType,
     });
+    return res.json(payload);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "action failed" });
@@ -307,29 +494,14 @@ app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
     const { email, text, media_type: mediaType } = req.body || {};
     if (!email || !text) return res.status(400).json({ error: "email and text are required" });
 
-    const user = await findTenantUser(req.tenant.id, email);
-    const mediaBonus = mediaType === "video" ? 10 : mediaType === "photo" ? 5 : 0;
-    const pointsAdded = rewardPointsEnabled(req.tenantConfig) ? (5 + mediaBonus) : 0;
-
-    const reviewResult = await pool.query(
-      `INSERT INTO reviews (tenant_id, user_id, text, media_type, points_awarded)
-       VALUES ($1, $2, $3, $4, $5)
-       RETURNING *`,
-      [req.tenant.id, user.id, text, mediaType || null, pointsAdded]
-    );
-
-    const updatedUser = await pool.query(
-      "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3 RETURNING points",
-      [pointsAdded, req.tenant.id, user.id]
-    );
-
-    return res.json({
-      success: true,
-      tenant: req.tenant.slug,
-      review: reviewResult.rows[0],
-      points_added: pointsAdded,
-      points: updatedUser.rows[0].points,
+    const payload = await processReviewReward({
+      tenant: req.tenant,
+      tenantConfig: req.tenantConfig,
+      email,
+      text,
+      mediaType,
     });
+    return res.json(payload);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "review failed" });
@@ -337,50 +509,19 @@ app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
 });
 
 app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
-  const client = await pool.connect();
   try {
     const { email, referred_email: referredEmail } = req.body || {};
     if (!email || !referredEmail) return res.status(400).json({ error: "email and referred_email are required" });
-
-    await client.query("BEGIN");
-
-    const referrer = await findTenantUser(req.tenant.id, email, client);
-    const referred = await findTenantUser(req.tenant.id, referredEmail, client);
-    const pointsEach = rewardPointsEnabled(req.tenantConfig) ? 10 : 0;
-
-    await client.query(
-      `INSERT INTO referrals (tenant_id, referrer_user_id, referred_user_id, points_awarded_each)
-       VALUES ($1, $2, $3, $4)
-       ON CONFLICT (tenant_id, referrer_user_id, referred_user_id)
-       DO NOTHING`,
-      [req.tenant.id, referrer.id, referred.id, pointsEach]
-    );
-
-    if (pointsEach > 0) {
-      await client.query(
-        "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = ANY($3::int[])",
-        [pointsEach, req.tenant.id, [referrer.id, referred.id]]
-      );
-    }
-
-    const users = await client.query(
-      "SELECT email, points FROM users WHERE tenant_id = $1 AND id = ANY($2::int[]) ORDER BY email",
-      [req.tenant.id, [referrer.id, referred.id]]
-    );
-
-    await client.query("COMMIT");
-    return res.json({
-      success: true,
-      tenant: req.tenant.slug,
-      points_awarded_each: pointsEach,
-      users: users.rows,
+    const payload = await processReferralReward({
+      tenant: req.tenant,
+      tenantConfig: req.tenantConfig,
+      email,
+      referredEmail,
     });
+    return res.json(payload);
   } catch (err) {
-    await client.query("ROLLBACK");
     console.error(err);
     return res.status(500).json({ error: "referral failed" });
-  } finally {
-    client.release();
   }
 });
 
@@ -389,16 +530,126 @@ app.post("/t/:slug/wishlist", tenantMiddleware, async (req, res) => {
     const { email, product_name: productName } = req.body || {};
     if (!email || !productName) return res.status(400).json({ error: "email and product_name are required" });
 
-    const user = await findTenantUser(req.tenant.id, email);
-    const result = await pool.query(
-      "INSERT INTO wishlist (tenant_id, user_id, product_name) VALUES ($1, $2, $3) RETURNING *",
-      [req.tenant.id, user.id, productName]
-    );
-
-    return res.json({ success: true, tenant: req.tenant.slug, wishlist_entry: result.rows[0] });
+    const payload = await processWishlistReward({
+      tenant: req.tenant,
+      email,
+      productName,
+    });
+    return res.json(payload);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "wishlist failed" });
+  }
+});
+
+/* =========================
+   REWARDS API WRAPPERS
+========================= */
+
+app.get("/api/rewards/status", async (req, res) => {
+  try {
+    const tenantSlug = String(req.query.tenant || "").trim();
+    if (!tenantSlug) return res.status(400).json({ error: "tenant query param is required" });
+    const ctx = await getTenantContextBySlug(tenantSlug);
+    if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    const email = String(req.query.email || "").trim();
+    const payload = await fetchRewardsStatus({ tenant: ctx.tenant, email });
+    return res.json(payload);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "rewards status failed" });
+  }
+});
+
+app.get("/api/rewards/history", async (req, res) => {
+  try {
+    const tenantSlug = String(req.query.tenant || "").trim();
+    if (!tenantSlug) return res.status(400).json({ error: "tenant query param is required" });
+    const ctx = await getTenantContextBySlug(tenantSlug);
+    if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    const email = String(req.query.email || "").trim();
+    const limit = Number(req.query.limit || 50);
+    const payload = await fetchRewardsHistory({ tenant: ctx.tenant, email, limit });
+    return res.json(payload);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "rewards history failed" });
+  }
+});
+
+app.post("/api/rewards/checkin", async (req, res) => {
+  try {
+    const { tenant, email } = req.body || {};
+    if (!tenant || !email) return res.status(400).json({ error: "tenant and email are required" });
+    const ctx = await getTenantContextBySlug(tenant);
+    if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    const payload = await processCheckinReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email });
+    return res.json(payload);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "rewards checkin failed" });
+  }
+});
+
+app.post("/api/rewards/action", async (req, res) => {
+  try {
+    const { tenant, email, action_type: actionType } = req.body || {};
+    if (!tenant || !email || !actionType) {
+      return res.status(400).json({ error: "tenant, email and action_type are required" });
+    }
+    const ctx = await getTenantContextBySlug(tenant);
+    if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    const payload = await processActionReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, actionType });
+    return res.json(payload);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "rewards action failed" });
+  }
+});
+
+app.post("/api/rewards/review", async (req, res) => {
+  try {
+    const { tenant, email, text, media_type: mediaType } = req.body || {};
+    if (!tenant || !email || !text) return res.status(400).json({ error: "tenant, email and text are required" });
+    const ctx = await getTenantContextBySlug(tenant);
+    if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    const payload = await processReviewReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, text, mediaType });
+    return res.json(payload);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "rewards review failed" });
+  }
+});
+
+app.post("/api/rewards/referral", async (req, res) => {
+  try {
+    const { tenant, email, referred_email: referredEmail } = req.body || {};
+    if (!tenant || !email || !referredEmail) {
+      return res.status(400).json({ error: "tenant, email and referred_email are required" });
+    }
+    const ctx = await getTenantContextBySlug(tenant);
+    if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    const payload = await processReferralReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, referredEmail });
+    return res.json(payload);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "rewards referral failed" });
+  }
+});
+
+app.post("/api/rewards/wishlist", async (req, res) => {
+  try {
+    const { tenant, email, product_name: productName } = req.body || {};
+    if (!tenant || !email || !productName) {
+      return res.status(400).json({ error: "tenant, email and product_name are required" });
+    }
+    const ctx = await getTenantContextBySlug(tenant);
+    if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    const payload = await processWishlistReward({ tenant: ctx.tenant, email, productName });
+    return res.json(payload);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "rewards wishlist failed" });
   }
 });
 
@@ -1184,6 +1435,7 @@ app.get("/api/verify/intelligence/:slug", tenantMiddleware, async (req, res) => 
 (async () => {
   try {
     await initializeDatabase();
+    await seed(pool);
 
     // ✅ ensure Kanban schema exists
     await initializeKanbanSchema(pool);
