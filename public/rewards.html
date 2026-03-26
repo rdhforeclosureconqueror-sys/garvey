@@ -36,14 +36,14 @@ a { color:#93c5fd; }
   <div class="card">
     <h2>Quick reward actions</h2>
     <div class="row">
-      <button id="checkinBtn" class="btn">+ Check-in</button>
+      <button id="checkinBtn" class="btn" type="button">+ Check-in</button>
       <select id="actionType">
         <option value="review">Action: review</option>
         <option value="photo">Action: photo</option>
         <option value="video">Action: video</option>
         <option value="referral">Action: referral</option>
       </select>
-      <button id="actionBtn" class="btn">+ Action</button>
+      <button id="actionBtn" class="btn" type="button">+ Action</button>
     </div>
   </div>
 
@@ -58,19 +58,19 @@ a { color:#93c5fd; }
         <option value="photo">photo</option>
         <option value="video">video</option>
       </select>
-      <button id="reviewBtn" class="btn">Submit Review</button>
+      <button id="reviewBtn" class="btn" type="button">Submit Review</button>
     </div>
     <label>Referred email
       <input id="referredEmail" placeholder="friend@email.com" />
     </label>
     <div class="row">
-      <button id="referralBtn" class="btn">Submit Referral</button>
+      <button id="referralBtn" class="btn" type="button">Submit Referral</button>
     </div>
     <label>Wishlist product
       <input id="productName" placeholder="Product name" />
     </label>
     <div class="row">
-      <button id="wishlistBtn" class="btn">Add Wishlist</button>
+      <button id="wishlistBtn" class="btn" type="button">Add Wishlist</button>
     </div>
   </div>
 
@@ -82,7 +82,9 @@ a { color:#93c5fd; }
 <script src="/js/api-contract.js"></script>
 <script>
 "use strict";
-const { buildUrl } = window.GarveyApi;
+
+const GarveyApi = window.GarveyApi || {};
+const buildUrl = GarveyApi.buildUrl || ((p) => p);
 
 function tenantFromUrl() {
   return (new URLSearchParams(window.location.search).get("tenant") || "").trim();
@@ -96,40 +98,48 @@ function showResult(payload) {
   document.getElementById("result").textContent = JSON.stringify(payload, null, 2);
 }
 
-async function postTenant(path, body) {
+function showStatus(payload) {
+  document.getElementById("statusPane").textContent = JSON.stringify(payload, null, 2);
+}
+
+async function postJson(path, body) {
   const res = await fetch(buildUrl(path), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
   });
+
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
+  if (!res.ok) throw new Error(data.error || data.message || `Request failed (${res.status})`);
   return data;
 }
 
 async function loadStatus(tenant, email) {
   const q = new URLSearchParams({ tenant });
   if (email) q.set("email", email);
+
   const res = await fetch(buildUrl(`/api/rewards/status?${q.toString()}`));
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || `Status failed (${res.status})`);
-  document.getElementById("statusPane").textContent = JSON.stringify(data, null, 2);
+  if (!res.ok) throw new Error(data.error || data.message || `Status failed (${res.status})`);
+
+  showStatus(data);
+  return data;
 }
 
 async function run() {
   const tenant = tenantFromUrl();
   if (!tenant) {
-    showResult({ error: "tenant query param is required, e.g. /rewards.html?tenant=test-business" });
-    document.getElementById("statusPane").textContent = JSON.stringify({ error: "tenant missing" }, null, 2);
+    const msg = "tenant query param is required, e.g. /rewards.html?tenant=test-business";
+    showResult({ error: msg });
+    showStatus({ error: "tenant missing" });
+    document.getElementById("tenantLine").textContent = msg;
     return;
   }
+
   const enc = encodeURIComponent(tenant);
   document.getElementById("tenantLine").textContent = `Tenant: ${tenant}`;
   document.getElementById("backHome").href = `/index.html?tenant=${enc}`;
   document.getElementById("openDash").href = `/dashboard.html?tenant=${enc}`;
-  document.getElementById("refreshStatusBtn").onclick = () => {
-    loadStatus(tenant, readEmail()).catch((err) => showResult({ error: err.message }));
-  };
 
   const requireEmail = () => {
     const email = readEmail();
@@ -137,67 +147,83 @@ async function run() {
     return email;
   };
 
+  document.getElementById("refreshStatusBtn").onclick = () => {
+    loadStatus(tenant, readEmail()).catch((err) => showResult({ error: err.message }));
+  };
+
   document.getElementById("checkinBtn").onclick = async () => {
     try {
-      const data = await postTenant(`/api/rewards/checkin`, { tenant, email: requireEmail() });
+      const data = await postJson(`/api/rewards/checkin`, { tenant, email: requireEmail() });
       showResult(data);
       await loadStatus(tenant, readEmail());
-    } catch (err) { showResult({ error: err.message }); }
+    } catch (err) {
+      showResult({ error: err.message });
+    }
   };
 
   document.getElementById("actionBtn").onclick = async () => {
     try {
-      const data = await postTenant(`/api/rewards/action`, {
+      const data = await postJson(`/api/rewards/action`, {
         tenant,
         email: requireEmail(),
-        action_type: document.getElementById("actionType").value
+        action_type: document.getElementById("actionType").value,
       });
       showResult(data);
       await loadStatus(tenant, readEmail());
-    } catch (err) { showResult({ error: err.message }); }
+    } catch (err) {
+      showResult({ error: err.message });
+    }
   };
 
   document.getElementById("reviewBtn").onclick = async () => {
     try {
       const text = (document.getElementById("reviewText").value || "").trim();
       if (!text) throw new Error("review text is required");
-      const data = await postTenant(`/api/rewards/review`, {
-        tenant,
-        email: requireEmail(),
-        text,
-        media_type: document.getElementById("mediaType").value || undefined
-      });
+
+      const mediaType = (document.getElementById("mediaType").value || "").trim();
+      const payload = { tenant, email: requireEmail(), text };
+      if (mediaType) payload.media_type = mediaType;
+
+      const data = await postJson(`/api/rewards/review`, payload);
       showResult(data);
       await loadStatus(tenant, readEmail());
-    } catch (err) { showResult({ error: err.message }); }
+    } catch (err) {
+      showResult({ error: err.message });
+    }
   };
 
   document.getElementById("referralBtn").onclick = async () => {
     try {
       const referred = (document.getElementById("referredEmail").value || "").trim();
       if (!referred) throw new Error("referred_email is required");
-      const data = await postTenant(`/api/rewards/referral`, {
+
+      const data = await postJson(`/api/rewards/referral`, {
         tenant,
         email: requireEmail(),
-        referred_email: referred
+        referred_email: referred,
       });
       showResult(data);
       await loadStatus(tenant, readEmail());
-    } catch (err) { showResult({ error: err.message }); }
+    } catch (err) {
+      showResult({ error: err.message });
+    }
   };
 
   document.getElementById("wishlistBtn").onclick = async () => {
     try {
       const product = (document.getElementById("productName").value || "").trim();
       if (!product) throw new Error("product_name is required");
-      const data = await postTenant(`/api/rewards/wishlist`, {
+
+      const data = await postJson(`/api/rewards/wishlist`, {
         tenant,
         email: requireEmail(),
-        product_name: product
+        product_name: product,
       });
       showResult(data);
       await loadStatus(tenant, readEmail());
-    } catch (err) { showResult({ error: err.message }); }
+    } catch (err) {
+      showResult({ error: err.message });
+    }
   };
 
   await loadStatus(tenant, "");

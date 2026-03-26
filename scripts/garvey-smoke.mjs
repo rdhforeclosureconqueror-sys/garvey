@@ -170,7 +170,9 @@ async function runVoc() {
 }
 
 async function runRewardFlow() {
-  const status = await httpJson(`/api/rewards/status?tenant=${encodeURIComponent(TENANT)}&email=${encodeURIComponent(EMAIL)}`);
+  const status = await httpJson(
+    `/api/rewards/status?tenant=${encodeURIComponent(TENANT)}&email=${encodeURIComponent(EMAIL)}`
+  );
   assert(status.res.ok, `rewards status failed: ${status.res.status} ${status.text}`);
   assert(status.json?.success === true, "rewards status success !== true");
 
@@ -191,13 +193,14 @@ async function runRewardFlow() {
 }
 
 async function verifyAssessmentLinks() {
-  const { res, text } = await httpText(`/admin.html?tenant=${encodeURIComponent(TENANT)}`);
+  const enc = encodeURIComponent(TENANT);
+  const { res, text } = await httpText(`/admin.html?tenant=${enc}`);
   assert(res.ok, `admin page failed: ${res.status}`);
   assert(text.includes("id=\"businessBtn\""), "admin missing business button");
-  assert(text.includes("/intake.html?tenant=${enc}&assessment=business_owner"), "business button link mapping missing");
-  assert(text.includes("/voc.html?tenant=${enc}"), "voc button link mapping missing");
-  assert(text.includes("/index.html?tenant=${enc}"), "actions button link mapping missing");
-  assert(text.includes("/rewards.html?tenant=${enc}"), "reward button link mapping missing");
+  assert(text.includes(`/intake.html?tenant=${enc}&assessment=business_owner`), "business button link mapping missing");
+  assert(text.includes(`/voc.html?tenant=${enc}`), "voc button link mapping missing");
+  assert(text.includes(`/index.html?tenant=${enc}`), "actions button link mapping missing");
+  assert(text.includes(`/rewards.html?tenant=${enc}`), "reward button link mapping missing");
 }
 
 async function verifyPages() {
