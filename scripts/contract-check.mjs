@@ -53,6 +53,7 @@ const documentedRoutes = [
   "POST /t/:slug/wishlist",
   "GET /t/:slug/dashboard",
   "GET /t/:slug/customers",
+  "GET /t/:slug/segments",
   "GET /t/:slug/analytics",
   "GET /t/:slug/site",
   "POST /api/kanban/ensure",

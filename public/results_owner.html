@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Owner Results</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#020617; color:#fff; margin:0; padding:24px; }
+    .card { max-width:900px; margin:0 auto; background:#0f172a; border:1px solid #334155; border-radius:14px; padding:20px; }
+    .btn { display:inline-block; margin:8px 8px 0 0; padding:10px 14px; border-radius:10px; background:gold; color:#000; text-decoration:none; font-weight:700; }
+    .bar { margin:8px 0; }
+    .track { background:#1e293b; border-radius:999px; overflow:hidden; height:10px; }
+    .fill { background:#eab308; height:10px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Business Owner Results</h1>
+    <p id="meta">Loading…</p>
+    <div id="roles"></div>
+    <h3>Percent Distribution</h3>
+    <div id="bars"></div>
+    <h3>Coaching</h3>
+    <div id="guidance"></div>
+    <div id="ctas"></div>
+  </div>
+  <script src="/js/api-contract.js"></script>
+  <script>
+    const qs = new URLSearchParams(window.location.search);
+    const tenant = (qs.get("tenant") || "").trim();
+    const email = (qs.get("email") || "").trim().toLowerCase();
+    const escapeHtml = (s) => String(s || "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+
+    async function load() {
+      if (!tenant || !email) {
+        document.getElementById("meta").textContent = "Missing tenant/email query params.";
+        return;
+      }
+      const url = window.GarveyApi.buildUrl(`/api/results/${encodeURIComponent(email)}`, { type: "business_owner", tenant });
+      const res = await fetch(url);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to load results");
+
+      document.getElementById("meta").textContent = `Tenant: ${tenant} • Email: ${email}`;
+      document.getElementById("roles").innerHTML = `
+        <p><b>Primary:</b> ${escapeHtml(data.primary_role)}</p>
+        <p><b>Secondary:</b> ${escapeHtml(data.secondary_role)}</p>
+        <p><b>Growth area:</b> ${escapeHtml(data.weakness_role)}</p>`;
+
+      const percents = data.percents || {};
+      document.getElementById("bars").innerHTML = Object.entries(percents)
+        .sort((a,b) => Number(b[1]) - Number(a[1]))
+        .map(([k, v]) => `<div class="bar"><div style="display:flex;justify-content:space-between;"><span>${escapeHtml(k)}</span><span>${Number(v)}%</span></div><div class="track"><div class="fill" style="width:${Number(v)}%"></div></div></div>`)
+        .join("");
+
+      const g = data.guidance || {};
+      document.getElementById("guidance").innerHTML = `
+        <p><b>Strengthen strength:</b> ${escapeHtml(g.strengthen_strength)}</p>
+        <p><b>Support secondary:</b> ${escapeHtml(g.support_secondary)}</p>
+        <p><b>Fix weakness:</b> ${escapeHtml(g.fix_weakness)}</p>`;
+
+      document.getElementById("ctas").innerHTML = `
+        <a class="btn" href="/dashboard.html?tenant=${encodeURIComponent(tenant)}">Open My Dashboard</a>
+        <a class="btn" href="/garvey_premium.html?tenant=${encodeURIComponent(tenant)}">Start GARVEY Pathway</a>
+        <a class="btn" href="/t/${encodeURIComponent(tenant)}/site">View My Site</a>`;
+    }
+    load().catch((err) => { document.getElementById("meta").textContent = `Error: ${err.message}`; });
+  </script>
+</body>
+</html>
+

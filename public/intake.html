@@ -269,7 +269,10 @@
       try { await activateOwnerSystem(tenant); } catch (err) { showDebug("Kanban activation warning: " + err.message); }
     }
 
-    renderResults(data, email, assessment);
+    const dest = assessment === "customer"
+      ? `/results_customer.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}`
+      : `/results_owner.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}`;
+    window.location.href = dest;
   }
 
   async function init() {

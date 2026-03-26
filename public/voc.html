@@ -97,27 +97,7 @@ async function submit() {
     const data = await res.json();
     if (!res.ok) throw new Error(data?.error || "Submit failed");
 
-    const scores = data.scores || data.archetype_counts || {};
-    const tenantEnc = encodeURIComponent(tenant);
-    const emailEnc = encodeURIComponent(email);
-
-    document.getElementById("questionText").innerText = "✅ VOC Complete";
-    document.getElementById("optionsContainer").innerHTML = `
-      <div class="result-card"><div><b>Primary:</b> ${escapeHtml(data.primary_role || data.primary)}</div><div><b>Secondary:</b> ${escapeHtml(data.secondary_role || data.secondary)}</div><div><b>Weakness:</b> ${escapeHtml(data.weakness_role || data.weakness)}</div></div>
-      <div class="result-card"><b>Archetype distribution</b>${barsHtml(scores, data.primary_role || data.primary, data.secondary_role || data.secondary, data.weakness_role || data.weakness)}</div>
-      <div class="result-card"><div><b>What offers you'll love:</b> personalized bundles based on your top archetype.</div><div><b>Best way to reward you:</b> quick points + VIP milestones.</div><div><b>Best way to message you:</b> direct, benefit-led reminders.</div></div>
-      <a class="btn" href="/rewards_premium.html?tenant=${tenantEnc}&email=${emailEnc}">Go to Rewards</a>
-      <a class="btn" href="#statusWidget" id="statusLink">View my points/status</a>
-      <div id="statusWidget" class="result-card"><b>Status widget:</b> open Rewards to view your live points and tier status.</div>
-    `;
-
-    const statusLink = document.getElementById("statusLink");
-    if (statusLink) {
-      statusLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        document.getElementById("statusWidget")?.scrollIntoView({ behavior: "smooth" });
-      });
-    }
+    window.location.href = `/results_customer.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}`;
   } catch (err) {
     showError(err?.message || "Submit failed");
   }

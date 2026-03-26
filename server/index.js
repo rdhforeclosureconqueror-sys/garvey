@@ -25,10 +25,18 @@ const { runAdaptiveCycle } = require("./adaptiveEngine");
 const { seed } = require("./seedQuestions");
 const {
   ARCHETYPE_DEFINITIONS,
+  BUSINESS_ARCHETYPES,
+  CUSTOMER_ARCHETYPES,
   getQuestions,
   scoreSubmission,
   validateAnswers,
 } = require("./intelligenceEngine");
+const {
+  normalizeScores: normalizeScoreMap,
+  scoresToPercents,
+  deriveRoles,
+  buildGuidance,
+} = require("./resultEngine");
 
 // ✅ Kanban
 const { initializeKanbanSchema } = require("./kanbanDb");
@@ -37,6 +45,7 @@ const {
   ensureGarveyBoard,
   ensureDefaultOnboardingCards,
 } = require("./kanbanRoutes");
+const { generateSite } = require("./siteMaterializer");
 
 // Optional Site Generator (won't crash if missing)
 let siteGenerator = null;
@@ -122,17 +131,28 @@ function normalizeEmail(email) {
   return String(email || "").trim().toLowerCase();
 }
 
-function normalizeScores(scores) {
-  if (!scores || typeof scores !== "object") return {};
-  return Object.entries(scores).reduce((acc, [key, value]) => {
-    const n = Number(value || 0);
-    acc[key] = Number.isFinite(n) ? n : 0;
-    return acc;
-  }, {});
+function parseAnswersInput(rawAnswers) {
+  if (Array.isArray(rawAnswers)) return rawAnswers;
+  if (typeof rawAnswers !== "string") return null;
+  const trimmed = rawAnswers.trim();
+  if (!trimmed) return null;
+  try {
+    const parsed = JSON.parse(trimmed);
+    return Array.isArray(parsed) ? parsed : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+function sanitizeAnswers(answers) {
+  return answers.map((item) => ({
+    qid: String(item?.qid ?? "").trim(),
+    answer: String(item?.answer ?? item?.option ?? item?.value ?? "").trim().toUpperCase(),
+  }));
 }
 
 function buildResultContract(scored) {
-  const scores = normalizeScores(scored?.archetype_counts);
+  const scores = normalizeScoreMap(scored?.archetype_counts || {});
   return {
     primary_role: scored?.primary || null,
     secondary_role: scored?.secondary || null,
@@ -142,6 +162,73 @@ function buildResultContract(scored) {
       ? ARCHETYPE_DEFINITIONS[scored.weakness]?.improve || null
       : null,
   };
+}
+
+function buildNextSteps({ assessmentType, tenant }) {
+  const t = encodeURIComponent(String(tenant || "").trim());
+  if (assessmentType === "customer") {
+    return [
+      { label: "Claim Rewards", href: `/rewards_premium.html?tenant=${t}` },
+      { label: "Send to Business Owner", href: `/results_customer.html?tenant=${t}` },
+    ];
+  }
+  return [
+    { label: "Open My Dashboard", href: `/dashboard.html?tenant=${t}` },
+    { label: "Start GARVEY Pathway", href: `/garvey_premium.html?tenant=${t}` },
+    { label: "View My Site", href: `/t/${t}/site` },
+  ];
+}
+
+function buildAssessmentResultPayload({
+  assessmentType,
+  tenantSlug,
+  email,
+  submission,
+}) {
+  const roleKeys = assessmentType === "customer" ? CUSTOMER_ARCHETYPES : BUSINESS_ARCHETYPES;
+  const scores = normalizeScoreMap(submission?.archetype_counts || {}, roleKeys);
+  const percents = scoresToPercents(scores);
+  const roles = deriveRoles(scores);
+  const guidance = buildGuidance({ ...roles, assessment_type: assessmentType });
+  const base = {
+    success: true,
+    tenant: tenantSlug,
+    email: normalizeEmail(email),
+    assessment_type: assessmentType,
+    primary_role: roles.primary,
+    secondary_role: roles.secondary,
+    weakness_role: roles.weakness,
+    scores,
+    percents,
+    guidance,
+    next_steps: buildNextSteps({ assessmentType, tenant: tenantSlug }),
+    result_id: submission?.id || null,
+    created_at: submission?.created_at || null,
+    raw_answers: submission?.raw_answers || null,
+  };
+
+  if (assessmentType === "customer") {
+    const buyerScores = normalizeScoreMap(submission?.personality_counts || {}, CUSTOMER_ARCHETYPES);
+    const buyerPercents = scoresToPercents(buyerScores);
+    const buyerRoles = deriveRoles(buyerScores);
+    return {
+      ...base,
+      customer_archetypes: {
+        primary: roles.primary,
+        secondary: roles.secondary,
+        weakness: roles.weakness,
+        percents,
+      },
+      buyer_archetypes: {
+        primary: buyerRoles.primary,
+        secondary: buyerRoles.secondary,
+        weakness: buyerRoles.weakness,
+        percents: buyerPercents,
+      },
+    };
+  }
+
+  return base;
 }
 
 async function findTenantUser(tenantId, email, client = pool) {
@@ -190,26 +277,21 @@ async function readTemplateRegistry() {
 
 function pickTemplateType(businessType) {
   const normalized = String(businessType || "").trim().toLowerCase();
-  if (!normalized) return "business";
+  if (!normalized) return "metropolis";
 
   const spaLike = ["spa", "salon", "barber", "beauty", "wellness", "medspa"];
-  if (spaLike.some((token) => normalized.includes(token))) return "beauty";
+  if (spaLike.some((token) => normalized.includes(token))) return "aroma-spa";
 
   const landingLike = ["coach", "consult", "agency", "freelance", "creator"];
-  if (landingLike.some((token) => normalized.includes(token))) return "landing";
+  if (landingLike.some((token) => normalized.includes(token))) return "mobilefriendly";
 
-  return "business";
+  return "metropolis";
 }
 
 function buildRoleModifiers(primaryRole, secondaryRole) {
   const primary = String(primaryRole || "").trim().toLowerCase();
   const secondary = String(secondaryRole || "").trim().toLowerCase();
-
-  return {
-    primary_role: primary || null,
-    secondary_role: secondary || null,
-    emphasis: [primary, secondary].filter(Boolean),
-  };
+  return [...new Set([primary, secondary].filter(Boolean))];
 }
 
 /* =========================
@@ -842,6 +924,57 @@ app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
   }
 });
 
+app.get("/t/:slug/segments", tenantMiddleware, async (req, res) => {
+  try {
+    const tenantId = req.tenant.id;
+    const [total, distribution, recent] = await Promise.all([
+      pool.query(
+        `SELECT COUNT(*)::int AS total_customer_assessments
+         FROM assessment_submissions
+         WHERE tenant_id = $1 AND assessment_type = 'customer'`,
+        [tenantId]
+      ),
+      pool.query(
+        `SELECT primary_archetype AS archetype, COUNT(*)::int AS count
+         FROM assessment_submissions
+         WHERE tenant_id = $1 AND assessment_type = 'customer'
+         GROUP BY primary_archetype
+         ORDER BY count DESC, archetype ASC`,
+        [tenantId]
+      ),
+      pool.query(
+        `SELECT u.email, a.primary_archetype AS primary_role, a.secondary_archetype AS secondary_role,
+                a.weakness_archetype AS weakness_role, a.created_at
+         FROM assessment_submissions a
+         JOIN users u ON u.id = a.user_id
+         WHERE a.tenant_id = $1 AND a.assessment_type = 'customer'
+         ORDER BY a.created_at DESC, a.id DESC
+         LIMIT 20`,
+        [tenantId]
+      ),
+    ]);
+
+    const totalCount = Number(total.rows[0]?.total_customer_assessments || 0);
+    const distributionRows = distribution.rows;
+    const distributionTotal = distributionRows.reduce((sum, row) => sum + Number(row.count || 0), 0) || 1;
+    const distributionWithPercents = distributionRows.map((row) => ({
+      archetype: row.archetype,
+      count: Number(row.count || 0),
+      percent: Math.round((Number(row.count || 0) / distributionTotal) * 100),
+    }));
+
+    return res.json({
+      tenant: req.tenant.slug,
+      total_customer_assessments: totalCount,
+      distribution: distributionWithPercents,
+      recent_results: recent.rows,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "segments failed" });
+  }
+});
+
 app.get("/t/:slug/analytics", tenantMiddleware, async (req, res) => {
   try {
     const tenantId = req.tenant.id;
@@ -934,43 +1067,48 @@ app.get("/t/:slug/site", tenantMiddleware, async (req, res) => {
 });
 
 app.post("/api/site/generate", async (req, res) => {
-  if (!siteGenerator) return res.status(404).json({ error: "siteGenerator not installed" });
-
   try {
-    const { tenant, site = {}, features = {} } = req.body || {};
-    if (!tenant) return res.status(400).json({ error: "tenant required" });
+    const {
+      tenant,
+      template_type: templateTypeRaw,
+      role_modifiers: roleModifiers,
+      site = {},
+    } = req.body || {};
+    const templateType = templateTypeRaw || site.template_type || site.template_id;
 
-    const tenantRow = await ensureTenant(String(tenant));
-    const existing = await pool.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [tenantRow.id]);
-    const base = { ...DEFAULT_TENANT_CONFIG, ...(existing.rows[0]?.config || {}) };
+    if (!tenant || !templateType) {
+      return res.status(400).json({ error: "tenant and template_type are required" });
+    }
 
-    const merged = sanitizeConfig({
-      ...base,
-      site: { ...(base.site || {}), ...site },
-      features: { ...(base.features || {}), ...features },
+    if (Object.keys(site || {}).length) {
+      const tenantRow = await ensureTenant(String(tenant));
+      const existing = await pool.query("SELECT config FROM tenant_config WHERE tenant_id = $1", [tenantRow.id]);
+      const base = { ...DEFAULT_TENANT_CONFIG, ...(existing.rows[0]?.config || {}) };
+      const merged = sanitizeConfig({
+        ...base,
+        site: { ...(base.site || {}), ...site },
+      });
+
+      await pool.query(
+        `INSERT INTO tenant_config (tenant_id, config, updated_at)
+         VALUES ($1, $2, NOW())
+         ON CONFLICT (tenant_id)
+         DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
+        [tenantRow.id, merged]
+      );
+    }
+
+    const generatedSite = await generateSite({
+      tenant,
+      template_type: templateType,
+      role_modifiers: Array.isArray(roleModifiers) ? roleModifiers : [],
     });
 
-    await pool.query(
-      `INSERT INTO tenant_config (tenant_id, config, updated_at)
-       VALUES ($1, $2, NOW())
-       ON CONFLICT (tenant_id)
-       DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
-      [tenantRow.id, merged]
-    );
-
-    const generated = siteGenerator.generateTenantSite({
-      tenantSlug: tenantRow.slug,
-      config: { site: merged.site || {}, features: merged.features || {} },
-    });
-
-    return res.json({
-      success: true,
-      tenant: tenantRow.slug,
-      version: generated.version,
-      preview: `/t/${tenantRow.slug}/site`,
-      pages: Object.keys(generated.pages),
-    });
+    return res.json(generatedSite);
   } catch (err) {
+    if (err.code === "TEMPLATE_NOT_FOUND") {
+      return res.status(404).json({ error: err.message });
+    }
     console.error(err);
     return res.status(500).json({ error: "site generate failed", details: err.message });
   }
@@ -1003,14 +1141,34 @@ app.post("/api/system/activate-full", async (req, res) => {
       template_type: templateType,
       role_modifiers: roleModifiers,
     };
+    let site;
+    try {
+      site = await generateSite({
+        tenant: tenantRow.slug,
+        template_type: sitePayload.template_type,
+        role_modifiers: sitePayload.role_modifiers,
+      });
+    } catch (siteErr) {
+      if (siteErr.code === "TEMPLATE_NOT_FOUND") {
+        return res.status(404).json({
+          next_route: `/dashboard.html?tenant=${encodeURIComponent(tenantRow.slug)}&email=${encodeURIComponent(
+            normalizeEmail(email)
+          )}`,
+          system_mode: "full",
+          site_ready: false,
+          site_payload: sitePayload,
+          error: siteErr.message,
+        });
+      }
+      throw siteErr;
+    }
 
     return res.json({
-      next_route: `/dashboard.html?tenant=${encodeURIComponent(tenantRow.slug)}&email=${encodeURIComponent(
-        normalizeEmail(email)
-      )}`,
+      next_route: site.site_url,
       system_mode: "full",
       site_ready: true,
       site_payload: sitePayload,
+      site_url: site.site_url,
     });
   } catch (err) {
     console.error("activate_full_failed", err);
@@ -1136,7 +1294,8 @@ app.post("/api/intake", async (req, res) => {
     // 🔥 DEBUG (SEE FRONTEND PAYLOAD)
     console.log("📥 INCOMING BUSINESS INTAKE:", req.body);
 
-    const { email, tenant, answers = [] } = req.body || {};
+    const { email, tenant, answers: rawAnswers = [] } = req.body || {};
+    const answers = parseAnswersInput(rawAnswers);
 
     // 🔒 STRICT VALIDATION
     if (!email || !tenant) {
@@ -1151,7 +1310,8 @@ app.post("/api/intake", async (req, res) => {
       });
     }
 
-    const validation = validateAnswers("business_owner", answers);
+    const normalizedAnswers = sanitizeAnswers(answers);
+    const validation = validateAnswers("business_owner", normalizedAnswers);
     if (!validation.ok) {
       return res.status(400).json({
         error: validation.error,
@@ -1160,13 +1320,14 @@ app.post("/api/intake", async (req, res) => {
 
     let scored;
     try {
-      scored = scoreSubmission("business_owner", answers);
+      scored = scoreSubmission("business_owner", normalizedAnswers);
     } catch (scoreErr) {
       return res.status(400).json({
         error: "invalid scoring input",
         details: scoreErr.message,
       });
     }
+    const safeAnswers = JSON.stringify(normalizedAnswers);
 
     await client.query("BEGIN");
 
@@ -1182,7 +1343,7 @@ app.post("/api/intake", async (req, res) => {
       )
     ).rows[0];
 
-    await client.query(
+    const submission = (await client.query(
       `INSERT INTO assessment_submissions (
         tenant_id,
         user_id,
@@ -1193,7 +1354,8 @@ app.post("/api/intake", async (req, res) => {
         weakness_archetype,
         archetype_counts,
         raw_answers
-      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+      RETURNING id, created_at, raw_answers, archetype_counts`,
       [
         tenantRow.id,
         user.id,
@@ -1203,26 +1365,37 @@ app.post("/api/intake", async (req, res) => {
         scored.secondary,
         scored.weakness,
         scored.archetype_counts,
-        answers,
+        safeAnswers,
       ]
-    );
+    )).rows[0];
 
     await client.query("COMMIT");
+    const payload = buildAssessmentResultPayload({
+      assessmentType: "business_owner",
+      tenantSlug: tenantRow.slug,
+      email,
+      submission: {
+        ...submission,
+        archetype_counts: scored.archetype_counts,
+        primary_archetype: scored.primary,
+        secondary_archetype: scored.secondary,
+        weakness_archetype: scored.weakness,
+      },
+    });
     const resultContract = buildResultContract(scored);
 
     return res.json({
-      success: true,
-      assessment_type: "business_owner",
+      ...payload,
       session_id: session.id,
-      primary: scored.primary,
-      secondary: scored.secondary,
-      weakness: scored.weakness,
-      archetype_counts: scored.archetype_counts,
+      primary: payload.primary_role,
+      secondary: payload.secondary_role,
+      weakness: payload.weakness_role,
+      archetype_counts: payload.scores,
       archetype_definition: scored.primary
         ? ARCHETYPE_DEFINITIONS[scored.primary]
         : null,
       ...resultContract,
-      result: resultContract,
+      result: payload,
     });
 
   } catch (err) {
@@ -1244,6 +1417,7 @@ app.get("/api/results/:email", async (req, res) => {
   try {
     const email = normalizeEmail(req.params.email);
     const type = String(req.query.type || "").trim().toLowerCase();
+    const tenantSlug = String(req.query.tenant || "").trim().toLowerCase();
 
     if (!email) {
       return res.status(400).json({ error: "email required" });
@@ -1251,9 +1425,10 @@ app.get("/api/results/:email", async (req, res) => {
 
     // 🔒 OPTIONAL FILTER
     let query = `
-      SELECT a.*
+      SELECT a.*, t.slug AS tenant_slug
       FROM assessment_submissions a
       JOIN users u ON u.id = a.user_id
+      JOIN tenants t ON t.id = a.tenant_id
       WHERE u.email = $1
     `;
 
@@ -1268,6 +1443,11 @@ app.get("/api/results/:email", async (req, res) => {
 
       query += " AND a.assessment_type = $2";
       params.push(type);
+    }
+
+    if (tenantSlug) {
+      query += ` AND t.slug = $${params.length + 1}`;
+      params.push(tenantSlug);
     }
 
     query += `
@@ -1292,15 +1472,17 @@ app.get("/api/results/:email", async (req, res) => {
       found: true,
     });
 
+    const row = result.rows[0];
+    const payload = buildAssessmentResultPayload({
+      assessmentType: row.assessment_type,
+      tenantSlug: row.tenant_slug,
+      email,
+      submission: row,
+    });
+
     return res.json({
-      success: true,
-      result: {
-        ...result.rows[0],
-        primary_role: result.rows[0].primary_archetype,
-        secondary_role: result.rows[0].secondary_archetype,
-        weakness_role: result.rows[0].weakness_archetype,
-        scores: normalizeScores(result.rows[0].archetype_counts),
-      },
+      ...payload,
+      result: payload,
     });
 
   } catch (err) {
@@ -1428,7 +1610,8 @@ app.post("/voc-intake", async (req, res) => {
     // 🔥 DEBUG (CRITICAL — DO NOT REMOVE)
     console.log("📥 INCOMING VOC:", req.body);
 
-    const { email, tenant, answers = [] } = req.body || {};
+    const { email, tenant, answers: rawAnswers = [] } = req.body || {};
+    const answers = parseAnswersInput(rawAnswers);
 
     // 🔒 STRICT VALIDATION
     if (!email || !tenant) {
@@ -1444,16 +1627,15 @@ app.post("/voc-intake", async (req, res) => {
     }
 
     // 🔒 STRUCTURE CHECK (NEW — IMPORTANT)
-    const invalid = answers.find(
-      (a) => !a || typeof a.qid === "undefined" || !a.answer
-    );
+    const normalizedAnswers = sanitizeAnswers(answers);
+    const invalid = normalizedAnswers.find((a) => !a || !a.qid || !a.answer);
     if (invalid) {
       return res.status(400).json({
         error: "invalid answer format — must be { qid, answer }",
       });
     }
 
-    const validation = validateAnswers("customer", answers);
+    const validation = validateAnswers("customer", normalizedAnswers);
     if (!validation.ok) {
       return res.status(400).json({
         error: validation.error,
@@ -1462,13 +1644,14 @@ app.post("/voc-intake", async (req, res) => {
 
     let scored;
     try {
-      scored = scoreSubmission("customer", answers);
+      scored = scoreSubmission("customer", normalizedAnswers);
     } catch (scoreErr) {
       return res.status(400).json({
         error: "invalid scoring input",
         details: scoreErr.message,
       });
     }
+    const safeAnswers = JSON.stringify(normalizedAnswers);
 
     await client.query("BEGIN");
 
@@ -1484,7 +1667,7 @@ app.post("/voc-intake", async (req, res) => {
       )
     ).rows[0];
 
-    await client.query(
+    const submission = (await client.query(
       `INSERT INTO assessment_submissions (
         tenant_id,
         user_id,
@@ -1499,7 +1682,8 @@ app.post("/voc-intake", async (req, res) => {
         archetype_counts,
         personality_counts,
         raw_answers
-      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)`,
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+      RETURNING id, created_at, raw_answers, archetype_counts, personality_counts`,
       [
         tenantRow.id,
         user.id,
@@ -1513,22 +1697,34 @@ app.post("/voc-intake", async (req, res) => {
         scored.personality_weakness,
         scored.archetype_counts,
         scored.personality_counts,
-        answers,
+        safeAnswers,
       ]
-    );
+    )).rows[0];
 
     await client.query("COMMIT");
+    const payload = buildAssessmentResultPayload({
+      assessmentType: "customer",
+      tenantSlug: tenantRow.slug,
+      email,
+      submission: {
+        ...submission,
+        archetype_counts: scored.archetype_counts,
+        personality_counts: scored.personality_counts,
+        primary_archetype: scored.primary,
+        secondary_archetype: scored.secondary,
+        weakness_archetype: scored.weakness,
+      },
+    });
     const resultContract = buildResultContract(scored);
 
     return res.json({
-      success: true,
-      assessment_type: "customer",
+      ...payload,
       session_id: session.id,
 
       // 🔥 CORE RESULTS
-      primary: scored.primary,
-      secondary: scored.secondary,
-      weakness: scored.weakness,
+      primary: payload.primary_role,
+      secondary: payload.secondary_role,
+      weakness: payload.weakness_role,
 
       // 🔥 PERSONALITY
       personality_primary: scored.personality_primary,
@@ -1536,10 +1732,10 @@ app.post("/voc-intake", async (req, res) => {
       personality_weakness: scored.personality_weakness,
 
       // 🔥 COUNTS (NEW — VERY USEFUL FOR DASHBOARD)
-      archetype_counts: scored.archetype_counts,
+      archetype_counts: payload.scores,
       personality_counts: scored.personality_counts,
       ...resultContract,
-      result: resultContract,
+      result: payload,
     });
 
   } catch (err) {
