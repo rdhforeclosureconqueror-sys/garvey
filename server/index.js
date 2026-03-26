@@ -33,6 +33,10 @@ const {
 // ✅ Kanban
 const { initializeKanbanSchema } = require("./kanbanDb");
 const kanbanRoutes = require("./kanbanRoutes");
+const {
+  ensureGarveyBoard,
+  ensureDefaultOnboardingCards,
+} = require("./kanbanRoutes");
 
 // Optional Site Generator (won't crash if missing)
 let siteGenerator = null;
@@ -182,6 +186,30 @@ async function readTemplateRegistry() {
   const parsed = JSON.parse(raw);
   const templates = Array.isArray(parsed?.templates) ? parsed.templates : [];
   return { templates };
+}
+
+function pickTemplateType(businessType) {
+  const normalized = String(businessType || "").trim().toLowerCase();
+  if (!normalized) return "business";
+
+  const spaLike = ["spa", "salon", "barber", "beauty", "wellness", "medspa"];
+  if (spaLike.some((token) => normalized.includes(token))) return "beauty";
+
+  const landingLike = ["coach", "consult", "agency", "freelance", "creator"];
+  if (landingLike.some((token) => normalized.includes(token))) return "landing";
+
+  return "business";
+}
+
+function buildRoleModifiers(primaryRole, secondaryRole) {
+  const primary = String(primaryRole || "").trim().toLowerCase();
+  const secondary = String(secondaryRole || "").trim().toLowerCase();
+
+  return {
+    primary_role: primary || null,
+    secondary_role: secondary || null,
+    emphasis: [primary, secondary].filter(Boolean),
+  };
 }
 
 /* =========================
@@ -945,6 +973,48 @@ app.post("/api/site/generate", async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "site generate failed", details: err.message });
+  }
+});
+
+app.post("/api/system/activate-full", async (req, res) => {
+  try {
+    const {
+      tenant,
+      email,
+      primary_role: primaryRole,
+      secondary_role: secondaryRole,
+      business_type: businessType,
+    } = req.body || {};
+
+    if (!tenant || !email || !primaryRole || !secondaryRole || !businessType) {
+      return res.status(400).json({
+        error:
+          "tenant, email, primary_role, secondary_role, and business_type are required",
+      });
+    }
+
+    const tenantRow = await ensureTenant(String(tenant));
+    const board = await ensureGarveyBoard(pool, tenantRow.id);
+    await ensureDefaultOnboardingCards(pool, board.id);
+
+    const templateType = pickTemplateType(businessType);
+    const roleModifiers = buildRoleModifiers(primaryRole, secondaryRole);
+    const sitePayload = {
+      template_type: templateType,
+      role_modifiers: roleModifiers,
+    };
+
+    return res.json({
+      next_route: `/dashboard.html?tenant=${encodeURIComponent(tenantRow.slug)}&email=${encodeURIComponent(
+        normalizeEmail(email)
+      )}`,
+      system_mode: "full",
+      site_ready: true,
+      site_payload: sitePayload,
+    });
+  } catch (err) {
+    console.error("activate_full_failed", err);
+    return res.status(500).json({ error: "activate full failed" });
   }
 });
 

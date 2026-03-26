@@ -35,6 +35,7 @@ const documentedRoutes = [
   "POST /api/rewards/referral",
   "POST /api/rewards/wishlist",
   "POST /api/site/generate",
+  "POST /api/system/activate-full",
   "GET /api/questions",
   "POST /api/intake",
   "POST /voc-intake",

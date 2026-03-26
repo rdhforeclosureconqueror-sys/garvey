@@ -98,7 +98,7 @@ async function ensureDefaultOnboardingCards(pool, boardId) {
   return { created: defaults.length };
 }
 
-module.exports = function kanbanRoutes({ pool, ensureTenant }) {
+function kanbanRoutes({ pool, ensureTenant }) {
   const router = express.Router();
 
   router.post("/ensure", async (req, res) => {
@@ -315,4 +315,8 @@ module.exports = function kanbanRoutes({ pool, ensureTenant }) {
   });
 
   return router;
-};
+}
+
+module.exports = kanbanRoutes;
+module.exports.ensureGarveyBoard = ensureGarveyBoard;
+module.exports.ensureDefaultOnboardingCards = ensureDefaultOnboardingCards;
