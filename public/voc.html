@@ -64,16 +64,11 @@ input {
 
 </div>
 
+<script src="/js/api-contract.js"></script>
 <script>
 "use strict";
 
-/* ================================ */
-const API_BASE = (() => {
-  if (window.location.hostname.includes("garveyfrontend")) {
-    return "https://garveybackend.onrender.com";
-  }
-  return "";
-})();
+const { ENDPOINTS, buildUrl } = window.GarveyApi;
 
 /* ================================ */
 let questions = [];
@@ -88,12 +83,14 @@ function getTenant() {
 async function loadQuestions() {
   try {
     const res = await fetch(
-      `${API_BASE}/api/questions?assessment=customer&ts=${Date.now()}`
+      buildUrl(ENDPOINTS.questions, { assessment: "customer", ts: Date.now() })
     );
 
     const data = await res.json();
 
-    if (!data.questions) throw new Error("No questions");
+    if (!res.ok || !Array.isArray(data.questions)) {
+      throw new Error(data?.error || "No questions");
+    }
 
     questions = data.questions;
     renderQuestion();
@@ -165,13 +162,14 @@ async function submit() {
   }
 
   try {
-    const res = await fetch(`${API_BASE}/voc-intake`, {
+    const res = await fetch(buildUrl(ENDPOINTS.vocIntake), {
       method: "POST",
       headers: {"Content-Type":"application/json"},
       body: JSON.stringify({ email, tenant, answers })
     });
 
     const data = await res.json();
+    if (!res.ok) throw new Error(data?.error || "Submit failed");
 
     document.body.innerHTML = `
       <h1>✅ VOC Complete</h1>
@@ -180,7 +178,7 @@ async function submit() {
     `;
 
   } catch (err) {
-    showError("Submit failed");
+    showError(err?.message || "Submit failed");
   }
 }
 
