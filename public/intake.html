@@ -1,279 +1,302 @@
-<script src="/js/api-contract.js"></script>
-<script>
-"use strict";
-const { ENDPOINTS, buildUrl } = window.GarveyApi;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Assessment</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:24px; }
+    .card { background:#111; border:2px solid gold; border-radius:16px; padding:24px; max-width:900px; margin:0 auto; }
+    h1 { color:gold; margin:0 0 10px; }
+    .meta { color:#94a3b8; font-size:12px; margin:6px 0 14px; }
+    .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    input { width:100%; padding:12px; border-radius:10px; border:1px solid #334155; background:#0b1020; color:#fff; }
+    .btn { padding:12px 16px; border-radius:10px; border:0; background:gold; color:#000; font-weight:800; cursor:pointer; }
+    .btn:hover { background:#ef4444; color:#fff; }
+    .progressWrap { background:#0b1020; border:1px solid #334155; border-radius:999px; overflow:hidden; height:12px; width:100%; }
+    .progressFill { height:100%; width:0%; background:gold; transition:width .2s ease; }
+    .question { margin:16px 0 10px; font-size:20px; font-weight:800; }
+    .options { display:grid; gap:10px; margin-top:10px; }
+    .optBtn { text-align:left; }
+    .err { color:#fca5a5; white-space:pre-wrap; }
+    a { color:#93c5fd; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1 id="pageTitle">Assessment</h1>
 
-/* ================================
-   STATE
-================================ */
+    <div class="meta">
+      <span id="tenantLine">Tenant: test-business</span>
+      <span id="assessmentLine" style="margin-left:10px;">Assessment: business_owner</span>
+    </div>
 
-let questions = [];
-let currentIndex = 0;
-let answers = [];
+    <div class="row">
+      <input id="email" placeholder="Email" autocomplete="email" />
+    </div>
 
-/* ================================
-   HELPERS (BULLETPROOF)
-================================ */
+    <div style="margin-top:14px;">
+      <div class="progressWrap">
+        <div id="progressBarFill" class="progressFill"></div>
+      </div>
+      <div id="progress" class="meta">Loading…</div>
+    </div>
 
-function safeParse(val) {
-  if (!val) return [];
-  if (Array.isArray(val)) return val;
+    <div id="questionText" class="question">Loading questions…</div>
+    <div id="optionsContainer" class="options"></div>
 
-  try {
-    return JSON.parse(val);
-  } catch {
-    return [];
+    <div class="meta" style="margin-top:16px;">
+      <a id="backLink" href="/index.html">← Back</a>
+      <span style="margin-left:10px;" class="err" id="debug"></span>
+    </div>
+  </div>
+
+  <script src="/js/api-contract.js" defer></script>
+  <script defer>
+  "use strict";
+
+  // ---- STATE
+  let questions = [];
+  let currentIndex = 0;
+  let answers = [];
+
+  // ---- HELPERS
+  function $(id) { return document.getElementById(id); }
+
+  function requiredIds() {
+    return ["email","progressBarFill","progress","questionText","optionsContainer","tenantLine"];
   }
-}
 
-function normalizeQuestions(rawQuestions = []) {
-  return rawQuestions.map((q, i) => ({
-    id: q.qid || q.id || `q_${i}`,
-    text: q.question_text || q.text || "No question text",
-    options: [
-      { key: "A", text: q.option_a, maps: safeParse(q.mapping_a) },
-      { key: "B", text: q.option_b, maps: safeParse(q.mapping_b) },
-      { key: "C", text: q.option_c, maps: safeParse(q.mapping_c) },
-      { key: "D", text: q.option_d, maps: safeParse(q.mapping_d) }
-    ].filter(o => o.text) // remove empty options
-  }));
-}
+  function missingDomIds() {
+    return requiredIds().filter((id) => !$(id));
+  }
 
-/* ================================
-   DETECT ASSESSMENT
-================================ */
+  function showDebug(msg) {
+    const el = $("debug");
+    if (el) el.textContent = msg || "";
+  }
 
-function getAssessmentType() {
-  const params = new URLSearchParams(window.location.search);
-  const type = (params.get("assessment") || "business_owner").trim().toLowerCase();
-  return type === "customer" ? "customer" : "business_owner";
-}
+  function safeParse(val) {
+    if (!val) return [];
+    if (Array.isArray(val)) return val;
+    try { return JSON.parse(val); } catch { return []; }
+  }
 
-function getTenant() {
-  return new URLSearchParams(window.location.search).get("tenant") || "test-business";
-}
+  function getTenant() {
+    return (new URLSearchParams(window.location.search).get("tenant") || "test-business").trim();
+  }
 
-/* ================================
-   ROLE DEFINITIONS
-================================ */
+  function getAssessmentType() {
+    const params = new URLSearchParams(window.location.search);
+    const type = (params.get("assessment") || "business_owner").trim().toLowerCase();
+    return type === "customer" ? "customer" : "business_owner";
+  }
 
-const ROLE_DEFINITIONS = {
-  architect: { title: "Architect", description: "Visionary system builder.", strengths: ["Planning","Innovation"], improvement: ["Execute faster"] },
-  builder: { title: "Builder", description: "Execution-focused creator.", strengths: ["Action"], improvement: ["Structure"] },
-  operator: { title: "Operator", description: "Efficiency manager.", strengths: ["Organization"], improvement: ["Adapt"] },
-  connector: { title: "Connector", description: "Network builder.", strengths: ["Relationships"], improvement: ["Follow up"] },
-  nurturer: { title: "Nurturer", description: "Community builder.", strengths: ["Empathy"], improvement: ["Boundaries"] },
-  educator: { title: "Educator", description: "Teacher.", strengths: ["Knowledge"], improvement: ["Action"] },
-  resource_generator: { title: "Resource Generator", description: "Money creator.", strengths: ["Revenue"], improvement: ["Systems"] },
-  protector: { title: "Protector", description: "Risk manager.", strengths: ["Security"], improvement: ["Risk-taking"] },
-  steward: { title: "Steward", description: "Stability builder.", strengths: ["Consistency"], improvement: ["Flexibility"] }
-};
+  // Accept both normalized contract (prompt/options[{key,label}]) and legacy columns (question_text/option_a..d)
+  function normalizeQuestions(rawQuestions = []) {
+    return rawQuestions.map((q, i) => {
+      const qid = q.qid || q.id || `q_${i}`;
 
-/* ================================
-   LOAD QUESTIONS
-================================ */
+      const prompt =
+        q.prompt ||
+        q.question_text ||
+        q.text ||
+        `Question ${i + 1}`;
 
-async function loadQuestions() {
-  try {
-    const assessment = getAssessmentType();
+      // Preferred normalized options
+      if (Array.isArray(q.options) && q.options.length) {
+        const opts = q.options
+          .map((o, j) => ({
+            key: o.key || ["A","B","C","D"][j] || `O${j+1}`,
+            text: o.label || o.text || String(o.value || "").trim(),
+            maps: o.maps || o.mapping || [],
+          }))
+          .filter((o) => o.text);
+        return { id: qid, text: prompt, options: opts };
+      }
 
-    console.log("📡 Loading:", assessment);
+      // Legacy columns
+      const optsLegacy = [
+        { key: "A", text: q.option_a, maps: safeParse(q.mapping_a) },
+        { key: "B", text: q.option_b, maps: safeParse(q.mapping_b) },
+        { key: "C", text: q.option_c, maps: safeParse(q.mapping_c) },
+        { key: "D", text: q.option_d, maps: safeParse(q.mapping_d) },
+      ].filter((o) => o.text);
 
-    const res = await fetch(
-      buildUrl(ENDPOINTS.questions, { assessment, ts: Date.now() }),
-      { cache: "no-store" }
-    );
+      return { id: qid, text: prompt, options: optsLegacy };
+    });
+  }
 
-    const data = await res.json();
+  function buildUrlCompat(path, params) {
+    const api = window.GarveyApi;
+    if (api?.buildUrl && api?.ENDPOINTS) {
+      const endpoint = api.ENDPOINTS[path] || path;
+      return api.buildUrl(endpoint, params);
+    }
+    // Fallback: assume same-origin
+    const u = new URL(path.startsWith("/") ? path : `/${path}`, window.location.origin);
+    if (params) Object.entries(params).forEach(([k,v]) => u.searchParams.set(k, String(v)));
+    return u.toString();
+  }
 
-    console.log("📦 RAW RESPONSE:", data);
-
+  async function fetchQuestions(assessment) {
+    const u = window.GarveyApi?.ENDPOINTS?.questions
+      ? window.GarveyApi.ENDPOINTS.questions
+      : "/api/questions";
+    const full = buildUrlCompat(u, { assessment, ts: Date.now() });
+    const res = await fetch(full, { cache: "no-store" });
+    const data = await res.json().catch(() => ({}));
     if (!res.ok || !Array.isArray(data?.questions)) {
-      throw new Error(data?.error || "Invalid response format");
+      throw new Error(data?.error || data?.message || `Invalid questions response (${res.status})`);
+    }
+    return data;
+  }
+
+  function updateProgress() {
+    const total = questions.length || 1;
+    const done = currentIndex;
+    const pct = Math.round((done / total) * 100);
+
+    const bar = $("progressBarFill");
+    const text = $("progress");
+    if (bar) bar.style.width = pct + "%";
+    if (text) text.textContent = `Question ${Math.min(done + 1, total)} of ${total} (${pct}%)`;
+  }
+
+  function showError(msg) {
+    const qEl = $("questionText");
+    if (qEl) qEl.textContent = "❌ " + msg;
+    const c = $("optionsContainer");
+    if (c) c.innerHTML = "";
+  }
+
+  function renderQuestion() {
+    const missing = missingDomIds();
+    if (missing.length) {
+      console.error("Missing DOM elements:", missing);
+      showDebug(`Missing DOM elements: ${missing.join(", ")}`);
+      return;
     }
 
-    questions = normalizeQuestions(data.questions);
-
-    console.log("✅ NORMALIZED:", questions);
-
-    if (!questions.length) {
-      throw new Error("No questions found after normalization");
+    const q = questions[currentIndex];
+    if (!q) {
+      submitAssessment().catch((e) => showError(e.message || "Submission failed"));
+      return;
     }
 
-    currentIndex = 0;
-    answers = [];
+    $("questionText").textContent = q.text;
+    const container = $("optionsContainer");
+    container.innerHTML = "";
 
-    renderQuestion();
-
-  } catch (err) {
-    console.error("❌ LOAD ERROR:", err);
-    showError("Failed to load questions");
-  }
-}
-
-/* ================================
-   RENDER QUESTION
-================================ */
-
-function renderQuestion() {
-  const q = questions[currentIndex];
-
-  if (!q) {
-    submitAssessment();
-    return;
-  }
-
-  const questionEl = document.getElementById("questionText");
-  const container = document.getElementById("optionsContainer");
-
-  if (!questionEl || !container) {
-    console.error("❌ Missing DOM elements");
-    return;
-  }
-
-  questionEl.innerText = q.text;
-
-  container.innerHTML = "";
-
-  q.options.forEach(opt => {
-    const btn = document.createElement("button");
-    btn.className = "btn";
-    btn.innerText = `${opt.key}: ${opt.text}`;
-    btn.onclick = () => handleAnswer(opt.key);
-    container.appendChild(btn);
-  });
-
-  updateProgress();
-}
-
-/* ================================
-   HANDLE ANSWER
-================================ */
-
-function handleAnswer(letter) {
-  const q = questions[currentIndex];
-  if (!q) return;
-
-  answers.push({
-    qid: q.id,
-    answer: letter
-  });
-
-  currentIndex++;
-  renderQuestion();
-}
-
-/* ================================
-   PROGRESS
-================================ */
-
-function updateProgress() {
-  const total = questions.length || 1;
-  const done = currentIndex;
-  const pct = Math.round((done / total) * 100);
-
-  const bar = document.getElementById("progressBarFill");
-  const text = document.getElementById("progress");
-
-  if (bar) bar.style.width = pct + "%";
-  if (text) text.innerText = `Question ${Math.min(done + 1, total)} of ${total} (${pct}%)`;
-}
-
-/* ================================
-   SUBMIT
-================================ */
-
-async function submitAssessment() {
-  const email = document.getElementById("email")?.value;
-  const tenant = getTenant();
-  const assessment = getAssessmentType();
-
-  if (!email) {
-    alert("Please enter your email");
-    return;
-  }
-
-  const endpoint =
-    assessment === "customer"
-      ? ENDPOINTS.vocIntake
-      : ENDPOINTS.intake;
-
-  try {
-    console.log("🚀 SUBMIT:", answers);
-
-    const res = await fetch(buildUrl(endpoint), {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, tenant, answers })
+    q.options.forEach((opt) => {
+      const btn = document.createElement("button");
+      btn.className = "btn optBtn";
+      btn.type = "button";
+      btn.textContent = `${opt.key}: ${opt.text}`;
+      btn.onclick = () => handleAnswer(opt.key);
+      container.appendChild(btn);
     });
 
-    const data = await res.json();
-    if (!res.ok) throw new Error(data?.error || "Submission failed");
+    updateProgress();
+  }
 
-    console.log("📊 RESULT:", data);
+  function handleAnswer(letter) {
+    const q = questions[currentIndex];
+    if (!q) return;
+
+    answers.push({ qid: q.id, answer: letter });
+    currentIndex += 1;
+    renderQuestion();
+  }
+
+  async function submitAssessment() {
+    const email = ($("email")?.value || "").trim();
+    const tenant = getTenant();
+    const assessment = getAssessmentType();
+    if (!email) {
+      alert("Please enter your email");
+      return;
+    }
+
+    const api = window.GarveyApi;
+    const endpoint = assessment === "customer"
+      ? (api?.ENDPOINTS?.vocIntake || "/voc-intake")
+      : (api?.ENDPOINTS?.intake || "/api/intake");
+
+    const full = api?.buildUrl ? api.buildUrl(endpoint) : endpoint;
+
+    const res = await fetch(full, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, tenant, answers }),
+    });
+
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data?.error || data?.message || `Submission failed (${res.status})`);
 
     renderResults(data);
-
-  } catch (err) {
-    console.error("❌ SUBMIT ERROR:", err);
-    showError(err?.message || "Submission failed");
   }
-}
 
-/* ================================
-   RESULTS
-================================ */
+  function renderResults(data) {
+    const qEl = $("questionText");
+    const container = $("optionsContainer");
+    if (!qEl || !container) return;
 
-function renderResults(data) {
-  const p = ROLE_DEFINITIONS[data.primary] || {};
-  const s = ROLE_DEFINITIONS[data.secondary] || {};
-  const w = ROLE_DEFINITIONS[data.weakness] || {};
+    qEl.textContent = "🎯 Result";
+    container.innerHTML = `
+      <div class="meta">assessment_type: <b>${data.assessment_type || ""}</b></div>
+      <div style="margin-top:10px;"><b>Primary:</b> ${data.primary || ""}</div>
+      <div><b>Secondary:</b> ${data.secondary || ""}</div>
+      <div><b>Weakness:</b> ${data.weakness || ""}</div>
+      <div style="margin-top:14px;">
+        <button class="btn" type="button" id="dashBtn">Go to Dashboard</button>
+      </div>
+      <pre style="margin-top:14px;">${escapeHtml(JSON.stringify(data, null, 2))}</pre>
+    `;
+    const btn = document.getElementById("dashBtn");
+    if (btn) btn.onclick = () => {
+      const t = encodeURIComponent(getTenant());
+      window.location.href = `/dashboard.html?tenant=${t}`;
+    };
+  }
 
-  const questionEl = document.getElementById("questionText");
-  const container = document.getElementById("optionsContainer");
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[c]));
+  }
 
-  if (!questionEl || !container) return;
+  async function init() {
+    const tenant = getTenant();
+    const assessment = getAssessmentType();
 
-  questionEl.innerText = "🎯 Your Profile";
+    if ($("tenantLine")) $("tenantLine").textContent = `Tenant: ${tenant}`;
+    if ($("assessmentLine")) $("assessmentLine").textContent = `Assessment: ${assessment}`;
+    if ($("pageTitle")) $("pageTitle").textContent = assessment === "customer" ? "Voice of the Customer" : "Business Assessment";
 
-  container.innerHTML = `
-    <h2>🔥 ${p.title || data.primary}</h2>
-    <p>${p.description || ""}</p>
+    const back = $("backLink");
+    if (back) back.href = `/index.html?tenant=${encodeURIComponent(tenant)}`;
 
-    <h3>⚡ ${s.title || data.secondary}</h3>
-    <p>${s.description || ""}</p>
+    try {
+      console.log("Loading:", assessment);
+      const data = await fetchQuestions(assessment);
+      console.log("RAW RESPONSE:", data);
 
-    <h3>⚠️ ${w.title || data.weakness}</h3>
-    <p>${w.description || ""}</p>
+      questions = normalizeQuestions(data.questions);
+      console.log("NORMALIZED:", questions);
 
-    <hr>
+      if (!questions.length) throw new Error("No questions returned after normalization");
 
-    <button onclick="goToDashboard()">Go to Dashboard</button>
-  `;
-}
+      currentIndex = 0;
+      answers = [];
+      renderQuestion();
+    } catch (err) {
+      console.error("LOAD ERROR:", err);
+      showError(err?.message || "Failed to load questions");
+    }
+  }
 
-/* ================================
-   NAVIGATION
-================================ */
-
-function goToDashboard() {
-  const tenant = getTenant();
-  window.location.href = `/dashboard.html?tenant=${tenant}`;
-}
-
-/* ================================
-   ERROR DISPLAY
-================================ */
-
-function showError(msg) {
-  const el = document.getElementById("questionText");
-  if (el) el.innerText = "❌ " + msg;
-}
-
-/* ================================
-   INIT
-================================ */
-
-loadQuestions();
-
-</script>
+  window.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>
