@@ -133,11 +133,12 @@ async function runKanbanPhaseCycle(boardColumns, phase) {
 }
 
 async function runIntake() {
-  const q = await httpJson(`/api/questions?mode=25&include_weights=1`);
+  const q = await httpJson(`/api/questions?assessment=business_owner`);
   assert(q.res.ok, `questions failed: ${q.res.status} ${q.text}`);
-  assert(Array.isArray(q.json?.questions) && q.json.questions.length > 0, "no questions returned");
+  assert(Array.isArray(q.json?.questions) && q.json.questions.length > 0, "no business questions returned");
+  assert(q.json?.assessment === "business_owner", "questions assessment mismatch for intake");
 
-  const answers = q.json.questions.slice(0, 25).map((qq) => ({ qid: qq.qid, answer: "A" }));
+  const answers = q.json.questions.map((qq) => ({ qid: qq.qid, answer: "A" }));
 
   const intake = await httpJson("/api/intake", {
     method: "POST",
@@ -146,9 +147,34 @@ async function runIntake() {
 
   assert(intake.res.ok, `intake failed: ${intake.res.status} ${intake.text}`);
   assert(intake.json?.success === true, "intake success !== true");
-  assert(intake.json?.primary_role, "intake missing primary_role");
-  assert(intake.json?.config?.site, "intake missing config.site");
-  assert(intake.json?.config?.features, "intake missing config.features");
+  assert(intake.json?.assessment_type === "business_owner", "intake assessment_type mismatch");
+  assert(intake.json?.primary, "intake missing primary");
+}
+
+async function runVoc() {
+  const q = await httpJson(`/api/questions?assessment=customer`);
+  assert(q.res.ok, `customer questions failed: ${q.res.status} ${q.text}`);
+  assert(Array.isArray(q.json?.questions) && q.json.questions.length > 0, "no customer questions returned");
+  assert(q.json?.assessment === "customer", "questions assessment mismatch for VOC");
+
+  const answers = q.json.questions.map((qq) => ({ qid: qq.qid, answer: "A" }));
+  const voc = await httpJson("/voc-intake", {
+    method: "POST",
+    body: { email: EMAIL, tenant: TENANT, answers },
+  });
+
+  assert(voc.res.ok, `voc intake failed: ${voc.res.status} ${voc.text}`);
+  assert(voc.json?.success === true, "voc success !== true");
+  assert(voc.json?.assessment_type === "customer", "voc assessment_type mismatch");
+  assert(voc.json?.primary, "voc missing primary");
+}
+
+async function verifyAssessmentLinks() {
+  const { res, text } = await httpText(`/admin.html?tenant=${encodeURIComponent(TENANT)}`);
+  assert(res.ok, `admin page failed: ${res.status}`);
+  assert(text.includes("id=\"businessBtn\""), "admin missing business button");
+  assert(text.includes("/intake.html?tenant=${enc}&assessment=business_owner"), "business button link mapping missing");
+  assert(text.includes("/voc.html?tenant=${enc}"), "voc button link mapping missing");
 }
 
 async function verifyPages() {
@@ -187,9 +213,14 @@ async function main() {
   console.log("Running /api/intake");
   await runIntake();
 
-  // 4) verify pages
+  // 4) customer VOC
+  console.log("Running /voc-intake");
+  await runVoc();
+
+  // 5) verify pages + button link mapping
   console.log("Verifying tenant site + GARVEY pages");
   await verifyPages();
+  await verifyAssessmentLinks();
 
   console.log("✅ GARVEY SMOKE TEST PASSED");
 }
