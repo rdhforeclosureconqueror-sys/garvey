@@ -56,6 +56,7 @@ async function httpText(path) {
 function assert(cond, msg) {
   if (!cond) throw new Error(msg);
 }
+const PLACEHOLDER_OPTION_RE = /^Option [ABCD]$/i;
 
 function pickColumnId(columns, phase, nameLower) {
   const cols = (columns || []).filter((c) => String(c.phase).toUpperCase() === phase);
@@ -134,14 +135,23 @@ async function runKanbanPhaseCycle(boardColumns, phase) {
 }
 
 async function runIntake() {
+  const missingAssessment = await httpJson(`/api/questions`);
+  assert(missingAssessment.res.status === 400, `questions missing assessment should 400, got ${missingAssessment.res.status}`);
+
   const q = await httpJson(`/api/questions?assessment=business_owner`);
   assert(q.res.ok, `questions failed: ${q.res.status} ${q.text}`);
   assert(Array.isArray(q.json?.questions) && q.json.questions.length > 0, "no business questions returned");
   assert(q.json?.assessment === "business_owner", "questions assessment mismatch for intake");
-  const bq = q.json.questions[0];
-  assert(String(bq?.question_text || "").trim().length > 0, "business question_text missing");
-  assert(String(bq?.option_a || "").trim().length > 0, "business option_a missing");
-  assert(!String(bq?.option_a || "").startsWith("Option "), "business option labels still placeholder");
+  for (const bq of q.json.questions) {
+    const prompt = String(bq?.prompt || "").trim();
+    assert(prompt.length >= 12, `business prompt too short/trivial (${bq?.qid || "unknown"})`);
+    assert(Array.isArray(bq?.options) && bq.options.length === 4, `business options missing (${bq?.qid || "unknown"})`);
+    for (const opt of bq.options) {
+      const label = String(opt?.label || "").trim();
+      assert(label.length > 0, `business option label missing (${bq?.qid || "unknown"})`);
+      assert(!PLACEHOLDER_OPTION_RE.test(label), `business option labels still placeholder (${bq?.qid || "unknown"})`);
+    }
+  }
 
   const answers = q.json.questions.map((qq) => ({ qid: qq.qid, answer: "A" }));
 
@@ -161,11 +171,16 @@ async function runVoc() {
   assert(q.res.ok, `customer questions failed: ${q.res.status} ${q.text}`);
   assert(Array.isArray(q.json?.questions) && q.json.questions.length > 0, "no customer questions returned");
   assert(q.json?.assessment === "customer", "questions assessment mismatch for VOC");
-  const cq = q.json.questions[0];
-  assert(String(cq?.question_text || "").trim().length > 0, "customer question_text missing");
-  assert(String(cq?.option_a || "").trim().length > 0, "customer option_a missing");
-  assert(!String(cq?.question_text || "").startsWith("Customer Question "), "customer question text still placeholder");
-  assert(!String(cq?.option_a || "").startsWith("Option "), "customer option labels still placeholder");
+  for (const cq of q.json.questions) {
+    const prompt = String(cq?.prompt || "").trim();
+    assert(prompt.length >= 12, `customer prompt too short/trivial (${cq?.qid || "unknown"})`);
+    assert(Array.isArray(cq?.options) && cq.options.length === 4, `customer options missing (${cq?.qid || "unknown"})`);
+    for (const opt of cq.options) {
+      const label = String(opt?.label || "").trim();
+      assert(label.length > 0, `customer option label missing (${cq?.qid || "unknown"})`);
+      assert(!PLACEHOLDER_OPTION_RE.test(label), `customer option labels still placeholder (${cq?.qid || "unknown"})`);
+    }
+  }
 
   const answers = q.json.questions.map((qq) => ({ qid: qq.qid, answer: "A" }));
   const voc = await httpJson("/voc-intake", {
@@ -213,7 +228,7 @@ async function verifyAssessmentLinks() {
 function verifyQuestionPagesStatic() {
   const intakeHtml = fs.readFileSync(new URL("../public/intake.html", import.meta.url), "utf8");
   const vocHtml = fs.readFileSync(new URL("../public/voc.html", import.meta.url), "utf8");
-  const requiredIntakeIds = ["id=\"email\"", "id=\"progressBarFill\"", "id=\"progress\"", "id=\"questionText\"", "id=\"optionsContainer\""];
+  const requiredIntakeIds = ["id=\"email\"", "id=\"progressBarFill\"", "id=\"progress\"", "id=\"questionText\"", "id=\"optionsContainer\"", "id=\"tenantLine\""];
   for (const marker of requiredIntakeIds) {
     assert(intakeHtml.includes(marker), `intake missing DOM marker ${marker}`);
   }

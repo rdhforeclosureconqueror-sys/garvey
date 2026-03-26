@@ -936,9 +936,13 @@ app.post("/api/site/generate", async (req, res) => {
 
 app.get("/api/questions", async (req, res) => {
   try {
-    const assessmentType = String(
-      req.query.assessment || "business_owner"
-    ).trim().toLowerCase();
+    const assessmentRaw = req.query.assessment;
+    if (!assessmentRaw) {
+      return res.status(400).json({
+        error: "assessment query param is required (business_owner or customer)",
+      });
+    }
+    const assessmentType = String(assessmentRaw).trim().toLowerCase();
 
     // 🔒 STRICT VALIDATION
     if (!["business_owner", "customer"].includes(assessmentType)) {
@@ -982,11 +986,42 @@ app.get("/api/questions", async (req, res) => {
       });
     }
 
+    const normalized = rows.map((row) => ({
+      qid: row.qid,
+      assessment_type: row.assessment_type,
+      prompt: row.question_text,
+      options: [
+        { key: "A", label: row.option_a, mapping: row.mapping_a },
+        { key: "B", label: row.option_b, mapping: row.mapping_b },
+        { key: "C", label: row.option_c, mapping: row.mapping_c },
+        { key: "D", label: row.option_d, mapping: row.mapping_d },
+      ],
+      question_text: row.question_text,
+      option_a: row.option_a,
+      option_b: row.option_b,
+      option_c: row.option_c,
+      option_d: row.option_d,
+      mapping_a: row.mapping_a,
+      mapping_b: row.mapping_b,
+      mapping_c: row.mapping_c,
+      mapping_d: row.mapping_d,
+    }));
+
+    const invalid = normalized.find((q) => {
+      if (!String(q.prompt || "").trim()) return true;
+      return q.options.some((opt) => !String(opt.label || "").trim());
+    });
+    if (invalid) {
+      return res.status(400).json({
+        error: `question contract invalid for qid ${invalid.qid}`,
+      });
+    }
+
     return res.json({
       success: true,
       assessment: assessmentType,
-      count: rows.length,
-      questions: rows,
+      count: normalized.length,
+      questions: normalized,
     });
 
   } catch (err) {
@@ -1031,12 +1066,20 @@ app.post("/api/intake", async (req, res) => {
       });
     }
 
+    let scored;
+    try {
+      scored = scoreSubmission("business_owner", answers);
+    } catch (scoreErr) {
+      return res.status(400).json({
+        error: "invalid scoring input",
+        details: scoreErr.message,
+      });
+    }
+
     await client.query("BEGIN");
 
     const tenantRow = await ensureTenant(String(tenant));
     const user = await findTenantUser(tenantRow.id, email, client);
-
-    const scored = scoreSubmission("business_owner", answers);
 
     const session = (
       await client.query(
@@ -1316,6 +1359,16 @@ app.post("/voc-intake", async (req, res) => {
       });
     }
 
+    let scored;
+    try {
+      scored = scoreSubmission("customer", answers);
+    } catch (scoreErr) {
+      return res.status(400).json({
+        error: "invalid scoring input",
+        details: scoreErr.message,
+      });
+    }
+
     await client.query("BEGIN");
 
     const tenantRow = await ensureTenant(String(tenant));
@@ -1329,8 +1382,6 @@ app.post("/voc-intake", async (req, res) => {
         [tenantRow.id, normalizeEmail(email)]
       )
     ).rows[0];
-
-    const scored = scoreSubmission("customer", answers);
 
     await client.query(
       `INSERT INTO assessment_submissions (

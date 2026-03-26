@@ -1,152 +1,24 @@
 "use strict";
 
-const BUSINESS_ARCHETYPES = ["Builder", "Architect", "Operator", "Connector", "Resource", "Protector", "Nurturer", "Educator"];
-const CUSTOMER_ARCHETYPES = ["Value", "Loyal", "Convenience", "Experience", "Social", "Intentional", "Trend"];
-const PERSONALITIES = ["Practical", "Relational", "Analytical", "Expressive", "Emotional", "Strategic", "Exploratory"];
+const {
+  BUSINESS_ARCHETYPES,
+  CUSTOMER_ARCHETYPES,
+  BUSINESS_QUESTIONS,
+  CUSTOMER_QUESTIONS,
+} = require("./questionCatalog");
 
-const BUSINESS_QUESTION_TOPICS = [
-  "When something needs to get done",
-  "Priority",
-  "When slow",
-  "Strength",
-  "Weakness",
-  "Decision making",
-  "Leadership",
-  "Risk",
-  "Focus",
-  "Energy",
-  "Time management",
-  "Delegation",
-  "Pricing",
-  "Stress response",
-  "Scaling",
-  "Customer handling",
-  "Growth mindset",
-  "Innovation",
-  "Stability",
-  "Opportunity",
-  "Control",
-  "Flexibility",
-  "Systems",
-  "Learning",
-  "Execution vs planning"
-];
-
-const CUSTOMER_QUESTION_TOPICS = [
-  "When choosing between similar businesses",
-  "What keeps you coming back",
-  "How you decide what to buy",
-  "What matters most in a first visit",
-  "How you evaluate value",
-  "How quickly you expect service",
-  "How much social proof matters",
-  "How you respond to promotions",
-  "How you compare convenience vs experience",
-  "What makes a brand trustworthy",
-  "How you prefer communication",
-  "How you react after a poor experience",
-  "How you prefer checkout and payment",
-  "What influences referrals",
-  "How often you explore new options",
-  "How important personalization is",
-  "How you engage with loyalty programs",
-  "What drives bigger purchases",
-  "How price changes affect your decisions",
-  "What creates long-term loyalty"
-];
-
-const BUSINESS_MAPPING = [
-  { A: ["Builder", "Resource"], B: ["Architect", "Operator"], C: ["Connector", "Nurturer"], D: ["Protector", "Educator"] },
-  { A: ["Resource", "Builder"], B: ["Architect", "Operator"], C: ["Nurturer", "Educator"], D: ["Connector", "Nurturer"] },
-  { A: ["Resource", "Builder"], B: ["Architect", "Protector"], C: ["Connector", "Nurturer"], D: ["Educator", "Architect"] },
-  { A: ["Builder", "Resource"], B: ["Architect", "Operator"], C: ["Connector", "Nurturer"], D: ["Educator", "Nurturer"] },
-  { A: ["Builder", "Connector"], B: ["Architect", "Protector"], C: ["Nurturer", "Educator"], D: ["Resource", "Connector"] },
-  { A: ["Builder", "Resource"], B: ["Architect", "Protector"], C: ["Connector", "Nurturer"], D: ["Educator", "Operator"] },
-  { A: ["Builder", "Resource"], B: ["Architect", "Operator"], C: ["Connector", "Nurturer"], D: ["Educator", "Nurturer"] },
-  { A: ["Builder", "Resource"], B: ["Architect", "Protector"], C: ["Connector", "Protector"], D: ["Protector", "Operator"] },
-  { A: ["Builder", "Resource"], B: ["Architect", "Operator"], C: ["Connector", "Nurturer"], D: ["Educator", "Architect"] },
-  { A: ["Builder", "Resource"], B: ["Architect", "Operator"], C: ["Connector", "Nurturer"], D: ["Educator", "Architect"] },
-  { A: ["Builder", "Resource"], B: ["Architect", "Operator"], C: ["Connector", "Nurturer"], D: ["Educator", "Operator"] },
-  { A: ["Builder", "Connector"], B: ["Architect", "Operator"], C: ["Connector", "Nurturer"], D: ["Educator", "Nurturer"] },
-  { A: ["Resource", "Builder"], B: ["Architect", "Operator"], C: ["Nurturer", "Connector"], D: ["Educator", "Nurturer"] },
-  { A: ["Builder", "Resource"], B: ["Architect", "Protector"], C: ["Connector", "Nurturer"], D: ["Educator", "Protector"] },
-  { A: ["Builder", "Resource"], B: ["Architect", "Operator"], C: ["Connector", "Resource"], D: ["Educator", "Architect"] },
-  { A: ["Builder", "Connector"], B: ["Architect", "Operator"], C: ["Connector", "Nurturer"], D: ["Educator", "Nurturer"] },
-  { A: ["Builder", "Resource"], B: ["Architect", "Educator"], C: ["Connector", "Nurturer"], D: ["Educator", "Architect"] },
-  { A: ["Builder", "Resource"], B: ["Architect", "Educator"], C: ["Connector", "Resource"], D: ["Educator", "Architect"] },
-  { A: ["Operator", "Protector"], B: ["Architect", "Operator"], C: ["Nurturer", "Protector"], D: ["Educator", "Operator"] },
-  { A: ["Resource", "Builder"], B: ["Architect", "Resource"], C: ["Connector", "Resource"], D: ["Educator", "Resource"] },
-  { A: ["Operator", "Protector"], B: ["Architect", "Operator"], C: ["Connector", "Protector"], D: ["Educator", "Operator"] },
-  { A: ["Builder", "Connector"], B: ["Architect", "Educator"], C: ["Connector", "Nurturer"], D: ["Educator", "Connector"] },
-  { A: ["Operator", "Architect"], B: ["Architect", "Operator"], C: ["Connector", "Operator"], D: ["Educator", "Architect"] },
-  { A: ["Educator", "Architect"], B: ["Architect", "Educator"], C: ["Connector", "Educator"], D: ["Educator", "Nurturer"] },
-  { A: ["Builder", "Resource"], B: ["Architect", "Operator"], C: ["Connector", "Nurturer"], D: ["Educator", "Architect"] }
-];
-
-const CUSTOMER_MAPPING = [
-  { A: ["Value", "Practical"], B: ["Loyal", "Relational"], C: ["Experience", "Emotional"], D: ["Social", "Expressive"] },
-  { A: ["Value", "Practical"], B: ["Loyal", "Relational"], C: ["Experience", "Strategic"], D: ["Trend", "Expressive"] },
-  { A: ["Convenience", "Practical"], B: ["Loyal", "Relational"], C: ["Intentional", "Analytical"], D: ["Social", "Expressive"] },
-  { A: ["Value", "Practical"], B: ["Loyal", "Relational"], C: ["Experience", "Emotional"], D: ["Social", "Expressive"] },
-  { A: ["Value", "Practical"], B: ["Loyal", "Relational"], C: ["Experience", "Emotional"], D: ["Social", "Expressive"] },
-  { A: ["Convenience", "Practical"], B: ["Loyal", "Relational"], C: ["Intentional", "Analytical"], D: ["Social", "Expressive"] },
-  { A: ["Value", "Practical"], B: ["Loyal", "Relational"], C: ["Experience", "Emotional"], D: ["Trend", "Expressive"] },
-  { A: ["Convenience", "Practical"], B: ["Loyal", "Relational"], C: ["Intentional", "Strategic"], D: ["Social", "Expressive"] },
-  { A: ["Value", "Practical"], B: ["Loyal", "Relational"], C: ["Experience", "Emotional"], D: ["Social", "Expressive"] },
-  { A: ["Value", "Practical"], B: ["Loyal", "Relational"], C: ["Experience", "Strategic"], D: ["Trend", "Expressive"] },
-  { A: ["Convenience", "Practical"], B: ["Loyal", "Relational"], C: ["Intentional", "Analytical"], D: ["Social", "Expressive"] },
-  { A: ["Value", "Practical"], B: ["Loyal", "Relational"], C: ["Experience", "Emotional"], D: ["Social", "Expressive"] },
-  { A: ["Value", "Practical"], B: ["Loyal", "Relational"], C: ["Experience", "Emotional"], D: ["Trend", "Expressive"] },
-  { A: ["Convenience", "Practical"], B: ["Loyal", "Relational"], C: ["Intentional", "Strategic"], D: ["Social", "Expressive"] },
-  { A: ["Value", "Practical"], B: ["Loyal", "Relational"], C: ["Experience", "Emotional"], D: ["Social", "Expressive"] },
-  { A: ["Value", "Practical"], B: ["Loyal", "Relational"], C: ["Experience", "Strategic"], D: ["Trend", "Expressive"] },
-  { A: ["Convenience", "Practical"], B: ["Loyal", "Relational"], C: ["Intentional", "Analytical"], D: ["Social", "Expressive"] },
-  { A: ["Value", "Practical"], B: ["Loyal", "Relational"], C: ["Experience", "Emotional"], D: ["Social", "Expressive"] },
-  { A: ["Value", "Practical"], B: ["Loyal", "Relational"], C: ["Experience", "Emotional"], D: ["Trend", "Expressive"] },
-  { A: ["Convenience", "Practical"], B: ["Loyal", "Relational"], C: ["Intentional", "Strategic"], D: ["Social", "Expressive"] }
-];
+const PERSONALITIES = CUSTOMER_ARCHETYPES;
 
 const ARCHETYPE_DEFINITIONS = {
   Builder: { traits: "action-oriented", strength: "execution", weakness: "inconsistency", improve: "implement routines + tracking" },
   Architect: { traits: "strategic", strength: "systems", weakness: "overthinking", improve: "force execution deadlines" },
   Operator: { traits: "structured", strength: "stability", weakness: "rigidity", improve: "introduce flexibility" },
   Connector: { traits: "social", strength: "relationships", weakness: "no systems", improve: "track interactions" },
-  Resource: { traits: "opportunity-driven", strength: "revenue", weakness: "retention", improve: "build repeat systems" },
+  "Resource Generator": { traits: "opportunity-driven", strength: "revenue", weakness: "retention", improve: "build repeat systems" },
   Protector: { traits: "cautious", strength: "risk control", weakness: "fear", improve: "test low-risk actions" },
   Nurturer: { traits: "caring", strength: "loyalty", weakness: "underpricing", improve: "enforce pricing boundaries" },
-  Educator: { traits: "teaching", strength: "trust", weakness: "low monetization", improve: "package knowledge" }
+  Educator: { traits: "teaching", strength: "trust", weakness: "low monetization", improve: "package knowledge" },
 };
-
-function buildBusinessQuestions() {
-  return BUSINESS_MAPPING.map((maps, index) => ({
-    qid: `BO${index + 1}`,
-    type: "business_owner",
-    question: BUSINESS_QUESTION_TOPICS[index],
-    options: [
-      { key: "A", text: "Move quickly and capture immediate opportunities" },
-      { key: "B", text: "Design a clear structure before acting" },
-      { key: "C", text: "Focus on relationships and customer trust first" },
-      { key: "D", text: "Reduce risk and protect long-term stability" },
-    ].map((opt) => ({ text: opt.text, maps: maps[opt.key] }))
-  }));
-}
-
-function buildCustomerQuestions() {
-  return CUSTOMER_MAPPING.map((maps, index) => ({
-    qid: `CU${index + 1}`,
-    type: "customer",
-    question: CUSTOMER_QUESTION_TOPICS[index],
-    options: [
-      { key: "A", text: "Best value for the price is my top priority" },
-      { key: "B", text: "Consistency and trust keep me loyal" },
-      { key: "C", text: "Quality of experience matters most to me" },
-      { key: "D", text: "What people are talking about influences me" },
-    ].map((opt) => ({ text: opt.text, maps: maps[opt.key] }))
-  }));
-}
-
-const BUSINESS_QUESTIONS = buildBusinessQuestions();
-const CUSTOMER_QUESTIONS = buildCustomerQuestions();
 
 function getQuestions(assessmentType) {
   if (assessmentType === "business_owner") return BUSINESS_QUESTIONS;
@@ -177,6 +49,17 @@ function rankCounts(counts) {
   };
 }
 
+function normalizeAnswerKey(answer, question) {
+  const raw = String(answer?.answer ?? answer?.option ?? answer?.value ?? "").trim();
+  if (!raw) return null;
+
+  const upper = raw.toUpperCase();
+  if (["A", "B", "C", "D"].includes(upper)) return upper;
+
+  const matched = (question?.options || []).find((opt) => String(opt.text || "").trim() === raw);
+  return matched?.key || null;
+}
+
 function scoreSubmission(assessmentType, answers) {
   const questions = getQuestions(assessmentType);
   const map = new Map(questions.map((q) => [q.qid, q]));
@@ -186,10 +69,17 @@ function scoreSubmission(assessmentType, answers) {
     for (const answer of answers) {
       const q = map.get(answer.qid);
       if (!q) continue;
-      const option = q.options.find((opt) => opt.text.endsWith(answer.answer.toUpperCase()) || opt.text === answer.answer);
-      const resolved = option || q.options["ABCD".indexOf(String(answer.answer).toUpperCase())];
-      if (!resolved) continue;
-      resolved.maps.forEach((archetype) => { archetypeCounts[archetype] += 1; });
+      const answerKey = normalizeAnswerKey(answer, q);
+      if (!answerKey) continue;
+      const option = q.options.find((opt) => opt.key === answerKey);
+      if (!option || !Array.isArray(option.maps) || option.maps.length !== 2) {
+        const err = new Error(`invalid mapping for ${q.qid} option ${answerKey}`);
+        err.code = "INVALID_MAPPING";
+        throw err;
+      }
+      option.maps.forEach((archetype) => {
+        if (archetypeCounts[archetype] !== undefined) archetypeCounts[archetype] += 1;
+      });
     }
     const ranked = rankCounts(archetypeCounts);
     return {
@@ -207,14 +97,20 @@ function scoreSubmission(assessmentType, answers) {
   }
 
   const archetypeCounts = createCounter(CUSTOMER_ARCHETYPES);
-  const personalityCounts = createCounter(PERSONALITIES);
+  const personalityCounts = createCounter(CUSTOMER_ARCHETYPES);
   for (const answer of answers) {
     const q = map.get(answer.qid);
     if (!q) continue;
-    const option = q.options["ABCD".indexOf(String(answer.answer).toUpperCase())];
-    if (!option) continue;
-    archetypeCounts[option.maps[0]] += 1;
-    personalityCounts[option.maps[1]] += 1;
+    const answerKey = normalizeAnswerKey(answer, q);
+    if (!answerKey) continue;
+    const option = q.options.find((opt) => opt.key === answerKey);
+    if (!option || !Array.isArray(option.maps) || option.maps.length !== 2) {
+      const err = new Error(`invalid mapping for ${q.qid} option ${answerKey}`);
+      err.code = "INVALID_MAPPING";
+      throw err;
+    }
+    if (archetypeCounts[option.maps[0]] !== undefined) archetypeCounts[option.maps[0]] += 1;
+    if (personalityCounts[option.maps[1]] !== undefined) personalityCounts[option.maps[1]] += 1;
   }
   const archetypeRank = rankCounts(archetypeCounts);
   const personalityRank = rankCounts(personalityCounts);
@@ -241,10 +137,12 @@ function validateAnswers(assessmentType, answers) {
   const validQids = new Set(questions.map((q) => q.qid));
   const seen = new Set();
   for (const item of answers) {
-    if (!item || !item.qid || !item.answer) return { ok: false, error: "each answer requires qid + answer" };
+    if (!item || !item.qid) return { ok: false, error: "each answer requires qid" };
     if (!validQids.has(item.qid)) return { ok: false, error: `invalid qid ${item.qid}` };
     if (seen.has(item.qid)) return { ok: false, error: `duplicate qid ${item.qid}` };
-    if (!["A", "B", "C", "D"].includes(String(item.answer).toUpperCase())) {
+    const q = questions.find((question) => question.qid === item.qid);
+    const answerKey = normalizeAnswerKey(item, q);
+    if (!answerKey) {
       return { ok: false, error: `invalid answer for ${item.qid}` };
     }
     seen.add(item.qid);
