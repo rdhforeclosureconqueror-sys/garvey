@@ -35,6 +35,7 @@ function landingHtml({ tenantSlug, config }) {
   const intakeLink = `/intake.html?tenant=${tenantSlug}&assessment=business_owner`;
   const vocLink = `/voc.html?tenant=${tenantSlug}`;
   const dashLink = `/dashboard.html?tenant=${tenantSlug}`;
+  const rewardsLink = `/rewards.html?tenant=${tenantSlug}`;
   const pathwayLink = `/garvey.html?tenant=${tenantSlug}`;
   const templatesLink = `/templates.html?tenant=${tenantSlug}`;
 
@@ -173,6 +174,10 @@ body {
 
       <a class="btn" href="${esc(dashLink)}">
         📊 Dashboard
+      </a>
+
+      <a class="btn" href="${esc(rewardsLink)}">
+        🎁 Rewards
       </a>
 
     </div>
