@@ -170,7 +170,9 @@
       document.getElementById("pathwayLink").href = `/garvey.html?tenant=${enc}`;
       document.getElementById("templatesLink").href = `/templates.html?tenant=${enc}`;
       document.getElementById("intakeLink").href = `/intake.html?tenant=${enc}&assessment=business_owner`;
-      document.getElementById("actionsLink").href = `/index.html?tenant=${enc}`;
+      document.getElementById("actionsLink").href = `/rewards.html?tenant=${enc}`;
+      const home = document.getElementById("homeLink");
+      if (home) home.href = `/index.html?tenant=${enc}`;
       document.getElementById("dashboardLink").href = `/dashboard.html?tenant=${enc}`;
 
       document.getElementById("adminLink").href = `/admin.html?tenant=${enc}`;

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Customer Rewards</title>
+<style>
+body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:24px; }
+.card { background:#111; border:2px solid gold; border-radius:14px; padding:18px; margin:0 auto 14px; max-width:900px; }
+h1,h2 { color:gold; margin:0 0 10px; }
+.row { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+input, textarea, select { width:100%; padding:10px; border-radius:8px; border:1px solid #334155; background:#0b1020; color:#fff; }
+textarea { min-height:72px; }
+.btn { padding:10px 12px; border:0; border-radius:10px; background:gold; color:#000; font-weight:700; cursor:pointer; }
+.btn:hover { background:#ef4444; color:#fff; }
+.muted { color:#94a3b8; font-size:12px; }
+pre { white-space:pre-wrap; word-break:break-word; background:#020617; border:1px solid #334155; border-radius:10px; padding:10px; }
+a { color:#93c5fd; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>🎁 Customer Reward Actions</h1>
+    <div id="tenantLine" class="muted"></div>
+    <div class="row">
+      <input id="email" placeholder="customer@email.com" />
+    </div>
+    <div class="row">
+      <a id="backHome" href="#">← Back</a>
+      <a id="openDash" href="#">View Dashboard</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Quick reward actions</h2>
+    <div class="row">
+      <button id="checkinBtn" class="btn">+ Check-in</button>
+      <select id="actionType">
+        <option value="review">Action: review</option>
+        <option value="photo">Action: photo</option>
+        <option value="video">Action: video</option>
+        <option value="referral">Action: referral</option>
+      </select>
+      <button id="actionBtn" class="btn">+ Action</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Extended actions</h2>
+    <label>Review text
+      <textarea id="reviewText" placeholder="Great service!"></textarea>
+    </label>
+    <div class="row">
+      <select id="mediaType">
+        <option value="">media_type: none</option>
+        <option value="photo">photo</option>
+        <option value="video">video</option>
+      </select>
+      <button id="reviewBtn" class="btn">Submit Review</button>
+    </div>
+    <label>Referred email
+      <input id="referredEmail" placeholder="friend@email.com" />
+    </label>
+    <div class="row">
+      <button id="referralBtn" class="btn">Submit Referral</button>
+    </div>
+    <label>Wishlist product
+      <input id="productName" placeholder="Product name" />
+    </label>
+    <div class="row">
+      <button id="wishlistBtn" class="btn">Add Wishlist</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Result</h2>
+    <pre id="result">Run an action to see response JSON.</pre>
+  </div>
+
+<script src="/js/api-contract.js"></script>
+<script>
+"use strict";
+const { buildUrl } = window.GarveyApi;
+
+function tenantFromUrl() {
+  return (new URLSearchParams(window.location.search).get("tenant") || "test-business").trim();
+}
+
+function readEmail() {
+  return (document.getElementById("email").value || "").trim();
+}
+
+function showResult(payload) {
+  document.getElementById("result").textContent = JSON.stringify(payload, null, 2);
+}
+
+async function postTenant(path, body) {
+  const res = await fetch(buildUrl(path), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
+  return data;
+}
+
+async function run() {
+  const tenant = tenantFromUrl();
+  const enc = encodeURIComponent(tenant);
+  document.getElementById("tenantLine").textContent = `Tenant: ${tenant}`;
+  document.getElementById("backHome").href = `/index.html?tenant=${enc}`;
+  document.getElementById("openDash").href = `/dashboard.html?tenant=${enc}`;
+
+  const requireEmail = () => {
+    const email = readEmail();
+    if (!email) throw new Error("email is required");
+    return email;
+  };
+
+  document.getElementById("checkinBtn").onclick = async () => {
+    try {
+      const data = await postTenant(`/t/${enc}/checkin`, { email: requireEmail() });
+      showResult(data);
+    } catch (err) { showResult({ error: err.message }); }
+  };
+
+  document.getElementById("actionBtn").onclick = async () => {
+    try {
+      const data = await postTenant(`/t/${enc}/action`, {
+        email: requireEmail(),
+        action_type: document.getElementById("actionType").value
+      });
+      showResult(data);
+    } catch (err) { showResult({ error: err.message }); }
+  };
+
+  document.getElementById("reviewBtn").onclick = async () => {
+    try {
+      const text = (document.getElementById("reviewText").value || "").trim();
+      if (!text) throw new Error("review text is required");
+      const data = await postTenant(`/t/${enc}/review`, {
+        email: requireEmail(),
+        text,
+        media_type: document.getElementById("mediaType").value || undefined
+      });
+      showResult(data);
+    } catch (err) { showResult({ error: err.message }); }
+  };
+
+  document.getElementById("referralBtn").onclick = async () => {
+    try {
+      const referred = (document.getElementById("referredEmail").value || "").trim();
+      if (!referred) throw new Error("referred_email is required");
+      const data = await postTenant(`/t/${enc}/referral`, {
+        email: requireEmail(),
+        referred_email: referred
+      });
+      showResult(data);
+    } catch (err) { showResult({ error: err.message }); }
+  };
+
+  document.getElementById("wishlistBtn").onclick = async () => {
+    try {
+      const product = (document.getElementById("productName").value || "").trim();
+      if (!product) throw new Error("product_name is required");
+      const data = await postTenant(`/t/${enc}/wishlist`, {
+        email: requireEmail(),
+        product_name: product
+      });
+      showResult(data);
+    } catch (err) { showResult({ error: err.message }); }
+  };
+}
+
+run();
+</script>
+</body>
+</html>
