@@ -170,16 +170,22 @@ async function runVoc() {
 }
 
 async function runRewardFlow() {
-  const checkin = await httpJson(`/t/${encodeURIComponent(TENANT)}/checkin`, {
+  const status = await httpJson(
+    `/api/rewards/status?tenant=${encodeURIComponent(TENANT)}&email=${encodeURIComponent(EMAIL)}`
+  );
+  assert(status.res.ok, `rewards status failed: ${status.res.status} ${status.text}`);
+  assert(status.json?.success === true, "rewards status success !== true");
+
+  const checkin = await httpJson(`/api/rewards/checkin`, {
     method: "POST",
-    body: { email: EMAIL },
+    body: { tenant: TENANT, email: EMAIL },
   });
   assert(checkin.res.ok, `checkin failed: ${checkin.res.status} ${checkin.text}`);
   assert(typeof checkin.json?.points_added === "number", "checkin missing points_added");
 
-  const action = await httpJson(`/t/${encodeURIComponent(TENANT)}/action`, {
+  const action = await httpJson(`/api/rewards/action`, {
     method: "POST",
-    body: { email: EMAIL, action_type: "review" },
+    body: { tenant: TENANT, email: EMAIL, action_type: "review" },
   });
   assert(action.res.ok, `action failed: ${action.res.status} ${action.text}`);
   assert(typeof action.json?.points_added === "number", "action missing points_added");
@@ -187,12 +193,14 @@ async function runRewardFlow() {
 }
 
 async function verifyAssessmentLinks() {
-  const { res, text } = await httpText(`/admin.html?tenant=${encodeURIComponent(TENANT)}`);
+  const enc = encodeURIComponent(TENANT);
+  const { res, text } = await httpText(`/admin.html?tenant=${enc}`);
   assert(res.ok, `admin page failed: ${res.status}`);
   assert(text.includes("id=\"businessBtn\""), "admin missing business button");
-  assert(text.includes("/intake.html?tenant=${enc}&assessment=business_owner"), "business button link mapping missing");
-  assert(text.includes("/voc.html?tenant=${enc}"), "voc button link mapping missing");
-  assert(text.includes("/rewards.html?tenant=${enc}"), "reward button link mapping missing");
+  assert(text.includes(`/intake.html?tenant=${enc}&assessment=business_owner`), "business button link mapping missing");
+  assert(text.includes(`/voc.html?tenant=${enc}`), "voc button link mapping missing");
+  assert(text.includes(`/index.html?tenant=${enc}`), "actions button link mapping missing");
+  assert(text.includes(`/rewards.html?tenant=${enc}`), "reward button link mapping missing");
 }
 
 async function verifyPages() {

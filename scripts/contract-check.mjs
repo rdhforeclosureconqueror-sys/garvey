@@ -27,6 +27,13 @@ const documentedRoutes = [
   "GET /join/:slug",
   "GET /api/templates",
   "POST /api/templates/select",
+  "GET /api/rewards/status",
+  "GET /api/rewards/history",
+  "POST /api/rewards/checkin",
+  "POST /api/rewards/action",
+  "POST /api/rewards/review",
+  "POST /api/rewards/referral",
+  "POST /api/rewards/wishlist",
   "POST /api/site/generate",
   "GET /api/questions",
   "POST /api/intake",
@@ -148,6 +155,12 @@ function main() {
   const hrefTargets = extractHrefTargets();
   const rewardLinks = hrefTargets.filter((h) => h.href.includes("/rewards.html"));
   const rewardLinkMissing = rewardLinks.length === 0;
+  const indexSrc = slurp("public/index.html");
+  const adminSrc = slurp("public/admin.html");
+  const missingRewardIds = [
+    !indexSrc.includes("id=\"rewardsLink\"") ? "public/index.html#rewardsLink" : null,
+    !adminSrc.includes("id=\"rewardsBtn\"") ? "public/admin.html#rewardsBtn" : null,
+  ].filter(Boolean);
 
   const result = {
     backend_route_count: backendRoutes.size,
@@ -156,11 +169,12 @@ function main() {
     extra_in_doc: extraInDoc,
     unknown_frontend_api_calls: unknownCalls,
     reward_links_found: rewardLinks,
+    missing_reward_link_ids: missingRewardIds,
   };
 
   console.log(JSON.stringify(result, null, 2));
 
-  if (missingFromDoc.length || extraInDoc.length || unknownCalls.length || rewardLinkMissing) {
+  if (missingFromDoc.length || extraInDoc.length || unknownCalls.length || rewardLinkMissing || missingRewardIds.length) {
     process.exit(1);
   }
 }

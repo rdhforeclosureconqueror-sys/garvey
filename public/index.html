@@ -119,6 +119,7 @@
       <a class="btn" id="templatesLink">Website Templates</a>
       <a class="btn" id="intakeLink">Take the Assessment</a>
       <a class="btn" id="actionsLink">Earn Points (Actions)</a>
+      <a class="btn" id="rewardsLink">Customer Rewards</a>
       <a class="btn" id="dashboardLink">Owner Dashboard</a>
     </div>
 
@@ -149,39 +150,41 @@
   </div>
 
   <script>
-    const API_BASE = (() => {
-      const host = window.location.hostname || "";
-      if (host.includes("garveyfrontend")) return "https://garveybackend.onrender.com";
-      return "";
-    })();
+  const API_BASE = (() => {
+    const host = window.location.hostname || "";
+    if (host.includes("garveyfrontend")) return "https://garveybackend.onrender.com";
+    return "";
+  })();
 
-    function setMeta() {
-      const params = new URLSearchParams(window.location.search);
-      const tenant = (params.get("tenant") || "test-business").trim();
+  function setMeta() {
+    const params = new URLSearchParams(window.location.search);
+    const tenant = (params.get("tenant") || "test-business").trim();
 
-      document.getElementById("tenantDisplay").innerText = tenant;
+    document.getElementById("tenantDisplay").innerText = tenant;
 
-      syncTenantLinks(tenant);
-    }
+    syncTenantLinks(tenant);
+  }
 
-    function syncTenantLinks(tenant) {
-      const enc = encodeURIComponent(tenant);
+  function syncTenantLinks(tenant) {
+    const enc = encodeURIComponent(tenant);
 
-      document.getElementById("pathwayLink").href = `/garvey.html?tenant=${enc}`;
-      document.getElementById("templatesLink").href = `/templates.html?tenant=${enc}`;
-      document.getElementById("intakeLink").href = `/intake.html?tenant=${enc}&assessment=business_owner`;
-      document.getElementById("actionsLink").href = `/rewards.html?tenant=${enc}`;
-      const home = document.getElementById("homeLink");
-      if (home) home.href = `/index.html?tenant=${enc}`;
-      document.getElementById("dashboardLink").href = `/dashboard.html?tenant=${enc}`;
+    document.getElementById("pathwayLink").href = `/garvey.html?tenant=${enc}`;
+    document.getElementById("templatesLink").href = `/templates.html?tenant=${enc}`;
+    document.getElementById("intakeLink").href = `/intake.html?tenant=${enc}&assessment=business_owner`;
 
-      document.getElementById("adminLink").href = `/admin.html?tenant=${enc}`;
-      document.getElementById("dashLink").href = `/dashboard.html?tenant=${enc}`;
-      document.getElementById("vocLink").href = `/voc.html?tenant=${enc}`;
-    }
+    // Preserve actions/home semantics; keep rewards explicit
+    document.getElementById("actionsLink").href = `/index.html?tenant=${enc}`;
+    document.getElementById("rewardsLink").href = `/rewards.html?tenant=${enc}`;
 
-    setMeta();
-  </script>
+    document.getElementById("dashboardLink").href = `/dashboard.html?tenant=${enc}`;
+
+    document.getElementById("adminLink").href = `/admin.html?tenant=${enc}`;
+    document.getElementById("dashLink").href = `/dashboard.html?tenant=${enc}`;
+    document.getElementById("vocLink").href = `/voc.html?tenant=${enc}`;
+  }
+
+  setMeta();
+</script>
 
 </body>
 </html>

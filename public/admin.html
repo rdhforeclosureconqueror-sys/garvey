@@ -54,6 +54,7 @@ h1 { color:gold; }
 <a class="btn" id="businessBtn">🧠 Business Assessment</a>
 <a class="btn" id="vocBtn">🗣️ Customer VOC</a>
 <a class="btn" id="actionsBtn">⚡ Earn Points</a>
+<a class="btn" id="rewardsBtn">🎁 Rewards</a>
 <a class="btn" id="dashboardBtn">📊 Dashboard</a>
 
 </div>
@@ -78,6 +79,9 @@ function init() {
     `/voc.html?tenant=${enc}`;
 
   document.getElementById("actionsBtn").href =
+    `/rewards.html?tenant=${enc}`;
+
+  document.getElementById("rewardsBtn").href =
     `/rewards.html?tenant=${enc}`;
 
   document.getElementById("dashboardBtn").href =

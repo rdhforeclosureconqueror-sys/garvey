@@ -31,13 +31,21 @@
 
 ### Fixed
 - Rewired reward-oriented buttons/links to route to reachable reward page:
-  - `public/index.html` (`actionsLink` -> `/rewards.html?tenant=...`)
-  - `public/admin.html` (`actionsBtn` -> `/rewards.html?tenant=...`)
+  - kept actions semantics intact (`actionsLink/actionsBtn` remain home/actions routing),
+  - added dedicated rewards entrypoints (`rewardsLink/rewardsBtn` -> `/rewards.html?tenant=...`).
 - Added rewards CTA in generated site output (`server/siteGenerator.js`).
 - Extended smoke flow to validate reward endpoints and reward-link mapping (`scripts/garvey-smoke.mjs`).
 
 ### Strengthened
 - Added programmatic “completeness proof” and route/frontend contract checking output to avoid silent drift.
+
+### Before vs after mapping (reward reattachment)
+| Area | Before | After |
+|---|---|---|
+| UI entrypoint | Rewards capability implicit and easy to miss | Canonical `rewards.html?tenant=...` with dedicated IDs |
+| Route surface | Legacy tenant mutations only (`/t/:slug/*`) | Legacy preserved + `/api/rewards/*` wrappers + status/history |
+| FE integration | Mixed direct calls and routing ambiguity | Tenant-aware wrapper calls with stable JSON |
+| Drift detection | Manual review | `contract-check` asserts route/call/link consistency |
 
 ---
 
@@ -117,6 +125,13 @@ A multi-tenant customer-experience + business-intelligence platform with:
 | join | GET | `/join/:slug` | tenant must exist | redirect to `/intake.html?tenant=slug` | 404 error json | none | `server/index.js` `app.get("/join/:slug")` |
 | templates | GET | `/api/templates` | none | `{success:true,templates[]}` | 500 | read registry json | `server/index.js` `app.get("/api/templates")` |
 | templates | POST | `/api/templates/select` | body `{tenant,template_id}` required; template id must exist in registry | `{success:true,tenant,template_id}` | 400/500 | upsert tenant config | `server/index.js` `app.post("/api/templates/select")` |
+| rewards wrapper | GET | `/api/rewards/status` | query `tenant` required; optional `email` | user or tenant rewards summary JSON | 400/404/500 | DB reads | `server/index.js` `app.get("/api/rewards/status")` |
+| rewards wrapper | GET | `/api/rewards/history` | query `tenant` required; optional `email`,`limit` | history JSON (or limitation note if no email) | 400/404/500 | DB reads | `server/index.js` `app.get("/api/rewards/history")` |
+| rewards wrapper | POST | `/api/rewards/checkin` | body `{tenant,email}` required | same shape as legacy checkin | 400/404/500 | delegates to reward service helper |
+| rewards wrapper | POST | `/api/rewards/action` | body `{tenant,email,action_type}` required | same shape as legacy action | 400/404/500 | delegates to reward service helper |
+| rewards wrapper | POST | `/api/rewards/review` | body `{tenant,email,text,media_type?}` required | same shape as legacy review | 400/404/500 | delegates to reward service helper |
+| rewards wrapper | POST | `/api/rewards/referral` | body `{tenant,email,referred_email}` required | same shape as legacy referral | 400/404/500 | delegates to reward service helper |
+| rewards wrapper | POST | `/api/rewards/wishlist` | body `{tenant,email,product_name}` required | same shape as legacy wishlist | 400/404/500 | delegates to reward service helper |
 | questions | GET | `/api/questions` | query `assessment` in `business_owner|customer` | `{success,assessment,count,questions[]}` | 400/404/500 | DB read | `server/index.js` `app.get("/api/questions")` |
 | intake | POST | `/api/intake` | body `{email,tenant,answers[]}` + strict `validateAnswers("business_owner")` | `{success,assessment_type:"business_owner",session_id,primary,secondary,weakness,...}` | 400/500 | writes sessions + submissions | `server/index.js` `app.post("/api/intake")` |
 | voc | POST | `/voc-intake` | body `{email,tenant,answers[]}` + structure + strict customer validation | `{success,assessment_type:"customer",...}` | 400/500 | writes voc sessions + submissions | `server/index.js` `app.post("/voc-intake")` |
@@ -160,7 +175,7 @@ A multi-tenant customer-experience + business-intelligence platform with:
 | `public/admin.html` | launcher for core flows | none direct | `tenant` optional | URL -> links | none |
 | `public/intake.html` | assessment renderer (business default) | GET `/api/questions`; POST `/api/intake` or `/voc-intake` based on normalized assessment | `tenant`, `assessment` | `questions/answers/currentIndex` in-memory | inline `showError` + alert email |
 | `public/voc.html` | customer VOC dedicated flow | GET `/api/questions?assessment=customer`; POST `/voc-intake` | `tenant` | in-memory question state | inline error text |
-| `public/rewards.html` | customer reward actions (newly wired) | POST `/t/:slug/checkin|action|review|referral|wishlist` | `tenant`; `email` for all actions | form/in-memory only | result pane with JSON error |
+| `public/rewards.html` | customer reward actions (newly wired) | GET `/api/rewards/status`; POST `/api/rewards/checkin|action|review|referral|wishlist` | `tenant` required; `email` required for mutations | form/in-memory only | result + status panes with JSON errors |
 | `public/site_intake.html` | site config intake | POST `/api/site/generate` | `tenant` required | form fields | status message with err/ok |
 | `public/templates.html` + `public/templates.js` | template browse/select | fetch `/templates/registry.json`, POST `/api/templates/select` | `tenant` for select | in-memory render | status/alert |
 | `dashboardnew/app.js` | owner analytics dashboard runtime | GET `/t/:slug/dashboard|customers|analytics` | `tenant` required | in-memory render datasets | top banner error |
@@ -176,10 +191,12 @@ A multi-tenant customer-experience + business-intelligence platform with:
 |---|---|---|
 | `public/admin.html` | `#businessBtn` | `/intake.html?tenant=<enc>&assessment=business_owner` |
 | `public/admin.html` | `#vocBtn` | `/voc.html?tenant=<enc>` |
-| `public/admin.html` | `#actionsBtn` | `/rewards.html?tenant=<enc>` |
+| `public/admin.html` | `#actionsBtn` | `/index.html?tenant=<enc>` |
+| `public/admin.html` | `#rewardsBtn` | `/rewards.html?tenant=<enc>` |
 | `public/index.html` | `#intakeLink` | `/intake.html?tenant=<enc>&assessment=business_owner` |
 | `public/index.html` | `#vocLink` | `/voc.html?tenant=<enc>` |
-| `public/index.html` | `#actionsLink` | `/rewards.html?tenant=<enc>` |
+| `public/index.html` | `#actionsLink` | `/index.html?tenant=<enc>` |
+| `public/index.html` | `#rewardsLink` | `/rewards.html?tenant=<enc>` |
 | backend redirect | `/join/:slug` | `/intake.html?tenant=<slug>` |
 | `server/siteGenerator.js` | generated “🎁 Rewards” button | `/rewards.html?tenant=<slug>` |
 
@@ -269,7 +286,7 @@ A multi-tenant customer-experience + business-intelligence platform with:
 ### Invariants
 1. Backend route signatures are authoritative.
 2. `assessment` values only `business_owner|customer`.
-3. Reward endpoints require tenant path + body email fields.
+3. Reward endpoints require tenant scoping (slug path for legacy routes; tenant query/body on wrappers).
 4. Tenant query propagation must be preserved across links.
 5. CORS middleware must remain for split-host setup.
 6. `/dashboard.html` override behavior must be understood before editing dashboard files.
@@ -313,166 +330,3 @@ A multi-tenant customer-experience + business-intelligence platform with:
   curl -s -X POST "http://localhost:3000/t/test-business/checkin" \
     -H "Content-Type: application/json" \
     -d '{"email":"user@example.com"}'
-  ```
-
-### Scripts and coverage
-- `npm run contract:check`: route/call/href drift checks + completeness checks.
-- `npm run smoke`: runtime smoke for health, kanban, intake, VOC, reward flow, and key pages.
-
-### Logging
-- Backend `console.log/error` in route handlers.
-- Notable logs include questions fetch and incoming intake/VOC payload logs.
-- Frontend errors appear in browser console or inline status panes.
-
-### Debug checklists
-- **questions not loading**: verify `assessment` + DB question rows.
-- **submit fails**: check required keys and strict answer counts.
-- **results missing**: check email normalization and latest submission existence.
-- **wrong question set**: inspect incoming query string and button href.
-- **tenant mismatch**: inspect URL tenant and `/t/:slug` path.
-- **reward not showing**: confirm reward link points to `rewards.html`, tenant present, email provided, and endpoint returns points fields.
-
----
-
-## 8) Testing strategy (current + recommended)
-
-### Current
-- **Smoke E2E**: `scripts/garvey-smoke.mjs` now covers reward flow too.
-- **Contract drift check**: `scripts/contract-check.mjs` (new).
-- **Verify endpoints** exist in backend but one script (`server/verify.js`) still carries legacy assumptions.
-
-### Recommended minimal additions
-1. Update `server/verify.js` to current question/intake contracts.
-2. Add CI step that runs `npm run contract:check` on every PR.
-3. Add booted smoke test in CI with ephemeral Postgres.
-
-### Single-command usage
-- `npm run contract:check`
-- `npm run smoke`
-
----
-
-## 9) Completeness proof (programmatic)
-
-### Backend route scan vs documented inventory
-- Tool: `scripts/contract-check.mjs` extracts routes from:
-  - `app.METHOD(...)` in `server/index.js`
-  - `router.METHOD(...)` in `server/kanbanRoutes.js` with `/api/kanban` prefix.
-- Current output status:
-  - `missing_from_doc: []`
-  - `extra_in_doc: []`
-
-### Frontend call/link scan vs backend routes
-- Tool scans `fetch(...)` API calls and href targets in key frontend files.
-- Current output status:
-  - `unknown_frontend_api_calls: []`
-  - reward link targets found in both index and admin link sets.
-
----
-
-## 10) Customer Reward (discover, contract, fix, verify)
-
-### A) Discover + inventory
-Reward-related backend behavior discovered in:
-- `server/index.js`
-  - points logic helper: `rewardPointsEnabled(config)`.
-  - reward mutation endpoints under `/t/:slug/*`.
-  - dashboard aggregates include `total_points` and distributions.
-- `server/tenant.js`
-  - defaults include `reward_system`, `reward_multiplier`, `review_incentive_bonus`.
-- `server/adaptiveEngine.js`
-  - adjusts reward multipliers/bonuses.
-
-Frontend discovery:
-- prior text referenced rewards/points, but no dedicated reachable reward action page.
-- fixed by adding `public/rewards.html` and rewiring reward-related buttons.
-
-### B) Backend reward contract (authoritative)
-
-#### 1) `POST /t/:slug/checkin`
-- Request: `{email}` required.
-- Success example:
-  ```json
-  {"success":true,"tenant":"demo","event":"checkin","points_added":5,"points":12}
-  ```
-- Failure example:
-  ```json
-  {"error":"email is required"}
-  ```
-- Side effects: insert visit + update user points.
-
-#### 2) `POST /t/:slug/action`
-- Request: `{email, action_type}`; action_type mapped via `ACTION_POINTS`.
-- Success example:
-  ```json
-  {"success":true,"tenant":"demo","action_type":"review","points_added":5,"points":17}
-  ```
-- Failure:
-  ```json
-  {"error":"email and action_type are required"}
-  ```
-- Side effects: insert action + update points.
-
-#### 3) `POST /t/:slug/review`
-- Request: `{email,text,media_type?}`.
-- Success includes `review` row and points fields.
-- Failure includes validation/server errors.
-
-#### 4) `POST /t/:slug/referral`
-- Request: `{email,referred_email}`.
-- Success includes `points_awarded_each` and two user balances.
-- Failure includes validation/server errors.
-
-#### 5) `POST /t/:slug/wishlist`
-- Request: `{email,product_name}`.
-- Success includes `wishlist_entry`.
-- Failure includes validation/server errors.
-
-### C) Fix routing/wiring safely (minimal)
-- Added `public/rewards.html` (new page, no backend contract changes).
-- Rewired:
-  - `public/index.html` `actionsLink` -> `rewards.html?tenant=...`
-  - `public/admin.html` `actionsBtn` -> `rewards.html?tenant=...`
-  - `server/siteGenerator.js` includes rewards CTA in generated landing page.
-- Preserved existing intake/VOC button wiring and destination semantics.
-
-### D) Verification updates
-- `scripts/garvey-smoke.mjs` now includes reward endpoint checks (`checkin` + `action`) and validates reward link mapping on admin page.
-- `scripts/contract-check.mjs` ensures reward links exist and frontend API calls map to known backend routes.
-
----
-
-## 11) Drift-proof automation
-
-### Added script
-- `scripts/contract-check.mjs`
-  - extracts backend route registrations,
-  - compares with documented route list,
-  - scans frontend API calls,
-  - fails on unknown API paths,
-  - asserts reward link presence.
-
-### npm scripts
-- `npm run contract:check` -> runs route/call/href drift checks.
-- `npm run smoke` -> executes smoke flow.
-
-### How this prevents drift
-- route inventory and runtime route declarations stay synchronized.
-- frontend endpoint usage cannot silently diverge from backend contract.
-- reward flow regressions (link removals/misroutes) fail checks.
-
----
-
-## 12) TODOs + roadmap
-
-### Documentation findings (factual)
-1. `server/verify.js` still contains legacy `mode` and old intake response assumptions.
-2. Some pages still use local API base logic instead of one shared helper.
-3. DB schema/bootstrap files imply some historical drift risk and should be consolidated.
-4. `public/garvey-a.html` intake link could be made explicit with `assessment=business_owner` for consistency.
-
-### Optional refactors (not required for correctness)
-1. Move remaining pages to shared API helper module.
-2. Introduce small shared frontend fetch helper with standard error handling.
-3. Add CI that runs `npm run contract:check && npm run smoke` against ephemeral DB.
-
