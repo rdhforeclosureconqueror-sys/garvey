@@ -1,149 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Business Intake Assessment</title>
-<style>
-body { background:#000; color:#fff; font-family:Arial, sans-serif; padding:20px; text-align:center; }
-.card { max-width:760px; margin:0 auto; background:#111; border:2px solid gold; border-radius:14px; padding:18px; }
-.btn { background:gold; color:#000; border:0; padding:12px; margin:8px auto; display:block; width:90%; border-radius:10px; font-weight:700; cursor:pointer; }
-.btn:hover { background:#ef4444; color:#fff; }
-input { padding:10px; width:90%; border-radius:8px; margin:6px auto; border:1px solid #334155; background:#0b1020; color:#fff; }
-#progressWrap { width:90%; margin:12px auto; background:#1f2937; border-radius:999px; overflow:hidden; height:12px; }
-#progressBarFill { width:0; height:100%; background:gold; }
-#progress { color:#94a3b8; font-size:12px; }
-.muted { color:#94a3b8; font-size:12px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Assessment</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:24px; }
+    .card { background:#111; border:2px solid gold; border-radius:16px; padding:24px; max-width:900px; margin:0 auto; }
+    h1 { color:gold; margin:0 0 10px; }
+    .meta { color:#94a3b8; font-size:12px; margin:6px 0 14px; }
+    .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    input { width:100%; padding:12px; border-radius:10px; border:1px solid #334155; background:#0b1020; color:#fff; }
+    .btn { padding:12px 16px; border-radius:10px; border:0; background:gold; color:#000; font-weight:800; cursor:pointer; }
+    .btn:hover { background:#ef4444; color:#fff; }
+    .progressWrap { background:#0b1020; border:1px solid #334155; border-radius:999px; overflow:hidden; height:12px; width:100%; }
+    .progressFill { height:100%; width:0%; background:gold; transition:width .2s ease; }
+    .question { margin:16px 0 10px; font-size:20px; font-weight:800; }
+    .options { display:grid; gap:10px; margin-top:10px; }
+    .optBtn { text-align:left; }
+    .err { color:#fca5a5; white-space:pre-wrap; }
+    a { color:#93c5fd; }
+  </style>
 </head>
+
 <body>
   <div class="card">
-    <h1>🧠 Business Intake</h1>
-    <div id="tenantLine" class="muted"></div>
-    <input id="email" placeholder="owner@email.com" />
-    <div id="progressWrap"><div id="progressBarFill"></div></div>
-    <div id="progress"></div>
-    <h3 id="questionText">Loading…</h3>
-    <div id="optionsContainer"></div>
+    <h1 id="pageTitle">Assessment</h1>
+
+    <div class="meta">
+      <span id="tenantLine">Tenant: test-business</span>
+      <span id="assessmentLine" style="margin-left:10px;">Assessment: business_owner</span>
+    </div>
+
+    <div class="row">
+      <input id="email" placeholder="Email" autocomplete="email" />
+    </div>
+
+    <div style="margin-top:14px;">
+      <div class="progressWrap">
+        <div id="progressBarFill" class="progressFill"></div>
+      </div>
+      <div id="progress" class="meta">Loading…</div>
+    </div>
+
+    <div id="questionText" class="question">Loading questions…</div>
+    <div id="optionsContainer" class="options"></div>
+
+    <div class="meta" style="margin-top:16px;">
+      <a id="backLink" href="/index.html">← Back</a>
+      <span style="margin-left:10px;" class="err" id="debug"></span>
+    </div>
   </div>
 
-<script src="/js/api-contract.js"></script>
-<script>
-"use strict";
-const { ENDPOINTS, buildUrl } = window.GarveyApi;
+  <script src="/js/api-contract.js" defer></script>
+  <script defer>
+  "use strict";
 
-const REQUIRED_IDS = ["email", "progressBarFill", "progress", "questionText", "optionsContainer", "tenantLine"];
+  // ---- STATE
+  let questions = [];
+  let currentIndex = 0;
+  let answers = [];
 
-function assertDom() {
-  const missing = REQUIRED_IDS.filter((id) => !document.getElementById(id));
-  if (missing.length) {
-    throw new Error(`Missing DOM elements: ${missing.join(", ")}`);
+  // ---- DOM / HELPERS
+  const REQUIRED_IDS = ["email","progressBarFill","progress","questionText","optionsContainer","tenantLine"];
+
+  function $(id) { return document.getElementById(id); }
+
+  function missingDomIds() {
+    return REQUIRED_IDS.filter((id) => !$(id));
   }
-}
 
-function getTenant() {
-  return (new URLSearchParams(window.location.search).get("tenant") || "test-business").trim();
-}
+  function showDebug(msg) {
+    const el = $("debug");
+    if (el) el.textContent = msg || "";
+  }
 
-function normalizeQuestions(rawQuestions = []) {
-  return rawQuestions.map((q, i) => ({
-    qid: q.qid || `BO${i + 1}`,
-    text: q.question_text || q.question || "",
-    options: [
-      { key: "A", text: q.option_a },
-      { key: "B", text: q.option_b },
-      { key: "C", text: q.option_c },
-      { key: "D", text: q.option_d },
-    ].filter((o) => String(o.text || "").trim().length > 0),
-  }));
-}
+  function showError(msg) {
+    const qEl = $("questionText");
+    if (qEl) qEl.textContent = "❌ " + msg;
+    const c = $("optionsContainer");
+    if (c) c.innerHTML = "";
+  }
 
-let questions = [];
-let currentIndex = 0;
-let answers = [];
+  function safeParse(val) {
+    if (!val) return [];
+    if (Array.isArray(val)) return val;
+    try { return JSON.parse(val); } catch { return []; }
+  }
 
-function updateProgress() {
-  const total = questions.length || 1;
-  const done = currentIndex;
-  const pct = Math.round((done / total) * 100);
-  document.getElementById("progressBarFill").style.width = pct + "%";
-  document.getElementById("progress").innerText = `Question ${Math.min(done + 1, total)} of ${total} (${pct}%)`;
-}
+  function getTenant() {
+    return (new URLSearchParams(window.location.search).get("tenant") || "test-business").trim();
+  }
 
-function renderQuestion() {
-  const q = questions[currentIndex];
-  if (!q) return submitAssessment();
+  function getAssessmentType() {
+    const params = new URLSearchParams(window.location.search);
+    const type = (params.get("assessment") || "business_owner").trim().toLowerCase();
+    return type === "customer" ? "customer" : "business_owner";
+  }
 
-  document.getElementById("questionText").innerText = q.text || "Question text unavailable";
-  const container = document.getElementById("optionsContainer");
-  container.innerHTML = "";
+  function buildUrlCompat(path, params) {
+    const api = window.GarveyApi;
+    if (api?.buildUrl && api?.ENDPOINTS) {
+      const endpoint = api.ENDPOINTS[path] || path;
+      return api.buildUrl(endpoint, params);
+    }
+    const u = new URL(path.startsWith("/") ? path : `/${path}`, window.location.origin);
+    if (params) Object.entries(params).forEach(([k,v]) => u.searchParams.set(k, String(v)));
+    return u.toString();
+  }
 
-  q.options.forEach((opt) => {
-    const btn = document.createElement("button");
-    btn.className = "btn";
-    btn.innerText = `${opt.key}: ${opt.text}`;
-    btn.onclick = () => {
-      answers.push({ qid: q.qid, answer: opt.key });
-      currentIndex += 1;
-      renderQuestion();
+  async function fetchQuestions(assessment) {
+    const u = window.GarveyApi?.ENDPOINTS?.questions
+      ? window.GarveyApi.ENDPOINTS.questions
+      : "/api/questions";
+    const full = buildUrlCompat(u, { assessment, ts: Date.now() });
+    const res = await fetch(full, { cache: "no-store" });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !Array.isArray(data?.questions)) {
+      throw new Error(data?.error || data?.message || `Invalid questions response (${res.status})`);
+    }
+    return data;
+  }
+
+  function normalizeQuestions(rawQuestions = []) {
+    return rawQuestions.map((q, i) => {
+      const qid = q.qid || q.id || `q_${i}`;
+
+      const prompt =
+        q.prompt ||
+        q.question_text ||
+        q.question ||
+        q.text ||
+        `Question ${i + 1}`;
+
+      // Normalized options
+      if (Array.isArray(q.options) && q.options.length) {
+        const opts = q.options
+          .map((o, j) => ({
+            key: o.key || ["A","B","C","D"][j] || `O${j+1}`,
+            text: o.label || o.text || String(o.value || "").trim(),
+            maps: o.maps || o.mapping || [],
+          }))
+          .filter((o) => o.text);
+        return { id: qid, text: prompt, options: opts };
+      }
+
+      // Legacy columns
+      const optsLegacy = [
+        { key: "A", text: q.option_a, maps: safeParse(q.mapping_a) },
+        { key: "B", text: q.option_b, maps: safeParse(q.mapping_b) },
+        { key: "C", text: q.option_c, maps: safeParse(q.mapping_c) },
+        { key: "D", text: q.option_d, maps: safeParse(q.mapping_d) },
+      ].filter((o) => String(o.text || "").trim().length > 0);
+
+      return { id: qid, text: prompt, options: optsLegacy };
+    });
+  }
+
+  function updateProgress() {
+    const total = questions.length || 1;
+    const done = currentIndex;
+    const pct = Math.round((done / total) * 100);
+
+    const bar = $("progressBarFill");
+    const text = $("progress");
+    if (bar) bar.style.width = pct + "%";
+    if (text) text.textContent = `Question ${Math.min(done + 1, total)} of ${total} (${pct}%)`;
+  }
+
+  function renderQuestion() {
+    const missing = missingDomIds();
+    if (missing.length) {
+      console.error("Missing DOM elements:", missing);
+      showDebug(`Missing DOM elements: ${missing.join(", ")}`);
+      showError("Page is missing required UI elements.");
+      return;
+    }
+
+    const q = questions[currentIndex];
+    if (!q) {
+      submitAssessment().catch((e) => showError(e.message || "Submission failed"));
+      return;
+    }
+
+    $("questionText").textContent = q.text || "Question text unavailable";
+    const container = $("optionsContainer");
+    container.innerHTML = "";
+
+    q.options.forEach((opt) => {
+      const btn = document.createElement("button");
+      btn.className = "btn optBtn";
+      btn.type = "button";
+      btn.textContent = `${opt.key}: ${opt.text}`;
+      btn.onclick = () => handleAnswer(opt.key);
+      container.appendChild(btn);
+    });
+
+    updateProgress();
+  }
+
+  function handleAnswer(letter) {
+    const q = questions[currentIndex];
+    if (!q) return;
+
+    answers.push({ qid: q.id, answer: letter });
+    currentIndex += 1;
+    renderQuestion();
+  }
+
+  async function submitAssessment() {
+    const email = ($("email")?.value || "").trim();
+    const tenant = getTenant();
+    const assessment = getAssessmentType();
+
+    if (!email) {
+      alert("Please enter your email");
+      return;
+    }
+
+    const api = window.GarveyApi;
+    const endpoint = assessment === "customer"
+      ? (api?.ENDPOINTS?.vocIntake || "/voc-intake")
+      : (api?.ENDPOINTS?.intake || "/api/intake");
+
+    const full = api?.buildUrl ? api.buildUrl(endpoint) : endpoint;
+
+    const res = await fetch(full, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, tenant, answers }),
+    });
+
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data?.error || data?.message || `Submission failed (${res.status})`);
+
+    renderResults(data);
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[c]));
+  }
+
+  function renderResults(data) {
+    const qEl = $("questionText");
+    const container = $("optionsContainer");
+    if (!qEl || !container) return;
+
+    qEl.textContent = "✅ Complete";
+    container.innerHTML = `
+      <div class="meta">assessment_type: <b>${escapeHtml(data.assessment_type || "")}</b></div>
+      <div style="margin-top:10px;"><b>Primary:</b> ${escapeHtml(data.primary || "")}</div>
+      <div><b>Secondary:</b> ${escapeHtml(data.secondary || "")}</div>
+      <div><b>Weakness:</b> ${escapeHtml(data.weakness || "")}</div>
+      <div style="margin-top:14px;">
+        <button class="btn" type="button" id="dashBtn">Go to Dashboard</button>
+      </div>
+      <pre style="margin-top:14px;">${escapeHtml(JSON.stringify(data, null, 2))}</pre>
+    `;
+
+    const btn = $("dashBtn");
+    if (btn) btn.onclick = () => {
+      const t = encodeURIComponent(getTenant());
+      window.location.href = `/dashboard.html?tenant=${t}`;
     };
-    container.appendChild(btn);
-  });
-
-  updateProgress();
-}
-
-async function loadQuestions() {
-  const res = await fetch(buildUrl(ENDPOINTS.questions, { assessment: "business_owner", ts: Date.now() }), { cache: "no-store" });
-  const data = await res.json();
-  if (!res.ok || !Array.isArray(data?.questions)) {
-    throw new Error(data?.error || "Failed to load questions");
   }
 
-  questions = normalizeQuestions(data.questions);
-  if (!questions.length || !questions[0].text || !questions[0].options.length) {
-    throw new Error("Questions payload missing display text/options");
+  async function init() {
+    const tenant = getTenant();
+    const assessment = getAssessmentType();
+
+    if ($("tenantLine")) $("tenantLine").textContent = `Tenant: ${tenant}`;
+    if ($("assessmentLine")) $("assessmentLine").textContent = `Assessment: ${assessment}`;
+    if ($("pageTitle")) $("pageTitle").textContent = assessment === "customer" ? "Voice of the Customer" : "Business Assessment";
+
+    const back = $("backLink");
+    if (back) back.href = `/index.html?tenant=${encodeURIComponent(tenant)}`;
+
+    try {
+      const data = await fetchQuestions(assessment);
+      questions = normalizeQuestions(data.questions);
+
+      if (!questions.length) throw new Error("No questions returned after normalization");
+      if (!questions[0].text || !questions[0].options?.length) {
+        throw new Error("Questions payload missing display text/options");
+      }
+
+      currentIndex = 0;
+      answers = [];
+      renderQuestion();
+    } catch (err) {
+      console.error(err);
+      showError(err.message || "Failed to load questions");
+    }
   }
 
-  currentIndex = 0;
-  answers = [];
-  renderQuestion();
-}
-
-async function submitAssessment() {
-  const email = (document.getElementById("email").value || "").trim();
-  if (!email) return alert("Please enter your email");
-
-  const tenant = getTenant();
-  const res = await fetch(buildUrl(ENDPOINTS.intake), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, tenant, answers }),
-  });
-
-  const data = await res.json();
-  if (!res.ok) throw new Error(data?.error || "Submission failed");
-
-  const q = document.getElementById("questionText");
-  const c = document.getElementById("optionsContainer");
-  q.innerText = "✅ Intake Complete";
-  c.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre><button class="btn" onclick="location.href='/dashboard.html?tenant=${encodeURIComponent(tenant)}'">Go to Dashboard</button>`;
-}
-
-function showError(msg) {
-  document.getElementById("questionText").innerText = "❌ " + msg;
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-  try {
-    assertDom();
-    document.getElementById("tenantLine").innerText = `Tenant: ${getTenant()}`;
-    await loadQuestions();
-  } catch (err) {
-    console.error(err);
-    showError(err.message || "Failed to initialize intake page");
-  }
-});
-</script>
+  window.addEventListener("DOMContentLoaded", init);
+  </script>
 </body>
 </html>
