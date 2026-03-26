@@ -56,6 +56,9 @@ async function httpText(path) {
 function assert(cond, msg) {
   if (!cond) throw new Error(msg);
 }
+function percentSum(obj = {}) {
+  return Object.values(obj || {}).reduce((sum, v) => sum + Number(v || 0), 0);
+}
 const PLACEHOLDER_OPTION_RE = /^Option [ABCD]$/i;
 
 function pickColumnId(columns, phase, nameLower) {
@@ -163,7 +166,11 @@ async function runIntake() {
   assert(intake.res.ok, `intake failed: ${intake.res.status} ${intake.text}`);
   assert(intake.json?.success === true, "intake success !== true");
   assert(intake.json?.assessment_type === "business_owner", "intake assessment_type mismatch");
-  assert(intake.json?.primary, "intake missing primary");
+  assert(intake.json?.primary_role || intake.json?.primary, "intake missing primary");
+  assert(intake.json?.secondary_role || intake.json?.secondary, "intake missing secondary");
+  assert(intake.json?.weakness_role || intake.json?.weakness, "intake missing weakness");
+  assert(Math.abs(percentSum(intake.json?.percents) - 100) <= 2, "intake percents should sum to ~100");
+  assert(Array.isArray(intake.json?.next_steps) && intake.json.next_steps.some((s) => String(s.href || "").includes(`tenant=${encodeURIComponent(TENANT)}`)), "intake next_steps missing tenant");
 }
 
 async function runVoc() {
@@ -191,7 +198,11 @@ async function runVoc() {
   assert(voc.res.ok, `voc intake failed: ${voc.res.status} ${voc.text}`);
   assert(voc.json?.success === true, "voc success !== true");
   assert(voc.json?.assessment_type === "customer", "voc assessment_type mismatch");
-  assert(voc.json?.primary, "voc missing primary");
+  assert(voc.json?.primary_role || voc.json?.primary, "voc missing primary");
+  assert(voc.json?.secondary_role || voc.json?.secondary, "voc missing secondary");
+  assert(voc.json?.weakness_role || voc.json?.weakness, "voc missing weakness");
+  assert(Math.abs(percentSum(voc.json?.percents) - 100) <= 2, "voc percents should sum to ~100");
+  assert(Array.isArray(voc.json?.next_steps) && voc.json.next_steps.some((s) => String(s.href || "").includes(`tenant=${encodeURIComponent(TENANT)}`)), "voc next_steps missing tenant");
 }
 
 async function runRewardFlow() {
@@ -264,16 +275,23 @@ async function verifyPages() {
     const { res } = await httpText(`${p}?tenant=${encodeURIComponent(TENANT)}`);
     assert(res.ok, `post-assessment route failed ${p}: ${res.status}`);
   }
+
+  for (const p of ["/results_owner.html", "/results_customer.html"]) {
+    const { res } = await httpText(`${p}?tenant=${encodeURIComponent(TENANT)}&email=${encodeURIComponent(EMAIL)}`);
+    assert(res.ok, `results page failed ${p}: ${res.status}`);
+  }
 }
 
 async function verifyDashboardContracts() {
   const ownerResult = await httpJson(`/api/results/${encodeURIComponent(EMAIL)}?type=business_owner`);
   assert(ownerResult.res.ok, `owner results lookup failed: ${ownerResult.res.status} ${ownerResult.text}`);
-  assert(ownerResult.json?.result?.primary_role || ownerResult.json?.result?.primary_archetype, "owner results missing role");
+  assert(ownerResult.json?.primary_role || ownerResult.json?.result?.primary_role || ownerResult.json?.result?.primary_archetype, "owner results missing role");
+  assert(Math.abs(percentSum(ownerResult.json?.percents || ownerResult.json?.result?.percents) - 100) <= 2, "owner results percents should sum to ~100");
 
   const customerResult = await httpJson(`/api/results/${encodeURIComponent(EMAIL)}?type=customer`);
   assert(customerResult.res.ok, `customer results lookup failed: ${customerResult.res.status} ${customerResult.text}`);
-  assert(customerResult.json?.result?.primary_role || customerResult.json?.result?.primary_archetype, "customer results missing role");
+  assert(customerResult.json?.primary_role || customerResult.json?.result?.primary_role || customerResult.json?.result?.primary_archetype, "customer results missing role");
+  assert(Math.abs(percentSum(customerResult.json?.percents || customerResult.json?.result?.percents) - 100) <= 2, "customer results percents should sum to ~100");
 }
 
 async function main() {

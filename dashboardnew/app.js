@@ -75,6 +75,22 @@
     document.getElementById('customerInsight').textContent = customer.primary ? ('Customer: ' + customer.primary + ' | Personality: ' + (customer.personality || '-') + ' | Weakness: ' + (customer.weakness || '-')) : 'Customer: No submissions yet.';
   }
 
+  function renderSegments(segments) {
+    var summary = document.getElementById('segmentsSummary');
+    var top = document.getElementById('segmentsTop');
+    var total = Number(segments?.total_customer_assessments || 0);
+    var distribution = Array.isArray(segments?.distribution) ? segments.distribution : [];
+    if (!total) {
+      summary.textContent = 'No customer segment data yet.';
+      top.innerHTML = '';
+      return;
+    }
+    summary.textContent = 'Total customer assessments: ' + total;
+    top.innerHTML = distribution.slice(0, 5).map(function (row) {
+      return '<div><b>' + (row.archetype || 'Unknown') + ':</b> ' + (row.count || 0) + ' (' + (row.percent || 0) + '%)</div>';
+    }).join('');
+  }
+
   function setupError(msg) { document.getElementById('errorBanner').textContent = msg; }
 
   function resultSummaryHtml(result) {
@@ -129,7 +145,8 @@
     Promise.all([
       jsonFetch('/t/' + encodeURIComponent(tenant) + '/dashboard'),
       jsonFetch('/t/' + encodeURIComponent(tenant) + '/customers'),
-      jsonFetch('/t/' + encodeURIComponent(tenant) + '/analytics')
+      jsonFetch('/t/' + encodeURIComponent(tenant) + '/analytics'),
+      jsonFetch('/t/' + encodeURIComponent(tenant) + '/segments')
     ])
       .then(function (responses) {
         renderMetrics(responses[0]);
@@ -138,6 +155,7 @@
         renderArea(responses[2]);
         renderDonut(responses[2]);
         renderInsights(responses[2]);
+        renderSegments(responses[3]);
       })
       .catch(function (err) { setupError(err.message); });
   }
