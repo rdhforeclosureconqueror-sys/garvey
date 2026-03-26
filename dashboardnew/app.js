@@ -108,15 +108,16 @@
     document.getElementById('rewardsFallbackBtn').href = '/rewards.html?tenant=' + enc;
   }
 
-  function loadOwnerSnapshot(email) {
+  function loadOwnerSnapshot(email, tenant) {
     var el = document.getElementById('ownerSnapshotBody');
     if (!email) return;
-    jsonFetch('/api/results/' + encodeURIComponent(email) + '?type=business_owner')
+    var suffix = tenant ? ('?type=business_owner&tenant=' + encodeURIComponent(tenant)) : '?type=business_owner';
+    jsonFetch('/api/results/' + encodeURIComponent(email) + suffix)
       .then(function (body) { el.innerHTML = resultSummaryHtml(body.result); })
       .catch(function (err) { el.innerHTML = '<span class="text-danger">' + err.message + '</span>'; });
   }
 
-  function wireCustomerLookup() {
+  function wireCustomerLookup(tenant) {
     var input = document.getElementById('customerLookupEmail');
     var body = document.getElementById('customerLookupBody');
     document.getElementById('customerLookupBtn').addEventListener('click', function () {
@@ -126,7 +127,8 @@
         return;
       }
       body.textContent = 'Loading...';
-      jsonFetch('/api/results/' + encodeURIComponent(email) + '?type=customer')
+      var suffix = tenant ? ('?type=customer&tenant=' + encodeURIComponent(tenant)) : '?type=customer';
+      jsonFetch('/api/results/' + encodeURIComponent(email) + suffix)
         .then(function (resp) { body.innerHTML = resultSummaryHtml(resp.result); })
         .catch(function (err) { body.innerHTML = '<span class="text-danger">' + err.message + '</span>'; });
     });
@@ -139,8 +141,8 @@
     var ownerEmail = ownerEmailFromUrl();
     document.getElementById('tenantLabel').textContent = 'Tenant: ' + tenant;
     wirePathButtons(tenant);
-    wireCustomerLookup();
-    loadOwnerSnapshot(ownerEmail);
+    wireCustomerLookup(tenant);
+    loadOwnerSnapshot(ownerEmail, tenant);
 
     Promise.all([
       jsonFetch('/t/' + encodeURIComponent(tenant) + '/dashboard'),

@@ -114,9 +114,11 @@
 
     <div class="btnrow">
       <a class="btn" id="pathwayLink">Continue Idea → Funding Pathway</a>
+      <a class="btn" id="pathwayFallbackLink">GARVEY Fallback</a>
       <a class="btn" id="templatesLink">Website Templates</a>
       <a class="btn" id="actionsLink">Earn Points (Actions)</a>
       <a class="btn" id="rewardsLink">Customer Rewards</a>
+      <a class="btn" id="rewardsFallbackLink">Rewards Fallback</a>
       <a class="btn" id="dashboardLink">Owner Dashboard</a>
     </div>
 
@@ -160,10 +162,12 @@
     function syncTenantLinks(tenant) {
       const enc = encodeURIComponent(tenant);
 
-      document.getElementById("pathwayLink").href = `/garvey.html?tenant=${enc}`;
+      document.getElementById("pathwayLink").href = `/garvey_premium.html?tenant=${enc}`;
+      document.getElementById("pathwayFallbackLink").href = `/garvey.html?tenant=${enc}`;
       document.getElementById("templatesLink").href = `/templates.html?tenant=${enc}`;
       document.getElementById("actionsLink").href = `/index.html?tenant=${enc}`;
-      document.getElementById("rewardsLink").href = `/rewards.html?tenant=${enc}`;
+      document.getElementById("rewardsLink").href = `/rewards_premium.html?tenant=${enc}`;
+      document.getElementById("rewardsFallbackLink").href = `/rewards.html?tenant=${enc}`;
       document.getElementById("dashboardLink").href = `/dashboard.html?tenant=${enc}`;
 
       document.getElementById("adminLink").href = `/admin.html?tenant=${enc}`;

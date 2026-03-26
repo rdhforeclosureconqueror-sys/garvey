@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>GARVEY Premium</title></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GARVEY Premium</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #030712; color: #fff; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 28px 18px; }
+    .card { background: #111827; border: 1px solid #374151; border-radius: 14px; padding: 18px; margin-bottom: 14px; }
+    .btn { display: inline-block; margin: 8px 8px 0 0; padding: 10px 14px; border-radius: 10px; text-decoration: none; font-weight: 700; }
+    .btn-main { background: #eab308; color: #000; }
+    .btn-alt { background: #1f2937; color: #e5e7eb; border: 1px solid #374151; }
+    .muted { color: #94a3b8; }
+  </style>
+</head>
 <body>
-<script>
-  const params = window.location.search || "";
-  window.location.replace(`/garvey.html${params}`);
-</script>
-<p>Loading premium GARVEY pathway...</p>
+  <div class="wrap">
+    <div class="card">
+      <h1>GARVEY Premium Hub</h1>
+      <p class="muted">Premium pathway is currently text-only and fully functional without binary template assets.</p>
+      <a id="openGarvey" class="btn btn-main" href="#">Open GARVEY Hub</a>
+      <a id="fallbackGarvey" class="btn btn-alt" href="#">Fallback GARVEY Hub</a>
+      <a id="toSite" class="btn btn-alt" href="#">View Tenant Site</a>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const p = new URLSearchParams(window.location.search);
+      const tenant = (p.get("tenant") || "").trim();
+      const suffix = tenant ? `?tenant=${encodeURIComponent(tenant)}` : "";
+      document.getElementById("openGarvey").href = `/garvey.html${suffix}`;
+      document.getElementById("fallbackGarvey").href = `/garvey.html${suffix}`;
+      document.getElementById("toSite").href = tenant
+        ? `/t/${encodeURIComponent(tenant)}/site`
+        : "/index.html";
+    })();
+  </script>
 </body>
 </html>

@@ -55,6 +55,9 @@ h1 { color:gold; }
 <a class="btn" id="vocBtn">🗣️ Customer VOC</a>
 <a class="btn" id="actionsBtn">⚡ Earn Points</a>
 <a class="btn" id="rewardsBtn">🎁 Rewards</a>
+<a class="btn" id="rewardsFallbackBtn">🎁 Rewards Fallback</a>
+<a class="btn" id="garveyBtn">🚀 GARVEY Premium</a>
+<a class="btn" id="garveyFallbackBtn">🚀 GARVEY Fallback</a>
 <a class="btn" id="dashboardBtn">📊 Dashboard</a>
 
 </div>
@@ -79,13 +82,19 @@ function init() {
     `/voc.html?tenant=${enc}`;
 
   document.getElementById("actionsBtn").href =
-    `/rewards.html?tenant=${enc}`;
+    `/rewards_premium.html?tenant=${enc}`;
 
   document.getElementById("rewardsBtn").href =
+    `/rewards_premium.html?tenant=${enc}`;
+
+  document.getElementById("rewardsFallbackBtn").href =
     `/rewards.html?tenant=${enc}`;
 
-  document.getElementById("rewardsBtn").href =
-    `/rewards.html?tenant=${enc}`;
+  document.getElementById("garveyBtn").href =
+    `/garvey_premium.html?tenant=${enc}`;
+
+  document.getElementById("garveyFallbackBtn").href =
+    `/garvey.html?tenant=${enc}`;
 
   document.getElementById("dashboardBtn").href =
     `/dashboard.html?tenant=${enc}`;
