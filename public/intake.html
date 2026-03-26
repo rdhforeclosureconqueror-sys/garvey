@@ -1,17 +1,7 @@
+<script src="/js/api-contract.js"></script>
 <script>
 "use strict";
-
-/* ================================
-   API BASE (AUTO DETECT)
-================================ */
-
-const API_BASE = (() => {
-  const host = window.location.hostname || "";
-  if (host.includes("garveyfrontend")) {
-    return "https://garveybackend.onrender.com";
-  }
-  return "";
-})();
+const { ENDPOINTS, buildUrl } = window.GarveyApi;
 
 /* ================================
    STATE
@@ -55,7 +45,8 @@ function normalizeQuestions(rawQuestions = []) {
 
 function getAssessmentType() {
   const params = new URLSearchParams(window.location.search);
-  return params.get("assessment") || "business_owner";
+  const type = (params.get("assessment") || "business_owner").trim().toLowerCase();
+  return type === "customer" ? "customer" : "business_owner";
 }
 
 function getTenant() {
@@ -89,7 +80,7 @@ async function loadQuestions() {
     console.log("📡 Loading:", assessment);
 
     const res = await fetch(
-      `${API_BASE}/api/questions?assessment=${assessment}&ts=${Date.now()}`,
+      buildUrl(ENDPOINTS.questions, { assessment, ts: Date.now() }),
       { cache: "no-store" }
     );
 
@@ -97,8 +88,8 @@ async function loadQuestions() {
 
     console.log("📦 RAW RESPONSE:", data);
 
-    if (!data || !data.questions) {
-      throw new Error("Invalid response format");
+    if (!res.ok || !Array.isArray(data?.questions)) {
+      throw new Error(data?.error || "Invalid response format");
     }
 
     questions = normalizeQuestions(data.questions);
@@ -204,19 +195,20 @@ async function submitAssessment() {
 
   const endpoint =
     assessment === "customer"
-      ? "/voc-intake"
-      : "/api/intake";
+      ? ENDPOINTS.vocIntake
+      : ENDPOINTS.intake;
 
   try {
     console.log("🚀 SUBMIT:", answers);
 
-    const res = await fetch(`${API_BASE}${endpoint}`, {
+    const res = await fetch(buildUrl(endpoint), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, tenant, answers })
     });
 
     const data = await res.json();
+    if (!res.ok) throw new Error(data?.error || "Submission failed");
 
     console.log("📊 RESULT:", data);
 
@@ -224,7 +216,7 @@ async function submitAssessment() {
 
   } catch (err) {
     console.error("❌ SUBMIT ERROR:", err);
-    showError("Submission failed");
+    showError(err?.message || "Submission failed");
   }
 }
 
