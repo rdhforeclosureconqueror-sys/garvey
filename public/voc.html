@@ -3,174 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <title>Voice of Customer</title>
-
 <style>
-body {
-  background:black;
-  color:white;
-  font-family:Arial;
-  text-align:center;
-  padding:20px;
-}
-
-.card {
-  max-width:700px;
-  margin:auto;
-}
-
-input {
-  padding:10px;
-  margin:6px;
-  width:90%;
-  border-radius:8px;
-}
-
-.btn {
-  background:gold;
-  padding:12px;
-  margin:8px auto;
-  display:block;
-  width:90%;
-  border-radius:10px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.btn:hover {
-  background:red;
-  color:white;
-}
-
-.progress {
-  margin:10px 0;
-  font-size:12px;
-  color:#aaa;
-}
+body { background:black; color:white; font-family:Arial; text-align:center; padding:20px; }
+.card { max-width:760px; margin:auto; }
+input { padding:10px; margin:6px; width:90%; border-radius:8px; }
+.btn { background:gold; padding:12px; margin:8px auto; display:block; width:90%; border-radius:10px; cursor:pointer; font-weight:bold; text-decoration:none; color:black; border:0; }
+.btn:hover { background:red; color:white; }
+.progress { margin:10px 0; font-size:12px; color:#aaa; }
+.result-card { background:#111827; border:1px solid #334155; border-radius:12px; padding:12px; margin:10px auto; text-align:left; }
+.bar-track { background:#1f2937; border-radius:999px; overflow:hidden; height:10px; }
+.bar-fill { background:gold; height:10px; }
 </style>
 </head>
-
 <body>
-
 <div class="card">
-
 <h1>🎤 Voice of the Customer</h1>
-
 <input id="email" placeholder="Email" />
-
 <div class="progress" id="progress"></div>
-
 <h3 id="questionText">Loading...</h3>
 <div id="optionsContainer"></div>
-
 </div>
-
 <script src="/js/api-contract.js"></script>
 <script>
 "use strict";
-
 const { ENDPOINTS, buildUrl } = window.GarveyApi;
-const REQUIRED_IDS = ["email", "progress", "questionText", "optionsContainer"];
-
-/* ================================ */
 let questions = [];
 let currentIndex = 0;
 let answers = [];
 
-function getTenant() {
-  return new URLSearchParams(window.location.search).get("tenant") || "test-business";
-}
+function getTenant() { return (new URLSearchParams(window.location.search).get("tenant") || "test-business").trim(); }
+function escapeHtml(s) { return String(s || "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c])); }
 
-/* ================================ */
 async function loadQuestions() {
   try {
-    const res = await fetch(
-      buildUrl(ENDPOINTS.questions, { assessment: "customer", ts: Date.now() })
-    );
-
+    const res = await fetch(buildUrl(ENDPOINTS.questions, { assessment: "customer", ts: Date.now() }));
     const data = await res.json();
-
-    if (!res.ok || !Array.isArray(data.questions)) {
-      throw new Error(data?.error || "No questions");
-    }
-
-    questions = data.questions.map((q, i) => ({
-      qid: q.qid || `CU${i + 1}`,
-      question_text: q.question_text || q.question || "",
-      option_a: q.option_a,
-      option_b: q.option_b,
-      option_c: q.option_c,
-      option_d: q.option_d
+    if (!res.ok || !Array.isArray(data.questions)) throw new Error(data?.error || "No questions");
+    questions = data.questions.map((q) => ({
+      qid: q.qid,
+      question_text: q.prompt || q.question_text || q.question || "",
+      options: q.options || [
+        { key: "A", label: q.option_a }, { key: "B", label: q.option_b }, { key: "C", label: q.option_c }, { key: "D", label: q.option_d }
+      ]
     }));
-    if (!questions.length || !questions[0].question_text || !questions[0].option_a) {
-      throw new Error("Questions payload missing display text/options");
-    }
     renderQuestion();
-
-  } catch (err) {
+  } catch (_) {
     showError("Failed to load questions");
   }
 }
 
-/* ================================ */
 function renderQuestion() {
   const q = questions[currentIndex];
-
   if (!q) return submit();
-
   document.getElementById("questionText").innerText = q.question_text;
-
   const container = document.getElementById("optionsContainer");
   container.innerHTML = "";
-
-  [
-    ["A", q.option_a],
-    ["B", q.option_b],
-    ["C", q.option_c],
-    ["D", q.option_d]
-  ].forEach(([k, v]) => {
-    if (!v) return;
-
+  q.options.forEach((opt) => {
+    if (!opt?.label) return;
     const btn = document.createElement("button");
     btn.className = "btn";
-    btn.innerText = `${k}: ${v}`;
-    btn.onclick = () => select(k);
+    btn.innerText = `${opt.key}: ${opt.label}`;
+    btn.onclick = () => {
+      answers.push({ qid: q.qid, answer: opt.key });
+      currentIndex++;
+      renderQuestion();
+    };
     container.appendChild(btn);
   });
-
-  updateProgress();
+  document.getElementById("progress").innerText = `Question ${currentIndex + 1} of ${questions.length}`;
 }
 
-/* ================================ */
-function select(letter) {
-  const q = questions[currentIndex];
-
-  answers.push({
-    qid: q.qid,
-    answer: letter
-  });
-
-  currentIndex++;
-  renderQuestion();
+function barsHtml(scores, primary, secondary, weakness) {
+  const entries = Object.entries(scores || {});
+  const total = entries.reduce((sum, [,v]) => sum + Number(v || 0), 0) || 1;
+  return entries.sort((a,b) => Number(b[1]) - Number(a[1])).map(([k,v]) => {
+    const pct = Math.round((Number(v || 0) / total) * 100);
+    const tags = [k===primary?"Primary":"", k===secondary?"Secondary":"", k===weakness?"Weakness":""].filter(Boolean).join(", ");
+    return `<div style="margin:8px 0;"><div style="display:flex;justify-content:space-between;font-size:12px;"><span>${escapeHtml(k)} ${tags ? `(${tags})` : ""}</span><span>${pct}%</span></div><div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div></div>`;
+  }).join("");
 }
 
-/* ================================ */
-function updateProgress() {
-  const total = questions.length;
-  const done = currentIndex;
-
-  document.getElementById("progress").innerText =
-    `Question ${done + 1} of ${total}`;
-}
-
-/* ================================ */
 async function submit() {
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("email").value.trim();
   const tenant = getTenant();
-
-  if (!email) {
-    alert("Enter email");
-    return;
-  }
+  if (!email) return alert("Enter email");
 
   try {
     const res = await fetch(buildUrl(ENDPOINTS.vocIntake), {
@@ -178,41 +94,38 @@ async function submit() {
       headers: {"Content-Type":"application/json"},
       body: JSON.stringify({ email, tenant, answers })
     });
-
     const data = await res.json();
     if (!res.ok) throw new Error(data?.error || "Submit failed");
 
-    document.body.innerHTML = `
-      <h1>✅ VOC Complete</h1>
-      <pre>${JSON.stringify(data, null, 2)}</pre>
-      <button onclick="goDashboard()">Go to Dashboard</button>
+    const scores = data.scores || data.archetype_counts || {};
+    const tenantEnc = encodeURIComponent(tenant);
+    const emailEnc = encodeURIComponent(email);
+
+    document.getElementById("questionText").innerText = "✅ VOC Complete";
+    document.getElementById("optionsContainer").innerHTML = `
+      <div class="result-card"><div><b>Primary:</b> ${escapeHtml(data.primary_role || data.primary)}</div><div><b>Secondary:</b> ${escapeHtml(data.secondary_role || data.secondary)}</div><div><b>Weakness:</b> ${escapeHtml(data.weakness_role || data.weakness)}</div></div>
+      <div class="result-card"><b>Archetype distribution</b>${barsHtml(scores, data.primary_role || data.primary, data.secondary_role || data.secondary, data.weakness_role || data.weakness)}</div>
+      <div class="result-card"><div><b>What offers you'll love:</b> personalized bundles based on your top archetype.</div><div><b>Best way to reward you:</b> quick points + VIP milestones.</div><div><b>Best way to message you:</b> direct, benefit-led reminders.</div></div>
+      <a class="btn" href="/rewards_premium.html?tenant=${tenantEnc}&email=${emailEnc}">Go to Rewards</a>
+      <a class="btn" href="#statusWidget" id="statusLink">View my points/status</a>
+      <div id="statusWidget" class="result-card"><b>Status widget:</b> open Rewards to view your live points and tier status.</div>
     `;
 
+    const statusLink = document.getElementById("statusLink");
+    if (statusLink) {
+      statusLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        document.getElementById("statusWidget")?.scrollIntoView({ behavior: "smooth" });
+      });
+    }
   } catch (err) {
     showError(err?.message || "Submit failed");
   }
 }
 
-/* ================================ */
-function goDashboard() {
-  const tenant = getTenant();
-  window.location.href = `/dashboard.html?tenant=${tenant}`;
-}
+function showError(msg) { document.getElementById("questionText").innerText = "❌ " + msg; }
 
-/* ================================ */
-function showError(msg) {
-  document.getElementById("questionText").innerText = "❌ " + msg;
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const missing = REQUIRED_IDS.filter((id) => !document.getElementById(id));
-  if (missing.length) {
-    showError(`Missing DOM elements: ${missing.join(", ")}`);
-    return;
-  }
-  loadQuestions();
-});
+document.addEventListener("DOMContentLoaded", loadQuestions);
 </script>
-
 </body>
 </html>

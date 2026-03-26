@@ -118,6 +118,28 @@ function normalizeEmail(email) {
   return String(email || "").trim().toLowerCase();
 }
 
+function normalizeScores(scores) {
+  if (!scores || typeof scores !== "object") return {};
+  return Object.entries(scores).reduce((acc, [key, value]) => {
+    const n = Number(value || 0);
+    acc[key] = Number.isFinite(n) ? n : 0;
+    return acc;
+  }, {});
+}
+
+function buildResultContract(scored) {
+  const scores = normalizeScores(scored?.archetype_counts);
+  return {
+    primary_role: scored?.primary || null,
+    secondary_role: scored?.secondary || null,
+    weakness_role: scored?.weakness || null,
+    scores,
+    weakness_advice: scored?.weakness
+      ? ARCHETYPE_DEFINITIONS[scored.weakness]?.improve || null
+      : null,
+  };
+}
+
 async function findTenantUser(tenantId, email, client = pool) {
   const normalized = normalizeEmail(email);
 
@@ -1116,6 +1138,7 @@ app.post("/api/intake", async (req, res) => {
     );
 
     await client.query("COMMIT");
+    const resultContract = buildResultContract(scored);
 
     return res.json({
       success: true,
@@ -1128,6 +1151,8 @@ app.post("/api/intake", async (req, res) => {
       archetype_definition: scored.primary
         ? ARCHETYPE_DEFINITIONS[scored.primary]
         : null,
+      ...resultContract,
+      result: resultContract,
     });
 
   } catch (err) {
@@ -1199,7 +1224,13 @@ app.get("/api/results/:email", async (req, res) => {
 
     return res.json({
       success: true,
-      result: result.rows[0],
+      result: {
+        ...result.rows[0],
+        primary_role: result.rows[0].primary_archetype,
+        secondary_role: result.rows[0].secondary_archetype,
+        weakness_role: result.rows[0].weakness_archetype,
+        scores: normalizeScores(result.rows[0].archetype_counts),
+      },
     });
 
   } catch (err) {
@@ -1417,6 +1448,7 @@ app.post("/voc-intake", async (req, res) => {
     );
 
     await client.query("COMMIT");
+    const resultContract = buildResultContract(scored);
 
     return res.json({
       success: true,
@@ -1436,6 +1468,8 @@ app.post("/voc-intake", async (req, res) => {
       // 🔥 COUNTS (NEW — VERY USEFUL FOR DASHBOARD)
       archetype_counts: scored.archetype_counts,
       personality_counts: scored.personality_counts,
+      ...resultContract,
+      result: resultContract,
     });
 
   } catch (err) {

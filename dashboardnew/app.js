@@ -1,8 +1,7 @@
 (function () {
-  function tenantFromUrl() {
-    var params = new URLSearchParams(window.location.search);
-    return (params.get('tenant') || '').trim();
-  }
+  function params() { return new URLSearchParams(window.location.search); }
+  function tenantFromUrl() { return (params().get('tenant') || '').trim(); }
+  function ownerEmailFromUrl() { return (params().get('email') || '').trim().toLowerCase(); }
 
   function jsonFetch(url, options) {
     return fetch(url, options).then(function (res) {
@@ -13,11 +12,7 @@
     });
   }
 
-  function fmtDate(value) {
-    if (!value) return '-';
-    return new Date(value).toISOString().slice(0, 10);
-  }
-
+  function fmtDate(value) { return value ? new Date(value).toISOString().slice(0, 10) : '-'; }
   function statusPill(status) {
     var cls = status === 'active' ? 'status-active' : status === 'new' ? 'status-new' : 'status-dormant';
     return '<span class="status-pill ' + cls + '">' + status + '</span>';
@@ -34,23 +29,11 @@
     var rows = customers || [];
     var tbody = $('#customersTable tbody');
     tbody.empty();
-
     rows.forEach(function (row) {
-      tbody.append(
-        '<tr>' +
-          '<td>' + (row.email || ('id:' + row.user_id)) + '</td>' +
-          '<td>' + (row.archetype || 'unclassified') + '</td>' +
-          '<td>' + (row.visits || 0) + '</td>' +
-          '<td>' + fmtDate(row.last_activity) + '</td>' +
-          '<td>' + statusPill(row.status || 'dormant') + '</td>' +
-        '</tr>'
-      );
+      tbody.append('<tr><td>' + (row.email || ('id:' + row.user_id)) + '</td><td>' + (row.archetype || 'unclassified') + '</td><td>' + (row.visits || 0) + '</td><td>' + fmtDate(row.last_activity) + '</td><td>' + statusPill(row.status || 'dormant') + '</td></tr>');
     });
 
-    if ($.fn.dataTable.isDataTable('#customersTable')) {
-      $('#customersTable').DataTable().destroy();
-    }
-
+    if ($.fn.dataTable.isDataTable('#customersTable')) $('#customersTable').DataTable().destroy();
     if (rows.length) {
       document.getElementById('tableEmpty').style.display = 'none';
       $('#customersTable').DataTable({ pageLength: 10, order: [[2, 'desc']] });
@@ -59,83 +42,89 @@
     }
   }
 
+  function renderChartEmpty(id, emptyId, hasData) {
+    $(id).empty();
+    document.getElementById(emptyId).style.display = hasData ? 'none' : 'block';
+  }
+
   function renderBar(analytics) {
     var points = analytics.visits_by_day || [];
-    $('#morris-bar-chart').empty();
-    if (!points.length) {
-      document.getElementById('barEmpty').style.display = 'block';
-      return;
-    }
-    document.getElementById('barEmpty').style.display = 'none';
-    new Morris.Bar({
-      element: 'morris-bar-chart',
-      data: points.map(function (p) { return { day: p.day, visits: p.visits }; }),
-      xkey: 'day',
-      ykeys: ['visits'],
-      labels: ['Visits'],
-      hideHover: 'auto',
-      resize: true
-    });
+    renderChartEmpty('#morris-bar-chart', 'barEmpty', points.length);
+    if (!points.length) return;
+    new Morris.Bar({ element: 'morris-bar-chart', data: points.map(function (p) { return { day: p.day, visits: p.visits }; }), xkey: 'day', ykeys: ['visits'], labels: ['Visits'], hideHover: 'auto', resize: true });
   }
 
   function renderArea(analytics) {
     var points = analytics.growth || [];
-    $('#morris-area-chart').empty();
-    if (!points.length) {
-      document.getElementById('areaEmpty').style.display = 'block';
-      return;
-    }
-    document.getElementById('areaEmpty').style.display = 'none';
-    new Morris.Area({
-      element: 'morris-area-chart',
-      data: points.map(function (p) { return { day: p.day, cumulative_customers: p.cumulative_customers }; }),
-      xkey: 'day',
-      ykeys: ['cumulative_customers'],
-      labels: ['Cumulative customers'],
-      pointSize: 2,
-      hideHover: 'auto',
-      resize: true
-    });
+    renderChartEmpty('#morris-area-chart', 'areaEmpty', points.length);
+    if (!points.length) return;
+    new Morris.Area({ element: 'morris-area-chart', data: points.map(function (p) { return { day: p.day, cumulative_customers: p.cumulative_customers }; }), xkey: 'day', ykeys: ['cumulative_customers'], labels: ['Cumulative customers'], pointSize: 2, hideHover: 'auto', resize: true });
   }
 
   function renderDonut(analytics) {
     var data = analytics.archetypes || [];
-    $('#morris-donut-chart').empty();
-    if (!data.length) {
-      document.getElementById('donutEmpty').style.display = 'block';
-      return;
-    }
-    document.getElementById('donutEmpty').style.display = 'none';
-    new Morris.Donut({
-      element: 'morris-donut-chart',
-      data: data.map(function (x) { return { label: x.archetype, value: x.count }; }),
-      resize: true
-    });
+    renderChartEmpty('#morris-donut-chart', 'donutEmpty', data.length);
+    if (!data.length) return;
+    new Morris.Donut({ element: 'morris-donut-chart', data: data.map(function (x) { return { label: x.archetype, value: x.count }; }), resize: true });
   }
 
   function renderInsights(analytics) {
     var owner = analytics.owner_assessment || {};
     var customer = analytics.customer_assessment || {};
-    document.getElementById('ownerInsight').textContent = owner.primary
-      ? ('Business Owner: ' + owner.primary + ' (secondary: ' + (owner.secondary || '-') + ', weakness: ' + (owner.weakness || '-') + ')')
-      : 'Business Owner: No submissions yet.';
-    document.getElementById('customerInsight').textContent = customer.primary
-      ? ('Customer: ' + customer.primary + ' | Personality: ' + (customer.personality || '-') + ' | Weakness: ' + (customer.weakness || '-'))
-      : 'Customer: No submissions yet.';
+    document.getElementById('ownerInsight').textContent = owner.primary ? ('Business Owner: ' + owner.primary + ' (secondary: ' + (owner.secondary || '-') + ', weakness: ' + (owner.weakness || '-') + ')') : 'Business Owner: No submissions yet.';
+    document.getElementById('customerInsight').textContent = customer.primary ? ('Customer: ' + customer.primary + ' | Personality: ' + (customer.personality || '-') + ' | Weakness: ' + (customer.weakness || '-')) : 'Customer: No submissions yet.';
   }
 
-  function setupError(msg) {
-    document.getElementById('errorBanner').textContent = msg;
+  function setupError(msg) { document.getElementById('errorBanner').textContent = msg; }
+
+  function resultSummaryHtml(result) {
+    if (!result) return '<div class="empty-state">No matching result yet.</div>';
+    return '<div><b>Primary:</b> ' + (result.primary_role || result.primary_archetype || '-') + '</div>' +
+      '<div><b>Secondary:</b> ' + (result.secondary_role || result.secondary_archetype || '-') + '</div>' +
+      '<div><b>Weakness:</b> ' + (result.weakness_role || result.weakness_archetype || '-') + '</div>' +
+      '<div><b>Updated:</b> ' + fmtDate(result.created_at) + '</div>';
+  }
+
+  function wirePathButtons(tenant) {
+    var enc = encodeURIComponent(tenant);
+    document.getElementById('garveyPathBtn').href = '/garvey_premium.html?tenant=' + enc;
+    document.getElementById('rewardsPathBtn').href = '/rewards_premium.html?tenant=' + enc;
+    document.getElementById('rewardsFallbackBtn').href = '/rewards.html?tenant=' + enc;
+  }
+
+  function loadOwnerSnapshot(email) {
+    var el = document.getElementById('ownerSnapshotBody');
+    if (!email) return;
+    jsonFetch('/api/results/' + encodeURIComponent(email) + '?type=business_owner')
+      .then(function (body) { el.innerHTML = resultSummaryHtml(body.result); })
+      .catch(function (err) { el.innerHTML = '<span class="text-danger">' + err.message + '</span>'; });
+  }
+
+  function wireCustomerLookup() {
+    var input = document.getElementById('customerLookupEmail');
+    var body = document.getElementById('customerLookupBody');
+    document.getElementById('customerLookupBtn').addEventListener('click', function () {
+      var email = (input.value || '').trim().toLowerCase();
+      if (!email) {
+        body.innerHTML = '<span class="text-danger">Enter a customer email.</span>';
+        return;
+      }
+      body.textContent = 'Loading...';
+      jsonFetch('/api/results/' + encodeURIComponent(email) + '?type=customer')
+        .then(function (resp) { body.innerHTML = resultSummaryHtml(resp.result); })
+        .catch(function (err) { body.innerHTML = '<span class="text-danger">' + err.message + '</span>'; });
+    });
   }
 
   function init() {
     var tenant = tenantFromUrl();
-    if (!tenant) {
-      setupError('Missing tenant query parameter. Open with ?tenant=<slug>.');
-      return;
-    }
+    if (!tenant) return setupError('Missing tenant query parameter. Open with ?tenant=<slug>.');
 
+    var ownerEmail = ownerEmailFromUrl();
     document.getElementById('tenantLabel').textContent = 'Tenant: ' + tenant;
+    wirePathButtons(tenant);
+    wireCustomerLookup();
+    loadOwnerSnapshot(ownerEmail);
 
     Promise.all([
       jsonFetch('/t/' + encodeURIComponent(tenant) + '/dashboard'),
@@ -150,9 +139,7 @@
         renderDonut(responses[2]);
         renderInsights(responses[2]);
       })
-      .catch(function (err) {
-        setupError(err.message);
-      });
+      .catch(function (err) { setupError(err.message); });
   }
 
   $(function () {
