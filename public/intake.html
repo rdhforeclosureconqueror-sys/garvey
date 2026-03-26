@@ -22,6 +22,7 @@
     a { color:#93c5fd; }
   </style>
 </head>
+
 <body>
   <div class="card">
     <h1 id="pageTitle">Assessment</h1>
@@ -60,20 +61,25 @@
   let currentIndex = 0;
   let answers = [];
 
-  // ---- HELPERS
+  // ---- DOM / HELPERS
+  const REQUIRED_IDS = ["email","progressBarFill","progress","questionText","optionsContainer","tenantLine"];
+
   function $(id) { return document.getElementById(id); }
 
-  function requiredIds() {
-    return ["email","progressBarFill","progress","questionText","optionsContainer","tenantLine"];
-  }
-
   function missingDomIds() {
-    return requiredIds().filter((id) => !$(id));
+    return REQUIRED_IDS.filter((id) => !$(id));
   }
 
   function showDebug(msg) {
     const el = $("debug");
     if (el) el.textContent = msg || "";
+  }
+
+  function showError(msg) {
+    const qEl = $("questionText");
+    if (qEl) qEl.textContent = "❌ " + msg;
+    const c = $("optionsContainer");
+    if (c) c.innerHTML = "";
   }
 
   function safeParse(val) {
@@ -92,48 +98,12 @@
     return type === "customer" ? "customer" : "business_owner";
   }
 
-  // Accept both normalized contract (prompt/options[{key,label}]) and legacy columns (question_text/option_a..d)
-  function normalizeQuestions(rawQuestions = []) {
-    return rawQuestions.map((q, i) => {
-      const qid = q.qid || q.id || `q_${i}`;
-
-      const prompt =
-        q.prompt ||
-        q.question_text ||
-        q.text ||
-        `Question ${i + 1}`;
-
-      // Preferred normalized options
-      if (Array.isArray(q.options) && q.options.length) {
-        const opts = q.options
-          .map((o, j) => ({
-            key: o.key || ["A","B","C","D"][j] || `O${j+1}`,
-            text: o.label || o.text || String(o.value || "").trim(),
-            maps: o.maps || o.mapping || [],
-          }))
-          .filter((o) => o.text);
-        return { id: qid, text: prompt, options: opts };
-      }
-
-      // Legacy columns
-      const optsLegacy = [
-        { key: "A", text: q.option_a, maps: safeParse(q.mapping_a) },
-        { key: "B", text: q.option_b, maps: safeParse(q.mapping_b) },
-        { key: "C", text: q.option_c, maps: safeParse(q.mapping_c) },
-        { key: "D", text: q.option_d, maps: safeParse(q.mapping_d) },
-      ].filter((o) => o.text);
-
-      return { id: qid, text: prompt, options: optsLegacy };
-    });
-  }
-
   function buildUrlCompat(path, params) {
     const api = window.GarveyApi;
     if (api?.buildUrl && api?.ENDPOINTS) {
       const endpoint = api.ENDPOINTS[path] || path;
       return api.buildUrl(endpoint, params);
     }
-    // Fallback: assume same-origin
     const u = new URL(path.startsWith("/") ? path : `/${path}`, window.location.origin);
     if (params) Object.entries(params).forEach(([k,v]) => u.searchParams.set(k, String(v)));
     return u.toString();
@@ -152,6 +122,41 @@
     return data;
   }
 
+  function normalizeQuestions(rawQuestions = []) {
+    return rawQuestions.map((q, i) => {
+      const qid = q.qid || q.id || `q_${i}`;
+
+      const prompt =
+        q.prompt ||
+        q.question_text ||
+        q.question ||
+        q.text ||
+        `Question ${i + 1}`;
+
+      // Normalized options
+      if (Array.isArray(q.options) && q.options.length) {
+        const opts = q.options
+          .map((o, j) => ({
+            key: o.key || ["A","B","C","D"][j] || `O${j+1}`,
+            text: o.label || o.text || String(o.value || "").trim(),
+            maps: o.maps || o.mapping || [],
+          }))
+          .filter((o) => o.text);
+        return { id: qid, text: prompt, options: opts };
+      }
+
+      // Legacy columns
+      const optsLegacy = [
+        { key: "A", text: q.option_a, maps: safeParse(q.mapping_a) },
+        { key: "B", text: q.option_b, maps: safeParse(q.mapping_b) },
+        { key: "C", text: q.option_c, maps: safeParse(q.mapping_c) },
+        { key: "D", text: q.option_d, maps: safeParse(q.mapping_d) },
+      ].filter((o) => String(o.text || "").trim().length > 0);
+
+      return { id: qid, text: prompt, options: optsLegacy };
+    });
+  }
+
   function updateProgress() {
     const total = questions.length || 1;
     const done = currentIndex;
@@ -163,18 +168,12 @@
     if (text) text.textContent = `Question ${Math.min(done + 1, total)} of ${total} (${pct}%)`;
   }
 
-  function showError(msg) {
-    const qEl = $("questionText");
-    if (qEl) qEl.textContent = "❌ " + msg;
-    const c = $("optionsContainer");
-    if (c) c.innerHTML = "";
-  }
-
   function renderQuestion() {
     const missing = missingDomIds();
     if (missing.length) {
       console.error("Missing DOM elements:", missing);
       showDebug(`Missing DOM elements: ${missing.join(", ")}`);
+      showError("Page is missing required UI elements.");
       return;
     }
 
@@ -184,7 +183,7 @@
       return;
     }
 
-    $("questionText").textContent = q.text;
+    $("questionText").textContent = q.text || "Question text unavailable";
     const container = $("optionsContainer");
     container.innerHTML = "";
 
@@ -213,6 +212,7 @@
     const email = ($("email")?.value || "").trim();
     const tenant = getTenant();
     const assessment = getAssessmentType();
+
     if (!email) {
       alert("Please enter your email");
       return;
@@ -237,33 +237,34 @@
     renderResults(data);
   }
 
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[c]));
+  }
+
   function renderResults(data) {
     const qEl = $("questionText");
     const container = $("optionsContainer");
     if (!qEl || !container) return;
 
-    qEl.textContent = "🎯 Result";
+    qEl.textContent = "✅ Complete";
     container.innerHTML = `
-      <div class="meta">assessment_type: <b>${data.assessment_type || ""}</b></div>
-      <div style="margin-top:10px;"><b>Primary:</b> ${data.primary || ""}</div>
-      <div><b>Secondary:</b> ${data.secondary || ""}</div>
-      <div><b>Weakness:</b> ${data.weakness || ""}</div>
+      <div class="meta">assessment_type: <b>${escapeHtml(data.assessment_type || "")}</b></div>
+      <div style="margin-top:10px;"><b>Primary:</b> ${escapeHtml(data.primary || "")}</div>
+      <div><b>Secondary:</b> ${escapeHtml(data.secondary || "")}</div>
+      <div><b>Weakness:</b> ${escapeHtml(data.weakness || "")}</div>
       <div style="margin-top:14px;">
         <button class="btn" type="button" id="dashBtn">Go to Dashboard</button>
       </div>
       <pre style="margin-top:14px;">${escapeHtml(JSON.stringify(data, null, 2))}</pre>
     `;
-    const btn = document.getElementById("dashBtn");
+
+    const btn = $("dashBtn");
     if (btn) btn.onclick = () => {
       const t = encodeURIComponent(getTenant());
       window.location.href = `/dashboard.html?tenant=${t}`;
     };
-  }
-
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, (c) => ({
-      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-    }[c]));
   }
 
   async function init() {
@@ -278,21 +279,20 @@
     if (back) back.href = `/index.html?tenant=${encodeURIComponent(tenant)}`;
 
     try {
-      console.log("Loading:", assessment);
       const data = await fetchQuestions(assessment);
-      console.log("RAW RESPONSE:", data);
-
       questions = normalizeQuestions(data.questions);
-      console.log("NORMALIZED:", questions);
 
       if (!questions.length) throw new Error("No questions returned after normalization");
+      if (!questions[0].text || !questions[0].options?.length) {
+        throw new Error("Questions payload missing display text/options");
+      }
 
       currentIndex = 0;
       answers = [];
       renderQuestion();
     } catch (err) {
-      console.error("LOAD ERROR:", err);
-      showError(err?.message || "Failed to load questions");
+      console.error(err);
+      showError(err.message || "Failed to load questions");
     }
   }
 

@@ -5,31 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Customer Rewards</title>
 <style>
-body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:24px; }
-.card { background:#111; border:2px solid gold; border-radius:14px; padding:18px; margin:0 auto 14px; max-width:900px; }
-h1,h2 { color:gold; margin:0 0 10px; }
-.row { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
-input, textarea, select { width:100%; padding:10px; border-radius:8px; border:1px solid #334155; background:#0b1020; color:#fff; }
-textarea { min-height:72px; }
-.btn { padding:10px 12px; border:0; border-radius:10px; background:gold; color:#000; font-weight:700; cursor:pointer; }
-.btn:hover { background:#ef4444; color:#fff; }
-.muted { color:#94a3b8; font-size:12px; }
-pre { white-space:pre-wrap; word-break:break-word; background:#020617; border:1px solid #334155; border-radius:10px; padding:10px; }
-a { color:#93c5fd; }
+  body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:24px; }
+  .card { background:#111; border:2px solid gold; border-radius:14px; padding:18px; margin:0 auto 14px; max-width:900px; }
+  h1,h2 { color:gold; margin:0 0 10px; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+  input, textarea, select { width:100%; padding:10px; border-radius:8px; border:1px solid #334155; background:#0b1020; color:#fff; }
+  textarea { min-height:72px; }
+  .btn { padding:10px 12px; border:0; border-radius:10px; background:gold; color:#000; font-weight:700; cursor:pointer; }
+  .btn:hover { background:#ef4444; color:#fff; }
+  .muted { color:#94a3b8; font-size:12px; }
+  pre { white-space:pre-wrap; word-break:break-word; background:#020617; border:1px solid #334155; border-radius:10px; padding:10px; }
+  a { color:#93c5fd; }
 </style>
 </head>
 <body>
   <div class="card">
     <h1>🎁 Customer Reward Actions</h1>
     <div id="tenantLine" class="muted"></div>
+
     <div class="row">
-      <input id="email" placeholder="customer@email.com" />
+      <input id="email" placeholder="customer@email.com" autocomplete="email" />
     </div>
+
     <div class="row">
       <a id="backHome" href="#">← Back</a>
       <a id="openDash" href="#">View Dashboard</a>
       <button id="refreshStatusBtn" class="btn" type="button">Refresh Status</button>
     </div>
+
     <pre id="statusPane">Status not loaded yet.</pre>
   </div>
 
@@ -37,21 +40,25 @@ a { color:#93c5fd; }
     <h2>Quick reward actions</h2>
     <div class="row">
       <button id="checkinBtn" class="btn" type="button">+ Check-in</button>
+
       <select id="actionType">
         <option value="review">Action: review</option>
         <option value="photo">Action: photo</option>
         <option value="video">Action: video</option>
         <option value="referral">Action: referral</option>
       </select>
+
       <button id="actionBtn" class="btn" type="button">+ Action</button>
     </div>
   </div>
 
   <div class="card">
     <h2>Extended actions</h2>
+
     <label>Review text
       <textarea id="reviewText" placeholder="Great service!"></textarea>
     </label>
+
     <div class="row">
       <select id="mediaType">
         <option value="">media_type: none</option>
@@ -60,15 +67,19 @@ a { color:#93c5fd; }
       </select>
       <button id="reviewBtn" class="btn" type="button">Submit Review</button>
     </div>
+
     <label>Referred email
-      <input id="referredEmail" placeholder="friend@email.com" />
+      <input id="referredEmail" placeholder="friend@email.com" autocomplete="email" />
     </label>
+
     <div class="row">
       <button id="referralBtn" class="btn" type="button">Submit Referral</button>
     </div>
+
     <label>Wishlist product
       <input id="productName" placeholder="Product name" />
     </label>
+
     <div class="row">
       <button id="wishlistBtn" class="btn" type="button">Add Wishlist</button>
     </div>
@@ -153,7 +164,10 @@ async function run() {
 
   document.getElementById("checkinBtn").onclick = async () => {
     try {
-      const data = await postJson(`/api/rewards/checkin`, { tenant, email: requireEmail() });
+      const data = await postJson(`/api/rewards/checkin`, {
+        tenant,
+        email: requireEmail(),
+      });
       showResult(data);
       await loadStatus(tenant, readEmail());
     } catch (err) {

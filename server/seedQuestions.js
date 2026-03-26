@@ -12,15 +12,7 @@ function safeOptionText(question, idx) {
 
 function safeMapping(question, idx) {
   const maps = question?.options?.[idx]?.maps || [];
-
-  if (question.type === "business_owner") {
-    return Array.isArray(maps) ? maps : [];
-  }
-
-  return {
-    archetype: maps[0] || null,
-    personality: maps[1] || null,
-  };
+  return Array.isArray(maps) ? maps.slice(0, 2) : [];
 }
 
 function buildOptionsObject(a, b, c, d) {

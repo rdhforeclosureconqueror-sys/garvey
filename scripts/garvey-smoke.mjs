@@ -9,6 +9,7 @@
 //   1 = fail
 
 import process from "node:process";
+import fs from "node:fs";
 
 const BASE_URL = (process.env.BASE_URL || "http://localhost:3000").replace(/\/+$/, "");
 const TENANT = process.env.TENANT || `smoke-${Date.now()}`;
@@ -55,6 +56,7 @@ async function httpText(path) {
 function assert(cond, msg) {
   if (!cond) throw new Error(msg);
 }
+const PLACEHOLDER_OPTION_RE = /^Option [ABCD]$/i;
 
 function pickColumnId(columns, phase, nameLower) {
   const cols = (columns || []).filter((c) => String(c.phase).toUpperCase() === phase);
@@ -133,10 +135,23 @@ async function runKanbanPhaseCycle(boardColumns, phase) {
 }
 
 async function runIntake() {
+  const missingAssessment = await httpJson(`/api/questions`);
+  assert(missingAssessment.res.status === 400, `questions missing assessment should 400, got ${missingAssessment.res.status}`);
+
   const q = await httpJson(`/api/questions?assessment=business_owner`);
   assert(q.res.ok, `questions failed: ${q.res.status} ${q.text}`);
   assert(Array.isArray(q.json?.questions) && q.json.questions.length > 0, "no business questions returned");
   assert(q.json?.assessment === "business_owner", "questions assessment mismatch for intake");
+  for (const bq of q.json.questions) {
+    const prompt = String(bq?.prompt || "").trim();
+    assert(prompt.length >= 12, `business prompt too short/trivial (${bq?.qid || "unknown"})`);
+    assert(Array.isArray(bq?.options) && bq.options.length === 4, `business options missing (${bq?.qid || "unknown"})`);
+    for (const opt of bq.options) {
+      const label = String(opt?.label || "").trim();
+      assert(label.length > 0, `business option label missing (${bq?.qid || "unknown"})`);
+      assert(!PLACEHOLDER_OPTION_RE.test(label), `business option labels still placeholder (${bq?.qid || "unknown"})`);
+    }
+  }
 
   const answers = q.json.questions.map((qq) => ({ qid: qq.qid, answer: "A" }));
 
@@ -156,6 +171,16 @@ async function runVoc() {
   assert(q.res.ok, `customer questions failed: ${q.res.status} ${q.text}`);
   assert(Array.isArray(q.json?.questions) && q.json.questions.length > 0, "no customer questions returned");
   assert(q.json?.assessment === "customer", "questions assessment mismatch for VOC");
+  for (const cq of q.json.questions) {
+    const prompt = String(cq?.prompt || "").trim();
+    assert(prompt.length >= 12, `customer prompt too short/trivial (${cq?.qid || "unknown"})`);
+    assert(Array.isArray(cq?.options) && cq.options.length === 4, `customer options missing (${cq?.qid || "unknown"})`);
+    for (const opt of cq.options) {
+      const label = String(opt?.label || "").trim();
+      assert(label.length > 0, `customer option label missing (${cq?.qid || "unknown"})`);
+      assert(!PLACEHOLDER_OPTION_RE.test(label), `customer option labels still placeholder (${cq?.qid || "unknown"})`);
+    }
+  }
 
   const answers = q.json.questions.map((qq) => ({ qid: qq.qid, answer: "A" }));
   const voc = await httpJson("/voc-intake", {
@@ -170,9 +195,7 @@ async function runVoc() {
 }
 
 async function runRewardFlow() {
-  const status = await httpJson(
-    `/api/rewards/status?tenant=${encodeURIComponent(TENANT)}&email=${encodeURIComponent(EMAIL)}`
-  );
+  const status = await httpJson(`/api/rewards/status?tenant=${encodeURIComponent(TENANT)}&email=${encodeURIComponent(EMAIL)}`);
   assert(status.res.ok, `rewards status failed: ${status.res.status} ${status.text}`);
   assert(status.json?.success === true, "rewards status success !== true");
 
@@ -193,14 +216,35 @@ async function runRewardFlow() {
 }
 
 async function verifyAssessmentLinks() {
-  const enc = encodeURIComponent(TENANT);
-  const { res, text } = await httpText(`/admin.html?tenant=${enc}`);
+  const { res, text } = await httpText(`/admin.html?tenant=${encodeURIComponent(TENANT)}`);
   assert(res.ok, `admin page failed: ${res.status}`);
   assert(text.includes("id=\"businessBtn\""), "admin missing business button");
-  assert(text.includes(`/intake.html?tenant=${enc}&assessment=business_owner`), "business button link mapping missing");
-  assert(text.includes(`/voc.html?tenant=${enc}`), "voc button link mapping missing");
-  assert(text.includes(`/index.html?tenant=${enc}`), "actions button link mapping missing");
-  assert(text.includes(`/rewards.html?tenant=${enc}`), "reward button link mapping missing");
+  assert(text.includes("/intake.html?tenant=${enc}&assessment=business_owner"), "business button link mapping missing");
+  assert(text.includes("/voc.html?tenant=${enc}"), "voc button link mapping missing");
+  assert(text.includes("/index.html?tenant=${enc}"), "actions button link mapping missing");
+  assert(text.includes("/rewards.html?tenant=${enc}"), "reward button link mapping missing");
+}
+
+function verifyQuestionPagesStatic() {
+  const intakeHtml = fs.readFileSync(new URL("../public/intake.html", import.meta.url), "utf8");
+  const vocHtml = fs.readFileSync(new URL("../public/voc.html", import.meta.url), "utf8");
+  const requiredIntakeIds = ["id=\"email\"", "id=\"progressBarFill\"", "id=\"progress\"", "id=\"questionText\"", "id=\"optionsContainer\"", "id=\"tenantLine\""];
+  for (const marker of requiredIntakeIds) {
+    assert(intakeHtml.includes(marker), `intake missing DOM marker ${marker}`);
+  }
+  const requiredVocIds = ["id=\"email\"", "id=\"progress\"", "id=\"questionText\"", "id=\"optionsContainer\""];
+  for (const marker of requiredVocIds) {
+    assert(vocHtml.includes(marker), `voc missing DOM marker ${marker}`);
+  }
+}
+
+function verifyNoMergeMarkers() {
+  const htmlFiles = fs.readdirSync(new URL("../public", import.meta.url))
+    .filter((name) => name.endsWith(".html"));
+  for (const file of htmlFiles) {
+    const raw = fs.readFileSync(new URL(`../public/${file}`, import.meta.url), "utf8");
+    assert(!raw.includes("<<<<<<<"), `merge marker found in public/${file}`);
+  }
 }
 
 async function verifyPages() {
@@ -251,6 +295,8 @@ async function main() {
   console.log("Verifying tenant site + GARVEY pages");
   await verifyPages();
   await verifyAssessmentLinks();
+  verifyQuestionPagesStatic();
+  verifyNoMergeMarkers();
 
   console.log("✅ GARVEY SMOKE TEST PASSED");
 }
