@@ -61,6 +61,43 @@ async function ensureGarveyBoard(pool, tenantId) {
   return board.rows[0];
 }
 
+async function ensureDefaultOnboardingCards(pool, boardId) {
+  const existingCards = await pool.query(
+    `SELECT COUNT(*)::int AS count FROM kanban_cards WHERE board_id=$1`,
+    [boardId]
+  );
+  if ((existingCards.rows[0]?.count || 0) > 0) return { created: 0 };
+
+  const backlogColumn = await pool.query(
+    `SELECT id
+     FROM kanban_columns
+     WHERE board_id=$1 AND phase IN ('G','A') AND LOWER(name)='backlog'
+     ORDER BY CASE WHEN phase='G' THEN 0 ELSE 1 END, position ASC
+     LIMIT 1`,
+    [boardId]
+  );
+
+  const targetColumnId = backlogColumn.rows[0]?.id;
+  if (!targetColumnId) return { created: 0 };
+
+  const defaults = [
+    "Complete your profile",
+    "Add offer + pricing",
+    "Invite customers to take assessment",
+    "Review your first dashboard insights",
+  ];
+
+  for (const [index, title] of defaults.entries()) {
+    await pool.query(
+      `INSERT INTO kanban_cards (board_id, phase, column_id, title, description, priority, position, created_by)
+       VALUES ($1, 'G', $2, $3, '', 'normal', $4, 'system')`,
+      [boardId, targetColumnId, title, index + 1]
+    );
+  }
+
+  return { created: defaults.length };
+}
+
 module.exports = function kanbanRoutes({ pool, ensureTenant }) {
   const router = express.Router();
 
@@ -68,11 +105,16 @@ module.exports = function kanbanRoutes({ pool, ensureTenant }) {
     try {
       const tenantSlug = requireTenantSlug(req, res);
       if (!tenantSlug) return;
+      const includeDefaults = Boolean(req.body?.include_defaults || req.query?.include_defaults);
 
       const tenant = await ensureTenant(tenantSlug);
       const board = await ensureGarveyBoard(pool, tenant.id);
+      let seeded = { created: 0 };
+      if (includeDefaults) {
+        seeded = await ensureDefaultOnboardingCards(pool, board.id);
+      }
 
-      return res.json({ success: true, tenant: tenant.slug, board });
+      return res.json({ success: true, tenant: tenant.slug, board, seeded });
     } catch (err) {
       console.error(err);
       return res.status(500).json({ error: "kanban ensure failed" });

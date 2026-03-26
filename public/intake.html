@@ -11,7 +11,7 @@
     .meta { color:#94a3b8; font-size:12px; margin:6px 0 14px; }
     .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
     input { width:100%; padding:12px; border-radius:10px; border:1px solid #334155; background:#0b1020; color:#fff; }
-    .btn { padding:12px 16px; border-radius:10px; border:0; background:gold; color:#000; font-weight:800; cursor:pointer; }
+    .btn { padding:12px 16px; border-radius:10px; border:0; background:gold; color:#000; font-weight:800; cursor:pointer; text-decoration:none; display:inline-block; }
     .btn:hover { background:#ef4444; color:#fff; }
     .progressWrap { background:#0b1020; border:1px solid #334155; border-radius:999px; overflow:hidden; height:12px; width:100%; }
     .progressFill { height:100%; width:0%; background:gold; transition:width .2s ease; }
@@ -19,6 +19,11 @@
     .options { display:grid; gap:10px; margin-top:10px; }
     .optBtn { text-align:left; }
     .err { color:#fca5a5; white-space:pre-wrap; }
+    .result-card { background:#0b1020; border:1px solid #334155; border-radius:12px; padding:14px; margin-top:12px; }
+    .bar-wrap { margin:8px 0; }
+    .bar-label { font-size:12px; color:#cbd5e1; margin-bottom:4px; display:flex; justify-content:space-between; }
+    .bar-track { background:#1f2937; border-radius:999px; overflow:hidden; height:10px; }
+    .bar-fill { background:gold; height:10px; }
     a { color:#93c5fd; }
   </style>
 </head>
@@ -56,30 +61,21 @@
   <script defer>
   "use strict";
 
-  // ---- STATE
   let questions = [];
   let currentIndex = 0;
   let answers = [];
 
-  // ---- DOM / HELPERS
   const REQUIRED_IDS = ["email","progressBarFill","progress","questionText","optionsContainer","tenantLine"];
 
   function $(id) { return document.getElementById(id); }
+  function escapeHtml(s) { return String(s || "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c])); }
 
-  function missingDomIds() {
-    return REQUIRED_IDS.filter((id) => !$(id));
-  }
-
-  function showDebug(msg) {
-    const el = $("debug");
-    if (el) el.textContent = msg || "";
-  }
+  function missingDomIds() { return REQUIRED_IDS.filter((id) => !$(id)); }
+  function showDebug(msg) { if ($("debug")) $("debug").textContent = msg || ""; }
 
   function showError(msg) {
-    const qEl = $("questionText");
-    if (qEl) qEl.textContent = "❌ " + msg;
-    const c = $("optionsContainer");
-    if (c) c.innerHTML = "";
+    if ($("questionText")) $("questionText").textContent = "❌ " + msg;
+    if ($("optionsContainer")) $("optionsContainer").innerHTML = "";
   }
 
   function safeParse(val) {
@@ -88,72 +84,48 @@
     try { return JSON.parse(val); } catch { return []; }
   }
 
-  function getTenant() {
-    return (new URLSearchParams(window.location.search).get("tenant") || "test-business").trim();
-  }
-
+  function getTenant() { return (new URLSearchParams(window.location.search).get("tenant") || "test-business").trim(); }
   function getAssessmentType() {
-    const params = new URLSearchParams(window.location.search);
-    const type = (params.get("assessment") || "business_owner").trim().toLowerCase();
+    const type = (new URLSearchParams(window.location.search).get("assessment") || "business_owner").trim().toLowerCase();
     return type === "customer" ? "customer" : "business_owner";
   }
 
   function buildUrlCompat(path, params) {
     const api = window.GarveyApi;
-    if (api?.buildUrl && api?.ENDPOINTS) {
-      const endpoint = api.ENDPOINTS[path] || path;
-      return api.buildUrl(endpoint, params);
-    }
-    const u = new URL(path.startsWith("/") ? path : `/${path}`, window.location.origin);
-    if (params) Object.entries(params).forEach(([k,v]) => u.searchParams.set(k, String(v)));
+    const endpoint = api?.ENDPOINTS?.[path] || path;
+    if (api?.buildUrl) return api.buildUrl(endpoint, params);
+    const u = new URL(endpoint.startsWith("/") ? endpoint : `/${endpoint}`, window.location.origin);
+    Object.entries(params || {}).forEach(([k,v]) => u.searchParams.set(k, String(v)));
     return u.toString();
   }
 
   async function fetchQuestions(assessment) {
-    const u = window.GarveyApi?.ENDPOINTS?.questions
-      ? window.GarveyApi.ENDPOINTS.questions
-      : "/api/questions";
-    const full = buildUrlCompat(u, { assessment, ts: Date.now() });
+    const full = buildUrlCompat(window.GarveyApi?.ENDPOINTS?.questions || "/api/questions", { assessment, ts: Date.now() });
     const res = await fetch(full, { cache: "no-store" });
     const data = await res.json().catch(() => ({}));
-    if (!res.ok || !Array.isArray(data?.questions)) {
-      throw new Error(data?.error || data?.message || `Invalid questions response (${res.status})`);
-    }
+    if (!res.ok || !Array.isArray(data?.questions)) throw new Error(data?.error || `Invalid questions response (${res.status})`);
     return data;
   }
 
   function normalizeQuestions(rawQuestions = []) {
     return rawQuestions.map((q, i) => {
-      const qid = q.qid || q.id || `q_${i}`;
-
-      const prompt =
-        q.prompt ||
-        q.question_text ||
-        q.question ||
-        q.text ||
-        `Question ${i + 1}`;
-
-      // Normalized options
       if (Array.isArray(q.options) && q.options.length) {
-        const opts = q.options
-          .map((o, j) => ({
-            key: o.key || ["A","B","C","D"][j] || `O${j+1}`,
-            text: o.label || o.text || String(o.value || "").trim(),
-            maps: o.maps || o.mapping || [],
-          }))
-          .filter((o) => o.text);
-        return { id: qid, text: prompt, options: opts };
+        return {
+          id: q.qid || q.id || `q_${i}`,
+          text: q.prompt || q.question_text || q.question || `Question ${i + 1}`,
+          options: q.options.map((o, j) => ({ key: o.key || ["A","B","C","D"][j], text: o.label || o.text || "", maps: o.maps || o.mapping || [] })).filter((o) => o.text),
+        };
       }
-
-      // Legacy columns
-      const optsLegacy = [
-        { key: "A", text: q.option_a, maps: safeParse(q.mapping_a) },
-        { key: "B", text: q.option_b, maps: safeParse(q.mapping_b) },
-        { key: "C", text: q.option_c, maps: safeParse(q.mapping_c) },
-        { key: "D", text: q.option_d, maps: safeParse(q.mapping_d) },
-      ].filter((o) => String(o.text || "").trim().length > 0);
-
-      return { id: qid, text: prompt, options: optsLegacy };
+      return {
+        id: q.qid || q.id || `q_${i}`,
+        text: q.prompt || q.question_text || q.question || `Question ${i + 1}`,
+        options: [
+          { key: "A", text: q.option_a, maps: safeParse(q.mapping_a) },
+          { key: "B", text: q.option_b, maps: safeParse(q.mapping_b) },
+          { key: "C", text: q.option_c, maps: safeParse(q.mapping_c) },
+          { key: "D", text: q.option_d, maps: safeParse(q.mapping_d) },
+        ].filter((o) => String(o.text || "").trim().length > 0),
+      };
     });
   }
 
@@ -161,27 +133,16 @@
     const total = questions.length || 1;
     const done = currentIndex;
     const pct = Math.round((done / total) * 100);
-
-    const bar = $("progressBarFill");
-    const text = $("progress");
-    if (bar) bar.style.width = pct + "%";
-    if (text) text.textContent = `Question ${Math.min(done + 1, total)} of ${total} (${pct}%)`;
+    if ($("progressBarFill")) $("progressBarFill").style.width = pct + "%";
+    if ($("progress")) $("progress").textContent = `Question ${Math.min(done + 1, total)} of ${total} (${pct}%)`;
   }
 
   function renderQuestion() {
     const missing = missingDomIds();
-    if (missing.length) {
-      console.error("Missing DOM elements:", missing);
-      showDebug(`Missing DOM elements: ${missing.join(", ")}`);
-      showError("Page is missing required UI elements.");
-      return;
-    }
+    if (missing.length) return showError(`Missing DOM elements: ${missing.join(", ")}`);
 
     const q = questions[currentIndex];
-    if (!q) {
-      submitAssessment().catch((e) => showError(e.message || "Submission failed"));
-      return;
-    }
+    if (!q) return submitAssessment().catch((e) => showError(e.message || "Submission failed"));
 
     $("questionText").textContent = q.text || "Question text unavailable";
     const container = $("optionsContainer");
@@ -192,38 +153,108 @@
       btn.className = "btn optBtn";
       btn.type = "button";
       btn.textContent = `${opt.key}: ${opt.text}`;
-      btn.onclick = () => handleAnswer(opt.key);
+      btn.onclick = () => {
+        answers.push({ qid: q.id, answer: opt.key });
+        currentIndex += 1;
+        renderQuestion();
+      };
       container.appendChild(btn);
     });
 
     updateProgress();
   }
 
-  function handleAnswer(letter) {
-    const q = questions[currentIndex];
-    if (!q) return;
+  function normalizeResultPayload(data) {
+    const result = data?.result || data || {};
+    const scores = result.scores || result.archetype_counts || data?.archetype_counts || {};
+    return {
+      primary: result.primary_role || data.primary_role || result.primary || data.primary || "",
+      secondary: result.secondary_role || data.secondary_role || result.secondary || data.secondary || "",
+      weakness: result.weakness_role || data.weakness_role || result.weakness || data.weakness || "",
+      scores,
+      weaknessAdvice: result.weakness_advice || data.weakness_advice || "Focus on small weekly actions to improve this area.",
+      personalityPrimary: data.personality_primary || result.personality_primary || "",
+    };
+  }
 
-    answers.push({ qid: q.id, answer: letter });
-    currentIndex += 1;
-    renderQuestion();
+  function scoreBarsHtml(scores, primary, secondary, weakness) {
+    const entries = Object.entries(scores || {});
+    const total = entries.reduce((sum, [,v]) => sum + Number(v || 0), 0) || 1;
+    return entries.sort((a,b) => Number(b[1]) - Number(a[1])).map(([name, score]) => {
+      const percent = Math.round((Number(score || 0) / total) * 100);
+      const badges = [];
+      if (name === primary) badges.push("Primary");
+      if (name === secondary) badges.push("Secondary");
+      if (name === weakness) badges.push("Weakness");
+      return `<div class="bar-wrap"><div class="bar-label"><span>${escapeHtml(name)} ${badges.length ? `(${badges.join(", ")})` : ""}</span><span>${percent}%</span></div><div class="bar-track"><div class="bar-fill" style="width:${percent}%"></div></div></div>`;
+    }).join("");
+  }
+
+  async function activateOwnerSystem(tenant) {
+    const res = await fetch(window.GarveyApi?.buildUrl ? window.GarveyApi.buildUrl("/api/kanban/ensure") : "/api/kanban/ensure", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tenant, include_defaults: true }),
+    });
+    if (!res.ok) throw new Error("Kanban activation failed");
+  }
+
+  function renderResults(data, email, assessment) {
+    const payload = normalizeResultPayload(data);
+    const tenant = encodeURIComponent(getTenant());
+    const emailEnc = encodeURIComponent(email);
+    const questionEl = $("questionText");
+    const container = $("optionsContainer");
+
+    questionEl.textContent = assessment === "business_owner" ? "✅ Business Assessment Complete" : "✅ Customer Assessment Complete";
+
+    const ownerCtas = `
+      <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="btn" href="/dashboard.html?tenant=${tenant}&email=${emailEnc}">Continue to Owner Dashboard</a>
+        <a class="btn" href="/garvey_premium.html?tenant=${tenant}">Open GARVEY Pathway</a>
+      </div>`;
+
+    const customerCtas = `
+      <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="btn" href="/rewards_premium.html?tenant=${tenant}&email=${emailEnc}">Go to Rewards</a>
+        <a class="btn" href="#statusWidget" id="statusScrollLink">View my points/status</a>
+      </div>
+      <div id="statusWidget" class="result-card" style="margin-top:10px;"><b>Points/Status:</b> Open Rewards to see your live loyalty status and points balance.</div>`;
+
+    const ownerExtra = `<div class="result-card"><b>How to improve weakness:</b> ${escapeHtml(payload.weaknessAdvice)}</div>`;
+    const customerExtra = `<div class="result-card"><div><b>What offers you'll love:</b> personalized offers aligned to ${escapeHtml(payload.primary || "your profile")}.</div><div><b>Best way to reward you:</b> instant points + milestone perks.</div><div><b>Best way to message you:</b> concise, value-forward messages with clear next action.</div>${payload.personalityPrimary ? `<div><b>Personality read:</b> ${escapeHtml(payload.personalityPrimary)}</div>` : ""}</div>`;
+
+    container.innerHTML = `
+      <div class="result-card">
+        <div><b>Primary:</b> ${escapeHtml(payload.primary)}</div>
+        <div><b>Secondary:</b> ${escapeHtml(payload.secondary)}</div>
+        <div><b>Weakness:</b> ${escapeHtml(payload.weakness)}</div>
+      </div>
+      <div class="result-card">
+        <b>Archetype distribution</b>
+        ${scoreBarsHtml(payload.scores, payload.primary, payload.secondary, payload.weakness)}
+      </div>
+      ${assessment === "business_owner" ? ownerExtra : customerExtra}
+      ${assessment === "business_owner" ? ownerCtas : customerCtas}
+    `;
+
+    const statusLink = $("statusScrollLink");
+    if (statusLink) {
+      statusLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        $("statusWidget")?.scrollIntoView({ behavior: "smooth" });
+      });
+    }
   }
 
   async function submitAssessment() {
     const email = ($("email")?.value || "").trim();
     const tenant = getTenant();
     const assessment = getAssessmentType();
+    if (!email) return alert("Please enter your email");
 
-    if (!email) {
-      alert("Please enter your email");
-      return;
-    }
-
-    const api = window.GarveyApi;
-    const endpoint = assessment === "customer"
-      ? (api?.ENDPOINTS?.vocIntake || "/voc-intake")
-      : (api?.ENDPOINTS?.intake || "/api/intake");
-
-    const full = api?.buildUrl ? api.buildUrl(endpoint) : endpoint;
+    const endpoint = assessment === "customer" ? (window.GarveyApi?.ENDPOINTS?.vocIntake || "/voc-intake") : (window.GarveyApi?.ENDPOINTS?.intake || "/api/intake");
+    const full = window.GarveyApi?.buildUrl ? window.GarveyApi.buildUrl(endpoint) : endpoint;
 
     const res = await fetch(full, {
       method: "POST",
@@ -232,39 +263,13 @@
     });
 
     const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data?.error || data?.message || `Submission failed (${res.status})`);
+    if (!res.ok) throw new Error(data?.error || `Submission failed (${res.status})`);
 
-    renderResults(data);
-  }
+    if (assessment === "business_owner") {
+      try { await activateOwnerSystem(tenant); } catch (err) { showDebug("Kanban activation warning: " + err.message); }
+    }
 
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, (c) => ({
-      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-    }[c]));
-  }
-
-  function renderResults(data) {
-    const qEl = $("questionText");
-    const container = $("optionsContainer");
-    if (!qEl || !container) return;
-
-    qEl.textContent = "✅ Complete";
-    container.innerHTML = `
-      <div class="meta">assessment_type: <b>${escapeHtml(data.assessment_type || "")}</b></div>
-      <div style="margin-top:10px;"><b>Primary:</b> ${escapeHtml(data.primary || "")}</div>
-      <div><b>Secondary:</b> ${escapeHtml(data.secondary || "")}</div>
-      <div><b>Weakness:</b> ${escapeHtml(data.weakness || "")}</div>
-      <div style="margin-top:14px;">
-        <button class="btn" type="button" id="dashBtn">Go to Dashboard</button>
-      </div>
-      <pre style="margin-top:14px;">${escapeHtml(JSON.stringify(data, null, 2))}</pre>
-    `;
-
-    const btn = $("dashBtn");
-    if (btn) btn.onclick = () => {
-      const t = encodeURIComponent(getTenant());
-      window.location.href = `/dashboard.html?tenant=${t}`;
-    };
+    renderResults(data, email, assessment);
   }
 
   async function init() {
@@ -274,19 +279,12 @@
     if ($("tenantLine")) $("tenantLine").textContent = `Tenant: ${tenant}`;
     if ($("assessmentLine")) $("assessmentLine").textContent = `Assessment: ${assessment}`;
     if ($("pageTitle")) $("pageTitle").textContent = assessment === "customer" ? "Voice of the Customer" : "Business Assessment";
-
-    const back = $("backLink");
-    if (back) back.href = `/index.html?tenant=${encodeURIComponent(tenant)}`;
+    if ($("backLink")) $("backLink").href = `/index.html?tenant=${encodeURIComponent(tenant)}`;
 
     try {
       const data = await fetchQuestions(assessment);
       questions = normalizeQuestions(data.questions);
-
       if (!questions.length) throw new Error("No questions returned after normalization");
-      if (!questions[0].text || !questions[0].options?.length) {
-        throw new Error("Questions payload missing display text/options");
-      }
-
       currentIndex = 0;
       answers = [];
       renderQuestion();

@@ -216,12 +216,13 @@ async function runRewardFlow() {
 }
 
 async function verifyAssessmentLinks() {
+  const enc = encodeURIComponent(TENANT);
   const { res, text } = await httpText(`/admin.html?tenant=${encodeURIComponent(TENANT)}`);
   assert(res.ok, `admin page failed: ${res.status}`);
   assert(text.includes("id=\"businessBtn\""), "admin missing business button");
   assert(text.includes("/intake.html?tenant=${enc}&assessment=business_owner"), "business button link mapping missing");
   assert(text.includes("/voc.html?tenant=${enc}"), "voc button link mapping missing");
-  assert(text.includes("/index.html?tenant=${enc}"), "actions button link mapping missing");
+  assert(text.includes("/rewards.html?tenant=${enc}"), "actions button link mapping missing");
   assert(text.includes("/rewards.html?tenant=${enc}"), "reward button link mapping missing");
 }
 
@@ -258,6 +259,21 @@ async function verifyPages() {
     const { res } = await httpText(`${p}?tenant=${encodeURIComponent(TENANT)}`);
     assert(res.ok, `page failed ${p}: ${res.status}`);
   }
+
+  for (const p of ["/dashboard.html", "/rewards_premium.html", "/garvey_premium.html"]) {
+    const { res } = await httpText(`${p}?tenant=${encodeURIComponent(TENANT)}`);
+    assert(res.ok, `post-assessment route failed ${p}: ${res.status}`);
+  }
+}
+
+async function verifyDashboardContracts() {
+  const ownerResult = await httpJson(`/api/results/${encodeURIComponent(EMAIL)}?type=business_owner`);
+  assert(ownerResult.res.ok, `owner results lookup failed: ${ownerResult.res.status} ${ownerResult.text}`);
+  assert(ownerResult.json?.result?.primary_role || ownerResult.json?.result?.primary_archetype, "owner results missing role");
+
+  const customerResult = await httpJson(`/api/results/${encodeURIComponent(EMAIL)}?type=customer`);
+  assert(customerResult.res.ok, `customer results lookup failed: ${customerResult.res.status} ${customerResult.text}`);
+  assert(customerResult.json?.result?.primary_role || customerResult.json?.result?.primary_archetype, "customer results missing role");
 }
 
 async function main() {
@@ -294,6 +310,7 @@ async function main() {
   // 6) verify pages + button link mapping
   console.log("Verifying tenant site + GARVEY pages");
   await verifyPages();
+  await verifyDashboardContracts();
   await verifyAssessmentLinks();
   verifyQuestionPagesStatic();
   verifyNoMergeMarkers();
