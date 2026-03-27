@@ -34,8 +34,10 @@ function landingHtml({ tenantSlug, config }) {
 
   const vocLink = `/voc.html?tenant=${tenantSlug}`;
   const dashLink = `/dashboard.html?tenant=${tenantSlug}`;
-  const rewardsLink = `/rewards.html?tenant=${tenantSlug}`;
-  const pathwayLink = `/garvey.html?tenant=${tenantSlug}`;
+  const rewardsLink = `/rewards_premium.html?tenant=${tenantSlug}`;
+  const pathwayLink = `/garvey_premium.html?tenant=${tenantSlug}`;
+  const rewardsFallbackLink = `/rewards.html?tenant=${tenantSlug}`;
+  const pathwayFallbackLink = `/garvey.html?tenant=${tenantSlug}`;
   const templatesLink = `/templates.html?tenant=${tenantSlug}`;
 
   const selectedTemplateId = site?.template_id || "";
@@ -157,6 +159,10 @@ body {
         🚀 Funding Pathway
       </a>
 
+      <a class="btn" href="${esc(pathwayFallbackLink)}">
+        🧭 Funding Pathway (Fallback)
+      </a>
+
       <a class="btn" href="${esc(templatesLink)}">
         🎨 Templates
       </a>
@@ -173,6 +179,10 @@ body {
 
       <a class="btn" href="${esc(rewardsLink)}">
         🎁 Rewards
+      </a>
+
+      <a class="btn" href="${esc(rewardsFallbackLink)}">
+        🎁 Rewards (Fallback)
       </a>
 
     </div>

@@ -1,11 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Rewards Premium</title></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rewards Premium</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #020617; color: #fff; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 28px 18px; }
+    .card { background: #0f172a; border: 1px solid #334155; border-radius: 14px; padding: 18px; margin-bottom: 14px; }
+    .btn { display: inline-block; margin: 8px 8px 0 0; padding: 10px 14px; border-radius: 10px; text-decoration: none; font-weight: 700; }
+    .btn-main { background: #eab308; color: #000; }
+    .btn-alt { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; }
+    .muted { color: #94a3b8; }
+  </style>
+</head>
 <body>
-<script>
-  const params = window.location.search || "";
-  window.location.replace(`/rewards.html${params}`);
-</script>
-<p>Loading premium rewards...</p>
+  <div class="wrap">
+    <div class="card">
+      <h1>Rewards Premium</h1>
+      <p class="muted">Premium shell is running in text-only mode. Core rewards APIs are live.</p>
+      <a id="openRewards" class="btn btn-main" href="#">Open Rewards Experience</a>
+      <a id="fallbackRewards" class="btn btn-alt" href="#">Fallback Rewards Page</a>
+      <a id="toDashboard" class="btn btn-alt" href="#">Owner Dashboard</a>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const p = new URLSearchParams(window.location.search);
+      const tenant = (p.get("tenant") || "").trim();
+      const email = (p.get("email") || "").trim();
+      const q = new URLSearchParams();
+      if (tenant) q.set("tenant", tenant);
+      if (email) q.set("email", email);
+      const suffix = q.toString() ? `?${q.toString()}` : "";
+      document.getElementById("openRewards").href = `/rewards.html${suffix}`;
+      document.getElementById("fallbackRewards").href = `/rewards.html${suffix}`;
+      document.getElementById("toDashboard").href = tenant
+        ? `/dashboard.html?tenant=${encodeURIComponent(tenant)}`
+        : "/dashboard.html";
+    })();
+  </script>
 </body>
 </html>
