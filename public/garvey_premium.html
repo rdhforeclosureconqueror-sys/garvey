@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  (function () {
+    const host = location.hostname || "";
+    if (host.includes("garveyfrontend.onrender.com")) {
+      location.replace("https://garveybackend.onrender.com" + location.pathname + location.search);
+    }
+  })();
+</script>
   <title>GARVEY Premium</title>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #030712; color: #fff; }
