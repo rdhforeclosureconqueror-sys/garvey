@@ -165,7 +165,7 @@
             <div class="panel-heading"><i class="fa fa-line-chart fa-fw"></i> Campaign Performance</div>
             <div class="panel-body">
               <table width="100%" class="table table-striped table-bordered" id="campaignsTable">
-                <thead><tr><th>Campaign</th><th>Visits</th><th>Customer Assessments</th><th>Checkins</th><th>Reviews</th><th>Referrals</th><th>Wishlist</th><th>Last Activity</th></tr></thead>
+                <thead><tr><th>Campaign</th><th>Visits</th><th>Customer Assessments</th><th>Checkins</th><th>Reviews</th><th>Referrals</th><th>Wishlist</th><th>Shares</th><th>Last Activity</th></tr></thead>
                 <tbody></tbody>
               </table>
               <div id="campaignsEmpty" class="empty-state" style="display:none;">No campaign activity yet.</div>
@@ -183,7 +183,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
-  
-  <script src="/dashboardnew/app.js"></script>
+  <script src="/js/api-contract.js"></script>
+  <script>
+    (function () {
+      var host = (window.location.hostname || "").toLowerCase();
+      var appSrc = host.includes("garveyfrontend")
+        ? "https://garveybackend.onrender.com/dashboardnew/app.js"
+        : "/dashboardnew/app.js";
+      var script = document.createElement("script");
+      script.src = appSrc;
+      document.body.appendChild(script);
+    })();
+  </script>
 </body>
 </html>

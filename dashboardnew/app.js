@@ -1,4 +1,11 @@
 (function () {
+  var api = window.GarveyApi || {};
+  function apiUrl(path, query) {
+    if (typeof api.buildUrl === 'function') return api.buildUrl(path, query || {});
+    var qs = new URLSearchParams(query || {}).toString();
+    return path + (qs ? ('?' + qs) : '');
+  }
+
   function params() { return new URLSearchParams(window.location.search); }
   function tenantFromUrl() { return (params().get('tenant') || '').trim(); }
   function ownerEmailFromUrl() { return (params().get('email') || '').trim().toLowerCase(); }
@@ -99,7 +106,7 @@
       });
     });
     var qr = document.getElementById('campaignQrPreview');
-    qr.src = '/api/campaigns/qr?tenant=' + encodeURIComponent(tenant) + '&cid=' + encodeURIComponent(campaign.slug) + '&target=voc&format=png';
+    qr.src = apiUrl('/api/campaigns/qr', { tenant: tenant, cid: campaign.slug, target: 'voc', format: 'png' });
     qr.style.display = 'block';
     document.getElementById('campaignQrEmpty').style.display = 'none';
   }
@@ -110,7 +117,7 @@
     tbody.innerHTML = '';
     rows.forEach(function (row) {
       var c = row.counts || {};
-      tbody.innerHTML += '<tr><td>' + (row.label || row.slug || '-') + ' <div class="muted">' + (row.slug || '') + '</div></td><td>' + (c.visits || 0) + '</td><td>' + (c.customer_assessments || 0) + '</td><td>' + (c.checkins || 0) + '</td><td>' + (c.reviews || 0) + '</td><td>' + (c.referrals || 0) + '</td><td>' + (c.wishlist || 0) + '</td><td>' + fmtDate(row.last_activity_at) + '</td></tr>';
+      tbody.innerHTML += '<tr><td>' + (row.label || row.slug || '-') + ' <div class="muted">' + (row.slug || '') + '</div></td><td>' + (c.visits || 0) + '</td><td>' + (c.customer_assessments || 0) + '</td><td>' + (c.checkins || 0) + '</td><td>' + (c.reviews || 0) + '</td><td>' + (c.referrals || 0) + '</td><td>' + (c.wishlist || 0) + '</td><td>' + (c.shares || 0) + '</td><td>' + fmtDate(row.last_activity_at) + '</td></tr>';
     });
     document.getElementById('campaignsEmpty').style.display = rows.length ? 'none' : 'block';
   }
@@ -124,14 +131,14 @@
         document.getElementById('campaignCreateMsg').textContent = 'Campaign label is required.';
         return;
       }
-      jsonFetch('/api/campaigns/create', {
+      jsonFetch(apiUrl('/api/campaigns/create'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tenant: tenant, label: label, slug: slug || undefined })
       }).then(function (resp) {
         document.getElementById('campaignCreateMsg').textContent = 'Campaign created: ' + resp.campaign.slug;
         renderCampaignLinks(tenant, resp.campaign);
-        return jsonFetch('/t/' + encodeURIComponent(tenant) + '/campaigns/summary');
+        return jsonFetch(apiUrl('/t/' + encodeURIComponent(tenant) + '/campaigns/summary'));
       }).then(renderCampaignSummary)
       .catch(function (err) { document.getElementById('campaignCreateMsg').textContent = err.message; });
     });
@@ -157,10 +164,16 @@
 
   function resultSummaryHtml(result) {
     if (!result) return '<div class="empty-state">No matching result yet.</div>';
+    var percents = result.percents || {};
+    var bars = Object.keys(percents).sort(function (a, b) { return Number(percents[b] || 0) - Number(percents[a] || 0); }).map(function (role) {
+      var pct = Number(percents[role] || 0);
+      return '<div style="margin-top:6px;"><div style="display:flex;justify-content:space-between;"><span>' + role + '</span><span>' + pct + '%</span></div><div style="height:8px;border-radius:999px;background:#e5e7eb;overflow:hidden;"><div style="height:8px;border-radius:999px;background:#337ab7;width:' + pct + '%;"></div></div></div>';
+    }).join('');
     return '<div><b>Primary:</b> ' + (result.primary_role || result.primary_archetype || '-') + '</div>' +
       '<div><b>Secondary:</b> ' + (result.secondary_role || result.secondary_archetype || '-') + '</div>' +
       '<div><b>Weakness:</b> ' + (result.weakness_role || result.weakness_archetype || '-') + '</div>' +
-      '<div><b>Updated:</b> ' + fmtDate(result.created_at) + '</div>';
+      '<div><b>Updated:</b> ' + fmtDate(result.created_at) + '</div>' +
+      (bars ? ('<div style="margin-top:8px;"><b>Percent bars</b>' + bars + '</div>') : '');
   }
 
   function wirePathButtons(tenant) {
@@ -173,8 +186,7 @@
   function loadOwnerSnapshot(email, tenant) {
     var el = document.getElementById('ownerSnapshotBody');
     if (!email) return;
-    var suffix = tenant ? ('?type=business_owner&tenant=' + encodeURIComponent(tenant)) : '?type=business_owner';
-    jsonFetch('/api/results/' + encodeURIComponent(email) + suffix)
+    jsonFetch(apiUrl('/api/results/' + encodeURIComponent(email), { type: 'business_owner', tenant: tenant }))
       .then(function (body) { el.innerHTML = resultSummaryHtml(body.result); })
       .catch(function (err) { el.innerHTML = '<span class="text-danger">' + err.message + '</span>'; });
   }
@@ -189,8 +201,7 @@
         return;
       }
       body.textContent = 'Loading...';
-      var suffix = tenant ? ('?type=customer&tenant=' + encodeURIComponent(tenant)) : '?type=customer';
-      jsonFetch('/api/results/' + encodeURIComponent(email) + suffix)
+      jsonFetch(apiUrl('/api/results/' + encodeURIComponent(email), { type: 'customer', tenant: tenant }))
         .then(function (resp) { body.innerHTML = resultSummaryHtml(resp.result); })
         .catch(function (err) { body.innerHTML = '<span class="text-danger">' + err.message + '</span>'; });
     });
@@ -208,12 +219,12 @@
     loadOwnerSnapshot(ownerEmail, tenant);
 
     Promise.all([
-      jsonFetch('/t/' + encodeURIComponent(tenant) + '/dashboard'),
-      jsonFetch('/t/' + encodeURIComponent(tenant) + '/customers'),
-      jsonFetch('/t/' + encodeURIComponent(tenant) + '/analytics'),
-      jsonFetch('/t/' + encodeURIComponent(tenant) + '/segments'),
-      jsonFetch('/t/' + encodeURIComponent(tenant) + '/campaigns/summary'),
-      jsonFetch('/api/campaigns/list?tenant=' + encodeURIComponent(tenant))
+      jsonFetch(apiUrl('/t/' + encodeURIComponent(tenant) + '/dashboard')),
+      jsonFetch(apiUrl('/t/' + encodeURIComponent(tenant) + '/customers')),
+      jsonFetch(apiUrl('/t/' + encodeURIComponent(tenant) + '/analytics')),
+      jsonFetch(apiUrl('/t/' + encodeURIComponent(tenant) + '/segments')),
+      jsonFetch(apiUrl('/t/' + encodeURIComponent(tenant) + '/campaigns/summary')),
+      jsonFetch(apiUrl('/api/campaigns/list', { tenant: tenant }))
     ])
       .then(function (responses) {
         renderMetrics(responses[0]);

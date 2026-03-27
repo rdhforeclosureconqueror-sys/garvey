@@ -29,6 +29,7 @@
     const qs = new URLSearchParams(window.location.search);
     const tenant = (qs.get("tenant") || "").trim();
     const email = (qs.get("email") || "").trim().toLowerCase();
+    const cid = (qs.get("cid") || "").trim();
     const escapeHtml = (s) => String(s || "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
 
     async function load() {
@@ -59,8 +60,10 @@
         <p><b>Support secondary:</b> ${escapeHtml(g.support_secondary)}</p>
         <p><b>Fix weakness:</b> ${escapeHtml(g.fix_weakness)}</p>`;
 
+      const dashboardParams = new URLSearchParams({ tenant, email });
+      if (cid) dashboardParams.set("cid", cid);
       document.getElementById("ctas").innerHTML = `
-        <a class="btn" href="/dashboard.html?tenant=${encodeURIComponent(tenant)}">Open My Dashboard</a>
+        <a class="btn" href="/dashboard.html?${dashboardParams.toString()}">Open My Dashboard</a>
         <a class="btn" href="/garvey_premium.html?tenant=${encodeURIComponent(tenant)}">Start GARVEY Pathway</a>
         <a class="btn" href="/t/${encodeURIComponent(tenant)}/site">View My Site</a>`;
     }
@@ -68,4 +71,3 @@
   </script>
 </body>
 </html>
-
