@@ -4,6 +4,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <script>
+  (function () {
+    const host = location.hostname || "";
+    if (host.includes("garveyfrontend.onrender.com")) {
+      location.replace("https://garveybackend.onrender.com" + location.pathname + location.search);
+    }
+  })();
+</script>
   <title>GARVEY — A (Assess)</title>
   <link rel="stylesheet" href="/garvey.css">
 </head>
