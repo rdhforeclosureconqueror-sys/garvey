@@ -2,7 +2,9 @@
 (function () {
   "use strict";
 
+  // -------------------------
   // Mobile drawer
+  // -------------------------
   const burger = document.querySelector("[data-burger]");
   const drawer = document.querySelector("[data-drawer]");
   const closeLinks = document.querySelectorAll("[data-close-drawer]");
@@ -20,7 +22,9 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
   }
 
+  // -------------------------
   // Reveal-on-scroll
+  // -------------------------
   const els = document.querySelectorAll("[data-reveal]");
   els.forEach((el) => el.classList.add("reveal"));
 
@@ -33,30 +37,68 @@
     els.forEach((el) => el.classList.add("is-in"));
   }
 
-  // ---- GARVEY Context Helpers (backward compatible) ----
-  const existing = window.GARVEY && typeof window.GARVEY === "object" ? window.GARVEY : {};
+  // -------------------------
+  // GARVEY ctx helpers
+  // -------------------------
+  const STORAGE_KEY = "garvey_ctx_v1";
 
-  function safeTrim(value) {
-    return String(value ?? "").trim();
+  function safeTrim(v) {
+    return String(v ?? "").trim();
+  }
+
+  function readStoredCtx() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return { tenant: "", email: "", rid: "", cid: "" };
+      const obj = JSON.parse(raw);
+      return {
+        tenant: safeTrim(obj.tenant),
+        email: safeTrim(obj.email).toLowerCase(),
+        rid: safeTrim(obj.rid),
+        cid: safeTrim(obj.cid),
+      };
+    } catch (_) {
+      return { tenant: "", email: "", rid: "", cid: "" };
+    }
+  }
+
+  function writeStoredCtx(c) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        tenant: safeTrim(c.tenant),
+        email: safeTrim(c.email).toLowerCase(),
+        rid: safeTrim(c.rid),
+        cid: safeTrim(c.cid),
+      }));
+    } catch (_) {}
+  }
+
+  function ctxFromUrl() {
+    const p = new URLSearchParams(location.search);
+    return {
+      tenant: safeTrim(p.get("tenant")),
+      email: safeTrim(p.get("email")).toLowerCase(),
+      rid: safeTrim(p.get("rid")),
+      cid: safeTrim(p.get("cid")),
+    };
   }
 
   function ctx() {
-    const p = new URLSearchParams(location.search);
-    const type = safeTrim(p.get("type")).toLowerCase();
-    const rid = safeTrim(p.get("rid"));
-    const crid = safeTrim(p.get("crid"));
-    const customerRid = crid || (type === "customer" ? rid : "");
+    // Prefer URL; fallback to stored if tenant missing.
+    const u = ctxFromUrl();
+    const s = readStoredCtx();
 
-    return {
-      tenant: safeTrim(p.get("tenant")),
-      email: safeTrim(p.get("email")),
-      rid,
-      cid: safeTrim(p.get("cid")),
-      customer_email: safeTrim(p.get("email")),
-      customer_rid: customerRid,
-      crid: customerRid,
-      type,
+    const merged = {
+      tenant: u.tenant || s.tenant,
+      email: u.email || s.email,
+      rid: u.rid || s.rid,
+      cid: u.cid || s.cid,
     };
+
+    // If URL had any ctx at all, refresh storage (keeps it current)
+    if (u.tenant || u.email || u.rid || u.cid) writeStoredCtx(merged);
+
+    return merged;
   }
 
   function getTenant() {
@@ -66,63 +108,63 @@
   function withCtx(href) {
     if (!href) return href;
 
-    // leave non-http(s) alone (mailto:, tel:, javascript:, #hash)
     const lower = String(href).toLowerCase();
-    if (lower.startsWith("mailto:") || lower.startsWith("tel:") || lower.startsWith("javascript:") || href.startsWith("#")) {
+    if (href.startsWith("#") || lower.startsWith("mailto:") || lower.startsWith("tel:") || lower.startsWith("javascript:")) {
       return href;
     }
 
     const base = new URL(location.href);
     const u = new URL(href, base);
 
-    // only apply to same-origin links
+    // Only mutate same-origin links.
     if (u.origin !== base.origin) return href;
 
     const c = ctx();
 
-    // merge without deleting existing params
+    // Merge without deleting existing params
     if (c.tenant && !u.searchParams.get("tenant")) u.searchParams.set("tenant", c.tenant);
     if (c.email && !u.searchParams.get("email")) u.searchParams.set("email", c.email);
     if (c.rid && !u.searchParams.get("rid")) u.searchParams.set("rid", c.rid);
-    if (c.cid) u.searchParams.set("cid", c.cid);
+    if (c.cid && !u.searchParams.get("cid")) u.searchParams.set("cid", c.cid);
 
-    return u.pathname + (u.search ? u.search : "") + (u.hash ? u.hash : "");
+    return u.pathname + (u.search || "") + (u.hash || "");
   }
 
-  function withCustomerCtx(href) {
-    if (!href) return href;
-    const base = new URL(location.href);
-    const u = new URL(withCtx(href), base);
-    if (u.origin !== base.origin) return href;
+  function shouldCtxifyAnchor(a) {
+    const href = a.getAttribute("href") || "";
+    if (!href || href.startsWith("#")) return false;
 
-    const c = ctx();
-    if (c.tenant && !u.searchParams.get("tenant")) u.searchParams.set("tenant", c.tenant);
-    if (c.cid) u.searchParams.set("cid", c.cid);
-    if (c.customer_email && !u.searchParams.get("email")) u.searchParams.set("email", c.customer_email);
-    if (c.customer_rid && !u.searchParams.get("crid")) u.searchParams.set("crid", c.customer_rid);
-
-    return u.pathname + (u.search ? u.search : "") + (u.hash ? u.hash : "");
+    // Only apply to GARVEY internal pages by default (reduces unintended changes)
+    // Adjust if you want broader behavior.
+    return (
+      href.startsWith("/garvey") ||
+      href.startsWith("garvey") ||
+      href.includes("garvey-") ||
+      href.includes("garvey_premium") ||
+      href.includes("owner_archetype") ||
+      href.includes("results_owner") ||
+      href.includes("dashboard")
+    );
   }
 
-  // Optional convenience: apply to links that opt-in
   function applyCtxToLinks(root) {
     const scope = root || document;
-    scope.querySelectorAll("a[data-ctx]").forEach((a) => {
-      const href = a.getAttribute("href") || "";
-      a.setAttribute("href", withCtx(href));
-    });
-    scope.querySelectorAll("a[data-cctx]").forEach((a) => {
-      const href = a.getAttribute("href") || "";
-      a.setAttribute("href", withCustomerCtx(href));
+    scope.querySelectorAll("a[href]").forEach((a) => {
+      if (!shouldCtxifyAnchor(a)) return;
+      a.setAttribute("href", withCtx(a.getAttribute("href")));
     });
   }
+
+  // Apply immediately on load
+  window.addEventListener("DOMContentLoaded", () => applyCtxToLinks());
+
+  // Preserve existing GARVEY object if present
+  const existing = window.GARVEY && typeof window.GARVEY === "object" ? window.GARVEY : {};
 
   window.GARVEY = Object.assign({}, existing, {
     ctx,
     withCtx,
-    withCustomerCtx,
     applyCtxToLinks,
-    getTenant, // KEEP legacy API
-    safeTrim,
+    getTenant, // legacy compatibility for kanban/pages
   });
 })();
