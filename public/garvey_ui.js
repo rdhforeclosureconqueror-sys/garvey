@@ -33,36 +33,62 @@
     els.forEach((el) => el.classList.add("is-in"));
   }
 
-  function safeTrim(v) {
-    return String(v ?? "").trim();
-  }
+  // ---- GARVEY Context Helpers (backward compatible) ----
+  const existing = window.GARVEY && typeof window.GARVEY === "object" ? window.GARVEY : {};
 
   function ctx() {
     const p = new URLSearchParams(location.search);
     return {
-      tenant: safeTrim(p.get("tenant")),
-      email: safeTrim(p.get("email")).toLowerCase(),
-      rid: safeTrim(p.get("rid")),
-      cid: safeTrim(p.get("cid")),
+      tenant: (p.get("tenant") || "").trim(),
+      email: (p.get("email") || "").trim(),
+      rid: (p.get("rid") || "").trim(),
+      cid: (p.get("cid") || "").trim(),
     };
   }
 
-  function withCtx(href) {
-    const current = ctx();
-    const u = new URL(href, location.origin);
-    if (current.tenant) u.searchParams.set("tenant", current.tenant);
-    if (current.email) u.searchParams.set("email", current.email);
-    if (current.rid) u.searchParams.set("rid", current.rid);
-    if (current.cid) u.searchParams.set("cid", current.cid);
-    return u.pathname + u.search + u.hash;
+  function getTenant() {
+    return ctx().tenant;
   }
 
-  // GARVEY helper
-  window.GARVEY = {
-    getTenant() {
-      return ctx().tenant;
-    },
+  function withCtx(href) {
+    if (!href) return href;
+
+    // leave non-http(s) alone (mailto:, tel:, javascript:, #hash)
+    const lower = String(href).toLowerCase();
+    if (lower.startsWith("mailto:") || lower.startsWith("tel:") || lower.startsWith("javascript:") || href.startsWith("#")) {
+      return href;
+    }
+
+    const base = new URL(location.href);
+    const u = new URL(href, base);
+
+    // only apply to same-origin links
+    if (u.origin !== base.origin) return href;
+
+    const c = ctx();
+
+    // merge without deleting existing params
+    if (c.tenant && !u.searchParams.get("tenant")) u.searchParams.set("tenant", c.tenant);
+    if (c.email && !u.searchParams.get("email")) u.searchParams.set("email", c.email);
+    if (c.rid && !u.searchParams.get("rid")) u.searchParams.set("rid", c.rid);
+    if (c.cid && !u.searchParams.get("cid")) u.searchParams.set("cid", c.cid);
+
+    return u.pathname + (u.search ? u.search : "") + (u.hash ? u.hash : "");
+  }
+
+  // Optional convenience: apply to links that opt-in
+  function applyCtxToLinks(root) {
+    const scope = root || document;
+    scope.querySelectorAll("a[data-ctx]").forEach((a) => {
+      const href = a.getAttribute("href") || "";
+      a.setAttribute("href", withCtx(href));
+    });
+  }
+
+  window.GARVEY = Object.assign({}, existing, {
     ctx,
     withCtx,
-  };
+    applyCtxToLinks,
+    getTenant, // KEEP legacy API
+  });
 })();
