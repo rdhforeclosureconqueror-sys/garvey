@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Owner Results</title>
+  <script src="/garvey_ui.js"></script>
   <style>
     body { font-family: Arial, sans-serif; background:#020617; color:#fff; margin:0; padding:24px; }
     .card { max-width:900px; margin:0 auto; background:#0f172a; border:1px solid #334155; border-radius:14px; padding:20px; }
@@ -36,7 +37,33 @@
 
   <script src="/js/api-contract.js"></script>
   <script>
+    const ctx = (window.GARVEY && window.GARVEY.ctx)
+      ? window.GARVEY.ctx()
+      : (function () {
+          const p = new URLSearchParams(window.location.search);
+          return {
+            tenant: String(p.get("tenant") || "").trim(),
+            email: String(p.get("email") || "").trim().toLowerCase(),
+            rid: String(p.get("rid") || "").trim(),
+            cid: String(p.get("cid") || "").trim()
+          };
+        })();
+
+    if ((ctx.tenant || ctx.email) && (!new URLSearchParams(window.location.search).get("tenant") || !new URLSearchParams(window.location.search).get("email"))) {
+      const redirectGuard = new URLSearchParams(window.location.search).get("ctx_redirected");
+      if (!redirectGuard && ctx.tenant && ctx.email) {
+        const p = new URLSearchParams(window.location.search);
+        p.set("tenant", ctx.tenant);
+        p.set("email", ctx.email);
+        if (ctx.cid && !p.get("cid")) p.set("cid", ctx.cid);
+        if (ctx.rid && !p.get("rid")) p.set("rid", ctx.rid);
+        p.set("ctx_redirected", "1");
+        window.location.replace("/results_owner.html?" + p.toString());
+      }
+    }
+
     const qs = new URLSearchParams(window.location.search);
+    qs.delete("ctx_redirected");
     const tenant = String(qs.get("tenant") || "").trim();
     const email = String(qs.get("email") || "").trim().toLowerCase();
     const cid = String(qs.get("cid") || "").trim();
@@ -157,6 +184,9 @@
       if (rid) {
         showRid(rid);
         setRidInStorage(rid);
+        if (window.GARVEY && window.GARVEY.setLoginCtx) {
+          window.GARVEY.setLoginCtx({ tenant, email, cid, rid });
+        }
       }
 
       const primaryRole = data.primary_role || "";
@@ -207,6 +237,9 @@
         <a class="btn" href="${buildGarveyUrl()}">Start GARVEY Pathway</a>
         <a class="btn" href="${buildResultsPermalink()}">Copy/Bookmark Results Link</a>
       `;
+      if (window.GARVEY && window.GARVEY.applyCtxToLinks) {
+        window.GARVEY.applyCtxToLinks(document.getElementById("ctas"));
+      }
     }
 
     load().catch((err) => {

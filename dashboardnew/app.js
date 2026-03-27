@@ -1,6 +1,7 @@
 /* FILE: dashboardnew/app.js */
 (function () {
   var api = window.GarveyApi || {};
+  var LOGIN_CTX_KEY = "garvey_login_ctx_v1";
 
   function apiUrl(path, query) {
     if (typeof api.buildUrl === "function") return api.buildUrl(path, query || {});
@@ -30,6 +31,37 @@
 
   function ridFromUrl() {
     return safeTrim(params().get("rid"));
+  }
+
+  function loginCtxFromStorage() {
+    try {
+      var raw = localStorage.getItem(LOGIN_CTX_KEY);
+      if (!raw) return { tenant: "", email: "", cid: "", rid: "", ts: 0 };
+      var parsed = JSON.parse(raw);
+      return {
+        tenant: safeTrim(parsed.tenant),
+        email: safeTrim(parsed.email).toLowerCase(),
+        cid: safeTrim(parsed.cid),
+        rid: safeTrim(parsed.rid),
+        ts: Number(parsed.ts || 0) || 0
+      };
+    } catch (_) {
+      return { tenant: "", email: "", cid: "", rid: "", ts: 0 };
+    }
+  }
+
+  function saveLoginCtx(next) {
+    var payload = {
+      tenant: safeTrim(next.tenant),
+      email: safeTrim(next.email).toLowerCase(),
+      cid: safeTrim(next.cid),
+      rid: safeTrim(next.rid),
+      ts: Date.now()
+    };
+    try {
+      localStorage.setItem(LOGIN_CTX_KEY, JSON.stringify(payload));
+    } catch (_) {}
+    return payload;
   }
 
   function parseAdminEmailAllowlist() {
@@ -420,8 +452,6 @@
   }
 
   function wirePathButtons(tenant, email, cid, rid) {
-    var enc = encodeURIComponent(tenant);
-
     var p1 = new URLSearchParams({ tenant: tenant });
     if (email) p1.set("email", email);
     if (cid) p1.set("cid", cid);
@@ -434,7 +464,106 @@
     if (rid) p2.set("rid", rid);
     document.getElementById("rewardsPathBtn").href = "/rewards_premium.html?" + p2.toString();
 
-    document.getElementById("rewardsFallbackBtn").href = "/rewards.html?tenant=" + enc;
+    var p3 = new URLSearchParams({ tenant: tenant });
+    if (email) p3.set("email", email);
+    if (cid) p3.set("cid", cid);
+    if (rid) p3.set("crid", rid);
+    document.getElementById("rewardsFallbackBtn").href = "/rewards.html?" + p3.toString();
+  }
+
+  function readSignInFormCtx() {
+    return {
+      tenant: safeTrim(document.getElementById("signInTenantInput").value),
+      email: safeTrim(document.getElementById("signInEmailInput").value).toLowerCase(),
+      cid: safeTrim(document.getElementById("signInCidInput").value),
+      rid: safeTrim(document.getElementById("signInRidInput").value)
+    };
+  }
+
+  function renderSignInPanel(defaults) {
+    var host = document.getElementById("dashboardSignInPanel");
+    if (!host) return;
+    var d = defaults || {};
+    host.style.display = "";
+    host.innerHTML = '' +
+      '<div class="panel panel-default">' +
+        '<div class="panel-heading"><i class="fa fa-sign-in fa-fw"></i> Sign In</div>' +
+        '<div class="panel-body">' +
+          '<p class="muted">Returning users: enter tenant + email to open your dashboard.</p>' +
+          '<div class="form-group"><label>Tenant slug</label><input id="signInTenantInput" class="form-control" placeholder="tenant-slug" value="' + escapeHtml(d.tenant || "") + '"></div>' +
+          '<div class="form-group"><label>Email</label><input id="signInEmailInput" type="email" class="form-control" placeholder="owner@example.com" value="' + escapeHtml(d.email || "") + '"></div>' +
+          '<div class="form-group"><label>Campaign cid (optional)</label><input id="signInCidInput" class="form-control" placeholder="spring2026" value="' + escapeHtml(d.cid || "") + '"></div>' +
+          '<div class="form-group"><label>Result ID rid (optional)</label><input id="signInRidInput" class="form-control" placeholder="owner result id" value="' + escapeHtml(d.rid || "") + '"></div>' +
+          '<button id="signInSubmitBtn" class="btn btn-primary">Sign In</button>' +
+          '<div id="signInMsg" class="empty-state" style="padding-top:8px;"></div>' +
+          '<hr />' +
+          '<h4 style="margin-top:0;">New here?</h4>' +
+          '<p class="muted">Take an assessment first to create results.</p>' +
+          '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+            '<a id="takeOwnerAssessmentBtn" class="btn btn-default" href="/intake.html">Take Owner Assessment</a>' +
+            '<a id="takeCustomerAssessmentBtn" class="btn btn-default" href="/voc.html">Take Customer Assessment</a>' +
+          "</div>" +
+        "</div>" +
+      "</div>";
+
+    function refreshAssessmentLinks() {
+      var c = readSignInFormCtx();
+      var ownerParams = new URLSearchParams();
+      var customerParams = new URLSearchParams();
+      if (c.tenant) {
+        ownerParams.set("tenant", c.tenant);
+        customerParams.set("tenant", c.tenant);
+      }
+      if (c.cid) customerParams.set("cid", c.cid);
+      document.getElementById("takeOwnerAssessmentBtn").href = "/intake.html" + (ownerParams.toString() ? ("?" + ownerParams.toString()) : "");
+      document.getElementById("takeCustomerAssessmentBtn").href = "/voc.html" + (customerParams.toString() ? ("?" + customerParams.toString()) : "");
+    }
+
+    ["signInTenantInput", "signInCidInput"].forEach(function (id) {
+      var input = document.getElementById(id);
+      input.addEventListener("input", refreshAssessmentLinks);
+    });
+
+    document.getElementById("signInSubmitBtn").addEventListener("click", function () {
+      var c = readSignInFormCtx();
+      if (!c.tenant || !c.email) {
+        document.getElementById("signInMsg").textContent = "Tenant and email are required.";
+        return;
+      }
+      saveLoginCtx(c);
+      if (c.rid) setRidInStorage(c.tenant, c.email, c.rid);
+      var next = new URLSearchParams({ tenant: c.tenant, email: c.email });
+      if (c.cid) next.set("cid", c.cid);
+      if (c.rid) next.set("rid", c.rid);
+      window.location.href = "/dashboard.html?" + next.toString();
+    });
+
+    refreshAssessmentLinks();
+  }
+
+  function replaceUrlRidIfMissing(tenant, email, rid, cid) {
+    if (!tenant || !email || !rid) return;
+    var p = params();
+    if (safeTrim(p.get("rid"))) return;
+    p.set("tenant", tenant);
+    p.set("email", email);
+    if (cid) p.set("cid", cid);
+    p.set("rid", rid);
+    history.replaceState(null, "", "/dashboard.html?" + p.toString());
+  }
+
+  function resolveOwnerRid(tenant, email, rid) {
+    var fromInput = safeTrim(rid);
+    if (fromInput) return Promise.resolve(fromInput);
+    var fromStorage = getRidFromStorage(tenant, email);
+    if (fromStorage) return Promise.resolve(fromStorage);
+    if (!tenant || !email) return Promise.resolve("");
+    return jsonFetch(apiUrl("/api/results/" + encodeURIComponent(email), { type: "business_owner", tenant: tenant }))
+      .then(function (body) {
+        var result = normalizeResultPayload(body);
+        return safeTrim(result.result_id || body.result_id || "");
+      })
+      .catch(function () { return ""; });
   }
 
   function tenantApiUrl(tenant, path, ownerEmail) {
@@ -542,11 +671,14 @@
   }
 
   function init() {
-    var tenant = tenantFromUrl();
-    var ownerEmail = ownerEmailFromUrl();
+    var fromLoginCtx = loginCtxFromStorage();
+    var tenant = tenantFromUrl() || fromLoginCtx.tenant;
+    var ownerEmail = ownerEmailFromUrl() || fromLoginCtx.email;
+    var cid = cidFromUrl() || fromLoginCtx.cid;
+    var rid = ridFromUrl() || fromLoginCtx.rid || getRidFromStorage(tenant, ownerEmail);
     var isAdmin = isAdminEmail(ownerEmail);
-    var cid = cidFromUrl();
-    var rid = ridFromUrl() || getRidFromStorage(tenant, ownerEmail);
+
+    if (tenant || ownerEmail || cid || rid) saveLoginCtx({ tenant: tenant, email: ownerEmail, cid: cid, rid: rid });
 
     var label = document.getElementById("tenantLabel");
     if (label) {
@@ -554,46 +686,52 @@
     }
 
     if (!tenant || !ownerEmail) {
-      setupError("Missing tenant/email. Open with ?tenant=...&email=... (optional &rid=...&cid=...).");
-      if (isAdmin) renderAdminAccessPanel({ tenant: tenant, email: ownerEmail, rid: rid, cid: cid });
-      else loadOwnerSnapshot(ownerEmail, tenant, cid, rid, false);
+      setupError("Missing tenant/email. Sign in below, or take an assessment if you're new.");
+      renderSignInPanel({ tenant: tenant, email: ownerEmail, cid: cid, rid: rid });
       return;
     }
 
-    wirePathButtons(tenant, ownerEmail, cid, rid);
-    wireCustomerLookup(tenant);
-    wireCampaignCreator(tenant);
-    loadOwnerSnapshot(ownerEmail, tenant, cid, rid, isAdmin);
+    resolveOwnerRid(tenant, ownerEmail, rid).then(function (resolvedRid) {
+      rid = safeTrim(resolvedRid || rid);
+      if (rid) {
+        setRidInStorage(tenant, ownerEmail, rid);
+        replaceUrlRidIfMissing(tenant, ownerEmail, rid, cid);
+      }
+      saveLoginCtx({ tenant: tenant, email: ownerEmail, cid: cid, rid: rid });
+      wirePathButtons(tenant, ownerEmail, cid, rid);
+      wireCustomerLookup(tenant);
+      wireCampaignCreator(tenant);
+      loadOwnerSnapshot(ownerEmail, tenant, cid, rid, isAdmin);
 
-    Promise.all([
-      jsonFetch(tenantApiUrl(tenant, "/dashboard", ownerEmail)),
-      jsonFetch(tenantApiUrl(tenant, "/customers", ownerEmail)),
-      jsonFetch(tenantApiUrl(tenant, "/analytics", ownerEmail)),
-      jsonFetch(tenantApiUrl(tenant, "/segments", ownerEmail)),
-      jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail)),
-      jsonFetch(apiUrl("/api/campaigns/list", { tenant: tenant, email: ownerEmail }))
-    ])
-      .then(function (responses) {
-        renderMetrics(responses[0]);
-        renderTable((responses[1] && responses[1].customers) || []);
-        renderBar(responses[2] || {});
-        renderArea(responses[2] || {});
-        renderDonut(responses[2] || {});
-        renderInsights(responses[2] || {});
-        renderSegments(responses[3] || {});
-        renderCampaignSummary(responses[4] || {});
-        if (responses[5] && responses[5].campaigns && responses[5].campaigns[0]) {
-          renderCampaignLinks(tenant, responses[5].campaigns[0]);
-          var customerCidInput = document.getElementById("ownerHubCidInput");
-          if (customerCidInput && !safeTrim(customerCidInput.value)) {
-            customerCidInput.value = safeTrim(responses[5].campaigns[0].slug || "");
-            customerCidInput.dispatchEvent(new Event("input"));
+      return Promise.all([
+        jsonFetch(tenantApiUrl(tenant, "/dashboard", ownerEmail)),
+        jsonFetch(tenantApiUrl(tenant, "/customers", ownerEmail)),
+        jsonFetch(tenantApiUrl(tenant, "/analytics", ownerEmail)),
+        jsonFetch(tenantApiUrl(tenant, "/segments", ownerEmail)),
+        jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail)),
+        jsonFetch(apiUrl("/api/campaigns/list", { tenant: tenant, email: ownerEmail }))
+      ])
+        .then(function (responses) {
+          renderMetrics(responses[0]);
+          renderTable((responses[1] && responses[1].customers) || []);
+          renderBar(responses[2] || {});
+          renderArea(responses[2] || {});
+          renderDonut(responses[2] || {});
+          renderInsights(responses[2] || {});
+          renderSegments(responses[3] || {});
+          renderCampaignSummary(responses[4] || {});
+          if (responses[5] && responses[5].campaigns && responses[5].campaigns[0]) {
+            renderCampaignLinks(tenant, responses[5].campaigns[0]);
+            var customerCidInput = document.getElementById("ownerHubCidInput");
+            if (customerCidInput && !safeTrim(customerCidInput.value)) {
+              customerCidInput.value = safeTrim(responses[5].campaigns[0].slug || "");
+              customerCidInput.dispatchEvent(new Event("input"));
+            }
           }
-        }
-      })
-      .catch(function (err) {
-        setupError(err.message);
-      });
+        });
+    }).catch(function (err) {
+      setupError(err.message);
+    });
   }
 
   $(function () {
