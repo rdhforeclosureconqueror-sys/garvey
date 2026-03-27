@@ -1,3 +1,4 @@
+<!-- FILE: public/owner_archetype.html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,7 +8,6 @@
   <link rel="stylesheet" href="/garvey_ui.css">
   <script src="/garvey_ui.js" defer></script>
   <style>
-    /* Why: keep archetype page readable without adding new assets */
     .k{display:grid; gap:12px}
     .k ul{margin:8px 0 0 18px}
     .k li{margin:6px 0}
@@ -15,6 +15,25 @@
     @media (max-width: 920px){ .split{grid-template-columns:1fr} }
     .tag{display:inline-flex; gap:8px; align-items:center}
     .tag b{color:var(--primary)}
+    .chips{display:flex; flex-wrap:wrap; gap:8px}
+    .chip{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid var(--border);
+      background:var(--panel);
+      text-decoration:none;
+      font-weight:900;
+      color:var(--muted);
+      transition: background .2s var(--ease), color .2s var(--ease), transform .12s var(--ease);
+    }
+    .chip:hover{background:var(--panel2); color:var(--text)}
+    .chip:active{transform: translateY(1px)}
+    .chip.is-active{
+      background:linear-gradient(135deg,var(--primary),var(--accent));
+      color:#000;
+      border-color:transparent;
+    }
+    .small{font-size:13px}
   </style>
 </head>
 <body>
@@ -55,6 +74,12 @@
           <div class="row">
             <a class="btn btn--ghost" href="#" id="backBtn">Back</a>
             <a class="btn btn--primary" href="#" id="ctaBtn">Open GARVEY Pathway</a>
+          </div>
+
+          <div class="section" style="padding:14px 0 0">
+            <div class="h3">All archetypes</div>
+            <div class="muted small">Click any archetype to view its deep dive.</div>
+            <div class="chips" id="allChips"></div>
           </div>
         </div>
 
@@ -152,9 +177,15 @@
     const qs = new URLSearchParams(location.search);
     const tenant = (qs.get("tenant") || "").trim();
     const email = (qs.get("email") || "").trim();
-    const primary = (qs.get("primary") || qs.get("type") || "").trim().toLowerCase();
-    const secondary = (qs.get("secondary") || "").trim().toLowerCase();
-    const growth = (qs.get("growth") || "").trim().toLowerCase();
+    const cid = (qs.get("cid") || "").trim();
+
+    // Render target (THIS controls the page)
+    const typeSlug = (qs.get("type") || "").trim().toLowerCase();
+
+    // Combo context (THIS does not control the page)
+    const primarySlug = (qs.get("primary") || "").trim().toLowerCase();
+    const secondarySlug = (qs.get("secondary") || "").trim().toLowerCase();
+    const growthSlug = (qs.get("growth") || "").trim().toLowerCase();
 
     const tenantPill = document.getElementById("tenantPill");
     const typePill = document.getElementById("typePill");
@@ -164,12 +195,29 @@
       const u = new URL(href, location.origin);
       if (tenant) u.searchParams.set("tenant", tenant);
       if (email) u.searchParams.set("email", email);
-      if (qs.get("cid")) u.searchParams.set("cid", qs.get("cid"));
+      if (cid) u.searchParams.set("cid", cid);
+      return u.pathname + u.search;
+    }
+
+    function archetypeHref(slug) {
+      const u = new URL("/owner_archetype.html", location.origin);
+      if (tenant) u.searchParams.set("tenant", tenant);
+      if (email) u.searchParams.set("email", email);
+      if (cid) u.searchParams.set("cid", cid);
+
+      u.searchParams.set("type", slug);
+
+      if (primarySlug) u.searchParams.set("primary", primarySlug);
+      if (secondarySlug) u.searchParams.set("secondary", secondarySlug);
+      if (growthSlug) u.searchParams.set("growth", growthSlug);
+
       return u.pathname + u.search;
     }
 
     document.getElementById("homeLink").href = withTenant("/garvey_premium.html");
-    const resultsHref = email ? `/results_owner.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}` : "/results_owner.html";
+    const resultsHref = email
+      ? `/results_owner.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}`
+      : "/results_owner.html";
     document.getElementById("resultsLink").href = withTenant(resultsHref);
     document.getElementById("resultsLink2").href = withTenant(resultsHref);
     document.getElementById("pathLink").href = withTenant("/garvey_premium.html");
@@ -208,9 +256,9 @@
       if (el) el.textContent = text || "—";
     }
 
-    setText("primaryTag", pretty(primary));
-    setText("secondaryTag", pretty(secondary || "—"));
-    setText("growthTag", pretty(growth || "—"));
+    setText("primaryTag", pretty(primarySlug || "—"));
+    setText("secondaryTag", pretty(secondarySlug || "—"));
+    setText("growthTag", pretty(growthSlug || "—"));
 
     if (!tenant) {
       document.getElementById("title").textContent = "Tenant missing";
@@ -223,7 +271,25 @@
     if (!res.ok) throw new Error("Failed to load archetype content");
     const data = await res.json();
 
-    const a = (data.archetypes || []).find(x => x.slug === primary);
+    const allChips = document.getElementById("allChips");
+    allChips.innerHTML = "";
+    for (const a of (data.archetypes || [])) {
+      const chip = document.createElement("a");
+      chip.className = "chip";
+      chip.href = archetypeHref(a.slug);
+      chip.textContent = a.name;
+      if (a.slug === typeSlug) chip.classList.add("is-active");
+      allChips.appendChild(chip);
+    }
+
+    if (!typeSlug) {
+      document.getElementById("title").textContent = "Choose an archetype";
+      document.getElementById("oneLiner").textContent = "Use the buttons above or add ?type=builder|operator|resource_generator|architect|connector|nurturer|protector|educator";
+      typePill.textContent = "Archetype: —";
+      throw new Error("type missing");
+    }
+
+    const a = (data.archetypes || []).find(x => x.slug === typeSlug);
     if (!a) {
       document.getElementById("title").textContent = "Archetype not found";
       document.getElementById("oneLiner").textContent = "Use ?type=builder|operator|resource_generator|architect|connector|nurturer|protector|educator";
@@ -258,12 +324,14 @@
     setText("mpTeam", a.micro_playbook?.team_script || "");
     setText("mpTime", a.micro_playbook?.time_script || "");
 
-    // Optional: show combo insight if both present and we can match a rule
+    // Combo insight uses combo context, not the viewed type
     const comboEl = document.getElementById("comboText");
-    const bestPair = (data.combo_rules?.best_pairs || []).find(p => p.primary === primary && p.secondary === secondary);
-    const riskyPair = (data.combo_rules?.risky_pairs || []).find(p => p.primary === primary && p.secondary === secondary);
-    if (bestPair) comboEl.innerHTML = `<b>${pretty(primary)}</b> + <b>${pretty(secondary)}</b>: ${bestPair.result}`;
-    if (riskyPair) comboEl.innerHTML = `<b>${pretty(primary)}</b> + <b>${pretty(secondary)}</b>: ${riskyPair.risk} Fix: ${riskyPair.fix}`;
+    if (primarySlug && secondarySlug) {
+      const bestPair = (data.combo_rules?.best_pairs || []).find(p => p.primary === primarySlug && p.secondary === secondarySlug);
+      const riskyPair = (data.combo_rules?.risky_pairs || []).find(p => p.primary === primarySlug && p.secondary === secondarySlug);
+      if (bestPair) comboEl.innerHTML = `<b>${pretty(primarySlug)}</b> + <b>${pretty(secondarySlug)}</b>: ${bestPair.result}`;
+      if (riskyPair) comboEl.innerHTML = `<b>${pretty(primarySlug)}</b> + <b>${pretty(secondarySlug)}</b>: ${riskyPair.risk} Fix: ${riskyPair.fix}`;
+    }
   </script>
 </body>
 </html>
