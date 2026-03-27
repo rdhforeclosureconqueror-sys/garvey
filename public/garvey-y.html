@@ -10,6 +10,7 @@
     .confirmGrid { display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
     @media (max-width: 800px) { .confirmGrid { grid-template-columns: 1fr; } }
   </style>
+  <script src="/garvey_ui.js" defer></script>
 </head>
 <body>
 <div class="wrap">
@@ -41,11 +42,14 @@
 <script type="module">
 import { ensureBoard, getBoard, getCards, createCard, moveCard, renderKanban } from "/garvey-kanban.js";
 
-const p = new URLSearchParams(location.search);
-const tenant = (p.get("tenant") || "").trim();
+const ctx = (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : (function(){ const p = new URLSearchParams(location.search); return { tenant: String(p.get("tenant") || "").trim(), email: String(p.get("email") || "").trim().toLowerCase(), rid: String(p.get("rid") || "").trim(), cid: String(p.get("cid") || "").trim() }; })();
+const tenant = String(ctx.tenant || "").trim();
+const withCtx = (window.GARVEY && window.GARVEY.withCtx)
+  ? window.GARVEY.withCtx
+  : (href) => href;
 
 document.getElementById("tenantPill").textContent = "Tenant: " + (tenant || "(missing)");
-document.getElementById("back").href = "/garvey.html?tenant=" + encodeURIComponent(tenant);
+document.getElementById("back").href = withCtx("/garvey.html");
 document.getElementById("siteBtn").href = tenant ? `/t/${encodeURIComponent(tenant)}/site` : "#";
 
 const phase = "Y";

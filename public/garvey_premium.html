@@ -21,6 +21,7 @@
     .btn-alt { background: #1f2937; color: #e5e7eb; border: 1px solid #374151; }
     .muted { color: #94a3b8; }
   </style>
+  <script src="/garvey_ui.js" defer></script>
 </head>
 <body>
   <div class="wrap">
@@ -34,11 +35,14 @@
   </div>
   <script>
     (function () {
-      const p = new URLSearchParams(window.location.search);
-      const tenant = (p.get("tenant") || "").trim();
-      const suffix = tenant ? `?tenant=${encodeURIComponent(tenant)}` : "";
-      document.getElementById("openGarvey").href = `/garvey.html${suffix}`;
-      document.getElementById("fallbackGarvey").href = `/garvey.html${suffix}`;
+      const ctx = (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : (function(){ const p = new URLSearchParams(location.search); return { tenant: String(p.get("tenant") || "").trim(), email: String(p.get("email") || "").trim().toLowerCase(), rid: String(p.get("rid") || "").trim(), cid: String(p.get("cid") || "").trim() }; })();
+      const tenant = String(ctx.tenant || "").trim();
+      const withCtx = (window.GARVEY && window.GARVEY.withCtx)
+        ? window.GARVEY.withCtx
+        : (href) => href;
+
+      document.getElementById("openGarvey").href = withCtx("/garvey.html");
+      document.getElementById("fallbackGarvey").href = withCtx("/garvey.html");
       document.getElementById("toSite").href = tenant
         ? `/t/${encodeURIComponent(tenant)}/site`
         : "/index.html";

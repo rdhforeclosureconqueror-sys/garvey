@@ -178,6 +178,7 @@
     const tenant = (qs.get("tenant") || "").trim();
     const email = (qs.get("email") || "").trim();
     const cid = (qs.get("cid") || "").trim();
+    const rid = String(qs.get("rid") || "").trim();
 
     // Render target (THIS controls the page)
     const typeSlug = (qs.get("type") || "").trim().toLowerCase();
@@ -196,6 +197,7 @@
       if (tenant) u.searchParams.set("tenant", tenant);
       if (email) u.searchParams.set("email", email);
       if (cid) u.searchParams.set("cid", cid);
+      if (rid) u.searchParams.set("rid", rid);
       return u.pathname + u.search;
     }
 
@@ -204,6 +206,7 @@
       if (tenant) u.searchParams.set("tenant", tenant);
       if (email) u.searchParams.set("email", email);
       if (cid) u.searchParams.set("cid", cid);
+      if (rid) u.searchParams.set("rid", rid);
 
       u.searchParams.set("type", slug);
 

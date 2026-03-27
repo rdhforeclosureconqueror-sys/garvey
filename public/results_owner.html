@@ -132,9 +132,6 @@
       return `/results_owner.html?${params.toString()}`;
     }
 
-    function buildSiteUrl() {
-      return `/t/${encodeURIComponent(tenant)}/site`;
-    }
 
     async function load() {
       if (!tenant || !email) {
@@ -208,7 +205,6 @@
       document.getElementById("ctas").innerHTML = `
         <a class="btn" href="${buildDashboardUrl()}">Open My Dashboard</a>
         <a class="btn" href="${buildGarveyUrl()}">Start GARVEY Pathway</a>
-        <a class="btn" href="${buildSiteUrl()}">View My Site</a>
         <a class="btn" href="${buildResultsPermalink()}">Copy/Bookmark Results Link</a>
       `;
     }

@@ -33,11 +33,36 @@
     els.forEach((el) => el.classList.add("is-in"));
   }
 
-  // Tenant helper (optional)
+  function safeTrim(v) {
+    return String(v ?? "").trim();
+  }
+
+  function ctx() {
+    const p = new URLSearchParams(location.search);
+    return {
+      tenant: safeTrim(p.get("tenant")),
+      email: safeTrim(p.get("email")).toLowerCase(),
+      rid: safeTrim(p.get("rid")),
+      cid: safeTrim(p.get("cid")),
+    };
+  }
+
+  function withCtx(href) {
+    const current = ctx();
+    const u = new URL(href, location.origin);
+    if (current.tenant) u.searchParams.set("tenant", current.tenant);
+    if (current.email) u.searchParams.set("email", current.email);
+    if (current.rid) u.searchParams.set("rid", current.rid);
+    if (current.cid) u.searchParams.set("cid", current.cid);
+    return u.pathname + u.search + u.hash;
+  }
+
+  // GARVEY helper
   window.GARVEY = {
     getTenant() {
-      const p = new URLSearchParams(location.search);
-      return (p.get("tenant") || "").trim();
-    }
+      return ctx().tenant;
+    },
+    ctx,
+    withCtx,
   };
 })();
