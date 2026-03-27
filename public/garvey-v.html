@@ -1,105 +1,54 @@
-<!-- FILE: public/garvey-v.html -->
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>GARVEY — V (Value)</title>
-  <link rel="stylesheet" href="/garvey.css">
-  <style>
-    .confirmGrid { display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    @media (max-width: 800px) { .confirmGrid { grid-template-columns: 1fr; } }
-  </style>
+  <link rel="stylesheet" href="/garvey_ui.css">
+  <script src="/garvey_ui.js" defer></script>
 </head>
 <body>
-<div class="wrap">
-  <div class="card">
-    <div class="row">
-      <a class="btn" id="back" href="#">Back to Hub</a>
-      <div class="pill" id="tenantPill"></div>
-      <a class="btn" id="siteBtn" href="#">Preview Generated Site</a>
-      <a class="btn" id="siteGenBtn" href="#">Open Admin Config</a>
-    </div>
-    <h1>V — Value (Website + Presence)</h1>
-    <div class="muted">
-      This phase produces public value: website, credibility signals, and visibility tasks.
-      No uploads required — confirm completion with buttons.
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>Confirmations (no uploads)</h2>
-    <div class="muted">Clicking a button creates/updates a Kanban card and moves it to Done.</div>
-    <div class="confirmGrid" style="margin-top:10px;">
-      <button class="btn" id="c_website">✅ I have a live website</button>
-      <button class="btn" id="c_gbp">✅ I created Google Business Profile</button>
-      <button class="btn" id="c_reviews">✅ I requested 3 reviews</button>
-      <button class="btn" id="c_domain">✅ I secured a domain</button>
-    </div>
-  </div>
-
-  <div id="kanban"></div>
-</div>
-
+<header class="topbar"><div class="topbar-inner"><div class="brand">GARVEY • V</div><button class="btn mobile-toggle" data-mobile-toggle type="button">Menu</button><nav class="nav-links"><a class="btn" data-tenant-href="/garvey_premium.html" href="#">Back to Premium</a><a class="btn" data-tenant-href="/garvey.html" href="#">Fallback Hub</a><a class="btn" data-tenant-href="/admin.html" href="#">Admin Config</a></nav></div></header>
+<main class="wrap">
+  <section class="card reveal"><div class="row"><span class="pill" data-tenant-label></span><a class="btn" data-tenant-href="/garvey_premium.html" href="#">Back</a></div><h1>V — Value</h1><p class="muted">Confirm visible business-value milestones and push them to done.</p></section>
+  <section class="card reveal"><h2>Quick confirmations</h2><div class="grid grid-2"><button class="btn btn-ok" data-confirm="Website is live">✅ Website is live</button><button class="btn btn-ok" data-confirm="Google Business Profile created">✅ GBP created</button><button class="btn btn-ok" data-confirm="Requested 3 customer reviews">✅ Requested 3 reviews</button><button class="btn btn-ok" data-confirm="Domain secured">✅ Domain secured</button></div></section>
+  <section class="kanban-wrap reveal"><div id="kanban"></div></section>
+</main>
 <script type="module">
 import { ensureBoard, getBoard, getCards, createCard, moveCard, renderKanban } from "/garvey-kanban.js";
-
-const p = new URLSearchParams(location.search);
-const tenant = (p.get("tenant") || "").trim();
-
-document.getElementById("tenantPill").textContent = "Tenant: " + (tenant || "(missing)");
-document.getElementById("back").href = "/garvey.html?tenant=" + encodeURIComponent(tenant);
-document.getElementById("siteBtn").href = tenant ? `/t/${encodeURIComponent(tenant)}/site` : "#";
-document.getElementById("siteGenBtn").href = tenant ? `/admin.html?tenant=${encodeURIComponent(tenant)}` : "#";
-
 const phase = "V";
 const mount = document.getElementById("kanban");
-
+const tenant = window.GARVEY_UI.requireTenant(mount);
 let cached = { columns: [], cards: [] };
-
-function findDoneColumnId(columns) {
-  const cols = columns.filter(c => c.phase === phase);
-  const done = cols.find(c => String(c.name).toLowerCase() === "done");
-  return done ? done.id : (cols[cols.length - 1]?.id);
-}
-
-async function markConfirmation(title, description) {
-  const doneColId = findDoneColumnId(cached.columns);
-  if (!doneColId) return;
-
-  // find existing card by exact title
-  const existing = cached.cards.find(c => String(c.title).trim().toLowerCase() === title.trim().toLowerCase());
-  if (!existing) {
-    await createCard({ tenant, phase, column_id: doneColId, title, description });
-  } else if (existing.column_id !== doneColId) {
-    await moveCard(existing.id, doneColId);
-  }
-  await refresh();
-}
-
-document.getElementById("c_website").onclick = () => markConfirmation("Website is live", "Self-attested completion (no document stored).");
-document.getElementById("c_gbp").onclick = () => markConfirmation("Google Business Profile created", "Self-attested completion (no document stored).");
-document.getElementById("c_reviews").onclick = () => markConfirmation("Requested 3 customer reviews", "Self-attested completion (no document stored).");
-document.getElementById("c_domain").onclick = () => markConfirmation("Domain secured", "Self-attested completion (no document stored).");
-
+const doneId = () => {
+  const cols = cached.columns.filter((c) => c.phase === phase);
+  const done = cols.find((c) => String(c.name).toLowerCase() === "done");
+  return done ? done.id : cols[cols.length - 1]?.id;
+};
 async function refresh() {
   await ensureBoard(tenant);
   const b = await getBoard(tenant);
   const c = await getCards(tenant, phase);
   cached = { columns: b.columns || [], cards: c.cards || [] };
-
   renderKanban({
-    mount,
-    tenant,
-    phase,
-    columns: cached.columns,
-    cards: cached.cards,
+    mount, tenant, phase,
+    columns: cached.columns, cards: cached.cards,
     onCreate: async (payload) => { await createCard(payload); await refresh(); },
     onMove: async (id, to) => { await moveCard(id, to); await refresh(); },
   });
 }
-
-refresh();
+async function mark(title) {
+  const col = doneId();
+  if (!col) return;
+  const existing = cached.cards.find((c) => String(c.title).trim().toLowerCase() === title.toLowerCase());
+  if (!existing) await createCard({ tenant, phase, column_id: col, title, description: "Self-attested completion." });
+  else if (existing.column_id !== col) await moveCard(existing.id, col);
+  await refresh();
+}
+if (tenant) {
+  document.querySelectorAll("[data-confirm]").forEach((btn) => btn.addEventListener("click", () => mark(btn.getAttribute("data-confirm") || "")));
+  refresh();
+}
 </script>
 </body>
 </html>

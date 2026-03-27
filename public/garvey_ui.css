@@ -1,0 +1,134 @@
+:root {
+  --bg: #050816;
+  --panel: #0f172a;
+  --panel-2: #111c33;
+  --text: #e5e7eb;
+  --muted: #93a3bb;
+  --border: #24324d;
+  --accent: #f5c542;
+  --accent-2: #60a5fa;
+  --ok: #34d399;
+  --danger: #f87171;
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top right, rgba(96, 165, 250, 0.18), transparent 30%),
+    radial-gradient(circle at top left, rgba(245, 197, 66, 0.12), transparent 35%),
+    var(--bg);
+  min-height: 100vh;
+  line-height: 1.45;
+}
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 24px 16px 56px; }
+.row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.muted { color: var(--muted); }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--border);
+  background: rgba(5, 8, 22, 0.95);
+  backdrop-filter: blur(8px);
+}
+.topbar-inner { max-width: 1100px; margin: 0 auto; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.brand { font-weight: 900; letter-spacing: 0.04em; }
+.mobile-toggle { display: none; }
+.nav-links { display: flex; gap: 10px; align-items: center; }
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(17, 28, 51, 0.92), rgba(11, 18, 34, 0.97));
+  box-shadow: var(--shadow);
+  padding: 18px;
+  margin-bottom: 14px;
+}
+
+.hero { padding: 24px; }
+.hero h1 { margin: 0 0 10px; font-size: clamp(1.5rem, 3vw, 2rem); }
+
+.grid { display: grid; gap: 12px; }
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.btn {
+  border: 1px solid var(--border);
+  background: #16243e;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.btn:hover { transform: translateY(-1px); border-color: #35527e; background: #1b2c4b; }
+.btn-main { background: var(--accent); color: #1f1300; border-color: #e8b223; }
+.btn-main:hover { background: #ffd45f; border-color: #ffd45f; }
+.btn-soft { background: #16243e; }
+.btn-ok { background: #0d3a30; border-color: #1b6959; }
+
+.pill {
+  border-radius: 999px;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  font-size: 0.86rem;
+  color: var(--muted);
+  background: rgba(11, 18, 34, 0.8);
+}
+
+.phase-card { position: relative; overflow: hidden; }
+.phase-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.06), transparent);
+  transform: translateX(-130%);
+  transition: transform 0.7s ease;
+}
+.phase-card:hover::after { transform: translateX(130%); }
+.phase-title { margin: 0; font-size: 1.15rem; }
+.progress {
+  margin-top: 10px;
+  width: 100%;
+  background: #0a1426;
+  border: 1px solid #20304d;
+  border-radius: 999px;
+  overflow: hidden;
+  height: 10px;
+}
+.progress > span { display: block; height: 100%; background: linear-gradient(90deg, #4f8ff3, #57d7b5); width: 0; transition: width 0.45s ease; }
+
+.kanban-wrap { margin-top: 14px; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.notice { border: 1px dashed #72520f; background: rgba(114, 82, 15, 0.14); color: #ffe3a0; padding: 12px; border-radius: 10px; }
+
+@media (max-width: 900px) {
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 760px) {
+  .mobile-toggle { display: inline-flex; }
+  .nav-links { display: none; width: 100%; flex-direction: column; align-items: stretch; }
+  .topbar-inner { flex-wrap: wrap; }
+  .topbar.open .nav-links { display: flex; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}

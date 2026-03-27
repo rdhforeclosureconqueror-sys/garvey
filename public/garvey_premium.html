@@ -4,37 +4,84 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GARVEY Premium</title>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #030712; color: #fff; }
-    .wrap { max-width: 960px; margin: 0 auto; padding: 28px 18px; }
-    .card { background: #111827; border: 1px solid #374151; border-radius: 14px; padding: 18px; margin-bottom: 14px; }
-    .btn { display: inline-block; margin: 8px 8px 0 0; padding: 10px 14px; border-radius: 10px; text-decoration: none; font-weight: 700; }
-    .btn-main { background: #eab308; color: #000; }
-    .btn-alt { background: #1f2937; color: #e5e7eb; border: 1px solid #374151; }
-    .muted { color: #94a3b8; }
-  </style>
+  <link rel="stylesheet" href="/garvey_ui.css">
+  <script src="/garvey_ui.js" defer></script>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <h1>GARVEY Premium Hub</h1>
-      <p class="muted">Premium pathway is currently text-only and fully functional without binary template assets.</p>
-      <a id="openGarvey" class="btn btn-main" href="#">Open GARVEY Hub</a>
-      <a id="fallbackGarvey" class="btn btn-alt" href="#">Fallback GARVEY Hub</a>
-      <a id="toSite" class="btn btn-alt" href="#">View Tenant Site</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">GARVEY Premium</div>
+      <button class="btn mobile-toggle" data-mobile-toggle type="button">Menu</button>
+      <nav class="nav-links">
+        <a class="btn btn-soft" data-tenant-href="/garvey.html" href="#">Fallback Hub</a>
+        <a class="btn btn-soft" id="siteLink" href="#">Tenant Site</a>
+      </nav>
     </div>
-  </div>
-  <script>
-    (function () {
-      const p = new URLSearchParams(window.location.search);
-      const tenant = (p.get("tenant") || "").trim();
-      const suffix = tenant ? `?tenant=${encodeURIComponent(tenant)}` : "";
-      document.getElementById("openGarvey").href = `/garvey.html${suffix}`;
-      document.getElementById("fallbackGarvey").href = `/garvey.html${suffix}`;
-      document.getElementById("toSite").href = tenant
-        ? `/t/${encodeURIComponent(tenant)}/site`
-        : "/index.html";
-    })();
+  </header>
+
+  <main class="wrap">
+    <section class="card hero reveal">
+      <h1>Interactive GARVEY Pathway</h1>
+      <p class="muted">Reactive UI, per-phase Kanban, and tenant-safe navigation. Everything stays text-only.</p>
+      <div class="row">
+        <span class="pill" data-tenant-label></span>
+        <a class="btn btn-main" data-tenant-href="/garvey.html" href="#">Open Existing Hub</a>
+        <a class="btn" data-tenant-href="/garvey.html" href="#">Fallback /garvey.html</a>
+      </div>
+      <p class="muted" style="margin-top:10px">Optional direct site link: <a id="tenantSiteInline" class="btn btn-soft" href="#">/t/:tenant/site</a></p>
+    </section>
+
+    <section class="grid grid-3">
+      <article class="card phase-card reveal" data-phase="G"><h3 class="phase-title">G — Gather</h3><p class="muted">Collect business basics and initial setup tasks.</p><div class="progress"><span></span></div><div class="muted" data-progress-label>0/0 done</div><a class="btn btn-main" data-phase-link="/garvey-g.html" href="#">Open G</a></article>
+      <article class="card phase-card reveal" data-phase="A"><h3 class="phase-title">A — Assess</h3><p class="muted">Run intake and convert findings into actionable tasks.</p><div class="progress"><span></span></div><div class="muted" data-progress-label>0/0 done</div><a class="btn btn-main" data-phase-link="/garvey-a.html" href="#">Open A</a></article>
+      <article class="card phase-card reveal" data-phase="R"><h3 class="phase-title">R — Route</h3><p class="muted">Lock the route and prioritize execution.</p><div class="progress"><span></span></div><div class="muted" data-progress-label>0/0 done</div><a class="btn btn-main" data-phase-link="/garvey-r.html" href="#">Open R</a></article>
+      <article class="card phase-card reveal" data-phase="V"><h3 class="phase-title">V — Value</h3><p class="muted">Create visible market value and web presence milestones.</p><div class="progress"><span></span></div><div class="muted" data-progress-label>0/0 done</div><a class="btn btn-main" data-phase-link="/garvey-v.html" href="#">Open V</a></article>
+      <article class="card phase-card reveal" data-phase="E"><h3 class="phase-title">E — Evaluate</h3><p class="muted">Readiness gates and completion attestations.</p><div class="progress"><span></span></div><div class="muted" data-progress-label>0/0 done</div><a class="btn btn-main" data-phase-link="/garvey-e.html" href="#">Open E</a></article>
+      <article class="card phase-card reveal" data-phase="Y"><h3 class="phase-title">Y — Yield</h3><p class="muted">Final completion and funding readiness signals.</p><div class="progress"><span></span></div><div class="muted" data-progress-label>0/0 done</div><a class="btn btn-main" data-phase-link="/garvey-y.html" href="#">Open Y</a></article>
+    </section>
+  </main>
+
+  <script type="module">
+    import { ensureBoard, getBoard, getCards } from "/garvey-kanban.js";
+
+    const tenant = window.GARVEY_UI.tenantFromLocation();
+    const sitePath = tenant ? `/t/${encodeURIComponent(tenant)}/site` : "/t/:tenant/site";
+    document.getElementById("siteLink").href = sitePath;
+    document.getElementById("tenantSiteInline").href = sitePath;
+
+    document.querySelectorAll("[data-phase-link]").forEach((a) => {
+      const base = a.getAttribute("data-phase-link");
+      a.href = window.GARVEY_UI.withTenant(base, tenant);
+    });
+
+    async function hydrateProgress() {
+      if (!tenant) {
+        document.querySelectorAll("[data-progress-label]").forEach((label) => {
+          label.textContent = "Add ?tenant=... to load progress";
+        });
+        return;
+      }
+      await ensureBoard(tenant);
+      const board = await getBoard(tenant);
+      const phases = ["G", "A", "R", "V", "E", "Y"];
+
+      for (const phase of phases) {
+        const cols = (board.columns || []).filter((c) => c.phase === phase);
+        const cardsRes = await getCards(tenant, phase);
+        const cards = cardsRes.cards || [];
+        const doneCol = cols.find((c) => String(c.name).toLowerCase() === "done") || cols[cols.length - 1];
+        const done = doneCol ? cards.filter((c) => c.column_id === doneCol.id).length : 0;
+        const total = cards.length;
+        const pct = total ? Math.round((done / total) * 100) : 0;
+
+        const card = document.querySelector(`[data-phase='${phase}']`);
+        if (!card) continue;
+        card.querySelector(".progress > span").style.width = `${pct}%`;
+        card.querySelector("[data-progress-label]").textContent = `${done}/${total} done (${pct}%)`;
+      }
+    }
+
+    hydrateProgress();
   </script>
 </body>
 </html>
