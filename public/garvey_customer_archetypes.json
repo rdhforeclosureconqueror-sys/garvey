@@ -1,113 +1,575 @@
 {
-  "domains": [
+  "schema_version": "1.0.0",
+  "purpose": "Archetype library for Customer (personal) + Buyer (purchasing) profiles using the same 8 archetypes (Builder/Architect/etc).",
+  "how_to_use": {
+    "intended_storage": [
+      "Option A: store as JSONB in a table like archetype_library (id TEXT PRIMARY KEY, payload JSONB)",
+      "Option B: commit as /public/archetypes/library.json and load server-side into result payloads",
+      "Option C: hardcode as a module server/archetypeLibrary.js exporting this object"
+    ],
+    "rendering_hint": {
+      "customer_personal_profile": "Use the 'personal' lens for the customer-facing personality/coaching copy.",
+      "buyer_purchasing_profile": "Use the 'buyer' lens for purchase behavior + owner-facing marketing notes.",
+      "balance_logic": "Treat 35–55% as 'balanced', >55% as 'dominant/overused risk', <15% as 'underused/growth area' (adjust thresholds as you prefer)."
+    }
+  },
+  "archetype_ids": [
+    "architect",
+    "builder",
+    "operator",
+    "resource_generator",
+    "connector",
+    "educator",
+    "protector",
+    "steward"
+  ],
+  "archetypes": [
     {
-      "key": "customer_types",
-      "label": "Customer Type(s)",
-      "archetypes": [
-        {
-          "slug": "value_seeker",
-          "name": "Value Seeker",
-          "one_liner": "You buy when the value is obvious, practical, and worth the spend.",
-          "at_your_best": ["Compares options calmly before buying", "Finds high return purchases", "Rewards transparent pricing"],
-          "at_your_worst": ["Waits too long and misses fit", "Over-focuses on discounts", "Assumes premium always means overpriced"],
-          "strengths_top5": ["Price clarity", "Deal detection", "Budget discipline", "Expectation setting", "Pragmatic loyalty"],
-          "traps_top5": ["Analysis paralysis", "Short-term only framing", "Ignoring quality signals", "Coupon dependency", "Low switching friction"],
-          "how_to_build": {"daily_reps": ["Set one purchase rule before browsing", "Choose based on total value, not just sticker price"], "weekly_reps": ["Audit one purchase decision", "Track one avoided impulse buy"], "challenge_30_days": "Buy only items with clear utility + longevity criteria."},
-          "rebalance": {"if_overusing": "Add one quality metric to every price decision.", "if_underusing": "Use a simple budget threshold before checkout."},
-          "power_combos": {"best": [{"with": "intentional_buyer", "why": "Value and purpose create stable repeat buying."}], "risky": [{"with": "trend_explorer", "risk": "Chasing novelty breaks your value discipline.", "fix": "Create a test budget for experiments."}]},
-          "score_guidance": {"low": "You may buy on emotion first.", "mid": "You balance value and convenience well.", "high": "Lead with practical proof and transparent offers."},
-          "micro_playbook": {"decision_script": "What is the total value over time?", "team_script": "Ask for bundles, guarantees, and plain pricing.", "time_script": "Use a 24-hour pause for non-urgent buys."}
-        },
-        {
-          "slug": "loyal_supporter",
-          "name": "Loyal Supporter",
-          "one_liner": "You stick with brands that consistently deliver and treat you right.",
-          "at_your_best": ["Builds long-term brand relationships", "Refers trusted businesses", "Responds to consistency"],
-          "at_your_worst": ["Stays too long with declining service", "Avoids trying better options", "Tolerates friction due to history"],
-          "strengths_top5": ["Retention", "Referral energy", "Brand trust", "Community mindset", "Predictable repeat spend"],
-          "traps_top5": ["Comfort bias", "Blind spot to alternatives", "Forgiving repeated misses", "Low experimentation", "Overattachment"],
-          "how_to_build": {"daily_reps": ["Rate recent experiences objectively", "Notice whether service still matches your standards"], "weekly_reps": ["Try one small test purchase elsewhere", "Share clear feedback with favorite brands"], "challenge_30_days": "Track consistency across 3 repeat interactions."},
-          "rebalance": {"if_overusing": "Set non-negotiables and switch when repeatedly broken.", "if_underusing": "Reward brands that reliably deliver."},
-          "power_combos": {"best": [{"with": "social_promoter", "why": "Trust plus advocacy creates high referral potential."}], "risky": [{"with": "convenience_buyer", "risk": "Habit can become autopilot spending.", "fix": "Run a monthly quality check."}]},
-          "score_guidance": {"low": "You are likely still evaluating fit.", "mid": "You can be loyal when quality is proven.", "high": "Retention and VIP rewards will strongly resonate."},
-          "micro_playbook": {"decision_script": "Is this brand still earning my trust?", "team_script": "Request loyalty perks tied to consistency.", "time_script": "Review relationship quality monthly."}
-        },
-        {
-          "slug": "convenience_buyer",
-          "name": "Convenience Buyer",
-          "one_liner": "You choose the smoothest path: faster, simpler, less effort.",
-          "at_your_best": ["Moves quickly with clear options", "Values frictionless experiences", "Responds to instant utility"],
-          "at_your_worst": ["Pays convenience tax too often", "Skips comparison steps", "Overlooks better long-term fit"],
-          "strengths_top5": ["Decision speed", "Execution", "Low cognitive load", "Repeatability", "Workflow efficiency"],
-          "traps_top5": ["Shortcut bias", "Impulse risk", "Service lock-in", "Low negotiation", "Surface-level evaluation"],
-          "how_to_build": {"daily_reps": ["Use one-click criteria for routine purchases", "Pre-save preferred options"], "weekly_reps": ["Audit one convenience fee", "Automate a repeat purchase decision"], "challenge_30_days": "Design a personal 'fast but smart' purchase checklist."},
-          "rebalance": {"if_overusing": "Pause for 60 seconds on high-ticket buys.", "if_underusing": "Reduce unnecessary decision steps with defaults."},
-          "power_combos": {"best": [{"with": "value_seeker", "why": "Fast decisions with price discipline."}], "risky": [{"with": "trend_explorer", "risk": "Quick novelty purchases increase waste.", "fix": "Add a spend cap for experiments."}]},
-          "score_guidance": {"low": "You may overcomplicate routine purchases.", "mid": "You balance speed with occasional review.", "high": "Fast checkout and low-friction rewards matter most."},
-          "micro_playbook": {"decision_script": "What gets this done with least friction?", "team_script": "Prioritize speed and reliability in service delivery.", "time_script": "Reserve deeper research only for major purchases."}
-        },
-        {
-          "slug": "experience_seeker",
-          "name": "Experience Seeker",
-          "one_liner": "You buy for how it feels: memorable, elevated, and meaningful.",
-          "at_your_best": ["Values quality interactions", "Rewards hospitality and care", "Seeks premium moments"],
-          "at_your_worst": ["Can overpay for presentation", "Lets novelty overshadow utility", "Dislikes routine options"],
-          "strengths_top5": ["Taste", "Brand storytelling fit", "Emotional connection", "Service expectations", "Quality sensitivity"],
-          "traps_top5": ["Aesthetic bias", "FOMO spending", "High expectation volatility", "Inconsistent loyalty", "Undervaluing essentials"],
-          "how_to_build": {"daily_reps": ["Name what made an experience excellent", "Separate core value from surface flair"], "weekly_reps": ["Choose one practical and one premium option", "Reflect on satisfaction after 48 hours"], "challenge_30_days": "Map experiences that felt worth repeat spending."},
-          "rebalance": {"if_overusing": "Anchor every premium buy to a concrete outcome.", "if_underusing": "Invest in one high-quality experience intentionally."},
-          "power_combos": {"best": [{"with": "intentional_buyer", "why": "Memorable choices aligned with personal values."}], "risky": [{"with": "trend_explorer", "risk": "Novelty chasing becomes expensive.", "fix": "Use a planned discovery budget."}]},
-          "score_guidance": {"low": "Experience is not your main driver.", "mid": "You value service when stakes are higher.", "high": "Personalized moments and premium care convert best."},
-          "micro_playbook": {"decision_script": "Will this feel worth remembering next week?", "team_script": "Ask for service details before price alone.", "time_script": "Schedule premium choices intentionally, not impulsively."}
-        },
-        {
-          "slug": "social_promoter",
-          "name": "Social Promoter",
-          "one_liner": "You share what you love and influence others through trusted recommendations.",
-          "at_your_best": ["Amplifies great businesses", "Creates social proof", "Builds community momentum"],
-          "at_your_worst": ["May share before full validation", "Feels pressure to stay publicly consistent", "Overextends referrals"],
-          "strengths_top5": ["Advocacy", "Visibility", "Community trust", "Word-of-mouth growth", "Network reach"],
-          "traps_top5": ["Hype over fit", "Reputation risk", "Recency bias", "External validation loops", "Referral fatigue"],
-          "how_to_build": {"daily_reps": ["Share one specific reason, not just praise", "Recommend only what you would repurchase"], "weekly_reps": ["Collect feedback from one referral", "Update your top trusted list"], "challenge_30_days": "Document outcomes from 5 recommendations."},
-          "rebalance": {"if_overusing": "Slow down and validate before broadcasting.", "if_underusing": "Share one thoughtful recommendation each week."},
-          "power_combos": {"best": [{"with": "loyal_supporter", "why": "High-trust advocacy with long-term retention."}], "risky": [{"with": "trend_explorer", "risk": "Chasing buzz can reduce credibility.", "fix": "Prioritize tested recommendations."}]},
-          "score_guidance": {"low": "You may prefer private decision-making.", "mid": "You recommend selectively.", "high": "Referral and share incentives will perform strongly."},
-          "micro_playbook": {"decision_script": "Would I confidently recommend this to a close friend?", "team_script": "Turn experiences into clear, honest testimonials.", "time_script": "Batch social sharing after real usage."}
-        },
-        {
-          "slug": "intentional_buyer",
-          "name": "Intentional Buyer",
-          "one_liner": "You buy with purpose, alignment, and long-term fit in mind.",
-          "at_your_best": ["Makes values-aligned choices", "Avoids reactive spending", "Chooses long-term utility"],
-          "at_your_worst": ["Can delay decisions too long", "Over-weights principles over practicality", "Rejects helpful shortcuts"],
-          "strengths_top5": ["Clarity", "Purpose alignment", "Low regret", "Strategic patience", "Long-term consistency"],
-          "traps_top5": ["Perfectionism", "Decision drag", "Rigidity", "Over-research", "Missed opportunities"],
-          "how_to_build": {"daily_reps": ["Define one purchase intention before browsing", "Check fit against your top values"], "weekly_reps": ["Review one purchase for alignment and outcome", "Remove one low-fit recurring spend"], "challenge_30_days": "Run a no-impulse buying experiment with a values checklist."},
-          "rebalance": {"if_overusing": "Use a decision deadline to avoid stall.", "if_underusing": "Pause and state purpose before each discretionary purchase."},
-          "power_combos": {"best": [{"with": "value_seeker", "why": "Purpose plus ROI yields disciplined growth."}], "risky": [{"with": "experience_seeker", "risk": "Can overjustify premium choices.", "fix": "Tie emotional spend to practical outcomes."}]},
-          "score_guidance": {"low": "You may decide more reactively.", "mid": "You apply intention in major purchases.", "high": "Mission-aligned messaging and transparent impact resonate."},
-          "micro_playbook": {"decision_script": "Does this purchase move me toward my priorities?", "team_script": "Ask for impact, outcomes, and durability evidence.", "time_script": "Use weekly planning for non-essential spending."}
-        },
-        {
-          "slug": "trend_explorer",
-          "name": "Trend Explorer",
-          "one_liner": "You discover early, test new things, and enjoy what is next.",
-          "at_your_best": ["Finds emerging products early", "Brings fresh ideas", "Adapts quickly to new offers"],
-          "at_your_worst": ["Jumps before evaluating", "Chases novelty over fit", "Accumulates low-use purchases"],
-          "strengths_top5": ["Curiosity", "Early adoption", "Market awareness", "Experimentation", "Adaptability"],
-          "traps_top5": ["Shiny object bias", "High churn", "Budget drift", "Low routine optimization", "Inconsistent preferences"],
-          "how_to_build": {"daily_reps": ["Tag each new idea: test or commit", "Limit exploratory purchases to a set budget"], "weekly_reps": ["Review what experiments paid off", "Retire one low-value trend purchase"], "challenge_30_days": "Run a structured test log for all new buys."},
-          "rebalance": {"if_overusing": "Apply a wait period before buying emerging products.", "if_underusing": "Pilot one new option monthly to stay current."},
-          "power_combos": {"best": [{"with": "experience_seeker", "why": "Fresh discoveries with memorable execution."}], "risky": [{"with": "convenience_buyer", "risk": "Fast trend buying increases churn.", "fix": "Pre-commit a discovery budget and criteria."}]},
-          "score_guidance": {"low": "You prefer stable proven options.", "mid": "You test trends selectively.", "high": "New drops, exclusives, and early-access hooks will convert."},
-          "micro_playbook": {"decision_script": "Is this trend a test, tool, or distraction?", "team_script": "Separate exploratory spend from core spend.", "time_script": "Review test outcomes bi-weekly before repeating purchases."}
+      "id": "architect",
+      "display_name": "Architect",
+      "subtitle": "The System Builder",
+      "tagline": "You see what others can’t. You design reality before it exists.",
+      "core_energy": ["pattern-recognition", "strategy", "structure", "long-term thinking"],
+      "personal": {
+        "when_strong": [
+          "You simplify chaos into a clear plan.",
+          "You think in systems: inputs → process → output.",
+          "You set priorities that prevent wasted effort."
+        ],
+        "when_out_of_balance_high": [
+          "You over-plan and delay action.",
+          "You get stuck perfecting frameworks instead of shipping.",
+          "You can sound 'too technical' or detached."
+        ],
+        "when_out_of_balance_low": [
+          "You feel scattered, reactive, and unclear.",
+          "You jump between tasks with no through-line.",
+          "You rely on others to set direction."
+        ],
+        "daily_practices_to_build": [
+          "10-minute 'System Scan': write the 3 moving parts of today (Goal, Constraint, Next Step).",
+          "Define success before starting: 'Done looks like ____'.",
+          "End-of-day 3-line review: What worked / What broke / One fix for tomorrow."
+        ],
+        "weekly_practices_to_build": [
+          "Create a 1-page Weekly Blueprint: top 3 outcomes, key metrics, 5 tasks max per outcome.",
+          "Remove one recurring bottleneck (automate, template, delegate, or delete)."
+        ],
+        "balance_signals": {
+          "balanced_look": "Clear direction + steady execution without analysis paralysis.",
+          "needs_downshift": "More planning than progress; low shipping velocity.",
+          "needs_upshift": "No structure; constant context-switching."
         }
-      ]
+      },
+      "buyer": {
+        "buying_motivations": [
+          "Clarity, predictability, and long-term value",
+          "Proof, logic, and transparent structure",
+          "A system that scales and reduces risk"
+        ],
+        "buying_fears": [
+          "Hidden costs, vague promises, and messy processes",
+          "No roadmap, no documentation, no plan",
+          "Paying for hype instead of outcomes"
+        ],
+        "decision_style": "Research-first. Wants a clear model, timeline, and success criteria before committing.",
+        "best_offers_for_them": [
+          "Roadmaps, audits, strategy sessions, implementation plans",
+          "Dashboards, SOP libraries, templates, and repeatable systems"
+        ],
+        "messaging_that_converts": [
+          "Show the framework (steps + timeline + what happens next).",
+          "Use measurable outcomes and case studies.",
+          "Offer a 'pilot' with defined deliverables."
+        ],
+        "red_flags_in_your_pitch": [
+          "Too much emotion, not enough proof",
+          "Changing terms mid-conversation",
+          "Unclear scope or no success metrics"
+        ]
+      }
     },
     {
-      "key": "buyer_profile",
-      "label": "Buyer Profile",
-      "archetypes": []
+      "id": "builder",
+      "display_name": "Builder",
+      "subtitle": "The Creator of Reality",
+      "tagline": "You forge the world from raw vision to solid form.",
+      "core_energy": ["making", "craft", "output", "momentum"],
+      "personal": {
+        "when_strong": [
+          "You turn ideas into tangible results fast.",
+          "You learn by doing and improve in motion.",
+          "You create visible progress that inspires others."
+        ],
+        "when_out_of_balance_high": [
+          "You build without verifying direction (busy, not effective).",
+          "You start too many things and finish too few.",
+          "You resist documentation and repeat mistakes."
+        ],
+        "when_out_of_balance_low": [
+          "You hesitate to start; perfectionism or fear of failure shows up.",
+          "You overthink instead of producing.",
+          "You rely on motivation instead of process."
+        ],
+        "daily_practices_to_build": [
+          "One 'Ship Block' per day: 45–90 minutes producing a deliverable (even small).",
+          "Use the 80/20 rule: deliver the simple version first, improve later.",
+          "End each work session by setting the next 'first step' for tomorrow."
+        ],
+        "weekly_practices_to_build": [
+          "Choose 1 build goal for the week and finish it (no new projects until done).",
+          "Create a reusable template from anything you did twice."
+        ],
+        "balance_signals": {
+          "balanced_look": "Consistent shipping + alignment with a clear goal.",
+          "needs_downshift": "High output but low impact; scattered builds.",
+          "needs_upshift": "No tangible progress; too much thinking."
+        }
+      },
+      "buyer": {
+        "buying_motivations": [
+          "Speed to results",
+          "Practical tools and done-for-you execution",
+          "Clear next steps and immediate wins"
+        ],
+        "buying_fears": [
+          "Slow timelines",
+          "Too much theory",
+          "Endless meetings without delivery"
+        ],
+        "decision_style": "Action-first. Wants to start quickly and iterate.",
+        "best_offers_for_them": [
+          "Done-for-you services, quick-start packages, implementation sprints",
+          "Bundles with checklists, templates, and a clear execution plan"
+        ],
+        "messaging_that_converts": [
+          "Show what they get in week 1 and how fast they’ll see progress.",
+          "Use 'before/after' examples and simple next-step CTAs.",
+          "Offer a fast onboarding and a visible first milestone."
+        ],
+        "red_flags_in_your_pitch": [
+          "No timeline",
+          "Overly complex process",
+          "No clear deliverable or launch point"
+        ]
+      }
+    },
+    {
+      "id": "operator",
+      "display_name": "Operator",
+      "subtitle": "The Execution Master",
+      "tagline": "You transform plans into results with relentless speed.",
+      "core_energy": ["execution", "discipline", "process", "consistency"],
+      "personal": {
+        "when_strong": [
+          "You create routines and get things done.",
+          "You stabilize chaos and keep progress steady.",
+          "You hold yourself and others accountable."
+        ],
+        "when_out_of_balance_high": [
+          "You become rigid, controlling, or impatient.",
+          "You optimize tasks but ignore people’s experience.",
+          "You value completion over learning."
+        ],
+        "when_out_of_balance_low": [
+          "You struggle with consistency and follow-through.",
+          "You procrastinate or get overwhelmed by logistics.",
+          "You avoid structure and drift."
+        ],
+        "daily_practices_to_build": [
+          "Start-of-day: pick 3 outcomes, not 20 tasks.",
+          "Use time blocks (2–3 blocks/day) and protect them.",
+          "End-of-day: close loops (reply, schedule, file, next action)."
+        ],
+        "weekly_practices_to_build": [
+          "Create one operating rhythm: Mon planning / Wed review / Fri closeout.",
+          "Measure 1 metric weekly (leads, sales, workouts, etc.) and improve it."
+        ],
+        "balance_signals": {
+          "balanced_look": "Steady progress + flexibility when reality changes.",
+          "needs_downshift": "Rigid, stressed, micromanaging, losing human touch.",
+          "needs_upshift": "Inconsistent, scattered, unfinished work."
+        }
+      },
+      "buyer": {
+        "buying_motivations": [
+          "Efficiency, speed, and reliability",
+          "Clear process and accountability",
+          "Predictable outcomes and operational control"
+        ],
+        "buying_fears": [
+          "Unreliable vendors",
+          "Ambiguous deliverables",
+          "Missed timelines"
+        ],
+        "decision_style": "Wants a defined process, SLA-like clarity, and clean handoffs.",
+        "best_offers_for_them": [
+          "Managed services with reporting",
+          "Onboarding checklists, dashboards, automation, ops support"
+        ],
+        "messaging_that_converts": [
+          "Show your process, your cadence, and what happens each week.",
+          "Use clear deliverables + accountability checkpoints.",
+          "Demonstrate reliability with testimonials and timelines."
+        ],
+        "red_flags_in_your_pitch": [
+          "No process",
+          "No reporting",
+          "Loose promises instead of commitments"
+        ]
+      }
+    },
+    {
+      "id": "resource_generator",
+      "display_name": "Resource Generator",
+      "subtitle": "The Opportunity Finder",
+      "tagline": "You create options—money, leverage, and momentum.",
+      "core_energy": ["opportunity", "leverage", "resourcefulness", "deal-making"],
+      "personal": {
+        "when_strong": [
+          "You find creative paths to outcomes.",
+          "You attract resources (people, money, tools).",
+          "You spot opportunities others miss."
+        ],
+        "when_out_of_balance_high": [
+          "You chase shiny objects and overcommit.",
+          "You optimize for gain, not meaning.",
+          "You can become transactional or scattered."
+        ],
+        "when_out_of_balance_low": [
+          "You feel stuck and under-resourced.",
+          "You hesitate to ask for support.",
+          "You miss opportunities because you don’t look for them."
+        ],
+        "daily_practices_to_build": [
+          "Ask 1 leverage question/day: 'Who already solved this?'",
+          "Make 1 resource request/day (intro, tool, advice, referral).",
+          "Track 3 opportunities you saw today (even if you don’t act yet)."
+        ],
+        "weekly_practices_to_build": [
+          "Pipeline review: list leads, partnerships, upsells, referrals.",
+          "Run one experiment/week (offer test, outreach sprint, new channel)."
+        ],
+        "balance_signals": {
+          "balanced_look": "Opportunities align with a clear strategy and are executed.",
+          "needs_downshift": "Too many bets; no follow-through.",
+          "needs_upshift": "No pipeline; not asking; low leverage."
+        }
+      },
+      "buyer": {
+        "buying_motivations": [
+          "ROI and leverage",
+          "New opportunities and growth",
+          "Offers that create momentum"
+        ],
+        "buying_fears": [
+          "Low ROI",
+          "Slow payoff",
+          "Being trapped in a non-scalable solution"
+        ],
+        "decision_style": "Value-driven. If the upside is clear, they move fast.",
+        "best_offers_for_them": [
+          "Growth campaigns, referral engines, partnership offers",
+          "Packages with clear ROI logic and expansion paths"
+        ],
+        "messaging_that_converts": [
+          "Show the upside clearly (numbers, scenarios, ranges).",
+          "Offer tiered options (good/better/best).",
+          "Demonstrate how this unlocks the next level."
+        ],
+        "red_flags_in_your_pitch": [
+          "No ROI story",
+          "No growth path",
+          "No way to scale after purchase"
+        ]
+      }
+    },
+    {
+      "id": "connector",
+      "display_name": "Connector",
+      "subtitle": "The Bridge Between Worlds",
+      "tagline": "You unite people and open doors through trust.",
+      "core_energy": ["relationships", "community", "trust", "influence"],
+      "personal": {
+        "when_strong": [
+          "You build rapport quickly and keep people engaged.",
+          "You create community and shared momentum.",
+          "You sense what people need emotionally."
+        ],
+        "when_out_of_balance_high": [
+          "You people-please and avoid hard boundaries.",
+          "You say yes too often and burn out.",
+          "You prioritize harmony over truth."
+        ],
+        "when_out_of_balance_low": [
+          "You feel isolated and struggle to ask for help.",
+          "You don’t nurture relationships consistently.",
+          "You miss opportunities because you don’t network."
+        ],
+        "daily_practices_to_build": [
+          "Send 1 genuine message/day (check-in, appreciation, support).",
+          "Practice one clear boundary/day (a respectful no).",
+          "Create one 'connection moment' (introduce two people)."
+        ],
+        "weekly_practices_to_build": [
+          "Host or attend 1 community touchpoint/week (call, meetup, group).",
+          "Review your top 10 relationships and nurture 3 intentionally."
+        ],
+        "balance_signals": {
+          "balanced_look": "Warm relationships + clear boundaries.",
+          "needs_downshift": "Overgiving, drained, unclear limits.",
+          "needs_upshift": "Disconnected, no relationship maintenance."
+        }
+      },
+      "buyer": {
+        "buying_motivations": [
+          "Belonging and being seen",
+          "Trust and shared values",
+          "Social proof and community"
+        ],
+        "buying_fears": [
+          "Cold, transactional experiences",
+          "Feeling judged or ignored",
+          "Buying from someone they can’t trust"
+        ],
+        "decision_style": "Trust-first. They buy from people and stories before features.",
+        "best_offers_for_them": [
+          "Community memberships, coaching groups, high-touch experiences",
+          "Referral-friendly offers and shareable wins"
+        ],
+        "messaging_that_converts": [
+          "Use stories, testimonials, and community language.",
+          "Show care: what support looks like after purchase.",
+          "Make it easy to share and invite others."
+        ],
+        "red_flags_in_your_pitch": [
+          "No testimonials",
+          "No human support",
+          "Aggressive pressure tactics"
+        ]
+      }
+    },
+    {
+      "id": "educator",
+      "display_name": "Educator",
+      "subtitle": "The Keeper of Wisdom",
+      "tagline": "You bring clarity, insight, and growth to others.",
+      "core_energy": ["teaching", "clarity", "insight", "development"],
+      "personal": {
+        "when_strong": [
+          "You learn fast and explain clearly.",
+          "You turn confusion into understanding.",
+          "You uplift others by sharing knowledge."
+        ],
+        "when_out_of_balance_high": [
+          "You over-explain and overwhelm people.",
+          "You stay in learning mode and delay action.",
+          "You become critical when others don’t ‘get it’ quickly."
+        ],
+        "when_out_of_balance_low": [
+          "You don’t reflect or learn intentionally.",
+          "You repeat mistakes because you don’t extract lessons.",
+          "You feel unclear and unconfident."
+        ],
+        "daily_practices_to_build": [
+          "Teach-back: write a 5-sentence summary of what you learned today.",
+          "Choose one skill and practice 20 minutes/day.",
+          "Convert learning into action: 'One thing I’ll apply today is…'"
+        ],
+        "weekly_practices_to_build": [
+          "Create one mini-lesson/week (post, video, note) to solidify mastery.",
+          "Review and refine your personal playbook (what works for you)."
+        ],
+        "balance_signals": {
+          "balanced_look": "Learning + applying + teaching others in simple ways.",
+          "needs_downshift": "Overthinking, over-teaching, not doing.",
+          "needs_upshift": "No learning loop; repeating the same problems."
+        }
+      },
+      "buyer": {
+        "buying_motivations": [
+          "Understanding, clarity, and skill-building",
+          "Guidance and step-by-step support",
+          "Being empowered to do it themselves"
+        ],
+        "buying_fears": [
+          "Confusing services",
+          "No education or transparency",
+          "Feeling dependent or lost"
+        ],
+        "decision_style": "Clarity-driven. They want to understand what they’re buying and how it works.",
+        "best_offers_for_them": [
+          "Courses, guides, workshops, coaching with curriculum",
+          "Resources that build competence and confidence"
+        ],
+        "messaging_that_converts": [
+          "Explain the method simply (not hype).",
+          "Show the curriculum and what they’ll be able to do afterward.",
+          "Provide examples, demos, and clear next steps."
+        ],
+        "red_flags_in_your_pitch": [
+          "Vague explanations",
+          "No teaching/support structure",
+          "Hidden steps or ‘secret sauce’ talk"
+        ]
+      }
+    },
+    {
+      "id": "protector",
+      "display_name": "Protector",
+      "subtitle": "The Guardian of the Realm",
+      "tagline": "You keep people safe and defend what matters.",
+      "core_energy": ["safety", "boundaries", "strength", "risk-management"],
+      "personal": {
+        "when_strong": [
+          "You establish strong boundaries and standards.",
+          "You notice risks early and prevent harm.",
+          "You create stability for others."
+        ],
+        "when_out_of_balance_high": [
+          "You become defensive, suspicious, or controlling.",
+          "You block growth because it feels risky.",
+          "You overcorrect and shut people down."
+        ],
+        "when_out_of_balance_low": [
+          "You tolerate disrespect or chaos.",
+          "You avoid conflict and don’t enforce standards.",
+          "You feel unsafe, anxious, or easily overwhelmed."
+        ],
+        "daily_practices_to_build": [
+          "Boundary reps: say no once/day where needed.",
+          "Risk scan: identify the top 1 risk and the top 1 prevention step.",
+          "Body-based regulation: 5 minutes breathing/walk to reduce reactivity."
+        ],
+        "weekly_practices_to_build": [
+          "Create/refresh a ‘standards list’ (what you allow vs don’t).",
+          "Have one courageous conversation/week (clear, calm, direct)."
+        ],
+        "balance_signals": {
+          "balanced_look": "Strong standards + open to growth.",
+          "needs_downshift": "Overprotective; fear blocks progress.",
+          "needs_upshift": "No boundaries; chaos and disrespect creep in."
+        }
+      },
+      "buyer": {
+        "buying_motivations": [
+          "Safety, trust, and reliability",
+          "Clear guarantees and support",
+          "Risk reduction"
+        ],
+        "buying_fears": [
+          "Scams, poor quality, being taken advantage of",
+          "No support after purchase",
+          "Unclear policies"
+        ],
+        "decision_style": "Risk-aware. They buy when they feel protected and respected.",
+        "best_offers_for_them": [
+          "Services with clear guarantees, policies, and support",
+          "Secure onboarding, clear expectations, strong boundaries"
+        ],
+        "messaging_that_converts": [
+          "Explain protections: policies, support, outcomes, and boundaries.",
+          "Use trust signals: reviews, credentials, clarity.",
+          "Show how problems are handled (refunds, fixes, escalation)."
+        ],
+        "red_flags_in_your_pitch": [
+          "No policies",
+          "No trust signals",
+          "Pushy sales energy"
+        ]
+      }
+    },
+    {
+      "id": "steward",
+      "display_name": "Steward",
+      "subtitle": "The Protector of Order",
+      "tagline": "You keep the mission clean, stable, and sustainable.",
+      "core_energy": ["order", "care", "maintenance", "sustainability"],
+      "personal": {
+        "when_strong": [
+          "You maintain consistency and protect quality.",
+          "You create routines that keep life/business stable.",
+          "You reduce waste and prevent breakdowns."
+        ],
+        "when_out_of_balance_high": [
+          "You resist change and new ideas.",
+          "You become overly cautious or rigid.",
+          "You prioritize rules over outcomes."
+        ],
+        "when_out_of_balance_low": [
+          "You neglect maintenance and things decay.",
+          "You don’t follow through on upkeep.",
+          "You feel disorganized and drained."
+        ],
+        "daily_practices_to_build": [
+          "10-minute reset: clean, file, organize, close loops.",
+          "Protect one non-negotiable routine (sleep, planning, workout, etc.).",
+          "Quality check: pick 1 thing and improve it 1%."
+        ],
+        "weekly_practices_to_build": [
+          "Weekly maintenance block: admin, cleanup, review, backups.",
+          "Document the basics: a simple checklist for recurring work."
+        ],
+        "balance_signals": {
+          "balanced_look": "Stable foundation + openness to improvement.",
+          "needs_downshift": "Too rigid; slow to adapt.",
+          "needs_upshift": "No maintenance; entropy rises."
+        }
+      },
+      "buyer": {
+        "buying_motivations": [
+          "Stability and long-term reliability",
+          "High standards and consistency",
+          "Sustainable systems"
+        ],
+        "buying_fears": [
+          "Unstable providers and flaky delivery",
+          "Messy processes that create future problems",
+          "Short-term fixes that don’t last"
+        ],
+        "decision_style": "Quality-first. They prefer proven, consistent solutions over flashy ones.",
+        "best_offers_for_them": [
+          "Maintenance plans, memberships, ongoing support",
+          "Audits, cleanups, system stabilization services"
+        ],
+        "messaging_that_converts": [
+          "Highlight quality, stability, and long-term care.",
+          "Explain maintenance and support after purchase.",
+          "Show consistency (history, retention, repeat customers)."
+        ],
+        "red_flags_in_your_pitch": [
+          "Unclear support",
+          "No maintenance plan",
+          "Too much hype, too little stability"
+        ]
+      }
     }
-  ]
+  ],
+  "display_groups": {
+    "customer_personality_profile": {
+      "title": "Your Personal Archetype Profile",
+      "uses": "personal lens",
+      "include_sections": [
+        "when_strong",
+        "when_out_of_balance_high",
+        "when_out_of_balance_low",
+        "daily_practices_to_build",
+        "weekly_practices_to_build",
+        "balance_signals"
+      ]
+    },
+    "buyer_purchasing_profile": {
+      "title": "Your Buying Archetype Profile",
+      "uses": "buyer lens",
+      "include_sections": [
+        "buying_motivations",
+        "buying_fears",
+        "decision_style",
+        "best_offers_for_them",
+        "messaging_that_converts",
+        "red_flags_in_your_pitch"
+      ],
+      "note": "This section can be customer-visible or owner-only. If owner-only, render in dashboard/customer details, not customer results page."
+    }
+  }
 }
