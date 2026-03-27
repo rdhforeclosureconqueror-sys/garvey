@@ -37,22 +37,23 @@
   <script src="/js/api-contract.js"></script>
   <script>
     const qs = new URLSearchParams(window.location.search);
-    const tenant = (qs.get("tenant") || "").trim();
-    const email = (qs.get("email") || "").trim().toLowerCase();
-    const cid = (qs.get("cid") || "").trim();
-    const ridFromUrl = (qs.get("rid") || "").trim();
-    const ownerRidStorageKey = tenant && email ? `garvey_owner_rid:${tenant}:${email}` : "";
-    const ridFromStorage = ownerRidStorageKey ? (localStorage.getItem(ownerRidStorageKey) || "").trim() : "";
-    let rid = ridFromUrl || ridFromStorage;
+    const tenant = String(qs.get("tenant") || "").trim();
+    const email = String(qs.get("email") || "").trim().toLowerCase();
+    const cid = String(qs.get("cid") || "").trim();
 
-    const escapeHtml = (s) =>
-      String(s || "").replace(/[&<>"']/g, (c) => ({
+    function safeTrim(v) {
+      return String(v ?? "").trim();
+    }
+
+    function escapeHtml(s) {
+      return String(s || "").replace(/[&<>"']/g, (c) => ({
         "&": "&amp;",
         "<": "&lt;",
         ">": "&gt;",
         '"': "&quot;",
         "'": "&#039;"
       }[c]));
+    }
 
     function toSlug(s) {
       return String(s || "")
@@ -61,6 +62,37 @@
         .replace(/&/g, "and")
         .replace(/[^a-z0-9]+/g, "_")
         .replace(/^_+|_+$/g, "");
+    }
+
+    function ownerRidStorageKey() {
+      return tenant && email ? `garvey_owner_rid:${tenant}:${email}` : "";
+    }
+
+    function getRidFromStorage() {
+      const key = ownerRidStorageKey();
+      if (!key) return "";
+      try {
+        return safeTrim(localStorage.getItem(key));
+      } catch (_) {
+        return "";
+      }
+    }
+
+    function setRidInStorage(rid) {
+      const key = ownerRidStorageKey();
+      if (!key) return;
+      try {
+        localStorage.setItem(key, rid);
+      } catch (_) {}
+    }
+
+    let rid = safeTrim(qs.get("rid")) || getRidFromStorage();
+
+    function showRid(r) {
+      const ridEl = document.getElementById("result-id");
+      if (!r) return;
+      ridEl.style.display = "";
+      ridEl.textContent = `Result ID: ${r}`;
     }
 
     function buildOwnerArchetypeUrl(typeSlug, primarySlug, secondarySlug, growthSlug) {
@@ -110,24 +142,24 @@
         return;
       }
 
+      document.getElementById("meta").textContent = `Tenant: ${tenant} • Email: ${email}`;
+
       const url = window.GarveyApi.buildUrl(
         `/api/results/${encodeURIComponent(email)}`,
         { type: "business_owner", tenant }
       );
 
       const res = await fetch(url);
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || "Failed to load results");
 
-      document.getElementById("meta").textContent = `Tenant: ${tenant} • Email: ${email}`;
+      // FIX: data.result_id may be number → normalize safely
+      const apiRid = safeTrim(data.result_id || (data.result && data.result.result_id) || "");
+      rid = safeTrim(rid || apiRid);
 
-      const apiRid = (data.result_id || data.result?.result_id || "").trim();
-      rid = rid || apiRid;
       if (rid) {
-        const ridEl = document.getElementById("result-id");
-        ridEl.style.display = "";
-        ridEl.textContent = `Result ID: ${rid}`;
-        if (ownerRidStorageKey) localStorage.setItem(ownerRidStorageKey, rid);
+        showRid(rid);
+        setRidInStorage(rid);
       }
 
       const primaryRole = data.primary_role || "";
