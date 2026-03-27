@@ -1,3 +1,4 @@
+<!-- FILE: public/results_owner.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,37 +12,80 @@
     .bar { margin:8px 0; }
     .track { background:#1e293b; border-radius:999px; overflow:hidden; height:10px; }
     .fill { background:#eab308; height:10px; }
+    a { color: inherit; }
+    .link { text-decoration: underline; }
   </style>
 </head>
 <body>
   <div class="card">
     <h1>Business Owner Results</h1>
     <p id="meta">Loading…</p>
+
     <div id="roles"></div>
+
     <h3>Percent Distribution</h3>
     <div id="bars"></div>
+
     <h3>Coaching</h3>
     <div id="guidance"></div>
+
     <div id="ctas"></div>
   </div>
+
   <script src="/js/api-contract.js"></script>
   <script>
     const qs = new URLSearchParams(window.location.search);
     const tenant = (qs.get("tenant") || "").trim();
     const email = (qs.get("email") || "").trim().toLowerCase();
     const cid = (qs.get("cid") || "").trim();
-    const escapeHtml = (s) => String(s || "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
 
-    function archetypeLink(type, primaryRole, secondaryRole, growthRole) {
+    const escapeHtml = (s) =>
+      String(s || "").replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[c]));
+
+    function toSlug(s) {
+      return String(s || "")
+        .trim()
+        .toLowerCase()
+        .replace(/&/g, "and")
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "");
+    }
+
+    function buildOwnerArchetypeUrl(typeSlug, primarySlug, secondarySlug, growthSlug) {
       const params = new URLSearchParams();
       params.set("tenant", tenant);
       if (email) params.set("email", email);
       if (cid) params.set("cid", cid);
-      if (type) params.set("type", String(type).toLowerCase());
-      if (primaryRole) params.set("primary", String(primaryRole).toLowerCase());
-      if (secondaryRole) params.set("secondary", String(secondaryRole).toLowerCase());
-      if (growthRole) params.set("growth", String(growthRole).toLowerCase());
+
+      if (typeSlug) params.set("type", typeSlug);
+      if (primarySlug) params.set("primary", primarySlug);
+      if (secondarySlug) params.set("secondary", secondarySlug);
+      if (growthSlug) params.set("growth", growthSlug);
+
       return `/owner_archetype.html?${params.toString()}`;
+    }
+
+    function buildDashboardUrl() {
+      const params = new URLSearchParams({ tenant, email });
+      if (cid) params.set("cid", cid);
+      return `/dashboard.html?${params.toString()}`;
+    }
+
+    function buildGarveyUrl() {
+      const params = new URLSearchParams({ tenant });
+      if (email) params.set("email", email);
+      if (cid) params.set("cid", cid);
+      return `/garvey_premium.html?${params.toString()}`;
+    }
+
+    function buildSiteUrl() {
+      return `/t/${encodeURIComponent(tenant)}/site`;
     }
 
     async function load() {
@@ -49,44 +93,71 @@
         document.getElementById("meta").textContent = "Missing tenant/email query params.";
         return;
       }
-      const url = window.GarveyApi.buildUrl(`/api/results/${encodeURIComponent(email)}`, { type: "business_owner", tenant });
+
+      const url = window.GarveyApi.buildUrl(
+        `/api/results/${encodeURIComponent(email)}`,
+        { type: "business_owner", tenant }
+      );
+
       const res = await fetch(url);
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to load results");
 
       document.getElementById("meta").textContent = `Tenant: ${tenant} • Email: ${email}`;
+
       const primaryRole = data.primary_role || "";
       const secondaryRole = data.secondary_role || "";
       const growthRole = data.weakness_role || "";
-      const primaryHref = archetypeLink(primaryRole, primaryRole, secondaryRole, growthRole);
-      const secondaryHref = archetypeLink(secondaryRole, primaryRole, secondaryRole, growthRole);
-      const growthHref = archetypeLink(growthRole, primaryRole, secondaryRole, growthRole);
+
+      const primarySlug = toSlug(primaryRole);
+      const secondarySlug = toSlug(secondaryRole);
+      const growthSlug = toSlug(growthRole);
+
+      const primaryHref = buildOwnerArchetypeUrl(primarySlug, primarySlug, secondarySlug, growthSlug);
+      const secondaryHref = buildOwnerArchetypeUrl(secondarySlug, primarySlug, secondarySlug, growthSlug);
+      const growthHref = buildOwnerArchetypeUrl(growthSlug, primarySlug, secondarySlug, growthSlug);
 
       document.getElementById("roles").innerHTML = `
-        <p><b>Primary:</b> <a href="${primaryHref}">${escapeHtml(primaryRole)}</a></p>
-        <p><b>Secondary:</b> <a href="${secondaryHref}">${escapeHtml(secondaryRole)}</a></p>
-        <p><b>Growth area:</b> <a href="${growthHref}">${escapeHtml(growthRole)}</a></p>`;
+        <p><b>Primary:</b> <a class="link" href="${primaryHref}">${escapeHtml(primaryRole)}</a></p>
+        <p><b>Secondary:</b> <a class="link" href="${secondaryHref}">${escapeHtml(secondaryRole)}</a></p>
+        <p><b>Growth area:</b> <a class="link" href="${growthHref}">${escapeHtml(growthRole)}</a></p>
+      `;
 
       const percents = data.percents || {};
       document.getElementById("bars").innerHTML = Object.entries(percents)
-        .sort((a,b) => Number(b[1]) - Number(a[1]))
-        .map(([k, v]) => `<div class="bar"><div style="display:flex;justify-content:space-between;"><span>${escapeHtml(k)}</span><span>${Number(v)}%</span></div><div class="track"><div class="fill" style="width:${Number(v)}%"></div></div></div>`)
+        .sort((a, b) => Number(b[1]) - Number(a[1]))
+        .map(([k, v]) => {
+          const typeSlug = toSlug(k);
+          const href = buildOwnerArchetypeUrl(typeSlug, primarySlug, secondarySlug, growthSlug);
+          return `
+            <div class="bar">
+              <div style="display:flex;justify-content:space-between;gap:10px;">
+                <a class="link" href="${href}">${escapeHtml(k)}</a>
+                <span>${Number(v)}%</span>
+              </div>
+              <div class="track"><div class="fill" style="width:${Number(v)}%"></div></div>
+            </div>
+          `;
+        })
         .join("");
 
       const g = data.guidance || {};
       document.getElementById("guidance").innerHTML = `
         <p><b>Strengthen strength:</b> ${escapeHtml(g.strengthen_strength)}</p>
         <p><b>Support secondary:</b> ${escapeHtml(g.support_secondary)}</p>
-        <p><b>Fix weakness:</b> ${escapeHtml(g.fix_weakness)}</p>`;
+        <p><b>Fix weakness:</b> ${escapeHtml(g.fix_weakness)}</p>
+      `;
 
-      const dashboardParams = new URLSearchParams({ tenant, email });
-      if (cid) dashboardParams.set("cid", cid);
       document.getElementById("ctas").innerHTML = `
-        <a class="btn" href="/dashboard.html?${dashboardParams.toString()}">Open My Dashboard</a>
-        <a class="btn" href="/garvey_premium.html?tenant=${encodeURIComponent(tenant)}">Start GARVEY Pathway</a>
-        <a class="btn" href="/t/${encodeURIComponent(tenant)}/site">View My Site</a>`;
+        <a class="btn" href="${buildDashboardUrl()}">Open My Dashboard</a>
+        <a class="btn" href="${buildGarveyUrl()}">Start GARVEY Pathway</a>
+        <a class="btn" href="${buildSiteUrl()}">View My Site</a>
+      `;
     }
-    load().catch((err) => { document.getElementById("meta").textContent = `Error: ${err.message}`; });
+
+    load().catch((err) => {
+      document.getElementById("meta").textContent = `Error: ${err.message}`;
+    });
   </script>
 </body>
 </html>
