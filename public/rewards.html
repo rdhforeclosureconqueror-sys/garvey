@@ -14,6 +14,7 @@
   .btn { padding:10px 12px; border:0; border-radius:10px; background:gold; color:#000; font-weight:700; cursor:pointer; }
   .btn:hover { background:#ef4444; color:#fff; }
   .muted { color:#94a3b8; font-size:12px; }
+  .ok { color:#86efac; font-weight:700; }
   pre { white-space:pre-wrap; word-break:break-word; background:#020617; border:1px solid #334155; border-radius:10px; padding:10px; }
   a { color:#93c5fd; }
 </style>
@@ -67,6 +68,9 @@
       </select>
       <button id="reviewBtn" class="btn" type="button">Submit Review</button>
     </div>
+    <label>Optional review photo/video (upload coming soon)
+      <input id="reviewMediaFile" type="file" accept="image/*,video/*" />
+    </label>
 
     <label>Referred email
       <input id="referredEmail" placeholder="friend@email.com" autocomplete="email" />
@@ -87,6 +91,8 @@
 
   <div class="card">
     <h2>Result</h2>
+    <div id="resultMessage" class="ok">Run an action to see result.</div>
+    <button id="toggleDebugBtn" class="btn" type="button">Toggle Debug JSON</button>
     <pre id="result">Run an action to see response JSON.</pre>
   </div>
 
@@ -100,6 +106,9 @@ const buildUrl = GarveyApi.buildUrl || ((p) => p);
 function tenantFromUrl() {
   return (new URLSearchParams(window.location.search).get("tenant") || "").trim();
 }
+function cidFromUrl() {
+  return (new URLSearchParams(window.location.search).get("cid") || "").trim();
+}
 
 function readEmail() {
   return (document.getElementById("email").value || "").trim();
@@ -107,6 +116,14 @@ function readEmail() {
 
 function showResult(payload) {
   document.getElementById("result").textContent = JSON.stringify(payload, null, 2);
+  const pointsAdded = Number(payload?.points_added || 0);
+  const total = Number(payload?.points || payload?.user?.points || 0);
+  let msg = "Action recorded successfully.";
+  if (payload?.event === "checkin") msg = `Check-in successful: +${pointsAdded} points (Total: ${total})`;
+  else if (payload?.review) msg = `Review submitted: +${pointsAdded} points (Total: ${total})`;
+  else if (payload?.action_type) msg = `Action submitted: +${pointsAdded} points (Total: ${total})`;
+  else if (payload?.wishlist_entry) msg = "Wishlist item saved successfully.";
+  document.getElementById("resultMessage").textContent = msg;
 }
 
 function showStatus(payload) {
@@ -139,6 +156,7 @@ async function loadStatus(tenant, email) {
 
 async function run() {
   const tenant = tenantFromUrl();
+  const cid = cidFromUrl();
   if (!tenant) {
     const msg = "tenant query param is required, e.g. /rewards.html?tenant=test-business";
     showResult({ error: msg });
@@ -167,6 +185,7 @@ async function run() {
       const data = await postJson(`/api/rewards/checkin`, {
         tenant,
         email: requireEmail(),
+        cid,
       });
       showResult(data);
       await loadStatus(tenant, readEmail());
@@ -181,6 +200,7 @@ async function run() {
         tenant,
         email: requireEmail(),
         action_type: document.getElementById("actionType").value,
+        cid,
       });
       showResult(data);
       await loadStatus(tenant, readEmail());
@@ -197,6 +217,12 @@ async function run() {
       const mediaType = (document.getElementById("mediaType").value || "").trim();
       const payload = { tenant, email: requireEmail(), text };
       if (mediaType) payload.media_type = mediaType;
+      if (cid) payload.cid = cid;
+      const mediaFile = document.getElementById("reviewMediaFile").files[0];
+      if (mediaFile) {
+        payload.media_type = mediaFile.type.startsWith("video/") ? "video" : "photo";
+        payload.media_note = "upload coming soon";
+      }
 
       const data = await postJson(`/api/rewards/review`, payload);
       showResult(data);
@@ -215,6 +241,7 @@ async function run() {
         tenant,
         email: requireEmail(),
         referred_email: referred,
+        cid,
       });
       showResult(data);
       await loadStatus(tenant, readEmail());
@@ -232,6 +259,7 @@ async function run() {
         tenant,
         email: requireEmail(),
         product_name: product,
+        cid,
       });
       showResult(data);
       await loadStatus(tenant, readEmail());
@@ -241,6 +269,11 @@ async function run() {
   };
 
   await loadStatus(tenant, "");
+  document.getElementById("toggleDebugBtn").onclick = () => {
+    const el = document.getElementById("result");
+    el.style.display = el.style.display === "none" ? "block" : "none";
+  };
+  document.getElementById("result").style.display = "none";
 }
 
 run();

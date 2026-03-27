@@ -38,6 +38,7 @@
     </div>
 
     <div class="row">
+      <input id="name" placeholder="Name" autocomplete="name" />
       <input id="email" placeholder="Email" autocomplete="email" />
     </div>
 
@@ -85,6 +86,7 @@
   }
 
   function getTenant() { return (new URLSearchParams(window.location.search).get("tenant") || "test-business").trim(); }
+  function getCid() { return (new URLSearchParams(window.location.search).get("cid") || "").trim(); }
   function getAssessmentType() {
     const type = (new URLSearchParams(window.location.search).get("assessment") || "business_owner").trim().toLowerCase();
     return type === "customer" ? "customer" : "business_owner";
@@ -249,9 +251,12 @@
 
   async function submitAssessment() {
     const email = ($("email")?.value || "").trim();
+    const name = ($("name")?.value || "").trim();
     const tenant = getTenant();
     const assessment = getAssessmentType();
+    const cid = getCid();
     if (!email) return alert("Please enter your email");
+    if (!name) return alert("Please enter your name");
 
     const endpoint = assessment === "customer" ? (window.GarveyApi?.ENDPOINTS?.vocIntake || "/voc-intake") : (window.GarveyApi?.ENDPOINTS?.intake || "/api/intake");
     const full = window.GarveyApi?.buildUrl ? window.GarveyApi.buildUrl(endpoint) : endpoint;
@@ -259,7 +264,7 @@
     const res = await fetch(full, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, tenant, answers }),
+      body: JSON.stringify({ email, name, tenant, cid, answers }),
     });
 
     const data = await res.json().catch(() => ({}));
@@ -270,14 +275,15 @@
     }
 
     const dest = assessment === "customer"
-      ? `/results_customer.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}`
-      : `/results_owner.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}`;
+      ? `/results_customer.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}&cid=${encodeURIComponent(cid)}`
+      : `/results_owner.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}&cid=${encodeURIComponent(cid)}`;
     window.location.href = dest;
   }
 
   async function init() {
     const tenant = getTenant();
     const assessment = getAssessmentType();
+    const cid = getCid();
 
     if ($("tenantLine")) $("tenantLine").textContent = `Tenant: ${tenant}`;
     if ($("assessmentLine")) $("assessmentLine").textContent = `Assessment: ${assessment}`;

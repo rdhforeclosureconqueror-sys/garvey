@@ -18,6 +18,7 @@ input { padding:10px; margin:6px; width:90%; border-radius:8px; }
 <body>
 <div class="card">
 <h1>🎤 Voice of the Customer</h1>
+<input id="name" placeholder="Name" />
 <input id="email" placeholder="Email" />
 <div class="progress" id="progress"></div>
 <h3 id="questionText">Loading...</h3>
@@ -32,6 +33,7 @@ let currentIndex = 0;
 let answers = [];
 
 function getTenant() { return (new URLSearchParams(window.location.search).get("tenant") || "test-business").trim(); }
+function getCid() { return (new URLSearchParams(window.location.search).get("cid") || "").trim(); }
 function escapeHtml(s) { return String(s || "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c])); }
 
 async function loadQuestions() {
@@ -85,19 +87,22 @@ function barsHtml(scores, primary, secondary, weakness) {
 
 async function submit() {
   const email = document.getElementById("email").value.trim();
+  const name = document.getElementById("name").value.trim();
   const tenant = getTenant();
+  const cid = getCid();
   if (!email) return alert("Enter email");
+  if (!name) return alert("Enter name");
 
   try {
     const res = await fetch(buildUrl(ENDPOINTS.vocIntake), {
       method: "POST",
       headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ email, tenant, answers })
+      body: JSON.stringify({ email, name, tenant, cid, answers })
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data?.error || "Submit failed");
 
-    window.location.href = `/results_customer.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}`;
+    window.location.href = `/results_customer.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}&cid=${encodeURIComponent(cid)}`;
   } catch (err) {
     showError(err?.message || "Submit failed");
   }
