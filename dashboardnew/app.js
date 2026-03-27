@@ -1,85 +1,79 @@
+/* FILE: dashboardnew/app.js */
 (function () {
   var api = window.GarveyApi || {};
+
   function apiUrl(path, query) {
-    if (typeof api.buildUrl === 'function') return api.buildUrl(path, query || {});
+    if (typeof api.buildUrl === "function") return api.buildUrl(path, query || {});
     var qs = new URLSearchParams(query || {}).toString();
-    return path + (qs ? ('?' + qs) : '');
+    return path + (qs ? "?" + qs : "");
   }
 
-  function params() { return new URLSearchParams(window.location.search); }
-  function tenantFromUrl() { return (params().get('tenant') || '').trim(); }
-  function ownerEmailFromUrl() { return (params().get('email') || '').trim().toLowerCase(); }
+  function params() {
+    return new URLSearchParams(window.location.search);
+  }
+
+  function safeTrim(v) {
+    return String(v ?? "").trim();
+  }
+
+  function tenantFromUrl() {
+    return safeTrim(params().get("tenant"));
+  }
+
+  function ownerEmailFromUrl() {
+    return safeTrim(params().get("email")).toLowerCase();
+  }
+
+  function cidFromUrl() {
+    return safeTrim(params().get("cid"));
+  }
+
+  function ridFromUrl() {
+    return safeTrim(params().get("rid"));
+  }
+
+  function ridStorageKey(tenant, email) {
+    if (!tenant || !email) return "";
+    return "garvey_owner_rid:" + tenant + ":" + email;
+  }
+
+  function getRidFromStorage(tenant, email) {
+    var key = ridStorageKey(tenant, email);
+    if (!key) return "";
+    try {
+      return safeTrim(localStorage.getItem(key));
+    } catch (_) {
+      return "";
+    }
+  }
+
+  function setRidInStorage(tenant, email, rid) {
+    var key = ridStorageKey(tenant, email);
+    if (!key || !rid) return;
+    try {
+      localStorage.setItem(key, rid);
+    } catch (_) {}
+  }
 
   function jsonFetch(url, options) {
     return fetch(url, options).then(function (res) {
-      return res.json().then(function (body) {
-        if (!res.ok) throw new Error(body.error || 'Request failed');
+      return res.json().catch(function () { return {}; }).then(function (body) {
+        if (!res.ok) throw new Error(body.error || "Request failed");
         return body;
       });
     });
   }
 
-  function fmtDate(value) { return value ? new Date(value).toISOString().slice(0, 10) : '-'; }
+  function fmtDate(value) {
+    return value ? new Date(value).toISOString().slice(0, 10) : "-";
+  }
+
   function statusPill(status) {
-    var cls = status === 'active' ? 'status-active' : status === 'new' ? 'status-new' : 'status-dormant';
-    return '<span class="status-pill ' + cls + '">' + status + '</span>';
-  }
-
-  function renderMetrics(dashboard) {
-    document.getElementById('metricUsers').textContent = dashboard.total_users || 0;
-    document.getElementById('metricVisits').textContent = dashboard.total_visits || 0;
-    document.getElementById('metricActions').textContent = dashboard.total_actions || 0;
-    document.getElementById('metricPoints').textContent = dashboard.total_points || 0;
-  }
-
-  function renderTable(customers) {
-    var rows = customers || [];
-    var tbody = $('#customersTable tbody');
-    tbody.empty();
-    rows.forEach(function (row) {
-      tbody.append('<tr><td>' + (row.email || ('id:' + row.user_id)) + '</td><td>' + (row.archetype || 'unclassified') + '</td><td>' + (row.visits || 0) + '</td><td>' + fmtDate(row.last_activity) + '</td><td>' + statusPill(row.status || 'dormant') + '</td></tr>');
-    });
-
-    if ($.fn.dataTable.isDataTable('#customersTable')) $('#customersTable').DataTable().destroy();
-    if (rows.length) {
-      document.getElementById('tableEmpty').style.display = 'none';
-      $('#customersTable').DataTable({ pageLength: 10, order: [[2, 'desc']] });
-    } else {
-      document.getElementById('tableEmpty').style.display = 'block';
-    }
-  }
-
-  function renderChartEmpty(id, emptyId, hasData) {
-    $(id).empty();
-    document.getElementById(emptyId).style.display = hasData ? 'none' : 'block';
-  }
-
-  function renderBar(analytics) {
-    var points = analytics.visits_by_day || [];
-    renderChartEmpty('#morris-bar-chart', 'barEmpty', points.length);
-    if (!points.length) return;
-    new Morris.Bar({ element: 'morris-bar-chart', data: points.map(function (p) { return { day: p.day, visits: p.visits }; }), xkey: 'day', ykeys: ['visits'], labels: ['Visits'], hideHover: 'auto', resize: true });
-  }
-
-  function renderArea(analytics) {
-    var points = analytics.growth || [];
-    renderChartEmpty('#morris-area-chart', 'areaEmpty', points.length);
-    if (!points.length) return;
-    new Morris.Area({ element: 'morris-area-chart', data: points.map(function (p) { return { day: p.day, cumulative_customers: p.cumulative_customers }; }), xkey: 'day', ykeys: ['cumulative_customers'], labels: ['Cumulative customers'], pointSize: 2, hideHover: 'auto', resize: true });
-  }
-
-  function renderDonut(analytics) {
-    var data = analytics.archetypes || [];
-    renderChartEmpty('#morris-donut-chart', 'donutEmpty', data.length);
-    if (!data.length) return;
-    new Morris.Donut({ element: 'morris-donut-chart', data: data.map(function (x) { return { label: x.archetype, value: x.count }; }), resize: true });
-  }
-
-  function renderInsights(analytics) {
-    var owner = analytics.owner_assessment || {};
-    var customer = analytics.customer_assessment || {};
-    document.getElementById('ownerInsight').textContent = owner.primary ? ('Business Owner: ' + owner.primary + ' (secondary: ' + (owner.secondary || '-') + ', weakness: ' + (owner.weakness || '-') + ')') : 'Business Owner: No submissions yet.';
-    document.getElementById('customerInsight').textContent = customer.primary ? ('Customer: ' + customer.primary + ' | Personality: ' + (customer.personality || '-') + ' | Weakness: ' + (customer.weakness || '-')) : 'Customer: No submissions yet.';
+    var cls =
+      status === "active" ? "status-active" :
+      status === "new" ? "status-new" :
+      "status-dormant";
+    return '<span class="status-pill ' + cls + '">' + status + "</span>";
   }
 
   function copyText(value) {
@@ -87,161 +81,395 @@
     return navigator.clipboard.writeText(value);
   }
 
+  function escapeHtml(s) {
+    return String(s || "").replace(/[&<>"']/g, function (c) {
+      return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[c]);
+    });
+  }
+
+  function renderMetrics(dashboard) {
+    var el;
+    el = document.getElementById("metricUsers"); if (el) el.textContent = dashboard.total_users || 0;
+    el = document.getElementById("metricVisits"); if (el) el.textContent = dashboard.total_visits || 0;
+    el = document.getElementById("metricActions"); if (el) el.textContent = dashboard.total_actions || 0;
+    el = document.getElementById("metricPoints"); if (el) el.textContent = dashboard.total_points || 0;
+  }
+
+  function renderTable(customers) {
+    var rows = customers || [];
+    var tbody = $("#customersTable tbody");
+    tbody.empty();
+
+    rows.forEach(function (row) {
+      tbody.append(
+        "<tr><td>" + (row.email || ("id:" + row.user_id)) +
+        "</td><td>" + (row.archetype || "unclassified") +
+        "</td><td>" + (row.visits || 0) +
+        "</td><td>" + fmtDate(row.last_activity) +
+        "</td><td>" + statusPill(row.status || "dormant") +
+        "</td></tr>"
+      );
+    });
+
+    if ($.fn.dataTable.isDataTable("#customersTable")) $("#customersTable").DataTable().destroy();
+
+    if (rows.length) {
+      document.getElementById("tableEmpty").style.display = "none";
+      $("#customersTable").DataTable({ pageLength: 10, order: [[2, "desc"]] });
+    } else {
+      document.getElementById("tableEmpty").style.display = "block";
+    }
+  }
+
+  function renderChartEmpty(id, emptyId, hasData) {
+    $(id).empty();
+    var el = document.getElementById(emptyId);
+    if (el) el.style.display = hasData ? "none" : "block";
+  }
+
+  function renderBar(analytics) {
+    var points = analytics.visits_by_day || [];
+    renderChartEmpty("#morris-bar-chart", "barEmpty", points.length);
+    if (!points.length) return;
+    new Morris.Bar({
+      element: "morris-bar-chart",
+      data: points.map(function (p) { return { day: p.day, visits: p.visits }; }),
+      xkey: "day",
+      ykeys: ["visits"],
+      labels: ["Visits"],
+      hideHover: "auto",
+      resize: true
+    });
+  }
+
+  function renderArea(analytics) {
+    var points = analytics.growth || [];
+    renderChartEmpty("#morris-area-chart", "areaEmpty", points.length);
+    if (!points.length) return;
+    new Morris.Area({
+      element: "morris-area-chart",
+      data: points.map(function (p) { return { day: p.day, cumulative_customers: p.cumulative_customers }; }),
+      xkey: "day",
+      ykeys: ["cumulative_customers"],
+      labels: ["Cumulative customers"],
+      pointSize: 2,
+      hideHover: "auto",
+      resize: true
+    });
+  }
+
+  function renderDonut(analytics) {
+    var data = analytics.archetypes || [];
+    renderChartEmpty("#morris-donut-chart", "donutEmpty", data.length);
+    if (!data.length) return;
+    new Morris.Donut({
+      element: "morris-donut-chart",
+      data: data.map(function (x) { return { label: x.archetype, value: x.count }; }),
+      resize: true
+    });
+  }
+
+  function renderInsights(analytics) {
+    var owner = analytics.owner_assessment || {};
+    var customer = analytics.customer_assessment || {};
+    var el;
+
+    el = document.getElementById("ownerInsight");
+    if (el) el.textContent = owner.primary
+      ? ("Business Owner: " + owner.primary + " (secondary: " + (owner.secondary || "-") + ", weakness: " + (owner.weakness || "-") + ")")
+      : "Business Owner: No submissions yet.";
+
+    el = document.getElementById("customerInsight");
+    if (el) el.textContent = customer.primary
+      ? ("Customer: " + customer.primary + " | Personality: " + (customer.personality || "-") + " | Weakness: " + (customer.weakness || "-"))
+      : "Customer: No submissions yet.";
+  }
+
   function renderCampaignLinks(tenant, campaign) {
-    var body = document.getElementById('campaignLinksBody');
+    var body = document.getElementById("campaignLinksBody");
     if (!campaign) {
-      body.textContent = 'Create or select a campaign to view links.';
+      body.textContent = "Create or select a campaign to view links.";
       return;
     }
     var links = campaign.share_links || {};
-    body.innerHTML = ['voc', 'rewards', 'landing'].map(function (key) {
-      var href = links[key] || '';
-      return '<div style="margin-bottom:8px;"><b>' + key.toUpperCase() + ':</b> <code>' + href + '</code> <button class="btn btn-xs btn-default" data-copy="' + href + '">Copy</button></div>';
-    }).join('');
-    Array.prototype.forEach.call(body.querySelectorAll('button[data-copy]'), function (btn) {
-      btn.addEventListener('click', function () {
-        copyText(btn.getAttribute('data-copy')).then(function () {
-          document.getElementById('campaignCreateMsg').textContent = 'Copied!';
+    body.innerHTML = ["voc", "rewards", "landing"].map(function (key) {
+      var href = links[key] || "";
+      return '<div style="margin-bottom:8px;"><b>' + key.toUpperCase() + ':</b> <code>' + escapeHtml(href) + '</code> <button class="btn btn-xs btn-default" data-copy="' + escapeHtml(href) + '">Copy</button></div>';
+    }).join("");
+
+    Array.prototype.forEach.call(body.querySelectorAll("button[data-copy]"), function (btn) {
+      btn.addEventListener("click", function () {
+        copyText(btn.getAttribute("data-copy")).then(function () {
+          var msg = document.getElementById("campaignCreateMsg");
+          if (msg) msg.textContent = "Copied!";
         });
       });
     });
-    var qr = document.getElementById('campaignQrPreview');
-    qr.src = apiUrl('/api/campaigns/qr', { tenant: tenant, cid: campaign.slug, target: 'voc', format: 'png' });
-    qr.style.display = 'block';
-    document.getElementById('campaignQrEmpty').style.display = 'none';
+
+    var qr = document.getElementById("campaignQrPreview");
+    qr.src = apiUrl("/api/campaigns/qr", { tenant: tenant, cid: campaign.slug, target: "voc", format: "png" });
+    qr.style.display = "block";
+    document.getElementById("campaignQrEmpty").style.display = "none";
   }
 
   function renderCampaignSummary(summary) {
-    var rows = Array.isArray(summary?.campaigns) ? summary.campaigns : [];
-    var tbody = document.querySelector('#campaignsTable tbody');
-    tbody.innerHTML = '';
+    var rows = Array.isArray(summary && summary.campaigns) ? summary.campaigns : [];
+    var tbody = document.querySelector("#campaignsTable tbody");
+    tbody.innerHTML = "";
     rows.forEach(function (row) {
       var c = row.counts || {};
-      tbody.innerHTML += '<tr><td>' + (row.label || row.slug || '-') + ' <div class="muted">' + (row.slug || '') + '</div></td><td>' + (c.visits || 0) + '</td><td>' + (c.customer_assessments || 0) + '</td><td>' + (c.checkins || 0) + '</td><td>' + (c.reviews || 0) + '</td><td>' + (c.referrals || 0) + '</td><td>' + (c.wishlist || 0) + '</td><td>' + (c.shares || 0) + '</td><td>' + fmtDate(row.last_activity_at) + '</td></tr>';
+      tbody.innerHTML +=
+        "<tr><td>" + (row.label || row.slug || "-") +
+        ' <div class="muted">' + (row.slug || "") + "</div></td>" +
+        "<td>" + (c.visits || 0) + "</td>" +
+        "<td>" + (c.customer_assessments || 0) + "</td>" +
+        "<td>" + (c.checkins || 0) + "</td>" +
+        "<td>" + (c.reviews || 0) + "</td>" +
+        "<td>" + (c.referrals || 0) + "</td>" +
+        "<td>" + (c.wishlist || 0) + "</td>" +
+        "<td>" + (c.shares || 0) + "</td>" +
+        "<td>" + fmtDate(row.last_activity_at) + "</td></tr>";
     });
-    document.getElementById('campaignsEmpty').style.display = rows.length ? 'none' : 'block';
+    document.getElementById("campaignsEmpty").style.display = rows.length ? "none" : "block";
   }
 
   function wireCampaignCreator(tenant) {
-    var btn = document.getElementById('createCampaignBtn');
-    btn.addEventListener('click', function () {
-      var label = (document.getElementById('campaignLabelInput').value || '').trim();
-      var slug = (document.getElementById('campaignSlugInput').value || '').trim();
+    var btn = document.getElementById("createCampaignBtn");
+    btn.addEventListener("click", function () {
+      var label = safeTrim(document.getElementById("campaignLabelInput").value);
+      var slug = safeTrim(document.getElementById("campaignSlugInput").value);
+
       if (!label) {
-        document.getElementById('campaignCreateMsg').textContent = 'Campaign label is required.';
+        document.getElementById("campaignCreateMsg").textContent = "Campaign label is required.";
         return;
       }
-      jsonFetch(apiUrl('/api/campaigns/create'), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+
+      jsonFetch(apiUrl("/api/campaigns/create"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ tenant: tenant, label: label, slug: slug || undefined })
-      }).then(function (resp) {
-        document.getElementById('campaignCreateMsg').textContent = 'Campaign created: ' + resp.campaign.slug;
-        renderCampaignLinks(tenant, resp.campaign);
-        return jsonFetch(apiUrl('/t/' + encodeURIComponent(tenant) + '/campaigns/summary'));
-      }).then(renderCampaignSummary)
-      .catch(function (err) { document.getElementById('campaignCreateMsg').textContent = err.message; });
+      })
+        .then(function (resp) {
+          document.getElementById("campaignCreateMsg").textContent = "Campaign created: " + resp.campaign.slug;
+          renderCampaignLinks(tenant, resp.campaign);
+          return jsonFetch(apiUrl("/t/" + encodeURIComponent(tenant) + "/campaigns/summary"));
+        })
+        .then(renderCampaignSummary)
+        .catch(function (err) {
+          document.getElementById("campaignCreateMsg").textContent = err.message;
+        });
     });
   }
 
   function renderSegments(segments) {
-    var summary = document.getElementById('segmentsSummary');
-    var top = document.getElementById('segmentsTop');
-    var total = Number(segments?.total_customer_assessments || 0);
-    var distribution = Array.isArray(segments?.distribution) ? segments.distribution : [];
+    var summary = document.getElementById("segmentsSummary");
+    var top = document.getElementById("segmentsTop");
+    var total = Number((segments && segments.total_customer_assessments) || 0);
+    var distribution = Array.isArray(segments && segments.distribution) ? segments.distribution : [];
     if (!total) {
-      summary.textContent = 'No customer segment data yet.';
-      top.innerHTML = '';
+      summary.textContent = "No customer segment data yet.";
+      top.innerHTML = "";
       return;
     }
-    summary.textContent = 'Total customer assessments: ' + total;
+    summary.textContent = "Total customer assessments: " + total;
     top.innerHTML = distribution.slice(0, 5).map(function (row) {
-      return '<div><b>' + (row.archetype || 'Unknown') + ':</b> ' + (row.count || 0) + ' (' + (row.percent || 0) + '%)</div>';
-    }).join('');
+      return "<div><b>" + (row.archetype || "Unknown") + ":</b> " + (row.count || 0) + " (" + (row.percent || 0) + "%)</div>";
+    }).join("");
   }
 
-  function setupError(msg) { document.getElementById('errorBanner').textContent = msg; }
+  function setupError(msg) {
+    var el = document.getElementById("errorBanner");
+    if (el) el.textContent = msg;
+  }
+
+  function normalizeResultPayload(body) {
+    // supports either { result: {...} } or top-level fields
+    if (body && body.result && typeof body.result === "object") return body.result;
+    return body || {};
+  }
+
+  function ownerHubHtml(ctx) {
+    var tenant = ctx.tenant;
+    var email = ctx.email;
+    var cid = ctx.cid;
+    var rid = ctx.rid;
+
+    var resultsParams = new URLSearchParams({ tenant: tenant, email: email });
+    if (cid) resultsParams.set("cid", cid);
+    if (rid) resultsParams.set("rid", rid);
+
+    var resultsHref = "/results_owner.html?" + resultsParams.toString();
+
+    var vocParams = new URLSearchParams({ tenant: tenant });
+    if (cid) vocParams.set("cid", cid);
+    var vocHref = "/voc.html?" + vocParams.toString();
+
+    return '' +
+      '<div style="margin-bottom:10px;">' +
+        '<div><b>Owner:</b> ' + escapeHtml(email || "-") + '</div>' +
+        '<div><b>Result ID:</b> ' + escapeHtml(rid || "-") + '</div>' +
+        '<div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">' +
+          '<a class="btn btn-sm btn-primary" href="' + escapeHtml(resultsHref) + '">View Results</a>' +
+          '<button class="btn btn-sm btn-default" type="button" data-copy="' + escapeHtml(resultsHref) + '">Copy Results Link</button>' +
+          '<a class="btn btn-sm btn-default" href="' + escapeHtml(vocHref) + '">Customer Assessment</a>' +
+          '<button class="btn btn-sm btn-default" type="button" data-copy="' + escapeHtml(vocHref) + '">Copy Customer Link</button>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function wireCopyButtons(container) {
+    Array.prototype.forEach.call(container.querySelectorAll("button[data-copy]"), function (btn) {
+      btn.addEventListener("click", function () {
+        var value = btn.getAttribute("data-copy") || "";
+        copyText(value).then(function () {
+          var msg = document.getElementById("campaignCreateMsg");
+          if (msg) msg.textContent = "Copied!";
+        }).catch(function (err) {
+          alert(err.message);
+        });
+      });
+    });
+  }
 
   function resultSummaryHtml(result) {
     if (!result) return '<div class="empty-state">No matching result yet.</div>';
+
     var percents = result.percents || {};
-    var bars = Object.keys(percents).sort(function (a, b) { return Number(percents[b] || 0) - Number(percents[a] || 0); }).map(function (role) {
-      var pct = Number(percents[role] || 0);
-      return '<div style="margin-top:6px;"><div style="display:flex;justify-content:space-between;"><span>' + role + '</span><span>' + pct + '%</span></div><div style="height:8px;border-radius:999px;background:#e5e7eb;overflow:hidden;"><div style="height:8px;border-radius:999px;background:#337ab7;width:' + pct + '%;"></div></div></div>';
-    }).join('');
-    return '<div><b>Primary:</b> ' + (result.primary_role || result.primary_archetype || '-') + '</div>' +
-      '<div><b>Secondary:</b> ' + (result.secondary_role || result.secondary_archetype || '-') + '</div>' +
-      '<div><b>Weakness:</b> ' + (result.weakness_role || result.weakness_archetype || '-') + '</div>' +
-      '<div><b>Updated:</b> ' + fmtDate(result.created_at) + '</div>' +
-      (bars ? ('<div style="margin-top:8px;"><b>Percent bars</b>' + bars + '</div>') : '');
+    var bars = Object.keys(percents)
+      .sort(function (a, b) { return Number(percents[b] || 0) - Number(percents[a] || 0); })
+      .map(function (role) {
+        var pct = Number(percents[role] || 0);
+        return '' +
+          '<div style="margin-top:6px;">' +
+            '<div style="display:flex;justify-content:space-between;"><span>' + escapeHtml(role) + '</span><span>' + pct + '%</span></div>' +
+            '<div style="height:8px;border-radius:999px;background:#e5e7eb;overflow:hidden;">' +
+              '<div style="height:8px;border-radius:999px;background:#337ab7;width:' + pct + '%;"></div>' +
+            '</div>' +
+          '</div>';
+      })
+      .join("");
+
+    return '' +
+      "<div><b>Primary:</b> " + escapeHtml(result.primary_role || result.primary_archetype || "-") + "</div>" +
+      "<div><b>Secondary:</b> " + escapeHtml(result.secondary_role || result.secondary_archetype || "-") + "</div>" +
+      "<div><b>Weakness:</b> " + escapeHtml(result.weakness_role || result.weakness_archetype || "-") + "</div>" +
+      "<div><b>Updated:</b> " + fmtDate(result.created_at) + "</div>" +
+      (bars ? ('<div style="margin-top:8px;"><b>Percent bars</b>' + bars + "</div>") : "");
   }
 
-  function wirePathButtons(tenant) {
+  function wirePathButtons(tenant, email, cid, rid) {
     var enc = encodeURIComponent(tenant);
-    document.getElementById('garveyPathBtn').href = '/garvey_premium.html?tenant=' + enc;
-    document.getElementById('rewardsPathBtn').href = '/rewards_premium.html?tenant=' + enc;
-    document.getElementById('rewardsFallbackBtn').href = '/rewards.html?tenant=' + enc;
+
+    var p1 = new URLSearchParams({ tenant: tenant });
+    if (email) p1.set("email", email);
+    if (cid) p1.set("cid", cid);
+    if (rid) p1.set("rid", rid);
+    document.getElementById("garveyPathBtn").href = "/garvey_premium.html?" + p1.toString();
+
+    var p2 = new URLSearchParams({ tenant: tenant });
+    if (email) p2.set("email", email);
+    if (cid) p2.set("cid", cid);
+    if (rid) p2.set("rid", rid);
+    document.getElementById("rewardsPathBtn").href = "/rewards_premium.html?" + p2.toString();
+
+    document.getElementById("rewardsFallbackBtn").href = "/rewards.html?tenant=" + enc;
   }
 
-  function loadOwnerSnapshot(email, tenant) {
-    var el = document.getElementById('ownerSnapshotBody');
-    if (!email) return;
-    jsonFetch(apiUrl('/api/results/' + encodeURIComponent(email), { type: 'business_owner', tenant: tenant }))
-      .then(function (body) { el.innerHTML = resultSummaryHtml(body.result); })
-      .catch(function (err) { el.innerHTML = '<span class="text-danger">' + err.message + '</span>'; });
+  function loadOwnerSnapshot(email, tenant, cid, rid) {
+    var el = document.getElementById("ownerSnapshotBody");
+    if (!el) return;
+
+    if (!email) {
+      el.innerHTML = '<div class="empty-state">No owner email provided. Open dashboard with ?tenant=...&email=... (optional &rid=...)</div>';
+      return;
+    }
+
+    el.textContent = "Loading owner snapshot...";
+
+    jsonFetch(apiUrl("/api/results/" + encodeURIComponent(email), { type: "business_owner", tenant: tenant }))
+      .then(function (body) {
+        var result = normalizeResultPayload(body);
+
+        // Resolve rid from: URL/localStorage -> API result
+        var apiRid = safeTrim(result.result_id || body.result_id || "");
+        var resolvedRid = safeTrim(rid || apiRid || getRidFromStorage(tenant, email));
+        if (resolvedRid) setRidInStorage(tenant, email, resolvedRid);
+
+        var hub = ownerHubHtml({ tenant: tenant, email: email, cid: cid, rid: resolvedRid });
+        var summary = resultSummaryHtml(result);
+
+        el.innerHTML = hub + '<div style="margin-top:10px;">' + summary + "</div>";
+        wireCopyButtons(el);
+      })
+      .catch(function (err) {
+        el.innerHTML = '<span class="text-danger">' + escapeHtml(err.message) + "</span>";
+      });
   }
 
   function wireCustomerLookup(tenant) {
-    var input = document.getElementById('customerLookupEmail');
-    var body = document.getElementById('customerLookupBody');
-    document.getElementById('customerLookupBtn').addEventListener('click', function () {
-      var email = (input.value || '').trim().toLowerCase();
+    var input = document.getElementById("customerLookupEmail");
+    var body = document.getElementById("customerLookupBody");
+
+    document.getElementById("customerLookupBtn").addEventListener("click", function () {
+      var email = safeTrim(input.value).toLowerCase();
       if (!email) {
         body.innerHTML = '<span class="text-danger">Enter a customer email.</span>';
         return;
       }
-      body.textContent = 'Loading...';
-      jsonFetch(apiUrl('/api/results/' + encodeURIComponent(email), { type: 'customer', tenant: tenant }))
-        .then(function (resp) { body.innerHTML = resultSummaryHtml(resp.result); })
-        .catch(function (err) { body.innerHTML = '<span class="text-danger">' + err.message + '</span>'; });
+      body.textContent = "Loading...";
+      jsonFetch(apiUrl("/api/results/" + encodeURIComponent(email), { type: "customer", tenant: tenant }))
+        .then(function (resp) {
+          var r = normalizeResultPayload(resp);
+          body.innerHTML = resultSummaryHtml(r);
+        })
+        .catch(function (err) {
+          body.innerHTML = '<span class="text-danger">' + escapeHtml(err.message) + "</span>";
+        });
     });
   }
 
   function init() {
     var tenant = tenantFromUrl();
-    if (!tenant) return setupError('Missing tenant query parameter. Open with ?tenant=<slug>.');
+    if (!tenant) return setupError("Missing tenant query parameter. Open with ?tenant=<slug>.");
 
     var ownerEmail = ownerEmailFromUrl();
-    document.getElementById('tenantLabel').textContent = 'Tenant: ' + tenant;
-    wirePathButtons(tenant);
+    var cid = cidFromUrl();
+    var rid = ridFromUrl() || getRidFromStorage(tenant, ownerEmail);
+
+    var label = document.getElementById("tenantLabel");
+    if (label) label.textContent = "Tenant: " + tenant;
+
+    wirePathButtons(tenant, ownerEmail, cid, rid);
     wireCustomerLookup(tenant);
     wireCampaignCreator(tenant);
-    loadOwnerSnapshot(ownerEmail, tenant);
+    loadOwnerSnapshot(ownerEmail, tenant, cid, rid);
 
     Promise.all([
-      jsonFetch(apiUrl('/t/' + encodeURIComponent(tenant) + '/dashboard')),
-      jsonFetch(apiUrl('/t/' + encodeURIComponent(tenant) + '/customers')),
-      jsonFetch(apiUrl('/t/' + encodeURIComponent(tenant) + '/analytics')),
-      jsonFetch(apiUrl('/t/' + encodeURIComponent(tenant) + '/segments')),
-      jsonFetch(apiUrl('/t/' + encodeURIComponent(tenant) + '/campaigns/summary')),
-      jsonFetch(apiUrl('/api/campaigns/list', { tenant: tenant }))
+      jsonFetch(apiUrl("/t/" + encodeURIComponent(tenant) + "/dashboard")),
+      jsonFetch(apiUrl("/t/" + encodeURIComponent(tenant) + "/customers")),
+      jsonFetch(apiUrl("/t/" + encodeURIComponent(tenant) + "/analytics")),
+      jsonFetch(apiUrl("/t/" + encodeURIComponent(tenant) + "/segments")),
+      jsonFetch(apiUrl("/t/" + encodeURIComponent(tenant) + "/campaigns/summary")),
+      jsonFetch(apiUrl("/api/campaigns/list", { tenant: tenant }))
     ])
       .then(function (responses) {
         renderMetrics(responses[0]);
-        renderTable(responses[1].customers || []);
-        renderBar(responses[2]);
-        renderArea(responses[2]);
-        renderDonut(responses[2]);
-        renderInsights(responses[2]);
-        renderSegments(responses[3]);
-        renderCampaignSummary(responses[4]);
-        if (responses[5]?.campaigns?.[0]) renderCampaignLinks(tenant, responses[5].campaigns[0]);
+        renderTable((responses[1] && responses[1].customers) || []);
+        renderBar(responses[2] || {});
+        renderArea(responses[2] || {});
+        renderDonut(responses[2] || {});
+        renderInsights(responses[2] || {});
+        renderSegments(responses[3] || {});
+        renderCampaignSummary(responses[4] || {});
+        if (responses[5] && responses[5].campaigns && responses[5].campaigns[0]) renderCampaignLinks(tenant, responses[5].campaigns[0]);
       })
-      .catch(function (err) { setupError(err.message); });
+      .catch(function (err) {
+        setupError(err.message);
+      });
   }
 
   $(function () {
-    $('#side-menu').metisMenu();
+    $("#side-menu").metisMenu();
     init();
   });
 })();
