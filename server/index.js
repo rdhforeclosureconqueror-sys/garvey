@@ -1778,8 +1778,18 @@ app.get("/api/results/:email", async (req, res) => {
 
 app.post("/api/customer/share-result", async (req, res) => {
   try {
-    const { tenant, customer_email: customerEmail, customer_name: customerName, cid, result_id: resultId } = req.body || {};
+    const {
+      tenant,
+      customer_email: customerEmail,
+      customer_name: customerName,
+      cid,
+      result_id: resultId,
+      owner_email: ownerEmail,
+      owner_rid: ownerRid,
+    } = req.body || {};
     const normalizedResultId = String(resultId ?? "").trim();
+    const normalizedOwnerEmail = normalizeEmail(ownerEmail);
+    const normalizedOwnerRid = String(ownerRid ?? "").trim();
     if (!tenant || !customerEmail) return res.status(400).json({ error: "tenant and customer_email are required" });
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
@@ -1790,12 +1800,71 @@ app.post("/api/customer/share-result", async (req, res) => {
       eventType: "customer_share_result",
       customerEmail,
       customerName,
-      meta: { result_id: normalizedResultId || null, campaign_slug: campaign?.slug || normalizeSlug(cid) || null },
+      meta: {
+        result_id: normalizedResultId || null,
+        campaign_slug: campaign?.slug || normalizeSlug(cid) || null,
+        owner_email: normalizedOwnerEmail || null,
+        owner_rid: normalizedOwnerRid || null,
+      },
     });
-    return res.json({ success: true, dashboard_url: `/dashboard.html?tenant=${encodeURIComponent(ctx.tenant.slug)}${campaign?.slug ? `&cid=${encodeURIComponent(campaign.slug)}` : ""}`, cid: campaign?.slug || normalizeSlug(cid) || null, crid: normalizedResultId || null });
+    return res.json({
+      success: true,
+      dashboard_url: `/dashboard.html?tenant=${encodeURIComponent(ctx.tenant.slug)}${campaign?.slug ? `&cid=${encodeURIComponent(campaign.slug)}` : ""}`,
+      cid: campaign?.slug || normalizeSlug(cid) || null,
+      crid: normalizedResultId || null,
+      owner_email: normalizedOwnerEmail || null,
+      owner_rid: normalizedOwnerRid || null,
+    });
   } catch (err) {
     console.error("customer_share_failed", err);
     return res.status(500).json({ error: "customer share failed" });
+  }
+});
+
+app.get("/api/tenant/lookup", async (req, res) => {
+  try {
+    const tenantSlug = String(req.query.tenant ?? "").trim();
+    const query = String(req.query.q ?? "").trim();
+    if (!tenantSlug || !query) {
+      return res.status(400).json({ error: "tenant and q are required" });
+    }
+    const tenantRow = await getTenantBySlug(tenantSlug);
+    if (!tenantRow) return res.status(404).json({ error: "tenant not found" });
+
+    const pattern = `%${query.toLowerCase()}%`;
+    const result = await pool.query(
+      `SELECT DISTINCT email, name
+       FROM (
+         SELECT LOWER(u.email) AS email, NULL::TEXT AS name
+         FROM users u
+         WHERE u.tenant_id = $1
+           AND LOWER(COALESCE(u.email, '')) LIKE $2
+         UNION
+         SELECT LOWER(s.email) AS email, s.name
+         FROM intake_sessions s
+         WHERE s.tenant_id = $1
+           AND s.mode = 'business_owner'
+           AND (
+             LOWER(COALESCE(s.email, '')) LIKE $2
+             OR LOWER(COALESCE(s.name, '')) LIKE $2
+           )
+       ) owner_candidates
+       WHERE COALESCE(email, '') <> ''
+       ORDER BY email
+       LIMIT 10`,
+      [tenantRow.id, pattern]
+    );
+
+    return res.json({
+      tenant: tenantRow.slug,
+      matches: result.rows.map((row) => ({
+        email: normalizeEmail(row.email),
+        name: String(row.name ?? "").trim() || null,
+      })),
+    });
+  } catch (err) {
+    console.error("tenant_lookup_failed", err);
+    return res.status(500).json({ error: "tenant lookup failed" });
   }
 });
 
