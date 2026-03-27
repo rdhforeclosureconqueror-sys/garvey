@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Customer Rewards</title>
+<script src="/garvey_ui.js"></script>
 <style>
   body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:24px; }
   .card { background:#111; border:2px solid gold; border-radius:14px; padding:18px; margin:0 auto 14px; max-width:900px; }
@@ -104,7 +105,8 @@ const GarveyApi = window.GarveyApi || {};
 const buildUrl = GarveyApi.buildUrl || ((p) => p);
 
 function tenantFromUrl() {
-  return (new URLSearchParams(window.location.search).get("tenant") || "").trim();
+  const p = new URLSearchParams(window.location.search);
+  return (p.get("tenant") || "").trim();
 }
 function cidFromUrl() {
   return (new URLSearchParams(window.location.search).get("cid") || "").trim();
@@ -160,9 +162,21 @@ async function loadStatus(tenant, email, cid, crid) {
 }
 
 async function run() {
+  const current = new URLSearchParams(window.location.search);
+  const ctx = (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : null;
+  if (!current.get("ctx_redirected") && ctx && ctx.tenant && (!current.get("tenant") || !current.get("email"))) {
+    current.set("tenant", ctx.tenant);
+    if (ctx.email && !current.get("email")) current.set("email", ctx.email);
+    if (ctx.cid && !current.get("cid")) current.set("cid", ctx.cid);
+    if (ctx.rid && !current.get("crid")) current.set("crid", ctx.rid);
+    current.set("ctx_redirected", "1");
+    window.location.replace("/rewards.html?" + current.toString());
+    return;
+  }
   const tenant = tenantFromUrl();
   const cid = cidFromUrl();
   const crid = cridFromUrl();
+  const ctxEmail = ((ctx && ctx.email) || "").trim().toLowerCase();
   if (!tenant) {
     const msg = "tenant query param is required, e.g. /rewards.html?tenant=test-business";
     showResult({ error: msg });
@@ -180,6 +194,10 @@ async function run() {
   const dash = new URL(`/dashboard.html`, window.location.origin);
   dash.searchParams.set("tenant", tenant);
   document.getElementById("openDash").href = dash.pathname + dash.search;
+  if (ctxEmail) document.getElementById("email").value = ctxEmail;
+  if (window.GARVEY && window.GARVEY.setLoginCtx) {
+    window.GARVEY.setLoginCtx({ tenant, email: ctxEmail || readEmail(), cid, rid: crid });
+  }
 
   const requireEmail = () => {
     const email = readEmail();

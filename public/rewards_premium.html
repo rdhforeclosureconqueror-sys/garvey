@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rewards Premium</title>
+  <script src="/garvey_ui.js"></script>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #020617; color: #fff; }
     .wrap { max-width: 960px; margin: 0 auto; padding: 28px 18px; }
@@ -26,11 +27,21 @@
   </div>
   <script>
     (function () {
-      const p = new URLSearchParams(window.location.search);
-      const tenant = (p.get("tenant") || "").trim();
-      const email = (p.get("email") || "").trim();
-      const cid = (p.get("cid") || "").trim();
-      const crid = (p.get("crid") || "").trim();
+      const c = (window.GARVEY && window.GARVEY.ctx)
+        ? window.GARVEY.ctx()
+        : (function () {
+            const p = new URLSearchParams(window.location.search);
+            return {
+              tenant: (p.get("tenant") || "").trim(),
+              email: (p.get("email") || "").trim().toLowerCase(),
+              cid: (p.get("cid") || "").trim(),
+              rid: (p.get("crid") || p.get("rid") || "").trim()
+            };
+          })();
+      const tenant = (c.tenant || "").trim();
+      const email = (c.email || "").trim();
+      const cid = (c.cid || "").trim();
+      const crid = (c.rid || "").trim();
       const q = new URLSearchParams();
       if (tenant) q.set("tenant", tenant);
       if (email) q.set("email", email);
@@ -39,9 +50,17 @@
       const suffix = q.toString() ? `?${q.toString()}` : "";
       document.getElementById("openRewards").href = `/rewards.html${suffix}`;
       document.getElementById("fallbackRewards").href = `/rewards.html${suffix}`;
-      document.getElementById("toDashboard").href = tenant
-        ? `/dashboard.html?tenant=${encodeURIComponent(tenant)}`
+      const dash = new URLSearchParams();
+      if (tenant) dash.set("tenant", tenant);
+      if (email) dash.set("email", email);
+      if (cid) dash.set("cid", cid);
+      if (crid) dash.set("rid", crid);
+      document.getElementById("toDashboard").href = dash.toString()
+        ? `/dashboard.html?${dash.toString()}`
         : "/dashboard.html";
+      if (window.GARVEY && window.GARVEY.setLoginCtx) {
+        window.GARVEY.setLoginCtx({ tenant, email, cid, rid: crid });
+      }
     })();
   </script>
 </body>

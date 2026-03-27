@@ -41,6 +41,7 @@
   // GARVEY ctx helpers
   // -------------------------
   const STORAGE_KEY = "garvey_ctx_v1";
+  const LOGIN_STORAGE_KEY = "garvey_login_ctx_v1";
 
   function safeTrim(v) {
     return String(v ?? "").trim();
@@ -62,6 +63,23 @@
     }
   }
 
+  function readLoginCtx() {
+    try {
+      const raw = localStorage.getItem(LOGIN_STORAGE_KEY);
+      if (!raw) return { tenant: "", email: "", rid: "", cid: "", ts: 0 };
+      const obj = JSON.parse(raw);
+      return {
+        tenant: safeTrim(obj.tenant),
+        email: safeTrim(obj.email).toLowerCase(),
+        rid: safeTrim(obj.rid),
+        cid: safeTrim(obj.cid),
+        ts: Number(obj.ts || 0) || Date.now(),
+      };
+    } catch (_) {
+      return { tenant: "", email: "", rid: "", cid: "", ts: 0 };
+    }
+  }
+
   function writeStoredCtx(c) {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({
@@ -71,6 +89,38 @@
         cid: safeTrim(c.cid),
       }));
     } catch (_) {}
+  }
+
+  function writeLoginCtx(c) {
+    const payload = {
+      tenant: safeTrim(c.tenant),
+      email: safeTrim(c.email).toLowerCase(),
+      rid: safeTrim(c.rid),
+      cid: safeTrim(c.cid),
+      ts: Number(c.ts || Date.now()),
+    };
+    try {
+      localStorage.setItem(LOGIN_STORAGE_KEY, JSON.stringify(payload));
+    } catch (_) {}
+    return payload;
+  }
+
+  function setLoginCtx(next) {
+    const current = readLoginCtx();
+    const merged = {
+      tenant: safeTrim(next && next.tenant) || current.tenant,
+      email: safeTrim(next && next.email).toLowerCase() || current.email,
+      rid: safeTrim(next && next.rid) || current.rid,
+      cid: safeTrim(next && next.cid) || current.cid,
+      ts: Date.now(),
+    };
+    const saved = writeLoginCtx(merged);
+    writeStoredCtx(saved);
+    return saved;
+  }
+
+  function loginCtx() {
+    return readLoginCtx();
   }
 
   function ctxFromUrl() {
@@ -84,19 +134,23 @@
   }
 
   function ctx() {
-    // Prefer URL; fallback to stored if tenant missing.
+    // Prefer URL; fallback to session-lite login context; then legacy stored ctx.
     const u = ctxFromUrl();
+    const l = readLoginCtx();
     const s = readStoredCtx();
 
     const merged = {
-      tenant: u.tenant || s.tenant,
-      email: u.email || s.email,
-      rid: u.rid || s.rid,
-      cid: u.cid || s.cid,
+      tenant: u.tenant || l.tenant || s.tenant,
+      email: u.email || l.email || s.email,
+      rid: u.rid || l.rid || s.rid,
+      cid: u.cid || l.cid || s.cid,
     };
 
-    // If URL had any ctx at all, refresh storage (keeps it current)
-    if (u.tenant || u.email || u.rid || u.cid) writeStoredCtx(merged);
+    // If URL had any ctx at all, refresh both storages (keeps it current)
+    if (u.tenant || u.email || u.rid || u.cid) {
+      writeStoredCtx(merged);
+      writeLoginCtx(merged);
+    }
 
     return merged;
   }
@@ -163,6 +217,8 @@
 
   window.GARVEY = Object.assign({}, existing, {
     ctx,
+    loginCtx,
+    setLoginCtx,
     withCtx,
     applyCtxToLinks,
     getTenant, // legacy compatibility for kanban/pages

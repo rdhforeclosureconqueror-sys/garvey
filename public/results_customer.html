@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Customer Results</title>
+  <script src="/garvey_ui.js"></script>
   <style>
     body { font-family: Arial, sans-serif; background:#020617; color:#fff; margin:0; padding:24px; }
     .card { max-width:900px; margin:0 auto; background:#0f172a; border:1px solid #334155; border-radius:14px; padding:20px; }
@@ -63,7 +64,20 @@
   <script src="/js/api-contract.js"></script>
   <script>
     const safeTrim = (value) => String(value ?? "").trim();
+    const baseCtx = (window.GARVEY && window.GARVEY.ctx)
+      ? window.GARVEY.ctx()
+      : { tenant: "", email: "", rid: "", cid: "" };
+    const rawQs = new URLSearchParams(window.location.search);
+    if (!rawQs.get("ctx_redirected") && baseCtx.tenant && baseCtx.email && (!rawQs.get("tenant") || !rawQs.get("email"))) {
+      rawQs.set("tenant", baseCtx.tenant);
+      rawQs.set("email", baseCtx.email);
+      if (baseCtx.cid && !rawQs.get("cid")) rawQs.set("cid", baseCtx.cid);
+      rawQs.set("ctx_redirected", "1");
+      window.location.replace("/results_customer.html?" + rawQs.toString());
+    }
+
     const qs = new URLSearchParams(window.location.search);
+    qs.delete("ctx_redirected");
     const tenant = safeTrim(qs.get("tenant"));
     const email = safeTrim(qs.get("email")).toLowerCase();
     const cid = safeTrim(qs.get("cid"));
@@ -263,6 +277,9 @@
 
       saveRid(resolvedRid);
       const crid = safeTrim(resolvedRid);
+      if (window.GARVEY && window.GARVEY.setLoginCtx) {
+        window.GARVEY.setLoginCtx({ tenant, email, cid, rid: crid });
+      }
 
       document.getElementById("meta").textContent =
         `Tenant: ${tenant} • Email: ${email}${cid ? ` • CID: ${cid}` : ""}`;
@@ -318,6 +335,9 @@
         <button class="btn" id="sendOwnerBtn" type="button">Send to Business Owner</button>
         <a class="btn alt" id="bookmarkBtn" href="${escapeHtml(bookmark.pathname + bookmark.search)}">Bookmark Results Link</a>
       `;
+      if (window.GARVEY && window.GARVEY.applyCtxToLinks) {
+        window.GARVEY.applyCtxToLinks(document.getElementById("ctas"));
+      }
 
       // Send-to-owner flow
       const sharePanel = document.getElementById("ownerSharePanel");
