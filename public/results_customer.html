@@ -7,16 +7,20 @@
   <style>
     body { font-family: Arial, sans-serif; background:#020617; color:#fff; margin:0; padding:24px; }
     .card { max-width:900px; margin:0 auto; background:#0f172a; border:1px solid #334155; border-radius:14px; padding:20px; }
-    .btn { display:inline-block; margin:8px 8px 0 0; padding:10px 14px; border-radius:10px; background:gold; color:#000; text-decoration:none; font-weight:700; }
+    .btn { display:inline-block; margin:8px 8px 0 0; padding:10px 14px; border-radius:10px; background:gold; color:#000; text-decoration:none; font-weight:700; border:0; cursor:pointer; }
+    .btn.alt { background:#1e293b; color:#e2e8f0; border:1px solid #334155; }
     .bar { margin:8px 0; }
     .track { background:#1e293b; border-radius:999px; overflow:hidden; height:10px; }
     .fill { background:#eab308; height:10px; }
+    .muted { color:#94a3b8; }
+    .role a { color:#93c5fd; text-decoration:underline; }
   </style>
 </head>
 <body>
   <div class="card">
     <h1>Customer Assessment Results</h1>
     <p id="meta">Loading…</p>
+    <p id="ridLine" class="muted"></p>
     <h3>Your Customer Type(s)</h3>
     <div id="customerRoles"></div>
     <div id="customerBars"></div>
@@ -28,11 +32,63 @@
   </div>
   <script src="/js/api-contract.js"></script>
   <script>
+    const safeTrim = (value) => String(value ?? "").trim();
     const qs = new URLSearchParams(window.location.search);
-    const tenant = (qs.get("tenant") || "").trim();
-    const email = (qs.get("email") || "").trim().toLowerCase();
-    const cid = (qs.get("cid") || "").trim();
+    const tenant = safeTrim(qs.get("tenant"));
+    const email = safeTrim(qs.get("email")).toLowerCase();
+    const cid = safeTrim(qs.get("cid"));
     const escapeHtml = (s) => String(s || "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+
+    function slugifyType(name) {
+      return safeTrim(name).toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+    }
+
+    function storageKey() {
+      if (!tenant || !email) return "";
+      return `garvey_customer_rid:${tenant}:${email}`;
+    }
+
+    function readStoredRid() {
+      const key = storageKey();
+      if (!key) return "";
+      try { return safeTrim(localStorage.getItem(key)); } catch (_) { return ""; }
+    }
+
+    function saveRid(rid) {
+      const normalized = safeTrim(rid);
+      const key = storageKey();
+      if (!key || !normalized) return;
+      try { localStorage.setItem(key, normalized); } catch (_) {}
+    }
+
+    function customerArchetypeHref(typeSlug, combo) {
+      const u = new URL("/customer_archetype.html", window.location.origin);
+      if (tenant) u.searchParams.set("tenant", tenant);
+      if (email) u.searchParams.set("email", email);
+      if (cid) u.searchParams.set("cid", cid);
+      if (combo.crid) u.searchParams.set("crid", combo.crid);
+      if (typeSlug) u.searchParams.set("type", typeSlug);
+      if (combo.primary) u.searchParams.set("primary", combo.primary);
+      if (combo.secondary) u.searchParams.set("secondary", combo.secondary);
+      if (combo.growth) u.searchParams.set("growth", combo.growth);
+      return u.pathname + u.search;
+    }
+
+    function renderRoleLines(targetId, roles, combo) {
+      const lines = [
+        ["Primary", roles.primary],
+        ["Secondary", roles.secondary],
+        ["Growth area", roles.growth],
+      ];
+      document.getElementById(targetId).innerHTML = lines.map(([label, roleName]) => {
+        const slug = slugifyType(roleName);
+        const href = slug ? customerArchetypeHref(slug, combo) : "#";
+        const content = slug
+          ? `<a href="${escapeHtml(href)}">${escapeHtml(roleName || "—")}</a>`
+          : escapeHtml(roleName || "—");
+        return `<p class="role"><b>${escapeHtml(label)}:</b> ${content}</p>`;
+      }).join("");
+    }
 
     function renderBars(targetId, percents) {
       document.getElementById(targetId).innerHTML = Object.entries(percents || {})
@@ -51,22 +107,58 @@
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to load results");
 
-      document.getElementById("meta").textContent = `Tenant: ${tenant} • Email: ${email}`;
-      document.getElementById("customerRoles").innerHTML = `
-        <p><b>Primary:</b> ${escapeHtml(data.customer_archetypes?.primary || data.primary_role)}</p>
-        <p><b>Secondary:</b> ${escapeHtml(data.customer_archetypes?.secondary || data.secondary_role)}</p>
-        <p><b>Growth area:</b> ${escapeHtml(data.customer_archetypes?.weakness || data.weakness_role)}</p>`;
+      const initialRid = safeTrim(qs.get("crid")) || readStoredRid();
+      const resolvedRid = initialRid || safeTrim(data.result_id) || safeTrim(data.result?.result_id) || safeTrim(data.customer_archetypes?.result_id);
+      saveRid(resolvedRid);
+      const crid = safeTrim(resolvedRid);
+
+      document.getElementById("meta").textContent = `Tenant: ${tenant} • Email: ${email}${cid ? ` • CID: ${cid}` : ""}`;
+      document.getElementById("ridLine").textContent = `Customer Result ID (crid): ${crid || "not yet available"}`;
+
+      const customerRoles = {
+        primary: data.customer_archetypes?.primary || data.primary_role,
+        secondary: data.customer_archetypes?.secondary || data.secondary_role,
+        growth: data.customer_archetypes?.weakness || data.weakness_role,
+      };
+      const customerCombo = {
+        primary: slugifyType(customerRoles.primary),
+        secondary: slugifyType(customerRoles.secondary),
+        growth: slugifyType(customerRoles.growth),
+        crid,
+      };
+      renderRoleLines("customerRoles", customerRoles, customerCombo);
       renderBars("customerBars", data.customer_archetypes?.percents || data.percents);
 
-      document.getElementById("buyerRoles").innerHTML = `
-        <p><b>Primary:</b> ${escapeHtml(data.buyer_archetypes?.primary)}</p>
-        <p><b>Secondary:</b> ${escapeHtml(data.buyer_archetypes?.secondary)}</p>
-        <p><b>Growth area:</b> ${escapeHtml(data.buyer_archetypes?.weakness)}</p>`;
+      const buyerRoles = {
+        primary: data.buyer_archetypes?.primary,
+        secondary: data.buyer_archetypes?.secondary,
+        growth: data.buyer_archetypes?.weakness,
+      };
+      const buyerCombo = {
+        primary: slugifyType(buyerRoles.primary),
+        secondary: slugifyType(buyerRoles.secondary),
+        growth: slugifyType(buyerRoles.growth),
+        crid,
+      };
+      renderRoleLines("buyerRoles", buyerRoles, buyerCombo);
       renderBars("buyerBars", data.buyer_archetypes?.percents || {});
 
+      const rewards = new URL("/rewards_premium.html", window.location.origin);
+      rewards.searchParams.set("tenant", tenant);
+      rewards.searchParams.set("email", email);
+      if (cid) rewards.searchParams.set("cid", cid);
+      if (crid) rewards.searchParams.set("crid", crid);
+
+      const bookmark = new URL(window.location.href);
+      bookmark.searchParams.set("tenant", tenant);
+      bookmark.searchParams.set("email", email);
+      if (cid) bookmark.searchParams.set("cid", cid);
+      if (crid) bookmark.searchParams.set("crid", crid);
+
       document.getElementById("ctas").innerHTML = `
-        <a class="btn" href="/rewards_premium.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}&cid=${encodeURIComponent(cid)}">Claim Rewards</a>
-        <button class="btn" id="sendOwnerBtn" type="button">Send to Business Owner</button>`;
+        <a class="btn" href="${escapeHtml(rewards.pathname + rewards.search)}">Claim Rewards</a>
+        <button class="btn" id="sendOwnerBtn" type="button">Send to Business Owner</button>
+        <a class="btn alt" id="bookmarkBtn" href="${escapeHtml(bookmark.pathname + bookmark.search)}">Bookmark Results Link</a>`;
 
       document.getElementById("sendOwnerBtn").addEventListener("click", async () => {
         try {
@@ -78,7 +170,7 @@
               customer_email: email,
               customer_name: "",
               cid,
-              result_id: data.result_id || data.result?.result_id || null,
+              result_id: crid || safeTrim(data.result_id) || safeTrim(data.result?.result_id) || null,
             }),
           });
           const body = await resp.json().catch(() => ({}));

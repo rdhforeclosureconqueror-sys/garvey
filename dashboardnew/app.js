@@ -318,6 +318,8 @@
 
     var vocParams = new URLSearchParams({ tenant: tenant });
     if (cid) vocParams.set("cid", cid);
+    if (email) vocParams.set("owner_email", email);
+    if (rid) vocParams.set("rid", rid);
     var vocHref = "/voc.html?" + vocParams.toString();
 
     return '' +
@@ -328,10 +330,53 @@
         '<div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">' +
           '<a class="btn btn-sm btn-primary" href="' + escapeHtml(resultsHref) + '">View Results</a>' +
           '<button class="btn btn-sm btn-default" type="button" data-copy="' + escapeHtml(resultsHref) + '">Copy Results Link</button>' +
-          '<a class="btn btn-sm btn-default" href="' + escapeHtml(vocHref) + '">Customer Assessment Link</a>' +
-          '<button class="btn btn-sm btn-default" type="button" data-copy="' + escapeHtml(vocHref) + '">Copy Customer Link</button>' +
+        '</div>' +
+      '</div>' +
+      '<div style="border-top:1px solid #eee;padding-top:10px;">' +
+        '<h4 style="margin-top:0;">Customer Link</h4>' +
+        '<div class="muted" style="margin-bottom:8px;">Anyone who completes VOC via this link will be attributed to this tenant/campaign.</div>' +
+        '<div class="form-group"><label>Campaign slug (cid)</label><input id="ownerHubCidInput" class="form-control" value="' + escapeHtml(cid || "") + '" placeholder="campaign slug (required for campaign attribution)"></div>' +
+        '<div class="form-group"><label>Shareable customer link</label><input id="ownerHubCustomerLink" class="form-control" readonly value="' + escapeHtml(vocHref) + '"></div>' +
+        '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+          '<a id="ownerHubOpenCustomerLink" class="btn btn-sm btn-default" href="' + escapeHtml(vocHref) + '">Open Customer Link</a>' +
+          '<button class="btn btn-sm btn-default" type="button" id="ownerHubCopyCustomerLink">Copy Customer Link</button>' +
         '</div>' +
       '</div>';
+  }
+
+  function wireOwnerHubCustomerLink(ctx) {
+    var cidInput = document.getElementById("ownerHubCidInput");
+    var linkInput = document.getElementById("ownerHubCustomerLink");
+    var openLink = document.getElementById("ownerHubOpenCustomerLink");
+    var copyBtn = document.getElementById("ownerHubCopyCustomerLink");
+    if (!cidInput || !linkInput || !openLink || !copyBtn) return;
+
+    function currentHref() {
+      var q = new URLSearchParams({ tenant: ctx.tenant });
+      var cid = safeTrim(cidInput.value);
+      if (cid) q.set("cid", cid);
+      if (ctx.email) q.set("owner_email", ctx.email);
+      if (ctx.rid) q.set("rid", ctx.rid);
+      return "/voc.html?" + q.toString();
+    }
+
+    function renderLink() {
+      var href = currentHref();
+      linkInput.value = href;
+      openLink.href = href;
+    }
+
+    cidInput.addEventListener("input", renderLink);
+    copyBtn.addEventListener("click", function () {
+      copyText(linkInput.value).then(function () {
+        var msg = document.getElementById("campaignCreateMsg");
+        if (msg) msg.textContent = "Customer link copied!";
+      }).catch(function (err) {
+        alert(err.message);
+      });
+    });
+
+    renderLink();
   }
 
   function wireCopyButtons(container) {
@@ -434,6 +479,7 @@
 
         el.innerHTML = hub + '<div style="margin-top:10px;">' + summary + "</div>";
         wireCopyButtons(el);
+        wireOwnerHubCustomerLink({ tenant: tenant, email: email, cid: cid, rid: resolvedRid });
       })
       .catch(function (err) {
         el.innerHTML = '<span class="text-danger">' + escapeHtml(err.message) + "</span>";
@@ -536,7 +582,14 @@
         renderInsights(responses[2] || {});
         renderSegments(responses[3] || {});
         renderCampaignSummary(responses[4] || {});
-        if (responses[5] && responses[5].campaigns && responses[5].campaigns[0]) renderCampaignLinks(tenant, responses[5].campaigns[0]);
+        if (responses[5] && responses[5].campaigns && responses[5].campaigns[0]) {
+          renderCampaignLinks(tenant, responses[5].campaigns[0]);
+          var customerCidInput = document.getElementById("ownerHubCidInput");
+          if (customerCidInput && !safeTrim(customerCidInput.value)) {
+            customerCidInput.value = safeTrim(responses[5].campaigns[0].slug || "");
+            customerCidInput.dispatchEvent(new Event("input"));
+          }
+        }
       })
       .catch(function (err) {
         setupError(err.message);

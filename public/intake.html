@@ -218,7 +218,7 @@
 
     const customerCtas = `
       <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-        <a class="btn" href="/rewards_premium.html?tenant=${tenant}&email=${emailEnc}">Go to Rewards</a>
+        <a class="btn" href="/rewards_premium.html?tenant=${tenant}&email=${emailEnc}&cid=${encodeURIComponent(getCid())}">Go to Rewards</a>
         <a class="btn" href="#statusWidget" id="statusScrollLink">View my points/status</a>
       </div>
       <div id="statusWidget" class="result-card" style="margin-top:10px;"><b>Points/Status:</b> Open Rewards to see your live loyalty status and points balance.</div>`;
@@ -274,10 +274,19 @@
       try { await activateOwnerSystem(tenant); } catch (err) { showDebug("Kanban activation warning: " + err.message); }
     }
 
-    const dest = assessment === "customer"
-      ? `/results_customer.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}&cid=${encodeURIComponent(cid)}`
-      : `/results_owner.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}&cid=${encodeURIComponent(cid)}`;
-    window.location.href = dest;
+    const ownerDest = `/results_owner.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}&cid=${encodeURIComponent(cid)}`;
+    if (assessment !== "customer") {
+      window.location.href = ownerDest;
+      return;
+    }
+
+    const crid = String(data?.result_id ?? data?.result?.result_id ?? "").trim();
+    const customerDest = new URL("/results_customer.html", window.location.origin);
+    customerDest.searchParams.set("tenant", tenant);
+    customerDest.searchParams.set("email", email);
+    if (cid) customerDest.searchParams.set("cid", cid);
+    if (crid) customerDest.searchParams.set("crid", crid);
+    window.location.href = customerDest.pathname + customerDest.search;
   }
 
   async function init() {
@@ -288,7 +297,12 @@
     if ($("tenantLine")) $("tenantLine").textContent = `Tenant: ${tenant}`;
     if ($("assessmentLine")) $("assessmentLine").textContent = `Assessment: ${assessment}`;
     if ($("pageTitle")) $("pageTitle").textContent = assessment === "customer" ? "Voice of the Customer" : "Business Assessment";
-    if ($("backLink")) $("backLink").href = `/index.html?tenant=${encodeURIComponent(tenant)}`;
+    if ($("backLink")) {
+      const back = new URL("/index.html", window.location.origin);
+      back.searchParams.set("tenant", tenant);
+      if (cid) back.searchParams.set("cid", cid);
+      $("backLink").href = back.pathname + back.search;
+    }
 
     try {
       const data = await fetchQuestions(assessment);

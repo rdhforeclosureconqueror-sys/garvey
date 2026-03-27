@@ -571,7 +571,7 @@ async function recordCampaignEvent({
   );
 }
 
-async function processCheckinReward({ tenant, tenantConfig, email, cid = null }) {
+async function processCheckinReward({ tenant, tenantConfig, email, cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenant(tenant.id, cid);
   const pointsAdded = rewardPointsEnabled(tenantConfig) ? 5 : 0;
@@ -580,7 +580,7 @@ async function processCheckinReward({ tenant, tenantConfig, email, cid = null })
     "INSERT INTO visits (tenant_id, user_id, points_awarded, campaign_id, campaign_slug) VALUES ($1, $2, $3, $4, $5)",
     [tenant.id, user.id, pointsAdded, campaign?.id || null, campaign?.slug || null]
   );
-  await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "checkin", customerEmail: email });
+  await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "checkin", customerEmail: email, meta: { result_id: String(resultId ?? "").trim() || null } });
 
   const updatedUser = await pool.query(
     "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3 RETURNING points",
@@ -593,10 +593,12 @@ async function processCheckinReward({ tenant, tenantConfig, email, cid = null })
     event: "checkin",
     points_added: pointsAdded,
     points: updatedUser.rows[0].points,
+    cid: campaign?.slug || normalizeSlug(cid) || null,
+    crid: String(resultId ?? "").trim() || null,
   };
 }
 
-async function processActionReward({ tenant, tenantConfig, email, actionType, cid = null }) {
+async function processActionReward({ tenant, tenantConfig, email, actionType, cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenant(tenant.id, cid);
   const pointsAdded = rewardPointsEnabled(tenantConfig) ? (ACTION_POINTS[actionType] || 0) : 0;
@@ -605,7 +607,7 @@ async function processActionReward({ tenant, tenantConfig, email, actionType, ci
     "INSERT INTO actions (tenant_id, user_id, action_type, points_awarded, campaign_id, campaign_slug) VALUES ($1, $2, $3, $4, $5, $6)",
     [tenant.id, user.id, actionType, pointsAdded, campaign?.id || null, campaign?.slug || null]
   );
-  await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "action", customerEmail: email, meta: { action_type: actionType } });
+  await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "action", customerEmail: email, meta: { action_type: actionType, result_id: String(resultId ?? "").trim() || null } });
 
   const updatedUser = await pool.query(
     "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3 RETURNING points",
@@ -618,10 +620,12 @@ async function processActionReward({ tenant, tenantConfig, email, actionType, ci
     action_type: actionType,
     points_added: pointsAdded,
     points: updatedUser.rows[0].points,
+    cid: campaign?.slug || normalizeSlug(cid) || null,
+    crid: String(resultId ?? "").trim() || null,
   };
 }
 
-async function processReviewReward({ tenant, tenantConfig, email, text, mediaType, cid = null, mediaNote = null }) {
+async function processReviewReward({ tenant, tenantConfig, email, text, mediaType, cid = null, mediaNote = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenant(tenant.id, cid);
   const mediaBonus = mediaType === "video" ? 10 : mediaType === "photo" ? 5 : 0;
@@ -633,7 +637,7 @@ async function processReviewReward({ tenant, tenantConfig, email, text, mediaTyp
      RETURNING *`,
     [tenant.id, user.id, text, mediaType || null, pointsAdded, campaign?.id || null, campaign?.slug || null, mediaNote || null]
   );
-  await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "review", customerEmail: email, meta: { media_type: mediaType || null } });
+  await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "review", customerEmail: email, meta: { media_type: mediaType || null, result_id: String(resultId ?? "").trim() || null } });
 
   const updatedUser = await pool.query(
     "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3 RETURNING points",
@@ -646,10 +650,12 @@ async function processReviewReward({ tenant, tenantConfig, email, text, mediaTyp
     review: reviewResult.rows[0],
     points_added: pointsAdded,
     points: updatedUser.rows[0].points,
+    cid: campaign?.slug || normalizeSlug(cid) || null,
+    crid: String(resultId ?? "").trim() || null,
   };
 }
 
-async function processReferralReward({ tenant, tenantConfig, email, referredEmail, cid = null }) {
+async function processReferralReward({ tenant, tenantConfig, email, referredEmail, cid = null, resultId = null }) {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
@@ -666,7 +672,7 @@ async function processReferralReward({ tenant, tenantConfig, email, referredEmai
        DO NOTHING`,
       [tenant.id, referrer.id, referred.id, pointsEach, campaign?.id || null, campaign?.slug || null]
     );
-    await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "referral", customerEmail: email, client, meta: { referred_email: normalizeEmail(referredEmail) } });
+    await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "referral", customerEmail: email, client, meta: { referred_email: normalizeEmail(referredEmail), result_id: String(resultId ?? "").trim() || null } });
 
     if (pointsEach > 0) {
       await client.query(
@@ -686,6 +692,8 @@ async function processReferralReward({ tenant, tenantConfig, email, referredEmai
       tenant: tenant.slug,
       points_awarded_each: pointsEach,
       users: users.rows,
+      cid: campaign?.slug || normalizeSlug(cid) || null,
+      crid: String(resultId ?? "").trim() || null,
     };
   } catch (err) {
     await client.query("ROLLBACK");
@@ -695,15 +703,15 @@ async function processReferralReward({ tenant, tenantConfig, email, referredEmai
   }
 }
 
-async function processWishlistReward({ tenant, email, productName, cid = null }) {
+async function processWishlistReward({ tenant, email, productName, cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenant(tenant.id, cid);
   const result = await pool.query(
     "INSERT INTO wishlist (tenant_id, user_id, product_name, campaign_id, campaign_slug) VALUES ($1, $2, $3, $4, $5) RETURNING *",
     [tenant.id, user.id, productName, campaign?.id || null, campaign?.slug || null]
   );
-  await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "wishlist", customerEmail: email, meta: { product_name: productName } });
-  return { success: true, tenant: tenant.slug, wishlist_entry: result.rows[0] };
+  await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "wishlist", customerEmail: email, meta: { product_name: productName, result_id: String(resultId ?? "").trim() || null } });
+  return { success: true, tenant: tenant.slug, wishlist_entry: result.rows[0], cid: campaign?.slug || normalizeSlug(cid) || null, crid: String(resultId ?? "").trim() || null };
 }
 
 async function fetchRewardsStatus({ tenant, email }) {
@@ -921,11 +929,12 @@ app.get("/api/rewards/history", async (req, res) => {
 
 app.post("/api/rewards/checkin", async (req, res) => {
   try {
-    const { tenant, email, cid } = req.body || {};
+    const { tenant, email, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
+    const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
     if (!tenant || !email) return res.status(400).json({ error: "tenant and email are required" });
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
-    const payload = await processCheckinReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, cid });
+    const payload = await processCheckinReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, cid, resultId });
     return res.json(payload);
   } catch (err) {
     console.error(err);
@@ -935,13 +944,14 @@ app.post("/api/rewards/checkin", async (req, res) => {
 
 app.post("/api/rewards/action", async (req, res) => {
   try {
-    const { tenant, email, action_type: actionType, cid } = req.body || {};
+    const { tenant, email, action_type: actionType, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
+    const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
     if (!tenant || !email || !actionType) {
       return res.status(400).json({ error: "tenant, email and action_type are required" });
     }
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
-    const payload = await processActionReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, actionType, cid });
+    const payload = await processActionReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, actionType, cid, resultId });
     return res.json(payload);
   } catch (err) {
     console.error(err);
@@ -951,11 +961,12 @@ app.post("/api/rewards/action", async (req, res) => {
 
 app.post("/api/rewards/review", async (req, res) => {
   try {
-    const { tenant, email, text, media_type: mediaType, media_note: mediaNote, cid } = req.body || {};
+    const { tenant, email, text, media_type: mediaType, media_note: mediaNote, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
+    const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
     if (!tenant || !email || !text) return res.status(400).json({ error: "tenant, email and text are required" });
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
-    const payload = await processReviewReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, text, mediaType, mediaNote, cid });
+    const payload = await processReviewReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, text, mediaType, mediaNote, cid, resultId });
     return res.json(payload);
   } catch (err) {
     console.error(err);
@@ -965,13 +976,14 @@ app.post("/api/rewards/review", async (req, res) => {
 
 app.post("/api/rewards/referral", async (req, res) => {
   try {
-    const { tenant, email, referred_email: referredEmail, cid } = req.body || {};
+    const { tenant, email, referred_email: referredEmail, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
+    const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
     if (!tenant || !email || !referredEmail) {
       return res.status(400).json({ error: "tenant, email and referred_email are required" });
     }
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
-    const payload = await processReferralReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, referredEmail, cid });
+    const payload = await processReferralReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, referredEmail, cid, resultId });
     return res.json(payload);
   } catch (err) {
     console.error(err);
@@ -981,13 +993,14 @@ app.post("/api/rewards/referral", async (req, res) => {
 
 app.post("/api/rewards/wishlist", async (req, res) => {
   try {
-    const { tenant, email, product_name: productName, cid } = req.body || {};
+    const { tenant, email, product_name: productName, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
+    const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
     if (!tenant || !email || !productName) {
       return res.status(400).json({ error: "tenant, email and product_name are required" });
     }
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
-    const payload = await processWishlistReward({ tenant: ctx.tenant, email, productName, cid });
+    const payload = await processWishlistReward({ tenant: ctx.tenant, email, productName, cid, resultId });
     return res.json(payload);
   } catch (err) {
     console.error(err);
@@ -1766,6 +1779,7 @@ app.get("/api/results/:email", async (req, res) => {
 app.post("/api/customer/share-result", async (req, res) => {
   try {
     const { tenant, customer_email: customerEmail, customer_name: customerName, cid, result_id: resultId } = req.body || {};
+    const normalizedResultId = String(resultId ?? "").trim();
     if (!tenant || !customerEmail) return res.status(400).json({ error: "tenant and customer_email are required" });
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
@@ -1776,9 +1790,9 @@ app.post("/api/customer/share-result", async (req, res) => {
       eventType: "customer_share_result",
       customerEmail,
       customerName,
-      meta: { result_id: resultId || null, campaign_slug: campaign?.slug || normalizeSlug(cid) || null },
+      meta: { result_id: normalizedResultId || null, campaign_slug: campaign?.slug || normalizeSlug(cid) || null },
     });
-    return res.json({ success: true, dashboard_url: `/dashboard.html?tenant=${encodeURIComponent(ctx.tenant.slug)}` });
+    return res.json({ success: true, dashboard_url: `/dashboard.html?tenant=${encodeURIComponent(ctx.tenant.slug)}${campaign?.slug ? `&cid=${encodeURIComponent(campaign.slug)}` : ""}`, cid: campaign?.slug || normalizeSlug(cid) || null, crid: normalizedResultId || null });
   } catch (err) {
     console.error("customer_share_failed", err);
     return res.status(500).json({ error: "customer share failed" });
@@ -1997,7 +2011,7 @@ app.post("/voc-intake", async (req, res) => {
         campaign?.slug || null,
       ]
     )).rows[0];
-    await recordCampaignEvent({ tenantId: tenantRow.id, campaignId: campaign?.id || null, eventType: "customer_assessment", customerEmail: email, customerName: name, client });
+    await recordCampaignEvent({ tenantId: tenantRow.id, campaignId: campaign?.id || null, eventType: "customer_assessment", customerEmail: email, customerName: name, client, meta: { result_id: String(submission.id ?? "").trim() || null, campaign_slug: campaign?.slug || normalizeSlug(cid) || null } });
 
     await client.query("COMMIT");
     const payload = buildAssessmentResultPayload({

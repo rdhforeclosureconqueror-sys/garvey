@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Customer Archetype</title>
+  <link rel="stylesheet" href="/garvey_ui.css">
+  <script src="/garvey_ui.js" defer></script>
+  <style>
+    .k{display:grid; gap:12px}
+    .k ul{margin:8px 0 0 18px}
+    .k li{margin:6px 0}
+    .split{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    @media (max-width: 920px){ .split{grid-template-columns:1fr} }
+    .tag{display:inline-flex; gap:8px; align-items:center}
+    .tag b{color:var(--primary)}
+    .chips{display:flex; flex-wrap:wrap; gap:8px}
+    .chip{display:inline-flex;align-items:center;justify-content:center;padding:8px 10px;border-radius:999px;border:1px solid var(--border);background:var(--panel);text-decoration:none;font-weight:900;color:var(--muted)}
+    .chip:hover{background:var(--panel2); color:var(--text)}
+    .chip.is-active{background:linear-gradient(135deg,var(--primary),var(--accent));color:#000;border-color:transparent}
+    .small{font-size:13px}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a class="brand" href="#" id="homeLink"><span class="brand__mark">G</span><span>GARVEY</span></a>
+      <nav class="nav" aria-label="Top navigation">
+        <a href="#" id="resultsLink">Customer Results</a>
+        <a href="/rewards_premium.html" id="rewardsLink">Rewards</a>
+        <a href="#" id="dashboardLink">Dashboard</a>
+      </nav>
+      <button class="icon-btn burger" data-burger aria-expanded="false" aria-label="Open menu">Menu</button>
+    </div>
+    <div class="drawer" data-drawer hidden>
+      <div class="drawer__inner">
+        <a data-close-drawer href="#" id="resultsLink2">Customer Results</a>
+        <a data-close-drawer href="/rewards_premium.html" id="rewardsLink2">Rewards</a>
+        <a data-close-drawer href="#" id="dashboardLink2">Dashboard</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container section">
+    <div class="row"><span class="pill" id="tenantPill">Tenant: —</span><span class="pill" id="typePill">Archetype: —</span></div>
+
+    <section class="hero">
+      <div class="hero__bg"></div>
+      <div class="hero__grid">
+        <div class="card" data-reveal>
+          <div class="h1" id="title">Customer Archetype</div>
+          <p class="muted" id="oneLiner">—</p>
+          <div class="row"><a class="btn btn--ghost" href="#" id="backBtn">Back</a><a class="btn btn--primary" href="#" id="ctaBtn">Claim Rewards</a></div>
+          <div class="section" style="padding:14px 0 0">
+            <div class="h3">All archetypes</div>
+            <div class="muted small">Click any archetype to view its deep dive.</div>
+            <div class="chips" id="allChips"></div>
+          </div>
+        </div>
+        <div class="card" data-reveal>
+          <div class="h3">Combo Context</div>
+          <p class="muted" id="comboText">Use primary/secondary/growth as context for this deep dive.</p>
+          <div class="k"><div class="tag"><b>Primary</b> <span id="primaryTag">—</span></div><div class="tag"><b>Secondary</b> <span id="secondaryTag">—</span></div><div class="tag"><b>Growth</b> <span id="growthTag">—</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="split"><div class="card" data-reveal><div class="h3">At your best</div><ul id="bestList"></ul></div><div class="card" data-reveal><div class="h3">At your worst</div><ul id="worstList"></ul></div></section>
+    <section class="split section"><div class="card" data-reveal><div class="h3">Strengths (Top 5)</div><ul id="strengthList"></ul></div><div class="card" data-reveal><div class="h3">Traps to avoid (Top 5)</div><ul id="trapList"></ul></div></section>
+    <section class="split section"><div class="card" data-reveal><div class="h3">How to build it</div><div class="k"><div><b>Daily reps</b><ul id="dailyList"></ul></div><div><b>Weekly reps</b><ul id="weeklyList"></ul></div><div><b>30-day challenge</b><div class="muted" id="challengeText">—</div></div></div></div><div class="card" data-reveal><div class="h3">How to rebalance</div><div class="k"><div><b>If overusing:</b><div class="muted" id="overuseText">—</div></div><div><b>If underusing:</b><div class="muted" id="underuseText">—</div></div></div></div></section>
+    <section class="split section"><div class="card" data-reveal><div class="h3">Power combos</div><div class="k"><div><b>Best pairings</b><ul id="bestCombosList"></ul></div><div><b>Risky pairings</b><ul id="riskyCombosList"></ul></div></div></div><div class="card" data-reveal><div class="h3">Score guidance</div><div class="k"><div><b>Low</b><div class="muted" id="scoreLow">—</div></div><div><b>Mid</b><div class="muted" id="scoreMid">—</div></div><div><b>High</b><div class="muted" id="scoreHigh">—</div></div></div></div></section>
+    <section class="section"><div class="card" data-reveal><div class="h3">Micro playbook</div><div class="split"><div><b>Decision</b><div class="muted" id="mpDecision">—</div></div><div><b>Team</b><div class="muted" id="mpTeam">—</div></div></div><div class="section" style="padding:12px 0 0"><b>Time/Priorities</b><div class="muted" id="mpTime">—</div></div></div></section>
+  </main>
+
+  <script type="module">
+    const safeTrim = (value) => String(value ?? "").trim();
+    const qs = new URLSearchParams(location.search);
+    const tenant = safeTrim(qs.get("tenant"));
+    const email = safeTrim(qs.get("email"));
+    const cid = safeTrim(qs.get("cid"));
+    const crid = safeTrim(qs.get("crid")) || safeTrim(qs.get("rid"));
+    const typeSlug = safeTrim(qs.get("type")).toLowerCase();
+    const primarySlug = safeTrim(qs.get("primary")).toLowerCase();
+    const secondarySlug = safeTrim(qs.get("secondary")).toLowerCase();
+    const growthSlug = safeTrim(qs.get("growth")).toLowerCase();
+
+    const tenantPill = document.getElementById("tenantPill");
+    const typePill = document.getElementById("typePill");
+    tenantPill.textContent = `Tenant: ${tenant || "—"}`;
+
+    const pretty = (slug) => slug ? slug.split("_").map((w) => w.slice(0, 1).toUpperCase() + w.slice(1)).join(" ") : "—";
+    const fillList = (el, items) => { el.innerHTML = ""; (items || []).forEach((s) => { const li = document.createElement("li"); li.textContent = s; el.appendChild(li); }); };
+    const setText = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text || "—"; };
+    const fillComboList = (el, items, kind) => {
+      el.innerHTML = "";
+      (items || []).forEach((it) => {
+        const li = document.createElement("li");
+        li.textContent = kind === "best" ? `${pretty(it.with)}: ${it.why}` : `${pretty(it.with)}: ${it.risk} Fix: ${it.fix}`;
+        el.appendChild(li);
+      });
+    };
+
+    function withCustomerCtx(href) {
+      const u = new URL(href, location.origin);
+      if (tenant) u.searchParams.set("tenant", tenant);
+      if (cid) u.searchParams.set("cid", cid);
+      if (email) u.searchParams.set("email", email);
+      if (crid) u.searchParams.set("crid", crid);
+      return u.pathname + u.search;
+    }
+
+    function archetypeHref(slug) {
+      const u = new URL(withCustomerCtx("/customer_archetype.html"), location.origin);
+      u.searchParams.set("type", slug);
+      if (primarySlug) u.searchParams.set("primary", primarySlug);
+      if (secondarySlug) u.searchParams.set("secondary", secondarySlug);
+      if (growthSlug) u.searchParams.set("growth", growthSlug);
+      return u.pathname + u.search;
+    }
+
+    document.getElementById("homeLink").href = withCustomerCtx("/index.html");
+    const resultsHref = withCustomerCtx("/results_customer.html");
+    document.getElementById("resultsLink").href = resultsHref;
+    document.getElementById("resultsLink2").href = resultsHref;
+    document.getElementById("rewardsLink").href = withCustomerCtx("/rewards_premium.html");
+    document.getElementById("rewardsLink2").href = withCustomerCtx("/rewards_premium.html");
+    document.getElementById("dashboardLink").href = withCustomerCtx("/dashboard.html");
+    document.getElementById("dashboardLink2").href = withCustomerCtx("/dashboard.html");
+    document.getElementById("backBtn").href = resultsHref;
+    document.getElementById("ctaBtn").href = withCustomerCtx("/rewards_premium.html");
+
+    setText("primaryTag", pretty(primarySlug));
+    setText("secondaryTag", pretty(secondarySlug));
+    setText("growthTag", pretty(growthSlug));
+
+    if (!tenant) {
+      setText("title", "Tenant missing");
+      setText("oneLiner", "Add ?tenant=<slug> to view customer archetype guidance.");
+      typePill.textContent = "Archetype: —";
+      throw new Error("tenant missing");
+    }
+
+    const res = await fetch("/garvey_customer_archetypes.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to load customer archetypes");
+    const data = await res.json();
+    const domains = Array.isArray(data.domains) ? data.domains : [];
+    const archetypes = domains.flatMap((d) => Array.isArray(d.archetypes) ? d.archetypes : []);
+
+    const allChips = document.getElementById("allChips");
+    allChips.innerHTML = "";
+    archetypes.forEach((a) => {
+      const chip = document.createElement("a");
+      chip.className = "chip";
+      chip.href = archetypeHref(a.slug);
+      chip.textContent = a.name;
+      if (a.slug === typeSlug) chip.classList.add("is-active");
+      allChips.appendChild(chip);
+    });
+
+    if (!typeSlug) {
+      setText("title", "Choose an archetype");
+      setText("oneLiner", "Use any chip above or provide ?type=value_seeker|loyal_supporter|convenience_buyer|experience_seeker|social_promoter|intentional_buyer|trend_explorer");
+      typePill.textContent = "Archetype: —";
+      throw new Error("type missing");
+    }
+
+    const a = archetypes.find((x) => x.slug === typeSlug);
+    if (!a) {
+      setText("title", "Archetype not found");
+      setText("oneLiner", "Select a valid customer archetype slug from the chips.");
+      typePill.textContent = "Archetype: —";
+      throw new Error("archetype not found");
+    }
+
+    typePill.textContent = `Archetype: ${a.name}`;
+    setText("title", a.name);
+    setText("oneLiner", a.one_liner);
+    fillList(document.getElementById("bestList"), a.at_your_best);
+    fillList(document.getElementById("worstList"), a.at_your_worst);
+    fillList(document.getElementById("strengthList"), a.strengths_top5);
+    fillList(document.getElementById("trapList"), a.traps_top5);
+    fillList(document.getElementById("dailyList"), a.how_to_build?.daily_reps || []);
+    fillList(document.getElementById("weeklyList"), a.how_to_build?.weekly_reps || []);
+    setText("challengeText", a.how_to_build?.challenge_30_days || "");
+    setText("overuseText", a.rebalance?.if_overusing || "");
+    setText("underuseText", a.rebalance?.if_underusing || "");
+    fillComboList(document.getElementById("bestCombosList"), a.power_combos?.best || [], "best");
+    fillComboList(document.getElementById("riskyCombosList"), a.power_combos?.risky || [], "risky");
+    setText("scoreLow", a.score_guidance?.low || "");
+    setText("scoreMid", a.score_guidance?.mid || "");
+    setText("scoreHigh", a.score_guidance?.high || "");
+    setText("mpDecision", a.micro_playbook?.decision_script || "");
+    setText("mpTeam", a.micro_playbook?.team_script || "");
+    setText("mpTime", a.micro_playbook?.time_script || "");
+  </script>
+</body>
+</html>
