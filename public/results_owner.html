@@ -14,12 +14,14 @@
     .fill { background:#eab308; height:10px; }
     a { color: inherit; }
     .link { text-decoration: underline; }
+    .result-id { margin:10px 0 16px; font-size:1.05rem; font-weight:700; color:#facc15; }
   </style>
 </head>
 <body>
   <div class="card">
     <h1>Business Owner Results</h1>
     <p id="meta">Loading…</p>
+    <p id="result-id" class="result-id" style="display:none;"></p>
 
     <div id="roles"></div>
 
@@ -38,6 +40,10 @@
     const tenant = (qs.get("tenant") || "").trim();
     const email = (qs.get("email") || "").trim().toLowerCase();
     const cid = (qs.get("cid") || "").trim();
+    const ridFromUrl = (qs.get("rid") || "").trim();
+    const ownerRidStorageKey = tenant && email ? `garvey_owner_rid:${tenant}:${email}` : "";
+    const ridFromStorage = ownerRidStorageKey ? (localStorage.getItem(ownerRidStorageKey) || "").trim() : "";
+    let rid = ridFromUrl || ridFromStorage;
 
     const escapeHtml = (s) =>
       String(s || "").replace(/[&<>"']/g, (c) => ({
@@ -62,6 +68,7 @@
       params.set("tenant", tenant);
       if (email) params.set("email", email);
       if (cid) params.set("cid", cid);
+      if (rid) params.set("rid", rid);
 
       if (typeSlug) params.set("type", typeSlug);
       if (primarySlug) params.set("primary", primarySlug);
@@ -74,6 +81,7 @@
     function buildDashboardUrl() {
       const params = new URLSearchParams({ tenant, email });
       if (cid) params.set("cid", cid);
+      if (rid) params.set("rid", rid);
       return `/dashboard.html?${params.toString()}`;
     }
 
@@ -81,7 +89,15 @@
       const params = new URLSearchParams({ tenant });
       if (email) params.set("email", email);
       if (cid) params.set("cid", cid);
+      if (rid) params.set("rid", rid);
       return `/garvey_premium.html?${params.toString()}`;
+    }
+
+    function buildResultsPermalink() {
+      const params = new URLSearchParams({ tenant, email });
+      if (cid) params.set("cid", cid);
+      if (rid) params.set("rid", rid);
+      return `/results_owner.html?${params.toString()}`;
     }
 
     function buildSiteUrl() {
@@ -104,6 +120,15 @@
       if (!res.ok) throw new Error(data.error || "Failed to load results");
 
       document.getElementById("meta").textContent = `Tenant: ${tenant} • Email: ${email}`;
+
+      const apiRid = (data.result_id || data.result?.result_id || "").trim();
+      rid = rid || apiRid;
+      if (rid) {
+        const ridEl = document.getElementById("result-id");
+        ridEl.style.display = "";
+        ridEl.textContent = `Result ID: ${rid}`;
+        if (ownerRidStorageKey) localStorage.setItem(ownerRidStorageKey, rid);
+      }
 
       const primaryRole = data.primary_role || "";
       const secondaryRole = data.secondary_role || "";
@@ -152,6 +177,7 @@
         <a class="btn" href="${buildDashboardUrl()}">Open My Dashboard</a>
         <a class="btn" href="${buildGarveyUrl()}">Start GARVEY Pathway</a>
         <a class="btn" href="${buildSiteUrl()}">View My Site</a>
+        <a class="btn" href="${buildResultsPermalink()}">Copy/Bookmark Results Link</a>
       `;
     }
 
