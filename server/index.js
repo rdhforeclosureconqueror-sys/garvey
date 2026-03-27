@@ -431,6 +431,7 @@ app.get("/api/campaigns/list", async (req, res) => {
           COUNT(*) FILTER (WHERE e.event_type = 'review')::int AS reviews,
           COUNT(*) FILTER (WHERE e.event_type = 'referral')::int AS referrals,
           COUNT(*) FILTER (WHERE e.event_type = 'wishlist')::int AS wishlist,
+          COUNT(*) FILTER (WHERE e.event_type = 'customer_share_result')::int AS shares,
           MAX(e.created_at) AS last_activity_at
        FROM campaigns c
        LEFT JOIN campaign_events e ON e.campaign_id = c.id
@@ -1149,6 +1150,7 @@ app.get("/t/:slug/campaigns/summary", tenantMiddleware, async (req, res) => {
           COUNT(*) FILTER (WHERE e.event_type = 'review')::int AS reviews,
           COUNT(*) FILTER (WHERE e.event_type = 'referral')::int AS referrals,
           COUNT(*) FILTER (WHERE e.event_type = 'wishlist')::int AS wishlist,
+          COUNT(*) FILTER (WHERE e.event_type = 'customer_share_result')::int AS shares,
           MAX(e.created_at) AS last_activity_at
        FROM campaigns c
        LEFT JOIN campaign_events e ON e.campaign_id = c.id
@@ -1167,6 +1169,7 @@ app.get("/t/:slug/campaigns/summary", tenantMiddleware, async (req, res) => {
         reviews: row.reviews,
         referrals: row.referrals,
         wishlist: row.wishlist,
+        shares: row.shares,
       },
       last_activity_at: row.last_activity_at,
     }));
@@ -1175,7 +1178,7 @@ app.get("/t/:slug/campaigns/summary", tenantMiddleware, async (req, res) => {
         Object.entries(c.counts).forEach(([k, v]) => { acc[k] = (acc[k] || 0) + Number(v || 0); });
         return acc;
       },
-      { visits: 0, customer_assessments: 0, checkins: 0, reviews: 0, referrals: 0, wishlist: 0 }
+      { visits: 0, customer_assessments: 0, checkins: 0, reviews: 0, referrals: 0, wishlist: 0, shares: 0 }
     );
     return res.json({ success: true, tenant: req.tenant.slug, campaigns, totals });
   } catch (err) {
