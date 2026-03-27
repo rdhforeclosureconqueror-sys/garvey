@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Idea → Funding Pathway</title>
   <link rel="stylesheet" href="/garvey.css">
+  <script src="/garvey_ui.js" defer></script>
 </head>
 <body>
   <div class="wrap">
@@ -32,14 +33,18 @@
 
 <script>
 (function(){
-  const p = new URLSearchParams(location.search);
-  const tenant = (p.get("tenant") || "").trim();
+  const ctx = (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : (function(){ const p = new URLSearchParams(location.search); return { tenant: String(p.get("tenant") || "").trim(), email: String(p.get("email") || "").trim().toLowerCase(), rid: String(p.get("rid") || "").trim(), cid: String(p.get("cid") || "").trim() }; })();
+  const tenant = String(ctx.tenant || "").trim();
+  const withCtx = (window.GARVEY && window.GARVEY.withCtx)
+    ? window.GARVEY.withCtx
+    : (href) => href;
+
   document.getElementById("tenantPill").textContent = "Tenant: " + (tenant || "(missing)");
   document.getElementById("siteBtn").href = tenant ? `/t/${encodeURIComponent(tenant)}/site` : "#";
 
   const pages = { g:"garvey-g.html", a:"garvey-a.html", r:"garvey-r.html", v:"garvey-v.html", e:"garvey-e.html", y:"garvey-y.html" };
   for (const k of Object.keys(pages)) {
-    document.getElementById(k).href = `/${pages[k]}?tenant=${encodeURIComponent(tenant)}`;
+    document.getElementById(k).href = withCtx(`/${pages[k]}`);
   }
 })();
 </script>

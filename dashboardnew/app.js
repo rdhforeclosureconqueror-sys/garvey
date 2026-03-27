@@ -32,6 +32,22 @@
     return safeTrim(params().get("rid"));
   }
 
+  function parseAdminEmailAllowlist() {
+    var raw = safeTrim(window.GARVEY_ADMIN_EMAILS || "");
+    var defaults = ["rdhforeclosureconqueror@gmail.com"];
+    var list = raw
+      ? raw.split(",").map(function (x) { return safeTrim(x).toLowerCase(); }).filter(Boolean)
+      : defaults.slice();
+    if (list.indexOf("rdhforeclosureconqueror@gmail.com") === -1) list.push("rdhforeclosureconqueror@gmail.com");
+    return list;
+  }
+
+  function isAdminEmail(email) {
+    var normalized = safeTrim(email).toLowerCase();
+    if (!normalized) return false;
+    return parseAdminEmailAllowlist().indexOf(normalized) !== -1;
+  }
+
   function ridStorageKey(tenant, email) {
     if (!tenant || !email) return "";
     return "garvey_owner_rid:" + tenant + ":" + email;
@@ -306,12 +322,13 @@
 
     return '' +
       '<div style="margin-bottom:10px;">' +
-        '<div><b>Owner:</b> ' + escapeHtml(email || "-") + '</div>' +
-        '<div><b>Result ID:</b> ' + escapeHtml(rid || "-") + '</div>' +
+        '<h4 style="margin-top:0;">Results Hub</h4>' +
+        '<div><b>Owner email:</b> ' + escapeHtml(email || "-") + '</div>' +
+        '<div><b>Result ID (rid):</b> ' + escapeHtml(rid || "-") + '</div>' +
         '<div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">' +
           '<a class="btn btn-sm btn-primary" href="' + escapeHtml(resultsHref) + '">View Results</a>' +
           '<button class="btn btn-sm btn-default" type="button" data-copy="' + escapeHtml(resultsHref) + '">Copy Results Link</button>' +
-          '<a class="btn btn-sm btn-default" href="' + escapeHtml(vocHref) + '">Customer Assessment</a>' +
+          '<a class="btn btn-sm btn-default" href="' + escapeHtml(vocHref) + '">Customer Assessment Link</a>' +
           '<button class="btn btn-sm btn-default" type="button" data-copy="' + escapeHtml(vocHref) + '">Copy Customer Link</button>' +
         '</div>' +
       '</div>';
@@ -375,24 +392,41 @@
     document.getElementById("rewardsFallbackBtn").href = "/rewards.html?tenant=" + enc;
   }
 
-  function loadOwnerSnapshot(email, tenant, cid, rid) {
-    var el = document.getElementById("ownerSnapshotBody");
-    if (!el) return;
+  function tenantApiUrl(tenant, path, ownerEmail) {
+    var query = {};
+    if (ownerEmail) query.email = ownerEmail;
+    return apiUrl("/t/" + encodeURIComponent(tenant) + path, query);
+  }
 
-    if (!email) {
-      el.innerHTML = '<div class="empty-state">No owner email provided. Open dashboard with ?tenant=...&email=... (optional &rid=...)</div>';
-      return;
+  function loadOwnerSnapshot(email, tenant, cid, rid, isAdmin) {
+    var el = document.getElementById("ownerSnapshotBody");
+    if (!el) return Promise.resolve();
+
+    if (!tenant || !email) {
+      var missing = [];
+      if (!tenant) missing.push("tenant");
+      if (!email) missing.push("email");
+      var msg = "Missing " + missing.join("/") + ". Open with ?tenant=...&email=... (optional &rid=...&cid=...).";
+      el.innerHTML = isAdmin
+        ? '<div class="empty-state">Admin mode active. ' + escapeHtml(msg) + "</div>"
+        : '<div class="text-danger">' + escapeHtml(msg) + "</div>";
+      return Promise.resolve();
     }
 
     el.textContent = "Loading owner snapshot...";
 
-    jsonFetch(apiUrl("/api/results/" + encodeURIComponent(email), { type: "business_owner", tenant: tenant }))
+    var resolvedRid = safeTrim(rid || getRidFromStorage(tenant, email));
+    var resultsUrl = apiUrl("/api/results/" + encodeURIComponent(email), {
+      type: "business_owner",
+      tenant: tenant,
+      email: email
+    });
+
+    return jsonFetch(resultsUrl)
       .then(function (body) {
         var result = normalizeResultPayload(body);
-
-        // Resolve rid from: URL/localStorage -> API result
         var apiRid = safeTrim(result.result_id || body.result_id || "");
-        var resolvedRid = safeTrim(rid || apiRid || getRidFromStorage(tenant, email));
+        resolvedRid = safeTrim(resolvedRid || apiRid);
         if (resolvedRid) setRidInStorage(tenant, email, resolvedRid);
 
         var hub = ownerHubHtml({ tenant: tenant, email: email, cid: cid, rid: resolvedRid });
@@ -404,6 +438,39 @@
       .catch(function (err) {
         el.innerHTML = '<span class="text-danger">' + escapeHtml(err.message) + "</span>";
       });
+  }
+
+  function renderAdminAccessPanel(identity) {
+    var el = document.getElementById("ownerSnapshotBody");
+    if (!el) return;
+
+    var tenant = identity.tenant || "";
+    var email = identity.email || "";
+    var rid = identity.rid || "";
+    var cid = identity.cid || "";
+
+    el.innerHTML = '' +
+      '<div style="border:1px solid #ddd;border-radius:8px;padding:12px;">' +
+        '<h4 style="margin-top:0;">Admin Access</h4>' +
+        '<div class="muted" style="margin-bottom:8px;">Admin: select tenant/email to open any tenant dashboard.</div>' +
+        '<div class="form-group"><label>Tenant slug</label><input id="adminTenantInput" class="form-control" placeholder="tenant-slug" value="' + escapeHtml(tenant) + '"></div>' +
+        '<div class="form-group"><label>Target email</label><input id="adminEmailInput" class="form-control" placeholder="owner@example.com" value="' + escapeHtml(email) + '"></div>' +
+        '<button id="adminOpenTenantBtn" class="btn btn-primary">Open Tenant Dashboard</button>' +
+        '<div id="adminAccessMsg" class="empty-state" style="padding-top:8px;">Missing tenant/email. Enter values and continue.</div>' +
+      '</div>';
+
+    document.getElementById("adminOpenTenantBtn").addEventListener("click", function () {
+      var tenantValue = safeTrim(document.getElementById("adminTenantInput").value);
+      var emailValue = safeTrim(document.getElementById("adminEmailInput").value).toLowerCase();
+      if (!tenantValue || !emailValue) {
+        document.getElementById("adminAccessMsg").textContent = "Tenant and target email are required.";
+        return;
+      }
+      var next = new URLSearchParams({ tenant: tenantValue, email: emailValue });
+      if (rid) next.set("rid", rid);
+      if (cid) next.set("cid", cid);
+      window.location.href = "/dashboard.html?" + next.toString();
+    });
   }
 
   function wireCustomerLookup(tenant) {
@@ -430,27 +497,35 @@
 
   function init() {
     var tenant = tenantFromUrl();
-    if (!tenant) return setupError("Missing tenant query parameter. Open with ?tenant=<slug>.");
-
     var ownerEmail = ownerEmailFromUrl();
+    var isAdmin = isAdminEmail(ownerEmail);
     var cid = cidFromUrl();
     var rid = ridFromUrl() || getRidFromStorage(tenant, ownerEmail);
 
     var label = document.getElementById("tenantLabel");
-    if (label) label.textContent = "Tenant: " + tenant;
+    if (label) {
+      label.textContent = "Tenant: " + (tenant || "-") + " • Email: " + (ownerEmail || "-") + " • Admin: " + (isAdmin ? "true" : "false");
+    }
+
+    if (!tenant || !ownerEmail) {
+      setupError("Missing tenant/email. Open with ?tenant=...&email=... (optional &rid=...&cid=...).");
+      if (isAdmin) renderAdminAccessPanel({ tenant: tenant, email: ownerEmail, rid: rid, cid: cid });
+      else loadOwnerSnapshot(ownerEmail, tenant, cid, rid, false);
+      return;
+    }
 
     wirePathButtons(tenant, ownerEmail, cid, rid);
     wireCustomerLookup(tenant);
     wireCampaignCreator(tenant);
-    loadOwnerSnapshot(ownerEmail, tenant, cid, rid);
+    loadOwnerSnapshot(ownerEmail, tenant, cid, rid, isAdmin);
 
     Promise.all([
-      jsonFetch(apiUrl("/t/" + encodeURIComponent(tenant) + "/dashboard")),
-      jsonFetch(apiUrl("/t/" + encodeURIComponent(tenant) + "/customers")),
-      jsonFetch(apiUrl("/t/" + encodeURIComponent(tenant) + "/analytics")),
-      jsonFetch(apiUrl("/t/" + encodeURIComponent(tenant) + "/segments")),
-      jsonFetch(apiUrl("/t/" + encodeURIComponent(tenant) + "/campaigns/summary")),
-      jsonFetch(apiUrl("/api/campaigns/list", { tenant: tenant }))
+      jsonFetch(tenantApiUrl(tenant, "/dashboard", ownerEmail)),
+      jsonFetch(tenantApiUrl(tenant, "/customers", ownerEmail)),
+      jsonFetch(tenantApiUrl(tenant, "/analytics", ownerEmail)),
+      jsonFetch(tenantApiUrl(tenant, "/segments", ownerEmail)),
+      jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail)),
+      jsonFetch(apiUrl("/api/campaigns/list", { tenant: tenant, email: ownerEmail }))
     ])
       .then(function (responses) {
         renderMetrics(responses[0]);

@@ -60,6 +60,27 @@ try {
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
 
+function parseAdminEmails(raw) {
+  const base = String(raw || "")
+    .split(",")
+    .map((x) => String(x || "").trim().toLowerCase())
+    .filter(Boolean);
+  if (!base.includes("rdhforeclosureconqueror@gmail.com")) {
+    base.push("rdhforeclosureconqueror@gmail.com");
+  }
+  return new Set(base);
+}
+
+const ADMIN_EMAIL_ALLOWLIST = parseAdminEmails(
+  process.env.ADMIN_EMAILS || "rdhforeclosureconqueror@gmail.com"
+);
+
+function isAdminEmail(email) {
+  const normalized = String(email || "").trim().toLowerCase();
+  if (!normalized) return false;
+  return ADMIN_EMAIL_ALLOWLIST.has(normalized);
+}
+
 app.use(express.json({ limit: "1mb" }));
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -68,11 +89,24 @@ app.use((req, res, next) => {
   if (req.method === "OPTIONS") return res.sendStatus(200);
   return next();
 });
+app.use((req, res, next) => {
+  const queryEmail = req.query && req.query.email;
+  const headerEmail = req.headers["x-user-email"];
+  const requestEmail = String(queryEmail || headerEmail || "").trim().toLowerCase();
+  req.userEmail = requestEmail;
+  req.isAdmin = isAdminEmail(requestEmail);
+  return next();
+});
 
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 
 app.get('/dashboard.html', (req, res) => {
+  const tenant = String(req.query.tenant || "").trim();
+  const email = String(req.query.email || "").trim().toLowerCase();
+  if (!req.isAdmin && (!tenant || !email)) {
+    return res.status(400).send("Missing tenant/email. Open with ?tenant=...&email=... (optional &rid=...&cid=...).");
+  }
   return res.sendFile(path.join(__dirname, '..', 'dashboardnew', 'index.html'));
 });
 
@@ -279,6 +313,18 @@ async function tenantMiddleware(req, res, next) {
     console.error(err);
     return res.status(500).json({ error: "tenant middleware failed" });
   }
+}
+
+function requireTenantReadAccess(req, res) {
+  if (req.isAdmin) return null;
+  const email = normalizeEmail(req.query.email || req.headers["x-user-email"] || "");
+  if (!email) {
+    res.status(400).json({
+      error: "email query parameter required for tenant dashboard access",
+    });
+    return false;
+  }
+  return email;
 }
 
 async function readTemplateRegistry() {
@@ -951,6 +997,7 @@ app.post("/api/rewards/wishlist", async (req, res) => {
 
 app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
   try {
+    if (requireTenantReadAccess(req, res) === false) return;
     const tenantId = req.tenant.id;
 
     const [users, visits, actions, points, topActions, pointsDistribution, dailyActivity] = await Promise.all([
@@ -1019,6 +1066,7 @@ app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
 
 app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
   try {
+    if (requireTenantReadAccess(req, res) === false) return;
     const tenantId = req.tenant.id;
     const customers = await pool.query(
       `SELECT
@@ -1090,6 +1138,7 @@ app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
 
 app.get("/t/:slug/segments", tenantMiddleware, async (req, res) => {
   try {
+    if (requireTenantReadAccess(req, res) === false) return;
     const tenantId = req.tenant.id;
     const [total, distribution, recent] = await Promise.all([
       pool.query(
@@ -1141,6 +1190,7 @@ app.get("/t/:slug/segments", tenantMiddleware, async (req, res) => {
 
 app.get("/t/:slug/campaigns/summary", tenantMiddleware, async (req, res) => {
   try {
+    if (requireTenantReadAccess(req, res) === false) return;
     const tenantId = req.tenant.id;
     const campaignsResult = await pool.query(
       `SELECT c.id, c.slug, c.label,
@@ -1189,6 +1239,7 @@ app.get("/t/:slug/campaigns/summary", tenantMiddleware, async (req, res) => {
 
 app.get("/t/:slug/analytics", tenantMiddleware, async (req, res) => {
   try {
+    if (requireTenantReadAccess(req, res) === false) return;
     const tenantId = req.tenant.id;
 
     const [visitsByDay, growth, archetypes, ownerAssessment, customerAssessment] = await Promise.all([
