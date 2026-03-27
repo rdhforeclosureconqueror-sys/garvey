@@ -24,12 +24,14 @@
     <div id="buyerRoles"></div>
     <div id="buyerBars"></div>
     <div id="ctas"></div>
+    <p id="shareStatus"></p>
   </div>
   <script src="/js/api-contract.js"></script>
   <script>
     const qs = new URLSearchParams(window.location.search);
     const tenant = (qs.get("tenant") || "").trim();
     const email = (qs.get("email") || "").trim().toLowerCase();
+    const cid = (qs.get("cid") || "").trim();
     const escapeHtml = (s) => String(s || "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
 
     function renderBars(targetId, percents) {
@@ -63,11 +65,31 @@
       renderBars("buyerBars", data.buyer_archetypes?.percents || {});
 
       document.getElementById("ctas").innerHTML = `
-        <a class="btn" href="/rewards_premium.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}">Claim Rewards</a>
-        <a class="btn" href="/dashboard.html?tenant=${encodeURIComponent(tenant)}">Send to Business Owner</a>`;
+        <a class="btn" href="/rewards_premium.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}&cid=${encodeURIComponent(cid)}">Claim Rewards</a>
+        <button class="btn" id="sendOwnerBtn" type="button">Send to Business Owner</button>`;
+
+      document.getElementById("sendOwnerBtn").addEventListener("click", async () => {
+        try {
+          const resp = await fetch("/api/customer/share-result", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              tenant,
+              customer_email: email,
+              customer_name: "",
+              cid,
+              result_id: data.result_id || data.result?.result_id || null,
+            }),
+          });
+          const body = await resp.json().catch(() => ({}));
+          if (!resp.ok) throw new Error(body.error || "Send failed");
+          document.getElementById("shareStatus").textContent = "Sent! " + (body.dashboard_url || "");
+        } catch (err) {
+          document.getElementById("shareStatus").textContent = "Failed: " + err.message;
+        }
+      });
     }
     load().catch((err) => { document.getElementById("meta").textContent = `Error: ${err.message}`; });
   </script>
 </body>
 </html>
-

@@ -205,6 +205,44 @@ async function runVoc() {
   assert(Array.isArray(voc.json?.next_steps) && voc.json.next_steps.some((s) => String(s.href || "").includes(`tenant=${encodeURIComponent(TENANT)}`)), "voc next_steps missing tenant");
 }
 
+async function runCampaignFlow() {
+  const create = await httpJson("/api/campaigns/create", {
+    method: "POST",
+    body: { tenant: TENANT, label: "Smoke Campaign", slug: "smoke-campaign" },
+  });
+  assert(create.res.ok, `campaign create failed: ${create.res.status} ${create.text}`);
+  assert(create.json?.campaign?.slug, "campaign create missing slug");
+
+  const list = await httpJson(`/api/campaigns/list?tenant=${encodeURIComponent(TENANT)}`);
+  assert(list.res.ok, `campaign list failed: ${list.res.status} ${list.text}`);
+  assert(Array.isArray(list.json?.campaigns), "campaign list missing campaigns");
+
+  const qr = await fetch(url(`/api/campaigns/qr?tenant=${encodeURIComponent(TENANT)}&cid=smoke-campaign&target=voc&format=png`));
+  assert(qr.ok, `campaign qr failed: ${qr.status}`);
+  assert(String(qr.headers.get("content-type") || "").includes("image/png"), "campaign qr missing image/png content type");
+
+  const q = await httpJson(`/api/questions?assessment=customer`);
+  const answers = q.json.questions.map((qq) => ({ qid: qq.qid, answer: "A" }));
+  const voc = await httpJson("/voc-intake", {
+    method: "POST",
+    body: { email: EMAIL, name: "Smoke Customer", tenant: TENANT, cid: "smoke-campaign", answers },
+  });
+  assert(voc.res.ok, `voc with cid failed: ${voc.res.status} ${voc.text}`);
+
+  const checkin = await httpJson(`/api/rewards/checkin`, {
+    method: "POST",
+    body: { tenant: TENANT, email: EMAIL, cid: "smoke-campaign" },
+  });
+  assert(checkin.res.ok, `rewards with cid failed: ${checkin.res.status} ${checkin.text}`);
+
+  const summary = await httpJson(`/t/${encodeURIComponent(TENANT)}/campaigns/summary`);
+  assert(summary.res.ok, `campaign summary failed: ${summary.res.status} ${summary.text}`);
+  const row = (summary.json?.campaigns || []).find((c) => c.slug === "smoke-campaign");
+  assert(row, "campaign summary missing smoke campaign");
+  assert(Number(row?.counts?.customer_assessments || 0) >= 1, "customer_assessments should be at least 1");
+  assert(Number(row?.counts?.checkins || 0) >= 1, "checkins should be at least 1");
+}
+
 async function runRewardFlow() {
   const status = await httpJson(`/api/rewards/status?tenant=${encodeURIComponent(TENANT)}&email=${encodeURIComponent(EMAIL)}`);
   assert(status.res.ok, `rewards status failed: ${status.res.status} ${status.text}`);
@@ -324,6 +362,8 @@ async function main() {
   // 5) reward flow
   console.log("Running reward flow");
   await runRewardFlow();
+  console.log("Running campaign attribution flow");
+  await runCampaignFlow();
 
   // 6) verify pages + button link mapping
   console.log("Verifying tenant site + GARVEY pages");

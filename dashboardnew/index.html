@@ -127,6 +127,52 @@
           </div>
         </div>
       </div>
+
+      <div class="row" id="campaignTracking">
+        <div class="col-lg-6">
+          <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-share-alt fa-fw"></i> Share Links</div>
+            <div class="panel-body">
+              <div class="form-group">
+                <label>Campaign label</label>
+                <input id="campaignLabelInput" class="form-control" placeholder="Spring 2026 Launch" />
+              </div>
+              <div class="form-group">
+                <label>Campaign slug (optional)</label>
+                <input id="campaignSlugInput" class="form-control" placeholder="spring2026" />
+              </div>
+              <button id="createCampaignBtn" class="btn btn-primary">Create Campaign</button>
+              <div id="campaignCreateMsg" class="empty-state" style="padding-top:8px;"></div>
+              <hr />
+              <div id="campaignLinksBody" class="empty-state">Create or select a campaign to view links.</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-qrcode fa-fw"></i> Campaign QR</div>
+            <div class="panel-body">
+              <img id="campaignQrPreview" alt="Campaign QR code" style="max-width:240px; display:none;" />
+              <div id="campaignQrEmpty" class="empty-state">QR appears when campaign links are available.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-line-chart fa-fw"></i> Campaign Performance</div>
+            <div class="panel-body">
+              <table width="100%" class="table table-striped table-bordered" id="campaignsTable">
+                <thead><tr><th>Campaign</th><th>Visits</th><th>Customer Assessments</th><th>Checkins</th><th>Reviews</th><th>Referrals</th><th>Wishlist</th><th>Last Activity</th></tr></thead>
+                <tbody></tbody>
+              </table>
+              <div id="campaignsEmpty" class="empty-state" style="display:none;">No campaign activity yet.</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

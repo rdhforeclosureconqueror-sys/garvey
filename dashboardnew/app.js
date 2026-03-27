@@ -75,6 +75,68 @@
     document.getElementById('customerInsight').textContent = customer.primary ? ('Customer: ' + customer.primary + ' | Personality: ' + (customer.personality || '-') + ' | Weakness: ' + (customer.weakness || '-')) : 'Customer: No submissions yet.';
   }
 
+  function copyText(value) {
+    if (!navigator.clipboard) return Promise.reject(new Error("Clipboard unavailable"));
+    return navigator.clipboard.writeText(value);
+  }
+
+  function renderCampaignLinks(tenant, campaign) {
+    var body = document.getElementById('campaignLinksBody');
+    if (!campaign) {
+      body.textContent = 'Create or select a campaign to view links.';
+      return;
+    }
+    var links = campaign.share_links || {};
+    body.innerHTML = ['voc', 'rewards', 'landing'].map(function (key) {
+      var href = links[key] || '';
+      return '<div style="margin-bottom:8px;"><b>' + key.toUpperCase() + ':</b> <code>' + href + '</code> <button class="btn btn-xs btn-default" data-copy="' + href + '">Copy</button></div>';
+    }).join('');
+    Array.prototype.forEach.call(body.querySelectorAll('button[data-copy]'), function (btn) {
+      btn.addEventListener('click', function () {
+        copyText(btn.getAttribute('data-copy')).then(function () {
+          document.getElementById('campaignCreateMsg').textContent = 'Copied!';
+        });
+      });
+    });
+    var qr = document.getElementById('campaignQrPreview');
+    qr.src = '/api/campaigns/qr?tenant=' + encodeURIComponent(tenant) + '&cid=' + encodeURIComponent(campaign.slug) + '&target=voc&format=png';
+    qr.style.display = 'block';
+    document.getElementById('campaignQrEmpty').style.display = 'none';
+  }
+
+  function renderCampaignSummary(summary) {
+    var rows = Array.isArray(summary?.campaigns) ? summary.campaigns : [];
+    var tbody = document.querySelector('#campaignsTable tbody');
+    tbody.innerHTML = '';
+    rows.forEach(function (row) {
+      var c = row.counts || {};
+      tbody.innerHTML += '<tr><td>' + (row.label || row.slug || '-') + ' <div class="muted">' + (row.slug || '') + '</div></td><td>' + (c.visits || 0) + '</td><td>' + (c.customer_assessments || 0) + '</td><td>' + (c.checkins || 0) + '</td><td>' + (c.reviews || 0) + '</td><td>' + (c.referrals || 0) + '</td><td>' + (c.wishlist || 0) + '</td><td>' + fmtDate(row.last_activity_at) + '</td></tr>';
+    });
+    document.getElementById('campaignsEmpty').style.display = rows.length ? 'none' : 'block';
+  }
+
+  function wireCampaignCreator(tenant) {
+    var btn = document.getElementById('createCampaignBtn');
+    btn.addEventListener('click', function () {
+      var label = (document.getElementById('campaignLabelInput').value || '').trim();
+      var slug = (document.getElementById('campaignSlugInput').value || '').trim();
+      if (!label) {
+        document.getElementById('campaignCreateMsg').textContent = 'Campaign label is required.';
+        return;
+      }
+      jsonFetch('/api/campaigns/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tenant: tenant, label: label, slug: slug || undefined })
+      }).then(function (resp) {
+        document.getElementById('campaignCreateMsg').textContent = 'Campaign created: ' + resp.campaign.slug;
+        renderCampaignLinks(tenant, resp.campaign);
+        return jsonFetch('/t/' + encodeURIComponent(tenant) + '/campaigns/summary');
+      }).then(renderCampaignSummary)
+      .catch(function (err) { document.getElementById('campaignCreateMsg').textContent = err.message; });
+    });
+  }
+
   function renderSegments(segments) {
     var summary = document.getElementById('segmentsSummary');
     var top = document.getElementById('segmentsTop');
@@ -142,13 +204,16 @@
     document.getElementById('tenantLabel').textContent = 'Tenant: ' + tenant;
     wirePathButtons(tenant);
     wireCustomerLookup(tenant);
+    wireCampaignCreator(tenant);
     loadOwnerSnapshot(ownerEmail, tenant);
 
     Promise.all([
       jsonFetch('/t/' + encodeURIComponent(tenant) + '/dashboard'),
       jsonFetch('/t/' + encodeURIComponent(tenant) + '/customers'),
       jsonFetch('/t/' + encodeURIComponent(tenant) + '/analytics'),
-      jsonFetch('/t/' + encodeURIComponent(tenant) + '/segments')
+      jsonFetch('/t/' + encodeURIComponent(tenant) + '/segments'),
+      jsonFetch('/t/' + encodeURIComponent(tenant) + '/campaigns/summary'),
+      jsonFetch('/api/campaigns/list?tenant=' + encodeURIComponent(tenant))
     ])
       .then(function (responses) {
         renderMetrics(responses[0]);
@@ -158,6 +223,8 @@
         renderDonut(responses[2]);
         renderInsights(responses[2]);
         renderSegments(responses[3]);
+        renderCampaignSummary(responses[4]);
+        if (responses[5]?.campaigns?.[0]) renderCampaignLinks(tenant, responses[5].campaigns[0]);
       })
       .catch(function (err) { setupError(err.message); });
   }
