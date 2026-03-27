@@ -1,0 +1,584 @@
+{
+  "version": "1.0.0",
+  "domain": "business_owner",
+  "archetypes": [
+    {
+      "slug": "builder",
+      "name": "Builder",
+      "one_liner": "Turns ideas into reality through momentum, production, and iteration.",
+      "at_your_best": [
+        "Shipping weekly (not stuck polishing).",
+        "Fast decisions with 'good enough' data.",
+        "Always knows the next concrete step.",
+        "Energy increases after action.",
+        "Problems become tasks, not drama."
+      ],
+      "at_your_worst": [
+        "Chaos velocity (moving fast, breaking trust).",
+        "Starting 10 things, finishing none.",
+        "Impulsive scaling (hire/ads/tools too early).",
+        "Burnout cycle from nonstop pushing.",
+        "Rigid 'my way' execution."
+      ],
+      "strengths_top5": [
+        "Execution speed",
+        "Courage under uncertainty",
+        "Resilience",
+        "Rapid learning loops",
+        "Momentum leadership"
+      ],
+      "traps_top5": [
+        "Speed without systems",
+        "Overcommitting",
+        "Skipping customer proof",
+        "Neglecting quality standards",
+        "Hero-mode burnout"
+      ],
+      "how_to_build": {
+        "daily_reps": [
+          "Ship 1 artifact (offer page, script, email, SOP, pitch, demo).",
+          "30-minute 'finish line block' (close loops only).",
+          "Track 1 metric (leads, calls, conversion, retention)."
+        ],
+        "weekly_reps": [
+          "Publish 1 iteration (v1 → v2).",
+          "Make a 'kill list' (remove 1 commitment).",
+          "Debrief: what worked / what didn’t / what’s next."
+        ],
+        "challenge_30_days": "One-hour build sprint daily for 30 days; ship a visible output every session."
+      },
+      "rebalance": {
+        "if_overusing": "Add Operator cadence + Architect standards: define your weekly plan/review and a simple quality checklist.",
+        "if_underusing": "Start 10 days of 60-minute build sprints; no planning beyond the next task."
+      },
+      "power_combos": {
+        "best": [
+          { "with": "operator", "why": "Speed + consistency = execution engine." },
+          { "with": "architect", "why": "Ship fast without sacrificing quality." },
+          { "with": "resource_generator", "why": "Build + demand creation = growth with momentum." }
+        ],
+        "risky": [
+          { "with": "connector", "risk": "Over-social + over-starting = scattered output.", "fix": "Timebox networking; protect build blocks first." }
+        ]
+      },
+      "score_guidance": {
+        "low": "If low, you likely overthink or delay shipping; install short build sprints and visible weekly delivery.",
+        "mid": "If mid, you ship but inconsistency or quality gaps appear; add Operator cadence + Architect checklist.",
+        "high": "If high, you’re a production machine; guard against burnout and chaos by tightening standards and boundaries."
+      },
+      "micro_playbook": {
+        "decision_script": "What is the smallest shippable version by Friday? What must be true for it to work? Ship it, then iterate.",
+        "team_script": "Here’s the outcome, here’s the deadline, here’s the quality bar. Show me progress checkpoints, not perfection.",
+        "time_script": "Protect 1–2 daily build blocks. Everything else must fit around shipping."
+      }
+    },
+    {
+      "slug": "operator",
+      "name": "Operator",
+      "one_liner": "Turns effort into predictable results with cadence, routines, and consistency.",
+      "at_your_best": [
+        "Calendar runs the business (not moods).",
+        "Weekly scoreboard + review.",
+        "Smooth handoffs and follow-through.",
+        "Fewer fires; faster recovery.",
+        "Team clarity improves."
+      ],
+      "at_your_worst": [
+        "Over-control / micromanaging.",
+        "Process worship (systems > outcomes).",
+        "Slow to pivot.",
+        "Doesn’t innovate.",
+        "Stress spikes when chaos appears."
+      ],
+      "strengths_top5": [
+        "Reliability",
+        "Planning + prioritization",
+        "Operational leverage",
+        "Consistent delivery",
+        "Team stability"
+      ],
+      "traps_top5": [
+        "Rigidity",
+        "Bureaucracy",
+        "Stagnation",
+        "Ignoring customer feedback",
+        "Confusing busy for effective"
+      ],
+      "how_to_build": {
+        "daily_reps": [
+          "Write Top-3 priorities before noon.",
+          "15-minute admin sweep (inbox/tasks/follow-ups).",
+          "Close one open loop daily."
+        ],
+        "weekly_reps": [
+          "Monday plan + Friday review (non-negotiable).",
+          "Create/update 1 SOP.",
+          "Remove 1 bottleneck."
+        ],
+        "challenge_30_days": "Run a weekly plan/review for 4 straight weeks and track one scorecard metric daily."
+      },
+      "rebalance": {
+        "if_overusing": "Add Builder shipping: commit to an imperfect weekly release and a 60-minute 'ship' sprint.",
+        "if_underusing": "Install two anchors: weekly planning + weekly review; if it’s not scheduled, it doesn’t exist."
+      },
+      "power_combos": {
+        "best": [
+          { "with": "architect", "why": "Quality machine with clarity and standards." },
+          { "with": "protector", "why": "Stable execution with guardrails." },
+          { "with": "nurturer", "why": "Reliable experience and culture." }
+        ],
+        "risky": [
+          { "with": "educator", "risk": "Teaching instead of doing.", "fix": "Every lesson ends in implementation + measurement." }
+        ]
+      },
+      "score_guidance": {
+        "low": "If low, your weeks feel random; start with planning/review and a simple scorecard.",
+        "mid": "If mid, you have routines but still fight fires; document handoffs and remove bottlenecks.",
+        "high": "If high, you can run a machine; watch rigidity—keep one innovation slot weekly."
+      },
+      "micro_playbook": {
+        "decision_script": "What is the highest-leverage task for this week’s scorecard? Schedule it first.",
+        "team_script": "We measure outcomes weekly. Here’s the SOP, here’s the owner, here’s the deadline.",
+        "time_script": "If it matters, it goes on the calendar. Default to timeboxing."
+      }
+    },
+    {
+      "slug": "resource_generator",
+      "name": "Resource Generator",
+      "one_liner": "Produces opportunity—money, deals, partnerships, attention, and leverage.",
+      "at_your_best": [
+        "Leads and deals flow regularly.",
+        "Comfortable asking, negotiating, closing.",
+        "Spots undervalued opportunities.",
+        "Builds win-win partnerships.",
+        "Takes smart risks."
+      ],
+      "at_your_worst": [
+        "Chasing shiny revenue.",
+        "Overpromising to secure deals.",
+        "Short-term thinking burns relationships.",
+        "Belief that money fixes everything.",
+        "Avoids fulfillment reality."
+      ],
+      "strengths_top5": [
+        "Opportunity creation",
+        "Persuasion + negotiation",
+        "Strategic risk-taking",
+        "Leverage thinking",
+        "Network monetization"
+      ],
+      "traps_top5": [
+        "Shiny object syndrome",
+        "Debt / overextension",
+        "Selling ahead of delivery",
+        "Ethical drift under pressure",
+        "Ignoring retention"
+      ],
+      "how_to_build": {
+        "daily_reps": [
+          "10 outreach touches (DM/email/call).",
+          "Make 1 ask (referral/intro/upsell/partnership).",
+          "Track pipeline movement (lead → call → close)."
+        ],
+        "weekly_reps": [
+          "Pipeline review and next actions.",
+          "Run 1 new channel experiment.",
+          "Run 1 retention play (renewal, upsell, win-back)."
+        ],
+        "challenge_30_days": "14-day pipeline sprint twice: build, follow up, close—then document your winning script."
+      },
+      "rebalance": {
+        "if_overusing": "Add Operator delivery guardrails: define capacity, timelines, and a fulfillment checklist before selling more.",
+        "if_underusing": "Start with a simple pipeline: 20 prospects → 5 conversations → 1 close per week."
+      },
+      "power_combos": {
+        "best": [
+          { "with": "operator", "why": "Sales + delivery = scalable revenue." },
+          { "with": "connector", "why": "Partnerships and referrals accelerate deals." },
+          { "with": "architect", "why": "Premium positioning raises ticket size." }
+        ],
+        "risky": [
+          { "with": "builder", "risk": "Big promises at high speed can damage trust.", "fix": "Require Architect standards + Operator capacity planning." }
+        ]
+      },
+      "score_guidance": {
+        "low": "If low, you avoid asking/selling; start with daily outreach reps and one weekly offer.",
+        "mid": "If mid, you can sell but consistency wobbles; systemize pipeline and follow-up.",
+        "high": "If high, you can create opportunity; guard ethics, retention, and delivery capacity."
+      },
+      "micro_playbook": {
+        "decision_script": "Does this move pipeline today? If not, it’s secondary.",
+        "team_script": "We sell what we can deliver. Capacity first, then offer volume.",
+        "time_script": "First hour each day is pipeline: outreach + follow-up + asks."
+      }
+    },
+    {
+      "slug": "architect",
+      "name": "Architect",
+      "one_liner": "Designs structure—strategy, standards, product quality, and long-term positioning.",
+      "at_your_best": [
+        "Clear positioning and offer architecture.",
+        "Decisions guided by principles.",
+        "Quality and clarity increase over time.",
+        "Reusable frameworks emerge.",
+        "Scalable structure forms naturally."
+      ],
+      "at_your_worst": [
+        "Analysis paralysis.",
+        "Overdesigning too early.",
+        "Avoiding market feedback.",
+        "Perfect plan addiction.",
+        "Detached communication."
+      ],
+      "strengths_top5": [
+        "Strategic clarity",
+        "Structure design",
+        "Quality control",
+        "Long-term thinking",
+        "Decision principles"
+      ],
+      "traps_top5": [
+        "Perfectionism",
+        "Slow action",
+        "Overcomplexity",
+        "Under-communication",
+        "Ignoring sales reality"
+      ],
+      "how_to_build": {
+        "daily_reps": [
+          "20-minute clarity doc (ICP, offer, message).",
+          "Define one standard: what 'good' looks like.",
+          "Simplify one process step."
+        ],
+        "weekly_reps": [
+          "System map: lead → sale → delivery → retention.",
+          "Write a 1-page strategy update.",
+          "Define a quality checklist for the main deliverable."
+        ],
+        "challenge_30_days": "Ship a v1 weekly while refining standards; no week without market feedback."
+      },
+      "rebalance": {
+        "if_overusing": "Add Builder: ship v1 and let feedback create the next draft.",
+        "if_underusing": "Write a single page strategy weekly for 4 weeks; keep it brutally simple."
+      },
+      "power_combos": {
+        "best": [
+          { "with": "builder", "why": "Premium output at speed." },
+          { "with": "educator", "why": "Authority through clear frameworks." },
+          { "with": "protector", "why": "Durable strategy with guardrails." }
+        ],
+        "risky": [
+          { "with": "protector", "risk": "Can become risk-avoidant and stall.", "fix": "One controlled bet per month (small downside, real upside)." }
+        ]
+      },
+      "score_guidance": {
+        "low": "If low, strategy feels fuzzy; start with a one-page offer + ICP statement.",
+        "mid": "If mid, you have clarity but inconsistent standards; add checklists and system maps.",
+        "high": "If high, you create durable structures; avoid perfection by shipping weekly."
+      },
+      "micro_playbook": {
+        "decision_script": "Does this improve the system? Does it clarify positioning? If not, deprioritize.",
+        "team_script": "Here’s the standard. Here’s the checklist. Make quality visible.",
+        "time_script": "Reserve a weekly 'design block' for structure, not urgent noise."
+      }
+    },
+    {
+      "slug": "connector",
+      "name": "Connector",
+      "one_liner": "Creates trust and movement through relationships, community, and social intelligence.",
+      "at_your_best": [
+        "People open doors for you.",
+        "Strong referrals and collaboration.",
+        "Conflict handled cleanly.",
+        "Community feels energized.",
+        "Communication is clear and warm."
+      ],
+      "at_your_worst": [
+        "People-pleasing.",
+        "Avoiding hard conversations.",
+        "Social time replaces build time.",
+        "Drama magnet.",
+        "Weak boundaries."
+      ],
+      "strengths_top5": [
+        "Relationship building",
+        "Trust creation",
+        "Influence",
+        "Collaboration",
+        "Community growth"
+      ],
+      "traps_top5": [
+        "Boundary issues",
+        "Over-networking",
+        "Indirect communication",
+        "Emotional exhaustion",
+        "Approval seeking"
+      ],
+      "how_to_build": {
+        "daily_reps": [
+          "3 meaningful touches (value-first).",
+          "One clear ask or invitation.",
+          "One boundary statement when needed."
+        ],
+        "weekly_reps": [
+          "One partnership proposal.",
+          "One community asset (event/post/guide).",
+          "One relationship cleanup (resolve tension fast)."
+        ],
+        "challenge_30_days": "10 minutes/day relationship ritual + one collaboration outreach weekly for 30 days."
+      },
+      "rebalance": {
+        "if_overusing": "Add Operator: timebox networking; protect deep work blocks first.",
+        "if_underusing": "Start with 3 value touches/day; track replies and referrals weekly."
+      },
+      "power_combos": {
+        "best": [
+          { "with": "resource_generator", "why": "Partnerships that convert into deals." },
+          { "with": "nurturer", "why": "Loyal community and retention flywheel." },
+          { "with": "educator", "why": "Audience + trust growth." }
+        ],
+        "risky": [
+          { "with": "builder", "risk": "Scattered execution due to constant context switching.", "fix": "Build first, connect second; set office hours for networking." }
+        ]
+      },
+      "score_guidance": {
+        "low": "If low, you isolate; start with consistent touches and a weekly partnership habit.",
+        "mid": "If mid, you connect but lack boundaries; enforce time blocks and direct communication.",
+        "high": "If high, relationships drive growth; protect energy and keep asks and outcomes clear."
+      },
+      "micro_playbook": {
+        "decision_script": "Who is the one relationship that unlocks progress this week? Provide value then ask.",
+        "team_script": "We communicate directly, kindly, and quickly. No ambiguity.",
+        "time_script": "Schedule connection time; don’t let it eat build time."
+      }
+    },
+    {
+      "slug": "nurturer",
+      "name": "Nurturer",
+      "one_liner": "Builds loyalty and retention through care, culture, and customer experience.",
+      "at_your_best": [
+        "Customers feel seen and supported.",
+        "Low churn, strong reviews.",
+        "Team morale stabilizes.",
+        "Empathy with standards.",
+        "Conflicts resolve faster."
+      ],
+      "at_your_worst": [
+        "Overgiving creates resentment.",
+        "Weak boundaries.",
+        "Avoids accountability.",
+        "Burnout from emotional labor.",
+        "Being 'nice' instead of clear."
+      ],
+      "strengths_top5": [
+        "Retention + loyalty",
+        "Culture building",
+        "Deep trust",
+        "Customer experience",
+        "Emotional regulation"
+      ],
+      "traps_top5": [
+        "People-pleasing",
+        "Undercharging",
+        "No consequences",
+        "Carrying others’ emotions",
+        "Soft decisions"
+      ],
+      "how_to_build": {
+        "daily_reps": [
+          "One 'delight move' for a customer.",
+          "Check in on one at-risk relationship.",
+          "One boundary reinforcement when needed."
+        ],
+        "weekly_reps": [
+          "Retention review: who is slipping and why?",
+          "Improve one friction point in onboarding/service.",
+          "Boundary audit: where are you overgiving?"
+        ],
+        "challenge_30_days": "Install a structured follow-up cadence and collect feedback weekly for 30 days."
+      },
+      "rebalance": {
+        "if_overusing": "Add Protector: standards + consequences; define what you will/won’t do and stick to it.",
+        "if_underusing": "Add one care system: onboarding + follow-up cadence + a customer success checklist."
+      },
+      "power_combos": {
+        "best": [
+          { "with": "operator", "why": "Reliable experience that keeps customers." },
+          { "with": "connector", "why": "Community retention flywheel." },
+          { "with": "protector", "why": "Safe, strong culture with boundaries." }
+        ],
+        "risky": [
+          { "with": "educator", "risk": "Teaching becomes avoidance of accountability.", "fix": "Tie teaching to outcomes, deadlines, and standards." }
+        ]
+      },
+      "score_guidance": {
+        "low": "If low, customers feel transactional; install follow-ups and a service checklist.",
+        "mid": "If mid, you care but overextend; strengthen boundaries and pricing.",
+        "high": "If high, loyalty is your advantage; protect capacity and avoid resentment."
+      },
+      "micro_playbook": {
+        "decision_script": "Will this increase trust without breaking capacity? If it breaks capacity, redesign it.",
+        "team_script": "We care deeply and we keep standards. Kind and clear.",
+        "time_script": "Serve in structured windows; don’t turn care into 24/7 availability."
+      }
+    },
+    {
+      "slug": "protector",
+      "name": "Protector",
+      "one_liner": "Reduces risk and preserves stability through boundaries, ethics, and guardrails.",
+      "at_your_best": [
+        "Prevents disasters early.",
+        "Clear boundaries and policies.",
+        "Financial discipline.",
+        "Strong ethics.",
+        "Team feels safe."
+      ],
+      "at_your_worst": [
+        "Fear-based decisions.",
+        "Over-caution kills growth.",
+        "Saying 'no' too often.",
+        "Control issues.",
+        "Negative bias."
+      ],
+      "strengths_top5": [
+        "Risk management",
+        "Ethics + safety",
+        "Financial discipline",
+        "Boundary setting",
+        "Resilience planning"
+      ],
+      "traps_top5": [
+        "Risk avoidance",
+        "Controlling behavior",
+        "Slow decisions",
+        "Pessimism bias",
+        "Blocking innovation"
+      ],
+      "how_to_build": {
+        "daily_reps": [
+          "Run a quick decision gate: what could break and how do we prevent it?",
+          "Track cash/inventory/time capacity in one glance.",
+          "Reinforce one boundary when needed."
+        ],
+        "weekly_reps": [
+          "Risk review: top 3 risks + mitigations.",
+          "Cash discipline habit (savings, budgets, forecasts).",
+          "Audit one policy/guardrail for clarity."
+        ],
+        "challenge_30_days": "Add one guardrail per week for 4 weeks (policy, checklist, boundary, contingency)."
+      },
+      "rebalance": {
+        "if_overusing": "Add Builder: run controlled experiments with small downside and measurable upside.",
+        "if_underusing": "Add one guardrail per week; start with payment terms, scope boundaries, and quality checks."
+      },
+      "power_combos": {
+        "best": [
+          { "with": "operator", "why": "Stable machine with predictable execution." },
+          { "with": "architect", "why": "Durable strategy and standards." },
+          { "with": "builder", "why": "Safe execution when speed respects guardrails." }
+        ],
+        "risky": [
+          { "with": "architect", "risk": "Can freeze progress via perfection and fear.", "fix": "Require one bold bet per month." }
+        ]
+      },
+      "score_guidance": {
+        "low": "If low, you take avoidable hits; install boundaries, checklists, and cash discipline.",
+        "mid": "If mid, you manage risk but still react; run weekly risk reviews and contingency plans.",
+        "high": "If high, you’re resilient; avoid blocking growth—use controlled experiments."
+      },
+      "micro_playbook": {
+        "decision_script": "What’s the worst-case? Can we cap the downside? If yes, proceed with a guardrail.",
+        "team_script": "Boundaries protect the mission. Standards are love.",
+        "time_script": "Weekly risk review prevents daily panic."
+      }
+    },
+    {
+      "slug": "educator",
+      "name": "Educator",
+      "one_liner": "Turns knowledge into value through clarity, training, and authority.",
+      "at_your_best": [
+        "Message becomes simple and powerful.",
+        "Training creates customer results.",
+        "Team levels up.",
+        "Content drives trust and inbound.",
+        "You explain complex things cleanly."
+      ],
+      "at_your_worst": [
+        "Teaching instead of selling.",
+        "Over-explaining.",
+        "Avoids execution by learning more.",
+        "Perfectionist content creation.",
+        "Ego attached to being right."
+      ],
+      "strengths_top5": [
+        "Clarity + explanation",
+        "Authority building",
+        "Training systems",
+        "Content leverage",
+        "Customer success enablement"
+      ],
+      "traps_top5": [
+        "Info-dumping",
+        "Delay through learning",
+        "Low urgency",
+        "Avoiding the ask",
+        "Teaching without measurement"
+      ],
+      "how_to_build": {
+        "daily_reps": [
+          "Create one short teachable asset (under 10 minutes).",
+          "Teach-to-task: every lesson ends in an action step.",
+          "Ask: what result should this create?"
+        ],
+        "weekly_reps": [
+          "Improve one training asset or onboarding step.",
+          "Measure one outcome (implementation rate, milestone completion).",
+          "Write one 'FAQ that sells' based on real objections."
+        ],
+        "challenge_30_days": "Publish one teachable asset weekly + attach an implementation checklist and measure results."
+      },
+      "rebalance": {
+        "if_overusing": "Add Resource Generator: offer + ask. Teach briefly, then convert to a clear next step.",
+        "if_underusing": "Add 2 teaching moments/week (team or customer) with one measurable outcome."
+      },
+      "power_combos": {
+        "best": [
+          { "with": "architect", "why": "Premium authority through frameworks." },
+          { "with": "connector", "why": "Audience and trust flywheel." },
+          { "with": "operator", "why": "Scalable training operations." }
+        ],
+        "risky": [
+          { "with": "nurturer", "risk": "Soft delivery without standards.", "fix": "Add Protector boundaries and outcome metrics." }
+        ]
+      },
+      "score_guidance": {
+        "low": "If low, your message is unclear; start with short teach-backs and FAQs.",
+        "mid": "If mid, you teach but it’s not systemized; add checklists and measurement.",
+        "high": "If high, you lead with authority; ensure it drives action, not just information."
+      },
+      "micro_playbook": {
+        "decision_script": "What’s the simplest explanation that leads to action today?",
+        "team_script": "We don’t just teach—we implement and measure.",
+        "time_script": "Timebox teaching; allocate the rest to execution and conversion."
+      }
+    }
+  ],
+  "combo_rules": {
+    "best_pairs": [
+      { "primary": "builder", "secondary": "operator", "result": "Fast + consistent execution engine." },
+      { "primary": "builder", "secondary": "architect", "result": "Speed with quality; premium output." },
+      { "primary": "resource_generator", "secondary": "operator", "result": "Sales + delivery; scalable revenue." },
+      { "primary": "connector", "secondary": "resource_generator", "result": "Partnerships + deals; network converts." },
+      { "primary": "architect", "secondary": "educator", "result": "Authority + frameworks; premium positioning." },
+      { "primary": "nurturer", "secondary": "operator", "result": "Retention machine; stable experience." },
+      { "primary": "protector", "secondary": "operator", "result": "Resilient operations; fewer disasters." }
+    ],
+    "risky_pairs": [
+      { "primary": "builder", "secondary": "resource_generator", "risk": "Overpromise + overspeed.", "fix": "Add Architect standards + Operator capacity planning." },
+      { "primary": "protector", "secondary": "architect", "risk": "Stall from perfection/fear.", "fix": "Run one controlled bet monthly." },
+      { "primary": "connector", "secondary": "nurturer", "risk": "Boundary collapse.", "fix": "Add Protector boundaries and timeboxing." },
+      { "primary": "educator", "secondary": "architect", "risk": "Planning/teaching without shipping.", "fix": "Add Builder weekly ship requirement." }
+    ],
+    "growth_area_note": "Growth Area isn’t identity; it’s a lever. Install 1–2 habits that express it and track progress monthly."
+  }
+}
