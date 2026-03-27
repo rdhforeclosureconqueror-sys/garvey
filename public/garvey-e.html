@@ -1,109 +1,54 @@
-<!-- FILE: public/garvey-e.html -->
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>GARVEY — E (Evaluate)</title>
-  <link rel="stylesheet" href="/garvey.css">
-  <style>
-    .confirmGrid { display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    @media (max-width: 800px) { .confirmGrid { grid-template-columns: 1fr; } }
-  </style>
+  <link rel="stylesheet" href="/garvey_ui.css">
+  <script src="/garvey_ui.js" defer></script>
 </head>
 <body>
-<div class="wrap">
-  <div class="card">
-    <div class="row">
-      <a class="btn" id="back" href="#">Back to Hub</a>
-      <div class="pill" id="tenantPill"></div>
-      <a class="btn" id="siteBtn" href="#">View Site</a>
-    </div>
-    <h1>E — Evaluate (Readiness Gates)</h1>
-    <div class="muted">
-      This is the paperwork + readiness checkpoint phase. You will NOT upload sensitive documents here.
-      Instead, you confirm completion, and the system logs it officially.
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>Confirmations (no uploads, low liability)</h2>
-    <div class="muted">
-      Clicking a button creates/updates an official Kanban card and moves it to Done.
-      The audit log records timestamp + action history.
-    </div>
-    <div class="confirmGrid" style="margin-top:10px;">
-      <button class="btn" id="c_plan">✅ I completed my Business Plan</button>
-      <button class="btn" id="c_ein">✅ I obtained my EIN</button>
-      <button class="btn" id="c_entity">✅ I formed my business entity</button>
-      <button class="btn" id="c_bank">✅ I opened my business bank account</button>
-      <button class="btn" id="c_records">✅ I started recordkeeping (bookkeeping)</button>
-      <button class="btn" id="c_packet">✅ I assembled my funding packet</button>
-    </div>
-  </div>
-
-  <div id="kanban"></div>
-</div>
-
+<header class="topbar"><div class="topbar-inner"><div class="brand">GARVEY • E</div><button class="btn mobile-toggle" data-mobile-toggle type="button">Menu</button><nav class="nav-links"><a class="btn" data-tenant-href="/garvey_premium.html" href="#">Back to Premium</a><a class="btn" data-tenant-href="/garvey.html" href="#">Fallback Hub</a></nav></div></header>
+<main class="wrap">
+  <section class="card reveal"><div class="row"><span class="pill" data-tenant-label></span><a class="btn" data-tenant-href="/garvey_premium.html" href="#">Back</a></div><h1>E — Evaluate</h1><p class="muted">Log readiness gates with self-attestation; no uploads needed.</p></section>
+  <section class="card reveal"><h2>Readiness confirmations</h2><div class="grid grid-2"><button class="btn btn-ok" data-confirm="Business Plan completed">✅ Business plan completed</button><button class="btn btn-ok" data-confirm="EIN obtained">✅ EIN obtained</button><button class="btn btn-ok" data-confirm="Business entity formed">✅ Entity formed</button><button class="btn btn-ok" data-confirm="Business bank account opened">✅ Bank account opened</button><button class="btn btn-ok" data-confirm="Recordkeeping started">✅ Recordkeeping started</button><button class="btn btn-ok" data-confirm="Funding packet assembled">✅ Funding packet assembled</button></div></section>
+  <section class="kanban-wrap reveal"><div id="kanban"></div></section>
+</main>
 <script type="module">
 import { ensureBoard, getBoard, getCards, createCard, moveCard, renderKanban } from "/garvey-kanban.js";
-
-const p = new URLSearchParams(location.search);
-const tenant = (p.get("tenant") || "").trim();
-
-document.getElementById("tenantPill").textContent = "Tenant: " + (tenant || "(missing)");
-document.getElementById("back").href = "/garvey.html?tenant=" + encodeURIComponent(tenant);
-document.getElementById("siteBtn").href = tenant ? `/t/${encodeURIComponent(tenant)}/site` : "#";
-
 const phase = "E";
 const mount = document.getElementById("kanban");
-
+const tenant = window.GARVEY_UI.requireTenant(mount);
 let cached = { columns: [], cards: [] };
-
-function findDoneColumnId(columns) {
-  const cols = columns.filter(c => c.phase === phase);
-  const done = cols.find(c => String(c.name).toLowerCase() === "done");
-  return done ? done.id : (cols[cols.length - 1]?.id);
-}
-
-async function markConfirmation(title, description) {
-  const doneColId = findDoneColumnId(cached.columns);
-  if (!doneColId) return;
-
-  const existing = cached.cards.find(c => String(c.title).trim().toLowerCase() === title.trim().toLowerCase());
-  if (!existing) {
-    await createCard({ tenant, phase, column_id: doneColId, title, description });
-  } else if (existing.column_id !== doneColId) {
-    await moveCard(existing.id, doneColId);
-  }
-  await refresh();
-}
-
-document.getElementById("c_plan").onclick   = () => markConfirmation("Business Plan completed", "Self-attested completion (no documents stored).");
-document.getElementById("c_ein").onclick    = () => markConfirmation("EIN obtained", "Self-attested completion (no documents stored).");
-document.getElementById("c_entity").onclick = () => markConfirmation("Business entity formed", "Self-attested completion (no documents stored).");
-document.getElementById("c_bank").onclick   = () => markConfirmation("Business bank account opened", "Self-attested completion (no documents stored).");
-document.getElementById("c_records").onclick= () => markConfirmation("Recordkeeping started", "Self-attested completion (no documents stored).");
-document.getElementById("c_packet").onclick = () => markConfirmation("Funding packet assembled", "Self-attested completion (no documents stored).");
-
+const doneId = () => {
+  const cols = cached.columns.filter((c) => c.phase === phase);
+  const done = cols.find((c) => String(c.name).toLowerCase() === "done");
+  return done ? done.id : cols[cols.length - 1]?.id;
+};
 async function refresh() {
   await ensureBoard(tenant);
   const b = await getBoard(tenant);
   const c = await getCards(tenant, phase);
   cached = { columns: b.columns || [], cards: c.cards || [] };
-
   renderKanban({
-    mount,
-    tenant,
-    phase,
-    columns: cached.columns,
-    cards: cached.cards,
+    mount, tenant, phase,
+    columns: cached.columns, cards: cached.cards,
     onCreate: async (payload) => { await createCard(payload); await refresh(); },
     onMove: async (id, to) => { await moveCard(id, to); await refresh(); },
   });
 }
-
-refresh();
+async function mark(title) {
+  const col = doneId();
+  if (!col) return;
+  const existing = cached.cards.find((c) => String(c.title).trim().toLowerCase() === title.toLowerCase());
+  if (!existing) await createCard({ tenant, phase, column_id: col, title, description: "Self-attested completion." });
+  else if (existing.column_id !== col) await moveCard(existing.id, col);
+  await refresh();
+}
+if (tenant) {
+  document.querySelectorAll("[data-confirm]").forEach((btn) => btn.addEventListener("click", () => mark(btn.getAttribute("data-confirm") || "")));
+  refresh();
+}
 </script>
 </body>
 </html>

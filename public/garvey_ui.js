@@ -1,43 +1,79 @@
-// FILE: public/garvey_ui.js
 (function () {
-  "use strict";
-
-  // Mobile drawer
-  const burger = document.querySelector("[data-burger]");
-  const drawer = document.querySelector("[data-drawer]");
-  const closeLinks = document.querySelectorAll("[data-close-drawer]");
-
-  function setOpen(open) {
-    if (!drawer || !burger) return;
-    drawer.hidden = !open;
-    burger.setAttribute("aria-expanded", open ? "true" : "false");
-    document.body.style.overflow = open ? "hidden" : "";
+  function tenantFromLocation() {
+    const p = new URLSearchParams(window.location.search);
+    return (p.get("tenant") || "").trim();
   }
 
-  if (burger && drawer) {
-    burger.addEventListener("click", () => setOpen(drawer.hidden));
-    closeLinks.forEach((a) => a.addEventListener("click", () => setOpen(false)));
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
+  function withTenant(url, tenant) {
+    const t = (tenant || "").trim();
+    if (!t) return url;
+    const u = new URL(url, window.location.origin);
+    u.searchParams.set("tenant", t);
+    return u.pathname + u.search;
   }
 
-  // Reveal-on-scroll
-  const els = document.querySelectorAll("[data-reveal]");
-  els.forEach((el) => el.classList.add("reveal"));
+  function bindTenantLinks(tenant) {
+    document.querySelectorAll("[data-tenant-href]").forEach((el) => {
+      const base = el.getAttribute("data-tenant-href") || "#";
+      el.setAttribute("href", withTenant(base, tenant));
+    });
+  }
 
-  if ("IntersectionObserver" in window) {
+  function setTenantLabels(tenant) {
+    document.querySelectorAll("[data-tenant-label]").forEach((el) => {
+      el.textContent = tenant ? `Tenant: ${tenant}` : "Tenant missing";
+    });
+  }
+
+  function initMobileNav() {
+    const bar = document.querySelector(".topbar");
+    const btn = document.querySelector("[data-mobile-toggle]");
+    if (!bar || !btn) return;
+    btn.addEventListener("click", () => {
+      bar.classList.toggle("open");
+    });
+  }
+
+  function initReveal() {
+    const els = Array.from(document.querySelectorAll(".reveal"));
+    if (!els.length) return;
     const io = new IntersectionObserver((entries) => {
-      for (const e of entries) if (e.isIntersecting) e.target.classList.add("is-in");
-    }, { threshold: 0.15 });
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
     els.forEach((el) => io.observe(el));
-  } else {
-    els.forEach((el) => el.classList.add("is-in"));
   }
 
-  // Tenant helper (optional)
-  window.GARVEY = {
-    getTenant() {
-      const p = new URLSearchParams(location.search);
-      return (p.get("tenant") || "").trim();
+  function requireTenant(container) {
+    const tenant = tenantFromLocation();
+    if (tenant) return tenant;
+    if (container) {
+      container.innerHTML = '<div class="notice">Missing required query param <code>?tenant=...</code>. Kanban is disabled on this page.</div>';
+    }
+    return "";
+  }
+
+  window.GARVEY_UI = {
+    tenantFromLocation,
+    withTenant,
+    bindTenantLinks,
+    setTenantLabels,
+    requireTenant,
+    init() {
+      const tenant = tenantFromLocation();
+      bindTenantLinks(tenant);
+      setTenantLabels(tenant);
+      initMobileNav();
+      initReveal();
+      return tenant;
     }
   };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    window.GARVEY_UI.init();
+  });
 })();
