@@ -36,13 +36,26 @@
   // ---- GARVEY Context Helpers (backward compatible) ----
   const existing = window.GARVEY && typeof window.GARVEY === "object" ? window.GARVEY : {};
 
+  function safeTrim(value) {
+    return String(value ?? "").trim();
+  }
+
   function ctx() {
     const p = new URLSearchParams(location.search);
+    const type = safeTrim(p.get("type")).toLowerCase();
+    const rid = safeTrim(p.get("rid"));
+    const crid = safeTrim(p.get("crid"));
+    const customerRid = crid || (type === "customer" ? rid : "");
+
     return {
-      tenant: (p.get("tenant") || "").trim(),
-      email: (p.get("email") || "").trim(),
-      rid: (p.get("rid") || "").trim(),
-      cid: (p.get("cid") || "").trim(),
+      tenant: safeTrim(p.get("tenant")),
+      email: safeTrim(p.get("email")),
+      rid,
+      cid: safeTrim(p.get("cid")),
+      customer_email: safeTrim(p.get("email")),
+      customer_rid: customerRid,
+      crid: customerRid,
+      type,
     };
   }
 
@@ -71,7 +84,22 @@
     if (c.tenant && !u.searchParams.get("tenant")) u.searchParams.set("tenant", c.tenant);
     if (c.email && !u.searchParams.get("email")) u.searchParams.set("email", c.email);
     if (c.rid && !u.searchParams.get("rid")) u.searchParams.set("rid", c.rid);
-    if (c.cid && !u.searchParams.get("cid")) u.searchParams.set("cid", c.cid);
+    if (c.cid) u.searchParams.set("cid", c.cid);
+
+    return u.pathname + (u.search ? u.search : "") + (u.hash ? u.hash : "");
+  }
+
+  function withCustomerCtx(href) {
+    if (!href) return href;
+    const base = new URL(location.href);
+    const u = new URL(withCtx(href), base);
+    if (u.origin !== base.origin) return href;
+
+    const c = ctx();
+    if (c.tenant && !u.searchParams.get("tenant")) u.searchParams.set("tenant", c.tenant);
+    if (c.cid) u.searchParams.set("cid", c.cid);
+    if (c.customer_email && !u.searchParams.get("email")) u.searchParams.set("email", c.customer_email);
+    if (c.customer_rid && !u.searchParams.get("crid")) u.searchParams.set("crid", c.customer_rid);
 
     return u.pathname + (u.search ? u.search : "") + (u.hash ? u.hash : "");
   }
@@ -83,12 +111,18 @@
       const href = a.getAttribute("href") || "";
       a.setAttribute("href", withCtx(href));
     });
+    scope.querySelectorAll("a[data-cctx]").forEach((a) => {
+      const href = a.getAttribute("href") || "";
+      a.setAttribute("href", withCustomerCtx(href));
+    });
   }
 
   window.GARVEY = Object.assign({}, existing, {
     ctx,
     withCtx,
+    withCustomerCtx,
     applyCtxToLinks,
     getTenant, // KEEP legacy API
+    safeTrim,
   });
 })();

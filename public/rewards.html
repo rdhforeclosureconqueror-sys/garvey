@@ -109,6 +109,9 @@ function tenantFromUrl() {
 function cidFromUrl() {
   return (new URLSearchParams(window.location.search).get("cid") || "").trim();
 }
+function cridFromUrl() {
+  return (new URLSearchParams(window.location.search).get("crid") || "").trim();
+}
 
 function readEmail() {
   return (document.getElementById("email").value || "").trim();
@@ -142,9 +145,11 @@ async function postJson(path, body) {
   return data;
 }
 
-async function loadStatus(tenant, email) {
+async function loadStatus(tenant, email, cid, crid) {
   const q = new URLSearchParams({ tenant });
   if (email) q.set("email", email);
+  if (cid) q.set("cid", cid);
+  if (crid) q.set("crid", crid);
 
   const res = await fetch(buildUrl(`/api/rewards/status?${q.toString()}`));
   const data = await res.json().catch(() => ({}));
@@ -157,6 +162,7 @@ async function loadStatus(tenant, email) {
 async function run() {
   const tenant = tenantFromUrl();
   const cid = cidFromUrl();
+  const crid = cridFromUrl();
   if (!tenant) {
     const msg = "tenant query param is required, e.g. /rewards.html?tenant=test-business";
     showResult({ error: msg });
@@ -166,9 +172,14 @@ async function run() {
   }
 
   const enc = encodeURIComponent(tenant);
-  document.getElementById("tenantLine").textContent = `Tenant: ${tenant}`;
-  document.getElementById("backHome").href = `/index.html?tenant=${enc}`;
-  document.getElementById("openDash").href = `/dashboard.html?tenant=${enc}`;
+  document.getElementById("tenantLine").textContent = `Tenant: ${tenant}${cid ? ` • CID: ${cid}` : ""}${crid ? ` • CRID: ${crid}` : ""}`;
+  const back = new URL(`/index.html`, window.location.origin);
+  back.searchParams.set("tenant", tenant);
+  if (cid) back.searchParams.set("cid", cid);
+  document.getElementById("backHome").href = back.pathname + back.search;
+  const dash = new URL(`/dashboard.html`, window.location.origin);
+  dash.searchParams.set("tenant", tenant);
+  document.getElementById("openDash").href = dash.pathname + dash.search;
 
   const requireEmail = () => {
     const email = readEmail();
@@ -177,7 +188,7 @@ async function run() {
   };
 
   document.getElementById("refreshStatusBtn").onclick = () => {
-    loadStatus(tenant, readEmail()).catch((err) => showResult({ error: err.message }));
+    loadStatus(tenant, readEmail(), cid, crid).catch((err) => showResult({ error: err.message }));
   };
 
   document.getElementById("checkinBtn").onclick = async () => {
@@ -186,9 +197,10 @@ async function run() {
         tenant,
         email: requireEmail(),
         cid,
+        result_id: crid || undefined,
       });
       showResult(data);
-      await loadStatus(tenant, readEmail());
+      await loadStatus(tenant, readEmail(), cid, crid);
     } catch (err) {
       showResult({ error: err.message });
     }
@@ -201,9 +213,10 @@ async function run() {
         email: requireEmail(),
         action_type: document.getElementById("actionType").value,
         cid,
+        result_id: crid || undefined,
       });
       showResult(data);
-      await loadStatus(tenant, readEmail());
+      await loadStatus(tenant, readEmail(), cid, crid);
     } catch (err) {
       showResult({ error: err.message });
     }
@@ -218,6 +231,7 @@ async function run() {
       const payload = { tenant, email: requireEmail(), text };
       if (mediaType) payload.media_type = mediaType;
       if (cid) payload.cid = cid;
+      if (crid) payload.result_id = crid;
       const mediaFile = document.getElementById("reviewMediaFile").files[0];
       if (mediaFile) {
         payload.media_type = mediaFile.type.startsWith("video/") ? "video" : "photo";
@@ -226,7 +240,7 @@ async function run() {
 
       const data = await postJson(`/api/rewards/review`, payload);
       showResult(data);
-      await loadStatus(tenant, readEmail());
+      await loadStatus(tenant, readEmail(), cid, crid);
     } catch (err) {
       showResult({ error: err.message });
     }
@@ -242,9 +256,10 @@ async function run() {
         email: requireEmail(),
         referred_email: referred,
         cid,
+        result_id: crid || undefined,
       });
       showResult(data);
-      await loadStatus(tenant, readEmail());
+      await loadStatus(tenant, readEmail(), cid, crid);
     } catch (err) {
       showResult({ error: err.message });
     }
@@ -260,15 +275,16 @@ async function run() {
         email: requireEmail(),
         product_name: product,
         cid,
+        result_id: crid || undefined,
       });
       showResult(data);
-      await loadStatus(tenant, readEmail());
+      await loadStatus(tenant, readEmail(), cid, crid);
     } catch (err) {
       showResult({ error: err.message });
     }
   };
 
-  await loadStatus(tenant, "");
+  await loadStatus(tenant, "", cid, crid);
   document.getElementById("toggleDebugBtn").onclick = () => {
     const el = document.getElementById("result");
     el.style.display = el.style.display === "none" ? "block" : "none";

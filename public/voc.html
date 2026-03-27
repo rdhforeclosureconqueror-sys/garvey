@@ -102,7 +102,13 @@ async function submit() {
     const data = await res.json();
     if (!res.ok) throw new Error(data?.error || "Submit failed");
 
-    window.location.href = `/results_customer.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}&cid=${encodeURIComponent(cid)}`;
+    const crid = String(data?.result_id ?? data?.result?.result_id ?? "").trim();
+    const dest = new URL('/results_customer.html', window.location.origin);
+    dest.searchParams.set('tenant', tenant);
+    dest.searchParams.set('email', email);
+    if (cid) dest.searchParams.set('cid', cid);
+    if (crid) dest.searchParams.set('crid', crid);
+    window.location.href = dest.pathname + dest.search;
   } catch (err) {
     showError(err?.message || "Submit failed");
   }

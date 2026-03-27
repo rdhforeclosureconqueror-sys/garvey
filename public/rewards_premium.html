@@ -29,9 +29,13 @@
       const p = new URLSearchParams(window.location.search);
       const tenant = (p.get("tenant") || "").trim();
       const email = (p.get("email") || "").trim();
+      const cid = (p.get("cid") || "").trim();
+      const crid = (p.get("crid") || "").trim();
       const q = new URLSearchParams();
       if (tenant) q.set("tenant", tenant);
       if (email) q.set("email", email);
+      if (cid) q.set("cid", cid);
+      if (crid) q.set("crid", crid);
       const suffix = q.toString() ? `?${q.toString()}` : "";
       document.getElementById("openRewards").href = `/rewards.html${suffix}`;
       document.getElementById("fallbackRewards").href = `/rewards.html${suffix}`;

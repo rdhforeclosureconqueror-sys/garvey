@@ -1,0 +1,113 @@
+{
+  "domains": [
+    {
+      "key": "customer_types",
+      "label": "Customer Type(s)",
+      "archetypes": [
+        {
+          "slug": "value_seeker",
+          "name": "Value Seeker",
+          "one_liner": "You buy when the value is obvious, practical, and worth the spend.",
+          "at_your_best": ["Compares options calmly before buying", "Finds high return purchases", "Rewards transparent pricing"],
+          "at_your_worst": ["Waits too long and misses fit", "Over-focuses on discounts", "Assumes premium always means overpriced"],
+          "strengths_top5": ["Price clarity", "Deal detection", "Budget discipline", "Expectation setting", "Pragmatic loyalty"],
+          "traps_top5": ["Analysis paralysis", "Short-term only framing", "Ignoring quality signals", "Coupon dependency", "Low switching friction"],
+          "how_to_build": {"daily_reps": ["Set one purchase rule before browsing", "Choose based on total value, not just sticker price"], "weekly_reps": ["Audit one purchase decision", "Track one avoided impulse buy"], "challenge_30_days": "Buy only items with clear utility + longevity criteria."},
+          "rebalance": {"if_overusing": "Add one quality metric to every price decision.", "if_underusing": "Use a simple budget threshold before checkout."},
+          "power_combos": {"best": [{"with": "intentional_buyer", "why": "Value and purpose create stable repeat buying."}], "risky": [{"with": "trend_explorer", "risk": "Chasing novelty breaks your value discipline.", "fix": "Create a test budget for experiments."}]},
+          "score_guidance": {"low": "You may buy on emotion first.", "mid": "You balance value and convenience well.", "high": "Lead with practical proof and transparent offers."},
+          "micro_playbook": {"decision_script": "What is the total value over time?", "team_script": "Ask for bundles, guarantees, and plain pricing.", "time_script": "Use a 24-hour pause for non-urgent buys."}
+        },
+        {
+          "slug": "loyal_supporter",
+          "name": "Loyal Supporter",
+          "one_liner": "You stick with brands that consistently deliver and treat you right.",
+          "at_your_best": ["Builds long-term brand relationships", "Refers trusted businesses", "Responds to consistency"],
+          "at_your_worst": ["Stays too long with declining service", "Avoids trying better options", "Tolerates friction due to history"],
+          "strengths_top5": ["Retention", "Referral energy", "Brand trust", "Community mindset", "Predictable repeat spend"],
+          "traps_top5": ["Comfort bias", "Blind spot to alternatives", "Forgiving repeated misses", "Low experimentation", "Overattachment"],
+          "how_to_build": {"daily_reps": ["Rate recent experiences objectively", "Notice whether service still matches your standards"], "weekly_reps": ["Try one small test purchase elsewhere", "Share clear feedback with favorite brands"], "challenge_30_days": "Track consistency across 3 repeat interactions."},
+          "rebalance": {"if_overusing": "Set non-negotiables and switch when repeatedly broken.", "if_underusing": "Reward brands that reliably deliver."},
+          "power_combos": {"best": [{"with": "social_promoter", "why": "Trust plus advocacy creates high referral potential."}], "risky": [{"with": "convenience_buyer", "risk": "Habit can become autopilot spending.", "fix": "Run a monthly quality check."}]},
+          "score_guidance": {"low": "You are likely still evaluating fit.", "mid": "You can be loyal when quality is proven.", "high": "Retention and VIP rewards will strongly resonate."},
+          "micro_playbook": {"decision_script": "Is this brand still earning my trust?", "team_script": "Request loyalty perks tied to consistency.", "time_script": "Review relationship quality monthly."}
+        },
+        {
+          "slug": "convenience_buyer",
+          "name": "Convenience Buyer",
+          "one_liner": "You choose the smoothest path: faster, simpler, less effort.",
+          "at_your_best": ["Moves quickly with clear options", "Values frictionless experiences", "Responds to instant utility"],
+          "at_your_worst": ["Pays convenience tax too often", "Skips comparison steps", "Overlooks better long-term fit"],
+          "strengths_top5": ["Decision speed", "Execution", "Low cognitive load", "Repeatability", "Workflow efficiency"],
+          "traps_top5": ["Shortcut bias", "Impulse risk", "Service lock-in", "Low negotiation", "Surface-level evaluation"],
+          "how_to_build": {"daily_reps": ["Use one-click criteria for routine purchases", "Pre-save preferred options"], "weekly_reps": ["Audit one convenience fee", "Automate a repeat purchase decision"], "challenge_30_days": "Design a personal 'fast but smart' purchase checklist."},
+          "rebalance": {"if_overusing": "Pause for 60 seconds on high-ticket buys.", "if_underusing": "Reduce unnecessary decision steps with defaults."},
+          "power_combos": {"best": [{"with": "value_seeker", "why": "Fast decisions with price discipline."}], "risky": [{"with": "trend_explorer", "risk": "Quick novelty purchases increase waste.", "fix": "Add a spend cap for experiments."}]},
+          "score_guidance": {"low": "You may overcomplicate routine purchases.", "mid": "You balance speed with occasional review.", "high": "Fast checkout and low-friction rewards matter most."},
+          "micro_playbook": {"decision_script": "What gets this done with least friction?", "team_script": "Prioritize speed and reliability in service delivery.", "time_script": "Reserve deeper research only for major purchases."}
+        },
+        {
+          "slug": "experience_seeker",
+          "name": "Experience Seeker",
+          "one_liner": "You buy for how it feels: memorable, elevated, and meaningful.",
+          "at_your_best": ["Values quality interactions", "Rewards hospitality and care", "Seeks premium moments"],
+          "at_your_worst": ["Can overpay for presentation", "Lets novelty overshadow utility", "Dislikes routine options"],
+          "strengths_top5": ["Taste", "Brand storytelling fit", "Emotional connection", "Service expectations", "Quality sensitivity"],
+          "traps_top5": ["Aesthetic bias", "FOMO spending", "High expectation volatility", "Inconsistent loyalty", "Undervaluing essentials"],
+          "how_to_build": {"daily_reps": ["Name what made an experience excellent", "Separate core value from surface flair"], "weekly_reps": ["Choose one practical and one premium option", "Reflect on satisfaction after 48 hours"], "challenge_30_days": "Map experiences that felt worth repeat spending."},
+          "rebalance": {"if_overusing": "Anchor every premium buy to a concrete outcome.", "if_underusing": "Invest in one high-quality experience intentionally."},
+          "power_combos": {"best": [{"with": "intentional_buyer", "why": "Memorable choices aligned with personal values."}], "risky": [{"with": "trend_explorer", "risk": "Novelty chasing becomes expensive.", "fix": "Use a planned discovery budget."}]},
+          "score_guidance": {"low": "Experience is not your main driver.", "mid": "You value service when stakes are higher.", "high": "Personalized moments and premium care convert best."},
+          "micro_playbook": {"decision_script": "Will this feel worth remembering next week?", "team_script": "Ask for service details before price alone.", "time_script": "Schedule premium choices intentionally, not impulsively."}
+        },
+        {
+          "slug": "social_promoter",
+          "name": "Social Promoter",
+          "one_liner": "You share what you love and influence others through trusted recommendations.",
+          "at_your_best": ["Amplifies great businesses", "Creates social proof", "Builds community momentum"],
+          "at_your_worst": ["May share before full validation", "Feels pressure to stay publicly consistent", "Overextends referrals"],
+          "strengths_top5": ["Advocacy", "Visibility", "Community trust", "Word-of-mouth growth", "Network reach"],
+          "traps_top5": ["Hype over fit", "Reputation risk", "Recency bias", "External validation loops", "Referral fatigue"],
+          "how_to_build": {"daily_reps": ["Share one specific reason, not just praise", "Recommend only what you would repurchase"], "weekly_reps": ["Collect feedback from one referral", "Update your top trusted list"], "challenge_30_days": "Document outcomes from 5 recommendations."},
+          "rebalance": {"if_overusing": "Slow down and validate before broadcasting.", "if_underusing": "Share one thoughtful recommendation each week."},
+          "power_combos": {"best": [{"with": "loyal_supporter", "why": "High-trust advocacy with long-term retention."}], "risky": [{"with": "trend_explorer", "risk": "Chasing buzz can reduce credibility.", "fix": "Prioritize tested recommendations."}]},
+          "score_guidance": {"low": "You may prefer private decision-making.", "mid": "You recommend selectively.", "high": "Referral and share incentives will perform strongly."},
+          "micro_playbook": {"decision_script": "Would I confidently recommend this to a close friend?", "team_script": "Turn experiences into clear, honest testimonials.", "time_script": "Batch social sharing after real usage."}
+        },
+        {
+          "slug": "intentional_buyer",
+          "name": "Intentional Buyer",
+          "one_liner": "You buy with purpose, alignment, and long-term fit in mind.",
+          "at_your_best": ["Makes values-aligned choices", "Avoids reactive spending", "Chooses long-term utility"],
+          "at_your_worst": ["Can delay decisions too long", "Over-weights principles over practicality", "Rejects helpful shortcuts"],
+          "strengths_top5": ["Clarity", "Purpose alignment", "Low regret", "Strategic patience", "Long-term consistency"],
+          "traps_top5": ["Perfectionism", "Decision drag", "Rigidity", "Over-research", "Missed opportunities"],
+          "how_to_build": {"daily_reps": ["Define one purchase intention before browsing", "Check fit against your top values"], "weekly_reps": ["Review one purchase for alignment and outcome", "Remove one low-fit recurring spend"], "challenge_30_days": "Run a no-impulse buying experiment with a values checklist."},
+          "rebalance": {"if_overusing": "Use a decision deadline to avoid stall.", "if_underusing": "Pause and state purpose before each discretionary purchase."},
+          "power_combos": {"best": [{"with": "value_seeker", "why": "Purpose plus ROI yields disciplined growth."}], "risky": [{"with": "experience_seeker", "risk": "Can overjustify premium choices.", "fix": "Tie emotional spend to practical outcomes."}]},
+          "score_guidance": {"low": "You may decide more reactively.", "mid": "You apply intention in major purchases.", "high": "Mission-aligned messaging and transparent impact resonate."},
+          "micro_playbook": {"decision_script": "Does this purchase move me toward my priorities?", "team_script": "Ask for impact, outcomes, and durability evidence.", "time_script": "Use weekly planning for non-essential spending."}
+        },
+        {
+          "slug": "trend_explorer",
+          "name": "Trend Explorer",
+          "one_liner": "You discover early, test new things, and enjoy what is next.",
+          "at_your_best": ["Finds emerging products early", "Brings fresh ideas", "Adapts quickly to new offers"],
+          "at_your_worst": ["Jumps before evaluating", "Chases novelty over fit", "Accumulates low-use purchases"],
+          "strengths_top5": ["Curiosity", "Early adoption", "Market awareness", "Experimentation", "Adaptability"],
+          "traps_top5": ["Shiny object bias", "High churn", "Budget drift", "Low routine optimization", "Inconsistent preferences"],
+          "how_to_build": {"daily_reps": ["Tag each new idea: test or commit", "Limit exploratory purchases to a set budget"], "weekly_reps": ["Review what experiments paid off", "Retire one low-value trend purchase"], "challenge_30_days": "Run a structured test log for all new buys."},
+          "rebalance": {"if_overusing": "Apply a wait period before buying emerging products.", "if_underusing": "Pilot one new option monthly to stay current."},
+          "power_combos": {"best": [{"with": "experience_seeker", "why": "Fresh discoveries with memorable execution."}], "risky": [{"with": "convenience_buyer", "risk": "Fast trend buying increases churn.", "fix": "Pre-commit a discovery budget and criteria."}]},
+          "score_guidance": {"low": "You prefer stable proven options.", "mid": "You test trends selectively.", "high": "New drops, exclusives, and early-access hooks will convert."},
+          "micro_playbook": {"decision_script": "Is this trend a test, tool, or distraction?", "team_script": "Separate exploratory spend from core spend.", "time_script": "Review test outcomes bi-weekly before repeating purchases."}
+        }
+      ]
+    },
+    {
+      "key": "buyer_profile",
+      "label": "Buyer Profile",
+      "archetypes": []
+    }
+  ]
+}
