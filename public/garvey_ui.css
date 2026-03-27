@@ -1,0 +1,172 @@
+/* FILE: public/garvey_ui.css */
+:root{
+  --bg:#070914;
+  --panel:rgba(255,255,255,.06);
+  --panel2:rgba(255,255,255,.09);
+  --text:#f3f6ff;
+  --muted:#a8b3d6;
+  --border:rgba(255,255,255,.12);
+  --shadow:0 18px 50px rgba(0,0,0,.45);
+  --primary:#f7c948;
+  --accent:#ff4d6d;
+  --ok:#22c55e;
+  --radius:16px;
+  --max:1120px;
+  --ease:cubic-bezier(.2,.9,.2,1);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background:var(--bg);
+  color:var(--text);
+}
+
+a{color:inherit}
+.container{max-width:var(--max); margin:0 auto; padding:0 18px}
+.muted{color:var(--muted)}
+.pill{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 12px; border-radius:999px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  font-weight:800; color:var(--muted);
+}
+
+.header{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter: blur(10px);
+  background: color-mix(in oklab, var(--bg) 75%, transparent);
+  border-bottom:1px solid var(--border);
+}
+.header__inner{
+  min-height:64px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.brand{
+  display:flex; align-items:center; gap:10px;
+  text-decoration:none; font-weight:900;
+}
+.brand__mark{
+  width:34px; height:34px;
+  display:grid; place-items:center;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  color:#000;
+}
+.nav{display:flex; gap:14px}
+.nav a{
+  text-decoration:none;
+  color:var(--muted);
+  font-weight:800;
+  padding:10px 10px;
+  border-radius:12px;
+  transition: background .2s var(--ease), color .2s var(--ease);
+}
+.nav a:hover{background:var(--panel2); color:var(--text)}
+
+.icon-btn{
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  border-radius:14px;
+  padding:10px 12px;
+  cursor:pointer;
+}
+.burger{display:none}
+
+.drawer{
+  border-top:1px solid var(--border);
+  background: color-mix(in oklab, var(--bg) 82%, transparent);
+}
+.drawer__inner{
+  padding:12px 18px;
+  display:flex; flex-direction:column; gap:8px;
+}
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:8px;
+  padding:10px 14px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  text-decoration:none;
+  font-weight:900;
+  cursor:pointer;
+  transition: transform .12s var(--ease), background .2s var(--ease);
+}
+.btn:active{transform: translateY(1px)}
+.btn--primary{
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  border-color:transparent;
+  color:#000;
+}
+.btn--ghost{background:transparent}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:16px;
+}
+.grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:12px;
+}
+.grid2{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:12px;
+}
+.row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+
+.hero{
+  position:relative;
+  padding:34px 0 16px;
+  overflow:hidden;
+}
+.hero__grid{
+  display:grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap:16px;
+  align-items:start;
+}
+.hero__bg{
+  position:absolute; inset:-200px -200px auto -200px;
+  height:480px;
+  background:
+    radial-gradient(closest-side, color-mix(in oklab, var(--primary) 45%, transparent), transparent 70%),
+    radial-gradient(closest-side, color-mix(in oklab, var(--accent) 45%, transparent), transparent 70%);
+  filter: blur(40px);
+  opacity:.35;
+  pointer-events:none;
+}
+.h1{font-size:clamp(30px, 4vw, 52px); line-height:1.06; margin:10px 0}
+.h2{font-size:clamp(22px, 3vw, 34px); margin:0}
+.h3{font-size:18px; margin:0 0 8px}
+
+.section{padding:26px 0}
+.footer{
+  padding:22px 0;
+  border-top:1px solid var(--border);
+  margin-top:18px;
+}
+
+.reveal{opacity:0; transform: translateY(14px); transition: opacity .6s var(--ease), transform .6s var(--ease)}
+.reveal.is-in{opacity:1; transform:none}
+
+@media (max-width: 920px){
+  .hero__grid{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+}
+@media (max-width: 680px){
+  .nav{display:none}
+  .burger{display:inline-flex}
+  .grid2{grid-template-columns:1fr}
+}
