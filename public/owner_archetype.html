@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Owner Archetype</title>
+  <link rel="stylesheet" href="/garvey_ui.css">
+  <script src="/garvey_ui.js" defer></script>
+  <style>
+    /* Why: keep archetype page readable without adding new assets */
+    .k{display:grid; gap:12px}
+    .k ul{margin:8px 0 0 18px}
+    .k li{margin:6px 0}
+    .split{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    @media (max-width: 920px){ .split{grid-template-columns:1fr} }
+    .tag{display:inline-flex; gap:8px; align-items:center}
+    .tag b{color:var(--primary)}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a class="brand" href="#" id="homeLink">
+        <span class="brand__mark">G</span>
+        <span>GARVEY</span>
+      </a>
+      <nav class="nav" aria-label="Top navigation">
+        <a href="#" id="resultsLink">Results</a>
+        <a href="/garvey_premium.html" id="pathLink">GARVEY Pathway</a>
+        <a href="#" id="dashboardLink">Dashboard</a>
+      </nav>
+      <button class="icon-btn burger" data-burger aria-expanded="false" aria-label="Open menu">Menu</button>
+    </div>
+    <div class="drawer" data-drawer hidden>
+      <div class="drawer__inner">
+        <a data-close-drawer href="#" id="resultsLink2">Results</a>
+        <a data-close-drawer href="/garvey_premium.html" id="pathLink2">GARVEY Pathway</a>
+        <a data-close-drawer href="#" id="dashboardLink2">Dashboard</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container section">
+    <div class="row">
+      <span class="pill" id="tenantPill">Tenant: —</span>
+      <span class="pill" id="typePill">Archetype: —</span>
+    </div>
+
+    <section class="hero">
+      <div class="hero__bg"></div>
+      <div class="hero__grid">
+        <div class="card" data-reveal>
+          <div class="h1" id="title">Owner Archetype</div>
+          <p class="muted" id="oneLiner">—</p>
+          <div class="row">
+            <a class="btn btn--ghost" href="#" id="backBtn">Back</a>
+            <a class="btn btn--primary" href="#" id="ctaBtn">Open GARVEY Pathway</a>
+          </div>
+        </div>
+
+        <div class="card" data-reveal>
+          <div class="h3">Combo Insight</div>
+          <p class="muted" id="comboText">Add <b>secondary</b> to amplify, and build <b>growth</b> as a lever.</p>
+          <div class="k">
+            <div class="tag"><b>Primary</b> <span id="primaryTag">—</span></div>
+            <div class="tag"><b>Secondary</b> <span id="secondaryTag">—</span></div>
+            <div class="tag"><b>Growth</b> <span id="growthTag">—</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="split">
+      <div class="card" data-reveal>
+        <div class="h3">At your best (alignment)</div>
+        <ul id="bestList"></ul>
+      </div>
+      <div class="card" data-reveal>
+        <div class="h3">At your worst (misalignment)</div>
+        <ul id="worstList"></ul>
+      </div>
+    </section>
+
+    <section class="split section">
+      <div class="card" data-reveal>
+        <div class="h3">Strengths (Top 5)</div>
+        <ul id="strengthList"></ul>
+      </div>
+      <div class="card" data-reveal>
+        <div class="h3">Traps to avoid (Top 5)</div>
+        <ul id="trapList"></ul>
+      </div>
+    </section>
+
+    <section class="split section">
+      <div class="card" data-reveal>
+        <div class="h3">How to build it</div>
+        <div class="k">
+          <div><b>Daily reps</b><ul id="dailyList"></ul></div>
+          <div><b>Weekly reps</b><ul id="weeklyList"></ul></div>
+          <div><b>30-day challenge</b><div class="muted" id="challengeText">—</div></div>
+        </div>
+      </div>
+      <div class="card" data-reveal>
+        <div class="h3">How to rebalance</div>
+        <div class="k">
+          <div><b>If you’re overusing this:</b><div class="muted" id="overuseText">—</div></div>
+          <div><b>If you’re underusing this:</b><div class="muted" id="underuseText">—</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="split section">
+      <div class="card" data-reveal>
+        <div class="h3">Power combos</div>
+        <div class="k">
+          <div><b>Best pairings</b><ul id="bestCombosList"></ul></div>
+          <div><b>Risky pairings</b><ul id="riskyCombosList"></ul></div>
+        </div>
+      </div>
+
+      <div class="card" data-reveal>
+        <div class="h3">Score guidance</div>
+        <div class="k">
+          <div><b>Low</b><div class="muted" id="scoreLow">—</div></div>
+          <div><b>Mid</b><div class="muted" id="scoreMid">—</div></div>
+          <div><b>High</b><div class="muted" id="scoreHigh">—</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="card" data-reveal>
+        <div class="h3">Micro playbook</div>
+        <div class="split">
+          <div><b>Decision</b><div class="muted" id="mpDecision">—</div></div>
+          <div><b>Team</b><div class="muted" id="mpTeam">—</div></div>
+        </div>
+        <div class="section" style="padding:12px 0 0">
+          <b>Time/Priorities</b>
+          <div class="muted" id="mpTime">—</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer muted">
+      <div>Text-only page. No binary assets.</div>
+    </footer>
+  </main>
+
+  <script type="module">
+    const qs = new URLSearchParams(location.search);
+    const tenant = (qs.get("tenant") || "").trim();
+    const email = (qs.get("email") || "").trim();
+    const primary = (qs.get("primary") || qs.get("type") || "").trim().toLowerCase();
+    const secondary = (qs.get("secondary") || "").trim().toLowerCase();
+    const growth = (qs.get("growth") || "").trim().toLowerCase();
+
+    const tenantPill = document.getElementById("tenantPill");
+    const typePill = document.getElementById("typePill");
+    tenantPill.textContent = `Tenant: ${tenant || "—"}`;
+
+    function withTenant(href) {
+      const u = new URL(href, location.origin);
+      if (tenant) u.searchParams.set("tenant", tenant);
+      if (email) u.searchParams.set("email", email);
+      if (qs.get("cid")) u.searchParams.set("cid", qs.get("cid"));
+      return u.pathname + u.search;
+    }
+
+    document.getElementById("homeLink").href = withTenant("/garvey_premium.html");
+    const resultsHref = email ? `/results_owner.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}` : "/results_owner.html";
+    document.getElementById("resultsLink").href = withTenant(resultsHref);
+    document.getElementById("resultsLink2").href = withTenant(resultsHref);
+    document.getElementById("pathLink").href = withTenant("/garvey_premium.html");
+    document.getElementById("pathLink2").href = withTenant("/garvey_premium.html");
+    document.getElementById("dashboardLink").href = withTenant("/dashboard.html");
+    document.getElementById("dashboardLink2").href = withTenant("/dashboard.html");
+    document.getElementById("backBtn").href = email ? withTenant(resultsHref) : withTenant("/garvey_premium.html");
+    document.getElementById("ctaBtn").href = withTenant("/garvey_premium.html");
+
+    function fillList(el, items) {
+      el.innerHTML = "";
+      for (const s of items || []) {
+        const li = document.createElement("li");
+        li.textContent = s;
+        el.appendChild(li);
+      }
+    }
+
+    function fillComboList(el, items, type) {
+      el.innerHTML = "";
+      for (const it of items || []) {
+        const li = document.createElement("li");
+        if (type === "best") li.textContent = `${pretty(it.with)}: ${it.why}`;
+        else li.textContent = `${pretty(it.with)}: ${it.risk} Fix: ${it.fix}`;
+        el.appendChild(li);
+      }
+    }
+
+    function pretty(slug) {
+      if (!slug) return "—";
+      return slug.split("_").map(w => w.slice(0,1).toUpperCase() + w.slice(1)).join(" ");
+    }
+
+    function setText(id, text) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text || "—";
+    }
+
+    setText("primaryTag", pretty(primary));
+    setText("secondaryTag", pretty(secondary || "—"));
+    setText("growthTag", pretty(growth || "—"));
+
+    if (!tenant) {
+      document.getElementById("title").textContent = "Tenant missing";
+      document.getElementById("oneLiner").textContent = "Add ?tenant=<slug> to view archetype guidance.";
+      typePill.textContent = "Archetype: —";
+      throw new Error("tenant missing");
+    }
+
+    const res = await fetch("/garvey_owner_archetypes.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to load archetype content");
+    const data = await res.json();
+
+    const a = (data.archetypes || []).find(x => x.slug === primary);
+    if (!a) {
+      document.getElementById("title").textContent = "Archetype not found";
+      document.getElementById("oneLiner").textContent = "Use ?type=builder|operator|resource_generator|architect|connector|nurturer|protector|educator";
+      typePill.textContent = "Archetype: —";
+      throw new Error("archetype not found");
+    }
+
+    typePill.textContent = `Archetype: ${a.name}`;
+    setText("title", a.name);
+    setText("oneLiner", a.one_liner);
+
+    fillList(document.getElementById("bestList"), a.at_your_best);
+    fillList(document.getElementById("worstList"), a.at_your_worst);
+    fillList(document.getElementById("strengthList"), a.strengths_top5);
+    fillList(document.getElementById("trapList"), a.traps_top5);
+
+    fillList(document.getElementById("dailyList"), a.how_to_build?.daily_reps || []);
+    fillList(document.getElementById("weeklyList"), a.how_to_build?.weekly_reps || []);
+    setText("challengeText", a.how_to_build?.challenge_30_days || "");
+
+    setText("overuseText", a.rebalance?.if_overusing || "");
+    setText("underuseText", a.rebalance?.if_underusing || "");
+
+    fillComboList(document.getElementById("bestCombosList"), a.power_combos?.best || [], "best");
+    fillComboList(document.getElementById("riskyCombosList"), a.power_combos?.risky || [], "risky");
+
+    setText("scoreLow", a.score_guidance?.low || "");
+    setText("scoreMid", a.score_guidance?.mid || "");
+    setText("scoreHigh", a.score_guidance?.high || "");
+
+    setText("mpDecision", a.micro_playbook?.decision_script || "");
+    setText("mpTeam", a.micro_playbook?.team_script || "");
+    setText("mpTime", a.micro_playbook?.time_script || "");
+
+    // Optional: show combo insight if both present and we can match a rule
+    const comboEl = document.getElementById("comboText");
+    const bestPair = (data.combo_rules?.best_pairs || []).find(p => p.primary === primary && p.secondary === secondary);
+    const riskyPair = (data.combo_rules?.risky_pairs || []).find(p => p.primary === primary && p.secondary === secondary);
+    if (bestPair) comboEl.innerHTML = `<b>${pretty(primary)}</b> + <b>${pretty(secondary)}</b>: ${bestPair.result}`;
+    if (riskyPair) comboEl.innerHTML = `<b>${pretty(primary)}</b> + <b>${pretty(secondary)}</b>: ${riskyPair.risk} Fix: ${riskyPair.fix}`;
+  </script>
+</body>
+</html>

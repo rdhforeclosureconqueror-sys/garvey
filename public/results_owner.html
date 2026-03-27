@@ -32,6 +32,18 @@
     const cid = (qs.get("cid") || "").trim();
     const escapeHtml = (s) => String(s || "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
 
+    function archetypeLink(type, primaryRole, secondaryRole, growthRole) {
+      const params = new URLSearchParams();
+      params.set("tenant", tenant);
+      if (email) params.set("email", email);
+      if (cid) params.set("cid", cid);
+      if (type) params.set("type", String(type).toLowerCase());
+      if (primaryRole) params.set("primary", String(primaryRole).toLowerCase());
+      if (secondaryRole) params.set("secondary", String(secondaryRole).toLowerCase());
+      if (growthRole) params.set("growth", String(growthRole).toLowerCase());
+      return `/owner_archetype.html?${params.toString()}`;
+    }
+
     async function load() {
       if (!tenant || !email) {
         document.getElementById("meta").textContent = "Missing tenant/email query params.";
@@ -43,10 +55,17 @@
       if (!res.ok) throw new Error(data.error || "Failed to load results");
 
       document.getElementById("meta").textContent = `Tenant: ${tenant} • Email: ${email}`;
+      const primaryRole = data.primary_role || "";
+      const secondaryRole = data.secondary_role || "";
+      const growthRole = data.weakness_role || "";
+      const primaryHref = archetypeLink(primaryRole, primaryRole, secondaryRole, growthRole);
+      const secondaryHref = archetypeLink(secondaryRole, primaryRole, secondaryRole, growthRole);
+      const growthHref = archetypeLink(growthRole, primaryRole, secondaryRole, growthRole);
+
       document.getElementById("roles").innerHTML = `
-        <p><b>Primary:</b> ${escapeHtml(data.primary_role)}</p>
-        <p><b>Secondary:</b> ${escapeHtml(data.secondary_role)}</p>
-        <p><b>Growth area:</b> ${escapeHtml(data.weakness_role)}</p>`;
+        <p><b>Primary:</b> <a href="${primaryHref}">${escapeHtml(primaryRole)}</a></p>
+        <p><b>Secondary:</b> <a href="${secondaryHref}">${escapeHtml(secondaryRole)}</a></p>
+        <p><b>Growth area:</b> <a href="${growthHref}">${escapeHtml(growthRole)}</a></p>`;
 
       const percents = data.percents || {};
       document.getElementById("bars").innerHTML = Object.entries(percents)
