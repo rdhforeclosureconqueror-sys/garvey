@@ -291,6 +291,7 @@
         </div>
         <div class="au-footer__right">
           <a class="au-footer__link" href="#" id="rewardsFallbackLink">Rewards Fallback</a>
+          <a class="au-footer__link" href="#" id="rewardsLink" hidden aria-hidden="true">Rewards</a>
           <a class="au-footer__link" href="#" id="vocLink">VOC Intake</a>
           <a class="au-footer__link" href="#" id="navDashboardLink2">Dashboard</a>
         </div>
@@ -307,6 +308,7 @@
         ["customerVocBtn2","customerVocBtn"],
         ["navGarveyLink2","navGarveyLink"],
         ["navDashboardLink2","navDashboardLink"],
+        ["rewardsLink","rewardsPremiumLink"],
       ];
       for (const [newId, existingId] of pairs) {
         if (!document.getElementById(newId)) {

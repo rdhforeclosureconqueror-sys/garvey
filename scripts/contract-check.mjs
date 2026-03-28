@@ -45,6 +45,7 @@ const documentedRoutes = [
   "GET /api/results/:email",
   "POST /api/customer/share-result",
   "GET /api/admin/config/:tenant",
+  "GET /api/tenant/lookup",
   "POST /api/admin/config",
   "GET /api/verify/db",
   "GET /api/verify/questions",
