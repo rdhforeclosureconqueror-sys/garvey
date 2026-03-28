@@ -1,181 +1,191 @@
+<!-- FILE: public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Garvey Experience Engine</title>
+  <title>GARVEY — Experience Engine</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background:#000;
-      color:#fff;
-      padding:24px;
-    }
+  <!-- AURORA landing theme -->
+  <link rel="stylesheet" href="/aurora/aurora.css" />
 
-    .card {
-      background:#111;
-      border:2px solid gold;
-      padding:24px;
-      border-radius:16px;
-      max-width:900px;
-      margin:0 auto;
-      box-shadow:0 0 30px rgba(255,215,0,0.15);
-    }
+  <!-- Optional: if your repo already includes garvey_ui.js (ctx/withCtx), keep it -->
+  <script src="/garvey_ui.js" defer></script>
 
-    h1 {
-      color:gold;
-      margin-bottom:6px;
-    }
-
-    p {
-      color:#cbd5e1;
-      margin-bottom:16px;
-    }
-
-    .meta {
-      color:#94a3b8;
-      font-size:12px;
-      margin-bottom:10px;
-    }
-
-    .pill {
-      display:inline-block;
-      padding:6px 12px;
-      border-radius:999px;
-      background:#0b1020;
-      border:1px solid #334155;
-      margin-right:6px;
-    }
-
-    .btnrow {
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin:16px 0;
-    }
-
-    .btn {
-      padding:12px 16px;
-      border-radius:10px;
-      background:gold;
-      color:#000;
-      font-weight:700;
-      text-decoration:none;
-      display:inline-block;
-    }
-
-    .btn:hover {
-      background:#ef4444;
-      color:#fff;
-    }
-
-    .grid {
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-top:16px;
-    }
-
-    .box {
-      background:#0b1020;
-      border:1px solid #334155;
-      border-radius:12px;
-      padding:14px;
-    }
-
-    .label {
-      color:#93c5fd;
-      font-weight:700;
-      margin-bottom:6px;
-    }
-
-    ul {
-      padding-left:18px;
-    }
-
-    a {
-      color:#93c5fd;
-    }
-  </style>
+  <!-- AURORA landing logic -->
+  <script src="/aurora/aurora.js" defer></script>
 </head>
 
 <body>
-  <div class="card">
-    <div class="meta">
-      <span class="pill">Tenant: <span id="tenantDisplay">test-business</span></span>
+  <!-- =========================
+       NAV
+       ========================= -->
+  <header class="au-nav">
+    <div class="au-container au-nav__inner">
+      <a class="au-brand" href="/index.html" id="homeLink" aria-label="GARVEY Home">
+        <span class="au-brand__mark">G</span>
+        <span class="au-brand__text">GARVEY</span>
+      </a>
+
+      <nav class="au-nav__links" aria-label="Primary navigation">
+        <a href="#" id="navStartLink">Start Here</a>
+        <a href="#" id="navRewardsLink">Rewards</a>
+        <a href="#" id="navGarveyLink">GARVEY Pathway</a>
+        <a href="#" id="navDashboardLink">Dashboard</a>
+      </nav>
+
+      <button class="au-nav__burger" type="button" data-au-burger aria-label="Open menu" aria-expanded="false">
+        Menu
+      </button>
     </div>
 
-    <h1>Join Your Community & Earn Rewards</h1>
-
-    <p>
-      Earn points for check-ins, reviews, referrals, and get personalized recommendations.
-    </p>
-
-    <div class="btnrow">
-      <a class="btn" id="pathwayLink">Continue Idea → Funding Pathway</a>
-      <a class="btn" id="pathwayFallbackLink">GARVEY Fallback</a>
-      <a class="btn" id="templatesLink">Website Templates</a>
-      <a class="btn" id="actionsLink">Earn Points (Actions)</a>
-      <a class="btn" id="rewardsLink">Customer Rewards</a>
-      <a class="btn" id="rewardsFallbackLink">Rewards Fallback</a>
-      <a class="btn" id="dashboardLink">Owner Dashboard</a>
-    </div>
-
-    <div class="grid">
-      <div class="box">
-        <div class="label">What you can do</div>
-        <ul>
-          <li>Check in and earn points</li>
-          <li>Leave reviews (photo/video optional)</li>
-          <li>Refer friends to grow the community</li>
-          <li>Join the list for offers + updates</li>
-        </ul>
-      </div>
-
-      <div class="box">
-        <div class="label">Owner controls</div>
-        <ul>
-          <li><a id="adminLink">Admin config</a></li>
-          <li><a id="dashLink">Dashboard</a></li>
-          <li><a id="vocLink">VOC Intake</a></li>
-        </ul>
+    <div class="au-drawer" data-au-drawer hidden>
+      <div class="au-container au-drawer__inner">
+        <a href="#" data-au-close id="drawerStartLink">Start Here</a>
+        <a href="#" data-au-close id="drawerRewardsLink">Rewards</a>
+        <a href="#" data-au-close id="drawerGarveyLink">GARVEY Pathway</a>
+        <a href="#" data-au-close id="drawerDashboardLink">Dashboard</a>
       </div>
     </div>
-  </div>
+  </header>
 
-  <script>
-    const API_BASE = (() => {
-      const host = window.location.hostname || "";
-      if (host.includes("garveyfrontend")) return "https://garveybackend.onrender.com";
-      return "";
-    })();
+  <!-- =========================
+       HERO
+       ========================= -->
+  <main>
+    <section class="au-hero">
+      <div class="au-hero__bg" aria-hidden="true"></div>
 
-    function setMeta() {
-      const params = new URLSearchParams(window.location.search);
-      const tenant = (params.get("tenant") || "test-business").trim();
+      <div class="au-container au-hero__grid">
+        <div class="au-hero__content">
+          <div class="au-meta">
+            <span class="au-pill">Tenant: <span id="tenantDisplay">test-business</span></span>
+            <span class="au-pill au-pill--muted" id="cidDisplayWrap" hidden>CID: <span id="cidDisplay">—</span></span>
+          </div>
 
-      document.getElementById("tenantDisplay").innerText = tenant;
-      syncTenantLinks(tenant);
-    }
+          <!-- CONTENT: HERO_HEADLINE -->
+          <h1 class="au-h1">Join Your Community & Earn Rewards</h1>
+          <!-- /CONTENT: HERO_HEADLINE -->
 
-    function syncTenantLinks(tenant) {
-      const enc = encodeURIComponent(tenant);
+          <!-- CONTENT: HERO_SUBHEAD -->
+          <p class="au-lead">
+            Earn points for check-ins, reviews, referrals, and get personalized recommendations.
+          </p>
+          <!-- /CONTENT: HERO_SUBHEAD -->
 
-      document.getElementById("pathwayLink").href = `/garvey_premium.html?tenant=${enc}`;
-      document.getElementById("pathwayFallbackLink").href = `/garvey.html?tenant=${enc}`;
-      document.getElementById("templatesLink").href = `/templates.html?tenant=${enc}`;
-      document.getElementById("actionsLink").href = `/index.html?tenant=${enc}`;
-      document.getElementById("rewardsLink").href = `/rewards_premium.html?tenant=${enc}`;
-      document.getElementById("rewardsFallbackLink").href = `/rewards.html?tenant=${enc}`;
-      document.getElementById("dashboardLink").href = `/dashboard.html?tenant=${enc}`;
+          <div class="au-cta-row">
+            <a class="au-btn au-btn--primary" href="#" id="startHereBtn">Start Here</a>
+            <a class="au-btn" href="#" id="customerVocBtn">Customer Assessment (VOC)</a>
+            <a class="au-btn au-btn--ghost" href="#" id="ownerIntakeBtn">Owner Assessment</a>
+          </div>
 
-      document.getElementById("adminLink").href = `/admin.html?tenant=${enc}`;
-      document.getElementById("dashLink").href = `/dashboard.html?tenant=${enc}`;
-      document.getElementById("vocLink").href = `/voc.html?tenant=${enc}`;
-    }
+          <p class="au-note">
+            <b>New here?</b> Start with an assessment. <b>Returning?</b> Open Dashboard and sign in.
+          </p>
+        </div>
 
-    setMeta();
-  </script>
+        <div class="au-hero__card">
+          <div class="au-card au-card--glass">
+            <!-- IMAGE: HERO (swap later by replacing the file at the same path) -->
+            <div class="au-hero__image" role="img" aria-label="Spa hero image"></div>
+
+            <div class="au-card__body">
+              <div class="au-card__title">Experience Engine</div>
+              <div class="au-card__text">
+                Take the right assessment, unlock rewards, and follow a clear pathway from idea → funding.
+              </div>
+
+              <div class="au-mini-grid">
+                <a class="au-mini" href="#" id="garveyPremiumLink">
+                  <div class="au-mini__k">Pathway</div>
+                  <div class="au-mini__v">Idea → Funding</div>
+                </a>
+                <a class="au-mini" href="#" id="rewardsPremiumLink">
+                  <div class="au-mini__k">Rewards</div>
+                  <div class="au-mini__v">Earn + redeem</div>
+                </a>
+                <a class="au-mini" href="#" id="templatesLink">
+                  <div class="au-mini__k">Templates</div>
+                  <div class="au-mini__v">Website styles</div>
+                </a>
+                <a class="au-mini" href="#" id="dashboardLink">
+                  <div class="au-mini__k">Owner</div>
+                  <div class="au-mini__v">Dashboard</div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         SECTIONS (template content now, easy swap later)
+         ========================= -->
+    <section class="au-section">
+      <div class="au-container">
+        <div class="au-section__head">
+          <!-- CONTENT: SECTION1_TITLE -->
+          <h2 class="au-h2">What you can do</h2>
+          <!-- /CONTENT: SECTION1_TITLE -->
+          <!-- CONTENT: SECTION1_SUBTITLE -->
+          <p class="au-muted">Simple actions that compound into loyalty and growth.</p>
+          <!-- /CONTENT: SECTION1_SUBTITLE -->
+        </div>
+
+        <div class="au-cards">
+          <div class="au-card">
+            <div class="au-card__title">Check in & earn points</div>
+            <div class="au-card__text">Build consistent engagement and unlock perks.</div>
+          </div>
+          <div class="au-card">
+            <div class="au-card__title">Leave reviews</div>
+            <div class="au-card__text">Share your experience (photo/video optional).</div>
+          </div>
+          <div class="au-card">
+            <div class="au-card__title">Refer friends</div>
+            <div class="au-card__text">Grow the community and earn rewards together.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="au-section au-section--alt">
+      <div class="au-container">
+        <div class="au-section__head">
+          <h2 class="au-h2">Owner controls</h2>
+          <p class="au-muted">Dashboard, campaigns, and customer insights.</p>
+        </div>
+
+        <div class="au-cards">
+          <a class="au-card au-card--link" href="#" id="dashLink">
+            <div class="au-card__title">Dashboard</div>
+            <div class="au-card__text">View results, customers, campaigns, and analytics.</div>
+          </a>
+          <a class="au-card au-card--link" href="#" id="adminLink">
+            <div class="au-card__title">Start Here (Admin)</div>
+            <div class="au-card__text">Admin setup + tenant tools (owner only).</div>
+          </a>
+          <a class="au-card au-card--link" href="#" id="garveyFallbackLink">
+            <div class="au-card__title">GARVEY Fallback</div>
+            <div class="au-card__text">Classic hub view if premium flow isn’t needed.</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="au-footer">
+      <div class="au-container au-footer__inner">
+        <div class="au-footer__left">
+          <div class="au-footer__brand">GARVEY</div>
+          <div class="au-muted">Landing theme: AURORA (swap images/content anytime).</div>
+        </div>
+        <div class="au-footer__right">
+          <a class="au-footer__link" href="#" id="rewardsFallbackLink">Rewards Fallback</a>
+          <a class="au-footer__link" href="#" id="vocLink">VOC Intake</a>
+        </div>
+      </div>
+    </footer>
+  </main>
 </body>
 </html>
