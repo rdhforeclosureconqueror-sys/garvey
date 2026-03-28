@@ -98,25 +98,23 @@
   </div>
 
 <script src="/js/api-contract.js"></script>
+<script src="/engine/customer-return-engine.js"></script>
 <script>
 "use strict";
 
-const GarveyApi = window.GarveyApi || {};
-const buildUrl = GarveyApi.buildUrl || ((p) => p);
+const engine = window.CustomerReturnEngine.createDefaultEngine();
 
-function tenantFromUrl() {
-  const p = new URLSearchParams(window.location.search);
-  return (p.get("tenant") || "").trim();
-}
-function cidFromUrl() {
-  return (new URLSearchParams(window.location.search).get("cid") || "").trim();
-}
-function cridFromUrl() {
-  return (new URLSearchParams(window.location.search).get("crid") || "").trim();
-}
-
-function readEmail() {
-  return (document.getElementById("email").value || "").trim();
+function safeTrim(v) { return String(v ?? "").trim(); }
+function readEmail() { return safeTrim(document.getElementById("email")?.value).toLowerCase(); }
+function currentCtx() {
+  const base = (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : {};
+  const q = new URLSearchParams(location.search);
+  return {
+    tenant: safeTrim(q.get("tenant") || base.tenant),
+    email: safeTrim(q.get("email") || base.email).toLowerCase(),
+    cid: safeTrim(q.get("cid") || base.cid),
+    rid: safeTrim(q.get("crid") || q.get("rid") || base.rid),
+  };
 }
 
 function showResult(payload) {
@@ -135,49 +133,15 @@ function showStatus(payload) {
   document.getElementById("statusPane").textContent = JSON.stringify(payload, null, 2);
 }
 
-async function postJson(path, body) {
-  const res = await fetch(buildUrl(path), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || data.message || `Request failed (${res.status})`);
-  return data;
-}
-
-async function loadStatus(tenant, email, cid, crid) {
-  const q = new URLSearchParams({ tenant });
-  if (email) q.set("email", email);
-  if (cid) q.set("cid", cid);
-  if (crid) q.set("crid", crid);
-
-  const res = await fetch(buildUrl(`/api/rewards/status?${q.toString()}`));
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || data.message || `Status failed (${res.status})`);
-
-  showStatus(data);
-  return data;
+async function refreshStatus() {
+  const status = await engine.getStatus({ email: readEmail() || undefined });
+  showStatus(status);
+  return status;
 }
 
 async function run() {
-  const current = new URLSearchParams(window.location.search);
-  const ctx = (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : null;
-  if (!current.get("ctx_redirected") && ctx && ctx.tenant && (!current.get("tenant") || !current.get("email"))) {
-    current.set("tenant", ctx.tenant);
-    if (ctx.email && !current.get("email")) current.set("email", ctx.email);
-    if (ctx.cid && !current.get("cid")) current.set("cid", ctx.cid);
-    if (ctx.rid && !current.get("crid")) current.set("crid", ctx.rid);
-    current.set("ctx_redirected", "1");
-    window.location.replace("/rewards.html?" + current.toString());
-    return;
-  }
-  const tenant = tenantFromUrl();
-  const cid = cidFromUrl();
-  const crid = cridFromUrl();
-  const ctxEmail = ((ctx && ctx.email) || "").trim().toLowerCase();
-  if (!tenant) {
+  const ctx = currentCtx();
+  if (!ctx.tenant) {
     const msg = "tenant query param is required, e.g. /rewards.html?tenant=test-business";
     showResult({ error: msg });
     showStatus({ error: "tenant missing" });
@@ -185,124 +149,99 @@ async function run() {
     return;
   }
 
-  const enc = encodeURIComponent(tenant);
-  document.getElementById("tenantLine").textContent = `Tenant: ${tenant}${cid ? ` • CID: ${cid}` : ""}${crid ? ` • CRID: ${crid}` : ""}`;
-  const back = new URL(`/index.html`, window.location.origin);
-  back.searchParams.set("tenant", tenant);
-  if (cid) back.searchParams.set("cid", cid);
-  document.getElementById("backHome").href = back.pathname + back.search;
-  const dash = new URL(`/dashboard.html`, window.location.origin);
-  dash.searchParams.set("tenant", tenant);
-  document.getElementById("openDash").href = dash.pathname + dash.search;
-  if (ctxEmail) document.getElementById("email").value = ctxEmail;
+  engine.init(ctx);
   if (window.GARVEY && window.GARVEY.setLoginCtx) {
-    window.GARVEY.setLoginCtx({ tenant, email: ctxEmail || readEmail(), cid, rid: crid });
+    window.GARVEY.setLoginCtx(ctx);
   }
+
+  if (ctx.email) document.getElementById("email").value = ctx.email;
+  document.getElementById("tenantLine").textContent = `Tenant: ${ctx.tenant}${ctx.cid ? ` • CID: ${ctx.cid}` : ""}${ctx.rid ? ` • CRID: ${ctx.rid}` : ""}`;
+
+  const back = new URL(`/index.html`, location.origin);
+  back.searchParams.set("tenant", ctx.tenant);
+  if (ctx.cid) back.searchParams.set("cid", ctx.cid);
+  document.getElementById("backHome").href = back.pathname + back.search;
+
+  const dash = new URL(`/dashboard.html`, location.origin);
+  dash.searchParams.set("tenant", ctx.tenant);
+  if (ctx.email) dash.searchParams.set("email", ctx.email);
+  if (ctx.cid) dash.searchParams.set("cid", ctx.cid);
+  if (ctx.rid) dash.searchParams.set("rid", ctx.rid);
+  document.getElementById("openDash").href = dash.pathname + dash.search;
 
   const requireEmail = () => {
     const email = readEmail();
     if (!email) throw new Error("email is required");
+    engine.init({ email });
     return email;
   };
 
   document.getElementById("refreshStatusBtn").onclick = () => {
-    loadStatus(tenant, readEmail(), cid, crid).catch((err) => showResult({ error: err.message }));
+    refreshStatus().catch((err) => showResult({ error: err.message }));
   };
 
   document.getElementById("checkinBtn").onclick = async () => {
     try {
-      const data = await postJson(`/api/rewards/checkin`, {
-        tenant,
-        email: requireEmail(),
-        cid,
-        result_id: crid || undefined,
-      });
+      requireEmail();
+      const data = await engine.awardReward({ type: "checkin" });
       showResult(data);
-      await loadStatus(tenant, readEmail(), cid, crid);
-    } catch (err) {
-      showResult({ error: err.message });
-    }
+      await refreshStatus();
+    } catch (err) { showResult({ error: err.message }); }
   };
 
   document.getElementById("actionBtn").onclick = async () => {
     try {
-      const data = await postJson(`/api/rewards/action`, {
-        tenant,
-        email: requireEmail(),
-        action_type: document.getElementById("actionType").value,
-        cid,
-        result_id: crid || undefined,
-      });
+      requireEmail();
+      const data = await engine.awardReward({ type: "action", action_type: document.getElementById("actionType").value });
       showResult(data);
-      await loadStatus(tenant, readEmail(), cid, crid);
-    } catch (err) {
-      showResult({ error: err.message });
-    }
+      await refreshStatus();
+    } catch (err) { showResult({ error: err.message }); }
   };
 
   document.getElementById("reviewBtn").onclick = async () => {
     try {
-      const text = (document.getElementById("reviewText").value || "").trim();
-      if (!text) throw new Error("review text is required");
-
-      const mediaType = (document.getElementById("mediaType").value || "").trim();
-      const payload = { tenant, email: requireEmail(), text };
-      if (mediaType) payload.media_type = mediaType;
-      if (cid) payload.cid = cid;
-      if (crid) payload.result_id = crid;
+      requireEmail();
+      const text = safeTrim(document.getElementById("reviewText").value);
+      const mediaType = safeTrim(document.getElementById("mediaType").value);
       const mediaFile = document.getElementById("reviewMediaFile").files[0];
-      if (mediaFile) {
-        payload.media_type = mediaFile.type.startsWith("video/") ? "video" : "photo";
-        payload.media_note = "upload coming soon";
-      }
-
-      const data = await postJson(`/api/rewards/review`, payload);
+      const data = await engine.awardReward({
+        type: "review",
+        text,
+        media_type: mediaFile ? (mediaFile.type.startsWith("video/") ? "video" : "photo") : mediaType || undefined,
+        media_note: mediaFile ? "upload coming soon" : undefined,
+      });
       showResult(data);
-      await loadStatus(tenant, readEmail(), cid, crid);
-    } catch (err) {
-      showResult({ error: err.message });
-    }
+      await refreshStatus();
+    } catch (err) { showResult({ error: err.message }); }
   };
 
   document.getElementById("referralBtn").onclick = async () => {
     try {
-      const referred = (document.getElementById("referredEmail").value || "").trim();
-      if (!referred) throw new Error("referred_email is required");
-
-      const data = await postJson(`/api/rewards/referral`, {
-        tenant,
-        email: requireEmail(),
-        referred_email: referred,
-        cid,
-        result_id: crid || undefined,
+      requireEmail();
+      const data = await engine.awardReward({
+        type: "referral",
+        referred_email: safeTrim(document.getElementById("referredEmail").value).toLowerCase(),
       });
       showResult(data);
-      await loadStatus(tenant, readEmail(), cid, crid);
-    } catch (err) {
-      showResult({ error: err.message });
-    }
+      await refreshStatus();
+    } catch (err) { showResult({ error: err.message }); }
   };
 
   document.getElementById("wishlistBtn").onclick = async () => {
     try {
-      const product = (document.getElementById("productName").value || "").trim();
-      if (!product) throw new Error("product_name is required");
-
-      const data = await postJson(`/api/rewards/wishlist`, {
-        tenant,
-        email: requireEmail(),
-        product_name: product,
-        cid,
-        result_id: crid || undefined,
+      requireEmail();
+      const data = await engine.awardReward({
+        type: "wishlist",
+        product_name: safeTrim(document.getElementById("productName").value),
       });
       showResult(data);
-      await loadStatus(tenant, readEmail(), cid, crid);
-    } catch (err) {
-      showResult({ error: err.message });
-    }
+      await refreshStatus();
+    } catch (err) { showResult({ error: err.message }); }
   };
 
-  await loadStatus(tenant, "", cid, crid);
+  await refreshStatus();
+  engine.getLedger().catch(() => null);
+
   document.getElementById("toggleDebugBtn").onclick = () => {
     const el = document.getElementById("result");
     el.style.display = el.style.display === "none" ? "block" : "none";
@@ -312,5 +251,6 @@ async function run() {
 
 run();
 </script>
+
 </body>
 </html>
