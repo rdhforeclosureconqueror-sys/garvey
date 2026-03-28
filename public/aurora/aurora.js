@@ -85,6 +85,20 @@
     el.textContent = value;
   }
 
+  function setEarnFlowLink(id, engineInstance, fallbackHref) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (engineInstance && typeof engineInstance.buildRewardsUrl === "function") {
+      el.setAttribute("href", engineInstance.buildRewardsUrl());
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        engineInstance.startEarnFlow();
+      });
+      return;
+    }
+    setHref(id, fallbackHref || "/rewards_premium.html");
+  }
+
   function ensureTenantInUrl(defaultTenant) {
     const c = ctx();
     const tenant = c.tenant || defaultTenant;
@@ -98,28 +112,28 @@
     }
   }
 
-  function wireLinks() {
+  function wireLinks(engineInstance) {
     // Top nav
     setHref("homeLink", "/index.html");
-    setHref("navStartLink", "/rewards_premium.html");
-    setHref("navRewardsLink", "/rewards_premium.html");
+    setEarnFlowLink("navStartLink", engineInstance, "/rewards_premium.html");
+    setEarnFlowLink("navRewardsLink", engineInstance, "/rewards_premium.html");
     setHref("navGarveyLink", "/garvey_premium.html");
     setHref("navDashboardLink", "/dashboard.html");
 
     // Drawer nav
-    setHref("drawerStartLink", "/rewards_premium.html");
-    setHref("drawerRewardsLink", "/rewards_premium.html");
+    setEarnFlowLink("drawerStartLink", engineInstance, "/rewards_premium.html");
+    setEarnFlowLink("drawerRewardsLink", engineInstance, "/rewards_premium.html");
     setHref("drawerGarveyLink", "/garvey_premium.html");
     setHref("drawerDashboardLink", "/dashboard.html");
 
     // Hero CTAs
-    setHref("startHereBtn", "/rewards_premium.html");
+    setEarnFlowLink("startHereBtn", engineInstance, "/rewards_premium.html");
     setHref("ownerIntakeBtn", "/intake.html?assessment=business_owner");
     setHref("customerVocBtn", "/voc.html");
 
     // Mini cards / core links
     setHref("garveyPremiumLink", "/garvey_premium.html");
-    setHref("rewardsPremiumLink", "/rewards_premium.html");
+    setEarnFlowLink("rewardsPremiumLink", engineInstance, "/rewards_premium.html");
     setHref("templatesLink", "/templates.html");
     setHref("dashboardLink", "/dashboard.html");
 
@@ -129,11 +143,11 @@
     setHref("garveyFallbackLink", "/garvey.html");
 
     // Footer
-    setHref("rewardsFallbackLink", "/rewards.html");
+    setEarnFlowLink("rewardsFallbackLink", engineInstance, "/rewards.html");
     setHref("vocLink", "/voc.html");
 
     // Optional extra IDs used by the richer homepage
-    setHref("navRewardsLink2", "/rewards_premium.html");
+    setEarnFlowLink("navRewardsLink2", engineInstance, "/rewards_premium.html");
     setHref("customerVocBtn2", "/voc.html");
     setHref("navGarveyLink2", "/garvey_premium.html");
     setHref("navDashboardLink2", "/dashboard.html");
@@ -173,7 +187,11 @@
   window.addEventListener("DOMContentLoaded", () => {
     initMeta();
     ensureTenantInUrl("test-business");
-    wireLinks();
+    const engine = (window.CustomerReturnEngine && window.CustomerReturnEngine.createDefaultEngine)
+      ? window.CustomerReturnEngine.createDefaultEngine()
+      : null;
+    if (engine) engine.init(ctx());
+    wireLinks(engine);
     initDrawer();
   });
 })();

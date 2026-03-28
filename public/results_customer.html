@@ -62,6 +62,7 @@
   </div>
 
   <script src="/js/api-contract.js"></script>
+  <script src="/engine/customer-return-engine.js"></script>
   <script>
     const safeTrim = (value) => String(value ?? "").trim();
     const baseCtx = (window.GARVEY && window.GARVEY.ctx)
@@ -83,6 +84,9 @@
     const cid = safeTrim(qs.get("cid"));
     const ownerEmailFromUrl = safeTrim(qs.get("owner_email")).toLowerCase();
     const ownerRidFromUrl = safeTrim(qs.get("owner_rid"));
+    const returnEngine = (window.CustomerReturnEngine && window.CustomerReturnEngine.createDefaultEngine)
+      ? window.CustomerReturnEngine.createDefaultEngine()
+      : null;
 
     const escapeHtml = (s) => String(s || "").replace(/[&<>"']/g, (c) => ({
       "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
@@ -280,6 +284,9 @@
       if (window.GARVEY && window.GARVEY.setLoginCtx) {
         window.GARVEY.setLoginCtx({ tenant, email, cid, rid: crid });
       }
+      if (returnEngine) {
+        returnEngine.init({ tenant, email, cid, rid: crid, owner_email: ownerEmailFromUrl, owner_rid: ownerRidFromUrl });
+      }
 
       document.getElementById("meta").textContent =
         `Tenant: ${tenant} • Email: ${email}${cid ? ` • CID: ${cid}` : ""}`;
@@ -318,11 +325,16 @@
       renderBars("buyerBars", data.buyer_archetypes?.percents || {}, "buyer_purchasing_profile", buyingCombo, "buying");
 
       // CTAs
-      const rewards = new URL("/rewards_premium.html", window.location.origin);
-      rewards.searchParams.set("tenant", tenant);
-      rewards.searchParams.set("email", email);
-      if (cid) rewards.searchParams.set("cid", cid);
-      if (crid) rewards.searchParams.set("crid", crid);
+      const rewardsHref = returnEngine
+        ? returnEngine.buildRewardsUrl({ tenant, email, cid, rid: crid, owner_email: ownerEmailFromUrl, owner_rid: ownerRidFromUrl })
+        : (function () {
+            const rewards = new URL("/rewards.html", window.location.origin);
+            rewards.searchParams.set("tenant", tenant);
+            rewards.searchParams.set("email", email);
+            if (cid) rewards.searchParams.set("cid", cid);
+            if (crid) rewards.searchParams.set("crid", crid);
+            return rewards.pathname + rewards.search;
+          })();
 
       const bookmark = new URL(window.location.href);
       bookmark.searchParams.set("tenant", tenant);
@@ -331,12 +343,19 @@
       if (crid) bookmark.searchParams.set("crid", crid);
 
       document.getElementById("ctas").innerHTML = `
-        <a class="btn" href="${escapeHtml(rewards.pathname + rewards.search)}">Claim Rewards</a>
+        <a class="btn" href="${escapeHtml(rewardsHref)}" id="claimRewardsBtn">Claim Rewards</a>
         <button class="btn" id="sendOwnerBtn" type="button">Send to Business Owner</button>
         <a class="btn alt" id="bookmarkBtn" href="${escapeHtml(bookmark.pathname + bookmark.search)}">Bookmark Results Link</a>
       `;
       if (window.GARVEY && window.GARVEY.applyCtxToLinks) {
         window.GARVEY.applyCtxToLinks(document.getElementById("ctas"));
+      }
+      const claimRewardsBtn = document.getElementById("claimRewardsBtn");
+      if (claimRewardsBtn && returnEngine) {
+        claimRewardsBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          returnEngine.startEarnFlow({ tenant, email, cid, rid: crid, owner_email: ownerEmailFromUrl, owner_rid: ownerRidFromUrl });
+        });
       }
 
       // Send-to-owner flow
