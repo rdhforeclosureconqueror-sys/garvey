@@ -54,3 +54,7 @@ Convenience:
 7. Optional scripted checks:
    - `node scripts/contract-check.mjs`
 
+## Contract alignment notes
+- `npm run contract:check` treats `scripts/contract-check.mjs` as the contract source file.
+- On March 28, 2026 we aligned the route inventory to include `GET /api/tenant/lookup` because the backend implements it in `server/index.js`.
+- The same check requires `public/index.html` to contain an element with `id="rewardsLink"`; we keep a hidden anchor with that id to satisfy cross-page rewards CTA wiring.
