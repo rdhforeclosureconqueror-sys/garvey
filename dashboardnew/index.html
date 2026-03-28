@@ -36,6 +36,7 @@
       </div>
       <ul class="nav navbar-top-links navbar-right">
         <li><a href="#"><i class="fa fa-building fa-fw"></i> <span id="tenantLabel">Tenant: -</span></a></li>
+        <li><a href="#" id="clearSessionBtn"><i class="fa fa-sign-out fa-fw"></i> Clear session</a></li>
       </ul>
       <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
@@ -185,16 +186,6 @@
   <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
   <script src="/js/api-contract.js"></script>
-  <script>
-    (function () {
-      var host = (window.location.hostname || "").toLowerCase();
-      var appSrc = host.includes("garveyfrontend")
-        ? "https://garveybackend.onrender.com/dashboardnew/app.js"
-        : "/dashboardnew/app.js";
-      var script = document.createElement("script");
-      script.src = appSrc;
-      document.body.appendChild(script);
-    })();
-  </script>
+  <script src="/dashboardnew/app.js"></script>
 </body>
 </html>
