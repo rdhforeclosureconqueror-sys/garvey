@@ -38,6 +38,7 @@ const {
   deriveRoles,
   buildGuidance,
 } = require("./resultEngine");
+const { buildDashboardUrl } = require("./dashboardUrl");
 
 // ✅ Kanban
 const { initializeKanbanSchema } = require("./kanbanDb");
@@ -1809,7 +1810,14 @@ app.post("/api/customer/share-result", async (req, res) => {
     });
     return res.json({
       success: true,
-      dashboard_url: `/dashboard.html?tenant=${encodeURIComponent(ctx.tenant.slug)}${campaign?.slug ? `&cid=${encodeURIComponent(campaign.slug)}` : ""}`,
+      dashboard_url: buildDashboardUrl({
+        tenant: ctx.tenant.slug,
+        email: customerEmail,
+        cid: campaign?.slug || normalizeSlug(cid) || "",
+        crid: normalizedResultId,
+        owner_email: normalizedOwnerEmail,
+        owner_rid: normalizedOwnerRid,
+      }),
       cid: campaign?.slug || normalizeSlug(cid) || null,
       crid: normalizedResultId || null,
       owner_email: normalizedOwnerEmail || null,
