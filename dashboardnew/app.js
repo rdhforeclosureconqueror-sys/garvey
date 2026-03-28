@@ -452,23 +452,29 @@
   }
 
   function wirePathButtons(tenant, email, cid, rid) {
+    function setHrefIfPresent(id, href) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.href = href;
+    }
+
     var p1 = new URLSearchParams({ tenant: tenant });
     if (email) p1.set("email", email);
     if (cid) p1.set("cid", cid);
     if (rid) p1.set("rid", rid);
-    document.getElementById("garveyPathBtn").href = "/garvey_premium.html?" + p1.toString();
+    setHrefIfPresent("garveyPathBtn", "/garvey_premium.html?" + p1.toString());
 
     var p2 = new URLSearchParams({ tenant: tenant });
     if (email) p2.set("email", email);
     if (cid) p2.set("cid", cid);
     if (rid) p2.set("rid", rid);
-    document.getElementById("rewardsPathBtn").href = "/rewards_premium.html?" + p2.toString();
+    setHrefIfPresent("rewardsPathBtn", "/rewards_premium.html?" + p2.toString());
 
     var p3 = new URLSearchParams({ tenant: tenant });
     if (email) p3.set("email", email);
     if (cid) p3.set("cid", cid);
     if (rid) p3.set("crid", rid);
-    document.getElementById("rewardsFallbackBtn").href = "/rewards.html?" + p3.toString();
+    setHrefIfPresent("rewardsFallbackBtn", "/rewards.html?" + p3.toString());
   }
 
   function readSignInFormCtx() {

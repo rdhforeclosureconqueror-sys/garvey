@@ -232,7 +232,39 @@
       }).join("");
     }
 
+    function buildDashboardHref(ctxInput) {
+      const base = "/dashboard.html";
+      const withCtx = (window.GARVEY && typeof window.GARVEY.withCtx === "function")
+        ? window.GARVEY.withCtx
+        : null;
+      const ctx = ctxInput || {};
+
+      // Canonical path: GARVEY.withCtx handles persisted ctx + URL merges.
+      if (withCtx) {
+        const u = new URL(withCtx(base), window.location.origin);
+        if (ctx.crid) u.searchParams.set("crid", ctx.crid);
+        if (ctx.owner_email) u.searchParams.set("owner_email", ctx.owner_email);
+        if (ctx.owner_rid) u.searchParams.set("owner_rid", ctx.owner_rid);
+        return u.pathname + u.search;
+      }
+
+      // Fallback when GARVEY helper is unavailable.
+      const u = new URL(base, window.location.origin);
+      if (ctx.tenant) u.searchParams.set("tenant", ctx.tenant);
+      if (ctx.email) u.searchParams.set("email", ctx.email);
+      if (ctx.cid) u.searchParams.set("cid", ctx.cid);
+      if (ctx.crid) u.searchParams.set("crid", ctx.crid);
+      if (ctx.owner_email) u.searchParams.set("owner_email", ctx.owner_email);
+      if (ctx.owner_rid) u.searchParams.set("owner_rid", ctx.owner_rid);
+      return u.pathname + u.search;
+    }
+
     async function sendToOwner({ crid, ownerEmail, ownerRid }) {
+      if (!email || !cid) {
+        document.getElementById("shareStatus").textContent =
+          "Missing email/cid; open from a results link.";
+        return;
+      }
       const payload = {
         tenant,
         customer_email: email,
@@ -250,7 +282,16 @@
       });
       const body = await resp.json().catch(() => ({}));
       if (!resp.ok) throw new Error(body.error || "Send failed");
-      document.getElementById("shareStatus").textContent = "Sent! " + (body.dashboard_url || "");
+      const dashboardHref = buildDashboardHref({
+        tenant,
+        email,
+        cid: body.cid || cid,
+        crid: body.crid || safeTrim(crid || ""),
+        owner_email: body.owner_email || safeTrim(ownerEmail || ""),
+        owner_rid: body.owner_rid || safeTrim(ownerRid || ""),
+      });
+      document.getElementById("shareStatus").innerHTML =
+        `Sent! <a href="${escapeHtml(dashboardHref)}">${escapeHtml(dashboardHref)}</a>`;
     }
 
     async function lookupOwnerCandidates(query) {
