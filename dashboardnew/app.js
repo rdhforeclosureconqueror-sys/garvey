@@ -1,7 +1,9 @@
 /* FILE: dashboardnew/app.js */
 (function () {
   var api = window.GarveyApi || {};
+  var DASH_CTX_KEY = "garvey_ctx_v1";
   var LOGIN_CTX_KEY = "garvey_login_ctx_v1";
+  var ENGINE_CTX_KEY = "garvey_customer_return_engine_v1";
 
   function apiUrl(path, query) {
     if (typeof api.buildUrl === "function") return api.buildUrl(path, query || {});
@@ -62,6 +64,42 @@
       localStorage.setItem(LOGIN_CTX_KEY, JSON.stringify(payload));
     } catch (_) {}
     return payload;
+  }
+
+  function showSessionToast(msg) {
+    var existing = document.getElementById("sessionToast");
+    if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+    var toast = document.createElement("div");
+    toast.id = "sessionToast";
+    toast.textContent = msg;
+    toast.style.position = "fixed";
+    toast.style.right = "16px";
+    toast.style.bottom = "16px";
+    toast.style.background = "#333";
+    toast.style.color = "#fff";
+    toast.style.padding = "10px 14px";
+    toast.style.borderRadius = "6px";
+    toast.style.zIndex = "9999";
+    toast.style.boxShadow = "0 2px 10px rgba(0,0,0,0.2)";
+    document.body.appendChild(toast);
+    setTimeout(function () {
+      if (toast && toast.parentNode) toast.parentNode.removeChild(toast);
+    }, 1200);
+  }
+
+  function clearSessionAndRedirect() {
+    try {
+      localStorage.removeItem(DASH_CTX_KEY);
+      localStorage.removeItem(LOGIN_CTX_KEY);
+      localStorage.removeItem(ENGINE_CTX_KEY);
+      Object.keys(localStorage).forEach(function (key) {
+        if (key.indexOf("garvey_owner_rid:") === 0) localStorage.removeItem(key);
+      });
+    } catch (_) {}
+    showSessionToast("Session cleared");
+    setTimeout(function () {
+      window.location.href = "/index.html";
+    }, 250);
   }
 
   function parseAdminEmailAllowlist() {
@@ -235,6 +273,7 @@
 
   function renderCampaignLinks(tenant, campaign) {
     var body = document.getElementById("campaignLinksBody");
+    if (!body) return;
     if (!campaign) {
       body.textContent = "Create or select a campaign to view links.";
       return;
@@ -255,14 +294,17 @@
     });
 
     var qr = document.getElementById("campaignQrPreview");
+    if (!qr) return;
     qr.src = apiUrl("/api/campaigns/qr", { tenant: tenant, cid: campaign.slug, target: "voc", format: "png" });
     qr.style.display = "block";
-    document.getElementById("campaignQrEmpty").style.display = "none";
+    var qrEmpty = document.getElementById("campaignQrEmpty");
+    if (qrEmpty) qrEmpty.style.display = "none";
   }
 
   function renderCampaignSummary(summary) {
     var rows = Array.isArray(summary && summary.campaigns) ? summary.campaigns : [];
     var tbody = document.querySelector("#campaignsTable tbody");
+    if (!tbody) return;
     tbody.innerHTML = "";
     rows.forEach(function (row) {
       var c = row.counts || {};
@@ -278,17 +320,22 @@
         "<td>" + (c.shares || 0) + "</td>" +
         "<td>" + fmtDate(row.last_activity_at) + "</td></tr>";
     });
-    document.getElementById("campaignsEmpty").style.display = rows.length ? "none" : "block";
+    var empty = document.getElementById("campaignsEmpty");
+    if (empty) empty.style.display = rows.length ? "none" : "block";
   }
 
   function wireCampaignCreator(tenant) {
     var btn = document.getElementById("createCampaignBtn");
+    if (!btn) return;
     btn.addEventListener("click", function () {
-      var label = safeTrim(document.getElementById("campaignLabelInput").value);
-      var slug = safeTrim(document.getElementById("campaignSlugInput").value);
+      var labelInput = document.getElementById("campaignLabelInput");
+      var slugInput = document.getElementById("campaignSlugInput");
+      var msgEl = document.getElementById("campaignCreateMsg");
+      var label = safeTrim(labelInput && labelInput.value);
+      var slug = safeTrim(slugInput && slugInput.value);
 
       if (!label) {
-        document.getElementById("campaignCreateMsg").textContent = "Campaign label is required.";
+        if (msgEl) msgEl.textContent = "Campaign label is required.";
         return;
       }
 
@@ -298,13 +345,13 @@
         body: JSON.stringify({ tenant: tenant, label: label, slug: slug || undefined })
       })
         .then(function (resp) {
-          document.getElementById("campaignCreateMsg").textContent = "Campaign created: " + resp.campaign.slug;
+          if (msgEl) msgEl.textContent = "Campaign created: " + resp.campaign.slug;
           renderCampaignLinks(tenant, resp.campaign);
           return jsonFetch(apiUrl("/t/" + encodeURIComponent(tenant) + "/campaigns/summary"));
         })
         .then(renderCampaignSummary)
         .catch(function (err) {
-          document.getElementById("campaignCreateMsg").textContent = err.message;
+          if (msgEl) msgEl.textContent = err.message;
         });
     });
   }
@@ -312,6 +359,7 @@
   function renderSegments(segments) {
     var summary = document.getElementById("segmentsSummary");
     var top = document.getElementById("segmentsTop");
+    if (!summary || !top) return;
     var total = Number((segments && segments.total_customer_assessments) || 0);
     var distribution = Array.isArray(segments && segments.distribution) ? segments.distribution : [];
     if (!total) {
@@ -478,11 +526,15 @@
   }
 
   function readSignInFormCtx() {
+    var tenantInput = document.getElementById("signInTenantInput");
+    var emailInput = document.getElementById("signInEmailInput");
+    var cidInput = document.getElementById("signInCidInput");
+    var ridInput = document.getElementById("signInRidInput");
     return {
-      tenant: safeTrim(document.getElementById("signInTenantInput").value),
-      email: safeTrim(document.getElementById("signInEmailInput").value).toLowerCase(),
-      cid: safeTrim(document.getElementById("signInCidInput").value),
-      rid: safeTrim(document.getElementById("signInRidInput").value)
+      tenant: safeTrim(tenantInput && tenantInput.value),
+      email: safeTrim(emailInput && emailInput.value).toLowerCase(),
+      cid: safeTrim(cidInput && cidInput.value),
+      rid: safeTrim(ridInput && ridInput.value)
     };
   }
 
@@ -521,19 +573,23 @@
         customerParams.set("tenant", c.tenant);
       }
       if (c.cid) customerParams.set("cid", c.cid);
-      document.getElementById("takeOwnerAssessmentBtn").href = "/intake.html" + (ownerParams.toString() ? ("?" + ownerParams.toString()) : "");
-      document.getElementById("takeCustomerAssessmentBtn").href = "/voc.html" + (customerParams.toString() ? ("?" + customerParams.toString()) : "");
+      var ownerBtn = document.getElementById("takeOwnerAssessmentBtn");
+      var customerBtn = document.getElementById("takeCustomerAssessmentBtn");
+      if (ownerBtn) ownerBtn.href = "/intake.html" + (ownerParams.toString() ? ("?" + ownerParams.toString()) : "");
+      if (customerBtn) customerBtn.href = "/voc.html" + (customerParams.toString() ? ("?" + customerParams.toString()) : "");
     }
 
     ["signInTenantInput", "signInCidInput"].forEach(function (id) {
       var input = document.getElementById(id);
-      input.addEventListener("input", refreshAssessmentLinks);
+      if (input) input.addEventListener("input", refreshAssessmentLinks);
     });
 
-    document.getElementById("signInSubmitBtn").addEventListener("click", function () {
+    var submitBtn = document.getElementById("signInSubmitBtn");
+    if (submitBtn) submitBtn.addEventListener("click", function () {
       var c = readSignInFormCtx();
       if (!c.tenant || !c.email) {
-        document.getElementById("signInMsg").textContent = "Tenant and email are required.";
+        var signInMsg = document.getElementById("signInMsg");
+        if (signInMsg) signInMsg.textContent = "Tenant and email are required.";
         return;
       }
       saveLoginCtx(c);
@@ -640,11 +696,16 @@
         '<div id="adminAccessMsg" class="empty-state" style="padding-top:8px;">Missing tenant/email. Enter values and continue.</div>' +
       '</div>';
 
-    document.getElementById("adminOpenTenantBtn").addEventListener("click", function () {
-      var tenantValue = safeTrim(document.getElementById("adminTenantInput").value);
-      var emailValue = safeTrim(document.getElementById("adminEmailInput").value).toLowerCase();
+    var openBtn = document.getElementById("adminOpenTenantBtn");
+    if (!openBtn) return;
+    openBtn.addEventListener("click", function () {
+      var tenantInput = document.getElementById("adminTenantInput");
+      var emailInput = document.getElementById("adminEmailInput");
+      var msg = document.getElementById("adminAccessMsg");
+      var tenantValue = safeTrim(tenantInput && tenantInput.value);
+      var emailValue = safeTrim(emailInput && emailInput.value).toLowerCase();
       if (!tenantValue || !emailValue) {
-        document.getElementById("adminAccessMsg").textContent = "Tenant and target email are required.";
+        if (msg) msg.textContent = "Tenant and target email are required.";
         return;
       }
       var next = new URLSearchParams({ tenant: tenantValue, email: emailValue });
@@ -657,8 +718,10 @@
   function wireCustomerLookup(tenant) {
     var input = document.getElementById("customerLookupEmail");
     var body = document.getElementById("customerLookupBody");
+    var btn = document.getElementById("customerLookupBtn");
+    if (!input || !body || !btn) return;
 
-    document.getElementById("customerLookupBtn").addEventListener("click", function () {
+    btn.addEventListener("click", function () {
       var email = safeTrim(input.value).toLowerCase();
       if (!email) {
         body.innerHTML = '<span class="text-danger">Enter a customer email.</span>';
@@ -678,10 +741,16 @@
 
   function init() {
     var fromLoginCtx = loginCtxFromStorage();
-    var tenant = tenantFromUrl() || fromLoginCtx.tenant;
-    var ownerEmail = ownerEmailFromUrl() || fromLoginCtx.email;
-    var cid = cidFromUrl() || fromLoginCtx.cid;
-    var rid = ridFromUrl() || fromLoginCtx.rid || getRidFromStorage(tenant, ownerEmail);
+    var urlTenant = tenantFromUrl();
+    var urlEmail = ownerEmailFromUrl();
+    var urlCid = cidFromUrl();
+    var urlRid = ridFromUrl();
+    var hasIdentityInUrl = !!(urlTenant || urlEmail);
+
+    var tenant = hasIdentityInUrl ? urlTenant : (urlTenant || fromLoginCtx.tenant);
+    var ownerEmail = hasIdentityInUrl ? urlEmail : (urlEmail || fromLoginCtx.email);
+    var cid = hasIdentityInUrl ? urlCid : (urlCid || fromLoginCtx.cid);
+    var rid = hasIdentityInUrl ? urlRid : (urlRid || fromLoginCtx.rid || getRidFromStorage(tenant, ownerEmail));
     var isAdmin = isAdminEmail(ownerEmail);
 
     if (tenant || ownerEmail || cid || rid) saveLoginCtx({ tenant: tenant, email: ownerEmail, cid: cid, rid: rid });
@@ -689,6 +758,13 @@
     var label = document.getElementById("tenantLabel");
     if (label) {
       label.textContent = "Tenant: " + (tenant || "-") + " • Email: " + (ownerEmail || "-") + " • Admin: " + (isAdmin ? "true" : "false");
+    }
+    var clearSessionBtn = document.getElementById("clearSessionBtn");
+    if (clearSessionBtn) {
+      clearSessionBtn.addEventListener("click", function (event) {
+        if (event) event.preventDefault();
+        clearSessionAndRedirect();
+      });
     }
 
     if (!tenant || !ownerEmail) {
