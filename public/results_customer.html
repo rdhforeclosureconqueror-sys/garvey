@@ -32,11 +32,13 @@
 
     <h3>Your Personal Archetype Profile</h3>
     <p class="muted section-note">This is your personality lens (how you operate day-to-day).</p>
+    <p id="personalWarning" class="muted" hidden></p>
     <div id="customerRoles"></div>
     <div id="customerBars"></div>
 
     <h3>Your Buying Archetype Profile</h3>
     <p class="muted section-note">This is your buying lens (how you decide and purchase).</p>
+    <p id="buyerWarning" class="muted" hidden></p>
     <div id="buyerRoles"></div>
     <div id="buyerBars"></div>
 
@@ -87,7 +89,7 @@
 
     const tenant = safeTrim(qs.get("tenant"));
     const email = safeTrim(qs.get("email")).toLowerCase();
-    let cid = safeTrim(qs.get("cid"));
+    let cid = safeTrim(qs.get("cid")) || safeTrim(baseCtx.cid) || readStoredCid();
     const ownerEmailFromUrl = safeTrim(qs.get("owner_email")).toLowerCase();
     const ownerRidFromUrl = safeTrim(qs.get("owner_rid"));
 
@@ -235,6 +237,14 @@
       } catch (_) {}
     }
 
+    function showBranchWarning(targetId, message) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      const normalized = safeTrim(message);
+      el.hidden = !normalized;
+      el.textContent = normalized;
+    }
+
     function customerArchetypeHref(typeId, group, combo) {
       const u = new URL("/customer_archetype.html", window.location.origin);
       if (tenant) u.searchParams.set("tenant", tenant);
@@ -283,6 +293,10 @@
 
     function renderBars(targetId, percents, group, combo, mode) {
       const entries = Object.entries(percents || {}).sort((a, b) => Number(b[1]) - Number(a[1]));
+      if (!entries.length) {
+        document.getElementById(targetId).innerHTML = `<p class="muted">${mode === "buyer" ? "Buying archetype percentages unavailable." : "Personal archetype percentages unavailable."}</p>`;
+        return;
+      }
 
       document.getElementById(targetId).innerHTML = entries.map(([label, v]) => {
         const pct = Number(v) || 0;
@@ -340,6 +354,11 @@
     }
 
     async function sendToOwner({ crid, ownerEmail, ownerRid }) {
+      const liveCtx = (window.GARVEY && typeof window.GARVEY.ctx === "function")
+        ? window.GARVEY.ctx()
+        : {};
+      const effectiveCid = safeTrim(cid) || safeTrim(liveCtx.cid) || readStoredCid();
+      cid = effectiveCid;
       if (!email || !cid) {
         document.getElementById("shareStatus").textContent =
           "Missing email/cid; open from a results link.";
@@ -365,6 +384,13 @@
 
       const body = await resp.json().catch(() => ({}));
       if (!resp.ok) throw new Error(body.error || "Send failed");
+      cid = safeTrim(body.cid || cid);
+      saveCid(cid);
+      if (window.history && window.history.replaceState) {
+        const updated = new URL(window.location.href);
+        if (cid) updated.searchParams.set("cid", cid);
+        window.history.replaceState(null, "", updated.pathname + updated.search);
+      }
 
       const dashboardHref = buildDashboardHref({
         tenant,
@@ -421,19 +447,20 @@
     }
 
     function readBranchData(data) {
-      const customerBranch = data.customer_archetypes || {};
-      const buyerBranch = data.buyer_archetypes || {};
+      const nested = data.result || {};
+      const customerBranch = data.customer_archetypes || nested.customer_archetypes || {};
+      const buyerBranch = data.buyer_archetypes || nested.buyer_archetypes || {};
 
       const personalRoles = {
-        primary: customerBranch.primary || data.personal_primary_archetype || data.primary_role,
-        secondary: customerBranch.secondary || data.personal_secondary_archetype || data.secondary_role,
-        growth: customerBranch.weakness || data.personal_weakness_archetype || data.weakness_role,
+        primary: customerBranch.primary || data.personal_primary_archetype || nested.personal_primary_archetype,
+        secondary: customerBranch.secondary || data.personal_secondary_archetype || nested.personal_secondary_archetype,
+        growth: customerBranch.weakness || data.personal_weakness_archetype || nested.personal_weakness_archetype,
       };
 
       const buyingRoles = {
-        primary: buyerBranch.primary || data.buyer_primary_archetype,
-        secondary: buyerBranch.secondary || data.buyer_secondary_archetype,
-        growth: buyerBranch.weakness || data.buyer_weakness_archetype,
+        primary: buyerBranch.primary || data.buyer_primary_archetype || nested.buyer_primary_archetype,
+        secondary: buyerBranch.secondary || data.buyer_secondary_archetype || nested.buyer_secondary_archetype,
+        growth: buyerBranch.weakness || data.buyer_weakness_archetype || nested.buyer_weakness_archetype,
       };
 
       const personalPercents = firstNonEmptyObject(
@@ -450,7 +477,7 @@
         data.buyer_counts
       );
 
-      return { personalRoles, buyingRoles, personalPercents, buyerPercents };
+      return { personalRoles, buyingRoles, personalPercents, buyerPercents, warnings };
     }
 
     async function fetchResultsPayload(currentRid) {
@@ -503,6 +530,9 @@
         cid ||
         safeTrim(data.cid) ||
         safeTrim(data.result?.cid) ||
+        safeTrim(data.customer_archetypes?.cid) ||
+        safeTrim(data.result?.customer_archetypes?.cid) ||
+        safeTrim(baseCtx.cid) ||
         readStoredCid();
       cid = safeTrim(resolvedCid);
       saveCid(cid);
@@ -535,6 +565,18 @@
         `Customer Result ID (crid): ${crid || "not yet available"}`;
 
       const branchData = readBranchData(data);
+      showBranchWarning(
+        "personalWarning",
+        Object.keys(branchData.personalPercents).length
+          ? ""
+          : "Warning: personal archetype branch missing or malformed; values unavailable."
+      );
+      showBranchWarning(
+        "buyerWarning",
+        Object.keys(branchData.buyerPercents).length
+          ? ""
+          : "Warning: buying archetype branch missing or malformed; values unavailable."
+      );
       const personalRoles = branchData.personalRoles;
 
       const personalCombo = {
