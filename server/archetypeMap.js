@@ -33,26 +33,28 @@ const PERSONAL_TO_BUYER = Object.freeze({
 });
 
 const LEGACY_PERSONAL_ALIASES = Object.freeze({
-  Architect: "architect",
-  Builder: "builder",
-  Operator: "operator",
-  Connector: "connector",
-  "Resource Generator": "resource_generator",
-  "Resource-Generator": "resource_generator",
-  Educator: "educator",
-  Protector: "protector",
-  Nurturer: "steward",
-  Steward: "steward",
+  architect: "architect",
+  builder: "builder",
+  operator: "operator",
+  connector: "connector",
+  resource_generator: "resource_generator",
+  resource_generator_: "resource_generator",
+  resource_generators: "resource_generator",
+  resourcegenerator: "resource_generator",
+  educator: "educator",
+  protector: "protector",
+  nurturer: "steward",
+  steward: "steward",
 });
 
 const LEGACY_BUYER_ALIASES = Object.freeze({
-  "Value Seeker": "value_seeker",
-  "Loyal Supporter": "loyal_supporter",
-  "Convenience Buyer": "convenience_buyer",
-  "Experience Seeker": "experience_seeker",
-  "Social Promoter": "social_promoter",
-  "Intentional Buyer": "intentional_buyer",
-  "Trend Explorer": "trend_explorer",
+  value_seeker: "value_seeker",
+  loyal_supporter: "loyal_supporter",
+  convenience_buyer: "convenience_buyer",
+  experience_seeker: "experience_seeker",
+  social_promoter: "social_promoter",
+  intentional_buyer: "intentional_buyer",
+  trend_explorer: "trend_explorer",
 });
 
 function normalizeKey(value) {
@@ -63,6 +65,11 @@ function normalizeKey(value) {
     .replace(/^_+|_+$/g, "");
 }
 
+function toSafeNumber(value) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : 0;
+}
+
 function initCounts(keys = []) {
   return keys.reduce((acc, key) => {
     acc[key] = 0;
@@ -70,63 +77,91 @@ function initCounts(keys = []) {
   }, {});
 }
 
+function hasAnyPositiveValues(counts = {}) {
+  return Object.values(counts || {}).some((value) => toSafeNumber(value) > 0);
+}
+
 function canonicalizePersonalKey(rawKey) {
   const slug = normalizeKey(rawKey);
   if (!slug) return "";
   if (PERSONAL_ARCHETYPES.includes(slug)) return slug;
-  return LEGACY_PERSONAL_ALIASES[rawKey] || "";
+  return LEGACY_PERSONAL_ALIASES[slug] || "";
 }
 
 function canonicalizeBuyerKey(rawKey) {
   const slug = normalizeKey(rawKey);
   if (!slug) return "";
   if (BUYER_ARCHETYPES.includes(slug)) return slug;
-  return LEGACY_BUYER_ALIASES[rawKey] || "";
+  return LEGACY_BUYER_ALIASES[slug] || "";
 }
 
 function mapCountsToPersonal(counts = {}) {
   const mapped = initCounts(PERSONAL_ARCHETYPES);
+
   Object.entries(counts || {}).forEach(([rawKey, value]) => {
     const canonical = canonicalizePersonalKey(rawKey);
     if (!canonical) return;
-    mapped[canonical] += Number(value || 0);
+    mapped[canonical] += toSafeNumber(value);
   });
+
   return mapped;
 }
 
 function mapCountsToBuyer(counts = {}) {
   const mapped = initCounts(BUYER_ARCHETYPES);
+
   Object.entries(counts || {}).forEach(([rawKey, value]) => {
     const canonical = canonicalizeBuyerKey(rawKey);
     if (!canonical) return;
-    mapped[canonical] += Number(value || 0);
+    mapped[canonical] += toSafeNumber(value);
   });
+
   return mapped;
 }
 
 function mapPersonalCountsToBuyer(personalCounts = {}) {
   const buyerCounts = initCounts(BUYER_ARCHETYPES);
+
   Object.entries(personalCounts || {}).forEach(([rawKey, value]) => {
     const personalKey = canonicalizePersonalKey(rawKey);
     if (!personalKey) return;
+
     const buyerKey = PERSONAL_TO_BUYER[personalKey];
     if (!buyerKey || buyerCounts[buyerKey] === undefined) return;
-    buyerCounts[buyerKey] += Number(value || 0);
+
+    buyerCounts[buyerKey] += toSafeNumber(value);
   });
+
   return buyerCounts;
 }
 
 function deriveRoles(counts = {}) {
   const entries = Object.entries(counts || {});
-  const sortedHigh = [...entries].sort((a, b) => (b[1] - a[1]) || a[0].localeCompare(b[0]));
-  const sortedLow = [...entries].sort((a, b) => (a[1] - b[1]) || a[0].localeCompare(b[0]));
+  const total = entries.reduce((sum, [, value]) => sum + toSafeNumber(value), 0);
 
-  const total = entries.reduce((sum, [, value]) => sum + Number(value || 0), 0);
   const percentages = entries.reduce((acc, [key, value]) => {
-    const pct = total > 0 ? Math.round((Number(value || 0) / total) * 100) : 0;
-    acc[key] = pct;
+    acc[key] = total > 0 ? Math.round((toSafeNumber(value) / total) * 100) : 0;
     return acc;
   }, {});
+
+  if (total <= 0) {
+    return {
+      primary: null,
+      secondary: null,
+      weakness: null,
+      percentages,
+    };
+  }
+
+  const sortedHigh = [...entries].sort((a, b) => {
+    const diff = toSafeNumber(b[1]) - toSafeNumber(a[1]);
+    return diff || a[0].localeCompare(b[0]);
+  });
+
+  const sortedLow = [...entries].sort((a, b) => {
+    const diff = toSafeNumber(a[1]) - toSafeNumber(b[1]);
+    return diff || a[0].localeCompare(b[0]);
+  });
 
   return {
     primary: sortedHigh[0]?.[0] || null,
@@ -137,22 +172,36 @@ function deriveRoles(counts = {}) {
 }
 
 function mapCustomerResultToArchetypes(result = {}) {
-  const personalSeed = result.personality_counts || result.personal_counts || {};
+  const personalSeedCandidates = [
+    result.personality_counts,
+    result.personal_counts,
+    result.archetype_counts,
+  ];
+
+  const personalSeed =
+    personalSeedCandidates.find((candidate) => hasAnyPositiveValues(candidate || {})) || {};
+
   const personalCounts = mapCountsToPersonal(personalSeed);
 
-  const buyerSeed = result.buyer_counts || result.archetype_counts || {};
-  const buyerCounts = Object.values(buyerSeed || {}).some((v) => Number(v || 0) > 0)
-    ? mapCountsToBuyer(buyerSeed)
+  const buyerSeedCandidates = [
+    result.buyer_counts,
+  ];
+
+  const explicitBuyerSeed =
+    buyerSeedCandidates.find((candidate) => hasAnyPositiveValues(candidate || {})) || {};
+
+  const buyerCounts = hasAnyPositiveValues(explicitBuyerSeed)
+    ? mapCountsToBuyer(explicitBuyerSeed)
     : mapPersonalCountsToBuyer(personalCounts);
 
   return {
-    buyer: {
-      ...deriveRoles(buyerCounts),
-      counts: buyerCounts,
-    },
     personal: {
       ...deriveRoles(personalCounts),
       counts: personalCounts,
+    },
+    buyer: {
+      ...deriveRoles(buyerCounts),
+      counts: buyerCounts,
     },
   };
 }
