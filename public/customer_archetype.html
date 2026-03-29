@@ -6,6 +6,7 @@
   <title>Customer Archetype</title>
   <link rel="stylesheet" href="/garvey_ui.css">
   <script src="/garvey_ui.js" defer></script>
+  <script src="/js/api-contract.js" defer></script>
   <style>
     .chips{display:flex; flex-wrap:wrap; gap:8px}
     .chip{display:inline-flex;align-items:center;justify-content:center;padding:8px 10px;border-radius:999px;border:1px solid var(--border);background:var(--panel);text-decoration:none;font-weight:900;color:var(--muted)}
@@ -67,6 +68,10 @@
     </section>
 
     <section class="section">
+      <div class="card" id="resultWarningCard" style="display:none; border-color:#dc2626;" data-reveal>
+        <div class="h3">Result data failed to load</div>
+        <p class="muted" id="resultWarningText">We could not load this customer’s scoring payload, so percentages are unavailable.</p>
+      </div>
       <div class="card" data-reveal>
         <div class="h3" id="lensSectionsTitle">Profile details</div>
         <div id="lensSections"></div>
@@ -196,32 +201,64 @@
       throw new Error("tenant missing");
     }
 
+    function normalizeResultIdentifier(value) {
+      const raw = safeTrim(value);
+      if (!raw) return "";
+      return raw.replace(/^\/+/, "").replace(/^api\/results\/+/i, "");
+    }
+
+    function buildResultUrl(path, params = {}) {
+      const build = window.GarveyApi && typeof window.GarveyApi.buildUrl === "function"
+        ? window.GarveyApi.buildUrl
+        : (p, q) => {
+            const u = new URL(p, window.location.origin);
+            Object.entries(q || {}).forEach(([k, v]) => {
+              if (v !== undefined && v !== null && String(v) !== "") u.searchParams.set(k, String(v));
+            });
+            return u.pathname + u.search;
+          };
+      const url = build(path, params);
+      const normalized = new URL(url, window.location.origin);
+      if (!normalized.pathname.startsWith("/api/results/")) {
+        throw new Error(`Malformed results URL (missing /api/results prefix): ${normalized.pathname}`);
+      }
+      return url;
+    }
+
     async function fetchResultsPayload() {
-      if (!tenant) return {};
-      const byRid = crid
+      if (!tenant) return { ok: false, payload: {}, attempts: [], error: "Missing tenant" };
+
+      const attempts = [];
+      const normalizedCrid = normalizeResultIdentifier(crid);
+      const byRid = normalizedCrid
         ? [
-            `/api/results/customer/${encodeURIComponent(crid)}?tenant=${encodeURIComponent(tenant)}`,
-            `/api/results/${encodeURIComponent(crid)}?type=customer&tenant=${encodeURIComponent(tenant)}&by=rid`,
+            buildResultUrl(`/api/results/customer/${encodeURIComponent(normalizedCrid)}`, { tenant }),
+            buildResultUrl(`/api/results/${encodeURIComponent(normalizedCrid)}`, { type: "customer", tenant, by: "rid" }),
           ]
         : [];
       for (const url of byRid) {
+        attempts.push(url);
         try {
           const res = await fetch(url);
           const json = await res.json().catch(() => ({}));
-          if (res.ok) return json || {};
+          if (res.ok) return { ok: true, payload: json || {}, attempts, source: "crid" };
         } catch (_) {}
       }
-      if (!email) return {};
+      const normalizedEmail = normalizeResultIdentifier(email).toLowerCase();
+      if (!normalizedEmail) return { ok: false, payload: {}, attempts, error: "Missing email and crid" };
       try {
-        const res = await fetch(`/api/results/${encodeURIComponent(email)}?type=customer&tenant=${encodeURIComponent(tenant)}`);
+        const emailUrl = buildResultUrl(`/api/results/${encodeURIComponent(normalizedEmail)}`, { type: "customer", tenant });
+        attempts.push(emailUrl);
+        const res = await fetch(emailUrl);
         const json = await res.json().catch(() => ({}));
-        return res.ok ? (json || {}) : {};
+        if (res.ok) return { ok: true, payload: json || {}, attempts, source: "email" };
+        return { ok: false, payload: {}, attempts, error: json.error || `HTTP ${res.status}` };
       } catch (_) {
-        return {};
+        return { ok: false, payload: {}, attempts, error: "Network error while loading result payload" };
       }
     }
 
-    const [libraryRes, resultPayload] = await Promise.all([
+    const [libraryRes, resultState] = await Promise.all([
       fetch("/garvey_customer_archetypes.json", { cache: "no-store" }),
       fetchResultsPayload(),
     ]);
@@ -231,10 +268,29 @@
     const activeGroupConfig = displayGroups[group] || displayGroups.customer_personality_profile || {};
     const libraryById = Object.fromEntries((Array.isArray(library.archetypes) ? library.archetypes : []).map((item) => [slugify(item.id), item]));
 
+    const resultPayload = resultState.payload || {};
     const personalResult = resultPayload.customer_archetypes || {};
     const buyerResult = resultPayload.buyer_archetypes || {};
     const modeResult = isBuyerMode ? buyerResult : personalResult;
     const modePrefix = isBuyerMode ? "buyer" : "personal";
+    const hasModePercentData = !!(modeResult && (modeResult.percents || modeResult.percentages));
+
+    if (!resultState.ok || !hasModePercentData) {
+      const warningCard = document.getElementById("resultWarningCard");
+      const warningText = document.getElementById("resultWarningText");
+      warningCard.style.display = "";
+      const reason = !resultState.ok
+        ? `${resultState.error || "unknown error"}`
+        : `No ${isBuyerMode ? "buyer" : "personal"} percentage data found in loaded payload`;
+      warningText.textContent = `Result data failed to load for scoring context (${reason}).`;
+      console.warn("[customer_archetype] Result payload unavailable for scoring context.", {
+        reason,
+        attempts: resultState.attempts || [],
+        tenant,
+        crid,
+        email,
+      });
+    }
 
     const queryPrimary = toModeId(qs.get("primary"), modePrefix);
     const querySecondary = toModeId(qs.get("secondary"), modePrefix);
@@ -263,7 +319,7 @@
       acc[item.id] = rawTotal > 100 ? Math.round((raw / rawTotal) * 100) : Math.round(raw);
       return acc;
     }, {});
-    const selectedScore = scoreMap[resolvedType] ?? 0;
+    const selectedScore = scoreMap[resolvedType];
 
     document.getElementById("primaryTag").textContent = pretty(resolvedCombo.primary);
     document.getElementById("secondaryTag").textContent = pretty(resolvedCombo.secondary);
@@ -292,7 +348,7 @@
       : (libraryById[resolvedType] || { display_name: pretty(resolvedType), personal: {} });
 
     typePill.textContent = `Archetype: ${activeArchetype.display_name || pretty(resolvedType)}`;
-    scorePill.textContent = `Score: ${selectedScore}%`;
+    scorePill.textContent = Number.isFinite(selectedScore) && hasModePercentData ? `Score: ${selectedScore}%` : "Score: unavailable";
     document.getElementById("title").textContent = activeGroupConfig.title || (isBuyerMode ? "Your Buying Archetype Profile" : "Your Personal Archetype Profile");
     document.getElementById("oneLiner").textContent = activeArchetype.tagline || "—";
     document.getElementById("comboText").textContent = isBuyerMode
