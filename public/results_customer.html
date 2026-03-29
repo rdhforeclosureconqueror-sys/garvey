@@ -411,6 +411,15 @@
       });
     }
 
+    function firstNonEmptyObject(...candidates) {
+      for (const candidate of candidates) {
+        if (candidate && typeof candidate === "object" && !Array.isArray(candidate) && Object.keys(candidate).length) {
+          return candidate;
+        }
+      }
+      return {};
+    }
+
     function readBranchData(data) {
       const customerBranch = data.customer_archetypes || {};
       const buyerBranch = data.buyer_archetypes || {};
@@ -427,8 +436,19 @@
         growth: buyerBranch.weakness || data.buyer_weakness_archetype,
       };
 
-      const personalPercents = customerBranch.percents || data.personal_counts || data.percents || {};
-      const buyerPercents = buyerBranch.percents || data.buyer_counts || {};
+      const personalPercents = firstNonEmptyObject(
+        customerBranch.percents,
+        customerBranch.percentages,
+        data.personal_percents,
+        data.personal_counts,
+        data.percents
+      );
+      const buyerPercents = firstNonEmptyObject(
+        buyerBranch.percents,
+        buyerBranch.percentages,
+        data.buyer_percents,
+        data.buyer_counts
+      );
 
       return { personalRoles, buyingRoles, personalPercents, buyerPercents };
     }
