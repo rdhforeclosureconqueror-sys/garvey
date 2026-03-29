@@ -265,7 +265,7 @@
           ? getBuyerDisplayName(roleName)
           : getPersonalDisplayName(roleName);
 
-        const href = (mode === "personal" && normalizedId)
+        const href = normalizedId
           ? customerArchetypeHref(normalizedId, group, combo)
           : "";
 
@@ -295,7 +295,7 @@
           ? getBuyerDisplayName(label)
           : getPersonalDisplayName(label);
 
-        const href = (mode === "personal" && normalizedId)
+        const href = normalizedId
           ? customerArchetypeHref(normalizedId, group, combo)
           : "";
 
