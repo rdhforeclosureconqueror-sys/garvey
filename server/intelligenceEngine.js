@@ -8,6 +8,26 @@ const {
 } = require("./questionCatalog");
 
 const PERSONALITIES = CUSTOMER_ARCHETYPES;
+const PERSONAL_ARCHETYPES = [
+  "Builder",
+  "Architect",
+  "Operator",
+  "Connector",
+  "Resource Generator",
+  "Protector",
+  "Nurturer",
+  "Educator",
+];
+
+const BUYER_TO_PERSONAL = Object.freeze({
+  "Value Seeker": "Resource Generator",
+  "Loyal Supporter": "Nurturer",
+  "Convenience Buyer": "Operator",
+  "Experience Seeker": "Architect",
+  "Social Promoter": "Connector",
+  "Intentional Buyer": "Educator",
+  "Trend Explorer": "Builder",
+});
 
 const ARCHETYPE_DEFINITIONS = {
   Builder: { traits: "action-oriented", strength: "execution", weakness: "inconsistency", improve: "implement routines + tracking" },
@@ -60,6 +80,12 @@ function normalizeAnswerKey(answer, question) {
   return matched?.key || null;
 }
 
+function resolveCustomerPersonalArchetype(mappedValue, buyerFallback) {
+  const direct = String(mappedValue || "").trim();
+  if (PERSONAL_ARCHETYPES.includes(direct)) return direct;
+  return BUYER_TO_PERSONAL[direct] || BUYER_TO_PERSONAL[String(buyerFallback || "").trim()] || null;
+}
+
 function scoreSubmission(assessmentType, answers) {
   const questions = getQuestions(assessmentType);
   const map = new Map(questions.map((q) => [q.qid, q]));
@@ -97,7 +123,7 @@ function scoreSubmission(assessmentType, answers) {
   }
 
   const archetypeCounts = createCounter(CUSTOMER_ARCHETYPES);
-  const personalityCounts = createCounter(CUSTOMER_ARCHETYPES);
+  const personalityCounts = createCounter(PERSONAL_ARCHETYPES);
   for (const answer of answers) {
     const q = map.get(answer.qid);
     if (!q) continue;
@@ -109,8 +135,12 @@ function scoreSubmission(assessmentType, answers) {
       err.code = "INVALID_MAPPING";
       throw err;
     }
-    if (archetypeCounts[option.maps[0]] !== undefined) archetypeCounts[option.maps[0]] += 1;
-    if (personalityCounts[option.maps[1]] !== undefined) personalityCounts[option.maps[1]] += 1;
+    const buyerArchetype = option.maps[0];
+    const resolvedPersonalArchetype = resolveCustomerPersonalArchetype(option.maps[1], buyerArchetype);
+    if (archetypeCounts[buyerArchetype] !== undefined) archetypeCounts[buyerArchetype] += 1;
+    if (resolvedPersonalArchetype && personalityCounts[resolvedPersonalArchetype] !== undefined) {
+      personalityCounts[resolvedPersonalArchetype] += 1;
+    }
   }
   const archetypeRank = rankCounts(archetypeCounts);
   const personalityRank = rankCounts(personalityCounts);
