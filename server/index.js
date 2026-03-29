@@ -1876,10 +1876,22 @@ app.get("/api/results/:email", async (req, res) => {
 
     // 🔒 OPTIONAL FILTER
     let query = `
-      SELECT a.*, t.slug AS tenant_slug
+      SELECT
+        a.*,
+        t.slug AS tenant_slug,
+        COALESCE(
+          a.cid,
+          a.campaign_slug,
+          vs.campaign_slug,
+          isess.campaign_slug,
+          c.slug
+        ) AS resolved_cid
       FROM assessment_submissions a
       JOIN users u ON u.id = a.user_id
       JOIN tenants t ON t.id = a.tenant_id
+      LEFT JOIN voc_sessions vs ON vs.id = a.session_id
+      LEFT JOIN intake_sessions isess ON isess.id = a.session_id
+      LEFT JOIN campaigns c ON c.id = COALESCE(a.campaign_id, vs.campaign_id, isess.campaign_id)
       WHERE u.email = $1
     `;
 
@@ -1928,7 +1940,10 @@ app.get("/api/results/:email", async (req, res) => {
       assessmentType: row.assessment_type,
       tenantSlug: row.tenant_slug,
       email,
-      submission: row,
+      submission: {
+        ...row,
+        cid: row.resolved_cid || row.cid || row.campaign_slug || null,
+      },
     });
 
     return res.json({
@@ -1958,12 +1973,19 @@ app.get("/api/results/customer/:crid", async (req, res) => {
         a.*,
         u.email,
         t.slug AS tenant_slug,
-        COALESCE(a.cid, a.campaign_slug, vs.campaign_slug, isess.campaign_slug) AS resolved_cid
+        COALESCE(
+          a.cid,
+          a.campaign_slug,
+          vs.campaign_slug,
+          isess.campaign_slug,
+          c.slug
+        ) AS resolved_cid
       FROM assessment_submissions a
       JOIN users u ON u.id = a.user_id
       JOIN tenants t ON t.id = a.tenant_id
       LEFT JOIN voc_sessions vs ON vs.id = a.session_id
       LEFT JOIN intake_sessions isess ON isess.id = a.session_id
+      LEFT JOIN campaigns c ON c.id = COALESCE(a.campaign_id, vs.campaign_id, isess.campaign_id)
       WHERE a.id::text = $1
         AND a.assessment_type = 'customer'
     `;
