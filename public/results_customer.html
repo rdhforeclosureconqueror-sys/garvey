@@ -19,7 +19,7 @@
     .chip { display:inline-block; padding:2px 8px; border-radius:999px; border:1px solid #334155; background:#0b1222; margin-left:8px; font-size:12px; color:#cbd5e1; }
     .share-panel { margin-top:10px; padding:12px; border:1px solid #334155; border-radius:10px; background:#111c34; }
     .share-panel input { width:100%; box-sizing:border-box; margin:6px 0; padding:8px; border-radius:8px; border:1px solid #334155; background:#0b1222; color:#fff; }
-    .lookup-list { margin: 8px 0 0 0; padding:0; list-style:none; }
+    .lookup-list { margin:8px 0 0 0; padding:0; list-style:none; }
     .lookup-list li { margin:6px 0; }
     .section-note { margin-top:-8px; margin-bottom:10px; }
   </style>
@@ -64,36 +64,45 @@
   <script src="/js/api-contract.js"></script>
   <script src="/engine/customer-return-engine.js"></script>
   <script>
+    "use strict";
+
     const safeTrim = (value) => String(value ?? "").trim();
+
     const baseCtx = (window.GARVEY && window.GARVEY.ctx)
       ? window.GARVEY.ctx()
       : { tenant: "", email: "", rid: "", cid: "" };
+
     const rawQs = new URLSearchParams(window.location.search);
     if (!rawQs.get("ctx_redirected") && baseCtx.tenant && baseCtx.email && (!rawQs.get("tenant") || !rawQs.get("email"))) {
       rawQs.set("tenant", baseCtx.tenant);
       rawQs.set("email", baseCtx.email);
       if (baseCtx.cid && !rawQs.get("cid")) rawQs.set("cid", baseCtx.cid);
+      if (baseCtx.rid && !rawQs.get("crid")) rawQs.set("crid", baseCtx.rid);
       rawQs.set("ctx_redirected", "1");
       window.location.replace("/results_customer.html?" + rawQs.toString());
     }
 
     const qs = new URLSearchParams(window.location.search);
     qs.delete("ctx_redirected");
+
     const tenant = safeTrim(qs.get("tenant"));
     const email = safeTrim(qs.get("email")).toLowerCase();
     const cid = safeTrim(qs.get("cid"));
     const ownerEmailFromUrl = safeTrim(qs.get("owner_email")).toLowerCase();
     const ownerRidFromUrl = safeTrim(qs.get("owner_rid"));
+
     const returnEngine = (window.CustomerReturnEngine && window.CustomerReturnEngine.createDefaultEngine)
       ? window.CustomerReturnEngine.createDefaultEngine()
       : null;
 
     const escapeHtml = (s) => String(s || "").replace(/[&<>"']/g, (c) => ({
-      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
     }[c]));
 
-    // Map legacy customer labels (Value Seeker, etc) into the 8-archetype ids.
-    // NOTE: Adjust these mappings anytime to match your desired model.
     const legacyToNewArchetype = {
       value_seeker: "steward",
       loyal_supporter: "connector",
@@ -103,7 +112,6 @@
       intentional_buyer: "educator",
       trend_explorer: "resource_generator",
 
-      // Already-new ids passthrough:
       builder: "builder",
       architect: "architect",
       operator: "operator",
@@ -125,7 +133,7 @@
     function prettyId(id) {
       return safeTrim(id)
         .split("_")
-        .map(w => w ? w.slice(0,1).toUpperCase() + w.slice(1) : "")
+        .map((w) => w ? w.slice(0, 1).toUpperCase() + w.slice(1) : "")
         .join(" ");
     }
 
@@ -134,7 +142,7 @@
       if (!slug) return "";
       if (allowedIds.has(slug)) return slug;
       const mapped = legacyToNewArchetype[slug] || "";
-      if (!mapped) console.warn(`[results_customer] Unknown archetype label for ${contextLabel}:`, label);
+      if (!mapped) console.warn("[results_customer] Unknown archetype label for " + contextLabel + ":", label);
       return mapped;
     }
 
@@ -144,9 +152,11 @@
       const rawChip = raw && raw.toLowerCase() !== pretty.toLowerCase()
         ? `<span class="chip">${escapeHtml(raw)}</span>`
         : "";
+
       if (!archetypeId || !href) {
         return `<span>${escapeHtml(pretty)}</span>${rawChip}`;
       }
+
       return `<a href="${escapeHtml(href)}">${escapeHtml(pretty)}</a>${rawChip}`;
     }
 
@@ -158,14 +168,20 @@
     function readStoredRid() {
       const key = storageKey();
       if (!key) return "";
-      try { return safeTrim(localStorage.getItem(key)); } catch (_) { return ""; }
+      try {
+        return safeTrim(localStorage.getItem(key));
+      } catch (_) {
+        return "";
+      }
     }
 
     function saveRid(rid) {
       const normalized = safeTrim(rid);
       const key = storageKey();
       if (!key || !normalized) return;
-      try { localStorage.setItem(key, normalized); } catch (_) {}
+      try {
+        localStorage.setItem(key, normalized);
+      } catch (_) {}
     }
 
     function customerArchetypeHref(typeId, group, combo) {
@@ -174,14 +190,11 @@
       if (email) u.searchParams.set("email", email);
       if (cid) u.searchParams.set("cid", cid);
       if (combo.crid) u.searchParams.set("crid", combo.crid);
-
       if (typeId) u.searchParams.set("type", typeId);
       u.searchParams.set("group", group);
-
       if (combo.primary) u.searchParams.set("primary", combo.primary);
       if (combo.secondary) u.searchParams.set("secondary", combo.secondary);
       if (combo.growth) u.searchParams.set("growth", combo.growth);
-
       return u.pathname + u.search;
     }
 
@@ -239,7 +252,6 @@
         : null;
       const ctx = ctxInput || {};
 
-      // Canonical path: GARVEY.withCtx handles persisted ctx + URL merges.
       if (withCtx) {
         const u = new URL(withCtx(base), window.location.origin);
         if (ctx.crid) u.searchParams.set("crid", ctx.crid);
@@ -248,7 +260,6 @@
         return u.pathname + u.search;
       }
 
-      // Fallback when GARVEY helper is unavailable.
       const u = new URL(base, window.location.origin);
       if (ctx.tenant) u.searchParams.set("tenant", ctx.tenant);
       if (ctx.email) u.searchParams.set("email", ctx.email);
@@ -265,6 +276,7 @@
           "Missing email/cid; open from a results link.";
         return;
       }
+
       const payload = {
         tenant,
         customer_email: email,
@@ -272,6 +284,7 @@
         cid,
         result_id: safeTrim(crid || "") || null,
       };
+
       if (safeTrim(ownerEmail)) payload.owner_email = safeTrim(ownerEmail).toLowerCase();
       if (safeTrim(ownerRid)) payload.owner_rid = safeTrim(ownerRid);
 
@@ -280,8 +293,10 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+
       const body = await resp.json().catch(() => ({}));
       if (!resp.ok) throw new Error(body.error || "Send failed");
+
       const dashboardHref = buildDashboardHref({
         tenant,
         email,
@@ -290,6 +305,7 @@
         owner_email: body.owner_email || safeTrim(ownerEmail || ""),
         owner_rid: body.owner_rid || safeTrim(ownerRid || ""),
       });
+
       document.getElementById("shareStatus").innerHTML =
         `Sent! <a href="${escapeHtml(dashboardHref)}">${escapeHtml(dashboardHref)}</a>`;
     }
@@ -302,72 +318,147 @@
       return Array.isArray(body.matches) ? body.matches : [];
     }
 
+    async function fetchResultsPayload(currentRid) {
+      const rid = safeTrim(currentRid);
+
+      if (rid) {
+        const byRidCandidates = [
+          window.GarveyApi.buildUrl(`/api/results/customer/${encodeURIComponent(rid)}`, { tenant }),
+          window.GarveyApi.buildUrl(`/api/results/${encodeURIComponent(rid)}`, { type: "customer", tenant, by: "rid" }),
+        ];
+
+        for (const url of byRidCandidates) {
+          try {
+            const res = await fetch(url);
+            const data = await res.json().catch(() => ({}));
+            if (res.ok) return { data, source: "rid", url };
+          } catch (_) {}
+        }
+      }
+
+      if (!email) {
+        throw new Error("Missing email and no valid crid route available.");
+      }
+
+      const emailUrl = window.GarveyApi.buildUrl(`/api/results/${encodeURIComponent(email)}`, {
+        type: "customer",
+        tenant
+      });
+
+      const res = await fetch(emailUrl);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Failed to load results");
+      return { data, source: "email", url: emailUrl };
+    }
+
     async function load() {
       if (!tenant || !email) {
         document.getElementById("meta").textContent = "Missing tenant/email query params.";
         return;
       }
 
-      const url = window.GarveyApi.buildUrl(`/api/results/${encodeURIComponent(email)}`, { type: "customer", tenant });
-      const res = await fetch(url);
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Failed to load results");
-
       const initialRid = safeTrim(qs.get("crid")) || readStoredRid();
+      const payload = await fetchResultsPayload(initialRid);
+      const data = payload.data || {};
+
       const resolvedRid =
         initialRid ||
         safeTrim(data.result_id) ||
         safeTrim(data.result?.result_id) ||
-        safeTrim(data.customer_archetypes?.result_id);
+        safeTrim(data.customer_archetypes?.result_id) ||
+        safeTrim(data.id);
 
-      saveRid(resolvedRid);
       const crid = safeTrim(resolvedRid);
+      saveRid(crid);
+
       if (window.GARVEY && window.GARVEY.setLoginCtx) {
         window.GARVEY.setLoginCtx({ tenant, email, cid, rid: crid });
       }
+
       if (returnEngine) {
-        returnEngine.init({ tenant, email, cid, rid: crid, owner_email: ownerEmailFromUrl, owner_rid: ownerRidFromUrl });
+        returnEngine.init({
+          tenant,
+          email,
+          cid,
+          rid: crid,
+          owner_email: ownerEmailFromUrl,
+          owner_rid: ownerRidFromUrl
+        });
       }
 
       document.getElementById("meta").textContent =
-        `Tenant: ${tenant} • Email: ${email}${cid ? ` • CID: ${cid}` : ""}`;
+        `Tenant: ${tenant} • Email: ${email}${cid ? ` • CID: ${cid}` : ""}${payload.source ? ` • Loaded via: ${payload.source.toUpperCase()}` : ""}`;
 
       document.getElementById("ridLine").textContent =
         `Customer Result ID (crid): ${crid || "not yet available"}`;
 
-      // PERSONAL (customer_archetypes) — displayed as mapped 8-archetype names
       const personalRoles = {
         primary: data.customer_archetypes?.primary || data.primary_role,
         secondary: data.customer_archetypes?.secondary || data.secondary_role,
         growth: data.customer_archetypes?.weakness || data.weakness_role,
       };
+
       const personalCombo = {
         primary: normalizeArchetypeId(personalRoles.primary, "personal/primary"),
         secondary: normalizeArchetypeId(personalRoles.secondary, "personal/secondary"),
         growth: normalizeArchetypeId(personalRoles.growth, "personal/growth"),
         crid,
       };
-      renderRoleLines("customerRoles", personalRoles, personalCombo, "customer_personality_profile", "personal");
-      renderBars("customerBars", data.customer_archetypes?.percents || data.percents, "customer_personality_profile", personalCombo, "personal");
 
-      // BUYING (buyer_archetypes) — displayed as mapped 8-archetype names
+      renderRoleLines(
+        "customerRoles",
+        personalRoles,
+        personalCombo,
+        "customer_personality_profile",
+        "personal"
+      );
+
+      renderBars(
+        "customerBars",
+        data.customer_archetypes?.percents || data.percents || {},
+        "customer_personality_profile",
+        personalCombo,
+        "personal"
+      );
+
       const buyingRoles = {
         primary: data.buyer_archetypes?.primary,
         secondary: data.buyer_archetypes?.secondary,
         growth: data.buyer_archetypes?.weakness,
       };
+
       const buyingCombo = {
         primary: normalizeArchetypeId(buyingRoles.primary, "buying/primary"),
         secondary: normalizeArchetypeId(buyingRoles.secondary, "buying/secondary"),
         growth: normalizeArchetypeId(buyingRoles.growth, "buying/growth"),
         crid,
       };
-      renderRoleLines("buyerRoles", buyingRoles, buyingCombo, "buyer_purchasing_profile", "buying");
-      renderBars("buyerBars", data.buyer_archetypes?.percents || {}, "buyer_purchasing_profile", buyingCombo, "buying");
 
-      // CTAs
+      renderRoleLines(
+        "buyerRoles",
+        buyingRoles,
+        buyingCombo,
+        "buyer_purchasing_profile",
+        "buying"
+      );
+
+      renderBars(
+        "buyerBars",
+        data.buyer_archetypes?.percents || {},
+        "buyer_purchasing_profile",
+        buyingCombo,
+        "buying"
+      );
+
       const rewardsHref = returnEngine
-        ? returnEngine.buildRewardsUrl({ tenant, email, cid, rid: crid, owner_email: ownerEmailFromUrl, owner_rid: ownerRidFromUrl })
+        ? returnEngine.buildRewardsUrl({
+            tenant,
+            email,
+            cid,
+            rid: crid,
+            owner_email: ownerEmailFromUrl,
+            owner_rid: ownerRidFromUrl
+          })
         : (function () {
             const rewards = new URL("/rewards.html", window.location.origin);
             rewards.searchParams.set("tenant", tenant);
@@ -388,18 +479,26 @@
         <button class="btn" id="sendOwnerBtn" type="button">Send to Business Owner</button>
         <a class="btn alt" id="bookmarkBtn" href="${escapeHtml(bookmark.pathname + bookmark.search)}">Bookmark Results Link</a>
       `;
+
       if (window.GARVEY && window.GARVEY.applyCtxToLinks) {
         window.GARVEY.applyCtxToLinks(document.getElementById("ctas"));
       }
+
       const claimRewardsBtn = document.getElementById("claimRewardsBtn");
       if (claimRewardsBtn && returnEngine) {
         claimRewardsBtn.addEventListener("click", (e) => {
           e.preventDefault();
-          returnEngine.startEarnFlow({ tenant, email, cid, rid: crid, owner_email: ownerEmailFromUrl, owner_rid: ownerRidFromUrl });
+          returnEngine.startEarnFlow({
+            tenant,
+            email,
+            cid,
+            rid: crid,
+            owner_email: ownerEmailFromUrl,
+            owner_rid: ownerRidFromUrl
+          });
         });
       }
 
-      // Send-to-owner flow
       const sharePanel = document.getElementById("ownerSharePanel");
       const ownerEmailInput = document.getElementById("ownerEmailInput");
       const ownerLookupInput = document.getElementById("ownerLookupInput");
@@ -412,7 +511,8 @@
             return;
           }
           sharePanel.hidden = false;
-          document.getElementById("shareStatus").textContent = "Provide owner email or lookup by business/owner name.";
+          document.getElementById("shareStatus").textContent =
+            "Provide owner email or lookup by business/owner name.";
         } catch (err) {
           document.getElementById("shareStatus").textContent = "Failed: " + err.message;
         }
@@ -422,15 +522,20 @@
         try {
           const lookupValue = safeTrim(ownerLookupInput.value);
           if (!lookupValue) {
-            document.getElementById("shareStatus").textContent = "Enter a business or owner name first.";
+            document.getElementById("shareStatus").textContent =
+              "Enter a business or owner name first.";
             return;
           }
+
           const matches = await lookupOwnerCandidates(lookupValue);
           ownerLookupList.innerHTML = "";
+
           if (!matches.length) {
-            document.getElementById("shareStatus").textContent = "No owners found. Enter owner email directly.";
+            document.getElementById("shareStatus").textContent =
+              "No owners found. Enter owner email directly.";
             return;
           }
+
           matches.forEach((item) => {
             const li = document.createElement("li");
             const button = document.createElement("button");
@@ -444,7 +549,9 @@
             li.appendChild(button);
             ownerLookupList.appendChild(li);
           });
-          document.getElementById("shareStatus").textContent = "Select an owner email from matches or edit manually.";
+
+          document.getElementById("shareStatus").textContent =
+            "Select an owner email from matches or edit manually.";
         } catch (err) {
           document.getElementById("shareStatus").textContent = "Lookup failed: " + err.message;
         }
@@ -454,8 +561,10 @@
         try {
           const enteredEmail = safeTrim(ownerEmailInput.value).toLowerCase();
           const lookupValue = safeTrim(ownerLookupInput.value);
+
           if (!enteredEmail && !lookupValue) {
-            document.getElementById("shareStatus").textContent = "Enter owner email or business/owner name first.";
+            document.getElementById("shareStatus").textContent =
+              "Enter owner email or business/owner name first.";
             return;
           }
 
@@ -463,7 +572,8 @@
           if (!resolvedOwnerEmail && lookupValue) {
             const matches = await lookupOwnerCandidates(lookupValue);
             if (!matches.length) {
-              document.getElementById("shareStatus").textContent = "No owner resolved from name. Enter owner email directly.";
+              document.getElementById("shareStatus").textContent =
+                "No owner resolved from name. Enter owner email directly.";
               return;
             }
             resolvedOwnerEmail = safeTrim(matches[0].email).toLowerCase();
