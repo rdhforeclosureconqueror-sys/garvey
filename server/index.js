@@ -1925,6 +1925,61 @@ app.get("/api/results/:email", async (req, res) => {
   }
 });
 
+app.get("/api/results/customer/:crid", async (req, res) => {
+  try {
+    const crid = String(req.params.crid || "").trim();
+    const tenantSlug = String(req.query.tenant || "").trim().toLowerCase();
+
+    if (!crid) {
+      return res.status(400).json({ error: "crid required" });
+    }
+
+    let query = `
+      SELECT a.*, u.email, t.slug AS tenant_slug
+      FROM assessment_submissions a
+      JOIN users u ON u.id = a.user_id
+      JOIN tenants t ON t.id = a.tenant_id
+      WHERE a.id::text = $1
+        AND a.assessment_type = 'customer'
+    `;
+    const params = [crid];
+
+    if (tenantSlug) {
+      query += ` AND t.slug = $${params.length + 1}`;
+      params.push(tenantSlug);
+    }
+
+    query += " LIMIT 1";
+
+    const result = await pool.query(query, params);
+    if (!result.rows[0]) {
+      return res.status(404).json({
+        error: "result not found",
+        crid,
+        tenant: tenantSlug || null,
+      });
+    }
+
+    const row = result.rows[0];
+    const payload = buildAssessmentResultPayload({
+      assessmentType: "customer",
+      tenantSlug: row.tenant_slug,
+      email: row.email,
+      submission: row,
+    });
+
+    return res.json({
+      ...payload,
+      result: payload,
+    });
+  } catch (err) {
+    console.error("results_lookup_crid_failed", err);
+    return res.status(500).json({
+      error: "results lookup failed",
+    });
+  }
+});
+
 app.post("/api/customer/share-result", async (req, res) => {
   try {
     const {
@@ -2134,7 +2189,7 @@ app.get("/api/verify/scoring", async (req, res) => {
 });
 
 /* VOC intake (finalized) */
-app.post("/voc-intake", async (req, res) => {
+async function handleVocIntake(req, res) {
   const client = await pool.connect();
 
   try {
@@ -2320,7 +2375,10 @@ app.post("/voc-intake", async (req, res) => {
   } finally {
     client.release();
   }
-});
+}
+
+app.post("/voc-intake", handleVocIntake);
+app.post("/api/vocIntake", handleVocIntake);
 app.get("/api/verify/intelligence/:slug", tenantMiddleware, async (req, res) => {
   try {
     const tenantId = req.tenant.id;

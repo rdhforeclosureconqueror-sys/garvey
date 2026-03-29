@@ -14,8 +14,9 @@
   const ENDPOINTS = Object.freeze({
     questions: "/api/questions",
     intake: "/api/intake",
-    vocIntake: "/voc-intake",
+    vocIntake: "/api/vocIntake",
     resultsByEmail: (email) => `/api/results/${encodeURIComponent(email)}`,
+    resultsByCrid: (crid) => `/api/results/customer/${encodeURIComponent(crid)}`,
   });
 
   function buildUrl(path, query = {}) {
