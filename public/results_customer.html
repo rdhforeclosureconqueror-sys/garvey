@@ -103,61 +103,88 @@
       "'":"&#039;"
     }[c]));
 
-    const legacyToNewArchetype = {
-      value_seeker: "steward",
-      loyal_supporter: "connector",
-      convenience_buyer: "operator",
-      experience_seeker: "architect",
-      social_promoter: "connector",
-      intentional_buyer: "educator",
-      trend_explorer: "resource_generator",
-
-      builder: "builder",
-      architect: "architect",
-      operator: "operator",
-      resource_generator: "resource_generator",
-      connector: "connector",
-      educator: "educator",
-      protector: "protector",
-      steward: "steward",
-    };
-
-    const allowedIds = new Set([
-      "architect","builder","operator","resource_generator","connector","educator","protector","steward"
+    // PERSONAL archetype ids
+    const PERSONAL_ALLOWED_IDS = new Set([
+      "architect",
+      "builder",
+      "operator",
+      "resource_generator",
+      "connector",
+      "educator",
+      "protector",
+      "steward"
     ]);
 
+    // BUYING archetype ids
+    const BUYER_ALLOWED_IDS = new Set([
+      "value_seeker",
+      "loyal_supporter",
+      "convenience_buyer",
+      "experience_seeker",
+      "social_promoter",
+      "intentional_buyer",
+      "trend_explorer"
+    ]);
+
+    const PERSONAL_LABELS = {
+      architect: "Architect",
+      builder: "Builder",
+      operator: "Operator",
+      resource_generator: "Resource Generator",
+      connector: "Connector",
+      educator: "Educator",
+      protector: "Protector",
+      steward: "Steward"
+    };
+
+    const BUYER_LABELS = {
+      value_seeker: "Value Seeker",
+      loyal_supporter: "Loyal Supporter",
+      convenience_buyer: "Convenience Buyer",
+      experience_seeker: "Experience Seeker",
+      social_promoter: "Social Promoter",
+      intentional_buyer: "Intentional Buyer",
+      trend_explorer: "Trend Explorer"
+    };
+
     function slugifyType(name) {
-      return safeTrim(name).toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+      return safeTrim(name)
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "");
     }
 
-    function prettyId(id) {
+    function prettyFallback(id) {
       return safeTrim(id)
         .split("_")
         .map((w) => w ? w.slice(0, 1).toUpperCase() + w.slice(1) : "")
         .join(" ");
     }
 
-    function normalizeArchetypeId(label, contextLabel) {
+    function normalizePersonalId(label) {
       const slug = slugifyType(label);
       if (!slug) return "";
-      if (allowedIds.has(slug)) return slug;
-      const mapped = legacyToNewArchetype[slug] || "";
-      if (!mapped) console.warn("[results_customer] Unknown archetype label for " + contextLabel + ":", label);
-      return mapped;
+      if (PERSONAL_ALLOWED_IDS.has(slug)) return slug;
+      return "";
     }
 
-    function displayRoleHtml(roleLabel, archetypeId, href) {
-      const pretty = archetypeId ? prettyId(archetypeId) : "—";
-      const raw = safeTrim(roleLabel);
-      const rawChip = raw && raw.toLowerCase() !== pretty.toLowerCase()
-        ? `<span class="chip">${escapeHtml(raw)}</span>`
-        : "";
+    function normalizeBuyerId(label) {
+      const slug = slugifyType(label);
+      if (!slug) return "";
+      if (BUYER_ALLOWED_IDS.has(slug)) return slug;
+      return "";
+    }
 
-      if (!archetypeId || !href) {
-        return `<span>${escapeHtml(pretty)}</span>${rawChip}`;
-      }
+    function getPersonalDisplayName(label) {
+      const id = normalizePersonalId(label);
+      if (id) return PERSONAL_LABELS[id] || prettyFallback(id);
+      return safeTrim(label) || "—";
+    }
 
-      return `<a href="${escapeHtml(href)}">${escapeHtml(pretty)}</a>${rawChip}`;
+    function getBuyerDisplayName(label) {
+      const id = normalizeBuyerId(label);
+      if (id) return BUYER_LABELS[id] || prettyFallback(id);
+      return safeTrim(label) || "—";
     }
 
     function storageKey() {
@@ -198,7 +225,7 @@
       return u.pathname + u.search;
     }
 
-    function renderRoleLines(targetId, roles, combo, group, groupLabel) {
+    function renderRoleLines(targetId, roles, combo, group, mode) {
       const lines = [
         ["Primary", roles.primary],
         ["Secondary", roles.secondary],
@@ -206,38 +233,56 @@
       ];
 
       document.getElementById(targetId).innerHTML = lines.map(([label, roleName]) => {
-        const archetypeId = normalizeArchetypeId(roleName, `${groupLabel}/${label}`);
-        const href = archetypeId ? customerArchetypeHref(archetypeId, group, combo) : "";
+        const normalizedId = mode === "buyer"
+          ? normalizeBuyerId(roleName)
+          : normalizePersonalId(roleName);
+
+        const displayName = mode === "buyer"
+          ? getBuyerDisplayName(roleName)
+          : getPersonalDisplayName(roleName);
+
+        const href = (mode === "personal" && normalizedId)
+          ? customerArchetypeHref(normalizedId, group, combo)
+          : "";
+
+        const nameHtml = href
+          ? `<a href="${escapeHtml(href)}">${escapeHtml(displayName)}</a>`
+          : `<span>${escapeHtml(displayName)}</span>`;
+
         return `
           <p class="role">
             <b>${escapeHtml(label)}:</b>
-            ${displayRoleHtml(roleName, archetypeId, href)}
+            ${nameHtml}
           </p>`;
       }).join("");
     }
 
-    function renderBars(targetId, percents, group, combo, groupLabel) {
-      const entries = Object.entries(percents || {})
-        .sort((a, b) => Number(b[1]) - Number(a[1]));
+    function renderBars(targetId, percents, group, combo, mode) {
+      const entries = Object.entries(percents || {}).sort((a, b) => Number(b[1]) - Number(a[1]));
 
       document.getElementById(targetId).innerHTML = entries.map(([label, v]) => {
         const pct = Number(v) || 0;
-        const archetypeId = normalizeArchetypeId(label, `${groupLabel}/bar`);
-        const pretty = archetypeId ? prettyId(archetypeId) : safeTrim(label) || "—";
-        const href = archetypeId ? customerArchetypeHref(archetypeId, group, combo) : "";
+
+        const normalizedId = mode === "buyer"
+          ? normalizeBuyerId(label)
+          : normalizePersonalId(label);
+
+        const displayName = mode === "buyer"
+          ? getBuyerDisplayName(label)
+          : getPersonalDisplayName(label);
+
+        const href = (mode === "personal" && normalizedId)
+          ? customerArchetypeHref(normalizedId, group, combo)
+          : "";
 
         const nameHtml = href
-          ? `<a class="role" href="${escapeHtml(href)}" style="color:#93c5fd;text-decoration:underline">${escapeHtml(pretty)}</a>`
-          : `<span>${escapeHtml(pretty)}</span>`;
-
-        const rawChip = safeTrim(label) && safeTrim(label).toLowerCase() !== pretty.toLowerCase()
-          ? `<span class="chip">${escapeHtml(label)}</span>`
-          : "";
+          ? `<a class="role" href="${escapeHtml(href)}" style="color:#93c5fd;text-decoration:underline">${escapeHtml(displayName)}</a>`
+          : `<span>${escapeHtml(displayName)}</span>`;
 
         return `
           <div class="bar">
             <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;">
-              <div>${nameHtml}${rawChip}</div>
+              <div>${nameHtml}</div>
               <span>${pct}%</span>
             </div>
             <div class="track"><div class="fill" style="width:${pct}%"></div></div>
@@ -399,9 +444,9 @@
       };
 
       const personalCombo = {
-        primary: normalizeArchetypeId(personalRoles.primary, "personal/primary"),
-        secondary: normalizeArchetypeId(personalRoles.secondary, "personal/secondary"),
-        growth: normalizeArchetypeId(personalRoles.growth, "personal/growth"),
+        primary: normalizePersonalId(personalRoles.primary),
+        secondary: normalizePersonalId(personalRoles.secondary),
+        growth: normalizePersonalId(personalRoles.growth),
         crid,
       };
 
@@ -428,9 +473,9 @@
       };
 
       const buyingCombo = {
-        primary: normalizeArchetypeId(buyingRoles.primary, "buying/primary"),
-        secondary: normalizeArchetypeId(buyingRoles.secondary, "buying/secondary"),
-        growth: normalizeArchetypeId(buyingRoles.growth, "buying/growth"),
+        primary: normalizeBuyerId(buyingRoles.primary),
+        secondary: normalizeBuyerId(buyingRoles.secondary),
+        growth: normalizeBuyerId(buyingRoles.growth),
         crid,
       };
 
@@ -439,7 +484,7 @@
         buyingRoles,
         buyingCombo,
         "buyer_purchasing_profile",
-        "buying"
+        "buyer"
       );
 
       renderBars(
@@ -447,7 +492,7 @@
         data.buyer_archetypes?.percents || {},
         "buyer_purchasing_profile",
         buyingCombo,
-        "buying"
+        "buyer"
       );
 
       const rewardsHref = returnEngine
