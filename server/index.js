@@ -234,6 +234,17 @@ function buildNextSteps({ assessmentType, tenant }) {
   ];
 }
 
+function isNonEmptyObject(value) {
+  return !!value && typeof value === "object" && !Array.isArray(value) && Object.keys(value).length > 0;
+}
+
+function pickFirstNonEmptyMap(...candidates) {
+  for (const candidate of candidates) {
+    if (isNonEmptyObject(candidate)) return candidate;
+  }
+  return {};
+}
+
 function buildAssessmentResultPayload({
   assessmentType,
   tenantSlug,
@@ -274,13 +285,21 @@ function buildAssessmentResultPayload({
         primary: submission?.personal_primary_archetype || mapped.personal.primary,
         secondary: submission?.personal_secondary_archetype || mapped.personal.secondary,
         weakness: submission?.personal_weakness_archetype || mapped.personal.weakness,
-        percents: submission?.personal_counts || mapped.personal.percentages,
+        percents: pickFirstNonEmptyMap(
+          submission?.personal_percents,
+          submission?.personal_counts,
+          mapped.personal.percentages
+        ),
       },
       buyer_archetypes: {
         primary: submission?.buyer_primary_archetype || mapped.buyer.primary,
         secondary: submission?.buyer_secondary_archetype || mapped.buyer.secondary,
         weakness: submission?.buyer_weakness_archetype || mapped.buyer.weakness,
-        percents: submission?.buyer_counts || mapped.buyer.percentages,
+        percents: pickFirstNonEmptyMap(
+          submission?.buyer_percents,
+          submission?.buyer_counts,
+          mapped.buyer.percentages
+        ),
       },
     };
   }
@@ -1935,10 +1954,16 @@ app.get("/api/results/customer/:crid", async (req, res) => {
     }
 
     let query = `
-      SELECT a.*, u.email, t.slug AS tenant_slug
+      SELECT
+        a.*,
+        u.email,
+        t.slug AS tenant_slug,
+        COALESCE(a.cid, a.campaign_slug, vs.campaign_slug, isess.campaign_slug) AS resolved_cid
       FROM assessment_submissions a
       JOIN users u ON u.id = a.user_id
       JOIN tenants t ON t.id = a.tenant_id
+      LEFT JOIN voc_sessions vs ON vs.id = a.session_id
+      LEFT JOIN intake_sessions isess ON isess.id = a.session_id
       WHERE a.id::text = $1
         AND a.assessment_type = 'customer'
     `;
@@ -1965,7 +1990,10 @@ app.get("/api/results/customer/:crid", async (req, res) => {
       assessmentType: "customer",
       tenantSlug: row.tenant_slug,
       email: row.email,
-      submission: row,
+      submission: {
+        ...row,
+        cid: row.resolved_cid || row.cid || row.campaign_slug || null,
+      },
     });
 
     return res.json({
