@@ -458,7 +458,7 @@
         const asPercent = value > 0 && value <= 1 ? value * 100 : value;
         output[normalized] = Math.round(asPercent);
       }
-      return output;
+      return {};
     }
 
     function readBranchData(data) {
@@ -478,36 +478,19 @@
         growth: buyerBranch.weakness || data.buyer_weakness_archetype || nested.buyer_weakness_archetype,
       };
 
-      const rawPersonalPercents =
-        customerBranch.percents ||
-        data.personal_counts ||
-        nested.personal_counts ||
-        {};
-      const rawBuyerPercents =
-        buyerBranch.percents ||
-        data.buyer_counts ||
-        nested.buyer_counts ||
-        {};
-
-      const personalPercents = coercePercentMap(rawPersonalPercents, normalizePersonalId);
-      const buyerPercents = coercePercentMap(rawBuyerPercents, normalizeBuyerId);
-
-      const warnings = [];
-      if (!Object.keys(personalPercents).length) {
-        warnings.push("Personal archetype data unavailable from customer_archetypes/percents.");
-      }
-      if (!Object.keys(buyerPercents).length) {
-        warnings.push("Buying archetype data unavailable from buyer_archetypes/percents.");
-      }
-      if (warnings.length) {
-        console.warn("[results_customer] branch read warning", {
-          warnings,
-          hasCustomerBranch: !!Object.keys(customerBranch).length,
-          hasBuyerBranch: !!Object.keys(buyerBranch).length,
-          rawPersonalPercents,
-          rawBuyerPercents,
-        });
-      }
+      const personalPercents = firstNonEmptyObject(
+        customerBranch.percents,
+        customerBranch.percentages,
+        data.personal_percents,
+        data.personal_counts,
+        data.percents
+      );
+      const buyerPercents = firstNonEmptyObject(
+        buyerBranch.percents,
+        buyerBranch.percentages,
+        data.buyer_percents,
+        data.buyer_counts
+      );
 
       return { personalRoles, buyingRoles, personalPercents, buyerPercents, warnings };
     }
