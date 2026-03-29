@@ -387,32 +387,71 @@
       return Array.isArray(body.matches) ? body.matches : [];
     }
 
+    function sanitizePathToken(value, label) {
+      const token = safeTrim(value);
+      if (!token) return "";
+      if (token.includes("/") || token.includes("?") || token.includes("#")) {
+        throw new Error(`Invalid ${label} token.`);
+      }
+      return token;
+    }
+
+    function buildCustomerResultsByRidUrl(cridValue) {
+      const normalizedCrid = sanitizePathToken(cridValue, "crid");
+      if (!normalizedCrid) return "";
+      return window.GarveyApi.buildUrl(`/api/results/customer/${encodeURIComponent(normalizedCrid)}`, { tenant });
+    }
+
+    function buildCustomerResultsByEmailUrl(emailValue) {
+      const normalizedEmail = sanitizePathToken(emailValue, "email");
+      if (!normalizedEmail) return "";
+      return window.GarveyApi.buildUrl(`/api/results/${encodeURIComponent(normalizedEmail)}`, {
+        type: "customer",
+        tenant
+      });
+    }
+
+    function readBranchData(data) {
+      const customerBranch = data.customer_archetypes || {};
+      const buyerBranch = data.buyer_archetypes || {};
+
+      const personalRoles = {
+        primary: customerBranch.primary || data.personal_primary_archetype || data.primary_role,
+        secondary: customerBranch.secondary || data.personal_secondary_archetype || data.secondary_role,
+        growth: customerBranch.weakness || data.personal_weakness_archetype || data.weakness_role,
+      };
+
+      const buyingRoles = {
+        primary: buyerBranch.primary || data.buyer_primary_archetype,
+        secondary: buyerBranch.secondary || data.buyer_secondary_archetype,
+        growth: buyerBranch.weakness || data.buyer_weakness_archetype,
+      };
+
+      const personalPercents = customerBranch.percents || data.personal_counts || data.percents || {};
+      const buyerPercents = buyerBranch.percents || data.buyer_counts || {};
+
+      return { personalRoles, buyingRoles, personalPercents, buyerPercents };
+    }
+
     async function fetchResultsPayload(currentRid) {
       const rid = safeTrim(currentRid);
 
       if (rid) {
-        const byRidCandidates = [
-          window.GarveyApi.buildUrl(`/api/results/customer/${encodeURIComponent(rid)}`, { tenant }),
-          window.GarveyApi.buildUrl(`/api/results/${encodeURIComponent(rid)}`, { type: "customer", tenant, by: "rid" }),
-        ];
-
-        for (const url of byRidCandidates) {
-          try {
-            const res = await fetch(url);
-            const data = await res.json().catch(() => ({}));
-            if (res.ok) return { data, source: "rid", url };
-          } catch (_) {}
-        }
+        const ridUrl = buildCustomerResultsByRidUrl(rid);
+        if (!ridUrl) throw new Error("Missing crid route.");
+        try {
+          const res = await fetch(ridUrl);
+          const data = await res.json().catch(() => ({}));
+          if (res.ok) return { data, source: "rid", url: ridUrl };
+        } catch (_) {}
       }
 
       if (!email) {
         throw new Error("Missing email and no valid crid route available.");
       }
 
-      const emailUrl = window.GarveyApi.buildUrl(`/api/results/${encodeURIComponent(email)}`, {
-        type: "customer",
-        tenant
-      });
+      const emailUrl = buildCustomerResultsByEmailUrl(email);
+      if (!emailUrl) throw new Error("Missing email route.");
 
       const res = await fetch(emailUrl);
       const data = await res.json().catch(() => ({}));
@@ -475,11 +514,8 @@
       document.getElementById("ridLine").textContent =
         `Customer Result ID (crid): ${crid || "not yet available"}`;
 
-      const personalRoles = {
-        primary: data.customer_archetypes?.primary || data.primary_role,
-        secondary: data.customer_archetypes?.secondary || data.secondary_role,
-        growth: data.customer_archetypes?.weakness || data.weakness_role,
-      };
+      const branchData = readBranchData(data);
+      const personalRoles = branchData.personalRoles;
 
       const personalCombo = {
         primary: normalizePersonalId(personalRoles.primary),
@@ -498,17 +534,13 @@
 
       renderBars(
         "customerBars",
-        data.customer_archetypes?.percents || data.percents || {},
+        branchData.personalPercents,
         "customer_personality_profile",
         personalCombo,
         "personal"
       );
 
-      const buyingRoles = {
-        primary: data.buyer_archetypes?.primary,
-        secondary: data.buyer_archetypes?.secondary,
-        growth: data.buyer_archetypes?.weakness,
-      };
+      const buyingRoles = branchData.buyingRoles;
 
       const buyingCombo = {
         primary: normalizeBuyerId(buyingRoles.primary),
@@ -527,7 +559,7 @@
 
       renderBars(
         "buyerBars",
-        data.buyer_archetypes?.percents || {},
+        branchData.buyerPercents,
         "buyer_purchasing_profile",
         buyingCombo,
         "buyer"
