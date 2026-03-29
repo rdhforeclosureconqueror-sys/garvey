@@ -39,7 +39,7 @@
   </header>
 
   <main class="container section">
-    <div class="row"><span class="pill" id="tenantPill">Tenant: —</span><span class="pill" id="typePill">Archetype: —</span><span class="pill" id="groupPill">Group: —</span></div>
+    <div class="row"><span class="pill" id="tenantPill">Tenant: —</span><span class="pill" id="typePill">Archetype: —</span><span class="pill" id="groupPill">Group: —</span><span class="pill" id="scorePill">Score: —</span></div>
 
     <section class="hero">
       <div class="hero__bg"></div>
@@ -76,26 +76,86 @@
 
   <script type="module">
     const safeTrim = (value) => String(value ?? "").trim();
+    const slugify = (value) => safeTrim(value).toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+    const pretty = (slug) => slug ? slug.split("_").map((w) => w.slice(0, 1).toUpperCase() + w.slice(1)).join(" ") : "—";
+
+    const PERSONAL_CATALOG = [
+      { id: "architect", label: "Architect" },
+      { id: "builder", label: "Builder" },
+      { id: "operator", label: "Operator" },
+      { id: "resource_generator", label: "Resource Generator" },
+      { id: "connector", label: "Connector" },
+      { id: "educator", label: "Educator" },
+      { id: "protector", label: "Protector" },
+      { id: "steward", label: "Steward" },
+    ];
+    const BUYER_CATALOG = [
+      { id: "value_seeker", label: "Value Seeker" },
+      { id: "loyal_supporter", label: "Loyal Supporter" },
+      { id: "convenience_buyer", label: "Convenience Buyer" },
+      { id: "experience_seeker", label: "Experience Seeker" },
+      { id: "social_promoter", label: "Social Promoter" },
+      { id: "intentional_buyer", label: "Intentional Buyer" },
+      { id: "trend_explorer", label: "Trend Explorer" },
+    ];
+    const PERSONAL_TO_BUYER = {
+      architect: "experience_seeker",
+      builder: "trend_explorer",
+      operator: "convenience_buyer",
+      resource_generator: "value_seeker",
+      connector: "social_promoter",
+      educator: "intentional_buyer",
+      protector: "intentional_buyer",
+      steward: "loyal_supporter",
+    };
+    const BUYER_TO_PERSONAL = Object.entries(PERSONAL_TO_BUYER).reduce((acc, [p, b]) => {
+      if (!acc[b]) acc[b] = p;
+      return acc;
+    }, {});
+    const BUYER_FALLBACK_CONTENT = Object.fromEntries(
+      BUYER_CATALOG.map(({ id, label }) => [id, {
+        display_name: label,
+        tagline: `${label} buying profile.`,
+        buyer: {
+          buying_motivations: ["Prefers offers aligned to this buying style."],
+          buying_fears: ["Will avoid offers that do not match this style."],
+          decision_style: "Decision approach varies by offer clarity and trust.",
+          best_offers_for_them: ["Provide offer positioning and proof tailored to this archetype."],
+          messaging_that_converts: ["Use concise, direct messaging aligned to this buyer profile."],
+          red_flags_in_your_pitch: ["Generic messaging that ignores this buyer profile."],
+        },
+      }])
+    );
+
     const qs = new URLSearchParams(location.search);
     const tenant = safeTrim(qs.get("tenant"));
     const email = safeTrim(qs.get("email"));
     const cid = safeTrim(qs.get("cid"));
     const crid = safeTrim(qs.get("crid")) || safeTrim(qs.get("rid"));
-    const typeSlug = safeTrim(qs.get("type")).toLowerCase();
     const groupParam = safeTrim(qs.get("group")) || "customer_personality_profile";
     const group = ["customer_personality_profile", "buyer_purchasing_profile"].includes(groupParam)
       ? groupParam
       : "customer_personality_profile";
-    const primarySlug = safeTrim(qs.get("primary")).toLowerCase();
-    const secondarySlug = safeTrim(qs.get("secondary")).toLowerCase();
-    const growthSlug = safeTrim(qs.get("growth")).toLowerCase();
+    const isBuyerMode = group === "buyer_purchasing_profile";
 
-    const pretty = (slug) => slug ? slug.split("_").map((w) => w.slice(0, 1).toUpperCase() + w.slice(1)).join(" ") : "—";
     const tenantPill = document.getElementById("tenantPill");
     const typePill = document.getElementById("typePill");
     const groupPill = document.getElementById("groupPill");
+    const scorePill = document.getElementById("scorePill");
     tenantPill.textContent = `Tenant: ${tenant || "—"}`;
     groupPill.textContent = `Group: ${group}`;
+
+    const personalCatalogById = Object.fromEntries(PERSONAL_CATALOG.map((item) => [item.id, item]));
+    const buyerCatalogById = Object.fromEntries(BUYER_CATALOG.map((item) => [item.id, item]));
+    const activeCatalog = isBuyerMode ? BUYER_CATALOG : PERSONAL_CATALOG;
+    const activeCatalogSet = new Set(activeCatalog.map((item) => item.id));
+
+    function toModeId(raw, mode) {
+      const slug = slugify(raw);
+      if (!slug) return "";
+      if (mode === "buyer") return buyerCatalogById[slug] ? slug : "";
+      return personalCatalogById[slug] ? slug : "";
+    }
 
     function withCustomerCtx(href) {
       const u = new URL(href, location.origin);
@@ -106,13 +166,13 @@
       return u;
     }
 
-    function archetypeHref(slug, nextGroup = group) {
+    function archetypeHref(slug, nextGroup = group, combo = {}) {
       const u = withCustomerCtx("/customer_archetype.html");
       u.searchParams.set("type", slug);
       u.searchParams.set("group", nextGroup);
-      if (primarySlug) u.searchParams.set("primary", primarySlug);
-      if (secondarySlug) u.searchParams.set("secondary", secondarySlug);
-      if (growthSlug) u.searchParams.set("growth", growthSlug);
+      if (combo.primary) u.searchParams.set("primary", combo.primary);
+      if (combo.secondary) u.searchParams.set("secondary", combo.secondary);
+      if (combo.growth) u.searchParams.set("growth", combo.growth);
       return u.pathname + u.search;
     }
 
@@ -129,10 +189,6 @@
     document.getElementById("backBtn").href = resultsHref.pathname + resultsHref.search;
     document.getElementById("ctaBtn").href = rewardsHref.pathname + rewardsHref.search;
 
-    document.getElementById("primaryTag").textContent = pretty(primarySlug);
-    document.getElementById("secondaryTag").textContent = pretty(secondarySlug);
-    document.getElementById("growthTag").textContent = pretty(growthSlug);
-
     if (!tenant) {
       document.getElementById("title").textContent = "Tenant missing";
       document.getElementById("oneLiner").textContent = "Add ?tenant=<slug> to view customer archetype guidance.";
@@ -140,49 +196,126 @@
       throw new Error("tenant missing");
     }
 
-    const res = await fetch("/garvey_customer_archetypes.json", { cache: "no-store" });
-    if (!res.ok) throw new Error("Failed to load customer archetypes");
-    const data = await res.json();
-    const archetypes = Array.isArray(data.archetypes) ? data.archetypes : [];
-    const displayGroups = data.display_groups || {};
+    async function fetchResultsPayload() {
+      if (!tenant) return {};
+      const byRid = crid
+        ? [
+            `/api/results/customer/${encodeURIComponent(crid)}?tenant=${encodeURIComponent(tenant)}`,
+            `/api/results/${encodeURIComponent(crid)}?type=customer&tenant=${encodeURIComponent(tenant)}&by=rid`,
+          ]
+        : [];
+      for (const url of byRid) {
+        try {
+          const res = await fetch(url);
+          const json = await res.json().catch(() => ({}));
+          if (res.ok) return json || {};
+        } catch (_) {}
+      }
+      if (!email) return {};
+      try {
+        const res = await fetch(`/api/results/${encodeURIComponent(email)}?type=customer&tenant=${encodeURIComponent(tenant)}`);
+        const json = await res.json().catch(() => ({}));
+        return res.ok ? (json || {}) : {};
+      } catch (_) {
+        return {};
+      }
+    }
+
+    const [libraryRes, resultPayload] = await Promise.all([
+      fetch("/garvey_customer_archetypes.json", { cache: "no-store" }),
+      fetchResultsPayload(),
+    ]);
+    if (!libraryRes.ok) throw new Error("Failed to load customer archetypes");
+    const library = await libraryRes.json();
+    const displayGroups = library.display_groups || {};
     const activeGroupConfig = displayGroups[group] || displayGroups.customer_personality_profile || {};
+    const libraryById = Object.fromEntries((Array.isArray(library.archetypes) ? library.archetypes : []).map((item) => [slugify(item.id), item]));
+
+    const personalResult = resultPayload.customer_archetypes || {};
+    const buyerResult = resultPayload.buyer_archetypes || {};
+    const modeResult = isBuyerMode ? buyerResult : personalResult;
+    const modePrefix = isBuyerMode ? "buyer" : "personal";
+
+    const queryPrimary = toModeId(qs.get("primary"), modePrefix);
+    const querySecondary = toModeId(qs.get("secondary"), modePrefix);
+    const queryGrowth = toModeId(qs.get("growth"), modePrefix);
+    const resolvedCombo = {
+      primary: queryPrimary || toModeId(modeResult.primary, modePrefix),
+      secondary: querySecondary || toModeId(modeResult.secondary, modePrefix),
+      growth: queryGrowth || toModeId(modeResult.weakness, modePrefix),
+    };
+
+    const requestedType = slugify(qs.get("type"));
+    let resolvedType = "";
+    if (activeCatalogSet.has(requestedType)) resolvedType = requestedType;
+    if (!resolvedType && isBuyerMode && PERSONAL_TO_BUYER[requestedType]) resolvedType = PERSONAL_TO_BUYER[requestedType];
+    if (!resolvedType && !isBuyerMode && BUYER_TO_PERSONAL[requestedType]) resolvedType = BUYER_TO_PERSONAL[requestedType];
+    if (!resolvedType) resolvedType = resolvedCombo.primary || activeCatalog[0]?.id || "";
+
+    const scoreMapRaw = modeResult.percents || modeResult.percentages || {};
+    const scoreEntries = Object.entries(scoreMapRaw || {})
+      .map(([k, v]) => [toModeId(k, modePrefix), Number(v || 0)])
+      .filter(([k]) => !!k);
+    const rawMap = Object.fromEntries(scoreEntries);
+    const rawTotal = scoreEntries.reduce((sum, [, v]) => sum + (Number.isFinite(v) ? v : 0), 0);
+    const scoreMap = activeCatalog.reduce((acc, item) => {
+      const raw = Number(rawMap[item.id] || 0);
+      acc[item.id] = rawTotal > 100 ? Math.round((raw / rawTotal) * 100) : Math.round(raw);
+      return acc;
+    }, {});
+    const selectedScore = scoreMap[resolvedType] ?? 0;
+
+    document.getElementById("primaryTag").textContent = pretty(resolvedCombo.primary);
+    document.getElementById("secondaryTag").textContent = pretty(resolvedCombo.secondary);
+    document.getElementById("growthTag").textContent = pretty(resolvedCombo.growth);
 
     const allChips = document.getElementById("allChips");
     allChips.innerHTML = "";
-    archetypes.forEach((a) => {
+    activeCatalog.forEach((item) => {
       const chip = document.createElement("a");
       chip.className = "chip";
-      chip.href = archetypeHref(a.id, group);
-      chip.textContent = a.display_name || pretty(a.id);
-      if (a.id === typeSlug) chip.classList.add("is-active");
+      chip.href = archetypeHref(item.id, group, resolvedCombo);
+      chip.textContent = item.label;
+      if (item.id === resolvedType) chip.classList.add("is-active");
       allChips.appendChild(chip);
     });
 
-    if (!typeSlug) {
+    if (!resolvedType) {
       document.getElementById("title").textContent = "Choose an archetype";
       document.getElementById("oneLiner").textContent = "Use any chip above or provide ?type=<archetype_id>.";
       typePill.textContent = "Archetype: —";
       throw new Error("type missing");
     }
 
-    const a = archetypes.find((x) => x.id === typeSlug);
-    if (!a) {
-      document.getElementById("title").textContent = "Archetype not found";
-      document.getElementById("oneLiner").textContent = "Select a valid archetype id from the chips.";
-      typePill.textContent = "Archetype: —";
-      throw new Error("archetype not found");
-    }
+    const activeArchetype = isBuyerMode
+      ? (BUYER_FALLBACK_CONTENT[resolvedType] || { display_name: pretty(resolvedType), buyer: {} })
+      : (libraryById[resolvedType] || { display_name: pretty(resolvedType), personal: {} });
 
-    typePill.textContent = `Archetype: ${a.display_name || pretty(typeSlug)}`;
-    document.getElementById("title").textContent = activeGroupConfig.title || (group === "buyer_purchasing_profile" ? "Your Buying Archetype Profile" : "Your Personal Archetype Profile");
-    document.getElementById("oneLiner").textContent = a.tagline || "—";
+    typePill.textContent = `Archetype: ${activeArchetype.display_name || pretty(resolvedType)}`;
+    scorePill.textContent = `Score: ${selectedScore}%`;
+    document.getElementById("title").textContent = activeGroupConfig.title || (isBuyerMode ? "Your Buying Archetype Profile" : "Your Personal Archetype Profile");
+    document.getElementById("oneLiner").textContent = activeArchetype.tagline || "—";
+    document.getElementById("comboText").textContent = isBuyerMode
+      ? "Buying mode context from buyer primary / secondary / growth."
+      : "Personal mode context from personal primary / secondary / growth.";
+    document.getElementById("lensSectionsTitle").textContent = isBuyerMode ? "Buying profile details" : "Personal profile details";
 
-    document.getElementById("personalBtn").href = archetypeHref(typeSlug, "customer_personality_profile");
-    document.getElementById("buyingBtn").href = archetypeHref(typeSlug, "buyer_purchasing_profile");
+    const personalTabType = isBuyerMode ? (BUYER_TO_PERSONAL[resolvedType] || PERSONAL_CATALOG[0].id) : resolvedType;
+    const buyerTabType = isBuyerMode ? resolvedType : (PERSONAL_TO_BUYER[resolvedType] || BUYER_CATALOG[0].id);
+    document.getElementById("personalBtn").href = archetypeHref(personalTabType, "customer_personality_profile", {
+      primary: toModeId(personalResult.primary, "personal"),
+      secondary: toModeId(personalResult.secondary, "personal"),
+      growth: toModeId(personalResult.weakness, "personal"),
+    });
+    document.getElementById("buyingBtn").href = archetypeHref(buyerTabType, "buyer_purchasing_profile", {
+      primary: toModeId(buyerResult.primary, "buyer"),
+      secondary: toModeId(buyerResult.secondary, "buyer"),
+      growth: toModeId(buyerResult.weakness, "buyer"),
+    });
 
     const personalBtn = document.getElementById("personalBtn");
     const buyingBtn = document.getElementById("buyingBtn");
-    if (group === "customer_personality_profile") {
+    if (!isBuyerMode) {
       personalBtn.classList.remove("btn--ghost");
       personalBtn.classList.add("btn--primary");
     } else {
@@ -190,8 +323,7 @@
       buyingBtn.classList.add("btn--primary");
     }
 
-    const lensKey = group === "buyer_purchasing_profile" ? "buyer" : "personal";
-    const lensObj = a[lensKey] || {};
+    const lensObj = isBuyerMode ? (activeArchetype.buyer || {}) : (activeArchetype.personal || {});
     const includeSections = Array.isArray(activeGroupConfig.include_sections) ? activeGroupConfig.include_sections : [];
     const sectionHost = document.getElementById("lensSections");
 
