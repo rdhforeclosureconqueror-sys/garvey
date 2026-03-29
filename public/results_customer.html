@@ -87,7 +87,7 @@
 
     const tenant = safeTrim(qs.get("tenant"));
     const email = safeTrim(qs.get("email")).toLowerCase();
-    const cid = safeTrim(qs.get("cid"));
+    let cid = safeTrim(qs.get("cid"));
     const ownerEmailFromUrl = safeTrim(qs.get("owner_email")).toLowerCase();
     const ownerRidFromUrl = safeTrim(qs.get("owner_rid"));
 
@@ -192,6 +192,11 @@
       return `garvey_customer_rid:${tenant}:${email}`;
     }
 
+    function cidStorageKey() {
+      if (!tenant || !email) return "";
+      return `garvey_customer_cid:${tenant}:${email}`;
+    }
+
     function readStoredRid() {
       const key = storageKey();
       if (!key) return "";
@@ -205,6 +210,25 @@
     function saveRid(rid) {
       const normalized = safeTrim(rid);
       const key = storageKey();
+      if (!key || !normalized) return;
+      try {
+        localStorage.setItem(key, normalized);
+      } catch (_) {}
+    }
+
+    function readStoredCid() {
+      const key = cidStorageKey();
+      if (!key) return "";
+      try {
+        return safeTrim(localStorage.getItem(key));
+      } catch (_) {
+        return "";
+      }
+    }
+
+    function saveCid(nextCid) {
+      const normalized = safeTrim(nextCid);
+      const key = cidStorageKey();
       if (!key || !normalized) return;
       try {
         localStorage.setItem(key, normalized);
@@ -415,6 +439,20 @@
 
       const crid = safeTrim(resolvedRid);
       saveRid(crid);
+
+      const resolvedCid =
+        cid ||
+        safeTrim(data.cid) ||
+        safeTrim(data.result?.cid) ||
+        readStoredCid();
+      cid = safeTrim(resolvedCid);
+      saveCid(cid);
+      if (window.history && window.history.replaceState) {
+        const updated = new URL(window.location.href);
+        if (cid) updated.searchParams.set("cid", cid);
+        if (crid) updated.searchParams.set("crid", crid);
+        window.history.replaceState(null, "", updated.pathname + updated.search);
+      }
 
       if (window.GARVEY && window.GARVEY.setLoginCtx) {
         window.GARVEY.setLoginCtx({ tenant, email, cid, rid: crid });
