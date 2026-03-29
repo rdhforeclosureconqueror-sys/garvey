@@ -1,22 +1,50 @@
 "use strict";
 
-function normalizeScores(scoresObj = {}, roleKeys = []) {
-  const baseKeys = Array.isArray(roleKeys) && roleKeys.length
-    ? roleKeys
-    : Object.keys(scoresObj || {});
+function toSafeNumber(value) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : 0;
+}
 
-  return baseKeys.reduce((acc, key) => {
-    const n = Number(scoresObj?.[key] || 0);
-    acc[key] = Number.isFinite(n) ? n : 0;
+function normalizeScores(scoresObj = {}, roleKeys = []) {
+  const source = (scoresObj && typeof scoresObj === "object") ? scoresObj : {};
+  const keys = Array.isArray(roleKeys) && roleKeys.length
+    ? roleKeys
+    : Object.keys(source);
+
+  return keys.reduce((acc, key) => {
+    acc[String(key)] = toSafeNumber(source[key]);
     return acc;
   }, {});
 }
 
+function sortHighToLowThenName(entries = []) {
+  return [...entries].sort((a, b) => {
+    const aScore = toSafeNumber(a[1]);
+    const bScore = toSafeNumber(b[1]);
+    if (bScore !== aScore) return bScore - aScore;
+    return String(a[0]).localeCompare(String(b[0]));
+  });
+}
+
+function sortLowToHighThenName(entries = []) {
+  return [...entries].sort((a, b) => {
+    const aScore = toSafeNumber(a[1]);
+    const bScore = toSafeNumber(b[1]);
+    if (aScore !== bScore) return aScore - bScore;
+    return String(a[0]).localeCompare(String(b[0]));
+  });
+}
+
 function scoresToPercents(scoresObj = {}) {
-  const entries = Object.entries(scoresObj || {});
-  const total = entries.reduce((sum, [, value]) => sum + Number(value || 0), 0);
+  const entries = Object.entries(scoresObj || {}).map(([key, value]) => [
+    String(key),
+    toSafeNumber(value),
+  ]);
 
   if (!entries.length) return {};
+
+  const total = entries.reduce((sum, [, value]) => sum + value, 0);
+
   if (total <= 0) {
     return entries.reduce((acc, [key]) => {
       acc[key] = 0;
@@ -24,55 +52,78 @@ function scoresToPercents(scoresObj = {}) {
     }, {});
   }
 
-  const raw = entries.map(([key, value]) => ({
-    key,
-    exact: (Number(value || 0) / total) * 100,
-  }));
+  const raw = entries.map(([key, value]) => {
+    const exact = (value / total) * 100;
+    const floor = Math.floor(exact);
+    const remainder = exact - floor;
 
-  const floored = raw.map((row) => ({ ...row, floor: Math.floor(row.exact) }));
-  let remainder = 100 - floored.reduce((sum, row) => sum + row.floor, 0);
-  floored.sort((a, b) => (b.exact - b.floor) - (a.exact - a.floor));
-  for (let i = 0; i < floored.length && remainder > 0; i += 1) {
-    floored[i].floor += 1;
-    remainder -= 1;
+    return {
+      key,
+      exact,
+      floor,
+      remainder,
+    };
+  });
+
+  let pointsLeft = 100 - raw.reduce((sum, row) => sum + row.floor, 0);
+
+  raw.sort((a, b) => {
+    if (b.remainder !== a.remainder) return b.remainder - a.remainder;
+    return a.key.localeCompare(b.key);
+  });
+
+  for (let i = 0; i < raw.length && pointsLeft > 0; i += 1) {
+    raw[i].floor += 1;
+    pointsLeft -= 1;
   }
 
-  return floored.reduce((acc, row) => {
+  raw.sort((a, b) => a.key.localeCompare(b.key));
+
+  return raw.reduce((acc, row) => {
     acc[row.key] = row.floor;
     return acc;
   }, {});
 }
 
 function topN(scoresObj = {}, n = 2) {
-  return Object.entries(scoresObj || {})
-    .sort((a, b) => {
-      if (b[1] !== a[1]) return b[1] - a[1];
-      return a[0].localeCompare(b[0]);
-    })
-    .slice(0, n)
-    .map(([role, score]) => ({ role, score }));
+  const safeN = Math.max(0, Number(n) || 0);
+  return sortHighToLowThenName(Object.entries(scoresObj || {}))
+    .slice(0, safeN)
+    .map(([role, score]) => ({
+      role,
+      score: toSafeNumber(score),
+    }));
 }
 
 function bottomN(scoresObj = {}, n = 1) {
-  return Object.entries(scoresObj || {})
-    .sort((a, b) => {
-      if (a[1] !== b[1]) return a[1] - b[1];
-      return a[0].localeCompare(b[0]);
-    })
-    .slice(0, n)
-    .map(([role, score]) => ({ role, score }));
+  const safeN = Math.max(0, Number(n) || 0);
+  return sortLowToHighThenName(Object.entries(scoresObj || {}))
+    .slice(0, safeN)
+    .map(([role, score]) => ({
+      role,
+      score: toSafeNumber(score),
+    }));
 }
 
 function deriveRoles(scoresObj = {}) {
+  const orderedHigh = topN(scoresObj, 2);
+  const orderedLow = bottomN(scoresObj, 1);
+
+  const primary = orderedHigh[0]?.role || null;
+  const secondary = orderedHigh[1]?.role || null;
+  const weakness = orderedLow[0]?.role || null;
+
   return {
-    primary: topN(scoresObj, 1)[0]?.role || null,
-    secondary: topN(scoresObj, 2)[1]?.role || null,
-    weakness: bottomN(scoresObj, 1)[0]?.role || null,
+    primary,
+    secondary,
+    weakness,
   };
 }
 
 function buildGuidance({ primary, secondary, weakness, assessment_type: assessmentType }) {
-  const label = assessmentType === "customer" ? "customer profile" : "business system";
+  const isCustomer = String(assessmentType || "").trim().toLowerCase() === "customer";
+  const label = isCustomer ? "customer profile" : "business system";
+
   return {
     strengthen_strength: primary
       ? `Double down on ${primary} in your ${label} decisions this week.`
@@ -94,4 +145,3 @@ module.exports = {
   deriveRoles,
   buildGuidance,
 };
-
