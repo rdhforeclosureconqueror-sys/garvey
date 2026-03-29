@@ -287,8 +287,8 @@ function buildAssessmentResultPayload({
         weakness: submission?.personal_weakness_archetype || mapped.personal.weakness,
         percents: pickFirstNonEmptyMap(
           submission?.personal_percents,
-          submission?.personal_counts,
-          mapped.personal.percentages
+          mapped.personal.percentages,
+          submission?.personal_counts
         ),
       },
       buyer_archetypes: {
@@ -297,8 +297,8 @@ function buildAssessmentResultPayload({
         weakness: submission?.buyer_weakness_archetype || mapped.buyer.weakness,
         percents: pickFirstNonEmptyMap(
           submission?.buyer_percents,
-          submission?.buyer_counts,
-          mapped.buyer.percentages
+          mapped.buyer.percentages,
+          submission?.buyer_counts
         ),
       },
     };

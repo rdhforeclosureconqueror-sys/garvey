@@ -184,6 +184,7 @@ function mapCustomerResultToArchetypes(result = {}) {
   const personalCounts = mapCountsToPersonal(personalSeed);
 
   const buyerSeedCandidates = [
+    result.archetype_counts,
     result.buyer_counts,
   ];
 
