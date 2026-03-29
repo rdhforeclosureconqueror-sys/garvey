@@ -234,8 +234,9 @@
     }
 
     function buildCustomerResultsByEmailUrl(emailValue) {
-      const e = sanitizePathToken(emailValue);
+      const e = safeTrim(emailValue).toLowerCase();
       if (!e) return "";
+      if (/[\s/]/.test(e)) return "";
       return window.GarveyApi.buildUrl(`/api/results/${encodeURIComponent(e)}`, {
         type: "customer",
         tenant
@@ -401,6 +402,13 @@
       }).join("");
     }
 
+
+    function resolveRuntimeCid() {
+      const fromStorage = readStorage(cidStorageKey());
+      const fromCtx = safeTrim((window.GARVEY && window.GARVEY.ctx && window.GARVEY.ctx().cid) || "");
+      return safeTrim(cid || fromStorage || fromCtx);
+    }
+
     function buildDashboardHref(ctxInput) {
       const base = "/dashboard.html";
       const withCtx = (window.GARVEY && typeof window.GARVEY.withCtx === "function")
@@ -428,23 +436,36 @@
     }
 
     async function sendToOwner({ crid: ridValue, ownerEmail, ownerRid }) {
-      const effectiveEmail = email || safeTrim((window.GARVEY && window.GARVEY.ctx && window.GARVEY.ctx().email) || "").toLowerCase();
-      let effectiveCid = cid
-        || safeTrim((window.GARVEY && window.GARVEY.ctx && window.GARVEY.ctx().cid) || "")
-        || readStorage(cidStorageKey());
+      const ctx = (window.GARVEY && window.GARVEY.ctx && window.GARVEY.ctx()) || {};
+      const effectiveTenant = safeTrim(tenant || ctx.tenant);
+      const effectiveEmail = safeTrim(email || ctx.email).toLowerCase();
+      const effectiveResultId = safeTrim(ridValue || crid || ctx.rid) || null;
+      const effectiveCid = resolveRuntimeCid();
 
       if (!effectiveEmail || !effectiveCid) {
         document.getElementById("shareStatus").textContent =
-          "Missing email/cid; open from a results link.";
+          "Critical error: CID missing from result payload.";
+        console.error("sendToOwner blocked: missing customer email/cid", {
+          tenant: effectiveTenant,
+          email: effectiveEmail,
+          cid: effectiveCid,
+          crid: effectiveResultId
+        });
         return;
       }
 
+      tenant = effectiveTenant || tenant;
+      email = effectiveEmail || email;
+      cid = effectiveCid;
+      crid = safeTrim(effectiveResultId || crid);
+      syncCtx();
+
       const payload = {
-        tenant,
+        tenant: effectiveTenant,
         customer_email: effectiveEmail,
         customer_name: "",
         cid: effectiveCid,
-        result_id: safeTrim(ridValue || crid) || null
+        result_id: effectiveResultId
       };
 
       if (safeTrim(ownerEmail)) payload.owner_email = safeTrim(ownerEmail).toLowerCase();
@@ -520,23 +541,40 @@
       const data = fetched.payload || {};
 
       crid = safeTrim(
-        crid ||
         data.result_id ||
         data.result?.result_id ||
-        data.id
+        data.id ||
+        crid
       );
 
-      cid = safeTrim(
-        cid ||
+      const payloadCid = safeTrim(
         data.cid ||
         data.result?.cid ||
         data.campaign_slug ||
-        data.result?.campaign_slug ||
+        data.result?.campaign_slug
+      );
+
+      const fallbackCid = safeTrim(
+        cid ||
         readStorage(cidStorageKey()) ||
         safeTrim((window.GARVEY && window.GARVEY.ctx && window.GARVEY.ctx().cid) || "")
       );
 
+      cid = safeTrim(payloadCid || fallbackCid);
       syncCtx();
+
+      if (!cid) {
+        document.getElementById("shareStatus").textContent =
+          "Critical error: CID missing from result payload.";
+        console.error("CID resolution failed after results payload load", {
+          tenant,
+          email,
+          crid,
+          source: fetched.source,
+          url: fetched.url,
+          payload: data
+        });
+      }
 
       document.getElementById("meta").textContent =
         `Tenant: ${tenant} • Email: ${email}${cid ? ` • CID: ${cid}` : ""}${fetched.source ? ` • Loaded via: ${fetched.source.toUpperCase()}` : ""}`;
