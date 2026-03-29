@@ -88,8 +88,9 @@
     qs.delete("ctx_redirected");
 
     const tenant = safeTrim(qs.get("tenant"));
-    const email = safeTrim(qs.get("email")).toLowerCase();
+    let customerEmail = safeTrim(qs.get("email")).toLowerCase();
     let cid = safeTrim(qs.get("cid")) || safeTrim(baseCtx.cid) || readStoredCid();
+    let currentCrid = safeTrim(qs.get("crid")) || "";
     const ownerEmailFromUrl = safeTrim(qs.get("owner_email")).toLowerCase();
     const ownerRidFromUrl = safeTrim(qs.get("owner_rid"));
 
@@ -190,13 +191,13 @@
     }
 
     function storageKey() {
-      if (!tenant || !email) return "";
-      return `garvey_customer_rid:${tenant}:${email}`;
+      if (!tenant || !customerEmail) return "";
+      return `garvey_customer_rid:${tenant}:${customerEmail}`;
     }
 
     function cidStorageKey() {
-      if (!tenant || !email) return "";
-      return `garvey_customer_cid:${tenant}:${email}`;
+      if (!tenant || !customerEmail) return "";
+      return `garvey_customer_cid:${tenant}:${customerEmail}`;
     }
 
     function readStoredRid() {
@@ -248,7 +249,7 @@
     function customerArchetypeHref(typeId, group, combo) {
       const u = new URL("/customer_archetype.html", window.location.origin);
       if (tenant) u.searchParams.set("tenant", tenant);
-      if (email) u.searchParams.set("email", email);
+      if (customerEmail) u.searchParams.set("email", customerEmail);
       if (cid) u.searchParams.set("cid", cid);
       if (combo.crid) u.searchParams.set("crid", combo.crid);
       if (typeId) u.searchParams.set("type", typeId);
@@ -359,7 +360,10 @@
         : {};
       const effectiveCid = safeTrim(cid) || safeTrim(liveCtx.cid) || readStoredCid();
       cid = effectiveCid;
-      if (!email || !cid) {
+      const effectiveEmail = safeTrim(customerEmail) || safeTrim(liveCtx.email).toLowerCase();
+      customerEmail = effectiveEmail;
+      currentCrid = safeTrim(crid || "") || currentCrid;
+      if (!customerEmail || !cid) {
         document.getElementById("shareStatus").textContent =
           "Missing email/cid; open from a results link.";
         return;
@@ -367,10 +371,10 @@
 
       const payload = {
         tenant,
-        customer_email: email,
+        customer_email: customerEmail,
         customer_name: "",
         cid,
-        result_id: safeTrim(crid || "") || null,
+        result_id: safeTrim(currentCrid || "") || null,
       };
 
       if (safeTrim(ownerEmail)) payload.owner_email = safeTrim(ownerEmail).toLowerCase();
@@ -385,18 +389,25 @@
       const body = await resp.json().catch(() => ({}));
       if (!resp.ok) throw new Error(body.error || "Send failed");
       cid = safeTrim(body.cid || cid);
+      currentCrid = safeTrim(body.crid || currentCrid);
       saveCid(cid);
       if (window.history && window.history.replaceState) {
         const updated = new URL(window.location.href);
+        if (tenant) updated.searchParams.set("tenant", tenant);
+        if (customerEmail) updated.searchParams.set("email", customerEmail);
         if (cid) updated.searchParams.set("cid", cid);
+        if (currentCrid) updated.searchParams.set("crid", currentCrid);
         window.history.replaceState(null, "", updated.pathname + updated.search);
+      }
+      if (window.GARVEY && window.GARVEY.setLoginCtx) {
+        window.GARVEY.setLoginCtx({ tenant, email: customerEmail, cid, rid: currentCrid });
       }
 
       const dashboardHref = buildDashboardHref({
         tenant,
-        email,
+        email: customerEmail,
         cid: body.cid || cid,
-        crid: body.crid || safeTrim(crid || ""),
+        crid: body.crid || safeTrim(currentCrid || ""),
         owner_email: body.owner_email || safeTrim(ownerEmail || ""),
         owner_rid: body.owner_rid || safeTrim(ownerRid || ""),
       });
@@ -437,11 +448,15 @@
       });
     }
 
-    function firstNonEmptyObject(...candidates) {
-      for (const candidate of candidates) {
-        if (candidate && typeof candidate === "object" && !Array.isArray(candidate) && Object.keys(candidate).length) {
-          return candidate;
-        }
+    function coercePercentMap(candidate, normalizer) {
+      const output = {};
+      for (const [label, raw] of Object.entries(candidate || {})) {
+        const normalized = normalizer(label);
+        if (!normalized) continue;
+        const value = Number(raw);
+        if (!Number.isFinite(value) || value < 0) continue;
+        const asPercent = value > 0 && value <= 1 ? value * 100 : value;
+        output[normalized] = Math.round(asPercent);
       }
       return {};
     }
@@ -493,11 +508,11 @@
         } catch (_) {}
       }
 
-      if (!email) {
+      if (!customerEmail) {
         throw new Error("Missing email and no valid crid route available.");
       }
 
-      const emailUrl = buildCustomerResultsByEmailUrl(email);
+      const emailUrl = buildCustomerResultsByEmailUrl(customerEmail);
       if (!emailUrl) throw new Error("Missing email route.");
 
       const res = await fetch(emailUrl);
@@ -507,7 +522,7 @@
     }
 
     async function load() {
-      if (!tenant || !email) {
+      if (!tenant || !customerEmail) {
         document.getElementById("meta").textContent = "Missing tenant/email query params.";
         return;
       }
@@ -524,7 +539,13 @@
         safeTrim(data.id);
 
       const crid = safeTrim(resolvedRid);
-      saveRid(crid);
+      currentCrid = crid;
+      saveRid(currentCrid);
+
+      customerEmail =
+        safeTrim(data.email).toLowerCase() ||
+        safeTrim(data.result?.email).toLowerCase() ||
+        customerEmail;
 
       const resolvedCid =
         cid ||
@@ -538,31 +559,33 @@
       saveCid(cid);
       if (window.history && window.history.replaceState) {
         const updated = new URL(window.location.href);
+        if (tenant) updated.searchParams.set("tenant", tenant);
+        if (customerEmail) updated.searchParams.set("email", customerEmail);
         if (cid) updated.searchParams.set("cid", cid);
-        if (crid) updated.searchParams.set("crid", crid);
+        if (currentCrid) updated.searchParams.set("crid", currentCrid);
         window.history.replaceState(null, "", updated.pathname + updated.search);
       }
 
       if (window.GARVEY && window.GARVEY.setLoginCtx) {
-        window.GARVEY.setLoginCtx({ tenant, email, cid, rid: crid });
+        window.GARVEY.setLoginCtx({ tenant, email: customerEmail, cid, rid: currentCrid });
       }
 
       if (returnEngine) {
         returnEngine.init({
           tenant,
-          email,
+          email: customerEmail,
           cid,
-          rid: crid,
+          rid: currentCrid,
           owner_email: ownerEmailFromUrl,
           owner_rid: ownerRidFromUrl
         });
       }
 
       document.getElementById("meta").textContent =
-        `Tenant: ${tenant} • Email: ${email}${cid ? ` • CID: ${cid}` : ""}${payload.source ? ` • Loaded via: ${payload.source.toUpperCase()}` : ""}`;
+        `Tenant: ${tenant} • Email: ${customerEmail}${cid ? ` • CID: ${cid}` : ""}${payload.source ? ` • Loaded via: ${payload.source.toUpperCase()}` : ""}`;
 
       document.getElementById("ridLine").textContent =
-        `Customer Result ID (crid): ${crid || "not yet available"}`;
+        `Customer Result ID (crid): ${currentCrid || "not yet available"}`;
 
       const branchData = readBranchData(data);
       showBranchWarning(
@@ -583,7 +606,7 @@
         primary: normalizePersonalId(personalRoles.primary),
         secondary: normalizePersonalId(personalRoles.secondary),
         growth: normalizePersonalId(personalRoles.growth),
-        crid,
+        crid: currentCrid,
       };
 
       renderRoleLines(
@@ -630,26 +653,26 @@
       const rewardsHref = returnEngine
         ? returnEngine.buildRewardsUrl({
             tenant,
-            email,
+            email: customerEmail,
             cid,
-            rid: crid,
+            rid: currentCrid,
             owner_email: ownerEmailFromUrl,
             owner_rid: ownerRidFromUrl
           })
         : (function () {
             const rewards = new URL("/rewards.html", window.location.origin);
             rewards.searchParams.set("tenant", tenant);
-            rewards.searchParams.set("email", email);
+            rewards.searchParams.set("email", customerEmail);
             if (cid) rewards.searchParams.set("cid", cid);
-            if (crid) rewards.searchParams.set("crid", crid);
+            if (currentCrid) rewards.searchParams.set("crid", currentCrid);
             return rewards.pathname + rewards.search;
           })();
 
       const bookmark = new URL(window.location.href);
       bookmark.searchParams.set("tenant", tenant);
-      bookmark.searchParams.set("email", email);
+      bookmark.searchParams.set("email", customerEmail);
       if (cid) bookmark.searchParams.set("cid", cid);
-      if (crid) bookmark.searchParams.set("crid", crid);
+      if (currentCrid) bookmark.searchParams.set("crid", currentCrid);
 
       document.getElementById("ctas").innerHTML = `
         <a class="btn" href="${escapeHtml(rewardsHref)}" id="claimRewardsBtn">Claim Rewards</a>
@@ -667,9 +690,9 @@
           e.preventDefault();
           returnEngine.startEarnFlow({
             tenant,
-            email,
+            email: customerEmail,
             cid,
-            rid: crid,
+            rid: currentCrid,
             owner_email: ownerEmailFromUrl,
             owner_rid: ownerRidFromUrl
           });
@@ -684,7 +707,7 @@
       document.getElementById("sendOwnerBtn").addEventListener("click", async () => {
         try {
           if (ownerEmailFromUrl || ownerRidFromUrl) {
-            await sendToOwner({ crid, ownerEmail: ownerEmailFromUrl, ownerRid: ownerRidFromUrl });
+            await sendToOwner({ crid: currentCrid, ownerEmail: ownerEmailFromUrl, ownerRid: ownerRidFromUrl });
             return;
           }
           sharePanel.hidden = false;
@@ -756,7 +779,7 @@
             resolvedOwnerEmail = safeTrim(matches[0].email).toLowerCase();
           }
 
-          await sendToOwner({ crid, ownerEmail: resolvedOwnerEmail, ownerRid: "" });
+          await sendToOwner({ crid: currentCrid, ownerEmail: resolvedOwnerEmail, ownerRid: "" });
           sharePanel.hidden = true;
         } catch (err) {
           document.getElementById("shareStatus").textContent = "Failed: " + err.message;
