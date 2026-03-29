@@ -231,10 +231,7 @@
       const attempts = [];
       const normalizedCrid = normalizeResultIdentifier(crid);
       const byRid = normalizedCrid
-        ? [
-            buildResultUrl(`/api/results/customer/${encodeURIComponent(normalizedCrid)}`, { tenant }),
-            buildResultUrl(`/api/results/${encodeURIComponent(normalizedCrid)}`, { type: "customer", tenant, by: "rid" }),
-          ]
+        ? [buildResultUrl(`/api/results/customer/${encodeURIComponent(normalizedCrid)}`, { tenant })]
         : [];
       for (const url of byRid) {
         attempts.push(url);
