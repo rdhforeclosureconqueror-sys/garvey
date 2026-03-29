@@ -41,7 +41,8 @@ const {
 const { buildDashboardUrl } = require("./dashboardUrl");
 const archetypeLibrary = require("../public/archetypes/library.json");
 const {
-  CANONICAL_ARCHETYPES,
+  PERSONAL_ARCHETYPES,
+  BUYER_ARCHETYPES,
   mapCustomerResultToArchetypes,
 } = require("./archetypeMap");
 
@@ -248,6 +249,7 @@ function buildAssessmentResultPayload({
     success: true,
     tenant: tenantSlug,
     email: normalizeEmail(email),
+    cid: submission?.cid || submission?.campaign_slug || null,
     assessment_type: assessmentType,
     primary_role: roles.primary,
     secondary_role: roles.secondary,
@@ -366,8 +368,15 @@ function getLibraryEntry(archetypeKey) {
   return (archetypeLibrary.archetypes || []).find((entry) => entry.key === key) || null;
 }
 
-function emptyCanonicalCounts() {
-  return CANONICAL_ARCHETYPES.reduce((acc, key) => {
+function emptyPersonalCounts() {
+  return PERSONAL_ARCHETYPES.reduce((acc, key) => {
+    acc[key] = 0;
+    return acc;
+  }, {});
+}
+
+function emptyBuyerCounts() {
+  return BUYER_ARCHETYPES.reduce((acc, key) => {
     acc[key] = 0;
     return acc;
   }, {});
@@ -405,8 +414,8 @@ app.get("/api/archetypes/groups", async (req, res) => {
       params
     );
 
-    const personalCounts = emptyCanonicalCounts();
-    const buyerCounts = emptyCanonicalCounts();
+    const personalCounts = emptyPersonalCounts();
+    const buyerCounts = emptyBuyerCounts();
     grouped.rows.forEach((row) => {
       const personalKey = String(row.personal_primary_archetype || "").trim().toLowerCase();
       const buyerKey = String(row.buyer_primary_archetype || "").trim().toLowerCase();

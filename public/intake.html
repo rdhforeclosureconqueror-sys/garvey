@@ -274,7 +274,8 @@
       try { await activateOwnerSystem(tenant); } catch (err) { showDebug("Kanban activation warning: " + err.message); }
     }
 
-    const ownerDest = `/results_owner.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}&cid=${encodeURIComponent(cid)}`;
+    const responseCid = String(data?.cid ?? data?.result?.cid ?? cid).trim();
+    const ownerDest = `/results_owner.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}&cid=${encodeURIComponent(responseCid)}`;
     if (assessment !== "customer") {
       window.location.href = ownerDest;
       return;
@@ -284,8 +285,12 @@
     const customerDest = new URL("/results_customer.html", window.location.origin);
     customerDest.searchParams.set("tenant", tenant);
     customerDest.searchParams.set("email", email);
-    if (cid) customerDest.searchParams.set("cid", cid);
+    if (responseCid) customerDest.searchParams.set("cid", responseCid);
     if (crid) customerDest.searchParams.set("crid", crid);
+    try {
+      if (responseCid) localStorage.setItem(`garvey_customer_cid:${tenant}:${email.toLowerCase()}`, responseCid);
+      if (crid) localStorage.setItem(`garvey_customer_rid:${tenant}:${email.toLowerCase()}`, crid);
+    } catch (_) {}
     window.location.href = customerDest.pathname + customerDest.search;
   }
 

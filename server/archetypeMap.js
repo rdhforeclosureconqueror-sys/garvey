@@ -1,50 +1,119 @@
 "use strict";
 
-const CANONICAL_ARCHETYPES = [
+const PERSONAL_ARCHETYPES = [
   "architect",
   "builder",
   "operator",
+  "resource_generator",
   "connector",
-  "resource-generator",
   "educator",
   "protector",
   "steward",
 ];
 
-const LEGACY_TO_CANONICAL = {
+const BUYER_ARCHETYPES = [
+  "value_seeker",
+  "loyal_supporter",
+  "convenience_buyer",
+  "experience_seeker",
+  "social_promoter",
+  "intentional_buyer",
+  "trend_explorer",
+];
+
+const PERSONAL_TO_BUYER = Object.freeze({
+  architect: "experience_seeker",
+  builder: "trend_explorer",
+  operator: "convenience_buyer",
+  resource_generator: "value_seeker",
+  connector: "social_promoter",
+  educator: "intentional_buyer",
+  protector: "intentional_buyer",
+  steward: "loyal_supporter",
+});
+
+const LEGACY_PERSONAL_ALIASES = Object.freeze({
   Architect: "architect",
   Builder: "builder",
   Operator: "operator",
   Connector: "connector",
-  "Resource Generator": "resource-generator",
+  "Resource Generator": "resource_generator",
+  "Resource-Generator": "resource_generator",
   Educator: "educator",
   Protector: "protector",
   Nurturer: "steward",
   Steward: "steward",
-  "Value Seeker": "resource-generator",
-  "Convenience Buyer": "operator",
-  "Experience Seeker": "architect",
-  "Loyal Supporter": "steward",
-  "Social Promoter": "connector",
-  "Intentional Buyer": "protector",
-  "Trend Explorer": "builder",
-};
+});
 
-function initCounts() {
-  return CANONICAL_ARCHETYPES.reduce((acc, key) => {
+const LEGACY_BUYER_ALIASES = Object.freeze({
+  "Value Seeker": "value_seeker",
+  "Loyal Supporter": "loyal_supporter",
+  "Convenience Buyer": "convenience_buyer",
+  "Experience Seeker": "experience_seeker",
+  "Social Promoter": "social_promoter",
+  "Intentional Buyer": "intentional_buyer",
+  "Trend Explorer": "trend_explorer",
+});
+
+function normalizeKey(value) {
+  return String(value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+}
+
+function initCounts(keys = []) {
+  return keys.reduce((acc, key) => {
     acc[key] = 0;
     return acc;
   }, {});
 }
 
-function mapCountsToCanonical(counts = {}) {
-  const mapped = initCounts();
-  Object.entries(counts || {}).forEach(([legacyKey, value]) => {
-    const canonical = LEGACY_TO_CANONICAL[legacyKey] || null;
-    if (!canonical || mapped[canonical] === undefined) return;
+function canonicalizePersonalKey(rawKey) {
+  const slug = normalizeKey(rawKey);
+  if (!slug) return "";
+  if (PERSONAL_ARCHETYPES.includes(slug)) return slug;
+  return LEGACY_PERSONAL_ALIASES[rawKey] || "";
+}
+
+function canonicalizeBuyerKey(rawKey) {
+  const slug = normalizeKey(rawKey);
+  if (!slug) return "";
+  if (BUYER_ARCHETYPES.includes(slug)) return slug;
+  return LEGACY_BUYER_ALIASES[rawKey] || "";
+}
+
+function mapCountsToPersonal(counts = {}) {
+  const mapped = initCounts(PERSONAL_ARCHETYPES);
+  Object.entries(counts || {}).forEach(([rawKey, value]) => {
+    const canonical = canonicalizePersonalKey(rawKey);
+    if (!canonical) return;
     mapped[canonical] += Number(value || 0);
   });
   return mapped;
+}
+
+function mapCountsToBuyer(counts = {}) {
+  const mapped = initCounts(BUYER_ARCHETYPES);
+  Object.entries(counts || {}).forEach(([rawKey, value]) => {
+    const canonical = canonicalizeBuyerKey(rawKey);
+    if (!canonical) return;
+    mapped[canonical] += Number(value || 0);
+  });
+  return mapped;
+}
+
+function mapPersonalCountsToBuyer(personalCounts = {}) {
+  const buyerCounts = initCounts(BUYER_ARCHETYPES);
+  Object.entries(personalCounts || {}).forEach(([rawKey, value]) => {
+    const personalKey = canonicalizePersonalKey(rawKey);
+    if (!personalKey) return;
+    const buyerKey = PERSONAL_TO_BUYER[personalKey];
+    if (!buyerKey || buyerCounts[buyerKey] === undefined) return;
+    buyerCounts[buyerKey] += Number(value || 0);
+  });
+  return buyerCounts;
 }
 
 function deriveRoles(counts = {}) {
@@ -68,9 +137,13 @@ function deriveRoles(counts = {}) {
 }
 
 function mapCustomerResultToArchetypes(result = {}) {
-  const buyerCounts = mapCountsToCanonical(result.archetype_counts || {});
-  const personalSeed = result.personality_counts || result.archetype_counts || {};
-  const personalCounts = mapCountsToCanonical(personalSeed);
+  const personalSeed = result.personality_counts || result.personal_counts || {};
+  const personalCounts = mapCountsToPersonal(personalSeed);
+
+  const buyerSeed = result.buyer_counts || result.archetype_counts || {};
+  const buyerCounts = Object.values(buyerSeed || {}).some((v) => Number(v || 0) > 0)
+    ? mapCountsToBuyer(buyerSeed)
+    : mapPersonalCountsToBuyer(personalCounts);
 
   return {
     buyer: {
@@ -85,8 +158,11 @@ function mapCustomerResultToArchetypes(result = {}) {
 }
 
 module.exports = {
-  CANONICAL_ARCHETYPES,
-  LEGACY_TO_CANONICAL,
-  mapCountsToCanonical,
+  PERSONAL_ARCHETYPES,
+  BUYER_ARCHETYPES,
+  PERSONAL_TO_BUYER,
+  mapCountsToPersonal,
+  mapCountsToBuyer,
+  mapPersonalCountsToBuyer,
   mapCustomerResultToArchetypes,
 };
