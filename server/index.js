@@ -39,6 +39,11 @@ const {
   buildGuidance,
 } = require("./resultEngine");
 const { buildDashboardUrl } = require("./dashboardUrl");
+const archetypeLibrary = require("../public/archetypes/library.json");
+const {
+  CANONICAL_ARCHETYPES,
+  mapCustomerResultToArchetypes,
+} = require("./archetypeMap");
 
 // ✅ Kanban
 const { initializeKanbanSchema } = require("./kanbanDb");
@@ -257,22 +262,23 @@ function buildAssessmentResultPayload({
   };
 
   if (assessmentType === "customer") {
-    const buyerScores = normalizeScoreMap(submission?.personality_counts || {}, CUSTOMER_ARCHETYPES);
-    const buyerPercents = scoresToPercents(buyerScores);
-    const buyerRoles = deriveRoles(buyerScores);
+    const mapped = mapCustomerResultToArchetypes({
+      archetype_counts: submission?.archetype_counts || {},
+      personality_counts: submission?.personality_counts || {},
+    });
     return {
       ...base,
       customer_archetypes: {
-        primary: roles.primary,
-        secondary: roles.secondary,
-        weakness: roles.weakness,
-        percents,
+        primary: submission?.personal_primary_archetype || mapped.personal.primary,
+        secondary: submission?.personal_secondary_archetype || mapped.personal.secondary,
+        weakness: submission?.personal_weakness_archetype || mapped.personal.weakness,
+        percents: submission?.personal_counts || mapped.personal.percentages,
       },
       buyer_archetypes: {
-        primary: buyerRoles.primary,
-        secondary: buyerRoles.secondary,
-        weakness: buyerRoles.weakness,
-        percents: buyerPercents,
+        primary: submission?.buyer_primary_archetype || mapped.buyer.primary,
+        secondary: submission?.buyer_secondary_archetype || mapped.buyer.secondary,
+        weakness: submission?.buyer_weakness_archetype || mapped.buyer.weakness,
+        percents: submission?.buyer_counts || mapped.buyer.percentages,
       },
     };
   }
@@ -355,11 +361,144 @@ function buildRoleModifiers(primaryRole, secondaryRole) {
   return [...new Set([primary, secondary].filter(Boolean))];
 }
 
+function getLibraryEntry(archetypeKey) {
+  const key = String(archetypeKey || "").trim().toLowerCase();
+  return (archetypeLibrary.archetypes || []).find((entry) => entry.key === key) || null;
+}
+
+function emptyCanonicalCounts() {
+  return CANONICAL_ARCHETYPES.reduce((acc, key) => {
+    acc[key] = 0;
+    return acc;
+  }, {});
+}
+
 /* =========================
    HEALTH + JOIN
 ========================= */
 
 app.get("/health", (req, res) => res.json({ status: "ok" }));
+
+app.get("/api/archetypes/library", async (req, res) => {
+  return res.json(archetypeLibrary);
+});
+
+app.get("/api/archetypes/groups", async (req, res) => {
+  try {
+    const tenantSlug = String(req.query.tenant || "").trim();
+    const cid = String(req.query.cid || "").trim();
+    if (!tenantSlug) return res.status(400).json({ error: "tenant is required" });
+    const tenantRow = await getTenantBySlug(tenantSlug);
+    if (!tenantRow) return res.status(404).json({ error: "tenant not found" });
+
+    const where = ["tenant_id = $1", "assessment_type = 'customer'"];
+    const params = [tenantRow.id];
+    if (cid) {
+      where.push(`COALESCE(cid, campaign_slug) = $${params.length + 1}`);
+      params.push(cid);
+    }
+
+    const grouped = await pool.query(
+      `SELECT personal_primary_archetype, buyer_primary_archetype
+       FROM assessment_submissions
+       WHERE ${where.join(" AND ")}`,
+      params
+    );
+
+    const personalCounts = emptyCanonicalCounts();
+    const buyerCounts = emptyCanonicalCounts();
+    grouped.rows.forEach((row) => {
+      const personalKey = String(row.personal_primary_archetype || "").trim().toLowerCase();
+      const buyerKey = String(row.buyer_primary_archetype || "").trim().toLowerCase();
+      if (personalCounts[personalKey] !== undefined) personalCounts[personalKey] += 1;
+      if (buyerCounts[buyerKey] !== undefined) buyerCounts[buyerKey] += 1;
+    });
+
+    return res.json({
+      tenant: tenantRow.slug,
+      cid: cid || null,
+      personal: Object.entries(personalCounts).map(([archetype, count]) => ({ archetype, count })),
+      buyer: Object.entries(buyerCounts).map(([archetype, count]) => ({ archetype, count })),
+    });
+  } catch (err) {
+    console.error("archetype_groups_failed", err);
+    return res.status(500).json({ error: "archetype groups failed" });
+  }
+});
+
+app.get("/api/archetypes/group", async (req, res) => {
+  try {
+    const tenantSlug = String(req.query.tenant || "").trim();
+    const cid = String(req.query.cid || "").trim();
+    const archetype = String(req.query.archetype || "").trim().toLowerCase();
+    const lens = String(req.query.lens || "").trim().toLowerCase();
+    if (!tenantSlug || !archetype || !["personal", "buyer"].includes(lens)) {
+      return res.status(400).json({ error: "tenant, lens, archetype are required" });
+    }
+    const tenantRow = await getTenantBySlug(tenantSlug);
+    if (!tenantRow) return res.status(404).json({ error: "tenant not found" });
+    const lensColumn = lens === "personal" ? "personal_primary_archetype" : "buyer_primary_archetype";
+    const where = ["tenant_id = $1", "assessment_type = 'customer'", `LOWER(COALESCE(${lensColumn}, '')) = $2`];
+    const params = [tenantRow.id, archetype];
+    if (cid) {
+      where.push(`COALESCE(cid, campaign_slug) = $${params.length + 1}`);
+      params.push(cid);
+    }
+
+    const customers = await pool.query(
+      `SELECT customer_email AS email, customer_name AS name, created_at,
+              COALESCE(cid, campaign_slug) AS cid,
+              personal_primary_archetype, personal_secondary_archetype, personal_weakness_archetype, personal_counts,
+              buyer_primary_archetype, buyer_secondary_archetype, buyer_weakness_archetype, buyer_counts
+       FROM assessment_submissions
+       WHERE ${where.join(" AND ")}
+       ORDER BY created_at DESC, id DESC`,
+      params
+    );
+    const playbook = getLibraryEntry(archetype);
+    return res.json({
+      archetype,
+      lens,
+      playbook: playbook ? playbook[lens] : null,
+      customers: customers.rows.map((row) => ({
+        email: row.email,
+        name: row.name,
+        created_at: row.created_at,
+        cid: row.cid,
+        primary: lens === "personal" ? row.personal_primary_archetype : row.buyer_primary_archetype,
+        secondary: lens === "personal" ? row.personal_secondary_archetype : row.buyer_secondary_archetype,
+        weakness: lens === "personal" ? row.personal_weakness_archetype : row.buyer_weakness_archetype,
+        counts: lens === "personal" ? row.personal_counts : row.buyer_counts,
+      })),
+    });
+  } catch (err) {
+    console.error("archetype_group_failed", err);
+    return res.status(500).json({ error: "archetype group failed" });
+  }
+});
+
+app.get("/api/archetypes/customer", async (req, res) => {
+  try {
+    const tenantSlug = String(req.query.tenant || "").trim();
+    const email = normalizeEmail(req.query.email || "");
+    if (!tenantSlug || !email) return res.status(400).json({ error: "tenant and email are required" });
+    const tenantRow = await getTenantBySlug(tenantSlug);
+    if (!tenantRow) return res.status(404).json({ error: "tenant not found" });
+    const latest = await pool.query(
+      `SELECT *
+       FROM assessment_submissions
+       WHERE tenant_id = $1 AND assessment_type = 'customer' AND LOWER(COALESCE(customer_email, '')) = $2
+       ORDER BY created_at DESC, id DESC
+       LIMIT 1`,
+      [tenantRow.id, email]
+    );
+    if (!latest.rows[0]) return res.status(404).json({ error: "customer not found" });
+    return res.json({ tenant: tenantRow.slug, customer: latest.rows[0] });
+  } catch (err) {
+    console.error("archetype_customer_failed", err);
+    return res.status(500).json({ error: "archetype customer failed" });
+  }
+});
 
 app.get("/join/:slug", async (req, res) => {
   const tenant = await getTenantBySlug(req.params.slug);
@@ -2034,6 +2173,7 @@ app.post("/voc-intake", async (req, res) => {
         details: scoreErr.message,
       });
     }
+    const mappedArchetypes = mapCustomerResultToArchetypes(scored);
     const safeAnswers = JSON.stringify(normalizedAnswers);
 
     await client.query("BEGIN");
@@ -2065,10 +2205,21 @@ app.post("/voc-intake", async (req, res) => {
         personality_weakness,
         archetype_counts,
         personality_counts,
+        customer_name,
+        customer_email,
+        buyer_primary_archetype,
+        buyer_secondary_archetype,
+        buyer_weakness_archetype,
+        buyer_counts,
+        personal_primary_archetype,
+        personal_secondary_archetype,
+        personal_weakness_archetype,
+        personal_counts,
+        cid,
         raw_answers,
         campaign_id,
         campaign_slug
-      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26)
       RETURNING id, created_at, raw_answers, archetype_counts, personality_counts`,
       [
         tenantRow.id,
@@ -2083,6 +2234,17 @@ app.post("/voc-intake", async (req, res) => {
         scored.personality_weakness,
         scored.archetype_counts,
         scored.personality_counts,
+        name || null,
+        normalizeEmail(email),
+        mappedArchetypes.buyer.primary,
+        mappedArchetypes.buyer.secondary,
+        mappedArchetypes.buyer.weakness,
+        mappedArchetypes.buyer.counts,
+        mappedArchetypes.personal.primary,
+        mappedArchetypes.personal.secondary,
+        mappedArchetypes.personal.weakness,
+        mappedArchetypes.personal.counts,
+        campaign?.slug || normalizeSlug(cid) || null,
         safeAnswers,
         campaign?.id || null,
         campaign?.slug || null,
@@ -2102,6 +2264,14 @@ app.post("/voc-intake", async (req, res) => {
         primary_archetype: scored.primary,
         secondary_archetype: scored.secondary,
         weakness_archetype: scored.weakness,
+        buyer_primary_archetype: mappedArchetypes.buyer.primary,
+        buyer_secondary_archetype: mappedArchetypes.buyer.secondary,
+        buyer_weakness_archetype: mappedArchetypes.buyer.weakness,
+        buyer_counts: mappedArchetypes.buyer.counts,
+        personal_primary_archetype: mappedArchetypes.personal.primary,
+        personal_secondary_archetype: mappedArchetypes.personal.secondary,
+        personal_weakness_archetype: mappedArchetypes.personal.weakness,
+        personal_counts: mappedArchetypes.personal.counts,
       },
     });
     const resultContract = buildResultContract(scored);

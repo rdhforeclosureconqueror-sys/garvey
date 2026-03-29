@@ -337,10 +337,32 @@ async function initializeDatabase() {
       raw_answers JSONB DEFAULT '[]'::jsonb,
       campaign_id INTEGER,
       campaign_slug TEXT,
+      customer_name TEXT,
+      customer_email TEXT,
+      buyer_primary_archetype TEXT,
+      buyer_secondary_archetype TEXT,
+      buyer_weakness_archetype TEXT,
+      buyer_counts JSONB DEFAULT '{}'::jsonb,
+      personal_primary_archetype TEXT,
+      personal_secondary_archetype TEXT,
+      personal_weakness_archetype TEXT,
+      personal_counts JSONB DEFAULT '{}'::jsonb,
+      cid TEXT,
       created_at TIMESTAMP DEFAULT NOW()
     );
     ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS campaign_id INTEGER;
     ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS campaign_slug TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS customer_name TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS customer_email TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS buyer_primary_archetype TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS buyer_secondary_archetype TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS buyer_weakness_archetype TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS buyer_counts JSONB DEFAULT '{}'::jsonb;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS personal_primary_archetype TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS personal_secondary_archetype TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS personal_weakness_archetype TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS personal_counts JSONB DEFAULT '{}'::jsonb;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS cid TEXT;
   `);
 
   // ==================================================

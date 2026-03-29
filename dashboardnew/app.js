@@ -739,6 +739,99 @@
     });
   }
 
+  var archetypeLens = "personal";
+
+  function playbookList(title, items) {
+    var rows = Array.isArray(items) ? items : [];
+    if (!rows.length) return "";
+    return "<div><b>" + escapeHtml(title) + ":</b><ul>" + rows.map(function (x) { return "<li>" + escapeHtml(x) + "</li>"; }).join("") + "</ul></div>";
+  }
+
+  function renderGroupDetails(tenant, cid, lens, archetype) {
+    var playbookEl = document.getElementById("groupDetailsPlaybook");
+    var tbody = document.querySelector("#groupCustomersTable tbody");
+    var empty = document.getElementById("groupCustomersEmpty");
+    if (!playbookEl || !tbody || !empty) return;
+    playbookEl.textContent = "Loading group details...";
+    tbody.innerHTML = "";
+    empty.style.display = "none";
+
+    jsonFetch(apiUrl("/api/archetypes/group", { tenant: tenant, cid: cid || undefined, lens: lens, archetype: archetype }))
+      .then(function (resp) {
+        var playbook = resp.playbook || {};
+        if (lens === "personal") {
+          playbookEl.innerHTML =
+            "<h4 style='margin-top:0;'>" + escapeHtml(archetype) + " (Personal)</h4>" +
+            playbookList("When Strong", playbook.when_strong) +
+            playbookList("Out of Balance (High)", playbook.when_out_of_balance_high) +
+            playbookList("Out of Balance (Low)", playbook.when_out_of_balance_low) +
+            playbookList("Daily Build-Ups", playbook.daily_practices_to_build) +
+            playbookList("Weekly Build-Ups", playbook.weekly_practices_to_build) +
+            playbookList("Balance Signals", playbook.balance_signals);
+        } else {
+          playbookEl.innerHTML =
+            "<h4 style='margin-top:0;'>" + escapeHtml(archetype) + " (Buyer)</h4>" +
+            playbookList("Buying Motivations", playbook.buying_motivations) +
+            playbookList("Buying Fears", playbook.buying_fears) +
+            "<div><b>Decision Style:</b> " + escapeHtml(playbook.decision_style || "-") + "</div>" +
+            playbookList("Best Offers", playbook.best_offers_for_them) +
+            playbookList("Messaging That Converts", playbook.messaging_that_converts) +
+            playbookList("Pitch Red Flags", playbook.red_flags_in_your_pitch);
+        }
+
+        var customers = Array.isArray(resp.customers) ? resp.customers : [];
+        tbody.innerHTML = customers.map(function (c) {
+          return "<tr><td>" + escapeHtml(c.email || "-") + "</td><td>" + escapeHtml(c.name || "-") + "</td><td>" + fmtDate(c.created_at) + "</td><td>" + escapeHtml(c.cid || "-") + "</td><td>" + escapeHtml(c.primary || "-") + "</td><td>" + escapeHtml(c.secondary || "-") + "</td><td>" + escapeHtml(c.weakness || "-") + "</td></tr>";
+        }).join("");
+        empty.style.display = customers.length ? "none" : "block";
+      })
+      .catch(function (err) {
+        playbookEl.innerHTML = '<span class="text-danger">' + escapeHtml(err.message) + "</span>";
+        empty.style.display = "block";
+      });
+  }
+
+  function renderArchetypeGroups(tenant, cid, groups) {
+    var listEl = document.getElementById("archetypeGroupsList");
+    var personalBtn = document.getElementById("lensPersonalBtn");
+    var buyerBtn = document.getElementById("lensBuyerBtn");
+    if (!listEl) return;
+    if (personalBtn && buyerBtn) {
+      personalBtn.className = archetypeLens === "personal" ? "btn btn-primary btn-sm" : "btn btn-default btn-sm";
+      buyerBtn.className = archetypeLens === "buyer" ? "btn btn-primary btn-sm" : "btn btn-default btn-sm";
+    }
+
+    var rows = (groups && groups[archetypeLens]) || [];
+    if (!rows.length) {
+      listEl.innerHTML = "No grouped archetypes yet.";
+      return;
+    }
+    listEl.innerHTML = rows.map(function (row) {
+      return '<button class="btn btn-default btn-block text-left archetype-group-btn" data-archetype="' + escapeHtml(row.archetype) + '">' + escapeHtml(row.archetype) + " <span class='badge'>" + Number(row.count || 0) + "</span></button>";
+    }).join("");
+    Array.prototype.forEach.call(listEl.querySelectorAll(".archetype-group-btn"), function (btn) {
+      btn.addEventListener("click", function () {
+        renderGroupDetails(tenant, cid, archetypeLens, btn.getAttribute("data-archetype"));
+      });
+    });
+
+    var first = rows.find(function (r) { return Number(r.count || 0) > 0; }) || rows[0];
+    if (first) renderGroupDetails(tenant, cid, archetypeLens, first.archetype);
+  }
+
+  function wireArchetypeLensToggle(tenant, cid, groups) {
+    var personalBtn = document.getElementById("lensPersonalBtn");
+    var buyerBtn = document.getElementById("lensBuyerBtn");
+    if (personalBtn) personalBtn.addEventListener("click", function () {
+      archetypeLens = "personal";
+      renderArchetypeGroups(tenant, cid, groups);
+    });
+    if (buyerBtn) buyerBtn.addEventListener("click", function () {
+      archetypeLens = "buyer";
+      renderArchetypeGroups(tenant, cid, groups);
+    });
+  }
+
   function init() {
     var fromLoginCtx = loginCtxFromStorage();
     var urlTenant = tenantFromUrl();
@@ -791,7 +884,8 @@
         jsonFetch(tenantApiUrl(tenant, "/analytics", ownerEmail)),
         jsonFetch(tenantApiUrl(tenant, "/segments", ownerEmail)),
         jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail)),
-        jsonFetch(apiUrl("/api/campaigns/list", { tenant: tenant, email: ownerEmail }))
+        jsonFetch(apiUrl("/api/campaigns/list", { tenant: tenant, email: ownerEmail })),
+        jsonFetch(apiUrl("/api/archetypes/groups", { tenant: tenant, cid: cid || undefined }))
       ])
         .then(function (responses) {
           renderMetrics(responses[0]);
@@ -810,6 +904,8 @@
               customerCidInput.dispatchEvent(new Event("input"));
             }
           }
+          wireArchetypeLensToggle(tenant, cid, responses[6] || {});
+          renderArchetypeGroups(tenant, cid, responses[6] || {});
         });
     }).catch(function (err) {
       setupError(err.message);

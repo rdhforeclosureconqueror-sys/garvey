@@ -130,6 +130,37 @@
         </div>
       </div>
 
+      <div class="row" id="archetypeGroups">
+        <div class="col-lg-4">
+          <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-object-group fa-fw"></i> Customer Archetype Groups</div>
+            <div class="panel-body">
+              <div class="btn-group" role="group" style="margin-bottom:10px;">
+                <button id="lensPersonalBtn" class="btn btn-primary btn-sm">Personal</button>
+                <button id="lensBuyerBtn" class="btn btn-default btn-sm">Buyer</button>
+              </div>
+              <div id="archetypeGroupsList" class="empty-state">Loading groups…</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-book fa-fw"></i> Group Details</div>
+            <div class="panel-body">
+              <div id="groupDetailsPlaybook" class="empty-state">Select an archetype group to view playbook.</div>
+              <hr />
+              <table class="table table-striped table-bordered" id="groupCustomersTable">
+                <thead>
+                  <tr><th>Email</th><th>Name</th><th>Last Activity</th><th>CID</th><th>Primary</th><th>Secondary</th><th>Weakness</th></tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+              <div id="groupCustomersEmpty" class="empty-state">No customers for selected group.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="row" id="campaignTracking">
         <div class="col-lg-6">
           <div class="panel panel-default">
