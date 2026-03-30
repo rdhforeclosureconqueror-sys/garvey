@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Archetype Card</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#020617; color:#fff; margin:0; padding:24px; }
+    .wrap { max-width:980px; margin:0 auto; background:#0f172a; border:1px solid #334155; border-radius:14px; padding:20px; }
+    a { color:#93c5fd; }
+    .card-image { margin:14px 0 18px; }
+    .card-image img { width:100%; max-width:760px; height:auto; display:block; border-radius:12px; border:1px solid #334155; }
+    h1 { margin:8px 0 6px; }
+    h2 { margin-top:24px; color:#f8fafc; }
+    .muted { color:#94a3b8; }
+    ul { margin-top:8px; }
+    li { margin:6px 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p><a id="backLink" href="javascript:history.back()">← Back</a></p>
+    <h1 id="title">Archetype</h1>
+    <p id="subtitle" class="muted"></p>
+
+    <div class="card-image"><img id="cardImage" alt="Archetype card" /></div>
+
+    <div id="breakdown"></div>
+  </div>
+
+  <script type="module">
+    const qs = new URLSearchParams(window.location.search);
+
+    function safeId(value) {
+      return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/-/g, "_")
+        .replace(/[^a-z0-9_]/g, "");
+    }
+
+    function normalizeLens(value) {
+      const lens = String(value || "").trim().toLowerCase();
+      if (lens === "buyer") return "buying";
+      return ["business", "personal", "buying"].includes(lens) ? lens : "personal";
+    }
+
+    function normalizeGender(value) {
+      const g = String(value || "").trim().toLowerCase();
+      return g === "male" || g === "female" ? g : "";
+    }
+
+    function hashSeed(seed) {
+      let h = 0;
+      for (let i = 0; i < seed.length; i += 1) {
+        h = ((h << 5) - h) + seed.charCodeAt(i);
+        h |= 0;
+      }
+      return Math.abs(h);
+    }
+
+    function pickPersonalImage(card, gender, emailSeed) {
+      if (!card) return "";
+      if (gender === "male" && card.image_male) return card.image_male;
+      if (gender === "female" && card.image_female) return card.image_female;
+
+      if (card.image_male && card.image_female && emailSeed) {
+        const hash = hashSeed(`${emailSeed}:${card.id || ""}`);
+        return hash % 2 === 0 ? card.image_male : card.image_female;
+      }
+
+      if (card.image_male && card.image_female) {
+        return Math.random() < 0.5 ? card.image_male : card.image_female;
+      }
+
+      return card.image_male || card.image_female || card.image || "";
+    }
+
+    function resolveImage(card, lens, gender, email) {
+      if (lens === "business") return card.image_business || card.image || "";
+      if (lens === "buying") return card.image_buying || card.image || "";
+      return pickPersonalImage(card, gender, email);
+    }
+
+    function lineItems(title, items) {
+      const list = Array.isArray(items) ? items.filter(Boolean) : [];
+      if (!list.length) return "";
+      return `<h3>${title}</h3><ul>${list.map((item) => `<li>${item}</li>`).join("")}</ul>`;
+    }
+
+    function renderPersonalBreakdown(entry, heading) {
+      const p = entry?.personal || {};
+      return `
+        <h2>${heading}</h2>
+        ${lineItems("When Strong", p.when_strong)}
+        ${lineItems("When Out of Balance (High)", p.when_out_of_balance_high)}
+        ${lineItems("When Out of Balance (Low)", p.when_out_of_balance_low)}
+        ${lineItems("Daily Build-Ups", p.daily_practices_to_build)}
+        ${lineItems("Weekly Build-Ups", p.weekly_practices_to_build)}
+        ${lineItems("Balance Signals", p.balance_signals)}
+      `;
+    }
+
+    function renderBuyerBreakdown(entry) {
+      const b = entry?.buyer || {};
+      return `
+        <h2>Buying Breakdown</h2>
+        ${lineItems("Buying Motivations", b.buying_motivations)}
+        ${lineItems("Buying Fears", b.buying_fears)}
+        <h3>Decision Style</h3>
+        <p>${b.decision_style || "—"}</p>
+        ${lineItems("Best Offers", b.best_offers_for_them)}
+        ${lineItems("Messaging That Converts", b.messaging_that_converts)}
+        ${lineItems("Red Flags in Your Pitch", b.red_flags_in_your_pitch)}
+      `;
+    }
+
+    function findLibraryEntry(library, archetypeId) {
+      const target = safeId(archetypeId);
+      const entries = Array.isArray(library?.archetypes) ? library.archetypes : [];
+      return entries.find((entry) => safeId(entry?.key || entry?.id || entry?.name) === target);
+    }
+
+    async function load() {
+      const lens = normalizeLens(qs.get('lens'));
+      const archetypeId = safeId(qs.get('archetype'));
+      const gender = normalizeGender(qs.get('gender'));
+      const email = String(qs.get('email') || '').trim().toLowerCase();
+
+      if (!archetypeId) {
+        document.getElementById('subtitle').textContent = 'Missing archetype query parameter.';
+        return;
+      }
+
+      const [manifest, library] = await Promise.all([
+        fetch('/archetypes/cards-manifest.json').then((res) => res.json()),
+        fetch('/archetypes/library.json').then((res) => res.json())
+      ]);
+
+      const card = manifest?.cards?.[archetypeId];
+      const libraryEntry = findLibraryEntry(library, archetypeId);
+
+      if (!card) {
+        document.getElementById('subtitle').textContent = `Unknown archetype: ${archetypeId}`;
+        return;
+      }
+
+      document.getElementById('title').textContent = card.name || archetypeId;
+      document.getElementById('subtitle').textContent = `${lens.charAt(0).toUpperCase() + lens.slice(1)} lens`;
+      document.getElementById('cardImage').src = resolveImage(card, lens, gender, email);
+
+      const breakdownEl = document.getElementById('breakdown');
+      if (lens === 'buying') {
+        breakdownEl.innerHTML = renderBuyerBreakdown(libraryEntry);
+      } else if (lens === 'business') {
+        breakdownEl.innerHTML = renderPersonalBreakdown(libraryEntry, 'Business Owner Breakdown');
+      } else {
+        breakdownEl.innerHTML = renderPersonalBreakdown(libraryEntry, 'Personal Breakdown');
+      }
+    }
+
+    load().catch((err) => {
+      document.getElementById('subtitle').textContent = `Failed to load archetype page: ${err.message}`;
+    });
+  </script>
+</body>
+</html>

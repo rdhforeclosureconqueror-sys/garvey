@@ -61,25 +61,39 @@ function getRenderContext() {
   return {
     gender: normalizeGender(qs("gender")),
     seedBase: qs("email") || "",
+    email: qs("email") || "",
+    tenant: qs("tenant") || "",
   };
 }
 
 function normalizeLens(value) {
   const lens = String(value || "").trim().toLowerCase();
-  return lens === "business" || lens === "personal" || lens === "buyer" ? lens : "";
+  if (lens === "buyer") return "buying";
+  return lens === "business" || lens === "personal" || lens === "buying" ? lens : "";
 }
 
 function resolveCardImage(card, context, lens) {
   const normalizedLens = normalizeLens(lens);
-  if (normalizedLens === "business") {
-    return card?.image || makeDataUriSvg(card?.svg);
-  }
   if (normalizedLens === "personal") {
-    const variant = pickVariant(card, context);
-    return variant || card?.image || makeDataUriSvg(card?.svg);
+    return pickVariant(card, context) || card?.image_male || card?.image_female || card?.image || makeDataUriSvg(card?.svg);
   }
-  const variant = pickVariant(card, context);
-  return variant || card?.image || makeDataUriSvg(card?.svg);
+  if (normalizedLens === "business") {
+    return card?.image_business || card?.image || makeDataUriSvg(card?.svg);
+  }
+  if (normalizedLens === "buying") {
+    return card?.image_buying || card?.image || makeDataUriSvg(card?.svg);
+  }
+  return card?.image || makeDataUriSvg(card?.svg);
+}
+
+function buildCardPageUrl(cardId, lens, context) {
+  const params = new URLSearchParams();
+  params.set("lens", normalizeLens(lens) || "personal");
+  params.set("archetype", safeId(cardId));
+  if (context.tenant) params.set("tenant", context.tenant);
+  if (context.email) params.set("email", context.email);
+  if (context.gender) params.set("gender", context.gender);
+  return `/archetype.html?${params.toString()}`;
 }
 
 const ArchetypeCards = {
@@ -126,22 +140,41 @@ const ArchetypeCards = {
       return;
     }
 
+    const useLinks = opts.linkToPage !== false;
+
     el.innerHTML = `
       <div class="archetype-top3-grid">
-        ${cards.map((card) => `
-          <button type="button" class="archetype-card-btn" data-archetype-id="${card.id}" data-lens="${lens}">
-            <div class="archetype-card-media"><img src="${resolveCardImage(card, renderContext, lens)}" alt="${card.name || card.id}" loading="lazy"></div>
-            <div class="archetype-card-name">${card.name || card.id}</div>
-            <div class="archetype-card-meta">${card.category || "Archetype"}</div>
-            <div class="archetype-card-summary">${card.summary || ""}</div>
-          </button>
-        `).join("")}
+        ${cards.map((card) => {
+          const image = resolveCardImage(card, renderContext, lens);
+          const targetHref = buildCardPageUrl(card.id, lens, renderContext);
+          if (useLinks) {
+            return `
+              <a class="archetype-card-btn archetype-card-link" href="${targetHref}" data-archetype-id="${card.id}" data-lens="${lens}">
+                <div class="archetype-card-media"><img src="${image}" alt="${card.name || card.id}" loading="lazy"></div>
+                <div class="archetype-card-name">${card.name || card.id}</div>
+                <div class="archetype-card-meta">${card.category || "Archetype"}</div>
+                <div class="archetype-card-summary">${card.summary || ""}</div>
+              </a>
+            `;
+          }
+
+          return `
+            <button type="button" class="archetype-card-btn" data-archetype-id="${card.id}" data-lens="${lens}">
+              <div class="archetype-card-media"><img src="${image}" alt="${card.name || card.id}" loading="lazy"></div>
+              <div class="archetype-card-name">${card.name || card.id}</div>
+              <div class="archetype-card-meta">${card.category || "Archetype"}</div>
+              <div class="archetype-card-summary">${card.summary || ""}</div>
+            </button>
+          `;
+        }).join("")}
       </div>
     `;
 
-    el.querySelectorAll(".archetype-card-btn").forEach((btn) => {
-      btn.addEventListener("click", () => this.openCard(btn.dataset.archetypeId || "", { lens: btn.dataset.lens || lens }));
-    });
+    if (!useLinks) {
+      el.querySelectorAll(".archetype-card-btn").forEach((btn) => {
+        btn.addEventListener("click", () => this.openCard(btn.dataset.archetypeId || "", { lens: btn.dataset.lens || lens }));
+      });
+    }
   },
 
   async openCard(id, opts = {}) {
@@ -200,6 +233,7 @@ const ArchetypeCards = {
       .archetype-top3-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:10px 0 16px;}
       .archetype-card-btn{background:#0b1222;border:1px solid #334155;border-radius:12px;padding:10px;color:#e2e8f0;text-align:left;cursor:pointer}
       .archetype-card-btn:hover{border-color:#64748b;transform:translateY(-1px)}
+      .archetype-card-link{text-decoration:none;display:block}
       .archetype-card-media svg,.archetype-card-media img{width:100%;height:auto;display:block;border-radius:8px}
       .archetype-card-name{font-weight:700;margin-top:8px}
       .archetype-card-meta{font-size:12px;color:#94a3b8}

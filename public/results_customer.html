@@ -600,8 +600,8 @@
         : [];
 
       if (window.ArchetypeCards) {
-        await window.ArchetypeCards.renderTop3(document.getElementById("customerPersonalTopCards"), personalTop3);
-        await window.ArchetypeCards.renderTop3(document.getElementById("customerBuyerTopCards"), buyerTop3);
+        await window.ArchetypeCards.renderTop3(document.getElementById("customerPersonalTopCards"), personalTop3, { lens: "personal", linkToPage: true });
+        await window.ArchetypeCards.renderTop3(document.getElementById("customerBuyerTopCards"), buyerTop3, { lens: "buying", linkToPage: true });
       }
 
       const personalHasData = Object.values(personal.percents || {}).some((v) => Number(v || 0) > 0);

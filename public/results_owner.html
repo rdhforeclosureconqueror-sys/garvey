@@ -27,10 +27,10 @@
 
     <div id="roles"></div>
 
-    <h3>Business Owner Archetype — Top 3</h3>
+    <h3>Your Business Owner Archetype Profile</h3>
     <div id="ownerBusinessTopCards"></div>
 
-    <h3>Personal Archetype — Top 3</h3>
+    <h3>Your Personal Archetype Profile</h3>
     <div id="ownerPersonalTopCards"></div>
 
     <h3>Percent Distribution</h3>
@@ -226,32 +226,13 @@
       await import("/js/archetype-cards.js");
 
       const businessPercents = data.percents || data.scores || {};
-      const personalPercents = firstNonEmptyObject(
-        data.personal_percents,
-        data.personal_counts,
-        data.personal_scores,
-        data.personal_archetypes?.percents,
-        data.personal_archetypes?.counts,
-        data.result?.personal_percents,
-        data.result?.personal_counts,
-        data.result?.personal_scores,
-        data.result?.personal_archetypes?.percents,
-        data.result?.personal_archetypes?.counts
-      );
-
-      const businessTop3 = window.ArchetypeCards
+      const top3 = window.ArchetypeCards
         ? window.ArchetypeCards.top3FromObject(businessPercents)
         : [];
-      const personalTop3 = window.ArchetypeCards
-        ? window.ArchetypeCards.top3FromObject(personalPercents)
-        : [];
+
       if (window.ArchetypeCards) {
-        await window.ArchetypeCards.renderTop3(document.getElementById("ownerBusinessTopCards"), businessTop3, { lens: "business" });
-        if (personalTop3.length) {
-          await window.ArchetypeCards.renderTop3(document.getElementById("ownerPersonalTopCards"), personalTop3, { lens: "personal" });
-        } else {
-          document.getElementById("ownerPersonalTopCards").innerHTML = '<p class="muted">Personal profile not available for this result yet.</p>';
-        }
+        await window.ArchetypeCards.renderTop3(document.getElementById("ownerBusinessTopCards"), top3, { lens: "business", linkToPage: true });
+        await window.ArchetypeCards.renderTop3(document.getElementById("ownerPersonalTopCards"), top3, { lens: "personal", linkToPage: true });
       }
       document.getElementById("bars").innerHTML = Object.entries(businessPercents)
         .sort((a, b) => Number(b[1]) - Number(a[1]))
