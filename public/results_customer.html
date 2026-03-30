@@ -35,12 +35,14 @@
     <p class="muted section-note">This is your personality lens (how you operate day-to-day).</p>
     <div id="personalWarning" class="warning" hidden></div>
     <div id="customerRoles"></div>
+    <div id="customerPersonalTopCards"></div>
     <div id="customerBars"></div>
 
     <h3>Your Buying Archetype Profile</h3>
     <p class="muted section-note">This is your buying lens (how you decide and purchase).</p>
     <div id="buyerWarning" class="warning" hidden></div>
     <div id="buyerRoles"></div>
+    <div id="customerBuyerTopCards"></div>
     <div id="buyerBars"></div>
 
     <div id="ctas"></div>
@@ -582,8 +584,25 @@
       document.getElementById("ridLine").textContent =
         `Customer Result ID (crid): ${crid || "not yet available"}`;
 
+      await import("/js/archetype-cards.js");
+
       const personal = readPersonalBranch(data);
       const buyer = readBuyerBranch(data);
+
+      const personalSource = data?.personal_percents || data?.personal_counts || data?.customer_archetypes?.percents || data?.customer_archetypes?.personal_counts || personal.percents || {};
+      const buyerSource = data?.buyer_percents || data?.buyer_counts || data?.buyer_archetypes?.percents || data?.buyer_archetypes?.buyer_counts || buyer.percents || {};
+
+      const personalTop3 = window.ArchetypeCards
+        ? window.ArchetypeCards.top3FromObject(personalSource)
+        : [];
+      const buyerTop3 = window.ArchetypeCards
+        ? window.ArchetypeCards.top3FromObject(buyerSource)
+        : [];
+
+      if (window.ArchetypeCards) {
+        await window.ArchetypeCards.renderTop3(document.getElementById("customerPersonalTopCards"), personalTop3);
+        await window.ArchetypeCards.renderTop3(document.getElementById("customerBuyerTopCards"), buyerTop3);
+      }
 
       const personalHasData = Object.values(personal.percents || {}).some((v) => Number(v || 0) > 0);
       const buyerHasData = Object.values(buyer.percents || {}).some((v) => Number(v || 0) > 0);

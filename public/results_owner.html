@@ -26,6 +26,9 @@
 
     <div id="roles"></div>
 
+    <h3>Top 3 Archetype Cards</h3>
+    <div id="ownerTopCards"></div>
+
     <h3>Percent Distribution</h3>
     <div id="bars"></div>
 
@@ -207,7 +210,15 @@
         <p><b>Growth area:</b> <a class="link" href="${growthHref}">${escapeHtml(growthRole)}</a></p>
       `;
 
-      const percents = data.percents || {};
+      await import("/js/archetype-cards.js");
+
+      const percents = data.percents || data.scores || {};
+      const ownerTop3 = window.ArchetypeCards
+        ? window.ArchetypeCards.top3FromObject(percents)
+        : [];
+      if (window.ArchetypeCards) {
+        await window.ArchetypeCards.renderTop3(document.getElementById("ownerTopCards"), ownerTop3);
+      }
       document.getElementById("bars").innerHTML = Object.entries(percents)
         .sort((a, b) => Number(b[1]) - Number(a[1]))
         .map(([k, v]) => {
