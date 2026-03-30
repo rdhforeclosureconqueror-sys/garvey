@@ -64,7 +64,20 @@ function getRenderContext() {
   };
 }
 
-function resolveCardImage(card, context) {
+function normalizeLens(value) {
+  const lens = String(value || "").trim().toLowerCase();
+  return lens === "business" || lens === "personal" || lens === "buyer" ? lens : "";
+}
+
+function resolveCardImage(card, context, lens) {
+  const normalizedLens = normalizeLens(lens);
+  if (normalizedLens === "business") {
+    return card?.image || makeDataUriSvg(card?.svg);
+  }
+  if (normalizedLens === "personal") {
+    const variant = pickVariant(card, context);
+    return variant || card?.image || makeDataUriSvg(card?.svg);
+  }
   const variant = pickVariant(card, context);
   return variant || card?.image || makeDataUriSvg(card?.svg);
 }
@@ -94,13 +107,14 @@ const ArchetypeCards = {
       .map(([id]) => id);
   },
 
-  async renderTop3(container, ids) {
+  async renderTop3(container, ids, opts = {}) {
     const el = typeof container === "string" ? document.querySelector(container) : container;
     if (!el) return;
 
     const manifest = await this._loadManifest();
     this._injectStyles();
 
+    const lens = normalizeLens(opts.lens);
     const renderContext = getRenderContext();
     const normalized = Array.from(new Set((ids || []).map(safeId).filter(Boolean))).slice(0, 3);
     const cards = normalized
@@ -115,8 +129,8 @@ const ArchetypeCards = {
     el.innerHTML = `
       <div class="archetype-top3-grid">
         ${cards.map((card) => `
-          <button type="button" class="archetype-card-btn" data-archetype-id="${card.id}">
-            <div class="archetype-card-media"><img src="${resolveCardImage(card, renderContext)}" alt="${card.name || card.id}" loading="lazy"></div>
+          <button type="button" class="archetype-card-btn" data-archetype-id="${card.id}" data-lens="${lens}">
+            <div class="archetype-card-media"><img src="${resolveCardImage(card, renderContext, lens)}" alt="${card.name || card.id}" loading="lazy"></div>
             <div class="archetype-card-name">${card.name || card.id}</div>
             <div class="archetype-card-meta">${card.category || "Archetype"}</div>
             <div class="archetype-card-summary">${card.summary || ""}</div>
@@ -126,11 +140,11 @@ const ArchetypeCards = {
     `;
 
     el.querySelectorAll(".archetype-card-btn").forEach((btn) => {
-      btn.addEventListener("click", () => this.openCard(btn.dataset.archetypeId || ""));
+      btn.addEventListener("click", () => this.openCard(btn.dataset.archetypeId || "", { lens: btn.dataset.lens || lens }));
     });
   },
 
-  async openCard(id) {
+  async openCard(id, opts = {}) {
     const manifest = await this._loadManifest();
     this._injectStyles();
 
@@ -140,6 +154,7 @@ const ArchetypeCards = {
     const existing = document.getElementById("archetypeCardModal");
     if (existing) existing.remove();
 
+    const lens = normalizeLens(opts.lens);
     const renderContext = getRenderContext();
     const modal = document.createElement("div");
     modal.id = "archetypeCardModal";
@@ -147,7 +162,7 @@ const ArchetypeCards = {
     modal.innerHTML = `
       <div class="archetype-modal" role="dialog" aria-modal="true" aria-label="${card.name}">
         <button type="button" class="archetype-modal-close" aria-label="Close">×</button>
-        <div class="archetype-modal-media"><img src="${resolveCardImage(card, renderContext)}" alt="${card.name || card.id}"></div>
+        <div class="archetype-modal-media"><img src="${resolveCardImage(card, renderContext, lens)}" alt="${card.name || card.id}"></div>
         <h3>${card.name || card.id}</h3>
         <p class="archetype-modal-category">${card.category || "Archetype"}</p>
         <p>${card.summary || ""}</p>

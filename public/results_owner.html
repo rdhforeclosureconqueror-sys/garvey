@@ -16,6 +16,7 @@
     a { color: inherit; }
     .link { text-decoration: underline; }
     .result-id { margin:10px 0 16px; font-size:1.05rem; font-weight:700; color:#facc15; }
+    .muted { color:#94a3b8; }
   </style>
 </head>
 <body>
@@ -26,8 +27,11 @@
 
     <div id="roles"></div>
 
-    <h3>Top 3 Archetype Cards</h3>
-    <div id="ownerTopCards"></div>
+    <h3>Business Owner Archetype — Top 3</h3>
+    <div id="ownerBusinessTopCards"></div>
+
+    <h3>Personal Archetype — Top 3</h3>
+    <div id="ownerPersonalTopCards"></div>
 
     <h3>Percent Distribution</h3>
     <div id="bars"></div>
@@ -92,6 +96,15 @@
         .replace(/&/g, "and")
         .replace(/[^a-z0-9]+/g, "_")
         .replace(/^_+|_+$/g, "");
+    }
+
+    function firstNonEmptyObject(...candidates) {
+      for (const candidate of candidates) {
+        if (!candidate || typeof candidate !== "object" || Array.isArray(candidate)) continue;
+        const hasNumericValue = Object.values(candidate).some((value) => Number.isFinite(Number(value)));
+        if (hasNumericValue) return candidate;
+      }
+      return {};
     }
 
     function ownerRidStorageKey() {
@@ -212,14 +225,35 @@
 
       await import("/js/archetype-cards.js");
 
-      const percents = data.percents || data.scores || {};
-      const ownerTop3 = window.ArchetypeCards
-        ? window.ArchetypeCards.top3FromObject(percents)
+      const businessPercents = data.percents || data.scores || {};
+      const personalPercents = firstNonEmptyObject(
+        data.personal_percents,
+        data.personal_counts,
+        data.personal_scores,
+        data.personal_archetypes?.percents,
+        data.personal_archetypes?.counts,
+        data.result?.personal_percents,
+        data.result?.personal_counts,
+        data.result?.personal_scores,
+        data.result?.personal_archetypes?.percents,
+        data.result?.personal_archetypes?.counts
+      );
+
+      const businessTop3 = window.ArchetypeCards
+        ? window.ArchetypeCards.top3FromObject(businessPercents)
+        : [];
+      const personalTop3 = window.ArchetypeCards
+        ? window.ArchetypeCards.top3FromObject(personalPercents)
         : [];
       if (window.ArchetypeCards) {
-        await window.ArchetypeCards.renderTop3(document.getElementById("ownerTopCards"), ownerTop3);
+        await window.ArchetypeCards.renderTop3(document.getElementById("ownerBusinessTopCards"), businessTop3, { lens: "business" });
+        if (personalTop3.length) {
+          await window.ArchetypeCards.renderTop3(document.getElementById("ownerPersonalTopCards"), personalTop3, { lens: "personal" });
+        } else {
+          document.getElementById("ownerPersonalTopCards").innerHTML = '<p class="muted">Personal profile not available for this result yet.</p>';
+        }
       }
-      document.getElementById("bars").innerHTML = Object.entries(percents)
+      document.getElementById("bars").innerHTML = Object.entries(businessPercents)
         .sort((a, b) => Number(b[1]) - Number(a[1]))
         .map(([k, v]) => {
           const typeSlug = toSlug(k);
