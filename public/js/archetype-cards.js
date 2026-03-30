@@ -1,4 +1,6 @@
 const MANIFEST_URL = "/archetypes/cards-manifest.json";
+const PERSONAL_GENDERS = new Set(["male", "female"]);
+const randomVariantCache = new Map();
 
 function safeId(value) {
   return String(value || "")
@@ -17,25 +19,53 @@ function qs(name) {
   return String(params.get(name) || "").trim();
 }
 
+function normalizeGender(value) {
+  const normalized = String(value || "").trim().toLowerCase();
+  return PERSONAL_GENDERS.has(normalized) ? normalized : "";
+}
+
 function makeDataUriSvg(svg) {
   if (!svg) return "";
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 }
 
-function pickVariant(card, seed) {
-  if (!(card?.image_male && card?.image_female)) return null;
-  if (!seed) return Math.random() < 0.5 ? card.image_male : card.image_female;
+function hashSeed(seed) {
   let h = 0;
   for (let i = 0; i < seed.length; i += 1) {
     h = ((h << 5) - h) + seed.charCodeAt(i);
     h |= 0;
   }
-  return (Math.abs(h) % 2 === 0) ? card.image_male : card.image_female;
+  return Math.abs(h);
 }
 
-function resolveCardImage(card) {
-  const seed = qs("email") || qs("name") || "";
-  const variant = pickVariant(card, seed);
+function pickVariant(card, context = {}) {
+  if (!(card?.image_male && card?.image_female)) return null;
+
+  if (context.gender === "male") return card.image_male;
+  if (context.gender === "female") return card.image_female;
+
+  if (context.seedBase) {
+    const id = safeId(card?.id || card?.name || "");
+    const hash = hashSeed(`${context.seedBase}:${id}`);
+    return (hash % 2 === 0) ? card.image_male : card.image_female;
+  }
+
+  const id = safeId(card?.id || card?.name || "");
+  if (!randomVariantCache.has(id)) {
+    randomVariantCache.set(id, Math.random() < 0.5 ? "male" : "female");
+  }
+  return randomVariantCache.get(id) === "male" ? card.image_male : card.image_female;
+}
+
+function getRenderContext() {
+  return {
+    gender: normalizeGender(qs("gender")),
+    seedBase: qs("email") || "",
+  };
+}
+
+function resolveCardImage(card, context) {
+  const variant = pickVariant(card, context);
   return variant || card?.image || makeDataUriSvg(card?.svg);
 }
 
@@ -71,6 +101,7 @@ const ArchetypeCards = {
     const manifest = await this._loadManifest();
     this._injectStyles();
 
+    const renderContext = getRenderContext();
     const normalized = Array.from(new Set((ids || []).map(safeId).filter(Boolean))).slice(0, 3);
     const cards = normalized
       .map((id) => manifest.cards[id])
@@ -85,7 +116,7 @@ const ArchetypeCards = {
       <div class="archetype-top3-grid">
         ${cards.map((card) => `
           <button type="button" class="archetype-card-btn" data-archetype-id="${card.id}">
-            <div class="archetype-card-media"><img src="${resolveCardImage(card)}" alt="${card.name || card.id}" loading="lazy"></div>
+            <div class="archetype-card-media"><img src="${resolveCardImage(card, renderContext)}" alt="${card.name || card.id}" loading="lazy"></div>
             <div class="archetype-card-name">${card.name || card.id}</div>
             <div class="archetype-card-meta">${card.category || "Archetype"}</div>
             <div class="archetype-card-summary">${card.summary || ""}</div>
@@ -109,13 +140,14 @@ const ArchetypeCards = {
     const existing = document.getElementById("archetypeCardModal");
     if (existing) existing.remove();
 
+    const renderContext = getRenderContext();
     const modal = document.createElement("div");
     modal.id = "archetypeCardModal";
     modal.className = "archetype-modal-backdrop";
     modal.innerHTML = `
       <div class="archetype-modal" role="dialog" aria-modal="true" aria-label="${card.name}">
         <button type="button" class="archetype-modal-close" aria-label="Close">×</button>
-        <div class="archetype-modal-media"><img src="${resolveCardImage(card)}" alt="${card.name || card.id}"></div>
+        <div class="archetype-modal-media"><img src="${resolveCardImage(card, renderContext)}" alt="${card.name || card.id}"></div>
         <h3>${card.name || card.id}</h3>
         <p class="archetype-modal-category">${card.category || "Archetype"}</p>
         <p>${card.summary || ""}</p>
