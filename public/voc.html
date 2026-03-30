@@ -90,8 +90,12 @@ async function submit() {
   const name = document.getElementById("name").value.trim();
   const tenant = getTenant();
   const cid = getCid();
-  if (!email) return alert("Enter email");
-  if (!name) return alert("Enter name");
+  const missing = [];
+  if (!tenant) missing.push("tenant");
+  if (!email) missing.push("email");
+  if (!name) missing.push("name");
+  if (!Array.isArray(answers) || !answers.length) missing.push("answers");
+  if (missing.length) return alert("Missing required fields: " + missing.join(", "));
 
   try {
     const res = await fetch(buildUrl(ENDPOINTS.vocIntake), {
@@ -100,7 +104,10 @@ async function submit() {
       body: JSON.stringify({ email, name, tenant, cid, answers })
     });
     const data = await res.json();
-    if (!res.ok) throw new Error(data?.error || "Submit failed");
+    if (!res.ok) {
+      const errDetails = [data?.error, data?.details].filter(Boolean).join(" — ");
+      throw new Error(errDetails || "Submit failed");
+    }
 
     const crid = String(data?.result_id ?? data?.result?.result_id ?? "").trim();
     const dest = new URL('/results_customer.html', window.location.origin);
