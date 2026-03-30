@@ -1,21 +1,28 @@
 // FILE: public/garvey-kanban.js
 export async function ensureBoard(tenant) {
+  if (!tenant) throw new Error("tenant is required");
   const r = await fetch("/api/kanban/ensure", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ tenant })
+    body: JSON.stringify({ tenant, include_defaults: true })
   });
-  return r.json();
+  const body = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(body.error || "kanban ensure failed");
+  return body;
 }
 
 export async function getBoard(tenant) {
   const r = await fetch(`/api/kanban/board?tenant=${encodeURIComponent(tenant)}`);
-  return r.json();
+  const body = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(body.error || "kanban board failed");
+  return body;
 }
 
 export async function getCards(tenant, phase) {
   const r = await fetch(`/api/kanban/cards?tenant=${encodeURIComponent(tenant)}&phase=${encodeURIComponent(phase)}`);
-  return r.json();
+  const body = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(body.error || "kanban cards failed");
+  return body;
 }
 
 export async function createCard({ tenant, phase, column_id, title, description }) {
@@ -24,7 +31,9 @@ export async function createCard({ tenant, phase, column_id, title, description 
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ tenant, phase, column_id, title, description })
   });
-  return r.json();
+  const body = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(body.error || "kanban create failed");
+  return body;
 }
 
 export async function moveCard(id, to_column_id) {
@@ -33,7 +42,9 @@ export async function moveCard(id, to_column_id) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ to_column_id })
   });
-  return r.json();
+  const body = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(body.error || "kanban move failed");
+  return body;
 }
 
 export function renderKanban({ mount, tenant, phase, columns, cards, onCreate, onMove }) {

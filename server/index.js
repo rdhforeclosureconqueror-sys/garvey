@@ -2250,15 +2250,14 @@ async function handleVocIntake(req, res) {
     const answers = parseAnswersInput(rawAnswers);
 
     // 🔒 STRICT VALIDATION
-    if (!email || !tenant) {
+    const missingFields = [];
+    if (!tenant) missingFields.push("tenant");
+    if (!email) missingFields.push("email");
+    if (!name) missingFields.push("name");
+    if (!Array.isArray(answers) || !answers.length) missingFields.push("answers");
+    if (missingFields.length) {
       return res.status(400).json({
-        error: "email and tenant are required",
-      });
-    }
-
-    if (!Array.isArray(answers) || !answers.length) {
-      return res.status(400).json({
-        error: "answers required",
+        error: `missing required field(s): ${missingFields.join(", ")}`,
       });
     }
 

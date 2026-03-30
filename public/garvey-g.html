@@ -45,6 +45,10 @@ const phase = "G";
 const mount = document.getElementById("kanban");
 
 async function refresh() {
+  if (!tenant) {
+    mount.innerHTML = '<div class="card"><div class="muted">Missing tenant. Open this page with ?tenant=&lt;your-tenant-slug&gt;.</div></div>';
+    return;
+  }
   await ensureBoard(tenant);
   const b = await getBoard(tenant);
   const c = await getCards(tenant, phase);
@@ -59,7 +63,9 @@ async function refresh() {
   });
 }
 
-refresh();
+refresh().catch((err) => {
+  mount.innerHTML = `<div class="card"><div class="muted">Failed to load Kanban: ${String(err && err.message || err)}</div></div>`;
+});
 </script>
 </body>
 </html>

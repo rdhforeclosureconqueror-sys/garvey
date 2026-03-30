@@ -511,6 +511,7 @@
     if (cid) p1.set("cid", cid);
     if (rid) p1.set("rid", rid);
     setHrefIfPresent("garveyPathBtn", "/garvey_premium.html?" + p1.toString());
+    setHrefIfPresent("garveyHubBtn", "/garvey_premium.html?" + p1.toString());
 
     var p2 = new URLSearchParams({ tenant: tenant });
     if (email) p2.set("email", email);
