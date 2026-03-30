@@ -67,6 +67,14 @@ try {
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
 
+app.use(
+  "/archetype-card",
+  express.static(path.join(__dirname, "..", "archetype-card"), {
+    maxAge: "7d",
+    immutable: false,
+  })
+);
+
 function parseAdminEmails(raw) {
   const base = String(raw || "")
     .split(",")
