@@ -10,19 +10,40 @@ const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 const cards = Object.values(manifest.cards || {});
 
 const missing = [];
-for (const card of cards) {
-  for (const key of ['image', 'image_male', 'image_female']) {
-    const raw = card?.[key];
-    if (!raw) continue;
-    if (!raw.startsWith('/')) {
-      missing.push({ id: card.id, key, value: raw, reason: 'path must start with /' });
-      continue;
+
+function validatePath(card, key, required = false) {
+  const raw = card?.[key];
+  if (!raw) {
+    if (required) {
+      missing.push({ id: card.id, key, value: raw, reason: 'missing required field' });
     }
-    const diskPath = path.join(publicRoot, raw.replace(/^\//, ''));
-    if (!fs.existsSync(diskPath)) {
-      missing.push({ id: card.id, key, value: raw, reason: 'missing file' });
-    }
+    return;
   }
+
+  if (!raw.startsWith('/')) {
+    missing.push({ id: card.id, key, value: raw, reason: 'path must start with /' });
+    return;
+  }
+
+  const diskPath = path.join(publicRoot, raw.replace(/^\//, ''));
+  if (!fs.existsSync(diskPath)) {
+    missing.push({ id: card.id, key, value: raw, reason: 'missing file' });
+  }
+}
+
+for (const card of cards) {
+  const isBuyer = String(card?.category || '').toLowerCase().includes('buyer');
+
+  if (isBuyer) {
+    validatePath(card, 'image_buying', true);
+  } else {
+    validatePath(card, 'image_business', true);
+    validatePath(card, 'image_male', true);
+    validatePath(card, 'image_female', true);
+  }
+
+  // Backward compatibility field is still allowed if present.
+  validatePath(card, 'image', false);
 }
 
 if (missing.length) {
@@ -33,4 +54,4 @@ if (missing.length) {
   process.exit(1);
 }
 
-console.log(`Validated ${cards.length} cards. All image paths exist under public/.`);
+console.log(`Validated ${cards.length} cards. All required image paths exist under public/.`);
