@@ -835,46 +835,44 @@
           <div class="master-grid">
             <article class="card phase-progress">
               <h2>Phase Progression Bar</h2>
-              <div class="phase-row">
-                <span class="pill done">Foundation</span>
-                <span class="pill done">Structure</span>
-                <span class="pill active">Execution</span>
-                <span class="pill">Intelligence</span>
-                <span class="pill">Infrastructure</span>
-                <span class="pill">Routing &amp; Stability</span>
-                <span class="pill">Evaluation &amp; Evolution</span>
+              <div class="phase-row" id="masterPhaseRow">
+                <a class="pill" data-phase-pill="1" href="#phase-1">Foundation 0%</a>
+                <a class="pill" data-phase-pill="2" href="#phase-2">Structure 0%</a>
+                <a class="pill" data-phase-pill="3" href="#phase-3">Execution 0%</a>
+                <a class="pill" data-phase-pill="4" href="#phase-4">Intelligence 0%</a>
+                <a class="pill" data-phase-pill="5" href="#phase-5">Infrastructure 0%</a>
+                <a class="pill" data-phase-pill="6" href="#phase-6">Routing &amp; Stability 0%</a>
+                <a class="pill" data-phase-pill="7" href="#phase-7">Evaluation &amp; Evolution 0%</a>
               </div>
             </article>
 
             <article class="card readiness-core">
               <h2>Readiness Core</h2>
-              <p class="score">72</p>
-              <p class="sub">Gap: Missing EIN</p>
+              <p class="score" id="masterReadinessScore">0</p>
+              <p class="sub" id="masterReadinessGap">Gap: awaiting live readiness signals</p>
+              <p class="sub" id="masterActivePhase">Active Phase: Foundation</p>
             </article>
 
             <article class="card status-grid-wrap">
               <h2>System Status Grid</h2>
-              <div class="status-grid">
-                <div class="status-item"><span>Roles Assigned</span><span>✅</span></div>
-                <div class="status-item"><span>Workflows Active</span><span>⚠️</span></div>
-                <div class="status-item"><span>KPIs Tracking</span><span>❌</span></div>
-                <div class="status-item"><span>Tools Ready</span><span>✅</span></div>
+              <div class="status-grid" id="masterStatusGrid">
+                <div class="status-item"><span>Roles Assigned</span><span id="masterStatusRoles">⚪</span></div>
+                <div class="status-item"><span>Workflows Active</span><span id="masterStatusWorkflows">⚪</span></div>
+                <div class="status-item"><span>KPIs Tracking</span><span id="masterStatusKpis">⚪</span></div>
+                <div class="status-item"><span>Tools Ready</span><span id="masterStatusTools">⚪</span></div>
               </div>
             </article>
 
             <article class="card recent-activity">
               <h2>Recent Activity</h2>
-              <ul class="timeline">
-                <li>Mission Created</li>
-                <li>Customer Persona Drafted</li>
-                <li>Value Proposition Updated</li>
-                <li>Initialization Checks Running</li>
+              <ul class="timeline" id="masterTimeline">
+                <li>Waiting for first live phase update…</li>
               </ul>
             </article>
 
             <article class="card quick-actions">
               <h2>Quick Actions</h2>
-              <div class="btn-grid">
+              <div class="btn-grid" id="masterQuickActions">
                 <a class="btn" href="#phase-1">Open Foundation</a>
                 <a class="btn" href="#phase-2">Open Structure</a>
                 <a class="btn" href="#phase-3">Open Execution</a>
@@ -1352,6 +1350,90 @@
       var buildCustomerBtn = document.getElementById("buildCustomerBtn");
       var buildValuePropBtn = document.getElementById("buildValuePropBtn");
       var initializeBusinessBtn = document.getElementById("initializeBusinessBtn");
+      var masterReadinessScore = document.getElementById("masterReadinessScore");
+      var masterReadinessGap = document.getElementById("masterReadinessGap");
+      var masterActivePhase = document.getElementById("masterActivePhase");
+      var masterTimeline = document.getElementById("masterTimeline");
+      var masterQuickActions = document.getElementById("masterQuickActions");
+      var masterStatusRoles = document.getElementById("masterStatusRoles");
+      var masterStatusWorkflows = document.getElementById("masterStatusWorkflows");
+      var masterStatusKpis = document.getElementById("masterStatusKpis");
+      var masterStatusTools = document.getElementById("masterStatusTools");
+      var phasePills = Array.prototype.slice.call(document.querySelectorAll("[data-phase-pill]"));
+      var masterState = {
+        phases: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 },
+        readiness: 0,
+        gap: "Awaiting intelligence state",
+        timeline: []
+      };
+
+      function phaseName(id) {
+        return {
+          1: "Foundation",
+          2: "Structure",
+          3: "Execution",
+          4: "Intelligence",
+          5: "Infrastructure",
+          6: "Routing & Stability",
+          7: "Evaluation & Evolution"
+        }[id] || ("Phase " + id);
+      }
+
+      function addMasterEvent(text) {
+        var stamp = new Date().toISOString().slice(11, 19);
+        masterState.timeline.unshift(stamp + " — " + text);
+        masterState.timeline = masterState.timeline.slice(0, 8);
+      }
+
+      function iconForState(percent) {
+        if (percent >= 100) return "✅";
+        if (percent >= 45) return "⚠️";
+        return "❌";
+      }
+
+      function refreshMasterDashboard() {
+        var activePhase = 7;
+        for (var i = 1; i <= 7; i += 1) {
+          if (Number(masterState.phases[i] || 0) < 100) {
+            activePhase = i;
+            break;
+          }
+        }
+        phasePills.forEach(function (pill) {
+          var id = Number(pill.getAttribute("data-phase-pill"));
+          var pct = Math.max(0, Math.min(100, Math.round(Number(masterState.phases[id] || 0))));
+          pill.classList.remove("done", "active");
+          if (pct >= 100) pill.classList.add("done");
+          if (id === activePhase && pct < 100) pill.classList.add("active");
+          pill.textContent = phaseName(id) + " " + pct + "%";
+        });
+        if (masterReadinessScore) masterReadinessScore.textContent = String(Math.round(Number(masterState.readiness || 0)));
+        if (masterReadinessGap) masterReadinessGap.textContent = "Gap: " + (masterState.gap || "No active gaps");
+        if (masterActivePhase) masterActivePhase.textContent = "Active Phase: " + phaseName(activePhase);
+        if (masterStatusRoles) masterStatusRoles.textContent = iconForState(masterState.phases[2]);
+        if (masterStatusWorkflows) masterStatusWorkflows.textContent = iconForState(masterState.phases[3]);
+        if (masterStatusKpis) masterStatusKpis.textContent = iconForState(masterState.phases[4]);
+        if (masterStatusTools) masterStatusTools.textContent = iconForState(masterState.phases[5]);
+        if (masterTimeline) {
+          var rows = masterState.timeline.length ? masterState.timeline : ["Waiting for first live phase update…"];
+          masterTimeline.innerHTML = rows.map(function (row) { return "<li>" + escapeHtml(row) + "</li>"; }).join("");
+        }
+        if (masterQuickActions) {
+          var activeHref = "#phase-" + activePhase;
+          var nextHref = activePhase < 7 ? ("#phase-" + (activePhase + 1)) : "#phase-7";
+          masterQuickActions.innerHTML = [
+            '<a class="btn primary" href="' + activeHref + '">Work Active: ' + phaseName(activePhase) + "</a>",
+            '<a class="btn" href="' + nextHref + '">Prepare Next: ' + phaseName(Math.min(7, activePhase + 1)) + "</a>",
+            '<a class="btn" href="#phase-4">Run Readiness Intelligence</a>',
+            '<a class="btn" href="#phase-6">Open Stability Console</a>',
+            '<a class="btn" href="#phase-1">Foundation</a>',
+            '<a class="btn" href="#phase-2">Structure</a>',
+            '<a class="btn" href="#phase-3">Execution</a>',
+            '<a class="btn" href="#phase-5">Infrastructure</a>',
+            '<a class="btn" href="#phase-7">Evolution</a>'
+          ].join("");
+        }
+      }
 
       function hasContent(value) {
         return Boolean(String(value || "").trim());
@@ -1418,6 +1500,18 @@
         markPanel(journeyPanel, hasJourney);
         markPanel(deliverablesPanel, deliverablesReady);
         markPanel(initPanel, initialized);
+        var foundationChecks = [
+          hasContent(missionContent),
+          hasContent(customerContent),
+          hasContent(valuePropContent),
+          hasContent(valuesContent),
+          hasJourney,
+          deliverablesReady,
+          initialized
+        ];
+        masterState.phases[1] = Math.round((foundationChecks.filter(Boolean).length / foundationChecks.length) * 100);
+        addMasterEvent("Foundation synced (" + masterState.phases[1] + "%)");
+        refreshMasterDashboard();
       }
 
       async function loadFoundationState(initializedThisSession) {
@@ -1642,6 +1736,7 @@
         });
       }
 
+      refreshMasterDashboard();
       loadFoundationState(false).catch(function (err) {
         initStatus.textContent = "State load failed: " + (err && err.message ? err.message : "unknown error");
         [missionPanel, customerPanel, valuePropPanel, valuesPanel, journeyPanel, deliverablesPanel, initPanel].forEach(function (panel) {
@@ -1794,6 +1889,11 @@
         renderKpiCards(kpis);
         setVerificationState(payload && payload.verification);
         currentGapTile.classList.toggle("red-pulse", Boolean(topGap));
+        masterState.readiness = safeScore;
+        masterState.gap = topGap ? String(topGap.note || toTitleCase(topGap.gap_key || "gap")) : "No active gap detected";
+        masterState.phases[4] = Math.max(0, Math.min(100, safeScore));
+        addMasterEvent("Intelligence synced (readiness " + safeScore + ")");
+        refreshMasterDashboard();
       }
 
       async function loadIntelligenceState() {
@@ -1946,6 +2046,15 @@
         structureCompletionState.textContent = completion.done
           ? "Complete — ownership, operator, and responsibilities validated."
           : "In progress — " + (completion.role_count || roles.length) + " role(s) configured.";
+        var structureSignals = [
+          roles.length > 0,
+          Boolean(operator && (operator.operator_name || operator.operator_email)),
+          missingCritical.length === 0 && orphanResponsibilities.length === 0,
+          Boolean(completion.done)
+        ];
+        masterState.phases[2] = Math.round((structureSignals.filter(Boolean).length / structureSignals.length) * 100);
+        addMasterEvent("Structure synced (" + masterState.phases[2] + "%)");
+        refreshMasterDashboard();
       }
 
       async function loadStructureState() {
@@ -1980,6 +2089,8 @@
         [infraNeededList, infraSelectedList, infraActiveList, infraDocumentedList].forEach(function (list) {
           if (list) list.innerHTML = "";
         });
+        masterState.phases[5] = 0;
+        refreshMasterDashboard();
       }
 
       function renderInfrastructureState(hubPayload, recommendationPayload) {
@@ -2062,6 +2173,9 @@
           ? "Complete"
           : "In progress";
         infraDocumentationStatus.textContent = completionRate + "% documented — " + completionText;
+        masterState.phases[5] = completionRate;
+        addMasterEvent("Infrastructure synced (" + completionRate + "% documented)");
+        refreshMasterDashboard();
       }
 
       async function loadInfrastructureState() {
@@ -2105,6 +2219,8 @@
         if (!routingDetectedList) return;
         routingDetectedList.innerHTML =
           '<div class="routing-card issue"><small>issue</small><div>No active issues yet. Use Log Issue to start live routing.</div></div>';
+        masterState.phases[6] = 0;
+        refreshMasterDashboard();
       }
 
       function renderRoutingState(payload) {
@@ -2170,6 +2286,9 @@
         routingActiveAlerts.textContent = routingAlerts + " active alerts";
         routingMilestoneCount.textContent = routingMilestones + " milestones logged";
         routingNotificationCount.textContent = routingNotifications + " notifications dispatched";
+        masterState.phases[6] = Number.isFinite(completion) ? Math.max(0, Math.min(100, completion)) : 0;
+        addMasterEvent("Routing synced (" + masterState.phases[6] + "%, " + routingAlerts + " alerts)");
+        refreshMasterDashboard();
       }
 
       async function loadRoutingState() {
@@ -2310,6 +2429,9 @@
         deliverableStatus.textContent = deliverableCount > 0
           ? (deliverableCount + " deliverable task" + (deliverableCount === 1 ? "" : "s") + " in system")
           : "No deliverable tasks yet";
+        masterState.phases[3] = Math.max(0, Math.min(100, rate));
+        addMasterEvent("Execution synced (" + masterState.phases[3] + "% complete)");
+        refreshMasterDashboard();
       }
 
       async function saveExecutionItem(itemType, options) {
@@ -2862,6 +2984,8 @@
         handoffStatus.textContent = "Not yet started";
         improvementCount.textContent = "0 improvements tracked";
         knowledgeEntries.textContent = "0 teach-forward notes logged";
+        masterState.phases[7] = 0;
+        refreshMasterDashboard();
       }
 
       function renderGrowthBoardList(container, items) {
@@ -2903,6 +3027,16 @@
         handoffStatus.textContent = String(status.handoff_status || "Not yet started");
         improvementCount.textContent = growthImprovements + " improvements tracked";
         knowledgeEntries.textContent = growthKnowledge + " teach-forward notes logged";
+        var growthSignals = [
+          String(status.launch_status || "").toLowerCase() === "ready",
+          String(status.marketing_ready || "").toLowerCase() === "ready",
+          String(status.handoff_status || "").toLowerCase() === "ready",
+          growthImprovements > 0,
+          growthKnowledge > 0
+        ];
+        masterState.phases[7] = Math.round((growthSignals.filter(Boolean).length / growthSignals.length) * 100);
+        addMasterEvent("Evolution synced (" + masterState.phases[7] + "%)");
+        refreshMasterDashboard();
       }
 
       async function loadEvolutionState() {
