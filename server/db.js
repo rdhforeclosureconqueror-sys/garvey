@@ -511,6 +511,10 @@ async function initializeDatabase() {
   // ==================================================
   await pool.query(`
     CREATE TABLE IF NOT EXISTS structure_cards (
+  // FOUNDATION SYSTEM (PHASE 1)
+  // ==================================================
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS foundation_cards (
       id BIGSERIAL PRIMARY KEY,
       tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
       board_id BIGINT NOT NULL REFERENCES kanban_boards(id) ON DELETE CASCADE,
@@ -520,6 +524,8 @@ async function initializeDatabase() {
       content TEXT NOT NULL DEFAULT '',
       column_name TEXT NOT NULL DEFAULT 'Needed',
       status TEXT NOT NULL DEFAULT 'Needed',
+      status TEXT NOT NULL DEFAULT 'Draft',
+      column_name TEXT NOT NULL DEFAULT 'Draft',
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       UNIQUE (tenant_id, card_type)
@@ -546,6 +552,14 @@ async function initializeDatabase() {
       operator_name TEXT,
       operator_email TEXT,
       mode TEXT NOT NULL DEFAULT 'manual',
+    CREATE TABLE IF NOT EXISTS foundation_journeys (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE UNIQUE,
+      business_id TEXT NOT NULL,
+      intake_snapshot JSONB NOT NULL DEFAULT '{}'::jsonb,
+      journey JSONB NOT NULL DEFAULT '{}'::jsonb,
+      value_assets JSONB NOT NULL DEFAULT '[]'::jsonb,
+      deliverables JSONB NOT NULL DEFAULT '[]'::jsonb,
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     );
@@ -553,6 +567,8 @@ async function initializeDatabase() {
     CREATE INDEX IF NOT EXISTS structure_cards_tenant_idx ON structure_cards(tenant_id, card_type);
     CREATE INDEX IF NOT EXISTS structure_roles_tenant_idx ON structure_roles(tenant_id, role_name);
     CREATE INDEX IF NOT EXISTS structure_operator_tenant_idx ON structure_operator_assignments(tenant_id);
+    CREATE INDEX IF NOT EXISTS foundation_cards_tenant_idx ON foundation_cards(tenant_id, card_type);
+    CREATE INDEX IF NOT EXISTS foundation_journeys_tenant_idx ON foundation_journeys(tenant_id);
   `);
 
   console.log("✅ Database ready");
