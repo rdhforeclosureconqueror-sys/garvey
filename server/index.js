@@ -350,13 +350,41 @@ async function tenantMiddleware(req, res, next) {
   }
 }
 
-function requireTenantReadAccess(req, res) {
+async function ownerEmailHasTenantAccess(tenantId, email, client = pool) {
+  const normalizedEmail = normalizeEmail(email);
+  if (!normalizedEmail) return false;
+  const result = await client.query(
+    `SELECT 1
+     FROM users u
+     LEFT JOIN assessment_submissions a
+       ON a.user_id = u.id
+      AND a.tenant_id = u.tenant_id
+      AND a.assessment_type = 'business_owner'
+     LEFT JOIN intake_sessions s
+       ON s.tenant_id = u.tenant_id
+      AND LOWER(COALESCE(s.email, '')) = LOWER(u.email)
+      AND s.mode = 'business_owner'
+     WHERE u.tenant_id = $1
+       AND LOWER(COALESCE(u.email, '')) = $2
+       AND (a.id IS NOT NULL OR s.id IS NOT NULL)
+     LIMIT 1`,
+    [tenantId, normalizedEmail]
+  );
+  return !!result.rows[0];
+}
+
+async function requireTenantReadAccess(req, res) {
   if (req.isAdmin) return null;
   const email = normalizeEmail(req.query.email || req.headers["x-user-email"] || "");
   if (!email) {
     res.status(400).json({
       error: "email query parameter required for tenant dashboard access",
     });
+    return false;
+  }
+  const hasAccess = await ownerEmailHasTenantAccess(req.tenant.id, email);
+  if (!hasAccess) {
+    res.status(403).json({ error: "forbidden: owner access denied for tenant" });
     return false;
   }
   return email;
@@ -611,9 +639,15 @@ app.use("/api/evolution", evolutionRoutes({ pool, ensureTenant }));
 
 app.post("/api/campaigns/create", async (req, res) => {
   try {
-    const { tenant, label, slug, source = null, medium = null } = req.body || {};
+    const { tenant, label, slug, source = null, medium = null, email: ownerEmailRaw } = req.body || {};
     if (!tenant || !label) return res.status(400).json({ error: "tenant and label are required" });
     const tenantRow = await ensureTenant(String(tenant));
+    const ownerEmail = normalizeEmail(ownerEmailRaw || req.query.email || req.headers["x-user-email"] || "");
+    if (!req.isAdmin) {
+      if (!ownerEmail) return res.status(400).json({ error: "owner email is required" });
+      const hasAccess = await ownerEmailHasTenantAccess(tenantRow.id, ownerEmail);
+      if (!hasAccess) return res.status(403).json({ error: "forbidden: owner access denied for tenant" });
+    }
     let candidate = normalizeSlug(slug) || randomSlug(label);
     let attempts = 0;
     while (attempts < 5) {
@@ -650,6 +684,12 @@ app.get("/api/campaigns/list", async (req, res) => {
     if (!tenantSlug) return res.status(400).json({ error: "tenant query param is required" });
     const ctx = await getTenantContextBySlug(tenantSlug);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    const ownerEmail = normalizeEmail(req.query.email || req.headers["x-user-email"] || "");
+    if (!req.isAdmin) {
+      if (!ownerEmail) return res.status(400).json({ error: "email query parameter required for campaign list access" });
+      const hasAccess = await ownerEmailHasTenantAccess(ctx.tenant.id, ownerEmail);
+      if (!hasAccess) return res.status(403).json({ error: "forbidden: owner access denied for tenant" });
+    }
 
     const rows = await pool.query(
       `SELECT c.*,
@@ -692,7 +732,10 @@ app.get("/api/campaigns/qr", async (req, res) => {
     if (!tenantSlug || !cid) return res.status(400).json({ error: "tenant and cid are required" });
     if (!["voc", "rewards", "landing"].includes(target)) return res.status(400).json({ error: "invalid target" });
     if (!["png", "svg"].includes(format)) return res.status(400).json({ error: "invalid format" });
-    const fullUrl = `${req.protocol}://${req.get("host")}${buildCampaignShareLinks(tenantSlug, cid)[target]}`;
+    const ctx = await getTenantContextBySlug(tenantSlug);
+    if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    const campaign = await resolveCampaignForTenantStrict(ctx.tenant.id, cid);
+    const fullUrl = `${req.protocol}://${req.get("host")}${buildCampaignShareLinks(tenantSlug, campaign.slug)[target]}`;
     if (format === "svg") {
       const svg = await QRCode.toString(fullUrl, { type: "svg", width: 320, margin: 1 });
       res.setHeader("Content-Type", "image/svg+xml");
@@ -703,7 +746,7 @@ app.get("/api/campaigns/qr", async (req, res) => {
     return res.send(png);
   } catch (err) {
     console.error("campaign_qr_failed", err);
-    return res.status(500).json({ error: "campaign qr failed" });
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "campaign qr failed" });
   }
 });
 
@@ -737,6 +780,18 @@ async function resolveCampaignForTenant(tenantId, cid, client = pool) {
   return result.rows[0] || null;
 }
 
+async function resolveCampaignForTenantStrict(tenantId, cid, client = pool) {
+  const slug = normalizeSlug(cid);
+  if (!slug) return null;
+  const campaign = await resolveCampaignForTenant(tenantId, slug, client);
+  if (!campaign) {
+    const err = new Error("invalid campaign id for tenant");
+    err.statusCode = 400;
+    throw err;
+  }
+  return campaign;
+}
+
 async function recordCampaignEvent({
   tenantId,
   campaignId = null,
@@ -756,7 +811,7 @@ async function recordCampaignEvent({
 
 async function processCheckinReward({ tenant, tenantConfig, email, cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
-  const campaign = await resolveCampaignForTenant(tenant.id, cid);
+  const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
   const pointsAdded = rewardPointsEnabled(tenantConfig) ? 5 : 0;
 
   await pool.query(
@@ -783,7 +838,7 @@ async function processCheckinReward({ tenant, tenantConfig, email, cid = null, r
 
 async function processActionReward({ tenant, tenantConfig, email, actionType, cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
-  const campaign = await resolveCampaignForTenant(tenant.id, cid);
+  const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
   const pointsAdded = rewardPointsEnabled(tenantConfig) ? (ACTION_POINTS[actionType] || 0) : 0;
 
   await pool.query(
@@ -810,7 +865,7 @@ async function processActionReward({ tenant, tenantConfig, email, actionType, ci
 
 async function processReviewReward({ tenant, tenantConfig, email, text, mediaType, cid = null, mediaNote = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
-  const campaign = await resolveCampaignForTenant(tenant.id, cid);
+  const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
   const mediaBonus = mediaType === "video" ? 10 : mediaType === "photo" ? 5 : 0;
   const pointsAdded = rewardPointsEnabled(tenantConfig) ? (5 + mediaBonus) : 0;
 
@@ -845,7 +900,7 @@ async function processReferralReward({ tenant, tenantConfig, email, referredEmai
 
     const referrer = await findTenantUser(tenant.id, email, client);
     const referred = await findTenantUser(tenant.id, referredEmail, client);
-    const campaign = await resolveCampaignForTenant(tenant.id, cid, client);
+    const campaign = await resolveCampaignForTenantStrict(tenant.id, cid, client);
     const pointsEach = rewardPointsEnabled(tenantConfig) ? 10 : 0;
 
     await client.query(
@@ -888,7 +943,7 @@ async function processReferralReward({ tenant, tenantConfig, email, referredEmai
 
 async function processWishlistReward({ tenant, email, productName, cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
-  const campaign = await resolveCampaignForTenant(tenant.id, cid);
+  const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
   const result = await pool.query(
     "INSERT INTO wishlist (tenant_id, user_id, product_name, campaign_id, campaign_slug) VALUES ($1, $2, $3, $4, $5) RETURNING *",
     [tenant.id, user.id, productName, campaign?.id || null, campaign?.slug || null]
@@ -993,7 +1048,7 @@ app.post("/t/:slug/checkin", tenantMiddleware, async (req, res) => {
     return res.json(payload);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "checkin failed" });
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "checkin failed" });
   }
 });
 
@@ -1014,7 +1069,7 @@ app.post("/t/:slug/action", tenantMiddleware, async (req, res) => {
     return res.json(payload);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "action failed" });
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "action failed" });
   }
 });
 
@@ -1035,7 +1090,7 @@ app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
     return res.json(payload);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "review failed" });
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "review failed" });
   }
 });
 
@@ -1053,7 +1108,7 @@ app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
     return res.json(payload);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "referral failed" });
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "referral failed" });
   }
 });
 
@@ -1071,7 +1126,7 @@ app.post("/t/:slug/wishlist", tenantMiddleware, async (req, res) => {
     return res.json(payload);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "wishlist failed" });
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "wishlist failed" });
   }
 });
 
@@ -1121,7 +1176,7 @@ app.post("/api/rewards/checkin", async (req, res) => {
     return res.json(payload);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "rewards checkin failed" });
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "rewards checkin failed" });
   }
 });
 
@@ -1138,7 +1193,7 @@ app.post("/api/rewards/action", async (req, res) => {
     return res.json(payload);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "rewards action failed" });
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "rewards action failed" });
   }
 });
 
@@ -1153,7 +1208,7 @@ app.post("/api/rewards/review", async (req, res) => {
     return res.json(payload);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "rewards review failed" });
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "rewards review failed" });
   }
 });
 
@@ -1170,7 +1225,7 @@ app.post("/api/rewards/referral", async (req, res) => {
     return res.json(payload);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "rewards referral failed" });
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "rewards referral failed" });
   }
 });
 
@@ -1187,13 +1242,13 @@ app.post("/api/rewards/wishlist", async (req, res) => {
     return res.json(payload);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "rewards wishlist failed" });
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "rewards wishlist failed" });
   }
 });
 
 app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
   try {
-    if (requireTenantReadAccess(req, res) === false) return;
+    if (await requireTenantReadAccess(req, res) === false) return;
     const tenantId = req.tenant.id;
 
     const [users, visits, actions, points, topActions, pointsDistribution, dailyActivity] = await Promise.all([
@@ -1262,7 +1317,7 @@ app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
 
 app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
   try {
-    if (requireTenantReadAccess(req, res) === false) return;
+    if (await requireTenantReadAccess(req, res) === false) return;
     const tenantId = req.tenant.id;
     const customers = await pool.query(
       `SELECT
@@ -1334,7 +1389,7 @@ app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
 
 app.get("/t/:slug/segments", tenantMiddleware, async (req, res) => {
   try {
-    if (requireTenantReadAccess(req, res) === false) return;
+    if (await requireTenantReadAccess(req, res) === false) return;
     const tenantId = req.tenant.id;
     const [total, distribution, recent] = await Promise.all([
       pool.query(
@@ -1386,7 +1441,7 @@ app.get("/t/:slug/segments", tenantMiddleware, async (req, res) => {
 
 app.get("/t/:slug/campaigns/summary", tenantMiddleware, async (req, res) => {
   try {
-    if (requireTenantReadAccess(req, res) === false) return;
+    if (await requireTenantReadAccess(req, res) === false) return;
     const tenantId = req.tenant.id;
     const campaignsResult = await pool.query(
       `SELECT c.id, c.slug, c.label,
@@ -1435,7 +1490,7 @@ app.get("/t/:slug/campaigns/summary", tenantMiddleware, async (req, res) => {
 
 app.get("/t/:slug/analytics", tenantMiddleware, async (req, res) => {
   try {
-    if (requireTenantReadAccess(req, res) === false) return;
+    if (await requireTenantReadAccess(req, res) === false) return;
     const tenantId = req.tenant.id;
 
     const [visitsByDay, growth, archetypes, ownerAssessment, customerAssessment] = await Promise.all([
@@ -1793,7 +1848,7 @@ app.post("/api/intake", async (req, res) => {
     const tenantRow = await ensureTenant(String(tenant));
     const user = await findTenantUser(tenantRow.id, email, client);
 
-    const campaign = await resolveCampaignForTenant(tenantRow.id, cid, client);
+    const campaign = await resolveCampaignForTenantStrict(tenantRow.id, cid, client);
     const session = (
       await client.query(
         `INSERT INTO intake_sessions (tenant_id, email, name, mode, campaign_id, campaign_slug, source, medium)
@@ -1869,8 +1924,8 @@ app.post("/api/intake", async (req, res) => {
 
     console.error("api_intake_failed", err);
 
-    return res.status(500).json({
-      error: "api intake failed",
+    return res.status(err.statusCode || 500).json({
+      error: err.statusCode ? err.message : "api intake failed",
       details: err.message,
     });
 
@@ -2062,7 +2117,7 @@ app.post("/api/customer/share-result", async (req, res) => {
     if (!tenant || !customerEmail) return res.status(400).json({ error: "tenant and customer_email are required" });
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
-    const campaign = await resolveCampaignForTenant(ctx.tenant.id, cid);
+    const campaign = await resolveCampaignForTenantStrict(ctx.tenant.id, cid);
     await recordCampaignEvent({
       tenantId: ctx.tenant.id,
       campaignId: campaign?.id || null,
@@ -2093,7 +2148,7 @@ app.post("/api/customer/share-result", async (req, res) => {
     });
   } catch (err) {
     console.error("customer_share_failed", err);
-    return res.status(500).json({ error: "customer share failed" });
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "customer share failed" });
   }
 });
 
@@ -2309,7 +2364,7 @@ async function handleVocIntake(req, res) {
     const tenantRow = await ensureTenant(String(tenant));
     const user = await findTenantUser(tenantRow.id, email, client);
 
-    const campaign = await resolveCampaignForTenant(tenantRow.id, cid, client);
+    const campaign = await resolveCampaignForTenantStrict(tenantRow.id, cid, client);
     const session = (
       await client.query(
         `INSERT INTO voc_sessions (tenant_id, email, name, campaign_id, campaign_slug, source, medium)
@@ -2431,8 +2486,8 @@ async function handleVocIntake(req, res) {
 
     console.error("voc_intake_failed", err);
 
-    return res.status(500).json({
-      error: "voc intake failed",
+    return res.status(err.statusCode || 500).json({
+      error: err.statusCode ? err.message : "voc intake failed",
       details: err.message,
     });
 
