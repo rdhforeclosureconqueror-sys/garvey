@@ -773,6 +773,120 @@
     .kv.kv-success { border-color: rgba(0, 255, 154, 0.75); box-shadow: var(--shadow-green); }
     .kv.kv-warning { border-color: rgba(255, 77, 77, 0.75); box-shadow: var(--shadow-red); }
 
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .tour-relaunch {
+      padding: 8px 12px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      border-color: rgba(242, 193, 78, 0.9);
+      color: var(--gold);
+      box-shadow: var(--shadow-gold);
+      background: rgba(242, 193, 78, 0.12);
+    }
+
+    .tour-backdrop {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 10%, rgba(255, 45, 45, 0.2), rgba(3, 3, 3, 0.88) 45%);
+      backdrop-filter: blur(2px);
+      z-index: 80;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+
+    .tour-backdrop.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .tour-modal {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: min(540px, calc(100vw - 28px));
+      border: 1px solid rgba(242, 193, 78, 0.7);
+      border-radius: 16px;
+      background: linear-gradient(160deg, #111214, #070708);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), var(--shadow-gold);
+      z-index: 90;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+      padding: 18px;
+    }
+
+    .tour-modal.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%);
+    }
+
+    .tour-kicker {
+      margin: 0 0 6px;
+      color: var(--gold);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .tour-title { margin: 0 0 8px; font-size: 24px; }
+    .tour-body { margin: 0; color: #d8dde6; line-height: 1.45; }
+    .tour-progress { margin: 14px 0 10px; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .8px; }
+
+    .tour-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      justify-content: flex-end;
+    }
+
+    .tour-controls .btn { min-width: 88px; }
+
+    .tour-focus-target {
+      position: relative;
+      z-index: 85;
+      outline: 2px solid rgba(0, 255, 154, 0.95);
+      outline-offset: 3px;
+      box-shadow: 0 0 0 2px rgba(0, 255, 154, 0.2), var(--shadow-green);
+      transition: box-shadow .25s ease, outline-color .25s ease, opacity .2s ease;
+    }
+
+    .tour-focus-target.tour-focus-foundation {
+      outline-color: rgba(242, 193, 78, 0.98);
+      box-shadow: 0 0 0 2px rgba(242, 193, 78, 0.25), var(--shadow-gold);
+    }
+
+    body.beginner-mode-active .phase-panel,
+    body.beginner-mode-active #master-dashboard {
+      opacity: 0.32;
+      transform: scale(0.997);
+      transition: opacity .22s ease, transform .22s ease;
+    }
+
+    body.beginner-mode-active .tour-focus-target {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 700px) {
+      .tour-title { font-size: 20px; }
+      .tour-modal { padding: 14px; width: calc(100vw - 18px); }
+      .tour-controls .btn { flex: 1 1 42%; min-width: 0; }
+      .topbar-actions { justify-content: flex-start; }
+    }
+
     @media (max-width: 980px) {
       .app-shell { grid-template-columns: 1fr; }
       .sidebar { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
@@ -826,7 +940,10 @@
     <div class="main-frame">
       <header class="topbar">
         <h1>Garvey Command-Center Surface</h1>
-        <div class="tenant" id="tenantPill">Tenant: -</div>
+        <div class="topbar-actions">
+          <button class="btn tour-relaunch" id="guidedTourRelaunchBtn" type="button">Guided Tour</button>
+          <div class="tenant" id="tenantPill">Tenant: -</div>
+        </div>
       </header>
 
       <main class="content">
@@ -1321,6 +1438,19 @@
       </main>
     </div>
   </div>
+
+  <div class="tour-backdrop" id="tourBackdrop" aria-hidden="true"></div>
+  <section class="tour-modal" id="tourModal" role="dialog" aria-modal="true" aria-labelledby="tourTitle">
+    <p class="tour-kicker">Garvey Beginner Mode</p>
+    <h2 class="tour-title" id="tourTitle">Welcome to G.A.R.V.E.Y</h2>
+    <p class="tour-body" id="tourBody">This is your operating system command center.</p>
+    <div class="tour-progress" id="tourProgress">Step 1 of 8</div>
+    <div class="tour-controls">
+      <button class="btn" type="button" id="tourBackBtn">Back</button>
+      <button class="btn" type="button" id="tourSkipBtn">Skip</button>
+      <button class="btn primary" type="button" id="tourNextBtn">Next</button>
+    </div>
+  </section>
 
   <script>
     (function () {
@@ -3120,6 +3250,173 @@
           }
         });
       }
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var TOUR_STATE_KEY = "garvey_guided_tour_v1";
+      var tourBackdrop = document.getElementById("tourBackdrop");
+      var tourModal = document.getElementById("tourModal");
+      var tourTitle = document.getElementById("tourTitle");
+      var tourBody = document.getElementById("tourBody");
+      var tourProgress = document.getElementById("tourProgress");
+      var tourBackBtn = document.getElementById("tourBackBtn");
+      var tourSkipBtn = document.getElementById("tourSkipBtn");
+      var tourNextBtn = document.getElementById("tourNextBtn");
+      var relaunchBtn = document.getElementById("guidedTourRelaunchBtn");
+      var currentStep = -1;
+      var tourActive = false;
+
+      var TOUR_STEPS = [
+        {
+          title: "Master Dashboard",
+          body: "This is your command center. See total system health, phase progress, and readiness signals that show what to fix next.",
+          target: "master-dashboard",
+          anchor: "#master-dashboard"
+        },
+        {
+          title: "Foundation",
+          body: "Start here first. Define mission, customer, value proposition, and values, then initialize the business core.",
+          target: "phase-1",
+          anchor: "#phase-1"
+        },
+        {
+          title: "Structure",
+          body: "Assign ownership, operator and backup roles, and decision rights so accountability is clear.",
+          target: "phase-2",
+          anchor: "#phase-2"
+        },
+        {
+          title: "Execution",
+          body: "This is where workflows and recurring tasks run. It turns plans into live operational rhythm.",
+          target: "phase-3",
+          anchor: "#phase-3"
+        },
+        {
+          title: "Intelligence",
+          body: "This is the brain. Track readiness score, current gaps, and next-best actions in real time.",
+          target: "phase-4",
+          anchor: "#phase-4"
+        },
+        {
+          title: "Infrastructure",
+          body: "Manage tools, templates, links, and resources that keep the machine reliable.",
+          target: "phase-5",
+          anchor: "#phase-5"
+        },
+        {
+          title: "Stability",
+          body: "Handle issues, route escalations, and maintain logs so operations stay controlled.",
+          target: "phase-6",
+          anchor: "#phase-6"
+        },
+        {
+          title: "Evolution",
+          body: "Run evaluation, launch-readiness checks, handoff, and growth loops to move the system forward.",
+          target: "phase-7",
+          anchor: "#phase-7"
+        }
+      ];
+
+      function readTourState() {
+        try {
+          return JSON.parse(localStorage.getItem(TOUR_STATE_KEY) || "{}");
+        } catch (_) {
+          return {};
+        }
+      }
+
+      function writeTourState(next) {
+        try {
+          localStorage.setItem(TOUR_STATE_KEY, JSON.stringify(next));
+        } catch (_) {}
+      }
+
+      function clearHighlight() {
+        document.querySelectorAll(".tour-focus-target").forEach(function (el) {
+          el.classList.remove("tour-focus-target", "tour-focus-foundation");
+        });
+      }
+
+      function applyHighlight(step) {
+        clearHighlight();
+        var target = document.getElementById(step.target);
+        if (!target) return;
+        target.classList.add("tour-focus-target");
+        if (step.target === "phase-1") target.classList.add("tour-focus-foundation");
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      function renderStep(index) {
+        currentStep = index;
+        var step = TOUR_STEPS[index];
+        if (!step) return;
+        tourTitle.textContent = step.title;
+        tourBody.textContent = step.body;
+        tourProgress.textContent = "Step " + (index + 1) + " of " + TOUR_STEPS.length;
+        tourBackBtn.disabled = index === 0;
+        tourNextBtn.textContent = index === TOUR_STEPS.length - 1 ? "Finish" : "Next";
+        applyHighlight(step);
+      }
+
+      function openTour(startIndex) {
+        tourActive = true;
+        document.body.classList.add("beginner-mode-active");
+        tourBackdrop.classList.add("is-visible");
+        tourModal.classList.add("is-visible");
+        renderStep(startIndex || 0);
+      }
+
+      function closeTour(status) {
+        tourActive = false;
+        clearHighlight();
+        document.body.classList.remove("beginner-mode-active");
+        tourBackdrop.classList.remove("is-visible");
+        tourModal.classList.remove("is-visible");
+        if (status) writeTourState({ status: status, updated_at: Date.now() });
+      }
+
+      tourNextBtn.addEventListener("click", function () {
+        if (!tourActive) return;
+        if (currentStep >= TOUR_STEPS.length - 1) {
+          closeTour("completed");
+          return;
+        }
+        renderStep(currentStep + 1);
+      });
+
+      tourBackBtn.addEventListener("click", function () {
+        if (!tourActive || currentStep <= 0) return;
+        renderStep(currentStep - 1);
+      });
+
+      tourSkipBtn.addEventListener("click", function () {
+        closeTour("skipped");
+      });
+
+      tourBackdrop.addEventListener("click", function () {
+        if (!tourActive) return;
+        closeTour("skipped");
+      });
+
+      if (relaunchBtn) {
+        relaunchBtn.addEventListener("click", function () {
+          openTour(0);
+        });
+      }
+
+      window.addEventListener("keydown", function (event) {
+        if (!tourActive) return;
+        if (event.key === "Escape") closeTour("skipped");
+      });
+
+      window.addEventListener("DOMContentLoaded", function () {
+        var state = readTourState();
+        if (state.status !== "completed" && state.status !== "skipped") {
+          openTour(0);
+        }
+      });
     })();
   </script>
 </body>
