@@ -833,50 +833,49 @@
           <div class="master-grid">
             <article class="card phase-progress">
               <h2>Phase Progression Bar</h2>
-              <div class="phase-row">
-                <span class="pill done">Foundation</span>
-                <span class="pill done">Structure</span>
-                <span class="pill active">Execution</span>
-                <span class="pill">Intelligence</span>
-                <span class="pill">Infrastructure</span>
-                <span class="pill">Routing &amp; Stability</span>
-                <span class="pill">Evaluation &amp; Evolution</span>
+              <div class="phase-row" id="masterPhaseRow">
+                <span class="pill" data-phase="Foundation">Foundation</span>
+                <span class="pill" data-phase="Structure">Structure</span>
+                <span class="pill" data-phase="Execution">Execution</span>
+                <span class="pill" data-phase="Intelligence">Intelligence</span>
+                <span class="pill" data-phase="Infrastructure">Infrastructure</span>
+                <span class="pill" data-phase="Stability">Stability</span>
+                <span class="pill" data-phase="Evolution">Evolution</span>
               </div>
             </article>
 
             <article class="card readiness-core">
               <h2>Readiness Core</h2>
-              <p class="score">72</p>
-              <p class="sub">Gap: Missing EIN</p>
+              <p class="score" id="masterReadinessScore">--</p>
+              <p class="sub" id="masterGapText">Gap: --</p>
+              <p class="sub" id="masterNextActionText">Next: --</p>
             </article>
 
             <article class="card status-grid-wrap">
               <h2>System Status Grid</h2>
               <div class="status-grid">
-                <div class="status-item"><span>Roles Assigned</span><span>✅</span></div>
-                <div class="status-item"><span>Workflows Active</span><span>⚠️</span></div>
-                <div class="status-item"><span>KPIs Tracking</span><span>❌</span></div>
-                <div class="status-item"><span>Tools Ready</span><span>✅</span></div>
+                <div class="status-item"><span>Roles Assigned</span><span id="statusRolesAssigned">--</span></div>
+                <div class="status-item"><span>Workflows Active</span><span id="statusWorkflowsActive">--</span></div>
+                <div class="status-item"><span>KPIs Tracking</span><span id="statusKpisTracking">--</span></div>
+                <div class="status-item"><span>Tools Ready</span><span id="statusToolsReady">--</span></div>
+                <div class="status-item"><span>Issues Active</span><span id="statusIssuesActive">--</span></div>
               </div>
             </article>
 
             <article class="card recent-activity">
               <h2>Recent Activity</h2>
-              <ul class="timeline">
-                <li>Mission Created</li>
-                <li>Customer Persona Drafted</li>
-                <li>Value Proposition Updated</li>
-                <li>Initialization Checks Running</li>
+              <ul class="timeline" id="masterRecentActivity">
+                <li>Loading recent activity…</li>
               </ul>
             </article>
 
             <article class="card quick-actions">
               <h2>Quick Actions</h2>
               <div class="btn-grid">
-                <a class="btn" href="#phase-1">Open Foundation</a>
-                <a class="btn" href="#phase-2">Open Structure</a>
-                <a class="btn" href="#phase-3">Open Execution</a>
-                <a class="btn" href="#phase-4">Open Intelligence</a>
+                <a class="btn" id="quickCreateTask" href="#phase-3">Create Task</a>
+                <a class="btn" id="quickFixGap" href="#phase-4">Fix Gap</a>
+                <a class="btn" id="quickAddRole" href="#phase-2">Add Role</a>
+                <a class="btn" id="quickViewResources" href="#phase-5">View Resources</a>
               </div>
             </article>
           </div>
@@ -1293,6 +1292,20 @@
           })();
       var tenant = String(ctx.tenant || "").trim();
       document.getElementById("tenantPill").textContent = "Tenant: " + (tenant || "(missing)");
+      var masterPhaseRow = document.getElementById("masterPhaseRow");
+      var masterReadinessScore = document.getElementById("masterReadinessScore");
+      var masterGapText = document.getElementById("masterGapText");
+      var masterNextActionText = document.getElementById("masterNextActionText");
+      var statusRolesAssigned = document.getElementById("statusRolesAssigned");
+      var statusWorkflowsActive = document.getElementById("statusWorkflowsActive");
+      var statusKpisTracking = document.getElementById("statusKpisTracking");
+      var statusToolsReady = document.getElementById("statusToolsReady");
+      var statusIssuesActive = document.getElementById("statusIssuesActive");
+      var masterRecentActivity = document.getElementById("masterRecentActivity");
+      var quickCreateTask = document.getElementById("quickCreateTask");
+      var quickFixGap = document.getElementById("quickFixGap");
+      var quickAddRole = document.getElementById("quickAddRole");
+      var quickViewResources = document.getElementById("quickViewResources");
 
       var createSopBtn = document.getElementById("createSopBtn");
       var addWorkflowBtn = document.getElementById("addWorkflowBtn");
@@ -1370,6 +1383,159 @@
       var growthImprovements = 3;
       var growthKnowledge = 5;
       var launchGateReady = false;
+      var MASTER_PHASES = ["Foundation", "Structure", "Execution", "Intelligence", "Infrastructure", "Stability", "Evolution"];
+
+      function safeFetchJson(path) {
+        if (!tenant) return Promise.resolve(null);
+        var separator = path.indexOf("?") === -1 ? "?" : "&";
+        var url = path + separator + "tenant=" + encodeURIComponent(tenant);
+        return fetch(url).then(function (res) {
+          if (!res.ok) return null;
+          return res.json();
+        }).catch(function () { return null; });
+      }
+
+      function phaseStateFromSignals(signals) {
+        var complete = signals.filter(Boolean).length;
+        if (complete <= 0) return "locked";
+        if (complete >= signals.length) return "complete";
+        return "active";
+      }
+
+      function renderMasterPhases(map) {
+        if (!masterPhaseRow) return;
+        var activeUsed = false;
+        MASTER_PHASES.forEach(function (name) {
+          var pill = masterPhaseRow.querySelector('[data-phase="' + name + '"]');
+          if (!pill) return;
+          pill.classList.remove("done", "active");
+          var state = map[name] || "locked";
+          if (state === "complete") pill.classList.add("done");
+          else if (state === "active" && !activeUsed) {
+            pill.classList.add("active");
+            activeUsed = true;
+          }
+        });
+      }
+
+      function boolStatus(value) {
+        return value ? "✅ Yes" : "⚠️ No";
+      }
+
+      function renderRecentEvents(events) {
+        if (!masterRecentActivity) return;
+        masterRecentActivity.innerHTML = "";
+        if (!Array.isArray(events) || !events.length) {
+          masterRecentActivity.innerHTML = "<li>No recent events yet.</li>";
+          return;
+        }
+        events.slice(0, 6).forEach(function (ev) {
+          var li = document.createElement("li");
+          var phase = String(ev && ev.phase || "system").toLowerCase();
+          var type = String(ev && ev.type || "event").replace(/_/g, " ");
+          var at = ev && ev.at ? (" — " + new Date(ev.at).toLocaleString()) : "";
+          li.textContent = phase + ": " + type + at;
+          masterRecentActivity.appendChild(li);
+        });
+      }
+
+      function wireQuickActions() {
+        if (quickCreateTask) quickCreateTask.setAttribute("href", "#phase-3");
+        if (quickFixGap) quickFixGap.setAttribute("href", "#phase-4");
+        if (quickAddRole) quickAddRole.setAttribute("href", "#phase-2");
+        if (quickViewResources) quickViewResources.setAttribute("href", "#phase-5");
+      }
+
+      function loadMasterDashboardData() {
+        if (!tenant) {
+          renderMasterPhases({});
+          return;
+        }
+        Promise.all([
+          safeFetchJson("/api/foundation/state"),
+          safeFetchJson("/api/structure/state"),
+          safeFetchJson("/api/execution/state"),
+          safeFetchJson("/api/intelligence/state"),
+          safeFetchJson("/api/infrastructure/hub"),
+          safeFetchJson("/api/stability/state")
+        ]).then(function (payloads) {
+          var foundation = payloads[0] || {};
+          var structure = payloads[1] || {};
+          var execution = payloads[2] || {};
+          var intelligence = payloads[3] || {};
+          var infrastructure = payloads[4] || {};
+          var stability = payloads[5] || {};
+
+          var foundationSignals = [
+            Boolean(foundation.completion && foundation.completion.core_elements_exist),
+            Boolean(foundation.completion && foundation.completion.journey_created),
+            Boolean(foundation.completion && foundation.completion.deliverables_initialized)
+          ];
+          var structureSignals = [
+            Array.isArray(structure.roles) && structure.roles.length > 0,
+            !(Array.isArray(structure.ownership_gaps) && structure.ownership_gaps.length > 0),
+            Boolean(structure.operator_assignment)
+          ];
+          var executionSignals = [
+            Boolean(execution.completion && execution.completion.workflows_defined),
+            Boolean(execution.completion && execution.completion.recurring_tasks_functioning),
+            Boolean(execution.completion && execution.completion.deliverable_tasks_created)
+          ];
+          var intelligenceSignals = [
+            Boolean(intelligence.completion && intelligence.completion.kpis_exist),
+            Boolean(intelligence.completion && intelligence.completion.readiness_score_calculated),
+            Boolean(intelligence.completion && intelligence.completion.gap_identified)
+          ];
+          var infrastructureSignals = [
+            Array.isArray(infrastructure.tools) && infrastructure.tools.length > 0,
+            Array.isArray(infrastructure.resources) && infrastructure.resources.length > 0,
+            Array.isArray(infrastructure.links) && infrastructure.links.length > 0
+          ];
+          var stabilitySignals = [
+            Boolean(stability.issue_flow_working),
+            Boolean(stability.routing_tasks_generated),
+            Boolean(stability.milestone_logs_recorded)
+          ];
+          var phaseMap = {
+            Foundation: phaseStateFromSignals(foundationSignals),
+            Structure: phaseStateFromSignals(structureSignals),
+            Execution: phaseStateFromSignals(executionSignals),
+            Intelligence: phaseStateFromSignals(intelligenceSignals),
+            Infrastructure: phaseStateFromSignals(infrastructureSignals),
+            Stability: phaseStateFromSignals(stabilitySignals),
+            Evolution: "locked"
+          };
+          if (phaseMap.Stability === "complete") phaseMap.Evolution = "active";
+          renderMasterPhases(phaseMap);
+
+          var scoreValue = intelligence.readiness_score && typeof intelligence.readiness_score.score === "number"
+            ? intelligence.readiness_score.score
+            : (intelligence.readiness_score && Number(intelligence.readiness_score.score)) || 0;
+          if (masterReadinessScore) masterReadinessScore.textContent = scoreValue > 0 ? String(Math.round(scoreValue)) : "--";
+          if (masterGapText) {
+            var gap = (Array.isArray(intelligence.gaps) && intelligence.gaps[0] && intelligence.gaps[0].gap_label) || "No active gap";
+            masterGapText.textContent = "Gap: " + gap;
+          }
+          if (masterNextActionText) {
+            var action = intelligence.recommended_action && (intelligence.recommended_action.action_title || intelligence.recommended_action.title);
+            masterNextActionText.textContent = "Next: " + (action || "No recommended action yet");
+          }
+
+          if (statusRolesAssigned) statusRolesAssigned.textContent = boolStatus(Array.isArray(structure.roles) && structure.roles.length > 0);
+          if (statusWorkflowsActive) statusWorkflowsActive.textContent = boolStatus(Boolean(execution.completion && execution.completion.workflows_defined));
+          if (statusKpisTracking) statusKpisTracking.textContent = boolStatus(Boolean(intelligence.completion && intelligence.completion.kpis_exist));
+          if (statusToolsReady) statusToolsReady.textContent = boolStatus(Array.isArray(infrastructure.tools) && infrastructure.tools.length > 0);
+          if (statusIssuesActive) {
+            var issueCount = stability.issue_flow_working ? 1 : 0;
+            statusIssuesActive.textContent = issueCount > 0 ? ("⚠️ " + issueCount) : "✅ 0";
+          }
+
+          var events = foundation.journey && foundation.journey.journey && foundation.journey.journey.events;
+          renderRecentEvents(Array.isArray(events) ? events.slice().reverse() : []);
+          wireQuickActions();
+        });
+      }
+      loadMasterDashboardData();
 
       var readinessValue = 72;
       function renderScoreColor(score) {
