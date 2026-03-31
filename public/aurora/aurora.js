@@ -155,9 +155,9 @@
 
   function initMeta() {
     const c = ctx();
-    const tenant = c.tenant || "test-business";
-    setText("tenantDisplay", tenant);
-    setText("businessNameHero", tenant.replace(/[-_]+/g, " "));
+    const tenant = c.tenant || "";
+    setText("tenantDisplay", tenant || "—");
+    setText("businessNameHero", tenant ? tenant.replace(/[-_]+/g, " ") : "GARVEY");
 
     if (c.cid) {
       const wrap = document.getElementById("cidDisplayWrap");
@@ -187,7 +187,7 @@
 
   window.addEventListener("DOMContentLoaded", () => {
     initMeta();
-    ensureTenantInUrl("test-business");
+    ensureTenantInUrl("");
     const engine = (window.CustomerReturnEngine && window.CustomerReturnEngine.createDefaultEngine)
       ? window.CustomerReturnEngine.createDefaultEngine()
       : null;
