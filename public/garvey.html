@@ -241,12 +241,179 @@
 
     .kv strong { color: var(--text); display: block; margin-bottom: 4px; }
 
+    .phase-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .phase-title {
+      margin: 0;
+      font-size: 16px;
+      text-transform: uppercase;
+      color: var(--gold);
+      letter-spacing: .6px;
+    }
+
+    .phase-tag {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      color: var(--muted);
+      background: #121418;
+    }
+
+    .structure-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .roles-board-wrap h4,
+    .structure-side h4 {
+      margin: 0 0 10px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      color: var(--muted);
+    }
+
+    .roles-board {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .kanban-column {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #0f1114;
+      padding: 10px;
+      min-height: 228px;
+    }
+
+    .kanban-column h5 {
+      margin: 0 0 10px;
+      font-size: 12px;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: .7px;
+    }
+
+    .kanban-stack {
+      display: grid;
+      gap: 8px;
+    }
+
+    .ownership-card {
+      border: 1px solid #343940;
+      border-radius: 10px;
+      background: #171a1f;
+      padding: 8px;
+      font-size: 13px;
+      color: #eef1f5;
+    }
+
+    .ownership-card strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 12px;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .ownership-missing {
+      border-color: rgba(255, 45, 45, 0.9);
+      box-shadow: var(--shadow-red);
+      animation: pulse-red 1.6s infinite;
+    }
+
+    .ownership-assigned {
+      border-color: rgba(0, 255, 154, 0.72);
+      box-shadow: var(--shadow-green);
+    }
+
+    .ownership-backup {
+      border-color: var(--gold);
+      box-shadow: inset 0 0 0 1px rgba(242, 193, 78, 0.3), var(--shadow-gold);
+    }
+
+    .structure-side {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #0f1114;
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .state-flag {
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 8px;
+      font-size: 13px;
+      background: #14171c;
+    }
+
+    .state-alert {
+      border-color: rgba(255, 45, 45, 0.88);
+      box-shadow: var(--shadow-red);
+      animation: pulse-red 1.2s infinite;
+    }
+
+    .state-confirm {
+      border-color: rgba(0, 255, 154, 0.8);
+      box-shadow: var(--shadow-green);
+    }
+
+    .state-warning {
+      border-color: rgba(255, 45, 45, 0.6);
+      background: rgba(255, 45, 45, 0.08);
+      color: #ffd4d4;
+    }
+
+    .decision-summary {
+      margin: 0;
+      padding-left: 16px;
+      color: #dbe0e7;
+      display: grid;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .phase2-actions {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    @keyframes pulse-red {
+      0% { box-shadow: 0 0 0 rgba(255, 45, 45, 0); }
+      50% { box-shadow: 0 0 24px rgba(255, 45, 45, 0.42); }
+      100% { box-shadow: 0 0 0 rgba(255, 45, 45, 0); }
+    }
+
     @media (max-width: 980px) {
       .app-shell { grid-template-columns: 1fr; }
       .sidebar { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
       .readiness-core, .status-grid-wrap, .recent-activity, .quick-actions { grid-column: span 12; }
       .phase1-grid { grid-template-columns: 1fr; }
       .btn-grid { grid-template-columns: 1fr; }
+      .structure-layout { grid-template-columns: 1fr; }
+      .roles-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .phase2-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 620px) {
+      .roles-board,
+      .phase2-actions { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -348,7 +515,95 @@
         </section>
 
         <section id="phase-2" class="card phase-panel">
-          <h3>Phase 2 — Structure UI</h3>
+          <div class="phase-header">
+            <h3 class="phase-title">Assign Ownership</h3>
+            <span class="phase-tag">roles_board</span>
+          </div>
+
+          <div class="structure-layout">
+            <article class="roles-board-wrap">
+              <h4>Kanban Board</h4>
+              <div class="roles-board">
+                <section class="kanban-column">
+                  <h5>Needed</h5>
+                  <div class="kanban-stack">
+                    <div class="ownership-card ownership-missing">
+                      <strong>Role</strong>
+                      Revenue Operations Lead
+                    </div>
+                    <div class="ownership-card ownership-missing">
+                      <strong>Ownership Gap</strong>
+                      Customer escalation response has no owner.
+                    </div>
+                  </div>
+                </section>
+
+                <section class="kanban-column">
+                  <h5>Assigned</h5>
+                  <div class="kanban-stack">
+                    <div class="ownership-card ownership-assigned">
+                      <strong>Operator Assignment</strong>
+                      COO · Maria Kline
+                    </div>
+                    <div class="ownership-card ownership-assigned">
+                      <strong>Role</strong>
+                      Sales Pipeline Governance
+                    </div>
+                  </div>
+                </section>
+
+                <section class="kanban-column">
+                  <h5>Active</h5>
+                  <div class="kanban-stack">
+                    <div class="ownership-card ownership-assigned">
+                      <strong>Operator Assignment</strong>
+                      Daily fulfillment review · Active
+                    </div>
+                    <div class="ownership-card ownership-missing">
+                      <strong>Ownership Gap</strong>
+                      Weekend dispatch authority undefined.
+                    </div>
+                  </div>
+                </section>
+
+                <section class="kanban-column">
+                  <h5>Backup Ready</h5>
+                  <div class="kanban-stack">
+                    <div class="ownership-card ownership-backup">
+                      <strong>Role</strong>
+                      Finance approvals (Backup mapped)
+                    </div>
+                    <div class="ownership-card ownership-backup">
+                      <strong>Operator Assignment</strong>
+                      Controller backup · James Tao
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </article>
+
+            <aside class="structure-side">
+              <h4>Side Panel</h4>
+              <div class="state-flag state-confirm"><strong>Operator Assigned?</strong> Yes — 6 active owners</div>
+              <div class="state-flag state-alert"><strong>Missing Ownership Count</strong> 2 accountability gaps</div>
+              <div class="state-flag"><strong>Decision Rights Summary</strong></div>
+              <ul class="decision-summary">
+                <li>Pricing authority: COO primary, CEO fallback.</li>
+                <li>Dispatch exceptions: Operations lead pending assignment.</li>
+                <li>Customer recovery credits: Support manager with finance backup.</li>
+              </ul>
+              <div class="state-flag state-alert">Ownership gap detected = alert glow</div>
+              <div class="state-flag state-confirm">Operator assigned = green confirmation</div>
+              <div class="state-flag state-warning">Orphan responsibility = red warning</div>
+            </aside>
+          </div>
+
+          <div class="phase2-actions">
+            <a class="btn primary" href="#">Add Role</a>
+            <a class="btn primary" href="#">Assign Operator</a>
+            <a class="btn primary" href="#">Validate Ownership</a>
+            <a class="btn primary" href="#">Assign Backup</a>
+          </div>
         </section>
 
         <section id="phase-3" class="card phase-panel">
