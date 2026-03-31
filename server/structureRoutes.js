@@ -12,6 +12,7 @@ const STRUCTURE_COLUMNS = [
 const STRUCTURE_CARD_TYPES = ["role", "operator_assignment", "ownership_gap"];
 const VALID_STRUCTURE_CARD_TYPES = new Set(STRUCTURE_CARD_TYPES);
 const CRITICAL_ROLE_NAMES = ["operations", "sales", "marketing", "finance"];
+const DELIVERABLE_NAMES = ["Business Plan", "Website", "Funding Packet", "Owner Checklist"];
 
 function normalizeText(value) {
   return String(value || "").trim();
@@ -24,6 +25,68 @@ function requireTenant(req, res) {
     return null;
   }
   return tenant;
+}
+
+function buildBusinessId(tenantSlug) {
+  const clean = String(tenantSlug || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 40) || "business";
+  return `biz_${clean}_${Date.now()}`;
+}
+
+async function ensureJourneyRecord(pool, tenantId, tenantSlug) {
+  const deliverables = DELIVERABLE_NAMES.map((name) => ({ name, status: "pending" }));
+  const valueAssets = [
+    { key: "offer_statement", status: "baseline" },
+    { key: "proof_points", status: "baseline" },
+    { key: "positioning_summary", status: "baseline" },
+  ];
+  await pool.query(
+    `INSERT INTO foundation_journeys (
+      tenant_id, business_id, intake_snapshot, value_assets, deliverables, journey
+    )
+    VALUES ($1,$2,'{}'::jsonb,$3::jsonb,$4::jsonb,$5::jsonb)
+    ON CONFLICT (tenant_id) DO NOTHING`,
+    [
+      tenantId,
+      buildBusinessId(tenantSlug),
+      JSON.stringify(valueAssets),
+      JSON.stringify(deliverables),
+      JSON.stringify({
+        phase: "foundation",
+        status: "initialized",
+        started_at: new Date().toISOString(),
+        events: [],
+      }),
+    ]
+  );
+}
+
+async function appendStructureJourneyEvent(pool, tenantId, eventType, payload = {}) {
+  const result = await pool.query(
+    `UPDATE foundation_journeys
+     SET journey = jsonb_set(
+       COALESCE(journey, '{}'::jsonb),
+       '{events}',
+       COALESCE(journey->'events', '[]'::jsonb) || jsonb_build_array(
+         jsonb_build_object(
+           'phase', 'structure',
+           'event_type', $2,
+           'timestamp', NOW(),
+           'payload', $3::jsonb
+         )
+       ),
+       true
+     ),
+     updated_at = NOW()
+     WHERE tenant_id=$1
+     RETURNING journey`,
+    [tenantId, eventType, JSON.stringify(payload || {})]
+  );
+  return result.rows[0]?.journey || null;
 }
 
 async function ensureRolesBoard(pool, tenantId) {
@@ -170,6 +233,10 @@ function structureRoutes({ pool, ensureTenant }) {
       const tenant = await ensureTenant(tenantSlug);
       const { board, columns } = await ensureRolesBoard(pool, tenant.id);
       const cards = await ensureStructureCards(pool, tenant.id, board.id, columns);
+      await ensureJourneyRecord(pool, tenant.id, tenant.slug);
+      await appendStructureJourneyEvent(pool, tenant.id, "structure_initialized", {
+        board_id: board.id,
+      });
       return res.json({ success: true, tenant: tenant.slug, board, columns, cards });
     } catch (err) {
       console.error("structure_initialize_failed", err);
@@ -213,6 +280,19 @@ function structureRoutes({ pool, ensureTenant }) {
           Number(req.body?.decision_rights || 1),
         ]
       );
+      await ensureJourneyRecord(pool, tenant.id, tenant.slug);
+      await appendStructureJourneyEvent(pool, tenant.id, "role_created", {
+        role_name: created.rows[0].role_name,
+        owner_name: created.rows[0].owner_name,
+        owner_email: created.rows[0].owner_email,
+      });
+      if (normalizeText(created.rows[0].backup_name || created.rows[0].backup_email)) {
+        await appendStructureJourneyEvent(pool, tenant.id, "backup_assigned", {
+          role_name: created.rows[0].role_name,
+          backup_name: created.rows[0].backup_name,
+          backup_email: created.rows[0].backup_email,
+        });
+      }
       return res.json({ success: true, role: created.rows[0] });
     } catch (err) {
       console.error("structure_role_save_failed", err);
@@ -244,6 +324,12 @@ function structureRoutes({ pool, ensureTenant }) {
         RETURNING *`,
         [tenant.id, operatorName || null, operatorEmail || null, normalizeText(req.body?.mode || "manual")]
       );
+      await ensureJourneyRecord(pool, tenant.id, tenant.slug);
+      await appendStructureJourneyEvent(pool, tenant.id, "operator_assigned", {
+        operator_name: saved.rows[0].operator_name,
+        operator_email: saved.rows[0].operator_email,
+        mode: saved.rows[0].mode,
+      });
       return res.json({ success: true, operator_assignment: saved.rows[0] });
     } catch (err) {
       console.error("structure_operator_assign_failed", err);
@@ -326,6 +412,10 @@ function structureRoutes({ pool, ensureTenant }) {
       if (!tenantSlug) return;
       const tenant = await ensureTenant(tenantSlug);
       const gaps = await computeOwnershipGaps(pool, tenant.id);
+      await ensureJourneyRecord(pool, tenant.id, tenant.slug);
+      if (gaps.missing_critical_roles.length > 0 || gaps.orphan_responsibilities.length > 0) {
+        await appendStructureJourneyEvent(pool, tenant.id, "ownership_gap_detected", gaps);
+      }
       return res.json({ success: true, ownership_gaps: gaps, healthy: gaps.missing_critical_roles.length === 0 && gaps.orphan_responsibilities.length === 0 });
     } catch (err) {
       console.error("structure_validator_failed", err);
