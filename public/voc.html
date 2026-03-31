@@ -34,6 +34,7 @@ let answers = [];
 
 function getTenant() { return (new URLSearchParams(window.location.search).get("tenant") || "test-business").trim(); }
 function getCid() { return (new URLSearchParams(window.location.search).get("cid") || "").trim(); }
+function getEmail() { return (new URLSearchParams(window.location.search).get("email") || "").trim().toLowerCase(); }
 function escapeHtml(s) { return String(s || "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c])); }
 
 async function loadQuestions() {
@@ -124,6 +125,10 @@ async function submit() {
 function showError(msg) { document.getElementById("questionText").innerText = "❌ " + msg; }
 
 document.addEventListener("DOMContentLoaded", loadQuestions);
+document.addEventListener("DOMContentLoaded", () => {
+  const email = getEmail();
+  if (email) document.getElementById("email").value = email;
+});
 </script>
 </body>
 </html>

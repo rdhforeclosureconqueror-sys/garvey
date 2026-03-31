@@ -405,7 +405,7 @@
   <main class="app">
     <section class="panel header">
       <h1>Welcome back 🎁</h1>
-      <p class="muted">Scan. Tap. Earn. Your return visit perks are live.</p>
+      <p class="muted">This is your rewards action center: take actions, earn points, and track progress.</p>
       <div class="pill" id="tenantLine">Loading session…</div>
       <div class="steps" id="stepsBar">
         <div class="step" data-step="1">1. Welcome</div>
@@ -437,19 +437,23 @@
         <div class="actions" id="actionCards">
           <button type="button" class="action-btn active" data-type="checkin">
             <strong>Quick Check-In <span class="done-mark">✓ Completed</span></strong>
-            <span>Fastest way to earn points instantly.</span>
+            <span>Fastest way to earn points instantly (+15).</span>
           </button>
           <button type="button" class="action-btn" data-type="review">
             <strong>Leave a Review <span class="done-mark">✓ Completed</span></strong>
-            <span>Share your feedback and unlock bonus value.</span>
+            <span>Share your feedback and unlock bonus value (+25).</span>
           </button>
           <button type="button" class="action-btn" data-type="referral">
             <strong>Refer a Friend <span class="done-mark">✓ Completed</span></strong>
-            <span>Invite someone and both of you can benefit.</span>
+            <span>Invite someone and both of you can benefit (+30).</span>
           </button>
           <button type="button" class="action-btn" data-type="wishlist">
             <strong>Add to Wishlist <span class="done-mark">✓ Completed</span></strong>
-            <span>Save what you want next and keep momentum.</span>
+            <span>Save what you want next and keep momentum (+15).</span>
+          </button>
+          <button type="button" class="action-btn" data-type="voc">
+            <strong>Complete Assessment <span class="done-mark">✓ Completed</span></strong>
+            <span>Voice of the Customer unlocks your biggest boost (+50).</span>
           </button>
         </div>
       </div>
@@ -530,7 +534,7 @@
       </article>
       <div class="cta-row">
         <a id="backHome" class="link-btn" href="#">← Back Home</a>
-        <a id="openDash" class="link-btn" href="#">View Progress Dashboard</a>
+        <a id="openAssessment" class="link-btn" href="#">Open Voice of the Customer</a>
       </div>
     </section>
   </main>
@@ -604,7 +608,8 @@ function nextActionFor(actionType) {
     checkin: { next: "review", label: "Leave Review Next" },
     review: { next: "referral", label: "Refer a Friend Next" },
     referral: { next: "wishlist", label: "Save to Wishlist Next" },
-    wishlist: { next: "checkin", label: "Check In Next Visit" },
+    wishlist: { next: "voc", label: "Complete Assessment Next" },
+    voc: { next: "checkin", label: "Check In Next Visit" },
   };
   return flow[actionType] || { next: "checkin", label: "Take Next Action" };
 }
@@ -620,6 +625,7 @@ function renderSuccessLoop(payload, pointsAdded, total) {
     review: "Review Submitted",
     referral: "Referral Sent",
     wishlist: "Wishlist Saved",
+    voc: "Assessment Started",
   }[actionType] || "Action Complete";
 
   const loop = document.getElementById("successLoop");
@@ -752,6 +758,16 @@ async function submitAction() {
     },
   };
 
+  if (state.actionType === "voc") {
+    const ctx = currentCtx();
+    const voc = new URL("/voc.html", location.origin);
+    voc.searchParams.set("tenant", ctx.tenant);
+    if (ctx.cid) voc.searchParams.set("cid", ctx.cid);
+    if (readEmail()) voc.searchParams.set("email", readEmail());
+    window.location.href = voc.pathname + voc.search;
+    return;
+  }
+
   const event = payloadByType[state.actionType];
   const data = await engine.awardReward(event);
   showResult(data);
@@ -780,12 +796,11 @@ async function run() {
   if (ctx.cid) back.searchParams.set("cid", ctx.cid);
   document.getElementById("backHome").href = back.pathname + back.search;
 
-  const dash = new URL(`/dashboard.html`, location.origin);
-  dash.searchParams.set("tenant", ctx.tenant);
-  if (ctx.email) dash.searchParams.set("email", ctx.email);
-  if (ctx.cid) dash.searchParams.set("cid", ctx.cid);
-  if (ctx.rid) dash.searchParams.set("rid", ctx.rid);
-  document.getElementById("openDash").href = dash.pathname + dash.search;
+  const voc = new URL(`/voc.html`, location.origin);
+  voc.searchParams.set("tenant", ctx.tenant);
+  if (ctx.email) voc.searchParams.set("email", ctx.email);
+  if (ctx.cid) voc.searchParams.set("cid", ctx.cid);
+  document.getElementById("openAssessment").href = voc.pathname + voc.search;
 
   document.querySelectorAll(".action-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
