@@ -516,6 +516,55 @@ function routingRoutes({ pool, ensureTenant }) {
     }
   });
 
+  router.get("/issues", async (req, res) => {
+    try {
+      const tenantSlug = requireTenant(req, res);
+      if (!tenantSlug) return;
+      const tenant = await ensureTenant(tenantSlug);
+      const issues = await pool.query(
+        `SELECT *
+         FROM issues
+         WHERE tenant_id=$1
+         ORDER BY updated_at DESC, id DESC
+         LIMIT 200`,
+        [tenant.id]
+      );
+      const stabilityCards = await pool.query(
+        `SELECT *
+         FROM stability_cards
+         WHERE tenant_id=$1
+           AND type IN ('milestone_prompt', 'postmortem')
+         ORDER BY updated_at DESC, id DESC
+         LIMIT 200`,
+        [tenant.id]
+      );
+      return res.json({ success: true, issues: issues.rows, stability_cards: stabilityCards.rows });
+    } catch (err) {
+      console.error("stability_issues_list_failed", err);
+      return res.status(500).json({ error: "issues list failed" });
+    }
+  });
+
+  router.get("/routing-tasks", async (req, res) => {
+    try {
+      const tenantSlug = requireTenant(req, res);
+      if (!tenantSlug) return;
+      const tenant = await ensureTenant(tenantSlug);
+      const tasks = await pool.query(
+        `SELECT *
+         FROM routing_tasks
+         WHERE tenant_id=$1
+         ORDER BY updated_at DESC, id DESC
+         LIMIT 200`,
+        [tenant.id]
+      );
+      return res.json({ success: true, routing_tasks: tasks.rows });
+    } catch (err) {
+      console.error("stability_routing_tasks_list_failed", err);
+      return res.status(500).json({ error: "routing tasks list failed" });
+    }
+  });
+
   router.post("/issues/:id/move", async (req, res) => {
     try {
       const tenantSlug = requireTenant(req, res);
@@ -690,6 +739,26 @@ function routingRoutes({ pool, ensureTenant }) {
     }
   });
 
+  router.get("/milestones/log", async (req, res) => {
+    try {
+      const tenantSlug = requireTenant(req, res);
+      if (!tenantSlug) return;
+      const tenant = await ensureTenant(tenantSlug);
+      const milestones = await pool.query(
+        `SELECT *
+         FROM milestone_logs
+         WHERE tenant_id=$1
+         ORDER BY sent_at DESC, id DESC
+         LIMIT 200`,
+        [tenant.id]
+      );
+      return res.json({ success: true, milestone_logs: milestones.rows });
+    } catch (err) {
+      console.error("stability_milestone_logs_list_failed", err);
+      return res.status(500).json({ error: "milestone logs list failed" });
+    }
+  });
+
   router.post("/notifications/log", async (req, res) => {
     try {
       const tenantSlug = requireTenant(req, res);
@@ -714,6 +783,26 @@ function routingRoutes({ pool, ensureTenant }) {
     } catch (err) {
       console.error("stability_notification_log_failed", err);
       return res.status(500).json({ error: "notification log failed" });
+    }
+  });
+
+  router.get("/notifications/log", async (req, res) => {
+    try {
+      const tenantSlug = requireTenant(req, res);
+      if (!tenantSlug) return;
+      const tenant = await ensureTenant(tenantSlug);
+      const notifications = await pool.query(
+        `SELECT *
+         FROM notification_logs
+         WHERE tenant_id=$1
+         ORDER BY sent_on DESC, id DESC
+         LIMIT 200`,
+        [tenant.id]
+      );
+      return res.json({ success: true, notifications: notifications.rows });
+    } catch (err) {
+      console.error("stability_notification_logs_list_failed", err);
+      return res.status(500).json({ error: "notification logs list failed" });
     }
   });
 
