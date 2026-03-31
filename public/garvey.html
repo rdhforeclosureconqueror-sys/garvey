@@ -1502,6 +1502,7 @@
       var nextActionTile = document.getElementById("nextActionTile");
       var nextActionText = document.getElementById("nextActionText");
       var kpiBoardTile = document.getElementById("kpiBoardTile");
+      var kpiBoardText = document.getElementById("kpiBoardText");
       var scoreChangeValue = document.getElementById("scoreChangeValue");
       var gapPriorityValue = document.getElementById("gapPriorityValue");
       var resourceLinkValue = document.getElementById("resourceLinkValue");
@@ -1656,8 +1657,146 @@
         infraValidationStatus.textContent = "Infrastructure load failed: " + (err && err.message ? err.message : "unknown error");
         renderInfrastructureEmptyGrid();
       });
+      loadIntelligenceState().catch(function (err) {
+        verificationValue.textContent = "Intelligence load failed: " + (err && err.message ? err.message : "unknown error");
+        renderIntelligenceState(null);
+      });
+
+      function intelligenceUrl(path) {
+        return "/api/intelligence" + path + "?tenant=" + encodeURIComponent(tenant);
+      }
 
       var readinessValue = 72;
+      var intelligenceState = null;
+      var DEFAULT_INTELLIGENCE = {
+        readinessScore: 72,
+        scoreCaption: "Current system readiness state.",
+        scoreChange: "No prior runs yet",
+        currentGap: "No active gap detected.",
+        nextAction: "Generate a next best action to start guidance.",
+        kpiBoard: "No KPI records yet.",
+        gapPriority: "No active gap priority",
+        resourceLink: "No resource recommended yet",
+        verification: "Awaiting score refresh",
+      };
+
+      function toTitleCase(value) {
+        return String(value || "")
+          .replace(/_/g, " ")
+          .replace(/\b\w/g, function (ch) { return ch.toUpperCase(); });
+      }
+
+      function scoreCaptionFor(score) {
+        if (!Number.isFinite(score)) return DEFAULT_INTELLIGENCE.scoreCaption;
+        if (score >= 75) return "Healthy trajectory and improving.";
+        if (score >= 50) return "Moderate readiness; close key gaps.";
+        return "Critical risk state; immediate action required.";
+      }
+
+      function buildSnapshotFromUi() {
+        var latestScore = intelligenceState && intelligenceState.readiness_score;
+        var scoreValue = Number(latestScore && latestScore.readiness_score);
+        var hasOpenGap = Array.isArray(intelligenceState && intelligenceState.gaps) && intelligenceState.gaps.length > 0;
+        return {
+          plan: scoreValue >= 40 ? "present" : "",
+          entity: scoreValue >= 55 ? "present" : "",
+          ein: scoreValue >= 65 ? "present" : "",
+          website: scoreValue >= 75 ? "present" : "",
+          gap_open: hasOpenGap ? "yes" : "",
+        };
+      }
+
+      function setVerificationState(verification) {
+        if (!verification || typeof verification !== "object") {
+          verificationValue.textContent = DEFAULT_INTELLIGENCE.verification;
+          return;
+        }
+        var flags = [];
+        if (verification.score_updates) flags.push("score synced");
+        if (verification.gap_detected) flags.push("gaps detected");
+        if (verification.task_created) flags.push("action generated");
+        verificationValue.textContent = flags.length ? ("Verified: " + flags.join(" • ")) : "Verified: no active intelligence artifacts";
+      }
+
+      function renderKpiCards(kpis) {
+        var bucket = { defined: [], tracking: [], below_target: [], optimized: [] };
+        (Array.isArray(kpis) ? kpis : []).forEach(function (kpi) {
+          var key = String(kpi && kpi.status || "defined").toLowerCase().replace(/\s+/g, "_");
+          if (key.indexOf("below") >= 0) key = "below_target";
+          if (!bucket[key]) key = "defined";
+          bucket[key].push(kpi);
+        });
+
+        definedList.innerHTML = "";
+        trackingList.innerHTML = "";
+        belowTargetList.innerHTML = "";
+        optimizedList.innerHTML = "";
+
+        function renderBucket(container, rows, classes) {
+          if (!rows.length) {
+            container.innerHTML = '<div class="intel-card"><small>Empty</small><div>No records yet</div></div>';
+            return;
+          }
+          rows.slice(0, 6).forEach(function (row) {
+            var detail = row.name || "Unnamed KPI";
+            var curr = Number(row.current_value);
+            var target = Number(row.target_value);
+            if (Number.isFinite(curr) || Number.isFinite(target)) {
+              detail += " • " + (Number.isFinite(curr) ? curr : 0) + "/" + (Number.isFinite(target) ? target : 0);
+            }
+            container.insertAdjacentHTML("beforeend", '<div class="intel-card ' + (classes || "") + '"><small>KPI</small><div>' + escapeHtml(detail) + "</div></div>");
+          });
+        }
+
+        renderBucket(definedList, bucket.defined, "");
+        renderBucket(trackingList, bucket.tracking, "action-outline");
+        renderBucket(belowTargetList, bucket.below_target, "gap-glow");
+        renderBucket(optimizedList, bucket.optimized, "kpi-glow");
+      }
+
+      function renderIntelligenceState(payload) {
+        intelligenceState = payload || null;
+        var latestScore = payload && payload.readiness_score;
+        var openGaps = Array.isArray(payload && payload.gaps) ? payload.gaps : [];
+        var latestAction = payload && payload.recommended_action;
+        var kpis = Array.isArray(payload && payload.kpis) ? payload.kpis : [];
+        var score = Number(latestScore && latestScore.readiness_score);
+        var safeScore = Number.isFinite(score) ? score : DEFAULT_INTELLIGENCE.readinessScore;
+        var topGap = openGaps[0] || null;
+        var actionTitle = String(latestAction && latestAction.title || "").trim();
+        var actionKey = String(latestAction && latestAction.action_key || "").trim();
+
+        var previous = readinessValue;
+        readinessValue = safeScore;
+        animateScore(previous, safeScore);
+        scoreCaption.textContent = Number.isFinite(score) ? scoreCaptionFor(score) : DEFAULT_INTELLIGENCE.scoreCaption;
+        scoreChangeValue.textContent = Number.isFinite(score) && Number.isFinite(previous)
+          ? ((safeScore - previous >= 0 ? "+" : "") + (safeScore - previous) + " since last refresh")
+          : DEFAULT_INTELLIGENCE.scoreChange;
+
+        currentGapText.textContent = topGap ? String(topGap.note || (toTitleCase(topGap.gap_key) + " gap detected")) : DEFAULT_INTELLIGENCE.currentGap;
+        gapPriorityValue.textContent = topGap ? ("P" + String(topGap.priority || "-") + " — " + toTitleCase(topGap.gap_key || "gap")) : DEFAULT_INTELLIGENCE.gapPriority;
+
+        nextActionText.textContent = actionTitle || DEFAULT_INTELLIGENCE.nextAction;
+        resourceLinkValue.textContent = actionKey ? ("/playbooks/" + actionKey.replace(/^fix_/, "").replace(/_/g, "-")) : DEFAULT_INTELLIGENCE.resourceLink;
+        if (kpiBoardText) kpiBoardText.textContent = kpis.length ? (kpis.length + " KPI record(s) loaded") : DEFAULT_INTELLIGENCE.kpiBoard;
+
+        renderKpiCards(kpis);
+        setVerificationState(payload && payload.verification);
+        currentGapTile.classList.toggle("red-pulse", Boolean(topGap));
+      }
+
+      async function loadIntelligenceState() {
+        if (!tenant) {
+          renderIntelligenceState(null);
+          return;
+        }
+        var response = await fetch(intelligenceUrl("/state"), { headers: { Accept: "application/json" } });
+        var payload = await safeJson(response);
+        if (!response.ok) throw new Error(payload.error || "Unable to load intelligence state");
+        renderIntelligenceState(payload);
+      }
+
       function renderScoreColor(score) {
         readinessScore.classList.remove("score-red", "score-gold", "score-green");
         if (score < 50) readinessScore.classList.add("score-red");
@@ -2260,45 +2399,85 @@
       }
 
       if (runScoreBtn) {
-        runScoreBtn.addEventListener("click", function () {
-          var prior = readinessValue;
-          readinessValue = Math.max(34, Math.min(96, readinessValue + (Math.random() > 0.45 ? 6 : -5)));
-          animateScore(prior, readinessValue);
-          scoreChangeValue.textContent = (readinessValue >= prior ? "+" : "") + (readinessValue - prior) + " this run";
-          verificationValue.textContent = "Verified " + new Date().toLocaleTimeString();
-          scoreCaption.textContent = readinessValue >= 75 ? "Healthy trajectory and improving." : (readinessValue >= 50 ? "Moderate readiness; close key gaps." : "Critical risk state; immediate action required.");
+        runScoreBtn.addEventListener("click", async function () {
+          try {
+            var response = await fetch(intelligenceUrl("/score"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ snapshot: buildSnapshotFromUi() }),
+            });
+            var payload = await safeJson(response);
+            if (!response.ok) throw new Error(payload.error || "Score run failed");
+            await loadIntelligenceState();
+          } catch (err) {
+            verificationValue.textContent = "Run Score failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
 
       if (detectGapsBtn) {
-        detectGapsBtn.addEventListener("click", function () {
-          currentGapText.textContent = "Response-time KPI is outside target by 18%.";
-          gapPriorityValue.textContent = "Critical — conversion leak detected";
-          verificationValue.textContent = "Gap scan flagged 1 high-priority issue";
-          currentGapTile.classList.add("red-pulse");
-          belowTargetList.innerHTML = '<div class="intel-card gap-glow"><small>Gap Fix</small><div>Repair response-time bottleneck in intake flow</div></div>';
-          setTimeout(function () { currentGapTile.classList.remove("red-pulse"); }, 1200);
+        detectGapsBtn.addEventListener("click", async function () {
+          try {
+            var response = await fetch(intelligenceUrl("/gaps/detect"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ snapshot: buildSnapshotFromUi() }),
+            });
+            var payload = await safeJson(response);
+            if (!response.ok) throw new Error(payload.error || "Gap detection failed");
+            await loadIntelligenceState();
+          } catch (err) {
+            verificationValue.textContent = "Detect Gaps failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
 
       if (generateActionBtn) {
-        generateActionBtn.addEventListener("click", function () {
-          nextActionText.textContent = "Deploy fallback handler + verify automations in staging.";
-          resourceLinkValue.textContent = "/playbooks/automation-fallback";
-          verificationValue.textContent = "Next action generated from live gap context";
-          nextActionTile.classList.add("gold-flash");
-          trackingList.innerHTML = '<div class="intel-card action-outline"><small>Readiness Scorecard</small><div>Fallback handler verification plan</div></div>';
-          setTimeout(function () { nextActionTile.classList.remove("gold-flash"); }, 1200);
+        generateActionBtn.addEventListener("click", async function () {
+          try {
+            var response = await fetch(intelligenceUrl("/gaps/detect"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ snapshot: buildSnapshotFromUi() }),
+            });
+            var payload = await safeJson(response);
+            if (!response.ok) throw new Error(payload.error || "Action generation failed");
+            nextActionTile.classList.add("gold-flash");
+            setTimeout(function () { nextActionTile.classList.remove("gold-flash"); }, 1200);
+            await loadIntelligenceState();
+          } catch (err) {
+            verificationValue.textContent = "Generate Next Action failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
 
       if (addKpiBtn) {
-        addKpiBtn.addEventListener("click", function () {
-          definedList.innerHTML = '<div class="intel-card"><small>KPI</small><div>First response under 5 minutes</div></div>';
-          optimizedList.innerHTML = '<div class="intel-card kpi-glow green-highlight"><small>KPI</small><div>Offer acceptance rate +9% (optimized)</div></div>';
-          kpiBoardTile.classList.add("green-highlight");
-          verificationValue.textContent = "KPI board updated and optimization confirmed";
-          setTimeout(function () { kpiBoardTile.classList.remove("green-highlight"); }, 1200);
+        addKpiBtn.addEventListener("click", async function () {
+          try {
+            var name = window.prompt("KPI name", "First response under 5 minutes");
+            if (!name) return;
+            var target = Number(window.prompt("Target value", "5") || 5);
+            var current = Number(window.prompt("Current value", "8") || 8);
+            var status = window.prompt("Status (Defined, Tracking, Below Target, Optimized)", "Defined") || "Defined";
+            var response = await fetch(intelligenceUrl("/kpis"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({
+                name: name,
+                target_value: Number.isFinite(target) ? target : 0,
+                current_value: Number.isFinite(current) ? current : 0,
+                status: status,
+                unit: "count",
+              }),
+            });
+            var payload = await safeJson(response);
+            if (!response.ok) throw new Error(payload.error || "KPI create failed");
+            kpiBoardTile.classList.add("green-highlight");
+            setTimeout(function () { kpiBoardTile.classList.remove("green-highlight"); }, 1200);
+            await loadIntelligenceState();
+          } catch (err) {
+            verificationValue.textContent = "Add KPI failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
 
