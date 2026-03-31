@@ -905,6 +905,45 @@
 
         <section id="phase-2" class="card phase-panel">
           <h3>Phase 2 — Structure UI</h3>
+          <div class="execution-header">
+            <h2 style="margin:0; color:var(--text);">Ownership &amp; Role Design</h2>
+            <span class="pill active">roles_board</span>
+          </div>
+          <p class="execution-subtitle">Connect role ownership, operator assignment, and decision rights so execution accountability is visible in real time.</p>
+          <div class="execution-layout">
+            <div>
+              <div class="ops-board" id="structureRolesBoard">
+                <article class="ops-column" data-structure-col="needed">
+                  <h4>Needed</h4>
+                  <div class="ops-list" id="structureNeededList"></div>
+                </article>
+                <article class="ops-column" data-structure-col="assigned">
+                  <h4>Assigned</h4>
+                  <div class="ops-list" id="structureAssignedList"></div>
+                </article>
+                <article class="ops-column" data-structure-col="active">
+                  <h4>Active</h4>
+                  <div class="ops-list" id="structureActiveList"></div>
+                </article>
+                <article class="ops-column" data-structure-col="backup-ready">
+                  <h4>Backup Ready</h4>
+                  <div class="ops-list" id="structureBackupList"></div>
+                </article>
+              </div>
+              <div class="ops-actions">
+                <button class="btn primary" id="addRoleBtn">Add Role</button>
+                <button class="btn primary" id="assignOperatorBtn">Assign Operator</button>
+                <button class="btn primary" id="validateOwnershipBtn">Validate Ownership</button>
+                <button class="btn primary" id="assignBackupBtn">Assign Backup</button>
+              </div>
+            </div>
+            <aside class="ops-side">
+              <div class="ops-side-item"><strong>Operator Assigned</strong><span id="operatorAssignedValue">Not assigned</span></div>
+              <div class="ops-side-item"><strong>Missing Ownership Count</strong><span id="missingOwnershipCount">0</span></div>
+              <div class="ops-side-item"><strong>Decision Rights Summary</strong><span id="decisionRightsSummary">No decision rights registered.</span></div>
+              <div class="ops-side-item"><strong>Structure Completion</strong><span id="structureCompletionState">Waiting for structure setup</span></div>
+            </aside>
+          </div>
         </section>
 
         <section id="phase-3" class="card phase-panel">
@@ -1418,6 +1457,31 @@
         await loadFoundationState(true);
       }
 
+      function structureUrl(path) {
+        return "/api/structure" + path + "?tenant=" + encodeURIComponent(tenant);
+      }
+
+      function formatContact(name, email, fallback) {
+        var n = String(name || "").trim();
+        var e = String(email || "").trim();
+        if (n && e) return n + " (" + e + ")";
+        if (n) return n;
+        if (e) return e;
+        return fallback || "Unassigned";
+      }
+
+      var structureNeededList = document.getElementById("structureNeededList");
+      var structureAssignedList = document.getElementById("structureAssignedList");
+      var structureActiveList = document.getElementById("structureActiveList");
+      var structureBackupList = document.getElementById("structureBackupList");
+      var addRoleBtn = document.getElementById("addRoleBtn");
+      var assignOperatorBtn = document.getElementById("assignOperatorBtn");
+      var validateOwnershipBtn = document.getElementById("validateOwnershipBtn");
+      var assignBackupBtn = document.getElementById("assignBackupBtn");
+      var operatorAssignedValue = document.getElementById("operatorAssignedValue");
+      var missingOwnershipCount = document.getElementById("missingOwnershipCount");
+      var decisionRightsSummary = document.getElementById("decisionRightsSummary");
+      var structureCompletionState = document.getElementById("structureCompletionState");
       var createSopBtn = document.getElementById("createSopBtn");
       var addWorkflowBtn = document.getElementById("addWorkflowBtn");
       var createChecklistBtn = document.getElementById("createChecklistBtn");
@@ -1577,6 +1641,9 @@
           markPanel(panel, false);
         });
       });
+      loadStructureState().catch(function (err) {
+        structureCompletionState.textContent = "Structure load failed: " + (err && err.message ? err.message : "unknown error");
+      });
 
       var readinessValue = 72;
       function renderScoreColor(score) {
@@ -1632,6 +1699,213 @@
         card.innerHTML = "<small>" + type + "</small><div>" + title + "</div>";
         container.prepend(card);
         return card;
+      }
+
+      function renderStructureRoleCard(role, roleState) {
+        var card = document.createElement("div");
+        var isMissingOwner = !String(role.owner_name || role.owner_email || "").trim();
+        card.className = "ops-card" + (isMissingOwner ? " broken" : "");
+        card.innerHTML =
+          "<span class=\"tag\">Role</span>" +
+          "<h5>" + String(role.role_name || "Untitled role") + "</h5>" +
+          "<div class=\"sub\">Owner: " + formatContact(role.owner_name, role.owner_email, "Unassigned") + "</div>" +
+          "<div class=\"sub\">Decision Rights: " + String(role.decision_rights || 0) + "/5</div>" +
+          "<div class=\"sub\">Backup: " + formatContact(role.backup_name, role.backup_email, "Not set") + "</div>";
+        roleState.assigned += 1;
+        if (!isMissingOwner) roleState.active += 1;
+        if (String(role.backup_name || role.backup_email || "").trim()) roleState.backup += 1;
+        return card;
+      }
+
+      function renderStructureState(payload) {
+        var roles = Array.isArray(payload && payload.roles) ? payload.roles : [];
+        var gaps = payload && payload.ownership_gaps ? payload.ownership_gaps : { missing_critical_roles: [], orphan_responsibilities: [] };
+        var operator = payload && payload.operator_assignment ? payload.operator_assignment : null;
+        var completion = payload && payload.completion ? payload.completion : {};
+        var missingCritical = Array.isArray(gaps.missing_critical_roles) ? gaps.missing_critical_roles : [];
+        var orphanResponsibilities = Array.isArray(gaps.orphan_responsibilities) ? gaps.orphan_responsibilities : [];
+        var roleState = { assigned: 0, active: 0, backup: 0 };
+        var rightsTotal = 0;
+        var rightsCount = 0;
+
+        [structureNeededList, structureAssignedList, structureActiveList, structureBackupList].forEach(function (list) {
+          if (list) list.innerHTML = "";
+        });
+
+        if (!roles.length) {
+          if (structureNeededList) {
+            structureNeededList.innerHTML =
+              '<div class="ops-card recurring"><span class="tag">Onboarding</span><h5>No structure roles yet</h5><div class="sub">Use Add Role to create your first role card and start ownership mapping.</div></div>';
+          }
+        } else {
+          roles.forEach(function (role) {
+            var roleCard = renderStructureRoleCard(role, roleState);
+            if (structureAssignedList) structureAssignedList.appendChild(roleCard);
+            if (String(role.owner_name || role.owner_email || "").trim() && structureActiveList) {
+              structureActiveList.appendChild(roleCard.cloneNode(true));
+            }
+            if (String(role.backup_name || role.backup_email || "").trim() && structureBackupList) {
+              structureBackupList.appendChild(roleCard.cloneNode(true));
+            }
+            if (!String(role.owner_name || role.owner_email || "").trim() && structureNeededList) {
+              structureNeededList.appendChild(roleCard.cloneNode(true));
+            }
+            rightsTotal += Number(role.decision_rights || 0);
+            rightsCount += 1;
+          });
+        }
+
+        if (missingCritical.length > 0 && structureNeededList) {
+          var criticalCard = document.createElement("div");
+          criticalCard.className = "ops-card broken";
+          criticalCard.innerHTML =
+            "<span class=\"tag\">Ownership Gap</span><h5>Missing critical roles</h5><div class=\"sub\">" + missingCritical.join(", ") + "</div>";
+          structureNeededList.prepend(criticalCard);
+        }
+        if (orphanResponsibilities.length > 0 && structureNeededList) {
+          var orphanCard = document.createElement("div");
+          orphanCard.className = "ops-card broken";
+          orphanCard.innerHTML =
+            "<span class=\"tag\">Ownership Gap</span><h5>Orphan responsibilities</h5><div class=\"sub\">" + orphanResponsibilities.slice(0, 3).join(", ") + "</div>";
+          structureNeededList.prepend(orphanCard);
+        }
+
+        operatorAssignedValue.textContent = formatContact(
+          operator && operator.operator_name,
+          operator && operator.operator_email,
+          "Not assigned"
+        );
+        missingOwnershipCount.textContent = String(missingCritical.length + orphanResponsibilities.length);
+        if (rightsCount === 0) {
+          decisionRightsSummary.textContent = "No decision rights registered.";
+        } else {
+          decisionRightsSummary.textContent =
+            "Avg " + (rightsTotal / rightsCount).toFixed(1) + "/5 across " + rightsCount + " role(s).";
+        }
+        structureCompletionState.textContent = completion.done
+          ? "Complete — ownership, operator, and responsibilities validated."
+          : "In progress — " + (completion.role_count || roles.length) + " role(s) configured.";
+      }
+
+      async function loadStructureState() {
+        if (!tenant) {
+          structureCompletionState.textContent = "Missing tenant in URL";
+          return;
+        }
+        var response = await fetch(structureUrl("/state"), { headers: { Accept: "application/json" } });
+        var payload = await safeJson(response);
+        if (!response.ok) throw new Error(payload.error || "Unable to load structure state");
+        renderStructureState(payload);
+      }
+
+      if (addRoleBtn) {
+        addRoleBtn.addEventListener("click", async function () {
+          try {
+            var suggestion = await fetch(structureUrl("/gadget/role-creator"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ role_name: "operations", purpose: "daily execution ownership", decision_rights: 3 }),
+            });
+            var suggestionPayload = await safeJson(suggestion);
+            if (!suggestion.ok) throw new Error(suggestionPayload.error || "Role suggestion failed");
+            var role = suggestionPayload.role || {};
+            var roleName = window.prompt("Role name", String(role.role_name || "operations"));
+            if (!roleName) return;
+            var ownerName = window.prompt("Owner name", "");
+            var ownerEmail = window.prompt("Owner email", "");
+            var decisionRights = Number(window.prompt("Decision rights (1-5)", String(role.decision_rights || 2)) || 2);
+            var save = await fetch(structureUrl("/roles"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({
+                role_name: roleName,
+                owner_name: ownerName || null,
+                owner_email: ownerEmail || null,
+                responsibilities: Array.isArray(role.responsibilities) ? role.responsibilities : [],
+                decision_rights: Math.max(1, Math.min(5, decisionRights)),
+              }),
+            });
+            var savePayload = await safeJson(save);
+            if (!save.ok) throw new Error(savePayload.error || "Role save failed");
+            await loadStructureState();
+          } catch (err) {
+            structureCompletionState.textContent = "Add Role failed: " + (err && err.message ? err.message : "unknown error");
+          }
+        });
+      }
+
+      if (assignOperatorBtn) {
+        assignOperatorBtn.addEventListener("click", async function () {
+          try {
+            var operatorName = window.prompt("Operator name", "");
+            var operatorEmail = window.prompt("Operator email", "");
+            if (!operatorName && !operatorEmail) return;
+            var save = await fetch(structureUrl("/operator-assignment"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ operator_name: operatorName || null, operator_email: operatorEmail || null, mode: "manual" }),
+            });
+            var payload = await safeJson(save);
+            if (!save.ok) throw new Error(payload.error || "Operator assignment failed");
+            await loadStructureState();
+          } catch (err) {
+            structureCompletionState.textContent = "Assign Operator failed: " + (err && err.message ? err.message : "unknown error");
+          }
+        });
+      }
+
+      if (validateOwnershipBtn) {
+        validateOwnershipBtn.addEventListener("click", async function () {
+          try {
+            var validateRes = await fetch(structureUrl("/gadget/ownership-validator"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ tenant: tenant }),
+            });
+            var validatePayload = await safeJson(validateRes);
+            if (!validateRes.ok) throw new Error(validatePayload.error || "Ownership validation failed");
+            await loadStructureState();
+          } catch (err) {
+            structureCompletionState.textContent = "Validate Ownership failed: " + (err && err.message ? err.message : "unknown error");
+          }
+        });
+      }
+
+      if (assignBackupBtn) {
+        assignBackupBtn.addEventListener("click", async function () {
+          try {
+            var roleName = window.prompt("Role to assign backup", "operations");
+            if (!roleName) return;
+            var backupName = window.prompt("Backup name", "Backup Owner");
+            var backupEmail = window.prompt("Backup email", "");
+            var suggestRes = await fetch(structureUrl("/gadget/backup-assigner"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({
+                role_name: roleName,
+                backup_name: backupName || undefined,
+                backup_email: backupEmail || undefined,
+              }),
+            });
+            var suggestPayload = await safeJson(suggestRes);
+            if (!suggestRes.ok) throw new Error(suggestPayload.error || "Backup assignment suggestion failed");
+            var backup = suggestPayload.backup_assignment || {};
+            var save = await fetch(structureUrl("/roles"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({
+                role_name: roleName,
+                backup_name: backup.backup_name || backupName || null,
+                backup_email: backup.backup_email || backupEmail || null,
+              }),
+            });
+            var payload = await safeJson(save);
+            if (!save.ok) throw new Error(payload.error || "Backup save failed");
+            await loadStructureState();
+          } catch (err) {
+            structureCompletionState.textContent = "Assign Backup failed: " + (err && err.message ? err.message : "unknown error");
+          }
+        });
       }
 
       if (createSopBtn) {
