@@ -178,11 +178,10 @@
     var totalActions = Number(dashboard.total_actions || 0);
     var totalPoints = Number(dashboard.total_points || 0);
     var totalVisits = Number(dashboard.total_visits || 0);
-    var repeatVisits = Math.max(0, totalVisits - totalUsers);
     animateMetricValue("metricUsers", totalUsers);
     animateMetricValue("metricActions", totalActions);
     animateMetricValue("metricPoints", totalPoints);
-    animateMetricValue("metricRepeatVisits", repeatVisits);
+    animateMetricValue("metricVisits", totalVisits);
   }
 
   function animateMetricValue(id, nextValue) {
