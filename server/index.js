@@ -128,11 +128,12 @@ app.get('/dashboard.html', (req, res) => {
    CONSTANTS + HELPERS
 ========================= */
 
-const ACTION_POINTS = Object.freeze({
-  review: 5,
-  photo: 10,
-  video: 20,
-  referral: 15,
+const REWARD_POINTS = Object.freeze({
+  checkin: 15,
+  review: 25,
+  referral: 30,
+  wishlist: 15,
+  voc: 50,
 });
 const OWNER_NOTIFICATION_FALLBACK_EMAIL = "rdhforeclosureconqueror@gmail.com";
 
@@ -779,7 +780,7 @@ app.get("/api/campaigns/qr", async (req, res) => {
   try {
     const tenantSlug = String(req.query.tenant || "").trim();
     const cid = String(req.query.cid || "").trim();
-    const target = String(req.query.target || "voc").trim().toLowerCase();
+    const target = String(req.query.target || "rewards").trim().toLowerCase();
     const format = String(req.query.format || "png").trim().toLowerCase();
     if (!tenantSlug || !cid) return res.status(400).json({ error: "tenant and cid are required" });
     if (!["voc", "rewards", "landing"].includes(target)) return res.status(400).json({ error: "invalid target" });
@@ -864,7 +865,7 @@ async function recordCampaignEvent({
 async function processCheckinReward({ tenant, tenantConfig, email, cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
-  const pointsAdded = rewardPointsEnabled(tenantConfig) ? 5 : 0;
+  const pointsAdded = rewardPointsEnabled(tenantConfig) ? REWARD_POINTS.checkin : 0;
 
   await pool.query(
     "INSERT INTO visits (tenant_id, user_id, points_awarded, campaign_id, campaign_slug) VALUES ($1, $2, $3, $4, $5)",
@@ -891,7 +892,7 @@ async function processCheckinReward({ tenant, tenantConfig, email, cid = null, r
 async function processActionReward({ tenant, tenantConfig, email, actionType, cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
-  const pointsAdded = rewardPointsEnabled(tenantConfig) ? (ACTION_POINTS[actionType] || 0) : 0;
+  const pointsAdded = rewardPointsEnabled(tenantConfig) ? (REWARD_POINTS[actionType] || 0) : 0;
 
   await pool.query(
     "INSERT INTO actions (tenant_id, user_id, action_type, points_awarded, campaign_id, campaign_slug) VALUES ($1, $2, $3, $4, $5, $6)",
@@ -918,8 +919,7 @@ async function processActionReward({ tenant, tenantConfig, email, actionType, ci
 async function processReviewReward({ tenant, tenantConfig, email, text, mediaType, cid = null, mediaNote = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
-  const mediaBonus = mediaType === "video" ? 10 : mediaType === "photo" ? 5 : 0;
-  const pointsAdded = rewardPointsEnabled(tenantConfig) ? (5 + mediaBonus) : 0;
+  const pointsAdded = rewardPointsEnabled(tenantConfig) ? REWARD_POINTS.review : 0;
 
   const reviewResult = await pool.query(
     `INSERT INTO reviews (tenant_id, user_id, text, media_type, points_awarded, campaign_id, campaign_slug, media_note)
@@ -953,7 +953,7 @@ async function processReferralReward({ tenant, tenantConfig, email, referredEmai
     const referrer = await findTenantUser(tenant.id, email, client);
     const referred = await findTenantUser(tenant.id, referredEmail, client);
     const campaign = await resolveCampaignForTenantStrict(tenant.id, cid, client);
-    const pointsEach = rewardPointsEnabled(tenantConfig) ? 10 : 0;
+    const pointsEach = rewardPointsEnabled(tenantConfig) ? REWARD_POINTS.referral : 0;
 
     await client.query(
       `INSERT INTO referrals (tenant_id, referrer_user_id, referred_user_id, points_awarded_each, campaign_id, campaign_slug)
@@ -993,15 +993,32 @@ async function processReferralReward({ tenant, tenantConfig, email, referredEmai
   }
 }
 
-async function processWishlistReward({ tenant, email, productName, cid = null, resultId = null }) {
+async function processWishlistReward({ tenant, tenantConfig, email, productName, cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
+  const pointsAdded = rewardPointsEnabled(tenantConfig) ? REWARD_POINTS.wishlist : 0;
   const result = await pool.query(
     "INSERT INTO wishlist (tenant_id, user_id, product_name, campaign_id, campaign_slug) VALUES ($1, $2, $3, $4, $5) RETURNING *",
     [tenant.id, user.id, productName, campaign?.id || null, campaign?.slug || null]
   );
   await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "wishlist", customerEmail: email, meta: { product_name: productName, result_id: String(resultId ?? "").trim() || null } });
-  return { success: true, tenant: tenant.slug, wishlist_entry: result.rows[0], cid: campaign?.slug || normalizeSlug(cid) || null, crid: String(resultId ?? "").trim() || null };
+  await pool.query(
+    "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3",
+    [pointsAdded, tenant.id, user.id]
+  );
+  const updatedUser = await pool.query(
+    "SELECT points FROM users WHERE tenant_id = $1 AND id = $2",
+    [tenant.id, user.id]
+  );
+  return {
+    success: true,
+    tenant: tenant.slug,
+    wishlist_entry: result.rows[0],
+    points_added: pointsAdded,
+    points: Number(updatedUser.rows[0]?.points || 0),
+    cid: campaign?.slug || normalizeSlug(cid) || null,
+    crid: String(resultId ?? "").trim() || null
+  };
 }
 
 async function fetchRewardsStatus({ tenant, email }) {
@@ -1171,6 +1188,7 @@ app.post("/t/:slug/wishlist", tenantMiddleware, async (req, res) => {
 
     const payload = await processWishlistReward({
       tenant: req.tenant,
+      tenantConfig: req.tenantConfig,
       email,
       productName,
       cid,
@@ -1290,7 +1308,7 @@ app.post("/api/rewards/wishlist", async (req, res) => {
     }
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
-    const payload = await processWishlistReward({ tenant: ctx.tenant, email, productName, cid, resultId });
+    const payload = await processWishlistReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, productName, cid, resultId });
     return res.json(payload);
   } catch (err) {
     console.error(err);
@@ -2507,6 +2525,13 @@ async function handleVocIntake(req, res) {
         used_admin_fallback: ownerRecipient.usedFallback,
       },
     });
+    const vocPointsAdded = rewardPointsEnabled((await getTenantConfig(tenantRow.id)) || {}) ? REWARD_POINTS.voc : 0;
+    if (vocPointsAdded > 0) {
+      await client.query(
+        "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3",
+        [vocPointsAdded, tenantRow.id, user.id]
+      );
+    }
 
     await client.query("COMMIT");
     const payload = buildAssessmentResultPayload({
@@ -2556,6 +2581,7 @@ async function handleVocIntake(req, res) {
       owner_rid: ownerRecipient.ownerRid,
       owner_notification_auto: true,
       owner_notification_fallback: ownerRecipient.usedFallback,
+      points_added: vocPointsAdded,
     });
 
   } catch (err) {

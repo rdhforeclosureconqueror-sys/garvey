@@ -321,14 +321,14 @@
 
     var qr = document.getElementById("campaignQrPreview");
     if (!qr) return;
-    var qrSrc = apiUrl("/api/campaigns/qr", { tenant: tenant, cid: campaign.slug, target: "voc", format: "png" });
+    var qrSrc = apiUrl("/api/campaigns/qr", { tenant: tenant, cid: campaign.slug, target: "rewards", format: "png" });
     qr.src = qrSrc;
     qr.style.display = "block";
     var qrEmpty = document.getElementById("campaignQrEmpty");
     if (qrEmpty) qrEmpty.style.display = "none";
 
     var linkOutput = document.getElementById("campaignLinkOutput");
-    if (linkOutput) linkOutput.value = links.voc || "";
+    if (linkOutput) linkOutput.value = links.rewards || "";
 
     var copyBtn = document.getElementById("copyCampaignLinkBtn");
     if (copyBtn) {
