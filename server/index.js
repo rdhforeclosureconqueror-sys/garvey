@@ -134,6 +134,7 @@ const ACTION_POINTS = Object.freeze({
   video: 20,
   referral: 15,
 });
+const OWNER_NOTIFICATION_FALLBACK_EMAIL = "rdhforeclosureconqueror@gmail.com";
 
 const ALLOWED_CONFIG_KEYS = Object.freeze([
   "reward_system",
@@ -231,7 +232,7 @@ function buildNextSteps({ assessmentType, tenant }) {
   if (assessmentType === "customer") {
     return [
       { label: "Claim Rewards", href: `/rewards_premium.html?tenant=${t}` },
-      { label: "Send to Business Owner", href: `/results_customer.html?tenant=${t}` },
+      { label: "View My Results", href: `/results_customer.html?tenant=${t}` },
     ];
   }
   return [
@@ -371,6 +372,57 @@ async function ownerEmailHasTenantAccess(tenantId, email, client = pool) {
     [tenantId, normalizedEmail]
   );
   return !!result.rows[0];
+}
+
+async function resolveOwnerRecipient({ tenantId, campaignId = null, client = pool }) {
+  const params = [tenantId];
+  let campaignClause = "";
+  if (campaignId) {
+    params.push(campaignId);
+    campaignClause = `CASE WHEN src.campaign_id = $2 THEN 0 ELSE 1 END,`;
+  }
+
+  const result = await client.query(
+    `SELECT src.owner_email, src.owner_rid
+     FROM (
+       SELECT
+         LOWER(COALESCE(u.email, '')) AS owner_email,
+         a.id::text AS owner_rid,
+         a.campaign_id,
+         a.created_at
+       FROM assessment_submissions a
+       JOIN users u ON u.id = a.user_id
+       WHERE a.tenant_id = $1
+         AND a.assessment_type = 'business_owner'
+         AND COALESCE(u.email, '') <> ''
+
+       UNION ALL
+
+       SELECT
+         LOWER(COALESCE(s.email, '')) AS owner_email,
+         NULL::text AS owner_rid,
+         s.campaign_id,
+         s.created_at
+       FROM intake_sessions s
+       WHERE s.tenant_id = $1
+         AND s.mode = 'business_owner'
+         AND COALESCE(s.email, '') <> ''
+     ) src
+     ORDER BY ${campaignClause} src.created_at DESC
+     LIMIT 1`,
+    params
+  );
+
+  const ownerEmail = normalizeEmail(result.rows[0]?.owner_email || "");
+  const ownerRid = String(result.rows[0]?.owner_rid || "").trim() || null;
+  if (ownerEmail) {
+    return { ownerEmail, ownerRid, usedFallback: false };
+  }
+  return {
+    ownerEmail: OWNER_NOTIFICATION_FALLBACK_EMAIL,
+    ownerRid: null,
+    usedFallback: true,
+  };
 }
 
 async function requireTenantReadAccess(req, res) {
@@ -2434,6 +2486,27 @@ async function handleVocIntake(req, res) {
       ]
     )).rows[0];
     await recordCampaignEvent({ tenantId: tenantRow.id, campaignId: campaign?.id || null, eventType: "customer_assessment", customerEmail: email, customerName: name, client, meta: { result_id: String(submission.id ?? "").trim() || null, campaign_slug: campaign?.slug || normalizeSlug(cid) || null } });
+    const ownerRecipient = await resolveOwnerRecipient({
+      tenantId: tenantRow.id,
+      campaignId: campaign?.id || null,
+      client,
+    });
+    await recordCampaignEvent({
+      tenantId: tenantRow.id,
+      campaignId: campaign?.id || null,
+      eventType: "customer_share_result",
+      customerEmail: email,
+      customerName: name,
+      client,
+      meta: {
+        result_id: String(submission.id ?? "").trim() || null,
+        campaign_slug: campaign?.slug || normalizeSlug(cid) || null,
+        owner_email: ownerRecipient.ownerEmail,
+        owner_rid: ownerRecipient.ownerRid,
+        auto_notified: true,
+        used_admin_fallback: ownerRecipient.usedFallback,
+      },
+    });
 
     await client.query("COMMIT");
     const payload = buildAssessmentResultPayload({
@@ -2479,6 +2552,10 @@ async function handleVocIntake(req, res) {
       ...resultContract,
       result: payload,
       cid: campaign?.slug || normalizeSlug(cid) || null,
+      owner_email: ownerRecipient.ownerEmail,
+      owner_rid: ownerRecipient.ownerRid,
+      owner_notification_auto: true,
+      owner_notification_fallback: ownerRecipient.usedFallback,
     });
 
   } catch (err) {

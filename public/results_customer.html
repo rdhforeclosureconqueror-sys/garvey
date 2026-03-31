@@ -17,10 +17,6 @@
     .muted { color:#94a3b8; }
     .role a { color:#93c5fd; text-decoration:underline; }
     .chip { display:inline-block; padding:2px 8px; border-radius:999px; border:1px solid #334155; background:#0b1222; margin-left:8px; font-size:12px; color:#cbd5e1; }
-    .share-panel { margin-top:10px; padding:12px; border:1px solid #334155; border-radius:10px; background:#111c34; }
-    .share-panel input { width:100%; box-sizing:border-box; margin:6px 0; padding:8px; border-radius:8px; border:1px solid #334155; background:#0b1222; color:#fff; }
-    .lookup-list { margin:8px 0 0 0; padding:0; list-style:none; }
-    .lookup-list li { margin:6px 0; }
     .section-note { margin-top:-8px; margin-bottom:10px; }
     .warning { margin:10px 0; padding:10px 12px; border-radius:10px; border:1px solid #7c2d12; background:#431407; color:#fdba74; }
   </style>
@@ -38,32 +34,7 @@
     <div id="customerPersonalTopCards"></div>
     <div id="customerBars"></div>
 
-    <h3>Your Buying Archetype Profile</h3>
-    <p class="muted section-note">This is your buying lens (how you decide and purchase).</p>
-    <div id="buyerWarning" class="warning" hidden></div>
-    <div id="buyerRoles"></div>
-    <div id="customerBuyerTopCards"></div>
-    <div id="buyerBars"></div>
-
     <div id="ctas"></div>
-
-    <div id="ownerSharePanel" class="share-panel" hidden>
-      <div><b>Find business owner before sending</b></div>
-      <p class="muted">Provide business owner email directly, or search by business/owner name.</p>
-
-      <label for="ownerEmailInput">Business owner email</label>
-      <input id="ownerEmailInput" type="email" placeholder="owner@business.com" />
-
-      <label for="ownerLookupInput">Business or owner name</label>
-      <input id="ownerLookupInput" type="text" placeholder="Acme Dental or Jane Doe" />
-
-      <button class="btn" id="ownerLookupBtn" type="button">Lookup</button>
-      <button class="btn" id="ownerShareSubmitBtn" type="button">Send</button>
-
-      <ul id="ownerLookupList" class="lookup-list"></ul>
-    </div>
-
-    <p id="shareStatus"></p>
   </div>
 
   <script src="/js/api-contract.js"></script>
@@ -437,76 +408,6 @@
       return u.pathname + u.search;
     }
 
-    async function sendToOwner({ crid: ridValue, ownerEmail, ownerRid }) {
-      const ctx = (window.GARVEY && window.GARVEY.ctx && window.GARVEY.ctx()) || {};
-      const effectiveTenant = safeTrim(tenant || ctx.tenant);
-      const effectiveEmail = safeTrim(email || ctx.email).toLowerCase();
-      const effectiveResultId = safeTrim(ridValue || crid || ctx.rid) || null;
-      const effectiveCid = resolveRuntimeCid();
-
-      if (!effectiveEmail || !effectiveCid) {
-        document.getElementById("shareStatus").textContent =
-          "Critical error: CID missing from result payload.";
-        console.error("sendToOwner blocked: missing customer email/cid", {
-          tenant: effectiveTenant,
-          email: effectiveEmail,
-          cid: effectiveCid,
-          crid: effectiveResultId
-        });
-        return;
-      }
-
-      tenant = effectiveTenant || tenant;
-      email = effectiveEmail || email;
-      cid = effectiveCid;
-      crid = safeTrim(effectiveResultId || crid);
-      syncCtx();
-
-      const payload = {
-        tenant: effectiveTenant,
-        customer_email: effectiveEmail,
-        customer_name: "",
-        cid: effectiveCid,
-        result_id: effectiveResultId
-      };
-
-      if (safeTrim(ownerEmail)) payload.owner_email = safeTrim(ownerEmail).toLowerCase();
-      if (safeTrim(ownerRid)) payload.owner_rid = safeTrim(ownerRid);
-
-      const resp = await fetch("/api/customer/share-result", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-
-      const body = await resp.json().catch(() => ({}));
-      if (!resp.ok) throw new Error(body.error || "Send failed");
-
-      cid = safeTrim(body.cid || effectiveCid);
-      crid = safeTrim(body.crid || payload.result_id || crid);
-      syncCtx();
-
-      const dashboardHref = buildDashboardHref({
-        tenant,
-        email: effectiveEmail,
-        cid,
-        crid,
-        owner_email: body.owner_email || safeTrim(ownerEmail || ""),
-        owner_rid: body.owner_rid || safeTrim(ownerRid || "")
-      });
-
-      document.getElementById("shareStatus").innerHTML =
-        `Sent! <a href="${escapeHtml(dashboardHref)}">${escapeHtml(dashboardHref)}</a>`;
-    }
-
-    async function lookupOwnerCandidates(query) {
-      const lookupUrl = window.GarveyApi.buildUrl("/api/tenant/lookup", { tenant, q: query });
-      const res = await fetch(lookupUrl);
-      const body = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(body.error || "Lookup failed");
-      return Array.isArray(body.matches) ? body.matches : [];
-    }
-
     async function fetchResultsPayload() {
       const attempts = [];
 
@@ -587,40 +488,24 @@
       await import("/js/archetype-cards.js");
 
       const personal = readPersonalBranch(data);
-      const buyer = readBuyerBranch(data);
-
       const personalSource = data?.personal_percents || data?.personal_counts || data?.customer_archetypes?.percents || data?.customer_archetypes?.personal_counts || personal.percents || {};
-      const buyerSource = data?.buyer_percents || data?.buyer_counts || data?.buyer_archetypes?.percents || data?.buyer_archetypes?.buyer_counts || buyer.percents || {};
 
       const personalTop3 = window.ArchetypeCards
         ? window.ArchetypeCards.top3FromObject(personalSource)
         : [];
-      const buyerTop3 = window.ArchetypeCards
-        ? window.ArchetypeCards.top3FromObject(buyerSource)
-        : [];
 
       if (window.ArchetypeCards) {
         await window.ArchetypeCards.renderTop3(document.getElementById("customerPersonalTopCards"), personalTop3, { lens: "personal", linkToPage: true });
-        await window.ArchetypeCards.renderTop3(document.getElementById("customerBuyerTopCards"), buyerTop3, { lens: "buying", linkToPage: true });
       }
 
       const personalHasData = Object.values(personal.percents || {}).some((v) => Number(v || 0) > 0);
-      const buyerHasData = Object.values(buyer.percents || {}).some((v) => Number(v || 0) > 0);
 
       warn("personalWarning", personalHasData ? "" : "Personal archetype score unavailable or not returned by payload.");
-      warn("buyerWarning", buyerHasData ? "" : "Buying archetype score unavailable or not returned by payload.");
 
       const personalCombo = {
         primary: normalizePersonalId(personal.primary),
         secondary: normalizePersonalId(personal.secondary),
         growth: normalizePersonalId(personal.growth),
-        crid
-      };
-
-      const buyerCombo = {
-        primary: normalizeBuyerId(buyer.primary),
-        secondary: normalizeBuyerId(buyer.secondary),
-        growth: normalizeBuyerId(buyer.growth),
         crid
       };
 
@@ -638,22 +523,6 @@
         "customer_personality_profile",
         personalCombo,
         "personal"
-      );
-
-      renderRoleLines(
-        "buyerRoles",
-        buyer,
-        buyerCombo,
-        "buyer_purchasing_profile",
-        "buyer"
-      );
-
-      renderBars(
-        "buyerBars",
-        buyer.percents,
-        "buyer_purchasing_profile",
-        buyerCombo,
-        "buyer"
       );
 
       const rewardsHref = returnEngine
@@ -682,7 +551,6 @@
 
       document.getElementById("ctas").innerHTML = `
         <a class="btn" href="${escapeHtml(rewardsHref)}" id="claimRewardsBtn">Claim Rewards</a>
-        <button class="btn" id="sendOwnerBtn" type="button">Send to Business Owner</button>
         <a class="btn alt" id="bookmarkBtn" href="${escapeHtml(bookmark.pathname + bookmark.search)}">Bookmark Results Link</a>
       `;
 
@@ -705,90 +573,6 @@
         });
       }
 
-      const sharePanel = document.getElementById("ownerSharePanel");
-      const ownerEmailInput = document.getElementById("ownerEmailInput");
-      const ownerLookupInput = document.getElementById("ownerLookupInput");
-      const ownerLookupList = document.getElementById("ownerLookupList");
-
-      document.getElementById("sendOwnerBtn").addEventListener("click", async () => {
-        try {
-          if (ownerEmailFromUrl || ownerRidFromUrl) {
-            await sendToOwner({ crid, ownerEmail: ownerEmailFromUrl, ownerRid: ownerRidFromUrl });
-            return;
-          }
-          sharePanel.hidden = false;
-          document.getElementById("shareStatus").textContent =
-            "Provide owner email or lookup by business/owner name.";
-        } catch (err) {
-          document.getElementById("shareStatus").textContent = "Failed: " + err.message;
-        }
-      });
-
-      document.getElementById("ownerLookupBtn").addEventListener("click", async () => {
-        try {
-          const lookupValue = safeTrim(ownerLookupInput.value);
-          if (!lookupValue) {
-            document.getElementById("shareStatus").textContent = "Enter a business or owner name first.";
-            return;
-          }
-
-          const matches = await lookupOwnerCandidates(lookupValue);
-          ownerLookupList.innerHTML = "";
-
-          if (!matches.length) {
-            document.getElementById("shareStatus").textContent = "No owners found. Enter owner email directly.";
-            return;
-          }
-
-          matches.forEach((item) => {
-            const li = document.createElement("li");
-            const button = document.createElement("button");
-            button.type = "button";
-            button.className = "btn alt";
-            button.textContent = `${item.email}${item.name ? ` (${item.name})` : ""}`;
-            button.addEventListener("click", () => {
-              ownerEmailInput.value = safeTrim(item.email);
-              ownerLookupList.innerHTML = "";
-            });
-            li.appendChild(button);
-            ownerLookupList.appendChild(li);
-          });
-
-          document.getElementById("shareStatus").textContent =
-            "Select an owner email from matches or edit manually.";
-        } catch (err) {
-          document.getElementById("shareStatus").textContent = "Lookup failed: " + err.message;
-        }
-      });
-
-      document.getElementById("ownerShareSubmitBtn").addEventListener("click", async () => {
-        try {
-          const enteredEmail = safeTrim(ownerEmailInput.value).toLowerCase();
-          const lookupValue = safeTrim(ownerLookupInput.value);
-
-          if (!enteredEmail && !lookupValue) {
-            document.getElementById("shareStatus").textContent =
-              "Enter owner email or business/owner name first.";
-            return;
-          }
-
-          let resolvedOwnerEmail = enteredEmail;
-          if (!resolvedOwnerEmail && lookupValue) {
-            const matches = await lookupOwnerCandidates(lookupValue);
-            if (!matches.length) {
-              document.getElementById("shareStatus").textContent =
-                "No owner resolved from name. Enter owner email directly.";
-              return;
-            }
-            resolvedOwnerEmail = safeTrim(matches[0].email).toLowerCase();
-          }
-
-          await sendToOwner({ crid, ownerEmail: resolvedOwnerEmail, ownerRid: "" });
-          sharePanel.hidden = true;
-        } catch (err) {
-          document.getElementById("shareStatus").textContent = "Failed: " + err.message;
-        }
-      });
     }
 
     load().catch((err) => {
