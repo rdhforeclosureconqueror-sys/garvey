@@ -8,7 +8,6 @@
 
   <link rel="stylesheet" href="/aurora/aurora.css" />
   <script src="/garvey_ui.js" defer></script>
-  <script src="/engine/customer-return-engine.js" defer></script>
   <script src="/aurora/aurora.js" defer></script>
 </head>
 
@@ -55,48 +54,60 @@
             <span class="au-pill au-pill--muted" id="cidDisplayWrap" hidden>CID: <span id="cidDisplay">—</span></span>
           </div>
 
-          <h1 class="au-h1">Welcome Back to <span id="businessNameHero">GARVEY</span></h1>
+          <h1 class="au-h1"><span id="businessNameHero">GARVEY</span> Owner Launchpad</h1>
 
           <p class="au-lead">
-            Earn rewards for checking in, sharing feedback, and referring others. Every action builds points you can
-            redeem for exclusive perks.
+            GARVEY helps business owners assess readiness, activate systems, and track growth with clear next steps.
           </p>
 
+          <div class="au-card au-card--glass" style="margin:12px 0">
+            <div class="au-card__title">Business Owner Access</div>
+            <div class="row" style="display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-top:8px">
+              <input id="ownerEmailInput" type="email" placeholder="owner@business.com" style="width:100%;padding:10px;border-radius:10px;border:1px solid #334155;background:#0b1223;color:#e5e7eb;">
+              <button id="ownerSignInBtn" class="au-btn au-btn--primary" type="button">Owner Sign In</button>
+            </div>
+            <div class="au-cta-row" style="margin-top:10px">
+              <button id="ownerSignOutBtn" class="au-btn au-btn--ghost" type="button" hidden>Sign Out</button>
+              <span class="au-note" id="ownerAuthStatus">Not signed in</span>
+            </div>
+          </div>
+
           <div class="au-cta-row">
-            <a class="au-btn au-btn--primary" href="#" id="startHereBtn">Check In Now</a>
-            <a class="au-btn" href="#" id="customerVocBtn">Share Feedback</a>
-            <a class="au-btn au-btn--ghost" href="#" id="dashboardLink">View My Rewards</a>
+            <a class="au-btn au-btn--primary" href="#" id="ownerAssessmentBtn">Business Assessment</a>
+            <a class="au-btn" href="#" id="ownerDashboardBtn">Owner Dashboard</a>
+            <a class="au-btn" href="#" id="ownerHubBtn">GARVEY Business Hub</a>
+            <a class="au-btn au-btn--ghost" href="#" id="ownerGrowthTestBtn">30-Day Growth Test</a>
           </div>
 
           <p class="au-note">
-            <b>Today’s boost:</b> Check in now and move closer to your next reward milestone.
+            Customer journeys should enter through the customer rewards page, not this owner homepage.
           </p>
         </div>
 
         <div class="au-hero__card">
           <div class="au-card au-card--glass au-card--gold-outline">
             <div class="au-card__body">
-              <div class="au-card__title">Reward Status</div>
+              <div class="au-card__title">Owner Quick Access</div>
               <div class="au-card__text">
-                Sign in to view your current points, streak, and next reward milestone.
+                Launch owner tools directly from one place.
               </div>
 
               <div class="au-mini-grid">
-                <a class="au-mini" href="#" id="rewardsPremiumLink">
-                  <div class="au-mini__k">Current Points</div>
-                  <div class="au-mini__v">Sign in required</div>
+                <a class="au-mini" href="#" id="businessAssessmentMiniLink">
+                  <div class="au-mini__k">Business Assessment</div>
+                  <div class="au-mini__v">Start assessment</div>
                 </a>
-                <a class="au-mini" href="#" id="garveyPremiumLink">
-                  <div class="au-mini__k">Next Reward</div>
-                  <div class="au-mini__v">Sign in required</div>
+                <a class="au-mini" href="#" id="ownerDashboardMiniLink">
+                  <div class="au-mini__k">Owner Dashboard</div>
+                  <div class="au-mini__v">Open dashboard</div>
                 </a>
-                <a class="au-mini" href="#" id="templatesLink">
-                  <div class="au-mini__k">Weekly Streak</div>
-                  <div class="au-mini__v">Sign in required</div>
+                <a class="au-mini" href="#" id="ownerHubMiniLink">
+                  <div class="au-mini__k">GARVEY Business Hub</div>
+                  <div class="au-mini__v">Open business hub</div>
                 </a>
-                <a class="au-mini" href="#" id="ownerIntakeBtn">
-                  <div class="au-mini__k">Top Action</div>
-                  <div class="au-mini__v">Sign in required</div>
+                <a class="au-mini" href="#" id="growthTestMiniLink">
+                  <div class="au-mini__k">30-Day Growth Test</div>
+                  <div class="au-mini__v">Run growth cycle</div>
                 </a>
               </div>
             </div>
@@ -109,29 +120,29 @@
     <section class="au-section">
       <div class="au-container">
         <div class="au-section__head">
-          <h2 class="au-h2">Current Available Actions</h2>
+          <h2 class="au-h2">Owner Entry Routes</h2>
           <p class="au-muted">
-            Complete any action below to earn points and unlock better rewards.
+            Use these paths to launch the exact system you need right now.
           </p>
         </div>
 
         <div class="au-cards">
           <div class="au-card">
-            <div class="au-card__title">Check In</div>
+            <div class="au-card__title">Business Assessment</div>
             <div class="au-card__text">
-              Confirm your visit and earn instant points toward your next reward.
+              Validate readiness, identify gaps, and set owner priorities.
             </div>
           </div>
           <div class="au-card">
-            <div class="au-card__title">Leave Feedback</div>
+            <div class="au-card__title">Owner Dashboard</div>
             <div class="au-card__text">
-              Share your experience in under a minute and help improve service quality.
+              Track operational progress, campaign performance, and growth actions.
             </div>
           </div>
           <div class="au-card">
-            <div class="au-card__title">Refer a Friend</div>
+            <div class="au-card__title">GARVEY Business Hub</div>
             <div class="au-card__text">
-              Invite someone new and earn your largest point bonus when they check in.
+              Access business systems, tools, and execution pathways in one place.
             </div>
           </div>
         </div>
@@ -143,37 +154,37 @@
       <div class="au-container">
         <div class="au-clarity-panel">
           <div class="au-clarity-panel__head">
-            <h2 class="au-h2">Simple. Fair. Rewarding.</h2>
-            <p class="au-muted">No complicated steps. Just take action and earn.</p>
+          <h2 class="au-h2">Simple. Focused. Owner-first.</h2>
+            <p class="au-muted">This page is the business-owner entry point for GARVEY.</p>
           </div>
 
-          <div class="au-clarity-steps" role="list" aria-label="How rewards work">
+          <div class="au-clarity-steps" role="list" aria-label="How owner launch works">
             <article class="au-clarity-step" role="listitem">
               <span class="au-clarity-step__num">1</span>
               <div>
-                <h3 class="au-clarity-step__title">Take action</h3>
-                <p class="au-card__text">Check in, leave feedback, or refer a friend.</p>
+                <h3 class="au-clarity-step__title">Sign in as owner</h3>
+                <p class="au-card__text">Use your owner email to activate owner context.</p>
               </div>
             </article>
             <article class="au-clarity-step" role="listitem">
               <span class="au-clarity-step__num">2</span>
               <div>
-                <h3 class="au-clarity-step__title">Earn points</h3>
-                <p class="au-card__text">Every completed action adds points to your account.</p>
+                <h3 class="au-clarity-step__title">Launch the right tool</h3>
+                <p class="au-card__text">Jump into assessment, dashboard, hub, or growth test.</p>
               </div>
             </article>
             <article class="au-clarity-step" role="listitem">
               <span class="au-clarity-step__num">3</span>
               <div>
-                <h3 class="au-clarity-step__title">Unlock rewards</h3>
-                <p class="au-card__text">Reach the next level and claim your reward instantly.</p>
+                <h3 class="au-clarity-step__title">Track and improve</h3>
+                <p class="au-card__text">Run cycle-based execution and monitor real business outcomes.</p>
               </div>
             </article>
           </div>
 
-          <p class="au-clarity-note">Every action moves you closer to your next reward.</p>
+          <p class="au-clarity-note">Customers should use the rewards page for customer actions.</p>
 
-          <p class="au-muted" style="margin-top:14px">Start with any action card above to begin earning points.</p>
+          <p class="au-muted" style="margin-top:14px">Use owner entry buttons above to continue.</p>
         </div>
       </div>
     </section>
@@ -303,10 +314,9 @@
     (function () {
       const pairs = [
         ["navRewardsLink2","navRewardsLink"],
-        ["customerVocBtn2","customerVocBtn"],
         ["navGarveyLink2","navGarveyLink"],
         ["navDashboardLink2","navDashboardLink"],
-        ["rewardsLink","rewardsPremiumLink"],
+        ["rewardsLink","businessAssessmentMiniLink"],
       ];
       for (const [newId, existingId] of pairs) {
         if (!document.getElementById(newId)) {
@@ -319,6 +329,59 @@
           else document.body.appendChild(a);
         }
       }
+    })();
+
+    (function () {
+      function trim(v) { return String(v || "").trim(); }
+      function ownerCtx() {
+        return (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : {};
+      }
+      function setOwnerSignedInState() {
+        const c = ownerCtx();
+        const status = document.getElementById("ownerAuthStatus");
+        const out = document.getElementById("ownerSignOutBtn");
+        const signedIn = !!trim(c.email);
+        status.textContent = signedIn ? `Signed in as ${c.email}` : "Not signed in";
+        out.hidden = !signedIn;
+        const input = document.getElementById("ownerEmailInput");
+        if (input && signedIn) input.value = c.email;
+      }
+
+      document.getElementById("ownerSignInBtn")?.addEventListener("click", function () {
+        const input = document.getElementById("ownerEmailInput");
+        const email = trim(input?.value).toLowerCase();
+        if (!email) return;
+        const c = ownerCtx();
+        if (window.GARVEY && window.GARVEY.setLoginCtx) {
+          window.GARVEY.setLoginCtx({
+            tenant: trim(c.tenant),
+            cid: trim(c.cid),
+            rid: trim(c.rid),
+            email,
+          });
+        }
+        const u = new URL(window.location.href);
+        u.searchParams.set("email", email);
+        window.history.replaceState({}, "", u.pathname + u.search + u.hash);
+        setOwnerSignedInState();
+      });
+
+      document.getElementById("ownerSignOutBtn")?.addEventListener("click", function () {
+        const c = ownerCtx();
+        if (window.GARVEY && window.GARVEY.clearCtx) window.GARVEY.clearCtx();
+        const u = new URL(window.location.href);
+        u.searchParams.delete("email");
+        u.searchParams.delete("rid");
+        u.searchParams.delete("crid");
+        u.searchParams.delete("owner_email");
+        u.searchParams.delete("owner_rid");
+        const keep = new URLSearchParams();
+        if (trim(c.tenant)) keep.set("tenant", trim(c.tenant));
+        if (trim(c.cid)) keep.set("cid", trim(c.cid));
+        window.location.href = `/index.html${keep.toString() ? `?${keep.toString()}` : ""}`;
+      });
+
+      setOwnerSignedInState();
     })();
   </script>
 </body>

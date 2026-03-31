@@ -407,6 +407,11 @@
       <h1>Welcome back 🎁</h1>
       <p class="muted">This is your rewards action center: take actions, earn points, and track progress.</p>
       <div class="pill" id="tenantLine">Loading session…</div>
+      <div class="row" style="margin-top:10px">
+        <button id="customerSignInBtn" type="button" class="primary">Sign In / Identify Customer</button>
+        <button id="customerSignOutBtn" type="button">Sign Out</button>
+      </div>
+      <p class="muted" id="customerAuthStatus">Not signed in.</p>
       <div class="steps" id="stepsBar">
         <div class="step" data-step="1">1. Welcome</div>
         <div class="step" data-step="2">2. Pick action</div>
@@ -551,6 +556,7 @@ const REWARD_MILESTONES = [50, 100, 150, 250, 500];
 
 function safeTrim(v) { return String(v ?? "").trim(); }
 function readEmail() { return safeTrim(document.getElementById("email")?.value).toLowerCase(); }
+function setAuthStatus(msg) { document.getElementById("customerAuthStatus").textContent = msg; }
 function setStep(stepNum) {
   document.querySelectorAll(".step").forEach((el) => {
     el.classList.toggle("active", Number(el.dataset.step) <= stepNum);
@@ -710,6 +716,7 @@ function showStatus(payload) {
 }
 
 async function refreshStatus() {
+  requireEmail();
   const status = await engine.getStatus({ email: readEmail() || undefined });
   showStatus(status);
   return status;
@@ -734,7 +741,27 @@ function requireEmail() {
   const email = readEmail();
   if (!email) throw new Error("email is required");
   engine.init({ email });
+  const ctx = currentCtx();
+  if (window.GARVEY && window.GARVEY.setLoginCtx) {
+    window.GARVEY.setLoginCtx({ tenant: ctx.tenant, cid: ctx.cid, rid: ctx.rid, email });
+  }
   return email;
+}
+
+function resetSignedOutView() {
+  state.completedActions = new Set();
+  state.actionType = "checkin";
+  state.recommendedAction = "checkin";
+  state.status = null;
+  document.getElementById("pointsValue").textContent = "—";
+  document.getElementById("latestReward").textContent = "—";
+  document.getElementById("streakValue").textContent = "—";
+  document.getElementById("pointsIdentity").textContent = "Sign in to load your points";
+  document.getElementById("resultMessage").textContent = "Signed out. Sign in to continue.";
+  document.getElementById("successLoop").classList.add("hide");
+  setAuthStatus("Signed out. No customer session is active.");
+  updateActionUI();
+  setStep(1);
 }
 
 async function submitAction() {
@@ -789,6 +816,7 @@ async function run() {
   if (window.GARVEY && window.GARVEY.setLoginCtx) window.GARVEY.setLoginCtx(ctx);
 
   if (ctx.email) document.getElementById("email").value = ctx.email;
+  setAuthStatus(ctx.email ? `Signed in as ${ctx.email}` : "Not signed in.");
   document.getElementById("tenantLine").textContent = `Tenant: ${ctx.tenant}${ctx.cid ? ` • CID: ${ctx.cid}` : ""}${ctx.rid ? ` • CRID: ${ctx.rid}` : ""}`;
 
   const back = new URL(`/index.html`, location.origin);
@@ -823,9 +851,41 @@ async function run() {
     document.getElementById("submitAction").scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
+  document.getElementById("customerSignInBtn").onclick = () => {
+    try {
+      const email = requireEmail();
+      const ctxNow = currentCtx();
+      const u = new URL(window.location.href);
+      u.searchParams.set("email", email);
+      window.history.replaceState({}, "", u.pathname + u.search + u.hash);
+      setAuthStatus(`Signed in as ${email}`);
+      engine.init({ tenant: ctxNow.tenant, cid: ctxNow.cid, rid: ctxNow.rid, email });
+      refreshStatus().catch((err) => showResult({ error: err.message }));
+    } catch (err) {
+      showResult({ error: err.message });
+    }
+  };
+
+  document.getElementById("customerSignOutBtn").onclick = () => {
+    const ctxNow = currentCtx();
+    if (window.GARVEY && window.GARVEY.clearCtx) window.GARVEY.clearCtx();
+    document.getElementById("email").value = "";
+    const u = new URL(window.location.href);
+    u.searchParams.delete("email");
+    u.searchParams.delete("rid");
+    u.searchParams.delete("crid");
+    window.history.replaceState({}, "", u.pathname + u.search + u.hash);
+    engine.init({ tenant: ctxNow.tenant, cid: ctxNow.cid, email: "" });
+    resetSignedOutView();
+  };
+
   updateActionUI();
   setStep(1);
-  await refreshStatus();
+  if (ctx.email) {
+    await refreshStatus();
+  } else {
+    resetSignedOutView();
+  }
   engine.getLedger().catch(() => null);
 }
 
