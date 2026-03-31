@@ -465,6 +465,67 @@
     .gold-flash { animation: intelGoldFlash .8s ease-out 2; }
     .green-highlight { animation: intelGreenHighlight 1s ease-out 2; }
 
+    .infra-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .infra-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 12px;
+    }
+    .infra-main { display: grid; gap: 12px; }
+    .infra-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .infra-board {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px;
+      background: #111315;
+    }
+    .infra-cols {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .infra-col {
+      border: 1px solid #2b2f36;
+      border-radius: 10px;
+      background: #181b20;
+      padding: 8px;
+      min-height: 180px;
+    }
+    .infra-col h4 {
+      margin: 0 0 8px;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .infra-list { display: grid; gap: 8px; }
+    .infra-card {
+      border: 1px solid #39404a;
+      border-radius: 9px;
+      padding: 8px;
+      background: #0f1318;
+    }
+    .infra-card small { color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+    .infra-card.valid-link { border-color: rgba(0, 255, 154, 0.9); box-shadow: var(--shadow-green); }
+    .infra-card.broken-link { border-color: rgba(255, 45, 45, 0.95); box-shadow: var(--shadow-red); }
+    .infra-card.recommended-item { border-color: rgba(242, 193, 78, 0.95); box-shadow: var(--shadow-gold); }
+    .infra-card.active-tool { animation: recurringPulse 1.8s ease-in-out infinite; }
+    .infra-actions {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
     @keyframes intelRedPulse {
       0%,100% { box-shadow: none; }
       50% { box-shadow: var(--shadow-red); }
@@ -521,15 +582,19 @@
       .execution-layout { grid-template-columns: 1fr; }
       .ops-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .intel-layout { grid-template-columns: 1fr; }
+      .infra-layout { grid-template-columns: 1fr; }
       .intel-top-grid { grid-template-columns: 1fr; }
       .intel-secondary-grid { grid-template-columns: 1fr; }
       .intel-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .intel-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .infra-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .infra-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 700px) {
       .ops-board, .ops-actions { grid-template-columns: 1fr; }
       .intel-cols, .intel-actions { grid-template-columns: 1fr; }
+      .infra-cols, .infra-actions { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -790,6 +855,68 @@
 
         <section id="phase-5" class="card phase-panel">
           <h3>Phase 5 — Infrastructure UI</h3>
+          <div class="infra-header">
+            <h2 style="margin:0; color:var(--text);">Resources &amp; Tools</h2>
+            <span class="pill active">tools_board</span>
+          </div>
+          <p class="infra-subtitle">Centralize tools, guides, templates, and links so the business keeps a trusted tech and knowledge arsenal.</p>
+          <div class="infra-layout">
+            <div class="infra-main">
+              <article class="infra-board">
+                <h2 style="margin:0 0 8px;">TOOLS / RESOURCES GRID</h2>
+                <div class="infra-cols">
+                  <div class="infra-col">
+                    <h4>Needed</h4>
+                    <div class="infra-list" id="infraNeededList">
+                      <div class="infra-card recommended-item">
+                        <small>Tool</small>
+                        <div>Customer CRM Integration</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="infra-col">
+                    <h4>Selected</h4>
+                    <div class="infra-list" id="infraSelectedList">
+                      <div class="infra-card recommended-item">
+                        <small>Guide</small>
+                        <div>Implementation Rollout Checklist</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="infra-col">
+                    <h4>Active</h4>
+                    <div class="infra-list" id="infraActiveList">
+                      <div class="infra-card valid-link active-tool">
+                        <small>Link</small>
+                        <div>https://status.example.com/ops</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="infra-col">
+                    <h4>Documented</h4>
+                    <div class="infra-list" id="infraDocumentedList">
+                      <div class="infra-card">
+                        <small>Template</small>
+                        <div>Incident Postmortem Template</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <div class="infra-actions">
+                <button class="btn primary" id="addToolBtn">Add Tool</button>
+                <button class="btn primary" id="addResourceBtn">Add Resource</button>
+                <button class="btn primary" id="addTemplateBtn">Add Template</button>
+                <button class="btn primary" id="validateLinksBtn">Validate Links</button>
+              </div>
+            </div>
+            <aside class="ops-side">
+              <div class="ops-side-item"><strong>Link Validation Status</strong><span id="infraValidationStatus">Pending verification</span></div>
+              <div class="ops-side-item"><strong>Recommended Resources</strong><span id="infraRecommendedStatus">2 recommendations queued</span></div>
+              <div class="ops-side-item"><strong>Missing Tools</strong><span id="infraMissingStatus">CRM Connector, Live Chat Widget</span></div>
+              <div class="ops-side-item"><strong>Documentation Status</strong><span id="infraDocumentationStatus">62% documented</span></div>
+            </aside>
+          </div>
         </section>
 
         <section id="phase-6" class="card phase-panel">
@@ -842,6 +969,18 @@
       var detectGapsBtn = document.getElementById("detectGapsBtn");
       var generateActionBtn = document.getElementById("generateActionBtn");
       var addKpiBtn = document.getElementById("addKpiBtn");
+      var infraNeededList = document.getElementById("infraNeededList");
+      var infraSelectedList = document.getElementById("infraSelectedList");
+      var infraActiveList = document.getElementById("infraActiveList");
+      var infraDocumentedList = document.getElementById("infraDocumentedList");
+      var addToolBtn = document.getElementById("addToolBtn");
+      var addResourceBtn = document.getElementById("addResourceBtn");
+      var addTemplateBtn = document.getElementById("addTemplateBtn");
+      var validateLinksBtn = document.getElementById("validateLinksBtn");
+      var infraValidationStatus = document.getElementById("infraValidationStatus");
+      var infraRecommendedStatus = document.getElementById("infraRecommendedStatus");
+      var infraMissingStatus = document.getElementById("infraMissingStatus");
+      var infraDocumentationStatus = document.getElementById("infraDocumentationStatus");
 
       var readinessValue = 72;
       function renderScoreColor(score) {
@@ -871,6 +1010,14 @@
         var card = document.createElement("div");
         card.className = "ops-card " + (classes || "");
         card.innerHTML = '<span class="tag">' + type + '</span><h5>' + title + '</h5><div class="sub">' + detail + '</div>';
+        container.prepend(card);
+        return card;
+      }
+      function addInfraCard(container, type, title, classes) {
+        if (!container) return null;
+        var card = document.createElement("div");
+        card.className = "infra-card " + (classes || "");
+        card.innerHTML = "<small>" + type + "</small><div>" + title + "</div>";
         container.prepend(card);
         return card;
       }
@@ -949,6 +1096,55 @@
           kpiBoardTile.classList.add("green-highlight");
           verificationValue.textContent = "KPI board updated and optimization confirmed";
           setTimeout(function () { kpiBoardTile.classList.remove("green-highlight"); }, 1200);
+        });
+      }
+
+      if (addToolBtn) {
+        addToolBtn.addEventListener("click", function () {
+          var card = addInfraCard(infraNeededList, "Tool", "Automation Logger", "recommended-item");
+          infraMissingStatus.textContent = "Live Chat Widget";
+          infraRecommendedStatus.textContent = "Recommendation generated: tool prioritized";
+          if (card) {
+            card.classList.add("gold-flash");
+            setTimeout(function () { card.classList.remove("gold-flash"); }, 1000);
+          }
+        });
+      }
+
+      if (addResourceBtn) {
+        addResourceBtn.addEventListener("click", function () {
+          var card = addInfraCard(infraSelectedList, "Resource", "API Integration Playbook", "recommended-item");
+          infraRecommendedStatus.textContent = "Recommendation generated: guide + resource pair";
+          if (card) {
+            card.classList.add("gold-flash");
+            setTimeout(function () { card.classList.remove("gold-flash"); }, 1000);
+          }
+        });
+      }
+
+      if (addTemplateBtn) {
+        addTemplateBtn.addEventListener("click", function () {
+          addInfraCard(infraDocumentedList, "Template", "Weekly Tool Audit Template", "");
+          infraDocumentationStatus.textContent = "71% documented";
+        });
+      }
+
+      if (validateLinksBtn) {
+        validateLinksBtn.addEventListener("click", function () {
+          var isBroken = Math.random() > 0.5;
+          if (isBroken) {
+            addInfraCard(infraActiveList, "Link", "https://broken.example.com/ops", "broken-link");
+            infraValidationStatus.textContent = "Broken link detected — action required";
+            infraValidationStatus.parentElement.classList.add("ops-alert");
+            setTimeout(function () { infraValidationStatus.parentElement.classList.remove("ops-alert"); }, 1100);
+          } else {
+            var okCard = addInfraCard(infraActiveList, "Link", "https://docs.example.com/tool-stack", "valid-link active-tool");
+            infraValidationStatus.textContent = "Validated link confirmed";
+            if (okCard) {
+              okCard.classList.add("green-highlight");
+              setTimeout(function () { okCard.classList.remove("green-highlight"); }, 1200);
+            }
+          }
         });
       }
     })();
