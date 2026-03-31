@@ -231,17 +231,25 @@
             <div class="panel-heading"><i class="fa fa-share-alt fa-fw"></i> Share Links</div>
             <div class="panel-body">
               <div class="form-group">
-                <label>Campaign label</label>
+                <label>Campaign Name</label>
                 <input id="campaignLabelInput" class="form-control" placeholder="Spring 2026 Launch" />
+              </div>
+              <div class="form-group">
+                <label>Source / Label (optional)</label>
+                <input id="campaignSourceInput" class="form-control" placeholder="instagram" />
+              </div>
+              <div class="form-group">
+                <label>Medium (optional)</label>
+                <input id="campaignMediumInput" class="form-control" placeholder="qr" />
               </div>
               <div class="form-group">
                 <label>Campaign slug (optional)</label>
                 <input id="campaignSlugInput" class="form-control" placeholder="spring2026" />
               </div>
-              <button id="createCampaignBtn" class="btn btn-primary">Create Campaign</button>
+              <button id="createCampaignBtn" class="btn btn-primary">Generate QR</button>
               <div id="campaignCreateMsg" class="empty-state" style="padding-top:8px;"></div>
               <hr />
-              <div id="campaignLinksBody" class="empty-state">Create or select a campaign to view links.</div>
+              <div id="campaignLinksBody" class="empty-state">Create a campaign to view links.</div>
             </div>
           </div>
         </div>
@@ -251,6 +259,13 @@
             <div class="panel-body">
               <img id="campaignQrPreview" alt="Campaign QR code" style="max-width:240px; display:none;" />
               <div id="campaignQrEmpty" class="empty-state">QR appears when campaign links are available.</div>
+              <hr />
+              <div class="form-group">
+                <label>Campaign Link</label>
+                <input id="campaignLinkOutput" class="form-control" readonly placeholder="Generated campaign link appears here" />
+              </div>
+              <button id="copyCampaignLinkBtn" class="btn btn-default btn-sm">Copy Link</button>
+              <a id="downloadCampaignQrBtn" class="btn btn-default btn-sm" href="#" download="campaign-qr.png">Download QR</a>
             </div>
           </div>
         </div>
