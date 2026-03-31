@@ -223,6 +223,157 @@
       letter-spacing: .6px;
     }
 
+    .execution-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .execution-subtitle {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .execution-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 290px;
+      gap: 12px;
+    }
+
+    .ops-board {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .ops-column {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #111315;
+      padding: 10px;
+      min-height: 260px;
+    }
+
+    .ops-column h4 {
+      margin: 0 0 10px;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    .ops-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .ops-card {
+      border: 1px solid #2f353d;
+      border-radius: 10px;
+      padding: 10px;
+      background: #181d22;
+    }
+
+    .ops-card h5 {
+      margin: 0 0 6px;
+      font-size: 13px;
+      letter-spacing: .2px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: #d6dae1;
+      border: 1px solid #38404a;
+      border-radius: 999px;
+      padding: 2px 8px;
+      margin-bottom: 8px;
+    }
+
+    .ops-card.recurring {
+      border-color: rgba(0, 255, 154, 0.9);
+      animation: recurringPulse 1.8s ease-in-out infinite;
+    }
+
+    .ops-card.completed {
+      border-color: rgba(0, 255, 154, 0.9);
+      box-shadow: var(--shadow-green);
+    }
+
+    .ops-card.deliverable {
+      border-color: var(--gold);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .ops-card.broken {
+      border-color: var(--red);
+      background: rgba(255, 45, 45, 0.12);
+      box-shadow: var(--shadow-red);
+    }
+
+    .ops-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .ops-side {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #101214;
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .ops-side-item {
+      border: 1px solid #2a2e34;
+      border-radius: 10px;
+      padding: 10px;
+      background: #171a1d;
+    }
+
+    .ops-side-item strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .7px;
+    }
+
+    .ops-alert {
+      animation: dangerFlash .8s ease-out 2;
+    }
+
+    .ops-pulse {
+      animation: successPulse 1.2s ease-out 1;
+    }
+
+    @keyframes recurringPulse {
+      0%, 100% { box-shadow: 0 0 0 rgba(0, 255, 154, 0.1); }
+      50% { box-shadow: 0 0 15px rgba(0, 255, 154, 0.35); }
+    }
+
+    @keyframes successPulse {
+      0% { box-shadow: 0 0 0 rgba(0, 255, 154, 0); }
+      60% { box-shadow: 0 0 24px rgba(0, 255, 154, 0.45); }
+      100% { box-shadow: none; }
+    }
+
+    @keyframes dangerFlash {
+      0%, 100% { box-shadow: none; }
+      50% { box-shadow: var(--shadow-red); }
+    }
+
     .phase1-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -247,6 +398,12 @@
       .readiness-core, .status-grid-wrap, .recent-activity, .quick-actions { grid-column: span 12; }
       .phase1-grid { grid-template-columns: 1fr; }
       .btn-grid { grid-template-columns: 1fr; }
+      .execution-layout { grid-template-columns: 1fr; }
+      .ops-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 700px) {
+      .ops-board, .ops-actions { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -353,6 +510,79 @@
 
         <section id="phase-3" class="card phase-panel">
           <h3>Phase 3 — Execution UI</h3>
+          <div class="execution-header">
+            <h2 style="margin:0; color:var(--text);">Run the Machine</h2>
+            <span class="pill active">operations_board</span>
+          </div>
+          <p class="execution-subtitle">Visualize daily operations, workflows, and recurring activity so the business feels live, operable, and tunable.</p>
+          <div class="execution-layout">
+            <div>
+              <div class="ops-board" id="operationsBoard">
+                <article class="ops-column" data-col="todo">
+                  <h4>To Do</h4>
+                  <div class="ops-list" id="todoList">
+                    <div class="ops-card">
+                      <span class="tag">SOP</span>
+                      <h5>Morning Open SOP</h5>
+                      <div class="sub">Confirm opening sequence and quality checks.</div>
+                    </div>
+                    <div class="ops-card recurring">
+                      <span class="tag">Recurring Task</span>
+                      <h5>Daily Revenue Snapshot</h5>
+                      <div class="sub">Scheduled every day at 5:00 PM.</div>
+                    </div>
+                  </div>
+                </article>
+                <article class="ops-column" data-col="progress">
+                  <h4>In Progress</h4>
+                  <div class="ops-list">
+                    <div class="ops-card">
+                      <span class="tag">Workflow</span>
+                      <h5>Onboarding Sequence</h5>
+                      <div class="sub">2 of 5 steps running successfully.</div>
+                    </div>
+                    <div class="ops-card deliverable">
+                      <span class="tag">Deliverable Task</span>
+                      <h5>Client Portal Assets</h5>
+                      <div class="sub">Prepare release-ready package for delivery.</div>
+                    </div>
+                  </div>
+                </article>
+                <article class="ops-column" data-col="completed">
+                  <h4>Completed</h4>
+                  <div class="ops-list">
+                    <div class="ops-card completed">
+                      <span class="tag">Checklist</span>
+                      <h5>Payment Reconciliation</h5>
+                      <div class="sub">Today's settlement review was completed.</div>
+                    </div>
+                  </div>
+                </article>
+                <article class="ops-column" data-col="fix">
+                  <h4>Needs Fix</h4>
+                  <div class="ops-list">
+                    <div class="ops-card broken">
+                      <span class="tag">Workflow</span>
+                      <h5>Follow-up Automation</h5>
+                      <div class="sub">Webhook timeout detected in step 3.</div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="ops-actions">
+                <button class="btn primary" id="createSopBtn">Create SOP</button>
+                <button class="btn primary" id="addWorkflowBtn">Add Workflow</button>
+                <button class="btn primary" id="createChecklistBtn">Create Checklist</button>
+                <button class="btn primary" id="runRecurringBtn">Run Recurring Engine</button>
+              </div>
+            </div>
+            <aside class="ops-side">
+              <div class="ops-side-item"><strong>Active Systems</strong><span id="activeSystems">8 Systems Online</span></div>
+              <div class="ops-side-item"><strong>Task Completion Rate</strong><span id="completionRate">73% this week</span></div>
+              <div class="ops-side-item"><strong>Recurring Engine Status</strong><span id="recurringStatus">Watching schedules</span></div>
+              <div class="ops-side-item"><strong>Deliverable Production Status</strong><span id="deliverableStatus">2 packages in progress</span></div>
+            </aside>
+          </div>
         </section>
 
         <section id="phase-4" class="card phase-panel">
@@ -384,6 +614,58 @@
           })();
       var tenant = String(ctx.tenant || "").trim();
       document.getElementById("tenantPill").textContent = "Tenant: " + (tenant || "(missing)");
+
+      var createSopBtn = document.getElementById("createSopBtn");
+      var addWorkflowBtn = document.getElementById("addWorkflowBtn");
+      var createChecklistBtn = document.getElementById("createChecklistBtn");
+      var runRecurringBtn = document.getElementById("runRecurringBtn");
+      var todoList = document.getElementById("todoList");
+      var recurringStatus = document.getElementById("recurringStatus");
+      var completionRate = document.getElementById("completionRate");
+      var deliverableStatus = document.getElementById("deliverableStatus");
+      var needsFixColumn = document.querySelector('[data-col="fix"]');
+
+      function addCard(container, type, title, detail, classes) {
+        var card = document.createElement("div");
+        card.className = "ops-card " + (classes || "");
+        card.innerHTML = '<span class="tag">' + type + '</span><h5>' + title + '</h5><div class="sub">' + detail + '</div>';
+        container.prepend(card);
+        return card;
+      }
+
+      if (createSopBtn) {
+        createSopBtn.addEventListener("click", function () {
+          var created = addCard(todoList, "SOP", "Closing SOP v2", "Workflow created with smooth green pulse.", "ops-pulse");
+          setTimeout(function () { created.classList.remove("ops-pulse"); }, 1300);
+          completionRate.textContent = "74% this week";
+        });
+      }
+
+      if (addWorkflowBtn) {
+        addWorkflowBtn.addEventListener("click", function () {
+          var progressList = document.querySelector('[data-col="progress"] .ops-list');
+          var created = addCard(progressList, "Workflow", "Fulfillment Workflow", "Workflow created = smooth green pulse.", "ops-pulse");
+          setTimeout(function () { created.classList.remove("ops-pulse"); }, 1300);
+          deliverableStatus.textContent = "3 packages in progress";
+        });
+      }
+
+      if (createChecklistBtn && needsFixColumn) {
+        createChecklistBtn.addEventListener("click", function () {
+          var fixList = needsFixColumn.querySelector(".ops-list");
+          addCard(fixList, "Checklist", "Broken Sequence Audit", "Needs fix alert triggered for stalled step.", "broken");
+          needsFixColumn.classList.add("ops-alert");
+          setTimeout(function () { needsFixColumn.classList.remove("ops-alert"); }, 1600);
+        });
+      }
+
+      if (runRecurringBtn) {
+        runRecurringBtn.addEventListener("click", function () {
+          addCard(todoList, "Recurring Task", "Auto-generated Daily Follow-up", "Recurring instance generated = instant live update.", "recurring");
+          recurringStatus.textContent = "Live instance generated just now";
+          completionRate.textContent = "76% this week";
+        });
+      }
     })();
   </script>
 </body>
