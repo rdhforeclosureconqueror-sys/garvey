@@ -708,6 +708,84 @@ async function initializeDatabase() {
     CREATE INDEX IF NOT EXISTS recommended_actions_tenant_idx ON recommended_actions(tenant_id, created_at DESC);
   `);
 
+  // ==================================================
+  // INFRASTRUCTURE SYSTEM (PHASE 5)
+  // ==================================================
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS infrastructure_cards (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      board_id BIGINT NOT NULL REFERENCES kanban_boards(id) ON DELETE CASCADE,
+      kanban_card_id BIGINT NOT NULL REFERENCES kanban_cards(id) ON DELETE CASCADE,
+      card_type TEXT NOT NULL,
+      title TEXT NOT NULL,
+      content TEXT NOT NULL DEFAULT '',
+      column_name TEXT NOT NULL DEFAULT 'Needed',
+      status TEXT NOT NULL DEFAULT 'Needed',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (tenant_id, card_type)
+    );
+
+    CREATE TABLE IF NOT EXISTS infrastructure_tools (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      description TEXT NOT NULL DEFAULT '',
+      category TEXT NOT NULL DEFAULT '',
+      status TEXT NOT NULL DEFAULT 'Needed',
+      url TEXT NOT NULL DEFAULT '',
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS infrastructure_resources (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      resource_type TEXT NOT NULL DEFAULT '',
+      location TEXT NOT NULL DEFAULT '',
+      status TEXT NOT NULL DEFAULT 'available',
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS infrastructure_templates (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      template_key TEXT NOT NULL DEFAULT '',
+      status TEXT NOT NULL DEFAULT 'draft',
+      source_url TEXT NOT NULL DEFAULT '',
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS infrastructure_links (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      label TEXT NOT NULL,
+      url TEXT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'unchecked',
+      last_checked_at TIMESTAMPTZ,
+      http_status INT,
+      error_message TEXT NOT NULL DEFAULT '',
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (tenant_id, url)
+    );
+
+    CREATE INDEX IF NOT EXISTS infrastructure_cards_tenant_idx ON infrastructure_cards(tenant_id, card_type);
+    CREATE INDEX IF NOT EXISTS infrastructure_tools_tenant_idx ON infrastructure_tools(tenant_id, status, created_at DESC);
+    CREATE INDEX IF NOT EXISTS infrastructure_resources_tenant_idx ON infrastructure_resources(tenant_id, status, created_at DESC);
+    CREATE INDEX IF NOT EXISTS infrastructure_templates_tenant_idx ON infrastructure_templates(tenant_id, status, created_at DESC);
+    CREATE INDEX IF NOT EXISTS infrastructure_links_tenant_idx ON infrastructure_links(tenant_id, status, created_at DESC);
+  `);
+
   console.log("✅ Database ready");
 }
 
