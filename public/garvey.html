@@ -770,6 +770,8 @@
     }
 
     .kv strong { color: var(--text); display: block; margin-bottom: 4px; }
+    .kv.kv-success { border-color: rgba(0, 255, 154, 0.75); box-shadow: var(--shadow-green); }
+    .kv.kv-warning { border-color: rgba(255, 77, 77, 0.75); box-shadow: var(--shadow-red); }
 
     @media (max-width: 980px) {
       .app-shell { grid-template-columns: 1fr; }
@@ -885,19 +887,19 @@
         <section id="phase-1" class="card phase-panel">
           <h3>Phase 1 — Foundation UI</h3>
           <div class="phase1-grid">
-            <div class="kv"><strong>Mission</strong><span id="missionValue">Pending definition</span></div>
-            <div class="kv"><strong>Customer</strong><span id="customerValue">Pending profile</span></div>
-            <div class="kv"><strong>Value Proposition</strong><span id="valuePropValue">Pending statement</span></div>
-            <div class="kv"><strong>Values</strong><span id="valuesValue">Integrity • Precision • Growth</span></div>
-            <div class="kv"><strong>Journey Created?</strong><span id="journeyCreated">No</span></div>
-            <div class="kv"><strong>Deliverables Status</strong><span id="deliverablesStatus">In Progress</span></div>
-            <div class="kv"><strong>Initialization Status</strong><span id="initStatus">Not Initialized</span></div>
+            <div class="kv" id="missionPanel"><strong>Mission</strong><span id="missionValue">Pending definition</span></div>
+            <div class="kv" id="customerPanel"><strong>Customer</strong><span id="customerValue">Pending profile</span></div>
+            <div class="kv" id="valuePropPanel"><strong>Value Proposition</strong><span id="valuePropValue">Pending statement</span></div>
+            <div class="kv" id="valuesPanel"><strong>Values</strong><span id="valuesValue">Pending values</span></div>
+            <div class="kv" id="journeyPanel"><strong>Journey Created?</strong><span id="journeyCreated">No</span></div>
+            <div class="kv" id="deliverablesPanel"><strong>Deliverables Status</strong><span id="deliverablesStatus">Pending</span></div>
+            <div class="kv" id="initPanel"><strong>Initialization Status</strong><span id="initStatus">Not Initialized</span></div>
           </div>
           <div class="btn-grid">
-            <a class="btn primary" href="#">Generate Mission</a>
-            <a class="btn primary" href="#">Build Customer</a>
-            <a class="btn primary" href="#">Build Value Prop</a>
-            <a class="btn primary" href="#">Initialize Business</a>
+            <a class="btn primary" href="#" id="generateMissionBtn">Generate Mission</a>
+            <a class="btn primary" href="#" id="buildCustomerBtn">Build Customer</a>
+            <a class="btn primary" href="#" id="buildValuePropBtn">Build Value Prop</a>
+            <a class="btn primary" href="#" id="initializeBusinessBtn">Initialize Business</a>
           </div>
         </section>
 
@@ -1293,6 +1295,128 @@
           })();
       var tenant = String(ctx.tenant || "").trim();
       document.getElementById("tenantPill").textContent = "Tenant: " + (tenant || "(missing)");
+      var missionPanel = document.getElementById("missionPanel");
+      var customerPanel = document.getElementById("customerPanel");
+      var valuePropPanel = document.getElementById("valuePropPanel");
+      var valuesPanel = document.getElementById("valuesPanel");
+      var journeyPanel = document.getElementById("journeyPanel");
+      var deliverablesPanel = document.getElementById("deliverablesPanel");
+      var initPanel = document.getElementById("initPanel");
+      var missionValue = document.getElementById("missionValue");
+      var customerValue = document.getElementById("customerValue");
+      var valuePropValue = document.getElementById("valuePropValue");
+      var valuesValue = document.getElementById("valuesValue");
+      var journeyCreated = document.getElementById("journeyCreated");
+      var deliverablesStatus = document.getElementById("deliverablesStatus");
+      var initStatus = document.getElementById("initStatus");
+      var generateMissionBtn = document.getElementById("generateMissionBtn");
+      var buildCustomerBtn = document.getElementById("buildCustomerBtn");
+      var buildValuePropBtn = document.getElementById("buildValuePropBtn");
+      var initializeBusinessBtn = document.getElementById("initializeBusinessBtn");
+
+      function hasContent(value) {
+        return Boolean(String(value || "").trim());
+      }
+
+      function markPanel(panel, ok) {
+        if (!panel) return;
+        panel.classList.remove("kv-success");
+        panel.classList.remove("kv-warning");
+        panel.classList.add(ok ? "kv-success" : "kv-warning");
+      }
+
+      function safeJson(res) {
+        return res.json().catch(function () { return {}; });
+      }
+
+      function foundationUrl(path) {
+        return "/api/foundation" + path + "?tenant=" + encodeURIComponent(tenant);
+      }
+
+      function parseCustomerCard(cardContent) {
+        if (!hasContent(cardContent)) return "";
+        try {
+          var parsed = JSON.parse(cardContent);
+          if (parsed && typeof parsed === "object") {
+            return [parsed.primary_customer, parsed.urgent_problem, parsed.buying_trigger]
+              .filter(hasContent)
+              .join(" • ");
+          }
+        } catch (_) {}
+        return String(cardContent || "").trim();
+      }
+
+      function applyFoundationState(payload, initializedThisSession) {
+        var cards = Array.isArray(payload && payload.cards) ? payload.cards : [];
+        var byType = {};
+        cards.forEach(function (card) {
+          byType[String(card.card_type || "")] = card;
+        });
+        var missionContent = String((byType.mission && byType.mission.content) || "").trim();
+        var customerContent = parseCustomerCard((byType.customer && byType.customer.content) || "");
+        var valuePropContent = String((byType.value_prop && byType.value_prop.content) || "").trim();
+        var valuesContent = String((byType.values && byType.values.content) || "").trim();
+        var journey = payload && payload.journey;
+        var hasJourney = Boolean(journey);
+        var deliverables = Array.isArray(journey && journey.deliverables) ? journey.deliverables : [];
+        var deliverablesReady = deliverables.length > 0;
+        var initialized = initializedThisSession || hasJourney;
+
+        missionValue.textContent = missionContent || "Mission not created yet. Use Generate Mission to create one.";
+        customerValue.textContent = customerContent || "Customer profile missing. Use Build Customer to define your customer.";
+        valuePropValue.textContent = valuePropContent || "Value proposition missing. Use Build Value Prop to define your promise.";
+        valuesValue.textContent = valuesContent || "Values missing. Add values in Foundation card content.";
+        journeyCreated.textContent = hasJourney ? "Yes" : "No";
+        deliverablesStatus.textContent = deliverablesReady
+          ? (deliverables.length + " deliverables created")
+          : "No deliverables created";
+        initStatus.textContent = initialized ? "Initialized" : "Not Initialized";
+
+        markPanel(missionPanel, hasContent(missionContent));
+        markPanel(customerPanel, hasContent(customerContent));
+        markPanel(valuePropPanel, hasContent(valuePropContent));
+        markPanel(valuesPanel, hasContent(valuesContent));
+        markPanel(journeyPanel, hasJourney);
+        markPanel(deliverablesPanel, deliverablesReady);
+        markPanel(initPanel, initialized);
+      }
+
+      async function loadFoundationState(initializedThisSession) {
+        if (!tenant) {
+          initStatus.textContent = "Missing tenant in URL";
+          [missionPanel, customerPanel, valuePropPanel, valuesPanel, journeyPanel, deliverablesPanel, initPanel].forEach(function (panel) {
+            markPanel(panel, false);
+          });
+          return;
+        }
+        var response = await fetch(foundationUrl("/state"), { headers: { Accept: "application/json" } });
+        var payload = await safeJson(response);
+        if (!response.ok) throw new Error(payload.error || "Unable to load foundation state");
+        applyFoundationState(payload, initializedThisSession);
+      }
+
+      async function updateFoundationCard(cardType, content) {
+        var response = await fetch(foundationUrl("/cards/" + encodeURIComponent(cardType)), {
+          method: "PUT",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ content: content }),
+        });
+        var payload = await safeJson(response);
+        if (!response.ok) throw new Error(payload.error || "Failed to update " + cardType + " card");
+      }
+
+      async function initializeFoundation() {
+        if (!tenant) return;
+        initStatus.textContent = "Initializing...";
+        var response = await fetch(foundationUrl("/initialize"), {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ tenant: tenant }),
+        });
+        var payload = await safeJson(response);
+        if (!response.ok) throw new Error(payload.error || "Initialization failed");
+        await loadFoundationState(true);
+      }
 
       var createSopBtn = document.getElementById("createSopBtn");
       var addWorkflowBtn = document.getElementById("addWorkflowBtn");
@@ -1370,6 +1494,89 @@
       var growthImprovements = 3;
       var growthKnowledge = 5;
       var launchGateReady = false;
+
+      function stopLinkNav(evt) {
+        if (evt && typeof evt.preventDefault === "function") evt.preventDefault();
+      }
+
+      if (generateMissionBtn) {
+        generateMissionBtn.addEventListener("click", async function (evt) {
+          stopLinkNav(evt);
+          try {
+            var generated = await fetch(foundationUrl("/gadget/mission-generator"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ tenant: tenant }),
+            });
+            var generatedPayload = await safeJson(generated);
+            if (!generated.ok) throw new Error(generatedPayload.error || "Mission generation failed");
+            await updateFoundationCard("mission", generatedPayload.mission || "");
+            await loadFoundationState(false);
+          } catch (err) {
+            missionValue.textContent = "Mission generation failed: " + (err && err.message ? err.message : "unknown error");
+            markPanel(missionPanel, false);
+          }
+        });
+      }
+
+      if (buildCustomerBtn) {
+        buildCustomerBtn.addEventListener("click", async function (evt) {
+          stopLinkNav(evt);
+          try {
+            var generated = await fetch(foundationUrl("/gadget/customer-builder"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ tenant: tenant }),
+            });
+            var generatedPayload = await safeJson(generated);
+            if (!generated.ok) throw new Error(generatedPayload.error || "Customer generation failed");
+            await updateFoundationCard("customer", JSON.stringify(generatedPayload.customer || {}));
+            await loadFoundationState(false);
+          } catch (err) {
+            customerValue.textContent = "Customer generation failed: " + (err && err.message ? err.message : "unknown error");
+            markPanel(customerPanel, false);
+          }
+        });
+      }
+
+      if (buildValuePropBtn) {
+        buildValuePropBtn.addEventListener("click", async function (evt) {
+          stopLinkNav(evt);
+          try {
+            var generated = await fetch(foundationUrl("/gadget/value-prop-builder"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ tenant: tenant }),
+            });
+            var generatedPayload = await safeJson(generated);
+            if (!generated.ok) throw new Error(generatedPayload.error || "Value prop generation failed");
+            await updateFoundationCard("value_prop", generatedPayload.value_prop || "");
+            await loadFoundationState(false);
+          } catch (err) {
+            valuePropValue.textContent = "Value prop generation failed: " + (err && err.message ? err.message : "unknown error");
+            markPanel(valuePropPanel, false);
+          }
+        });
+      }
+
+      if (initializeBusinessBtn) {
+        initializeBusinessBtn.addEventListener("click", async function (evt) {
+          stopLinkNav(evt);
+          try {
+            await initializeFoundation();
+          } catch (err) {
+            initStatus.textContent = "Initialization failed: " + (err && err.message ? err.message : "unknown error");
+            markPanel(initPanel, false);
+          }
+        });
+      }
+
+      loadFoundationState(false).catch(function (err) {
+        initStatus.textContent = "State load failed: " + (err && err.message ? err.message : "unknown error");
+        [missionPanel, customerPanel, valuePropPanel, valuesPanel, journeyPanel, deliverablesPanel, initPanel].forEach(function (panel) {
+          markPanel(panel, false);
+        });
+      });
 
       var readinessValue = 72;
       function renderScoreColor(score) {
