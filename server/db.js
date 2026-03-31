@@ -507,6 +507,10 @@ async function initializeDatabase() {
   `);
 
   // ==================================================
+  // STRUCTURE SYSTEM (PHASE 2)
+  // ==================================================
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS structure_cards (
   // FOUNDATION SYSTEM (PHASE 1)
   // ==================================================
   await pool.query(`
@@ -518,6 +522,8 @@ async function initializeDatabase() {
       card_type TEXT NOT NULL,
       title TEXT NOT NULL,
       content TEXT NOT NULL DEFAULT '',
+      column_name TEXT NOT NULL DEFAULT 'Needed',
+      status TEXT NOT NULL DEFAULT 'Needed',
       status TEXT NOT NULL DEFAULT 'Draft',
       column_name TEXT NOT NULL DEFAULT 'Draft',
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -525,6 +531,27 @@ async function initializeDatabase() {
       UNIQUE (tenant_id, card_type)
     );
 
+    CREATE TABLE IF NOT EXISTS structure_roles (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      role_name TEXT NOT NULL,
+      owner_name TEXT,
+      owner_email TEXT,
+      backup_name TEXT,
+      backup_email TEXT,
+      responsibilities JSONB NOT NULL DEFAULT '[]'::jsonb,
+      decision_rights INT NOT NULL DEFAULT 1,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (tenant_id, role_name)
+    );
+
+    CREATE TABLE IF NOT EXISTS structure_operator_assignments (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE UNIQUE,
+      operator_name TEXT,
+      operator_email TEXT,
+      mode TEXT NOT NULL DEFAULT 'manual',
     CREATE TABLE IF NOT EXISTS foundation_journeys (
       id BIGSERIAL PRIMARY KEY,
       tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE UNIQUE,
@@ -537,6 +564,9 @@ async function initializeDatabase() {
       updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     );
 
+    CREATE INDEX IF NOT EXISTS structure_cards_tenant_idx ON structure_cards(tenant_id, card_type);
+    CREATE INDEX IF NOT EXISTS structure_roles_tenant_idx ON structure_roles(tenant_id, role_name);
+    CREATE INDEX IF NOT EXISTS structure_operator_tenant_idx ON structure_operator_assignments(tenant_id);
     CREATE INDEX IF NOT EXISTS foundation_cards_tenant_idx ON foundation_cards(tenant_id, card_type);
     CREATE INDEX IF NOT EXISTS foundation_journeys_tenant_idx ON foundation_journeys(tenant_id);
   `);

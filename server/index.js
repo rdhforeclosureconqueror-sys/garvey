@@ -53,6 +53,7 @@ const {
   ensureGarveyBoard,
   ensureDefaultOnboardingCards,
 } = require("./kanbanRoutes");
+const structureRoutes = require("./structureRoutes");
 const foundationRoutes = require("./foundationRoutes");
 const { generateSite } = require("./siteMaterializer");
 
@@ -594,6 +595,7 @@ app.post("/api/templates/select", async (req, res) => {
    KANBAN API
 ========================= */
 app.use("/api/kanban", kanbanRoutes({ pool, ensureTenant }));
+app.use("/api/structure", structureRoutes({ pool, ensureTenant }));
 app.use("/api/foundation", foundationRoutes({ pool, ensureTenant }));
 
 app.post("/api/campaigns/create", async (req, res) => {
