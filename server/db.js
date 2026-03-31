@@ -633,6 +633,81 @@ async function initializeDatabase() {
     CREATE INDEX IF NOT EXISTS execution_recurring_tenant_idx ON execution_recurring_instances(tenant_id, generated_for DESC);
   `);
 
+
+
+  // ==================================================
+  // INTELLIGENCE SYSTEM (PHASE 4)
+  // ==================================================
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS intelligence_cards (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      board_id BIGINT NOT NULL REFERENCES kanban_boards(id) ON DELETE CASCADE,
+      kanban_card_id BIGINT NOT NULL REFERENCES kanban_cards(id) ON DELETE CASCADE,
+      card_type TEXT NOT NULL,
+      title TEXT NOT NULL,
+      content TEXT NOT NULL DEFAULT '',
+      column_name TEXT NOT NULL DEFAULT 'Defined',
+      status TEXT NOT NULL DEFAULT 'Defined',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (tenant_id, card_type)
+    );
+
+    CREATE TABLE IF NOT EXISTS intelligence_kpis (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      definition TEXT NOT NULL DEFAULT '',
+      target_value NUMERIC(12,2) NOT NULL DEFAULT 0,
+      current_value NUMERIC(12,2) NOT NULL DEFAULT 0,
+      unit TEXT NOT NULL DEFAULT '',
+      status TEXT NOT NULL DEFAULT 'Defined',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS readiness_scores (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      weighted_breakdown JSONB NOT NULL DEFAULT '{}'::jsonb,
+      achieved_points INT NOT NULL DEFAULT 0,
+      max_points INT NOT NULL DEFAULT 65,
+      readiness_score INT NOT NULL DEFAULT 0,
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS gap_records (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      gap_key TEXT NOT NULL,
+      priority INT NOT NULL DEFAULT 99,
+      status TEXT NOT NULL DEFAULT 'open',
+      note TEXT NOT NULL DEFAULT '',
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS recommended_actions (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      action_key TEXT NOT NULL,
+      title TEXT NOT NULL,
+      description TEXT NOT NULL DEFAULT '',
+      source TEXT NOT NULL DEFAULT 'system',
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE INDEX IF NOT EXISTS intelligence_cards_tenant_idx ON intelligence_cards(tenant_id, card_type);
+    CREATE INDEX IF NOT EXISTS intelligence_kpis_tenant_idx ON intelligence_kpis(tenant_id, created_at DESC);
+    CREATE INDEX IF NOT EXISTS readiness_scores_tenant_idx ON readiness_scores(tenant_id, created_at DESC);
+    CREATE INDEX IF NOT EXISTS gap_records_tenant_idx ON gap_records(tenant_id, status, priority);
+    CREATE INDEX IF NOT EXISTS recommended_actions_tenant_idx ON recommended_actions(tenant_id, created_at DESC);
+  `);
+
   console.log("✅ Database ready");
 }
 

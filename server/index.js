@@ -56,6 +56,7 @@ const {
 const structureRoutes = require("./structureRoutes");
 const foundationRoutes = require("./foundationRoutes");
 const executionRoutes = require("./executionRoutes");
+const intelligenceRoutes = require("./intelligenceRoutes");
 const { generateSite } = require("./siteMaterializer");
 
 // Optional Site Generator (won't crash if missing)
@@ -599,6 +600,7 @@ app.use("/api/kanban", kanbanRoutes({ pool, ensureTenant }));
 app.use("/api/structure", structureRoutes({ pool, ensureTenant }));
 app.use("/api/foundation", foundationRoutes({ pool, ensureTenant }));
 app.use("/api/execution", executionRoutes({ pool, ensureTenant }));
+app.use("/api/intelligence", intelligenceRoutes({ pool, ensureTenant }));
 
 app.post("/api/campaigns/create", async (req, res) => {
   try {
@@ -2437,24 +2439,29 @@ app.post("/api/vocIntake", handleVocIntake);
 app.get("/api/verify/intelligence/:slug", tenantMiddleware, async (req, res) => {
   try {
     const tenantId = req.tenant.id;
-    const submissionCounts = await pool.query(
-      `SELECT
-          COUNT(*)::int AS total,
-          COUNT(*) FILTER (WHERE assessment_type = 'business_owner')::int AS business_total,
-          COUNT(*) FILTER (WHERE assessment_type = 'customer')::int AS customer_total
-       FROM assessment_submissions
-       WHERE tenant_id = $1`,
-      [tenantId]
-    );
+    const [kpiRes, scoreRes, gapRes, actionRes] = await Promise.all([
+      pool.query(`SELECT COUNT(*)::int AS total FROM intelligence_kpis WHERE tenant_id=$1`, [tenantId]),
+      pool.query(`SELECT COUNT(*)::int AS total FROM readiness_scores WHERE tenant_id=$1`, [tenantId]),
+      pool.query(`SELECT COUNT(*)::int AS total FROM gap_records WHERE tenant_id=$1 AND status='open'`, [tenantId]),
+      pool.query(`SELECT COUNT(*)::int AS total FROM recommended_actions WHERE tenant_id=$1`, [tenantId]),
+    ]);
 
-    const checks = {
-      completion: submissionCounts.rows[0].business_total >= 0 && submissionCounts.rows[0].customer_total >= 0,
-      scoring_validity: true,
-      db_write_success: submissionCounts.rows[0].total >= 0,
-      dashboard_reflection: true,
+    const counts = {
+      kpis: kpiRes.rows[0].total,
+      readiness_scores: scoreRes.rows[0].total,
+      open_gaps: gapRes.rows[0].total,
+      actions: actionRes.rows[0].total,
     };
 
-    return res.json({ status: "INTELLIGENCE_VERIFY_OK", checks, counts: submissionCounts.rows[0] });
+    const checks = {
+      score_updates: counts.readiness_scores > 0,
+      gap_detected: counts.open_gaps > 0,
+      task_created: counts.actions > 0,
+      completion_rules_met:
+        counts.kpis > 0 && counts.readiness_scores > 0 && counts.open_gaps > 0,
+    };
+
+    return res.json({ status: "INTELLIGENCE_VERIFY_OK", checks, counts });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ status: "INTELLIGENCE_VERIFY_FAIL", error: err.message });
