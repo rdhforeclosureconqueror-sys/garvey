@@ -487,7 +487,7 @@
     previousTotals = current;
   }
 
-  function wireCampaignCreator(tenant) {
+  function wireCampaignCreator(tenant, ownerEmail, cid, rid) {
     var btn = document.getElementById("createCampaignBtn");
     if (!btn) return;
     btn.addEventListener("click", function () {
@@ -510,7 +510,7 @@
         .then(function (resp) {
           if (msgEl) msgEl.textContent = "Campaign created: " + resp.campaign.slug;
           renderCampaignLinks(tenant, resp.campaign);
-          return jsonFetch(apiUrl("/t/" + encodeURIComponent(tenant) + "/campaigns/summary"));
+          return jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail, cid, rid));
         })
         .then(renderCampaignSummary)
         .catch(function (err) {
@@ -687,6 +687,12 @@
     if (cid) p3.set("cid", cid);
     if (rid) p3.set("crid", rid);
     setHrefIfPresent("rewardsFallbackBtn", "/rewards.html?" + p3.toString());
+
+    var p4 = new URLSearchParams({ tenant: tenant });
+    if (email) p4.set("email", email);
+    if (cid) p4.set("cid", cid);
+    if (rid) p4.set("rid", rid);
+    setHrefIfPresent("campaignQrNavBtn", "/dashboard.html?" + p4.toString() + "#campaignTracking");
   }
 
   function readSignInFormCtx() {
@@ -792,9 +798,11 @@
       .catch(function () { return ""; });
   }
 
-  function tenantApiUrl(tenant, path, ownerEmail) {
+  function tenantApiUrl(tenant, path, ownerEmail, cid, rid) {
     var query = {};
     if (ownerEmail) query.email = ownerEmail;
+    if (cid) query.cid = cid;
+    if (rid) query.rid = rid;
     return apiUrl("/t/" + encodeURIComponent(tenant) + path, query);
   }
 
@@ -1039,15 +1047,15 @@
       saveLoginCtx({ tenant: tenant, email: ownerEmail, cid: cid, rid: rid });
       wirePathButtons(tenant, ownerEmail, cid, rid);
       wireCustomerLookup(tenant);
-      wireCampaignCreator(tenant);
+      wireCampaignCreator(tenant, ownerEmail, cid, rid);
       loadOwnerSnapshot(ownerEmail, tenant, cid, rid, isAdmin);
 
       return Promise.all([
-        jsonFetch(tenantApiUrl(tenant, "/dashboard", ownerEmail)),
-        jsonFetch(tenantApiUrl(tenant, "/customers", ownerEmail)),
-        jsonFetch(tenantApiUrl(tenant, "/analytics", ownerEmail)),
-        jsonFetch(tenantApiUrl(tenant, "/segments", ownerEmail)),
-        jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail)),
+        jsonFetch(tenantApiUrl(tenant, "/dashboard", ownerEmail, cid, rid)),
+        jsonFetch(tenantApiUrl(tenant, "/customers", ownerEmail, cid, rid)),
+        jsonFetch(tenantApiUrl(tenant, "/analytics", ownerEmail, cid, rid)),
+        jsonFetch(tenantApiUrl(tenant, "/segments", ownerEmail, cid, rid)),
+        jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail, cid, rid)),
         jsonFetch(apiUrl("/api/campaigns/list", { tenant: tenant, email: ownerEmail })),
         jsonFetch(apiUrl("/api/archetypes/groups", { tenant: tenant, cid: cid || undefined }))
       ])
@@ -1075,8 +1083,8 @@
 
           setInterval(function () {
             Promise.all([
-              jsonFetch(tenantApiUrl(tenant, "/dashboard", ownerEmail)),
-              jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail))
+              jsonFetch(tenantApiUrl(tenant, "/dashboard", ownerEmail, cid, rid)),
+              jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail, cid, rid))
             ]).then(function (refreshResponses) {
               renderMetrics(refreshResponses[0] || {});
               renderCampaignSummary(refreshResponses[1] || {});
