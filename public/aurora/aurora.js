@@ -157,6 +157,7 @@
     const c = ctx();
     const tenant = c.tenant || "test-business";
     setText("tenantDisplay", tenant);
+    setText("businessNameHero", tenant.replace(/[-_]+/g, " "));
 
     if (c.cid) {
       const wrap = document.getElementById("cidDisplayWrap");
