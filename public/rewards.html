@@ -100,8 +100,85 @@
   }
   .metric .label { font-size: 0.8rem; color: var(--muted); }
   .metric .value { font-size: 1.5rem; font-weight: 800; margin-top: 3px; }
+  .metric .value.points-main { font-size: clamp(2rem, 4vw, 2.6rem); line-height: 1; }
 
   .stack { display: grid; gap: 12px; }
+
+  .momentum-panel {
+    border: 1px solid rgba(74, 222, 128, 0.35);
+    border-radius: 14px;
+    background: rgba(10, 28, 16, 0.45);
+    padding: 14px;
+    display: grid;
+    gap: 12px;
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .progress-shell {
+    position: relative;
+    border-radius: 999px;
+    height: 16px;
+    background: rgba(1, 8, 20, 0.9);
+    border: 1px solid rgba(34, 49, 87, 0.95);
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #22c55e, #4ade80);
+    transition: width 450ms ease;
+  }
+
+  .progress-marker {
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    width: 3px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #fde68a, #f59e0b);
+    box-shadow: 0 0 14px rgba(251, 191, 36, 0.55);
+  }
+
+  .reward-target {
+    border: 1px solid rgba(251, 191, 36, 0.6);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(251, 191, 36, 0.16), rgba(139, 95, 20, 0.12));
+    padding: 12px;
+  }
+
+  .reward-target h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--accent-soft);
+  }
+
+  .reward-target p {
+    margin: 6px 0 0;
+    color: #ffe7a8;
+  }
+
+  .momentum-cta {
+    margin: 0;
+    color: #86efac;
+    font-weight: 700;
+  }
+
+  .pulse {
+    animation: pulseGlow 850ms ease;
+  }
+
+  .near-complete {
+    border-color: rgba(251, 191, 36, 0.78);
+    box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.2), 0 0 24px rgba(251, 191, 36, 0.25);
+  }
+
+  @keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.75); }
+    100% { box-shadow: 0 0 0 16px rgba(74, 222, 128, 0); }
+  }
 
   .actions {
     display: grid;
@@ -267,7 +344,8 @@
       <div class="status-grid">
         <article class="metric">
           <div class="label">Current Points</div>
-          <div class="value" id="pointsValue">—</div>
+          <div class="value points-main" id="pointsValue">—</div>
+          <div class="muted" id="pointsIdentity">You have 0 points</div>
         </article>
         <article class="metric">
           <div class="label">Recent Reward</div>
@@ -278,6 +356,19 @@
           <div class="value" id="streakValue">—</div>
         </article>
       </div>
+      <article class="momentum-panel" id="momentumPanel">
+        <div class="progress-shell" aria-label="Progress to next reward">
+          <div class="progress-fill" id="progressFill"></div>
+          <div class="progress-marker" id="progressMarker"></div>
+        </div>
+        <div class="muted" id="progressPercentMessage">You’re 0% of the way there</div>
+        <div class="reward-target">
+          <h3 id="nextRewardTitle">Next reward at 50 points</h3>
+          <p id="pointsToRewardMessage">50 more points until your next reward</p>
+        </div>
+        <div class="muted" id="actionsProgressMessage">0 of 5 actions completed</div>
+        <p class="momentum-cta" id="momentumMessage">One quick action gets you closer</p>
+      </article>
       <button id="refreshStatusBtn" type="button">Refresh my status</button>
     </section>
 
@@ -301,6 +392,8 @@
 
 const engine = window.CustomerReturnEngine.createDefaultEngine();
 const state = { actionType: "checkin", status: null };
+const ACTIONS_PER_CYCLE = 5;
+const REWARD_MILESTONES = [50, 100, 150, 250, 500];
 
 function safeTrim(v) { return String(v ?? "").trim(); }
 function readEmail() { return safeTrim(document.getElementById("email")?.value).toLowerCase(); }
@@ -335,16 +428,65 @@ function showResult(payload) {
 
   document.getElementById("resultMessage").textContent = msg;
   document.getElementById("latestReward").textContent = pointsAdded > 0 ? `+${pointsAdded}` : "Saved";
+  if (pointsAdded > 0) animatePointsCount(total);
   setStep(4);
+}
+
+function nextMilestone(points) {
+  return REWARD_MILESTONES.find((target) => points < target) || (Math.ceil((points + 1) / 100) * 100);
+}
+
+function animatePointsCount(target) {
+  const el = document.getElementById("pointsValue");
+  const current = Number(el.textContent.replace(/[^\d.-]/g, "")) || 0;
+  const durationMs = 550;
+  const start = performance.now();
+
+  function frame(now) {
+    const progress = Math.min((now - start) / durationMs, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const next = Math.round(current + (target - current) * eased);
+    el.textContent = next;
+    if (progress < 1) requestAnimationFrame(frame);
+  }
+
+  requestAnimationFrame(frame);
+}
+
+function updateMotivationPanel(points, actionCount, streak) {
+  const target = nextMilestone(points);
+  const completedInTier = points % 50;
+  const pct = Math.max(0, Math.min(100, Math.round((completedInTier / 50) * 100)));
+  const remaining = Math.max(target - points, 0);
+  const markerLeft = Math.min(99, Math.max(1, (50 / target) * 100));
+  const nearCompletion = remaining <= 15;
+  const momentum = document.getElementById("momentumPanel");
+
+  document.getElementById("pointsIdentity").textContent = `You have ${points} points`;
+  document.getElementById("progressFill").style.width = `${pct}%`;
+  document.getElementById("progressMarker").style.left = `${markerLeft}%`;
+  document.getElementById("progressPercentMessage").textContent = `You’re ${pct}% of the way there`;
+  document.getElementById("nextRewardTitle").textContent = `Next reward at ${target} points`;
+  document.getElementById("pointsToRewardMessage").textContent = `${remaining} more points until your next reward`;
+  document.getElementById("actionsProgressMessage").textContent = `${Math.min(actionCount, ACTIONS_PER_CYCLE)} of ${ACTIONS_PER_CYCLE} actions completed`;
+  document.getElementById("momentumMessage").textContent = streak > 1
+    ? `${streak} visits in a row. One quick action gets you closer`
+    : "One quick action gets you closer";
+
+  momentum.classList.add("pulse");
+  setTimeout(() => momentum.classList.remove("pulse"), 850);
+  momentum.classList.toggle("near-complete", nearCompletion);
 }
 
 function updateStatusCards(payload) {
   state.status = payload;
   const points = Number(payload?.points || payload?.user?.points || 0);
   const history = Array.isArray(payload?.history) ? payload.history : [];
-  const streak = Number(payload?.streak || payload?.checkin_streak || history.length || 0);
-  document.getElementById("pointsValue").textContent = points || 0;
+  const recentEvents = Array.isArray(payload?.recent_events) ? payload.recent_events : [];
+  const streak = Number(payload?.streak || payload?.checkin_streak || recentEvents.length || history.length || 0);
+  document.getElementById("pointsValue").textContent = points;
   document.getElementById("streakValue").textContent = streak;
+  updateMotivationPanel(points, recentEvents.length || history.length, streak);
 }
 
 function showStatus(payload) {
