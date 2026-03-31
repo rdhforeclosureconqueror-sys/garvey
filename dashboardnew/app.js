@@ -175,10 +175,15 @@
 
   function renderMetrics(dashboard) {
     var el;
-    el = document.getElementById("metricUsers"); if (el) el.textContent = dashboard.total_users || 0;
-    el = document.getElementById("metricVisits"); if (el) el.textContent = dashboard.total_visits || 0;
-    el = document.getElementById("metricActions"); if (el) el.textContent = dashboard.total_actions || 0;
-    el = document.getElementById("metricPoints"); if (el) el.textContent = dashboard.total_points || 0;
+    var totalUsers = Number(dashboard.total_users || 0);
+    var totalActions = Number(dashboard.total_actions || 0);
+    var totalPoints = Number(dashboard.total_points || 0);
+    var totalVisits = Number(dashboard.total_visits || 0);
+    var repeatVisits = Math.max(0, totalVisits - totalUsers);
+    el = document.getElementById("metricUsers"); if (el) el.textContent = totalUsers;
+    el = document.getElementById("metricActions"); if (el) el.textContent = totalActions;
+    el = document.getElementById("metricPoints"); if (el) el.textContent = totalPoints;
+    el = document.getElementById("metricRepeatVisits"); if (el) el.textContent = repeatVisits;
   }
 
   function renderTable(customers) {
@@ -245,6 +250,7 @@
   }
 
   function renderDonut(analytics) {
+    if (!document.getElementById("morris-donut-chart")) return;
     var data = analytics.archetypes || [];
     renderChartEmpty("#morris-donut-chart", "donutEmpty", data.length);
     if (!data.length) return;
@@ -305,23 +311,139 @@
     var rows = Array.isArray(summary && summary.campaigns) ? summary.campaigns : [];
     var tbody = document.querySelector("#campaignsTable tbody");
     if (!tbody) return;
+    var ranking = document.getElementById("campaignRankingList");
+    var topSummary = document.getElementById("campaignTopSummary");
+    var totalEl = document.getElementById("metricReviewsReferrals");
+    var splitEl = document.getElementById("metricReviewsReferralsSplit");
     tbody.innerHTML = "";
-    rows.forEach(function (row) {
+    var totalReviews = 0;
+    var totalReferrals = 0;
+    var normalized = rows.map(function (row) {
       var c = row.counts || {};
+      var visits = Number(c.visits || 0);
+      var conversions = Number(c.checkins || 0) + Number(c.reviews || 0) + Number(c.referrals || 0) + Number(c.wishlist || 0);
+      var conversionRate = visits ? Math.round((conversions / visits) * 100) : 0;
+      totalReviews += Number(c.reviews || 0);
+      totalReferrals += Number(c.referrals || 0);
+      return {
+        label: row.label || row.slug || "-",
+        slug: row.slug || "",
+        visits: visits,
+        conversions: conversions,
+        conversionRate: conversionRate,
+        reviews: Number(c.reviews || 0),
+        referrals: Number(c.referrals || 0),
+        lastActivity: row.last_activity_at
+      };
+    }).sort(function (a, b) { return b.conversions - a.conversions; });
+
+    normalized.forEach(function (row) {
       tbody.innerHTML +=
-        "<tr><td>" + (row.label || row.slug || "-") +
-        ' <div class="muted">' + (row.slug || "") + "</div></td>" +
-        "<td>" + (c.visits || 0) + "</td>" +
-        "<td>" + (c.customer_assessments || 0) + "</td>" +
-        "<td>" + (c.checkins || 0) + "</td>" +
-        "<td>" + (c.reviews || 0) + "</td>" +
-        "<td>" + (c.referrals || 0) + "</td>" +
-        "<td>" + (c.wishlist || 0) + "</td>" +
-        "<td>" + (c.shares || 0) + "</td>" +
-        "<td>" + fmtDate(row.last_activity_at) + "</td></tr>";
+        "<tr><td>" + row.label +
+        ' <div class="muted">' + row.slug + "</div></td>" +
+        "<td>" + row.visits + "</td>" +
+        "<td>" + row.conversions + "</td>" +
+        "<td>" + row.conversionRate + "%</td>" +
+        "<td>" + row.reviews + "</td>" +
+        "<td>" + row.referrals + "</td></tr>";
     });
+    if (ranking) {
+      ranking.innerHTML = normalized.slice(0, 5).map(function (row, idx) {
+        return "<div><b>#" + (idx + 1) + " " + escapeHtml(row.label) + ":</b> " + row.conversions + " conversions from " + row.visits + " visits (" + row.conversionRate + "%)</div>";
+      }).join("") || "No campaign performance data yet.";
+    }
+    if (topSummary) {
+      var top = normalized[0];
+      topSummary.textContent = top
+        ? ("Top campaign: " + top.label + " • " + top.conversions + " conversions (" + top.conversionRate + "% conversion rate)")
+        : "No campaigns yet.";
+    }
+    if (totalEl) totalEl.textContent = totalReviews + totalReferrals;
+    if (splitEl) splitEl.textContent = totalReviews + " reviews • " + totalReferrals + " referrals";
     var empty = document.getElementById("campaignsEmpty");
     if (empty) empty.style.display = rows.length ? "none" : "block";
+  }
+
+  function renderActionAndBehaviorMetrics(summary) {
+    var actionSummary = document.getElementById("actionMetricsSummary");
+    var actionBreakdown = document.getElementById("actionMetricsBreakdown");
+    var dropOff = document.getElementById("dropOffInsight");
+    var behaviorInsights = document.getElementById("behaviorInsights");
+    if (!actionSummary || !actionBreakdown || !dropOff || !behaviorInsights) return;
+    var totals = (summary && summary.totals) || {};
+    var checkins = Number(totals.checkins || 0);
+    var reviews = Number(totals.reviews || 0);
+    var referrals = Number(totals.referrals || 0);
+    var wishlist = Number(totals.wishlist || 0);
+    var visits = Number(totals.visits || 0);
+    var actionsTotal = checkins + reviews + referrals + wishlist;
+    if (!actionsTotal && !visits) {
+      actionSummary.textContent = "No action metrics yet.";
+      actionBreakdown.textContent = "Waiting for check-ins/reviews/referrals.";
+      dropOff.textContent = "";
+      behaviorInsights.textContent = "Insights will appear as activity grows.";
+      return;
+    }
+    var actionMix = [
+      { label: "Check-ins", count: checkins },
+      { label: "Reviews", count: reviews },
+      { label: "Referrals", count: referrals },
+      { label: "Wishlist Adds", count: wishlist }
+    ].sort(function (a, b) { return b.count - a.count; });
+    actionSummary.textContent = "Most used action: " + actionMix[0].label + " (" + actionMix[0].count + ")";
+    actionBreakdown.innerHTML = actionMix.map(function (item) {
+      var pct = actionsTotal ? Math.round((item.count / actionsTotal) * 100) : 0;
+      return "<div><b>" + item.label + ":</b> " + item.count + " (" + pct + "%)</div>";
+    }).join("");
+    var conversionRate = visits ? Math.round((actionsTotal / visits) * 100) : 0;
+    dropOff.textContent = visits
+      ? ("Completion rate: " + conversionRate + "% (" + actionsTotal + " actions from " + visits + " visits).")
+      : "No visits recorded yet.";
+
+    var insights = [];
+    if (reviews < Math.ceil(checkins * 0.35)) insights.push("Reviews are low vs check-ins → add stronger review prompts.");
+    if (referrals >= Math.ceil(actionsTotal * 0.25)) insights.push("Referrals are strong → increase referral campaign visibility.");
+    if (wishlist > checkins) insights.push("Wishlist activity is high → add follow-up reminders to convert interest.");
+    if (conversionRate < 40 && visits > 5) insights.push("High drop-off from visit to action → simplify first action CTA.");
+    if (!insights.length) insights.push("Action mix is healthy. Continue current campaigns and test one new offer.");
+    behaviorInsights.innerHTML = insights.map(function (x) { return "<div>• " + escapeHtml(x) + "</div>"; }).join("");
+  }
+
+  var feedEntries = [];
+  var previousTotals = null;
+  function prependFeed(text) {
+    feedEntries.unshift({ text: text, ts: new Date() });
+    feedEntries = feedEntries.slice(0, 12);
+    var feed = document.getElementById("activityFeed");
+    if (!feed) return;
+    feed.innerHTML = feedEntries.map(function (row) {
+      return "<div style='padding:6px 0;border-bottom:1px solid #2A2A2A;'><span>" + escapeHtml(row.text) + "</span><div class='muted'>" + row.ts.toLocaleTimeString() + "</div></div>";
+    }).join("") || "No activity yet.";
+  }
+
+  function updateFeedFromSummary(summary) {
+    var totals = (summary && summary.totals) || {};
+    var current = {
+      checkins: Number(totals.checkins || 0),
+      reviews: Number(totals.reviews || 0),
+      referrals: Number(totals.referrals || 0),
+      wishlist: Number(totals.wishlist || 0)
+    };
+    if (!previousTotals) {
+      previousTotals = current;
+      return;
+    }
+    var deltas = {
+      checkins: current.checkins - previousTotals.checkins,
+      reviews: current.reviews - previousTotals.reviews,
+      referrals: current.referrals - previousTotals.referrals,
+      wishlist: current.wishlist - previousTotals.wishlist
+    };
+    if (deltas.checkins > 0) prependFeed("New check-in activity (+" + deltas.checkins + ")");
+    if (deltas.reviews > 0) prependFeed("New reviews submitted (+" + deltas.reviews + ")");
+    if (deltas.referrals > 0) prependFeed("New referrals captured (+" + deltas.referrals + ")");
+    if (deltas.wishlist > 0) prependFeed("New wishlist adds (+" + deltas.wishlist + ")");
+    previousTotals = current;
   }
 
   function wireCampaignCreator(tenant) {
@@ -897,6 +1019,8 @@
           renderInsights(responses[2] || {});
           renderSegments(responses[3] || {});
           renderCampaignSummary(responses[4] || {});
+          renderActionAndBehaviorMetrics(responses[4] || {});
+          updateFeedFromSummary(responses[4] || {});
           if (responses[5] && responses[5].campaigns && responses[5].campaigns[0]) {
             renderCampaignLinks(tenant, responses[5].campaigns[0]);
             var customerCidInput = document.getElementById("ownerHubCidInput");
@@ -907,6 +1031,18 @@
           }
           wireArchetypeLensToggle(tenant, cid, responses[6] || {});
           renderArchetypeGroups(tenant, cid, responses[6] || {});
+
+          setInterval(function () {
+            Promise.all([
+              jsonFetch(tenantApiUrl(tenant, "/dashboard", ownerEmail)),
+              jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail))
+            ]).then(function (refreshResponses) {
+              renderMetrics(refreshResponses[0] || {});
+              renderCampaignSummary(refreshResponses[1] || {});
+              renderActionAndBehaviorMetrics(refreshResponses[1] || {});
+              updateFeedFromSummary(refreshResponses[1] || {});
+            }).catch(function () {});
+          }, 20000);
         });
     }).catch(function (err) {
       setupError(err.message);
