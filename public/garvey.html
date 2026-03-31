@@ -973,7 +973,7 @@
                 </article>
                 <article class="ops-column" data-col="progress">
                   <h4>In Progress</h4>
-                  <div class="ops-list">
+                  <div class="ops-list" id="progressList">
                     <div class="ops-card">
                       <span class="tag">Workflow</span>
                       <h5>Onboarding Sequence</h5>
@@ -988,7 +988,7 @@
                 </article>
                 <article class="ops-column" data-col="completed">
                   <h4>Completed</h4>
-                  <div class="ops-list">
+                  <div class="ops-list" id="completedList">
                     <div class="ops-card completed">
                       <span class="tag">Checklist</span>
                       <h5>Payment Reconciliation</h5>
@@ -998,7 +998,7 @@
                 </article>
                 <article class="ops-column" data-col="fix">
                   <h4>Needs Fix</h4>
-                  <div class="ops-list">
+                  <div class="ops-list" id="fixList">
                     <div class="ops-card broken">
                       <span class="tag">Workflow</span>
                       <h5>Follow-up Automation</h5>
@@ -1487,6 +1487,10 @@
       var createChecklistBtn = document.getElementById("createChecklistBtn");
       var runRecurringBtn = document.getElementById("runRecurringBtn");
       var todoList = document.getElementById("todoList");
+      var progressList = document.getElementById("progressList");
+      var completedList = document.getElementById("completedList");
+      var fixList = document.getElementById("fixList");
+      var activeSystems = document.getElementById("activeSystems");
       var recurringStatus = document.getElementById("recurringStatus");
       var completionRate = document.getElementById("completionRate");
       var deliverableStatus = document.getElementById("deliverableStatus");
@@ -1644,6 +1648,10 @@
       loadStructureState().catch(function (err) {
         structureCompletionState.textContent = "Structure load failed: " + (err && err.message ? err.message : "unknown error");
       });
+      loadExecutionState().catch(function (err) {
+        recurringStatus.textContent = "Execution load failed: " + (err && err.message ? err.message : "unknown error");
+        renderExecutionState({ items: [], recurring_instances: [], completion: {} });
+      });
 
       var readinessValue = 72;
       function renderScoreColor(score) {
@@ -1798,6 +1806,127 @@
         renderStructureState(payload);
       }
 
+      function executionUrl(path) {
+        return "/api/execution" + path + "?tenant=" + encodeURIComponent(tenant);
+      }
+
+      function escapeHtml(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/\"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function formatExecutionType(itemType) {
+        var raw = String(itemType || "item").replace(/_/g, " ");
+        return raw.replace(/\b\w/g, function (ch) { return ch.toUpperCase(); });
+      }
+
+      function clearExecutionLists() {
+        [todoList, progressList, completedList, fixList].forEach(function (list) {
+          if (list) list.innerHTML = "";
+        });
+      }
+
+      function renderExecutionItemCard(item, fallbackColumn) {
+        var status = String(item && item.status || fallbackColumn || "To Do");
+        var lowerStatus = status.toLowerCase();
+        var classes = [];
+        if (lowerStatus.indexOf("recurring") >= 0 || String(item && item.item_type || "").toLowerCase() === "recurring_task") classes.push("recurring");
+        if (lowerStatus.indexOf("complete") >= 0) classes.push("completed");
+        if (lowerStatus.indexOf("fix") >= 0 || lowerStatus.indexOf("blocked") >= 0) classes.push("broken");
+        var detailParts = [];
+        if (item && item.details) detailParts.push(String(item.details));
+        if (item && item.cadence) detailParts.push("Cadence: " + String(item.cadence));
+        if (Array.isArray(item && item.steps) && item.steps.length) detailParts.push(item.steps.length + " step(s) mapped");
+        var detail = detailParts.join(" • ") || "Execution item is live and tracked.";
+        return (
+          '<div class="ops-card ' + classes.join(" ") + '">' +
+            '<span class="tag">' + escapeHtml(formatExecutionType(item && item.item_type)) + '</span>' +
+            '<h5>' + escapeHtml(item && item.title || "Untitled execution item") + '</h5>' +
+            '<div class="sub">' + escapeHtml(detail) + '</div>' +
+          '</div>'
+        );
+      }
+
+      function renderRecurringInstances(instances) {
+        if (!todoList || !Array.isArray(instances) || !instances.length) return;
+        instances.slice(0, 3).forEach(function (instance) {
+          var dateText = String(instance.generated_for || "").slice(0, 10) || "today";
+          var title = instance.title || "Recurring Instance";
+          todoList.insertAdjacentHTML(
+            "beforeend",
+            '<div class="ops-card recurring"><span class="tag">Recurring Instance</span><h5>' + escapeHtml(title) + '</h5><div class="sub">Generated for ' + escapeHtml(dateText) + " • Status: " + escapeHtml(instance.status || "pending") + "</div></div>"
+          );
+        });
+      }
+
+      function renderExecutionEmptyState() {
+        if (!todoList) return;
+        todoList.innerHTML =
+          '<div class="ops-card recurring"><span class="tag">Empty Machine</span><h5>No execution items yet</h5><div class="sub">Create SOPs, workflows, checklists, and recurring tasks to activate this board.</div></div>';
+      }
+
+      function renderExecutionState(payload) {
+        clearExecutionLists();
+        var items = Array.isArray(payload && payload.items) ? payload.items : [];
+        var recurringInstances = Array.isArray(payload && payload.recurring_instances) ? payload.recurring_instances : [];
+        var completion = payload && payload.completion ? payload.completion : {};
+        var totalCount = items.length;
+        var completedCount = items.filter(function (item) {
+          return String(item.status || "").toLowerCase().indexOf("complete") >= 0;
+        }).length;
+        var activeCount = items.filter(function (item) {
+          var status = String(item.status || "").toLowerCase();
+          return status.indexOf("complete") < 0 && status.indexOf("fix") < 0;
+        }).length;
+
+        items.forEach(function (item) {
+          var status = String(item.status || "To Do").toLowerCase();
+          var targetList = todoList;
+          if (status.indexOf("progress") >= 0) targetList = progressList || todoList;
+          else if (status.indexOf("complete") >= 0) targetList = completedList || todoList;
+          else if (status.indexOf("fix") >= 0 || status.indexOf("blocked") >= 0) targetList = fixList || todoList;
+          if (targetList) targetList.insertAdjacentHTML("beforeend", renderExecutionItemCard(item, item.status));
+        });
+
+        renderRecurringInstances(recurringInstances);
+        if (!totalCount && recurringInstances.length === 0) renderExecutionEmptyState();
+
+        if (activeSystems) activeSystems.textContent = activeCount + " Active System" + (activeCount === 1 ? "" : "s");
+        var denominator = totalCount || 1;
+        var rate = Math.round((completedCount / denominator) * 100);
+        completionRate.textContent = totalCount ? (rate + "% complete") : "0% complete";
+        recurringStatus.textContent = completion.recurring_tasks_functioning
+          ? "Recurring engine active (" + recurringInstances.length + " instance" + (recurringInstances.length === 1 ? "" : "s") + ")"
+          : "Recurring engine awaiting task + run";
+        var deliverableCount = items.filter(function (item) { return item.item_type === "deliverable_task"; }).length;
+        deliverableStatus.textContent = deliverableCount > 0
+          ? (deliverableCount + " deliverable task" + (deliverableCount === 1 ? "" : "s") + " in system")
+          : "No deliverable tasks yet";
+      }
+
+      async function saveExecutionItem(itemType, options) {
+        var response = await fetch(executionUrl("/items"), {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(Object.assign({ item_type: itemType }, options || {})),
+        });
+        var payload = await safeJson(response);
+        if (!response.ok) throw new Error(payload.error || "Unable to save " + itemType);
+        return payload.item;
+      }
+
+      async function loadExecutionState() {
+        if (!tenant) return;
+        var response = await fetch(executionUrl("/state"), { headers: { Accept: "application/json" } });
+        var payload = await safeJson(response);
+        if (!response.ok) throw new Error(payload.error || "Unable to load execution state");
+        renderExecutionState(payload);
+      }
+
       if (addRoleBtn) {
         addRoleBtn.addEventListener("click", async function () {
           try {
@@ -1909,36 +2038,92 @@
       }
 
       if (createSopBtn) {
-        createSopBtn.addEventListener("click", function () {
-          var created = addCard(todoList, "SOP", "Closing SOP v2", "Workflow created with smooth green pulse.", "ops-pulse");
-          setTimeout(function () { created.classList.remove("ops-pulse"); }, 1300);
-          completionRate.textContent = "74% this week";
+        createSopBtn.addEventListener("click", async function () {
+          try {
+            var processName = window.prompt("SOP process name", "Daily Operations");
+            if (!processName) return;
+            var suggestionRes = await fetch(executionUrl("/gadget/sop-builder"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ process_name: processName, owner: "Operations Lead" }),
+            });
+            var suggestionPayload = await safeJson(suggestionRes);
+            if (!suggestionRes.ok) throw new Error(suggestionPayload.error || "SOP generation failed");
+            var sop = suggestionPayload.sop || {};
+            await saveExecutionItem("sop", {
+              title: sop.title || (processName + " SOP"),
+              details: "Owner: " + (sop.owner || "Operations Lead"),
+              steps: Array.isArray(sop.checklist) ? sop.checklist : [],
+            });
+            await loadExecutionState();
+          } catch (err) {
+            completionRate.textContent = "Create SOP failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
 
       if (addWorkflowBtn) {
-        addWorkflowBtn.addEventListener("click", function () {
-          var progressList = document.querySelector('[data-col="progress"] .ops-list');
-          var created = addCard(progressList, "Workflow", "Fulfillment Workflow", "Workflow created = smooth green pulse.", "ops-pulse");
-          setTimeout(function () { created.classList.remove("ops-pulse"); }, 1300);
-          deliverableStatus.textContent = "3 packages in progress";
+        addWorkflowBtn.addEventListener("click", async function () {
+          try {
+            var title = window.prompt("Workflow title", "Onboarding Workflow");
+            if (!title) return;
+            var stepOne = window.prompt("Step 1", "Intake review");
+            var stepTwo = window.prompt("Step 2", "Owner assignment");
+            await saveExecutionItem("workflow", {
+              title: title,
+              details: "Workflow initialized from operations board",
+              steps: [stepOne, stepTwo].filter(Boolean),
+            });
+            await loadExecutionState();
+          } catch (err) {
+            deliverableStatus.textContent = "Add Workflow failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
 
       if (createChecklistBtn && needsFixColumn) {
-        createChecklistBtn.addEventListener("click", function () {
-          var fixList = needsFixColumn.querySelector(".ops-list");
-          addCard(fixList, "Checklist", "Broken Sequence Audit", "Needs fix alert triggered for stalled step.", "broken");
-          needsFixColumn.classList.add("ops-alert");
-          setTimeout(function () { needsFixColumn.classList.remove("ops-alert"); }, 1600);
+        createChecklistBtn.addEventListener("click", async function () {
+          try {
+            var title = window.prompt("Checklist title", "Daily Review Checklist");
+            if (!title) return;
+            var first = window.prompt("Checklist step 1", "Review open tasks");
+            var second = window.prompt("Checklist step 2", "Confirm blockers");
+            await saveExecutionItem("checklist", {
+              title: title,
+              details: "Checklist mapped for execution quality",
+              steps: [first, second].filter(Boolean),
+            });
+            await loadExecutionState();
+          } catch (err) {
+            recurringStatus.textContent = "Create Checklist failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
 
       if (runRecurringBtn) {
-        runRecurringBtn.addEventListener("click", function () {
-          addCard(todoList, "Recurring Task", "Auto-generated Daily Follow-up", "Recurring instance generated = instant live update.", "recurring");
-          recurringStatus.textContent = "Live instance generated just now";
-          completionRate.textContent = "76% this week";
+        runRecurringBtn.addEventListener("click", async function () {
+          try {
+            var recurringTitle = window.prompt("Recurring task title", "Daily Revenue Snapshot");
+            if (recurringTitle) {
+              await saveExecutionItem("recurring_task", {
+                title: recurringTitle,
+                details: "Generated from recurring engine action",
+                is_recurring: true,
+                cadence: "daily",
+                steps: ["Collect daily source data", "Publish summary in dashboard"],
+              });
+            }
+            var engineRes = await fetch(executionUrl("/gadget/recurring-engine"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ date: new Date().toISOString().slice(0, 10) }),
+            });
+            var enginePayload = await safeJson(engineRes);
+            if (!engineRes.ok) throw new Error(enginePayload.error || "Recurring engine failed");
+            await loadExecutionState();
+          } catch (err) {
+            recurringStatus.textContent = "Run Recurring Engine failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
 
