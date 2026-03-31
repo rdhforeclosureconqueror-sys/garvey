@@ -234,6 +234,93 @@
     color: #bbf7d0;
   }
 
+  .success-loop {
+    border-radius: 16px;
+    border: 1px solid rgba(74, 222, 128, 0.55);
+    background: linear-gradient(180deg, rgba(5, 24, 17, 0.9), rgba(4, 7, 18, 0.95));
+    padding: 16px;
+    display: grid;
+    gap: 12px;
+    box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.1), 0 0 22px rgba(34, 197, 94, 0.2);
+  }
+
+  .success-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .success-title {
+    margin: 0;
+    color: #bbf7d0;
+    font-size: 1.15rem;
+  }
+
+  .success-pill {
+    border-radius: 999px;
+    background: rgba(34, 197, 94, 0.16);
+    border: 1px solid rgba(74, 222, 128, 0.55);
+    color: #86efac;
+    padding: 5px 10px;
+    font-weight: 700;
+    font-size: 0.82rem;
+  }
+
+  .success-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .success-stat {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(8, 15, 31, 0.85);
+    padding: 10px 12px;
+  }
+
+  .success-stat .label {
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+
+  .success-stat .value {
+    margin-top: 4px;
+    font-size: 1.15rem;
+    font-weight: 800;
+  }
+
+  .success-stat .value.earned {
+    color: #4ade80;
+  }
+
+  .success-stat .value.total {
+    color: #fcd34d;
+  }
+
+  .success-momentum {
+    margin: 0;
+    color: #fcd34d;
+    font-weight: 700;
+  }
+
+  .next-cta {
+    border: 0;
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(180deg, #ef4444, #b91c1c);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .next-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.35);
+  }
+
   .cta-row {
     display: grid;
     gap: 10px;
@@ -375,6 +462,24 @@
     <section class="panel stack">
       <h2>Confirmation</h2>
       <div id="resultMessage" class="notice">Choose an action above to earn your reward.</div>
+      <article id="successLoop" class="success-loop hide" aria-live="polite">
+        <div class="success-head">
+          <h3 id="successTitle" class="success-title">Action complete</h3>
+          <span class="success-pill">Success</span>
+        </div>
+        <div class="success-grid">
+          <div class="success-stat">
+            <div class="label">Points Earned</div>
+            <div class="value earned" id="successPointsEarned">+0</div>
+          </div>
+          <div class="success-stat">
+            <div class="label">Updated Total</div>
+            <div class="value total" id="successUpdatedTotal">0 points</div>
+          </div>
+        </div>
+        <p id="successMomentum" class="success-momentum">You’re closer to your next reward.</p>
+        <button id="successNextAction" type="button" class="next-cta">Take Next Action</button>
+      </article>
       <div class="cta-row">
         <a id="backHome" class="link-btn" href="#">← Back Home</a>
         <a id="openDash" class="link-btn" href="#">View Progress Dashboard</a>
@@ -428,8 +533,57 @@ function showResult(payload) {
 
   document.getElementById("resultMessage").textContent = msg;
   document.getElementById("latestReward").textContent = pointsAdded > 0 ? `+${pointsAdded}` : "Saved";
+  renderSuccessLoop(payload, pointsAdded, total);
   if (pointsAdded > 0) animatePointsCount(total);
   setStep(4);
+}
+
+function normalizeActionType(payload) {
+  if (payload?.event) return safeTrim(payload.event).toLowerCase();
+  if (payload?.action_type) return safeTrim(payload.action_type).toLowerCase();
+  if (payload?.review) return "review";
+  if (payload?.referral) return "referral";
+  if (payload?.wishlist_entry) return "wishlist";
+  return state.actionType;
+}
+
+function nextActionFor(actionType) {
+  const flow = {
+    checkin: { next: "review", label: "Leave Review Next" },
+    review: { next: "referral", label: "Refer a Friend Next" },
+    referral: { next: "wishlist", label: "Save to Wishlist Next" },
+    wishlist: { next: "checkin", label: "Check In Next Visit" },
+  };
+  return flow[actionType] || { next: "checkin", label: "Take Next Action" };
+}
+
+function renderSuccessLoop(payload, pointsAdded, total) {
+  const actionType = normalizeActionType(payload);
+  const nextAction = nextActionFor(actionType);
+  const nextTarget = nextMilestone(total);
+  const remaining = Math.max(nextTarget - total, 0);
+  const thresholdNear = remaining <= 15;
+  const statusLine = {
+    checkin: "Check-In Complete",
+    review: "Review Submitted",
+    referral: "Referral Sent",
+    wishlist: "Wishlist Saved",
+  }[actionType] || "Action Complete";
+
+  const loop = document.getElementById("successLoop");
+  document.getElementById("successTitle").textContent = statusLine;
+  document.getElementById("successPointsEarned").textContent = `+${pointsAdded} points earned`;
+  document.getElementById("successUpdatedTotal").textContent = `You now have ${total} points`;
+  document.getElementById("successMomentum").textContent = thresholdNear
+    ? `You’re ${remaining} points away from your next reward`
+    : "Nice move — you’re building momentum";
+  const cta = document.getElementById("successNextAction");
+  cta.textContent = nextAction.label;
+  cta.dataset.next = nextAction.next;
+  loop.classList.remove("hide");
+  loop.classList.add("pulse");
+  setTimeout(() => loop.classList.remove("pulse"), 850);
+  loop.classList.toggle("near-complete", thresholdNear);
 }
 
 function nextMilestone(points) {
@@ -591,6 +745,12 @@ async function run() {
   document.getElementById("toggleDebugBtn").onclick = () => {
     document.getElementById("result").classList.toggle("hide");
     document.getElementById("statusPane").classList.toggle("hide");
+  };
+  document.getElementById("successNextAction").onclick = (event) => {
+    const next = event.currentTarget?.dataset?.next || "checkin";
+    state.actionType = next;
+    updateActionUI();
+    document.getElementById("submitAction").scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
   updateActionUI();
