@@ -59,6 +59,7 @@ const executionRoutes = require("./executionRoutes");
 const intelligenceRoutes = require("./intelligenceRoutes");
 const infrastructureRoutes = require("./infrastructureRoutes");
 const routingRoutes = require("./routingRoutes");
+const evolutionRoutes = require("./evolutionRoutes");
 const { generateSite } = require("./siteMaterializer");
 
 // Optional Site Generator (won't crash if missing)
@@ -606,6 +607,7 @@ app.use("/api/intelligence", intelligenceRoutes({ pool, ensureTenant }));
 app.use("/api/infrastructure", infrastructureRoutes({ pool, ensureTenant }));
 app.use("/api/routing", routingRoutes({ pool, ensureTenant }));
 app.use("/api/stability", routingRoutes({ pool, ensureTenant }));
+app.use("/api/evolution", evolutionRoutes({ pool, ensureTenant }));
 
 app.post("/api/campaigns/create", async (req, res) => {
   try {

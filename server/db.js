@@ -919,6 +919,66 @@ async function initializeDatabase() {
     CREATE INDEX IF NOT EXISTS notification_logs_tenant_issue_idx ON notification_logs(tenant_id, issue_id, created_at DESC);
   `);
 
+  // ==================================================
+  // EVALUATION + LAUNCH + EVOLUTION SYSTEM (PHASE 7)
+  // ==================================================
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS evaluation_records (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      score INT NOT NULL DEFAULT 0,
+      marketing_ready BOOLEAN NOT NULL DEFAULT FALSE,
+      launch_decision TEXT NOT NULL DEFAULT 'pending',
+      launch_state TEXT NOT NULL DEFAULT 'not_evaluated',
+      notes TEXT NOT NULL DEFAULT '',
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      decided_at TIMESTAMPTZ,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS yield_records (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      handoff_to TEXT NOT NULL DEFAULT '',
+      handoff_packet JSONB NOT NULL DEFAULT '{}'::jsonb,
+      status TEXT NOT NULL DEFAULT 'prepared',
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS improvement_records (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      title TEXT NOT NULL,
+      details TEXT NOT NULL DEFAULT '',
+      status TEXT NOT NULL DEFAULT 'logged',
+      record_type TEXT NOT NULL DEFAULT 'improvement',
+      impact_score NUMERIC(10,2) NOT NULL DEFAULT 0,
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS knowledge_entries (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      title TEXT NOT NULL,
+      body TEXT NOT NULL DEFAULT '',
+      topic TEXT NOT NULL DEFAULT 'general',
+      source TEXT NOT NULL DEFAULT 'system',
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE INDEX IF NOT EXISTS evaluation_records_tenant_idx ON evaluation_records(tenant_id, created_at DESC);
+    CREATE INDEX IF NOT EXISTS yield_records_tenant_idx ON yield_records(tenant_id, created_at DESC);
+    CREATE INDEX IF NOT EXISTS improvement_records_tenant_idx ON improvement_records(tenant_id, status, created_at DESC);
+    CREATE INDEX IF NOT EXISTS knowledge_entries_tenant_idx ON knowledge_entries(tenant_id, topic, created_at DESC);
+  `);
+
   console.log("✅ Database ready");
 }
 
