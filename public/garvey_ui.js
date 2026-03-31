@@ -42,6 +42,7 @@
   // -------------------------
   const STORAGE_KEY = "garvey_ctx_v1";
   const LOGIN_STORAGE_KEY = "garvey_login_ctx_v1";
+  const CUSTOMER_ENGINE_STORAGE_KEY = "garvey_customer_return_engine_v1";
 
   function safeTrim(v) {
     return String(v ?? "").trim();
@@ -117,6 +118,13 @@
     const saved = writeLoginCtx(merged);
     writeStoredCtx(saved);
     return saved;
+  }
+
+  function clearCtx() {
+    try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+    try { localStorage.removeItem(LOGIN_STORAGE_KEY); } catch (_) {}
+    try { localStorage.removeItem(CUSTOMER_ENGINE_STORAGE_KEY); } catch (_) {}
+    return { tenant: "", email: "", rid: "", cid: "" };
   }
 
   function loginCtx() {
@@ -219,6 +227,7 @@
     ctx,
     loginCtx,
     setLoginCtx,
+    clearCtx,
     withCtx,
     applyCtxToLinks,
     getTenant, // legacy compatibility for kanban/pages

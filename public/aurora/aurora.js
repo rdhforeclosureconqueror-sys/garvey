@@ -127,15 +127,16 @@
     setHref("drawerDashboardLink", "/dashboard.html");
 
     // Hero CTAs
-    setEarnFlowLink("startHereBtn", engineInstance, "/rewards_premium.html");
-    setHref("ownerIntakeBtn", "/intake.html?assessment=business_owner");
-    setHref("customerVocBtn", "/voc.html");
+    setHref("ownerAssessmentBtn", "/intake.html?assessment=business_owner");
+    setHref("ownerDashboardBtn", "/dashboard.html");
+    setHref("ownerHubBtn", "/garvey.html");
+    setHref("ownerGrowthTestBtn", "/garvey_premium.html");
 
     // Mini cards / core links
-    setHref("garveyPremiumLink", "/garvey_premium.html");
-    setEarnFlowLink("rewardsPremiumLink", engineInstance, "/rewards_premium.html");
-    setHref("templatesLink", "/templates.html");
-    setHref("dashboardLink", "/dashboard.html");
+    setHref("businessAssessmentMiniLink", "/intake.html?assessment=business_owner");
+    setHref("ownerDashboardMiniLink", "/dashboard.html");
+    setHref("ownerHubMiniLink", "/garvey.html");
+    setHref("growthTestMiniLink", "/garvey_premium.html");
 
     // Owner controls
     setHref("dashLink", "/dashboard.html");
@@ -148,7 +149,6 @@
 
     // Optional extra IDs used by the richer homepage
     setEarnFlowLink("navRewardsLink2", engineInstance, "/rewards_premium.html");
-    setHref("customerVocBtn2", "/voc.html");
     setHref("navGarveyLink2", "/garvey_premium.html");
     setHref("navDashboardLink2", "/dashboard.html");
   }
