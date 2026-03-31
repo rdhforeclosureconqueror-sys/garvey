@@ -174,9 +174,9 @@ a{color:inherit}
 }
 .au-btn:active{transform: translateY(1px)}
 .au-btn--primary{
-  background:linear-gradient(135deg,var(--gold),var(--rose));
-  border-color:transparent;
-  color:#000;
+  background:var(--rose);
+  border-color:color-mix(in oklab, var(--rose) 70%, #fff 30%);
+  color:#fff;
 }
 .au-btn--ghost{background:transparent}
 
@@ -189,6 +189,9 @@ a{color:inherit}
 }
 .au-card--glass{
   background: color-mix(in oklab, var(--panel) 72%, transparent);
+}
+.au-card--gold-outline{
+  border-color: color-mix(in oklab, var(--gold) 65%, transparent);
 }
 .au-card--link{
   text-decoration:none;
@@ -220,11 +223,12 @@ a{color:inherit}
 }
 .au-mini{
   text-decoration:none;
-  border:1px solid var(--border);
+  border:1px solid color-mix(in oklab, var(--gold) 40%, var(--border));
   background:var(--panel);
   border-radius:14px;
   padding:12px;
 }
+.au-success{color:#5be68d; font-weight:900}
 .au-mini__k{color:var(--muted); font-weight:900; font-size:12px; letter-spacing:.2px}
 .au-mini__v{font-weight:900; margin-top:4px}
 
