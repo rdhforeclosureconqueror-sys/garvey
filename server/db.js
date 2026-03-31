@@ -506,6 +506,41 @@ async function initializeDatabase() {
     CREATE INDEX IF NOT EXISTS kanban_events_tenant_board_idx ON kanban_card_events(tenant_id, board_id, created_at DESC);
   `);
 
+  // ==================================================
+  // FOUNDATION SYSTEM (PHASE 1)
+  // ==================================================
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS foundation_cards (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      board_id BIGINT NOT NULL REFERENCES kanban_boards(id) ON DELETE CASCADE,
+      kanban_card_id BIGINT NOT NULL REFERENCES kanban_cards(id) ON DELETE CASCADE,
+      card_type TEXT NOT NULL,
+      title TEXT NOT NULL,
+      content TEXT NOT NULL DEFAULT '',
+      status TEXT NOT NULL DEFAULT 'Draft',
+      column_name TEXT NOT NULL DEFAULT 'Draft',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (tenant_id, card_type)
+    );
+
+    CREATE TABLE IF NOT EXISTS foundation_journeys (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE UNIQUE,
+      business_id TEXT NOT NULL,
+      intake_snapshot JSONB NOT NULL DEFAULT '{}'::jsonb,
+      journey JSONB NOT NULL DEFAULT '{}'::jsonb,
+      value_assets JSONB NOT NULL DEFAULT '[]'::jsonb,
+      deliverables JSONB NOT NULL DEFAULT '[]'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE INDEX IF NOT EXISTS foundation_cards_tenant_idx ON foundation_cards(tenant_id, card_type);
+    CREATE INDEX IF NOT EXISTS foundation_journeys_tenant_idx ON foundation_journeys(tenant_id);
+  `);
+
   console.log("✅ Database ready");
 }
 
