@@ -167,7 +167,7 @@
   }
 
   .pulse {
-    animation: pulseGlow 850ms ease;
+    animation: pulseGlow 620ms ease-out;
   }
 
   .near-complete {
@@ -204,6 +204,41 @@
   }
   .action-btn strong { display: block; }
   .action-btn span { color: var(--muted); font-size: 0.9rem; }
+  .action-btn .done-mark {
+    display: none;
+    margin-left: 8px;
+    color: #bbf7d0;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  .action-btn.completed {
+    border-color: rgba(74, 222, 128, 0.72);
+    box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.18), 0 0 20px rgba(74, 222, 128, 0.22);
+    background: rgba(12, 44, 27, 0.6);
+  }
+  .action-btn.completed .done-mark { display: inline-block; }
+  .action-btn.recommended {
+    border-color: rgba(251, 191, 36, 0.7);
+    box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.25), 0 0 18px rgba(251, 191, 36, 0.2);
+  }
+
+  .notice.fade-in {
+    animation: fadeInNotice 420ms ease-out;
+  }
+
+  .success-loop.reveal {
+    animation: fadeInUp 460ms ease-out;
+  }
+
+  @keyframes fadeInNotice {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(8px) scale(0.99); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
 
   input, select, textarea, button {
     width: 100%;
@@ -388,19 +423,19 @@
         <h2>Choose your action</h2>
         <div class="actions" id="actionCards">
           <button type="button" class="action-btn active" data-type="checkin">
-            <strong>Quick Check-In</strong>
+            <strong>Quick Check-In <span class="done-mark">✓ Completed</span></strong>
             <span>Fastest way to earn points instantly.</span>
           </button>
           <button type="button" class="action-btn" data-type="review">
-            <strong>Leave a Review</strong>
+            <strong>Leave a Review <span class="done-mark">✓ Completed</span></strong>
             <span>Share your feedback and unlock bonus value.</span>
           </button>
           <button type="button" class="action-btn" data-type="referral">
-            <strong>Refer a Friend</strong>
+            <strong>Refer a Friend <span class="done-mark">✓ Completed</span></strong>
             <span>Invite someone and both of you can benefit.</span>
           </button>
           <button type="button" class="action-btn" data-type="wishlist">
-            <strong>Add to Wishlist</strong>
+            <strong>Add to Wishlist <span class="done-mark">✓ Completed</span></strong>
             <span>Save what you want next and keep momentum.</span>
           </button>
         </div>
@@ -496,7 +531,7 @@
 "use strict";
 
 const engine = window.CustomerReturnEngine.createDefaultEngine();
-const state = { actionType: "checkin", status: null };
+const state = { actionType: "checkin", status: null, completedActions: new Set(), recommendedAction: "checkin" };
 const ACTIONS_PER_CYCLE = 5;
 const REWARD_MILESTONES = [50, 100, 150, 250, 500];
 
@@ -531,9 +566,17 @@ function showResult(payload) {
   else if (payload?.referral || payload?.event === "referral") msg = `Referral sent! Nice move for repeat rewards.`;
   else if (payload?.wishlist_entry) msg = "Wishlist item saved! We'll remind you next visit.";
 
-  document.getElementById("resultMessage").textContent = msg;
+  const resultMessage = document.getElementById("resultMessage");
+  resultMessage.textContent = msg;
+  resultMessage.classList.remove("fade-in");
+  void resultMessage.offsetWidth;
+  resultMessage.classList.add("fade-in");
   document.getElementById("latestReward").textContent = pointsAdded > 0 ? `+${pointsAdded}` : "Saved";
   renderSuccessLoop(payload, pointsAdded, total);
+  const completed = normalizeActionType(payload);
+  state.completedActions.add(completed);
+  state.recommendedAction = nextActionFor(completed).next;
+  updateActionUI();
   if (pointsAdded > 0) animatePointsCount(total);
   setStep(4);
 }
@@ -581,8 +624,11 @@ function renderSuccessLoop(payload, pointsAdded, total) {
   cta.textContent = nextAction.label;
   cta.dataset.next = nextAction.next;
   loop.classList.remove("hide");
+  loop.classList.remove("reveal");
+  void loop.offsetWidth;
+  loop.classList.add("reveal");
   loop.classList.add("pulse");
-  setTimeout(() => loop.classList.remove("pulse"), 850);
+  setTimeout(() => loop.classList.remove("pulse"), 620);
   loop.classList.toggle("near-complete", thresholdNear);
 }
 
@@ -628,7 +674,7 @@ function updateMotivationPanel(points, actionCount, streak) {
     : "One quick action gets you closer";
 
   momentum.classList.add("pulse");
-  setTimeout(() => momentum.classList.remove("pulse"), 850);
+  setTimeout(() => momentum.classList.remove("pulse"), 620);
   momentum.classList.toggle("near-complete", nearCompletion);
 }
 
@@ -657,7 +703,12 @@ async function refreshStatus() {
 
 function updateActionUI() {
   document.querySelectorAll(".action-btn").forEach((btn) => {
-    btn.classList.toggle("active", btn.dataset.type === state.actionType);
+    const isActive = btn.dataset.type === state.actionType;
+    const isCompleted = state.completedActions.has(btn.dataset.type);
+    const isRecommended = btn.dataset.type === state.recommendedAction;
+    btn.classList.toggle("active", isActive);
+    btn.classList.toggle("completed", isCompleted);
+    btn.classList.toggle("recommended", isRecommended);
   });
   document.getElementById("reviewWrap").classList.toggle("hide", state.actionType !== "review");
   document.getElementById("referralWrap").classList.toggle("hide", state.actionType !== "referral");
