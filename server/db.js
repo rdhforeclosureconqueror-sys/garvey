@@ -786,6 +786,139 @@ async function initializeDatabase() {
     CREATE INDEX IF NOT EXISTS infrastructure_links_tenant_idx ON infrastructure_links(tenant_id, status, created_at DESC);
   `);
 
+  // ==================================================
+  // ROUTING + STABILITY SYSTEM (PHASE 6)
+  // ==================================================
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS stability_cards (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      business_id TEXT NOT NULL DEFAULT '',
+      phase TEXT NOT NULL DEFAULT 'stability',
+      board TEXT NOT NULL DEFAULT 'issues_board',
+      type TEXT NOT NULL,
+      title TEXT NOT NULL,
+      content TEXT NOT NULL DEFAULT '',
+      severity TEXT NOT NULL DEFAULT 'medium',
+      owner TEXT NOT NULL DEFAULT '',
+      assigned_to TEXT NOT NULL DEFAULT '',
+      due_date DATE,
+      escalation_level INT NOT NULL DEFAULT 0,
+      status TEXT NOT NULL DEFAULT 'open',
+      column_name TEXT NOT NULL DEFAULT 'Detected',
+      board_id BIGINT REFERENCES kanban_boards(id) ON DELETE SET NULL,
+      kanban_card_id BIGINT REFERENCES kanban_cards(id) ON DELETE SET NULL,
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS issues (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      board_id BIGINT NOT NULL REFERENCES kanban_boards(id) ON DELETE CASCADE,
+      kanban_card_id BIGINT NOT NULL REFERENCES kanban_cards(id) ON DELETE CASCADE,
+      business_id TEXT NOT NULL DEFAULT '',
+      issue_key TEXT NOT NULL,
+      title TEXT NOT NULL,
+      description TEXT NOT NULL DEFAULT '',
+      severity TEXT NOT NULL DEFAULT 'medium',
+      card_type TEXT NOT NULL DEFAULT 'issue',
+      owner TEXT NOT NULL DEFAULT '',
+      assigned_to TEXT NOT NULL DEFAULT '',
+      due_date DATE,
+      escalation_level INT NOT NULL DEFAULT 0,
+      current_column TEXT NOT NULL DEFAULT 'Detected',
+      status TEXT NOT NULL DEFAULT 'open',
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (tenant_id, issue_key)
+    );
+
+    CREATE TABLE IF NOT EXISTS routing_tasks (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      issue_id BIGINT NOT NULL REFERENCES issues(id) ON DELETE CASCADE,
+      business_id TEXT NOT NULL DEFAULT '',
+      task_type TEXT NOT NULL DEFAULT 'routing_task',
+      title TEXT NOT NULL,
+      owner TEXT NOT NULL DEFAULT '',
+      assignee TEXT NOT NULL DEFAULT 'unassigned',
+      route_to TEXT NOT NULL DEFAULT '',
+      due_date DATE,
+      escalation_level INT NOT NULL DEFAULT 0,
+      status TEXT NOT NULL DEFAULT 'queued',
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS milestone_logs (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      issue_id BIGINT REFERENCES issues(id) ON DELETE SET NULL,
+      business_id TEXT NOT NULL DEFAULT '',
+      milestone_id TEXT NOT NULL DEFAULT '',
+      milestone_key TEXT NOT NULL,
+      milestone_name TEXT NOT NULL DEFAULT '',
+      status TEXT NOT NULL DEFAULT 'logged',
+      sent_at TIMESTAMPTZ,
+      message TEXT NOT NULL DEFAULT '',
+      triggered_by TEXT NOT NULL DEFAULT 'system',
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS notification_logs (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      issue_id BIGINT REFERENCES issues(id) ON DELETE SET NULL,
+      business_id TEXT NOT NULL DEFAULT '',
+      channel TEXT NOT NULL DEFAULT 'system',
+      recipient TEXT NOT NULL DEFAULT '',
+      subject TEXT NOT NULL DEFAULT '',
+      target TEXT NOT NULL DEFAULT '',
+      message TEXT NOT NULL DEFAULT '',
+      sent_on TIMESTAMPTZ,
+      milestone_id TEXT NOT NULL DEFAULT '',
+      preview TEXT NOT NULL DEFAULT '',
+      delivery_status TEXT NOT NULL DEFAULT 'queued',
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    ALTER TABLE issues ADD COLUMN IF NOT EXISTS business_id TEXT NOT NULL DEFAULT '';
+    ALTER TABLE issues ADD COLUMN IF NOT EXISTS owner TEXT NOT NULL DEFAULT '';
+    ALTER TABLE issues ADD COLUMN IF NOT EXISTS assigned_to TEXT NOT NULL DEFAULT '';
+    ALTER TABLE issues ADD COLUMN IF NOT EXISTS due_date DATE;
+    ALTER TABLE issues ADD COLUMN IF NOT EXISTS escalation_level INT NOT NULL DEFAULT 0;
+
+    ALTER TABLE routing_tasks ADD COLUMN IF NOT EXISTS business_id TEXT NOT NULL DEFAULT '';
+    ALTER TABLE routing_tasks ADD COLUMN IF NOT EXISTS owner TEXT NOT NULL DEFAULT '';
+    ALTER TABLE routing_tasks ADD COLUMN IF NOT EXISTS due_date DATE;
+    ALTER TABLE routing_tasks ADD COLUMN IF NOT EXISTS escalation_level INT NOT NULL DEFAULT 0;
+
+    ALTER TABLE milestone_logs ADD COLUMN IF NOT EXISTS business_id TEXT NOT NULL DEFAULT '';
+    ALTER TABLE milestone_logs ADD COLUMN IF NOT EXISTS milestone_id TEXT NOT NULL DEFAULT '';
+    ALTER TABLE milestone_logs ADD COLUMN IF NOT EXISTS milestone_name TEXT NOT NULL DEFAULT '';
+    ALTER TABLE milestone_logs ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'logged';
+    ALTER TABLE milestone_logs ADD COLUMN IF NOT EXISTS sent_at TIMESTAMPTZ;
+
+    ALTER TABLE notification_logs ADD COLUMN IF NOT EXISTS business_id TEXT NOT NULL DEFAULT '';
+    ALTER TABLE notification_logs ADD COLUMN IF NOT EXISTS recipient TEXT NOT NULL DEFAULT '';
+    ALTER TABLE notification_logs ADD COLUMN IF NOT EXISTS subject TEXT NOT NULL DEFAULT '';
+    ALTER TABLE notification_logs ADD COLUMN IF NOT EXISTS sent_on TIMESTAMPTZ;
+    ALTER TABLE notification_logs ADD COLUMN IF NOT EXISTS milestone_id TEXT NOT NULL DEFAULT '';
+    ALTER TABLE notification_logs ADD COLUMN IF NOT EXISTS preview TEXT NOT NULL DEFAULT '';
+
+    CREATE INDEX IF NOT EXISTS stability_cards_tenant_type_idx ON stability_cards(tenant_id, type, status, created_at DESC);
+    CREATE INDEX IF NOT EXISTS issues_tenant_status_idx ON issues(tenant_id, status, severity, created_at DESC);
+    CREATE INDEX IF NOT EXISTS routing_tasks_tenant_issue_idx ON routing_tasks(tenant_id, issue_id, status, created_at DESC);
+    CREATE INDEX IF NOT EXISTS milestone_logs_tenant_issue_idx ON milestone_logs(tenant_id, issue_id, created_at DESC);
+    CREATE INDEX IF NOT EXISTS notification_logs_tenant_issue_idx ON notification_logs(tenant_id, issue_id, created_at DESC);
+  `);
+
   console.log("✅ Database ready");
 }
 
