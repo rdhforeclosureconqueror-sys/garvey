@@ -259,6 +259,8 @@
     font-weight: 800;
     cursor: pointer;
     border: 0;
+    min-height: 52px;
+    font-size: 1rem;
   }
 
   .notice {
@@ -385,6 +387,17 @@
 
   @media (max-width: 800px) {
     .steps { grid-template-columns: 1fr; }
+    body { padding: 16px 12px 96px; }
+    .panel { padding: 14px; border-radius: 14px; }
+    .action-btn { min-height: 64px; }
+    #submitAction {
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      z-index: 100;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+    }
   }
 </style>
 </head>
@@ -518,10 +531,7 @@
       <div class="cta-row">
         <a id="backHome" class="link-btn" href="#">← Back Home</a>
         <a id="openDash" class="link-btn" href="#">View Progress Dashboard</a>
-        <button id="toggleDebugBtn" type="button">Toggle debug JSON</button>
       </div>
-      <pre id="statusPane" class="hide">Status not loaded yet.</pre>
-      <pre id="result" class="hide">Run an action to see response JSON.</pre>
     </section>
   </main>
 
@@ -555,7 +565,6 @@ function currentCtx() {
 }
 
 function showResult(payload) {
-  document.getElementById("result").textContent = JSON.stringify(payload, null, 2);
   const pointsAdded = Number(payload?.points_added || 0);
   const total = Number(payload?.points || payload?.user?.points || state.status?.points || 0);
   let msg = "Action recorded successfully.";
@@ -690,7 +699,6 @@ function updateStatusCards(payload) {
 }
 
 function showStatus(payload) {
-  document.getElementById("statusPane").textContent = JSON.stringify(payload, null, 2);
   updateStatusCards(payload);
   setStep(3);
 }
@@ -793,10 +801,6 @@ async function run() {
     refreshStatus().catch((err) => showResult({ error: err.message }));
   };
 
-  document.getElementById("toggleDebugBtn").onclick = () => {
-    document.getElementById("result").classList.toggle("hide");
-    document.getElementById("statusPane").classList.toggle("hide");
-  };
   document.getElementById("successNextAction").onclick = (event) => {
     const next = event.currentTarget?.dataset?.next || "checkin";
     state.actionType = next;

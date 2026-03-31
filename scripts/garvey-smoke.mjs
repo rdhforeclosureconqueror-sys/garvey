@@ -247,6 +247,7 @@ async function runRewardFlow() {
   const status = await httpJson(`/api/rewards/status?tenant=${encodeURIComponent(TENANT)}&email=${encodeURIComponent(EMAIL)}`);
   assert(status.res.ok, `rewards status failed: ${status.res.status} ${status.text}`);
   assert(status.json?.success === true, "rewards status success !== true");
+  const startPoints = Number(status.json?.points || status.json?.user?.points || 0);
 
   const checkin = await httpJson(`/api/rewards/checkin`, {
     method: "POST",
@@ -254,14 +255,38 @@ async function runRewardFlow() {
   });
   assert(checkin.res.ok, `checkin failed: ${checkin.res.status} ${checkin.text}`);
   assert(typeof checkin.json?.points_added === "number", "checkin missing points_added");
+  assert(Number(checkin.json?.points || 0) >= startPoints, "checkin should not reduce points");
 
-  const action = await httpJson(`/api/rewards/action`, {
+  const review = await httpJson(`/api/rewards/action`, {
     method: "POST",
     body: { tenant: TENANT, email: EMAIL, action_type: "review" },
   });
-  assert(action.res.ok, `action failed: ${action.res.status} ${action.text}`);
-  assert(typeof action.json?.points_added === "number", "action missing points_added");
-  assert(typeof action.json?.points === "number", "action missing points");
+  assert(review.res.ok, `review action failed: ${review.res.status} ${review.text}`);
+  assert(typeof review.json?.points_added === "number", "review missing points_added");
+  assert(typeof review.json?.points === "number", "review missing points");
+
+  const referral = await httpJson(`/api/rewards/action`, {
+    method: "POST",
+    body: { tenant: TENANT, email: EMAIL, action_type: "referral", referred_email: `friend+${Date.now()}@example.com` },
+  });
+  assert(referral.res.ok, `referral action failed: ${referral.res.status} ${referral.text}`);
+  assert(typeof referral.json?.points_added === "number", "referral missing points_added");
+  assert(typeof referral.json?.points === "number", "referral missing points");
+
+  const wishlist = await httpJson(`/api/rewards/action`, {
+    method: "POST",
+    body: { tenant: TENANT, email: EMAIL, action_type: "wishlist", product_name: "Smoke wishlist item" },
+  });
+  assert(wishlist.res.ok, `wishlist action failed: ${wishlist.res.status} ${wishlist.text}`);
+  assert(typeof wishlist.json?.points_added === "number", "wishlist missing points_added");
+  assert(typeof wishlist.json?.points === "number", "wishlist missing points");
+
+  const finalStatus = await httpJson(`/api/rewards/status?tenant=${encodeURIComponent(TENANT)}&email=${encodeURIComponent(EMAIL)}`);
+  assert(finalStatus.res.ok, `final rewards status failed: ${finalStatus.res.status} ${finalStatus.text}`);
+  const finalPoints = Number(finalStatus.json?.points || finalStatus.json?.user?.points || 0);
+  assert(finalPoints >= Number(review.json?.points || 0), "final points should include review update");
+  assert(finalPoints >= Number(referral.json?.points || 0), "final points should include referral update");
+  assert(finalPoints >= Number(wishlist.json?.points || 0), "final points should include wishlist update");
 }
 
 async function verifyAssessmentLinks() {
