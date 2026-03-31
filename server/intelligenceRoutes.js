@@ -115,24 +115,23 @@ async function ensureJourneyRecord(pool, tenantId, tenantSlug) {
 }
 
 async function appendIntelligenceJourneyEvent(pool, tenantId, eventType, payload = {}) {
+  const journeyEvent = {
+    phase: "intelligence",
+    event_type: eventType,
+    timestamp: new Date().toISOString(),
+    payload: payload || {},
+  };
   await pool.query(
     `UPDATE foundation_journeys
      SET journey = jsonb_set(
        COALESCE(journey, '{}'::jsonb),
        '{events}',
-       COALESCE(journey->'events', '[]'::jsonb) || jsonb_build_array(
-         jsonb_build_object(
-           'phase', 'intelligence',
-           'event_type', $2,
-           'timestamp', NOW(),
-           'payload', $3::jsonb
-         )
-       ),
+       COALESCE(journey->'events', '[]'::jsonb) || jsonb_build_array($2::jsonb),
        true
      ),
      updated_at = NOW()
      WHERE tenant_id=$1`,
-    [tenantId, eventType, JSON.stringify(payload || {})]
+    [tenantId, JSON.stringify(journeyEvent)]
   );
 }
 
