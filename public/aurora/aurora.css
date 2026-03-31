@@ -275,3 +275,56 @@ a{color:inherit}
   .au-nav__burger{display:inline-flex}
   .au-mini-grid{grid-template-columns:1fr}
 }
+
+.au-clarity-panel{
+  border:1px solid color-mix(in oklab, var(--gold) 55%, var(--border));
+  background:linear-gradient(180deg, rgba(0,0,0,.42), rgba(0,0,0,.62));
+  border-radius:var(--radius);
+  padding:16px;
+  box-shadow:0 0 0 1px rgba(0,0,0,.45), 0 12px 32px rgba(0,0,0,.35);
+}
+
+.au-clarity-panel__head{margin-bottom:12px}
+
+.au-clarity-steps{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+}
+
+.au-clarity-step{
+  display:flex;
+  gap:10px;
+  border:1px solid color-mix(in oklab, var(--gold) 28%, var(--border));
+  border-radius:14px;
+  padding:12px;
+  background:rgba(8,10,10,.84);
+}
+
+.au-clarity-step__num{
+  width:28px;
+  height:28px;
+  flex:0 0 28px;
+  display:grid;
+  place-items:center;
+  border-radius:999px;
+  font-weight:900;
+  color:#062313;
+  background:color-mix(in oklab, var(--mint) 88%, #fff 12%);
+  border:1px solid color-mix(in oklab, var(--mint) 55%, #fff 10%);
+}
+
+.au-clarity-step__title{
+  margin:0 0 4px;
+  font-size:16px;
+}
+
+.au-clarity-note{
+  margin:12px 0 0;
+  color:color-mix(in oklab, var(--mint) 65%, var(--text) 35%);
+  font-weight:700;
+}
+
+@media (max-width: 980px){
+  .au-clarity-steps{grid-template-columns:1fr}
+}
