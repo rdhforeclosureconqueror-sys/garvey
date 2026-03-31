@@ -507,11 +507,7 @@ async function initializeDatabase() {
   `);
 
   // ==================================================
-  // STRUCTURE SYSTEM (PHASE 2)
-  // ==================================================
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS structure_cards (
-  // FOUNDATION SYSTEM (PHASE 1)
+  // FOUNDATION SYSTEM (PHASE 1) + STRUCTURE SYSTEM (PHASE 2)
   // ==================================================
   await pool.query(`
     CREATE TABLE IF NOT EXISTS foundation_cards (
@@ -522,10 +518,35 @@ async function initializeDatabase() {
       card_type TEXT NOT NULL,
       title TEXT NOT NULL,
       content TEXT NOT NULL DEFAULT '',
-      column_name TEXT NOT NULL DEFAULT 'Needed',
-      status TEXT NOT NULL DEFAULT 'Needed',
       status TEXT NOT NULL DEFAULT 'Draft',
       column_name TEXT NOT NULL DEFAULT 'Draft',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (tenant_id, card_type)
+    );
+
+    CREATE TABLE IF NOT EXISTS foundation_journeys (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE UNIQUE,
+      business_id TEXT NOT NULL,
+      intake_snapshot JSONB NOT NULL DEFAULT '{}'::jsonb,
+      journey JSONB NOT NULL DEFAULT '{}'::jsonb,
+      value_assets JSONB NOT NULL DEFAULT '[]'::jsonb,
+      deliverables JSONB NOT NULL DEFAULT '[]'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS structure_cards (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      board_id BIGINT NOT NULL REFERENCES kanban_boards(id) ON DELETE CASCADE,
+      kanban_card_id BIGINT NOT NULL REFERENCES kanban_cards(id) ON DELETE CASCADE,
+      card_type TEXT NOT NULL,
+      title TEXT NOT NULL,
+      content TEXT NOT NULL DEFAULT '',
+      column_name TEXT NOT NULL DEFAULT 'Needed',
+      status TEXT NOT NULL DEFAULT 'Needed',
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       UNIQUE (tenant_id, card_type)
@@ -552,23 +573,64 @@ async function initializeDatabase() {
       operator_name TEXT,
       operator_email TEXT,
       mode TEXT NOT NULL DEFAULT 'manual',
-    CREATE TABLE IF NOT EXISTS foundation_journeys (
-      id BIGSERIAL PRIMARY KEY,
-      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE UNIQUE,
-      business_id TEXT NOT NULL,
-      intake_snapshot JSONB NOT NULL DEFAULT '{}'::jsonb,
-      journey JSONB NOT NULL DEFAULT '{}'::jsonb,
-      value_assets JSONB NOT NULL DEFAULT '[]'::jsonb,
-      deliverables JSONB NOT NULL DEFAULT '[]'::jsonb,
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     );
 
+    CREATE INDEX IF NOT EXISTS foundation_cards_tenant_idx ON foundation_cards(tenant_id, card_type);
+    CREATE INDEX IF NOT EXISTS foundation_journeys_tenant_idx ON foundation_journeys(tenant_id);
     CREATE INDEX IF NOT EXISTS structure_cards_tenant_idx ON structure_cards(tenant_id, card_type);
     CREATE INDEX IF NOT EXISTS structure_roles_tenant_idx ON structure_roles(tenant_id, role_name);
     CREATE INDEX IF NOT EXISTS structure_operator_tenant_idx ON structure_operator_assignments(tenant_id);
-    CREATE INDEX IF NOT EXISTS foundation_cards_tenant_idx ON foundation_cards(tenant_id, card_type);
-    CREATE INDEX IF NOT EXISTS foundation_journeys_tenant_idx ON foundation_journeys(tenant_id);
+  `);
+
+  // ==================================================
+  // EXECUTION SYSTEM (PHASE 3)
+  // ==================================================
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS execution_cards (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      board_id BIGINT NOT NULL REFERENCES kanban_boards(id) ON DELETE CASCADE,
+      kanban_card_id BIGINT NOT NULL REFERENCES kanban_cards(id) ON DELETE CASCADE,
+      card_type TEXT NOT NULL,
+      title TEXT NOT NULL,
+      content TEXT NOT NULL DEFAULT '',
+      column_name TEXT NOT NULL DEFAULT 'To Do',
+      status TEXT NOT NULL DEFAULT 'To Do',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (tenant_id, card_type)
+    );
+
+    CREATE TABLE IF NOT EXISTS execution_items (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      item_type TEXT NOT NULL,
+      title TEXT NOT NULL,
+      details TEXT NOT NULL DEFAULT '',
+      steps JSONB NOT NULL DEFAULT '[]'::jsonb,
+      is_recurring BOOLEAN NOT NULL DEFAULT FALSE,
+      cadence TEXT,
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS execution_recurring_instances (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      source_item_id BIGINT NOT NULL REFERENCES execution_items(id) ON DELETE CASCADE,
+      generated_for DATE NOT NULL,
+      title TEXT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'pending',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (tenant_id, source_item_id, generated_for)
+    );
+
+    CREATE INDEX IF NOT EXISTS execution_cards_tenant_idx ON execution_cards(tenant_id, card_type);
+    CREATE INDEX IF NOT EXISTS execution_items_tenant_idx ON execution_items(tenant_id, item_type, created_at DESC);
+    CREATE INDEX IF NOT EXISTS execution_recurring_tenant_idx ON execution_recurring_instances(tenant_id, generated_for DESC);
   `);
 
   console.log("✅ Database ready");
