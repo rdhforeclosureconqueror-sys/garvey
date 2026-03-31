@@ -526,6 +526,90 @@
       gap: 8px;
     }
 
+    .routing-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .routing-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .routing-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 12px;
+    }
+    .routing-main { display: grid; gap: 12px; }
+    .routing-board {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px;
+      background: #111315;
+    }
+    .routing-cols {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .routing-col {
+      border: 1px solid #2b2f36;
+      border-radius: 10px;
+      background: #181b20;
+      padding: 8px;
+      min-height: 190px;
+    }
+    .routing-col h4 {
+      margin: 0 0 8px;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .routing-list { display: grid; gap: 8px; }
+    .routing-card {
+      border: 1px solid #39404a;
+      border-radius: 9px;
+      padding: 8px;
+      background: #0f1318;
+    }
+    .routing-card small { color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+    .routing-card.issue {
+      border-color: rgba(255, 45, 45, 0.95);
+      box-shadow: var(--shadow-red);
+      background: rgba(255, 45, 45, 0.1);
+    }
+    .routing-card.investigating {
+      border-color: rgba(242, 193, 78, 0.95);
+      box-shadow: var(--shadow-gold);
+    }
+    .routing-card.fixing {
+      border-color: #ff8f3c;
+      box-shadow: 0 0 18px rgba(255, 143, 60, 0.28);
+      background: rgba(255, 143, 60, 0.09);
+    }
+    .routing-card.resolved {
+      border-color: rgba(0, 255, 154, 0.95);
+      box-shadow: var(--shadow-green);
+    }
+    .routing-card.documented {
+      border-color: rgba(242, 193, 78, 0.95);
+      background: #121418;
+      color: #d3d8df;
+    }
+    .routing-actions {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .red-pulse-live { animation: routingRedPulse .9s ease-out 2; }
+    .escalation-flash { animation: routingEscalationFlash .35s linear 5; }
+    .gold-highlight { animation: routingGoldFlash .8s ease-out 2; }
+    .green-confirm { animation: routingGreenConfirm 1s ease-out 2; }
+
     @keyframes intelRedPulse {
       0%,100% { box-shadow: none; }
       50% { box-shadow: var(--shadow-red); }
@@ -553,6 +637,22 @@
     @keyframes dangerFlash {
       0%, 100% { box-shadow: none; }
       50% { box-shadow: var(--shadow-red); }
+    }
+    @keyframes routingRedPulse {
+      0%,100% { box-shadow: none; }
+      50% { box-shadow: var(--shadow-red); }
+    }
+    @keyframes routingEscalationFlash {
+      0%,100% { box-shadow: none; border-color: #2a2e34; }
+      50% { box-shadow: var(--shadow-red), var(--shadow-gold); border-color: var(--gold); }
+    }
+    @keyframes routingGoldFlash {
+      0%,100% { box-shadow: none; }
+      50% { box-shadow: var(--shadow-gold); }
+    }
+    @keyframes routingGreenConfirm {
+      0%,100% { box-shadow: none; }
+      50% { box-shadow: var(--shadow-green); }
     }
 
     .phase1-grid {
@@ -589,12 +689,16 @@
       .intel-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .infra-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .infra-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .routing-layout { grid-template-columns: 1fr; }
+      .routing-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .routing-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 700px) {
       .ops-board, .ops-actions { grid-template-columns: 1fr; }
       .intel-cols, .intel-actions { grid-template-columns: 1fr; }
       .infra-cols, .infra-actions { grid-template-columns: 1fr; }
+      .routing-cols, .routing-actions { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -921,6 +1025,80 @@
 
         <section id="phase-6" class="card phase-panel">
           <h3>Phase 6 — Routing &amp; Stability UI</h3>
+          <div class="routing-header">
+            <div class="phase-row">
+              <span class="pill active">Control &amp; Correction</span>
+              <span class="pill">issues_board</span>
+            </div>
+          </div>
+          <p class="routing-subtitle">Operate a live command system for issue detection, routing, escalation, and corrective control.</p>
+          <div class="routing-layout">
+            <div class="routing-main">
+              <article class="routing-board">
+                <h2 style="margin:0 0 8px;">ISSUES KANBAN BOARD</h2>
+                <div class="routing-cols">
+                  <div class="routing-col">
+                    <h4>Detected</h4>
+                    <div class="routing-list" id="routingDetectedList">
+                      <div class="routing-card issue">
+                        <small>issue</small>
+                        <div>Checkout timeout spike in mobile flow</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="routing-col">
+                    <h4>Investigating</h4>
+                    <div class="routing-list" id="routingInvestigatingList">
+                      <div class="routing-card investigating">
+                        <small>routing_task</small>
+                        <div>Trace failed API retries in intake handler</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="routing-col">
+                    <h4>Fixing</h4>
+                    <div class="routing-list" id="routingFixingList">
+                      <div class="routing-card fixing">
+                        <small>milestone_prompt</small>
+                        <div>Patch queue throttling thresholds</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="routing-col">
+                    <h4>Resolved</h4>
+                    <div class="routing-list" id="routingResolvedList">
+                      <div class="routing-card resolved">
+                        <small>issue</small>
+                        <div>Webhook authentication mismatch corrected</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="routing-col">
+                    <h4>Documented</h4>
+                    <div class="routing-list" id="routingDocumentedList">
+                      <div class="routing-card documented">
+                        <small>postmortem</small>
+                        <div>Incident #114 timeline and safeguards archived</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <div class="routing-actions">
+                <button class="btn primary" id="logIssueBtn">Log Issue</button>
+                <button class="btn primary" id="createRoutingTaskBtn">Create Routing Task</button>
+                <button class="btn primary" id="triggerEscalationBtn">Trigger Escalation</button>
+                <button class="btn primary" id="logMilestoneBtn">Log Milestone</button>
+                <button class="btn primary" id="logNotificationBtn">Log Notification</button>
+              </div>
+            </div>
+            <aside class="ops-side">
+              <div class="ops-side-item"><strong>Escalation Level</strong><span id="routingEscalationLevel">Level 1 — Monitoring</span></div>
+              <div class="ops-side-item"><strong>Active Alerts</strong><span id="routingActiveAlerts">2 active alerts</span></div>
+              <div class="ops-side-item"><strong>Milestone Log Count</strong><span id="routingMilestoneCount">4 milestones logged</span></div>
+              <div class="ops-side-item"><strong>Notification Log Count</strong><span id="routingNotificationCount">9 notifications dispatched</span></div>
+            </aside>
+          </div>
         </section>
 
         <section id="phase-7" class="card phase-panel">
@@ -981,6 +1159,24 @@
       var infraRecommendedStatus = document.getElementById("infraRecommendedStatus");
       var infraMissingStatus = document.getElementById("infraMissingStatus");
       var infraDocumentationStatus = document.getElementById("infraDocumentationStatus");
+      var routingDetectedList = document.getElementById("routingDetectedList");
+      var routingInvestigatingList = document.getElementById("routingInvestigatingList");
+      var routingFixingList = document.getElementById("routingFixingList");
+      var routingResolvedList = document.getElementById("routingResolvedList");
+      var routingDocumentedList = document.getElementById("routingDocumentedList");
+      var logIssueBtn = document.getElementById("logIssueBtn");
+      var createRoutingTaskBtn = document.getElementById("createRoutingTaskBtn");
+      var triggerEscalationBtn = document.getElementById("triggerEscalationBtn");
+      var logMilestoneBtn = document.getElementById("logMilestoneBtn");
+      var logNotificationBtn = document.getElementById("logNotificationBtn");
+      var routingEscalationLevel = document.getElementById("routingEscalationLevel");
+      var routingActiveAlerts = document.getElementById("routingActiveAlerts");
+      var routingMilestoneCount = document.getElementById("routingMilestoneCount");
+      var routingNotificationCount = document.getElementById("routingNotificationCount");
+      var routingMilestones = 4;
+      var routingNotifications = 9;
+      var routingAlerts = 2;
+      var routingEscalation = 1;
 
       var readinessValue = 72;
       function renderScoreColor(score) {
@@ -1017,6 +1213,14 @@
         if (!container) return null;
         var card = document.createElement("div");
         card.className = "infra-card " + (classes || "");
+        card.innerHTML = "<small>" + type + "</small><div>" + title + "</div>";
+        container.prepend(card);
+        return card;
+      }
+      function addRoutingCard(container, type, title, classes) {
+        if (!container) return null;
+        var card = document.createElement("div");
+        card.className = "routing-card " + (classes || "");
         card.innerHTML = "<small>" + type + "</small><div>" + title + "</div>";
         container.prepend(card);
         return card;
@@ -1145,6 +1349,57 @@
               setTimeout(function () { okCard.classList.remove("green-highlight"); }, 1200);
             }
           }
+        });
+      }
+
+      if (logIssueBtn) {
+        logIssueBtn.addEventListener("click", function () {
+          var issue = addRoutingCard(routingDetectedList, "issue", "Payment gateway handshake failures detected", "issue red-pulse-live");
+          routingAlerts += 1;
+          routingActiveAlerts.textContent = routingAlerts + " active alerts";
+          if (issue) setTimeout(function () { issue.classList.remove("red-pulse-live"); }, 1200);
+        });
+      }
+
+      if (createRoutingTaskBtn) {
+        createRoutingTaskBtn.addEventListener("click", function () {
+          var task = addRoutingCard(routingInvestigatingList, "routing_task", "Route failure cluster to API reliability squad", "investigating gold-highlight");
+          routingActiveAlerts.textContent = routingAlerts + " active alerts (triage in progress)";
+          if (task) setTimeout(function () { task.classList.remove("gold-highlight"); }, 1000);
+        });
+      }
+
+      if (triggerEscalationBtn) {
+        triggerEscalationBtn.addEventListener("click", function () {
+          routingEscalation = Math.min(5, routingEscalation + 1);
+          routingEscalationLevel.textContent = "Level " + routingEscalation + " — Command escalation active";
+          routingEscalationLevel.parentElement.classList.add("escalation-flash");
+          routingActiveAlerts.textContent = routingAlerts + " active alerts (escalated)";
+          setTimeout(function () { routingEscalationLevel.parentElement.classList.remove("escalation-flash"); }, 1800);
+        });
+      }
+
+      if (logMilestoneBtn) {
+        logMilestoneBtn.addEventListener("click", function () {
+          var card = addRoutingCard(routingFixingList, "milestone_prompt", "Rollback completed, validating recovery metrics", "fixing");
+          routingMilestones += 1;
+          routingMilestoneCount.textContent = routingMilestones + " milestones logged";
+          if (card) {
+            card.classList.add("gold-highlight");
+            setTimeout(function () { card.classList.remove("gold-highlight"); }, 1000);
+          }
+        });
+      }
+
+      if (logNotificationBtn) {
+        logNotificationBtn.addEventListener("click", function () {
+          var resolved = addRoutingCard(routingResolvedList, "issue", "Routing patch deployed and error rate normalized", "resolved green-confirm");
+          addRoutingCard(routingDocumentedList, "postmortem", "Notification dispatch + response log captured", "documented");
+          routingNotifications += 1;
+          routingAlerts = Math.max(0, routingAlerts - 1);
+          routingNotificationCount.textContent = routingNotifications + " notifications dispatched";
+          routingActiveAlerts.textContent = routingAlerts + " active alerts";
+          if (resolved) setTimeout(function () { resolved.classList.remove("green-confirm"); }, 1200);
         });
       }
     })();
