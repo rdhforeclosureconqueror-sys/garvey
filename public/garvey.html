@@ -4,209 +4,305 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>G.A.R.V.E.Y Command Surface</title>
+  <title>G.A.R.V.E.Y Master Dashboard</title>
   <script src="/garvey_ui.js" defer></script>
   <style>
     :root {
-      --bg: #0A0A0A;
-      --primary: #FF2E2E;
-      --success: #00FF9C;
-      --gold: #FFD700;
-      --neutral: #1A1A1A;
-      --text: #f3f3f3;
-      --muted: #9f9f9f;
-      --line: rgba(255, 46, 46, 0.35);
-      --glow: 0 0 18px rgba(255, 46, 46, 0.25);
+      --bg: #070707;
+      --card: #111111;
+      --card-2: #141414;
+      --line: rgba(255, 255, 255, 0.09);
+      --text: #f2f2f2;
+      --muted: #9c9c9c;
+      --red: #ff2e2e;
+      --green: #00ff9c;
+      --gray: #3a3a3a;
+      --shadow-red: 0 0 18px rgba(255, 46, 46, 0.35);
+      --shadow-green: 0 0 16px rgba(0, 255, 156, 0.28);
     }
+
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
+      font-family: "Segoe UI", Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 88% 10%, rgba(255, 46, 46, 0.16), transparent 38%),
+        var(--bg);
       color: var(--text);
-      font-family: "Segoe UI", Inter, Roboto, Arial, sans-serif;
-      background: radial-gradient(circle at 80% 10%, rgba(255,46,46,0.09), transparent 35%), var(--bg);
     }
-    .layout { min-height: 100vh; display: grid; grid-template-columns: 280px 1fr; }
-    .sidebar {
-      padding: 18px 14px;
-      border-right: 1px solid var(--line);
-      background: linear-gradient(180deg, #0d0d0d, #090909);
-    }
-    .brand {
-      margin-bottom: 14px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: var(--glow);
-      text-align: center;
-    }
-    .phase-nav { display: flex; flex-direction: column; gap: 9px; }
-    .phase-btn {
-      width: 100%;
-      text-align: left;
-      border: 1px solid rgba(255, 46, 46, 0.2);
-      border-radius: 10px;
-      padding: 11px;
-      background: var(--neutral);
-      color: var(--text);
-      text-transform: uppercase;
-      font-weight: 700;
-      letter-spacing: .6px;
-      cursor: pointer;
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-    }
-    .phase-btn:hover { transform: translateY(-2px); box-shadow: var(--glow); border-color: var(--primary); }
-    .phase-btn.active { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(255,215,0,.4), var(--glow); }
 
-    .main { padding: 14px; }
-    .topbar { display: grid; grid-template-columns: repeat(4, minmax(120px, 1fr)); gap: 10px; margin-bottom: 12px; }
-    .box { background: #121212; border: 1px solid rgba(255,255,255,.07); border-radius: 12px; padding: 12px; }
-    .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
-    .value { margin-top: 4px; font-size: 16px; font-weight: 700; }
-    #readinessScore { color: var(--success); }
+    .shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
 
-    .panel {
-      background: #111;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .title {
+      margin: 0;
+      font-size: 26px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .tenant {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, var(--card), var(--card-2));
       border: 1px solid var(--line);
       border-radius: 14px;
-      padding: 16px;
-      box-shadow: var(--glow);
-      animation: pulse 2.5s ease-in-out infinite;
-      margin-bottom: 12px;
-    }
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 46, 46, 0.2); }
-      50% { box-shadow: 0 0 14px 1px rgba(255, 46, 46, 0.34); }
+      padding: 14px;
     }
 
-    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
-    .btn {
-      text-decoration: none;
-      border: 1px solid rgba(255,255,255,.15);
-      border-radius: 10px;
-      padding: 10px 12px;
-      color: var(--text);
-      background: #151515;
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .phase-card { grid-column: span 12; }
+    .readiness-card { grid-column: span 4; }
+    .status-card { grid-column: span 8; }
+    .activity-card { grid-column: span 6; }
+    .quick-card { grid-column: span 6; }
+
+    .phase-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .phase-pill {
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 12px;
       font-weight: 700;
-      transition: transform .18s ease, box-shadow .18s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      border: 1px solid transparent;
+      background: #1f1f1f;
     }
-    .btn:hover { transform: translateY(-2px); box-shadow: var(--glow); }
 
-    @media (max-width: 1000px) {
-      .layout { grid-template-columns: 1fr; }
-      .topbar { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
-      .phase-nav { display: grid; grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+    .phase-pill.locked {
+      color: #c6c6c6;
+      background: #252525;
+      border-color: #3b3b3b;
+    }
+
+    .phase-pill.active {
+      color: #fff;
+      background: rgba(255, 46, 46, 0.2);
+      border-color: var(--red);
+      box-shadow: var(--shadow-red);
+    }
+
+    .phase-pill.complete {
+      color: #d8ffee;
+      background: rgba(0, 255, 156, 0.18);
+      border-color: var(--green);
+      box-shadow: var(--shadow-green);
+    }
+
+    .score {
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 1;
+      margin: 0 0 10px;
+    }
+
+    .kv {
+      margin: 8px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .kv strong {
+      color: var(--text);
+      display: inline-block;
+      min-width: 88px;
+    }
+
+    .action-btn {
+      margin-top: 12px;
+      display: inline-block;
+      text-decoration: none;
+      color: #fff;
+      border: 1px solid var(--red);
+      background: rgba(255, 46, 46, 0.15);
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-weight: 700;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .action-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-red); }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .status-item {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .timeline {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .timeline li {
+      position: relative;
+      padding-left: 18px;
+      color: #e1e1e1;
+      font-weight: 600;
+    }
+
+    .timeline li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: var(--shadow-red);
+    }
+
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .quick-btn {
+      text-decoration: none;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.15);
+      background: #1a1a1a;
+      border-radius: 10px;
+      padding: 11px;
+      text-align: center;
+      font-weight: 700;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+
+    .quick-btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--red);
+    }
+
+    @media (max-width: 900px) {
+      .readiness-card,
+      .status-card,
+      .activity-card,
+      .quick-card { grid-column: span 12; }
     }
   </style>
 </head>
 <body>
-  <div class="layout">
-    <aside class="sidebar">
-      <div class="brand">G.A.R.V.E.Y UI</div>
-      <nav class="phase-nav" id="phaseNav"></nav>
-    </aside>
+  <main class="shell">
+    <header class="header">
+      <h1 class="title">Master Dashboard (Home)</h1>
+      <div class="tenant" id="tenantPill">Tenant: -</div>
+    </header>
 
-    <main class="main">
-      <section class="topbar">
-        <div class="box">
-          <div class="label">Business Name</div>
-          <div class="value" id="tenantPill">Tenant: -</div>
+    <section class="grid">
+      <article class="card phase-card">
+        <h2>Section 1 — Phase Progression Bar</h2>
+        <div class="phase-row">
+          <span class="phase-pill complete">Foundation</span>
+          <span class="phase-pill complete">Structure</span>
+          <span class="phase-pill active">Execution</span>
+          <span class="phase-pill locked">Intelligence</span>
+          <span class="phase-pill locked">Infrastructure</span>
+          <span class="phase-pill locked">Stability</span>
+          <span class="phase-pill locked">Evolution</span>
         </div>
-        <div class="box">
-          <div class="label">Readiness Score</div>
-          <div class="value" id="readinessScore">72%</div>
-        </div>
-        <div class="box">
-          <div class="label">Active Phase</div>
-          <div class="value" id="activePhase">Dashboard</div>
-        </div>
-        <div class="box">
-          <div class="label">Notifications</div>
-          <div class="value" id="notificationCount">0 alerts</div>
-        </div>
-      </section>
+      </article>
 
-      <section class="panel">
-        <h1 id="phaseTitle" style="margin:0 0 8px; text-transform:uppercase;">Dashboard</h1>
-        <p id="phaseDescription" style="margin:0; color:#c4c4c4;"></p>
-        <div class="actions">
-          <a class="btn" id="siteBtn" href="#">View Generated Site</a>
-          <a class="btn" id="g" href="#">G — Gather</a>
-          <a class="btn" id="a" href="#">A — Assess</a>
-          <a class="btn" id="r" href="#">R — Route</a>
-          <a class="btn" id="v" href="#">V — Value</a>
-          <a class="btn" id="e" href="#">E — Evaluate</a>
-          <a class="btn" id="y" href="#">Y — Yield</a>
-          <a class="btn" id="dashboardBtn" href="#">Owner Dashboard</a>
+      <article class="card readiness-card">
+        <h2>Section 2 — Readiness Core</h2>
+        <p class="score">72</p>
+        <p class="kv"><strong>Gap:</strong> → Missing EIN</p>
+        <p class="kv"><strong>Next Action:</strong></p>
+        <a class="action-btn" href="#">Fix EIN →</a>
+      </article>
+
+      <article class="card status-card">
+        <h2>Section 3 — System Status Grid</h2>
+        <div class="status-grid">
+          <div class="status-item"><span>Roles Assigned</span><span>✅</span></div>
+          <div class="status-item"><span>Workflows Active</span><span>⚠️</span></div>
+          <div class="status-item"><span>KPIs Tracking</span><span>❌</span></div>
+          <div class="status-item"><span>Tools Ready</span><span>✅</span></div>
+          <div class="status-item"><span>Issues Active</span><span>⚠️</span></div>
         </div>
-      </section>
-    </main>
-  </div>
+      </article>
+
+      <article class="card activity-card">
+        <h2>Section 4 — Recent Activity</h2>
+        <ul class="timeline">
+          <li>Mission Created</li>
+          <li>Role Assigned</li>
+          <li>Gap Detected</li>
+          <li>Task Generated</li>
+        </ul>
+      </article>
+
+      <article class="card quick-card">
+        <h2>Section 5 — Quick Actions</h2>
+        <div class="quick-actions">
+          <a class="quick-btn" href="#">Create Task</a>
+          <a class="quick-btn" href="#">Fix Gap</a>
+          <a class="quick-btn" href="#">Add Role</a>
+          <a class="quick-btn" href="#">View Resources</a>
+        </div>
+      </article>
+    </section>
+  </main>
 
   <script>
     (function () {
-      var phaseDefs = [
-        { key: "Dashboard", desc: "Mission control snapshot for your business readiness and tactical execution." },
-        { key: "Foundation", desc: "Core setup integrity, brand fundamentals, and baseline confidence." },
-        { key: "Structure", desc: "System architecture, operating rhythm, and organizational alignment." },
-        { key: "Execution", desc: "Action throughput, completion velocity, and delivery consistency." },
-        { key: "Intelligence", desc: "Signal tracking, assessment insights, and decision support loops." },
-        { key: "Infrastructure", desc: "Toolchain resilience, platform reliability, and automation posture." },
-        { key: "Stability", desc: "Risk containment, continuity performance, and operational resilience." },
-        { key: "Evolution", desc: "Growth adaptation, iteration cadence, and strategic advancement." }
-      ];
-
-      var phaseNav = document.getElementById("phaseNav");
-      var activePhaseEl = document.getElementById("activePhase");
-      var phaseTitleEl = document.getElementById("phaseTitle");
-      var phaseDescEl = document.getElementById("phaseDescription");
-
-      function setPhase(key) {
-        var selected = phaseDefs.find(function (p) { return p.key === key; }) || phaseDefs[0];
-        activePhaseEl.textContent = selected.key;
-        phaseTitleEl.textContent = selected.key;
-        phaseDescEl.textContent = selected.desc;
-        Array.prototype.forEach.call(document.querySelectorAll(".phase-btn"), function (btn) {
-          btn.classList.toggle("active", btn.getAttribute("data-phase") === selected.key);
-        });
-      }
-
-      phaseDefs.forEach(function (phase) {
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "phase-btn";
-        btn.textContent = phase.key;
-        btn.setAttribute("data-phase", phase.key);
-        btn.addEventListener("click", function () { setPhase(phase.key); });
-        phaseNav.appendChild(btn);
-      });
-      setPhase("Dashboard");
-
       var ctx = (window.GARVEY && window.GARVEY.ctx)
         ? window.GARVEY.ctx()
-        : (function(){
+        : (function () {
             var p = new URLSearchParams(location.search);
-            return {
-              tenant: String(p.get("tenant") || "").trim(),
-              email: String(p.get("email") || "").trim().toLowerCase(),
-              rid: String(p.get("rid") || "").trim(),
-              cid: String(p.get("cid") || "").trim()
-            };
+            return { tenant: String(p.get("tenant") || "").trim() };
           })();
-
       var tenant = String(ctx.tenant || "").trim();
-      var withCtx = (window.GARVEY && window.GARVEY.withCtx) ? window.GARVEY.withCtx : function (href) { return href; };
       document.getElementById("tenantPill").textContent = "Tenant: " + (tenant || "(missing)");
-      document.getElementById("siteBtn").href = tenant ? ("/t/" + encodeURIComponent(tenant) + "/site") : "#";
-      document.getElementById("dashboardBtn").href = withCtx("/dashboard.html");
-
-      var pages = { g: "garvey-g.html", a: "garvey-a.html", r: "garvey-r.html", v: "garvey-v.html", e: "garvey-e.html", y: "garvey-y.html" };
-      Object.keys(pages).forEach(function (k) {
-        var el = document.getElementById(k);
-        if (el) el.href = withCtx("/" + pages[k]);
-      });
     })();
   </script>
 </body>
