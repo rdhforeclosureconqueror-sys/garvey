@@ -301,7 +301,7 @@
     var body = document.getElementById("campaignLinksBody");
     if (!body) return;
     if (!campaign) {
-      body.textContent = "Create or select a campaign to view links.";
+      body.textContent = "Create a campaign to view links.";
       return;
     }
     var links = campaign.share_links || {};
@@ -321,10 +321,31 @@
 
     var qr = document.getElementById("campaignQrPreview");
     if (!qr) return;
-    qr.src = apiUrl("/api/campaigns/qr", { tenant: tenant, cid: campaign.slug, target: "voc", format: "png" });
+    var qrSrc = apiUrl("/api/campaigns/qr", { tenant: tenant, cid: campaign.slug, target: "voc", format: "png" });
+    qr.src = qrSrc;
     qr.style.display = "block";
     var qrEmpty = document.getElementById("campaignQrEmpty");
     if (qrEmpty) qrEmpty.style.display = "none";
+
+    var linkOutput = document.getElementById("campaignLinkOutput");
+    if (linkOutput) linkOutput.value = links.voc || "";
+
+    var copyBtn = document.getElementById("copyCampaignLinkBtn");
+    if (copyBtn) {
+      copyBtn.onclick = function () {
+        if (!linkOutput || !linkOutput.value) return;
+        copyText(linkOutput.value).then(function () {
+          var msg = document.getElementById("campaignCreateMsg");
+          if (msg) msg.textContent = "Campaign link copied!";
+        });
+      };
+    }
+
+    var downloadBtn = document.getElementById("downloadCampaignQrBtn");
+    if (downloadBtn) {
+      downloadBtn.href = qrSrc;
+      downloadBtn.setAttribute("download", "campaign-" + safeTrim(campaign.slug || "qr") + ".png");
+    }
   }
 
   function renderCampaignSummary(summary) {
@@ -492,23 +513,33 @@
     if (!btn) return;
     btn.addEventListener("click", function () {
       var labelInput = document.getElementById("campaignLabelInput");
+      var sourceInput = document.getElementById("campaignSourceInput");
+      var mediumInput = document.getElementById("campaignMediumInput");
       var slugInput = document.getElementById("campaignSlugInput");
       var msgEl = document.getElementById("campaignCreateMsg");
       var label = safeTrim(labelInput && labelInput.value);
+      var source = safeTrim(sourceInput && sourceInput.value);
+      var medium = safeTrim(mediumInput && mediumInput.value);
       var slug = safeTrim(slugInput && slugInput.value);
 
       if (!label) {
-        if (msgEl) msgEl.textContent = "Campaign label is required.";
+        if (msgEl) msgEl.textContent = "Campaign name is required.";
         return;
       }
 
       jsonFetch(apiUrl("/api/campaigns/create"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tenant: tenant, label: label, slug: slug || undefined })
+        body: JSON.stringify({
+          tenant: tenant,
+          label: label,
+          slug: slug || undefined,
+          source: source || undefined,
+          medium: medium || undefined
+        })
       })
         .then(function (resp) {
-          if (msgEl) msgEl.textContent = "Campaign created: " + resp.campaign.slug;
+          if (msgEl) msgEl.textContent = "Campaign QR generated: " + resp.campaign.slug;
           renderCampaignLinks(tenant, resp.campaign);
           return jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail, cid, rid));
         })
