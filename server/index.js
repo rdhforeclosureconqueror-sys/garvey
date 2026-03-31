@@ -55,6 +55,7 @@ const {
 } = require("./kanbanRoutes");
 const structureRoutes = require("./structureRoutes");
 const foundationRoutes = require("./foundationRoutes");
+const executionRoutes = require("./executionRoutes");
 const { generateSite } = require("./siteMaterializer");
 
 // Optional Site Generator (won't crash if missing)
@@ -597,6 +598,7 @@ app.post("/api/templates/select", async (req, res) => {
 app.use("/api/kanban", kanbanRoutes({ pool, ensureTenant }));
 app.use("/api/structure", structureRoutes({ pool, ensureTenant }));
 app.use("/api/foundation", foundationRoutes({ pool, ensureTenant }));
+app.use("/api/execution", executionRoutes({ pool, ensureTenant }));
 
 app.post("/api/campaigns/create", async (req, res) => {
   try {
