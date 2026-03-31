@@ -174,16 +174,37 @@
   }
 
   function renderMetrics(dashboard) {
-    var el;
     var totalUsers = Number(dashboard.total_users || 0);
     var totalActions = Number(dashboard.total_actions || 0);
     var totalPoints = Number(dashboard.total_points || 0);
     var totalVisits = Number(dashboard.total_visits || 0);
     var repeatVisits = Math.max(0, totalVisits - totalUsers);
-    el = document.getElementById("metricUsers"); if (el) el.textContent = totalUsers;
-    el = document.getElementById("metricActions"); if (el) el.textContent = totalActions;
-    el = document.getElementById("metricPoints"); if (el) el.textContent = totalPoints;
-    el = document.getElementById("metricRepeatVisits"); if (el) el.textContent = repeatVisits;
+    animateMetricValue("metricUsers", totalUsers);
+    animateMetricValue("metricActions", totalActions);
+    animateMetricValue("metricPoints", totalPoints);
+    animateMetricValue("metricRepeatVisits", repeatVisits);
+  }
+
+  function animateMetricValue(id, nextValue) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var startValue = Number(el.getAttribute("data-value") || el.textContent || 0) || 0;
+    var targetValue = Number(nextValue || 0) || 0;
+    if (startValue === targetValue) return;
+    var start = performance.now();
+    var duration = 420;
+    function frame(now) {
+      var progress = Math.min((now - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var value = Math.round(startValue + ((targetValue - startValue) * eased));
+      el.textContent = String(value);
+      if (progress < 1) requestAnimationFrame(frame);
+      else el.setAttribute("data-value", String(targetValue));
+    }
+    el.classList.remove("metric-flash");
+    void el.offsetWidth;
+    el.classList.add("metric-flash");
+    requestAnimationFrame(frame);
   }
 
   function renderTable(customers) {
@@ -354,12 +375,13 @@
     }
     if (topSummary) {
       var top = normalized[0];
-      topSummary.textContent = top
+      var nextText = top
         ? ("Top campaign: " + top.label + " • " + top.conversions + " conversions (" + top.conversionRate + "% conversion rate)")
         : "No campaigns yet.";
+      animateTextSwap(topSummary, nextText);
     }
-    if (totalEl) totalEl.textContent = totalReviews + totalReferrals;
-    if (splitEl) splitEl.textContent = totalReviews + " reviews • " + totalReferrals + " referrals";
+    if (totalEl) animateMetricValue("metricReviewsReferrals", totalReviews + totalReferrals);
+    if (splitEl) animateTextSwap(splitEl, totalReviews + " reviews • " + totalReferrals + " referrals");
     var empty = document.getElementById("campaignsEmpty");
     if (empty) empty.style.display = rows.length ? "none" : "block";
   }
@@ -416,9 +438,29 @@
     feedEntries = feedEntries.slice(0, 12);
     var feed = document.getElementById("activityFeed");
     if (!feed) return;
-    feed.innerHTML = feedEntries.map(function (row) {
-      return "<div style='padding:6px 0;border-bottom:1px solid #2A2A2A;'><span>" + escapeHtml(row.text) + "</span><div class='muted'>" + row.ts.toLocaleTimeString() + "</div></div>";
-    }).join("") || "No activity yet.";
+    if (!feedEntries.length) {
+      feed.textContent = "No activity yet.";
+      return;
+    }
+    if (feed.children.length >= 12) feed.removeChild(feed.lastElementChild);
+    var row = feedEntries[0];
+    var item = document.createElement("div");
+    item.className = "activity-feed-item new";
+    item.innerHTML = "<span>" + escapeHtml(row.text) + "</span><div class='muted'>" + row.ts.toLocaleTimeString() + "</div>";
+    if (feed.classList.contains("empty-state")) feed.classList.remove("empty-state");
+    feed.insertBefore(item, feed.firstChild);
+    requestAnimationFrame(function () {
+      item.classList.remove("new");
+    });
+  }
+
+  function animateTextSwap(el, nextText) {
+    if (!el) return;
+    if (el.textContent === nextText) return;
+    el.textContent = nextText;
+    el.classList.remove("campaign-flash");
+    void el.offsetWidth;
+    el.classList.add("campaign-flash");
   }
 
   function updateFeedFromSummary(summary) {

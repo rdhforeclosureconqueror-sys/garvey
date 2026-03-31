@@ -81,6 +81,32 @@
     .panel-red>.panel-heading { background: #991b1b; }
     .empty-state { color: var(--muted); font-style: italic; padding: 12px 0; }
     .huge { font-size: 34px; font-weight: 700; }
+    .huge.metric-flash {
+      animation: metricFlash 420ms ease-out;
+    }
+    .campaign-flash {
+      animation: campaignFlash 420ms ease-out;
+    }
+    .activity-feed-item {
+      padding: 6px 0;
+      border-bottom: 1px solid #2A2A2A;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 280ms ease-out, transform 280ms ease-out;
+    }
+    .activity-feed-item.new {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    @keyframes metricFlash {
+      0% { color: #fff; text-shadow: none; transform: scale(1); }
+      35% { color: #bbf7d0; text-shadow: 0 0 10px rgba(0, 255, 156, 0.45); transform: scale(1.03); }
+      100% { color: #fff; text-shadow: none; transform: scale(1); }
+    }
+    @keyframes campaignFlash {
+      0% { opacity: 0.65; }
+      100% { opacity: 1; }
+    }
     .status-pill { display:inline-block; padding:2px 8px; border-radius:12px; font-size:12px; }
     .status-active { background: rgba(0,255,156,0.14); color: var(--success); border: 1px solid rgba(0,255,156,0.45); }
     .status-dormant { background: rgba(255,46,46,0.14); color: #ff9b9b; border: 1px solid rgba(255,46,46,0.45); }
