@@ -1556,10 +1556,12 @@
       var handoffStatus = document.getElementById("handoffStatus");
       var improvementCount = document.getElementById("improvementCount");
       var knowledgeEntries = document.getElementById("knowledgeEntries");
-      var routingMilestones = 4;
-      var routingNotifications = 9;
-      var routingAlerts = 2;
-      var routingEscalation = 1;
+      var routingMilestones = 0;
+      var routingNotifications = 0;
+      var routingAlerts = 0;
+      var routingEscalation = 0;
+      var routingIssuesCache = [];
+      var routingTasksCache = [];
       var growthImprovements = 3;
       var growthKnowledge = 5;
       var launchGateReady = false;
@@ -1656,6 +1658,10 @@
       loadInfrastructureState().catch(function (err) {
         infraValidationStatus.textContent = "Infrastructure load failed: " + (err && err.message ? err.message : "unknown error");
         renderInfrastructureEmptyGrid();
+      });
+      loadRoutingState().catch(function (err) {
+        routingEscalationLevel.textContent = "Routing load failed: " + (err && err.message ? err.message : "unknown error");
+        renderRoutingState(null);
       });
       loadIntelligenceState().catch(function (err) {
         verificationValue.textContent = "Intelligence load failed: " + (err && err.message ? err.message : "unknown error");
@@ -2079,6 +2085,129 @@
         }
 
         renderInfrastructureState(hubPayload, recPayload);
+      }
+
+      function routingUrl(path) {
+        return "/api/stability" + path + "?tenant=" + encodeURIComponent(tenant);
+      }
+
+      function clearRoutingLists() {
+        [routingDetectedList, routingInvestigatingList, routingFixingList, routingResolvedList, routingDocumentedList].forEach(function (list) {
+          if (list) list.innerHTML = "";
+        });
+      }
+
+      function renderRoutingEmptyState() {
+        if (!routingDetectedList) return;
+        routingDetectedList.innerHTML =
+          '<div class="routing-card issue"><small>issue</small><div>No active issues yet. Use Log Issue to start live routing.</div></div>';
+      }
+
+      function renderRoutingState(payload) {
+        clearRoutingLists();
+        var issues = Array.isArray(payload && payload.issues) ? payload.issues : [];
+        var tasks = Array.isArray(payload && payload.routing_tasks) ? payload.routing_tasks : [];
+        var cards = Array.isArray(payload && payload.stability_cards) ? payload.stability_cards : [];
+        var milestones = Array.isArray(payload && payload.milestone_logs) ? payload.milestone_logs : [];
+        var notifications = Array.isArray(payload && payload.notifications) ? payload.notifications : [];
+        var state = payload && payload.state ? payload.state : {};
+
+        routingIssuesCache = issues.slice();
+        routingTasksCache = tasks.slice();
+        routingMilestones = milestones.length;
+        routingNotifications = notifications.length;
+        routingAlerts = issues.filter(function (issue) {
+          return String(issue && issue.status || "").toLowerCase() !== "closed";
+        }).length;
+
+        var escalationFromIssues = issues.reduce(function (max, issue) {
+          return Math.max(max, Number(issue && issue.escalation_level || 0));
+        }, 0);
+        var escalationFromTasks = tasks.reduce(function (max, task) {
+          return Math.max(max, Number(task && task.escalation_level || 0));
+        }, 0);
+        routingEscalation = Math.max(escalationFromIssues, escalationFromTasks, 0);
+
+        issues.slice(0, 20).forEach(function (issue) {
+          var column = String(issue && issue.current_column || "Detected").toLowerCase();
+          var title = issue && issue.title || "Untitled issue";
+          if (column === "resolved") addRoutingCard(routingResolvedList, "issue", title, "resolved");
+          else if (column === "documented") addRoutingCard(routingDocumentedList, "issue", title, "documented");
+          else if (column === "fixing") addRoutingCard(routingFixingList, "issue", title, "fixing");
+          else if (column === "investigating") addRoutingCard(routingInvestigatingList, "issue", title, "investigating");
+          else addRoutingCard(routingDetectedList, "issue", title, "issue");
+        });
+
+        tasks.slice(0, 20).forEach(function (task) {
+          var taskStatus = String(task && task.status || "").toLowerCase();
+          var taskTitle = task && task.title || "Routing task";
+          if (taskStatus === "done") addRoutingCard(routingResolvedList, "routing_task", taskTitle, "resolved");
+          else if (taskStatus === "in_progress") addRoutingCard(routingInvestigatingList, "routing_task", taskTitle, "investigating");
+          else addRoutingCard(routingInvestigatingList, "routing_task", taskTitle, "investigating");
+        });
+
+        cards.slice(0, 20).forEach(function (card) {
+          var cardType = String(card && card.type || "");
+          var cardTitle = card && card.title || "Stability card";
+          if (cardType === "milestone_prompt") addRoutingCard(routingFixingList, "milestone_prompt", cardTitle, "fixing");
+          if (cardType === "postmortem") addRoutingCard(routingDocumentedList, "postmortem", cardTitle, "documented");
+        });
+
+        notifications.slice(0, 10).forEach(function (notice) {
+          var subject = String(notice && notice.subject || "Stability Notification").trim();
+          if (subject) addRoutingCard(routingDocumentedList, "postmortem", subject, "documented");
+        });
+
+        if (!issues.length && !tasks.length && !cards.length) renderRoutingEmptyState();
+
+        var completion = Number(state && state.completion_percentage);
+        var completionSuffix = Number.isFinite(completion) ? (" • " + completion + "% complete") : "";
+        routingEscalationLevel.textContent = "Level " + routingEscalation + " — Live escalation" + completionSuffix;
+        routingActiveAlerts.textContent = routingAlerts + " active alerts";
+        routingMilestoneCount.textContent = routingMilestones + " milestones logged";
+        routingNotificationCount.textContent = routingNotifications + " notifications dispatched";
+      }
+
+      async function loadRoutingState() {
+        if (!tenant) return;
+        try {
+          await fetch(routingUrl("/initialize"), {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({ tenant: tenant }),
+          });
+        } catch (_) {}
+
+        var requests = await Promise.all([
+          fetch(routingUrl("/state"), { headers: { Accept: "application/json" } }),
+          fetch(routingUrl("/issues"), { headers: { Accept: "application/json" } }),
+          fetch(routingUrl("/routing-tasks"), { headers: { Accept: "application/json" } }),
+          fetch(routingUrl("/milestones/log"), { headers: { Accept: "application/json" } }),
+          fetch(routingUrl("/notifications/log"), { headers: { Accept: "application/json" } }),
+          fetch(routingUrl("/verify"), { headers: { Accept: "application/json" } }),
+        ]);
+        var statePayload = await safeJson(requests[0]);
+        var issuesPayload = await safeJson(requests[1]);
+        var tasksPayload = await safeJson(requests[2]);
+        var milestonesPayload = await safeJson(requests[3]);
+        var notificationsPayload = await safeJson(requests[4]);
+        var verifyPayload = await safeJson(requests[5]);
+        if (!requests[0].ok) throw new Error(statePayload.error || "Unable to load stability state");
+        if (!requests[1].ok) throw new Error(issuesPayload.error || "Unable to load issues");
+        if (!requests[2].ok) throw new Error(tasksPayload.error || "Unable to load routing tasks");
+        if (!requests[3].ok) throw new Error(milestonesPayload.error || "Unable to load milestones");
+        if (!requests[4].ok) throw new Error(notificationsPayload.error || "Unable to load notification logs");
+        if (!requests[5].ok) throw new Error(verifyPayload.error || "Unable to verify stability state");
+
+        renderRoutingState({
+          state: statePayload,
+          issues: issuesPayload.issues,
+          stability_cards: issuesPayload.stability_cards,
+          routing_tasks: tasksPayload.routing_tasks,
+          milestone_logs: milestonesPayload.milestone_logs,
+          notifications: notificationsPayload.notifications,
+          verify: verifyPayload,
+        });
       }
 
       function escapeHtml(value) {
@@ -2585,53 +2714,128 @@
       }
 
       if (logIssueBtn) {
-        logIssueBtn.addEventListener("click", function () {
-          var issue = addRoutingCard(routingDetectedList, "issue", "Payment gateway handshake failures detected", "issue red-pulse-live");
-          routingAlerts += 1;
-          routingActiveAlerts.textContent = routingAlerts + " active alerts";
-          if (issue) setTimeout(function () { issue.classList.remove("red-pulse-live"); }, 1200);
+        logIssueBtn.addEventListener("click", async function () {
+          try {
+            var title = window.prompt("Issue title", "Payment gateway handshake failures detected");
+            if (!title) return;
+            var severity = (window.prompt("Severity (low, medium, high, critical)", "high") || "high").toLowerCase();
+            var response = await fetch(routingUrl("/issues"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ title: title, severity: severity }),
+            });
+            var payload = await safeJson(response);
+            if (!response.ok) throw new Error(payload.error || "Issue creation failed");
+            await loadRoutingState();
+          } catch (err) {
+            routingActiveAlerts.textContent = "Log Issue failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
 
       if (createRoutingTaskBtn) {
-        createRoutingTaskBtn.addEventListener("click", function () {
-          var task = addRoutingCard(routingInvestigatingList, "routing_task", "Route failure cluster to API reliability squad", "investigating gold-highlight");
-          routingActiveAlerts.textContent = routingAlerts + " active alerts (triage in progress)";
-          if (task) setTimeout(function () { task.classList.remove("gold-highlight"); }, 1000);
+        createRoutingTaskBtn.addEventListener("click", async function () {
+          try {
+            if (!routingIssuesCache.length) {
+              routingActiveAlerts.textContent = "No issue available yet. Log Issue first.";
+              return;
+            }
+            var sourceIssue = routingIssuesCache[0];
+            var taskTitle = window.prompt("Routing task title", "Route " + String(sourceIssue.title || "issue"));
+            if (!taskTitle) return;
+            var response = await fetch(routingUrl("/routing-tasks"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ issue_id: sourceIssue.id, title: taskTitle }),
+            });
+            var payload = await safeJson(response);
+            if (!response.ok) throw new Error(payload.error || "Routing task creation failed");
+            await loadRoutingState();
+          } catch (err) {
+            routingActiveAlerts.textContent = "Create Routing Task failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
 
       if (triggerEscalationBtn) {
-        triggerEscalationBtn.addEventListener("click", function () {
-          routingEscalation = Math.min(5, routingEscalation + 1);
-          routingEscalationLevel.textContent = "Level " + routingEscalation + " — Command escalation active";
-          routingEscalationLevel.parentElement.classList.add("escalation-flash");
-          routingActiveAlerts.textContent = routingAlerts + " active alerts (escalated)";
-          setTimeout(function () { routingEscalationLevel.parentElement.classList.remove("escalation-flash"); }, 1800);
+        triggerEscalationBtn.addEventListener("click", async function () {
+          try {
+            var nextEscalation = Math.min(5, routingEscalation + 1);
+            var response = await fetch(routingUrl("/milestones/prompts"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({
+                title: "Escalation triggered to level " + nextEscalation,
+                content: "Manual escalation action captured from stability console.",
+                escalation_level: nextEscalation,
+                severity: "critical",
+              }),
+            });
+            var payload = await safeJson(response);
+            if (!response.ok) throw new Error(payload.error || "Escalation trigger failed");
+            await loadRoutingState();
+            if (routingEscalationLevel && routingEscalationLevel.parentElement) {
+              routingEscalationLevel.parentElement.classList.add("escalation-flash");
+              setTimeout(function () { routingEscalationLevel.parentElement.classList.remove("escalation-flash"); }, 1800);
+            }
+          } catch (err) {
+            routingEscalationLevel.textContent = "Trigger Escalation failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
 
       if (logMilestoneBtn) {
-        logMilestoneBtn.addEventListener("click", function () {
-          var card = addRoutingCard(routingFixingList, "milestone_prompt", "Rollback completed, validating recovery metrics", "fixing");
-          routingMilestones += 1;
-          routingMilestoneCount.textContent = routingMilestones + " milestones logged";
-          if (card) {
-            card.classList.add("gold-highlight");
-            setTimeout(function () { card.classList.remove("gold-highlight"); }, 1000);
+        logMilestoneBtn.addEventListener("click", async function () {
+          try {
+            var milestoneName = window.prompt("Milestone key", "routing_recovery_checkpoint");
+            if (!milestoneName) return;
+            var response = await fetch(routingUrl("/milestones/log"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({
+                milestone_key: milestoneName,
+                milestone_name: "Routing Recovery Checkpoint",
+                message: "Recovery metrics logged from Stability UI.",
+              }),
+            });
+            var payload = await safeJson(response);
+            if (!response.ok) throw new Error(payload.error || "Milestone log failed");
+            await fetch(routingUrl("/milestones/prompts"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({
+                title: "Milestone prompt: " + milestoneName,
+                content: "Milestone captured and queued for validation.",
+                severity: "medium",
+              }),
+            });
+            await loadRoutingState();
+          } catch (err) {
+            routingMilestoneCount.textContent = "Log Milestone failed: " + (err && err.message ? err.message : "unknown error");
           }
         });
       }
 
       if (logNotificationBtn) {
-        logNotificationBtn.addEventListener("click", function () {
-          var resolved = addRoutingCard(routingResolvedList, "issue", "Routing patch deployed and error rate normalized", "resolved green-confirm");
-          addRoutingCard(routingDocumentedList, "postmortem", "Notification dispatch + response log captured", "documented");
-          routingNotifications += 1;
-          routingAlerts = Math.max(0, routingAlerts - 1);
-          routingNotificationCount.textContent = routingNotifications + " notifications dispatched";
-          routingActiveAlerts.textContent = routingAlerts + " active alerts";
-          if (resolved) setTimeout(function () { resolved.classList.remove("green-confirm"); }, 1200);
+        logNotificationBtn.addEventListener("click", async function () {
+          try {
+            var subject = window.prompt("Notification subject", "Stability Notification");
+            if (!subject) return;
+            var message = window.prompt("Notification message", "Notification dispatch + response log captured");
+            var response = await fetch(routingUrl("/notifications/log"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({
+                subject: subject,
+                message: message || "notification logged",
+              }),
+            });
+            var payload = await safeJson(response);
+            if (!response.ok) throw new Error(payload.error || "Notification log failed");
+            await loadRoutingState();
+          } catch (err) {
+            routingNotificationCount.textContent = "Log Notification failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
 
