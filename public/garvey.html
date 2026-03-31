@@ -1,52 +1,213 @@
 <!-- FILE: public/garvey.html -->
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Idea → Funding Pathway</title>
-  <link rel="stylesheet" href="/garvey.css">
+  <title>G.A.R.V.E.Y Command Surface</title>
   <script src="/garvey_ui.js" defer></script>
+  <style>
+    :root {
+      --bg: #0A0A0A;
+      --primary: #FF2E2E;
+      --success: #00FF9C;
+      --gold: #FFD700;
+      --neutral: #1A1A1A;
+      --text: #f3f3f3;
+      --muted: #9f9f9f;
+      --line: rgba(255, 46, 46, 0.35);
+      --glow: 0 0 18px rgba(255, 46, 46, 0.25);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Segoe UI", Inter, Roboto, Arial, sans-serif;
+      background: radial-gradient(circle at 80% 10%, rgba(255,46,46,0.09), transparent 35%), var(--bg);
+    }
+    .layout { min-height: 100vh; display: grid; grid-template-columns: 280px 1fr; }
+    .sidebar {
+      padding: 18px 14px;
+      border-right: 1px solid var(--line);
+      background: linear-gradient(180deg, #0d0d0d, #090909);
+    }
+    .brand {
+      margin-bottom: 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: var(--glow);
+      text-align: center;
+    }
+    .phase-nav { display: flex; flex-direction: column; gap: 9px; }
+    .phase-btn {
+      width: 100%;
+      text-align: left;
+      border: 1px solid rgba(255, 46, 46, 0.2);
+      border-radius: 10px;
+      padding: 11px;
+      background: var(--neutral);
+      color: var(--text);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: .6px;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .phase-btn:hover { transform: translateY(-2px); box-shadow: var(--glow); border-color: var(--primary); }
+    .phase-btn.active { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(255,215,0,.4), var(--glow); }
+
+    .main { padding: 14px; }
+    .topbar { display: grid; grid-template-columns: repeat(4, minmax(120px, 1fr)); gap: 10px; margin-bottom: 12px; }
+    .box { background: #121212; border: 1px solid rgba(255,255,255,.07); border-radius: 12px; padding: 12px; }
+    .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+    .value { margin-top: 4px; font-size: 16px; font-weight: 700; }
+    #readinessScore { color: var(--success); }
+
+    .panel {
+      background: #111;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: var(--glow);
+      animation: pulse 2.5s ease-in-out infinite;
+      margin-bottom: 12px;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 46, 46, 0.2); }
+      50% { box-shadow: 0 0 14px 1px rgba(255, 46, 46, 0.34); }
+    }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .btn {
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: var(--text);
+      background: #151515;
+      font-weight: 700;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--glow); }
+
+    @media (max-width: 1000px) {
+      .layout { grid-template-columns: 1fr; }
+      .topbar { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+      .phase-nav { display: grid; grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+    }
+  </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <div class="row">
-        <div class="pill" id="tenantPill"></div>
-        <a class="btn" id="siteBtn" href="#">View Generated Site</a>
-      </div>
-      <h1>Idea → Funding Pathway</h1>
-      <div class="muted">Pick a phase. Each phase has a Kanban board so you never guess what’s next.</div>
-    </div>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">G.A.R.V.E.Y UI</div>
+      <nav class="phase-nav" id="phaseNav"></nav>
+    </aside>
 
-    <div class="card">
-      <div class="row" style="gap:12px">
-        <a class="btn" id="g" href="#">G — Gather</a>
-        <a class="btn" id="a" href="#">A — Assess</a>
-        <a class="btn" id="r" href="#">R — Route</a>
-        <a class="btn" id="v" href="#">V — Value</a>
-        <a class="btn" id="e" href="#">E — Evaluate</a>
-        <a class="btn" id="y" href="#">Y — Yield</a>
-      </div>
-    </div>
+    <main class="main">
+      <section class="topbar">
+        <div class="box">
+          <div class="label">Business Name</div>
+          <div class="value" id="tenantPill">Tenant: -</div>
+        </div>
+        <div class="box">
+          <div class="label">Readiness Score</div>
+          <div class="value" id="readinessScore">72%</div>
+        </div>
+        <div class="box">
+          <div class="label">Active Phase</div>
+          <div class="value" id="activePhase">Dashboard</div>
+        </div>
+        <div class="box">
+          <div class="label">Notifications</div>
+          <div class="value" id="notificationCount">0 alerts</div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h1 id="phaseTitle" style="margin:0 0 8px; text-transform:uppercase;">Dashboard</h1>
+        <p id="phaseDescription" style="margin:0; color:#c4c4c4;"></p>
+        <div class="actions">
+          <a class="btn" id="siteBtn" href="#">View Generated Site</a>
+          <a class="btn" id="g" href="#">G — Gather</a>
+          <a class="btn" id="a" href="#">A — Assess</a>
+          <a class="btn" id="r" href="#">R — Route</a>
+          <a class="btn" id="v" href="#">V — Value</a>
+          <a class="btn" id="e" href="#">E — Evaluate</a>
+          <a class="btn" id="y" href="#">Y — Yield</a>
+          <a class="btn" id="dashboardBtn" href="#">Owner Dashboard</a>
+        </div>
+      </section>
+    </main>
   </div>
 
-<script>
-(function(){
-  const ctx = (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : (function(){ const p = new URLSearchParams(location.search); return { tenant: String(p.get("tenant") || "").trim(), email: String(p.get("email") || "").trim().toLowerCase(), rid: String(p.get("rid") || "").trim(), cid: String(p.get("cid") || "").trim() }; })();
-  const tenant = String(ctx.tenant || "").trim();
-  const withCtx = (window.GARVEY && window.GARVEY.withCtx)
-    ? window.GARVEY.withCtx
-    : (href) => href;
+  <script>
+    (function () {
+      var phaseDefs = [
+        { key: "Dashboard", desc: "Mission control snapshot for your business readiness and tactical execution." },
+        { key: "Foundation", desc: "Core setup integrity, brand fundamentals, and baseline confidence." },
+        { key: "Structure", desc: "System architecture, operating rhythm, and organizational alignment." },
+        { key: "Execution", desc: "Action throughput, completion velocity, and delivery consistency." },
+        { key: "Intelligence", desc: "Signal tracking, assessment insights, and decision support loops." },
+        { key: "Infrastructure", desc: "Toolchain resilience, platform reliability, and automation posture." },
+        { key: "Stability", desc: "Risk containment, continuity performance, and operational resilience." },
+        { key: "Evolution", desc: "Growth adaptation, iteration cadence, and strategic advancement." }
+      ];
 
-  document.getElementById("tenantPill").textContent = "Tenant: " + (tenant || "(missing)");
-  document.getElementById("siteBtn").href = tenant ? `/t/${encodeURIComponent(tenant)}/site` : "#";
+      var phaseNav = document.getElementById("phaseNav");
+      var activePhaseEl = document.getElementById("activePhase");
+      var phaseTitleEl = document.getElementById("phaseTitle");
+      var phaseDescEl = document.getElementById("phaseDescription");
 
-  const pages = { g:"garvey-g.html", a:"garvey-a.html", r:"garvey-r.html", v:"garvey-v.html", e:"garvey-e.html", y:"garvey-y.html" };
-  for (const k of Object.keys(pages)) {
-    document.getElementById(k).href = withCtx(`/${pages[k]}`);
-  }
-})();
-</script>
+      function setPhase(key) {
+        var selected = phaseDefs.find(function (p) { return p.key === key; }) || phaseDefs[0];
+        activePhaseEl.textContent = selected.key;
+        phaseTitleEl.textContent = selected.key;
+        phaseDescEl.textContent = selected.desc;
+        Array.prototype.forEach.call(document.querySelectorAll(".phase-btn"), function (btn) {
+          btn.classList.toggle("active", btn.getAttribute("data-phase") === selected.key);
+        });
+      }
+
+      phaseDefs.forEach(function (phase) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "phase-btn";
+        btn.textContent = phase.key;
+        btn.setAttribute("data-phase", phase.key);
+        btn.addEventListener("click", function () { setPhase(phase.key); });
+        phaseNav.appendChild(btn);
+      });
+      setPhase("Dashboard");
+
+      var ctx = (window.GARVEY && window.GARVEY.ctx)
+        ? window.GARVEY.ctx()
+        : (function(){
+            var p = new URLSearchParams(location.search);
+            return {
+              tenant: String(p.get("tenant") || "").trim(),
+              email: String(p.get("email") || "").trim().toLowerCase(),
+              rid: String(p.get("rid") || "").trim(),
+              cid: String(p.get("cid") || "").trim()
+            };
+          })();
+
+      var tenant = String(ctx.tenant || "").trim();
+      var withCtx = (window.GARVEY && window.GARVEY.withCtx) ? window.GARVEY.withCtx : function (href) { return href; };
+      document.getElementById("tenantPill").textContent = "Tenant: " + (tenant || "(missing)");
+      document.getElementById("siteBtn").href = tenant ? ("/t/" + encodeURIComponent(tenant) + "/site") : "#";
+      document.getElementById("dashboardBtn").href = withCtx("/dashboard.html");
+
+      var pages = { g: "garvey-g.html", a: "garvey-a.html", r: "garvey-r.html", v: "garvey-v.html", e: "garvey-e.html", y: "garvey-y.html" };
+      Object.keys(pages).forEach(function (k) {
+        var el = document.getElementById(k);
+        if (el) el.href = withCtx("/" + pages[k]);
+      });
+    })();
+  </script>
 </body>
 </html>
