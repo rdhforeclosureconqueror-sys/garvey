@@ -1652,6 +1652,10 @@
         recurringStatus.textContent = "Execution load failed: " + (err && err.message ? err.message : "unknown error");
         renderExecutionState({ items: [], recurring_instances: [], completion: {} });
       });
+      loadInfrastructureState().catch(function (err) {
+        infraValidationStatus.textContent = "Infrastructure load failed: " + (err && err.message ? err.message : "unknown error");
+        renderInfrastructureEmptyGrid();
+      });
 
       var readinessValue = 72;
       function renderScoreColor(score) {
@@ -1808,6 +1812,134 @@
 
       function executionUrl(path) {
         return "/api/execution" + path + "?tenant=" + encodeURIComponent(tenant);
+      }
+
+      function infrastructureUrl(path) {
+        return "/api/infrastructure" + path + "?tenant=" + encodeURIComponent(tenant);
+      }
+
+      function normalizeInfraStatus(status) {
+        var raw = String(status || "").toLowerCase();
+        if (raw.indexOf("needed") >= 0 || raw.indexOf("draft") >= 0 || raw.indexOf("missing") >= 0) return "needed";
+        if (raw.indexOf("selected") >= 0 || raw.indexOf("available") >= 0) return "selected";
+        if (raw.indexOf("active") >= 0 || raw.indexOf("accessible") >= 0) return "active";
+        if (raw.indexOf("document") >= 0 || raw.indexOf("ready") >= 0) return "documented";
+        return "needed";
+      }
+
+      function renderInfrastructureEmptyGrid() {
+        [infraNeededList, infraSelectedList, infraActiveList, infraDocumentedList].forEach(function (list) {
+          if (list) list.innerHTML = "";
+        });
+      }
+
+      function renderInfrastructureState(hubPayload, recommendationPayload) {
+        var tools = Array.isArray(hubPayload && hubPayload.tools) ? hubPayload.tools : [];
+        var resources = Array.isArray(hubPayload && hubPayload.resources) ? hubPayload.resources : [];
+        var templates = Array.isArray(hubPayload && hubPayload.templates) ? hubPayload.templates : [];
+        var links = Array.isArray(hubPayload && hubPayload.links) ? hubPayload.links : [];
+        var recommendations = Array.isArray(recommendationPayload && recommendationPayload.recommendations)
+          ? recommendationPayload.recommendations
+          : [];
+
+        renderInfrastructureEmptyGrid();
+
+        tools.forEach(function (tool) {
+          var list = infraNeededList;
+          var classes = "recommended-item";
+          var bucket = normalizeInfraStatus(tool && tool.status);
+          if (bucket === "selected") list = infraSelectedList;
+          else if (bucket === "active") {
+            list = infraActiveList;
+            classes = "active-tool";
+          } else if (bucket === "documented") {
+            list = infraDocumentedList;
+            classes = "";
+          }
+          addInfraCard(list, "Tool", tool && tool.name || "Untitled tool", classes);
+        });
+
+        resources.forEach(function (resource) {
+          var bucket = normalizeInfraStatus(resource && resource.status);
+          var list = bucket === "documented" ? infraDocumentedList : (bucket === "active" ? infraActiveList : infraSelectedList);
+          addInfraCard(list, "Resource", resource && resource.name || "Untitled resource", "recommended-item");
+        });
+
+        templates.forEach(function (template) {
+          var list = normalizeInfraStatus(template && template.status) === "needed" ? infraSelectedList : infraDocumentedList;
+          addInfraCard(list, "Template", template && template.name || "Untitled template", "");
+        });
+
+        links.forEach(function (link) {
+          var linkStatus = String(link && link.status || "").toLowerCase();
+          var linkClasses = linkStatus === "accessible" ? "valid-link active-tool" : "broken-link";
+          addInfraCard(infraActiveList, "Link", link && link.url || "", linkClasses);
+        });
+
+        var accessibleCount = links.filter(function (link) {
+          return String(link && link.status || "").toLowerCase() === "accessible";
+        }).length;
+        if (!links.length) {
+          infraValidationStatus.textContent = "No links to validate yet";
+        } else if (accessibleCount === links.length) {
+          infraValidationStatus.textContent = "All " + links.length + " link(s) validated";
+        } else {
+          infraValidationStatus.textContent = accessibleCount + "/" + links.length + " link(s) validated";
+        }
+
+        if (recommendations.length) {
+          infraRecommendedStatus.textContent = recommendations.length + " recommendation(s) available";
+        } else {
+          infraRecommendedStatus.textContent = "No recommendations yet";
+        }
+
+        var existingToolNames = new Set(tools.map(function (tool) {
+          return String(tool && tool.name || "").toLowerCase();
+        }).filter(Boolean));
+        var missingToolTitles = recommendations
+          .filter(function (rec) {
+            return String(rec && rec.suggested_type || "").toLowerCase() === "tool";
+          })
+          .map(function (rec) { return String(rec && rec.title || "").trim(); })
+          .filter(function (title) { return title && !existingToolNames.has(title.toLowerCase()); });
+        infraMissingStatus.textContent = missingToolTitles.length ? missingToolTitles.slice(0, 3).join(", ") : "No missing tools flagged";
+
+        var documentedCount = templates.filter(function (template) {
+          return String(template && template.status || "").toLowerCase() !== "draft";
+        }).length;
+        var trackedCount = tools.length + resources.length + templates.length;
+        var completionRate = trackedCount ? Math.round((documentedCount / trackedCount) * 100) : 0;
+        var completionText = trackedCount > 0 && tools.length > 0 && resources.length > 0
+          ? "Complete"
+          : "In progress";
+        infraDocumentationStatus.textContent = completionRate + "% documented — " + completionText;
+      }
+
+      async function loadInfrastructureState() {
+        if (!tenant) return;
+        try {
+          await fetch(infrastructureUrl("/initialize"), {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({ tenant: tenant }),
+          });
+        } catch (_) {
+          // Continue loading even if initialization endpoint is unavailable.
+        }
+        var hubRes = await fetch(infrastructureUrl("/hub"), { headers: { Accept: "application/json" } });
+        var hubPayload = await safeJson(hubRes);
+        if (!hubRes.ok) throw new Error(hubPayload.error || "Unable to load infrastructure hub");
+
+        var recPayload = { recommendations: [] };
+        try {
+          var recRes = await fetch(infrastructureUrl("/recommendations"), { headers: { Accept: "application/json" } });
+          recPayload = await safeJson(recRes);
+          if (!recRes.ok) throw new Error(recPayload.error || "Unable to load infrastructure recommendations");
+        } catch (_) {
+          recPayload = { recommendations: [] };
+        }
+
+        renderInfrastructureState(hubPayload, recPayload);
       }
 
       function escapeHtml(value) {
@@ -2171,49 +2303,103 @@
       }
 
       if (addToolBtn) {
-        addToolBtn.addEventListener("click", function () {
-          var card = addInfraCard(infraNeededList, "Tool", "Automation Logger", "recommended-item");
-          infraMissingStatus.textContent = "Live Chat Widget";
-          infraRecommendedStatus.textContent = "Recommendation generated: tool prioritized";
-          if (card) {
-            card.classList.add("gold-flash");
-            setTimeout(function () { card.classList.remove("gold-flash"); }, 1000);
+        addToolBtn.addEventListener("click", async function () {
+          try {
+            var name = window.prompt("Tool name", "Automation Logger");
+            if (!name) return;
+            var category = window.prompt("Tool category", "operations");
+            var url = window.prompt("Tool URL (optional)", "");
+            var createRes = await fetch(infrastructureUrl("/tools"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({
+                name: name,
+                category: category || "operations",
+                status: "Needed",
+                url: url || null,
+              }),
+            });
+            var createPayload = await safeJson(createRes);
+            if (!createRes.ok) throw new Error(createPayload.error || "Add Tool failed");
+            await loadInfrastructureState();
+          } catch (err) {
+            infraMissingStatus.textContent = "Add Tool failed: " + (err && err.message ? err.message : "unknown error");
           }
         });
       }
 
       if (addResourceBtn) {
-        addResourceBtn.addEventListener("click", function () {
-          var card = addInfraCard(infraSelectedList, "Resource", "API Integration Playbook", "recommended-item");
-          infraRecommendedStatus.textContent = "Recommendation generated: guide + resource pair";
-          if (card) {
-            card.classList.add("gold-flash");
-            setTimeout(function () { card.classList.remove("gold-flash"); }, 1000);
+        addResourceBtn.addEventListener("click", async function () {
+          try {
+            var name = window.prompt("Resource name", "API Integration Playbook");
+            if (!name) return;
+            var resourceType = window.prompt("Resource type", "guide");
+            var location = window.prompt("Resource location (optional)", "");
+            var createRes = await fetch(infrastructureUrl("/resources"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({
+                name: name,
+                resource_type: resourceType || "guide",
+                location: location || null,
+                status: "available",
+              }),
+            });
+            var createPayload = await safeJson(createRes);
+            if (!createRes.ok) throw new Error(createPayload.error || "Add Resource failed");
+            await loadInfrastructureState();
+          } catch (err) {
+            infraRecommendedStatus.textContent = "Add Resource failed: " + (err && err.message ? err.message : "unknown error");
           }
         });
       }
 
       if (addTemplateBtn) {
-        addTemplateBtn.addEventListener("click", function () {
-          addInfraCard(infraDocumentedList, "Template", "Weekly Tool Audit Template", "");
-          infraDocumentationStatus.textContent = "71% documented";
+        addTemplateBtn.addEventListener("click", async function () {
+          try {
+            var name = window.prompt("Template name", "Weekly Tool Audit Template");
+            if (!name) return;
+            var templateKey = window.prompt("Template key", "weekly_tool_audit");
+            var sourceUrl = window.prompt("Source URL (optional)", "");
+            var createRes = await fetch(infrastructureUrl("/templates"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({
+                name: name,
+                template_key: templateKey || "template",
+                status: "ready",
+                source_url: sourceUrl || null,
+              }),
+            });
+            var createPayload = await safeJson(createRes);
+            if (!createRes.ok) throw new Error(createPayload.error || "Add Template failed");
+            await loadInfrastructureState();
+          } catch (err) {
+            infraDocumentationStatus.textContent = "Add Template failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
 
       if (validateLinksBtn) {
-        validateLinksBtn.addEventListener("click", function () {
-          var isBroken = Math.random() > 0.5;
-          if (isBroken) {
-            addInfraCard(infraActiveList, "Link", "https://broken.example.com/ops", "broken-link");
-            infraValidationStatus.textContent = "Broken link detected — action required";
-            infraValidationStatus.parentElement.classList.add("ops-alert");
-            setTimeout(function () { infraValidationStatus.parentElement.classList.remove("ops-alert"); }, 1100);
-          } else {
-            var okCard = addInfraCard(infraActiveList, "Link", "https://docs.example.com/tool-stack", "valid-link active-tool");
-            infraValidationStatus.textContent = "Validated link confirmed";
-            if (okCard) {
-              okCard.classList.add("green-highlight");
-              setTimeout(function () { okCard.classList.remove("green-highlight"); }, 1200);
+        validateLinksBtn.addEventListener("click", async function () {
+          try {
+            var validateRes = await fetch(infrastructureUrl("/links/validate"), {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ tenant: tenant }),
+            });
+            var validatePayload = await safeJson(validateRes);
+            if (!validateRes.ok) throw new Error(validatePayload.error || "Link validation failed");
+            await loadInfrastructureState();
+            if (infraValidationStatus && infraValidationStatus.parentElement) {
+              infraValidationStatus.parentElement.classList.add("green-highlight");
+              setTimeout(function () { infraValidationStatus.parentElement.classList.remove("green-highlight"); }, 1000);
+            }
+          } catch (err) {
+            infraValidationStatus.textContent = "Validate Links failed: " + (err && err.message ? err.message : "unknown error");
+            if (infraValidationStatus && infraValidationStatus.parentElement) {
+              infraValidationStatus.parentElement.classList.add("ops-alert");
+              setTimeout(function () { infraValidationStatus.parentElement.classList.remove("ops-alert"); }, 1000);
             }
           }
         });
