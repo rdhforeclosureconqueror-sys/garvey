@@ -4,48 +4,352 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Idea → Funding Pathway</title>
+  <title>GARVEY Master Dashboard</title>
   <link rel="stylesheet" href="/garvey.css">
   <script src="/garvey_ui.js" defer></script>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <div class="row">
-        <div class="pill" id="tenantPill"></div>
-        <a class="btn" id="siteBtn" href="#">View Generated Site</a>
+  <div class="garvey-shell" data-shell>
+    <aside class="sidebar card-glow" id="sidebarNav" data-sidebar>
+      <div class="sidebar__head">
+        <div class="sidebar__title">GARVEY // COMMAND</div>
+        <button class="sidebar__close" type="button" data-close-sidebar aria-label="Close sidebar">✕</button>
       </div>
-      <h1>Idea → Funding Pathway</h1>
-      <div class="muted">Pick a phase. Each phase has a Kanban board so you never guess what’s next.</div>
-    </div>
+      <nav class="sidebar__nav" aria-label="Phase navigation">
+        <button class="nav-item" data-phase="dashboard">Dashboard</button>
+        <button class="nav-item" data-phase="foundation">Foundation</button>
+        <button class="nav-item" data-phase="structure">Structure</button>
+        <button class="nav-item" data-phase="execution">Execution</button>
+        <button class="nav-item" data-phase="intelligence">Intelligence</button>
+        <button class="nav-item" data-phase="infrastructure">Infrastructure</button>
+        <button class="nav-item" data-phase="stability">Stability</button>
+        <button class="nav-item" data-phase="evolution">Evolution</button>
+      </nav>
+    </aside>
 
-    <div class="card">
-      <div class="row" style="gap:12px">
-        <a class="btn" id="g" href="#">G — Gather</a>
-        <a class="btn" id="a" href="#">A — Assess</a>
-        <a class="btn" id="r" href="#">R — Route</a>
-        <a class="btn" id="v" href="#">V — Value</a>
-        <a class="btn" id="e" href="#">E — Evaluate</a>
-        <a class="btn" id="y" href="#">Y — Yield</a>
-      </div>
-    </div>
+    <main class="main-panel">
+      <header class="topbar card-glow">
+        <div class="topbar__left">
+          <button class="sidebar__toggle" type="button" data-open-sidebar aria-label="Open sidebar">☰</button>
+          <div>
+            <div class="label">Business Name</div>
+            <h1 id="businessName">GARVEY TENANT</h1>
+          </div>
+        </div>
+        <div class="topbar__metrics">
+          <article class="metric-card">
+            <div class="label">Readiness Score</div>
+            <div class="metric-card__value metric-card__value--success" id="readinessScore">84%</div>
+          </article>
+          <article class="metric-card">
+            <div class="label">Active Phase</div>
+            <div class="metric-card__value" id="activePhaseLabel">Dashboard</div>
+          </article>
+          <article class="metric-card">
+            <div class="label">Notifications</div>
+            <div class="metric-card__value metric-card__value--pulse" id="notificationCount">3</div>
+          </article>
+        </div>
+      </header>
+
+      <section class="phase-view card-glow">
+        <div class="phase-view__header">
+          <div>
+            <div class="label">Phase Briefing</div>
+            <h2 id="phaseHeading">Dashboard</h2>
+          </div>
+          <div class="tenant-pill" id="tenantPill">TENANT: --</div>
+        </div>
+        <p id="phaseDescription" class="phase-description"></p>
+
+        <div class="phase-actions">
+          <a class="btn btn-primary" id="siteBtn" href="#">OPEN GENERATED SITE</a>
+          <a class="btn" id="phasePageBtn" href="#">OPEN PHASE BOARD</a>
+        </div>
+      </section>
+
+      <section class="dashboard-grid" aria-label="Master dashboard body">
+        <article class="phase-panel card-glow dashboard-grid__wide">
+          <div class="panel-head">
+            <h3>Phase Progression Bar</h3>
+            <span class="panel-tag">live-ready</span>
+          </div>
+          <div class="phase-progression" id="phaseProgression"></div>
+        </article>
+
+        <article class="status-card card-glow" id="readinessCoreCard">
+          <div class="panel-head">
+            <h3>Readiness Core Card</h3>
+            <span class="panel-tag panel-tag--success">stable</span>
+          </div>
+          <div class="status-card__value" id="readinessCoreValue">84 / 100</div>
+          <p class="status-card__text" id="readinessCoreText">Core systems ready for execution scale.</p>
+        </article>
+
+        <article class="phase-panel card-glow" id="quickActionsPanel">
+          <div class="panel-head">
+            <h3>Quick Actions Panel</h3>
+            <span class="panel-tag">actions</span>
+          </div>
+          <div class="action-stack" id="quickActions"></div>
+        </article>
+
+        <article class="phase-panel card-glow dashboard-grid__wide" id="systemStatusPanel">
+          <div class="panel-head">
+            <h3>System Status Grid</h3>
+            <span class="panel-tag">telemetry</span>
+          </div>
+          <div class="status-grid" id="systemStatusGrid"></div>
+        </article>
+
+        <article class="side-panel card-glow dashboard-grid__wide" id="recentActivityPanel">
+          <div class="panel-head">
+            <h3>Recent Activity Panel</h3>
+            <span class="panel-tag">feed</span>
+          </div>
+          <ul class="activity-list" id="recentActivity"></ul>
+        </article>
+      </section>
+    </main>
   </div>
 
 <script>
 (function(){
-  const ctx = (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : (function(){ const p = new URLSearchParams(location.search); return { tenant: String(p.get("tenant") || "").trim(), email: String(p.get("email") || "").trim().toLowerCase(), rid: String(p.get("rid") || "").trim(), cid: String(p.get("cid") || "").trim() }; })();
-  const tenant = String(ctx.tenant || "").trim();
+  const phaseMeta = {
+    dashboard: {
+      title: "Dashboard",
+      desc: "Mission control across every system. Monitor readiness, open workstreams, and protect execution tempo.",
+      href: "/garvey.html",
+      score: "84%",
+      core: "84 / 100",
+      notif: "3",
+      status: [
+        ["Customer Signal", "Complete"],
+        ["Offer Health", "Active"],
+        ["Ops Risk", "Locked"],
+        ["Capital Path", "Active"]
+      ],
+      activity: [
+        "Readiness baseline updated 2h ago.",
+        "Execution board sync completed.",
+        "New infrastructure dependency flagged."
+      ],
+      actions: [
+        ["Open Foundation Sprint", "/garvey-g.html"],
+        ["Review Structure Queue", "/garvey-a.html"],
+        ["Inspect Execution Board", "/garvey-r.html"]
+      ]
+    },
+    foundation: {
+      title: "Foundation",
+      desc: "Define truth, intent, and customer reality before system scale.",
+      href: "/garvey-g.html",
+      score: "79%",
+      core: "79 / 100",
+      notif: "2"
+    },
+    structure: {
+      title: "Structure",
+      desc: "Map channels, offers, and delivery mechanics into repeatable structure.",
+      href: "/garvey-a.html",
+      score: "72%",
+      core: "72 / 100",
+      notif: "4"
+    },
+    execution: {
+      title: "Execution",
+      desc: "Drive tactical tasks with clear ownership and deadline integrity.",
+      href: "/garvey-r.html",
+      score: "68%",
+      core: "68 / 100",
+      notif: "5"
+    },
+    intelligence: {
+      title: "Intelligence",
+      desc: "Transform VOC and system feedback into actionable strategic choices.",
+      href: "/garvey-v.html",
+      score: "75%",
+      core: "75 / 100",
+      notif: "3"
+    },
+    infrastructure: {
+      title: "Infrastructure",
+      desc: "Stabilize tools, integrations, and automation for scaling load.",
+      href: "/garvey-e.html",
+      score: "70%",
+      core: "70 / 100",
+      notif: "1"
+    },
+    stability: {
+      title: "Stability",
+      desc: "Reduce volatility with control loops, quality checks, and resilience.",
+      href: "/garvey-y.html",
+      score: "82%",
+      core: "82 / 100",
+      notif: "2"
+    },
+    evolution: {
+      title: "Evolution",
+      desc: "Deploy innovation cycles and strategic experiments for next-stage growth.",
+      href: "/garvey-y.html",
+      score: "77%",
+      core: "77 / 100",
+      notif: "3"
+    }
+  };
+
+  const progressionPhases = [
+    "Foundation",
+    "Structure",
+    "Execution",
+    "Intelligence",
+    "Infrastructure",
+    "Stability",
+    "Evolution"
+  ];
+
+  const ctx = (window.GARVEY && window.GARVEY.ctx)
+    ? window.GARVEY.ctx()
+    : (() => {
+      const p = new URLSearchParams(location.search);
+      return {
+        tenant: String(p.get("tenant") || "").trim(),
+        email: String(p.get("email") || "").trim().toLowerCase(),
+        rid: String(p.get("rid") || "").trim(),
+        cid: String(p.get("cid") || "").trim()
+      };
+    })();
+
   const withCtx = (window.GARVEY && window.GARVEY.withCtx)
     ? window.GARVEY.withCtx
     : (href) => href;
 
-  document.getElementById("tenantPill").textContent = "Tenant: " + (tenant || "(missing)");
+  const tenant = String(ctx.tenant || "").trim();
+  const businessName = tenant ? tenant.toUpperCase() : "GARVEY TENANT";
+
+  const navItems = Array.from(document.querySelectorAll(".nav-item"));
+  const phaseHeading = document.getElementById("phaseHeading");
+  const phaseDescription = document.getElementById("phaseDescription");
+  const activePhaseLabel = document.getElementById("activePhaseLabel");
+  const phasePageBtn = document.getElementById("phasePageBtn");
+  const readinessScore = document.getElementById("readinessScore");
+  const notificationCount = document.getElementById("notificationCount");
+  const readinessCoreValue = document.getElementById("readinessCoreValue");
+  const phaseProgression = document.getElementById("phaseProgression");
+  const recentActivity = document.getElementById("recentActivity");
+  const quickActions = document.getElementById("quickActions");
+  const systemStatusGrid = document.getElementById("systemStatusGrid");
+
+  function progressionState(stepIndex, activeIndex) {
+    if (stepIndex < activeIndex) return "complete";
+    if (stepIndex === activeIndex) return "active";
+    return "locked";
+  }
+
+  function renderProgression(activeKey) {
+    const activeIndex = Math.max(progressionPhases.indexOf(phaseMeta[activeKey].title), 0);
+    phaseProgression.innerHTML = "";
+    progressionPhases.forEach((name, i) => {
+      const state = progressionState(i, activeIndex);
+      const item = document.createElement("div");
+      item.className = `phase-step phase-step--${state}`;
+      item.textContent = name;
+      phaseProgression.appendChild(item);
+    });
+  }
+
+  function renderSystemStatus(statusRows) {
+    const rows = statusRows || [
+      ["Pipeline Integrity", "Active"],
+      ["Execution Discipline", "Locked"],
+      ["Feedback Loop", "Complete"],
+      ["Infrastructure Drift", "Active"]
+    ];
+    systemStatusGrid.innerHTML = "";
+    rows.forEach(([label, state]) => {
+      const node = document.createElement("div");
+      const tone = state.toLowerCase() === "complete" ? "success" : state.toLowerCase() === "active" ? "active" : "locked";
+      node.className = "status-cell";
+      node.innerHTML = `<div class="status-cell__label">${label}</div><div class="status-pill status-pill--${tone}">${state}</div>`;
+      systemStatusGrid.appendChild(node);
+    });
+  }
+
+  function renderActivity(items) {
+    recentActivity.innerHTML = "";
+    (items || [
+      "Recent activity will populate from backend events.",
+      "No blockers detected in protected systems.",
+      "Next sync window in 4 hours."
+    ]).forEach((line) => {
+      const li = document.createElement("li");
+      li.textContent = line;
+      recentActivity.appendChild(li);
+    });
+  }
+
+  function renderActions(actions) {
+    quickActions.innerHTML = "";
+    (actions || [
+      ["Open Active Board", phaseMeta.dashboard.href],
+      ["Run Readiness Check", phaseMeta.dashboard.href],
+      ["Review Notifications", phaseMeta.dashboard.href]
+    ]).forEach(([label, href]) => {
+      const link = document.createElement("a");
+      link.className = "btn btn-action";
+      link.href = withCtx(href);
+      link.textContent = label;
+      quickActions.appendChild(link);
+    });
+  }
+
+  function setActivePhase(key) {
+    const meta = phaseMeta[key] || phaseMeta.dashboard;
+    navItems.forEach((btn) => {
+      const active = btn.dataset.phase === key;
+      btn.classList.toggle("is-active", active);
+      btn.setAttribute("aria-current", active ? "page" : "false");
+    });
+
+    activePhaseLabel.textContent = meta.title;
+    phaseHeading.textContent = meta.title;
+    phaseDescription.textContent = meta.desc;
+    phasePageBtn.href = withCtx(meta.href);
+
+    readinessScore.textContent = meta.score;
+    notificationCount.textContent = meta.notif;
+    readinessCoreValue.textContent = meta.core;
+
+    renderProgression(key);
+    renderSystemStatus(meta.status);
+    renderActivity(meta.activity);
+    renderActions(meta.actions);
+  }
+
+  document.getElementById("businessName").textContent = businessName;
+  document.getElementById("tenantPill").textContent = `TENANT: ${tenant || "MISSING"}`;
   document.getElementById("siteBtn").href = tenant ? `/t/${encodeURIComponent(tenant)}/site` : "#";
 
-  const pages = { g:"garvey-g.html", a:"garvey-a.html", r:"garvey-r.html", v:"garvey-v.html", e:"garvey-e.html", y:"garvey-y.html" };
-  for (const k of Object.keys(pages)) {
-    document.getElementById(k).href = withCtx(`/${pages[k]}`);
+  navItems.forEach((btn) => {
+    btn.addEventListener("click", () => setActivePhase(btn.dataset.phase));
+  });
+
+  const shell = document.querySelector("[data-shell]");
+  const openSidebar = document.querySelector("[data-open-sidebar]");
+  const closeSidebar = document.querySelector("[data-close-sidebar]");
+
+  function setSidebar(open) {
+    if (!shell) return;
+    shell.classList.toggle("sidebar-open", !!open);
   }
+
+  if (openSidebar) openSidebar.addEventListener("click", () => setSidebar(true));
+  if (closeSidebar) closeSidebar.addEventListener("click", () => setSidebar(false));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setSidebar(false);
+  });
+
+  setActivePhase("dashboard");
 })();
 </script>
 </body>
