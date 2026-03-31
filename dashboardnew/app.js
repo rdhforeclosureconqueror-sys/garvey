@@ -526,12 +526,17 @@
         if (msgEl) msgEl.textContent = "Campaign name is required.";
         return;
       }
+      if (!tenant || !ownerEmail) {
+        if (msgEl) msgEl.textContent = "Tenant and owner email are required to generate QR.";
+        return;
+      }
 
       jsonFetch(apiUrl("/api/campaigns/create"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           tenant: tenant,
+          email: ownerEmail,
           label: label,
           slug: slug || undefined,
           source: source || undefined,
@@ -1043,13 +1048,15 @@
     var urlRid = ridFromUrl();
     var hasIdentityInUrl = !!(urlTenant || urlEmail);
 
-    var tenant = hasIdentityInUrl ? urlTenant : (urlTenant || fromLoginCtx.tenant);
-    var ownerEmail = hasIdentityInUrl ? urlEmail : (urlEmail || fromLoginCtx.email);
-    var cid = hasIdentityInUrl ? urlCid : (urlCid || fromLoginCtx.cid);
-    var rid = hasIdentityInUrl ? urlRid : (urlRid || fromLoginCtx.rid || getRidFromStorage(tenant, ownerEmail));
+    var tenant = urlTenant;
+    var ownerEmail = urlEmail;
+    var cid = urlCid;
+    var rid = urlRid;
     var isAdmin = isAdminEmail(ownerEmail);
 
-    if (tenant || ownerEmail || cid || rid) saveLoginCtx({ tenant: tenant, email: ownerEmail, cid: cid, rid: rid });
+    if (tenant || ownerEmail || cid || rid) {
+      saveLoginCtx({ tenant: tenant, email: ownerEmail, cid: cid, rid: rid });
+    }
 
     var label = document.getElementById("tenantLabel");
     if (label) {
@@ -1065,7 +1072,7 @@
 
     if (!tenant || !ownerEmail) {
       setupError("Missing tenant/email. Sign in below, or take an assessment if you're new.");
-      renderSignInPanel({ tenant: tenant, email: ownerEmail, cid: cid, rid: rid });
+      renderSignInPanel({ tenant: "", email: "", cid: "", rid: "" });
       return;
     }
 
