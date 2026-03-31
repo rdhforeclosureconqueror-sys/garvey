@@ -610,6 +610,88 @@
     .gold-highlight { animation: routingGoldFlash .8s ease-out 2; }
     .green-confirm { animation: routingGreenConfirm 1s ease-out 2; }
 
+    .growth-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .growth-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .growth-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 12px;
+    }
+    .growth-main { display: grid; gap: 12px; }
+    .growth-board {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px;
+      background: #111315;
+    }
+    .growth-cols {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .growth-col {
+      border: 1px solid #2b2f36;
+      border-radius: 10px;
+      background: #181b20;
+      padding: 8px;
+      min-height: 200px;
+    }
+    .growth-col h4 {
+      margin: 0 0 8px;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .growth-list { display: grid; gap: 8px; }
+    .growth-card {
+      border: 1px solid #39404a;
+      border-radius: 9px;
+      padding: 8px;
+      background: #0f1318;
+    }
+    .growth-card small { color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+    .growth-card.experiment { border-left: 3px solid #86b6ff; }
+    .growth-card.improvement { border-left: 3px solid #72ffd2; }
+    .growth-card.launch_gate {
+      border: 1px solid var(--gold);
+      box-shadow: inset 0 0 0 1px rgba(242, 193, 78, 0.5), var(--shadow-gold);
+      background: linear-gradient(180deg, rgba(242, 193, 78, 0.12), rgba(16, 18, 20, 0.96));
+    }
+    .growth-card.handoff { border-left: 3px solid #f8d26f; }
+    .growth-card.teach_forward {
+      border: 1px solid rgba(242, 193, 78, 0.95);
+      background: #111014;
+      box-shadow: inset 0 0 0 1px rgba(242, 193, 78, 0.35);
+    }
+    .growth-card.launch-ready {
+      border-color: rgba(0, 255, 154, 0.95);
+      box-shadow: var(--shadow-green);
+    }
+    .growth-card.not-ready {
+      border-color: rgba(255, 45, 45, 0.95);
+      box-shadow: var(--shadow-red);
+    }
+    .growth-actions {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .launch-pulse { animation: launchGreenPulse 1s ease-out 2; }
+    .growth-warning { animation: launchRedWarning .9s ease-out 2; }
+    .handoff-transition { animation: handoffGoldToGreen 1.2s ease-out 1; }
+    .teach-flash { animation: teachSoftGold .9s ease-out 2; }
+
     @keyframes intelRedPulse {
       0%,100% { box-shadow: none; }
       50% { box-shadow: var(--shadow-red); }
@@ -654,6 +736,22 @@
       0%,100% { box-shadow: none; }
       50% { box-shadow: var(--shadow-green); }
     }
+    @keyframes launchGreenPulse {
+      0%,100% { box-shadow: none; }
+      50% { box-shadow: var(--shadow-green); }
+    }
+    @keyframes launchRedWarning {
+      0%,100% { box-shadow: none; }
+      50% { box-shadow: var(--shadow-red); }
+    }
+    @keyframes handoffGoldToGreen {
+      0% { box-shadow: var(--shadow-gold); border-color: var(--gold); }
+      100% { box-shadow: var(--shadow-green); border-color: rgba(0, 255, 154, 0.95); }
+    }
+    @keyframes teachSoftGold {
+      0%,100% { box-shadow: none; }
+      50% { box-shadow: 0 0 16px rgba(242, 193, 78, 0.35); }
+    }
 
     .phase1-grid {
       display: grid;
@@ -692,6 +790,9 @@
       .routing-layout { grid-template-columns: 1fr; }
       .routing-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .routing-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .growth-layout { grid-template-columns: 1fr; }
+      .growth-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .growth-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 700px) {
@@ -699,6 +800,7 @@
       .intel-cols, .intel-actions { grid-template-columns: 1fr; }
       .infra-cols, .infra-actions { grid-template-columns: 1fr; }
       .routing-cols, .routing-actions { grid-template-columns: 1fr; }
+      .growth-cols, .growth-actions { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -1103,6 +1205,79 @@
 
         <section id="phase-7" class="card phase-panel">
           <h3>Phase 7 — Evaluation, Launch &amp; Evolution UI</h3>
+          <div class="growth-header">
+            <h2 style="margin:0; color:var(--text);">Growth &amp; Expansion</h2>
+            <span class="pill">growth_board</span>
+          </div>
+          <p class="growth-subtitle">Show evaluation, launch readiness, handoff, and long-term improvement as the business evolves toward scalable execution.</p>
+          <div class="growth-layout">
+            <div class="growth-main">
+              <article class="growth-board">
+                <h2 style="margin:0 0 8px;">GROWTH KANBAN BOARD</h2>
+                <div class="growth-cols">
+                  <div class="growth-col">
+                    <h4>Ideas</h4>
+                    <div class="growth-list" id="growthIdeasList">
+                      <div class="growth-card experiment">
+                        <small>experiment</small>
+                        <div>Test targeted referral prompt at checkout for repeat buyers</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="growth-col">
+                    <h4>Testing</h4>
+                    <div class="growth-list" id="growthTestingList">
+                      <div class="growth-card launch_gate not-ready">
+                        <small>launch_gate</small>
+                        <div>Q2 upsell funnel gate pending conversion target validation</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="growth-col">
+                    <h4>Implementing</h4>
+                    <div class="growth-list" id="growthImplementingList">
+                      <div class="growth-card improvement">
+                        <small>improvement</small>
+                        <div>Refine post-purchase nurture sequence for week-two retention</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="growth-col">
+                    <h4>Completed</h4>
+                    <div class="growth-list" id="growthCompletedList">
+                      <div class="growth-card handoff">
+                        <small>handoff</small>
+                        <div>Launch checklist handoff delivered to operations lead</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="growth-col">
+                    <h4>Teaching</h4>
+                    <div class="growth-list" id="growthTeachingList">
+                      <div class="growth-card teach_forward">
+                        <small>teach_forward</small>
+                        <div>Documented lesson: short demo videos increased trial conversion</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <div class="growth-actions">
+                <button class="btn primary" id="runEvaluationBtn">Run Evaluation</button>
+                <button class="btn primary" id="checkLaunchGateBtn">Check Launch Gate</button>
+                <button class="btn primary" id="createHandoffBtn">Create Handoff</button>
+                <button class="btn primary" id="logImprovementBtn">Log Improvement</button>
+                <button class="btn primary" id="addTeachForwardBtn">Add Teach-Forward Note</button>
+              </div>
+            </div>
+            <aside class="ops-side">
+              <div class="ops-side-item"><strong>Launch Status</strong><span id="launchStatus">Not ready — final evaluation pending</span></div>
+              <div class="ops-side-item"><strong>Marketing Ready?</strong><span id="marketingReadyStatus">In review</span></div>
+              <div class="ops-side-item"><strong>Handoff Status</strong><span id="handoffStatus">Drafting handoff package</span></div>
+              <div class="ops-side-item"><strong>Improvement Count</strong><span id="improvementCount">3 improvements tracked</span></div>
+              <div class="ops-side-item"><strong>Knowledge Entries</strong><span id="knowledgeEntries">5 teach-forward notes logged</span></div>
+            </aside>
+          </div>
         </section>
       </main>
     </div>
@@ -1173,10 +1348,28 @@
       var routingActiveAlerts = document.getElementById("routingActiveAlerts");
       var routingMilestoneCount = document.getElementById("routingMilestoneCount");
       var routingNotificationCount = document.getElementById("routingNotificationCount");
+      var growthIdeasList = document.getElementById("growthIdeasList");
+      var growthTestingList = document.getElementById("growthTestingList");
+      var growthImplementingList = document.getElementById("growthImplementingList");
+      var growthCompletedList = document.getElementById("growthCompletedList");
+      var growthTeachingList = document.getElementById("growthTeachingList");
+      var runEvaluationBtn = document.getElementById("runEvaluationBtn");
+      var checkLaunchGateBtn = document.getElementById("checkLaunchGateBtn");
+      var createHandoffBtn = document.getElementById("createHandoffBtn");
+      var logImprovementBtn = document.getElementById("logImprovementBtn");
+      var addTeachForwardBtn = document.getElementById("addTeachForwardBtn");
+      var launchStatus = document.getElementById("launchStatus");
+      var marketingReadyStatus = document.getElementById("marketingReadyStatus");
+      var handoffStatus = document.getElementById("handoffStatus");
+      var improvementCount = document.getElementById("improvementCount");
+      var knowledgeEntries = document.getElementById("knowledgeEntries");
       var routingMilestones = 4;
       var routingNotifications = 9;
       var routingAlerts = 2;
       var routingEscalation = 1;
+      var growthImprovements = 3;
+      var growthKnowledge = 5;
+      var launchGateReady = false;
 
       var readinessValue = 72;
       function renderScoreColor(score) {
@@ -1221,6 +1414,14 @@
         if (!container) return null;
         var card = document.createElement("div");
         card.className = "routing-card " + (classes || "");
+        card.innerHTML = "<small>" + type + "</small><div>" + title + "</div>";
+        container.prepend(card);
+        return card;
+      }
+      function addGrowthCard(container, type, title, classes) {
+        if (!container) return null;
+        var card = document.createElement("div");
+        card.className = "growth-card " + type + " " + (classes || "");
         card.innerHTML = "<small>" + type + "</small><div>" + title + "</div>";
         container.prepend(card);
         return card;
@@ -1400,6 +1601,72 @@
           routingNotificationCount.textContent = routingNotifications + " notifications dispatched";
           routingActiveAlerts.textContent = routingAlerts + " active alerts";
           if (resolved) setTimeout(function () { resolved.classList.remove("green-confirm"); }, 1200);
+        });
+      }
+
+      if (runEvaluationBtn) {
+        runEvaluationBtn.addEventListener("click", function () {
+          var passed = Math.random() > 0.4;
+          if (passed) {
+            var evalCard = addGrowthCard(growthTestingList, "experiment", "Evaluation passed: repeat purchase pathway stable", "launch-pulse");
+            launchStatus.textContent = "Evaluation passed — launch confidence rising";
+            marketingReadyStatus.textContent = "Yes — campaign assets aligned";
+            launchStatus.parentElement.classList.add("launch-pulse");
+            if (evalCard) setTimeout(function () { evalCard.classList.remove("launch-pulse"); }, 1200);
+            setTimeout(function () { launchStatus.parentElement.classList.remove("launch-pulse"); }, 1200);
+          } else {
+            addGrowthCard(growthTestingList, "launch_gate", "Evaluation failed: onboarding drop-off exceeded threshold", "not-ready growth-warning");
+            launchStatus.textContent = "Not ready — failed evaluation needs correction";
+            marketingReadyStatus.textContent = "No — adjust messaging and fix leak";
+            launchStatus.parentElement.classList.add("growth-warning");
+            setTimeout(function () { launchStatus.parentElement.classList.remove("growth-warning"); }, 1200);
+          }
+        });
+      }
+
+      if (checkLaunchGateBtn) {
+        checkLaunchGateBtn.addEventListener("click", function () {
+          launchGateReady = !launchGateReady;
+          if (launchGateReady) {
+            addGrowthCard(growthTestingList, "launch_gate", "Launch gate cleared: funnel, fulfillment, and support checks passed", "launch-ready launch-pulse");
+            launchStatus.textContent = "Ready to launch";
+            marketingReadyStatus.textContent = "Yes — launch campaigns approved";
+            launchStatus.parentElement.classList.add("launch-pulse");
+            setTimeout(function () { launchStatus.parentElement.classList.remove("launch-pulse"); }, 1200);
+          } else {
+            addGrowthCard(growthTestingList, "launch_gate", "Launch gate blocked: compliance checklist incomplete", "not-ready growth-warning");
+            launchStatus.textContent = "Not ready — gate blocked";
+            marketingReadyStatus.textContent = "No — unresolved compliance blocker";
+            launchStatus.parentElement.classList.add("growth-warning");
+            setTimeout(function () { launchStatus.parentElement.classList.remove("growth-warning"); }, 1200);
+          }
+        });
+      }
+
+      if (createHandoffBtn) {
+        createHandoffBtn.addEventListener("click", function () {
+          var handoffCard = addGrowthCard(growthCompletedList, "handoff", "Handoff packet transferred to launch operations pod", "handoff-transition");
+          handoffStatus.textContent = "Handoff completed — launch team activated";
+          handoffStatus.parentElement.classList.add("handoff-transition");
+          if (handoffCard) setTimeout(function () { handoffCard.classList.remove("handoff-transition"); }, 1500);
+          setTimeout(function () { handoffStatus.parentElement.classList.remove("handoff-transition"); }, 1500);
+        });
+      }
+
+      if (logImprovementBtn) {
+        logImprovementBtn.addEventListener("click", function () {
+          growthImprovements += 1;
+          addGrowthCard(growthImplementingList, "improvement", "Improvement logged: reduced onboarding friction with simplified copy", "launch-pulse");
+          improvementCount.textContent = growthImprovements + " improvements tracked";
+        });
+      }
+
+      if (addTeachForwardBtn) {
+        addTeachForwardBtn.addEventListener("click", function () {
+          growthKnowledge += 1;
+          var note = addGrowthCard(growthTeachingList, "teach_forward", "Teach-forward note: pre-launch FAQ lowers support load in week one", "teach-flash");
+          knowledgeEntries.textContent = growthKnowledge + " teach-forward notes logged";
+          if (note) setTimeout(function () { note.classList.remove("teach-flash"); }, 1200);
         });
       }
     })();
