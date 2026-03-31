@@ -1667,6 +1667,10 @@
         verificationValue.textContent = "Intelligence load failed: " + (err && err.message ? err.message : "unknown error");
         renderIntelligenceState(null);
       });
+      loadEvolutionState().catch(function (err) {
+        launchStatus.textContent = "Evolution load failed: " + (err && err.message ? err.message : "unknown error");
+        renderGrowthFallback();
+      });
 
       function intelligenceUrl(path) {
         return "/api/intelligence" + path + "?tenant=" + encodeURIComponent(tenant);
@@ -2839,69 +2843,147 @@
         });
       }
 
+      function evolutionUrl(path) {
+        return "/api/evolution" + path + "?tenant=" + encodeURIComponent(tenant);
+      }
+
+      function clearGrowthLists() {
+        [growthIdeasList, growthTestingList, growthImplementingList, growthCompletedList, growthTeachingList].forEach(function (list) {
+          if (list) list.innerHTML = "";
+        });
+      }
+
+      function renderGrowthFallback() {
+        clearGrowthLists();
+        addGrowthCard(growthIdeasList, "experiment", "No evolution data yet. Run Evaluation to start.", "");
+        addGrowthCard(growthTestingList, "launch_gate", "Launch gate pending first evaluation.", "not-ready");
+        launchStatus.textContent = "Not yet started";
+        marketingReadyStatus.textContent = "In review";
+        handoffStatus.textContent = "Not yet started";
+        improvementCount.textContent = "0 improvements tracked";
+        knowledgeEntries.textContent = "0 teach-forward notes logged";
+      }
+
+      function renderGrowthBoardList(container, items) {
+        if (!container) return;
+        var list = Array.isArray(items) ? items : [];
+        list.slice(0, 20).forEach(function (item) {
+          var type = String(item && item.type || "experiment").trim() || "experiment";
+          var title = String(item && item.title || "Untitled").trim() || "Untitled";
+          var extraClass = "";
+          if (type === "launch_gate") {
+            if (String(item && item.status || "") === "launch_ready") extraClass = "launch-ready";
+            else if (String(item && item.status || "") === "not_ready") extraClass = "not-ready";
+          }
+          addGrowthCard(container, type, title, extraClass);
+        });
+      }
+
+      function renderGrowthState(payload) {
+        var state = payload && payload.state ? payload.state : payload;
+        if (!state || (!state.started && !((state.records || {}).evaluation_records || []).length)) {
+          renderGrowthFallback();
+          return;
+        }
+
+        clearGrowthLists();
+        var board = state.board || {};
+        renderGrowthBoardList(growthIdeasList, board.ideas);
+        renderGrowthBoardList(growthTestingList, board.testing);
+        renderGrowthBoardList(growthImplementingList, board.implementing);
+        renderGrowthBoardList(growthCompletedList, board.completed);
+        renderGrowthBoardList(growthTeachingList, board.teaching);
+
+        var status = state.status || {};
+        growthImprovements = Number(status.improvement_count || 0);
+        growthKnowledge = Number(status.knowledge_entries || 0);
+        launchGateReady = Boolean(status.launch_gate_ready);
+        launchStatus.textContent = String(status.launch_status || "Not yet started");
+        marketingReadyStatus.textContent = String(status.marketing_ready || "In review");
+        handoffStatus.textContent = String(status.handoff_status || "Not yet started");
+        improvementCount.textContent = growthImprovements + " improvements tracked";
+        knowledgeEntries.textContent = growthKnowledge + " teach-forward notes logged";
+      }
+
+      async function loadEvolutionState() {
+        if (!tenant) {
+          renderGrowthFallback();
+          return;
+        }
+        var response = await fetch(evolutionUrl("/state"), { headers: { Accept: "application/json" } });
+        var payload = await safeJson(response);
+        if (!response.ok) throw new Error(payload.error || "Evolution state load failed");
+        renderGrowthState(payload);
+      }
+
+      async function postEvolution(path, body) {
+        var response = await fetch(evolutionUrl(path), {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(body || { tenant: tenant }),
+        });
+        var payload = await safeJson(response);
+        if (!response.ok) throw new Error(payload.error || "Evolution update failed");
+        renderGrowthState(payload);
+      }
+
       if (runEvaluationBtn) {
-        runEvaluationBtn.addEventListener("click", function () {
-          var passed = Math.random() > 0.4;
-          if (passed) {
-            var evalCard = addGrowthCard(growthTestingList, "experiment", "Evaluation passed: repeat purchase pathway stable", "launch-pulse");
-            launchStatus.textContent = "Evaluation passed — launch confidence rising";
-            marketingReadyStatus.textContent = "Yes — campaign assets aligned";
+        runEvaluationBtn.addEventListener("click", async function () {
+          try {
+            await postEvolution("/evaluate", { tenant: tenant });
             launchStatus.parentElement.classList.add("launch-pulse");
-            if (evalCard) setTimeout(function () { evalCard.classList.remove("launch-pulse"); }, 1200);
             setTimeout(function () { launchStatus.parentElement.classList.remove("launch-pulse"); }, 1200);
-          } else {
-            addGrowthCard(growthTestingList, "launch_gate", "Evaluation failed: onboarding drop-off exceeded threshold", "not-ready growth-warning");
-            launchStatus.textContent = "Not ready — failed evaluation needs correction";
-            marketingReadyStatus.textContent = "No — adjust messaging and fix leak";
-            launchStatus.parentElement.classList.add("growth-warning");
-            setTimeout(function () { launchStatus.parentElement.classList.remove("growth-warning"); }, 1200);
+          } catch (err) {
+            launchStatus.textContent = "Run Evaluation failed: " + (err && err.message ? err.message : "unknown error");
           }
         });
       }
 
       if (checkLaunchGateBtn) {
-        checkLaunchGateBtn.addEventListener("click", function () {
-          launchGateReady = !launchGateReady;
-          if (launchGateReady) {
-            addGrowthCard(growthTestingList, "launch_gate", "Launch gate cleared: funnel, fulfillment, and support checks passed", "launch-ready launch-pulse");
-            launchStatus.textContent = "Ready to launch";
-            marketingReadyStatus.textContent = "Yes — launch campaigns approved";
-            launchStatus.parentElement.classList.add("launch-pulse");
-            setTimeout(function () { launchStatus.parentElement.classList.remove("launch-pulse"); }, 1200);
-          } else {
-            addGrowthCard(growthTestingList, "launch_gate", "Launch gate blocked: compliance checklist incomplete", "not-ready growth-warning");
-            launchStatus.textContent = "Not ready — gate blocked";
-            marketingReadyStatus.textContent = "No — unresolved compliance blocker";
-            launchStatus.parentElement.classList.add("growth-warning");
-            setTimeout(function () { launchStatus.parentElement.classList.remove("growth-warning"); }, 1200);
+        checkLaunchGateBtn.addEventListener("click", async function () {
+          try {
+            await postEvolution("/verify", { tenant: tenant, ready: !launchGateReady });
+            launchStatus.parentElement.classList.add(launchGateReady ? "launch-pulse" : "growth-warning");
+            setTimeout(function () {
+              launchStatus.parentElement.classList.remove("launch-pulse");
+              launchStatus.parentElement.classList.remove("growth-warning");
+            }, 1200);
+          } catch (err) {
+            launchStatus.textContent = "Check Launch Gate failed: " + (err && err.message ? err.message : "unknown error");
           }
         });
       }
 
       if (createHandoffBtn) {
-        createHandoffBtn.addEventListener("click", function () {
-          var handoffCard = addGrowthCard(growthCompletedList, "handoff", "Handoff packet transferred to launch operations pod", "handoff-transition");
-          handoffStatus.textContent = "Handoff completed — launch team activated";
-          handoffStatus.parentElement.classList.add("handoff-transition");
-          if (handoffCard) setTimeout(function () { handoffCard.classList.remove("handoff-transition"); }, 1500);
-          setTimeout(function () { handoffStatus.parentElement.classList.remove("handoff-transition"); }, 1500);
+        createHandoffBtn.addEventListener("click", async function () {
+          try {
+            await postEvolution("/yield", { tenant: tenant });
+            handoffStatus.parentElement.classList.add("handoff-transition");
+            setTimeout(function () { handoffStatus.parentElement.classList.remove("handoff-transition"); }, 1500);
+          } catch (err) {
+            handoffStatus.textContent = "Create Handoff failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
 
       if (logImprovementBtn) {
-        logImprovementBtn.addEventListener("click", function () {
-          growthImprovements += 1;
-          addGrowthCard(growthImplementingList, "improvement", "Improvement logged: reduced onboarding friction with simplified copy", "launch-pulse");
-          improvementCount.textContent = growthImprovements + " improvements tracked";
+        logImprovementBtn.addEventListener("click", async function () {
+          try {
+            await postEvolution("/improvements", { tenant: tenant });
+          } catch (err) {
+            improvementCount.textContent = "Log Improvement failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
 
       if (addTeachForwardBtn) {
-        addTeachForwardBtn.addEventListener("click", function () {
-          growthKnowledge += 1;
-          var note = addGrowthCard(growthTeachingList, "teach_forward", "Teach-forward note: pre-launch FAQ lowers support load in week one", "teach-flash");
-          knowledgeEntries.textContent = growthKnowledge + " teach-forward notes logged";
-          if (note) setTimeout(function () { note.classList.remove("teach-flash"); }, 1200);
+        addTeachForwardBtn.addEventListener("click", async function () {
+          try {
+            await postEvolution("/knowledge", { tenant: tenant });
+            await postEvolution("/daily-content/rotate", { tenant: tenant, channel: "social" });
+          } catch (err) {
+            knowledgeEntries.textContent = "Teach-forward failed: " + (err && err.message ? err.message : "unknown error");
+          }
         });
       }
     })();
