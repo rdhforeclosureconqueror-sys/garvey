@@ -506,6 +506,55 @@ async function initializeDatabase() {
     CREATE INDEX IF NOT EXISTS kanban_events_tenant_board_idx ON kanban_card_events(tenant_id, board_id, created_at DESC);
   `);
 
+  // ==================================================
+  // STRUCTURE SYSTEM (PHASE 2)
+  // ==================================================
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS structure_cards (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      board_id BIGINT NOT NULL REFERENCES kanban_boards(id) ON DELETE CASCADE,
+      kanban_card_id BIGINT NOT NULL REFERENCES kanban_cards(id) ON DELETE CASCADE,
+      card_type TEXT NOT NULL,
+      title TEXT NOT NULL,
+      content TEXT NOT NULL DEFAULT '',
+      column_name TEXT NOT NULL DEFAULT 'Needed',
+      status TEXT NOT NULL DEFAULT 'Needed',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (tenant_id, card_type)
+    );
+
+    CREATE TABLE IF NOT EXISTS structure_roles (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      role_name TEXT NOT NULL,
+      owner_name TEXT,
+      owner_email TEXT,
+      backup_name TEXT,
+      backup_email TEXT,
+      responsibilities JSONB NOT NULL DEFAULT '[]'::jsonb,
+      decision_rights INT NOT NULL DEFAULT 1,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (tenant_id, role_name)
+    );
+
+    CREATE TABLE IF NOT EXISTS structure_operator_assignments (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE UNIQUE,
+      operator_name TEXT,
+      operator_email TEXT,
+      mode TEXT NOT NULL DEFAULT 'manual',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE INDEX IF NOT EXISTS structure_cards_tenant_idx ON structure_cards(tenant_id, card_type);
+    CREATE INDEX IF NOT EXISTS structure_roles_tenant_idx ON structure_roles(tenant_id, role_name);
+    CREATE INDEX IF NOT EXISTS structure_operator_tenant_idx ON structure_operator_assignments(tenant_id);
+  `);
+
   console.log("✅ Database ready");
 }
 
