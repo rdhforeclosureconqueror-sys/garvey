@@ -193,6 +193,7 @@ const REWARD_POINTS = Object.freeze({
   voc: 50,
 });
 const OWNER_NOTIFICATION_FALLBACK_EMAIL = "rdhforeclosureconqueror@gmail.com";
+const REVIEW_PROOF_STATUSES = new Set(["pending", "approved", "rejected"]);
 
 const ALLOWED_CONFIG_KEYS = Object.freeze([
   "reward_system",
@@ -237,6 +238,27 @@ function rewardPointsEnabled(config) {
 
 function normalizeEmail(email) {
   return String(email || "").trim().toLowerCase();
+}
+
+function normalizeReviewRating(ratingRaw) {
+  if (ratingRaw == null || String(ratingRaw).trim() === "") return null;
+  const rating = Number(ratingRaw);
+  if (!Number.isInteger(rating) || rating < 1 || rating > 6) {
+    const err = new Error("rating must be an integer from 1 to 6");
+    err.statusCode = 400;
+    throw err;
+  }
+  return rating;
+}
+
+function normalizeReviewProofStatus(statusRaw) {
+  const status = String(statusRaw || "").trim().toLowerCase();
+  if (!REVIEW_PROOF_STATUSES.has(status)) {
+    const err = new Error("proof_status must be pending, approved, or rejected");
+    err.statusCode = 400;
+    throw err;
+  }
+  return status;
 }
 
 function parseCookieHeader(rawCookie = "") {
@@ -1228,6 +1250,7 @@ async function processReviewReward({ tenant, tenantConfig, email, text, mediaTyp
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
   const pointsAdded = rewardPointsEnabled(tenantConfig) ? REWARD_POINTS.review : 0;
+  const normalizedRating = normalizeReviewRating(rating);
   let normalizedProductId = null;
   if (Number.isInteger(Number(productId)) && Number(productId) > 0) {
     const productCheck = await pool.query("SELECT id FROM products WHERE tenant_id = $1 AND id = $2 LIMIT 1", [
@@ -1246,7 +1269,7 @@ async function processReviewReward({ tenant, tenantConfig, email, text, mediaTyp
     `INSERT INTO reviews (tenant_id, user_id, product_id, text, media_type, points_awarded, campaign_id, campaign_slug, media_note, rating, proof_status)
      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 'pending')
      RETURNING *`,
-    [tenant.id, user.id, normalizedProductId, text, mediaType || null, pointsAdded, campaign?.id || null, campaign?.slug || null, mediaNote || null, rating == null ? null : Number(rating)]
+    [tenant.id, user.id, normalizedProductId, text, mediaType || null, pointsAdded, campaign?.id || null, campaign?.slug || null, mediaNote || null, normalizedRating]
   );
   await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "review", customerEmail: email, meta: { media_type: mediaType || null, result_id: String(resultId ?? "").trim() || null, product_id: normalizedProductId } });
   if (normalizedProductId) {
@@ -1679,6 +1702,23 @@ app.get("/t/:slug/products", tenantMiddleware, async (req, res) => {
   }
 });
 
+app.get("/t/:slug/products/public", tenantMiddleware, async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT id, name
+       FROM products
+       WHERE tenant_id = $1
+         AND is_active = TRUE
+       ORDER BY sort_order ASC, id ASC`,
+      [req.tenant.id]
+    );
+    return res.json({ products: result.rows });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "public products fetch failed" });
+  }
+});
+
 app.post("/t/:slug/products", tenantMiddleware, async (req, res) => {
   try {
     const access = requirePolicyAction(req, res, { action: ACTIONS.PRODUCTS_MANAGE, resourceTenantSlug: req.tenant.slug });
@@ -1892,6 +1932,57 @@ app.post("/t/:slug/showcase/track", tenantMiddleware, async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "showcase tracking failed" });
+  }
+});
+
+app.get("/t/:slug/reviews", tenantMiddleware, async (req, res) => {
+  try {
+    const access = requirePolicyAction(req, res, { action: ACTIONS.PRODUCTS_MANAGE, resourceTenantSlug: req.tenant.slug });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
+    const statusRaw = String(req.query.status || "").trim().toLowerCase();
+    const statusFilter = statusRaw ? normalizeReviewProofStatus(statusRaw) : null;
+    const limit = Math.max(1, Math.min(Number(req.query.limit || 100) || 100, 200));
+    const rows = await pool.query(
+      `SELECT r.id, r.tenant_id, r.user_id, r.product_id, r.text, r.media_type, r.media_note, r.rating, r.proof_status, r.created_at,
+              u.email AS customer_email,
+              p.name AS product_name
+       FROM reviews r
+       LEFT JOIN users u ON u.id = r.user_id AND u.tenant_id = r.tenant_id
+       LEFT JOIN products p ON p.id = r.product_id AND p.tenant_id = r.tenant_id
+       WHERE r.tenant_id = $1
+         AND ($2::text IS NULL OR r.proof_status = $2)
+       ORDER BY r.created_at DESC
+       LIMIT $3`,
+      [req.tenant.id, statusFilter, limit]
+    );
+    return res.json({ reviews: rows.rows });
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "reviews fetch failed" });
+  }
+});
+
+app.post("/t/:slug/reviews/:reviewId/moderation", tenantMiddleware, async (req, res) => {
+  try {
+    const access = requirePolicyAction(req, res, { action: ACTIONS.PRODUCTS_MANAGE, resourceTenantSlug: req.tenant.slug });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
+    const reviewId = Number(req.params.reviewId);
+    if (!Number.isInteger(reviewId) || reviewId <= 0) return res.status(400).json({ error: "invalid review id" });
+    const proofStatus = normalizeReviewProofStatus(req.body?.proof_status);
+    const updated = await pool.query(
+      `UPDATE reviews
+       SET proof_status = $3
+       WHERE tenant_id = $1 AND id = $2
+       RETURNING id, tenant_id, user_id, product_id, text, media_type, media_note, rating, proof_status, created_at`,
+      [req.tenant.id, reviewId, proofStatus]
+    );
+    if (!updated.rows[0]) return res.status(404).json({ error: "review not found" });
+    return res.json({ review: updated.rows[0] });
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "review moderation failed" });
   }
 });
 

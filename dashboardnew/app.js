@@ -931,11 +931,17 @@
       .catch(function () { return ""; });
   }
 
-  function tenantApiUrl(tenant, path, ownerEmail, cid, rid) {
+  function tenantApiUrl(tenant, path, ownerEmail, cid, rid, extraQuery) {
     var query = {};
     if (ownerEmail) query.email = ownerEmail;
     if (cid) query.cid = cid;
     if (rid) query.rid = rid;
+    if (extraQuery && typeof extraQuery === "object") {
+      Object.keys(extraQuery).forEach(function (k) {
+        if (extraQuery[k] == null || extraQuery[k] === "") return;
+        query[k] = extraQuery[k];
+      });
+    }
     return apiUrl("/t/" + encodeURIComponent(tenant) + path, query);
   }
 
@@ -1051,6 +1057,80 @@
         return loadProducts(tenant, ownerEmail, cid, rid);
       }).catch(function () {});
     });
+  }
+
+  function renderReviewModerationRows(tenant, ownerEmail, cid, rid, reviews) {
+    var tbody = document.querySelector("#reviewModerationTable tbody");
+    var empty = document.getElementById("reviewModerationEmpty");
+    if (!tbody || !empty) return;
+    var rows = Array.isArray(reviews) ? reviews : [];
+    tbody.innerHTML = rows.map(function (r) {
+      return "<tr>" +
+        "<td>" + Number(r.id) + "</td>" +
+        "<td>" + escapeHtml(String(r.created_at || "").slice(0, 19).replace("T", " ")) + "</td>" +
+        "<td>" + escapeHtml(r.customer_email || "-") + "</td>" +
+        "<td>" + escapeHtml(r.product_name || "-") + "</td>" +
+        "<td>" + (r.rating == null ? "-" : Number(r.rating)) + "</td>" +
+        "<td>" + escapeHtml(r.proof_status || "pending") + "</td>" +
+        "<td>" + escapeHtml(r.text || "-") + "</td>" +
+        "<td>" +
+          '<select class="review-moderation-select input-sm" data-id="' + Number(r.id) + '">' +
+            '<option value="pending"' + ((r.proof_status === "pending") ? " selected" : "") + ">pending</option>" +
+            '<option value="approved"' + ((r.proof_status === "approved") ? " selected" : "") + ">approved</option>" +
+            '<option value="rejected"' + ((r.proof_status === "rejected") ? " selected" : "") + ">rejected</option>' +
+          "</select>" +
+        "</td>" +
+      "</tr>";
+    }).join("");
+    empty.style.display = rows.length ? "none" : "block";
+    Array.prototype.forEach.call(document.querySelectorAll(".review-moderation-select"), function (el) {
+      el.addEventListener("change", function () {
+        var id = Number(el.getAttribute("data-id"));
+        var nextStatus = safeTrim(el.value).toLowerCase();
+        var msg = document.getElementById("reviewModerationMsg");
+        jsonFetch(tenantApiUrl(tenant, "/reviews/" + encodeURIComponent(id) + "/moderation", ownerEmail, cid, rid), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ proof_status: nextStatus })
+        }).then(function () {
+          if (msg) msg.textContent = "Review moderation updated.";
+          return Promise.all([
+            loadProducts(tenant, ownerEmail, cid, rid),
+            loadReviewModeration(tenant, ownerEmail, cid, rid)
+          ]);
+        }).catch(function (err) {
+          if (msg) msg.textContent = err.message || "Moderation update failed.";
+        });
+      });
+    });
+  }
+
+  function loadReviewModeration(tenant, ownerEmail, cid, rid) {
+    var statusInput = document.getElementById("reviewStatusFilterInput");
+    var status = safeTrim(statusInput && statusInput.value).toLowerCase();
+    return jsonFetch(tenantApiUrl(tenant, "/reviews", ownerEmail, cid, rid, { status: status || undefined }))
+      .then(function (resp) {
+        renderReviewModerationRows(tenant, ownerEmail, cid, rid, (resp && resp.reviews) || []);
+      })
+      .catch(function (err) {
+        var msg = document.getElementById("reviewModerationMsg");
+        if (msg) msg.textContent = err.message || "Reviews unavailable.";
+      });
+  }
+
+  function wireReviewModeration(tenant, ownerEmail, cid, rid) {
+    var refreshBtn = document.getElementById("refreshReviewModerationBtn");
+    var statusInput = document.getElementById("reviewStatusFilterInput");
+    if (refreshBtn) {
+      refreshBtn.addEventListener("click", function () {
+        loadReviewModeration(tenant, ownerEmail, cid, rid).catch(function () {});
+      });
+    }
+    if (statusInput) {
+      statusInput.addEventListener("change", function () {
+        loadReviewModeration(tenant, ownerEmail, cid, rid).catch(function () {});
+      });
+    }
   }
 
   function loadOwnerSnapshot(email, tenant, cid, rid, isAdmin) {
@@ -1303,6 +1383,7 @@
       wireCustomerLookup(tenant);
       wireCampaignCreator(tenant, ownerEmail, cid, rid);
       wireProductCreator(tenant, ownerEmail, cid, rid);
+      wireReviewModeration(tenant, ownerEmail, cid, rid);
       loadOwnerSnapshot(ownerEmail, tenant, cid, rid, isAdmin);
 
       return Promise.all([
@@ -1313,7 +1394,8 @@
         jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail, cid, rid)),
         jsonFetch(apiUrl("/api/campaigns/list", { tenant: tenant, email: ownerEmail })),
         jsonFetch(apiUrl("/api/archetypes/groups", { tenant: tenant, cid: cid || undefined })),
-        jsonFetch(tenantApiUrl(tenant, "/products", ownerEmail, cid, rid))
+        jsonFetch(tenantApiUrl(tenant, "/products", ownerEmail, cid, rid)),
+        jsonFetch(tenantApiUrl(tenant, "/reviews", ownerEmail, cid, rid, { status: "pending" }))
       ])
         .then(function (responses) {
           renderMetrics(responses[0]);
@@ -1339,6 +1421,7 @@
           renderProducts(tenant, ownerEmail, cid, rid, (responses[7] && responses[7].products) || []);
           var showcaseEnabledInput = document.getElementById("proofShowcaseEnabledInput");
           if (showcaseEnabledInput) showcaseEnabledInput.checked = !!(responses[7] && responses[7].proof_showcase_enabled);
+          renderReviewModerationRows(tenant, ownerEmail, cid, rid, (responses[8] && responses[8].reviews) || []);
           wireShowcaseControls(tenant, ownerEmail, cid, rid);
 
           clearRefreshTimer();

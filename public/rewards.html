@@ -468,6 +468,24 @@
           Review text
           <textarea id="reviewText" placeholder="What did you love about your visit?"></textarea>
         </label>
+        <label id="reviewRatingWrap" class="hide">
+          Rating (optional)
+          <select id="reviewRating">
+            <option value="">No rating selected</option>
+            <option value="6">6 ★ — Support signal</option>
+            <option value="5">5 ★ — Excellent</option>
+            <option value="4">4 ★ — Good</option>
+            <option value="3">3 ★ — Convenience</option>
+            <option value="2">2 ★ — Needs improvement</option>
+            <option value="1">1 ★ — Community warning</option>
+          </select>
+        </label>
+        <label id="reviewProductWrap" class="hide">
+          Product (optional)
+          <select id="reviewProductId">
+            <option value="">No product selected</option>
+          </select>
+        </label>
 
         <label id="referralWrap" class="hide">
           Friend's email
@@ -732,9 +750,29 @@ function updateActionUI() {
     btn.classList.toggle("recommended", isRecommended);
   });
   document.getElementById("reviewWrap").classList.toggle("hide", state.actionType !== "review");
+  document.getElementById("reviewRatingWrap").classList.toggle("hide", state.actionType !== "review");
+  document.getElementById("reviewProductWrap").classList.toggle("hide", state.actionType !== "review");
   document.getElementById("referralWrap").classList.toggle("hide", state.actionType !== "referral");
   document.getElementById("wishlistWrap").classList.toggle("hide", state.actionType !== "wishlist");
   setStep(2);
+}
+
+function parseOptionalPositiveInt(raw) {
+  const n = Number(raw);
+  return Number.isInteger(n) && n > 0 ? n : undefined;
+}
+
+async function loadReviewProductOptions(ctx) {
+  const select = document.getElementById("reviewProductId");
+  if (!select || !ctx.tenant) return;
+  try {
+    const resp = await fetch(`/t/${encodeURIComponent(ctx.tenant)}/products/public`);
+    const payload = await resp.json().catch(() => ({}));
+    const products = Array.isArray(payload?.products) ? payload.products : [];
+    select.innerHTML = `<option value="">No product selected</option>${products
+      .map((p) => `<option value="${Number(p.id)}">${escapeHtml(p.name || `Product #${Number(p.id)}`)}</option>`)
+      .join("")}`;
+  } catch (_) {}
 }
 
 function requireEmail() {
@@ -774,6 +812,8 @@ async function submitAction() {
       type: "review",
       text: safeTrim(document.getElementById("reviewText").value),
       media_type: mediaType || undefined,
+      rating: parseOptionalPositiveInt(document.getElementById("reviewRating").value),
+      product_id: parseOptionalPositiveInt(document.getElementById("reviewProductId").value),
     },
     referral: {
       type: "referral",
@@ -818,6 +858,7 @@ async function run() {
   if (ctx.email) document.getElementById("email").value = ctx.email;
   setAuthStatus(ctx.email ? `Signed in as ${ctx.email}` : "Not signed in.");
   document.getElementById("tenantLine").textContent = `Tenant: ${ctx.tenant}${ctx.cid ? ` • CID: ${ctx.cid}` : ""}${ctx.rid ? ` • CRID: ${ctx.rid}` : ""}`;
+  loadReviewProductOptions(ctx);
 
   const back = new URL(`/index.html`, location.origin);
   back.searchParams.set("tenant", ctx.tenant);
