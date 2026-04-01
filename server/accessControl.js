@@ -72,10 +72,11 @@ function normalizeRole(value) {
 }
 
 function deriveActor(req) {
-  const role = normalizeRole(req.query.role || req.headers["x-user-role"]);
-  const email = normalizeEmail(req.userEmail || req.query.email || req.headers["x-user-email"]);
+  const sessionActor = req.authActor || null;
+  const role = normalizeRole(sessionActor?.role || req.query.role || req.headers["x-user-role"]);
+  const email = normalizeEmail(sessionActor?.email || req.userEmail || req.query.email || req.headers["x-user-email"]);
   const tenantSlug = String(
-    req.query.tenant || req.body?.tenant || req.params.slug || req.headers["x-tenant-slug"] || ""
+    sessionActor?.tenantSlug || req.query.tenant || req.body?.tenant || req.params.slug || req.headers["x-tenant-slug"] || ""
   )
     .trim()
     .toLowerCase();
@@ -84,8 +85,9 @@ function deriveActor(req) {
     email,
     role,
     tenantSlug,
-    isAdmin: role === ROLES.ADMIN || req.isAdmin === true,
-    userId: String(req.query.user_id || req.body?.user_id || req.headers["x-user-id"] || "").trim() || null,
+    isAdmin: role === ROLES.ADMIN || sessionActor?.isAdmin === true || req.isAdmin === true,
+    userId: String(sessionActor?.userId || req.query.user_id || req.body?.user_id || req.headers["x-user-id"] || "").trim() || null,
+    onboardingComplete: !!sessionActor?.onboardingComplete,
   };
 }
 

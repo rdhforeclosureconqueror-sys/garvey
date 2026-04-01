@@ -40,6 +40,27 @@ async function initializeDatabase() {
       id SERIAL PRIMARY KEY,
       email TEXT,
       tenant_id INTEGER REFERENCES tenants(id),
+      password_hash TEXT,
+      created_at TIMESTAMP DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS tenant_memberships (
+      id SERIAL PRIMARY KEY,
+      tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      role TEXT NOT NULL,
+      onboarding_complete BOOLEAN NOT NULL DEFAULT FALSE,
+      created_at TIMESTAMP DEFAULT NOW(),
+      UNIQUE (tenant_id, user_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS auth_sessions (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      role TEXT NOT NULL,
+      token_hash TEXT NOT NULL UNIQUE,
+      expires_at TIMESTAMP NOT NULL,
       created_at TIMESTAMP DEFAULT NOW()
     );
 
@@ -87,8 +108,12 @@ async function initializeDatabase() {
   await pool.query(`
     ALTER TABLE tenants ADD COLUMN IF NOT EXISTS name TEXT;
     ALTER TABLE users ADD COLUMN IF NOT EXISTS points INTEGER DEFAULT 0;
+    ALTER TABLE users ADD COLUMN IF NOT EXISTS password_hash TEXT;
   `).catch(() => {});
   await pool.query(`CREATE UNIQUE INDEX IF NOT EXISTS idx_users_tenant_email_unique ON users(tenant_id, email);`);
+  await pool.query(`CREATE INDEX IF NOT EXISTS idx_users_email_lower ON users(LOWER(email));`);
+  await pool.query(`CREATE INDEX IF NOT EXISTS idx_memberships_tenant_role ON tenant_memberships(tenant_id, role);`);
+  await pool.query(`CREATE INDEX IF NOT EXISTS idx_sessions_token_hash ON auth_sessions(token_hash);`);
 
   // ==================================================
   // QUESTIONS TABLE (PHASE 2 CORE)
