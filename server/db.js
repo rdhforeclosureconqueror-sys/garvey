@@ -234,9 +234,12 @@ async function initializeDatabase() {
       id SERIAL PRIMARY KEY,
       tenant_id INTEGER,
       user_id INTEGER,
+      product_id INTEGER,
       text TEXT,
       media_type TEXT,
       media_note TEXT,
+      rating NUMERIC(2,1),
+      proof_status TEXT DEFAULT 'pending',
       points_awarded INTEGER DEFAULT 0,
       campaign_id INTEGER,
       campaign_slug TEXT,
@@ -280,9 +283,12 @@ async function initializeDatabase() {
     ALTER TABLE actions ADD COLUMN IF NOT EXISTS campaign_id INTEGER;
     ALTER TABLE actions ADD COLUMN IF NOT EXISTS campaign_slug TEXT;
     ALTER TABLE reviews ADD COLUMN IF NOT EXISTS user_id INTEGER;
+    ALTER TABLE reviews ADD COLUMN IF NOT EXISTS product_id INTEGER;
     ALTER TABLE reviews ADD COLUMN IF NOT EXISTS text TEXT;
     ALTER TABLE reviews ADD COLUMN IF NOT EXISTS media_type TEXT;
     ALTER TABLE reviews ADD COLUMN IF NOT EXISTS media_note TEXT;
+    ALTER TABLE reviews ADD COLUMN IF NOT EXISTS rating NUMERIC(2,1);
+    ALTER TABLE reviews ADD COLUMN IF NOT EXISTS proof_status TEXT DEFAULT 'pending';
     ALTER TABLE reviews ADD COLUMN IF NOT EXISTS points_awarded INTEGER DEFAULT 0;
     ALTER TABLE reviews ADD COLUMN IF NOT EXISTS campaign_id INTEGER;
     ALTER TABLE reviews ADD COLUMN IF NOT EXISTS campaign_slug TEXT;
@@ -303,6 +309,55 @@ async function initializeDatabase() {
     ALTER TABLE intake_sessions ADD COLUMN IF NOT EXISTS source TEXT;
     ALTER TABLE intake_sessions ADD COLUMN IF NOT EXISTS medium TEXT;
   `);
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS products (
+      id SERIAL PRIMARY KEY,
+      tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      description TEXT,
+      image_url TEXT,
+      external_product_url TEXT,
+      price_text TEXT,
+      is_active BOOLEAN NOT NULL DEFAULT TRUE,
+      sort_order INTEGER NOT NULL DEFAULT 0,
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW()
+    );
+  `);
+
+  await pool.query(`
+    ALTER TABLE products ADD COLUMN IF NOT EXISTS tenant_id INTEGER REFERENCES tenants(id) ON DELETE CASCADE;
+    ALTER TABLE products ADD COLUMN IF NOT EXISTS name TEXT;
+    ALTER TABLE products ADD COLUMN IF NOT EXISTS description TEXT;
+    ALTER TABLE products ADD COLUMN IF NOT EXISTS image_url TEXT;
+    ALTER TABLE products ADD COLUMN IF NOT EXISTS external_product_url TEXT;
+    ALTER TABLE products ADD COLUMN IF NOT EXISTS price_text TEXT;
+    ALTER TABLE products ADD COLUMN IF NOT EXISTS is_active BOOLEAN NOT NULL DEFAULT TRUE;
+    ALTER TABLE products ADD COLUMN IF NOT EXISTS sort_order INTEGER NOT NULL DEFAULT 0;
+    ALTER TABLE products ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT NOW();
+    ALTER TABLE products ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT NOW();
+  `).catch(() => {});
+
+  await pool.query(`
+    CREATE INDEX IF NOT EXISTS idx_products_tenant_sort ON products(tenant_id, sort_order ASC, id ASC);
+    CREATE INDEX IF NOT EXISTS idx_reviews_tenant_product_proof ON reviews(tenant_id, product_id, proof_status);
+  `).catch(() => {});
+  await pool.query(`
+    DO $$
+    BEGIN
+      IF NOT EXISTS (
+        SELECT 1
+        FROM information_schema.table_constraints
+        WHERE constraint_name = 'reviews_product_id_fkey'
+          AND table_name = 'reviews'
+      ) THEN
+        ALTER TABLE reviews
+          ADD CONSTRAINT reviews_product_id_fkey
+          FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE SET NULL;
+      END IF;
+    END $$;
+  `).catch(() => {});
 
   // ==================================================
   // VOC SYSTEM

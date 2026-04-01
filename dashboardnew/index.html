@@ -107,6 +107,7 @@
             <li><a href="#ownerSnapshot"><i class="fa fa-user fa-fw"></i> Owner Snapshot</a></li>
             <li><a href="#campaignTracking"><i class="fa fa-share-alt fa-fw"></i> Campaign Tracking</a></li>
             <li><a href="#customers"><i class="fa fa-users fa-fw"></i> Customers</a></li>
+            <li><a href="#products"><i class="fa fa-cube fa-fw"></i> Products</a></li>
             <li><a href="#garveyProgress"><i class="fa fa-rocket fa-fw"></i> GARVEY Progress</a></li>
             <li><a href="#analytics"><i class="fa fa-bar-chart-o fa-fw"></i> Return Analytics</a></li>
             <li><a href="#rewards"><i class="fa fa-gift fa-fw"></i> Reward Insights</a></li>
@@ -157,6 +158,38 @@
                 <tbody></tbody>
               </table>
               <div id="tableEmpty" class="empty-state" style="display:none;">No customers yet.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="products">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-cube fa-fw"></i> Product Manager</div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-2"><input id="productNameInput" class="form-control" placeholder="Name" /></div>
+                <div class="col-md-2"><input id="productPriceInput" class="form-control" placeholder="Price text" /></div>
+                <div class="col-md-3"><input id="productExternalUrlInput" class="form-control" placeholder="External URL" /></div>
+                <div class="col-md-2"><input id="productImageUrlInput" class="form-control" placeholder="Image URL" /></div>
+                <div class="col-md-1"><input id="productSortOrderInput" type="number" class="form-control" placeholder="Sort" /></div>
+                <div class="col-md-2"><button id="createProductBtn" class="btn btn-primary">Create Product</button></div>
+              </div>
+              <div class="row" style="margin-top:10px;">
+                <div class="col-md-12"><textarea id="productDescriptionInput" class="form-control" placeholder="Description" rows="2"></textarea></div>
+              </div>
+              <div id="productsMsg" class="empty-state" style="padding-top:8px;"></div>
+              <div class="checkbox" style="margin-top:8px;">
+                <label><input id="proofShowcaseEnabledInput" type="checkbox" /> Enable Proof Showcase on landing page</label>
+              </div>
+              <button id="saveFeaturedProductsBtn" class="btn btn-default btn-sm">Save Featured Showcase Selection</button>
+              <hr />
+              <table class="table table-striped table-bordered" id="productsTable">
+                <thead><tr><th>Feature</th><th>Name</th><th>Price</th><th>Active</th><th>Sort</th><th>Showcase Eligible</th><th>Actions</th></tr></thead>
+                <tbody></tbody>
+              </table>
+              <div id="productsEmpty" class="empty-state">No products yet.</div>
             </div>
           </div>
         </div>
