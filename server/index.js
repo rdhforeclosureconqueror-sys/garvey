@@ -336,6 +336,29 @@ function assertContributionsEnabled(config) {
   throw err;
 }
 
+function assertContributionAccessGate({ tenantConfig, balance }) {
+  const gate = parseContributionAccessGate(tenantConfig);
+  if (!gate.enabled) return gate;
+  if (Number(balance?.contribution_balance || 0) >= gate.minimum_balance) return gate;
+  const err = new Error(`minimum contribution balance of ${gate.minimum_balance} is required`);
+  err.statusCode = 403;
+  throw err;
+}
+
+function assertContributionActorEmailBinding({ actor, requestedEmail }) {
+  if (!actor?.email) {
+    const err = new Error("authenticated actor email is required for contribution support allocation");
+    err.statusCode = 401;
+    throw err;
+  }
+  if (requestedEmail && normalizeEmail(requestedEmail) !== normalizeEmail(actor.email)) {
+    const err = new Error("email does not match authenticated actor");
+    err.statusCode = 403;
+    throw err;
+  }
+  return normalizeEmail(actor.email);
+}
+
 async function getContributionBalance({ tenantId, userId, client = pool }) {
   const balanceResult = await client.query(
     `SELECT
@@ -1993,10 +2016,12 @@ app.post("/api/contributions/add", async (req, res) => {
 app.post("/api/contributions/support", async (req, res) => {
   const client = await pool.connect();
   try {
+    const actor = deriveActor(req);
     const { tenant, email, business_id: businessIdRaw, amount: amountRaw, note, metadata } = req.body || {};
-    if (!tenant || !email || !businessIdRaw) {
-      return res.status(400).json({ error: "tenant, email, business_id, and amount are required" });
+    if (!tenant || !businessIdRaw) {
+      return res.status(400).json({ error: "tenant, business_id, and amount are required" });
     }
+    const actorEmail = assertContributionActorEmailBinding({ actor, requestedEmail: email });
     const businessId = Number(businessIdRaw);
     if (!Number.isInteger(businessId) || businessId <= 0) return res.status(400).json({ error: "invalid business_id" });
     const amount = normalizeContributionAmount(amountRaw);
@@ -2005,7 +2030,7 @@ app.post("/api/contributions/support", async (req, res) => {
     assertContributionsEnabled(ctx.tenantConfig);
 
     await client.query("BEGIN");
-    const user = await findTenantUser(ctx.tenant.id, email, client);
+    const user = await findTenantUser(ctx.tenant.id, actorEmail, client);
     await client.query("SELECT id FROM users WHERE id = $1 AND tenant_id = $2 FOR UPDATE", [user.id, ctx.tenant.id]);
 
     const businessResult = await client.query(
@@ -2024,6 +2049,7 @@ app.post("/api/contributions/support", async (req, res) => {
     }
 
     const balance = await getContributionBalance({ tenantId: ctx.tenant.id, userId: user.id, client });
+    const gate = assertContributionAccessGate({ tenantConfig: ctx.tenantConfig, balance });
     if (amount > balance.contribution_balance) {
       const err = new Error("insufficient contribution balance for support allocation");
       err.statusCode = 400;
@@ -2053,6 +2079,10 @@ app.post("/api/contributions/support", async (req, res) => {
       user: { id: user.id, email: user.email },
       allocated_amount: amount,
       contribution_balance: afterBalance.contribution_balance,
+      contribution_access_gate: {
+        ...gate,
+        has_access: gate.enabled ? afterBalance.contribution_balance >= gate.minimum_balance : true,
+      },
       business_support_totals: summary.rows[0],
     });
   } catch (err) {
@@ -2669,6 +2699,14 @@ app.get("/api/spotlight/businesses/:businessId/support", async (req, res) => {
     );
     const business = businessLookup.rows[0];
     if (!business) return res.status(404).json({ error: "business not found" });
+
+    const businessTenantContext = business.tenant_slug
+      ? await getTenantContextBySlug(business.tenant_slug)
+      : null;
+    if (!businessTenantContext) {
+      return res.status(403).json({ error: "contributions are disabled for this tenant" });
+    }
+    assertContributionsEnabled(businessTenantContext.tenantConfig);
 
     const totals = await pool.query(
       `SELECT
