@@ -6,7 +6,10 @@
     "start": "node server/index.js",
     "contract:check": "node scripts/contract-check.mjs",
     "smoke": "node scripts/garvey-smoke.mjs",
-    "seed:questions": "node scripts/seed-questions.mjs"
+    "seed:questions": "node scripts/seed-questions.mjs",
+    "diagnostics:system": "node scripts/system-readiness-check.mjs",
+    "diagnostics:context": "node scripts/context-guard-check.mjs",
+    "diagnostics:live": "node scripts/live-smoke.mjs"
   },
   "dependencies": {
     "express": "^4.18.2",
