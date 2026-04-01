@@ -108,6 +108,9 @@
             <li><a href="#campaignTracking"><i class="fa fa-share-alt fa-fw"></i> Campaign Tracking</a></li>
             <li><a href="#customers"><i class="fa fa-users fa-fw"></i> Customers</a></li>
             <li><a href="#products"><i class="fa fa-cube fa-fw"></i> Products</a></li>
+            <li><a href="#reviewModeration"><i class="fa fa-shield fa-fw"></i> Review Moderation</a></li>
+            <li><a href="#communitySpotlight"><i class="fa fa-bullhorn fa-fw"></i> Community Spotlight</a></li>
+            <li><a href="#contributionsSupport"><i class="fa fa-heart fa-fw"></i> Contributions</a></li>
             <li><a href="#garveyProgress"><i class="fa fa-rocket fa-fw"></i> GARVEY Progress</a></li>
             <li><a href="#analytics"><i class="fa fa-bar-chart-o fa-fw"></i> Return Analytics</a></li>
             <li><a href="#rewards"><i class="fa fa-gift fa-fw"></i> Reward Insights</a></li>
@@ -191,7 +194,7 @@
               </table>
               <div id="productsEmpty" class="empty-state">No products yet.</div>
               <hr />
-              <h4>Review Moderation</h4>
+              <h4 id="reviewModeration">Review Moderation</h4>
               <div class="form-inline" style="margin-bottom:8px;">
                 <label for="reviewStatusFilterInput">Status:&nbsp;</label>
                 <select id="reviewStatusFilterInput" class="form-control input-sm">
@@ -208,6 +211,94 @@
                 <tbody></tbody>
               </table>
               <div id="reviewModerationEmpty" class="empty-state">No reviews for selected filter.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="communitySpotlight">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-bullhorn fa-fw"></i> Community Spotlight Moderation</div>
+            <div class="panel-body">
+              <div id="spotlightFeatureMsg" class="empty-state">Loading spotlight feature state…</div>
+              <div id="spotlightOwnerControls" style="display:none;">
+                <div class="form-inline" style="margin-bottom:8px;">
+                  <label for="spotlightStatusFilterInput">Status:&nbsp;</label>
+                  <select id="spotlightStatusFilterInput" class="form-control input-sm">
+                    <option value="pending" selected>pending</option>
+                    <option value="approved">approved</option>
+                    <option value="removed">removed</option>
+                    <option value="flagged">flagged</option>
+                  </select>
+                  <button id="refreshSpotlightBtn" class="btn btn-default btn-sm">Refresh Spotlight Feed</button>
+                </div>
+                <div id="spotlightMsg" class="empty-state"></div>
+                <table class="table table-striped table-bordered" id="spotlightModerationTable">
+                  <thead><tr><th>ID</th><th>Date</th><th>Business</th><th>Rating</th><th>Status</th><th>Action</th><th>Claim CTA</th></tr></thead>
+                  <tbody></tbody>
+                </table>
+                <div id="spotlightModerationEmpty" class="empty-state">No spotlight posts for this filter.</div>
+                <hr />
+                <h4>Claim Requests (Admin)</h4>
+                <div id="spotlightClaimQueueMsg" class="empty-state">Admin review required for claim queue actions.</div>
+                <table class="table table-striped table-bordered" id="spotlightClaimQueueTable">
+                  <thead><tr><th>Claim ID</th><th>Business ID</th><th>Status</th><th>Action</th></tr></thead>
+                  <tbody></tbody>
+                </table>
+                <div id="spotlightClaimQueueEmpty" class="empty-state">No claim requests loaded.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="contributionsSupport">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-heart fa-fw"></i> Contributions / Support Settings</div>
+            <div class="panel-body">
+              <div class="checkbox">
+                <label><input id="contributionsEnabledInput" type="checkbox" /> Enable contributions feature</label>
+              </div>
+              <div class="checkbox">
+                <label><input id="contributionGateEnabledInput" type="checkbox" /> Require minimum contribution balance before support allocation</label>
+              </div>
+              <div class="form-inline" style="margin-bottom:8px;">
+                <label for="contributionGateMinimumInput">Minimum balance:&nbsp;</label>
+                <input id="contributionGateMinimumInput" type="number" class="form-control input-sm" value="0" min="0" step="1" />
+                <button id="saveContributionSettingsBtn" class="btn btn-default btn-sm">Save Contribution Settings</button>
+              </div>
+              <div id="contributionSettingsMsg" class="empty-state"></div>
+              <hr />
+              <h4>My Contribution Status</h4>
+              <div id="contributionStatusBody" class="empty-state">Loading contribution status…</div>
+              <hr />
+              <h4>Contribution History</h4>
+              <table class="table table-striped table-bordered" id="contributionHistoryTable">
+                <thead><tr><th>Date</th><th>Type</th><th>Amount</th><th>Business</th><th>Note</th></tr></thead>
+                <tbody></tbody>
+              </table>
+              <div id="contributionHistoryEmpty" class="empty-state">No contribution history yet.</div>
+              <hr />
+              <h4>Allocate Support</h4>
+              <div class="form-inline" style="display:flex;gap:8px;flex-wrap:wrap;">
+                <input id="supportBusinessIdInput" class="form-control input-sm" placeholder="Business ID" />
+                <input id="supportAmountInput" class="form-control input-sm" type="number" min="0" step="1" placeholder="Amount" />
+                <input id="supportNoteInput" class="form-control input-sm" placeholder="Support note (optional)" />
+                <button id="allocateSupportBtn" class="btn btn-primary btn-sm">Allocate Support</button>
+              </div>
+              <div id="supportAllocateMsg" class="empty-state"></div>
+              <div id="supportBusinessMetrics" class="empty-state">Business support totals appear after allocation.</div>
+              <hr />
+              <h4>Admin: Add Contribution Balance</h4>
+              <div class="form-inline" style="display:flex;gap:8px;flex-wrap:wrap;">
+                <input id="contributionAddEmailInput" class="form-control input-sm" placeholder="Member email" />
+                <input id="contributionAddAmountInput" class="form-control input-sm" type="number" min="0" step="1" placeholder="Amount" />
+                <input id="contributionAddNoteInput" class="form-control input-sm" placeholder="Admin note (optional)" />
+                <button id="addContributionBtn" class="btn btn-default btn-sm">Add Contribution (Admin)</button>
+              </div>
+              <div id="contributionAddMsg" class="empty-state">Only admins can add contribution balance.</div>
             </div>
           </div>
         </div>

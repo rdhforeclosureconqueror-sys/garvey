@@ -131,6 +131,30 @@
       </div>
     </section>
 
+    <section class="au-section" id="communitySpotlightSection" hidden>
+      <div class="au-container">
+        <div class="au-section__head">
+          <h2 class="au-h2">Community Spotlight</h2>
+          <p class="au-muted">Celebrate businesses making local impact. Approved stories only.</p>
+        </div>
+        <div class="au-cards" id="spotlightFeedGrid"></div>
+        <p class="au-note" id="spotlightFeedMsg"></p>
+        <div class="au-card" style="margin-top:12px;">
+          <div class="au-card__title">Submit a spotlight recommendation</div>
+          <div class="row" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+            <input id="spotBizName" type="text" placeholder="Business name" />
+            <input id="spotCategory" type="text" placeholder="Category" />
+            <input id="spotLink" type="text" placeholder="Website link (optional)" />
+            <input id="spotLocation" type="text" placeholder="Location (optional)" />
+          </div>
+          <textarea id="spotImpact" placeholder="Community impact" style="width:100%;margin-top:8px;"></textarea>
+          <textarea id="spotSupport" placeholder="Why do you support this business?" style="width:100%;margin-top:8px;"></textarea>
+          <button class="au-btn" id="spotSubmitBtn" type="button" style="margin-top:8px;">Submit Spotlight</button>
+          <p class="au-note" id="spotSubmitMsg"></p>
+        </div>
+      </div>
+    </section>
+
     <!-- ACTION CARDS -->
     <section class="au-section">
       <div class="au-container">
@@ -523,8 +547,81 @@
         });
       }
 
+      async function initSpotlight() {
+        const c = ownerCtx();
+        const tenant = trim(c.tenant) || trim(new URLSearchParams(window.location.search).get("tenant"));
+        if (!tenant) return;
+        const section = document.getElementById("communitySpotlightSection");
+        const feed = document.getElementById("spotlightFeedGrid");
+        const feedMsg = document.getElementById("spotlightFeedMsg");
+        if (!section || !feed) return;
+        const resp = await fetch(`/api/spotlight/feed?limit=8`);
+        const body = await resp.json().catch(() => ({}));
+        const rows = Array.isArray(body.feed) ? body.feed.filter((item) => String(item.tenant_slug || "") === tenant) : [];
+        if (!rows.length) {
+          if (feedMsg) feedMsg.textContent = "No approved spotlight stories yet for this tenant.";
+        } else {
+          section.hidden = false;
+          feed.innerHTML = rows.map(function (row) {
+            const claimBtn = row.claim_cta
+              ? `<button class="au-btn spotlight-claim-btn" data-business-id="${Number(row.business_id)}" type="button">Claim this business profile</button>`
+              : "";
+            return `<div class="au-card">
+              <div class="au-card__title">${escapeHtml(row.business_name || "Business")}</div>
+              <div class="au-card__text">${escapeHtml(row.community_impact || "")}</div>
+              <div class="au-muted" style="margin:8px 0;">Support: ${Number(row.total_support || 0)} • Supporters: ${Number(row.supporter_count || 0)}</div>
+              ${claimBtn}
+            </div>`;
+          }).join("");
+        }
+        Array.from(document.querySelectorAll(".spotlight-claim-btn")).forEach(function (btn) {
+          btn.addEventListener("click", async function () {
+            const businessId = Number(btn.getAttribute("data-business-id"));
+            const claimantName = trim(prompt("Your name"));
+            const claimantEmail = trim(prompt("Your email")).toLowerCase();
+            if (!businessId || !claimantName || !claimantEmail) return;
+            await fetch(`/api/spotlight/businesses/${encodeURIComponent(businessId)}/claim`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ claimant_name: claimantName, claimant_email: claimantEmail, message: "Submitted from public spotlight feed" })
+            }).catch(function () {});
+            btn.textContent = "Claim submitted";
+            btn.disabled = true;
+          });
+        });
+
+        const submitBtn = document.getElementById("spotSubmitBtn");
+        if (submitBtn) {
+          submitBtn.addEventListener("click", async function () {
+            const payload = {
+              tenant_slug: tenant,
+              business_name: trim(document.getElementById("spotBizName").value),
+              category: trim(document.getElementById("spotCategory").value),
+              link: trim(document.getElementById("spotLink").value),
+              location: trim(document.getElementById("spotLocation").value),
+              community_impact: trim(document.getElementById("spotImpact").value),
+              why_i_support: trim(document.getElementById("spotSupport").value),
+              submitter_email: trim(c.email || "").toLowerCase() || undefined,
+            };
+            const msg = document.getElementById("spotSubmitMsg");
+            const post = await fetch("/api/spotlight/submissions", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload)
+            });
+            const result = await post.json().catch(() => ({}));
+            if (!post.ok) {
+              if (msg) msg.textContent = result.error || "Submission failed.";
+              return;
+            }
+            if (msg) msg.textContent = "Spotlight submitted for moderation.";
+          });
+        }
+      }
+
       refreshOwnerSession();
       initProofShowcase().catch(function () {});
+      initSpotlight().catch(function () {});
     })();
   </script>
 </body>
