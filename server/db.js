@@ -339,6 +339,129 @@ async function initializeDatabase() {
     ALTER TABLE products ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT NOW();
   `).catch(() => {});
 
+  // ==================================================
+  // COMMUNITY SPOTLIGHT (PHASE 4 - SEPARATE FROM REVIEWS)
+  // ==================================================
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS spotlight_businesses (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id INTEGER REFERENCES tenants(id) ON DELETE SET NULL,
+      business_name TEXT NOT NULL,
+      website_link TEXT,
+      location_text TEXT,
+      category TEXT NOT NULL,
+      is_onboarded BOOLEAN NOT NULL DEFAULT FALSE,
+      dedupe_key TEXT NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS spotlight_posts (
+      id BIGSERIAL PRIMARY KEY,
+      business_id BIGINT NOT NULL REFERENCES spotlight_businesses(id) ON DELETE CASCADE,
+      submitter_name TEXT,
+      submitter_email TEXT,
+      community_impact TEXT NOT NULL,
+      why_i_support TEXT NOT NULL,
+      rating INTEGER NOT NULL,
+      media_type TEXT,
+      media_url TEXT,
+      moderation_status TEXT NOT NULL DEFAULT 'pending',
+      moderation_note TEXT,
+      moderated_by_email TEXT,
+      moderated_at TIMESTAMPTZ,
+      dedupe_key TEXT NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS spotlight_claim_requests (
+      id BIGSERIAL PRIMARY KEY,
+      business_id BIGINT NOT NULL REFERENCES spotlight_businesses(id) ON DELETE CASCADE,
+      claimant_name TEXT NOT NULL,
+      claimant_email TEXT NOT NULL,
+      claimant_phone TEXT,
+      message TEXT,
+      verification_context JSONB NOT NULL DEFAULT '{}'::jsonb,
+      claim_status TEXT NOT NULL DEFAULT 'pending',
+      reviewed_by_email TEXT,
+      reviewed_at TIMESTAMPTZ,
+      review_note TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+  `);
+
+  await pool.query(`
+    ALTER TABLE spotlight_businesses ADD COLUMN IF NOT EXISTS tenant_id INTEGER REFERENCES tenants(id) ON DELETE SET NULL;
+    ALTER TABLE spotlight_businesses ADD COLUMN IF NOT EXISTS business_name TEXT;
+    ALTER TABLE spotlight_businesses ADD COLUMN IF NOT EXISTS website_link TEXT;
+    ALTER TABLE spotlight_businesses ADD COLUMN IF NOT EXISTS location_text TEXT;
+    ALTER TABLE spotlight_businesses ADD COLUMN IF NOT EXISTS category TEXT;
+    ALTER TABLE spotlight_businesses ADD COLUMN IF NOT EXISTS is_onboarded BOOLEAN NOT NULL DEFAULT FALSE;
+    ALTER TABLE spotlight_businesses ADD COLUMN IF NOT EXISTS dedupe_key TEXT;
+    ALTER TABLE spotlight_businesses ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
+    ALTER TABLE spotlight_businesses ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
+
+    ALTER TABLE spotlight_posts ADD COLUMN IF NOT EXISTS business_id BIGINT REFERENCES spotlight_businesses(id) ON DELETE CASCADE;
+    ALTER TABLE spotlight_posts ADD COLUMN IF NOT EXISTS submitter_name TEXT;
+    ALTER TABLE spotlight_posts ADD COLUMN IF NOT EXISTS submitter_email TEXT;
+    ALTER TABLE spotlight_posts ADD COLUMN IF NOT EXISTS community_impact TEXT;
+    ALTER TABLE spotlight_posts ADD COLUMN IF NOT EXISTS why_i_support TEXT;
+    ALTER TABLE spotlight_posts ADD COLUMN IF NOT EXISTS rating INTEGER;
+    ALTER TABLE spotlight_posts ADD COLUMN IF NOT EXISTS media_type TEXT;
+    ALTER TABLE spotlight_posts ADD COLUMN IF NOT EXISTS media_url TEXT;
+    ALTER TABLE spotlight_posts ADD COLUMN IF NOT EXISTS moderation_status TEXT NOT NULL DEFAULT 'pending';
+    ALTER TABLE spotlight_posts ADD COLUMN IF NOT EXISTS moderation_note TEXT;
+    ALTER TABLE spotlight_posts ADD COLUMN IF NOT EXISTS moderated_by_email TEXT;
+    ALTER TABLE spotlight_posts ADD COLUMN IF NOT EXISTS moderated_at TIMESTAMPTZ;
+    ALTER TABLE spotlight_posts ADD COLUMN IF NOT EXISTS dedupe_key TEXT;
+    ALTER TABLE spotlight_posts ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
+
+    ALTER TABLE spotlight_claim_requests ADD COLUMN IF NOT EXISTS business_id BIGINT REFERENCES spotlight_businesses(id) ON DELETE CASCADE;
+    ALTER TABLE spotlight_claim_requests ADD COLUMN IF NOT EXISTS claimant_name TEXT;
+    ALTER TABLE spotlight_claim_requests ADD COLUMN IF NOT EXISTS claimant_email TEXT;
+    ALTER TABLE spotlight_claim_requests ADD COLUMN IF NOT EXISTS claimant_phone TEXT;
+    ALTER TABLE spotlight_claim_requests ADD COLUMN IF NOT EXISTS message TEXT;
+    ALTER TABLE spotlight_claim_requests ADD COLUMN IF NOT EXISTS verification_context JSONB NOT NULL DEFAULT '{}'::jsonb;
+    ALTER TABLE spotlight_claim_requests ADD COLUMN IF NOT EXISTS claim_status TEXT NOT NULL DEFAULT 'pending';
+    ALTER TABLE spotlight_claim_requests ADD COLUMN IF NOT EXISTS reviewed_by_email TEXT;
+    ALTER TABLE spotlight_claim_requests ADD COLUMN IF NOT EXISTS reviewed_at TIMESTAMPTZ;
+    ALTER TABLE spotlight_claim_requests ADD COLUMN IF NOT EXISTS review_note TEXT;
+    ALTER TABLE spotlight_claim_requests ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
+  `).catch(() => {});
+
+  await pool.query(`
+    UPDATE spotlight_businesses
+    SET
+      dedupe_key = COALESCE(NULLIF(TRIM(dedupe_key), ''), LOWER(REGEXP_REPLACE(COALESCE(business_name, ''), '[^a-zA-Z0-9]+', '', 'g'))),
+      updated_at = COALESCE(updated_at, NOW()),
+      created_at = COALESCE(created_at, NOW());
+
+    UPDATE spotlight_posts
+    SET
+      moderation_status = CASE
+        WHEN moderation_status IN ('pending', 'approved', 'removed', 'flagged') THEN moderation_status
+        ELSE 'pending'
+      END,
+      dedupe_key = COALESCE(NULLIF(TRIM(dedupe_key), ''), CONCAT(COALESCE(business_id::text, ''), ':', COALESCE(LOWER(TRIM(submitter_email)), ''), ':', COALESCE(rating::text, ''))),
+      created_at = COALESCE(created_at, NOW());
+
+    UPDATE spotlight_claim_requests
+    SET
+      claim_status = CASE
+        WHEN claim_status IN ('pending', 'approved', 'rejected') THEN claim_status
+        ELSE 'pending'
+      END,
+      created_at = COALESCE(created_at, NOW());
+  `).catch(() => {});
+
+  await pool.query(`
+    CREATE UNIQUE INDEX IF NOT EXISTS spotlight_businesses_dedupe_uq ON spotlight_businesses(dedupe_key);
+    CREATE INDEX IF NOT EXISTS spotlight_posts_business_created_idx ON spotlight_posts(business_id, created_at DESC);
+    CREATE INDEX IF NOT EXISTS spotlight_posts_moderation_created_idx ON spotlight_posts(moderation_status, created_at DESC);
+    CREATE INDEX IF NOT EXISTS spotlight_claim_requests_business_created_idx ON spotlight_claim_requests(business_id, created_at DESC);
+    CREATE INDEX IF NOT EXISTS spotlight_claim_requests_status_created_idx ON spotlight_claim_requests(claim_status, created_at DESC);
+  `).catch(() => {});
+
   await pool.query(`
     CREATE INDEX IF NOT EXISTS idx_products_tenant_sort ON products(tenant_id, sort_order ASC, id ASC);
     CREATE INDEX IF NOT EXISTS idx_reviews_tenant_product_proof ON reviews(tenant_id, product_id, proof_status);

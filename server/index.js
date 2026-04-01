@@ -194,6 +194,9 @@ const REWARD_POINTS = Object.freeze({
 });
 const OWNER_NOTIFICATION_FALLBACK_EMAIL = "rdhforeclosureconqueror@gmail.com";
 const REVIEW_PROOF_STATUSES = new Set(["pending", "approved", "rejected"]);
+const SPOTLIGHT_MODERATION_STATUSES = new Set(["pending", "approved", "removed", "flagged"]);
+const SPOTLIGHT_CLAIM_STATUSES = new Set(["pending", "approved", "rejected"]);
+const spotlightSubmissionRateLimit = new Map();
 
 const ALLOWED_CONFIG_KEYS = Object.freeze([
   "reward_system",
@@ -259,6 +262,81 @@ function normalizeReviewProofStatus(statusRaw) {
     throw err;
   }
   return status;
+}
+
+function requireTextField(value, fieldName, maxLength = 2000) {
+  const normalized = String(value || "").trim();
+  if (!normalized) {
+    const err = new Error(`${fieldName} is required`);
+    err.statusCode = 400;
+    throw err;
+  }
+  if (normalized.length > maxLength) {
+    const err = new Error(`${fieldName} exceeds max length ${maxLength}`);
+    err.statusCode = 400;
+    throw err;
+  }
+  return normalized;
+}
+
+function normalizeOptionalText(value, maxLength = 2000) {
+  const normalized = String(value || "").trim();
+  if (!normalized) return null;
+  return normalized.slice(0, maxLength);
+}
+
+function normalizeSpotlightRating(ratingRaw) {
+  const rating = Number(ratingRaw);
+  if (!Number.isInteger(rating) || rating < 1 || rating > 6) {
+    const err = new Error("rating must be an integer from 1 to 6");
+    err.statusCode = 400;
+    throw err;
+  }
+  return rating;
+}
+
+function normalizeSpotlightModerationStatus(statusRaw) {
+  const status = String(statusRaw || "").trim().toLowerCase();
+  if (!SPOTLIGHT_MODERATION_STATUSES.has(status)) {
+    const err = new Error("moderation_status must be pending, approved, removed, or flagged");
+    err.statusCode = 400;
+    throw err;
+  }
+  return status;
+}
+
+function normalizeSpotlightClaimStatus(statusRaw) {
+  const status = String(statusRaw || "").trim().toLowerCase();
+  if (!SPOTLIGHT_CLAIM_STATUSES.has(status)) {
+    const err = new Error("claim_status must be pending, approved, or rejected");
+    err.statusCode = 400;
+    throw err;
+  }
+  return status;
+}
+
+function makeSpotlightBusinessDedupeKey({ businessName, link, location }) {
+  const normalizedName = String(businessName || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+  const normalizedLink = String(link || "").toLowerCase().trim();
+  const normalizedLocation = String(location || "").toLowerCase().replace(/\s+/g, " ").trim();
+  return `${normalizedName}|${normalizedLink}|${normalizedLocation}`;
+}
+
+function enforceSpotlightRateLimit(req) {
+  const ip = String(req.headers["x-forwarded-for"] || req.socket?.remoteAddress || "unknown")
+    .split(",")[0]
+    .trim() || "unknown";
+  const now = Date.now();
+  const windowMs = 60 * 60 * 1000;
+  const limit = 12;
+  const existing = (spotlightSubmissionRateLimit.get(ip) || []).filter((ts) => now - ts < windowMs);
+  if (existing.length >= limit) {
+    const err = new Error("too many spotlight submissions from this IP, try again later");
+    err.statusCode = 429;
+    throw err;
+  }
+  existing.push(now);
+  spotlightSubmissionRateLimit.set(ip, existing);
 }
 
 function parseCookieHeader(rawCookie = "") {
@@ -1983,6 +2061,234 @@ app.post("/t/:slug/reviews/:reviewId/moderation", tenantMiddleware, async (req, 
   } catch (err) {
     console.error(err);
     return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "review moderation failed" });
+  }
+});
+
+app.post("/api/spotlight/submissions", async (req, res) => {
+  try {
+    enforceSpotlightRateLimit(req);
+    const businessName = requireTextField(req.body?.business_name, "business_name", 180);
+    const websiteLink = normalizeOptionalText(req.body?.link, 500);
+    const locationText = normalizeOptionalText(req.body?.location, 240);
+    if (!websiteLink && !locationText) return res.status(400).json({ error: "link or location is required" });
+    const category = requireTextField(req.body?.category, "category", 140);
+    const communityImpact = requireTextField(req.body?.community_impact, "community_impact", 3000);
+    const whyISupport = requireTextField(req.body?.why_i_support, "why_i_support", 3000);
+    const rating = normalizeSpotlightRating(req.body?.rating);
+    const mediaType = normalizeOptionalText(req.body?.media_type, 20);
+    const mediaUrl = normalizeOptionalText(req.body?.media_url, 1000);
+    if (mediaUrl && !mediaType) return res.status(400).json({ error: "media_type is required when media_url is provided" });
+    const tenantSlug = normalizeOptionalText(req.body?.tenant_slug, 120);
+    const submitterEmail = normalizeOptionalText(req.body?.submitter_email, 320);
+    const submitterName = normalizeOptionalText(req.body?.submitter_name, 180);
+
+    const tenantResult = tenantSlug
+      ? await pool.query("SELECT id, slug FROM tenants WHERE slug = $1 LIMIT 1", [tenantSlug])
+      : { rows: [] };
+    const onboardedTenant = tenantResult.rows[0] || null;
+    const dedupeKey = makeSpotlightBusinessDedupeKey({ businessName, link: websiteLink, location: locationText });
+
+    const businessInsert = await pool.query(
+      `INSERT INTO spotlight_businesses (tenant_id, business_name, website_link, location_text, category, is_onboarded, dedupe_key, updated_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())
+       ON CONFLICT (dedupe_key)
+       DO UPDATE SET
+         tenant_id = COALESCE(spotlight_businesses.tenant_id, EXCLUDED.tenant_id),
+         is_onboarded = spotlight_businesses.is_onboarded OR EXCLUDED.is_onboarded,
+         category = COALESCE(NULLIF(spotlight_businesses.category, ''), EXCLUDED.category),
+         website_link = COALESCE(NULLIF(spotlight_businesses.website_link, ''), EXCLUDED.website_link),
+         location_text = COALESCE(NULLIF(spotlight_businesses.location_text, ''), EXCLUDED.location_text),
+         updated_at = NOW()
+       RETURNING id, tenant_id, business_name, website_link, location_text, category, is_onboarded`,
+      [onboardedTenant?.id || null, businessName, websiteLink, locationText, category, !!onboardedTenant, dedupeKey]
+    );
+    const business = businessInsert.rows[0];
+
+    const spamKey = `${business.id}:${String(submitterEmail || "").toLowerCase()}:${rating}:${communityImpact.slice(0, 120).toLowerCase()}:${whyISupport.slice(0, 120).toLowerCase()}`;
+    const spamCheck = await pool.query(
+      `SELECT id FROM spotlight_posts
+       WHERE dedupe_key = $1
+         AND created_at >= NOW() - INTERVAL '24 hours'
+       LIMIT 1`,
+      [spamKey]
+    );
+    if (spamCheck.rows[0]) {
+      return res.status(409).json({ error: "duplicate spotlight submission detected" });
+    }
+
+    const insertedPost = await pool.query(
+      `INSERT INTO spotlight_posts (
+         business_id, submitter_name, submitter_email, community_impact, why_i_support, rating, media_type, media_url, moderation_status, dedupe_key
+       ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'pending',$9)
+       RETURNING id, business_id, submitter_name, submitter_email, community_impact, why_i_support, rating, media_type, media_url, moderation_status, created_at`,
+      [business.id, submitterName, submitterEmail ? normalizeEmail(submitterEmail) : null, communityImpact, whyISupport, rating, mediaType, mediaUrl, spamKey]
+    );
+
+    return res.status(201).json({
+      spotlight_post: insertedPost.rows[0],
+      business: {
+        ...business,
+        business_type: business.is_onboarded ? "onboarded" : "standalone",
+        tenant_slug: onboardedTenant?.slug || null,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "spotlight submission failed" });
+  }
+});
+
+app.get("/api/spotlight/feed", async (req, res) => {
+  try {
+    const requestedStatus = normalizeOptionalText(req.query.status, 20);
+    const status = requestedStatus ? normalizeSpotlightModerationStatus(requestedStatus) : "approved";
+    const limit = Math.max(1, Math.min(Number(req.query.limit || 50) || 50, 200));
+    const includeAllStatuses = req.isAdmin && req.query.all_statuses === "true";
+    const rows = await pool.query(
+      `SELECT
+         sp.id,
+         sp.business_id,
+         sp.community_impact,
+         sp.why_i_support,
+         sp.rating,
+         sp.media_type,
+         sp.media_url,
+         sp.moderation_status,
+         sp.moderation_note,
+         sp.created_at,
+         sb.business_name,
+         sb.website_link AS link,
+         sb.location_text AS location,
+         sb.category,
+         sb.is_onboarded,
+         sb.tenant_id,
+         t.slug AS tenant_slug
+       FROM spotlight_posts sp
+       JOIN spotlight_businesses sb ON sb.id = sp.business_id
+       LEFT JOIN tenants t ON t.id = sb.tenant_id
+       WHERE ($1::boolean = true OR sp.moderation_status = $2)
+       ORDER BY sp.created_at DESC
+       LIMIT $3`,
+      [includeAllStatuses, status, limit]
+    );
+    return res.json({
+      feed: rows.rows.map((row) => ({
+        ...row,
+        business_type: row.is_onboarded ? "onboarded" : "standalone",
+        claim_cta: row.is_onboarded !== true,
+      })),
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "spotlight feed failed" });
+  }
+});
+
+app.post("/api/spotlight/posts/:postId/moderation", async (req, res) => {
+  try {
+    const postId = Number(req.params.postId);
+    if (!Number.isInteger(postId) || postId <= 0) return res.status(400).json({ error: "invalid spotlight post id" });
+    const status = normalizeSpotlightModerationStatus(req.body?.moderation_status);
+    const note = normalizeOptionalText(req.body?.moderation_note, 1000);
+
+    const postLookup = await pool.query(
+      `SELECT sp.id, sb.tenant_id, t.slug AS tenant_slug
+       FROM spotlight_posts sp
+       JOIN spotlight_businesses sb ON sb.id = sp.business_id
+       LEFT JOIN tenants t ON t.id = sb.tenant_id
+       WHERE sp.id = $1
+       LIMIT 1`,
+      [postId]
+    );
+    const post = postLookup.rows[0];
+    if (!post) return res.status(404).json({ error: "spotlight post not found" });
+
+    const isAdminModerator = req.isAdmin;
+    const isOwnerModerator = req.authActor?.role === ROLES.BUSINESS_OWNER
+      && post.tenant_slug
+      && req.authActor?.tenantSlug === post.tenant_slug;
+    if (!isAdminModerator && !isOwnerModerator) {
+      return res.status(403).json({ error: "moderation requires admin or owning business account" });
+    }
+
+    const updated = await pool.query(
+      `UPDATE spotlight_posts
+       SET moderation_status = $2,
+           moderation_note = $3,
+           moderated_by_email = $4,
+           moderated_at = NOW()
+       WHERE id = $1
+       RETURNING id, business_id, moderation_status, moderation_note, moderated_by_email, moderated_at`,
+      [postId, status, note, normalizeEmail(req.userEmail || req.authActor?.email || "system")]
+    );
+    return res.json({ spotlight_post: updated.rows[0] });
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "spotlight moderation failed" });
+  }
+});
+
+app.post("/api/spotlight/businesses/:businessId/claim", async (req, res) => {
+  try {
+    const businessId = Number(req.params.businessId);
+    if (!Number.isInteger(businessId) || businessId <= 0) return res.status(400).json({ error: "invalid business id" });
+    const claimantName = requireTextField(req.body?.claimant_name, "claimant_name", 180);
+    const claimantEmail = requireTextField(req.body?.claimant_email, "claimant_email", 320);
+    const claimantPhone = normalizeOptionalText(req.body?.claimant_phone, 80);
+    const message = normalizeOptionalText(req.body?.message, 2000);
+    const verificationContext = req.body?.verification_context && typeof req.body.verification_context === "object"
+      ? req.body.verification_context
+      : {};
+
+    const businessLookup = await pool.query(
+      `SELECT id, tenant_id, business_name, is_onboarded
+       FROM spotlight_businesses
+       WHERE id = $1
+       LIMIT 1`,
+      [businessId]
+    );
+    const business = businessLookup.rows[0];
+    if (!business) return res.status(404).json({ error: "business not found" });
+    if (business.is_onboarded) {
+      return res.status(400).json({ error: "business is already onboarded; use standard owner onboarding and verification channels" });
+    }
+
+    const insertedClaim = await pool.query(
+      `INSERT INTO spotlight_claim_requests (
+         business_id, claimant_name, claimant_email, claimant_phone, message, verification_context, claim_status
+       ) VALUES ($1,$2,$3,$4,$5,$6,'pending')
+       RETURNING id, business_id, claimant_name, claimant_email, claimant_phone, message, verification_context, claim_status, created_at`,
+      [businessId, claimantName, normalizeEmail(claimantEmail), claimantPhone, message, verificationContext]
+    );
+    return res.status(201).json({
+      claim_request: insertedClaim.rows[0],
+      bridge_notice: "Claim requests are reviewed manually and do not auto-convert spotlight entries into tenant records.",
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "spotlight claim request failed" });
+  }
+});
+
+app.post("/api/spotlight/claims/:claimId/moderation", async (req, res) => {
+  try {
+    if (!req.isAdmin) return res.status(403).json({ error: "admin access required" });
+    const claimId = Number(req.params.claimId);
+    if (!Number.isInteger(claimId) || claimId <= 0) return res.status(400).json({ error: "invalid claim id" });
+    const claimStatus = normalizeSpotlightClaimStatus(req.body?.claim_status);
+    const note = normalizeOptionalText(req.body?.review_note, 1000);
+    const updated = await pool.query(
+      `UPDATE spotlight_claim_requests
+       SET claim_status = $2, review_note = $3, reviewed_by_email = $4, reviewed_at = NOW()
+       WHERE id = $1
+       RETURNING id, business_id, claim_status, review_note, reviewed_by_email, reviewed_at`,
+      [claimId, claimStatus, note, normalizeEmail(req.userEmail || "system")]
+    );
+    if (!updated.rows[0]) return res.status(404).json({ error: "claim request not found" });
+    return res.json({ claim_request: updated.rows[0] });
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "spotlight claim moderation failed" });
   }
 });
 
