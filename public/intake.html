@@ -85,7 +85,15 @@
     try { return JSON.parse(val); } catch { return []; }
   }
 
-  function getTenant() { return (new URLSearchParams(window.location.search).get("tenant") || "test-business").trim(); }
+  function normalizeCtxValue(v) {
+    const normalized = String(v || "").trim();
+    if (!normalized) return "";
+    const lowered = normalized.toLowerCase();
+    if (lowered === "undefined" || lowered === "null") return "";
+    return normalized;
+  }
+
+  function getTenant() { return normalizeCtxValue(new URLSearchParams(window.location.search).get("tenant")); }
   function getCid() { return (new URLSearchParams(window.location.search).get("cid") || "").trim(); }
   function getAssessmentType() {
     const type = (new URLSearchParams(window.location.search).get("assessment") || "business_owner").trim().toLowerCase();
@@ -196,6 +204,7 @@
     const res = await fetch(window.GarveyApi?.buildUrl ? window.GarveyApi.buildUrl("/api/kanban/ensure") : "/api/kanban/ensure", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify({ tenant, include_defaults: true }),
     });
     if (!res.ok) throw new Error("Kanban activation failed");
@@ -257,6 +266,7 @@
     const cid = getCid();
     if (!email) return alert("Please enter your email");
     if (!name) return alert("Please enter your name");
+    if (!tenant) return showError("Missing tenant context. Return to owner sign-in and launch assessment again.");
 
     const endpoint = assessment === "customer" ? (window.GarveyApi?.ENDPOINTS?.vocIntake || "/voc-intake") : (window.GarveyApi?.ENDPOINTS?.intake || "/api/intake");
     const full = window.GarveyApi?.buildUrl ? window.GarveyApi.buildUrl(endpoint) : endpoint;
@@ -264,6 +274,7 @@
     const res = await fetch(full, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify({ email, name, tenant, cid, answers }),
     });
 
@@ -298,6 +309,11 @@
     const tenant = getTenant();
     const assessment = getAssessmentType();
     const cid = getCid();
+
+    if (!tenant) {
+      showError("Missing tenant context. Open onboarding from index.html and try again.");
+      return;
+    }
 
     if ($("tenantLine")) $("tenantLine").textContent = `Tenant: ${tenant}`;
     if ($("assessmentLine")) $("assessmentLine").textContent = `Assessment: ${assessment}`;

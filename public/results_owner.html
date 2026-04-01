@@ -71,9 +71,17 @@
 
     const qs = new URLSearchParams(window.location.search);
     qs.delete("ctx_redirected");
-    const tenant = String(qs.get("tenant") || "").trim();
-    const email = String(qs.get("email") || "").trim().toLowerCase();
-    const cid = String(qs.get("cid") || "").trim();
+    function normalizedCtxValue(v) {
+      const normalized = String(v || "").trim();
+      if (!normalized) return "";
+      const lowered = normalized.toLowerCase();
+      if (lowered === "undefined" || lowered === "null") return "";
+      return normalized;
+    }
+
+    const tenant = normalizedCtxValue(qs.get("tenant"));
+    const email = normalizedCtxValue(qs.get("email")).toLowerCase();
+    const cid = normalizedCtxValue(qs.get("cid"));
 
     function safeTrim(v) {
       return String(v ?? "").trim();
@@ -175,21 +183,44 @@
       return `/results_owner.html?${params.toString()}`;
     }
 
+    async function resolveOwnerSession() {
+      const url = window.GarveyApi.buildUrl("/api/owner/session");
+      const res = await fetch(url, { credentials: "include" });
+      const data = await res.json().catch(() => ({ authenticated: false }));
+      if (!res.ok || !data?.authenticated) return null;
+      const sessionTenant = normalizedCtxValue(data.tenant);
+      const sessionEmail = normalizedCtxValue(data.email).toLowerCase();
+      if (!sessionTenant || !sessionEmail) return null;
+      return { tenant: sessionTenant, email: sessionEmail };
+    }
+
 
     async function load() {
-      if (!tenant || !email) {
-        document.getElementById("meta").textContent = "Missing tenant/email query params.";
+      let resolvedTenant = tenant;
+      let resolvedEmail = email;
+      if (!resolvedTenant || !resolvedEmail) {
+        const session = await resolveOwnerSession().catch(() => null);
+        if (session) {
+          resolvedTenant = session.tenant;
+          resolvedEmail = session.email;
+          const params = new URLSearchParams(window.location.search);
+          params.set("tenant", resolvedTenant);
+          params.set("email", resolvedEmail);
+          window.location.replace(`/results_owner.html?${params.toString()}`);
+          return;
+        }
+        document.getElementById("meta").textContent = "Missing tenant/email query params. Please sign in again from the owner homepage.";
         return;
       }
 
-      document.getElementById("meta").textContent = `Tenant: ${tenant} • Email: ${email}`;
+      document.getElementById("meta").textContent = `Tenant: ${resolvedTenant} • Email: ${resolvedEmail}`;
 
       const url = window.GarveyApi.buildUrl(
-        `/api/results/${encodeURIComponent(email)}`,
-        { type: "business_owner", tenant }
+        `/api/results/${encodeURIComponent(resolvedEmail)}`,
+        { type: "business_owner", tenant: resolvedTenant, role: "business_owner", email: resolvedEmail }
       );
 
-      const res = await fetch(url);
+      const res = await fetch(url, { credentials: "include" });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || "Failed to load results");
 
@@ -201,7 +232,7 @@
         showRid(rid);
         setRidInStorage(rid);
         if (window.GARVEY && window.GARVEY.setLoginCtx) {
-          window.GARVEY.setLoginCtx({ tenant, email, cid, rid });
+          window.GARVEY.setLoginCtx({ tenant: resolvedTenant, email: resolvedEmail, cid, rid });
         }
       }
 

@@ -372,14 +372,34 @@
 
     (function () {
       function trim(v) { return String(v || "").trim(); }
+      function cleanCtxValue(v) {
+        const normalized = trim(v);
+        if (!normalized) return "";
+        const lowered = normalized.toLowerCase();
+        if (lowered === "undefined" || lowered === "null") return "";
+        return normalized;
+      }
+      function ownerApiUrl(path, query) {
+        if (window.GarveyApi && typeof window.GarveyApi.buildUrl === "function") {
+          return window.GarveyApi.buildUrl(path, query || {});
+        }
+        const qs = new URLSearchParams(query || {}).toString();
+        return `${path}${qs ? `?${qs}` : ""}`;
+      }
       function ownerCtx() {
-        return (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : {};
+        const ctx = (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : {};
+        return {
+          tenant: cleanCtxValue(ctx.tenant),
+          email: cleanCtxValue(ctx.email).toLowerCase(),
+          rid: cleanCtxValue(ctx.rid),
+          cid: cleanCtxValue(ctx.cid),
+        };
       }
       function setOwnerSignedInState(session) {
         const c = session || ownerCtx();
         const status = document.getElementById("ownerAuthStatus");
         const out = document.getElementById("ownerSignOutBtn");
-        const signedIn = !!trim(c.email);
+        const signedIn = !!cleanCtxValue(c.email);
         status.textContent = signedIn ? `Signed in as ${c.email}` : "Not signed in";
         out.hidden = !signedIn;
         const input = document.getElementById("ownerEmailInput");
@@ -387,7 +407,10 @@
         const assessmentOnly = signedIn && !c.onboarding_complete;
         const lockMessage = assessmentOnly ? " (Complete assessment to unlock tools)" : "";
         document.getElementById("ownerAuthStatus").textContent += lockMessage;
-        const assessmentHref = `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(trim(c.tenant || ownerCtx().tenant))}&email=${encodeURIComponent(trim(c.email))}`;
+        const assessmentTenant = cleanCtxValue(c.tenant || ownerCtx().tenant);
+        const assessmentHref = assessmentTenant
+          ? `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(assessmentTenant)}&email=${encodeURIComponent(cleanCtxValue(c.email))}`
+          : "#";
         if (assessmentOnly) {
           const dashboardBtn = document.getElementById("ownerDashboardBtn");
           const hubBtn = document.getElementById("ownerHubBtn");
@@ -402,7 +425,7 @@
         const response = await fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          credentials: "same-origin",
+          credentials: "include",
           body: JSON.stringify(payload || {}),
         });
         const data = await response.json().catch(() => ({}));
@@ -411,16 +434,18 @@
       }
 
       async function refreshOwnerSession() {
-        const response = await fetch("/api/owner/session", { credentials: "same-origin" });
+        const response = await fetch(ownerApiUrl("/api/owner/session"), { credentials: "include" });
         const data = await response.json().catch(() => ({ authenticated: false }));
         if (data && data.authenticated && window.GARVEY && window.GARVEY.setLoginCtx) {
           window.GARVEY.setLoginCtx({
-            tenant: trim(data.tenant),
-            email: trim(data.email).toLowerCase(),
+            tenant: cleanCtxValue(data.tenant),
+            email: cleanCtxValue(data.email).toLowerCase(),
           });
           const u = new URL(window.location.href);
-          u.searchParams.set("tenant", trim(data.tenant));
-          u.searchParams.set("email", trim(data.email).toLowerCase());
+          const tenant = cleanCtxValue(data.tenant);
+          const email = cleanCtxValue(data.email).toLowerCase();
+          if (tenant) u.searchParams.set("tenant", tenant);
+          if (email) u.searchParams.set("email", email);
           window.history.replaceState({}, "", u.pathname + u.search + u.hash);
           setOwnerSignedInState(data);
           return data;
@@ -434,11 +459,13 @@
           const business_name = trim(document.getElementById("businessNameInput")?.value);
           const email = trim(document.getElementById("ownerEmailInput")?.value).toLowerCase();
           const password = trim(document.getElementById("ownerPasswordInput")?.value);
-          const data = await postJson("/api/owner/signup", { business_name, email, password });
+          const data = await postJson(ownerApiUrl("/api/owner/signup"), { business_name, email, password });
+          const tenant = cleanCtxValue(data.tenant);
+          if (!tenant) throw new Error("Sign up succeeded but tenant context was missing. Please sign in again.");
           if (window.GARVEY && window.GARVEY.setLoginCtx) {
-            window.GARVEY.setLoginCtx({ tenant: data.tenant, email });
+            window.GARVEY.setLoginCtx({ tenant, email });
           }
-          window.location.href = data.next_route || `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(data.tenant)}&email=${encodeURIComponent(email)}`;
+          window.location.href = data.next_route || `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}`;
         } catch (err) {
           document.getElementById("ownerAuthStatus").textContent = err.message || "Sign up failed";
         }
@@ -448,11 +475,13 @@
         try {
           const email = trim(document.getElementById("ownerEmailInput")?.value).toLowerCase();
           const password = trim(document.getElementById("ownerPasswordInput")?.value);
-          const data = await postJson("/api/owner/signin", { email, password });
+          const data = await postJson(ownerApiUrl("/api/owner/signin"), { email, password });
+          const tenant = cleanCtxValue(data.tenant);
+          if (!tenant) throw new Error("Sign in succeeded but tenant context was missing. Please retry.");
           if (window.GARVEY && window.GARVEY.setLoginCtx) {
-            window.GARVEY.setLoginCtx({ tenant: data.tenant, email });
+            window.GARVEY.setLoginCtx({ tenant, email });
           }
-          window.location.href = data.next_route || `/index.html?tenant=${encodeURIComponent(data.tenant)}&email=${encodeURIComponent(email)}`;
+          window.location.href = data.next_route || `/index.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}`;
         } catch (err) {
           document.getElementById("ownerAuthStatus").textContent = err.message || "Sign in failed";
         }
@@ -460,7 +489,7 @@
 
       document.getElementById("ownerSignOutBtn")?.addEventListener("click", async function () {
         const c = ownerCtx();
-        try { await postJson("/api/owner/signout", {}); } catch (_) {}
+        try { await postJson(ownerApiUrl("/api/owner/signout"), {}); } catch (_) {}
         if (window.GARVEY && window.GARVEY.clearCtx) window.GARVEY.clearCtx();
         const u = new URL(window.location.href);
         u.searchParams.delete("email");
