@@ -12,6 +12,7 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs/promises");
+const crypto = require("crypto");
 const QRCode = require("qrcode");
 
 const { pool, initializeDatabase } = require("./db");
@@ -74,6 +75,8 @@ try {
 
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
+const OWNER_SESSION_COOKIE = "garvey_owner_session";
+const OWNER_SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 
 function parseAdminEmails(raw) {
   const base = String(raw || "")
@@ -112,11 +115,63 @@ app.use((req, res, next) => {
   req.isAdmin = isAdminEmail(requestEmail);
   return next();
 });
+app.use(async (req, res, next) => {
+  try {
+    const cookies = parseCookieHeader(req.headers.cookie || "");
+    const token = String(cookies[OWNER_SESSION_COOKIE] || "").trim();
+    if (!token) return next();
+
+    const tokenHash = sha256(token);
+    const sessionResult = await pool.query(
+      `SELECT s.user_id, s.tenant_id, s.role, s.expires_at, u.email, t.slug AS tenant_slug, m.onboarding_complete
+       FROM auth_sessions s
+       JOIN users u ON u.id = s.user_id
+       JOIN tenants t ON t.id = s.tenant_id
+       LEFT JOIN tenant_memberships m
+         ON m.tenant_id = s.tenant_id
+        AND m.user_id = s.user_id
+        AND m.role = s.role
+       WHERE s.token_hash = $1
+       LIMIT 1`,
+      [tokenHash]
+    );
+    const session = sessionResult.rows[0];
+    if (!session) return next();
+    if (new Date(session.expires_at).getTime() <= Date.now()) {
+      await pool.query("DELETE FROM auth_sessions WHERE token_hash = $1", [tokenHash]).catch(() => {});
+      res.setHeader("Set-Cookie", `${OWNER_SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`);
+      return next();
+    }
+
+    req.authActor = {
+      userId: session.user_id,
+      email: normalizeEmail(session.email),
+      role: session.role,
+      tenantSlug: session.tenant_slug,
+      onboardingComplete: !!session.onboarding_complete,
+      isAdmin: isAdminEmail(session.email),
+    };
+    return next();
+  } catch (err) {
+    console.error("owner_session_resolve_failed", err);
+    return next();
+  }
+});
 
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 
 app.get('/dashboard.html', (req, res) => {
+  const actor = deriveActor(req);
+  if (actor.role === ROLES.BUSINESS_OWNER && actor.tenantSlug) {
+    if (!actor.onboardingComplete) {
+      const assessmentUrl = `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(
+        actor.tenantSlug
+      )}&email=${encodeURIComponent(actor.email || "")}`;
+      return res.redirect(302, assessmentUrl);
+    }
+    return res.sendFile(path.join(__dirname, '..', 'dashboardnew', 'index.html'));
+  }
   const tenant = String(req.query.tenant || "").trim();
   const email = String(req.query.email || "").trim().toLowerCase();
   if (!req.isAdmin && (!tenant || !email)) {
@@ -181,6 +236,46 @@ function rewardPointsEnabled(config) {
 
 function normalizeEmail(email) {
   return String(email || "").trim().toLowerCase();
+}
+
+function parseCookieHeader(rawCookie = "") {
+  return String(rawCookie || "")
+    .split(";")
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .reduce((acc, pair) => {
+      const idx = pair.indexOf("=");
+      if (idx <= 0) return acc;
+      const key = pair.slice(0, idx).trim();
+      const value = pair.slice(idx + 1).trim();
+      acc[key] = decodeURIComponent(value);
+      return acc;
+    }, {});
+}
+
+function createPasswordHash(password) {
+  const salt = crypto.randomBytes(16).toString("hex");
+  const derived = crypto.scryptSync(String(password), salt, 64).toString("hex");
+  return `scrypt$${salt}$${derived}`;
+}
+
+function verifyPasswordHash(password, encodedHash) {
+  const raw = String(encodedHash || "");
+  const [scheme, salt, stored] = raw.split("$");
+  if (scheme !== "scrypt" || !salt || !stored) return false;
+  const derived = crypto.scryptSync(String(password), salt, 64).toString("hex");
+  const a = Buffer.from(stored, "hex");
+  const b = Buffer.from(derived, "hex");
+  if (a.length !== b.length) return false;
+  return crypto.timingSafeEqual(a, b);
+}
+
+function createSessionToken() {
+  return crypto.randomBytes(32).toString("hex");
+}
+
+function sha256(value) {
+  return crypto.createHash("sha256").update(String(value || "")).digest("hex");
 }
 
 function normalizeSlug(value) {
@@ -359,6 +454,10 @@ async function ownerEmailHasTenantAccess(tenantId, email, client = pool) {
   const result = await client.query(
     `SELECT 1
      FROM users u
+     LEFT JOIN tenant_memberships m
+       ON m.user_id = u.id
+      AND m.tenant_id = u.tenant_id
+      AND m.role = 'business_owner'
      LEFT JOIN assessment_submissions a
        ON a.user_id = u.id
       AND a.tenant_id = u.tenant_id
@@ -369,7 +468,7 @@ async function ownerEmailHasTenantAccess(tenantId, email, client = pool) {
       AND s.mode = 'business_owner'
      WHERE u.tenant_id = $1
        AND LOWER(COALESCE(u.email, '')) = $2
-       AND (a.id IS NOT NULL OR s.id IS NOT NULL)
+       AND (m.id IS NOT NULL OR a.id IS NOT NULL OR s.id IS NOT NULL)
      LIMIT 1`,
     [tenantId, normalizedEmail]
   );
@@ -530,6 +629,162 @@ function emptyBuyerCounts() {
 ========================= */
 
 app.get("/health", (req, res) => res.json({ status: "ok" }));
+
+app.post("/api/owner/signup", async (req, res) => {
+  const client = await pool.connect();
+  try {
+    const businessName = String(req.body?.business_name || "").trim();
+    const email = normalizeEmail(req.body?.email);
+    const password = String(req.body?.password || "");
+    if (!businessName || !email || !password) {
+      return res.status(400).json({ error: "business_name, email, and password are required" });
+    }
+    if (password.length < 8) {
+      return res.status(400).json({ error: "password must be at least 8 characters" });
+    }
+
+    await client.query("BEGIN");
+
+    const baseSlug = normalizeSlug(businessName) || "business";
+    let finalSlug = baseSlug;
+    for (let attempt = 0; attempt < 5; attempt += 1) {
+      const existing = await client.query("SELECT id FROM tenants WHERE slug = $1", [finalSlug]);
+      if (!existing.rows[0]) break;
+      finalSlug = `${baseSlug}-${Math.random().toString(36).slice(2, 6)}`;
+    }
+    const tenant = (
+      await client.query("INSERT INTO tenants (name, slug) VALUES ($1, $2) RETURNING *", [businessName, finalSlug])
+    ).rows[0];
+
+    const passwordHash = createPasswordHash(password);
+    const user = (
+      await client.query(
+        `INSERT INTO users (email, tenant_id, password_hash)
+         VALUES ($1, $2, $3)
+         RETURNING id, email, tenant_id`,
+        [email, tenant.id, passwordHash]
+      )
+    ).rows[0];
+
+    await client.query(
+      `INSERT INTO tenant_memberships (tenant_id, user_id, role, onboarding_complete)
+       VALUES ($1, $2, $3, FALSE)
+       ON CONFLICT (tenant_id, user_id)
+       DO UPDATE SET role = EXCLUDED.role
+      `,
+      [tenant.id, user.id, ROLES.BUSINESS_OWNER]
+    );
+
+    const token = createSessionToken();
+    await client.query(
+      `INSERT INTO auth_sessions (user_id, tenant_id, role, token_hash, expires_at)
+       VALUES ($1, $2, $3, $4, NOW() + ($5 || ' milliseconds')::interval)`,
+      [user.id, tenant.id, ROLES.BUSINESS_OWNER, sha256(token), String(OWNER_SESSION_TTL_MS)]
+    );
+
+    await client.query("COMMIT");
+    res.setHeader(
+      "Set-Cookie",
+      `${OWNER_SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${Math.floor(
+        OWNER_SESSION_TTL_MS / 1000
+      )}`
+    );
+    return res.status(201).json({
+      success: true,
+      tenant: tenant.slug,
+      business_name: tenant.name || businessName,
+      role: ROLES.BUSINESS_OWNER,
+      onboarding_complete: false,
+      next_route: `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(tenant.slug)}&email=${encodeURIComponent(email)}`,
+    });
+  } catch (err) {
+    await client.query("ROLLBACK");
+    console.error("owner_signup_failed", err);
+    return res.status(500).json({ error: "owner signup failed" });
+  } finally {
+    client.release();
+  }
+});
+
+app.post("/api/owner/signin", async (req, res) => {
+  try {
+    const email = normalizeEmail(req.body?.email);
+    const password = String(req.body?.password || "");
+    if (!email || !password) return res.status(400).json({ error: "email and password are required" });
+
+    const found = await pool.query(
+      `SELECT u.id AS user_id, u.email, u.password_hash, t.id AS tenant_id, t.slug AS tenant_slug, m.role, m.onboarding_complete
+       FROM users u
+       JOIN tenant_memberships m ON m.user_id = u.id
+       JOIN tenants t ON t.id = m.tenant_id
+       WHERE LOWER(COALESCE(u.email, '')) = $1
+         AND m.role = $2
+       ORDER BY u.created_at DESC
+       LIMIT 1`,
+      [email, ROLES.BUSINESS_OWNER]
+    );
+    const account = found.rows[0];
+    if (!account || !account.password_hash || !verifyPasswordHash(password, account.password_hash)) {
+      return res.status(401).json({ error: "invalid credentials" });
+    }
+
+    const token = createSessionToken();
+    await pool.query(
+      `INSERT INTO auth_sessions (user_id, tenant_id, role, token_hash, expires_at)
+       VALUES ($1, $2, $3, $4, NOW() + ($5 || ' milliseconds')::interval)`,
+      [account.user_id, account.tenant_id, account.role, sha256(token), String(OWNER_SESSION_TTL_MS)]
+    );
+
+    res.setHeader(
+      "Set-Cookie",
+      `${OWNER_SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${Math.floor(
+        OWNER_SESSION_TTL_MS / 1000
+      )}`
+    );
+    const nextRoute = account.onboarding_complete
+      ? `/dashboard.html?tenant=${encodeURIComponent(account.tenant_slug)}&email=${encodeURIComponent(account.email)}`
+      : `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(account.tenant_slug)}&email=${encodeURIComponent(account.email)}`;
+    return res.json({
+      success: true,
+      tenant: account.tenant_slug,
+      role: account.role,
+      onboarding_complete: !!account.onboarding_complete,
+      next_route: nextRoute,
+    });
+  } catch (err) {
+    console.error("owner_signin_failed", err);
+    return res.status(500).json({ error: "owner signin failed" });
+  }
+});
+
+app.post("/api/owner/signout", async (req, res) => {
+  try {
+    const cookies = parseCookieHeader(req.headers.cookie || "");
+    const token = String(cookies[OWNER_SESSION_COOKIE] || "").trim();
+    if (token) {
+      await pool.query("DELETE FROM auth_sessions WHERE token_hash = $1", [sha256(token)]);
+    }
+    res.setHeader("Set-Cookie", `${OWNER_SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`);
+    return res.json({ success: true });
+  } catch (err) {
+    console.error("owner_signout_failed", err);
+    return res.status(500).json({ error: "owner signout failed" });
+  }
+});
+
+app.get("/api/owner/session", async (req, res) => {
+  const actor = deriveActor(req);
+  if (actor.role !== ROLES.BUSINESS_OWNER || !actor.userId || !actor.tenantSlug) {
+    return res.json({ authenticated: false });
+  }
+  return res.json({
+    authenticated: true,
+    tenant: actor.tenantSlug,
+    email: actor.email,
+    role: actor.role,
+    onboarding_complete: !!actor.onboardingComplete,
+  });
+});
 
 app.get("/api/archetypes/library", async (req, res) => {
   return res.json(archetypeLibrary);
@@ -2001,6 +2256,14 @@ app.post("/api/intake", async (req, res) => {
         campaign?.slug || null,
       ]
     )).rows[0];
+    await client.query(
+      `UPDATE tenant_memberships
+       SET onboarding_complete = TRUE
+       WHERE tenant_id = $1
+         AND user_id = $2
+         AND role = $3`,
+      [tenantRow.id, user.id, ROLES.BUSINESS_OWNER]
+    );
     await recordCampaignEvent({ tenantId: tenantRow.id, campaignId: campaign?.id || null, eventType: "owner_assessment", customerEmail: email, customerName: name, client });
 
     await client.query("COMMIT");
