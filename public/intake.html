@@ -94,7 +94,7 @@
   }
 
   function getTenant() { return normalizeCtxValue(new URLSearchParams(window.location.search).get("tenant")); }
-  function getCid() { return (new URLSearchParams(window.location.search).get("cid") || "").trim(); }
+  function getCid() { return normalizeCtxValue(new URLSearchParams(window.location.search).get("cid")); }
   function getAssessmentType() {
     const type = (new URLSearchParams(window.location.search).get("assessment") || "business_owner").trim().toLowerCase();
     return type === "customer" ? "customer" : "business_owner";
@@ -107,6 +107,19 @@
     const u = new URL(endpoint.startsWith("/") ? endpoint : `/${endpoint}`, window.location.origin);
     Object.entries(params || {}).forEach(([k,v]) => u.searchParams.set(k, String(v)));
     return u.toString();
+  }
+
+  function buildCtaHref(path, requiredPairs, optionalPairs) {
+    const missing = requiredPairs.filter(([, value]) => !normalizeCtxValue(value)).map(([key]) => key);
+    if (missing.length) {
+      return { href: "#", missing };
+    }
+    const params = new URLSearchParams();
+    requiredPairs.concat(optionalPairs || []).forEach(([key, value]) => {
+      const normalized = normalizeCtxValue(value);
+      if (normalized) params.set(key, normalized);
+    });
+    return { href: `${path}?${params.toString()}`, missing: [] };
   }
 
   async function fetchQuestions(assessment) {
@@ -212,22 +225,30 @@
 
   function renderResults(data, email, assessment) {
     const payload = normalizeResultPayload(data);
-    const tenant = encodeURIComponent(getTenant());
-    const emailEnc = encodeURIComponent(email);
+    const tenant = getTenant();
+    const emailValue = normalizeCtxValue(email);
+    const cid = getCid();
     const questionEl = $("questionText");
     const container = $("optionsContainer");
 
     questionEl.textContent = assessment === "business_owner" ? "✅ Business Assessment Complete" : "✅ Customer Assessment Complete";
 
+    const ownerDashboardCta = buildCtaHref("/dashboard.html", [["tenant", tenant], ["email", emailValue]]);
+    const ownerPathwayCta = buildCtaHref("/garvey_premium.html", [["tenant", tenant]]);
+    const rewardsCta = buildCtaHref("/rewards_premium.html", [["tenant", tenant], ["email", emailValue]], [["cid", cid]]);
+    const ctaWarning = (ownerDashboardCta.missing.length || ownerPathwayCta.missing.length || rewardsCta.missing.length)
+      ? `<div class="result-card"><b>Navigation notice:</b> Missing required context (${escapeHtml(Array.from(new Set(ownerDashboardCta.missing.concat(ownerPathwayCta.missing, rewardsCta.missing))).join(", "))}). Please restart from your invite/dashboard link.</div>`
+      : "";
+
     const ownerCtas = `
       <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-        <a class="btn" href="/dashboard.html?tenant=${tenant}&email=${emailEnc}">Continue to Owner Dashboard</a>
-        <a class="btn" href="/garvey_premium.html?tenant=${tenant}">Open GARVEY Pathway</a>
+        <a class="btn" href="${ownerDashboardCta.href}">Continue to Owner Dashboard</a>
+        <a class="btn" href="${ownerPathwayCta.href}">Open GARVEY Pathway</a>
       </div>`;
 
     const customerCtas = `
       <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-        <a class="btn" href="/rewards_premium.html?tenant=${tenant}&email=${emailEnc}&cid=${encodeURIComponent(getCid())}">Go to Rewards</a>
+        <a class="btn" href="${rewardsCta.href}">Go to Rewards</a>
         <a class="btn" href="#statusWidget" id="statusScrollLink">View my points/status</a>
       </div>
       <div id="statusWidget" class="result-card" style="margin-top:10px;"><b>Points/Status:</b> Open Rewards to see your live loyalty status and points balance.</div>`;
@@ -245,6 +266,7 @@
         <b>Archetype distribution</b>
         ${scoreBarsHtml(payload.scores, payload.primary, payload.secondary, payload.weakness)}
       </div>
+      ${ctaWarning}
       ${assessment === "business_owner" ? ownerExtra : customerExtra}
       ${assessment === "business_owner" ? ownerCtas : customerCtas}
     `;
