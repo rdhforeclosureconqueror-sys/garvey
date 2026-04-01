@@ -45,7 +45,11 @@
   const CUSTOMER_ENGINE_STORAGE_KEY = "garvey_customer_return_engine_v1";
 
   function safeTrim(v) {
-    return String(v ?? "").trim();
+    const normalized = String(v ?? "").trim();
+    if (!normalized) return "";
+    const lowered = normalized.toLowerCase();
+    if (lowered === "undefined" || lowered === "null") return "";
+    return normalized;
   }
 
   function readStoredCtx() {

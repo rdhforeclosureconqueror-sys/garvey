@@ -16,7 +16,11 @@
   }
 
   function safeTrim(v) {
-    return String(v ?? "").trim();
+    var normalized = String(v ?? "").trim();
+    if (!normalized) return "";
+    var lowered = normalized.toLowerCase();
+    if (lowered === "undefined" || lowered === "null") return "";
+    return normalized;
   }
 
   function tenantFromUrl() {
