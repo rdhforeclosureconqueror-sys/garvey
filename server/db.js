@@ -483,6 +483,47 @@ async function initializeDatabase() {
   `).catch(() => {});
 
   // ==================================================
+  // CONTRIBUTIONS + SUPPORT (PHASE 5 - ISOLATED FROM REWARDS)
+  // ==================================================
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS contribution_ledger (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      entry_type TEXT NOT NULL,
+      amount NUMERIC(12,2) NOT NULL,
+      note TEXT,
+      created_by_email TEXT,
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS support_allocations (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      business_id BIGINT NOT NULL REFERENCES spotlight_businesses(id) ON DELETE CASCADE,
+      amount NUMERIC(12,2) NOT NULL,
+      note TEXT,
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+  `);
+
+  await pool.query(`
+    CREATE INDEX IF NOT EXISTS contribution_ledger_tenant_user_created_idx
+      ON contribution_ledger(tenant_id, user_id, created_at DESC);
+    CREATE INDEX IF NOT EXISTS contribution_ledger_tenant_entry_type_idx
+      ON contribution_ledger(tenant_id, entry_type);
+    CREATE INDEX IF NOT EXISTS support_allocations_tenant_user_created_idx
+      ON support_allocations(tenant_id, user_id, created_at DESC);
+    CREATE INDEX IF NOT EXISTS support_allocations_business_created_idx
+      ON support_allocations(business_id, created_at DESC);
+    CREATE INDEX IF NOT EXISTS support_allocations_business_user_idx
+      ON support_allocations(business_id, user_id);
+  `).catch(() => {});
+
+  // ==================================================
   // VOC SYSTEM
   // ==================================================
 
