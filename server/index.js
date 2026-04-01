@@ -418,6 +418,13 @@ function enforceSpotlightRateLimit(req) {
   spotlightSubmissionRateLimit.set(ip, existing);
 }
 
+async function isSpotlightEnabledForTenantId(tenantId) {
+  const normalizedTenantId = Number(tenantId);
+  if (!Number.isInteger(normalizedTenantId) || normalizedTenantId <= 0) return false;
+  const cfg = await getTenantConfig(normalizedTenantId);
+  return cfg?.features?.spotlight_enabled === true;
+}
+
 function parseCookieHeader(rawCookie = "") {
   return String(rawCookie || "")
     .split(";")
@@ -2457,10 +2464,13 @@ app.post("/api/spotlight/submissions", async (req, res) => {
     const submitterEmail = normalizeOptionalText(req.body?.submitter_email, 320);
     const submitterName = normalizeOptionalText(req.body?.submitter_name, 180);
 
-    const tenantResult = tenantSlug
-      ? await pool.query("SELECT id, slug FROM tenants WHERE slug = $1 LIMIT 1", [tenantSlug])
-      : { rows: [] };
+    if (!tenantSlug) return res.status(403).json({ error: "spotlight is disabled for this context" });
+    const tenantResult = await pool.query("SELECT id, slug FROM tenants WHERE slug = $1 LIMIT 1", [tenantSlug]);
     const onboardedTenant = tenantResult.rows[0] || null;
+    if (!onboardedTenant) return res.status(403).json({ error: "spotlight is disabled for this context" });
+    if (!(await isSpotlightEnabledForTenantId(onboardedTenant.id))) {
+      return res.status(403).json({ error: "spotlight is disabled for this tenant" });
+    }
     const dedupeKey = makeSpotlightBusinessDedupeKey({ businessName, link: websiteLink, location: locationText });
 
     const businessInsert = await pool.query(
@@ -2475,7 +2485,7 @@ app.post("/api/spotlight/submissions", async (req, res) => {
          location_text = COALESCE(NULLIF(spotlight_businesses.location_text, ''), EXCLUDED.location_text),
          updated_at = NOW()
        RETURNING id, tenant_id, business_name, website_link, location_text, category, is_onboarded`,
-      [onboardedTenant?.id || null, businessName, websiteLink, locationText, category, !!onboardedTenant, dedupeKey]
+      [onboardedTenant.id, businessName, websiteLink, locationText, category, true, dedupeKey]
     );
     const business = businessInsert.rows[0];
 
@@ -2515,10 +2525,12 @@ app.post("/api/spotlight/submissions", async (req, res) => {
 
 app.get("/api/spotlight/feed", async (req, res) => {
   try {
-    const requestedStatus = normalizeOptionalText(req.query.status, 20);
-    const status = requestedStatus ? normalizeSpotlightModerationStatus(requestedStatus) : "approved";
+    const status = "approved";
     const limit = Math.max(1, Math.min(Number(req.query.limit || 50) || 50, 200));
     const includeAllStatuses = req.isAdmin && req.query.all_statuses === "true";
+    const requestedStatus = normalizeOptionalText(req.query.status, 20);
+    const adminStatus = requestedStatus ? normalizeSpotlightModerationStatus(requestedStatus) : "approved";
+    const effectiveStatus = includeAllStatuses ? adminStatus : status;
     const rows = await pool.query(
       `SELECT
          sp.id,
@@ -2543,6 +2555,7 @@ app.get("/api/spotlight/feed", async (req, res) => {
        FROM spotlight_posts sp
        JOIN spotlight_businesses sb ON sb.id = sp.business_id
        LEFT JOIN tenants t ON t.id = sb.tenant_id
+       LEFT JOIN tenant_config tc ON tc.tenant_id = sb.tenant_id
        LEFT JOIN LATERAL (
          SELECT
            SUM(sa.amount)::numeric AS total_support,
@@ -2550,10 +2563,11 @@ app.get("/api/spotlight/feed", async (req, res) => {
          FROM support_allocations sa
          WHERE sa.business_id = sb.id
        ) ss ON TRUE
-       WHERE ($1::boolean = true OR sp.moderation_status = $2)
+       WHERE COALESCE((tc.config->'features'->>'spotlight_enabled')::boolean, false) = true
+         AND ($1::boolean = true OR sp.moderation_status = $2)
        ORDER BY sp.created_at DESC
        LIMIT $3`,
-      [includeAllStatuses, status, limit]
+      [includeAllStatuses, effectiveStatus, limit]
     );
     return res.json({
       feed: rows.rows.map((row) => ({
@@ -2586,6 +2600,9 @@ app.post("/api/spotlight/posts/:postId/moderation", async (req, res) => {
     );
     const post = postLookup.rows[0];
     if (!post) return res.status(404).json({ error: "spotlight post not found" });
+    if (!(await isSpotlightEnabledForTenantId(post.tenant_id))) {
+      return res.status(403).json({ error: "spotlight is disabled for this tenant" });
+    }
 
     const isAdminModerator = req.isAdmin;
     const isOwnerModerator = req.authActor?.role === ROLES.BUSINESS_OWNER
@@ -2633,6 +2650,9 @@ app.post("/api/spotlight/businesses/:businessId/claim", async (req, res) => {
     );
     const business = businessLookup.rows[0];
     if (!business) return res.status(404).json({ error: "business not found" });
+    if (!(await isSpotlightEnabledForTenantId(business.tenant_id))) {
+      return res.status(403).json({ error: "spotlight is disabled for this tenant" });
+    }
     if (business.is_onboarded) {
       return res.status(400).json({ error: "business is already onboarded; use standard owner onboarding and verification channels" });
     }
@@ -2669,6 +2689,9 @@ app.get("/api/spotlight/businesses/:businessId/support", async (req, res) => {
     );
     const business = businessLookup.rows[0];
     if (!business) return res.status(404).json({ error: "business not found" });
+    if (!(await isSpotlightEnabledForTenantId(business.tenant_id))) {
+      return res.status(403).json({ error: "spotlight is disabled for this tenant" });
+    }
 
     const totals = await pool.query(
       `SELECT
@@ -2705,6 +2728,19 @@ app.post("/api/spotlight/claims/:claimId/moderation", async (req, res) => {
     if (!Number.isInteger(claimId) || claimId <= 0) return res.status(400).json({ error: "invalid claim id" });
     const claimStatus = normalizeSpotlightClaimStatus(req.body?.claim_status);
     const note = normalizeOptionalText(req.body?.review_note, 1000);
+    const claimLookup = await pool.query(
+      `SELECT scr.id, sb.tenant_id
+       FROM spotlight_claim_requests scr
+       JOIN spotlight_businesses sb ON sb.id = scr.business_id
+       WHERE scr.id = $1
+       LIMIT 1`,
+      [claimId]
+    );
+    const claim = claimLookup.rows[0];
+    if (!claim) return res.status(404).json({ error: "claim request not found" });
+    if (!(await isSpotlightEnabledForTenantId(claim.tenant_id))) {
+      return res.status(403).json({ error: "spotlight is disabled for this tenant" });
+    }
     const updated = await pool.query(
       `UPDATE spotlight_claim_requests
        SET claim_status = $2, review_note = $3, reviewed_by_email = $4, reviewed_at = NOW()
