@@ -241,9 +241,18 @@
                 <div id="spotlightModerationEmpty" class="empty-state">No spotlight posts for this filter.</div>
                 <hr />
                 <h4>Claim Requests (Admin)</h4>
+                <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
+                  <label for="spotlightClaimStatusFilterInput">Status:&nbsp;</label>
+                  <select id="spotlightClaimStatusFilterInput" class="form-control input-sm">
+                    <option value="pending" selected>pending</option>
+                    <option value="approved">approved</option>
+                    <option value="rejected">rejected</option>
+                  </select>
+                  <button id="refreshSpotlightClaimsBtn" class="btn btn-default btn-sm">Refresh Claims</button>
+                </div>
                 <div id="spotlightClaimQueueMsg" class="empty-state">Admin review required for claim queue actions.</div>
                 <table class="table table-striped table-bordered" id="spotlightClaimQueueTable">
-                  <thead><tr><th>Claim ID</th><th>Business ID</th><th>Status</th><th>Action</th></tr></thead>
+                  <thead><tr><th>Claim ID</th><th>Business ID</th><th>Business</th><th>Claimant</th><th>Email</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
                   <tbody></tbody>
                 </table>
                 <div id="spotlightClaimQueueEmpty" class="empty-state">No claim requests loaded.</div>

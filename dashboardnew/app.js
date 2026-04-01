@@ -1191,12 +1191,82 @@
       });
   }
 
+  function renderSpotlightClaimRows(ownerEmail, isAdmin, rows) {
+    var tbody = document.querySelector("#spotlightClaimQueueTable tbody");
+    var empty = document.getElementById("spotlightClaimQueueEmpty");
+    if (!tbody || !empty) return;
+    var list = Array.isArray(rows) ? rows : [];
+    tbody.innerHTML = list.map(function (row) {
+      var claimId = Number(row.claim_id || 0);
+      var currentStatus = safeTrim(row.status || "pending").toLowerCase();
+      return "<tr>" +
+        "<td>" + claimId + "</td>" +
+        "<td>" + Number(row.business_id || 0) + "</td>" +
+        "<td>" + escapeHtml(row.business_name || "-") + "</td>" +
+        "<td>" + escapeHtml(row.claimant_name || "-") + "</td>" +
+        "<td>" + escapeHtml(row.claimant_email || "-") + "</td>" +
+        "<td>" + escapeHtml(currentStatus || "pending") + "</td>" +
+        "<td>" + escapeHtml(String(row.created_at || "").slice(0, 19).replace("T", " ")) + "</td>" +
+        "<td>" +
+          '<select class="spotlight-claim-moderation-select input-sm" data-id="' + claimId + '"' + (isAdmin ? "" : " disabled") + ">" +
+            '<option value="pending"' + (currentStatus === "pending" ? " selected" : "") + ">pending</option>" +
+            '<option value="approved"' + (currentStatus === "approved" ? " selected" : "") + ">approved</option>" +
+            '<option value="rejected"' + (currentStatus === "rejected" ? " selected" : "") + ">rejected</option>" +
+          "</select>" +
+        "</td>" +
+      "</tr>";
+    }).join("");
+    empty.style.display = list.length ? "none" : "block";
+
+    Array.prototype.forEach.call(document.querySelectorAll(".spotlight-claim-moderation-select"), function (select) {
+      select.addEventListener("change", function () {
+        if (!isAdmin) return;
+        var claimId = Number(select.getAttribute("data-id"));
+        var nextStatus = safeTrim(select.value).toLowerCase();
+        var msg = document.getElementById("spotlightClaimQueueMsg");
+        jsonFetch(apiUrl("/api/spotlight/claims/" + encodeURIComponent(claimId) + "/moderation"), {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-user-email": ownerEmail },
+          body: JSON.stringify({ claim_status: nextStatus })
+        }).then(function () {
+          if (msg) msg.textContent = "Claim moderation updated.";
+          loadSpotlightClaims(ownerEmail, isAdmin).catch(function () {});
+        }).catch(function (err) {
+          if (msg) msg.textContent = err.message || "Claim moderation failed.";
+        });
+      });
+    });
+  }
+
+  function loadSpotlightClaims(ownerEmail, isAdmin) {
+    var msg = document.getElementById("spotlightClaimQueueMsg");
+    var status = safeTrim((document.getElementById("spotlightClaimStatusFilterInput") || {}).value || "pending");
+    if (!isAdmin) {
+      renderSpotlightClaimRows(ownerEmail, isAdmin, []);
+      if (msg) msg.textContent = "Admin review required for claim queue actions.";
+      return Promise.resolve();
+    }
+    return jsonFetch(apiUrl("/api/spotlight/claims", { status: status }), {
+      headers: { "x-user-email": ownerEmail }
+    }).then(function (resp) {
+      renderSpotlightClaimRows(ownerEmail, isAdmin, (resp && resp.claims) || []);
+      if (msg) msg.textContent = "";
+    }).catch(function (err) {
+      if (msg) msg.textContent = err.message || "Claim queue unavailable.";
+    });
+  }
+
   function wireSpotlight(tenant, ownerEmail, isAdmin) {
     var refreshBtn = document.getElementById("refreshSpotlightBtn");
     var statusInput = document.getElementById("spotlightStatusFilterInput");
+    var refreshClaimsBtn = document.getElementById("refreshSpotlightClaimsBtn");
+    var claimStatusInput = document.getElementById("spotlightClaimStatusFilterInput");
     if (refreshBtn) refreshBtn.addEventListener("click", function () { loadSpotlightFeed(tenant, ownerEmail, isAdmin); });
     if (statusInput) statusInput.addEventListener("change", function () { loadSpotlightFeed(tenant, ownerEmail, isAdmin); });
+    if (refreshClaimsBtn) refreshClaimsBtn.addEventListener("click", function () { loadSpotlightClaims(ownerEmail, isAdmin); });
+    if (claimStatusInput) claimStatusInput.addEventListener("change", function () { loadSpotlightClaims(ownerEmail, isAdmin); });
     loadSpotlightFeed(tenant, ownerEmail, isAdmin);
+    loadSpotlightClaims(ownerEmail, isAdmin);
   }
 
   function renderContributionHistory(rows) {

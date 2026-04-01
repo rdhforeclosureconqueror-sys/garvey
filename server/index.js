@@ -2759,6 +2759,39 @@ app.get("/api/spotlight/businesses/:businessId/support", async (req, res) => {
   }
 });
 
+app.get("/api/spotlight/claims", async (req, res) => {
+  try {
+    if (!req.isAdmin) return res.status(403).json({ error: "admin access required" });
+    const requestedStatus = normalizeOptionalText(req.query.status, 20);
+    const status = requestedStatus ? normalizeSpotlightClaimStatus(requestedStatus) : null;
+    const limit = Math.max(1, Math.min(Number(req.query.limit || 100) || 100, 500));
+
+    const rows = await pool.query(
+      `SELECT
+         scr.id AS claim_id,
+         scr.business_id,
+         sb.business_name,
+         scr.claimant_name,
+         scr.claimant_email,
+         scr.claim_status AS status,
+         scr.created_at
+       FROM spotlight_claim_requests scr
+       JOIN spotlight_businesses sb ON sb.id = scr.business_id
+       LEFT JOIN tenant_config tc ON tc.tenant_id = sb.tenant_id
+       WHERE COALESCE((tc.config->'features'->>'spotlight_enabled')::boolean, false) = true
+         AND ($1::text IS NULL OR scr.claim_status = $1)
+       ORDER BY scr.created_at DESC
+       LIMIT $2`,
+      [status, limit]
+    );
+
+    return res.json({ claims: rows.rows });
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "spotlight claim queue failed" });
+  }
+});
+
 app.post("/api/spotlight/claims/:claimId/moderation", async (req, res) => {
   try {
     if (!req.isAdmin) return res.status(403).json({ error: "admin access required" });

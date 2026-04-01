@@ -58,6 +58,7 @@ const documentedRoutes = [
   "POST /api/spotlight/posts/:postId/moderation",
   "POST /api/spotlight/businesses/:businessId/claim",
   "GET /api/spotlight/businesses/:businessId/support",
+  "GET /api/spotlight/claims",
   "POST /api/spotlight/claims/:claimId/moderation",
   "GET /t/:slug/products",
   "GET /t/:slug/products/public",
