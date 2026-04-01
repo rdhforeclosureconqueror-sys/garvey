@@ -16,7 +16,12 @@ const DEFAULT_TENANT_CONFIG = {
   analytics_engine: false,
 
   // Safe defaults for site generator + future extensions
-  site: {},
+  site: {
+    contribution_access_gate: {
+      enabled: false,
+      minimum_balance: 0,
+    },
+  },
   features: {
     proof_showcase_enabled: false,
     spotlight_enabled: false,

@@ -197,6 +197,7 @@ const REVIEW_PROOF_STATUSES = new Set(["pending", "approved", "rejected"]);
 const SPOTLIGHT_MODERATION_STATUSES = new Set(["pending", "approved", "removed", "flagged"]);
 const SPOTLIGHT_CLAIM_STATUSES = new Set(["pending", "approved", "rejected"]);
 const spotlightSubmissionRateLimit = new Map();
+const CONTRIBUTION_LEDGER_ENTRY_TYPES = new Set(["contribution_add"]);
 
 const ALLOWED_CONFIG_KEYS = Object.freeze([
   "reward_system",
@@ -283,6 +284,84 @@ function normalizeOptionalText(value, maxLength = 2000) {
   const normalized = String(value || "").trim();
   if (!normalized) return null;
   return normalized.slice(0, maxLength);
+}
+
+function normalizeContributionAmount(value, fieldName = "amount") {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric) || numeric <= 0) {
+    const err = new Error(`${fieldName} must be a positive number`);
+    err.statusCode = 400;
+    throw err;
+  }
+  const rounded = Math.round(numeric * 100) / 100;
+  if (rounded <= 0) {
+    const err = new Error(`${fieldName} must be at least 0.01`);
+    err.statusCode = 400;
+    throw err;
+  }
+  return rounded;
+}
+
+function normalizeNonNegativeAmount(value, fieldName = "amount") {
+  if (value == null || String(value).trim() === "") return 0;
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric) || numeric < 0) {
+    const err = new Error(`${fieldName} must be zero or a positive number`);
+    err.statusCode = 400;
+    throw err;
+  }
+  return Math.round(numeric * 100) / 100;
+}
+
+function parseContributionAccessGate(config) {
+  const gate = config?.site?.contribution_access_gate || {};
+  const minimumRaw = Number(gate.minimum_balance);
+  const minimumBalance = Number.isFinite(minimumRaw) && minimumRaw > 0
+    ? Math.round(minimumRaw * 100) / 100
+    : 0;
+  return {
+    enabled: gate.enabled === true,
+    minimum_balance: minimumBalance,
+  };
+}
+
+function contributionsEnabled(config) {
+  return config?.features?.contributions_enabled === true;
+}
+
+function assertContributionsEnabled(config) {
+  if (contributionsEnabled(config)) return;
+  const err = new Error("contributions are disabled for this tenant");
+  err.statusCode = 403;
+  throw err;
+}
+
+async function getContributionBalance({ tenantId, userId, client = pool }) {
+  const balanceResult = await client.query(
+    `SELECT
+       COALESCE((
+         SELECT SUM(cl.amount)::numeric
+         FROM contribution_ledger cl
+         WHERE cl.tenant_id = $1
+           AND cl.user_id = $2
+           AND cl.entry_type = 'contribution_add'
+       ), 0::numeric) AS total_contributions,
+       COALESCE((
+         SELECT SUM(sa.amount)::numeric
+         FROM support_allocations sa
+         WHERE sa.tenant_id = $1
+           AND sa.user_id = $2
+       ), 0::numeric) AS total_support_allocations`,
+    [tenantId, userId]
+  );
+  const row = balanceResult.rows[0] || {};
+  const totalContributions = Number(row.total_contributions || 0);
+  const totalSupportAllocations = Number(row.total_support_allocations || 0);
+  return {
+    total_contributions: totalContributions,
+    total_support_allocations: totalSupportAllocations,
+    contribution_balance: Math.max(0, Math.round((totalContributions - totalSupportAllocations) * 100) / 100),
+  };
 }
 
 function normalizeSpotlightRating(ratingRaw) {
@@ -1530,6 +1609,92 @@ async function fetchRewardsHistory({ tenant, email, limit = 50 }) {
   };
 }
 
+async function fetchContributionStatus({ tenant, tenantConfig, email }) {
+  assertContributionsEnabled(tenantConfig);
+  if (!email) {
+    return {
+      success: true,
+      tenant: tenant.slug,
+      contribution_balance: 0,
+      user: null,
+      support_history: [],
+      contribution_access_gate: parseContributionAccessGate(tenantConfig),
+      limitation: "email is required for contribution status",
+    };
+  }
+  const user = await findTenantUser(tenant.id, email);
+  const balance = await getContributionBalance({ tenantId: tenant.id, userId: user.id });
+  const recentSupport = await pool.query(
+    `SELECT sa.id, sa.business_id, sa.amount::float8 AS amount, sa.note, sa.created_at,
+            sb.business_name, sb.website_link AS link, sb.location_text AS location
+     FROM support_allocations sa
+     JOIN spotlight_businesses sb ON sb.id = sa.business_id
+     WHERE sa.tenant_id = $1
+       AND sa.user_id = $2
+     ORDER BY sa.created_at DESC
+     LIMIT 10`,
+    [tenant.id, user.id]
+  );
+  const gate = parseContributionAccessGate(tenantConfig);
+  return {
+    success: true,
+    tenant: tenant.slug,
+    user: { id: user.id, email: user.email },
+    contribution_balance: balance.contribution_balance,
+    total_contributions: balance.total_contributions,
+    total_support_allocations: balance.total_support_allocations,
+    contribution_access_gate: {
+      ...gate,
+      has_access: gate.enabled ? balance.contribution_balance >= gate.minimum_balance : true,
+    },
+    support_history: recentSupport.rows,
+  };
+}
+
+async function fetchContributionHistory({ tenant, tenantConfig, email, limit = 50 }) {
+  assertContributionsEnabled(tenantConfig);
+  if (!email) {
+    return {
+      success: true,
+      tenant: tenant.slug,
+      contribution_history: [],
+      support_history: [],
+      limitation: "email is required for contribution history",
+    };
+  }
+  const user = await findTenantUser(tenant.id, email);
+  const safeLimit = Math.max(1, Math.min(Number(limit) || 50, 200));
+  const contributionHistory = await pool.query(
+    `SELECT id, entry_type, amount::float8 AS amount, note, created_by_email, metadata, created_at
+     FROM contribution_ledger
+     WHERE tenant_id = $1
+       AND user_id = $2
+     ORDER BY created_at DESC
+     LIMIT $3`,
+    [tenant.id, user.id, safeLimit]
+  );
+  const supportHistory = await pool.query(
+    `SELECT sa.id, sa.business_id, sa.amount::float8 AS amount, sa.note, sa.metadata, sa.created_at,
+            sb.business_name, sb.website_link AS link, sb.location_text AS location
+     FROM support_allocations sa
+     JOIN spotlight_businesses sb ON sb.id = sa.business_id
+     WHERE sa.tenant_id = $1
+       AND sa.user_id = $2
+     ORDER BY sa.created_at DESC
+     LIMIT $3`,
+    [tenant.id, user.id, safeLimit]
+  );
+  const balance = await getContributionBalance({ tenantId: tenant.id, userId: user.id });
+  return {
+    success: true,
+    tenant: tenant.slug,
+    user: { id: user.id, email: user.email },
+    contribution_balance: balance.contribution_balance,
+    contribution_history: contributionHistory.rows,
+    support_history: supportHistory.rows,
+  };
+}
+
 /* =========================
    PLATFORM ROUTES (/t/:slug/*)
 ========================= */
@@ -1746,6 +1911,156 @@ app.post("/api/rewards/wishlist", async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "rewards wishlist failed" });
+  }
+});
+
+app.get("/api/contributions/status", async (req, res) => {
+  try {
+    const tenantSlug = String(req.query.tenant || "").trim();
+    if (!tenantSlug) return res.status(400).json({ error: "tenant query param is required" });
+    const ctx = await getTenantContextBySlug(tenantSlug);
+    if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    const email = String(req.query.email || "").trim();
+    const payload = await fetchContributionStatus({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email });
+    return res.json(payload);
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "contribution status failed" });
+  }
+});
+
+app.get("/api/contributions/history", async (req, res) => {
+  try {
+    const tenantSlug = String(req.query.tenant || "").trim();
+    if (!tenantSlug) return res.status(400).json({ error: "tenant query param is required" });
+    const ctx = await getTenantContextBySlug(tenantSlug);
+    if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    const email = String(req.query.email || "").trim();
+    const limit = Number(req.query.limit || 50);
+    const payload = await fetchContributionHistory({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, limit });
+    return res.json(payload);
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "contribution history failed" });
+  }
+});
+
+app.post("/api/contributions/add", async (req, res) => {
+  const client = await pool.connect();
+  try {
+    const actor = deriveActor(req);
+    if (!actor.isAdmin) return res.status(403).json({ error: "admin access required for contribution additions" });
+    const { tenant, email, amount: amountRaw, note, metadata } = req.body || {};
+    if (!tenant || !email) return res.status(400).json({ error: "tenant and email are required" });
+    const amount = normalizeContributionAmount(amountRaw);
+    const ctx = await getTenantContextBySlug(tenant);
+    if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    assertContributionsEnabled(ctx.tenantConfig);
+    const user = await findTenantUser(ctx.tenant.id, email, client);
+    await client.query("BEGIN");
+    await client.query(
+      `INSERT INTO contribution_ledger (tenant_id, user_id, entry_type, amount, note, created_by_email, metadata)
+       VALUES ($1,$2,$3,$4,$5,$6,$7)`,
+      [
+        ctx.tenant.id,
+        user.id,
+        "contribution_add",
+        amount,
+        normalizeOptionalText(note, 500),
+        normalizeEmail(actor.email || req.userEmail || "system"),
+        metadata && typeof metadata === "object" ? metadata : {},
+      ]
+    );
+    const balance = await getContributionBalance({ tenantId: ctx.tenant.id, userId: user.id, client });
+    await client.query("COMMIT");
+    return res.status(201).json({
+      success: true,
+      tenant: ctx.tenant.slug,
+      user: { id: user.id, email: user.email },
+      contribution_balance: balance.contribution_balance,
+      total_contributions: balance.total_contributions,
+      total_support_allocations: balance.total_support_allocations,
+    });
+  } catch (err) {
+    await client.query("ROLLBACK").catch(() => {});
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "contribution add failed" });
+  } finally {
+    client.release();
+  }
+});
+
+app.post("/api/contributions/support", async (req, res) => {
+  const client = await pool.connect();
+  try {
+    const { tenant, email, business_id: businessIdRaw, amount: amountRaw, note, metadata } = req.body || {};
+    if (!tenant || !email || !businessIdRaw) {
+      return res.status(400).json({ error: "tenant, email, business_id, and amount are required" });
+    }
+    const businessId = Number(businessIdRaw);
+    if (!Number.isInteger(businessId) || businessId <= 0) return res.status(400).json({ error: "invalid business_id" });
+    const amount = normalizeContributionAmount(amountRaw);
+    const ctx = await getTenantContextBySlug(tenant);
+    if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    assertContributionsEnabled(ctx.tenantConfig);
+
+    await client.query("BEGIN");
+    const user = await findTenantUser(ctx.tenant.id, email, client);
+    await client.query("SELECT id FROM users WHERE id = $1 AND tenant_id = $2 FOR UPDATE", [user.id, ctx.tenant.id]);
+
+    const businessResult = await client.query(
+      `SELECT id, tenant_id, business_name
+       FROM spotlight_businesses
+       WHERE id = $1
+         AND tenant_id = $2
+       LIMIT 1`,
+      [businessId, ctx.tenant.id]
+    );
+    const business = businessResult.rows[0];
+    if (!business) {
+      const err = new Error("business not found for tenant");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    const balance = await getContributionBalance({ tenantId: ctx.tenant.id, userId: user.id, client });
+    if (amount > balance.contribution_balance) {
+      const err = new Error("insufficient contribution balance for support allocation");
+      err.statusCode = 400;
+      throw err;
+    }
+
+    await client.query(
+      `INSERT INTO support_allocations (tenant_id, user_id, business_id, amount, note, metadata)
+       VALUES ($1,$2,$3,$4,$5,$6)`,
+      [ctx.tenant.id, user.id, business.id, amount, normalizeOptionalText(note, 500), metadata && typeof metadata === "object" ? metadata : {}]
+    );
+    const afterBalance = await getContributionBalance({ tenantId: ctx.tenant.id, userId: user.id, client });
+    const summary = await client.query(
+      `SELECT
+         COALESCE(SUM(amount), 0)::float8 AS total_support,
+         COUNT(DISTINCT user_id)::int AS supporter_count
+       FROM support_allocations
+       WHERE tenant_id = $1
+         AND business_id = $2`,
+      [ctx.tenant.id, business.id]
+    );
+    await client.query("COMMIT");
+    return res.status(201).json({
+      success: true,
+      tenant: ctx.tenant.slug,
+      business: { id: business.id, business_name: business.business_name },
+      user: { id: user.id, email: user.email },
+      allocated_amount: amount,
+      contribution_balance: afterBalance.contribution_balance,
+      business_support_totals: summary.rows[0],
+    });
+  } catch (err) {
+    await client.query("ROLLBACK").catch(() => {});
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "support allocation failed" });
+  } finally {
+    client.release();
   }
 });
 
@@ -1986,6 +2301,66 @@ app.post("/t/:slug/showcase/settings", tenantMiddleware, async (req, res) => {
   }
 });
 
+app.post("/t/:slug/contributions/settings", tenantMiddleware, async (req, res) => {
+  try {
+    const access = requirePolicyAction(req, res, { action: ACTIONS.GARVEY_UPDATE, resourceTenantSlug: req.tenant.slug });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
+    const enabled = req.body?.contributions_enabled === true;
+    const accessGateEnabled = req.body?.contribution_access_gate?.enabled === true;
+    const minimumBalance = normalizeNonNegativeAmount(
+      req.body?.contribution_access_gate?.minimum_balance ?? 0,
+      "contribution_access_gate.minimum_balance"
+    );
+    const existingCfg = await getTenantConfig(req.tenant.id);
+    const next = {
+      ...existingCfg,
+      site: {
+        ...(existingCfg.site || {}),
+        contribution_access_gate: {
+          enabled: accessGateEnabled,
+          minimum_balance: accessGateEnabled ? minimumBalance : 0,
+        },
+      },
+      features: { ...(existingCfg.features || {}), contributions_enabled: enabled },
+    };
+    await pool.query(
+      `INSERT INTO tenant_config (tenant_id, config, updated_at)
+       VALUES ($1, $2, NOW())
+       ON CONFLICT (tenant_id) DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
+      [req.tenant.id, next]
+    );
+    return res.json({
+      contributions_enabled: next.features.contributions_enabled === true,
+      contribution_access_gate: next.site.contribution_access_gate,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "contribution settings update failed" });
+  }
+});
+
+app.get("/t/:slug/contributions/access", tenantMiddleware, async (req, res) => {
+  try {
+    assertContributionsEnabled(req.tenantConfig);
+    const email = String(req.query.email || "").trim();
+    if (!email) return res.status(400).json({ error: "email query param is required" });
+    const user = await findTenantUser(req.tenant.id, email);
+    const balance = await getContributionBalance({ tenantId: req.tenant.id, userId: user.id });
+    const gate = parseContributionAccessGate(req.tenantConfig);
+    return res.json({
+      tenant: req.tenant.slug,
+      user: { id: user.id, email: user.email },
+      contribution_balance: balance.contribution_balance,
+      contribution_access_gate: gate,
+      has_access: gate.enabled ? balance.contribution_balance >= gate.minimum_balance : true,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "contribution access check failed" });
+  }
+});
+
 app.post("/t/:slug/showcase/track", tenantMiddleware, async (req, res) => {
   try {
     const { event_type: eventTypeRaw, product_id: productIdRaw, cid } = req.body || {};
@@ -2162,10 +2537,19 @@ app.get("/api/spotlight/feed", async (req, res) => {
          sb.category,
          sb.is_onboarded,
          sb.tenant_id,
-         t.slug AS tenant_slug
+         t.slug AS tenant_slug,
+         COALESCE(ss.total_support, 0)::float8 AS total_support,
+         COALESCE(ss.supporter_count, 0)::int AS supporter_count
        FROM spotlight_posts sp
        JOIN spotlight_businesses sb ON sb.id = sp.business_id
        LEFT JOIN tenants t ON t.id = sb.tenant_id
+       LEFT JOIN LATERAL (
+         SELECT
+           SUM(sa.amount)::numeric AS total_support,
+           COUNT(DISTINCT sa.user_id)::int AS supporter_count
+         FROM support_allocations sa
+         WHERE sa.business_id = sb.id
+       ) ss ON TRUE
        WHERE ($1::boolean = true OR sp.moderation_status = $2)
        ORDER BY sp.created_at DESC
        LIMIT $3`,
@@ -2267,6 +2651,50 @@ app.post("/api/spotlight/businesses/:businessId/claim", async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "spotlight claim request failed" });
+  }
+});
+
+app.get("/api/spotlight/businesses/:businessId/support", async (req, res) => {
+  try {
+    const businessId = Number(req.params.businessId);
+    if (!Number.isInteger(businessId) || businessId <= 0) return res.status(400).json({ error: "invalid business id" });
+    const limit = Math.max(1, Math.min(Number(req.query.limit || 25) || 25, 100));
+    const businessLookup = await pool.query(
+      `SELECT sb.id, sb.tenant_id, sb.business_name, t.slug AS tenant_slug
+       FROM spotlight_businesses sb
+       LEFT JOIN tenants t ON t.id = sb.tenant_id
+       WHERE sb.id = $1
+       LIMIT 1`,
+      [businessId]
+    );
+    const business = businessLookup.rows[0];
+    if (!business) return res.status(404).json({ error: "business not found" });
+
+    const totals = await pool.query(
+      `SELECT
+         COALESCE(SUM(amount), 0)::float8 AS total_support,
+         COUNT(DISTINCT user_id)::int AS supporter_count
+       FROM support_allocations
+       WHERE business_id = $1`,
+      [businessId]
+    );
+    const history = await pool.query(
+      `SELECT sa.id, sa.user_id, sa.amount::float8 AS amount, sa.note, sa.created_at
+       FROM support_allocations sa
+       WHERE sa.business_id = $1
+       ORDER BY sa.created_at DESC
+       LIMIT $2`,
+      [businessId, limit]
+    );
+    return res.json({
+      business,
+      total_support: totals.rows[0].total_support,
+      supporter_count: totals.rows[0].supporter_count,
+      support_history: history.rows,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "business support lookup failed" });
   }
 });
 
