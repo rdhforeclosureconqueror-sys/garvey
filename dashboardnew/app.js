@@ -1077,7 +1077,7 @@
           '<select class="review-moderation-select input-sm" data-id="' + Number(r.id) + '">' +
             '<option value="pending"' + ((r.proof_status === "pending") ? " selected" : "") + ">pending</option>" +
             '<option value="approved"' + ((r.proof_status === "approved") ? " selected" : "") + ">approved</option>" +
-            '<option value="rejected"' + ((r.proof_status === "rejected") ? " selected" : "") + ">rejected</option>' +
+            '<option value="rejected"' + ((r.proof_status === "rejected") ? " selected" : "") + ">rejected</option>" +
           "</select>" +
         "</td>" +
       "</tr>";
@@ -1131,6 +1131,187 @@
         loadReviewModeration(tenant, ownerEmail, cid, rid).catch(function () {});
       });
     }
+  }
+
+  function renderSpotlightRows(tenant, ownerEmail, isAdmin, rows) {
+    var tbody = document.querySelector("#spotlightModerationTable tbody");
+    var empty = document.getElementById("spotlightModerationEmpty");
+    if (!tbody || !empty) return;
+    var list = Array.isArray(rows) ? rows : [];
+    tbody.innerHTML = list.map(function (row) {
+      return "<tr>" +
+        "<td>" + Number(row.id) + "</td>" +
+        "<td>" + escapeHtml(String(row.created_at || "").slice(0, 19).replace("T", " ")) + "</td>" +
+        "<td>" + escapeHtml(row.business_name || "-") + "</td>" +
+        "<td>" + (row.rating == null ? "-" : Number(row.rating)) + "</td>" +
+        "<td>" + escapeHtml(row.moderation_status || "pending") + "</td>" +
+        "<td>" +
+          '<select class="spotlight-moderation-select input-sm" data-id="' + Number(row.id) + '"' + (isAdmin ? "" : " disabled") + ">" +
+            '<option value="pending"' + ((row.moderation_status === "pending") ? " selected" : "") + ">pending</option>" +
+            '<option value="approved"' + ((row.moderation_status === "approved") ? " selected" : "") + ">approved</option>" +
+            '<option value="removed"' + ((row.moderation_status === "removed") ? " selected" : "") + ">removed</option>" +
+            '<option value="flagged"' + ((row.moderation_status === "flagged") ? " selected" : "") + ">flagged</option>" +
+          "</select>" +
+        "</td>" +
+        "<td>" + (row.claim_cta ? "Eligible" : "N/A") + " (Business ID: " + Number(row.business_id || 0) + ")</td>" +
+      "</tr>";
+    }).join("");
+    empty.style.display = list.length ? "none" : "block";
+    Array.prototype.forEach.call(document.querySelectorAll(".spotlight-moderation-select"), function (select) {
+      select.addEventListener("change", function () {
+        if (!isAdmin) return;
+        var postId = Number(select.getAttribute("data-id"));
+        var nextStatus = safeTrim(select.value).toLowerCase();
+        var msg = document.getElementById("spotlightMsg");
+        jsonFetch(apiUrl("/api/spotlight/posts/" + encodeURIComponent(postId) + "/moderation"), {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-user-email": ownerEmail },
+          body: JSON.stringify({ moderation_status: nextStatus })
+        }).then(function () {
+          if (msg) msg.textContent = "Spotlight moderation updated.";
+        }).catch(function (err) {
+          if (msg) msg.textContent = err.message || "Spotlight moderation failed.";
+        });
+      });
+    });
+  }
+
+  function loadSpotlightFeed(tenant, ownerEmail, isAdmin) {
+    var status = safeTrim((document.getElementById("spotlightStatusFilterInput") || {}).value || "pending");
+    var featureMsg = document.getElementById("spotlightFeatureMsg");
+    return jsonFetch(apiUrl("/api/spotlight/feed", isAdmin ? { all_statuses: "true", status: status } : { status: "approved" }))
+      .then(function (resp) {
+        var controls = document.getElementById("spotlightOwnerControls");
+        if (controls) controls.style.display = "";
+        if (featureMsg) featureMsg.textContent = "";
+        renderSpotlightRows(tenant, ownerEmail, isAdmin, (resp && resp.feed) || []);
+      })
+      .catch(function (err) {
+        if (featureMsg) featureMsg.textContent = /disabled/i.test(String(err.message || "")) ? "Spotlight feature is disabled for this tenant." : (err.message || "Spotlight unavailable.");
+      });
+  }
+
+  function wireSpotlight(tenant, ownerEmail, isAdmin) {
+    var refreshBtn = document.getElementById("refreshSpotlightBtn");
+    var statusInput = document.getElementById("spotlightStatusFilterInput");
+    if (refreshBtn) refreshBtn.addEventListener("click", function () { loadSpotlightFeed(tenant, ownerEmail, isAdmin); });
+    if (statusInput) statusInput.addEventListener("change", function () { loadSpotlightFeed(tenant, ownerEmail, isAdmin); });
+    loadSpotlightFeed(tenant, ownerEmail, isAdmin);
+  }
+
+  function renderContributionHistory(rows) {
+    var tbody = document.querySelector("#contributionHistoryTable tbody");
+    var empty = document.getElementById("contributionHistoryEmpty");
+    if (!tbody || !empty) return;
+    var list = Array.isArray(rows) ? rows : [];
+    tbody.innerHTML = list.map(function (row) {
+      return "<tr><td>" + fmtDate(row.created_at) + "</td><td>" + escapeHtml(row.entry_type || "-") + "</td><td>" + Number(row.amount || 0) + "</td><td>" + escapeHtml(row.business_name || "-") + "</td><td>" + escapeHtml(row.note || "-") + "</td></tr>";
+    }).join("");
+    empty.style.display = list.length ? "none" : "block";
+  }
+
+  function loadContributionPanels(tenant, ownerEmail) {
+    var statusBody = document.getElementById("contributionStatusBody");
+    return Promise.all([
+      jsonFetch(apiUrl("/api/contributions/status", { tenant: tenant, email: ownerEmail })),
+      jsonFetch(apiUrl("/api/contributions/history", { tenant: tenant, email: ownerEmail, limit: 50 }))
+    ]).then(function (responses) {
+      var status = responses[0] || {};
+      var history = responses[1] || {};
+      if (statusBody) {
+        statusBody.innerHTML =
+          "<div><b>Balance:</b> " + Number(status.contribution_balance || 0) + "</div>" +
+          "<div><b>Total Contributions:</b> " + Number(status.total_contributions || 0) + "</div>" +
+          "<div><b>Total Support Allocations:</b> " + Number(status.total_support_allocations || 0) + "</div>" +
+          "<div><b>Access Gate:</b> " + (status.contribution_access_gate && status.contribution_access_gate.enabled ? ("Enabled (min " + Number(status.contribution_access_gate.minimum_balance || 0) + ")") : "Disabled") + "</div>";
+      }
+      renderContributionHistory(history.contribution_history || []);
+    }).catch(function (err) {
+      if (statusBody) statusBody.textContent = /disabled/i.test(String(err.message || "")) ? "Contributions feature is disabled for this tenant." : (err.message || "Contributions unavailable.");
+    });
+  }
+
+  function wireContributions(tenant, ownerEmail, cid, rid, isAdmin) {
+    var settingsBtn = document.getElementById("saveContributionSettingsBtn");
+    var enabledInput = document.getElementById("contributionsEnabledInput");
+    var gateEnabledInput = document.getElementById("contributionGateEnabledInput");
+    var gateMinInput = document.getElementById("contributionGateMinimumInput");
+    var settingsMsg = document.getElementById("contributionSettingsMsg");
+    if (settingsBtn) {
+      settingsBtn.addEventListener("click", function () {
+        jsonFetch(tenantApiUrl(tenant, "/contributions/settings", ownerEmail, cid, rid), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contributions_enabled: !!(enabledInput && enabledInput.checked),
+            contribution_access_gate: {
+              enabled: !!(gateEnabledInput && gateEnabledInput.checked),
+              minimum_balance: Number(safeTrim(gateMinInput && gateMinInput.value) || 0),
+            }
+          })
+        }).then(function (resp) {
+          if (settingsMsg) settingsMsg.textContent = "Contribution settings saved.";
+          if (enabledInput) enabledInput.checked = !!resp.contributions_enabled;
+          if (gateEnabledInput) gateEnabledInput.checked = !!(resp.contribution_access_gate && resp.contribution_access_gate.enabled);
+          if (gateMinInput) gateMinInput.value = String(Number(resp.contribution_access_gate && resp.contribution_access_gate.minimum_balance || 0));
+          return loadContributionPanels(tenant, ownerEmail);
+        }).catch(function (err) {
+          if (settingsMsg) settingsMsg.textContent = err.message || "Settings update failed.";
+        });
+      });
+    }
+
+    var supportBtn = document.getElementById("allocateSupportBtn");
+    if (supportBtn) {
+      supportBtn.addEventListener("click", function () {
+        var businessId = Number(safeTrim((document.getElementById("supportBusinessIdInput") || {}).value));
+        var amount = Number(safeTrim((document.getElementById("supportAmountInput") || {}).value));
+        var note = safeTrim((document.getElementById("supportNoteInput") || {}).value);
+        var msg = document.getElementById("supportAllocateMsg");
+        if (!businessId || !amount) {
+          if (msg) msg.textContent = "Business ID and amount are required.";
+          return;
+        }
+        jsonFetch(apiUrl("/api/contributions/support"), {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-user-email": ownerEmail, "x-user-role": "business_owner" },
+          body: JSON.stringify({ tenant: tenant, email: ownerEmail, business_id: businessId, amount: amount, note: note || undefined })
+        }).then(function (resp) {
+          if (msg) msg.textContent = "Support allocated.";
+          var metrics = document.getElementById("supportBusinessMetrics");
+          if (metrics) metrics.innerHTML = "<b>Business support totals:</b> " + Number((resp.business_support_totals || {}).total_support || 0) + " across " + Number((resp.business_support_totals || {}).supporter_count || 0) + " supporter(s).";
+          return loadContributionPanels(tenant, ownerEmail);
+        }).catch(function (err) {
+          if (msg) msg.textContent = err.message || "Support allocation failed.";
+        });
+      });
+    }
+
+    var addBtn = document.getElementById("addContributionBtn");
+    if (addBtn) {
+      addBtn.disabled = !isAdmin;
+      addBtn.addEventListener("click", function () {
+        var email = safeTrim((document.getElementById("contributionAddEmailInput") || {}).value).toLowerCase();
+        var amount = Number(safeTrim((document.getElementById("contributionAddAmountInput") || {}).value));
+        var note = safeTrim((document.getElementById("contributionAddNoteInput") || {}).value);
+        var msg = document.getElementById("contributionAddMsg");
+        if (!email || !amount) {
+          if (msg) msg.textContent = "Member email and amount are required.";
+          return;
+        }
+        jsonFetch(apiUrl("/api/contributions/add"), {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-user-email": ownerEmail, "x-user-role": "admin" },
+          body: JSON.stringify({ tenant: tenant, email: email, amount: amount, note: note || undefined })
+        }).then(function () {
+          if (msg) msg.textContent = "Contribution balance added.";
+        }).catch(function (err) {
+          if (msg) msg.textContent = err.message || "Contribution add failed.";
+        });
+      });
+    }
+
+    loadContributionPanels(tenant, ownerEmail);
   }
 
   function loadOwnerSnapshot(email, tenant, cid, rid, isAdmin) {
@@ -1384,6 +1565,8 @@
       wireCampaignCreator(tenant, ownerEmail, cid, rid);
       wireProductCreator(tenant, ownerEmail, cid, rid);
       wireReviewModeration(tenant, ownerEmail, cid, rid);
+      wireSpotlight(tenant, ownerEmail, isAdmin);
+      wireContributions(tenant, ownerEmail, cid, rid, isAdmin);
       loadOwnerSnapshot(ownerEmail, tenant, cid, rid, isAdmin);
 
       return Promise.all([
