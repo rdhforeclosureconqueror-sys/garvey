@@ -519,7 +519,7 @@
         if (!section || !grid) return;
         const query = new URLSearchParams();
         if (cid) query.set("cid", cid);
-        const resp = await fetch(`/t/${encodeURIComponent(tenant)}/showcase?${query.toString()}`);
+        const resp = await fetch(ownerApiUrl(`/t/${encodeURIComponent(tenant)}/showcase`, Object.fromEntries(query.entries())));
         const body = await resp.json().catch(() => ({}));
         if (!resp.ok || !body.enabled || !Array.isArray(body.items) || !body.items.length) return;
         section.hidden = false;
@@ -542,7 +542,7 @@
           </div>`;
         }).join("");
         body.items.forEach(function (item) {
-          fetch(`/t/${encodeURIComponent(tenant)}/showcase/track`, {
+          fetch(ownerApiUrl(`/t/${encodeURIComponent(tenant)}/showcase/track`), {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ event_type: "showcase_impression", product_id: Number(item.product_id), cid: cid || null })
@@ -550,7 +550,7 @@
         });
         grid.querySelectorAll(".showcase-view-btn").forEach(function (btn) {
           btn.addEventListener("click", function () {
-            fetch(`/t/${encodeURIComponent(tenant)}/showcase/track`, {
+            fetch(ownerApiUrl(`/t/${encodeURIComponent(tenant)}/showcase/track`), {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ event_type: "showcase_view_product_click", product_id: Number(btn.getAttribute("data-product-id")), cid: cid || null })
@@ -561,12 +561,12 @@
           btn.addEventListener("click", async function () {
             const productId = Number(btn.getAttribute("data-product-id"));
             const productName = btn.getAttribute("data-product-name") || "";
-            await fetch(`/t/${encodeURIComponent(tenant)}/showcase/track`, {
+            await fetch(ownerApiUrl(`/t/${encodeURIComponent(tenant)}/showcase/track`), {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ event_type: "showcase_wishlist_save", product_id: productId, cid: cid || null })
             }).catch(function () {});
-            await fetch("/api/rewards/wishlist", {
+            await fetch(ownerApiUrl("/api/rewards/wishlist"), {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ tenant: tenant, email: trim(c.email), product_name: productName, cid: cid || null })
@@ -584,7 +584,7 @@
         const feed = document.getElementById("spotlightFeedGrid");
         const feedMsg = document.getElementById("spotlightFeedMsg");
         if (!section || !feed) return;
-        const resp = await fetch(`/api/spotlight/feed?limit=8`);
+        const resp = await fetch(ownerApiUrl("/api/spotlight/feed", { limit: 8 }));
         const body = await resp.json().catch(() => ({}));
         const rows = Array.isArray(body.feed) ? body.feed.filter((item) => String(item.tenant_slug || "") === tenant) : [];
         if (!rows.length) {
@@ -609,7 +609,7 @@
             const claimantName = trim(prompt("Your name"));
             const claimantEmail = trim(prompt("Your email")).toLowerCase();
             if (!businessId || !claimantName || !claimantEmail) return;
-            await fetch(`/api/spotlight/businesses/${encodeURIComponent(businessId)}/claim`, {
+            await fetch(ownerApiUrl(`/api/spotlight/businesses/${encodeURIComponent(businessId)}/claim`), {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ claimant_name: claimantName, claimant_email: claimantEmail, message: "Submitted from public spotlight feed" })
@@ -633,7 +633,7 @@
               submitter_email: trim(c.email || "").toLowerCase() || undefined,
             };
             const msg = document.getElementById("spotSubmitMsg");
-            const post = await fetch("/api/spotlight/submissions", {
+            const post = await fetch(ownerApiUrl("/api/spotlight/submissions"), {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(payload)

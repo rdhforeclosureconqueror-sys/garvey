@@ -766,7 +766,10 @@ async function loadReviewProductOptions(ctx) {
   const select = document.getElementById("reviewProductId");
   if (!select || !ctx.tenant) return;
   try {
-    const resp = await fetch(`/t/${encodeURIComponent(ctx.tenant)}/products/public`);
+    const productsUrl = window.GarveyApi?.buildUrl
+      ? window.GarveyApi.buildUrl(`/t/${encodeURIComponent(ctx.tenant)}/products/public`)
+      : `/t/${encodeURIComponent(ctx.tenant)}/products/public`;
+    const resp = await fetch(productsUrl);
     const payload = await resp.json().catch(() => ({}));
     const products = Array.isArray(payload?.products) ? payload.products : [];
     select.innerHTML = `<option value="">No product selected</option>${products
