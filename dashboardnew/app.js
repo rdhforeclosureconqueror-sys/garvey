@@ -173,6 +173,89 @@
     });
   }
 
+  function clearRefreshTimer() {
+    if (window.__garveyDashboardRefreshTimer) {
+      clearInterval(window.__garveyDashboardRefreshTimer);
+      window.__garveyDashboardRefreshTimer = null;
+    }
+  }
+
+  function resetDashboardUi(reason) {
+    clearRefreshTimer();
+    feedEntries = [];
+    previousTotals = null;
+
+    ["metricUsers", "metricActions", "metricPoints", "metricVisits", "metricRepeatVisits", "metricReviewsReferrals"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = "0";
+      el.setAttribute("data-value", "0");
+    });
+
+    var split = document.getElementById("metricReviewsReferralsSplit");
+    if (split) split.textContent = "0 reviews • 0 referrals";
+
+    var table = document.querySelector("#customersTable tbody");
+    if (table) table.innerHTML = "";
+    var tableEmpty = document.getElementById("tableEmpty");
+    if (tableEmpty) tableEmpty.style.display = "block";
+
+    renderChartEmpty("#morris-bar-chart", "barEmpty", false);
+    renderChartEmpty("#morris-area-chart", "areaEmpty", false);
+    renderChartEmpty("#morris-donut-chart", "donutEmpty", false);
+
+    var feed = document.getElementById("activityFeed");
+    if (feed) feed.textContent = "No activity yet.";
+
+    var ownerInsight = document.getElementById("ownerInsight");
+    if (ownerInsight) ownerInsight.textContent = "Business Owner: No submissions yet.";
+    var customerInsight = document.getElementById("customerInsight");
+    if (customerInsight) customerInsight.textContent = "Customer: No submissions yet.";
+
+    var segmentsSummary = document.getElementById("segmentsSummary");
+    if (segmentsSummary) segmentsSummary.textContent = "Loading customer segment stats…";
+    var segmentsTop = document.getElementById("segmentsTop");
+    if (segmentsTop) segmentsTop.innerHTML = "";
+
+    var campaignsTable = document.querySelector("#campaignsTable tbody");
+    if (campaignsTable) campaignsTable.innerHTML = "";
+    var campaignsEmpty = document.getElementById("campaignsEmpty");
+    if (campaignsEmpty) campaignsEmpty.style.display = "block";
+
+    var ranking = document.getElementById("campaignRankingList");
+    if (ranking) ranking.innerHTML = "No campaign performance data yet.";
+    var topSummary = document.getElementById("campaignTopSummary");
+    if (topSummary) topSummary.textContent = "No campaigns yet.";
+
+    var actionSummary = document.getElementById("actionMetricsSummary");
+    if (actionSummary) actionSummary.textContent = "No action metrics yet.";
+    var actionBreakdown = document.getElementById("actionMetricsBreakdown");
+    if (actionBreakdown) actionBreakdown.textContent = "Waiting for check-ins/reviews/referrals.";
+    var dropOff = document.getElementById("dropOffInsight");
+    if (dropOff) dropOff.textContent = "";
+    var behaviorInsights = document.getElementById("behaviorInsights");
+    if (behaviorInsights) behaviorInsights.textContent = "Insights will appear as activity grows.";
+
+    var linkMsg = document.getElementById("campaignCreateMsg");
+    if (linkMsg) linkMsg.textContent = reason ? ("Loading tenant dashboard: " + reason) : "";
+    renderCampaignLinks("", null);
+  }
+
+  function resetSessionForTenantSwitch(nextCtx, prevCtx) {
+    var prev = prevCtx || { tenant: "", email: "" };
+    var next = nextCtx || { tenant: "", email: "" };
+    var switched = !!(
+      safeTrim(prev.tenant) && safeTrim(prev.email) &&
+      (safeTrim(prev.tenant) !== safeTrim(next.tenant) || safeTrim(prev.email).toLowerCase() !== safeTrim(next.email).toLowerCase())
+    );
+    if (!switched) return false;
+    try {
+      localStorage.removeItem(DASH_CTX_KEY);
+      localStorage.removeItem(ENGINE_CTX_KEY);
+    } catch (_) {}
+    return true;
+  }
+
   function renderMetrics(dashboard) {
     var totalUsers = Number(dashboard.total_users || 0);
     var totalActions = Number(dashboard.total_actions || 0);
@@ -302,6 +385,20 @@
     if (!body) return;
     if (!campaign) {
       body.textContent = "Create a campaign to view links.";
+      var qrMissing = document.getElementById("campaignQrPreview");
+      if (qrMissing) {
+        qrMissing.removeAttribute("src");
+        qrMissing.style.display = "none";
+      }
+      var qrMissingEmpty = document.getElementById("campaignQrEmpty");
+      if (qrMissingEmpty) qrMissingEmpty.style.display = "block";
+      var linkOutputMissing = document.getElementById("campaignLinkOutput");
+      if (linkOutputMissing) linkOutputMissing.value = "";
+      var downloadMissing = document.getElementById("downloadCampaignQrBtn");
+      if (downloadMissing) {
+        downloadMissing.href = "#";
+        downloadMissing.setAttribute("download", "campaign-qr.png");
+      }
       return;
     }
     var links = campaign.share_links || {};
@@ -1053,6 +1150,11 @@
     var cid = urlCid;
     var rid = urlRid;
     var isAdmin = isAdminEmail(ownerEmail);
+    var switchedTenant = resetSessionForTenantSwitch(
+      { tenant: tenant, email: ownerEmail, cid: cid, rid: rid },
+      fromLoginCtx
+    );
+    resetDashboardUi(switchedTenant ? "switch detected" : "");
 
     if (tenant || ownerEmail || cid || rid) {
       saveLoginCtx({ tenant: tenant, email: ownerEmail, cid: cid, rid: rid });
@@ -1119,7 +1221,8 @@
           wireArchetypeLensToggle(tenant, cid, responses[6] || {});
           renderArchetypeGroups(tenant, cid, responses[6] || {});
 
-          setInterval(function () {
+          clearRefreshTimer();
+          window.__garveyDashboardRefreshTimer = setInterval(function () {
             Promise.all([
               jsonFetch(tenantApiUrl(tenant, "/dashboard", ownerEmail, cid, rid)),
               jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail, cid, rid))
