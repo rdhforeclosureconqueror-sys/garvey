@@ -7,6 +7,7 @@
   <title>GARVEY — Business Growth System</title>
 
   <link rel="stylesheet" href="/aurora/aurora.css" />
+  <script src="/js/api-contract.js" defer></script>
   <script src="/garvey_ui.js" defer></script>
   <script src="/aurora/aurora.js" defer></script>
 </head>
@@ -383,8 +384,10 @@
         if (window.GarveyApi && typeof window.GarveyApi.buildUrl === "function") {
           return window.GarveyApi.buildUrl(path, query || {});
         }
+        const host = window.location && window.location.hostname ? window.location.hostname : "";
+        const apiBase = host.includes("garveyfrontend") ? "https://garveybackend.onrender.com" : "";
         const qs = new URLSearchParams(query || {}).toString();
-        return `${path}${qs ? `?${qs}` : ""}`;
+        return `${apiBase}${path}${qs ? `?${qs}` : ""}`;
       }
       function ownerCtx() {
         const ctx = (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : {};
