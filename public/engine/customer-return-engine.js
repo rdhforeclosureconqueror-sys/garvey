@@ -125,6 +125,8 @@
           text: safeTrim(event.text),
           media_type: safeTrim(event.media_type) || undefined,
           media_note: safeTrim(event.media_note) || undefined,
+          rating: event.rating == null || safeTrim(event.rating) === "" ? undefined : Number(event.rating),
+          product_id: event.product_id == null || safeTrim(event.product_id) === "" ? undefined : Number(event.product_id),
         }),
       };
       if (type === "referral") return {

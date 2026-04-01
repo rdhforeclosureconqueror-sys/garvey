@@ -190,6 +190,24 @@
                 <tbody></tbody>
               </table>
               <div id="productsEmpty" class="empty-state">No products yet.</div>
+              <hr />
+              <h4>Review Moderation</h4>
+              <div class="form-inline" style="margin-bottom:8px;">
+                <label for="reviewStatusFilterInput">Status:&nbsp;</label>
+                <select id="reviewStatusFilterInput" class="form-control input-sm">
+                  <option value="">All</option>
+                  <option value="pending" selected>Pending</option>
+                  <option value="approved">Approved</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+                <button id="refreshReviewModerationBtn" class="btn btn-default btn-sm">Refresh Reviews</button>
+              </div>
+              <div id="reviewModerationMsg" class="empty-state"></div>
+              <table class="table table-striped table-bordered" id="reviewModerationTable">
+                <thead><tr><th>ID</th><th>Date</th><th>Customer</th><th>Product</th><th>Rating</th><th>Status</th><th>Review</th><th>Action</th></tr></thead>
+                <tbody></tbody>
+              </table>
+              <div id="reviewModerationEmpty" class="empty-state">No reviews for selected filter.</div>
             </div>
           </div>
         </div>

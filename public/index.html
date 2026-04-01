@@ -471,7 +471,8 @@
         if (!resp.ok || !body.enabled || !Array.isArray(body.items) || !body.items.length) return;
         section.hidden = false;
         grid.innerHTML = body.items.map(function (item) {
-          const rating = (item.rating == null || item.rating === "") ? "—" : escapeHtml(item.rating);
+          const ratingValue = Number(item.rating);
+          const rating = Number.isInteger(ratingValue) && ratingValue > 0 ? "★".repeat(Math.min(ratingValue, 6)) : "—";
           const media = item.media_note ? `<div class=\"au-muted\" style=\"margin-top:6px\">Media: ${escapeHtml(item.media_note)}</div>` : "";
           const image = item.image_url ? `<img src=\"${escapeHtml(item.image_url)}\" alt=\"${escapeHtml(item.name)}\" style=\"width:100%;max-height:180px;object-fit:cover;border-radius:12px;margin-bottom:8px\"/>` : "";
           return `<div class=\"au-card\" data-product-id=\"${Number(item.product_id)}\">
