@@ -3,9 +3,13 @@ import path from "node:path";
 
 const ROOT = process.cwd();
 
-const backendFiles = [
-  "server/index.js",
-  "server/kanbanRoutes.js",
+const routerMounts = [
+  { file: "server/kanbanRoutes.js", base: "/api/kanban" },
+  { file: "server/foundationRoutes.js", base: "/api/foundation" },
+  { file: "server/structureRoutes.js", base: "/api/structure" },
+  { file: "server/executionRoutes.js", base: "/api/execution" },
+  { file: "server/intelligenceRoutes.js", base: "/api/intelligence" },
+  { file: "server/infrastructureRoutes.js", base: "/api/infrastructure" },
 ];
 
 const frontendScanFiles = [
@@ -24,6 +28,14 @@ const frontendScanFiles = [
 const documentedRoutes = [
   "GET /dashboard.html",
   "GET /health",
+  "POST /api/owner/signup",
+  "POST /api/owner/signin",
+  "POST /api/owner/signout",
+  "GET /api/owner/session",
+  "GET /api/archetypes/library",
+  "GET /api/archetypes/groups",
+  "GET /api/archetypes/group",
+  "GET /api/archetypes/customer",
   "GET /join/:slug",
   "GET /api/templates",
   "POST /api/templates/select",
@@ -37,12 +49,43 @@ const documentedRoutes = [
   "POST /api/rewards/review",
   "POST /api/rewards/referral",
   "POST /api/rewards/wishlist",
+  "GET /api/contributions/status",
+  "GET /api/contributions/history",
+  "POST /api/contributions/add",
+  "POST /api/contributions/support",
+  "POST /api/spotlight/submissions",
+  "GET /api/spotlight/feed",
+  "POST /api/spotlight/posts/:postId/moderation",
+  "POST /api/spotlight/businesses/:businessId/claim",
+  "GET /api/spotlight/businesses/:businessId/support",
+  "POST /api/spotlight/claims/:claimId/moderation",
+  "GET /t/:slug/products",
+  "GET /t/:slug/products/public",
+  "POST /t/:slug/products",
+  "PUT /t/:slug/products/:productId",
+  "DELETE /t/:slug/products/:productId",
+  "GET /t/:slug/showcase",
+  "POST /t/:slug/showcase/feature-selection",
+  "POST /t/:slug/showcase/settings",
+  "POST /t/:slug/contributions/settings",
+  "GET /t/:slug/contributions/access",
+  "POST /t/:slug/showcase/track",
+  "GET /t/:slug/reviews",
+  "POST /t/:slug/reviews/:reviewId/moderation",
+  "GET /t/:slug/dashboard",
+  "GET /t/:slug/customers",
+  "GET /t/:slug/segments",
+  "GET /t/:slug/campaigns/summary",
+  "GET /t/:slug/analytics",
+  "GET /t/:slug/site",
   "POST /api/site/generate",
   "POST /api/system/activate-full",
   "GET /api/questions",
   "POST /api/intake",
   "POST /voc-intake",
+  "POST /api/vocIntake",
   "GET /api/results/:email",
+  "GET /api/results/customer/:crid",
   "POST /api/customer/share-result",
   "GET /api/admin/config/:tenant",
   "GET /api/tenant/lookup",
@@ -56,12 +99,6 @@ const documentedRoutes = [
   "POST /t/:slug/review",
   "POST /t/:slug/referral",
   "POST /t/:slug/wishlist",
-  "GET /t/:slug/dashboard",
-  "GET /t/:slug/customers",
-  "GET /t/:slug/segments",
-  "GET /t/:slug/campaigns/summary",
-  "GET /t/:slug/analytics",
-  "GET /t/:slug/site",
   "POST /api/kanban/ensure",
   "GET /api/kanban/board",
   "GET /api/kanban/cards",
@@ -69,6 +106,42 @@ const documentedRoutes = [
   "PUT /api/kanban/cards/:id",
   "POST /api/kanban/cards/:id/move",
   "GET /api/kanban/events",
+  "POST /api/foundation/initialize",
+  "GET /api/foundation/state",
+  "PUT /api/foundation/cards/:cardType",
+  "POST /api/foundation/cards/:cardType/move",
+  "POST /api/foundation/gadget/mission-generator",
+  "POST /api/foundation/gadget/customer-builder",
+  "POST /api/foundation/gadget/value-prop-builder",
+  "POST /api/foundation/gadget/start-journey",
+  "POST /api/structure/initialize",
+  "POST /api/structure/roles",
+  "POST /api/structure/operator-assignment",
+  "GET /api/structure/state",
+  "PUT /api/structure/cards/:cardType",
+  "POST /api/structure/gadget/role-creator",
+  "POST /api/structure/gadget/ownership-validator",
+  "POST /api/structure/gadget/backup-assigner",
+  "POST /api/execution/initialize",
+  "POST /api/execution/items",
+  "GET /api/execution/state",
+  "POST /api/execution/gadget/sop-builder",
+  "POST /api/execution/gadget/recurring-engine",
+  "POST /api/execution/gadget/daily-checklist-engine",
+  "POST /api/execution/gadget/deliverables-scaffolder",
+  "POST /api/intelligence/initialize",
+  "POST /api/intelligence/kpis",
+  "POST /api/intelligence/score",
+  "POST /api/intelligence/gaps/detect",
+  "GET /api/intelligence/state",
+  "POST /api/infrastructure/initialize",
+  "POST /api/infrastructure/tools",
+  "POST /api/infrastructure/resources",
+  "POST /api/infrastructure/templates",
+  "POST /api/infrastructure/links",
+  "POST /api/infrastructure/links/validate",
+  "GET /api/infrastructure/hub",
+  "GET /api/infrastructure/recommendations",
 ];
 
 function slurp(file) {
@@ -95,10 +168,12 @@ function extractBackendRoutes() {
     routes.add(`${m[1].toUpperCase()} ${m[2]}`);
   }
 
-  const routerSrc = slurp("server/kanbanRoutes.js");
-  const rRe = /router\.(get|post|put|delete)\(\s*["'`]([^"'`]+)["'`]/g;
-  while ((m = rRe.exec(routerSrc))) {
-    routes.add(`${m[1].toUpperCase()} /api/kanban${m[2]}`);
+  for (const mount of routerMounts) {
+    const routerSrc = slurp(mount.file);
+    const rRe = /router\.(get|post|put|delete)\(\s*["'`]([^"'`]+)["'`]/g;
+    while ((m = rRe.exec(routerSrc))) {
+      routes.add(`${m[1].toUpperCase()} ${mount.base}${m[2]}`);
+    }
   }
 
   return routes;
@@ -166,8 +241,8 @@ function main() {
   const indexSrc = slurp("public/index.html");
   const adminSrc = slurp("public/admin.html");
   const missingRewardIds = [
-    !indexSrc.includes("id=\"rewardsLink\"") ? "public/index.html#rewardsLink" : null,
-    !adminSrc.includes("id=\"rewardsBtn\"") ? "public/admin.html#rewardsBtn" : null,
+    !indexSrc.includes('id="rewardsLink"') ? "public/index.html#rewardsLink" : null,
+    !adminSrc.includes('id="rewardsBtn"') ? "public/admin.html#rewardsBtn" : null,
   ].filter(Boolean);
 
   const result = {

@@ -138,3 +138,52 @@ Verification Layer → Validates the pipeline (DB → Questions → Scoring → 
 
 ## Final Status
 GARVEY SYSTEM FULLY OPERATIONAL (PHASES 1–11 COMPLETE)
+---
+
+## Phase 1–5 Route Inventory (Contract-Aligned)
+
+### Phase 1 — Foundation (`/api/foundation`)
+- `POST /api/foundation/initialize`
+- `GET /api/foundation/state`
+- `PUT /api/foundation/cards/:cardType`
+- `POST /api/foundation/cards/:cardType/move`
+- `POST /api/foundation/gadget/mission-generator`
+- `POST /api/foundation/gadget/customer-builder`
+- `POST /api/foundation/gadget/value-prop-builder`
+- `POST /api/foundation/gadget/start-journey`
+
+### Phase 2 — Structure (`/api/structure`)
+- `POST /api/structure/initialize`
+- `POST /api/structure/roles`
+- `POST /api/structure/operator-assignment`
+- `GET /api/structure/state`
+- `PUT /api/structure/cards/:cardType`
+- `POST /api/structure/gadget/role-creator`
+- `POST /api/structure/gadget/ownership-validator`
+- `POST /api/structure/gadget/backup-assigner`
+
+### Phase 3 — Execution (`/api/execution`)
+- `POST /api/execution/initialize`
+- `POST /api/execution/items`
+- `GET /api/execution/state`
+- `POST /api/execution/gadget/sop-builder`
+- `POST /api/execution/gadget/recurring-engine`
+- `POST /api/execution/gadget/daily-checklist-engine`
+- `POST /api/execution/gadget/deliverables-scaffolder`
+
+### Phase 4 — Intelligence (`/api/intelligence`)
+- `POST /api/intelligence/initialize`
+- `POST /api/intelligence/kpis`
+- `POST /api/intelligence/score`
+- `POST /api/intelligence/gaps/detect`
+- `GET /api/intelligence/state`
+
+### Phase 5 — Infrastructure (`/api/infrastructure`)
+- `POST /api/infrastructure/initialize`
+- `POST /api/infrastructure/tools`
+- `POST /api/infrastructure/resources`
+- `POST /api/infrastructure/templates`
+- `POST /api/infrastructure/links`
+- `POST /api/infrastructure/links/validate`
+- `GET /api/infrastructure/hub`
+- `GET /api/infrastructure/recommendations`
