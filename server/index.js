@@ -39,6 +39,7 @@ const {
   buildGuidance,
 } = require("./resultEngine");
 const { buildDashboardUrl } = require("./dashboardUrl");
+const { ACTIONS, ROLES, deriveActor, evaluatePolicy, deny } = require("./accessControl");
 const archetypeLibrary = require("../public/archetypes/library.json");
 const {
   PERSONAL_ARCHETYPES,
@@ -427,20 +428,55 @@ async function resolveOwnerRecipient({ tenantId, campaignId = null, client = poo
 }
 
 async function requireTenantReadAccess(req, res) {
-  if (req.isAdmin) return null;
-  const email = normalizeEmail(req.query.email || req.headers["x-user-email"] || "");
-  if (!email) {
-    res.status(400).json({
-      error: "email query parameter required for tenant dashboard access",
-    });
+  const actor = deriveActor(req);
+  if (actor.role === ROLES.ANONYMOUS && !actor.isAdmin) {
+    return deny(res, 401, "authentication required", "Provide x-user-role and tenant context");
+  }
+
+  const policy = evaluatePolicy({
+    actor,
+    action: ACTIONS.DASHBOARD_READ,
+    resourceTenantSlug: req.tenant?.slug,
+  });
+  if (!policy.allow) {
+    return deny(res, 403, "forbidden", policy.reason);
+  }
+
+  if (actor.isAdmin) return actor;
+
+  if (actor.role === ROLES.BUSINESS_OWNER) {
+    if (!actor.email) return deny(res, 400, "owner email required", "Provide email query param or x-user-email header");
+    const hasAccess = await ownerEmailHasTenantAccess(req.tenant.id, actor.email);
+    if (!hasAccess) return deny(res, 403, "forbidden", "owner access denied for tenant");
+  }
+
+  return actor;
+}
+
+function requirePolicyAction(req, res, { action, resourceTenantSlug }) {
+  const actor = deriveActor(req);
+  if (actor.role === ROLES.ANONYMOUS && !actor.isAdmin) {
+    return { ok: false, actor: null, response: deny(res, 401, "authentication required", "Provide x-user-role and tenant context") };
+  }
+  const decision = evaluatePolicy({ actor, action, resourceTenantSlug });
+  if (!decision.allow) {
+    return { ok: false, actor, response: deny(res, 403, "forbidden", decision.reason) };
+  }
+  return { ok: true, actor, decision };
+}
+
+async function requireOwnerTenantMembership(req, res, tenantId, actor) {
+  if (actor.isAdmin || actor.role !== ROLES.BUSINESS_OWNER) return true;
+  if (!actor.email) {
+    deny(res, 400, "owner email required", "Provide email query param or x-user-email header");
     return false;
   }
-  const hasAccess = await ownerEmailHasTenantAccess(req.tenant.id, email);
+  const hasAccess = await ownerEmailHasTenantAccess(tenantId, actor.email);
   if (!hasAccess) {
-    res.status(403).json({ error: "forbidden: owner access denied for tenant" });
+    deny(res, 403, "forbidden", "owner access denied for tenant");
     return false;
   }
-  return email;
+  return true;
 }
 
 async function readTemplateRegistry() {
@@ -692,15 +728,15 @@ app.use("/api/evolution", evolutionRoutes({ pool, ensureTenant }));
 
 app.post("/api/campaigns/create", async (req, res) => {
   try {
-    const { tenant, label, slug, source = null, medium = null, email: ownerEmailRaw } = req.body || {};
+    const { tenant, label, slug, source = null, medium = null } = req.body || {};
     if (!tenant || !label) return res.status(400).json({ error: "tenant and label are required" });
     const tenantRow = await ensureTenant(String(tenant));
-    const ownerEmail = normalizeEmail(ownerEmailRaw || req.query.email || req.headers["x-user-email"] || "");
-    if (!req.isAdmin) {
-      if (!ownerEmail) return res.status(400).json({ error: "owner email is required" });
-      const hasAccess = await ownerEmailHasTenantAccess(tenantRow.id, ownerEmail);
-      if (!hasAccess) return res.status(403).json({ error: "forbidden: owner access denied for tenant" });
-    }
+    const access = requirePolicyAction(req, res, {
+      action: ACTIONS.CAMPAIGN_CREATE,
+      resourceTenantSlug: tenantRow.slug,
+    });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, tenantRow.id, access.actor))) return;
     let candidate = normalizeSlug(slug) || randomSlug(label);
     let attempts = 0;
     while (attempts < 5) {
@@ -737,12 +773,12 @@ app.get("/api/campaigns/list", async (req, res) => {
     if (!tenantSlug) return res.status(400).json({ error: "tenant query param is required" });
     const ctx = await getTenantContextBySlug(tenantSlug);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
-    const ownerEmail = normalizeEmail(req.query.email || req.headers["x-user-email"] || "");
-    if (!req.isAdmin) {
-      if (!ownerEmail) return res.status(400).json({ error: "email query parameter required for campaign list access" });
-      const hasAccess = await ownerEmailHasTenantAccess(ctx.tenant.id, ownerEmail);
-      if (!hasAccess) return res.status(403).json({ error: "forbidden: owner access denied for tenant" });
-    }
+    const access = requirePolicyAction(req, res, {
+      action: ACTIONS.CAMPAIGN_READ,
+      resourceTenantSlug: ctx.tenant.slug,
+    });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, ctx.tenant.id, access.actor))) return;
 
     const rows = await pool.query(
       `SELECT c.*,
@@ -787,6 +823,9 @@ app.get("/api/campaigns/qr", async (req, res) => {
     if (!["png", "svg"].includes(format)) return res.status(400).json({ error: "invalid format" });
     const ctx = await getTenantContextBySlug(tenantSlug);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    const access = requirePolicyAction(req, res, { action: ACTIONS.QR_GENERATE, resourceTenantSlug: ctx.tenant.slug });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, ctx.tenant.id, access.actor))) return;
     const campaign = await resolveCampaignForTenantStrict(ctx.tenant.id, cid);
     const fullUrl = `${req.protocol}://${req.get("host")}${buildCampaignShareLinks(tenantSlug, campaign.slug)[target]}`;
     if (format === "svg") {
@@ -1318,7 +1357,8 @@ app.post("/api/rewards/wishlist", async (req, res) => {
 
 app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
   try {
-    if (await requireTenantReadAccess(req, res) === false) return;
+    const tenantReadActor = await requireTenantReadAccess(req, res);
+    if (!tenantReadActor || !tenantReadActor.role) return;
     const tenantId = req.tenant.id;
 
     const [users, visits, actions, points, topActions, pointsDistribution, dailyActivity] = await Promise.all([
@@ -1387,7 +1427,8 @@ app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
 
 app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
   try {
-    if (await requireTenantReadAccess(req, res) === false) return;
+    const tenantReadActor = await requireTenantReadAccess(req, res);
+    if (!tenantReadActor || !tenantReadActor.role) return;
     const tenantId = req.tenant.id;
     const customers = await pool.query(
       `SELECT
@@ -1459,7 +1500,8 @@ app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
 
 app.get("/t/:slug/segments", tenantMiddleware, async (req, res) => {
   try {
-    if (await requireTenantReadAccess(req, res) === false) return;
+    const tenantReadActor = await requireTenantReadAccess(req, res);
+    if (!tenantReadActor || !tenantReadActor.role) return;
     const tenantId = req.tenant.id;
     const [total, distribution, recent] = await Promise.all([
       pool.query(
@@ -1511,7 +1553,8 @@ app.get("/t/:slug/segments", tenantMiddleware, async (req, res) => {
 
 app.get("/t/:slug/campaigns/summary", tenantMiddleware, async (req, res) => {
   try {
-    if (await requireTenantReadAccess(req, res) === false) return;
+    const tenantReadActor = await requireTenantReadAccess(req, res);
+    if (!tenantReadActor || !tenantReadActor.role) return;
     const tenantId = req.tenant.id;
     const campaignsResult = await pool.query(
       `SELECT c.id, c.slug, c.label,
@@ -1560,7 +1603,8 @@ app.get("/t/:slug/campaigns/summary", tenantMiddleware, async (req, res) => {
 
 app.get("/t/:slug/analytics", tenantMiddleware, async (req, res) => {
   try {
-    if (await requireTenantReadAccess(req, res) === false) return;
+    const tenantReadActor = await requireTenantReadAccess(req, res);
+    if (!tenantReadActor || !tenantReadActor.role) return;
     const tenantId = req.tenant.id;
 
     const [visitsByDay, growth, archetypes, ownerAssessment, customerAssessment] = await Promise.all([
@@ -2009,6 +2053,11 @@ app.get("/api/results/:email", async (req, res) => {
     const email = normalizeEmail(req.params.email);
     const type = String(req.query.type || "").trim().toLowerCase();
     const tenantSlug = String(req.query.tenant || "").trim().toLowerCase();
+    const access = requirePolicyAction(req, res, {
+      action: ACTIONS.RESULTS_READ_OWNER,
+      resourceTenantSlug: tenantSlug,
+    });
+    if (!access.ok) return;
 
     if (!email) {
       return res.status(400).json({ error: "email required" });
@@ -2103,6 +2152,11 @@ app.get("/api/results/customer/:crid", async (req, res) => {
   try {
     const crid = String(req.params.crid || "").trim();
     const tenantSlug = String(req.query.tenant || "").trim().toLowerCase();
+    const access = requirePolicyAction(req, res, {
+      action: ACTIONS.RESULTS_READ_CUSTOMER,
+      resourceTenantSlug: tenantSlug,
+    });
+    if (!access.ok) return;
 
     if (!crid) {
       return res.status(400).json({ error: "crid required" });
@@ -2270,6 +2324,8 @@ app.get("/api/tenant/lookup", async (req, res) => {
 });
 
 app.get("/api/admin/config/:tenant", async (req, res) => {
+  const adminCheck = requirePolicyAction(req, res, { action: ACTIONS.TENANT_ADMIN, resourceTenantSlug: String(req.params.tenant || "").trim().toLowerCase() });
+  if (!adminCheck.ok || !adminCheck.actor.isAdmin) return deny(res, 403, "forbidden", "admin role required");
   try {
     const tenantSlug = String(req.params.tenant || "").trim();
     const tenantRow = await getTenantBySlug(tenantSlug);
@@ -2286,6 +2342,9 @@ app.get("/api/admin/config/:tenant", async (req, res) => {
 });
 
 app.post("/api/admin/config", async (req, res) => {
+  const requestedTenant = String(req.body?.tenant || "").trim().toLowerCase();
+  const adminCheck = requirePolicyAction(req, res, { action: ACTIONS.TENANT_ADMIN, resourceTenantSlug: requestedTenant });
+  if (!adminCheck.ok || !adminCheck.actor.isAdmin) return deny(res, 403, "forbidden", "admin role required");
   try {
     const { tenant, config = {} } = req.body || {};
     if (!tenant) return res.status(400).json({ error: "tenant required" });
