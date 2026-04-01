@@ -939,6 +939,120 @@
     return apiUrl("/t/" + encodeURIComponent(tenant) + path, query);
   }
 
+  function renderProducts(tenant, ownerEmail, cid, rid, products) {
+    var tbody = document.querySelector("#productsTable tbody");
+    var empty = document.getElementById("productsEmpty");
+    if (!tbody || !empty) return;
+    var rows = Array.isArray(products) ? products : [];
+    tbody.innerHTML = rows.map(function (p) {
+      return "<tr>" +
+        "<td>" + (p.showcase_eligible ? ('<input type=\"checkbox\" class=\"product-feature-checkbox\" data-id=\"' + Number(p.id) + '\" ' + (p.featured_for_showcase ? "checked" : "") + " />") : "-") + "</td>" +
+        "<td>" + escapeHtml(p.name || "-") + "</td>" +
+        "<td>" + escapeHtml(p.price_text || "-") + "</td>" +
+        "<td>" + (p.is_active ? "Yes" : "No") + "</td>" +
+        "<td>" + Number(p.sort_order || 0) + "</td>" +
+        "<td>" + (p.showcase_eligible ? "Yes" : "No") + "</td>" +
+        "<td>" +
+          '<button class="btn btn-xs btn-default product-toggle-btn" data-id="' + Number(p.id) + '" data-active="' + (p.is_active ? "1" : "0") + '">Toggle</button> ' +
+          '<button class="btn btn-xs btn-danger product-delete-btn" data-id="' + Number(p.id) + '">Delete</button>' +
+        "</td>" +
+      "</tr>";
+    }).join("");
+    empty.style.display = rows.length ? "none" : "block";
+    Array.prototype.forEach.call(document.querySelectorAll(".product-toggle-btn"), function (btn) {
+      btn.addEventListener("click", function () {
+        var id = Number(btn.getAttribute("data-id"));
+        var row = rows.find(function (x) { return Number(x.id) === id; });
+        if (!row) return;
+        var next = Object.assign({}, row, { is_active: !row.is_active });
+        jsonFetch(tenantApiUrl(tenant, "/products/" + encodeURIComponent(id), ownerEmail, cid, rid), {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(next)
+        }).then(function () {
+          return loadProducts(tenant, ownerEmail, cid, rid);
+        }).catch(function () {});
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".product-delete-btn"), function (btn) {
+      btn.addEventListener("click", function () {
+        var id = Number(btn.getAttribute("data-id"));
+        jsonFetch(tenantApiUrl(tenant, "/products/" + encodeURIComponent(id), ownerEmail, cid, rid), {
+          method: "DELETE"
+        }).then(function () {
+          return loadProducts(tenant, ownerEmail, cid, rid);
+        }).catch(function () {});
+      });
+    });
+  }
+
+  function loadProducts(tenant, ownerEmail, cid, rid) {
+    return jsonFetch(tenantApiUrl(tenant, "/products", ownerEmail, cid, rid))
+      .then(function (resp) {
+        renderProducts(tenant, ownerEmail, cid, rid, (resp && resp.products) || []);
+      })
+      .catch(function (err) {
+        var msg = document.getElementById("productsMsg");
+        if (msg) msg.textContent = err.message || "Products unavailable.";
+      });
+  }
+
+  function wireProductCreator(tenant, ownerEmail, cid, rid) {
+    var btn = document.getElementById("createProductBtn");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var payload = {
+        name: safeTrim((document.getElementById("productNameInput") || {}).value),
+        description: safeTrim((document.getElementById("productDescriptionInput") || {}).value),
+        image_url: safeTrim((document.getElementById("productImageUrlInput") || {}).value),
+        external_product_url: safeTrim((document.getElementById("productExternalUrlInput") || {}).value),
+        price_text: safeTrim((document.getElementById("productPriceInput") || {}).value),
+        sort_order: Number(safeTrim((document.getElementById("productSortOrderInput") || {}).value) || 0)
+      };
+      var msg = document.getElementById("productsMsg");
+      if (!payload.name) {
+        if (msg) msg.textContent = "Product name is required.";
+        return;
+      }
+      jsonFetch(tenantApiUrl(tenant, "/products", ownerEmail, cid, rid), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(function () {
+        if (msg) msg.textContent = "Product created.";
+        return loadProducts(tenant, ownerEmail, cid, rid);
+      }).catch(function (err) {
+        if (msg) msg.textContent = err.message || "Create failed.";
+      });
+    });
+  }
+
+  function wireShowcaseControls(tenant, ownerEmail, cid, rid) {
+    var saveBtn = document.getElementById("saveFeaturedProductsBtn");
+    var enabledInput = document.getElementById("proofShowcaseEnabledInput");
+    if (enabledInput) {
+      enabledInput.addEventListener("change", function () {
+        jsonFetch(tenantApiUrl(tenant, "/showcase/settings", ownerEmail, cid, rid), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ proof_showcase_enabled: !!enabledInput.checked })
+        }).catch(function () {});
+      });
+    }
+    if (!saveBtn) return;
+    saveBtn.addEventListener("click", function () {
+      var boxes = Array.prototype.slice.call(document.querySelectorAll(".product-feature-checkbox:checked"));
+      var ids = boxes.map(function (box) { return Number(box.getAttribute("data-id")); }).filter(function (id) { return id > 0; });
+      jsonFetch(tenantApiUrl(tenant, "/showcase/feature-selection", ownerEmail, cid, rid), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ featured_product_ids: ids })
+      }).then(function () {
+        return loadProducts(tenant, ownerEmail, cid, rid);
+      }).catch(function () {});
+    });
+  }
+
   function loadOwnerSnapshot(email, tenant, cid, rid, isAdmin) {
     var el = document.getElementById("ownerSnapshotBody");
     if (!el) return Promise.resolve();
@@ -1188,6 +1302,7 @@
       wirePathButtons(tenant, ownerEmail, cid, rid);
       wireCustomerLookup(tenant);
       wireCampaignCreator(tenant, ownerEmail, cid, rid);
+      wireProductCreator(tenant, ownerEmail, cid, rid);
       loadOwnerSnapshot(ownerEmail, tenant, cid, rid, isAdmin);
 
       return Promise.all([
@@ -1197,7 +1312,8 @@
         jsonFetch(tenantApiUrl(tenant, "/segments", ownerEmail, cid, rid)),
         jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail, cid, rid)),
         jsonFetch(apiUrl("/api/campaigns/list", { tenant: tenant, email: ownerEmail })),
-        jsonFetch(apiUrl("/api/archetypes/groups", { tenant: tenant, cid: cid || undefined }))
+        jsonFetch(apiUrl("/api/archetypes/groups", { tenant: tenant, cid: cid || undefined })),
+        jsonFetch(tenantApiUrl(tenant, "/products", ownerEmail, cid, rid))
       ])
         .then(function (responses) {
           renderMetrics(responses[0]);
@@ -1220,6 +1336,10 @@
           }
           wireArchetypeLensToggle(tenant, cid, responses[6] || {});
           renderArchetypeGroups(tenant, cid, responses[6] || {});
+          renderProducts(tenant, ownerEmail, cid, rid, (responses[7] && responses[7].products) || []);
+          var showcaseEnabledInput = document.getElementById("proofShowcaseEnabledInput");
+          if (showcaseEnabledInput) showcaseEnabledInput.checked = !!(responses[7] && responses[7].proof_showcase_enabled);
+          wireShowcaseControls(tenant, ownerEmail, cid, rid);
 
           clearRefreshTimer();
           window.__garveyDashboardRefreshTimer = setInterval(function () {

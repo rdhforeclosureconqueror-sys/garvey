@@ -17,7 +17,11 @@ const DEFAULT_TENANT_CONFIG = {
 
   // Safe defaults for site generator + future extensions
   site: {},
-  features: {},
+  features: {
+    proof_showcase_enabled: false,
+    spotlight_enabled: false,
+    contributions_enabled: false,
+  },
 
   // Safe defaults for adaptive engine fields (optional but stable)
   reward_multiplier: 1,

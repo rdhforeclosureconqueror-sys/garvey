@@ -41,6 +41,7 @@ const {
 } = require("./resultEngine");
 const { buildDashboardUrl } = require("./dashboardUrl");
 const { ACTIONS, ROLES, deriveActor, evaluatePolicy, deny } = require("./accessControl");
+const { EVENT_NAMES } = require("./events");
 const archetypeLibrary = require("../public/archetypes/library.json");
 const {
   PERSONAL_ARCHETYPES,
@@ -1156,6 +1157,19 @@ async function recordCampaignEvent({
   );
 }
 
+async function hasApprovedReviewProofForProduct(tenantId, productId, client = pool) {
+  const result = await client.query(
+    `SELECT 1
+     FROM reviews
+     WHERE tenant_id = $1
+       AND product_id = $2
+       AND proof_status = 'approved'
+     LIMIT 1`,
+    [tenantId, productId]
+  );
+  return !!result.rows[0];
+}
+
 async function processCheckinReward({ tenant, tenantConfig, email, cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
@@ -1210,18 +1224,40 @@ async function processActionReward({ tenant, tenantConfig, email, actionType, ci
   };
 }
 
-async function processReviewReward({ tenant, tenantConfig, email, text, mediaType, cid = null, mediaNote = null, resultId = null }) {
+async function processReviewReward({ tenant, tenantConfig, email, text, mediaType, cid = null, mediaNote = null, resultId = null, productId = null, rating = null }) {
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
   const pointsAdded = rewardPointsEnabled(tenantConfig) ? REWARD_POINTS.review : 0;
+  let normalizedProductId = null;
+  if (Number.isInteger(Number(productId)) && Number(productId) > 0) {
+    const productCheck = await pool.query("SELECT id FROM products WHERE tenant_id = $1 AND id = $2 LIMIT 1", [
+      tenant.id,
+      Number(productId),
+    ]);
+    if (!productCheck.rows[0]) {
+      const err = new Error("product not found for tenant");
+      err.statusCode = 400;
+      throw err;
+    }
+    normalizedProductId = Number(productId);
+  }
 
   const reviewResult = await pool.query(
-    `INSERT INTO reviews (tenant_id, user_id, text, media_type, points_awarded, campaign_id, campaign_slug, media_note)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    `INSERT INTO reviews (tenant_id, user_id, product_id, text, media_type, points_awarded, campaign_id, campaign_slug, media_note, rating, proof_status)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 'pending')
      RETURNING *`,
-    [tenant.id, user.id, text, mediaType || null, pointsAdded, campaign?.id || null, campaign?.slug || null, mediaNote || null]
+    [tenant.id, user.id, normalizedProductId, text, mediaType || null, pointsAdded, campaign?.id || null, campaign?.slug || null, mediaNote || null, rating == null ? null : Number(rating)]
   );
-  await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "review", customerEmail: email, meta: { media_type: mediaType || null, result_id: String(resultId ?? "").trim() || null } });
+  await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "review", customerEmail: email, meta: { media_type: mediaType || null, result_id: String(resultId ?? "").trim() || null, product_id: normalizedProductId } });
+  if (normalizedProductId) {
+    await recordCampaignEvent({
+      tenantId: tenant.id,
+      campaignId: campaign?.id || null,
+      eventType: EVENT_NAMES.REVIEW_PRODUCT_LINKED,
+      customerEmail: email,
+      meta: { product_id: normalizedProductId, review_id: reviewResult.rows[0].id },
+    });
+  }
 
   const updatedUser = await pool.query(
     "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3 RETURNING points",
@@ -1438,7 +1474,7 @@ app.post("/t/:slug/action", tenantMiddleware, async (req, res) => {
 
 app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
   try {
-    const { email, text, media_type: mediaType, media_note: mediaNote, cid } = req.body || {};
+    const { email, text, media_type: mediaType, media_note: mediaNote, cid, product_id: productId, rating } = req.body || {};
     if (!email || !text) return res.status(400).json({ error: "email and text are required" });
 
     const payload = await processReviewReward({
@@ -1449,6 +1485,8 @@ app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
       mediaType,
       mediaNote,
       cid,
+      productId,
+      rating,
     });
     return res.json(payload);
   } catch (err) {
@@ -1563,12 +1601,12 @@ app.post("/api/rewards/action", async (req, res) => {
 
 app.post("/api/rewards/review", async (req, res) => {
   try {
-    const { tenant, email, text, media_type: mediaType, media_note: mediaNote, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
+    const { tenant, email, text, media_type: mediaType, media_note: mediaNote, cid, result_id: resultIdRaw, crid: cridRaw, product_id: productId, rating } = req.body || {};
     const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
     if (!tenant || !email || !text) return res.status(400).json({ error: "tenant, email and text are required" });
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
-    const payload = await processReviewReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, text, mediaType, mediaNote, cid, resultId });
+    const payload = await processReviewReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, text, mediaType, mediaNote, cid, resultId, productId, rating });
     return res.json(payload);
   } catch (err) {
     console.error(err);
@@ -1607,6 +1645,253 @@ app.post("/api/rewards/wishlist", async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "rewards wishlist failed" });
+  }
+});
+
+app.get("/t/:slug/products", tenantMiddleware, async (req, res) => {
+  try {
+    const access = requirePolicyAction(req, res, { action: ACTIONS.PRODUCTS_MANAGE, resourceTenantSlug: req.tenant.slug });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
+    const result = await pool.query(
+      `SELECT id, tenant_id, name, description, image_url, external_product_url, price_text, is_active, sort_order, created_at, updated_at
+       FROM products
+       WHERE tenant_id = $1
+       ORDER BY sort_order ASC, id ASC`,
+      [req.tenant.id]
+    );
+    const featured = new Set(
+      Array.isArray(req.tenantConfig?.site?.proof_showcase_featured_product_ids)
+        ? req.tenantConfig.site.proof_showcase_featured_product_ids.map((id) => Number(id))
+        : []
+    );
+    const rows = await Promise.all(
+      result.rows.map(async (row) => ({
+        ...row,
+        showcase_eligible: await hasApprovedReviewProofForProduct(req.tenant.id, row.id),
+        featured_for_showcase: featured.has(Number(row.id)),
+      }))
+    );
+    return res.json({ products: rows, proof_showcase_enabled: req.tenantConfig?.features?.proof_showcase_enabled === true });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "products fetch failed" });
+  }
+});
+
+app.post("/t/:slug/products", tenantMiddleware, async (req, res) => {
+  try {
+    const access = requirePolicyAction(req, res, { action: ACTIONS.PRODUCTS_MANAGE, resourceTenantSlug: req.tenant.slug });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
+    const { name, description, image_url, external_product_url, price_text, is_active, sort_order } = req.body || {};
+    if (!String(name || "").trim()) return res.status(400).json({ error: "name is required" });
+    const created = await pool.query(
+      `INSERT INTO products (tenant_id, name, description, image_url, external_product_url, price_text, is_active, sort_order, updated_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,NOW())
+       RETURNING *`,
+      [req.tenant.id, String(name).trim(), description || null, image_url || null, external_product_url || null, price_text || null, is_active !== false, Number(sort_order || 0) || 0]
+    );
+    await recordCampaignEvent({ tenantId: req.tenant.id, eventType: EVENT_NAMES.PRODUCT_CREATED, customerEmail: access.actor.email, meta: { product_id: created.rows[0].id } });
+    return res.status(201).json({ product: { ...created.rows[0], showcase_eligible: false } });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "product create failed" });
+  }
+});
+
+app.put("/t/:slug/products/:productId", tenantMiddleware, async (req, res) => {
+  try {
+    const access = requirePolicyAction(req, res, { action: ACTIONS.PRODUCTS_MANAGE, resourceTenantSlug: req.tenant.slug });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
+    const productId = Number(req.params.productId);
+    if (!Number.isInteger(productId) || productId <= 0) return res.status(400).json({ error: "invalid product id" });
+    const { name, description, image_url, external_product_url, price_text, is_active, sort_order } = req.body || {};
+    if (!String(name || "").trim()) return res.status(400).json({ error: "name is required" });
+    const updated = await pool.query(
+      `UPDATE products
+       SET name = $3, description = $4, image_url = $5, external_product_url = $6, price_text = $7, is_active = $8, sort_order = $9, updated_at = NOW()
+       WHERE tenant_id = $1 AND id = $2
+       RETURNING *`,
+      [req.tenant.id, productId, String(name).trim(), description || null, image_url || null, external_product_url || null, price_text || null, is_active !== false, Number(sort_order || 0) || 0]
+    );
+    if (!updated.rows[0]) return res.status(404).json({ error: "product not found" });
+    await recordCampaignEvent({ tenantId: req.tenant.id, eventType: EVENT_NAMES.PRODUCT_UPDATED, customerEmail: access.actor.email, meta: { product_id: productId } });
+    return res.json({ product: { ...updated.rows[0], showcase_eligible: await hasApprovedReviewProofForProduct(req.tenant.id, productId) } });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "product update failed" });
+  }
+});
+
+app.delete("/t/:slug/products/:productId", tenantMiddleware, async (req, res) => {
+  try {
+    const access = requirePolicyAction(req, res, { action: ACTIONS.PRODUCTS_MANAGE, resourceTenantSlug: req.tenant.slug });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
+    const productId = Number(req.params.productId);
+    if (!Number.isInteger(productId) || productId <= 0) return res.status(400).json({ error: "invalid product id" });
+    const deleted = await pool.query("DELETE FROM products WHERE tenant_id = $1 AND id = $2 RETURNING id", [req.tenant.id, productId]);
+    if (!deleted.rows[0]) return res.status(404).json({ error: "product not found" });
+    await recordCampaignEvent({ tenantId: req.tenant.id, eventType: EVENT_NAMES.PRODUCT_DELETED, customerEmail: access.actor.email, meta: { product_id: productId } });
+    return res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "product delete failed" });
+  }
+});
+
+app.get("/t/:slug/showcase", tenantMiddleware, async (req, res) => {
+  try {
+    const features = req.tenantConfig?.features || {};
+    if (features.proof_showcase_enabled !== true) {
+      return res.json({ enabled: false, items: [] });
+    }
+    const featuredIds = Array.isArray(req.tenantConfig?.site?.proof_showcase_featured_product_ids)
+      ? req.tenantConfig.site.proof_showcase_featured_product_ids.map((id) => Number(id)).filter((id) => Number.isInteger(id) && id > 0)
+      : [];
+    const rows = await pool.query(
+      `SELECT
+         p.id AS product_id,
+         p.name,
+         p.description,
+         p.image_url,
+         p.external_product_url,
+         p.price_text,
+         p.sort_order,
+         r.id AS review_id,
+         r.text AS customer_quote,
+         r.rating,
+         r.media_type,
+         r.media_note,
+         r.created_at AS review_created_at
+       FROM products p
+       JOIN LATERAL (
+         SELECT rv.*
+         FROM reviews rv
+         WHERE rv.tenant_id = p.tenant_id
+           AND rv.product_id = p.id
+           AND rv.proof_status = 'approved'
+         ORDER BY rv.created_at DESC
+         LIMIT 1
+       ) r ON TRUE
+       WHERE p.tenant_id = $1
+         AND p.is_active = TRUE
+         AND ($2::int[] IS NULL OR p.id = ANY($2::int[]))
+       ORDER BY p.sort_order ASC, p.id ASC`,
+      [req.tenant.id, featuredIds.length ? featuredIds : null]
+    );
+    return res.json({ enabled: true, items: rows.rows });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "showcase fetch failed" });
+  }
+});
+
+app.post("/t/:slug/showcase/feature-selection", tenantMiddleware, async (req, res) => {
+  try {
+    const access = requirePolicyAction(req, res, { action: ACTIONS.PRODUCTS_MANAGE, resourceTenantSlug: req.tenant.slug });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
+    const featuredProductIds = Array.isArray(req.body?.featured_product_ids) ? req.body.featured_product_ids : [];
+    const normalizedIds = [...new Set(featuredProductIds.map((id) => Number(id)).filter((id) => Number.isInteger(id) && id > 0))];
+    if (!normalizedIds.length) {
+      const existingCfg = await getTenantConfig(req.tenant.id);
+      const next = {
+        ...existingCfg,
+        site: { ...(existingCfg.site || {}), proof_showcase_featured_product_ids: [] },
+        features: { ...(existingCfg.features || {}) },
+      };
+      await pool.query(
+        `INSERT INTO tenant_config (tenant_id, config, updated_at)
+         VALUES ($1, $2, NOW())
+         ON CONFLICT (tenant_id) DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
+        [req.tenant.id, next]
+      );
+      return res.json({ featured_product_ids: [] });
+    }
+    const eligible = await pool.query(
+      `SELECT DISTINCT p.id
+       FROM products p
+       JOIN reviews r ON r.tenant_id = p.tenant_id AND r.product_id = p.id AND r.proof_status = 'approved'
+       WHERE p.tenant_id = $1
+         AND p.is_active = TRUE
+         AND p.id = ANY($2::int[])`,
+      [req.tenant.id, normalizedIds]
+    );
+    const eligibleIds = eligible.rows.map((r) => Number(r.id));
+    if (eligibleIds.length !== normalizedIds.length) {
+      return res.status(400).json({ error: "only showcase-eligible active products may be featured" });
+    }
+    const existingCfg = await getTenantConfig(req.tenant.id);
+    const next = {
+      ...existingCfg,
+      site: { ...(existingCfg.site || {}), proof_showcase_featured_product_ids: eligibleIds },
+      features: { ...(existingCfg.features || {}) },
+    };
+    await pool.query(
+      `INSERT INTO tenant_config (tenant_id, config, updated_at)
+       VALUES ($1, $2, NOW())
+       ON CONFLICT (tenant_id) DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
+      [req.tenant.id, next]
+    );
+    return res.json({ featured_product_ids: eligibleIds });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "showcase selection update failed" });
+  }
+});
+
+app.post("/t/:slug/showcase/settings", tenantMiddleware, async (req, res) => {
+  try {
+    const access = requirePolicyAction(req, res, { action: ACTIONS.PRODUCTS_MANAGE, resourceTenantSlug: req.tenant.slug });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
+    const enabled = req.body?.proof_showcase_enabled === true;
+    const existingCfg = await getTenantConfig(req.tenant.id);
+    const next = {
+      ...existingCfg,
+      site: { ...(existingCfg.site || {}) },
+      features: { ...(existingCfg.features || {}), proof_showcase_enabled: enabled },
+    };
+    await pool.query(
+      `INSERT INTO tenant_config (tenant_id, config, updated_at)
+       VALUES ($1, $2, NOW())
+       ON CONFLICT (tenant_id) DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
+      [req.tenant.id, next]
+    );
+    return res.json({ proof_showcase_enabled: enabled });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "showcase settings update failed" });
+  }
+});
+
+app.post("/t/:slug/showcase/track", tenantMiddleware, async (req, res) => {
+  try {
+    const { event_type: eventTypeRaw, product_id: productIdRaw, cid } = req.body || {};
+    const eventType = String(eventTypeRaw || "").trim().toLowerCase();
+    const allowed = new Set([
+      EVENT_NAMES.SHOWCASE_IMPRESSION,
+      EVENT_NAMES.SHOWCASE_VIEW_PRODUCT_CLICK,
+      EVENT_NAMES.SHOWCASE_WISHLIST_SAVE,
+    ]);
+    if (!allowed.has(eventType)) return res.status(400).json({ error: "invalid showcase event type" });
+    const productId = Number(productIdRaw);
+    if (!Number.isInteger(productId) || productId <= 0) return res.status(400).json({ error: "invalid product id" });
+    const campaign = await resolveCampaignForTenant(req.tenant.id, cid);
+    await recordCampaignEvent({
+      tenantId: req.tenant.id,
+      campaignId: campaign?.id || null,
+      eventType,
+      customerEmail: normalizeEmail(req.query.email || req.body?.email || ""),
+      meta: { product_id: productId },
+    });
+    return res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "showcase tracking failed" });
   }
 });
 
