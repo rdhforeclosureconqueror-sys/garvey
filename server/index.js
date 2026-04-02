@@ -1249,10 +1249,32 @@ app.post("/api/campaigns/create", async (req, res) => {
     membership_result: null,
     denial_source: null,
   };
+  console.info("campaign_create_enter", {
+    event: "campaign_create_enter",
+    requested_tenant: trace.requested_tenant,
+    requested_email: trace.requested_email,
+    body_tenant: String(req.body?.tenant || "").trim().toLowerCase() || null,
+    body_email: normalizeEmail(req.body?.email || "") || null,
+    body_label: String(req.body?.label || "").trim() || null,
+    body_slug: String(req.body?.slug || "").trim().toLowerCase() || null,
+    auth_actor_exists: !!req.authActor,
+    client_trace: String(req.headers["x-garvey-campaign-trace"] || "").trim() || null,
+  });
   try {
     failurePoint = "validate_input";
     const { tenant, label, slug, source = null, medium = null } = req.body || {};
-    if (!label) return res.status(400).json({ error: "label is required" });
+    if (!label) {
+      trace.denial_source = "campaigns/create#validate_input";
+      console.warn("campaign_create_deny", {
+        event: "campaign_create_deny",
+        denial_source: trace.denial_source,
+        reason: "label_missing",
+        requested_tenant: trace.requested_tenant,
+        requested_email: trace.requested_email,
+      });
+      logOwnerAccessTrace(trace);
+      return res.status(400).json({ error: "label is required" });
+    }
 
     failurePoint = "resolve_actor";
     const derivedActor = deriveActor(req);
@@ -1266,6 +1288,13 @@ app.post("/api/campaigns/create", async (req, res) => {
     const requestedTenantSlug = String(req.query?.tenant || tenant || "").trim().toLowerCase();
     if (!requestedTenantSlug) {
       trace.denial_source = "campaigns/create#resolve_tenant";
+      console.warn("campaign_create_deny", {
+        event: "campaign_create_deny",
+        denial_source: trace.denial_source,
+        reason: "tenant_missing",
+        requested_tenant: trace.requested_tenant,
+        requested_email: trace.requested_email,
+      });
       logOwnerAccessTrace(trace);
       return res.status(400).json({ error: "tenant is required" });
     }
@@ -1273,6 +1302,13 @@ app.post("/api/campaigns/create", async (req, res) => {
     const tenantRow = await getTenantBySlug(requestedTenantSlug);
     if (!tenantRow) {
       trace.denial_source = "campaigns/create#resolve_tenant";
+      console.warn("campaign_create_deny", {
+        event: "campaign_create_deny",
+        denial_source: trace.denial_source,
+        reason: "tenant_not_found",
+        requested_tenant: trace.requested_tenant,
+        requested_email: trace.requested_email,
+      });
       logOwnerAccessTrace(trace);
       return res.status(404).json({ error: "tenant not found" });
     }
@@ -1295,6 +1331,13 @@ app.post("/api/campaigns/create", async (req, res) => {
     trace.policy_result = policyDecision.allow ? "allow" : `deny:${policyDecision.reason}`;
     if (!policyDecision.allow) {
       trace.denial_source = "accessControl.evaluatePolicy";
+      console.warn("campaign_create_deny", {
+        event: "campaign_create_deny",
+        denial_source: trace.denial_source,
+        reason: policyDecision.reason,
+        requested_tenant: trace.requested_tenant,
+        requested_email: trace.requested_email,
+      });
       logOwnerAccessTrace(trace);
       return deny(res, 403, "forbidden", policyDecision.reason);
     }
@@ -1304,6 +1347,13 @@ app.post("/api/campaigns/create", async (req, res) => {
     trace.membership_result = membershipPassed ? "allow" : "deny";
     if (!membershipPassed) {
       trace.denial_source = "requireOwnerTenantMembership";
+      console.warn("campaign_create_deny", {
+        event: "campaign_create_deny",
+        denial_source: trace.denial_source,
+        reason: "membership_failed",
+        requested_tenant: trace.requested_tenant,
+        requested_email: trace.requested_email,
+      });
       logOwnerAccessTrace(trace);
       return;
     }

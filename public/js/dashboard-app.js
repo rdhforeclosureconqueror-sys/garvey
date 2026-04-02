@@ -723,14 +723,32 @@
         return;
       }
 
-      jsonFetch(apiUrl("/api/campaigns/create", { tenant: tenant, email: ownerEmail, role: "business_owner" }), {
+      var createPath = "/api/campaigns/create";
+      var createQuery = { tenant: tenant, email: ownerEmail, role: "business_owner" };
+      var createUrl = apiUrl(createPath, createQuery);
+      var clientTrace = "dashboard-app:createCampaign:v2026-04-02";
+      if (typeof console !== "undefined" && typeof console.info === "function") {
+        console.info("campaign_create_client_request", {
+          event: "campaign_create_client_request",
+          method: "POST",
+          path: createPath,
+          url: createUrl,
+          tenant: tenant,
+          email: ownerEmail,
+          trace: clientTrace
+        });
+      }
+
+      jsonFetch(createUrl, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "x-garvey-campaign-trace": clientTrace
         },
         credentials: "include",
         body: JSON.stringify({
           tenant: tenant,
+          email: ownerEmail,
           label: label,
           slug: slug || undefined,
           source: source || undefined,
