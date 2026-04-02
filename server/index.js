@@ -538,6 +538,64 @@ function randomSlug(prefix = "campaign") {
   return `${normalizeSlug(prefix) || "campaign"}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
+async function createCampaignRecord({
+  tenantId,
+  label,
+  slug = null,
+  source = null,
+  medium = null,
+  client = pool,
+}) {
+  const normalizedLabel = String(label || "").trim();
+  if (!normalizedLabel) {
+    const err = new Error("label is required");
+    err.statusCode = 400;
+    throw err;
+  }
+  let candidate = normalizeSlug(slug) || randomSlug(normalizedLabel);
+  let attempts = 0;
+  while (attempts < 5) {
+    const existing = await client.query(
+      "SELECT 1 FROM campaigns WHERE tenant_id = $1 AND slug = $2 LIMIT 1",
+      [tenantId, candidate]
+    );
+    if (!existing.rows[0]) break;
+    candidate = randomSlug(normalizedLabel);
+    attempts += 1;
+  }
+  const created = await client.query(
+    `INSERT INTO campaigns (tenant_id, slug, label, source, medium)
+     VALUES ($1, $2, $3, $4, $5)
+     RETURNING id, slug, label, source, medium, created_at`,
+    [tenantId, candidate, normalizedLabel, source || null, medium || null]
+  );
+  return created.rows[0];
+}
+
+async function ensureOwnerDefaultCampaign({ tenantId, tenantSlug, client = pool }) {
+  const existing = await client.query(
+    `SELECT id, slug, label, source, medium, created_at
+     FROM campaigns
+     WHERE tenant_id = $1
+       AND source = 'owner-default'
+     ORDER BY created_at ASC
+     LIMIT 1`,
+    [tenantId]
+  );
+  if (existing.rows[0]) {
+    return { campaign: existing.rows[0], created: false };
+  }
+  const created = await createCampaignRecord({
+    tenantId,
+    label: "Default QR",
+    slug: `${normalizeSlug(tenantSlug) || "tenant"}-default-qr`,
+    source: "owner-default",
+    medium: "qr",
+    client,
+  });
+  return { campaign: created, created: true };
+}
+
 function parseAnswersInput(rawAnswers) {
   if (Array.isArray(rawAnswers)) return rawAnswers;
   if (typeof rawAnswers !== "string") return null;
@@ -954,6 +1012,18 @@ app.post("/api/owner/signup", async (req, res) => {
       [tenant.id, user.id, ROLES.BUSINESS_OWNER]
     );
 
+    const defaultCampaign = await ensureOwnerDefaultCampaign({
+      tenantId: tenant.id,
+      tenantSlug: tenant.slug,
+      client,
+    });
+    console.info("owner_default_campaign_provisioned", {
+      tenant: tenant.slug,
+      owner_email: email,
+      campaign_slug: defaultCampaign.campaign?.slug || null,
+      created: !!defaultCampaign.created,
+    });
+
     const token = createSessionToken();
     await client.query(
       `INSERT INTO auth_sessions (user_id, tenant_id, role, token_hash, expires_at)
@@ -969,10 +1039,16 @@ app.post("/api/owner/signup", async (req, res) => {
       business_name: tenant.name || businessName,
       role: ROLES.BUSINESS_OWNER,
       onboarding_complete: false,
+      default_campaign_slug: defaultCampaign.campaign?.slug || null,
       next_route: `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(tenant.slug)}&email=${encodeURIComponent(email)}`,
     });
   } catch (err) {
     await client.query("ROLLBACK");
+    console.error("owner_default_campaign_provision_failed", {
+      error: err.message,
+      business_name: String(req.body?.business_name || "").trim() || null,
+      owner_email: normalizeEmail(req.body?.email || "") || null,
+    });
     console.error("owner_signup_failed", err);
     return res.status(500).json({ error: "owner signup failed" });
   } finally {
@@ -1377,25 +1453,14 @@ app.post("/api/campaigns/create", async (req, res) => {
     }
 
     failurePoint = "create_campaign";
-    let candidate = normalizeSlug(slug) || randomSlug(label);
-    let attempts = 0;
-    while (attempts < 5) {
-      const existing = await pool.query(
-        "SELECT 1 FROM campaigns WHERE tenant_id = $1 AND slug = $2 LIMIT 1",
-        [tenantRow.id, candidate]
-      );
-      if (!existing.rows[0]) break;
-      candidate = randomSlug(label);
-      attempts += 1;
-    }
-
-    const created = await pool.query(
-      `INSERT INTO campaigns (tenant_id, slug, label, source, medium)
-       VALUES ($1, $2, $3, $4, $5)
-       RETURNING id, slug, label, source, medium, created_at`,
-      [tenantRow.id, candidate, String(label).trim(), source || null, medium || null]
-    );
-    const campaign = created.rows[0];
+    const campaign = await createCampaignRecord({
+      tenantId: tenantRow.id,
+      label,
+      slug,
+      source,
+      medium,
+      client: pool,
+    });
     return res.json({
       success: true,
       tenant: tenantRow.slug,
