@@ -131,8 +131,18 @@
           text: safeTrim(event.text),
           media_type: safeTrim(event.media_type) || undefined,
           media_note: safeTrim(event.media_note) || undefined,
+          media_url: safeTrim(event.media_url) || undefined,
+          media_photo_url: safeTrim(event.media_photo_url) || undefined,
+          media_video_url: safeTrim(event.media_video_url) || undefined,
           rating: event.rating == null || safeTrim(event.rating) === "" ? undefined : Number(event.rating),
           product_id: event.product_id == null || safeTrim(event.product_id) === "" ? undefined : Number(event.product_id),
+        }),
+      };
+      if (type === "contribution") return {
+        path: "/api/contributions/contribute",
+        payload: Object.assign(payload, {
+          amount: event.amount == null || safeTrim(event.amount) === "" ? undefined : Number(event.amount),
+          note: safeTrim(event.note) || undefined,
         }),
       };
       if (type === "referral") return {
@@ -202,6 +212,9 @@
       }
       if (request.path.endsWith("/wishlist") && !safeTrim(request.payload.product_name)) {
         throw new Error("product_name is required");
+      }
+      if (request.path.endsWith("/contribute") && (!(Number.isFinite(Number(request.payload.amount))) || Number(request.payload.amount) <= 0)) {
+        throw new Error("amount must be a positive number");
       }
 
       const payload = await requestJson(request.path, {

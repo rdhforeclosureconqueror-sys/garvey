@@ -1425,6 +1425,19 @@
     var gateEnabledInput = document.getElementById("contributionGateEnabledInput");
     var gateMinInput = document.getElementById("contributionGateMinimumInput");
     var settingsMsg = document.getElementById("contributionSettingsMsg");
+    var googleReviewInput = document.getElementById("googleReviewUrlInput");
+    var googleReviewMsg = document.getElementById("googleReviewUrlMsg");
+    var saveGoogleReviewBtn = document.getElementById("saveGoogleReviewUrlBtn");
+    var loadGoogleReviewUrl = function () {
+      if (!googleReviewInput) return Promise.resolve();
+      return jsonFetch(tenantApiUrl(tenant, "/review-link", ownerEmail, cid, rid))
+        .then(function (resp) {
+          googleReviewInput.value = safeTrim((resp && resp.google_review_url) || "");
+        })
+        .catch(function (err) {
+          if (googleReviewMsg) googleReviewMsg.textContent = err.message || "Review link unavailable.";
+        });
+    };
     if (settingsBtn) {
       settingsBtn.addEventListener("click", function () {
         if (shouldSkipContributionCalls(tenant, ownerEmail)) {
@@ -1450,6 +1463,21 @@
         }).catch(function (err) {
           if (isContributionDisabledError(err)) markContributionsDisabled();
           if (settingsMsg) settingsMsg.textContent = err.message || "Settings update failed.";
+        });
+      });
+    }
+    if (saveGoogleReviewBtn) {
+      saveGoogleReviewBtn.addEventListener("click", function () {
+        var value = safeTrim((googleReviewInput || {}).value);
+        jsonFetch(tenantApiUrl(tenant, "/review-link", ownerEmail, cid, rid), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ google_review_url: value || null })
+        }).then(function (resp) {
+          if (googleReviewInput) googleReviewInput.value = safeTrim((resp && resp.google_review_url) || "");
+          if (googleReviewMsg) googleReviewMsg.textContent = "Google review link saved.";
+        }).catch(function (err) {
+          if (googleReviewMsg) googleReviewMsg.textContent = err.message || "Google review link save failed.";
         });
       });
     }
@@ -1516,6 +1544,7 @@
     }
 
     loadContributionPanels(tenant, ownerEmail);
+    loadGoogleReviewUrl();
   }
 
   function loadOwnerSnapshot(email, tenant, cid, rid, isAdmin) {
