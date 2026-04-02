@@ -3586,6 +3586,12 @@ app.post("/api/intake", async (req, res) => {
       },
     });
     const resultContract = buildResultContract(scored);
+    console.log({
+      email: normalizeEmail(email),
+      tenant: tenantRow.slug,
+      type: "business_owner",
+      result_id: submission.id,
+    });
 
     return res.json({
       ...payload,
@@ -3620,8 +3626,15 @@ app.post("/api/intake", async (req, res) => {
 app.get("/api/results/:email", async (req, res) => {
   try {
     const email = normalizeEmail(req.params.email);
-    const type = String(req.query.type || "").trim().toLowerCase();
+    const requestedType = String(req.query.type || "").trim().toLowerCase();
+    const normalizedType =
+      requestedType === "bus_owner" ? "business_owner" : requestedType;
     const tenantSlug = String(req.query.tenant || "").trim().toLowerCase();
+    console.log({
+      requested_email: email,
+      requested_tenant: tenantSlug || null,
+      requested_type: requestedType || null,
+    });
     const access = requirePolicyAction(req, res, {
       action: ACTIONS.RESULTS_READ_OWNER,
       resourceTenantSlug: tenantSlug,
@@ -3655,15 +3668,15 @@ app.get("/api/results/:email", async (req, res) => {
 
     const params = [email];
 
-    if (type) {
-      if (!["business_owner", "customer"].includes(type)) {
+    if (normalizedType) {
+      if (!["business_owner", "customer"].includes(normalizedType)) {
         return res.status(400).json({
           error: "type must be business_owner or customer",
         });
       }
 
       query += " AND a.assessment_type = $2";
-      params.push(type);
+      params.push(normalizedType);
     }
 
     if (tenantSlug) {
@@ -3679,17 +3692,43 @@ app.get("/api/results/:email", async (req, res) => {
     const result = await pool.query(query, params);
 
     if (!result.rows[0]) {
-      return res.status(404).json({
-        error: "result not found",
+      const tenantMismatchProbe = await pool.query(
+        `
+          SELECT t.slug AS tenant_slug
+          FROM assessment_submissions a
+          JOIN users u ON u.id = a.user_id
+          JOIN tenants t ON t.id = a.tenant_id
+          WHERE u.email = $1
+            AND ($2 = '' OR a.assessment_type = $2)
+          ORDER BY a.created_at DESC, a.id DESC
+          LIMIT 1
+        `,
+        [email, normalizedType || ""]
+      );
+      const fallbackTenant = tenantMismatchProbe.rows[0]?.tenant_slug || null;
+      if (tenantSlug && fallbackTenant && fallbackTenant !== tenantSlug) {
+        console.warn("tenant mismatch on result lookup", {
+          requested_tenant: tenantSlug,
+          actual_tenant: fallbackTenant,
+          email,
+          type: normalizedType || "any",
+        });
+      }
+
+      return res.status(200).json({
+        found: false,
+        reason: "No result found for this user",
         email,
-        type: type || "any",
+        tenant: tenantSlug || null,
+        type: normalizedType || "any",
       });
     }
 
     // 🔥 DEBUG
     console.log("📊 RESULT FETCH:", {
       email,
-      type: type || "any",
+      tenant: tenantSlug || null,
+      type: normalizedType || "any",
       found: true,
     });
 
