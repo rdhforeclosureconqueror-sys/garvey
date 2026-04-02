@@ -1234,23 +1234,81 @@ app.use("/api/stability", routingRoutes({ pool, ensureTenant }));
 app.use("/api/evolution", evolutionRoutes({ pool, ensureTenant }));
 
 app.post("/api/campaigns/create", async (req, res) => {
+  let failurePoint = "init";
+  const trace = {
+    route: "/api/campaigns/create",
+    requested_tenant: String(req.query?.tenant || req.body?.tenant || "").trim().toLowerCase() || null,
+    requested_email: normalizeEmail(req.query?.email || req.body?.email || req.userEmail || req.headers["x-user-email"] || "") || null,
+    actor_email: null,
+    actor_role: null,
+    actor_tenant: null,
+    session_tenant: null,
+    session_email: null,
+    auth_actor_exists: false,
+    policy_result: null,
+    membership_result: null,
+    denial_source: null,
+  };
   try {
+    failurePoint = "validate_input";
     const { tenant, label, slug, source = null, medium = null } = req.body || {};
     if (!label) return res.status(400).json({ error: "label is required" });
 
-    const requestedTenantSlug = String(tenant || "").trim().toLowerCase();
-    const actor = deriveActor(req);
-    const effectiveTenantSlug = actor.isAdmin ? requestedTenantSlug : (actor.tenantSlug || requestedTenantSlug);
-    if (!effectiveTenantSlug) return res.status(400).json({ error: "tenant is required" });
+    failurePoint = "resolve_actor";
+    const derivedActor = deriveActor(req);
+    const sessionTenantSlug = String(req.authActor?.tenantSlug || "").trim().toLowerCase();
+    const sessionEmail = normalizeEmail(req.authActor?.email || "");
+    trace.auth_actor_exists = !!req.authActor;
+    trace.session_tenant = sessionTenantSlug || null;
+    trace.session_email = sessionEmail || null;
 
-    const tenantRow = await getTenantBySlug(effectiveTenantSlug);
-    if (!tenantRow) return res.status(404).json({ error: "tenant not found" });
-    const access = requirePolicyAction(req, res, {
+    failurePoint = "resolve_tenant";
+    const requestedTenantSlug = String(req.query?.tenant || tenant || "").trim().toLowerCase();
+    if (!requestedTenantSlug) {
+      trace.denial_source = "campaigns/create#resolve_tenant";
+      logOwnerAccessTrace(trace);
+      return res.status(400).json({ error: "tenant is required" });
+    }
+
+    const tenantRow = await getTenantBySlug(requestedTenantSlug);
+    if (!tenantRow) {
+      trace.denial_source = "campaigns/create#resolve_tenant";
+      logOwnerAccessTrace(trace);
+      return res.status(404).json({ error: "tenant not found" });
+    }
+
+    const actor = {
+      ...derivedActor,
+      tenantSlug: requestedTenantSlug || derivedActor.tenantSlug,
+      email: trace.requested_email || derivedActor.email,
+    };
+    trace.actor_email = actor.email || null;
+    trace.actor_role = actor.role || null;
+    trace.actor_tenant = actor.tenantSlug || null;
+
+    failurePoint = "policy_check";
+    const policyDecision = evaluatePolicy({
+      actor,
       action: ACTIONS.CAMPAIGN_CREATE,
       resourceTenantSlug: tenantRow.slug,
     });
-    if (!access.ok) return;
-    if (!(await requireOwnerTenantMembership(req, res, tenantRow.id, access.actor))) return;
+    trace.policy_result = policyDecision.allow ? "allow" : `deny:${policyDecision.reason}`;
+    if (!policyDecision.allow) {
+      trace.denial_source = "accessControl.evaluatePolicy";
+      logOwnerAccessTrace(trace);
+      return deny(res, 403, "forbidden", policyDecision.reason);
+    }
+
+    failurePoint = "membership_check";
+    const membershipPassed = await requireOwnerTenantMembership(req, res, tenantRow.id, actor);
+    trace.membership_result = membershipPassed ? "allow" : "deny";
+    if (!membershipPassed) {
+      trace.denial_source = "requireOwnerTenantMembership";
+      logOwnerAccessTrace(trace);
+      return;
+    }
+
+    failurePoint = "create_campaign";
     let candidate = normalizeSlug(slug) || randomSlug(label);
     let attempts = 0;
     while (attempts < 5) {
@@ -1276,8 +1334,23 @@ app.post("/api/campaigns/create", async (req, res) => {
       campaign: { ...campaign, share_links: buildCampaignShareLinks(tenantRow.slug, campaign.slug) },
     });
   } catch (err) {
+    logOwnerAccessTrace({
+      ...trace,
+      failure_point: failurePoint,
+      denial_source: trace.denial_source || "campaign_create_exception",
+      error: err.message,
+    });
     console.error("campaign_create_failed", err);
     return res.status(500).json({ error: "campaign create failed", details: err.message });
+  } finally {
+    if (!trace.denial_source) {
+      logOwnerAccessTrace({
+        ...trace,
+        policy_result: trace.policy_result || "allow",
+        membership_result: trace.membership_result || "allow",
+        denial_source: null,
+      });
+    }
   }
 });
 
