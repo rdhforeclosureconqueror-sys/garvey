@@ -809,13 +809,27 @@ function requirePolicyAction(req, res, { action, resourceTenantSlug }) {
 
 async function requireOwnerTenantMembership(req, res, tenantId, actor) {
   if (actor.isAdmin || actor.role !== ROLES.BUSINESS_OWNER) return true;
+  const trustedSessionActor = req.authActor || null;
+  if (
+    trustedSessionActor
+    && String(trustedSessionActor.userId || "").trim()
+    && normalizeRole(trustedSessionActor.role) === ROLES.BUSINESS_OWNER
+    && normalizeEmail(trustedSessionActor.email) === normalizeEmail(actor.email)
+  ) {
+    return true;
+  }
   if (!actor.email) {
     deny(res, 400, "owner email required", "Provide email query param or x-user-email header");
     return false;
   }
   const hasAccess = await ownerEmailHasTenantAccess(tenantId, actor.email);
   if (!hasAccess) {
-    deny(res, 403, "forbidden", "owner access denied for tenant");
+    deny(
+      res,
+      403,
+      "forbidden",
+      "owner access denied for tenant: sign in with owner session or complete owner onboarding/profile for this tenant"
+    );
     return false;
   }
   return true;
