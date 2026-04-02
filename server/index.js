@@ -354,7 +354,7 @@ function parseContributionAccessGate(config) {
 }
 
 function contributionsEnabled(config) {
-  return config?.features?.contributions_enabled === true;
+  return config?.features?.contributions_enabled !== false;
 }
 
 function assertContributionsEnabled(config) {

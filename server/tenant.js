@@ -25,7 +25,7 @@ const DEFAULT_TENANT_CONFIG = {
   features: {
     proof_showcase_enabled: false,
     spotlight_enabled: false,
-    contributions_enabled: false,
+    contributions_enabled: true,
   },
 
   // Safe defaults for adaptive engine fields (optional but stable)
