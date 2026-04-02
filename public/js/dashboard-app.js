@@ -189,17 +189,36 @@
   }
 
   function jsonFetch(url, options) {
-    return fetch(url, options).then(function (res) {
-      return res.json().catch(function () { return {}; }).then(function (body) {
-        if (!res.ok) {
-          var err = new Error(body.error || "Request failed");
-          err.status = res.status;
-          err.body = body;
-          throw err;
-        }
-        return body;
+    return fetch(url, options)
+      .catch(function (networkErr) {
+        var err = new Error("Network request failed before server response (possible CORS/network issue).");
+        err.kind = "network_or_cors";
+        err.cause = networkErr;
+        throw err;
+      })
+      .then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (body) {
+          if (!res.ok) {
+            var err = new Error(body.error || "Request failed");
+            err.status = res.status;
+            err.body = body;
+            throw err;
+          }
+          return body;
+        });
       });
-    });
+  }
+
+  function describeRequestError(err, fallbackText) {
+    if (!err) return fallbackText || "Request failed.";
+    if (err.kind === "network_or_cors") return err.message;
+    if (Number(err.status || 0) === 403) {
+      var details = safeTrim(err.body && err.body.details);
+      return details ? ("Forbidden (403): " + details) : "Forbidden (403): you are not authorized for this tenant.";
+    }
+    if (Number(err.status || 0) === 401) return "Authentication required (401): sign in again and retry.";
+    if (Number(err.status || 0) === 400) return (err.message || "Invalid request") + " (400).";
+    return err.message || fallbackText || "Request failed.";
   }
 
   function markContributionsDisabled() {
@@ -704,17 +723,14 @@
         return;
       }
 
-      jsonFetch(apiUrl("/api/campaigns/create"), {
+      jsonFetch(apiUrl("/api/campaigns/create", { tenant: tenant, email: ownerEmail, role: "business_owner" }), {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "x-user-email": ownerEmail,
-          "x-user-role": "business_owner"
+          "Content-Type": "application/json"
         },
         credentials: "include",
         body: JSON.stringify({
           tenant: tenant,
-          email: ownerEmail,
           label: label,
           slug: slug || undefined,
           source: source || undefined,
@@ -728,7 +744,7 @@
         })
         .then(renderCampaignSummary)
         .catch(function (err) {
-          if (msgEl) msgEl.textContent = err.message;
+          if (msgEl) msgEl.textContent = describeRequestError(err, "Campaign creation failed.");
         });
     });
   }
@@ -850,8 +866,18 @@
     });
   }
 
-  function resultSummaryHtml(result) {
+  function resultSummaryHtml(result, context) {
     if (!result) return '<div class="empty-state">No matching result yet.</div>';
+    var tenant = safeTrim(context && context.tenant);
+    var email = safeTrim(context && context.email).toLowerCase();
+    var cid = safeTrim(context && context.cid);
+    var rid = safeTrim(context && context.rid) || safeTrim(result.result_id || "");
+    var linkParams = new URLSearchParams();
+    if (tenant) linkParams.set("tenant", tenant);
+    if (email) linkParams.set("email", email);
+    if (cid) linkParams.set("cid", cid);
+    if (rid) linkParams.set("rid", rid);
+    var resultLink = "/results_owner.html" + (linkParams.toString() ? ("?" + linkParams.toString()) : "");
 
     var percents = result.percents || {};
     var bars = Object.keys(percents)
@@ -869,6 +895,7 @@
       .join("");
 
     return '' +
+      '<div style="margin-bottom:8px;"><a href="' + escapeHtml(resultLink) + '"><b>Open full owner results</b></a></div>' +
       "<div><b>Primary:</b> " + escapeHtml(result.primary_role || result.primary_archetype || "-") + "</div>" +
       "<div><b>Secondary:</b> " + escapeHtml(result.secondary_role || result.secondary_archetype || "-") + "</div>" +
       "<div><b>Weakness:</b> " + escapeHtml(result.weakness_role || result.weakness_archetype || "-") + "</div>" +
@@ -1556,7 +1583,7 @@
         if (resolvedRid) setRidInStorage(tenant, email, resolvedRid);
 
         var hub = ownerHubHtml({ tenant: tenant, email: email, cid: cid, rid: resolvedRid });
-        var summary = resultSummaryHtml(result);
+        var summary = resultSummaryHtml(result, { tenant: tenant, email: email, cid: cid, rid: resolvedRid });
 
         el.innerHTML = hub + '<div style="margin-top:10px;">' + summary + "</div>";
         wireCopyButtons(el);
