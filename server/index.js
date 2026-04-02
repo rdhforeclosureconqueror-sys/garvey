@@ -111,8 +111,28 @@ app.use(express.json({ limit: "1mb" }));
 
 function applyCorsHeaders(req, res) {
   const origin = String(req.headers.origin || "").trim();
+  const requestHost = String(req.headers.host || "").trim().toLowerCase();
+  const requestProto = String(req.headers["x-forwarded-proto"] || req.protocol || "http")
+    .split(",")[0]
+    .trim()
+    .toLowerCase();
+  const pathName = String(req.path || "").trim();
+  let sameOrigin = false;
+  try {
+    if (origin) {
+      const parsed = new URL(origin);
+      sameOrigin = parsed.host.toLowerCase() === requestHost && parsed.protocol.replace(":", "").toLowerCase() === requestProto;
+    }
+  } catch (_) {
+    sameOrigin = false;
+  }
+  const isCustomerFlowRoute =
+    pathName.startsWith("/api/rewards/")
+    || pathName === "/api/vocIntake"
+    || pathName === "/voc-intake"
+    || pathName === "/api/questions";
   if (!origin) return { allowed: true };
-  if (!allowedOrigins.has(origin)) return { allowed: false };
+  if (!allowedOrigins.has(origin) && !sameOrigin && !isCustomerFlowRoute) return { allowed: false };
 
   res.header("Access-Control-Allow-Origin", origin);
   res.header("Vary", "Origin");
