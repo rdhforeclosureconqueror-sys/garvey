@@ -40,7 +40,7 @@ const {
   buildGuidance,
 } = require("./resultEngine");
 const { buildDashboardUrl } = require("./dashboardUrl");
-const { ACTIONS, ROLES, deriveActor, evaluatePolicy, deny } = require("./accessControl");
+const { ACTIONS, ROLES, deriveActor, evaluatePolicy, deny, normalizeRole } = require("./accessControl");
 const { EVENT_NAMES } = require("./events");
 const archetypeLibrary = require("../public/archetypes/library.json");
 const {
@@ -244,6 +244,10 @@ const ALLOWED_CONFIG_KEYS = Object.freeze([
 
 function logEvent(event, payload = {}) {
   console.log(JSON.stringify({ ts: new Date().toISOString(), event, ...payload }));
+}
+
+function logOwnerAccessTrace(trace) {
+  logEvent("owner_access_trace", trace);
 }
 
 function sanitizeConfig(config = {}) {
@@ -1278,19 +1282,42 @@ app.post("/api/campaigns/create", async (req, res) => {
 });
 
 app.get("/api/campaigns/list", async (req, res) => {
+  let failurePoint = "init";
+  const trace = {
+    route: "/api/campaigns/list",
+    requested_tenant: String(req.query.tenant || "").trim().toLowerCase() || null,
+    actor_email: null,
+    actor_role: null,
+    actor_tenant: null,
+    policy_passed: null,
+    membership_passed: null,
+    query_result: null,
+  };
   try {
+    failurePoint = "resolve_actor";
+    const actor = deriveActor(req);
+    trace.actor_email = actor.email || null;
+    trace.actor_role = actor.role || null;
+    trace.actor_tenant = actor.tenantSlug || null;
     const tenantSlug = String(req.query.tenant || "").trim();
     const actorEmail = normalizeEmail(req.query.email || req.userEmail || req.headers["x-user-email"] || "");
     if (!tenantSlug) return res.status(400).json({ error: "tenant query param is required" });
+    failurePoint = "resolve_tenant_context";
     const ctx = await getTenantContextBySlug(tenantSlug);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    failurePoint = "policy_check";
     const access = requirePolicyAction(req, res, {
       action: ACTIONS.CAMPAIGN_READ,
       resourceTenantSlug: ctx.tenant.slug,
     });
+    trace.policy_passed = !!access.ok;
     if (!access.ok) return;
-    if (!(await requireOwnerTenantMembership(req, res, ctx.tenant.id, access.actor))) return;
+    failurePoint = "membership_check";
+    const membershipPassed = await requireOwnerTenantMembership(req, res, ctx.tenant.id, access.actor);
+    trace.membership_passed = membershipPassed;
+    if (!membershipPassed) return;
 
+    failurePoint = "campaign_list_query";
     const rows = await pool.query(
       `SELECT c.*,
           COUNT(*) FILTER (WHERE e.event_type = 'visit')::int AS visits,
@@ -1310,11 +1337,13 @@ app.get("/api/campaigns/list", async (req, res) => {
       [ctx.tenant.id]
     );
     const campaignRows = Array.isArray(rows?.rows) ? rows.rows : [];
+    trace.query_result = campaignRows.length;
     console.log("campaign_list_query", {
       tenant: ctx.tenant.slug,
       email: actorEmail || null,
       result_length: campaignRows.length,
     });
+    logOwnerAccessTrace(trace);
     return res.json({
       success: true,
       tenant: ctx.tenant.slug,
@@ -1324,6 +1353,11 @@ app.get("/api/campaigns/list", async (req, res) => {
       })),
     });
   } catch (err) {
+    logOwnerAccessTrace({
+      ...trace,
+      failure_point: failurePoint,
+      error_message: err.message,
+    });
     console.error("campaign_list_failed", err);
     return res.status(500).json({ error: "campaign list failed" });
   }
@@ -2010,43 +2044,106 @@ app.post("/api/rewards/wishlist", async (req, res) => {
 });
 
 app.get("/api/contributions/status", async (req, res) => {
+  let failurePoint = "init";
+  const trace = {
+    route: "/api/contributions/status",
+    requested_tenant: String(req.query.tenant || "").trim().toLowerCase() || null,
+    actor_email: null,
+    actor_role: null,
+    actor_tenant: null,
+    policy_passed: null,
+    membership_passed: null,
+    query_result: null,
+  };
   try {
+    failurePoint = "resolve_actor";
+    const actor = deriveActor(req);
+    trace.actor_email = actor.email || null;
+    trace.actor_role = actor.role || null;
+    trace.actor_tenant = actor.tenantSlug || null;
     const tenantSlug = String(req.query.tenant || "").trim();
     if (!tenantSlug) return res.status(400).json({ error: "tenant query param is required" });
+    failurePoint = "resolve_tenant_context";
     const ctx = await getTenantContextBySlug(tenantSlug);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    failurePoint = "policy_check";
     const access = requirePolicyAction(req, res, {
       action: ACTIONS.CAMPAIGN_READ,
       resourceTenantSlug: ctx.tenant.slug,
     });
+    trace.policy_passed = !!access.ok;
     if (!access.ok) return;
-    if (!(await requireOwnerTenantMembership(req, res, ctx.tenant.id, access.actor))) return;
+    failurePoint = "membership_check";
+    const membershipPassed = await requireOwnerTenantMembership(req, res, ctx.tenant.id, access.actor);
+    trace.membership_passed = membershipPassed;
+    if (!membershipPassed) return;
     const email = String(req.query.email || "").trim();
+    failurePoint = "fetch_contribution_status";
     const payload = await fetchContributionStatus({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email });
+    trace.query_result = Array.isArray(payload?.support_history) ? payload.support_history.length : null;
+    logOwnerAccessTrace(trace);
     return res.json(payload);
   } catch (err) {
+    logOwnerAccessTrace({
+      ...trace,
+      failure_point: failurePoint,
+      error_message: err.message,
+    });
     console.error(err);
     return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "contribution status failed" });
   }
 });
 
 app.get("/api/contributions/history", async (req, res) => {
+  let failurePoint = "init";
+  const trace = {
+    route: "/api/contributions/history",
+    requested_tenant: String(req.query.tenant || "").trim().toLowerCase() || null,
+    actor_email: null,
+    actor_role: null,
+    actor_tenant: null,
+    policy_passed: null,
+    membership_passed: null,
+    query_result: null,
+  };
   try {
+    failurePoint = "resolve_actor";
+    const actor = deriveActor(req);
+    trace.actor_email = actor.email || null;
+    trace.actor_role = actor.role || null;
+    trace.actor_tenant = actor.tenantSlug || null;
     const tenantSlug = String(req.query.tenant || "").trim();
     if (!tenantSlug) return res.status(400).json({ error: "tenant query param is required" });
+    failurePoint = "resolve_tenant_context";
     const ctx = await getTenantContextBySlug(tenantSlug);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    failurePoint = "policy_check";
     const access = requirePolicyAction(req, res, {
       action: ACTIONS.CAMPAIGN_READ,
       resourceTenantSlug: ctx.tenant.slug,
     });
+    trace.policy_passed = !!access.ok;
     if (!access.ok) return;
-    if (!(await requireOwnerTenantMembership(req, res, ctx.tenant.id, access.actor))) return;
+    failurePoint = "membership_check";
+    const membershipPassed = await requireOwnerTenantMembership(req, res, ctx.tenant.id, access.actor);
+    trace.membership_passed = membershipPassed;
+    if (!membershipPassed) return;
     const email = String(req.query.email || "").trim();
     const limit = Number(req.query.limit || 50);
+    failurePoint = "fetch_contribution_history";
     const payload = await fetchContributionHistory({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, limit });
+    trace.query_result = {
+      contribution_rows: Array.isArray(payload?.contribution_history) ? payload.contribution_history.length : null,
+      support_rows: Array.isArray(payload?.support_history) ? payload.support_history.length : null,
+    };
+    logOwnerAccessTrace(trace);
     return res.json(payload);
   } catch (err) {
+    logOwnerAccessTrace({
+      ...trace,
+      failure_point: failurePoint,
+      error_message: err.message,
+    });
     console.error(err);
     return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "contribution history failed" });
   }
@@ -2179,10 +2276,32 @@ app.post("/api/contributions/support", async (req, res) => {
 });
 
 app.get("/t/:slug/products", tenantMiddleware, async (req, res) => {
+  let failurePoint = "init";
+  const trace = {
+    route: "/t/:slug/products",
+    requested_tenant: String(req.params.slug || "").trim().toLowerCase() || null,
+    actor_email: null,
+    actor_role: null,
+    actor_tenant: null,
+    policy_passed: null,
+    membership_passed: null,
+    query_result: null,
+  };
   try {
+    failurePoint = "resolve_actor";
+    const actor = deriveActor(req);
+    trace.actor_email = actor.email || null;
+    trace.actor_role = actor.role || null;
+    trace.actor_tenant = actor.tenantSlug || null;
+    failurePoint = "policy_check";
     const access = requirePolicyAction(req, res, { action: ACTIONS.PRODUCTS_MANAGE, resourceTenantSlug: req.tenant.slug });
+    trace.policy_passed = !!access.ok;
     if (!access.ok) return;
-    if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
+    failurePoint = "membership_check";
+    const membershipPassed = await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor);
+    trace.membership_passed = membershipPassed;
+    if (!membershipPassed) return;
+    failurePoint = "products_query";
     const result = await pool.query(
       `SELECT id, tenant_id, name, description, image_url, external_product_url, price_text, is_active, sort_order, created_at, updated_at
        FROM products
@@ -2191,6 +2310,7 @@ app.get("/t/:slug/products", tenantMiddleware, async (req, res) => {
       [req.tenant.id]
     );
     const productRows = Array.isArray(result?.rows) ? result.rows : [];
+    trace.query_result = productRows.length;
     const featured = new Set(
       Array.isArray(req.tenantConfig?.site?.proof_showcase_featured_product_ids)
         ? req.tenantConfig.site.proof_showcase_featured_product_ids.map((id) => Number(id))
@@ -2208,8 +2328,14 @@ app.get("/t/:slug/products", tenantMiddleware, async (req, res) => {
       email: normalizeEmail(access.actor?.email || ""),
       result_length: rows.length,
     });
+    logOwnerAccessTrace(trace);
     return res.json({ products: rows, proof_showcase_enabled: req.tenantConfig?.features?.proof_showcase_enabled === true });
   } catch (err) {
+    logOwnerAccessTrace({
+      ...trace,
+      failure_point: failurePoint,
+      error_message: err.message,
+    });
     console.error(err);
     return res.status(500).json({ error: "products fetch failed" });
   }
@@ -2509,13 +2635,35 @@ app.post("/t/:slug/showcase/track", tenantMiddleware, async (req, res) => {
 });
 
 app.get("/t/:slug/reviews", tenantMiddleware, async (req, res) => {
+  let failurePoint = "init";
+  const trace = {
+    route: "/t/:slug/reviews",
+    requested_tenant: String(req.params.slug || "").trim().toLowerCase() || null,
+    actor_email: null,
+    actor_role: null,
+    actor_tenant: null,
+    policy_passed: null,
+    membership_passed: null,
+    query_result: null,
+  };
   try {
+    failurePoint = "resolve_actor";
+    const actor = deriveActor(req);
+    trace.actor_email = actor.email || null;
+    trace.actor_role = actor.role || null;
+    trace.actor_tenant = actor.tenantSlug || null;
+    failurePoint = "policy_check";
     const access = requirePolicyAction(req, res, { action: ACTIONS.PRODUCTS_MANAGE, resourceTenantSlug: req.tenant.slug });
+    trace.policy_passed = !!access.ok;
     if (!access.ok) return;
-    if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
+    failurePoint = "membership_check";
+    const membershipPassed = await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor);
+    trace.membership_passed = membershipPassed;
+    if (!membershipPassed) return;
     const statusRaw = String(req.query.status || "").trim().toLowerCase();
     const statusFilter = statusRaw ? normalizeReviewProofStatus(statusRaw) : null;
     const limit = Math.max(1, Math.min(Number(req.query.limit || 100) || 100, 200));
+    failurePoint = "reviews_query";
     const rows = await pool.query(
       `SELECT r.id, r.tenant_id, r.user_id, r.product_id, r.text, r.media_type, r.media_note, r.rating, r.proof_status, r.created_at,
               u.email AS customer_email,
@@ -2530,13 +2678,20 @@ app.get("/t/:slug/reviews", tenantMiddleware, async (req, res) => {
       [req.tenant.id, statusFilter, limit]
     );
     const reviewRows = Array.isArray(rows?.rows) ? rows.rows : [];
+    trace.query_result = reviewRows.length;
     console.log("reviews_query", {
       tenant: req.tenant.slug,
       email: normalizeEmail(access.actor?.email || ""),
       result_length: reviewRows.length,
     });
+    logOwnerAccessTrace(trace);
     return res.json({ reviews: reviewRows });
   } catch (err) {
+    logOwnerAccessTrace({
+      ...trace,
+      failure_point: failurePoint,
+      error_message: err.message,
+    });
     console.error(err);
     return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "reviews fetch failed" });
   }
