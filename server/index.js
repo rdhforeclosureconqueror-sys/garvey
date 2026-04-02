@@ -1218,8 +1218,15 @@ app.use("/api/evolution", evolutionRoutes({ pool, ensureTenant }));
 app.post("/api/campaigns/create", async (req, res) => {
   try {
     const { tenant, label, slug, source = null, medium = null } = req.body || {};
-    if (!tenant || !label) return res.status(400).json({ error: "tenant and label are required" });
-    const tenantRow = await ensureTenant(String(tenant));
+    if (!label) return res.status(400).json({ error: "label is required" });
+
+    const requestedTenantSlug = String(tenant || "").trim().toLowerCase();
+    const actor = deriveActor(req);
+    const effectiveTenantSlug = actor.isAdmin ? requestedTenantSlug : (actor.tenantSlug || requestedTenantSlug);
+    if (!effectiveTenantSlug) return res.status(400).json({ error: "tenant is required" });
+
+    const tenantRow = await getTenantBySlug(effectiveTenantSlug);
+    if (!tenantRow) return res.status(404).json({ error: "tenant not found" });
     const access = requirePolicyAction(req, res, {
       action: ACTIONS.CAMPAIGN_CREATE,
       resourceTenantSlug: tenantRow.slug,
