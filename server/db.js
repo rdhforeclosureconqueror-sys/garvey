@@ -22,6 +22,55 @@ const pool = new Pool(
       }
 );
 
+function parseTenantSlugList(raw) {
+  return new Set(
+    String(raw || "")
+      .split(",")
+      .map((value) => String(value || "").trim().toLowerCase())
+      .filter(Boolean)
+  );
+}
+
+async function backfillContributionsEnabledForExistingTenants() {
+  const preservedTenants = parseTenantSlugList(process.env.CONTRIBUTIONS_DISABLED_TENANTS);
+  const preserveList = [...preservedTenants];
+  const params = preserveList.length ? [preserveList] : [];
+  const preserveFilter = preserveList.length
+    ? "AND LOWER(COALESCE(t.slug, '')) <> ALL($1::text[])"
+    : "";
+
+  const updated = await pool.query(
+    `
+      UPDATE tenant_config tc
+      SET
+        config = jsonb_set(
+          COALESCE(tc.config, '{}'::jsonb),
+          '{features,contributions_enabled}',
+          'true'::jsonb,
+          true
+        ),
+        updated_at = NOW()
+      FROM tenants t
+      WHERE t.id = tc.tenant_id
+        AND COALESCE((tc.config #>> '{features,contributions_enabled}')::boolean, false) = false
+        ${preserveFilter}
+      RETURNING t.slug AS tenant_slug
+    `,
+    params
+  );
+
+  if (updated.rows.length) {
+    console.log("🩹 contributions_enabled backfill applied", {
+      updated_tenants: updated.rows.map((row) => row.tenant_slug),
+      preserved_tenants: preserveList,
+    });
+  } else {
+    console.log("🩹 contributions_enabled backfill no-op", {
+      preserved_tenants: preserveList,
+    });
+  }
+}
+
 async function initializeDatabase() {
   console.log("🧠 Initializing database...");
 
@@ -615,6 +664,8 @@ async function initializeDatabase() {
 
   // Canonical schema for fresh installs.
   await initializeKanbanSchema(pool);
+
+  await backfillContributionsEnabledForExistingTenants();
 
   // Safe upgrades for existing lightweight tables.
   await pool.query(`

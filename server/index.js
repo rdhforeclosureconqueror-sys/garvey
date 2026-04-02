@@ -891,6 +891,24 @@ function emptyBuyerCounts() {
 
 app.get("/health", (req, res) => res.json({ status: "ok" }));
 
+app.get("/api/verify/runtime", (req, res) => {
+  const commit =
+    String(
+      process.env.RENDER_GIT_COMMIT
+      || process.env.RENDER_COMMIT
+      || process.env.GIT_COMMIT
+      || process.env.COMMIT_SHA
+      || ""
+    ).trim() || null;
+  const service = String(process.env.RENDER_SERVICE_NAME || "").trim() || null;
+  return res.json({
+    status: "ok",
+    service,
+    commit,
+    fail_open_contributions_logic: "config?.features?.contributions_enabled !== false",
+  });
+});
+
 app.post("/api/owner/signup", async (req, res) => {
   const client = await pool.connect();
   try {
