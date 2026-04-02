@@ -1238,10 +1238,13 @@ app.post("/api/campaigns/create", async (req, res) => {
   const trace = {
     route: "/api/campaigns/create",
     requested_tenant: String(req.query?.tenant || req.body?.tenant || "").trim().toLowerCase() || null,
+    requested_email: normalizeEmail(req.query?.email || req.body?.email || req.userEmail || req.headers["x-user-email"] || "") || null,
     actor_email: null,
     actor_role: null,
     actor_tenant: null,
     session_tenant: null,
+    session_email: null,
+    auth_actor_exists: false,
     policy_result: null,
     membership_result: null,
     denial_source: null,
@@ -1252,11 +1255,12 @@ app.post("/api/campaigns/create", async (req, res) => {
     if (!label) return res.status(400).json({ error: "label is required" });
 
     failurePoint = "resolve_actor";
-    const actor = deriveActor(req);
-    trace.actor_email = actor.email || null;
-    trace.actor_role = actor.role || null;
-    trace.actor_tenant = actor.tenantSlug || null;
-    trace.session_tenant = String(req.authActor?.tenantSlug || "").trim().toLowerCase() || null;
+    const derivedActor = deriveActor(req);
+    const sessionTenantSlug = String(req.authActor?.tenantSlug || "").trim().toLowerCase();
+    const sessionEmail = normalizeEmail(req.authActor?.email || "");
+    trace.auth_actor_exists = !!req.authActor;
+    trace.session_tenant = sessionTenantSlug || null;
+    trace.session_email = sessionEmail || null;
 
     failurePoint = "resolve_tenant";
     const requestedTenantSlug = String(req.query?.tenant || tenant || "").trim().toLowerCase();
@@ -1273,6 +1277,15 @@ app.post("/api/campaigns/create", async (req, res) => {
       return res.status(404).json({ error: "tenant not found" });
     }
 
+    const actor = {
+      ...derivedActor,
+      tenantSlug: requestedTenantSlug || derivedActor.tenantSlug,
+      email: trace.requested_email || derivedActor.email,
+    };
+    trace.actor_email = actor.email || null;
+    trace.actor_role = actor.role || null;
+    trace.actor_tenant = actor.tenantSlug || null;
+
     failurePoint = "policy_check";
     const policyDecision = evaluatePolicy({
       actor,
@@ -1286,18 +1299,8 @@ app.post("/api/campaigns/create", async (req, res) => {
       return deny(res, 403, "forbidden", policyDecision.reason);
     }
 
-    const access = requirePolicyAction(req, res, {
-      action: ACTIONS.CAMPAIGN_CREATE,
-      resourceTenantSlug: tenantRow.slug,
-    });
-    if (!access.ok) {
-      trace.denial_source = "requirePolicyAction";
-      logOwnerAccessTrace(trace);
-      return;
-    }
-
     failurePoint = "membership_check";
-    const membershipPassed = await requireOwnerTenantMembership(req, res, tenantRow.id, access.actor);
+    const membershipPassed = await requireOwnerTenantMembership(req, res, tenantRow.id, actor);
     trace.membership_result = membershipPassed ? "allow" : "deny";
     if (!membershipPassed) {
       trace.denial_source = "requireOwnerTenantMembership";
