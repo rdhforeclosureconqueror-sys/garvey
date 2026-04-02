@@ -112,13 +112,29 @@
 
   function setLoginCtx(next) {
     const current = readLoginCtx();
+    const incoming = next && typeof next === "object" ? next : {};
+    const has = (key) => Object.prototype.hasOwnProperty.call(incoming, key);
+
+    const incomingTenant = safeTrim(incoming.tenant);
+    const incomingEmail = safeTrim(incoming.email).toLowerCase();
+    const incomingRid = safeTrim(incoming.rid);
+    const incomingCid = safeTrim(incoming.cid);
+
+    const resolvedTenant = has("tenant") ? incomingTenant : current.tenant;
+    const resolvedEmail = has("email") ? incomingEmail : current.email;
+
+    const identityChanged = (has("tenant") && incomingTenant && incomingTenant !== current.tenant)
+      || (has("email") && incomingEmail && incomingEmail !== current.email);
+
     const merged = {
-      tenant: safeTrim(next && next.tenant) || current.tenant,
-      email: safeTrim(next && next.email).toLowerCase() || current.email,
-      rid: safeTrim(next && next.rid) || current.rid,
-      cid: safeTrim(next && next.cid) || current.cid,
+      tenant: resolvedTenant,
+      email: resolvedEmail,
+      // On identity changes, never carry stale rid/cid forward.
+      rid: has("rid") ? incomingRid : (identityChanged ? "" : current.rid),
+      cid: has("cid") ? incomingCid : (identityChanged ? "" : current.cid),
       ts: Date.now(),
     };
+
     const saved = writeLoginCtx(merged);
     writeStoredCtx(saved);
     return saved;
@@ -128,6 +144,14 @@
     try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
     try { localStorage.removeItem(LOGIN_STORAGE_KEY); } catch (_) {}
     try { localStorage.removeItem(CUSTOMER_ENGINE_STORAGE_KEY); } catch (_) {}
+    try { sessionStorage.removeItem(STORAGE_KEY); } catch (_) {}
+    try { sessionStorage.removeItem(LOGIN_STORAGE_KEY); } catch (_) {}
+    try { sessionStorage.removeItem(CUSTOMER_ENGINE_STORAGE_KEY); } catch (_) {}
+    try {
+      Object.keys(localStorage).forEach((key) => {
+        if (key.indexOf("garvey_owner_rid:") === 0) localStorage.removeItem(key);
+      });
+    } catch (_) {}
     return { tenant: "", email: "", rid: "", cid: "" };
   }
 
@@ -146,20 +170,21 @@
   }
 
   function ctx() {
-    // Prefer URL; fallback to session-lite login context; then legacy stored ctx.
+    // Login/storage identity is authoritative over URL to prevent stale-link impersonation.
     const u = ctxFromUrl();
     const l = readLoginCtx();
     const s = readStoredCtx();
 
+    const hasLoginIdentity = !!(l.tenant && l.email);
     const merged = {
-      tenant: u.tenant || l.tenant || s.tenant,
-      email: u.email || l.email || s.email,
-      rid: u.rid || l.rid || s.rid,
+      tenant: hasLoginIdentity ? l.tenant : (u.tenant || l.tenant || s.tenant),
+      email: hasLoginIdentity ? l.email : (u.email || l.email || s.email),
+      rid: hasLoginIdentity ? (l.rid || u.rid || s.rid) : (u.rid || l.rid || s.rid),
       cid: u.cid || l.cid || s.cid,
     };
 
-    // If URL had any ctx at all, refresh both storages (keeps it current)
-    if (u.tenant || u.email || u.rid || u.cid) {
+    // Only promote URL identity into storage when there is no active login identity.
+    if (!hasLoginIdentity && (u.tenant || u.email || u.rid || u.cid)) {
       writeStoredCtx(merged);
       writeLoginCtx(merged);
     }
