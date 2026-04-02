@@ -5,6 +5,10 @@
   var LOGIN_CTX_KEY = "garvey_login_ctx_v1";
   var ENGINE_CTX_KEY = "garvey_customer_return_engine_v1";
   var contributionsDisabledForTenant = false;
+  var dashboardInitInFlight = false;
+  var dashboardInitialized = false;
+  var dashboardRefreshInFlight = false;
+  var pageNavigatingAway = false;
 
   function apiUrl(path, query) {
     if (typeof api.buildUrl === "function") return api.buildUrl(path, query || {});
@@ -149,9 +153,38 @@
   function jsonFetch(url, options) {
     return fetch(url, options).then(function (res) {
       return res.json().catch(function () { return {}; }).then(function (body) {
-        if (!res.ok) throw new Error(body.error || "Request failed");
+        if (!res.ok) {
+          var err = new Error(body.error || "Request failed");
+          err.status = res.status;
+          err.body = body;
+          throw err;
+        }
         return body;
       });
+    });
+  }
+
+  function markContributionsDisabled() {
+    contributionsDisabledForTenant = true;
+  }
+
+  function shouldSkipContributionCalls(tenant, ownerEmail) {
+    return contributionsDisabledForTenant || !safeTrim(tenant) || !safeTrim(ownerEmail) || pageNavigatingAway;
+  }
+
+  function isContributionDisabledError(err) {
+    if (!err) return false;
+    if (Number(err.status || 0) === 403) return true;
+    return /disabled/i.test(String(err.message || ""));
+  }
+
+  function ensureContextReady(tenant, ownerEmail) {
+    return Promise.resolve({
+      tenant: safeTrim(tenant),
+      ownerEmail: safeTrim(ownerEmail).toLowerCase()
+    }).then(function (ctx) {
+      if (!ctx.tenant || !ctx.ownerEmail || pageNavigatingAway) return null;
+      return ctx;
     });
   }
 
@@ -1311,7 +1344,7 @@
         el.disabled = !!disabled;
       });
     };
-    if (contributionsDisabledForTenant) {
+    if (shouldSkipContributionCalls(tenant, ownerEmail)) {
       toggleContributionControls(true);
       if (statusBody) statusBody.textContent = "Contributions feature is disabled for this tenant.";
       renderContributionHistory([]);
@@ -1323,7 +1356,7 @@
     ]).then(function (responses) {
       var status = responses[0] || {};
       var history = responses[1] || {};
-      contributionsDisabledForTenant = status.contributions_enabled === false;
+      if (status.contributions_enabled === false) markContributionsDisabled();
       if (contributionsDisabledForTenant) {
         toggleContributionControls(true);
         if (statusBody) statusBody.textContent = "Contributions feature is disabled for this tenant.";
@@ -1340,8 +1373,8 @@
       }
       renderContributionHistory(history.contribution_history || []);
     }).catch(function (err) {
-      if (/disabled/i.test(String(err.message || ""))) {
-        contributionsDisabledForTenant = true;
+      if (isContributionDisabledError(err)) {
+        markContributionsDisabled();
         toggleContributionControls(true);
         renderContributionHistory([]);
       }
@@ -1357,7 +1390,7 @@
     var settingsMsg = document.getElementById("contributionSettingsMsg");
     if (settingsBtn) {
       settingsBtn.addEventListener("click", function () {
-        if (contributionsDisabledForTenant) {
+        if (shouldSkipContributionCalls(tenant, ownerEmail)) {
           if (settingsMsg) settingsMsg.textContent = "Contributions are disabled for this tenant.";
           return;
         }
@@ -1378,6 +1411,7 @@
           if (gateMinInput) gateMinInput.value = String(Number(resp.contribution_access_gate && resp.contribution_access_gate.minimum_balance || 0));
           return loadContributionPanels(tenant, ownerEmail);
         }).catch(function (err) {
+          if (isContributionDisabledError(err)) markContributionsDisabled();
           if (settingsMsg) settingsMsg.textContent = err.message || "Settings update failed.";
         });
       });
@@ -1390,7 +1424,7 @@
         var amount = Number(safeTrim((document.getElementById("supportAmountInput") || {}).value));
         var note = safeTrim((document.getElementById("supportNoteInput") || {}).value);
         var msg = document.getElementById("supportAllocateMsg");
-        if (contributionsDisabledForTenant) {
+        if (shouldSkipContributionCalls(tenant, ownerEmail)) {
           if (msg) msg.textContent = "Contributions are disabled for this tenant.";
           return;
         }
@@ -1408,6 +1442,7 @@
           if (metrics) metrics.innerHTML = "<b>Business support totals:</b> " + Number((resp.business_support_totals || {}).total_support || 0) + " across " + Number((resp.business_support_totals || {}).supporter_count || 0) + " supporter(s).";
           return loadContributionPanels(tenant, ownerEmail);
         }).catch(function (err) {
+          if (isContributionDisabledError(err)) markContributionsDisabled();
           if (msg) msg.textContent = err.message || "Support allocation failed.";
         });
       });
@@ -1422,7 +1457,7 @@
         var amount = Number(safeTrim((document.getElementById("contributionAddAmountInput") || {}).value));
         var note = safeTrim((document.getElementById("contributionAddNoteInput") || {}).value);
         var msg = document.getElementById("contributionAddMsg");
-        if (contributionsDisabledForTenant) {
+        if (shouldSkipContributionCalls(tenant, ownerEmail)) {
           if (msg) msg.textContent = "Contributions are disabled for this tenant.";
           return;
         }
@@ -1437,6 +1472,7 @@
         }).then(function () {
           if (msg) msg.textContent = "Contribution balance added.";
         }).catch(function (err) {
+          if (isContributionDisabledError(err)) markContributionsDisabled();
           if (msg) msg.textContent = err.message || "Contribution add failed.";
         });
       });
@@ -1644,6 +1680,8 @@
   }
 
   function init() {
+    if (dashboardInitInFlight || dashboardInitialized) return;
+    dashboardInitInFlight = true;
     var fromLoginCtx = loginCtxFromStorage();
     var urlTenant = tenantFromUrl();
     var urlEmail = ownerEmailFromUrl();
@@ -1679,6 +1717,7 @@
     }
 
     if (!tenant || !ownerEmail) {
+      dashboardInitInFlight = false;
       setupError("Missing tenant/email. Sign in below, or take an assessment if you're new.");
       renderSignInPanel({ tenant: "", email: "", cid: "", rid: "" });
       return;
@@ -1700,7 +1739,9 @@
       wireContributions(tenant, ownerEmail, cid, rid, isAdmin);
       loadOwnerSnapshot(ownerEmail, tenant, cid, rid, isAdmin);
 
-      return Promise.all([
+      return ensureContextReady(tenant, ownerEmail).then(function (ctx) {
+        if (!ctx) return;
+        return Promise.all([
         jsonFetch(tenantApiUrl(tenant, "/dashboard", ownerEmail, cid, rid)),
         jsonFetch(tenantApiUrl(tenant, "/customers", ownerEmail, cid, rid)),
         jsonFetch(tenantApiUrl(tenant, "/analytics", ownerEmail, cid, rid)),
@@ -1710,8 +1751,10 @@
         jsonFetch(apiUrl("/api/archetypes/groups", { tenant: tenant, cid: cid || undefined })),
         jsonFetch(tenantApiUrl(tenant, "/products", ownerEmail, cid, rid)),
         jsonFetch(tenantApiUrl(tenant, "/reviews", ownerEmail, cid, rid, { status: "pending" }))
-      ])
+      ]);
+      })
         .then(function (responses) {
+          if (!responses || pageNavigatingAway) return;
           renderMetrics(responses[0]);
           renderTable((responses[1] && responses[1].customers) || []);
           renderBar(responses[2] || {});
@@ -1740,23 +1783,45 @@
 
           clearRefreshTimer();
           window.__garveyDashboardRefreshTimer = setInterval(function () {
-            Promise.all([
-              jsonFetch(tenantApiUrl(tenant, "/dashboard", ownerEmail, cid, rid)),
-              jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail, cid, rid))
-            ]).then(function (refreshResponses) {
-              renderMetrics(refreshResponses[0] || {});
-              renderCampaignSummary(refreshResponses[1] || {});
-              renderActionAndBehaviorMetrics(refreshResponses[1] || {});
-              updateFeedFromSummary(refreshResponses[1] || {});
-            }).catch(function () {});
+            if (dashboardRefreshInFlight || pageNavigatingAway) return;
+            dashboardRefreshInFlight = true;
+            ensureContextReady(tenant, ownerEmail).then(function (ctx) {
+              if (!ctx) return;
+              return Promise.all([
+                jsonFetch(tenantApiUrl(tenant, "/dashboard", ownerEmail, cid, rid)),
+                jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail, cid, rid))
+              ]).then(function (refreshResponses) {
+                if (pageNavigatingAway) return;
+                renderMetrics(refreshResponses[0] || {});
+                renderCampaignSummary(refreshResponses[1] || {});
+                renderActionAndBehaviorMetrics(refreshResponses[1] || {});
+                updateFeedFromSummary(refreshResponses[1] || {});
+              }).catch(function () {});
+            }).catch(function () {
+            }).finally(function () {
+              dashboardRefreshInFlight = false;
+            });
           }, 20000);
+          dashboardInitialized = true;
+          dashboardInitInFlight = false;
         });
     }).catch(function (err) {
+      dashboardInitInFlight = false;
       setupError(err.message);
+    }).finally(function () {
+      if (!dashboardInitialized) dashboardInitInFlight = false;
     });
   }
 
   $(function () {
+    window.addEventListener("beforeunload", function () {
+      pageNavigatingAway = true;
+      clearRefreshTimer();
+    });
+    window.addEventListener("pagehide", function () {
+      pageNavigatingAway = true;
+      clearRefreshTimer();
+    });
     $("#side-menu").metisMenu();
     init();
   });
