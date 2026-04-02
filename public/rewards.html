@@ -456,6 +456,10 @@
             <strong>Add to Wishlist <span class="done-mark">✓ Completed</span></strong>
             <span>Save what you want next and keep momentum (+15).</span>
           </button>
+          <button type="button" class="action-btn" data-type="contribution">
+            <strong>Support with Contribution <span class="done-mark">✓ Completed</span></strong>
+            <span>Choose an amount and contribute support.</span>
+          </button>
           <button type="button" class="action-btn" data-type="voc">
             <strong>Complete Assessment <span class="done-mark">✓ Completed</span></strong>
             <span>Voice of the Customer unlocks your biggest boost (+50).</span>
@@ -486,6 +490,23 @@
             <option value="">No product selected</option>
           </select>
         </label>
+        <label id="reviewPhotoWrap" class="hide">
+          Upload photo proof (optional)
+          <input id="reviewPhotoFile" type="file" accept="image/*" />
+        </label>
+        <label id="reviewVideoWrap" class="hide">
+          Upload video proof (optional)
+          <input id="reviewVideoFile" type="file" accept="video/*" />
+        </label>
+        <label id="reviewMediaUrlWrap" class="hide">
+          Media URL (optional)
+          <input id="reviewMediaUrl" type="url" placeholder="https://..." />
+        </label>
+        <label id="googleReviewWrap" class="hide">
+          Google review
+          <a id="googleReviewLink" class="link-btn" href="#" target="_blank" rel="noopener noreferrer">Leave Google Review</a>
+          <small class="muted">If no link is configured, your review will be collected here.</small>
+        </label>
 
         <label id="referralWrap" class="hide">
           Friend's email
@@ -495,6 +516,20 @@
         <label id="wishlistWrap" class="hide">
           Product or service to wishlist
           <input id="productName" placeholder="Hydrating facial package" />
+        </label>
+        <label id="contributionWrap" class="hide">
+          Contribution amount (USD)
+          <div class="row">
+            <select id="contributionPreset">
+              <option value="">Choose a preset</option>
+              <option value="5">$5</option>
+              <option value="10">$10</option>
+              <option value="25">$25</option>
+              <option value="50">$50</option>
+            </select>
+            <input id="contributionAmount" type="number" min="0.01" step="0.01" placeholder="Custom amount" />
+          </div>
+          <input id="contributionNote" placeholder="Optional support note" />
         </label>
       </div>
 
@@ -528,7 +563,7 @@
           <h3 id="nextRewardTitle">Next reward at 50 points</h3>
           <p id="pointsToRewardMessage">50 more points until your next reward</p>
         </div>
-        <div class="muted" id="actionsProgressMessage">0 of 5 actions completed</div>
+        <div class="muted" id="actionsProgressMessage">0 of 6 actions completed</div>
         <p class="momentum-cta" id="momentumMessage">One quick action gets you closer</p>
       </article>
       <button id="refreshStatusBtn" type="button">Refresh my status</button>
@@ -568,8 +603,14 @@
 "use strict";
 
 const engine = window.CustomerReturnEngine.createDefaultEngine();
-const state = { actionType: "checkin", status: null, completedActions: new Set(), recommendedAction: "checkin" };
-const ACTIONS_PER_CYCLE = 5;
+const state = {
+  actionType: "checkin",
+  status: null,
+  completedActions: new Set(),
+  recommendedAction: "checkin",
+  googleReviewUrl: "",
+};
+const ACTIONS_PER_CYCLE = 6;
 const REWARD_MILESTONES = [50, 100, 150, 250, 500];
 
 function safeTrim(v) { return String(v ?? "").trim(); }
@@ -602,6 +643,7 @@ function showResult(payload) {
   else if (payload?.action_type) msg = `${payload.action_type} action saved! +${pointsAdded} points.`;
   else if (payload?.referral || payload?.event === "referral") msg = `Referral sent! Nice move for repeat rewards.`;
   else if (payload?.wishlist_entry) msg = "Wishlist item saved! We'll remind you next visit.";
+  else if (payload?.contribution) msg = `Contribution submitted: $${Number(payload.contribution.amount || 0).toFixed(2)}.`;
 
   const resultMessage = document.getElementById("resultMessage");
   resultMessage.textContent = msg;
@@ -632,7 +674,8 @@ function nextActionFor(actionType) {
     checkin: { next: "review", label: "Leave Review Next" },
     review: { next: "referral", label: "Refer a Friend Next" },
     referral: { next: "wishlist", label: "Save to Wishlist Next" },
-    wishlist: { next: "voc", label: "Complete Assessment Next" },
+    wishlist: { next: "contribution", label: "Contribute Support Next" },
+    contribution: { next: "voc", label: "Complete Assessment Next" },
     voc: { next: "checkin", label: "Check In Next Visit" },
   };
   return flow[actionType] || { next: "checkin", label: "Take Next Action" };
@@ -649,6 +692,7 @@ function renderSuccessLoop(payload, pointsAdded, total) {
     review: "Review Submitted",
     referral: "Referral Sent",
     wishlist: "Wishlist Saved",
+    contribution: "Contribution Submitted",
     voc: "Assessment Started",
   }[actionType] || "Action Complete";
 
@@ -719,6 +763,7 @@ function updateMotivationPanel(points, actionCount, streak) {
 
 function updateStatusCards(payload) {
   state.status = payload;
+  state.googleReviewUrl = safeTrim(payload?.google_review_url);
   const points = Number(payload?.points || payload?.user?.points || 0);
   const history = Array.isArray(payload?.history) ? payload.history : [];
   const recentEvents = Array.isArray(payload?.recent_events) ? payload.recent_events : [];
@@ -726,6 +771,7 @@ function updateStatusCards(payload) {
   document.getElementById("pointsValue").textContent = points;
   document.getElementById("streakValue").textContent = streak;
   updateMotivationPanel(points, recentEvents.length || history.length, streak);
+  updateActionUI();
 }
 
 function showStatus(payload) {
@@ -752,14 +798,33 @@ function updateActionUI() {
   document.getElementById("reviewWrap").classList.toggle("hide", state.actionType !== "review");
   document.getElementById("reviewRatingWrap").classList.toggle("hide", state.actionType !== "review");
   document.getElementById("reviewProductWrap").classList.toggle("hide", state.actionType !== "review");
+  document.getElementById("reviewPhotoWrap").classList.toggle("hide", state.actionType !== "review");
+  document.getElementById("reviewVideoWrap").classList.toggle("hide", state.actionType !== "review");
+  document.getElementById("reviewMediaUrlWrap").classList.toggle("hide", state.actionType !== "review");
+  const showGoogleReviewLink = state.actionType === "review" && !!state.googleReviewUrl;
+  document.getElementById("googleReviewWrap").classList.toggle("hide", !showGoogleReviewLink);
+  if (showGoogleReviewLink) {
+    document.getElementById("googleReviewLink").href = state.googleReviewUrl;
+  }
   document.getElementById("referralWrap").classList.toggle("hide", state.actionType !== "referral");
   document.getElementById("wishlistWrap").classList.toggle("hide", state.actionType !== "wishlist");
+  document.getElementById("contributionWrap").classList.toggle("hide", state.actionType !== "contribution");
   setStep(2);
 }
 
 function parseOptionalPositiveInt(raw) {
   const n = Number(raw);
   return Number.isInteger(n) && n > 0 ? n : undefined;
+}
+
+function fileMeta(file) {
+  if (!file) return null;
+  return {
+    name: file.name || "",
+    type: file.type || "",
+    size: Number(file.size || 0),
+    last_modified: Number(file.lastModified || 0),
+  };
 }
 
 async function loadReviewProductOptions(ctx) {
@@ -793,6 +858,7 @@ function resetSignedOutView() {
   state.completedActions = new Set();
   state.actionType = "checkin";
   state.recommendedAction = "checkin";
+  state.googleReviewUrl = "";
   state.status = null;
   document.getElementById("pointsValue").textContent = "—";
   document.getElementById("latestReward").textContent = "—";
@@ -808,13 +874,31 @@ function resetSignedOutView() {
 async function submitAction() {
   requireEmail();
   const mediaType = safeTrim(document.getElementById("mediaType").value);
+  const photoFile = (document.getElementById("reviewPhotoFile") || {}).files?.[0] || null;
+  const videoFile = (document.getElementById("reviewVideoFile") || {}).files?.[0] || null;
+  const mediaUrl = safeTrim(document.getElementById("reviewMediaUrl")?.value);
+  const selectedMediaType = photoFile && videoFile
+    ? "photo_video"
+    : (photoFile ? "photo" : (videoFile ? "video" : mediaType || ""));
+  const mediaNotePayload = {
+    media_url: mediaUrl || null,
+    photo: fileMeta(photoFile),
+    video: fileMeta(videoFile),
+  };
+  const mediaNote = Object.values(mediaNotePayload).some(Boolean)
+    ? JSON.stringify(mediaNotePayload)
+    : "";
 
   const payloadByType = {
     checkin: { type: "checkin" },
     review: {
       type: "review",
       text: safeTrim(document.getElementById("reviewText").value),
-      media_type: mediaType || undefined,
+      media_type: selectedMediaType || undefined,
+      media_note: mediaNote || undefined,
+      media_url: mediaUrl || undefined,
+      media_photo_url: photoFile?.name || undefined,
+      media_video_url: videoFile?.name || undefined,
       rating: parseOptionalPositiveInt(document.getElementById("reviewRating").value),
       product_id: parseOptionalPositiveInt(document.getElementById("reviewProductId").value),
     },
@@ -826,6 +910,12 @@ async function submitAction() {
       type: "wishlist",
       product_name: safeTrim(document.getElementById("productName").value),
     },
+    contribution: {
+      type: "contribution",
+      amount: Number(safeTrim(document.getElementById("contributionAmount").value))
+        || Number(safeTrim(document.getElementById("contributionPreset").value)),
+      note: safeTrim(document.getElementById("contributionNote").value),
+    },
   };
 
   if (state.actionType === "voc") {
@@ -836,6 +926,9 @@ async function submitAction() {
     if (readEmail()) voc.searchParams.set("email", readEmail());
     window.location.href = voc.pathname + voc.search;
     return;
+  }
+  if (state.actionType === "review" && state.googleReviewUrl) {
+    window.open(state.googleReviewUrl, "_blank", "noopener,noreferrer");
   }
 
   const event = payloadByType[state.actionType];
@@ -886,6 +979,10 @@ async function run() {
   };
   document.getElementById("refreshStatusBtn").onclick = () => {
     refreshStatus().catch((err) => showResult({ error: err.message }));
+  };
+  document.getElementById("contributionPreset").onchange = (event) => {
+    const amountInput = document.getElementById("contributionAmount");
+    if (!safeTrim(amountInput.value)) amountInput.value = safeTrim(event.target.value);
   };
 
   document.getElementById("successNextAction").onclick = (event) => {

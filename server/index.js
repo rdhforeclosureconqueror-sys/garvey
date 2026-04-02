@@ -334,6 +334,20 @@ function normalizeOptionalText(value, maxLength = 2000) {
   return normalized.slice(0, maxLength);
 }
 
+function mergeReviewMediaNote({ mediaNote, mediaUrl, mediaPhotoUrl, mediaVideoUrl }) {
+  const existingNote = normalizeOptionalText(mediaNote, 1800);
+  const payload = {
+    media_url: normalizeOptionalText(mediaUrl, 1000),
+    media_photo_url: normalizeOptionalText(mediaPhotoUrl, 1000),
+    media_video_url: normalizeOptionalText(mediaVideoUrl, 1000),
+  };
+  const hasPayload = !!(payload.media_url || payload.media_photo_url || payload.media_video_url);
+  if (!existingNote && !hasPayload) return null;
+  if (!hasPayload) return existingNote;
+  if (!existingNote) return JSON.stringify(payload);
+  return JSON.stringify({ note: existingNote, ...payload });
+}
+
 function normalizeContributionAmount(value, fieldName = "amount") {
   const numeric = Number(value);
   if (!Number.isFinite(numeric) || numeric <= 0) {
@@ -1745,7 +1759,21 @@ async function processActionReward({ tenant, tenantConfig, email, actionType, ci
   };
 }
 
-async function processReviewReward({ tenant, tenantConfig, email, text, mediaType, cid = null, mediaNote = null, resultId = null, productId = null, rating = null }) {
+async function processReviewReward({
+  tenant,
+  tenantConfig,
+  email,
+  text,
+  mediaType,
+  cid = null,
+  mediaNote = null,
+  mediaUrl = null,
+  mediaPhotoUrl = null,
+  mediaVideoUrl = null,
+  resultId = null,
+  productId = null,
+  rating = null,
+}) {
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
   const pointsAdded = rewardPointsEnabled(tenantConfig) ? REWARD_POINTS.review : 0;
@@ -1768,7 +1796,18 @@ async function processReviewReward({ tenant, tenantConfig, email, text, mediaTyp
     `INSERT INTO reviews (tenant_id, user_id, product_id, text, media_type, points_awarded, campaign_id, campaign_slug, media_note, rating, proof_status)
      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 'pending')
      RETURNING *`,
-    [tenant.id, user.id, normalizedProductId, text, mediaType || null, pointsAdded, campaign?.id || null, campaign?.slug || null, mediaNote || null, normalizedRating]
+    [
+      tenant.id,
+      user.id,
+      normalizedProductId,
+      text,
+      mediaType || null,
+      pointsAdded,
+      campaign?.id || null,
+      campaign?.slug || null,
+      mergeReviewMediaNote({ mediaNote, mediaUrl, mediaPhotoUrl, mediaVideoUrl }),
+      normalizedRating,
+    ]
   );
   await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "review", customerEmail: email, meta: { media_type: mediaType || null, result_id: String(resultId ?? "").trim() || null, product_id: normalizedProductId } });
   if (normalizedProductId) {
@@ -1873,7 +1912,8 @@ async function processWishlistReward({ tenant, tenantConfig, email, productName,
   };
 }
 
-async function fetchRewardsStatus({ tenant, email }) {
+async function fetchRewardsStatus({ tenant, tenantConfig, email }) {
+  const googleReviewUrl = normalizeOptionalText(tenantConfig?.site?.google_review_url, 1200);
   if (!email) {
     const totals = await pool.query(
       `SELECT COUNT(*)::int AS users, COALESCE(SUM(points),0)::int AS total_points
@@ -1885,7 +1925,8 @@ async function fetchRewardsStatus({ tenant, email }) {
       tenant: tenant.slug,
       user: null,
       totals: totals.rows[0],
-      eligible_rewards: ["checkin", "action", "review", "referral", "wishlist"],
+      google_review_url: googleReviewUrl,
+      eligible_rewards: ["checkin", "action", "review", "referral", "wishlist", "contribution"],
     };
   }
 
@@ -1907,8 +1948,9 @@ async function fetchRewardsStatus({ tenant, email }) {
     success: true,
     tenant: tenant.slug,
     user: { email: user.email, points: user.points },
+    google_review_url: googleReviewUrl,
     recent_events: recent.rows,
-    eligible_rewards: ["checkin", "action", "review", "referral", "wishlist"],
+    eligible_rewards: ["checkin", "action", "review", "referral", "wishlist", "contribution"],
   };
 }
 
@@ -2095,7 +2137,18 @@ app.post("/t/:slug/action", tenantMiddleware, async (req, res) => {
 
 app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
   try {
-    const { email, text, media_type: mediaType, media_note: mediaNote, cid, product_id: productId, rating } = req.body || {};
+    const {
+      email,
+      text,
+      media_type: mediaType,
+      media_note: mediaNote,
+      media_url: mediaUrl,
+      media_photo_url: mediaPhotoUrl,
+      media_video_url: mediaVideoUrl,
+      cid,
+      product_id: productId,
+      rating,
+    } = req.body || {};
     if (!email || !text) return res.status(400).json({ error: "email and text are required" });
 
     const payload = await processReviewReward({
@@ -2105,6 +2158,9 @@ app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
       text,
       mediaType,
       mediaNote,
+      mediaUrl,
+      mediaPhotoUrl,
+      mediaVideoUrl,
       cid,
       productId,
       rating,
@@ -2164,7 +2220,7 @@ app.get("/api/rewards/status", async (req, res) => {
     const ctx = await getTenantContextBySlug(tenantSlug);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
     const email = String(req.query.email || "").trim();
-    const payload = await fetchRewardsStatus({ tenant: ctx.tenant, email });
+    const payload = await fetchRewardsStatus({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email });
     return res.json(payload);
   } catch (err) {
     console.error(err);
@@ -2222,12 +2278,40 @@ app.post("/api/rewards/action", async (req, res) => {
 
 app.post("/api/rewards/review", async (req, res) => {
   try {
-    const { tenant, email, text, media_type: mediaType, media_note: mediaNote, cid, result_id: resultIdRaw, crid: cridRaw, product_id: productId, rating } = req.body || {};
+    const {
+      tenant,
+      email,
+      text,
+      media_type: mediaType,
+      media_note: mediaNote,
+      media_url: mediaUrl,
+      media_photo_url: mediaPhotoUrl,
+      media_video_url: mediaVideoUrl,
+      cid,
+      result_id: resultIdRaw,
+      crid: cridRaw,
+      product_id: productId,
+      rating,
+    } = req.body || {};
     const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
     if (!tenant || !email || !text) return res.status(400).json({ error: "tenant, email and text are required" });
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
-    const payload = await processReviewReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, text, mediaType, mediaNote, cid, resultId, productId, rating });
+    const payload = await processReviewReward({
+      tenant: ctx.tenant,
+      tenantConfig: ctx.tenantConfig,
+      email,
+      text,
+      mediaType,
+      mediaNote,
+      mediaUrl,
+      mediaPhotoUrl,
+      mediaVideoUrl,
+      cid,
+      resultId,
+      productId,
+      rating,
+    });
     return res.json(payload);
   } catch (err) {
     console.error(err);
@@ -2415,6 +2499,52 @@ app.post("/api/contributions/add", async (req, res) => {
     await client.query("ROLLBACK").catch(() => {});
     console.error(err);
     return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "contribution add failed" });
+  } finally {
+    client.release();
+  }
+});
+
+app.post("/api/contributions/contribute", async (req, res) => {
+  const client = await pool.connect();
+  try {
+    const { tenant, email: requestedEmail, amount: amountRaw, note, metadata } = req.body || {};
+    if (!tenant || !requestedEmail) return res.status(400).json({ error: "tenant and email are required" });
+    const actor = deriveActor(req);
+    const actorEmail = assertContributionActorEmailBinding({ actor, requestedEmail });
+    const amount = normalizeContributionAmount(amountRaw);
+    const ctx = await getTenantContextBySlug(tenant);
+    if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    assertContributionsEnabled(ctx.tenantConfig);
+    const user = await findTenantUser(ctx.tenant.id, actorEmail, client);
+    await client.query("BEGIN");
+    await client.query(
+      `INSERT INTO contribution_ledger (tenant_id, user_id, entry_type, amount, note, created_by_email, metadata)
+       VALUES ($1,$2,$3,$4,$5,$6,$7)`,
+      [
+        ctx.tenant.id,
+        user.id,
+        "contribution_add",
+        amount,
+        normalizeOptionalText(note, 500),
+        actorEmail,
+        metadata && typeof metadata === "object" ? metadata : { source: "customer_rewards_portal" },
+      ]
+    );
+    const balance = await getContributionBalance({ tenantId: ctx.tenant.id, userId: user.id, client });
+    await client.query("COMMIT");
+    return res.status(201).json({
+      success: true,
+      tenant: ctx.tenant.slug,
+      user: { id: user.id, email: user.email },
+      contribution: { amount, note: normalizeOptionalText(note, 500) },
+      contribution_balance: balance.contribution_balance,
+      total_contributions: balance.total_contributions,
+      total_support_allocations: balance.total_support_allocations,
+    });
+  } catch (err) {
+    await client.query("ROLLBACK").catch(() => {});
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "contribution submit failed" });
   } finally {
     client.release();
   }
@@ -2809,6 +2939,46 @@ app.post("/t/:slug/contributions/settings", tenantMiddleware, async (req, res) =
   } catch (err) {
     console.error(err);
     return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "contribution settings update failed" });
+  }
+});
+
+app.get("/t/:slug/review-link", tenantMiddleware, async (req, res) => {
+  try {
+    const access = requirePolicyAction(req, res, { action: ACTIONS.GARVEY_VIEW, resourceTenantSlug: req.tenant.slug });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
+    return res.json({
+      tenant: req.tenant.slug,
+      google_review_url: normalizeOptionalText(req.tenantConfig?.site?.google_review_url, 1200),
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "review link fetch failed" });
+  }
+});
+
+app.post("/t/:slug/review-link", tenantMiddleware, async (req, res) => {
+  try {
+    const access = requirePolicyAction(req, res, { action: ACTIONS.GARVEY_UPDATE, resourceTenantSlug: req.tenant.slug });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
+    const googleReviewUrl = normalizeOptionalText(req.body?.google_review_url, 1200);
+    const existingCfg = await getTenantConfig(req.tenant.id);
+    const next = {
+      ...existingCfg,
+      site: { ...(existingCfg.site || {}), google_review_url: googleReviewUrl || null },
+      features: { ...(existingCfg.features || {}) },
+    };
+    await pool.query(
+      `INSERT INTO tenant_config (tenant_id, config, updated_at)
+       VALUES ($1, $2, NOW())
+       ON CONFLICT (tenant_id) DO UPDATE SET config = EXCLUDED.config, updated_at = NOW()`,
+      [req.tenant.id, next]
+    );
+    return res.json({ tenant: req.tenant.slug, google_review_url: next.site.google_review_url });
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "review link update failed" });
   }
 });
 
