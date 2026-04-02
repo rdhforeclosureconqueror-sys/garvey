@@ -399,18 +399,20 @@
         };
       }
       function setOwnerSignedInState(session) {
-        const c = session || ownerCtx();
+        const c = session || null;
+        const fallback = ownerCtx();
         const status = document.getElementById("ownerAuthStatus");
         const out = document.getElementById("ownerSignOutBtn");
-        const signedIn = !!cleanCtxValue(c.email);
+        const signedIn = !!cleanCtxValue(c && c.email);
         status.textContent = signedIn ? `Signed in as ${c.email}` : "Not signed in";
         out.hidden = !signedIn;
         const input = document.getElementById("ownerEmailInput");
         if (input && signedIn) input.value = c.email;
+        if (input && !signedIn) input.value = "";
         const assessmentOnly = signedIn && !c.onboarding_complete;
         const lockMessage = assessmentOnly ? " (Complete assessment to unlock tools)" : "";
         document.getElementById("ownerAuthStatus").textContent += lockMessage;
-        const assessmentTenant = cleanCtxValue(c.tenant || ownerCtx().tenant);
+        const assessmentTenant = cleanCtxValue((c && c.tenant) || fallback.tenant);
         const assessmentHref = assessmentTenant
           ? `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(assessmentTenant)}&email=${encodeURIComponent(cleanCtxValue(c.email))}`
           : "#";
@@ -453,6 +455,14 @@
           setOwnerSignedInState(data);
           return data;
         }
+        if (window.GARVEY && window.GARVEY.clearCtx) window.GARVEY.clearCtx();
+        const u = new URL(window.location.href);
+        u.searchParams.delete("email");
+        u.searchParams.delete("rid");
+        u.searchParams.delete("crid");
+        u.searchParams.delete("owner_email");
+        u.searchParams.delete("owner_rid");
+        window.history.replaceState({}, "", u.pathname + u.search + u.hash);
         setOwnerSignedInState();
         return null;
       }
