@@ -426,6 +426,32 @@
         }
       }
 
+      function resetOwnerAuthForm() {
+        const business = document.getElementById("businessNameInput");
+        const email = document.getElementById("ownerEmailInput");
+        const password = document.getElementById("ownerPasswordInput");
+        if (business) business.value = "";
+        if (email) email.value = "";
+        if (password) password.value = "";
+      }
+
+      function clearOwnerIdentityFromUrl() {
+        const u = new URL(window.location.href);
+        u.searchParams.delete("email");
+        u.searchParams.delete("rid");
+        u.searchParams.delete("crid");
+        u.searchParams.delete("owner_email");
+        u.searchParams.delete("owner_rid");
+        return u;
+      }
+
+      function cleanOwnerStateInBrowser() {
+        if (window.GARVEY && window.GARVEY.clearCtx) window.GARVEY.clearCtx();
+        resetOwnerAuthForm();
+        const u = clearOwnerIdentityFromUrl();
+        window.history.replaceState({}, "", u.pathname + u.search + u.hash);
+      }
+
       async function postJson(url, payload) {
         const response = await fetch(url, {
           method: "POST",
@@ -455,14 +481,7 @@
           setOwnerSignedInState(data);
           return data;
         }
-        if (window.GARVEY && window.GARVEY.clearCtx) window.GARVEY.clearCtx();
-        const u = new URL(window.location.href);
-        u.searchParams.delete("email");
-        u.searchParams.delete("rid");
-        u.searchParams.delete("crid");
-        u.searchParams.delete("owner_email");
-        u.searchParams.delete("owner_rid");
-        window.history.replaceState({}, "", u.pathname + u.search + u.hash);
+        cleanOwnerStateInBrowser();
         setOwnerSignedInState();
         return null;
       }
@@ -476,7 +495,7 @@
           const tenant = cleanCtxValue(data.tenant);
           if (!tenant) throw new Error("Sign up succeeded but tenant context was missing. Please sign in again.");
           if (window.GARVEY && window.GARVEY.setLoginCtx) {
-            window.GARVEY.setLoginCtx({ tenant, email });
+            window.GARVEY.setLoginCtx({ tenant, email, rid: "", cid: "" });
           }
           window.location.href = data.next_route || `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}`;
         } catch (err) {
@@ -492,28 +511,24 @@
           const tenant = cleanCtxValue(data.tenant);
           if (!tenant) throw new Error("Sign in succeeded but tenant context was missing. Please retry.");
           if (window.GARVEY && window.GARVEY.setLoginCtx) {
-            window.GARVEY.setLoginCtx({ tenant, email });
+            window.GARVEY.setLoginCtx({ tenant, email, rid: "", cid: "" });
           }
           window.location.href = data.next_route || `/index.html?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}`;
         } catch (err) {
-          document.getElementById("ownerAuthStatus").textContent = err.message || "Sign in failed";
+          const rawMessage = String((err && err.message) || "").trim();
+          const statusEl = document.getElementById("ownerAuthStatus");
+          if (statusEl) {
+            statusEl.textContent = rawMessage
+              ? `${rawMessage}. Owner Sign In only accesses existing owner memberships; it does not create a new owner account.`
+              : "Sign in failed. Owner Sign In only accesses existing owner memberships; use Create Owner Account only for brand-new businesses.";
+          }
         }
       });
 
       document.getElementById("ownerSignOutBtn")?.addEventListener("click", async function () {
-        const c = ownerCtx();
         try { await postJson(ownerApiUrl("/api/owner/signout"), {}); } catch (_) {}
-        if (window.GARVEY && window.GARVEY.clearCtx) window.GARVEY.clearCtx();
-        const u = new URL(window.location.href);
-        u.searchParams.delete("email");
-        u.searchParams.delete("rid");
-        u.searchParams.delete("crid");
-        u.searchParams.delete("owner_email");
-        u.searchParams.delete("owner_rid");
-        const keep = new URLSearchParams();
-        if (trim(c.tenant)) keep.set("tenant", trim(c.tenant));
-        if (trim(c.cid)) keep.set("cid", trim(c.cid));
-        window.location.href = `/index.html${keep.toString() ? `?${keep.toString()}` : ""}`;
+        cleanOwnerStateInBrowser();
+        window.location.href = "/index.html";
       });
 
       function escapeHtml(s) {
