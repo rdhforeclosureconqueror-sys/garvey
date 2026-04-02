@@ -276,7 +276,7 @@
 
     var linkMsg = document.getElementById("campaignCreateMsg");
     if (linkMsg) linkMsg.textContent = reason ? ("Loading tenant dashboard: " + reason) : "";
-    renderCampaignLinks("", null);
+    renderCampaignLinks("", "", null);
   }
 
   function resetSessionForTenantSwitch(nextCtx, prevCtx) {
@@ -418,7 +418,7 @@
       : "Customer: No submissions yet.";
   }
 
-  function renderCampaignLinks(tenant, campaign) {
+  function renderCampaignLinks(tenant, ownerEmail, campaign) {
     var body = document.getElementById("campaignLinksBody");
     if (!body) return;
     if (!campaign) {
@@ -456,7 +456,7 @@
 
     var qr = document.getElementById("campaignQrPreview");
     if (!qr) return;
-    var qrSrc = apiUrl("/api/campaigns/qr", { tenant: tenant, cid: campaign.slug, target: "rewards", format: "png" });
+    var qrSrc = apiUrl("/api/campaigns/qr", { tenant: tenant, cid: campaign.slug, target: "rewards", format: "png", email: ownerEmail, role: "business_owner" });
     qr.src = qrSrc;
     qr.style.display = "block";
     var qrEmpty = document.getElementById("campaignQrEmpty");
@@ -668,7 +668,12 @@
 
       jsonFetch(apiUrl("/api/campaigns/create"), {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-user-email": ownerEmail,
+          "x-user-role": "business_owner"
+        },
+        credentials: "include",
         body: JSON.stringify({
           tenant: tenant,
           email: ownerEmail,
@@ -680,7 +685,7 @@
       })
         .then(function (resp) {
           if (msgEl) msgEl.textContent = "Campaign QR generated: " + resp.campaign.slug;
-          renderCampaignLinks(tenant, resp.campaign);
+          renderCampaignLinks(tenant, ownerEmail, resp.campaign);
           return jsonFetch(tenantApiUrl(tenant, "/campaigns/summary", ownerEmail, cid, rid));
         })
         .then(renderCampaignSummary)
@@ -1766,7 +1771,7 @@
           renderActionAndBehaviorMetrics(responses[4] || {});
           updateFeedFromSummary(responses[4] || {});
           if (responses[5] && responses[5].campaigns && responses[5].campaigns[0]) {
-            renderCampaignLinks(tenant, responses[5].campaigns[0]);
+            renderCampaignLinks(tenant, ownerEmail, responses[5].campaigns[0]);
             var customerCidInput = document.getElementById("ownerHubCidInput");
             if (customerCidInput && !safeTrim(customerCidInput.value)) {
               customerCidInput.value = safeTrim(responses[5].campaigns[0].slug || "");
