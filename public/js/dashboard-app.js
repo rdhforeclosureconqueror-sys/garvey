@@ -1894,6 +1894,11 @@
               customerCidInput.value = safeTrim(responses[5].campaigns[0].slug || "");
               customerCidInput.dispatchEvent(new Event("input"));
             }
+          } else {
+            var campaignMsgEl = document.getElementById("campaignCreateMsg");
+            if (campaignMsgEl) {
+              campaignMsgEl.textContent = "No campaigns found yet. Default QR provisioning may have failed; use Generate QR or retry sign-in.";
+            }
           }
           wireArchetypeLensToggle(tenant, cid, responses[6] || {});
           renderArchetypeGroups(tenant, cid, responses[6] || {});
