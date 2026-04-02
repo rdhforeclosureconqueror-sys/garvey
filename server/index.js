@@ -1280,6 +1280,7 @@ app.post("/api/campaigns/create", async (req, res) => {
 app.get("/api/campaigns/list", async (req, res) => {
   try {
     const tenantSlug = String(req.query.tenant || "").trim();
+    const actorEmail = normalizeEmail(req.query.email || req.userEmail || req.headers["x-user-email"] || "");
     if (!tenantSlug) return res.status(400).json({ error: "tenant query param is required" });
     const ctx = await getTenantContextBySlug(tenantSlug);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
@@ -1308,10 +1309,16 @@ app.get("/api/campaigns/list", async (req, res) => {
        ORDER BY c.created_at DESC`,
       [ctx.tenant.id]
     );
+    const campaignRows = Array.isArray(rows?.rows) ? rows.rows : [];
+    console.log("campaign_list_query", {
+      tenant: ctx.tenant.slug,
+      email: actorEmail || null,
+      result_length: campaignRows.length,
+    });
     return res.json({
       success: true,
       tenant: ctx.tenant.slug,
-      campaigns: rows.rows.map((row) => ({
+      campaigns: campaignRows.map((row) => ({
         ...row,
         share_links: buildCampaignShareLinks(ctx.tenant.slug, row.slug),
       })),
@@ -1710,7 +1717,13 @@ async function fetchContributionStatus({ tenant, tenantConfig, email }) {
      LIMIT 10`,
     [tenant.id, user.id]
   );
+  const supportRows = Array.isArray(recentSupport?.rows) ? recentSupport.rows : [];
   const gate = parseContributionAccessGate(tenantConfig);
+  console.log("contributions_status_query", {
+    tenant: tenant.slug,
+    email: normalizeEmail(email),
+    result_length: supportRows.length,
+  });
   return {
     success: true,
     tenant: tenant.slug,
@@ -1722,7 +1735,7 @@ async function fetchContributionStatus({ tenant, tenantConfig, email }) {
       ...gate,
       has_access: gate.enabled ? balance.contribution_balance >= gate.minimum_balance : true,
     },
-    support_history: recentSupport.rows,
+    support_history: supportRows,
   };
 }
 
@@ -1759,14 +1772,21 @@ async function fetchContributionHistory({ tenant, tenantConfig, email, limit = 5
      LIMIT $3`,
     [tenant.id, user.id, safeLimit]
   );
+  const contributionRows = Array.isArray(contributionHistory?.rows) ? contributionHistory.rows : [];
+  const supportRows = Array.isArray(supportHistory?.rows) ? supportHistory.rows : [];
   const balance = await getContributionBalance({ tenantId: tenant.id, userId: user.id });
+  console.log("contributions_history_query", {
+    tenant: tenant.slug,
+    email: normalizeEmail(email),
+    result_length: contributionRows.length + supportRows.length,
+  });
   return {
     success: true,
     tenant: tenant.slug,
     user: { id: user.id, email: user.email },
     contribution_balance: balance.contribution_balance,
-    contribution_history: contributionHistory.rows,
-    support_history: supportHistory.rows,
+    contribution_history: contributionRows,
+    support_history: supportRows,
   };
 }
 
@@ -1995,6 +2015,12 @@ app.get("/api/contributions/status", async (req, res) => {
     if (!tenantSlug) return res.status(400).json({ error: "tenant query param is required" });
     const ctx = await getTenantContextBySlug(tenantSlug);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    const access = requirePolicyAction(req, res, {
+      action: ACTIONS.CAMPAIGN_READ,
+      resourceTenantSlug: ctx.tenant.slug,
+    });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, ctx.tenant.id, access.actor))) return;
     const email = String(req.query.email || "").trim();
     const payload = await fetchContributionStatus({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email });
     return res.json(payload);
@@ -2010,6 +2036,12 @@ app.get("/api/contributions/history", async (req, res) => {
     if (!tenantSlug) return res.status(400).json({ error: "tenant query param is required" });
     const ctx = await getTenantContextBySlug(tenantSlug);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
+    const access = requirePolicyAction(req, res, {
+      action: ACTIONS.CAMPAIGN_READ,
+      resourceTenantSlug: ctx.tenant.slug,
+    });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, ctx.tenant.id, access.actor))) return;
     const email = String(req.query.email || "").trim();
     const limit = Number(req.query.limit || 50);
     const payload = await fetchContributionHistory({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, limit });
@@ -2158,18 +2190,24 @@ app.get("/t/:slug/products", tenantMiddleware, async (req, res) => {
        ORDER BY sort_order ASC, id ASC`,
       [req.tenant.id]
     );
+    const productRows = Array.isArray(result?.rows) ? result.rows : [];
     const featured = new Set(
       Array.isArray(req.tenantConfig?.site?.proof_showcase_featured_product_ids)
         ? req.tenantConfig.site.proof_showcase_featured_product_ids.map((id) => Number(id))
         : []
     );
     const rows = await Promise.all(
-      result.rows.map(async (row) => ({
+      productRows.map(async (row) => ({
         ...row,
         showcase_eligible: await hasApprovedReviewProofForProduct(req.tenant.id, row.id),
         featured_for_showcase: featured.has(Number(row.id)),
       }))
     );
+    console.log("products_query", {
+      tenant: req.tenant.slug,
+      email: normalizeEmail(access.actor?.email || ""),
+      result_length: rows.length,
+    });
     return res.json({ products: rows, proof_showcase_enabled: req.tenantConfig?.features?.proof_showcase_enabled === true });
   } catch (err) {
     console.error(err);
@@ -2491,7 +2529,13 @@ app.get("/t/:slug/reviews", tenantMiddleware, async (req, res) => {
        LIMIT $3`,
       [req.tenant.id, statusFilter, limit]
     );
-    return res.json({ reviews: rows.rows });
+    const reviewRows = Array.isArray(rows?.rows) ? rows.rows : [];
+    console.log("reviews_query", {
+      tenant: req.tenant.slug,
+      email: normalizeEmail(access.actor?.email || ""),
+      result_length: reviewRows.length,
+    });
+    return res.json({ reviews: reviewRows });
   } catch (err) {
     console.error(err);
     return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "reviews fetch failed" });
