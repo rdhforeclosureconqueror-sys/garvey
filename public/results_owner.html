@@ -44,33 +44,8 @@
 
   <script src="/js/api-contract.js"></script>
   <script>
-    const ctx = (window.GARVEY && window.GARVEY.ctx)
-      ? window.GARVEY.ctx()
-      : (function () {
-          const p = new URLSearchParams(window.location.search);
-          return {
-            tenant: String(p.get("tenant") || "").trim(),
-            email: String(p.get("email") || "").trim().toLowerCase(),
-            rid: String(p.get("rid") || "").trim(),
-            cid: String(p.get("cid") || "").trim()
-          };
-        })();
-
-    if ((ctx.tenant || ctx.email) && (!new URLSearchParams(window.location.search).get("tenant") || !new URLSearchParams(window.location.search).get("email"))) {
-      const redirectGuard = new URLSearchParams(window.location.search).get("ctx_redirected");
-      if (!redirectGuard && ctx.tenant && ctx.email) {
-        const p = new URLSearchParams(window.location.search);
-        p.set("tenant", ctx.tenant);
-        p.set("email", ctx.email);
-        if (ctx.cid && !p.get("cid")) p.set("cid", ctx.cid);
-        if (ctx.rid && !p.get("rid")) p.set("rid", ctx.rid);
-        p.set("ctx_redirected", "1");
-        window.location.replace("/results_owner.html?" + p.toString());
-      }
-    }
-
+    // Session is authoritative for owner identity; never bootstrap tenant/email from cached ctx.
     const qs = new URLSearchParams(window.location.search);
-    qs.delete("ctx_redirected");
     function normalizedCtxValue(v) {
       const normalized = String(v || "").trim();
       if (!normalized) return "";
@@ -200,13 +175,15 @@
       if (!session) {
         if (window.GARVEY && window.GARVEY.clearCtx) window.GARVEY.clearCtx();
         const params = new URLSearchParams(window.location.search);
+        params.delete("tenant");
         params.delete("email");
+        params.delete("cid");
         params.delete("rid");
         params.delete("owner_email");
         params.delete("owner_rid");
         params.delete("crid");
         window.history.replaceState({}, "", `/results_owner.html${params.toString() ? `?${params.toString()}` : ""}`);
-        document.getElementById("meta").textContent = "No active owner session. Please sign in again from the owner homepage.";
+        window.location.replace("/index.html?owner_session=required");
         return;
       }
 

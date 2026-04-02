@@ -48,6 +48,12 @@
     return safeTrim(params().get("rid"));
   }
 
+  function sameIdentity(a, b) {
+    if (!a || !b) return false;
+    return safeTrim(a.tenant) === safeTrim(b.tenant)
+      && safeTrim(a.email).toLowerCase() === safeTrim(b.email).toLowerCase();
+  }
+
   function loginCtxFromStorage() {
     try {
       var raw = localStorage.getItem(LOGIN_CTX_KEY);
@@ -1740,10 +1746,13 @@
       if (session) {
         tenant = session.tenant;
         ownerEmail = session.email;
-        if (!cid) cid = safeTrim(fromLoginCtx.cid || "");
-        if (!rid) rid = safeTrim(fromLoginCtx.rid || "");
+        var loginCtxMatchesSession = sameIdentity(fromLoginCtx, { tenant: tenant, email: ownerEmail });
+        cid = safeTrim(urlCid || (loginCtxMatchesSession ? fromLoginCtx.cid : ""));
+        rid = safeTrim(urlRid || (loginCtxMatchesSession ? fromLoginCtx.rid : ""));
       } else {
+        tenant = "";
         ownerEmail = "";
+        cid = "";
         rid = "";
         try {
           localStorage.removeItem(DASH_CTX_KEY);
@@ -1756,11 +1765,12 @@
       }
 
       var repaired = new URLSearchParams(window.location.search);
-      if (tenant || urlTenant) repaired.set("tenant", tenant || urlTenant);
+      if (tenant) repaired.set("tenant", tenant);
       else repaired.delete("tenant");
       if (ownerEmail) repaired.set("email", ownerEmail);
       else repaired.delete("email");
       if (cid) repaired.set("cid", cid);
+      else repaired.delete("cid");
       if (rid) repaired.set("rid", rid);
       else repaired.delete("rid");
       repaired.delete("owner_email");
@@ -1783,8 +1793,10 @@
 
       if (!tenant || !ownerEmail) {
         dashboardInitInFlight = false;
-        setupError("Missing tenant/email. Sign in below, or take an assessment if you're new.");
-        renderSignInPanel({ tenant: tenant || "", email: "", cid: cid || "", rid: "" });
+        setupError("No active owner session. Redirecting to the homepage sign-in.");
+        setTimeout(function () {
+          if (!pageNavigatingAway) window.location.replace("/index.html?owner_session=required");
+        }, 150);
         return Promise.resolve(null);
       }
 
