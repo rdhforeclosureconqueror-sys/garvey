@@ -75,6 +75,7 @@ try {
 }
 
 const app = express();
+app.set("trust proxy", 1);
 const PORT = Number(process.env.PORT || 3000);
 const OWNER_SESSION_COOKIE = "garvey_owner_session";
 const OWNER_SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7;
@@ -93,6 +94,12 @@ function parseAdminEmails(raw) {
 const ADMIN_EMAIL_ALLOWLIST = parseAdminEmails(
   process.env.ADMIN_EMAILS || "rdhforeclosureconqueror@gmail.com"
 );
+const allowedOrigins = new Set(
+  [
+    "https://garveyfrontend.onrender.com",
+    String(process.env.FRONTEND_ORIGIN || "").trim(),
+  ].filter(Boolean)
+);
 
 function isAdminEmail(email) {
   const normalized = String(email || "").trim().toLowerCase();
@@ -102,34 +109,28 @@ function isAdminEmail(email) {
 
 app.use(express.json({ limit: "1mb" }));
 
-const allowedOrigins = ["https://garveyfrontend.onrender.com"];
+function applyCorsHeaders(req, res) {
+  const origin = String(req.headers.origin || "").trim();
+  if (!origin) return { allowed: true };
+  if (!allowedOrigins.has(origin)) return { allowed: false };
+
+  res.header("Access-Control-Allow-Origin", origin);
+  res.header("Vary", "Origin");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  return { allowed: true };
+}
 
 app.use((req, res, next) => {
-  const origin = String(req.headers.origin || "").trim();
-  if (!origin || allowedOrigins.includes(origin)) {
-    if (origin) {
-      res.header("Access-Control-Allow-Origin", origin);
-      res.header("Vary", "Origin");
-    }
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  }
+  const cors = applyCorsHeaders(req, res);
+  if (!cors.allowed) return res.status(403).json({ error: "Not allowed by CORS" });
   return next();
 });
 app.options("*", (req, res) => {
-  const origin = String(req.headers.origin || "").trim();
-  if (!origin || allowedOrigins.includes(origin)) {
-    if (origin) {
-      res.header("Access-Control-Allow-Origin", origin);
-      res.header("Vary", "Origin");
-    }
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    return res.sendStatus(204);
-  }
-  return res.status(403).json({ error: "Not allowed by CORS" });
+  const cors = applyCorsHeaders(req, res);
+  if (!cors.allowed) return res.status(403).json({ error: "Not allowed by CORS" });
+  return res.sendStatus(204);
 });
 app.use((req, res, next) => {
   const queryEmail = req.query && req.query.email;
@@ -163,7 +164,7 @@ app.use(async (req, res, next) => {
     if (!session) return next();
     if (new Date(session.expires_at).getTime() <= Date.now()) {
       await pool.query("DELETE FROM auth_sessions WHERE token_hash = $1", [tokenHash]).catch(() => {});
-      res.setHeader("Set-Cookie", `${OWNER_SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`);
+      res.setHeader("Set-Cookie", buildOwnerSessionCookie(req, "", 0));
       return next();
     }
 
@@ -505,6 +506,15 @@ function verifyPasswordHash(password, encodedHash) {
 
 function createSessionToken() {
   return crypto.randomBytes(32).toString("hex");
+}
+
+function buildOwnerSessionCookie(req, token, maxAgeSeconds) {
+  const forwardedProto = String(req.headers["x-forwarded-proto"] || "").trim().toLowerCase();
+  const isSecure = req.secure || forwardedProto === "https" || process.env.NODE_ENV === "production";
+  const sameSite = isSecure ? "None" : "Lax";
+  const secureAttr = isSecure ? "; Secure" : "";
+  const safeMaxAge = Math.max(0, Number(maxAgeSeconds) || 0);
+  return `${OWNER_SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=${sameSite}${secureAttr}; Max-Age=${safeMaxAge}`;
 }
 
 function sha256(value) {
@@ -916,12 +926,7 @@ app.post("/api/owner/signup", async (req, res) => {
     );
 
     await client.query("COMMIT");
-    res.setHeader(
-      "Set-Cookie",
-      `${OWNER_SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${Math.floor(
-        OWNER_SESSION_TTL_MS / 1000
-      )}`
-    );
+    res.setHeader("Set-Cookie", buildOwnerSessionCookie(req, token, Math.floor(OWNER_SESSION_TTL_MS / 1000)));
     return res.status(201).json({
       success: true,
       tenant: tenant.slug,
@@ -952,12 +957,13 @@ app.post("/api/owner/signin", async (req, res) => {
        JOIN tenants t ON t.id = m.tenant_id
        WHERE LOWER(COALESCE(u.email, '')) = $1
          AND m.role = $2
-       ORDER BY u.created_at DESC
-       LIMIT 1`,
+       ORDER BY u.created_at DESC`,
       [email, ROLES.BUSINESS_OWNER]
     );
-    const account = found.rows[0];
-    if (!account || !account.password_hash || !verifyPasswordHash(password, account.password_hash)) {
+    const account = found.rows.find(
+      (row) => row.password_hash && verifyPasswordHash(password, row.password_hash)
+    );
+    if (!account) {
       return res.status(401).json({ error: "invalid credentials" });
     }
 
@@ -968,12 +974,7 @@ app.post("/api/owner/signin", async (req, res) => {
       [account.user_id, account.tenant_id, account.role, sha256(token), String(OWNER_SESSION_TTL_MS)]
     );
 
-    res.setHeader(
-      "Set-Cookie",
-      `${OWNER_SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${Math.floor(
-        OWNER_SESSION_TTL_MS / 1000
-      )}`
-    );
+    res.setHeader("Set-Cookie", buildOwnerSessionCookie(req, token, Math.floor(OWNER_SESSION_TTL_MS / 1000)));
     const nextRoute = account.onboarding_complete
       ? `/dashboard.html?tenant=${encodeURIComponent(account.tenant_slug)}&email=${encodeURIComponent(account.email)}`
       : `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(account.tenant_slug)}&email=${encodeURIComponent(account.email)}`;
@@ -997,7 +998,7 @@ app.post("/api/owner/signout", async (req, res) => {
     if (token) {
       await pool.query("DELETE FROM auth_sessions WHERE token_hash = $1", [sha256(token)]);
     }
-    res.setHeader("Set-Cookie", `${OWNER_SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`);
+    res.setHeader("Set-Cookie", buildOwnerSessionCookie(req, "", 0));
     return res.json({ success: true });
   } catch (err) {
     console.error("owner_signout_failed", err);
