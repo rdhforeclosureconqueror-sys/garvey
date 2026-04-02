@@ -96,7 +96,13 @@
 
     async function requestJson(path, init) {
       if (!fetchImpl) throw new Error("fetch is not available");
-      const res = await fetchImpl(buildUrl(path), init);
+      const mergedInit = Object.assign({}, init || {});
+      const headers = Object.assign({}, mergedInit.headers || {});
+      if (state.ctx.email) headers["x-user-email"] = state.ctx.email;
+      if (state.ctx.tenant) headers["x-tenant-slug"] = state.ctx.tenant;
+      headers["x-user-role"] = "customer";
+      mergedInit.headers = headers;
+      const res = await fetchImpl(buildUrl(path), mergedInit);
       const body = await res.json().catch(() => ({}));
       if (!res.ok) {
         throw new Error(body.error || body.message || `Request failed (${res.status})`);

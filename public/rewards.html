@@ -892,7 +892,13 @@ async function run() {
     const next = event.currentTarget?.dataset?.next || "checkin";
     state.actionType = next;
     updateActionUI();
-    document.getElementById("submitAction").scrollIntoView({ behavior: "smooth", block: "center" });
+    if (next === "voc") {
+      submitAction().catch((err) => showResult({ error: err.message }));
+      return;
+    }
+    const submitBtn = document.getElementById("submitAction");
+    submitBtn.scrollIntoView({ behavior: "smooth", block: "center" });
+    submitBtn.focus({ preventScroll: true });
   };
 
   document.getElementById("customerSignInBtn").onclick = () => {
