@@ -16,6 +16,10 @@
     return path + (qs ? "?" + qs : "");
   }
 
+  function ownerApiUrl(path, query) {
+    return apiUrl(path, query);
+  }
+
   function params() {
     return new URLSearchParams(window.location.search);
   }
@@ -97,18 +101,46 @@
   }
 
   function clearSessionAndRedirect() {
+    pageNavigatingAway = true;
+    clearRefreshTimer();
     try {
       localStorage.removeItem(DASH_CTX_KEY);
       localStorage.removeItem(LOGIN_CTX_KEY);
       localStorage.removeItem(ENGINE_CTX_KEY);
+      sessionStorage.removeItem(DASH_CTX_KEY);
+      sessionStorage.removeItem(LOGIN_CTX_KEY);
+      sessionStorage.removeItem(ENGINE_CTX_KEY);
       Object.keys(localStorage).forEach(function (key) {
         if (key.indexOf("garvey_owner_rid:") === 0) localStorage.removeItem(key);
       });
     } catch (_) {}
-    showSessionToast("Session cleared");
-    setTimeout(function () {
-      window.location.href = "/index.html";
-    }, 250);
+    fetch(ownerApiUrl("/api/owner/signout"), {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: "{}",
+      keepalive: true
+    }).catch(function () {}).finally(function () {
+      showSessionToast("Session cleared");
+      setTimeout(function () {
+        window.location.href = "/index.html";
+      }, 250);
+    });
+  }
+
+  function resolveOwnerSession() {
+    return fetch(ownerApiUrl("/api/owner/session"), { credentials: "include" })
+      .then(function (res) {
+        return res.json().catch(function () { return { authenticated: false }; });
+      })
+      .then(function (data) {
+        if (!data || !data.authenticated) return null;
+        var tenant = safeTrim(data.tenant);
+        var email = safeTrim(data.email).toLowerCase();
+        if (!tenant || !email) return null;
+        return { tenant: tenant, email: email };
+      })
+      .catch(function () { return null; });
   }
 
   function parseAdminEmailAllowlist() {
@@ -1692,27 +1724,10 @@
     var urlEmail = ownerEmailFromUrl();
     var urlCid = cidFromUrl();
     var urlRid = ridFromUrl();
-    var hasIdentityInUrl = !!(urlTenant || urlEmail);
-
     var tenant = urlTenant;
     var ownerEmail = urlEmail;
     var cid = urlCid;
     var rid = urlRid;
-    var isAdmin = isAdminEmail(ownerEmail);
-    var switchedTenant = resetSessionForTenantSwitch(
-      { tenant: tenant, email: ownerEmail, cid: cid, rid: rid },
-      fromLoginCtx
-    );
-    resetDashboardUi(switchedTenant ? "switch detected" : "");
-
-    if (tenant || ownerEmail || cid || rid) {
-      saveLoginCtx({ tenant: tenant, email: ownerEmail, cid: cid, rid: rid });
-    }
-
-    var label = document.getElementById("tenantLabel");
-    if (label) {
-      label.textContent = "Tenant: " + (tenant || "-") + " • Email: " + (ownerEmail || "-") + " • Admin: " + (isAdmin ? "true" : "false");
-    }
     var clearSessionBtn = document.getElementById("clearSessionBtn");
     if (clearSessionBtn) {
       clearSessionBtn.addEventListener("click", function (event) {
@@ -1721,14 +1736,59 @@
       });
     }
 
-    if (!tenant || !ownerEmail) {
-      dashboardInitInFlight = false;
-      setupError("Missing tenant/email. Sign in below, or take an assessment if you're new.");
-      renderSignInPanel({ tenant: "", email: "", cid: "", rid: "" });
-      return;
-    }
+    resolveOwnerSession().then(function (session) {
+      if (session) {
+        tenant = session.tenant;
+        ownerEmail = session.email;
+        if (!cid) cid = safeTrim(fromLoginCtx.cid || "");
+        if (!rid) rid = safeTrim(fromLoginCtx.rid || "");
+      } else {
+        ownerEmail = "";
+        rid = "";
+        try {
+          localStorage.removeItem(DASH_CTX_KEY);
+          localStorage.removeItem(LOGIN_CTX_KEY);
+          localStorage.removeItem(ENGINE_CTX_KEY);
+          sessionStorage.removeItem(DASH_CTX_KEY);
+          sessionStorage.removeItem(LOGIN_CTX_KEY);
+          sessionStorage.removeItem(ENGINE_CTX_KEY);
+        } catch (_) {}
+      }
 
-    resolveOwnerRid(tenant, ownerEmail, rid).then(function (resolvedRid) {
+      var repaired = new URLSearchParams(window.location.search);
+      if (tenant || urlTenant) repaired.set("tenant", tenant || urlTenant);
+      else repaired.delete("tenant");
+      if (ownerEmail) repaired.set("email", ownerEmail);
+      else repaired.delete("email");
+      if (cid) repaired.set("cid", cid);
+      if (rid) repaired.set("rid", rid);
+      else repaired.delete("rid");
+      repaired.delete("owner_email");
+      repaired.delete("owner_rid");
+      repaired.delete("crid");
+      history.replaceState(null, "", "/dashboard.html?" + repaired.toString());
+
+      var isAdmin = isAdminEmail(ownerEmail);
+      var switchedTenant = resetSessionForTenantSwitch(
+        { tenant: tenant, email: ownerEmail, cid: cid, rid: rid },
+        fromLoginCtx
+      );
+      resetDashboardUi(switchedTenant ? "switch detected" : "");
+      if (tenant && ownerEmail) saveLoginCtx({ tenant: tenant, email: ownerEmail, cid: cid, rid: rid });
+
+      var label = document.getElementById("tenantLabel");
+      if (label) {
+        label.textContent = "Tenant: " + (tenant || "-") + " • Email: " + (ownerEmail || "-") + " • Admin: " + (isAdmin ? "true" : "false");
+      }
+
+      if (!tenant || !ownerEmail) {
+        dashboardInitInFlight = false;
+        setupError("Missing tenant/email. Sign in below, or take an assessment if you're new.");
+        renderSignInPanel({ tenant: tenant || "", email: "", cid: cid || "", rid: "" });
+        return Promise.resolve(null);
+      }
+
+      return resolveOwnerRid(tenant, ownerEmail, rid).then(function (resolvedRid) {
       rid = safeTrim(resolvedRid || rid);
       if (rid) {
         setRidInStorage(tenant, ownerEmail, rid);
@@ -1810,6 +1870,7 @@
           dashboardInitialized = true;
           dashboardInitInFlight = false;
         });
+      });
     }).catch(function (err) {
       dashboardInitInFlight = false;
       setupError(err.message);

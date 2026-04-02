@@ -196,20 +196,27 @@
 
 
     async function load() {
-      let resolvedTenant = tenant;
-      let resolvedEmail = email;
-      if (!resolvedTenant || !resolvedEmail) {
-        const session = await resolveOwnerSession().catch(() => null);
-        if (session) {
-          resolvedTenant = session.tenant;
-          resolvedEmail = session.email;
-          const params = new URLSearchParams(window.location.search);
-          params.set("tenant", resolvedTenant);
-          params.set("email", resolvedEmail);
-          window.location.replace(`/results_owner.html?${params.toString()}`);
-          return;
-        }
-        document.getElementById("meta").textContent = "Missing tenant/email query params. Please sign in again from the owner homepage.";
+      const session = await resolveOwnerSession().catch(() => null);
+      if (!session) {
+        if (window.GARVEY && window.GARVEY.clearCtx) window.GARVEY.clearCtx();
+        const params = new URLSearchParams(window.location.search);
+        params.delete("email");
+        params.delete("rid");
+        params.delete("owner_email");
+        params.delete("owner_rid");
+        params.delete("crid");
+        window.history.replaceState({}, "", `/results_owner.html${params.toString() ? `?${params.toString()}` : ""}`);
+        document.getElementById("meta").textContent = "No active owner session. Please sign in again from the owner homepage.";
+        return;
+      }
+
+      let resolvedTenant = session.tenant;
+      let resolvedEmail = session.email;
+      if (tenant !== resolvedTenant || email !== resolvedEmail) {
+        const params = new URLSearchParams(window.location.search);
+        params.set("tenant", resolvedTenant);
+        params.set("email", resolvedEmail);
+        window.location.replace(`/results_owner.html?${params.toString()}`);
         return;
       }
 
