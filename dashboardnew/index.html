@@ -76,6 +76,8 @@
     .panel-body h4 { margin-top:0; color: var(--text); }
     .table { color: var(--text); }
     .table-striped>tbody>tr:nth-of-type(odd) { background-color: #131313; }
+    .table-hover>tbody>tr.customer-row-clickable:hover { cursor: pointer; background-color: #1e1e1e; }
+    .profile-link-hint { color: var(--gold); font-size: 12px; margin-left: 6px; }
     .table-bordered>thead>tr>th, .table-bordered>tbody>tr>td { border-color: #2A2A2A !important; }
     .form-control { background: #101010; border-color: #2A2A2A; color: var(--text); }
     .btn-primary { background: var(--primary); border-color: var(--primary); }
@@ -176,8 +178,9 @@
                   <option value="eq0">Points = 0</option>
                 </select>
               </div>
+              <div class="empty-state" style="padding-top:0;">Click any customer row or <b>View Profile</b> to open that customer's profile.</div>
               <table width="100%" class="table table-striped table-bordered table-hover" id="customersTable">
-                <thead><tr><th>Customer (email/id)</th><th>Archetype</th><th>Visits</th><th>Points</th><th>Last Activity</th><th>Status</th></tr></thead>
+                <thead><tr><th>Customer (email/id)</th><th>Archetype</th><th>Visits</th><th>Points</th><th>Last Activity</th><th>Status</th><th>Profile</th></tr></thead>
                 <tbody></tbody>
               </table>
               <div id="tableEmpty" class="empty-state" style="display:none;">No customers yet.</div>
@@ -450,7 +453,7 @@
           <div class="panel panel-default">
             <div class="panel-heading"><i class="fa fa-id-card-o fa-fw"></i> Customer Assessment Profile</div>
             <div class="panel-body">
-              <div id="customerProfileBody" class="empty-state">Click a customer row to load profile details.</div>
+              <div id="customerProfileBody" class="empty-state">Click a customer row or View Profile to load details.</div>
             </div>
           </div>
         </div>
