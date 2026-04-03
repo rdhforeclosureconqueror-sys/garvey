@@ -2944,7 +2944,7 @@ app.post("/t/:slug/contributions/settings", tenantMiddleware, async (req, res) =
 
 app.get("/t/:slug/review-link", tenantMiddleware, async (req, res) => {
   try {
-    const access = requirePolicyAction(req, res, { action: ACTIONS.GARVEY_VIEW, resourceTenantSlug: req.tenant.slug });
+    const access = requirePolicyAction(req, res, { action: ACTIONS.GARVEY_READ, resourceTenantSlug: req.tenant.slug });
     if (!access.ok) return;
     if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
     return res.json({
@@ -3633,10 +3633,11 @@ app.get("/t/:slug/customers/:userId/profile", tenantMiddleware, async (req, res)
   }
 
   async function safeActivityMetric(poolRef, { tenantId, userId, table, mode }) {
+    const userColumn = table === "referrals" ? "referrer_user_id" : "user_id";
     const metric = String(mode || "count").toLowerCase() === "max" ? "max" : "count";
     const query = metric === "max"
-      ? `SELECT MAX(created_at) AS value FROM ${table} WHERE tenant_id = $1 AND user_id = $2`
-      : `SELECT COUNT(*)::int AS value FROM ${table} WHERE tenant_id = $1 AND user_id = $2`;
+      ? `SELECT MAX(created_at) AS value FROM ${table} WHERE tenant_id = $1 AND ${userColumn} = $2`
+      : `SELECT COUNT(*)::int AS value FROM ${table} WHERE tenant_id = $1 AND ${userColumn} = $2`;
     try {
       const result = await poolRef.query(query, [tenantId, userId]);
       return result.rows[0]?.value ?? (metric === "max" ? null : 0);
