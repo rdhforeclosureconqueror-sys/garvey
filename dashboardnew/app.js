@@ -9,6 +9,7 @@
   var dashboardInitialized = false;
   var dashboardRefreshInFlight = false;
   var pageNavigatingAway = false;
+  var customerProfileCtx = { tenant: "", ownerEmail: "", cid: "", rid: "" };
 
   function apiUrl(path, query) {
     if (typeof api.buildUrl === "function") return api.buildUrl(path, query || {});
@@ -365,10 +366,12 @@
     tbody.empty();
 
     rows.forEach(function (row) {
+      var customerLabel = row.email || ("id:" + row.user_id);
       tbody.append(
-        "<tr><td>" + (row.email || ("id:" + row.user_id)) +
+        "<tr class='customer-row' data-user-id='" + escapeHtml(row.user_id) + "' data-email='" + escapeHtml(row.email || "") + "'><td><button class='btn btn-link btn-xs customer-profile-btn' data-user-id='" + escapeHtml(row.user_id) + "' style='padding:0;'>" + escapeHtml(customerLabel) + "</button>" +
         "</td><td>" + (row.archetype || "unclassified") +
         "</td><td>" + (row.visits || 0) +
+        "</td><td>" + (Number(row.points || 0)) +
         "</td><td>" + fmtDate(row.last_activity) +
         "</td><td>" + statusPill(row.status || "dormant") +
         "</td></tr>"
@@ -1652,6 +1655,177 @@
     });
   }
 
+  var allCustomersCache = [];
+
+  function uniqueArchetypes(rows) {
+    var set = {};
+    (rows || []).forEach(function (row) {
+      var key = safeTrim(row.archetype || "").toLowerCase();
+      if (!key) return;
+      set[key] = row.archetype;
+    });
+    return Object.keys(set).sort().map(function (k) { return set[k]; });
+  }
+
+  function hydrateCustomerFilters(rows) {
+    var archetypeSelect = document.getElementById("customerArchetypeFilter");
+    if (!archetypeSelect) return;
+    var opts = ['<option value="">All archetypes</option>'].concat(
+      uniqueArchetypes(rows).map(function (a) { return '<option value="' + escapeHtml(a) + '">' + escapeHtml(a) + "</option>"; })
+    );
+    archetypeSelect.innerHTML = opts.join("");
+  }
+
+  function getFilteredCustomers() {
+    var archetype = safeTrim((document.getElementById("customerArchetypeFilter") || {}).value).toLowerCase();
+    var assessment = safeTrim((document.getElementById("customerAssessmentFilter") || {}).value).toLowerCase();
+    var status = safeTrim((document.getElementById("customerStatusFilter") || {}).value).toLowerCase();
+    var points = safeTrim((document.getElementById("customerPointsFilter") || {}).value).toLowerCase();
+
+    return (allCustomersCache || []).filter(function (row) {
+      if (archetype && String(row.archetype || "").toLowerCase() !== archetype) return false;
+      if (assessment === "yes" && !row.assessment_completed) return false;
+      if (assessment === "no" && row.assessment_completed) return false;
+      if (status && String(row.status || "").toLowerCase() !== status) return false;
+      if (points === "gt0" && Number(row.points || 0) <= 0) return false;
+      if (points === "eq0" && Number(row.points || 0) !== 0) return false;
+      return true;
+    });
+  }
+
+  function wireCustomerFilters() {
+    ["customerArchetypeFilter", "customerAssessmentFilter", "customerStatusFilter", "customerPointsFilter"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener("change", function () {
+        renderTable(getFilteredCustomers());
+        wireCustomerRowClicks(customerProfileCtx.tenant, customerProfileCtx.ownerEmail, customerProfileCtx.cid, customerProfileCtx.rid);
+      });
+    });
+  }
+
+  function formatCountBars(label, counts) {
+    var map = counts && typeof counts === "object" ? counts : {};
+    var rows = Object.keys(map).sort(function (a, b) { return Number(map[b] || 0) - Number(map[a] || 0); });
+    if (!rows.length) return "<div><b>" + escapeHtml(label) + ":</b> no scoring data</div>";
+    return "<div><b>" + escapeHtml(label) + ":</b><ul>" + rows.map(function (k) {
+      return "<li>" + escapeHtml(k) + ": " + Number(map[k] || 0) + "%</li>";
+    }).join("") + "</ul></div>";
+  }
+
+  function renderCustomerProfile(payload) {
+    var wrap = document.getElementById("customerProfileDetail");
+    var body = document.getElementById("customerProfileBody");
+    if (!wrap || !body) return;
+    wrap.style.display = "block";
+    var customer = payload.customer || {};
+    var assessment = payload.assessment || null;
+    var activity = payload.activity_summary || {};
+    var recommended = payload.recommended_marketing_angle || "-";
+
+    body.innerHTML = ""
+      + "<div><b>Customer:</b> " + escapeHtml(customer.email || ("ID #" + (customer.id || "-"))) + "</div>"
+      + "<div><b>Customer ID:</b> " + escapeHtml(customer.id || "-") + "</div>"
+      + "<div><b>Points:</b> " + Number(customer.points || 0) + "</div>"
+      + "<div><b>Latest assessment date:</b> " + (assessment ? fmtDate(assessment.created_at) : "-") + "</div>"
+      + "<div><b>Latest archetype:</b> " + escapeHtml((assessment && (assessment.buyer && assessment.buyer.primary || assessment.primary_archetype)) || "unclassified") + "</div>"
+      + (assessment ? formatCountBars("Overall distribution", assessment.archetype_counts) : "<div><b>Overall distribution:</b> unavailable</div>")
+      + (assessment ? formatCountBars("Personal distribution", assessment.personal && assessment.personal.counts) : "")
+      + (assessment ? formatCountBars("Buyer distribution", assessment.buyer && assessment.buyer.counts) : "")
+      + "<div><b>Activity summary:</b> Visits " + Number(activity.visits || 0) + ", Actions " + Number(activity.actions || 0) + ", Reviews " + Number(activity.reviews || 0) + ", Referrals " + Number(activity.referrals || 0) + "</div>"
+      + "<div><b>Recommended marketing angle:</b> " + escapeHtml(recommended) + "</div>"
+      + (assessment && assessment.buyer && Array.isArray(assessment.buyer.marketing_angle) && assessment.buyer.marketing_angle.length
+        ? "<div><b>How to talk to them:</b><ul>" + assessment.buyer.marketing_angle.map(function (x) { return "<li>" + escapeHtml(x) + "</li>"; }).join("") + "</ul></div>"
+        : "");
+    wrap.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function wireCustomerRowClicks(tenant, ownerEmail, cid, rid) {
+    Array.prototype.forEach.call(document.querySelectorAll(".customer-profile-btn"), function (btn) {
+      btn.addEventListener("click", function () {
+        var userId = safeTrim(btn.getAttribute("data-user-id"));
+        if (!userId) return;
+        var body = document.getElementById("customerProfileBody");
+        var wrap = document.getElementById("customerProfileDetail");
+        if (wrap) wrap.style.display = "block";
+        if (body) body.textContent = "Loading customer profile...";
+        jsonFetch(tenantApiUrl(tenant, "/customers/" + encodeURIComponent(userId) + "/profile", ownerEmail, cid, rid))
+          .then(renderCustomerProfile)
+          .catch(function (err) {
+            if (body) body.innerHTML = '<span class="text-danger">' + escapeHtml(err.message) + "</span>";
+          });
+      });
+    });
+  }
+
+  function renderOwnerMessages(messages) {
+    var tbody = document.querySelector("#ownerMessagesTable tbody");
+    var empty = document.getElementById("ownerMessagesEmpty");
+    if (!tbody || !empty) return;
+    var rows = Array.isArray(messages) ? messages : [];
+    tbody.innerHTML = rows.map(function (m) {
+      var target = m.target_type === "single"
+        ? (m.target_email || "-")
+        : ((m.target_lens || "-") + ":" + (m.target_archetype || "-"));
+      return "<tr><td>" + fmtDate(m.created_at) + "</td><td>" + escapeHtml(target) + "</td><td>" + escapeHtml(m.subject || "-") + "</td><td>" + escapeHtml(m.body || "-") + "</td></tr>";
+    }).join("");
+    empty.style.display = rows.length ? "none" : "block";
+  }
+
+  function wireOwnerMessaging(tenant, ownerEmail, cid, rid) {
+    var targetType = document.getElementById("messageTargetType");
+    var targetEmail = document.getElementById("messageTargetEmail");
+    var targetLens = document.getElementById("messageTargetLens");
+    var targetArchetype = document.getElementById("messageTargetArchetype");
+    var subject = document.getElementById("messageSubject");
+    var body = document.getElementById("messageBody");
+    var sendBtn = document.getElementById("sendMessageBtn");
+    var status = document.getElementById("ownerMessageStatus");
+    if (!targetType || !targetEmail || !targetLens || !targetArchetype || !subject || !body || !sendBtn) return;
+
+    function toggleTargetInputs() {
+      var isGroup = safeTrim(targetType.value) === "group";
+      targetEmail.style.display = isGroup ? "none" : "";
+      targetLens.style.display = isGroup ? "" : "none";
+      targetArchetype.style.display = isGroup ? "" : "none";
+    }
+    targetType.addEventListener("change", toggleTargetInputs);
+    toggleTargetInputs();
+
+    function refreshMessages() {
+      return jsonFetch(tenantApiUrl(tenant, "/messages", ownerEmail, cid, rid)).then(function (resp) {
+        renderOwnerMessages(resp.messages || []);
+      });
+    }
+
+    sendBtn.addEventListener("click", function () {
+      var payload = {
+        target_type: safeTrim(targetType.value) || "single",
+        target_email: safeTrim(targetEmail.value).toLowerCase() || undefined,
+        target_lens: safeTrim(targetLens.value).toLowerCase() || undefined,
+        target_archetype: safeTrim(targetArchetype.value).toLowerCase() || undefined,
+        subject: safeTrim(subject.value),
+        body: safeTrim(body.value),
+      };
+      if (status) status.textContent = "Sending message...";
+      jsonFetch(tenantApiUrl(tenant, "/messages", ownerEmail, cid, rid), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(payload)
+      }).then(function () {
+        if (status) status.textContent = "Message sent.";
+        subject.value = "";
+        body.value = "";
+        return refreshMessages();
+      }).catch(function (err) {
+        if (status) status.textContent = err.message;
+      });
+    });
+
+    refreshMessages().catch(function () {});
+  }
+
   var archetypeLens = "personal";
 
   function playbookList(title, items) {
@@ -1824,8 +1998,10 @@
         replaceUrlRidIfMissing(tenant, ownerEmail, rid, cid);
       }
       saveLoginCtx({ tenant: tenant, email: ownerEmail, cid: cid, rid: rid });
+      customerProfileCtx = { tenant: tenant, ownerEmail: ownerEmail, cid: cid, rid: rid };
       wirePathButtons(tenant, ownerEmail, cid, rid);
       wireCustomerLookup(tenant);
+      wireCustomerFilters();
       wireCampaignCreator(tenant, ownerEmail, cid, rid);
       wireProductCreator(tenant, ownerEmail, cid, rid);
       wireReviewModeration(tenant, ownerEmail, cid, rid);
@@ -1850,7 +2026,10 @@
         .then(function (responses) {
           if (!responses || pageNavigatingAway) return;
           renderMetrics(responses[0]);
-          renderTable((responses[1] && responses[1].customers) || []);
+          allCustomersCache = (responses[1] && responses[1].customers) || [];
+          hydrateCustomerFilters(allCustomersCache);
+          renderTable(getFilteredCustomers());
+          wireCustomerRowClicks(tenant, ownerEmail, cid, rid);
           renderBar(responses[2] || {});
           renderArea(responses[2] || {});
           renderDonut(responses[2] || {});
@@ -1874,6 +2053,7 @@
           if (showcaseEnabledInput) showcaseEnabledInput.checked = !!(responses[7] && responses[7].proof_showcase_enabled);
           renderReviewModerationRows(tenant, ownerEmail, cid, rid, (responses[8] && responses[8].reviews) || []);
           wireShowcaseControls(tenant, ownerEmail, cid, rid);
+          wireOwnerMessaging(tenant, ownerEmail, cid, rid);
 
           clearRefreshTimer();
           window.__garveyDashboardRefreshTimer = setInterval(function () {

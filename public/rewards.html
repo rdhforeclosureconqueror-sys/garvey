@@ -376,6 +376,17 @@
     background: rgba(17, 31, 62, 0.85);
   }
 
+  .inbox-item {
+    border: 1px solid var(--border);
+    background: rgba(8, 15, 31, 0.82);
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .inbox-item h4 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+  }
+
   .hide { display: none !important; }
   pre {
     margin: 0;
@@ -595,6 +606,12 @@
         <a id="openAssessment" class="link-btn" href="#">Open Voice of the Customer</a>
       </div>
     </section>
+
+    <section class="panel stack">
+      <h2>Messages from this business</h2>
+      <div id="customerInboxStatus" class="muted">Sign in with your email to load your inbox.</div>
+      <div id="customerInboxList" class="stack"></div>
+    </section>
   </main>
 
 <script src="/js/api-contract.js"></script>
@@ -614,6 +631,9 @@ const ACTIONS_PER_CYCLE = 6;
 const REWARD_MILESTONES = [50, 100, 150, 250, 500];
 
 function safeTrim(v) { return String(v ?? "").trim(); }
+function escapeHtml(v) {
+  return String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[c]));
+}
 function readEmail() { return safeTrim(document.getElementById("email")?.value).toLowerCase(); }
 function setAuthStatus(msg) { document.getElementById("customerAuthStatus").textContent = msg; }
 function setStep(stepNum) {
@@ -865,10 +885,51 @@ function resetSignedOutView() {
   document.getElementById("streakValue").textContent = "—";
   document.getElementById("pointsIdentity").textContent = "Sign in to load your points";
   document.getElementById("resultMessage").textContent = "Signed out. Sign in to continue.";
+  document.getElementById("customerInboxStatus").textContent = "Sign in with your email to load your inbox.";
+  document.getElementById("customerInboxList").innerHTML = "";
   document.getElementById("successLoop").classList.add("hide");
   setAuthStatus("Signed out. No customer session is active.");
   updateActionUI();
   setStep(1);
+}
+
+async function loadOwnerInbox() {
+  const ctx = currentCtx();
+  const email = readEmail();
+  const status = document.getElementById("customerInboxStatus");
+  const list = document.getElementById("customerInboxList");
+  if (!ctx.tenant || !email) {
+    if (status) status.textContent = "Sign in with your email to load your inbox.";
+    if (list) list.innerHTML = "";
+    return;
+  }
+  if (status) status.textContent = "Loading inbox...";
+  const inboxUrl = window.GarveyApi?.buildUrl
+    ? window.GarveyApi.buildUrl(`/t/${encodeURIComponent(ctx.tenant)}/messages/inbox`, { email })
+    : `/t/${encodeURIComponent(ctx.tenant)}/messages/inbox?email=${encodeURIComponent(email)}`;
+  try {
+    const resp = await fetch(inboxUrl);
+    const payload = await resp.json().catch(() => ({}));
+    if (!resp.ok) throw new Error(payload.error || "Inbox unavailable");
+    const messages = Array.isArray(payload.messages) ? payload.messages : [];
+    if (!messages.length) {
+      if (status) status.textContent = "No business messages yet.";
+      if (list) list.innerHTML = "";
+      return;
+    }
+    if (status) status.textContent = `${messages.length} message(s)`;
+    if (list) {
+      list.innerHTML = messages.map((m) => `
+        <article class="inbox-item">
+          <h4>${escapeHtml(m.subject || "Business update")}</h4>
+          <div class="muted">${escapeHtml(m.sender_email || "business")} • ${new Date(m.created_at).toISOString().slice(0, 10)}</div>
+          <p>${escapeHtml(m.body || "")}</p>
+        </article>
+      `).join("");
+    }
+  } catch (err) {
+    if (status) status.textContent = err.message || "Inbox unavailable.";
+  }
 }
 
 async function submitAction() {
@@ -1008,6 +1069,7 @@ async function run() {
       setAuthStatus(`Signed in as ${email}`);
       engine.init({ tenant: ctxNow.tenant, cid: ctxNow.cid, rid: ctxNow.rid, email });
       refreshStatus().catch((err) => showResult({ error: err.message }));
+      loadOwnerInbox().catch(() => null);
     } catch (err) {
       showResult({ error: err.message });
     }
@@ -1030,6 +1092,7 @@ async function run() {
   setStep(1);
   if (ctx.email) {
     await refreshStatus();
+    await loadOwnerInbox();
   } else {
     resetSignedOutView();
   }
