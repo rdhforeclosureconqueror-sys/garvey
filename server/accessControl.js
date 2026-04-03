@@ -36,6 +36,7 @@ const POLICY_BY_ROLE = Object.freeze({
       ACTIONS.GARVEY_READ,
       ACTIONS.GARVEY_UPDATE,
       ACTIONS.RESULTS_READ_OWNER,
+      ACTIONS.RESULTS_READ_CUSTOMER,
     ],
     resource_scope: "tenant_only",
   },

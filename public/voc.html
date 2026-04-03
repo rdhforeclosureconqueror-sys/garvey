@@ -101,12 +101,8 @@ async function submit() {
   try {
     const res = await fetch(buildUrl(ENDPOINTS.vocIntake), {
       method: "POST",
-      headers: {
-        "Content-Type":"application/json",
-        "x-user-role":"customer",
-        "x-user-email": email,
-        "x-tenant-slug": tenant
-      },
+      headers: { "Content-Type":"application/json" },
+      credentials: "include",
       body: JSON.stringify({ email, name, tenant, cid, answers })
     });
     const data = await res.json();

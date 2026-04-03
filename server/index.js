@@ -3644,38 +3644,44 @@ app.get("/t/:slug/customers/:userId/profile", tenantMiddleware, async (req, res)
     const customer = userRow.rows[0];
     if (!customer) return res.status(404).json({ error: "customer not found" });
 
-    const [activity, latestAssessment] = await Promise.all([
-      pool.query(
-        `SELECT
-            (SELECT COUNT(*)::int FROM visits WHERE tenant_id = $1 AND user_id = $2) AS visits,
-            (SELECT COUNT(*)::int FROM actions WHERE tenant_id = $1 AND user_id = $2) AS actions,
-            (SELECT COUNT(*)::int FROM reviews WHERE tenant_id = $1 AND user_id = $2) AS reviews,
-            (SELECT COUNT(*)::int FROM referrals WHERE tenant_id = $1 AND user_id = $2) AS referrals,
-            (SELECT COUNT(*)::int FROM wishlist WHERE tenant_id = $1 AND user_id = $2) AS wishlist,
-            (SELECT MAX(created_at) FROM visits WHERE tenant_id = $1 AND user_id = $2) AS last_visit,
-            (SELECT MAX(created_at) FROM actions WHERE tenant_id = $1 AND user_id = $2) AS last_action,
-            (SELECT MAX(created_at) FROM reviews WHERE tenant_id = $1 AND user_id = $2) AS last_review,
-            (SELECT MAX(created_at) FROM referrals WHERE tenant_id = $1 AND user_id = $2) AS last_referral,
-            (SELECT MAX(created_at) FROM wishlist WHERE tenant_id = $1 AND user_id = $2) AS last_wishlist`,
-        [tenantId, userId]
-      ),
-      pool.query(
-        `SELECT id, created_at,
-                primary_archetype, secondary_archetype, weakness_archetype, archetype_counts,
-                personal_primary_archetype, personal_secondary_archetype, personal_weakness_archetype, personal_counts,
-                buyer_primary_archetype, buyer_secondary_archetype, buyer_weakness_archetype, buyer_counts
-         FROM assessment_submissions
-         WHERE tenant_id = $1
-           AND assessment_type = 'customer'
-           AND user_id = $2
-         ORDER BY created_at DESC, id DESC
+    const activity = await pool.query(
+      `SELECT
+          (SELECT COUNT(*)::int FROM visits WHERE tenant_id = $1 AND user_id = $2) AS visits,
+          (SELECT COUNT(*)::int FROM actions WHERE tenant_id = $1 AND user_id = $2) AS actions,
+          (SELECT COUNT(*)::int FROM reviews WHERE tenant_id = $1 AND user_id = $2) AS reviews,
+          (SELECT COUNT(*)::int FROM referrals WHERE tenant_id = $1 AND user_id = $2) AS referrals,
+          (SELECT COUNT(*)::int FROM wishlist WHERE tenant_id = $1 AND user_id = $2) AS wishlist,
+          (SELECT MAX(created_at) FROM visits WHERE tenant_id = $1 AND user_id = $2) AS last_visit,
+          (SELECT MAX(created_at) FROM actions WHERE tenant_id = $1 AND user_id = $2) AS last_action,
+          (SELECT MAX(created_at) FROM reviews WHERE tenant_id = $1 AND user_id = $2) AS last_review,
+          (SELECT MAX(created_at) FROM referrals WHERE tenant_id = $1 AND user_id = $2) AS last_referral,
+          (SELECT MAX(created_at) FROM wishlist WHERE tenant_id = $1 AND user_id = $2) AS last_wishlist`,
+      [tenantId, userId]
+    );
+
+    let assessment = null;
+    try {
+      const latestAssessment = await pool.query(
+        `SELECT a.*
+         FROM assessment_submissions a
+         WHERE a.tenant_id = $1
+           AND a.assessment_type = 'customer'
+           AND a.user_id = $2
+         ORDER BY a.created_at DESC, a.id DESC
          LIMIT 1`,
         [tenantId, userId]
-      ),
-    ]);
+      );
+      assessment = latestAssessment.rows[0] || null;
+    } catch (assessmentErr) {
+      console.error("customer_profile_assessment_lookup_failed", {
+        tenant: req.tenant.slug,
+        userId,
+        error: assessmentErr?.message || assessmentErr,
+      });
+      assessment = null;
+    }
 
     const activityRow = activity.rows[0] || {};
-    const assessment = latestAssessment.rows[0] || null;
     const personalPlaybook = assessment?.personal_primary_archetype
       ? getLibraryEntry(assessment.personal_primary_archetype)?.buyer || null
       : null;
@@ -3729,6 +3735,7 @@ app.get("/t/:slug/customers/:userId/profile", tenantMiddleware, async (req, res)
         (buyerPlaybook?.messaging_that_converts && buyerPlaybook.messaging_that_converts[0])
         || (personalPlaybook?.messaging_that_converts && personalPlaybook.messaging_that_converts[0])
         || "Lead with relevance to their primary archetype and a specific next step.",
+      profile_state: assessment ? "complete" : "no_assessment",
     });
   } catch (err) {
     console.error(err);

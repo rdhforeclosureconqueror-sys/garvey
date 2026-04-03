@@ -184,7 +184,8 @@
   }
 
   function jsonFetch(url, options) {
-    return fetch(url, options).then(function (res) {
+    var reqOptions = Object.assign({ credentials: "include" }, options || {});
+    return fetch(url, reqOptions).then(function (res) {
       return res.json().catch(function () { return {}; }).then(function (body) {
         if (!res.ok) {
           var err = new Error(body.error || "Request failed");
@@ -368,7 +369,7 @@
     rows.forEach(function (row) {
       var customerLabel = row.email || ("id:" + row.user_id);
       tbody.append(
-        "<tr class='customer-row customer-row-clickable' data-user-id='" + escapeHtml(row.user_id) + "' data-email='" + escapeHtml(row.email || "") + "'><td><button class='btn btn-link btn-xs customer-profile-btn' data-user-id='" + escapeHtml(row.user_id) + "' style='padding:0;'>" + escapeHtml(customerLabel) + "</button><span class='profile-link-hint'>↗ Open Profile</span>" +
+        "<tr class='customer-row customer-row-clickable' data-user-id='" + escapeHtml(row.user_id) + "' data-email='" + escapeHtml(row.email || "") + "'><td>" + escapeHtml(customerLabel) +
         "</td><td>" + (row.archetype || "unclassified") +
         "</td><td>" + (row.visits || 0) +
         "</td><td>" + (Number(row.points || 0)) +
