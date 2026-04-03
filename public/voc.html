@@ -25,17 +25,95 @@ input { padding:10px; margin:6px; width:90%; border-radius:8px; }
 <div id="optionsContainer"></div>
 </div>
 <script src="/js/api-contract.js"></script>
+<script src="/garvey_ui.js"></script>
 <script>
 "use strict";
 const { ENDPOINTS, buildUrl } = window.GarveyApi;
 let questions = [];
 let currentIndex = 0;
 let answers = [];
+const ACTIVE_CUSTOMER_KEY = "garvey_active_customer_v1";
 
 function getTenant() { return (new URLSearchParams(window.location.search).get("tenant") || "test-business").trim(); }
 function getCid() { return (new URLSearchParams(window.location.search).get("cid") || "").trim(); }
 function getEmail() { return (new URLSearchParams(window.location.search).get("email") || "").trim().toLowerCase(); }
+function getName() { return (new URLSearchParams(window.location.search).get("name") || "").trim(); }
 function escapeHtml(s) { return String(s || "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c])); }
+function safeTrim(v) { return String(v ?? "").trim(); }
+
+function readActiveCustomer() {
+  const raw = (() => {
+    try { return sessionStorage.getItem(ACTIVE_CUSTOMER_KEY) || localStorage.getItem(ACTIVE_CUSTOMER_KEY); } catch (_) { return ""; }
+  })();
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw);
+    return {
+      tenant: safeTrim(parsed.tenant),
+      email: safeTrim(parsed.email).toLowerCase(),
+      name: safeTrim(parsed.name),
+      cid: safeTrim(parsed.cid),
+      rid: safeTrim(parsed.rid),
+    };
+  } catch (_) {
+    return null;
+  }
+}
+
+function writeActiveCustomer(next) {
+  const existing = readActiveCustomer() || {};
+  const merged = {
+    tenant: safeTrim(next?.tenant || existing.tenant),
+    email: safeTrim(next?.email || existing.email).toLowerCase(),
+    name: safeTrim(next?.name || existing.name),
+    cid: safeTrim(next?.cid || existing.cid),
+    rid: safeTrim(next?.rid || existing.rid),
+    ts: Date.now(),
+  };
+  if (!merged.tenant || !merged.email) return null;
+  try {
+    const encoded = JSON.stringify(merged);
+    sessionStorage.setItem(ACTIVE_CUSTOMER_KEY, encoded);
+    localStorage.setItem(ACTIVE_CUSTOMER_KEY, encoded);
+  } catch (_) {}
+  return merged;
+}
+
+function resolveIdentity() {
+  const tenant = getTenant();
+  const active = readActiveCustomer();
+  const login = window.GARVEY && window.GARVEY.loginCtx ? window.GARVEY.loginCtx() : {};
+  const queryEmail = getEmail();
+  const queryName = getName();
+  const activeValid = active && active.tenant === tenant && active.email;
+  const loginValid = login && safeTrim(login.tenant) === tenant && safeTrim(login.email);
+
+  return {
+    tenant,
+    cid: getCid() || (activeValid ? active.cid : "") || (loginValid ? safeTrim(login.cid) : ""),
+    rid: (activeValid ? active.rid : "") || (loginValid ? safeTrim(login.rid) : ""),
+    email: (activeValid ? active.email : "") || (loginValid ? safeTrim(login.email).toLowerCase() : "") || queryEmail,
+    name: (activeValid ? active.name : "") || queryName,
+    identified: !!(activeValid || loginValid),
+  };
+}
+
+function hydrateIdentity() {
+  const identity = resolveIdentity();
+  const emailInput = document.getElementById("email");
+  const nameInput = document.getElementById("name");
+  const progress = document.getElementById("progress");
+  if (!emailInput || !nameInput || !progress) return identity;
+
+  emailInput.value = identity.email || "";
+  nameInput.value = identity.name || "";
+  emailInput.readOnly = !!identity.identified;
+  emailInput.setAttribute("aria-readonly", identity.identified ? "true" : "false");
+  progress.innerText = identity.identified
+    ? `Signed in customer: ${identity.email}`
+    : "No active customer session found. Identify customer in Rewards first.";
+  return identity;
+}
 
 async function loadQuestions() {
   try {
@@ -87,10 +165,11 @@ function barsHtml(scores, primary, secondary, weakness) {
 }
 
 async function submit() {
-  const email = document.getElementById("email").value.trim();
-  const name = document.getElementById("name").value.trim();
-  const tenant = getTenant();
-  const cid = getCid();
+  const identity = resolveIdentity();
+  const email = safeTrim(identity.email || document.getElementById("email").value).toLowerCase();
+  const name = safeTrim(document.getElementById("name").value || identity.name);
+  const tenant = identity.tenant;
+  const cid = identity.cid;
   const missing = [];
   if (!tenant) missing.push("tenant");
   if (!email) missing.push("email");
@@ -112,6 +191,10 @@ async function submit() {
     }
 
     const crid = String(data?.result_id ?? data?.result?.result_id ?? "").trim();
+    writeActiveCustomer({ tenant, email, name, cid, rid: crid || identity.rid });
+    if (window.GARVEY && window.GARVEY.setLoginCtx) {
+      window.GARVEY.setLoginCtx({ tenant, email, cid, rid: crid || identity.rid });
+    }
     const dest = new URL('/results_customer.html', window.location.origin);
     dest.searchParams.set('tenant', tenant);
     dest.searchParams.set('email', email);
@@ -127,8 +210,10 @@ function showError(msg) { document.getElementById("questionText").innerText = "â
 
 document.addEventListener("DOMContentLoaded", loadQuestions);
 document.addEventListener("DOMContentLoaded", () => {
-  const email = getEmail();
-  if (email) document.getElementById("email").value = email;
+  hydrateIdentity();
+});
+window.addEventListener("pageshow", () => {
+  hydrateIdentity();
 });
 </script>
 </body>

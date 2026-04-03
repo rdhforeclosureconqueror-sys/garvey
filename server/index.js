@@ -1947,7 +1947,7 @@ async function fetchRewardsStatus({ tenant, tenantConfig, email }) {
   return {
     success: true,
     tenant: tenant.slug,
-    user: { email: user.email, points: user.points },
+    user: { email: user.email, points: user.points, name: user.name || null },
     google_review_url: googleReviewUrl,
     recent_events: recent.rows,
     eligible_rewards: ["checkin", "action", "review", "referral", "wishlist", "contribution"],
