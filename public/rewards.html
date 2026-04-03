@@ -629,12 +629,54 @@ const state = {
 };
 const ACTIONS_PER_CYCLE = 6;
 const REWARD_MILESTONES = [50, 100, 150, 250, 500];
+const ACTIVE_CUSTOMER_KEY = "garvey_active_customer_v1";
 
 function safeTrim(v) { return String(v ?? "").trim(); }
 function escapeHtml(v) {
   return String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[c]));
 }
 function readEmail() { return safeTrim(document.getElementById("email")?.value).toLowerCase(); }
+function readActiveCustomer() {
+  const raw = (() => {
+    try { return sessionStorage.getItem(ACTIVE_CUSTOMER_KEY) || localStorage.getItem(ACTIVE_CUSTOMER_KEY); } catch (_) { return ""; }
+  })();
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw);
+    return {
+      tenant: safeTrim(parsed.tenant),
+      email: safeTrim(parsed.email).toLowerCase(),
+      name: safeTrim(parsed.name),
+      cid: safeTrim(parsed.cid),
+      rid: safeTrim(parsed.rid),
+      ts: Number(parsed.ts || 0) || Date.now(),
+    };
+  } catch (_) {
+    return null;
+  }
+}
+function writeActiveCustomer(next) {
+  const existing = readActiveCustomer() || {};
+  const merged = {
+    tenant: safeTrim(next?.tenant || existing.tenant),
+    email: safeTrim(next?.email || existing.email).toLowerCase(),
+    name: safeTrim(next?.name || existing.name),
+    cid: safeTrim(next?.cid || existing.cid),
+    rid: safeTrim(next?.rid || existing.rid),
+    ts: Date.now(),
+  };
+  if (!merged.tenant || !merged.email) return null;
+  try {
+    const encoded = JSON.stringify(merged);
+    sessionStorage.setItem(ACTIVE_CUSTOMER_KEY, encoded);
+    localStorage.setItem(ACTIVE_CUSTOMER_KEY, encoded);
+  } catch (_) {}
+  return merged;
+}
+function clearActiveCustomer() {
+  try { sessionStorage.removeItem(ACTIVE_CUSTOMER_KEY); } catch (_) {}
+  try { localStorage.removeItem(ACTIVE_CUSTOMER_KEY); } catch (_) {}
+}
 function setAuthStatus(msg) { document.getElementById("customerAuthStatus").textContent = msg; }
 function setStep(stepNum) {
   document.querySelectorAll(".step").forEach((el) => {
@@ -645,11 +687,16 @@ function setStep(stepNum) {
 function currentCtx() {
   const base = (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : {};
   const q = new URLSearchParams(location.search);
+  const queryTenant = safeTrim(q.get("tenant"));
+  const activeCustomer = readActiveCustomer();
+  const tenant = queryTenant || safeTrim(base.tenant) || safeTrim(activeCustomer?.tenant);
+  const sameTenantAsBase = !!(tenant && safeTrim(base.tenant) && tenant === safeTrim(base.tenant));
+  const sameTenantAsActive = !!(tenant && safeTrim(activeCustomer?.tenant) && tenant === safeTrim(activeCustomer?.tenant));
   return {
-    tenant: safeTrim(q.get("tenant") || base.tenant),
-    email: safeTrim(q.get("email") || base.email).toLowerCase(),
-    cid: safeTrim(q.get("cid") || base.cid),
-    rid: safeTrim(q.get("crid") || q.get("rid") || base.rid),
+    tenant,
+    email: safeTrim(q.get("email") || (sameTenantAsActive ? activeCustomer?.email : "") || (sameTenantAsBase ? base.email : "")).toLowerCase(),
+    cid: safeTrim(q.get("cid") || (sameTenantAsActive ? activeCustomer?.cid : "") || (sameTenantAsBase ? base.cid : "")),
+    rid: safeTrim(q.get("crid") || q.get("rid") || (sameTenantAsActive ? activeCustomer?.rid : "") || (sameTenantAsBase ? base.rid : "")),
   };
 }
 
@@ -785,6 +832,11 @@ function updateStatusCards(payload) {
   state.status = payload;
   state.googleReviewUrl = safeTrim(payload?.google_review_url);
   const points = Number(payload?.points || payload?.user?.points || 0);
+  const activeName = safeTrim(payload?.user?.name);
+  if (readEmail()) {
+    const ctx = currentCtx();
+    writeActiveCustomer({ tenant: ctx.tenant, email: readEmail(), cid: ctx.cid, rid: ctx.rid, name: activeName });
+  }
   const history = Array.isArray(payload?.history) ? payload.history : [];
   const recentEvents = Array.isArray(payload?.recent_events) ? payload.recent_events : [];
   const streak = Number(payload?.streak || payload?.checkin_streak || recentEvents.length || history.length || 0);
@@ -792,6 +844,15 @@ function updateStatusCards(payload) {
   document.getElementById("streakValue").textContent = streak;
   updateMotivationPanel(points, recentEvents.length || history.length, streak);
   updateActionUI();
+}
+
+function syncVocLink() {
+  const ctx = currentCtx();
+  const voc = new URL(`/voc.html`, location.origin);
+  voc.searchParams.set("tenant", ctx.tenant);
+  if (ctx.cid) voc.searchParams.set("cid", ctx.cid);
+  if (readEmail()) voc.searchParams.set("email", readEmail());
+  document.getElementById("openAssessment").href = voc.pathname + voc.search;
 }
 
 function showStatus(payload) {
@@ -868,6 +929,7 @@ function requireEmail() {
   if (!email) throw new Error("email is required");
   engine.init({ email });
   const ctx = currentCtx();
+  writeActiveCustomer({ tenant: ctx.tenant, email, cid: ctx.cid, rid: ctx.rid });
   if (window.GARVEY && window.GARVEY.setLoginCtx) {
     window.GARVEY.setLoginCtx({ tenant: ctx.tenant, cid: ctx.cid, rid: ctx.rid, email });
   }
@@ -980,12 +1042,8 @@ async function submitAction() {
   };
 
   if (state.actionType === "voc") {
-    const ctx = currentCtx();
-    const voc = new URL("/voc.html", location.origin);
-    voc.searchParams.set("tenant", ctx.tenant);
-    if (ctx.cid) voc.searchParams.set("cid", ctx.cid);
-    if (readEmail()) voc.searchParams.set("email", readEmail());
-    window.location.href = voc.pathname + voc.search;
+    syncVocLink();
+    window.location.href = document.getElementById("openAssessment").href;
     return;
   }
   if (state.actionType === "review" && state.googleReviewUrl) {
@@ -1022,11 +1080,7 @@ async function run() {
   if (ctx.cid) back.searchParams.set("cid", ctx.cid);
   document.getElementById("backHome").href = back.pathname + back.search;
 
-  const voc = new URL(`/voc.html`, location.origin);
-  voc.searchParams.set("tenant", ctx.tenant);
-  if (ctx.email) voc.searchParams.set("email", ctx.email);
-  if (ctx.cid) voc.searchParams.set("cid", ctx.cid);
-  document.getElementById("openAssessment").href = voc.pathname + voc.search;
+  syncVocLink();
 
   document.querySelectorAll(".action-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -1068,6 +1122,7 @@ async function run() {
       window.history.replaceState({}, "", u.pathname + u.search + u.hash);
       setAuthStatus(`Signed in as ${email}`);
       engine.init({ tenant: ctxNow.tenant, cid: ctxNow.cid, rid: ctxNow.rid, email });
+      syncVocLink();
       refreshStatus().catch((err) => showResult({ error: err.message }));
       loadOwnerInbox().catch(() => null);
     } catch (err) {
@@ -1085,12 +1140,15 @@ async function run() {
     u.searchParams.delete("crid");
     window.history.replaceState({}, "", u.pathname + u.search + u.hash);
     engine.init({ tenant: ctxNow.tenant, cid: ctxNow.cid, email: "" });
+    syncVocLink();
+    clearActiveCustomer();
     resetSignedOutView();
   };
 
   updateActionUI();
   setStep(1);
   if (ctx.email) {
+    writeActiveCustomer({ tenant: ctx.tenant, email: ctx.email, cid: ctx.cid, rid: ctx.rid });
     await refreshStatus();
     await loadOwnerInbox();
   } else {
