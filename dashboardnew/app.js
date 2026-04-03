@@ -368,13 +368,13 @@
     rows.forEach(function (row) {
       var customerLabel = row.email || ("id:" + row.user_id);
       tbody.append(
-        "<tr class='customer-row' data-user-id='" + escapeHtml(row.user_id) + "' data-email='" + escapeHtml(row.email || "") + "'><td><button class='btn btn-link btn-xs customer-profile-btn' data-user-id='" + escapeHtml(row.user_id) + "' style='padding:0;'>" + escapeHtml(customerLabel) + "</button>" +
+        "<tr class='customer-row customer-row-clickable' data-user-id='" + escapeHtml(row.user_id) + "' data-email='" + escapeHtml(row.email || "") + "'><td><button class='btn btn-link btn-xs customer-profile-btn' data-user-id='" + escapeHtml(row.user_id) + "' style='padding:0;'>" + escapeHtml(customerLabel) + "</button><span class='profile-link-hint'>↗ Open Profile</span>" +
         "</td><td>" + (row.archetype || "unclassified") +
         "</td><td>" + (row.visits || 0) +
         "</td><td>" + (Number(row.points || 0)) +
         "</td><td>" + fmtDate(row.last_activity) +
         "</td><td>" + statusPill(row.status || "dormant") +
-        "</td></tr>"
+        "</td><td><button class='btn btn-primary btn-xs customer-profile-btn' data-user-id='" + escapeHtml(row.user_id) + "'>View Profile</button></td></tr>"
       );
     });
 
@@ -1722,11 +1722,17 @@
     var assessment = payload.assessment || null;
     var activity = payload.activity_summary || {};
     var recommended = payload.recommended_marketing_angle || "-";
+    var hasArchetype = !!(assessment && ((assessment.buyer && assessment.buyer.primary) || assessment.primary_archetype));
+    var profileStatusMessage = !assessment
+      ? "No assessment completed yet. Profile not fully available yet."
+      : (!hasArchetype ? "Profile not fully available yet: archetype classification is still pending." : "");
 
     body.innerHTML = ""
       + "<div><b>Customer:</b> " + escapeHtml(customer.email || ("ID #" + (customer.id || "-"))) + "</div>"
       + "<div><b>Customer ID:</b> " + escapeHtml(customer.id || "-") + "</div>"
       + "<div><b>Points:</b> " + Number(customer.points || 0) + "</div>"
+      + "<div><b>Result linkage:</b> " + escapeHtml((assessment && assessment.id) ? ("Assessment #" + assessment.id) : "Not available yet") + "</div>"
+      + (profileStatusMessage ? "<div class='alert alert-info' style='margin-top:8px;'>" + escapeHtml(profileStatusMessage) + "</div>" : "")
       + "<div><b>Latest assessment date:</b> " + (assessment ? fmtDate(assessment.created_at) : "-") + "</div>"
       + "<div><b>Latest archetype:</b> " + escapeHtml((assessment && (assessment.buyer && assessment.buyer.primary || assessment.primary_archetype)) || "unclassified") + "</div>"
       + (assessment ? formatCountBars("Overall distribution", assessment.archetype_counts) : "<div><b>Overall distribution:</b> unavailable</div>")
@@ -1740,20 +1746,31 @@
     wrap.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  function loadCustomerProfile(userId, tenant, ownerEmail, cid, rid) {
+    if (!userId) return;
+    var body = document.getElementById("customerProfileBody");
+    var wrap = document.getElementById("customerProfileDetail");
+    if (wrap) wrap.style.display = "block";
+    if (body) body.textContent = "Loading customer profile...";
+    jsonFetch(tenantApiUrl(tenant, "/customers/" + encodeURIComponent(userId) + "/profile", ownerEmail, cid, rid))
+      .then(renderCustomerProfile)
+      .catch(function (err) {
+        if (body) body.innerHTML = '<span class="text-danger">' + escapeHtml(err.message) + "</span>";
+      });
+  }
+
   function wireCustomerRowClicks(tenant, ownerEmail, cid, rid) {
     Array.prototype.forEach.call(document.querySelectorAll(".customer-profile-btn"), function (btn) {
       btn.addEventListener("click", function () {
         var userId = safeTrim(btn.getAttribute("data-user-id"));
-        if (!userId) return;
-        var body = document.getElementById("customerProfileBody");
-        var wrap = document.getElementById("customerProfileDetail");
-        if (wrap) wrap.style.display = "block";
-        if (body) body.textContent = "Loading customer profile...";
-        jsonFetch(tenantApiUrl(tenant, "/customers/" + encodeURIComponent(userId) + "/profile", ownerEmail, cid, rid))
-          .then(renderCustomerProfile)
-          .catch(function (err) {
-            if (body) body.innerHTML = '<span class="text-danger">' + escapeHtml(err.message) + "</span>";
-          });
+        loadCustomerProfile(userId, tenant, ownerEmail, cid, rid);
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("#customersTable tbody tr.customer-row"), function (row) {
+      row.addEventListener("click", function (evt) {
+        if (evt && evt.target && evt.target.closest && evt.target.closest(".customer-profile-btn")) return;
+        var userId = safeTrim(row.getAttribute("data-user-id"));
+        loadCustomerProfile(userId, tenant, ownerEmail, cid, rid);
       });
     });
   }
