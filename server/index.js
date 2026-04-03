@@ -203,9 +203,6 @@ app.use(async (req, res, next) => {
   }
 });
 
-app.use(express.static(path.join(__dirname, "..", "public")));
-app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
-
 app.get('/dashboard.html', (req, res) => {
   const actor = deriveActor(req);
   if (actor.role === ROLES.BUSINESS_OWNER && actor.tenantSlug) {
@@ -224,6 +221,9 @@ app.get('/dashboard.html', (req, res) => {
   }
   return res.sendFile(path.join(__dirname, '..', 'dashboardnew', 'index.html'));
 });
+
+app.use(express.static(path.join(__dirname, "..", "public")));
+app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 
 /* =========================
    CONSTANTS + HELPERS
