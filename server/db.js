@@ -1214,6 +1214,29 @@ async function initializeDatabase() {
     CREATE INDEX IF NOT EXISTS notification_logs_tenant_issue_idx ON notification_logs(tenant_id, issue_id, created_at DESC);
   `);
 
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS owner_customer_messages (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      sender_email TEXT NOT NULL DEFAULT '',
+      target_type TEXT NOT NULL DEFAULT 'single',
+      target_email TEXT,
+      target_lens TEXT,
+      target_archetype TEXT,
+      subject TEXT NOT NULL DEFAULT '',
+      body TEXT NOT NULL DEFAULT '',
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE INDEX IF NOT EXISTS owner_customer_messages_tenant_created_idx
+      ON owner_customer_messages(tenant_id, created_at DESC);
+    CREATE INDEX IF NOT EXISTS owner_customer_messages_target_email_idx
+      ON owner_customer_messages(tenant_id, LOWER(COALESCE(target_email, '')));
+    CREATE INDEX IF NOT EXISTS owner_customer_messages_target_group_idx
+      ON owner_customer_messages(tenant_id, LOWER(COALESCE(target_lens, '')), LOWER(COALESCE(target_archetype, '')));
+  `);
+
   console.log("✅ Database ready");
 }
 

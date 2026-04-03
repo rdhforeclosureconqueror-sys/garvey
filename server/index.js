@@ -3546,6 +3546,7 @@ app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
       `SELECT
           u.id AS user_id,
           u.email,
+          u.points,
           COALESCE(v.visit_count, 0)::int AS visits,
           GREATEST(
             COALESCE(v.last_visit, to_timestamp(0)),
@@ -3580,12 +3581,19 @@ app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
          GROUP BY user_id
        ) w ON w.user_id = u.id
        LEFT JOIN (
-         SELECT DISTINCT ON (u.email) u.email, a.primary_archetype
+         SELECT DISTINCT ON (a.user_id)
+           a.user_id,
+           a.id AS result_id,
+           a.created_at AS assessment_completed_at,
+           a.primary_archetype,
+           a.personal_primary_archetype,
+           a.buyer_primary_archetype
          FROM assessment_submissions a
-         JOIN users u ON u.id = a.user_id
          WHERE a.tenant_id = $1
-         ORDER BY u.email, a.created_at DESC
-       ) rr ON rr.email = u.email
+           AND a.assessment_type = 'customer'
+           AND a.user_id IS NOT NULL
+         ORDER BY a.user_id, a.created_at DESC, a.id DESC
+       ) rr ON rr.user_id = u.id
        WHERE u.tenant_id = $1
        ORDER BY last_activity DESC NULLS LAST, u.id DESC`,
       [tenantId]
@@ -3596,7 +3604,13 @@ app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
       return {
         user_id: row.user_id,
         email: row.email,
+        points: Number(row.points || 0),
         archetype: row.archetype,
+        personal_archetype: row.personal_primary_archetype || null,
+        buyer_archetype: row.buyer_primary_archetype || null,
+        result_id: row.result_id ? String(row.result_id) : null,
+        assessment_completed: !!row.result_id,
+        assessment_completed_at: row.assessment_completed_at || null,
         visits: row.visits,
         last_activity: row.last_activity,
         status,
@@ -3607,6 +3621,118 @@ app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "customers failed" });
+  }
+});
+
+app.get("/t/:slug/customers/:userId/profile", tenantMiddleware, async (req, res) => {
+  try {
+    const tenantReadActor = await requireTenantReadAccess(req, res);
+    if (!tenantReadActor || !tenantReadActor.role) return;
+    const tenantId = req.tenant.id;
+    const userId = Number(req.params.userId || 0);
+    if (!Number.isInteger(userId) || userId <= 0) {
+      return res.status(400).json({ error: "valid userId is required" });
+    }
+
+    const userRow = await pool.query(
+      `SELECT id, email, points, created_at
+       FROM users
+       WHERE tenant_id = $1 AND id = $2
+       LIMIT 1`,
+      [tenantId, userId]
+    );
+    const customer = userRow.rows[0];
+    if (!customer) return res.status(404).json({ error: "customer not found" });
+
+    const [activity, latestAssessment] = await Promise.all([
+      pool.query(
+        `SELECT
+            (SELECT COUNT(*)::int FROM visits WHERE tenant_id = $1 AND user_id = $2) AS visits,
+            (SELECT COUNT(*)::int FROM actions WHERE tenant_id = $1 AND user_id = $2) AS actions,
+            (SELECT COUNT(*)::int FROM reviews WHERE tenant_id = $1 AND user_id = $2) AS reviews,
+            (SELECT COUNT(*)::int FROM referrals WHERE tenant_id = $1 AND user_id = $2) AS referrals,
+            (SELECT COUNT(*)::int FROM wishlist WHERE tenant_id = $1 AND user_id = $2) AS wishlist,
+            (SELECT MAX(created_at) FROM visits WHERE tenant_id = $1 AND user_id = $2) AS last_visit,
+            (SELECT MAX(created_at) FROM actions WHERE tenant_id = $1 AND user_id = $2) AS last_action,
+            (SELECT MAX(created_at) FROM reviews WHERE tenant_id = $1 AND user_id = $2) AS last_review,
+            (SELECT MAX(created_at) FROM referrals WHERE tenant_id = $1 AND user_id = $2) AS last_referral,
+            (SELECT MAX(created_at) FROM wishlist WHERE tenant_id = $1 AND user_id = $2) AS last_wishlist`,
+        [tenantId, userId]
+      ),
+      pool.query(
+        `SELECT id, created_at,
+                primary_archetype, secondary_archetype, weakness_archetype, archetype_counts,
+                personal_primary_archetype, personal_secondary_archetype, personal_weakness_archetype, personal_counts,
+                buyer_primary_archetype, buyer_secondary_archetype, buyer_weakness_archetype, buyer_counts
+         FROM assessment_submissions
+         WHERE tenant_id = $1
+           AND assessment_type = 'customer'
+           AND user_id = $2
+         ORDER BY created_at DESC, id DESC
+         LIMIT 1`,
+        [tenantId, userId]
+      ),
+    ]);
+
+    const activityRow = activity.rows[0] || {};
+    const assessment = latestAssessment.rows[0] || null;
+    const personalPlaybook = assessment?.personal_primary_archetype
+      ? getLibraryEntry(assessment.personal_primary_archetype)?.buyer || null
+      : null;
+    const buyerPlaybook = assessment?.buyer_primary_archetype
+      ? getLibraryEntry(assessment.buyer_primary_archetype)?.buyer || null
+      : null;
+
+    return res.json({
+      tenant: req.tenant.slug,
+      customer: {
+        id: customer.id,
+        email: customer.email,
+        points: Number(customer.points || 0),
+        created_at: customer.created_at,
+      },
+      assessment: assessment ? {
+        id: String(assessment.id),
+        created_at: assessment.created_at,
+        primary_archetype: assessment.primary_archetype,
+        secondary_archetype: assessment.secondary_archetype,
+        weakness_archetype: assessment.weakness_archetype,
+        archetype_counts: assessment.archetype_counts || {},
+        personal: {
+          primary: assessment.personal_primary_archetype,
+          secondary: assessment.personal_secondary_archetype,
+          weakness: assessment.personal_weakness_archetype,
+          counts: assessment.personal_counts || {},
+          marketing_angle: personalPlaybook?.messaging_that_converts || [],
+        },
+        buyer: {
+          primary: assessment.buyer_primary_archetype,
+          secondary: assessment.buyer_secondary_archetype,
+          weakness: assessment.buyer_weakness_archetype,
+          counts: assessment.buyer_counts || {},
+          marketing_angle: buyerPlaybook?.messaging_that_converts || [],
+        },
+      } : null,
+      activity_summary: {
+        visits: Number(activityRow.visits || 0),
+        actions: Number(activityRow.actions || 0),
+        reviews: Number(activityRow.reviews || 0),
+        referrals: Number(activityRow.referrals || 0),
+        wishlist: Number(activityRow.wishlist || 0),
+        last_visit: activityRow.last_visit || null,
+        last_action: activityRow.last_action || null,
+        last_review: activityRow.last_review || null,
+        last_referral: activityRow.last_referral || null,
+        last_wishlist: activityRow.last_wishlist || null,
+      },
+      recommended_marketing_angle:
+        (buyerPlaybook?.messaging_that_converts && buyerPlaybook.messaging_that_converts[0])
+        || (personalPlaybook?.messaging_that_converts && personalPlaybook.messaging_that_converts[0])
+        || "Lead with relevance to their primary archetype and a specific next step.",
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "customer profile failed" });
   }
 });
 
@@ -3660,6 +3786,116 @@ app.get("/t/:slug/segments", tenantMiddleware, async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "segments failed" });
+  }
+});
+
+app.post("/t/:slug/messages", tenantMiddleware, async (req, res) => {
+  try {
+    const access = requirePolicyAction(req, res, { action: ACTIONS.GARVEY_UPDATE, resourceTenantSlug: req.tenant.slug });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
+
+    const senderEmail = normalizeEmail(access.actor.email || req.body?.sender_email || "");
+    const targetType = String(req.body?.target_type || "").trim().toLowerCase();
+    const subject = String(req.body?.subject || "").trim();
+    const body = String(req.body?.body || "").trim();
+    const targetEmail = normalizeEmail(req.body?.target_email || "");
+    const targetLens = String(req.body?.target_lens || "").trim().toLowerCase();
+    const targetArchetype = String(req.body?.target_archetype || "").trim().toLowerCase();
+
+    if (!senderEmail || !subject || !body) {
+      return res.status(400).json({ error: "sender email, subject, and body are required" });
+    }
+    if (!["single", "group"].includes(targetType)) {
+      return res.status(400).json({ error: "target_type must be single or group" });
+    }
+    if (targetType === "single" && !targetEmail) {
+      return res.status(400).json({ error: "target_email is required for single target" });
+    }
+    if (targetType === "group" && (!["personal", "buyer"].includes(targetLens) || !targetArchetype)) {
+      return res.status(400).json({ error: "target_lens and target_archetype are required for group target" });
+    }
+
+    const created = await pool.query(
+      `INSERT INTO owner_customer_messages (
+          tenant_id, sender_email, target_type, target_email, target_lens, target_archetype, subject, body, metadata
+       ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+       RETURNING id, sender_email, target_type, target_email, target_lens, target_archetype, subject, body, created_at`,
+      [
+        req.tenant.id,
+        senderEmail,
+        targetType,
+        targetType === "single" ? targetEmail : null,
+        targetType === "group" ? targetLens : null,
+        targetType === "group" ? targetArchetype : null,
+        subject,
+        body,
+        JSON.stringify({ tenant: req.tenant.slug }),
+      ]
+    );
+
+    return res.json({ success: true, message: created.rows[0] });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "message create failed" });
+  }
+});
+
+app.get("/t/:slug/messages", tenantMiddleware, async (req, res) => {
+  try {
+    const access = requirePolicyAction(req, res, { action: ACTIONS.DASHBOARD_READ, resourceTenantSlug: req.tenant.slug });
+    if (!access.ok) return;
+    if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
+    const rows = await pool.query(
+      `SELECT id, sender_email, target_type, target_email, target_lens, target_archetype, subject, body, created_at
+       FROM owner_customer_messages
+       WHERE tenant_id = $1
+       ORDER BY created_at DESC, id DESC
+       LIMIT 50`,
+      [req.tenant.id]
+    );
+    return res.json({ tenant: req.tenant.slug, messages: rows.rows });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "messages list failed" });
+  }
+});
+
+app.get("/t/:slug/messages/inbox", tenantMiddleware, async (req, res) => {
+  try {
+    const email = normalizeEmail(req.query.email || req.headers["x-user-email"] || "");
+    if (!email) return res.status(400).json({ error: "email is required" });
+
+    const inbox = await pool.query(
+      `SELECT m.id, m.sender_email, m.subject, m.body, m.created_at, m.target_type, m.target_lens, m.target_archetype
+       FROM owner_customer_messages m
+       WHERE m.tenant_id = $1
+         AND (
+           LOWER(COALESCE(m.target_email, '')) = $2
+           OR (
+             m.target_type = 'group'
+             AND EXISTS (
+               SELECT 1
+               FROM assessment_submissions a
+               WHERE a.tenant_id = m.tenant_id
+                 AND a.assessment_type = 'customer'
+                 AND LOWER(COALESCE(a.customer_email, '')) = $2
+                 AND (
+                   (LOWER(COALESCE(m.target_lens, '')) = 'personal' AND LOWER(COALESCE(a.personal_primary_archetype, '')) = LOWER(COALESCE(m.target_archetype, '')))
+                   OR
+                   (LOWER(COALESCE(m.target_lens, '')) = 'buyer' AND LOWER(COALESCE(a.buyer_primary_archetype, '')) = LOWER(COALESCE(m.target_archetype, '')))
+                 )
+             )
+           )
+         )
+       ORDER BY m.created_at DESC, m.id DESC
+       LIMIT 100`,
+      [req.tenant.id, email]
+    );
+    return res.json({ tenant: req.tenant.slug, email, messages: inbox.rows });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "customer inbox failed" });
   }
 });
 
