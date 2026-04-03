@@ -3625,6 +3625,27 @@ app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
 });
 
 app.get("/t/:slug/customers/:userId/profile", tenantMiddleware, async (req, res) => {
+  function isMissingRelationError(err) {
+    const code = String(err?.code || "").trim();
+    if (code === "42P01") return true; // undefined_table
+    const message = String(err?.message || "").toLowerCase();
+    return message.includes("does not exist");
+  }
+
+  async function safeActivityMetric(poolRef, { tenantId, userId, table, mode }) {
+    const metric = String(mode || "count").toLowerCase() === "max" ? "max" : "count";
+    const query = metric === "max"
+      ? `SELECT MAX(created_at) AS value FROM ${table} WHERE tenant_id = $1 AND user_id = $2`
+      : `SELECT COUNT(*)::int AS value FROM ${table} WHERE tenant_id = $1 AND user_id = $2`;
+    try {
+      const result = await poolRef.query(query, [tenantId, userId]);
+      return result.rows[0]?.value ?? (metric === "max" ? null : 0);
+    } catch (err) {
+      if (isMissingRelationError(err)) return metric === "max" ? null : 0;
+      throw err;
+    }
+  }
+
   try {
     const tenantReadActor = await requireTenantReadAccess(req, res);
     if (!tenantReadActor || !tenantReadActor.role) return;
@@ -3644,20 +3665,18 @@ app.get("/t/:slug/customers/:userId/profile", tenantMiddleware, async (req, res)
     const customer = userRow.rows[0];
     if (!customer) return res.status(404).json({ error: "customer not found" });
 
-    const activity = await pool.query(
-      `SELECT
-          (SELECT COUNT(*)::int FROM visits WHERE tenant_id = $1 AND user_id = $2) AS visits,
-          (SELECT COUNT(*)::int FROM actions WHERE tenant_id = $1 AND user_id = $2) AS actions,
-          (SELECT COUNT(*)::int FROM reviews WHERE tenant_id = $1 AND user_id = $2) AS reviews,
-          (SELECT COUNT(*)::int FROM referrals WHERE tenant_id = $1 AND user_id = $2) AS referrals,
-          (SELECT COUNT(*)::int FROM wishlist WHERE tenant_id = $1 AND user_id = $2) AS wishlist,
-          (SELECT MAX(created_at) FROM visits WHERE tenant_id = $1 AND user_id = $2) AS last_visit,
-          (SELECT MAX(created_at) FROM actions WHERE tenant_id = $1 AND user_id = $2) AS last_action,
-          (SELECT MAX(created_at) FROM reviews WHERE tenant_id = $1 AND user_id = $2) AS last_review,
-          (SELECT MAX(created_at) FROM referrals WHERE tenant_id = $1 AND user_id = $2) AS last_referral,
-          (SELECT MAX(created_at) FROM wishlist WHERE tenant_id = $1 AND user_id = $2) AS last_wishlist`,
-      [tenantId, userId]
-    );
+    const [visits, actions, reviews, referrals, wishlist, lastVisit, lastAction, lastReview, lastReferral, lastWishlist] = await Promise.all([
+      safeActivityMetric(pool, { tenantId, userId, table: "visits", mode: "count" }),
+      safeActivityMetric(pool, { tenantId, userId, table: "actions", mode: "count" }),
+      safeActivityMetric(pool, { tenantId, userId, table: "reviews", mode: "count" }),
+      safeActivityMetric(pool, { tenantId, userId, table: "referrals", mode: "count" }),
+      safeActivityMetric(pool, { tenantId, userId, table: "wishlist", mode: "count" }),
+      safeActivityMetric(pool, { tenantId, userId, table: "visits", mode: "max" }),
+      safeActivityMetric(pool, { tenantId, userId, table: "actions", mode: "max" }),
+      safeActivityMetric(pool, { tenantId, userId, table: "reviews", mode: "max" }),
+      safeActivityMetric(pool, { tenantId, userId, table: "referrals", mode: "max" }),
+      safeActivityMetric(pool, { tenantId, userId, table: "wishlist", mode: "max" }),
+    ]);
 
     let assessment = null;
     try {
@@ -3681,7 +3700,26 @@ app.get("/t/:slug/customers/:userId/profile", tenantMiddleware, async (req, res)
       assessment = null;
     }
 
-    const activityRow = activity.rows[0] || {};
+    const missingSections = [];
+    if (!assessment) missingSections.push("assessment");
+    if (!assessment?.personal_primary_archetype) missingSections.push("personal_archetype");
+    if (!assessment?.buyer_primary_archetype) missingSections.push("buyer_archetype");
+
+    const activitySummary = {
+      visits: Number(visits || 0),
+      actions: Number(actions || 0),
+      reviews: Number(reviews || 0),
+      referrals: Number(referrals || 0),
+      wishlist: Number(wishlist || 0),
+      last_visit: lastVisit || null,
+      last_action: lastAction || null,
+      last_review: lastReview || null,
+      last_referral: lastReferral || null,
+      last_wishlist: lastWishlist || null,
+    };
+    const hasActivity = Object.values(activitySummary).some((value) => value !== null && value !== 0);
+    if (!hasActivity) missingSections.push("activity");
+
     const personalPlaybook = assessment?.personal_primary_archetype
       ? getLibraryEntry(assessment.personal_primary_archetype)?.buyer || null
       : null;
@@ -3719,23 +3757,15 @@ app.get("/t/:slug/customers/:userId/profile", tenantMiddleware, async (req, res)
           marketing_angle: buyerPlaybook?.messaging_that_converts || [],
         },
       } : null,
-      activity_summary: {
-        visits: Number(activityRow.visits || 0),
-        actions: Number(activityRow.actions || 0),
-        reviews: Number(activityRow.reviews || 0),
-        referrals: Number(activityRow.referrals || 0),
-        wishlist: Number(activityRow.wishlist || 0),
-        last_visit: activityRow.last_visit || null,
-        last_action: activityRow.last_action || null,
-        last_review: activityRow.last_review || null,
-        last_referral: activityRow.last_referral || null,
-        last_wishlist: activityRow.last_wishlist || null,
-      },
+      activity_summary: activitySummary,
       recommended_marketing_angle:
         (buyerPlaybook?.messaging_that_converts && buyerPlaybook.messaging_that_converts[0])
         || (personalPlaybook?.messaging_that_converts && personalPlaybook.messaging_that_converts[0])
         || "Lead with relevance to their primary archetype and a specific next step.",
-      profile_state: assessment ? "complete" : "no_assessment",
+      profile_state: assessment
+        ? (missingSections.length ? "partial" : "complete")
+        : "no_assessment",
+      missing_sections: missingSections,
     });
   } catch (err) {
     console.error(err);
