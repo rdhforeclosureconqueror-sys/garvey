@@ -421,9 +421,22 @@
         attempts.push({ source: "email", url: emailUrl });
       }
 
+      const actorEmail = ownerEmailFromUrl || email;
+      const actorRole = ownerEmailFromUrl ? "business_owner" : "customer";
+      const reqHeaders = {
+        "Content-Type": "application/json",
+        "x-user-role": actorRole,
+        "x-user-email": actorEmail,
+        "x-tenant-slug": tenant
+      };
+
       for (const attempt of attempts) {
         try {
-          const res = await fetch(attempt.url);
+          const res = await fetch(attempt.url, {
+            method: "GET",
+            credentials: "include",
+            headers: reqHeaders
+          });
           const data = await res.json().catch(() => ({}));
           if (res.ok) return { ok: true, payload: data, source: attempt.source, url: attempt.url };
         } catch (_) {}
