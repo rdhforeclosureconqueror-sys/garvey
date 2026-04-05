@@ -658,6 +658,69 @@ async function initializeDatabase() {
     ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS cid TEXT;
   `);
 
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS customer_consent_profiles (
+      id SERIAL PRIMARY KEY,
+      tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      session_id TEXT,
+      consent_version TEXT NOT NULL DEFAULT 'v1',
+      business_consent_required_accepted_at TIMESTAMPTZ,
+      network_consent_status TEXT NOT NULL DEFAULT 'private',
+      network_consent_updated_at TIMESTAMPTZ,
+      consent_source_business_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      profile_deleted_at TIMESTAMPTZ,
+      consent_ip_address TEXT,
+      consent_user_agent TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      CONSTRAINT customer_consent_profiles_network_status_ck
+        CHECK (network_consent_status IN ('private', 'network'))
+    );
+
+    ALTER TABLE customer_consent_profiles ADD COLUMN IF NOT EXISTS user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;
+    ALTER TABLE customer_consent_profiles ADD COLUMN IF NOT EXISTS session_id TEXT;
+    ALTER TABLE customer_consent_profiles ADD COLUMN IF NOT EXISTS consent_version TEXT NOT NULL DEFAULT 'v1';
+    ALTER TABLE customer_consent_profiles ADD COLUMN IF NOT EXISTS business_consent_required_accepted_at TIMESTAMPTZ;
+    ALTER TABLE customer_consent_profiles ADD COLUMN IF NOT EXISTS network_consent_status TEXT NOT NULL DEFAULT 'private';
+    ALTER TABLE customer_consent_profiles ADD COLUMN IF NOT EXISTS network_consent_updated_at TIMESTAMPTZ;
+    ALTER TABLE customer_consent_profiles ADD COLUMN IF NOT EXISTS consent_source_business_id INTEGER REFERENCES tenants(id) ON DELETE CASCADE;
+    ALTER TABLE customer_consent_profiles ADD COLUMN IF NOT EXISTS profile_deleted_at TIMESTAMPTZ;
+    ALTER TABLE customer_consent_profiles ADD COLUMN IF NOT EXISTS consent_ip_address TEXT;
+    ALTER TABLE customer_consent_profiles ADD COLUMN IF NOT EXISTS consent_user_agent TEXT;
+    ALTER TABLE customer_consent_profiles ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
+    ALTER TABLE customer_consent_profiles ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
+
+    CREATE TABLE IF NOT EXISTS consent_event_log (
+      id BIGSERIAL PRIMARY KEY,
+      tenant_id INTEGER NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+      user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      session_id TEXT,
+      consent_type TEXT NOT NULL,
+      consent_version TEXT NOT NULL DEFAULT 'v1',
+      event_type TEXT NOT NULL,
+      value BOOLEAN,
+      consent_ip_address TEXT,
+      consent_user_agent TEXT,
+      metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+  `);
+  await pool.query(`
+    CREATE UNIQUE INDEX IF NOT EXISTS customer_consent_profiles_tenant_user_uq
+      ON customer_consent_profiles(tenant_id, user_id)
+      WHERE user_id IS NOT NULL;
+    CREATE INDEX IF NOT EXISTS customer_consent_profiles_tenant_session_idx
+      ON customer_consent_profiles(tenant_id, session_id)
+      WHERE session_id IS NOT NULL;
+    CREATE INDEX IF NOT EXISTS customer_consent_profiles_tenant_network_idx
+      ON customer_consent_profiles(tenant_id, network_consent_status, profile_deleted_at);
+    CREATE INDEX IF NOT EXISTS consent_event_log_tenant_user_created_idx
+      ON consent_event_log(tenant_id, user_id, created_at DESC);
+    CREATE INDEX IF NOT EXISTS consent_event_log_tenant_session_created_idx
+      ON consent_event_log(tenant_id, session_id, created_at DESC);
+  `).catch(() => {});
+
   // ==================================================
   // KANBAN SYSTEM (CANONICAL + SAFE UPGRADE)
   // ==================================================

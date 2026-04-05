@@ -138,7 +138,7 @@ function applyCorsHeaders(req, res) {
   res.header("Vary", "Origin");
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, x-user-role, x-user-email, x-tenant-slug");
   return { allowed: true };
 }
 
@@ -238,6 +238,18 @@ const REWARD_POINTS = Object.freeze({
 });
 const OWNER_NOTIFICATION_FALLBACK_EMAIL = "rdhforeclosureconqueror@gmail.com";
 const REVIEW_PROOF_STATUSES = new Set(["pending", "approved", "rejected"]);
+const FEATURE_MODES = new Set(["off", "internal", "on"]);
+const FEATURES = Object.freeze({
+  CONSENT_V1: FEATURE_MODES.has(String(process.env.CONSENT_V1_MODE || process.env.CONSENT_V1 || "off").trim().toLowerCase())
+    ? String(process.env.CONSENT_V1_MODE || process.env.CONSENT_V1 || "off").trim().toLowerCase()
+    : "off",
+});
+const INTERNAL_TEST_USERS = new Set(
+  String(process.env.INTERNAL_TEST_USERS || "")
+    .split(",")
+    .map((value) => normalizeEmail(value))
+    .filter(Boolean)
+);
 const SPOTLIGHT_MODERATION_STATUSES = new Set(["pending", "approved", "removed", "flagged"]);
 const SPOTLIGHT_CLAIM_STATUSES = new Set(["pending", "approved", "rejected"]);
 const spotlightSubmissionRateLimit = new Map();
@@ -290,6 +302,251 @@ function rewardPointsEnabled(config) {
 
 function normalizeEmail(email) {
   return String(email || "").trim().toLowerCase();
+}
+
+function normalizeConsentVersion(value) {
+  const normalized = String(value || "").trim();
+  return normalized || "v1";
+}
+
+function isInternalUser(email) {
+  const normalized = normalizeEmail(email);
+  return normalized ? INTERNAL_TEST_USERS.has(normalized) : false;
+}
+
+function consentTestOverride(req) {
+  const queryValue = String(req?.query?.consent_test || "").trim().toLowerCase();
+  const bodyValue = String(req?.body?.consent_test || "").trim().toLowerCase();
+  const headerValue = String(req?.headers?.["x-consent-test"] || "").trim().toLowerCase();
+  return ["1", "true", "yes", "on"].includes(queryValue)
+    || ["1", "true", "yes", "on"].includes(bodyValue)
+    || ["1", "true", "yes", "on"].includes(headerValue);
+}
+
+function getConsentFeatureContext(req, email = "") {
+  const mode = FEATURES.CONSENT_V1;
+  if (mode === "on") return { mode, enabled: true, reason: "full_rollout" };
+  if (mode === "off") return { mode, enabled: false, reason: "feature_off" };
+
+  const actor = deriveActor(req);
+  const candidateEmail = normalizeEmail(email || actor.email || req?.query?.email || req?.body?.email);
+  if (consentTestOverride(req)) {
+    return { mode, enabled: true, reason: "consent_test_override" };
+  }
+  if (isInternalUser(candidateEmail)) {
+    return { mode, enabled: true, reason: "internal_user" };
+  }
+  return { mode, enabled: false, reason: "internal_mode_non_internal_user" };
+}
+
+function normalizeSessionId(value) {
+  const normalized = String(value || "").trim();
+  return normalized ? normalized.slice(0, 128) : null;
+}
+
+function getRequestIp(req) {
+  const forwarded = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim();
+  return forwarded || String(req.ip || req.socket?.remoteAddress || "").trim() || null;
+}
+
+function getRequestUserAgent(req) {
+  return normalizeOptionalText(req.headers["user-agent"], 500);
+}
+
+async function logConsentEvent({
+  client = pool,
+  tenantId,
+  userId = null,
+  sessionId = null,
+  consentType,
+  consentVersion = "v1",
+  eventType,
+  value = null,
+  consentIpAddress = null,
+  consentUserAgent = null,
+  metadata = {},
+}) {
+  await client.query(
+    `INSERT INTO consent_event_log (
+      tenant_id, user_id, session_id, consent_type, consent_version, event_type, value,
+      consent_ip_address, consent_user_agent, metadata
+    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
+    [
+      tenantId,
+      userId || null,
+      normalizeSessionId(sessionId),
+      String(consentType || "").trim(),
+      normalizeConsentVersion(consentVersion),
+      String(eventType || "").trim(),
+      typeof value === "boolean" ? value : null,
+      normalizeOptionalText(consentIpAddress, 120),
+      normalizeOptionalText(consentUserAgent, 500),
+      metadata && typeof metadata === "object" ? metadata : {},
+    ]
+  );
+}
+
+async function upsertConsentProfile({
+  client = pool,
+  tenantId,
+  userId = null,
+  sessionId = null,
+  consentVersion = "v1",
+  consentIpAddress = null,
+  consentUserAgent = null,
+  businessConsentAcceptedAt = null,
+  networkConsentStatus = null,
+  networkConsentUpdatedAt = null,
+  profileDeletedAt = undefined,
+  clearProfileDeleted = false,
+}) {
+  if (userId) {
+    const existing = await client.query(
+      `SELECT id FROM customer_consent_profiles WHERE tenant_id = $1 AND user_id = $2 LIMIT 1`,
+      [tenantId, userId]
+    );
+    if (existing.rows[0]) {
+      const updated = await client.query(
+        `UPDATE customer_consent_profiles
+         SET
+           session_id = COALESCE($2, session_id),
+           consent_version = COALESCE($3, consent_version),
+           business_consent_required_accepted_at = COALESCE($4, business_consent_required_accepted_at),
+           network_consent_status = COALESCE($5, network_consent_status),
+           network_consent_updated_at = COALESCE($6, network_consent_updated_at),
+           profile_deleted_at = CASE WHEN $10 THEN NULL ELSE COALESCE($7, profile_deleted_at) END,
+           consent_ip_address = COALESCE($8, consent_ip_address),
+           consent_user_agent = COALESCE($9, consent_user_agent),
+           updated_at = NOW()
+         WHERE id = $1
+         RETURNING *`,
+        [
+          existing.rows[0].id,
+          normalizeSessionId(sessionId),
+          normalizeConsentVersion(consentVersion),
+          businessConsentAcceptedAt,
+          networkConsentStatus,
+          networkConsentUpdatedAt,
+          profileDeletedAt === undefined ? null : profileDeletedAt,
+          normalizeOptionalText(consentIpAddress, 120),
+          normalizeOptionalText(consentUserAgent, 500),
+          clearProfileDeleted === true,
+        ]
+      );
+      return updated.rows[0];
+    }
+  }
+
+  const inserted = await client.query(
+    `INSERT INTO customer_consent_profiles (
+      tenant_id, user_id, session_id, consent_version,
+      business_consent_required_accepted_at, network_consent_status, network_consent_updated_at,
+      consent_source_business_id, profile_deleted_at, consent_ip_address, consent_user_agent
+    ) VALUES ($1,$2,$3,$4,$5,COALESCE($6,'private'),$7,$8,$9,$10,$11)
+    RETURNING *`,
+    [
+      tenantId,
+      userId || null,
+      normalizeSessionId(sessionId),
+      normalizeConsentVersion(consentVersion),
+      businessConsentAcceptedAt,
+      networkConsentStatus,
+      networkConsentUpdatedAt,
+      tenantId,
+      profileDeletedAt === undefined ? null : profileDeletedAt,
+      normalizeOptionalText(consentIpAddress, 120),
+      normalizeOptionalText(consentUserAgent, 500),
+    ]
+  );
+  return inserted.rows[0];
+}
+
+async function getConsentProfileBySubmission(client, submissionRow) {
+  const tenantId = Number(submissionRow?.tenant_id || 0);
+  const userId = Number(submissionRow?.user_id || 0);
+  if (!tenantId || !userId) return null;
+  const consent = await client.query(
+    `SELECT * FROM customer_consent_profiles
+     WHERE tenant_id = $1 AND user_id = $2
+     ORDER BY updated_at DESC NULLS LAST, id DESC
+     LIMIT 1`,
+    [tenantId, userId]
+  );
+  return consent.rows[0] || null;
+}
+
+function canActorReadCustomerResult({ actor, submissionTenantSlug, submissionEmail, consentProfile, enforceConsent = true }) {
+  if (!actor) return { allow: false, reason: "missing actor" };
+  if (actor.isAdmin) return { allow: true, scope: "full" };
+  if (!enforceConsent) {
+    const policy = evaluatePolicy({
+      actor,
+      action: ACTIONS.RESULTS_READ_CUSTOMER,
+      resourceTenantSlug: submissionTenantSlug,
+    });
+    if (!policy.allow) return { allow: false, reason: policy.reason };
+    return { allow: true, scope: "full" };
+  }
+  if (consentProfile && consentProfile.profile_deleted_at) {
+    return { allow: false, reason: "profile deleted" };
+  }
+  const actorRole = normalizeRole(actor.role);
+  const actorTenant = String(actor.tenantSlug || "").trim().toLowerCase();
+  const sameTenant = !!(actorTenant && actorTenant === String(submissionTenantSlug || "").trim().toLowerCase());
+  const sameEmail = normalizeEmail(actor.email) && normalizeEmail(actor.email) === normalizeEmail(submissionEmail);
+
+  if (actorRole === ROLES.CUSTOMER) {
+    if (!sameEmail) return { allow: false, reason: "customer email mismatch" };
+    return { allow: true, scope: "full" };
+  }
+
+  if (actorRole === ROLES.BUSINESS_OWNER) {
+    if (sameTenant) return { allow: true, scope: "full" };
+    if (consentProfile?.network_consent_status === "network") {
+      return { allow: true, scope: "limited" };
+    }
+    return { allow: false, reason: "network consent is private" };
+  }
+
+  return { allow: false, reason: "actor role not allowed" };
+}
+
+function applyLimitedNetworkView(payload) {
+  if (!payload || typeof payload !== "object") return payload;
+  return {
+    result_id: payload.result_id,
+    assessment_type: payload.assessment_type,
+    tenant: payload.tenant,
+    cid: payload.cid || null,
+    customer_archetypes: payload.customer_archetypes || {},
+    buyer_archetypes: payload.buyer_archetypes || {},
+    customer_name: null,
+    customer_email: null,
+    network_view: "limited_summary",
+  };
+}
+
+async function assertRequiredBusinessConsent({ client = pool, tenantId, userId, enforceConsent = true }) {
+  if (!enforceConsent) return;
+  const result = await client.query(
+    `SELECT business_consent_required_accepted_at, profile_deleted_at
+     FROM customer_consent_profiles
+     WHERE tenant_id = $1 AND user_id = $2
+     ORDER BY updated_at DESC NULLS LAST, id DESC
+     LIMIT 1`,
+    [tenantId, userId]
+  );
+  const row = result.rows[0];
+  if (!row || !row.business_consent_required_accepted_at) {
+    const err = new Error("required consent must be accepted before assessment");
+    err.statusCode = 403;
+    throw err;
+  }
+  if (row.profile_deleted_at) {
+    const err = new Error("profile is deleted; re-consent is required");
+    err.statusCode = 403;
+    throw err;
+  }
 }
 
 function normalizeReviewRating(ratingRaw) {
@@ -770,6 +1027,16 @@ async function findTenantUser(tenantId, email, client = pool) {
   );
 
   return created.rows[0];
+}
+
+async function findTenantUserExisting(tenantId, email, client = pool) {
+  const normalized = normalizeEmail(email);
+  if (!normalized) return null;
+  const existing = await client.query(
+    "SELECT * FROM users WHERE tenant_id = $1 AND email = $2 LIMIT 1",
+    [tenantId, normalized]
+  );
+  return existing.rows[0] || null;
 }
 
 async function tenantMiddleware(req, res, next) {
@@ -4310,6 +4577,7 @@ app.post("/api/intake", async (req, res) => {
 
     const { email, tenant, name, cid, answers: rawAnswers = [] } = req.body || {};
     const answers = parseAnswersInput(rawAnswers);
+    const consentFeature = getConsentFeatureContext(req, email);
 
     // 🔒 STRICT VALIDATION
     if (!email || !tenant) {
@@ -4347,6 +4615,12 @@ app.post("/api/intake", async (req, res) => {
 
     const tenantRow = await ensureTenant(String(tenant));
     const user = await findTenantUser(tenantRow.id, email, client);
+    await assertRequiredBusinessConsent({
+      client,
+      tenantId: tenantRow.id,
+      userId: user.id,
+      enforceConsent: consentFeature.enabled,
+    });
 
     const campaign = await resolveCampaignForTenantStrict(tenantRow.id, cid, client);
     const session = (
@@ -4460,11 +4734,11 @@ app.get("/api/results/:email", async (req, res) => {
       requested_tenant: tenantSlug || null,
       requested_type: requestedType || null,
     });
-    const access = requirePolicyAction(req, res, {
-      action: ACTIONS.RESULTS_READ_OWNER,
-      resourceTenantSlug: tenantSlug,
-    });
-    if (!access.ok) return;
+    const actor = deriveActor(req);
+    const consentFeature = getConsentFeatureContext(req, email);
+    if (actor.role === ROLES.ANONYMOUS && !actor.isAdmin) {
+      return deny(res, 401, "authentication required", "Provide x-user-role and tenant context");
+    }
 
     if (!email) {
       return res.status(400).json({ error: "email required" });
@@ -4558,6 +4832,56 @@ app.get("/api/results/:email", async (req, res) => {
     });
 
     const row = result.rows[0];
+    if (row.assessment_type === "customer") {
+      if (!consentFeature.enabled) {
+        const legacyPolicy = evaluatePolicy({
+          actor,
+          action: ACTIONS.RESULTS_READ_OWNER,
+          resourceTenantSlug: row.tenant_slug,
+        });
+        if (!legacyPolicy.allow) {
+          return deny(res, 403, "forbidden", legacyPolicy.reason);
+        }
+      }
+      const consentProfile = await getConsentProfileBySubmission(pool, row);
+      const decision = canActorReadCustomerResult({
+        actor,
+        submissionTenantSlug: row.tenant_slug,
+        submissionEmail: email,
+        consentProfile,
+        enforceConsent: consentFeature.enabled,
+      });
+      if (!decision.allow) {
+        return deny(res, 403, "forbidden", decision.reason);
+      }
+      const payload = buildAssessmentResultPayload({
+        assessmentType: row.assessment_type,
+        tenantSlug: row.tenant_slug,
+        email,
+        submission: {
+          ...row,
+          cid: row.resolved_cid || row.cid || row.campaign_slug || null,
+        },
+      });
+      const finalPayload = (consentFeature.enabled && decision.scope === "limited")
+        ? applyLimitedNetworkView(payload)
+        : payload;
+      return res.json({
+        ...finalPayload,
+        result: finalPayload,
+        consent_scope: consentFeature.enabled ? (decision.scope || "full") : "legacy",
+        consent_enabled: consentFeature.enabled,
+      });
+    }
+
+    const policy = evaluatePolicy({
+      actor,
+      action: ACTIONS.RESULTS_READ_OWNER,
+      resourceTenantSlug: row.tenant_slug,
+    });
+    if (!policy.allow) {
+      return deny(res, 403, "forbidden", policy.reason);
+    }
     const payload = buildAssessmentResultPayload({
       assessmentType: row.assessment_type,
       tenantSlug: row.tenant_slug,
@@ -4585,11 +4909,11 @@ app.get("/api/results/customer/:crid", async (req, res) => {
   try {
     const crid = String(req.params.crid || "").trim();
     const tenantSlug = String(req.query.tenant || "").trim().toLowerCase();
-    const access = requirePolicyAction(req, res, {
-      action: ACTIONS.RESULTS_READ_CUSTOMER,
-      resourceTenantSlug: tenantSlug,
-    });
-    if (!access.ok) return;
+    const consentFeature = getConsentFeatureContext(req);
+    const actor = deriveActor(req);
+    if (actor.role === ROLES.ANONYMOUS && !actor.isAdmin) {
+      return deny(res, 401, "authentication required", "Provide x-user-role and tenant context");
+    }
 
     if (!crid) {
       return res.status(400).json({ error: "crid required" });
@@ -4635,6 +4959,17 @@ app.get("/api/results/customer/:crid", async (req, res) => {
     }
 
     const row = result.rows[0];
+    const consentProfile = await getConsentProfileBySubmission(pool, row);
+    const decision = canActorReadCustomerResult({
+      actor,
+      submissionTenantSlug: row.tenant_slug,
+      submissionEmail: row.email,
+      consentProfile,
+      enforceConsent: consentFeature.enabled,
+    });
+    if (!decision.allow) {
+      return deny(res, 403, "forbidden", decision.reason);
+    }
     const payload = buildAssessmentResultPayload({
       assessmentType: "customer",
       tenantSlug: row.tenant_slug,
@@ -4645,9 +4980,14 @@ app.get("/api/results/customer/:crid", async (req, res) => {
       },
     });
 
+    const finalPayload = (consentFeature.enabled && decision.scope === "limited")
+      ? applyLimitedNetworkView(payload)
+      : payload;
     return res.json({
-      ...payload,
-      result: payload,
+      ...finalPayload,
+      result: finalPayload,
+      consent_scope: consentFeature.enabled ? (decision.scope || "full") : "legacy",
+      consent_enabled: consentFeature.enabled,
     });
   } catch (err) {
     console.error("results_lookup_crid_failed", err);
@@ -4706,6 +5046,268 @@ app.post("/api/customer/share-result", async (req, res) => {
   } catch (err) {
     console.error("customer_share_failed", err);
     return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "customer share failed" });
+  }
+});
+
+app.get("/api/features/consent", async (req, res) => {
+  const email = normalizeEmail(req.query?.email);
+  const feature = getConsentFeatureContext(req, email);
+  return res.json({
+    feature: "CONSENT_V1",
+    mode: feature.mode,
+    enabled: feature.enabled,
+    reason: feature.reason,
+  });
+});
+
+app.post("/api/consent/required", async (req, res) => {
+  const client = await pool.connect();
+  try {
+    const tenantSlug = String(req.body?.tenant || "").trim().toLowerCase();
+    const email = normalizeEmail(req.body?.email);
+    const sessionId = normalizeSessionId(req.body?.session_id);
+    const consentVersion = normalizeConsentVersion(req.body?.consent_version);
+    const accepted = req.body?.accepted === true;
+    const feature = getConsentFeatureContext(req, email);
+    if (!feature.enabled) {
+      return res.json({ ok: true, skipped: true, feature_mode: feature.mode, reason: feature.reason });
+    }
+    if (!tenantSlug || (!email && !sessionId)) {
+      return res.status(400).json({ error: "tenant and (email or session_id) are required" });
+    }
+    if (!accepted) {
+      return res.status(400).json({ error: "explicit consent acceptance is required" });
+    }
+
+    await client.query("BEGIN");
+    const tenantRow = await ensureTenant(tenantSlug);
+    const user = email ? await findTenantUser(tenantRow.id, email, client) : null;
+    const consentIpAddress = getRequestIp(req);
+    const consentUserAgent = getRequestUserAgent(req);
+    const acceptedAt = new Date().toISOString();
+
+    const profile = await upsertConsentProfile({
+      client,
+      tenantId: tenantRow.id,
+      userId: user?.id || null,
+      sessionId,
+      consentVersion,
+      consentIpAddress,
+      consentUserAgent,
+      businessConsentAcceptedAt: acceptedAt,
+      networkConsentStatus: "private",
+      networkConsentUpdatedAt: null,
+      clearProfileDeleted: true,
+    });
+    await logConsentEvent({
+      client,
+      tenantId: tenantRow.id,
+      userId: user?.id || null,
+      sessionId,
+      consentType: "business_only_required",
+      consentVersion,
+      eventType: "consent_accepted",
+      value: true,
+      consentIpAddress,
+      consentUserAgent,
+      metadata: { source: "qr_onboarding" },
+    });
+    await client.query("COMMIT");
+    return res.json({
+      ok: true,
+      tenant: tenantRow.slug,
+      user_id: user?.id || null,
+      session_id: sessionId || null,
+      consent_type: "business_only_required",
+      business_consent_required_accepted_at: profile.business_consent_required_accepted_at,
+      consent_version: profile.consent_version,
+    });
+  } catch (err) {
+    await client.query("ROLLBACK");
+    console.error("consent_required_failed", err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "consent required failed" });
+  } finally {
+    client.release();
+  }
+});
+
+app.post("/api/consent/network", async (req, res) => {
+  const client = await pool.connect();
+  try {
+    const tenantSlug = String(req.body?.tenant || "").trim().toLowerCase();
+    const email = normalizeEmail(req.body?.email);
+    const consentVersion = normalizeConsentVersion(req.body?.consent_version);
+    const value = req.body?.value === true;
+    const feature = getConsentFeatureContext(req, email);
+    if (!feature.enabled) {
+      return res.json({
+        ok: true,
+        skipped: true,
+        feature_mode: feature.mode,
+        reason: feature.reason,
+        network_consent_status: "private",
+      });
+    }
+    if (!tenantSlug || !email) return res.status(400).json({ error: "tenant and email are required" });
+
+    await client.query("BEGIN");
+    const tenantRow = await ensureTenant(tenantSlug);
+    const user = await findTenantUser(tenantRow.id, email, client);
+    const consentIpAddress = getRequestIp(req);
+    const consentUserAgent = getRequestUserAgent(req);
+    const updatedAt = new Date().toISOString();
+    const profile = await upsertConsentProfile({
+      client,
+      tenantId: tenantRow.id,
+      userId: user.id,
+      consentVersion,
+      consentIpAddress,
+      consentUserAgent,
+      networkConsentStatus: value ? "network" : "private",
+      networkConsentUpdatedAt: updatedAt,
+    });
+    await logConsentEvent({
+      client,
+      tenantId: tenantRow.id,
+      userId: user.id,
+      consentType: "network_optional",
+      consentVersion,
+      eventType: value ? "consent_changed" : "consent_revoked",
+      value,
+      consentIpAddress,
+      consentUserAgent,
+      metadata: { scope: "network_sharing" },
+    });
+    await client.query("COMMIT");
+    return res.json({
+      ok: true,
+      tenant: tenantRow.slug,
+      email,
+      consent_type: "network_optional",
+      network_consent_status: profile.network_consent_status,
+      network_consent_updated_at: profile.network_consent_updated_at,
+      consent_version: profile.consent_version,
+    });
+  } catch (err) {
+    await client.query("ROLLBACK");
+    console.error("consent_network_failed", err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "network consent save failed" });
+  } finally {
+    client.release();
+  }
+});
+
+app.get("/api/consent/state", async (req, res) => {
+  try {
+    const tenantSlug = String(req.query?.tenant || "").trim().toLowerCase();
+    const email = normalizeEmail(req.query?.email);
+    const feature = getConsentFeatureContext(req, email);
+    if (!feature.enabled) {
+      return res.json({
+        tenant: tenantSlug || null,
+        email,
+        has_profile: false,
+        business_consent_required_accepted_at: null,
+        network_consent_status: "private",
+        network_consent_updated_at: null,
+        profile_deleted_at: null,
+        consent_version: "v1",
+        feature_mode: feature.mode,
+        consent_enabled: false,
+      });
+    }
+    if (!tenantSlug || !email) return res.status(400).json({ error: "tenant and email are required" });
+    const tenantRow = await getTenantBySlug(tenantSlug);
+    if (!tenantRow) return res.status(404).json({ error: "tenant not found" });
+    const user = await findTenantUserExisting(tenantRow.id, email);
+    if (!user) {
+      return res.json({
+        tenant: tenantRow.slug,
+        email,
+        has_profile: false,
+        business_consent_required_accepted_at: null,
+        network_consent_status: "private",
+        network_consent_updated_at: null,
+        profile_deleted_at: null,
+        consent_version: "v1",
+      });
+    }
+    const profile = await pool.query(
+      `SELECT * FROM customer_consent_profiles WHERE tenant_id = $1 AND user_id = $2 ORDER BY updated_at DESC NULLS LAST, id DESC LIMIT 1`,
+      [tenantRow.id, user.id]
+    );
+    const row = profile.rows[0] || null;
+    return res.json({
+      tenant: tenantRow.slug,
+      email,
+      has_profile: !!row,
+      business_consent_required_accepted_at: row?.business_consent_required_accepted_at || null,
+      network_consent_status: row?.network_consent_status || "private",
+      network_consent_updated_at: row?.network_consent_updated_at || null,
+      profile_deleted_at: row?.profile_deleted_at || null,
+      consent_version: row?.consent_version || "v1",
+    });
+  } catch (err) {
+    console.error("consent_state_failed", err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "consent state failed" });
+  }
+});
+
+app.post("/api/consent/profile/delete", async (req, res) => {
+  const client = await pool.connect();
+  try {
+    const tenantSlug = String(req.body?.tenant || "").trim().toLowerCase();
+    const email = normalizeEmail(req.body?.email);
+    const consentVersion = normalizeConsentVersion(req.body?.consent_version);
+    const feature = getConsentFeatureContext(req, email);
+    if (!feature.enabled) {
+      return res.json({ ok: true, skipped: true, feature_mode: feature.mode, reason: feature.reason });
+    }
+    if (!tenantSlug || !email) return res.status(400).json({ error: "tenant and email are required" });
+
+    await client.query("BEGIN");
+    const tenantRow = await ensureTenant(tenantSlug);
+    const user = await findTenantUser(tenantRow.id, email, client);
+    const nowIso = new Date().toISOString();
+    await upsertConsentProfile({
+      client,
+      tenantId: tenantRow.id,
+      userId: user.id,
+      consentVersion,
+      consentIpAddress: getRequestIp(req),
+      consentUserAgent: getRequestUserAgent(req),
+      networkConsentStatus: "private",
+      networkConsentUpdatedAt: nowIso,
+      profileDeletedAt: nowIso,
+    });
+    await client.query(
+      `UPDATE assessment_submissions
+       SET customer_email = NULL,
+           customer_name = NULL
+       WHERE tenant_id = $1
+         AND user_id = $2`,
+      [tenantRow.id, user.id]
+    );
+    await logConsentEvent({
+      client,
+      tenantId: tenantRow.id,
+      userId: user.id,
+      consentType: "profile",
+      consentVersion,
+      eventType: "profile_deleted",
+      value: false,
+      consentIpAddress: getRequestIp(req),
+      consentUserAgent: getRequestUserAgent(req),
+      metadata: { anonymized_submissions: true },
+    });
+    await client.query("COMMIT");
+    return res.json({ ok: true, tenant: tenantRow.slug, email, profile_deleted_at: nowIso });
+  } catch (err) {
+    await client.query("ROLLBACK");
+    console.error("consent_profile_delete_failed", err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "profile delete failed" });
+  } finally {
+    client.release();
   }
 });
 
@@ -4925,6 +5527,12 @@ async function handleVocIntake(req, res) {
 
     const tenantRow = await ensureTenant(String(tenant));
     const user = await findTenantUser(tenantRow.id, email, client);
+    await assertRequiredBusinessConsent({
+      client,
+      tenantId: tenantRow.id,
+      userId: user.id,
+      enforceConsent: consentFeature.enabled,
+    });
 
     const campaign = await resolveCampaignForTenantStrict(tenantRow.id, cid, client);
     const session = (
