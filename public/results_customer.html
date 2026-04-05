@@ -35,6 +35,23 @@
     <div id="customerBars"></div>
 
     <div id="ctas"></div>
+    <section id="networkConsentSection" style="margin-top:16px; padding-top:16px; border-top:1px solid #334155;">
+      <h3>Unlock Better Rewards at Other Businesses</h3>
+      <p class="muted">
+        You can keep your profile private to this business, or allow participating businesses to use your archetype profile to personalize offers, rewards, and experiences for you.<br />
+        You can change this anytime in your profile settings.
+      </p>
+      <label style="display:block; margin:8px 0;">
+        <input id="networkPrivateOption" type="radio" name="networkConsentOption" value="private" checked />
+        Default: Keep my profile private to this business
+      </label>
+      <label style="display:block; margin:8px 0;">
+        <input id="networkAllowOption" type="radio" name="networkConsentOption" value="network" />
+        Optional: Allow participating businesses to use my archetype profile to personalize my experience
+      </label>
+      <button class="btn alt" id="saveNetworkConsentBtn" type="button">Save Preference</button>
+      <p id="networkConsentMessage" class="muted"></p>
+    </section>
   </div>
 
   <script src="/js/api-contract.js"></script>
@@ -153,6 +170,7 @@
     const returnEngine = (window.CustomerReturnEngine && window.CustomerReturnEngine.createDefaultEngine)
       ? window.CustomerReturnEngine.createDefaultEngine()
       : null;
+    let consentFeature = { mode: "off", enabled: false };
 
     function cridStorageKey() {
       return tenant && email ? `garvey_customer_rid:${tenant}:${email}` : "";
@@ -570,6 +588,13 @@
       if (window.GARVEY && window.GARVEY.applyCtxToLinks) {
         window.GARVEY.applyCtxToLinks(document.getElementById("ctas"));
       }
+      consentFeature = await resolveConsentFeature();
+      if (consentFeature.enabled) {
+        wireNetworkConsent();
+      } else {
+        const section = document.getElementById("networkConsentSection");
+        if (section) section.style.display = "none";
+      }
 
       const claimRewardsBtn = document.getElementById("claimRewardsBtn");
       if (claimRewardsBtn && returnEngine) {
@@ -586,6 +611,61 @@
         });
       }
 
+    }
+
+    async function resolveConsentFeature() {
+      const query = { email: email || undefined };
+      if (new URLSearchParams(window.location.search).get("consent_test") === "true") query.consent_test = "true";
+      try {
+        const response = await fetch(window.GarveyApi.buildUrl(window.GarveyApi.ENDPOINTS.consentFeature, query), { credentials: "include" });
+        const payload = await response.json().catch(() => ({}));
+        return {
+          mode: safeTrim(payload?.mode || "off") || "off",
+          enabled: payload?.enabled === true,
+        };
+      } catch (_) {
+        return { mode: "off", enabled: false };
+      }
+    }
+
+    async function wireNetworkConsent() {
+      const saveBtn = document.getElementById("saveNetworkConsentBtn");
+      const msg = document.getElementById("networkConsentMessage");
+      if (!saveBtn || !tenant || !email) return;
+      const stateUrl = window.GarveyApi.buildUrl(window.GarveyApi.ENDPOINTS.consentState, { tenant, email });
+      try {
+        const stateRes = await fetch(stateUrl, { headers: { "x-user-role": "customer", "x-user-email": email, "x-tenant-slug": tenant }, credentials: "include" });
+        const state = await stateRes.json().catch(() => ({}));
+        const networkEnabled = state?.network_consent_status === "network";
+        document.getElementById("networkPrivateOption").checked = !networkEnabled;
+        document.getElementById("networkAllowOption").checked = networkEnabled;
+      } catch (_) {}
+
+      saveBtn.addEventListener("click", async () => {
+        const allowNetwork = !!document.getElementById("networkAllowOption")?.checked;
+        msg.textContent = "Saving preference…";
+        try {
+          const response = await fetch(window.GarveyApi.buildUrl(window.GarveyApi.ENDPOINTS.consentNetwork), {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "x-user-role": "customer", "x-user-email": email, "x-tenant-slug": tenant },
+            credentials: "include",
+            body: JSON.stringify({
+              tenant,
+              email,
+              consent_version: "v1",
+              consent_type: "network_optional",
+              value: allowNetwork
+            })
+          });
+          const payload = await response.json().catch(() => ({}));
+          if (!response.ok) throw new Error(payload?.error || "Could not save preference");
+          msg.textContent = allowNetwork
+            ? "Preference saved. Participating businesses can use your archetype profile."
+            : "Preference saved. Your profile is private to this business.";
+        } catch (err) {
+          msg.textContent = err?.message || "Could not save preference.";
+        }
+      });
     }
 
     load().catch((err) => {

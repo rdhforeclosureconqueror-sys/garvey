@@ -612,6 +612,24 @@
       <div id="customerInboxStatus" class="muted">Sign in with your email to load your inbox.</div>
       <div id="customerInboxList" class="stack"></div>
     </section>
+
+    <section class="panel stack">
+      <h2>Profile permissions</h2>
+      <div id="permissionState" class="muted">Sign in to manage permissions.</div>
+      <label>
+        Permission mode
+        <select id="permissionModeSelect">
+          <option value="private">business-only</option>
+          <option value="network">network participation</option>
+        </select>
+      </label>
+      <div class="row">
+        <button id="savePermissionBtn" type="button">Save Permission</button>
+        <button id="revokeNetworkBtn" type="button">Revoke Network Permission</button>
+      </div>
+      <button id="deleteProfileBtn" type="button">Delete Profile</button>
+      <div id="permissionMessage" class="muted"></div>
+    </section>
   </main>
 
 <script src="/js/api-contract.js"></script>
@@ -630,6 +648,7 @@ const state = {
 const ACTIONS_PER_CYCLE = 6;
 const REWARD_MILESTONES = [50, 100, 150, 250, 500];
 const ACTIVE_CUSTOMER_KEY = "garvey_active_customer_v1";
+let consentFeature = { mode: "off", enabled: false };
 
 function safeTrim(v) { return String(v ?? "").trim(); }
 function escapeHtml(v) {
@@ -994,6 +1013,46 @@ async function loadOwnerInbox() {
   }
 }
 
+async function loadPermissionState() {
+  if (!consentFeature.enabled) return;
+  const ctx = currentCtx();
+  const email = readEmail();
+  const stateLine = document.getElementById("permissionState");
+  const modeSelect = document.getElementById("permissionModeSelect");
+  if (!ctx.tenant || !email) {
+    if (stateLine) stateLine.textContent = "Sign in to manage permissions.";
+    return;
+  }
+  try {
+    const url = window.GarveyApi.buildUrl(window.GarveyApi.ENDPOINTS.consentState, { tenant: ctx.tenant, email });
+    const res = await fetch(url, { headers: { "x-user-role": "customer", "x-user-email": email, "x-tenant-slug": ctx.tenant }, credentials: "include" });
+    const payload = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(payload?.error || "Permission state unavailable");
+    const mode = payload?.network_consent_status === "network" ? "network" : "private";
+    if (modeSelect) modeSelect.value = mode;
+    if (stateLine) {
+      stateLine.textContent = `Current mode: ${mode === "network" ? "network participation" : "business-only"}${payload?.network_consent_updated_at ? ` • Updated: ${new Date(payload.network_consent_updated_at).toLocaleString()}` : ""}`;
+    }
+  } catch (err) {
+    if (stateLine) stateLine.textContent = err.message || "Permission state unavailable.";
+  }
+}
+
+async function resolveConsentFeature() {
+  const query = { email: readEmail() || undefined };
+  if (new URLSearchParams(window.location.search).get("consent_test") === "true") query.consent_test = "true";
+  try {
+    const response = await fetch(window.GarveyApi.buildUrl(window.GarveyApi.ENDPOINTS.consentFeature, query), { credentials: "include" });
+    const payload = await response.json().catch(() => ({}));
+    return {
+      mode: safeTrim(payload?.mode || "off") || "off",
+      enabled: payload?.enabled === true,
+    };
+  } catch (_) {
+    return { mode: "off", enabled: false };
+  }
+}
+
 async function submitAction() {
   requireEmail();
   const mediaType = safeTrim(document.getElementById("mediaType").value);
@@ -1081,6 +1140,11 @@ async function run() {
   document.getElementById("backHome").href = back.pathname + back.search;
 
   syncVocLink();
+  consentFeature = await resolveConsentFeature();
+  if (!consentFeature.enabled) {
+    const panel = document.querySelector("#permissionState")?.closest(".panel");
+    if (panel) panel.classList.add("hide");
+  }
 
   document.querySelectorAll(".action-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -1125,6 +1189,7 @@ async function run() {
       syncVocLink();
       refreshStatus().catch((err) => showResult({ error: err.message }));
       loadOwnerInbox().catch(() => null);
+      loadPermissionState().catch(() => null);
     } catch (err) {
       showResult({ error: err.message });
     }
@@ -1143,6 +1208,56 @@ async function run() {
     syncVocLink();
     clearActiveCustomer();
     resetSignedOutView();
+    document.getElementById("permissionState").textContent = "Signed out. No customer session is active.";
+    document.getElementById("permissionMessage").textContent = "";
+  };
+
+  document.getElementById("savePermissionBtn").onclick = async () => {
+    if (!consentFeature.enabled) return;
+    try {
+      const email = requireEmail();
+      const ctxNow = currentCtx();
+      const allowNetwork = document.getElementById("permissionModeSelect").value === "network";
+      const res = await fetch(window.GarveyApi.buildUrl(window.GarveyApi.ENDPOINTS.consentNetwork), {
+        method: "POST",
+        headers: { "Content-Type":"application/json", "x-user-role":"customer", "x-user-email": email, "x-tenant-slug": ctxNow.tenant },
+        credentials: "include",
+        body: JSON.stringify({ tenant: ctxNow.tenant, email, consent_version: "v1", consent_type: "network_optional", value: allowNetwork })
+      });
+      const payload = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(payload?.error || "Could not save permission");
+      document.getElementById("permissionMessage").textContent = allowNetwork ? "Network participation enabled." : "Business-only mode enabled.";
+      await loadPermissionState();
+    } catch (err) {
+      document.getElementById("permissionMessage").textContent = err.message || "Could not save permission.";
+    }
+  };
+
+  document.getElementById("revokeNetworkBtn").onclick = async () => {
+    if (!consentFeature.enabled) return;
+    document.getElementById("permissionModeSelect").value = "private";
+    await document.getElementById("savePermissionBtn").onclick();
+  };
+
+  document.getElementById("deleteProfileBtn").onclick = async () => {
+    if (!consentFeature.enabled) return;
+    try {
+      const email = requireEmail();
+      const ctxNow = currentCtx();
+      const res = await fetch(window.GarveyApi.buildUrl(window.GarveyApi.ENDPOINTS.consentDeleteProfile), {
+        method: "POST",
+        headers: { "Content-Type":"application/json", "x-user-role":"customer", "x-user-email": email, "x-tenant-slug": ctxNow.tenant },
+        credentials: "include",
+        body: JSON.stringify({ tenant: ctxNow.tenant, email, consent_version: "v1" })
+      });
+      const payload = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(payload?.error || "Could not delete profile");
+      document.getElementById("permissionMessage").textContent = "Profile deleted and sharing removed.";
+      document.getElementById("permissionModeSelect").value = "private";
+      await loadPermissionState();
+    } catch (err) {
+      document.getElementById("permissionMessage").textContent = err.message || "Could not delete profile.";
+    }
   };
 
   updateActionUI();
@@ -1151,6 +1266,7 @@ async function run() {
     writeActiveCustomer({ tenant: ctx.tenant, email: ctx.email, cid: ctx.cid, rid: ctx.rid });
     await refreshStatus();
     await loadOwnerInbox();
+    await loadPermissionState();
   } else {
     resetSignedOutView();
   }
@@ -1158,6 +1274,10 @@ async function run() {
 }
 
 run();
+window.addEventListener("pageshow", () => {
+  syncVocLink();
+  if (consentFeature.enabled) loadPermissionState().catch(() => null);
+});
 </script>
 </body>
 </html>

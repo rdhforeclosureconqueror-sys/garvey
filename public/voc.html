@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <title>Voice of Customer</title>
 <style>
-body { background:black; color:white; font-family:Arial; text-align:center; padding:20px; }
-.card { max-width:760px; margin:auto; }
+body { background:#020617; color:#e2e8f0; font-family:Arial; text-align:center; padding:16px; margin:0; }
+.card { max-width:760px; margin:auto; background:#0f172a; border:1px solid #334155; border-radius:14px; padding:16px; }
 input { padding:10px; margin:6px; width:90%; border-radius:8px; }
 .btn { background:gold; padding:12px; margin:8px auto; display:block; width:90%; border-radius:10px; cursor:pointer; font-weight:bold; text-decoration:none; color:black; border:0; }
 .btn:hover { background:red; color:white; }
@@ -13,16 +13,47 @@ input { padding:10px; margin:6px; width:90%; border-radius:8px; }
 .result-card { background:#111827; border:1px solid #334155; border-radius:12px; padding:12px; margin:10px auto; text-align:left; }
 .bar-track { background:#1f2937; border-radius:999px; overflow:hidden; height:10px; }
 .bar-fill { background:gold; height:10px; }
+.consent-wrap { text-align:left; display:grid; gap:12px; }
+.consent-copy { color:#cbd5e1; line-height:1.45; }
+.consent-check { display:flex; gap:10px; align-items:flex-start; font-size:14px; color:#e2e8f0; }
+.consent-check input { width:auto; margin-top:3px; }
+.consent-actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.btn.secondary { background:#1e293b; color:#e2e8f0; border:1px solid #334155; }
+.btn:disabled { opacity:.45; cursor:not-allowed; }
+.legal { font-size:12px; color:#94a3b8; text-align:center; }
+.legal a { color:#93c5fd; }
+.hide { display:none !important; }
 </style>
 </head>
 <body>
 <div class="card">
-<h1>🎤 Voice of the Customer</h1>
-<input id="name" placeholder="Name" />
-<input id="email" placeholder="Email" />
-<div class="progress" id="progress"></div>
-<h3 id="questionText">Loading...</h3>
-<div id="optionsContainer"></div>
+  <section id="requiredConsentStep" class="consent-wrap">
+    <h1>Get Your Customer Profile + Rewards</h1>
+    <p class="consent-copy">
+      Take a quick assessment to unlock your customer profile and start earning rewards.<br />
+      We use your responses to create your archetype profile and help this business serve you better.<br />
+      This helps us personalize your experience.
+    </p>
+    <label class="consent-check">
+      <input id="requiredConsentCheckbox" type="checkbox" />
+      <span>I agree to the use of my assessment responses to create my archetype profile and personalize my experience with this business.</span>
+    </label>
+    <input id="name" placeholder="Name" />
+    <input id="email" placeholder="Email" />
+    <div class="consent-actions">
+      <button id="requiredConsentContinue" class="btn" type="button" disabled>Continue</button>
+      <button id="requiredConsentCancel" class="btn secondary" type="button">Cancel</button>
+    </div>
+    <div class="legal">
+      <a href="/privacy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a>
+    </div>
+  </section>
+  <section id="assessmentStep" class="hide">
+    <h1>🎤 Voice of the Customer</h1>
+    <div class="progress" id="progress"></div>
+    <h3 id="questionText">Loading...</h3>
+    <div id="optionsContainer"></div>
+  </section>
 </div>
 <script src="/js/api-contract.js"></script>
 <script src="/garvey_ui.js"></script>
@@ -33,6 +64,9 @@ let questions = [];
 let currentIndex = 0;
 let answers = [];
 const ACTIVE_CUSTOMER_KEY = "garvey_active_customer_v1";
+const CONSENT_VERSION = "v1";
+let requiredConsentAccepted = false;
+let consentFeature = { mode: "off", enabled: false };
 
 function getTenant() { return (new URLSearchParams(window.location.search).get("tenant") || "test-business").trim(); }
 function getCid() { return (new URLSearchParams(window.location.search).get("cid") || "").trim(); }
@@ -116,6 +150,7 @@ function hydrateIdentity() {
 }
 
 async function loadQuestions() {
+  if (!requiredConsentAccepted) return;
   try {
     const res = await fetch(buildUrl(ENDPOINTS.questions, { assessment: "customer", ts: Date.now() }));
     const data = await res.json();
@@ -152,6 +187,57 @@ function renderQuestion() {
     container.appendChild(btn);
   });
   document.getElementById("progress").innerText = `Question ${currentIndex + 1} of ${questions.length}`;
+}
+
+async function submitRequiredConsent() {
+  const checkbox = document.getElementById("requiredConsentCheckbox");
+  if (!checkbox?.checked) return;
+  const identity = resolveIdentity();
+  const email = safeTrim(identity.email || document.getElementById("email").value).toLowerCase();
+  const name = safeTrim(document.getElementById("name").value || identity.name);
+  if (!email || !name) {
+    alert("Name and email are required.");
+    return;
+  }
+  const sessionId = `voc-consent:${identity.tenant}:${email}`;
+  const response = await fetch(buildUrl(ENDPOINTS.consentRequired), {
+    method: "POST",
+    headers: { "Content-Type":"application/json", "x-user-role": "customer", "x-user-email": email, "x-tenant-slug": identity.tenant },
+    credentials: "include",
+    body: JSON.stringify({
+      tenant: identity.tenant,
+      email,
+      session_id: sessionId,
+      consent_version: CONSENT_VERSION,
+      consent_type: "business_only_required",
+      accepted: true
+    })
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(payload?.error || "Consent could not be saved");
+  writeActiveCustomer({ tenant: identity.tenant, email, name, cid: identity.cid, rid: identity.rid });
+  requiredConsentAccepted = true;
+  document.getElementById("requiredConsentStep").classList.add("hide");
+  document.getElementById("assessmentStep").classList.remove("hide");
+  hydrateIdentity();
+  loadQuestions();
+}
+
+async function resolveConsentFeature() {
+  const identity = resolveIdentity();
+  const query = { email: safeTrim(identity.email || document.getElementById("email")?.value).toLowerCase() || undefined };
+  if (new URLSearchParams(window.location.search).get("consent_test") === "true") query.consent_test = "true";
+  try {
+    const response = await fetch(buildUrl(ENDPOINTS.consentFeature, query), { credentials: "include" });
+    const payload = await response.json().catch(() => ({}));
+    consentFeature = {
+      mode: safeTrim(payload?.mode || "off") || "off",
+      enabled: payload?.enabled === true,
+    };
+  } catch (_) {
+    consentFeature = { mode: "off", enabled: false };
+  }
+  return consentFeature;
 }
 
 function barsHtml(scores, primary, secondary, weakness) {
@@ -208,12 +294,48 @@ async function submit() {
 
 function showError(msg) { document.getElementById("questionText").innerText = "❌ " + msg; }
 
-document.addEventListener("DOMContentLoaded", loadQuestions);
 document.addEventListener("DOMContentLoaded", () => {
   hydrateIdentity();
+  const checkbox = document.getElementById("requiredConsentCheckbox");
+  const continueBtn = document.getElementById("requiredConsentContinue");
+  const cancelBtn = document.getElementById("requiredConsentCancel");
+  if (checkbox && continueBtn) {
+    checkbox.checked = false;
+    checkbox.addEventListener("change", () => {
+      continueBtn.disabled = !checkbox.checked;
+    });
+  }
+  if (continueBtn) {
+    continueBtn.addEventListener("click", () => {
+      submitRequiredConsent().catch((err) => showError(err?.message || "Consent failed"));
+    });
+  }
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", () => {
+      window.location.href = "/";
+    });
+  }
+  resolveConsentFeature().then((feature) => {
+    if (!feature.enabled) {
+      requiredConsentAccepted = true;
+      document.getElementById("requiredConsentStep").classList.add("hide");
+      document.getElementById("assessmentStep").classList.remove("hide");
+      loadQuestions();
+    }
+  }).catch(() => {
+    requiredConsentAccepted = true;
+    document.getElementById("requiredConsentStep").classList.add("hide");
+    document.getElementById("assessmentStep").classList.remove("hide");
+    loadQuestions();
+  });
 });
 window.addEventListener("pageshow", () => {
   hydrateIdentity();
+  const continueBtn = document.getElementById("requiredConsentContinue");
+  const checkbox = document.getElementById("requiredConsentCheckbox");
+  if (continueBtn && checkbox && !requiredConsentAccepted) {
+    continueBtn.disabled = !checkbox.checked;
+  }
 });
 </script>
 </body>
