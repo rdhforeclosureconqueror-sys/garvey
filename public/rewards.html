@@ -202,6 +202,13 @@
     border-color: rgba(251, 191, 36, 0.45);
     box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.16);
   }
+  .action-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    border-color: rgba(141, 162, 214, 0.45);
+  }
   .action-btn strong { display: block; }
   .action-btn span { color: var(--muted); font-size: 0.9rem; }
   .action-btn .done-mark {
@@ -468,8 +475,8 @@
             <span>Save what you want next and keep momentum (+15).</span>
           </button>
           <button type="button" class="action-btn" data-type="contribution">
-            <strong>Support with Contribution <span class="done-mark">✓ Completed</span></strong>
-            <span>Choose an amount and contribute support.</span>
+            <strong>Support with Contribution — Coming Soon <span class="done-mark">✓ Completed</span></strong>
+            <span>Support features will be available in a future update.</span>
           </button>
           <button type="button" class="action-btn" data-type="voc">
             <strong>Complete Assessment <span class="done-mark">✓ Completed</span></strong>
@@ -720,6 +727,24 @@ function currentCtx() {
 }
 
 function showResult(payload) {
+  if (payload?.reason === "daily_limit_reached" || payload?.awarded === false) {
+    const limitMessage = "You’ve already completed this today. Come back tomorrow for more rewards.";
+    const resultMessage = document.getElementById("resultMessage");
+    resultMessage.textContent = limitMessage;
+    resultMessage.classList.remove("fade-in");
+    void resultMessage.offsetWidth;
+    resultMessage.classList.add("fade-in");
+    document.getElementById("latestReward").textContent = "Daily limit reached";
+    return;
+  }
+  if (payload?.error) {
+    const resultMessage = document.getElementById("resultMessage");
+    resultMessage.textContent = payload.error;
+    resultMessage.classList.remove("fade-in");
+    void resultMessage.offsetWidth;
+    resultMessage.classList.add("fade-in");
+    return;
+  }
   const pointsAdded = Number(payload?.points_added || 0);
   const total = Number(payload?.points || payload?.user?.points || state.status?.points || 0);
   let msg = "Action recorded successfully.";
@@ -760,7 +785,7 @@ function nextActionFor(actionType) {
     checkin: { next: "review", label: "Leave Review Next" },
     review: { next: "referral", label: "Refer a Friend Next" },
     referral: { next: "wishlist", label: "Save to Wishlist Next" },
-    wishlist: { next: "contribution", label: "Contribute Support Next" },
+    wishlist: { next: "voc", label: "Complete Assessment Next" },
     contribution: { next: "voc", label: "Complete Assessment Next" },
     voc: { next: "checkin", label: "Check In Next Visit" },
   };
@@ -888,6 +913,8 @@ async function refreshStatus() {
 
 function updateActionUI() {
   document.querySelectorAll(".action-btn").forEach((btn) => {
+    const isSupportLocked = btn.dataset.type === "contribution";
+    btn.disabled = isSupportLocked;
     const isActive = btn.dataset.type === state.actionType;
     const isCompleted = state.completedActions.has(btn.dataset.type);
     const isRecommended = btn.dataset.type === state.recommendedAction;
@@ -1055,6 +1082,10 @@ async function resolveConsentFeature() {
 
 async function submitAction() {
   requireEmail();
+  if (state.actionType === "contribution") {
+    showResult({ error: "Support features are currently unavailable. Coming soon." });
+    return;
+  }
   const mediaType = safeTrim(document.getElementById("mediaType").value);
   const photoFile = (document.getElementById("reviewPhotoFile") || {}).files?.[0] || null;
   const videoFile = (document.getElementById("reviewVideoFile") || {}).files?.[0] || null;
@@ -1148,6 +1179,10 @@ async function run() {
 
   document.querySelectorAll(".action-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
+      if (btn.dataset.type === "contribution") {
+        showResult({ error: "Support features are currently unavailable. Coming soon." });
+        return;
+      }
       state.actionType = btn.dataset.type;
       updateActionUI();
     });
