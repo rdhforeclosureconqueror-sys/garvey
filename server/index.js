@@ -236,6 +236,13 @@ const REWARD_POINTS = Object.freeze({
   wishlist: 15,
   voc: 50,
 });
+const REWARD_DAILY_LIMITS = Object.freeze({
+  checkin: 1,
+  review: 1,
+  referral: 3,
+  wishlist: 3,
+});
+const SUPPORT_CONTRIBUTIONS_ENABLED = false;
 const OWNER_NOTIFICATION_FALLBACK_EMAIL = "rdhforeclosureconqueror@gmail.com";
 const REVIEW_PROOF_STATUSES = new Set(["pending", "approved", "rejected"]);
 const FEATURE_MODES = new Set(["off", "internal", "on"]);
@@ -298,6 +305,44 @@ function sanitizeConfig(config = {}) {
 
 function rewardPointsEnabled(config) {
   return config?.reward_system !== false;
+}
+
+function rewardActionWindowSql() {
+  return "DATE(created_at AT TIME ZONE 'UTC') = (NOW() AT TIME ZONE 'UTC')::date";
+}
+
+async function countDailyRewardActions({ tenantId, userId, actionType, client = pool }) {
+  const specs = {
+    checkin: { table: "visits", userColumn: "user_id", actionColumn: null },
+    review: { table: "reviews", userColumn: "user_id", actionColumn: null },
+    referral: { table: "referrals", userColumn: "referrer_user_id", actionColumn: null },
+    wishlist: { table: "wishlist", userColumn: "user_id", actionColumn: null },
+  };
+  const spec = specs[actionType];
+  if (!spec) return 0;
+  const result = await client.query(
+    `SELECT COUNT(*)::int AS total
+     FROM ${spec.table}
+     WHERE tenant_id = $1
+       AND ${spec.userColumn} = $2
+       AND ${rewardActionWindowSql()}`,
+    [tenantId, userId]
+  );
+  return Number(result.rows[0]?.total || 0);
+}
+
+function buildDailyLimitReachedPayload({ tenant, actionType, points = 0, cid = null, resultId = null }) {
+  return {
+    success: true,
+    tenant: tenant.slug,
+    action_type: actionType,
+    awarded: false,
+    reason: "daily_limit_reached",
+    points_added: 0,
+    points: Number(points || 0),
+    cid: normalizeSlug(cid) || null,
+    crid: String(resultId ?? "").trim() || null,
+  };
 }
 
 function normalizeEmail(email) {
@@ -1975,6 +2020,13 @@ async function hasApprovedReviewProofForProduct(tenantId, productId, client = po
 async function processCheckinReward({ tenant, tenantConfig, email, cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
+  const existingToday = await countDailyRewardActions({ tenantId: tenant.id, userId: user.id, actionType: "checkin" });
+  if (existingToday >= REWARD_DAILY_LIMITS.checkin) {
+    return {
+      ...buildDailyLimitReachedPayload({ tenant, actionType: "checkin", points: user.points, cid: campaign?.slug || cid, resultId }),
+      event: "checkin",
+    };
+  }
   const pointsAdded = rewardPointsEnabled(tenantConfig) ? REWARD_POINTS.checkin : 0;
 
   await pool.query(
@@ -2002,13 +2054,35 @@ async function processCheckinReward({ tenant, tenantConfig, email, cid = null, r
 async function processActionReward({ tenant, tenantConfig, email, actionType, cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
-  const pointsAdded = rewardPointsEnabled(tenantConfig) ? (REWARD_POINTS[actionType] || 0) : 0;
+  const normalizedActionType = String(actionType || "").trim().toLowerCase();
+  const dailyLimit = REWARD_DAILY_LIMITS[normalizedActionType];
+  if (dailyLimit) {
+    const existingToday = await pool.query(
+      `SELECT COUNT(*)::int AS total
+       FROM actions
+       WHERE tenant_id = $1
+         AND user_id = $2
+         AND action_type = $3
+         AND ${rewardActionWindowSql()}`,
+      [tenant.id, user.id, normalizedActionType]
+    );
+    if (Number(existingToday.rows[0]?.total || 0) >= dailyLimit) {
+      return buildDailyLimitReachedPayload({
+        tenant,
+        actionType: normalizedActionType,
+        points: user.points,
+        cid: campaign?.slug || cid,
+        resultId,
+      });
+    }
+  }
+  const pointsAdded = rewardPointsEnabled(tenantConfig) ? (REWARD_POINTS[normalizedActionType] || 0) : 0;
 
   await pool.query(
     "INSERT INTO actions (tenant_id, user_id, action_type, points_awarded, campaign_id, campaign_slug) VALUES ($1, $2, $3, $4, $5, $6)",
-    [tenant.id, user.id, actionType, pointsAdded, campaign?.id || null, campaign?.slug || null]
+    [tenant.id, user.id, normalizedActionType, pointsAdded, campaign?.id || null, campaign?.slug || null]
   );
-  await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "action", customerEmail: email, meta: { action_type: actionType, result_id: String(resultId ?? "").trim() || null } });
+  await recordCampaignEvent({ tenantId: tenant.id, campaignId: campaign?.id || null, eventType: "action", customerEmail: email, meta: { action_type: normalizedActionType, result_id: String(resultId ?? "").trim() || null } });
 
   const updatedUser = await pool.query(
     "UPDATE users SET points = points + $1 WHERE tenant_id = $2 AND id = $3 RETURNING points",
@@ -2018,7 +2092,7 @@ async function processActionReward({ tenant, tenantConfig, email, actionType, ci
   return {
     success: true,
     tenant: tenant.slug,
-    action_type: actionType,
+    action_type: normalizedActionType,
     points_added: pointsAdded,
     points: updatedUser.rows[0].points,
     cid: campaign?.slug || normalizeSlug(cid) || null,
@@ -2043,6 +2117,16 @@ async function processReviewReward({
 }) {
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
+  const existingToday = await countDailyRewardActions({ tenantId: tenant.id, userId: user.id, actionType: "review" });
+  if (existingToday >= REWARD_DAILY_LIMITS.review) {
+    return buildDailyLimitReachedPayload({
+      tenant,
+      actionType: "review",
+      points: user.points,
+      cid: campaign?.slug || cid,
+      resultId,
+    });
+  }
   const pointsAdded = rewardPointsEnabled(tenantConfig) ? REWARD_POINTS.review : 0;
   const normalizedRating = normalizeReviewRating(rating);
   let normalizedProductId = null;
@@ -2111,6 +2195,24 @@ async function processReferralReward({ tenant, tenantConfig, email, referredEmai
     const referrer = await findTenantUser(tenant.id, email, client);
     const referred = await findTenantUser(tenant.id, referredEmail, client);
     const campaign = await resolveCampaignForTenantStrict(tenant.id, cid, client);
+    const referralCount = await client.query(
+      `SELECT COUNT(*)::int AS total
+       FROM referrals
+       WHERE tenant_id = $1
+         AND referrer_user_id = $2
+         AND ${rewardActionWindowSql()}`,
+      [tenant.id, referrer.id]
+    );
+    if (Number(referralCount.rows[0]?.total || 0) >= REWARD_DAILY_LIMITS.referral) {
+      await client.query("COMMIT");
+      return buildDailyLimitReachedPayload({
+        tenant,
+        actionType: "referral",
+        points: referrer.points,
+        cid: campaign?.slug || cid,
+        resultId,
+      });
+    }
     const pointsEach = rewardPointsEnabled(tenantConfig) ? REWARD_POINTS.referral : 0;
 
     await client.query(
@@ -2154,6 +2256,16 @@ async function processReferralReward({ tenant, tenantConfig, email, referredEmai
 async function processWishlistReward({ tenant, tenantConfig, email, productName, cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
+  const existingToday = await countDailyRewardActions({ tenantId: tenant.id, userId: user.id, actionType: "wishlist" });
+  if (existingToday >= REWARD_DAILY_LIMITS.wishlist) {
+    return buildDailyLimitReachedPayload({
+      tenant,
+      actionType: "wishlist",
+      points: user.points,
+      cid: campaign?.slug || cid,
+      resultId,
+    });
+  }
   const pointsAdded = rewardPointsEnabled(tenantConfig) ? REWARD_POINTS.wishlist : 0;
   const result = await pool.query(
     "INSERT INTO wishlist (tenant_id, user_id, product_name, campaign_id, campaign_slug) VALUES ($1, $2, $3, $4, $5) RETURNING *",
@@ -2727,6 +2839,9 @@ app.get("/api/contributions/history", async (req, res) => {
 });
 
 app.post("/api/contributions/add", async (req, res) => {
+  if (!SUPPORT_CONTRIBUTIONS_ENABLED) {
+    return res.status(503).json({ error: "support contributions are temporarily unavailable", reason: "coming_soon" });
+  }
   const client = await pool.connect();
   try {
     const actor = deriveActor(req);
@@ -2772,6 +2887,9 @@ app.post("/api/contributions/add", async (req, res) => {
 });
 
 app.post("/api/contributions/contribute", async (req, res) => {
+  if (!SUPPORT_CONTRIBUTIONS_ENABLED) {
+    return res.status(503).json({ error: "support contributions are temporarily unavailable", reason: "coming_soon" });
+  }
   const client = await pool.connect();
   try {
     const { tenant, email: requestedEmail, amount: amountRaw, note, metadata } = req.body || {};
@@ -2818,6 +2936,9 @@ app.post("/api/contributions/contribute", async (req, res) => {
 });
 
 app.post("/api/contributions/support", async (req, res) => {
+  if (!SUPPORT_CONTRIBUTIONS_ENABLED) {
+    return res.status(503).json({ error: "support contributions are temporarily unavailable", reason: "coming_soon" });
+  }
   const client = await pool.connect();
   try {
     const actor = deriveActor(req);
