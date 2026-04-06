@@ -367,9 +367,10 @@
     tbody.empty();
 
     rows.forEach(function (row) {
-      var customerLabel = row.email || ("id:" + row.user_id);
+      var primaryLabel = safeTrim(row.name) || row.email || ("id:" + row.user_id);
+      var secondaryLabel = row.email && safeTrim(row.name) ? ("<div class='muted'>" + escapeHtml(row.email) + "</div>") : "";
       tbody.append(
-        "<tr class='customer-row customer-row-clickable' data-user-id='" + escapeHtml(row.user_id) + "' data-email='" + escapeHtml(row.email || "") + "'><td>" + escapeHtml(customerLabel) +
+        "<tr class='customer-row customer-row-clickable' data-user-id='" + escapeHtml(row.user_id) + "' data-email='" + escapeHtml(row.email || "") + "'><td><div>" + escapeHtml(primaryLabel) + "</div>" + secondaryLabel +
         "</td><td>" + (row.archetype || "unclassified") +
         "</td><td>" + (row.visits || 0) +
         "</td><td>" + (Number(row.points || 0)) +
@@ -1729,7 +1730,8 @@
       : (!hasArchetype ? "Profile not fully available yet: archetype classification is still pending." : "");
 
     body.innerHTML = ""
-      + "<div><b>Customer:</b> " + escapeHtml(customer.email || ("ID #" + (customer.id || "-"))) + "</div>"
+      + "<div><b>Customer:</b> " + escapeHtml(customer.name || customer.email || ("ID #" + (customer.id || "-"))) + "</div>"
+      + "<div><b>Email:</b> " + escapeHtml(customer.email || "-") + "</div>"
       + "<div><b>Customer ID:</b> " + escapeHtml(customer.id || "-") + "</div>"
       + "<div><b>Points:</b> " + Number(customer.points || 0) + "</div>"
       + "<div><b>Result linkage:</b> " + escapeHtml((assessment && assessment.id) ? ("Assessment #" + assessment.id) : "Not available yet") + "</div>"
@@ -1783,7 +1785,7 @@
     var rows = Array.isArray(messages) ? messages : [];
     tbody.innerHTML = rows.map(function (m) {
       var target = m.target_type === "single"
-        ? (m.target_email || "-")
+        ? ((m.target_name || m.target_email || "-") + (m.target_name && m.target_email ? (" (" + m.target_email + ")") : ""))
         : ((m.target_lens || "-") + ":" + (m.target_archetype || "-"));
       return "<tr><td>" + fmtDate(m.created_at) + "</td><td>" + escapeHtml(target) + "</td><td>" + escapeHtml(m.subject || "-") + "</td><td>" + escapeHtml(m.body || "-") + "</td></tr>";
     }).join("");
