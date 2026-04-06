@@ -442,6 +442,10 @@
     <section class="panel stack">
       <div class="row">
         <label>
+          Your name
+          <input id="name" type="text" autocomplete="name" placeholder="Jane Doe" />
+        </label>
+        <label>
           Your email
           <input id="email" type="email" autocomplete="email" placeholder="you@email.com" />
         </label>
@@ -616,7 +620,7 @@
 
     <section class="panel stack">
       <h2>Messages from this business</h2>
-      <div id="customerInboxStatus" class="muted">Sign in with your email to load your inbox.</div>
+      <div id="customerInboxStatus" class="muted">Sign in with your name and email to load your inbox.</div>
       <div id="customerInboxList" class="stack"></div>
     </section>
 
@@ -662,6 +666,7 @@ function escapeHtml(v) {
   return String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[c]));
 }
 function readEmail() { return safeTrim(document.getElementById("email")?.value).toLowerCase(); }
+function readName() { return safeTrim(document.getElementById("name")?.value); }
 function readActiveCustomer() {
   const raw = (() => {
     try { return sessionStorage.getItem(ACTIVE_CUSTOMER_KEY) || localStorage.getItem(ACTIVE_CUSTOMER_KEY); } catch (_) { return ""; }
@@ -721,6 +726,7 @@ function currentCtx() {
   return {
     tenant,
     email: safeTrim(q.get("email") || (sameTenantAsActive ? activeCustomer?.email : "") || (sameTenantAsBase ? base.email : "")).toLowerCase(),
+    name: safeTrim(q.get("name") || (sameTenantAsActive ? activeCustomer?.name : "") || (sameTenantAsBase ? base.name : "")),
     cid: safeTrim(q.get("cid") || (sameTenantAsActive ? activeCustomer?.cid : "") || (sameTenantAsBase ? base.cid : "")),
     rid: safeTrim(q.get("crid") || q.get("rid") || (sameTenantAsActive ? activeCustomer?.rid : "") || (sameTenantAsBase ? base.rid : "")),
   };
@@ -880,6 +886,7 @@ function updateStatusCards(payload) {
   if (readEmail()) {
     const ctx = currentCtx();
     writeActiveCustomer({ tenant: ctx.tenant, email: readEmail(), cid: ctx.cid, rid: ctx.rid, name: activeName });
+    if (activeName) document.getElementById("name").value = activeName;
   }
   const history = Array.isArray(payload?.history) ? payload.history : [];
   const recentEvents = Array.isArray(payload?.recent_events) ? payload.recent_events : [];
@@ -896,6 +903,7 @@ function syncVocLink() {
   voc.searchParams.set("tenant", ctx.tenant);
   if (ctx.cid) voc.searchParams.set("cid", ctx.cid);
   if (readEmail()) voc.searchParams.set("email", readEmail());
+  if (readName()) voc.searchParams.set("name", readName());
   document.getElementById("openAssessment").href = voc.pathname + voc.search;
 }
 
@@ -972,12 +980,14 @@ async function loadReviewProductOptions(ctx) {
 
 function requireEmail() {
   const email = readEmail();
+  const name = readName();
   if (!email) throw new Error("email is required");
-  engine.init({ email });
+  if (!name) throw new Error("name is required");
+  engine.init({ email, name });
   const ctx = currentCtx();
-  writeActiveCustomer({ tenant: ctx.tenant, email, cid: ctx.cid, rid: ctx.rid });
+  writeActiveCustomer({ tenant: ctx.tenant, email, name, cid: ctx.cid, rid: ctx.rid });
   if (window.GARVEY && window.GARVEY.setLoginCtx) {
-    window.GARVEY.setLoginCtx({ tenant: ctx.tenant, cid: ctx.cid, rid: ctx.rid, email });
+    window.GARVEY.setLoginCtx({ tenant: ctx.tenant, cid: ctx.cid, rid: ctx.rid, email, name });
   }
   return email;
 }
@@ -993,7 +1003,7 @@ function resetSignedOutView() {
   document.getElementById("streakValue").textContent = "—";
   document.getElementById("pointsIdentity").textContent = "Sign in to load your points";
   document.getElementById("resultMessage").textContent = "Signed out. Sign in to continue.";
-  document.getElementById("customerInboxStatus").textContent = "Sign in with your email to load your inbox.";
+  document.getElementById("customerInboxStatus").textContent = "Sign in with your name and email to load your inbox.";
   document.getElementById("customerInboxList").innerHTML = "";
   document.getElementById("successLoop").classList.add("hide");
   setAuthStatus("Signed out. No customer session is active.");
@@ -1004,10 +1014,11 @@ function resetSignedOutView() {
 async function loadOwnerInbox() {
   const ctx = currentCtx();
   const email = readEmail();
+  const name = readName();
   const status = document.getElementById("customerInboxStatus");
   const list = document.getElementById("customerInboxList");
   if (!ctx.tenant || !email) {
-    if (status) status.textContent = "Sign in with your email to load your inbox.";
+    if (status) status.textContent = "Sign in with your name and email to load your inbox.";
     if (list) list.innerHTML = "";
     return;
   }
@@ -1025,7 +1036,7 @@ async function loadOwnerInbox() {
       if (list) list.innerHTML = "";
       return;
     }
-    if (status) status.textContent = `${messages.length} message(s)`;
+    if (status) status.textContent = `${messages.length} message(s)${name ? ` for ${name}` : ""}`;
     if (list) {
       list.innerHTML = messages.map((m) => `
         <article class="inbox-item">
@@ -1160,8 +1171,9 @@ async function run() {
   engine.init(ctx);
   if (window.GARVEY && window.GARVEY.setLoginCtx) window.GARVEY.setLoginCtx(ctx);
 
+  if (ctx.name) document.getElementById("name").value = ctx.name;
   if (ctx.email) document.getElementById("email").value = ctx.email;
-  setAuthStatus(ctx.email ? `Signed in as ${ctx.email}` : "Not signed in.");
+  setAuthStatus(ctx.email ? `Signed in as ${ctx.name ? `${ctx.name} ` : ""}<${ctx.email}>` : "Not signed in.");
   document.getElementById("tenantLine").textContent = `Tenant: ${ctx.tenant}${ctx.cid ? ` • CID: ${ctx.cid}` : ""}${ctx.rid ? ` • CRID: ${ctx.rid}` : ""}`;
   loadReviewProductOptions(ctx);
 
@@ -1214,13 +1226,26 @@ async function run() {
 
   document.getElementById("customerSignInBtn").onclick = () => {
     try {
-      const email = requireEmail();
       const ctxNow = currentCtx();
+      const email = readEmail();
+      const typedName = readName();
+      const active = readActiveCustomer();
+      const knownName = safeTrim(
+        (active && active.tenant === ctxNow.tenant && active.email === email ? active.name : "")
+        || ctxNow.name
+      );
+      const name = typedName || knownName;
+      if (!email) throw new Error("email is required");
+      if (!name) throw new Error("name is required for new customers");
+      document.getElementById("name").value = name;
+      requireEmail();
+      const ctxSignedIn = currentCtx();
       const u = new URL(window.location.href);
       u.searchParams.set("email", email);
+      u.searchParams.set("name", name);
       window.history.replaceState({}, "", u.pathname + u.search + u.hash);
-      setAuthStatus(`Signed in as ${email}`);
-      engine.init({ tenant: ctxNow.tenant, cid: ctxNow.cid, rid: ctxNow.rid, email });
+      setAuthStatus(`Signed in as ${name} <${email}>`);
+      engine.init({ tenant: ctxSignedIn.tenant, cid: ctxSignedIn.cid, rid: ctxSignedIn.rid, email, name });
       syncVocLink();
       refreshStatus().catch((err) => showResult({ error: err.message }));
       loadOwnerInbox().catch(() => null);
@@ -1233,13 +1258,15 @@ async function run() {
   document.getElementById("customerSignOutBtn").onclick = () => {
     const ctxNow = currentCtx();
     if (window.GARVEY && window.GARVEY.clearCtx) window.GARVEY.clearCtx();
+    document.getElementById("name").value = "";
     document.getElementById("email").value = "";
     const u = new URL(window.location.href);
+    u.searchParams.delete("name");
     u.searchParams.delete("email");
     u.searchParams.delete("rid");
     u.searchParams.delete("crid");
     window.history.replaceState({}, "", u.pathname + u.search + u.hash);
-    engine.init({ tenant: ctxNow.tenant, cid: ctxNow.cid, email: "" });
+    engine.init({ tenant: ctxNow.tenant, cid: ctxNow.cid, email: "", name: "" });
     syncVocLink();
     clearActiveCustomer();
     resetSignedOutView();
@@ -1298,7 +1325,7 @@ async function run() {
   updateActionUI();
   setStep(1);
   if (ctx.email) {
-    writeActiveCustomer({ tenant: ctx.tenant, email: ctx.email, cid: ctx.cid, rid: ctx.rid });
+    writeActiveCustomer({ tenant: ctx.tenant, email: ctx.email, name: ctx.name, cid: ctx.cid, rid: ctx.rid });
     await refreshStatus();
     await loadOwnerInbox();
     await loadPermissionState();

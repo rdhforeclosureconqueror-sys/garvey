@@ -1053,22 +1053,38 @@ function buildAssessmentResultPayload({
   return base;
 }
 
-async function findTenantUser(tenantId, email, client = pool) {
+async function findTenantUser(tenantId, email, client = pool, name = "") {
   const normalized = normalizeEmail(email);
+  const normalizedName = String(name || "").trim();
 
   const existing = await client.query(
     "SELECT * FROM users WHERE tenant_id = $1 AND email = $2",
     [tenantId, normalized]
   );
-  if (existing.rows[0]) return existing.rows[0];
+  if (existing.rows[0]) {
+    const existingUser = existing.rows[0];
+    if (normalizedName && normalizedName !== String(existingUser.name || "").trim()) {
+      const updated = await client.query(
+        `UPDATE users
+         SET name = $3
+         WHERE tenant_id = $1
+           AND email = $2
+         RETURNING *`,
+        [tenantId, normalized, normalizedName]
+      );
+      return updated.rows[0] || existingUser;
+    }
+    return existingUser;
+  }
 
   const created = await client.query(
-    `INSERT INTO users (tenant_id, email)
-     VALUES ($1, $2)
+    `INSERT INTO users (tenant_id, email, name)
+     VALUES ($1, $2, $3)
      ON CONFLICT (tenant_id, email)
-     DO UPDATE SET email = EXCLUDED.email
+     DO UPDATE SET email = EXCLUDED.email,
+                   name = COALESCE(NULLIF(EXCLUDED.name, ''), users.name)
      RETURNING *`,
-    [tenantId, normalized]
+    [tenantId, normalized, normalizedName || null]
   );
 
   return created.rows[0];
@@ -2017,8 +2033,8 @@ async function hasApprovedReviewProofForProduct(tenantId, productId, client = po
   return !!result.rows[0];
 }
 
-async function processCheckinReward({ tenant, tenantConfig, email, cid = null, resultId = null }) {
-  const user = await findTenantUser(tenant.id, email);
+async function processCheckinReward({ tenant, tenantConfig, email, name = "", cid = null, resultId = null }) {
+  const user = await findTenantUser(tenant.id, email, pool, name);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
   const existingToday = await countDailyRewardActions({ tenantId: tenant.id, userId: user.id, actionType: "checkin" });
   if (existingToday >= REWARD_DAILY_LIMITS.checkin) {
@@ -2043,6 +2059,8 @@ async function processCheckinReward({ tenant, tenantConfig, email, cid = null, r
   return {
     success: true,
     tenant: tenant.slug,
+    email: user.email,
+    name: user.name || null,
     event: "checkin",
     points_added: pointsAdded,
     points: updatedUser.rows[0].points,
@@ -2051,8 +2069,8 @@ async function processCheckinReward({ tenant, tenantConfig, email, cid = null, r
   };
 }
 
-async function processActionReward({ tenant, tenantConfig, email, actionType, cid = null, resultId = null }) {
-  const user = await findTenantUser(tenant.id, email);
+async function processActionReward({ tenant, tenantConfig, email, name = "", actionType, cid = null, resultId = null }) {
+  const user = await findTenantUser(tenant.id, email, pool, name);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
   const normalizedActionType = String(actionType || "").trim().toLowerCase();
   const dailyLimit = REWARD_DAILY_LIMITS[normalizedActionType];
@@ -2092,6 +2110,8 @@ async function processActionReward({ tenant, tenantConfig, email, actionType, ci
   return {
     success: true,
     tenant: tenant.slug,
+    email: user.email,
+    name: user.name || null,
     action_type: normalizedActionType,
     points_added: pointsAdded,
     points: updatedUser.rows[0].points,
@@ -2104,6 +2124,7 @@ async function processReviewReward({
   tenant,
   tenantConfig,
   email,
+  name = "",
   text,
   mediaType,
   cid = null,
@@ -2115,7 +2136,7 @@ async function processReviewReward({
   productId = null,
   rating = null,
 }) {
-  const user = await findTenantUser(tenant.id, email);
+  const user = await findTenantUser(tenant.id, email, pool, name);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
   const existingToday = await countDailyRewardActions({ tenantId: tenant.id, userId: user.id, actionType: "review" });
   if (existingToday >= REWARD_DAILY_LIMITS.review) {
@@ -2179,6 +2200,8 @@ async function processReviewReward({
   return {
     success: true,
     tenant: tenant.slug,
+    email: user.email,
+    name: user.name || null,
     review: reviewResult.rows[0],
     points_added: pointsAdded,
     points: updatedUser.rows[0].points,
@@ -2187,12 +2210,12 @@ async function processReviewReward({
   };
 }
 
-async function processReferralReward({ tenant, tenantConfig, email, referredEmail, cid = null, resultId = null }) {
+async function processReferralReward({ tenant, tenantConfig, email, name = "", referredEmail, cid = null, resultId = null }) {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
 
-    const referrer = await findTenantUser(tenant.id, email, client);
+    const referrer = await findTenantUser(tenant.id, email, client, name);
     const referred = await findTenantUser(tenant.id, referredEmail, client);
     const campaign = await resolveCampaignForTenantStrict(tenant.id, cid, client);
     const referralCount = await client.query(
@@ -2240,6 +2263,8 @@ async function processReferralReward({ tenant, tenantConfig, email, referredEmai
     return {
       success: true,
       tenant: tenant.slug,
+      email: referrer.email,
+      name: referrer.name || null,
       points_awarded_each: pointsEach,
       users: users.rows,
       cid: campaign?.slug || normalizeSlug(cid) || null,
@@ -2253,8 +2278,8 @@ async function processReferralReward({ tenant, tenantConfig, email, referredEmai
   }
 }
 
-async function processWishlistReward({ tenant, tenantConfig, email, productName, cid = null, resultId = null }) {
-  const user = await findTenantUser(tenant.id, email);
+async function processWishlistReward({ tenant, tenantConfig, email, name = "", productName, cid = null, resultId = null }) {
+  const user = await findTenantUser(tenant.id, email, pool, name);
   const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
   const existingToday = await countDailyRewardActions({ tenantId: tenant.id, userId: user.id, actionType: "wishlist" });
   if (existingToday >= REWARD_DAILY_LIMITS.wishlist) {
@@ -2283,6 +2308,8 @@ async function processWishlistReward({ tenant, tenantConfig, email, productName,
   return {
     success: true,
     tenant: tenant.slug,
+    email: user.email,
+    name: user.name || null,
     wishlist_entry: result.rows[0],
     points_added: pointsAdded,
     points: Number(updatedUser.rows[0]?.points || 0),
@@ -2291,7 +2318,7 @@ async function processWishlistReward({ tenant, tenantConfig, email, productName,
   };
 }
 
-async function fetchRewardsStatus({ tenant, tenantConfig, email }) {
+async function fetchRewardsStatus({ tenant, tenantConfig, email, name = "" }) {
   const googleReviewUrl = normalizeOptionalText(tenantConfig?.site?.google_review_url, 1200);
   if (!email) {
     const totals = await pool.query(
@@ -2302,6 +2329,8 @@ async function fetchRewardsStatus({ tenant, tenantConfig, email }) {
     return {
       success: true,
       tenant: tenant.slug,
+      email: null,
+      name: null,
       user: null,
       totals: totals.rows[0],
       google_review_url: googleReviewUrl,
@@ -2309,7 +2338,7 @@ async function fetchRewardsStatus({ tenant, tenantConfig, email }) {
     };
   }
 
-  const user = await findTenantUser(tenant.id, email);
+  const user = await findTenantUser(tenant.id, email, pool, name);
   const recent = await pool.query(
     `SELECT 'visit' AS event_type, created_at FROM visits WHERE tenant_id = $1 AND user_id = $2
      UNION ALL
@@ -2326,6 +2355,8 @@ async function fetchRewardsStatus({ tenant, tenantConfig, email }) {
   return {
     success: true,
     tenant: tenant.slug,
+    email: user.email,
+    name: user.name || null,
     user: { email: user.email, points: user.points, name: user.name || null },
     google_review_url: googleReviewUrl,
     recent_events: recent.rows,
@@ -2338,6 +2369,8 @@ async function fetchRewardsHistory({ tenant, email, limit = 50 }) {
     return {
       success: true,
       tenant: tenant.slug,
+      email: null,
+      name: null,
       history: [],
       limitation: "email is required for per-customer reward history",
     };
@@ -2367,6 +2400,8 @@ async function fetchRewardsHistory({ tenant, email, limit = 50 }) {
   return {
     success: true,
     tenant: tenant.slug,
+    email: user.email,
+    name: user.name || null,
     user: { email: user.email, points: user.points },
     history: history.rows,
   };
@@ -2477,13 +2512,14 @@ async function fetchContributionHistory({ tenant, tenantConfig, email, limit = 5
 
 app.post("/t/:slug/checkin", tenantMiddleware, async (req, res) => {
   try {
-    const { email, cid } = req.body || {};
+    const { email, name, cid } = req.body || {};
     if (!email) return res.status(400).json({ error: "email is required" });
 
     const payload = await processCheckinReward({
       tenant: req.tenant,
       tenantConfig: req.tenantConfig,
       email,
+      name,
       cid,
     });
     return res.json(payload);
@@ -2495,7 +2531,7 @@ app.post("/t/:slug/checkin", tenantMiddleware, async (req, res) => {
 
 app.post("/t/:slug/action", tenantMiddleware, async (req, res) => {
   try {
-    const { email, action_type: actionType, cid } = req.body || {};
+    const { email, name, action_type: actionType, cid } = req.body || {};
     if (!email || !actionType) {
       return res.status(400).json({ error: "email and action_type are required" });
     }
@@ -2504,6 +2540,7 @@ app.post("/t/:slug/action", tenantMiddleware, async (req, res) => {
       tenant: req.tenant,
       tenantConfig: req.tenantConfig,
       email,
+      name,
       actionType,
       cid,
     });
@@ -2518,6 +2555,7 @@ app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
   try {
     const {
       email,
+      name,
       text,
       media_type: mediaType,
       media_note: mediaNote,
@@ -2534,6 +2572,7 @@ app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
       tenant: req.tenant,
       tenantConfig: req.tenantConfig,
       email,
+      name,
       text,
       mediaType,
       mediaNote,
@@ -2553,12 +2592,13 @@ app.post("/t/:slug/review", tenantMiddleware, async (req, res) => {
 
 app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
   try {
-    const { email, referred_email: referredEmail, cid } = req.body || {};
+    const { email, name, referred_email: referredEmail, cid } = req.body || {};
     if (!email || !referredEmail) return res.status(400).json({ error: "email and referred_email are required" });
     const payload = await processReferralReward({
       tenant: req.tenant,
       tenantConfig: req.tenantConfig,
       email,
+      name,
       referredEmail,
       cid,
     });
@@ -2571,13 +2611,14 @@ app.post("/t/:slug/referral", tenantMiddleware, async (req, res) => {
 
 app.post("/t/:slug/wishlist", tenantMiddleware, async (req, res) => {
   try {
-    const { email, product_name: productName, cid } = req.body || {};
+    const { email, name, product_name: productName, cid } = req.body || {};
     if (!email || !productName) return res.status(400).json({ error: "email and product_name are required" });
 
     const payload = await processWishlistReward({
       tenant: req.tenant,
       tenantConfig: req.tenantConfig,
       email,
+      name,
       productName,
       cid,
     });
@@ -2599,7 +2640,8 @@ app.get("/api/rewards/status", async (req, res) => {
     const ctx = await getTenantContextBySlug(tenantSlug);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
     const email = String(req.query.email || "").trim();
-    const payload = await fetchRewardsStatus({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email });
+    const name = String(req.query.name || "").trim();
+    const payload = await fetchRewardsStatus({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, name });
     return res.json(payload);
   } catch (err) {
     console.error(err);
@@ -2625,12 +2667,12 @@ app.get("/api/rewards/history", async (req, res) => {
 
 app.post("/api/rewards/checkin", async (req, res) => {
   try {
-    const { tenant, email, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
+    const { tenant, email, name, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
     const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
     if (!tenant || !email) return res.status(400).json({ error: "tenant and email are required" });
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
-    const payload = await processCheckinReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, cid, resultId });
+    const payload = await processCheckinReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, name, cid, resultId });
     return res.json(payload);
   } catch (err) {
     console.error(err);
@@ -2640,14 +2682,14 @@ app.post("/api/rewards/checkin", async (req, res) => {
 
 app.post("/api/rewards/action", async (req, res) => {
   try {
-    const { tenant, email, action_type: actionType, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
+    const { tenant, email, name, action_type: actionType, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
     const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
     if (!tenant || !email || !actionType) {
       return res.status(400).json({ error: "tenant, email and action_type are required" });
     }
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
-    const payload = await processActionReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, actionType, cid, resultId });
+    const payload = await processActionReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, name, actionType, cid, resultId });
     return res.json(payload);
   } catch (err) {
     console.error(err);
@@ -2660,6 +2702,7 @@ app.post("/api/rewards/review", async (req, res) => {
     const {
       tenant,
       email,
+      name,
       text,
       media_type: mediaType,
       media_note: mediaNote,
@@ -2680,6 +2723,7 @@ app.post("/api/rewards/review", async (req, res) => {
       tenant: ctx.tenant,
       tenantConfig: ctx.tenantConfig,
       email,
+      name,
       text,
       mediaType,
       mediaNote,
@@ -2700,14 +2744,14 @@ app.post("/api/rewards/review", async (req, res) => {
 
 app.post("/api/rewards/referral", async (req, res) => {
   try {
-    const { tenant, email, referred_email: referredEmail, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
+    const { tenant, email, name, referred_email: referredEmail, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
     const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
     if (!tenant || !email || !referredEmail) {
       return res.status(400).json({ error: "tenant, email and referred_email are required" });
     }
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
-    const payload = await processReferralReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, referredEmail, cid, resultId });
+    const payload = await processReferralReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, name, referredEmail, cid, resultId });
     return res.json(payload);
   } catch (err) {
     console.error(err);
@@ -2717,14 +2761,14 @@ app.post("/api/rewards/referral", async (req, res) => {
 
 app.post("/api/rewards/wishlist", async (req, res) => {
   try {
-    const { tenant, email, product_name: productName, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
+    const { tenant, email, name, product_name: productName, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
     const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
     if (!tenant || !email || !productName) {
       return res.status(400).json({ error: "tenant, email and product_name are required" });
     }
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
-    const payload = await processWishlistReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, productName, cid, resultId });
+    const payload = await processWishlistReward({ tenant: ctx.tenant, tenantConfig: ctx.tenantConfig, email, name, productName, cid, resultId });
     return res.json(payload);
   } catch (err) {
     console.error(err);
@@ -3934,6 +3978,7 @@ app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
       `SELECT
           u.id AS user_id,
           u.email,
+          u.name,
           u.points,
           COALESCE(v.visit_count, 0)::int AS visits,
           GREATEST(
@@ -3991,6 +4036,7 @@ app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
       const status = row.last_activity ? "active" : "new";
       return {
         user_id: row.user_id,
+        name: row.name || null,
         email: row.email,
         points: Number(row.points || 0),
         archetype: row.archetype,
@@ -4045,7 +4091,7 @@ app.get("/t/:slug/customers/:userId/profile", tenantMiddleware, async (req, res)
     }
 
     const userRow = await pool.query(
-      `SELECT id, email, points, created_at
+      `SELECT id, email, name, points, created_at
        FROM users
        WHERE tenant_id = $1 AND id = $2
        LIMIT 1`,
@@ -4120,6 +4166,7 @@ app.get("/t/:slug/customers/:userId/profile", tenantMiddleware, async (req, res)
       tenant: req.tenant.slug,
       customer: {
         id: customer.id,
+        name: customer.name || null,
         email: customer.email,
         points: Number(customer.points || 0),
         created_at: customer.created_at,
@@ -4273,10 +4320,22 @@ app.get("/t/:slug/messages", tenantMiddleware, async (req, res) => {
     if (!access.ok) return;
     if (!(await requireOwnerTenantMembership(req, res, req.tenant.id, access.actor))) return;
     const rows = await pool.query(
-      `SELECT id, sender_email, target_type, target_email, target_lens, target_archetype, subject, body, created_at
-       FROM owner_customer_messages
-       WHERE tenant_id = $1
-       ORDER BY created_at DESC, id DESC
+      `SELECT m.id,
+              m.sender_email,
+              m.target_type,
+              m.target_email,
+              u.name AS target_name,
+              m.target_lens,
+              m.target_archetype,
+              m.subject,
+              m.body,
+              m.created_at
+       FROM owner_customer_messages m
+       LEFT JOIN users u
+         ON u.tenant_id = m.tenant_id
+        AND LOWER(COALESCE(u.email, '')) = LOWER(COALESCE(m.target_email, ''))
+       WHERE m.tenant_id = $1
+       ORDER BY m.created_at DESC, m.id DESC
        LIMIT 50`,
       [req.tenant.id]
     );
@@ -4318,7 +4377,8 @@ app.get("/t/:slug/messages/inbox", tenantMiddleware, async (req, res) => {
        LIMIT 100`,
       [req.tenant.id, email]
     );
-    return res.json({ tenant: req.tenant.slug, email, messages: inbox.rows });
+    const customer = await findTenantUserExisting(req.tenant.id, email);
+    return res.json({ tenant: req.tenant.slug, email, name: customer?.name || null, messages: inbox.rows });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "customer inbox failed" });
@@ -4735,7 +4795,7 @@ app.post("/api/intake", async (req, res) => {
     await client.query("BEGIN");
 
     const tenantRow = await ensureTenant(String(tenant));
-    const user = await findTenantUser(tenantRow.id, email, client);
+    const user = await findTenantUser(tenantRow.id, email, client, name);
     await assertRequiredBusinessConsent({
       client,
       tenantId: tenantRow.id,
@@ -5273,7 +5333,7 @@ app.post("/api/consent/network", async (req, res) => {
 
     await client.query("BEGIN");
     const tenantRow = await ensureTenant(tenantSlug);
-    const user = await findTenantUser(tenantRow.id, email, client);
+    const user = await findTenantUser(tenantRow.id, email, client, name);
     const consentIpAddress = getRequestIp(req);
     const consentUserAgent = getRequestUserAgent(req);
     const updatedAt = new Date().toISOString();
@@ -5388,7 +5448,7 @@ app.post("/api/consent/profile/delete", async (req, res) => {
 
     await client.query("BEGIN");
     const tenantRow = await ensureTenant(tenantSlug);
-    const user = await findTenantUser(tenantRow.id, email, client);
+    const user = await findTenantUser(tenantRow.id, email, client, name);
     const nowIso = new Date().toISOString();
     await upsertConsentProfile({
       client,
@@ -5647,7 +5707,7 @@ async function handleVocIntake(req, res) {
     await client.query("BEGIN");
 
     const tenantRow = await ensureTenant(String(tenant));
-    const user = await findTenantUser(tenantRow.id, email, client);
+    const user = await findTenantUser(tenantRow.id, email, client, name);
     await assertRequiredBusinessConsent({
       client,
       tenantId: tenantRow.id,

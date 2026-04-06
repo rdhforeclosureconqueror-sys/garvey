@@ -13,6 +13,7 @@
     return {
       tenant: safeTrim(src.tenant),
       email: safeTrim(src.email).toLowerCase(),
+      name: safeTrim(src.name),
       cid: safeTrim(src.cid),
       rid: safeTrim(src.rid || src.crid),
       owner_email: safeTrim(src.owner_email).toLowerCase(),
@@ -26,6 +27,7 @@
     return {
       tenant: n.tenant || b.tenant,
       email: n.email || b.email,
+      name: n.name || b.name,
       cid: n.cid || b.cid,
       rid: n.rid || b.rid,
       owner_email: n.owner_email || b.owner_email,
@@ -116,6 +118,7 @@
       const payload = {
         tenant: state.ctx.tenant,
         email: state.ctx.email,
+        name: state.ctx.name || undefined,
         cid: state.ctx.cid || undefined,
         result_id: state.ctx.rid || undefined,
       };
@@ -161,6 +164,7 @@
       state.ctx = mergeCtx(state.ctx, {
         tenant: payload.tenant,
         email: payload.email || payload.user?.email,
+        name: payload.name || payload.user?.name,
         cid: payload.cid,
         rid: payload.crid || payload.result_id,
       });
@@ -168,6 +172,7 @@
         global.GARVEY.setLoginCtx({
           tenant: state.ctx.tenant,
           email: state.ctx.email,
+          name: state.ctx.name,
           cid: state.ctx.cid,
           rid: state.ctx.rid,
         });
@@ -179,6 +184,7 @@
       if (!state.ctx.tenant) throw new Error("tenant is required");
       const query = { tenant: state.ctx.tenant };
       if (state.ctx.email) query.email = state.ctx.email;
+      if (state.ctx.name) query.name = state.ctx.name;
       if (state.ctx.cid) query.cid = state.ctx.cid;
       if (state.ctx.rid) query.crid = state.ctx.rid;
       const payload = await requestJson(`/api/rewards/status?${new URLSearchParams(query).toString()}`);
@@ -242,6 +248,7 @@
       const query = new URLSearchParams();
       if (merged.tenant) query.set("tenant", merged.tenant);
       if (merged.email) query.set("email", merged.email);
+      if (merged.name) query.set("name", merged.name);
       if (merged.cid) query.set("cid", merged.cid);
       if (merged.rid) query.set("crid", merged.rid);
       if (merged.owner_email) query.set("owner_email", merged.owner_email);

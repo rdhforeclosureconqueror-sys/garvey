@@ -142,9 +142,11 @@ function hydrateIdentity() {
   emailInput.value = identity.email || "";
   nameInput.value = identity.name || "";
   emailInput.readOnly = !!identity.identified;
+  nameInput.readOnly = !!identity.identified;
   emailInput.setAttribute("aria-readonly", identity.identified ? "true" : "false");
+  nameInput.setAttribute("aria-readonly", identity.identified ? "true" : "false");
   progress.innerText = identity.identified
-    ? `Signed in customer: ${identity.email}`
+    ? `Signed in customer: ${identity.name ? `${identity.name} ` : ""}${identity.email}`
     : "No active customer session found. Identify customer in Rewards first.";
   return identity;
 }
@@ -279,7 +281,7 @@ async function submit() {
     const crid = String(data?.result_id ?? data?.result?.result_id ?? "").trim();
     writeActiveCustomer({ tenant, email, name, cid, rid: crid || identity.rid });
     if (window.GARVEY && window.GARVEY.setLoginCtx) {
-      window.GARVEY.setLoginCtx({ tenant, email, cid, rid: crid || identity.rid });
+      window.GARVEY.setLoginCtx({ tenant, email, name, cid, rid: crid || identity.rid });
     }
     const dest = new URL('/results_customer.html', window.location.origin);
     dest.searchParams.set('tenant', tenant);
