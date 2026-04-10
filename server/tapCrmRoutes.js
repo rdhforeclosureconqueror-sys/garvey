@@ -4,6 +4,13 @@ const express = require("express");
 const { pool } = require("./db");
 const { ACTIONS, deriveActor, evaluatePolicy } = require("./accessControl");
 const { getTapCrmMode } = require("./tapCrmFeature");
+const {
+  normalizeTemplateId,
+  resolveTemplateRuntime,
+  listTemplates,
+  listModules,
+  MODULE_REGISTRY,
+} = require("./tapCrmTemplates");
 
 const OWNER_CONSOLE_ROUTE_NAMESPACE = "tap-crm";
 
@@ -74,6 +81,8 @@ function buildOwnerConsolePayload({ tenant, role }) {
       "tag_manager",
       "analytics_summary",
       "template_selector",
+      "module_registry",
+      "module_config_editor",
       "tap_crm_dashboard_landing",
     ],
   };
@@ -308,6 +317,7 @@ async function resolvePublicTap(db, { tagCode, requestMeta = {} }) {
         destination_path: row.destination_path || "/tap-crm",
       },
       business_config: row.business_config || {},
+      template_runtime: resolveTemplateRuntime(cloneJson(row.business_config || {}, {})),
     },
   };
 }
@@ -555,7 +565,8 @@ function createTapCrmRouter() {
         tenant: scoped.tenantSlug,
         template_selector: {
           selected_template_id: String(config.selected_template_id || ""),
-          available_templates: ["default", "service_business", "retail", "events"],
+          available_templates: listTemplates(),
+          effective_template: resolveTemplateRuntime(config),
         },
       });
     } catch (err) {
@@ -570,19 +581,110 @@ function createTapCrmRouter() {
     try {
       const scoped = await withTenantScope(pool, access.tenant);
       if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
-      const selectedTemplateId = String(req.body && req.body.selected_template_id || "").trim().toLowerCase();
+      const selectedTemplateId = normalizeTemplateId(req.body && req.body.selected_template_id || "");
+      if (!selectedTemplateId) {
+        return res.status(400).json({ error: "selected_template_id_required" });
+      }
+
+      const templates = listTemplates();
+      if (!templates.some((template) => template.id === selectedTemplateId)) {
+        return res.status(400).json({ error: "unknown_template_id", selected_template_id: selectedTemplateId });
+      }
+
       const baseConfig = cloneJson(scoped.businessConfig.config, {});
       baseConfig.selected_template_id = selectedTemplateId;
-      await saveBusinessConfig(pool, scoped.tenantId, baseConfig);
+      const saved = await saveBusinessConfig(pool, scoped.tenantId, baseConfig);
       return res.json({
         ok: true,
         route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
         tenant: scoped.tenantSlug,
         selected_template_id: selectedTemplateId,
+        effective_template: resolveTemplateRuntime(cloneJson(saved.config, {})),
       });
     } catch (err) {
       console.error("tap_crm_template_selector_put_failed", err);
       return res.status(500).json({ error: "tap_crm_template_selector_put_failed" });
+    }
+  });
+
+  router.get("/console/modules/registry", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_TEMPLATES_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const config = cloneJson(scoped.businessConfig.config, {});
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        modules: resolveTemplateRuntime(config).modules,
+        module_registry: listModules(),
+      });
+    } catch (err) {
+      console.error("tap_crm_module_registry_get_failed", err);
+      return res.status(500).json({ error: "tap_crm_module_registry_get_failed" });
+    }
+  });
+
+  router.get("/console/modules/:moduleId", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_TEMPLATES_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const moduleId = String(req.params.moduleId || "").trim().toLowerCase();
+      if (!MODULE_REGISTRY[moduleId]) {
+        return res.status(404).json({ error: "module_not_found", module_id: moduleId });
+      }
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const config = cloneJson(scoped.businessConfig.config, {});
+      const moduleState = resolveTemplateRuntime(config).modules.find((module) => module.module_id === moduleId);
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        module: moduleState,
+      });
+    } catch (err) {
+      console.error("tap_crm_module_get_failed", err);
+      return res.status(500).json({ error: "tap_crm_module_get_failed" });
+    }
+  });
+
+  router.put("/console/modules/:moduleId", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_TEMPLATES_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const moduleId = String(req.params.moduleId || "").trim().toLowerCase();
+      if (!MODULE_REGISTRY[moduleId]) {
+        return res.status(404).json({ error: "module_not_found", module_id: moduleId });
+      }
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+
+      const baseConfig = cloneJson(scoped.businessConfig.config, {});
+      baseConfig.module_overrides = baseConfig.module_overrides || {};
+      const current = cloneJson(baseConfig.module_overrides[moduleId], {});
+      const next = {
+        ...current,
+        enabled: req.body && req.body.enabled !== undefined ? req.body.enabled === true : current.enabled,
+        config: req.body && req.body.config && typeof req.body.config === "object"
+          ? cloneJson(req.body.config, {})
+          : cloneJson(current.config, {}),
+      };
+      baseConfig.module_overrides[moduleId] = next;
+
+      const saved = await saveBusinessConfig(pool, scoped.tenantId, baseConfig);
+      const moduleState = resolveTemplateRuntime(cloneJson(saved.config, {})).modules.find((module) => module.module_id === moduleId);
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        module: moduleState,
+      });
+    } catch (err) {
+      console.error("tap_crm_module_put_failed", err);
+      return res.status(500).json({ error: "tap_crm_module_put_failed" });
     }
   });
 

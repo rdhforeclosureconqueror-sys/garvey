@@ -226,3 +226,80 @@ Date: 2026-04-10
 - `server/tapCrmRoutes.js` expanded with Phase 5 owner-console endpoints and tenant-config helper utilities.
 - `tapcrm/index.html` updated to reflect owner-facing Tap Console Phase 5 scope.
 - Added `tests/tap-crm-phase5-owner-console.test.js` for Phase 5 behavior verification.
+
+## Phase 6 — Template Loader + Module Registry + Per-Business Module Config
+
+Date: 2026-04-10
+
+### Built
+
+- Added isolated Tap CRM template/module engine utilities in `server/tapCrmTemplates.js`:
+  - template loader with strict fallback to `default`
+  - template registry entries for `default`, `barber`, `salon`, and `fitness`
+  - module registry for reusable zones (`hero`, `primary_cta`, `services`, `social_links`, `business_info`)
+  - runtime resolver that merges default module config + template module config + per-business override config
+- Expanded Phase 5 template selector behavior in `server/tapCrmRoutes.js`:
+  - `GET /api/tap-crm/console/templates/selector` now returns dynamic `available_templates` plus `effective_template`
+  - `PUT /api/tap-crm/console/templates/selector` now validates template id and returns the resolved effective template payload
+- Added per-business module enable/disable + module config APIs in `server/tapCrmRoutes.js`:
+  - `GET /api/tap-crm/console/modules/registry`
+  - `GET /api/tap-crm/console/modules/:moduleId`
+  - `PUT /api/tap-crm/console/modules/:moduleId`
+- Added template runtime attachment to public resolution payload (`template_runtime`) to support template-driven reuse across barber/salon/fitness without route-surface changes.
+- Extended owner-console payload screen inventory to include `module_registry` and `module_config_editor` surfaces.
+
+### Verification
+
+- Added Phase 6 unit tests in `tests/tap-crm-phase6-template-modules.test.js` for:
+  - template id normalization
+  - default/fallback template loader behavior
+  - module runtime merge precedence
+  - template reuse coverage across barber/salon/fitness
+  - module registry stability
+  - owner-console screen inventory updates for Phase 6
+- Updated existing owner console payload assertions in `tests/tap-crm-phase5-owner-console.test.js`.
+- Ran:
+  - `node --test tests/tap-crm-phase1.test.js tests/tap-crm-phase2-schema.test.js tests/tap-crm-phase3-routing.test.js tests/tap-crm-phase4-hub-rendering.test.js tests/tap-crm-phase5-owner-console.test.js tests/tap-crm-phase6-template-modules.test.js`
+
+### Result
+
+- PASS (Phase 6 scope only)
+
+### Regression Notes
+
+- Existing Tap CRM API namespace remains unchanged (`/api/tap-crm/*`).
+- Existing public tap route namespace remains unchanged (`/tap-crm/t/:tagCode`).
+- Existing owner dashboard mount remains unchanged (`/dashboard/tap-crm`).
+- Existing TAP namespace decision (`tap-crm`) remains unchanged and no route alias was introduced.
+- No existing GARVEY `/t/:slug/*` routes were modified.
+
+### Rollback Notes
+
+- Route rollback: remove Phase 6 module endpoints from `server/tapCrmRoutes.js`.
+- Engine rollback: remove `server/tapCrmTemplates.js` and restore static template selector payload behavior.
+- Data rollback: no schema rollback required; Phase 6 persists only JSON config under existing `tap_crm_business_config.config` (`selected_template_id`, `module_overrides`).
+
+### Shared-Area Touches
+
+- `server/tapCrmRoutes.js` updated for Phase 6 API behavior and public resolution payload enrichment.
+- Added isolated helper module `server/tapCrmTemplates.js` to keep template/module logic out of unrelated route families.
+- Updated tests in `tests/tap-crm-phase5-owner-console.test.js` and added `tests/tap-crm-phase6-template-modules.test.js`.
+
+## Phase 6 Follow-up — Runtime Request-Level Verification (Running App + DB)
+
+Date: 2026-04-10
+
+- Performed request-level runtime verification against live app/server with PostgreSQL-backed state for:
+  - template selection GET/PUT persistence
+  - module registry/read/update persistence
+  - runtime merge precedence
+  - customer-facing Tap Hub output differences across barber/salon/fitness
+  - module-disable section suppression
+  - fallback-safe rendering for partially configured tenant
+  - tenant state isolation + validation responses
+  - feature-flag OFF route hiding
+- Detailed evidence (commands + observed outputs) captured in:
+  - `docs/TAP_CRM_PHASE6_RUNTIME_VERIFICATION.md`
+
+Result:
+- PASS (Phase 6 follow-up runtime verification)
