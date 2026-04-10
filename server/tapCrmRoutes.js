@@ -7,8 +7,12 @@ const { getTapCrmMode } = require("./tapCrmFeature");
 const {
   normalizeTemplateId,
   resolveTemplateRuntime,
+  cloneTemplateForIndustry,
   listTemplates,
   listModules,
+  listAddOns,
+  resolveAddOnRuntime,
+  resolveServiceCustomFields,
   MODULE_REGISTRY,
   buildBarberPilotBaselineConfig,
 } = require("./tapCrmTemplates");
@@ -84,6 +88,9 @@ function buildOwnerConsolePayload({ tenant, role }) {
       "template_selector",
       "module_registry",
       "module_config_editor",
+      "add_on_registry",
+      "custom_fields_editor",
+      "admin_overrides",
       "pilot_readiness",
       "pilot_bootstrap",
       "tap_crm_dashboard_landing",
@@ -179,6 +186,10 @@ function evaluatePilotReadiness({ config, tags }) {
     active_tag_count: activeTagCount,
     selected_template_id: selectedTemplateId || "default",
   };
+}
+
+function isAdminOverrideActor(actor) {
+  return !!(actor && actor.isAdmin === true);
 }
 
 function evaluateTagStatus({ tagStatus, businessStatus }) {
@@ -384,6 +395,7 @@ function createTapCrmRouter() {
           "tag_manager",
           "analytics_summary",
           "template_selector",
+          "add_on_registry",
           "pilot_readiness",
         ],
       },
@@ -681,6 +693,117 @@ function createTapCrmRouter() {
     }
   });
 
+  router.get("/console/add-ons/registry", (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_VIEW);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    return res.json({
+      ok: true,
+      route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+      tenant: access.tenant,
+      add_ons: listAddOns(),
+    });
+  });
+
+  router.get("/console/add-ons/runtime", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_VIEW);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        add_ons: resolveAddOnRuntime(cloneJson(scoped.businessConfig.config, {})),
+      });
+    } catch (err) {
+      console.error("tap_crm_add_on_runtime_get_failed", err);
+      return res.status(500).json({ error: "tap_crm_add_on_runtime_get_failed" });
+    }
+  });
+
+  router.get("/console/template-clones/:industryId", (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_TEMPLATES_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    return res.json({
+      ok: true,
+      route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+      tenant: access.tenant,
+      clone: cloneTemplateForIndustry({
+        templateId: String(req.query.template || "default"),
+        industryId: String(req.params.industryId || ""),
+      }),
+    });
+  });
+
+  router.get("/console/custom-fields/:serviceType", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_TEMPLATES_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        service_type: String(req.params.serviceType || ""),
+        custom_fields: resolveServiceCustomFields(
+          cloneJson(scoped.businessConfig.config, {}),
+          String(req.params.serviceType || "")
+        ),
+      });
+    } catch (err) {
+      console.error("tap_crm_custom_fields_get_failed", err);
+      return res.status(500).json({ error: "tap_crm_custom_fields_get_failed" });
+    }
+  });
+
+  router.get("/console/admin/overrides", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    if (!isAdminOverrideActor(access.actor)) {
+      return res.status(403).json({ error: "admin_override_required" });
+    }
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const config = cloneJson(scoped.businessConfig.config, {});
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        admin_overrides: cloneJson(config.admin_overrides, {}),
+      });
+    } catch (err) {
+      console.error("tap_crm_admin_overrides_get_failed", err);
+      return res.status(500).json({ error: "tap_crm_admin_overrides_get_failed" });
+    }
+  });
+
+  router.put("/console/admin/overrides", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    if (!isAdminOverrideActor(access.actor)) {
+      return res.status(403).json({ error: "admin_override_required" });
+    }
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const config = cloneJson(scoped.businessConfig.config, {});
+      config.admin_overrides = req.body && typeof req.body === "object" ? cloneJson(req.body, {}) : {};
+      const saved = await saveBusinessConfig(pool, scoped.tenantId, config);
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        admin_overrides: cloneJson(saved.config && saved.config.admin_overrides, {}),
+      });
+    } catch (err) {
+      console.error("tap_crm_admin_overrides_put_failed", err);
+      return res.status(500).json({ error: "tap_crm_admin_overrides_put_failed" });
+    }
+  });
+
   router.get("/console/pilot/readiness", async (req, res) => {
     const access = checkTapAccess(req, ACTIONS.TAP_MANAGE);
     if (!access.ok) return res.status(access.status).json(access.body);
@@ -860,6 +983,7 @@ module.exports = {
   normalizeActionItems,
   buildOwnerConsolePayload,
   normalizeTagCode,
+  isAdminOverrideActor,
   evaluateTagStatus,
   resolvePublicTap,
 };

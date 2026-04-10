@@ -120,6 +120,42 @@ const MODULE_REGISTRY = {
   },
 };
 
+const ADD_ON_REGISTRY = {
+  waitlist_capture: {
+    id: "waitlist_capture",
+    label: "Waitlist Capture",
+    default_enabled: false,
+    default_config: {
+      headline: "Join the waitlist",
+      cta_label: "Join waitlist",
+    },
+  },
+  loyalty_snapshot: {
+    id: "loyalty_snapshot",
+    label: "Loyalty Snapshot",
+    default_enabled: false,
+    default_config: {
+      title: "Rewards snapshot",
+      points_label: "Points balance",
+    },
+  },
+};
+
+const SERVICE_CUSTOM_FIELD_REGISTRY = {
+  barber: [
+    { key: "preferred_barber", label: "Preferred barber", type: "text", required: false },
+    { key: "beard_service", label: "Include beard service", type: "boolean", required: false },
+  ],
+  salon: [
+    { key: "hair_length", label: "Hair length", type: "select", required: false, options: ["short", "medium", "long"] },
+    { key: "color_history", label: "Recent color treatment", type: "boolean", required: false },
+  ],
+  fitness: [
+    { key: "fitness_goal", label: "Primary goal", type: "text", required: true },
+    { key: "injury_notes", label: "Injury notes", type: "textarea", required: false },
+  ],
+};
+
 const BARBER_PILOT_BASELINE = Object.freeze({
   selected_template_id: "barber",
   brand: {
@@ -217,12 +253,66 @@ function resolveTemplateRuntime(config = {}) {
   };
 }
 
+function cloneTemplateForIndustry({ templateId, industryId }) {
+  const resolved = resolveTemplate(templateId || "default").template;
+  const normalizedIndustryId = normalizeTemplateId(industryId || resolved.vertical || "general") || "general";
+  return {
+    ...cloneJson(resolved, {}),
+    id: `${normalizedIndustryId}_${resolved.id}_clone`,
+    label: `${resolved.label} (${normalizedIndustryId})`,
+    vertical: normalizedIndustryId,
+    source_template_id: resolved.id,
+    is_cloned_template: true,
+  };
+}
+
 function listTemplates() {
   return Object.values(TEMPLATE_REGISTRY).map((template) => ({
     id: template.id,
     label: template.label,
     vertical: template.vertical,
   }));
+}
+
+function listAddOns() {
+  return Object.values(ADD_ON_REGISTRY).map((addOnDef) => ({
+    add_on_id: addOnDef.id,
+    label: addOnDef.label,
+    default_enabled: addOnDef.default_enabled,
+    default_config: cloneJson(addOnDef.default_config, {}),
+  }));
+}
+
+function resolveAddOnRuntime(config = {}) {
+  const overrides = cloneJson(config.add_on_overrides, {});
+  return Object.values(ADD_ON_REGISTRY).map((addOnDef) => {
+    const override = cloneJson(overrides[addOnDef.id], {});
+    return {
+      add_on_id: addOnDef.id,
+      label: addOnDef.label,
+      enabled: override.enabled !== undefined ? override.enabled === true : addOnDef.default_enabled,
+      config: {
+        ...cloneJson(addOnDef.default_config, {}),
+        ...cloneJson(override.config, {}),
+      },
+    };
+  });
+}
+
+function resolveServiceCustomFields(config = {}, serviceType) {
+  const normalizedServiceType = normalizeTemplateId(serviceType || "general");
+  const defaults = cloneJson(SERVICE_CUSTOM_FIELD_REGISTRY[normalizedServiceType], []);
+  const overrideState = cloneJson(config.custom_field_overrides, {});
+  const overrideList = Array.isArray(overrideState[normalizedServiceType]) ? overrideState[normalizedServiceType] : [];
+  const overrideByKey = new Map(overrideList.map((field) => [String(field.key || "").trim(), field]));
+  return defaults.map((field) => {
+    const override = cloneJson(overrideByKey.get(field.key), {});
+    return {
+      ...cloneJson(field, {}),
+      ...override,
+      key: field.key,
+    };
+  });
 }
 
 function listModules() {
@@ -279,11 +369,17 @@ function normalizeActionArray(value, fallback) {
 module.exports = {
   TEMPLATE_REGISTRY,
   MODULE_REGISTRY,
+  ADD_ON_REGISTRY,
+  SERVICE_CUSTOM_FIELD_REGISTRY,
   normalizeTemplateId,
   resolveTemplate,
   resolveTemplateRuntime,
+  cloneTemplateForIndustry,
   listTemplates,
   listModules,
+  listAddOns,
+  resolveAddOnRuntime,
+  resolveServiceCustomFields,
   BARBER_PILOT_BASELINE,
   buildBarberPilotBaselineConfig,
 };

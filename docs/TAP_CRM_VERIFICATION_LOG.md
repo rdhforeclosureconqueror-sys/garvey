@@ -382,3 +382,84 @@ Date: 2026-04-10
 
 Result:
 - PASS (Phase 7 follow-up refinement only)
+
+## Phase 8 — Extension Architecture (Add-ons + Clone Strategy + Admin Overrides)
+
+Date: 2026-04-10
+
+### Built
+
+- Added Phase 8 extension architecture in `server/tapCrmTemplates.js`:
+  - add-on registry (`ADD_ON_REGISTRY`) + runtime merge resolver (`resolveAddOnRuntime`)
+  - template clone helper (`cloneTemplateForIndustry`) to support industry-specific derivatives from existing templates
+  - service-specific custom field registry (`SERVICE_CUSTOM_FIELD_REGISTRY`) + resolver (`resolveServiceCustomFields`)
+- Added Phase 8 owner-console endpoints in `server/tapCrmRoutes.js` under existing namespace:
+  - `GET /api/tap-crm/console/add-ons/registry`
+  - `GET /api/tap-crm/console/add-ons/runtime`
+  - `GET /api/tap-crm/console/template-clones/:industryId`
+  - `GET /api/tap-crm/console/custom-fields/:serviceType`
+  - `GET|PUT /api/tap-crm/console/admin/overrides` (admin-only)
+- Expanded owner-console payload screen inventory for:
+  - `add_on_registry`
+  - `custom_fields_editor`
+  - `admin_overrides`
+- Updated Tap Console mount page references to Phase 8 extension surfaces.
+- Added extension guidance documentation for adding industries/modules later in `docs/TAP_CRM_EXTENSION.md`.
+
+### Verification
+
+- Updated/added assertions in:
+  - `tests/tap-crm-phase5-owner-console.test.js`
+  - `tests/tap-crm-phase6-template-modules.test.js`
+- Ran:
+  - `node --test tests/tap-crm-phase1.test.js tests/tap-crm-phase2-schema.test.js tests/tap-crm-phase3-routing.test.js tests/tap-crm-phase4-hub-rendering.test.js tests/tap-crm-phase5-owner-console.test.js tests/tap-crm-phase6-template-modules.test.js`
+
+### Result
+
+- PASS (Phase 8 scope only)
+
+### Regression Notes
+
+- Existing Tap CRM API namespace remains unchanged (`/api/tap-crm/*`).
+- Existing public tap route namespace remains unchanged (`/tap-crm/t/:tagCode`).
+- Existing TAP namespace decision (`tap-crm`) remains unchanged; no `/api/tap/*` alias introduced.
+- No existing GARVEY `/t/:slug/*` routes were modified.
+- No schema/migration changes were introduced in Phase 8.
+
+### Rollback Notes
+
+- Route rollback: remove Phase 8 extension endpoints from `server/tapCrmRoutes.js`.
+- Engine rollback: remove Phase 8 registries/resolvers from `server/tapCrmTemplates.js`.
+- Data rollback: unset `add_on_overrides`, `custom_field_overrides`, and `admin_overrides` from `tap_crm_business_config.config` as needed.
+- No schema rollback required.
+
+### Shared-Area Touches
+
+- `server/tapCrmTemplates.js`
+- `server/tapCrmRoutes.js`
+- `tests/tap-crm-phase5-owner-console.test.js`
+- `tests/tap-crm-phase6-template-modules.test.js`
+- `tapcrm/index.html`
+- `docs/TAP_CRM_EXTENSION.md`
+- `docs/TAP_CRM_PHASE8_VERIFICATION.md`
+
+## Phase 8 Follow-up — Runtime Request-Level Verification (Extensions)
+
+Date: 2026-04-10
+
+- Performed request-level runtime verification against running app + PostgreSQL-backed state for Phase 8 extension surfaces:
+  - add-on registry/runtime and override reflection
+  - template clone runtime shape and base-vs-clone difference
+  - service custom fields runtime (valid + unknown service type)
+  - admin override deny/allow/persist/confirm flows
+  - tenant state isolation + cross-tenant deny behavior
+  - feature-flag OFF route hiding for all new Phase 8 endpoints
+- Detailed evidence (commands + observed outputs) captured in:
+  - `docs/TAP_CRM_PHASE8_RUNTIME_VERIFICATION.md`
+
+Result:
+- PASS (Phase 8 follow-up runtime verification)
+
+Scope confirmation:
+- No schema migrations added in this follow-up.
+- No unrelated automation, messaging, or platform redesign work introduced.
