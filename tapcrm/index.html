@@ -3,37 +3,399 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tap CRM</title>
+    <title>Tap CRM Console</title>
     <style>
-      body { font-family: Arial, sans-serif; margin: 2rem; }
-      .card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; max-width: 720px; }
-      ul { line-height: 1.5; }
-      code { background: #f5f5f5; padding: 0.1rem 0.3rem; border-radius: 4px; }
+      :root { color-scheme: light; }
+      body { font-family: Inter, Arial, sans-serif; margin: 0; background: #f5f7fb; color: #0f172a; }
+      .wrap { max-width: 1100px; margin: 0 auto; padding: 18px; }
+      h1 { margin: 0 0 8px; }
+      .sub { color: #334155; margin: 0 0 16px; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+      .card { background: #fff; border: 1px solid #dbe3ef; border-radius: 12px; padding: 12px; box-shadow: 0 1px 6px rgba(15, 23, 42, 0.06); }
+      label { display: block; font-size: 0.85rem; font-weight: 700; margin: 8px 0 4px; }
+      input, select, textarea, button { font: inherit; }
+      input, select, textarea { width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px; }
+      textarea { min-height: 88px; }
+      button { border: 1px solid #0f172a; background: #0f172a; color: #fff; border-radius: 8px; padding: 8px 10px; cursor: pointer; margin-top: 8px; }
+      button.alt { background: #fff; color: #0f172a; }
+      .row { display: flex; gap: 8px; flex-wrap: wrap; }
+      .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.76rem; font-weight: 700; }
+      .pill.active { background: #dcfce7; color: #14532d; }
+      .pill.inactive { background: #fef3c7; color: #92400e; }
+      .pill.disabled { background: #fee2e2; color: #991b1b; }
+      table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+      th, td { text-align: left; border-bottom: 1px solid #e2e8f0; padding: 6px 4px; vertical-align: top; }
+      .muted { color: #64748b; font-size: 0.82rem; }
+      .status { margin: 8px 0 0; font-size: 0.85rem; min-height: 20px; }
+      .ok { color: #14532d; }
+      .err { color: #991b1b; }
+      pre { white-space: pre-wrap; background: #0b1220; color: #e2e8f0; padding: 8px; border-radius: 8px; max-height: 200px; overflow: auto; }
+      .tag-edit { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px; margin-top: 6px; }
     </style>
   </head>
   <body>
-    <h1>Tap Console — Owner View</h1>
-    <div class="card">
-      <p>Route namespace: <code>tap-crm</code></p>
-      <p>Owner-facing screens available through Phase 8:</p>
-      <ul>
-        <li>Business setup</li>
-        <li>Primary action editor</li>
-        <li>Secondary action editor</li>
-        <li>Tag manager</li>
-        <li>Analytics summary</li>
-        <li>Template selector</li>
-        <li>Module registry</li>
-        <li>Per-module config editor</li>
-        <li>Add-on registry + runtime previews</li>
-        <li>Service-specific custom fields editor pattern</li>
-        <li>Admin-only override panel</li>
-        <li>Barber pilot readiness</li>
-        <li>Pilot bootstrap (first-business setup)</li>
-        <li>Tap CRM dashboard landing page</li>
-      </ul>
-      <p>API base: <code>/api/tap-crm</code></p>
-      <p>Try: <code>/api/tap-crm/console/landing?tenant=demo</code>, <code>/api/tap-crm/console/add-ons/registry?tenant=demo</code>, <code>/api/tap-crm/console/custom-fields/barber?tenant=demo</code>, <code>/api/tap-crm/console/admin/overrides?tenant=demo</code>, and <code>POST /api/tap-crm/console/pilot/bootstrap?tenant=demo</code>.</p>
+    <div class="wrap">
+      <h1>Tap CRM — Pilot Console</h1>
+      <p class="sub">Operational owner console for pilot setup, tag lifecycle, and tap analytics.</p>
+
+      <section class="card">
+        <div class="grid">
+          <div>
+            <label for="tenant">Tenant</label>
+            <input id="tenant" placeholder="demo" />
+          </div>
+          <div>
+            <label for="email">Owner/Admin email (optional)</label>
+            <input id="email" placeholder="owner@example.com" />
+          </div>
+          <div>
+            <label for="role">Role hint (optional)</label>
+            <select id="role">
+              <option value="">(session/default)</option>
+              <option value="business_owner">business_owner</option>
+              <option value="admin">admin</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <button id="loadAllBtn">Load Console Data</button>
+          <button id="bootstrapBtn" class="alt">Run Pilot Bootstrap</button>
+        </div>
+        <div class="status" id="globalStatus"></div>
+      </section>
+
+      <div class="grid" style="margin-top:12px;">
+        <section class="card">
+          <h3>Dashboard Landing</h3>
+          <pre id="dashboardOut">{}</pre>
+        </section>
+
+        <section class="card">
+          <h3>Business Setup</h3>
+          <label for="bizName">Business name</label><input id="bizName" />
+          <label for="bizPhone">Phone</label><input id="bizPhone" />
+          <label for="bizAddress">Address</label><input id="bizAddress" />
+          <label for="bizHours">Hours</label><input id="bizHours" />
+          <button id="saveBizBtn">Save Business Setup</button>
+          <div class="status" id="bizStatus"></div>
+        </section>
+
+        <section class="card">
+          <h3>Primary Actions</h3>
+          <textarea id="primaryJson" placeholder='[{"label":"Book a cut","url":"/book"}]'></textarea>
+          <button id="savePrimaryBtn">Save Primary Actions</button>
+          <div class="status" id="primaryStatus"></div>
+        </section>
+
+        <section class="card">
+          <h3>Secondary Actions</h3>
+          <textarea id="secondaryJson" placeholder='[{"label":"Call shop","url":"tel:+10000000000"}]'></textarea>
+          <button id="saveSecondaryBtn">Save Secondary Actions</button>
+          <div class="status" id="secondaryStatus"></div>
+        </section>
+
+        <section class="card">
+          <h3>Template Selector</h3>
+          <label for="templateSelect">Template</label>
+          <select id="templateSelect"></select>
+          <button id="saveTemplateBtn">Save Template</button>
+          <div class="status" id="templateStatus"></div>
+        </section>
+
+        <section class="card">
+          <h3>Analytics Summary</h3>
+          <pre id="analyticsOut">{}</pre>
+        </section>
+
+        <section class="card">
+          <h3>Pilot Readiness</h3>
+          <pre id="pilotOut">{}</pre>
+        </section>
+      </div>
+
+      <section class="card" style="margin-top:12px;">
+        <h3>Tag Manager</h3>
+        <div class="grid">
+          <div>
+            <label for="newTagLabel">Label / Purpose</label>
+            <input id="newTagLabel" placeholder="Welcome Chair" />
+          </div>
+          <div>
+            <label for="newTagKey">Key</label>
+            <input id="newTagKey" placeholder="welcome-chair" />
+          </div>
+          <div>
+            <label for="newTagCode">Tag code</label>
+            <input id="newTagCode" placeholder="demo-welcome" />
+          </div>
+          <div>
+            <label for="newTagPath">Destination path</label>
+            <input id="newTagPath" placeholder="/tap-crm" />
+          </div>
+        </div>
+        <button id="createTagBtn">Create / Register Tag</button>
+        <div class="status" id="tagCreateStatus"></div>
+        <table id="tagsTable">
+          <thead>
+            <tr><th>ID</th><th>Label</th><th>Code</th><th>Status</th><th>Destination</th><th>Last Tap</th><th>Actions</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
     </div>
+
+    <script>
+      (function () {
+        function q(id) { return document.getElementById(id); }
+        function txt(el, message, ok) {
+          if (!el) return;
+          el.textContent = message || "";
+          el.className = "status " + (message ? (ok ? "ok" : "err") : "");
+        }
+        function pre(id, value) { q(id).textContent = JSON.stringify(value || {}, null, 2); }
+
+        function getCtx() {
+          var params = new URLSearchParams(location.search);
+          var tenant = String(q("tenant").value || params.get("tenant") || "").trim();
+          var email = String(q("email").value || params.get("email") || "").trim();
+          var role = String(q("role").value || params.get("role") || "").trim();
+          return { tenant: tenant, email: email, role: role };
+        }
+
+        function url(path) {
+          var ctx = getCtx();
+          if (!ctx.tenant) throw new Error("tenant required");
+          var qs = new URLSearchParams({ tenant: ctx.tenant });
+          if (ctx.email) qs.set("email", ctx.email);
+          if (ctx.role) qs.set("role", ctx.role);
+          return path + "?" + qs.toString();
+        }
+
+        async function request(path, options) {
+          var res = await fetch(url(path), Object.assign({
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+          }, options || {}));
+          var body = await res.json().catch(function () { return {}; });
+          if (!res.ok) {
+            var msg = body.error || ("HTTP " + res.status);
+            throw new Error(msg);
+          }
+          return body;
+        }
+
+        function parseActionJson(raw) {
+          var val = JSON.parse(String(raw || "[]"));
+          return Array.isArray(val) ? val : [];
+        }
+
+        function formatStamp(value) {
+          if (!value) return "-";
+          var d = new Date(value);
+          if (Number.isNaN(d.getTime())) return "-";
+          return d.toISOString();
+        }
+
+        function statusPill(status) {
+          var s = String(status || "inactive").toLowerCase();
+          return '<span class="pill ' + s + '">' + s + '</span>';
+        }
+
+        async function loadDashboard() {
+          pre("dashboardOut", await request("/api/tap-crm/dashboard"));
+        }
+
+        async function loadBusinessSetup() {
+          var r = await request("/api/tap-crm/console/business-setup");
+          var setup = r.business_setup || {};
+          q("bizName").value = setup.name || "";
+          q("bizPhone").value = setup.phone || "";
+          q("bizAddress").value = setup.address || "";
+          q("bizHours").value = setup.hours || "";
+        }
+
+        async function saveBusinessSetup() {
+          var payload = {
+            name: q("bizName").value,
+            phone: q("bizPhone").value,
+            address: q("bizAddress").value,
+            hours: q("bizHours").value,
+          };
+          await request("/api/tap-crm/console/business-setup", { method: "PUT", body: JSON.stringify(payload) });
+          txt(q("bizStatus"), "Business setup saved.", true);
+        }
+
+        async function loadActions() {
+          var p = await request("/api/tap-crm/console/actions/primary");
+          var s = await request("/api/tap-crm/console/actions/secondary");
+          q("primaryJson").value = JSON.stringify(p.primary_actions || [], null, 2);
+          q("secondaryJson").value = JSON.stringify(s.secondary_actions || [], null, 2);
+        }
+
+        async function savePrimary() {
+          var payload = { primary_actions: parseActionJson(q("primaryJson").value) };
+          await request("/api/tap-crm/console/actions/primary", { method: "PUT", body: JSON.stringify(payload) });
+          txt(q("primaryStatus"), "Primary actions saved.", true);
+        }
+
+        async function saveSecondary() {
+          var payload = { secondary_actions: parseActionJson(q("secondaryJson").value) };
+          await request("/api/tap-crm/console/actions/secondary", { method: "PUT", body: JSON.stringify(payload) });
+          txt(q("secondaryStatus"), "Secondary actions saved.", true);
+        }
+
+        async function loadTemplates() {
+          var r = await request("/api/tap-crm/console/templates/selector");
+          var sel = q("templateSelect");
+          sel.innerHTML = "";
+          (r.template_selector.available_templates || []).forEach(function (tpl) {
+            var opt = document.createElement("option");
+            opt.value = tpl.id;
+            opt.textContent = tpl.label + " (" + tpl.id + ")";
+            sel.appendChild(opt);
+          });
+          if (r.template_selector.selected_template_id) {
+            sel.value = r.template_selector.selected_template_id;
+          }
+        }
+
+        async function saveTemplate() {
+          await request("/api/tap-crm/console/templates/selector", {
+            method: "PUT",
+            body: JSON.stringify({ selected_template_id: q("templateSelect").value }),
+          });
+          txt(q("templateStatus"), "Template saved.", true);
+        }
+
+        async function loadAnalytics() {
+          pre("analyticsOut", await request("/api/tap-crm/console/analytics/summary"));
+        }
+
+        async function loadPilot() {
+          pre("pilotOut", await request("/api/tap-crm/console/pilot/readiness"));
+        }
+
+        async function runBootstrap() {
+          await request("/api/tap-crm/console/pilot/bootstrap", { method: "POST", body: JSON.stringify({}) });
+          txt(q("globalStatus"), "Pilot bootstrap complete.", true);
+          await loadTags();
+          await loadPilot();
+        }
+
+        function renderTags(rows) {
+          var body = q("tagsTable").querySelector("tbody");
+          body.innerHTML = "";
+          (rows || []).forEach(function (tag) {
+            var tr = document.createElement("tr");
+            tr.innerHTML = [
+              "<td>" + tag.id + "</td>",
+              "<td>" + (tag.label || "") + "<div class='muted'>" + (tag.key || "") + "</div></td>",
+              "<td><code>" + (tag.tag_code || "") + "</code></td>",
+              "<td>" + statusPill(tag.status) + "</td>",
+              "<td><code>" + (tag.destination_path || "") + "</code></td>",
+              "<td>" + formatStamp(tag.last_tap_at) + "</td>",
+              "<td>" +
+                "<div class='row'>" +
+                "<button data-id='" + tag.id + "' data-act='toggle' class='alt'>" + (tag.status === "active" ? "Deactivate" : "Activate") + "</button>" +
+                "</div>" +
+                "<div class='tag-edit'>" +
+                "<input data-id='" + tag.id + "' data-field='label' value='" + String(tag.label || "").replace(/'/g, "&#39;") + "' />" +
+                "<input data-id='" + tag.id + "' data-field='destination_path' value='" + String(tag.destination_path || "").replace(/'/g, "&#39;") + "' />" +
+                "<button data-id='" + tag.id + "' data-act='save' class='alt'>Save</button>" +
+                "</div>" +
+              "</td>",
+            ].join("");
+            body.appendChild(tr);
+          });
+        }
+
+        async function loadTags() {
+          var r = await request("/api/tap-crm/console/tags");
+          renderTags(r.tags || []);
+        }
+
+        async function createTag() {
+          var payload = {
+            label: q("newTagLabel").value,
+            key: q("newTagKey").value,
+            tag_code: q("newTagCode").value,
+            destination_path: q("newTagPath").value,
+          };
+          await request("/api/tap-crm/console/tags", { method: "POST", body: JSON.stringify(payload) });
+          txt(q("tagCreateStatus"), "Tag created.", true);
+          await loadTags();
+        }
+
+        async function updateTag(id, payload) {
+          await request("/api/tap-crm/console/tags/" + encodeURIComponent(id), {
+            method: "PUT",
+            body: JSON.stringify(payload),
+          });
+          await loadTags();
+        }
+
+        async function loadAll() {
+          txt(q("globalStatus"), "", true);
+          await loadDashboard();
+          await loadBusinessSetup();
+          await loadActions();
+          await loadTemplates();
+          await loadTags();
+          await loadAnalytics();
+          await loadPilot();
+          txt(q("globalStatus"), "Console loaded.", true);
+        }
+
+        q("loadAllBtn").addEventListener("click", function () {
+          loadAll().catch(function (err) { txt(q("globalStatus"), err.message, false); });
+        });
+        q("bootstrapBtn").addEventListener("click", function () {
+          runBootstrap().catch(function (err) { txt(q("globalStatus"), err.message, false); });
+        });
+        q("saveBizBtn").addEventListener("click", function () {
+          saveBusinessSetup().catch(function (err) { txt(q("bizStatus"), err.message, false); });
+        });
+        q("savePrimaryBtn").addEventListener("click", function () {
+          savePrimary().catch(function (err) { txt(q("primaryStatus"), err.message, false); });
+        });
+        q("saveSecondaryBtn").addEventListener("click", function () {
+          saveSecondary().catch(function (err) { txt(q("secondaryStatus"), err.message, false); });
+        });
+        q("saveTemplateBtn").addEventListener("click", function () {
+          saveTemplate().catch(function (err) { txt(q("templateStatus"), err.message, false); });
+        });
+        q("createTagBtn").addEventListener("click", function () {
+          createTag().catch(function (err) { txt(q("tagCreateStatus"), err.message, false); });
+        });
+
+        q("tagsTable").addEventListener("click", function (event) {
+          var btn = event.target.closest("button[data-id]");
+          if (!btn) return;
+          var id = btn.getAttribute("data-id");
+          var act = btn.getAttribute("data-act");
+          if (act === "toggle") {
+            var row = btn.closest("tr");
+            var statusText = row.children[3] ? String(row.children[3].textContent || "").trim().toLowerCase() : "inactive";
+            var current = statusText === "active" ? "active" : "inactive";
+            var next = current === "active" ? "inactive" : "active";
+            updateTag(id, { status: next }).catch(function (err) { txt(q("globalStatus"), err.message, false); });
+          }
+          if (act === "save") {
+            var container = btn.closest(".tag-edit");
+            var labelInput = container.querySelector("input[data-field='label']");
+            var pathInput = container.querySelector("input[data-field='destination_path']");
+            updateTag(id, {
+              label: labelInput.value,
+              destination_path: pathInput.value,
+            }).catch(function (err) { txt(q("globalStatus"), err.message, false); });
+          }
+        });
+
+        var params = new URLSearchParams(location.search);
+        q("tenant").value = params.get("tenant") || "";
+        q("email").value = params.get("email") || "";
+        q("role").value = params.get("role") || "";
+      })();
+    </script>
   </body>
 </html>

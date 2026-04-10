@@ -29,6 +29,7 @@ const documentedRoutes = [
   "GET /dashboard.html",
   "GET /health",
   "GET /tap-crm",
+  "GET /tap-crm/t/:tagCode",
   "GET /dashboard/tap-crm",
   "GET /api/tap-crm/*",
   "POST /api/owner/signup",
