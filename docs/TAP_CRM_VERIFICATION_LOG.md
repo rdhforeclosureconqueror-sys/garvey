@@ -178,3 +178,51 @@ Date: 2026-04-10
 - `server/index.js` touched to switch public Tap route from raw JSON output to customer-facing HTML rendering flow.
 - Added isolated renderer helper in `server/tapHubRenderer.js` to keep phase logic out of shared domain handlers.
 - Added Phase 4 test coverage in `tests/tap-crm-phase4-hub-rendering.test.js` only.
+
+## Phase 5 — Owner-Facing Tap Console Screens (Scoped API + Landing)
+
+Date: 2026-04-10
+
+### Built
+
+- Added Phase 5 owner-facing Tap Console API surfaces (no Phase 6 template/module engine work):
+  - dashboard landing data: `GET /api/tap-crm/dashboard`
+  - console landing descriptor: `GET /api/tap-crm/console/landing`
+  - business setup editor: `GET|PUT /api/tap-crm/console/business-setup`
+  - primary action editor: `GET|PUT /api/tap-crm/console/actions/primary`
+  - secondary action editor: `GET|PUT /api/tap-crm/console/actions/secondary`
+  - tag manager list view: `GET /api/tap-crm/console/tags`
+  - analytics summary view: `GET /api/tap-crm/console/analytics/summary`
+  - template selector: `GET|PUT /api/tap-crm/console/templates/selector`
+- Added tenant-scoped business config helpers for owner-console payload persistence in `tap_crm_business_config.config`.
+- Updated Tap Console mount page (`/tap-crm` and `/dashboard/tap-crm`) to explicitly present only the approved Phase 5 owner-facing screens.
+
+### Verification
+
+- Added Phase 5 unit tests for owner-console payload and action-editor normalization.
+- Ran:
+  - `node --test tests/tap-crm-phase1.test.js tests/tap-crm-phase2-schema.test.js tests/tap-crm-phase3-routing.test.js tests/tap-crm-phase4-hub-rendering.test.js tests/tap-crm-phase5-owner-console.test.js`
+
+### Result
+
+- PASS (Phase 5 scope only)
+
+### Regression Notes
+
+- Existing Tap CRM API namespace remains unchanged (`/api/tap-crm/*`).
+- Existing public tap route namespace remains unchanged (`/tap-crm/t/:tagCode`).
+- Existing owner dashboard mount remains unchanged (`/dashboard/tap-crm`), now populated with Phase 5 screen references.
+- No existing GARVEY `/t/:slug/*` routes were modified.
+- No Phase 6 template/module engine behavior was introduced.
+
+### Rollback Notes
+
+- Route rollback: remove Phase 5 owner-console routes from `server/tapCrmRoutes.js`.
+- UI rollback: revert `tapcrm/index.html` to the prior placeholder view.
+- Data rollback: no schema rollback required (Phase 5 reused existing `tap_crm_business_config.config` JSON payload only).
+
+### Shared-Area Touches
+
+- `server/tapCrmRoutes.js` expanded with Phase 5 owner-console endpoints and tenant-config helper utilities.
+- `tapcrm/index.html` updated to reflect owner-facing Tap Console Phase 5 scope.
+- Added `tests/tap-crm-phase5-owner-console.test.js` for Phase 5 behavior verification.
