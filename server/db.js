@@ -2,6 +2,7 @@
 
 const { Pool } = require("pg");
 const { initializeKanbanSchema } = require("./kanbanDb");
+const { applyTapCrmMigrations, verifyTapCrmSchema } = require("./tapCrmDb");
 
 const connectionString = process.env.DATABASE_URL;
 
@@ -1276,6 +1277,21 @@ async function initializeDatabase() {
     CREATE INDEX IF NOT EXISTS milestone_logs_tenant_issue_idx ON milestone_logs(tenant_id, issue_id, created_at DESC);
     CREATE INDEX IF NOT EXISTS notification_logs_tenant_issue_idx ON notification_logs(tenant_id, issue_id, created_at DESC);
   `);
+
+
+
+  // ==================================================
+  // TAP CRM SYSTEM (PHASE 2: ISOLATED DATA MODEL)
+  // ==================================================
+  const tapCrmMigrationResult = await applyTapCrmMigrations(pool);
+  const tapCrmSchemaReport = await verifyTapCrmSchema(pool);
+  console.log("✅ Tap CRM schema ready", {
+    applied_migrations: tapCrmMigrationResult.appliedCount,
+    total_migrations: tapCrmMigrationResult.totalMigrations,
+    schema_ok: tapCrmSchemaReport.ok,
+    missing_tables: tapCrmSchemaReport.missingTables,
+    missing_indexes: tapCrmSchemaReport.missingIndexes,
+  });
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS owner_customer_messages (
