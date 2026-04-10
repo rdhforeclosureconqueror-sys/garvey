@@ -130,12 +130,14 @@
     setHref("ownerAssessmentBtn", "/intake.html?assessment=business_owner");
     setHref("ownerDashboardBtn", "/dashboard.html");
     setHref("ownerHubBtn", "/garvey.html");
+    setHref("ownerTapInBtn", "/tap-crm");
     setHref("ownerGrowthTestBtn", "/garvey_premium.html");
 
     // Mini cards / core links
     setHref("businessAssessmentMiniLink", "/intake.html?assessment=business_owner");
     setHref("ownerDashboardMiniLink", "/dashboard.html");
     setHref("ownerHubMiniLink", "/garvey.html");
+    setHref("tapInMiniLink", "/tap-crm");
     setHref("growthTestMiniLink", "/garvey_premium.html");
 
     // Owner controls

@@ -952,6 +952,8 @@
     if (cid) p4.set("cid", cid);
     if (rid) p4.set("rid", rid);
     setHrefIfPresent("campaignQrNavBtn", "/dashboard.html?" + p4.toString() + "#campaignTracking");
+    setHrefIfPresent("tapInNavBtn", "/dashboard/tap-crm?" + p4.toString());
+    setHrefIfPresent("tapInLaunchBtn", "/dashboard/tap-crm?" + p4.toString());
   }
 
   function readSignInFormCtx() {

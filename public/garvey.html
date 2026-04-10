@@ -934,6 +934,7 @@
         <li><a class="nav-link" href="#phase-5">Phase 5 — Infrastructure UI</a></li>
         <li><a class="nav-link" href="#phase-6">Phase 6 — Routing &amp; Stability UI</a></li>
         <li><a class="nav-link" href="#phase-7">Phase 7 — Evaluation, Launch &amp; Evolution UI</a></li>
+        <li><a class="nav-link" id="tapInHubNavLink" href="/tap-crm">Garvey Tap In Business Hub</a></li>
       </ul>
     </aside>
 
@@ -994,6 +995,21 @@
                 <a class="btn" href="#phase-2">Open Structure</a>
                 <a class="btn" href="#phase-3">Open Execution</a>
                 <a class="btn" href="#phase-4">Open Intelligence</a>
+              </div>
+            </article>
+
+            <article class="card phase-progress">
+              <h2>Garvey Tap In Business Hub</h2>
+              <p class="sub">A modern customer entry and engagement system for service-based businesses.</p>
+              <div class="status-grid" style="margin-top:10px;">
+                <div class="status-item"><span>What it is</span><span>Smart business touchpoint</span></div>
+                <div class="status-item"><span>What it does</span><span>Guided customer actions</span></div>
+                <div class="status-item"><span>Why it helps</span><span>Fast first-touch + repeat flow</span></div>
+                <div class="status-item"><span>Who it is for</span><span>Service businesses</span></div>
+              </div>
+              <div class="btn-grid" style="margin-top:10px;">
+                <a class="btn primary" id="tapInHubLaunchBtn" href="/tap-crm">Open Garvey Tap In Business Hub</a>
+                <a class="btn" id="tapInHubOwnerBtn" href="/dashboard/tap-crm">Open Owner Tap In Console</a>
               </div>
             </article>
           </div>
@@ -1489,6 +1505,9 @@
       var masterStatusWorkflows = document.getElementById("masterStatusWorkflows");
       var masterStatusKpis = document.getElementById("masterStatusKpis");
       var masterStatusTools = document.getElementById("masterStatusTools");
+      var tapInHubNavLink = document.getElementById("tapInHubNavLink");
+      var tapInHubLaunchBtn = document.getElementById("tapInHubLaunchBtn");
+      var tapInHubOwnerBtn = document.getElementById("tapInHubOwnerBtn");
       var phasePills = Array.prototype.slice.call(document.querySelectorAll("[data-phase-pill]"));
       var masterState = {
         phases: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 },
@@ -1551,11 +1570,13 @@
         if (masterQuickActions) {
           var activeHref = "#phase-" + activePhase;
           var nextHref = activePhase < 7 ? ("#phase-" + (activePhase + 1)) : "#phase-7";
+          var tapInHref = "/tap-crm" + (tenant ? ("?tenant=" + encodeURIComponent(tenant)) : "");
           masterQuickActions.innerHTML = [
             '<a class="btn primary" href="' + activeHref + '">Work Active: ' + phaseName(activePhase) + "</a>",
             '<a class="btn" href="' + nextHref + '">Prepare Next: ' + phaseName(Math.min(7, activePhase + 1)) + "</a>",
             '<a class="btn" href="#phase-4">Run Readiness Intelligence</a>',
             '<a class="btn" href="#phase-6">Open Stability Console</a>',
+            '<a class="btn primary" href="' + tapInHref + '">Open Garvey Tap In</a>',
             '<a class="btn" href="#phase-1">Foundation</a>',
             '<a class="btn" href="#phase-2">Structure</a>',
             '<a class="btn" href="#phase-3">Execution</a>',
@@ -1564,6 +1585,11 @@
           ].join("");
         }
       }
+
+      var tapInQuery = tenant ? ("?tenant=" + encodeURIComponent(tenant)) : "";
+      if (tapInHubNavLink) tapInHubNavLink.setAttribute("href", "/tap-crm" + tapInQuery);
+      if (tapInHubLaunchBtn) tapInHubLaunchBtn.setAttribute("href", "/tap-crm" + tapInQuery);
+      if (tapInHubOwnerBtn) tapInHubOwnerBtn.setAttribute("href", "/dashboard/tap-crm" + tapInQuery);
 
       function hasContent(value) {
         return Boolean(String(value || "").trim());

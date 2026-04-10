@@ -3,21 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tap CRM Console</title>
+    <title>Garvey Tap In Business Hub</title>
     <style>
       :root { color-scheme: light; }
-      body { font-family: Inter, Arial, sans-serif; margin: 0; background: #f5f7fb; color: #0f172a; }
+      body { font-family: Inter, Arial, sans-serif; margin: 0; background: radial-gradient(circle at top right, rgba(99,102,241,0.18), transparent 40%), #050816; color: #e2e8f0; }
       .wrap { max-width: 1100px; margin: 0 auto; padding: 18px; }
       h1 { margin: 0 0 8px; }
-      .sub { color: #334155; margin: 0 0 16px; }
+      .sub { color: #94a3b8; margin: 0 0 16px; }
       .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
-      .card { background: #fff; border: 1px solid #dbe3ef; border-radius: 12px; padding: 12px; box-shadow: 0 1px 6px rgba(15, 23, 42, 0.06); }
+      .card { background: linear-gradient(180deg, #0b1228, #060b1b); border: 1px solid #27324d; border-radius: 12px; padding: 12px; box-shadow: 0 1px 6px rgba(15, 23, 42, 0.2); }
       label { display: block; font-size: 0.85rem; font-weight: 700; margin: 8px 0 4px; }
       input, select, textarea, button { font: inherit; }
-      input, select, textarea { width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px; }
+      input, select, textarea { width: 100%; border: 1px solid #334155; border-radius: 8px; padding: 8px; background: #0f172a; color: #e2e8f0; }
       textarea { min-height: 88px; }
       button { border: 1px solid #0f172a; background: #0f172a; color: #fff; border-radius: 8px; padding: 8px 10px; cursor: pointer; margin-top: 8px; }
-      button.alt { background: #fff; color: #0f172a; }
+      button.alt { background: transparent; color: #e2e8f0; border-color: #64748b; }
       .row { display: flex; gap: 8px; flex-wrap: wrap; }
       .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.76rem; font-weight: 700; }
       .pill.active { background: #dcfce7; color: #14532d; }
@@ -25,18 +25,47 @@
       .pill.disabled { background: #fee2e2; color: #991b1b; }
       table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
       th, td { text-align: left; border-bottom: 1px solid #e2e8f0; padding: 6px 4px; vertical-align: top; }
-      .muted { color: #64748b; font-size: 0.82rem; }
+      .muted { color: #94a3b8; font-size: 0.82rem; }
       .status { margin: 8px 0 0; font-size: 0.85rem; min-height: 20px; }
       .ok { color: #14532d; }
       .err { color: #991b1b; }
       pre { white-space: pre-wrap; background: #0b1220; color: #e2e8f0; padding: 8px; border-radius: 8px; max-height: 200px; overflow: auto; }
-      .tag-edit { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px; margin-top: 6px; }
+      .tag-edit { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 8px; margin-top: 6px; }
+      .overview-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:10px; margin-top:12px; }
+      .overview-chip { border:1px solid #334155; border-radius:10px; padding:10px; background:#0b1329; }
+      .overview-chip h4 { margin:0 0 6px; color:#f8fafc; }
     </style>
   </head>
   <body>
     <div class="wrap">
-      <h1>Tap CRM — Pilot Console</h1>
-      <p class="sub">Operational owner console for pilot setup, tag lifecycle, and tap analytics.</p>
+      <h1>Garvey Tap In Business Hub</h1>
+      <p class="sub">A modern customer entry and engagement system for service-based businesses.</p>
+
+      <section class="card">
+        <h3 style="margin-top:0;">Tap In Overview</h3>
+        <div class="overview-grid">
+          <article class="overview-chip">
+            <h4>What it is</h4>
+            <div class="muted">A smart business interaction layer designed for fast customer connection.</div>
+          </article>
+          <article class="overview-chip">
+            <h4>What businesses can do</h4>
+            <div class="muted">Guide customers through next actions, update offers quickly, and keep service flow polished.</div>
+          </article>
+          <article class="overview-chip">
+            <h4>Why it helps</h4>
+            <div class="muted">Creates a premium first-touch experience while supporting repeat engagement and return visits.</div>
+          </article>
+          <article class="overview-chip">
+            <h4>Who it is for</h4>
+            <div class="muted">Teams that want a futuristic, guided customer entry experience without operational friction.</div>
+          </article>
+        </div>
+        <div class="row">
+          <button id="openOwnerTapInBtn">Open Owner Tap In Area</button>
+          <button id="openBusinessTapInBtn" class="alt">Open Business Tap In Surface</button>
+        </div>
+      </section>
 
       <section class="card">
         <div class="grid">
@@ -366,6 +395,14 @@
         });
         q("createTagBtn").addEventListener("click", function () {
           createTag().catch(function (err) { txt(q("tagCreateStatus"), err.message, false); });
+        });
+        q("openOwnerTapInBtn").addEventListener("click", function () {
+          var params = new URLSearchParams(location.search);
+          location.href = "/dashboard/tap-crm" + (params.toString() ? ("?" + params.toString()) : "");
+        });
+        q("openBusinessTapInBtn").addEventListener("click", function () {
+          var params = new URLSearchParams(location.search);
+          location.href = "/tap-crm" + (params.toString() ? ("?" + params.toString()) : "");
         });
 
         q("tagsTable").addEventListener("click", function (event) {
