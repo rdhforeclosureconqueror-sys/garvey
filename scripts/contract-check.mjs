@@ -28,6 +28,9 @@ const frontendScanFiles = [
 const documentedRoutes = [
   "GET /dashboard.html",
   "GET /health",
+  "GET /tap-crm",
+  "GET /dashboard/tap-crm",
+  "GET /api/tap-crm/*",
   "POST /api/owner/signup",
   "POST /api/owner/signin",
   "POST /api/owner/signout",
