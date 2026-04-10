@@ -32,6 +32,25 @@ function normalizeActionList(value, fallbackList = []) {
     .slice(0, 4);
 }
 
+
+function normalizeTemplateRuntime(value) {
+  if (!value || typeof value !== "object") {
+    return { modules: [] };
+  }
+  return {
+    modules: Array.isArray(value.modules) ? value.modules.filter((module) => module && typeof module === "object") : [],
+  };
+}
+
+function getRuntimeModule(runtime, moduleId) {
+  return runtime.modules.find((module) => String(module.module_id || "").trim() === moduleId) || null;
+}
+
+function moduleEnabled(moduleState, fallback = true) {
+  if (!moduleState) return fallback;
+  return moduleState.enabled !== false;
+}
+
 function buildTapHubViewModel(resolvedBody) {
   const resolution = resolvedBody && resolvedBody.resolution ? resolvedBody.resolution : {};
   const config = resolvedBody && resolvedBody.business_config && typeof resolvedBody.business_config === "object"
@@ -43,12 +62,21 @@ function buildTapHubViewModel(resolvedBody) {
   const social = config.social && typeof config.social === "object" ? config.social : {};
   const business = config.business && typeof config.business === "object" ? config.business : {};
 
-  const primaryActions = normalizeActionList(actions.primary, [
-    {
-      label: "Get Started",
-      url: resolution.destination_path || "/tap-crm",
-    },
-  ]);
+  const templateRuntime = normalizeTemplateRuntime(resolvedBody && resolvedBody.template_runtime);
+  const heroModule = getRuntimeModule(templateRuntime, "hero");
+  const primaryModule = getRuntimeModule(templateRuntime, "primary_cta");
+  const servicesModule = getRuntimeModule(templateRuntime, "services");
+  const socialModule = getRuntimeModule(templateRuntime, "social_links");
+  const businessModule = getRuntimeModule(templateRuntime, "business_info");
+
+  const primaryActions = moduleEnabled(primaryModule, true)
+    ? normalizeActionList(actions.primary, [
+      {
+        label: String(primaryModule && primaryModule.config && primaryModule.config.label || "Get Started").trim() || "Get Started",
+        url: String(primaryModule && primaryModule.config && primaryModule.config.url || resolution.destination_path || "/tap-crm").trim() || (resolution.destination_path || "/tap-crm"),
+      },
+    ])
+    : [];
 
   const secondaryActions = normalizeActionList(actions.secondary, [
     {
@@ -56,6 +84,10 @@ function buildTapHubViewModel(resolvedBody) {
       url: "tel:" + String(business.phone || "").replace(/\s+/g, ""),
     },
   ]).filter((action) => !action.url.endsWith("tel:"));
+
+  const featuredServices = Array.isArray(servicesModule && servicesModule.config && servicesModule.config.featured)
+    ? servicesModule.config.featured.map((item) => String(item || "").trim()).filter(Boolean).slice(0, 6)
+    : [];
 
   const socialLinks = [
     ["instagram", social.instagram],
@@ -86,14 +118,22 @@ function buildTapHubViewModel(resolvedBody) {
     tenant: String(resolution.tenant || "").trim(),
     tagCode: String(resolution.tag_code || "").trim(),
     pageTitle: String(brand.name || resolution.label || "Tap Hub").trim() || "Tap Hub",
-    headline: String(brand.headline || resolution.label || "Welcome").trim() || "Welcome",
-    subheadline: String(brand.subheadline || "Tap to choose your next step.").trim(),
+    headline: String(brand.headline || (heroModule && heroModule.config && heroModule.config.headline) || resolution.label || "Welcome").trim() || "Welcome",
+    subheadline: String(brand.subheadline || (heroModule && heroModule.config && heroModule.config.subheadline) || "Tap to choose your next step.").trim(),
     logoUrl: String(brand.logo_url || "").trim(),
     primaryActions,
     secondaryActions,
     socialLinks,
     businessName: String(business.name || brand.name || resolution.tenant || "Our Business").trim() || "Our Business",
     businessItems,
+    featuredServices,
+    modules: {
+      primaryEnabled: moduleEnabled(primaryModule, true),
+      secondaryEnabled: true,
+      socialEnabled: moduleEnabled(socialModule, true),
+      businessEnabled: moduleEnabled(businessModule, true),
+      servicesEnabled: moduleEnabled(servicesModule, false),
+    },
   };
 }
 
@@ -168,27 +208,37 @@ function renderTapHubPage(viewModel) {
         <p class="sub">${escapeHtml(viewModel.subheadline)}</p>
       </section>
 
+      ${viewModel.modules.primaryEnabled ? `
       <section class="card">
         <h2>Primary actions</h2>
         ${renderActions(viewModel.primaryActions, "primary-zone")}
-      </section>
+      </section>` : ""}
 
+      ${viewModel.modules.secondaryEnabled ? `
       <section class="card">
         <h2>Secondary actions</h2>
         ${renderActions(viewModel.secondaryActions, "secondary-zone")}
-      </section>
+      </section>` : ""}
 
+      ${viewModel.modules.servicesEnabled ? `
+      <section class="card">
+        <h2>Featured services</h2>
+        ${viewModel.featuredServices.length ? `<ul>${viewModel.featuredServices.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : '<p class="zone-empty">No featured services configured.</p>'}
+      </section>` : ""}
+
+      ${viewModel.modules.socialEnabled ? `
       <section class="card">
         <h2>Social & brand</h2>
         <p class="sub" style="margin-bottom: 10px;">${escapeHtml(viewModel.businessName)}</p>
         ${socialMarkup}
-      </section>
+      </section>` : ""}
 
+      ${viewModel.modules.businessEnabled ? `
       <section class="card">
         <h2>Business info</h2>
         ${businessMarkup}
         <p class="meta">route namespace: ${escapeHtml(viewModel.routeNamespace)} · tenant: ${escapeHtml(viewModel.tenant)} · tag: ${escapeHtml(viewModel.tagCode)}</p>
-      </section>
+      </section>` : ""}
     </main>
   </body>
 </html>`;
@@ -223,4 +273,5 @@ module.exports = {
   buildTapHubViewModel,
   renderTapHubPage,
   renderTapHubErrorPage,
+  normalizeTemplateRuntime,
 };

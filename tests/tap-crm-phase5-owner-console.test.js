@@ -23,7 +23,7 @@ test("normalizeActionItems returns only valid action entries with fallbacks", ()
   assert.equal(actions[2].url, "#");
 });
 
-test("buildOwnerConsolePayload lists Phase 5 owner-facing screens only", () => {
+test("buildOwnerConsolePayload lists owner-facing screens", () => {
   const payload = buildOwnerConsolePayload({
     tenant: "demo-tenant",
     role: "business_owner",
@@ -37,6 +37,8 @@ test("buildOwnerConsolePayload lists Phase 5 owner-facing screens only", () => {
     "tag_manager",
     "analytics_summary",
     "template_selector",
+    "module_registry",
+    "module_config_editor",
     "tap_crm_dashboard_landing",
   ]);
 });
