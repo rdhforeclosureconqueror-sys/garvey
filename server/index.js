@@ -230,9 +230,11 @@ app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew
 if (isTapCrmEnabled()) {
   app.use('/api/tap-crm', createTapCrmRouter());
   app.get('/tap-crm', (req, res) => res.sendFile(path.join(__dirname, '..', 'tapcrm', 'index.html')));
+  app.get('/dashboard/tap-crm', (req, res) => res.sendFile(path.join(__dirname, '..', 'tapcrm', 'index.html')));
 } else {
   app.get('/api/tap-crm/*', (req, res) => res.status(404).json({ error: 'Not found' }));
   app.get('/tap-crm', (req, res) => res.status(404).send('Not found'));
+  app.get('/dashboard/tap-crm', (req, res) => res.status(404).send('Not found'));
 }
 
 /* =========================

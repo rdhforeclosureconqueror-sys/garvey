@@ -22,6 +22,11 @@ const ACTIONS = Object.freeze({
   REWARDS_UPDATE_SELF: "rewards:update_self",
   VOC_CREATE: "voc:create",
   TENANT_ADMIN: "tenant:admin",
+  TAP_VIEW: "tap:view",
+  TAP_MANAGE: "tap:manage",
+  TAP_TAGS_MANAGE: "tap:tags:manage",
+  TAP_TEMPLATES_MANAGE: "tap:templates:manage",
+  TAP_ANALYTICS_VIEW: "tap:analytics:view",
 });
 
 const POLICY_BY_ROLE = Object.freeze({
@@ -37,6 +42,11 @@ const POLICY_BY_ROLE = Object.freeze({
       ACTIONS.GARVEY_UPDATE,
       ACTIONS.RESULTS_READ_OWNER,
       ACTIONS.RESULTS_READ_CUSTOMER,
+      ACTIONS.TAP_VIEW,
+      ACTIONS.TAP_MANAGE,
+      ACTIONS.TAP_TAGS_MANAGE,
+      ACTIONS.TAP_TEMPLATES_MANAGE,
+      ACTIONS.TAP_ANALYTICS_VIEW,
     ],
     resource_scope: "tenant_only",
   },
@@ -46,6 +56,8 @@ const POLICY_BY_ROLE = Object.freeze({
       ACTIONS.CAMPAIGN_READ,
       ACTIONS.GARVEY_READ,
       ACTIONS.GARVEY_UPDATE,
+      ACTIONS.TAP_VIEW,
+      ACTIONS.TAP_ANALYTICS_VIEW,
     ],
     resource_scope: "tenant_only",
   },
