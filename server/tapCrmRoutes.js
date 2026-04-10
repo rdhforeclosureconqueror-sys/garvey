@@ -10,6 +10,7 @@ const {
   listTemplates,
   listModules,
   MODULE_REGISTRY,
+  buildBarberPilotBaselineConfig,
 } = require("./tapCrmTemplates");
 
 const OWNER_CONSOLE_ROUTE_NAMESPACE = "tap-crm";
@@ -83,6 +84,8 @@ function buildOwnerConsolePayload({ tenant, role }) {
       "template_selector",
       "module_registry",
       "module_config_editor",
+      "pilot_readiness",
+      "pilot_bootstrap",
       "tap_crm_dashboard_landing",
     ],
   };
@@ -150,6 +153,32 @@ async function withTenantScope(db, tenantSlug) {
 
 function normalizeTagCode(value) {
   return String(value || "").trim().toLowerCase();
+}
+
+function isNonEmptyObject(value) {
+  return !!value && typeof value === "object" && !Array.isArray(value) && Object.keys(value).length > 0;
+}
+
+function evaluatePilotReadiness({ config, tags }) {
+  const selectedTemplateId = normalizeTemplateId(config.selected_template_id || "");
+  const businessSetupReady = isNonEmptyObject(config.business_setup);
+  const primaryActionReady = Array.isArray(config.actions && config.actions.primary) && config.actions.primary.length > 0;
+  const activeTagCount = (Array.isArray(tags) ? tags : []).filter((tag) => String(tag.status || "").toLowerCase() === "active").length;
+  const onboardingState = cloneJson(config.onboarding, {});
+  const firstBusinessSetupReady = onboardingState.first_business_setup_complete === true || businessSetupReady;
+
+  return {
+    ready: selectedTemplateId === "barber" && businessSetupReady && primaryActionReady && activeTagCount > 0 && firstBusinessSetupReady,
+    checklist: {
+      barber_template_selected: selectedTemplateId === "barber",
+      business_setup_configured: businessSetupReady,
+      primary_action_configured: primaryActionReady,
+      active_tag_registered: activeTagCount > 0,
+      first_business_onboarding_ready: firstBusinessSetupReady,
+    },
+    active_tag_count: activeTagCount,
+    selected_template_id: selectedTemplateId || "default",
+  };
 }
 
 function evaluateTagStatus({ tagStatus, businessStatus }) {
@@ -355,6 +384,7 @@ function createTapCrmRouter() {
           "tag_manager",
           "analytics_summary",
           "template_selector",
+          "pilot_readiness",
         ],
       },
       summary: {
@@ -648,6 +678,102 @@ function createTapCrmRouter() {
     } catch (err) {
       console.error("tap_crm_module_get_failed", err);
       return res.status(500).json({ error: "tap_crm_module_get_failed" });
+    }
+  });
+
+  router.get("/console/pilot/readiness", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const config = buildBarberPilotBaselineConfig(cloneJson(scoped.businessConfig.config, {}));
+      const tags = await pool.query(
+        `SELECT id, tag_code, status
+         FROM tap_crm_tags
+         WHERE tenant_id = $1
+         ORDER BY id DESC`,
+        [scoped.tenantId]
+      );
+      const readiness = evaluatePilotReadiness({ config, tags: tags.rows });
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        pilot: {
+          track: "barber",
+          readiness,
+          onboarding: cloneJson(config.onboarding, {}),
+          recommended_next_steps: Object.entries(readiness.checklist)
+            .filter(([, done]) => done !== true)
+            .map(([key]) => key),
+        },
+      });
+    } catch (err) {
+      console.error("tap_crm_pilot_readiness_get_failed", err);
+      return res.status(500).json({ error: "tap_crm_pilot_readiness_get_failed" });
+    }
+  });
+
+  router.post("/console/pilot/bootstrap", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+
+      const baseConfig = buildBarberPilotBaselineConfig(cloneJson(scoped.businessConfig.config, {}));
+      baseConfig.selected_template_id = "barber";
+      baseConfig.onboarding = baseConfig.onboarding || {};
+      baseConfig.onboarding.first_business_setup_complete = baseConfig.onboarding.first_business_setup_complete === true;
+      baseConfig.onboarding.pilot_ready = false;
+
+      const shouldSeedTag = req.body && req.body.seed_default_tag !== false;
+      let seededTag = null;
+      if (shouldSeedTag) {
+        const existingTag = await pool.query(
+          `SELECT id, key, label, tag_code, status
+           FROM tap_crm_tags
+           WHERE tenant_id = $1
+           ORDER BY id DESC
+           LIMIT 1`,
+          [scoped.tenantId]
+        );
+        if (!existingTag.rows[0]) {
+          const tenantSlug = String(scoped.tenantSlug || "").trim().toLowerCase();
+          const tagCode = `${tenantSlug}-welcome`;
+          const created = await pool.query(
+            `INSERT INTO tap_crm_tags (tenant_id, key, label, tag_code, status, destination_path, disabled_reason)
+             VALUES ($1, $2, $3, $4, 'active', '/tap-crm', '')
+             RETURNING id, key, label, tag_code, status`,
+            [scoped.tenantId, "welcome-chair", "Welcome Chair", tagCode]
+          );
+          seededTag = created.rows[0] || null;
+        }
+      }
+
+      const saved = await saveBusinessConfig(pool, scoped.tenantId, baseConfig);
+      const tags = await pool.query(
+        `SELECT id, tag_code, status
+         FROM tap_crm_tags
+         WHERE tenant_id = $1`,
+        [scoped.tenantId]
+      );
+      const readiness = evaluatePilotReadiness({ config: cloneJson(saved.config, {}), tags: tags.rows });
+
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        pilot_bootstrap: {
+          template: "barber",
+          seeded_tag: seededTag,
+          readiness,
+        },
+      });
+    } catch (err) {
+      console.error("tap_crm_pilot_bootstrap_failed", err);
+      return res.status(500).json({ error: "tap_crm_pilot_bootstrap_failed" });
     }
   });
 

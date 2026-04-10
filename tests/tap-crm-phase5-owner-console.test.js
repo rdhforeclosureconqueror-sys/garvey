@@ -39,6 +39,8 @@ test("buildOwnerConsolePayload lists owner-facing screens", () => {
     "template_selector",
     "module_registry",
     "module_config_editor",
+    "pilot_readiness",
+    "pilot_bootstrap",
     "tap_crm_dashboard_landing",
   ]);
 });

@@ -13,6 +13,14 @@
 - [ ] Barber preset passes end-to-end flow
 - [ ] Regression checks for shared areas pass
 
+## Phase 7 status (barber pilot readiness slice)
+
+- [x] Barber pilot readiness endpoint exposes first-business checklist state
+- [x] Default barber template baseline can be applied safely
+- [x] Onboarding readiness for first business is represented in tenant config
+- [x] Minimal setup bootstrap can seed an initial active tap tag
+- [x] Route namespace remains `tap-crm` with no alias expansion
+
 ## Phase 1 status
 
 - [x] Tenant and permission strategy documented

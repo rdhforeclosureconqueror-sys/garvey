@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crown Cut Studio</title>
+    <style>
+      :root { color-scheme: light; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+        background:
+          radial-gradient(circle at 20% 10%, rgba(223, 35, 35, 0.35), transparent 35%),
+          radial-gradient(circle at 80% 15%, rgba(11, 120, 61, 0.28), transparent 38%),
+          linear-gradient(160deg, #0a0a0a 0%, #0f1720 52%, #101010 100%);
+        color: #f8fafc;
+      }
+      main { max-width: 520px; margin: 0 auto; padding: 18px 16px 40px; }
+      .card {
+        background: linear-gradient(180deg, rgba(9, 9, 9, 0.92), rgba(16, 16, 16, 0.94));
+        border-radius: 16px;
+        padding: 16px;
+        border: 1px solid rgba(230, 184, 93, 0.55);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(230, 184, 93, 0.25);
+        margin-bottom: 12px;
+      }
+      .hero-card {
+        background:
+          linear-gradient(120deg, rgba(168, 20, 20, 0.3), rgba(14, 116, 62, 0.25)),
+          linear-gradient(180deg, rgba(8, 8, 8, 0.92), rgba(16, 16, 16, 0.96));
+      }
+      .brand-logo { width: 64px; height: 64px; object-fit: cover; border-radius: 12px; display: block; margin-bottom: 12px; border: 1px solid rgba(230, 184, 93, 0.65); }
+      h1 { font-size: 1.35rem; margin: 0 0 6px; }
+      .sub { margin: 0; color: #d1d5db; font-size: 0.95rem; }
+      h2 { font-size: 1rem; margin: 0 0 10px; color: #fef3c7; }
+      .action-grid { display: grid; gap: 10px; }
+      .action-btn {
+        text-decoration: none;
+        text-align: center;
+        padding: 12px;
+        border-radius: 10px;
+        font-weight: 700;
+        border: 1px solid rgba(230, 184, 93, 0.65);
+      }
+      .primary-zone .action-btn { background: linear-gradient(135deg, #b91c1c, #7f1d1d); color: #fff; }
+      .secondary-zone .action-btn { background: linear-gradient(135deg, #166534, #14532d); color: #ecfdf3; }
+      .social-links { display: flex; flex-wrap: wrap; gap: 8px; }
+      .social-links a { text-decoration: none; background: rgba(17, 24, 39, 0.8); color: #e5e7eb; padding: 7px 10px; border-radius: 999px; font-size: 0.85rem; border: 1px solid rgba(230,184,93,0.45); }
+      .business-list { margin: 0; }
+      .business-list div { margin-bottom: 8px; }
+      .business-list dt { font-size: 0.78rem; color: #fcd34d; text-transform: uppercase; letter-spacing: .03em; }
+      .business-list dd { margin: 2px 0 0; font-size: .95rem; color: #e5e7eb; }
+      .zone-empty { margin: 0; color: #cbd5e1; font-size: 0.9rem; }
+      .meta { margin-top: 10px; font-size: 0.75rem; color: #94a3b8; }
+      .guide-trigger {
+        width: 100%;
+        border: 1px solid rgba(230, 184, 93, 0.7);
+        background: linear-gradient(135deg, #111827, #0f172a);
+        color: #fef3c7;
+        border-radius: 10px;
+        padding: 12px;
+        font-weight: 700;
+        text-align: left;
+      }
+      .guide-panel { margin-top: 10px; border: 1px solid rgba(230, 184, 93, 0.45); border-radius: 12px; padding: 12px; background: rgba(2, 6, 23, 0.7); }
+      .guide-panel h3 { margin: 0 0 8px; color: #fef3c7; }
+      .guide-steps { margin: 0; padding-left: 20px; }
+      .guide-steps li { margin-bottom: 6px; color: #e5e7eb; }
+      .guide-cta { display: inline-block; margin-top: 8px; padding: 8px 12px; border-radius: 999px; background: #b91c1c; color: #fff; border: 1px solid rgba(230,184,93,0.7); text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="card hero-card">
+        
+        <h1>Fresh cuts, no wait</h1>
+        <p class="sub">Tap to get started</p>
+      </section>
+
+      
+      <section class="card">
+        <button class="guide-trigger" type="button" aria-expanded="false" aria-controls="tap-guide-panel" data-guide-toggle>
+          Virtual Guide · Tap for steps
+        </button>
+        <div class="guide-panel" id="tap-guide-panel" hidden>
+          <h3>Your chair, your flow</h3>
+          <p class="sub" style="margin-bottom: 8px;">Use this quick guide to book, confirm, and arrive ready.</p>
+          <ol class="guide-steps"><li>Choose your cut</li><li>Tap Book a cut</li><li>Show booking confirmation at arrival</li></ol>
+          <a class="guide-cta" href="#primary-actions">Start now</a>
+        </div>
+      </section>
+
+      
+      <section class="card" id="primary-actions">
+        <h2>Primary actions</h2>
+        
+    <div class="action-grid primary-zone">
+      
+          <a class="action-btn" href="#">Book a cut</a>
+        
+    </div>
+  
+      </section>
+
+      
+      <section class="card">
+        <h2>Secondary actions</h2>
+        
+    <div class="action-grid secondary-zone">
+      
+          <a class="action-btn" href="tel:+15550100">Contact Business</a>
+        
+    </div>
+  
+      </section>
+
+      
+      <section class="card">
+        <h2>Featured services</h2>
+        <ul><li>Haircut</li><li>Beard trim</li></ul>
+      </section>
+
+      
+      <section class="card">
+        <h2>Social & brand</h2>
+        <p class="sub" style="margin-bottom: 10px;">demoa</p>
+        <p class="zone-empty">No social links published.</p>
+      </section>
+
+      
+      <section class="card">
+        <h2>Business info</h2>
+        <dl class="business-list"><div><dt>Phone</dt><dd>+1 555 0100</dd></div><div><dt>Hours</dt><dd>Mon-Sat 9AM-7PM</dd></div></dl>
+        <p class="meta">route namespace: tap-crm · tenant: demoa · tag: phase7-demoa</p>
+      </section>
+    </main>
+    <script>
+      (function () {
+        var toggle = document.querySelector("[data-guide-toggle]");
+        var panel = document.getElementById("tap-guide-panel");
+        if (!toggle || !panel) return;
+        toggle.addEventListener("click", function () {
+          var expanded = toggle.getAttribute("aria-expanded") === "true";
+          toggle.setAttribute("aria-expanded", expanded ? "false" : "true");
+          panel.hidden = expanded;
+        });
+      })();
+    </script>
+  </body>
+</html>

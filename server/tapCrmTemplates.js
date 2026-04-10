@@ -11,6 +11,7 @@ const TEMPLATE_REGISTRY = {
       services: { enabled: true, config: {} },
       social_links: { enabled: true, config: {} },
       business_info: { enabled: true, config: {} },
+      guide_assistant: { enabled: true, config: {} },
     },
   },
   barber: {
@@ -23,6 +24,14 @@ const TEMPLATE_REGISTRY = {
       services: { enabled: true, config: { featured: ["Haircut", "Beard trim"] } },
       social_links: { enabled: true, config: {} },
       business_info: { enabled: true, config: {} },
+      guide_assistant: {
+        enabled: true,
+        config: {
+          title: "Your chair, your flow",
+          intro: "Use this quick guide to book, confirm, and arrive ready.",
+          steps: ["Choose your cut", "Tap Book a cut", "Show booking confirmation at arrival"],
+        },
+      },
     },
   },
   salon: {
@@ -35,6 +44,7 @@ const TEMPLATE_REGISTRY = {
       services: { enabled: true, config: { featured: ["Color", "Blowout"] } },
       social_links: { enabled: true, config: {} },
       business_info: { enabled: true, config: {} },
+      guide_assistant: { enabled: true, config: {} },
     },
   },
   fitness: {
@@ -47,6 +57,7 @@ const TEMPLATE_REGISTRY = {
       services: { enabled: true, config: { featured: ["Group class", "Personal training"] } },
       social_links: { enabled: true, config: {} },
       business_info: { enabled: true, config: {} },
+      guide_assistant: { enabled: true, config: {} },
     },
   },
 };
@@ -96,7 +107,52 @@ const MODULE_REGISTRY = {
       hours: "",
     },
   },
+  guide_assistant: {
+    id: "guide_assistant",
+    label: "Guide Assistant",
+    default_enabled: true,
+    default_config: {
+      title: "How this works",
+      intro: "Follow these quick steps to get the best experience.",
+      steps: ["Pick a service", "Use the main action to continue", "Return to this guide any time"],
+      cta_label: "Start now",
+    },
+  },
 };
+
+const BARBER_PILOT_BASELINE = Object.freeze({
+  selected_template_id: "barber",
+  brand: {
+    headline: "Barber-ready booking in one tap",
+    subheadline: "Pick a service, book your chair, and show up fresh.",
+  },
+  business: {
+    hours: "Mon-Sat 9:00 AM - 7:00 PM",
+  },
+  actions: {
+    primary: [
+      {
+        label: "Book a cut",
+        url: "/book",
+      },
+    ],
+    secondary: [
+      {
+        label: "Call shop",
+        url: "tel:+10000000000",
+      },
+    ],
+  },
+  onboarding: {
+    pilot_ready: false,
+    first_business_setup_complete: false,
+    checklist: {
+      business_setup: false,
+      primary_action: false,
+      tag_registered: false,
+    },
+  },
+});
 
 function cloneJson(value, fallback = {}) {
   if (value === null || value === undefined) return fallback;
@@ -178,6 +234,48 @@ function listModules() {
   }));
 }
 
+function buildBarberPilotBaselineConfig(existingConfig = {}) {
+  const current = cloneJson(existingConfig, {});
+  return {
+    ...cloneJson(BARBER_PILOT_BASELINE, {}),
+    ...current,
+    brand: {
+      ...cloneJson(BARBER_PILOT_BASELINE.brand, {}),
+      ...cloneJson(current.brand, {}),
+    },
+    business: {
+      ...cloneJson(BARBER_PILOT_BASELINE.business, {}),
+      ...cloneJson(current.business, {}),
+    },
+    actions: {
+      primary: normalizeActionArray(current.actions && current.actions.primary, BARBER_PILOT_BASELINE.actions.primary),
+      secondary: normalizeActionArray(current.actions && current.actions.secondary, BARBER_PILOT_BASELINE.actions.secondary),
+    },
+    onboarding: {
+      ...cloneJson(BARBER_PILOT_BASELINE.onboarding, {}),
+      ...cloneJson(current.onboarding, {}),
+      checklist: {
+        ...cloneJson(BARBER_PILOT_BASELINE.onboarding.checklist, {}),
+        ...cloneJson(current.onboarding && current.onboarding.checklist, {}),
+      },
+    },
+    selected_template_id: normalizeTemplateId(current.selected_template_id || "barber") || "barber",
+  };
+}
+
+function normalizeActionArray(value, fallback) {
+  if (!Array.isArray(value) || value.length === 0) {
+    return cloneJson(fallback, []);
+  }
+  return value
+    .map((item) => ({
+      label: String(item && item.label || "").trim(),
+      url: String(item && item.url || "").trim(),
+    }))
+    .filter((item) => item.label && item.url)
+    .slice(0, 4);
+}
+
 module.exports = {
   TEMPLATE_REGISTRY,
   MODULE_REGISTRY,
@@ -186,4 +284,6 @@ module.exports = {
   resolveTemplateRuntime,
   listTemplates,
   listModules,
+  BARBER_PILOT_BASELINE,
+  buildBarberPilotBaselineConfig,
 };
