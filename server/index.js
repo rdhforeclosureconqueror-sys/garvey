@@ -66,6 +66,7 @@ const evolutionRoutes = require("./evolutionRoutes");
 const { generateSite } = require("./siteMaterializer");
 const { isTapCrmEnabled, getTapCrmMode } = require("./tapCrmFeature");
 const { createTapCrmRouter, resolvePublicTap } = require("./tapCrmRoutes");
+const { buildTapHubViewModel, renderTapHubPage, renderTapHubErrorPage } = require("./tapHubRenderer");
 
 // Optional Site Generator (won't crash if missing)
 let siteGenerator = null;
@@ -241,10 +242,52 @@ if (isTapCrmEnabled()) {
           source: 'public_route',
         },
       });
-      return res.status(resolved.status).json(resolved.body);
+
+      if (resolved.ok) {
+        const model = buildTapHubViewModel(resolved.body);
+        return res.status(200).type('html').send(renderTapHubPage(model));
+      }
+
+      if (resolved.body && resolved.body.error === 'tag_not_found') {
+        return res
+          .status(404)
+          .type('html')
+          .send(renderTapHubErrorPage({
+            statusCode: 404,
+            title: 'Invalid tag',
+            message: 'This tag link is not recognized. Please check the code and try again.',
+          }));
+      }
+
+      if (resolved.body && (resolved.body.error === 'tag_inactive' || resolved.body.error === 'tag_disabled' || resolved.body.error === 'business_inactive')) {
+        return res
+          .status(resolved.status)
+          .type('html')
+          .send(renderTapHubErrorPage({
+            statusCode: resolved.status,
+            title: 'Tag unavailable',
+            message: 'This tag is currently inactive or disabled. Please contact the business for help.',
+          }));
+      }
+
+      return res
+        .status(resolved.status)
+        .type('html')
+        .send(renderTapHubErrorPage({
+          statusCode: resolved.status,
+          title: 'Tap unavailable',
+          message: 'This tag cannot be opened right now. Please try again shortly.',
+        }));
     } catch (err) {
       console.error('tap_crm_public_route_failed', err);
-      return res.status(500).json({ error: 'tap_tag_resolution_failed' });
+      return res
+        .status(500)
+        .type('html')
+        .send(renderTapHubErrorPage({
+          statusCode: 500,
+          title: 'Tap unavailable',
+          message: 'Something went wrong while loading this tap.',
+        }));
     }
   });
 } else {

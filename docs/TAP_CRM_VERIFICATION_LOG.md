@@ -124,3 +124,57 @@ Date: 2026-04-10
 - `server/index.js` touched only to mount the new public Tap CRM resolution route.
 - `server/tapCrmRoutes.js` expanded with Phase 3 resolution logic while preserving existing owner API behavior.
 - `server/tapCrmDb.js` expanded with additive, Tap CRM-isolated migration objects only.
+
+## Phase 4 — Customer-Facing Tap Hub Rendering (Mobile + Config-Driven)
+
+Date: 2026-04-10
+
+### Built
+
+- Added Tap Hub customer-facing HTML renderer for `/tap-crm/t/:tagCode` successful resolutions.
+- Implemented mobile-first Tap Hub layout with strict zone coverage:
+  - primary action zone
+  - secondary action zone
+  - social/brand zone
+  - business info zone
+- Added config-driven rendering model sourced from `business_config` payload returned by Phase 3 resolver.
+- Added safe fallback behavior for incomplete/missing config values:
+  - fallback headline/subheadline
+  - fallback primary action from `destination_path`
+  - empty-state messaging for missing secondary/social/business data
+- Added customer-facing invalid tag page and inactive/disabled tag page handling at the public tap route.
+- Kept route namespace strategy unchanged (`tap-crm` and `/tap-crm/t/:tagCode`).
+- Explicitly deferred owner-facing Tap Console behavior to Phase 5 (no owner console logic introduced in this phase).
+
+### Verification
+
+- Added Phase 4 renderer unit tests covering:
+  - fallback rendering with incomplete config
+  - presence of required customer-facing zones
+  - invalid/inactive page rendering outputs
+- Ran:
+  - `node --test tests/tap-crm-phase1.test.js tests/tap-crm-phase2-schema.test.js tests/tap-crm-phase3-routing.test.js tests/tap-crm-phase4-hub-rendering.test.js`
+
+### Result
+
+- PASS (Phase 4 scope only)
+
+### Regression Notes
+
+- Existing Tap CRM API namespace remains unchanged (`/api/tap-crm/*`).
+- Existing public tap route namespace remains unchanged (`/tap-crm/t/:tagCode`).
+- API mirror resolution endpoint behavior remains JSON (`/api/tap-crm/public/tags/:tagCode/resolve`).
+- No owner dashboard route behavior changes were made (`/dashboard/tap-crm` still placeholder scope).
+- No existing GARVEY `/t/:slug/*` routes were modified.
+
+### Rollback Notes
+
+- Route-level rollback: remove Tap Hub HTML rendering in `server/index.js` and revert `/tap-crm/t/:tagCode` to JSON passthrough if required.
+- Renderer rollback: remove `server/tapHubRenderer.js` and associated tests.
+- No schema/migration rollback is required for Phase 4 since this phase introduced no DB schema changes.
+
+### Shared-Area Touches
+
+- `server/index.js` touched to switch public Tap route from raw JSON output to customer-facing HTML rendering flow.
+- Added isolated renderer helper in `server/tapHubRenderer.js` to keep phase logic out of shared domain handlers.
+- Added Phase 4 test coverage in `tests/tap-crm-phase4-hub-rendering.test.js` only.
