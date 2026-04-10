@@ -66,6 +66,66 @@ const TAP_CRM_MIGRATIONS = Object.freeze([
       DROP TABLE IF EXISTS tap_crm_contacts;
     `,
   },
+  {
+    id: "tap_crm_002_public_tap_resolution",
+    description: "Add tag status + business config + tap event logging for public route resolution",
+    up: `
+      CREATE TABLE IF NOT EXISTS tap_crm_business_config (
+        id BIGSERIAL PRIMARY KEY,
+        tenant_id BIGINT NOT NULL UNIQUE REFERENCES tenants(id) ON DELETE CASCADE,
+        hub_status TEXT NOT NULL DEFAULT 'active',
+        disabled_reason TEXT NOT NULL DEFAULT '',
+        config JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS tap_crm_tap_events (
+        id BIGSERIAL PRIMARY KEY,
+        tenant_id BIGINT REFERENCES tenants(id) ON DELETE SET NULL,
+        tag_id BIGINT REFERENCES tap_crm_tags(id) ON DELETE SET NULL,
+        tag_code TEXT NOT NULL DEFAULT '',
+        outcome TEXT NOT NULL DEFAULT 'rejected',
+        reason TEXT NOT NULL DEFAULT '',
+        request_meta JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      ALTER TABLE tap_crm_tags ADD COLUMN IF NOT EXISTS tag_code TEXT;
+      ALTER TABLE tap_crm_tags ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'active';
+      ALTER TABLE tap_crm_tags ADD COLUMN IF NOT EXISTS destination_path TEXT NOT NULL DEFAULT '/tap-crm';
+      ALTER TABLE tap_crm_tags ADD COLUMN IF NOT EXISTS last_tap_at TIMESTAMPTZ;
+      ALTER TABLE tap_crm_tags ADD COLUMN IF NOT EXISTS disabled_reason TEXT NOT NULL DEFAULT '';
+
+      UPDATE tap_crm_tags
+      SET tag_code = COALESCE(NULLIF(tag_code, ''), key)
+      WHERE tag_code IS NULL OR tag_code = '';
+
+      ALTER TABLE tap_crm_tags ALTER COLUMN tag_code SET NOT NULL;
+
+      CREATE UNIQUE INDEX IF NOT EXISTS tap_crm_tags_tenant_tag_code_idx
+        ON tap_crm_tags(tenant_id, tag_code);
+      CREATE INDEX IF NOT EXISTS tap_crm_tags_tag_code_idx
+        ON tap_crm_tags(LOWER(tag_code));
+      CREATE INDEX IF NOT EXISTS tap_crm_tap_events_tenant_created_idx
+        ON tap_crm_tap_events(tenant_id, created_at DESC);
+      CREATE INDEX IF NOT EXISTS tap_crm_tap_events_tag_created_idx
+        ON tap_crm_tap_events(tag_code, created_at DESC);
+    `,
+    down: `
+      DROP TABLE IF EXISTS tap_crm_tap_events;
+      DROP TABLE IF EXISTS tap_crm_business_config;
+
+      DROP INDEX IF EXISTS tap_crm_tags_tenant_tag_code_idx;
+      DROP INDEX IF EXISTS tap_crm_tags_tag_code_idx;
+
+      ALTER TABLE tap_crm_tags DROP COLUMN IF EXISTS tag_code;
+      ALTER TABLE tap_crm_tags DROP COLUMN IF EXISTS status;
+      ALTER TABLE tap_crm_tags DROP COLUMN IF EXISTS destination_path;
+      ALTER TABLE tap_crm_tags DROP COLUMN IF EXISTS last_tap_at;
+      ALTER TABLE tap_crm_tags DROP COLUMN IF EXISTS disabled_reason;
+    `,
+  },
 ]);
 
 async function ensureTapCrmMigrationTable(pool) {
@@ -121,6 +181,8 @@ async function verifyTapCrmSchema(pool) {
     "tap_crm_tags",
     "tap_crm_contact_tags",
     "tap_crm_pipeline_items",
+    "tap_crm_business_config",
+    "tap_crm_tap_events",
   ];
 
   const requiredIndexes = [
@@ -128,6 +190,10 @@ async function verifyTapCrmSchema(pool) {
     "tap_crm_tags_tenant_key_idx",
     "tap_crm_contact_tags_tenant_contact_idx",
     "tap_crm_pipeline_items_tenant_stage_idx",
+    "tap_crm_tags_tenant_tag_code_idx",
+    "tap_crm_tags_tag_code_idx",
+    "tap_crm_tap_events_tenant_created_idx",
+    "tap_crm_tap_events_tag_created_idx",
   ];
 
   const tableResult = await pool.query(

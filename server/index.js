@@ -65,7 +65,7 @@ const routingRoutes = require("./routingRoutes");
 const evolutionRoutes = require("./evolutionRoutes");
 const { generateSite } = require("./siteMaterializer");
 const { isTapCrmEnabled, getTapCrmMode } = require("./tapCrmFeature");
-const { createTapCrmRouter } = require("./tapCrmRoutes");
+const { createTapCrmRouter, resolvePublicTap } = require("./tapCrmRoutes");
 
 // Optional Site Generator (won't crash if missing)
 let siteGenerator = null;
@@ -231,9 +231,26 @@ if (isTapCrmEnabled()) {
   app.use('/api/tap-crm', createTapCrmRouter());
   app.get('/tap-crm', (req, res) => res.sendFile(path.join(__dirname, '..', 'tapcrm', 'index.html')));
   app.get('/dashboard/tap-crm', (req, res) => res.sendFile(path.join(__dirname, '..', 'tapcrm', 'index.html')));
+  app.get('/tap-crm/t/:tagCode', async (req, res) => {
+    try {
+      const resolved = await resolvePublicTap(pool, {
+        tagCode: req.params.tagCode,
+        requestMeta: {
+          ip: req.ip,
+          user_agent: req.headers['user-agent'] || '',
+          source: 'public_route',
+        },
+      });
+      return res.status(resolved.status).json(resolved.body);
+    } catch (err) {
+      console.error('tap_crm_public_route_failed', err);
+      return res.status(500).json({ error: 'tap_tag_resolution_failed' });
+    }
+  });
 } else {
   app.get('/api/tap-crm/*', (req, res) => res.status(404).json({ error: 'Not found' }));
   app.get('/tap-crm', (req, res) => res.status(404).send('Not found'));
+  app.get('/tap-crm/t/:tagCode', (req, res) => res.status(404).json({ error: 'Not found' }));
   app.get('/dashboard/tap-crm', (req, res) => res.status(404).send('Not found'));
 }
 

@@ -73,3 +73,54 @@ Date: 2026-04-10
 
 - `/t/:tagCode` dynamic resolution (Phase 3)
 - Tap Hub UI and owner console functional screens (Phases 4-5)
+
+## Phase 3 — Public Tap Route Resolution + Tag Status Controls
+
+Date: 2026-04-10
+
+### Built
+
+- Added Phase 3 migration (`tap_crm_002_public_tap_resolution`) for:
+  - `tap_crm_business_config` (tenant-level Tap Hub status/config lookup)
+  - `tap_crm_tap_events` (tap event logging for accepted/rejected resolutions)
+  - Tag resolution columns on `tap_crm_tags` (`tag_code`, `status`, `destination_path`, `last_tap_at`, `disabled_reason`)
+- Added dynamic tag resolution logic with:
+  - tag lookup by `tag_code`
+  - business config lookup
+  - tag status validation (`active` vs `inactive`/`disabled`)
+  - invalid/inactive/disabled responses with explicit machine-readable error codes
+  - `last_tap_at` update on successful resolution
+  - tap event logging for all outcomes
+- Added public route resolution endpoints while preserving namespace strategy:
+  - Public route: `GET /tap-crm/t/:tagCode`
+  - API mirror: `GET /api/tap-crm/public/tags/:tagCode/resolve`
+
+### Verification
+
+- Added Phase 3 unit tests for tag normalization, status validation, dynamic tag resolution, event logging, and `last_tap_at` update behavior.
+- Updated Tap CRM schema verification test expectations for Phase 3 migration artifacts.
+- Ran:
+  - `node --test tests/tap-crm-phase1.test.js tests/tap-crm-phase2-schema.test.js tests/tap-crm-phase3-routing.test.js`
+
+### Result
+
+- PASS (Phase 3 scope only)
+
+### Regression Notes
+
+- Existing Tap CRM owner/API namespace remains unchanged (`/api/tap-crm/*`).
+- No legacy GARVEY `/t/:slug/*` routes were modified.
+- Public tap resolution was added under `/tap-crm/t/:tagCode` to avoid collision with existing `/t/:slug/*` runtime paths.
+
+### Rollback Notes
+
+- Roll back by applying `down` for `tap_crm_002_public_tap_resolution`:
+  - Drops `tap_crm_tap_events` and `tap_crm_business_config`.
+  - Removes added Phase 3 columns/indexes from `tap_crm_tags`.
+- Public resolution routes (`/tap-crm/t/:tagCode`, `/api/tap-crm/public/tags/:tagCode/resolve`) can be removed safely after DB rollback.
+
+### Shared-Area Touches
+
+- `server/index.js` touched only to mount the new public Tap CRM resolution route.
+- `server/tapCrmRoutes.js` expanded with Phase 3 resolution logic while preserving existing owner API behavior.
+- `server/tapCrmDb.js` expanded with additive, Tap CRM-isolated migration objects only.
