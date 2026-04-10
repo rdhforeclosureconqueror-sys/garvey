@@ -1,10 +1,14 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
 
 const {
   normalizeActionItems,
   buildOwnerConsolePayload,
   isAdminOverrideActor,
+  normalizeTagKey,
+  normalizeTagStatusValue,
+  normalizeDestinationPath,
 } = require("../server/tapCrmRoutes");
 
 test("normalizeActionItems returns only valid action entries with fallbacks", () => {
@@ -52,4 +56,18 @@ test("buildOwnerConsolePayload lists owner-facing screens", () => {
 test("isAdminOverrideActor allows admin-only override controls", () => {
   assert.equal(isAdminOverrideActor({ isAdmin: true }), true);
   assert.equal(isAdminOverrideActor({ isAdmin: false }), false);
+});
+
+test("tag helpers normalize key, status, and destination path for owner lifecycle operations", () => {
+  assert.equal(normalizeTagKey("  VIP Chair #1 "), "vip-chair-1");
+  assert.equal(normalizeTagStatusValue("DISABLED"), "disabled");
+  assert.equal(normalizeTagStatusValue("unknown"), "active");
+  assert.equal(normalizeDestinationPath("tap-crm/t/demo"), "/tap-crm/t/demo");
+  assert.equal(normalizeDestinationPath("https://example.com/book"), "https://example.com/book");
+});
+
+test("tap crm routes include owner tag create and update endpoints", () => {
+  const routeSource = fs.readFileSync(require.resolve("../server/tapCrmRoutes"), "utf8");
+  assert.match(routeSource, /router\.post\(\"\/console\/tags\"/);
+  assert.match(routeSource, /router\.put\(\"\/console\/tags\/:tagId\"/);
 });

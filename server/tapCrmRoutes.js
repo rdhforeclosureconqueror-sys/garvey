@@ -162,6 +162,30 @@ function normalizeTagCode(value) {
   return String(value || "").trim().toLowerCase();
 }
 
+function normalizeTagKey(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function normalizeTagStatusValue(value, fallback = "active") {
+  const normalized = String(value || fallback).trim().toLowerCase();
+  if (normalized === "active" || normalized === "inactive" || normalized === "disabled") {
+    return normalized;
+  }
+  return fallback;
+}
+
+function normalizeDestinationPath(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "/tap-crm";
+  if (raw.startsWith("http://") || raw.startsWith("https://")) return raw;
+  return raw.startsWith("/") ? raw : `/${raw}`;
+}
+
 function isNonEmptyObject(value) {
   return !!value && typeof value === "object" && !Array.isArray(value) && Object.keys(value).length > 0;
 }
@@ -564,6 +588,121 @@ function createTapCrmRouter() {
     } catch (err) {
       console.error("tap_crm_tags_get_failed", err);
       return res.status(500).json({ error: "tap_crm_tags_get_failed" });
+    }
+  });
+
+  router.post("/console/tags", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_TAGS_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+
+      const input = req.body && typeof req.body === "object" ? req.body : {};
+      const key = normalizeTagKey(input.key || input.tag_code || input.label);
+      const label = String(input.label || input.purpose || "").trim();
+      const tagCode = normalizeTagCode(input.tag_code || key);
+      const status = normalizeTagStatusValue(input.status, "active");
+      const destinationPath = normalizeDestinationPath(input.destination_path);
+      const disabledReason = String(input.disabled_reason || "").trim();
+
+      if (!key) return res.status(400).json({ error: "tag_key_required" });
+      if (!label) return res.status(400).json({ error: "tag_label_required" });
+      if (!tagCode) return res.status(400).json({ error: "tag_code_required" });
+
+      const created = await pool.query(
+        `INSERT INTO tap_crm_tags (tenant_id, key, label, tag_code, status, destination_path, disabled_reason)
+         VALUES ($1, $2, $3, $4, $5, $6, $7)
+         RETURNING id, key, label, tag_code, status, destination_path, disabled_reason, last_tap_at`,
+        [scoped.tenantId, key, label, tagCode, status, destinationPath, status === "disabled" ? disabledReason : ""]
+      );
+      return res.status(201).json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        tag: created.rows[0],
+      });
+    } catch (err) {
+      if (err && err.code === "23505") {
+        return res.status(409).json({ error: "tag_conflict", details: "key_or_tag_code_already_exists" });
+      }
+      console.error("tap_crm_tags_post_failed", err);
+      return res.status(500).json({ error: "tap_crm_tags_post_failed" });
+    }
+  });
+
+  router.put("/console/tags/:tagId", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_TAGS_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+
+      const tagId = Number(req.params.tagId);
+      if (!Number.isInteger(tagId) || tagId <= 0) {
+        return res.status(400).json({ error: "invalid_tag_id" });
+      }
+
+      const existing = await pool.query(
+        `SELECT id, key, label, tag_code, status, destination_path, disabled_reason, last_tap_at
+         FROM tap_crm_tags
+         WHERE id = $1 AND tenant_id = $2
+         LIMIT 1`,
+        [tagId, scoped.tenantId]
+      );
+      const current = existing.rows[0];
+      if (!current) return res.status(404).json({ error: "tag_not_found" });
+
+      const input = req.body && typeof req.body === "object" ? req.body : {};
+      const nextStatus = normalizeTagStatusValue(input.status, current.status || "active");
+      const next = {
+        key: normalizeTagKey(input.key !== undefined ? input.key : current.key) || current.key,
+        label: String(
+          input.label !== undefined
+            ? input.label
+            : input.purpose !== undefined
+              ? input.purpose
+              : current.label
+        ).trim(),
+        tag_code: normalizeTagCode(input.tag_code !== undefined ? input.tag_code : current.tag_code) || current.tag_code,
+        status: nextStatus,
+        destination_path: normalizeDestinationPath(
+          input.destination_path !== undefined ? input.destination_path : current.destination_path
+        ),
+        disabled_reason: String(
+          nextStatus === "disabled"
+            ? (input.disabled_reason !== undefined ? input.disabled_reason : current.disabled_reason)
+            : ""
+        ).trim(),
+      };
+
+      if (!next.label) return res.status(400).json({ error: "tag_label_required" });
+
+      const updated = await pool.query(
+        `UPDATE tap_crm_tags
+         SET key = $3,
+             label = $4,
+             tag_code = $5,
+             status = $6,
+             destination_path = $7,
+             disabled_reason = $8
+         WHERE id = $1 AND tenant_id = $2
+         RETURNING id, key, label, tag_code, status, destination_path, disabled_reason, last_tap_at`,
+        [tagId, scoped.tenantId, next.key, next.label, next.tag_code, next.status, next.destination_path, next.disabled_reason]
+      );
+
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        tag: updated.rows[0],
+      });
+    } catch (err) {
+      if (err && err.code === "23505") {
+        return res.status(409).json({ error: "tag_conflict", details: "key_or_tag_code_already_exists" });
+      }
+      console.error("tap_crm_tags_put_failed", err);
+      return res.status(500).json({ error: "tap_crm_tags_put_failed" });
     }
   });
 
@@ -983,6 +1122,9 @@ module.exports = {
   normalizeActionItems,
   buildOwnerConsolePayload,
   normalizeTagCode,
+  normalizeTagKey,
+  normalizeTagStatusValue,
+  normalizeDestinationPath,
   isAdminOverrideActor,
   evaluateTagStatus,
   resolvePublicTap,
