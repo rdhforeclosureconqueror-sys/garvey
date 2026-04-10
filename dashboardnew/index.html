@@ -106,6 +106,7 @@
             <li><a class="active" href="#overview"><i class="fa fa-dashboard fa-fw"></i> Overview</a></li>
             <li><a href="#assessments"><i class="fa fa-check-square-o fa-fw"></i> Assessments</a></li>
             <li><a id="campaignQrNavBtn" href="#campaignTracking"><i class="fa fa-qrcode fa-fw"></i> Campaign QR</a></li>
+            <li><a id="tapInNavBtn" href="/dashboard/tap-crm"><i class="fa fa-dot-circle-o fa-fw"></i> Tap In Console</a></li>
             <li><a href="#ownerSnapshot"><i class="fa fa-user fa-fw"></i> Owner Snapshot</a></li>
             <li><a href="#campaignTracking"><i class="fa fa-share-alt fa-fw"></i> Campaign Tracking</a></li>
             <li><a href="#customers"><i class="fa fa-users fa-fw"></i> Customers</a></li>
@@ -127,9 +128,17 @@
           <h1 class="page-header">Customer Return Dashboard</h1>
           <p id="errorBanner" class="text-danger"></p>
           <div id="dashboardSignInPanel" style="display:none;"></div>
+          <div id="accessStatusPanel" class="panel panel-default" style="margin-top:12px;">
+            <div class="panel-heading"><i class="fa fa-id-badge fa-fw"></i> Signed-in Access</div>
+            <div class="panel-body">
+              <div id="accessStatusBadges" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px;"></div>
+              <div id="accessStatusMeta" class="empty-state" style="padding-top:0;">Resolving session status…</div>
+            </div>
+          </div>
           <p>
             <a class="btn btn-warning" id="garveyPathBtn" href="#">Open GARVEY Pathway</a>
             <a class="btn btn-primary" id="rewardsPathBtn" href="#">Open Rewards</a>
+            <a class="btn btn-info" id="tapInLaunchBtn" href="/dashboard/tap-crm">Open Tap In Console</a>
             <a class="btn btn-default" id="rewardsFallbackBtn" href="#">Rewards Fallback</a>
           </p>
         </div>

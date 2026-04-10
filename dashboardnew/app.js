@@ -139,7 +139,13 @@
         var tenant = safeTrim(data.tenant);
         var email = safeTrim(data.email).toLowerCase();
         if (!tenant || !email) return null;
-        return { tenant: tenant, email: email };
+        return {
+          tenant: tenant,
+          email: email,
+          role: safeTrim(data.role),
+          isAdmin: data.is_admin === true,
+          hasTenantOwnerAccess: data.has_tenant_owner_access === true
+        };
       })
       .catch(function () { return null; });
   }
@@ -906,6 +912,8 @@
     if (cid) p4.set("cid", cid);
     if (rid) p4.set("rid", rid);
     setHrefIfPresent("campaignQrNavBtn", "/dashboard.html?" + p4.toString() + "#campaignTracking");
+    setHrefIfPresent("tapInNavBtn", "/dashboard/tap-crm?" + p4.toString());
+    setHrefIfPresent("tapInLaunchBtn", "/dashboard/tap-crm?" + p4.toString());
   }
 
   function readSignInFormCtx() {
@@ -1939,6 +1947,18 @@
     });
   }
 
+  function renderAccessStatus(ctx) {
+    var badgeHost = document.getElementById("accessStatusBadges");
+    var meta = document.getElementById("accessStatusMeta");
+    if (!badgeHost || !meta) return;
+    var badges = [];
+    if (ctx.isAdmin) badges.push('<span class="label label-danger">Super Admin</span>');
+    if (ctx.hasTenantOwnerAccess) badges.push('<span class="label label-success">Business Owner</span>');
+    badges.push('<span class="label label-default">Tenant: ' + escapeHtml(ctx.tenant || "-") + '</span>');
+    badgeHost.innerHTML = badges.join(" ");
+    meta.textContent = "Email: " + (ctx.email || "-") + " • Session role: " + (ctx.role || "-");
+  }
+
   function init() {
     if (dashboardInitInFlight || dashboardInitialized) return;
     dashboardInitInFlight = true;
@@ -1960,22 +1980,19 @@
     }
 
     resolveOwnerSession().then(function (session) {
+      var sessionRole = "";
+      var hasTenantOwnerAccess = false;
       if (session) {
         tenant = session.tenant;
         ownerEmail = session.email;
+        sessionRole = session.role || "";
+        hasTenantOwnerAccess = session.hasTenantOwnerAccess === true;
         if (!cid) cid = safeTrim(fromLoginCtx.cid || "");
         if (!rid) rid = safeTrim(fromLoginCtx.rid || "");
       } else {
-        ownerEmail = "";
-        rid = "";
-        try {
-          localStorage.removeItem(DASH_CTX_KEY);
-          localStorage.removeItem(LOGIN_CTX_KEY);
-          localStorage.removeItem(ENGINE_CTX_KEY);
-          sessionStorage.removeItem(DASH_CTX_KEY);
-          sessionStorage.removeItem(LOGIN_CTX_KEY);
-          sessionStorage.removeItem(ENGINE_CTX_KEY);
-        } catch (_) {}
+        if (!ownerEmail) ownerEmail = safeTrim(fromLoginCtx.email || "").toLowerCase();
+        if (!tenant) tenant = safeTrim(fromLoginCtx.tenant || "");
+        if (!rid) rid = safeTrim(fromLoginCtx.rid || "");
       }
 
       var repaired = new URLSearchParams(window.location.search);
@@ -1991,7 +2008,7 @@
       repaired.delete("crid");
       history.replaceState(null, "", "/dashboard.html?" + repaired.toString());
 
-      var isAdmin = isAdminEmail(ownerEmail);
+      var isAdmin = (session && session.isAdmin === true) || isAdminEmail(ownerEmail);
       var switchedTenant = resetSessionForTenantSwitch(
         { tenant: tenant, email: ownerEmail, cid: cid, rid: rid },
         fromLoginCtx
@@ -2003,6 +2020,13 @@
       if (label) {
         label.textContent = "Tenant: " + (tenant || "-") + " • Email: " + (ownerEmail || "-") + " • Admin: " + (isAdmin ? "true" : "false");
       }
+      renderAccessStatus({
+        tenant: tenant,
+        email: ownerEmail,
+        role: sessionRole || (isAdmin ? "super_admin" : "business_owner"),
+        isAdmin: isAdmin,
+        hasTenantOwnerAccess: hasTenantOwnerAccess
+      });
 
       if (!tenant || !ownerEmail) {
         dashboardInitInFlight = false;
