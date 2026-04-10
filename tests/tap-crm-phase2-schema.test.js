@@ -60,12 +60,18 @@ test('verifyTapCrmSchema reports clean schema when all objects exist', async () 
       'tap_crm_tags',
       'tap_crm_contact_tags',
       'tap_crm_pipeline_items',
+      'tap_crm_business_config',
+      'tap_crm_tap_events',
     ],
     indexes: [
       'tap_crm_contacts_tenant_stage_idx',
       'tap_crm_tags_tenant_key_idx',
       'tap_crm_contact_tags_tenant_contact_idx',
       'tap_crm_pipeline_items_tenant_stage_idx',
+      'tap_crm_tags_tenant_tag_code_idx',
+      'tap_crm_tags_tag_code_idx',
+      'tap_crm_tap_events_tenant_created_idx',
+      'tap_crm_tap_events_tag_created_idx',
     ],
   });
 

@@ -20,7 +20,7 @@ The handoff examples used `/api/tap/*` and `/dashboard/tap/*`. In this repo, the
 |---|---|---|
 | `/api/tap/*` | `/api/tap-crm/*` | Prevent route ambiguity with existing route families. |
 | `/dashboard/tap/*` | `/dashboard/tap-crm` | Keeps dashboard surface isolated and explicit. |
-| `/t/:tagCode` | Deferred to Phase 3 | Existing `/t/:slug/*` routes already power GARVEY flows. |
+| `/t/:tagCode` | Implemented as `/tap-crm/t/:tagCode` in Phase 3 | Avoids collision with existing `/t/:slug/*` GARVEY runtime routes while keeping Tap CRM namespace explicit. |
 
 ## Tenancy Strategy
 
