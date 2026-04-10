@@ -1558,11 +1558,22 @@ app.get("/api/owner/session", async (req, res) => {
   if (actor.role !== ROLES.BUSINESS_OWNER || !actor.userId || !actor.tenantSlug) {
     return res.json({ authenticated: false });
   }
+  let hasTenantOwnerAccess = false;
+  try {
+    const tenantRow = await getTenantBySlug(actor.tenantSlug);
+    if (tenantRow) {
+      hasTenantOwnerAccess = await ownerEmailHasTenantAccess(tenantRow.id, actor.email);
+    }
+  } catch (_) {
+    hasTenantOwnerAccess = false;
+  }
   return res.json({
     authenticated: true,
     tenant: actor.tenantSlug,
     email: actor.email,
     role: actor.role,
+    is_admin: !!actor.isAdmin,
+    has_tenant_owner_access: hasTenantOwnerAccess,
     onboarding_complete: !!actor.onboardingComplete,
   });
 });
