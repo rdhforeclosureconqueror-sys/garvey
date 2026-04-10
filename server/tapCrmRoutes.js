@@ -5,6 +5,8 @@ const { pool } = require("./db");
 const { ACTIONS, deriveActor, evaluatePolicy } = require("./accessControl");
 const { getTapCrmMode } = require("./tapCrmFeature");
 
+const OWNER_CONSOLE_ROUTE_NAMESPACE = "tap-crm";
+
 function checkTapAccess(req, action) {
   const actor = deriveActor(req);
   const tenant = String(req.query.tenant || "").trim().toLowerCase();
@@ -37,6 +39,103 @@ function checkTapAccess(req, action) {
     ok: true,
     tenant,
     actor,
+  };
+}
+
+function cloneJson(value, fallback = {}) {
+  if (value === null || value === undefined) return fallback;
+  try {
+    return JSON.parse(JSON.stringify(value));
+  } catch (_) {
+    return fallback;
+  }
+}
+
+function normalizeActionItems(items, fallbackLabel) {
+  if (!Array.isArray(items)) return [];
+  return items
+    .map((item = {}, index) => ({
+      label: String(item.label || "").trim() || `${fallbackLabel} ${index + 1}`,
+      url: String(item.url || "").trim() || "#",
+    }))
+    .filter((item) => item.label && item.url);
+}
+
+function buildOwnerConsolePayload({ tenant, role }) {
+  return {
+    ok: true,
+    route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+    tenant,
+    role,
+    screens: [
+      "business_setup",
+      "primary_action_editor",
+      "secondary_action_editor",
+      "tag_manager",
+      "analytics_summary",
+      "template_selector",
+      "tap_crm_dashboard_landing",
+    ],
+  };
+}
+
+async function getTenantRecord(db, tenantSlug) {
+  const found = await db.query(
+    `SELECT id, slug
+     FROM tenants
+     WHERE LOWER(slug) = $1
+     LIMIT 1`,
+    [String(tenantSlug || "").trim().toLowerCase()]
+  );
+  return found.rows[0] || null;
+}
+
+async function getBusinessConfig(db, tenantId) {
+  const existing = await db.query(
+    `SELECT id, hub_status, disabled_reason, config
+     FROM tap_crm_business_config
+     WHERE tenant_id = $1
+     LIMIT 1`,
+    [tenantId]
+  );
+
+  if (existing.rows[0]) {
+    return existing.rows[0];
+  }
+
+  const inserted = await db.query(
+    `INSERT INTO tap_crm_business_config (tenant_id, hub_status, disabled_reason, config)
+     VALUES ($1, 'active', '', '{}'::jsonb)
+     RETURNING id, hub_status, disabled_reason, config`,
+    [tenantId]
+  );
+  return inserted.rows[0];
+}
+
+async function saveBusinessConfig(db, tenantId, config) {
+  const updated = await db.query(
+    `UPDATE tap_crm_business_config
+     SET config = $2::jsonb,
+         updated_at = NOW()
+     WHERE tenant_id = $1
+     RETURNING id, hub_status, disabled_reason, config`,
+    [tenantId, JSON.stringify(config || {})]
+  );
+  return updated.rows[0] || null;
+}
+
+async function withTenantScope(db, tenantSlug) {
+  const tenantRecord = await getTenantRecord(db, tenantSlug);
+  if (!tenantRecord) {
+    return { ok: false, status: 404, body: { error: "tenant_not_found" } };
+  }
+
+  const businessConfig = await getBusinessConfig(db, tenantRecord.id);
+  return {
+    ok: true,
+    tenantId: tenantRecord.id,
+    tenantSlug: tenantRecord.slug,
+    businessConfig,
   };
 }
 
@@ -234,7 +333,20 @@ function createTapCrmRouter() {
     return res.json({
       ok: true,
       domain: "tap_crm",
+      route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
       tenant: access.tenant,
+      landing: {
+        title: "Tap CRM dashboard",
+        owner_console: "/dashboard/tap-crm",
+        sections: [
+          "business_setup",
+          "primary_action_editor",
+          "secondary_action_editor",
+          "tag_manager",
+          "analytics_summary",
+          "template_selector",
+        ],
+      },
       summary: {
         total_contacts: 0,
         active_pipeline: 0,
@@ -243,6 +355,235 @@ function createTapCrmRouter() {
       stage_breakdown: [],
       tasks_due_today: [],
     });
+  });
+
+  router.get("/console/landing", (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_VIEW);
+    if (!access.ok) {
+      return res.status(access.status).json(access.body);
+    }
+    return res.json(buildOwnerConsolePayload({ tenant: access.tenant, role: access.actor.role }));
+  });
+
+  router.get("/console/business-setup", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const config = cloneJson(scoped.businessConfig.config, {});
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        business_setup: cloneJson(config.business_setup, {}),
+      });
+    } catch (err) {
+      console.error("tap_crm_business_setup_get_failed", err);
+      return res.status(500).json({ error: "tap_crm_business_setup_get_failed" });
+    }
+  });
+
+  router.put("/console/business-setup", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const businessSetup = cloneJson(req.body || {}, {});
+      const baseConfig = cloneJson(scoped.businessConfig.config, {});
+      baseConfig.business_setup = businessSetup;
+      const saved = await saveBusinessConfig(pool, scoped.tenantId, baseConfig);
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        business_setup: cloneJson(saved.config.business_setup, {}),
+      });
+    } catch (err) {
+      console.error("tap_crm_business_setup_put_failed", err);
+      return res.status(500).json({ error: "tap_crm_business_setup_put_failed" });
+    }
+  });
+
+  router.get("/console/actions/primary", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const config = cloneJson(scoped.businessConfig.config, {});
+      const primaryActions = normalizeActionItems(config.actions && config.actions.primary, "Primary action");
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        primary_actions: primaryActions,
+      });
+    } catch (err) {
+      console.error("tap_crm_primary_actions_get_failed", err);
+      return res.status(500).json({ error: "tap_crm_primary_actions_get_failed" });
+    }
+  });
+
+  router.put("/console/actions/primary", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const baseConfig = cloneJson(scoped.businessConfig.config, {});
+      baseConfig.actions = baseConfig.actions || {};
+      baseConfig.actions.primary = normalizeActionItems(req.body && req.body.primary_actions, "Primary action");
+      const saved = await saveBusinessConfig(pool, scoped.tenantId, baseConfig);
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        primary_actions: cloneJson(saved.config.actions.primary, []),
+      });
+    } catch (err) {
+      console.error("tap_crm_primary_actions_put_failed", err);
+      return res.status(500).json({ error: "tap_crm_primary_actions_put_failed" });
+    }
+  });
+
+  router.get("/console/actions/secondary", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const config = cloneJson(scoped.businessConfig.config, {});
+      const secondaryActions = normalizeActionItems(config.actions && config.actions.secondary, "Secondary action");
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        secondary_actions: secondaryActions,
+      });
+    } catch (err) {
+      console.error("tap_crm_secondary_actions_get_failed", err);
+      return res.status(500).json({ error: "tap_crm_secondary_actions_get_failed" });
+    }
+  });
+
+  router.put("/console/actions/secondary", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const baseConfig = cloneJson(scoped.businessConfig.config, {});
+      baseConfig.actions = baseConfig.actions || {};
+      baseConfig.actions.secondary = normalizeActionItems(req.body && req.body.secondary_actions, "Secondary action");
+      const saved = await saveBusinessConfig(pool, scoped.tenantId, baseConfig);
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        secondary_actions: cloneJson(saved.config.actions.secondary, []),
+      });
+    } catch (err) {
+      console.error("tap_crm_secondary_actions_put_failed", err);
+      return res.status(500).json({ error: "tap_crm_secondary_actions_put_failed" });
+    }
+  });
+
+  router.get("/console/tags", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_TAGS_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const tags = await pool.query(
+        `SELECT id, key, label, tag_code, status, destination_path, disabled_reason, last_tap_at
+         FROM tap_crm_tags
+         WHERE tenant_id = $1
+         ORDER BY id DESC`,
+        [scoped.tenantId]
+      );
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        tags: tags.rows,
+      });
+    } catch (err) {
+      console.error("tap_crm_tags_get_failed", err);
+      return res.status(500).json({ error: "tap_crm_tags_get_failed" });
+    }
+  });
+
+  router.get("/console/analytics/summary", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_ANALYTICS_VIEW);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const metrics = await pool.query(
+        `SELECT
+           COUNT(*) FILTER (WHERE outcome = 'accepted')::INT AS accepted_taps,
+           COUNT(*) FILTER (WHERE outcome = 'rejected')::INT AS rejected_taps,
+           COUNT(*)::INT AS total_taps
+         FROM tap_crm_tap_events
+         WHERE tenant_id = $1`,
+        [scoped.tenantId]
+      );
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        analytics_summary: metrics.rows[0] || { accepted_taps: 0, rejected_taps: 0, total_taps: 0 },
+      });
+    } catch (err) {
+      console.error("tap_crm_analytics_summary_failed", err);
+      return res.status(500).json({ error: "tap_crm_analytics_summary_failed" });
+    }
+  });
+
+  router.get("/console/templates/selector", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_TEMPLATES_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const config = cloneJson(scoped.businessConfig.config, {});
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        template_selector: {
+          selected_template_id: String(config.selected_template_id || ""),
+          available_templates: ["default", "service_business", "retail", "events"],
+        },
+      });
+    } catch (err) {
+      console.error("tap_crm_template_selector_get_failed", err);
+      return res.status(500).json({ error: "tap_crm_template_selector_get_failed" });
+    }
+  });
+
+  router.put("/console/templates/selector", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_TEMPLATES_MANAGE);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const selectedTemplateId = String(req.body && req.body.selected_template_id || "").trim().toLowerCase();
+      const baseConfig = cloneJson(scoped.businessConfig.config, {});
+      baseConfig.selected_template_id = selectedTemplateId;
+      await saveBusinessConfig(pool, scoped.tenantId, baseConfig);
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        selected_template_id: selectedTemplateId,
+      });
+    } catch (err) {
+      console.error("tap_crm_template_selector_put_failed", err);
+      return res.status(500).json({ error: "tap_crm_template_selector_put_failed" });
+    }
   });
 
   router.get("/permissions", (req, res) => {
@@ -288,6 +629,8 @@ function createTapCrmRouter() {
 module.exports = {
   createTapCrmRouter,
   checkTapAccess,
+  normalizeActionItems,
+  buildOwnerConsolePayload,
   normalizeTagCode,
   evaluateTagStatus,
   resolvePublicTap,
