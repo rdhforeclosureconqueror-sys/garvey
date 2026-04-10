@@ -64,6 +64,8 @@ const infrastructureRoutes = require("./infrastructureRoutes");
 const routingRoutes = require("./routingRoutes");
 const evolutionRoutes = require("./evolutionRoutes");
 const { generateSite } = require("./siteMaterializer");
+const { isTapCrmEnabled, getTapCrmMode } = require("./tapCrmFeature");
+const { createTapCrmRouter } = require("./tapCrmRoutes");
 
 // Optional Site Generator (won't crash if missing)
 let siteGenerator = null;
@@ -225,6 +227,14 @@ app.get('/dashboard.html', (req, res) => {
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 
+if (isTapCrmEnabled()) {
+  app.use('/api/tap-crm', createTapCrmRouter());
+  app.get('/tap-crm', (req, res) => res.sendFile(path.join(__dirname, '..', 'tapcrm', 'index.html')));
+} else {
+  app.get('/api/tap-crm/*', (req, res) => res.status(404).json({ error: 'Not found' }));
+  app.get('/tap-crm', (req, res) => res.status(404).send('Not found'));
+}
+
 /* =========================
    CONSTANTS + HELPERS
 ========================= */
@@ -250,6 +260,7 @@ const FEATURES = Object.freeze({
   CONSENT_V1: FEATURE_MODES.has(String(process.env.CONSENT_V1_MODE || process.env.CONSENT_V1 || "off").trim().toLowerCase())
     ? String(process.env.CONSENT_V1_MODE || process.env.CONSENT_V1 || "off").trim().toLowerCase()
     : "off",
+  TAP_CRM: getTapCrmMode(),
 });
 const INTERNAL_TEST_USERS = new Set(
   String(process.env.INTERNAL_TEST_USERS || "")
