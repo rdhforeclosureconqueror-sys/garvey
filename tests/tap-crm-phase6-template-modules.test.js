@@ -8,6 +8,7 @@ const {
   resolveTemplateRuntime,
   listTemplates,
   listModules,
+  buildBarberPilotBaselineConfig,
 } = require("../server/tapCrmTemplates");
 
 const { buildTapHubViewModel, renderTapHubPage } = require("../server/tapHubRenderer");
@@ -56,7 +57,7 @@ test("listTemplates exposes default plus barber/salon/fitness reuse set", () => 
 
 test("listModules exposes stable module registry keys", () => {
   const modules = listModules().map((module) => module.module_id);
-  assert.deepEqual(modules, ["hero", "primary_cta", "services", "social_links", "business_info"]);
+  assert.deepEqual(modules, ["hero", "primary_cta", "services", "social_links", "business_info", "guide_assistant"]);
 });
 
 test("buildOwnerConsolePayload includes phase 6 module management screens", () => {
@@ -74,8 +75,25 @@ test("buildOwnerConsolePayload includes phase 6 module management screens", () =
     "template_selector",
     "module_registry",
     "module_config_editor",
+    "pilot_readiness",
+    "pilot_bootstrap",
     "tap_crm_dashboard_landing",
   ]);
+});
+
+test("buildBarberPilotBaselineConfig applies barber defaults while preserving existing values", () => {
+  const config = buildBarberPilotBaselineConfig({
+    brand: { name: "Clip Joint" },
+    actions: {
+      primary: [{ label: "Reserve chair", url: "/reserve" }],
+    },
+  });
+
+  assert.equal(config.selected_template_id, "barber");
+  assert.equal(config.brand.name, "Clip Joint");
+  assert.equal(config.brand.headline, "Barber-ready booking in one tap");
+  assert.equal(config.actions.primary[0].label, "Reserve chair");
+  assert.equal(config.onboarding.first_business_setup_complete, false);
 });
 
 
@@ -103,4 +121,19 @@ test("tap hub renderer suppresses social section when social module disabled", (
   }));
 
   assert.equal(/<h2>Social & brand<\/h2>/.test(html), false);
+});
+
+test("tap hub renderer includes afrocentric visual tokens and virtual guide block", () => {
+  const html = renderTapHubPage(buildTapHubViewModel({
+    route_namespace: "tap-crm",
+    resolution: { tenant: "demoa", tag_code: "phase7-demoa", label: "Clip Joint" },
+    business_config: {},
+    template_runtime: resolveTemplateRuntime({ selected_template_id: "barber" }),
+  }));
+
+  assert.equal(/Virtual Guide · Tap for steps/.test(html), true);
+  assert.equal(/guide-panel/.test(html), true);
+  assert.equal(/#b91c1c/.test(html), true);
+  assert.equal(/#166534/.test(html), true);
+  assert.equal(/rgba\(230, 184, 93/.test(html), true);
 });

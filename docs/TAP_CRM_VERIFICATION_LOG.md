@@ -303,3 +303,82 @@ Date: 2026-04-10
 
 Result:
 - PASS (Phase 6 follow-up runtime verification)
+
+## Phase 7 — Barber Pilot Readiness + First-Business Bootstrap
+
+Date: 2026-04-10
+
+### Built
+
+- Added barber pilot baseline configuration helper in `server/tapCrmTemplates.js`:
+  - `buildBarberPilotBaselineConfig(existingConfig)` to safely apply default barber-oriented values while preserving tenant overrides.
+  - baseline includes pilot onboarding metadata for first-business readiness (`onboarding.pilot_ready`, `onboarding.first_business_setup_complete`, checklist fields).
+- Extended owner console route inventory in `server/tapCrmRoutes.js` with pilot-facing screens:
+  - `pilot_readiness`
+  - `pilot_bootstrap`
+- Added barber pilot readiness and bootstrap APIs under existing namespace:
+  - `GET /api/tap-crm/console/pilot/readiness`
+  - `POST /api/tap-crm/console/pilot/bootstrap`
+- `pilot/bootstrap` supports minimal pilot setup by:
+  - setting/keeping `selected_template_id: barber`
+  - applying safe barber baseline config for first-business onboarding
+  - optionally seeding one default active tag (`<tenant>-welcome`) when no tags exist
+- Updated owner Tap Console page (`tapcrm/index.html`) for Phase 7 screen visibility and pilot endpoint examples.
+
+### Verification
+
+- Updated screen inventory assertions in:
+  - `tests/tap-crm-phase5-owner-console.test.js`
+  - `tests/tap-crm-phase6-template-modules.test.js`
+- Added baseline config behavior coverage in:
+  - `tests/tap-crm-phase6-template-modules.test.js`
+- Ran:
+  - `node --test tests/tap-crm-phase1.test.js tests/tap-crm-phase2-schema.test.js tests/tap-crm-phase3-routing.test.js tests/tap-crm-phase4-hub-rendering.test.js tests/tap-crm-phase5-owner-console.test.js tests/tap-crm-phase6-template-modules.test.js`
+
+### Result
+
+- PASS (Phase 7 scope only)
+
+### Regression Notes
+
+- Existing Tap CRM API namespace remains unchanged (`/api/tap-crm/*`).
+- Existing public tap route namespace remains unchanged (`/tap-crm/t/:tagCode`).
+- Existing owner dashboard mount remains unchanged (`/dashboard/tap-crm`).
+- Existing TAP namespace decision (`tap-crm`) remains unchanged; no `/api/tap/*` alias introduced.
+- No Phase 8 scaling or automation surfaces were introduced.
+
+### Rollback Notes
+
+- Route rollback: remove `GET /console/pilot/readiness` and `POST /console/pilot/bootstrap` handlers from `server/tapCrmRoutes.js`.
+- Config rollback: remove `buildBarberPilotBaselineConfig` helper usage and restore prior template-only selection behavior.
+- Data rollback:
+  - optional default seeded tag can be removed from `tap_crm_tags` by `tag_code = '<tenant>-welcome'`.
+  - onboarding metadata is JSON-only (`tap_crm_business_config.config`) and can be unset without schema rollback.
+
+### Shared-Area Touches
+
+- `server/tapCrmTemplates.js` (barber baseline + onboarding metadata defaults)
+- `server/tapCrmRoutes.js` (pilot readiness/bootstrap API additions, owner console screen inventory updates)
+- `tests/tap-crm-phase5-owner-console.test.js` (owner screen inventory regression assertions)
+- `tests/tap-crm-phase6-template-modules.test.js` (baseline config + screen inventory assertions)
+- `tapcrm/index.html` (Phase 7 owner-console informational updates)
+- `docs/TAP_CRM_PILOT_CHECKLIST.md` (Phase 7 status checklist section)
+
+## Phase 7 Follow-up — Afrocentric Futuristic UX + Guided Helper
+
+Date: 2026-04-10
+
+- Refined Tap Hub customer-facing renderer to Afrocentric futuristic visual direction:
+  - red/black/green palette treatment
+  - gold accent/outline styling
+  - stronger high-contrast premium card presentation
+- Added built-in guided helper block ("Virtual Guide") with interactive reveal behavior and structured steps/CTA.
+- Added `guide_assistant` module support in template/module engine so guide content stays configurable through existing module config pathways.
+- Added/updated tests for:
+  - module registry inclusion of `guide_assistant`
+  - runtime HTML verification for guide block and required visual tokens
+- Full follow-up verification evidence captured in:
+  - `docs/TAP_CRM_PHASE7_FOLLOWUP_VERIFICATION.md`
+
+Result:
+- PASS (Phase 7 follow-up refinement only)
