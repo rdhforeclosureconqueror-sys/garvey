@@ -6,8 +6,12 @@ const {
   normalizeTemplateId,
   resolveTemplate,
   resolveTemplateRuntime,
+  cloneTemplateForIndustry,
   listTemplates,
   listModules,
+  listAddOns,
+  resolveAddOnRuntime,
+  resolveServiceCustomFields,
   buildBarberPilotBaselineConfig,
 } = require("../server/tapCrmTemplates");
 
@@ -75,10 +79,47 @@ test("buildOwnerConsolePayload includes phase 6 module management screens", () =
     "template_selector",
     "module_registry",
     "module_config_editor",
+    "add_on_registry",
+    "custom_fields_editor",
+    "admin_overrides",
     "pilot_readiness",
     "pilot_bootstrap",
     "tap_crm_dashboard_landing",
   ]);
+});
+
+test("cloneTemplateForIndustry returns cloned template metadata for add-on architecture", () => {
+  const clone = cloneTemplateForIndustry({ templateId: "barber", industryId: "pet-grooming" });
+  assert.equal(clone.is_cloned_template, true);
+  assert.equal(clone.source_template_id, "barber");
+  assert.equal(clone.vertical, "pet-grooming");
+});
+
+test("listAddOns and resolveAddOnRuntime support add-on extension model", () => {
+  const addOnIds = listAddOns().map((item) => item.add_on_id);
+  assert.deepEqual(addOnIds, ["waitlist_capture", "loyalty_snapshot"]);
+
+  const runtime = resolveAddOnRuntime({
+    add_on_overrides: {
+      waitlist_capture: {
+        enabled: true,
+        config: { cta_label: "Join now" },
+      },
+    },
+  });
+  const waitlist = runtime.find((item) => item.add_on_id === "waitlist_capture");
+  assert.equal(waitlist.enabled, true);
+  assert.equal(waitlist.config.cta_label, "Join now");
+});
+
+test("resolveServiceCustomFields merges service defaults with tenant overrides", () => {
+  const fields = resolveServiceCustomFields({
+    custom_field_overrides: {
+      barber: [{ key: "preferred_barber", label: "Favorite barber" }],
+    },
+  }, "barber");
+  const preferred = fields.find((item) => item.key === "preferred_barber");
+  assert.equal(preferred.label, "Favorite barber");
 });
 
 test("buildBarberPilotBaselineConfig applies barber defaults while preserving existing values", () => {

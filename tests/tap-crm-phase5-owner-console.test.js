@@ -4,6 +4,7 @@ const assert = require("node:assert/strict");
 const {
   normalizeActionItems,
   buildOwnerConsolePayload,
+  isAdminOverrideActor,
 } = require("../server/tapCrmRoutes");
 
 test("normalizeActionItems returns only valid action entries with fallbacks", () => {
@@ -39,8 +40,16 @@ test("buildOwnerConsolePayload lists owner-facing screens", () => {
     "template_selector",
     "module_registry",
     "module_config_editor",
+    "add_on_registry",
+    "custom_fields_editor",
+    "admin_overrides",
     "pilot_readiness",
     "pilot_bootstrap",
     "tap_crm_dashboard_landing",
   ]);
+});
+
+test("isAdminOverrideActor allows admin-only override controls", () => {
+  assert.equal(isAdminOverrideActor({ isAdmin: true }), true);
+  assert.equal(isAdminOverrideActor({ isAdmin: false }), false);
 });
