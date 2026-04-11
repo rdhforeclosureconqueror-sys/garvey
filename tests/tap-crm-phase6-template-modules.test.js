@@ -199,8 +199,10 @@ test("tap hub renderer gates booking behind check-in and uses 12-hour display fo
   assert.equal(/Customer actions/.test(html), true);
   assert.equal(/>Check in</.test(html), true);
   assert.equal(/>Book</.test(html), true);
-  assert.equal(/>Pay</.test(html), true);
-  assert.equal(/>Tip</.test(html), true);
+  assert.equal(/>Pay now</.test(html), true);
+  assert.equal(/>Leave a tip</.test(html), true);
+  assert.equal(/https:\/\/buy\.stripe\.com\/00w5kw6Lv3YweZoffq8bS00/.test(html), true);
+  assert.equal(/https:\/\/cash\.app\/\$theEmpireinc/.test(html), true);
   assert.equal(/>Return Engine</.test(html), true);
   assert.equal(/function toDisplayTime\(time24\)/.test(html), true);
   assert.equal(html.includes("(?::\\d{2})?"), true);

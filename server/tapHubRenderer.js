@@ -345,8 +345,8 @@ function renderTapHubPage(viewModel) {
         <div class="quick-actions">
           <button type="button" data-checkin-open>Check in</button>
           <button type="button" data-booking-open>Book</button>
-          <a href="/pay">Pay</a>
-          <a href="/tip">Tip</a>
+          <a href="https://buy.stripe.com/00w5kw6Lv3YweZoffq8bS00" target="_blank" rel="noopener noreferrer">Pay now</a>
+          <a href="https://cash.app/$theEmpireinc" target="_blank" rel="noopener noreferrer">Leave a tip</a>
           <a href="${escapeHtml(viewModel.returnEngineUrl)}">Return Engine</a>
         </div>
       </section>
@@ -566,7 +566,6 @@ function renderTapHubPage(viewModel) {
 
         updateBookingEntryState();
         setActiveModal(null);
-        openCheckin();
         if (checkInBtn) {
           checkInBtn.addEventListener("click", function () {
             bookingUnlocked = true;
