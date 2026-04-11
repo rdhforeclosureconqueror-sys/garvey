@@ -192,9 +192,19 @@ test("tap hub renderer gates booking behind check-in and uses 12-hour display fo
   }));
 
   assert.equal(/Check-in first/.test(html), true);
+  assert.equal(/id="checkinBackdrop"/.test(html), true);
+  assert.equal(/id="checkinCancelBtn"/.test(html), true);
   assert.equal(/data-checkin-enter/.test(html), true);
   assert.equal(/Complete check-in first/.test(html), true);
+  assert.equal(/Customer actions/.test(html), true);
+  assert.equal(/>Check in</.test(html), true);
+  assert.equal(/>Book</.test(html), true);
+  assert.equal(/>Pay</.test(html), true);
+  assert.equal(/>Tip</.test(html), true);
+  assert.equal(/>Return Engine</.test(html), true);
   assert.equal(/function toDisplayTime\(time24\)/.test(html), true);
+  assert.equal(html.includes("(?::\\d{2})?"), true);
   assert.equal(/if \(!event \|\| event.type !== "click"\) return;/.test(html), true);
   assert.equal(/setStatus\("Selected " \+ toDisplayTime\(selectedSlot\) \+ "\. Tap Confirm booking to continue\."\);/.test(html), true);
+  assert.equal(/showPageNotice\("Booking confirmed/.test(html), true);
 });
