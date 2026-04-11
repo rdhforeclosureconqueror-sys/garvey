@@ -274,6 +274,7 @@ function renderTapHubPage(viewModel) {
       .booking-btn { width: 100%; }
       .booking-btn:disabled { opacity: 0.5; cursor: not-allowed; }
       .booking-modal-backdrop { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.72); display: grid; place-items: center; padding: 16px; z-index: 30; }
+      .booking-modal-backdrop[hidden] { display: none !important; }
       .booking-modal { width: min(440px, 100%); border-radius: 14px; border: 1px solid rgba(230,184,93,0.65); background: #050a18; padding: 14px; }
       .booking-modal h3 { margin: 0 0 8px; }
       .booking-field { display: grid; gap: 6px; margin-top: 8px; }
@@ -299,12 +300,14 @@ function renderTapHubPage(viewModel) {
         color: #f8fafc;
       }
       .flow-modal-backdrop { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.72); display: grid; place-items: center; padding: 16px; z-index: 40; }
+      .flow-modal-backdrop[hidden] { display: none !important; }
       .flow-modal { width: min(420px, 100%); border-radius: 14px; border: 1px solid rgba(230,184,93,0.65); background: #050a18; padding: 14px; }
       .flow-modal h3 { margin: 0 0 8px; }
       .flow-actions { display: flex; gap: 8px; margin-top: 12px; }
       .flow-actions button { flex: 1; border-radius: 8px; border: 1px solid rgba(230,184,93,0.55); padding: 10px; background: #111827; color: #fff; }
       .booking-result { margin-top: 8px; border: 1px solid rgba(22,163,74,0.6); background: rgba(20,83,45,0.45); border-radius: 10px; padding: 10px; color: #dcfce7; }
       .page-notice { margin-bottom: 12px; border: 1px solid rgba(22,163,74,0.65); border-radius: 10px; padding: 10px; background: rgba(22,163,74,0.2); color: #dcfce7; }
+      body.modal-active { overflow: hidden; touch-action: none; }
     </style>
   </head>
   <body>
@@ -442,6 +445,7 @@ function renderTapHubPage(viewModel) {
         var selectedSlot = "";
         var bookingUnlocked = false;
         var submitPending = false;
+        var activeModal = null;
 
         function toDateString(date) { return date.toISOString().slice(0, 10); }
         function oneWeekOut() { var now = new Date(); now.setUTCDate(now.getUTCDate() + 7); return toDateString(now); }
@@ -482,9 +486,15 @@ function renderTapHubPage(viewModel) {
           target.hidden = !isOpen;
           target.setAttribute("aria-hidden", isOpen ? "false" : "true");
         }
-        function closeAllModals() {
-          setBackdropState(checkinBackdrop, false);
-          setBackdropState(backdrop, false);
+        function setBodyModalLock(isModalActive) {
+          if (!document.body) return;
+          document.body.classList.toggle("modal-active", Boolean(isModalActive));
+        }
+        function setActiveModal(nextModal) {
+          activeModal = nextModal || null;
+          setBackdropState(checkinBackdrop, activeModal === "checkin");
+          setBackdropState(backdrop, activeModal === "booking");
+          setBodyModalLock(Boolean(activeModal));
         }
         function renderSlots(items) {
           slotsEl.innerHTML = "";
@@ -507,12 +517,11 @@ function renderTapHubPage(viewModel) {
         }
         function openCheckin() {
           if (!checkinBackdrop) return;
-          setBackdropState(backdrop, false);
-          setBackdropState(checkinBackdrop, true);
+          setActiveModal("checkin");
         }
         function closeCheckin() {
           if (!checkinBackdrop) return;
-          setBackdropState(checkinBackdrop, false);
+          if (activeModal === "checkin") setActiveModal(null);
         }
         function fetchAvailability() {
           var date = String(dateInput.value || "").trim();
@@ -541,15 +550,14 @@ function renderTapHubPage(viewModel) {
             openCheckin();
             return;
           }
-          setBackdropState(checkinBackdrop, false);
-          setBackdropState(backdrop, true);
+          setActiveModal("booking");
           dateInput.value = oneWeekOut();
           setConfirmEnabled(false);
           showBookingResult("");
           fetchAvailability();
         }
         function closeBooking() {
-          setBackdropState(backdrop, false);
+          if (activeModal === "booking") setActiveModal(null);
           selectedSlot = "";
           if (bookingNameInput) bookingNameInput.value = "";
           setStatus("");
@@ -557,7 +565,7 @@ function renderTapHubPage(viewModel) {
         }
 
         updateBookingEntryState();
-        closeAllModals();
+        setActiveModal(null);
         openCheckin();
         if (checkInBtn) {
           checkInBtn.addEventListener("click", function () {
