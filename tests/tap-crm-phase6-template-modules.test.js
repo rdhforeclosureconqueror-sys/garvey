@@ -178,3 +178,21 @@ test("tap hub renderer includes afrocentric visual tokens and virtual guide bloc
   assert.equal(/#166534/.test(html), true);
   assert.equal(/rgba\(230, 184, 93/.test(html), true);
 });
+
+test("tap hub renderer gates booking behind check-in and uses 12-hour display formatter", () => {
+  const html = renderTapHubPage(buildTapHubViewModel({
+    route_namespace: "tap-crm",
+    resolution: { tenant: "demoa", tag_code: "phase7-demoa", label: "Clip Joint" },
+    business_config: {
+      actions: {
+        primary: [{ label: "Book now", url: "/book" }],
+      },
+    },
+    template_runtime: resolveTemplateRuntime({ selected_template_id: "barber" }),
+  }));
+
+  assert.equal(/Check-in first/.test(html), true);
+  assert.equal(/data-checkin-enter/.test(html), true);
+  assert.equal(/Complete check-in first/.test(html), true);
+  assert.equal(/function toDisplayTime\(time24\)/.test(html), true);
+});
