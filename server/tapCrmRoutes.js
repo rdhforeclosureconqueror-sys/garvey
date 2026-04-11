@@ -186,6 +186,44 @@ function normalizeDestinationPath(value) {
   return raw.startsWith("/") ? raw : `/${raw}`;
 }
 
+function parseDateOnly(value) {
+  const raw = String(value || "").trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(raw)) return null;
+  const parsed = new Date(`${raw}T00:00:00.000Z`);
+  if (Number.isNaN(parsed.getTime())) return null;
+  return raw;
+}
+
+function parseTimeOnly(value) {
+  const raw = String(value || "").trim();
+  if (!/^\d{2}:\d{2}$/.test(raw)) return null;
+  return raw;
+}
+
+function buildDefaultSlotConfig() {
+  return {
+    start: "09:00",
+    end: "17:00",
+    interval_minutes: 30,
+    working_days: [1, 2, 3, 4, 5, 6],
+  };
+}
+
+function buildTimeSlots({ start, end, intervalMinutes }) {
+  const [startHour, startMinute] = String(start || "09:00").split(":").map((part) => Number(part));
+  const [endHour, endMinute] = String(end || "17:00").split(":").map((part) => Number(part));
+  const beginTotal = (startHour * 60) + startMinute;
+  const endTotal = (endHour * 60) + endMinute;
+  const interval = Number(intervalMinutes) > 0 ? Number(intervalMinutes) : 30;
+  const slots = [];
+  for (let minute = beginTotal; minute < endTotal; minute += interval) {
+    const h = Math.floor(minute / 60);
+    const m = minute % 60;
+    slots.push(`${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`);
+  }
+  return slots;
+}
+
 function describeTagConflict(err) {
   const constraint = String((err && err.constraint) || "").toLowerCase();
   const detail = String((err && err.detail) || "");
@@ -425,6 +463,38 @@ async function resolvePublicTap(db, { tagCode, requestMeta = {} }) {
       template_runtime: resolveTemplateRuntime(cloneJson(row.business_config || {}, {})),
     },
   };
+}
+
+async function getPublicTagContext(db, tagCode) {
+  const normalizedTagCode = normalizeTagCode(tagCode);
+  if (!normalizedTagCode) {
+    return { ok: false, status: 400, body: { error: "tag_code_required" } };
+  }
+
+  const lookup = await db.query(
+    `SELECT
+       tg.id AS tag_id,
+       tg.tenant_id,
+       tg.tag_code,
+       tg.status AS tag_status,
+       t.slug AS tenant_slug,
+       bc.hub_status,
+       bc.config AS business_config
+     FROM tap_crm_tags tg
+     JOIN tenants t ON t.id = tg.tenant_id
+     LEFT JOIN tap_crm_business_config bc ON bc.tenant_id = tg.tenant_id
+     WHERE LOWER(tg.tag_code) = $1
+     LIMIT 1`,
+    [normalizedTagCode]
+  );
+
+  const row = lookup.rows[0];
+  if (!row) return { ok: false, status: 404, body: { error: "tag_not_found" } };
+  const status = evaluateTagStatus({ tagStatus: row.tag_status, businessStatus: row.hub_status });
+  if (!status.ok) {
+    return { ok: false, status: status.status, body: { error: status.code, tag_code: row.tag_code, tenant: row.tenant_slug } };
+  }
+  return { ok: true, row };
 }
 
 function createTapCrmRouter() {
@@ -1163,6 +1233,103 @@ function createTapCrmRouter() {
     } catch (err) {
       console.error("tap_crm_public_tag_resolve_failed", err);
       return res.status(500).json({ error: "tap_tag_resolution_failed" });
+    }
+  });
+
+  router.get("/public/tags/:tagCode/booking/availability", async (req, res) => {
+    try {
+      const targetDate = parseDateOnly(req.query.date);
+      if (!targetDate) {
+        return res.status(400).json({ error: "invalid_date", detail: "Use YYYY-MM-DD date format." });
+      }
+      const scoped = await getPublicTagContext(pool, req.params.tagCode);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+
+      const config = cloneJson(scoped.row.business_config || {}, {});
+      const bookingConfig = config.booking && typeof config.booking === "object" ? config.booking : {};
+      const defaultSlots = buildDefaultSlotConfig();
+      const slotConfig = {
+        start: parseTimeOnly(bookingConfig.start) || defaultSlots.start,
+        end: parseTimeOnly(bookingConfig.end) || defaultSlots.end,
+        interval_minutes: Number(bookingConfig.interval_minutes) > 0 ? Number(bookingConfig.interval_minutes) : defaultSlots.interval_minutes,
+        working_days: Array.isArray(bookingConfig.working_days) ? bookingConfig.working_days.map((v) => Number(v)).filter((v) => Number.isInteger(v) && v >= 0 && v <= 6) : defaultSlots.working_days,
+      };
+
+      const weekday = new Date(`${targetDate}T00:00:00.000Z`).getUTCDay();
+      const candidateSlots = slotConfig.working_days.includes(weekday)
+        ? buildTimeSlots({ start: slotConfig.start, end: slotConfig.end, intervalMinutes: slotConfig.interval_minutes })
+        : [];
+
+      const booked = await pool.query(
+        `SELECT slot_time
+         FROM tap_crm_bookings
+         WHERE tenant_id = $1
+           AND booking_date = $2::date
+           AND status = 'booked'`,
+        [scoped.row.tenant_id, targetDate]
+      );
+      const bookedSet = new Set(booked.rows.map((row) => String(row.slot_time || "")));
+      const slots = candidateSlots.map((slot) => ({
+        time: slot,
+        status: bookedSet.has(slot) ? "unavailable" : "available",
+      }));
+      return res.json({
+        ok: true,
+        tenant: scoped.row.tenant_slug,
+        tag_code: scoped.row.tag_code,
+        date: targetDate,
+        slots,
+      });
+    } catch (err) {
+      console.error("tap_crm_booking_availability_failed", err);
+      return res.status(500).json({ error: "tap_crm_booking_availability_failed" });
+    }
+  });
+
+  router.post("/public/tags/:tagCode/booking/reservations", express.json(), async (req, res) => {
+    try {
+      const scoped = await getPublicTagContext(pool, req.params.tagCode);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const bookingDate = parseDateOnly(req.body && req.body.date);
+      const slotTime = parseTimeOnly(req.body && req.body.time);
+      if (!bookingDate || !slotTime) {
+        return res.status(400).json({ error: "invalid_booking_payload", detail: "date (YYYY-MM-DD) and time (HH:MM) are required." });
+      }
+
+      const created = await pool.query(
+        `INSERT INTO tap_crm_bookings (
+          tenant_id,
+          tag_id,
+          tag_code,
+          booking_date,
+          slot_time,
+          customer_name,
+          customer_phone,
+          notes
+        ) VALUES ($1, $2, $3, $4::date, $5, $6, $7, $8)
+        ON CONFLICT (tenant_id, booking_date, slot_time) DO NOTHING
+        RETURNING id, booking_date, slot_time, status, created_at`,
+        [
+          scoped.row.tenant_id,
+          scoped.row.tag_id,
+          scoped.row.tag_code,
+          bookingDate,
+          slotTime,
+          String(req.body && req.body.customer_name || "").trim(),
+          String(req.body && req.body.customer_phone || "").trim(),
+          String(req.body && req.body.notes || "").trim(),
+        ]
+      );
+      if (!created.rows[0]) {
+        return res.status(409).json({ error: "slot_unavailable", date: bookingDate, time: slotTime });
+      }
+      return res.status(201).json({
+        ok: true,
+        reservation: created.rows[0],
+      });
+    } catch (err) {
+      console.error("tap_crm_booking_reservation_failed", err);
+      return res.status(500).json({ error: "tap_crm_booking_reservation_failed" });
     }
   });
 
