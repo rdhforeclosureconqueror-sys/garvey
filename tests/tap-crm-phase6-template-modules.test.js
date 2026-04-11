@@ -195,4 +195,6 @@ test("tap hub renderer gates booking behind check-in and uses 12-hour display fo
   assert.equal(/data-checkin-enter/.test(html), true);
   assert.equal(/Complete check-in first/.test(html), true);
   assert.equal(/function toDisplayTime\(time24\)/.test(html), true);
+  assert.equal(/if \(!event \|\| event.type !== "click"\) return;/.test(html), true);
+  assert.equal(/setStatus\("Selected " \+ toDisplayTime\(selectedSlot\) \+ "\. Tap Confirm booking to continue\."\);/.test(html), true);
 });

@@ -428,6 +428,8 @@ function renderTapHubPage(viewModel) {
               selectedSlot = slot.time;
               Array.prototype.forEach.call(slotsEl.querySelectorAll(".slot"), function (item) { item.classList.remove("selected"); });
               button.classList.add("selected");
+              setConfirmEnabled(true);
+              setStatus("Selected " + toDisplayTime(selectedSlot) + ". Tap Confirm booking to continue.");
             });
             slotsEl.appendChild(button);
           });
@@ -452,8 +454,9 @@ function renderTapHubPage(viewModel) {
               return null;
             });
         }
-        function openBooking() {
+        function openBooking(event) {
           if (!backdrop) return;
+          if (!event || event.type !== "click") return;
           if (!bookingUnlocked) {
             setStatus("Please complete check-in before booking.");
             return;
