@@ -260,7 +260,18 @@ function renderTapHubPage(viewModel) {
       .guide-steps { margin: 0; padding-left: 20px; }
       .guide-steps li { margin-bottom: 6px; color: #e5e7eb; }
       .guide-cta { display: inline-block; margin-top: 8px; padding: 8px 12px; border-radius: 999px; background: #b91c1c; color: #fff; border: 1px solid rgba(230,184,93,0.7); text-decoration: none; }
+      .checkin-gate { display: grid; gap: 8px; }
+      .checkin-btn {
+        width: 100%;
+        border: 1px solid rgba(230, 184, 93, 0.75);
+        background: linear-gradient(135deg, #166534, #14532d);
+        color: #ecfdf3;
+        border-radius: 10px;
+        padding: 11px;
+        font-weight: 700;
+      }
       .booking-btn { width: 100%; }
+      .booking-btn:disabled { opacity: 0.5; cursor: not-allowed; }
       .booking-modal-backdrop { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.72); display: grid; place-items: center; padding: 16px; }
       .booking-modal { width: min(440px, 100%); border-radius: 14px; border: 1px solid rgba(230,184,93,0.65); background: #050a18; padding: 14px; }
       .booking-modal h3 { margin: 0 0 8px; }
@@ -296,6 +307,14 @@ function renderTapHubPage(viewModel) {
           <a class="guide-cta" href="#primary-actions">${escapeHtml(viewModel.guide.ctaLabel)}</a>
         </div>
       </section>` : ""}
+
+      <section class="card">
+        <h2>Check-in first</h2>
+        <div class="checkin-gate">
+          <p class="sub">Start your guided check-in before entering booking.</p>
+          <button class="checkin-btn" type="button" data-checkin-enter>Start check-in</button>
+        </div>
+      </section>
 
       ${viewModel.modules.primaryEnabled ? `
       <section class="card" id="primary-actions">
@@ -363,6 +382,7 @@ function renderTapHubPage(viewModel) {
         }
 
         var bookingOpen = document.querySelector("[data-booking-open]");
+        var checkInBtn = document.querySelector("[data-checkin-enter]");
         var backdrop = document.getElementById("bookingBackdrop");
         var dateInput = document.getElementById("bookingDate");
         var slotsEl = document.getElementById("bookingSlots");
@@ -370,16 +390,38 @@ function renderTapHubPage(viewModel) {
         var cancelBtn = document.getElementById("bookingCancelBtn");
         var confirmBtn = document.getElementById("bookingConfirmBtn");
         var selectedSlot = "";
+        var bookingUnlocked = false;
+        var submitPending = false;
 
         function toDateString(date) { return date.toISOString().slice(0, 10); }
         function oneWeekOut() { var now = new Date(); now.setUTCDate(now.getUTCDate() + 7); return toDateString(now); }
         function setStatus(text) { statusEl.textContent = text || ""; }
+        function toDisplayTime(time24) {
+          var normalized = String(time24 || "").trim();
+          var match = normalized.match(/^(\d{2}):(\d{2})$/);
+          if (!match) return normalized;
+          var hours = Number(match[1]);
+          var minutes = Number(match[2]);
+          if (Number.isNaN(hours) || Number.isNaN(minutes)) return normalized;
+          var suffix = hours >= 12 ? "PM" : "AM";
+          var normalizedHour = hours % 12 || 12;
+          return normalizedHour + ":" + String(minutes).padStart(2, "0") + " " + suffix;
+        }
+        function setConfirmEnabled(enabled) {
+          if (!confirmBtn) return;
+          confirmBtn.disabled = !enabled;
+        }
+        function updateBookingEntryState() {
+          if (!bookingOpen) return;
+          bookingOpen.disabled = !bookingUnlocked;
+          bookingOpen.title = bookingUnlocked ? "" : "Complete check-in first";
+        }
         function renderSlots(items) {
           slotsEl.innerHTML = "";
           items.forEach(function (slot) {
             var button = document.createElement("button");
             button.type = "button";
-            button.textContent = slot.time;
+            button.textContent = toDisplayTime(slot.time);
             button.className = "slot " + (slot.status === "available" ? "available" : "unavailable");
             button.disabled = slot.status !== "available";
             button.addEventListener("click", function () {
@@ -389,55 +431,98 @@ function renderTapHubPage(viewModel) {
             });
             slotsEl.appendChild(button);
           });
+          setConfirmEnabled(Boolean(selectedSlot));
         }
         function fetchAvailability() {
           var date = String(dateInput.value || "").trim();
-          if (!date) return;
+          if (!date) return Promise.resolve(null);
           selectedSlot = "";
           setStatus("Loading availability...");
-          fetch("/api/tap-crm/public/tags/" + encodeURIComponent(tagCode) + "/booking/availability?date=" + encodeURIComponent(date))
+          return fetch("/api/tap-crm/public/tags/" + encodeURIComponent(tagCode) + "/booking/availability?date=" + encodeURIComponent(date))
             .then(function (res) { return res.json().then(function (body) { return { ok: res.ok, body: body }; }); })
             .then(function (result) {
               if (!result.ok) throw new Error(result.body.error || "Failed to load availability");
               renderSlots(Array.isArray(result.body.slots) ? result.body.slots : []);
               setStatus("Available slots are green. Unavailable slots are crossed out.");
+              return result.body;
             })
             .catch(function (err) {
               renderSlots([]);
               setStatus(err.message || "Could not load availability.");
+              return null;
             });
         }
         function openBooking() {
           if (!backdrop) return;
+          if (!bookingUnlocked) {
+            setStatus("Please complete check-in before booking.");
+            return;
+          }
           backdrop.hidden = false;
           dateInput.value = oneWeekOut();
+          setConfirmEnabled(false);
           fetchAvailability();
         }
         function closeBooking() { backdrop.hidden = true; selectedSlot = ""; setStatus(""); }
 
+        updateBookingEntryState();
+        if (checkInBtn) {
+          checkInBtn.addEventListener("click", function () {
+            bookingUnlocked = true;
+            updateBookingEntryState();
+            checkInBtn.textContent = "Check-in complete";
+            checkInBtn.disabled = true;
+          });
+        }
         if (bookingOpen) bookingOpen.addEventListener("click", openBooking);
         if (cancelBtn) cancelBtn.addEventListener("click", closeBooking);
         if (dateInput) dateInput.addEventListener("change", fetchAvailability);
         if (confirmBtn) {
           confirmBtn.addEventListener("click", function () {
             if (!selectedSlot) return setStatus("Please select an available time.");
+            if (submitPending) return;
+            submitPending = true;
+            setConfirmEnabled(false);
             setStatus("Submitting booking...");
-            fetch("/api/tap-crm/public/tags/" + encodeURIComponent(tagCode) + "/booking/reservations", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                date: dateInput.value,
-                time: selectedSlot,
-                customer_name: (document.getElementById("bookingName") || {}).value || "",
-              }),
-            })
+            var date = String(dateInput.value || "").trim();
+            fetch("/api/tap-crm/public/tags/" + encodeURIComponent(tagCode) + "/booking/availability?date=" + encodeURIComponent(date))
               .then(function (res) { return res.json().then(function (body) { return { ok: res.ok, body: body }; }); })
               .then(function (result) {
-                if (!result.ok) throw new Error(result.body.error || "Booking failed");
-                setStatus("Booked for " + result.body.reservation.booking_date + " at " + result.body.reservation.slot_time + ".");
-                fetchAvailability();
+                if (!result.ok) throw new Error(result.body.error || "Could not verify slot availability");
+                var slots = Array.isArray(result.body.slots) ? result.body.slots : [];
+                var selected = slots.find(function (slot) { return slot.time === selectedSlot; });
+                if (!selected || selected.status !== "available") {
+                  setStatus("That time was just taken. We refreshed availability so you can pick a new slot.");
+                  return fetchAvailability().then(function () { return null; });
+                }
+                return fetch("/api/tap-crm/public/tags/" + encodeURIComponent(tagCode) + "/booking/reservations", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    date: date,
+                    time: selectedSlot,
+                    customer_name: (document.getElementById("bookingName") || {}).value || "",
+                  }),
+                })
+                  .then(function (res) { return res.json().then(function (body) { return { ok: res.ok, body: body, status: res.status }; }); });
               })
-              .catch(function (err) { setStatus(err.message || "Booking failed."); });
+              .then(function (result) {
+                if (!result) return;
+                if (!result.ok) {
+                  if (result.status === 409 || result.body.error === "slot_unavailable") {
+                    setStatus("That slot is no longer available. We refreshed the list.");
+                    return fetchAvailability();
+                  }
+                  throw new Error(result.body.error || "Booking failed");
+                }
+                setStatus("Booked for " + result.body.reservation.booking_date + " at " + toDisplayTime(result.body.reservation.slot_time) + ".");
+                return fetchAvailability();
+              })
+              .catch(function (err) { setStatus(err.message || "Booking failed."); })
+              .finally(function () {
+                submitPending = false;
+                setConfirmEnabled(Boolean(selectedSlot));
+              });
           });
         }
       })();
