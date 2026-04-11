@@ -137,6 +137,35 @@ const TAP_CRM_MIGRATIONS = Object.freeze([
       DROP INDEX IF EXISTS tap_crm_tags_tenant_label_idx;
     `,
   },
+  {
+    id: "tap_crm_004_public_booking_slots",
+    description: "Add pilot-safe booking table with unique slot protection",
+    up: `
+      CREATE TABLE IF NOT EXISTS tap_crm_bookings (
+        id BIGSERIAL PRIMARY KEY,
+        tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+        tag_id BIGINT NOT NULL REFERENCES tap_crm_tags(id) ON DELETE CASCADE,
+        tag_code TEXT NOT NULL DEFAULT '',
+        booking_date DATE NOT NULL,
+        slot_time TEXT NOT NULL,
+        customer_name TEXT NOT NULL DEFAULT '',
+        customer_phone TEXT NOT NULL DEFAULT '',
+        notes TEXT NOT NULL DEFAULT '',
+        status TEXT NOT NULL DEFAULT 'booked',
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        UNIQUE (tenant_id, booking_date, slot_time)
+      );
+
+      CREATE INDEX IF NOT EXISTS tap_crm_bookings_tenant_date_idx
+        ON tap_crm_bookings(tenant_id, booking_date, slot_time);
+      CREATE INDEX IF NOT EXISTS tap_crm_bookings_tag_date_idx
+        ON tap_crm_bookings(tag_id, booking_date, slot_time);
+    `,
+    down: `
+      DROP TABLE IF EXISTS tap_crm_bookings;
+    `,
+  },
 ]);
 
 async function ensureTapCrmMigrationTable(pool) {
@@ -194,6 +223,7 @@ async function verifyTapCrmSchema(pool) {
     "tap_crm_pipeline_items",
     "tap_crm_business_config",
     "tap_crm_tap_events",
+    "tap_crm_bookings",
   ];
 
   const requiredIndexes = [
@@ -206,6 +236,8 @@ async function verifyTapCrmSchema(pool) {
     "tap_crm_tags_tag_code_idx",
     "tap_crm_tap_events_tenant_created_idx",
     "tap_crm_tap_events_tag_created_idx",
+    "tap_crm_bookings_tenant_date_idx",
+    "tap_crm_bookings_tag_date_idx",
   ];
 
   const tableResult = await pool.query(
