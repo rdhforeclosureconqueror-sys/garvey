@@ -64,7 +64,7 @@ const infrastructureRoutes = require("./infrastructureRoutes");
 const routingRoutes = require("./routingRoutes");
 const evolutionRoutes = require("./evolutionRoutes");
 const { generateSite } = require("./siteMaterializer");
-const { isTapCrmEnabled, getTapCrmMode } = require("./tapCrmFeature");
+const { getTapCrmMode } = require("./tapCrmFeature");
 const { createTapCrmRouter, resolvePublicTap } = require("./tapCrmRoutes");
 const { buildTapHubViewModel, renderTapHubPage, renderTapHubErrorPage } = require("./tapHubRenderer");
 
@@ -80,6 +80,8 @@ try {
 const app = express();
 app.set("trust proxy", 1);
 const PORT = Number(process.env.PORT || 3000);
+const TAP_CRM_MODE = getTapCrmMode();
+const TAP_CRM_ROUTES_MOUNTED = TAP_CRM_MODE !== "off";
 const OWNER_SESSION_COOKIE = "garvey_owner_session";
 const OWNER_SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 
@@ -228,7 +230,7 @@ app.get('/dashboard.html', (req, res) => {
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 
-if (isTapCrmEnabled()) {
+if (TAP_CRM_ROUTES_MOUNTED) {
   app.use('/api/tap-crm', createTapCrmRouter());
   app.get('/tap-crm', (req, res) => res.sendFile(path.join(__dirname, '..', 'tapcrm', 'index.html')));
   app.get('/dashboard/tap-crm', (req, res) => res.sendFile(path.join(__dirname, '..', 'tapcrm', 'index.html')));
@@ -322,7 +324,7 @@ const FEATURES = Object.freeze({
   CONSENT_V1: FEATURE_MODES.has(String(process.env.CONSENT_V1_MODE || process.env.CONSENT_V1 || "off").trim().toLowerCase())
     ? String(process.env.CONSENT_V1_MODE || process.env.CONSENT_V1 || "off").trim().toLowerCase()
     : "off",
-  TAP_CRM: getTapCrmMode(),
+  TAP_CRM: TAP_CRM_MODE,
 });
 const INTERNAL_TEST_USERS = new Set(
   String(process.env.INTERNAL_TEST_USERS || "")
@@ -450,6 +452,22 @@ function getConsentFeatureContext(req, email = "") {
   const candidateEmail = normalizeEmail(email || actor.email || req?.query?.email || req?.body?.email);
   if (consentTestOverride(req)) {
     return { mode, enabled: true, reason: "consent_test_override" };
+  }
+  if (isInternalUser(candidateEmail)) {
+    return { mode, enabled: true, reason: "internal_user" };
+  }
+  return { mode, enabled: false, reason: "internal_mode_non_internal_user" };
+}
+
+function getTapCrmFeatureContext(req, email = "") {
+  const mode = FEATURES.TAP_CRM;
+  if (mode === "on") return { mode, enabled: true, reason: "full_rollout" };
+  if (mode === "off") return { mode, enabled: false, reason: "feature_off" };
+
+  const actor = deriveActor(req);
+  const candidateEmail = normalizeEmail(email || actor.email || req?.query?.email || req?.body?.email);
+  if (actor.isAdmin === true) {
+    return { mode, enabled: true, reason: "admin_override" };
   }
   if (isInternalUser(candidateEmail)) {
     return { mode, enabled: true, reason: "internal_user" };
@@ -5325,6 +5343,18 @@ app.get("/api/features/consent", async (req, res) => {
   });
 });
 
+app.get("/api/features/tap-crm", async (req, res) => {
+  const email = normalizeEmail(req.query?.email);
+  const feature = getTapCrmFeatureContext(req, email);
+  return res.json({
+    feature: "TAP_CRM",
+    mode: feature.mode,
+    enabled: feature.enabled,
+    reason: feature.reason,
+    routes_mounted: TAP_CRM_ROUTES_MOUNTED,
+  });
+});
+
 app.post("/api/consent/required", async (req, res) => {
   const client = await pool.connect();
   try {
@@ -6022,6 +6052,14 @@ app.get("/api/verify/intelligence/:slug", tenantMiddleware, async (req, res) => 
 
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`);
+      console.log(
+        JSON.stringify({
+          ts: new Date().toISOString(),
+          event: "tap_crm_runtime",
+          mode: TAP_CRM_MODE,
+          routes_mounted: TAP_CRM_ROUTES_MOUNTED,
+        })
+      );
     });
   } catch (err) {
     console.error("Database initialization failed", err);
