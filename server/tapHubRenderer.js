@@ -46,6 +46,22 @@ function getRuntimeModule(runtime, moduleId) {
   return runtime.modules.find((module) => String(module.module_id || "").trim() === moduleId) || null;
 }
 
+function appendQueryParams(url, params = {}) {
+  const raw = String(url || "").trim();
+  if (!raw) return raw;
+  if (/^javascript:/i.test(raw) || /^mailto:/i.test(raw) || /^tel:/i.test(raw)) return raw;
+  const [base, hashPart] = raw.split("#");
+  const separator = base.includes("?") ? "&" : "?";
+  const query = Object.entries(params)
+    .map(([key, value]) => [key, value === null || value === undefined ? "" : String(value)])
+    .filter(([, value]) => value.trim() !== "")
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join("&");
+  if (!query) return raw;
+  const withQuery = `${base}${separator}${query}`;
+  return hashPart !== undefined ? `${withQuery}#${hashPart}` : withQuery;
+}
+
 function moduleEnabled(moduleState, fallback = true) {
   if (!moduleState) return fallback;
   return moduleState.enabled !== false;
@@ -78,6 +94,16 @@ function buildTapHubViewModel(resolvedBody) {
       },
     ])
     : [];
+
+  const attribution = resolution && resolution.attribution && typeof resolution.attribution === "object"
+    ? resolution.attribution
+    : {};
+  const attributionParams = {
+    tenant: String(resolution.tenant || "").trim(),
+    tap_tag: String(resolution.tag_code || "").trim(),
+    tap_source: String(attribution.source || "tap-hub").trim(),
+    tap_session: String(attribution.tap_session_id || "").trim(),
+  };
 
   const secondaryActions = normalizeActionList(actions.secondary, [
     {
@@ -131,6 +157,7 @@ function buildTapHubViewModel(resolvedBody) {
     logoUrl: String(brand.logo_url || "").trim(),
     primaryActions: primaryActions.map((action) => ({
       ...action,
+      url: appendQueryParams(action.url, attributionParams),
       bookingCta: /\bbook\b/i.test(action.label),
     })),
     secondaryActions,
@@ -138,7 +165,13 @@ function buildTapHubViewModel(resolvedBody) {
     businessName: String(business.name || brand.name || resolution.tenant || "Our Business").trim() || "Our Business",
     businessItems,
     featuredServices,
-    returnEngineUrl: `/rewards.html?tenant=${encodeURIComponent(String(resolution.tenant || "").trim())}&entry=tap-hub&tag=${encodeURIComponent(String(resolution.tag_code || "").trim())}`,
+    returnEngineUrl: appendQueryParams("/rewards.html", {
+      tenant: String(resolution.tenant || "").trim(),
+      entry: "tap-hub",
+      tag: String(resolution.tag_code || "").trim(),
+      tap_source: attributionParams.tap_source,
+      tap_session: attributionParams.tap_session,
+    }),
     guide: {
       title: String(guideConfig.title || "How this works").trim() || "How this works",
       intro: String(guideConfig.intro || "Follow these quick steps to get started.").trim() || "Follow these quick steps to get started.",

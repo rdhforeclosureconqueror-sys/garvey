@@ -21,7 +21,7 @@ test('buildTapHubViewModel uses safe fallback defaults when config is incomplete
 
   assert.equal(model.routeNamespace, 'tap-crm');
   assert.equal(model.primaryActions.length, 1);
-  assert.equal(model.primaryActions[0].url, '/tap-crm/hub/welcome');
+  assert.equal(model.primaryActions[0].url, '/tap-crm/hub/welcome?tenant=demo-tenant&tap_tag=vip-001&tap_source=tap-hub');
   assert.equal(model.secondaryActions.length, 0);
   assert.equal(model.businessName, 'demo-tenant');
 });
@@ -74,4 +74,27 @@ test('renderTapHubErrorPage supports invalid and inactive states', () => {
 
   assert.match(invalidHtml, /Invalid tag/);
   assert.match(disabledHtml, /Tag unavailable/);
+});
+
+test('buildTapHubViewModel preserves Tap attribution on Return Engine and action links', () => {
+  const model = buildTapHubViewModel({
+    route_namespace: 'tap-crm',
+    resolution: {
+      tenant: 'demo-tenant',
+      tag_code: 'vip-001',
+      label: 'VIP Welcome',
+      destination_path: '/rewards.html',
+      attribution: {
+        source: 'tap',
+        tap_session_id: 'tap-session-abc',
+      },
+    },
+    business_config: {},
+  });
+
+  assert.match(model.returnEngineUrl, /tenant=demo-tenant/);
+  assert.match(model.returnEngineUrl, /tap_source=tap/);
+  assert.match(model.returnEngineUrl, /tap_session=tap-session-abc/);
+  assert.match(model.primaryActions[0].url, /tap_tag=vip-001/);
+  assert.match(model.primaryActions[0].url, /tap_session=tap-session-abc/);
 });
