@@ -37,8 +37,8 @@ test('tap crm migrations are reversible and isolated', () => {
   assert.ok(TAP_CRM_MIGRATIONS.length > 0);
   for (const migration of TAP_CRM_MIGRATIONS) {
     assert.match(migration.id, /^tap_crm_/);
-    assert.match(migration.up, /CREATE TABLE IF NOT EXISTS tap_crm_/);
-    assert.match(migration.down, /DROP TABLE IF EXISTS tap_crm_/);
+    assert.match(migration.up, /(CREATE TABLE IF NOT EXISTS tap_crm_|CREATE UNIQUE INDEX IF NOT EXISTS tap_crm_)/);
+    assert.match(migration.down, /(DROP TABLE IF EXISTS tap_crm_|DROP INDEX IF EXISTS tap_crm_)/);
   }
 });
 
@@ -69,6 +69,7 @@ test('verifyTapCrmSchema reports clean schema when all objects exist', async () 
       'tap_crm_contact_tags_tenant_contact_idx',
       'tap_crm_pipeline_items_tenant_stage_idx',
       'tap_crm_tags_tenant_tag_code_idx',
+      'tap_crm_tags_tenant_label_idx',
       'tap_crm_tags_tag_code_idx',
       'tap_crm_tap_events_tenant_created_idx',
       'tap_crm_tap_events_tag_created_idx',

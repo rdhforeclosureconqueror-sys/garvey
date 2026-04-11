@@ -186,6 +186,47 @@ function normalizeDestinationPath(value) {
   return raw.startsWith("/") ? raw : `/${raw}`;
 }
 
+function describeTagConflict(err) {
+  const constraint = String((err && err.constraint) || "").toLowerCase();
+  const detail = String((err && err.detail) || "");
+  const normalizedDetail = detail.toLowerCase();
+
+  let field = "unknown";
+  if (
+    constraint.includes("tenant_tag_code")
+    || constraint.includes("tag_code")
+    || normalizedDetail.includes("(tag_code)")
+  ) {
+    field = "code";
+  } else if (
+    constraint.includes("tenant_id_key_key")
+    || constraint.includes("_key_")
+    || normalizedDetail.includes("(key)")
+  ) {
+    field = "key";
+  } else if (
+    constraint.includes("tenant_label")
+    || constraint.includes("label")
+    || normalizedDetail.includes("lower(label)")
+    || normalizedDetail.includes("(label)")
+  ) {
+    field = "label";
+  }
+
+  const valueMatch = detail.match(/\)=\(([^)]+)\)/);
+  const duplicateValue = valueMatch ? String(valueMatch[1] || "").trim() : "";
+  const fieldLabel = field === "code" ? "tag code" : field;
+  const message = field === "unknown"
+    ? "This tag already exists for this tenant. Update the existing tag instead of creating a new one."
+    : `Duplicate ${fieldLabel}: "${duplicateValue || "existing value"}" is already used for this tenant.`;
+
+  return {
+    field,
+    duplicate_value: duplicateValue,
+    message,
+  };
+}
+
 function isNonEmptyObject(value) {
   return !!value && typeof value === "object" && !Array.isArray(value) && Object.keys(value).length > 0;
 }
@@ -624,7 +665,13 @@ function createTapCrmRouter() {
       });
     } catch (err) {
       if (err && err.code === "23505") {
-        return res.status(409).json({ error: "tag_conflict", details: "key_or_tag_code_already_exists" });
+        const conflict = describeTagConflict(err);
+        return res.status(409).json({
+          error: "tag_conflict",
+          conflict_field: conflict.field,
+          conflict_value: conflict.duplicate_value,
+          message: conflict.message,
+        });
       }
       console.error("tap_crm_tags_post_failed", err);
       return res.status(500).json({ error: "tap_crm_tags_post_failed" });
@@ -699,7 +746,13 @@ function createTapCrmRouter() {
       });
     } catch (err) {
       if (err && err.code === "23505") {
-        return res.status(409).json({ error: "tag_conflict", details: "key_or_tag_code_already_exists" });
+        const conflict = describeTagConflict(err);
+        return res.status(409).json({
+          error: "tag_conflict",
+          conflict_field: conflict.field,
+          conflict_value: conflict.duplicate_value,
+          message: conflict.message,
+        });
       }
       console.error("tap_crm_tags_put_failed", err);
       return res.status(500).json({ error: "tap_crm_tags_put_failed" });
@@ -1125,6 +1178,7 @@ module.exports = {
   normalizeTagKey,
   normalizeTagStatusValue,
   normalizeDestinationPath,
+  describeTagConflict,
   isAdminOverrideActor,
   evaluateTagStatus,
   resolvePublicTap,
