@@ -2,7 +2,8 @@
 
 const express = require("express");
 const { pool } = require("./db");
-const { ACTIONS, deriveActor, evaluatePolicy } = require("./accessControl");
+const crypto = require("crypto");
+const { ACTIONS, ROLES, deriveActor, evaluatePolicy } = require("./accessControl");
 const { getTapCrmMode } = require("./tapCrmFeature");
 const {
   normalizeTemplateId,
@@ -20,13 +21,47 @@ const {
 const OWNER_CONSOLE_ROUTE_NAMESPACE = "tap-crm";
 
 function checkTapAccess(req, action) {
+  if (!req.authActor) {
+    return {
+      ok: false,
+      status: 401,
+      body: {
+        error: "authentication_required",
+        details: "Tap In owner access requires a signed-in Garvey business owner session.",
+      },
+    };
+  }
+
   const actor = deriveActor(req);
-  const tenant = String(req.query.tenant || "").trim().toLowerCase();
+  if (!actor.isAdmin && actor.role !== ROLES.BUSINESS_OWNER) {
+    return {
+      ok: false,
+      status: 403,
+      body: {
+        error: "owner_session_required",
+        details: "Tap In owner console is only available to Garvey business owners.",
+      },
+    };
+  }
+
+  const tenant = String(req.query.tenant || req.body?.tenant || actor.tenantSlug || "").trim().toLowerCase();
   if (!tenant) {
     return {
       ok: false,
       status: 400,
       body: { error: "tenant is required" },
+    };
+  }
+
+  if (!actor.isAdmin && !actor.onboardingComplete) {
+    return {
+      ok: false,
+      status: 409,
+      body: {
+        error: "garvey_onboarding_required",
+        details: "Complete Garvey business onboarding before using Tap In.",
+        redirect_to: `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(actor.email || "")}`,
+      },
     };
   }
 
@@ -160,6 +195,15 @@ async function withTenantScope(db, tenantSlug) {
 
 function normalizeTagCode(value) {
   return String(value || "").trim().toLowerCase();
+}
+
+function buildTapAttributionMeta(requestMeta = {}) {
+  const source = String(requestMeta.source || "tap-public").trim().toLowerCase() || "tap-public";
+  const tapSessionId = String(requestMeta.tap_session_id || "").trim() || crypto.randomUUID();
+  return {
+    source,
+    tap_session_id: tapSessionId,
+  };
 }
 
 function normalizeTagKey(value) {
@@ -369,6 +413,8 @@ async function resolvePublicTap(db, { tagCode, requestMeta = {} }) {
     };
   }
 
+  const attribution = buildTapAttributionMeta(requestMeta);
+
   const lookup = await db.query(
     `SELECT
        tg.id AS tag_id,
@@ -396,7 +442,10 @@ async function resolvePublicTap(db, { tagCode, requestMeta = {} }) {
       tagCode: normalizedTagCode,
       outcome: "rejected",
       reason: "tag_not_found",
-      requestMeta,
+      requestMeta: {
+        ...requestMeta,
+        ...attribution,
+      },
     });
     return {
       ok: false,
@@ -417,7 +466,10 @@ async function resolvePublicTap(db, { tagCode, requestMeta = {} }) {
       tagCode: row.tag_code,
       outcome: "rejected",
       reason: status.reason,
-      requestMeta,
+      requestMeta: {
+        ...requestMeta,
+        ...attribution,
+      },
     });
 
     return {
@@ -444,7 +496,10 @@ async function resolvePublicTap(db, { tagCode, requestMeta = {} }) {
     tagCode: row.tag_code,
     outcome: "accepted",
     reason: "resolved",
-    requestMeta,
+    requestMeta: {
+      ...requestMeta,
+      ...attribution,
+    },
   });
 
   return {
@@ -458,6 +513,7 @@ async function resolvePublicTap(db, { tagCode, requestMeta = {} }) {
         tag_code: row.tag_code,
         label: row.label,
         destination_path: row.destination_path || "/tap-crm",
+        attribution,
       },
       business_config: row.business_config || {},
       template_runtime: resolveTemplateRuntime(cloneJson(row.business_config || {}, {})),

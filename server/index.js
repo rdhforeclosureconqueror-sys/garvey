@@ -232,8 +232,21 @@ app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew
 
 if (TAP_CRM_ROUTES_MOUNTED) {
   app.use('/api/tap-crm', createTapCrmRouter());
-  app.get('/tap-crm', (req, res) => res.sendFile(path.join(__dirname, '..', 'tapcrm', 'index.html')));
-  app.get('/dashboard/tap-crm', (req, res) => res.sendFile(path.join(__dirname, '..', 'tapcrm', 'index.html')));
+  app.get('/tap-crm', (req, res) => res.redirect(302, '/dashboard/tap-crm'));
+  app.get('/dashboard/tap-crm', (req, res) => {
+    const actor = deriveActor(req);
+    if (!req.authActor || actor.role !== ROLES.BUSINESS_OWNER || !actor.tenantSlug) {
+      const nextPath = `/dashboard/tap-crm${req.url.includes("?") ? req.url.slice(req.url.indexOf("?")) : ""}`;
+      return res.redirect(302, `/index.html?next=${encodeURIComponent(nextPath)}`);
+    }
+    if (!actor.onboardingComplete) {
+      const assessmentUrl = `/intake.html?assessment=business_owner&tenant=${encodeURIComponent(
+        actor.tenantSlug
+      )}&email=${encodeURIComponent(actor.email || "")}&next=${encodeURIComponent("/dashboard/tap-crm")}`;
+      return res.redirect(302, assessmentUrl);
+    }
+    return res.sendFile(path.join(__dirname, '..', 'tapcrm', 'index.html'));
+  });
   app.get('/tap-crm/t/:tagCode', async (req, res) => {
     try {
       const resolved = await resolvePublicTap(pool, {
