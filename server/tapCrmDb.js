@@ -126,6 +126,17 @@ const TAP_CRM_MIGRATIONS = Object.freeze([
       ALTER TABLE tap_crm_tags DROP COLUMN IF EXISTS disabled_reason;
     `,
   },
+  {
+    id: "tap_crm_003_tag_label_uniqueness",
+    description: "Enforce one label per tenant to improve operator conflict recovery",
+    up: `
+      CREATE UNIQUE INDEX IF NOT EXISTS tap_crm_tags_tenant_label_idx
+        ON tap_crm_tags(tenant_id, LOWER(label));
+    `,
+    down: `
+      DROP INDEX IF EXISTS tap_crm_tags_tenant_label_idx;
+    `,
+  },
 ]);
 
 async function ensureTapCrmMigrationTable(pool) {
@@ -191,6 +202,7 @@ async function verifyTapCrmSchema(pool) {
     "tap_crm_contact_tags_tenant_contact_idx",
     "tap_crm_pipeline_items_tenant_stage_idx",
     "tap_crm_tags_tenant_tag_code_idx",
+    "tap_crm_tags_tenant_label_idx",
     "tap_crm_tags_tag_code_idx",
     "tap_crm_tap_events_tenant_created_idx",
     "tap_crm_tap_events_tag_created_idx",

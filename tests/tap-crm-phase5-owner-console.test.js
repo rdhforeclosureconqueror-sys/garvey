@@ -9,6 +9,7 @@ const {
   normalizeTagKey,
   normalizeTagStatusValue,
   normalizeDestinationPath,
+  describeTagConflict,
 } = require("../server/tapCrmRoutes");
 
 test("normalizeActionItems returns only valid action entries with fallbacks", () => {
@@ -70,4 +71,28 @@ test("tap crm routes include owner tag create and update endpoints", () => {
   const routeSource = fs.readFileSync(require.resolve("../server/tapCrmRoutes"), "utf8");
   assert.match(routeSource, /router\.post\(\"\/console\/tags\"/);
   assert.match(routeSource, /router\.put\(\"\/console\/tags\/:tagId\"/);
+});
+
+test("describeTagConflict returns field-specific messages for key, code, and label collisions", () => {
+  const keyConflict = describeTagConflict({
+    code: "23505",
+    constraint: "tap_crm_tags_tenant_id_key_key",
+    detail: "Key (tenant_id, key)=(9, welcome-chair) already exists.",
+  });
+  assert.equal(keyConflict.field, "key");
+
+  const codeConflict = describeTagConflict({
+    code: "23505",
+    constraint: "tap_crm_tags_tenant_tag_code_idx",
+    detail: "Key (tenant_id, tag_code)=(9, simba-welcome-001) already exists.",
+  });
+  assert.equal(codeConflict.field, "code");
+
+  const labelConflict = describeTagConflict({
+    code: "23505",
+    constraint: "tap_crm_tags_tenant_label_idx",
+    detail: "Key (tenant_id, lower(label))=(9, welcome chair) already exists.",
+  });
+  assert.equal(labelConflict.field, "label");
+  assert.match(labelConflict.message, /Duplicate label/i);
 });

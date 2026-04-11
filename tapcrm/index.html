@@ -31,6 +31,8 @@
       .err { color: #991b1b; }
       pre { white-space: pre-wrap; background: #0b1220; color: #e2e8f0; padding: 8px; border-radius: 8px; max-height: 200px; overflow: auto; }
       .tag-edit { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 8px; margin-top: 6px; }
+      .tag-edit-grid { display: grid; grid-template-columns: repeat(2, minmax(120px, 1fr)); gap: 6px; }
+      .tag-edit .status { margin-top: 6px; min-height: 16px; }
       .overview-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:10px; margin-top:12px; }
       .overview-chip { border:1px solid #334155; border-radius:10px; padding:10px; background:#0b1329; }
       .overview-chip h4 { margin:0 0 6px; color:#f8fafc; }
@@ -207,7 +209,10 @@
           }, options || {}));
           var body = await res.json().catch(function () { return {}; });
           if (!res.ok) {
-            var msg = body.error || ("HTTP " + res.status);
+            var msg = body.message || body.error || ("HTTP " + res.status);
+            if (body.conflict_field) {
+              msg = "Duplicate " + body.conflict_field + ". " + msg;
+            }
             throw new Error(msg);
           }
           return body;
@@ -328,9 +333,14 @@
                 "<button data-id='" + tag.id + "' data-act='toggle' class='alt'>" + (tag.status === "active" ? "Deactivate" : "Activate") + "</button>" +
                 "</div>" +
                 "<div class='tag-edit'>" +
+                "<div class='tag-edit-grid'>" +
+                "<input data-id='" + tag.id + "' data-field='key' value='" + String(tag.key || "").replace(/'/g, "&#39;") + "' placeholder='key' />" +
                 "<input data-id='" + tag.id + "' data-field='label' value='" + String(tag.label || "").replace(/'/g, "&#39;") + "' />" +
+                "<input data-id='" + tag.id + "' data-field='tag_code' value='" + String(tag.tag_code || "").replace(/'/g, "&#39;") + "' placeholder='tag code' />" +
                 "<input data-id='" + tag.id + "' data-field='destination_path' value='" + String(tag.destination_path || "").replace(/'/g, "&#39;") + "' />" +
+                "</div>" +
                 "<button data-id='" + tag.id + "' data-act='save' class='alt'>Save</button>" +
+                "<div class='status' data-id='" + tag.id + "' data-role='tag-status'></div>" +
                 "</div>" +
               "</td>",
             ].join("");
@@ -419,12 +429,21 @@
           }
           if (act === "save") {
             var container = btn.closest(".tag-edit");
+            var keyInput = container.querySelector("input[data-field='key']");
             var labelInput = container.querySelector("input[data-field='label']");
+            var codeInput = container.querySelector("input[data-field='tag_code']");
             var pathInput = container.querySelector("input[data-field='destination_path']");
+            var statusEl = container.querySelector(".status[data-role='tag-status']");
             updateTag(id, {
+              key: keyInput.value,
               label: labelInput.value,
+              tag_code: codeInput.value,
               destination_path: pathInput.value,
-            }).catch(function (err) { txt(q("globalStatus"), err.message, false); });
+            }).then(function () {
+              txt(statusEl, "Tag saved.", true);
+            }).catch(function (err) {
+              txt(statusEl, err.message, false);
+            });
           }
         });
 
