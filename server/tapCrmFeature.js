@@ -2,11 +2,19 @@
 
 const FEATURE_MODES = new Set(["off", "internal", "on"]);
 
-function getTapCrmMode() {
-  const raw = String(process.env.TAP_CRM_MODE || process.env.TAP_CRM || "off")
+function normalizeTapCrmMode(rawValue) {
+  const raw = String(rawValue || "")
     .trim()
     .toLowerCase();
-  return FEATURE_MODES.has(raw) ? raw : "off";
+  if (!raw) return "off";
+  if (FEATURE_MODES.has(raw)) return raw;
+  if (["1", "true", "yes", "enabled"].includes(raw)) return "on";
+  if (["0", "false", "no", "disabled"].includes(raw)) return "off";
+  return "off";
+}
+
+function getTapCrmMode() {
+  return normalizeTapCrmMode(process.env.TAP_CRM_MODE || process.env.TAP_CRM || "off");
 }
 
 function isTapCrmEnabled() {
