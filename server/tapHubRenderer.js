@@ -273,7 +273,7 @@ function renderTapHubPage(viewModel) {
       }
       .booking-btn { width: 100%; }
       .booking-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-      .booking-modal-backdrop { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.72); display: grid; place-items: center; padding: 16px; }
+      .booking-modal-backdrop { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.72); display: grid; place-items: center; padding: 16px; z-index: 30; }
       .booking-modal { width: min(440px, 100%); border-radius: 14px; border: 1px solid rgba(230,184,93,0.65); background: #050a18; padding: 14px; }
       .booking-modal h3 { margin: 0 0 8px; }
       .booking-field { display: grid; gap: 6px; margin-top: 8px; }
@@ -298,7 +298,7 @@ function renderTapHubPage(viewModel) {
         background: linear-gradient(135deg, #111827, #0f172a);
         color: #f8fafc;
       }
-      .flow-modal-backdrop { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.72); display: grid; place-items: center; padding: 16px; z-index: 20; }
+      .flow-modal-backdrop { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.72); display: grid; place-items: center; padding: 16px; z-index: 40; }
       .flow-modal { width: min(420px, 100%); border-radius: 14px; border: 1px solid rgba(230,184,93,0.65); background: #050a18; padding: 14px; }
       .flow-modal h3 { margin: 0 0 8px; }
       .flow-actions { display: flex; gap: 8px; margin-top: 12px; }
@@ -424,9 +424,9 @@ function renderTapHubPage(viewModel) {
           });
         }
 
-        var bookingOpen = document.querySelector("[data-booking-open]");
+        var bookingOpenButtons = Array.prototype.slice.call(document.querySelectorAll("[data-booking-open]"));
         var checkInBtn = document.querySelector("[data-checkin-enter]");
-        var checkInQuickOpen = document.querySelector("[data-checkin-open]");
+        var checkInQuickOpenButtons = Array.prototype.slice.call(document.querySelectorAll("[data-checkin-open]"));
         var checkinBackdrop = document.getElementById("checkinBackdrop");
         var checkinCancelBtn = document.getElementById("checkinCancelBtn");
         var checkinConfirmBtn = document.getElementById("checkinConfirmBtn");
@@ -438,6 +438,7 @@ function renderTapHubPage(viewModel) {
         var bookingResultEl = document.getElementById("bookingResult");
         var cancelBtn = document.getElementById("bookingCancelBtn");
         var confirmBtn = document.getElementById("bookingConfirmBtn");
+        var bookingNameInput = document.getElementById("bookingName");
         var selectedSlot = "";
         var bookingUnlocked = false;
         var submitPending = false;
@@ -471,9 +472,19 @@ function renderTapHubPage(viewModel) {
           pageNotice.textContent = text || "";
         }
         function updateBookingEntryState() {
-          if (!bookingOpen) return;
-          bookingOpen.disabled = !bookingUnlocked;
-          bookingOpen.title = bookingUnlocked ? "" : "Complete check-in first";
+          bookingOpenButtons.forEach(function (button) {
+            button.disabled = !bookingUnlocked;
+            button.title = bookingUnlocked ? "" : "Complete check-in first";
+          });
+        }
+        function setBackdropState(target, isOpen) {
+          if (!target) return;
+          target.hidden = !isOpen;
+          target.setAttribute("aria-hidden", isOpen ? "false" : "true");
+        }
+        function closeAllModals() {
+          setBackdropState(checkinBackdrop, false);
+          setBackdropState(backdrop, false);
         }
         function renderSlots(items) {
           slotsEl.innerHTML = "";
@@ -496,11 +507,12 @@ function renderTapHubPage(viewModel) {
         }
         function openCheckin() {
           if (!checkinBackdrop) return;
-          checkinBackdrop.hidden = false;
+          setBackdropState(backdrop, false);
+          setBackdropState(checkinBackdrop, true);
         }
         function closeCheckin() {
           if (!checkinBackdrop) return;
-          checkinBackdrop.hidden = true;
+          setBackdropState(checkinBackdrop, false);
         }
         function fetchAvailability() {
           var date = String(dateInput.value || "").trim();
@@ -529,15 +541,23 @@ function renderTapHubPage(viewModel) {
             openCheckin();
             return;
           }
-          backdrop.hidden = false;
+          setBackdropState(checkinBackdrop, false);
+          setBackdropState(backdrop, true);
           dateInput.value = oneWeekOut();
           setConfirmEnabled(false);
           showBookingResult("");
           fetchAvailability();
         }
-        function closeBooking() { backdrop.hidden = true; selectedSlot = ""; setStatus(""); showBookingResult(""); }
+        function closeBooking() {
+          setBackdropState(backdrop, false);
+          selectedSlot = "";
+          if (bookingNameInput) bookingNameInput.value = "";
+          setStatus("");
+          showBookingResult("");
+        }
 
         updateBookingEntryState();
+        closeAllModals();
         openCheckin();
         if (checkInBtn) {
           checkInBtn.addEventListener("click", function () {
@@ -548,8 +568,13 @@ function renderTapHubPage(viewModel) {
             closeCheckin();
           });
         }
-        if (checkInQuickOpen) checkInQuickOpen.addEventListener("click", openCheckin);
+        checkInQuickOpenButtons.forEach(function (button) { button.addEventListener("click", openCheckin); });
         if (checkinCancelBtn) checkinCancelBtn.addEventListener("click", closeCheckin);
+        if (checkinBackdrop) {
+          checkinBackdrop.addEventListener("click", function (event) {
+            if (event.target === checkinBackdrop) closeCheckin();
+          });
+        }
         if (checkinConfirmBtn) {
           checkinConfirmBtn.addEventListener("click", function () {
             bookingUnlocked = true;
@@ -561,9 +586,19 @@ function renderTapHubPage(viewModel) {
             closeCheckin();
           });
         }
-        if (bookingOpen) bookingOpen.addEventListener("click", openBooking);
+        bookingOpenButtons.forEach(function (button) { button.addEventListener("click", openBooking); });
         if (cancelBtn) cancelBtn.addEventListener("click", closeBooking);
+        if (backdrop) {
+          backdrop.addEventListener("click", function (event) {
+            if (event.target === backdrop) closeBooking();
+          });
+        }
         if (dateInput) dateInput.addEventListener("change", fetchAvailability);
+        document.addEventListener("keydown", function (event) {
+          if (event.key !== "Escape") return;
+          if (backdrop && !backdrop.hidden) return closeBooking();
+          if (checkinBackdrop && !checkinBackdrop.hidden) return closeCheckin();
+        });
         if (confirmBtn) {
           confirmBtn.addEventListener("click", function () {
             if (!selectedSlot) return setStatus("Please select an available time.");
