@@ -138,6 +138,7 @@ function buildTapHubViewModel(resolvedBody) {
     businessName: String(business.name || brand.name || resolution.tenant || "Our Business").trim() || "Our Business",
     businessItems,
     featuredServices,
+    returnEngineUrl: `/rewards.html?tenant=${encodeURIComponent(String(resolution.tenant || "").trim())}&entry=tap-hub&tag=${encodeURIComponent(String(resolution.tag_code || "").trim())}`,
     guide: {
       title: String(guideConfig.title || "How this works").trim() || "How this works",
       intro: String(guideConfig.intro || "Follow these quick steps to get started.").trim() || "Follow these quick steps to get started.",
@@ -285,10 +286,30 @@ function renderTapHubPage(viewModel) {
       .booking-actions { display: flex; justify-content: space-between; gap: 8px; margin-top: 12px; }
       .booking-actions button { flex: 1; border-radius: 8px; border: 1px solid rgba(230,184,93,0.55); padding: 10px; background: #111827; color: #fff; }
       .booking-status { margin-top: 8px; color: #cbd5e1; min-height: 20px; font-size: 0.88rem; }
+      .quick-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .quick-actions a,
+      .quick-actions button {
+        text-decoration: none;
+        border: 1px solid rgba(230,184,93,0.65);
+        border-radius: 10px;
+        padding: 10px;
+        font-weight: 700;
+        text-align: center;
+        background: linear-gradient(135deg, #111827, #0f172a);
+        color: #f8fafc;
+      }
+      .flow-modal-backdrop { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.72); display: grid; place-items: center; padding: 16px; z-index: 20; }
+      .flow-modal { width: min(420px, 100%); border-radius: 14px; border: 1px solid rgba(230,184,93,0.65); background: #050a18; padding: 14px; }
+      .flow-modal h3 { margin: 0 0 8px; }
+      .flow-actions { display: flex; gap: 8px; margin-top: 12px; }
+      .flow-actions button { flex: 1; border-radius: 8px; border: 1px solid rgba(230,184,93,0.55); padding: 10px; background: #111827; color: #fff; }
+      .booking-result { margin-top: 8px; border: 1px solid rgba(22,163,74,0.6); background: rgba(20,83,45,0.45); border-radius: 10px; padding: 10px; color: #dcfce7; }
+      .page-notice { margin-bottom: 12px; border: 1px solid rgba(22,163,74,0.65); border-radius: 10px; padding: 10px; background: rgba(22,163,74,0.2); color: #dcfce7; }
     </style>
   </head>
   <body>
     <main>
+      <div class="page-notice" id="pageNotice" hidden></div>
       <section class="card hero-card">
         ${logoMarkup}
         <h1>${escapeHtml(viewModel.headline)}</h1>
@@ -313,6 +334,17 @@ function renderTapHubPage(viewModel) {
         <div class="checkin-gate">
           <p class="sub">Start your guided check-in before entering booking.</p>
           <button class="checkin-btn" type="button" data-checkin-enter>Start check-in</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Customer actions</h2>
+        <div class="quick-actions">
+          <button type="button" data-checkin-open>Check in</button>
+          <button type="button" data-booking-open>Book</button>
+          <a href="/pay">Pay</a>
+          <a href="/tip">Tip</a>
+          <a href="${escapeHtml(viewModel.returnEngineUrl)}">Return Engine</a>
         </div>
       </section>
 
@@ -348,6 +380,16 @@ function renderTapHubPage(viewModel) {
         <p class="meta">route namespace: ${escapeHtml(viewModel.routeNamespace)} · tenant: ${escapeHtml(viewModel.tenant)} · tag: ${escapeHtml(viewModel.tagCode)}</p>
       </section>` : ""}
     </main>
+    <div class="flow-modal-backdrop" id="checkinBackdrop" hidden>
+      <section class="flow-modal" role="dialog" aria-modal="true" aria-labelledby="checkinTitle">
+        <h3 id="checkinTitle">Check in to get started</h3>
+        <p class="sub">Welcome in. Check in first, or cancel to continue to Tap Hub actions.</p>
+        <div class="flow-actions">
+          <button type="button" id="checkinCancelBtn">Cancel</button>
+          <button type="button" id="checkinConfirmBtn">Check in</button>
+        </div>
+      </section>
+    </div>
     <div class="booking-modal-backdrop" id="bookingBackdrop" hidden>
       <section class="booking-modal" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
         <h3 id="bookingTitle">Book your appointment</h3>
@@ -362,6 +404,7 @@ function renderTapHubPage(viewModel) {
           <input id="bookingName" type="text" maxlength="100" />
         </div>
         <div class="booking-status" id="bookingStatus"></div>
+        <div class="booking-result" id="bookingResult" hidden></div>
         <div class="booking-actions">
           <button type="button" id="bookingCancelBtn">Cancel</button>
           <button type="button" id="bookingConfirmBtn">Confirm booking</button>
@@ -383,10 +426,16 @@ function renderTapHubPage(viewModel) {
 
         var bookingOpen = document.querySelector("[data-booking-open]");
         var checkInBtn = document.querySelector("[data-checkin-enter]");
+        var checkInQuickOpen = document.querySelector("[data-checkin-open]");
+        var checkinBackdrop = document.getElementById("checkinBackdrop");
+        var checkinCancelBtn = document.getElementById("checkinCancelBtn");
+        var checkinConfirmBtn = document.getElementById("checkinConfirmBtn");
+        var pageNotice = document.getElementById("pageNotice");
         var backdrop = document.getElementById("bookingBackdrop");
         var dateInput = document.getElementById("bookingDate");
         var slotsEl = document.getElementById("bookingSlots");
         var statusEl = document.getElementById("bookingStatus");
+        var bookingResultEl = document.getElementById("bookingResult");
         var cancelBtn = document.getElementById("bookingCancelBtn");
         var confirmBtn = document.getElementById("bookingConfirmBtn");
         var selectedSlot = "";
@@ -398,7 +447,7 @@ function renderTapHubPage(viewModel) {
         function setStatus(text) { statusEl.textContent = text || ""; }
         function toDisplayTime(time24) {
           var normalized = String(time24 || "").trim();
-          var match = normalized.match(/^(\d{2}):(\d{2})$/);
+          var match = normalized.match(/^(\\d{2}):(\\d{2})(?::\\d{2})?$/);
           if (!match) return normalized;
           var hours = Number(match[1]);
           var minutes = Number(match[2]);
@@ -410,6 +459,16 @@ function renderTapHubPage(viewModel) {
         function setConfirmEnabled(enabled) {
           if (!confirmBtn) return;
           confirmBtn.disabled = !enabled;
+        }
+        function showBookingResult(text) {
+          if (!bookingResultEl) return;
+          bookingResultEl.hidden = !text;
+          bookingResultEl.textContent = text || "";
+        }
+        function showPageNotice(text) {
+          if (!pageNotice) return;
+          pageNotice.hidden = !text;
+          pageNotice.textContent = text || "";
         }
         function updateBookingEntryState() {
           if (!bookingOpen) return;
@@ -435,11 +494,20 @@ function renderTapHubPage(viewModel) {
           });
           setConfirmEnabled(Boolean(selectedSlot));
         }
+        function openCheckin() {
+          if (!checkinBackdrop) return;
+          checkinBackdrop.hidden = false;
+        }
+        function closeCheckin() {
+          if (!checkinBackdrop) return;
+          checkinBackdrop.hidden = true;
+        }
         function fetchAvailability() {
           var date = String(dateInput.value || "").trim();
           if (!date) return Promise.resolve(null);
           selectedSlot = "";
           setStatus("Loading availability...");
+          showBookingResult("");
           return fetch("/api/tap-crm/public/tags/" + encodeURIComponent(tagCode) + "/booking/availability?date=" + encodeURIComponent(date))
             .then(function (res) { return res.json().then(function (body) { return { ok: res.ok, body: body }; }); })
             .then(function (result) {
@@ -458,23 +526,39 @@ function renderTapHubPage(viewModel) {
           if (!backdrop) return;
           if (!event || event.type !== "click") return;
           if (!bookingUnlocked) {
-            setStatus("Please complete check-in before booking.");
+            openCheckin();
             return;
           }
           backdrop.hidden = false;
           dateInput.value = oneWeekOut();
           setConfirmEnabled(false);
+          showBookingResult("");
           fetchAvailability();
         }
-        function closeBooking() { backdrop.hidden = true; selectedSlot = ""; setStatus(""); }
+        function closeBooking() { backdrop.hidden = true; selectedSlot = ""; setStatus(""); showBookingResult(""); }
 
         updateBookingEntryState();
+        openCheckin();
         if (checkInBtn) {
           checkInBtn.addEventListener("click", function () {
             bookingUnlocked = true;
             updateBookingEntryState();
             checkInBtn.textContent = "Check-in complete";
             checkInBtn.disabled = true;
+            closeCheckin();
+          });
+        }
+        if (checkInQuickOpen) checkInQuickOpen.addEventListener("click", openCheckin);
+        if (checkinCancelBtn) checkinCancelBtn.addEventListener("click", closeCheckin);
+        if (checkinConfirmBtn) {
+          checkinConfirmBtn.addEventListener("click", function () {
+            bookingUnlocked = true;
+            updateBookingEntryState();
+            if (checkInBtn) {
+              checkInBtn.textContent = "Check-in complete";
+              checkInBtn.disabled = true;
+            }
+            closeCheckin();
           });
         }
         if (bookingOpen) bookingOpen.addEventListener("click", openBooking);
@@ -518,8 +602,11 @@ function renderTapHubPage(viewModel) {
                   }
                   throw new Error(result.body.error || "Booking failed");
                 }
-                setStatus("Booked for " + result.body.reservation.booking_date + " at " + toDisplayTime(result.body.reservation.slot_time) + ".");
-                return fetchAvailability();
+                setStatus("");
+                showPageNotice("Booking confirmed for " + result.body.reservation.booking_date + " at " + toDisplayTime(result.body.reservation.slot_time) + ".");
+                return fetchAvailability().then(function () {
+                  closeBooking();
+                });
               })
               .catch(function (err) { setStatus(err.message || "Booking failed."); })
               .finally(function () {
