@@ -648,7 +648,27 @@
 <script>
 "use strict";
 
-const engine = window.CustomerReturnEngine.createDefaultEngine();
+const rewardsTraceEnabled = (() => {
+  try {
+    const q = new URLSearchParams(window.location.search);
+    if (q.get("trace_rewards") === "1") return true;
+    if (safeTrim(q.get("entry")) === "tap-hub") return true;
+    const tapSource = safeTrim(q.get("tap_source"));
+    if (tapSource === "tap-hub" || tapSource === "tap") return true;
+  } catch (_) {}
+  return false;
+})();
+function logRewardsTrace(event, detail) {
+  if (!rewardsTraceEnabled) return;
+  try {
+    console.info("[rewards-trace]", event, detail || {});
+  } catch (_) {}
+}
+const engine = window.CustomerReturnEngine.createEngine({
+  buildUrl: window.GarveyApi?.buildUrl,
+  initialCtx: window.GARVEY?.ctx ? window.GARVEY.ctx() : undefined,
+  traceLogger: (entry) => logRewardsTrace("engine", entry),
+});
 const state = {
   actionType: "checkin",
   status: null,
@@ -718,11 +738,14 @@ function setStep(stepNum) {
 function currentCtx() {
   const base = (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : {};
   const q = new URLSearchParams(location.search);
+  const queryEntry = safeTrim(q.get("entry")).toLowerCase();
+  const queryTapSource = safeTrim(q.get("tap_source")).toLowerCase();
   const queryTenant = safeTrim(q.get("tenant"));
   const queryEmail = safeTrim(q.get("email")).toLowerCase();
   const queryName = safeTrim(q.get("name"));
   const queryCid = safeTrim(q.get("cid"));
   const queryRid = safeTrim(q.get("crid") || q.get("rid"));
+  const isTapHubEntry = queryEntry === "tap-hub" || queryTapSource === "tap-hub" || queryTapSource === "tap";
   const activeCustomer = readActiveCustomer();
   const tenant = queryTenant || safeTrim(base.tenant) || safeTrim(activeCustomer?.tenant);
   const sameTenantAsBase = !!(tenant && safeTrim(base.tenant) && tenant === safeTrim(base.tenant));
@@ -737,8 +760,8 @@ function currentCtx() {
     tenant,
     email,
     name: safeTrim(queryName || (sameTenantAsActive && (!email || activeEmail === email) ? activeCustomer?.name : "") || (sameTenantAsBase && (!email || baseEmail === email) ? base.name : "")),
-    cid: safeTrim(queryCid || (shouldUseActiveCampaignCtx ? activeCustomer?.cid : "") || (shouldUseBaseCampaignCtx ? base.cid : "")),
-    rid: safeTrim(queryRid || (shouldUseActiveCampaignCtx ? activeCustomer?.rid : "") || (shouldUseBaseCampaignCtx ? base.rid : "")),
+    cid: safeTrim(queryCid || (!isTapHubEntry && shouldUseActiveCampaignCtx ? activeCustomer?.cid : "") || (!isTapHubEntry && shouldUseBaseCampaignCtx ? base.cid : "")),
+    rid: safeTrim(queryRid || (!isTapHubEntry && shouldUseActiveCampaignCtx ? activeCustomer?.rid : "") || (!isTapHubEntry && shouldUseBaseCampaignCtx ? base.rid : "")),
   };
 }
 
@@ -1162,6 +1185,16 @@ async function submitAction() {
   }
 
   const event = payloadByType[state.actionType];
+  const ctx = currentCtx();
+  logRewardsTrace("submit.payload", {
+    action_type: state.actionType,
+    tenant: ctx.tenant,
+    cid: ctx.cid,
+    result_id: ctx.rid,
+    email: readEmail(),
+    name: readName(),
+    event,
+  });
   const data = await engine.awardReward(event);
   showResult(data);
   await refreshStatus();
@@ -1170,6 +1203,16 @@ async function submitAction() {
 
 async function run() {
   const ctx = currentCtx();
+  logRewardsTrace("run.entry", {
+    href: window.location.href,
+    tenant: ctx.tenant,
+    cid: ctx.cid,
+    rid: ctx.rid,
+    email: ctx.email,
+    name: ctx.name,
+    active_customer: readActiveCustomer(),
+    garvey_ctx: (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : {},
+  });
   if (!ctx.tenant) {
     const msg = "tenant query param is required, e.g. /rewards.html?tenant=test-business";
     showResult({ error: msg });
