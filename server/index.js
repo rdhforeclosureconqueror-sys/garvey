@@ -5112,13 +5112,25 @@ app.get("/api/results/:email", async (req, res) => {
           a.campaign_slug,
           vs.campaign_slug,
           isess.campaign_slug,
-          c.slug
+          c.slug,
+          (
+            SELECT NULLIF(TRIM(ce.meta->>'campaign_slug'), '')
+            FROM campaign_events ce
+            WHERE ce.tenant_id = a.tenant_id
+              AND ce.meta->>'result_id' = a.id::text
+            ORDER BY ce.created_at DESC, ce.id DESC
+            LIMIT 1
+          )
         ) AS resolved_cid
       FROM assessment_submissions a
       JOIN users u ON u.id = a.user_id
       JOIN tenants t ON t.id = a.tenant_id
       LEFT JOIN voc_sessions vs ON vs.id = a.session_id
+        AND vs.tenant_id = a.tenant_id
+        AND LOWER(COALESCE(vs.email, '')) = LOWER(COALESCE(u.email, ''))
       LEFT JOIN intake_sessions isess ON isess.id = a.session_id
+        AND isess.tenant_id = a.tenant_id
+        AND LOWER(COALESCE(isess.email, '')) = LOWER(COALESCE(u.email, ''))
       LEFT JOIN campaigns c ON c.id = COALESCE(a.campaign_id, vs.campaign_id, isess.campaign_id)
       WHERE u.email = $1
     `;
@@ -5287,13 +5299,25 @@ app.get("/api/results/customer/:crid", async (req, res) => {
           a.campaign_slug,
           vs.campaign_slug,
           isess.campaign_slug,
-          c.slug
+          c.slug,
+          (
+            SELECT NULLIF(TRIM(ce.meta->>'campaign_slug'), '')
+            FROM campaign_events ce
+            WHERE ce.tenant_id = a.tenant_id
+              AND ce.meta->>'result_id' = a.id::text
+            ORDER BY ce.created_at DESC, ce.id DESC
+            LIMIT 1
+          )
         ) AS resolved_cid
       FROM assessment_submissions a
       JOIN users u ON u.id = a.user_id
       JOIN tenants t ON t.id = a.tenant_id
       LEFT JOIN voc_sessions vs ON vs.id = a.session_id
+        AND vs.tenant_id = a.tenant_id
+        AND LOWER(COALESCE(vs.email, '')) = LOWER(COALESCE(u.email, ''))
       LEFT JOIN intake_sessions isess ON isess.id = a.session_id
+        AND isess.tenant_id = a.tenant_id
+        AND LOWER(COALESCE(isess.email, '')) = LOWER(COALESCE(u.email, ''))
       LEFT JOIN campaigns c ON c.id = COALESCE(a.campaign_id, vs.campaign_id, isess.campaign_id)
       WHERE a.id::text = $1
         AND a.assessment_type = 'customer'
