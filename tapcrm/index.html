@@ -10,11 +10,12 @@
       body {
         font-family: Inter, "Segoe UI", Arial, sans-serif;
         margin: 0;
-        color: #dbeafe;
+        color: #f5f5f5;
         background:
-          radial-gradient(circle at 10% 0%, rgba(56, 189, 248, 0.14), transparent 40%),
-          radial-gradient(circle at 80% 10%, rgba(167, 139, 250, 0.15), transparent 44%),
-          #030712;
+          radial-gradient(circle at 12% 0%, rgba(251, 191, 36, 0.12), transparent 42%),
+          radial-gradient(circle at 85% 5%, rgba(239, 68, 68, 0.18), transparent 45%),
+          radial-gradient(circle at 75% 70%, rgba(34, 197, 94, 0.1), transparent 40%),
+          #030303;
       }
       .wrap { max-width: 1380px; margin: 0 auto; padding: 18px; }
       h1 { margin: 0; font-size: 1.8rem; letter-spacing: 0.01em; }
@@ -22,30 +23,30 @@
       .topbar { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; align-items: flex-end; margin-bottom: 14px; }
       .ctx { display: grid; grid-template-columns: repeat(4, minmax(160px, 1fr)); gap: 8px; width: min(760px, 100%); }
       .panel {
-        background: linear-gradient(160deg, rgba(15, 23, 42, 0.88), rgba(2, 6, 23, 0.96));
-        border: 1px solid rgba(148, 163, 184, 0.25);
+        background: linear-gradient(160deg, rgba(18, 18, 18, 0.94), rgba(8, 8, 8, 0.98));
+        border: 1px solid rgba(251, 191, 36, 0.28);
         border-radius: 16px;
         padding: 12px;
-        box-shadow: 0 10px 28px rgba(2, 6, 23, 0.35);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.48), inset 0 0 0 1px rgba(239, 68, 68, 0.12);
       }
       .title-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; }
-      h2 { margin: 0; font-size: 1rem; color: #e0f2fe; letter-spacing: 0.02em; }
-      h3 { margin: 0; font-size: 0.95rem; color: #bfdbfe; }
-      .muted { color: #94a3b8; font-size: 0.82rem; }
-      .status-chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 0.75rem; border: 1px solid rgba(125, 211, 252, 0.45); color: #bae6fd; }
+      h2 { margin: 0; font-size: 1rem; color: #fcd34d; letter-spacing: 0.02em; }
+      h3 { margin: 0; font-size: 0.95rem; color: #fca5a5; }
+      .muted { color: #9ca3af; font-size: 0.82rem; }
+      .status-chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 0.75rem; border: 1px solid rgba(34, 197, 94, 0.45); color: #86efac; }
       .status-chip.warn { border-color: rgba(251, 191, 36, 0.45); color: #fde68a; }
-      label { display: block; font-size: 0.78rem; color: #93c5fd; margin-bottom: 4px; }
+      label { display: block; font-size: 0.78rem; color: #fcd34d; margin-bottom: 4px; }
       input, select, textarea, button { font: inherit; }
       input, select, textarea {
-        width: 100%; border-radius: 10px; border: 1px solid rgba(148, 163, 184, 0.32);
-        background: rgba(15, 23, 42, 0.9); color: #f8fafc; padding: 9px;
+        width: 100%; border-radius: 10px; border: 1px solid rgba(251, 191, 36, 0.28);
+        background: rgba(11, 11, 11, 0.95); color: #fafafa; padding: 9px;
       }
       button {
-        border-radius: 10px; border: 1px solid rgba(96, 165, 250, 0.6); background: linear-gradient(120deg, #1d4ed8, #2563eb);
-        color: #eff6ff; padding: 9px 12px; cursor: pointer; font-weight: 600;
+        border-radius: 10px; border: 1px solid rgba(251, 191, 36, 0.62); background: linear-gradient(120deg, #991b1b, #b91c1c);
+        color: #fff7ed; padding: 9px 12px; cursor: pointer; font-weight: 600;
       }
-      button.alt { background: transparent; border-color: rgba(148, 163, 184, 0.45); color: #cbd5e1; }
-      button.subtle { background: rgba(15, 23, 42, 0.65); border-color: rgba(148, 163, 184, 0.35); }
+      button.alt { background: transparent; border-color: rgba(34, 197, 94, 0.45); color: #bbf7d0; }
+      button.subtle { background: rgba(18, 18, 18, 0.9); border-color: rgba(251, 191, 36, 0.35); }
       .row { display: flex; gap: 8px; flex-wrap: wrap; }
       .layout { display: grid; grid-template-columns: 2.05fr 1fr; gap: 12px; }
       .stack { display: grid; gap: 12px; }
@@ -84,9 +85,26 @@
       .err { color: #fca5a5; }
       table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
       th, td { text-align: left; border-bottom: 1px solid rgba(148, 163, 184, 0.2); padding: 7px 4px; vertical-align: top; }
-      .cal-grid { display: grid; grid-template-columns: repeat(4, minmax(70px, 1fr)); gap: 6px; margin-top: 8px; }
-      .slot { border: 1px solid rgba(148, 163, 184, 0.32); border-radius: 8px; padding: 6px; text-align: center; font-size: 0.78rem; background: rgba(15,23,42,0.55); }
-      .slot.off { opacity: 0.45; }
+      .month-calendar { margin-top: 8px; }
+      .month-header { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 6px; }
+      .month-header span { text-align: center; font-size: 0.72rem; color: #fcd34d; }
+      .month-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+      .day-cell { min-height: 80px; border: 1px solid rgba(251, 191, 36, 0.28); border-radius: 10px; padding: 6px; cursor: pointer; background: rgba(12, 12, 12, 0.85); }
+      .day-cell.off { opacity: 0.45; cursor: default; }
+      .day-cell.free { box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.35); }
+      .day-cell.booked { box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.45); }
+      .day-cell.selected { outline: 2px solid rgba(251, 191, 36, 0.8); }
+      .day-num { font-weight: 700; font-size: 0.84rem; }
+      .day-indicators { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 6px; }
+      .day-dot { width: 8px; height: 8px; border-radius: 999px; background: #22c55e; }
+      .day-dot.booked { background: #ef4444; }
+      .day-count { margin-top: 6px; font-size: 0.72rem; color: #d1d5db; }
+      .day-detail { margin-top: 8px; border: 1px solid rgba(251, 191, 36, 0.28); border-radius: 10px; padding: 8px; background: rgba(10,10,10,0.8); }
+      .day-detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .slot-chip { display: inline-block; margin: 2px 4px 0 0; font-size: 0.72rem; border-radius: 999px; padding: 2px 7px; border: 1px solid rgba(251,191,36,0.35); }
+      .slot-chip.blocked { border-color: rgba(239,68,68,0.5); color: #fca5a5; }
+      .slot-chip.free { border-color: rgba(34,197,94,0.5); color: #86efac; }
+      .booking-link { text-decoration: underline; cursor: pointer; color: #fcd34d; }
       .review-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
       .review-card { border: 1px solid rgba(148,163,184,0.28); border-radius: 12px; padding: 10px; background: rgba(15, 23, 42, 0.55); }
       @media (max-width: 1120px) {
@@ -161,13 +179,23 @@
                 <ul class="list" id="recentBookingRequests"></ul>
               </article>
               <article class="module">
-                <div class="title-row"><h3>Availability Calendar</h3><span class="muted" id="calendarDateLabel"></span></div>
+                <div class="title-row"><h3>Booking Calendar (Month View)</h3><span class="muted" id="calendarDateLabel"></span></div>
                 <div class="row">
-                  <input type="date" id="bookingDate" />
-                  <select id="bookingTagSelect"></select>
-                  <button class="subtle" id="loadAvailabilityBtn">Load slots</button>
+                  <input type="month" id="bookingMonth" />
+                  <button class="subtle" id="loadCalendarBtn">Load month</button>
                 </div>
-                <div class="cal-grid" id="availabilityGrid"></div>
+                <div class="month-calendar">
+                  <div class="month-header"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+                  <div class="month-grid" id="availabilityGrid"></div>
+                </div>
+                <div class="day-detail" id="dayDetailPanel">
+                  <div class="muted" id="dayDetailTitle">Select a day to inspect appointments, available slots, and blocked slots.</div>
+                  <div class="day-detail-grid">
+                    <div><h3>Appointments</h3><ul class="list" id="dayAppointments"></ul></div>
+                    <div><h3>Available Slots</h3><div id="dayAvailableSlots" class="muted"></div></div>
+                    <div><h3>Blocked Slots</h3><div id="dayBlockedSlots" class="muted"></div></div>
+                  </div>
+                </div>
               </article>
               <article class="module">
                 <h3>Booking Status Indicators</h3>
@@ -245,6 +273,10 @@
           <section class="panel">
             <div class="title-row"><h2>Notification Center</h2><span id="notifCount" class="badge">0 new</span></div>
             <ul class="notif-list" id="notificationList"></ul>
+            <div class="day-detail" id="notificationDetailPanel">
+              <div class="muted" id="notificationDetailTitle">Open a booking notification to view full booking details.</div>
+              <div id="notificationDetailBody" class="muted"></div>
+            </div>
           </section>
 
           <section class="panel">
@@ -271,7 +303,10 @@
           analytics: { counts_by_action_type: [], top_used_tags: [], recent_events: [] },
           pilot: {},
           tags: [],
-          availability: [],
+          calendar: { month: "", days: [] },
+          bookings: [],
+          selectedDay: "",
+          openedNotificationBookingId: null,
           actions: { primary: [], secondary: [] },
         };
 
@@ -292,10 +327,14 @@
         function url(path) {
           var ctx = getCtx();
           if (!ctx.tenant) throw new Error("tenant required");
-          var qs = new URLSearchParams({ tenant: ctx.tenant });
+          var base = String(path || "");
+          var hasQuery = base.indexOf("?") >= 0;
+          var qs = new URLSearchParams(hasQuery ? base.slice(base.indexOf("?") + 1) : "");
+          if (hasQuery) base = base.slice(0, base.indexOf("?"));
+          qs.set("tenant", ctx.tenant);
           if (ctx.email) qs.set("email", ctx.email);
           if (ctx.role) qs.set("role", ctx.role);
-          return path + "?" + qs.toString();
+          return base + "?" + qs.toString();
         }
         async function request(path, options) {
           var res = await fetch(url(path), Object.assign({
@@ -425,23 +464,17 @@
           }).join("");
         }
 
-        function toBookingItems() {
-          return (state.analytics.recent_events || []).filter(function (event) {
-            return event.event_type === "booking_submit";
-          });
-        }
+        function toBookingItems() { return state.bookings || []; }
 
         function renderBookings() {
           var bookings = toBookingItems();
           q("upcomingBookings").innerHTML = bookings.length ? bookings.slice(0, 6).map(function (event) {
-            var meta = event.request_meta || {};
-            var slot = meta.booking_time || meta.time || "time tbd";
-            return '<li><span>' + formatStamp(meta.booking_date || event.timestamp) + ' · ' + escapeHtml(slot) + '</span><span class="badge">confirmed</span></li>';
+            var slot = event.booking_time || "time tbd";
+            return '<li><span class="booking-link" data-booking-open="' + event.id + '">' + escapeHtml(event.customer_name || "customer") + '</span><span class="muted">' + escapeHtml(event.booking_date) + " · " + escapeHtml(slot) + '</span></li>';
           }).join("") : '<li class="muted">No bookings captured yet.</li>';
 
           q("recentBookingRequests").innerHTML = bookings.length ? bookings.slice(0, 6).map(function (event) {
-            var meta = event.request_meta || {};
-            return '<li><span>' + escapeHtml(meta.customer_name || "customer") + '</span><span class="muted">' + formatStamp(event.timestamp) + '</span></li>';
+            return '<li><span class="booking-link" data-booking-open="' + event.id + '">' + escapeHtml(event.customer_name || "customer") + '</span><span class="muted">' + formatStamp(event.created_at) + '</span></li>';
           }).join("") : '<li class="muted">No booking requests yet.</li>';
 
           var tapCount = Number(state.analytics.total_taps || 0);
@@ -450,7 +483,7 @@
           q("bookingStatusIndicators").innerHTML = [
             ["Total requests", bookCount],
             ["Booking conversion", rate + "%"],
-            ["Last booking", bookings[0] ? formatStamp(bookings[0].timestamp) : "—"],
+            ["Last booking", bookings[0] ? formatStamp(bookings[0].created_at) : "—"],
           ].map(function (item) { return '<li><span>' + item[0] + '</span><span class="badge">' + item[1] + '</span></li>'; }).join("");
           q("bookingHealth").textContent = bookCount > 0 ? "Bookings active" : "Awaiting bookings";
         }
@@ -469,8 +502,20 @@
 
         function renderNotifications() {
           var notes = [];
-          (state.analytics.recent_events || []).slice(0, 12).forEach(function (event) {
-            if (event.event_type === "booking_submit") notes.push({ type: "booking", label: "New booking", timestamp: event.timestamp });
+          (state.bookings || []).slice(0, 12).forEach(function (booking) {
+            notes.push({
+              type: "booking",
+              booking_id: booking.id,
+              label: "New booking",
+              customer_name: booking.customer_name || "customer",
+              booking_date: booking.booking_date || "",
+              booking_time: booking.booking_time || "",
+              tag_code: booking.tag_code || "",
+              status: booking.status || "booked",
+              timestamp: booking.created_at || booking.booking_date || "",
+            });
+          });
+          (state.analytics.recent_events || []).slice(0, 8).forEach(function (event) {
             if (event.event_type === "pay_click") notes.push({ type: "payment", label: "New payment intent", timestamp: event.timestamp });
             if (event.event_type === "review_click" || event.event_type === "native_review_submit") notes.push({ type: "review", label: "New review submission", timestamp: event.timestamp });
           });
@@ -481,7 +526,11 @@
           q("notificationList").innerHTML = notes.length ? notes.map(function (note) {
             var key = notificationKey(note);
             var isNew = acked.indexOf(key) === -1;
-            return '<li class="notif-item ' + (isNew ? "new" : "") + '"><div><strong>' + note.label + '</strong><div class="muted">' + formatStamp(note.timestamp) + '</div></div><div class="notif-actions">' + (isNew ? '<span class="badge">NEW</span>' : '<span class="muted">acknowledged</span>') + '<button class="subtle" data-note-key="' + escapeHtml(key) + '">Acknowledge</button></div></li>';
+            var metaLine = note.type === "booking"
+              ? (escapeHtml(note.customer_name) + " · " + escapeHtml(note.booking_date) + " " + escapeHtml(note.booking_time) + " · " + escapeHtml(note.tag_code || "no-tag") + " · " + escapeHtml(note.status))
+              : formatStamp(note.timestamp);
+            var openBtn = note.booking_id ? ('<button class="subtle" data-note-open="' + escapeHtml(String(note.booking_id || "")) + '">Open</button>') : "";
+            return '<li class="notif-item ' + (isNew ? "new" : "") + '"><div><strong>' + note.label + '</strong><div class="muted">' + metaLine + '</div></div><div class="notif-actions">' + openBtn + (isNew ? '<span class="badge">NEW</span>' : '<span class="muted">seen</span>') + '<button class="subtle" data-note-key="' + escapeHtml(key) + '">Acknowledge</button></div></li>';
           }).join("") : '<li class="muted">No notifications yet.</li>';
           var newCount = notes.filter(function (note) { return acked.indexOf(notificationKey(note)) === -1; }).length;
           q("notifCount").textContent = newCount + " new";
@@ -507,12 +556,66 @@
           q("reviewSignal").textContent = pending > 0 ? (pending + " pending") : "No pending";
         }
 
-        function renderAvailability(slots) {
-          var list = slots || [];
-          q("availabilityGrid").innerHTML = list.length ? list.slice(0, 20).map(function (slot) {
-            return '<div class="slot ' + (slot.available ? "" : "off") + '">' + escapeHtml(slot.time) + '</div>';
-          }).join("") : '<div class="muted">No availability data loaded.</div>';
-          q("calendarDateLabel").textContent = q("bookingDate").value || "";
+        function openBookingDetail(bookingId) {
+          var booking = (state.bookings || []).find(function (item) { return String(item.id) === String(bookingId); });
+          if (!booking) return;
+          state.openedNotificationBookingId = booking.id;
+          q("notificationDetailTitle").textContent = "Booking #" + booking.id + " details";
+          q("notificationDetailBody").innerHTML =
+            '<div><b>Customer:</b> ' + escapeHtml(booking.customer_name || "customer") + '</div>' +
+            '<div><b>Date:</b> ' + escapeHtml(booking.booking_date || "") + '</div>' +
+            '<div><b>Time:</b> ' + escapeHtml(booking.booking_time || "") + '</div>' +
+            '<div><b>Tag/Source:</b> ' + escapeHtml(booking.tag_code || "not provided") + '</div>' +
+            '<div><b>Status:</b> ' + escapeHtml(booking.status || "booked") + '</div>' +
+            '<div class="muted" style="margin-top:6px;">Acknowledging this notification marks it as seen and does not remove this booking.</div>';
+          selectDay(booking.booking_date, true);
+        }
+
+        function renderAvailability(days) {
+          var list = Array.isArray(days) ? days : [];
+          if (!list.length) {
+            q("availabilityGrid").innerHTML = '<div class="muted">No calendar data loaded.</div>';
+            return;
+          }
+          var monthKey = state.calendar.month || "";
+          var first = new Date(monthKey + "-01T00:00:00.000Z");
+          var leading = Number.isNaN(first.getTime()) ? 0 : first.getUTCDay();
+          var html = "";
+          for (var i = 0; i < leading; i += 1) html += '<div class="day-cell off"></div>';
+          html += list.map(function (day) {
+            var dayNum = String(day.date || "").slice(-2);
+            var dots = "";
+            var dotCount = Math.min(4, Number(day.booking_count || 0));
+            for (var n = 0; n < dotCount; n += 1) dots += '<span class="day-dot booked"></span>';
+            if (!dotCount && day.status === "free") dots = '<span class="day-dot"></span>';
+            return '<button type="button" class="day-cell ' + (day.status || "off") + (state.selectedDay === day.date ? " selected" : "") + '" data-day="' + day.date + '">' +
+              '<div class="day-num">' + Number(dayNum) + '</div>' +
+              '<div class="day-indicators">' + dots + '</div>' +
+              '<div class="day-count">' + Number(day.booking_count || 0) + ' bookings</div>' +
+              '</button>';
+          }).join("");
+          q("availabilityGrid").innerHTML = html;
+          q("calendarDateLabel").textContent = monthKey;
+        }
+
+        function selectDay(date, shouldScroll) {
+          var day = (state.calendar.days || []).find(function (item) { return item.date === date; });
+          if (!day) return;
+          state.selectedDay = date;
+          renderAvailability(state.calendar.days);
+          q("dayDetailTitle").textContent = "Day details for " + day.date + " (" + day.status + ")";
+          q("dayAppointments").innerHTML = day.appointments.length
+            ? day.appointments.map(function (appt) {
+              return '<li><span class="booking-link" data-booking-open="' + appt.id + '">' + escapeHtml(appt.customer_name || "customer") + '</span><span class="muted">' + escapeHtml(appt.booking_time) + ' · ' + escapeHtml(appt.status) + '</span></li>';
+            }).join("")
+            : '<li class="muted">No appointments.</li>';
+          q("dayAvailableSlots").innerHTML = day.available_slots.length
+            ? day.available_slots.slice(0, 20).map(function (slot) { return '<span class="slot-chip free">' + escapeHtml(slot) + '</span>'; }).join("")
+            : '<span class="muted">No available slots</span>';
+          q("dayBlockedSlots").innerHTML = day.blocked_slots.length
+            ? day.blocked_slots.map(function (slot) { return '<span class="slot-chip blocked">' + escapeHtml(slot) + '</span>'; }).join("")
+            : '<span class="muted">No blocked slots</span>';
+          if (shouldScroll) q("dayDetailPanel").scrollIntoView({ behavior: "smooth", block: "nearest" });
         }
 
         function populateActionList(listId, items) {
@@ -622,10 +725,6 @@
             ].join("");
             body.appendChild(tr);
           });
-          var sel = q("bookingTagSelect");
-          sel.innerHTML = (rows || []).map(function (tag) {
-            return '<option value="' + escapeHtml(tag.tag_code) + '">' + escapeHtml(tag.tag_code) + '</option>';
-          }).join("");
         }
 
         async function loadTags() {
@@ -645,19 +744,18 @@
           await loadTags();
         }
 
-        async function loadAvailability() {
-          var tagCode = q("bookingTagSelect").value;
-          var date = q("bookingDate").value;
-          if (!tagCode || !date) return renderAvailability([]);
-          var ctx = getCtx();
-          var qs = new URLSearchParams({ date: date, tenant: ctx.tenant });
-          if (ctx.email) qs.set("email", ctx.email);
-          if (ctx.role) qs.set("role", ctx.role);
-          var endpoint = "/api/tap-crm/public/tags/" + encodeURIComponent(tagCode) + "/booking/availability?" + qs.toString();
-          var result = await fetch(endpoint, { credentials: "include" })
-            .then(function (res) { return res.json().catch(function () { return {}; }); })
-            .catch(function () { return { availability: { slots: [] } }; });
-          renderAvailability((result.availability && result.availability.slots) || []);
+        async function loadCalendar() {
+          var month = q("bookingMonth").value;
+          if (!month) return;
+          var endpoint = "/api/tap-crm/console/bookings/calendar?month=" + encodeURIComponent(month);
+          var r = await request(endpoint);
+          state.calendar = r.calendar || { month: month, days: [] };
+          state.bookings = (state.calendar.days || []).flatMap(function (day) { return day.appointments || []; })
+            .sort(function (a, b) { return String(b.booking_date + " " + b.booking_time).localeCompare(String(a.booking_date + " " + a.booking_time)); });
+          renderBookings();
+          renderNotifications();
+          renderAvailability(state.calendar.days || []);
+          if (state.selectedDay) selectDay(state.selectedDay, false);
         }
 
         async function loadAll() {
@@ -670,6 +768,7 @@
           await loadTags();
           await loadAnalytics();
           await loadPilot();
+          await loadCalendar();
           q("consoleLoadState").textContent = "Live";
           txt(q("globalStatus"), "Console loaded.", true);
         }
@@ -682,7 +781,7 @@
         q("saveTemplateBtn").addEventListener("click", function () { saveTemplate().catch(function (err) { txt(q("templateStatus"), err.message, false); }); });
         q("createTagBtn").addEventListener("click", function () { createTag().catch(function (err) { txt(q("tagCreateStatus"), err.message, false); }); });
         q("saveReviewLinkBtn").addEventListener("click", function () { saveReviewLink().catch(function (err) { txt(q("reviewLinkStatus"), err.message, false); }); });
-        q("loadAvailabilityBtn").addEventListener("click", function () { loadAvailability().catch(function (err) { txt(q("globalStatus"), err.message, false); }); });
+        q("loadCalendarBtn").addEventListener("click", function () { loadCalendar().catch(function (err) { txt(q("globalStatus"), err.message, false); }); });
 
         document.body.addEventListener("click", function (event) {
           var actionButton = event.target.closest("button[data-action]");
@@ -701,6 +800,15 @@
             saveAcked(acked);
             renderNotifications();
           }
+          var noteOpen = event.target.closest("button[data-note-open]");
+          if (noteOpen) {
+            var bookingId = noteOpen.getAttribute("data-note-open");
+            if (bookingId) openBookingDetail(bookingId);
+          }
+          var dayCell = event.target.closest("[data-day]");
+          if (dayCell) selectDay(dayCell.getAttribute("data-day"), false);
+          var bookingLink = event.target.closest("[data-booking-open]");
+          if (bookingLink) openBookingDetail(bookingLink.getAttribute("data-booking-open"));
         });
 
         q("tagsTable").addEventListener("click", function (event) {
@@ -742,8 +850,13 @@
         q("email").value = params.get("email") || "";
         q("role").value = params.get("role") || "";
         var now = new Date();
-        q("bookingDate").value = now.toISOString().slice(0, 10);
+        q("bookingMonth").value = now.toISOString().slice(0, 7);
         q("newTagPath").value = "/tap-crm";
+        setInterval(function () {
+          loadAnalytics().catch(function () {});
+          loadCalendar().catch(function () {});
+        }, 30000);
+        loadAll().catch(function (err) { txt(q("globalStatus"), err.message, false); q("consoleLoadState").textContent = "Error"; });
       })();
     </script>
   </body>
