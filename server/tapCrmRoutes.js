@@ -32,6 +32,13 @@ const TAP_EVENT_TYPES = new Set([
   "secondary_action_click",
   "tap_button_click",
 ]);
+const BOOKING_STATUS = {
+  REQUESTED: "requested",
+  CONFIRMED: "confirmed",
+  CANCELLED: "cancelled",
+};
+const BOOKING_ACTIVE_BLOCKING_STATUSES = new Set([BOOKING_STATUS.REQUESTED, BOOKING_STATUS.CONFIRMED]);
+const BOOKING_NOTIFICATION_TYPE = "booking";
 
 function checkTapAccess(req, action) {
   if (!req.authActor) {
@@ -303,6 +310,24 @@ function buildTimeSlots({ start, end, intervalMinutes }) {
     slots.push(`${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`);
   }
   return slots;
+}
+
+function normalizeBookingStatus(value, fallback = BOOKING_STATUS.REQUESTED) {
+  const normalized = String(value || fallback).trim().toLowerCase();
+  if (normalized === BOOKING_STATUS.REQUESTED || normalized === BOOKING_STATUS.CONFIRMED || normalized === BOOKING_STATUS.CANCELLED) {
+    return normalized;
+  }
+  return fallback;
+}
+
+async function insertTapNotification(db, { tenantId, type, title, payload = {} }) {
+  const inserted = await db.query(
+    `INSERT INTO tap_crm_notifications (tenant_id, type, title, payload_json)
+     VALUES ($1, $2, $3, $4::jsonb)
+     RETURNING id, tenant_id, type, title, payload_json, is_new, acknowledged_at, created_at`,
+    [tenantId, String(type || "system"), String(title || "Notification"), JSON.stringify(payload || {})]
+  );
+  return inserted.rows[0] || null;
 }
 
 function describeTagConflict(err) {
@@ -1466,6 +1491,167 @@ function createTapCrmRouter() {
     }
   });
 
+  router.get("/console/notifications", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_ANALYTICS_VIEW);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const notifications = await pool.query(
+        `SELECT id, type, title, payload_json, is_new, acknowledged_at, created_at
+         FROM tap_crm_notifications
+         WHERE tenant_id = $1
+         ORDER BY created_at DESC, id DESC
+         LIMIT 50`,
+        [scoped.tenantId]
+      );
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        notifications: notifications.rows.map((row) => ({
+          id: Number(row.id),
+          type: row.type || "system",
+          title: row.title || "Notification",
+          payload: cloneJson(row.payload_json, {}),
+          is_new: row.is_new === true,
+          acknowledged_at: row.acknowledged_at || null,
+          created_at: row.created_at || null,
+        })),
+      });
+    } catch (err) {
+      console.error("tap_crm_notifications_get_failed", err);
+      return res.status(500).json({ error: "tap_crm_notifications_get_failed" });
+    }
+  });
+
+  router.post("/console/notifications/:notificationId/ack", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_ANALYTICS_VIEW);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const notificationId = Number(req.params.notificationId);
+      if (!Number.isInteger(notificationId) || notificationId <= 0) {
+        return res.status(400).json({ error: "invalid_notification_id" });
+      }
+      const acknowledged = await pool.query(
+        `UPDATE tap_crm_notifications
+         SET is_new = FALSE,
+             acknowledged_at = COALESCE(acknowledged_at, NOW())
+         WHERE id = $1
+           AND tenant_id = $2
+         RETURNING id, is_new, acknowledged_at`,
+        [notificationId, scoped.tenantId]
+      );
+      if (!acknowledged.rows[0]) {
+        return res.status(404).json({ error: "notification_not_found" });
+      }
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        notification: acknowledged.rows[0],
+      });
+    } catch (err) {
+      console.error("tap_crm_notifications_ack_failed", err);
+      return res.status(500).json({ error: "tap_crm_notifications_ack_failed" });
+    }
+  });
+
+  router.get("/console/bookings/requests", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_ANALYTICS_VIEW);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const requests = await pool.query(
+        `SELECT id, tag_code, booking_date, slot_time, customer_name, status, created_at
+         FROM tap_crm_bookings
+         WHERE tenant_id = $1
+           AND status = $2
+         ORDER BY created_at DESC, id DESC
+         LIMIT 20`,
+        [scoped.tenantId, BOOKING_STATUS.REQUESTED]
+      );
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        requests: requests.rows.map((row) => ({
+          id: Number(row.id),
+          customer_name: row.customer_name || "",
+          booking_date: row.booking_date,
+          booking_time: row.slot_time || "",
+          tag_code: row.tag_code || "",
+          status: normalizeBookingStatus(row.status, BOOKING_STATUS.REQUESTED),
+          created_at: row.created_at || null,
+        })),
+      });
+    } catch (err) {
+      console.error("tap_crm_booking_requests_get_failed", err);
+      return res.status(500).json({ error: "tap_crm_booking_requests_get_failed" });
+    }
+  });
+
+  router.post("/console/bookings/:bookingId/accept", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_ANALYTICS_VIEW);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+      const bookingId = Number(req.params.bookingId);
+      if (!Number.isInteger(bookingId) || bookingId <= 0) {
+        return res.status(400).json({ error: "invalid_booking_id" });
+      }
+      const updated = await pool.query(
+        `UPDATE tap_crm_bookings
+         SET status = $3,
+             updated_at = NOW()
+         WHERE id = $1
+           AND tenant_id = $2
+           AND status = $4
+         RETURNING id, tag_code, booking_date, slot_time, customer_name, status, created_at`,
+        [bookingId, scoped.tenantId, BOOKING_STATUS.CONFIRMED, BOOKING_STATUS.REQUESTED]
+      );
+      if (!updated.rows[0]) {
+        return res.status(409).json({ error: "booking_not_request_or_not_found" });
+      }
+      const booking = updated.rows[0];
+      await insertTapNotification(pool, {
+        tenantId: scoped.tenantId,
+        type: BOOKING_NOTIFICATION_TYPE,
+        title: "Booking request accepted",
+        payload: {
+          booking_id: Number(booking.id),
+          customer_name: booking.customer_name || "",
+          booking_date: booking.booking_date,
+          booking_time: booking.slot_time || "",
+          tag_code: booking.tag_code || "",
+          status: BOOKING_STATUS.CONFIRMED,
+          event: "booking_request_accepted",
+        },
+      });
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        booking: {
+          id: Number(booking.id),
+          customer_name: booking.customer_name || "",
+          booking_date: booking.booking_date,
+          booking_time: booking.slot_time || "",
+          tag_code: booking.tag_code || "",
+          status: BOOKING_STATUS.CONFIRMED,
+          created_at: booking.created_at || null,
+        },
+      });
+    } catch (err) {
+      console.error("tap_crm_booking_accept_failed", err);
+      return res.status(500).json({ error: "tap_crm_booking_accept_failed" });
+    }
+  });
+
   router.get("/console/bookings/calendar", async (req, res) => {
     const access = checkTapAccess(req, ACTIONS.TAP_ANALYTICS_VIEW);
     if (!access.ok) return res.status(access.status).json(access.body);
@@ -1509,8 +1695,9 @@ function createTapCrmRouter() {
          WHERE tenant_id = $1
            AND booking_date >= $2::date
            AND booking_date <= $3::date
+           AND status = $4
          ORDER BY booking_date ASC, slot_time ASC, id ASC`,
-        [scoped.tenantId, monthStart, monthEnd]
+        [scoped.tenantId, monthStart, monthEnd, BOOKING_STATUS.CONFIRMED]
       );
 
       const byDate = new Map();
@@ -1523,7 +1710,7 @@ function createTapCrmRouter() {
           booking_date: row.booking_date,
           booking_time: row.slot_time || "",
           tag_code: row.tag_code || "",
-          status: row.status || "booked",
+          status: normalizeBookingStatus(row.status, BOOKING_STATUS.CONFIRMED),
           created_at: row.created_at || null,
         });
       });
@@ -1542,7 +1729,7 @@ function createTapCrmRouter() {
           appointments,
           available_slots: availableSlots,
           blocked_slots: blocked,
-          status: appointments.length > 0 ? "booked" : (isWorkingDay ? "free" : "off"),
+          status: appointments.length > 0 ? BOOKING_STATUS.CONFIRMED : (isWorkingDay ? "free" : "off"),
         });
       }
 
@@ -1591,8 +1778,8 @@ function createTapCrmRouter() {
          FROM tap_crm_bookings
          WHERE tenant_id = $1
            AND booking_date = $2::date
-           AND status = 'booked'`,
-        [scoped.row.tenant_id, targetDate]
+           AND status = ANY($3::text[])`,
+        [scoped.row.tenant_id, targetDate, Array.from(BOOKING_ACTIVE_BLOCKING_STATUSES)]
       );
       const bookedSet = new Set(booked.rows.map((row) => String(row.slot_time || "")));
       const slots = candidateSlots.map((slot) => ({
@@ -1631,8 +1818,9 @@ function createTapCrmRouter() {
           slot_time,
           customer_name,
           customer_phone,
-          notes
-        ) VALUES ($1, $2, $3, $4::date, $5, $6, $7, $8)
+          notes,
+          status
+        ) VALUES ($1, $2, $3, $4::date, $5, $6, $7, $8, $9)
         ON CONFLICT (tenant_id, booking_date, slot_time) DO NOTHING
         RETURNING id, booking_date, slot_time, status, created_at`,
         [
@@ -1644,14 +1832,32 @@ function createTapCrmRouter() {
           String(req.body && req.body.customer_name || "").trim(),
           String(req.body && req.body.customer_phone || "").trim(),
           String(req.body && req.body.notes || "").trim(),
+          BOOKING_STATUS.REQUESTED,
         ]
       );
       if (!created.rows[0]) {
         return res.status(409).json({ error: "slot_unavailable", date: bookingDate, time: slotTime });
       }
+      await insertTapNotification(pool, {
+        tenantId: scoped.row.tenant_id,
+        type: BOOKING_NOTIFICATION_TYPE,
+        title: "New booking request",
+        payload: {
+          booking_id: Number(created.rows[0].id),
+          customer_name: String(req.body && req.body.customer_name || "").trim(),
+          booking_date: bookingDate,
+          booking_time: slotTime,
+          tag_code: scoped.row.tag_code || "",
+          status: BOOKING_STATUS.REQUESTED,
+          event: "booking_request_created",
+        },
+      });
       return res.status(201).json({
         ok: true,
-        reservation: created.rows[0],
+        reservation: {
+          ...created.rows[0],
+          status: BOOKING_STATUS.REQUESTED,
+        },
       });
     } catch (err) {
       console.error("tap_crm_booking_reservation_failed", err);
