@@ -22,6 +22,7 @@
     consentNetwork: "/api/consent/network",
     consentState: "/api/consent/state",
     consentDeleteProfile: "/api/consent/profile/delete",
+    consentAssessmentRevoke: "/api/consent/assessment/revoke",
     consentFeature: "/api/features/consent",
     resultsByEmail: (email) => `/api/results/${encodeURIComponent(email)}`,
     resultsByCrid: (crid) => `/api/results/customer/${encodeURIComponent(crid)}`,

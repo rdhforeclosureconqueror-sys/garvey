@@ -5649,6 +5649,7 @@ app.post("/api/consent/profile/delete", async (req, res) => {
       consentVersion,
       consentIpAddress: getRequestIp(req),
       consentUserAgent: getRequestUserAgent(req),
+      businessConsentAcceptedAt: null,
       networkConsentStatus: "private",
       networkConsentUpdatedAt: nowIso,
       profileDeletedAt: nowIso,
@@ -5656,9 +5657,27 @@ app.post("/api/consent/profile/delete", async (req, res) => {
     await client.query(
       `UPDATE assessment_submissions
        SET customer_email = NULL,
-           customer_name = NULL
+           customer_name = NULL,
+           raw_answers = NULL,
+           archetype_counts = '{}'::jsonb,
+           personality_counts = '{}'::jsonb,
+           primary_archetype = NULL,
+           secondary_archetype = NULL,
+           weakness_archetype = NULL,
+           personality_primary = NULL,
+           personality_secondary = NULL,
+           personality_weakness = NULL,
+           buyer_primary_archetype = NULL,
+           buyer_secondary_archetype = NULL,
+           buyer_weakness_archetype = NULL,
+           buyer_counts = '{}'::jsonb,
+           personal_primary_archetype = NULL,
+           personal_secondary_archetype = NULL,
+           personal_weakness_archetype = NULL,
+           personal_counts = '{}'::jsonb
        WHERE tenant_id = $1
-         AND user_id = $2`,
+         AND user_id = $2
+         AND assessment_type = 'customer'`,
       [tenantRow.id, user.id]
     );
     await logConsentEvent({
@@ -5671,10 +5690,22 @@ app.post("/api/consent/profile/delete", async (req, res) => {
       value: false,
       consentIpAddress: getRequestIp(req),
       consentUserAgent: getRequestUserAgent(req),
-      metadata: { anonymized_submissions: true },
+      metadata: { anonymized_submissions: true, scope: "assessment_voc" },
     });
     await client.query("COMMIT");
-    return res.json({ ok: true, tenant: tenantRow.slug, email, profile_deleted_at: nowIso });
+    return res.json({
+      ok: true,
+      tenant: tenantRow.slug,
+      email,
+      profile_deleted_at: nowIso,
+      revoked_scope: "assessment_voc",
+      revoked_data: {
+        consent_profile: "soft_deleted",
+        assessment_profile_fields: "scrubbed",
+        customer_submission_rows: "retained_anonymized",
+      },
+      requires_reconsent_for_voc: true,
+    });
   } catch (err) {
     await client.query("ROLLBACK");
     console.error("consent_profile_delete_failed", err);
@@ -5682,6 +5713,10 @@ app.post("/api/consent/profile/delete", async (req, res) => {
   } finally {
     client.release();
   }
+});
+
+app.post("/api/consent/assessment/revoke", async (req, res) => {
+  return res.redirect(307, "/api/consent/profile/delete");
 });
 
 app.get("/api/tenant/lookup", async (req, res) => {
