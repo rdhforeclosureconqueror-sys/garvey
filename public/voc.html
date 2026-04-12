@@ -4,25 +4,137 @@
 <meta charset="UTF-8">
 <title>Voice of Customer</title>
 <style>
-body { background:#020617; color:#e2e8f0; font-family:Arial; text-align:center; padding:16px; margin:0; }
-.card { max-width:760px; margin:auto; background:#0f172a; border:1px solid #334155; border-radius:14px; padding:16px; }
-input { padding:10px; margin:6px; width:90%; border-radius:8px; }
-.btn { background:gold; padding:12px; margin:8px auto; display:block; width:90%; border-radius:10px; cursor:pointer; font-weight:bold; text-decoration:none; color:black; border:0; }
-.btn:hover { background:red; color:white; }
-.progress { margin:10px 0; font-size:12px; color:#aaa; }
-.result-card { background:#111827; border:1px solid #334155; border-radius:12px; padding:12px; margin:10px auto; text-align:left; }
+* { box-sizing:border-box; }
+body {
+  --pointer-x: 50%;
+  --pointer-y: 42%;
+  color:#e2e8f0;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  text-align:center;
+  padding:16px;
+  margin:0;
+  min-height:100vh;
+  background:#020617 url("/archetype-card/background.png") center center / cover no-repeat fixed;
+  position:relative;
+  overflow-x:hidden;
+}
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(56,189,248,.16), transparent 35%),
+    radial-gradient(circle at 15% 10%, rgba(129,140,248,.22), transparent 42%),
+    linear-gradient(118deg, rgba(2,6,23,.9), rgba(2,6,23,.58) 45%, rgba(15,23,42,.9));
+  animation:ambientPulse 12s ease-in-out infinite alternate;
+  z-index:-2;
+}
+body::after {
+  content:"";
+  position:fixed;
+  inset:-15%;
+  pointer-events:none;
+  background:linear-gradient(112deg, transparent 34%, rgba(255,255,255,.16) 50%, transparent 66%);
+  mix-blend-mode:screen;
+  opacity:.12;
+  animation:lightSweep 14s linear infinite;
+  z-index:-1;
+}
+@keyframes ambientPulse {
+  0% { filter:saturate(1) brightness(.95); }
+  50% { filter:saturate(1.06) brightness(1); }
+  100% { filter:saturate(1.12) brightness(1.04); }
+}
+@keyframes lightSweep {
+  0% { transform:translateX(-28%) translateY(-2%) rotate(0.5deg); }
+  50% { transform:translateX(18%) translateY(3%) rotate(-0.8deg); }
+  100% { transform:translateX(62%) translateY(0%) rotate(0.5deg); }
+}
+.card {
+  max-width:760px;
+  margin:18px auto;
+  background:rgba(5, 10, 24, .72);
+  border:1px solid rgba(148, 163, 184, .32);
+  border-radius:20px;
+  padding:20px 16px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:0 14px 40px rgba(2, 6, 23, .55), inset 0 0 0 1px rgba(148, 163, 184, .08);
+}
+input {
+  padding:12px;
+  margin:6px;
+  width:90%;
+  border-radius:10px;
+  border:1px solid rgba(148,163,184,.45);
+  background:rgba(2,6,23,.58);
+  color:#f8fafc;
+}
+input::placeholder { color:#94a3b8; }
+.btn {
+  background:linear-gradient(145deg, #facc15, #f59e0b);
+  padding:12px;
+  margin:8px auto;
+  display:block;
+  width:90%;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:700;
+  text-decoration:none;
+  color:#111827;
+  border:0;
+  transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+  box-shadow:0 8px 20px rgba(245, 158, 11, .26);
+}
+.btn:hover { transform:translateY(-1px); filter:brightness(1.04); box-shadow:0 10px 24px rgba(245, 158, 11, .34); }
+.progress { margin:12px 0 14px; font-size:12px; color:#cbd5e1; letter-spacing:.06em; text-transform:uppercase; }
+.question-title {
+  margin:0 0 12px;
+  font-size:clamp(1.3rem, 3vw, 1.78rem);
+  line-height:1.32;
+  color:#f8fafc;
+  text-shadow:0 2px 14px rgba(15, 23, 42, .85);
+}
+.question-title em {
+  font-style:normal;
+  color:#bae6fd;
+  text-shadow:0 0 14px rgba(56, 189, 248, .55);
+}
+.result-card { background:rgba(2,6,23,.58); border:1px solid rgba(148,163,184,.32); border-radius:12px; padding:12px; margin:10px auto; text-align:left; }
 .bar-track { background:#1f2937; border-radius:999px; overflow:hidden; height:10px; }
-.bar-fill { background:gold; height:10px; }
+.bar-fill { background:linear-gradient(90deg, #facc15, #f59e0b); height:10px; }
 .consent-wrap { text-align:left; display:grid; gap:12px; }
-.consent-copy { color:#cbd5e1; line-height:1.45; }
+.consent-wrap h1, #assessmentStep h1 {
+  margin:0 0 6px;
+  letter-spacing:.015em;
+  color:#f8fafc;
+  text-shadow:0 1px 14px rgba(2, 132, 199, .35);
+}
+.consent-copy { color:#dbeafe; line-height:1.55; text-shadow:0 1px 8px rgba(2,6,23,.65); }
 .consent-check { display:flex; gap:10px; align-items:flex-start; font-size:14px; color:#e2e8f0; }
 .consent-check input { width:auto; margin-top:3px; }
 .consent-actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-.btn.secondary { background:#1e293b; color:#e2e8f0; border:1px solid #334155; }
+.btn.secondary {
+  background:rgba(30,41,59,.7);
+  color:#e2e8f0;
+  border:1px solid rgba(148,163,184,.42);
+  box-shadow:none;
+}
 .btn:disabled { opacity:.45; cursor:not-allowed; }
-.legal { font-size:12px; color:#94a3b8; text-align:center; }
+.legal { font-size:12px; color:#cbd5e1; text-align:center; }
 .legal a { color:#93c5fd; }
 .hide { display:none !important; }
+@media (max-width: 640px) {
+  body {
+    padding:12px;
+    background-position:center top;
+    background-attachment:scroll;
+  }
+  .card { padding:16px 12px; border-radius:16px; }
+  .btn, input { width:100%; margin-left:0; margin-right:0; }
+  .consent-actions { grid-template-columns:1fr; }
+}
 </style>
 </head>
 <body>
@@ -52,7 +164,7 @@ input { padding:10px; margin:6px; width:90%; border-radius:8px; }
   <section id="assessmentStep" class="hide">
     <h1>🎤 Voice of the Customer</h1>
     <div class="progress" id="progress"></div>
-    <h3 id="questionText">Loading...</h3>
+    <h3 id="questionText" class="question-title">Loading...</h3>
     <div id="optionsContainer"></div>
   </section>
 </div>
@@ -199,7 +311,7 @@ async function loadQuestions() {
 function renderQuestion() {
   const q = questions[currentIndex];
   if (!q) return submit();
-  document.getElementById("questionText").innerText = q.question_text;
+  document.getElementById("questionText").innerHTML = styleQuestionText(q.question_text);
   const container = document.getElementById("optionsContainer");
   container.innerHTML = "";
   q.options.forEach((opt) => {
@@ -363,12 +475,32 @@ async function submit() {
 }
 
 function showError(msg) { document.getElementById("questionText").innerText = "❌ " + msg; }
+function styleQuestionText(rawText) {
+  const text = escapeHtml(rawText || "Question unavailable");
+  const highlighted = text.replace(
+    /\b(always|most|best|prefer|favorite|important|frustrating|value|quality|service|experience)\b/gi,
+    "<em>$1</em>"
+  );
+  return highlighted;
+}
 function showConsentStatus(msg) {
   const node = document.getElementById("consentStatus");
   if (node) node.textContent = msg || "";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const setPointer = (x, y) => {
+    document.body.style.setProperty("--pointer-x", `${x}px`);
+    document.body.style.setProperty("--pointer-y", `${y}px`);
+  };
+  window.addEventListener("pointermove", (event) => {
+    setPointer(event.clientX, event.clientY);
+  }, { passive: true });
+  window.addEventListener("touchmove", (event) => {
+    const touch = event.touches && event.touches[0];
+    if (touch) setPointer(touch.clientX, touch.clientY);
+  }, { passive: true });
+
   hydrateIdentity();
   const checkbox = document.getElementById("requiredConsentCheckbox");
   const continueBtn = document.getElementById("requiredConsentContinue");
