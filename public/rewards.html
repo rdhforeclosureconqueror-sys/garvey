@@ -525,20 +525,20 @@
 <body>
   <main class="app">
     <section class="panel header">
-      <h1>Welcome back 🎁</h1>
-      <p class="muted">This is your rewards action center: take actions, earn points, and track progress.</p>
-      <div class="pill" id="tenantLine">Loading session…</div>
+      <h1>Your premium rewards journey starts here ✨</h1>
+      <p class="muted">Follow the guided steps below to unlock points, rewards, and member-only savings.</p>
+      <div class="pill" id="tenantLine">Preparing your rewards experience…</div>
       <div class="row" style="margin-top:10px">
-        <button id="customerSignInBtn" type="button" class="primary">Sign In / Identify Customer</button>
+        <button id="customerSignInBtn" type="button" class="primary">Step 1: Sign in or create account</button>
         <button id="customerSignOutBtn" type="button">Sign Out</button>
       </div>
       <p class="muted" id="customerAuthStatus">Not signed in.</p>
       <div class="steps" id="stepsBar">
-        <div class="step" data-step="1">1. Welcome</div>
-        <div class="step" data-step="2">2. Pick action</div>
-        <div class="step" data-step="3">3. Reward status</div>
-        <div class="step" data-step="4">4. Success</div>
-        <div class="step" data-step="5">5. Return motivation</div>
+        <div class="step" data-step="1">1. Sign in or create your account</div>
+        <div class="step" data-step="2">2. Complete actions to earn points</div>
+        <div class="step" data-step="3">3. Collect rewards and unlock discounts</div>
+        <div class="step" data-step="4">4. Confirm your latest reward</div>
+        <div class="step" data-step="5">5. Keep building your benefits</div>
       </div>
     </section>
 
@@ -563,7 +563,7 @@
       </div>
 
       <div>
-        <h2>Sign in, earn points, get discounts</h2>
+        <h2>Choose your next reward step</h2>
         <div class="actions" id="actionCards">
           <button type="button" class="action-btn active" data-type="checkin">
             <strong>Quick Check-In <span class="done-mark">✓ Completed</span></strong>
@@ -900,6 +900,56 @@ function setStep(stepNum) {
   });
 }
 
+function isCustomerSignedIn() {
+  return !!(readEmail() && readName());
+}
+
+function refreshPrimaryActionCta() {
+  const submitBtn = document.getElementById("submitAction");
+  if (!submitBtn) return;
+  submitBtn.textContent = isCustomerSignedIn()
+    ? "Collect My Rewards"
+    : "Create account / Sign in";
+}
+
+function signInCustomerFromForm() {
+  const ctxNow = currentCtx();
+  const email = readEmail();
+  const typedName = readName();
+  const active = readActiveCustomer();
+  const knownName = safeTrim(
+    (active && active.tenant === ctxNow.tenant && active.email === email ? active.name : "")
+    || ctxNow.name
+  );
+  const name = typedName || knownName;
+  if (!email) throw new Error("email is required");
+  if (!name) throw new Error("name is required for new customers");
+  document.getElementById("name").value = name;
+  requireEmail();
+  const ctxSignedIn = currentCtx();
+  const u = new URL(window.location.href);
+  u.searchParams.set("email", email);
+  u.searchParams.set("name", name);
+  window.history.replaceState({}, "", u.pathname + u.search + u.hash);
+  setAuthStatus(`Signed in as ${name} <${email}>`);
+  engine.init({ tenant: ctxSignedIn.tenant, cid: ctxSignedIn.cid, rid: ctxSignedIn.rid, email, name });
+  syncVocLink();
+  refreshPrimaryActionCta();
+  return { email, name };
+}
+
+function handlePrimaryActionClick() {
+  if (!isCustomerSignedIn()) {
+    signInCustomerFromForm();
+    refreshStatus().catch((err) => showResult({ error: err.message }));
+    loadOwnerInbox().catch(() => null);
+    loadPublicReviews().catch(() => null);
+    loadPermissionState().catch(() => null);
+    return;
+  }
+  submitAction().catch((err) => showResult({ error: err.message }));
+}
+
 function currentCtx() {
   const q = new URLSearchParams(location.search);
   const isTapHubEntry = isTapHubEntryQuery(q);
@@ -1228,6 +1278,7 @@ function resetSignedOutView() {
   document.getElementById("ratingBreakdownChart").innerHTML = "";
   document.getElementById("successLoop").classList.add("hide");
   setAuthStatus("Signed out. No customer session is active.");
+  refreshPrimaryActionCta();
   updateActionUI();
   setStep(1);
 }
@@ -1537,7 +1588,7 @@ async function run() {
   if (ctx.name) document.getElementById("name").value = ctx.name;
   if (ctx.email) document.getElementById("email").value = ctx.email;
   setAuthStatus(ctx.email ? `Signed in as ${ctx.name ? `${ctx.name} ` : ""}<${ctx.email}>` : "Not signed in.");
-  document.getElementById("tenantLine").textContent = `Tenant: ${ctx.tenant}${ctx.cid ? ` • CID: ${ctx.cid}` : ""}${ctx.rid ? ` • CRID: ${ctx.rid}` : ""}`;
+  document.getElementById("tenantLine").textContent = "Your rewards journey is ready.";
   loadReviewProductOptions(ctx);
 
   const back = new URL(`/index.html`, location.origin);
@@ -1563,9 +1614,7 @@ async function run() {
     });
   });
 
-  document.getElementById("submitAction").onclick = () => {
-    submitAction().catch((err) => showResult({ error: err.message }));
-  };
+  document.getElementById("submitAction").onclick = handlePrimaryActionClick;
   document.getElementById("refreshStatusBtn").onclick = () => {
     refreshStatus().catch((err) => showResult({ error: err.message }));
   };
@@ -1589,27 +1638,7 @@ async function run() {
 
   document.getElementById("customerSignInBtn").onclick = () => {
     try {
-      const ctxNow = currentCtx();
-      const email = readEmail();
-      const typedName = readName();
-      const active = readActiveCustomer();
-      const knownName = safeTrim(
-        (active && active.tenant === ctxNow.tenant && active.email === email ? active.name : "")
-        || ctxNow.name
-      );
-      const name = typedName || knownName;
-      if (!email) throw new Error("email is required");
-      if (!name) throw new Error("name is required for new customers");
-      document.getElementById("name").value = name;
-      requireEmail();
-      const ctxSignedIn = currentCtx();
-      const u = new URL(window.location.href);
-      u.searchParams.set("email", email);
-      u.searchParams.set("name", name);
-      window.history.replaceState({}, "", u.pathname + u.search + u.hash);
-      setAuthStatus(`Signed in as ${name} <${email}>`);
-      engine.init({ tenant: ctxSignedIn.tenant, cid: ctxSignedIn.cid, rid: ctxSignedIn.rid, email, name });
-      syncVocLink();
+      signInCustomerFromForm();
       refreshStatus().catch((err) => showResult({ error: err.message }));
       loadOwnerInbox().catch(() => null);
       loadPublicReviews().catch(() => null);
@@ -1637,6 +1666,8 @@ async function run() {
     document.getElementById("permissionState").textContent = "Signed out. No customer session is active.";
     document.getElementById("permissionMessage").textContent = "";
   };
+
+  refreshPrimaryActionCta();
 
   document.getElementById("savePermissionBtn").onclick = async () => {
     if (!consentFeature.enabled) return;
