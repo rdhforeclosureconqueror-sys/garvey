@@ -44,6 +44,7 @@ input { padding:10px; margin:6px; width:90%; border-radius:8px; }
       <button id="requiredConsentContinue" class="btn" type="button" disabled>Continue</button>
       <button id="requiredConsentCancel" class="btn secondary" type="button">Cancel</button>
     </div>
+    <div id="consentStatus" class="legal" aria-live="polite"></div>
     <div class="legal">
       <a href="/privacy.html">Privacy Policy</a> · <a href="/terms.html">Terms</a>
     </div>
@@ -198,7 +199,7 @@ async function submitRequiredConsent() {
   const email = safeTrim(identity.email || document.getElementById("email").value).toLowerCase();
   const name = safeTrim(document.getElementById("name").value || identity.name);
   if (!email || !name) {
-    alert("Name and email are required.");
+    showConsentStatus("Name and email are required.");
     return;
   }
   const sessionId = `voc-consent:${identity.tenant}:${email}`;
@@ -212,6 +213,7 @@ async function submitRequiredConsent() {
       session_id: sessionId,
       consent_version: CONSENT_VERSION,
       consent_type: "business_only_required",
+      require_for_voc: true,
       accepted: true
     })
   });
@@ -253,6 +255,9 @@ function barsHtml(scores, primary, secondary, weakness) {
 }
 
 async function submit() {
+  if (!requiredConsentAccepted) {
+    return showError("Consent is required before starting Voice of the Customer.");
+  }
   const identity = resolveIdentity();
   const email = safeTrim(identity.email || document.getElementById("email").value).toLowerCase();
   const name = safeTrim(document.getElementById("name").value || identity.name);
@@ -295,6 +300,10 @@ async function submit() {
 }
 
 function showError(msg) { document.getElementById("questionText").innerText = "❌ " + msg; }
+function showConsentStatus(msg) {
+  const node = document.getElementById("consentStatus");
+  if (node) node.textContent = msg || "";
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   hydrateIdentity();
@@ -309,27 +318,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   if (continueBtn) {
     continueBtn.addEventListener("click", () => {
-      submitRequiredConsent().catch((err) => showError(err?.message || "Consent failed"));
+      showConsentStatus("");
+      submitRequiredConsent().catch((err) => showConsentStatus(`Consent failed: ${err?.message || "unknown error"}`));
     });
   }
   if (cancelBtn) {
     cancelBtn.addEventListener("click", () => {
-      window.location.href = "/";
+      requiredConsentAccepted = false;
+      const step = document.getElementById("requiredConsentStep");
+      const assessment = document.getElementById("assessmentStep");
+      if (assessment) assessment.classList.add("hide");
+      if (step) step.classList.remove("hide");
+      showConsentStatus("You declined consent. Voice of the Customer was not started.");
     });
   }
-  resolveConsentFeature().then((feature) => {
-    if (!feature.enabled) {
-      requiredConsentAccepted = true;
-      document.getElementById("requiredConsentStep").classList.add("hide");
-      document.getElementById("assessmentStep").classList.remove("hide");
-      loadQuestions();
-    }
-  }).catch(() => {
-    requiredConsentAccepted = true;
-    document.getElementById("requiredConsentStep").classList.add("hide");
-    document.getElementById("assessmentStep").classList.remove("hide");
-    loadQuestions();
-  });
+  resolveConsentFeature().catch(() => null);
 });
 window.addEventListener("pageshow", () => {
   hydrateIdentity();
