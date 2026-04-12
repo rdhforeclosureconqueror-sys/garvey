@@ -648,13 +648,47 @@
 <script>
 "use strict";
 
+const TAP_ENTRY_STORAGE_KEYS = Object.freeze([
+  "garvey_active_customer_v1",
+  "garvey_customer_return_engine_v1",
+  "garvey_ctx_v1",
+  "garvey_login_ctx_v1",
+]);
+
+function isTapHubEntryQuery(query) {
+  const entry = safeTrim(query?.get("entry")).toLowerCase();
+  const tapSource = safeTrim(query?.get("tap_source")).toLowerCase();
+  return entry === "tap-hub" || tapSource === "tap-hub" || tapSource === "tap";
+}
+
+function clearTapEntryCustomerState() {
+  if (window.GARVEY && typeof window.GARVEY.clearCtx === "function") {
+    try { window.GARVEY.clearCtx(); } catch (_) {}
+  }
+  const clearStoreKeys = (store) => {
+    if (!store) return;
+    TAP_ENTRY_STORAGE_KEYS.forEach((key) => {
+      try { store.removeItem(key); } catch (_) {}
+    });
+    try {
+      Object.keys(store).forEach((key) => {
+        if (key.indexOf("garvey_owner_rid:") === 0) store.removeItem(key);
+      });
+    } catch (_) {}
+  };
+  clearStoreKeys(window.localStorage);
+  clearStoreKeys(window.sessionStorage);
+}
+
+const rewardsBootQuery = new URLSearchParams(window.location.search);
+const isTapHubEntryBoot = isTapHubEntryQuery(rewardsBootQuery);
+if (isTapHubEntryBoot) clearTapEntryCustomerState();
+
 const rewardsTraceEnabled = (() => {
   try {
     const q = new URLSearchParams(window.location.search);
     if (q.get("trace_rewards") === "1") return true;
-    if (safeTrim(q.get("entry")) === "tap-hub") return true;
-    const tapSource = safeTrim(q.get("tap_source"));
-    if (tapSource === "tap-hub" || tapSource === "tap") return true;
+    if (isTapHubEntryQuery(q)) return true;
   } catch (_) {}
   return false;
 })();
@@ -666,7 +700,9 @@ function logRewardsTrace(event, detail) {
 }
 const engine = window.CustomerReturnEngine.createEngine({
   buildUrl: window.GarveyApi?.buildUrl,
-  initialCtx: window.GARVEY?.ctx ? window.GARVEY.ctx() : undefined,
+  initialCtx: isTapHubEntryBoot
+    ? { tenant: safeTrim(rewardsBootQuery.get("tenant")) }
+    : (window.GARVEY?.ctx ? window.GARVEY.ctx() : undefined),
   traceLogger: (entry) => logRewardsTrace("engine", entry),
 });
 const state = {
@@ -736,16 +772,14 @@ function setStep(stepNum) {
 }
 
 function currentCtx() {
-  const base = (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : {};
   const q = new URLSearchParams(location.search);
-  const queryEntry = safeTrim(q.get("entry")).toLowerCase();
-  const queryTapSource = safeTrim(q.get("tap_source")).toLowerCase();
+  const isTapHubEntry = isTapHubEntryQuery(q);
+  const base = isTapHubEntry ? {} : ((window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : {});
   const queryTenant = safeTrim(q.get("tenant"));
   const queryEmail = safeTrim(q.get("email")).toLowerCase();
   const queryName = safeTrim(q.get("name"));
   const queryCid = safeTrim(q.get("cid"));
   const queryRid = safeTrim(q.get("crid") || q.get("rid"));
-  const isTapHubEntry = queryEntry === "tap-hub" || queryTapSource === "tap-hub" || queryTapSource === "tap";
   const activeCustomer = readActiveCustomer();
   const tenant = queryTenant || safeTrim(base.tenant) || safeTrim(activeCustomer?.tenant);
   const sameTenantAsBase = !!(tenant && safeTrim(base.tenant) && tenant === safeTrim(base.tenant));
@@ -759,9 +793,9 @@ function currentCtx() {
   return {
     tenant,
     email,
-    name: safeTrim(queryName || (sameTenantAsActive && (!email || activeEmail === email) ? activeCustomer?.name : "") || (sameTenantAsBase && (!email || baseEmail === email) ? base.name : "")),
-    cid: safeTrim(queryCid || (!isTapHubEntry && shouldUseActiveCampaignCtx ? activeCustomer?.cid : "") || (!isTapHubEntry && shouldUseBaseCampaignCtx ? base.cid : "")),
-    rid: safeTrim(queryRid || (!isTapHubEntry && shouldUseActiveCampaignCtx ? activeCustomer?.rid : "") || (!isTapHubEntry && shouldUseBaseCampaignCtx ? base.rid : "")),
+    name: safeTrim(isTapHubEntry ? queryName : (queryName || (sameTenantAsActive && (!email || activeEmail === email) ? activeCustomer?.name : "") || (sameTenantAsBase && (!email || baseEmail === email) ? base.name : ""))),
+    cid: safeTrim(isTapHubEntry ? "" : (queryCid || (shouldUseActiveCampaignCtx ? activeCustomer?.cid : "") || (shouldUseBaseCampaignCtx ? base.cid : ""))),
+    rid: safeTrim(isTapHubEntry ? "" : (queryRid || (shouldUseActiveCampaignCtx ? activeCustomer?.rid : "") || (shouldUseBaseCampaignCtx ? base.rid : ""))),
   };
 }
 
