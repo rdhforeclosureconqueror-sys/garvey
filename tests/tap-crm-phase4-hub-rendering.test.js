@@ -95,6 +95,9 @@ test('buildTapHubViewModel preserves Tap attribution on Return Engine and action
   assert.match(model.returnEngineUrl, /tenant=demo-tenant/);
   assert.match(model.returnEngineUrl, /tap_source=tap/);
   assert.match(model.returnEngineUrl, /tap_session=tap-session-abc/);
+  assert.equal(model.returnEngineUrl.includes("cid="), false);
+  assert.equal(model.returnEngineUrl.includes("crid="), false);
+  assert.equal(model.returnEngineUrl.includes("rid="), false);
   assert.match(model.primaryActions[0].url, /tap_tag=vip-001/);
   assert.match(model.primaryActions[0].url, /tap_session=tap-session-abc/);
 });

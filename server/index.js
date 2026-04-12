@@ -2106,14 +2106,51 @@ async function resolveCampaignForTenant(tenantId, cid, client = pool) {
   return result.rows[0] || null;
 }
 
-async function resolveCampaignForTenantStrict(tenantId, cid, client = pool) {
+async function resolveCampaignForTenantStrict(tenantId, cid, client = pool, traceMeta = null) {
   const slug = normalizeSlug(cid);
-  if (!slug) return null;
+  const trace = traceMeta && typeof traceMeta === "object" ? traceMeta : {};
+  if (!slug) {
+    if (trace.logLabel) {
+      console.info("[campaign-resolver]", JSON.stringify({
+        label: trace.logLabel,
+        tenant_slug: trace.tenantSlug || null,
+        tenant_id: tenantId,
+        incoming_cid: String(cid ?? ""),
+        normalized_cid: null,
+        resolved_campaign: null,
+        failure_reason: "missing_cid",
+        result_id: trace.resultId || null,
+      }));
+    }
+    return null;
+  }
   const campaign = await resolveCampaignForTenant(tenantId, slug, client);
   if (!campaign) {
+    console.warn("[campaign-resolver]", JSON.stringify({
+      label: trace.logLabel || "campaign_resolve_failed",
+      tenant_slug: trace.tenantSlug || null,
+      tenant_id: tenantId,
+      incoming_cid: String(cid ?? ""),
+      normalized_cid: slug,
+      resolved_campaign: null,
+      failure_reason: "cid_not_found_for_tenant",
+      result_id: trace.resultId || null,
+    }));
     const err = new Error("invalid campaign id for tenant");
     err.statusCode = 400;
     throw err;
+  }
+  if (trace.logLabel) {
+    console.info("[campaign-resolver]", JSON.stringify({
+      label: trace.logLabel,
+      tenant_slug: trace.tenantSlug || null,
+      tenant_id: tenantId,
+      incoming_cid: String(cid ?? ""),
+      normalized_cid: slug,
+      resolved_campaign: { id: campaign.id, slug: campaign.slug },
+      failure_reason: null,
+      result_id: trace.resultId || null,
+    }));
   }
   return campaign;
 }
@@ -2150,7 +2187,11 @@ async function hasApprovedReviewProofForProduct(tenantId, productId, client = po
 
 async function processCheckinReward({ tenant, tenantConfig, email, name = "", cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email, pool, name);
-  const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
+  const campaign = await resolveCampaignForTenantStrict(tenant.id, cid, pool, {
+    logLabel: "rewards_checkin_campaign_resolution",
+    tenantSlug: tenant.slug,
+    resultId,
+  });
   const existingToday = await countDailyRewardActions({ tenantId: tenant.id, userId: user.id, actionType: "checkin" });
   if (existingToday >= REWARD_DAILY_LIMITS.checkin) {
     return {
@@ -2186,7 +2227,11 @@ async function processCheckinReward({ tenant, tenantConfig, email, name = "", ci
 
 async function processActionReward({ tenant, tenantConfig, email, name = "", actionType, cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email, pool, name);
-  const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
+  const campaign = await resolveCampaignForTenantStrict(tenant.id, cid, pool, {
+    logLabel: "rewards_action_campaign_resolution",
+    tenantSlug: tenant.slug,
+    resultId,
+  });
   const normalizedActionType = String(actionType || "").trim().toLowerCase();
   const dailyLimit = REWARD_DAILY_LIMITS[normalizedActionType];
   if (dailyLimit) {
@@ -2252,7 +2297,11 @@ async function processReviewReward({
   rating = null,
 }) {
   const user = await findTenantUser(tenant.id, email, pool, name);
-  const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
+  const campaign = await resolveCampaignForTenantStrict(tenant.id, cid, pool, {
+    logLabel: "rewards_review_campaign_resolution",
+    tenantSlug: tenant.slug,
+    resultId,
+  });
   const existingToday = await countDailyRewardActions({ tenantId: tenant.id, userId: user.id, actionType: "review" });
   if (existingToday >= REWARD_DAILY_LIMITS.review) {
     return buildDailyLimitReachedPayload({
@@ -2332,7 +2381,11 @@ async function processReferralReward({ tenant, tenantConfig, email, name = "", r
 
     const referrer = await findTenantUser(tenant.id, email, client, name);
     const referred = await findTenantUser(tenant.id, referredEmail, client);
-    const campaign = await resolveCampaignForTenantStrict(tenant.id, cid, client);
+    const campaign = await resolveCampaignForTenantStrict(tenant.id, cid, client, {
+      logLabel: "rewards_referral_campaign_resolution",
+      tenantSlug: tenant.slug,
+      resultId,
+    });
     const referralCount = await client.query(
       `SELECT COUNT(*)::int AS total
        FROM referrals
@@ -2395,7 +2448,11 @@ async function processReferralReward({ tenant, tenantConfig, email, name = "", r
 
 async function processWishlistReward({ tenant, tenantConfig, email, name = "", productName, cid = null, resultId = null }) {
   const user = await findTenantUser(tenant.id, email, pool, name);
-  const campaign = await resolveCampaignForTenantStrict(tenant.id, cid);
+  const campaign = await resolveCampaignForTenantStrict(tenant.id, cid, pool, {
+    logLabel: "rewards_wishlist_campaign_resolution",
+    tenantSlug: tenant.slug,
+    resultId,
+  });
   const existingToday = await countDailyRewardActions({ tenantId: tenant.id, userId: user.id, actionType: "wishlist" });
   if (existingToday >= REWARD_DAILY_LIMITS.wishlist) {
     return buildDailyLimitReachedPayload({
@@ -2784,6 +2841,7 @@ app.post("/api/rewards/checkin", async (req, res) => {
   try {
     const { tenant, email, name, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
     const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
+    console.info("[rewards-submit]", JSON.stringify({ route: "checkin", tenant: String(tenant || ""), cid: String(cid || ""), result_id: resultId || null, email: String(email || "").toLowerCase(), name: String(name || "") }));
     if (!tenant || !email) return res.status(400).json({ error: "tenant and email are required" });
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
@@ -2799,6 +2857,7 @@ app.post("/api/rewards/action", async (req, res) => {
   try {
     const { tenant, email, name, action_type: actionType, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
     const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
+    console.info("[rewards-submit]", JSON.stringify({ route: "action", tenant: String(tenant || ""), cid: String(cid || ""), result_id: resultId || null, email: String(email || "").toLowerCase(), name: String(name || ""), action_type: String(actionType || "") }));
     if (!tenant || !email || !actionType) {
       return res.status(400).json({ error: "tenant, email and action_type are required" });
     }
@@ -2831,6 +2890,7 @@ app.post("/api/rewards/review", async (req, res) => {
       rating,
     } = req.body || {};
     const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
+    console.info("[rewards-submit]", JSON.stringify({ route: "review", tenant: String(tenant || ""), cid: String(cid || ""), result_id: resultId || null, email: String(email || "").toLowerCase(), name: String(name || "") }));
     if (!tenant || !email || !text) return res.status(400).json({ error: "tenant, email and text are required" });
     const ctx = await getTenantContextBySlug(tenant);
     if (!ctx) return res.status(404).json({ error: "tenant not found" });
@@ -2861,6 +2921,7 @@ app.post("/api/rewards/referral", async (req, res) => {
   try {
     const { tenant, email, name, referred_email: referredEmail, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
     const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
+    console.info("[rewards-submit]", JSON.stringify({ route: "referral", tenant: String(tenant || ""), cid: String(cid || ""), result_id: resultId || null, email: String(email || "").toLowerCase(), name: String(name || "") }));
     if (!tenant || !email || !referredEmail) {
       return res.status(400).json({ error: "tenant, email and referred_email are required" });
     }
@@ -2878,6 +2939,7 @@ app.post("/api/rewards/wishlist", async (req, res) => {
   try {
     const { tenant, email, name, product_name: productName, cid, result_id: resultIdRaw, crid: cridRaw } = req.body || {};
     const resultId = String(resultIdRaw ?? cridRaw ?? "").trim();
+    console.info("[rewards-submit]", JSON.stringify({ route: "wishlist", tenant: String(tenant || ""), cid: String(cid || ""), result_id: resultId || null, email: String(email || "").toLowerCase(), name: String(name || "") }));
     if (!tenant || !email || !productName) {
       return res.status(400).json({ error: "tenant, email and product_name are required" });
     }

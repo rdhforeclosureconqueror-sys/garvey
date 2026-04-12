@@ -55,6 +55,7 @@
     const fetchImpl = opts.fetchImpl || global.fetch?.bind(global);
     const locationLike = opts.location || global.location;
     const storage = opts.storage || global.localStorage;
+    const traceLogger = typeof opts.traceLogger === "function" ? opts.traceLogger : null;
     const buildUrl = opts.buildUrl || ((path, query = null) => {
       if (!query || Object.keys(query).length === 0) return path;
       const params = new URLSearchParams(query);
@@ -207,6 +208,14 @@
 
     async function awardReward(eventInput) {
       const request = eventToRequest(eventInput);
+      if (traceLogger) {
+        traceLogger({
+          phase: "awardReward.request",
+          path: request.path,
+          payload: Object.assign({}, request.payload),
+          event_type: safeTrim(eventInput?.type).toLowerCase(),
+        });
+      }
       if (!safeTrim(request.payload.tenant) || !safeTrim(request.payload.email)) {
         throw new Error("tenant and email are required");
       }
@@ -228,6 +237,13 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(request.payload),
       });
+      if (traceLogger) {
+        traceLogger({
+          phase: "awardReward.response",
+          path: request.path,
+          payload,
+        });
+      }
 
       const entry = {
         type: safeTrim(eventInput?.type).toLowerCase(),
