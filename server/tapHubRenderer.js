@@ -200,7 +200,7 @@ function renderActions(actions, zoneClass) {
         .map((action) => `
           ${action.bookingCta
             ? `<button class="action-btn booking-btn" type="button" data-booking-open>${escapeHtml(action.label)}</button>`
-            : `<a class="action-btn" href="${escapeHtml(action.url)}">${escapeHtml(action.label)}</a>`}
+            : `<a class="action-btn" href="${escapeHtml(action.url)}" data-tap-event-type="${zoneClass === "primary-zone" ? "primary_action_click" : "secondary_action_click"}" data-tap-action-label="${escapeHtml(action.label)}">${escapeHtml(action.label)}</a>`}
         `)
         .join("")}
     </div>
@@ -378,9 +378,9 @@ function renderTapHubPage(viewModel) {
         <div class="quick-actions">
           <button type="button" data-checkin-open>Check in</button>
           <button type="button" data-booking-open>Book</button>
-          <a href="https://buy.stripe.com/00w5kw6Lv3YweZoffq8bS00" target="_blank" rel="noopener noreferrer">Pay now</a>
-          <a href="https://cash.app/$theEmpireinc" target="_blank" rel="noopener noreferrer">Leave a tip</a>
-          <a href="${escapeHtml(viewModel.returnEngineUrl)}">Return Engine</a>
+          <a href="https://buy.stripe.com/00w5kw6Lv3YweZoffq8bS00" target="_blank" rel="noopener noreferrer" data-tap-event-type="pay_click">Pay now</a>
+          <a href="https://cash.app/$theEmpireinc" target="_blank" rel="noopener noreferrer" data-tap-event-type="tip_click">Leave a tip</a>
+          <a href="${escapeHtml(viewModel.returnEngineUrl)}" data-tap-event-type="return_engine_click">Return Engine</a>
         </div>
       </section>
 
@@ -450,6 +450,9 @@ function renderTapHubPage(viewModel) {
     <script>
       (function () {
         var tagCode = ${JSON.stringify(viewModel.tagCode)};
+        var tenantSlug = ${JSON.stringify(viewModel.tenant)};
+        var tapSessionId = (new URLSearchParams(window.location.search).get("tap_session") || "").trim();
+        var telemetryEndpoint = "/api/tap-crm/public/tags/" + encodeURIComponent(tagCode) + "/events";
         var toggle = document.querySelector("[data-guide-toggle]");
         var panel = document.getElementById("tap-guide-panel");
         if (toggle && panel) {
@@ -479,6 +482,31 @@ function renderTapHubPage(viewModel) {
         var bookingUnlocked = false;
         var submitPending = false;
         var activeModal = null;
+
+        function logTapEvent(eventType, metadata) {
+          var payload = {
+            event_type: String(eventType || "").trim(),
+            tap_session_id: tapSessionId,
+            metadata: metadata && typeof metadata === "object" ? metadata : {},
+          };
+          if (!payload.event_type) return Promise.resolve();
+          return fetch(telemetryEndpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            keepalive: true,
+            body: JSON.stringify(payload),
+          }).catch(function () { return null; });
+        }
+
+        Array.prototype.forEach.call(document.querySelectorAll("a[data-tap-event-type]"), function (anchor) {
+          anchor.addEventListener("click", function () {
+            return logTapEvent(anchor.getAttribute("data-tap-event-type"), {
+              action_label: anchor.getAttribute("data-tap-action-label") || anchor.textContent || "",
+              href: anchor.getAttribute("href") || "",
+              tenant: tenantSlug,
+            });
+          });
+        });
 
         function toDateString(date) { return date.toISOString().slice(0, 10); }
         function oneWeekOut() { var now = new Date(); now.setUTCDate(now.getUTCDate() + 7); return toDateString(now); }
@@ -550,6 +578,7 @@ function renderTapHubPage(viewModel) {
         }
         function openCheckin() {
           if (!checkinBackdrop) return;
+          logTapEvent("checkin_click", { source: "checkin_modal_open" });
           setActiveModal("checkin");
         }
         function closeCheckin() {
@@ -583,6 +612,7 @@ function renderTapHubPage(viewModel) {
             openCheckin();
             return;
           }
+          logTapEvent("booking_open", { source: "booking_modal_open" });
           setActiveModal("booking");
           dateInput.value = oneWeekOut();
           setConfirmEnabled(false);
@@ -601,6 +631,7 @@ function renderTapHubPage(viewModel) {
         setActiveModal(null);
         if (checkInBtn) {
           checkInBtn.addEventListener("click", function () {
+            logTapEvent("checkin_click", { source: "checkin_gate" });
             bookingUnlocked = true;
             updateBookingEntryState();
             checkInBtn.textContent = "Check-in complete";
@@ -617,6 +648,7 @@ function renderTapHubPage(viewModel) {
         }
         if (checkinConfirmBtn) {
           checkinConfirmBtn.addEventListener("click", function () {
+            logTapEvent("checkin_click", { source: "checkin_confirm" });
             bookingUnlocked = true;
             updateBookingEntryState();
             if (checkInBtn) {
@@ -679,6 +711,11 @@ function renderTapHubPage(viewModel) {
                 }
                 setStatus("");
                 showPageNotice("Booking confirmed for " + result.body.reservation.booking_date + " at " + toDisplayTime(result.body.reservation.slot_time) + ".");
+                logTapEvent("booking_submit", {
+                  date: result.body.reservation.booking_date,
+                  time: result.body.reservation.slot_time,
+                  status: result.body.reservation.status || "booked",
+                });
                 return fetchAvailability().then(function () {
                   closeBooking();
                 });

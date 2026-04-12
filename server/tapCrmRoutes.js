@@ -19,6 +19,19 @@ const {
 } = require("./tapCrmTemplates");
 
 const OWNER_CONSOLE_ROUTE_NAMESPACE = "tap-crm";
+const TAP_EVENT_TYPES = new Set([
+  "tap_open",
+  "tap_resolved",
+  "checkin_click",
+  "booking_open",
+  "booking_submit",
+  "pay_click",
+  "tip_click",
+  "return_engine_click",
+  "primary_action_click",
+  "secondary_action_click",
+  "tap_button_click",
+]);
 
 function checkTapAccess(req, action) {
   if (!req.authActor) {
@@ -386,8 +399,10 @@ async function logTapEvent(db, {
   tenantId = null,
   tagId = null,
   tagCode,
+  eventType = "tap_resolved",
   outcome,
   reason,
+  tapSessionId = "",
   requestMeta,
 }) {
   await db.query(
@@ -395,11 +410,13 @@ async function logTapEvent(db, {
       tenant_id,
       tag_id,
       tag_code,
+      event_type,
       outcome,
       reason,
+      tap_session_id,
       request_meta
-    ) VALUES ($1, $2, $3, $4, $5, $6::jsonb)`,
-    [tenantId, tagId, tagCode, outcome, reason, JSON.stringify(requestMeta || {})]
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8::jsonb)`,
+    [tenantId, tagId, tagCode, eventType, outcome, reason, String(tapSessionId || "").trim(), JSON.stringify(requestMeta || {})]
   );
 }
 
@@ -414,6 +431,17 @@ async function resolvePublicTap(db, { tagCode, requestMeta = {} }) {
   }
 
   const attribution = buildTapAttributionMeta(requestMeta);
+  await logTapEvent(db, {
+    tagCode: normalizedTagCode,
+    eventType: "tap_open",
+    outcome: "received",
+    reason: "tap_open",
+    tapSessionId: attribution.tap_session_id,
+    requestMeta: {
+      ...requestMeta,
+      ...attribution,
+    },
+  });
 
   const lookup = await db.query(
     `SELECT
@@ -440,8 +468,10 @@ async function resolvePublicTap(db, { tagCode, requestMeta = {} }) {
   if (!row) {
     await logTapEvent(db, {
       tagCode: normalizedTagCode,
+      eventType: "tap_resolved",
       outcome: "rejected",
       reason: "tag_not_found",
+      tapSessionId: attribution.tap_session_id,
       requestMeta: {
         ...requestMeta,
         ...attribution,
@@ -464,8 +494,10 @@ async function resolvePublicTap(db, { tagCode, requestMeta = {} }) {
       tenantId: row.tenant_id,
       tagId: row.tag_id,
       tagCode: row.tag_code,
+      eventType: "tap_resolved",
       outcome: "rejected",
       reason: status.reason,
+      tapSessionId: attribution.tap_session_id,
       requestMeta: {
         ...requestMeta,
         ...attribution,
@@ -494,8 +526,10 @@ async function resolvePublicTap(db, { tagCode, requestMeta = {} }) {
     tenantId: row.tenant_id,
     tagId: row.tag_id,
     tagCode: row.tag_code,
+    eventType: "tap_resolved",
     outcome: "accepted",
     reason: "resolved",
+    tapSessionId: attribution.tap_session_id,
     requestMeta: {
       ...requestMeta,
       ...attribution,
@@ -893,18 +927,81 @@ function createTapCrmRouter() {
       if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
       const metrics = await pool.query(
         `SELECT
-           COUNT(*) FILTER (WHERE outcome = 'accepted')::INT AS accepted_taps,
-           COUNT(*) FILTER (WHERE outcome = 'rejected')::INT AS rejected_taps,
-           COUNT(*)::INT AS total_taps
+           COUNT(*) FILTER (WHERE event_type = 'tap_resolved' AND outcome = 'accepted')::INT AS total_taps,
+           COUNT(*) FILTER (WHERE event_type = 'tap_resolved' AND outcome = 'rejected')::INT AS rejected_taps,
+           COUNT(*) FILTER (WHERE event_type = 'return_engine_click')::INT AS return_engine_click_count,
+           COUNT(*) FILTER (WHERE event_type = 'pay_click')::INT AS pay_click_count,
+           COUNT(*) FILTER (WHERE event_type = 'tip_click')::INT AS tip_click_count,
+           MAX(event_timestamp) FILTER (WHERE event_type = 'tap_resolved') AS last_tap_at,
+           MAX(event_timestamp) AS last_action_at
          FROM tap_crm_tap_events
          WHERE tenant_id = $1`,
         [scoped.tenantId]
       );
+      const actionTypeCounts = await pool.query(
+        `SELECT event_type, COUNT(*)::INT AS count
+         FROM tap_crm_tap_events
+         WHERE tenant_id = $1
+         GROUP BY event_type
+         ORDER BY count DESC, event_type ASC`,
+        [scoped.tenantId]
+      );
+      const topTags = await pool.query(
+        `SELECT tag_code, COUNT(*)::INT AS usage_count
+         FROM tap_crm_tap_events
+         WHERE tenant_id = $1
+           AND COALESCE(tag_code, '') <> ''
+         GROUP BY tag_code
+         ORDER BY usage_count DESC, tag_code ASC
+         LIMIT 5`,
+        [scoped.tenantId]
+      );
+      const recentEvents = await pool.query(
+        `SELECT
+           event_type,
+           tag_code,
+           tap_session_id,
+           outcome,
+           reason,
+           event_timestamp,
+           request_meta
+         FROM tap_crm_tap_events
+         WHERE tenant_id = $1
+         ORDER BY event_timestamp DESC
+         LIMIT 25`,
+        [scoped.tenantId]
+      );
+      const summary = metrics.rows[0] || {};
       return res.json({
         ok: true,
         route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
         tenant: scoped.tenantSlug,
-        analytics_summary: metrics.rows[0] || { accepted_taps: 0, rejected_taps: 0, total_taps: 0 },
+        analytics_summary: {
+          total_taps: Number(summary.total_taps || 0),
+          rejected_taps: Number(summary.rejected_taps || 0),
+          return_engine_click_count: Number(summary.return_engine_click_count || 0),
+          pay_click_count: Number(summary.pay_click_count || 0),
+          tip_click_count: Number(summary.tip_click_count || 0),
+          last_tap_at: summary.last_tap_at || null,
+          last_action_at: summary.last_action_at || null,
+          counts_by_action_type: actionTypeCounts.rows.map((row) => ({
+            event_type: row.event_type,
+            count: Number(row.count || 0),
+          })),
+          top_used_tags: topTags.rows.map((row) => ({
+            tag_code: row.tag_code,
+            usage_count: Number(row.usage_count || 0),
+          })),
+          recent_events: recentEvents.rows.map((row) => ({
+            event_type: row.event_type,
+            tag_code: row.tag_code,
+            tap_session_id: row.tap_session_id,
+            outcome: row.outcome,
+            reason: row.reason,
+            timestamp: row.event_timestamp,
+            request_meta: cloneJson(row.request_meta, {}),
+          })),
+        },
       });
     } catch (err) {
       console.error("tap_crm_analytics_summary_failed", err);
@@ -1289,6 +1386,55 @@ function createTapCrmRouter() {
     } catch (err) {
       console.error("tap_crm_public_tag_resolve_failed", err);
       return res.status(500).json({ error: "tap_tag_resolution_failed" });
+    }
+  });
+
+  router.post("/public/tags/:tagCode/events", express.json(), async (req, res) => {
+    try {
+      const scoped = await getPublicTagContext(pool, req.params.tagCode);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+
+      const eventType = String(req.body && req.body.event_type || "").trim().toLowerCase();
+      if (!TAP_EVENT_TYPES.has(eventType)) {
+        return res.status(400).json({ error: "invalid_event_type" });
+      }
+      if (eventType === "tap_open" || eventType === "tap_resolved") {
+        return res.status(400).json({ error: "reserved_event_type" });
+      }
+
+      const tapSessionId = String(req.body && req.body.tap_session_id || "").trim();
+      await logTapEvent(pool, {
+        tenantId: scoped.row.tenant_id,
+        tagId: scoped.row.tag_id,
+        tagCode: scoped.row.tag_code,
+        eventType,
+        outcome: "accepted",
+        reason: String(req.body && req.body.reason || "tap_hub_action").trim(),
+        tapSessionId,
+        requestMeta: {
+          ip: req.ip,
+          user_agent: req.headers["user-agent"] || "",
+          source: "tap_hub_ui",
+          tenant: scoped.row.tenant_slug,
+          tag_code: scoped.row.tag_code,
+          tag_id: scoped.row.tag_id,
+          tap_session_id: tapSessionId,
+          metadata: cloneJson(req.body && req.body.metadata, {}),
+        },
+      });
+
+      return res.status(202).json({
+        ok: true,
+        tenant: scoped.row.tenant_slug,
+        tag_code: scoped.row.tag_code,
+        tag_id: scoped.row.tag_id,
+        tap_session_id: tapSessionId || null,
+        event_type: eventType,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (err) {
+      console.error("tap_crm_public_event_log_failed", err);
+      return res.status(500).json({ error: "tap_crm_public_event_log_failed" });
     }
   });
 

@@ -204,6 +204,12 @@ test("tap hub renderer gates booking behind check-in and uses 12-hour display fo
   assert.equal(/https:\/\/buy\.stripe\.com\/00w5kw6Lv3YweZoffq8bS00/.test(html), true);
   assert.equal(/https:\/\/cash\.app\/\$theEmpireinc/.test(html), true);
   assert.equal(/>Return Engine</.test(html), true);
+  assert.equal(/data-tap-event-type="return_engine_click"/.test(html), true);
+  assert.equal(/data-tap-event-type="pay_click"/.test(html), true);
+  assert.equal(/data-tap-event-type="tip_click"/.test(html), true);
+  assert.equal(/\/api\/tap-crm\/public\/tags\/" \+ encodeURIComponent\(tagCode\) \+ "\/events"/.test(html), true);
+  assert.equal(/function logTapEvent\(eventType, metadata\)/.test(html), true);
+  assert.equal(/logTapEvent\("booking_submit"/.test(html), true);
   assert.equal(/function toDisplayTime\(time24\)/.test(html), true);
   assert.equal(html.includes("(?::\\d{2})?"), true);
   assert.equal(/if \(!event \|\| event.type !== "click"\) return;/.test(html), true);
