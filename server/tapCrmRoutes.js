@@ -265,6 +265,16 @@ function parseDateOnly(value) {
   return raw;
 }
 
+function parseYearMonth(value) {
+  const raw = String(value || "").trim();
+  const match = raw.match(/^(\d{4})-(\d{2})$/);
+  if (!match) return null;
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  if (!Number.isInteger(year) || !Number.isInteger(month) || month < 1 || month > 12) return null;
+  return { year, month, key: `${String(year).padStart(4, "0")}-${String(month).padStart(2, "0")}` };
+}
+
 function parseTimeOnly(value) {
   const raw = String(value || "").trim();
   if (!/^\d{2}:\d{2}$/.test(raw)) return null;
@@ -1453,6 +1463,98 @@ function createTapCrmRouter() {
     } catch (err) {
       console.error("tap_crm_public_event_log_failed", err);
       return res.status(500).json({ error: "tap_crm_public_event_log_failed" });
+    }
+  });
+
+  router.get("/console/bookings/calendar", async (req, res) => {
+    const access = checkTapAccess(req, ACTIONS.TAP_ANALYTICS_VIEW);
+    if (!access.ok) return res.status(access.status).json(access.body);
+    try {
+      const scoped = await withTenantScope(pool, access.tenant);
+      if (!scoped.ok) return res.status(scoped.status).json(scoped.body);
+
+      const parsedMonth = parseYearMonth(req.query.month);
+      const now = new Date();
+      const year = parsedMonth ? parsedMonth.year : now.getUTCFullYear();
+      const month = parsedMonth ? parsedMonth.month : now.getUTCMonth() + 1;
+      const monthStart = `${String(year).padStart(4, "0")}-${String(month).padStart(2, "0")}-01`;
+      const monthEndDate = new Date(Date.UTC(year, month, 0));
+      const monthEnd = `${String(year).padStart(4, "0")}-${String(month).padStart(2, "0")}-${String(monthEndDate.getUTCDate()).padStart(2, "0")}`;
+
+      const config = cloneJson(scoped.businessConfig && scoped.businessConfig.config, {});
+      const bookingConfig = config.booking && typeof config.booking === "object" ? config.booking : {};
+      const defaultSlots = buildDefaultSlotConfig();
+      const slotConfig = {
+        start: parseTimeOnly(bookingConfig.start) || defaultSlots.start,
+        end: parseTimeOnly(bookingConfig.end) || defaultSlots.end,
+        interval_minutes: Number(bookingConfig.interval_minutes) > 0 ? Number(bookingConfig.interval_minutes) : defaultSlots.interval_minutes,
+        working_days: Array.isArray(bookingConfig.working_days) ? bookingConfig.working_days.map((v) => Number(v)).filter((v) => Number.isInteger(v) && v >= 0 && v <= 6) : defaultSlots.working_days,
+      };
+      const allSlots = buildSlots(slotConfig.start, slotConfig.end, slotConfig.interval_minutes);
+
+      const bookings = await pool.query(
+        `SELECT
+           id,
+           tag_code,
+           booking_date,
+           slot_time,
+           customer_name,
+           status,
+           created_at
+         FROM tap_crm_bookings
+         WHERE tenant_id = $1
+           AND booking_date >= $2::date
+           AND booking_date <= $3::date
+         ORDER BY booking_date ASC, slot_time ASC, id ASC`,
+        [scoped.tenantId, monthStart, monthEnd]
+      );
+
+      const byDate = new Map();
+      bookings.rows.forEach((row) => {
+        const date = row.booking_date;
+        if (!byDate.has(date)) byDate.set(date, []);
+        byDate.get(date).push({
+          id: Number(row.id),
+          customer_name: row.customer_name || "",
+          booking_date: row.booking_date,
+          booking_time: row.slot_time || "",
+          tag_code: row.tag_code || "",
+          status: row.status || "booked",
+          created_at: row.created_at || null,
+        });
+      });
+
+      const days = [];
+      for (let d = 1; d <= monthEndDate.getUTCDate(); d += 1) {
+        const dateKey = `${String(year).padStart(4, "0")}-${String(month).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+        const appointments = byDate.get(dateKey) || [];
+        const blocked = appointments.map((item) => item.booking_time).filter(Boolean);
+        const dayIndex = new Date(`${dateKey}T00:00:00.000Z`).getUTCDay();
+        const isWorkingDay = slotConfig.working_days.includes(dayIndex);
+        const availableSlots = isWorkingDay ? allSlots.filter((slot) => blocked.indexOf(slot) === -1) : [];
+        days.push({
+          date: dateKey,
+          booking_count: appointments.length,
+          appointments,
+          available_slots: availableSlots,
+          blocked_slots: blocked,
+          status: appointments.length > 0 ? "booked" : (isWorkingDay ? "free" : "off"),
+        });
+      }
+
+      return res.json({
+        ok: true,
+        route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
+        tenant: scoped.tenantSlug,
+        calendar: {
+          month: `${String(year).padStart(4, "0")}-${String(month).padStart(2, "0")}`,
+          slot_config: slotConfig,
+          days,
+        },
+      });
+    } catch (err) {
+      console.error("tap_crm_bookings_calendar_failed", err);
+      return res.status(500).json({ error: "tap_crm_bookings_calendar_failed" });
     }
   });
 
