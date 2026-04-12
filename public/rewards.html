@@ -719,16 +719,26 @@ function currentCtx() {
   const base = (window.GARVEY && window.GARVEY.ctx) ? window.GARVEY.ctx() : {};
   const q = new URLSearchParams(location.search);
   const queryTenant = safeTrim(q.get("tenant"));
+  const queryEmail = safeTrim(q.get("email")).toLowerCase();
+  const queryName = safeTrim(q.get("name"));
+  const queryCid = safeTrim(q.get("cid"));
+  const queryRid = safeTrim(q.get("crid") || q.get("rid"));
   const activeCustomer = readActiveCustomer();
   const tenant = queryTenant || safeTrim(base.tenant) || safeTrim(activeCustomer?.tenant);
   const sameTenantAsBase = !!(tenant && safeTrim(base.tenant) && tenant === safeTrim(base.tenant));
   const sameTenantAsActive = !!(tenant && safeTrim(activeCustomer?.tenant) && tenant === safeTrim(activeCustomer?.tenant));
+  const activeEmail = safeTrim(activeCustomer?.email).toLowerCase();
+  const baseEmail = safeTrim(base.email).toLowerCase();
+  const email = safeTrim(queryEmail || (sameTenantAsActive ? activeEmail : "") || (sameTenantAsBase ? baseEmail : "")).toLowerCase();
+  const shouldUseActiveCampaignCtx = !!(sameTenantAsActive && activeEmail && (!email || activeEmail === email));
+  const shouldUseBaseCampaignCtx = !!(sameTenantAsBase && baseEmail && email && baseEmail === email);
+
   return {
     tenant,
-    email: safeTrim(q.get("email") || (sameTenantAsActive ? activeCustomer?.email : "") || (sameTenantAsBase ? base.email : "")).toLowerCase(),
-    name: safeTrim(q.get("name") || (sameTenantAsActive ? activeCustomer?.name : "") || (sameTenantAsBase ? base.name : "")),
-    cid: safeTrim(q.get("cid") || (sameTenantAsActive ? activeCustomer?.cid : "") || (sameTenantAsBase ? base.cid : "")),
-    rid: safeTrim(q.get("crid") || q.get("rid") || (sameTenantAsActive ? activeCustomer?.rid : "") || (sameTenantAsBase ? base.rid : "")),
+    email,
+    name: safeTrim(queryName || (sameTenantAsActive && (!email || activeEmail === email) ? activeCustomer?.name : "") || (sameTenantAsBase && (!email || baseEmail === email) ? base.name : "")),
+    cid: safeTrim(queryCid || (shouldUseActiveCampaignCtx ? activeCustomer?.cid : "") || (shouldUseBaseCampaignCtx ? base.cid : "")),
+    rid: safeTrim(queryRid || (shouldUseActiveCampaignCtx ? activeCustomer?.rid : "") || (shouldUseBaseCampaignCtx ? base.rid : "")),
   };
 }
 
