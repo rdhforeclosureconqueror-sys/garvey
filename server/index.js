@@ -3761,11 +3761,24 @@ app.get("/t/:slug/reviews/public", tenantMiddleware, async (req, res) => {
        LIMIT 5`,
       [req.tenant.id]
     );
+    let pendingReviewsCount = 0;
+    if (viewer?.id) {
+      const pendingRows = await pool.query(
+        `SELECT COUNT(*)::int AS pending_reviews_count
+         FROM reviews
+         WHERE tenant_id = $1
+           AND user_id = $2
+           AND proof_status = 'pending'`,
+        [req.tenant.id, Number(viewer.id)]
+      );
+      pendingReviewsCount = Number(pendingRows.rows[0]?.pending_reviews_count || 0);
+    }
     return res.json({
       tenant: req.tenant.slug,
       reviews: rows.rows.map((row) => ({ ...row, liked_by_viewer: Number(row.liked_by_viewer || 0) > 0 })),
       rating_breakdown: ratingBreakdown,
       showcase_videos: showcaseRows.rows,
+      pending_reviews_count: pendingReviewsCount,
     });
   } catch (err) {
     console.error(err);

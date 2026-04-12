@@ -903,7 +903,14 @@ function showResult(payload) {
   let msg = "Action recorded successfully.";
 
   if (payload?.event === "checkin") msg = `Check-in complete! +${pointsAdded} points. You now have ${total}.`;
-  else if (payload?.review) msg = `Review submitted! +${pointsAdded} points. Total: ${total}.`;
+  else if (payload?.review) {
+    const proofStatus = safeTrim(payload.review?.proof_status).toLowerCase();
+    if (proofStatus === "pending") {
+      msg = `Review submitted! +${pointsAdded} points. Total: ${total}. Your review is pending approval before it appears publicly.`;
+    } else {
+      msg = `Review submitted! +${pointsAdded} points. Total: ${total}.`;
+    }
+  }
   else if (payload?.action_type) msg = `${payload.action_type} action saved! +${pointsAdded} points.`;
   else if (payload?.referral || payload?.event === "referral") msg = `Referral sent! Nice move for repeat rewards.`;
   else if (payload?.wishlist_entry) msg = "Wishlist item saved! We'll remind you next visit.";
@@ -1093,7 +1100,7 @@ function updateActionUI() {
   document.getElementById("reviewPhotoWrap").classList.toggle("hide", state.actionType !== "review");
   document.getElementById("reviewVideoWrap").classList.toggle("hide", state.actionType !== "review");
   document.getElementById("reviewMediaUrlWrap").classList.toggle("hide", state.actionType !== "review");
-  const showGoogleReviewLink = state.actionType === "review" && !!state.googleReviewUrl;
+  const showGoogleReviewLink = !!state.googleReviewUrl;
   document.getElementById("googleReviewWrap").classList.toggle("hide", !showGoogleReviewLink);
   if (showGoogleReviewLink) {
     document.getElementById("googleReviewLink").href = state.googleReviewUrl;
@@ -1234,10 +1241,23 @@ function renderPublicReviewsList(reviews) {
     const ratingValue = Number(review.rating || 0);
     const stars = ratingValue > 0 ? "★".repeat(Math.max(1, Math.min(6, Math.floor(ratingValue)))) : "—";
     const mediaBadge = review.media_type ? `<span class="pill" style="margin:0;">${escapeHtml(review.media_type)}</span>` : "";
+    let mediaUrl = "";
+    try {
+      const parsed = JSON.parse(review.media_note || "{}");
+      mediaUrl = safeTrim(parsed?.media_url || parsed?.media_photo_url || parsed?.media_video_url || "");
+    } catch (_) {}
+    const mediaPreview = mediaUrl
+      ? `<div style="margin:8px 0;">
+          ${String(review.media_type || "").toLowerCase().includes("video")
+            ? `<video controls preload="metadata" style="max-width:100%;border-radius:8px;"><source src="${escapeHtml(mediaUrl)}"></video>`
+            : `<img src="${escapeHtml(mediaUrl)}" alt="Customer review media" style="max-width:100%;border-radius:8px;" loading="lazy" />`}
+        </div>`
+      : "";
     return `<article class="review-card">
       <div class="review-meta">${escapeHtml(review.customer_name || "Customer")} • ${new Date(review.created_at).toISOString().slice(0, 10)}</div>
       <div><strong>${stars}</strong> ${mediaBadge}</div>
       <p>${escapeHtml(review.text || "Customer review shared.")}</p>
+      ${mediaPreview}
       <button type="button" class="like-btn" data-review-id="${Number(review.id)}">👍 Like (${Number(review.likes_count || 0)})</button>
     </article>`;
   }).join("");
@@ -1268,7 +1288,10 @@ async function loadPublicReviews() {
     renderPublicReviewsList(state.publicReviews);
     renderRatingBreakdownChart(payload.rating_breakdown || {});
     renderVideoShowcase(payload.showcase_videos || []);
-    if (status) status.textContent = `${state.publicReviews.length} approved customer reviews for this business.`;
+    const pendingCount = Number(payload.pending_reviews_count || 0);
+    if (status) {
+      status.textContent = `${state.publicReviews.length} approved customer reviews for this business.${pendingCount > 0 ? ` Your latest review is pending approval (${pendingCount} pending).` : ""}`;
+    }
   } catch (err) {
     if (status) status.textContent = err.message || "Social proof unavailable.";
   }
@@ -1429,6 +1452,7 @@ async function submitAction() {
   const data = await engine.awardReward(event);
   showResult(data);
   await refreshStatus();
+  await loadPublicReviews();
   setStep(5);
 }
 
