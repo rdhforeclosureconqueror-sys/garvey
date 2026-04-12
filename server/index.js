@@ -2256,6 +2256,11 @@ async function resolveCampaignForTenantStrict(tenantId, cid, client = pool, trac
   return campaign;
 }
 
+async function resolveTapFallbackCampaign({ tenantId, tenantSlug, client = pool }) {
+  const ensured = await ensureOwnerDefaultCampaign({ tenantId, tenantSlug, client });
+  return ensured?.campaign || null;
+}
+
 async function recordCampaignEvent({
   tenantId,
   campaignId = null,
@@ -6128,7 +6133,14 @@ async function handleVocIntake(req, res) {
         client,
       })
       : null;
-    const effectiveCid = requestedCid || linkedCampaign?.cid || null;
+    const tapFallbackCampaign = !requestedCid && !linkedCampaign?.cid && sourceType === "tap"
+      ? await resolveTapFallbackCampaign({
+        tenantId: tenantRow.id,
+        tenantSlug: tenantRow.slug,
+        client,
+      })
+      : null;
+    const effectiveCid = requestedCid || linkedCampaign?.cid || tapFallbackCampaign?.slug || null;
     const campaign = await resolveCampaignForTenantStrict(tenantRow.id, effectiveCid, client, {
       logLabel: "voc_intake_campaign_resolution",
       tenantSlug: tenantRow.slug,
@@ -6149,6 +6161,8 @@ async function handleVocIntake(req, res) {
       linked_campaign_cid: linkedCampaign?.cid || null,
       linked_campaign_cid_source: linkedCampaign?.cidSource || null,
       requested_cid: requestedCid || null,
+      tap_fallback_campaign_cid: tapFallbackCampaign?.slug || null,
+      tap_fallback_campaign_source: tapFallbackCampaign?.source || null,
       final_cid: campaign?.slug || effectiveCid || null,
     }));
     const session = (

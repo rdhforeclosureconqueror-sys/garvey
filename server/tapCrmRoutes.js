@@ -191,6 +191,20 @@ async function saveBusinessConfig(db, tenantId, config) {
   return updated.rows[0] || null;
 }
 
+async function resolvePreferredCampaignForTenant(db, tenantId) {
+  const result = await db.query(
+    `SELECT id, slug, source, medium
+     FROM campaigns
+     WHERE tenant_id = $1
+     ORDER BY
+       CASE WHEN source = 'owner-default' THEN 0 ELSE 1 END ASC,
+       created_at ASC
+     LIMIT 1`,
+    [tenantId]
+  );
+  return result.rows[0] || null;
+}
+
 async function withTenantScope(db, tenantSlug) {
   const tenantRecord = await getTenantRecord(db, tenantSlug);
   if (!tenantRecord) {
@@ -536,6 +550,8 @@ async function resolvePublicTap(db, { tagCode, requestMeta = {} }) {
     },
   });
 
+  const preferredCampaign = await resolvePreferredCampaignForTenant(db, row.tenant_id);
+
   return {
     ok: true,
     status: 200,
@@ -547,6 +563,8 @@ async function resolvePublicTap(db, { tagCode, requestMeta = {} }) {
         tag_code: row.tag_code,
         label: row.label,
         destination_path: row.destination_path || "/tap-crm",
+        campaign_slug: preferredCampaign?.slug || "",
+        campaign_source: preferredCampaign?.source || "",
         attribution,
       },
       business_config: row.business_config || {},
