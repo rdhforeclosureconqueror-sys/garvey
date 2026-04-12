@@ -5410,11 +5410,13 @@ app.post("/api/customer/share-result", async (req, res) => {
 app.get("/api/features/consent", async (req, res) => {
   const email = normalizeEmail(req.query?.email);
   const feature = getConsentFeatureContext(req, email);
+  const requiredForVoc = true;
   return res.json({
     feature: "CONSENT_V1",
     mode: feature.mode,
     enabled: feature.enabled,
     reason: feature.reason,
+    required_for_voc: requiredForVoc,
   });
 });
 
@@ -5438,8 +5440,9 @@ app.post("/api/consent/required", async (req, res) => {
     const sessionId = normalizeSessionId(req.body?.session_id);
     const consentVersion = normalizeConsentVersion(req.body?.consent_version);
     const accepted = req.body?.accepted === true;
+    const requireForVoc = req.body?.require_for_voc === true;
     const feature = getConsentFeatureContext(req, email);
-    if (!feature.enabled) {
+    if (!feature.enabled && !requireForVoc) {
       return res.json({ ok: true, skipped: true, feature_mode: feature.mode, reason: feature.reason });
     }
     if (!tenantSlug || (!email && !sessionId)) {
@@ -5901,7 +5904,7 @@ async function handleVocIntake(req, res) {
       client,
       tenantId: tenantRow.id,
       userId: user.id,
-      enforceConsent: consentFeature.enabled,
+      enforceConsent: true,
     });
 
     const campaign = await resolveCampaignForTenantStrict(tenantRow.id, cid, client);
