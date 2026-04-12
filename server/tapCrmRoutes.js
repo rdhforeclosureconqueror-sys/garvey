@@ -14,6 +14,7 @@ const {
   listAddOns,
   resolveAddOnRuntime,
   resolveServiceCustomFields,
+  TEMPLATE_REGISTRY,
   MODULE_REGISTRY,
   buildBarberPilotBaselineConfig,
 } = require("./tapCrmTemplates");
@@ -28,6 +29,10 @@ const TAP_EVENT_TYPES = new Set([
   "pay_click",
   "tip_click",
   "return_engine_click",
+  "review_click",
+  "rewards_click",
+  "voc_click",
+  "google_review_click",
   "primary_action_click",
   "secondary_action_click",
   "tap_button_click",
@@ -393,6 +398,7 @@ function isNonEmptyObject(value) {
 
 function evaluatePilotReadiness({ config, tags }) {
   const selectedTemplateId = normalizeTemplateId(config.selected_template_id || "");
+  const templateKnown = !!TEMPLATE_REGISTRY[selectedTemplateId || "default"];
   const businessSetupReady = isNonEmptyObject(config.business_setup);
   const primaryActionReady = Array.isArray(config.actions && config.actions.primary) && config.actions.primary.length > 0;
   const activeTagCount = (Array.isArray(tags) ? tags : []).filter((tag) => String(tag.status || "").toLowerCase() === "active").length;
@@ -400,9 +406,9 @@ function evaluatePilotReadiness({ config, tags }) {
   const firstBusinessSetupReady = onboardingState.first_business_setup_complete === true || businessSetupReady;
 
   return {
-    ready: selectedTemplateId === "barber" && businessSetupReady && primaryActionReady && activeTagCount > 0 && firstBusinessSetupReady,
+    ready: templateKnown && businessSetupReady && primaryActionReady && activeTagCount > 0 && firstBusinessSetupReady,
     checklist: {
-      barber_template_selected: selectedTemplateId === "barber",
+      template_selected: templateKnown,
       business_setup_configured: businessSetupReady,
       primary_action_configured: primaryActionReady,
       active_tag_registered: activeTagCount > 0,
@@ -1308,7 +1314,7 @@ function createTapCrmRouter() {
         route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
         tenant: scoped.tenantSlug,
         pilot: {
-          track: "barber",
+          track: "template-baseline",
           readiness,
           onboarding: cloneJson(config.onboarding, {}),
           recommended_next_steps: Object.entries(readiness.checklist)
@@ -1373,7 +1379,7 @@ function createTapCrmRouter() {
         route_namespace: OWNER_CONSOLE_ROUTE_NAMESPACE,
         tenant: scoped.tenantSlug,
         pilot_bootstrap: {
-          template: "barber",
+          template: baseConfig.selected_template_id,
           seeded_tag: seededTag,
           readiness,
         },
