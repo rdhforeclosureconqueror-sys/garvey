@@ -1490,7 +1490,11 @@ function createTapCrmRouter() {
         interval_minutes: Number(bookingConfig.interval_minutes) > 0 ? Number(bookingConfig.interval_minutes) : defaultSlots.interval_minutes,
         working_days: Array.isArray(bookingConfig.working_days) ? bookingConfig.working_days.map((v) => Number(v)).filter((v) => Number.isInteger(v) && v >= 0 && v <= 6) : defaultSlots.working_days,
       };
-      const allSlots = buildSlots(slotConfig.start, slotConfig.end, slotConfig.interval_minutes);
+      const allSlots = buildTimeSlots({
+        start: slotConfig.start,
+        end: slotConfig.end,
+        intervalMinutes: slotConfig.interval_minutes,
+      });
 
       const bookings = await pool.query(
         `SELECT
