@@ -357,6 +357,19 @@
           if (Number.isNaN(d.getTime())) return "—";
           return d.toLocaleString();
         }
+        function normalizeDateKey(value) {
+          if (!value) return "";
+          if (value instanceof Date && !Number.isNaN(value.getTime())) return value.toISOString().slice(0, 10);
+          var raw = String(value);
+          var match = raw.match(/^(\d{4}-\d{2}-\d{2})/);
+          return match ? match[1] : raw.slice(0, 10);
+        }
+        function normalizeTimeKey(value) {
+          if (!value) return "";
+          var raw = String(value);
+          var match = raw.match(/^(\d{2}:\d{2})/);
+          return match ? match[1] : raw;
+        }
         function toCountMap(items) {
           var map = {};
           (items || []).forEach(function (item) { map[item.event_type] = Number(item.count || 0); });
@@ -510,7 +523,7 @@
               : formatStamp(note.created_at);
             var openBtn = payload.booking_id ? ('<button class="subtle" data-note-open="' + escapeHtml(String(payload.booking_id || "")) + '">Open</button>') : "";
             var ackButton = Number.isInteger(Number(note.id)) ? ('<button class="subtle" data-note-ack="' + note.id + '">Acknowledge</button>') : "";
-            return '<li class="notif-item ' + (isNew ? "new" : "") + '"><div><strong>' + escapeHtml(note.title || "Notification") + '</strong><div class="muted">' + metaLine + '</div></div><div class="notif-actions">' + openBtn + (isNew ? '<span class="badge">NEW</span>' : '<span class="muted">seen</span>') + ackButton + '</div></li>';
+            return '<li class="notif-item ' + (isNew ? "new" : "") + '" data-note-id="' + escapeHtml(String(note.id || "")) + '"><div><strong>' + escapeHtml(note.title || "Notification") + '</strong><div class="muted">' + metaLine + '</div></div><div class="notif-actions">' + openBtn + (isNew ? '<span class="badge">NEW</span>' : '<span class="muted">seen</span>') + ackButton + '</div></li>';
           }).join("") : '<li class="muted">No notifications yet.</li>';
           var newCount = notes.filter(function (note) { return note.is_new === true; }).length;
           q("notifCount").textContent = newCount + " new";
@@ -536,10 +549,23 @@
           q("reviewSignal").textContent = pending > 0 ? (pending + " pending") : "No pending";
         }
 
-        function openBookingDetail(bookingId) {
+        async function openBookingDetail(bookingId, fallbackPayload) {
+          var payload = fallbackPayload || {};
           var combined = (state.bookings || []).concat(state.bookingRequests || []);
           var booking = combined.find(function (item) { return String(item.id) === String(bookingId); });
+          if (!booking && payload && payload.booking_id) {
+            booking = {
+              id: payload.booking_id,
+              customer_name: payload.customer_name || "customer",
+              booking_date: normalizeDateKey(payload.booking_date),
+              booking_time: normalizeTimeKey(payload.booking_time || ""),
+              tag_code: payload.tag_code || "",
+              status: payload.status || "requested",
+            };
+          }
           if (!booking) return;
+          booking.booking_date = normalizeDateKey(booking.booking_date);
+          booking.booking_time = normalizeTimeKey(booking.booking_time || "");
           state.openedNotificationBookingId = booking.id;
           q("notificationDetailTitle").textContent = "Booking #" + booking.id + " details";
           q("notificationDetailBody").innerHTML =
@@ -549,6 +575,10 @@
             '<div><b>Tag/Source:</b> ' + escapeHtml(booking.tag_code || "not provided") + '</div>' +
             '<div><b>Status:</b> ' + escapeHtml(booking.status || "confirmed") + '</div>' +
             '<div class="muted" style="margin-top:6px;">Acknowledging this notification marks it as seen and does not remove this booking.</div>';
+          if (booking.booking_date && q("bookingMonth").value !== booking.booking_date.slice(0, 7)) {
+            q("bookingMonth").value = booking.booking_date.slice(0, 7);
+            await loadCalendar();
+          }
           selectDay(booking.booking_date, true);
         }
 
@@ -798,7 +828,10 @@
           var noteOpen = event.target.closest("button[data-note-open]");
           if (noteOpen) {
             var bookingId = noteOpen.getAttribute("data-note-open");
-            if (bookingId) openBookingDetail(bookingId);
+            var noteItem = noteOpen.closest(".notif-item");
+            var noteId = noteItem ? noteItem.getAttribute("data-note-id") : "";
+            var note = (state.notifications || []).find(function (item) { return String(item.id) === String(noteId); });
+            if (bookingId) openBookingDetail(bookingId, note && note.payload ? note.payload : null).catch(function (err) { txt(q("globalStatus"), err.message, false); });
           }
           var bookingAccept = event.target.closest("button[data-booking-accept]");
           if (bookingAccept) {
@@ -808,7 +841,7 @@
           var dayCell = event.target.closest("[data-day]");
           if (dayCell) selectDay(dayCell.getAttribute("data-day"), false);
           var bookingLink = event.target.closest("[data-booking-open]");
-          if (bookingLink) openBookingDetail(bookingLink.getAttribute("data-booking-open"));
+          if (bookingLink) openBookingDetail(bookingLink.getAttribute("data-booking-open"), null).catch(function (err) { txt(q("globalStatus"), err.message, false); });
         });
 
         q("tagsTable").addEventListener("click", function (event) {

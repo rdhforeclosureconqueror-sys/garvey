@@ -288,6 +288,22 @@ function parseTimeOnly(value) {
   return raw;
 }
 
+function formatDateKey(value) {
+  if (value == null) return "";
+  if (value instanceof Date && !Number.isNaN(value.getTime())) {
+    return value.toISOString().slice(0, 10);
+  }
+  const raw = String(value).trim();
+  const match = raw.match(/^(\d{4}-\d{2}-\d{2})/);
+  return match ? match[1] : raw.slice(0, 10);
+}
+
+function formatTimeKey(value) {
+  const raw = String(value || "").trim();
+  const match = raw.match(/^(\d{2}:\d{2})/);
+  return match ? match[1] : raw;
+}
+
 function buildDefaultSlotConfig() {
   return {
     start: "09:00",
@@ -1581,8 +1597,8 @@ function createTapCrmRouter() {
         requests: requests.rows.map((row) => ({
           id: Number(row.id),
           customer_name: row.customer_name || "",
-          booking_date: row.booking_date,
-          booking_time: row.slot_time || "",
+          booking_date: formatDateKey(row.booking_date),
+          booking_time: formatTimeKey(row.slot_time || ""),
           tag_code: row.tag_code || "",
           status: normalizeBookingStatus(row.status, BOOKING_STATUS.REQUESTED),
           created_at: row.created_at || null,
@@ -1625,8 +1641,8 @@ function createTapCrmRouter() {
         payload: {
           booking_id: Number(booking.id),
           customer_name: booking.customer_name || "",
-          booking_date: booking.booking_date,
-          booking_time: booking.slot_time || "",
+          booking_date: formatDateKey(booking.booking_date),
+          booking_time: formatTimeKey(booking.slot_time || ""),
           tag_code: booking.tag_code || "",
           status: BOOKING_STATUS.CONFIRMED,
           event: "booking_request_accepted",
@@ -1639,8 +1655,8 @@ function createTapCrmRouter() {
         booking: {
           id: Number(booking.id),
           customer_name: booking.customer_name || "",
-          booking_date: booking.booking_date,
-          booking_time: booking.slot_time || "",
+          booking_date: formatDateKey(booking.booking_date),
+          booking_time: formatTimeKey(booking.slot_time || ""),
           tag_code: booking.tag_code || "",
           status: BOOKING_STATUS.CONFIRMED,
           created_at: booking.created_at || null,
@@ -1702,13 +1718,13 @@ function createTapCrmRouter() {
 
       const byDate = new Map();
       bookings.rows.forEach((row) => {
-        const date = row.booking_date;
+        const date = formatDateKey(row.booking_date);
         if (!byDate.has(date)) byDate.set(date, []);
         byDate.get(date).push({
           id: Number(row.id),
           customer_name: row.customer_name || "",
-          booking_date: row.booking_date,
-          booking_time: row.slot_time || "",
+          booking_date: date,
+          booking_time: formatTimeKey(row.slot_time || ""),
           tag_code: row.tag_code || "",
           status: normalizeBookingStatus(row.status, BOOKING_STATUS.CONFIRMED),
           created_at: row.created_at || null,
