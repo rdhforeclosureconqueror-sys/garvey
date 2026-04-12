@@ -166,6 +166,30 @@ const TAP_CRM_MIGRATIONS = Object.freeze([
       DROP TABLE IF EXISTS tap_crm_bookings;
     `,
   },
+  {
+    id: "tap_crm_005_tap_activity_events",
+    description: "Expand tap event schema for action analytics and session attribution",
+    up: `
+      ALTER TABLE tap_crm_tap_events
+        ADD COLUMN IF NOT EXISTS event_type TEXT NOT NULL DEFAULT 'tap_resolved';
+      ALTER TABLE tap_crm_tap_events
+        ADD COLUMN IF NOT EXISTS tap_session_id TEXT NOT NULL DEFAULT '';
+      ALTER TABLE tap_crm_tap_events
+        ADD COLUMN IF NOT EXISTS event_timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW();
+
+      UPDATE tap_crm_tap_events
+      SET event_timestamp = COALESCE(event_timestamp, created_at, NOW());
+
+      CREATE INDEX IF NOT EXISTS tap_crm_tap_events_tenant_event_type_idx
+        ON tap_crm_tap_events(tenant_id, event_type, event_timestamp DESC);
+    `,
+    down: `
+      DROP INDEX IF EXISTS tap_crm_tap_events_tenant_event_type_idx;
+      ALTER TABLE tap_crm_tap_events DROP COLUMN IF EXISTS event_timestamp;
+      ALTER TABLE tap_crm_tap_events DROP COLUMN IF EXISTS tap_session_id;
+      ALTER TABLE tap_crm_tap_events DROP COLUMN IF EXISTS event_type;
+    `,
+  },
 ]);
 
 async function ensureTapCrmMigrationTable(pool) {
@@ -236,6 +260,7 @@ async function verifyTapCrmSchema(pool) {
     "tap_crm_tags_tag_code_idx",
     "tap_crm_tap_events_tenant_created_idx",
     "tap_crm_tap_events_tag_created_idx",
+    "tap_crm_tap_events_tenant_event_type_idx",
     "tap_crm_bookings_tenant_date_idx",
     "tap_crm_bookings_tag_date_idx",
   ];
