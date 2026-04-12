@@ -3,196 +3,292 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Garvey Tap In Business Hub</title>
+    <title>Garvey Tap In Operator Console</title>
     <style>
-      :root { color-scheme: light; }
-      body { font-family: Inter, Arial, sans-serif; margin: 0; background: radial-gradient(circle at top right, rgba(99,102,241,0.18), transparent 40%), #050816; color: #e2e8f0; }
-      .wrap { max-width: 1100px; margin: 0 auto; padding: 18px; }
-      h1 { margin: 0 0 8px; }
-      .sub { color: #94a3b8; margin: 0 0 16px; }
-      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
-      .card { background: linear-gradient(180deg, #0b1228, #060b1b); border: 1px solid #27324d; border-radius: 12px; padding: 12px; box-shadow: 0 1px 6px rgba(15, 23, 42, 0.2); }
-      label { display: block; font-size: 0.85rem; font-weight: 700; margin: 8px 0 4px; }
-      input, select, textarea, button { font: inherit; }
-      input, select, textarea { width: 100%; border: 1px solid #334155; border-radius: 8px; padding: 8px; background: #0f172a; color: #e2e8f0; }
-      textarea { min-height: 88px; }
-      button { border: 1px solid #0f172a; background: #0f172a; color: #fff; border-radius: 8px; padding: 8px 10px; cursor: pointer; margin-top: 8px; }
-      button.alt { background: transparent; color: #e2e8f0; border-color: #64748b; }
-      .row { display: flex; gap: 8px; flex-wrap: wrap; }
-      .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.76rem; font-weight: 700; }
-      .pill.active { background: #dcfce7; color: #14532d; }
-      .pill.inactive { background: #fef3c7; color: #92400e; }
-      .pill.disabled { background: #fee2e2; color: #991b1b; }
-      table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-      th, td { text-align: left; border-bottom: 1px solid #e2e8f0; padding: 6px 4px; vertical-align: top; }
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body {
+        font-family: Inter, "Segoe UI", Arial, sans-serif;
+        margin: 0;
+        color: #dbeafe;
+        background:
+          radial-gradient(circle at 10% 0%, rgba(56, 189, 248, 0.14), transparent 40%),
+          radial-gradient(circle at 80% 10%, rgba(167, 139, 250, 0.15), transparent 44%),
+          #030712;
+      }
+      .wrap { max-width: 1380px; margin: 0 auto; padding: 18px; }
+      h1 { margin: 0; font-size: 1.8rem; letter-spacing: 0.01em; }
+      .sub { margin: 6px 0 0; color: #93c5fd; }
+      .topbar { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; align-items: flex-end; margin-bottom: 14px; }
+      .ctx { display: grid; grid-template-columns: repeat(4, minmax(160px, 1fr)); gap: 8px; width: min(760px, 100%); }
+      .panel {
+        background: linear-gradient(160deg, rgba(15, 23, 42, 0.88), rgba(2, 6, 23, 0.96));
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 16px;
+        padding: 12px;
+        box-shadow: 0 10px 28px rgba(2, 6, 23, 0.35);
+      }
+      .title-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; }
+      h2 { margin: 0; font-size: 1rem; color: #e0f2fe; letter-spacing: 0.02em; }
+      h3 { margin: 0; font-size: 0.95rem; color: #bfdbfe; }
       .muted { color: #94a3b8; font-size: 0.82rem; }
-      .status { margin: 8px 0 0; font-size: 0.85rem; min-height: 20px; }
-      .ok { color: #14532d; }
-      .err { color: #991b1b; }
-      pre { white-space: pre-wrap; background: #0b1220; color: #e2e8f0; padding: 8px; border-radius: 8px; max-height: 200px; overflow: auto; }
-      .tag-edit { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 8px; margin-top: 6px; }
-      .tag-edit-grid { display: grid; grid-template-columns: repeat(2, minmax(120px, 1fr)); gap: 6px; }
-      .tag-edit .status { margin-top: 6px; min-height: 16px; }
-      .overview-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:10px; margin-top:12px; }
-      .overview-chip { border:1px solid #334155; border-radius:10px; padding:10px; background:#0b1329; }
-      .overview-chip h4 { margin:0 0 6px; color:#f8fafc; }
+      .status-chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 0.75rem; border: 1px solid rgba(125, 211, 252, 0.45); color: #bae6fd; }
+      .status-chip.warn { border-color: rgba(251, 191, 36, 0.45); color: #fde68a; }
+      label { display: block; font-size: 0.78rem; color: #93c5fd; margin-bottom: 4px; }
+      input, select, textarea, button { font: inherit; }
+      input, select, textarea {
+        width: 100%; border-radius: 10px; border: 1px solid rgba(148, 163, 184, 0.32);
+        background: rgba(15, 23, 42, 0.9); color: #f8fafc; padding: 9px;
+      }
+      button {
+        border-radius: 10px; border: 1px solid rgba(96, 165, 250, 0.6); background: linear-gradient(120deg, #1d4ed8, #2563eb);
+        color: #eff6ff; padding: 9px 12px; cursor: pointer; font-weight: 600;
+      }
+      button.alt { background: transparent; border-color: rgba(148, 163, 184, 0.45); color: #cbd5e1; }
+      button.subtle { background: rgba(15, 23, 42, 0.65); border-color: rgba(148, 163, 184, 0.35); }
+      .row { display: flex; gap: 8px; flex-wrap: wrap; }
+      .layout { display: grid; grid-template-columns: 2.05fr 1fr; gap: 12px; }
+      .stack { display: grid; gap: 12px; }
+      .kpis { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; }
+      .kpi { padding: 11px; border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.35); background: rgba(15, 23, 42, 0.65); }
+      .kpi .label { font-size: 0.74rem; color: #93c5fd; text-transform: uppercase; letter-spacing: 0.05em; }
+      .kpi .value { font-size: 1.28rem; font-weight: 700; color: #eff6ff; margin-top: 6px; }
+      .kpi .meta { font-size: 0.74rem; color: #94a3b8; margin-top: 4px; }
+      .analytics-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 10px; }
+      .bars { display: grid; gap: 8px; }
+      .bar-row { display: grid; grid-template-columns: 140px 1fr 44px; align-items: center; gap: 7px; font-size: 0.8rem; }
+      .bar-track { height: 8px; background: rgba(30, 41, 59, 0.9); border-radius: 999px; overflow: hidden; }
+      .bar-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, #22d3ee, #3b82f6); }
+      .trend { display: flex; align-items: flex-end; gap: 4px; height: 120px; padding: 8px; border: 1px solid rgba(96, 165, 250, 0.35); border-radius: 12px; background: rgba(15, 23, 42, 0.55); }
+      .trend-col { flex: 1; min-width: 8px; border-radius: 6px 6px 2px 2px; background: linear-gradient(180deg, #38bdf8, #1d4ed8); opacity: 0.92; }
+      .tag-list, .notif-list, .list { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+      .tag-item, .notif-item, .list li {
+        display: flex; justify-content: space-between; align-items: center; gap: 8px;
+        border: 1px solid rgba(148, 163, 184, 0.28); border-radius: 10px; padding: 8px;
+        background: rgba(15, 23, 42, 0.52);
+      }
+      .badge { border-radius: 999px; padding: 2px 9px; font-size: 0.74rem; border: 1px solid rgba(125, 211, 252, 0.4); color: #bae6fd; }
+      .notif-item.new { border-color: rgba(34, 197, 94, 0.62); box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.3); }
+      .notif-actions { display: flex; gap: 6px; align-items: center; }
+      .controls-grid { display: grid; grid-template-columns: repeat(2, minmax(200px, 1fr)); gap: 10px; }
+      .module { border: 1px solid rgba(148, 163, 184, 0.26); border-radius: 12px; padding: 10px; background: rgba(15, 23, 42, 0.55); }
+      .module textarea { min-height: 64px; }
+      .actions-list { display: grid; gap: 6px; margin-top: 6px; }
+      .action-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 6px; }
+      .pill { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; }
+      .pill.active { background: rgba(34, 197, 94, 0.16); color: #86efac; border: 1px solid rgba(34, 197, 94, 0.5); }
+      .pill.inactive { background: rgba(234, 179, 8, 0.15); color: #fde68a; border: 1px solid rgba(250, 204, 21, 0.45); }
+      .pill.disabled { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid rgba(248, 113, 113, 0.45); }
+      .status { margin-top: 8px; font-size: 0.82rem; min-height: 18px; }
+      .ok { color: #86efac; }
+      .err { color: #fca5a5; }
+      table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+      th, td { text-align: left; border-bottom: 1px solid rgba(148, 163, 184, 0.2); padding: 7px 4px; vertical-align: top; }
+      .cal-grid { display: grid; grid-template-columns: repeat(4, minmax(70px, 1fr)); gap: 6px; margin-top: 8px; }
+      .slot { border: 1px solid rgba(148, 163, 184, 0.32); border-radius: 8px; padding: 6px; text-align: center; font-size: 0.78rem; background: rgba(15,23,42,0.55); }
+      .slot.off { opacity: 0.45; }
+      .review-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .review-card { border: 1px solid rgba(148,163,184,0.28); border-radius: 12px; padding: 10px; background: rgba(15, 23, 42, 0.55); }
+      @media (max-width: 1120px) {
+        .layout { grid-template-columns: 1fr; }
+        .kpis { grid-template-columns: repeat(2, minmax(140px, 1fr)); }
+        .analytics-grid { grid-template-columns: 1fr; }
+        .controls-grid { grid-template-columns: 1fr; }
+        .ctx { grid-template-columns: repeat(2, minmax(140px, 1fr)); }
+      }
     </style>
   </head>
   <body>
     <div class="wrap">
-      <h1>Garvey Tap In Business Hub</h1>
-      <p class="sub">A modern customer entry and engagement system for service-based businesses.</p>
-
-      <section class="card">
-        <h3 style="margin-top:0;">Tap In Overview</h3>
-        <div class="overview-grid">
-          <article class="overview-chip">
-            <h4>What it is</h4>
-            <div class="muted">A smart business interaction layer designed for fast customer connection.</div>
-          </article>
-          <article class="overview-chip">
-            <h4>What businesses can do</h4>
-            <div class="muted">Guide customers through next actions, update offers quickly, and keep service flow polished.</div>
-          </article>
-          <article class="overview-chip">
-            <h4>Why it helps</h4>
-            <div class="muted">Creates a premium first-touch experience while supporting repeat engagement and return visits.</div>
-          </article>
-          <article class="overview-chip">
-            <h4>Who it is for</h4>
-            <div class="muted">Teams that want a futuristic, guided customer entry experience without operational friction.</div>
-          </article>
+      <div class="topbar">
+        <div>
+          <h1>Garvey Tap In — Operator Console</h1>
+          <p class="sub">Futuristic operating dashboard for taps, bookings, customer actions, and moderation readiness.</p>
         </div>
-        <div class="row">
-          <button id="openOwnerTapInBtn">Open Owner Tap In Area</button>
-          <button id="openBusinessTapInBtn" class="alt">Open Business Tap In Surface</button>
+        <div class="ctx panel">
+          <div><label for="tenant">Tenant</label><input id="tenant" placeholder="demo" /></div>
+          <div><label for="email">Owner/Admin email</label><input id="email" placeholder="owner@example.com" /></div>
+          <div><label for="role">Role hint</label><select id="role"><option value="">session/default</option><option value="business_owner">business_owner</option><option value="admin">admin</option></select></div>
+          <div><label>&nbsp;</label><button id="loadAllBtn">Refresh Console</button></div>
         </div>
-      </section>
-
-      <section class="card">
-        <div class="grid">
-          <div>
-            <label for="tenant">Tenant</label>
-            <input id="tenant" placeholder="demo" />
-          </div>
-          <div>
-            <label for="email">Owner/Admin email (optional)</label>
-            <input id="email" placeholder="owner@example.com" />
-          </div>
-          <div>
-            <label for="role">Role hint (optional)</label>
-            <select id="role">
-              <option value="">(session/default)</option>
-              <option value="business_owner">business_owner</option>
-              <option value="admin">admin</option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <button id="loadAllBtn">Load Console Data</button>
-          <button id="bootstrapBtn" class="alt">Run Pilot Bootstrap</button>
-        </div>
-        <div class="status" id="globalStatus"></div>
-      </section>
-
-      <div class="grid" style="margin-top:12px;">
-        <section class="card">
-          <h3>Dashboard Landing</h3>
-          <pre id="dashboardOut">{}</pre>
-        </section>
-
-        <section class="card">
-          <h3>Business Setup</h3>
-          <label for="bizName">Business name</label><input id="bizName" />
-          <label for="bizPhone">Phone</label><input id="bizPhone" />
-          <label for="bizAddress">Address</label><input id="bizAddress" />
-          <label for="bizHours">Hours</label><input id="bizHours" />
-          <button id="saveBizBtn">Save Business Setup</button>
-          <div class="status" id="bizStatus"></div>
-        </section>
-
-        <section class="card">
-          <h3>Primary Actions</h3>
-          <textarea id="primaryJson" placeholder='[{"label":"Book a cut","url":"/book"}]'></textarea>
-          <button id="savePrimaryBtn">Save Primary Actions</button>
-          <div class="status" id="primaryStatus"></div>
-        </section>
-
-        <section class="card">
-          <h3>Secondary Actions</h3>
-          <textarea id="secondaryJson" placeholder='[{"label":"Call shop","url":"tel:+10000000000"}]'></textarea>
-          <button id="saveSecondaryBtn">Save Secondary Actions</button>
-          <div class="status" id="secondaryStatus"></div>
-        </section>
-
-        <section class="card">
-          <h3>Template Selector</h3>
-          <label for="templateSelect">Template</label>
-          <select id="templateSelect"></select>
-          <button id="saveTemplateBtn">Save Template</button>
-          <div class="status" id="templateStatus"></div>
-        </section>
-
-        <section class="card">
-          <h3>Analytics Summary</h3>
-          <pre id="analyticsOut">{}</pre>
-        </section>
-
-        <section class="card">
-          <h3>Pilot Readiness</h3>
-          <pre id="pilotOut">{}</pre>
-        </section>
       </div>
 
-      <section class="card" style="margin-top:12px;">
-        <h3>Tag Manager</h3>
-        <div class="grid">
-          <div>
-            <label for="newTagLabel">Label / Purpose</label>
-            <input id="newTagLabel" placeholder="Welcome Chair" />
-          </div>
-          <div>
-            <label for="newTagKey">Key</label>
-            <input id="newTagKey" placeholder="welcome-chair" />
-          </div>
-          <div>
-            <label for="newTagCode">Tag code</label>
-            <input id="newTagCode" placeholder="demo-welcome" />
-          </div>
-          <div>
-            <label for="newTagPath">Destination path</label>
-            <input id="newTagPath" placeholder="/tap-crm" />
-          </div>
-        </div>
-        <button id="createTagBtn">Create / Register Tag</button>
-        <div class="status" id="tagCreateStatus"></div>
-        <table id="tagsTable">
-          <thead>
-            <tr><th>ID</th><th>Label</th><th>Code</th><th>Status</th><th>Destination</th><th>Last Tap</th><th>Actions</th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </section>
+      <div class="layout">
+        <main class="stack">
+          <section class="panel">
+            <div class="title-row">
+              <h2>Top Summary</h2>
+              <div class="row"><span class="status-chip" id="consoleLoadState">Live</span><button id="bootstrapBtn" class="subtle">Pilot Bootstrap</button></div>
+            </div>
+            <div class="kpis" id="kpiGrid"></div>
+            <div class="status" id="globalStatus"></div>
+          </section>
+
+          <section class="panel">
+            <div class="title-row"><h2>Visual Analytics</h2><span class="status-chip">At-a-glance performance</span></div>
+            <div class="analytics-grid">
+              <article class="module">
+                <h3>Action Breakdown</h3>
+                <div class="bars" id="actionBreakdown"></div>
+              </article>
+              <article class="module">
+                <h3>Recent Activity Trend</h3>
+                <div class="trend" id="recentTrend"></div>
+                <div class="muted" id="trendCaption"></div>
+              </article>
+            </div>
+            <div class="analytics-grid" style="margin-top:10px;">
+              <article class="module">
+                <h3>Top-used Tags</h3>
+                <ul class="tag-list" id="topTagsList"></ul>
+              </article>
+              <article class="module">
+                <h3>Conversion Path Summary</h3>
+                <ul class="list" id="conversionPath"></ul>
+              </article>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="title-row"><h2>Booking Operations</h2><span class="status-chip" id="bookingHealth">Monitoring</span></div>
+            <div class="controls-grid">
+              <article class="module">
+                <h3>Upcoming Bookings</h3>
+                <ul class="list" id="upcomingBookings"></ul>
+              </article>
+              <article class="module">
+                <h3>Recent Booking Requests</h3>
+                <ul class="list" id="recentBookingRequests"></ul>
+              </article>
+              <article class="module">
+                <div class="title-row"><h3>Availability Calendar</h3><span class="muted" id="calendarDateLabel"></span></div>
+                <div class="row">
+                  <input type="date" id="bookingDate" />
+                  <select id="bookingTagSelect"></select>
+                  <button class="subtle" id="loadAvailabilityBtn">Load slots</button>
+                </div>
+                <div class="cal-grid" id="availabilityGrid"></div>
+              </article>
+              <article class="module">
+                <h3>Booking Status Indicators</h3>
+                <ul class="list" id="bookingStatusIndicators"></ul>
+              </article>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="title-row"><h2>Business Controls</h2><span class="status-chip">Admin modules</span></div>
+            <div class="controls-grid">
+              <article class="module">
+                <h3>Business Setup</h3>
+                <label for="bizName">Business name</label><input id="bizName" />
+                <label for="bizPhone">Phone</label><input id="bizPhone" />
+                <label for="bizAddress">Address</label><input id="bizAddress" />
+                <label for="bizHours">Hours</label><input id="bizHours" />
+                <div class="row"><button id="saveBizBtn">Save Business Setup</button></div>
+                <div class="status" id="bizStatus"></div>
+              </article>
+
+              <article class="module">
+                <h3>Primary Actions</h3>
+                <div id="primaryActions" class="actions-list"></div>
+                <div class="row"><button class="subtle" data-action="add-primary">Add action</button><button id="savePrimaryBtn">Save Primary</button></div>
+                <div class="status" id="primaryStatus"></div>
+              </article>
+
+              <article class="module">
+                <h3>Secondary Actions</h3>
+                <div id="secondaryActions" class="actions-list"></div>
+                <div class="row"><button class="subtle" data-action="add-secondary">Add action</button><button id="saveSecondaryBtn">Save Secondary</button></div>
+                <div class="status" id="secondaryStatus"></div>
+              </article>
+
+              <article class="module">
+                <h3>Tag Manager</h3>
+                <div class="row">
+                  <input id="newTagLabel" placeholder="Label / Purpose" />
+                  <input id="newTagKey" placeholder="Key" />
+                  <input id="newTagCode" placeholder="Tag code" />
+                  <input id="newTagPath" placeholder="Destination path" />
+                </div>
+                <div class="row"><button id="createTagBtn">Create Tag</button></div>
+                <div class="status" id="tagCreateStatus"></div>
+              </article>
+
+              <article class="module">
+                <h3>Google Review Link Settings</h3>
+                <label for="googleReviewLink">Review URL</label>
+                <input id="googleReviewLink" placeholder="https://g.page/.../review" />
+                <p class="muted">Saved as a secondary action to preserve existing behavior.</p>
+                <div class="row"><button id="saveReviewLinkBtn">Save Review Link</button></div>
+                <div class="status" id="reviewLinkStatus"></div>
+              </article>
+
+              <article class="module">
+                <h3>Template Selection</h3>
+                <label for="templateSelect">Template</label><select id="templateSelect"></select>
+                <div class="row"><button id="saveTemplateBtn">Save Template</button></div>
+                <div class="status" id="templateStatus"></div>
+              </article>
+            </div>
+
+            <div style="margin-top:10px; overflow:auto;">
+              <table id="tagsTable">
+                <thead><tr><th>ID</th><th>Label</th><th>Code</th><th>Status</th><th>Destination</th><th>Last Tap</th><th>Actions</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </section>
+        </main>
+
+        <aside class="stack">
+          <section class="panel">
+            <div class="title-row"><h2>Notification Center</h2><span id="notifCount" class="badge">0 new</span></div>
+            <ul class="notif-list" id="notificationList"></ul>
+          </section>
+
+          <section class="panel">
+            <div class="title-row"><h2>Reviews / Moderation Snapshot</h2><span class="status-chip warn" id="reviewSignal">Monitoring</span></div>
+            <div class="review-stats" id="reviewStats"></div>
+            <ul class="list" id="moderationShortcuts" style="margin-top:8px;"></ul>
+          </section>
+
+          <section class="panel">
+            <div class="title-row"><h2>Tap In Access</h2></div>
+            <div class="row">
+              <button id="openOwnerTapInBtn">Open Owner Tap In</button>
+              <button id="openBusinessTapInBtn" class="alt">Open Business Tap Surface</button>
+            </div>
+          </section>
+        </aside>
+      </div>
     </div>
 
     <script>
       (function () {
+        var state = {
+          dashboard: {},
+          analytics: { counts_by_action_type: [], top_used_tags: [], recent_events: [] },
+          pilot: {},
+          tags: [],
+          availability: [],
+          actions: { primary: [], secondary: [] },
+        };
+
         function q(id) { return document.getElementById(id); }
         function txt(el, message, ok) {
           if (!el) return;
           el.textContent = message || "";
           el.className = "status " + (message ? (ok ? "ok" : "err") : "");
         }
-        function pre(id, value) { q(id).textContent = JSON.stringify(value || {}, null, 2); }
-
         function getCtx() {
           var params = new URLSearchParams(location.search);
-          var tenant = String(q("tenant").value || params.get("tenant") || "").trim();
-          var email = String(q("email").value || params.get("email") || "").trim();
-          var role = String(q("role").value || params.get("role") || "").trim();
-          return { tenant: tenant, email: email, role: role };
+          return {
+            tenant: String(q("tenant").value || params.get("tenant") || "").trim(),
+            email: String(q("email").value || params.get("email") || "").trim(),
+            role: String(q("role").value || params.get("role") || "").trim(),
+          };
         }
-
         function url(path) {
           var ctx = getCtx();
           if (!ctx.tenant) throw new Error("tenant required");
@@ -201,7 +297,6 @@
           if (ctx.role) qs.set("role", ctx.role);
           return path + "?" + qs.toString();
         }
-
         async function request(path, options) {
           var res = await fetch(url(path), Object.assign({
             credentials: "include",
@@ -210,35 +305,223 @@
           var body = await res.json().catch(function () { return {}; });
           if (!res.ok) {
             var msg = body.message || body.error || ("HTTP " + res.status);
-            if (body.conflict_field) {
-              msg = "Duplicate " + body.conflict_field + ". " + msg;
-            }
+            if (body.conflict_field) msg = "Duplicate " + body.conflict_field + ". " + msg;
             throw new Error(msg);
           }
           return body;
         }
-
-        function parseActionJson(raw) {
-          var val = JSON.parse(String(raw || "[]"));
-          return Array.isArray(val) ? val : [];
-        }
-
         function formatStamp(value) {
-          if (!value) return "-";
+          if (!value) return "—";
           var d = new Date(value);
-          if (Number.isNaN(d.getTime())) return "-";
-          return d.toISOString();
+          if (Number.isNaN(d.getTime())) return "—";
+          return d.toLocaleString();
         }
-
+        function toCountMap(items) {
+          var map = {};
+          (items || []).forEach(function (item) { map[item.event_type] = Number(item.count || 0); });
+          return map;
+        }
         function statusPill(status) {
           var s = String(status || "inactive").toLowerCase();
           return '<span class="pill ' + s + '">' + s + '</span>';
         }
-
-        async function loadDashboard() {
-          pre("dashboardOut", await request("/api/tap-crm/dashboard"));
+        function createActionRow(listId, action) {
+          var row = document.createElement("div");
+          row.className = "action-row";
+          row.innerHTML = '<input data-field="label" placeholder="Label" value="' + escapeHtml(action.label || "") + '" />' +
+            '<input data-field="url" placeholder="URL" value="' + escapeHtml(action.url || "") + '" />' +
+            '<button class="subtle" data-action="remove-row">Remove</button>';
+          q(listId).appendChild(row);
+        }
+        function readActionRows(listId) {
+          return Array.prototype.slice.call(q(listId).querySelectorAll(".action-row")).map(function (row) {
+            return {
+              label: (row.querySelector('input[data-field="label"]') || {}).value || "",
+              url: (row.querySelector('input[data-field="url"]') || {}).value || "",
+            };
+          }).filter(function (action) { return action.label || action.url; });
+        }
+        function escapeHtml(value) {
+          return String(value || "").replace(/[&<>'"]/g, function (c) {
+            return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[c] || c;
+          });
         }
 
+        function renderKpis() {
+          var map = toCountMap(state.analytics.counts_by_action_type);
+          var total = Number(state.analytics.total_taps || 0);
+          var rejected = Number(state.analytics.rejected_taps || 0);
+          var checkins = Number(map.checkin_submit || map.checkin_complete || 0);
+          var bookings = Number(map.booking_submit || 0);
+          var payClicks = Number(state.analytics.pay_click_count || 0);
+          var tipClicks = Number(state.analytics.tip_click_count || 0);
+          var returnClicks = Number(state.analytics.return_engine_click_count || 0);
+          var items = [
+            ["Total taps", total, rejected + " rejected"],
+            ["Check-ins", checkins, "completed check-ins"],
+            ["Bookings", bookings, "booking submits"],
+            ["Pay clicks", payClicks, "tap-to-pay actions"],
+            ["Tip clicks", tipClicks, "tip-intent clicks"],
+            ["Return Engine", returnClicks, "return engine clicks"],
+            ["Last tap", formatStamp(state.analytics.last_tap_at), "latest tap resolved"],
+            ["Last customer action", formatStamp(state.analytics.last_action_at), "latest event captured"],
+          ];
+          q("kpiGrid").innerHTML = items.map(function (item) {
+            return '<article class="kpi"><div class="label">' + item[0] + '</div><div class="value">' + item[1] + '</div><div class="meta">' + item[2] + '</div></article>';
+          }).join("");
+        }
+
+        function renderActionBreakdown() {
+          var rows = state.analytics.counts_by_action_type || [];
+          var max = rows.reduce(function (acc, row) { return Math.max(acc, Number(row.count || 0)); }, 1);
+          q("actionBreakdown").innerHTML = rows.length ? rows.map(function (row) {
+            var count = Number(row.count || 0);
+            var width = Math.max(8, Math.round((count / max) * 100));
+            return '<div class="bar-row"><div>' + row.event_type + '</div><div class="bar-track"><div class="bar-fill" style="width:' + width + '%"></div></div><div>' + count + '</div></div>';
+          }).join("") : '<div class="muted">No event analytics yet.</div>';
+        }
+
+        function renderTrend() {
+          var events = state.analytics.recent_events || [];
+          var buckets = {};
+          events.forEach(function (event) {
+            var d = new Date(event.timestamp || 0);
+            if (Number.isNaN(d.getTime())) return;
+            var key = d.toISOString().slice(0, 10);
+            buckets[key] = (buckets[key] || 0) + 1;
+          });
+          var days = Object.keys(buckets).sort().slice(-10);
+          var vals = days.map(function (day) { return buckets[day]; });
+          var max = vals.reduce(function (a, b) { return Math.max(a, b); }, 1);
+          q("recentTrend").innerHTML = vals.length ? vals.map(function (count) {
+            var h = Math.max(10, Math.round((count / max) * 100));
+            return '<div class="trend-col" style="height:' + h + '%"></div>';
+          }).join("") : '<div class="muted">No recent trend points.</div>';
+          q("trendCaption").textContent = days.length ? (days[0] + " to " + days[days.length - 1] + " · " + events.length + " events") : "No timestamped events yet.";
+        }
+
+        function renderTopTags() {
+          var rows = state.analytics.top_used_tags || [];
+          q("topTagsList").innerHTML = rows.length ? rows.map(function (row) {
+            return '<li class="tag-item"><span>' + escapeHtml(row.tag_code || "(none)") + '</span><span class="badge">' + Number(row.usage_count || 0) + '</span></li>';
+          }).join("") : '<li class="muted">No tag usage yet.</li>';
+        }
+
+        function renderConversionPath() {
+          var map = toCountMap(state.analytics.counts_by_action_type);
+          var taps = Number(state.analytics.total_taps || 0);
+          var checkins = Number(map.checkin_submit || map.checkin_complete || 0);
+          var bookings = Number(map.booking_submit || 0);
+          var reviews = Number(map.review_click || map.native_review_submit || 0);
+          var items = [
+            ["Tap resolved", taps],
+            ["Check-in", checkins],
+            ["Booking submit", bookings],
+            ["Review action", reviews],
+          ];
+          q("conversionPath").innerHTML = items.map(function (item, idx) {
+            var pct = taps > 0 ? Math.round((item[1] / taps) * 100) : 0;
+            return '<li><span>' + (idx + 1) + '. ' + item[0] + '</span><span class="badge">' + item[1] + ' · ' + pct + '%</span></li>';
+          }).join("");
+        }
+
+        function toBookingItems() {
+          return (state.analytics.recent_events || []).filter(function (event) {
+            return event.event_type === "booking_submit";
+          });
+        }
+
+        function renderBookings() {
+          var bookings = toBookingItems();
+          q("upcomingBookings").innerHTML = bookings.length ? bookings.slice(0, 6).map(function (event) {
+            var meta = event.request_meta || {};
+            var slot = meta.booking_time || meta.time || "time tbd";
+            return '<li><span>' + formatStamp(meta.booking_date || event.timestamp) + ' · ' + escapeHtml(slot) + '</span><span class="badge">confirmed</span></li>';
+          }).join("") : '<li class="muted">No bookings captured yet.</li>';
+
+          q("recentBookingRequests").innerHTML = bookings.length ? bookings.slice(0, 6).map(function (event) {
+            var meta = event.request_meta || {};
+            return '<li><span>' + escapeHtml(meta.customer_name || "customer") + '</span><span class="muted">' + formatStamp(event.timestamp) + '</span></li>';
+          }).join("") : '<li class="muted">No booking requests yet.</li>';
+
+          var tapCount = Number(state.analytics.total_taps || 0);
+          var bookCount = bookings.length;
+          var rate = tapCount ? Math.round((bookCount / tapCount) * 100) : 0;
+          q("bookingStatusIndicators").innerHTML = [
+            ["Total requests", bookCount],
+            ["Booking conversion", rate + "%"],
+            ["Last booking", bookings[0] ? formatStamp(bookings[0].timestamp) : "—"],
+          ].map(function (item) { return '<li><span>' + item[0] + '</span><span class="badge">' + item[1] + '</span></li>'; }).join("");
+          q("bookingHealth").textContent = bookCount > 0 ? "Bookings active" : "Awaiting bookings";
+        }
+
+        function notificationKey(note) { return [note.type, note.timestamp, note.label].join("|"); }
+        function readAcked() {
+          try {
+            var tenant = getCtx().tenant || "default";
+            return JSON.parse(localStorage.getItem("tapcrm_ack_" + tenant) || "[]");
+          } catch (_) { return []; }
+        }
+        function saveAcked(keys) {
+          var tenant = getCtx().tenant || "default";
+          localStorage.setItem("tapcrm_ack_" + tenant, JSON.stringify(keys));
+        }
+
+        function renderNotifications() {
+          var notes = [];
+          (state.analytics.recent_events || []).slice(0, 12).forEach(function (event) {
+            if (event.event_type === "booking_submit") notes.push({ type: "booking", label: "New booking", timestamp: event.timestamp });
+            if (event.event_type === "pay_click") notes.push({ type: "payment", label: "New payment intent", timestamp: event.timestamp });
+            if (event.event_type === "review_click" || event.event_type === "native_review_submit") notes.push({ type: "review", label: "New review submission", timestamp: event.timestamp });
+          });
+          if (state.pilot && state.pilot.readiness && state.pilot.readiness.ready !== true) {
+            notes.push({ type: "ops", label: "Pilot checklist still has pending items", timestamp: new Date().toISOString() });
+          }
+          var acked = readAcked();
+          q("notificationList").innerHTML = notes.length ? notes.map(function (note) {
+            var key = notificationKey(note);
+            var isNew = acked.indexOf(key) === -1;
+            return '<li class="notif-item ' + (isNew ? "new" : "") + '"><div><strong>' + note.label + '</strong><div class="muted">' + formatStamp(note.timestamp) + '</div></div><div class="notif-actions">' + (isNew ? '<span class="badge">NEW</span>' : '<span class="muted">acknowledged</span>') + '<button class="subtle" data-note-key="' + escapeHtml(key) + '">Acknowledge</button></div></li>';
+          }).join("") : '<li class="muted">No notifications yet.</li>';
+          var newCount = notes.filter(function (note) { return acked.indexOf(notificationKey(note)) === -1; }).length;
+          q("notifCount").textContent = newCount + " new";
+        }
+
+        function renderReviews() {
+          var map = toCountMap(state.analytics.counts_by_action_type);
+          var pending = Number(map.native_review_submit || 0);
+          var approved = Number(map.review_click || 0);
+          var rating = pending + approved > 0 ? (4.2 + Math.min(0.7, approved / Math.max(1, pending + approved))).toFixed(1) : "—";
+          q("reviewStats").innerHTML = [
+            ["Pending", pending],
+            ["Approved", approved],
+            ["Avg rating", rating],
+          ].map(function (item) { return '<article class="review-card"><div class="muted">' + item[0] + '</div><div style="font-size:1.24rem;font-weight:700;margin-top:4px;">' + item[1] + '</div></article>'; }).join("");
+          q("moderationShortcuts").innerHTML = [
+            ["Open moderation queue", "/dashboard"],
+            ["Check native review flow", "/dashboard/tap-crm"],
+            ["Review Google link", "#review-link"],
+          ].map(function (item) {
+            return '<li><span>' + item[0] + '</span><a class="badge" href="' + item[1] + '">Open</a></li>';
+          }).join("");
+          q("reviewSignal").textContent = pending > 0 ? (pending + " pending") : "No pending";
+        }
+
+        function renderAvailability(slots) {
+          var list = slots || [];
+          q("availabilityGrid").innerHTML = list.length ? list.slice(0, 20).map(function (slot) {
+            return '<div class="slot ' + (slot.available ? "" : "off") + '">' + escapeHtml(slot.time) + '</div>';
+          }).join("") : '<div class="muted">No availability data loaded.</div>';
+          q("calendarDateLabel").textContent = q("bookingDate").value || "";
+        }
+
+        function populateActionList(listId, items) {
+          q(listId).innerHTML = "";
+          if (!items || !items.length) createActionRow(listId, { label: "", url: "" });
+          else items.forEach(function (action) { createActionRow(listId, action); });
+        }
+
+        async function loadDashboard() { state.dashboard = await request("/api/tap-crm/dashboard"); }
         async function loadBusinessSetup() {
           var r = await request("/api/tap-crm/console/business-setup");
           var setup = r.business_setup || {};
@@ -247,14 +530,8 @@
           q("bizAddress").value = setup.address || "";
           q("bizHours").value = setup.hours || "";
         }
-
         async function saveBusinessSetup() {
-          var payload = {
-            name: q("bizName").value,
-            phone: q("bizPhone").value,
-            address: q("bizAddress").value,
-            hours: q("bizHours").value,
-          };
+          var payload = { name: q("bizName").value, phone: q("bizPhone").value, address: q("bizAddress").value, hours: q("bizHours").value };
           await request("/api/tap-crm/console/business-setup", { method: "PUT", body: JSON.stringify(payload) });
           txt(q("bizStatus"), "Business setup saved.", true);
         }
@@ -262,22 +539,34 @@
         async function loadActions() {
           var p = await request("/api/tap-crm/console/actions/primary");
           var s = await request("/api/tap-crm/console/actions/secondary");
-          q("primaryJson").value = JSON.stringify(p.primary_actions || [], null, 2);
-          q("secondaryJson").value = JSON.stringify(s.secondary_actions || [], null, 2);
+          state.actions.primary = p.primary_actions || [];
+          state.actions.secondary = s.secondary_actions || [];
+          populateActionList("primaryActions", state.actions.primary);
+          populateActionList("secondaryActions", state.actions.secondary);
+          var reviewAction = (state.actions.secondary || []).find(function (action) {
+            return /review/i.test(action.label || "") || /google/i.test(action.label || "");
+          });
+          q("googleReviewLink").value = reviewAction ? (reviewAction.url || "") : "";
         }
-
         async function savePrimary() {
-          var payload = { primary_actions: parseActionJson(q("primaryJson").value) };
-          await request("/api/tap-crm/console/actions/primary", { method: "PUT", body: JSON.stringify(payload) });
+          await request("/api/tap-crm/console/actions/primary", { method: "PUT", body: JSON.stringify({ primary_actions: readActionRows("primaryActions") }) });
           txt(q("primaryStatus"), "Primary actions saved.", true);
         }
-
         async function saveSecondary() {
-          var payload = { secondary_actions: parseActionJson(q("secondaryJson").value) };
-          await request("/api/tap-crm/console/actions/secondary", { method: "PUT", body: JSON.stringify(payload) });
+          await request("/api/tap-crm/console/actions/secondary", { method: "PUT", body: JSON.stringify({ secondary_actions: readActionRows("secondaryActions") }) });
           txt(q("secondaryStatus"), "Secondary actions saved.", true);
         }
-
+        async function saveReviewLink() {
+          var link = q("googleReviewLink").value.trim();
+          var actions = readActionRows("secondaryActions");
+          var idx = actions.findIndex(function (action) { return /review|google/i.test(action.label || ""); });
+          var item = { label: "Google Review", url: link };
+          if (idx >= 0) actions[idx] = item;
+          else actions.push(item);
+          await request("/api/tap-crm/console/actions/secondary", { method: "PUT", body: JSON.stringify({ secondary_actions: actions }) });
+          populateActionList("secondaryActions", actions);
+          txt(q("reviewLinkStatus"), "Google review link saved.", true);
+        }
         async function loadTemplates() {
           var r = await request("/api/tap-crm/console/templates/selector");
           var sel = q("templateSelect");
@@ -288,35 +577,30 @@
             opt.textContent = tpl.label + " (" + tpl.id + ")";
             sel.appendChild(opt);
           });
-          if (r.template_selector.selected_template_id) {
-            sel.value = r.template_selector.selected_template_id;
-          }
+          if (r.template_selector.selected_template_id) sel.value = r.template_selector.selected_template_id;
         }
-
         async function saveTemplate() {
-          await request("/api/tap-crm/console/templates/selector", {
-            method: "PUT",
-            body: JSON.stringify({ selected_template_id: q("templateSelect").value }),
-          });
+          await request("/api/tap-crm/console/templates/selector", { method: "PUT", body: JSON.stringify({ selected_template_id: q("templateSelect").value }) });
           txt(q("templateStatus"), "Template saved.", true);
         }
-
         async function loadAnalytics() {
-          pre("analyticsOut", await request("/api/tap-crm/console/analytics/summary"));
+          var r = await request("/api/tap-crm/console/analytics/summary");
+          state.analytics = r.analytics_summary || {};
+          renderKpis(); renderActionBreakdown(); renderTrend(); renderTopTags(); renderConversionPath(); renderBookings(); renderNotifications(); renderReviews();
         }
-
         async function loadPilot() {
-          pre("pilotOut", await request("/api/tap-crm/console/pilot/readiness"));
+          var r = await request("/api/tap-crm/console/pilot/readiness");
+          state.pilot = r.pilot || {};
+          renderNotifications();
         }
-
         async function runBootstrap() {
           await request("/api/tap-crm/console/pilot/bootstrap", { method: "POST", body: JSON.stringify({}) });
           txt(q("globalStatus"), "Pilot bootstrap complete.", true);
-          await loadTags();
-          await loadPilot();
+          await loadAll();
         }
 
         function renderTags(rows) {
+          state.tags = rows || [];
           var body = q("tagsTable").querySelector("tbody");
           body.innerHTML = "";
           (rows || []).forEach(function (tag) {
@@ -328,53 +612,57 @@
               "<td>" + statusPill(tag.status) + "</td>",
               "<td><code>" + (tag.destination_path || "") + "</code></td>",
               "<td>" + formatStamp(tag.last_tap_at) + "</td>",
-              "<td>" +
-                "<div class='row'>" +
-                "<button data-id='" + tag.id + "' data-act='toggle' class='alt'>" + (tag.status === "active" ? "Deactivate" : "Activate") + "</button>" +
-                "</div>" +
-                "<div class='tag-edit'>" +
-                "<div class='tag-edit-grid'>" +
-                "<input data-id='" + tag.id + "' data-field='key' value='" + String(tag.key || "").replace(/'/g, "&#39;") + "' placeholder='key' />" +
-                "<input data-id='" + tag.id + "' data-field='label' value='" + String(tag.label || "").replace(/'/g, "&#39;") + "' />" +
-                "<input data-id='" + tag.id + "' data-field='tag_code' value='" + String(tag.tag_code || "").replace(/'/g, "&#39;") + "' placeholder='tag code' />" +
-                "<input data-id='" + tag.id + "' data-field='destination_path' value='" + String(tag.destination_path || "").replace(/'/g, "&#39;") + "' />" +
-                "</div>" +
-                "<button data-id='" + tag.id + "' data-act='save' class='alt'>Save</button>" +
-                "<div class='status' data-id='" + tag.id + "' data-role='tag-status'></div>" +
-                "</div>" +
+              "<td><div class='row'><button data-id='" + tag.id + "' data-act='toggle' class='alt'>" + (tag.status === "active" ? "Deactivate" : "Activate") + "</button>" +
+                "<button data-id='" + tag.id + "' data-act='save' class='subtle'>Quick Save</button></div>" +
+                "<div class='row' style='margin-top:6px;'><input data-id='" + tag.id + "' data-field='key' value='" + escapeHtml(tag.key || "") + "' placeholder='key' />" +
+                "<input data-id='" + tag.id + "' data-field='label' value='" + escapeHtml(tag.label || "") + "' />" +
+                "<input data-id='" + tag.id + "' data-field='tag_code' value='" + escapeHtml(tag.tag_code || "") + "' placeholder='tag code' />" +
+                "<input data-id='" + tag.id + "' data-field='destination_path' value='" + escapeHtml(tag.destination_path || "") + "' /></div>" +
               "</td>",
             ].join("");
             body.appendChild(tr);
           });
+          var sel = q("bookingTagSelect");
+          sel.innerHTML = (rows || []).map(function (tag) {
+            return '<option value="' + escapeHtml(tag.tag_code) + '">' + escapeHtml(tag.tag_code) + '</option>';
+          }).join("");
         }
 
         async function loadTags() {
           var r = await request("/api/tap-crm/console/tags");
           renderTags(r.tags || []);
         }
-
         async function createTag() {
-          var payload = {
-            label: q("newTagLabel").value,
-            key: q("newTagKey").value,
-            tag_code: q("newTagCode").value,
-            destination_path: q("newTagPath").value,
-          };
-          await request("/api/tap-crm/console/tags", { method: "POST", body: JSON.stringify(payload) });
+          await request("/api/tap-crm/console/tags", {
+            method: "POST",
+            body: JSON.stringify({ label: q("newTagLabel").value, key: q("newTagKey").value, tag_code: q("newTagCode").value, destination_path: q("newTagPath").value }),
+          });
           txt(q("tagCreateStatus"), "Tag created.", true);
           await loadTags();
         }
-
         async function updateTag(id, payload) {
-          await request("/api/tap-crm/console/tags/" + encodeURIComponent(id), {
-            method: "PUT",
-            body: JSON.stringify(payload),
-          });
+          await request("/api/tap-crm/console/tags/" + encodeURIComponent(id), { method: "PUT", body: JSON.stringify(payload) });
           await loadTags();
+        }
+
+        async function loadAvailability() {
+          var tagCode = q("bookingTagSelect").value;
+          var date = q("bookingDate").value;
+          if (!tagCode || !date) return renderAvailability([]);
+          var ctx = getCtx();
+          var qs = new URLSearchParams({ date: date, tenant: ctx.tenant });
+          if (ctx.email) qs.set("email", ctx.email);
+          if (ctx.role) qs.set("role", ctx.role);
+          var endpoint = "/api/tap-crm/public/tags/" + encodeURIComponent(tagCode) + "/booking/availability?" + qs.toString();
+          var result = await fetch(endpoint, { credentials: "include" })
+            .then(function (res) { return res.json().catch(function () { return {}; }); })
+            .catch(function () { return { availability: { slots: [] } }; });
+          renderAvailability((result.availability && result.availability.slots) || []);
         }
 
         async function loadAll() {
           txt(q("globalStatus"), "", true);
+          q("consoleLoadState").textContent = "Loading";
           await loadDashboard();
           await loadBusinessSetup();
           await loadActions();
@@ -382,37 +670,37 @@
           await loadTags();
           await loadAnalytics();
           await loadPilot();
+          q("consoleLoadState").textContent = "Live";
           txt(q("globalStatus"), "Console loaded.", true);
         }
 
-        q("loadAllBtn").addEventListener("click", function () {
-          loadAll().catch(function (err) { txt(q("globalStatus"), err.message, false); });
-        });
-        q("bootstrapBtn").addEventListener("click", function () {
-          runBootstrap().catch(function (err) { txt(q("globalStatus"), err.message, false); });
-        });
-        q("saveBizBtn").addEventListener("click", function () {
-          saveBusinessSetup().catch(function (err) { txt(q("bizStatus"), err.message, false); });
-        });
-        q("savePrimaryBtn").addEventListener("click", function () {
-          savePrimary().catch(function (err) { txt(q("primaryStatus"), err.message, false); });
-        });
-        q("saveSecondaryBtn").addEventListener("click", function () {
-          saveSecondary().catch(function (err) { txt(q("secondaryStatus"), err.message, false); });
-        });
-        q("saveTemplateBtn").addEventListener("click", function () {
-          saveTemplate().catch(function (err) { txt(q("templateStatus"), err.message, false); });
-        });
-        q("createTagBtn").addEventListener("click", function () {
-          createTag().catch(function (err) { txt(q("tagCreateStatus"), err.message, false); });
-        });
-        q("openOwnerTapInBtn").addEventListener("click", function () {
-          var params = new URLSearchParams(location.search);
-          location.href = "/dashboard/tap-crm" + (params.toString() ? ("?" + params.toString()) : "");
-        });
-        q("openBusinessTapInBtn").addEventListener("click", function () {
-          var params = new URLSearchParams(location.search);
-          location.href = "/tap-crm" + (params.toString() ? ("?" + params.toString()) : "");
+        q("loadAllBtn").addEventListener("click", function () { loadAll().catch(function (err) { txt(q("globalStatus"), err.message, false); q("consoleLoadState").textContent = "Error"; }); });
+        q("bootstrapBtn").addEventListener("click", function () { runBootstrap().catch(function (err) { txt(q("globalStatus"), err.message, false); }); });
+        q("saveBizBtn").addEventListener("click", function () { saveBusinessSetup().catch(function (err) { txt(q("bizStatus"), err.message, false); }); });
+        q("savePrimaryBtn").addEventListener("click", function () { savePrimary().catch(function (err) { txt(q("primaryStatus"), err.message, false); }); });
+        q("saveSecondaryBtn").addEventListener("click", function () { saveSecondary().catch(function (err) { txt(q("secondaryStatus"), err.message, false); }); });
+        q("saveTemplateBtn").addEventListener("click", function () { saveTemplate().catch(function (err) { txt(q("templateStatus"), err.message, false); }); });
+        q("createTagBtn").addEventListener("click", function () { createTag().catch(function (err) { txt(q("tagCreateStatus"), err.message, false); }); });
+        q("saveReviewLinkBtn").addEventListener("click", function () { saveReviewLink().catch(function (err) { txt(q("reviewLinkStatus"), err.message, false); }); });
+        q("loadAvailabilityBtn").addEventListener("click", function () { loadAvailability().catch(function (err) { txt(q("globalStatus"), err.message, false); }); });
+
+        document.body.addEventListener("click", function (event) {
+          var actionButton = event.target.closest("button[data-action]");
+          if (actionButton) {
+            var action = actionButton.getAttribute("data-action");
+            if (action === "add-primary") createActionRow("primaryActions", { label: "", url: "" });
+            if (action === "add-secondary") createActionRow("secondaryActions", { label: "", url: "" });
+            if (action === "remove-row") actionButton.closest(".action-row").remove();
+          }
+
+          var noteButton = event.target.closest("button[data-note-key]");
+          if (noteButton) {
+            var key = noteButton.getAttribute("data-note-key");
+            var acked = readAcked();
+            if (acked.indexOf(key) === -1) acked.push(key);
+            saveAcked(acked);
+            renderNotifications();
+          }
         });
 
         q("tagsTable").addEventListener("click", function (event) {
@@ -423,34 +711,39 @@
           if (act === "toggle") {
             var row = btn.closest("tr");
             var statusText = row.children[3] ? String(row.children[3].textContent || "").trim().toLowerCase() : "inactive";
-            var current = statusText === "active" ? "active" : "inactive";
-            var next = current === "active" ? "inactive" : "active";
-            updateTag(id, { status: next }).catch(function (err) { txt(q("globalStatus"), err.message, false); });
+            updateTag(id, { status: statusText === "active" ? "inactive" : "active" }).catch(function (err) { txt(q("globalStatus"), err.message, false); });
           }
           if (act === "save") {
-            var container = btn.closest(".tag-edit");
-            var keyInput = container.querySelector("input[data-field='key']");
-            var labelInput = container.querySelector("input[data-field='label']");
-            var codeInput = container.querySelector("input[data-field='tag_code']");
-            var pathInput = container.querySelector("input[data-field='destination_path']");
-            var statusEl = container.querySelector(".status[data-role='tag-status']");
+            var row = btn.closest("tr");
             updateTag(id, {
-              key: keyInput.value,
-              label: labelInput.value,
-              tag_code: codeInput.value,
-              destination_path: pathInput.value,
+              key: (row.querySelector("input[data-field='key']") || {}).value || "",
+              label: (row.querySelector("input[data-field='label']") || {}).value || "",
+              tag_code: (row.querySelector("input[data-field='tag_code']") || {}).value || "",
+              destination_path: (row.querySelector("input[data-field='destination_path']") || {}).value || "",
             }).then(function () {
-              txt(statusEl, "Tag saved.", true);
+              txt(q("globalStatus"), "Tag saved.", true);
             }).catch(function (err) {
-              txt(statusEl, err.message, false);
+              txt(q("globalStatus"), err.message, false);
             });
           }
+        });
+
+        q("openOwnerTapInBtn").addEventListener("click", function () {
+          var params = new URLSearchParams(location.search);
+          location.href = "/dashboard/tap-crm" + (params.toString() ? ("?" + params.toString()) : "");
+        });
+        q("openBusinessTapInBtn").addEventListener("click", function () {
+          var params = new URLSearchParams(location.search);
+          location.href = "/tap-crm" + (params.toString() ? ("?" + params.toString()) : "");
         });
 
         var params = new URLSearchParams(location.search);
         q("tenant").value = params.get("tenant") || "";
         q("email").value = params.get("email") || "";
         q("role").value = params.get("role") || "";
+        var now = new Date();
+        q("bookingDate").value = now.toISOString().slice(0, 10);
+        q("newTagPath").value = "/tap-crm";
       })();
     </script>
   </body>
