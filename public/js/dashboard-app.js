@@ -1261,6 +1261,35 @@
     }
   }
 
+  function wireGoogleReviewUrlSettings(tenant, ownerEmail, cid, rid) {
+    var input = document.getElementById("googleReviewUrlInput");
+    var saveBtn = document.getElementById("saveGoogleReviewUrlBtn");
+    var msg = document.getElementById("googleReviewUrlMsg");
+    if (!input || !saveBtn) return;
+
+    jsonFetch(tenantApiUrl(tenant, "/review-link", ownerEmail, cid, rid))
+      .then(function (resp) {
+        input.value = safeTrim(resp && resp.google_review_url);
+      })
+      .catch(function (err) {
+        if (msg) msg.textContent = describeRequestError(err, "Could not load Google review URL.");
+      });
+
+    saveBtn.addEventListener("click", function () {
+      if (msg) msg.textContent = "Saving…";
+      jsonFetch(tenantApiUrl(tenant, "/review-link", ownerEmail, cid, rid), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ google_review_url: safeTrim(input.value) || null })
+      }).then(function (resp) {
+        input.value = safeTrim(resp && resp.google_review_url);
+        if (msg) msg.textContent = "Google review URL saved.";
+      }).catch(function (err) {
+        if (msg) msg.textContent = describeRequestError(err, "Could not save Google review URL.");
+      });
+    });
+  }
+
   function renderSpotlightRows(tenant, ownerEmail, isAdmin, rows) {
     var tbody = document.querySelector("#spotlightModerationTable tbody");
     var empty = document.getElementById("spotlightModerationEmpty");
@@ -1859,6 +1888,7 @@
       wireCampaignCreator(tenant, ownerEmail, cid, rid);
       wireProductCreator(tenant, ownerEmail, cid, rid);
       wireReviewModeration(tenant, ownerEmail, cid, rid);
+      wireGoogleReviewUrlSettings(tenant, ownerEmail, cid, rid);
       wireSpotlight(tenant, ownerEmail, isAdmin);
       wireContributions(tenant, ownerEmail, cid, rid, isAdmin);
       loadOwnerSnapshot(ownerEmail, tenant, cid, rid, isAdmin);

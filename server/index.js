@@ -3697,6 +3697,114 @@ app.post("/t/:slug/review-link", tenantMiddleware, async (req, res) => {
   }
 });
 
+app.get("/t/:slug/reviews/public", tenantMiddleware, async (req, res) => {
+  try {
+    const email = normalizeEmail(req.query.email || "");
+    const limit = Math.max(1, Math.min(Number(req.query.limit || 40) || 40, 80));
+    const viewer = email ? await findTenantUser(req.tenant.id, email).catch(() => null) : null;
+    const rows = await pool.query(
+      `SELECT
+         r.id,
+         r.text,
+         r.rating,
+         r.media_type,
+         r.media_note,
+         r.created_at,
+         COALESCE(NULLIF(u.name, ''), split_part(u.email, '@', 1), 'Customer') AS customer_name,
+         COUNT(rl.id)::int AS likes_count,
+         MAX(CASE WHEN rl.user_id = $3 THEN 1 ELSE 0 END)::int AS liked_by_viewer,
+         CASE
+           WHEN r.media_type IN ('video', 'photo_video') THEN 2
+           WHEN r.media_type IN ('photo', 'image') THEN 1
+           ELSE 0
+         END AS media_priority
+       FROM reviews r
+       LEFT JOIN users u ON u.id = r.user_id AND u.tenant_id = r.tenant_id
+       LEFT JOIN review_likes rl ON rl.tenant_id = r.tenant_id AND rl.review_id = r.id
+       WHERE r.tenant_id = $1
+         AND r.proof_status = 'approved'
+       GROUP BY r.id, u.name, u.email
+       ORDER BY media_priority DESC, likes_count DESC, r.created_at DESC
+       LIMIT $2`,
+      [req.tenant.id, limit, Number(viewer?.id || 0)]
+    );
+    const ratingBreakdownRows = await pool.query(
+      `SELECT COALESCE(FLOOR(rating)::int, 0) AS rating_bucket, COUNT(*)::int AS count
+       FROM reviews
+       WHERE tenant_id = $1
+         AND proof_status = 'approved'
+         AND rating IS NOT NULL
+       GROUP BY COALESCE(FLOOR(rating)::int, 0)`,
+      [req.tenant.id]
+    );
+    const ratingBreakdown = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+    ratingBreakdownRows.rows.forEach((row) => {
+      const bucket = Math.max(1, Math.min(6, Number(row.rating_bucket || 0)));
+      if (bucket >= 1 && bucket <= 6) ratingBreakdown[bucket] = Number(row.count || 0);
+    });
+    const showcaseRows = await pool.query(
+      `SELECT r.id, r.text, r.media_type, r.media_note, r.created_at,
+              COALESCE(NULLIF(u.name, ''), split_part(u.email, '@', 1), 'Customer') AS customer_name
+       FROM reviews r
+       LEFT JOIN users u ON u.id = r.user_id AND u.tenant_id = r.tenant_id
+       WHERE r.tenant_id = $1
+         AND r.proof_status = 'approved'
+         AND r.media_type IN ('video', 'photo_video')
+         AND NOT EXISTS (
+           SELECT 1
+           FROM tenant_memberships tm
+           WHERE tm.tenant_id = r.tenant_id
+             AND tm.user_id = r.user_id
+             AND tm.role = 'business_owner'
+         )
+       ORDER BY r.created_at DESC
+       LIMIT 5`,
+      [req.tenant.id]
+    );
+    return res.json({
+      tenant: req.tenant.slug,
+      reviews: rows.rows.map((row) => ({ ...row, liked_by_viewer: Number(row.liked_by_viewer || 0) > 0 })),
+      rating_breakdown: ratingBreakdown,
+      showcase_videos: showcaseRows.rows,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "public reviews fetch failed" });
+  }
+});
+
+app.post("/t/:slug/reviews/:reviewId/like", tenantMiddleware, async (req, res) => {
+  try {
+    const email = normalizeEmail(req.body?.email || req.query.email || "");
+    if (!email) return res.status(400).json({ error: "email is required" });
+    const reviewId = Number(req.params.reviewId);
+    if (!Number.isInteger(reviewId) || reviewId <= 0) return res.status(400).json({ error: "invalid review id" });
+    const user = await findTenantUser(req.tenant.id, email, pool, req.body?.name || "");
+    const reviewExists = await pool.query(
+      `SELECT id
+       FROM reviews
+       WHERE tenant_id = $1 AND id = $2 AND proof_status = 'approved'
+       LIMIT 1`,
+      [req.tenant.id, reviewId]
+    );
+    if (!reviewExists.rows[0]) return res.status(404).json({ error: "review not found" });
+    await pool.query(
+      `INSERT INTO review_likes (tenant_id, review_id, user_id)
+       VALUES ($1, $2, $3)
+       ON CONFLICT (tenant_id, review_id, user_id) DO NOTHING`,
+      [req.tenant.id, reviewId, user.id]
+    );
+    const totals = await pool.query(
+      "SELECT COUNT(*)::int AS likes_count FROM review_likes WHERE tenant_id = $1 AND review_id = $2",
+      [req.tenant.id, reviewId]
+    );
+    return res.json({ success: true, review_id: reviewId, likes_count: Number(totals.rows[0]?.likes_count || 0) });
+  } catch (err) {
+    console.error(err);
+    return res.status(err.statusCode || 500).json({ error: err.statusCode ? err.message : "review like failed" });
+  }
+});
+
 app.get("/t/:slug/contributions/access", tenantMiddleware, async (req, res) => {
   try {
     assertContributionsEnabled(req.tenantConfig);

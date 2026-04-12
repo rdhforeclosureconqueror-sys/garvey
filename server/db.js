@@ -297,6 +297,15 @@ async function initializeDatabase() {
       created_at TIMESTAMP DEFAULT NOW()
     );
 
+    CREATE TABLE IF NOT EXISTS review_likes (
+      id SERIAL PRIMARY KEY,
+      tenant_id INTEGER NOT NULL,
+      review_id INTEGER NOT NULL,
+      user_id INTEGER NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      UNIQUE (tenant_id, review_id, user_id)
+    );
+
     CREATE TABLE IF NOT EXISTS referrals (
       id SERIAL PRIMARY KEY,
       tenant_id INTEGER,
@@ -342,6 +351,9 @@ async function initializeDatabase() {
     ALTER TABLE reviews ADD COLUMN IF NOT EXISTS points_awarded INTEGER DEFAULT 0;
     ALTER TABLE reviews ADD COLUMN IF NOT EXISTS campaign_id INTEGER;
     ALTER TABLE reviews ADD COLUMN IF NOT EXISTS campaign_slug TEXT;
+    ALTER TABLE review_likes ADD COLUMN IF NOT EXISTS tenant_id INTEGER;
+    ALTER TABLE review_likes ADD COLUMN IF NOT EXISTS review_id INTEGER;
+    ALTER TABLE review_likes ADD COLUMN IF NOT EXISTS user_id INTEGER;
     ALTER TABLE referrals ADD COLUMN IF NOT EXISTS referrer_user_id INTEGER;
     ALTER TABLE referrals ADD COLUMN IF NOT EXISTS referred_user_id INTEGER;
     ALTER TABLE referrals ADD COLUMN IF NOT EXISTS points_awarded_each INTEGER DEFAULT 0;
@@ -515,6 +527,7 @@ async function initializeDatabase() {
   await pool.query(`
     CREATE INDEX IF NOT EXISTS idx_products_tenant_sort ON products(tenant_id, sort_order ASC, id ASC);
     CREATE INDEX IF NOT EXISTS idx_reviews_tenant_product_proof ON reviews(tenant_id, product_id, proof_status);
+    CREATE INDEX IF NOT EXISTS idx_review_likes_tenant_review ON review_likes(tenant_id, review_id);
   `).catch(() => {});
   await pool.query(`
     DO $$

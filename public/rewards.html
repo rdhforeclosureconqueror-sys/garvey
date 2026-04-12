@@ -394,6 +394,56 @@
     font-size: 1rem;
   }
 
+  .review-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .review-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(8, 15, 31, 0.82);
+    padding: 12px;
+  }
+  .review-meta {
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+  }
+  .rating-bar-row {
+    display: grid;
+    grid-template-columns: 62px 1fr 42px;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .rating-bar-shell {
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(141, 162, 214, 0.2);
+    overflow: hidden;
+  }
+  .rating-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #60a5fa, #22d3ee);
+  }
+  .like-btn {
+    margin-top: 8px;
+    border: 1px solid rgba(96, 165, 250, 0.45);
+    background: rgba(30, 64, 175, 0.24);
+    color: #dbeafe;
+    border-radius: 999px;
+    padding: 6px 10px;
+    cursor: pointer;
+    width: auto;
+  }
+  .video-showcase-item {
+    border: 1px solid rgba(74, 222, 128, 0.45);
+    background: rgba(12, 44, 27, 0.48);
+    border-radius: 12px;
+    padding: 10px;
+  }
+
   .hide { display: none !important; }
   pre {
     margin: 0;
@@ -526,7 +576,7 @@
         </label>
         <label id="googleReviewWrap" class="hide">
           Google review
-          <a id="googleReviewLink" class="link-btn" href="#" target="_blank" rel="noopener noreferrer">Leave Google Review</a>
+          <a id="googleReviewLink" class="link-btn" href="#" target="_blank" rel="noopener noreferrer">Leave a Google Review</a>
           <small class="muted">If no link is configured, your review will be collected here.</small>
         </label>
 
@@ -625,6 +675,23 @@
     </section>
 
     <section class="panel stack">
+      <h2>Don’t take our word for it — check out the voice of our previous customers</h2>
+      <div id="publicReviewsStatus" class="muted">Sign in to load customer social proof for this business.</div>
+      <div>
+        <h3 style="margin:0 0 8px;">Rating distribution</h3>
+        <div id="ratingBreakdownChart"></div>
+      </div>
+      <div>
+        <h3 style="margin:0 0 8px;">Customer video showcase (max 5)</h3>
+        <div id="videoShowcaseList" class="stack"></div>
+      </div>
+      <div>
+        <h3 style="margin:0 0 8px;">Latest customer reviews</h3>
+        <div id="publicReviewsList" class="review-grid"></div>
+      </div>
+    </section>
+
+    <section class="panel stack">
       <h2>Profile permissions</h2>
       <div id="permissionState" class="muted">Sign in to manage permissions.</div>
       <label>
@@ -719,6 +786,7 @@ const state = {
   completedActions: new Set(),
   recommendedAction: "checkin",
   googleReviewUrl: "",
+  publicReviews: [],
 };
 const ACTIONS_PER_CYCLE = 6;
 const REWARD_MILESTONES = [50, 100, 150, 250, 500];
@@ -1094,10 +1162,116 @@ function resetSignedOutView() {
   document.getElementById("resultMessage").textContent = "Signed out. Sign in to continue.";
   document.getElementById("customerInboxStatus").textContent = "Sign in with your name and email to load your inbox.";
   document.getElementById("customerInboxList").innerHTML = "";
+  document.getElementById("publicReviewsStatus").textContent = "Sign in to load customer social proof for this business.";
+  document.getElementById("publicReviewsList").innerHTML = "";
+  document.getElementById("videoShowcaseList").innerHTML = "";
+  document.getElementById("ratingBreakdownChart").innerHTML = "";
   document.getElementById("successLoop").classList.add("hide");
   setAuthStatus("Signed out. No customer session is active.");
   updateActionUI();
   setStep(1);
+}
+
+function renderRatingBreakdownChart(breakdown) {
+  const chart = document.getElementById("ratingBreakdownChart");
+  if (!chart) return;
+  const counts = [6, 5, 4, 3, 2, 1].map((rating) => Number(breakdown?.[rating] || 0));
+  const max = Math.max(1, ...counts);
+  chart.innerHTML = [6, 5, 4, 3, 2, 1].map((rating, idx) => {
+    const count = counts[idx];
+    const pct = Math.round((count / max) * 100);
+    return `<div class="rating-bar-row">
+      <div>${rating} ★</div>
+      <div class="rating-bar-shell"><div class="rating-bar-fill" style="width:${pct}%"></div></div>
+      <div>${count}</div>
+    </div>`;
+  }).join("");
+}
+
+function renderVideoShowcase(items) {
+  const list = document.getElementById("videoShowcaseList");
+  if (!list) return;
+  const rows = Array.isArray(items) ? items.slice(0, 5) : [];
+  if (!rows.length) {
+    list.innerHTML = `<div class="muted">No approved customer video reviews yet.</div>`;
+    return;
+  }
+  list.innerHTML = rows.map((item) => `
+    <article class="video-showcase-item">
+      <div><strong>${escapeHtml(item.customer_name || "Customer")}</strong> • ${new Date(item.created_at).toISOString().slice(0, 10)}</div>
+      <div class="muted">${escapeHtml(item.media_type || "video")}</div>
+      <p>${escapeHtml(item.text || item.media_note || "Customer video review")}</p>
+    </article>
+  `).join("");
+}
+
+async function likeReview(reviewId) {
+  const ctx = currentCtx();
+  const email = readEmail();
+  if (!ctx.tenant || !email) throw new Error("Sign in to like reviews.");
+  const url = window.GarveyApi?.buildUrl
+    ? window.GarveyApi.buildUrl(`/t/${encodeURIComponent(ctx.tenant)}/reviews/${encodeURIComponent(reviewId)}/like`)
+    : `/t/${encodeURIComponent(ctx.tenant)}/reviews/${encodeURIComponent(reviewId)}/like`;
+  const resp = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, name: readName() || undefined }),
+  });
+  const payload = await resp.json().catch(() => ({}));
+  if (!resp.ok) throw new Error(payload.error || "Could not like review.");
+  await loadPublicReviews();
+}
+
+function renderPublicReviewsList(reviews) {
+  const list = document.getElementById("publicReviewsList");
+  if (!list) return;
+  const rows = Array.isArray(reviews) ? reviews : [];
+  if (!rows.length) {
+    list.innerHTML = `<div class="muted">No approved reviews yet for this business.</div>`;
+    return;
+  }
+  list.innerHTML = rows.map((review) => {
+    const ratingValue = Number(review.rating || 0);
+    const stars = ratingValue > 0 ? "★".repeat(Math.max(1, Math.min(6, Math.floor(ratingValue)))) : "—";
+    const mediaBadge = review.media_type ? `<span class="pill" style="margin:0;">${escapeHtml(review.media_type)}</span>` : "";
+    return `<article class="review-card">
+      <div class="review-meta">${escapeHtml(review.customer_name || "Customer")} • ${new Date(review.created_at).toISOString().slice(0, 10)}</div>
+      <div><strong>${stars}</strong> ${mediaBadge}</div>
+      <p>${escapeHtml(review.text || "Customer review shared.")}</p>
+      <button type="button" class="like-btn" data-review-id="${Number(review.id)}">👍 Like (${Number(review.likes_count || 0)})</button>
+    </article>`;
+  }).join("");
+  list.querySelectorAll(".like-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      likeReview(btn.getAttribute("data-review-id")).catch((err) => {
+        document.getElementById("publicReviewsStatus").textContent = err.message || "Could not like review.";
+      });
+    });
+  });
+}
+
+async function loadPublicReviews() {
+  const ctx = currentCtx();
+  const status = document.getElementById("publicReviewsStatus");
+  if (!ctx.tenant) return;
+  if (status) status.textContent = "Loading customer social proof…";
+  const query = {};
+  if (readEmail()) query.email = readEmail();
+  const url = window.GarveyApi?.buildUrl
+    ? window.GarveyApi.buildUrl(`/t/${encodeURIComponent(ctx.tenant)}/reviews/public`, query)
+    : `/t/${encodeURIComponent(ctx.tenant)}/reviews/public`;
+  try {
+    const resp = await fetch(url);
+    const payload = await resp.json().catch(() => ({}));
+    if (!resp.ok) throw new Error(payload.error || "Social proof unavailable.");
+    state.publicReviews = Array.isArray(payload.reviews) ? payload.reviews : [];
+    renderPublicReviewsList(state.publicReviews);
+    renderRatingBreakdownChart(payload.rating_breakdown || {});
+    renderVideoShowcase(payload.showcase_videos || []);
+    if (status) status.textContent = `${state.publicReviews.length} approved customer reviews for this business.`;
+  } catch (err) {
+    if (status) status.textContent = err.message || "Social proof unavailable.";
+  }
 }
 
 async function loadOwnerInbox() {
@@ -1361,6 +1535,7 @@ async function run() {
       syncVocLink();
       refreshStatus().catch((err) => showResult({ error: err.message }));
       loadOwnerInbox().catch(() => null);
+      loadPublicReviews().catch(() => null);
       loadPermissionState().catch(() => null);
     } catch (err) {
       showResult({ error: err.message });
@@ -1440,9 +1615,11 @@ async function run() {
     writeActiveCustomer({ tenant: ctx.tenant, email: ctx.email, name: ctx.name, cid: ctx.cid, rid: ctx.rid });
     await refreshStatus();
     await loadOwnerInbox();
+    await loadPublicReviews();
     await loadPermissionState();
   } else {
     resetSignedOutView();
+    await loadPublicReviews();
   }
   engine.getLedger().catch(() => null);
 }
@@ -1450,6 +1627,7 @@ async function run() {
 run();
 window.addEventListener("pageshow", () => {
   syncVocLink();
+  loadPublicReviews().catch(() => null);
   if (consentFeature.enabled) loadPermissionState().catch(() => null);
 });
 </script>
