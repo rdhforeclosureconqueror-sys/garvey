@@ -7,6 +7,7 @@ const TEMPLATE_REGISTRY = {
     vertical: "general",
     modules: {
       hero: { enabled: true, config: {} },
+      customer_actions: { enabled: true, config: {} },
       primary_cta: { enabled: true, config: {} },
       services: { enabled: true, config: {} },
       social_links: { enabled: true, config: {} },
@@ -20,6 +21,7 @@ const TEMPLATE_REGISTRY = {
     vertical: "barber",
     modules: {
       hero: { enabled: true, config: { headline: "Fresh cuts, no wait" } },
+      customer_actions: { enabled: true, config: {} },
       primary_cta: { enabled: true, config: { label: "Book a cut" } },
       services: { enabled: true, config: { featured: ["Haircut", "Beard trim"] } },
       social_links: { enabled: true, config: {} },
@@ -40,6 +42,7 @@ const TEMPLATE_REGISTRY = {
     vertical: "salon",
     modules: {
       hero: { enabled: true, config: { headline: "Style for every occasion" } },
+      customer_actions: { enabled: true, config: {} },
       primary_cta: { enabled: true, config: { label: "Book appointment" } },
       services: { enabled: true, config: { featured: ["Color", "Blowout"] } },
       social_links: { enabled: true, config: {} },
@@ -53,6 +56,7 @@ const TEMPLATE_REGISTRY = {
     vertical: "fitness",
     modules: {
       hero: { enabled: true, config: { headline: "Train with purpose" } },
+      customer_actions: { enabled: true, config: {} },
       primary_cta: { enabled: true, config: { label: "Start trial" } },
       services: { enabled: true, config: { featured: ["Group class", "Personal training"] } },
       social_links: { enabled: true, config: {} },
@@ -70,6 +74,22 @@ const MODULE_REGISTRY = {
     default_config: {
       headline: "Welcome",
       subheadline: "Tap to get started",
+    },
+  },
+  customer_actions: {
+    id: "customer_actions",
+    label: "Customer Actions",
+    default_enabled: true,
+    default_config: {
+      check_in_label: "Check in",
+      book_label: "Book",
+      pay_label: "Pay now",
+      tip_label: "Leave a tip",
+      return_engine_label: "Return Engine",
+      review_label: "Write a review",
+      rewards_label: "Rewards",
+      voc_label: "VOC",
+      google_review_label: "Google review",
     },
   },
   primary_cta: {
@@ -156,19 +176,27 @@ const SERVICE_CUSTOM_FIELD_REGISTRY = {
   ],
 };
 
-const BARBER_PILOT_BASELINE = Object.freeze({
-  selected_template_id: "barber",
+const SHARED_TEMPLATE_BASELINE = Object.freeze({
+  selected_template_id: "default",
   brand: {
-    headline: "Barber-ready booking in one tap",
-    subheadline: "Pick a service, book your chair, and show up fresh.",
+    headline: "Service-ready booking in one tap",
+    subheadline: "Check in, book, and continue your return journey.",
   },
   business: {
     hours: "Mon-Sat 9:00 AM - 7:00 PM",
   },
+  links: {
+    payment_url: "https://buy.stripe.com/00w5kw6Lv3YweZoffq8bS00",
+    tip_url: "https://cash.app/$theEmpireinc",
+    rewards_url: "/rewards.html",
+    voc_url: "/voc.html",
+    review_url: "",
+    google_review_url: "",
+  },
   actions: {
     primary: [
       {
-        label: "Book a cut",
+        label: "Book now",
         url: "/book",
       },
     ],
@@ -186,6 +214,7 @@ const BARBER_PILOT_BASELINE = Object.freeze({
       business_setup: false,
       primary_action: false,
       tag_registered: false,
+      template_selected: false,
     },
   },
 });
@@ -327,29 +356,33 @@ function listModules() {
 function buildBarberPilotBaselineConfig(existingConfig = {}) {
   const current = cloneJson(existingConfig, {});
   return {
-    ...cloneJson(BARBER_PILOT_BASELINE, {}),
+    ...cloneJson(SHARED_TEMPLATE_BASELINE, {}),
     ...current,
     brand: {
-      ...cloneJson(BARBER_PILOT_BASELINE.brand, {}),
+      ...cloneJson(SHARED_TEMPLATE_BASELINE.brand, {}),
       ...cloneJson(current.brand, {}),
     },
     business: {
-      ...cloneJson(BARBER_PILOT_BASELINE.business, {}),
+      ...cloneJson(SHARED_TEMPLATE_BASELINE.business, {}),
       ...cloneJson(current.business, {}),
     },
+    links: {
+      ...cloneJson(SHARED_TEMPLATE_BASELINE.links, {}),
+      ...cloneJson(current.links, {}),
+    },
     actions: {
-      primary: normalizeActionArray(current.actions && current.actions.primary, BARBER_PILOT_BASELINE.actions.primary),
-      secondary: normalizeActionArray(current.actions && current.actions.secondary, BARBER_PILOT_BASELINE.actions.secondary),
+      primary: normalizeActionArray(current.actions && current.actions.primary, SHARED_TEMPLATE_BASELINE.actions.primary),
+      secondary: normalizeActionArray(current.actions && current.actions.secondary, SHARED_TEMPLATE_BASELINE.actions.secondary),
     },
     onboarding: {
-      ...cloneJson(BARBER_PILOT_BASELINE.onboarding, {}),
+      ...cloneJson(SHARED_TEMPLATE_BASELINE.onboarding, {}),
       ...cloneJson(current.onboarding, {}),
       checklist: {
-        ...cloneJson(BARBER_PILOT_BASELINE.onboarding.checklist, {}),
+        ...cloneJson(SHARED_TEMPLATE_BASELINE.onboarding.checklist, {}),
         ...cloneJson(current.onboarding && current.onboarding.checklist, {}),
       },
     },
-    selected_template_id: normalizeTemplateId(current.selected_template_id || "barber") || "barber",
+    selected_template_id: normalizeTemplateId(current.selected_template_id || "default") || "default",
   };
 }
 
@@ -380,6 +413,7 @@ module.exports = {
   listAddOns,
   resolveAddOnRuntime,
   resolveServiceCustomFields,
-  BARBER_PILOT_BASELINE,
+  BARBER_PILOT_BASELINE: SHARED_TEMPLATE_BASELINE,
+  SHARED_TEMPLATE_BASELINE,
   buildBarberPilotBaselineConfig,
 };

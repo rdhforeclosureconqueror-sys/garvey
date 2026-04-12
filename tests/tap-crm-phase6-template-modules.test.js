@@ -61,7 +61,7 @@ test("listTemplates exposes default plus barber/salon/fitness reuse set", () => 
 
 test("listModules exposes stable module registry keys", () => {
   const modules = listModules().map((module) => module.module_id);
-  assert.deepEqual(modules, ["hero", "primary_cta", "services", "social_links", "business_info", "guide_assistant"]);
+  assert.deepEqual(modules, ["hero", "customer_actions", "primary_cta", "services", "social_links", "business_info", "guide_assistant"]);
 });
 
 test("buildOwnerConsolePayload includes phase 6 module management screens", () => {
@@ -122,7 +122,7 @@ test("resolveServiceCustomFields merges service defaults with tenant overrides",
   assert.equal(preferred.label, "Favorite barber");
 });
 
-test("buildBarberPilotBaselineConfig applies barber defaults while preserving existing values", () => {
+test("buildBarberPilotBaselineConfig applies shared defaults while preserving existing values", () => {
   const config = buildBarberPilotBaselineConfig({
     brand: { name: "Clip Joint" },
     actions: {
@@ -130,10 +130,11 @@ test("buildBarberPilotBaselineConfig applies barber defaults while preserving ex
     },
   });
 
-  assert.equal(config.selected_template_id, "barber");
+  assert.equal(config.selected_template_id, "default");
   assert.equal(config.brand.name, "Clip Joint");
-  assert.equal(config.brand.headline, "Barber-ready booking in one tap");
+  assert.equal(config.brand.headline, "Service-ready booking in one tap");
   assert.equal(config.actions.primary[0].label, "Reserve chair");
+  assert.equal(config.links.rewards_url, "/rewards.html");
   assert.equal(config.onboarding.first_business_setup_complete, false);
 });
 
@@ -201,12 +202,18 @@ test("tap hub renderer gates booking behind check-in and uses 12-hour display fo
   assert.equal(/>Book</.test(html), true);
   assert.equal(/>Pay now</.test(html), true);
   assert.equal(/>Leave a tip</.test(html), true);
+  assert.equal(/>Write a review</.test(html), true);
+  assert.equal(/>Rewards</.test(html), true);
+  assert.equal(/>VOC</.test(html), true);
   assert.equal(/https:\/\/buy\.stripe\.com\/00w5kw6Lv3YweZoffq8bS00/.test(html), true);
   assert.equal(/https:\/\/cash\.app\/\$theEmpireinc/.test(html), true);
   assert.equal(/>Return Engine</.test(html), true);
   assert.equal(/data-tap-event-type="return_engine_click"/.test(html), true);
   assert.equal(/data-tap-event-type="pay_click"/.test(html), true);
   assert.equal(/data-tap-event-type="tip_click"/.test(html), true);
+  assert.equal(/data-tap-event-type="review_click"/.test(html), true);
+  assert.equal(/data-tap-event-type="rewards_click"/.test(html), true);
+  assert.equal(/data-tap-event-type="voc_click"/.test(html), true);
   assert.equal(/\/api\/tap-crm\/public\/tags\/" \+ encodeURIComponent\(tagCode\) \+ "\/events"/.test(html), true);
   assert.equal(/function logTapEvent\(eventType, metadata\)/.test(html), true);
   assert.equal(/logTapEvent\("booking_submit"/.test(html), true);
@@ -215,4 +222,25 @@ test("tap hub renderer gates booking behind check-in and uses 12-hour display fo
   assert.equal(/if \(!event \|\| event.type !== "click"\) return;/.test(html), true);
   assert.equal(/setStatus\("Selected " \+ toDisplayTime\(selectedSlot\) \+ "\. Tap Confirm booking to continue\."\);/.test(html), true);
   assert.equal(/showPageNotice\("Booking confirmed/.test(html), true);
+});
+
+test("tap hub renderer adds google review action only when configured", () => {
+  const withGoogle = renderTapHubPage(buildTapHubViewModel({
+    route_namespace: "tap-crm",
+    resolution: { tenant: "demoa", tag_code: "phase7-demoa", label: "Clip Joint" },
+    business_config: {
+      links: { google_review_url: "https://g.page/r/example/review" },
+    },
+    template_runtime: resolveTemplateRuntime({ selected_template_id: "salon" }),
+  }));
+  const withoutGoogle = renderTapHubPage(buildTapHubViewModel({
+    route_namespace: "tap-crm",
+    resolution: { tenant: "demoa", tag_code: "phase7-demoa", label: "Clip Joint" },
+    business_config: {},
+    template_runtime: resolveTemplateRuntime({ selected_template_id: "salon" }),
+  }));
+
+  assert.equal(/>Google review</.test(withGoogle), true);
+  assert.equal(/data-tap-event-type="google_review_click"/.test(withGoogle), true);
+  assert.equal(/>Google review</.test(withoutGoogle), false);
 });

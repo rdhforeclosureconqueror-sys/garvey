@@ -80,6 +80,7 @@ function buildTapHubViewModel(resolvedBody) {
 
   const templateRuntime = normalizeTemplateRuntime(resolvedBody && resolvedBody.template_runtime);
   const heroModule = getRuntimeModule(templateRuntime, "hero");
+  const customerActionsModule = getRuntimeModule(templateRuntime, "customer_actions");
   const primaryModule = getRuntimeModule(templateRuntime, "primary_cta");
   const servicesModule = getRuntimeModule(templateRuntime, "services");
   const socialModule = getRuntimeModule(templateRuntime, "social_links");
@@ -153,11 +154,47 @@ function buildTapHubViewModel(resolvedBody) {
   const guideSteps = Array.isArray(guideConfig.steps)
     ? guideConfig.steps.map((step) => String(step || "").trim()).filter(Boolean).slice(0, 5)
     : [];
+  const customerActionsConfig = customerActionsModule && customerActionsModule.config && typeof customerActionsModule.config === "object"
+    ? customerActionsModule.config
+    : {};
+  const linkConfig = config.links && typeof config.links === "object" ? config.links : {};
+  const tenantSlug = String(resolution.tenant || "").trim();
+  const tagCode = String(resolution.tag_code || "").trim();
+  const resolveInternalLink = (fallbackPath, queryExtras = {}) => appendQueryParams(
+    String(fallbackPath || "").trim(),
+    {
+      tenant: tenantSlug,
+      cid: resolvedCampaignSlug,
+      tag: tagCode,
+      tap_source: attributionParams.tap_source,
+      tap_session: attributionParams.tap_session,
+      ...queryExtras,
+    }
+  );
+  const paymentUrl = String(linkConfig.payment_url || "https://buy.stripe.com/00w5kw6Lv3YweZoffq8bS00").trim();
+  const tipUrl = String(linkConfig.tip_url || "https://cash.app/$theEmpireinc").trim();
+  const reviewUrl = String(linkConfig.review_url || "").trim();
+  const rewardsUrl = String(linkConfig.rewards_url || "").trim();
+  const vocUrl = String(linkConfig.voc_url || "").trim();
+  const googleReviewUrl = String(linkConfig.google_review_url || config.google_review_url || "").trim();
+  const customerActionLinks = [
+    { key: "checkin", type: "button", label: String(customerActionsConfig.check_in_label || "Check in").trim() || "Check in", eventType: "checkin_click", action: "open_checkin" },
+    { key: "book", type: "button", label: String(customerActionsConfig.book_label || "Book").trim() || "Book", eventType: "booking_open", action: "open_booking" },
+    { key: "pay", type: "link", label: String(customerActionsConfig.pay_label || "Pay now").trim() || "Pay now", eventType: "pay_click", href: paymentUrl, external: true },
+    { key: "tip", type: "link", label: String(customerActionsConfig.tip_label || "Leave a tip").trim() || "Leave a tip", eventType: "tip_click", href: tipUrl, external: true },
+    { key: "return_engine", type: "link", label: String(customerActionsConfig.return_engine_label || "Return Engine").trim() || "Return Engine", eventType: "return_engine_click", href: resolveInternalLink(rewardsUrl || "/rewards.html", { entry: "tap-hub" }) },
+    { key: "review", type: "link", label: String(customerActionsConfig.review_label || "Write a review").trim() || "Write a review", eventType: "review_click", href: reviewUrl || resolveInternalLink("/rewards.html", { focus: "review" }) },
+    { key: "rewards", type: "link", label: String(customerActionsConfig.rewards_label || "Rewards").trim() || "Rewards", eventType: "rewards_click", href: resolveInternalLink(rewardsUrl || "/rewards.html", { entry: "tap-hub" }) },
+    { key: "voc", type: "link", label: String(customerActionsConfig.voc_label || "VOC").trim() || "VOC", eventType: "voc_click", href: resolveInternalLink(vocUrl || "/voc.html", { entry: "tap-hub" }) },
+    googleReviewUrl
+      ? { key: "google_review", type: "link", label: String(customerActionsConfig.google_review_label || "Google review").trim() || "Google review", eventType: "google_review_click", href: googleReviewUrl, external: true }
+      : null,
+  ].filter(Boolean);
 
   return {
     routeNamespace: resolvedBody.route_namespace || "tap-crm",
-    tenant: String(resolution.tenant || "").trim(),
-    tagCode: String(resolution.tag_code || "").trim(),
+    tenant: tenantSlug,
+    tagCode,
     pageTitle: String(brand.name || resolution.label || "Tap Hub").trim() || "Tap Hub",
     headline: String(brand.headline || (heroModule && heroModule.config && heroModule.config.headline) || resolution.label || "Welcome").trim() || "Welcome",
     subheadline: String(brand.subheadline || (heroModule && heroModule.config && heroModule.config.subheadline) || "Tap to choose your next step.").trim(),
@@ -172,14 +209,8 @@ function buildTapHubViewModel(resolvedBody) {
     businessName: String(business.name || brand.name || resolution.tenant || "Our Business").trim() || "Our Business",
     businessItems,
     featuredServices,
-    returnEngineUrl: appendQueryParams("/rewards.html", {
-      tenant: String(resolution.tenant || "").trim(),
-      cid: resolvedCampaignSlug,
-      entry: "tap-hub",
-      tag: String(resolution.tag_code || "").trim(),
-      tap_source: attributionParams.tap_source,
-      tap_session: attributionParams.tap_session,
-    }),
+    returnEngineUrl: resolveInternalLink(rewardsUrl || "/rewards.html", { entry: "tap-hub" }),
+    customerActions: customerActionLinks,
     guide: {
       title: String(guideConfig.title || "How this works").trim() || "How this works",
       intro: String(guideConfig.intro || "Follow these quick steps to get started.").trim() || "Follow these quick steps to get started.",
@@ -193,6 +224,7 @@ function buildTapHubViewModel(resolvedBody) {
       businessEnabled: moduleEnabled(businessModule, true),
       servicesEnabled: moduleEnabled(servicesModule, false),
       guideEnabled: moduleEnabled(guideModule, true),
+      customerActionsEnabled: moduleEnabled(customerActionsModule, true),
     },
   };
 }
@@ -401,16 +433,16 @@ function renderTapHubPage(viewModel) {
         </div>
       </section>
 
-      <section class="card">
+      ${viewModel.modules.customerActionsEnabled ? `<section class="card">
         <h2>Customer actions</h2>
         <div class="quick-actions">
-          <button type="button" data-checkin-open>Check in</button>
-          <button type="button" data-booking-open>Book</button>
-          <a href="https://buy.stripe.com/00w5kw6Lv3YweZoffq8bS00" target="_blank" rel="noopener noreferrer" data-tap-event-type="pay_click">Pay now</a>
-          <a href="https://cash.app/$theEmpireinc" target="_blank" rel="noopener noreferrer" data-tap-event-type="tip_click">Leave a tip</a>
-          <a href="${escapeHtml(viewModel.returnEngineUrl)}" data-tap-event-type="return_engine_click">Return Engine</a>
+          ${viewModel.customerActions.map((action) => (
+            action.type === "button"
+              ? `<button type="button" ${action.action === "open_checkin" ? "data-checkin-open" : "data-booking-open"}>${escapeHtml(action.label)}</button>`
+              : `<a href="${escapeHtml(action.href)}" ${action.external ? 'target="_blank" rel="noopener noreferrer"' : ""} data-tap-event-type="${escapeHtml(action.eventType)}">${escapeHtml(action.label)}</a>`
+          )).join("")}
         </div>
-      </section>
+      </section>` : ""}
 
       <section class="card">
         <h2>Assessment permission</h2>
