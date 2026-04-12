@@ -73,6 +73,13 @@ test("tap crm routes include owner tag create and update endpoints", () => {
   assert.match(routeSource, /router\.put\(\"\/console\/tags\/:tagId\"/);
 });
 
+test("bookings calendar route uses buildTimeSlots helper for month availability generation", () => {
+  const routeSource = fs.readFileSync(require.resolve("../server/tapCrmRoutes"), "utf8");
+  assert.match(routeSource, /router\.get\(\"\/console\/bookings\/calendar\"/);
+  assert.match(routeSource, /const allSlots = buildTimeSlots\(\{/);
+  assert.doesNotMatch(routeSource, /const allSlots = buildSlots\(/);
+});
+
 test("describeTagConflict returns field-specific messages for key, code, and label collisions", () => {
   const keyConflict = describeTagConflict({
     code: "23505",
