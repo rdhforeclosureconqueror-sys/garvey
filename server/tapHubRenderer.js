@@ -98,8 +98,15 @@ function buildTapHubViewModel(resolvedBody) {
   const attribution = resolution && resolution.attribution && typeof resolution.attribution === "object"
     ? resolution.attribution
     : {};
+  const resolvedCampaignSlug = String(
+    resolution.campaign_slug
+    || (config.campaign && config.campaign.slug)
+    || config.default_campaign_slug
+    || ""
+  ).trim();
   const attributionParams = {
     tenant: String(resolution.tenant || "").trim(),
+    cid: resolvedCampaignSlug,
     tap_tag: String(resolution.tag_code || "").trim(),
     tap_source: String(attribution.source || "tap-hub").trim(),
     tap_session: String(attribution.tap_session_id || "").trim(),
@@ -167,6 +174,7 @@ function buildTapHubViewModel(resolvedBody) {
     featuredServices,
     returnEngineUrl: appendQueryParams("/rewards.html", {
       tenant: String(resolution.tenant || "").trim(),
+      cid: resolvedCampaignSlug,
       entry: "tap-hub",
       tag: String(resolution.tag_code || "").trim(),
       tap_source: attributionParams.tap_source,
