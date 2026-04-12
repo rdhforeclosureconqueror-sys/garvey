@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Entering the Lion's Den</title>
+    <style>
+      :root {
+        --bg: #04070f;
+        --fg: #f2f6ff;
+        --accent: #8da9ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: "Inter", "SF Pro Display", "Segoe UI", Roboto, Arial, sans-serif;
+        overflow: hidden;
+      }
+
+      .intro-shell {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: #000;
+      }
+
+      .intro-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        filter: saturate(1.1) contrast(1.07) brightness(0.9);
+      }
+
+      .intro-overlay {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 24px;
+        background:
+          radial-gradient(circle at center, rgba(3, 8, 24, 0.22) 0%, rgba(2, 6, 18, 0.5) 58%, rgba(1, 4, 13, 0.8) 100%),
+          linear-gradient(to bottom, rgba(2, 5, 15, 0.54), rgba(2, 5, 15, 0.52));
+      }
+
+      .intro-title {
+        margin: 0;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: clamp(1.18rem, 4.7vw, 2rem);
+        line-height: 1.28;
+        font-weight: 600;
+        text-shadow: 0 0 28px rgba(141, 169, 255, 0.35), 0 0 12px rgba(0, 0, 0, 0.9);
+      }
+
+      .intro-title .accent {
+        color: var(--accent);
+      }
+
+      .intro-skip {
+        position: absolute;
+        left: 50%;
+        bottom: max(14px, env(safe-area-inset-bottom));
+        transform: translateX(-50%);
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        background: rgba(5, 8, 20, 0.38);
+        color: rgba(255, 255, 255, 0.88);
+        padding: 9px 14px;
+        border-radius: 999px;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        backdrop-filter: blur(4px);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="intro-shell" aria-label="Intro gate">
+      <video
+        id="lionIntroVideo"
+        class="intro-video"
+        autoplay
+        muted
+        playsinline
+        preload="auto"
+        aria-label="Lion intro video"
+      >
+        <source src="/archetype-card/lion-run.mp4" type="video/mp4" />
+      </video>
+
+      <div class="intro-overlay" aria-live="polite">
+        <h1 class="intro-title">Entering the <span class="accent">Lion's Den</span></h1>
+      </div>
+
+      <button id="skipIntro" class="intro-skip" type="button" aria-label="Skip intro">Continue</button>
+    </main>
+
+    <script src="/js/intro-gate.js" defer></script>
+  </body>
+</html>
