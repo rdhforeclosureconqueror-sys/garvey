@@ -29,6 +29,7 @@
 
     <h3>Your Personal Archetype Profile</h3>
     <p class="muted section-note">This is your personality lens (how you operate day-to-day).</p>
+    <div id="cidWarning" class="warning" hidden></div>
     <div id="personalWarning" class="warning" hidden></div>
     <div id="customerRoles"></div>
     <div id="customerPersonalTopCards"></div>
@@ -309,6 +310,13 @@
       if (message) console.warn(message);
     }
 
+    function setOptionalText(id, value) {
+      const el = document.getElementById(id);
+      if (!el) return false;
+      el.textContent = safeTrim(value);
+      return true;
+    }
+
     function customerArchetypeHref(typeId, group, combo) {
       const u = new URL("/customer_archetype.html", window.location.origin);
       if (tenant) u.searchParams.set("tenant", tenant);
@@ -324,13 +332,15 @@
     }
 
     function renderRoleLines(targetId, roles, combo, group, mode) {
+      const target = document.getElementById(targetId);
+      if (!target) return;
       const lines = [
         ["Primary", roles.primary],
         ["Secondary", roles.secondary],
         ["Growth area", roles.growth]
       ];
 
-      document.getElementById(targetId).innerHTML = lines.map(([label, roleName]) => {
+      target.innerHTML = lines.map(([label, roleName]) => {
         const normalizedId = mode === "buyer"
           ? normalizeBuyerId(roleName)
           : normalizePersonalId(roleName);
@@ -356,14 +366,16 @@
     }
 
     function renderBars(targetId, percents, group, combo, mode) {
+      const target = document.getElementById(targetId);
+      if (!target) return;
       const entries = Object.entries(percents || {}).sort((a, b) => Number(b[1]) - Number(a[1]));
 
       if (!entries.length) {
-        document.getElementById(targetId).innerHTML = `<p class="muted">Score unavailable.</p>`;
+        target.innerHTML = `<p class="muted">Score unavailable.</p>`;
         return;
       }
 
-      document.getElementById(targetId).innerHTML = entries.map(([label, v]) => {
+      target.innerHTML = entries.map(([label, v]) => {
         const pct = Number(v) || 0;
 
         const normalizedId = mode === "buyer"
@@ -465,7 +477,7 @@
 
     async function load() {
       if (!tenant || !email) {
-        document.getElementById("meta").textContent = "Missing tenant/email query params.";
+        setOptionalText("meta", "Missing tenant/email query params.");
         return;
       }
 
@@ -498,8 +510,8 @@
       syncCtx();
 
       if (!cid) {
-        document.getElementById("shareStatus").textContent =
-          "Critical error: CID missing from result payload.";
+        warn("cidWarning", "CID was not returned in this payload. Your archetype reading can still be viewed, but sharing/reward actions may be limited.");
+        setOptionalText("shareStatus", "CID missing from result payload.");
         console.error("CID resolution failed after results payload load", {
           tenant,
           email,
@@ -669,7 +681,7 @@
     }
 
     load().catch((err) => {
-      document.getElementById("meta").textContent = `Error: ${err.message}`;
+      setOptionalText("meta", `Error: ${err.message}`);
       console.error(err);
     });
   </script>
