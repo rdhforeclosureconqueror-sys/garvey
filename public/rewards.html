@@ -661,6 +661,14 @@ function isTapHubEntryQuery(query) {
   return entry === "tap-hub" || tapSource === "tap-hub" || tapSource === "tap";
 }
 
+function detectSourceTypeFromQuery(query) {
+  if (isTapHubEntryQuery(query)) return "tap";
+  const medium = safeTrim(query?.get("medium")).toLowerCase();
+  const source = safeTrim(query?.get("source")).toLowerCase();
+  if (medium === "qr" || source === "qr") return "qr";
+  return "direct";
+}
+
 function clearTapEntryCustomerState() {
   if (window.GARVEY && typeof window.GARVEY.clearCtx === "function") {
     try { window.GARVEY.clearCtx(); } catch (_) {}
@@ -794,8 +802,12 @@ function currentCtx() {
     tenant,
     email,
     name: safeTrim(isTapHubEntry ? queryName : (queryName || (sameTenantAsActive && (!email || activeEmail === email) ? activeCustomer?.name : "") || (sameTenantAsBase && (!email || baseEmail === email) ? base.name : ""))),
-    cid: safeTrim(isTapHubEntry ? "" : (queryCid || (shouldUseActiveCampaignCtx ? activeCustomer?.cid : "") || (shouldUseBaseCampaignCtx ? base.cid : ""))),
-    rid: safeTrim(isTapHubEntry ? "" : (queryRid || (shouldUseActiveCampaignCtx ? activeCustomer?.rid : "") || (shouldUseBaseCampaignCtx ? base.rid : ""))),
+    cid: safeTrim(isTapHubEntry
+      ? (queryCid || "")
+      : (queryCid || (shouldUseActiveCampaignCtx ? activeCustomer?.cid : "") || (shouldUseBaseCampaignCtx ? base.cid : ""))),
+    rid: safeTrim(isTapHubEntry
+      ? (queryRid || "")
+      : (queryRid || (shouldUseActiveCampaignCtx ? activeCustomer?.rid : "") || (shouldUseBaseCampaignCtx ? base.rid : ""))),
   };
 }
 
@@ -965,12 +977,22 @@ function updateStatusCards(payload) {
 }
 
 function syncVocLink() {
+  const query = new URLSearchParams(location.search);
   const ctx = currentCtx();
   const voc = new URL(`/voc.html`, location.origin);
   voc.searchParams.set("tenant", ctx.tenant);
   if (ctx.cid) voc.searchParams.set("cid", ctx.cid);
   if (readEmail()) voc.searchParams.set("email", readEmail());
   if (readName()) voc.searchParams.set("name", readName());
+  const entry = safeTrim(query.get("entry"));
+  const tapSource = safeTrim(query.get("tap_source"));
+  const tapTag = safeTrim(query.get("tap_tag") || query.get("tag"));
+  const tapSession = safeTrim(query.get("tap_session"));
+  if (entry) voc.searchParams.set("entry", entry);
+  if (tapSource) voc.searchParams.set("tap_source", tapSource);
+  if (tapTag) voc.searchParams.set("tap_tag", tapTag);
+  if (tapSession) voc.searchParams.set("tap_session", tapSession);
+  voc.searchParams.set("source_type", detectSourceTypeFromQuery(query));
   document.getElementById("openAssessment").href = voc.pathname + voc.search;
 }
 
@@ -1221,6 +1243,7 @@ async function submitAction() {
   const event = payloadByType[state.actionType];
   const ctx = currentCtx();
   logRewardsTrace("submit.payload", {
+    source_type: detectSourceTypeFromQuery(new URLSearchParams(window.location.search)),
     action_type: state.actionType,
     tenant: ctx.tenant,
     cid: ctx.cid,
@@ -1237,7 +1260,9 @@ async function submitAction() {
 
 async function run() {
   const ctx = currentCtx();
+  const entryQuery = new URLSearchParams(window.location.search);
   logRewardsTrace("run.entry", {
+    source_type: detectSourceTypeFromQuery(entryQuery),
     href: window.location.href,
     tenant: ctx.tenant,
     cid: ctx.cid,

@@ -6049,10 +6049,22 @@ async function handleVocIntake(req, res) {
       tenant,
       name,
       cid,
+      source_type: sourceTypeRaw,
+      entry_marker: entryMarkerRaw,
+      source_marker: sourceMarkerRaw,
+      tap_tag: tapTagRaw,
+      tap_session: tapSessionRaw,
+      initial_request_url: initialRequestUrlRaw,
       crid: cridRaw,
       result_id: resultIdRaw,
       answers: rawAnswers = [],
     } = req.body || {};
+    const sourceType = String(sourceTypeRaw || "").trim().toLowerCase() || "direct";
+    const entryMarker = String(entryMarkerRaw || "").trim();
+    const sourceMarker = String(sourceMarkerRaw || "").trim();
+    const tapTag = String(tapTagRaw || "").trim();
+    const tapSession = String(tapSessionRaw || "").trim();
+    const initialRequestUrl = String(initialRequestUrlRaw || "").trim();
     const linkedResultId = String(resultIdRaw ?? cridRaw ?? "").trim();
     const answers = parseAnswersInput(rawAnswers);
 
@@ -6125,6 +6137,12 @@ async function handleVocIntake(req, res) {
     console.info("[voc-intake-cid-trace]", JSON.stringify({
       tenant: tenantRow.slug,
       email: normalizeEmail(email),
+      source_type: sourceType,
+      entry_marker: entryMarker || null,
+      source_marker: sourceMarker || null,
+      tap_tag: tapTag || null,
+      tap_session: tapSession || null,
+      initial_request_url: initialRequestUrl || null,
       linked_result_id: linkedResultId || null,
       linked_result_session_id: linkedCampaign?.sessionId || null,
       linked_campaign_id: linkedCampaign?.campaignId || null,
@@ -6201,6 +6219,14 @@ async function handleVocIntake(req, res) {
         campaign?.slug || null,
       ]
     )).rows[0];
+    console.info("[voc-intake-result-trace]", JSON.stringify({
+      tenant: tenantRow.slug,
+      email: normalizeEmail(email),
+      source_type: sourceType,
+      result_id: String(submission.id ?? "").trim() || null,
+      cid: campaign?.slug || effectiveCid || null,
+      linked_result_id: linkedResultId || null,
+    }));
     await recordCampaignEvent({ tenantId: tenantRow.id, campaignId: campaign?.id || null, eventType: "customer_assessment", customerEmail: email, customerName: name, client, meta: { result_id: String(submission.id ?? "").trim() || null, campaign_slug: campaign?.slug || effectiveCid || null } });
     const ownerRecipient = await resolveOwnerRecipient({
       tenantId: tenantRow.id,

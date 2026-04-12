@@ -75,6 +75,25 @@ function getEmail() { return (new URLSearchParams(window.location.search).get("e
 function getName() { return (new URLSearchParams(window.location.search).get("name") || "").trim(); }
 function escapeHtml(s) { return String(s || "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c])); }
 function safeTrim(v) { return String(v ?? "").trim(); }
+function sourceTypeFromQuery(query) {
+  const sourceType = safeTrim(query.get("source_type")).toLowerCase();
+  if (sourceType === "tap" || sourceType === "qr") return sourceType;
+  const entry = safeTrim(query.get("entry")).toLowerCase();
+  const tapSource = safeTrim(query.get("tap_source")).toLowerCase();
+  if (entry === "tap-hub" || tapSource === "tap-hub" || tapSource === "tap") return "tap";
+  const medium = safeTrim(query.get("medium")).toLowerCase();
+  const source = safeTrim(query.get("source")).toLowerCase();
+  if (medium === "qr" || source === "qr") return "qr";
+  return "direct";
+}
+function logTapQrTrace(event, payload) {
+  const q = new URLSearchParams(window.location.search);
+  const traceEnabled = q.get("trace_rewards") === "1" || sourceTypeFromQuery(q) === "tap";
+  if (!traceEnabled) return;
+  try {
+    console.info("[tap-qr-trace]", event, payload || {});
+  } catch (_) {}
+}
 
 function readActiveCustomer() {
   const raw = (() => {
@@ -115,6 +134,7 @@ function writeActiveCustomer(next) {
 }
 
 function resolveIdentity() {
+  const query = new URLSearchParams(window.location.search);
   const tenant = getTenant();
   const active = readActiveCustomer();
   const login = window.GARVEY && window.GARVEY.loginCtx ? window.GARVEY.loginCtx() : {};
@@ -125,6 +145,11 @@ function resolveIdentity() {
 
   return {
     tenant,
+    sourceType: sourceTypeFromQuery(query),
+    entry: safeTrim(query.get("entry")),
+    tapSource: safeTrim(query.get("tap_source")),
+    tapTag: safeTrim(query.get("tap_tag") || query.get("tag")),
+    tapSession: safeTrim(query.get("tap_session")),
     cid: getCid() || (activeValid ? active.cid : "") || (loginValid ? safeTrim(login.cid) : ""),
     rid: (activeValid ? active.rid : "") || (loginValid ? safeTrim(login.rid) : ""),
     email: (activeValid ? active.email : "") || (loginValid ? safeTrim(login.email).toLowerCase() : "") || queryEmail,
@@ -264,6 +289,17 @@ async function submit() {
   const tenant = identity.tenant;
   const cid = identity.cid;
   const requestCrid = identity.rid;
+  logTapQrTrace("voc.start", {
+    source_type: identity.sourceType,
+    initial_url: window.location.href,
+    tenant,
+    cid,
+    crid: requestCrid || null,
+    entry: identity.entry || null,
+    tap_source: identity.tapSource || null,
+    tap_tag: identity.tapTag || null,
+    tap_session: identity.tapSession || null,
+  });
   const missing = [];
   if (!tenant) missing.push("tenant");
   if (!email) missing.push("email");
@@ -276,7 +312,20 @@ async function submit() {
       method: "POST",
       headers: { "Content-Type":"application/json" },
       credentials: "include",
-      body: JSON.stringify({ email, name, tenant, cid, crid: requestCrid, answers })
+      body: JSON.stringify({
+        email,
+        name,
+        tenant,
+        cid,
+        crid: requestCrid,
+        answers,
+        source_type: identity.sourceType,
+        entry_marker: identity.entry,
+        source_marker: identity.tapSource,
+        tap_tag: identity.tapTag,
+        tap_session: identity.tapSession,
+        initial_request_url: window.location.href,
+      })
     });
     const data = await res.json();
     if (!res.ok) {
@@ -295,6 +344,18 @@ async function submit() {
     dest.searchParams.set('email', email);
     if (responseCid) dest.searchParams.set('cid', responseCid);
     if (responseCrid) dest.searchParams.set('crid', responseCrid);
+    if (identity.entry) dest.searchParams.set('entry', identity.entry);
+    if (identity.tapSource) dest.searchParams.set('tap_source', identity.tapSource);
+    if (identity.tapTag) dest.searchParams.set('tap_tag', identity.tapTag);
+    if (identity.tapSession) dest.searchParams.set('tap_session', identity.tapSession);
+    dest.searchParams.set('source_type', identity.sourceType);
+    logTapQrTrace("voc.submit", {
+      source_type: identity.sourceType,
+      submit_payload: { tenant, email, cid, crid: requestCrid || null, answer_count: answers.length },
+      created_result_id: responseCrid || null,
+      redirect_url: dest.pathname + dest.search,
+      response_cid: responseCid || null,
+    });
     window.location.href = dest.pathname + dest.search;
   } catch (err) {
     showError(err?.message || "Submit failed");

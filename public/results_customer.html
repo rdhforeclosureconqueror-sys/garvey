@@ -61,6 +61,25 @@
     "use strict";
 
     const safeTrim = (value) => String(value ?? "").trim();
+    function detectSourceType(query) {
+      const explicit = safeTrim(query.get("source_type")).toLowerCase();
+      if (explicit === "tap" || explicit === "qr") return explicit;
+      const entry = safeTrim(query.get("entry")).toLowerCase();
+      const tapSource = safeTrim(query.get("tap_source")).toLowerCase();
+      if (entry === "tap-hub" || tapSource === "tap-hub" || tapSource === "tap") return "tap";
+      const medium = safeTrim(query.get("medium")).toLowerCase();
+      const source = safeTrim(query.get("source")).toLowerCase();
+      if (medium === "qr" || source === "qr") return "qr";
+      return "direct";
+    }
+    function logTapQrTrace(event, payload) {
+      const sourceType = detectSourceType(new URLSearchParams(window.location.search));
+      const traceEnabled = sourceType === "tap" || new URLSearchParams(window.location.search).get("trace_rewards") === "1";
+      if (!traceEnabled) return;
+      try {
+        console.info("[tap-qr-trace]", event, payload || {});
+      } catch (_) {}
+    }
 
     function escapeHtml(s) {
       return String(s || "").replace(/[&<>"']/g, (c) => ({
@@ -440,6 +459,7 @@
 
     async function fetchResultsPayload() {
       const attempts = [];
+      const sourceType = detectSourceType(new URLSearchParams(window.location.search));
 
       const ridUrl = buildCustomerResultsByRidUrl(crid);
       if (ridUrl) {
@@ -468,6 +488,15 @@
             headers: reqHeaders
           });
           const data = await res.json().catch(() => ({}));
+          logTapQrTrace("results.fetch_attempt", {
+            source_type: sourceType,
+            attempt_source: attempt.source,
+            attempt_url: attempt.url,
+            ok: res.ok,
+            status: res.status,
+            payload_result_id: safeTrim(data?.result_id || data?.result?.result_id || data?.id || ""),
+            payload_cid: safeTrim(data?.cid || data?.result?.cid || data?.campaign_slug || ""),
+          });
           if (res.ok) return { ok: true, payload: data, source: attempt.source, url: attempt.url };
         } catch (_) {}
       }
@@ -476,6 +505,15 @@
     }
 
     async function load() {
+      const sourceType = detectSourceType(new URLSearchParams(window.location.search));
+      logTapQrTrace("results.entry", {
+        source_type: sourceType,
+        initial_request_url: window.location.href,
+        tenant,
+        email,
+        cid,
+        crid,
+      });
       if (!tenant || !email) {
         setOptionalText("meta", "Missing tenant/email query params.");
         return;
@@ -507,6 +545,15 @@
       );
 
       cid = safeTrim(payloadCid || fallbackCid);
+      logTapQrTrace("results.cid_resolution", {
+        source_type: sourceType,
+        fetched_source: fetched.source,
+        fetched_url: fetched.url,
+        payload_cid: payloadCid || null,
+        fallback_cid: fallbackCid || null,
+        final_cid: cid || null,
+        result_id: crid || null,
+      });
       syncCtx();
 
       if (!cid) {
