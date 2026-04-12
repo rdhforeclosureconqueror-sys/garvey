@@ -190,6 +190,46 @@ const TAP_CRM_MIGRATIONS = Object.freeze([
       ALTER TABLE tap_crm_tap_events DROP COLUMN IF EXISTS event_type;
     `,
   },
+  {
+    id: "tap_crm_006_booking_requests_notifications",
+    description: "Add explicit booking request lifecycle and persistent notifications",
+    up: `
+      ALTER TABLE tap_crm_bookings
+        ALTER COLUMN status SET DEFAULT 'requested';
+
+      UPDATE tap_crm_bookings
+      SET status = 'confirmed'
+      WHERE COALESCE(status, '') = 'booked';
+
+      CREATE TABLE IF NOT EXISTS tap_crm_notifications (
+        id BIGSERIAL PRIMARY KEY,
+        tenant_id BIGINT NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+        type TEXT NOT NULL DEFAULT 'system',
+        title TEXT NOT NULL DEFAULT '',
+        payload_json JSONB NOT NULL DEFAULT '{}'::jsonb,
+        is_new BOOLEAN NOT NULL DEFAULT TRUE,
+        acknowledged_at TIMESTAMPTZ,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      CREATE INDEX IF NOT EXISTS tap_crm_notifications_tenant_created_idx
+        ON tap_crm_notifications(tenant_id, created_at DESC);
+      CREATE INDEX IF NOT EXISTS tap_crm_notifications_tenant_new_idx
+        ON tap_crm_notifications(tenant_id, is_new, created_at DESC);
+    `,
+    down: `
+      DROP INDEX IF EXISTS tap_crm_notifications_tenant_new_idx;
+      DROP INDEX IF EXISTS tap_crm_notifications_tenant_created_idx;
+      DROP TABLE IF EXISTS tap_crm_notifications;
+
+      UPDATE tap_crm_bookings
+      SET status = 'booked'
+      WHERE COALESCE(status, '') = 'confirmed';
+
+      ALTER TABLE tap_crm_bookings
+        ALTER COLUMN status SET DEFAULT 'booked';
+    `,
+  },
 ]);
 
 async function ensureTapCrmMigrationTable(pool) {
@@ -248,6 +288,7 @@ async function verifyTapCrmSchema(pool) {
     "tap_crm_business_config",
     "tap_crm_tap_events",
     "tap_crm_bookings",
+    "tap_crm_notifications",
   ];
 
   const requiredIndexes = [
@@ -263,6 +304,8 @@ async function verifyTapCrmSchema(pool) {
     "tap_crm_tap_events_tenant_event_type_idx",
     "tap_crm_bookings_tenant_date_idx",
     "tap_crm_bookings_tag_date_idx",
+    "tap_crm_notifications_tenant_created_idx",
+    "tap_crm_notifications_tenant_new_idx",
   ];
 
   const tableResult = await pool.query(

@@ -305,6 +305,8 @@
           tags: [],
           calendar: { month: "", days: [] },
           bookings: [],
+          bookingRequests: [],
+          notifications: [],
           selectedDay: "",
           openedNotificationBookingId: null,
           actions: { primary: [], secondary: [] },
@@ -468,71 +470,49 @@
 
         function renderBookings() {
           var bookings = toBookingItems();
-          q("upcomingBookings").innerHTML = bookings.length ? bookings.slice(0, 6).map(function (event) {
+          var requests = state.bookingRequests || [];
+          q("upcomingBookings").innerHTML = bookings.length ? bookings.slice(0, 5).map(function (event) {
             var slot = event.booking_time || "time tbd";
             return '<li><span class="booking-link" data-booking-open="' + event.id + '">' + escapeHtml(event.customer_name || "customer") + '</span><span class="muted">' + escapeHtml(event.booking_date) + " · " + escapeHtml(slot) + '</span></li>';
-          }).join("") : '<li class="muted">No bookings captured yet.</li>';
+          }).join("") : '<li class="muted">No confirmed upcoming bookings.</li>';
 
-          q("recentBookingRequests").innerHTML = bookings.length ? bookings.slice(0, 6).map(function (event) {
-            return '<li><span class="booking-link" data-booking-open="' + event.id + '">' + escapeHtml(event.customer_name || "customer") + '</span><span class="muted">' + formatStamp(event.created_at) + '</span></li>';
+          q("recentBookingRequests").innerHTML = requests.length ? requests.slice(0, 8).map(function (event) {
+            return '<li><div><span class="booking-link" data-booking-open="' + event.id + '">' + escapeHtml(event.customer_name || "customer") + '</span><div class="muted">' +
+              escapeHtml(event.booking_date || "") + " · " + escapeHtml(event.booking_time || "") + " · " + escapeHtml(event.tag_code || "no-tag") + " · " + escapeHtml(event.status || "requested") +
+              '</div></div><button class="subtle" data-booking-accept="' + event.id + '">Accept</button></li>';
           }).join("") : '<li class="muted">No booking requests yet.</li>';
 
           var tapCount = Number(state.analytics.total_taps || 0);
           var bookCount = bookings.length;
           var rate = tapCount ? Math.round((bookCount / tapCount) * 100) : 0;
           q("bookingStatusIndicators").innerHTML = [
-            ["Total requests", bookCount],
+            ["Confirmed bookings", bookCount],
+            ["Pending requests", requests.length],
             ["Booking conversion", rate + "%"],
             ["Last booking", bookings[0] ? formatStamp(bookings[0].created_at) : "—"],
           ].map(function (item) { return '<li><span>' + item[0] + '</span><span class="badge">' + item[1] + '</span></li>'; }).join("");
           q("bookingHealth").textContent = bookCount > 0 ? "Bookings active" : "Awaiting bookings";
         }
 
-        function notificationKey(note) { return [note.type, note.timestamp, note.label].join("|"); }
-        function readAcked() {
-          try {
-            var tenant = getCtx().tenant || "default";
-            return JSON.parse(localStorage.getItem("tapcrm_ack_" + tenant) || "[]");
-          } catch (_) { return []; }
-        }
-        function saveAcked(keys) {
-          var tenant = getCtx().tenant || "default";
-          localStorage.setItem("tapcrm_ack_" + tenant, JSON.stringify(keys));
-        }
-
         function renderNotifications() {
-          var notes = [];
-          (state.bookings || []).slice(0, 12).forEach(function (booking) {
-            notes.push({
-              type: "booking",
-              booking_id: booking.id,
-              label: "New booking",
-              customer_name: booking.customer_name || "customer",
-              booking_date: booking.booking_date || "",
-              booking_time: booking.booking_time || "",
-              tag_code: booking.tag_code || "",
-              status: booking.status || "booked",
-              timestamp: booking.created_at || booking.booking_date || "",
-            });
+          var notes = (state.notifications || []).slice();
+          (state.analytics.recent_events || []).forEach(function (event, idx) {
+            if (event.event_type === "pay_click") {
+              notes.push({ id: "pay-" + idx + "-" + event.timestamp, type: "payment", title: "New payment intent", payload: {}, is_new: false, created_at: event.timestamp });
+            }
           });
-          (state.analytics.recent_events || []).slice(0, 8).forEach(function (event) {
-            if (event.event_type === "pay_click") notes.push({ type: "payment", label: "New payment intent", timestamp: event.timestamp });
-            if (event.event_type === "review_click" || event.event_type === "native_review_submit") notes.push({ type: "review", label: "New review submission", timestamp: event.timestamp });
-          });
-          if (state.pilot && state.pilot.readiness && state.pilot.readiness.ready !== true) {
-            notes.push({ type: "ops", label: "Pilot checklist still has pending items", timestamp: new Date().toISOString() });
-          }
-          var acked = readAcked();
           q("notificationList").innerHTML = notes.length ? notes.map(function (note) {
-            var key = notificationKey(note);
-            var isNew = acked.indexOf(key) === -1;
-            var metaLine = note.type === "booking"
-              ? (escapeHtml(note.customer_name) + " · " + escapeHtml(note.booking_date) + " " + escapeHtml(note.booking_time) + " · " + escapeHtml(note.tag_code || "no-tag") + " · " + escapeHtml(note.status))
-              : formatStamp(note.timestamp);
-            var openBtn = note.booking_id ? ('<button class="subtle" data-note-open="' + escapeHtml(String(note.booking_id || "")) + '">Open</button>') : "";
-            return '<li class="notif-item ' + (isNew ? "new" : "") + '"><div><strong>' + note.label + '</strong><div class="muted">' + metaLine + '</div></div><div class="notif-actions">' + openBtn + (isNew ? '<span class="badge">NEW</span>' : '<span class="muted">seen</span>') + '<button class="subtle" data-note-key="' + escapeHtml(key) + '">Acknowledge</button></div></li>';
+            var payload = note.payload || {};
+            var isBooking = note.type === "booking";
+            var isNew = note.is_new === true;
+            var metaLine = isBooking
+              ? (escapeHtml(payload.customer_name || "customer") + " · " + escapeHtml(payload.booking_date || "") + " " + escapeHtml(payload.booking_time || "") + " · " + escapeHtml(payload.tag_code || "no-tag") + " · " + escapeHtml(payload.status || "requested"))
+              : formatStamp(note.created_at);
+            var openBtn = payload.booking_id ? ('<button class="subtle" data-note-open="' + escapeHtml(String(payload.booking_id || "")) + '">Open</button>') : "";
+            var ackButton = Number.isInteger(Number(note.id)) ? ('<button class="subtle" data-note-ack="' + note.id + '">Acknowledge</button>') : "";
+            return '<li class="notif-item ' + (isNew ? "new" : "") + '"><div><strong>' + escapeHtml(note.title || "Notification") + '</strong><div class="muted">' + metaLine + '</div></div><div class="notif-actions">' + openBtn + (isNew ? '<span class="badge">NEW</span>' : '<span class="muted">seen</span>') + ackButton + '</div></li>';
           }).join("") : '<li class="muted">No notifications yet.</li>';
-          var newCount = notes.filter(function (note) { return acked.indexOf(notificationKey(note)) === -1; }).length;
+          var newCount = notes.filter(function (note) { return note.is_new === true; }).length;
           q("notifCount").textContent = newCount + " new";
         }
 
@@ -557,7 +537,8 @@
         }
 
         function openBookingDetail(bookingId) {
-          var booking = (state.bookings || []).find(function (item) { return String(item.id) === String(bookingId); });
+          var combined = (state.bookings || []).concat(state.bookingRequests || []);
+          var booking = combined.find(function (item) { return String(item.id) === String(bookingId); });
           if (!booking) return;
           state.openedNotificationBookingId = booking.id;
           q("notificationDetailTitle").textContent = "Booking #" + booking.id + " details";
@@ -566,7 +547,7 @@
             '<div><b>Date:</b> ' + escapeHtml(booking.booking_date || "") + '</div>' +
             '<div><b>Time:</b> ' + escapeHtml(booking.booking_time || "") + '</div>' +
             '<div><b>Tag/Source:</b> ' + escapeHtml(booking.tag_code || "not provided") + '</div>' +
-            '<div><b>Status:</b> ' + escapeHtml(booking.status || "booked") + '</div>' +
+            '<div><b>Status:</b> ' + escapeHtml(booking.status || "confirmed") + '</div>' +
             '<div class="muted" style="margin-top:6px;">Acknowledging this notification marks it as seen and does not remove this booking.</div>';
           selectDay(booking.booking_date, true);
         }
@@ -689,12 +670,30 @@
         async function loadAnalytics() {
           var r = await request("/api/tap-crm/console/analytics/summary");
           state.analytics = r.analytics_summary || {};
-          renderKpis(); renderActionBreakdown(); renderTrend(); renderTopTags(); renderConversionPath(); renderBookings(); renderNotifications(); renderReviews();
+          renderKpis(); renderActionBreakdown(); renderTrend(); renderTopTags(); renderConversionPath(); renderReviews();
+        }
+        async function loadBookingRequests() {
+          var r = await request("/api/tap-crm/console/bookings/requests");
+          state.bookingRequests = r.requests || [];
+          renderBookings();
+        }
+        async function acceptBookingRequest(bookingId) {
+          await request("/api/tap-crm/console/bookings/" + encodeURIComponent(bookingId) + "/accept", { method: "POST", body: JSON.stringify({}) });
+          await Promise.all([loadBookingRequests(), loadCalendar(), loadNotifications()]);
+          txt(q("globalStatus"), "Booking request accepted.", true);
+        }
+        async function loadNotifications() {
+          var r = await request("/api/tap-crm/console/notifications");
+          state.notifications = r.notifications || [];
+          renderNotifications();
+        }
+        async function acknowledgeNotification(notificationId) {
+          await request("/api/tap-crm/console/notifications/" + encodeURIComponent(notificationId) + "/ack", { method: "POST", body: JSON.stringify({}) });
+          await loadNotifications();
         }
         async function loadPilot() {
           var r = await request("/api/tap-crm/console/pilot/readiness");
           state.pilot = r.pilot || {};
-          renderNotifications();
         }
         async function runBootstrap() {
           await request("/api/tap-crm/console/pilot/bootstrap", { method: "POST", body: JSON.stringify({}) });
@@ -751,9 +750,8 @@
           var r = await request(endpoint);
           state.calendar = r.calendar || { month: month, days: [] };
           state.bookings = (state.calendar.days || []).flatMap(function (day) { return day.appointments || []; })
-            .sort(function (a, b) { return String(b.booking_date + " " + b.booking_time).localeCompare(String(a.booking_date + " " + a.booking_time)); });
+            .sort(function (a, b) { return String(a.booking_date + " " + a.booking_time).localeCompare(String(b.booking_date + " " + b.booking_time)); });
           renderBookings();
-          renderNotifications();
           renderAvailability(state.calendar.days || []);
           if (state.selectedDay) selectDay(state.selectedDay, false);
         }
@@ -768,7 +766,7 @@
           await loadTags();
           await loadAnalytics();
           await loadPilot();
-          await loadCalendar();
+          await Promise.all([loadCalendar(), loadBookingRequests(), loadNotifications()]);
           q("consoleLoadState").textContent = "Live";
           txt(q("globalStatus"), "Console loaded.", true);
         }
@@ -792,18 +790,20 @@
             if (action === "remove-row") actionButton.closest(".action-row").remove();
           }
 
-          var noteButton = event.target.closest("button[data-note-key]");
+          var noteButton = event.target.closest("button[data-note-ack]");
           if (noteButton) {
-            var key = noteButton.getAttribute("data-note-key");
-            var acked = readAcked();
-            if (acked.indexOf(key) === -1) acked.push(key);
-            saveAcked(acked);
-            renderNotifications();
+            var noteId = noteButton.getAttribute("data-note-ack");
+            if (noteId) acknowledgeNotification(noteId).catch(function (err) { txt(q("globalStatus"), err.message, false); });
           }
           var noteOpen = event.target.closest("button[data-note-open]");
           if (noteOpen) {
             var bookingId = noteOpen.getAttribute("data-note-open");
             if (bookingId) openBookingDetail(bookingId);
+          }
+          var bookingAccept = event.target.closest("button[data-booking-accept]");
+          if (bookingAccept) {
+            var acceptId = bookingAccept.getAttribute("data-booking-accept");
+            if (acceptId) acceptBookingRequest(acceptId).catch(function (err) { txt(q("globalStatus"), err.message, false); });
           }
           var dayCell = event.target.closest("[data-day]");
           if (dayCell) selectDay(dayCell.getAttribute("data-day"), false);
@@ -855,6 +855,8 @@
         setInterval(function () {
           loadAnalytics().catch(function () {});
           loadCalendar().catch(function () {});
+          loadBookingRequests().catch(function () {});
+          loadNotifications().catch(function () {});
         }, 30000);
         loadAll().catch(function (err) { txt(q("globalStatus"), err.message, false); q("consoleLoadState").textContent = "Error"; });
       })();
