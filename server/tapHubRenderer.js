@@ -340,6 +340,26 @@ function renderTapHubPage(viewModel) {
       .flow-actions button { flex: 1; border-radius: 8px; border: 1px solid rgba(230,184,93,0.55); padding: 10px; background: #111827; color: #fff; }
       .booking-result { margin-top: 8px; border: 1px solid rgba(22,163,74,0.6); background: rgba(20,83,45,0.45); border-radius: 10px; padding: 10px; color: #dcfce7; }
       .page-notice { margin-bottom: 12px; border: 1px solid rgba(22,163,74,0.65); border-radius: 10px; padding: 10px; background: rgba(22,163,74,0.2); color: #dcfce7; }
+      .consent-card-copy { margin: 0 0 8px; color: #d1d5db; font-size: 0.9rem; line-height: 1.45; }
+      .consent-card-actions { display: grid; gap: 8px; }
+      .consent-card-actions input {
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid #475569;
+        background: #0f172a;
+        color: #f8fafc;
+        padding: 10px;
+      }
+      .consent-revoke-btn {
+        border-radius: 10px;
+        border: 1px solid rgba(248, 113, 113, 0.75);
+        background: linear-gradient(135deg, #7f1d1d, #450a0a);
+        color: #fee2e2;
+        padding: 11px;
+        font-weight: 700;
+      }
+      .consent-helper-link { color: #fef3c7; font-size: 0.85rem; text-decoration: underline; }
+      .consent-status { min-height: 20px; color: #e2e8f0; font-size: 0.85rem; }
       body.modal-active { overflow: hidden; touch-action: none; }
     </style>
   </head>
@@ -381,6 +401,17 @@ function renderTapHubPage(viewModel) {
           <a href="https://buy.stripe.com/00w5kw6Lv3YweZoffq8bS00" target="_blank" rel="noopener noreferrer" data-tap-event-type="pay_click">Pay now</a>
           <a href="https://cash.app/$theEmpireinc" target="_blank" rel="noopener noreferrer" data-tap-event-type="tip_click">Leave a tip</a>
           <a href="${escapeHtml(viewModel.returnEngineUrl)}" data-tap-event-type="return_engine_click">Return Engine</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Assessment permission</h2>
+        <p class="consent-card-copy">You can revoke assessment permission at any time. This immediately removes VOC/assessment profile access and requires new consent before VOC can be used again. Check-in, booking, pay, and tip continue to work.</p>
+        <div class="consent-card-actions">
+          <input id="revokeEmailInput" type="email" placeholder="Enter your email to revoke assessment permission" autocomplete="email" />
+          <button type="button" class="consent-revoke-btn" id="revokeAssessmentBtn">Revoke assessment permission</button>
+          <a class="consent-helper-link" id="reconsentVocLink" href="/voc.html">Need VOC later? Re-consent in VOC.</a>
+          <div class="consent-status" id="revokeAssessmentStatus" aria-live="polite"></div>
         </div>
       </section>
 
@@ -478,6 +509,10 @@ function renderTapHubPage(viewModel) {
         var cancelBtn = document.getElementById("bookingCancelBtn");
         var confirmBtn = document.getElementById("bookingConfirmBtn");
         var bookingNameInput = document.getElementById("bookingName");
+        var revokeEmailInput = document.getElementById("revokeEmailInput");
+        var revokeAssessmentBtn = document.getElementById("revokeAssessmentBtn");
+        var revokeAssessmentStatus = document.getElementById("revokeAssessmentStatus");
+        var reconsentVocLink = document.getElementById("reconsentVocLink");
         var selectedSlot = "";
         var bookingUnlocked = false;
         var submitPending = false;
@@ -535,6 +570,15 @@ function renderTapHubPage(viewModel) {
           if (!pageNotice) return;
           pageNotice.hidden = !text;
           pageNotice.textContent = text || "";
+        }
+        function showRevokeStatus(text, isError) {
+          if (!revokeAssessmentStatus) return;
+          revokeAssessmentStatus.textContent = text || "";
+          revokeAssessmentStatus.style.color = isError ? "#fecaca" : "#bbf7d0";
+        }
+        function resolveEmailFromQuery() {
+          var queryEmail = (new URLSearchParams(window.location.search).get("email") || "").trim().toLowerCase();
+          return queryEmail;
         }
         function updateBookingEntryState() {
           bookingOpenButtons.forEach(function (button) {
@@ -605,6 +649,18 @@ function renderTapHubPage(viewModel) {
               return null;
             });
         }
+
+        function buildReconsentHref(email) {
+          var params = new URLSearchParams();
+          if (tenantSlug) params.set("tenant", tenantSlug);
+          if (email) params.set("email", email);
+          return "/voc.html?" + params.toString();
+        }
+
+        function applyReconsentHref(email) {
+          if (!reconsentVocLink) return;
+          reconsentVocLink.setAttribute("href", buildReconsentHref(email));
+        }
         function openBooking(event) {
           if (!backdrop) return;
           if (!event || event.type !== "click") return;
@@ -618,6 +674,58 @@ function renderTapHubPage(viewModel) {
           setConfirmEnabled(false);
           showBookingResult("");
           fetchAvailability();
+        }
+
+        if (revokeEmailInput) {
+          var prefillEmail = resolveEmailFromQuery();
+          if (prefillEmail) revokeEmailInput.value = prefillEmail;
+          applyReconsentHref(prefillEmail);
+          revokeEmailInput.addEventListener("input", function () {
+            applyReconsentHref(String(revokeEmailInput.value || "").trim().toLowerCase());
+          });
+        } else {
+          applyReconsentHref("");
+        }
+
+        if (revokeAssessmentBtn) {
+          revokeAssessmentBtn.addEventListener("click", function () {
+            var email = String((revokeEmailInput && revokeEmailInput.value) || "").trim().toLowerCase();
+            if (!tenantSlug) {
+              showRevokeStatus("Missing tenant context for revocation.", true);
+              return;
+            }
+            if (!email) {
+              showRevokeStatus("Enter your email to revoke assessment permission.", true);
+              return;
+            }
+            revokeAssessmentBtn.disabled = true;
+            showRevokeStatus("Revoking assessment permission…", false);
+            fetch("/api/consent/assessment/revoke", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              credentials: "include",
+              body: JSON.stringify({
+                tenant: tenantSlug,
+                email: email,
+                consent_version: "v1",
+              }),
+            })
+              .then(function (res) { return res.json().then(function (body) { return { ok: res.ok, body: body || {} }; }); })
+              .then(function (result) {
+                if (!result.ok || result.body.error) {
+                  throw new Error(result.body.error || "Revocation failed");
+                }
+                showRevokeStatus("Assessment permission revoked. VOC is blocked until you re-consent.", false);
+                showPageNotice("Assessment permission revoked for " + email + ". You can still check in, book, pay, and tip.");
+                return logTapEvent("assessment_permission_revoked", { tenant: tenantSlug, email: email });
+              })
+              .catch(function (err) {
+                showRevokeStatus(err.message || "Revocation failed.", true);
+              })
+              .finally(function () {
+                revokeAssessmentBtn.disabled = false;
+              });
+          });
         }
         function closeBooking() {
           if (activeModal === "booking") setActiveModal(null);
