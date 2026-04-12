@@ -1,11 +1,11 @@
 (function initIntroGate() {
-  const INTRO_DURATION_MS = 3000;
+  const INTRO_DURATION_MS = 5000;
   const CONTROL_KEYS = new Set(["to", "dest", "destination", "delay"]);
 
   function normalizeDelay(raw) {
     const parsed = Number(raw);
     if (!Number.isFinite(parsed)) return INTRO_DURATION_MS;
-    return Math.max(1600, Math.min(12000, Math.round(parsed)));
+    return Math.max(4500, Math.min(12000, Math.round(parsed)));
   }
 
   function resolveDestination() {
