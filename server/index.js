@@ -1157,6 +1157,56 @@ function buildAssessmentResultPayload({
   return base;
 }
 
+function buildResultCidTrace(row) {
+  const submissionCid = normalizeSlug(row?.submission_cid ?? row?.cid);
+  const submissionCampaignSlug = normalizeSlug(row?.submission_campaign_slug ?? row?.campaign_slug);
+  const vocSessionCid = normalizeSlug(row?.voc_session_cid);
+  const intakeSessionCid = normalizeSlug(row?.intake_session_cid);
+  const campaignJoinCid = normalizeSlug(row?.campaign_join_cid);
+  const campaignEventCid = normalizeSlug(row?.campaign_event_cid);
+
+  const orderedSources = [
+    { source: "submission.cid", value: submissionCid },
+    { source: "submission.campaign_slug", value: submissionCampaignSlug },
+    { source: "voc_sessions.campaign_slug", value: vocSessionCid },
+    { source: "intake_sessions.campaign_slug", value: intakeSessionCid },
+    { source: "campaigns.slug", value: campaignJoinCid },
+    { source: "campaign_events.meta.campaign_slug", value: campaignEventCid },
+  ];
+
+  const resolved = orderedSources.find((entry) => entry.value)?.value || null;
+  const resolvedFrom = orderedSources.find((entry) => entry.value)?.source || null;
+
+  return {
+    submissionCid,
+    submissionCampaignSlug,
+    vocSessionCid,
+    intakeSessionCid,
+    campaignJoinCid,
+    campaignEventCid,
+    resolved,
+    resolvedFrom,
+    orderedSources,
+  };
+}
+
+function logResultCidTrace(route, row, trace) {
+  console.info("[results-cid-trace]", JSON.stringify({
+    route,
+    tenant: String(row?.tenant_slug || "").trim() || null,
+    result_id: row?.id ?? null,
+    session_id: row?.session_id ?? null,
+    submission_cid: trace.submissionCid,
+    submission_campaign_slug: trace.submissionCampaignSlug,
+    voc_session_cid: trace.vocSessionCid,
+    intake_session_cid: trace.intakeSessionCid,
+    campaign_join_cid: trace.campaignJoinCid,
+    campaign_event_cid: trace.campaignEventCid,
+    final_cid: trace.resolved,
+    final_cid_source: trace.resolvedFrom,
+  }));
+}
+
 async function findTenantUser(tenantId, email, client = pool, name = "") {
   const normalized = normalizeEmail(email);
   const normalizedName = String(name || "").trim();
@@ -1192,6 +1242,57 @@ async function findTenantUser(tenantId, email, client = pool, name = "") {
   );
 
   return created.rows[0];
+}
+
+async function findCustomerResultCampaignLink({
+  tenantId,
+  crid,
+  email,
+  client = pool,
+}) {
+  const resultId = String(crid || "").trim();
+  if (!resultId) return null;
+  const normalizedEmail = normalizeEmail(email);
+  const probe = await client.query(
+    `
+      SELECT
+        a.id,
+        a.session_id,
+        a.campaign_id,
+        a.cid AS submission_cid,
+        a.campaign_slug AS submission_campaign_slug,
+        vs.campaign_slug AS voc_session_cid,
+        isess.campaign_slug AS intake_session_cid,
+        c.slug AS campaign_join_cid
+      FROM assessment_submissions a
+      JOIN users u ON u.id = a.user_id
+      LEFT JOIN voc_sessions vs ON vs.id = a.session_id AND vs.tenant_id = a.tenant_id
+      LEFT JOIN intake_sessions isess ON isess.id = a.session_id AND isess.tenant_id = a.tenant_id
+      LEFT JOIN campaigns c ON c.id = COALESCE(a.campaign_id, vs.campaign_id, isess.campaign_id)
+      WHERE a.tenant_id = $1
+        AND a.id::text = $2
+        AND a.assessment_type = 'customer'
+        AND LOWER(COALESCE(u.email, '')) = LOWER($3)
+      LIMIT 1
+    `,
+    [tenantId, resultId, normalizedEmail]
+  );
+  if (!probe.rows[0]) return null;
+  const row = probe.rows[0];
+  const trace = buildResultCidTrace({
+    submission_cid: row.submission_cid,
+    submission_campaign_slug: row.submission_campaign_slug,
+    voc_session_cid: row.voc_session_cid,
+    intake_session_cid: row.intake_session_cid,
+    campaign_join_cid: row.campaign_join_cid,
+  });
+  return {
+    resultId: String(row.id),
+    sessionId: row.session_id || null,
+    campaignId: row.campaign_id || null,
+    cid: trace.resolved,
+    cidSource: trace.resolvedFrom,
+  };
 }
 
 async function findTenantUserExisting(tenantId, email, client = pool) {
@@ -5107,6 +5208,19 @@ app.get("/api/results/:email", async (req, res) => {
       SELECT
         a.*,
         t.slug AS tenant_slug,
+        a.cid AS submission_cid,
+        a.campaign_slug AS submission_campaign_slug,
+        vs.campaign_slug AS voc_session_cid,
+        isess.campaign_slug AS intake_session_cid,
+        c.slug AS campaign_join_cid,
+        (
+          SELECT NULLIF(TRIM(ce.meta->>'campaign_slug'), '')
+          FROM campaign_events ce
+          WHERE ce.tenant_id = a.tenant_id
+            AND ce.meta->>'result_id' = a.id::text
+          ORDER BY ce.created_at DESC, ce.id DESC
+          LIMIT 1
+        ) AS campaign_event_cid,
         COALESCE(
           a.cid,
           a.campaign_slug,
@@ -5202,6 +5316,9 @@ app.get("/api/results/:email", async (req, res) => {
     });
 
     const row = result.rows[0];
+    const cidTrace = buildResultCidTrace(row);
+    logResultCidTrace("GET /api/results/:email", row, cidTrace);
+
     if (row.assessment_type === "customer") {
       if (!consentFeature.enabled) {
         const legacyPolicy = evaluatePolicy({
@@ -5230,7 +5347,7 @@ app.get("/api/results/:email", async (req, res) => {
         email,
         submission: {
           ...row,
-          cid: row.resolved_cid || row.cid || row.campaign_slug || null,
+          cid: cidTrace.resolved,
         },
       });
       const finalPayload = (consentFeature.enabled && decision.scope === "limited")
@@ -5258,7 +5375,7 @@ app.get("/api/results/:email", async (req, res) => {
       email,
       submission: {
         ...row,
-        cid: row.resolved_cid || row.cid || row.campaign_slug || null,
+        cid: cidTrace.resolved,
       },
     });
 
@@ -5294,6 +5411,19 @@ app.get("/api/results/customer/:crid", async (req, res) => {
         a.*,
         u.email,
         t.slug AS tenant_slug,
+        a.cid AS submission_cid,
+        a.campaign_slug AS submission_campaign_slug,
+        vs.campaign_slug AS voc_session_cid,
+        isess.campaign_slug AS intake_session_cid,
+        c.slug AS campaign_join_cid,
+        (
+          SELECT NULLIF(TRIM(ce.meta->>'campaign_slug'), '')
+          FROM campaign_events ce
+          WHERE ce.tenant_id = a.tenant_id
+            AND ce.meta->>'result_id' = a.id::text
+          ORDER BY ce.created_at DESC, ce.id DESC
+          LIMIT 1
+        ) AS campaign_event_cid,
         COALESCE(
           a.cid,
           a.campaign_slug,
@@ -5341,6 +5471,8 @@ app.get("/api/results/customer/:crid", async (req, res) => {
     }
 
     const row = result.rows[0];
+    const cidTrace = buildResultCidTrace(row);
+    logResultCidTrace("GET /api/results/customer/:crid", row, cidTrace);
     const consentProfile = await getConsentProfileBySubmission(pool, row);
     const decision = canActorReadCustomerResult({
       actor,
@@ -5358,7 +5490,7 @@ app.get("/api/results/customer/:crid", async (req, res) => {
       email: row.email,
       submission: {
         ...row,
-        cid: row.resolved_cid || row.cid || row.campaign_slug || null,
+        cid: cidTrace.resolved,
       },
     });
 
@@ -5912,7 +6044,16 @@ async function handleVocIntake(req, res) {
     // 🔥 DEBUG (CRITICAL — DO NOT REMOVE)
     console.log("📥 INCOMING VOC:", req.body);
 
-    const { email, tenant, name, cid, answers: rawAnswers = [] } = req.body || {};
+    const {
+      email,
+      tenant,
+      name,
+      cid,
+      crid: cridRaw,
+      result_id: resultIdRaw,
+      answers: rawAnswers = [],
+    } = req.body || {};
+    const linkedResultId = String(resultIdRaw ?? cridRaw ?? "").trim();
     const answers = parseAnswersInput(rawAnswers);
 
     // 🔒 STRICT VALIDATION
@@ -5966,7 +6107,32 @@ async function handleVocIntake(req, res) {
       enforceConsent: true,
     });
 
-    const campaign = await resolveCampaignForTenantStrict(tenantRow.id, cid, client);
+    const requestedCid = normalizeSlug(cid);
+    const linkedCampaign = !requestedCid && linkedResultId
+      ? await findCustomerResultCampaignLink({
+        tenantId: tenantRow.id,
+        crid: linkedResultId,
+        email,
+        client,
+      })
+      : null;
+    const effectiveCid = requestedCid || linkedCampaign?.cid || null;
+    const campaign = await resolveCampaignForTenantStrict(tenantRow.id, effectiveCid, client, {
+      logLabel: "voc_intake_campaign_resolution",
+      tenantSlug: tenantRow.slug,
+      resultId: linkedResultId || null,
+    });
+    console.info("[voc-intake-cid-trace]", JSON.stringify({
+      tenant: tenantRow.slug,
+      email: normalizeEmail(email),
+      linked_result_id: linkedResultId || null,
+      linked_result_session_id: linkedCampaign?.sessionId || null,
+      linked_campaign_id: linkedCampaign?.campaignId || null,
+      linked_campaign_cid: linkedCampaign?.cid || null,
+      linked_campaign_cid_source: linkedCampaign?.cidSource || null,
+      requested_cid: requestedCid || null,
+      final_cid: campaign?.slug || effectiveCid || null,
+    }));
     const session = (
       await client.query(
         `INSERT INTO voc_sessions (tenant_id, email, name, campaign_id, campaign_slug, source, medium)
@@ -6029,13 +6195,13 @@ async function handleVocIntake(req, res) {
         mappedArchetypes.personal.secondary,
         mappedArchetypes.personal.weakness,
         mappedArchetypes.personal.counts,
-        campaign?.slug || normalizeSlug(cid) || null,
+        campaign?.slug || effectiveCid || null,
         safeAnswers,
         campaign?.id || null,
         campaign?.slug || null,
       ]
     )).rows[0];
-    await recordCampaignEvent({ tenantId: tenantRow.id, campaignId: campaign?.id || null, eventType: "customer_assessment", customerEmail: email, customerName: name, client, meta: { result_id: String(submission.id ?? "").trim() || null, campaign_slug: campaign?.slug || normalizeSlug(cid) || null } });
+    await recordCampaignEvent({ tenantId: tenantRow.id, campaignId: campaign?.id || null, eventType: "customer_assessment", customerEmail: email, customerName: name, client, meta: { result_id: String(submission.id ?? "").trim() || null, campaign_slug: campaign?.slug || effectiveCid || null } });
     const ownerRecipient = await resolveOwnerRecipient({
       tenantId: tenantRow.id,
       campaignId: campaign?.id || null,
@@ -6050,7 +6216,7 @@ async function handleVocIntake(req, res) {
       client,
       meta: {
         result_id: String(submission.id ?? "").trim() || null,
-        campaign_slug: campaign?.slug || normalizeSlug(cid) || null,
+        campaign_slug: campaign?.slug || effectiveCid || null,
         owner_email: ownerRecipient.ownerEmail,
         owner_rid: ownerRecipient.ownerRid,
         auto_notified: true,
@@ -6108,7 +6274,7 @@ async function handleVocIntake(req, res) {
       personality_counts: scored.personality_counts,
       ...resultContract,
       result: payload,
-      cid: campaign?.slug || normalizeSlug(cid) || null,
+      cid: campaign?.slug || effectiveCid || null,
       owner_email: ownerRecipient.ownerEmail,
       owner_rid: ownerRecipient.ownerRid,
       owner_notification_auto: true,

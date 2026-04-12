@@ -263,6 +263,7 @@ async function submit() {
   const name = safeTrim(document.getElementById("name").value || identity.name);
   const tenant = identity.tenant;
   const cid = identity.cid;
+  const requestCrid = identity.rid;
   const missing = [];
   if (!tenant) missing.push("tenant");
   if (!email) missing.push("email");
@@ -275,7 +276,7 @@ async function submit() {
       method: "POST",
       headers: { "Content-Type":"application/json" },
       credentials: "include",
-      body: JSON.stringify({ email, name, tenant, cid, answers })
+      body: JSON.stringify({ email, name, tenant, cid, crid: requestCrid, answers })
     });
     const data = await res.json();
     if (!res.ok) {
@@ -283,16 +284,17 @@ async function submit() {
       throw new Error(errDetails || "Submit failed");
     }
 
-    const crid = String(data?.result_id ?? data?.result?.result_id ?? "").trim();
-    writeActiveCustomer({ tenant, email, name, cid, rid: crid || identity.rid });
+    const responseCrid = String(data?.result_id ?? data?.result?.result_id ?? "").trim();
+    const responseCid = String(data?.cid ?? data?.result?.cid ?? cid).trim();
+    writeActiveCustomer({ tenant, email, name, cid: responseCid, rid: responseCrid || identity.rid });
     if (window.GARVEY && window.GARVEY.setLoginCtx) {
-      window.GARVEY.setLoginCtx({ tenant, email, name, cid, rid: crid || identity.rid });
+      window.GARVEY.setLoginCtx({ tenant, email, name, cid: responseCid, rid: responseCrid || identity.rid });
     }
     const dest = new URL('/results_customer.html', window.location.origin);
     dest.searchParams.set('tenant', tenant);
     dest.searchParams.set('email', email);
-    if (cid) dest.searchParams.set('cid', cid);
-    if (crid) dest.searchParams.set('crid', crid);
+    if (responseCid) dest.searchParams.set('cid', responseCid);
+    if (responseCrid) dest.searchParams.set('crid', responseCrid);
     window.location.href = dest.pathname + dest.search;
   } catch (err) {
     showError(err?.message || "Submit failed");
