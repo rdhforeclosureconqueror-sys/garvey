@@ -78,6 +78,12 @@ test('leadership scoring returns normalized scores and hybrid logic fields', () 
   assert.ok(scored.contradictionConsistency);
   assert.ok(scored.identityBehaviorGap);
   assert.ok(scored.stressProfile);
+  assert.ok(scored.primaryInsight);
+  assert.ok(scored.secondaryInsight);
+  assert.ok(scored.balanceInsight);
+  assert.ok(scored.stressInsight);
+  assert.ok(scored.identityGapInsight);
+  assert.ok(scored.consistencyInsight);
 });
 
 test('loyalty scoring returns normalized scores and hybrid logic fields', () => {
@@ -91,6 +97,12 @@ test('loyalty scoring returns normalized scores and hybrid logic fields', () => 
   assert.ok(scored.contradictionConsistency);
   assert.ok(scored.identityBehaviorGap);
   assert.ok(scored.stressProfile);
+  assert.ok(scored.primaryInsight);
+  assert.ok(scored.secondaryInsight);
+  assert.ok(scored.balanceInsight);
+  assert.ok(scored.stressInsight);
+  assert.ok(scored.identityGapInsight);
+  assert.ok(scored.consistencyInsight);
 });
 
 test('compatibility scoring returns bounded score', () => {
@@ -106,6 +118,9 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
     for (const engineType of ['leadership', 'loyalty']) {
       const listRes = await fetch(`${baseUrl}/api/archetype-engines/${engineType}/archetypes?tenant=demo`);
       assert.equal(listRes.status, 200);
+      const listJson = await listRes.json();
+      assert.ok(listJson.archetypes[0].shortDescription);
+      assert.ok(listJson.archetypes[0].coreTrait);
 
       const startRes = await fetch(`${baseUrl}/api/archetype-engines/${engineType}/assessment/start`, {
         method: 'POST',
@@ -132,6 +147,12 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
       const scoreJson = await scoreRes.json();
       assert.ok(scoreJson.resultId);
       assert.ok(scoreJson.normalizedScores);
+      assert.ok(scoreJson.primaryInsight);
+      assert.ok(scoreJson.secondaryInsight);
+      assert.ok(scoreJson.balanceInsight);
+      assert.ok(scoreJson.stressInsight);
+      assert.ok(scoreJson.identityGapInsight);
+      assert.ok(scoreJson.consistencyInsight);
 
       const fetchResultRes = await fetch(`${baseUrl}/api/archetype-engines/${engineType}/results/${scoreJson.resultId}`);
       assert.equal(fetchResultRes.status, 200);
