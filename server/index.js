@@ -63,6 +63,8 @@ const intelligenceRoutes = require("./intelligenceRoutes");
 const infrastructureRoutes = require("./infrastructureRoutes");
 const routingRoutes = require("./routingRoutes");
 const evolutionRoutes = require("./evolutionRoutes");
+const { createArchetypeEnginesRouter } = require("./archetypeEnginesRoutes");
+const { initializeArchetypeEngineSchema } = require("./archetypeEnginesService");
 const { generateSite } = require("./siteMaterializer");
 const { getTapCrmMode } = require("./tapCrmFeature");
 const { createTapCrmRouter, resolvePublicTap } = require("./tapCrmRoutes");
@@ -1904,6 +1906,7 @@ app.use("/api/infrastructure", infrastructureRoutes({ pool, ensureTenant }));
 app.use("/api/routing", routingRoutes({ pool, ensureTenant }));
 app.use("/api/stability", routingRoutes({ pool, ensureTenant }));
 app.use("/api/evolution", evolutionRoutes({ pool, ensureTenant }));
+app.use("/api/archetype-engines", createArchetypeEnginesRouter({ pool }));
 
 app.post("/api/campaigns/create", async (req, res) => {
   let failurePoint = "init";
@@ -6503,6 +6506,7 @@ app.get("/api/verify/intelligence/:slug", tenantMiddleware, async (req, res) => 
 
     // ✅ ensure Kanban schema exists
     await initializeKanbanSchema(pool);
+    await initializeArchetypeEngineSchema(pool);
 
     const intervalMs = Number(process.env.ADAPTIVE_INTERVAL_MS || 300000);
     setInterval(async () => {

@@ -53,6 +53,10 @@ h1 { color:gold; }
 
 <a class="btn" id="businessBtn">🧠 Business Assessment</a>
 <a class="btn" id="vocBtn">🗣️ Customer VOC</a>
+<a class="btn" id="archetypeHubBtn">🧬 Archetype Engines</a>
+<a class="btn" id="loveArchetypeBtn">❤️ Love Archetype Assessment</a>
+<a class="btn" id="leadershipArchetypeBtn">🧭 Leadership Archetype</a>
+<a class="btn" id="loyaltyArchetypeBtn">🤝 Loyalty Archetype</a>
 <a class="btn" id="actionsBtn">⚡ Earn Points</a>
 <a class="btn" id="rewardsBtn">🎁 Rewards</a>
 <a class="btn" id="rewardsFallbackBtn">🎁 Rewards Fallback</a>
@@ -80,6 +84,18 @@ function init() {
 
   document.getElementById("vocBtn").href =
     `/voc.html?tenant=${enc}`;
+
+  document.getElementById("archetypeHubBtn").href =
+    `/archetype-engines/index.html?tenant=${enc}`;
+
+  document.getElementById("loveArchetypeBtn").href =
+    `/api/archetype-engines/love/archetypes?tenant=${enc}`;
+
+  document.getElementById("leadershipArchetypeBtn").href =
+    `/api/archetype-engines/leadership/archetypes?tenant=${enc}`;
+
+  document.getElementById("loyaltyArchetypeBtn").href =
+    `/api/archetype-engines/loyalty/archetypes?tenant=${enc}`;
 
   document.getElementById("actionsBtn").href =
     `/rewards_premium.html?tenant=${enc}`;

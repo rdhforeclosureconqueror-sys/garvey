@@ -1,0 +1,155 @@
+"use strict";
+
+const express = require("express");
+const {
+  ENGINE_TYPES,
+  LOVE_QUESTIONS,
+  getEngineContent,
+  scoreLoveAssessment,
+  computeLoveCompatibility,
+  newId,
+} = require("./archetypeEnginesService");
+const { ENGINE_REGISTRY } = require("../archetype-engines/framework");
+
+function isEnabled(req) {
+  const mode = String(process.env.ARCHETYPE_ENGINES_MODE || "on").trim().toLowerCase();
+  if (mode === "off") return false;
+  if (mode === "internal") {
+    return String(req.headers["x-user-email"] || "").toLowerCase().includes("@") || req.query.internal === "1";
+  }
+  return true;
+}
+
+function pickTenant(req) {
+  return String(req.query.tenant || req.body?.tenant || req.headers["x-tenant-slug"] || "").trim().toLowerCase() || null;
+}
+
+function createArchetypeEnginesRouter({ pool }) {
+  const router = express.Router();
+
+  router.use((req, res, next) => {
+    if (!isEnabled(req)) return res.status(404).json({ error: "not_found" });
+    return next();
+  });
+
+  router.get("/health", (req, res) => {
+    return res.json({
+      ok: true,
+      engines: {
+        ...ENGINE_REGISTRY,
+        love: { ...ENGINE_REGISTRY.love, questions: LOVE_QUESTIONS.length },
+      },
+    });
+  });
+
+  router.get("/registry", (req, res) => res.json({ engines: ENGINE_REGISTRY }));
+
+  router.get("/:engineType/archetypes", async (req, res) => {
+    const { engineType } = req.params;
+    if (!ENGINE_TYPES.includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
+    const content = getEngineContent(engineType);
+    const tenant = pickTenant(req);
+    await pool.query(
+      "INSERT INTO engine_page_views (id, engine_type, tenant_slug, page_key, session_id, campaign_context) VALUES ($1,$2,$3,$4,$5,$6)",
+      [newId("view"), engineType, tenant, `${engineType}_archetypes`, String(req.query.session_id || "").trim() || null, String(req.query.campaign || "").trim() || null]
+    );
+    return res.json({ engineType, archetypes: content.archetypes });
+  });
+
+  router.get("/:engineType/archetypes/:slug", async (req, res) => {
+    const { engineType, slug } = req.params;
+    if (!ENGINE_TYPES.includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
+    const content = getEngineContent(engineType);
+    const match = content.archetypes.find((a) => a.slug === slug);
+    if (!match) return res.status(404).json({ error: "archetype_not_found" });
+    return res.json({ engineType, archetype: match });
+  });
+
+  router.get("/love/dynamics", (req, res) => {
+    const content = getEngineContent("love");
+    return res.json({ engineType: "love", dynamics: content.dynamics });
+  });
+
+  router.post("/love/assessment/start", async (req, res) => {
+    const assessmentId = newId("asmt");
+    const tenant = pickTenant(req);
+    await pool.query(
+      `INSERT INTO engine_assessments (id, engine_type, tenant_slug, session_id, user_id, campaign_context)
+       VALUES ($1,$2,$3,$4,$5,$6)`,
+      [assessmentId, "love", tenant, String(req.body?.session_id || "").trim() || null, String(req.body?.user_id || "").trim() || null, String(req.body?.campaign || "").trim() || null]
+    );
+
+    return res.json({
+      assessmentId,
+      engineType: "love",
+      questionBanks: {
+        current: LOVE_QUESTIONS.filter((q) => q.bank === "current"),
+        desired: LOVE_QUESTIONS.filter((q) => q.bank === "desired"),
+        behavior: LOVE_QUESTIONS.filter((q) => q.bank === "behavior"),
+      },
+    });
+  });
+
+  router.post("/love/assessment/score", async (req, res) => {
+    const assessmentId = String(req.body?.assessmentId || "").trim();
+    const answers = req.body?.answers || {};
+    if (!assessmentId) return res.status(400).json({ error: "assessmentId_required" });
+
+    const scored = scoreLoveAssessment(answers);
+    const resultId = newId("result");
+    await pool.query(
+      `INSERT INTO engine_results (result_id, assessment_id, engine_type, tenant_slug, result_payload)
+       VALUES ($1,$2,$3,$4,$5::jsonb)`,
+      [resultId, assessmentId, "love", pickTenant(req), JSON.stringify(scored)]
+    );
+
+    return res.json({ resultId, engineType: "love", ...scored });
+  });
+
+  router.get("/love/results/:resultId", async (req, res) => {
+    const result = await pool.query(
+      "SELECT result_id, assessment_id, engine_type, tenant_slug, result_payload, created_at FROM engine_results WHERE result_id = $1 LIMIT 1",
+      [req.params.resultId]
+    );
+    if (!result.rows[0]) return res.status(404).json({ error: "result_not_found" });
+    return res.json(result.rows[0]);
+  });
+
+  router.post("/love/compatibility/score", async (req, res) => {
+    const { resultA, resultB } = req.body || {};
+    if (!resultA || !resultB) return res.status(400).json({ error: "resultA_and_resultB_required" });
+    const payload = computeLoveCompatibility(resultA, resultB);
+    const id = newId("compat");
+    await pool.query(
+      "INSERT INTO engine_compatibility_results (id, engine_type, tenant_slug, payload) VALUES ($1,$2,$3,$4::jsonb)",
+      [id, "love", pickTenant(req), JSON.stringify({ resultA, resultB, score: payload })]
+    );
+    return res.json({ compatibilityId: id, engineType: "love", ...payload });
+  });
+
+  router.post("/:engineType/assessment/start", (req, res) => {
+    const { engineType } = req.params;
+    if (!["leadership", "loyalty"].includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
+    return res.status(202).json({
+      engineType,
+      status: "scaffold_ready",
+      message: "Assessment scoring is disabled until finalized 3-bank mapped question sets are added.",
+    });
+  });
+
+  router.post("/:engineType/assessment/score", (req, res) => {
+    const { engineType } = req.params;
+    if (!["leadership", "loyalty"].includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
+    return res.status(409).json({
+      engineType,
+      error: "question_banks_not_finalized",
+      message: "Scoring remains intentionally disabled for this engine scaffold.",
+    });
+  });
+
+  return router;
+}
+
+module.exports = {
+  createArchetypeEnginesRouter,
+};
