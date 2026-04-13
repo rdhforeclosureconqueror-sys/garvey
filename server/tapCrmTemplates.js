@@ -90,6 +90,16 @@ const MODULE_REGISTRY = {
       rewards_label: "Rewards",
       voc_label: "VOC",
       google_review_label: "Google review",
+      customer_journey_title: "Customer account & rewards",
+      customer_journey_intro: "Create your account once and continue everything in one guided customer path.",
+      customer_journey_cta_label: "Create account, earn points, get discounts",
+      customer_journey_benefits: [
+        "Create your account",
+        "Earn points",
+        "Unlock discounts",
+        "Leave feedback",
+        "Build your rewards over time",
+      ],
     },
   },
   primary_cta: {
