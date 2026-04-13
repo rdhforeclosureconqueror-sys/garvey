@@ -16,13 +16,11 @@ const LOYALTY_BANK3 = require("../archetype-engines/question-banks/loyalty.bank3
 
 const ENGINE_TYPES = Object.freeze(["love", "leadership", "loyalty"]);
 const SIGNAL_MULTIPLIER = Object.freeze({ ID: 1.0, BH: 1.0, SC: 1.25, ST: 1.5, DS: 1.0 });
+const WEIGHT_TYPE_MULTIPLIER = Object.freeze({ standard: 1.0, baseline: 1.0, scenario: 1.25, stress: 1.5, desired: 1.0, identity: 1.0 });
 const PRIMARY_WEIGHT = 2;
 const SECONDARY_WEIGHT = 1;
-
 const LEADERSHIP_QUESTIONS = Object.freeze([...LEADERSHIP_BANK1, ...LEADERSHIP_BANK2, ...LEADERSHIP_BANK3]);
 const LOYALTY_QUESTIONS = Object.freeze([...LOYALTY_BANK1, ...LOYALTY_BANK2, ...LOYALTY_BANK3]);
-const IDENTITY_BEHAVIOR_GAP_THRESHOLD = 12;
-const HIGH_CONSISTENCY_THRESHOLD = 70;
 
 function groupBy(arr, key) {
   return arr.reduce((acc, item) => {
@@ -33,32 +31,214 @@ function groupBy(arr, key) {
   }, {});
 }
 
-function normalizeMap(raw) {
-  const values = Object.values(raw);
+function normalizeMap(raw, knownCodes = []) {
+  const seed = {};
+  for (const code of knownCodes) seed[code] = Number(raw[code] || 0);
+  for (const [k, v] of Object.entries(raw || {})) seed[k] = Number(v || 0);
+  const values = Object.values(seed);
   const max = Math.max(...values, 1);
   const out = {};
-  for (const [k, v] of Object.entries(raw)) out[k] = Number(((v / max) * 100).toFixed(2));
+  for (const [k, v] of Object.entries(seed)) out[k] = Number(((v / max) * 100).toFixed(2));
   return out;
-}
-
-function selectPrimarySecondary(scores) {
-  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-  return {
-    primary: sorted[0] ? { code: sorted[0][0], score: sorted[0][1] } : null,
-    secondary: sorted[1] ? { code: sorted[1][0], score: sorted[1][1] } : null,
-  };
-}
-
-function deriveBalanceState(normalized) {
-  const vals = Object.values(normalized);
-  const spread = Math.max(...vals) - Math.min(...vals);
-  if (spread >= 40) return "polarized";
-  if (spread >= 25) return "stretched";
-  return "balanced";
 }
 
 function sortScoreEntries(scoreMap = {}) {
   return Object.entries(scoreMap).sort((a, b) => b[1] - a[1]);
+}
+
+function selectPrimarySecondary(scores) {
+  const sorted = sortScoreEntries(scores);
+  return {
+    primary: sorted[0] ? { code: sorted[0][0], score: sorted[0][1] } : null,
+    secondary: sorted[1] ? { code: sorted[1][0], score: sorted[1][1] } : null,
+    ranked: sorted.map(([code, score], i) => ({ rank: i + 1, code, score })),
+  };
+}
+
+function deriveBalanceByScore(value) {
+  if (value <= 34) return "underexpressed";
+  if (value <= 69) return "balanced";
+  return "overexpressed";
+}
+
+function interpretIdentityBehaviorGap(gap) {
+  const abs = Math.abs(Number(gap) || 0);
+  if (abs <= 9) return "congruent";
+  if (abs <= 19) return "mild_gap";
+  if (abs <= 29) return "meaningful_gap";
+  return "major_self_perception_gap";
+}
+
+function interpretStressShift(shift) {
+  const n = Number(shift) || 0;
+  if (n >= -9 && n <= 9) return "stable";
+  if (n >= 10 && n <= 19) return "moderate_activation";
+  if (n >= 20) return "strong_stress_activation";
+  return "suppression_deactivation";
+}
+
+function interpretDesiredCurrentGap(gap) {
+  const n = Number(gap) || 0;
+  if (n >= -10 && n <= 10) return "aligned";
+  if (n >= 11 && n <= 24) return "moderate_growth_desire";
+  if (n >= 25) return "major_aspirational_gap";
+  if (n >= -24) return "active_reduction_desired";
+  return "major_reduction_desired";
+}
+
+function normalizeQuestion(q) {
+  return {
+    id: q.id || q.question_id,
+    bankId: q.bankId || q.bank_id,
+    questionClass: q.questionClass || q.question_class,
+    questionSubclass: q.questionSubclass || q.question_subclass || null,
+    prompt: q.prompt,
+    reversePairId: q.reversePairId || q.reverse_pair_id || null,
+    desiredPairId: q.desiredPairId || q.desired_pair_id || null,
+    isScored: q.isScored !== undefined ? q.isScored : q.is_scored !== false,
+    isActive: q.isActive !== undefined ? q.isActive : q.is_active !== false,
+    options: (q.options || []).map((opt) => ({
+      id: opt.id || opt.option_id,
+      text: opt.text,
+      primary: opt.primary || opt.primary_archetype,
+      secondary: opt.secondary || opt.secondary_archetype || null,
+      weightType: opt.weightType || opt.weight_type || "standard",
+      signalType: opt.signalType || opt.signal_type || q.questionClass || q.question_class,
+    })),
+  };
+}
+
+function pickOption(question, answer) {
+  if (typeof answer === "string") return question.options.find((opt) => opt.id === answer) || question.options[2] || question.options[0];
+  if (typeof answer === "number") return question.options[Math.max(0, Math.min(question.options.length - 1, Math.round(answer) - 1))] || question.options[0];
+  return question.options[2] || question.options[0];
+}
+
+function scoreCanonicalAssessment(rawQuestions, answers = {}) {
+  const questions = rawQuestions.map(normalizeQuestion).filter((q) => q.isActive !== false);
+  const codes = Array.from(new Set(questions.flatMap((q) => q.options.flatMap((o) => [o.primary, o.secondary]).filter(Boolean))));
+  const totals = Object.fromEntries(codes.map((code) => [code, 0]));
+  const classRaw = { ID: {}, BH: {}, SC: {}, ST: {}, DS: {} };
+  const answered = [];
+  const answerIdx = {};
+
+  for (const q of questions) {
+    const selected = pickOption(q, answers[q.id]);
+    if (!selected) continue;
+    answered.push(q.id);
+    answerIdx[q.id] = q.options.findIndex((opt) => opt.id === selected.id);
+
+    if (!q.isScored) continue;
+    const signalType = selected.signalType || q.questionClass || "BH";
+    const signalMultiplier = SIGNAL_MULTIPLIER[signalType] || 1;
+    const weightMultiplier = WEIGHT_TYPE_MULTIPLIER[selected.weightType] || 1;
+    const baseWeight = signalMultiplier * weightMultiplier;
+
+    totals[selected.primary] = (totals[selected.primary] || 0) + (PRIMARY_WEIGHT * baseWeight);
+    classRaw[signalType][selected.primary] = (classRaw[signalType][selected.primary] || 0) + (PRIMARY_WEIGHT * baseWeight);
+
+    if (selected.secondary) {
+      totals[selected.secondary] = (totals[selected.secondary] || 0) + (SECONDARY_WEIGHT * baseWeight);
+      classRaw[signalType][selected.secondary] = (classRaw[signalType][selected.secondary] || 0) + (SECONDARY_WEIGHT * baseWeight);
+    }
+  }
+
+  const normalizedScores = normalizeMap(totals, codes);
+  const selection = selectPrimarySecondary(normalizedScores);
+  const topGap = selection.primary && selection.secondary ? Number((selection.primary.score - selection.secondary.score).toFixed(2)) : null;
+  const hybridArchetype = topGap !== null && topGap <= 7 && selection.secondary
+    ? { codes: [selection.primary.code, selection.secondary.code], gap: topGap, label: `${selection.primary.code}-${selection.secondary.code}` }
+    : null;
+
+  const classScores = {
+    identity: normalizeMap(classRaw.ID, codes),
+    behavior: normalizeMap(classRaw.BH, codes),
+    scenario: normalizeMap(classRaw.SC, codes),
+    stress: normalizeMap(classRaw.ST, codes),
+    desired: normalizeMap(classRaw.DS, codes),
+  };
+
+  const balanceStates = { overall: deriveBalanceByScore(selection.primary?.score || 0), dimensions: {} };
+  const desiredCurrentGap = {};
+  const desiredCurrentInterpretation = {};
+  const identityBehaviorGap = {};
+  const identityBehaviorInterpretation = {};
+  const stressShift = {};
+  const stressShiftInterpretation = {};
+
+  for (const code of codes) {
+    const normalizedValue = normalizedScores[code] || 0;
+    balanceStates.dimensions[code] = deriveBalanceByScore(normalizedValue);
+
+    const dcGap = Number(((classScores.desired[code] || 0) - (classScores.behavior[code] || 0)).toFixed(2));
+    desiredCurrentGap[code] = dcGap;
+    desiredCurrentInterpretation[code] = interpretDesiredCurrentGap(dcGap);
+
+    const ibGap = Number(((classScores.identity[code] || 0) - (classScores.behavior[code] || 0)).toFixed(2));
+    identityBehaviorGap[code] = ibGap;
+    identityBehaviorInterpretation[code] = interpretIdentityBehaviorGap(ibGap);
+
+    const stShift = Number(((classScores.stress[code] || 0) - (classScores.behavior[code] || 0)).toFixed(2));
+    stressShift[code] = stShift;
+    stressShiftInterpretation[code] = interpretStressShift(stShift);
+  }
+
+  const pairDelta = [];
+  for (const q of questions) {
+    if (!q.reversePairId || q.id > q.reversePairId) continue;
+    if (answerIdx[q.id] === undefined || answerIdx[q.reversePairId] === undefined) continue;
+    pairDelta.push(Math.abs(answerIdx[q.id] - answerIdx[q.reversePairId]));
+  }
+  const contradictionScore = pairDelta.length ? Number(((pairDelta.reduce((a, b) => a + b, 0) / (pairDelta.length * 3)) * 100).toFixed(2)) : 0;
+  const consistencyScore = Number((100 - contradictionScore).toFixed(2));
+
+  const completionPct = Number(((answered.length / Math.max(questions.length, 1)) * 100).toFixed(2));
+  const confidence = Number(((completionPct * 0.6) + (consistencyScore * 0.4)).toFixed(2));
+
+  const summaryBlock = {
+    completion: `${answered.length}/${questions.length}`,
+    primary: selection.primary?.code || null,
+    secondary: selection.secondary?.code || null,
+    hybrid: hybridArchetype ? hybridArchetype.label : null,
+    confidence,
+  };
+
+  const flags = {
+    has_hybrid: Boolean(hybridArchetype),
+    low_completion: completionPct < 85,
+    low_consistency: consistencyScore < 60,
+    retake_recommended: completionPct < 85 || consistencyScore < 60,
+  };
+
+  return {
+    questionCount: questions.length,
+    bankCounts: Object.fromEntries(Object.entries(groupBy(questions, "bankId")).map(([k, v]) => [k, v.length])),
+    normalizedScores,
+    rankedArchetypes: selection.ranked,
+    primaryArchetype: selection.primary,
+    secondaryArchetype: selection.secondary,
+    hybridArchetype,
+    balanceStates,
+    desiredCurrentGap,
+    desiredCurrentInterpretation,
+    identityBehaviorGap,
+    identityBehaviorInterpretation,
+    stressProfile: classScores.stress,
+    stressShift,
+    stressShiftInterpretation,
+    contradictionConsistency: { contradiction: contradictionScore, consistency: consistencyScore },
+    completionQuality: { answered: answered.length, total: questions.length, completionPercent: completionPct },
+    confidence,
+    summaryBlock,
+    flags,
+    retakeCompatibility: {
+      compatible: true,
+      supportsBankRotation: true,
+      supportsContradictionPairs: true,
+      signature: `v1:${questions.length}:${Object.keys(groupBy(questions, "bankId")).join(",")}`,
+    },
+    bankScores: classScores,
+  };
 }
 
 function formatBehaviorFragment(text, fallback) {
@@ -72,51 +252,13 @@ function buildResultInsights(scored, archetypeIndex = {}) {
   const secondaryCode = scored?.secondaryArchetype?.code;
   const primary = archetypeIndex[primaryCode] || {};
   const secondary = archetypeIndex[secondaryCode] || {};
-  const primaryEnergy = primary.coreEnergy || "a clear core drive";
-  const primaryBehavior = formatBehaviorFragment(primary.shortDescription || primary.description, "show predictable behavior patterns");
-  const primaryStrength = formatBehaviorFragment(primary.whenStrong, "stable, effective strengths");
-  const secondaryName = secondary.name || secondaryCode || "your secondary pattern";
-  const secondaryAdd = formatBehaviorFragment(secondary.coreTrait || secondary.shortDescription || secondary.coreEnergy, "extra behavioral flexibility");
-
-  const primaryInsight = `You naturally lead with ${primaryEnergy}. This means you tend to ${primaryBehavior}. At your best, this shows up as ${primaryStrength}.`;
-  const secondaryInsight = `Supporting this, you also show strong tendencies toward ${secondaryName}, which adds ${secondaryAdd}.`;
-
-  const overallBalance = String(scored?.balanceStates?.overall || scored?.balanceState || "balanced").toLowerCase();
-  let balanceInsight = "You are currently operating in a balanced state, where your strengths are working without creating friction.";
-  if (["polarized", "stretched", "dominant", "high"].includes(overallBalance)) {
-    balanceInsight = `This trait may be overextended right now, which can lead to ${formatBehaviorFragment(primary.outOfBalanceHigh, "overuse behaviors")}.`;
-  } else if (["under-indexed", "low"].includes(overallBalance)) {
-    balanceInsight = `This trait may be underdeveloped or suppressed, which can result in ${formatBehaviorFragment(primary.outOfBalanceLow, "missing behaviors")}.`;
-  }
-
-  const topStress = sortScoreEntries(scored?.stressProfile || {})[0];
-  const stressArchetype = archetypeIndex[topStress?.[0]] || {};
-  const stressBehavior = stressArchetype.name || topStress?.[0] || "your fallback pattern";
-  const stressEffect = formatBehaviorFragment(stressArchetype.outOfBalanceHigh || stressArchetype.outOfBalanceLow, "friction in real-world outcomes");
-  const stressInsight = `When pressure increases, you tend to shift toward ${stressBehavior} behavior, which can cause ${stressEffect}.`;
-
-  const maxGap = Math.max(
-    ...Object.values(scored?.identityBehaviorGap || {}).map((value) => Math.abs(Number(value) || 0)),
-    0
-  );
-  const topIdentityGap = sortScoreEntries(scored?.identityBehaviorGap || {}).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))[0];
-  const gapArchetype = archetypeIndex[topIdentityGap?.[0]] || {};
-  const identityGapInsight = maxGap > IDENTITY_BEHAVIOR_GAP_THRESHOLD
-    ? `There is a noticeable gap between how you see yourself and how you actually operate. You may believe you are ${gapArchetype.coreTrait || gapArchetype.coreEnergy || "operating one way"}, but your patterns show ${formatBehaviorFragment(gapArchetype.shortDescription || gapArchetype.outOfBalanceHigh, "a different behavioral trend")}.`
-    : "Your self-perception and behavior are closely aligned, which increases consistency in how you show up.";
-
-  const consistencyValue = Number(scored?.contradictionConsistency?.consistency || 0);
-  const consistencyInsight = consistencyValue >= HIGH_CONSISTENCY_THRESHOLD
-    ? "Your responses show strong internal consistency, meaning your behavior patterns are stable."
-    : "Your responses show some contradiction, which may indicate adaptation, complexity, or internal conflict.";
-
   return {
-    primaryInsight,
-    secondaryInsight,
-    balanceInsight,
-    stressInsight,
-    identityGapInsight,
-    consistencyInsight,
+    primaryInsight: `You naturally lead with ${primary.coreEnergy || "a clear core drive"}.`,
+    secondaryInsight: `Your secondary pattern, ${secondary.name || secondaryCode || "secondary"}, adds flexibility to your default style.`,
+    balanceInsight: `Current balance state is ${scored?.balanceStates?.overall || "balanced"}.`,
+    stressInsight: `Under stress you tend to ${formatBehaviorFragment(primary.outOfBalanceHigh, "shift into visible reactive patterns")}.`,
+    identityGapInsight: "Identity-behavior gaps describe where self-story and observed style diverge.",
+    consistencyInsight: `Consistency score is ${Number(scored?.contradictionConsistency?.consistency || 0).toFixed(1)}%.`,
   };
 }
 
@@ -127,163 +269,33 @@ function withInsights(engineType, scored) {
 }
 
 function scoreLoveAssessment(answers = {}) {
-  const byBank = groupBy(LOVE_QUESTIONS, "bank");
-  const totals = { current: {}, desired: {}, behavior: {} };
-
-  for (const q of LOVE_QUESTIONS) {
-    const raw = Number(answers[q.id]);
-    const value = Number.isFinite(raw) ? Math.min(5, Math.max(1, raw)) : 3;
-    const scored = q.reverseScored ? 6 - value : value;
-    totals[q.bank][q.archetypeCode] = (totals[q.bank][q.archetypeCode] || 0) + scored;
-  }
-
-  const normalized = {
-    current: normalizeMap(totals.current),
-    desired: normalizeMap(totals.desired),
-    behavior: normalizeMap(totals.behavior),
-  };
-
-  const combined = {};
-  Object.keys(totals.current).forEach((code) => {
-    combined[code] = Number(((normalized.current[code] * 0.45) + (normalized.behavior[code] * 0.35) + (normalized.desired[code] * 0.2)).toFixed(2));
-  });
-
-  const normalizedCombined = normalizeMap(combined);
-  const top = selectPrimarySecondary(normalizedCombined);
-
-  const desiredVsCurrent = {};
-  const identityBehaviorGap = {};
-  let contradiction = 0;
-  Object.keys(normalized.current).forEach((code) => {
-    desiredVsCurrent[code] = Number((normalized.desired[code] - normalized.current[code]).toFixed(2));
-    identityBehaviorGap[code] = Number((normalized.current[code] - normalized.behavior[code]).toFixed(2));
-    contradiction += Math.abs(desiredVsCurrent[code]);
-  });
-
-  const consistency = Number((100 - Math.min(100, contradiction / 5)).toFixed(2));
-  return {
-    questionCount: LOVE_QUESTIONS.length,
-    banks: Object.fromEntries(Object.entries(byBank).map(([k, v]) => [k, v.length])),
-    normalizedScores: normalizedCombined,
-    bankScores: normalized,
-    primaryArchetype: top.primary,
-    secondaryArchetype: top.secondary,
-    balanceState: deriveBalanceState(normalizedCombined),
-    desiredVsCurrent,
-    contradictionConsistency: { contradiction: Number(contradiction.toFixed(2)), consistency },
-    identityBehaviorGap,
-    stressProfile: normalized.behavior,
-  };
-}
-
-function pickOption(question, answer) {
-  if (typeof answer === "string") {
-    return question.options.find((opt) => opt.id === answer) || question.options[2] || question.options[0];
-  }
-  if (typeof answer === "number") {
-    const idx = Math.max(0, Math.min(question.options.length - 1, Math.round(answer) - 1));
-    return question.options[idx] || question.options[0];
-  }
-  return question.options[2] || question.options[0];
-}
-
-function scoreMappedEngineAssessment(questions, answers = {}) {
-  const totals = {};
-  const byClassRaw = { ID: {}, BH: {}, SC: {}, ST: {}, DS: {} };
-  const pairDelta = [];
-  const answerIndex = {};
-
-  for (const q of questions) {
-    const selected = pickOption(q, answers[q.id]);
-    const signalType = selected.signalType || q.questionClass;
-    const multiplier = SIGNAL_MULTIPLIER[signalType] || 1;
-
-    totals[selected.primary] = (totals[selected.primary] || 0) + (PRIMARY_WEIGHT * multiplier);
-    byClassRaw[signalType][selected.primary] = (byClassRaw[signalType][selected.primary] || 0) + (PRIMARY_WEIGHT * multiplier);
-
-    if (selected.secondary) {
-      totals[selected.secondary] = (totals[selected.secondary] || 0) + (SECONDARY_WEIGHT * multiplier);
-      byClassRaw[signalType][selected.secondary] = (byClassRaw[signalType][selected.secondary] || 0) + (SECONDARY_WEIGHT * multiplier);
-    }
-
-    answerIndex[q.id] = q.options.findIndex((opt) => opt.id === selected.id);
-  }
-
-  for (const q of questions) {
-    if (!q.reversePairId || q.id > q.reversePairId) continue;
-    if (answerIndex[q.id] === undefined || answerIndex[q.reversePairId] === undefined) continue;
-    pairDelta.push(Math.abs(answerIndex[q.id] - answerIndex[q.reversePairId]));
-  }
-
-  const normalizedScores = normalizeMap(totals);
-  const top = selectPrimarySecondary(normalizedScores);
-  const gap = top.primary && top.secondary
-    ? Number((top.primary.score - top.secondary.score).toFixed(2))
-    : null;
-
-  const bankScores = {
-    identity: normalizeMap(byClassRaw.ID),
-    behavior: normalizeMap(byClassRaw.BH),
-    selfConcept: normalizeMap(byClassRaw.SC),
-    stress: normalizeMap(byClassRaw.ST),
-    desired: normalizeMap(byClassRaw.DS),
-  };
-
-  const codes = new Set([
-    ...Object.keys(normalizedScores),
-    ...Object.keys(bankScores.identity),
-    ...Object.keys(bankScores.behavior),
-    ...Object.keys(bankScores.desired),
-  ]);
-
-  const desiredCurrentGap = {};
-  const identityBehaviorGap = {};
-  const balanceStates = { overall: deriveBalanceState(normalizedScores), dimensions: {} };
-  for (const code of codes) {
-    desiredCurrentGap[code] = Number(((bankScores.desired[code] || 0) - (bankScores.identity[code] || 0)).toFixed(2));
-    identityBehaviorGap[code] = Number(((bankScores.identity[code] || 0) - (bankScores.behavior[code] || 0)).toFixed(2));
-    const value = normalizedScores[code] || 0;
-    balanceStates.dimensions[code] = value >= 80 ? "dominant" : value <= 45 ? "under-indexed" : "balanced";
-  }
-
-  const contradiction = pairDelta.length ? Number(((pairDelta.reduce((a, b) => a + b, 0) / (pairDelta.length * 3)) * 100).toFixed(2)) : 0;
-  const consistency = Number((100 - contradiction).toFixed(2));
-
-  return {
-    questionCount: questions.length,
-    bankCounts: Object.fromEntries(Object.entries(groupBy(questions, "bankId")).map(([k, v]) => [k, v.length])),
-    normalizedScores,
-    primaryArchetype: top.primary,
-    secondaryArchetype: top.secondary,
-    hybridArchetype: gap !== null && gap <= 7 && top.secondary
-      ? { codes: [top.primary.code, top.secondary.code], gap, label: `${top.primary.code}-${top.secondary.code}` }
-      : null,
-    balanceStates,
-    desiredCurrentGap,
-    contradictionConsistency: { contradiction, consistency },
-    identityBehaviorGap,
-    stressProfile: bankScores.stress,
-    bankScores,
-  };
+  return scoreCanonicalAssessment(LOVE_QUESTIONS, answers);
 }
 
 function scoreEngineAssessment(engineType, answers = {}) {
-  if (engineType === "love") return withInsights(engineType, scoreLoveAssessment(answers));
-  if (engineType === "leadership") return withInsights(engineType, scoreMappedEngineAssessment(LEADERSHIP_QUESTIONS, answers));
-  if (engineType === "loyalty") return withInsights(engineType, scoreMappedEngineAssessment(LOYALTY_QUESTIONS, answers));
+  if (engineType === "love") return withInsights(engineType, scoreCanonicalAssessment(LOVE_QUESTIONS, answers));
+  if (engineType === "leadership") return withInsights(engineType, scoreCanonicalAssessment(LEADERSHIP_QUESTIONS, answers));
+  if (engineType === "loyalty") return withInsights(engineType, scoreCanonicalAssessment(LOYALTY_QUESTIONS, answers));
   return null;
 }
 
-function getQuestionBanks(engineType) {
+function getQuestionBanks(engineType, opts = {}) {
   if (engineType === "love") {
+    const questions = LOVE_QUESTIONS.map(normalizeQuestion).filter((q) => q.isActive !== false);
+    const grouped = groupBy(questions, "bankId");
+    const bankIds = Object.keys(grouped).sort();
+    const attempt = Number(opts.retakeAttempt || 0);
+    const bankId = bankIds.length ? bankIds[((attempt % bankIds.length) + bankIds.length) % bankIds.length] : null;
     return {
-      current: LOVE_QUESTIONS.filter((q) => q.bank === "current"),
-      desired: LOVE_QUESTIONS.filter((q) => q.bank === "desired"),
-      behavior: LOVE_QUESTIONS.filter((q) => q.bank === "behavior"),
+      selectedBankId: bankId,
+      availableBanks: bankIds,
+      retakeAttempt: attempt,
+      questionBanks: Object.fromEntries(bankIds.map((id) => [id, grouped[id]])),
+      activeQuestions: bankId ? grouped[bankId] : [],
     };
   }
-  if (engineType === "leadership") return groupBy(LEADERSHIP_QUESTIONS, "bankId");
-  if (engineType === "loyalty") return groupBy(LOYALTY_QUESTIONS, "bankId");
+  if (engineType === "leadership") return groupBy(LEADERSHIP_QUESTIONS.map(normalizeQuestion), "bankId");
+  if (engineType === "loyalty") return groupBy(LOYALTY_QUESTIONS.map(normalizeQuestion), "bankId");
   return {};
 }
 
@@ -297,19 +309,12 @@ function computeLoveCompatibility(resultA, resultB) {
 
   let dynamicBonus = 0;
   for (const d of LOVE_DYNAMICS) {
-    if (
-      [resultA?.primaryArchetype?.code, resultA?.secondaryArchetype?.code].includes(d.pair[0])
-      && [resultB?.primaryArchetype?.code, resultB?.secondaryArchetype?.code].includes(d.pair[1])
-    ) dynamicBonus += d.scoreBias;
+    if ([resultA?.primaryArchetype?.code, resultA?.secondaryArchetype?.code].includes(d.pair[0])
+      && [resultB?.primaryArchetype?.code, resultB?.secondaryArchetype?.code].includes(d.pair[1])) dynamicBonus += d.scoreBias;
   }
 
   const compatibility = Math.min(100, Number((base + dynamicBonus).toFixed(2)));
-  return {
-    compatibility,
-    baseAlignment: Number(base.toFixed(2)),
-    dynamicBonus,
-    tier: compatibility >= 80 ? "high" : compatibility >= 60 ? "moderate" : "developing",
-  };
+  return { compatibility, baseAlignment: Number(base.toFixed(2)), dynamicBonus, tier: compatibility >= 80 ? "high" : compatibility >= 60 ? "moderate" : "developing" };
 }
 
 function getEngineContent(engineType) {
@@ -320,10 +325,11 @@ function getEngineContent(engineType) {
 }
 
 async function initializeArchetypeEngineSchema(pool) {
-  await pool.query(`CREATE TABLE IF NOT EXISTS engine_assessments (id TEXT PRIMARY KEY, engine_type TEXT NOT NULL, tenant_slug TEXT, session_id TEXT, user_id TEXT, campaign_context TEXT, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());`);
-  await pool.query(`CREATE TABLE IF NOT EXISTS engine_results (result_id TEXT PRIMARY KEY, assessment_id TEXT, engine_type TEXT NOT NULL, tenant_slug TEXT, result_payload JSONB NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());`);
-  await pool.query(`CREATE TABLE IF NOT EXISTS engine_compatibility_results (id TEXT PRIMARY KEY, engine_type TEXT NOT NULL, tenant_slug TEXT, payload JSONB NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());`);
-  await pool.query(`CREATE TABLE IF NOT EXISTS engine_page_views (id TEXT PRIMARY KEY, engine_type TEXT NOT NULL, tenant_slug TEXT, page_key TEXT NOT NULL, session_id TEXT, user_id TEXT, campaign_context TEXT, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());`);
+  await pool.query("CREATE TABLE IF NOT EXISTS engine_assessments (id TEXT PRIMARY KEY, engine_type TEXT NOT NULL, tenant_slug TEXT, session_id TEXT, user_id TEXT, campaign_context TEXT, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());");
+  await pool.query("CREATE TABLE IF NOT EXISTS engine_results (result_id TEXT PRIMARY KEY, assessment_id TEXT, engine_type TEXT NOT NULL, tenant_slug TEXT, result_payload JSONB NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());");
+  await pool.query("CREATE TABLE IF NOT EXISTS engine_compatibility_results (id TEXT PRIMARY KEY, engine_type TEXT NOT NULL, tenant_slug TEXT, payload JSONB NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());");
+  await pool.query("CREATE TABLE IF NOT EXISTS engine_page_views (id TEXT PRIMARY KEY, engine_type TEXT NOT NULL, tenant_slug TEXT, page_key TEXT NOT NULL, session_id TEXT, user_id TEXT, campaign_context TEXT, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());");
+  await pool.query("CREATE TABLE IF NOT EXISTS engine_assessment_consents (id TEXT PRIMARY KEY, engine_type TEXT NOT NULL, tenant_slug TEXT, email TEXT NOT NULL, full_name TEXT NOT NULL, consent_version TEXT NOT NULL DEFAULT 'v1', consent_type TEXT NOT NULL DEFAULT 'business_only_required', accepted BOOLEAN NOT NULL, consent_signature TEXT NOT NULL, session_id TEXT, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW());");
 }
 
 function newId(prefix) {
@@ -336,6 +342,7 @@ module.exports = {
   LEADERSHIP_QUESTIONS,
   LOYALTY_QUESTIONS,
   SIGNAL_MULTIPLIER,
+  WEIGHT_TYPE_MULTIPLIER,
   getQuestionBanks,
   getEngineContent,
   scoreLoveAssessment,

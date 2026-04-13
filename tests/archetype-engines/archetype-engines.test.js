@@ -14,7 +14,7 @@ const {
 } = require('../../server/archetypeEnginesService');
 
 function createMockPool() {
-  const state = { results: new Map() };
+  const state = { results: new Map(), consents: new Map() };
   return {
     async query(sql, params = []) {
       const normalized = String(sql).replace(/\s+/g, ' ').trim();
@@ -27,6 +27,13 @@ function createMockPool() {
           result_payload: JSON.parse(params[4]),
           created_at: new Date().toISOString(),
         });
+      }
+      if (normalized.startsWith('INSERT INTO engine_assessment_consents')) {
+        state.consents.set(params[0], { id: params[0], engine_type: params[1], tenant_slug: params[2], accepted: params[7] === true });
+      }
+      if (normalized.startsWith('SELECT id FROM engine_assessment_consents')) {
+        const row = state.consents.get(params[0]);
+        return { rows: row && row.engine_type === params[1] && row.tenant_slug === params[2] && row.accepted ? [row] : [] };
       }
       if (normalized.startsWith('SELECT result_id') && normalized.includes('FROM engine_results')) {
         const row = state.results.get(params[0]);
@@ -59,12 +66,12 @@ test('leadership and loyalty banks load as three active banks', () => {
 });
 
 test('love scoring returns primary and secondary archetypes', () => {
-  const answers = Object.fromEntries(LOVE_QUESTIONS.map((q, i) => [q.id, ((i % 5) + 1)]));
+  const answers = Object.fromEntries(LOVE_QUESTIONS.map((q, i) => [q.id || q.question_id, ((i % 5) + 1)]));
   const scored = scoreLoveAssessment(answers);
   assert.equal(scored.questionCount, 75);
   assert.ok(scored.primaryArchetype?.code);
   assert.ok(scored.secondaryArchetype?.code);
-  assert.ok(['balanced', 'stretched', 'polarized'].includes(scored.balanceState));
+  assert.ok(scored.balanceStates?.overall);
 });
 
 test('leadership scoring returns normalized scores and hybrid logic fields', () => {
@@ -107,7 +114,7 @@ test('loyalty scoring returns normalized scores and hybrid logic fields', () => 
 
 test('compatibility scoring returns bounded score', () => {
   const base = scoreLoveAssessment({});
-  const other = scoreLoveAssessment(Object.fromEntries(LOVE_QUESTIONS.map((q) => [q.id, 5])));
+  const other = scoreLoveAssessment(Object.fromEntries(LOVE_QUESTIONS.map((q) => [q.id || q.question_id, 5])));
   const compat = computeLoveCompatibility(base, other);
   assert.ok(compat.compatibility >= 0 && compat.compatibility <= 100);
 });
@@ -165,15 +172,23 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
 test('no regression: love routes remain live', async () => {
   const { server, baseUrl } = await startServer(createMockPool());
   try {
+    const consentRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/consent`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', email: 'test@example.com', name: 'Test User', accepted: true, consent_version: 'v1' }),
+    });
+    assert.equal(consentRes.status, 200);
+    const consentJson = await consentRes.json();
+
     const startRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/start`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ tenant: 'demo' }),
+      body: JSON.stringify({ tenant: 'demo', consent_id: consentJson.consent_id }),
     });
     assert.equal(startRes.status, 200);
     const startJson = await startRes.json();
 
-    const answers = Object.fromEntries(LOVE_QUESTIONS.map((q) => [q.id, 4]));
+    const answers = Object.fromEntries(LOVE_QUESTIONS.map((q) => [q.id || q.question_id, 4]));
     const scoreRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/score`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
