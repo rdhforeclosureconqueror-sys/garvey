@@ -2,8 +2,8 @@
 
 const ENGINE_REGISTRY = Object.freeze({
   love: { id: 'love', status: 'live', hasScoring: true, questionBanks: 3 },
-  leadership: { id: 'leadership', status: 'content_live_scoring_pending', hasScoring: false, questionBanks: 0 },
-  loyalty: { id: 'loyalty', status: 'content_live_scoring_pending', hasScoring: false, questionBanks: 0 },
+  leadership: { id: 'leadership', status: 'live', hasScoring: true, questionBanks: 3 },
+  loyalty: { id: 'loyalty', status: 'live', hasScoring: true, questionBanks: 3 },
 });
 
 const CONTENT_SCHEMA_FIELDS = Object.freeze([
