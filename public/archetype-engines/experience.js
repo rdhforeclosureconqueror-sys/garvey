@@ -52,6 +52,10 @@ function strongestGap(gapMap, codeToName) {
   return `${codeToName[first[0]] || first[0]} is ${Math.abs(first[1]).toFixed(1)} points ${trend}`;
 }
 
+function insightOrFallback(value, fallback) {
+  return String(value || "").trim() || fallback;
+}
+
 function renderBrowse(app, engine, archetypes) {
   app.innerHTML = `
     <section class="section">
@@ -133,7 +137,8 @@ function renderResult(app, engine, archetypes, resultId, payload) {
         return `<div class="card">
           <h3>${esc(a.name || item.code)}</h3>
           <div>${item.score.toFixed(1)}%</div>
-          <p class="muted">${esc(a.tagline || a.description || "Descriptor pending")}</p>
+          <p class="muted">${esc(a.shortDescription || a.tagline || a.description || "Descriptor pending")}</p>
+          <div class="muted">${esc(a.coreTrait || "Core trait pending")}</div>
           <div class="chip">${esc(bal)}</div>
           <a href="${routeTo(engine, `archetype/${a.slug}?back=${encodeURIComponent(routeTo(engine, `result/${resultId}`))}`)}">View full archetype</a>
         </div>`;
@@ -142,12 +147,26 @@ function renderResult(app, engine, archetypes, resultId, payload) {
     </section>
 
     <section class="section">
-      <h2>Key Insights</h2>
+      <h2>Your Pattern</h2>
       <div class="insights">
-        <div class="kv"><b>Identity vs Behavior Gap</b>${esc(strongestGap(payload.identityBehaviorGap, codeToName))}</div>
-        <div class="kv"><b>Desired vs Current Delta</b>${esc(strongestGap(payload.desiredCurrentGap || payload.desiredVsCurrent, codeToName))}</div>
-        <div class="kv"><b>Stress Pattern Summary</b>${esc(summarizeStress(payload.stressProfile, codeToName))}</div>
-        <div class="kv"><b>Consistency Score</b>${esc(String(payload.contradictionConsistency?.consistency ?? "-"))}%</div>
+        <div class="kv"><b>Primary Insight</b>${esc(insightOrFallback(payload.primaryInsight, "Primary pattern insight is not available yet."))}</div>
+        <div class="kv"><b>Secondary Insight</b>${esc(insightOrFallback(payload.secondaryInsight, "Secondary pattern insight is not available yet."))}</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Your Current State</h2>
+      <div class="insights">
+        <div class="kv"><b>Balance Insight</b>${esc(insightOrFallback(payload.balanceInsight, strongestGap(payload.desiredCurrentGap || payload.desiredVsCurrent, codeToName)))}</div>
+        <div class="kv"><b>Stress Insight</b>${esc(insightOrFallback(payload.stressInsight, summarizeStress(payload.stressProfile, codeToName)))}</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Self Alignment</h2>
+      <div class="insights">
+        <div class="kv"><b>Identity Gap Insight</b>${esc(insightOrFallback(payload.identityGapInsight, strongestGap(payload.identityBehaviorGap, codeToName)))}</div>
+        <div class="kv"><b>Consistency Insight</b>${esc(insightOrFallback(payload.consistencyInsight, `Consistency Score: ${String(payload.contradictionConsistency?.consistency ?? "-")}%`))}</div>
       </div>
     </section>
 
@@ -160,6 +179,7 @@ function renderResult(app, engine, archetypes, resultId, payload) {
         return `<a class="card spectrum-card" href="${routeTo(engine, `archetype/${a.slug}?back=${encodeURIComponent(routeTo(engine, `result/${resultId}`))}`)}">
           ${cardPlaceholder(a)}
           <h3>${esc(a.name || item.code)}</h3>
+          <div class="muted">${esc(a.coreTrait || "Core trait pending")}</div>
           <div>Score: ${item.score.toFixed(1)}%</div>
           <div class="muted">Rank #${item.rank}</div>
           <div class="chip">View full archetype</div>

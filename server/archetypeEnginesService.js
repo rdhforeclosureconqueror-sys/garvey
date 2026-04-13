@@ -21,6 +21,8 @@ const SECONDARY_WEIGHT = 1;
 
 const LEADERSHIP_QUESTIONS = Object.freeze([...LEADERSHIP_BANK1, ...LEADERSHIP_BANK2, ...LEADERSHIP_BANK3]);
 const LOYALTY_QUESTIONS = Object.freeze([...LOYALTY_BANK1, ...LOYALTY_BANK2, ...LOYALTY_BANK3]);
+const IDENTITY_BEHAVIOR_GAP_THRESHOLD = 12;
+const HIGH_CONSISTENCY_THRESHOLD = 70;
 
 function groupBy(arr, key) {
   return arr.reduce((acc, item) => {
@@ -53,6 +55,75 @@ function deriveBalanceState(normalized) {
   if (spread >= 40) return "polarized";
   if (spread >= 25) return "stretched";
   return "balanced";
+}
+
+function sortScoreEntries(scoreMap = {}) {
+  return Object.entries(scoreMap).sort((a, b) => b[1] - a[1]);
+}
+
+function formatBehaviorFragment(text, fallback) {
+  const normalized = String(text || "").trim();
+  if (!normalized) return fallback;
+  return normalized.replace(/\.$/, "").toLowerCase();
+}
+
+function buildResultInsights(scored, archetypeIndex = {}) {
+  const primaryCode = scored?.primaryArchetype?.code;
+  const secondaryCode = scored?.secondaryArchetype?.code;
+  const primary = archetypeIndex[primaryCode] || {};
+  const secondary = archetypeIndex[secondaryCode] || {};
+  const primaryEnergy = primary.coreEnergy || "a clear core drive";
+  const primaryBehavior = formatBehaviorFragment(primary.shortDescription || primary.description, "show predictable behavior patterns");
+  const primaryStrength = formatBehaviorFragment(primary.whenStrong, "stable, effective strengths");
+  const secondaryName = secondary.name || secondaryCode || "your secondary pattern";
+  const secondaryAdd = formatBehaviorFragment(secondary.coreTrait || secondary.shortDescription || secondary.coreEnergy, "extra behavioral flexibility");
+
+  const primaryInsight = `You naturally lead with ${primaryEnergy}. This means you tend to ${primaryBehavior}. At your best, this shows up as ${primaryStrength}.`;
+  const secondaryInsight = `Supporting this, you also show strong tendencies toward ${secondaryName}, which adds ${secondaryAdd}.`;
+
+  const overallBalance = String(scored?.balanceStates?.overall || scored?.balanceState || "balanced").toLowerCase();
+  let balanceInsight = "You are currently operating in a balanced state, where your strengths are working without creating friction.";
+  if (["polarized", "stretched", "dominant", "high"].includes(overallBalance)) {
+    balanceInsight = `This trait may be overextended right now, which can lead to ${formatBehaviorFragment(primary.outOfBalanceHigh, "overuse behaviors")}.`;
+  } else if (["under-indexed", "low"].includes(overallBalance)) {
+    balanceInsight = `This trait may be underdeveloped or suppressed, which can result in ${formatBehaviorFragment(primary.outOfBalanceLow, "missing behaviors")}.`;
+  }
+
+  const topStress = sortScoreEntries(scored?.stressProfile || {})[0];
+  const stressArchetype = archetypeIndex[topStress?.[0]] || {};
+  const stressBehavior = stressArchetype.name || topStress?.[0] || "your fallback pattern";
+  const stressEffect = formatBehaviorFragment(stressArchetype.outOfBalanceHigh || stressArchetype.outOfBalanceLow, "friction in real-world outcomes");
+  const stressInsight = `When pressure increases, you tend to shift toward ${stressBehavior} behavior, which can cause ${stressEffect}.`;
+
+  const maxGap = Math.max(
+    ...Object.values(scored?.identityBehaviorGap || {}).map((value) => Math.abs(Number(value) || 0)),
+    0
+  );
+  const topIdentityGap = sortScoreEntries(scored?.identityBehaviorGap || {}).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))[0];
+  const gapArchetype = archetypeIndex[topIdentityGap?.[0]] || {};
+  const identityGapInsight = maxGap > IDENTITY_BEHAVIOR_GAP_THRESHOLD
+    ? `There is a noticeable gap between how you see yourself and how you actually operate. You may believe you are ${gapArchetype.coreTrait || gapArchetype.coreEnergy || "operating one way"}, but your patterns show ${formatBehaviorFragment(gapArchetype.shortDescription || gapArchetype.outOfBalanceHigh, "a different behavioral trend")}.`
+    : "Your self-perception and behavior are closely aligned, which increases consistency in how you show up.";
+
+  const consistencyValue = Number(scored?.contradictionConsistency?.consistency || 0);
+  const consistencyInsight = consistencyValue >= HIGH_CONSISTENCY_THRESHOLD
+    ? "Your responses show strong internal consistency, meaning your behavior patterns are stable."
+    : "Your responses show some contradiction, which may indicate adaptation, complexity, or internal conflict.";
+
+  return {
+    primaryInsight,
+    secondaryInsight,
+    balanceInsight,
+    stressInsight,
+    identityGapInsight,
+    consistencyInsight,
+  };
+}
+
+function withInsights(engineType, scored) {
+  const content = getEngineContent(engineType) || { archetypes: [] };
+  const archetypeIndex = Object.fromEntries((content.archetypes || []).map((item) => [item.code, item]));
+  return { ...scored, ...buildResultInsights(scored, archetypeIndex) };
 }
 
 function scoreLoveAssessment(answers = {}) {
@@ -197,9 +268,9 @@ function scoreMappedEngineAssessment(questions, answers = {}) {
 }
 
 function scoreEngineAssessment(engineType, answers = {}) {
-  if (engineType === "love") return scoreLoveAssessment(answers);
-  if (engineType === "leadership") return scoreMappedEngineAssessment(LEADERSHIP_QUESTIONS, answers);
-  if (engineType === "loyalty") return scoreMappedEngineAssessment(LOYALTY_QUESTIONS, answers);
+  if (engineType === "love") return withInsights(engineType, scoreLoveAssessment(answers));
+  if (engineType === "leadership") return withInsights(engineType, scoreMappedEngineAssessment(LEADERSHIP_QUESTIONS, answers));
+  if (engineType === "loyalty") return withInsights(engineType, scoreMappedEngineAssessment(LOYALTY_QUESTIONS, answers));
   return null;
 }
 
