@@ -225,6 +225,27 @@ test('love archetype registry uses canonical names for code mapping', async () =
     assert.notEqual(byCode.EC?.name, 'The Messenger');
     assert.notEqual(byCode.AV?.name, 'The Builder');
     assert.notEqual(byCode.ES?.name, 'The Spark');
+
+    assert.equal(byCode.RS?.slug, 'reassurance-seeker');
+    assert.equal(byCode.AL?.slug, 'autonomous-lover');
+    assert.equal(byCode.EC?.slug, 'expression-connector');
+    assert.equal(byCode.AV?.slug, 'action-validator');
+    assert.equal(byCode.ES?.slug, 'experience-seeker');
+
+    assert.equal(byCode.RS?.imageKey, 'love-rs');
+    assert.equal(byCode.AL?.imageKey, 'love-al');
+    assert.equal(byCode.EC?.imageKey, 'love-ec');
+    assert.equal(byCode.AV?.imageKey, 'love-av');
+    assert.equal(byCode.ES?.imageKey, 'love-es');
+
+    for (const archetype of Object.values(byCode)) {
+      assert.notEqual(archetype?.slug, 'anchor');
+      assert.notEqual(archetype?.slug, 'spark');
+      assert.notEqual(archetype?.slug, 'mirror');
+      assert.notEqual(archetype?.slug, 'builder');
+      assert.notEqual(archetype?.slug, 'wave');
+      assert.ok(!['love-anchor', 'love-spark', 'love-mirror', 'love-builder', 'love-wave'].includes(archetype?.imageKey));
+    }
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
