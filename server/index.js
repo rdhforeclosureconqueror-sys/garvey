@@ -229,6 +229,24 @@ app.get('/dashboard.html', (req, res) => {
   return res.sendFile(path.join(__dirname, '..', 'dashboardnew', 'index.html'));
 });
 
+app.get("/archetype-engines/:engine/result/:resultId", (req, res, next) => {
+  const engine = String(req.params.engine || "").trim().toLowerCase();
+  if (!["love", "leadership", "loyalty"].includes(engine)) return next();
+  return res.sendFile(path.join(__dirname, "..", "public", "archetype-engines", "experience.html"));
+});
+
+app.get("/archetype-engines/:engine/archetype/:slug", (req, res, next) => {
+  const engine = String(req.params.engine || "").trim().toLowerCase();
+  if (!["love", "leadership", "loyalty"].includes(engine)) return next();
+  return res.sendFile(path.join(__dirname, "..", "public", "archetype-engines", "experience.html"));
+});
+
+app.get("/archetype-engines/:engine/browse", (req, res, next) => {
+  const engine = String(req.params.engine || "").trim().toLowerCase();
+  if (!["love", "leadership", "loyalty"].includes(engine)) return next();
+  return res.sendFile(path.join(__dirname, "..", "public", "archetype-engines", "experience.html"));
+});
+
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 
