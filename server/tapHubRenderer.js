@@ -177,17 +177,34 @@ function buildTapHubViewModel(resolvedBody) {
   const rewardsUrl = String(linkConfig.rewards_url || "").trim();
   const vocUrl = String(linkConfig.voc_url || "").trim();
   const googleReviewUrl = String(linkConfig.google_review_url || config.google_review_url || "").trim();
+  const customerJourneyBenefitsRaw = Array.isArray(customerActionsConfig.customer_journey_benefits)
+    ? customerActionsConfig.customer_journey_benefits
+    : [];
+  const customerJourneyBenefits = customerJourneyBenefitsRaw
+    .map((item) => String(item || "").trim())
+    .filter(Boolean)
+    .slice(0, 6);
+  if (customerJourneyBenefits.length === 0) {
+    customerJourneyBenefits.push(
+      "Create your account",
+      "Earn points",
+      "Unlock discounts",
+      "Leave feedback",
+      "Build your rewards over time"
+    );
+  }
   const customerActionLinks = [
     { key: "checkin", type: "button", label: String(customerActionsConfig.check_in_label || "Check in").trim() || "Check in", eventType: "checkin_click", action: "open_checkin" },
     { key: "book", type: "button", label: String(customerActionsConfig.book_label || "Book").trim() || "Book", eventType: "booking_open", action: "open_booking" },
     { key: "pay", type: "link", label: String(customerActionsConfig.pay_label || "Pay now").trim() || "Pay now", eventType: "pay_click", href: paymentUrl, external: true },
     { key: "tip", type: "link", label: String(customerActionsConfig.tip_label || "Leave a tip").trim() || "Leave a tip", eventType: "tip_click", href: tipUrl, external: true },
-    { key: "return_engine", type: "link", label: String(customerActionsConfig.return_engine_label || "Return Engine").trim() || "Return Engine", eventType: "return_engine_click", href: resolveInternalLink(rewardsUrl || "/rewards.html", { entry: "tap-hub" }) },
-    { key: "review", type: "link", label: String(customerActionsConfig.review_label || "Write a review").trim() || "Write a review", eventType: "review_click", href: reviewUrl || resolveInternalLink("/rewards.html", { focus: "review" }) },
-    { key: "rewards", type: "link", label: String(customerActionsConfig.rewards_label || "Rewards").trim() || "Rewards", eventType: "rewards_click", href: resolveInternalLink(rewardsUrl || "/rewards.html", { entry: "tap-hub" }) },
-    { key: "voc", type: "link", label: String(customerActionsConfig.voc_label || "VOC").trim() || "VOC", eventType: "voc_click", href: resolveInternalLink(vocUrl || "/voc.html", { entry: "tap-hub" }) },
+  ].filter(Boolean);
+  const customerSubActions = [
+    { key: "review", label: String(customerActionsConfig.review_label || "Write a review").trim() || "Write a review", eventType: "review_click", href: reviewUrl || resolveInternalLink("/rewards.html", { focus: "review" }) },
+    { key: "rewards", label: String(customerActionsConfig.rewards_label || "Rewards").trim() || "Rewards", eventType: "rewards_click", href: resolveInternalLink(rewardsUrl || "/rewards.html", { entry: "tap-hub" }) },
+    { key: "voc", label: String(customerActionsConfig.voc_label || "VOC").trim() || "VOC", eventType: "voc_click", href: resolveInternalLink(vocUrl || "/voc.html", { entry: "tap-hub" }) },
     googleReviewUrl
-      ? { key: "google_review", type: "link", label: String(customerActionsConfig.google_review_label || "Google review").trim() || "Google review", eventType: "google_review_click", href: googleReviewUrl, external: true }
+      ? { key: "google_review", label: String(customerActionsConfig.google_review_label || "Google review").trim() || "Google review", eventType: "google_review_click", href: googleReviewUrl, external: true }
       : null,
   ].filter(Boolean);
 
@@ -211,6 +228,14 @@ function buildTapHubViewModel(resolvedBody) {
     featuredServices,
     returnEngineUrl: resolveInternalLink(rewardsUrl || "/rewards.html", { entry: "tap-hub" }),
     customerActions: customerActionLinks,
+    customerJourney: {
+      title: String(customerActionsConfig.customer_journey_title || "Customer account & rewards").trim() || "Customer account & rewards",
+      intro: String(customerActionsConfig.customer_journey_intro || "Create your account once and continue everything in one guided customer path.").trim() || "Create your account once and continue everything in one guided customer path.",
+      benefits: customerJourneyBenefits,
+      primaryCtaLabel: String(customerActionsConfig.customer_journey_cta_label || "Create account, earn points, get discounts").trim() || "Create account, earn points, get discounts",
+      href: resolveInternalLink(rewardsUrl || "/rewards.html", { entry: "tap-hub" }),
+    },
+    customerSubActions,
     guide: {
       title: String(guideConfig.title || "How this works").trim() || "How this works",
       intro: String(guideConfig.intro || "Follow these quick steps to get started.").trim() || "Follow these quick steps to get started.",
@@ -372,6 +397,32 @@ function renderTapHubPage(viewModel) {
         background: linear-gradient(135deg, #111827, #0f172a);
         color: #f8fafc;
       }
+      .journey-card { border-color: rgba(251, 191, 36, 0.8); background: linear-gradient(150deg, rgba(120, 53, 15, 0.28), rgba(15, 23, 42, 0.85)); }
+      .journey-list { margin: 10px 0 12px; padding-left: 20px; color: #fef3c7; }
+      .journey-list li { margin-bottom: 6px; }
+      .journey-primary {
+        display: block;
+        text-decoration: none;
+        text-align: center;
+        border: 1px solid rgba(251, 191, 36, 0.9);
+        border-radius: 10px;
+        padding: 12px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #b45309, #92400e);
+        color: #fff7ed;
+      }
+      .journey-sub-actions {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .journey-sub-actions a {
+        text-decoration: none;
+        color: #fde68a;
+        font-size: 0.84rem;
+        border-bottom: 1px dashed rgba(253, 230, 138, 0.7);
+      }
       .flow-modal-backdrop { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.72); display: grid; place-items: center; padding: 16px; z-index: 40; }
       .flow-modal-backdrop[hidden] { display: none !important; }
       .flow-modal { width: min(420px, 100%); border-radius: 14px; border: 1px solid rgba(230,184,93,0.65); background: #050a18; padding: 14px; }
@@ -442,6 +493,20 @@ function renderTapHubPage(viewModel) {
               : `<a href="${escapeHtml(action.href)}" ${action.external ? 'target="_blank" rel="noopener noreferrer"' : ""} data-tap-event-type="${escapeHtml(action.eventType)}">${escapeHtml(action.label)}</a>`
           )).join("")}
         </div>
+      </section>` : ""}
+
+      ${viewModel.modules.customerActionsEnabled ? `<section class="card journey-card">
+        <h2>${escapeHtml(viewModel.customerJourney.title)}</h2>
+        <p class="sub">${escapeHtml(viewModel.customerJourney.intro)}</p>
+        <ul class="journey-list">
+          ${viewModel.customerJourney.benefits.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+        </ul>
+        <a class="journey-primary" href="${escapeHtml(viewModel.customerJourney.href)}" data-tap-event-type="return_engine_click">${escapeHtml(viewModel.customerJourney.primaryCtaLabel)}</a>
+        ${viewModel.customerSubActions.length ? `<div class="journey-sub-actions">
+          ${viewModel.customerSubActions.map((action) => (
+            `<a href="${escapeHtml(action.href)}" ${action.external ? 'target="_blank" rel="noopener noreferrer"' : ""} data-tap-event-type="${escapeHtml(action.eventType)}">${escapeHtml(action.label)}</a>`
+          )).join("")}
+        </div>` : ""}
       </section>` : ""}
 
       <section class="card">
