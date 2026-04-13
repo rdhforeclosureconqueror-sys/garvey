@@ -57,6 +57,23 @@ async function startServer(pool) {
 
 test('love bank contains 75 questions', () => {
   assert.equal(LOVE_QUESTIONS.length, 75);
+  const byBank = LOVE_QUESTIONS.reduce((acc, q) => {
+    const bankId = q.bankId || q.bank_id;
+    acc[bankId] = (acc[bankId] || 0) + 1;
+    return acc;
+  }, {});
+  assert.deepEqual(byBank, { BANK_1: 25, BANK_2: 25, BANK_3: 25 });
+});
+
+test('love questions keep canonical option/archetype contract', () => {
+  const validArchetypes = new Set(['RS', 'AL', 'EC', 'AV', 'ES']);
+  for (const question of LOVE_QUESTIONS) {
+    assert.equal((question.options || []).length, 4);
+    for (const option of (question.options || [])) {
+      assert.equal(validArchetypes.has(option.primary || option.primary_archetype), true);
+      assert.equal(validArchetypes.has(option.secondary || option.secondary_archetype), true);
+    }
+  }
 });
 
 test('leadership and loyalty banks load as three active banks', () => {
@@ -173,6 +190,15 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
 test('no regression: love routes remain live', async () => {
   const { server, baseUrl } = await startServer(createMockPool());
   try {
+    const blockedStartRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/start`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo' }),
+    });
+    assert.equal(blockedStartRes.status, 403);
+    const blockedStartJson = await blockedStartRes.json();
+    assert.equal(blockedStartJson.error, 'consent_required_before_assessment');
+
     const consentRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/consent`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -188,6 +214,9 @@ test('no regression: love routes remain live', async () => {
     });
     assert.equal(startRes.status, 200);
     const startJson = await startRes.json();
+    assert.equal(startJson.questionBanks.activeQuestions[0].id, 'B1_Q01');
+    assert.equal(startJson.questionBanks.activeQuestions[0].prompt, 'When someone you care about becomes less responsive:');
+    assert.equal(startJson.questionBanks.activeQuestions.length, 25);
 
     const answers = Object.fromEntries(LOVE_QUESTIONS.map((q) => [q.id || q.question_id, 4]));
     const scoreRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/score`, {
