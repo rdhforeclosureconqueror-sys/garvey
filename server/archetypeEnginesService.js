@@ -7,8 +7,20 @@ const LOVE_DYNAMICS = require("../archetype-engines/content/loveCoupleDynamics")
 const LEADERSHIP_ARCHETYPES = require("../archetype-engines/content/leadershipArchetypes");
 const LOYALTY_ARCHETYPES = require("../archetype-engines/content/loyaltyArchetypes");
 const LOVE_QUESTIONS = require("../archetype-engines/question-banks/love");
+const LEADERSHIP_BANK1 = require("../archetype-engines/question-banks/leadership.bank1");
+const LEADERSHIP_BANK2 = require("../archetype-engines/question-banks/leadership.bank2");
+const LEADERSHIP_BANK3 = require("../archetype-engines/question-banks/leadership.bank3");
+const LOYALTY_BANK1 = require("../archetype-engines/question-banks/loyalty.bank1");
+const LOYALTY_BANK2 = require("../archetype-engines/question-banks/loyalty.bank2");
+const LOYALTY_BANK3 = require("../archetype-engines/question-banks/loyalty.bank3");
 
 const ENGINE_TYPES = Object.freeze(["love", "leadership", "loyalty"]);
+const SIGNAL_MULTIPLIER = Object.freeze({ ID: 1.0, BH: 1.0, SC: 1.25, ST: 1.5, DS: 1.0 });
+const PRIMARY_WEIGHT = 2;
+const SECONDARY_WEIGHT = 1;
+
+const LEADERSHIP_QUESTIONS = Object.freeze([...LEADERSHIP_BANK1, ...LEADERSHIP_BANK2, ...LEADERSHIP_BANK3]);
+const LOYALTY_QUESTIONS = Object.freeze([...LOYALTY_BANK1, ...LOYALTY_BANK2, ...LOYALTY_BANK3]);
 
 function groupBy(arr, key) {
   return arr.reduce((acc, item) => {
@@ -93,6 +105,117 @@ function scoreLoveAssessment(answers = {}) {
   };
 }
 
+function pickOption(question, answer) {
+  if (typeof answer === "string") {
+    return question.options.find((opt) => opt.id === answer) || question.options[2] || question.options[0];
+  }
+  if (typeof answer === "number") {
+    const idx = Math.max(0, Math.min(question.options.length - 1, Math.round(answer) - 1));
+    return question.options[idx] || question.options[0];
+  }
+  return question.options[2] || question.options[0];
+}
+
+function scoreMappedEngineAssessment(questions, answers = {}) {
+  const totals = {};
+  const byClassRaw = { ID: {}, BH: {}, SC: {}, ST: {}, DS: {} };
+  const pairDelta = [];
+  const answerIndex = {};
+
+  for (const q of questions) {
+    const selected = pickOption(q, answers[q.id]);
+    const signalType = selected.signalType || q.questionClass;
+    const multiplier = SIGNAL_MULTIPLIER[signalType] || 1;
+
+    totals[selected.primary] = (totals[selected.primary] || 0) + (PRIMARY_WEIGHT * multiplier);
+    byClassRaw[signalType][selected.primary] = (byClassRaw[signalType][selected.primary] || 0) + (PRIMARY_WEIGHT * multiplier);
+
+    if (selected.secondary) {
+      totals[selected.secondary] = (totals[selected.secondary] || 0) + (SECONDARY_WEIGHT * multiplier);
+      byClassRaw[signalType][selected.secondary] = (byClassRaw[signalType][selected.secondary] || 0) + (SECONDARY_WEIGHT * multiplier);
+    }
+
+    answerIndex[q.id] = q.options.findIndex((opt) => opt.id === selected.id);
+  }
+
+  for (const q of questions) {
+    if (!q.reversePairId || q.id > q.reversePairId) continue;
+    if (answerIndex[q.id] === undefined || answerIndex[q.reversePairId] === undefined) continue;
+    pairDelta.push(Math.abs(answerIndex[q.id] - answerIndex[q.reversePairId]));
+  }
+
+  const normalizedScores = normalizeMap(totals);
+  const top = selectPrimarySecondary(normalizedScores);
+  const gap = top.primary && top.secondary
+    ? Number((top.primary.score - top.secondary.score).toFixed(2))
+    : null;
+
+  const bankScores = {
+    identity: normalizeMap(byClassRaw.ID),
+    behavior: normalizeMap(byClassRaw.BH),
+    selfConcept: normalizeMap(byClassRaw.SC),
+    stress: normalizeMap(byClassRaw.ST),
+    desired: normalizeMap(byClassRaw.DS),
+  };
+
+  const codes = new Set([
+    ...Object.keys(normalizedScores),
+    ...Object.keys(bankScores.identity),
+    ...Object.keys(bankScores.behavior),
+    ...Object.keys(bankScores.desired),
+  ]);
+
+  const desiredCurrentGap = {};
+  const identityBehaviorGap = {};
+  const balanceStates = { overall: deriveBalanceState(normalizedScores), dimensions: {} };
+  for (const code of codes) {
+    desiredCurrentGap[code] = Number(((bankScores.desired[code] || 0) - (bankScores.identity[code] || 0)).toFixed(2));
+    identityBehaviorGap[code] = Number(((bankScores.identity[code] || 0) - (bankScores.behavior[code] || 0)).toFixed(2));
+    const value = normalizedScores[code] || 0;
+    balanceStates.dimensions[code] = value >= 80 ? "dominant" : value <= 45 ? "under-indexed" : "balanced";
+  }
+
+  const contradiction = pairDelta.length ? Number(((pairDelta.reduce((a, b) => a + b, 0) / (pairDelta.length * 3)) * 100).toFixed(2)) : 0;
+  const consistency = Number((100 - contradiction).toFixed(2));
+
+  return {
+    questionCount: questions.length,
+    bankCounts: Object.fromEntries(Object.entries(groupBy(questions, "bankId")).map(([k, v]) => [k, v.length])),
+    normalizedScores,
+    primaryArchetype: top.primary,
+    secondaryArchetype: top.secondary,
+    hybridArchetype: gap !== null && gap <= 7 && top.secondary
+      ? { codes: [top.primary.code, top.secondary.code], gap, label: `${top.primary.code}-${top.secondary.code}` }
+      : null,
+    balanceStates,
+    desiredCurrentGap,
+    contradictionConsistency: { contradiction, consistency },
+    identityBehaviorGap,
+    stressProfile: bankScores.stress,
+    bankScores,
+  };
+}
+
+function scoreEngineAssessment(engineType, answers = {}) {
+  if (engineType === "love") return scoreLoveAssessment(answers);
+  if (engineType === "leadership") return scoreMappedEngineAssessment(LEADERSHIP_QUESTIONS, answers);
+  if (engineType === "loyalty") return scoreMappedEngineAssessment(LOYALTY_QUESTIONS, answers);
+  return null;
+}
+
+function getQuestionBanks(engineType) {
+  if (engineType === "love") {
+    return {
+      current: LOVE_QUESTIONS.filter((q) => q.bank === "current"),
+      desired: LOVE_QUESTIONS.filter((q) => q.bank === "desired"),
+      behavior: LOVE_QUESTIONS.filter((q) => q.bank === "behavior"),
+    };
+  }
+  if (engineType === "leadership") return groupBy(LEADERSHIP_QUESTIONS, "bankId");
+  if (engineType === "loyalty") return groupBy(LOYALTY_QUESTIONS, "bankId");
+  return {};
+}
+
 function computeLoveCompatibility(resultA, resultB) {
   const scoreA = resultA?.normalizedScores || {};
   const scoreB = resultB?.normalizedScores || {};
@@ -139,8 +262,13 @@ function newId(prefix) {
 module.exports = {
   ENGINE_TYPES,
   LOVE_QUESTIONS,
+  LEADERSHIP_QUESTIONS,
+  LOYALTY_QUESTIONS,
+  SIGNAL_MULTIPLIER,
+  getQuestionBanks,
   getEngineContent,
   scoreLoveAssessment,
+  scoreEngineAssessment,
   computeLoveCompatibility,
   initializeArchetypeEngineSchema,
   newId,

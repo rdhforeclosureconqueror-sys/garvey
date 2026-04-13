@@ -4,8 +4,9 @@ const express = require("express");
 const {
   ENGINE_TYPES,
   LOVE_QUESTIONS,
+  getQuestionBanks,
   getEngineContent,
-  scoreLoveAssessment,
+  scoreEngineAssessment,
   computeLoveCompatibility,
   newId,
 } = require("./archetypeEnginesService");
@@ -70,46 +71,51 @@ function createArchetypeEnginesRouter({ pool }) {
     return res.json({ engineType: "love", dynamics: content.dynamics });
   });
 
-  router.post("/love/assessment/start", async (req, res) => {
+  router.post("/:engineType/assessment/start", async (req, res) => {
+    const { engineType } = req.params;
+    if (!ENGINE_TYPES.includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
+
     const assessmentId = newId("asmt");
     const tenant = pickTenant(req);
     await pool.query(
       `INSERT INTO engine_assessments (id, engine_type, tenant_slug, session_id, user_id, campaign_context)
        VALUES ($1,$2,$3,$4,$5,$6)`,
-      [assessmentId, "love", tenant, String(req.body?.session_id || "").trim() || null, String(req.body?.user_id || "").trim() || null, String(req.body?.campaign || "").trim() || null]
+      [assessmentId, engineType, tenant, String(req.body?.session_id || "").trim() || null, String(req.body?.user_id || "").trim() || null, String(req.body?.campaign || "").trim() || null]
     );
 
     return res.json({
       assessmentId,
-      engineType: "love",
-      questionBanks: {
-        current: LOVE_QUESTIONS.filter((q) => q.bank === "current"),
-        desired: LOVE_QUESTIONS.filter((q) => q.bank === "desired"),
-        behavior: LOVE_QUESTIONS.filter((q) => q.bank === "behavior"),
-      },
+      engineType,
+      questionBanks: getQuestionBanks(engineType),
     });
   });
 
-  router.post("/love/assessment/score", async (req, res) => {
+  router.post("/:engineType/assessment/score", async (req, res) => {
+    const { engineType } = req.params;
+    if (!ENGINE_TYPES.includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
+
     const assessmentId = String(req.body?.assessmentId || "").trim();
     const answers = req.body?.answers || {};
     if (!assessmentId) return res.status(400).json({ error: "assessmentId_required" });
 
-    const scored = scoreLoveAssessment(answers);
+    const scored = scoreEngineAssessment(engineType, answers);
     const resultId = newId("result");
     await pool.query(
       `INSERT INTO engine_results (result_id, assessment_id, engine_type, tenant_slug, result_payload)
        VALUES ($1,$2,$3,$4,$5::jsonb)`,
-      [resultId, assessmentId, "love", pickTenant(req), JSON.stringify(scored)]
+      [resultId, assessmentId, engineType, pickTenant(req), JSON.stringify(scored)]
     );
 
-    return res.json({ resultId, engineType: "love", ...scored });
+    return res.json({ resultId, engineType, ...scored });
   });
 
-  router.get("/love/results/:resultId", async (req, res) => {
+  router.get("/:engineType/results/:resultId", async (req, res) => {
+    const { engineType, resultId } = req.params;
+    if (!ENGINE_TYPES.includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
+
     const result = await pool.query(
-      "SELECT result_id, assessment_id, engine_type, tenant_slug, result_payload, created_at FROM engine_results WHERE result_id = $1 LIMIT 1",
-      [req.params.resultId]
+      "SELECT result_id, assessment_id, engine_type, tenant_slug, result_payload, created_at FROM engine_results WHERE result_id = $1 AND engine_type = $2 LIMIT 1",
+      [resultId, engineType]
     );
     if (!result.rows[0]) return res.status(404).json({ error: "result_not_found" });
     return res.json(result.rows[0]);
@@ -125,26 +131,6 @@ function createArchetypeEnginesRouter({ pool }) {
       [id, "love", pickTenant(req), JSON.stringify({ resultA, resultB, score: payload })]
     );
     return res.json({ compatibilityId: id, engineType: "love", ...payload });
-  });
-
-  router.post("/:engineType/assessment/start", (req, res) => {
-    const { engineType } = req.params;
-    if (!["leadership", "loyalty"].includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
-    return res.status(202).json({
-      engineType,
-      status: "scaffold_ready",
-      message: "Assessment scoring is disabled until finalized 3-bank mapped question sets are added.",
-    });
-  });
-
-  router.post("/:engineType/assessment/score", (req, res) => {
-    const { engineType } = req.params;
-    if (!["leadership", "loyalty"].includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
-    return res.status(409).json({
-      engineType,
-      error: "question_banks_not_finalized",
-      message: "Scoring remains intentionally disabled for this engine scaffold.",
-    });
   });
 
   return router;
