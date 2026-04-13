@@ -1,5 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
 const express = require('express');
 const http = require('http');
 
@@ -203,4 +204,38 @@ test('no regression: love routes remain live', async () => {
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
+});
+
+test('love archetype registry uses canonical names for code mapping', async () => {
+  const { server, baseUrl } = await startServer(createMockPool());
+  try {
+    const listRes = await fetch(`${baseUrl}/api/archetype-engines/love/archetypes?tenant=demo`);
+    assert.equal(listRes.status, 200);
+    const listJson = await listRes.json();
+    const byCode = Object.fromEntries((listJson.archetypes || []).map((a) => [a.code, a]));
+
+    assert.equal(byCode.RS?.name, 'Reassurance Seeker');
+    assert.equal(byCode.AL?.name, 'Autonomous Lover');
+    assert.equal(byCode.EC?.name, 'Expression Connector');
+    assert.equal(byCode.AV?.name, 'Action Validator');
+    assert.equal(byCode.ES?.name, 'Experience Seeker');
+
+    assert.notEqual(byCode.RS?.name, 'The Anchor');
+    assert.notEqual(byCode.AL?.name, 'The Sovereign');
+    assert.notEqual(byCode.EC?.name, 'The Messenger');
+    assert.notEqual(byCode.AV?.name, 'The Builder');
+    assert.notEqual(byCode.ES?.name, 'The Spark');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('love result renderer ships canonical name map', () => {
+  const source = fs.readFileSync('public/archetype-engines/experience.js', 'utf8');
+  assert.match(source, /LOVE_CANONICAL_LABELS/);
+  assert.match(source, /RS:\s*"Reassurance Seeker"/);
+  assert.match(source, /AL:\s*"Autonomous Lover"/);
+  assert.match(source, /EC:\s*"Expression Connector"/);
+  assert.match(source, /AV:\s*"Action Validator"/);
+  assert.match(source, /ES:\s*"Experience Seeker"/);
 });
