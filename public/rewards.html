@@ -266,6 +266,34 @@
     border-color: rgba(251, 191, 36, 0.7);
     box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.25), 0 0 22px var(--glow-gold);
   }
+  .assessment-menu {
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 12px;
+    padding: 10px;
+    background: rgba(255,255,255,0.03);
+  }
+  .assessment-menu-head {
+    margin: 0 0 8px;
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+  .assessment-option {
+    width: 100%;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 10px;
+    padding: 10px;
+    background: rgba(255,255,255,0.03);
+    color: var(--text);
+    text-align: left;
+    display: block;
+  }
+  .assessment-option + .assessment-option { margin-top: 8px; }
+  .assessment-option:hover {
+    border-color: rgba(255,255,255,0.34);
+    background: rgba(255,255,255,0.06);
+  }
+  .assessment-option strong { display: block; }
+  .assessment-option span { color: var(--muted); font-size: 0.9rem; }
 
   .notice.fade-in {
     animation: fadeInNotice 420ms ease-out;
@@ -590,6 +618,10 @@
             <span>Voice of the Customer unlocks your biggest boost (+50).</span>
           </button>
         </div>
+        <div id="assessmentMenu" class="assessment-menu hide" aria-live="polite">
+          <p class="assessment-menu-head">Choose your assessment:</p>
+          <div id="assessmentOptions"></div>
+        </div>
       </div>
 
       <div id="detailInputs" class="stack">
@@ -717,7 +749,7 @@
       </article>
       <div class="cta-row">
         <a id="backHome" class="link-btn" href="#">← Back Home</a>
-        <a id="openAssessment" class="link-btn" href="#">Open Voice of the Customer</a>
+        <a id="openAssessment" class="link-btn" href="#">Open selected assessment</a>
       </div>
     </section>
 
@@ -765,6 +797,7 @@
 
 <script src="/js/api-contract.js"></script>
 <script src="/engine/customer-return-engine.js"></script>
+<script src="/js/assessment-menu.js"></script>
 <script>
 "use strict";
 
@@ -840,6 +873,9 @@ const state = {
   recommendedAction: "checkin",
   googleReviewUrl: "",
   publicReviews: [],
+  selectedAssessmentKey: "voc",
+  assessmentOptions: [],
+  assessmentMenuExpanded: false,
 };
 const ACTIONS_PER_CYCLE = 6;
 const REWARD_MILESTONES = [50, 100, 150, 250, 500];
@@ -933,7 +969,7 @@ function signInCustomerFromForm() {
   window.history.replaceState({}, "", u.pathname + u.search + u.hash);
   setAuthStatus(`Signed in as ${name} <${email}>`);
   engine.init({ tenant: ctxSignedIn.tenant, cid: ctxSignedIn.cid, rid: ctxSignedIn.rid, email, name });
-  syncVocLink();
+  syncAssessmentOptions();
   refreshPrimaryActionCta();
   return { email, name };
 }
@@ -1154,24 +1190,53 @@ function updateStatusCards(payload) {
   updateActionUI();
 }
 
-function syncVocLink() {
+function syncAssessmentOptions() {
   const query = new URLSearchParams(location.search);
   const ctx = currentCtx();
-  const voc = new URL(`/voc.html`, location.origin);
-  voc.searchParams.set("tenant", ctx.tenant);
-  if (ctx.cid) voc.searchParams.set("cid", ctx.cid);
-  if (readEmail()) voc.searchParams.set("email", readEmail());
-  if (readName()) voc.searchParams.set("name", readName());
-  const entry = safeTrim(query.get("entry"));
-  const tapSource = safeTrim(query.get("tap_source"));
-  const tapTag = safeTrim(query.get("tap_tag") || query.get("tag"));
-  const tapSession = safeTrim(query.get("tap_session"));
-  if (entry) voc.searchParams.set("entry", entry);
-  if (tapSource) voc.searchParams.set("tap_source", tapSource);
-  if (tapTag) voc.searchParams.set("tap_tag", tapTag);
-  if (tapSession) voc.searchParams.set("tap_session", tapSession);
-  voc.searchParams.set("source_type", detectSourceTypeFromQuery(query));
-  document.getElementById("openAssessment").href = voc.pathname + voc.search;
+  const selectedEmail = readEmail() || ctx.email;
+  const selectedName = readName() || ctx.name;
+  state.assessmentOptions = window.AssessmentMenu.createAssessmentOptions({
+    origin: location.origin,
+    sourceType: detectSourceTypeFromQuery(query),
+    query,
+    ctx: {
+      tenant: ctx.tenant,
+      cid: ctx.cid,
+      rid: ctx.rid,
+      email: selectedEmail,
+      name: selectedName,
+    },
+  });
+  const selected = state.assessmentOptions.find((item) => item.key === state.selectedAssessmentKey) || state.assessmentOptions[0];
+  if (selected) document.getElementById("openAssessment").href = selected.href;
+  renderAssessmentMenu();
+}
+
+function setAssessmentMenuExpanded(expanded) {
+  state.assessmentMenuExpanded = !!expanded;
+  document.getElementById("assessmentMenu").classList.toggle("hide", !state.assessmentMenuExpanded);
+}
+
+function navigateAssessment(key) {
+  const selected = state.assessmentOptions.find((item) => item.key === key);
+  if (!selected) return;
+  state.selectedAssessmentKey = selected.key;
+  document.getElementById("openAssessment").href = selected.href;
+  window.location.href = selected.href;
+}
+
+function renderAssessmentMenu() {
+  const wrap = document.getElementById("assessmentOptions");
+  if (!wrap) return;
+  wrap.innerHTML = state.assessmentOptions.map((item) => `
+    <button type="button" class="assessment-option" data-assessment-key="${escapeHtml(item.key)}">
+      <strong>${escapeHtml(item.title)}</strong>
+      <span>${escapeHtml(item.description)}</span>
+    </button>
+  `).join("");
+  wrap.querySelectorAll("[data-assessment-key]").forEach((node) => {
+    node.addEventListener("click", () => navigateAssessment(node.dataset.assessmentKey));
+  });
 }
 
 function showStatus(payload) {
@@ -1211,6 +1276,7 @@ function updateActionUI() {
   document.getElementById("referralWrap").classList.toggle("hide", state.actionType !== "referral");
   document.getElementById("wishlistWrap").classList.toggle("hide", state.actionType !== "wishlist");
   document.getElementById("contributionWrap").classList.toggle("hide", state.actionType !== "contribution");
+  if (state.actionType !== "voc") setAssessmentMenuExpanded(false);
   setStep(2);
 }
 
@@ -1533,8 +1599,9 @@ async function submitAction() {
   };
 
   if (state.actionType === "voc") {
-    syncVocLink();
-    window.location.href = document.getElementById("openAssessment").href;
+    syncAssessmentOptions();
+    const selected = state.assessmentOptions.find((item) => item.key === state.selectedAssessmentKey) || state.assessmentOptions[0];
+    if (selected) window.location.href = selected.href;
     return;
   }
   if (state.actionType === "review" && state.googleReviewUrl) {
@@ -1596,7 +1663,7 @@ async function run() {
   if (ctx.cid) back.searchParams.set("cid", ctx.cid);
   document.getElementById("backHome").href = back.pathname + back.search;
 
-  syncVocLink();
+  syncAssessmentOptions();
   consentFeature = await resolveConsentFeature();
   if (!consentFeature.enabled) {
     const panel = document.querySelector("#permissionState")?.closest(".panel");
@@ -1607,6 +1674,12 @@ async function run() {
     btn.addEventListener("click", () => {
       if (btn.dataset.type === "contribution") {
         showResult({ error: "Support features are currently unavailable. Coming soon." });
+        return;
+      }
+      if (btn.dataset.type === "voc") {
+        state.actionType = "voc";
+        updateActionUI();
+        setAssessmentMenuExpanded(!state.assessmentMenuExpanded);
         return;
       }
       state.actionType = btn.dataset.type;
@@ -1660,7 +1733,7 @@ async function run() {
     u.searchParams.delete("crid");
     window.history.replaceState({}, "", u.pathname + u.search + u.hash);
     engine.init({ tenant: ctxNow.tenant, cid: ctxNow.cid, email: "", name: "" });
-    syncVocLink();
+    syncAssessmentOptions();
     clearActiveCustomer();
     resetSignedOutView();
     document.getElementById("permissionState").textContent = "Signed out. No customer session is active.";
@@ -1734,7 +1807,7 @@ async function run() {
 
 run();
 window.addEventListener("pageshow", () => {
-  syncVocLink();
+  syncAssessmentOptions();
   loadPublicReviews().catch(() => null);
   if (consentFeature.enabled) loadPermissionState().catch(() => null);
 });
