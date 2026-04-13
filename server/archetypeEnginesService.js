@@ -129,7 +129,8 @@ function scoreCanonicalAssessment(rawQuestions, answers = {}) {
     answerIdx[q.id] = q.options.findIndex((opt) => opt.id === selected.id);
 
     if (!q.isScored) continue;
-    const signalType = selected.signalType || q.questionClass || "BH";
+    const signalTypeRaw = selected.signalType || q.questionClass || "BH";
+    const signalType = SIGNAL_MULTIPLIER[signalTypeRaw] ? signalTypeRaw : (q.questionClass || "BH");
     const signalMultiplier = SIGNAL_MULTIPLIER[signalType] || 1;
     const weightMultiplier = WEIGHT_TYPE_MULTIPLIER[selected.weightType] || 1;
     const baseWeight = signalMultiplier * weightMultiplier;

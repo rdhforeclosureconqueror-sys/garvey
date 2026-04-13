@@ -9,6 +9,7 @@ const {
   LOVE_QUESTIONS,
   LEADERSHIP_QUESTIONS,
   LOYALTY_QUESTIONS,
+  getQuestionBanks,
   scoreLoveAssessment,
   scoreEngineAssessment,
   computeLoveCompatibility,
@@ -67,11 +68,19 @@ test('love bank contains 75 questions', () => {
 
 test('love questions keep canonical option/archetype contract', () => {
   const validArchetypes = new Set(['RS', 'AL', 'EC', 'AV', 'ES']);
+  const signalByPrimary = {
+    RS: 'closeness_seeking',
+    AL: 'distance_regulation',
+    EC: 'verbal_repair',
+    AV: 'proof_based_trust',
+    ES: 'novelty_activation',
+  };
   for (const question of LOVE_QUESTIONS) {
     assert.equal((question.options || []).length, 4);
     for (const option of (question.options || [])) {
       assert.equal(validArchetypes.has(option.primary || option.primary_archetype), true);
       assert.equal(validArchetypes.has(option.secondary || option.secondary_archetype), true);
+      assert.equal(option.signal_type || option.signalType, signalByPrimary[option.primary || option.primary_archetype]);
     }
   }
 });
@@ -217,6 +226,8 @@ test('no regression: love routes remain live', async () => {
     assert.equal(startJson.questionBanks.activeQuestions[0].id, 'B1_Q01');
     assert.equal(startJson.questionBanks.activeQuestions[0].prompt, 'When someone you care about becomes less responsive:');
     assert.equal(startJson.questionBanks.activeQuestions.length, 25);
+    assert.equal(startJson.questionBanks.selectedBankId, 'BANK_1');
+    assert.equal(startJson.questionBanks.activeQuestions.at(-1).id, 'B1_Q25');
 
     const answers = Object.fromEntries(LOVE_QUESTIONS.map((q) => [q.id || q.question_id, 4]));
     const scoreRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/score`, {
@@ -232,6 +243,16 @@ test('no regression: love routes remain live', async () => {
     assert.equal(registryJson.engines.love.status, 'live');
   } finally {
     await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('love bank rotation and progression returns canonical first questions by retake attempt', () => {
+  for (const [retakeAttempt, expectedBank, expectedFirstId] of [[0, 'BANK_1', 'B1_Q01'], [1, 'BANK_2', 'B2_Q01'], [2, 'BANK_3', 'B3_Q01']]) {
+    const banks = getQuestionBanks('love', { retakeAttempt });
+    assert.equal(banks.selectedBankId, expectedBank);
+    assert.equal(banks.activeQuestions.length, 25);
+    assert.equal(banks.activeQuestions[0].id, expectedFirstId);
+    assert.match(banks.activeQuestions.at(-1).id, /^B[1-3]_Q25$/);
   }
 });
 
