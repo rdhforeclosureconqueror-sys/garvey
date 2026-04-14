@@ -114,7 +114,7 @@ function wireLoveVariantToggle(onChange) {
 }
 
 function stableContextParams(query) {
-  const keys = ["tenant", "email", "name", "cid", "crid", "rid", "entry", "source_type", "tap_source", "tap_tag", "tap_session", "session_id"];
+  const keys = ["tenant", "email", "name", "cid", "campaign", "crid", "rid", "entry", "source_type", "tap_source", "tap_tag", "tag", "tap_session", "session_id", "medium", "source"];
   const out = new URLSearchParams();
   for (const key of keys) {
     const value = String(query.get(key) || "").trim();
@@ -131,19 +131,60 @@ function routeTo(engine, path, query) {
   return `${base}${base.includes("?") ? "&" : "?"}${qs}`;
 }
 
+function readStoredContext() {
+  const fromJson = (raw) => {
+    if (!raw) return {};
+    try {
+      const parsed = JSON.parse(raw);
+      return parsed && typeof parsed === "object" ? parsed : {};
+    } catch (_) {
+      return {};
+    }
+  };
+  const read = (key) => {
+    try {
+      return fromJson(window.sessionStorage?.getItem(key) || window.localStorage?.getItem(key));
+    } catch (_) {
+      return {};
+    }
+  };
+  const active = read("garvey_active_customer_v1");
+  const login = read("garvey_login_ctx_v1");
+  const garvey = read("garvey_ctx_v1");
+  return {
+    tenant: String(active.tenant || login.tenant || garvey.tenant || "").trim(),
+    email: String(active.email || login.email || garvey.email || "").trim().toLowerCase(),
+    name: String(active.name || login.name || garvey.name || "").trim(),
+    cid: String(active.cid || login.cid || garvey.cid || "").trim(),
+    rid: String(active.rid || active.crid || login.rid || login.crid || garvey.rid || garvey.crid || "").trim(),
+  };
+}
+
+function normalizeAssessmentContext(query) {
+  const stored = readStoredContext();
+  const tenant = String(query.get("tenant") || stored.tenant || "").trim();
+  const email = String(query.get("email") || stored.email || "").trim().toLowerCase();
+  const name = String(query.get("name") || stored.name || "").trim();
+  const cid = String(query.get("cid") || query.get("campaign") || stored.cid || "").trim();
+  const crid = String(query.get("crid") || query.get("rid") || stored.rid || "").trim();
+  const rid = String(query.get("rid") || query.get("crid") || stored.rid || "").trim();
+  return { tenant, email, name, cid, crid, rid };
+}
+
 
 function pickCtx(query) {
+  const normalized = normalizeAssessmentContext(query);
   return {
-    tenant: String(query.get("tenant") || "").trim(),
-    email: String(query.get("email") || "").trim().toLowerCase(),
-    name: String(query.get("name") || "").trim(),
-    cid: String(query.get("cid") || "").trim(),
-    crid: String(query.get("crid") || query.get("rid") || "").trim(),
-    rid: String(query.get("rid") || query.get("crid") || "").trim(),
+    tenant: normalized.tenant,
+    email: normalized.email,
+    name: normalized.name,
+    cid: normalized.cid,
+    crid: normalized.crid,
+    rid: normalized.rid,
     tap_source: String(query.get("tap_source") || "").trim(),
-    source_type: String(query.get("source_type") || "").trim(),
+    source_type: String(query.get("source_type") || query.get("medium") || query.get("source") || "").trim(),
     tap_tag: String(query.get("tap_tag") || query.get("tag") || "").trim(),
-    tap_session: String(query.get("tap_session") || "").trim(),
+    tap_session: String(query.get("tap_session") || query.get("session_id") || "").trim(),
     entry: String(query.get("entry") || "").trim(),
     session_id: String(query.get("session_id") || "").trim(),
   };
@@ -764,7 +805,16 @@ function renderConsentStep(app, engine, query, contract) {
       return;
     }
     try {
+      const ctx = normalizeAssessmentContext(query);
+      if (!ctx.tenant || !ctx.email || !ctx.name) {
+        const missing = ["tenant", "email", "name"].filter((field) => !ctx[field]);
+        if (statusNode) statusNode.textContent = `We need ${missing.join(", ")} to continue. Return to Rewards to confirm your profile.`;
+        return;
+      }
       const consentPayload = buildPayload(query, {
+        tenant: ctx.tenant,
+        email: ctx.email,
+        name: ctx.name,
         accepted: true,
         consent_version: contract?.consent_version || "v1",
       });

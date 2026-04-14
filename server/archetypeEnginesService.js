@@ -248,18 +248,94 @@ function formatBehaviorFragment(text, fallback) {
   return normalized.replace(/\.$/, "").toLowerCase();
 }
 
+function safePct(value) {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return 0;
+  return numeric;
+}
+
+function topEntry(map = {}, { abs = false, direction = "desc" } = {}) {
+  const entries = Object.entries(map || {}).filter(([, value]) => Number.isFinite(Number(value)));
+  if (!entries.length) return null;
+  entries.sort((a, b) => {
+    const left = abs ? Math.abs(Number(a[1])) : Number(a[1]);
+    const right = abs ? Math.abs(Number(b[1])) : Number(b[1]);
+    return direction === "asc" ? left - right : right - left;
+  });
+  const [code, value] = entries[0];
+  return { code, value: Number(value) };
+}
+
+function magnitudeLabel(value) {
+  const abs = Math.abs(Number(value) || 0);
+  if (abs >= 12) return "strong";
+  if (abs >= 6) return "clear";
+  return "slight";
+}
+
 function buildResultInsights(scored, archetypeIndex = {}) {
   const primaryCode = scored?.primaryArchetype?.code;
   const secondaryCode = scored?.secondaryArchetype?.code;
   const primary = archetypeIndex[primaryCode] || {};
   const secondary = archetypeIndex[secondaryCode] || {};
+  const hybrid = scored?.hybridArchetype;
+  const normalizedScores = scored?.normalizedScores || {};
+  const behavior = scored?.bankScores?.behavior || {};
+  const desiredGap = scored?.desiredCurrentGap || {};
+  const identityGap = scored?.identityBehaviorGap || {};
+  const stressProfile = scored?.stressProfile || {};
+  const stressShift = scored?.stressShift || {};
+  const consistency = safePct(scored?.contradictionConsistency?.consistency);
+  const confidence = safePct(scored?.confidence);
+
+  const topBehavior = topEntry(behavior);
+  const lowBehavior = topEntry(behavior, { direction: "asc" });
+  const overGap = topEntry(desiredGap);
+  const underGap = topEntry(desiredGap, { direction: "asc" });
+  const identityTop = topEntry(identityGap, { abs: true });
+  const stressTop = topEntry(stressProfile);
+  const stressShiftTop = topEntry(stressShift, { abs: true });
+
+  const primaryStrength = safePct(normalizedScores[primaryCode]);
+  const secondaryStrength = safePct(normalizedScores[secondaryCode]);
+  const hierarchyGap = Number((primaryStrength - secondaryStrength).toFixed(1));
+  const hybridLead = hybrid ? `You are operating as a hybrid ${hybrid.label} profile with only a ${Number(hybrid.gap || 0).toFixed(1)}-point separation.` : "";
+  const styleBlend = secondaryCode
+    ? ` ${secondary.name || secondaryCode} shapes your backup response when ${primary.name || primaryCode} is not enough.`
+    : "";
+
+  const patternSignal = topBehavior?.code
+    ? `Your highest lived pattern is ${archetypeIndex[topBehavior.code]?.name || topBehavior.code} (${topBehavior.value.toFixed(1)}%), while ${archetypeIndex[lowBehavior?.code]?.name || lowBehavior?.code || "your lowest pattern"} is least active (${safePct(lowBehavior?.value).toFixed(1)}%).`
+    : "Your current pattern mix is still stabilizing.";
+
+  const overLine = overGap?.code
+    ? `${archetypeIndex[overGap.code]?.name || overGap.code} is the strongest \"want more\" signal (${overGap.value > 0 ? "+" : ""}${overGap.value.toFixed(1)}).`
+    : "";
+  const underLine = underGap?.code
+    ? `${archetypeIndex[underGap.code]?.name || underGap.code} is the strongest \"want less\" signal (${underGap.value > 0 ? "+" : ""}${underGap.value.toFixed(1)}).`
+    : "";
+
+  const stressDirection = stressTop?.code
+    ? `Stress activates ${archetypeIndex[stressTop.code]?.name || stressTop.code} first (${stressTop.value.toFixed(1)}%),`
+    : "Stress activation is currently diffuse,";
+  const stressShiftDirection = stressShiftTop?.code
+    ? ` with the biggest shift toward ${archetypeIndex[stressShiftTop.code]?.name || stressShiftTop.code} (${stressShiftTop.value > 0 ? "+" : ""}${stressShiftTop.value.toFixed(1)} vs baseline).`
+    : "";
+
+  const identityLine = identityTop?.code
+    ? `Your largest identity-behavior gap is ${archetypeIndex[identityTop.code]?.name || identityTop.code} (${identityTop.value > 0 ? "+" : ""}${identityTop.value.toFixed(1)}), a ${magnitudeLabel(identityTop.value)} mismatch between self-image and lived behavior.`
+    : "Identity and behavior signals are mostly aligned.";
+
+  const consistencyBand = consistency >= 80 ? "high" : consistency >= 60 ? "moderate" : "low";
+  const confidenceBand = confidence >= 80 ? "high" : confidence >= 60 ? "moderate" : "low";
+
   return {
-    primaryInsight: `You naturally lead with ${primary.coreEnergy || "a clear core drive"}.`,
-    secondaryInsight: `Your secondary pattern, ${secondary.name || secondaryCode || "secondary"}, adds flexibility to your default style.`,
-    balanceInsight: `Current balance state is ${scored?.balanceStates?.overall || "balanced"}.`,
-    stressInsight: `Under stress you tend to ${formatBehaviorFragment(primary.outOfBalanceHigh, "shift into visible reactive patterns")}.`,
-    identityGapInsight: "Identity-behavior gaps describe where self-story and observed style diverge.",
-    consistencyInsight: `Consistency score is ${Number(scored?.contradictionConsistency?.consistency || 0).toFixed(1)}%.`,
+    primaryInsight: `${hybridLead ? `${hybridLead} ` : ""}You primarily lead with ${primary.name || primaryCode || "your dominant pattern"} (${primaryStrength.toFixed(1)}%) and ${primary.coreEnergy || "a clear core drive"}. ${patternSignal}`,
+    secondaryInsight: `Your secondary pattern is ${secondary.name || secondaryCode || "secondary"} (${secondaryStrength.toFixed(1)}%), creating a ${hierarchyGap.toFixed(1)}-point gap from your primary profile.${styleBlend}`,
+    balanceInsight: `Current balance state is ${scored?.balanceStates?.overall || "balanced"}. ${overLine} ${underLine}`.trim(),
+    stressInsight: `${stressDirection}${stressShiftDirection} You may ${formatBehaviorFragment(primary.outOfBalanceHigh, "shift into visible reactive patterns")} when this activation spikes.`,
+    identityGapInsight: `${identityLine} Your biggest desired direction is to move ${underGap?.code ? `away from ${archetypeIndex[underGap.code]?.name || underGap.code}` : "away from lower-value habits"} and toward ${overGap?.code ? `${archetypeIndex[overGap.code]?.name || overGap.code}` : "your growth edge"}.`,
+    consistencyInsight: `Consistency is ${consistency.toFixed(1)}% (${consistencyBand}) and confidence is ${confidence.toFixed(1)}% (${confidenceBand}). ${consistency < 60 ? "Use smaller, repeatable actions to reduce contradiction across contexts." : "Your response pattern is stable enough to trust for daily decisions."}`,
   };
 }
 
