@@ -61,29 +61,129 @@ function buildPayload(query, extra) {
   };
 }
 
-function renderQuestionOne(app, engine, startPayload) {
+function normalizeOption(opt = {}) {
+  return {
+    id: opt.id || opt.optionId || opt.option_id || "",
+    text: opt.text || "",
+  };
+}
+
+function normalizeQuestion(q = {}) {
+  return {
+    id: q.id || q.question_id || "",
+    prompt: q.prompt || "",
+    options: (q.options || []).map(normalizeOption),
+  };
+}
+
+function renderAssessmentQuestions(app, engine, query, startPayload) {
   const selectedBankId = startPayload?.questionBanks?.selectedBankId || "";
-  const q1 = startPayload?.questionBanks?.activeQuestions?.[0] || null;
-  if (!q1) {
+  const assessmentId = String(startPayload?.assessmentId || "").trim();
+  const questions = (startPayload?.questionBanks?.activeQuestions || []).map(normalizeQuestion);
+  if (!assessmentId || !questions.length) {
     app.innerHTML = `<section class="section error">No questions found for this assessment.</section>`;
     return;
   }
 
-  app.innerHTML = `
-    <section class="section">
-      <h1>${titleCase(engine)} Assessment</h1>
-      <p class="muted">Assessment started. Bank: ${esc(selectedBankId || "default")}.</p>
-      <div class="chip">Question 1</div>
-      <h2>${esc(q1.prompt || "")}</h2>
-      <div class="spectrum-grid">
-        ${(q1.options || []).map((opt) => `
-          <div class="card">
-            <h3>${esc(opt.optionId || opt.option_id || "")}</h3>
-            <p>${esc(opt.text || "")}</p>
+  const state = {
+    index: 0,
+    answers: {},
+    submitting: false,
+    status: "",
+  };
+
+  const render = () => {
+    const q = questions[state.index];
+    const selected = state.answers[q.id] || "";
+    const isLast = state.index === questions.length - 1;
+    const canContinue = Boolean(selected) && !state.submitting;
+    const optionsMarkup = q.options.map((opt, optIndex) => {
+      const inputId = `answer-${state.index}-${optIndex}`;
+      const isChecked = selected === opt.id;
+      return `
+        <label class="answer-option${isChecked ? " is-selected" : ""}" for="${esc(inputId)}">
+          <input
+            class="answer-option-input"
+            type="radio"
+            id="${esc(inputId)}"
+            name="question-${esc(q.id)}"
+            value="${esc(opt.id)}"
+            ${isChecked ? "checked" : ""}
+          />
+          <span class="answer-option-copy">
+            <span class="answer-option-id">${esc(opt.id)}</span>
+            <span>${esc(opt.text)}</span>
+          </span>
+        </label>
+      `;
+    }).join("");
+
+    app.innerHTML = `
+      <section class="section">
+        <h1>${titleCase(engine)} Assessment</h1>
+        <p class="muted">Assessment started. Bank: ${esc(selectedBankId || "default")}.</p>
+        <div class="chip">Question ${state.index + 1} of ${questions.length}</div>
+        <h2>${esc(q.prompt)}</h2>
+        <form id="assessmentQuestionForm" class="assessment-question-form">
+          <fieldset class="answer-options" aria-label="Answer options">
+            ${optionsMarkup}
+          </fieldset>
+          <div class="assessment-actions">
+            <button type="button" id="assessmentBack" class="chip" ${state.index === 0 || state.submitting ? "disabled" : ""}>Back</button>
+            <button type="submit" id="assessmentNext" class="chip" ${canContinue ? "" : "disabled"}>${isLast ? "See result" : "Continue"}</button>
           </div>
-        `).join("")}
-      </div>
-    </section>`;
+          <div id="assessmentStatus" class="muted">${esc(state.status)}</div>
+        </form>
+      </section>`;
+
+    const form = document.getElementById("assessmentQuestionForm");
+    const backBtn = document.getElementById("assessmentBack");
+
+    form?.addEventListener("change", (evt) => {
+      const target = evt.target;
+      if (!(target instanceof HTMLInputElement) || target.type !== "radio") return;
+      state.answers[q.id] = target.value;
+      render();
+    });
+
+    backBtn?.addEventListener("click", () => {
+      if (state.submitting || state.index === 0) return;
+      state.index -= 1;
+      render();
+    });
+
+    form?.addEventListener("submit", async (evt) => {
+      evt.preventDefault();
+      if (!state.answers[q.id] || state.submitting) return;
+      if (!isLast) {
+        state.index += 1;
+        render();
+        return;
+      }
+
+      state.submitting = true;
+      state.status = "Scoring your assessment…";
+      render();
+      try {
+        const payload = buildPayload(query, {
+          assessmentId,
+          answers: state.answers,
+        });
+        const scored = await jsonFetch(`/api/archetype-engines/${engine}/assessment/score`, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        window.location.assign(routeTo(engine, `result/${encodeURIComponent(scored.resultId)}`));
+      } catch (err) {
+        state.submitting = false;
+        state.status = String(err.message || "Unable to score assessment");
+        render();
+      }
+    });
+  };
+
+  render();
 }
 
 async function startAssessmentFlow(app, engine, query, consentId) {
@@ -93,7 +193,7 @@ async function startAssessmentFlow(app, engine, query, consentId) {
     headers: { "content-type": "application/json" },
     body: JSON.stringify(payload),
   });
-  renderQuestionOne(app, engine, startPayload);
+  renderAssessmentQuestions(app, engine, query, startPayload);
 }
 
 function renderConsentStep(app, engine, query, contract) {

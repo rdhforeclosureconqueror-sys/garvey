@@ -55,4 +55,34 @@ body {
 .spectrum-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 10px; }
 .spectrum-card { display: block; text-decoration: none; color: inherit; }
 .spectrum-card:hover { border-color: #67e8f9; }
+.assessment-question-form { margin-top: 12px; }
+.answer-options { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; }
+.answer-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 52px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel-soft);
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(56, 189, 248, 0.2);
+}
+.answer-option.is-selected {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent), white 20%);
+}
+.answer-option-input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--accent);
+  flex: 0 0 auto;
+}
+.answer-option-copy { display: grid; gap: 4px; }
+.answer-option-id { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.assessment-actions { display: flex; gap: 10px; margin-top: 14px; }
+.assessment-actions .chip[disabled] { opacity: .6; cursor: not-allowed; }
 .error { color: #fca5a5; }

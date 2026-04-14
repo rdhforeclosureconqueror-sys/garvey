@@ -313,6 +313,15 @@ test('love result renderer ships canonical name map', () => {
   assert.match(source, /ES:\s*"Experience Seeker"/);
 });
 
+test('assessment ui renders tappable radio options and supports progression', () => {
+  const source = fs.readFileSync('public/archetype-engines/experience.js', 'utf8');
+  assert.match(source, /type="radio"/);
+  assert.match(source, /<label class="answer-option/);
+  assert.match(source, /name="question-\$\{esc\(q\.id\)\}"/);
+  assert.match(source, /id="assessmentNext"/);
+  assert.match(source, /assessment\/score/);
+});
+
 test('experience routes keep browse and add assessment entry route', () => {
   const source = fs.readFileSync('server/index.js', 'utf8');
   assert.match(source, /app\.get\("\/archetype-engines\/:engine\/browse"/);
