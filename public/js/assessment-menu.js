@@ -14,19 +14,19 @@ function buildAssessmentRegistry() {
     },
     {
       key: "love",
-      title: "Love Archetype",
+      title: "Take Love Assessment",
       description: "Discover the pattern behind how you connect and relate.",
       engineType: "love",
     },
     {
       key: "leadership",
-      title: "Leadership Archetype",
+      title: "Take Leadership Assessment",
       description: "Reveal how you naturally lead, decide, and influence.",
       engineType: "leadership",
     },
     {
       key: "loyalty",
-      title: "Loyalty Archetype",
+      title: "Take Loyalty Assessment",
       description: "See what really drives trust, retention, and commitment.",
       engineType: "loyalty",
     },
@@ -63,7 +63,7 @@ function buildAssessmentHref(option, params) {
   const { origin, ctx, query, sourceType } = params || {};
   const basePath = option?.key === "voc"
     ? "/voc.html"
-    : `/archetype-engines/${option.engineType}/browse`;
+    : `/archetype-engines/${option.engineType}/assessment`;
   const url = new URL(basePath, origin || "http://localhost");
   applyCommonContext(url, ctx, query, sourceType);
   return `${url.pathname}${url.search}`;

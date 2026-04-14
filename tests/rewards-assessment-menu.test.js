@@ -22,9 +22,9 @@ test("assessment registry renders all required customer options", () => {
 
   assert.deepEqual(options.map((x) => x.key), ["voc", "love", "leadership", "loyalty"]);
   assert.equal(options[0].title, "Voice of the Customer");
-  assert.equal(options[1].title, "Love Archetype");
-  assert.equal(options[2].title, "Leadership Archetype");
-  assert.equal(options[3].title, "Loyalty Archetype");
+  assert.equal(options[1].title, "Take Love Assessment");
+  assert.equal(options[2].title, "Take Leadership Assessment");
+  assert.equal(options[3].title, "Take Loyalty Assessment");
 });
 
 test("assessment routes stay isolated and carry return-page context", () => {
@@ -37,9 +37,13 @@ test("assessment routes stay isolated and carry return-page context", () => {
   const links = Object.fromEntries(options.map((item) => [item.key, item.href]));
 
   assert.match(links.voc, /^\/voc\.html\?/);
-  assert.match(links.love, /^\/archetype-engines\/love\/browse\?/);
-  assert.match(links.leadership, /^\/archetype-engines\/leadership\/browse\?/);
-  assert.match(links.loyalty, /^\/archetype-engines\/loyalty\/browse\?/);
+  assert.doesNotMatch(links.voc, /archetype-engines/);
+  assert.match(links.love, /^\/archetype-engines\/love\/assessment\?/);
+  assert.match(links.leadership, /^\/archetype-engines\/leadership\/assessment\?/);
+  assert.match(links.loyalty, /^\/archetype-engines\/loyalty\/assessment\?/);
+  assert.doesNotMatch(links.love, /\/browse\?/);
+  assert.doesNotMatch(links.leadership, /\/browse\?/);
+  assert.doesNotMatch(links.loyalty, /\/browse\?/);
 
   for (const href of Object.values(links)) {
     assert.match(href, /tenant=demo/);

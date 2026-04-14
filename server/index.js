@@ -247,6 +247,12 @@ app.get("/archetype-engines/:engine/browse", (req, res, next) => {
   return res.sendFile(path.join(__dirname, "..", "public", "archetype-engines", "experience.html"));
 });
 
+app.get("/archetype-engines/:engine/assessment", (req, res, next) => {
+  const engine = String(req.params.engine || "").trim().toLowerCase();
+  if (!["love", "leadership", "loyalty"].includes(engine)) return next();
+  return res.sendFile(path.join(__dirname, "..", "public", "archetype-engines", "experience.html"));
+});
+
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 
