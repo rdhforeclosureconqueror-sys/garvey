@@ -42,6 +42,29 @@ body {
 .primary { font-size: 1.8rem; margin: 8px 0; }
 .muted { color: var(--muted); }
 .chip { display: inline-block; padding: 4px 10px; border-radius: 999px; border: 1px solid color-mix(in oklab, var(--accent), #000 55%); font-size: 12px; margin-right: 8px; color: #ffd1d1; background: rgba(255, 46, 46, 0.1); }
+.love-variant-toggle {
+  display: inline-flex;
+  gap: 8px;
+  margin: 8px 0 12px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel-soft);
+}
+.love-variant-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 12px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.love-variant-btn.is-active {
+  background: rgba(0, 208, 132, 0.18);
+  color: #d9ffee;
+}
 .placeholder-card {
   border: 1px dashed #4a4a4a;
   border-radius: 14px;
