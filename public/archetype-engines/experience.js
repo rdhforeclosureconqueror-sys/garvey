@@ -754,6 +754,7 @@ function renderAssessmentQuestions(app, engine, query, startPayload) {
       try {
         const payload = buildPayload(query, {
           assessmentId,
+          bank_id: selectedBankId,
           answers: state.answers,
         });
         const scored = await jsonFetch(`/api/archetype-engines/${engine}/assessment/score`, {

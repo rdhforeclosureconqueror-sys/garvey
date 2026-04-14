@@ -1,0 +1,458 @@
+{
+  "generatedAt": "2026-04-14T05:27:23.113Z",
+  "totalQuestions": 75,
+  "distribution": {
+    "RS": {
+      "primaryCount": 68,
+      "secondaryCount": 64,
+      "weightedMaxContribution": 229.75,
+      "byClass": {
+        "ID": 34,
+        "BH": 37,
+        "SC": 19,
+        "ST": 30,
+        "DS": 12
+      },
+      "byBank": {
+        "BANK_1": 41,
+        "BANK_2": 44,
+        "BANK_3": 47
+      }
+    },
+    "AL": {
+      "primaryCount": 78,
+      "secondaryCount": 61,
+      "weightedMaxContribution": 250.75,
+      "byClass": {
+        "ID": 41,
+        "BH": 38,
+        "SC": 21,
+        "ST": 33,
+        "DS": 6
+      },
+      "byBank": {
+        "BANK_1": 46,
+        "BANK_2": 47,
+        "BANK_3": 46
+      }
+    },
+    "EC": {
+      "primaryCount": 72,
+      "secondaryCount": 72,
+      "weightedMaxContribution": 249,
+      "byClass": {
+        "ID": 39,
+        "BH": 38,
+        "SC": 23,
+        "ST": 31,
+        "DS": 13
+      },
+      "byBank": {
+        "BANK_1": 47,
+        "BANK_2": 49,
+        "BANK_3": 48
+      }
+    },
+    "AV": {
+      "primaryCount": 73,
+      "secondaryCount": 63,
+      "weightedMaxContribution": 240.75,
+      "byClass": {
+        "ID": 30,
+        "BH": 33,
+        "SC": 27,
+        "ST": 30,
+        "DS": 16
+      },
+      "byBank": {
+        "BANK_1": 45,
+        "BANK_2": 48,
+        "BANK_3": 43
+      }
+    },
+    "ES": {
+      "primaryCount": 9,
+      "secondaryCount": 40,
+      "weightedMaxContribution": 61.75,
+      "byClass": {
+        "ID": 24,
+        "BH": 14,
+        "SC": 6,
+        "ST": 4,
+        "DS": 1
+      },
+      "byBank": {
+        "BANK_1": 21,
+        "BANK_2": 12,
+        "BANK_3": 16
+      }
+    }
+  },
+  "pairBalance": {
+    "pairCounts": {
+      "RS-EC": 58,
+      "AL-AV": 43,
+      "EC-RS": 50,
+      "AL-ES": 29,
+      "AV-RS": 10,
+      "ES-AL": 1,
+      "EC-ES": 9,
+      "AV-AL": 59,
+      "ES-EC": 8,
+      "EC-AV": 12,
+      "RS-ES": 2,
+      "RS-AV": 8,
+      "EC-AL": 1,
+      "AL-EC": 2,
+      "AL-RS": 4,
+      "AV-EC": 4
+    },
+    "byArchetype": {
+      "RS": 132,
+      "AL": 139,
+      "EC": 144,
+      "AV": 136,
+      "ES": 49
+    }
+  },
+  "maxPossibleByBank": {
+    "BANK_1": {
+      "RS": 48.5,
+      "AL": 51.5,
+      "EC": 49.75,
+      "AV": 53.5,
+      "ES": 26
+    },
+    "BANK_2": {
+      "RS": 56.75,
+      "AL": 58,
+      "EC": 57,
+      "AV": 55.5,
+      "ES": 13.25
+    },
+    "BANK_3": {
+      "RS": 56.75,
+      "AL": 58,
+      "EC": 57,
+      "AV": 55.5,
+      "ES": 15
+    }
+  },
+  "simulations": [
+    {
+      "bankId": "BANK_1",
+      "pattern": "RS-heavy",
+      "winner": "RS",
+      "secondary": "EC",
+      "hybrid": null,
+      "normalized": {
+        "RS": 100,
+        "EC": 65.33,
+        "AL": 0,
+        "AV": 3.74,
+        "ES": 3.85
+      },
+      "raw": {
+        "RS": 48.5,
+        "EC": 32.5,
+        "AL": 0,
+        "AV": 2,
+        "ES": 1
+      }
+    },
+    {
+      "bankId": "BANK_1",
+      "pattern": "AL-heavy",
+      "winner": "AL",
+      "secondary": "AV",
+      "hybrid": null,
+      "normalized": {
+        "RS": 0,
+        "EC": 0,
+        "AL": 100,
+        "AV": 51.4,
+        "ES": 19.23
+      },
+      "raw": {
+        "RS": 0,
+        "EC": 0,
+        "AL": 51.5,
+        "AV": 27.5,
+        "ES": 5
+      }
+    },
+    {
+      "bankId": "BANK_1",
+      "pattern": "EC-heavy",
+      "winner": "EC",
+      "secondary": "RS",
+      "hybrid": null,
+      "normalized": {
+        "RS": 58.25,
+        "EC": 100,
+        "AL": 0,
+        "AV": 0,
+        "ES": 23.08
+      },
+      "raw": {
+        "RS": 28.25,
+        "EC": 49.75,
+        "AL": 0,
+        "AV": 0,
+        "ES": 6
+      }
+    },
+    {
+      "bankId": "BANK_1",
+      "pattern": "AV-heavy",
+      "winner": "AV",
+      "secondary": "AL",
+      "hybrid": null,
+      "normalized": {
+        "RS": 4.12,
+        "EC": 0,
+        "AL": 55.34,
+        "AV": 100,
+        "ES": 0
+      },
+      "raw": {
+        "RS": 2,
+        "EC": 0,
+        "AL": 28.5,
+        "AV": 53.5,
+        "ES": 0
+      }
+    },
+    {
+      "bankId": "BANK_1",
+      "pattern": "ES-heavy",
+      "winner": "ES",
+      "secondary": "EC",
+      "hybrid": null,
+      "normalized": {
+        "RS": 41.24,
+        "EC": 56.28,
+        "AL": 19.42,
+        "AV": 0,
+        "ES": 100
+      },
+      "raw": {
+        "RS": 20,
+        "EC": 28,
+        "AL": 10,
+        "AV": 0,
+        "ES": 26
+      }
+    },
+    {
+      "bankId": "BANK_2",
+      "pattern": "RS-heavy",
+      "winner": "RS",
+      "secondary": "EC",
+      "hybrid": null,
+      "normalized": {
+        "AL": 0,
+        "AV": 8.11,
+        "ES": 0,
+        "RS": 100,
+        "EC": 45.18
+      },
+      "raw": {
+        "AL": 0,
+        "AV": 4.5,
+        "ES": 0,
+        "RS": 56.75,
+        "EC": 25.75
+      }
+    },
+    {
+      "bankId": "BANK_2",
+      "pattern": "AL-heavy",
+      "winner": "AL",
+      "secondary": "ES",
+      "hybrid": null,
+      "normalized": {
+        "AL": 100,
+        "AV": 31.08,
+        "ES": 66.04,
+        "RS": 3.52,
+        "EC": 1.75
+      },
+      "raw": {
+        "AL": 58,
+        "AV": 17.25,
+        "ES": 8.75,
+        "RS": 2,
+        "EC": 1
+      }
+    },
+    {
+      "bankId": "BANK_2",
+      "pattern": "EC-heavy",
+      "winner": "EC",
+      "secondary": "RS",
+      "hybrid": null,
+      "normalized": {
+        "AL": 2.59,
+        "AV": 12.61,
+        "ES": 15.09,
+        "RS": 34.36,
+        "EC": 100
+      },
+      "raw": {
+        "AL": 1.5,
+        "AV": 7,
+        "ES": 2,
+        "RS": 19.5,
+        "EC": 57
+      }
+    },
+    {
+      "bankId": "BANK_2",
+      "pattern": "AV-heavy",
+      "winner": "AV",
+      "secondary": "AL",
+      "hybrid": null,
+      "normalized": {
+        "AL": 46.98,
+        "AV": 100,
+        "ES": 0,
+        "RS": 3.96,
+        "EC": 3.51
+      },
+      "raw": {
+        "AL": 27.25,
+        "AV": 55.5,
+        "ES": 0,
+        "RS": 2.25,
+        "EC": 2
+      }
+    },
+    {
+      "bankId": "BANK_2",
+      "pattern": "ES-heavy",
+      "winner": "ES",
+      "secondary": "RS",
+      "hybrid": null,
+      "normalized": {
+        "AL": 38.79,
+        "AV": 3.6,
+        "ES": 100,
+        "RS": 53.3,
+        "EC": 33.33
+      },
+      "raw": {
+        "AL": 22.5,
+        "AV": 2,
+        "ES": 13.25,
+        "RS": 30.25,
+        "EC": 19
+      }
+    },
+    {
+      "bankId": "BANK_3",
+      "pattern": "RS-heavy",
+      "winner": "RS",
+      "secondary": "EC",
+      "hybrid": null,
+      "normalized": {
+        "RS": 100,
+        "EC": 43.86,
+        "AL": 0,
+        "AV": 7.21,
+        "ES": 8.33
+      },
+      "raw": {
+        "RS": 56.75,
+        "EC": 25,
+        "AL": 0,
+        "AV": 4,
+        "ES": 1.25
+      }
+    },
+    {
+      "bankId": "BANK_3",
+      "pattern": "AL-heavy",
+      "winner": "AL",
+      "secondary": "ES",
+      "hybrid": null,
+      "normalized": {
+        "RS": 3.52,
+        "EC": 1.75,
+        "AL": 100,
+        "AV": 29.73,
+        "ES": 63.33
+      },
+      "raw": {
+        "RS": 2,
+        "EC": 1,
+        "AL": 58,
+        "AV": 16.5,
+        "ES": 9.5
+      }
+    },
+    {
+      "bankId": "BANK_3",
+      "pattern": "EC-heavy",
+      "winner": "EC",
+      "secondary": "RS",
+      "hybrid": null,
+      "normalized": {
+        "RS": 41.85,
+        "EC": 100,
+        "AL": 0,
+        "AV": 3.6,
+        "ES": 28.33
+      },
+      "raw": {
+        "RS": 23.75,
+        "EC": 57,
+        "AL": 0,
+        "AV": 2,
+        "ES": 4.25
+      }
+    },
+    {
+      "bankId": "BANK_3",
+      "pattern": "AV-heavy",
+      "winner": "AV",
+      "secondary": "AL",
+      "hybrid": null,
+      "normalized": {
+        "RS": 3.52,
+        "EC": 3.51,
+        "AL": 47.41,
+        "AV": 100,
+        "ES": 0
+      },
+      "raw": {
+        "RS": 2,
+        "EC": 2,
+        "AL": 27.5,
+        "AV": 55.5,
+        "ES": 0
+      }
+    },
+    {
+      "bankId": "BANK_3",
+      "pattern": "ES-heavy",
+      "winner": "ES",
+      "secondary": "RS",
+      "hybrid": null,
+      "normalized": {
+        "RS": 53.74,
+        "EC": 31.58,
+        "AL": 37.07,
+        "AV": 3.6,
+        "ES": 100
+      },
+      "raw": {
+        "RS": 30.5,
+        "EC": 18,
+        "AL": 21.5,
+        "AV": 2,
+        "ES": 15
+      }
+    }
+  ]
+}
