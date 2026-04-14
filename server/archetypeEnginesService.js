@@ -462,7 +462,95 @@ function magnitudeLabel(value) {
   return "slight";
 }
 
-function buildResultInsights(scored, archetypeIndex = {}) {
+function buildLoyaltyResultInsights(scored, archetypeIndex = {}) {
+  const codeToLabel = Object.fromEntries(Object.entries(archetypeIndex).map(([code, item]) => [code, item?.name || item?.canonicalName || code]));
+  const primaryCode = scored?.primaryArchetype?.code;
+  const secondaryCode = scored?.secondaryArchetype?.code;
+  const primary = archetypeIndex[primaryCode] || {};
+  const secondary = archetypeIndex[secondaryCode] || {};
+  const normalizedScores = scored?.normalizedScores || {};
+  const desiredGap = scored?.desiredCurrentGap || {};
+  const identityGap = scored?.identityBehaviorGap || {};
+  const stressProfile = scored?.stressProfile || {};
+  const stressShift = scored?.stressShift || {};
+  const balanceStates = scored?.balanceStates || {};
+  const consistency = safePct(scored?.contradictionConsistency?.consistency);
+  const confidence = safePct(scored?.confidence);
+  const primaryStrength = safePct(normalizedScores[primaryCode]);
+  const secondaryStrength = safePct(normalizedScores[secondaryCode]);
+  const hierarchyGap = Number((primaryStrength - secondaryStrength).toFixed(1));
+
+  const overGap = topEntry(desiredGap, { direction: "desc" });
+  const underGap = topEntry(desiredGap, { direction: "asc" });
+  const identityTop = topEntry(identityGap, { abs: true });
+  const stressTop = topEntry(stressProfile, { direction: "desc" });
+  const stressShiftTop = topEntry(stressShift, { abs: true });
+  const sortedScores = Object.entries(normalizedScores).sort((a, b) => Number(b[1]) - Number(a[1]));
+  const top3 = sortedScores.slice(0, 3).map(([code]) => code);
+  const loopNodes = [primaryCode, stressTop?.code || secondaryCode || top3[1], secondaryCode || top3[1] || primaryCode].filter(Boolean).slice(0, 3);
+  const loopLabel = loopNodes.map((code) => codeToLabel[code] || code).join(" → ");
+  const loopBreakPoint = stressShiftTop?.code
+    ? `${codeToLabel[stressShiftTop.code] || stressShiftTop.code} destabilizes first when pressure rises (${stressShiftTop.value > 0 ? "+" : ""}${stressShiftTop.value.toFixed(1)} vs baseline).`
+    : "The loop breaks when one driver is overloaded without support from trust and value signals.";
+
+  const retentionKeeper = stressTop?.code
+    ? `${codeToLabel[stressTop.code] || stressTop.code} is the strongest active retention mechanism right now (${stressTop.value.toFixed(1)}%).`
+    : `${codeToLabel[primaryCode] || primaryCode || "Primary driver"} is currently carrying most retention weight.`;
+  const churnRisk = underGap?.code
+    ? `Biggest churn vulnerability is underdeveloped ${codeToLabel[underGap.code] || underGap.code} (${underGap.value.toFixed(1)} desired gap).`
+    : `Biggest churn vulnerability is a sharp disruption to ${codeToLabel[primaryCode] || primaryCode || "the primary driver"}.`;
+
+  const strongestDesired = overGap?.code ? `${codeToLabel[overGap.code] || overGap.code} (${overGap.value > 0 ? "+" : ""}${overGap.value.toFixed(1)})` : "none detected";
+  const strongestReduce = underGap?.code ? `${codeToLabel[underGap.code] || underGap.code} (${underGap.value > 0 ? "+" : ""}${underGap.value.toFixed(1)})` : "none detected";
+  const perceivedVsActual = identityTop?.code
+    ? `${codeToLabel[identityTop.code] || identityTop.code} shows the largest perceived-vs-actual mismatch (${identityTop.value > 0 ? "+" : ""}${identityTop.value.toFixed(1)}).`
+    : "Perceived and actual loyalty signals are tightly aligned.";
+
+  const overexpressed = Object.entries(balanceStates?.dimensions || {}).filter(([, state]) => String(state || "").toLowerCase() === "overexpressed").map(([code]) => codeToLabel[code] || code);
+  const underexpressed = Object.entries(balanceStates?.dimensions || {}).filter(([, state]) => String(state || "").toLowerCase() === "underexpressed").map(([code]) => codeToLabel[code] || code);
+
+  return {
+    scientificFoundation: "Loyalty is modeled as a multi-mechanism retention system integrating trust commitment, satisfaction, emotional attachment, habit, and switching friction.",
+    whyThisMatters: "Loyalty is driven by multiple mechanisms — trust, satisfaction, emotional connection, habit, and friction. Understanding your dominant drivers reveals not just why you stay, but what would cause you to leave.",
+    loyaltyPattern: `Primary driver: ${codeToLabel[primaryCode] || primaryCode || "Unclassified"} (${primaryStrength.toFixed(1)}%). Secondary driver: ${codeToLabel[secondaryCode] || secondaryCode || "Unclassified"} (${secondaryStrength.toFixed(1)}%). The ${hierarchyGap.toFixed(1)}-point spread shows how concentrated your retention system is.`,
+    loyaltyState: `Overall state is ${balanceStates?.overall || "balanced"}. Overexpressed drivers: ${overexpressed.join(", ") || "none"}. Underexpressed drivers: ${underexpressed.join(", ") || "none"}.`,
+    retentionInsight: retentionKeeper,
+    churnRiskInsight: churnRisk,
+    loyaltyLoopLabel: loopLabel,
+    loyaltyLoopMeaning: `${loopLabel} is your active reinforcement cycle: each step increases the probability of the next.`,
+    loyaltyLoopWhy: "Stable loops increase predictable retention; fragile loops can collapse quickly when one weak driver is tested.",
+    loyaltyLoopBreakPoint: loopBreakPoint,
+    loyaltyStrengtheningPlan: [
+      `Strengthen ${codeToLabel[underGap?.code] || "underexpressed drivers"} with one repeatable weekly retention action.`,
+      `De-risk overreliance on ${codeToLabel[overGap?.code] || "dominant drivers"} by reinforcing a second independent driver.`,
+      `Add an early-warning checkpoint around ${codeToLabel[stressTop?.code] || "stress activation"} to intervene before churn intent escalates.`,
+    ],
+    churnTriggerProfile: stressTop?.code
+      ? `When loyalty is tested, activation starts with ${codeToLabel[stressTop.code] || stressTop.code} (${stressTop.value.toFixed(1)}%), with strongest directional shift in ${codeToLabel[stressShiftTop?.code] || stressShiftTop?.code || "baseline response"}.`
+      : "No single churn trigger dominates yet; monitor multi-driver drift.",
+    retentionGapInsight: `Strongest \"want stronger\" reliance: ${strongestDesired}. Strongest \"want less reliance\" signal: ${strongestReduce}.`,
+    perceivedVsActualLoyaltyInsight: perceivedVsActual,
+    consistencyInsight: `Consistency is ${consistency.toFixed(1)}% and confidence is ${confidence.toFixed(1)}%. ${consistency >= 60 ? "Retention interpretation is behaviorally coherent." : "Interpret with caution; response contradictions suggest unstable self-reporting."}`,
+    uiScienceMapping: {
+      scoreVisualization: "Multi-attribute evaluation models",
+      loyaltyLoop: "Habit and reinforcement theory",
+      churnTriggerProfile: "Prospect theory and risk response",
+      retentionGap: "Self-discrepancy theory",
+      perceivedVsActualLoyalty: "Cognitive dissonance and self-perception",
+      loyaltyStrengtheningPlan: "Behavior change models",
+    },
+    primaryInsight: `Your loyalty pattern is anchored by ${codeToLabel[primaryCode] || primaryCode || "your primary driver"} with ${codeToLabel[secondaryCode] || secondaryCode || "your secondary driver"} as a backup mechanism.`,
+    secondaryInsight: `Primary and backup retention mechanisms are ${codeToLabel[primaryCode] || primaryCode || "primary"} and ${codeToLabel[secondaryCode] || secondaryCode || "secondary"}, which together shape retention resilience.`,
+    balanceInsight: `Balance state: ${balanceStates?.overall || "balanced"}. Overexpressed: ${overexpressed.join(", ") || "none"}. Underexpressed: ${underexpressed.join(", ") || "none"}.`,
+    stressInsight: stressTop?.code
+      ? `Churn pressure first activates ${codeToLabel[stressTop.code] || stressTop.code} (${stressTop.value.toFixed(1)}%).`
+      : "Churn activation is currently distributed across multiple drivers.",
+    identityGapInsight: perceivedVsActual,
+  };
+}
+
+function buildResultInsights(scored, archetypeIndex = {}, engineType = "love") {
+  if (engineType === "loyalty") return buildLoyaltyResultInsights(scored, archetypeIndex);
   const primaryCode = scored?.primaryArchetype?.code;
   const secondaryCode = scored?.secondaryArchetype?.code;
   const primary = archetypeIndex[primaryCode] || {};
@@ -531,7 +619,7 @@ function buildResultInsights(scored, archetypeIndex = {}) {
 function withInsights(engineType, scored) {
   const content = getEngineContent(engineType) || { archetypes: [] };
   const archetypeIndex = Object.fromEntries((content.archetypes || []).map((item) => [item.code, item]));
-  return { ...scored, ...buildResultInsights(scored, archetypeIndex) };
+  return { ...scored, ...buildResultInsights(scored, archetypeIndex, engineType) };
 }
 
 function filterQuestionsByAnsweredBank(rawQuestions, answers = {}, requestedBankId = null) {
