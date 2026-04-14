@@ -117,11 +117,12 @@ test('love questions keep canonical option/archetype contract', () => {
 
 test('leadership and loyalty authored banks load 25 canonical questions each', () => {
   assert.equal(LEADERSHIP_QUESTIONS.length, 25);
-  assert.equal(LOYALTY_QUESTIONS.length, 25);
+  assert.equal(LOYALTY_QUESTIONS.length, 75);
   assert.equal(LEADERSHIP_QUESTION_SOURCE.useGeneratorOnFirstAttempt, false);
   assert.equal(LOYALTY_QUESTION_SOURCE.useGeneratorOnFirstAttempt, false);
   assert.equal(LEADERSHIP_QUESTION_SOURCE.authored.bankId, 'AUTHORED_BANK_1');
-  assert.equal(LOYALTY_QUESTION_SOURCE.authored.bankId, 'AUTHORED_BANK_3');
+  assert.equal(LOYALTY_QUESTION_SOURCE.authored.bankId, 'AUTHORED_BANK_1');
+  assert.equal(LOYALTY_QUESTION_SOURCE.authoredSequence.length, 3);
 });
 
 test('love scoring returns primary and secondary archetypes', () => {
@@ -142,8 +143,9 @@ test('leadership scoring returns canonical metrics with authored bank content', 
 });
 
 test('loyalty scoring returns canonical metrics with authored bank content', () => {
-  const answers = Object.fromEntries(LOYALTY_QUESTIONS.map((q, i) => [q.id || q.question_id, (i % 4) + 1]));
-  const scored = scoreEngineAssessment('loyalty', answers);
+  const loyaltyBank = getQuestionBanks('loyalty', { retakeAttempt: 0 });
+  const answers = Object.fromEntries((loyaltyBank.activeQuestions || []).map((q, i) => [q.id || q.question_id, (i % 4) + 1]));
+  const scored = scoreEngineAssessment('loyalty', answers, { bankId: 'AUTHORED_BANK_1' });
   assert.equal(scored.questionCount, 25);
   assert.ok(Object.keys(scored.normalizedScores).length >= 5);
   assert.ok(scored.contradictionConsistency);
@@ -174,9 +176,9 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
       assert.equal(startRes.status, 200);
       const startJson = await startRes.json();
       assert.ok(startJson.assessmentId);
-      assert.equal(startJson.questionSource, engineType === 'loyalty' ? 'authored_bank_3' : 'authored_bank_1');
+      assert.equal(startJson.questionSource, 'authored_bank_1');
       assert.equal(startJson.questionBanks.activeQuestions.length, 25);
-      assert.equal(startJson.questionBanks.selectedBankId, engineType === 'loyalty' ? 'AUTHORED_BANK_3' : 'AUTHORED_BANK_1');
+      assert.equal(startJson.questionBanks.selectedBankId, 'AUTHORED_BANK_1');
       assert.ok(startJson.diagnostics);
 
       const answers = Object.fromEntries((startJson.questionBanks.activeQuestions || []).map((q, i) => [q.id, (i % 4) + 1]));
@@ -640,34 +642,85 @@ test('dashboard UI renders separate family labels for VOC, Love, Leadership, and
   assert.match(source, /Loyalty Assessments/);
 });
 
-test('leadership and loyalty retakes enforce generated-only path with manifest governance', async () => {
+test('leadership retakes enforce generated-only path with manifest governance', async () => {
   const { server, baseUrl } = await startServer(createMockPool());
   try {
-    for (const engineType of ['leadership', 'loyalty']) {
-      const startRes = await fetch(`${baseUrl}/api/archetype-engines/${engineType}/assessment/start`, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ tenant: 'demo', retake_attempt: 1 }),
-      });
-      assert.equal(startRes.status, 409);
-      const startJson = await startRes.json();
-      assert.equal(startJson.error, 'generated_retake_bank_unavailable');
-      assert.equal(startJson.questionSource, 'generated_validated_bank');
-    }
+    const startRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/start`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', retake_attempt: 1 }),
+    });
+    assert.equal(startRes.status, 409);
+    const startJson = await startRes.json();
+    assert.equal(startJson.error, 'generated_retake_bank_unavailable');
+    assert.equal(startJson.questionSource, 'generated_validated_bank');
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
 });
 
 test('leadership and loyalty first-attempt routing serves authored banks and never skeleton banks', () => {
-  for (const engineType of ['leadership', 'loyalty']) {
-    const first = getQuestionBanks(engineType, { retakeAttempt: 0 });
-    const expectedSource = engineType === 'loyalty' ? 'authored_bank_3' : 'authored_bank_1';
-    const expectedBankId = engineType === 'loyalty' ? 'AUTHORED_BANK_3' : 'AUTHORED_BANK_1';
-    assert.equal(first.questionSource, expectedSource);
-    assert.equal(first.selectedBankId, expectedBankId);
-    assert.equal(first.activeQuestions.length, 25);
-    assert.equal(Object.keys(first.questionBanks).length, 1);
-    assert.equal(Array.isArray(first.questionBanks[expectedBankId]), true);
+  const leadershipFirst = getQuestionBanks('leadership', { retakeAttempt: 0 });
+  assert.equal(leadershipFirst.questionSource, 'authored_bank_1');
+  assert.equal(leadershipFirst.selectedBankId, 'AUTHORED_BANK_1');
+  assert.equal(leadershipFirst.activeQuestions.length, 25);
+  assert.equal(Object.keys(leadershipFirst.questionBanks).length, 1);
+  assert.equal(Array.isArray(leadershipFirst.questionBanks.AUTHORED_BANK_1), true);
+
+  const loyaltyFirst = getQuestionBanks('loyalty', { retakeAttempt: 0 });
+  assert.equal(loyaltyFirst.questionSource, 'authored_bank_1');
+  assert.equal(loyaltyFirst.selectedBankId, 'AUTHORED_BANK_1');
+  assert.equal(loyaltyFirst.activeQuestions.length, 25);
+  assert.equal(Object.keys(loyaltyFirst.questionBanks).length, 1);
+  assert.equal(Array.isArray(loyaltyFirst.questionBanks.AUTHORED_BANK_1), true);
+});
+
+test('loyalty uses deterministic authored attempt progression for first three starts and blocks attempt four', async () => {
+  const pool = createMockPool();
+  const { server, baseUrl } = await startServer(pool);
+  try {
+    const rid = 'rid-test';
+    const crid = 'crid-test';
+    const tap = 'tap-test';
+    const expectations = [
+      { completedCount: 0, selectedBankId: 'AUTHORED_BANK_1', questionSource: 'authored_bank_1', sourcePath: 'archetype-engines/engines/loyalty/question-banks/loyalty.bank1.js' },
+      { completedCount: 1, selectedBankId: 'AUTHORED_BANK_2', questionSource: 'authored_bank_2', sourcePath: 'archetype-engines/engines/loyalty/question-banks/loyalty.bank2.js' },
+      { completedCount: 2, selectedBankId: 'AUTHORED_BANK_3', questionSource: 'authored_bank_3', sourcePath: 'archetype-engines/engines/loyalty/question-banks/loyalty.bank3.js' },
+    ];
+
+    for (const expected of expectations) {
+      const startRes = await fetch(`${baseUrl}/api/archetype-engines/loyalty/assessment/start`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ tenant: 'demo', retake_attempt: expected.completedCount, rid, crid, tap_session: tap }),
+      });
+      assert.equal(startRes.status, 200);
+      const startJson = await startRes.json();
+      assert.equal(startJson.questionSource, expected.questionSource);
+      assert.equal(startJson.questionBanks.selectedBankId, expected.selectedBankId);
+      assert.equal(startJson.questionBanks.activeQuestions.length, 25);
+      assert.equal(startJson.questionBanks.generatedBankAvailable, false);
+      assert.equal(startJson.diagnostics.sourcePath, expected.sourcePath);
+      assert.equal(startJson.questionSourceConfig.useGeneratorOnFirstAttempt, false);
+
+      const storedAssessment = pool.state.assessments.get(startJson.assessmentId);
+      assert.ok(storedAssessment);
+      const context = JSON.parse(storedAssessment.campaign_context || '{}');
+      assert.equal(context.rid, rid);
+      assert.equal(context.crid, crid);
+      assert.equal(context.tap_session, tap);
+    }
+
+    const blockedRes = await fetch(`${baseUrl}/api/archetype-engines/loyalty/assessment/start`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', retake_attempt: 3 }),
+    });
+    assert.equal(blockedRes.status, 409);
+    const blockedJson = await blockedRes.json();
+    assert.equal(blockedJson.error, 'governed_retake_unconfigured');
+    assert.equal(blockedJson.questionSource, 'governed_retake_unconfigured');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
   }
 });
