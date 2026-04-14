@@ -234,6 +234,214 @@ function renderMetricList(entries, codeToName, { suffix = "", precision = 1, raw
   }).join("")}</div>`;
 }
 
+function asSentence(value, fallback) {
+  const text = String(value || "").trim();
+  if (!text) return fallback;
+  return /[.!?]$/.test(text) ? text : `${text}.`;
+}
+
+function stressActivationBand(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return { label: "unknown", meaning: "This stress signal is unavailable right now." };
+  if (n < 20) return { label: "very low", meaning: "This pattern barely activates under stress." };
+  if (n < 45) return { label: "moderate", meaning: "This pattern is available under pressure without dominating." };
+  return { label: "high", meaning: "This pattern becomes more dominant under stress." };
+}
+
+function desiredGapDirection(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return { label: "Unknown", meaning: "Direction is unavailable.", state: "unknown" };
+  if (Math.abs(n) < 0.5) return { label: `Aligned (${n.toFixed(1)})`, meaning: "Near zero means you feel aligned here.", state: "aligned" };
+  if (n > 0) return { label: `Needs more (+${n.toFixed(1)})`, meaning: "Positive values mean you want more of this pattern.", state: "more" };
+  return { label: `Needs less (${n.toFixed(1)})`, meaning: "Negative values mean you want less of this pattern.", state: "less" };
+}
+
+function identityGapBand(value) {
+  const n = Math.abs(Number(value));
+  if (!Number.isFinite(n)) return { label: "unavailable", meaning: "Gap signal is unavailable." };
+  if (n < 8) return { label: "closely aligned", meaning: "Your self-image and behavior are closely aligned here." };
+  if (n < 16) return { label: "mild gap", meaning: "There is a mild mismatch between self-image and behavior." };
+  if (n < 28) return { label: "meaningful gap", meaning: "There is a meaningful mismatch worth active adjustment." };
+  return { label: "major gap", meaning: "There is a major mismatch between self-image and observed behavior." };
+}
+
+function consistencySignal(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return "Consistency signal unavailable.";
+  if (n >= 80) return "Your answers formed a strong, readable pattern.";
+  if (n >= 60) return "Your answers show a mostly stable pattern with some mixed zones.";
+  return "Your answers were more mixed, which can happen during transition or adaptation.";
+}
+
+function confidenceSignal(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return "Confidence signal unavailable.";
+  if (n >= 80) return "Your result signal is strong, complete, and interpretable.";
+  if (n >= 60) return "Your result signal is usable, with a few areas that are less clear.";
+  return "Your signal is less stable right now; this often happens when patterns are still clarifying.";
+}
+
+function stateDefinition(state) {
+  const normalized = String(state || "").toLowerCase();
+  if (normalized === "underexpressed") {
+    return "You may not be drawing on this pattern enough right now. This pattern needs strengthening toward healthy expression.";
+  }
+  if (normalized === "overexpressed") {
+    return "This pattern may be taking over more than it should. It likely needs regulation to return to balance.";
+  }
+  return "This pattern is showing up in a healthy range right now. The goal is to maintain it, not maximize it.";
+}
+
+function stressExampleByCode(code, archetype) {
+  const defaults = {
+    EC: "over-processing, over-explaining, and pushing hard for clarity",
+    RS: "reassurance-seeking and urgency for closeness",
+    AL: "withdrawal, distance, and self-protective shutdown",
+    AV: "waiting for proof, tracking behavior, and reduced trust",
+    ES: "seeking stimulation and redirecting energy away from stagnation",
+  };
+  return defaults[code] || String(archetype?.outOfBalanceHigh || "").toLowerCase() || "reactive shifts in this pattern";
+}
+
+function rebalanceActions(archetype = {}, state = "") {
+  const actions = [
+    ...(archetype.needsToStayBalanced || []),
+    ...(archetype.dailyBuildUps || []),
+    ...(archetype.weeklyBuildUps || []),
+  ].slice(0, 3);
+  if (!actions.length) return "Use steady micro-habits that move this pattern toward balanced expression.";
+  if (String(state || "").toLowerCase() === "overexpressed") return `Regulate with: ${actions.join(" • ")}`;
+  if (String(state || "").toLowerCase() === "underexpressed") return `Strengthen with: ${actions.join(" • ")}`;
+  return `Maintain with: ${actions.join(" • ")}`;
+}
+
+function renderLoveInterpretationLayer({ payload, archetypes, codeToName, codeIndex, query }) {
+  const balanceEntries = Object.entries(payload.balanceStates?.dimensions || {});
+  const stressEntries = Object.entries(payload.stressProfile || {});
+  const desiredGapEntries = Object.entries(payload.desiredCurrentGap || {});
+  const identityBehaviorEntries = Object.entries(payload.identityBehaviorGap || {});
+  const consistencyValue = payload.contradictionConsistency?.consistency;
+  const confidenceValue = payload.confidence;
+
+  const balanceCards = balanceEntries.map(([code, state]) => {
+    const archetype = codeIndex[code] || {};
+    const anchor = routeTo("love", `archetype/${archetype.slug || ""}`, query);
+    return `<details class="coach-detail">
+      <summary>
+        <span>${esc(codeToName[code] || code)}</span>
+        <span class="chip">${esc(String(state || "balanced"))}</span>
+      </summary>
+      <div class="coach-detail-body">
+        <div><b>What this means:</b> ${esc(stateDefinition(state))}</div>
+        <div><b>What this looks like:</b> ${esc(asSentence(String(state).toLowerCase() === "underexpressed" ? archetype.outOfBalanceLow : String(state).toLowerCase() === "overexpressed" ? archetype.outOfBalanceHigh : archetype.whenStrong, "Behavior pattern details are still loading"))}</div>
+        <div><b>How to rebalance:</b> ${esc(rebalanceActions(archetype, state))}</div>
+        <a class="metric-cta" href="${anchor}">How to rebalance this archetype →</a>
+      </div>
+    </details>`;
+  }).join("");
+
+  const stressCards = stressEntries.map(([code, value]) => {
+    const band = stressActivationBand(value);
+    const archetype = codeIndex[code] || {};
+    const numeric = Number(value);
+    const display = Number.isFinite(numeric) ? `${numeric.toFixed(1)}%` : "-";
+    return `<details class="coach-detail">
+      <summary>
+        <span>${esc(codeToName[code] || code)}</span>
+        <span class="metric-score">${display}</span>
+      </summary>
+      <div class="coach-detail-body">
+        <div><b>What this percentage means:</b> ${esc(`${band.meaning} High percentages mean this pattern becomes more dominant under stress.`)}</div>
+        <div><b>What it looks like:</b> ${esc(titleCase(stressExampleByCode(code, archetype)))}</div>
+        <div><b>Risk if overactivated:</b> ${esc(asSentence(archetype.outOfBalanceHigh, "This pattern can become rigid or reactive when overactivated"))}</div>
+        <div><b>Stabilizing suggestion:</b> ${esc(rebalanceActions(archetype, "overexpressed"))}</div>
+      </div>
+    </details>`;
+  }).join("");
+
+  const desiredCards = desiredGapEntries.map(([code, value]) => {
+    const direction = desiredGapDirection(value);
+    const archetype = codeIndex[code] || {};
+    const aspiration = direction.state === "more"
+      ? `You likely want more ${String(archetype.coreTrait || "healthy expression").toLowerCase()} in your relationship behavior.`
+      : direction.state === "less"
+        ? `You likely want to rely less on this pattern than you currently do.`
+        : "You currently feel aligned between your present pattern and your desired direction.";
+    return `<details class="coach-detail">
+      <summary>
+        <span>${esc(codeToName[code] || code)}</span>
+        <span class="metric-score">${esc(direction.label)}</span>
+      </summary>
+      <div class="coach-detail-body">
+        <div><b>What direction means:</b> ${esc(direction.meaning)}</div>
+        <div><b>What it suggests:</b> ${esc(aspiration)}</div>
+        <div><b>Action toward alignment:</b> ${esc(rebalanceActions(archetype, direction.state === "more" ? "underexpressed" : direction.state === "less" ? "overexpressed" : "balanced"))}</div>
+        <a class="metric-cta" href="${routeTo("love", `archetype/${archetype.slug || ""}`, query)}">See habits for balance →</a>
+      </div>
+    </details>`;
+  }).join("");
+
+  const identityCards = identityBehaviorEntries.map(([code, value]) => {
+    const band = identityGapBand(value);
+    const archetype = codeIndex[code] || {};
+    const numeric = Math.abs(Number(value));
+    const display = Number.isFinite(numeric) ? numeric.toFixed(1) : "-";
+    return `<details class="coach-detail">
+      <summary>
+        <span>${esc(codeToName[code] || code)}</span>
+        <span class="metric-score">${esc(titleCase(band.label))} (${display})</span>
+      </summary>
+      <div class="coach-detail-body">
+        <div><b>Alignment status:</b> ${esc(band.meaning)}</div>
+        <div><b>What this means:</b> ${esc("This is about closeness or mismatch between self-image and behavior, not moral value.")}</div>
+        <div><b>What to do next:</b> ${esc(Math.abs(Number(value)) >= 16 ? `Choose one weekly build-up from ${codeToName[code] || code} and track if behavior catches up with your self-story.` : "Keep using your current habits; your self-story and behavior are relatively aligned.")}</div>
+        <a class="metric-cta" href="${routeTo("love", `archetype/${archetype.slug || ""}`, query)}">What helps this pattern →</a>
+      </div>
+    </details>`;
+  }).join("");
+
+  return `
+    <section class="section">
+      <h2>Meaning + Rebalance Layer</h2>
+      <p class="muted">The goal is not to max every archetype. The goal is to move each one toward healthy balanced expression.</p>
+      <div class="coach-grid">
+        <div class="coach-card">
+          <h3>⚖️ Balance States</h3>
+          <p class="muted">Pattern-by-pattern meaning, real-life signals, and rebalance paths.</p>
+          ${balanceCards || `<div class="metric-list-empty">No balance state data available.</div>`}
+        </div>
+        <div class="coach-card">
+          <h3>🧯 Stress Profile</h3>
+          <p class="muted">This shows how strongly each archetype tends to activate when you are under emotional pressure, uncertainty, conflict, or disconnection.</p>
+          ${stressCards || `<div class="metric-list-empty">No stress profile data available.</div>`}
+        </div>
+        <div class="coach-card">
+          <h3>🧭 Desired Gap</h3>
+          <p class="muted">This shows the difference between how much of a pattern is showing up now and how much you ideally want in your relationships.</p>
+          ${desiredCards || `<div class="metric-list-empty">No desired gap data available.</div>`}
+        </div>
+        <div class="coach-card">
+          <h3>🪞 Identity-Behavior Gap</h3>
+          <p class="muted">This measures the difference between how you see yourself and how your actual relationship behavior tends to show up.</p>
+          ${identityCards || `<div class="metric-list-empty">No identity-behavior data available.</div>`}
+        </div>
+        <div class="coach-card">
+          <h3>📐 Consistency</h3>
+          <p class="muted">This reflects how internally aligned your responses were across related questions.</p>
+          <div class="kpi-value">${esc(String(consistencyValue ?? "-"))}%</div>
+          <p class="muted">${esc(consistencySignal(consistencyValue))}</p>
+        </div>
+        <div class="coach-card">
+          <h3>🔒 Confidence</h3>
+          <p class="muted">This reflects how complete, stable, and interpretable your result signal is.</p>
+          <div class="kpi-value">${esc(String(confidenceValue ?? "-"))}%</div>
+          <p class="muted">${esc(confidenceSignal(confidenceValue))}</p>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
 function renderAssessmentQuestions(app, engine, query, startPayload) {
   const selectedBankId = startPayload?.questionBanks?.selectedBankId || "";
   const assessmentId = String(startPayload?.assessmentId || "").trim();
@@ -541,6 +749,15 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
   const isLoveEngine = engine === "love";
   const consistencyValue = payload.contradictionConsistency?.consistency;
   const confidenceValue = payload.confidence;
+  const desiredGapDisplayEntries = isLoveEngine
+    ? desiredGapEntries.map(([code, value]) => [code, desiredGapDirection(value).label])
+    : desiredGapEntries;
+  const identityGapDisplayEntries = isLoveEngine
+    ? identityBehaviorEntries.map(([code, value]) => {
+      const band = identityGapBand(value);
+      return [code, `${titleCase(band.label)} (${Math.abs(Number(value)).toFixed(1)})`];
+    })
+    : identityBehaviorEntries;
 
   app.innerHTML = `
     <section class="section hero">
@@ -601,11 +818,11 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
         </div>
         <div class="${isLoveEngine ? "output-card output-card-metric" : "kv"}">
           <b>🧭 Desired Gap ${isLoveEngine ? renderMetricHelp("Desired Gap", "Where how you are differs from how you want to be.", "It highlights growth targets for better alignment in relationships.") : ""}</b>
-          ${isLoveEngine ? renderMetricList(desiredGapEntries, codeToName, { precision: 1 }) : esc(desiredGapEntries.map(([code, val]) => `${codeToName[code] || code}: ${Number(val).toFixed(1)}`).join(" • ") || "-")}
+          ${isLoveEngine ? renderMetricList(desiredGapDisplayEntries, codeToName, { raw: true }) : esc(desiredGapEntries.map(([code, val]) => `${codeToName[code] || code}: ${Number(val).toFixed(1)}`).join(" • ") || "-")}
         </div>
         <div class="${isLoveEngine ? "output-card output-card-metric" : "kv"}">
           <b>🪞 Identity-Behavior Gap ${isLoveEngine ? renderMetricHelp("Identity-Behavior Gap", "Where your self-image and observed pattern differ.", "It surfaces blind spots between intention and action.") : ""}</b>
-          ${isLoveEngine ? renderMetricList(identityBehaviorEntries, codeToName, { precision: 1 }) : esc(identityBehaviorEntries.map(([code, val]) => `${codeToName[code] || code}: ${Number(val).toFixed(1)}`).join(" • ") || "-")}
+          ${isLoveEngine ? renderMetricList(identityGapDisplayEntries, codeToName, { raw: true }) : esc(identityBehaviorEntries.map(([code, val]) => `${codeToName[code] || code}: ${Number(val).toFixed(1)}`).join(" • ") || "-")}
         </div>
         <div class="${isLoveEngine ? "output-card output-card-kpi" : "kv"}">
           <b>📐 Consistency ${isLoveEngine ? renderMetricHelp("Consistency", "How internally aligned your answers were.", "Higher alignment generally means a clearer behavioral pattern.") : ""}</b>
@@ -618,6 +835,8 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
         ${!isLoveEngine ? `<div class="kv"><b>Summary Block</b>${esc(JSON.stringify(payload.summaryBlock || {}))}</div>` : ""}
       </div>
     </section>
+
+    ${isLoveEngine ? renderLoveInterpretationLayer({ payload, archetypes, codeToName, codeIndex, query }) : ""}
 
     <section class="section">
       <h2>Your Pattern</h2>

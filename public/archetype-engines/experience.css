@@ -232,6 +232,57 @@ body {
   letter-spacing: normal;
   color: #e8e8e8;
 }
+.coach-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+.coach-card {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 46, 46, 0.06));
+  border: 1px solid color-mix(in oklab, var(--border), white 10%);
+  border-radius: 14px;
+  padding: 14px;
+}
+.coach-card h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+.coach-detail {
+  margin-top: 10px;
+  border: 1px solid color-mix(in oklab, var(--border), white 10%);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.16);
+}
+.coach-detail > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+}
+.coach-detail > summary::-webkit-details-marker { display: none; }
+.coach-detail-body {
+  display: grid;
+  gap: 8px;
+  padding: 0 10px 10px;
+  color: #e7e7e7;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.metric-score {
+  color: #d6ffef;
+  font-weight: 600;
+  font-size: 12px;
+}
+.metric-cta {
+  color: #92ffd2;
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.metric-cta:hover { text-decoration: underline; }
 @media (hover: hover) {
   .metric-help:not([open]):hover .metric-help-panel { display: grid; }
   .metric-help:not([open]) .metric-help-panel { display: none; }
