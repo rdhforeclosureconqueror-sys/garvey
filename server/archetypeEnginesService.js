@@ -31,6 +31,8 @@ const PRIMARY_WEIGHT = 2;
 const SECONDARY_WEIGHT = 1;
 const LEADERSHIP_AUTHORED_BANK_1 = Object.freeze([...LEADERSHIP_BANK1]);
 const LEADERSHIP_SKELETON_BANKS = Object.freeze({ LEADERSHIP_BANK_1: LEADERSHIP_BANK1, LEADERSHIP_BANK_2: LEADERSHIP_BANK2, LEADERSHIP_BANK_3: LEADERSHIP_BANK3 });
+const LOYALTY_AUTHORED_BANK_1 = Object.freeze([...LOYALTY_BANK1]);
+const LOYALTY_AUTHORED_BANK_2 = Object.freeze([...LOYALTY_BANK2]);
 const LOYALTY_AUTHORED_BANK_3 = Object.freeze([...LOYALTY_BANK3]);
 const LOYALTY_SKELETON_BANKS = Object.freeze({ LOYALTY_BANK_1: LOYALTY_BANK1, LOYALTY_BANK_2: LOYALTY_BANK2, LOYALTY_BANK_3: LOYALTY_BANK3 });
 
@@ -111,7 +113,7 @@ const LOVE_QUESTION_SOURCE = Object.freeze({
 
 const LOVE_QUESTIONS = Object.freeze([...AUTHORED_LOVE_BANK_1, ...LOVE_GENERATED_SOURCE.questions]);
 const LEADERSHIP_QUESTIONS = Object.freeze([...LEADERSHIP_AUTHORED_BANK_1]);
-const LOYALTY_QUESTIONS = Object.freeze([...LOYALTY_AUTHORED_BANK_3]);
+const LOYALTY_QUESTIONS = Object.freeze([...LOYALTY_AUTHORED_BANK_1, ...LOYALTY_AUTHORED_BANK_2, ...LOYALTY_AUTHORED_BANK_3]);
 
 
 function resolveGovernedEngineSource({ engineType, attempt = 0, authoredBankId, authoredSourceType = "authored_bank_1", authoredQuestions = [], manifestPath }) {
@@ -160,7 +162,12 @@ const LEADERSHIP_QUESTION_SOURCE = Object.freeze({
 });
 
 const LOYALTY_QUESTION_SOURCE = Object.freeze({
-  authored: { sourceType: "authored_bank_3", sourcePath: "archetype-engines/engines/loyalty/question-banks/loyalty.bank3.js", bankId: "AUTHORED_BANK_3", questionCount: LOYALTY_AUTHORED_BANK_3.length },
+  authored: { sourceType: "authored_bank_1", sourcePath: "archetype-engines/engines/loyalty/question-banks/loyalty.bank1.js", bankId: "AUTHORED_BANK_1", questionCount: LOYALTY_AUTHORED_BANK_1.length },
+  authoredSequence: [
+    { sourceType: "authored_bank_1", sourcePath: "archetype-engines/engines/loyalty/question-banks/loyalty.bank1.js", bankId: "AUTHORED_BANK_1", questionCount: LOYALTY_AUTHORED_BANK_1.length },
+    { sourceType: "authored_bank_2", sourcePath: "archetype-engines/engines/loyalty/question-banks/loyalty.bank2.js", bankId: "AUTHORED_BANK_2", questionCount: LOYALTY_AUTHORED_BANK_2.length },
+    { sourceType: "authored_bank_3", sourcePath: "archetype-engines/engines/loyalty/question-banks/loyalty.bank3.js", bankId: "AUTHORED_BANK_3", questionCount: LOYALTY_AUTHORED_BANK_3.length },
+  ],
   generated: { sourceType: "promotion_manifest_governed", sourcePath: path.relative(ROOT_DIR, LOYALTY_PROMOTION_MANIFEST), statuses: REVIEW_STATUSES },
   useGeneratorOnFirstAttempt: false,
 });
@@ -556,7 +563,10 @@ function scoreEngineAssessment(engineType, answers = {}, opts = {}) {
     return withInsights(engineType, scoreCanonicalAssessment(bankScopedQuestions, answers));
   }
   if (engineType === "leadership") return withInsights(engineType, scoreCanonicalAssessment(LEADERSHIP_QUESTIONS, answers));
-  if (engineType === "loyalty") return withInsights(engineType, scoreCanonicalAssessment(LOYALTY_QUESTIONS, answers));
+  if (engineType === "loyalty") {
+    const bankScopedQuestions = filterQuestionsByAnsweredBank(LOYALTY_QUESTIONS, answers, opts.bankId || null);
+    return withInsights(engineType, scoreCanonicalAssessment(bankScopedQuestions, answers));
+  }
   return null;
 }
 
@@ -601,14 +611,66 @@ function getQuestionBanks(engineType, opts = {}) {
     });
   }
   if (engineType === "loyalty") {
-    return resolveGovernedEngineSource({
-      engineType,
-      attempt: Number(opts.retakeAttempt || 0),
-      authoredBankId: "AUTHORED_BANK_3",
-      authoredSourceType: "authored_bank_3",
-      authoredQuestions: LOYALTY_AUTHORED_BANK_3,
-      manifestPath: LOYALTY_PROMOTION_MANIFEST,
-    });
+    const completedAttempts = Number(opts.retakeAttempt || 0);
+    const authoredSequence = [
+      {
+        selectedBankId: "AUTHORED_BANK_1",
+        questionSource: "authored_bank_1",
+        sourcePath: "archetype-engines/engines/loyalty/question-banks/loyalty.bank1.js",
+        questions: LOYALTY_AUTHORED_BANK_1,
+      },
+      {
+        selectedBankId: "AUTHORED_BANK_2",
+        questionSource: "authored_bank_2",
+        sourcePath: "archetype-engines/engines/loyalty/question-banks/loyalty.bank2.js",
+        questions: LOYALTY_AUTHORED_BANK_2,
+      },
+      {
+        selectedBankId: "AUTHORED_BANK_3",
+        questionSource: "authored_bank_3",
+        sourcePath: "archetype-engines/engines/loyalty/question-banks/loyalty.bank3.js",
+        questions: LOYALTY_AUTHORED_BANK_3,
+      },
+    ];
+    const attemptProfile = authoredSequence[completedAttempts];
+    if (!attemptProfile) {
+      return {
+        selectedBankId: null,
+        availableBanks: [],
+        retakeAttempt: completedAttempts,
+        questionSource: "governed_retake_unconfigured",
+        useGeneratorOnFirstAttempt: false,
+        generatedBankAvailable: false,
+        promotionStatuses: REVIEW_STATUSES,
+        questionBanks: {},
+        activeQuestions: [],
+        diagnostics: {
+          engineType,
+          questionSource: "governed_retake_unconfigured",
+          reason: "attempt_limit_reached",
+          completedAttempts,
+          maxGovernedAttempts: authoredSequence.length,
+        },
+      };
+    }
+    const activeQuestions = attemptProfile.questions.map(normalizeQuestion).filter((q) => q.isActive !== false);
+    return {
+      selectedBankId: attemptProfile.selectedBankId,
+      availableBanks: [attemptProfile.selectedBankId],
+      retakeAttempt: completedAttempts,
+      questionSource: attemptProfile.questionSource,
+      useGeneratorOnFirstAttempt: false,
+      generatedBankAvailable: false,
+      promotionStatuses: REVIEW_STATUSES,
+      questionBanks: { [attemptProfile.selectedBankId]: activeQuestions },
+      activeQuestions,
+      diagnostics: {
+        engineType,
+        questionSource: attemptProfile.questionSource,
+        sourcePath: attemptProfile.sourcePath,
+        completedAttempts,
+      },
+    };
   }
   return {};
 }

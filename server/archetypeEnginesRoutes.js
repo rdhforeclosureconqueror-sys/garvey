@@ -268,6 +268,9 @@ function createArchetypeEnginesRouter({ pool }) {
     if (banks.questionSource === "generated_validated_bank" && !banks.generatedBankAvailable) {
       return res.status(409).json({ error: "generated_retake_bank_unavailable", questionSource: "generated_validated_bank", diagnostics: banks.diagnostics || null });
     }
+    if (banks.questionSource === "governed_retake_unconfigured") {
+      return res.status(409).json({ error: "governed_retake_unconfigured", questionSource: "governed_retake_unconfigured", diagnostics: banks.diagnostics || null });
+    }
 
     const sourceConfig = engineType === "love"
       ? LOVE_QUESTION_SOURCE
