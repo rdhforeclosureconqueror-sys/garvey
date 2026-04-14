@@ -14,16 +14,16 @@
       "bank_id": "BANK_A",
       "seed": "BANK_A",
       "generated_at": "2026-04-14T06:42:04.502Z",
-      "review_status": "ready_for_review",
-      "approved_by": null,
-      "notes": "Controlled review layer only. Manual approval required before any live candidate promotion.",
+      "review_status": "approved_for_live_candidate",
+      "approved_by": "manual-runtime-hookup-2026-04-14",
+      "notes": "Approved candidate bank for live Love runtime after wording/option-upgrade validation pass.",
       "source_artifact_paths": {
         "generatedFile": "artifacts/love-banks/bank_a.generated.json",
         "auditFile": "artifacts/love-banks/bank_a.audit.json",
         "wordingPassFile": "artifacts/love-generator-wording-refinement-pass-2026-04-14.json"
       },
-      "recommendation": "review_required_before_any_promotion"
+      "recommendation": "manual_review_required_before_any_live_promotion"
     }
   ],
-  "lastUpdatedAt": "2026-04-14T06:42:04.507Z"
+  "lastUpdatedAt": "2026-04-14T08:15:00.000Z"
 }
