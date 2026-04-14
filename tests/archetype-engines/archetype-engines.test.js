@@ -115,13 +115,13 @@ test('love questions keep canonical option/archetype contract', () => {
   }
 });
 
-test('leadership and loyalty authored bank 1 load 25 canonical questions each', () => {
+test('leadership and loyalty authored banks load 25 canonical questions each', () => {
   assert.equal(LEADERSHIP_QUESTIONS.length, 25);
   assert.equal(LOYALTY_QUESTIONS.length, 25);
   assert.equal(LEADERSHIP_QUESTION_SOURCE.useGeneratorOnFirstAttempt, false);
   assert.equal(LOYALTY_QUESTION_SOURCE.useGeneratorOnFirstAttempt, false);
   assert.equal(LEADERSHIP_QUESTION_SOURCE.authored.bankId, 'AUTHORED_BANK_1');
-  assert.equal(LOYALTY_QUESTION_SOURCE.authored.bankId, 'AUTHORED_BANK_1');
+  assert.equal(LOYALTY_QUESTION_SOURCE.authored.bankId, 'AUTHORED_BANK_3');
 });
 
 test('love scoring returns primary and secondary archetypes', () => {
@@ -174,9 +174,9 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
       assert.equal(startRes.status, 200);
       const startJson = await startRes.json();
       assert.ok(startJson.assessmentId);
-      assert.equal(startJson.questionSource, 'authored_bank_1');
+      assert.equal(startJson.questionSource, engineType === 'loyalty' ? 'authored_bank_3' : 'authored_bank_1');
       assert.equal(startJson.questionBanks.activeQuestions.length, 25);
-      assert.equal(startJson.questionBanks.selectedBankId, 'AUTHORED_BANK_1');
+      assert.equal(startJson.questionBanks.selectedBankId, engineType === 'loyalty' ? 'AUTHORED_BANK_3' : 'AUTHORED_BANK_1');
       assert.ok(startJson.diagnostics);
 
       const answers = Object.fromEntries((startJson.questionBanks.activeQuestions || []).map((q, i) => [q.id, (i % 4) + 1]));
@@ -659,13 +659,15 @@ test('leadership and loyalty retakes enforce generated-only path with manifest g
   }
 });
 
-test('leadership and loyalty first-attempt routing serves authored bank 1 and never skeleton banks', () => {
+test('leadership and loyalty first-attempt routing serves authored banks and never skeleton banks', () => {
   for (const engineType of ['leadership', 'loyalty']) {
     const first = getQuestionBanks(engineType, { retakeAttempt: 0 });
-    assert.equal(first.questionSource, 'authored_bank_1');
-    assert.equal(first.selectedBankId, 'AUTHORED_BANK_1');
+    const expectedSource = engineType === 'loyalty' ? 'authored_bank_3' : 'authored_bank_1';
+    const expectedBankId = engineType === 'loyalty' ? 'AUTHORED_BANK_3' : 'AUTHORED_BANK_1';
+    assert.equal(first.questionSource, expectedSource);
+    assert.equal(first.selectedBankId, expectedBankId);
     assert.equal(first.activeQuestions.length, 25);
     assert.equal(Object.keys(first.questionBanks).length, 1);
-    assert.equal(Array.isArray(first.questionBanks.AUTHORED_BANK_1), true);
+    assert.equal(Array.isArray(first.questionBanks[expectedBankId]), true);
   }
 });
