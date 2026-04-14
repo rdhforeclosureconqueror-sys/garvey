@@ -9,6 +9,7 @@
   var dashboardInitialized = false;
   var dashboardRefreshInFlight = false;
   var pageNavigatingAway = false;
+  var customerProfileCtx = { tenant: "", ownerEmail: "", cid: "", rid: "" };
 
   function apiUrl(path, query) {
     if (typeof api.buildUrl === "function") return api.buildUrl(path, query || {});
@@ -46,12 +47,6 @@
 
   function ridFromUrl() {
     return safeTrim(params().get("rid"));
-  }
-
-  function sameIdentity(a, b) {
-    if (!a || !b) return false;
-    return safeTrim(a.tenant) === safeTrim(b.tenant)
-      && safeTrim(a.email).toLowerCase() === safeTrim(b.email).toLowerCase();
   }
 
   function loginCtxFromStorage() {
@@ -144,7 +139,13 @@
         var tenant = safeTrim(data.tenant);
         var email = safeTrim(data.email).toLowerCase();
         if (!tenant || !email) return null;
-        return { tenant: tenant, email: email };
+        return {
+          tenant: tenant,
+          email: email,
+          role: safeTrim(data.role),
+          isAdmin: data.is_admin === true,
+          hasTenantOwnerAccess: data.has_tenant_owner_access === true
+        };
       })
       .catch(function () { return null; });
   }
@@ -189,36 +190,18 @@
   }
 
   function jsonFetch(url, options) {
-    return fetch(url, options)
-      .catch(function (networkErr) {
-        var err = new Error("Network request failed before server response (possible CORS/network issue).");
-        err.kind = "network_or_cors";
-        err.cause = networkErr;
-        throw err;
-      })
-      .then(function (res) {
-        return res.json().catch(function () { return {}; }).then(function (body) {
-          if (!res.ok) {
-            var err = new Error(body.error || "Request failed");
-            err.status = res.status;
-            err.body = body;
-            throw err;
-          }
-          return body;
-        });
+    var reqOptions = Object.assign({ credentials: "include" }, options || {});
+    return fetch(url, reqOptions).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (body) {
+        if (!res.ok) {
+          var err = new Error(body.error || "Request failed");
+          err.status = res.status;
+          err.body = body;
+          throw err;
+        }
+        return body;
       });
-  }
-
-  function describeRequestError(err, fallbackText) {
-    if (!err) return fallbackText || "Request failed.";
-    if (err.kind === "network_or_cors") return err.message;
-    if (Number(err.status || 0) === 403) {
-      var details = safeTrim(err.body && err.body.details);
-      return details ? ("Forbidden (403): " + details) : "Forbidden (403): you are not authorized for this tenant.";
-    }
-    if (Number(err.status || 0) === 401) return "Authentication required (401): sign in again and retry.";
-    if (Number(err.status || 0) === 400) return (err.message || "Invalid request") + " (400).";
-    return err.message || fallbackText || "Request failed.";
+    });
   }
 
   function markContributionsDisabled() {
@@ -390,13 +373,18 @@
     tbody.empty();
 
     rows.forEach(function (row) {
+      var primaryLabel = safeTrim(row.name) || row.email || ("id:" + row.user_id);
+      var secondaryLabel = row.email && safeTrim(row.name) ? ("<div class='muted'>" + escapeHtml(row.email) + "</div>") : "";
       tbody.append(
-        "<tr><td>" + (row.email || ("id:" + row.user_id)) +
-        "</td><td>" + (row.archetype || "unclassified") +
+        "<tr class='customer-row customer-row-clickable' data-user-id='" + escapeHtml(row.user_id) + "' data-email='" + escapeHtml(row.email || "") + "'><td><div>" + escapeHtml(primaryLabel) + "</div>" + secondaryLabel +
+        "</td><td>" + escapeHtml((row.latest_assessment_engine || "-").toUpperCase()) +
+        "</td><td>" + escapeHtml(row.latest_result_label || row.archetype || "No assessment yet") +
         "</td><td>" + (row.visits || 0) +
+        "</td><td>" + (Number(row.points || 0)) +
         "</td><td>" + fmtDate(row.last_activity) +
         "</td><td>" + statusPill(row.status || "dormant") +
-        "</td></tr>"
+        "</td><td>" + escapeHtml(row.attribution && (row.attribution.source_type || row.attribution.source_path || row.attribution.tap_source) || "-") +
+        "</td><td><button class='btn btn-primary btn-xs customer-profile-btn' data-user-id='" + escapeHtml(row.user_id) + "'>View Profile</button></td></tr>"
       );
     });
 
@@ -404,7 +392,7 @@
 
     if (rows.length) {
       document.getElementById("tableEmpty").style.display = "none";
-      $("#customersTable").DataTable({ pageLength: 10, order: [[2, "desc"]] });
+      $("#customersTable").DataTable({ pageLength: 10, order: [[5, "desc"]] });
     } else {
       document.getElementById("tableEmpty").style.display = "block";
     }
@@ -462,6 +450,7 @@
   function renderInsights(analytics) {
     var owner = analytics.owner_assessment || {};
     var customer = analytics.customer_assessment || {};
+    var families = analytics.assessment_families || {};
     var el;
 
     el = document.getElementById("ownerInsight");
@@ -473,6 +462,26 @@
     if (el) el.textContent = customer.primary
       ? ("Customer: " + customer.primary + " | Personality: " + (customer.personality || "-") + " | Weakness: " + (customer.weakness || "-"))
       : "Customer: No submissions yet.";
+
+    var familyHost = document.getElementById("assessmentFamiliesSummary");
+    if (familyHost) {
+      var labels = [
+        { key: "voc", label: "VOC Assessments" },
+        { key: "love", label: "Love Assessments" },
+        { key: "leadership", label: "Leadership Assessments" },
+        { key: "loyalty", label: "Loyalty Assessments" }
+      ];
+      familyHost.innerHTML = labels.map(function (item) {
+        var row = families[item.key] || {};
+        var starts = Number(row.starts || 0);
+        var completions = Number(row.completions || 0);
+        var sourceKeys = Object.keys(row.sources || {});
+        var sourceSummary = sourceKeys.length
+          ? sourceKeys.sort().map(function (source) { return source + ": " + Number(row.sources[source] || 0); }).join(" • ")
+          : "other: 0";
+        return "<div style='margin-bottom:8px;'><b>" + item.label + ":</b> starts " + starts + " • completions " + completions + "<div class='muted'>Sources: " + escapeHtml(sourceSummary) + "</div></div>";
+      }).join("");
+    }
   }
 
   function renderCampaignLinks(tenant, ownerEmail, campaign) {
@@ -723,27 +732,12 @@
         return;
       }
 
-      var createPath = "/api/campaigns/create";
-      var createQuery = { tenant: tenant, email: ownerEmail, role: "business_owner" };
-      var createUrl = apiUrl(createPath, createQuery);
-      var clientTrace = "dashboard-app:createCampaign:v2026-04-02";
-      if (typeof console !== "undefined" && typeof console.info === "function") {
-        console.info("campaign_create_client_request", {
-          event: "campaign_create_client_request",
-          method: "POST",
-          path: createPath,
-          url: createUrl,
-          tenant: tenant,
-          email: ownerEmail,
-          trace: clientTrace
-        });
-      }
-
-      jsonFetch(createUrl, {
+      jsonFetch(apiUrl("/api/campaigns/create"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-garvey-campaign-trace": clientTrace
+          "x-user-email": ownerEmail,
+          "x-user-role": "business_owner"
         },
         credentials: "include",
         body: JSON.stringify({
@@ -762,7 +756,7 @@
         })
         .then(renderCampaignSummary)
         .catch(function (err) {
-          if (msgEl) msgEl.textContent = describeRequestError(err, "Campaign creation failed.");
+          if (msgEl) msgEl.textContent = err.message;
         });
     });
   }
@@ -884,18 +878,8 @@
     });
   }
 
-  function resultSummaryHtml(result, context) {
+  function resultSummaryHtml(result) {
     if (!result) return '<div class="empty-state">No matching result yet.</div>';
-    var tenant = safeTrim(context && context.tenant);
-    var email = safeTrim(context && context.email).toLowerCase();
-    var cid = safeTrim(context && context.cid);
-    var rid = safeTrim(context && context.rid) || safeTrim(result.result_id || "");
-    var linkParams = new URLSearchParams();
-    if (tenant) linkParams.set("tenant", tenant);
-    if (email) linkParams.set("email", email);
-    if (cid) linkParams.set("cid", cid);
-    if (rid) linkParams.set("rid", rid);
-    var resultLink = "/results_owner.html" + (linkParams.toString() ? ("?" + linkParams.toString()) : "");
 
     var percents = result.percents || {};
     var bars = Object.keys(percents)
@@ -913,7 +897,6 @@
       .join("");
 
     return '' +
-      '<div style="margin-bottom:8px;"><a href="' + escapeHtml(resultLink) + '"><b>Open full owner results</b></a></div>' +
       "<div><b>Primary:</b> " + escapeHtml(result.primary_role || result.primary_archetype || "-") + "</div>" +
       "<div><b>Secondary:</b> " + escapeHtml(result.secondary_role || result.secondary_archetype || "-") + "</div>" +
       "<div><b>Weakness:</b> " + escapeHtml(result.weakness_role || result.weakness_archetype || "-") + "</div>" +
@@ -1261,35 +1244,6 @@
     }
   }
 
-  function wireGoogleReviewUrlSettings(tenant, ownerEmail, cid, rid) {
-    var input = document.getElementById("googleReviewUrlInput");
-    var saveBtn = document.getElementById("saveGoogleReviewUrlBtn");
-    var msg = document.getElementById("googleReviewUrlMsg");
-    if (!input || !saveBtn) return;
-
-    jsonFetch(tenantApiUrl(tenant, "/review-link", ownerEmail, cid, rid))
-      .then(function (resp) {
-        input.value = safeTrim(resp && resp.google_review_url);
-      })
-      .catch(function (err) {
-        if (msg) msg.textContent = describeRequestError(err, "Could not load Google review URL.");
-      });
-
-    saveBtn.addEventListener("click", function () {
-      if (msg) msg.textContent = "Saving…";
-      jsonFetch(tenantApiUrl(tenant, "/review-link", ownerEmail, cid, rid), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ google_review_url: safeTrim(input.value) || null })
-      }).then(function (resp) {
-        input.value = safeTrim(resp && resp.google_review_url);
-        if (msg) msg.textContent = "Google review URL saved.";
-      }).catch(function (err) {
-        if (msg) msg.textContent = describeRequestError(err, "Could not save Google review URL.");
-      });
-    });
-  }
-
   function renderSpotlightRows(tenant, ownerEmail, isAdmin, rows) {
     var tbody = document.querySelector("#spotlightModerationTable tbody");
     var empty = document.getElementById("spotlightModerationEmpty");
@@ -1507,6 +1461,19 @@
     var gateEnabledInput = document.getElementById("contributionGateEnabledInput");
     var gateMinInput = document.getElementById("contributionGateMinimumInput");
     var settingsMsg = document.getElementById("contributionSettingsMsg");
+    var googleReviewInput = document.getElementById("googleReviewUrlInput");
+    var googleReviewMsg = document.getElementById("googleReviewUrlMsg");
+    var saveGoogleReviewBtn = document.getElementById("saveGoogleReviewUrlBtn");
+    var loadGoogleReviewUrl = function () {
+      if (!googleReviewInput) return Promise.resolve();
+      return jsonFetch(tenantApiUrl(tenant, "/review-link", ownerEmail, cid, rid))
+        .then(function (resp) {
+          googleReviewInput.value = safeTrim((resp && resp.google_review_url) || "");
+        })
+        .catch(function (err) {
+          if (googleReviewMsg) googleReviewMsg.textContent = err.message || "Review link unavailable.";
+        });
+    };
     if (settingsBtn) {
       settingsBtn.addEventListener("click", function () {
         if (shouldSkipContributionCalls(tenant, ownerEmail)) {
@@ -1532,6 +1499,21 @@
         }).catch(function (err) {
           if (isContributionDisabledError(err)) markContributionsDisabled();
           if (settingsMsg) settingsMsg.textContent = err.message || "Settings update failed.";
+        });
+      });
+    }
+    if (saveGoogleReviewBtn) {
+      saveGoogleReviewBtn.addEventListener("click", function () {
+        var value = safeTrim((googleReviewInput || {}).value);
+        jsonFetch(tenantApiUrl(tenant, "/review-link", ownerEmail, cid, rid), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ google_review_url: value || null })
+        }).then(function (resp) {
+          if (googleReviewInput) googleReviewInput.value = safeTrim((resp && resp.google_review_url) || "");
+          if (googleReviewMsg) googleReviewMsg.textContent = "Google review link saved.";
+        }).catch(function (err) {
+          if (googleReviewMsg) googleReviewMsg.textContent = err.message || "Google review link save failed.";
         });
       });
     }
@@ -1598,6 +1580,7 @@
     }
 
     loadContributionPanels(tenant, ownerEmail);
+    loadGoogleReviewUrl();
   }
 
   function loadOwnerSnapshot(email, tenant, cid, rid, isAdmin) {
@@ -1632,7 +1615,7 @@
         if (resolvedRid) setRidInStorage(tenant, email, resolvedRid);
 
         var hub = ownerHubHtml({ tenant: tenant, email: email, cid: cid, rid: resolvedRid });
-        var summary = resultSummaryHtml(result, { tenant: tenant, email: email, cid: cid, rid: resolvedRid });
+        var summary = resultSummaryHtml(result);
 
         el.innerHTML = hub + '<div style="margin-top:10px;">' + summary + "</div>";
         wireCopyButtons(el);
@@ -1703,6 +1686,252 @@
           body.innerHTML = '<span class="text-danger">' + escapeHtml(err.message) + "</span>";
         });
     });
+  }
+
+  var allCustomersCache = [];
+
+  function engineGroupOrder(engine) {
+    return { voc: 0, love: 1, leadership: 2, loyalty: 3 }[engine] ?? 9;
+  }
+
+  function uniqueArchetypes(rows) {
+    var map = {};
+    (rows || []).forEach(function (row) {
+      var history = Array.isArray(row.assessment_history) ? row.assessment_history : [];
+      history.forEach(function (item) {
+        if (!item || item.status !== "completed") return;
+        var engine = safeTrim(item.engine).toLowerCase();
+        var label = safeTrim(item.archetype_label || item.result_label || item.primary);
+        if (!engine || !label) return;
+        var key = engine + "::" + label.toLowerCase();
+        map[key] = { engine: engine, label: label };
+      });
+    });
+    return Object.keys(map).map(function (k) { return map[k]; }).sort(function (a, b) {
+      var engineDiff = engineGroupOrder(a.engine) - engineGroupOrder(b.engine);
+      if (engineDiff) return engineDiff;
+      return a.label.localeCompare(b.label);
+    });
+  }
+
+  function hydrateCustomerFilters(rows) {
+    var archetypeSelect = document.getElementById("customerArchetypeFilter");
+    if (!archetypeSelect) return;
+    var lastEngine = null;
+    var opts = ['<option value="">All archetypes</option>'];
+    uniqueArchetypes(rows).forEach(function (entry) {
+      if (entry.engine !== lastEngine) {
+        opts.push('<option value="" disabled>— ' + escapeHtml(entry.engine.toUpperCase()) + " —</option>");
+        lastEngine = entry.engine;
+      }
+      opts.push('<option value="' + escapeHtml(entry.engine + "::" + entry.label) + '">' + escapeHtml(entry.label) + "</option>");
+    });
+    archetypeSelect.innerHTML = opts.join("");
+  }
+
+  function getFilteredCustomers() {
+    var archetype = safeTrim((document.getElementById("customerArchetypeFilter") || {}).value);
+    var assessment = safeTrim((document.getElementById("customerAssessmentFilter") || {}).value).toLowerCase();
+    var latestEngine = safeTrim((document.getElementById("customerLatestEngineFilter") || {}).value).toLowerCase();
+    var status = safeTrim((document.getElementById("customerStatusFilter") || {}).value).toLowerCase();
+    var points = safeTrim((document.getElementById("customerPointsFilter") || {}).value).toLowerCase();
+
+    return (allCustomersCache || []).filter(function (row) {
+      var selectedEngine = ["voc", "love", "leadership", "loyalty"].indexOf(assessment) !== -1 ? assessment : "";
+      var hasCompleted = !!row.assessment_completed;
+      var hasStartedOnly = !row.assessment_completed && !!row.assessment_started;
+      if (assessment === "complete" && !hasCompleted) return false;
+      if (assessment === "started" && !hasStartedOnly) return false;
+      if (assessment === "none" && (hasCompleted || row.assessment_started)) return false;
+      if (selectedEngine) {
+        var completedByEngine = (row.latest_completed_by_engine && row.latest_completed_by_engine[selectedEngine]) || null;
+        var startedByEngine = (row.latest_started_by_engine && row.latest_started_by_engine[selectedEngine]) || null;
+        if (!completedByEngine && !startedByEngine) return false;
+      }
+      if (latestEngine && String(row.latest_assessment_engine || "").toLowerCase() !== latestEngine) return false;
+      if (archetype) {
+        var archetypeParts = archetype.split("::");
+        var archetypeEngine = archetypeParts.length > 1 ? archetypeParts[0].toLowerCase() : "";
+        var archetypeLabel = archetypeParts.length > 1 ? archetypeParts.slice(1).join("::").toLowerCase() : archetype.toLowerCase();
+        var completed = row.latest_completed_by_engine || {};
+        var scoped = selectedEngine ? completed[selectedEngine] : (archetypeEngine ? completed[archetypeEngine] : null);
+        if (!scoped) {
+          var values = Object.keys(completed).map(function (k) { return completed[k]; });
+          scoped = values.find(function (item) {
+            if (!item) return false;
+            if (archetypeEngine && String(item.engine || "").toLowerCase() !== archetypeEngine) return false;
+            return String(item.archetype_label || item.result_label || "").toLowerCase() === archetypeLabel;
+          }) || null;
+        } else if (String(scoped.archetype_label || scoped.result_label || "").toLowerCase() !== archetypeLabel) {
+          return false;
+        }
+        if (!scoped) return false;
+      }
+      if (status && String(row.status || "").toLowerCase() !== status) return false;
+      if (points === "gt0" && Number(row.points || 0) <= 0) return false;
+      if (points === "eq0" && Number(row.points || 0) !== 0) return false;
+      return true;
+    });
+  }
+
+  function wireCustomerFilters() {
+    ["customerArchetypeFilter", "customerAssessmentFilter", "customerLatestEngineFilter", "customerStatusFilter", "customerPointsFilter"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener("change", function () {
+        renderTable(getFilteredCustomers());
+        wireCustomerRowClicks(customerProfileCtx.tenant, customerProfileCtx.ownerEmail, customerProfileCtx.cid, customerProfileCtx.rid);
+      });
+    });
+  }
+
+  function formatCountBars(label, counts) {
+    var map = counts && typeof counts === "object" ? counts : {};
+    var rows = Object.keys(map).sort(function (a, b) { return Number(map[b] || 0) - Number(map[a] || 0); });
+    if (!rows.length) return "<div><b>" + escapeHtml(label) + ":</b> no scoring data</div>";
+    return "<div><b>" + escapeHtml(label) + ":</b><ul>" + rows.map(function (k) {
+      return "<li>" + escapeHtml(k) + ": " + Number(map[k] || 0) + "%</li>";
+    }).join("") + "</ul></div>";
+  }
+
+  function renderCustomerProfile(payload) {
+    var wrap = document.getElementById("customerProfileDetail");
+    var body = document.getElementById("customerProfileBody");
+    if (!wrap || !body) return;
+    wrap.style.display = "block";
+    var customer = payload.customer || {};
+    var assessment = payload.assessment || null;
+    var activity = payload.activity_summary || {};
+    var identity = payload.identity || {};
+    var history = Array.isArray(payload.assessment_history) ? payload.assessment_history : [];
+    var latestByEngine = payload.latest_results_by_engine || {};
+    function renderLatestEngine(engine) {
+      var row = latestByEngine[engine] || null;
+      if (!row) return "<li><b>" + engine.toUpperCase() + ":</b> No completed result</li>";
+      var resultLink = row.payload_link ? (" <a class='btn btn-xs btn-default' href='" + escapeHtml(row.payload_link) + "' target='_blank' rel='noopener'>Open payload</a>") : "";
+      return "<li><b>" + engine.toUpperCase() + ":</b> " + escapeHtml(row.result_label || row.primary || "-") + " (Primary: " + escapeHtml(row.primary || "-") + ", Secondary: " + escapeHtml(row.secondary || "-") + ", Completed: " + fmtDate(row.completed_at) + ")" + resultLink + "</li>";
+    }
+    var historyHtml = history.length
+      ? "<table class='table table-condensed table-bordered'><thead><tr><th>Engine</th><th>Status</th><th>Date</th><th>Bank</th><th>Source</th><th>questionSource</th><th>Result ID</th></tr></thead><tbody>"
+        + history.map(function (h) {
+          return "<tr><td>" + escapeHtml((h.engine || "-").toUpperCase()) + "</td><td>" + escapeHtml(h.status || "-") + "</td><td>" + fmtDate(h.completed_at || h.started_at) + "</td><td>" + escapeHtml(h.bank || "-") + "</td><td>" + escapeHtml(h.source_type || h.source_path || h.tap_source || "-") + "</td><td>" + escapeHtml(h.questionSource || "-") + "</td><td>" + escapeHtml(h.result_id || h.crid || "-") + "</td></tr>";
+        }).join("")
+        + "</tbody></table>"
+      : "<div class='muted'>No assessment events yet.</div>";
+
+    body.innerHTML = ""
+      + "<h4 style='margin-top:0;'>Customer Identity</h4>"
+      + "<div><b>Customer:</b> " + escapeHtml(identity.name || customer.name || customer.email || ("ID #" + (customer.id || "-"))) + "</div>"
+      + "<div><b>Email:</b> " + escapeHtml(identity.email || customer.email || "-") + "</div>"
+      + "<div><b>First seen:</b> " + fmtDate(identity.first_seen || customer.created_at) + "</div>"
+      + "<div><b>Last activity:</b> " + fmtDate(identity.last_activity) + "</div>"
+      + "<div><b>Visits:</b> " + Number(identity.visits || activity.visits || 0) + " | <b>Points:</b> " + Number(identity.points || customer.points || 0) + "</div>"
+      + "<div><b>Attributed owner/business:</b> " + escapeHtml((identity.attributed_owner || "-") + " / " + (identity.business || payload.tenant || "-")) + "</div>"
+      + "<hr />"
+      + "<h4>Assessment History</h4>"
+      + historyHtml
+      + "<hr />"
+      + "<h4>Latest Engine Results</h4>"
+      + "<ul>" + ["voc", "love", "leadership", "loyalty"].map(renderLatestEngine).join("") + "</ul>"
+      + (assessment ? "<div class='muted'>Legacy profile linkage: Assessment #" + escapeHtml(assessment.id || "-") + "</div>" : "");
+    wrap.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function loadCustomerProfile(userId, tenant, ownerEmail, cid, rid) {
+    if (!userId) return;
+    var body = document.getElementById("customerProfileBody");
+    var wrap = document.getElementById("customerProfileDetail");
+    if (wrap) wrap.style.display = "block";
+    if (body) body.textContent = "Loading customer profile...";
+    jsonFetch(tenantApiUrl(tenant, "/customers/" + encodeURIComponent(userId) + "/profile", ownerEmail, cid, rid))
+      .then(renderCustomerProfile)
+      .catch(function (err) {
+        if (body) body.innerHTML = '<span class="text-danger">' + escapeHtml(err.message) + "</span>";
+      });
+  }
+
+  function wireCustomerRowClicks(tenant, ownerEmail, cid, rid) {
+    Array.prototype.forEach.call(document.querySelectorAll(".customer-profile-btn"), function (btn) {
+      btn.addEventListener("click", function () {
+        var userId = safeTrim(btn.getAttribute("data-user-id"));
+        loadCustomerProfile(userId, tenant, ownerEmail, cid, rid);
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("#customersTable tbody tr.customer-row"), function (row) {
+      row.addEventListener("click", function (evt) {
+        if (evt && evt.target && evt.target.closest && evt.target.closest(".customer-profile-btn")) return;
+        var userId = safeTrim(row.getAttribute("data-user-id"));
+        loadCustomerProfile(userId, tenant, ownerEmail, cid, rid);
+      });
+    });
+  }
+
+  function renderOwnerMessages(messages) {
+    var tbody = document.querySelector("#ownerMessagesTable tbody");
+    var empty = document.getElementById("ownerMessagesEmpty");
+    if (!tbody || !empty) return;
+    var rows = Array.isArray(messages) ? messages : [];
+    tbody.innerHTML = rows.map(function (m) {
+      var target = m.target_type === "single"
+        ? ((m.target_name || m.target_email || "-") + (m.target_name && m.target_email ? (" (" + m.target_email + ")") : ""))
+        : ((m.target_lens || "-") + ":" + (m.target_archetype || "-"));
+      return "<tr><td>" + fmtDate(m.created_at) + "</td><td>" + escapeHtml(target) + "</td><td>" + escapeHtml(m.subject || "-") + "</td><td>" + escapeHtml(m.body || "-") + "</td></tr>";
+    }).join("");
+    empty.style.display = rows.length ? "none" : "block";
+  }
+
+  function wireOwnerMessaging(tenant, ownerEmail, cid, rid) {
+    var targetType = document.getElementById("messageTargetType");
+    var targetEmail = document.getElementById("messageTargetEmail");
+    var targetLens = document.getElementById("messageTargetLens");
+    var targetArchetype = document.getElementById("messageTargetArchetype");
+    var subject = document.getElementById("messageSubject");
+    var body = document.getElementById("messageBody");
+    var sendBtn = document.getElementById("sendMessageBtn");
+    var status = document.getElementById("ownerMessageStatus");
+    if (!targetType || !targetEmail || !targetLens || !targetArchetype || !subject || !body || !sendBtn) return;
+
+    function toggleTargetInputs() {
+      var isGroup = safeTrim(targetType.value) === "group";
+      targetEmail.style.display = isGroup ? "none" : "";
+      targetLens.style.display = isGroup ? "" : "none";
+      targetArchetype.style.display = isGroup ? "" : "none";
+    }
+    targetType.addEventListener("change", toggleTargetInputs);
+    toggleTargetInputs();
+
+    function refreshMessages() {
+      return jsonFetch(tenantApiUrl(tenant, "/messages", ownerEmail, cid, rid)).then(function (resp) {
+        renderOwnerMessages(resp.messages || []);
+      });
+    }
+
+    sendBtn.addEventListener("click", function () {
+      var payload = {
+        target_type: safeTrim(targetType.value) || "single",
+        target_email: safeTrim(targetEmail.value).toLowerCase() || undefined,
+        target_lens: safeTrim(targetLens.value).toLowerCase() || undefined,
+        target_archetype: safeTrim(targetArchetype.value).toLowerCase() || undefined,
+        subject: safeTrim(subject.value),
+        body: safeTrim(body.value),
+      };
+      if (status) status.textContent = "Sending message...";
+      jsonFetch(tenantApiUrl(tenant, "/messages", ownerEmail, cid, rid), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(payload)
+      }).then(function () {
+        if (status) status.textContent = "Message sent.";
+        subject.value = "";
+        body.value = "";
+        return refreshMessages();
+      }).catch(function (err) {
+        if (status) status.textContent = err.message;
+      });
+    });
+
+    refreshMessages().catch(function () {});
   }
 
   var archetypeLens = "personal";
@@ -1798,6 +2027,18 @@
     });
   }
 
+  function renderAccessStatus(ctx) {
+    var badgeHost = document.getElementById("accessStatusBadges");
+    var meta = document.getElementById("accessStatusMeta");
+    if (!badgeHost || !meta) return;
+    var badges = [];
+    if (ctx.isAdmin) badges.push('<span class="label label-danger">Super Admin</span>');
+    if (ctx.hasTenantOwnerAccess) badges.push('<span class="label label-success">Business Owner</span>');
+    badges.push('<span class="label label-default">Tenant: ' + escapeHtml(ctx.tenant || "-") + '</span>');
+    badgeHost.innerHTML = badges.join(" ");
+    meta.textContent = "Email: " + (ctx.email || "-") + " • Session role: " + (ctx.role || "-");
+  }
+
   function init() {
     if (dashboardInitInFlight || dashboardInitialized) return;
     dashboardInitInFlight = true;
@@ -1819,34 +2060,27 @@
     }
 
     resolveOwnerSession().then(function (session) {
+      var sessionRole = "";
+      var hasTenantOwnerAccess = false;
       if (session) {
         tenant = session.tenant;
         ownerEmail = session.email;
-        var loginCtxMatchesSession = sameIdentity(fromLoginCtx, { tenant: tenant, email: ownerEmail });
-        cid = safeTrim(urlCid || (loginCtxMatchesSession ? fromLoginCtx.cid : ""));
-        rid = safeTrim(urlRid || (loginCtxMatchesSession ? fromLoginCtx.rid : ""));
+        sessionRole = session.role || "";
+        hasTenantOwnerAccess = session.hasTenantOwnerAccess === true;
+        if (!cid) cid = safeTrim(fromLoginCtx.cid || "");
+        if (!rid) rid = safeTrim(fromLoginCtx.rid || "");
       } else {
-        tenant = "";
-        ownerEmail = "";
-        cid = "";
-        rid = "";
-        try {
-          localStorage.removeItem(DASH_CTX_KEY);
-          localStorage.removeItem(LOGIN_CTX_KEY);
-          localStorage.removeItem(ENGINE_CTX_KEY);
-          sessionStorage.removeItem(DASH_CTX_KEY);
-          sessionStorage.removeItem(LOGIN_CTX_KEY);
-          sessionStorage.removeItem(ENGINE_CTX_KEY);
-        } catch (_) {}
+        if (!ownerEmail) ownerEmail = safeTrim(fromLoginCtx.email || "").toLowerCase();
+        if (!tenant) tenant = safeTrim(fromLoginCtx.tenant || "");
+        if (!rid) rid = safeTrim(fromLoginCtx.rid || "");
       }
 
       var repaired = new URLSearchParams(window.location.search);
-      if (tenant) repaired.set("tenant", tenant);
+      if (tenant || urlTenant) repaired.set("tenant", tenant || urlTenant);
       else repaired.delete("tenant");
       if (ownerEmail) repaired.set("email", ownerEmail);
       else repaired.delete("email");
       if (cid) repaired.set("cid", cid);
-      else repaired.delete("cid");
       if (rid) repaired.set("rid", rid);
       else repaired.delete("rid");
       repaired.delete("owner_email");
@@ -1854,7 +2088,7 @@
       repaired.delete("crid");
       history.replaceState(null, "", "/dashboard.html?" + repaired.toString());
 
-      var isAdmin = isAdminEmail(ownerEmail);
+      var isAdmin = (session && session.isAdmin === true) || isAdminEmail(ownerEmail);
       var switchedTenant = resetSessionForTenantSwitch(
         { tenant: tenant, email: ownerEmail, cid: cid, rid: rid },
         fromLoginCtx
@@ -1866,13 +2100,18 @@
       if (label) {
         label.textContent = "Tenant: " + (tenant || "-") + " • Email: " + (ownerEmail || "-") + " • Admin: " + (isAdmin ? "true" : "false");
       }
+      renderAccessStatus({
+        tenant: tenant,
+        email: ownerEmail,
+        role: sessionRole || (isAdmin ? "super_admin" : "business_owner"),
+        isAdmin: isAdmin,
+        hasTenantOwnerAccess: hasTenantOwnerAccess
+      });
 
       if (!tenant || !ownerEmail) {
         dashboardInitInFlight = false;
-        setupError("No active owner session. Redirecting to the homepage sign-in.");
-        setTimeout(function () {
-          if (!pageNavigatingAway) window.location.replace("/index.html?owner_session=required");
-        }, 150);
+        setupError("Missing tenant/email. Sign in below, or take an assessment if you're new.");
+        renderSignInPanel({ tenant: tenant || "", email: "", cid: cid || "", rid: "" });
         return Promise.resolve(null);
       }
 
@@ -1883,12 +2122,13 @@
         replaceUrlRidIfMissing(tenant, ownerEmail, rid, cid);
       }
       saveLoginCtx({ tenant: tenant, email: ownerEmail, cid: cid, rid: rid });
+      customerProfileCtx = { tenant: tenant, ownerEmail: ownerEmail, cid: cid, rid: rid };
       wirePathButtons(tenant, ownerEmail, cid, rid);
       wireCustomerLookup(tenant);
+      wireCustomerFilters();
       wireCampaignCreator(tenant, ownerEmail, cid, rid);
       wireProductCreator(tenant, ownerEmail, cid, rid);
       wireReviewModeration(tenant, ownerEmail, cid, rid);
-      wireGoogleReviewUrlSettings(tenant, ownerEmail, cid, rid);
       wireSpotlight(tenant, ownerEmail, isAdmin);
       wireContributions(tenant, ownerEmail, cid, rid, isAdmin);
       loadOwnerSnapshot(ownerEmail, tenant, cid, rid, isAdmin);
@@ -1910,7 +2150,10 @@
         .then(function (responses) {
           if (!responses || pageNavigatingAway) return;
           renderMetrics(responses[0]);
-          renderTable((responses[1] && responses[1].customers) || []);
+          allCustomersCache = (responses[1] && responses[1].customers) || [];
+          hydrateCustomerFilters(allCustomersCache);
+          renderTable(getFilteredCustomers());
+          wireCustomerRowClicks(tenant, ownerEmail, cid, rid);
           renderBar(responses[2] || {});
           renderArea(responses[2] || {});
           renderDonut(responses[2] || {});
@@ -1926,11 +2169,6 @@
               customerCidInput.value = safeTrim(responses[5].campaigns[0].slug || "");
               customerCidInput.dispatchEvent(new Event("input"));
             }
-          } else {
-            var campaignMsgEl = document.getElementById("campaignCreateMsg");
-            if (campaignMsgEl) {
-              campaignMsgEl.textContent = "No campaigns found yet. Default QR provisioning may have failed; use Generate QR or retry sign-in.";
-            }
           }
           wireArchetypeLensToggle(tenant, cid, responses[6] || {});
           renderArchetypeGroups(tenant, cid, responses[6] || {});
@@ -1939,6 +2177,7 @@
           if (showcaseEnabledInput) showcaseEnabledInput.checked = !!(responses[7] && responses[7].proof_showcase_enabled);
           renderReviewModerationRows(tenant, ownerEmail, cid, rid, (responses[8] && responses[8].reviews) || []);
           wireShowcaseControls(tenant, ownerEmail, cid, rid);
+          wireOwnerMessaging(tenant, ownerEmail, cid, rid);
 
           clearRefreshTimer();
           window.__garveyDashboardRefreshTimer = setInterval(function () {

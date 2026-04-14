@@ -377,11 +377,13 @@
       var secondaryLabel = row.email && safeTrim(row.name) ? ("<div class='muted'>" + escapeHtml(row.email) + "</div>") : "";
       tbody.append(
         "<tr class='customer-row customer-row-clickable' data-user-id='" + escapeHtml(row.user_id) + "' data-email='" + escapeHtml(row.email || "") + "'><td><div>" + escapeHtml(primaryLabel) + "</div>" + secondaryLabel +
-        "</td><td>" + (row.archetype || "unclassified") +
+        "</td><td>" + escapeHtml((row.latest_assessment_engine || "-").toUpperCase()) +
+        "</td><td>" + escapeHtml(row.latest_result_label || row.archetype || "No assessment yet") +
         "</td><td>" + (row.visits || 0) +
         "</td><td>" + (Number(row.points || 0)) +
         "</td><td>" + fmtDate(row.last_activity) +
         "</td><td>" + statusPill(row.status || "dormant") +
+        "</td><td>" + escapeHtml(row.attribution && (row.attribution.source_type || row.attribution.source_path || row.attribution.tap_source) || "-") +
         "</td><td><button class='btn btn-primary btn-xs customer-profile-btn' data-user-id='" + escapeHtml(row.user_id) + "'>View Profile</button></td></tr>"
       );
     });
@@ -390,7 +392,7 @@
 
     if (rows.length) {
       document.getElementById("tableEmpty").style.display = "none";
-      $("#customersTable").DataTable({ pageLength: 10, order: [[2, "desc"]] });
+      $("#customersTable").DataTable({ pageLength: 10, order: [[5, "desc"]] });
     } else {
       document.getElementById("tableEmpty").style.display = "block";
     }
@@ -1688,35 +1690,83 @@
 
   var allCustomersCache = [];
 
+  function engineGroupOrder(engine) {
+    return { voc: 0, love: 1, leadership: 2, loyalty: 3 }[engine] ?? 9;
+  }
+
   function uniqueArchetypes(rows) {
-    var set = {};
+    var map = {};
     (rows || []).forEach(function (row) {
-      var key = safeTrim(row.archetype || "").toLowerCase();
-      if (!key) return;
-      set[key] = row.archetype;
+      var history = Array.isArray(row.assessment_history) ? row.assessment_history : [];
+      history.forEach(function (item) {
+        if (!item || item.status !== "completed") return;
+        var engine = safeTrim(item.engine).toLowerCase();
+        var label = safeTrim(item.archetype_label || item.result_label || item.primary);
+        if (!engine || !label) return;
+        var key = engine + "::" + label.toLowerCase();
+        map[key] = { engine: engine, label: label };
+      });
     });
-    return Object.keys(set).sort().map(function (k) { return set[k]; });
+    return Object.keys(map).map(function (k) { return map[k]; }).sort(function (a, b) {
+      var engineDiff = engineGroupOrder(a.engine) - engineGroupOrder(b.engine);
+      if (engineDiff) return engineDiff;
+      return a.label.localeCompare(b.label);
+    });
   }
 
   function hydrateCustomerFilters(rows) {
     var archetypeSelect = document.getElementById("customerArchetypeFilter");
     if (!archetypeSelect) return;
-    var opts = ['<option value="">All archetypes</option>'].concat(
-      uniqueArchetypes(rows).map(function (a) { return '<option value="' + escapeHtml(a) + '">' + escapeHtml(a) + "</option>"; })
-    );
+    var lastEngine = null;
+    var opts = ['<option value="">All archetypes</option>'];
+    uniqueArchetypes(rows).forEach(function (entry) {
+      if (entry.engine !== lastEngine) {
+        opts.push('<option value="" disabled>— ' + escapeHtml(entry.engine.toUpperCase()) + " —</option>");
+        lastEngine = entry.engine;
+      }
+      opts.push('<option value="' + escapeHtml(entry.engine + "::" + entry.label) + '">' + escapeHtml(entry.label) + "</option>");
+    });
     archetypeSelect.innerHTML = opts.join("");
   }
 
   function getFilteredCustomers() {
-    var archetype = safeTrim((document.getElementById("customerArchetypeFilter") || {}).value).toLowerCase();
+    var archetype = safeTrim((document.getElementById("customerArchetypeFilter") || {}).value);
     var assessment = safeTrim((document.getElementById("customerAssessmentFilter") || {}).value).toLowerCase();
+    var latestEngine = safeTrim((document.getElementById("customerLatestEngineFilter") || {}).value).toLowerCase();
     var status = safeTrim((document.getElementById("customerStatusFilter") || {}).value).toLowerCase();
     var points = safeTrim((document.getElementById("customerPointsFilter") || {}).value).toLowerCase();
 
     return (allCustomersCache || []).filter(function (row) {
-      if (archetype && String(row.archetype || "").toLowerCase() !== archetype) return false;
-      if (assessment === "yes" && !row.assessment_completed) return false;
-      if (assessment === "no" && row.assessment_completed) return false;
+      var selectedEngine = ["voc", "love", "leadership", "loyalty"].indexOf(assessment) !== -1 ? assessment : "";
+      var hasCompleted = !!row.assessment_completed;
+      var hasStartedOnly = !row.assessment_completed && !!row.assessment_started;
+      if (assessment === "complete" && !hasCompleted) return false;
+      if (assessment === "started" && !hasStartedOnly) return false;
+      if (assessment === "none" && (hasCompleted || row.assessment_started)) return false;
+      if (selectedEngine) {
+        var completedByEngine = (row.latest_completed_by_engine && row.latest_completed_by_engine[selectedEngine]) || null;
+        var startedByEngine = (row.latest_started_by_engine && row.latest_started_by_engine[selectedEngine]) || null;
+        if (!completedByEngine && !startedByEngine) return false;
+      }
+      if (latestEngine && String(row.latest_assessment_engine || "").toLowerCase() !== latestEngine) return false;
+      if (archetype) {
+        var archetypeParts = archetype.split("::");
+        var archetypeEngine = archetypeParts.length > 1 ? archetypeParts[0].toLowerCase() : "";
+        var archetypeLabel = archetypeParts.length > 1 ? archetypeParts.slice(1).join("::").toLowerCase() : archetype.toLowerCase();
+        var completed = row.latest_completed_by_engine || {};
+        var scoped = selectedEngine ? completed[selectedEngine] : (archetypeEngine ? completed[archetypeEngine] : null);
+        if (!scoped) {
+          var values = Object.keys(completed).map(function (k) { return completed[k]; });
+          scoped = values.find(function (item) {
+            if (!item) return false;
+            if (archetypeEngine && String(item.engine || "").toLowerCase() !== archetypeEngine) return false;
+            return String(item.archetype_label || item.result_label || "").toLowerCase() === archetypeLabel;
+          }) || null;
+        } else if (String(scoped.archetype_label || scoped.result_label || "").toLowerCase() !== archetypeLabel) {
+          return false;
+        }
+        if (!scoped) return false;
+      }
       if (status && String(row.status || "").toLowerCase() !== status) return false;
       if (points === "gt0" && Number(row.points || 0) <= 0) return false;
       if (points === "eq0" && Number(row.points || 0) !== 0) return false;
@@ -1725,7 +1775,7 @@
   }
 
   function wireCustomerFilters() {
-    ["customerArchetypeFilter", "customerAssessmentFilter", "customerStatusFilter", "customerPointsFilter"].forEach(function (id) {
+    ["customerArchetypeFilter", "customerAssessmentFilter", "customerLatestEngineFilter", "customerStatusFilter", "customerPointsFilter"].forEach(function (id) {
       var el = document.getElementById(id);
       if (!el) return;
       el.addEventListener("change", function () {
@@ -1752,29 +1802,38 @@
     var customer = payload.customer || {};
     var assessment = payload.assessment || null;
     var activity = payload.activity_summary || {};
-    var recommended = payload.recommended_marketing_angle || "-";
-    var hasArchetype = !!(assessment && ((assessment.buyer && assessment.buyer.primary) || assessment.primary_archetype));
-    var profileStatusMessage = !assessment
-      ? "No assessment completed yet. Profile not fully available yet."
-      : (!hasArchetype ? "Profile not fully available yet: archetype classification is still pending." : "");
+    var identity = payload.identity || {};
+    var history = Array.isArray(payload.assessment_history) ? payload.assessment_history : [];
+    var latestByEngine = payload.latest_results_by_engine || {};
+    function renderLatestEngine(engine) {
+      var row = latestByEngine[engine] || null;
+      if (!row) return "<li><b>" + engine.toUpperCase() + ":</b> No completed result</li>";
+      var resultLink = row.payload_link ? (" <a class='btn btn-xs btn-default' href='" + escapeHtml(row.payload_link) + "' target='_blank' rel='noopener'>Open payload</a>") : "";
+      return "<li><b>" + engine.toUpperCase() + ":</b> " + escapeHtml(row.result_label || row.primary || "-") + " (Primary: " + escapeHtml(row.primary || "-") + ", Secondary: " + escapeHtml(row.secondary || "-") + ", Completed: " + fmtDate(row.completed_at) + ")" + resultLink + "</li>";
+    }
+    var historyHtml = history.length
+      ? "<table class='table table-condensed table-bordered'><thead><tr><th>Engine</th><th>Status</th><th>Date</th><th>Bank</th><th>Source</th><th>questionSource</th><th>Result ID</th></tr></thead><tbody>"
+        + history.map(function (h) {
+          return "<tr><td>" + escapeHtml((h.engine || "-").toUpperCase()) + "</td><td>" + escapeHtml(h.status || "-") + "</td><td>" + fmtDate(h.completed_at || h.started_at) + "</td><td>" + escapeHtml(h.bank || "-") + "</td><td>" + escapeHtml(h.source_type || h.source_path || h.tap_source || "-") + "</td><td>" + escapeHtml(h.questionSource || "-") + "</td><td>" + escapeHtml(h.result_id || h.crid || "-") + "</td></tr>";
+        }).join("")
+        + "</tbody></table>"
+      : "<div class='muted'>No assessment events yet.</div>";
 
     body.innerHTML = ""
-      + "<div><b>Customer:</b> " + escapeHtml(customer.name || customer.email || ("ID #" + (customer.id || "-"))) + "</div>"
-      + "<div><b>Email:</b> " + escapeHtml(customer.email || "-") + "</div>"
-      + "<div><b>Customer ID:</b> " + escapeHtml(customer.id || "-") + "</div>"
-      + "<div><b>Points:</b> " + Number(customer.points || 0) + "</div>"
-      + "<div><b>Result linkage:</b> " + escapeHtml((assessment && assessment.id) ? ("Assessment #" + assessment.id) : "Not available yet") + "</div>"
-      + (profileStatusMessage ? "<div class='alert alert-info' style='margin-top:8px;'>" + escapeHtml(profileStatusMessage) + "</div>" : "")
-      + "<div><b>Latest assessment date:</b> " + (assessment ? fmtDate(assessment.created_at) : "-") + "</div>"
-      + "<div><b>Latest archetype:</b> " + escapeHtml((assessment && (assessment.buyer && assessment.buyer.primary || assessment.primary_archetype)) || "unclassified") + "</div>"
-      + (assessment ? formatCountBars("Overall distribution", assessment.archetype_counts) : "<div><b>Overall distribution:</b> unavailable</div>")
-      + (assessment ? formatCountBars("Personal distribution", assessment.personal && assessment.personal.counts) : "")
-      + (assessment ? formatCountBars("Buyer distribution", assessment.buyer && assessment.buyer.counts) : "")
-      + "<div><b>Activity summary:</b> Visits " + Number(activity.visits || 0) + ", Actions " + Number(activity.actions || 0) + ", Reviews " + Number(activity.reviews || 0) + ", Referrals " + Number(activity.referrals || 0) + "</div>"
-      + "<div><b>Recommended marketing angle:</b> " + escapeHtml(recommended) + "</div>"
-      + (assessment && assessment.buyer && Array.isArray(assessment.buyer.marketing_angle) && assessment.buyer.marketing_angle.length
-        ? "<div><b>How to talk to them:</b><ul>" + assessment.buyer.marketing_angle.map(function (x) { return "<li>" + escapeHtml(x) + "</li>"; }).join("") + "</ul></div>"
-        : "");
+      + "<h4 style='margin-top:0;'>Customer Identity</h4>"
+      + "<div><b>Customer:</b> " + escapeHtml(identity.name || customer.name || customer.email || ("ID #" + (customer.id || "-"))) + "</div>"
+      + "<div><b>Email:</b> " + escapeHtml(identity.email || customer.email || "-") + "</div>"
+      + "<div><b>First seen:</b> " + fmtDate(identity.first_seen || customer.created_at) + "</div>"
+      + "<div><b>Last activity:</b> " + fmtDate(identity.last_activity) + "</div>"
+      + "<div><b>Visits:</b> " + Number(identity.visits || activity.visits || 0) + " | <b>Points:</b> " + Number(identity.points || customer.points || 0) + "</div>"
+      + "<div><b>Attributed owner/business:</b> " + escapeHtml((identity.attributed_owner || "-") + " / " + (identity.business || payload.tenant || "-")) + "</div>"
+      + "<hr />"
+      + "<h4>Assessment History</h4>"
+      + historyHtml
+      + "<hr />"
+      + "<h4>Latest Engine Results</h4>"
+      + "<ul>" + ["voc", "love", "leadership", "loyalty"].map(renderLatestEngine).join("") + "</ul>"
+      + (assessment ? "<div class='muted'>Legacy profile linkage: Assessment #" + escapeHtml(assessment.id || "-") + "</div>" : "");
     wrap.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 

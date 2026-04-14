@@ -173,8 +173,20 @@
                 </select>
                 <select id="customerAssessmentFilter" class="form-control input-sm">
                   <option value="">Assessment: any</option>
-                  <option value="yes">Assessment complete</option>
-                  <option value="no">No assessment yet</option>
+                  <option value="voc">VOC</option>
+                  <option value="love">Love</option>
+                  <option value="leadership">Leadership</option>
+                  <option value="loyalty">Loyalty</option>
+                  <option value="complete">Assessment complete</option>
+                  <option value="started">Assessment started only</option>
+                  <option value="none">No assessment yet</option>
+                </select>
+                <select id="customerLatestEngineFilter" class="form-control input-sm">
+                  <option value="">Latest engine: any</option>
+                  <option value="voc">VOC</option>
+                  <option value="love">Love</option>
+                  <option value="leadership">Leadership</option>
+                  <option value="loyalty">Loyalty</option>
                 </select>
                 <select id="customerStatusFilter" class="form-control input-sm">
                   <option value="">Activity: any</option>
@@ -189,7 +201,7 @@
               </div>
               <div class="empty-state" style="padding-top:0;">Click any customer row or <b>View Profile</b> to open that customer's profile.</div>
               <table width="100%" class="table table-striped table-bordered table-hover" id="customersTable">
-                <thead><tr><th>Customer (name/email)</th><th>Archetype</th><th>Visits</th><th>Points</th><th>Last Activity</th><th>Status</th><th>Profile</th></tr></thead>
+                <thead><tr><th>Customer (name/email)</th><th>Latest Engine</th><th>Latest Result</th><th>Visits</th><th>Points</th><th>Last Activity</th><th>Status</th><th>Source</th><th>Profile</th></tr></thead>
                 <tbody></tbody>
               </table>
               <div id="tableEmpty" class="empty-state" style="display:none;">No customers yet.</div>

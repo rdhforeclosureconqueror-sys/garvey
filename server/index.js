@@ -4407,6 +4407,41 @@ app.get("/t/:slug/dashboard", tenantMiddleware, async (req, res) => {
 
 
 app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
+  function safeJsonParse(value) {
+    if (!value) return {};
+    if (typeof value === "object") return value;
+    try {
+      return JSON.parse(String(value));
+    } catch (_) {
+      return {};
+    }
+  }
+
+  function normalizeEngineType(value) {
+    const key = String(value || "").trim().toLowerCase();
+    if (["voc", "love", "leadership", "loyalty"].includes(key)) return key;
+    return "unknown";
+  }
+
+  function resolveEngineLabel(engineType, payload = {}) {
+    const canonical = payload.canonical || {};
+    const scored = payload.scored || {};
+    const identity = canonical.identity || scored.identity || payload.identity || {};
+    const ranked = Array.isArray(canonical.ranked_archetypes) ? canonical.ranked_archetypes : [];
+    const topRanked = ranked[0] || {};
+    const code = String(identity?.primary?.code || topRanked.code || "").trim().toUpperCase();
+    const labelFromIdentity = String(identity?.primary?.label || "").trim();
+    const summary = canonical.summary || scored.summary || {};
+    const summaryLabel = String(summary.primary_label || summary.primary || "").trim();
+    const fallbackByEngine = {
+      voc: String(payload.primary_archetype || "").trim(),
+      love: labelFromIdentity || summaryLabel || code,
+      leadership: labelFromIdentity || summaryLabel || code,
+      loyalty: labelFromIdentity || summaryLabel || code,
+    };
+    return fallbackByEngine[engineType] || summaryLabel || labelFromIdentity || code || "";
+  }
+
   try {
     const tenantReadActor = await requireTenantReadAccess(req, res);
     if (!tenantReadActor || !tenantReadActor.role) return;
@@ -4469,19 +4504,193 @@ app.get("/t/:slug/customers", tenantMiddleware, async (req, res) => {
       [tenantId]
     );
 
+    const userIds = customers.rows.map((row) => Number(row.user_id)).filter((x) => Number.isInteger(x) && x > 0);
+    const emails = customers.rows.map((row) => String(row.email || "").trim().toLowerCase()).filter(Boolean);
+
+    const [vocRows, engineRows, campaignRows] = await Promise.all([
+      pool.query(
+        `SELECT
+            a.id,
+            a.user_id,
+            LOWER(COALESCE(a.customer_email, u.email, '')) AS email,
+            a.created_at,
+            a.cid,
+            a.primary_archetype,
+            a.secondary_archetype,
+            a.assessment_type
+         FROM assessment_submissions a
+         LEFT JOIN users u ON u.id = a.user_id
+         WHERE a.tenant_id = $1
+           AND a.assessment_type = 'customer'
+           AND (
+             a.user_id = ANY($2::int[])
+             OR LOWER(COALESCE(a.customer_email, '')) = ANY($3::text[])
+           )
+         ORDER BY a.created_at DESC, a.id DESC`,
+        [tenantId, userIds.length ? userIds : [0], emails.length ? emails : [""]]
+      ),
+      pool.query(
+        `SELECT
+            a.id AS assessment_id,
+            a.engine_type,
+            a.user_id AS assessment_user_id,
+            a.campaign_context,
+            a.created_at AS started_at,
+            r.result_id,
+            r.result_payload,
+            r.created_at AS completed_at
+         FROM engine_assessments a
+         LEFT JOIN engine_results r ON r.assessment_id = a.id
+         WHERE a.tenant_slug = $1
+           AND (
+             a.user_id = ANY($2::text[])
+             OR COALESCE(a.campaign_context, '') <> ''
+           )
+         ORDER BY a.created_at DESC`,
+        [req.tenant.slug, userIds.map((x) => String(x))]
+      ),
+      pool.query(
+        `SELECT customer_email, meta, created_at
+         FROM campaign_events
+         WHERE tenant_id = $1
+           AND LOWER(COALESCE(customer_email, '')) = ANY($2::text[])
+           AND event_type IN ('visit', 'customer_assessment', 'checkin', 'review', 'referral', 'wishlist')
+         ORDER BY created_at DESC`,
+        [tenantId, emails.length ? emails : [""]]
+      ),
+    ]);
+
+    const customerById = new Map();
+    const customerByEmail = new Map();
+    customers.rows.forEach((row) => {
+      const keyId = Number(row.user_id);
+      const keyEmail = String(row.email || "").trim().toLowerCase();
+      if (Number.isInteger(keyId) && keyId > 0) customerById.set(String(keyId), row);
+      if (keyEmail) customerByEmail.set(keyEmail, row);
+    });
+
+    const activitiesByUser = {};
+    customers.rows.forEach((row) => {
+      activitiesByUser[String(row.user_id)] = {
+        sources: {},
+        history: [],
+        latest_completed: {},
+        latest_started: {},
+        latest_any_completed: null,
+        latest_attribution: null,
+      };
+    });
+
+    for (const row of vocRows.rows || []) {
+      const userId = Number(row.user_id || 0);
+      const email = String(row.email || "").trim().toLowerCase();
+      const userRow = (userId && customerById.get(String(userId))) || (email && customerByEmail.get(email));
+      if (!userRow) continue;
+      const key = String(userRow.user_id);
+      const state = activitiesByUser[key];
+      const archetypeLabel = String(row.primary_archetype || "").trim();
+      const event = {
+        engine: "voc",
+        status: "completed",
+        started_at: row.created_at,
+        completed_at: row.created_at,
+        result_id: String(row.id || ""),
+        archetype_label: archetypeLabel || "",
+        primary: archetypeLabel || null,
+        secondary: String(row.secondary_archetype || "").trim() || null,
+        source_type: "voc",
+        cid: String(row.cid || "").trim() || null,
+      };
+      state.history.push(event);
+      if (!state.latest_completed.voc || new Date(event.completed_at) > new Date(state.latest_completed.voc.completed_at)) state.latest_completed.voc = event;
+      if (!state.latest_any_completed || new Date(event.completed_at) > new Date(state.latest_any_completed.completed_at)) state.latest_any_completed = event;
+    }
+
+    for (const row of engineRows.rows || []) {
+      const engine = normalizeEngineType(row.engine_type);
+      if (engine === "unknown") continue;
+      const ctx = safeJsonParse(row.campaign_context);
+      const payload = safeJsonParse(row.result_payload);
+      const userIdText = String(row.assessment_user_id || "").trim();
+      const email = String(ctx.email || ctx.customer_email || "").trim().toLowerCase();
+      const userRow = (userIdText && customerById.get(userIdText)) || (email && customerByEmail.get(email));
+      if (!userRow) continue;
+      const key = String(userRow.user_id);
+      const state = activitiesByUser[key];
+      const status = row.result_id ? "completed" : "started";
+      const event = {
+        engine,
+        status,
+        started_at: row.started_at || null,
+        completed_at: row.completed_at || null,
+        result_id: row.result_id ? String(row.result_id) : null,
+        archetype_label: resolveEngineLabel(engine, payload),
+        primary: String(payload?.canonical?.identity?.primary?.label || payload?.canonical?.identity?.primary?.code || "").trim() || null,
+        secondary: String(payload?.canonical?.identity?.secondary?.label || payload?.canonical?.identity?.secondary?.code || "").trim() || null,
+        source_type: String(ctx.source_type || ctx.source_path || ctx.tap_source || "").trim() || null,
+        source_path: String(ctx.source_path || "").trim() || null,
+        tap_source: String(ctx.tap_source || "").trim() || null,
+        tap_session: String(ctx.tap_session || "").trim() || null,
+        cid: String(ctx.cid || "").trim() || null,
+        rid: String(ctx.rid || "").trim() || null,
+        crid: String(ctx.crid || row.result_id || "").trim() || null,
+        questionSource: String(payload?.canonical?.questionSource || payload?.questionSource || "").trim() || null,
+      };
+      state.history.push(event);
+      if (!state.latest_started[engine] || new Date(event.started_at) > new Date(state.latest_started[engine].started_at)) state.latest_started[engine] = event;
+      if (event.status === "completed") {
+        if (!state.latest_completed[engine] || new Date(event.completed_at) > new Date(state.latest_completed[engine].completed_at)) state.latest_completed[engine] = event;
+        if (!state.latest_any_completed || new Date(event.completed_at) > new Date(state.latest_any_completed.completed_at)) state.latest_any_completed = event;
+      }
+      if (!state.latest_attribution || new Date(event.started_at || event.completed_at || 0) > new Date(state.latest_attribution.started_at || state.latest_attribution.completed_at || 0)) {
+        state.latest_attribution = event;
+      }
+    }
+
+    for (const row of campaignRows.rows || []) {
+      const email = String(row.customer_email || "").trim().toLowerCase();
+      const userRow = customerByEmail.get(email);
+      if (!userRow) continue;
+      const key = String(userRow.user_id);
+      const state = activitiesByUser[key];
+      const meta = safeJsonParse(row.meta);
+      if (!state.latest_attribution || new Date(row.created_at) > new Date(state.latest_attribution.completed_at || state.latest_attribution.started_at || 0)) {
+        state.latest_attribution = {
+          source_type: String(meta.source_type || meta.source_path || meta.tap_source || "").trim() || null,
+          source_path: String(meta.source_path || "").trim() || null,
+          tap_source: String(meta.tap_source || "").trim() || null,
+          tap_session: String(meta.tap_session || "").trim() || null,
+          cid: String(meta.cid || meta.campaign_slug || "").trim() || null,
+          rid: String(meta.rid || meta.owner_rid || "").trim() || null,
+          crid: String(meta.crid || meta.result_id || "").trim() || null,
+          business_owner_id: String(meta.business_owner_id || "").trim() || null,
+          created_at: row.created_at,
+        };
+      }
+    }
+
     const shaped = customers.rows.map((row) => {
       const status = row.last_activity ? "active" : "new";
+      const perUser = activitiesByUser[String(row.user_id)] || {};
+      const latestCompletedAny = perUser.latest_any_completed || null;
+      const latestStartedAny = Object.values(perUser.latest_started || {}).sort((a, b) => new Date(b.started_at || 0) - new Date(a.started_at || 0))[0] || null;
+      const latestEngine = latestCompletedAny?.engine || latestStartedAny?.engine || null;
       return {
         user_id: row.user_id,
         name: row.name || null,
         email: row.email,
         points: Number(row.points || 0),
-        archetype: row.archetype,
-        personal_archetype: row.personal_primary_archetype || null,
-        buyer_archetype: row.buyer_primary_archetype || null,
-        result_id: row.result_id ? String(row.result_id) : null,
-        assessment_completed: !!row.result_id,
-        assessment_completed_at: row.assessment_completed_at || null,
+        archetype: latestCompletedAny?.archetype_label || row.archetype || "No completed assessment",
+        latest_assessment_engine: latestEngine,
+        latest_assessment_state: latestCompletedAny ? "completed" : (latestStartedAny ? "started" : "none"),
+        latest_result_label: latestCompletedAny?.archetype_label || (latestStartedAny ? "Started only" : "No assessment yet"),
+        latest_completed_assessment_at: latestCompletedAny?.completed_at || null,
+        assessment_completed: !!latestCompletedAny,
+        assessment_started: !!latestStartedAny,
+        assessment_history: (perUser.history || []).sort((a, b) => new Date(b.completed_at || b.started_at || 0) - new Date(a.completed_at || a.started_at || 0)),
+        latest_completed_by_engine: perUser.latest_completed || {},
+        latest_started_by_engine: perUser.latest_started || {},
+        attribution: perUser.latest_attribution || {},
         visits: row.visits,
         last_activity: row.last_activity,
         status,
@@ -4550,26 +4759,125 @@ app.get("/t/:slug/customers/:userId/profile", tenantMiddleware, async (req, res)
       safeActivityMetric(pool, { tenantId, userId, table: "wishlist", mode: "max" }),
     ]);
 
+    function safeJsonParse(value) {
+      if (!value) return {};
+      if (typeof value === "object") return value;
+      try {
+        return JSON.parse(String(value));
+      } catch (_) {
+        return {};
+      }
+    }
+    function resolveEngineLabel(engineType, payload = {}) {
+      const canonical = payload.canonical || {};
+      const identity = canonical.identity || payload.identity || {};
+      const primaryLabel = String(identity?.primary?.label || "").trim();
+      const primaryCode = String(identity?.primary?.code || "").trim();
+      const summary = canonical.summary || payload.summary || {};
+      if (engineType === "voc") return String(payload.primary_archetype || "").trim();
+      return primaryLabel || String(summary.primary_label || summary.primary || primaryCode).trim();
+    }
+
     let assessment = null;
+    let assessmentHistory = [];
+    let latestResultsByEngine = { voc: null, love: null, leadership: null, loyalty: null };
     try {
-      const latestAssessment = await pool.query(
-        `SELECT a.*
-         FROM assessment_submissions a
-         WHERE a.tenant_id = $1
-           AND a.assessment_type = 'customer'
-           AND a.user_id = $2
-         ORDER BY a.created_at DESC, a.id DESC
-         LIMIT 1`,
-        [tenantId, userId]
-      );
-      assessment = latestAssessment.rows[0] || null;
+      const [vocResults, engineResults] = await Promise.all([
+        pool.query(
+          `SELECT a.*
+           FROM assessment_submissions a
+           WHERE a.tenant_id = $1
+             AND a.assessment_type = 'customer'
+             AND (a.user_id = $2 OR LOWER(COALESCE(a.customer_email, '')) = $3)
+           ORDER BY a.created_at DESC, a.id DESC`,
+          [tenantId, userId, String(customer.email || "").trim().toLowerCase()]
+        ),
+        pool.query(
+          `SELECT a.id AS assessment_id, a.engine_type, a.campaign_context, a.created_at AS started_at,
+                  r.result_id, r.result_payload, r.created_at AS completed_at
+           FROM engine_assessments a
+           LEFT JOIN engine_results r ON r.assessment_id = a.id
+           WHERE a.tenant_slug = $1
+             AND (a.user_id = $2 OR LOWER(COALESCE(a.campaign_context, '')) LIKE ('%' || $3 || '%'))
+           ORDER BY a.created_at DESC`,
+          [req.tenant.slug, String(userId), String(customer.email || "").trim().toLowerCase()]
+        ),
+      ]);
+
+      for (const row of vocResults.rows || []) {
+        const event = {
+          engine: "voc",
+          status: "completed",
+          started_at: row.created_at,
+          completed_at: row.created_at,
+          source_type: "voc",
+          source_path: null,
+          tap_source: null,
+          tap_session: null,
+          questionSource: null,
+          bank: null,
+          cid: row.cid || null,
+          rid: null,
+          crid: String(row.id || ""),
+          result_id: String(row.id || ""),
+          result_label: row.primary_archetype || "No completed assessment",
+          primary: row.primary_archetype || null,
+          secondary: row.secondary_archetype || null,
+          payload_link: `/api/results/customer/${encodeURIComponent(String(row.id || ""))}`,
+        };
+        assessmentHistory.push(event);
+        if (!latestResultsByEngine.voc) latestResultsByEngine.voc = event;
+      }
+
+      for (const row of engineResults.rows || []) {
+        const engine = String(row.engine_type || "").trim().toLowerCase();
+        if (!["love", "leadership", "loyalty"].includes(engine)) continue;
+        const payload = safeJsonParse(row.result_payload);
+        const ctx = safeJsonParse(row.campaign_context);
+        const event = {
+          engine,
+          status: row.result_id ? "completed" : "started",
+          started_at: row.started_at || null,
+          completed_at: row.completed_at || null,
+          source_type: String(ctx.source_type || ctx.source_path || ctx.tap_source || "").trim() || null,
+          source_path: String(ctx.source_path || "").trim() || null,
+          tap_source: String(ctx.tap_source || "").trim() || null,
+          tap_session: String(ctx.tap_session || "").trim() || null,
+          questionSource: String(payload?.canonical?.questionSource || payload?.questionSource || "").trim() || null,
+          bank: String(payload?.canonical?.bank_id || payload?.bank_id || "").trim() || null,
+          cid: String(ctx.cid || "").trim() || null,
+          rid: String(ctx.rid || "").trim() || null,
+          crid: String(ctx.crid || row.result_id || "").trim() || null,
+          result_id: row.result_id ? String(row.result_id) : null,
+          result_label: row.result_id ? (resolveEngineLabel(engine, payload) || "Completed") : "Started only",
+          primary: String(payload?.canonical?.identity?.primary?.label || payload?.canonical?.identity?.primary?.code || "").trim() || null,
+          secondary: String(payload?.canonical?.identity?.secondary?.label || payload?.canonical?.identity?.secondary?.code || "").trim() || null,
+          payload_link: row.result_id ? `/api/archetype-engines/${encodeURIComponent(engine)}/results/${encodeURIComponent(String(row.result_id))}` : null,
+        };
+        assessmentHistory.push(event);
+        if (event.status === "completed" && !latestResultsByEngine[engine]) latestResultsByEngine[engine] = event;
+      }
+
+      assessmentHistory.sort((a, b) => new Date(b.completed_at || b.started_at || 0) - new Date(a.completed_at || a.started_at || 0));
+      const latestVoc = latestResultsByEngine.voc;
+      assessment = latestVoc
+        ? {
+            id: latestVoc.result_id,
+            created_at: latestVoc.completed_at,
+            primary_archetype: latestVoc.primary,
+            secondary_archetype: latestVoc.secondary,
+            weakness_archetype: null,
+            archetype_counts: {},
+            personal: { primary: null, secondary: null, weakness: null, counts: {}, marketing_angle: [] },
+            buyer: { primary: latestVoc.primary, secondary: latestVoc.secondary, weakness: null, counts: {}, marketing_angle: [] },
+          }
+        : null;
     } catch (assessmentErr) {
       console.error("customer_profile_assessment_lookup_failed", {
         tenant: req.tenant.slug,
         userId,
         error: assessmentErr?.message || assessmentErr,
       });
-      assessment = null;
     }
 
     const missingSections = [];
@@ -4639,6 +4947,18 @@ app.get("/t/:slug/customers/:userId/profile", tenantMiddleware, async (req, res)
         ? (missingSections.length ? "partial" : "complete")
         : "no_assessment",
       missing_sections: missingSections,
+      identity: {
+        name: customer.name || null,
+        email: customer.email || null,
+        first_seen: customer.created_at || null,
+        last_activity: [lastVisit, lastAction, lastReview, lastReferral, lastWishlist].filter(Boolean).sort().slice(-1)[0] || null,
+        visits: Number(visits || 0),
+        points: Number(customer.points || 0),
+        attributed_owner: normalizeEmail(req.query.email || req.headers["x-user-email"] || "") || null,
+        business: req.tenant.slug,
+      },
+      assessment_history: assessmentHistory,
+      latest_results_by_engine: latestResultsByEngine,
     });
   } catch (err) {
     console.error(err);
