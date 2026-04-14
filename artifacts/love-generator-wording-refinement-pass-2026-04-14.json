@@ -1,0 +1,3057 @@
+{
+  "generatedAt": "2026-04-14T06:32:14.691Z",
+  "seeds": [
+    "BANK_A",
+    "BANK_B",
+    "BANK_C"
+  ],
+  "before": {
+    "generatedAt": "2026-04-14T06:14:16.486Z",
+    "seeds": [
+      "BANK_A",
+      "BANK_B",
+      "BANK_C"
+    ],
+    "phase1": [
+      {
+        "seed": "BANK_A",
+        "bankFile": "artifacts/love-banks/bank_a.generated.json",
+        "auditFile": "artifacts/love-banks/bank_a.audit.json",
+        "classCounts": {
+          "ID": 5,
+          "BH": 6,
+          "SC": 6,
+          "ST": 6,
+          "DS": 2
+        },
+        "primaryCounts": {
+          "RS": 20,
+          "AL": 20,
+          "EC": 20,
+          "AV": 20,
+          "ES": 20
+        },
+        "pairBalanceSpread": 0,
+        "weightedPrimaryOpportunity": {
+          "RS": 47.5,
+          "AL": 47.5,
+          "EC": 47,
+          "AV": 46.5,
+          "ES": 47.5
+        },
+        "schemaValidity": true,
+        "auditValid": true,
+        "failures": []
+      },
+      {
+        "seed": "BANK_B",
+        "bankFile": "artifacts/love-banks/bank_b.generated.json",
+        "auditFile": "artifacts/love-banks/bank_b.audit.json",
+        "classCounts": {
+          "ID": 5,
+          "BH": 6,
+          "SC": 6,
+          "ST": 6,
+          "DS": 2
+        },
+        "primaryCounts": {
+          "RS": 20,
+          "AL": 20,
+          "EC": 20,
+          "AV": 20,
+          "ES": 20
+        },
+        "pairBalanceSpread": 2,
+        "weightedPrimaryOpportunity": {
+          "RS": 47.5,
+          "AL": 47.5,
+          "EC": 47,
+          "AV": 46.5,
+          "ES": 47.5
+        },
+        "schemaValidity": true,
+        "auditValid": true,
+        "failures": []
+      },
+      {
+        "seed": "BANK_C",
+        "bankFile": "artifacts/love-banks/bank_c.generated.json",
+        "auditFile": "artifacts/love-banks/bank_c.audit.json",
+        "classCounts": {
+          "ID": 5,
+          "BH": 6,
+          "SC": 6,
+          "ST": 6,
+          "DS": 2
+        },
+        "primaryCounts": {
+          "RS": 20,
+          "AL": 20,
+          "EC": 20,
+          "AV": 20,
+          "ES": 20
+        },
+        "pairBalanceSpread": 0,
+        "weightedPrimaryOpportunity": {
+          "RS": 47.5,
+          "AL": 47.5,
+          "EC": 47,
+          "AV": 46.5,
+          "ES": 47.5
+        },
+        "schemaValidity": true,
+        "auditValid": true,
+        "failures": []
+      }
+    ],
+    "phase2": [
+      {
+        "seed": "BANK_A",
+        "runs": [
+          {
+            "pattern": "RS-heavy",
+            "raw": {
+              "RS": 53.25,
+              "AL": 10.75,
+              "EC": 7,
+              "AV": 8.5,
+              "ES": 9
+            },
+            "normalized": {
+              "RS": 100,
+              "AL": 20.19,
+              "EC": 13.21,
+              "AV": 16.43,
+              "ES": 17.22
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "RS",
+                "score": 100
+              },
+              {
+                "rank": 2,
+                "code": "AL",
+                "score": 20.19
+              },
+              {
+                "rank": 3,
+                "code": "ES",
+                "score": 17.22
+              },
+              {
+                "rank": 4,
+                "code": "AV",
+                "score": 16.43
+              },
+              {
+                "rank": 5,
+                "code": "EC",
+                "score": 13.21
+              }
+            ],
+            "primary": "RS",
+            "secondary": "AL",
+            "hybridStatus": null
+          },
+          {
+            "pattern": "AL-heavy",
+            "raw": {
+              "RS": 8,
+              "AL": 53.25,
+              "EC": 9.75,
+              "AV": 9.75,
+              "ES": 7.75
+            },
+            "normalized": {
+              "RS": 15.02,
+              "AL": 100,
+              "EC": 18.4,
+              "AV": 18.84,
+              "ES": 14.83
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "AL",
+                "score": 100
+              },
+              {
+                "rank": 2,
+                "code": "AV",
+                "score": 18.84
+              },
+              {
+                "rank": 3,
+                "code": "EC",
+                "score": 18.4
+              },
+              {
+                "rank": 4,
+                "code": "RS",
+                "score": 15.02
+              },
+              {
+                "rank": 5,
+                "code": "ES",
+                "score": 14.83
+              }
+            ],
+            "primary": "AL",
+            "secondary": "AV",
+            "hybridStatus": null
+          },
+          {
+            "pattern": "EC-heavy",
+            "raw": {
+              "RS": 9.5,
+              "AL": 9,
+              "EC": 53,
+              "AV": 8.25,
+              "ES": 8.75
+            },
+            "normalized": {
+              "RS": 17.84,
+              "AL": 16.9,
+              "EC": 100,
+              "AV": 15.94,
+              "ES": 16.75
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "EC",
+                "score": 100
+              },
+              {
+                "rank": 2,
+                "code": "RS",
+                "score": 17.84
+              },
+              {
+                "rank": 3,
+                "code": "AL",
+                "score": 16.9
+              },
+              {
+                "rank": 4,
+                "code": "ES",
+                "score": 16.75
+              },
+              {
+                "rank": 5,
+                "code": "AV",
+                "score": 15.94
+              }
+            ],
+            "primary": "EC",
+            "secondary": "RS",
+            "hybridStatus": null
+          },
+          {
+            "pattern": "AV-heavy",
+            "raw": {
+              "RS": 6.5,
+              "AL": 7.75,
+              "EC": 13.75,
+              "AV": 51.75,
+              "ES": 8.75
+            },
+            "normalized": {
+              "RS": 12.21,
+              "AL": 14.55,
+              "EC": 25.94,
+              "AV": 100,
+              "ES": 16.75
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "AV",
+                "score": 100
+              },
+              {
+                "rank": 2,
+                "code": "EC",
+                "score": 25.94
+              },
+              {
+                "rank": 3,
+                "code": "ES",
+                "score": 16.75
+              },
+              {
+                "rank": 4,
+                "code": "AL",
+                "score": 14.55
+              },
+              {
+                "rank": 5,
+                "code": "RS",
+                "score": 12.21
+              }
+            ],
+            "primary": "AV",
+            "secondary": "EC",
+            "hybridStatus": null
+          },
+          {
+            "pattern": "ES-heavy",
+            "raw": {
+              "RS": 9.5,
+              "AL": 11.25,
+              "EC": 6.5,
+              "AV": 9,
+              "ES": 52.25
+            },
+            "normalized": {
+              "RS": 17.84,
+              "AL": 21.13,
+              "EC": 12.26,
+              "AV": 17.39,
+              "ES": 100
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "ES",
+                "score": 100
+              },
+              {
+                "rank": 2,
+                "code": "AL",
+                "score": 21.13
+              },
+              {
+                "rank": 3,
+                "code": "RS",
+                "score": 17.84
+              },
+              {
+                "rank": 4,
+                "code": "AV",
+                "score": 17.39
+              },
+              {
+                "rank": 5,
+                "code": "EC",
+                "score": 12.26
+              }
+            ],
+            "primary": "ES",
+            "secondary": "AL",
+            "hybridStatus": null
+          },
+          {
+            "pattern": "balanced-mixed",
+            "raw": {
+              "RS": 22,
+              "AL": 15,
+              "EC": 21.5,
+              "AV": 12.5,
+              "ES": 17.5
+            },
+            "normalized": {
+              "RS": 41.31,
+              "AL": 28.17,
+              "EC": 40.57,
+              "AV": 24.15,
+              "ES": 33.49
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "RS",
+                "score": 41.31
+              },
+              {
+                "rank": 2,
+                "code": "EC",
+                "score": 40.57
+              },
+              {
+                "rank": 3,
+                "code": "ES",
+                "score": 33.49
+              },
+              {
+                "rank": 4,
+                "code": "AL",
+                "score": 28.17
+              },
+              {
+                "rank": 5,
+                "code": "AV",
+                "score": 24.15
+              }
+            ],
+            "primary": "RS",
+            "secondary": "EC",
+            "hybridStatus": "RS-EC"
+          }
+        ]
+      },
+      {
+        "seed": "BANK_B",
+        "runs": [
+          {
+            "pattern": "RS-heavy",
+            "raw": {
+              "RS": 53.25,
+              "AL": 10.5,
+              "EC": 6.75,
+              "AV": 13,
+              "ES": 5
+            },
+            "normalized": {
+              "RS": 100,
+              "AL": 19.72,
+              "EC": 13.24,
+              "AV": 24.64,
+              "ES": 9.39
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "RS",
+                "score": 100
+              },
+              {
+                "rank": 2,
+                "code": "AV",
+                "score": 24.64
+              },
+              {
+                "rank": 3,
+                "code": "AL",
+                "score": 19.72
+              },
+              {
+                "rank": 4,
+                "code": "EC",
+                "score": 13.24
+              },
+              {
+                "rank": 5,
+                "code": "ES",
+                "score": 9.39
+              }
+            ],
+            "primary": "RS",
+            "secondary": "AV",
+            "hybridStatus": null
+          },
+          {
+            "pattern": "AL-heavy",
+            "raw": {
+              "RS": 5.25,
+              "AL": 53.25,
+              "EC": 8.25,
+              "AV": 12,
+              "ES": 9.75
+            },
+            "normalized": {
+              "RS": 9.86,
+              "AL": 100,
+              "EC": 16.18,
+              "AV": 22.75,
+              "ES": 18.31
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "AL",
+                "score": 100
+              },
+              {
+                "rank": 2,
+                "code": "AV",
+                "score": 22.75
+              },
+              {
+                "rank": 3,
+                "code": "ES",
+                "score": 18.31
+              },
+              {
+                "rank": 4,
+                "code": "EC",
+                "score": 16.18
+              },
+              {
+                "rank": 5,
+                "code": "RS",
+                "score": 9.86
+              }
+            ],
+            "primary": "AL",
+            "secondary": "AV",
+            "hybridStatus": null
+          },
+          {
+            "pattern": "EC-heavy",
+            "raw": {
+              "RS": 9.25,
+              "AL": 12.5,
+              "EC": 51,
+              "AV": 5.5,
+              "ES": 10.25
+            },
+            "normalized": {
+              "RS": 17.37,
+              "AL": 23.47,
+              "EC": 100,
+              "AV": 10.43,
+              "ES": 19.25
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "EC",
+                "score": 100
+              },
+              {
+                "rank": 2,
+                "code": "AL",
+                "score": 23.47
+              },
+              {
+                "rank": 3,
+                "code": "ES",
+                "score": 19.25
+              },
+              {
+                "rank": 4,
+                "code": "RS",
+                "score": 17.37
+              },
+              {
+                "rank": 5,
+                "code": "AV",
+                "score": 10.43
+              }
+            ],
+            "primary": "EC",
+            "secondary": "AL",
+            "hybridStatus": null
+          },
+          {
+            "pattern": "AV-heavy",
+            "raw": {
+              "RS": 3.25,
+              "AL": 13.75,
+              "EC": 8.5,
+              "AV": 52.75,
+              "ES": 10.25
+            },
+            "normalized": {
+              "RS": 6.1,
+              "AL": 25.82,
+              "EC": 16.67,
+              "AV": 100,
+              "ES": 19.25
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "AV",
+                "score": 100
+              },
+              {
+                "rank": 2,
+                "code": "AL",
+                "score": 25.82
+              },
+              {
+                "rank": 3,
+                "code": "ES",
+                "score": 19.25
+              },
+              {
+                "rank": 4,
+                "code": "EC",
+                "score": 16.67
+              },
+              {
+                "rank": 5,
+                "code": "RS",
+                "score": 6.1
+              }
+            ],
+            "primary": "AV",
+            "secondary": "AL",
+            "hybridStatus": null
+          },
+          {
+            "pattern": "ES-heavy",
+            "raw": {
+              "RS": 9,
+              "AL": 10,
+              "EC": 8.25,
+              "AV": 8,
+              "ES": 53.25
+            },
+            "normalized": {
+              "RS": 16.9,
+              "AL": 18.78,
+              "EC": 16.18,
+              "AV": 15.17,
+              "ES": 100
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "ES",
+                "score": 100
+              },
+              {
+                "rank": 2,
+                "code": "AL",
+                "score": 18.78
+              },
+              {
+                "rank": 3,
+                "code": "RS",
+                "score": 16.9
+              },
+              {
+                "rank": 4,
+                "code": "EC",
+                "score": 16.18
+              },
+              {
+                "rank": 5,
+                "code": "AV",
+                "score": 15.17
+              }
+            ],
+            "primary": "ES",
+            "secondary": "AL",
+            "hybridStatus": null
+          },
+          {
+            "pattern": "balanced-mixed",
+            "raw": {
+              "RS": 18.75,
+              "AL": 18,
+              "EC": 14.25,
+              "AV": 12.5,
+              "ES": 25
+            },
+            "normalized": {
+              "RS": 35.21,
+              "AL": 33.8,
+              "EC": 27.94,
+              "AV": 23.7,
+              "ES": 46.95
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "ES",
+                "score": 46.95
+              },
+              {
+                "rank": 2,
+                "code": "RS",
+                "score": 35.21
+              },
+              {
+                "rank": 3,
+                "code": "AL",
+                "score": 33.8
+              },
+              {
+                "rank": 4,
+                "code": "EC",
+                "score": 27.94
+              },
+              {
+                "rank": 5,
+                "code": "AV",
+                "score": 23.7
+              }
+            ],
+            "primary": "ES",
+            "secondary": "RS",
+            "hybridStatus": null
+          }
+        ]
+      },
+      {
+        "seed": "BANK_C",
+        "runs": [
+          {
+            "pattern": "RS-heavy",
+            "raw": {
+              "RS": 49.75,
+              "AL": 12.25,
+              "EC": 10.25,
+              "AV": 7.75,
+              "ES": 8.5
+            },
+            "normalized": {
+              "RS": 100,
+              "AL": 23,
+              "EC": 19.34,
+              "AV": 15.05,
+              "ES": 15.96
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "RS",
+                "score": 100
+              },
+              {
+                "rank": 2,
+                "code": "AL",
+                "score": 23
+              },
+              {
+                "rank": 3,
+                "code": "EC",
+                "score": 19.34
+              },
+              {
+                "rank": 4,
+                "code": "ES",
+                "score": 15.96
+              },
+              {
+                "rank": 5,
+                "code": "AV",
+                "score": 15.05
+              }
+            ],
+            "primary": "RS",
+            "secondary": "AL",
+            "hybridStatus": null
+          },
+          {
+            "pattern": "AL-heavy",
+            "raw": {
+              "RS": 3,
+              "AL": 53.25,
+              "EC": 9.75,
+              "AV": 11.5,
+              "ES": 11
+            },
+            "normalized": {
+              "RS": 6.03,
+              "AL": 100,
+              "EC": 18.4,
+              "AV": 22.33,
+              "ES": 20.66
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "AL",
+                "score": 100
+              },
+              {
+                "rank": 2,
+                "code": "AV",
+                "score": 22.33
+              },
+              {
+                "rank": 3,
+                "code": "ES",
+                "score": 20.66
+              },
+              {
+                "rank": 4,
+                "code": "EC",
+                "score": 18.4
+              },
+              {
+                "rank": 5,
+                "code": "RS",
+                "score": 6.03
+              }
+            ],
+            "primary": "AL",
+            "secondary": "AV",
+            "hybridStatus": null
+          },
+          {
+            "pattern": "EC-heavy",
+            "raw": {
+              "RS": 6.25,
+              "AL": 7,
+              "EC": 53,
+              "AV": 13.5,
+              "ES": 8.75
+            },
+            "normalized": {
+              "RS": 12.56,
+              "AL": 13.15,
+              "EC": 100,
+              "AV": 26.21,
+              "ES": 16.43
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "EC",
+                "score": 100
+              },
+              {
+                "rank": 2,
+                "code": "AV",
+                "score": 26.21
+              },
+              {
+                "rank": 3,
+                "code": "ES",
+                "score": 16.43
+              },
+              {
+                "rank": 4,
+                "code": "AL",
+                "score": 13.15
+              },
+              {
+                "rank": 5,
+                "code": "RS",
+                "score": 12.56
+              }
+            ],
+            "primary": "EC",
+            "secondary": "AV",
+            "hybridStatus": null
+          },
+          {
+            "pattern": "AV-heavy",
+            "raw": {
+              "RS": 13,
+              "AL": 11,
+              "EC": 5.5,
+              "AV": 51.5,
+              "ES": 7.5
+            },
+            "normalized": {
+              "RS": 26.13,
+              "AL": 20.66,
+              "EC": 10.38,
+              "AV": 100,
+              "ES": 14.08
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "AV",
+                "score": 100
+              },
+              {
+                "rank": 2,
+                "code": "RS",
+                "score": 26.13
+              },
+              {
+                "rank": 3,
+                "code": "AL",
+                "score": 20.66
+              },
+              {
+                "rank": 4,
+                "code": "ES",
+                "score": 14.08
+              },
+              {
+                "rank": 5,
+                "code": "EC",
+                "score": 10.38
+              }
+            ],
+            "primary": "AV",
+            "secondary": "RS",
+            "hybridStatus": null
+          },
+          {
+            "pattern": "ES-heavy",
+            "raw": {
+              "RS": 9.75,
+              "AL": 12,
+              "EC": 4.75,
+              "AV": 8.75,
+              "ES": 53.25
+            },
+            "normalized": {
+              "RS": 19.6,
+              "AL": 22.54,
+              "EC": 8.96,
+              "AV": 16.99,
+              "ES": 100
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "ES",
+                "score": 100
+              },
+              {
+                "rank": 2,
+                "code": "AL",
+                "score": 22.54
+              },
+              {
+                "rank": 3,
+                "code": "RS",
+                "score": 19.6
+              },
+              {
+                "rank": 4,
+                "code": "AV",
+                "score": 16.99
+              },
+              {
+                "rank": 5,
+                "code": "EC",
+                "score": 8.96
+              }
+            ],
+            "primary": "ES",
+            "secondary": "AL",
+            "hybridStatus": null
+          },
+          {
+            "pattern": "balanced-mixed",
+            "raw": {
+              "RS": 23.25,
+              "AL": 13.5,
+              "EC": 19.25,
+              "AV": 22,
+              "ES": 10.5
+            },
+            "normalized": {
+              "RS": 46.73,
+              "AL": 25.35,
+              "EC": 36.32,
+              "AV": 42.72,
+              "ES": 19.72
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "RS",
+                "score": 46.73
+              },
+              {
+                "rank": 2,
+                "code": "AV",
+                "score": 42.72
+              },
+              {
+                "rank": 3,
+                "code": "EC",
+                "score": 36.32
+              },
+              {
+                "rank": 4,
+                "code": "AL",
+                "score": 25.35
+              },
+              {
+                "rank": 5,
+                "code": "ES",
+                "score": 19.72
+              }
+            ],
+            "primary": "RS",
+            "secondary": "AV",
+            "hybridStatus": "RS-AV"
+          }
+        ]
+      }
+    ],
+    "phase3": [
+      {
+        "profile": "FIXED_PROFILE_ALPHA",
+        "results": {
+          "BANK_A": {
+            "raw": {
+              "RS": 41.5,
+              "AL": 5.75,
+              "EC": 27.5,
+              "AV": 4.75,
+              "ES": 9
+            },
+            "normalized": {
+              "RS": 77.93,
+              "AL": 10.8,
+              "EC": 51.89,
+              "AV": 9.18,
+              "ES": 17.22
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "RS",
+                "score": 77.93
+              },
+              {
+                "rank": 2,
+                "code": "EC",
+                "score": 51.89
+              },
+              {
+                "rank": 3,
+                "code": "ES",
+                "score": 17.22
+              },
+              {
+                "rank": 4,
+                "code": "AL",
+                "score": 10.8
+              },
+              {
+                "rank": 5,
+                "code": "AV",
+                "score": 9.18
+              }
+            ],
+            "primary": "RS",
+            "secondary": "EC",
+            "hybridStatus": null
+          },
+          "BANK_B": {
+            "raw": {
+              "RS": 43.75,
+              "AL": 7,
+              "EC": 27.25,
+              "AV": 6.25,
+              "ES": 4.25
+            },
+            "normalized": {
+              "RS": 82.16,
+              "AL": 13.15,
+              "EC": 53.43,
+              "AV": 11.85,
+              "ES": 7.98
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "RS",
+                "score": 82.16
+              },
+              {
+                "rank": 2,
+                "code": "EC",
+                "score": 53.43
+              },
+              {
+                "rank": 3,
+                "code": "AL",
+                "score": 13.15
+              },
+              {
+                "rank": 4,
+                "code": "AV",
+                "score": 11.85
+              },
+              {
+                "rank": 5,
+                "code": "ES",
+                "score": 7.98
+              }
+            ],
+            "primary": "RS",
+            "secondary": "EC",
+            "hybridStatus": null
+          },
+          "BANK_C": {
+            "raw": {
+              "RS": 42.25,
+              "AL": 8.25,
+              "EC": 27.25,
+              "AV": 4.75,
+              "ES": 6
+            },
+            "normalized": {
+              "RS": 84.92,
+              "AL": 15.49,
+              "EC": 51.42,
+              "AV": 9.22,
+              "ES": 11.27
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "RS",
+                "score": 84.92
+              },
+              {
+                "rank": 2,
+                "code": "EC",
+                "score": 51.42
+              },
+              {
+                "rank": 3,
+                "code": "AL",
+                "score": 15.49
+              },
+              {
+                "rank": 4,
+                "code": "ES",
+                "score": 11.27
+              },
+              {
+                "rank": 5,
+                "code": "AV",
+                "score": 9.22
+              }
+            ],
+            "primary": "RS",
+            "secondary": "EC",
+            "hybridStatus": null
+          }
+        },
+        "rankingStable": true,
+        "deltasVsBankA": {
+          "BANK_B": {
+            "RS": 4.23,
+            "AL": 2.35,
+            "EC": 1.54,
+            "AV": 2.67,
+            "ES": -9.24
+          },
+          "BANK_C": {
+            "RS": 6.99,
+            "AL": 4.69,
+            "EC": -0.47,
+            "AV": 0.04,
+            "ES": -5.95
+          }
+        }
+      },
+      {
+        "profile": "FIXED_PROFILE_BETA",
+        "results": {
+          "BANK_A": {
+            "raw": {
+              "RS": 3.5,
+              "AL": 23.25,
+              "EC": 7.25,
+              "AV": 45.75,
+              "ES": 8.75
+            },
+            "normalized": {
+              "RS": 6.57,
+              "AL": 43.66,
+              "EC": 13.68,
+              "AV": 88.41,
+              "ES": 16.75
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "AV",
+                "score": 88.41
+              },
+              {
+                "rank": 2,
+                "code": "AL",
+                "score": 43.66
+              },
+              {
+                "rank": 3,
+                "code": "ES",
+                "score": 16.75
+              },
+              {
+                "rank": 4,
+                "code": "EC",
+                "score": 13.68
+              },
+              {
+                "rank": 5,
+                "code": "RS",
+                "score": 6.57
+              }
+            ],
+            "primary": "AV",
+            "secondary": "AL",
+            "hybridStatus": null
+          },
+          "BANK_B": {
+            "raw": {
+              "RS": 2.25,
+              "AL": 18.25,
+              "EC": 8.5,
+              "AV": 50.5,
+              "ES": 9
+            },
+            "normalized": {
+              "RS": 4.23,
+              "AL": 34.27,
+              "EC": 16.67,
+              "AV": 95.73,
+              "ES": 16.9
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "AV",
+                "score": 95.73
+              },
+              {
+                "rank": 2,
+                "code": "AL",
+                "score": 34.27
+              },
+              {
+                "rank": 3,
+                "code": "ES",
+                "score": 16.9
+              },
+              {
+                "rank": 4,
+                "code": "EC",
+                "score": 16.67
+              },
+              {
+                "rank": 5,
+                "code": "RS",
+                "score": 4.23
+              }
+            ],
+            "primary": "AV",
+            "secondary": "AL",
+            "hybridStatus": null
+          },
+          "BANK_C": {
+            "raw": {
+              "RS": 3,
+              "AL": 33,
+              "EC": 5.75,
+              "AV": 38,
+              "ES": 8.75
+            },
+            "normalized": {
+              "RS": 6.03,
+              "AL": 61.97,
+              "EC": 10.85,
+              "AV": 73.79,
+              "ES": 16.43
+            },
+            "rankOrder": [
+              {
+                "rank": 1,
+                "code": "AV",
+                "score": 73.79
+              },
+              {
+                "rank": 2,
+                "code": "AL",
+                "score": 61.97
+              },
+              {
+                "rank": 3,
+                "code": "ES",
+                "score": 16.43
+              },
+              {
+                "rank": 4,
+                "code": "EC",
+                "score": 10.85
+              },
+              {
+                "rank": 5,
+                "code": "RS",
+                "score": 6.03
+              }
+            ],
+            "primary": "AV",
+            "secondary": "AL",
+            "hybridStatus": null
+          }
+        },
+        "rankingStable": true,
+        "deltasVsBankA": {
+          "BANK_B": {
+            "RS": -2.34,
+            "AL": -9.39,
+            "EC": 2.99,
+            "AV": 7.32,
+            "ES": 0.15
+          },
+          "BANK_C": {
+            "RS": -0.54,
+            "AL": 18.31,
+            "EC": -2.83,
+            "AV": -14.62,
+            "ES": -0.32
+          }
+        }
+      }
+    ],
+    "phase4": [
+      {
+        "seed": "BANK_A",
+        "repeatedPromptStarts": [
+          {
+            "start": "in a normal week",
+            "count": 4
+          },
+          {
+            "start": "which statement best matches",
+            "count": 3
+          },
+          {
+            "start": "your partner asks for",
+            "count": 3
+          },
+          {
+            "start": "which relationship rhythm feels",
+            "count": 2
+          },
+          {
+            "start": "in day-to-day connection, which",
+            "count": 2
+          }
+        ],
+        "repeatedOptionStarts": [
+          {
+            "start": "talk it through",
+            "count": 12
+          },
+          {
+            "start": "ask for reassurance",
+            "count": 11
+          },
+          {
+            "start": "focus on consistent",
+            "count": 11
+          },
+          {
+            "start": "shift energy through",
+            "count": 11
+          },
+          {
+            "start": "protect personal pace",
+            "count": 11
+          },
+          {
+            "start": "look for concrete",
+            "count": 9
+          },
+          {
+            "start": "create a new",
+            "count": 9
+          },
+          {
+            "start": "move closer and",
+            "count": 9
+          }
+        ],
+        "awkwardFragments": [],
+        "healthyLoadedOptionRatio": 0,
+        "desirabilityWarnings": []
+      },
+      {
+        "seed": "BANK_B",
+        "repeatedPromptStarts": [
+          {
+            "start": "when tension spikes, your",
+            "count": 4
+          },
+          {
+            "start": "a meaningful decision comes",
+            "count": 3
+          },
+          {
+            "start": "which relationship rhythm feels",
+            "count": 2
+          },
+          {
+            "start": "when love feels most",
+            "count": 2
+          },
+          {
+            "start": "when things are steady,",
+            "count": 2
+          }
+        ],
+        "repeatedOptionStarts": [
+          {
+            "start": "focus on consistent",
+            "count": 12
+          },
+          {
+            "start": "create a new",
+            "count": 11
+          },
+          {
+            "start": "protect personal pace",
+            "count": 11
+          },
+          {
+            "start": "ask for reassurance",
+            "count": 10
+          },
+          {
+            "start": "start an honest",
+            "count": 10
+          },
+          {
+            "start": "move closer and",
+            "count": 10
+          },
+          {
+            "start": "talk it through",
+            "count": 10
+          },
+          {
+            "start": "shift energy through",
+            "count": 9
+          }
+        ],
+        "awkwardFragments": [],
+        "healthyLoadedOptionRatio": 0,
+        "desirabilityWarnings": []
+      },
+      {
+        "seed": "BANK_C",
+        "repeatedPromptStarts": [
+          {
+            "start": "in a normal week",
+            "count": 4
+          },
+          {
+            "start": "your partner asks for",
+            "count": 3
+          },
+          {
+            "start": "when tension spikes, your",
+            "count": 3
+          },
+          {
+            "start": "when love feels most",
+            "count": 2
+          },
+          {
+            "start": "which relationship rhythm feels",
+            "count": 2
+          }
+        ],
+        "repeatedOptionStarts": [
+          {
+            "start": "ask for reassurance",
+            "count": 14
+          },
+          {
+            "start": "shift energy through",
+            "count": 13
+          },
+          {
+            "start": "look for concrete",
+            "count": 13
+          },
+          {
+            "start": "talk it through",
+            "count": 13
+          },
+          {
+            "start": "protect personal pace",
+            "count": 11
+          },
+          {
+            "start": "create space to",
+            "count": 9
+          },
+          {
+            "start": "start an honest",
+            "count": 7
+          },
+          {
+            "start": "create a new",
+            "count": 7
+          }
+        ],
+        "awkwardFragments": [],
+        "healthyLoadedOptionRatio": 0,
+        "desirabilityWarnings": []
+      }
+    ],
+    "recommendation": "generator needs wording-rule refinement before promotion"
+  },
+  "beforeCategories": {
+    "promptRepetition": [
+      "in a normal week (4)",
+      "which statement best matches (3)",
+      "your partner asks for (3)",
+      "which relationship rhythm feels (2)",
+      "in day-to-day connection, which (2)",
+      "when tension spikes, your (4)",
+      "a meaningful decision comes (3)",
+      "when love feels most (2)",
+      "when things are steady, (2)",
+      "when tension spikes, your (3)"
+    ],
+    "optionRepetition": [
+      "talk it through (12)",
+      "ask for reassurance (11)",
+      "focus on consistent (11)",
+      "shift energy through (11)",
+      "protect personal pace (11)",
+      "look for concrete (9)",
+      "create a new (9)",
+      "move closer and (9)",
+      "focus on consistent (12)",
+      "create a new (11)",
+      "ask for reassurance (10)",
+      "start an honest (10)",
+      "move closer and (10)",
+      "talk it through (10)",
+      "shift energy through (9)",
+      "ask for reassurance (14)",
+      "shift energy through (13)",
+      "look for concrete (13)",
+      "talk it through (13)",
+      "create space to (9)",
+      "start an honest (7)",
+      "create a new (7)"
+    ],
+    "templatedPhrasing": [
+      "High stem recycling in option openings (10–14 repeats)",
+      "Narrow prompt frame set across BH/SC/ST classes"
+    ],
+    "desirabilityImbalance": [
+      "No explicit desirability warnings, but parity guardrails were too shallow"
+    ],
+    "weakBehavioralSpecificity": [
+      "Options leaned on generic abstractions vs concrete interaction behaviors"
+    ],
+    "awkwardRoboticPhrasing": [
+      "No hard awkward fragments, but recurring mechanical cadence"
+    ]
+  },
+  "phase1": [
+    {
+      "seed": "BANK_A",
+      "bankFile": "artifacts/love-banks/bank_a.generated.json",
+      "auditFile": "artifacts/love-banks/bank_a.audit.json",
+      "classCounts": {
+        "ID": 5,
+        "BH": 6,
+        "SC": 6,
+        "ST": 6,
+        "DS": 2
+      },
+      "primaryCounts": {
+        "RS": 20,
+        "AL": 20,
+        "EC": 20,
+        "AV": 20,
+        "ES": 20
+      },
+      "pairBalanceSpread": 0,
+      "weightedPrimaryOpportunity": {
+        "RS": 47.5,
+        "AL": 47.5,
+        "EC": 47,
+        "AV": 46.5,
+        "ES": 47.5
+      },
+      "schemaValidity": true,
+      "auditValid": true,
+      "failures": []
+    },
+    {
+      "seed": "BANK_B",
+      "bankFile": "artifacts/love-banks/bank_b.generated.json",
+      "auditFile": "artifacts/love-banks/bank_b.audit.json",
+      "classCounts": {
+        "ID": 5,
+        "BH": 6,
+        "SC": 6,
+        "ST": 6,
+        "DS": 2
+      },
+      "primaryCounts": {
+        "RS": 20,
+        "AL": 20,
+        "EC": 20,
+        "AV": 20,
+        "ES": 20
+      },
+      "pairBalanceSpread": 2,
+      "weightedPrimaryOpportunity": {
+        "RS": 47.5,
+        "AL": 47.5,
+        "EC": 47,
+        "AV": 46.5,
+        "ES": 47.5
+      },
+      "schemaValidity": true,
+      "auditValid": true,
+      "failures": []
+    },
+    {
+      "seed": "BANK_C",
+      "bankFile": "artifacts/love-banks/bank_c.generated.json",
+      "auditFile": "artifacts/love-banks/bank_c.audit.json",
+      "classCounts": {
+        "ID": 5,
+        "BH": 6,
+        "SC": 6,
+        "ST": 6,
+        "DS": 2
+      },
+      "primaryCounts": {
+        "RS": 20,
+        "AL": 20,
+        "EC": 20,
+        "AV": 20,
+        "ES": 20
+      },
+      "pairBalanceSpread": 0,
+      "weightedPrimaryOpportunity": {
+        "RS": 47.5,
+        "AL": 47.5,
+        "EC": 47,
+        "AV": 46.5,
+        "ES": 47.5
+      },
+      "schemaValidity": true,
+      "auditValid": true,
+      "failures": []
+    }
+  ],
+  "phase2": [
+    {
+      "seed": "BANK_A",
+      "runs": [
+        {
+          "pattern": "RS-heavy",
+          "raw": {
+            "RS": 53.25,
+            "AL": 10.75,
+            "EC": 7,
+            "AV": 8.5,
+            "ES": 9
+          },
+          "normalized": {
+            "RS": 100,
+            "AL": 20.19,
+            "EC": 13.15,
+            "AV": 15.96,
+            "ES": 16.9
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "RS",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "AL",
+              "score": 20.19
+            },
+            {
+              "rank": 3,
+              "code": "ES",
+              "score": 16.9
+            },
+            {
+              "rank": 4,
+              "code": "AV",
+              "score": 15.96
+            },
+            {
+              "rank": 5,
+              "code": "EC",
+              "score": 13.15
+            }
+          ],
+          "primary": "RS",
+          "secondary": "AL",
+          "hybridStatus": null
+        },
+        {
+          "pattern": "AL-heavy",
+          "raw": {
+            "RS": 8,
+            "AL": 53.25,
+            "EC": 9.75,
+            "AV": 9.75,
+            "ES": 7.75
+          },
+          "normalized": {
+            "RS": 15.02,
+            "AL": 100,
+            "EC": 18.31,
+            "AV": 18.31,
+            "ES": 14.55
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "AL",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "EC",
+              "score": 18.31
+            },
+            {
+              "rank": 3,
+              "code": "AV",
+              "score": 18.31
+            },
+            {
+              "rank": 4,
+              "code": "RS",
+              "score": 15.02
+            },
+            {
+              "rank": 5,
+              "code": "ES",
+              "score": 14.55
+            }
+          ],
+          "primary": "AL",
+          "secondary": "EC",
+          "hybridStatus": null
+        },
+        {
+          "pattern": "EC-heavy",
+          "raw": {
+            "RS": 9.5,
+            "AL": 9,
+            "EC": 53,
+            "AV": 8.25,
+            "ES": 8.75
+          },
+          "normalized": {
+            "RS": 17.92,
+            "AL": 16.98,
+            "EC": 100,
+            "AV": 15.57,
+            "ES": 16.51
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "EC",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "RS",
+              "score": 17.92
+            },
+            {
+              "rank": 3,
+              "code": "AL",
+              "score": 16.98
+            },
+            {
+              "rank": 4,
+              "code": "ES",
+              "score": 16.51
+            },
+            {
+              "rank": 5,
+              "code": "AV",
+              "score": 15.57
+            }
+          ],
+          "primary": "EC",
+          "secondary": "RS",
+          "hybridStatus": null
+        },
+        {
+          "pattern": "AV-heavy",
+          "raw": {
+            "RS": 6.5,
+            "AL": 7.75,
+            "EC": 13.75,
+            "AV": 51.75,
+            "ES": 8.75
+          },
+          "normalized": {
+            "RS": 12.56,
+            "AL": 14.98,
+            "EC": 26.57,
+            "AV": 100,
+            "ES": 16.91
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "AV",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "EC",
+              "score": 26.57
+            },
+            {
+              "rank": 3,
+              "code": "ES",
+              "score": 16.91
+            },
+            {
+              "rank": 4,
+              "code": "AL",
+              "score": 14.98
+            },
+            {
+              "rank": 5,
+              "code": "RS",
+              "score": 12.56
+            }
+          ],
+          "primary": "AV",
+          "secondary": "EC",
+          "hybridStatus": null
+        },
+        {
+          "pattern": "ES-heavy",
+          "raw": {
+            "RS": 9.5,
+            "AL": 11.25,
+            "EC": 6.5,
+            "AV": 9,
+            "ES": 52.25
+          },
+          "normalized": {
+            "RS": 18.18,
+            "AL": 21.53,
+            "EC": 12.44,
+            "AV": 17.22,
+            "ES": 100
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "ES",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "AL",
+              "score": 21.53
+            },
+            {
+              "rank": 3,
+              "code": "RS",
+              "score": 18.18
+            },
+            {
+              "rank": 4,
+              "code": "AV",
+              "score": 17.22
+            },
+            {
+              "rank": 5,
+              "code": "EC",
+              "score": 12.44
+            }
+          ],
+          "primary": "ES",
+          "secondary": "AL",
+          "hybridStatus": null
+        },
+        {
+          "pattern": "balanced-mixed",
+          "raw": {
+            "RS": 36.5,
+            "AL": 4.75,
+            "EC": 32.5,
+            "AV": 3.25,
+            "ES": 11.5
+          },
+          "normalized": {
+            "RS": 100,
+            "AL": 13.01,
+            "EC": 89.04,
+            "AV": 8.9,
+            "ES": 31.51
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "RS",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "EC",
+              "score": 89.04
+            },
+            {
+              "rank": 3,
+              "code": "ES",
+              "score": 31.51
+            },
+            {
+              "rank": 4,
+              "code": "AL",
+              "score": 13.01
+            },
+            {
+              "rank": 5,
+              "code": "AV",
+              "score": 8.9
+            }
+          ],
+          "primary": "RS",
+          "secondary": "EC",
+          "hybridStatus": null
+        }
+      ]
+    },
+    {
+      "seed": "BANK_B",
+      "runs": [
+        {
+          "pattern": "RS-heavy",
+          "raw": {
+            "RS": 53.25,
+            "AL": 10.5,
+            "EC": 6.75,
+            "AV": 13,
+            "ES": 5
+          },
+          "normalized": {
+            "RS": 100,
+            "AL": 19.72,
+            "EC": 12.68,
+            "AV": 24.41,
+            "ES": 9.39
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "RS",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "AV",
+              "score": 24.41
+            },
+            {
+              "rank": 3,
+              "code": "AL",
+              "score": 19.72
+            },
+            {
+              "rank": 4,
+              "code": "EC",
+              "score": 12.68
+            },
+            {
+              "rank": 5,
+              "code": "ES",
+              "score": 9.39
+            }
+          ],
+          "primary": "RS",
+          "secondary": "AV",
+          "hybridStatus": null
+        },
+        {
+          "pattern": "AL-heavy",
+          "raw": {
+            "RS": 5.25,
+            "AL": 53.25,
+            "EC": 8.25,
+            "AV": 12,
+            "ES": 9.75
+          },
+          "normalized": {
+            "RS": 9.86,
+            "AL": 100,
+            "EC": 15.49,
+            "AV": 22.54,
+            "ES": 18.31
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "AL",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "AV",
+              "score": 22.54
+            },
+            {
+              "rank": 3,
+              "code": "ES",
+              "score": 18.31
+            },
+            {
+              "rank": 4,
+              "code": "EC",
+              "score": 15.49
+            },
+            {
+              "rank": 5,
+              "code": "RS",
+              "score": 9.86
+            }
+          ],
+          "primary": "AL",
+          "secondary": "AV",
+          "hybridStatus": null
+        },
+        {
+          "pattern": "EC-heavy",
+          "raw": {
+            "RS": 9.25,
+            "AL": 12.5,
+            "EC": 51,
+            "AV": 5.5,
+            "ES": 10.25
+          },
+          "normalized": {
+            "RS": 18.14,
+            "AL": 24.51,
+            "EC": 100,
+            "AV": 10.78,
+            "ES": 20.1
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "EC",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "AL",
+              "score": 24.51
+            },
+            {
+              "rank": 3,
+              "code": "ES",
+              "score": 20.1
+            },
+            {
+              "rank": 4,
+              "code": "RS",
+              "score": 18.14
+            },
+            {
+              "rank": 5,
+              "code": "AV",
+              "score": 10.78
+            }
+          ],
+          "primary": "EC",
+          "secondary": "AL",
+          "hybridStatus": null
+        },
+        {
+          "pattern": "AV-heavy",
+          "raw": {
+            "RS": 3.25,
+            "AL": 13.75,
+            "EC": 8.5,
+            "AV": 52.75,
+            "ES": 10.25
+          },
+          "normalized": {
+            "RS": 6.16,
+            "AL": 26.07,
+            "EC": 16.11,
+            "AV": 100,
+            "ES": 19.43
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "AV",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "AL",
+              "score": 26.07
+            },
+            {
+              "rank": 3,
+              "code": "ES",
+              "score": 19.43
+            },
+            {
+              "rank": 4,
+              "code": "EC",
+              "score": 16.11
+            },
+            {
+              "rank": 5,
+              "code": "RS",
+              "score": 6.16
+            }
+          ],
+          "primary": "AV",
+          "secondary": "AL",
+          "hybridStatus": null
+        },
+        {
+          "pattern": "ES-heavy",
+          "raw": {
+            "RS": 9,
+            "AL": 10,
+            "EC": 8.25,
+            "AV": 8,
+            "ES": 53.25
+          },
+          "normalized": {
+            "RS": 16.9,
+            "AL": 18.78,
+            "EC": 15.49,
+            "AV": 15.02,
+            "ES": 100
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "ES",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "AL",
+              "score": 18.78
+            },
+            {
+              "rank": 3,
+              "code": "RS",
+              "score": 16.9
+            },
+            {
+              "rank": 4,
+              "code": "EC",
+              "score": 15.49
+            },
+            {
+              "rank": 5,
+              "code": "AV",
+              "score": 15.02
+            }
+          ],
+          "primary": "ES",
+          "secondary": "AL",
+          "hybridStatus": null
+        },
+        {
+          "pattern": "balanced-mixed",
+          "raw": {
+            "RS": 43.75,
+            "AL": 7,
+            "EC": 27.25,
+            "AV": 6.25,
+            "ES": 4.25
+          },
+          "normalized": {
+            "RS": 100,
+            "AL": 16,
+            "EC": 62.29,
+            "AV": 14.29,
+            "ES": 9.71
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "RS",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "EC",
+              "score": 62.29
+            },
+            {
+              "rank": 3,
+              "code": "AL",
+              "score": 16
+            },
+            {
+              "rank": 4,
+              "code": "AV",
+              "score": 14.29
+            },
+            {
+              "rank": 5,
+              "code": "ES",
+              "score": 9.71
+            }
+          ],
+          "primary": "RS",
+          "secondary": "EC",
+          "hybridStatus": null
+        }
+      ]
+    },
+    {
+      "seed": "BANK_C",
+      "runs": [
+        {
+          "pattern": "RS-heavy",
+          "raw": {
+            "RS": 49.75,
+            "AL": 12.25,
+            "EC": 10.25,
+            "AV": 7.75,
+            "ES": 8.5
+          },
+          "normalized": {
+            "RS": 100,
+            "AL": 24.62,
+            "EC": 20.6,
+            "AV": 15.58,
+            "ES": 17.09
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "RS",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "AL",
+              "score": 24.62
+            },
+            {
+              "rank": 3,
+              "code": "EC",
+              "score": 20.6
+            },
+            {
+              "rank": 4,
+              "code": "ES",
+              "score": 17.09
+            },
+            {
+              "rank": 5,
+              "code": "AV",
+              "score": 15.58
+            }
+          ],
+          "primary": "RS",
+          "secondary": "AL",
+          "hybridStatus": null
+        },
+        {
+          "pattern": "AL-heavy",
+          "raw": {
+            "RS": 3,
+            "AL": 53.25,
+            "EC": 9.75,
+            "AV": 11.5,
+            "ES": 11
+          },
+          "normalized": {
+            "RS": 5.63,
+            "AL": 100,
+            "EC": 18.31,
+            "AV": 21.6,
+            "ES": 20.66
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "AL",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "AV",
+              "score": 21.6
+            },
+            {
+              "rank": 3,
+              "code": "ES",
+              "score": 20.66
+            },
+            {
+              "rank": 4,
+              "code": "EC",
+              "score": 18.31
+            },
+            {
+              "rank": 5,
+              "code": "RS",
+              "score": 5.63
+            }
+          ],
+          "primary": "AL",
+          "secondary": "AV",
+          "hybridStatus": null
+        },
+        {
+          "pattern": "EC-heavy",
+          "raw": {
+            "RS": 6.25,
+            "AL": 7,
+            "EC": 53,
+            "AV": 13.5,
+            "ES": 8.75
+          },
+          "normalized": {
+            "RS": 11.79,
+            "AL": 13.21,
+            "EC": 100,
+            "AV": 25.47,
+            "ES": 16.51
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "EC",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "AV",
+              "score": 25.47
+            },
+            {
+              "rank": 3,
+              "code": "ES",
+              "score": 16.51
+            },
+            {
+              "rank": 4,
+              "code": "AL",
+              "score": 13.21
+            },
+            {
+              "rank": 5,
+              "code": "RS",
+              "score": 11.79
+            }
+          ],
+          "primary": "EC",
+          "secondary": "AV",
+          "hybridStatus": null
+        },
+        {
+          "pattern": "AV-heavy",
+          "raw": {
+            "RS": 13,
+            "AL": 11,
+            "EC": 5.5,
+            "AV": 51.5,
+            "ES": 7.5
+          },
+          "normalized": {
+            "RS": 25.24,
+            "AL": 21.36,
+            "EC": 10.68,
+            "AV": 100,
+            "ES": 14.56
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "AV",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "RS",
+              "score": 25.24
+            },
+            {
+              "rank": 3,
+              "code": "AL",
+              "score": 21.36
+            },
+            {
+              "rank": 4,
+              "code": "ES",
+              "score": 14.56
+            },
+            {
+              "rank": 5,
+              "code": "EC",
+              "score": 10.68
+            }
+          ],
+          "primary": "AV",
+          "secondary": "RS",
+          "hybridStatus": null
+        },
+        {
+          "pattern": "ES-heavy",
+          "raw": {
+            "RS": 9.75,
+            "AL": 12,
+            "EC": 4.75,
+            "AV": 8.75,
+            "ES": 53.25
+          },
+          "normalized": {
+            "RS": 18.31,
+            "AL": 22.54,
+            "EC": 8.92,
+            "AV": 16.43,
+            "ES": 100
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "ES",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "AL",
+              "score": 22.54
+            },
+            {
+              "rank": 3,
+              "code": "RS",
+              "score": 18.31
+            },
+            {
+              "rank": 4,
+              "code": "AV",
+              "score": 16.43
+            },
+            {
+              "rank": 5,
+              "code": "EC",
+              "score": 8.92
+            }
+          ],
+          "primary": "ES",
+          "secondary": "AL",
+          "hybridStatus": null
+        },
+        {
+          "pattern": "balanced-mixed",
+          "raw": {
+            "RS": 40.25,
+            "AL": 8.25,
+            "EC": 29.25,
+            "AV": 3.75,
+            "ES": 7
+          },
+          "normalized": {
+            "RS": 100,
+            "AL": 20.5,
+            "EC": 72.67,
+            "AV": 9.32,
+            "ES": 17.39
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "RS",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "EC",
+              "score": 72.67
+            },
+            {
+              "rank": 3,
+              "code": "AL",
+              "score": 20.5
+            },
+            {
+              "rank": 4,
+              "code": "ES",
+              "score": 17.39
+            },
+            {
+              "rank": 5,
+              "code": "AV",
+              "score": 9.32
+            }
+          ],
+          "primary": "RS",
+          "secondary": "EC",
+          "hybridStatus": null
+        }
+      ]
+    }
+  ],
+  "phase3": [
+    {
+      "profile": "FIXED_PROFILE_ALPHA",
+      "results": {
+        "BANK_A": {
+          "pattern": "FIXED_PROFILE_ALPHA",
+          "raw": {
+            "RS": 42.5,
+            "AL": 6.75,
+            "EC": 28.5,
+            "AV": 7.25,
+            "ES": 3.5
+          },
+          "normalized": {
+            "RS": 100,
+            "AL": 15.88,
+            "EC": 67.06,
+            "AV": 17.06,
+            "ES": 8.24
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "RS",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "EC",
+              "score": 67.06
+            },
+            {
+              "rank": 3,
+              "code": "AV",
+              "score": 17.06
+            },
+            {
+              "rank": 4,
+              "code": "AL",
+              "score": 15.88
+            },
+            {
+              "rank": 5,
+              "code": "ES",
+              "score": 8.24
+            }
+          ],
+          "primary": "RS",
+          "secondary": "EC",
+          "hybridStatus": null
+        },
+        "BANK_B": {
+          "pattern": "FIXED_PROFILE_ALPHA",
+          "raw": {
+            "RS": 46.25,
+            "AL": 7,
+            "EC": 24.75,
+            "AV": 7.5,
+            "ES": 3
+          },
+          "normalized": {
+            "RS": 100,
+            "AL": 15.14,
+            "EC": 53.51,
+            "AV": 16.22,
+            "ES": 6.49
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "RS",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "EC",
+              "score": 53.51
+            },
+            {
+              "rank": 3,
+              "code": "AV",
+              "score": 16.22
+            },
+            {
+              "rank": 4,
+              "code": "AL",
+              "score": 15.14
+            },
+            {
+              "rank": 5,
+              "code": "ES",
+              "score": 6.49
+            }
+          ],
+          "primary": "RS",
+          "secondary": "EC",
+          "hybridStatus": null
+        },
+        "BANK_C": {
+          "pattern": "FIXED_PROFILE_ALPHA",
+          "raw": {
+            "RS": 45.25,
+            "AL": 8.25,
+            "EC": 24.25,
+            "AV": 6.25,
+            "ES": 4.5
+          },
+          "normalized": {
+            "RS": 100,
+            "AL": 18.23,
+            "EC": 53.59,
+            "AV": 13.81,
+            "ES": 9.94
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "RS",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "EC",
+              "score": 53.59
+            },
+            {
+              "rank": 3,
+              "code": "AL",
+              "score": 18.23
+            },
+            {
+              "rank": 4,
+              "code": "AV",
+              "score": 13.81
+            },
+            {
+              "rank": 5,
+              "code": "ES",
+              "score": 9.94
+            }
+          ],
+          "primary": "RS",
+          "secondary": "EC",
+          "hybridStatus": null
+        }
+      },
+      "rankingStable": false,
+      "deltasVsBankA": {
+        "BANK_B": {
+          "RS": 0,
+          "AL": -0.74,
+          "EC": -13.55,
+          "AV": -0.84,
+          "ES": -1.75
+        },
+        "BANK_C": {
+          "RS": 0,
+          "AL": 2.35,
+          "EC": -13.47,
+          "AV": -3.25,
+          "ES": 1.7
+        }
+      }
+    },
+    {
+      "profile": "FIXED_PROFILE_BETA",
+      "results": {
+        "BANK_A": {
+          "pattern": "FIXED_PROFILE_BETA",
+          "raw": {
+            "RS": 4.5,
+            "AL": 24.25,
+            "EC": 7.25,
+            "AV": 45.75,
+            "ES": 6.75
+          },
+          "normalized": {
+            "RS": 9.84,
+            "AL": 53.01,
+            "EC": 15.85,
+            "AV": 100,
+            "ES": 14.75
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "AV",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "AL",
+              "score": 53.01
+            },
+            {
+              "rank": 3,
+              "code": "EC",
+              "score": 15.85
+            },
+            {
+              "rank": 4,
+              "code": "ES",
+              "score": 14.75
+            },
+            {
+              "rank": 5,
+              "code": "RS",
+              "score": 9.84
+            }
+          ],
+          "primary": "AV",
+          "secondary": "AL",
+          "hybridStatus": null
+        },
+        "BANK_B": {
+          "pattern": "FIXED_PROFILE_BETA",
+          "raw": {
+            "RS": 2.25,
+            "AL": 20.25,
+            "EC": 9.5,
+            "AV": 49.5,
+            "ES": 7
+          },
+          "normalized": {
+            "RS": 4.55,
+            "AL": 40.91,
+            "EC": 19.19,
+            "AV": 100,
+            "ES": 14.14
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "AV",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "AL",
+              "score": 40.91
+            },
+            {
+              "rank": 3,
+              "code": "EC",
+              "score": 19.19
+            },
+            {
+              "rank": 4,
+              "code": "ES",
+              "score": 14.14
+            },
+            {
+              "rank": 5,
+              "code": "RS",
+              "score": 4.55
+            }
+          ],
+          "primary": "AV",
+          "secondary": "AL",
+          "hybridStatus": null
+        },
+        "BANK_C": {
+          "pattern": "FIXED_PROFILE_BETA",
+          "raw": {
+            "RS": 6.75,
+            "AL": 25.5,
+            "EC": 5.75,
+            "AV": 45.5,
+            "ES": 5
+          },
+          "normalized": {
+            "RS": 14.84,
+            "AL": 56.04,
+            "EC": 12.64,
+            "AV": 100,
+            "ES": 10.99
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "AV",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "AL",
+              "score": 56.04
+            },
+            {
+              "rank": 3,
+              "code": "RS",
+              "score": 14.84
+            },
+            {
+              "rank": 4,
+              "code": "EC",
+              "score": 12.64
+            },
+            {
+              "rank": 5,
+              "code": "ES",
+              "score": 10.99
+            }
+          ],
+          "primary": "AV",
+          "secondary": "AL",
+          "hybridStatus": null
+        }
+      },
+      "rankingStable": false,
+      "deltasVsBankA": {
+        "BANK_B": {
+          "RS": -5.29,
+          "AL": -12.1,
+          "EC": 3.34,
+          "AV": 0,
+          "ES": -0.61
+        },
+        "BANK_C": {
+          "RS": 5,
+          "AL": 3.03,
+          "EC": -3.21,
+          "AV": 0,
+          "ES": -3.76
+        }
+      }
+    }
+  ],
+  "phase4": [
+    {
+      "seed": "BANK_A",
+      "repeatedPromptStarts": [
+        {
+          "start": "in day to day",
+          "count": 2
+        },
+        {
+          "start": "across a typical week",
+          "count": 2
+        },
+        {
+          "start": "on an ordinary week",
+          "count": 2
+        },
+        {
+          "start": "during steady stretches in",
+          "count": 2
+        },
+        {
+          "start": "a relationship crossroads comes",
+          "count": 2
+        },
+        {
+          "start": "your partner wants alignment",
+          "count": 2
+        },
+        {
+          "start": "when a conflict feels",
+          "count": 2
+        }
+      ],
+      "repeatedOptionStarts": [
+        {
+          "start": "ask for a",
+          "count": 3
+        },
+        {
+          "start": "protect your bandwidth",
+          "count": 3
+        },
+        {
+          "start": "move closer and",
+          "count": 2
+        },
+        {
+          "start": "look for patterns",
+          "count": 2
+        },
+        {
+          "start": "process out loud",
+          "count": 2
+        },
+        {
+          "start": "seek spontaneity that",
+          "count": 2
+        },
+        {
+          "start": "signal care while",
+          "count": 2
+        },
+        {
+          "start": "bring in a",
+          "count": 2
+        },
+        {
+          "start": "debrief misunderstandings before",
+          "count": 2
+        },
+        {
+          "start": "initiate closeness when",
+          "count": 2
+        }
+      ],
+      "weakBehavioralSpecificityCount": 12,
+      "weakBehavioralSpecificityExamples": [
+        "Look for patterns over one-time gestures.",
+        "Seek spontaneity that brings you both back online.",
+        "Look for patterns over one-time gestures.",
+        "Reach out for emotional contact when distance starts to feel loud."
+      ],
+      "awkwardFragments": [],
+      "firstPersonStartRatio": 0,
+      "healthyLoadedOptionRatio": 0,
+      "desirabilityWarnings": []
+    },
+    {
+      "seed": "BANK_B",
+      "repeatedPromptStarts": [
+        {
+          "start": "in moments of disconnection",
+          "count": 3
+        },
+        {
+          "start": "when connection feels grounded",
+          "count": 2
+        },
+        {
+          "start": "on an ordinary week",
+          "count": 2
+        },
+        {
+          "start": "a meaningful decision lands",
+          "count": 2
+        }
+      ],
+      "repeatedOptionStarts": [
+        {
+          "start": "renew connection by",
+          "count": 3
+        },
+        {
+          "start": "talk through tradeoffs",
+          "count": 3
+        },
+        {
+          "start": "move toward repair",
+          "count": 3
+        },
+        {
+          "start": "request a grounding",
+          "count": 2
+        },
+        {
+          "start": "talk it through",
+          "count": 2
+        },
+        {
+          "start": "name what s",
+          "count": 2
+        },
+        {
+          "start": "ask for breathing",
+          "count": 2
+        },
+        {
+          "start": "start honest check",
+          "count": 2
+        },
+        {
+          "start": "maintain your own",
+          "count": 2
+        },
+        {
+          "start": "track consistency before",
+          "count": 2
+        }
+      ],
+      "weakBehavioralSpecificityCount": 12,
+      "weakBehavioralSpecificityExamples": [
+        "Request a grounding touchpoint so your nervous system can calm.",
+        "Renew connection by changing the environment together.",
+        "Slow the tempo so you can respond with clarity instead of pressure.",
+        "Renew connection by changing the environment together."
+      ],
+      "awkwardFragments": [],
+      "firstPersonStartRatio": 0,
+      "healthyLoadedOptionRatio": 0,
+      "desirabilityWarnings": []
+    },
+    {
+      "seed": "BANK_C",
+      "repeatedPromptStarts": [
+        {
+          "start": "which of these patterns",
+          "count": 2
+        },
+        {
+          "start": "on an ordinary week",
+          "count": 2
+        },
+        {
+          "start": "during steady stretches in",
+          "count": 2
+        },
+        {
+          "start": "when timing gets tight",
+          "count": 2
+        },
+        {
+          "start": "when tension rises between",
+          "count": 2
+        }
+      ],
+      "repeatedOptionStarts": [
+        {
+          "start": "restate what you",
+          "count": 3
+        },
+        {
+          "start": "request a grounding",
+          "count": 2
+        },
+        {
+          "start": "ask focused questions",
+          "count": 2
+        },
+        {
+          "start": "value steady effort",
+          "count": 2
+        },
+        {
+          "start": "move closer and",
+          "count": 2
+        },
+        {
+          "start": "suggest a new",
+          "count": 2
+        },
+        {
+          "start": "ask where you",
+          "count": 2
+        },
+        {
+          "start": "initiate closeness when",
+          "count": 2
+        },
+        {
+          "start": "protect independent time",
+          "count": 2
+        },
+        {
+          "start": "watch whether effort",
+          "count": 2
+        }
+      ],
+      "weakBehavioralSpecificityCount": 12,
+      "weakBehavioralSpecificityExamples": [
+        "Anchor trust in reliability you can actually observe.",
+        "Request a grounding touchpoint so your nervous system can calm.",
+        "Signal care while guarding your need for personal bandwidth.",
+        "Look for patterns over one-time gestures."
+      ],
+      "awkwardFragments": [],
+      "firstPersonStartRatio": 0,
+      "healthyLoadedOptionRatio": 0,
+      "desirabilityWarnings": []
+    }
+  ],
+  "recommendation": "ready for candidate-bank promotion review (do not promote live yet)"
+}
