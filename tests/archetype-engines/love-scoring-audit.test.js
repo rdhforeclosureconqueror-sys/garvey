@@ -54,7 +54,7 @@ function dominantAnswers(questions, targetCode) {
 
 test('love scorer formula uses canonical class multipliers (single-application)', () => {
   const questions = LOVE_QUESTIONS.map(normalizeQuestion);
-  const stQuestion = questions.find((q) => q.questionClass === 'ST');
+  const stQuestion = questions.find((q) => q.questionClass === 'ST' && q.options.some((opt) => opt.primary === 'EC'));
   assert.ok(stQuestion);
   const ecOption = stQuestion.options.find((opt) => opt.primary === 'EC');
   assert.ok(ecOption);
@@ -106,7 +106,7 @@ test('each archetype can deterministically win when its mapped answers dominate 
   }
 });
 
-test('distribution audit confirms non-EC structural dominance is concentrated in AL and low ES representation', () => {
+test('distribution audit confirms balanced primary/secondary representation and no ES underrepresentation', () => {
   const counts = Object.fromEntries(ARCHETYPES.map((code) => [code, { primary: 0, secondary: 0 }]));
   for (const q of LOVE_QUESTIONS.map(normalizeQuestion)) {
     for (const opt of q.options) {
@@ -115,12 +115,41 @@ test('distribution audit confirms non-EC structural dominance is concentrated in
     }
   }
 
-  assert.equal(counts.EC.primary, 72);
-  assert.equal(counts.AL.primary, 78);
-  assert.equal(counts.ES.primary, 9);
-  assert.equal(counts.ES.secondary, 40);
+  for (const code of ARCHETYPES) {
+    assert.equal(counts[code].primary, 60);
+    assert.equal(counts[code].secondary, 60);
+  }
 });
 
 test('question class keys map exactly to required handoff multipliers', () => {
   assert.deepEqual(SIGNAL_MULTIPLIER, { ID: 1, BH: 1, SC: 1.25, ST: 1.5, DS: 1 });
+});
+
+test('each bank enforces 5/6/6/6/2 class distribution and per-question distinct primaries', () => {
+  const banks = getQuestionBanks('love', { retakeAttempt: 0 }).questionBanks;
+  for (const [bankId, rawQuestions] of Object.entries(banks)) {
+    const questions = rawQuestions.map(normalizeQuestion);
+    const classCounts = questions.reduce((acc, q) => {
+      acc[q.questionClass] = (acc[q.questionClass] || 0) + 1;
+      return acc;
+    }, {});
+    assert.deepEqual(classCounts, { ID: 5, BH: 6, SC: 6, ST: 6, DS: 2 }, `${bankId} class distribution mismatch`);
+
+    for (const q of questions) {
+      const primaries = q.options.map((opt) => opt.primary);
+      assert.equal(new Set(primaries).size, 4, `${bankId}:${q.id} must expose 4 distinct primary archetypes`);
+    }
+  }
+});
+
+test('unordered archetype pairs are perfectly balanced across all banks', () => {
+  const unordered = {};
+  for (const q of LOVE_QUESTIONS.map(normalizeQuestion)) {
+    for (const opt of q.options) {
+      const key = [opt.primary, opt.secondary].sort().join('-');
+      unordered[key] = (unordered[key] || 0) + 1;
+    }
+  }
+  assert.equal(Object.keys(unordered).length, 10);
+  for (const count of Object.values(unordered)) assert.equal(count, 30);
 });

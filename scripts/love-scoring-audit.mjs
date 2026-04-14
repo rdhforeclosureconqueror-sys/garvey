@@ -101,21 +101,37 @@ function runSimulations(banks) {
 }
 
 function pairBalance(questions) {
-  const pairCounts = {};
+  const orderedPairCounts = {};
+  const unorderedPairCounts = {};
   for (const q of questions) {
     for (const opt of q.options) {
-      const pair = `${opt.primary}-${opt.secondary}`;
-      pairCounts[pair] = (pairCounts[pair] || 0) + 1;
+      const ordered = `${opt.primary}-${opt.secondary}`;
+      orderedPairCounts[ordered] = (orderedPairCounts[ordered] || 0) + 1;
+
+      const unordered = [opt.primary, opt.secondary].sort().join('-');
+      unorderedPairCounts[unordered] = (unorderedPairCounts[unordered] || 0) + 1;
     }
   }
   const byArchetype = Object.fromEntries(ARCHETYPES.map((code) => [code, 0]));
-  for (const [pair, count] of Object.entries(pairCounts)) {
+  for (const [pair, count] of Object.entries(orderedPairCounts)) {
     const [left, right] = pair.split('-');
     byArchetype[left] += count;
     byArchetype[right] += count;
   }
-  return { pairCounts, byArchetype };
+  return { orderedPairCounts, unorderedPairCounts, byArchetype };
 }
+
+function bankClassDistribution(banks) {
+  const out = {};
+  for (const [bankId, questions] of Object.entries(banks)) {
+    out[bankId] = questions.reduce((acc, q) => {
+      acc[q.questionClass] = (acc[q.questionClass] || 0) + 1;
+      return acc;
+    }, { ID: 0, BH: 0, SC: 0, ST: 0, DS: 0 });
+  }
+  return out;
+}
+
 
 const normalizedQuestions = LOVE_QUESTIONS.map(normalizeQuestion);
 const bankPayload = getQuestionBanks('love', { retakeAttempt: 0 });
@@ -127,6 +143,7 @@ const report = {
   generatedAt: new Date().toISOString(),
   totalQuestions: normalizedQuestions.length,
   distribution: auditDistribution(normalizedQuestions),
+  bankClassDistribution: bankClassDistribution(normalizedBanks),
   pairBalance: pairBalance(normalizedQuestions),
   maxPossibleByBank: maxPossibleByBank(normalizedBanks),
   simulations: runSimulations(normalizedBanks),
