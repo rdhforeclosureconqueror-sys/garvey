@@ -115,11 +115,13 @@ test('love questions keep canonical option/archetype contract', () => {
   }
 });
 
-test('leadership and loyalty skeletons load with no live question text', () => {
-  assert.equal(LEADERSHIP_QUESTIONS.length, 0);
-  assert.equal(LOYALTY_QUESTIONS.length, 0);
+test('leadership and loyalty authored bank 1 load 25 canonical questions each', () => {
+  assert.equal(LEADERSHIP_QUESTIONS.length, 25);
+  assert.equal(LOYALTY_QUESTIONS.length, 25);
   assert.equal(LEADERSHIP_QUESTION_SOURCE.useGeneratorOnFirstAttempt, false);
   assert.equal(LOYALTY_QUESTION_SOURCE.useGeneratorOnFirstAttempt, false);
+  assert.equal(LEADERSHIP_QUESTION_SOURCE.authored.bankId, 'AUTHORED_BANK_1');
+  assert.equal(LOYALTY_QUESTION_SOURCE.authored.bankId, 'AUTHORED_BANK_1');
 });
 
 test('love scoring returns primary and secondary archetypes', () => {
@@ -131,17 +133,19 @@ test('love scoring returns primary and secondary archetypes', () => {
   assert.ok(scored.balanceStates?.overall);
 });
 
-test('leadership scoring skeleton returns empty-safe canonical metrics', () => {
-  const scored = scoreEngineAssessment('leadership', {});
-  assert.deepEqual(scored.normalizedScores, {});
-  assert.equal(scored.questionCount, 0);
+test('leadership scoring returns canonical metrics with authored bank content', () => {
+  const answers = Object.fromEntries(LEADERSHIP_QUESTIONS.map((q, i) => [q.id || q.question_id, (i % 4) + 1]));
+  const scored = scoreEngineAssessment('leadership', answers);
+  assert.equal(scored.questionCount, 25);
+  assert.ok(Object.keys(scored.normalizedScores).length >= 5);
   assert.ok(scored.contradictionConsistency);
 });
 
-test('loyalty scoring skeleton returns empty-safe canonical metrics', () => {
-  const scored = scoreEngineAssessment('loyalty', {});
-  assert.deepEqual(scored.normalizedScores, {});
-  assert.equal(scored.questionCount, 0);
+test('loyalty scoring returns canonical metrics with authored bank content', () => {
+  const answers = Object.fromEntries(LOYALTY_QUESTIONS.map((q, i) => [q.id || q.question_id, (i % 4) + 1]));
+  const scored = scoreEngineAssessment('loyalty', answers);
+  assert.equal(scored.questionCount, 25);
+  assert.ok(Object.keys(scored.normalizedScores).length >= 5);
   assert.ok(scored.contradictionConsistency);
 });
 
@@ -171,10 +175,11 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
       const startJson = await startRes.json();
       assert.ok(startJson.assessmentId);
       assert.equal(startJson.questionSource, 'authored_bank_1');
-      assert.equal(startJson.questionBanks.activeQuestions.length, 0);
+      assert.equal(startJson.questionBanks.activeQuestions.length, 25);
+      assert.equal(startJson.questionBanks.selectedBankId, 'AUTHORED_BANK_1');
       assert.ok(startJson.diagnostics);
 
-      const answers = {};
+      const answers = Object.fromEntries((startJson.questionBanks.activeQuestions || []).map((q, i) => [q.id, (i % 4) + 1]));
 
       const scoreRes = await fetch(`${baseUrl}/api/archetype-engines/${engineType}/assessment/score`, {
         method: 'POST',
@@ -192,7 +197,28 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
       assert.ok(scoreJson.identityGapInsight);
       assert.ok(scoreJson.consistencyInsight);
       assert.ok(scoreJson.canonical.assessment_id);
-      assert.ok(Object.prototype.hasOwnProperty.call(scoreJson.canonical, 'questionSource'));
+      for (const key of [
+        'scores',
+        'ranked_archetypes',
+        'identity',
+        'balance_states',
+        'stress_profile',
+        'desired_gap',
+        'identity_behavior_gap',
+        'consistency',
+        'confidence',
+        'flags',
+        'summary',
+        'rawScores',
+        'maxPossibleScores',
+        'questionSource',
+      ]) {
+        assert.ok(Object.prototype.hasOwnProperty.call(scoreJson.canonical, key));
+      }
+      assert.ok(Object.prototype.hasOwnProperty.call(scoreJson.canonical.identity || {}, 'primary'));
+      assert.ok(Object.prototype.hasOwnProperty.call(scoreJson.canonical.identity || {}, 'secondary'));
+      assert.ok(Object.prototype.hasOwnProperty.call(scoreJson.canonical.identity || {}, 'is_hybrid'));
+      assert.ok(Object.prototype.hasOwnProperty.call(scoreJson.canonical.identity || {}, 'hybrid_label'));
 
       const fetchResultRes = await fetch(`${baseUrl}/api/archetype-engines/${engineType}/results/${scoreJson.resultId}`);
       assert.equal(fetchResultRes.status, 200);
@@ -630,5 +656,16 @@ test('leadership and loyalty retakes enforce generated-only path with manifest g
     }
   } finally {
     await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('leadership and loyalty first-attempt routing serves authored bank 1 and never skeleton banks', () => {
+  for (const engineType of ['leadership', 'loyalty']) {
+    const first = getQuestionBanks(engineType, { retakeAttempt: 0 });
+    assert.equal(first.questionSource, 'authored_bank_1');
+    assert.equal(first.selectedBankId, 'AUTHORED_BANK_1');
+    assert.equal(first.activeQuestions.length, 25);
+    assert.equal(Object.keys(first.questionBanks).length, 1);
+    assert.equal(Array.isArray(first.questionBanks.AUTHORED_BANK_1), true);
   }
 });

@@ -154,13 +154,13 @@ function resolveGovernedEngineSource({ engineType, attempt = 0, authoredBankId, 
 }
 
 const LEADERSHIP_QUESTION_SOURCE = Object.freeze({
-  authored: { sourceType: "authored_bank_1", sourcePath: "archetype-engines/engines/leadership/question-banks/leadership.bank1.js", bankId: "LEADERSHIP_BANK_1", questionCount: LEADERSHIP_AUTHORED_BANK_1.length },
+  authored: { sourceType: "authored_bank_1", sourcePath: "archetype-engines/engines/leadership/question-banks/leadership.bank1.js", bankId: "AUTHORED_BANK_1", questionCount: LEADERSHIP_AUTHORED_BANK_1.length },
   generated: { sourceType: "promotion_manifest_governed", sourcePath: path.relative(ROOT_DIR, LEADERSHIP_PROMOTION_MANIFEST), statuses: REVIEW_STATUSES },
   useGeneratorOnFirstAttempt: false,
 });
 
 const LOYALTY_QUESTION_SOURCE = Object.freeze({
-  authored: { sourceType: "authored_bank_1", sourcePath: "archetype-engines/engines/loyalty/question-banks/loyalty.bank1.js", bankId: "LOYALTY_BANK_1", questionCount: LOYALTY_AUTHORED_BANK_1.length },
+  authored: { sourceType: "authored_bank_1", sourcePath: "archetype-engines/engines/loyalty/question-banks/loyalty.bank1.js", bankId: "AUTHORED_BANK_1", questionCount: LOYALTY_AUTHORED_BANK_1.length },
   generated: { sourceType: "promotion_manifest_governed", sourcePath: path.relative(ROOT_DIR, LOYALTY_PROMOTION_MANIFEST), statuses: REVIEW_STATUSES },
   useGeneratorOnFirstAttempt: false,
 });
@@ -595,7 +595,7 @@ function getQuestionBanks(engineType, opts = {}) {
     return resolveGovernedEngineSource({
       engineType,
       attempt: Number(opts.retakeAttempt || 0),
-      authoredBankId: "LEADERSHIP_BANK_1",
+      authoredBankId: "AUTHORED_BANK_1",
       authoredQuestions: LEADERSHIP_AUTHORED_BANK_1,
       manifestPath: LEADERSHIP_PROMOTION_MANIFEST,
     });
@@ -604,7 +604,7 @@ function getQuestionBanks(engineType, opts = {}) {
     return resolveGovernedEngineSource({
       engineType,
       attempt: Number(opts.retakeAttempt || 0),
-      authoredBankId: "LOYALTY_BANK_1",
+      authoredBankId: "AUTHORED_BANK_1",
       authoredQuestions: LOYALTY_AUTHORED_BANK_1,
       manifestPath: LOYALTY_PROMOTION_MANIFEST,
     });
