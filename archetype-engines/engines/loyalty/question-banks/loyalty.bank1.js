@@ -102,7 +102,7 @@ const AUTHORED_BANK_1 = [
     display_order: 6,
     engine: "loyalty",
     question_class: "ID",
-    question_subclass: "loyalty_driver",
+    question_subclass: "sustaining_force",
     prompt: "What matters most to sustaining loyalty?",
     reverse_pair_id: null,
     desired_pair_id: null,
@@ -112,7 +112,7 @@ const AUTHORED_BANK_1 = [
       { option_id: "A", text: "trustworthiness", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "identity", signal_type: "trust_sustain" },
       { option_id: "B", text: "satisfying performance", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "identity", signal_type: "satisfaction_sustain" },
       { option_id: "C", text: "emotional bond", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "identity", signal_type: "bond_sustain" },
-      { option_id: "D", text: "ease and convenience", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "identity", signal_type: "convenience_sustain" }
+      { option_id: "D", text: "ease and convenience", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "identity", signal_type: "ease_sustain" }
     ]
   },
   {
@@ -121,17 +121,17 @@ const AUTHORED_BANK_1 = [
     display_order: 7,
     engine: "loyalty",
     question_class: "BH",
-    question_subclass: "loyalty_awareness",
+    question_subclass: "loyalty_signal",
     prompt: "I usually notice my loyalty when I:",
     reverse_pair_id: null,
     desired_pair_id: null,
     is_scored: true,
     is_active: true,
     options: [
-      { option_id: "A", text: "defend the brand after a minor mistake", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "standard", signal_type: "defensive_trust" },
-      { option_id: "B", text: "keep coming back because it works", primary_dimension: "SA", secondary_dimension: "CH", weight_type: "standard", signal_type: "repeat_value" },
-      { option_id: "C", text: "talk about it with real enthusiasm", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "standard", signal_type: "enthusiastic_bond" },
-      { option_id: "D", text: "use it without thinking much", primary_dimension: "CH", secondary_dimension: "SA", weight_type: "standard", signal_type: "habitual_use" }
+      { option_id: "A", text: "defend the brand after a minor mistake", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "standard", signal_type: "defend_brand" },
+      { option_id: "B", text: "keep coming back because it works", primary_dimension: "SA", secondary_dimension: "CH", weight_type: "standard", signal_type: "repeat_use" },
+      { option_id: "C", text: "talk about it with real enthusiasm", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "standard", signal_type: "enthusiastic_attachment" },
+      { option_id: "D", text: "use it without thinking much", primary_dimension: "CH", secondary_dimension: "SA", weight_type: "standard", signal_type: "automatic_use" }
     ]
   },
   {
@@ -140,7 +140,7 @@ const AUTHORED_BANK_1 = [
     display_order: 8,
     engine: "loyalty",
     question_class: "SC",
-    question_subclass: "service_recovery",
+    question_subclass: "repair_response",
     prompt: "A brand makes a small mistake but apologizes quickly. You:",
     reverse_pair_id: null,
     desired_pair_id: null,
@@ -149,7 +149,7 @@ const AUTHORED_BANK_1 = [
     options: [
       { option_id: "A", text: "stay if trust feels intact", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "scenario", signal_type: "trust_repair" },
       { option_id: "B", text: "stay if satisfaction remains high overall", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "scenario", signal_type: "satisfaction_repair" },
-      { option_id: "C", text: "stay if the relationship still feels meaningful", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "scenario", signal_type: "bond_repair" },
+      { option_id: "C", text: "stay if the relationship still feels meaningful", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "scenario", signal_type: "relationship_repair" },
       { option_id: "D", text: "stay if changing still feels like too much effort", primary_dimension: "SF", secondary_dimension: "CH", weight_type: "scenario", signal_type: "friction_repair" }
     ]
   },
@@ -159,7 +159,7 @@ const AUTHORED_BANK_1 = [
     display_order: 9,
     engine: "loyalty",
     question_class: "ID",
-    question_subclass: "program_value",
+    question_subclass: "program_meaning",
     prompt: "I value loyalty programs most when they:",
     reverse_pair_id: null,
     desired_pair_id: null,
@@ -185,10 +185,10 @@ const AUTHORED_BANK_1 = [
     is_scored: true,
     is_active: true,
     options: [
-      { option_id: "A", text: "I believe the brand is dependable", primary_dimension: "TD", secondary_dimension: "SA", weight_type: "standard", signal_type: "dependable_repeat" },
-      { option_id: "B", text: "the service/product satisfies me consistently", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "standard", signal_type: "consistent_value" },
+      { option_id: "A", text: "I believe the brand is dependable", primary_dimension: "TD", secondary_dimension: "SA", weight_type: "standard", signal_type: "dependability_repeat" },
+      { option_id: "B", text: "the service/product satisfies me consistently", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "standard", signal_type: "satisfaction_repeat" },
       { option_id: "C", text: "I feel some identity connection", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "standard", signal_type: "identity_repeat" },
-      { option_id: "D", text: "using it becomes second nature", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "standard", signal_type: "automatic_repeat" }
+      { option_id: "D", text: "using it becomes second nature", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "standard", signal_type: "habit_repeat" }
     ]
   },
   {
@@ -197,17 +197,17 @@ const AUTHORED_BANK_1 = [
     display_order: 11,
     engine: "loyalty",
     question_class: "ID",
-    question_subclass: "loyalty_foundation",
+    question_subclass: "loyalty_base",
     prompt: "Loyalty is strongest when it is based on:",
     reverse_pair_id: null,
     desired_pair_id: null,
     is_scored: true,
     is_active: true,
     options: [
-      { option_id: "A", text: "trust", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "identity", signal_type: "foundation_trust" },
-      { option_id: "B", text: "satisfaction", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "identity", signal_type: "foundation_satisfaction" },
-      { option_id: "C", text: "commitment", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "identity", signal_type: "foundation_commitment" },
-      { option_id: "D", text: "habit", primary_dimension: "CH", secondary_dimension: "SA", weight_type: "identity", signal_type: "foundation_habit" }
+      { option_id: "A", text: "trust", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "identity", signal_type: "loyalty_trust_base" },
+      { option_id: "B", text: "satisfaction", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "identity", signal_type: "loyalty_satisfaction_base" },
+      { option_id: "C", text: "commitment", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "identity", signal_type: "loyalty_commitment_base" },
+      { option_id: "D", text: "habit", primary_dimension: "CH", secondary_dimension: "SA", weight_type: "identity", signal_type: "loyalty_habit_base" }
     ]
   },
   {
@@ -223,10 +223,10 @@ const AUTHORED_BANK_1 = [
     is_scored: true,
     is_active: true,
     options: [
-      { option_id: "A", text: "breaks trust", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "standard", signal_type: "trust_breaker" },
-      { option_id: "B", text: "stops delivering value", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "standard", signal_type: "value_breaker" },
-      { option_id: "C", text: "makes me feel less connected", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "standard", signal_type: "bond_breaker" },
-      { option_id: "D", text: "becomes harder to use", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "standard", signal_type: "ease_breaker" }
+      { option_id: "A", text: "breaks trust", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "standard", signal_type: "trust_break" },
+      { option_id: "B", text: "stops delivering value", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "standard", signal_type: "value_break" },
+      { option_id: "C", text: "makes me feel less connected", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "standard", signal_type: "connection_break" },
+      { option_id: "D", text: "becomes harder to use", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "standard", signal_type: "ease_break" }
     ]
   },
   {
@@ -235,17 +235,17 @@ const AUTHORED_BANK_1 = [
     display_order: 13,
     engine: "loyalty",
     question_class: "SC",
-    question_subclass: "price_competition",
+    question_subclass: "competitive_price_response",
     prompt: "A rival brand offers a slightly lower price. You stay because:",
     reverse_pair_id: null,
     desired_pair_id: null,
     is_scored: true,
     is_active: true,
     options: [
-      { option_id: "A", text: "my current brand feels safer to trust", primary_dimension: "TD", secondary_dimension: "SA", weight_type: "scenario", signal_type: "trust_vs_price" },
-      { option_id: "B", text: "my experience is still better where I am", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "scenario", signal_type: "experience_vs_price" },
-      { option_id: "C", text: "I feel more committed to what I know", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "scenario", signal_type: "commitment_vs_price" },
-      { option_id: "D", text: "switching doesn’t feel worth the effort", primary_dimension: "SF", secondary_dimension: "CH", weight_type: "scenario", signal_type: "friction_vs_price" }
+      { option_id: "A", text: "my current brand feels safer to trust", primary_dimension: "TD", secondary_dimension: "SA", weight_type: "scenario", signal_type: "competitive_trust" },
+      { option_id: "B", text: "my experience is still better where I am", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "scenario", signal_type: "competitive_satisfaction" },
+      { option_id: "C", text: "I feel more committed to what I know", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "scenario", signal_type: "competitive_commitment" },
+      { option_id: "D", text: "switching doesn’t feel worth the effort", primary_dimension: "SF", secondary_dimension: "CH", weight_type: "scenario", signal_type: "competitive_friction" }
     ]
   },
   {
@@ -254,7 +254,7 @@ const AUTHORED_BANK_1 = [
     display_order: 14,
     engine: "loyalty",
     question_class: "BH",
-    question_subclass: "influence_source",
+    question_subclass: "main_influence",
     prompt: "My loyalty tends to be most influenced by:",
     reverse_pair_id: null,
     desired_pair_id: null,
@@ -262,7 +262,7 @@ const AUTHORED_BANK_1 = [
     is_active: true,
     options: [
       { option_id: "A", text: "credibility", primary_dimension: "TD", secondary_dimension: "SA", weight_type: "standard", signal_type: "credibility_influence" },
-      { option_id: "B", text: "experience quality", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "standard", signal_type: "quality_influence" },
+      { option_id: "B", text: "experience quality", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "standard", signal_type: "experience_influence" },
       { option_id: "C", text: "emotional meaning", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "standard", signal_type: "meaning_influence" },
       { option_id: "D", text: "convenience", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "standard", signal_type: "convenience_influence" }
     ]
@@ -273,7 +273,7 @@ const AUTHORED_BANK_1 = [
     display_order: 15,
     engine: "loyalty",
     question_class: "ID",
-    question_subclass: "trustworthiness_model",
+    question_subclass: "trustworthy_brand_model",
     prompt: "The most trustworthy brands are usually the ones that:",
     reverse_pair_id: null,
     desired_pair_id: null,
@@ -283,7 +283,7 @@ const AUTHORED_BANK_1 = [
       { option_id: "A", text: "act consistently over time", primary_dimension: "TD", secondary_dimension: "SA", weight_type: "identity", signal_type: "consistency_trust" },
       { option_id: "B", text: "repeatedly satisfy expectations", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "identity", signal_type: "expectation_trust" },
       { option_id: "C", text: "build real connection with customers", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "identity", signal_type: "connection_trust" },
-      { option_id: "D", text: "reduce effort and friction", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "identity", signal_type: "effort_trust" }
+      { option_id: "D", text: "reduce effort and friction", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "identity", signal_type: "ease_trust" }
     ]
   },
   {
@@ -292,17 +292,17 @@ const AUTHORED_BANK_1 = [
     display_order: 16,
     engine: "loyalty",
     question_class: "ST",
-    question_subclass: "disappointment_response",
+    question_subclass: "disappointment_filter",
     prompt: "When a brand disappoints me, I first ask:",
     reverse_pair_id: null,
     desired_pair_id: null,
     is_scored: true,
     is_active: true,
     options: [
-      { option_id: "A", text: "can I still trust them?", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "stress", signal_type: "trust_disruption" },
-      { option_id: "B", text: "is the experience still worth it?", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "stress", signal_type: "value_disruption" },
-      { option_id: "C", text: "does this change how I feel about them?", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "stress", signal_type: "bond_disruption" },
-      { option_id: "D", text: "is leaving worth the disruption?", primary_dimension: "SF", secondary_dimension: "CH", weight_type: "stress", signal_type: "exit_disruption" }
+      { option_id: "A", text: "can I still trust them?", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "stress", signal_type: "disappointment_trust" },
+      { option_id: "B", text: "is the experience still worth it?", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "stress", signal_type: "disappointment_value" },
+      { option_id: "C", text: "does this change how I feel about them?", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "stress", signal_type: "disappointment_feeling" },
+      { option_id: "D", text: "is leaving worth the disruption?", primary_dimension: "SF", secondary_dimension: "CH", weight_type: "stress", signal_type: "disappointment_disruption" }
     ]
   },
   {
@@ -318,10 +318,10 @@ const AUTHORED_BANK_1 = [
     is_scored: true,
     is_active: true,
     options: [
-      { option_id: "A", text: "promises feel broken", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "stress", signal_type: "promise_break" },
-      { option_id: "B", text: "satisfaction drops repeatedly", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "stress", signal_type: "repeat_disappointment" },
-      { option_id: "C", text: "the connection feels hollow", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "stress", signal_type: "hollow_connection" },
-      { option_id: "D", text: "switching becomes easier than staying", primary_dimension: "SF", secondary_dimension: "CH", weight_type: "stress", signal_type: "easy_switch" }
+      { option_id: "A", text: "promises feel broken", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "stress", signal_type: "test_broken_promises" },
+      { option_id: "B", text: "satisfaction drops repeatedly", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "stress", signal_type: "test_satisfaction_drop" },
+      { option_id: "C", text: "the connection feels hollow", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "stress", signal_type: "test_hollow_connection" },
+      { option_id: "D", text: "switching becomes easier than staying", primary_dimension: "SF", secondary_dimension: "CH", weight_type: "stress", signal_type: "test_easy_switching" }
     ]
   },
   {
@@ -337,7 +337,7 @@ const AUTHORED_BANK_1 = [
     is_scored: true,
     is_active: true,
     options: [
-      { option_id: "A", text: "I trust the reason and fairness", primary_dimension: "TD", secondary_dimension: "SA", weight_type: "stress", signal_type: "fairness_trust" },
+      { option_id: "A", text: "I trust the reason and fairness", primary_dimension: "TD", secondary_dimension: "SA", weight_type: "stress", signal_type: "price_trust" },
       { option_id: "B", text: "the value still feels worth it", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "stress", signal_type: "price_value" },
       { option_id: "C", text: "my attachment still feels strong", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "stress", signal_type: "price_attachment" },
       { option_id: "D", text: "changing still feels costly or annoying", primary_dimension: "SF", secondary_dimension: "CH", weight_type: "stress", signal_type: "price_friction" }
@@ -349,17 +349,17 @@ const AUTHORED_BANK_1 = [
     display_order: 19,
     engine: "loyalty",
     question_class: "ST",
-    question_subclass: "service_failure_response",
+    question_subclass: "service_failure_evaluation",
     prompt: "When service fails, I usually:",
     reverse_pair_id: null,
     desired_pair_id: null,
     is_scored: true,
     is_active: true,
     options: [
-      { option_id: "A", text: "evaluate whether trust was damaged", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "stress", signal_type: "service_trust_check" },
-      { option_id: "B", text: "evaluate whether the satisfaction history outweighs it", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "stress", signal_type: "service_value_check" },
-      { option_id: "C", text: "evaluate whether the relationship still feels meaningful", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "stress", signal_type: "service_bond_check" },
-      { option_id: "D", text: "evaluate whether switching is worth the hassle", primary_dimension: "SF", secondary_dimension: "CH", weight_type: "stress", signal_type: "service_exit_check" }
+      { option_id: "A", text: "evaluate whether trust was damaged", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "stress", signal_type: "failure_trust_damage" },
+      { option_id: "B", text: "evaluate whether the satisfaction history outweighs it", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "stress", signal_type: "failure_history_value" },
+      { option_id: "C", text: "evaluate whether the relationship still feels meaningful", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "stress", signal_type: "failure_relationship_meaning" },
+      { option_id: "D", text: "evaluate whether switching is worth the hassle", primary_dimension: "SF", secondary_dimension: "CH", weight_type: "stress", signal_type: "failure_switch_hassle" }
     ]
   },
   {
@@ -368,17 +368,17 @@ const AUTHORED_BANK_1 = [
     display_order: 20,
     engine: "loyalty",
     question_class: "ST",
-    question_subclass: "bond_break",
+    question_subclass: "bond_breaker",
     prompt: "A loyalty bond breaks fastest for me through:",
     reverse_pair_id: null,
     desired_pair_id: null,
     is_scored: true,
     is_active: true,
     options: [
-      { option_id: "A", text: "dishonesty", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "stress", signal_type: "dishonesty_break" },
-      { option_id: "B", text: "repeated disappointment", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "stress", signal_type: "disappointment_break" },
-      { option_id: "C", text: "emotional disillusionment", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "stress", signal_type: "disillusionment_break" },
-      { option_id: "D", text: "a sudden better default alternative", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "stress", signal_type: "default_switch_break" }
+      { option_id: "A", text: "dishonesty", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "stress", signal_type: "bond_break_dishonesty" },
+      { option_id: "B", text: "repeated disappointment", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "stress", signal_type: "bond_break_disappointment" },
+      { option_id: "C", text: "emotional disillusionment", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "stress", signal_type: "bond_break_disillusionment" },
+      { option_id: "D", text: "a sudden better default alternative", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "stress", signal_type: "bond_break_better_default" }
     ]
   },
   {
@@ -387,17 +387,17 @@ const AUTHORED_BANK_1 = [
     display_order: 21,
     engine: "loyalty",
     question_class: "DS",
-    question_subclass: "loyalty_growth",
+    question_subclass: "desired_loyalty_basis",
     prompt: "I want my loyalty to be based more on:",
     reverse_pair_id: null,
     desired_pair_id: null,
     is_scored: true,
     is_active: true,
     options: [
-      { option_id: "A", text: "trust than convenience", primary_dimension: "TD", secondary_dimension: "CH", weight_type: "desired", signal_type: "growth_trust_over_habit" },
-      { option_id: "B", text: "real satisfaction than inertia", primary_dimension: "SA", secondary_dimension: "SF", weight_type: "desired", signal_type: "growth_value_over_inertia" },
-      { option_id: "C", text: "commitment than perks", primary_dimension: "ECM", secondary_dimension: "SA", weight_type: "desired", signal_type: "growth_commitment_over_perks" },
-      { option_id: "D", text: "chosen fit than lock-in", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "desired", signal_type: "growth_choice_over_lockin" }
+      { option_id: "A", text: "trust than convenience", primary_dimension: "TD", secondary_dimension: "CH", weight_type: "desired", signal_type: "desired_trust_over_convenience" },
+      { option_id: "B", text: "real satisfaction than inertia", primary_dimension: "SA", secondary_dimension: "SF", weight_type: "desired", signal_type: "desired_satisfaction_over_inertia" },
+      { option_id: "C", text: "commitment than perks", primary_dimension: "ECM", secondary_dimension: "SA", weight_type: "desired", signal_type: "desired_commitment_over_perks" },
+      { option_id: "D", text: "chosen fit than lock-in", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "desired", signal_type: "desired_choice_over_lockin" }
     ]
   },
   {
@@ -413,10 +413,10 @@ const AUTHORED_BANK_1 = [
     is_scored: true,
     is_active: true,
     options: [
-      { option_id: "A", text: "evaluates trust more clearly", primary_dimension: "TD", secondary_dimension: "SA", weight_type: "desired", signal_type: "clearer_trust_judgment" },
-      { option_id: "B", text: "pays attention to actual value delivered", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "desired", signal_type: "clearer_value_judgment" },
-      { option_id: "C", text: "knows when emotional attachment is genuine", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "desired", signal_type: "clearer_bond_judgment" },
-      { option_id: "D", text: "notices when habit is driving the choice", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "desired", signal_type: "clearer_habit_awareness" }
+      { option_id: "A", text: "evaluates trust more clearly", primary_dimension: "TD", secondary_dimension: "SA", weight_type: "desired", signal_type: "growth_trust_clarity" },
+      { option_id: "B", text: "pays attention to actual value delivered", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "desired", signal_type: "growth_value_attention" },
+      { option_id: "C", text: "knows when emotional attachment is genuine", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "desired", signal_type: "growth_attachment_discernment" },
+      { option_id: "D", text: "notices when habit is driving the choice", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "desired", signal_type: "growth_habit_awareness" }
     ]
   },
   {
@@ -425,17 +425,17 @@ const AUTHORED_BANK_1 = [
     display_order: 23,
     engine: "loyalty",
     question_class: "DS",
-    question_subclass: "growth_edge",
+    question_subclass: "customer_growth_edge",
     prompt: "My biggest growth edge as a customer is:",
     reverse_pair_id: null,
     desired_pair_id: null,
     is_scored: true,
     is_active: true,
     options: [
-      { option_id: "A", text: "not ignoring trust breaches", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "desired", signal_type: "respond_to_breach" },
-      { option_id: "B", text: "not staying purely because things are “fine”", primary_dimension: "SA", secondary_dimension: "CH", weight_type: "desired", signal_type: "avoid_passive_satisfaction" },
-      { option_id: "C", text: "not overidentifying with brands", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "desired", signal_type: "avoid_overidentification" },
-      { option_id: "D", text: "not confusing convenience with loyalty", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "desired", signal_type: "separate_habit_from_loyalty" }
+      { option_id: "A", text: "not ignoring trust breaches", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "desired", signal_type: "growth_trust_breach_awareness" },
+      { option_id: "B", text: "not staying purely because things are “fine”", primary_dimension: "SA", secondary_dimension: "CH", weight_type: "desired", signal_type: "growth_good_enough_awareness" },
+      { option_id: "C", text: "not overidentifying with brands", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "desired", signal_type: "growth_identity_boundaries" },
+      { option_id: "D", text: "not confusing convenience with loyalty", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "desired", signal_type: "growth_convenience_discernment" }
     ]
   },
   {
@@ -444,17 +444,17 @@ const AUTHORED_BANK_1 = [
     display_order: 24,
     engine: "loyalty",
     question_class: "BH",
-    question_subclass: "actual_retention_pattern",
+    question_subclass: "actual_retention_driver",
     prompt: "In reality, I often stay with brands because:",
     reverse_pair_id: null,
     desired_pair_id: null,
     is_scored: true,
     is_active: true,
     options: [
-      { option_id: "A", text: "I trust them by default", primary_dimension: "TD", secondary_dimension: "CH", weight_type: "standard", signal_type: "default_trust" },
-      { option_id: "B", text: "I’m usually satisfied enough", primary_dimension: "SA", secondary_dimension: "CH", weight_type: "standard", signal_type: "good_enough_value" },
-      { option_id: "C", text: "I feel emotionally attached", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "standard", signal_type: "attached_retention" },
-      { option_id: "D", text: "it’s easier than changing", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "standard", signal_type: "easy_retention" }
+      { option_id: "A", text: "I trust them by default", primary_dimension: "TD", secondary_dimension: "CH", weight_type: "standard", signal_type: "actual_trust_default" },
+      { option_id: "B", text: "I’m usually satisfied enough", primary_dimension: "SA", secondary_dimension: "CH", weight_type: "standard", signal_type: "actual_satisfied_enough" },
+      { option_id: "C", text: "I feel emotionally attached", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "standard", signal_type: "actual_attachment" },
+      { option_id: "D", text: "it’s easier than changing", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "standard", signal_type: "actual_easier_than_changing" }
     ]
   },
   {
@@ -463,17 +463,17 @@ const AUTHORED_BANK_1 = [
     display_order: 25,
     engine: "loyalty",
     question_class: "ID",
-    question_subclass: "signature_driver",
+    question_subclass: "dominant_force_choice",
     prompt: "If I had to name the strongest loyalty force, I’d choose:",
     reverse_pair_id: null,
     desired_pair_id: null,
     is_scored: true,
     is_active: true,
     options: [
-      { option_id: "A", text: "trust", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "identity", signal_type: "signature_trust" },
-      { option_id: "B", text: "satisfaction", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "identity", signal_type: "signature_satisfaction" },
-      { option_id: "C", text: "commitment", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "identity", signal_type: "signature_commitment" },
-      { option_id: "D", text: "habit", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "identity", signal_type: "signature_habit" }
+      { option_id: "A", text: "trust", primary_dimension: "TD", secondary_dimension: "ECM", weight_type: "identity", signal_type: "dominant_trust" },
+      { option_id: "B", text: "satisfaction", primary_dimension: "SA", secondary_dimension: "TD", weight_type: "identity", signal_type: "dominant_satisfaction" },
+      { option_id: "C", text: "commitment", primary_dimension: "ECM", secondary_dimension: "TD", weight_type: "identity", signal_type: "dominant_commitment" },
+      { option_id: "D", text: "habit", primary_dimension: "CH", secondary_dimension: "SF", weight_type: "identity", signal_type: "dominant_habit" }
     ]
   }
 ];
