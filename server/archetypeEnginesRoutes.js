@@ -43,13 +43,59 @@ function pickAttribution(req) {
     crid: String(req.query.crid || req.body?.crid || req.query.rid || req.body?.rid || req.body?.user_id || "").trim() || null,
     rid: String(req.query.rid || req.body?.rid || req.query.crid || req.body?.crid || req.body?.user_id || "").trim() || null,
     route_mode: String(req.query.route_mode || req.body?.route_mode || "").trim() || null,
+    tenant_id: String(req.query.tenant_id || req.body?.tenant_id || req.query.tenant || req.body?.tenant || "").trim().toLowerCase() || null,
+    business_owner_id: String(req.query.business_owner_id || req.body?.business_owner_id || req.query.owner_id || req.body?.owner_id || "").trim() || null,
     email: String(req.query.email || req.body?.email || req.headers["x-user-email"] || "").trim().toLowerCase() || null,
     name: String(req.query.name || req.body?.name || req.body?.full_name || "").trim() || null,
   };
   return ctx;
 }
 
+function normalizeAttribution(ctx = {}) {
+  const campaign = String(ctx.campaign || ctx.cid || "").trim() || null;
+  const cid = String(ctx.cid || ctx.campaign || "").trim() || null;
+  const rid = String(ctx.rid || ctx.crid || ctx.user_id || "").trim() || null;
+  const crid = String(ctx.crid || ctx.rid || ctx.user_id || "").trim() || null;
+  const tapSession = String(ctx.tap_session || ctx.session_id || "").trim() || null;
+  const sourceType = String(ctx.source_type || ctx.tap_source || "").trim().toLowerCase() || null;
+  const tapSource = String(ctx.tap_source || "").trim() || null;
+  const entry = String(ctx.entry || "").trim() || null;
+  const sourcePath = String(ctx.source_path || tapSource || sourceType || entry || "other").trim() || "other";
+  const tenantId = String(ctx.tenant_id || ctx.tenant || "").trim().toLowerCase() || null;
+  const businessOwnerId = String(ctx.business_owner_id || ctx.owner_id || "").trim() || null;
+
+  return {
+    source_type: sourceType,
+    tap_source: tapSource,
+    source_path: sourcePath,
+    tenant_id: tenantId,
+    business_owner_id: businessOwnerId,
+    campaign,
+    cid,
+    rid,
+    crid,
+    tap_session: tapSession,
+    session_id: tapSession,
+    session_alias: tapSession,
+    user_id: String(ctx.user_id || rid || crid || "").trim() || null,
+    tap_tag: String(ctx.tap_tag || ctx.tag || "").trim() || null,
+    entry,
+    route_mode: String(ctx.route_mode || "").trim() || null,
+    email: String(ctx.email || "").trim().toLowerCase() || null,
+    name: String(ctx.name || ctx.full_name || "").trim() || null,
+  };
+}
+
+function mergeAttribution(base = {}, incoming = {}) {
+  const merged = { ...(base || {}) };
+  for (const [key, value] of Object.entries(incoming || {})) {
+    if (value !== null && value !== undefined && String(value).trim() !== "") merged[key] = value;
+  }
+  return normalizeAttribution(merged);
+}
+
 async function recordEngineEvent(pool, { engineType, tenant, eventKey, ctx = {}, assessmentId = null, resultId = null }) {
+  const normalizedCtx = normalizeAttribution(ctx);
   await pool.query(
     "INSERT INTO engine_page_views (id, engine_type, tenant_slug, page_key, session_id, user_id, campaign_context) VALUES ($1,$2,$3,$4,$5,$6,$7)",
     [
@@ -57,11 +103,10 @@ async function recordEngineEvent(pool, { engineType, tenant, eventKey, ctx = {},
       engineType,
       tenant,
       eventKey,
-      String(ctx.tap_session || "").trim() || null,
-      String(ctx.crid || ctx.rid || "").trim() || null,
+      String(normalizedCtx.tap_session || "").trim() || null,
+      String(normalizedCtx.crid || normalizedCtx.rid || "").trim() || null,
       JSON.stringify({
-        ...ctx,
-        source_path: ctx.tap_source || ctx.source_type || ctx.entry || "other",
+        ...normalizedCtx,
         assessment_id: assessmentId || null,
         result_id: resultId || null,
       }),
@@ -151,7 +196,7 @@ function createArchetypeEnginesRouter({ pool }) {
     const { engineType } = req.params;
     if (!ENGINE_TYPES.includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
     const tenant = pickTenant(req);
-    const attribution = pickAttribution(req);
+    const attribution = normalizeAttribution(pickAttribution(req));
     recordEngineEvent(pool, { engineType, tenant, eventKey: "consent_viewed", ctx: attribution }).catch(() => {});
     return res.json(consentCopy(engineType));
   });
@@ -308,17 +353,18 @@ function createArchetypeEnginesRouter({ pool }) {
       userId: String(req.body?.user_id || req.body?.rid || req.body?.crid || attribution.rid || attribution.crid || "").trim() || null,
       bankId,
       questionSource: String(req.body?.questionSource || "").trim() || null,
-      attribution: { ...attribution, tenant },
+      attribution: { ...attribution, tenant, tenant_id: attribution.tenant_id || tenant },
     });
-    const payload = { ...scored, canonical };
+    const topLevelAttribution = normalizeAttribution({ ...attribution, tenant, tenant_id: attribution.tenant_id || tenant });
+    const payload = { ...scored, attribution: topLevelAttribution, canonical };
     const resultId = newId("result");
     await pool.query(
       `INSERT INTO engine_results (result_id, assessment_id, engine_type, tenant_slug, result_payload)
        VALUES ($1,$2,$3,$4,$5::jsonb)`,
       [resultId, assessmentId, engineType, tenant, JSON.stringify(payload)]
     );
-    await recordEngineEvent(pool, { engineType, tenant, eventKey: "assessment_completed", ctx: attribution, assessmentId, resultId });
-    await recordEngineEvent(pool, { engineType, tenant, eventKey: "result_created", ctx: attribution, assessmentId, resultId });
+    await recordEngineEvent(pool, { engineType, tenant, eventKey: "assessment_completed", ctx: topLevelAttribution, assessmentId, resultId });
+    await recordEngineEvent(pool, { engineType, tenant, eventKey: "result_created", ctx: topLevelAttribution, assessmentId, resultId });
 
     return res.json({ resultId, engineType, ...payload });
   });
@@ -333,8 +379,15 @@ function createArchetypeEnginesRouter({ pool }) {
     );
     if (!result.rows[0]) return res.status(404).json({ error: "result_not_found" });
     const tenant = pickTenant(req) || result.rows[0].tenant_slug || null;
-    const attribution = pickAttribution(req);
-    await recordEngineEvent(pool, { engineType, tenant, eventKey: "result_viewed", ctx: attribution, assessmentId: result.rows[0].assessment_id, resultId });
+    const storedPayload = result.rows[0].result_payload || {};
+    const storedAttribution = normalizeAttribution(
+      storedPayload.attribution
+      || storedPayload.canonical?.attribution
+      || {}
+    );
+    const requestAttribution = pickAttribution(req);
+    const mergedAttribution = mergeAttribution(storedAttribution, requestAttribution);
+    await recordEngineEvent(pool, { engineType, tenant, eventKey: "result_viewed", ctx: mergedAttribution, assessmentId: result.rows[0].assessment_id, resultId });
     return res.json(result.rows[0]);
   });
 

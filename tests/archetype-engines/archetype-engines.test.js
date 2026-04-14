@@ -637,6 +637,113 @@ test('love assessment attribution continuity survives qr and tap entry contexts 
   }
 });
 
+test('loyalty attribution persists at top-level and canonical payloads, and result_viewed backfills stored attribution', async () => {
+  const pool = createMockPool();
+  const { server, baseUrl } = await startServer(pool);
+  try {
+    const runFlow = async ({ sourceType, tapSource, cid, rid, crid, tapSession, ownerId }) => {
+      const startRes = await fetch(`${baseUrl}/api/archetype-engines/loyalty/assessment/start`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          tenant: 'demo',
+          source_type: sourceType,
+          tap_source: tapSource,
+          cid,
+          rid,
+          crid,
+          tap_session: tapSession,
+          business_owner_id: ownerId,
+        }),
+      });
+      assert.equal(startRes.status, 200);
+      const startJson = await startRes.json();
+      assert.equal(startJson.questionSource, 'authored_bank_1');
+
+      const answers = Object.fromEntries((startJson.questionBanks.activeQuestions || []).map((q, i) => [q.id, (i % 4) + 1]));
+      const scoreRes = await fetch(`${baseUrl}/api/archetype-engines/loyalty/assessment/score`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          tenant: 'demo',
+          assessmentId: startJson.assessmentId,
+          answers,
+          source_type: sourceType,
+          tap_source: tapSource,
+          cid,
+          rid,
+          crid,
+          tap_session: tapSession,
+          business_owner_id: ownerId,
+        }),
+      });
+      assert.equal(scoreRes.status, 200);
+      const scoreJson = await scoreRes.json();
+      assert.ok(scoreJson.resultId);
+      assert.ok(scoreJson.attribution);
+      assert.ok(scoreJson.canonical?.attribution);
+      assert.equal(scoreJson.attribution.source_type, sourceType);
+      assert.equal(scoreJson.attribution.tap_source, tapSource);
+      assert.equal(scoreJson.attribution.cid, cid);
+      assert.equal(scoreJson.attribution.rid, rid);
+      assert.equal(scoreJson.attribution.crid, crid);
+      assert.equal(scoreJson.attribution.tap_session, tapSession);
+      assert.equal(scoreJson.attribution.tenant_id, 'demo');
+      assert.equal(scoreJson.attribution.business_owner_id, ownerId);
+      assert.equal(scoreJson.canonical.attribution.cid, cid);
+      assert.equal(scoreJson.canonical.attribution.rid, rid);
+      assert.equal(scoreJson.canonical.attribution.crid, crid);
+      assert.equal(scoreJson.canonical.attribution.tap_session, tapSession);
+
+      const resultRes = await fetch(`${baseUrl}/api/archetype-engines/loyalty/results/${scoreJson.resultId}?tenant=demo&source_type=${encodeURIComponent(sourceType)}`);
+      assert.equal(resultRes.status, 200);
+      const stored = await resultRes.json();
+      assert.equal(stored.result_payload.attribution.cid, cid);
+      assert.equal(stored.result_payload.attribution.rid, rid);
+      assert.equal(stored.result_payload.attribution.crid, crid);
+      assert.equal(stored.result_payload.attribution.tap_session, tapSession);
+      assert.equal(stored.result_payload.attribution.business_owner_id, ownerId);
+      assert.ok(stored.result_payload.canonical?.attribution);
+      return scoreJson.resultId;
+    };
+
+    const qrResultId = await runFlow({
+      sourceType: 'qr',
+      tapSource: 'qr',
+      cid: 'camp-qr-7',
+      rid: 'rid-qr-7',
+      crid: 'crid-qr-7',
+      tapSession: 'sess-qr-7',
+      ownerId: 'owner-qr',
+    });
+
+    await runFlow({
+      sourceType: 'tap',
+      tapSource: 'direct-link',
+      cid: 'camp-tap-9',
+      rid: 'rid-tap-9',
+      crid: 'crid-tap-9',
+      tapSession: 'sess-tap-9',
+      ownerId: 'owner-tap',
+    });
+
+    await fetch(`${baseUrl}/api/archetype-engines/loyalty/results/${qrResultId}?tenant=demo`, { method: 'GET' });
+
+    const resultViewedEvents = pool.state.pageViews.filter((row) => row.page_key === 'result_viewed');
+    assert.ok(resultViewedEvents.length >= 3);
+    const backfilledEvent = resultViewedEvents[resultViewedEvents.length - 1];
+    const backfilledCtx = JSON.parse(backfilledEvent.campaign_context || '{}');
+    assert.equal(backfilledCtx.cid, 'camp-qr-7');
+    assert.equal(backfilledCtx.rid, 'rid-qr-7');
+    assert.equal(backfilledCtx.crid, 'crid-qr-7');
+    assert.equal(backfilledCtx.tap_session, 'sess-qr-7');
+    assert.equal(backfilledCtx.business_owner_id, 'owner-qr');
+    assert.equal(backfilledCtx.source_path, 'qr');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
 test('love insights vary materially across different profile payloads', () => {
   const lowAnswers = Object.fromEntries(LOVE_QUESTIONS.map((q) => [q.id || q.question_id, 1]));
   const highAnswers = Object.fromEntries(LOVE_QUESTIONS.map((q) => [q.id || q.question_id, 4]));
