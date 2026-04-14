@@ -1,6 +1,7 @@
 "use strict";
 
 const { SIGNAL_LIBRARY } = require("./signals");
+const { seededRandom, shuffle } = require("./utils");
 
 const PROMPT_TEMPLATES = {
   ID: [
@@ -68,218 +69,141 @@ const DOMAIN_FRAGMENTS = {
   "conflict reset experiences": ["when trying to reset after tension", "when you need a fresh relational start", "after emotional heaviness"],
 };
 
-const OPTION_BEHAVIORS = {
-  RS: {
-    ID: [
-      "ask for a clear check-in instead of guessing where you stand",
-      "move closer and name that reassurance helps you settle",
-      "say directly you need warmth and a steady response",
-      "reach out for emotional contact when distance starts to feel loud",
-      "request a grounding touchpoint so your nervous system can calm",
-      "name the reassurance you need instead of holding it in",
-    ],
-    BH: [
-      "send a quick check-in text when connection feels quiet",
-      "ask where you both stand before uncertainty snowballs",
-      "look for warm confirmation through small daily touchpoints",
-      "initiate closeness when silence starts feeling personal",
-      "ask for reassurance early rather than spiraling alone",
-      "create predictable emotional check-ins during the week",
-    ],
-    SC: [
-      "ask for clarity on what this decision means for the relationship",
-      "request reassurance before locking in the next step",
-      "check that emotional security is part of the plan",
-      "pause long enough to confirm you're still emotionally aligned",
-      "ask directly how connected you'll stay through the change",
-      "seek a reassuring plan for how you stay close while deciding",
-    ],
-    ST: [
-      "name that you need reassurance before trying to solve the issue",
-      "ask for a calming check-in before the conversation escalates",
-      "move toward repair by asking for steady emotional contact",
-      "say clearly when silence is amplifying your stress",
-      "request a short reconnection moment before continuing the conflict",
-      "anchor the moment with direct reassurance requests",
-    ],
-    DS: [
-      "ask for reassurance without over-reading every delay",
-      "name your need clearly while giving your partner room to respond",
-      "practice self-soothing before sending a second follow-up",
-      "separate real disconnection from normal response gaps",
-      "request clarity once, then give space for follow-through",
-      "ground yourself first, then ask for what you need",
-    ],
+const ARCHETYPE_EXPRESSIONS = {
+  RS: [
+    "seek reassurance directly",
+    "check in quickly",
+    "assume something is wrong",
+    "feel an emotional drop",
+    "ask for clarity",
+    "move toward closeness",
+    "need verbal confirmation",
+    "overanalyze silence",
+    "request steady emotional contact",
+    "name uncertainty early",
+  ],
+  AL: [
+    "create space",
+    "downplay urgency",
+    "self-regulate internally",
+    "detach slightly",
+    "avoid over-engagement",
+    "maintain independence",
+    "set pacing boundaries",
+    "take a pause before responding",
+    "reconnect after solo processing",
+    "protect personal bandwidth",
+  ],
+  EC: [
+    "initiate conversation",
+    "clarify verbally",
+    "express feelings directly",
+    "process out loud",
+    "ask grounded questions",
+    "name the emotional pattern",
+    "invite two-way dialogue",
+    "translate tension into words",
+    "restate for understanding",
+    "debrief misunderstandings",
+  ],
+  AV: [
+    "evaluate actions",
+    "look for consistency",
+    "wait for behavior",
+    "measure follow-through",
+    "verify reliability",
+    "track repeated effort",
+    "anchor trust in proof",
+    "compare words to actions",
+    "test accountability",
+    "reward demonstrated change",
+  ],
+  ES: [
+    "shift to activity",
+    "seek stimulation",
+    "redirect energy outward",
+    "create new engagement",
+    "avoid stagnation",
+    "introduce novelty",
+    "spark playful momentum",
+    "change the setting",
+    "design a shared experience",
+    "re-energize connection",
+  ],
+};
+
+const SIGNAL_PHRASES = {
+  "reassurance need": ["when reassurance feels necessary", "if emotional security feels shaky"],
+  "sensitivity to silence": ["when silence stretches", "if responses go quiet"],
+  "proximity seeking": ["when distance shows up", "if connection feels far away"],
+  "emotional validation focus": ["when you need emotional confirmation", "if feelings need to be acknowledged"],
+  "autonomy protection": ["when autonomy matters", "if pressure starts building"],
+  "distance regulation": ["when closeness needs pacing", "if space keeps you regulated"],
+  "self-containment": ["when you process internally", "if you need solo regulation"],
+  "closeness without engulfment": ["when you want closeness without overwhelm", "if you need room and connection"],
+  "verbal repair": ["when repair needs words", "if clarity helps reconnection"],
+  articulation: ["when articulation creates trust", "if naming it reduces confusion"],
+  "discussion-based closeness": ["when talking deepens closeness", "if dialogue builds connection"],
+  "clarity seeking": ["when clarity is essential", "if assumptions might grow"],
+  "action over words": ["when actions carry more weight", "if promises alone feel thin"],
+  "proof-based trust": ["when trust needs evidence", "if consistency matters most"],
+  "consistency tracking": ["when you watch patterns over time", "if one moment is not enough"],
+  "reliability-centered bonding": ["when reliability drives bonding", "if dependable effort signals care"],
+  "novelty activation": ["when newness boosts connection", "if routine feels flat"],
+  "stagnation sensitivity": ["when stagnation feels heavy", "if energy starts dipping"],
+  "experiential bonding": ["when shared experiences reconnect you", "if doing something new restores spark"],
+  "emotional aliveness through shared moments": ["when aliveness comes from shared moments", "if fresh moments reset your mood"],
+};
+
+const CLASS_TONE_SCHEMAS = {
+  ID: {
+    emotional: ["I naturally {expression} {scenario} {signal}.", "At my core, I {expression} {signal} {scenario}.", "I feel most like myself when I {expression} {scenario} {signal}."],
+    neutral: ["I usually {expression} {scenario} {signal}.", "My default is to {expression} {scenario} {signal}.", "I tend to {expression} {scenario} {signal}."],
+    logical: ["My baseline strategy is to {expression} {signal} {scenario}.", "I rely on {expression} {scenario} {signal}.", "I default to {expression} because it works for me {scenario} {signal}."],
+    energetic: ["I quickly {expression} {scenario} {signal}.", "I jump into {expression} {scenario} {signal}.", "I actively {expression} {scenario} {signal}."],
   },
-  AL: {
-    ID: [
-      "protect your pace while staying emotionally available",
-      "take space to think, then reconnect with intention",
-      "ask for breathing room before revisiting heavy topics",
-      "keep your autonomy intact while remaining engaged",
-      "slow the tempo so you can respond with clarity instead of pressure",
-      "signal care while guarding your need for personal bandwidth",
-    ],
-    BH: [
-      "build in solo recharge time and return when you're grounded",
-      "set a clear boundary and follow through on reconnect timing",
-      "step back briefly rather than react while overloaded",
-      "maintain your own rhythm without disappearing",
-      "protect independent time while communicating your return point",
-      "take a short pause, then come back with focus",
-    ],
-    SC: [
-      "ask for time to process before giving a final answer",
-      "protect decision pace so you don't commit from pressure",
-      "clarify boundaries before agreeing to next steps",
-      "slow the decision down to align with your real capacity",
-      "choose space for reflection before making a joint call",
-      "request a defined pause so you can respond deliberately",
-    ],
-    ST: [
-      "take a brief timeout to regulate before re-engaging",
-      "name your need for space and set a return time",
-      "pause the exchange before it becomes reactive",
-      "step back to reset, then come back to the hard part",
-      "protect your bandwidth so the conversation stays respectful",
-      "decompress first, then restart the conversation intentionally",
-    ],
-    DS: [
-      "ask for space without going fully silent",
-      "pair boundaries with proactive reassurance",
-      "signal your return time so distance does not feel like withdrawal",
-      "stay open while protecting your autonomy",
-      "share your pace needs before conflict hardens",
-      "practice giving context when you need room",
-    ],
+  BH: {
+    emotional: ["Most weeks, I {expression} {scenario} {signal}.", "In regular connection, I often {expression} {scenario} {signal}.", "Over time, I keep {expression} {scenario} {signal}."],
+    neutral: ["Habitually, I {expression} {scenario} {signal}.", "My routine move is to {expression} {scenario} {signal}.", "Week to week, I {expression} {scenario} {signal}."],
+    logical: ["As a pattern, I {expression} {signal} {scenario}.", "My practical habit is to {expression} {scenario} {signal}.", "I repeatedly {expression} because it keeps things workable {scenario} {signal}."],
+    energetic: ["I tend to quickly {expression} {scenario} {signal}.", "I actively keep {expression} in motion {scenario} {signal}.", "I regularly jump to {expression} {scenario} {signal}."],
   },
-  EC: {
-    ID: [
-      "talk it through so both people feel accurately understood",
-      "name what's happening in real time before assumptions grow",
-      "open a direct conversation to create mutual clarity",
-      "process out loud to reconnect through understanding",
-      "ask focused questions until both viewpoints feel clear",
-      "bring words to tension quickly so it doesn't calcify",
-    ],
-    BH: [
-      "start honest check-ins instead of leaving things implied",
-      "name your feelings clearly and invite your partner's perspective",
-      "debrief misunderstandings before they linger",
-      "translate emotional shifts into clear language",
-      "use direct conversation to keep the bond clean",
-      "make room for dialogue even when things seem mostly fine",
-    ],
-    SC: [
-      "talk through tradeoffs before deciding",
-      "ask clarifying questions until expectations are explicit",
-      "map both perspectives so the decision feels shared",
-      "name concerns early and resolve them together",
-      "use a focused conversation to align on meaning and timing",
-      "frame the decision with transparent communication first",
-    ],
-    ST: [
-      "start a calm repair conversation and stay with the core issue",
-      "name the rupture directly and ask what each of you needs",
-      "slow the conflict down with clear language and listening",
-      "invite a two-way debrief instead of arguing in loops",
-      "restate what you heard before pushing your point",
-      "work toward repair by talking through the impact",
-    ],
-    DS: [
-      "speak more concisely when emotions run high",
-      "listen for understanding before trying to fix",
-      "ask one clear question at a time in hard conversations",
-      "trade over-processing for cleaner repair dialogue",
-      "focus on timing so conversations land better",
-      "balance honesty with emotional pacing",
-    ],
+  SC: {
+    emotional: ["In that moment, I {expression} {scenario} {signal}.", "When the situation turns, I feel pulled to {expression} {scenario} {signal}.", "My first response is to {expression} {scenario} {signal}."],
+    neutral: ["In this scenario, I {expression} {scenario} {signal}.", "My likely response is to {expression} {scenario} {signal}.", "I usually respond by {expression} {scenario} {signal}."],
+    logical: ["Given the situation, I {expression} {signal} {scenario}.", "My decision move is to {expression} {scenario} {signal}.", "I respond by {expression} to stabilize outcomes {scenario} {signal}."],
+    energetic: ["I quickly respond by {expression} {scenario} {signal}.", "I move fast to {expression} {scenario} {signal}.", "I immediately {expression} {scenario} {signal}."],
   },
-  AV: {
-    ID: [
-      "watch for consistent follow-through more than polished words",
-      "trust actions that repeat, not promises that spike",
-      "look for patterns over one-time gestures",
-      "anchor trust in reliability you can actually observe",
-      "measure connection by what gets done over time",
-      "value steady effort above emotional speeches",
-    ],
-    BH: [
-      "notice whether commitments are kept week after week",
-      "track consistency before relaxing your guard",
-      "look for concrete proof when trust feels uncertain",
-      "pay attention to repeated behaviors, not isolated moments",
-      "validate care through follow-through on small promises",
-      "watch whether effort holds when life gets busy",
-    ],
-    SC: [
-      "ask for a plan with clear responsibilities and follow-through",
-      "choose the option backed by consistent action",
-      "wait for concrete steps before fully buying in",
-      "prefer commitments that come with visible execution",
-      "align on who will do what and by when",
-      "look for proof of reliability before taking the leap",
-    ],
-    ST: [
-      "look for changed behavior before declaring the issue resolved",
-      "ask for concrete repair actions, not vague apologies",
-      "pause trust until consistency returns",
-      "track whether accountability shows up after the conflict",
-      "rebuild closeness through visible follow-through",
-      "wait for dependable patterns before resetting fully",
-    ],
-    DS: [
-      "recognize good-faith effort sooner instead of waiting for perfection",
-      "appreciate progress while still valuing consistency",
-      "allow one miss without rewriting the whole pattern",
-      "name what follow-through would rebuild trust faster",
-      "reward reliability when you see it",
-      "balance standards with flexibility in repair",
-    ],
+  ST: {
+    emotional: ["Under stress, I {expression} {scenario} {signal}.", "When tension spikes, I feel myself {expression} {scenario} {signal}.", "In conflict, I emotionally default to {expression} {scenario} {signal}."],
+    neutral: ["When stressed, I usually {expression} {scenario} {signal}.", "My stress response is to {expression} {scenario} {signal}.", "During friction, I tend to {expression} {scenario} {signal}."],
+    logical: ["In high tension, I {expression} to restore stability {scenario} {signal}.", "My conflict regulation move is to {expression} {scenario} {signal}.", "Under pressure, I use {expression} as my regulating step {scenario} {signal}."],
+    energetic: ["When conflict heats up, I quickly {expression} {scenario} {signal}.", "I react fast by {expression} {scenario} {signal}.", "In tense moments, I immediately {expression} {scenario} {signal}."],
   },
-  ES: {
-    ID: [
-      "reset energy through shared novelty when things feel stale",
-      "bring in a fresh plan to restore emotional aliveness",
-      "create meaningful new moments to reconnect",
-      "shift the mood with a new shared experience",
-      "seek spontaneity that brings you both back online",
-      "renew connection by changing the environment together",
-    ],
-    BH: [
-      "suggest a new micro-adventure when routine gets flat",
-      "refresh the bond with playful shared plans",
-      "redirect heavy energy into a new shared moment",
-      "propose something different to re-open connection",
-      "use novelty to shake off emotional stuckness",
-      "plan a fresh experience that creates momentum",
-    ],
-    SC: [
-      "look for a next step that keeps the relationship feeling alive",
-      "choose the path with room for growth and new experiences",
-      "bring creativity into the decision so connection stays energized",
-      "reframe the decision as an opportunity to evolve together",
-      "prefer options that prevent the relationship from going stagnant",
-      "add novelty to the plan so both of you stay engaged",
-    ],
-    ST: [
-      "break the tension cycle with a fresh reset activity",
-      "shift the emotional state with a new shared experience",
-      "suggest a change of setting to reset the conversation",
-      "interrupt conflict spiral by redirecting energy together",
-      "bring playful movement into a stuck moment",
-      "create a new experience that softens the emotional charge",
-    ],
-    DS: [
-      "stay present in calm moments without needing constant novelty",
-      "build depth in routine, not only in intensity",
-      "practice tolerating slower relational seasons",
-      "keep connection alive without chasing stimulation",
-      "balance excitement with consistency",
-      "use novelty intentionally instead of impulsively",
-    ],
+  DS: {
+    emotional: ["I am practicing how to {expression} {scenario} {signal}.", "My growth edge is learning to {expression} {scenario} {signal}.", "To grow, I want to {expression} {scenario} {signal}."],
+    neutral: ["I am working on {expression} {scenario} {signal}.", "My development focus is to {expression} {scenario} {signal}.", "I am intentionally building {expression} {scenario} {signal}."],
+    logical: ["My next growth strategy is to {expression} {scenario} {signal}.", "To mature this pattern, I aim to {expression} {scenario} {signal}.", "I want to improve by {expression} {scenario} {signal}."],
+    energetic: ["I am actively training myself to {expression} {scenario} {signal}.", "I am putting energy into {expression} {scenario} {signal}.", "I am deliberately pushing toward {expression} {scenario} {signal}."],
   },
 };
+
+const TONES = ["emotional", "neutral", "logical", "energetic"];
+const SUPERLATIVE_TOKENS = ["best", "ideal", "always", "never", "perfect", "superior", "right way"];
+
+function inferTone(text) {
+  const lower = text.toLowerCase();
+  if (/\bquickly|immediately|actively|jump|fast\b/.test(lower)) return "energetic";
+  if (/\bstrategy|stability|practical|baseline|regulation\b/.test(lower)) return "logical";
+  if (/\bfeel|emotion|stress|tension|conflict\b/.test(lower)) return "emotional";
+  return "neutral";
+}
+
+function inferExpressionSignature(option) {
+  if (option.expression) return `${option.primary || option.primary_archetype}:${option.expression}`;
+  const cleaned = option.text.toLowerCase().replace(/[^a-z\s]/g, " ").split(/\s+/).filter(Boolean);
+  return `${option.primary || option.primary_archetype}:${cleaned.slice(2, 6).join(" ")}`;
+}
 
 function choose(list, index) {
   return list[index % list.length];
@@ -302,45 +226,115 @@ function buildPrompt(blueprint, idx) {
   return `${base} (${toSentenceCase(domainPhrase)}).`;
 }
 
-function buildOptionText({ primary, questionClass, idx, optionIndex, scenarioDomain }) {
-  const byClass = OPTION_BEHAVIORS[primary] || OPTION_BEHAVIORS.EC;
-  const variants = byClass[questionClass] || byClass.BH;
-  const scenarioBias = scenarioDomain ? scenarioDomain.length % variants.length : 0;
-  const variant = choose(variants, idx + optionIndex + scenarioBias);
-  return `${toSentenceCase(variant)}.`;
+function similaritySignature(text) {
+  return text.toLowerCase()
+    .replace(/[^a-z\s]/g, " ")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 4)
+    .join(" ");
+}
+
+function buildOptionText({ template, expression, scenarioPhrase, signalPhrase }) {
+  return template
+    .replace("{expression}", expression)
+    .replace("{scenario}", scenarioPhrase)
+    .replace("{signal}", signalPhrase)
+    .replace(/\s+/g, " ")
+    .replace(/\s+\./g, ".")
+    .trim();
+}
+
+function buildOptionVariant({ blueprint, ob, idx, optionIndex, tone }) {
+  const rand = seededRandom(`${blueprint.questionId}:${idx}:${optionIndex}:${ob.primary}`);
+  const expressionLibrary = ARCHETYPE_EXPRESSIONS[ob.primary] || ARCHETYPE_EXPRESSIONS.EC;
+  const expression = expressionLibrary[Math.floor(rand() * expressionLibrary.length) % expressionLibrary.length];
+  const classSchemas = CLASS_TONE_SCHEMAS[blueprint.questionClass] || CLASS_TONE_SCHEMAS.BH;
+  const toneTemplates = classSchemas[tone] || classSchemas.neutral;
+  const template = toneTemplates[Math.floor(rand() * toneTemplates.length) % toneTemplates.length];
+  const scenarioOptions = DOMAIN_FRAGMENTS[blueprint.scenarioDomain] || [];
+  const scenarioPhrase = scenarioOptions.length
+    ? choose(scenarioOptions, idx + optionIndex + blueprint.questionId.length)
+    : "in relationship moments";
+  const signalOptions = SIGNAL_PHRASES[ob.signal] || [`when ${ob.signal}`, `if ${ob.signal}`];
+  const signalPhrase = choose(signalOptions, idx + optionIndex);
+  const text = toSentenceCase(buildOptionText({ template, expression, scenarioPhrase, signalPhrase }));
+
+  return {
+    optionId: String.fromCharCode(65 + optionIndex),
+    text,
+    primary: ob.primary,
+    secondary: ob.secondary,
+    signalType: ob.signal.replace(/\s+/g, "_").toLowerCase(),
+    desirabilityScoreEstimate: null,
+    signalProfileName: SIGNAL_LIBRARY[ob.primary].name,
+    expression,
+    tone,
+  };
+}
+
+function hasParallelStructure(options) {
+  const starts = options.map((opt) => similaritySignature(opt.text));
+  return new Set(starts).size < options.length;
+}
+
+function optionAppearsMoreCorrect(options) {
+  const withSuperlatives = options.map((opt) => SUPERLATIVE_TOKENS.some((token) => opt.text.toLowerCase().includes(token)));
+  return withSuperlatives.filter(Boolean).length === 1;
+}
+
+function validateOptionDiversity(optionVariants) {
+  const failures = [];
+  const expressionSet = new Set(optionVariants.map((o) => inferExpressionSignature(o)));
+  if (expressionSet.size !== optionVariants.length) failures.push("expressions_repeat_within_question");
+
+  const tones = new Set(optionVariants.map((o) => o.tone || inferTone(o.text)));
+  if (tones.size === 1) failures.push("tone_identical_across_options");
+
+  if (hasParallelStructure(optionVariants)) failures.push("similar_wording_structure");
+  if (optionAppearsMoreCorrect(optionVariants)) failures.push("one_option_sounds_more_correct");
+
+  return failures;
 }
 
 function generateCandidatesForBlueprint(blueprint) {
   const promptVariants = PROMPT_TEMPLATES[blueprint.questionClass] || PROMPT_TEMPLATES.BH;
-  return promptVariants.map((_, idx) => ({
-    questionId: blueprint.questionId,
-    bankId: blueprint.bankId,
-    questionClass: blueprint.questionClass,
-    prompt: buildPrompt(blueprint, idx),
-    optionVariants: blueprint.optionBlueprints.map((ob, optionIndex) => ({
-      optionId: String.fromCharCode(65 + optionIndex),
-      text: buildOptionText({
-        primary: ob.primary,
-        questionClass: blueprint.questionClass,
-        idx,
-        optionIndex,
-        scenarioDomain: blueprint.scenarioDomain,
-      }),
-      primary: ob.primary,
-      secondary: ob.secondary,
-      signalType: ob.signal.replace(/\s+/g, "_").toLowerCase(),
-      desirabilityScoreEstimate: null,
-      signalProfileName: SIGNAL_LIBRARY[ob.primary].name,
-    })),
-    sourceBlueprintId: blueprint.questionId,
-  }));
+
+  return promptVariants.map((_, idx) => {
+    const tones = shuffle(TONES, seededRandom(`${blueprint.questionId}:tones:${idx}`));
+    const optionVariants = blueprint.optionBlueprints.map((ob, optionIndex) => buildOptionVariant({
+      blueprint,
+      ob,
+      idx,
+      optionIndex,
+      tone: tones[optionIndex % tones.length],
+    }));
+
+    const diversityFailures = validateOptionDiversity(optionVariants);
+    if (diversityFailures.length) return null;
+
+    return {
+      questionId: blueprint.questionId,
+      bankId: blueprint.bankId,
+      questionClass: blueprint.questionClass,
+      prompt: buildPrompt(blueprint, idx),
+      optionVariants,
+      sourceBlueprintId: blueprint.questionId,
+    };
+  }).filter(Boolean);
 }
 
 function generateCandidatePool(blueprints) {
-  return blueprints.map((bp) => ({
-    blueprint: bp,
-    candidates: generateCandidatesForBlueprint(bp),
-  }));
+  return blueprints.map((bp) => {
+    const candidates = generateCandidatesForBlueprint(bp);
+    if (!candidates.length) {
+      throw new Error(`No valid candidates generated for ${bp.questionId}; option diversity validation rejected all variants`);
+    }
+    return {
+      blueprint: bp,
+      candidates,
+    };
+  });
 }
 
-module.exports = { generateCandidatesForBlueprint, generateCandidatePool };
+module.exports = { generateCandidatesForBlueprint, generateCandidatePool, validateOptionDiversity };

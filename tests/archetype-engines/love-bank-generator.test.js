@@ -2,6 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 
 const { generateLoveBank, validateBank } = require('../../archetype-engines/generator/love');
+const { validateOptionDiversity } = require('../../archetype-engines/generator/love/generateCandidates');
 
 const ARCHETYPES = ['RS', 'AL', 'EC', 'AV', 'ES'];
 
@@ -71,4 +72,17 @@ test('export schema remains compatible with canonical Love question shape', () =
 
   const audit = validateBank(bank.bankId, bank.questions);
   assert.equal(audit.valid, true, audit.failures.join('\n'));
+});
+
+test('each generated question passes option diversity constraints', () => {
+  const bank = generateLoveBank({ seed: 'DIVERSITY_1' });
+
+  for (const q of bank.questions) {
+    const normalizedOptions = q.options.map((opt) => ({
+      ...opt,
+      primary: opt.primary_archetype,
+    }));
+    const diversityFailures = validateOptionDiversity(normalizedOptions);
+    assert.deepEqual(diversityFailures, [], `${q.question_id} failed diversity checks: ${diversityFailures.join(', ')}`);
+  }
 });

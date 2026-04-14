@@ -3,6 +3,7 @@
 const { ARCHETYPES, CLASS_DISTRIBUTION, CLASS_WEIGHTS } = require("./signals");
 const { pairKey } = require("./pairScheduler");
 const { desirabilityWarnings } = require("./desirabilityRules");
+const { validateOptionDiversity } = require("./generateCandidates");
 
 function normalize(question) {
   return {
@@ -38,6 +39,10 @@ function validateBank(bankId, questions) {
       pairCounts[pKey] = (pairCounts[pKey] || 0) + 1;
     }
     if (primaries.size !== 4) failures.push(`${q.question_id || q.questionId} has duplicate primary archetypes`);
+    const diversityFailures = validateOptionDiversity(q.options);
+    for (const failure of diversityFailures) {
+      failures.push(`${q.question_id || q.questionId} failed option diversity validation: ${failure}`);
+    }
     warnings.push(...desirabilityWarnings(q.options));
   }
 
