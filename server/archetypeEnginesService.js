@@ -35,6 +35,73 @@ const LOYALTY_AUTHORED_BANK_1 = Object.freeze([...LOYALTY_BANK1]);
 const LOYALTY_AUTHORED_BANK_2 = Object.freeze([...LOYALTY_BANK2]);
 const LOYALTY_AUTHORED_BANK_3 = Object.freeze([...LOYALTY_BANK3]);
 const LOYALTY_SKELETON_BANKS = Object.freeze({ LOYALTY_BANK_1: LOYALTY_BANK1, LOYALTY_BANK_2: LOYALTY_BANK2, LOYALTY_BANK_3: LOYALTY_BANK3 });
+const LOYALTY_COMMUNICATION_RULES = Object.freeze({
+  TD: Object.freeze({
+    tone: "confident",
+    style: "direct",
+    messaging_focus: "trust_reinforcement",
+    retention_hook: "consistency + proof + transparency",
+    churn_trigger: "broken promises, inconsistency, hidden changes",
+    plain_language_summary: "You stay loyal when something proves it is solid. If that trust cracks, everything changes.",
+    best_way_to_talk_to_them: "Be clear, calm, and transparent. Avoid hype and back claims with proof.",
+    what_keeps_them_engaged: "Reliable delivery, visible accountability, and consistency over time.",
+    what_pushes_them_away: "Surprises without explanation, broken promises, or trust gaps.",
+    loyalty_loop: { label: "Trust → Satisfaction → Trust", meaning: "Proof builds confidence, confidence sustains repeat behavior, and repeat behavior reinforces trust.", why: "When trust stays intact, loyalty compounds with very little resistance.", breakPoint: "Any credibility break can collapse the loop quickly.", plain: "When something feels reliable and keeps doing what it promised, your loyalty gets stronger naturally." },
+    realWorld: "You’re loyal when you feel safe, certain, and sure the brand will keep its word.",
+  }),
+  SA: Object.freeze({
+    tone: "practical",
+    style: "clear",
+    messaging_focus: "value_reinforcement",
+    retention_hook: "quality + usefulness + continued payoff",
+    churn_trigger: "declining performance, inconsistency, wasted effort",
+    plain_language_summary: "If it keeps delivering, you stay. If it stops being worth it, you move.",
+    best_way_to_talk_to_them: "Emphasize outcomes, quality, and clear improvements.",
+    what_keeps_them_engaged: "Consistent value and visible return for time, energy, and money.",
+    what_pushes_them_away: "Value erosion, inconsistent quality, and effort that no longer pays off.",
+    loyalty_loop: { label: "Satisfaction → Habit → Satisfaction", meaning: "Repeated positive experiences create routine use, and routine use deepens satisfaction expectations.", why: "Reliable performance becomes the baseline that protects retention.", breakPoint: "Performance dips trigger immediate comparison behavior.", plain: "You keep coming back when it keeps working. Once value drops, loyalty softens fast." },
+    realWorld: "You stay when the experience keeps proving it’s worth your time and money.",
+  }),
+  ECM: Object.freeze({
+    tone: "warm",
+    style: "human",
+    messaging_focus: "connection_reinforcement",
+    retention_hook: "recognition + belonging + authenticity",
+    churn_trigger: "feeling fake, unseen, manipulated, emotionally disconnected",
+    plain_language_summary: "You don’t just use things — you connect with them. Loyalty feels personal for you.",
+    best_way_to_talk_to_them: "Be expressive and human. Make them feel seen, and avoid scripted language.",
+    what_keeps_them_engaged: "Authentic recognition, identity fit, and emotional resonance.",
+    what_pushes_them_away: "Performative messaging, manipulation, or feeling emotionally ignored.",
+    loyalty_loop: { label: "Connection → Meaning → Commitment", meaning: "Feeling seen builds meaning, and meaning deepens long-term commitment.", why: "Emotion can anchor loyalty even when alternatives are available.", breakPoint: "Perceived inauthenticity quickly dissolves attachment.", plain: "When a brand feels real and personal, your loyalty deepens. If it feels fake, you detach." },
+    realWorld: "You stay when a brand feels like it means something to you.",
+  }),
+  CH: Object.freeze({
+    tone: "simple",
+    style: "frictionless",
+    messaging_focus: "ease_reinforcement",
+    retention_hook: "simplicity + fit + default flow",
+    churn_trigger: "added effort, friction, broken routine, complication",
+    plain_language_summary: "You stay with what fits your flow. If it gets harder than it should be, you start looking elsewhere.",
+    best_way_to_talk_to_them: "Keep messages short, clear, and effortless to act on.",
+    what_keeps_them_engaged: "Speed, convenience, and predictable low-friction routines.",
+    what_pushes_them_away: "New steps, added complexity, and interruptions to familiar flow.",
+    loyalty_loop: { label: "Ease → Habit → Ease", meaning: "Low effort creates repeat behavior, and repeat behavior raises the value of convenience.", why: "Habit loyalty is sticky when routines remain smooth.", breakPoint: "Even small friction can trigger switching exploration.", plain: "When it stays easy, you stay. If the flow breaks, your loyalty weakens quickly." },
+    realWorld: "You stay with what fits your routine and doesn’t make life harder.",
+  }),
+  SF: Object.freeze({
+    tone: "pragmatic",
+    style: "blunt",
+    messaging_focus: "practical_tradeoff",
+    retention_hook: "stability + not worth switching + cost/effort awareness",
+    churn_trigger: "easy escape path, accumulated resentment, better low-friction alternative",
+    plain_language_summary: "You usually don’t leave unless it’s really worth it. Most of the time, switching just feels like too much.",
+    best_way_to_talk_to_them: "Be practical and transparent about the tradeoff of staying vs leaving.",
+    what_keeps_them_engaged: "Stable outcomes and clear reasons why staying is still efficient.",
+    what_pushes_them_away: "A painless alternative plus built-up frustration from feeling trapped.",
+    loyalty_loop: { label: "Stability → Friction → Stability", meaning: "Operational stability and switching costs reinforce continuation.", why: "Retention holds until an easier option outweighs disruption.", breakPoint: "Resentment + easy alternatives can flip behavior rapidly.", plain: "You tend to stay put unless moving becomes clearly easier or better." },
+    realWorld: "You usually stay unless leaving becomes easier or more worth it.",
+  }),
+});
 
 function readJsonIfExists(filePath) {
   if (!filePath || !fs.existsSync(filePath)) return null;
@@ -535,10 +602,83 @@ function buildResultInsights(scored, archetypeIndex = {}) {
   };
 }
 
+function buildLoyaltyCommunicationProfile(scored) {
+  const primaryCode = scored?.primaryArchetype?.code;
+  const secondaryCode = scored?.secondaryArchetype?.code;
+  const primaryRule = LOYALTY_COMMUNICATION_RULES[primaryCode] || LOYALTY_COMMUNICATION_RULES.TD;
+  return {
+    primary_driver: primaryCode || "TD",
+    secondary_driver: secondaryCode || primaryCode || "TD",
+    tone: primaryRule.tone,
+    style: primaryRule.style,
+    messaging_focus: primaryRule.messaging_focus,
+    retention_hook: primaryRule.retention_hook,
+    churn_trigger: primaryRule.churn_trigger,
+    plain_language_summary: primaryRule.plain_language_summary,
+    best_way_to_talk_to_them: primaryRule.best_way_to_talk_to_them,
+    what_keeps_them_engaged: primaryRule.what_keeps_them_engaged,
+    what_pushes_them_away: primaryRule.what_pushes_them_away,
+  };
+}
+
+function buildLoyaltyInsights(scored, archetypeIndex = {}) {
+  const profile = buildLoyaltyCommunicationProfile(scored);
+  const primaryCode = profile.primary_driver;
+  const secondaryCode = profile.secondary_driver;
+  const primaryName = archetypeIndex[primaryCode]?.name || primaryCode;
+  const secondaryName = archetypeIndex[secondaryCode]?.name || secondaryCode;
+  const primaryScore = Number(scored?.normalizedScores?.[primaryCode] || 0).toFixed(1);
+  const loyaltyState = scored?.balanceStates?.overall || "balanced";
+  const loyaltyLoop = LOYALTY_COMMUNICATION_RULES[primaryCode]?.loyalty_loop || LOYALTY_COMMUNICATION_RULES.TD.loyalty_loop;
+  const retentionGap = strongestGap(scored?.desiredCurrentGap || {});
+  const perceivedVsActual = strongestGap(scored?.identityBehaviorGap || {});
+
+  return {
+    communication_profile: profile,
+    whyThisMatters: "Loyalty is multi-mechanism: trust, satisfaction, emotional connection, routine, and switching friction each influence retention differently.",
+    scientificFoundation: "Multi-Mechanism Loyalty Model integrating cognitive, emotional, behavioral, and structural retention drivers.",
+    loyaltyPattern: `${primaryName} is your dominant loyalty driver (${primaryScore}%), with ${secondaryName} as your secondary pattern.`,
+    loyaltyState: `Your current loyalty state is ${loyaltyState}.`,
+    retentionInsight: `Your retention hook is ${profile.retention_hook}.`,
+    churnRiskInsight: `Your strongest pull-away trigger is ${profile.churn_trigger}.`,
+    loyaltyLoop: {
+      label: loyaltyLoop.label,
+      what_it_means: loyaltyLoop.meaning,
+      why_it_matters: loyaltyLoop.why,
+      break_point: loyaltyLoop.breakPoint,
+      plain_language_translation: loyaltyLoop.plain,
+    },
+    loyaltyStrengtheningPlan: [
+      `Lead communication with a ${profile.tone} tone and ${profile.style} delivery style.`,
+      `Reinforce ${profile.messaging_focus.replace(/_/g, " ")} in every high-impact touchpoint.`,
+      `Protect against churn triggers: ${profile.churn_trigger}.`,
+    ],
+    churnTriggerProfile: profile.churn_trigger,
+    retentionGap: retentionGap ? `${retentionGap.code} (${retentionGap.value > 0 ? "+" : ""}${retentionGap.value.toFixed(1)})` : "No retention gap signal detected.",
+    perceivedVsActualLoyalty: perceivedVsActual ? `${perceivedVsActual.code} (${perceivedVsActual.value > 0 ? "+" : ""}${perceivedVsActual.value.toFixed(1)})` : "Perceived and actual loyalty are currently aligned.",
+    uiScienceMapping: {
+      primary_driver: "Dominant normalized dimension",
+      secondary_driver: "Second-highest normalized dimension",
+      retention_hook: "Retention reinforcement driver",
+      churn_trigger: "Primary churn risk mechanism",
+      loyalty_loop: "Dominant mechanism reinforcement cycle",
+    },
+    loyaltyArchetypeTranslations: Object.fromEntries(Object.entries(LOYALTY_COMMUNICATION_RULES).map(([code, rule]) => [code, rule.realWorld])),
+  };
+}
+
+function strongestGap(map = {}) {
+  const top = topEntry(map, { abs: true });
+  if (!top) return null;
+  return top;
+}
+
 function withInsights(engineType, scored) {
   const content = getEngineContent(engineType) || { archetypes: [] };
   const archetypeIndex = Object.fromEntries((content.archetypes || []).map((item) => [item.code, item]));
-  return { ...scored, ...buildResultInsights(scored, archetypeIndex) };
+  const base = { ...scored, ...buildResultInsights(scored, archetypeIndex) };
+  if (engineType !== "loyalty") return base;
+  return { ...base, ...buildLoyaltyInsights(scored, archetypeIndex) };
 }
 
 function filterQuestionsByAnsweredBank(rawQuestions, answers = {}, requestedBankId = null) {
