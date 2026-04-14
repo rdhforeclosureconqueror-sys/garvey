@@ -10,6 +10,8 @@ const {
   LOVE_QUESTION_SOURCE,
   LEADERSHIP_QUESTIONS,
   LOYALTY_QUESTIONS,
+  LEADERSHIP_QUESTION_SOURCE,
+  LOYALTY_QUESTION_SOURCE,
   getQuestionBanks,
   scoreLoveAssessment,
   scoreEngineAssessment,
@@ -113,11 +115,11 @@ test('love questions keep canonical option/archetype contract', () => {
   }
 });
 
-test('leadership and loyalty banks load as three active banks', () => {
-  assert.equal(LEADERSHIP_QUESTIONS.length > 0, true);
-  assert.equal(LOYALTY_QUESTIONS.length > 0, true);
-  assert.equal(new Set(LEADERSHIP_QUESTIONS.map((q) => q.bankId)).size, 3);
-  assert.equal(new Set(LOYALTY_QUESTIONS.map((q) => q.bankId)).size, 3);
+test('leadership and loyalty skeletons load with no live question text', () => {
+  assert.equal(LEADERSHIP_QUESTIONS.length, 0);
+  assert.equal(LOYALTY_QUESTIONS.length, 0);
+  assert.equal(LEADERSHIP_QUESTION_SOURCE.useGeneratorOnFirstAttempt, false);
+  assert.equal(LOYALTY_QUESTION_SOURCE.useGeneratorOnFirstAttempt, false);
 });
 
 test('love scoring returns primary and secondary archetypes', () => {
@@ -129,42 +131,18 @@ test('love scoring returns primary and secondary archetypes', () => {
   assert.ok(scored.balanceStates?.overall);
 });
 
-test('leadership scoring returns normalized scores and hybrid logic fields', () => {
-  const answers = Object.fromEntries(LEADERSHIP_QUESTIONS.map((q) => [q.id, 'c']));
-  const scored = scoreEngineAssessment('leadership', answers);
-  assert.ok(scored.normalizedScores);
-  assert.ok(scored.primaryArchetype?.code);
-  assert.ok(scored.secondaryArchetype?.code);
-  assert.ok(scored.balanceStates?.overall);
-  assert.ok(scored.desiredCurrentGap);
+test('leadership scoring skeleton returns empty-safe canonical metrics', () => {
+  const scored = scoreEngineAssessment('leadership', {});
+  assert.deepEqual(scored.normalizedScores, {});
+  assert.equal(scored.questionCount, 0);
   assert.ok(scored.contradictionConsistency);
-  assert.ok(scored.identityBehaviorGap);
-  assert.ok(scored.stressProfile);
-  assert.ok(scored.primaryInsight);
-  assert.ok(scored.secondaryInsight);
-  assert.ok(scored.balanceInsight);
-  assert.ok(scored.stressInsight);
-  assert.ok(scored.identityGapInsight);
-  assert.ok(scored.consistencyInsight);
 });
 
-test('loyalty scoring returns normalized scores and hybrid logic fields', () => {
-  const answers = Object.fromEntries(LOYALTY_QUESTIONS.map((q) => [q.id, 'b']));
-  const scored = scoreEngineAssessment('loyalty', answers);
-  assert.ok(scored.normalizedScores);
-  assert.ok(scored.primaryArchetype?.code);
-  assert.ok(scored.secondaryArchetype?.code);
-  assert.ok(scored.balanceStates?.overall);
-  assert.ok(scored.desiredCurrentGap);
+test('loyalty scoring skeleton returns empty-safe canonical metrics', () => {
+  const scored = scoreEngineAssessment('loyalty', {});
+  assert.deepEqual(scored.normalizedScores, {});
+  assert.equal(scored.questionCount, 0);
   assert.ok(scored.contradictionConsistency);
-  assert.ok(scored.identityBehaviorGap);
-  assert.ok(scored.stressProfile);
-  assert.ok(scored.primaryInsight);
-  assert.ok(scored.secondaryInsight);
-  assert.ok(scored.balanceInsight);
-  assert.ok(scored.stressInsight);
-  assert.ok(scored.identityGapInsight);
-  assert.ok(scored.consistencyInsight);
 });
 
 test('compatibility scoring returns bounded score', () => {
@@ -192,13 +170,11 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
       assert.equal(startRes.status, 200);
       const startJson = await startRes.json();
       assert.ok(startJson.assessmentId);
-      assert.equal(Object.keys(startJson.questionBanks).length, 3);
+      assert.equal(startJson.questionSource, 'authored_bank_1');
+      assert.equal(startJson.questionBanks.activeQuestions.length, 0);
+      assert.ok(startJson.diagnostics);
 
-      const answers = Object.fromEntries(
-        Object.values(startJson.questionBanks)
-          .flat()
-          .map((q) => [q.id, 'd'])
-      );
+      const answers = {};
 
       const scoreRes = await fetch(`${baseUrl}/api/archetype-engines/${engineType}/assessment/score`, {
         method: 'POST',
@@ -215,6 +191,8 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
       assert.ok(scoreJson.stressInsight);
       assert.ok(scoreJson.identityGapInsight);
       assert.ok(scoreJson.consistencyInsight);
+      assert.ok(scoreJson.canonical.assessment_id);
+      assert.ok(Object.prototype.hasOwnProperty.call(scoreJson.canonical, 'questionSource'));
 
       const fetchResultRes = await fetch(`${baseUrl}/api/archetype-engines/${engineType}/results/${scoreJson.resultId}`);
       assert.equal(fetchResultRes.status, 200);
@@ -634,4 +612,23 @@ test('dashboard UI renders separate family labels for VOC, Love, Leadership, and
   assert.match(source, /Love Assessments/);
   assert.match(source, /Leadership Assessments/);
   assert.match(source, /Loyalty Assessments/);
+});
+
+test('leadership and loyalty retakes enforce generated-only path with manifest governance', async () => {
+  const { server, baseUrl } = await startServer(createMockPool());
+  try {
+    for (const engineType of ['leadership', 'loyalty']) {
+      const startRes = await fetch(`${baseUrl}/api/archetype-engines/${engineType}/assessment/start`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ tenant: 'demo', retake_attempt: 1 }),
+      });
+      assert.equal(startRes.status, 409);
+      const startJson = await startRes.json();
+      assert.equal(startJson.error, 'generated_retake_bank_unavailable');
+      assert.equal(startJson.questionSource, 'generated_validated_bank');
+    }
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
 });

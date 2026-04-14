@@ -6,11 +6,14 @@ const {
   ENGINE_TYPES,
   LOVE_QUESTIONS,
   LOVE_QUESTION_SOURCE,
+  LEADERSHIP_QUESTION_SOURCE,
+  LOYALTY_QUESTION_SOURCE,
   getQuestionBanks,
   getEngineContent,
   scoreEngineAssessment,
   computeLoveCompatibility,
   newId,
+  toCanonicalResultPayload,
 } = require("./archetypeEnginesService");
 const { ENGINE_REGISTRY } = require("../archetype-engines/framework");
 
@@ -127,6 +130,16 @@ function createArchetypeEnginesRouter({ pool }) {
           ...ENGINE_REGISTRY.love,
           questions: LOVE_QUESTIONS.length,
           questionSource: LOVE_QUESTION_SOURCE,
+        },
+        leadership: {
+          ...ENGINE_REGISTRY.leadership,
+          questions: 0,
+          questionSource: LEADERSHIP_QUESTION_SOURCE,
+        },
+        loyalty: {
+          ...ENGINE_REGISTRY.loyalty,
+          questions: 0,
+          questionSource: LOYALTY_QUESTION_SOURCE,
         },
       },
     });
@@ -252,17 +265,24 @@ function createArchetypeEnginesRouter({ pool }) {
     }
 
     const banks = getQuestionBanks(engineType, { retakeAttempt });
-    if (engineType === "love" && banks.questionSource === "generated_validated_bank" && !banks.generatedBankAvailable) {
-      return res.status(409).json({ error: "generated_retake_bank_unavailable", questionSource: "generated_validated_bank" });
+    if (banks.questionSource === "generated_validated_bank" && !banks.generatedBankAvailable) {
+      return res.status(409).json({ error: "generated_retake_bank_unavailable", questionSource: "generated_validated_bank", diagnostics: banks.diagnostics || null });
     }
+
+    const sourceConfig = engineType === "love"
+      ? LOVE_QUESTION_SOURCE
+      : engineType === "leadership"
+        ? LEADERSHIP_QUESTION_SOURCE
+        : LOYALTY_QUESTION_SOURCE;
 
     return res.json({
       assessmentId,
       engineType,
       questionBanks: banks,
-      ...(engineType === "love"
-        ? { questionSource: banks.questionSource, useGeneratorOnFirstAttempt: false, questionSourceConfig: LOVE_QUESTION_SOURCE }
-        : {}),
+      questionSource: banks.questionSource,
+      useGeneratorOnFirstAttempt: false,
+      questionSourceConfig: sourceConfig,
+      diagnostics: banks.diagnostics || null,
     });
   });
 
@@ -276,17 +296,28 @@ function createArchetypeEnginesRouter({ pool }) {
     const attribution = pickAttribution(req);
     if (!assessmentId) return res.status(400).json({ error: "assessmentId_required" });
 
-    const scored = scoreEngineAssessment(engineType, answers, { bankId: String(req.body?.bank_id || "").trim() || null });
+    const bankId = String(req.body?.bank_id || "").trim() || null;
+    const scored = scoreEngineAssessment(engineType, answers, { bankId });
+    const canonical = toCanonicalResultPayload({
+      engineType,
+      scored,
+      assessmentId,
+      userId: String(req.body?.user_id || req.body?.rid || req.body?.crid || attribution.rid || attribution.crid || "").trim() || null,
+      bankId,
+      questionSource: String(req.body?.questionSource || "").trim() || null,
+      attribution: { ...attribution, tenant },
+    });
+    const payload = { ...scored, canonical };
     const resultId = newId("result");
     await pool.query(
       `INSERT INTO engine_results (result_id, assessment_id, engine_type, tenant_slug, result_payload)
        VALUES ($1,$2,$3,$4,$5::jsonb)`,
-      [resultId, assessmentId, engineType, tenant, JSON.stringify(scored)]
+      [resultId, assessmentId, engineType, tenant, JSON.stringify(payload)]
     );
     await recordEngineEvent(pool, { engineType, tenant, eventKey: "assessment_completed", ctx: attribution, assessmentId, resultId });
     await recordEngineEvent(pool, { engineType, tenant, eventKey: "result_created", ctx: attribution, assessmentId, resultId });
 
-    return res.json({ resultId, engineType, ...scored });
+    return res.json({ resultId, engineType, ...payload });
   });
 
   router.get("/:engineType/results/:resultId", async (req, res) => {
