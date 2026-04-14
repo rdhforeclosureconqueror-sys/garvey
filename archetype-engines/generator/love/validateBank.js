@@ -4,7 +4,7 @@ const { ARCHETYPES, CLASS_DISTRIBUTION, CLASS_WEIGHTS } = require("./signals");
 const { pairKey } = require("./pairScheduler");
 const { desirabilityWarnings } = require("./desirabilityRules");
 const { validateOptionDiversity } = require("./generateCandidates");
-const { validateCompleteSentence, validateSingleBehavior, validateSingleTrigger, validateNoAbstractFiller, validateNaturalSpeech, validateOptionParityAcrossSet, validateDistinctPrimaries, validateNoDuplicateOpeners, validateGrammar } = require("./validators");
+const { validateCompleteSentence, validateSingleBehavior, validateSingleTrigger, validateNoAbstractFiller, validateNaturalSpeech, validateOptionParityAcrossSet, validateDistinctPrimaries, validateNoDuplicateOpeners, validateGrammar, validateSayItOutLoud } = require("./validators");
 
 function normalize(question) {
   return {
@@ -54,6 +54,7 @@ function validateBank(bankId, questions) {
       if (!validateNoAbstractFiller(text)) failures.push(`${q.question_id || q.questionId}/${opt.option_id || opt.id} failed validateNoAbstractFiller`);
       if (!validateNaturalSpeech(text)) failures.push(`${q.question_id || q.questionId}/${opt.option_id || opt.id} failed validateNaturalSpeech`);
       if (!validateGrammar(text)) failures.push(`${q.question_id || q.questionId}/${opt.option_id || opt.id} failed validateGrammar`);
+      if (!validateSayItOutLoud(text)) failures.push(`${q.question_id || q.questionId}/${opt.option_id || opt.id} failed validateSayItOutLoud`);
     }
     warnings.push(...desirabilityWarnings(q.options));
   }

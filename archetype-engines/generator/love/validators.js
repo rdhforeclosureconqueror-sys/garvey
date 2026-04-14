@@ -14,6 +14,15 @@ const ABSTRACT_FILLER_TERMS = [
 
 const COMMON_OPENERS = ["i tend to", "my default is", "i usually"];
 const COORDINATOR_SPLIT = /\b(and|while|then)\b|,/gi;
+const SAY_OUT_LOUD_REJECT_PATTERNS = [
+  /\bif articulation creates trust\b/i,
+  /\bif articulation\b/i,
+  /\bif space keeps you regulated\b/i,
+  /\bi respond by verify\b/i,
+  /\bi am intentionally building seek\b/i,
+  /\bnervous-system\b/i,
+  /\boptimization\b/i,
+];
 
 function words(text) {
   return String(text || "").trim().split(/\s+/).filter(Boolean);
@@ -93,6 +102,15 @@ function validateGrammar(optionText) {
   return wordCount >= 9 && wordCount <= 22;
 }
 
+function validateSayItOutLoud(optionText) {
+  const text = String(optionText || "").trim();
+  if (!text) return false;
+  if (/[;:]/.test(text)) return false;
+  if (/\b(if|when)\s+[a-z]+ing\s+[a-z]+\b/i.test(text) && /\bcreates trust\b/i.test(text)) return false;
+  if (/\b(building|respond by)\s+[a-z]+\b/i.test(text) && /\b(building seek|respond by verify)\b/i.test(text)) return false;
+  return !SAY_OUT_LOUD_REJECT_PATTERNS.some((pattern) => pattern.test(text));
+}
+
 module.exports = {
   validateCompleteSentence,
   validateSingleBehavior,
@@ -103,4 +121,5 @@ module.exports = {
   validateDistinctPrimaries,
   validateNoDuplicateOpeners,
   validateGrammar,
+  validateSayItOutLoud,
 };
