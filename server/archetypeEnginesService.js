@@ -35,6 +35,13 @@ const LOYALTY_AUTHORED_BANK_1 = Object.freeze([...LOYALTY_BANK1]);
 const LOYALTY_AUTHORED_BANK_2 = Object.freeze([...LOYALTY_BANK2]);
 const LOYALTY_AUTHORED_BANK_3 = Object.freeze([...LOYALTY_BANK3]);
 const LOYALTY_SKELETON_BANKS = Object.freeze({ LOYALTY_BANK_1: LOYALTY_BANK1, LOYALTY_BANK_2: LOYALTY_BANK2, LOYALTY_BANK_3: LOYALTY_BANK3 });
+const LOYALTY_DIMENSION_NAMES = Object.freeze({
+  TD: "Trust Dependence",
+  SA: "Satisfaction Attachment",
+  ECM: "Emotional Commitment",
+  CH: "Convenience Habit",
+  SF: "Switching Friction",
+});
 const LOYALTY_COMMUNICATION_RULES = Object.freeze({
   TD: Object.freeze({
     tone: "confident",
@@ -42,12 +49,18 @@ const LOYALTY_COMMUNICATION_RULES = Object.freeze({
     messaging_focus: "trust_reinforcement",
     retention_hook: "consistency + proof + transparency",
     churn_trigger: "broken promises, inconsistency, hidden changes",
-    plain_language_summary: "You stay loyal when something proves it is solid. If that trust cracks, everything changes.",
+    plain_language_summary: "You tend to stay loyal when people feel consistent and dependable. If trust breaks, everything can shift quickly.",
     best_way_to_talk_to_them: "Be clear, calm, and transparent. Avoid hype and back claims with proof.",
-    what_keeps_them_engaged: "Reliable delivery, visible accountability, and consistency over time.",
+    what_keeps_them_engaged: "Consistency, accountability, and people following through over time.",
     what_pushes_them_away: "Surprises without explanation, broken promises, or trust gaps.",
-    loyalty_loop: { label: "Trust → Satisfaction → Trust", meaning: "Proof builds confidence, confidence sustains repeat behavior, and repeat behavior reinforces trust.", why: "When trust stays intact, loyalty compounds with very little resistance.", breakPoint: "Any credibility break can collapse the loop quickly.", plain: "When something feels reliable and keeps doing what it promised, your loyalty gets stronger naturally." },
-    realWorld: "You’re loyal when you feel safe, certain, and sure the brand will keep its word.",
+    loyalty_loop: { label: "Trust → Satisfaction → Trust", meaning: "Proof builds confidence, confidence sustains repeat behavior, and repeat behavior reinforces trust.", why: "When trust stays intact, loyalty tends to strengthen naturally.", breakPoint: "Any credibility break can collapse the loop quickly.", plain: "When someone feels reliable and keeps doing what they promised, your loyalty usually gets stronger." },
+    realWorld: "You tend to stay loyal when you feel safe, consistent, and sure about someone.",
+    relationships: {
+      summary: "You’re loyal when you feel safe, consistent, and sure about someone.",
+      romantic: "In partnerships, trust tends to be everything for you. Once it is solid, you may stay deeply committed — but if it breaks, rebuilding can take time.",
+      friendship: "You often stay close to friends who show up consistently. You may pull back when people feel unpredictable.",
+      family: "You usually value reliability and honesty in family bonds. Trust strain may create emotional distance over time.",
+    },
   }),
   SA: Object.freeze({
     tone: "practical",
@@ -55,12 +68,18 @@ const LOYALTY_COMMUNICATION_RULES = Object.freeze({
     messaging_focus: "value_reinforcement",
     retention_hook: "quality + usefulness + continued payoff",
     churn_trigger: "declining performance, inconsistency, wasted effort",
-    plain_language_summary: "If it keeps delivering, you stay. If it stops being worth it, you move.",
+    plain_language_summary: "If the connection keeps feeling worthwhile, you tend to stay. If it stops feeling worth the effort, you may move on.",
     best_way_to_talk_to_them: "Emphasize outcomes, quality, and clear improvements.",
-    what_keeps_them_engaged: "Consistent value and visible return for time, energy, and money.",
+    what_keeps_them_engaged: "Consistent payoff in time, energy, and emotional effort.",
     what_pushes_them_away: "Value erosion, inconsistent quality, and effort that no longer pays off.",
-    loyalty_loop: { label: "Satisfaction → Habit → Satisfaction", meaning: "Repeated positive experiences create routine use, and routine use deepens satisfaction expectations.", why: "Reliable performance becomes the baseline that protects retention.", breakPoint: "Performance dips trigger immediate comparison behavior.", plain: "You keep coming back when it keeps working. Once value drops, loyalty softens fast." },
-    realWorld: "You stay when the experience keeps proving it’s worth your time and money.",
+    loyalty_loop: { label: "Satisfaction → Habit → Satisfaction", meaning: "Repeated positive experiences build routine, and routine raises your satisfaction baseline.", why: "Reliable follow-through tends to protect long-term loyalty.", breakPoint: "A noticeable dip often triggers quick re-evaluation.", plain: "You usually stay when the connection keeps working well. Once the value drops, loyalty can soften quickly." },
+    realWorld: "You tend to stay when the relationship keeps proving it’s worth your time and effort.",
+    relationships: {
+      summary: "You tend to stay loyal when relationships keep feeling worthwhile and mutually supportive.",
+      romantic: "In dating or partnership, you often stay committed when effort feels mutual and the relationship keeps growing.",
+      friendship: "You usually invest in friendships that feel balanced and dependable over time.",
+      family: "You may stay engaged in family dynamics when respect and follow-through are present in everyday interactions.",
+    },
   }),
   ECM: Object.freeze({
     tone: "warm",
@@ -68,12 +87,18 @@ const LOYALTY_COMMUNICATION_RULES = Object.freeze({
     messaging_focus: "connection_reinforcement",
     retention_hook: "recognition + belonging + authenticity",
     churn_trigger: "feeling fake, unseen, manipulated, emotionally disconnected",
-    plain_language_summary: "You don’t just use things — you connect with them. Loyalty feels personal for you.",
+    plain_language_summary: "Loyalty feels personal for you. You tend to stay where you feel seen, valued, and emotionally connected.",
     best_way_to_talk_to_them: "Be expressive and human. Make them feel seen, and avoid scripted language.",
     what_keeps_them_engaged: "Authentic recognition, identity fit, and emotional resonance.",
     what_pushes_them_away: "Performative messaging, manipulation, or feeling emotionally ignored.",
-    loyalty_loop: { label: "Connection → Meaning → Commitment", meaning: "Feeling seen builds meaning, and meaning deepens long-term commitment.", why: "Emotion can anchor loyalty even when alternatives are available.", breakPoint: "Perceived inauthenticity quickly dissolves attachment.", plain: "When a brand feels real and personal, your loyalty deepens. If it feels fake, you detach." },
-    realWorld: "You stay when a brand feels like it means something to you.",
+    loyalty_loop: { label: "Connection → Meaning → Commitment", meaning: "Feeling seen creates meaning, and meaning deepens long-term commitment.", why: "Emotional resonance often anchors loyalty even when alternatives exist.", breakPoint: "Perceived inauthenticity can dissolve attachment quickly.", plain: "When someone feels real and personal, your loyalty deepens. If it feels performative, you tend to detach." },
+    realWorld: "You tend to stay when a relationship feels meaningful and emotionally real.",
+    relationships: {
+      summary: "You tend to stay loyal when you feel emotionally seen, understood, and connected.",
+      romantic: "In partnerships, emotional presence often matters as much as practical compatibility for you.",
+      friendship: "You usually stay close to people who feel genuine and emotionally available.",
+      family: "You may invest deeply in family bonds that feel heartfelt, but you can distance when interactions feel cold or performative.",
+    },
   }),
   CH: Object.freeze({
     tone: "simple",
@@ -85,8 +110,14 @@ const LOYALTY_COMMUNICATION_RULES = Object.freeze({
     best_way_to_talk_to_them: "Keep messages short, clear, and effortless to act on.",
     what_keeps_them_engaged: "Speed, convenience, and predictable low-friction routines.",
     what_pushes_them_away: "New steps, added complexity, and interruptions to familiar flow.",
-    loyalty_loop: { label: "Ease → Habit → Ease", meaning: "Low effort creates repeat behavior, and repeat behavior raises the value of convenience.", why: "Habit loyalty is sticky when routines remain smooth.", breakPoint: "Even small friction can trigger switching exploration.", plain: "When it stays easy, you stay. If the flow breaks, your loyalty weakens quickly." },
+    loyalty_loop: { label: "Ease → Habit → Ease", meaning: "Low effort creates repeat behavior, and repetition raises the value of ease.", why: "Habit-based loyalty tends to hold when routines stay smooth.", breakPoint: "Even small friction can trigger exploration elsewhere.", plain: "When interactions stay easy, you tend to stay. If the flow breaks, loyalty can weaken quickly." },
     realWorld: "You stay with what fits your routine and doesn’t make life harder.",
+    relationships: {
+      summary: "You tend to stay loyal when connection feels easy, stable, and low-friction.",
+      romantic: "In partnerships, smooth communication and practical compatibility often help you feel secure and committed.",
+      friendship: "You usually keep close friendships that feel natural and easy to maintain.",
+      family: "You may stay most engaged with family members when interactions feel simple, respectful, and drama-light.",
+    },
   }),
   SF: Object.freeze({
     tone: "pragmatic",
@@ -98,10 +129,20 @@ const LOYALTY_COMMUNICATION_RULES = Object.freeze({
     best_way_to_talk_to_them: "Be practical and transparent about the tradeoff of staying vs leaving.",
     what_keeps_them_engaged: "Stable outcomes and clear reasons why staying is still efficient.",
     what_pushes_them_away: "A painless alternative plus built-up frustration from feeling trapped.",
-    loyalty_loop: { label: "Stability → Friction → Stability", meaning: "Operational stability and switching costs reinforce continuation.", why: "Retention holds until an easier option outweighs disruption.", breakPoint: "Resentment + easy alternatives can flip behavior rapidly.", plain: "You tend to stay put unless moving becomes clearly easier or better." },
+    loyalty_loop: { label: "Stability → Friction → Stability", meaning: "Stability and switching effort reinforce continuation.", why: "Loyalty often holds until a clearly easier alternative appears.", breakPoint: "Resentment plus easy alternatives can flip behavior quickly.", plain: "You tend to stay put unless moving becomes clearly easier or better." },
     realWorld: "You usually stay unless leaving becomes easier or more worth it.",
+    relationships: {
+      summary: "You often stay loyal through difficulty, especially when leaving feels costly or disruptive.",
+      romantic: "In partnership, you may hold on longer than most and leave only when a clear breaking point is reached.",
+      friendship: "You often keep long-standing friendships, even when they become complicated, until the strain outweighs the bond.",
+      family: "You may remain committed to family ties through ups and downs, but unresolved resentment can eventually force distance.",
+    },
   }),
 });
+
+function loyaltyDimensionLabel(code) {
+  return LOYALTY_DIMENSION_NAMES[String(code || "").trim().toUpperCase()] || String(code || "").trim().toUpperCase() || "Loyalty Pattern";
+}
 
 function readJsonIfExists(filePath) {
   if (!filePath || !fs.existsSync(filePath)) return null;
@@ -625,17 +666,22 @@ function buildLoyaltyInsights(scored, archetypeIndex = {}) {
   const profile = buildLoyaltyCommunicationProfile(scored);
   const primaryCode = profile.primary_driver;
   const secondaryCode = profile.secondary_driver;
-  const primaryName = archetypeIndex[primaryCode]?.name || primaryCode;
-  const secondaryName = archetypeIndex[secondaryCode]?.name || secondaryCode;
+  const primaryName = archetypeIndex[primaryCode]?.name || archetypeIndex[primaryCode]?.canonicalName || loyaltyDimensionLabel(primaryCode);
+  const secondaryName = archetypeIndex[secondaryCode]?.name || archetypeIndex[secondaryCode]?.canonicalName || loyaltyDimensionLabel(secondaryCode);
   const primaryScore = Number(scored?.normalizedScores?.[primaryCode] || 0).toFixed(1);
   const loyaltyState = scored?.balanceStates?.overall || "balanced";
   const loyaltyLoop = LOYALTY_COMMUNICATION_RULES[primaryCode]?.loyalty_loop || LOYALTY_COMMUNICATION_RULES.TD.loyalty_loop;
+  const relationshipPatterns = LOYALTY_COMMUNICATION_RULES[primaryCode]?.relationships || LOYALTY_COMMUNICATION_RULES.TD.relationships;
   const retentionGap = strongestGap(scored?.desiredCurrentGap || {});
   const perceivedVsActual = strongestGap(scored?.identityBehaviorGap || {});
+  const humanLoyaltyPattern = `You often show loyalty through ${primaryName.toLowerCase()}: you stay when this need feels met.`;
+  const humanLoyaltyState = `Right now, your loyalty pattern tends to feel ${loyaltyState}.`;
+  const humanRetentionInsight = `In real life, your loyalty grows when this is present: ${profile.retention_hook}.`;
+  const humanChurnRiskInsight = `You may start pulling back when this shows up: ${profile.churn_trigger}.`;
 
   return {
     communication_profile: profile,
-    whyThisMatters: "Loyalty is multi-mechanism: trust, satisfaction, emotional connection, routine, and switching friction each influence retention differently.",
+    whyThisMatters: "Loyalty is multi-mechanism: trust, satisfaction, emotional connection, routine, and switching friction each influence long-term relationship stability differently.",
     scientificFoundation: "Multi-Mechanism Loyalty Model integrating cognitive, emotional, behavioral, and structural retention drivers.",
     loyaltyPattern: `${primaryName} is your dominant loyalty driver (${primaryScore}%), with ${secondaryName} as your secondary pattern.`,
     loyaltyState: `Your current loyalty state is ${loyaltyState}.`,
@@ -653,9 +699,34 @@ function buildLoyaltyInsights(scored, archetypeIndex = {}) {
       `Reinforce ${profile.messaging_focus.replace(/_/g, " ")} in every high-impact touchpoint.`,
       `Protect against churn triggers: ${profile.churn_trigger}.`,
     ],
+    loyaltyHumanTranslations: {
+      loyaltyPattern: humanLoyaltyPattern,
+      loyaltyState: humanLoyaltyState,
+      retentionInsight: humanRetentionInsight,
+      churnRiskInsight: humanChurnRiskInsight,
+    },
+    relationshipInterpretation: {
+      sectionTitle: "How This Shows Up In Your Relationships",
+      relationshipSummary: relationshipPatterns.summary,
+      romanticPartnerPattern: relationshipPatterns.romantic,
+      friendshipPattern: relationshipPatterns.friendship,
+      familyPattern: relationshipPatterns.family,
+    },
+    loveAssessmentCta: {
+      sectionTitle: "Want a deeper relationship breakdown?",
+      intro: "This shows how you form loyalty.",
+      bridge: "But relationships go deeper than loyalty alone.",
+      bullets: [
+        "how you connect emotionally",
+        "how you communicate",
+        "what you need in a relationship",
+      ],
+      buttonLabel: "Take Love Assessment",
+      href: "/archetype-engines/love/assessment",
+    },
     churnTriggerProfile: profile.churn_trigger,
-    retentionGap: retentionGap ? `${retentionGap.code} (${retentionGap.value > 0 ? "+" : ""}${retentionGap.value.toFixed(1)})` : "No retention gap signal detected.",
-    perceivedVsActualLoyalty: perceivedVsActual ? `${perceivedVsActual.code} (${perceivedVsActual.value > 0 ? "+" : ""}${perceivedVsActual.value.toFixed(1)})` : "Perceived and actual loyalty are currently aligned.",
+    retentionGap: retentionGap ? `${loyaltyDimensionLabel(retentionGap.code)} (${retentionGap.value > 0 ? "+" : ""}${retentionGap.value.toFixed(1)})` : "No retention gap signal detected.",
+    perceivedVsActualLoyalty: perceivedVsActual ? `${loyaltyDimensionLabel(perceivedVsActual.code)} (${perceivedVsActual.value > 0 ? "+" : ""}${perceivedVsActual.value.toFixed(1)})` : "Perceived and actual loyalty are currently aligned.",
     uiScienceMapping: {
       primary_driver: "Dominant normalized dimension",
       secondary_driver: "Second-highest normalized dimension",
@@ -664,6 +735,7 @@ function buildLoyaltyInsights(scored, archetypeIndex = {}) {
       loyalty_loop: "Dominant mechanism reinforcement cycle",
     },
     loyaltyArchetypeTranslations: Object.fromEntries(Object.entries(LOYALTY_COMMUNICATION_RULES).map(([code, rule]) => [code, rule.realWorld])),
+    loyaltyDimensionLabels: LOYALTY_DIMENSION_NAMES,
   };
 }
 
