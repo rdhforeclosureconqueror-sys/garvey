@@ -229,7 +229,7 @@ function createArchetypeEnginesRouter({ pool }) {
     const attribution = pickAttribution(req);
     if (!assessmentId) return res.status(400).json({ error: "assessmentId_required" });
 
-    const scored = scoreEngineAssessment(engineType, answers);
+    const scored = scoreEngineAssessment(engineType, answers, { bankId: String(req.body?.bank_id || "").trim() || null });
     const resultId = newId("result");
     await pool.query(
       `INSERT INTO engine_results (result_id, assessment_id, engine_type, tenant_slug, result_payload)

@@ -42,6 +42,16 @@ function normalizeMap(raw, knownCodes = []) {
   return out;
 }
 
+function normalizeByMaxPossible(raw = {}, maxPossible = {}, knownCodes = []) {
+  const out = {};
+  for (const code of knownCodes) {
+    const rawValue = Number(raw[code] || 0);
+    const maxValue = Number(maxPossible[code] || 0);
+    out[code] = Number((maxValue > 0 ? (rawValue / maxValue) * 100 : 0).toFixed(2));
+  }
+  return out;
+}
+
 function sortScoreEntries(scoreMap = {}) {
   return Object.entries(scoreMap).sort((a, b) => b[1] - a[1]);
 }
@@ -114,37 +124,71 @@ function pickOption(question, answer) {
   return question.options[2] || question.options[0];
 }
 
+function resolveQuestionClass(q) {
+  const klass = String(q.questionClass || "").trim().toUpperCase();
+  return SIGNAL_MULTIPLIER[klass] ? klass : null;
+}
+
+function resolveMultiplier(q, selected) {
+  const classKey = resolveQuestionClass(q);
+  if (classKey) return SIGNAL_MULTIPLIER[classKey] || 1;
+  return WEIGHT_TYPE_MULTIPLIER[selected?.weightType] || 1;
+}
+
+function scoreContributionForCode(code, q, option) {
+  if (!option || !code) return 0;
+  const multiplier = resolveMultiplier(q, option);
+  let score = 0;
+  if (option.primary === code) score += PRIMARY_WEIGHT * multiplier;
+  if (option.secondary === code) score += SECONDARY_WEIGHT * multiplier;
+  return score;
+}
+
+function computeMaxPossibleScores(questions, codes) {
+  const maxPossible = Object.fromEntries(codes.map((code) => [code, 0]));
+  for (const q of questions) {
+    if (!q.isScored) continue;
+    for (const code of codes) {
+      let best = 0;
+      for (const option of q.options || []) {
+        best = Math.max(best, scoreContributionForCode(code, q, option));
+      }
+      maxPossible[code] += best;
+    }
+  }
+  return maxPossible;
+}
+
 function scoreCanonicalAssessment(rawQuestions, answers = {}) {
   const questions = rawQuestions.map(normalizeQuestion).filter((q) => q.isActive !== false);
   const codes = Array.from(new Set(questions.flatMap((q) => q.options.flatMap((o) => [o.primary, o.secondary]).filter(Boolean))));
   const totals = Object.fromEntries(codes.map((code) => [code, 0]));
   const classRaw = { ID: {}, BH: {}, SC: {}, ST: {}, DS: {} };
+  const maxPossibleScores = computeMaxPossibleScores(questions, codes);
   const answered = [];
   const answerIdx = {};
 
   for (const q of questions) {
+    if (!Object.prototype.hasOwnProperty.call(answers, q.id)) continue;
     const selected = pickOption(q, answers[q.id]);
     if (!selected) continue;
     answered.push(q.id);
     answerIdx[q.id] = q.options.findIndex((opt) => opt.id === selected.id);
 
     if (!q.isScored) continue;
-    const signalTypeRaw = selected.signalType || q.questionClass || "BH";
-    const signalType = SIGNAL_MULTIPLIER[signalTypeRaw] ? signalTypeRaw : (q.questionClass || "BH");
-    const signalMultiplier = SIGNAL_MULTIPLIER[signalType] || 1;
-    const weightMultiplier = WEIGHT_TYPE_MULTIPLIER[selected.weightType] || 1;
-    const baseWeight = signalMultiplier * weightMultiplier;
+    const questionClass = resolveQuestionClass(q) || "BH";
+    const baseWeight = resolveMultiplier(q, selected);
 
     totals[selected.primary] = (totals[selected.primary] || 0) + (PRIMARY_WEIGHT * baseWeight);
-    classRaw[signalType][selected.primary] = (classRaw[signalType][selected.primary] || 0) + (PRIMARY_WEIGHT * baseWeight);
+    classRaw[questionClass][selected.primary] = (classRaw[questionClass][selected.primary] || 0) + (PRIMARY_WEIGHT * baseWeight);
 
     if (selected.secondary) {
       totals[selected.secondary] = (totals[selected.secondary] || 0) + (SECONDARY_WEIGHT * baseWeight);
-      classRaw[signalType][selected.secondary] = (classRaw[signalType][selected.secondary] || 0) + (SECONDARY_WEIGHT * baseWeight);
+      classRaw[questionClass][selected.secondary] = (classRaw[questionClass][selected.secondary] || 0) + (SECONDARY_WEIGHT * baseWeight);
     }
   }
 
-  const normalizedScores = normalizeMap(totals, codes);
+  const normalizedScores = normalizeByMaxPossible(totals, maxPossibleScores, codes);
   const selection = selectPrimarySecondary(normalizedScores);
   const topGap = selection.primary && selection.secondary ? Number((selection.primary.score - selection.secondary.score).toFixed(2)) : null;
   const hybridArchetype = topGap !== null && topGap <= 7 && selection.secondary
@@ -214,6 +258,8 @@ function scoreCanonicalAssessment(rawQuestions, answers = {}) {
   return {
     questionCount: questions.length,
     bankCounts: Object.fromEntries(Object.entries(groupBy(questions, "bankId")).map(([k, v]) => [k, v.length])),
+    rawScores: totals,
+    maxPossibleScores,
     normalizedScores,
     rankedArchetypes: selection.ranked,
     primaryArchetype: selection.primary,
@@ -345,12 +391,27 @@ function withInsights(engineType, scored) {
   return { ...scored, ...buildResultInsights(scored, archetypeIndex) };
 }
 
+function filterQuestionsByAnsweredBank(rawQuestions, answers = {}, requestedBankId = null) {
+  const questions = rawQuestions.map(normalizeQuestion).filter((q) => q.isActive !== false);
+  const grouped = groupBy(questions, "bankId");
+  const bankIds = Object.keys(grouped);
+  if (requestedBankId && grouped[requestedBankId]) return grouped[requestedBankId];
+
+  const answerIds = new Set(Object.keys(answers || {}));
+  const matchedBanks = bankIds.filter((bankId) => grouped[bankId].some((q) => answerIds.has(q.id)));
+  if (matchedBanks.length === 1) return grouped[matchedBanks[0]];
+  return questions;
+}
+
 function scoreLoveAssessment(answers = {}) {
   return scoreCanonicalAssessment(LOVE_QUESTIONS, answers);
 }
 
-function scoreEngineAssessment(engineType, answers = {}) {
-  if (engineType === "love") return withInsights(engineType, scoreCanonicalAssessment(LOVE_QUESTIONS, answers));
+function scoreEngineAssessment(engineType, answers = {}, opts = {}) {
+  if (engineType === "love") {
+    const bankScopedQuestions = filterQuestionsByAnsweredBank(LOVE_QUESTIONS, answers, opts.bankId || null);
+    return withInsights(engineType, scoreCanonicalAssessment(bankScopedQuestions, answers));
+  }
   if (engineType === "leadership") return withInsights(engineType, scoreCanonicalAssessment(LEADERSHIP_QUESTIONS, answers));
   if (engineType === "loyalty") return withInsights(engineType, scoreCanonicalAssessment(LOYALTY_QUESTIONS, answers));
   return null;
