@@ -4,6 +4,7 @@ const { ARCHETYPES, CLASS_DISTRIBUTION, CLASS_WEIGHTS } = require("./signals");
 const { pairKey } = require("./pairScheduler");
 const { desirabilityWarnings } = require("./desirabilityRules");
 const { validateOptionDiversity } = require("./generateCandidates");
+const { validateCompleteSentence, validateSingleBehavior, validateSingleTrigger, validateNoAbstractFiller, validateNaturalSpeech, validateOptionParityAcrossSet, validateDistinctPrimaries, validateNoDuplicateOpeners, validateGrammar } = require("./validators");
 
 function normalize(question) {
   return {
@@ -39,12 +40,25 @@ function validateBank(bankId, questions) {
       pairCounts[pKey] = (pairCounts[pKey] || 0) + 1;
     }
     if (primaries.size !== 4) failures.push(`${q.question_id || q.questionId} has duplicate primary archetypes`);
+    if (!validateDistinctPrimaries(q.options)) failures.push(`${q.question_id || q.questionId} failed validateDistinctPrimaries`);
+    if (!validateOptionParityAcrossSet(q.options)) failures.push(`${q.question_id || q.questionId} failed validateOptionParityAcrossSet`);
     const diversityFailures = validateOptionDiversity(q.options);
     for (const failure of diversityFailures) {
       failures.push(`${q.question_id || q.questionId} failed option diversity validation: ${failure}`);
     }
+    for (const opt of q.options) {
+      const text = opt.text || "";
+      if (!validateCompleteSentence(text)) failures.push(`${q.question_id || q.questionId}/${opt.option_id || opt.id} failed validateCompleteSentence`);
+      if (!validateSingleBehavior(text)) failures.push(`${q.question_id || q.questionId}/${opt.option_id || opt.id} failed validateSingleBehavior`);
+      if (!validateSingleTrigger(text)) failures.push(`${q.question_id || q.questionId}/${opt.option_id || opt.id} failed validateSingleTrigger`);
+      if (!validateNoAbstractFiller(text)) failures.push(`${q.question_id || q.questionId}/${opt.option_id || opt.id} failed validateNoAbstractFiller`);
+      if (!validateNaturalSpeech(text)) failures.push(`${q.question_id || q.questionId}/${opt.option_id || opt.id} failed validateNaturalSpeech`);
+      if (!validateGrammar(text)) failures.push(`${q.question_id || q.questionId}/${opt.option_id || opt.id} failed validateGrammar`);
+    }
     warnings.push(...desirabilityWarnings(q.options));
   }
+
+  if (!validateNoDuplicateOpeners(normalized)) failures.push("Bank failed validateNoDuplicateOpeners");
 
   for (const [cls, expected] of Object.entries(CLASS_DISTRIBUTION)) {
     if (classCounts[cls] !== expected) failures.push(`Class ${cls} expected ${expected}, got ${classCounts[cls] || 0}`);

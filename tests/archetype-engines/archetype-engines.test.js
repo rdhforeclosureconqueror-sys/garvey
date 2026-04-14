@@ -33,7 +33,7 @@ function createMockPool() {
         });
       }
       if (normalized.startsWith('INSERT INTO engine_assessment_consents')) {
-        state.consents.set(params[0], { id: params[0], engine_type: params[1], tenant_slug: params[2], accepted: params[7] === true });
+        state.consents.set(params[0], { id: params[0], engine_type: params[1], tenant_slug: params[2], email: params[3], accepted: params[7] === true });
       }
       if (normalized.startsWith('INSERT INTO engine_assessments')) {
         state.assessments.set(params[0], {
@@ -60,6 +60,15 @@ function createMockPool() {
         const row = state.consents.get(params[0]);
         return { rows: row && row.engine_type === params[1] && row.tenant_slug === params[2] && row.accepted ? [row] : [] };
       }
+
+      if (normalized.startsWith('SELECT COUNT(*)::int AS completed_count')) {
+        const completed = Array.from(state.results.values()).filter((row) => {
+          const asmt = state.assessments.get(row.assessment_id);
+          return asmt && asmt.engine_type === 'love' && asmt.tenant_slug === params[0] && asmt.user_id === params[1];
+        }).length;
+        return { rows: [{ completed_count: completed }] };
+      }
+
       if (normalized.startsWith('SELECT result_id') && normalized.includes('FROM engine_results')) {
         const row = state.results.get(params[0]);
         return { rows: row && row.engine_type === params[1] ? [row] : [] };
@@ -88,7 +97,7 @@ test('love bank loads from approved source while preserving 25-question bank sha
     return acc;
   }, {});
   for (const count of Object.values(byBank)) assert.equal(count, 25);
-  assert.ok(['approved_promoted_candidate_bank', 'legacy_rebuilt_banks'].includes(LOVE_QUESTION_SOURCE.sourceType));
+  assert.equal(LOVE_QUESTION_SOURCE.authored.sourceType, 'authored_bank_1');
 });
 
 test('love questions keep canonical option/archetype contract', () => {
@@ -242,7 +251,8 @@ test('no regression: love routes remain live', async () => {
     });
     assert.equal(startRes.status, 200);
     const startJson = await startRes.json();
-    assert.ok(startJson.questionSource);
+    assert.equal(startJson.questionSource, 'authored_bank_1');
+    assert.equal(startJson.useGeneratorOnFirstAttempt, false);
     assert.ok(startJson.questionBanks.activeQuestions[0].id);
     assert.ok(startJson.questionBanks.activeQuestions[0].prompt);
     assert.equal(startJson.questionBanks.activeQuestions.length, 25);
@@ -266,15 +276,19 @@ test('no regression: love routes remain live', async () => {
   }
 });
 
-test('love bank rotation and progression returns canonical first questions by retake attempt', () => {
-  const banksAt0 = getQuestionBanks('love', { retakeAttempt: 0 });
-  const available = banksAt0.availableBanks || [];
-  for (let retakeAttempt = 0; retakeAttempt < Math.max(3, available.length); retakeAttempt += 1) {
-    const banks = getQuestionBanks('love', { retakeAttempt });
-    assert.equal(banks.activeQuestions.length, 25);
-    assert.ok(banks.selectedBankId);
-    assert.equal(banks.activeQuestions[0].bankId, banks.selectedBankId);
-    assert.ok(banks.activeQuestions.at(-1).id);
+test('love first attempt uses authored bank and retake uses generated validated bank only', () => {
+  const first = getQuestionBanks('love', { retakeAttempt: 0 });
+  assert.equal(first.questionSource, 'authored_bank_1');
+  assert.equal(first.selectedBankId, 'AUTHORED_BANK_1');
+  assert.equal(first.activeQuestions.length, 25);
+
+  const retake = getQuestionBanks('love', { retakeAttempt: 1 });
+  assert.equal(retake.questionSource, 'generated_validated_bank');
+  if (retake.generatedBankAvailable) {
+    assert.equal(retake.activeQuestions.length, 25);
+    assert.ok(retake.selectedBankId);
+  } else {
+    assert.equal(retake.activeQuestions.length, 0);
   }
 });
 
