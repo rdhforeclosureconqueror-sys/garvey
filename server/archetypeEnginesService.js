@@ -8,7 +8,7 @@ const LOVE_ARCHETYPES = require("../archetype-engines/content/loveArchetypes");
 const LOVE_DYNAMICS = require("../archetype-engines/content/loveCoupleDynamics");
 const LEADERSHIP_ARCHETYPES = require("../archetype-engines/content/leadershipArchetypes");
 const LOYALTY_ARCHETYPES = require("../archetype-engines/content/loyaltyArchetypes");
-const BASE_LOVE_QUESTIONS = require("../archetype-engines/question-banks/love");
+const AUTHORED_LOVE_BANK_1 = require("../archetype-engines/question-banks/love.bank1");
 const LEADERSHIP_BANK1 = require("../archetype-engines/question-banks/leadership.bank1");
 const LEADERSHIP_BANK2 = require("../archetype-engines/question-banks/leadership.bank2");
 const LEADERSHIP_BANK3 = require("../archetype-engines/question-banks/leadership.bank3");
@@ -31,14 +31,15 @@ function readJsonIfExists(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
 }
 
-function resolveApprovedLoveQuestionSource() {
+function resolveGeneratedValidatedLoveSource() {
   const manifest = readJsonIfExists(LOVE_PROMOTION_MANIFEST);
   if (!manifest || !Array.isArray(manifest.banks)) {
     return {
-      sourceType: "legacy_rebuilt_banks",
-      sourcePath: "archetype-engines/question-banks/love(.bank1-3).js",
-      questions: BASE_LOVE_QUESTIONS,
+      sourceType: "no_generated_bank_available",
+      sourcePath: null,
+      questions: [],
       bankId: null,
+      reviewStatus: null,
     };
   }
 
@@ -46,48 +47,61 @@ function resolveApprovedLoveQuestionSource() {
   const approvedBanks = manifest.banks
     .filter((entry) => String(entry?.review_status || "") === "approved_for_live_candidate")
     .sort((left, right) => new Date(String(right.generated_at || 0)).getTime() - new Date(String(left.generated_at || 0)).getTime());
-  if (!approvedBanks.length) {
-    return {
-      sourceType: "legacy_rebuilt_banks",
-      sourcePath: "archetype-engines/question-banks/love(.bank1-3).js",
-      questions: BASE_LOVE_QUESTIONS,
-      bankId: null,
-    };
-  }
 
   const selected = requestedBankId
     ? approvedBanks.find((entry) => String(entry.bank_id || "").toUpperCase() === requestedBankId)
     : approvedBanks[0];
+
   if (!selected) {
     return {
-      sourceType: "legacy_rebuilt_banks",
-      sourcePath: "archetype-engines/question-banks/love(.bank1-3).js",
-      questions: BASE_LOVE_QUESTIONS,
+      sourceType: "no_generated_bank_available",
+      sourcePath: null,
+      questions: [],
       bankId: null,
+      reviewStatus: null,
     };
   }
 
   const promotedFile = path.resolve(ROOT_DIR, String(selected?.source_artifact_paths?.generatedFile || ""));
   const promotedQuestions = readJsonIfExists(promotedFile);
-  if (!Array.isArray(promotedQuestions) || !promotedQuestions.length) {
+  if (!Array.isArray(promotedQuestions) || promotedQuestions.length !== 25) {
     return {
-      sourceType: "legacy_rebuilt_banks",
-      sourcePath: "archetype-engines/question-banks/love(.bank1-3).js",
-      questions: BASE_LOVE_QUESTIONS,
-      bankId: null,
+      sourceType: "invalid_generated_bank_artifact",
+      sourcePath: path.relative(ROOT_DIR, promotedFile),
+      questions: [],
+      bankId: String(selected.bank_id || "").trim() || null,
+      reviewStatus: String(selected.review_status || "").trim() || null,
     };
   }
 
   return {
-    sourceType: "approved_promoted_candidate_bank",
+    sourceType: "generated_validated_bank",
     sourcePath: path.relative(ROOT_DIR, promotedFile),
     questions: promotedQuestions,
     bankId: String(selected.bank_id || "").trim() || null,
+    reviewStatus: String(selected.review_status || "").trim() || null,
   };
 }
 
-const LOVE_QUESTION_SOURCE = Object.freeze(resolveApprovedLoveQuestionSource());
-const LOVE_QUESTIONS = Object.freeze(LOVE_QUESTION_SOURCE.questions);
+const LOVE_GENERATED_SOURCE = Object.freeze(resolveGeneratedValidatedLoveSource());
+const LOVE_QUESTION_SOURCE = Object.freeze({
+  authored: {
+    sourceType: "authored_bank_1",
+    sourcePath: "archetype-engines/question-banks/love.bank1.js",
+    bankId: "AUTHORED_BANK_1",
+    questionCount: AUTHORED_LOVE_BANK_1.length,
+  },
+  generated: {
+    sourceType: LOVE_GENERATED_SOURCE.sourceType,
+    sourcePath: LOVE_GENERATED_SOURCE.sourcePath,
+    bankId: LOVE_GENERATED_SOURCE.bankId,
+    questionCount: LOVE_GENERATED_SOURCE.questions.length,
+    reviewStatus: LOVE_GENERATED_SOURCE.reviewStatus,
+  },
+  useGeneratorOnFirstAttempt: false,
+});
+
+const LOVE_QUESTIONS = Object.freeze([...AUTHORED_LOVE_BANK_1, ...LOVE_GENERATED_SOURCE.questions]);
 
 function groupBy(arr, key) {
   return arr.reduce((acc, item) => {
@@ -486,17 +500,33 @@ function scoreEngineAssessment(engineType, answers = {}, opts = {}) {
 
 function getQuestionBanks(engineType, opts = {}) {
   if (engineType === "love") {
-    const questions = LOVE_QUESTIONS.map(normalizeQuestion).filter((q) => q.isActive !== false);
-    const grouped = groupBy(questions, "bankId");
-    const bankIds = Object.keys(grouped).sort();
     const attempt = Number(opts.retakeAttempt || 0);
-    const bankId = bankIds.length ? bankIds[((attempt % bankIds.length) + bankIds.length) % bankIds.length] : null;
+    const authoredQuestions = AUTHORED_LOVE_BANK_1.map(normalizeQuestion).filter((q) => q.isActive !== false);
+    const generatedQuestions = LOVE_GENERATED_SOURCE.questions.map(normalizeQuestion).filter((q) => q.isActive !== false);
+
+    if (attempt <= 0) {
+      return {
+        selectedBankId: "AUTHORED_BANK_1",
+        availableBanks: ["AUTHORED_BANK_1"],
+        retakeAttempt: attempt,
+        questionSource: "authored_bank_1",
+        useGeneratorOnFirstAttempt: false,
+        questionBanks: { AUTHORED_BANK_1: authoredQuestions },
+        activeQuestions: authoredQuestions,
+      };
+    }
+
+    const generatedBankId = LOVE_GENERATED_SOURCE.bankId || null;
+    const generatedAvailable = generatedQuestions.length === 25 && Boolean(generatedBankId);
     return {
-      selectedBankId: bankId,
-      availableBanks: bankIds,
+      selectedBankId: generatedAvailable ? generatedBankId : null,
+      availableBanks: generatedAvailable ? [generatedBankId] : [],
       retakeAttempt: attempt,
-      questionBanks: Object.fromEntries(bankIds.map((id) => [id, grouped[id]])),
-      activeQuestions: bankId ? grouped[bankId] : [],
+      questionSource: "generated_validated_bank",
+      useGeneratorOnFirstAttempt: false,
+      generatedBankAvailable: generatedAvailable,
+      questionBanks: generatedAvailable ? { [generatedBankId]: generatedQuestions } : {},
+      activeQuestions: generatedAvailable ? generatedQuestions : [],
     };
   }
   if (engineType === "leadership") return groupBy(LEADERSHIP_QUESTIONS.map(normalizeQuestion), "bankId");

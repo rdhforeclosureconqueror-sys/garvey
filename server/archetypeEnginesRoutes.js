@@ -94,6 +94,22 @@ function inferFullName(inputName, email) {
   return candidate.split(" ").map((part) => part ? `${part[0].toUpperCase()}${part.slice(1)}` : "").join(" ").trim();
 }
 
+
+async function resolveLoveRetakeAttempt(pool, { tenant, userId, fallback = 0 }) {
+  const candidateUserId = String(userId || "").trim();
+  if (!tenant || !candidateUserId) return Number(fallback || 0);
+  const result = await pool.query(
+    `SELECT COUNT(*)::int AS completed_count
+       FROM engine_results r
+       JOIN engine_assessments a ON a.id = r.assessment_id
+      WHERE a.engine_type = 'love'
+        AND a.tenant_slug = $1
+        AND a.user_id = $2`,
+    [tenant, candidateUserId]
+  );
+  return Number(result.rows?.[0]?.completed_count || 0);
+}
+
 function createArchetypeEnginesRouter({ pool }) {
   const router = express.Router();
 
@@ -226,12 +242,27 @@ function createArchetypeEnginesRouter({ pool }) {
     );
     await recordEngineEvent(pool, { engineType, tenant, eventKey: "assessment_started", ctx: attribution, assessmentId });
 
-    const banks = getQuestionBanks(engineType, { retakeAttempt: req.body?.retake_attempt || 0 });
+    let retakeAttempt = Number(req.body?.retake_attempt || 0);
+    if (engineType === "love") {
+      retakeAttempt = await resolveLoveRetakeAttempt(pool, {
+        tenant,
+        userId: req.body?.user_id || req.body?.rid || req.body?.crid || attribution.rid || attribution.crid,
+        fallback: retakeAttempt,
+      });
+    }
+
+    const banks = getQuestionBanks(engineType, { retakeAttempt });
+    if (engineType === "love" && banks.questionSource === "generated_validated_bank" && !banks.generatedBankAvailable) {
+      return res.status(409).json({ error: "generated_retake_bank_unavailable", questionSource: "generated_validated_bank" });
+    }
+
     return res.json({
       assessmentId,
       engineType,
       questionBanks: banks,
-      ...(engineType === "love" ? { questionSource: LOVE_QUESTION_SOURCE } : {}),
+      ...(engineType === "love"
+        ? { questionSource: banks.questionSource, useGeneratorOnFirstAttempt: false, questionSourceConfig: LOVE_QUESTION_SOURCE }
+        : {}),
     });
   });
 

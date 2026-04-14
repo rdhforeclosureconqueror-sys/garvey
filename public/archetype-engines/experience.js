@@ -1142,10 +1142,11 @@ function renderLoveResultStory(app, engine, archetypes, resultId, payload, query
       <div class="story-frame" id="storyFrame" aria-live="polite">
         ${scores.map((item, idx) => {
           const archetype = codeIndex[item.code] || {};
-          const descriptor = String(archetype.shortDescription || archetype.tagline || archetype.coreTrait || "Connection pattern descriptor pending.").trim();
+          const descriptor = String(archetype.shortDescription || "Connection pattern descriptor pending.").trim();
           return `
             <article class="story-slide${idx === 0 ? " is-active" : ""}" data-story-index="${idx}">
               <div class="story-rank">#${idx + 1} Archetype</div>
+              ${cardVisual(archetype, { engine, loveImageVariant: LOVE_IMAGE_VARIANTS[0] })}
               <h2>${esc(displayName(engine, archetype, item.code))}</h2>
               <div class="story-percent">${item.score.toFixed(1)}%</div>
               <p class="muted">${esc(descriptor)}</p>
