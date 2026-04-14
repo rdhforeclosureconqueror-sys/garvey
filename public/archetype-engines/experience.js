@@ -860,7 +860,8 @@ const LOVE_CANONICAL_LABELS = Object.freeze({
 
 function displayName(engine, archetype = {}, code = "") {
   if (engine === "love") return LOVE_CANONICAL_LABELS[code || archetype.code] || archetype.name || code;
-  return archetype.name || code;
+  if (engine === "loyalty") return archetype.canonicalName || archetype.name || code;
+  return archetype.name || archetype.canonicalName || code;
 }
 
 function displaySubtitle(engine, archetype = {}, code = "") {
@@ -915,7 +916,7 @@ function renderBrowse(app, engine, archetypes, query, options = {}) {
             <h3>${esc(a.emoji || "") } ${esc(displayName(engine, a, a.code))}</h3>
             ${displaySubtitle(engine, a, a.code) ? `<div class="muted">${esc(displaySubtitle(engine, a, a.code))}</div>` : ""}
             <div class="muted">Rank preview #${idx + 1}</div>
-            <div class="muted">Code: ${esc(a.code)}</div>
+            ${engine === "loyalty" ? "" : `<div class="muted">Code: ${esc(a.code)}</div>`}
             <div class="chip">View full archetype</div>
           </a>
         `).join("")}
@@ -986,6 +987,9 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     : identityBehaviorEntries;
 
   const loyaltyProfile = payload.communication_profile || {};
+  const relationshipInterpretation = payload.relationshipInterpretation || {};
+  const loveAssessmentCta = payload.loveAssessmentCta || {};
+  const loyaltyHumanTranslations = payload.loyaltyHumanTranslations || {};
   const loyaltyHeaderSections = isLoyaltyEngine
     ? `
     <section class="section loyalty-adaptive-section">
@@ -996,6 +1000,15 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
         <div class="kv"><b>Best way to talk to you</b>${esc(loyaltyProfile.best_way_to_talk_to_them || "-")}</div>
         <div class="kv"><b>What keeps you engaged</b>${esc(loyaltyProfile.what_keeps_them_engaged || "-")}</div>
         <div class="kv"><b>What pushes you away</b>${esc(loyaltyProfile.what_pushes_them_away || "-")}</div>
+      </div>
+    </section>
+    <section class="section loyalty-adaptive-section">
+      <h2>${esc(relationshipInterpretation.sectionTitle || "How This Shows Up In Your Relationships")}</h2>
+      <div class="insights loyalty-adaptive-grid">
+        <div class="kv"><b>Relationship Summary</b>${esc(relationshipInterpretation.relationshipSummary || "-")}</div>
+        <div class="kv"><b>Romantic / Partner Pattern</b>${esc(relationshipInterpretation.romanticPartnerPattern || "-")}</div>
+        <div class="kv"><b>Friendship Pattern</b>${esc(relationshipInterpretation.friendshipPattern || "-")}</div>
+        <div class="kv"><b>Family Pattern</b>${esc(relationshipInterpretation.familyPattern || "-")}</div>
       </div>
     </section>
     ${renderLoyaltySection("Why You Stay Engaged", [
@@ -1015,10 +1028,10 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     ? `
       ${renderLoyaltySection("Why This Matters", [{ label: "Loyalty context", value: payload.whyThisMatters }])}
       ${renderLoyaltySection("Scientific Foundation", [{ label: "Model", value: payload.scientificFoundation }])}
-      ${renderLoyaltySection("Loyalty Pattern", [{ label: "Pattern", value: payload.loyaltyPattern }])}
-      ${renderLoyaltySection("Loyalty State", [{ label: "State", value: payload.loyaltyState }])}
-      ${renderLoyaltySection("Retention Insight", [{ label: "Insight", value: payload.retentionInsight }])}
-      ${renderLoyaltySection("Churn Risk Insight", [{ label: "Risk", value: payload.churnRiskInsight }])}
+      ${renderLoyaltySection("Loyalty Pattern", [{ label: "System", value: payload.loyaltyPattern }, { label: "Human", value: loyaltyHumanTranslations.loyaltyPattern }])}
+      ${renderLoyaltySection("Loyalty State", [{ label: "System", value: payload.loyaltyState }, { label: "Human", value: loyaltyHumanTranslations.loyaltyState }])}
+      ${renderLoyaltySection("Retention Insight", [{ label: "System", value: payload.retentionInsight }, { label: "Human", value: loyaltyHumanTranslations.retentionInsight }])}
+      ${renderLoyaltySection("Churn Risk Insight", [{ label: "System", value: payload.churnRiskInsight }, { label: "Human", value: loyaltyHumanTranslations.churnRiskInsight }])}
       <section class="section">
         <h2>Loyalty Loop</h2>
         <div class="insights">
@@ -1102,7 +1115,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
           ${displaySubtitle(engine, a, item.code) ? `<div class="muted">${esc(displaySubtitle(engine, a, item.code))}</div>` : ""}
           <div>${item.score.toFixed(1)}%</div>
           <p class="muted">${esc(a.shortDescription || a.tagline || a.description || "Descriptor pending")}</p>
-          ${isLoyaltyEngine ? `<div class="muted"><b>Real-world translation:</b> ${esc(payload.loyaltyArchetypeTranslations?.[item.code] || "-")}</div>` : ""}
+          ${isLoyaltyEngine ? `<div class="muted"><b>REAL-WORLD TRANSLATION:</b> ${esc(payload.loyaltyArchetypeTranslations?.[item.code] || "-")}</div>` : ""}
           <div class="muted">${esc(a.coreTrait || "Core trait pending")}</div>
           <div class="chip">${esc(bal)}</div>
           <a href="${routeTo(engine, `archetype/${a.slug}?back=${encodeURIComponent(routeTo(engine, `result/${resultId}`, query))}`, query)}">View full archetype</a>
@@ -1152,6 +1165,18 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
       label: key.replace(/_/g, " "),
       value,
     }))) : ""}
+
+    ${isLoyaltyEngine ? `
+    <section class="section">
+      <h2>${esc(loveAssessmentCta.sectionTitle || "Want a deeper relationship breakdown?")}</h2>
+      <p>${esc(loveAssessmentCta.intro || "This shows how you form loyalty.")}<br>${esc(loveAssessmentCta.bridge || "But relationships go deeper than loyalty alone.")}</p>
+      <p class="muted">Take the Love Assessment to understand:</p>
+      <ul>
+        ${(loveAssessmentCta.bullets || []).map((item) => `<li>${esc(item)}</li>`).join("")}
+      </ul>
+      <a class="metric-cta" href="${esc(routeTo("love", "assessment", query))}">→ ${esc(loveAssessmentCta.buttonLabel || "Take Love Assessment")}</a>
+    </section>
+    ` : ""}
 
     <section class="section">
       <h2>Your Pattern</h2>
