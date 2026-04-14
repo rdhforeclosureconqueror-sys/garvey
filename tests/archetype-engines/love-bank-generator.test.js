@@ -3,6 +3,7 @@ const assert = require('node:assert/strict');
 
 const { generateLoveBank, validateBank } = require('../../archetype-engines/generator/love');
 const { validateOptionDiversity } = require('../../archetype-engines/generator/love/generateCandidates');
+const { validateSayItOutLoud } = require('../../archetype-engines/generator/love/validators');
 
 const ARCHETYPES = ['RS', 'AL', 'EC', 'AV', 'ES'];
 
@@ -84,5 +85,24 @@ test('each generated question passes option diversity constraints', () => {
     }));
     const diversityFailures = validateOptionDiversity(normalizedOptions);
     assert.deepEqual(diversityFailures, [], `${q.question_id} failed diversity checks: ${diversityFailures.join(', ')}`);
+  }
+});
+
+test('generated options pass say-it-out-loud quality gate and avoid stitched phrasing', () => {
+  const bank = generateLoveBank({ seed: 'SAY_OUT_LOUD_1' });
+  const blockedFragments = [
+    'I respond by verify',
+    'if articulation creates trust',
+    'if space keeps you regulated',
+    'I am intentionally building seek',
+  ];
+
+  for (const q of bank.questions) {
+    for (const opt of q.options) {
+      assert.equal(validateSayItOutLoud(opt.text), true, `${q.question_id}/${opt.option_id} failed say-it-out-loud`);
+      for (const fragment of blockedFragments) {
+        assert.equal(opt.text.includes(fragment), false, `${q.question_id}/${opt.option_id} contained blocked fragment: ${fragment}`);
+      }
+    }
   }
 });

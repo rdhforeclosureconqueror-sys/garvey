@@ -138,11 +138,11 @@ const SIGNAL_PHRASES = {
   "proximity seeking": ["when distance shows up", "if connection feels far away"],
   "emotional validation focus": ["when you need emotional confirmation", "if feelings need to be acknowledged"],
   "autonomy protection": ["when autonomy matters", "if pressure starts building"],
-  "distance regulation": ["when closeness needs pacing", "if space keeps you regulated"],
+  "distance regulation": ["when closeness needs pacing", "if taking space helps me reset"],
   "self-containment": ["when you process internally", "if you need solo regulation"],
   "closeness without engulfment": ["when you want closeness without overwhelm", "if you need room and connection"],
   "verbal repair": ["when repair needs words", "if clarity helps reconnection"],
-  articulation: ["when articulation creates trust", "if naming it reduces confusion"],
+  articulation: ["when clear words build trust", "if naming it reduces confusion"],
   "discussion-based closeness": ["when talking deepens closeness", "if dialogue builds connection"],
   "clarity seeking": ["when clarity is essential", "if assumptions might grow"],
   "action over words": ["when actions carry more weight", "if promises alone feel thin"],
@@ -171,7 +171,7 @@ const CLASS_TONE_SCHEMAS = {
   SC: {
     emotional: ["In that moment, I {expression} {scenario} {signal}.", "When the situation turns, I feel pulled to {expression} {scenario} {signal}.", "My first response is to {expression} {scenario} {signal}."],
     neutral: ["In this scenario, I {expression} {scenario} {signal}.", "My likely response is to {expression} {scenario} {signal}.", "I usually respond by {expression} {scenario} {signal}."],
-    logical: ["Given the situation, I {expression} {signal} {scenario}.", "My decision move is to {expression} {scenario} {signal}.", "I respond by {expression} to stabilize outcomes {scenario} {signal}."],
+    logical: ["Given the situation, I {expression} {signal} {scenario}.", "My decision move is to {expression} {scenario} {signal}.", "I respond by trying to {expression} {scenario} {signal}."],
     energetic: ["I quickly respond by {expression} {scenario} {signal}.", "I move fast to {expression} {scenario} {signal}.", "I immediately {expression} {scenario} {signal}."],
   },
   ST: {
@@ -182,7 +182,7 @@ const CLASS_TONE_SCHEMAS = {
   },
   DS: {
     emotional: ["I am practicing how to {expression} {scenario} {signal}.", "My growth edge is learning to {expression} {scenario} {signal}.", "To grow, I want to {expression} {scenario} {signal}."],
-    neutral: ["I am working on {expression} {scenario} {signal}.", "My development focus is to {expression} {scenario} {signal}.", "I am intentionally building {expression} {scenario} {signal}."],
+    neutral: ["I am working on {expression} {scenario} {signal}.", "My development focus is to {expression} {scenario} {signal}.", "I am intentionally building the habit to {expression} {scenario} {signal}."],
     logical: ["My next growth strategy is to {expression} {scenario} {signal}.", "To mature this pattern, I aim to {expression} {scenario} {signal}.", "I want to improve by {expression} {scenario} {signal}."],
     energetic: ["I am actively training myself to {expression} {scenario} {signal}.", "I am putting energy into {expression} {scenario} {signal}.", "I am deliberately pushing toward {expression} {scenario} {signal}."],
   },

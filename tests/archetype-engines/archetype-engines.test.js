@@ -292,6 +292,59 @@ test('love first attempt uses authored bank and retake uses generated validated 
   }
 });
 
+test('love retake isolation uses generated-only source and never falls back to authored bank', async () => {
+  const { server, baseUrl } = await startServer(createMockPool());
+  try {
+    const consentRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/consent`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', email: 'retake@example.com', name: 'Retake User', accepted: true, consent_version: 'v1' }),
+    });
+    assert.equal(consentRes.status, 200);
+    const consentJson = await consentRes.json();
+
+    const firstStartRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/start`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', user_id: 'retake-user-1', consent_id: consentJson.consent_id }),
+    });
+    assert.equal(firstStartRes.status, 200);
+    const firstStartJson = await firstStartRes.json();
+    assert.equal(firstStartJson.questionSource, 'authored_bank_1');
+    assert.equal(firstStartJson.useGeneratorOnFirstAttempt, false);
+    assert.equal(firstStartJson.questionBanks.selectedBankId, 'AUTHORED_BANK_1');
+
+    const firstAnswers = Object.fromEntries(firstStartJson.questionBanks.activeQuestions.map((q) => [q.id, 3]));
+    const firstScoreRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/score`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', assessmentId: firstStartJson.assessmentId, answers: firstAnswers }),
+    });
+    assert.equal(firstScoreRes.status, 200);
+
+    const secondStartRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/start`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', user_id: 'retake-user-1', consent_id: consentJson.consent_id }),
+    });
+
+    if (secondStartRes.status === 409) {
+      const secondStartErr = await secondStartRes.json();
+      assert.equal(secondStartErr.error, 'generated_retake_bank_unavailable');
+      assert.equal(secondStartErr.questionSource, 'generated_validated_bank');
+    } else {
+      assert.equal(secondStartRes.status, 200);
+      const secondStartJson = await secondStartRes.json();
+      assert.equal(secondStartJson.questionSource, 'generated_validated_bank');
+      assert.equal(secondStartJson.useGeneratorOnFirstAttempt, false);
+      assert.notEqual(secondStartJson.questionBanks.selectedBankId, 'AUTHORED_BANK_1');
+      assert.equal(secondStartJson.questionBanks.activeQuestions.length, 25);
+    }
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
 test('love archetype registry uses canonical names for code mapping', async () => {
   const { server, baseUrl } = await startServer(createMockPool());
   try {
