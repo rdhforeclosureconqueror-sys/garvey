@@ -1,6 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const path = require('node:path');
 const express = require('express');
 const http = require('http');
 
@@ -149,6 +150,9 @@ test('loyalty scoring returns canonical metrics with authored bank content', () 
   assert.equal(scored.questionCount, 25);
   assert.ok(Object.keys(scored.normalizedScores).length >= 5);
   assert.ok(scored.contradictionConsistency);
+  assert.ok(scored.communication_profile);
+  assert.ok(scored.communication_profile.primary_driver);
+  assert.ok(scored.communication_profile.plain_language_summary);
 });
 
 test('compatibility scoring returns bounded score', () => {
@@ -198,6 +202,12 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
       assert.ok(scoreJson.stressInsight);
       assert.ok(scoreJson.identityGapInsight);
       assert.ok(scoreJson.consistencyInsight);
+      if (engineType === 'loyalty') {
+        assert.ok(scoreJson.communication_profile);
+        assert.ok(scoreJson.communication_profile.retention_hook);
+        assert.ok(scoreJson.communication_profile.churn_trigger);
+        assert.ok(scoreJson.loyaltyLoop?.plain_language_translation);
+      }
       assert.ok(scoreJson.canonical.assessment_id);
       for (const key of [
         'scores',
@@ -228,6 +238,26 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
+});
+
+test('loyalty UI includes adaptive messaging and loyalty-native section labels', () => {
+  const source = fs.readFileSync(path.join(process.cwd(), 'public', 'archetype-engines', 'experience.js'), 'utf8');
+  assert.match(source, /HOW TO TALK TO YOU/);
+  assert.match(source, /WHY YOU STAY ENGAGED/);
+  assert.match(source, /WHAT MAKES YOU PULL AWAY/);
+  assert.match(source, /Why This Matters/);
+  assert.match(source, /Scientific Foundation/);
+  assert.match(source, /Loyalty Pattern/);
+  assert.match(source, /Loyalty State/);
+  assert.match(source, /Retention Insight/);
+  assert.match(source, /Churn Risk Insight/);
+  assert.match(source, /Loyalty Loop/);
+  assert.match(source, /Loyalty Strengthening Plan/);
+  assert.match(source, /Churn Trigger Profile/);
+  assert.match(source, /Retention Gap/);
+  assert.match(source, /Perceived vs Actual Loyalty/);
+  assert.match(source, /UI → Science Mapping/);
+  assert.match(source, /REAL-WORLD TRANSLATION/);
 });
 
 test('no regression: love routes remain live', async () => {

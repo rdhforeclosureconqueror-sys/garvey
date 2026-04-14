@@ -889,6 +889,17 @@ function insightOrFallback(value, fallback) {
   return String(value || "").trim() || fallback;
 }
 
+function renderLoyaltySection(title, rows = []) {
+  return `
+    <section class="section">
+      <h2>${esc(title)}</h2>
+      <div class="insights">
+        ${rows.map((row) => `<div class="kv"><b>${esc(row.label)}</b>${esc(row.value || "-")}</div>`).join("")}
+      </div>
+    </section>
+  `;
+}
+
 function renderBrowse(app, engine, archetypes, query, options = {}) {
   const selectedVariant = options.loveImageVariant || LOVE_IMAGE_VARIANTS[0];
   app.innerHTML = `
@@ -958,6 +969,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
   const desiredGapEntries = Object.entries(payload.desiredCurrentGap || {});
   const identityBehaviorEntries = Object.entries(payload.identityBehaviorGap || {});
   const isLoveEngine = engine === "love";
+  const isLoyaltyEngine = engine === "loyalty";
   const consistencyValue = payload.contradictionConsistency?.consistency;
   const confidenceValue = payload.confidence;
   const dominantLoop = isLoveEngine ? inferDominantLoop({ payload, codeToName }) : null;
@@ -972,6 +984,61 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     })
     : identityBehaviorEntries;
 
+  const loyaltyProfile = payload.communication_profile || {};
+  const loyaltyHeaderSections = isLoyaltyEngine
+    ? `
+    <section class="section">
+      <h2>HOW TO TALK TO YOU</h2>
+      <div class="insights">
+        <div class="kv"><b>Plain-language summary</b>${esc(loyaltyProfile.plain_language_summary || "-")}</div>
+        <div class="kv"><b>Best way to talk to you</b>${esc(loyaltyProfile.best_way_to_talk_to_them || "-")}</div>
+        <div class="kv"><b>What keeps you engaged</b>${esc(loyaltyProfile.what_keeps_them_engaged || "-")}</div>
+        <div class="kv"><b>What pushes you away</b>${esc(loyaltyProfile.what_pushes_them_away || "-")}</div>
+      </div>
+    </section>
+    ${renderLoyaltySection("WHY YOU STAY ENGAGED", [
+      { label: "Retention hook", value: loyaltyProfile.retention_hook || payload.retentionInsight },
+      { label: "Retention Insight", value: payload.retentionInsight },
+      { label: "Loyalty State", value: payload.loyaltyState || payload.balanceStates?.overall },
+    ])}
+    ${renderLoyaltySection("WHAT MAKES YOU PULL AWAY", [
+      { label: "Churn trigger", value: loyaltyProfile.churn_trigger || payload.churnRiskInsight },
+      { label: "Churn Risk Insight", value: payload.churnRiskInsight },
+      { label: "Churn Trigger Profile", value: payload.churnTriggerProfile },
+    ])}
+    `
+    : "";
+
+  const loyaltyLegacySections = isLoyaltyEngine
+    ? `
+      ${renderLoyaltySection("Why This Matters", [{ label: "Loyalty context", value: payload.whyThisMatters }])}
+      ${renderLoyaltySection("Scientific Foundation", [{ label: "Model", value: payload.scientificFoundation }])}
+      ${renderLoyaltySection("Loyalty Pattern", [{ label: "Pattern", value: payload.loyaltyPattern }])}
+      ${renderLoyaltySection("Loyalty State", [{ label: "State", value: payload.loyaltyState }])}
+      ${renderLoyaltySection("Retention Insight", [{ label: "Insight", value: payload.retentionInsight }])}
+      ${renderLoyaltySection("Churn Risk Insight", [{ label: "Risk", value: payload.churnRiskInsight }])}
+      <section class="section">
+        <h2>Loyalty Loop</h2>
+        <div class="insights">
+          <div class="kv"><b>Loop Label</b>${esc(payload.loyaltyLoop?.label || "-")}</div>
+          <div class="kv"><b>What it means</b>${esc(payload.loyaltyLoop?.what_it_means || "-")}</div>
+          <div class="kv"><b>Why it matters</b>${esc(payload.loyaltyLoop?.why_it_matters || "-")}</div>
+          <div class="kv"><b>Break point</b>${esc(payload.loyaltyLoop?.break_point || "-")}</div>
+          <div class="kv"><b>Plain-language translation</b>${esc(payload.loyaltyLoop?.plain_language_translation || "-")}</div>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Loyalty Strengthening Plan</h2>
+        <div class="insights">
+          <div class="kv"><b>Plan</b>${esc((payload.loyaltyStrengtheningPlan || []).join(" • ") || "-")}</div>
+        </div>
+      </section>
+      ${renderLoyaltySection("Churn Trigger Profile", [{ label: "Trigger profile", value: payload.churnTriggerProfile }])}
+      ${renderLoyaltySection("Retention Gap", [{ label: "Gap", value: payload.retentionGap }])}
+      ${renderLoyaltySection("Perceived vs Actual Loyalty", [{ label: "Gap", value: payload.perceivedVsActualLoyalty }])}
+    `
+    : "";
+
   app.innerHTML = `
     <section class="section hero">
       <div>
@@ -985,6 +1052,8 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
       </div>
       <div>${cardVisual(primary || secondary, { engine, loveImageVariant: selectedVariant })}</div>
     </section>
+
+    ${loyaltyHeaderSections}
 
     ${isLoveEngine ? `
     <section class="section">
@@ -1031,6 +1100,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
           ${displaySubtitle(engine, a, item.code) ? `<div class="muted">${esc(displaySubtitle(engine, a, item.code))}</div>` : ""}
           <div>${item.score.toFixed(1)}%</div>
           <p class="muted">${esc(a.shortDescription || a.tagline || a.description || "Descriptor pending")}</p>
+          ${isLoyaltyEngine ? `<div class="muted"><b>REAL-WORLD TRANSLATION:</b> ${esc(payload.loyaltyArchetypeTranslations?.[item.code] || "-")}</div>` : ""}
           <div class="muted">${esc(a.coreTrait || "Core trait pending")}</div>
           <div class="chip">${esc(bal)}</div>
           <a href="${routeTo(engine, `archetype/${a.slug}?back=${encodeURIComponent(routeTo(engine, `result/${resultId}`, query))}`, query)}">View full archetype</a>
@@ -1073,6 +1143,13 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
         ${!isLoveEngine ? `<div class="kv"><b>Summary Block</b>${esc(JSON.stringify(payload.summaryBlock || {}))}</div>` : ""}
       </div>
     </section>
+
+    ${loyaltyLegacySections}
+
+    ${isLoyaltyEngine ? renderLoyaltySection("UI → Science Mapping", Object.entries(payload.uiScienceMapping || {}).map(([key, value]) => ({
+      label: key.replace(/_/g, " "),
+      value,
+    }))) : ""}
 
     <section class="section">
       <h2>Your Pattern</h2>
