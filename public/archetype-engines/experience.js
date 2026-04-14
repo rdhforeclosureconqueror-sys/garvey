@@ -9,18 +9,18 @@ function titleCase(s) {
 }
 
 function parseRoute() {
-  const match = window.location.pathname.match(/^\/archetype-engines\/(love|leadership|loyalty)\/(result\/([^/]+)|archetype\/([^/]+)|browse)\/?$/);
+  const match = window.location.pathname.match(/^\/archetype-engines\/(love|leadership|loyalty)\/(result\/([^/]+)|archetype\/([^/]+)|browse|assessment)\/?$/);
   if (!match) return null;
   return {
     engine: match[1],
-    mode: match[2].startsWith("result/") ? "result" : match[2].startsWith("archetype/") ? "detail" : "browse",
+    mode: match[2].startsWith("result/") ? "result" : match[2].startsWith("archetype/") ? "detail" : match[2] === "assessment" ? "assessment" : "browse",
     resultId: match[3] || "",
     slug: match[4] || "",
   };
 }
 
-async function jsonFetch(url) {
-  const res = await fetch(url);
+async function jsonFetch(url, init) {
+  const res = await fetch(url, init);
   if (!res.ok) throw new Error(`Failed (${res.status}) ${url}`);
   return res.json();
 }
@@ -36,6 +36,111 @@ function cardPlaceholder(archetype) {
 
 function routeTo(engine, path) {
   return `/archetype-engines/${engine}/${path}`;
+}
+
+
+function pickCtx(query) {
+  return {
+    tenant: String(query.get("tenant") || "").trim(),
+    email: String(query.get("email") || "").trim().toLowerCase(),
+    name: String(query.get("name") || "").trim(),
+    cid: String(query.get("cid") || "").trim(),
+    crid: String(query.get("crid") || query.get("rid") || "").trim(),
+  };
+}
+
+function buildPayload(query, extra) {
+  const ctx = pickCtx(query);
+  return {
+    ...(ctx.tenant ? { tenant: ctx.tenant } : {}),
+    ...(ctx.email ? { email: ctx.email } : {}),
+    ...(ctx.name ? { name: ctx.name } : {}),
+    ...(ctx.cid ? { campaign: ctx.cid } : {}),
+    ...(ctx.crid ? { user_id: ctx.crid } : {}),
+    ...(extra || {}),
+  };
+}
+
+function renderQuestionOne(app, engine, startPayload) {
+  const selectedBankId = startPayload?.questionBanks?.selectedBankId || "";
+  const q1 = startPayload?.questionBanks?.activeQuestions?.[0] || null;
+  if (!q1) {
+    app.innerHTML = `<section class="section error">No questions found for this assessment.</section>`;
+    return;
+  }
+
+  app.innerHTML = `
+    <section class="section">
+      <h1>${titleCase(engine)} Assessment</h1>
+      <p class="muted">Assessment started. Bank: ${esc(selectedBankId || "default")}.</p>
+      <div class="chip">Question 1</div>
+      <h2>${esc(q1.prompt || "")}</h2>
+      <div class="spectrum-grid">
+        ${(q1.options || []).map((opt) => `
+          <div class="card">
+            <h3>${esc(opt.optionId || opt.option_id || "")}</h3>
+            <p>${esc(opt.text || "")}</p>
+          </div>
+        `).join("")}
+      </div>
+    </section>`;
+}
+
+async function startAssessmentFlow(app, engine, query, consentId) {
+  const payload = buildPayload(query, consentId ? { consent_id: consentId } : {});
+  const startPayload = await jsonFetch(`/api/archetype-engines/${engine}/assessment/start`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  renderQuestionOne(app, engine, startPayload);
+}
+
+function renderConsentStep(app, engine, query, contract) {
+  app.innerHTML = `
+    <section class="section">
+      <h1>${esc(contract?.heading || `${titleCase(engine)} Assessment`)}</h1>
+      <p class="muted">${(contract?.body || []).map(esc).join(" ")}</p>
+      <label class="kv">
+        <input id="consentCheck" type="checkbox" />
+        <span>${esc(contract?.agreement || "I agree to continue.")}</span>
+      </label>
+      <button id="consentContinue" class="chip">Accept and continue</button>
+      <div id="assessmentStatus" class="muted"></div>
+    </section>`;
+
+  const statusNode = document.getElementById("assessmentStatus");
+  const continueBtn = document.getElementById("consentContinue");
+  continueBtn?.addEventListener("click", async () => {
+    const checked = document.getElementById("consentCheck")?.checked;
+    if (!checked) {
+      if (statusNode) statusNode.textContent = "Please accept consent to continue.";
+      return;
+    }
+    try {
+      const consentPayload = buildPayload(query, {
+        accepted: true,
+        consent_version: contract?.consent_version || "v1",
+      });
+      const consent = await jsonFetch(`/api/archetype-engines/${engine}/assessment/consent`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(consentPayload),
+      });
+      await startAssessmentFlow(app, engine, query, consent.consent_id);
+    } catch (err) {
+      if (statusNode) statusNode.textContent = String(err.message || "Unable to continue");
+    }
+  });
+}
+
+async function renderAssessment(app, engine, query) {
+  if (engine !== "love") {
+    await startAssessmentFlow(app, engine, query);
+    return;
+  }
+  const contract = await jsonFetch(`/api/archetype-engines/${engine}/assessment/consent-contract`);
+  renderConsentStep(app, engine, query, contract);
 }
 
 const LOVE_CANONICAL_LABELS = Object.freeze({
@@ -263,6 +368,10 @@ async function boot() {
       const archetype = archetypes.find((a) => a.slug === route.slug);
       if (!archetype) throw new Error("Archetype not found");
       renderDetail(app, route.engine, archetype, query);
+      return;
+    }
+    if (route.mode === "assessment") {
+      await renderAssessment(app, route.engine, query);
       return;
     }
 

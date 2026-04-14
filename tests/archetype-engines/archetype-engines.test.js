@@ -304,9 +304,17 @@ test('love archetype registry uses canonical names for code mapping', async () =
 test('love result renderer ships canonical name map', () => {
   const source = fs.readFileSync('public/archetype-engines/experience.js', 'utf8');
   assert.match(source, /LOVE_CANONICAL_LABELS/);
+  assert.match(source, /browse\|assessment/);
+  assert.match(source, /route\.mode === "assessment"/);
   assert.match(source, /RS:\s*"Reassurance Seeker"/);
   assert.match(source, /AL:\s*"Autonomous Lover"/);
   assert.match(source, /EC:\s*"Expression Connector"/);
   assert.match(source, /AV:\s*"Action Validator"/);
   assert.match(source, /ES:\s*"Experience Seeker"/);
+});
+
+test('experience routes keep browse and add assessment entry route', () => {
+  const source = fs.readFileSync('server/index.js', 'utf8');
+  assert.match(source, /app\.get\("\/archetype-engines\/:engine\/browse"/);
+  assert.match(source, /app\.get\("\/archetype-engines\/:engine\/assessment"/);
 });
