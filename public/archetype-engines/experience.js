@@ -9,14 +9,18 @@ function titleCase(s) {
 }
 
 function parseRoute() {
-  const match = window.location.pathname.match(/^\/archetype-engines\/(love|leadership|loyalty)\/(result\/([^/]+)|archetype\/([^/]+)|browse|assessment)\/?$/);
-  if (!match) return null;
-  return {
-    engine: match[1],
-    mode: match[2].startsWith("result/") ? "result" : match[2].startsWith("archetype/") ? "detail" : match[2] === "assessment" ? "assessment" : "browse",
-    resultId: match[3] || "",
-    slug: match[4] || "",
-  };
+  const parts = String(window.location.pathname || "").split("/").filter(Boolean);
+  if (parts.length < 3 || parts[0] !== "archetype-engines") return null;
+  const engine = parts[1];
+  if (!["love", "leadership", "loyalty"].includes(engine)) return null;
+  const section = parts[2];
+  if (section === "browse") return { engine, mode: "browse", resultId: "", slug: "" };
+  if (section === "assessment") return { engine, mode: "assessment", resultId: "", slug: "" };
+  if (section === "archetype" && parts[3]) return { engine, mode: "detail", resultId: "", slug: parts[3] };
+  if (section === "result" && parts[3]) {
+    return { engine, mode: parts[4] === "story" ? "story" : "result", resultId: parts[3], slug: "" };
+  }
+  return null;
 }
 
 async function jsonFetch(url, init) {
@@ -762,6 +766,10 @@ function renderAssessmentQuestions(app, engine, query, startPayload) {
           headers: { "content-type": "application/json" },
           body: JSON.stringify(payload),
         });
+        if (engine === "love") {
+          window.location.assign(routeTo(engine, `result/${encodeURIComponent(scored.resultId)}/story`, query));
+          return;
+        }
         window.location.assign(routeTo(engine, `result/${encodeURIComponent(scored.resultId)}`, query));
       } catch (err) {
         state.submitting = false;
@@ -1117,6 +1125,95 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
   if (engine === "love") wireLoveVariantToggle(options.onLoveVariantChange || (() => {}));
 }
 
+function renderLoveResultStory(app, engine, archetypes, resultId, payload, query) {
+  const scores = sortScores(payload.normalizedScores).slice(0, 5);
+  const codeIndex = Object.fromEntries(archetypes.map((a) => [a.code, a]));
+  if (!scores.length) {
+    window.location.replace(routeTo(engine, `result/${encodeURIComponent(resultId)}`, query));
+    return;
+  }
+
+  app.innerHTML = `
+    <section class="section story-shell">
+      <div class="story-header">
+        <div class="chip">Love Story View</div>
+        <button type="button" id="storyCloseBtn" class="chip">Close</button>
+      </div>
+      <div class="story-frame" id="storyFrame" aria-live="polite">
+        ${scores.map((item, idx) => {
+          const archetype = codeIndex[item.code] || {};
+          const descriptor = String(archetype.shortDescription || archetype.tagline || archetype.coreTrait || "Connection pattern descriptor pending.").trim();
+          return `
+            <article class="story-slide${idx === 0 ? " is-active" : ""}" data-story-index="${idx}">
+              <div class="story-rank">#${idx + 1} Archetype</div>
+              <h2>${esc(displayName(engine, archetype, item.code))}</h2>
+              <div class="story-percent">${item.score.toFixed(1)}%</div>
+              <p class="muted">${esc(descriptor)}</p>
+            </article>`;
+        }).join("")}
+      </div>
+      <div class="story-controls">
+        <button type="button" id="storyPrevBtn" class="chip">Prev</button>
+        <div id="storyDots" class="story-dots">${scores.map((_, idx) => `<button type="button" class="story-dot${idx === 0 ? " is-active" : ""}" data-story-dot="${idx}" aria-label="Slide ${idx + 1}"></button>`).join("")}</div>
+        <button type="button" id="storyNextBtn" class="chip">Next</button>
+      </div>
+      <div class="story-footer">
+        <button type="button" id="storyExitBtn" class="chip">See full result</button>
+      </div>
+    </section>`;
+
+  const fullResultHref = routeTo(engine, `result/${encodeURIComponent(resultId)}`, query);
+  const slides = Array.from(document.querySelectorAll(".story-slide"));
+  const dots = Array.from(document.querySelectorAll("[data-story-dot]"));
+  let activeIndex = 0;
+  let touchStartX = null;
+  let touchStartY = null;
+
+  const renderActive = () => {
+    for (const [idx, slide] of slides.entries()) slide.classList.toggle("is-active", idx === activeIndex);
+    for (const [idx, dot] of dots.entries()) dot.classList.toggle("is-active", idx === activeIndex);
+  };
+  const goTo = (index) => {
+    const max = Math.max(slides.length - 1, 0);
+    activeIndex = Math.max(0, Math.min(max, index));
+    renderActive();
+  };
+  const next = () => goTo((activeIndex + 1) % slides.length);
+  const prev = () => goTo((activeIndex - 1 + slides.length) % slides.length);
+  const exitToResult = () => window.location.assign(fullResultHref);
+  const autoTimer = window.setInterval(next, 4000);
+
+  document.getElementById("storyCloseBtn")?.addEventListener("click", exitToResult);
+  document.getElementById("storyExitBtn")?.addEventListener("click", exitToResult);
+  document.getElementById("storyNextBtn")?.addEventListener("click", next);
+  document.getElementById("storyPrevBtn")?.addEventListener("click", prev);
+  for (const dot of dots) {
+    dot.addEventListener("click", () => {
+      const index = Number(dot.getAttribute("data-story-dot"));
+      if (Number.isFinite(index)) goTo(index);
+    });
+  }
+
+  const frame = document.getElementById("storyFrame");
+  frame?.addEventListener("touchstart", (evt) => {
+    const touch = evt.changedTouches?.[0];
+    if (!touch) return;
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+  }, { passive: true });
+  frame?.addEventListener("touchend", (evt) => {
+    const touch = evt.changedTouches?.[0];
+    if (!touch || touchStartX === null || touchStartY === null) return;
+    const deltaX = touch.clientX - touchStartX;
+    const deltaY = touch.clientY - touchStartY;
+    touchStartX = null;
+    touchStartY = null;
+    if (Math.abs(deltaX) < 40 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+    if (deltaX < 0) next(); else prev();
+  }, { passive: true });
+  window.addEventListener("beforeunload", () => window.clearInterval(autoTimer), { once: true });
+}
+
 async function boot() {
   const app = document.getElementById("app");
   const label = document.getElementById("engineLabel");
@@ -1169,6 +1266,10 @@ async function boot() {
       }
       if (route.mode === "result") {
         renderResult(app, route.engine, archetypes, route.resultId, resultPayload || {}, query, sharedOptions);
+        return;
+      }
+      if (route.mode === "story" && route.engine === "love") {
+        renderLoveResultStory(app, route.engine, archetypes, route.resultId, resultPayload || {}, query);
       }
     };
 

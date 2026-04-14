@@ -321,3 +321,67 @@ body {
   .metric-help:not([open]) .metric-help-panel { display: none; }
 }
 .error { color: #fca5a5; }
+.story-shell {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.story-header,
+.story-controls,
+.story-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.story-frame {
+  position: relative;
+  min-height: 300px;
+  margin: 14px 0;
+  border: 1px solid color-mix(in oklab, var(--border), white 8%);
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(255, 46, 46, 0.2), rgba(0, 208, 132, 0.2));
+}
+.story-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity .3s ease, transform .3s ease;
+  padding: 24px;
+  display: grid;
+  align-content: center;
+  gap: 10px;
+  pointer-events: none;
+}
+.story-slide.is-active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+.story-rank {
+  color: #ffe6e6;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.story-percent {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.story-dots {
+  display: inline-flex;
+  gap: 6px;
+}
+.story-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(255,255,255,0.35);
+  cursor: pointer;
+}
+.story-dot.is-active {
+  background: #cffff0;
+}

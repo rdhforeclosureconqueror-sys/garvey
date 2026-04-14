@@ -235,6 +235,12 @@ app.get("/archetype-engines/:engine/result/:resultId", (req, res, next) => {
   return res.sendFile(path.join(__dirname, "..", "public", "archetype-engines", "experience.html"));
 });
 
+app.get("/archetype-engines/:engine/result/:resultId/story", (req, res, next) => {
+  const engine = String(req.params.engine || "").trim().toLowerCase();
+  if (!["love", "leadership", "loyalty"].includes(engine)) return next();
+  return res.sendFile(path.join(__dirname, "..", "public", "archetype-engines", "experience.html"));
+});
+
 app.get("/archetype-engines/:engine/archetype/:slug", (req, res, next) => {
   const engine = String(req.params.engine || "").trim().toLowerCase();
   if (!["love", "leadership", "loyalty"].includes(engine)) return next();

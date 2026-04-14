@@ -1,18 +1,22 @@
 "use strict";
 
 const crypto = require("crypto");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const LOVE_ARCHETYPES = require("../archetype-engines/content/loveArchetypes");
 const LOVE_DYNAMICS = require("../archetype-engines/content/loveCoupleDynamics");
 const LEADERSHIP_ARCHETYPES = require("../archetype-engines/content/leadershipArchetypes");
 const LOYALTY_ARCHETYPES = require("../archetype-engines/content/loyaltyArchetypes");
-const LOVE_QUESTIONS = require("../archetype-engines/question-banks/love");
+const BASE_LOVE_QUESTIONS = require("../archetype-engines/question-banks/love");
 const LEADERSHIP_BANK1 = require("../archetype-engines/question-banks/leadership.bank1");
 const LEADERSHIP_BANK2 = require("../archetype-engines/question-banks/leadership.bank2");
 const LEADERSHIP_BANK3 = require("../archetype-engines/question-banks/leadership.bank3");
 const LOYALTY_BANK1 = require("../archetype-engines/question-banks/loyalty.bank1");
 const LOYALTY_BANK2 = require("../archetype-engines/question-banks/loyalty.bank2");
 const LOYALTY_BANK3 = require("../archetype-engines/question-banks/loyalty.bank3");
+const ROOT_DIR = path.resolve(__dirname, "..");
+const LOVE_PROMOTION_MANIFEST = path.join(ROOT_DIR, "artifacts", "love-banks", "promotion-manifest.json");
 
 const ENGINE_TYPES = Object.freeze(["love", "leadership", "loyalty"]);
 const SIGNAL_MULTIPLIER = Object.freeze({ ID: 1.0, BH: 1.0, SC: 1.25, ST: 1.5, DS: 1.0 });
@@ -21,6 +25,69 @@ const PRIMARY_WEIGHT = 2;
 const SECONDARY_WEIGHT = 1;
 const LEADERSHIP_QUESTIONS = Object.freeze([...LEADERSHIP_BANK1, ...LEADERSHIP_BANK2, ...LEADERSHIP_BANK3]);
 const LOYALTY_QUESTIONS = Object.freeze([...LOYALTY_BANK1, ...LOYALTY_BANK2, ...LOYALTY_BANK3]);
+
+function readJsonIfExists(filePath) {
+  if (!filePath || !fs.existsSync(filePath)) return null;
+  return JSON.parse(fs.readFileSync(filePath, "utf8"));
+}
+
+function resolveApprovedLoveQuestionSource() {
+  const manifest = readJsonIfExists(LOVE_PROMOTION_MANIFEST);
+  if (!manifest || !Array.isArray(manifest.banks)) {
+    return {
+      sourceType: "legacy_rebuilt_banks",
+      sourcePath: "archetype-engines/question-banks/love(.bank1-3).js",
+      questions: BASE_LOVE_QUESTIONS,
+      bankId: null,
+    };
+  }
+
+  const requestedBankId = String(process.env.LOVE_LIVE_BANK_ID || "").trim().toUpperCase();
+  const approvedBanks = manifest.banks
+    .filter((entry) => String(entry?.review_status || "") === "approved_for_live_candidate")
+    .sort((left, right) => new Date(String(right.generated_at || 0)).getTime() - new Date(String(left.generated_at || 0)).getTime());
+  if (!approvedBanks.length) {
+    return {
+      sourceType: "legacy_rebuilt_banks",
+      sourcePath: "archetype-engines/question-banks/love(.bank1-3).js",
+      questions: BASE_LOVE_QUESTIONS,
+      bankId: null,
+    };
+  }
+
+  const selected = requestedBankId
+    ? approvedBanks.find((entry) => String(entry.bank_id || "").toUpperCase() === requestedBankId)
+    : approvedBanks[0];
+  if (!selected) {
+    return {
+      sourceType: "legacy_rebuilt_banks",
+      sourcePath: "archetype-engines/question-banks/love(.bank1-3).js",
+      questions: BASE_LOVE_QUESTIONS,
+      bankId: null,
+    };
+  }
+
+  const promotedFile = path.resolve(ROOT_DIR, String(selected?.source_artifact_paths?.generatedFile || ""));
+  const promotedQuestions = readJsonIfExists(promotedFile);
+  if (!Array.isArray(promotedQuestions) || !promotedQuestions.length) {
+    return {
+      sourceType: "legacy_rebuilt_banks",
+      sourcePath: "archetype-engines/question-banks/love(.bank1-3).js",
+      questions: BASE_LOVE_QUESTIONS,
+      bankId: null,
+    };
+  }
+
+  return {
+    sourceType: "approved_promoted_candidate_bank",
+    sourcePath: path.relative(ROOT_DIR, promotedFile),
+    questions: promotedQuestions,
+    bankId: String(selected.bank_id || "").trim() || null,
+  };
+}
+
+const LOVE_QUESTION_SOURCE = Object.freeze(resolveApprovedLoveQuestionSource());
+const LOVE_QUESTIONS = Object.freeze(LOVE_QUESTION_SOURCE.questions);
 
 function groupBy(arr, key) {
   return arr.reduce((acc, item) => {
@@ -477,6 +544,7 @@ function newId(prefix) {
 module.exports = {
   ENGINE_TYPES,
   LOVE_QUESTIONS,
+  LOVE_QUESTION_SOURCE,
   LEADERSHIP_QUESTIONS,
   LOYALTY_QUESTIONS,
   SIGNAL_MULTIPLIER,

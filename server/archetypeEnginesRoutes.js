@@ -5,6 +5,7 @@ const express = require("express");
 const {
   ENGINE_TYPES,
   LOVE_QUESTIONS,
+  LOVE_QUESTION_SOURCE,
   getQuestionBanks,
   getEngineContent,
   scoreEngineAssessment,
@@ -102,7 +103,17 @@ function createArchetypeEnginesRouter({ pool }) {
   });
 
   router.get("/health", (req, res) => {
-    return res.json({ ok: true, engines: { ...ENGINE_REGISTRY, love: { ...ENGINE_REGISTRY.love, questions: LOVE_QUESTIONS.length } } });
+    return res.json({
+      ok: true,
+      engines: {
+        ...ENGINE_REGISTRY,
+        love: {
+          ...ENGINE_REGISTRY.love,
+          questions: LOVE_QUESTIONS.length,
+          questionSource: LOVE_QUESTION_SOURCE,
+        },
+      },
+    });
   });
 
   router.get("/registry", (req, res) => res.json({ engines: ENGINE_REGISTRY }));
@@ -216,7 +227,12 @@ function createArchetypeEnginesRouter({ pool }) {
     await recordEngineEvent(pool, { engineType, tenant, eventKey: "assessment_started", ctx: attribution, assessmentId });
 
     const banks = getQuestionBanks(engineType, { retakeAttempt: req.body?.retake_attempt || 0 });
-    return res.json({ assessmentId, engineType, questionBanks: banks });
+    return res.json({
+      assessmentId,
+      engineType,
+      questionBanks: banks,
+      ...(engineType === "love" ? { questionSource: LOVE_QUESTION_SOURCE } : {}),
+    });
   });
 
   router.post("/:engineType/assessment/score", async (req, res) => {
