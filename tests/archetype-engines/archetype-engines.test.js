@@ -309,6 +309,16 @@ test('love archetype registry uses canonical names for code mapping', async () =
     assert.equal(byCode.EC?.imageKey, 'love-ec');
     assert.equal(byCode.AV?.imageKey, 'love-av');
     assert.equal(byCode.ES?.imageKey, 'love-es');
+    assert.equal(byCode.RS?.imageVariants?.masculine, '/archetype-card/love/Reassurance_Seeker_God.png');
+    assert.equal(byCode.RS?.imageVariants?.feminine, '/archetype-card/love/Reassurance_Seeker_Goddess.png');
+    assert.equal(byCode.AL?.imageVariants?.masculine, '/archetype-card/love/Autonomous_Lover_God.png');
+    assert.equal(byCode.AL?.imageVariants?.feminine, '/archetype-card/love/Autonomous_Lover_Goddess.png');
+    assert.equal(byCode.EC?.imageVariants?.masculine, '/archetype-card/love/Expression_Connector_God.png');
+    assert.equal(byCode.EC?.imageVariants?.feminine, '/archetype-card/love/Expression_Connector_Goddess.png');
+    assert.equal(byCode.AV?.imageVariants?.masculine, '/archetype-card/love/Action_Validator_God.png');
+    assert.equal(byCode.AV?.imageVariants?.feminine, '/archetype-card/love/Action_Validator_Goddess.png');
+    assert.equal(byCode.ES?.imageVariants?.masculine, '/archetype-card/love/Experiance_Seeker_God.png');
+    assert.equal(byCode.ES?.imageVariants?.feminine, '/archetype-card/love/Experience_Seeker_goddess.png');
 
     for (const archetype of Object.values(byCode)) {
       assert.notEqual(archetype?.slug, 'anchor');
@@ -333,6 +343,9 @@ test('love result renderer ships canonical name map', () => {
   assert.match(source, /EC:\s*"Expression Connector"/);
   assert.match(source, /AV:\s*"Action Validator"/);
   assert.match(source, /ES:\s*"Experience Seeker"/);
+  assert.match(source, /LOVE_IMAGE_VARIANT_KEY/);
+  assert.match(source, /data-love-variant-toggle/);
+  assert.match(source, /window\.localStorage\.getItem/);
 });
 
 test('assessment ui renders tappable radio options and supports progression', () => {

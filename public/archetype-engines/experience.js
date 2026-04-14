@@ -41,10 +41,76 @@ function safeAssetPath(value) {
   return "";
 }
 
-function cardVisual(archetype) {
-  const src = safeAssetPath(archetype?.imageSrc || archetype?.cardImage || archetype?.image || archetype?.image_url || "");
+const LOVE_IMAGE_VARIANT_KEY = "garvey.loveImageVariant";
+const LOVE_IMAGE_VARIANTS = Object.freeze(["masculine", "feminine"]);
+
+function getStoredLoveImageVariant() {
+  try {
+    const raw = window.localStorage.getItem(LOVE_IMAGE_VARIANT_KEY);
+    return LOVE_IMAGE_VARIANTS.includes(raw) ? raw : LOVE_IMAGE_VARIANTS[0];
+  } catch (_) {
+    return LOVE_IMAGE_VARIANTS[0];
+  }
+}
+
+function setStoredLoveImageVariant(variant) {
+  try {
+    if (LOVE_IMAGE_VARIANTS.includes(variant)) window.localStorage.setItem(LOVE_IMAGE_VARIANT_KEY, variant);
+  } catch (_) {
+    // ignore localStorage failures
+  }
+}
+
+function selectedLoveImageSrc(archetype, selectedVariant) {
+  const variants = archetype?.imageVariants || {};
+  const prioritized = [
+    variants[selectedVariant],
+    variants.masculine,
+    variants.feminine,
+    archetype?.imageSrc,
+    archetype?.cardImage,
+    archetype?.image,
+    archetype?.image_url,
+  ];
+  for (const candidate of prioritized) {
+    const src = safeAssetPath(candidate);
+    if (src) return src;
+  }
+  return "";
+}
+
+function cardVisual(archetype, options = {}) {
+  const src = options.engine === "love"
+    ? selectedLoveImageSrc(archetype, options.loveImageVariant || LOVE_IMAGE_VARIANTS[0])
+    : safeAssetPath(archetype?.imageSrc || archetype?.cardImage || archetype?.image || archetype?.image_url || "");
   if (src) return `<img class="card-visual" src="${esc(src)}" alt="${esc(archetype?.name || archetype?.code || "Archetype")} card" loading="lazy" />`;
   return cardPlaceholder(archetype);
+}
+
+function loveVariantToggle(selectedVariant) {
+  const activeVariant = LOVE_IMAGE_VARIANTS.includes(selectedVariant) ? selectedVariant : LOVE_IMAGE_VARIANTS[0];
+  return `<div class="love-variant-toggle" role="tablist" aria-label="Love card image variant">
+    ${LOVE_IMAGE_VARIANTS.map((variant) => `
+      <button
+        type="button"
+        class="love-variant-btn${variant === activeVariant ? " is-active" : ""}"
+        role="tab"
+        aria-selected="${variant === activeVariant ? "true" : "false"}"
+        data-love-variant-toggle="${variant}"
+      >${esc(titleCase(variant))}</button>
+    `).join("")}
+  </div>`;
+}
+
+function wireLoveVariantToggle(onChange) {
+  const buttons = Array.from(document.querySelectorAll("[data-love-variant-toggle]"));
+  for (const button of buttons) {
+    button.addEventListener("click", () => {
+      const variant = String(button.getAttribute("data-love-variant-toggle") || "").trim().toLowerCase();
+      if (!LOVE_IMAGE_VARIANTS.includes(variant)) return;
+      onChange(variant);
+    });
+  }
 }
 
 function stableContextParams(query) {
@@ -325,15 +391,17 @@ function insightOrFallback(value, fallback) {
   return String(value || "").trim() || fallback;
 }
 
-function renderBrowse(app, engine, archetypes, query) {
+function renderBrowse(app, engine, archetypes, query, options = {}) {
+  const selectedVariant = options.loveImageVariant || LOVE_IMAGE_VARIANTS[0];
   app.innerHTML = `
     <section class="section">
       <h1>${titleCase(engine)} Archetypes</h1>
       <p class="muted">Scan and compare the full archetype spectrum.</p>
+      ${engine === "love" ? `<div class="muted">View cards</div>${loveVariantToggle(selectedVariant)}` : ""}
       <div class="spectrum-grid">
         ${archetypes.map((a, idx) => `
           <a class="card spectrum-card" href="${routeTo(engine, `archetype/${a.slug}`, query)}">
-            ${cardVisual(a)}
+            ${cardVisual(a, { engine, loveImageVariant: selectedVariant })}
             <h3>${esc(a.emoji || "") } ${esc(displayName(engine, a, a.code))}</h3>
             ${displaySubtitle(engine, a, a.code) ? `<div class="muted">${esc(displaySubtitle(engine, a, a.code))}</div>` : ""}
             <div class="muted">Rank preview #${idx + 1}</div>
@@ -343,17 +411,20 @@ function renderBrowse(app, engine, archetypes, query) {
         `).join("")}
       </div>
     </section>`;
+  if (engine === "love") wireLoveVariantToggle(options.onLoveVariantChange || (() => {}));
 }
 
-function renderDetail(app, engine, archetype, query) {
+function renderDetail(app, engine, archetype, query, options = {}) {
   const backHref = query.get("back") || routeTo(engine, "browse", query);
+  const selectedVariant = options.loveImageVariant || LOVE_IMAGE_VARIANTS[0];
   app.innerHTML = `
     <section class="section">
       <a class="crumb" href="${backHref}">← Back</a>
       <h1>${esc(archetype.emoji || "") } ${esc(displayName(engine, archetype, archetype.code))}</h1>
       ${displaySubtitle(engine, archetype, archetype.code) ? `<p class="muted">${esc(displaySubtitle(engine, archetype, archetype.code))}</p>` : ""}
       <p class="muted">${esc(archetype.tagline || "")}</p>
-      ${cardVisual(archetype)}
+      ${engine === "love" ? `<div class="muted">View card image</div>${loveVariantToggle(selectedVariant)}` : ""}
+      ${cardVisual(archetype, { engine, loveImageVariant: selectedVariant })}
       <p>${esc(archetype.description || "")}</p>
     </section>
     <section class="section insights">
@@ -368,9 +439,10 @@ function renderDetail(app, engine, archetype, query) {
       <div class="kv"><b>Weekly Build-Ups</b>${(archetype.weeklyBuildUps || []).map(esc).join(", ") || "-"}</div>
       <div class="kv"><b>Balance Signals</b>${(archetype.balanceSignals || []).map(esc).join(", ") || "-"}</div>
     </section>`;
+  if (engine === "love") wireLoveVariantToggle(options.onLoveVariantChange || (() => {}));
 }
 
-function renderResult(app, engine, archetypes, resultId, payload, query) {
+function renderResult(app, engine, archetypes, resultId, payload, query, options = {}) {
   const scores = sortScores(payload.normalizedScores);
   const top3 = scores.slice(0, 3);
   const codeIndex = Object.fromEntries(archetypes.map((a) => [a.code, a]));
@@ -381,6 +453,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query) {
   const hybridLabel = payload.hybridArchetype?.codes?.length === 2
     ? `${codeToName[payload.hybridArchetype.codes[0]] || payload.hybridArchetype.codes[0]} + ${codeToName[payload.hybridArchetype.codes[1]] || payload.hybridArchetype.codes[1]}`
     : payload.hybridArchetype?.label;
+  const selectedVariant = options.loveImageVariant || LOVE_IMAGE_VARIANTS[0];
 
   app.innerHTML = `
     <section class="section hero">
@@ -390,9 +463,10 @@ function renderResult(app, engine, archetypes, resultId, payload, query) {
         ${displaySubtitle(engine, primary, payload.primaryArchetype?.code || "") ? `<p class="muted">${esc(displaySubtitle(engine, primary, payload.primaryArchetype?.code || ""))}</p>` : ""}
         <p class="muted">Secondary: ${esc(displayName(engine, secondary, payload.secondaryArchetype?.code || ""))}</p>
         ${payload.hybridArchetype ? `<div class="chip">Hybrid (${Number(hybridGap).toFixed(1)} gap): ${esc(hybridLabel)}</div>` : ""}
+        ${engine === "love" ? `<div class="muted">View cards</div>${loveVariantToggle(selectedVariant)}` : ""}
         <div class="muted">Result ID: ${esc(resultId)}</div>
       </div>
-      <div>${cardVisual(primary || secondary)}</div>
+      <div>${cardVisual(primary || secondary, { engine, loveImageVariant: selectedVariant })}</div>
     </section>
 
     <section class="section">
@@ -471,7 +545,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query) {
       ${scores.map((item) => {
         const a = codeIndex[item.code] || {};
         return `<a class="card spectrum-card" href="${routeTo(engine, `archetype/${a.slug}?back=${encodeURIComponent(routeTo(engine, `result/${resultId}`, query))}`, query)}">
-          ${cardVisual(a)}
+          ${cardVisual(a, { engine, loveImageVariant: selectedVariant })}
           <h3>${esc(displayName(engine, a, item.code))}</h3>
           ${displaySubtitle(engine, a, item.code) ? `<div class="muted">${esc(displaySubtitle(engine, a, item.code))}</div>` : ""}
           <div class="muted">${esc(a.coreTrait || "Core trait pending")}</div>
@@ -486,6 +560,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query) {
     <section class="section">
       <a class="crumb" href="${routeTo(engine, "browse", query)}">Browse all ${titleCase(engine)} archetypes →</a>
     </section>`;
+  if (engine === "love") wireLoveVariantToggle(options.onLoveVariantChange || (() => {}));
 }
 
 async function boot() {
@@ -501,6 +576,18 @@ async function boot() {
 
   try {
     const query = new URLSearchParams(window.location.search);
+    let loveImageVariant = getStoredLoveImageVariant();
+    const requestedVariant = String(query.get("view") || query.get("variant") || "").trim().toLowerCase();
+    if (LOVE_IMAGE_VARIANTS.includes(requestedVariant)) {
+      loveImageVariant = requestedVariant;
+      setStoredLoveImageVariant(loveImageVariant);
+    }
+    const setLoveVariant = (variant) => {
+      if (!LOVE_IMAGE_VARIANTS.includes(variant) || loveImageVariant === variant) return;
+      loveImageVariant = variant;
+      setStoredLoveImageVariant(variant);
+      renderCurrent();
+    };
     const backgroundAsset = safeAssetPath(query.get("background") || query.get("bg") || "");
     if (page && backgroundAsset) {
       page.classList.add("has-bg");
@@ -511,26 +598,40 @@ async function boot() {
     archetypeUrl.searchParams.set("route_mode", route.mode);
     const data = await jsonFetch(`${archetypeUrl.pathname}${archetypeUrl.search}`);
     const archetypes = data.archetypes || [];
+    let resultPayload = null;
+    let resultData = null;
 
-    if (route.mode === "browse") {
-      renderBrowse(app, route.engine, archetypes, query);
-      return;
-    }
-    if (route.mode === "detail") {
-      const archetype = archetypes.find((a) => a.slug === route.slug);
-      if (!archetype) throw new Error("Archetype not found");
-      renderDetail(app, route.engine, archetype, query);
-      return;
-    }
+    const renderCurrent = () => {
+      const sharedOptions = { loveImageVariant, onLoveVariantChange: setLoveVariant };
+      if (route.mode === "browse") {
+        renderBrowse(app, route.engine, archetypes, query, sharedOptions);
+        return;
+      }
+      if (route.mode === "detail") {
+        const archetype = archetypes.find((a) => a.slug === route.slug);
+        if (!archetype) throw new Error("Archetype not found");
+        renderDetail(app, route.engine, archetype, query, sharedOptions);
+        return;
+      }
+      if (route.mode === "result") {
+        renderResult(app, route.engine, archetypes, route.resultId, resultPayload || {}, query, sharedOptions);
+      }
+    };
+
     if (route.mode === "assessment") {
       await renderAssessment(app, route.engine, query);
+      return;
+    }
+    if (route.mode === "browse" || route.mode === "detail") {
+      renderCurrent();
       return;
     }
 
     const resultUrl = new URL(`/api/archetype-engines/${route.engine}/results/${route.resultId}`, window.location.origin);
     for (const [key, value] of stableContextParams(query).entries()) resultUrl.searchParams.set(key, value);
-    const resultData = await jsonFetch(`${resultUrl.pathname}${resultUrl.search}`);
-    renderResult(app, route.engine, archetypes, route.resultId, resultData.result_payload || {}, query);
+    resultData = await jsonFetch(`${resultUrl.pathname}${resultUrl.search}`);
+    resultPayload = resultData.result_payload || {};
+    renderCurrent();
   } catch (err) {
     app.innerHTML = `<section class="section error">${esc(err.message || "Failed to load")}</section>`;
   }
