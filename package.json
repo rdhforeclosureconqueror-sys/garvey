@@ -9,7 +9,8 @@
     "seed:questions": "node scripts/seed-questions.mjs",
     "diagnostics:system": "node scripts/system-readiness-check.mjs",
     "diagnostics:context": "node scripts/context-guard-check.mjs",
-    "diagnostics:live": "node scripts/live-smoke.mjs"
+    "diagnostics:live": "node scripts/live-smoke.mjs",
+    "love:promotion-review": "node archetype-engines/generator/love/runPromotionReviewWorkflow.js BANK_A"
   },
   "dependencies": {
     "express": "^4.18.2",

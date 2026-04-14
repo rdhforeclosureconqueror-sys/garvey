@@ -1,0 +1,29 @@
+{
+  "generatedAt": "2026-04-14T06:41:53.627Z",
+  "statuses": [
+    "generated",
+    "structurally_valid",
+    "wording_refined",
+    "ready_for_review",
+    "approved_for_live_candidate",
+    "rejected",
+    "superseded"
+  ],
+  "banks": [
+    {
+      "bank_id": "BANK_A",
+      "seed": "BANK_A",
+      "generated_at": "2026-04-14T06:42:04.502Z",
+      "review_status": "ready_for_review",
+      "approved_by": null,
+      "notes": "Controlled review layer only. Manual approval required before any live candidate promotion.",
+      "source_artifact_paths": {
+        "generatedFile": "artifacts/love-banks/bank_a.generated.json",
+        "auditFile": "artifacts/love-banks/bank_a.audit.json",
+        "wordingPassFile": "artifacts/love-generator-wording-refinement-pass-2026-04-14.json"
+      },
+      "recommendation": "review_required_before_any_promotion"
+    }
+  ],
+  "lastUpdatedAt": "2026-04-14T06:42:04.507Z"
+}

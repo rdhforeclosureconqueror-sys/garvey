@@ -1,0 +1,237 @@
+{
+  "bankId": "BANK_A",
+  "generatedAt": "2026-04-14T06:42:04.502Z",
+  "status": "ready_for_review",
+  "sourceArtifacts": {
+    "generatedFile": "artifacts/love-banks/bank_a.generated.json",
+    "auditFile": "artifacts/love-banks/bank_a.audit.json",
+    "wordingPassFile": "artifacts/love-generator-wording-refinement-pass-2026-04-14.json"
+  },
+  "structuralAudit": {
+    "questionCount": 25,
+    "auditValid": true,
+    "classCounts": {
+      "ID": 5,
+      "BH": 6,
+      "SC": 6,
+      "ST": 6,
+      "DS": 2
+    },
+    "pairSpread": 0,
+    "failures": [],
+    "warnings": []
+  },
+  "wordingDesirability": {
+    "repeatedPromptStartsTopCount": 2,
+    "repeatedOptionStartsTopCount": 3,
+    "weakBehavioralSpecificityCount": 12,
+    "desirabilityWarningCount": 0
+  },
+  "dominanceSimulation": {
+    "profileCount": 6,
+    "topPrimaryByProfile": [
+      {
+        "pattern": "RS-heavy",
+        "primary": "RS",
+        "secondary": "AL"
+      },
+      {
+        "pattern": "AL-heavy",
+        "primary": "AL",
+        "secondary": "EC"
+      },
+      {
+        "pattern": "EC-heavy",
+        "primary": "EC",
+        "secondary": "RS"
+      },
+      {
+        "pattern": "AV-heavy",
+        "primary": "AV",
+        "secondary": "EC"
+      },
+      {
+        "pattern": "ES-heavy",
+        "primary": "ES",
+        "secondary": "AL"
+      },
+      {
+        "pattern": "balanced-mixed",
+        "primary": "RS",
+        "secondary": "EC"
+      }
+    ]
+  },
+  "crossBankStability": {
+    "rankingStableAcrossProfiles": false,
+    "profiles": [
+      {
+        "profile": "FIXED_PROFILE_ALPHA",
+        "rankingStable": false,
+        "bankResult": {
+          "pattern": "FIXED_PROFILE_ALPHA",
+          "raw": {
+            "RS": 42.5,
+            "AL": 6.75,
+            "EC": 28.5,
+            "AV": 7.25,
+            "ES": 3.5
+          },
+          "normalized": {
+            "RS": 100,
+            "AL": 15.88,
+            "EC": 67.06,
+            "AV": 17.06,
+            "ES": 8.24
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "RS",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "EC",
+              "score": 67.06
+            },
+            {
+              "rank": 3,
+              "code": "AV",
+              "score": 17.06
+            },
+            {
+              "rank": 4,
+              "code": "AL",
+              "score": 15.88
+            },
+            {
+              "rank": 5,
+              "code": "ES",
+              "score": 8.24
+            }
+          ],
+          "primary": "RS",
+          "secondary": "EC",
+          "hybridStatus": null
+        },
+        "deltasVsBankA": {
+          "BANK_B": {
+            "RS": 0,
+            "AL": -0.74,
+            "EC": -13.55,
+            "AV": -0.84,
+            "ES": -1.75
+          },
+          "BANK_C": {
+            "RS": 0,
+            "AL": 2.35,
+            "EC": -13.47,
+            "AV": -3.25,
+            "ES": 1.7
+          }
+        }
+      },
+      {
+        "profile": "FIXED_PROFILE_BETA",
+        "rankingStable": false,
+        "bankResult": {
+          "pattern": "FIXED_PROFILE_BETA",
+          "raw": {
+            "RS": 4.5,
+            "AL": 24.25,
+            "EC": 7.25,
+            "AV": 45.75,
+            "ES": 6.75
+          },
+          "normalized": {
+            "RS": 9.84,
+            "AL": 53.01,
+            "EC": 15.85,
+            "AV": 100,
+            "ES": 14.75
+          },
+          "rankOrder": [
+            {
+              "rank": 1,
+              "code": "AV",
+              "score": 100
+            },
+            {
+              "rank": 2,
+              "code": "AL",
+              "score": 53.01
+            },
+            {
+              "rank": 3,
+              "code": "EC",
+              "score": 15.85
+            },
+            {
+              "rank": 4,
+              "code": "ES",
+              "score": 14.75
+            },
+            {
+              "rank": 5,
+              "code": "RS",
+              "score": 9.84
+            }
+          ],
+          "primary": "AV",
+          "secondary": "AL",
+          "hybridStatus": null
+        },
+        "deltasVsBankA": {
+          "BANK_B": {
+            "RS": -5.29,
+            "AL": -12.1,
+            "EC": 3.34,
+            "AV": 0,
+            "ES": -0.61
+          },
+          "BANK_C": {
+            "RS": 5,
+            "AL": 3.03,
+            "EC": -3.21,
+            "AV": 0,
+            "ES": -3.76
+          }
+        }
+      }
+    ]
+  },
+  "manualReviewChecklist": [
+    {
+      "id": "wording_natural",
+      "prompt": "Does the wording feel natural?",
+      "reviewerResponse": null
+    },
+    {
+      "id": "options_respectable",
+      "prompt": "Do options feel equally respectable?",
+      "reviewerResponse": null
+    },
+    {
+      "id": "prompt_repetition",
+      "prompt": "Do prompts feel repetitive?",
+      "reviewerResponse": null
+    },
+    {
+      "id": "archetypes_recognizable",
+      "prompt": "Do archetypes feel recognizable?",
+      "reviewerResponse": null
+    },
+    {
+      "id": "sounds_better",
+      "prompt": "Does any option sound noticeably \"better\"?",
+      "reviewerResponse": null
+    },
+    {
+      "id": "premium_quality",
+      "prompt": "Does the bank feel premium enough for live candidate testing?",
+      "reviewerResponse": null
+    }
+  ],
+  "recommendation": "review_required_before_any_promotion"
+}
