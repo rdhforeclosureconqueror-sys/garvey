@@ -92,7 +92,16 @@ body {
 .card { background: var(--panel-soft); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
 .card a { color: #96ffd5; text-decoration: none; font-weight: 600; }
 .insights { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 10px; }
+.kv { line-height: 1.45; }
 .kv b { display: block; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+.loyalty-adaptive-section h2 { margin-bottom: 8px; }
+.loyalty-adaptive-intro { margin: 0 0 12px; }
+.loyalty-adaptive-grid .kv {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in oklab, var(--border), white 8%);
+  background: rgba(255, 255, 255, 0.02);
+}
 .spectrum-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 10px; }
 .spectrum-card { display: block; text-decoration: none; color: inherit; }
 .spectrum-card:hover { border-color: var(--accent-2); box-shadow: 0 0 0 1px var(--accent-soft); }
@@ -319,6 +328,16 @@ body {
 @media (hover: hover) {
   .metric-help:not([open]):hover .metric-help-panel { display: grid; }
   .metric-help:not([open]) .metric-help-panel { display: none; }
+}
+@media (max-width: 640px) {
+  .loyalty-adaptive-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .loyalty-adaptive-section h2 {
+    font-size: 1.15rem;
+    line-height: 1.35;
+  }
 }
 .error { color: #fca5a5; }
 .story-shell {

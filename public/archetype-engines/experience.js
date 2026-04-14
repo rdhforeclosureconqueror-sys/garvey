@@ -889,9 +889,10 @@ function insightOrFallback(value, fallback) {
   return String(value || "").trim() || fallback;
 }
 
-function renderLoyaltySection(title, rows = []) {
+function renderLoyaltySection(title, rows = [], options = {}) {
+  const sectionClass = options.className ? `section ${options.className}` : "section";
   return `
-    <section class="section">
+    <section class="${sectionClass}">
       <h2>${esc(title)}</h2>
       <div class="insights">
         ${rows.map((row) => `<div class="kv"><b>${esc(row.label)}</b>${esc(row.value || "-")}</div>`).join("")}
@@ -987,25 +988,26 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
   const loyaltyProfile = payload.communication_profile || {};
   const loyaltyHeaderSections = isLoyaltyEngine
     ? `
-    <section class="section">
-      <h2>HOW TO TALK TO YOU</h2>
-      <div class="insights">
+    <section class="section loyalty-adaptive-section">
+      <h2>How to Talk to You</h2>
+      <p class="muted loyalty-adaptive-intro">Your communication profile in plain language.</p>
+      <div class="insights loyalty-adaptive-grid">
         <div class="kv"><b>Plain-language summary</b>${esc(loyaltyProfile.plain_language_summary || "-")}</div>
         <div class="kv"><b>Best way to talk to you</b>${esc(loyaltyProfile.best_way_to_talk_to_them || "-")}</div>
         <div class="kv"><b>What keeps you engaged</b>${esc(loyaltyProfile.what_keeps_them_engaged || "-")}</div>
         <div class="kv"><b>What pushes you away</b>${esc(loyaltyProfile.what_pushes_them_away || "-")}</div>
       </div>
     </section>
-    ${renderLoyaltySection("WHY YOU STAY ENGAGED", [
+    ${renderLoyaltySection("Why You Stay Engaged", [
       { label: "Retention hook", value: loyaltyProfile.retention_hook || payload.retentionInsight },
-      { label: "Retention Insight", value: payload.retentionInsight },
-      { label: "Loyalty State", value: payload.loyaltyState || payload.balanceStates?.overall },
-    ])}
-    ${renderLoyaltySection("WHAT MAKES YOU PULL AWAY", [
+      { label: "Retention insight", value: payload.retentionInsight },
+      { label: "Loyalty state", value: payload.loyaltyState || payload.balanceStates?.overall },
+    ], { className: "loyalty-adaptive-section" })}
+    ${renderLoyaltySection("What Makes You Pull Away", [
       { label: "Churn trigger", value: loyaltyProfile.churn_trigger || payload.churnRiskInsight },
-      { label: "Churn Risk Insight", value: payload.churnRiskInsight },
-      { label: "Churn Trigger Profile", value: payload.churnTriggerProfile },
-    ])}
+      { label: "Churn risk insight", value: payload.churnRiskInsight },
+      { label: "Churn trigger profile", value: payload.churnTriggerProfile },
+    ], { className: "loyalty-adaptive-section" })}
     `
     : "";
 
@@ -1100,7 +1102,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
           ${displaySubtitle(engine, a, item.code) ? `<div class="muted">${esc(displaySubtitle(engine, a, item.code))}</div>` : ""}
           <div>${item.score.toFixed(1)}%</div>
           <p class="muted">${esc(a.shortDescription || a.tagline || a.description || "Descriptor pending")}</p>
-          ${isLoyaltyEngine ? `<div class="muted"><b>REAL-WORLD TRANSLATION:</b> ${esc(payload.loyaltyArchetypeTranslations?.[item.code] || "-")}</div>` : ""}
+          ${isLoyaltyEngine ? `<div class="muted"><b>Real-world translation:</b> ${esc(payload.loyaltyArchetypeTranslations?.[item.code] || "-")}</div>` : ""}
           <div class="muted">${esc(a.coreTrait || "Core trait pending")}</div>
           <div class="chip">${esc(bal)}</div>
           <a href="${routeTo(engine, `archetype/${a.slug}?back=${encodeURIComponent(routeTo(engine, `result/${resultId}`, query))}`, query)}">View full archetype</a>
