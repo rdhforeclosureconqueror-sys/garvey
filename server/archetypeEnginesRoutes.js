@@ -84,6 +84,15 @@ function buildConsentSignature({ engineType, tenant, email, consentVersion }) {
   return crypto.createHash("sha256").update(`${engineType}|${tenant}|${email}|${consentVersion}|accepted`).digest("hex");
 }
 
+function inferFullName(inputName, email) {
+  const provided = String(inputName || "").trim();
+  if (provided) return provided;
+  const local = String(email || "").trim().toLowerCase().split("@")[0] || "";
+  const candidate = local.replace(/[._-]+/g, " ").replace(/\s+/g, " ").trim();
+  if (!candidate) return "";
+  return candidate.split(" ").map((part) => part ? `${part[0].toUpperCase()}${part.slice(1)}` : "").join(" ").trim();
+}
+
 function createArchetypeEnginesRouter({ pool }) {
   const router = express.Router();
 
@@ -116,8 +125,17 @@ function createArchetypeEnginesRouter({ pool }) {
     const tenant = pickTenant(req);
     const attribution = pickAttribution(req);
     const email = String(req.body?.email || req.headers["x-user-email"] || "").trim().toLowerCase();
-    const fullName = String(req.body?.name || req.body?.full_name || "").trim();
-    if (!tenant || !email || !fullName) return res.status(400).json({ error: "tenant_email_name_required" });
+    const fullName = inferFullName(req.body?.name || req.body?.full_name, email);
+    if (!tenant || !email || !fullName) {
+      return res.status(400).json({
+        error: "tenant_email_name_required",
+        missing: {
+          tenant: !tenant,
+          email: !email,
+          name: !fullName,
+        },
+      });
+    }
 
     const consentVersion = String(req.body?.consent_version || CONSENT_VERSION).trim() || CONSENT_VERSION;
     const signature = buildConsentSignature({ engineType, tenant, email, consentVersion });

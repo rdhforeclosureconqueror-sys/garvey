@@ -423,6 +423,135 @@ test('archetype routes preserve tap and return attribution context through start
   }
 });
 
+test('love consent submit infers name from email when entry context omits explicit name', async () => {
+  const { server, baseUrl } = await startServer(createMockPool());
+  try {
+    const consentRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/consent`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', email: 'alex.rivera@example.com', accepted: true, consent_version: 'v1' }),
+    });
+    assert.equal(consentRes.status, 200);
+    const consentJson = await consentRes.json();
+    assert.ok(consentJson.consent_id);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('love assessment attribution continuity survives qr and tap entry contexts through completion', async () => {
+  const pool = createMockPool();
+  const { server, baseUrl } = await startServer(pool);
+  try {
+    const runFlow = async ({ tenant, email, sourceType, tapSource, cid, rid, tapSession }) => {
+      const consentRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/consent`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          tenant,
+          email,
+          accepted: true,
+          source_type: sourceType,
+          tap_source: tapSource,
+          cid,
+          rid,
+          tap_session: tapSession,
+        }),
+      });
+      assert.equal(consentRes.status, 200);
+      const consent = await consentRes.json();
+
+      const startRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/start`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          tenant,
+          consent_id: consent.consent_id,
+          source_type: sourceType,
+          tap_source: tapSource,
+          cid,
+          rid,
+          tap_session: tapSession,
+        }),
+      });
+      assert.equal(startRes.status, 200);
+      const start = await startRes.json();
+      const answers = Object.fromEntries((start.questionBanks.activeQuestions || []).map((q, i) => [q.id, (i % 4) + 1]));
+      const scoreRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/score`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ tenant, assessmentId: start.assessmentId, answers, source_type: sourceType, tap_source: tapSource, cid, rid, tap_session: tapSession }),
+      });
+      assert.equal(scoreRes.status, 200);
+      const score = await scoreRes.json();
+      const resultRes = await fetch(`${baseUrl}/api/archetype-engines/love/results/${score.resultId}?tenant=${encodeURIComponent(tenant)}&source_type=${encodeURIComponent(sourceType)}&tap_source=${encodeURIComponent(tapSource)}`);
+      assert.equal(resultRes.status, 200);
+      return { start, score };
+    };
+
+    await runFlow({
+      tenant: 'demo',
+      email: 'qr.user@example.com',
+      sourceType: 'qr',
+      tapSource: 'qr',
+      cid: 'camp-qr-1',
+      rid: 'rid-qr-1',
+      tapSession: 'sess-qr-1',
+    });
+    await runFlow({
+      tenant: 'demo',
+      email: 'tap.user@example.com',
+      sourceType: 'tap',
+      tapSource: 'tap',
+      cid: 'camp-tap-1',
+      rid: 'rid-tap-1',
+      tapSession: 'sess-tap-1',
+    });
+    await runFlow({
+      tenant: 'demo',
+      email: 'return.user@example.com',
+      sourceType: 'direct',
+      tapSource: 'return-engine',
+      cid: 'camp-ret-1',
+      rid: 'rid-ret-1',
+      tapSession: 'sess-ret-1',
+    });
+
+    const completionEvents = pool.state.pageViews.filter((row) => row.page_key === 'assessment_completed');
+    assert.ok(completionEvents.length >= 3);
+    const bySourcePath = Object.fromEntries(completionEvents.map((row) => {
+      const context = JSON.parse(row.campaign_context || '{}');
+      return [context.source_path, context];
+    }));
+    assert.equal(bySourcePath.qr?.source_type, 'qr');
+    assert.equal(bySourcePath.tap?.source_type, 'tap');
+    assert.equal(bySourcePath['return-engine']?.source_type, 'direct');
+    assert.equal(bySourcePath.qr?.campaign, 'camp-qr-1');
+    assert.equal(bySourcePath.tap?.campaign, 'camp-tap-1');
+    assert.equal(bySourcePath['return-engine']?.campaign, 'camp-ret-1');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('love insights vary materially across different profile payloads', () => {
+  const lowAnswers = Object.fromEntries(LOVE_QUESTIONS.map((q) => [q.id || q.question_id, 1]));
+  const highAnswers = Object.fromEntries(LOVE_QUESTIONS.map((q) => [q.id || q.question_id, 4]));
+  const lowResult = scoreEngineAssessment('love', lowAnswers);
+  const highResult = scoreEngineAssessment('love', highAnswers);
+
+  const changedInsights = [
+    lowResult.primaryInsight !== highResult.primaryInsight,
+    lowResult.secondaryInsight !== highResult.secondaryInsight,
+    lowResult.balanceInsight !== highResult.balanceInsight,
+    lowResult.stressInsight !== highResult.stressInsight,
+    lowResult.identityGapInsight !== highResult.identityGapInsight,
+    lowResult.consistencyInsight !== highResult.consistencyInsight,
+  ].filter(Boolean).length;
+
+  assert.ok(changedInsights >= 3);
+});
+
 test('dashboard analytics include separated archetype and VOC assessment families', () => {
   const source = fs.readFileSync('server/index.js', 'utf8');
   assert.match(source, /assessment_families/);
