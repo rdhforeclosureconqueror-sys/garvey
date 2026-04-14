@@ -1,0 +1,83 @@
+{
+  "bankId": "BANK_B",
+  "valid": true,
+  "classCounts": {
+    "ID": 5,
+    "BH": 6,
+    "SC": 6,
+    "ST": 6,
+    "DS": 2
+  },
+  "primaryCounts": {
+    "RS": 20,
+    "AL": 20,
+    "EC": 20,
+    "AV": 20,
+    "ES": 20
+  },
+  "classPrimaryMatrix": {
+    "ID": {
+      "RS": 4,
+      "AL": 4,
+      "EC": 4,
+      "AV": 4,
+      "ES": 4
+    },
+    "BH": {
+      "RS": 5,
+      "AL": 4,
+      "EC": 5,
+      "AV": 5,
+      "ES": 5
+    },
+    "SC": {
+      "RS": 5,
+      "AL": 5,
+      "EC": 4,
+      "AV": 5,
+      "ES": 5
+    },
+    "ST": {
+      "RS": 5,
+      "AL": 5,
+      "EC": 5,
+      "AV": 4,
+      "ES": 5
+    },
+    "DS": {
+      "RS": 1,
+      "AL": 2,
+      "EC": 2,
+      "AV": 2,
+      "ES": 1
+    }
+  },
+  "pairCounts": {
+    "AL-RS": 10,
+    "AV-ES": 10,
+    "EC-ES": 10,
+    "AL-EC": 10,
+    "AL-ES": 11,
+    "ES-RS": 10,
+    "AV-EC": 10,
+    "EC-RS": 10,
+    "AV-RS": 10,
+    "AL-AV": 9
+  },
+  "weightedPrimaryOpportunity": {
+    "RS": 47.5,
+    "AL": 47.5,
+    "EC": 47,
+    "AV": 46.5,
+    "ES": 47.5
+  },
+  "weightedSecondaryOpportunity": {
+    "RS": 23.75,
+    "AL": 23.75,
+    "EC": 23.75,
+    "AV": 22.5,
+    "ES": 24.25
+  },
+  "warnings": [],
+  "failures": []
+}
