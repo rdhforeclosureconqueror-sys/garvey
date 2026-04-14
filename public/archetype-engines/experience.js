@@ -183,6 +183,57 @@ function normalizeQuestion(q = {}) {
   };
 }
 
+const LOVE_ASSESSMENT_SECTION_LABELS = Object.freeze([
+  "Signal Detection",
+  "Connection Style",
+  "Trust & Regulation",
+  "Stress Response",
+  "Growth & Alignment",
+]);
+
+const LOVE_ASSESSMENT_CHECKPOINTS = Object.freeze([
+  "We’re mapping how you connect.",
+  "We’re detecting how you build trust.",
+  "We’re identifying how you respond under pressure.",
+  "We’re locking in your deeper pattern.",
+  "Final alignment pass.",
+]);
+
+const LOVE_ASSESSMENT_MICRO_INSIGHTS = Object.freeze([
+  "A clear pattern is beginning to form.",
+  "Your responses are revealing how you seek connection.",
+  "We’re now measuring how you respond under pressure.",
+  "Your connection rhythm is becoming more visible.",
+]);
+
+function renderMetricHelp(label, meaning, whyItMatters) {
+  return `
+    <details class="metric-help">
+      <summary aria-label="About ${esc(label)}" title="About ${esc(label)}">ⓘ</summary>
+      <div class="metric-help-panel">
+        <div><b>What this means:</b> ${esc(meaning)}</div>
+        <div><b>Why it matters:</b> ${esc(whyItMatters)}</div>
+      </div>
+    </details>
+  `;
+}
+
+function renderMetricList(entries, codeToName, { suffix = "", precision = 1, raw = false } = {}) {
+  if (!entries.length) return `<div class="metric-list-empty">No data available.</div>`;
+  return `<div class="metric-list">${entries.map(([code, value]) => {
+    const numericValue = Number(value);
+    const displayValue = value
+      ? String(value)
+      : "";
+    const safeValue = Number.isFinite(numericValue) ? numericValue.toFixed(precision) : "-";
+    const resolved = raw ? esc(displayValue) : `${esc(safeValue)}${esc(suffix)}`;
+    return `<div class="metric-row">
+      <span class="metric-row-label">${esc(codeToName[code] || code)}</span>
+      <span class="metric-row-value">${resolved}</span>
+    </div>`;
+  }).join("")}</div>`;
+}
+
 function renderAssessmentQuestions(app, engine, query, startPayload) {
   const selectedBankId = startPayload?.questionBanks?.selectedBankId || "";
   const assessmentId = String(startPayload?.assessmentId || "").trim();
@@ -204,6 +255,20 @@ function renderAssessmentQuestions(app, engine, query, startPayload) {
     const selected = state.answers[q.id] || "";
     const isLast = state.index === questions.length - 1;
     const canContinue = Boolean(selected) && !state.submitting;
+    const progressPct = Math.round(((state.index + 1) / questions.length) * 100);
+    const loveSectionSize = 5;
+    const sectionIndex = Math.floor(state.index / loveSectionSize);
+    const sectionCount = Math.max(1, Math.ceil(questions.length / loveSectionSize));
+    const sectionStart = (sectionIndex * loveSectionSize) + 1;
+    const sectionEnd = Math.min((sectionIndex + 1) * loveSectionSize, questions.length);
+    const sectionQuestionNumber = (state.index % loveSectionSize) + 1;
+    const showLoveEnhancements = engine === "love";
+    const checkpointMessage = showLoveEnhancements && sectionQuestionNumber === loveSectionSize
+      ? LOVE_ASSESSMENT_CHECKPOINTS[sectionIndex] || ""
+      : "";
+    const microInsight = showLoveEnhancements
+      ? LOVE_ASSESSMENT_MICRO_INSIGHTS[state.index % LOVE_ASSESSMENT_MICRO_INSIGHTS.length]
+      : "";
     const optionsMarkup = q.options.map((opt, optIndex) => {
       const inputId = `answer-${state.index}-${optIndex}`;
       const isChecked = selected === opt.id;
@@ -229,7 +294,21 @@ function renderAssessmentQuestions(app, engine, query, startPayload) {
       <section class="section">
         <h1>${titleCase(engine)} Assessment</h1>
         <p class="muted">Assessment started. Bank: ${esc(selectedBankId || "default")}.</p>
-        <div class="chip">Question ${state.index + 1} of ${questions.length}</div>
+        <div class="assessment-progress-meta">
+          <div class="chip">Question ${state.index + 1} of ${questions.length}</div>
+          <div class="chip">${progressPct}% complete</div>
+        </div>
+        <div class="assessment-progress-track" aria-label="Assessment progress">
+          <div class="assessment-progress-fill" style="width:${progressPct}%"></div>
+        </div>
+        ${showLoveEnhancements ? `
+          <div class="assessment-section">
+            <div class="assessment-section-title">Section ${sectionIndex + 1}/${sectionCount}: ${esc(LOVE_ASSESSMENT_SECTION_LABELS[sectionIndex] || `Section ${sectionIndex + 1}`)}</div>
+            <div class="muted">Questions ${sectionStart}-${sectionEnd}</div>
+            ${microInsight ? `<div class="assessment-micro-insight">${esc(microInsight)}</div>` : ""}
+            ${checkpointMessage ? `<div class="assessment-checkpoint">${esc(checkpointMessage)}</div>` : ""}
+          </div>
+        ` : ""}
         <h2>${esc(q.prompt)}</h2>
         <form id="assessmentQuestionForm" class="assessment-question-form">
           <fieldset class="answer-options" aria-label="Answer options">
@@ -454,6 +533,14 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     ? `${codeToName[payload.hybridArchetype.codes[0]] || payload.hybridArchetype.codes[0]} + ${codeToName[payload.hybridArchetype.codes[1]] || payload.hybridArchetype.codes[1]}`
     : payload.hybridArchetype?.label;
   const selectedVariant = options.loveImageVariant || LOVE_IMAGE_VARIANTS[0];
+  const rankedArchetypes = scores.map((item) => `${item.rank}. ${codeToName[item.code] || item.code}`);
+  const balanceEntries = Object.entries(payload.balanceStates?.dimensions || {});
+  const stressEntries = Object.entries(payload.stressProfile || {});
+  const desiredGapEntries = Object.entries(payload.desiredCurrentGap || {});
+  const identityBehaviorEntries = Object.entries(payload.identityBehaviorGap || {});
+  const isLoveEngine = engine === "love";
+  const consistencyValue = payload.contradictionConsistency?.consistency;
+  const confidenceValue = payload.confidence;
 
   app.innerHTML = `
     <section class="section hero">
@@ -499,18 +586,36 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
 
     <section class="section">
       <h2>Output Contract</h2>
-      <div class="insights">
-        <div class="kv"><b>Primary Archetype</b>${esc(displayName(engine, primary, payload.primaryArchetype?.code || ""))}</div>
-        <div class="kv"><b>Secondary Archetype</b>${esc(displayName(engine, secondary, payload.secondaryArchetype?.code || ""))}</div>
-        <div class="kv"><b>Hybrid Label</b>${esc(payload.hybridArchetype ? hybridLabel : "None")}</div>
-        <div class="kv"><b>Ranked Archetypes</b>${esc(scores.map((item) => `${item.rank}. ${codeToName[item.code] || item.code}`).join(" • "))}</div>
-        <div class="kv"><b>Balance States</b>${esc(Object.entries(payload.balanceStates?.dimensions || {}).map(([code, state]) => `${codeToName[code] || code}: ${state}`).join(" • ") || "-")}</div>
-        <div class="kv"><b>Stress Profile</b>${esc(Object.entries(payload.stressProfile || {}).map(([code, val]) => `${codeToName[code] || code}: ${Number(val).toFixed(1)}%`).join(" • ") || "-")}</div>
-        <div class="kv"><b>Desired Gap</b>${esc(Object.entries(payload.desiredCurrentGap || {}).map(([code, val]) => `${codeToName[code] || code}: ${Number(val).toFixed(1)}`).join(" • ") || "-")}</div>
-        <div class="kv"><b>Identity-Behavior Gap</b>${esc(Object.entries(payload.identityBehaviorGap || {}).map(([code, val]) => `${codeToName[code] || code}: ${Number(val).toFixed(1)}`).join(" • ") || "-")}</div>
-        <div class="kv"><b>Consistency</b>${esc(String(payload.contradictionConsistency?.consistency ?? "-"))}%</div>
-        <div class="kv"><b>Confidence</b>${esc(String(payload.confidence ?? "-"))}%</div>
-        <div class="kv"><b>Summary Block</b>${esc(JSON.stringify(payload.summaryBlock || {}))}</div>
+      <div class="${isLoveEngine ? "output-contract output-contract-love" : "insights"}">
+        <div class="${isLoveEngine ? "output-card output-card-lead" : "kv"}"><b>🧬 Primary Archetype</b>${esc(displayName(engine, primary, payload.primaryArchetype?.code || ""))}</div>
+        <div class="${isLoveEngine ? "output-card output-card-lead" : "kv"}"><b>🛰️ Secondary Archetype</b>${esc(displayName(engine, secondary, payload.secondaryArchetype?.code || ""))}</div>
+        <div class="${isLoveEngine ? "output-card output-card-lead" : "kv"}"><b>✨ Hybrid Label</b>${esc(payload.hybridArchetype ? hybridLabel : "None")}</div>
+        <div class="${isLoveEngine ? "output-card" : "kv"}"><b>📊 Ranked Archetypes</b>${isLoveEngine ? `<ol class="ranked-list">${rankedArchetypes.map((item) => `<li>${esc(item)}</li>`).join("")}</ol>` : esc(rankedArchetypes.join(" • "))}</div>
+        <div class="${isLoveEngine ? "output-card output-card-metric" : "kv"}">
+          <b>⚖️ Balance States ${isLoveEngine ? renderMetricHelp("Balance States", "How strongly each pattern is currently showing.", "It reveals which connection energies are dominant right now.") : ""}</b>
+          ${isLoveEngine ? renderMetricList(balanceEntries, codeToName, { raw: true }) : esc(balanceEntries.map(([code, state]) => `${codeToName[code] || code}: ${state}`).join(" • ") || "-")}
+        </div>
+        <div class="${isLoveEngine ? "output-card output-card-metric" : "kv"}">
+          <b>🧯 Stress Profile ${isLoveEngine ? renderMetricHelp("Stress Profile", "How your pattern shifts under pressure.", "It helps explain your relationship reactions in difficult moments.") : ""}</b>
+          ${isLoveEngine ? renderMetricList(stressEntries, codeToName, { suffix: "%", precision: 1 }) : esc(stressEntries.map(([code, val]) => `${codeToName[code] || code}: ${Number(val).toFixed(1)}%`).join(" • ") || "-")}
+        </div>
+        <div class="${isLoveEngine ? "output-card output-card-metric" : "kv"}">
+          <b>🧭 Desired Gap ${isLoveEngine ? renderMetricHelp("Desired Gap", "Where how you are differs from how you want to be.", "It highlights growth targets for better alignment in relationships.") : ""}</b>
+          ${isLoveEngine ? renderMetricList(desiredGapEntries, codeToName, { precision: 1 }) : esc(desiredGapEntries.map(([code, val]) => `${codeToName[code] || code}: ${Number(val).toFixed(1)}`).join(" • ") || "-")}
+        </div>
+        <div class="${isLoveEngine ? "output-card output-card-metric" : "kv"}">
+          <b>🪞 Identity-Behavior Gap ${isLoveEngine ? renderMetricHelp("Identity-Behavior Gap", "Where your self-image and observed pattern differ.", "It surfaces blind spots between intention and action.") : ""}</b>
+          ${isLoveEngine ? renderMetricList(identityBehaviorEntries, codeToName, { precision: 1 }) : esc(identityBehaviorEntries.map(([code, val]) => `${codeToName[code] || code}: ${Number(val).toFixed(1)}`).join(" • ") || "-")}
+        </div>
+        <div class="${isLoveEngine ? "output-card output-card-kpi" : "kv"}">
+          <b>📐 Consistency ${isLoveEngine ? renderMetricHelp("Consistency", "How internally aligned your answers were.", "Higher alignment generally means a clearer behavioral pattern.") : ""}</b>
+          <div class="kpi-value">${esc(String(consistencyValue ?? "-"))}%</div>
+        </div>
+        <div class="${isLoveEngine ? "output-card output-card-kpi" : "kv"}">
+          <b>🔒 Confidence ${isLoveEngine ? renderMetricHelp("Confidence", "How strong and complete the result signal is.", "Higher confidence means the output is more reliable for interpretation.") : ""}</b>
+          <div class="kpi-value">${esc(String(confidenceValue ?? "-"))}%</div>
+        </div>
+        ${!isLoveEngine ? `<div class="kv"><b>Summary Block</b>${esc(JSON.stringify(payload.summaryBlock || {}))}</div>` : ""}
       </div>
     </section>
 
