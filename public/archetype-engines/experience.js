@@ -34,8 +34,35 @@ function cardPlaceholder(archetype) {
   return `<div class="placeholder-card"><div><div>Card Placeholder</div><small class="muted">imageKey: ${esc(key)}</small></div></div>`;
 }
 
-function routeTo(engine, path) {
-  return `/archetype-engines/${engine}/${path}`;
+function safeAssetPath(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+  if (/^https?:\/\//i.test(raw) || raw.startsWith("/")) return raw;
+  return "";
+}
+
+function cardVisual(archetype) {
+  const src = safeAssetPath(archetype?.imageSrc || archetype?.cardImage || archetype?.image || archetype?.image_url || "");
+  if (src) return `<img class="card-visual" src="${esc(src)}" alt="${esc(archetype?.name || archetype?.code || "Archetype")} card" loading="lazy" />`;
+  return cardPlaceholder(archetype);
+}
+
+function stableContextParams(query) {
+  const keys = ["tenant", "email", "name", "cid", "crid", "rid", "entry", "source_type", "tap_source", "tap_tag", "tap_session", "session_id"];
+  const out = new URLSearchParams();
+  for (const key of keys) {
+    const value = String(query.get(key) || "").trim();
+    if (value) out.set(key, value);
+  }
+  return out;
+}
+
+function routeTo(engine, path, query) {
+  const base = `/archetype-engines/${engine}/${path}`;
+  const stable = stableContextParams(query || new URLSearchParams(window.location.search));
+  const qs = stable.toString();
+  if (!qs) return base;
+  return `${base}${base.includes("?") ? "&" : "?"}${qs}`;
 }
 
 
@@ -46,6 +73,13 @@ function pickCtx(query) {
     name: String(query.get("name") || "").trim(),
     cid: String(query.get("cid") || "").trim(),
     crid: String(query.get("crid") || query.get("rid") || "").trim(),
+    rid: String(query.get("rid") || query.get("crid") || "").trim(),
+    tap_source: String(query.get("tap_source") || "").trim(),
+    source_type: String(query.get("source_type") || "").trim(),
+    tap_tag: String(query.get("tap_tag") || query.get("tag") || "").trim(),
+    tap_session: String(query.get("tap_session") || "").trim(),
+    entry: String(query.get("entry") || "").trim(),
+    session_id: String(query.get("session_id") || "").trim(),
   };
 }
 
@@ -57,6 +91,13 @@ function buildPayload(query, extra) {
     ...(ctx.name ? { name: ctx.name } : {}),
     ...(ctx.cid ? { campaign: ctx.cid } : {}),
     ...(ctx.crid ? { user_id: ctx.crid } : {}),
+    ...(ctx.rid ? { rid: ctx.rid } : {}),
+    ...(ctx.tap_source ? { tap_source: ctx.tap_source } : {}),
+    ...(ctx.source_type ? { source_type: ctx.source_type } : {}),
+    ...(ctx.tap_tag ? { tap_tag: ctx.tap_tag } : {}),
+    ...(ctx.tap_session ? { tap_session: ctx.tap_session } : {}),
+    ...(ctx.entry ? { entry: ctx.entry } : {}),
+    ...(ctx.session_id ? { session_id: ctx.session_id } : {}),
     ...(extra || {}),
   };
 }
@@ -174,7 +215,7 @@ function renderAssessmentQuestions(app, engine, query, startPayload) {
           headers: { "content-type": "application/json" },
           body: JSON.stringify(payload),
         });
-        window.location.assign(routeTo(engine, `result/${encodeURIComponent(scored.resultId)}`));
+        window.location.assign(routeTo(engine, `result/${encodeURIComponent(scored.resultId)}`, query));
       } catch (err) {
         state.submitting = false;
         state.status = String(err.message || "Unable to score assessment");
@@ -239,7 +280,9 @@ async function renderAssessment(app, engine, query) {
     await startAssessmentFlow(app, engine, query);
     return;
   }
-  const contract = await jsonFetch(`/api/archetype-engines/${engine}/assessment/consent-contract`);
+  const contractPath = new URL(`/api/archetype-engines/${engine}/assessment/consent-contract`, window.location.origin);
+  for (const [key, value] of stableContextParams(query).entries()) contractPath.searchParams.set(key, value);
+  const contract = await jsonFetch(`${contractPath.pathname}${contractPath.search}`);
   renderConsentStep(app, engine, query, contract);
 }
 
@@ -282,15 +325,15 @@ function insightOrFallback(value, fallback) {
   return String(value || "").trim() || fallback;
 }
 
-function renderBrowse(app, engine, archetypes) {
+function renderBrowse(app, engine, archetypes, query) {
   app.innerHTML = `
     <section class="section">
       <h1>${titleCase(engine)} Archetypes</h1>
       <p class="muted">Scan and compare the full archetype spectrum.</p>
       <div class="spectrum-grid">
         ${archetypes.map((a, idx) => `
-          <a class="card spectrum-card" href="${routeTo(engine, `archetype/${a.slug}`)}">
-            ${cardPlaceholder(a)}
+          <a class="card spectrum-card" href="${routeTo(engine, `archetype/${a.slug}`, query)}">
+            ${cardVisual(a)}
             <h3>${esc(a.emoji || "") } ${esc(displayName(engine, a, a.code))}</h3>
             ${displaySubtitle(engine, a, a.code) ? `<div class="muted">${esc(displaySubtitle(engine, a, a.code))}</div>` : ""}
             <div class="muted">Rank preview #${idx + 1}</div>
@@ -303,14 +346,14 @@ function renderBrowse(app, engine, archetypes) {
 }
 
 function renderDetail(app, engine, archetype, query) {
-  const backHref = query.get("back") || routeTo(engine, "browse");
+  const backHref = query.get("back") || routeTo(engine, "browse", query);
   app.innerHTML = `
     <section class="section">
       <a class="crumb" href="${backHref}">← Back</a>
       <h1>${esc(archetype.emoji || "") } ${esc(displayName(engine, archetype, archetype.code))}</h1>
       ${displaySubtitle(engine, archetype, archetype.code) ? `<p class="muted">${esc(displaySubtitle(engine, archetype, archetype.code))}</p>` : ""}
       <p class="muted">${esc(archetype.tagline || "")}</p>
-      ${cardPlaceholder(archetype)}
+      ${cardVisual(archetype)}
       <p>${esc(archetype.description || "")}</p>
     </section>
     <section class="section insights">
@@ -327,7 +370,7 @@ function renderDetail(app, engine, archetype, query) {
     </section>`;
 }
 
-function renderResult(app, engine, archetypes, resultId, payload) {
+function renderResult(app, engine, archetypes, resultId, payload, query) {
   const scores = sortScores(payload.normalizedScores);
   const top3 = scores.slice(0, 3);
   const codeIndex = Object.fromEntries(archetypes.map((a) => [a.code, a]));
@@ -349,7 +392,7 @@ function renderResult(app, engine, archetypes, resultId, payload) {
         ${payload.hybridArchetype ? `<div class="chip">Hybrid (${Number(hybridGap).toFixed(1)} gap): ${esc(hybridLabel)}</div>` : ""}
         <div class="muted">Result ID: ${esc(resultId)}</div>
       </div>
-      <div>${cardPlaceholder(primary || secondary)}</div>
+      <div>${cardVisual(primary || secondary)}</div>
     </section>
 
     <section class="section">
@@ -374,7 +417,7 @@ function renderResult(app, engine, archetypes, resultId, payload) {
           <p class="muted">${esc(a.shortDescription || a.tagline || a.description || "Descriptor pending")}</p>
           <div class="muted">${esc(a.coreTrait || "Core trait pending")}</div>
           <div class="chip">${esc(bal)}</div>
-          <a href="${routeTo(engine, `archetype/${a.slug}?back=${encodeURIComponent(routeTo(engine, `result/${resultId}`))}`)}">View full archetype</a>
+          <a href="${routeTo(engine, `archetype/${a.slug}?back=${encodeURIComponent(routeTo(engine, `result/${resultId}`, query))}`, query)}">View full archetype</a>
         </div>`;
       }).join("")}
       </div>
@@ -427,8 +470,8 @@ function renderResult(app, engine, archetypes, resultId, payload) {
       <div class="spectrum-grid">
       ${scores.map((item) => {
         const a = codeIndex[item.code] || {};
-        return `<a class="card spectrum-card" href="${routeTo(engine, `archetype/${a.slug}?back=${encodeURIComponent(routeTo(engine, `result/${resultId}`))}`)}">
-          ${cardPlaceholder(a)}
+        return `<a class="card spectrum-card" href="${routeTo(engine, `archetype/${a.slug}?back=${encodeURIComponent(routeTo(engine, `result/${resultId}`, query))}`, query)}">
+          ${cardVisual(a)}
           <h3>${esc(displayName(engine, a, item.code))}</h3>
           ${displaySubtitle(engine, a, item.code) ? `<div class="muted">${esc(displaySubtitle(engine, a, item.code))}</div>` : ""}
           <div class="muted">${esc(a.coreTrait || "Core trait pending")}</div>
@@ -441,13 +484,14 @@ function renderResult(app, engine, archetypes, resultId, payload) {
     </section>
 
     <section class="section">
-      <a class="crumb" href="${routeTo(engine, "browse")}">Browse all ${titleCase(engine)} archetypes →</a>
+      <a class="crumb" href="${routeTo(engine, "browse", query)}">Browse all ${titleCase(engine)} archetypes →</a>
     </section>`;
 }
 
 async function boot() {
   const app = document.getElementById("app");
   const label = document.getElementById("engineLabel");
+  const page = document.querySelector(".page");
   const route = parseRoute();
   if (!route) {
     app.innerHTML = `<section class="section error">Unsupported route.</section>`;
@@ -456,12 +500,20 @@ async function boot() {
   label.textContent = `${titleCase(route.engine)} Engine`;
 
   try {
-    const data = await jsonFetch(`/api/archetype-engines/${route.engine}/archetypes`);
-    const archetypes = data.archetypes || [];
     const query = new URLSearchParams(window.location.search);
+    const backgroundAsset = safeAssetPath(query.get("background") || query.get("bg") || "");
+    if (page && backgroundAsset) {
+      page.classList.add("has-bg");
+      page.style.backgroundImage = `linear-gradient(rgba(0,0,0,.72), rgba(0,0,0,.72)), url("${backgroundAsset.replace(/"/g, '\"')}")`;
+    }
+    const archetypeUrl = new URL(`/api/archetype-engines/${route.engine}/archetypes`, window.location.origin);
+    for (const [key, value] of stableContextParams(query).entries()) archetypeUrl.searchParams.set(key, value);
+    archetypeUrl.searchParams.set("route_mode", route.mode);
+    const data = await jsonFetch(`${archetypeUrl.pathname}${archetypeUrl.search}`);
+    const archetypes = data.archetypes || [];
 
     if (route.mode === "browse") {
-      renderBrowse(app, route.engine, archetypes);
+      renderBrowse(app, route.engine, archetypes, query);
       return;
     }
     if (route.mode === "detail") {
@@ -475,8 +527,10 @@ async function boot() {
       return;
     }
 
-    const resultData = await jsonFetch(`/api/archetype-engines/${route.engine}/results/${route.resultId}`);
-    renderResult(app, route.engine, archetypes, route.resultId, resultData.result_payload || {});
+    const resultUrl = new URL(`/api/archetype-engines/${route.engine}/results/${route.resultId}`, window.location.origin);
+    for (const [key, value] of stableContextParams(query).entries()) resultUrl.searchParams.set(key, value);
+    const resultData = await jsonFetch(`${resultUrl.pathname}${resultUrl.search}`);
+    renderResult(app, route.engine, archetypes, route.resultId, resultData.result_payload || {}, query);
   } catch (err) {
     app.innerHTML = `<section class="section error">${esc(err.message || "Failed to load")}</section>`;
   }

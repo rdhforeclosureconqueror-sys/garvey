@@ -448,6 +448,7 @@
   function renderInsights(analytics) {
     var owner = analytics.owner_assessment || {};
     var customer = analytics.customer_assessment || {};
+    var families = analytics.assessment_families || {};
     var el;
 
     el = document.getElementById("ownerInsight");
@@ -459,6 +460,26 @@
     if (el) el.textContent = customer.primary
       ? ("Customer: " + customer.primary + " | Personality: " + (customer.personality || "-") + " | Weakness: " + (customer.weakness || "-"))
       : "Customer: No submissions yet.";
+
+    var familyHost = document.getElementById("assessmentFamiliesSummary");
+    if (familyHost) {
+      var labels = [
+        { key: "voc", label: "VOC Assessments" },
+        { key: "love", label: "Love Assessments" },
+        { key: "leadership", label: "Leadership Assessments" },
+        { key: "loyalty", label: "Loyalty Assessments" }
+      ];
+      familyHost.innerHTML = labels.map(function (item) {
+        var row = families[item.key] || {};
+        var starts = Number(row.starts || 0);
+        var completions = Number(row.completions || 0);
+        var sourceKeys = Object.keys(row.sources || {});
+        var sourceSummary = sourceKeys.length
+          ? sourceKeys.sort().map(function (source) { return source + ": " + Number(row.sources[source] || 0); }).join(" • ")
+          : "other: 0";
+        return "<div style='margin-bottom:8px;'><b>" + item.label + ":</b> starts " + starts + " • completions " + completions + "<div class='muted'>Sources: " + escapeHtml(sourceSummary) + "</div></div>";
+      }).join("");
+    }
   }
 
   function renderCampaignLinks(tenant, ownerEmail, campaign) {
