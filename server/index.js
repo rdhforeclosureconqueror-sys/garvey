@@ -4872,7 +4872,7 @@ app.get("/t/:slug/analytics", tenantMiddleware, async (req, res) => {
     if (!tenantReadActor || !tenantReadActor.role) return;
     const tenantId = req.tenant.id;
 
-    const [visitsByDay, growth, archetypes, ownerAssessment, customerAssessment] = await Promise.all([
+    const [visitsByDay, growth, archetypes, ownerAssessment, customerAssessment, engineStarts, engineCompletions, engineEvents, vocCounts, vocSourceRows] = await Promise.all([
       pool.query(
         `SELECT TO_CHAR(DATE(created_at), 'YYYY-MM-DD') AS day, COUNT(*)::int AS visits
          FROM visits
@@ -4918,8 +4918,93 @@ app.get("/t/:slug/analytics", tenantMiddleware, async (req, res) => {
          ORDER BY created_at DESC
          LIMIT 1`,
         [tenantId]
-      )
+      ),
+      pool.query(
+        `SELECT engine_type, campaign_context, created_at
+         FROM engine_assessments
+         WHERE tenant_slug = $1`,
+        [req.tenant.slug]
+      ),
+      pool.query(
+        `SELECT r.engine_type, a.campaign_context, r.created_at
+         FROM engine_results r
+         LEFT JOIN engine_assessments a ON a.id = r.assessment_id
+         WHERE r.tenant_slug = $1`,
+        [req.tenant.slug]
+      ),
+      pool.query(
+        `SELECT engine_type, page_key, campaign_context, created_at
+         FROM engine_page_views
+         WHERE tenant_slug = $1
+           AND page_key IN ('assessment_opened', 'consent_viewed', 'consent_accepted', 'assessment_started', 'assessment_completed', 'result_created', 'result_viewed')
+         ORDER BY created_at DESC
+         LIMIT 500`,
+        [req.tenant.slug]
+      ),
+      pool.query(
+        `SELECT COUNT(*)::int AS total
+         FROM assessment_submissions
+         WHERE tenant_id = $1 AND assessment_type = 'customer'`,
+        [tenantId]
+      ),
+      pool.query(
+        `SELECT COALESCE(meta->>'source_type', meta->>'source_path', meta->>'tap_source', 'other') AS source_key,
+                COUNT(*)::int AS total
+         FROM campaign_events
+         WHERE tenant_id = $1
+           AND event_type = 'customer_assessment'
+         GROUP BY COALESCE(meta->>'source_type', meta->>'source_path', meta->>'tap_source', 'other')`,
+        [tenantId]
+      ),
     ]);
+
+    const parseContext = (raw) => {
+      if (!raw) return {};
+      if (typeof raw === "object") return raw;
+      const text = String(raw).trim();
+      if (!text) return {};
+      try {
+        return JSON.parse(text);
+      } catch (_) {
+        return { campaign: text };
+      }
+    };
+    const sourceFromContext = (ctx = {}) => String(ctx.source_path || ctx.source_type || ctx.tap_source || ctx.entry || "other").trim().toLowerCase() || "other";
+    const familySeed = () => ({
+      voc: { assessment_type: "voc", starts: 0, completions: 0, events: {}, sources: {} },
+      love: { assessment_type: "love", starts: 0, completions: 0, events: {}, sources: {} },
+      leadership: { assessment_type: "leadership", starts: 0, completions: 0, events: {}, sources: {} },
+      loyalty: { assessment_type: "loyalty", starts: 0, completions: 0, events: {}, sources: {} },
+    });
+    const families = familySeed();
+    for (const row of engineStarts.rows || []) {
+      const key = String(row.engine_type || "").toLowerCase();
+      if (!families[key]) continue;
+      const source = sourceFromContext(parseContext(row.campaign_context));
+      families[key].starts += 1;
+      families[key].sources[source] = (families[key].sources[source] || 0) + 1;
+    }
+    for (const row of engineCompletions.rows || []) {
+      const key = String(row.engine_type || "").toLowerCase();
+      if (!families[key]) continue;
+      const source = sourceFromContext(parseContext(row.campaign_context));
+      families[key].completions += 1;
+      families[key].sources[source] = (families[key].sources[source] || 0) + 1;
+    }
+    for (const row of engineEvents.rows || []) {
+      const key = String(row.engine_type || "").toLowerCase();
+      if (!families[key]) continue;
+      const eventKey = String(row.page_key || "").trim().toLowerCase();
+      if (!eventKey) continue;
+      families[key].events[eventKey] = (families[key].events[eventKey] || 0) + 1;
+    }
+    const vocTotal = Number(vocCounts.rows[0]?.total || 0);
+    families.voc.starts = vocTotal;
+    families.voc.completions = vocTotal;
+    for (const row of vocSourceRows.rows || []) {
+      const key = String(row.source_key || "other").trim().toLowerCase() || "other";
+      families.voc.sources[key] = Number(row.total || 0);
+    }
 
     return res.json({
       tenant: req.tenant.slug,
@@ -4928,6 +5013,7 @@ app.get("/t/:slug/analytics", tenantMiddleware, async (req, res) => {
       archetypes: archetypes.rows,
       owner_assessment: ownerAssessment.rows[0] || null,
       customer_assessment: customerAssessment.rows[0] || null,
+      assessment_families: families,
     });
   } catch (err) {
     console.error(err);

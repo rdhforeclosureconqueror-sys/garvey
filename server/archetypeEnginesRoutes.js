@@ -26,6 +26,45 @@ function pickTenant(req) {
   return String(req.query.tenant || req.body?.tenant || req.headers["x-tenant-slug"] || "").trim().toLowerCase() || null;
 }
 
+function pickAttribution(req) {
+  const sourceType = String(req.query.source_type || req.body?.source_type || req.query.tap_source || req.body?.tap_source || "").trim().toLowerCase() || null;
+  const ctx = {
+    source_type: sourceType,
+    tap_source: String(req.query.tap_source || req.body?.tap_source || "").trim() || null,
+    tap_tag: String(req.query.tap_tag || req.body?.tap_tag || req.query.tag || req.body?.tag || "").trim() || null,
+    tap_session: String(req.query.tap_session || req.body?.tap_session || req.body?.session_id || req.query.session_id || "").trim() || null,
+    entry: String(req.query.entry || req.body?.entry || "").trim() || null,
+    campaign: String(req.query.cid || req.body?.campaign || req.body?.cid || "").trim() || null,
+    cid: String(req.query.cid || req.body?.cid || req.body?.campaign || "").trim() || null,
+    crid: String(req.query.crid || req.body?.crid || req.query.rid || req.body?.rid || req.body?.user_id || "").trim() || null,
+    rid: String(req.query.rid || req.body?.rid || req.query.crid || req.body?.crid || req.body?.user_id || "").trim() || null,
+    route_mode: String(req.query.route_mode || req.body?.route_mode || "").trim() || null,
+    email: String(req.query.email || req.body?.email || req.headers["x-user-email"] || "").trim().toLowerCase() || null,
+    name: String(req.query.name || req.body?.name || req.body?.full_name || "").trim() || null,
+  };
+  return ctx;
+}
+
+async function recordEngineEvent(pool, { engineType, tenant, eventKey, ctx = {}, assessmentId = null, resultId = null }) {
+  await pool.query(
+    "INSERT INTO engine_page_views (id, engine_type, tenant_slug, page_key, session_id, user_id, campaign_context) VALUES ($1,$2,$3,$4,$5,$6,$7)",
+    [
+      newId("view"),
+      engineType,
+      tenant,
+      eventKey,
+      String(ctx.tap_session || "").trim() || null,
+      String(ctx.crid || ctx.rid || "").trim() || null,
+      JSON.stringify({
+        ...ctx,
+        source_path: ctx.tap_source || ctx.source_type || ctx.entry || "other",
+        assessment_id: assessmentId || null,
+        result_id: resultId || null,
+      }),
+    ]
+  );
+}
+
 function consentCopy(engineType) {
   return {
     engineType,
@@ -62,6 +101,9 @@ function createArchetypeEnginesRouter({ pool }) {
   router.get("/:engineType/assessment/consent-contract", (req, res) => {
     const { engineType } = req.params;
     if (!ENGINE_TYPES.includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
+    const tenant = pickTenant(req);
+    const attribution = pickAttribution(req);
+    recordEngineEvent(pool, { engineType, tenant, eventKey: "consent_viewed", ctx: attribution }).catch(() => {});
     return res.json(consentCopy(engineType));
   });
 
@@ -72,6 +114,7 @@ function createArchetypeEnginesRouter({ pool }) {
     if (!accepted) return res.status(400).json({ error: "explicit consent acceptance is required" });
 
     const tenant = pickTenant(req);
+    const attribution = pickAttribution(req);
     const email = String(req.body?.email || req.headers["x-user-email"] || "").trim().toLowerCase();
     const fullName = String(req.body?.name || req.body?.full_name || "").trim();
     if (!tenant || !email || !fullName) return res.status(400).json({ error: "tenant_email_name_required" });
@@ -86,6 +129,7 @@ function createArchetypeEnginesRouter({ pool }) {
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
       [consentId, engineType, tenant, email, fullName, consentVersion, "business_only_required", true, signature, String(req.body?.session_id || "").trim() || null]
     );
+    await recordEngineEvent(pool, { engineType, tenant, eventKey: "consent_accepted", ctx: attribution });
 
     return res.json({
       consent_id: consentId,
@@ -102,9 +146,12 @@ function createArchetypeEnginesRouter({ pool }) {
     if (!ENGINE_TYPES.includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
     const content = getEngineContent(engineType);
     const tenant = pickTenant(req);
+    const attribution = pickAttribution(req);
+    const routeMode = String(req.query.route_mode || "").trim().toLowerCase();
+    const pageKey = routeMode === "assessment" ? "assessment_opened" : `${engineType}_archetypes`;
     await pool.query(
       "INSERT INTO engine_page_views (id, engine_type, tenant_slug, page_key, session_id, campaign_context) VALUES ($1,$2,$3,$4,$5,$6)",
-      [newId("view"), engineType, tenant, `${engineType}_archetypes`, String(req.query.session_id || "").trim() || null, String(req.query.campaign || "").trim() || null]
+      [newId("view"), engineType, tenant, pageKey, String(req.query.session_id || "").trim() || null, JSON.stringify(attribution)]
     );
     return res.json({ engineType, archetypes: content.archetypes });
   });
@@ -115,6 +162,9 @@ function createArchetypeEnginesRouter({ pool }) {
     const content = getEngineContent(engineType);
     const match = content.archetypes.find((a) => a.slug === slug);
     if (!match) return res.status(404).json({ error: "archetype_not_found" });
+    const tenant = pickTenant(req);
+    const attribution = pickAttribution(req);
+    await recordEngineEvent(pool, { engineType, tenant, eventKey: "archetype_detail_viewed", ctx: attribution });
     return res.json({ engineType, archetype: match });
   });
 
@@ -128,6 +178,7 @@ function createArchetypeEnginesRouter({ pool }) {
     if (!ENGINE_TYPES.includes(engineType)) return res.status(404).json({ error: "engine_not_found" });
 
     const tenant = pickTenant(req);
+    const attribution = pickAttribution(req);
     if (engineType === "love") {
       const consentId = String(req.body?.consent_id || "").trim();
       if (!consentId) return res.status(403).json({ error: "consent_required_before_assessment" });
@@ -142,8 +193,9 @@ function createArchetypeEnginesRouter({ pool }) {
     await pool.query(
       `INSERT INTO engine_assessments (id, engine_type, tenant_slug, session_id, user_id, campaign_context)
        VALUES ($1,$2,$3,$4,$5,$6)`,
-      [assessmentId, engineType, tenant, String(req.body?.session_id || "").trim() || null, String(req.body?.user_id || "").trim() || null, String(req.body?.campaign || "").trim() || null]
+      [assessmentId, engineType, tenant, String(req.body?.session_id || req.body?.tap_session || "").trim() || null, String(req.body?.user_id || req.body?.rid || req.body?.crid || "").trim() || null, JSON.stringify(attribution)]
     );
+    await recordEngineEvent(pool, { engineType, tenant, eventKey: "assessment_started", ctx: attribution, assessmentId });
 
     const banks = getQuestionBanks(engineType, { retakeAttempt: req.body?.retake_attempt || 0 });
     return res.json({ assessmentId, engineType, questionBanks: banks });
@@ -155,6 +207,8 @@ function createArchetypeEnginesRouter({ pool }) {
 
     const assessmentId = String(req.body?.assessmentId || "").trim();
     const answers = req.body?.answers || {};
+    const tenant = pickTenant(req);
+    const attribution = pickAttribution(req);
     if (!assessmentId) return res.status(400).json({ error: "assessmentId_required" });
 
     const scored = scoreEngineAssessment(engineType, answers);
@@ -162,8 +216,10 @@ function createArchetypeEnginesRouter({ pool }) {
     await pool.query(
       `INSERT INTO engine_results (result_id, assessment_id, engine_type, tenant_slug, result_payload)
        VALUES ($1,$2,$3,$4,$5::jsonb)`,
-      [resultId, assessmentId, engineType, pickTenant(req), JSON.stringify(scored)]
+      [resultId, assessmentId, engineType, tenant, JSON.stringify(scored)]
     );
+    await recordEngineEvent(pool, { engineType, tenant, eventKey: "assessment_completed", ctx: attribution, assessmentId, resultId });
+    await recordEngineEvent(pool, { engineType, tenant, eventKey: "result_created", ctx: attribution, assessmentId, resultId });
 
     return res.json({ resultId, engineType, ...scored });
   });
@@ -177,6 +233,9 @@ function createArchetypeEnginesRouter({ pool }) {
       [resultId, engineType]
     );
     if (!result.rows[0]) return res.status(404).json({ error: "result_not_found" });
+    const tenant = pickTenant(req) || result.rows[0].tenant_slug || null;
+    const attribution = pickAttribution(req);
+    await recordEngineEvent(pool, { engineType, tenant, eventKey: "result_viewed", ctx: attribution, assessmentId: result.rows[0].assessment_id, resultId });
     return res.json(result.rows[0]);
   });
 

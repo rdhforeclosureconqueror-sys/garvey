@@ -16,8 +16,9 @@ const {
 } = require('../../server/archetypeEnginesService');
 
 function createMockPool() {
-  const state = { results: new Map(), consents: new Map() };
+  const state = { results: new Map(), consents: new Map(), assessments: new Map(), pageViews: [] };
   return {
+    state,
     async query(sql, params = []) {
       const normalized = String(sql).replace(/\s+/g, ' ').trim();
       if (normalized.startsWith('INSERT INTO engine_results')) {
@@ -32,6 +33,27 @@ function createMockPool() {
       }
       if (normalized.startsWith('INSERT INTO engine_assessment_consents')) {
         state.consents.set(params[0], { id: params[0], engine_type: params[1], tenant_slug: params[2], accepted: params[7] === true });
+      }
+      if (normalized.startsWith('INSERT INTO engine_assessments')) {
+        state.assessments.set(params[0], {
+          id: params[0],
+          engine_type: params[1],
+          tenant_slug: params[2],
+          session_id: params[3],
+          user_id: params[4],
+          campaign_context: params[5],
+        });
+      }
+      if (normalized.startsWith('INSERT INTO engine_page_views')) {
+        state.pageViews.push({
+          id: params[0],
+          engine_type: params[1],
+          tenant_slug: params[2],
+          page_key: params[3],
+          session_id: params[4],
+          user_id: params[5],
+          campaign_context: params[6],
+        });
       }
       if (normalized.startsWith('SELECT id FROM engine_assessment_consents')) {
         const row = state.consents.get(params[0]);
@@ -326,4 +348,81 @@ test('experience routes keep browse and add assessment entry route', () => {
   const source = fs.readFileSync('server/index.js', 'utf8');
   assert.match(source, /app\.get\("\/archetype-engines\/:engine\/browse"/);
   assert.match(source, /app\.get\("\/archetype-engines\/:engine\/assessment"/);
+});
+
+test('archetype routes preserve tap and return attribution context through start and result events', async () => {
+  const pool = createMockPool();
+  const { server, baseUrl } = await startServer(pool);
+  try {
+    const archetypeRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/archetypes?tenant=demo&cid=camp-1&rid=rid-1&tap_source=tap&source_type=qr&route_mode=assessment`);
+    assert.equal(archetypeRes.status, 200);
+
+    const startRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/start`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        tenant: 'demo',
+        campaign: 'camp-1',
+        rid: 'rid-1',
+        tap_source: 'tap',
+        source_type: 'qr',
+        tap_session: 'tap-sess-9',
+      }),
+    });
+    assert.equal(startRes.status, 200);
+    const startJson = await startRes.json();
+    const answers = Object.fromEntries(Object.values(startJson.questionBanks).flat().map((q) => [q.id, 'a']));
+
+    const scoreRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/score`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        tenant: 'demo',
+        assessmentId: startJson.assessmentId,
+        answers,
+        campaign: 'camp-1',
+        rid: 'rid-1',
+        source_type: 'qr',
+      }),
+    });
+    assert.equal(scoreRes.status, 200);
+    const scoreJson = await scoreRes.json();
+
+    const resultRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/results/${scoreJson.resultId}?tenant=demo&source_type=qr&tap_source=tap`);
+    assert.equal(resultRes.status, 200);
+
+    const assessment = pool.state.assessments.get(startJson.assessmentId);
+    assert.equal(assessment.tenant_slug, 'demo');
+    const startContext = JSON.parse(assessment.campaign_context);
+    assert.equal(startContext.campaign, 'camp-1');
+    assert.equal(startContext.rid, 'rid-1');
+    assert.equal(startContext.tap_source, 'tap');
+    assert.equal(startContext.source_type, 'qr');
+
+    const completionEvent = pool.state.pageViews.find((row) => row.page_key === 'assessment_completed');
+    assert.ok(completionEvent);
+    const completionContext = JSON.parse(completionEvent.campaign_context);
+    assert.equal(completionContext.result_id, scoreJson.resultId);
+    assert.equal(completionContext.assessment_id, startJson.assessmentId);
+    assert.equal(completionContext.source_path, 'qr');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('dashboard analytics include separated archetype and VOC assessment families', () => {
+  const source = fs.readFileSync('server/index.js', 'utf8');
+  assert.match(source, /assessment_families/);
+  assert.match(source, /voc:/);
+  assert.match(source, /love:/);
+  assert.match(source, /leadership:/);
+  assert.match(source, /loyalty:/);
+});
+
+test('dashboard UI renders separate family labels for VOC, Love, Leadership, and Loyalty', () => {
+  const source = fs.readFileSync('dashboardnew/app.js', 'utf8');
+  assert.match(source, /VOC Assessments/);
+  assert.match(source, /Love Assessments/);
+  assert.match(source, /Leadership Assessments/);
+  assert.match(source, /Loyalty Assessments/);
 });
