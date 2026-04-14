@@ -989,11 +989,10 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
   const loyaltyProfile = payload.communication_profile || {};
   const relationshipInterpretation = payload.relationshipInterpretation || {};
   const loveAssessmentCta = payload.loveAssessmentCta || {};
-  const loyaltyHumanTranslations = payload.loyaltyHumanTranslations || {};
   const loyaltyHeaderSections = isLoyaltyEngine
     ? `
     <section class="section loyalty-adaptive-section">
-      <h2>How to Talk to You</h2>
+      <h2>How to Engage With You</h2>
       <p class="muted loyalty-adaptive-intro">Your communication profile in plain language.</p>
       <div class="insights loyalty-adaptive-grid">
         <div class="kv"><b>Plain-language summary</b>${esc(loyaltyProfile.plain_language_summary || "-")}</div>
@@ -1023,34 +1022,54 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     ], { className: "loyalty-adaptive-section" })}
     `
     : "";
-
-  const loyaltyLegacySections = isLoyaltyEngine
+  const loyaltySystemSection = isLoyaltyEngine
     ? `
-      ${renderLoyaltySection("Why This Matters", [{ label: "Loyalty context", value: payload.whyThisMatters }])}
-      ${renderLoyaltySection("Scientific Foundation", [{ label: "Model", value: payload.scientificFoundation }])}
-      ${renderLoyaltySection("Loyalty Pattern", [{ label: "System", value: payload.loyaltyPattern }, { label: "Human", value: loyaltyHumanTranslations.loyaltyPattern }])}
-      ${renderLoyaltySection("Loyalty State", [{ label: "System", value: payload.loyaltyState }, { label: "Human", value: loyaltyHumanTranslations.loyaltyState }])}
-      ${renderLoyaltySection("Retention Insight", [{ label: "System", value: payload.retentionInsight }, { label: "Human", value: loyaltyHumanTranslations.retentionInsight }])}
-      ${renderLoyaltySection("Churn Risk Insight", [{ label: "System", value: payload.churnRiskInsight }, { label: "Human", value: loyaltyHumanTranslations.churnRiskInsight }])}
-      <section class="section">
-        <h2>Loyalty Loop</h2>
-        <div class="insights">
-          <div class="kv"><b>Loop Label</b>${esc(payload.loyaltyLoop?.label || "-")}</div>
-          <div class="kv"><b>What it means</b>${esc(payload.loyaltyLoop?.what_it_means || "-")}</div>
-          <div class="kv"><b>Why it matters</b>${esc(payload.loyaltyLoop?.why_it_matters || "-")}</div>
-          <div class="kv"><b>Break point</b>${esc(payload.loyaltyLoop?.break_point || "-")}</div>
-          <div class="kv"><b>Plain-language translation</b>${esc(payload.loyaltyLoop?.plain_language_translation || "-")}</div>
-        </div>
-      </section>
-      <section class="section">
-        <h2>Loyalty Strengthening Plan</h2>
-        <div class="insights">
-          <div class="kv"><b>Plan</b>${esc((payload.loyaltyStrengtheningPlan || []).join(" • ") || "-")}</div>
-        </div>
-      </section>
-      ${renderLoyaltySection("Churn Trigger Profile", [{ label: "Trigger profile", value: payload.churnTriggerProfile }])}
-      ${renderLoyaltySection("Retention Gap", [{ label: "Gap", value: payload.retentionGap }])}
-      ${renderLoyaltySection("Perceived vs Actual Loyalty", [{ label: "Gap", value: payload.perceivedVsActualLoyalty }])}
+    <section class="section loyalty-adaptive-section">
+      <h2>Your Loyalty System</h2>
+      <p class="muted loyalty-adaptive-intro">A clear map of how your loyalty works, where it strains, and what helps it stay strong.</p>
+      <h3>Core Pattern</h3>
+      <div class="insights loyalty-adaptive-grid">
+        <div class="kv"><b>Dominant + secondary drivers</b>${esc(payload.loyaltyPattern || "-")}</div>
+        <div class="kv"><b>Top 3 archetypes</b>${esc(top3.map((item) => displayName(engine, codeIndex[item.code] || {}, item.code)).join(" • ") || "-")}</div>
+      </div>
+      ${scores.map((item) => `
+        <div class="chart-row">
+          <div class="chart-label"><span>${esc(codeToName[item.code] || item.code)} ${top3.find((t) => t.code === item.code) ? "⭐" : ""}</span><span>${item.score.toFixed(1)}%</span></div>
+          <div class="track"><div class="fill" style="width:${Math.max(0, Math.min(100, item.score))}%"></div></div>
+        </div>`).join("")}
+      <div class="top3">
+      ${top3.map((item) => {
+        const a = codeIndex[item.code] || {};
+        const bal = payload.balanceStates?.dimensions?.[item.code] || payload.balanceState || payload.balanceStates?.overall || "balanced";
+        return `<div class="card">
+          <h3>${esc(displayName(engine, a, item.code))}</h3>
+          <div>${item.score.toFixed(1)}%</div>
+          <p class="muted">${esc(a.shortDescription || a.tagline || a.description || "Descriptor pending")}</p>
+          <div class="muted"><b>REAL-WORLD TRANSLATION:</b> ${esc(payload.loyaltyArchetypeTranslations?.[item.code] || "-")}</div>
+          <div class="chip">${esc(bal)}</div>
+        </div>`;
+      }).join("")}
+      </div>
+      <h3>Current State</h3>
+      <div class="insights loyalty-adaptive-grid">
+        <div class="kv"><b>Current expression</b>${esc(payload.loyaltyState || payload.balanceStates?.overall || "-")}</div>
+        <div class="kv"><b>Balance insight</b>${esc(insightOrFallback(payload.balanceInsight, strongestGap(payload.desiredCurrentGap || payload.desiredVsCurrent, codeToName)))}</div>
+        <div class="kv"><b>Behavior under stress</b>${esc(insightOrFallback(payload.stressInsight, summarizeStress(payload.stressProfile, codeToName)))}</div>
+      </div>
+      <h3>Your Stay vs Leave Pattern</h3>
+      <div class="insights loyalty-adaptive-grid">
+        <div class="kv"><b>Why you stay</b>${esc(payload.retentionInsight || loyaltyProfile.retention_hook || "-")}</div>
+        <div class="kv"><b>What pushes you away</b>${esc(payload.churnRiskInsight || loyaltyProfile.churn_trigger || "-")}</div>
+        <div class="kv"><b>Breaking point behavior</b>${esc(payload.loyaltyLoop?.break_point || "-")}</div>
+        <div class="kv"><b>Pattern loop</b>${esc(payload.loyaltyLoop?.plain_language_translation || "-")}</div>
+      </div>
+      <h3>Growth / Adjustment</h3>
+      <div class="insights loyalty-adaptive-grid">
+        <div class="kv"><b>What is missing</b>${esc(payload.retentionGap || "-")}</div>
+        <div class="kv"><b>Where misalignment exists</b>${esc(payload.perceivedVsActualLoyalty || payload.identityGapInsight || "-")}</div>
+        <div class="kv"><b>Direction for adjustment</b>${esc((payload.loyaltyStrengtheningPlan || []).join(" • ") || "-")}</div>
+      </div>
+    </section>
     `
     : "";
 
@@ -1095,16 +1114,16 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
       ${primary?.slug ? `<a class="metric-cta" href="${routeTo("love", `archetype/${primary.slug}`, query)}">View full archetype guidance →</a>` : ""}
     </section>` : ""}
 
-    <section class="section">
+    ${!isLoyaltyEngine ? `<section class="section">
       <h2>Score Visualization</h2>
       ${scores.map((item) => `
         <div class="chart-row">
           <div class="chart-label"><span>${esc(codeToName[item.code] || item.code)} ${top3.find((t) => t.code === item.code) ? "⭐" : ""}</span><span>${item.score.toFixed(1)}%</span></div>
           <div class="track"><div class="fill" style="width:${Math.max(0, Math.min(100, item.score))}%"></div></div>
         </div>`).join("")}
-    </section>
+    </section>` : ""}
 
-    <section class="section">
+    ${!isLoyaltyEngine ? `<section class="section">
       <h2>Top 3 Breakdown</h2>
       <div class="top3">
       ${top3.map((item) => {
@@ -1122,9 +1141,9 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
         </div>`;
       }).join("")}
       </div>
-    </section>
+    </section>` : ""}
 
-    <section class="section">
+    ${!isLoyaltyEngine ? `<section class="section">
       <h2>Output Contract</h2>
       <div class="${isLoveEngine ? "output-contract output-contract-love" : "insights"}">
         <div class="${isLoveEngine ? "output-card output-card-lead" : "kv"}"><b>🧬 Primary Archetype</b>${esc(displayName(engine, primary, payload.primaryArchetype?.code || ""))}</div>
@@ -1157,14 +1176,9 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
         </div>
         ${!isLoveEngine ? `<div class="kv"><b>Summary Block</b>${esc(JSON.stringify(payload.summaryBlock || {}))}</div>` : ""}
       </div>
-    </section>
+    </section>` : ""}
 
-    ${loyaltyLegacySections}
-
-    ${isLoyaltyEngine ? renderLoyaltySection("UI → Science Mapping", Object.entries(payload.uiScienceMapping || {}).map(([key, value]) => ({
-      label: key.replace(/_/g, " "),
-      value,
-    }))) : ""}
+    ${loyaltySystemSection}
 
     ${isLoyaltyEngine ? `
     <section class="section">
@@ -1178,29 +1192,29 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     </section>
     ` : ""}
 
-    <section class="section">
+    ${!isLoyaltyEngine ? `<section class="section">
       <h2>Your Pattern</h2>
       <div class="insights">
         <div class="kv"><b>Primary Insight</b>${esc(insightOrFallback(payload.primaryInsight, "Primary pattern insight is not available yet."))}</div>
         <div class="kv"><b>Secondary Insight</b>${esc(insightOrFallback(payload.secondaryInsight, "Secondary pattern insight is not available yet."))}</div>
       </div>
-    </section>
+    </section>` : ""}
 
-    <section class="section">
+    ${!isLoyaltyEngine ? `<section class="section">
       <h2>Your Current State</h2>
       <div class="insights">
         <div class="kv"><b>Balance Insight</b>${esc(insightOrFallback(payload.balanceInsight, strongestGap(payload.desiredCurrentGap || payload.desiredVsCurrent, codeToName)))}</div>
         <div class="kv"><b>Stress Insight</b>${esc(insightOrFallback(payload.stressInsight, summarizeStress(payload.stressProfile, codeToName)))}</div>
       </div>
-    </section>
+    </section>` : ""}
 
-    <section class="section">
+    ${!isLoyaltyEngine ? `<section class="section">
       <h2>Self Alignment</h2>
       <div class="insights">
         <div class="kv"><b>Identity Gap Insight</b>${esc(insightOrFallback(payload.identityGapInsight, strongestGap(payload.identityBehaviorGap, codeToName)))}</div>
         <div class="kv"><b>Consistency Insight</b>${esc(insightOrFallback(payload.consistencyInsight, `Consistency Score: ${String(payload.contradictionConsistency?.consistency ?? "-")}%`))}</div>
       </div>
-    </section>
+    </section>` : ""}
 
     ${isLoveEngine ? `<div id="meaning-rebalance">${renderLoveInterpretationLayer({ payload, archetypes, codeToName, codeIndex, query })}</div>` : ""}
 

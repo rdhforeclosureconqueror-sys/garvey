@@ -242,22 +242,13 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
 
 test('loyalty UI includes adaptive messaging and loyalty-native section labels', () => {
   const source = fs.readFileSync(path.join(process.cwd(), 'public', 'archetype-engines', 'experience.js'), 'utf8');
-  assert.match(source, /How to Talk to You/);
+  assert.match(source, /How to Engage With You/);
   assert.match(source, /How This Shows Up In Your Relationships/);
-  assert.match(source, /Why You Stay Engaged/);
-  assert.match(source, /What Makes You Pull Away/);
-  assert.match(source, /Why This Matters/);
-  assert.match(source, /Scientific Foundation/);
-  assert.match(source, /Loyalty Pattern/);
-  assert.match(source, /Loyalty State/);
-  assert.match(source, /Retention Insight/);
-  assert.match(source, /Churn Risk Insight/);
-  assert.match(source, /Loyalty Loop/);
-  assert.match(source, /Loyalty Strengthening Plan/);
-  assert.match(source, /Churn Trigger Profile/);
-  assert.match(source, /Retention Gap/);
-  assert.match(source, /Perceived vs Actual Loyalty/);
-  assert.match(source, /UI → Science Mapping/);
+  assert.match(source, /Your Loyalty System/);
+  assert.match(source, /Core Pattern/);
+  assert.match(source, /Current State/);
+  assert.match(source, /Your Stay vs Leave Pattern/);
+  assert.match(source, /Growth \/ Adjustment/);
   assert.match(source, /REAL-WORLD TRANSLATION/);
   assert.match(source, /Want a deeper relationship breakdown\?/);
   assert.match(source, /Take Love Assessment/);
