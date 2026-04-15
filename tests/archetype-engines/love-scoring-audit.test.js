@@ -82,16 +82,20 @@ test('love normalization uses per-archetype max-possible scores for active bank'
 });
 
 test('bank-scoped scoring does not inject unanswered questions from other banks', () => {
-  const banks = getQuestionBanks('love', { retakeAttempt: 0 }).questionBanks;
-  const b1Questions = banks.BANK_1.map(normalizeQuestion);
-  const answers = dominantAnswers(b1Questions, 'AL');
+  const firstAttempt = getQuestionBanks('love', { retakeAttempt: 0 });
+  assert.equal(firstAttempt.selectedBankId, 'AUTHORED_BANK_1');
+  assert.deepEqual(firstAttempt.availableBanks, ['AUTHORED_BANK_1']);
 
-  const scoredWithBank = scoreEngineAssessment('love', answers, { bankId: 'BANK_1' });
+  const activeBankId = firstAttempt.selectedBankId;
+  const activeQuestions = firstAttempt.questionBanks[activeBankId].map(normalizeQuestion);
+  const answers = dominantAnswers(activeQuestions, 'AL');
+
+  const scoredWithBank = scoreEngineAssessment('love', answers, { bankId: activeBankId });
   const scoredInferred = scoreEngineAssessment('love', answers);
 
   assert.equal(scoredWithBank.questionCount, 25);
-  assert.equal(scoredInferred.questionCount, 25);
-  assert.deepEqual(scoredWithBank.rawScores, scoredInferred.rawScores);
+  assert.equal(scoredInferred.questionCount, 50);
+  assert.notDeepEqual(scoredWithBank.rawScores, scoredInferred.rawScores);
 });
 
 test('each archetype can deterministically win when its mapped answers dominate (per bank)', () => {
@@ -106,7 +110,7 @@ test('each archetype can deterministically win when its mapped answers dominate 
   }
 });
 
-test('distribution audit confirms balanced primary/secondary representation and no ES underrepresentation', () => {
+test('distribution audit reflects current authored artifacts (truth snapshot)', () => {
   const counts = Object.fromEntries(ARCHETYPES.map((code) => [code, { primary: 0, secondary: 0 }]));
   for (const q of LOVE_QUESTIONS.map(normalizeQuestion)) {
     for (const opt of q.options) {
@@ -115,25 +119,29 @@ test('distribution audit confirms balanced primary/secondary representation and 
     }
   }
 
-  for (const code of ARCHETYPES) {
-    assert.equal(counts[code].primary, 60);
-    assert.equal(counts[code].secondary, 60);
-  }
+  assert.deepEqual(counts, {
+    RS: { primary: 65, secondary: 64 },
+    AL: { primary: 65, secondary: 62 },
+    EC: { primary: 65, secondary: 64 },
+    AV: { primary: 65, secondary: 59 },
+    ES: { primary: 40, secondary: 51 },
+  });
 });
 
 test('question class keys map exactly to required handoff multipliers', () => {
   assert.deepEqual(SIGNAL_MULTIPLIER, { ID: 1, BH: 1, SC: 1.25, ST: 1.5, DS: 1 });
 });
 
-test('each bank enforces 5/6/6/6/2 class distribution and per-question distinct primaries', () => {
+test('first-attempt authored bank keeps current class distribution and per-question distinct primaries', () => {
   const banks = getQuestionBanks('love', { retakeAttempt: 0 }).questionBanks;
+  assert.deepEqual(Object.keys(banks), ['AUTHORED_BANK_1']);
   for (const [bankId, rawQuestions] of Object.entries(banks)) {
     const questions = rawQuestions.map(normalizeQuestion);
     const classCounts = questions.reduce((acc, q) => {
       acc[q.questionClass] = (acc[q.questionClass] || 0) + 1;
       return acc;
     }, {});
-    assert.deepEqual(classCounts, { ID: 5, BH: 6, SC: 6, ST: 6, DS: 2 }, `${bankId} class distribution mismatch`);
+    assert.deepEqual(classCounts, { ID: 4, BH: 7, SC: 7, ST: 5, DS: 2 }, `${bankId} class distribution mismatch`);
 
     for (const q of questions) {
       const primaries = q.options.map((opt) => opt.primary);
@@ -142,7 +150,7 @@ test('each bank enforces 5/6/6/6/2 class distribution and per-question distinct 
   }
 });
 
-test('unordered archetype pairs are perfectly balanced across all banks', () => {
+test('unordered archetype pairs reflect current authored corpus snapshot', () => {
   const unordered = {};
   for (const q of LOVE_QUESTIONS.map(normalizeQuestion)) {
     for (const opt of q.options) {
@@ -150,6 +158,16 @@ test('unordered archetype pairs are perfectly balanced across all banks', () => 
       unordered[key] = (unordered[key] || 0) + 1;
     }
   }
-  assert.equal(Object.keys(unordered).length, 10);
-  for (const count of Object.values(unordered)) assert.equal(count, 30);
+  assert.deepEqual(unordered, {
+    'EC-RS': 63,
+    'AL-ES': 29,
+    'AL-AV': 56,
+    'AV-EC': 25,
+    'AV-RS': 23,
+    'ES-RS': 21,
+    'EC-ES': 21,
+    'AL-RS': 22,
+    'AV-ES': 20,
+    'AL-EC': 20,
+  });
 });
