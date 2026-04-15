@@ -123,7 +123,7 @@ test('leadership and loyalty authored banks load 25 canonical questions each', (
   assert.equal(LOYALTY_QUESTION_SOURCE.useGeneratorOnFirstAttempt, false);
   assert.equal(LEADERSHIP_QUESTION_SOURCE.authored.bankId, 'AUTHORED_BANK_1');
   assert.equal(LOYALTY_QUESTION_SOURCE.authored.bankId, 'AUTHORED_BANK_1');
-  assert.equal(LOYALTY_QUESTION_SOURCE.authoredSequence.length, 3);
+  assert.equal(LOYALTY_QUESTION_SOURCE.generated.sourceType, 'promotion_manifest_governed');
 });
 
 test('love scoring returns primary and secondary archetypes', () => {
@@ -806,7 +806,7 @@ test('leadership and loyalty first-attempt routing serves authored banks and nev
   assert.equal(Array.isArray(loyaltyFirst.questionBanks.AUTHORED_BANK_1), true);
 });
 
-test('loyalty uses deterministic authored attempt progression for first three starts and blocks attempt four', async () => {
+test('loyalty retakes use governed generated source and never authored fallback', async () => {
   const pool = createMockPool();
   const { server, baseUrl } = await startServer(pool);
   try {
@@ -814,9 +814,9 @@ test('loyalty uses deterministic authored attempt progression for first three st
     const crid = 'crid-test';
     const tap = 'tap-test';
     const expectations = [
-      { completedCount: 0, selectedBankId: 'AUTHORED_BANK_1', questionSource: 'authored_bank_1', sourcePath: 'archetype-engines/engines/loyalty/question-banks/loyalty.bank1.js' },
-      { completedCount: 1, selectedBankId: 'AUTHORED_BANK_2', questionSource: 'authored_bank_2', sourcePath: 'archetype-engines/engines/loyalty/question-banks/loyalty.bank2.js' },
-      { completedCount: 2, selectedBankId: 'AUTHORED_BANK_3', questionSource: 'authored_bank_3', sourcePath: 'archetype-engines/engines/loyalty/question-banks/loyalty.bank3.js' },
+      { completedCount: 0, selectedBankId: 'AUTHORED_BANK_1', questionSource: 'authored_bank_1', generatedBankAvailable: false },
+      { completedCount: 1, selectedBankId: 'LOYALTY_BANK_A', questionSource: 'generated_validated_bank', generatedBankAvailable: true },
+      { completedCount: 2, selectedBankId: 'LOYALTY_BANK_A', questionSource: 'generated_validated_bank', generatedBankAvailable: true },
     ];
 
     for (const expected of expectations) {
@@ -830,8 +830,10 @@ test('loyalty uses deterministic authored attempt progression for first three st
       assert.equal(startJson.questionSource, expected.questionSource);
       assert.equal(startJson.questionBanks.selectedBankId, expected.selectedBankId);
       assert.equal(startJson.questionBanks.activeQuestions.length, 25);
-      assert.equal(startJson.questionBanks.generatedBankAvailable, false);
-      assert.equal(startJson.diagnostics.sourcePath, expected.sourcePath);
+      assert.equal(startJson.questionBanks.generatedBankAvailable, expected.generatedBankAvailable);
+      assert.equal(startJson.diagnostics.questionSource, expected.questionSource);
+      assert.equal(startJson.diagnostics.selectedBankId, expected.selectedBankId);
+      assert.equal(startJson.diagnostics.generatedBankAvailable, expected.generatedBankAvailable);
       assert.equal(startJson.questionSourceConfig.useGeneratorOnFirstAttempt, false);
 
       const storedAssessment = pool.state.assessments.get(startJson.assessmentId);
@@ -845,12 +847,9 @@ test('loyalty uses deterministic authored attempt progression for first three st
     const blockedRes = await fetch(`${baseUrl}/api/archetype-engines/loyalty/assessment/start`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ tenant: 'demo', retake_attempt: 3 }),
+      body: JSON.stringify({ tenant: 'demo', retake_attempt: 1 }),
     });
-    assert.equal(blockedRes.status, 409);
-    const blockedJson = await blockedRes.json();
-    assert.equal(blockedJson.error, 'governed_retake_unconfigured');
-    assert.equal(blockedJson.questionSource, 'governed_retake_unconfigured');
+    assert.notEqual(blockedRes.status, 409);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
