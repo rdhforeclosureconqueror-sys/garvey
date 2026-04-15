@@ -245,6 +245,89 @@ function buildOptionText({ template, expression, scenarioPhrase, signalPhrase })
     .trim();
 }
 
+function normalizeSpeechLead(text) {
+  return text
+    .replace(/^At my core,\s+I\s+/i, "I ")
+    .replace(/^I feel most like myself when I\s+/i, "I ")
+    .replace(/^My default is to\s+/i, "I default to ")
+    .replace(/^My baseline strategy is to\s+/i, "I ")
+    .replace(/^My practical habit is to\s+/i, "I ")
+    .replace(/^My routine move is to\s+/i, "I ")
+    .replace(/^Most weeks,\s+I\s+/i, "I ")
+    .replace(/^In regular connection,\s+I often\s+/i, "I ")
+    .replace(/^Over time,\s+I keep\s+/i, "I keep ")
+    .replace(/^Week to week,\s+I\s+/i, "I ")
+    .replace(/^Habitually,\s+I\s+/i, "I ")
+    .replace(/^As a pattern,\s+I\s+/i, "I ")
+    .replace(/^Given the situation,\s+I\s+/i, "I ")
+    .replace(/^In this scenario,\s+I\s+/i, "I ")
+    .replace(/^My likely response is to\s+/i, "I ")
+    .replace(/^My first response is to\s+/i, "I ")
+    .replace(/^When the situation turns,\s+I feel pulled to\s+/i, "I ")
+    .replace(/^In that moment,\s+I\s+/i, "I ")
+    .replace(/^When stressed,\s+I usually\s+/i, "I ")
+    .replace(/^When stressed,\s+I\s+/i, "I ")
+    .replace(/^Under stress,\s+I\s+/i, "I ")
+    .replace(/^In tense moments,\s+I immediately\s+/i, "I ")
+    .replace(/^In high tension,\s+I\s+/i, "I ")
+    .replace(/^During friction,\s+I tend to\s+/i, "I ")
+    .replace(/^My stress response is to\s+/i, "I ")
+    .replace(/^My conflict regulation move is to\s+/i, "I ")
+    .replace(/^When conflict heats up,\s+I quickly\s+/i, "I ")
+    .replace(/^To grow,\s+I want to\s+/i, "I want to ")
+    .replace(/^To mature this pattern,\s+I aim to\s+/i, "I aim to ")
+    .replace(/^My next growth strategy is to\s+/i, "I want to ")
+    .replace(/^My growth edge is learning to\s+/i, "I am learning to ")
+    .replace(/^Under pressure,\s+I use\s+(.+?)\s+as my regulating step\s+/i, "I $1 ")
+    .replace(/^In conflict,\s+I emotionally default to\s+/i, "I ")
+    .replace(/^When tension spikes,\s+I feel myself\s+/i, "I ")
+    .replace(/^I respond by trying to\s+/i, "I ")
+    .replace(/^I quickly respond by\s+/i, "I ")
+    .replace(/^I react fast by\s+/i, "I ")
+    .replace(/^I repeatedly\s+/i, "I ")
+    .replace(/^I am intentionally building the habit to\s+/i, "I am practicing ")
+    .replace(/^I am intentionally building\s+/i, "I am practicing ");
+}
+
+function normalizeQualityPhrasing(text) {
+  let normalized = text
+    .replace(/\bbecause it works for me\b/gi, "")
+    .replace(/\brespond by\s+trying to\b/gi, "")
+    .replace(/\brespond by\s+([a-z]+)/gi, "$1")
+    .replace(/\brespond by verify\b/gi, "verify")
+    .replace(/\bI rely on\s+([a-z][a-z\s-]*)\s+when\b/i, "I use $1 when")
+    .replace(/\bdialogue builds connection\b/gi, "talking helps us reconnect")
+    .replace(/\bactions carry more weight\b/gi, "consistent actions matter more to me")
+    .replace(/\barticulation creates trust\b/gi, "clear words help me trust")
+    .replace(/\bspace keeps you regulated\b/gi, "space helps me reset")
+    .replace(/\bemotional bandwidth\b/gi, "emotional energy")
+    .replace(/\bnervous-system\b/gi, "body stress")
+    .replace(/\bhealing\b/gi, "recovery")
+    .replace(/\boptimization\b/gi, "improvement")
+    .replace(/\bwhile\b/gi, "during");
+
+  const whenMatches = normalized.match(/\bwhen\b/gi) || [];
+  if (whenMatches.length > 1) {
+    let seen = 0;
+    normalized = normalized.replace(/\bwhen\b/gi, (match) => {
+      seen += 1;
+      return seen > 1 ? "as" : match;
+    });
+  }
+
+  normalized = normalized.replace(/\bif\b/gi, "because");
+  normalized = normalized.replace(/\s+,/g, ",");
+  normalized = normalized.replace(/\s+/g, " ").trim();
+  return normalized;
+}
+
+function applyToneCue(text, tone) {
+  if (tone === "energetic" && !/\bquickly|immediately|actively|jump|fast\b/i.test(text)) {
+    return text.replace(/^I\s+/i, "I quickly ");
+  }
+  return text;
+}
+
 function buildOptionVariant({ blueprint, ob, idx, optionIndex, tone }) {
   const rand = seededRandom(`${blueprint.questionId}:${idx}:${optionIndex}:${ob.primary}`);
   const expressionLibrary = ARCHETYPE_EXPRESSIONS[ob.primary] || ARCHETYPE_EXPRESSIONS.EC;
@@ -258,7 +341,9 @@ function buildOptionVariant({ blueprint, ob, idx, optionIndex, tone }) {
     : "in relationship moments";
   const signalOptions = SIGNAL_PHRASES[ob.signal] || [`when ${ob.signal}`, `if ${ob.signal}`];
   const signalPhrase = choose(signalOptions, idx + optionIndex);
-  const text = toSentenceCase(buildOptionText({ template, expression, scenarioPhrase, signalPhrase }));
+  const rawText = buildOptionText({ template, expression, scenarioPhrase, signalPhrase });
+  const normalizedText = applyToneCue(normalizeQualityPhrasing(normalizeSpeechLead(rawText)), tone);
+  const text = toSentenceCase(normalizedText);
 
   return {
     optionId: String.fromCharCode(65 + optionIndex),
