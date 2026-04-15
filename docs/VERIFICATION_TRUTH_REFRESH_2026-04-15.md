@@ -26,34 +26,29 @@ No runtime code, routing, scoring logic, UI behavior, or backend behavior was ch
 
 ## 2) Verification command summary (executed 2026-04-15)
 
-### Targeted passing suites (strong regression protection)
-- `tests/archetype-engines/archetype-engines.test.js`:
-  - route contracts live for Love/Loyalty/Leadership
-  - authored-first + governed-retake lifecycle protections
-  - leadership/loyalty first-attempt non-skeleton protections
-- `tests/archetype-engines/experience-rendering.test.js`:
-  - loyalty and leadership render-path depth checks
-- `tests/archetype-engines/loyalty-generator.test.js`:
-  - deterministic generation + governed-retake availability guard + malformed payload rejection
-- `tests/archetype-engines/leadership-generator.test.js`:
-  - deterministic generation + validator acceptance/rejection + governed-retake availability guard
+### Broad relevant run (refresh)
+- Command:
+  - `node --test tests/*.test.js tests/archetype-engines/*.test.js tests/tap-crm-phase*.test.js`
+- Result: **106 tests total, 102 pass, 4 fail**.
 
-### Broader failing suites
-- `node --test tests/*.test.js tests/archetype-engines/*.test.js tests/tap-crm-phase*.test.js`
-- Result: **106 tests total, 96 pass, 10 fail**.
-
-#### Failures observed (treated as pre-existing in this truth phase)
-1. `tests/archetype-engines/love-bank-generator.test.js`
-   - generated bank structural/natural-speech validation failures (multiple option-level assertions).
-2. `tests/archetype-engines/love-scoring-audit.test.js`
-   - bank-scoped scoring runtime error (`Cannot read properties of undefined (reading 'map')`).
-   - distribution/class/pair-balance assertions failing vs expected targets.
-3. `tests/tap-crm-phase1.test.js`
+### Current failing suites
+1. `tests/tap-crm-phase1.test.js`
    - access status expectations (400/403) mismatching current 409 behavior and allow-case expectation mismatch.
-4. `tests/tap-crm-phase2-schema.test.js`
+2. `tests/tap-crm-phase2-schema.test.js`
    - schema verification expected clean state assertion mismatch.
 
-## 3) Stale doc audit (conflicts with current repo reality)
+### Love-suite refresh status
+- `tests/archetype-engines/love-bank-generator.test.js`: **now passing**.
+- `tests/archetype-engines/love-scoring-audit.test.js`: **now passing**.
+
+## 3) Delta vs previously documented verification truth (same doc, earlier snapshot)
+
+- **Previous documented broad result:** 106 total / 96 pass / 10 fail.
+- **Refreshed broad result:** 106 total / 102 pass / 4 fail.
+- **Net change:** +6 pass, -6 fail.
+- **Status shift:** Love generator and Love scoring-audit suites moved from failing to passing; remaining failures are now confined to TAP CRM phase1/phase2 schema tests.
+
+## 4) Stale doc audit (conflicts with current repo reality)
 
 1. `archetype-engines/README.md`
    - stale claim: leadership/loyalty are "scoring scaffold" only.
@@ -61,17 +56,16 @@ No runtime code, routing, scoring logic, UI behavior, or backend behavior was ch
 
 2. `docs/SYSTEM_REPORT.md`
    - stale claim: "GARVEY SYSTEM FULLY OPERATIONAL (PHASES 1–11 COMPLETE)" + broad PASS framing.
-   - current reality: current broad automated run is **not all-green** (96 pass / 10 fail).
+   - current reality: current broad automated run is **not all-green** (102 pass / 4 fail).
 
-## 4) Recommended single truth source
+## 5) Recommended single truth source
 - **Recommended truth source after this refresh:** `docs/VERIFICATION_TRUTH_REFRESH_2026-04-15.md` (this file).
 - Reason: this is the narrow, current-state, command-backed verification snapshot specific to Love/Loyalty/Leadership lifecycle truth and present failing/passing status.
 
-## 5) Known remaining gaps
-- Love generator wording/quality validator parity remains failing in current automated suite.
-- Love scoring audit distribution assumptions and a bank-scoped runtime-path error remain unresolved.
-- Tap CRM phase1/phase2 test expectation drift remains unresolved.
+## 6) Known remaining gaps
+- TAP CRM phase1 access expectation drift remains unresolved.
+- TAP CRM phase2 schema clean-state expectation mismatch remains unresolved.
 - This phase intentionally performs no refactor/feature/runtime behavior changes; gaps are documented only.
 
-## 6) Runtime change statement
+## 7) Runtime change statement
 - **Explicit confirmation:** no runtime behavior changed in this phase.
