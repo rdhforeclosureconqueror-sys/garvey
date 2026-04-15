@@ -63,6 +63,7 @@ test('verifyTapCrmSchema reports clean schema when all objects exist', async () 
       'tap_crm_business_config',
       'tap_crm_tap_events',
       'tap_crm_bookings',
+      'tap_crm_notifications',
     ],
     indexes: [
       'tap_crm_contacts_tenant_stage_idx',
@@ -77,6 +78,8 @@ test('verifyTapCrmSchema reports clean schema when all objects exist', async () 
       'tap_crm_tap_events_tenant_event_type_idx',
       'tap_crm_bookings_tenant_date_idx',
       'tap_crm_bookings_tag_date_idx',
+      'tap_crm_notifications_tenant_created_idx',
+      'tap_crm_notifications_tenant_new_idx',
     ],
   });
 

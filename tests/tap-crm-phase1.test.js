@@ -38,7 +38,11 @@ test('checkTapAccess denies when tenant is missing', () => {
       headers: {},
       body: {},
       params: {},
-      authActor: { role: ROLES.BUSINESS_OWNER, tenantSlug: 'demo' },
+      authActor: {
+        role: ROLES.BUSINESS_OWNER,
+        email: 'owner@example.com',
+        onboardingComplete: true,
+      },
     },
     ACTIONS.TAP_VIEW
   );
@@ -55,7 +59,12 @@ test('checkTapAccess denies cross-tenant access', () => {
       headers: {},
       body: {},
       params: {},
-      authActor: { role: ROLES.BUSINESS_OWNER, tenantSlug: 'demo-a', email: 'owner@example.com' },
+      authActor: {
+        role: ROLES.BUSINESS_OWNER,
+        tenantSlug: 'demo-a',
+        email: 'owner@example.com',
+        onboardingComplete: true,
+      },
     },
     ACTIONS.TAP_VIEW
   );
@@ -72,7 +81,12 @@ test('checkTapAccess allows business owner in tenant', () => {
       headers: {},
       body: {},
       params: {},
-      authActor: { role: ROLES.BUSINESS_OWNER, tenantSlug: 'demo', email: 'owner@example.com' },
+      authActor: {
+        role: ROLES.BUSINESS_OWNER,
+        tenantSlug: 'demo',
+        email: 'owner@example.com',
+        onboardingComplete: true,
+      },
     },
     ACTIONS.TAP_VIEW
   );
