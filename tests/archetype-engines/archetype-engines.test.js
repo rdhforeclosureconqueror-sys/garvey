@@ -19,6 +19,12 @@ const {
   computeLoveCompatibility,
 } = require('../../server/archetypeEnginesService');
 
+function reloadArchetypeEnginesService() {
+  const servicePath = require.resolve('../../server/archetypeEnginesService');
+  delete require.cache[servicePath];
+  return require('../../server/archetypeEnginesService');
+}
+
 function createMockPool() {
   const state = { results: new Map(), consents: new Map(), assessments: new Map(), pageViews: [] };
   return {
@@ -238,6 +244,109 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
+});
+
+test('leadership lifecycle remains standardized without behavior drift across first-attempt and retake diagnostics', () => {
+  const firstAttempt = getQuestionBanks('leadership', { retakeAttempt: 0 });
+  assert.equal(firstAttempt.questionSource, 'authored_bank_1');
+  assert.equal(firstAttempt.selectedBankId, 'AUTHORED_BANK_1');
+  assert.equal(firstAttempt.activeQuestions.length, 25);
+  assert.deepEqual(Object.keys(firstAttempt.diagnostics || {}).sort(), [
+    'engineType',
+    'generatedBankAvailable',
+    'generatedReason',
+    'generatedSourcePath',
+    'manifestPath',
+    'questionSource',
+    'reviewStatus',
+    'selectedBankId',
+  ]);
+  assert.equal(firstAttempt.diagnostics.engineType, 'leadership');
+  assert.equal(firstAttempt.diagnostics.questionSource, 'authored_bank_1');
+  assert.equal(firstAttempt.diagnostics.generatedBankAvailable, false);
+  assert.equal(firstAttempt.diagnostics.generatedReason, null);
+  assert.equal(firstAttempt.diagnostics.generatedSourcePath, null);
+
+  const retakeAttempt = getQuestionBanks('leadership', { retakeAttempt: 1 });
+  assert.equal(retakeAttempt.questionSource, 'generated_validated_bank');
+  assert.equal(retakeAttempt.generatedBankAvailable, Boolean(retakeAttempt.diagnostics?.generatedBankAvailable));
+  assert.equal(retakeAttempt.activeQuestions.length, retakeAttempt.generatedBankAvailable ? 25 : 0);
+  assert.equal(retakeAttempt.diagnostics.engineType, 'leadership');
+  assert.equal(retakeAttempt.diagnostics.questionSource, 'generated_validated_bank');
+  if (retakeAttempt.generatedBankAvailable) {
+    assert.equal(retakeAttempt.diagnostics.generatedReason, null);
+    assert.ok(retakeAttempt.diagnostics.generatedSourcePath);
+  } else {
+    assert.ok(retakeAttempt.diagnostics.generatedReason);
+  }
+
+  const baselineAnswers = Object.fromEntries(firstAttempt.activeQuestions.map((q, i) => [q.id, (i % 4) + 1]));
+  const scored = scoreEngineAssessment('leadership', baselineAnswers, { bankId: firstAttempt.selectedBankId });
+  assert.equal(scored.questionCount, 25);
+  assert.ok(scored.primaryArchetype?.code);
+  assert.ok(scored.secondaryArchetype?.code);
+  assert.ok(scored.contradictionConsistency);
+});
+
+test('love resolver delegation preserves authored first-attempt, generated retake, and source-type mapping', () => {
+  const originalLiveBankId = process.env.LOVE_LIVE_BANK_ID;
+
+  try {
+    process.env.LOVE_LIVE_BANK_ID = 'BANK_A';
+    const withApprovedSelection = reloadArchetypeEnginesService();
+    const firstAttempt = withApprovedSelection.getQuestionBanks('love', { retakeAttempt: 0 });
+    const retakeAttempt = withApprovedSelection.getQuestionBanks('love', { retakeAttempt: 1 });
+
+    assert.equal(firstAttempt.questionSource, 'authored_bank_1');
+    assert.equal(firstAttempt.selectedBankId, 'AUTHORED_BANK_1');
+    assert.equal(firstAttempt.activeQuestions.length, 25);
+
+    assert.equal(retakeAttempt.questionSource, 'generated_validated_bank');
+    assert.equal(retakeAttempt.generatedBankAvailable, true);
+    assert.equal(retakeAttempt.selectedBankId, 'BANK_A');
+    assert.equal(retakeAttempt.activeQuestions.length, 25);
+    assert.equal(withApprovedSelection.LOVE_QUESTION_SOURCE.generated.sourceType, 'generated_validated_bank');
+    assert.equal(withApprovedSelection.LOVE_QUESTION_SOURCE.generated.bankId, 'BANK_A');
+    assert.equal(withApprovedSelection.LOVE_QUESTION_SOURCE.generated.questionCount, 25);
+
+    process.env.LOVE_LIVE_BANK_ID = 'BANK_Z';
+    const withUnavailableSelection = reloadArchetypeEnginesService();
+    const unavailableRetake = withUnavailableSelection.getQuestionBanks('love', { retakeAttempt: 1 });
+    assert.equal(unavailableRetake.questionSource, 'generated_validated_bank');
+    assert.equal(unavailableRetake.generatedBankAvailable, false);
+    assert.equal(unavailableRetake.activeQuestions.length, 0);
+    assert.equal(withUnavailableSelection.LOVE_QUESTION_SOURCE.generated.sourceType, 'no_generated_bank_available');
+    assert.equal(withUnavailableSelection.LOVE_QUESTION_SOURCE.generated.bankId, null);
+    assert.equal(withUnavailableSelection.LOVE_QUESTION_SOURCE.generated.questionCount, 0);
+  } finally {
+    if (originalLiveBankId === undefined) delete process.env.LOVE_LIVE_BANK_ID;
+    else process.env.LOVE_LIVE_BANK_ID = originalLiveBankId;
+    reloadArchetypeEnginesService();
+  }
+});
+
+test('bank2/bank3 cleanup protections: leadership runtime isolation and loyalty scoring compatibility', () => {
+  const leadershipFirstAttempt = getQuestionBanks('leadership', { retakeAttempt: 0 });
+  assert.equal(leadershipFirstAttempt.selectedBankId, 'AUTHORED_BANK_1');
+  assert.equal(leadershipFirstAttempt.availableBanks.length, 1);
+  assert.equal(leadershipFirstAttempt.availableBanks[0], 'AUTHORED_BANK_1');
+  assert.equal(new Set(LEADERSHIP_QUESTIONS.map((q) => q.bankId || q.bank_id)).size, 1);
+
+  const loyaltyFirstAttempt = getQuestionBanks('loyalty', { retakeAttempt: 0 });
+  assert.equal(loyaltyFirstAttempt.questionSource, 'authored_bank_1');
+  assert.equal(loyaltyFirstAttempt.selectedBankId, 'AUTHORED_BANK_1');
+  assert.equal(loyaltyFirstAttempt.activeQuestions.length, 25);
+
+  const loyaltyBankIds = new Set(LOYALTY_QUESTIONS.map((q) => q.bankId || q.bank_id));
+  assert.deepEqual([...loyaltyBankIds].sort(), ['AUTHORED_BANK_1', 'AUTHORED_BANK_2', 'AUTHORED_BANK_3']);
+
+  const loyaltyCompatAnswers = Object.fromEntries(
+    LOYALTY_QUESTIONS.filter((q) => (q.bankId || q.bank_id) === 'AUTHORED_BANK_2').map((q, i) => [q.id || q.question_id, (i % 4) + 1])
+  );
+  const loyaltyCompatScore = scoreEngineAssessment('loyalty', loyaltyCompatAnswers, { bankId: 'AUTHORED_BANK_2' });
+  assert.equal(loyaltyCompatScore.questionCount, 25);
+  assert.equal(loyaltyCompatScore.primaryArchetype, null);
+  assert.equal(loyaltyCompatScore.secondaryArchetype, null);
 });
 
 test('loyalty UI includes adaptive messaging and loyalty-native section labels', () => {
