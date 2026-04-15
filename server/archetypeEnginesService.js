@@ -1,7 +1,6 @@
 "use strict";
 
 const crypto = require("crypto");
-const fs = require("node:fs");
 const path = require("node:path");
 
 const LOVE_ARCHETYPES = require("../archetype-engines/content/loveArchetypes");
@@ -10,8 +9,6 @@ const LEADERSHIP_ARCHETYPES = require("../archetype-engines/content/leadershipAr
 const LOYALTY_ARCHETYPES = require("../archetype-engines/content/loyaltyArchetypes");
 const AUTHORED_LOVE_BANK_1 = require("../archetype-engines/question-banks/love.bank1");
 const LEADERSHIP_BANK1 = require("../archetype-engines/question-banks/leadership.bank1");
-const LEADERSHIP_BANK2 = require("../archetype-engines/question-banks/leadership.bank2");
-const LEADERSHIP_BANK3 = require("../archetype-engines/question-banks/leadership.bank3");
 const LOYALTY_BANK1 = require("../archetype-engines/question-banks/loyalty.bank1");
 const LOYALTY_BANK2 = require("../archetype-engines/question-banks/loyalty.bank2");
 const LOYALTY_BANK3 = require("../archetype-engines/question-banks/loyalty.bank3");
@@ -31,11 +28,10 @@ const WEIGHT_TYPE_MULTIPLIER = Object.freeze({ standard: 1.0, baseline: 1.0, sce
 const PRIMARY_WEIGHT = 2;
 const SECONDARY_WEIGHT = 1;
 const LEADERSHIP_AUTHORED_BANK_1 = Object.freeze([...LEADERSHIP_BANK1]);
-const LEADERSHIP_SKELETON_BANKS = Object.freeze({ LEADERSHIP_BANK_1: LEADERSHIP_BANK1, LEADERSHIP_BANK_2: LEADERSHIP_BANK2, LEADERSHIP_BANK_3: LEADERSHIP_BANK3 });
 const LOYALTY_AUTHORED_BANK_1 = Object.freeze([...LOYALTY_BANK1]);
-const LOYALTY_AUTHORED_BANK_2 = Object.freeze([...LOYALTY_BANK2]);
-const LOYALTY_AUTHORED_BANK_3 = Object.freeze([...LOYALTY_BANK3]);
-const LOYALTY_SKELETON_BANKS = Object.freeze({ LOYALTY_BANK_1: LOYALTY_BANK1, LOYALTY_BANK_2: LOYALTY_BANK2, LOYALTY_BANK_3: LOYALTY_BANK3 });
+// Retained intentionally for scoring-only backward compatibility with previously-issued
+// authored bank IDs that may still appear in persisted answer payloads.
+const LOYALTY_SCORING_COMPAT_BANKS = Object.freeze([LOYALTY_BANK1, LOYALTY_BANK2, LOYALTY_BANK3]);
 const LOYALTY_DIMENSION_NAMES = Object.freeze({
   TD: "Trust Dependence",
   SA: "Satisfaction Attachment",
@@ -145,60 +141,30 @@ function loyaltyDimensionLabel(code) {
   return LOYALTY_DIMENSION_NAMES[String(code || "").trim().toUpperCase()] || String(code || "").trim().toUpperCase() || "Loyalty Pattern";
 }
 
-function readJsonIfExists(filePath) {
-  if (!filePath || !fs.existsSync(filePath)) return null;
-  return JSON.parse(fs.readFileSync(filePath, "utf8"));
-}
-
 function resolveGeneratedValidatedLoveSource() {
-  const manifest = readJsonIfExists(LOVE_PROMOTION_MANIFEST);
-  if (!manifest || !Array.isArray(manifest.banks)) {
+  const requestedBankId = String(process.env.LOVE_LIVE_BANK_ID || "").trim().toUpperCase() || null;
+  const generated = resolveGeneratedBank({
+    rootDir: ROOT_DIR,
+    manifestPath: LOVE_PROMOTION_MANIFEST,
+    selectBankId: requestedBankId,
+    requireQuestionCount: 25,
+  });
+  if (!generated.available) {
     return {
-      sourceType: "no_generated_bank_available",
-      sourcePath: null,
+      sourceType: generated.reason === "invalid_generated_file" ? "invalid_generated_bank_artifact" : "no_generated_bank_available",
+      sourcePath: generated.sourcePath || null,
       questions: [],
-      bankId: null,
-      reviewStatus: null,
-    };
-  }
-
-  const requestedBankId = String(process.env.LOVE_LIVE_BANK_ID || "").trim().toUpperCase();
-  const approvedBanks = manifest.banks
-    .filter((entry) => String(entry?.review_status || "") === "approved_for_live_candidate")
-    .sort((left, right) => new Date(String(right.generated_at || 0)).getTime() - new Date(String(left.generated_at || 0)).getTime());
-
-  const selected = requestedBankId
-    ? approvedBanks.find((entry) => String(entry.bank_id || "").toUpperCase() === requestedBankId)
-    : approvedBanks[0];
-
-  if (!selected) {
-    return {
-      sourceType: "no_generated_bank_available",
-      sourcePath: null,
-      questions: [],
-      bankId: null,
-      reviewStatus: null,
-    };
-  }
-
-  const promotedFile = path.resolve(ROOT_DIR, String(selected?.source_artifact_paths?.generatedFile || ""));
-  const promotedQuestions = readJsonIfExists(promotedFile);
-  if (!Array.isArray(promotedQuestions) || promotedQuestions.length !== 25) {
-    return {
-      sourceType: "invalid_generated_bank_artifact",
-      sourcePath: path.relative(ROOT_DIR, promotedFile),
-      questions: [],
-      bankId: String(selected.bank_id || "").trim() || null,
-      reviewStatus: String(selected.review_status || "").trim() || null,
+      bankId: generated.bankId || null,
+      reviewStatus: generated.reviewStatus || null,
     };
   }
 
   return {
     sourceType: "generated_validated_bank",
-    sourcePath: path.relative(ROOT_DIR, promotedFile),
-    questions: promotedQuestions,
-    bankId: String(selected.bank_id || "").trim() || null,
-    reviewStatus: String(selected.review_status || "").trim() || null,
+    sourcePath: generated.sourcePath,
+    questions: generated.questions,
+    bankId: generated.bankId || null,
+    reviewStatus: generated.reviewStatus || null,
   };
 }
 
@@ -222,7 +188,7 @@ const LOVE_QUESTION_SOURCE = Object.freeze({
 
 const LOVE_QUESTIONS = Object.freeze([...AUTHORED_LOVE_BANK_1, ...LOVE_GENERATED_SOURCE.questions]);
 const LEADERSHIP_QUESTIONS = Object.freeze([...LEADERSHIP_AUTHORED_BANK_1]);
-const LOYALTY_QUESTIONS = Object.freeze([...LOYALTY_AUTHORED_BANK_1, ...LOYALTY_AUTHORED_BANK_2, ...LOYALTY_AUTHORED_BANK_3]);
+const LOYALTY_QUESTIONS = Object.freeze(LOYALTY_SCORING_COMPAT_BANKS.flat());
 
 
 function resolveGovernedEngineSource({ engineType, attempt = 0, authoredBankId, authoredSourceType = "authored_bank_1", authoredQuestions = [], manifestPath }) {
@@ -339,6 +305,21 @@ const LOYALTY_ENGINE = createAssessmentEngine({
   scoreAssessment: (answers = {}, opts = {}) => {
     const bankScopedQuestions = filterQuestionsByAnsweredBank(LOYALTY_QUESTIONS, answers, opts.bankId || null);
     return withInsights("loyalty", scoreCanonicalAssessment(bankScopedQuestions, answers));
+  },
+});
+
+const LEADERSHIP_ENGINE = createAssessmentEngine({
+  engineType: "leadership",
+  resolveQuestionBank: (opts = {}) => resolveGovernedEngineSource({
+    engineType: "leadership",
+    attempt: Number(opts.retakeAttempt || 0),
+    authoredBankId: "AUTHORED_BANK_1",
+    authoredQuestions: LEADERSHIP_AUTHORED_BANK_1,
+    manifestPath: LEADERSHIP_PROMOTION_MANIFEST,
+  }),
+  scoreAssessment: (answers = {}, opts = {}) => {
+    const bankScopedQuestions = filterQuestionsByAnsweredBank(LEADERSHIP_QUESTIONS, answers, opts.bankId || null);
+    return withInsights("leadership", scoreCanonicalAssessment(bankScopedQuestions, answers));
   },
 });
 
@@ -833,22 +814,14 @@ function scoreLoveAssessment(answers = {}) {
 
 function scoreEngineAssessment(engineType, answers = {}, opts = {}) {
   if (engineType === "love") return LOVE_ENGINE.scoreAssessment(answers, opts);
-  if (engineType === "leadership") return withInsights(engineType, scoreCanonicalAssessment(LEADERSHIP_QUESTIONS, answers));
+  if (engineType === "leadership") return LEADERSHIP_ENGINE.scoreAssessment(answers, opts);
   if (engineType === "loyalty") return LOYALTY_ENGINE.scoreAssessment(answers, opts);
   return null;
 }
 
 function getQuestionBanks(engineType, opts = {}) {
   if (engineType === "love") return LOVE_ENGINE.resolveQuestionBank(opts);
-  if (engineType === "leadership") {
-    return resolveGovernedEngineSource({
-      engineType,
-      attempt: Number(opts.retakeAttempt || 0),
-      authoredBankId: "AUTHORED_BANK_1",
-      authoredQuestions: LEADERSHIP_AUTHORED_BANK_1,
-      manifestPath: LEADERSHIP_PROMOTION_MANIFEST,
-    });
-  }
+  if (engineType === "leadership") return LEADERSHIP_ENGINE.resolveQuestionBank(opts);
   if (engineType === "loyalty") return LOYALTY_ENGINE.resolveQuestionBank(opts);
   return {};
 }

@@ -15,16 +15,23 @@ function readJsonIfExists(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
 }
 
-function resolveGeneratedBank({ rootDir, manifestPath }) {
+function resolveGeneratedBank({ rootDir, manifestPath, selectBankId = null, requireQuestionCount = null }) {
   const manifest = readJsonIfExists(manifestPath);
   if (!manifest || !Array.isArray(manifest.banks)) return { available: false, reason: "manifest_missing", questions: [] };
-  const approved = manifest.banks
+  const approvedBanks = manifest.banks
     .filter((entry) => entry.review_status === "approved_for_live_candidate")
-    .sort((a, b) => new Date(String(b.generated_at || 0)).getTime() - new Date(String(a.generated_at || 0)).getTime())[0];
+    .sort((a, b) => new Date(String(b.generated_at || 0)).getTime() - new Date(String(a.generated_at || 0)).getTime());
+  const requestedBankId = String(selectBankId || "").trim().toUpperCase();
+  const approved = requestedBankId
+    ? approvedBanks.find((entry) => String(entry?.bank_id || "").trim().toUpperCase() === requestedBankId)
+    : approvedBanks[0];
   if (!approved) return { available: false, reason: "no_approved_bank", questions: [] };
   const generatedFile = path.resolve(rootDir, String(approved?.source_artifact_paths?.generatedFile || ""));
   const questions = readJsonIfExists(generatedFile);
   if (!Array.isArray(questions)) return { available: false, reason: "invalid_generated_file", questions: [] };
+  if (Number.isFinite(Number(requireQuestionCount)) && Number(requireQuestionCount) > 0 && questions.length !== Number(requireQuestionCount)) {
+    return { available: false, reason: "invalid_generated_file", questions: [] };
+  }
   return {
     available: true,
     reason: null,
