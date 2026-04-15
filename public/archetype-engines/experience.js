@@ -890,19 +890,36 @@ function insightOrFallback(value, fallback) {
   return String(value || "").trim() || fallback;
 }
 
-function renderLoyaltySection(title, rows = [], options = {}) {
-  const sectionClass = options.className ? `section ${options.className}` : "section";
+function renderLoyaltyAccordionSection({ id, title, hook, content = "", expanded = false }) {
   return `
-    <section class="${sectionClass}">
-      <h2>${esc(title)}</h2>
-      <div class="insights">
-        ${rows.map((row) => `<div class="kv"><b>${esc(row.label)}</b>${esc(row.value || "-")}</div>`).join("")}
+    <section class="section loyalty-accordion-card ${expanded ? "is-open" : ""}" data-loyalty-accordion-item>
+      <button
+        type="button"
+        class="loyalty-accordion-trigger"
+        id="${esc(id)}-trigger"
+        aria-expanded="${expanded ? "true" : "false"}"
+        aria-controls="${esc(id)}-panel"
+      >
+        <span>
+          <span class="loyalty-accordion-title">${esc(title)}</span>
+          <span class="muted loyalty-accordion-hook">${esc(hook)}</span>
+        </span>
+        <span class="loyalty-accordion-chevron" aria-hidden="true">⌄</span>
+      </button>
+      <div
+        class="loyalty-accordion-panel"
+        id="${esc(id)}-panel"
+        role="region"
+        aria-labelledby="${esc(id)}-trigger"
+        ${expanded ? "" : "hidden"}
+      >
+        ${content}
       </div>
     </section>
   `;
 }
 
-function renderLoyaltyEducationLayer({ topDrivers = [] } = {}) {
+function renderLoyaltyDeepDiveContent({ topDrivers = [] } = {}) {
   const driverBalanceGuides = {
     "Trust Dependence": "Balance tends to look like trusting what is consistent, while still noticing when reality changes.",
     "Satisfaction Attachment": "Balance tends to look like staying because it still works for you now, not only because it worked before.",
@@ -915,8 +932,6 @@ function renderLoyaltyEducationLayer({ topDrivers = [] } = {}) {
     .slice(0, 3);
 
   return `
-    <section class="section loyalty-adaptive-section loyalty-education-layer">
-      <h2>Loyalty Education Layer</h2>
       <p class="muted loyalty-adaptive-intro">One connected guide to help you understand what loyalty is, how it shows up, and how to keep it in balance.</p>
 
       <article class="loyalty-education-block">
@@ -1009,8 +1024,39 @@ function renderLoyaltyEducationLayer({ topDrivers = [] } = {}) {
           ${selectedDrivers.map((driver) => `<div class="kv"><b>What balance can look like for you: ${esc(driver)}</b>${esc(driverBalanceGuides[driver])}</div>`).join("")}
         </div>` : ""}
       </article>
-    </section>
   `;
+}
+
+function wireLoyaltyAccordion(root = document) {
+  const items = Array.from(root.querySelectorAll("[data-loyalty-accordion-item]"));
+  if (!items.length) return;
+  const closeItem = (item) => {
+    const trigger = item.querySelector(".loyalty-accordion-trigger");
+    const panel = item.querySelector(".loyalty-accordion-panel");
+    if (!trigger || !panel) return;
+    trigger.setAttribute("aria-expanded", "false");
+    panel.hidden = true;
+    item.classList.remove("is-open");
+  };
+  const openItem = (item) => {
+    const trigger = item.querySelector(".loyalty-accordion-trigger");
+    const panel = item.querySelector(".loyalty-accordion-panel");
+    if (!trigger || !panel) return;
+    for (const other of items) closeItem(other);
+    trigger.setAttribute("aria-expanded", "true");
+    panel.hidden = false;
+    item.classList.add("is-open");
+  };
+  for (const item of items) {
+    item.querySelector(".loyalty-accordion-trigger")?.addEventListener("click", () => {
+      const isExpanded = item.classList.contains("is-open");
+      if (isExpanded) {
+        closeItem(item);
+        return;
+      }
+      openItem(item);
+    });
+  }
 }
 
 function renderBrowse(app, engine, archetypes, query, options = {}) {
@@ -1169,11 +1215,6 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
   const loyaltyProfile = payload.communication_profile || {};
   const relationshipInterpretation = payload.relationshipInterpretation || {};
   const loveAssessmentCta = payload.loveAssessmentCta || {};
-  const loyaltyEducationLayer = isLoyaltyEngine
-    ? renderLoyaltyEducationLayer({
-      topDrivers: top3.map((item) => codeToName[item.code]).filter(Boolean),
-    })
-    : "";
   const loyaltyHeaderSections = isLoyaltyEngine
     ? `
     <section class="section loyalty-adaptive-section">
@@ -1181,41 +1222,26 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
       <p class="muted loyalty-adaptive-intro">A relationship-first view of the patterns and conditions that tend to shape your loyalty.</p>
       <div class="insights loyalty-adaptive-grid">
         <div class="kv"><b>Your Default Pattern</b>${esc(loyaltyProfile.plain_language_summary || "-")}</div>
-        <div class="kv"><b>What Builds Trust With You</b>${esc(loyaltyProfile.best_way_to_talk_to_them || "-")}</div>
         <div class="kv"><b>What Makes You Stay</b>${esc(loyaltyProfile.what_keeps_them_engaged || "-")}</div>
         <div class="kv"><b>What Makes You Pull Away</b>${esc(loyaltyProfile.what_pushes_them_away || "-")}</div>
       </div>
     </section>
-    <section class="section loyalty-adaptive-section">
-      <h2>${esc(relationshipInterpretation.sectionTitle || "How This Shows Up In Your Relationships")}</h2>
-      <div class="insights loyalty-adaptive-grid">
-        <div class="kv"><b>Relationship Summary</b>${esc(relationshipInterpretation.relationshipSummary || "-")}</div>
-        <div class="kv"><b>Romantic / Partner Pattern</b>${esc(relationshipInterpretation.romanticPartnerPattern || "-")}</div>
-        <div class="kv"><b>Friendship Pattern</b>${esc(relationshipInterpretation.friendshipPattern || "-")}</div>
-        <div class="kv"><b>Family Pattern</b>${esc(relationshipInterpretation.familyPattern || "-")}</div>
-      </div>
-    </section>
-    ${renderLoyaltySection("Why You Stay Engaged", [
-      { label: "Retention hook", value: loyaltyProfile.retention_hook || payload.retentionInsight },
-      { label: "Retention insight", value: payload.retentionInsight },
-      { label: "Loyalty state", value: payload.loyaltyState || payload.balanceStates?.overall },
-    ], { className: "loyalty-adaptive-section" })}
-    ${renderLoyaltySection("What Makes You Pull Away", [
-      { label: "Churn trigger", value: loyaltyProfile.churn_trigger || payload.churnRiskInsight },
-      { label: "Churn risk insight", value: payload.churnRiskInsight },
-      { label: "Churn trigger profile", value: payload.churnTriggerProfile },
-    ], { className: "loyalty-adaptive-section" })}
     `
     : "";
   const loyaltySystemSection = isLoyaltyEngine
     ? `
-    <section class="section loyalty-adaptive-section">
-      <h2>Your Loyalty System</h2>
-      <p class="muted loyalty-adaptive-intro">A clear map of how your loyalty works, where it strains, and what helps it stay strong.</p>
-      <h3>Core Pattern</h3>
+    <section class="loyalty-accordion-stack">
+      ${renderLoyaltyAccordionSection({
+    id: "loyalty-pattern",
+    title: "Your Loyalty Pattern",
+    hook: "There’s a pattern behind why you stay, even when things change.",
+    expanded: false,
+    content: `
       <div class="insights loyalty-adaptive-grid">
-        <div class="kv"><b>Dominant + secondary drivers</b>${esc(payload.loyaltyPattern || "-")}</div>
-        <div class="kv"><b>Top 3 archetypes</b>${esc(top3.map((item) => displayName(engine, codeIndex[item.code] || {}, item.code)).join(" • ") || "-")}</div>
+        <div class="kv"><b>Loyalty Pattern</b>${esc(payload.loyaltyPattern || "-")}</div>
+        <div class="kv"><b>Loyalty State</b>${esc(payload.loyaltyState || payload.balanceStates?.overall || "-")}</div>
+        <div class="kv"><b>Balance insight</b>${esc(insightOrFallback(payload.balanceInsight, strongestGap(payload.desiredCurrentGap || payload.desiredVsCurrent, codeToName)))}</div>
+        <div class="kv"><b>Behavior under stress</b>${esc(insightOrFallback(payload.stressInsight, summarizeStress(payload.stressProfile, codeToName)))}</div>
       </div>
       ${scores.map((item) => `
         <div class="chart-row">
@@ -1224,36 +1250,58 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
         </div>`).join("")}
       <div class="top3">
       ${top3.map((item) => {
-        const a = codeIndex[item.code] || {};
-        const bal = payload.balanceStates?.dimensions?.[item.code] || payload.balanceState || payload.balanceStates?.overall || "balanced";
-        return `<div class="card">
+      const a = codeIndex[item.code] || {};
+      const bal = payload.balanceStates?.dimensions?.[item.code] || payload.balanceState || payload.balanceStates?.overall || "balanced";
+      return `<div class="card">
           <h3>${esc(displayName(engine, a, item.code))}</h3>
           <div>${item.score.toFixed(1)}%</div>
           <p class="muted">${esc(a.shortDescription || a.tagline || a.description || "Descriptor pending")}</p>
           <div class="muted"><b>REAL-WORLD TRANSLATION:</b> ${esc(payload.loyaltyArchetypeTranslations?.[item.code] || "-")}</div>
           <div class="chip">${esc(bal)}</div>
         </div>`;
-      }).join("")}
+    }).join("")}
       </div>
-      <h3>Current State</h3>
+    `,
+  })}
+      ${renderLoyaltyAccordionSection({
+    id: "loyalty-stay-leave",
+    title: "Why You Stay vs Leave",
+    hook: "You don’t stay randomly — certain triggers pull you in or push you away.",
+    content: `
       <div class="insights loyalty-adaptive-grid">
-        <div class="kv"><b>Current expression</b>${esc(payload.loyaltyState || payload.balanceStates?.overall || "-")}</div>
-        <div class="kv"><b>Balance insight</b>${esc(insightOrFallback(payload.balanceInsight, strongestGap(payload.desiredCurrentGap || payload.desiredVsCurrent, codeToName)))}</div>
-        <div class="kv"><b>Behavior under stress</b>${esc(insightOrFallback(payload.stressInsight, summarizeStress(payload.stressProfile, codeToName)))}</div>
+        <div class="kv"><b>Why You Stay Engaged</b>${esc(payload.retentionInsight || loyaltyProfile.retention_hook || "-")}</div>
+        <div class="kv"><b>What Makes You Pull Away</b>${esc(payload.churnRiskInsight || loyaltyProfile.churn_trigger || "-")}</div>
+        <div class="kv"><b>Loyalty Loop (plain language)</b>${esc(payload.loyaltyLoop?.plain_language_translation || "-")}</div>
+        <div class="kv"><b>Break point</b>${esc(payload.loyaltyLoop?.break_point || "-")}</div>
       </div>
-      <h3>Your Stay vs Leave Pattern</h3>
-      <div class="insights loyalty-adaptive-grid">
-        <div class="kv"><b>Why you stay</b>${esc(payload.retentionInsight || loyaltyProfile.retention_hook || "-")}</div>
-        <div class="kv"><b>What pushes you away</b>${esc(payload.churnRiskInsight || loyaltyProfile.churn_trigger || "-")}</div>
-        <div class="kv"><b>Breaking point behavior</b>${esc(payload.loyaltyLoop?.break_point || "-")}</div>
-        <div class="kv"><b>Pattern loop</b>${esc(payload.loyaltyLoop?.plain_language_translation || "-")}</div>
-      </div>
-      <h3>Growth / Adjustment</h3>
       <div class="insights loyalty-adaptive-grid">
         <div class="kv"><b>What is missing</b>${esc(payload.retentionGap || "-")}</div>
         <div class="kv"><b>Where misalignment exists</b>${esc(payload.perceivedVsActualLoyalty || payload.identityGapInsight || "-")}</div>
         <div class="kv"><b>Direction for adjustment</b>${esc((payload.loyaltyStrengtheningPlan || []).join(" • ") || "-")}</div>
       </div>
+    `,
+  })}
+      ${renderLoyaltyAccordionSection({
+    id: "loyalty-relationships",
+    title: "Your Loyalty in Relationships",
+    hook: "The same patterns show up in your relationships — not just what you commit to, but how you commit.",
+    content: `
+      <div class="insights loyalty-adaptive-grid">
+        <div class="kv"><b>Relationship Summary</b>${esc(relationshipInterpretation.relationshipSummary || "-")}</div>
+        <div class="kv"><b>Romantic pattern</b>${esc(relationshipInterpretation.romanticPartnerPattern || "-")}</div>
+        <div class="kv"><b>Friendship pattern</b>${esc(relationshipInterpretation.friendshipPattern || "-")}</div>
+        <div class="kv"><b>Family pattern</b>${esc(relationshipInterpretation.familyPattern || "-")}</div>
+      </div>
+    `,
+  })}
+      ${renderLoyaltyAccordionSection({
+    id: "loyalty-deep-dive",
+    title: "What Loyalty Really Is",
+    hook: "Loyalty isn’t just staying — sometimes it’s what keeps you stuck.",
+    content: renderLoyaltyDeepDiveContent({
+      topDrivers: top3.map((item) => codeToName[item.code]).filter(Boolean),
+    }),
+  })}
     </section>
     `
     : "";
@@ -1273,8 +1321,6 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     </section>
 
     ${loyaltyHeaderSections}
-
-    ${loyaltyEducationLayer}
 
     ${isLoveEngine ? `
     <section class="section">
@@ -1428,6 +1474,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
       <a class="crumb" href="${routeTo(engine, "browse", query)}">Browse all ${titleCase(engine)} archetypes →</a>
     </section>`;
   if (engine === "love") wireLoveVariantToggle(options.onLoveVariantChange || (() => {}));
+  if (engine === "loyalty") wireLoyaltyAccordion(app);
 }
 
 function renderLoveResultStory(app, engine, archetypes, resultId, payload, query) {

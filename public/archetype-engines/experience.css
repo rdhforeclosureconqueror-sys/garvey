@@ -96,6 +96,67 @@ body {
 .kv b { display: block; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
 .loyalty-adaptive-section h2 { margin-bottom: 8px; }
 .loyalty-adaptive-intro { margin: 0 0 12px; }
+.loyalty-accordion-stack {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.loyalty-accordion-card {
+  margin-bottom: 0;
+  transition: border-color .2s ease, background-color .2s ease;
+}
+.loyalty-accordion-card.is-open {
+  border-color: color-mix(in oklab, var(--accent-2), var(--border) 45%);
+  background: color-mix(in oklab, var(--panel-soft), transparent 8%);
+}
+.loyalty-accordion-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+.loyalty-accordion-title {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.loyalty-accordion-hook {
+  display: block;
+  line-height: 1.45;
+}
+.loyalty-accordion-chevron {
+  font-size: 1.2rem;
+  color: #d7ffef;
+  transition: transform .25s ease;
+}
+.loyalty-accordion-card.is-open .loyalty-accordion-chevron {
+  transform: rotate(180deg);
+}
+.loyalty-accordion-panel {
+  display: grid;
+  gap: 12px;
+  overflow: hidden;
+  margin-top: 0;
+  padding-top: 0;
+  opacity: 0;
+  max-height: 0;
+  transition: max-height .3s ease, opacity .24s ease, margin-top .2s ease, padding-top .2s ease;
+}
+.loyalty-accordion-card.is-open .loyalty-accordion-panel {
+  opacity: 1;
+  max-height: 4000px;
+  margin-top: 14px;
+  padding-top: 4px;
+}
 .loyalty-adaptive-grid .kv {
   padding: 10px 12px;
   border-radius: 12px;
@@ -340,6 +401,9 @@ body {
   .loyalty-adaptive-grid {
     grid-template-columns: 1fr;
     gap: 12px;
+  }
+  .loyalty-accordion-title {
+    font-size: 1rem;
   }
   .loyalty-adaptive-section h2 {
     font-size: 1.15rem;
