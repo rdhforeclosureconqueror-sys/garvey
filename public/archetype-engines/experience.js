@@ -928,6 +928,16 @@ function renderBrowse(app, engine, archetypes, query, options = {}) {
 function renderDetail(app, engine, archetype, query, options = {}) {
   const backHref = query.get("back") || routeTo(engine, "browse", query);
   const selectedVariant = options.loveImageVariant || LOVE_IMAGE_VARIANTS[0];
+  const loyaltyPattern = engine === "loyalty" ? buildLoyaltyPatternInAction(archetype) : null;
+  const listBlock = (items = []) => {
+    const safeItems = (items || []).filter(Boolean).slice(0, 4);
+    if (!safeItems.length) return "-";
+    return `<ul>${safeItems.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>`;
+  };
+  const balanceSignalsBlock = loyaltyPattern
+    ? `<div><b>In Balance</b>${listBlock(loyaltyPattern.balanceSignals.inBalance)}</div>
+       <div><b>Out of Balance</b>${listBlock(loyaltyPattern.balanceSignals.outOfBalance)}</div>`
+    : (archetype.balanceSignals || []).map(esc).join(", ") || "-";
   app.innerHTML = `
     <section class="section">
       <a class="crumb" href="${backHref}">← Back</a>
@@ -939,18 +949,77 @@ function renderDetail(app, engine, archetype, query, options = {}) {
       <p>${esc(archetype.description || "")}</p>
     </section>
     <section class="section insights">
-      <div class="kv"><b>Core Energy</b>${esc(archetype.coreEnergy || "-")}</div>
-      <div class="kv"><b>When Strong</b>${esc(archetype.whenStrong || "-")}</div>
-      <div class="kv"><b>Out of Balance High</b>${esc(archetype.outOfBalanceHigh || "-")}</div>
-      <div class="kv"><b>Out of Balance Low</b>${esc(archetype.outOfBalanceLow || "-")}</div>
-      <div class="kv"><b>Core Strengths</b>${(archetype.coreStrengths || []).map(esc).join(", ") || "-"}</div>
-      <div class="kv"><b>Blind Spots</b>${(archetype.blindSpots || []).map(esc).join(", ") || "-"}</div>
-      <div class="kv"><b>Needs to Stay Balanced</b>${(archetype.needsToStayBalanced || []).map(esc).join(", ") || "-"}</div>
-      <div class="kv"><b>Daily Build-Ups</b>${(archetype.dailyBuildUps || []).map(esc).join(", ") || "-"}</div>
-      <div class="kv"><b>Weekly Build-Ups</b>${(archetype.weeklyBuildUps || []).map(esc).join(", ") || "-"}</div>
-      <div class="kv"><b>Balance Signals</b>${(archetype.balanceSignals || []).map(esc).join(", ") || "-"}</div>
+      ${loyaltyPattern?.title ? `<h2>${esc(loyaltyPattern.title)}</h2>` : ""}
+      <div class="kv"><b>Core Energy</b>${esc(loyaltyPattern?.coreEnergy || archetype.coreEnergy || "-")}</div>
+      <div class="kv"><b>When Strong</b>${esc(loyaltyPattern?.whenStrong || archetype.whenStrong || "-")}</div>
+      <div class="kv"><b>Out of Balance (High)</b>${esc(loyaltyPattern?.outOfBalanceHigh || archetype.outOfBalanceHigh || "-")}</div>
+      <div class="kv"><b>Out of Balance (Low)</b>${esc(loyaltyPattern?.outOfBalanceLow || archetype.outOfBalanceLow || "-")}</div>
+      <div class="kv"><b>Core Strengths</b>${listBlock(loyaltyPattern?.coreStrengths || archetype.coreStrengths)}</div>
+      <div class="kv"><b>Blind Spots</b>${listBlock(loyaltyPattern?.blindSpots || archetype.blindSpots)}</div>
+      <div class="kv"><b>Needs to Stay Balanced</b>${listBlock(loyaltyPattern?.needsToStayBalanced || archetype.needsToStayBalanced)}</div>
+      <div class="kv"><b>Daily Build-Ups</b>${listBlock(loyaltyPattern?.dailyBuildUps || archetype.dailyBuildUps)}</div>
+      <div class="kv"><b>Weekly Build-Ups</b>${listBlock(loyaltyPattern?.weeklyBuildUps || archetype.weeklyBuildUps)}</div>
+      <div class="kv"><b>Balance Signals</b>${balanceSignalsBlock}</div>
+      ${loyaltyPattern?.cta ? `<div class="kv"><b>Next Step</b>${esc(loyaltyPattern.cta)}</div>` : ""}
     </section>`;
   if (engine === "love") wireLoveVariantToggle(options.onLoveVariantChange || (() => {}));
+}
+
+function buildLoyaltyPatternInAction(archetype = {}) {
+  const code = String(archetype.code || "").toUpperCase();
+  const coreEnergyMap = {
+    TD: "You value trust, consistency, and emotional safety. You tend to stay close when someone's words and actions keep matching over time.",
+    SA: "You value steadiness and follow-through. You tend to stay when the relationship keeps feeling supportive, reliable, and good for you.",
+    ECM: "You value emotional closeness and a sense of belonging. You tend to stay when the connection feels meaningful and heartfelt.",
+    CH: "You value ease, rhythm, and day-to-day flow. You tend to stay with relationship patterns that feel simple, familiar, and low stress.",
+    SF: "You value stability and not disrupting your life unnecessarily. You tend to stay with what is familiar unless there is a clear reason to change.",
+  };
+  const whenStrongMap = {
+    TD: "When this pattern is working well, you show up as dependable and grounded. People experience you as someone who builds trust through consistency.",
+    SA: "When this pattern is working well, you create emotional steadiness. People feel safe because your care shows up in repeatable ways.",
+    ECM: "When this pattern is working well, you create warmth and loyalty. People feel deeply seen, valued, and connected with you.",
+    CH: "When this pattern is working well, you bring calm and ease into relationships. People experience you as consistent without feeling pressured.",
+    SF: "When this pattern is working well, you stay committed through normal ups and downs. People experience you as patient and long-term minded.",
+  };
+  const highMap = {
+    TD: "When this becomes too strong, you may over-rely on old trust even when your current needs are no longer being met.",
+    SA: "When this becomes too strong, you may keep repeating the same relationship pattern even when you feel less fulfilled.",
+    ECM: "When this becomes too strong, you may hold on tightly out of emotional attachment, even when boundaries need to change.",
+    CH: "When this becomes too strong, you may stay on autopilot and avoid needed conversations because change feels disruptive.",
+    SF: "When this becomes too strong, you may stay in situations longer than you should because leaving feels overwhelming or difficult.",
+  };
+  const lowMap = {
+    TD: "When this is underactive, you may feel unsure of where you stand and become quicker to pull back or doubt the relationship.",
+    SA: "When this is underactive, you may feel less grounded and more restless, even in relationships that could work with care.",
+    ECM: "When this is underactive, you may disconnect emotionally and the relationship can start to feel distant or transactional.",
+    CH: "When this is underactive, you may feel unsettled and jump between options without building a stable rhythm.",
+    SF: "When this is underactive, you may leave quickly when discomfort appears, without pausing to check what is still workable.",
+  };
+  const defaults = {
+    coreStrengths: ["You bring steadiness into relationships", "You can commit over time when something feels right", "You notice patterns before making big shifts"],
+    blindSpots: ["You may stay too long in familiar dynamics", "You can confuse stability with deeper alignment", "You may delay difficult but necessary changes"],
+    needsToStayBalanced: ["Regular emotional check-ins with yourself", "Clarity on whether the relationship still aligns", "Space to reassess without guilt"],
+    dailyBuildUps: ["Notice where habit is leading your choices", "Name one feeling instead of pushing through it", "Address small concerns before they build"],
+    weeklyBuildUps: ["Ask if your staying is intentional", "Reflect on what still feels aligned", "Make one small adjustment when needed"],
+    balanceSignals: {
+      inBalance: ["You feel steady and emotionally clear", "Staying feels intentional, not forced"],
+      outOfBalance: ["You feel stuck, numb, or quietly resentful", "You avoid choices that need honest attention"],
+    },
+  };
+  return {
+    title: "Your Pattern in Action",
+    coreEnergy: coreEnergyMap[code] || `You value ${String(archetype.coreEnergy || "consistency").toLowerCase()}. You tend to stay where the relationship feels reliable and emotionally workable.`,
+    whenStrong: whenStrongMap[code] || "When this pattern is working well, you show up as steady and thoughtful. People experience your presence as reliable and grounding.",
+    outOfBalanceHigh: highMap[code] || "When this becomes too strong, you may overstay in familiar dynamics and miss signs that something needs to shift.",
+    outOfBalanceLow: lowMap[code] || "When this is underactive, you may feel less anchored in relationships and more pulled by uncertainty.",
+    coreStrengths: defaults.coreStrengths,
+    blindSpots: defaults.blindSpots,
+    needsToStayBalanced: defaults.needsToStayBalanced,
+    dailyBuildUps: defaults.dailyBuildUps,
+    weeklyBuildUps: defaults.weeklyBuildUps,
+    balanceSignals: defaults.balanceSignals,
+    cta: "This explains how you tend to stay. The Love Assessment shows how you connect.",
+  };
 }
 
 function renderResult(app, engine, archetypes, resultId, payload, query, options = {}) {
