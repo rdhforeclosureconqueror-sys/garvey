@@ -1,5 +1,7 @@
 # Garvey Final System Validation Report (Phases 1–11)
 
+> **Status note (2026-04-15):** This report is historical. For current verification truth on Love/Loyalty/Leadership and current pass/fail reality, use `docs/VERIFICATION_TRUTH_REFRESH_2026-04-15.md`.
+
 ## Executive Summary
 Garvey is a multi-tenant SaaS behavior + intelligence platform for business operators. It captures customer behavior, rewards engagement, performs business-intelligence intake scoring, generates tenant-specific configuration, and surfaces actionable analytics in a tenant-safe way.
 
