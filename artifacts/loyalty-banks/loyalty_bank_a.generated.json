@@ -1,0 +1,1177 @@
+[
+  {
+    "question_id": "LOY_G_Q01",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 1,
+    "engine": "loyalty",
+    "question_class": "ID",
+    "question_subclass": "trust_anchor",
+    "prompt": "When I stay loyal to a brand, it is usually because: when expectations are clear.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "When it matters, I trust it deeply.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "SA",
+        "weight_type": "identity",
+        "signal_type": "trust_primary"
+      },
+      {
+        "option_id": "B",
+        "text": "When it matters, it consistently satisfies me.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "identity",
+        "signal_type": "satisfaction_primary"
+      },
+      {
+        "option_id": "C",
+        "text": "Most often, I feel connected to it.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "identity",
+        "signal_type": "emotional_primary"
+      },
+      {
+        "option_id": "D",
+        "text": "In practice, it fits easily into my routine.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SF",
+        "weight_type": "identity",
+        "signal_type": "habit_primary"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q02",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 2,
+    "engine": "loyalty",
+    "question_class": "BH",
+    "question_subclass": "retention_trigger",
+    "prompt": "If a competitor appears, I am most likely to stay when: when the relationship is tested.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Most often, I trust my current brand more.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "SA",
+        "weight_type": "standard",
+        "signal_type": "trust_retention"
+      },
+      {
+        "option_id": "B",
+        "text": "In practice, I’m still satisfied with the experience.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "standard",
+        "signal_type": "satisfaction_retention"
+      },
+      {
+        "option_id": "C",
+        "text": "In practice, I feel emotionally attached to the brand.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "standard",
+        "signal_type": "emotional_retention"
+      },
+      {
+        "option_id": "D",
+        "text": "Usually, switching would disrupt my habits.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SF",
+        "weight_type": "standard",
+        "signal_type": "habit_lock"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q03",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 3,
+    "engine": "loyalty",
+    "question_class": "BH",
+    "question_subclass": "value_driver",
+    "prompt": "A brand earns my repeat business mainly through: when the relationship is tested.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Most often, reliability.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "SA",
+        "weight_type": "standard",
+        "signal_type": "reliability"
+      },
+      {
+        "option_id": "B",
+        "text": "Most often, consistently good experiences.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "CH",
+        "weight_type": "standard",
+        "signal_type": "experience_quality"
+      },
+      {
+        "option_id": "C",
+        "text": "When it matters, making me feel like I belong.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "standard",
+        "signal_type": "belonging"
+      },
+      {
+        "option_id": "D",
+        "text": "Most often, being easy and familiar.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SA",
+        "weight_type": "standard",
+        "signal_type": "ease_familiarity"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q04",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 4,
+    "engine": "loyalty",
+    "question_class": "ID",
+    "question_subclass": "loyalty_definition",
+    "prompt": "To me, loyalty means: when things are mostly steady.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Most often, believing a brand will do right by me.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "ECM",
+        "weight_type": "identity",
+        "signal_type": "trust_definition"
+      },
+      {
+        "option_id": "B",
+        "text": "In practice, returning because the experience stays strong.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "identity",
+        "signal_type": "satisfaction_definition"
+      },
+      {
+        "option_id": "C",
+        "text": "In practice, feeling emotionally committed.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "identity",
+        "signal_type": "commitment_definition"
+      },
+      {
+        "option_id": "D",
+        "text": "Usually, continuing because leaving is inconvenient.",
+        "primary_archetype": "SF",
+        "secondary_archetype": "CH",
+        "weight_type": "identity",
+        "signal_type": "friction_definition"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q05",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 5,
+    "engine": "loyalty",
+    "question_class": "BH",
+    "question_subclass": "advocacy_trigger",
+    "prompt": "I am most likely to recommend a brand when: when expectations are clear.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Usually, I trust it without hesitation.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "ECM",
+        "weight_type": "standard",
+        "signal_type": "trust_advocacy"
+      },
+      {
+        "option_id": "B",
+        "text": "Usually, it consistently delivers satisfaction.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "standard",
+        "signal_type": "satisfaction_advocacy"
+      },
+      {
+        "option_id": "C",
+        "text": "When it matters, I feel proud to be associated with it.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "standard",
+        "signal_type": "identity_advocacy"
+      },
+      {
+        "option_id": "D",
+        "text": "In practice, it has become my default choice.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SA",
+        "weight_type": "standard",
+        "signal_type": "default_advocacy"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q06",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 6,
+    "engine": "loyalty",
+    "question_class": "ID",
+    "question_subclass": "sustaining_force",
+    "prompt": "What matters most to sustaining loyalty: when the relationship is tested.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Most often, trustworthiness.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "ECM",
+        "weight_type": "identity",
+        "signal_type": "trust_sustain"
+      },
+      {
+        "option_id": "B",
+        "text": "Most often, satisfying performance.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "identity",
+        "signal_type": "satisfaction_sustain"
+      },
+      {
+        "option_id": "C",
+        "text": "When it matters, emotional bond.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "identity",
+        "signal_type": "bond_sustain"
+      },
+      {
+        "option_id": "D",
+        "text": "When it matters, ease and convenience.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SF",
+        "weight_type": "identity",
+        "signal_type": "ease_sustain"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q07",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 7,
+    "engine": "loyalty",
+    "question_class": "BH",
+    "question_subclass": "loyalty_signal",
+    "prompt": "I usually notice my loyalty when I: when the relationship is tested.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Most often, defend the brand after a minor mistake.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "ECM",
+        "weight_type": "standard",
+        "signal_type": "defend_brand"
+      },
+      {
+        "option_id": "B",
+        "text": "In practice, keep coming back because it works.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "CH",
+        "weight_type": "standard",
+        "signal_type": "repeat_use"
+      },
+      {
+        "option_id": "C",
+        "text": "Usually, talk about it with real enthusiasm.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "standard",
+        "signal_type": "enthusiastic_attachment"
+      },
+      {
+        "option_id": "D",
+        "text": "Usually, use it without thinking much.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SA",
+        "weight_type": "standard",
+        "signal_type": "automatic_use"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q08",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 8,
+    "engine": "loyalty",
+    "question_class": "SC",
+    "question_subclass": "repair_response",
+    "prompt": "A brand makes a small mistake but apologizes quickly. You: when expectations are clear.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Usually, stay if trust feels intact.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "ECM",
+        "weight_type": "scenario",
+        "signal_type": "trust_repair"
+      },
+      {
+        "option_id": "B",
+        "text": "In practice, stay if satisfaction remains high overall.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "scenario",
+        "signal_type": "satisfaction_repair"
+      },
+      {
+        "option_id": "C",
+        "text": "In practice, stay if the relationship still feels meaningful.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "scenario",
+        "signal_type": "relationship_repair"
+      },
+      {
+        "option_id": "D",
+        "text": "Most often, stay if changing still feels like too much effort.",
+        "primary_archetype": "SF",
+        "secondary_archetype": "CH",
+        "weight_type": "scenario",
+        "signal_type": "friction_repair"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q09",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 9,
+    "engine": "loyalty",
+    "question_class": "ID",
+    "question_subclass": "program_meaning",
+    "prompt": "I value loyalty programs most when they: when expectations are clear.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "In practice, reinforce trust and fairness.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "SA",
+        "weight_type": "identity",
+        "signal_type": "program_trust"
+      },
+      {
+        "option_id": "B",
+        "text": "Usually, improve the overall experience.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "CH",
+        "weight_type": "identity",
+        "signal_type": "program_experience"
+      },
+      {
+        "option_id": "C",
+        "text": "Most often, make me feel recognized.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "identity",
+        "signal_type": "program_recognition"
+      },
+      {
+        "option_id": "D",
+        "text": "Most often, make staying the easiest option.",
+        "primary_archetype": "SF",
+        "secondary_archetype": "CH",
+        "weight_type": "identity",
+        "signal_type": "program_lockin"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q10",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 10,
+    "engine": "loyalty",
+    "question_class": "BH",
+    "question_subclass": "repeat_purchase",
+    "prompt": "I’m most likely to become a repeat customer when: in a real everyday moment.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Most often, I believe the brand is dependable.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "SA",
+        "weight_type": "standard",
+        "signal_type": "dependability_repeat"
+      },
+      {
+        "option_id": "B",
+        "text": "When it matters, the service/product satisfies me consistently.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "standard",
+        "signal_type": "satisfaction_repeat"
+      },
+      {
+        "option_id": "C",
+        "text": "When it matters, I feel some identity connection.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "standard",
+        "signal_type": "identity_repeat"
+      },
+      {
+        "option_id": "D",
+        "text": "Most often, using it becomes second nature.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SF",
+        "weight_type": "standard",
+        "signal_type": "habit_repeat"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q11",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 11,
+    "engine": "loyalty",
+    "question_class": "ID",
+    "question_subclass": "loyalty_base",
+    "prompt": "Loyalty is strongest when it is based on: when things are mostly steady.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Usually, trust.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "ECM",
+        "weight_type": "identity",
+        "signal_type": "loyalty_trust_base"
+      },
+      {
+        "option_id": "B",
+        "text": "When it matters, satisfaction.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "identity",
+        "signal_type": "loyalty_satisfaction_base"
+      },
+      {
+        "option_id": "C",
+        "text": "Most often, commitment.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "identity",
+        "signal_type": "loyalty_commitment_base"
+      },
+      {
+        "option_id": "D",
+        "text": "In practice, habit.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SA",
+        "weight_type": "identity",
+        "signal_type": "loyalty_habit_base"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q12",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 12,
+    "engine": "loyalty",
+    "question_class": "BH",
+    "question_subclass": "loyalty_breaker",
+    "prompt": "A brand loses my loyalty fastest when it: in a real everyday moment.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "In practice, breaks trust.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "ECM",
+        "weight_type": "standard",
+        "signal_type": "trust_break"
+      },
+      {
+        "option_id": "B",
+        "text": "Most often, stops delivering value.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "standard",
+        "signal_type": "value_break"
+      },
+      {
+        "option_id": "C",
+        "text": "In practice, makes me feel less connected.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "standard",
+        "signal_type": "connection_break"
+      },
+      {
+        "option_id": "D",
+        "text": "In practice, becomes harder to use.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SF",
+        "weight_type": "standard",
+        "signal_type": "ease_break"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q13",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 13,
+    "engine": "loyalty",
+    "question_class": "SC",
+    "question_subclass": "competitive_price_response",
+    "prompt": "A rival brand offers a slightly lower price. You stay because: in a real everyday moment.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "When it matters, my current brand feels safer to trust.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "SA",
+        "weight_type": "scenario",
+        "signal_type": "competitive_trust"
+      },
+      {
+        "option_id": "B",
+        "text": "When it matters, my experience is still better where I am.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "scenario",
+        "signal_type": "competitive_satisfaction"
+      },
+      {
+        "option_id": "C",
+        "text": "When it matters, I feel more committed to what I know.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "scenario",
+        "signal_type": "competitive_commitment"
+      },
+      {
+        "option_id": "D",
+        "text": "Usually, switching doesn’t feel worth the effort.",
+        "primary_archetype": "SF",
+        "secondary_archetype": "CH",
+        "weight_type": "scenario",
+        "signal_type": "competitive_friction"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q14",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 14,
+    "engine": "loyalty",
+    "question_class": "BH",
+    "question_subclass": "main_influence",
+    "prompt": "My loyalty tends to be most influenced by: in a real everyday moment.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "In practice, credibility.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "SA",
+        "weight_type": "standard",
+        "signal_type": "credibility_influence"
+      },
+      {
+        "option_id": "B",
+        "text": "Most often, experience quality.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "standard",
+        "signal_type": "experience_influence"
+      },
+      {
+        "option_id": "C",
+        "text": "In practice, emotional meaning.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "standard",
+        "signal_type": "meaning_influence"
+      },
+      {
+        "option_id": "D",
+        "text": "When it matters, convenience.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SF",
+        "weight_type": "standard",
+        "signal_type": "convenience_influence"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q15",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 15,
+    "engine": "loyalty",
+    "question_class": "ID",
+    "question_subclass": "trustworthy_brand_model",
+    "prompt": "The most trustworthy brands are usually the ones that: in a real everyday moment.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Usually, act consistently over time.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "SA",
+        "weight_type": "identity",
+        "signal_type": "consistency_trust"
+      },
+      {
+        "option_id": "B",
+        "text": "Usually, repeatedly satisfy expectations.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "identity",
+        "signal_type": "expectation_trust"
+      },
+      {
+        "option_id": "C",
+        "text": "Most often, build real connection with customers.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "identity",
+        "signal_type": "connection_trust"
+      },
+      {
+        "option_id": "D",
+        "text": "Usually, reduce effort and friction.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SF",
+        "weight_type": "identity",
+        "signal_type": "ease_trust"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q16",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 16,
+    "engine": "loyalty",
+    "question_class": "ST",
+    "question_subclass": "disappointment_filter",
+    "prompt": "When a brand disappoints me, I first ask: when expectations are clear.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "In practice, can I still trust them?.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "ECM",
+        "weight_type": "stress",
+        "signal_type": "disappointment_trust"
+      },
+      {
+        "option_id": "B",
+        "text": "Most often, is the experience still worth it?.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "stress",
+        "signal_type": "disappointment_value"
+      },
+      {
+        "option_id": "C",
+        "text": "Most often, does this change how I feel about them?.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "stress",
+        "signal_type": "disappointment_feeling"
+      },
+      {
+        "option_id": "D",
+        "text": "In practice, is leaving worth the disruption?.",
+        "primary_archetype": "SF",
+        "secondary_archetype": "CH",
+        "weight_type": "stress",
+        "signal_type": "disappointment_disruption"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q17",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 17,
+    "engine": "loyalty",
+    "question_class": "ST",
+    "question_subclass": "loyalty_test",
+    "prompt": "My loyalty is most tested when: when expectations are clear.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "In practice, promises feel broken.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "ECM",
+        "weight_type": "stress",
+        "signal_type": "test_broken_promises"
+      },
+      {
+        "option_id": "B",
+        "text": "In practice, satisfaction drops repeatedly.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "stress",
+        "signal_type": "test_satisfaction_drop"
+      },
+      {
+        "option_id": "C",
+        "text": "In practice, the connection feels hollow.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "stress",
+        "signal_type": "test_hollow_connection"
+      },
+      {
+        "option_id": "D",
+        "text": "Most often, switching becomes easier than staying.",
+        "primary_archetype": "SF",
+        "secondary_archetype": "CH",
+        "weight_type": "stress",
+        "signal_type": "test_easy_switching"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q18",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 18,
+    "engine": "loyalty",
+    "question_class": "ST",
+    "question_subclass": "price_increase_response",
+    "prompt": "If a brand raises prices, I stay when: when things are mostly steady.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "In practice, I trust the reason and fairness.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "SA",
+        "weight_type": "stress",
+        "signal_type": "price_trust"
+      },
+      {
+        "option_id": "B",
+        "text": "When it matters, the value still feels worth it.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "stress",
+        "signal_type": "price_value"
+      },
+      {
+        "option_id": "C",
+        "text": "When it matters, my attachment still feels strong.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "stress",
+        "signal_type": "price_attachment"
+      },
+      {
+        "option_id": "D",
+        "text": "Usually, changing still feels costly or annoying.",
+        "primary_archetype": "SF",
+        "secondary_archetype": "CH",
+        "weight_type": "stress",
+        "signal_type": "price_friction"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q19",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 19,
+    "engine": "loyalty",
+    "question_class": "ST",
+    "question_subclass": "service_failure_evaluation",
+    "prompt": "When service fails, I usually: when the relationship is tested.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Usually, evaluate whether trust was damaged.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "ECM",
+        "weight_type": "stress",
+        "signal_type": "failure_trust_damage"
+      },
+      {
+        "option_id": "B",
+        "text": "Usually, evaluate whether the satisfaction history outweighs it.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "stress",
+        "signal_type": "failure_history_value"
+      },
+      {
+        "option_id": "C",
+        "text": "Most often, evaluate whether the relationship still feels meaningful.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "stress",
+        "signal_type": "failure_relationship_meaning"
+      },
+      {
+        "option_id": "D",
+        "text": "In practice, evaluate whether switching is worth the hassle.",
+        "primary_archetype": "SF",
+        "secondary_archetype": "CH",
+        "weight_type": "stress",
+        "signal_type": "failure_switch_hassle"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q20",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 20,
+    "engine": "loyalty",
+    "question_class": "ST",
+    "question_subclass": "bond_breaker",
+    "prompt": "A loyalty bond breaks fastest for me through: when things are mostly steady.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "In practice, dishonesty.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "ECM",
+        "weight_type": "stress",
+        "signal_type": "bond_break_dishonesty"
+      },
+      {
+        "option_id": "B",
+        "text": "When it matters, repeated disappointment.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "stress",
+        "signal_type": "bond_break_disappointment"
+      },
+      {
+        "option_id": "C",
+        "text": "Usually, emotional disillusionment.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "stress",
+        "signal_type": "bond_break_disillusionment"
+      },
+      {
+        "option_id": "D",
+        "text": "Usually, a sudden better default alternative.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SF",
+        "weight_type": "stress",
+        "signal_type": "bond_break_better_default"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q21",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 21,
+    "engine": "loyalty",
+    "question_class": "DS",
+    "question_subclass": "desired_loyalty_basis",
+    "prompt": "I want my loyalty to be based more on: when expectations are clear.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Usually, trust than convenience.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "CH",
+        "weight_type": "desired",
+        "signal_type": "desired_trust_over_convenience"
+      },
+      {
+        "option_id": "B",
+        "text": "In practice, real satisfaction than inertia.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "SF",
+        "weight_type": "desired",
+        "signal_type": "desired_satisfaction_over_inertia"
+      },
+      {
+        "option_id": "C",
+        "text": "Most often, commitment than perks.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "SA",
+        "weight_type": "desired",
+        "signal_type": "desired_commitment_over_perks"
+      },
+      {
+        "option_id": "D",
+        "text": "In practice, chosen fit than lock-in.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SF",
+        "weight_type": "desired",
+        "signal_type": "desired_choice_over_lockin"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q22",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 22,
+    "engine": "loyalty",
+    "question_class": "DS",
+    "question_subclass": "self_awareness_growth",
+    "prompt": "I want to become someone who: in a real everyday moment.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Usually, evaluates trust more clearly.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "SA",
+        "weight_type": "desired",
+        "signal_type": "growth_trust_clarity"
+      },
+      {
+        "option_id": "B",
+        "text": "When it matters, pays attention to actual value delivered.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "desired",
+        "signal_type": "growth_value_attention"
+      },
+      {
+        "option_id": "C",
+        "text": "When it matters, knows when emotional attachment is genuine.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "desired",
+        "signal_type": "growth_attachment_discernment"
+      },
+      {
+        "option_id": "D",
+        "text": "When it matters, notices when habit is driving the choice.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SF",
+        "weight_type": "desired",
+        "signal_type": "growth_habit_awareness"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q23",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 23,
+    "engine": "loyalty",
+    "question_class": "DS",
+    "question_subclass": "customer_growth_edge",
+    "prompt": "My biggest growth edge as a customer is: when expectations are clear.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "When it matters, not ignoring trust breaches.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "ECM",
+        "weight_type": "desired",
+        "signal_type": "growth_trust_breach_awareness"
+      },
+      {
+        "option_id": "B",
+        "text": "Usually, not staying purely because things are “fine”.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "CH",
+        "weight_type": "desired",
+        "signal_type": "growth_good_enough_awareness"
+      },
+      {
+        "option_id": "C",
+        "text": "When it matters, not overidentifying with brands.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "desired",
+        "signal_type": "growth_identity_boundaries"
+      },
+      {
+        "option_id": "D",
+        "text": "In practice, not confusing convenience with loyalty.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SF",
+        "weight_type": "desired",
+        "signal_type": "growth_convenience_discernment"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q24",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 24,
+    "engine": "loyalty",
+    "question_class": "BH",
+    "question_subclass": "actual_retention_driver",
+    "prompt": "In reality, I often stay with brands because: when things are mostly steady.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "In practice, I trust them by default.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "CH",
+        "weight_type": "standard",
+        "signal_type": "actual_trust_default"
+      },
+      {
+        "option_id": "B",
+        "text": "In practice, I’m usually satisfied enough.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "CH",
+        "weight_type": "standard",
+        "signal_type": "actual_satisfied_enough"
+      },
+      {
+        "option_id": "C",
+        "text": "Usually, I feel emotionally attached.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "standard",
+        "signal_type": "actual_attachment"
+      },
+      {
+        "option_id": "D",
+        "text": "Most often, it’s easier than changing.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SF",
+        "weight_type": "standard",
+        "signal_type": "actual_easier_than_changing"
+      }
+    ]
+  },
+  {
+    "question_id": "LOY_G_Q25",
+    "bank_id": "LOYALTY_BANK_A",
+    "display_order": 25,
+    "engine": "loyalty",
+    "question_class": "ID",
+    "question_subclass": "dominant_force_choice",
+    "prompt": "If I had to name the strongest loyalty force, I’d choose: when the relationship is tested.",
+    "reverse_pair_id": null,
+    "desired_pair_id": null,
+    "is_scored": true,
+    "is_active": true,
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Most often, trust.",
+        "primary_archetype": "TD",
+        "secondary_archetype": "ECM",
+        "weight_type": "identity",
+        "signal_type": "dominant_trust"
+      },
+      {
+        "option_id": "B",
+        "text": "Usually, satisfaction.",
+        "primary_archetype": "SA",
+        "secondary_archetype": "TD",
+        "weight_type": "identity",
+        "signal_type": "dominant_satisfaction"
+      },
+      {
+        "option_id": "C",
+        "text": "When it matters, commitment.",
+        "primary_archetype": "ECM",
+        "secondary_archetype": "TD",
+        "weight_type": "identity",
+        "signal_type": "dominant_commitment"
+      },
+      {
+        "option_id": "D",
+        "text": "When it matters, habit.",
+        "primary_archetype": "CH",
+        "secondary_archetype": "SF",
+        "weight_type": "identity",
+        "signal_type": "dominant_habit"
+      }
+    ]
+  }
+]
