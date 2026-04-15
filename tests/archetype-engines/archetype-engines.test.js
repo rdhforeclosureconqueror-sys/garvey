@@ -243,15 +243,29 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
 test('loyalty UI includes adaptive messaging and loyalty-native section labels', () => {
   const source = fs.readFileSync(path.join(process.cwd(), 'public', 'archetype-engines', 'experience.js'), 'utf8');
   assert.match(source, /How You Become Loyal/);
-  assert.match(source, /How This Shows Up In Your Relationships/);
-  assert.match(source, /Your Loyalty System/);
-  assert.match(source, /Core Pattern/);
-  assert.match(source, /Current State/);
-  assert.match(source, /Your Stay vs Leave Pattern/);
-  assert.match(source, /Growth \/ Adjustment/);
+  assert.match(source, /Your Loyalty Pattern/);
+  assert.match(source, /Why You Stay vs Leave/);
+  assert.match(source, /Your Loyalty in Relationships/);
+  assert.match(source, /What Loyalty Really Is/);
   assert.match(source, /REAL-WORLD TRANSLATION/);
   assert.match(source, /Want a deeper relationship breakdown\?/);
   assert.match(source, /Take Love Assessment/);
+});
+
+test('leadership UI includes leadership-native deep-dive sections while preserving shared fallback sections', () => {
+  const source = fs.readFileSync(path.join(process.cwd(), 'public', 'archetype-engines', 'experience.js'), 'utf8');
+  assert.match(source, /Your Leadership Pattern/);
+  assert.match(source, /Balanced vs Unbalanced Leadership/);
+  assert.match(source, /Pressure Response/);
+  assert.match(source, /Identity vs Behavior Gap/);
+  assert.match(source, /Team Experience/);
+  assert.match(source, /Leadership Blind Spots/);
+  assert.match(source, /Weekly Balancing Habits/);
+  assert.match(source, /30\/90 Day Growth Path/);
+  assert.match(source, /if \(engine === "loyalty" \|\| engine === "leadership"\) wireLoyaltyAccordion\(app\);/);
+  assert.match(source, /<h2>Your Pattern<\/h2>/);
+  assert.match(source, /<h2>Your Current State<\/h2>/);
+  assert.match(source, /<h2>Self Alignment<\/h2>/);
 });
 
 test('no regression: love routes remain live', async () => {

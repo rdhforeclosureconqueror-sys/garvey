@@ -1086,6 +1086,7 @@ function renderDetail(app, engine, archetype, query, options = {}) {
   const backHref = query.get("back") || routeTo(engine, "browse", query);
   const selectedVariant = options.loveImageVariant || LOVE_IMAGE_VARIANTS[0];
   const loyaltyPattern = engine === "loyalty" ? buildLoyaltyPatternInAction(archetype) : null;
+  const leadershipPattern = engine === "leadership" ? buildLeadershipPatternInAction(archetype) : null;
   const listBlock = (items = []) => {
     const safeItems = (items || []).filter(Boolean).slice(0, 4);
     if (!safeItems.length) return "-";
@@ -1094,6 +1095,9 @@ function renderDetail(app, engine, archetype, query, options = {}) {
   const balanceSignalsBlock = loyaltyPattern
     ? `<div><b>In Balance</b>${listBlock(loyaltyPattern.balanceSignals.inBalance)}</div>
        <div><b>Out of Balance</b>${listBlock(loyaltyPattern.balanceSignals.outOfBalance)}</div>`
+    : leadershipPattern
+      ? `<div><b>Balanced Leadership</b>${esc(leadershipPattern.balanced || "-")}</div>
+         <div><b>Unbalanced Leadership</b>${esc(leadershipPattern.unbalanced || "-")}</div>`
     : (archetype.balanceSignals || []).map(esc).join(", ") || "-";
   app.innerHTML = `
     <section class="section">
@@ -1107,17 +1111,18 @@ function renderDetail(app, engine, archetype, query, options = {}) {
     </section>
     <section class="section insights">
       ${loyaltyPattern?.title ? `<h2>${esc(loyaltyPattern.title)}</h2>` : ""}
-      <div class="kv"><b>Core Energy</b>${esc(loyaltyPattern?.coreEnergy || archetype.coreEnergy || "-")}</div>
-      <div class="kv"><b>When Strong</b>${esc(loyaltyPattern?.whenStrong || archetype.whenStrong || "-")}</div>
-      <div class="kv"><b>Out of Balance (High)</b>${esc(loyaltyPattern?.outOfBalanceHigh || archetype.outOfBalanceHigh || "-")}</div>
-      <div class="kv"><b>Out of Balance (Low)</b>${esc(loyaltyPattern?.outOfBalanceLow || archetype.outOfBalanceLow || "-")}</div>
+      <div class="kv"><b>Core Energy</b>${esc(loyaltyPattern?.coreEnergy || archetype.coreEnergy || leadershipPattern?.pattern || "-")}</div>
+      <div class="kv"><b>When Strong</b>${esc(loyaltyPattern?.whenStrong || archetype.whenStrong || archetype.balancedStateMeaning || leadershipPattern?.balanced || "-")}</div>
+      <div class="kv"><b>Out of Balance (High)</b>${esc(loyaltyPattern?.outOfBalanceHigh || archetype.outOfBalanceHigh || archetype.overexpressedMeaning || leadershipPattern?.pressure || "-")}</div>
+      <div class="kv"><b>Out of Balance (Low)</b>${esc(loyaltyPattern?.outOfBalanceLow || archetype.outOfBalanceLow || archetype.underexpressedMeaning || "-")}</div>
       <div class="kv"><b>Core Strengths</b>${listBlock(loyaltyPattern?.coreStrengths || archetype.coreStrengths)}</div>
-      <div class="kv"><b>Blind Spots</b>${listBlock(loyaltyPattern?.blindSpots || archetype.blindSpots)}</div>
+      <div class="kv"><b>Blind Spots</b>${listBlock(loyaltyPattern?.blindSpots || leadershipPattern?.blindSpots || archetype.blindSpots)}</div>
       <div class="kv"><b>Needs to Stay Balanced</b>${listBlock(loyaltyPattern?.needsToStayBalanced || archetype.needsToStayBalanced)}</div>
       <div class="kv"><b>Daily Build-Ups</b>${listBlock(loyaltyPattern?.dailyBuildUps || archetype.dailyBuildUps)}</div>
-      <div class="kv"><b>Weekly Build-Ups</b>${listBlock(loyaltyPattern?.weeklyBuildUps || archetype.weeklyBuildUps)}</div>
+      <div class="kv"><b>Weekly Build-Ups</b>${listBlock(loyaltyPattern?.weeklyBuildUps || leadershipPattern?.habits || archetype.weeklyBuildUps)}</div>
       <div class="kv"><b>Balance Signals</b>${balanceSignalsBlock}</div>
       ${loyaltyPattern?.cta ? `<div class="kv"><b>Next Step</b>${esc(loyaltyPattern.cta)}</div>` : ""}
+      ${leadershipPattern?.growthPath ? `<div class="kv"><b>30/90 Day Growth Path</b>30: ${esc(leadershipPattern.growthPath.day30 || "-")}<br>90: ${esc(leadershipPattern.growthPath.day90 || "-")}</div>` : ""}
     </section>`;
   if (engine === "love") wireLoveVariantToggle(options.onLoveVariantChange || (() => {}));
 }
@@ -1179,6 +1184,71 @@ function buildLoyaltyPatternInAction(archetype = {}) {
   };
 }
 
+function buildLeadershipPatternInAction(archetype = {}) {
+  const code = String(archetype.code || "").toUpperCase();
+  const patternByCode = {
+    VD: "You lead by setting direction and translating uncertainty into clear purpose.",
+    SD: "You lead by creating structure, cadence, and repeatable standards the team can rely on.",
+    RI: "You lead by reading people well and building trust through attunement and steady presence.",
+    IE: "You lead by communicating with energy and turning ideas into movement.",
+    AC: "You lead by recalibrating quickly and helping teams stay composed through change.",
+  };
+  const pressureByCode = {
+    VD: "Pressure can narrow your view into urgent direction-setting before alignment catches up.",
+    SD: "Pressure can pull you toward over-control and excessive process tightening.",
+    RI: "Pressure can push you to carry emotional load that should be shared with the team.",
+    IE: "Pressure can amplify intensity and reduce listening windows.",
+    AC: "Pressure can trigger rapid pivots that create confusion if anchors are not explicit.",
+  };
+  const blindSpotsByCode = {
+    VD: ["Vision can outpace operational readiness", "Big-picture confidence may mask practical blockers"],
+    SD: ["Process quality can become process rigidity", "Efficiency can overshadow experimentation"],
+    RI: ["Empathy can delay direct accountability", "Harmony can mask unresolved performance gaps"],
+    IE: ["Momentum can outrun context sharing", "Message power can crowd out dissenting input"],
+    AC: ["Adaptation can look inconsistent to others", "Fast shifts can reduce team psychological stability"],
+  };
+  const teamImpactByCode = {
+    VD: "Teams feel inspired when direction is clear, and anxious when priorities shift without translation.",
+    SD: "Teams feel safe with clarity and rhythm, but can feel constrained when autonomy narrows.",
+    RI: "Teams feel seen and supported, but can avoid hard performance conversations if boundaries blur.",
+    IE: "Teams feel activated and energized, but may miss quiet concerns if pace remains too high.",
+    AC: "Teams feel protected in volatility, but may feel uncertain if stability anchors are not repeated.",
+  };
+  const habitsByCode = {
+    VD: ["Run one weekly purpose-to-priority reset with explicit tradeoffs", "Ask one operator to pressure-test feasibility"],
+    SD: ["Remove one non-critical rule each week to protect agility", "Review one process through the lens of team energy"],
+    RI: ["Name one hard truth early before harmony management", "Set one boundary where support and accountability both stay intact"],
+    IE: ["Pause for one listening round before major push moments", "Summarize decisions in writing to reduce interpretation drift"],
+    AC: ["Define one anchor that does not change this week", "Limit pivots to explicit windows unless risk threshold is crossed"],
+  };
+  const growthPathByCode = {
+    VD: { day30: "Clarify top 3 priorities and decision criteria.", day90: "Build a repeatable translation rhythm from vision to execution." },
+    SD: { day30: "Identify where structure is helping versus stalling.", day90: "Install adaptive governance that protects standards and learning." },
+    RI: { day30: "Map trust strengths and unresolved accountability gaps.", day90: "Lead direct feedback loops without losing relational trust." },
+    IE: { day30: "Audit communication moments where alignment dropped.", day90: "Build a message-feedback system that balances advocacy and inquiry." },
+    AC: { day30: "Separate stable anchors from flexible tactics.", day90: "Create a change cadence that improves clarity during turbulence." },
+  };
+  const defaults = {
+    pattern: "You lead through a recognizable pattern that blends strengths, pressure tendencies, and growth opportunities.",
+    balanced: "Balanced leadership looks adaptive, clear, and accountable without losing humanity.",
+    unbalanced: "Unbalanced leadership often appears as overused strengths that begin creating friction for the team.",
+    identityGap: "Your identity and observed behavior can drift under pressure; closing that gap builds trust.",
+    pressure: "Under pressure, your strongest style may become narrower and less flexible.",
+  };
+
+  return {
+    pattern: patternByCode[code] || defaults.pattern,
+    pressure: pressureByCode[code] || defaults.pressure,
+    blindSpots: blindSpotsByCode[code] || ["Overusing your strongest pattern", "Missing how your style lands across different team members"],
+    teamImpact: teamImpactByCode[code] || "Your team experiences both the benefits and tradeoffs of your dominant leadership pattern.",
+    habits: habitsByCode[code] || ["Protect one reflection checkpoint each week", "Adjust one behavior based on team feedback"],
+    growthPath: growthPathByCode[code] || { day30: "Identify one leadership behavior to rebalance.", day90: "Sustain a measurable pattern shift with team feedback." },
+    balanced: defaults.balanced,
+    unbalanced: defaults.unbalanced,
+    identityGap: defaults.identityGap,
+  };
+}
+
 function renderResult(app, engine, archetypes, resultId, payload, query, options = {}) {
   const scores = sortScores(payload.normalizedScores);
   const top3 = scores.slice(0, 3);
@@ -1198,6 +1268,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
   const identityBehaviorEntries = Object.entries(payload.identityBehaviorGap || {});
   const isLoveEngine = engine === "love";
   const isLoyaltyEngine = engine === "loyalty";
+  const isLeadershipEngine = engine === "leadership";
   const consistencyValue = payload.contradictionConsistency?.consistency;
   const confidenceValue = payload.confidence;
   const dominantLoop = isLoveEngine ? inferDominantLoop({ payload, codeToName }) : null;
@@ -1301,6 +1372,99 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     content: renderLoyaltyDeepDiveContent({
       topDrivers: top3.map((item) => codeToName[item.code]).filter(Boolean),
     }),
+  })}
+    </section>
+    `
+    : "";
+  const leadershipPattern = isLeadershipEngine ? buildLeadershipPatternInAction(primary || secondary || {}) : null;
+  const leadershipSystemSection = isLeadershipEngine
+    ? `
+    <section class="loyalty-accordion-stack">
+      ${renderLoyaltyAccordionSection({
+    id: "leadership-pattern",
+    title: "Your Leadership Pattern",
+    hook: "Your dominant leadership energy influences how your team experiences direction, execution, and trust.",
+    expanded: true,
+    content: `
+      <div class="insights loyalty-adaptive-grid">
+        <div class="kv"><b>Primary Pattern</b>${esc(leadershipPattern?.pattern || "-")}</div>
+        <div class="kv"><b>Primary Insight</b>${esc(insightOrFallback(payload.primaryInsight, "Primary leadership insight is not available yet."))}</div>
+        <div class="kv"><b>Secondary Insight</b>${esc(insightOrFallback(payload.secondaryInsight, "Secondary leadership insight is not available yet."))}</div>
+      </div>
+    `,
+  })}
+      ${renderLoyaltyAccordionSection({
+    id: "leadership-balance",
+    title: "Balanced vs Unbalanced Leadership",
+    hook: "Strengths create trust in balance — and friction when overused.",
+    content: `
+      <div class="insights loyalty-adaptive-grid">
+        <div class="kv"><b>Balanced Leadership</b>${esc(leadershipPattern?.balanced || "-")}</div>
+        <div class="kv"><b>Unbalanced Leadership</b>${esc(leadershipPattern?.unbalanced || "-")}</div>
+        <div class="kv"><b>Balance Insight</b>${esc(insightOrFallback(payload.balanceInsight, strongestGap(payload.desiredCurrentGap || payload.desiredVsCurrent, codeToName)))}</div>
+      </div>
+    `,
+  })}
+      ${renderLoyaltyAccordionSection({
+    id: "leadership-pressure",
+    title: "Pressure Response",
+    hook: "Pressure can distort strengths into predictable patterns.",
+    content: `
+      <div class="insights loyalty-adaptive-grid">
+        <div class="kv"><b>Pressure Pattern</b>${esc(leadershipPattern?.pressure || "-")}</div>
+        <div class="kv"><b>Stress Insight</b>${esc(insightOrFallback(payload.stressInsight, summarizeStress(payload.stressProfile, codeToName)))}</div>
+      </div>
+    `,
+  })}
+      ${renderLoyaltyAccordionSection({
+    id: "leadership-identity-gap",
+    title: "Identity vs Behavior Gap",
+    hook: "How you see yourself as a leader can diverge from what your team consistently feels.",
+    content: `
+      <div class="insights loyalty-adaptive-grid">
+        <div class="kv"><b>Identity vs Behavior</b>${esc(leadershipPattern?.identityGap || "-")}</div>
+        <div class="kv"><b>Identity Gap Insight</b>${esc(insightOrFallback(payload.identityGapInsight, strongestGap(payload.identityBehaviorGap, codeToName)))}</div>
+        <div class="kv"><b>Consistency Insight</b>${esc(insightOrFallback(payload.consistencyInsight, `Consistency Score: ${String(payload.contradictionConsistency?.consistency ?? "-")}%`))}</div>
+      </div>
+    `,
+  })}
+      ${renderLoyaltyAccordionSection({
+    id: "leadership-team-experience",
+    title: "Team Experience",
+    hook: "Your leadership pattern shapes team clarity, safety, and execution quality.",
+    content: `
+      <div class="insights loyalty-adaptive-grid">
+        <div class="kv"><b>Team Impact</b>${esc(leadershipPattern?.teamImpact || "-")}</div>
+        <div class="kv"><b>Current Balance State</b>${esc(payload.balanceStates?.overall || payload.balanceState || "-")}</div>
+      </div>
+    `,
+  })}
+      ${renderLoyaltyAccordionSection({
+    id: "leadership-blind-spots",
+    title: "Leadership Blind Spots",
+    hook: "Blind spots usually come from strengths running without counterbalance.",
+    content: `
+      <div class="kv"><b>Blind Spots</b><ul>${(leadershipPattern?.blindSpots || []).map((item) => `<li>${esc(item)}</li>`).join("") || "<li>-</li>"}</ul></div>
+    `,
+  })}
+      ${renderLoyaltyAccordionSection({
+    id: "leadership-weekly-habits",
+    title: "Weekly Balancing Habits",
+    hook: "Small weekly adjustments prevent strength overuse from becoming culture drift.",
+    content: `
+      <div class="kv"><b>Weekly Habits</b><ul>${(leadershipPattern?.habits || []).map((item) => `<li>${esc(item)}</li>`).join("") || "<li>-</li>"}</ul></div>
+    `,
+  })}
+      ${renderLoyaltyAccordionSection({
+    id: "leadership-growth-path",
+    title: "30/90 Day Growth Path",
+    hook: "Build momentum through one focused short-term shift and one durable medium-term shift.",
+    content: `
+      <div class="insights loyalty-adaptive-grid">
+        <div class="kv"><b>30-Day Focus</b>${esc(leadershipPattern?.growthPath?.day30 || "-")}</div>
+        <div class="kv"><b>90-Day Focus</b>${esc(leadershipPattern?.growthPath?.day90 || "-")}</div>
+      </div>
+    `,
   })}
     </section>
     `
@@ -1412,6 +1576,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     </section>` : ""}
 
     ${loyaltySystemSection}
+    ${leadershipSystemSection}
 
     ${isLoyaltyEngine ? `
     <section class="section">
@@ -1425,7 +1590,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     </section>
     ` : ""}
 
-    ${!isLoyaltyEngine ? `<section class="section">
+    ${!isLoyaltyEngine && !isLeadershipEngine ? `<section class="section">
       <h2>Your Pattern</h2>
       <div class="insights">
         <div class="kv"><b>Primary Insight</b>${esc(insightOrFallback(payload.primaryInsight, "Primary pattern insight is not available yet."))}</div>
@@ -1433,7 +1598,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
       </div>
     </section>` : ""}
 
-    ${!isLoyaltyEngine ? `<section class="section">
+    ${!isLoyaltyEngine && !isLeadershipEngine ? `<section class="section">
       <h2>Your Current State</h2>
       <div class="insights">
         <div class="kv"><b>Balance Insight</b>${esc(insightOrFallback(payload.balanceInsight, strongestGap(payload.desiredCurrentGap || payload.desiredVsCurrent, codeToName)))}</div>
@@ -1441,7 +1606,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
       </div>
     </section>` : ""}
 
-    ${!isLoyaltyEngine ? `<section class="section">
+    ${!isLoyaltyEngine && !isLeadershipEngine ? `<section class="section">
       <h2>Self Alignment</h2>
       <div class="insights">
         <div class="kv"><b>Identity Gap Insight</b>${esc(insightOrFallback(payload.identityGapInsight, strongestGap(payload.identityBehaviorGap, codeToName)))}</div>
@@ -1474,7 +1639,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
       <a class="crumb" href="${routeTo(engine, "browse", query)}">Browse all ${titleCase(engine)} archetypes →</a>
     </section>`;
   if (engine === "love") wireLoveVariantToggle(options.onLoveVariantChange || (() => {}));
-  if (engine === "loyalty") wireLoyaltyAccordion(app);
+  if (engine === "loyalty" || engine === "leadership") wireLoyaltyAccordion(app);
 }
 
 function renderLoveResultStory(app, engine, archetypes, resultId, payload, query) {
