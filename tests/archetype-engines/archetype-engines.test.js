@@ -773,7 +773,40 @@ test('dashboard UI renders separate family labels for VOC, Love, Leadership, and
   assert.match(source, /Loyalty Assessments/);
 });
 
-test('leadership retakes enforce generated-only path with manifest governance', async () => {
+test('leadership retakes with approved manifest bank return generated success path with diagnostics', async () => {
+  const { server, baseUrl } = await startServer(createMockPool());
+  try {
+    const startRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/start`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', retake_attempt: 1 }),
+    });
+    assert.equal(startRes.status, 200);
+    const startJson = await startRes.json();
+    assert.equal(startJson.questionSource, 'generated_validated_bank');
+    assert.equal(startJson.questionBanks.selectedBankId, 'LEADERSHIP_BANK_A');
+    assert.equal(startJson.questionBanks.generatedBankAvailable, true);
+    assert.equal(startJson.questionBanks.activeQuestions.length, 25);
+
+    assert.ok(startJson.diagnostics);
+    assert.equal(startJson.diagnostics.questionSource, 'generated_validated_bank');
+    assert.equal(startJson.diagnostics.selectedBankId, 'LEADERSHIP_BANK_A');
+    assert.equal(startJson.diagnostics.generatedBankAvailable, true);
+    assert.equal(startJson.diagnostics.generatedReason, null);
+    assert.equal(startJson.diagnostics.generatedSourcePath, 'artifacts/leadership-banks/leadership_bank_a.generated.json');
+    assert.equal(startJson.diagnostics.manifestPath, 'artifacts/leadership-banks/promotion-manifest.json');
+    assert.equal(startJson.diagnostics.reviewStatus, 'approved_for_live_candidate');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+
+test('leadership retakes without approved manifest bank remain explicit 409', async () => {
+  const manifestPath = path.join(process.cwd(), 'artifacts', 'leadership-banks', 'promotion-manifest.json');
+  const original = fs.readFileSync(manifestPath, 'utf8');
+  fs.writeFileSync(manifestPath, JSON.stringify({ generatedAt: '2026-04-15T00:00:00.000Z', statuses: ['generated', 'approved_for_live_candidate'], banks: [] }, null, 2));
+
   const { server, baseUrl } = await startServer(createMockPool());
   try {
     const startRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/start`, {
@@ -785,8 +818,11 @@ test('leadership retakes enforce generated-only path with manifest governance', 
     const startJson = await startRes.json();
     assert.equal(startJson.error, 'generated_retake_bank_unavailable');
     assert.equal(startJson.questionSource, 'generated_validated_bank');
+    assert.equal(startJson.diagnostics.generatedBankAvailable, false);
+    assert.equal(startJson.diagnostics.generatedReason, 'no_approved_bank');
   } finally {
     await new Promise((resolve) => server.close(resolve));
+    fs.writeFileSync(manifestPath, original);
   }
 });
 

@@ -1,5 +1,24 @@
 {
-  "generatedAt": "2026-04-14T00:00:00.000Z",
-  "statuses": ["generated", "ready_for_review", "approved_for_live_candidate", "superseded"],
-  "banks": []
+  "generatedAt": "2026-04-15T00:00:00.000Z",
+  "statuses": [
+    "generated",
+    "ready_for_review",
+    "approved_for_live_candidate",
+    "superseded"
+  ],
+  "banks": [
+    {
+      "bank_id": "LEADERSHIP_BANK_A",
+      "seed": "LEADERSHIP_BANK_A",
+      "generated_at": "2026-04-15T00:00:00.000Z",
+      "review_status": "approved_for_live_candidate",
+      "approved_by": "leadership-governance-parity-phase",
+      "notes": "Approved generated leadership bank for governed retakes.",
+      "source_artifact_paths": {
+        "generatedFile": "artifacts/leadership-banks/leadership_bank_a.generated.json"
+      },
+      "recommendation": "manual_review_required_before_any_live_promotion"
+    }
+  ],
+  "lastUpdatedAt": "2026-04-15T00:00:00.000Z"
 }
