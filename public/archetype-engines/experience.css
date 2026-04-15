@@ -102,6 +102,13 @@ body {
   border: 1px solid color-mix(in oklab, var(--border), white 8%);
   background: rgba(255, 255, 255, 0.02);
 }
+.loyalty-education-layer { border-color: color-mix(in oklab, var(--accent-2), var(--border) 55%); }
+.loyalty-education-block { margin-top: 18px; }
+.loyalty-education-block h3 { margin: 0 0 8px; }
+.loyalty-education-block h4 { margin: 0 0 8px; font-size: 0.98rem; }
+.loyalty-education-block p { margin: 0 0 10px; line-height: 1.5; }
+.loyalty-education-note { margin: 8px 0 12px; }
+.loyalty-story-grid { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
 .spectrum-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 10px; }
 .spectrum-card { display: block; text-decoration: none; color: inherit; }
 .spectrum-card:hover { border-color: var(--accent-2); box-shadow: 0 0 0 1px var(--accent-soft); }

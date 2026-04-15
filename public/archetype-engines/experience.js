@@ -902,6 +902,117 @@ function renderLoyaltySection(title, rows = [], options = {}) {
   `;
 }
 
+function renderLoyaltyEducationLayer({ topDrivers = [] } = {}) {
+  const driverBalanceGuides = {
+    "Trust Dependence": "Balance tends to look like trusting what is consistent, while still noticing when reality changes.",
+    "Satisfaction Attachment": "Balance tends to look like staying because it still works for you now, not only because it worked before.",
+    "Emotional Commitment": "Balance tends to look like caring deeply without ignoring what your needs are telling you.",
+    "Convenience Habit": "Balance tends to look like enjoying ease and routine without going on autopilot in places you have outgrown.",
+    "Switching Friction": "Balance tends to look like honoring what you have invested, while still allowing yourself to leave when needed.",
+  };
+  const selectedDrivers = topDrivers
+    .filter((driver) => driver && driverBalanceGuides[driver])
+    .slice(0, 3);
+
+  return `
+    <section class="section loyalty-adaptive-section loyalty-education-layer">
+      <h2>Loyalty Education Layer</h2>
+      <p class="muted loyalty-adaptive-intro">One connected guide to help you understand what loyalty is, how it shows up, and how to keep it in balance.</p>
+
+      <article class="loyalty-education-block">
+        <h3>What Loyalty Actually Is</h3>
+        <p>Loyalty isn’t just about staying.<br>It’s about why you stay, how you stay, and what finally makes you leave.</p>
+        <div class="insights loyalty-adaptive-grid">
+          <div class="kv"><b>Why You Stay</b>Trust, satisfaction, and emotional connection.<br>These are the reasons something feels worth staying for.</div>
+          <div class="kv"><b>How You Stay</b>Habit, routine, and familiarity.<br>This is how staying can start to become automatic.</div>
+          <div class="kv"><b>Why You Don’t Leave</b>Effort, time invested, and disruption of change.<br>This is what can make leaving feel harder than staying.</div>
+        </div>
+        <div class="card loyalty-education-note">
+          <p>These archetypes are not boxes.<br>They represent patterns your behavior tends to follow.</p>
+          <p>Once you understand them, you can strengthen, balance, or change them.</p>
+        </div>
+        <p class="muted">Understanding your loyalty patterns gives you more control over how you stay, when you stay, and what you’re willing to accept.</p>
+      </article>
+
+      <article class="loyalty-education-block">
+        <h3>See It In Real Life</h3>
+        <div class="top3 loyalty-story-grid">
+          <div class="card">
+            <h4>Staying in a relationship that no longer fits</h4>
+            <p>Have you ever seen someone stay in a relationship longer than they wanted to? They may know it no longer feels right and may think about leaving, but still stay. Sometimes it is financial pressure, sometimes fear, and sometimes it is just familiar. That is loyalty, but it can be driven by friction and habit.</p>
+          </div>
+          <div class="card">
+            <h4>Going back to the same store or brand</h4>
+            <p>Ever said you were done with a store or brand, then went back anyway? You meant it in the moment. But when it was time to act, it felt easier to return to what you already knew. That is usually not emotional loyalty. It is convenience and routine at work.</p>
+          </div>
+          <div class="card">
+            <h4>Trust-based loyalty</h4>
+            <p>Think about someone you trust deeply. Even when they miss the mark, you do not walk away quickly. You still believe in them because their pattern has been steady over time. That is loyalty built on trust.</p>
+          </div>
+          <div class="card">
+            <h4>“It works” loyalty</h4>
+            <p>Ever stayed with something because it simply works? Nothing amazing, nothing terrible. It does what it is supposed to do and keeps life moving. That is satisfaction-based loyalty.</p>
+          </div>
+          <div class="card">
+            <h4>Emotional loyalty</h4>
+            <p>Ever felt connected to something in a way that felt like you? You stay with it and may even defend it because it feels personal. That is emotional loyalty.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="loyalty-education-block">
+        <h3>When Loyalty Works Against You</h3>
+        <p>Loyalty isn’t always a good thing.</p>
+        <p>You can be loyal to things that drain you, hurt you, or hold you back.</p>
+        <p class="muted">Loyalty is about repetition and attachment—it doesn’t judge what’s healthy.</p>
+        <div class="top3 loyalty-story-grid">
+          <div class="card">
+            <h4>Habit loyalty</h4>
+            <p>Ever tried to quit something but kept going back? You may promise yourself it is the last time, then repeat it when the moment arrives. Not because it helps you, but because it feels familiar. That is loyalty to a habit.</p>
+          </div>
+          <div class="card">
+            <h4>Relationship pattern loyalty</h4>
+            <p>Ever stayed with someone who keeps showing a pattern that does not meet your needs? You can see it and still stay because the pattern feels known. That is loyalty, but it may be working against you.</p>
+          </div>
+          <div class="card">
+            <h4>Financial pattern loyalty</h4>
+            <p>Ever spent money in the same way even when outcomes kept hurting you? Same routine, same pressure. That can be loyalty to a financial pattern.</p>
+          </div>
+          <div class="card">
+            <h4>Comfort-zone loyalty</h4>
+            <p>Ever stayed in the same routine or environment after you outgrew it? Not because it is fully aligned, but because it is comfortable. That is loyalty to comfort.</p>
+          </div>
+        </div>
+        <p class="muted">The same patterns that make you loyal can also keep you stuck.<br>Once you see what you’re loyal to, you can decide if it deserves your loyalty.</p>
+      </article>
+
+      <article class="loyalty-education-block">
+        <h3>What Balanced Loyalty Looks Like</h3>
+        <div class="card loyalty-education-note">
+          <p><b>Core principle:</b> The ability to adjust your loyalty based on reality, not just pattern.</p>
+        </div>
+        <div class="insights loyalty-adaptive-grid">
+          <div class="kv"><b>Balanced Signal: Awareness</b>You can clearly see what is actually happening, not only what you hope or feel.</div>
+          <div class="kv"><b>Balanced Signal: Flexibility</b>You can adjust your loyalty—stay, step back, or leave—based on what is real.</div>
+          <div class="kv"><b>Balanced Signal: Self-Respect</b>Your loyalty does not come at the cost of your well-being.</div>
+          <div class="kv"><b>Out-of-Balance Signal: Blind Spots</b>Ignoring or justifying what is clearly happening.</div>
+          <div class="kv"><b>Out-of-Balance Signal: Stuck Patterns</b>Repeating the same behavior even when it is not working.</div>
+          <div class="kv"><b>Out-of-Balance Signal: Self-Neglect</b>Staying loyal at the expense of yourself.</div>
+        </div>
+        <div class="card loyalty-education-note">
+          <p>Some things people call love are actually loyalty patterns.</p>
+          <p>Loyalty to history. Loyalty to familiarity. Loyalty to emotional habits.</p>
+          <p class="muted">The goal is not to judge your patterns. It is to understand when they are working for you, and when they are working against you.</p>
+        </div>
+        ${selectedDrivers.length ? `
+        <div class="insights loyalty-adaptive-grid">
+          ${selectedDrivers.map((driver) => `<div class="kv"><b>What balance can look like for you: ${esc(driver)}</b>${esc(driverBalanceGuides[driver])}</div>`).join("")}
+        </div>` : ""}
+      </article>
+    </section>
+  `;
+}
+
 function renderBrowse(app, engine, archetypes, query, options = {}) {
   const selectedVariant = options.loveImageVariant || LOVE_IMAGE_VARIANTS[0];
   app.innerHTML = `
@@ -1058,6 +1169,11 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
   const loyaltyProfile = payload.communication_profile || {};
   const relationshipInterpretation = payload.relationshipInterpretation || {};
   const loveAssessmentCta = payload.loveAssessmentCta || {};
+  const loyaltyEducationLayer = isLoyaltyEngine
+    ? renderLoyaltyEducationLayer({
+      topDrivers: top3.map((item) => codeToName[item.code]).filter(Boolean),
+    })
+    : "";
   const loyaltyHeaderSections = isLoyaltyEngine
     ? `
     <section class="section loyalty-adaptive-section">
@@ -1157,6 +1273,8 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     </section>
 
     ${loyaltyHeaderSections}
+
+    ${loyaltyEducationLayer}
 
     ${isLoveEngine ? `
     <section class="section">
