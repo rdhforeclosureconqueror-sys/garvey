@@ -242,7 +242,7 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
 
 test('loyalty UI includes adaptive messaging and loyalty-native section labels', () => {
   const source = fs.readFileSync(path.join(process.cwd(), 'public', 'archetype-engines', 'experience.js'), 'utf8');
-  assert.match(source, /How to Engage With You/);
+  assert.match(source, /How You Become Loyal/);
   assert.match(source, /How This Shows Up In Your Relationships/);
   assert.match(source, /Your Loyalty System/);
   assert.match(source, /Core Pattern/);

@@ -1061,13 +1061,13 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
   const loyaltyHeaderSections = isLoyaltyEngine
     ? `
     <section class="section loyalty-adaptive-section">
-      <h2>How to Engage With You</h2>
-      <p class="muted loyalty-adaptive-intro">Your communication profile in plain language.</p>
+      <h2>How You Become Loyal</h2>
+      <p class="muted loyalty-adaptive-intro">A relationship-first view of the patterns and conditions that tend to shape your loyalty.</p>
       <div class="insights loyalty-adaptive-grid">
-        <div class="kv"><b>Plain-language summary</b>${esc(loyaltyProfile.plain_language_summary || "-")}</div>
-        <div class="kv"><b>Best way to talk to you</b>${esc(loyaltyProfile.best_way_to_talk_to_them || "-")}</div>
-        <div class="kv"><b>What keeps you engaged</b>${esc(loyaltyProfile.what_keeps_them_engaged || "-")}</div>
-        <div class="kv"><b>What pushes you away</b>${esc(loyaltyProfile.what_pushes_them_away || "-")}</div>
+        <div class="kv"><b>Your Default Pattern</b>${esc(loyaltyProfile.plain_language_summary || "-")}</div>
+        <div class="kv"><b>What Builds Trust With You</b>${esc(loyaltyProfile.best_way_to_talk_to_them || "-")}</div>
+        <div class="kv"><b>What Makes You Stay</b>${esc(loyaltyProfile.what_keeps_them_engaged || "-")}</div>
+        <div class="kv"><b>What Makes You Pull Away</b>${esc(loyaltyProfile.what_pushes_them_away || "-")}</div>
       </div>
     </section>
     <section class="section loyalty-adaptive-section">
