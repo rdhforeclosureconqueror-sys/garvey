@@ -29,6 +29,9 @@ test('GET /youth-development/intake/test renders internal helpers for repeat tes
 
     const html = await response.text();
     assert.match(html, /Internal \/ preview \/ test-only UI\./);
+    assert.match(html, /class="intro-header"/);
+    assert.match(html, /One-click verify/);
+    assert.match(html, /Visible confidence/);
     assert.match(html, /id="runTestButton"[^>]*>Run Test<\/button>/);
     assert.match(html, /id="presetStrongButton"/);
     assert.match(html, /id="presetSupportButton"/);

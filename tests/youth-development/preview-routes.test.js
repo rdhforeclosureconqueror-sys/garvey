@@ -28,6 +28,9 @@ test('GET /youth-development/parent-dashboard/preview returns deterministic HTML
     const html = await response.text();
     assert.match(html, /<p class="preview-banner">Preview \/ test-only output \(deterministic fixture, no production data\)<\/p>/);
     assert.match(html, /Preview fixture only: this output is for renderer verification, not production interpretation\./);
+    assert.match(html, /class="hero-panel"/);
+    assert.match(html, /class="confidence-meter"/);
+    assert.match(html, /Parent dashboard preview mode · isolated youth namespace/);
 
     const sectionMarkers = [
       '<h2>Overview</h2>',
