@@ -137,6 +137,10 @@ function renderYouthDevelopmentIntakeTestPage() {
       .qa-card { border: 1px solid var(--line); border-radius: 8px; padding: 10px; background: rgba(2, 6, 23, 0.5); }
       .qa-card h3 { margin: 0 0 6px 0; font-size: 14px; }
       .qa-card p { margin: 0; font-size: 13px; color: #cbd5e1; }
+      .consent-wrap { display: grid; gap: 10px; border: 1px solid rgba(34, 211, 238, 0.45); border-radius: 10px; background: rgba(2, 132, 199, 0.12); padding: 12px; }
+      .consent-row { display: flex; gap: 10px; align-items: flex-start; }
+      .consent-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+      .consent-status { color: #cbd5e1; min-height: 18px; }
     </style>
   </head>
   <body>
@@ -152,6 +156,22 @@ function renderYouthDevelopmentIntakeTestPage() {
             <div class="qa-card"><h3>One-click verify</h3><p>Use preset payloads and run tests without leaving this page.</p></div>
             <div class="qa-card"><h3>Visible confidence</h3><p>Track warnings, low-confidence counts, and trait trends immediately.</p></div>
           </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="consent-wrap">
+          <h2>Permission required before test start</h2>
+          <p>This internal runner processes youth-development test payloads. Confirm permission before starting a run.</p>
+          <label class="consent-row">
+            <input id="consentCheck" type="checkbox" />
+            <span>I have permission to run this youth-development test payload.</span>
+          </label>
+          <div class="consent-actions">
+            <button id="consentAcceptButton" type="button">Accept and continue</button>
+            <button id="consentDeclineButton" type="button" class="preset-btn">Decline</button>
+          </div>
+          <div id="consentStatus" class="consent-status" aria-live="polite">Permission is required before starting tests.</div>
         </div>
       </section>
 
@@ -295,6 +315,10 @@ function renderYouthDevelopmentIntakeTestPage() {
         const presetSupportButton = document.getElementById("presetSupportButton");
         const presetLowConfidenceButton = document.getElementById("presetLowConfidenceButton");
         const resetPayloadButton = document.getElementById("resetPayloadButton");
+        const consentCheck = document.getElementById("consentCheck");
+        const consentAcceptButton = document.getElementById("consentAcceptButton");
+        const consentDeclineButton = document.getElementById("consentDeclineButton");
+        const consentStatus = document.getElementById("consentStatus");
         const payloadEditor = document.getElementById("payloadEditor");
         const statusText = document.getElementById("statusText");
         const statusNote = document.getElementById("statusNote");
@@ -309,6 +333,16 @@ function renderYouthDevelopmentIntakeTestPage() {
         const dashboardSummary = document.getElementById("dashboardSummary");
         const pageModelSummary = document.getElementById("pageModelSummary");
         const rawJson = document.getElementById("rawJson");
+        let permissionAccepted = false;
+
+        function setTestingEnabled(enabled) {
+          permissionAccepted = enabled === true;
+          [runBtn, presetStrongButton, presetSupportButton, presetLowConfidenceButton, resetPayloadButton, payloadEditor]
+            .forEach((node) => {
+              if (!node) return;
+              node.disabled = !permissionAccepted;
+            });
+        }
 
         function resetList(container, values) {
           container.textContent = "";
@@ -394,6 +428,13 @@ function renderYouthDevelopmentIntakeTestPage() {
         }
 
         async function runTest() {
+          if (!permissionAccepted) {
+            statusText.textContent = "permission required";
+            statusText.className = "status-bad";
+            statusNote.textContent = "Accept permission before starting the test.";
+            if (consentStatus) consentStatus.textContent = "Permission is required before starting tests.";
+            return;
+          }
           statusText.textContent = "running...";
           statusText.className = "";
           statusNote.textContent = "Submitting to intake endpoint...";
@@ -439,6 +480,21 @@ function renderYouthDevelopmentIntakeTestPage() {
         function setPayload(value) {
           payloadEditor.value = JSON.stringify(value, null, 2);
         }
+
+        setTestingEnabled(false);
+        consentAcceptButton.addEventListener("click", () => {
+          if (!consentCheck.checked) {
+            consentStatus.textContent = "Please accept permission to continue.";
+            return;
+          }
+          setTestingEnabled(true);
+          consentStatus.textContent = "Permission accepted. You can now run tests.";
+        });
+        consentDeclineButton.addEventListener("click", () => {
+          consentCheck.checked = false;
+          setTestingEnabled(false);
+          consentStatus.textContent = "Permission declined. Testing remains locked.";
+        });
 
         presetStrongButton.addEventListener("click", () => setPayload(presetPayloads.strong));
         presetSupportButton.addEventListener("click", () => setPayload(presetPayloads.support));

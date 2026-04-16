@@ -32,6 +32,11 @@ test('GET /youth-development/intake/test renders internal helpers for repeat tes
     assert.match(html, /class="intro-header"/);
     assert.match(html, /One-click verify/);
     assert.match(html, /Visible confidence/);
+    assert.match(html, /Permission required before test start/);
+    assert.match(html, /id="consentCheck"/);
+    assert.match(html, /id="consentAcceptButton"/);
+    assert.match(html, /id="consentDeclineButton"/);
+    assert.match(html, /id="consentStatus"/);
     assert.match(html, /id="runTestButton"[^>]*>Run Test<\/button>/);
     assert.match(html, /id="presetStrongButton"/);
     assert.match(html, /id="presetSupportButton"/);
@@ -64,6 +69,8 @@ test('known-good fixture posts successfully to intake endpoint used by test page
     assert.match(html, /function renderTraitRows/);
     assert.match(html, /function renderTraitSummary/);
     assert.match(html, /function renderSummaries/);
+    assert.match(html, /function setTestingEnabled/);
+    assert.match(html, /Accept permission before starting the test\./);
     assert.match(html, /const endpoint = "\/api\/youth-development\/intake\/task-session";/);
 
     const response = await fetch(`${baseUrl}/api/youth-development/intake/task-session`, {

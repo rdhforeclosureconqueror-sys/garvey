@@ -47,6 +47,13 @@ function safeAssetPath(value) {
 
 const LOVE_IMAGE_VARIANT_KEY = "garvey.loveImageVariant";
 const LOVE_IMAGE_VARIANTS = Object.freeze(["masculine", "feminine"]);
+const LOYALTY_IMAGE_BY_CODE = Object.freeze({
+  CH: "/archetype-card/loyalty/Convenience_Habit.png",
+  ECM: "/archetype-card/loyalty/Emotional_Commitment.png",
+  SA: "/archetype-card/loyalty/Satisfaction_Attatchment.png",
+  SF: "/archetype-card/loyalty/Switching_Friction.png",
+  TD: "/archetype-card/loyalty/Trust_Dependence.png",
+});
 
 function getStoredLoveImageVariant() {
   try {
@@ -83,10 +90,32 @@ function selectedLoveImageSrc(archetype, selectedVariant) {
   return "";
 }
 
+function selectedLoyaltyImageSrc(archetype) {
+  const code = String(archetype?.code || "").trim().toUpperCase();
+  const mapped = safeAssetPath(LOYALTY_IMAGE_BY_CODE[code]);
+  if (mapped) return mapped;
+  const fallback = [
+    archetype?.imageSrc,
+    archetype?.cardImage,
+    archetype?.image,
+    archetype?.image_url,
+  ];
+  for (const candidate of fallback) {
+    const src = safeAssetPath(candidate);
+    if (src) return src;
+  }
+  return "";
+}
+
 function cardVisual(archetype, options = {}) {
-  const src = options.engine === "love"
-    ? selectedLoveImageSrc(archetype, options.loveImageVariant || LOVE_IMAGE_VARIANTS[0])
-    : safeAssetPath(archetype?.imageSrc || archetype?.cardImage || archetype?.image || archetype?.image_url || "");
+  let src = "";
+  if (options.engine === "love") {
+    src = selectedLoveImageSrc(archetype, options.loveImageVariant || LOVE_IMAGE_VARIANTS[0]);
+  } else if (options.engine === "loyalty") {
+    src = selectedLoyaltyImageSrc(archetype);
+  } else {
+    src = safeAssetPath(archetype?.imageSrc || archetype?.cardImage || archetype?.image || archetype?.image_url || "");
+  }
   if (src) return `<img class="card-visual" src="${esc(src)}" alt="${esc(archetype?.name || archetype?.code || "Archetype")} card" loading="lazy" />`;
   return cardPlaceholder(archetype);
 }
@@ -840,10 +869,6 @@ function renderConsentStep(app, engine, query, contract) {
 }
 
 async function renderAssessment(app, engine, query) {
-  if (engine !== "love") {
-    await startAssessmentFlow(app, engine, query);
-    return;
-  }
   const contractPath = new URL(`/api/archetype-engines/${engine}/assessment/consent-contract`, window.location.origin);
   for (const [key, value] of stableContextParams(query).entries()) contractPath.searchParams.set(key, value);
   const contract = await jsonFetch(`${contractPath.pathname}${contractPath.search}`);
