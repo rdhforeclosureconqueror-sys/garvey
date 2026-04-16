@@ -49,6 +49,252 @@ const PREVIEW_OPTIONS = Object.freeze({
   ]),
 });
 
+const INTAKE_TEST_FIXTURE = Object.freeze({
+  schema_version: "1.0",
+  session_id: "session-1",
+  child_id: "child-1",
+  submitted_at: "2026-03-01T12:00:00.000Z",
+  task_results: Object.freeze([
+    Object.freeze({
+      task: Object.freeze({
+        task_id: "YT_B1_CQ_01",
+        trait_code: "CQ",
+        task_class: "SCT",
+        expected_signal_types: Object.freeze(["inquiry_depth", "justification_quality", "decision_quality"]),
+        scoring_type: "rubric",
+        evidence_source: "child_scenario",
+      }),
+      raw_input: Object.freeze({
+        timestamp: "2026-03-01T12:01:00.000Z",
+        metrics: Object.freeze({
+          inquiry_depth: 3,
+          justification_quality: 3,
+          decision_quality: 2,
+        }),
+        measurement_window: "current",
+        is_current: true,
+      }),
+    }),
+  ]),
+  options: Object.freeze({
+    ignore_contaminated: true,
+  }),
+});
+
+function renderYouthDevelopmentIntakeTestPage() {
+  const fixture = JSON.stringify(INTAKE_TEST_FIXTURE, null, 2);
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Youth Development Intake Test (Internal)</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; padding: 16px; background: #f8fafc; color: #0f172a; }
+      main { max-width: 1080px; margin: 0 auto; display: grid; gap: 12px; }
+      section { background: #fff; border: 1px solid #dbe3ef; border-radius: 10px; padding: 14px; }
+      .preview-banner { font-weight: bold; color: #7c2d12; background: #ffedd5; border: 1px solid #fdba74; border-radius: 8px; padding: 8px; }
+      .status-ok { color: #166534; font-weight: 700; }
+      .status-bad { color: #991b1b; font-weight: 700; }
+      textarea { width: 100%; min-height: 280px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+      button { border: 1px solid #0f172a; background: #0f172a; color: #fff; border-radius: 8px; padding: 10px 14px; font-size: 14px; cursor: pointer; }
+      button:hover { background: #1e293b; }
+      code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      pre { white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px; background: #f8fafc; }
+      .warn-list { color: #92400e; }
+      .err-list { color: #991b1b; font-weight: 600; }
+      .summary-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { border: 1px solid #cbd5e1; padding: 6px; text-align: left; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <p class="preview-banner">Internal / preview / test-only UI. Not a production user flow.</p>
+        <h1>Youth Development Intake Test Runner</h1>
+        <p>Endpoint: <code id="endpointLabel">/api/youth-development/intake/task-session</code></p>
+      </section>
+
+      <section>
+        <h2>Payload editor</h2>
+        <p>Default payload is prefilled from the known-good fixture used in youth intake tests.</p>
+        <textarea id="payloadEditor" aria-label="Task session payload">${fixture}</textarea>
+        <p><button id="runTestButton" type="button">Run Test</button></p>
+      </section>
+
+      <section>
+        <h2>Response summary</h2>
+        <div class="summary-grid">
+          <div><strong>HTTP status:</strong> <span id="statusText">not run</span></div>
+          <div><strong>Mode:</strong> <span id="modeText">-</span></div>
+          <div><strong>Processed signals:</strong> <span id="signalCountText">-</span></div>
+        </div>
+        <h3>Validation errors</h3>
+        <ul id="validationErrors" class="err-list"><li>none</li></ul>
+        <h3>Warnings / low-confidence notices</h3>
+        <ul id="warningsList" class="warn-list"><li>none</li></ul>
+      </section>
+
+      <section>
+        <h2>Trait rows</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Trait</th>
+              <th>Current</th>
+              <th>Change</th>
+              <th>Confidence</th>
+              <th>Trend</th>
+            </tr>
+          </thead>
+          <tbody id="traitRows"><tr><td colspan="5">none</td></tr></tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Dashboard summary</h2>
+        <pre id="dashboardSummary">not run</pre>
+      </section>
+
+      <section>
+        <h2>Page-model summary</h2>
+        <pre id="pageModelSummary">not run</pre>
+      </section>
+
+      <section>
+        <h2>Raw JSON</h2>
+        <pre id="rawJson">not run</pre>
+      </section>
+    </main>
+    <script>
+      (function () {
+        const endpoint = "/api/youth-development/intake/task-session";
+        const runBtn = document.getElementById("runTestButton");
+        const payloadEditor = document.getElementById("payloadEditor");
+        const statusText = document.getElementById("statusText");
+        const modeText = document.getElementById("modeText");
+        const signalCountText = document.getElementById("signalCountText");
+        const validationErrors = document.getElementById("validationErrors");
+        const warningsList = document.getElementById("warningsList");
+        const traitRows = document.getElementById("traitRows");
+        const dashboardSummary = document.getElementById("dashboardSummary");
+        const pageModelSummary = document.getElementById("pageModelSummary");
+        const rawJson = document.getElementById("rawJson");
+
+        function resetList(container, values) {
+          container.textContent = "";
+          const entries = Array.isArray(values) ? values.filter(Boolean) : [];
+          if (!entries.length) {
+            const li = document.createElement("li");
+            li.textContent = "none";
+            container.appendChild(li);
+            return;
+          }
+          entries.forEach((value) => {
+            const li = document.createElement("li");
+            li.textContent = String(value);
+            container.appendChild(li);
+          });
+        }
+
+        function renderTraitRows(rows) {
+          traitRows.textContent = "";
+          const sortedRows = Array.isArray(rows)
+            ? rows.slice().sort((a, b) => String(a?.trait_code || "").localeCompare(String(b?.trait_code || "")))
+            : [];
+          if (!sortedRows.length) {
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+            td.setAttribute("colspan", "5");
+            td.textContent = "none";
+            tr.appendChild(td);
+            traitRows.appendChild(tr);
+            return;
+          }
+
+          sortedRows.forEach((row) => {
+            const tr = document.createElement("tr");
+            [row?.trait_code, row?.current_score, row?.change_score, row?.confidence_score, row?.trend_direction].forEach((value) => {
+              const td = document.createElement("td");
+              td.textContent = String(value ?? "");
+              tr.appendChild(td);
+            });
+            traitRows.appendChild(tr);
+          });
+        }
+
+        function renderSummaries(payload) {
+          const dashboard = payload?.dashboard || {};
+          const pageModel = payload?.page_model || {};
+
+          const dashboardView = {
+            high_priority_traits: dashboard.high_priority_traits || [],
+            strengths_count: Array.isArray(dashboard.strengths) ? dashboard.strengths.length : 0,
+            support_count: Array.isArray(dashboard.support_next) ? dashboard.support_next.length : 0,
+            low_confidence_flags: dashboard.low_confidence_flags || [],
+          };
+          dashboardSummary.textContent = JSON.stringify(dashboardView, null, 2);
+
+          const pageModelView = {
+            page_title: pageModel.page_title || null,
+            page_subtitle: pageModel.page_subtitle || null,
+            section_order: pageModel.rendering_safety?.section_order || [],
+            support_items: pageModel.support?.items || [],
+          };
+          pageModelSummary.textContent = JSON.stringify(pageModelView, null, 2);
+        }
+
+        async function runTest() {
+          statusText.textContent = "running...";
+          statusText.className = "";
+          let payload = null;
+          try {
+            payload = JSON.parse(payloadEditor.value);
+          } catch (err) {
+            statusText.textContent = "invalid JSON in payload editor";
+            statusText.className = "status-bad";
+            resetList(validationErrors, [String(err && err.message ? err.message : err)]);
+            return;
+          }
+
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const responseText = await response.text();
+          let data = null;
+          try {
+            data = JSON.parse(responseText);
+          } catch (_) {
+            data = { parse_error: "Response was not valid JSON", raw: responseText };
+          }
+
+          statusText.textContent = String(response.status);
+          statusText.className = response.ok ? "status-ok" : "status-bad";
+          modeText.textContent = String(data?.mode || "-");
+          signalCountText.textContent = String(data?.processed_signal_count ?? "-");
+          resetList(validationErrors, data?.validation_errors || []);
+          resetList(warningsList, data?.warnings || []);
+          renderTraitRows(data?.aggregated_trait_rows || []);
+          renderSummaries(data || {});
+          rawJson.textContent = JSON.stringify(data, null, 2);
+        }
+
+        runBtn.addEventListener("click", () => {
+          runTest().catch((err) => {
+            statusText.textContent = "request failed";
+            statusText.className = "status-bad";
+            resetList(validationErrors, [String(err && err.message ? err.message : err)]);
+          });
+        });
+      }());
+    </script>
+  </body>
+</html>`;
+}
+
 function buildPreviewPayload() {
   const result = buildYouthDevelopmentResult(PREVIEW_AGGREGATED_ROWS, PREVIEW_OPTIONS);
   const dashboard = buildYouthDevelopmentDashboard(result, { maxItems: 5 });
@@ -68,6 +314,10 @@ function buildPreviewPayload() {
 
 function createYouthDevelopmentRouter() {
   const router = express.Router();
+
+  router.get("/youth-development/intake/test", (req, res) => (
+    res.status(200).type("html").send(renderYouthDevelopmentIntakeTestPage())
+  ));
 
   router.get("/youth-development/parent-dashboard/preview", (req, res) => {
     const payload = buildPreviewPayload();
@@ -97,4 +347,5 @@ function createYouthDevelopmentRouter() {
 module.exports = {
   createYouthDevelopmentRouter,
   PREVIEW_AGGREGATED_ROWS,
+  INTAKE_TEST_FIXTURE,
 };

@@ -1,0 +1,87 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const express = require('express');
+const http = require('http');
+
+const { createYouthDevelopmentRouter, INTAKE_TEST_FIXTURE } = require('../../server/youthDevelopmentRoutes');
+const { createYouthDevelopmentIntakeRouter } = require('../../server/youthDevelopmentIntakeRoutes');
+
+async function startServer() {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter());
+  app.use('/api/youth-development/intake', createYouthDevelopmentIntakeRouter());
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  return {
+    server,
+    baseUrl: `http://127.0.0.1:${addr.port}`,
+  };
+}
+
+test('GET /youth-development/intake/test returns internal test HTML with Run Test control and endpoint wiring', async () => {
+  const { server, baseUrl } = await startServer();
+  try {
+    const response = await fetch(`${baseUrl}/youth-development/intake/test`);
+    assert.equal(response.status, 200);
+    assert.match(response.headers.get('content-type') || '', /text\/html/);
+
+    const html = await response.text();
+    assert.match(html, /Internal \/ preview \/ test-only UI\./);
+    assert.match(html, /id="runTestButton"[^>]*>Run Test<\/button>/);
+    assert.match(html, /\/api\/youth-development\/intake\/task-session/);
+    assert.match(html, /id="statusText"/);
+    assert.match(html, /id="traitRows"/);
+    assert.match(html, /id="dashboardSummary"/);
+    assert.match(html, /id="pageModelSummary"/);
+    assert.match(html, /id="rawJson"/);
+    assert.match(html, /"schema_version": "1\.0"/);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('known-good fixture posts successfully to intake endpoint used by test page and supports visible output sections', async () => {
+  const { server, baseUrl } = await startServer();
+  try {
+    const pageResponse = await fetch(`${baseUrl}/youth-development/intake/test`);
+    assert.equal(pageResponse.status, 200);
+    const html = await pageResponse.text();
+    assert.match(html, /function renderTraitRows/);
+    assert.match(html, /function renderSummaries/);
+
+    const response = await fetch(`${baseUrl}/api/youth-development/intake/task-session`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(INTAKE_TEST_FIXTURE),
+    });
+
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ok, true);
+    assert.equal(payload.mode, 'task_session');
+    assert.ok(Array.isArray(payload.aggregated_trait_rows));
+    assert.ok(payload.dashboard && typeof payload.dashboard === 'object');
+    assert.ok(payload.page_model && typeof payload.page_model === 'object');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('existing youth preview routes remain available with test page route present', async () => {
+  const { server, baseUrl } = await startServer();
+  try {
+    const previewHtml = await fetch(`${baseUrl}/youth-development/parent-dashboard/preview`);
+    assert.equal(previewHtml.status, 200);
+
+    const previewJson = await fetch(`${baseUrl}/api/youth-development/parent-dashboard/preview`);
+    assert.equal(previewJson.status, 200);
+    const payload = await previewJson.json();
+    assert.equal(payload.preview, true);
+    assert.equal(payload.test_only, true);
+    assert.match((payload.notes || []).join(' '), /No database access\./);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
