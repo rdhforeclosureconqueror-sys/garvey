@@ -65,6 +65,7 @@ const routingRoutes = require("./routingRoutes");
 const evolutionRoutes = require("./evolutionRoutes");
 const { createArchetypeEnginesRouter } = require("./archetypeEnginesRoutes");
 const { initializeArchetypeEngineSchema } = require("./archetypeEnginesService");
+const { createYouthDevelopmentRouter } = require("./youthDevelopmentRoutes");
 const { generateSite } = require("./siteMaterializer");
 const { getTapCrmMode } = require("./tapCrmFeature");
 const { createTapCrmRouter, resolvePublicTap } = require("./tapCrmRoutes");
@@ -1937,6 +1938,7 @@ app.use("/api/routing", routingRoutes({ pool, ensureTenant }));
 app.use("/api/stability", routingRoutes({ pool, ensureTenant }));
 app.use("/api/evolution", evolutionRoutes({ pool, ensureTenant }));
 app.use("/api/archetype-engines", createArchetypeEnginesRouter({ pool }));
+app.use(createYouthDevelopmentRouter());
 
 app.post("/api/campaigns/create", async (req, res) => {
   let failurePoint = "init";
