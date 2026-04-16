@@ -282,15 +282,13 @@ function createArchetypeEnginesRouter({ pool }) {
 
     const tenant = pickTenant(req);
     const attribution = pickAttribution(req);
-    if (engineType === "love") {
-      const consentId = String(req.body?.consent_id || "").trim();
-      if (!consentId) return res.status(403).json({ error: "consent_required_before_assessment" });
-      const consentCheck = await pool.query(
-        "SELECT id FROM engine_assessment_consents WHERE id = $1 AND engine_type = $2 AND tenant_slug = $3 AND accepted = true LIMIT 1",
-        [consentId, engineType, tenant]
-      );
-      if (!consentCheck.rows[0]) return res.status(403).json({ error: "consent_required_before_assessment" });
-    }
+    const consentId = String(req.body?.consent_id || "").trim();
+    if (!consentId) return res.status(403).json({ error: "consent_required_before_assessment" });
+    const consentCheck = await pool.query(
+      "SELECT id FROM engine_assessment_consents WHERE id = $1 AND engine_type = $2 AND tenant_slug = $3 AND accepted = true LIMIT 1",
+      [consentId, engineType, tenant]
+    );
+    if (!consentCheck.rows[0]) return res.status(403).json({ error: "consent_required_before_assessment" });
 
     const assessmentId = newId("asmt");
     await pool.query(

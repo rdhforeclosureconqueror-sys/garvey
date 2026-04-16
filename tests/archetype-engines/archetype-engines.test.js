@@ -97,6 +97,17 @@ async function startServer(pool) {
   return { server, baseUrl: `http://127.0.0.1:${addr.port}` };
 }
 
+async function createConsent(baseUrl, engineType, email = `${engineType}.tester@example.com`) {
+  const res = await fetch(`${baseUrl}/api/archetype-engines/${engineType}/assessment/consent`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ tenant: 'demo', email, name: 'Test User', accepted: true, consent_version: 'v1' }),
+  });
+  assert.equal(res.status, 200);
+  const payload = await res.json();
+  return payload.consent_id;
+}
+
 test('love bank loads from approved source while preserving 25-question bank shape', () => {
   assert.ok(LOVE_QUESTIONS.length >= 25);
   assert.equal(LOVE_QUESTIONS.length % 25, 0);
@@ -181,7 +192,7 @@ test('route contracts: leadership and loyalty full assessment flows are live', a
       const startRes = await fetch(`${baseUrl}/api/archetype-engines/${engineType}/assessment/start`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ tenant: 'demo' }),
+        body: JSON.stringify({ tenant: 'demo', consent_id: await createConsent(baseUrl, engineType) }),
       });
       assert.equal(startRes.status, 200);
       const startJson = await startRes.json();
@@ -359,6 +370,12 @@ test('loyalty UI includes adaptive messaging and loyalty-native section labels',
   assert.match(source, /REAL-WORLD TRANSLATION/);
   assert.match(source, /Want a deeper relationship breakdown\?/);
   assert.match(source, /Take Love Assessment/);
+  assert.match(source, /LOYALTY_IMAGE_BY_CODE/);
+  assert.match(source, /Convenience_Habit\.png/);
+  assert.match(source, /Emotional_Commitment\.png/);
+  assert.match(source, /Satisfaction_Attatchment\.png/);
+  assert.match(source, /Switching_Friction\.png/);
+  assert.match(source, /Trust_Dependence\.png/);
 });
 
 test('leadership UI includes leadership-native deep-dive sections while preserving shared fallback sections', () => {
@@ -377,46 +394,50 @@ test('leadership UI includes leadership-native deep-dive sections while preservi
   assert.match(source, /<h2>Self Alignment<\/h2>/);
 });
 
-test('no regression: love routes remain live', async () => {
+test('assessment start requires consent for all archetype engines and remains live after consent', async () => {
   const { server, baseUrl } = await startServer(createMockPool());
   try {
-    const blockedStartRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/start`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ tenant: 'demo' }),
-    });
-    assert.equal(blockedStartRes.status, 403);
-    const blockedStartJson = await blockedStartRes.json();
-    assert.equal(blockedStartJson.error, 'consent_required_before_assessment');
+    let loveAssessmentId = '';
+    for (const engineType of ['love', 'loyalty', 'leadership']) {
+      const blockedStartRes = await fetch(`${baseUrl}/api/archetype-engines/${engineType}/assessment/start`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ tenant: 'demo' }),
+      });
+      assert.equal(blockedStartRes.status, 403);
+      const blockedStartJson = await blockedStartRes.json();
+      assert.equal(blockedStartJson.error, 'consent_required_before_assessment');
 
-    const consentRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/consent`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ tenant: 'demo', email: 'test@example.com', name: 'Test User', accepted: true, consent_version: 'v1' }),
-    });
-    assert.equal(consentRes.status, 200);
-    const consentJson = await consentRes.json();
+      const consentRes = await fetch(`${baseUrl}/api/archetype-engines/${engineType}/assessment/consent`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ tenant: 'demo', email: `${engineType}@example.com`, name: `${engineType} user`, accepted: true, consent_version: 'v1' }),
+      });
+      assert.equal(consentRes.status, 200);
+      const consentJson = await consentRes.json();
 
-    const startRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/start`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ tenant: 'demo', consent_id: consentJson.consent_id }),
-    });
-    assert.equal(startRes.status, 200);
-    const startJson = await startRes.json();
-    assert.equal(startJson.questionSource, 'authored_bank_1');
-    assert.equal(startJson.useGeneratorOnFirstAttempt, false);
-    assert.ok(startJson.questionBanks.activeQuestions[0].id);
-    assert.ok(startJson.questionBanks.activeQuestions[0].prompt);
-    assert.equal(startJson.questionBanks.activeQuestions.length, 25);
-    assert.equal(startJson.questionBanks.selectedBankId, startJson.questionBanks.activeQuestions[0].bankId);
-    assert.ok(startJson.questionBanks.activeQuestions.at(-1).id);
+      const startRes = await fetch(`${baseUrl}/api/archetype-engines/${engineType}/assessment/start`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ tenant: 'demo', consent_id: consentJson.consent_id }),
+      });
+      assert.equal(startRes.status, 200);
+      const startJson = await startRes.json();
+      assert.equal(startJson.questionSource, 'authored_bank_1');
+      assert.equal(startJson.useGeneratorOnFirstAttempt, false);
+      assert.ok(startJson.questionBanks.activeQuestions[0].id);
+      assert.ok(startJson.questionBanks.activeQuestions[0].prompt);
+      assert.equal(startJson.questionBanks.activeQuestions.length, 25);
+      assert.equal(startJson.questionBanks.selectedBankId, startJson.questionBanks.activeQuestions[0].bankId);
+      assert.ok(startJson.questionBanks.activeQuestions.at(-1).id);
+      if (engineType === 'love') loveAssessmentId = startJson.assessmentId;
+    }
 
     const answers = Object.fromEntries(LOVE_QUESTIONS.map((q) => [q.id || q.question_id, 4]));
     const scoreRes = await fetch(`${baseUrl}/api/archetype-engines/love/assessment/score`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ tenant: 'demo', assessmentId: startJson.assessmentId, answers }),
+      body: JSON.stringify({ tenant: 'demo', assessmentId: loveAssessmentId, answers }),
     });
     assert.equal(scoreRes.status, 200);
 
@@ -595,6 +616,7 @@ test('archetype routes preserve tap and return attribution context through start
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
         tenant: 'demo',
+        consent_id: await createConsent(baseUrl, 'leadership'),
         campaign: 'camp-1',
         rid: 'rid-1',
         tap_source: 'tap',
@@ -764,6 +786,7 @@ test('loyalty attribution persists at top-level and canonical payloads, and resu
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           tenant: 'demo',
+          consent_id: await createConsent(baseUrl, 'loyalty', `${tapSource || 'source'}-${rid || 'rid'}@example.com`),
           source_type: sourceType,
           tap_source: tapSource,
           cid,
@@ -902,7 +925,7 @@ test('leadership retakes with approved manifest bank return generated success pa
     const startRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/start`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ tenant: 'demo', retake_attempt: 1 }),
+      body: JSON.stringify({ tenant: 'demo', consent_id: await createConsent(baseUrl, 'leadership'), retake_attempt: 1 }),
     });
     assert.equal(startRes.status, 200);
     const startJson = await startRes.json();
@@ -935,7 +958,7 @@ test('leadership retakes without approved manifest bank remain explicit 409', as
     const startRes = await fetch(`${baseUrl}/api/archetype-engines/leadership/assessment/start`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ tenant: 'demo', retake_attempt: 1 }),
+      body: JSON.stringify({ tenant: 'demo', consent_id: await createConsent(baseUrl, 'leadership', 'leadership.manifest@example.com'), retake_attempt: 1 }),
     });
     assert.equal(startRes.status, 409);
     const startJson = await startRes.json();
@@ -982,7 +1005,14 @@ test('loyalty retakes use governed generated source and never authored fallback'
       const startRes = await fetch(`${baseUrl}/api/archetype-engines/loyalty/assessment/start`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ tenant: 'demo', retake_attempt: expected.completedCount, rid, crid, tap_session: tap }),
+        body: JSON.stringify({
+          tenant: 'demo',
+          consent_id: await createConsent(baseUrl, 'loyalty', `retake-${expected.completedCount}@example.com`),
+          retake_attempt: expected.completedCount,
+          rid,
+          crid,
+          tap_session: tap,
+        }),
       });
       assert.equal(startRes.status, 200);
       const startJson = await startRes.json();
