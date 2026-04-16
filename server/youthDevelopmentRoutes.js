@@ -106,6 +106,19 @@ function renderYouthDevelopmentIntakeTestPage() {
       .summary-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
       table { width: 100%; border-collapse: collapse; }
       th, td { border: 1px solid #cbd5e1; padding: 6px; text-align: left; }
+      .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+      .preset-btn { background: #e2e8f0; color: #0f172a; border-color: #94a3b8; }
+      .preset-btn:hover { background: #cbd5e1; }
+      .status-panel { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+      .status-code { font-size: 32px; font-weight: 800; }
+      .status-label { color: #475569; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+      .status-note { color: #64748b; font-size: 13px; }
+      .callout-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+      .callout { border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px; background: #f8fafc; }
+      .callout h4 { margin: 0 0 8px 0; font-size: 14px; }
+      .trait-summary { border: 1px solid #bfdbfe; background: #eff6ff; border-radius: 8px; padding: 10px; }
+      .trait-summary h3 { margin: 0 0 8px 0; font-size: 15px; }
+      .trait-summary p { margin: 4px 0; }
     </style>
   </head>
   <body>
@@ -119,21 +132,45 @@ function renderYouthDevelopmentIntakeTestPage() {
       <section>
         <h2>Payload editor</h2>
         <p>Default payload is prefilled from the known-good fixture used in youth intake tests.</p>
+        <div class="toolbar">
+          <button id="presetStrongButton" class="preset-btn" type="button">Load preset: strong / high-confidence</button>
+          <button id="presetSupportButton" class="preset-btn" type="button">Load preset: support-needed</button>
+          <button id="presetLowConfidenceButton" class="preset-btn" type="button">Load preset: low-confidence</button>
+          <button id="resetPayloadButton" class="preset-btn" type="button">Reset to known-good payload</button>
+        </div>
         <textarea id="payloadEditor" aria-label="Task session payload">${fixture}</textarea>
         <p><button id="runTestButton" type="button">Run Test</button></p>
       </section>
 
       <section>
         <h2>Response summary</h2>
+        <div class="status-panel">
+          <div>
+            <div class="status-label">HTTP status</div>
+            <div id="statusText" class="status-code">not run</div>
+          </div>
+          <div id="statusNote" class="status-note">Awaiting request.</div>
+        </div>
         <div class="summary-grid">
-          <div><strong>HTTP status:</strong> <span id="statusText">not run</span></div>
           <div><strong>Mode:</strong> <span id="modeText">-</span></div>
           <div><strong>Processed signals:</strong> <span id="signalCountText">-</span></div>
         </div>
-        <h3>Validation errors</h3>
-        <ul id="validationErrors" class="err-list"><li>none</li></ul>
-        <h3>Warnings / low-confidence notices</h3>
-        <ul id="warningsList" class="warn-list"><li>none</li></ul>
+        <div id="traitSummaryBlock" class="trait-summary">
+          <h3>Trait summary (compact)</h3>
+          <p><strong>Total rows:</strong> <span id="traitSummaryCount">0</span></p>
+          <p><strong>Top trait:</strong> <span id="traitSummaryTop">-</span></p>
+          <p><strong>Low-confidence rows (&lt;60):</strong> <span id="traitSummaryLowConfidence">0</span></p>
+        </div>
+        <div class="callout-grid">
+          <div class="callout">
+            <h4>Validation errors</h4>
+            <ul id="validationErrors" class="err-list"><li>none</li></ul>
+          </div>
+          <div class="callout">
+            <h4>Warnings / low-confidence notices</h4>
+            <ul id="warningsList" class="warn-list"><li>none</li></ul>
+          </div>
+        </div>
       </section>
 
       <section>
@@ -163,18 +200,83 @@ function renderYouthDevelopmentIntakeTestPage() {
       </section>
 
       <section>
-        <h2>Raw JSON</h2>
-        <pre id="rawJson">not run</pre>
+        <h2>Debug output</h2>
+        <details open>
+          <summary>Raw JSON response (expand/collapse)</summary>
+          <pre id="rawJson">not run</pre>
+        </details>
       </section>
     </main>
     <script>
       (function () {
         const endpoint = "/api/youth-development/intake/task-session";
+        const knownGoodPayload = ${fixture};
+        const presetPayloads = {
+          strong: {
+            ...knownGoodPayload,
+            session_id: "session-strong",
+            task_results: [
+              {
+                ...knownGoodPayload.task_results[0],
+                raw_input: {
+                  ...knownGoodPayload.task_results[0].raw_input,
+                  metrics: {
+                    inquiry_depth: 4,
+                    justification_quality: 4,
+                    decision_quality: 4,
+                  },
+                },
+              },
+            ],
+          },
+          support: {
+            ...knownGoodPayload,
+            session_id: "session-support",
+            task_results: [
+              {
+                ...knownGoodPayload.task_results[0],
+                raw_input: {
+                  ...knownGoodPayload.task_results[0].raw_input,
+                  metrics: {
+                    inquiry_depth: 1,
+                    justification_quality: 1,
+                    decision_quality: 1,
+                  },
+                },
+              },
+            ],
+          },
+          lowConfidence: {
+            ...knownGoodPayload,
+            session_id: "session-low-confidence",
+            task_results: [
+              {
+                ...knownGoodPayload.task_results[0],
+                raw_input: {
+                  ...knownGoodPayload.task_results[0].raw_input,
+                  metrics: {
+                    inquiry_depth: 2,
+                    justification_quality: 2,
+                    decision_quality: 2,
+                  },
+                },
+              },
+            ],
+          },
+        };
         const runBtn = document.getElementById("runTestButton");
+        const presetStrongButton = document.getElementById("presetStrongButton");
+        const presetSupportButton = document.getElementById("presetSupportButton");
+        const presetLowConfidenceButton = document.getElementById("presetLowConfidenceButton");
+        const resetPayloadButton = document.getElementById("resetPayloadButton");
         const payloadEditor = document.getElementById("payloadEditor");
         const statusText = document.getElementById("statusText");
+        const statusNote = document.getElementById("statusNote");
         const modeText = document.getElementById("modeText");
         const signalCountText = document.getElementById("signalCountText");
+        const traitSummaryCount = document.getElementById("traitSummaryCount");
+        const traitSummaryTop = document.getElementById("traitSummaryTop");
+        const traitSummaryLowConfidence = document.getElementById("traitSummaryLowConfidence");
         const validationErrors = document.getElementById("validationErrors");
         const warningsList = document.getElementById("warningsList");
         const traitRows = document.getElementById("traitRows");
@@ -224,6 +326,26 @@ function renderYouthDevelopmentIntakeTestPage() {
           });
         }
 
+        function renderTraitSummary(rows) {
+          const normalized = Array.isArray(rows) ? rows.slice() : [];
+          traitSummaryCount.textContent = String(normalized.length);
+          if (!normalized.length) {
+            traitSummaryTop.textContent = "-";
+            traitSummaryLowConfidence.textContent = "0";
+            return;
+          }
+
+          const sortedByScore = normalized
+            .filter((row) => typeof row?.current_score === "number")
+            .sort((a, b) => b.current_score - a.current_score);
+          const top = sortedByScore[0];
+          traitSummaryTop.textContent = top
+            ? String(top.trait_code) + " (" + String(top.current_score) + ")"
+            : "-";
+          const lowConfidenceCount = normalized.filter((row) => Number(row?.confidence_score) < 60).length;
+          traitSummaryLowConfidence.textContent = String(lowConfidenceCount);
+        }
+
         function renderSummaries(payload) {
           const dashboard = payload?.dashboard || {};
           const pageModel = payload?.page_model || {};
@@ -248,12 +370,14 @@ function renderYouthDevelopmentIntakeTestPage() {
         async function runTest() {
           statusText.textContent = "running...";
           statusText.className = "";
+          statusNote.textContent = "Submitting to intake endpoint...";
           let payload = null;
           try {
             payload = JSON.parse(payloadEditor.value);
           } catch (err) {
             statusText.textContent = "invalid JSON in payload editor";
             statusText.className = "status-bad";
+            statusNote.textContent = "Fix JSON before running.";
             resetList(validationErrors, [String(err && err.message ? err.message : err)]);
             return;
           }
@@ -273,19 +397,33 @@ function renderYouthDevelopmentIntakeTestPage() {
 
           statusText.textContent = String(response.status);
           statusText.className = response.ok ? "status-ok" : "status-bad";
+          statusNote.textContent = response.ok
+            ? "Request succeeded."
+            : "Request failed. Check errors/warnings below.";
           modeText.textContent = String(data?.mode || "-");
           signalCountText.textContent = String(data?.processed_signal_count ?? "-");
           resetList(validationErrors, data?.validation_errors || []);
           resetList(warningsList, data?.warnings || []);
           renderTraitRows(data?.aggregated_trait_rows || []);
+          renderTraitSummary(data?.aggregated_trait_rows || []);
           renderSummaries(data || {});
           rawJson.textContent = JSON.stringify(data, null, 2);
         }
+
+        function setPayload(value) {
+          payloadEditor.value = JSON.stringify(value, null, 2);
+        }
+
+        presetStrongButton.addEventListener("click", () => setPayload(presetPayloads.strong));
+        presetSupportButton.addEventListener("click", () => setPayload(presetPayloads.support));
+        presetLowConfidenceButton.addEventListener("click", () => setPayload(presetPayloads.lowConfidence));
+        resetPayloadButton.addEventListener("click", () => setPayload(knownGoodPayload));
 
         runBtn.addEventListener("click", () => {
           runTest().catch((err) => {
             statusText.textContent = "request failed";
             statusText.className = "status-bad";
+            statusNote.textContent = "Network/request failure before JSON response.";
             resetList(validationErrors, [String(err && err.message ? err.message : err)]);
           });
         });

@@ -20,7 +20,7 @@ async function startServer() {
   };
 }
 
-test('GET /youth-development/intake/test returns internal test HTML with Run Test control and endpoint wiring', async () => {
+test('GET /youth-development/intake/test renders internal helpers for repeat testing and keeps endpoint wiring', async () => {
   const { server, baseUrl } = await startServer();
   try {
     const response = await fetch(`${baseUrl}/youth-development/intake/test`);
@@ -30,12 +30,22 @@ test('GET /youth-development/intake/test returns internal test HTML with Run Tes
     const html = await response.text();
     assert.match(html, /Internal \/ preview \/ test-only UI\./);
     assert.match(html, /id="runTestButton"[^>]*>Run Test<\/button>/);
+    assert.match(html, /id="presetStrongButton"/);
+    assert.match(html, /id="presetSupportButton"/);
+    assert.match(html, /id="presetLowConfidenceButton"/);
+    assert.match(html, /id="resetPayloadButton"/);
     assert.match(html, /\/api\/youth-development\/intake\/task-session/);
     assert.match(html, /id="statusText"/);
+    assert.match(html, /id="statusNote"/);
+    assert.match(html, /id="traitSummaryBlock"/);
+    assert.match(html, /id="traitSummaryCount"/);
+    assert.match(html, /id="traitSummaryTop"/);
+    assert.match(html, /id="traitSummaryLowConfidence"/);
     assert.match(html, /id="traitRows"/);
     assert.match(html, /id="dashboardSummary"/);
     assert.match(html, /id="pageModelSummary"/);
     assert.match(html, /id="rawJson"/);
+    assert.match(html, /Raw JSON response \(expand\/collapse\)/);
     assert.match(html, /"schema_version": "1\.0"/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
@@ -49,7 +59,9 @@ test('known-good fixture posts successfully to intake endpoint used by test page
     assert.equal(pageResponse.status, 200);
     const html = await pageResponse.text();
     assert.match(html, /function renderTraitRows/);
+    assert.match(html, /function renderTraitSummary/);
     assert.match(html, /function renderSummaries/);
+    assert.match(html, /const endpoint = "\/api\/youth-development\/intake\/task-session";/);
 
     const response = await fetch(`${baseUrl}/api/youth-development/intake/task-session`, {
       method: 'POST',
