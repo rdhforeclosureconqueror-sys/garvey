@@ -90,43 +90,69 @@ function renderYouthDevelopmentIntakeTestPage() {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Youth Development Intake Test (Internal)</title>
     <style>
-      body { font-family: Arial, sans-serif; margin: 0; padding: 16px; background: #f8fafc; color: #0f172a; }
-      main { max-width: 1080px; margin: 0 auto; display: grid; gap: 12px; }
-      section { background: #fff; border: 1px solid #dbe3ef; border-radius: 10px; padding: 14px; }
-      .preview-banner { font-weight: bold; color: #7c2d12; background: #ffedd5; border: 1px solid #fdba74; border-radius: 8px; padding: 8px; }
-      .status-ok { color: #166534; font-weight: 700; }
-      .status-bad { color: #991b1b; font-weight: 700; }
-      textarea { width: 100%; min-height: 280px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
-      button { border: 1px solid #0f172a; background: #0f172a; color: #fff; border-radius: 8px; padding: 10px 14px; font-size: 14px; cursor: pointer; }
-      button:hover { background: #1e293b; }
+      :root {
+        --bg: #030712;
+        --panel: linear-gradient(150deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.88));
+        --line: rgba(148, 163, 184, 0.38);
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+      }
+      * { box-sizing: border-box; }
+      body {
+        font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+        margin: 0;
+        padding: 18px;
+        background: radial-gradient(circle at 5% 0%, #111827, #020617 60%);
+        color: var(--text);
+      }
+      main { max-width: 1180px; margin: 0 auto; display: grid; gap: 12px; }
+      section { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+      .intro-header { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: flex-start; }
+      .preview-banner { font-weight: 700; color: #fed7aa; background: rgba(124, 45, 18, 0.35); border: 1px solid rgba(251, 146, 60, 0.45); border-radius: 999px; padding: 6px 10px; font-size: 12px; display: inline-block; }
+      .status-ok { color: #4ade80; font-weight: 700; }
+      .status-bad { color: #fca5a5; font-weight: 700; }
+      textarea { width: 100%; min-height: 280px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; border-radius: 8px; border: 1px solid var(--line); background: rgba(2, 6, 23, 0.8); color: #dbeafe; padding: 10px; }
+      button { border: 1px solid #22d3ee; background: linear-gradient(120deg, #0f172a, #1e293b); color: #f8fafc; border-radius: 999px; padding: 9px 14px; font-size: 13px; cursor: pointer; }
+      button:hover { filter: brightness(1.08); }
       code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-      pre { white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px; background: #f8fafc; }
-      .warn-list { color: #92400e; }
-      .err-list { color: #991b1b; font-weight: 600; }
-      .summary-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+      pre { white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid var(--line); border-radius: 8px; padding: 10px; background: rgba(2, 6, 23, 0.75); color: #bfdbfe; }
+      .warn-list { color: #fdba74; }
+      .err-list { color: #fca5a5; font-weight: 600; }
+      .summary-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
       table { width: 100%; border-collapse: collapse; }
-      th, td { border: 1px solid #cbd5e1; padding: 6px; text-align: left; }
+      th, td { border: 1px solid var(--line); padding: 6px; text-align: left; }
       .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
-      .preset-btn { background: #e2e8f0; color: #0f172a; border-color: #94a3b8; }
-      .preset-btn:hover { background: #cbd5e1; }
+      .preset-btn { background: rgba(15, 23, 42, 0.9); border-color: #64748b; }
       .status-panel { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
       .status-code { font-size: 32px; font-weight: 800; }
-      .status-label { color: #475569; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
-      .status-note { color: #64748b; font-size: 13px; }
+      .status-label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+      .status-note { color: #cbd5e1; font-size: 13px; }
       .callout-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-      .callout { border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px; background: #f8fafc; }
+      .callout { border: 1px solid var(--line); border-radius: 8px; padding: 10px; background: rgba(15, 23, 42, 0.65); }
       .callout h4 { margin: 0 0 8px 0; font-size: 14px; }
-      .trait-summary { border: 1px solid #bfdbfe; background: #eff6ff; border-radius: 8px; padding: 10px; }
+      .trait-summary { border: 1px solid rgba(56, 189, 248, 0.5); background: rgba(12, 74, 110, 0.35); border-radius: 8px; padding: 10px; }
       .trait-summary h3 { margin: 0 0 8px 0; font-size: 15px; }
       .trait-summary p { margin: 4px 0; }
+      .quick-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; }
+      .qa-card { border: 1px solid var(--line); border-radius: 8px; padding: 10px; background: rgba(2, 6, 23, 0.5); }
+      .qa-card h3 { margin: 0 0 6px 0; font-size: 14px; }
+      .qa-card p { margin: 0; font-size: 13px; color: #cbd5e1; }
     </style>
   </head>
   <body>
     <main>
       <section>
-        <p class="preview-banner">Internal / preview / test-only UI. Not a production user flow.</p>
-        <h1>Youth Development Intake Test Runner</h1>
-        <p>Endpoint: <code id="endpointLabel">/api/youth-development/intake/task-session</code></p>
+        <div class="intro-header">
+          <div>
+            <p class="preview-banner">Internal / preview / test-only UI. Not a production user flow.</p>
+            <h1>Youth Development Intake Test Runner</h1>
+            <p>Endpoint: <code id="endpointLabel">/api/youth-development/intake/task-session</code></p>
+          </div>
+          <div class="quick-actions" aria-label="dashboard quick actions">
+            <div class="qa-card"><h3>One-click verify</h3><p>Use preset payloads and run tests without leaving this page.</p></div>
+            <div class="qa-card"><h3>Visible confidence</h3><p>Track warnings, low-confidence counts, and trait trends immediately.</p></div>
+          </div>
+        </div>
       </section>
 
       <section>
