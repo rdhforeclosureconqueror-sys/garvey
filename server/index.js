@@ -1940,7 +1940,7 @@ app.use("/api/stability", routingRoutes({ pool, ensureTenant }));
 app.use("/api/evolution", evolutionRoutes({ pool, ensureTenant }));
 app.use("/api/archetype-engines", createArchetypeEnginesRouter({ pool }));
 app.use(createYouthDevelopmentRouter());
-app.use(createYouthDevelopmentIntakeRouter());
+app.use("/api/youth-development/intake", createYouthDevelopmentIntakeRouter());
 
 app.post("/api/campaigns/create", async (req, res) => {
   let failurePoint = "init";

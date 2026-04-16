@@ -12,7 +12,7 @@ async function startServer() {
   const app = express();
   app.use(express.json());
   app.use(createYouthDevelopmentRouter());
-  app.use(createYouthDevelopmentIntakeRouter());
+  app.use('/api/youth-development/intake', createYouthDevelopmentIntakeRouter());
   const server = http.createServer(app);
   await new Promise((resolve) => server.listen(0, resolve));
   const addr = server.address();

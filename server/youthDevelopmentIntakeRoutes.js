@@ -11,7 +11,7 @@ const {
 function createYouthDevelopmentIntakeRouter() {
   const router = express.Router();
 
-  router.post("/api/youth-development/intake/task-session", (req, res) => {
+  router.post("/task-session", (req, res) => {
     const validation = validateAndNormalizeTaskSessionPayload(req.body || {});
     if (!validation.ok) {
       return res.status(400).json({
@@ -40,7 +40,7 @@ function createYouthDevelopmentIntakeRouter() {
     }
   });
 
-  router.post("/api/youth-development/intake/signals", (req, res) => {
+  router.post("/signals", (req, res) => {
     const validation = validateDirectSignalsPayload(req.body || {});
     if (!validation.ok) {
       return res.status(400).json({
