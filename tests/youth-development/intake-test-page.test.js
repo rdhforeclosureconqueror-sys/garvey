@@ -107,3 +107,18 @@ test('existing youth preview routes remain available with test page route presen
     await new Promise((resolve) => server.close(resolve));
   }
 });
+
+test('GET /youth-development/intake renders live single-question parent-observation flow', async () => {
+  const { server, baseUrl } = await startServer();
+  try {
+    const response = await fetch(`${baseUrl}/youth-development/intake`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, /Youth Talent Development Intake — Parent Observation Screener v1/);
+    assert.match(html, /Question 1 of 25/);
+    assert.match(html, /Submit assessment/);
+    assert.match(html, /past 6 to 8 weeks/);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});

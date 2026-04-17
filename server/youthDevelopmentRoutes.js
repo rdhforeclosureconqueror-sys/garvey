@@ -5,7 +5,11 @@ const { buildYouthDevelopmentResult } = require("../youth-development/measuremen
 const { buildYouthDevelopmentDashboard } = require("../youth-development/measurement/dashboardBuilder");
 const { buildParentDashboardPageModel } = require("../youth-development/presentation/parentDashboardPageModel");
 const { renderYouthDevelopmentParentDashboardPage } = require("./youthDevelopmentRenderer");
-const { YOUTH_QUESTION_BANK } = require("../youth-development/question-engine/youthQuestionBank");
+const {
+  YOUTH_QUESTION_BANK,
+  YOUTH_PARENT_INSTRUCTIONS,
+  YOUTH_ANSWER_SCALE,
+} = require("../youth-development/question-engine/youthQuestionBank");
 const { getQuestionFlowState, validateAnswers } = require("../youth-development/question-engine/youthQuestionFlow");
 const { runYouthIntakeScoring } = require("../youth-development/question-engine/youthScoringMap");
 
@@ -518,7 +522,122 @@ function renderYouthDevelopmentIntakeTestPage() {
 </html>`;
 }
 
+function renderLiveYouthAssessmentPage() {
+  const answerScale = JSON.stringify(YOUTH_ANSWER_SCALE);
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Youth Talent Development Intake — Parent Observation Screener v1</title>
+    <style>
+      :root { --bg: #f8fafc; --card: #ffffff; --line: #cbd5e1; --text: #0f172a; --muted: #475569; --brand: #0f766e; }
+      body { font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 24px; }
+      main { max-width: 760px; margin: 0 auto; display: grid; gap: 14px; }
+      section { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+      .tag { font-size: 12px; color: #115e59; background: #ccfbf1; border-radius: 999px; padding: 4px 8px; display: inline-block; margin-bottom: 8px; }
+      .muted { color: var(--muted); }
+      .options { display: grid; gap: 8px; margin-top: 12px; }
+      button.answer { text-align: left; border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: #f8fafc; cursor: pointer; }
+      button.answer:hover { border-color: var(--brand); }
+      .row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+      .controls { display: flex; gap: 8px; flex-wrap: wrap; }
+      .controls button { border: 1px solid #0f766e; background: #f0fdfa; border-radius: 999px; padding: 8px 12px; cursor: pointer; }
+      pre { white-space: pre-wrap; background: #0f172a; color: #e2e8f0; border-radius: 8px; padding: 10px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <p class="tag">First live bank • Parent observation • Provisional trait signals only</p>
+        <h1>Youth Talent Development Intake — Parent Observation Screener v1</h1>
+        <p>${YOUTH_PARENT_INSTRUCTIONS}</p>
+        <p class="muted">This screener is evidence-informed and designed for developmental support. It is not a validated diagnostic tool and does not predict future success.</p>
+      </section>
+      <section>
+        <div class="row"><strong id="progressLabel">Question 1 of 25</strong><span id="completionLabel" class="muted">0% complete</span></div>
+        <h2 id="prompt">Loading assessment…</h2>
+        <div id="options" class="options"></div>
+        <div class="controls">
+          <button id="prevBtn" type="button">Previous</button>
+          <button id="nextBtn" type="button">Next</button>
+          <button id="submitBtn" type="button">Submit assessment</button>
+        </div>
+      </section>
+      <section>
+        <h2>Result (provisional)</h2>
+        <pre id="resultBox">Not submitted.</pre>
+      </section>
+    </main>
+    <script>
+      (async function () {
+        const answerScale = ${answerScale};
+        const progressLabel = document.getElementById("progressLabel");
+        const completionLabel = document.getElementById("completionLabel");
+        const promptEl = document.getElementById("prompt");
+        const optionsEl = document.getElementById("options");
+        const resultBox = document.getElementById("resultBox");
+        const state = { questions: [], index: 0, answers: {} };
+
+        const questionResponse = await fetch("/api/youth-development/questions");
+        const questionPayload = await questionResponse.json();
+        state.questions = Array.isArray(questionPayload.questions) ? questionPayload.questions : [];
+
+        function renderQuestion() {
+          const current = state.questions[state.index];
+          if (!current) return;
+          progressLabel.textContent = "Question " + (state.index + 1) + " of " + state.questions.length;
+          completionLabel.textContent = Math.round((Object.keys(state.answers).length / state.questions.length) * 100) + "% complete";
+          promptEl.textContent = current.prompt;
+          optionsEl.textContent = "";
+          answerScale.forEach((option) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "answer";
+            const selected = Number(state.answers[current.id]) === option.value;
+            button.innerHTML = "<strong>" + option.value + ". " + option.label + "</strong>" + (selected ? " ✅" : "");
+            button.addEventListener("click", () => {
+              state.answers[current.id] = option.value;
+              renderQuestion();
+            });
+            optionsEl.appendChild(button);
+          });
+        }
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          state.index = Math.max(0, state.index - 1);
+          renderQuestion();
+        });
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          state.index = Math.min(state.questions.length - 1, state.index + 1);
+          renderQuestion();
+        });
+        document.getElementById("submitBtn").addEventListener("click", async () => {
+          const response = await fetch("/api/youth-development/assess", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ answers: state.answers }),
+          });
+          const payload = await response.json();
+          resultBox.textContent = JSON.stringify(payload, null, 2);
+        });
+
+        renderQuestion();
+      }());
+    </script>
+  </body>
+</html>`;
+}
+
 function buildDeterministicNarrative(interpretation = {}) {
+  if (interpretation?.incomplete) {
+    return {
+      opening: "More responses are needed before trait interpretation can be shown.",
+      focus_area: "Please complete additional questions so the screener has enough current evidence.",
+      next_step: interpretation.message,
+    };
+  }
+
   const highest = interpretation.highest_trait;
   const lowest = interpretation.lowest_trait;
   const conflict = interpretation.conflict;
@@ -537,12 +656,18 @@ function buildDeterministicNarrative(interpretation = {}) {
 }
 
 function buildYouthAssessPayload(answerPairs, options = {}) {
-  const scoring = runYouthIntakeScoring(answerPairs);
+  const scoring = runYouthIntakeScoring(answerPairs, {
+    unansweredCount: options.unansweredCount,
+    totalQuestions: YOUTH_QUESTION_BANK.length,
+  });
   const result = buildYouthDevelopmentResult(scoring.trait_rows, {
     generatedAt: options.generatedAt || "2026-04-17T00:00:00.000Z",
     evidenceSummary: {
-      sources_used: ["parent_observation", "child_scenario"],
-      confidence_caveats: ["Deterministic intake scoring based on parent responses."],
+      sources_used: ["parent_observation"],
+      confidence_caveats: [
+        "Parent-observation intake only: all outputs are provisional developmental signals.",
+        "This screener is evidence-informed and designed for validation, not a psychometrically validated instrument.",
+      ],
     },
   });
   const dashboard = buildYouthDevelopmentDashboard(result, { maxItems: 5 });
@@ -567,6 +692,7 @@ function buildYouthAssessPayload(answerPairs, options = {}) {
     dashboard,
     page_model: enrichedPageModel,
     rendered_html: renderYouthDevelopmentParentDashboardPage(enrichedPageModel),
+    trait_reports: scoring.trait_reports,
   };
 }
 
@@ -590,6 +716,10 @@ function buildPreviewPayload() {
 function createYouthDevelopmentRouter() {
   const router = express.Router();
 
+  router.get("/youth-development/intake", (req, res) => (
+    res.status(200).type("html").send(renderLiveYouthAssessmentPage())
+  ));
+
   router.get("/youth-development/intake/test", (req, res) => (
     res.status(200).type("html").send(renderYouthDevelopmentIntakeTestPage())
   ));
@@ -606,6 +736,10 @@ function createYouthDevelopmentRouter() {
     const flow = getQuestionFlowState({ answers: {} });
     return res.status(200).json({
       ok: true,
+      bank_id: "youth_talent_development_parent_observation_screener_v1",
+      bank_name: "Youth Talent Development Intake — Parent Observation Screener v1",
+      respondent: "parent_guardian",
+      instructions: YOUTH_PARENT_INSTRUCTIONS,
       question_count: YOUTH_QUESTION_BANK.length,
       questions: YOUTH_QUESTION_BANK,
       flow,
@@ -622,15 +756,19 @@ function createYouthDevelopmentRouter() {
       });
     }
 
-    const payload = buildYouthAssessPayload(validation.answers);
+    const payload = buildYouthAssessPayload(validation.answers, {
+      unansweredCount: validation.unanswered_question_ids.length,
+    });
     return res.status(200).json({
       ok: true,
       question_count: YOUTH_QUESTION_BANK.length,
       answers_count: validation.answers.length,
+      unanswered_count: validation.unanswered_question_ids.length,
       flow: getQuestionFlowState(req.body || {}),
-      category_scores: payload.scoring.category_scores,
       interpretation: payload.scoring.interpretation,
+      completion: payload.scoring.completion,
       aggregated_trait_rows: payload.scoring.trait_rows,
+      trait_reports: payload.trait_reports,
       result: payload.result,
       dashboard: payload.dashboard,
       page_model: payload.page_model,

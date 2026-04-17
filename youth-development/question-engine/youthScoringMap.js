@@ -1,156 +1,159 @@
 "use strict";
 
-const { YOUTH_QUESTION_BANK, YOUTH_QUESTION_CATEGORIES } = require("./youthQuestionBank");
+const { YOUTH_QUESTION_BANK } = require("./youthQuestionBank");
 
-const TRAIT_TO_CATEGORY_WEIGHTS = Object.freeze({
-  SR: Object.freeze({ focus: 0.55, emotional_regulation: 0.45 }),
-  PS: Object.freeze({ social: 0.6, emotional_regulation: 0.4 }),
-  FB: Object.freeze({ discipline: 0.7, focus: 0.3 }),
-  DE: Object.freeze({ confidence: 0.7, social: 0.3 }),
-  CQ: Object.freeze({ confidence: 0.6, focus: 0.4 }),
-  CR: Object.freeze({ confidence: 0.5, social: 0.5 }),
-  RS: Object.freeze({ focus: 0.5, discipline: 0.5 }),
+const TRAIT_SPECS = Object.freeze([
+  Object.freeze({ code: "SR", label: "Self-Regulation", item_count: 4 }),
+  Object.freeze({ code: "CQ", label: "Curiosity / Exploratory Drive", item_count: 4 }),
+  Object.freeze({ code: "CR", label: "Creativity / Problem Finding", item_count: 4 }),
+  Object.freeze({ code: "RS", label: "Reasoning / Pattern Recognition", item_count: 4 }),
+  Object.freeze({ code: "PS", label: "Persistence / Challenge Tolerance", item_count: 3 }),
+  Object.freeze({ code: "FB", label: "Feedback Responsiveness", item_count: 3 }),
+  Object.freeze({ code: "DE", label: "Domain Engagement", item_count: 3 }),
+]);
+
+const TRAIT_REPORT_TEXT = Object.freeze({
+  SR: Object.freeze({
+    what_this_means: "Your child currently shows signs of how they organize attention, manage steps, and recover focus during learning.",
+    what_it_looks_like: "This may show up as planning before starting, noticing mistakes, and getting back on task with less prompting.",
+    why_it_matters: "Self-regulation supports learning independence and helps children use their strengths more consistently across settings.",
+    support_next: "Short routines for planning, checking work, and breaking tasks into steps can help strengthen this pattern.",
+    confidence_note: "This result is based on parent observation only and should be confirmed with additional evidence over time.",
+  }),
+  CQ: Object.freeze({
+    what_this_means: "Your child currently shows signs of exploratory drive and interest in understanding beyond basic instructions.",
+    what_it_looks_like: "This may show up as asking deeper questions, continuing to explore topics, and seeking extra examples.",
+    why_it_matters: "Curiosity supports deeper learning and helps children build stronger connections across ideas and experiences.",
+    support_next: "Provide open-ended prompts, short exploration time, and space for your child to follow meaningful questions.",
+    confidence_note: "This result is based on parent observation only and should be confirmed with additional evidence over time.",
+  }),
+  CR: Object.freeze({
+    what_this_means: "Your child currently shows signs of generating original ideas and noticing possibilities others may not see right away.",
+    what_it_looks_like: "This may show up as trying multiple approaches, making novel connections, and improving ideas through revision.",
+    why_it_matters: "Creative problem finding supports adaptability and helps children approach challenges with flexibility.",
+    support_next: "Invite brainstorming, accept first drafts, and use gentle revision routines that reward idea development over perfection.",
+    confidence_note: "This result is based on parent observation only and should be confirmed with additional evidence over time.",
+  }),
+  RS: Object.freeze({
+    what_this_means: "Your child currently shows signs of pattern recognition and reasoning through why answers or strategies make sense.",
+    what_it_looks_like: "This may show up as noticing rules, explaining thinking, and applying ideas from one setting to another.",
+    why_it_matters: "Reasoning supports transfer learning, decision quality, and confidence when solving unfamiliar problems.",
+    support_next: "Ask your child to explain their thinking, compare options, and reflect on how a strategy can transfer to new tasks.",
+    confidence_note: "This result is based on parent observation only and should be confirmed with additional evidence over time.",
+  }),
+  PS: Object.freeze({
+    what_this_means: "Your child currently shows signs of challenge tolerance and willingness to keep trying when tasks become difficult.",
+    what_it_looks_like: "This may show up as recovering after mistakes, trying again, and shifting strategies when the first attempt does not work.",
+    why_it_matters: "Persistence helps children continue learning through setbacks and build resilience during demanding tasks.",
+    support_next: "Use brief effort cycles, normalize mistakes, and reinforce retry behavior so challenge recovery becomes routine.",
+    confidence_note: "This result is based on parent observation only and should be confirmed with additional evidence over time.",
+  }),
+  FB: Object.freeze({
+    what_this_means: "Your child currently shows signs of how effectively they use correction and guidance to improve performance over time.",
+    what_it_looks_like: "This may show up as applying specific feedback, remembering corrections, and making targeted improvements on later attempts.",
+    why_it_matters: "Feedback responsiveness helps children convert support into growth and improve more efficiently across learning contexts.",
+    support_next: "Give specific, actionable feedback and invite a quick second try so your child can practice using guidance immediately.",
+    confidence_note: "This result is based on parent observation only and should be confirmed with additional evidence over time.",
+  }),
+  DE: Object.freeze({
+    what_this_means: "Your child currently shows signs of sustained engagement in areas they care about and return to over time.",
+    what_it_looks_like: "This may show up as voluntary return to topics, extra effort in high-interest areas, and visible depth growth over time.",
+    why_it_matters: "Domain engagement supports sustained practice and can strengthen motivation for deeper skill development.",
+    support_next: "Protect regular time for high-interest activities and help your child document progress so growth is visible and encouraging.",
+    confidence_note: "This result is based on parent observation only and should be confirmed with additional evidence over time.",
+  }),
 });
 
-const TRAIT_NAME_MAP = Object.freeze({
-  SR: "SELF_REGULATION",
-  PS: "PROSOCIALITY",
-  FB: "FOLLOW_THROUGH",
-  DE: "DRIVE_AND_EFFICACY",
-  CQ: "CURIOSITY",
-  CR: "CREATIVITY",
-  RS: "REASONING",
-});
+const BAND_LABELS = Object.freeze([
+  Object.freeze({ min: 0, max: 39, label: "Needs more support" }),
+  Object.freeze({ min: 40, max: 59, label: "Emerging" }),
+  Object.freeze({ min: 60, max: 79, label: "Building" }),
+  Object.freeze({ min: 80, max: 100, label: "Currently strong" }),
+]);
 
-const CONFLICT_LIBRARY = Object.freeze({
-  "DE:SR": "Confidence appears stronger than regulation; build routines that help effort stay consistent under frustration.",
-  "CQ:FB": "Exploration is stronger than follow-through; use short checkpoints so ideas turn into finished actions.",
-  "PS:SR": "Social intent is ahead of self-regulation; co-regulate transitions before high-stress interactions.",
-  "RS:DE": "Reasoning appears stronger than confidence; encourage low-risk practice where your child explains their thinking out loud.",
-});
+const UNANSWERED_SUPPRESSION_THRESHOLD = 0.2;
 
-function clamp01(value) {
-  if (!Number.isFinite(value)) return 0;
-  if (value <= 0) return 0;
-  if (value >= 1) return 1;
-  return Number(value.toFixed(4));
-}
-
-function clamp100(value) {
-  if (!Number.isFinite(value)) return 0;
-  if (value <= 0) return 0;
+function clampScore(value) {
+  if (!Number.isFinite(value) || value <= 0) return 0;
   if (value >= 100) return 100;
   return Number(value.toFixed(4));
 }
 
-function toPercentFromLikert(avg) {
-  if (!Number.isFinite(avg)) return 0;
-  return clamp100(((avg - 1) / 3) * 100);
+function toBandLabel(score) {
+  const numericScore = Number(score) || 0;
+  return BAND_LABELS.find((band) => numericScore >= band.min && numericScore <= band.max)?.label || "Emerging";
 }
 
-function buildCategoryScores(answerPairs) {
-  const questionById = Object.fromEntries(YOUTH_QUESTION_BANK.map((question) => [question.id, question]));
-  const buckets = Object.fromEntries(YOUTH_QUESTION_CATEGORIES.map((category) => [category, []]));
-
-  for (const answer of answerPairs) {
-    const question = questionById[answer.question_id];
-    if (!question) continue;
-    buckets[question.category].push(Number(answer.value));
-  }
-
-  const categoryScores = {};
-  for (const category of YOUTH_QUESTION_CATEGORIES) {
-    const values = buckets[category];
-    const avg = values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : 0;
-    categoryScores[category] = {
-      raw_average: Number(avg.toFixed(4)),
-      normalized_score: toPercentFromLikert(avg),
-      answered_count: values.length,
-    };
-  }
-
-  return categoryScores;
+function buildAnswerLookup(answerPairs) {
+  return Object.fromEntries((Array.isArray(answerPairs) ? answerPairs : []).map((row) => [row.question_id, Number(row.value)]));
 }
 
-function buildTraitRows(categoryScores) {
-  const rows = Object.entries(TRAIT_TO_CATEGORY_WEIGHTS).map(([traitCode, weights]) => {
-    const weightedScore = Object.entries(weights).reduce(
-      (sum, [category, weight]) => sum + (Number(categoryScores[category]?.normalized_score || 0) * Number(weight)),
-      0
-    );
-
-    const coverage = Object.keys(weights).filter((category) => Number(categoryScores[category]?.answered_count || 0) > 0).length;
-    const coverageRatio = clamp01(coverage / Object.keys(weights).length);
-    const confidenceScore = clamp100(65 + (coverageRatio * 20));
-    const currentScore = clamp100(weightedScore);
-    const baselineScore = clamp100(currentScore - 8);
-    const changeScore = Number((currentScore - baselineScore).toFixed(4));
-
-    return {
-      trait_code: traitCode,
-      trait_name: TRAIT_NAME_MAP[traitCode] || traitCode,
-      baseline_score: baselineScore,
-      current_score: currentScore,
-      change_score: changeScore,
-      confidence_score: confidenceScore,
-      evidence_mix_score: clamp100(62 + (coverageRatio * 18)),
-      trend_direction: changeScore > 2 ? "increasing" : "stable",
-    };
-  });
-
-  return rows.sort((a, b) => {
-    if (b.current_score !== a.current_score) return b.current_score - a.current_score;
-    return a.trait_code.localeCompare(b.trait_code);
-  });
-}
-
-function detectTraitConflict(topTrait, lowTrait) {
-  if (!topTrait || !lowTrait) return null;
-  const directKey = `${topTrait.trait_code}:${lowTrait.trait_code}`;
-  const reverseKey = `${lowTrait.trait_code}:${topTrait.trait_code}`;
-
-  if (CONFLICT_LIBRARY[directKey]) {
-    return { conflict_key: directKey, insight: CONFLICT_LIBRARY[directKey] };
-  }
-  if (CONFLICT_LIBRARY[reverseKey]) {
-    return { conflict_key: reverseKey, insight: CONFLICT_LIBRARY[reverseKey] };
-  }
+function scoreTrait(traitSpec, answerLookup) {
+  const questions = YOUTH_QUESTION_BANK.filter((question) => question.primary_trait === traitSpec.code);
+  const maxPossible = traitSpec.item_count * 4;
+  const rawSum = questions.reduce((sum, question) => sum + (Number(answerLookup[question.id]) || 0), 0);
+  const answeredCount = questions.filter((question) => [1, 2, 3, 4].includes(Number(answerLookup[question.id]))).length;
+  const currentScore = clampScore((rawSum / maxPossible) * 100);
 
   return {
-    conflict_key: `${topTrait.trait_code}:${lowTrait.trait_code}`,
-    insight: `There is a visible gap between ${topTrait.trait_name} and ${lowTrait.trait_name}; focus support where scores are currently lowest.`,
+    trait_code: traitSpec.code,
+    trait_name: traitSpec.label,
+    baseline_score: clampScore(Math.max(0, currentScore - 6)),
+    current_score: currentScore,
+    change_score: Number(Math.min(6, currentScore).toFixed(4)),
+    confidence_score: answeredCount === traitSpec.item_count ? 58 : 46,
+    evidence_mix_score: 30,
+    trend_direction: "stable",
+    answered_item_count: answeredCount,
+    item_count: traitSpec.item_count,
+    status_label: toBandLabel(currentScore),
+    report: TRAIT_REPORT_TEXT[traitSpec.code],
   };
 }
 
-function buildTraitInterpretation(traitRows) {
+function runYouthIntakeScoring(answerPairs, options = {}) {
+  const lookup = buildAnswerLookup(answerPairs);
+  const traitRows = TRAIT_SPECS.map((spec) => scoreTrait(spec, lookup));
+  const unansweredCount = Number(options.unansweredCount || 0);
+  const totalQuestions = Number(options.totalQuestions || YOUTH_QUESTION_BANK.length);
+  const unansweredRatio = totalQuestions > 0 ? unansweredCount / totalQuestions : 1;
+  const interpretationSuppressed = unansweredRatio > UNANSWERED_SUPPRESSION_THRESHOLD;
+
   const sorted = [...traitRows].sort((a, b) => b.current_score - a.current_score || a.trait_code.localeCompare(b.trait_code));
-  const topTrait = sorted[0] || null;
-  const lowTrait = sorted[sorted.length - 1] || null;
-  const conflict = detectTraitConflict(topTrait, lowTrait);
 
-  const strengths = sorted.filter((row) => row.current_score >= 70).slice(0, 3);
-  const supportAreas = [...sorted].reverse().filter((row) => row.current_score <= 45).slice(0, 3);
-  const priorities = [...sorted].reverse().slice(0, 3);
+  const interpretation = interpretationSuppressed
+    ? {
+      incomplete: true,
+      message: "Insufficient evidence: more than 20% of items were unanswered. Complete more responses to view provisional trait interpretation.",
+      highest_trait: null,
+      lowest_trait: null,
+      conflict: null,
+      strengths: [],
+      support_areas: [],
+      priority_traits: [],
+    }
+    : {
+      incomplete: false,
+      highest_trait: sorted[0] || null,
+      lowest_trait: sorted[sorted.length - 1] || null,
+      conflict: null,
+      strengths: sorted.filter((row) => row.current_score >= 80).slice(0, 3),
+      support_areas: [...sorted].reverse().filter((row) => row.current_score <= 39).slice(0, 3),
+      priority_traits: [...sorted].reverse().slice(0, 3),
+    };
+
+  const traitReports = Object.freeze(Object.fromEntries(traitRows.map((row) => [row.trait_code, row.report])));
 
   return {
-    highest_trait: topTrait,
-    lowest_trait: lowTrait,
-    conflict,
-    strengths,
-    support_areas: supportAreas,
-    priority_traits: priorities,
-  };
-}
-
-function runYouthIntakeScoring(answerPairs) {
-  const categoryScores = buildCategoryScores(answerPairs);
-  const traitRows = buildTraitRows(categoryScores);
-  const interpretation = buildTraitInterpretation(traitRows);
-
-  return {
-    category_scores: categoryScores,
     trait_rows: traitRows,
     interpretation,
+    trait_reports: traitReports,
+    completion: {
+      unanswered_count: unansweredCount,
+      total_questions: totalQuestions,
+      unanswered_ratio: Number(unansweredRatio.toFixed(4)),
+      interpretation_suppressed: interpretationSuppressed,
+    },
   };
 }
 
