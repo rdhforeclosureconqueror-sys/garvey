@@ -570,8 +570,8 @@
     }
     var dashboardHtml = '' +
       '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
-        '<a id="takeYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake/test">Take Youth Assessment (Test)</a>' +
-        '<a id="takeYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Open Youth Parent Dashboard (Preview)</a>' +
+        '<a id="takeYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake">Take Youth Assessment</a>' +
+        '<a id="takeYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard">Open Youth Parent Dashboard</a>' +
       "</div>";
     var host = upsertYouthActionsHost(placement, "assessmentYouthActions", dashboardHtml);
 
@@ -582,8 +582,8 @@
       }
       var creHtml = '' +
         '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
-          '<a id="takeYouthAssessmentBtnCre" class="btn btn-default" href="/youth-development/intake/test">Take Youth Assessment (Test)</a>' +
-          '<a id="takeYouthDashboardBtnCre" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Open Youth Parent Dashboard (Preview)</a>' +
+          '<a id="takeYouthAssessmentBtnCre" class="btn btn-default" href="/youth-development/intake">Take Youth Assessment</a>' +
+          '<a id="takeYouthDashboardBtnCre" class="btn btn-default" href="/youth-development/parent-dashboard">Open Youth Parent Dashboard</a>' +
         "</div>";
       upsertYouthActionsHost(crePlacement, "assessmentYouthActionsCre", creHtml);
     }
@@ -657,8 +657,8 @@
     host.style.display = "";
     host.innerHTML = '' +
       '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
-        '<a id="adminYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake/test">Youth Assessment (Test)</a>' +
-        '<a id="adminYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Youth Parent Dashboard (Preview)</a>' +
+        '<a id="adminYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake">Take Youth Assessment</a>' +
+        '<a id="adminYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard">Open Youth Parent Dashboard</a>' +
       "</div>";
     console.log("[YOUTH_TRACE] renderAdminYouthActions:inserted", {
       hostChildCount: host.childElementCount,
@@ -1157,8 +1157,8 @@
           '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
             '<a id="takeOwnerAssessmentBtn" class="btn btn-default" href="/intake.html">Take Owner Assessment</a>' +
             '<a id="takeCustomerAssessmentBtn" class="btn btn-default" href="/voc.html">Take Customer Assessment</a>' +
-            '<a id="takeYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake/test">Take Youth Assessment (Test)</a>' +
-            '<a id="takeYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Open Youth Parent Dashboard (Preview)</a>' +
+            '<a id="takeYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake">Take Youth Assessment</a>' +
+            '<a id="takeYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard">Open Youth Parent Dashboard</a>' +
           "</div>" +
         "</div>" +
       "</div>";
@@ -1178,8 +1178,8 @@
       var youthDashboardBtn = document.getElementById("takeYouthDashboardBtn");
       if (ownerBtn) ownerBtn.href = "/intake.html" + (ownerParams.toString() ? ("?" + ownerParams.toString()) : "");
       if (customerBtn) customerBtn.href = "/voc.html" + (customerParams.toString() ? ("?" + customerParams.toString()) : "");
-      if (youthAssessmentBtn) youthAssessmentBtn.href = "/youth-development/intake/test";
-      if (youthDashboardBtn) youthDashboardBtn.href = "/youth-development/parent-dashboard/preview";
+      if (youthAssessmentBtn) youthAssessmentBtn.href = "/youth-development/intake";
+      if (youthDashboardBtn) youthDashboardBtn.href = "/youth-development/parent-dashboard";
     }
 
     ["signInTenantInput", "signInCidInput"].forEach(function (id) {
