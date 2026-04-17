@@ -117,7 +117,23 @@ test('GET /youth-development/intake renders live single-question parent-observat
     assert.match(html, /Youth Talent Development Intake — Parent Observation Screener v1/);
     assert.match(html, /Question 1 of 25/);
     assert.match(html, /Submit assessment/);
+    assert.match(html, /Open Youth Parent Dashboard/);
     assert.match(html, /past 6 to 8 weeks/);
+    assert.doesNotMatch(html, /JSON\.stringify\(payload, null, 2\)/);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('GET /youth-development/parent-dashboard renders live parent-facing dashboard shell', async () => {
+  const { server, baseUrl } = await startServer();
+  try {
+    const response = await fetch(`${baseUrl}/youth-development/parent-dashboard`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, /Youth Development Parent Dashboard/);
+    assert.match(html, /sessionStorage\.getItem\("youthDevelopmentLatestAssessment"\)/);
+    assert.match(html, /Take Youth Assessment/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
