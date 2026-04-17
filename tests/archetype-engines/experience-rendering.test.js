@@ -10,6 +10,14 @@ const leadershipArchetypes = require('../../archetype-engines/content/leadership
 const loyaltyArchetypes = require('../../archetype-engines/content/loyaltyArchetypes');
 const loveArchetypes = require('../../archetype-engines/content/loveArchetypes');
 
+const LEADERSHIP_IMAGE_BY_CODE = Object.freeze({
+  AC: '/archetype-card/Leadership/Strategic_Adapter.png',
+  IE: '/archetype-card/Leadership/People_Catalyst.png',
+  RI: '/archetype-card/Leadership/Quiet_Operator.png',
+  SD: '/archetype-card/Leadership/System_commander.png',
+  VD: '/archetype-card/Leadership/Vision_Architect.png',
+});
+
 function loadRenderResult() {
   const sourcePath = path.join(process.cwd(), 'public', 'archetype-engines', 'experience.js');
   const source = fs.readFileSync(sourcePath, 'utf8').replace(/\nboot\(\);\s*$/, '\n');
@@ -145,6 +153,29 @@ test('leadership rendering supports realistic payload permutations (primary/hybr
     assert.ok(html.includes(`Stress Insight</b>Pressure shift present for ${scenario.code}.`));
     assert.ok(html.includes(`Identity Gap Insight</b>Identity-behavior gap present for ${scenario.code}.`));
     assert.ok(html.includes(scenario.expectedPattern));
+  }
+});
+
+
+test('leadership result rendering uses deterministic leadership code-to-image mapping in live card insertion points', () => {
+  for (const archetype of leadershipArchetypes) {
+    const code = archetype.code;
+    const expectedSrc = LEADERSHIP_IMAGE_BY_CODE[code];
+    assert.ok(expectedSrc, `Missing expected leadership image mapping for code ${code}`);
+
+    const html = renderHtml({
+      engine: 'leadership',
+      archetypes: leadershipArchetypes,
+      payload: baseLeadershipPayload({
+        primaryArchetype: { code },
+        secondaryArchetype: { code: code === 'VD' ? 'SD' : 'VD' },
+      }),
+    });
+
+    assert.ok(
+      html.includes(`<img class="card-visual" src="${expectedSrc}"`),
+      `Expected leadership render path to include mapped image for code ${code}`,
+    );
   }
 });
 
