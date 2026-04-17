@@ -37,3 +37,11 @@ test('phase-3 program rail migration includes additive extension tables', () => 
   assert.match(migration.up, /CREATE TABLE IF NOT EXISTS tde_weekly_progress_records/);
   assert.match(migration.up, /CREATE TABLE IF NOT EXISTS tde_checkpoint_records/);
 });
+
+test('phase-4 migration includes governance gap closure tables', () => {
+  const migration = TDE_MIGRATIONS.find((entry) => entry.id === 'tde_003_phase4_governance_and_summary_tables');
+  assert.ok(migration);
+  assert.match(migration.up, /CREATE TABLE IF NOT EXISTS tde_observer_consent_records/);
+  assert.match(migration.up, /CREATE TABLE IF NOT EXISTS tde_environment_hook_events/);
+  assert.match(migration.up, /CREATE TABLE IF NOT EXISTS tde_validation_export_logs/);
+});

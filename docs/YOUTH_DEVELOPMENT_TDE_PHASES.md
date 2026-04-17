@@ -65,3 +65,46 @@ Phase 3 adds the extension-only 36-week **program rail** behind `/api/youth-deve
 - Checkpoints at weeks 1/12/24/36.
 - Deterministic week definition format and endpoint contracts.
 - Extension-only persistence and routing isolation.
+
+## Phase 4 (this pass)
+Phase 4 closes governance gaps and adds the first extension-safe parent-facing summary read model under `/api/youth-development/tde/*`.
+
+### What Phase 4 adds
+- Observer consent/provenance contracts with explicit required fields:
+  - `observer_id`, `observer_role`, `relationship_duration`, `consent_status`, `consent_captured_at`, `consent_source`
+  - `provenance_source_type`, `provenance_source_ref`, `submission_context`, `tenant_id`, optional `user_id`, `audit_ref`
+- Deterministic environment hook event taxonomy with explicit categories:
+  - `challenge_fit`, `autonomy_level`, `feedback_clarity`, `enrichment_access`, `mentorship_access`, `boredom_friction_mismatch`, `strength_use_alignment`
+- Additive validation export framework for:
+  - inter-rater reliability, test-retest, cross-task consistency, age-band slices, observer-role slices, language/access bias review slices
+- First extension-only parent summary read model for TDE progress:
+  - current phase/week, checkpoints, developmental levers, traits building, environment focus, support actions, confidence context, data sufficiency status
+- Additive persistence for:
+  - observer consent/provenance records
+  - environment hook events
+  - validation export logs
+
+### Phase 4 extension endpoints
+- `GET /api/youth-development/tde/observer/contracts`
+- `POST /api/youth-development/tde/observer/consent`
+- `GET /api/youth-development/tde/environment/contracts`
+- `POST /api/youth-development/tde/environment/hooks`
+- `GET /api/youth-development/tde/summary/:childId`
+- `GET /api/youth-development/tde/exports/validation-schema`
+- `POST /api/youth-development/tde/exports/validation-data`
+
+### Governance gaps closed in Phase 4
+- Missing observer consent/provenance now returns explicit contract-gap validation errors; never silently dropped.
+- Environment hooks are represented as environment-only signals with auditable deterministic taxonomy.
+- Parent extension summaries include explicit confidence context and data sufficiency status instead of overclaim narratives.
+
+### Still not surfaced in live v1 UI
+- Live intake remains unchanged.
+- Live parent dashboard remains unchanged.
+- No live youth v1 route/scoring/payload contract replacement.
+
+### Calibration variables (explicitly non-final, Phase 4 additions)
+- Consent policy requirement strictness by tenant/context (e.g., `requireGrantedConsent` behavior).
+- Validation export selection windows and inclusion thresholds.
+- Parent summary confidence labeling thresholds and sufficiency cutoffs.
+- Environment hook normalization defaults and confidence-weight interpretations.

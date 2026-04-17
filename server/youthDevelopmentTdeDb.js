@@ -202,6 +202,71 @@ const TDE_MIGRATIONS = Object.freeze([
       DROP TABLE IF EXISTS tde_child_profiles;
     `,
   },
+  {
+    id: "tde_003_phase4_governance_and_summary_tables",
+    description: "Create extension-only observer consent, environment hooks, validation export, and summary support tables",
+    up: `
+      CREATE TABLE IF NOT EXISTS tde_observer_consent_records (
+        id BIGSERIAL PRIMARY KEY,
+        observer_id TEXT NOT NULL,
+        child_id TEXT NOT NULL,
+        observer_role TEXT NOT NULL,
+        relationship_duration TEXT NOT NULL,
+        consent_status TEXT NOT NULL,
+        consent_captured_at TIMESTAMPTZ NOT NULL,
+        consent_source TEXT NOT NULL,
+        provenance_source_type TEXT NOT NULL,
+        provenance_source_ref TEXT NOT NULL,
+        submission_context TEXT NOT NULL,
+        tenant_id TEXT NOT NULL,
+        user_id TEXT,
+        audit_ref TEXT NOT NULL,
+        policy_version TEXT NOT NULL,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        UNIQUE (observer_id, child_id)
+      );
+
+      CREATE TABLE IF NOT EXISTS tde_environment_hook_events (
+        id BIGSERIAL PRIMARY KEY,
+        event_id TEXT NOT NULL UNIQUE,
+        child_id TEXT NOT NULL,
+        environment_factor TEXT NOT NULL,
+        event_type TEXT NOT NULL,
+        source_type TEXT NOT NULL,
+        source_ref TEXT NOT NULL,
+        raw_value TEXT,
+        event_payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        normalized_value NUMERIC(8,6),
+        confidence_weight NUMERIC(8,6) NOT NULL,
+        timestamp TIMESTAMPTZ NOT NULL,
+        calibration_version TEXT NOT NULL,
+        trace_ref TEXT NOT NULL,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS tde_validation_export_logs (
+        id BIGSERIAL PRIMARY KEY,
+        job_id TEXT NOT NULL UNIQUE,
+        study_type TEXT NOT NULL,
+        tenant_id TEXT NOT NULL,
+        requested_by TEXT NOT NULL,
+        audit_ref TEXT NOT NULL,
+        calibration_version TEXT NOT NULL,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+    `,
+    down: `
+      DROP TABLE IF EXISTS tde_validation_export_logs;
+      DROP TABLE IF EXISTS tde_environment_hook_events;
+      DROP TABLE IF EXISTS tde_observer_consent_records;
+    `,
+  },
 ]);
 
 async function applyTdeMigrations(pool) {
