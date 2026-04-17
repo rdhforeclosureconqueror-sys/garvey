@@ -165,3 +165,46 @@ test('POST /api/youth-development/assess caps confidence at provisional levels f
     await new Promise((resolve) => server.close(resolve));
   }
 });
+
+test('POST /api/youth-development/assess binds ownership when tenant/email are present and persistence hook is configured', async () => {
+  const records = new Map();
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    persistYouthAssessment: async ({ accountCtx, responsePayload }) => {
+      records.set(`${accountCtx.tenant}:${accountCtx.email}`, responsePayload);
+      return { account_bound: true, tenant: accountCtx.tenant, email: accountCtx.email, submission_id: 999 };
+    },
+    loadLatestYouthAssessment: async ({ accountCtx }) => records.get(`${accountCtx.tenant}:${accountCtx.email}`) || null,
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/assess`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        tenant: 'demo',
+        email: 'parent@example.com',
+        answers: buildAnswers(() => 2),
+      }),
+    });
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ownership.account_bound, true);
+    assert.equal(payload.ownership.tenant, 'demo');
+    assert.equal(payload.ownership.email, 'parent@example.com');
+    assert.equal(payload.ownership.submission_id, 999);
+
+    const latest = await fetch(`${baseUrl}/api/youth-development/parent-dashboard/latest?tenant=demo&email=parent@example.com`);
+    assert.equal(latest.status, 200);
+    const latestPayload = await latest.json();
+    assert.equal(latestPayload.ok, true);
+    assert.equal(latestPayload.has_result, true);
+    assert.ok(latestPayload.payload && latestPayload.payload.page_model);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});

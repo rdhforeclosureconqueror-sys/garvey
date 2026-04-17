@@ -88,6 +88,37 @@ const INTAKE_TEST_FIXTURE = Object.freeze({
   }),
 });
 
+function safeTrim(value) {
+  return String(value ?? "").trim();
+}
+
+function normalizeAccountContext(source = {}) {
+  return {
+    tenant: safeTrim(source.tenant || source.tenant_slug).toLowerCase(),
+    email: safeTrim(source.email).toLowerCase(),
+    name: safeTrim(source.name),
+    cid: safeTrim(source.cid),
+    crid: safeTrim(source.crid || source.rid),
+  };
+}
+
+function resolveRequestAccountContext(req, body = {}) {
+  const queryCtx = normalizeAccountContext(req.query || {});
+  const bodyCtx = normalizeAccountContext(body || {});
+  const headerCtx = normalizeAccountContext({
+    tenant: req.headers["x-tenant-slug"],
+    email: req.headers["x-user-email"],
+    name: req.headers["x-user-name"],
+  });
+  return {
+    tenant: bodyCtx.tenant || queryCtx.tenant || headerCtx.tenant,
+    email: bodyCtx.email || queryCtx.email || headerCtx.email,
+    name: bodyCtx.name || queryCtx.name || headerCtx.name,
+    cid: bodyCtx.cid || queryCtx.cid,
+    crid: bodyCtx.crid || queryCtx.crid,
+  };
+}
+
 function renderYouthDevelopmentIntakeTestPage() {
   const fixture = JSON.stringify(INTAKE_TEST_FIXTURE, null, 2);
   return `<!doctype html>
@@ -585,6 +616,19 @@ function renderLiveYouthAssessmentPage() {
         const resultCard = document.getElementById("resultCard");
         const openLiveDashboardBtn = document.getElementById("openLiveDashboardBtn");
         const state = { questions: [], index: 0, answers: {} };
+        const query = new URLSearchParams(window.location.search);
+        const accountCtx = {
+          tenant: (query.get("tenant") || "").trim(),
+          email: (query.get("email") || "").trim().toLowerCase(),
+          name: (query.get("name") || "").trim(),
+          cid: (query.get("cid") || "").trim(),
+          crid: (query.get("crid") || query.get("rid") || "").trim(),
+        };
+        if (accountCtx.tenant || accountCtx.email) {
+          const dashUrl = new URL("/youth-development/parent-dashboard", window.location.origin);
+          Object.entries(accountCtx).forEach(([key, value]) => { if (value) dashUrl.searchParams.set(key, value); });
+          openLiveDashboardBtn.href = dashUrl.pathname + dashUrl.search;
+        }
 
         const questionResponse = await fetch("/api/youth-development/questions");
         const questionPayload = await questionResponse.json();
@@ -623,7 +667,14 @@ function renderLiveYouthAssessmentPage() {
           const response = await fetch("/api/youth-development/assess", {
             method: "POST",
             headers: { "content-type": "application/json" },
-            body: JSON.stringify({ answers: state.answers }),
+            body: JSON.stringify({
+              answers: state.answers,
+              tenant: accountCtx.tenant || undefined,
+              email: accountCtx.email || undefined,
+              name: accountCtx.name || undefined,
+              cid: accountCtx.cid || undefined,
+              crid: accountCtx.crid || undefined,
+            }),
           });
           const payload = await response.json();
           if (!response.ok) {
@@ -639,6 +690,9 @@ function renderLiveYouthAssessmentPage() {
           const completion = payload.completion && payload.completion.completion_rate_percent;
           resultCard.innerHTML = [
             "<p><strong>Assessment complete.</strong> Your responses are now available in the live parent dashboard.</p>",
+            payload.ownership && payload.ownership.account_bound
+              ? "<p><strong>Saved to account:</strong> " + payload.ownership.email + "</p>"
+              : "",
             highest ? "<p><strong>Top current signal:</strong> " + highest.trait_name + " (" + Number(highest.current_score || 0).toFixed(1) + ")</p>" : "",
             "<p><strong>Completion:</strong> " + Number(completion || 0).toFixed(0) + "%</p>",
             priorities.length ? "<div>" + priorities.map((item) => "<span class=\\"pill\\">" + item.trait_name + " · " + Number(item.current_score || 0).toFixed(1) + "</span>").join("") + "</div>" : ""
@@ -698,31 +752,56 @@ function renderLiveYouthParentDashboardPage() {
     <script>
       (function () {
         let payload = null;
+        const query = new URLSearchParams(window.location.search);
+        const accountCtx = {
+          tenant: (query.get("tenant") || "").trim(),
+          email: (query.get("email") || "").trim().toLowerCase(),
+        };
+
+        function applyPayload(data) {
+          if (!data || !data.page_model) return false;
+          payload = data;
+          const pageModel = payload.page_model;
+          document.getElementById("title").textContent = pageModel.page_title || "Youth Development Parent Dashboard";
+          document.getElementById("subtitle").textContent = pageModel.page_subtitle || "";
+
+          const narrative = pageModel.insight_narrative || {};
+          document.getElementById("narrativeOpening").textContent = narrative.opening || "";
+          document.getElementById("narrativeFocus").textContent = narrative.focus_area || "";
+          document.getElementById("narrativeNext").textContent = narrative.next_step || "";
+
+          const priorities = (payload.interpretation && payload.interpretation.priority_traits) || [];
+          document.getElementById("priorities").innerHTML = priorities.length
+            ? priorities.map((item) => "<span class=\\"pill\\">" + item.trait_name + " · " + Number(item.current_score || 0).toFixed(1) + "</span>").join("")
+            : "<span class=\\"muted\\">No priority traits were detected for this submission.</span>";
+
+          const prompts = (pageModel.action && pageModel.action.next_step_prompts) || [];
+          document.getElementById("prompts").innerHTML = prompts.length
+            ? prompts.map((item) => "<li><strong>" + item.trait_code + ":</strong> " + item.prompt + "</li>").join("")
+            : "<li class=\\"muted\\">No prompts are available for this submission.</li>";
+          return true;
+        }
+
+        async function hydrateFromAccount() {
+          if (!accountCtx.tenant || !accountCtx.email) return false;
+          const endpoint = new URL("/api/youth-development/parent-dashboard/latest", window.location.origin);
+          endpoint.searchParams.set("tenant", accountCtx.tenant);
+          endpoint.searchParams.set("email", accountCtx.email);
+          const response = await fetch(endpoint.pathname + endpoint.search);
+          if (!response.ok) return false;
+          const data = await response.json().catch(() => null);
+          if (!data || !data.ok || !data.has_result || !data.payload) return false;
+          document.getElementById("subtitle").textContent = "Loaded from your signed-in customer account.";
+          return applyPayload(data.payload);
+        }
+
         try {
           payload = JSON.parse(sessionStorage.getItem("youthDevelopmentLatestAssessment") || "null");
         } catch (_err) {
           payload = null;
         }
-        if (!payload || !payload.page_model) return;
-
-        const pageModel = payload.page_model;
-        document.getElementById("title").textContent = pageModel.page_title || "Youth Development Parent Dashboard";
-        document.getElementById("subtitle").textContent = pageModel.page_subtitle || "";
-
-        const narrative = pageModel.insight_narrative || {};
-        document.getElementById("narrativeOpening").textContent = narrative.opening || "";
-        document.getElementById("narrativeFocus").textContent = narrative.focus_area || "";
-        document.getElementById("narrativeNext").textContent = narrative.next_step || "";
-
-        const priorities = (payload.interpretation && payload.interpretation.priority_traits) || [];
-        document.getElementById("priorities").innerHTML = priorities.length
-          ? priorities.map((item) => "<span class=\\"pill\\">" + item.trait_name + " · " + Number(item.current_score || 0).toFixed(1) + "</span>").join("")
-          : "<span class=\\"muted\\">No priority traits were detected for this submission.</span>";
-
-        const prompts = (pageModel.action && pageModel.action.next_step_prompts) || [];
-        document.getElementById("prompts").innerHTML = prompts.length
-          ? prompts.map((item) => "<li><strong>" + item.trait_code + ":</strong> " + item.prompt + "</li>").join("")
-          : "<li class=\\"muted\\">No prompts are available for this submission.</li>";
+        if (applyPayload(payload)) return;
+        hydrateFromAccount().catch(() => null);
       }());
     </script>
   </body>
@@ -813,8 +892,10 @@ function buildPreviewPayload() {
   };
 }
 
-function createYouthDevelopmentRouter() {
+function createYouthDevelopmentRouter(options = {}) {
   const router = express.Router();
+  const persistYouthAssessment = typeof options.persistYouthAssessment === "function" ? options.persistYouthAssessment : null;
+  const loadLatestYouthAssessment = typeof options.loadLatestYouthAssessment === "function" ? options.loadLatestYouthAssessment : null;
 
   router.get("/youth-development/intake", (req, res) => (
     res.status(200).type("html").send(renderLiveYouthAssessmentPage())
@@ -850,7 +931,7 @@ function createYouthDevelopmentRouter() {
     });
   });
 
-  router.post("/api/youth-development/assess", (req, res) => {
+  router.post("/api/youth-development/assess", async (req, res) => {
     const validation = validateAnswers(req.body || {});
     if (!validation.ok) {
       return res.status(400).json({
@@ -860,24 +941,70 @@ function createYouthDevelopmentRouter() {
       });
     }
 
-    const payload = buildYouthAssessPayload(validation.answers, {
-      unansweredCount: validation.unanswered_question_ids.length,
-    });
-    return res.status(200).json({
-      ok: true,
-      question_count: YOUTH_QUESTION_BANK.length,
-      answers_count: validation.answers.length,
-      unanswered_count: validation.unanswered_question_ids.length,
-      flow: getQuestionFlowState(req.body || {}),
-      interpretation: payload.scoring.interpretation,
-      completion: payload.scoring.completion,
-      aggregated_trait_rows: payload.scoring.trait_rows,
-      trait_reports: payload.trait_reports,
-      result: payload.result,
-      dashboard: payload.dashboard,
-      page_model: payload.page_model,
-      rendered_html: payload.rendered_html,
-    });
+    try {
+      const payload = buildYouthAssessPayload(validation.answers, {
+        unansweredCount: validation.unanswered_question_ids.length,
+      });
+      const accountCtx = resolveRequestAccountContext(req, req.body || {});
+      let ownership = {
+        account_bound: false,
+        tenant: accountCtx.tenant || null,
+        email: accountCtx.email || null,
+      };
+      if (persistYouthAssessment && accountCtx.tenant && accountCtx.email) {
+        const saved = await persistYouthAssessment({
+          accountCtx,
+          request: req,
+          responsePayload: payload,
+          validation,
+          answers: validation.answers,
+          unansweredQuestionIds: validation.unanswered_question_ids,
+        });
+        if (saved && typeof saved === "object") ownership = Object.assign(ownership, saved);
+      }
+      return res.status(200).json({
+        ok: true,
+        question_count: YOUTH_QUESTION_BANK.length,
+        answers_count: validation.answers.length,
+        unanswered_count: validation.unanswered_question_ids.length,
+        flow: getQuestionFlowState(req.body || {}),
+        interpretation: payload.scoring.interpretation,
+        completion: payload.scoring.completion,
+        aggregated_trait_rows: payload.scoring.trait_rows,
+        trait_reports: payload.trait_reports,
+        result: payload.result,
+        dashboard: payload.dashboard,
+        page_model: payload.page_model,
+        rendered_html: payload.rendered_html,
+        ownership,
+      });
+    } catch (err) {
+      console.error("youth_assess_failed", err);
+      return res.status(500).json({
+        ok: false,
+        error: "youth_assess_failed",
+      });
+    }
+  });
+
+  router.get("/api/youth-development/parent-dashboard/latest", async (req, res) => {
+    if (!loadLatestYouthAssessment) {
+      return res.status(200).json({ ok: true, has_result: false, payload: null, reason: "persistence_not_enabled" });
+    }
+    const accountCtx = resolveRequestAccountContext(req, req.query || {});
+    if (!accountCtx.tenant || !accountCtx.email) {
+      return res.status(400).json({ ok: false, error: "tenant and email are required" });
+    }
+    try {
+      const latest = await loadLatestYouthAssessment({ accountCtx, request: req });
+      if (!latest) {
+        return res.status(200).json({ ok: true, has_result: false, payload: null });
+      }
+      return res.status(200).json({ ok: true, has_result: true, payload: latest });
+    } catch (err) {
+      console.error("youth_latest_lookup_failed", err);
+      return res.status(500).json({ ok: false, error: "youth_latest_lookup_failed" });
+    }
   });
 
   router.get("/api/youth-development/parent-dashboard/preview", (req, res) => {
