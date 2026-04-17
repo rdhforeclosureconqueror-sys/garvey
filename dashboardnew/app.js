@@ -974,6 +974,8 @@
           '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
             '<a id="takeOwnerAssessmentBtn" class="btn btn-default" href="/intake.html">Take Owner Assessment</a>' +
             '<a id="takeCustomerAssessmentBtn" class="btn btn-default" href="/voc.html">Take Customer Assessment</a>' +
+            '<a id="takeYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake/test">Take Youth Assessment (Test)</a>' +
+            '<a id="takeYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Open Youth Parent Dashboard (Preview)</a>' +
           "</div>" +
         "</div>" +
       "</div>";
@@ -989,8 +991,12 @@
       if (c.cid) customerParams.set("cid", c.cid);
       var ownerBtn = document.getElementById("takeOwnerAssessmentBtn");
       var customerBtn = document.getElementById("takeCustomerAssessmentBtn");
+      var youthAssessmentBtn = document.getElementById("takeYouthAssessmentBtn");
+      var youthDashboardBtn = document.getElementById("takeYouthDashboardBtn");
       if (ownerBtn) ownerBtn.href = "/intake.html" + (ownerParams.toString() ? ("?" + ownerParams.toString()) : "");
       if (customerBtn) customerBtn.href = "/voc.html" + (customerParams.toString() ? ("?" + customerParams.toString()) : "");
+      if (youthAssessmentBtn) youthAssessmentBtn.href = "/youth-development/intake/test";
+      if (youthDashboardBtn) youthDashboardBtn.href = "/youth-development/parent-dashboard/preview";
     }
 
     ["signInTenantInput", "signInCidInput"].forEach(function (id) {
@@ -1641,6 +1647,10 @@
         '<div class="muted" style="margin-bottom:8px;">Admin: select tenant/email to open any tenant dashboard.</div>' +
         '<div class="form-group"><label>Tenant slug</label><input id="adminTenantInput" class="form-control" placeholder="tenant-slug" value="' + escapeHtml(tenant) + '"></div>' +
         '<div class="form-group"><label>Target email</label><input id="adminEmailInput" class="form-control" placeholder="owner@example.com" value="' + escapeHtml(email) + '"></div>' +
+        '<div style="margin-bottom:10px;display:flex;gap:8px;flex-wrap:wrap;">' +
+          '<a id="adminYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake/test">Youth Assessment (Test)</a>' +
+          '<a id="adminYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Youth Parent Dashboard (Preview)</a>' +
+        '</div>' +
         '<button id="adminOpenTenantBtn" class="btn btn-primary">Open Tenant Dashboard</button>' +
         '<div id="adminAccessMsg" class="empty-state" style="padding-top:8px;">Missing tenant/email. Enter values and continue.</div>' +
       '</div>';

@@ -4,6 +4,10 @@ const DEFAULT_PAGE_TYPE = "youth_parent_dashboard_page";
 const DEFAULT_PAGE_TITLE = "Youth Development Dashboard";
 const DEFAULT_PAGE_SUBTITLE = "Parent-facing snapshot of current development signals.";
 const LOW_CONFIDENCE_THRESHOLD = 55;
+const LOW_SCORE_THRESHOLD = 40;
+const HIGH_SCORE_THRESHOLD = 70;
+const POSITIVE_CHANGE_THRESHOLD = 3;
+const NEGATIVE_CHANGE_THRESHOLD = -3;
 const DEFAULT_MAX_ITEMS = 5;
 
 const SECTION_ORDER = Object.freeze([
@@ -52,6 +56,82 @@ function toKey(value, fallback) {
   return safe || fallback;
 }
 
+function toPriorityLabel(priorityLevel) {
+  if (priorityLevel === "support_now") return "support now";
+  if (priorityLevel === "evidence_needed") return "evidence needed";
+  if (priorityLevel === "build_next") return "build next";
+  return "monitor";
+}
+
+function buildTraitNarrative(card) {
+  const traitLabel = toSafeString(card?.trait_name || card?.trait_code || "This trait");
+  const score = toSafeNumber(card?.current_score);
+  const change = toSafeNumber(card?.change_score);
+  const confidence = toSafeNumber(card?.confidence_score);
+  const trend = toSafeString(card?.trend_direction || "stable");
+
+  const meaning = score >= HIGH_SCORE_THRESHOLD
+    ? `${traitLabel} is currently a reliable strength that your child can build from in daily routines.`
+    : score <= LOW_SCORE_THRESHOLD
+      ? `${traitLabel} is currently a growth area that may need extra structure and repetition.`
+      : `${traitLabel} is developing and can improve with consistent, low-pressure practice.`;
+
+  const behavior = trend === "increasing"
+    ? `Recent observations suggest this is showing up more consistently over time.`
+    : trend === "decreasing"
+      ? `Recent observations suggest this is showing up less consistently and may need tighter scaffolding.`
+      : `Recent observations suggest this is steady, with no major directional shift yet.`;
+
+  const whyItMatters = score >= HIGH_SCORE_THRESHOLD
+    ? `When this remains strong, it often supports confidence and transfer into new challenges.`
+    : score <= LOW_SCORE_THRESHOLD
+      ? `If this remains low, everyday transitions and learning tasks may become harder to sustain.`
+      : `This matters because steady improvement here can reduce friction in school and home routines.`;
+
+  const emotionalContext = confidence < LOW_CONFIDENCE_THRESHOLD
+    ? `This may feel mixed right now; confidence is still limited, so treat this as a working signal while collecting more examples.`
+    : `This pattern is grounded in current evidence and can be discussed with your child in practical, non-judgmental language.`;
+
+  return Object.freeze({
+    what_this_means: toSafeString(meaning),
+    behavior_look_fors: toSafeString(behavior),
+    why_it_matters: toSafeString(whyItMatters),
+    emotional_context: toSafeString(emotionalContext),
+    progress_look_fors: change >= POSITIVE_CHANGE_THRESHOLD
+      ? toSafeString("Progress looks like this pattern holding across multiple settings, not just in one moment.")
+      : toSafeString("Progress looks like more frequent successful attempts and fewer breakdown moments week to week."),
+  });
+}
+
+function buildPriorityNarrative(card) {
+  const score = toSafeNumber(card?.current_score);
+  const change = toSafeNumber(card?.change_score);
+  const confidence = toSafeNumber(card?.confidence_score);
+  const traitLabel = toSafeString(card?.trait_name || card?.trait_code || "This trait");
+
+  const whyPriority = confidence < LOW_CONFIDENCE_THRESHOLD
+    ? `This is prioritized because confidence is still limited and stronger observation quality is needed before major decisions.`
+    : score <= LOW_SCORE_THRESHOLD || change <= NEGATIVE_CHANGE_THRESHOLD
+      ? `This is prioritized because current level or recent direction indicates active support is needed now.`
+      : `This is prioritized because current momentum can be converted into stable day-to-day growth.`;
+
+  const riskIfIgnored = confidence < LOW_CONFIDENCE_THRESHOLD
+    ? `If ignored, the family may overreact to one data point or miss patterns that matter across contexts.`
+    : score <= LOW_SCORE_THRESHOLD || change <= NEGATIVE_CHANGE_THRESHOLD
+      ? `If ignored, this area can create repeated friction in routines, transitions, and learning persistence.`
+      : `If ignored, recent progress may flatten and become harder to restart later.`;
+
+  const progressLooksLike = change >= POSITIVE_CHANGE_THRESHOLD
+    ? `${traitLabel} remains stable or improving while confidence holds or rises.`
+    : `${traitLabel} shows fewer low-moment breakdowns and a more consistent baseline over repeated observations.`;
+
+  return Object.freeze({
+    why_priority: toSafeString(whyPriority),
+    risk_if_ignored: toSafeString(riskIfIgnored),
+    progress_looks_like: toSafeString(progressLooksLike),
+  });
+}
+
 function buildHeroSummarySection(dashboard, maxItems) {
   const cards = toSafeArray(dashboard?.overview_cards);
   const highPriorityTraits = cards
@@ -78,7 +158,9 @@ function buildHeroSummarySection(dashboard, maxItems) {
       Object.freeze({
         trait_code: toKey(card.trait_code, "unknown_trait"),
         trait_label: toSafeString(card.trait_name || card.trait_code),
-        priority_level: toSafeString(card.priority_level),
+        priority_level: toSafeString(toPriorityLabel(card.priority_level)),
+        trend_direction: toSafeString(card.trend_direction || "stable"),
+        priority_narrative: buildPriorityNarrative(card),
       })
     );
 
@@ -107,7 +189,7 @@ function buildTraitCardsSection(dashboard) {
   const cards = toSafeArray(dashboard?.overview_cards)
     .filter((card) => card && typeof card === "object")
     .map((card) =>
-      Object.freeze({
+      Object.freeze(Object.assign({
         trait_code: toKey(card.trait_code, "unknown_trait"),
         trait_label: toSafeString(card.trait_name || card.trait_code),
         current_score: toSafeNumber(card.current_score),
@@ -116,7 +198,7 @@ function buildTraitCardsSection(dashboard) {
         trend_direction: toSafeString(card.trend_direction || "stable"),
         status_label: toSafeString(card.status_label),
         priority_level: toSafeString(card.priority_level),
-      })
+      }, buildTraitNarrative(card)))
     )
     .sort((a, b) => a.trait_code.localeCompare(b.trait_code));
 
@@ -168,6 +250,8 @@ function buildStrengthsSection(dashboard) {
         current_score: toSafeNumber(item.current_score),
         confidence_score: toSafeNumber(item.confidence_score),
         keep_doing_copy: toSafeString(item.why_currently_strong),
+        actionable_next_step: toSafeString("What to do next: keep the current routine, then increase challenge in one small, predictable way."),
+        parent_coaching_note: toSafeString("Use specific praise tied to behavior (not identity) so the child can repeat the exact action."),
       })
     )
     .sort((a, b) => a.trait_code.localeCompare(b.trait_code));
@@ -198,6 +282,13 @@ function buildSupportSection(dashboard) {
         confidence_score: confidenceScore,
         support_next_copy: toSafeString(item.why_support_recommended),
         low_confidence_notice: lowConfidenceNotice,
+        actionable_next_step: confidenceScore < LOW_CONFIDENCE_THRESHOLD
+          ? toSafeString("What to do next: collect two additional observations in different settings before changing expectations.")
+          : toSafeString("What to do next: choose one scaffolded practice task and repeat it on a predictable schedule."),
+        risk_if_ignored: confidenceScore < LOW_CONFIDENCE_THRESHOLD
+          ? toSafeString("If ignored, interpretation may drift without enough evidence.")
+          : toSafeString("If ignored, this area may create repeated frustration in daily routines."),
+        progress_signal: toSafeString("Progress looks like fewer support prompts and more independent attempts across the week."),
       });
     })
     .sort((a, b) => a.trait_code.localeCompare(b.trait_code));

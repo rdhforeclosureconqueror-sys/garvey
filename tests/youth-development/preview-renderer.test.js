@@ -33,11 +33,14 @@ test('renderer output includes hero summary, trait cards, and all required secti
   assert.match(html, /<h1>Youth Development Parent Dashboard \(Preview\)<\/h1>/);
   assert.match(html, /<h2>Overview<\/h2>/);
   assert.match(html, /<h2>Trait signals<\/h2>/);
-  assert.match(html, /<table border="1" cellpadding="6" cellspacing="0">/);
+  assert.match(html, /<table>/);
   assert.match(html, /<h2>Current strengths<\/h2>/);
   assert.match(html, /<h2>Support next<\/h2>/);
   assert.match(html, /<h2>Evidence and confidence<\/h2>/);
   assert.match(html, /<h2>Next actions<\/h2>/);
+  assert.match(html, /What this means:/);
+  assert.match(html, /If ignored:/);
+  assert.match(html, /Progress:/);
 });
 
 test('preview fixture low-confidence handling is rendered when low-confidence rows exist', () => {

@@ -44,6 +44,9 @@ function renderHeroSummary(section) {
         <div>
           <p class="priority-trait">${escapeHtml(row.trait_label)}</p>
           <p class="priority-level">${escapeHtml(row.priority_level)} priority</p>
+          ${row?.priority_narrative?.why_priority ? `<p class="priority-detail">${escapeHtml(row.priority_narrative.why_priority)}</p>` : ""}
+          ${row?.priority_narrative?.risk_if_ignored ? `<p class="priority-detail"><strong>If ignored:</strong> ${escapeHtml(row.priority_narrative.risk_if_ignored)}</p>` : ""}
+          ${row?.priority_narrative?.progress_looks_like ? `<p class="priority-detail"><strong>Progress:</strong> ${escapeHtml(row.priority_narrative.progress_looks_like)}</p>` : ""}
         </div>
         <span class="trend-chip trend-${trend.tone}">${trend.glyph} ${trend.label}</span>
       </li>
@@ -77,6 +80,17 @@ function renderTraitCards(section) {
       </td>
       <td><span class="trend-chip trend-${trend.tone}">${trend.glyph} ${escapeHtml(card.trend_direction)}</span></td>
       <td>${escapeHtml(card.status_label)}</td>
+    </tr>
+    <tr class="trait-narrative-row">
+      <td colspan="6">
+        <div class="trait-narrative">
+          <p><strong>What this means:</strong> ${escapeHtml(card.what_this_means || "")}</p>
+          <p><strong>What this looks like:</strong> ${escapeHtml(card.behavior_look_fors || "")}</p>
+          <p><strong>Why it matters:</strong> ${escapeHtml(card.why_it_matters || "")}</p>
+          <p><strong>Parent context:</strong> ${escapeHtml(card.emotional_context || "")}</p>
+          <p><strong>Progress signs:</strong> ${escapeHtml(card.progress_look_fors || "")}</p>
+        </div>
+      </td>
     </tr>
   `;
   }).join("");
@@ -133,7 +147,7 @@ function renderStrengths(section) {
     section?.title || "Current strengths",
     items,
     section?.empty_state || "No strengths are currently ranked.",
-    (item) => `<li><strong>${escapeHtml(item.trait_label)}</strong> <span class="item-score">${safeNumber(item.current_score)}</span><p>${escapeHtml(item.keep_doing_copy)}</p></li>`
+    (item) => `<li><strong>${escapeHtml(item.trait_label)}</strong> <span class="item-score">${safeNumber(item.current_score)}</span><p>${escapeHtml(item.keep_doing_copy)}</p><p><strong>${escapeHtml(item.actionable_next_step || "")}</strong></p><p>${escapeHtml(item.parent_coaching_note || "")}</p></li>`
   );
 }
 
@@ -143,7 +157,7 @@ function renderSupport(section) {
     section?.title || "Support next",
     items,
     section?.empty_state || "Support recommendations are currently empty.",
-    (item) => `<li><strong>${escapeHtml(item.trait_label)}</strong> <span class="item-score">${safeNumber(item.current_score)}</span><p>${escapeHtml(item.support_next_copy)}</p>${item.low_confidence_notice ? `<p class="subtle-warn">${escapeHtml(item.low_confidence_notice)}</p>` : ""}</li>`
+    (item) => `<li><strong>${escapeHtml(item.trait_label)}</strong> <span class="item-score">${safeNumber(item.current_score)}</span><p>${escapeHtml(item.support_next_copy)}</p><p><strong>${escapeHtml(item.actionable_next_step || "")}</strong></p><p><strong>If ignored:</strong> ${escapeHtml(item.risk_if_ignored || "")}</p><p><strong>Progress:</strong> ${escapeHtml(item.progress_signal || "")}</p>${item.low_confidence_notice ? `<p class="subtle-warn">${escapeHtml(item.low_confidence_notice)}</p>` : ""}</li>`
   );
 }
 
@@ -255,6 +269,7 @@ function renderYouthDevelopmentParentDashboardPage(pageModel, options = {}) {
       }
       .priority-trait { margin: 0; font-weight: 700; color: #f8fafc; }
       .priority-level { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+      .priority-detail { margin: 6px 0 0; color: #cbd5e1; font-size: 13px; }
       .trend-chip {
         border: 1px solid transparent;
         border-radius: 999px;
@@ -297,6 +312,8 @@ function renderYouthDevelopmentParentDashboardPage(pageModel, options = {}) {
         color: #93c5fd;
       }
       .subtle-warn { color: #fdba74; }
+      .trait-narrative-row td { background: rgba(2, 6, 23, 0.45); }
+      .trait-narrative p { margin: 6px 0; font-size: 13px; color: #cbd5e1; }
       .confidence-note {
         border-left: 2px solid #facc15;
         padding-left: 10px;
