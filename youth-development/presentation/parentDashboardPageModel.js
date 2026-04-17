@@ -8,6 +8,7 @@ const DEFAULT_MAX_ITEMS = 5;
 
 const SECTION_ORDER = Object.freeze([
   "hero_summary",
+  "insight_narrative",
   "trait_cards",
   "strengths",
   "support",
@@ -124,6 +125,36 @@ function buildTraitCardsSection(dashboard) {
     section_title: toSafeString("Trait signals"),
     cards,
     empty_state: cards.length === 0 ? toSafeString("Trait cards are not available yet.") : "",
+  });
+}
+
+function buildInsightNarrativeSection(dashboard) {
+  const strongest = toSafeArray(dashboard?.strengths?.ranked_strengths)
+    .filter((item) => item && typeof item === "object")
+    .sort((a, b) => Number(b?.current_score || 0) - Number(a?.current_score || 0))[0];
+  const highestSupportNeed = toSafeArray(dashboard?.support?.current_support_needs)
+    .filter((item) => item && typeof item === "object")
+    .sort((a, b) => Number(a?.current_score || 0) - Number(b?.current_score || 0))[0];
+  const topLever = toSafeArray(dashboard?.action?.top_recommended_development_levers)
+    .filter((item) => item && typeof item === "object")[0];
+
+  const opening = strongest
+    ? `Your child is currently showing the strongest pattern in ${toSafeString(strongest.trait_name || strongest.trait_code)}.`
+    : "This dashboard is beginning to identify emerging strengths for your child.";
+  const focusArea = highestSupportNeed
+    ? `A helpful next focus area is ${toSafeString(highestSupportNeed.trait_name || highestSupportNeed.trait_code)}, where steady practice can make daily progress easier to see.`
+    : "No immediate support flags are present right now, so continue consistent routines and observation.";
+  const nextStep = topLever
+    ? `A practical next step is to apply this lever: ${toSafeString(topLever.lever)}.`
+    : "As more evidence is collected, this section will recommend specific next-step levers.";
+
+  return Object.freeze({
+    section_key: "insight_narrative",
+    section_title: toSafeString("Parent insight narrative"),
+    opening,
+    focus_area: focusArea,
+    next_step: nextStep,
+    empty_state: toSafeString("Narrative insight will appear as soon as trait and support signals are available."),
   });
 }
 
@@ -269,6 +300,7 @@ function buildParentDashboardPageModel(dashboard, options = {}) {
     page_title: toSafeString(options.page_title || DEFAULT_PAGE_TITLE),
     page_subtitle: toSafeString(options.page_subtitle || DEFAULT_PAGE_SUBTITLE),
     hero_summary: buildHeroSummarySection(dashboard, maxItems),
+    insight_narrative: buildInsightNarrativeSection(dashboard),
     trait_cards: buildTraitCardsSection(dashboard),
     strengths: buildStrengthsSection(dashboard),
     support: buildSupportSection(dashboard),
@@ -290,7 +322,7 @@ module.exports = {
   buildParentDashboardPageModel,
   PARENT_DASHBOARD_PAGE_MODEL_RULES: Object.freeze({
     section_order:
-      "hero_summary -> trait_cards -> strengths -> support -> evidence -> action, with stable keys and fallback-safe empty states.",
+      "hero_summary -> insight_narrative -> trait_cards -> strengths -> support -> evidence -> action, with stable keys and fallback-safe empty states.",
     safety:
       "All strings are sanitized for website rendering; output avoids future guarantees and keeps UI labels data-driven.",
     contract:

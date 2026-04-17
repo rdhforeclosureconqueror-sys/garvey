@@ -2,6 +2,7 @@
 
 const SECTION_RENDER_ORDER = Object.freeze([
   "hero_summary",
+  "insight_narrative",
   "trait_cards",
   "strengths",
   "support",
@@ -102,6 +103,20 @@ function renderTraitCards(section) {
   `;
 }
 
+function renderInsightNarrative(section) {
+  const hasNarrative = Boolean(section?.opening || section?.focus_area || section?.next_step);
+  return `
+    <section class="dashboard-panel" data-section="insight-narrative">
+      <h2>${escapeHtml(section?.section_title || "Parent insight narrative")}</h2>
+      ${hasNarrative
+        ? `<p>${escapeHtml(section?.opening || "")}</p>
+           <p>${escapeHtml(section?.focus_area || "")}</p>
+           <p>${escapeHtml(section?.next_step || "")}</p>`
+        : `<p>${escapeHtml(section?.empty_state || "Narrative insight is not available yet.")}</p>`}
+    </section>
+  `;
+}
+
 function renderListSection(title, items = [], emptyState = "", itemFormatter) {
   const rows = items.map(itemFormatter).join("");
   return `
@@ -166,6 +181,7 @@ function renderAction(section) {
 
 function renderSection(pageModel, sectionKey) {
   if (sectionKey === "hero_summary") return renderHeroSummary(pageModel?.hero_summary);
+  if (sectionKey === "insight_narrative") return renderInsightNarrative(pageModel?.insight_narrative);
   if (sectionKey === "trait_cards") return renderTraitCards(pageModel?.trait_cards);
   if (sectionKey === "strengths") return renderStrengths(pageModel?.strengths);
   if (sectionKey === "support") return renderSupport(pageModel?.support);
