@@ -484,6 +484,23 @@
     }
   }
 
+  function renderActiveAssessmentYouthActions() {
+    var familyHost = document.getElementById("assessmentFamiliesSummary");
+    if (!familyHost || !familyHost.parentNode) return;
+    var host = document.getElementById("assessmentYouthActions");
+    if (!host) {
+      host = document.createElement("div");
+      host.id = "assessmentYouthActions";
+      host.style.marginTop = "10px";
+      familyHost.parentNode.appendChild(host);
+    }
+    host.innerHTML = '' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+        '<a id="takeYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake/test">Take Youth Assessment (Test)</a>' +
+        '<a id="takeYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Open Youth Parent Dashboard (Preview)</a>' +
+      "</div>";
+  }
+
   function renderCampaignLinks(tenant, ownerEmail, campaign) {
     var body = document.getElementById("campaignLinksBody");
     if (!body) return;
@@ -1621,9 +1638,17 @@
         if (resolvedRid) setRidInStorage(tenant, email, resolvedRid);
 
         var hub = ownerHubHtml({ tenant: tenant, email: email, cid: cid, rid: resolvedRid });
+        var adminYouthActions = isAdmin
+          ? (
+            '<div style="margin:10px 0;display:flex;gap:8px;flex-wrap:wrap;">' +
+              '<a id="adminYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake/test">Youth Assessment (Test)</a>' +
+              '<a id="adminYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Youth Parent Dashboard (Preview)</a>' +
+            "</div>"
+          )
+          : "";
         var summary = resultSummaryHtml(result);
 
-        el.innerHTML = hub + '<div style="margin-top:10px;">' + summary + "</div>";
+        el.innerHTML = hub + adminYouthActions + '<div style="margin-top:10px;">' + summary + "</div>";
         wireCopyButtons(el);
         wireOwnerHubCustomerLink({ tenant: tenant, email: email, cid: cid, rid: resolvedRid });
       })
@@ -1647,10 +1672,6 @@
         '<div class="muted" style="margin-bottom:8px;">Admin: select tenant/email to open any tenant dashboard.</div>' +
         '<div class="form-group"><label>Tenant slug</label><input id="adminTenantInput" class="form-control" placeholder="tenant-slug" value="' + escapeHtml(tenant) + '"></div>' +
         '<div class="form-group"><label>Target email</label><input id="adminEmailInput" class="form-control" placeholder="owner@example.com" value="' + escapeHtml(email) + '"></div>' +
-        '<div style="margin-bottom:10px;display:flex;gap:8px;flex-wrap:wrap;">' +
-          '<a id="adminYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake/test">Youth Assessment (Test)</a>' +
-          '<a id="adminYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Youth Parent Dashboard (Preview)</a>' +
-        '</div>' +
         '<button id="adminOpenTenantBtn" class="btn btn-primary">Open Tenant Dashboard</button>' +
         '<div id="adminAccessMsg" class="empty-state" style="padding-top:8px;">Missing tenant/email. Enter values and continue.</div>' +
       '</div>';
@@ -2134,6 +2155,7 @@
       saveLoginCtx({ tenant: tenant, email: ownerEmail, cid: cid, rid: rid });
       customerProfileCtx = { tenant: tenant, ownerEmail: ownerEmail, cid: cid, rid: rid };
       wirePathButtons(tenant, ownerEmail, cid, rid);
+      renderActiveAssessmentYouthActions();
       wireCustomerLookup(tenant);
       wireCustomerFilters();
       wireCampaignCreator(tenant, ownerEmail, cid, rid);
