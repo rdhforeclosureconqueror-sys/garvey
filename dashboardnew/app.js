@@ -484,20 +484,101 @@
     }
   }
 
-  function renderActiveAssessmentYouthActions() {
+  function getAssessmentYouthActionsContainer() {
     var familyHost = document.getElementById("assessmentFamiliesSummary");
-    if (!familyHost || !familyHost.parentNode) return;
+    if (familyHost && familyHost.parentNode) {
+      return { host: familyHost.parentNode, anchor: "assessmentFamiliesSummary.parentNode", fallback: false };
+    }
+    var assessmentsPanel = document.getElementById("assessments");
+    if (assessmentsPanel) {
+      var panelBody = assessmentsPanel.querySelector(".panel-body");
+      if (panelBody) return { host: panelBody, anchor: "assessments.panel-body", fallback: true };
+      return { host: assessmentsPanel, anchor: "assessments", fallback: true };
+    }
+    var rewards = document.getElementById("rewards");
+    if (rewards) {
+      var rewardsPanelBody = rewards.querySelector(".panel .panel-body");
+      if (rewardsPanelBody) return { host: rewardsPanelBody, anchor: "rewards.first-panel-body", fallback: true };
+      return { host: rewards, anchor: "rewards", fallback: true };
+    }
+    var pageWrapper = document.getElementById("page-wrapper");
+    if (pageWrapper) return { host: pageWrapper, anchor: "page-wrapper", fallback: true };
+    if (document.body) return { host: document.body, anchor: "document.body", fallback: true };
+    return null;
+  }
+
+  function renderActiveAssessmentYouthActions() {
+    var placement = getAssessmentYouthActionsContainer();
+    if (!placement || !placement.host) {
+      console.warn("youth_actions_customer: no stable container found for assessment buttons");
+      return;
+    }
+    if (placement.fallback) {
+      console.info("youth_actions_customer: fallback container", placement.anchor);
+    }
     var host = document.getElementById("assessmentYouthActions");
     if (!host) {
       host = document.createElement("div");
       host.id = "assessmentYouthActions";
       host.style.marginTop = "10px";
-      familyHost.parentNode.appendChild(host);
+      placement.host.appendChild(host);
+    } else if (host.parentNode !== placement.host) {
+      placement.host.appendChild(host);
+      console.info("youth_actions_customer: moved host to", placement.anchor);
     }
     host.innerHTML = '' +
       '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
         '<a id="takeYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake/test">Take Youth Assessment (Test)</a>' +
         '<a id="takeYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Open Youth Parent Dashboard (Preview)</a>' +
+      "</div>";
+  }
+
+  function renderAdminYouthActions(ctx) {
+    var isAdmin = !!(ctx && ctx.isAdmin === true);
+    var host = document.getElementById("adminYouthActionsHost");
+    if (!isAdmin) {
+      if (host) host.style.display = "none";
+      return;
+    }
+
+    var container = null;
+    var anchor = "";
+    var accessPanel = document.getElementById("accessStatusPanel");
+    if (accessPanel) {
+      container = accessPanel.querySelector(".panel-body") || accessPanel;
+      anchor = "accessStatusPanel";
+    }
+    if (!container) {
+      var ownerSnapshot = document.getElementById("ownerSnapshotBody");
+      if (ownerSnapshot) {
+        container = ownerSnapshot.parentNode || ownerSnapshot;
+        anchor = "ownerSnapshotBody";
+      }
+    }
+    if (!container) {
+      container = document.getElementById("page-wrapper") || document.body;
+      anchor = container === document.body ? "document.body" : "page-wrapper";
+      console.info("youth_actions_admin: fallback container", anchor);
+    }
+    if (!container) {
+      console.warn("youth_actions_admin: no stable container found for admin buttons");
+      return;
+    }
+
+    if (!host) {
+      host = document.createElement("div");
+      host.id = "adminYouthActionsHost";
+      host.style.marginTop = "10px";
+      container.appendChild(host);
+    } else if (host.parentNode !== container) {
+      container.appendChild(host);
+      console.info("youth_actions_admin: moved host to", anchor);
+    }
+    host.style.display = "";
+    host.innerHTML = '' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+        '<a id="adminYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake/test">Youth Assessment (Test)</a>' +
+        '<a id="adminYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Youth Parent Dashboard (Preview)</a>' +
       "</div>";
   }
 
@@ -1638,17 +1719,9 @@
         if (resolvedRid) setRidInStorage(tenant, email, resolvedRid);
 
         var hub = ownerHubHtml({ tenant: tenant, email: email, cid: cid, rid: resolvedRid });
-        var adminYouthActions = isAdmin
-          ? (
-            '<div style="margin:10px 0;display:flex;gap:8px;flex-wrap:wrap;">' +
-              '<a id="adminYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake/test">Youth Assessment (Test)</a>' +
-              '<a id="adminYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Youth Parent Dashboard (Preview)</a>' +
-            "</div>"
-          )
-          : "";
         var summary = resultSummaryHtml(result);
 
-        el.innerHTML = hub + adminYouthActions + '<div style="margin-top:10px;">' + summary + "</div>";
+        el.innerHTML = hub + '<div style="margin-top:10px;">' + summary + "</div>";
         wireCopyButtons(el);
         wireOwnerHubCustomerLink({ tenant: tenant, email: email, cid: cid, rid: resolvedRid });
       })
@@ -2068,6 +2141,7 @@
     badges.push('<span class="label label-default">Tenant: ' + escapeHtml(ctx.tenant || "-") + '</span>');
     badgeHost.innerHTML = badges.join(" ");
     meta.textContent = "Email: " + (ctx.email || "-") + " • Session role: " + (ctx.role || "-");
+    renderAdminYouthActions(ctx);
   }
 
   function init() {
