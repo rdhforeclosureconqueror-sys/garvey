@@ -16,6 +16,7 @@ const crypto = require("crypto");
 const QRCode = require("qrcode");
 
 const { pool, initializeDatabase } = require("./db");
+const { createTdeGovernancePersistence } = require("./tdeGovernanceDb");
 const {
   ensureTenant,
   getTenantBySlug,
@@ -67,6 +68,7 @@ const { createArchetypeEnginesRouter } = require("./archetypeEnginesRoutes");
 const { initializeArchetypeEngineSchema } = require("./archetypeEnginesService");
 const { createYouthDevelopmentRouter } = require("./youthDevelopmentRoutes");
 const { createYouthDevelopmentIntakeRouter } = require("./youthDevelopmentIntakeRoutes");
+const { createYouthDevelopmentTdeRouter } = require("./youthDevelopmentTdeRoutes");
 const { generateSite } = require("./siteMaterializer");
 const { getTapCrmMode } = require("./tapCrmFeature");
 const { createTapCrmRouter, resolvePublicTap } = require("./tapCrmRoutes");
@@ -2042,6 +2044,7 @@ app.use(createYouthDevelopmentRouter({
   loadLatestYouthAssessment: loadLatestYouthAssessmentForAccount,
 }));
 app.use("/api/youth-development/intake", createYouthDevelopmentIntakeRouter());
+app.use("/api/youth-development/tde", createYouthDevelopmentTdeRouter({ persistence: createTdeGovernancePersistence(pool) }));
 
 app.post("/api/campaigns/create", async (req, res) => {
   let failurePoint = "init";

@@ -3,6 +3,7 @@
 const { Pool } = require("pg");
 const { initializeKanbanSchema } = require("./kanbanDb");
 const { applyTapCrmMigrations, verifyTapCrmSchema } = require("./tapCrmDb");
+const { applyTdeMigrations } = require("./tdeGovernanceDb");
 
 const connectionString = process.env.DATABASE_URL;
 
@@ -1296,6 +1297,12 @@ async function initializeDatabase() {
   // ==================================================
   // TAP CRM SYSTEM (PHASE 2: ISOLATED DATA MODEL)
   // ==================================================
+  const tdeMigrationResult = await applyTdeMigrations(pool);
+  console.log("✅ TDE governance schema ready", {
+    applied_migrations: tdeMigrationResult.appliedCount,
+    total_migrations: tdeMigrationResult.totalMigrations,
+  });
+
   const tapCrmMigrationResult = await applyTapCrmMigrations(pool);
   const tapCrmSchemaReport = await verifyTapCrmSchema(pool);
   console.log("✅ Tap CRM schema ready", {
