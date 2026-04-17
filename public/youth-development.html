@@ -10,19 +10,21 @@
     main { max-width: 980px; margin: 0 auto; padding: 20px; display: grid; gap: 12px; }
     section { border: 1px solid #334155; border-radius: 12px; padding: 14px; background: #0f172a; }
     h1,h2,h3 { margin: 0 0 8px 0; }
-    textarea { width: 100%; min-height: 220px; background: #020617; color: #bfdbfe; border: 1px solid #334155; border-radius: 8px; padding: 8px; }
     button,a.btn { border: 1px solid #38bdf8; background: #082f49; color: #e0f2fe; border-radius: 999px; padding: 8px 14px; cursor: pointer; text-decoration: none; display: inline-block; }
     .muted { color: #94a3b8; }
     .row { display: flex; flex-wrap: wrap; gap: 8px; }
     .pill { display: inline-block; border: 1px solid #475569; border-radius: 999px; padding: 2px 8px; margin-right: 4px; margin-bottom: 4px; }
     .card { border: 1px solid #334155; border-radius: 10px; padding: 10px; background: #111827; }
+    .question { border: 1px solid #334155; border-radius: 10px; padding: 10px; background: #111827; margin-bottom: 10px; }
+    .answer-group { display: grid; gap: 6px; margin-top: 8px; }
+    .answer-label { display: flex; gap: 8px; align-items: center; }
   </style>
 </head>
 <body>
   <main>
     <section>
       <h1>Youth Development — Parent Experience</h1>
-      <p class="muted">Frontend product view using live youth-development APIs with parent-readable insight content.</p>
+      <p class="muted">Deterministic intake flow: Questions → Scoring → Traits → Narrative → Parent Dashboard.</p>
       <div class="row">
         <a class="btn" href="/youth-development/intake/test">Open Internal Intake Test Runner</a>
         <a class="btn" href="/youth-development/parent-dashboard/preview">Open Backend Preview Renderer</a>
@@ -30,17 +32,17 @@
     </section>
 
     <section>
-      <h2>Run intake and render parent narrative</h2>
-      <p class="muted">Edit payload if needed, then run the full flow to generate dashboard + narrative content.</p>
-      <textarea id="payload"></textarea>
-      <p><button id="runBtn" type="button">Run Youth Intake</button></p>
+      <h2>Parent intake questions</h2>
+      <p class="muted" id="questionStatus">Loading questions...</p>
+      <form id="questionForm"></form>
+      <p><button id="runBtn" type="button">Submit Intake Assessment</button></p>
       <p id="status" class="muted">Waiting to run.</p>
     </section>
 
     <section>
       <h2 id="title">Parent dashboard output</h2>
       <p id="subtitle" class="muted">No data yet.</p>
-      <div id="narrative" class="card"><em>Run intake to generate narrative insight.</em></div>
+      <div id="narrative" class="card"><em>Submit intake answers to generate narrative insight.</em></div>
       <h3 style="margin-top:12px;">Top traits</h3>
       <div id="priorities"></div>
       <h3 style="margin-top:12px;">Action prompts</h3>
@@ -50,37 +52,42 @@
 
   <script>
     (function () {
-      const starterPayload = {
-        schema_version: "1.0",
-        session_id: "frontend-session-1",
-        child_id: "child-frontend-1",
-        submitted_at: "2026-03-01T12:00:00.000Z",
-        task_results: [{
-          task: {
-            task_id: "YT_B1_CQ_01",
-            trait_code: "CQ",
-            task_class: "SCT",
-            expected_signal_types: ["inquiry_depth", "justification_quality", "decision_quality"],
-            scoring_type: "rubric",
-            evidence_source: "child_scenario"
-          },
-          raw_input: {
-            timestamp: "2026-03-01T12:01:00.000Z",
-            metrics: { inquiry_depth: 3, justification_quality: 3, decision_quality: 2 },
-            measurement_window: "current",
-            is_current: true
-          }
-        }],
-        options: { ignore_contaminated: true }
-      };
-
-      const payloadEl = document.getElementById("payload");
+      const formEl = document.getElementById("questionForm");
       const statusEl = document.getElementById("status");
-      payloadEl.value = JSON.stringify(starterPayload, null, 2);
+      const questionStatusEl = document.getElementById("questionStatus");
+      let questionBank = [];
 
       function endpoint(path) {
         if (window.GarveyApi && typeof window.GarveyApi.buildUrl === "function") return window.GarveyApi.buildUrl(path);
         return path;
+      }
+
+      function renderQuestions(questions) {
+        formEl.innerHTML = questions.map((question, index) => `
+          <div class="question">
+            <strong>Q${index + 1}. ${question.prompt}</strong>
+            <div class="muted">Category: ${question.category}</div>
+            <div class="answer-group">
+              ${question.answers.map((answer) => `
+                <label class="answer-label">
+                  <input type="radio" name="${question.id}" value="${answer.value}" />
+                  <span>${answer.label}</span>
+                </label>
+              `).join("")}
+            </div>
+          </div>
+        `).join("");
+      }
+
+      function collectAnswers() {
+        const answerMap = {};
+        for (const question of questionBank) {
+          const selected = formEl.querySelector(`input[name="${question.id}"]:checked`);
+          if (selected) {
+            answerMap[question.id] = Number(selected.value);
+          }
+        }
+        return answerMap;
       }
 
       function renderNarrative(pageModel) {
@@ -99,33 +106,46 @@
         document.getElementById("subtitle").textContent = pageModel.page_subtitle || "";
         renderNarrative(pageModel);
 
-        const priorities = (pageModel.hero_summary && pageModel.hero_summary.high_priority_traits) || [];
+        const priorities = (payload.interpretation && payload.interpretation.priority_traits) || [];
         document.getElementById("priorities").innerHTML = priorities.length
-          ? priorities.map((item) => `<span class="pill">${item.trait_label} · ${item.priority_level}</span>`).join("")
-          : "<span class=\"muted\">No priority traits yet.</span>";
+          ? priorities.map((item) => `<span class="pill">${item.trait_name} · ${item.current_score.toFixed(1)}</span>`).join("")
+          : '<span class="muted">No priority traits yet.</span>';
 
         const prompts = (pageModel.action && pageModel.action.next_step_prompts) || [];
         document.getElementById("prompts").innerHTML = prompts.length
           ? prompts.map((p) => `<li><strong>${p.trait_code}:</strong> ${p.prompt}</li>`).join("")
-          : "<li class=\"muted\">No prompts yet.</li>";
+          : '<li class="muted">No prompts yet.</li>';
+      }
+
+      async function loadQuestions() {
+        const response = await fetch(endpoint("/api/youth-development/questions"));
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Unable to load questions");
+        questionBank = Array.isArray(data.questions) ? data.questions : [];
+        renderQuestions(questionBank);
+        questionStatusEl.textContent = `Loaded ${questionBank.length} questions.`;
       }
 
       document.getElementById("runBtn").addEventListener("click", async function () {
         statusEl.textContent = "Submitting...";
         try {
-          const payload = JSON.parse(payloadEl.value);
-          const response = await fetch(endpoint("/api/youth-development/intake/task-session"), {
+          const answers = collectAnswers();
+          const response = await fetch(endpoint("/api/youth-development/assess"), {
             method: "POST",
             headers: { "content-type": "application/json" },
-            body: JSON.stringify(payload),
+            body: JSON.stringify({ answers }),
           });
           const data = await response.json();
           if (!response.ok) throw new Error(data.error || "Request failed");
           renderDashboard(data);
-          statusEl.textContent = `Success (${response.status}). Signals processed: ${data.processed_signal_count || 0}.`;
+          statusEl.textContent = `Success (${response.status}). Completed ${data.answers_count}/${data.question_count} answers.`;
         } catch (err) {
           statusEl.textContent = String(err && err.message ? err.message : err);
         }
+      });
+
+      loadQuestions().catch((err) => {
+        questionStatusEl.textContent = String(err && err.message ? err.message : err);
       });
     })();
   </script>

@@ -5,6 +5,9 @@ const { buildYouthDevelopmentResult } = require("../youth-development/measuremen
 const { buildYouthDevelopmentDashboard } = require("../youth-development/measurement/dashboardBuilder");
 const { buildParentDashboardPageModel } = require("../youth-development/presentation/parentDashboardPageModel");
 const { renderYouthDevelopmentParentDashboardPage } = require("./youthDevelopmentRenderer");
+const { YOUTH_QUESTION_BANK } = require("../youth-development/question-engine/youthQuestionBank");
+const { getQuestionFlowState, validateAnswers } = require("../youth-development/question-engine/youthQuestionFlow");
+const { runYouthIntakeScoring } = require("../youth-development/question-engine/youthScoringMap");
 
 const PREVIEW_AGGREGATED_ROWS = Object.freeze([
   Object.freeze({
@@ -515,6 +518,58 @@ function renderYouthDevelopmentIntakeTestPage() {
 </html>`;
 }
 
+function buildDeterministicNarrative(interpretation = {}) {
+  const highest = interpretation.highest_trait;
+  const lowest = interpretation.lowest_trait;
+  const conflict = interpretation.conflict;
+
+  const opening = highest
+    ? `Your child currently shows the strongest pattern in ${highest.trait_name} (${Number(highest.current_score || 0).toFixed(1)}).`
+    : "Trait strengths will populate after all intake answers are submitted.";
+  const focusArea = lowest
+    ? `A practical support focus is ${lowest.trait_name} (${Number(lowest.current_score || 0).toFixed(1)}), where structured repetition can improve consistency.`
+    : "No immediate low trait signal is available yet.";
+  const nextStep = conflict
+    ? `Watch the ${conflict.conflict_key} gap: ${conflict.insight}`
+    : "No major trait conflict is currently detected.";
+
+  return { opening, focus_area: focusArea, next_step: nextStep };
+}
+
+function buildYouthAssessPayload(answerPairs, options = {}) {
+  const scoring = runYouthIntakeScoring(answerPairs);
+  const result = buildYouthDevelopmentResult(scoring.trait_rows, {
+    generatedAt: options.generatedAt || "2026-04-17T00:00:00.000Z",
+    evidenceSummary: {
+      sources_used: ["parent_observation", "child_scenario"],
+      confidence_caveats: ["Deterministic intake scoring based on parent responses."],
+    },
+  });
+  const dashboard = buildYouthDevelopmentDashboard(result, { maxItems: 5 });
+  const pageModel = buildParentDashboardPageModel(dashboard, {
+    page_title: "Youth Development Parent Dashboard",
+    page_subtitle: "Assessment generated from deterministic parent intake responses.",
+    maxItems: 5,
+  });
+
+  const insightNarrative = buildDeterministicNarrative(scoring.interpretation);
+  const enrichedPageModel = {
+    ...pageModel,
+    insight_narrative: {
+      ...pageModel.insight_narrative,
+      ...insightNarrative,
+    },
+  };
+
+  return {
+    scoring,
+    result,
+    dashboard,
+    page_model: enrichedPageModel,
+    rendered_html: renderYouthDevelopmentParentDashboardPage(enrichedPageModel),
+  };
+}
+
 function buildPreviewPayload() {
   const result = buildYouthDevelopmentResult(PREVIEW_AGGREGATED_ROWS, PREVIEW_OPTIONS);
   const dashboard = buildYouthDevelopmentDashboard(result, { maxItems: 5 });
@@ -545,6 +600,42 @@ function createYouthDevelopmentRouter() {
       previewLabel: "Preview / test-only output (deterministic fixture, no production data)",
     });
     return res.status(200).type("html").send(html);
+  });
+
+  router.get("/api/youth-development/questions", (req, res) => {
+    const flow = getQuestionFlowState({ answers: {} });
+    return res.status(200).json({
+      ok: true,
+      question_count: YOUTH_QUESTION_BANK.length,
+      questions: YOUTH_QUESTION_BANK,
+      flow,
+    });
+  });
+
+  router.post("/api/youth-development/assess", (req, res) => {
+    const validation = validateAnswers(req.body || {});
+    if (!validation.ok) {
+      return res.status(400).json({
+        ok: false,
+        error: "invalid_youth_intake_answers",
+        validation_errors: validation.errors,
+      });
+    }
+
+    const payload = buildYouthAssessPayload(validation.answers);
+    return res.status(200).json({
+      ok: true,
+      question_count: YOUTH_QUESTION_BANK.length,
+      answers_count: validation.answers.length,
+      flow: getQuestionFlowState(req.body || {}),
+      category_scores: payload.scoring.category_scores,
+      interpretation: payload.scoring.interpretation,
+      aggregated_trait_rows: payload.scoring.trait_rows,
+      result: payload.result,
+      dashboard: payload.dashboard,
+      page_model: payload.page_model,
+      rendered_html: payload.rendered_html,
+    });
   });
 
   router.get("/api/youth-development/parent-dashboard/preview", (req, res) => {
