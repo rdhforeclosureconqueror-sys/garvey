@@ -24,6 +24,9 @@
     consentDeleteProfile: "/api/consent/profile/delete",
     consentAssessmentRevoke: "/api/consent/assessment/revoke",
     consentFeature: "/api/features/consent",
+    youthIntakeTaskSession: "/api/youth-development/intake/task-session",
+    youthIntakeSignals: "/api/youth-development/intake/signals",
+    youthParentDashboardPreview: "/api/youth-development/parent-dashboard/preview",
     resultsByEmail: (email) => `/api/results/${encodeURIComponent(email)}`,
     resultsByCrid: (crid) => `/api/results/customer/${encodeURIComponent(crid)}`,
   });
