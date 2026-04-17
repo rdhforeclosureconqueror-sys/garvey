@@ -54,6 +54,13 @@ const LOYALTY_IMAGE_BY_CODE = Object.freeze({
   SF: "/archetype-card/loyalty/Switching_Friction.png",
   TD: "/archetype-card/loyalty/Trust_Dependence.png",
 });
+const LEADERSHIP_IMAGE_BY_CODE = Object.freeze({
+  AC: "/archetype-card/Leadership/Strategic_Adapter.png",
+  IE: "/archetype-card/Leadership/People_Catalyst.png",
+  RI: "/archetype-card/Leadership/Quiet_Operator.png",
+  SD: "/archetype-card/Leadership/System_commander.png",
+  VD: "/archetype-card/Leadership/Vision_Architect.png",
+});
 
 function getStoredLoveImageVariant() {
   try {
@@ -107,12 +114,31 @@ function selectedLoyaltyImageSrc(archetype) {
   return "";
 }
 
+function selectedLeadershipImageSrc(archetype) {
+  const code = String(archetype?.code || "").trim().toUpperCase();
+  const mapped = safeAssetPath(LEADERSHIP_IMAGE_BY_CODE[code]);
+  if (mapped) return mapped;
+  const fallback = [
+    archetype?.imageSrc,
+    archetype?.cardImage,
+    archetype?.image,
+    archetype?.image_url,
+  ];
+  for (const candidate of fallback) {
+    const src = safeAssetPath(candidate);
+    if (src) return src;
+  }
+  return "";
+}
+
 function cardVisual(archetype, options = {}) {
   let src = "";
   if (options.engine === "love") {
     src = selectedLoveImageSrc(archetype, options.loveImageVariant || LOVE_IMAGE_VARIANTS[0]);
   } else if (options.engine === "loyalty") {
     src = selectedLoyaltyImageSrc(archetype);
+  } else if (options.engine === "leadership") {
+    src = selectedLeadershipImageSrc(archetype);
   } else {
     src = safeAssetPath(archetype?.imageSrc || archetype?.cardImage || archetype?.image || archetype?.image_url || "");
   }
