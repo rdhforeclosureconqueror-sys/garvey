@@ -76,6 +76,38 @@ test('POST /api/youth-development/intake/task-session returns 200 with computed 
     assert.equal(payload.metadata.session_id, 'session-1');
     assert.equal(payload.metadata.child_id, 'child-1');
     assert.equal(payload.result.generated_at, '2026-03-01T12:00:00.000Z');
+    assert.ok(payload.processed_signal_count > 0);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('task-session signals include traceable governance fields required by TDE overlay', async () => {
+  const { server, baseUrl } = await startServer();
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/intake/task-session`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(buildValidPayload()),
+    });
+
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    const signals = payload.signal_trace || [];
+
+    assert.ok(Array.isArray(signals));
+    assert.ok(signals.length > 0);
+    const first = signals[0];
+    assert.equal(typeof first.signal_id, 'string');
+    assert.equal(typeof first.signal_type, 'string');
+    assert.equal(typeof first.source_type, 'string');
+    assert.equal(typeof first.source_id, 'string');
+    assert.equal(typeof first.age_band, 'string');
+    assert.equal(typeof first.evidence_status_tag, 'string');
+    assert.equal(typeof first.calibration_version, 'string');
+    assert.equal(typeof first.trace_ref, 'object');
+    assert.ok(first.normalized_value >= 0 && first.normalized_value <= 1);
+    assert.ok(first.confidence_weight >= 0 && first.confidence_weight <= 1);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
@@ -182,6 +214,23 @@ test('existing youth preview routes remain unchanged while intake route is added
     assert.equal(payload.preview, true);
     assert.equal(payload.test_only, true);
     assert.match((payload.notes || []).join(' '), /No database access\./);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('GET /api/youth-development/intake/contracts/trait-mapping returns deterministic contract metadata', async () => {
+  const { server, baseUrl } = await startServer();
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/intake/contracts/trait-mapping`);
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ok, true);
+    assert.equal(payload.contract_type, 'trait_mapping');
+    assert.equal(payload.schema_version, '1.0');
+    assert.equal(payload.calibration_version, 'tde-calibration-v0');
+    assert.equal(payload.traits.SR.minimum_source_diversity, 2);
+    assert.equal(payload.traits.FB.weighting_policy.status, 'CALIBRATION_VARIABLE');
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

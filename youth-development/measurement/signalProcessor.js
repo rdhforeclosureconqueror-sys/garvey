@@ -1,6 +1,12 @@
 "use strict";
 
 const { YOUTH_DEVELOPMENT_TASK_MODEL } = require("./taskModel");
+const {
+  DEFAULT_CALIBRATION_VERSION,
+  resolveEvidenceStatusTag,
+  resolveSourceType,
+  createDeterministicSignalId,
+} = require("../tdeGovernance");
 
 const RUBRIC_LEVEL_MAP = Object.freeze({
   0: 0.0,
@@ -151,16 +157,43 @@ function computeConfidence(task, rawInput, metricEntries) {
 }
 
 function buildSignal(metricName, normalized, task, rawInput, confidenceWeight, contaminationFlags) {
+  const timestamp = toIsoTimestamp(rawInput);
+  const sourceType = resolveSourceType(task.evidence_source);
+  const signalId = createDeterministicSignalId([
+    task.task_id,
+    task.trait_code,
+    task.task_class,
+    metricName,
+    rawInput.source_id || "",
+    timestamp,
+  ]);
+  const normalizedValue = clamp01(normalized);
+  const boundedConfidence = clamp01(confidenceWeight);
+
   return Object.freeze({
+    signal_id: signalId,
     signal_type: metricName,
     trait_code: task.trait_code,
     task_id: task.task_id,
     task_class: task.task_class,
+    raw_value: rawInput.metrics?.[metricName] ?? null,
     raw_signal: rawInput.metrics?.[metricName] ?? null,
-    normalized_signal: clamp01(normalized),
-    confidence_weight: confidenceWeight,
+    normalized_value: normalizedValue,
+    normalized_signal: normalizedValue,
+    confidence_weight: boundedConfidence,
     evidence_source: task.evidence_source,
-    timestamp: toIsoTimestamp(rawInput),
+    source_type: sourceType,
+    source_id: String(rawInput.source_id || task.task_id || task.trait_code || "unknown"),
+    timestamp,
+    age_band: String(rawInput.age_band || task.age_band || "UNSPECIFIED"),
+    evidence_status_tag: resolveEvidenceStatusTag(task.trait_code, task.evidence_status_tag),
+    calibration_version: String(rawInput.calibration_version || DEFAULT_CALIBRATION_VERSION),
+    trace_ref: Object.freeze({
+      task_id: task.task_id || null,
+      metric_name: metricName,
+      raw_input_timestamp: timestamp,
+      metric_key: `metrics.${metricName}`,
+    }),
     contamination_flags: contaminationFlags,
   });
 }
