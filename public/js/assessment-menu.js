@@ -30,6 +30,12 @@ function buildAssessmentRegistry() {
       description: "See what really drives trust, retention, and commitment.",
       engineType: "loyalty",
     },
+    {
+      key: "youth",
+      title: "Take Youth Assessment",
+      description: "Complete the parent-observation youth development screener.",
+      engineType: "youth",
+    },
   ];
 }
 
@@ -63,6 +69,8 @@ function buildAssessmentHref(option, params) {
   const { origin, ctx, query, sourceType } = params || {};
   const basePath = option?.key === "voc"
     ? "/voc.html"
+    : option?.key === "youth"
+      ? "/youth-development/intake"
     : `/archetype-engines/${option.engineType}/assessment`;
   const url = new URL(basePath, origin || "http://localhost");
   applyCommonContext(url, ctx, query, sourceType);

@@ -1939,7 +1939,105 @@ app.use("/api/routing", routingRoutes({ pool, ensureTenant }));
 app.use("/api/stability", routingRoutes({ pool, ensureTenant }));
 app.use("/api/evolution", evolutionRoutes({ pool, ensureTenant }));
 app.use("/api/archetype-engines", createArchetypeEnginesRouter({ pool }));
-app.use(createYouthDevelopmentRouter());
+
+async function persistYouthAssessmentForAccount({
+  accountCtx,
+  responsePayload,
+  answers,
+  unansweredQuestionIds,
+}) {
+  const tenantSlug = String(accountCtx?.tenant || "").trim().toLowerCase();
+  const email = normalizeEmail(accountCtx?.email || "");
+  if (!tenantSlug || !email) {
+    return { account_bound: false, tenant: tenantSlug || null, email: email || null };
+  }
+  const tenant = await getTenantBySlug(tenantSlug);
+  if (!tenant) {
+    return { account_bound: false, tenant: tenantSlug, email };
+  }
+  const user = await findTenantUser(tenant.id, email, pool, accountCtx?.name || "");
+  const interpretedPrimary = String(responsePayload?.scoring?.interpretation?.highest_trait?.trait_name || "").trim();
+  const interpretedSecondary = String(responsePayload?.scoring?.interpretation?.lowest_trait?.trait_name || "").trim();
+  const rawPayload = {
+    youth_assessment_version: "parent_observation_screener_v1",
+    answers,
+    unanswered_question_ids: Array.isArray(unansweredQuestionIds) ? unansweredQuestionIds : [],
+    payload: {
+      interpretation: responsePayload?.scoring?.interpretation || {},
+      completion: responsePayload?.scoring?.completion || {},
+      result: responsePayload?.result || {},
+      dashboard: responsePayload?.dashboard || {},
+      page_model: responsePayload?.page_model || {},
+      trait_reports: responsePayload?.trait_reports || [],
+      aggregated_trait_rows: responsePayload?.scoring?.trait_rows || [],
+    },
+    ownership: {
+      tenant: tenant.slug,
+      email: user.email,
+      user_id: user.id,
+      cid: String(accountCtx?.cid || "").trim() || null,
+      crid: String(accountCtx?.crid || "").trim() || null,
+    },
+    stored_at: new Date().toISOString(),
+  };
+  const inserted = await pool.query(
+    `INSERT INTO assessment_submissions (
+      tenant_id, user_id, assessment_type, primary_archetype, secondary_archetype,
+      raw_answers, customer_name, customer_email, cid
+    )
+    VALUES ($1, $2, 'youth', $3, $4, $5::jsonb, $6, $7, $8)
+    RETURNING id, created_at`,
+    [
+      tenant.id,
+      user.id,
+      interpretedPrimary || null,
+      interpretedSecondary || null,
+      JSON.stringify(rawPayload),
+      String(accountCtx?.name || user.name || "").trim() || null,
+      user.email,
+      String(accountCtx?.cid || "").trim() || null,
+    ]
+  );
+  return {
+    account_bound: true,
+    tenant: tenant.slug,
+    email: user.email,
+    user_id: user.id,
+    submission_id: inserted.rows[0]?.id || null,
+    saved_at: inserted.rows[0]?.created_at || null,
+  };
+}
+
+async function loadLatestYouthAssessmentForAccount({ accountCtx }) {
+  const tenantSlug = String(accountCtx?.tenant || "").trim().toLowerCase();
+  const email = normalizeEmail(accountCtx?.email || "");
+  if (!tenantSlug || !email) return null;
+  const tenant = await getTenantBySlug(tenantSlug);
+  if (!tenant) return null;
+  const latest = await pool.query(
+    `SELECT a.raw_answers, a.id, a.created_at
+     FROM assessment_submissions a
+     LEFT JOIN users u ON u.id = a.user_id
+     WHERE a.tenant_id = $1
+       AND a.assessment_type = 'youth'
+       AND LOWER(COALESCE(a.customer_email, u.email, '')) = $2
+     ORDER BY a.created_at DESC, a.id DESC
+     LIMIT 1`,
+    [tenant.id, email]
+  );
+  const row = latest.rows[0];
+  if (!row || !row.raw_answers || typeof row.raw_answers !== "object") return null;
+  const payload = row.raw_answers.payload && typeof row.raw_answers.payload === "object"
+    ? row.raw_answers.payload
+    : null;
+  if (!payload) return null;
+  return payload;
+}
+
+app.use(createYouthDevelopmentRouter({
+  persistYouthAssessment: persistYouthAssessmentForAccount,
+  loadLatestYouthAssessment: loadLatestYouthAssessmentForAccount,
+}));
 app.use("/api/youth-development/intake", createYouthDevelopmentIntakeRouter());
 
 app.post("/api/campaigns/create", async (req, res) => {

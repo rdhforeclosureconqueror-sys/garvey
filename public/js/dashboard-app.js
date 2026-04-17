@@ -1121,22 +1121,27 @@
       var c = readSignInFormCtx();
       var ownerParams = new URLSearchParams();
       var customerParams = new URLSearchParams();
+      var youthParams = new URLSearchParams();
       if (c.tenant) {
         ownerParams.set("tenant", c.tenant);
         customerParams.set("tenant", c.tenant);
+        youthParams.set("tenant", c.tenant);
       }
       if (c.cid) customerParams.set("cid", c.cid);
+      if (c.email) youthParams.set("email", c.email);
+      if (c.cid) youthParams.set("cid", c.cid);
+      if (c.rid) youthParams.set("crid", c.rid);
       var ownerBtn = document.getElementById("takeOwnerAssessmentBtn");
       var customerBtn = document.getElementById("takeCustomerAssessmentBtn");
       var youthAssessmentBtn = document.getElementById("takeYouthAssessmentBtn");
       var youthDashboardBtn = document.getElementById("takeYouthDashboardBtn");
       if (ownerBtn) ownerBtn.href = "/intake.html" + (ownerParams.toString() ? ("?" + ownerParams.toString()) : "");
       if (customerBtn) customerBtn.href = "/voc.html" + (customerParams.toString() ? ("?" + customerParams.toString()) : "");
-      if (youthAssessmentBtn) youthAssessmentBtn.href = "/youth-development/intake";
-      if (youthDashboardBtn) youthDashboardBtn.href = "/youth-development/parent-dashboard";
+      if (youthAssessmentBtn) youthAssessmentBtn.href = "/youth-development/intake" + (youthParams.toString() ? ("?" + youthParams.toString()) : "");
+      if (youthDashboardBtn) youthDashboardBtn.href = "/youth-development/parent-dashboard" + (youthParams.toString() ? ("?" + youthParams.toString()) : "");
     }
 
-    ["signInTenantInput", "signInCidInput"].forEach(function (id) {
+    ["signInTenantInput", "signInCidInput", "signInEmailInput", "signInRidInput"].forEach(function (id) {
       var input = document.getElementById(id);
       if (input) input.addEventListener("input", refreshAssessmentLinks);
     });
