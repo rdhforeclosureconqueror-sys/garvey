@@ -4,12 +4,14 @@ const express = require('express');
 
 const { createYouthDevelopmentTdeRouter } = require('../../server/youthDevelopmentTdeRoutes');
 const { createYouthDevelopmentIntakeRouter } = require('../../server/youthDevelopmentIntakeRoutes');
+const { createYouthDevelopmentRouter } = require('../../server/youthDevelopmentRoutes');
 
 function mountApp() {
   const app = express();
   app.use(express.json());
   app.use('/api/youth-development/tde', createYouthDevelopmentTdeRouter());
   app.use('/api/youth-development/intake', createYouthDevelopmentIntakeRouter());
+  app.use(createYouthDevelopmentRouter());
   const server = app.listen(0);
   const port = server.address().port;
   const baseUrl = `http://127.0.0.1:${port}`;
@@ -70,15 +72,87 @@ test('extension pipeline endpoint deterministic and contracts endpoint available
   }
 });
 
-test('live youth v1 intake route remains unchanged', async () => {
+test('phase-3 program endpoints expose deterministic rail and allow extension enrollment/progress', async () => {
+  process.env.TDE_EXTENSION_MODE = 'on';
   const app = mountApp();
   try {
-    const response = await fetch(`${app.baseUrl}/api/youth-development/intake/contracts/trait-mapping`);
-    assert.equal(response.status, 200);
-    const payload = await response.json();
-    assert.equal(payload.ok, true);
-    assert.equal(payload.contract_type, 'trait_mapping');
-    assert.equal(payload.calibration_version, 'tde-calibration-v0');
+    const phasesRes = await fetch(`${app.baseUrl}/api/youth-development/tde/program/phases`);
+    const phases = await phasesRes.json();
+    assert.equal(phasesRes.status, 200);
+    assert.equal(phases.phases.length, 3);
+
+    const weeksRes = await fetch(`${app.baseUrl}/api/youth-development/tde/program/weeks`);
+    const weeks = await weeksRes.json();
+    assert.equal(weeksRes.status, 200);
+    assert.equal(weeks.weeks.length, 36);
+
+    const week1Res = await fetch(`${app.baseUrl}/api/youth-development/tde/program/weeks/1`);
+    const week1 = await week1Res.json();
+    assert.equal(week1Res.status, 200);
+    assert.equal(week1.week.week_number, 1);
+    assert.equal(week1.week.checkpoint_flag, true);
+
+    const checkpointsRes = await fetch(`${app.baseUrl}/api/youth-development/tde/program/checkpoints`);
+    const checkpoints = await checkpointsRes.json();
+    assert.equal(checkpointsRes.status, 200);
+    assert.deepEqual(checkpoints.checkpoints.map((entry) => entry.week_number), [1, 12, 24, 36]);
+
+    const enrollmentRes = await fetch(`${app.baseUrl}/api/youth-development/tde/program/enroll`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        child_id: 'child-phase3-1',
+        child_profile_tde: { child_id: 'child-phase3-1', profile_version: 'phase3-v1' },
+        active_domain_interests: ['quant_reasoning'],
+        current_trait_targets: ['SR', 'PS'],
+        current_environment_targets: ['home_routine'],
+      }),
+    });
+    const enrollment = await enrollmentRes.json();
+    assert.equal(enrollmentRes.status, 200);
+    assert.equal(enrollment.ok, true);
+
+    const progressRes = await fetch(`${app.baseUrl}/api/youth-development/tde/program/progress`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        enrollment_id: enrollment.enrollment.enrollment_id,
+        child_id: 'child-phase3-1',
+        week_number: 12,
+        completion_status: 'complete',
+        trait_signal_summary: { SR: 0.61 },
+      }),
+    });
+    const progress = await progressRes.json();
+    assert.equal(progressRes.status, 200);
+    assert.equal(progress.ok, true);
+    assert.equal(progress.progress.week_number, 12);
+    assert.equal(progress.progress.checkpoint_record.week_number, 12);
+  } finally {
+    await app.close();
+    delete process.env.TDE_EXTENSION_MODE;
+  }
+});
+
+test('live youth v1 routes remain unchanged', async () => {
+  const app = mountApp();
+  try {
+    const intakeResponse = await fetch(`${app.baseUrl}/api/youth-development/intake/contracts/trait-mapping`);
+    assert.equal(intakeResponse.status, 200);
+    const intakePayload = await intakeResponse.json();
+    assert.equal(intakePayload.ok, true);
+    assert.equal(intakePayload.contract_type, 'trait_mapping');
+    assert.equal(intakePayload.calibration_version, 'tde-calibration-v0');
+
+    const assessResponse = await fetch(`${app.baseUrl}/api/youth-development/assess`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ answers: [] }),
+    });
+    assert.equal(assessResponse.status, 200);
+    const assessPayload = await assessResponse.json();
+    assert.equal(assessPayload.ok, true);
+    assert.ok(Array.isArray(assessPayload.aggregated_trait_rows));
   } finally {
     await app.close();
   }

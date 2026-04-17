@@ -8,6 +8,14 @@ const { generateTraceableStatements } = require("../youth-development/tde/report
 const { runTdePipeline } = require("../youth-development/tde/pipelineService");
 const { createTdePersistenceRepository } = require("../youth-development/tde/persistenceRepository");
 const { TDE_TRAIT_MAPPING_CONTRACTS } = require("../youth-development/tde/traitMappingContracts");
+const {
+  enrollInProgram,
+  recordWeeklyProgress,
+  listProgramPhases,
+  listProgramWeeks,
+  getProgramWeek,
+  listProgramCheckpoints,
+} = require("../youth-development/tde/programService");
 
 function createYouthDevelopmentTdeRouter(options = {}) {
   const router = express.Router();
@@ -48,6 +56,44 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     } catch (err) {
       return res.status(400).json({ ok: false, error: "tde_pipeline_failed", message: String(err?.message || err) });
     }
+  });
+
+  router.get("/program/phases", (_req, res) => {
+    return res.status(200).json(listProgramPhases());
+  });
+
+  router.get("/program/weeks", (_req, res) => {
+    return res.status(200).json(listProgramWeeks());
+  });
+
+  router.get("/program/weeks/:weekNumber", (req, res) => {
+    const week = getProgramWeek(req.params.weekNumber);
+    if (!week) {
+      return res.status(404).json({ ok: false, error: "week_not_found" });
+    }
+    return res.status(200).json({ ok: true, week, deterministic: true });
+  });
+
+  router.post("/program/enroll", async (req, res) => {
+    try {
+      const result = await enrollInProgram(req.body || {}, repository);
+      return res.status(200).json({ ...result, deterministic: true });
+    } catch (err) {
+      return res.status(400).json({ ok: false, error: "enrollment_failed", message: String(err?.message || err) });
+    }
+  });
+
+  router.post("/program/progress", async (req, res) => {
+    try {
+      const result = await recordWeeklyProgress(req.body || {}, repository);
+      return res.status(200).json({ ...result, deterministic: true });
+    } catch (err) {
+      return res.status(400).json({ ok: false, error: "progress_record_failed", message: String(err?.message || err) });
+    }
+  });
+
+  router.get("/program/checkpoints", (_req, res) => {
+    return res.status(200).json(listProgramCheckpoints());
   });
 
   return router;
