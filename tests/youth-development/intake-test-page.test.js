@@ -118,6 +118,8 @@ test('GET /youth-development/intake renders live single-question parent-observat
     assert.match(html, /Question 1 of 25/);
     assert.match(html, /Submit assessment/);
     assert.match(html, /Open Youth Parent Dashboard/);
+    assert.match(html, /\/api\/youth-development\/parent-dashboard\/latest/);
+    assert.match(html, /Resume \/ View Youth Results/);
     assert.match(html, /past 6 to 8 weeks/);
     assert.doesNotMatch(html, /JSON\.stringify\(payload, null, 2\)/);
   } finally {

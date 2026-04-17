@@ -542,6 +542,65 @@
     return host;
   }
 
+  function youthActionHref(pathname) {
+    var params = new URLSearchParams();
+    if (customerProfileCtx.tenant) params.set("tenant", customerProfileCtx.tenant);
+    if (customerProfileCtx.ownerEmail) params.set("email", customerProfileCtx.ownerEmail);
+    if (customerProfileCtx.cid) params.set("cid", customerProfileCtx.cid);
+    if (customerProfileCtx.rid) params.set("crid", customerProfileCtx.rid);
+    var query = params.toString();
+    return pathname + (query ? ("?" + query) : "");
+  }
+
+  function refreshYouthActionEntryPoints() {
+    var intakeHref = youthActionHref("/youth-development/intake");
+    var dashboardHref = youthActionHref("/youth-development/parent-dashboard");
+    [
+      "takeYouthAssessmentBtn",
+      "takeYouthAssessmentBtnCre",
+      "adminYouthAssessmentBtn",
+    ].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.href = intakeHref;
+    });
+    [
+      "takeYouthDashboardBtn",
+      "takeYouthDashboardBtnCre",
+      "adminYouthDashboardBtn",
+    ].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.href = dashboardHref;
+    });
+
+    if (!customerProfileCtx.tenant || !customerProfileCtx.ownerEmail) return;
+    var latestUrl = apiUrl("/api/youth-development/parent-dashboard/latest", {
+      tenant: customerProfileCtx.tenant,
+      email: customerProfileCtx.ownerEmail
+    });
+    fetch(latestUrl, { credentials: "include" })
+      .then(function (response) { return response.ok ? response.json() : null; })
+      .then(function (payload) {
+        if (!payload || payload.ok !== true || payload.has_result !== true) return;
+        [
+          "takeYouthDashboardBtn",
+          "takeYouthDashboardBtnCre",
+          "adminYouthDashboardBtn",
+        ].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) el.textContent = "View Youth Results";
+        });
+        [
+          "takeYouthAssessmentBtn",
+          "takeYouthAssessmentBtnCre",
+          "adminYouthAssessmentBtn",
+        ].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) el.textContent = "Retake Youth Assessment";
+        });
+      })
+      .catch(function () { return null; });
+  }
+
   function renderActiveAssessmentYouthActions() {
     var placement = getAssessmentYouthActionsContainer();
     if (!placement || !placement.host) {
@@ -570,6 +629,7 @@
         "</div>";
       upsertYouthActionsHost(crePlacement, "assessmentYouthActionsCre", creHtml);
     }
+    refreshYouthActionEntryPoints();
   }
 
   function renderAdminYouthActions(ctx) {
@@ -619,6 +679,7 @@
         '<a id="adminYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake">Take Youth Assessment</a>' +
         '<a id="adminYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard">Open Youth Parent Dashboard</a>' +
       "</div>";
+    refreshYouthActionEntryPoints();
   }
 
   function renderCampaignLinks(tenant, ownerEmail, campaign) {

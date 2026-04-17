@@ -208,3 +208,43 @@ test('POST /api/youth-development/assess binds ownership when tenant/email are p
     await new Promise((resolve) => server.close(resolve));
   }
 });
+
+test('POST /api/youth-development/assess uses signed-in auth actor identity when auth context is present', async () => {
+  let capturedAccountCtx = null;
+  const app = express();
+  app.use(express.json());
+  app.use((req, _res, next) => {
+    req.authActor = { tenantSlug: 'signed-tenant', email: 'signed-in@example.com' };
+    next();
+  });
+  app.use(createYouthDevelopmentRouter({
+    persistYouthAssessment: async ({ accountCtx }) => {
+      capturedAccountCtx = accountCtx;
+      return { account_bound: true, tenant: accountCtx.tenant, email: accountCtx.email };
+    },
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/assess?tenant=query-tenant&email=query@example.com`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        tenant: 'body-tenant',
+        email: 'body@example.com',
+        answers: buildAnswers(() => 2),
+      }),
+    });
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ownership.account_bound, true);
+    assert.equal(payload.ownership.tenant, 'signed-tenant');
+    assert.equal(payload.ownership.email, 'signed-in@example.com');
+    assert.equal(capturedAccountCtx.tenant, 'signed-tenant');
+    assert.equal(capturedAccountCtx.email, 'signed-in@example.com');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
