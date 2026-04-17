@@ -7,6 +7,7 @@ const {
   validateDirectSignalsPayload,
   runSignalsPipeline,
 } = require("../youth-development/intake/intakeAdapter");
+const { TRAIT_MAPPING_CONTRACT } = require("../youth-development/measurement/traitMappingContract");
 
 function createYouthDevelopmentIntakeRouter() {
   const router = express.Router();
@@ -67,6 +68,14 @@ function createYouthDevelopmentIntakeRouter() {
         warnings: validation.warnings,
       });
     }
+  });
+
+  router.get("/contracts/trait-mapping", (_req, res) => {
+    return res.status(200).json({
+      ok: true,
+      contract_type: "trait_mapping",
+      ...TRAIT_MAPPING_CONTRACT,
+    });
   });
 
   return router;

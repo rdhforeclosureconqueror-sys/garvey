@@ -6,6 +6,7 @@ const { buildYouthDevelopmentResult } = require("../measurement/resultBuilder");
 const { buildYouthDevelopmentDashboard } = require("../measurement/dashboardBuilder");
 const { buildParentDashboardPageModel } = require("../presentation/parentDashboardPageModel");
 const { YOUTH_DEVELOPMENT_TASK_MODEL } = require("../measurement/taskModel");
+const { DEFAULT_CALIBRATION_VERSION, resolveEvidenceStatusTag, resolveSourceType } = require("../tdeGovernance");
 
 const SUPPORTED_SCHEMA_VERSION = "1.0";
 const ALLOWED_OPTIONS = new Set(["baseline_cutoff_timestamp", "ignore_contaminated", "allowed_contamination_flags"]);
@@ -246,6 +247,7 @@ function runTaskSessionPipeline(normalizedPayload) {
       },
     },
     processed_signal_count: signals.length,
+    signal_trace: signals,
     aggregated_trait_rows: aggregatedRows,
     result,
     dashboard,
@@ -276,7 +278,7 @@ function validateDirectSignalsPayload(payload = {}) {
       }
 
       const timestamp = parseRequiredIso(signal.timestamp, `${path}.timestamp`, errors, warnings);
-      const normalizedSignal = Number(signal.normalized_signal);
+      const normalizedSignal = Number(signal.normalized_signal ?? signal.normalized_value);
       const confidenceWeight = Number(signal.confidence_weight);
 
       if (!Number.isFinite(normalizedSignal)) errors.push(`${path}.normalized_signal must be numeric`);
@@ -288,9 +290,21 @@ function validateDirectSignalsPayload(payload = {}) {
       if (timestamp && Number.isFinite(normalizedSignal) && Number.isFinite(confidenceWeight)) {
         normalizedSignals.push({
           ...signal,
+          signal_id: String(signal.signal_id || `${signal.trait_code || "trait"}-${idx}`),
           timestamp,
           normalized_signal: normalizedSignal,
+          normalized_value: normalizedSignal,
           confidence_weight: confidenceWeight,
+          source_type: String(signal.source_type || resolveSourceType(signal.evidence_source)),
+          source_id: String(signal.source_id || signal.task_id || signal.trait_code || `signal-${idx}`),
+          evidence_status_tag: resolveEvidenceStatusTag(signal.trait_code, signal.evidence_status_tag),
+          calibration_version: String(signal.calibration_version || DEFAULT_CALIBRATION_VERSION),
+          trace_ref: signal.trace_ref && typeof signal.trace_ref === "object"
+            ? signal.trace_ref
+            : {
+                signal_index: idx,
+                ingestion_mode: "direct_signals",
+              },
         });
       }
     });
@@ -334,6 +348,7 @@ function runSignalsPipeline(normalizedPayload) {
       },
     },
     processed_signal_count: normalizedPayload.signals.length,
+    signal_trace: normalizedPayload.signals,
     aggregated_trait_rows: aggregatedRows,
     result,
     dashboard,
