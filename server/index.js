@@ -67,6 +67,7 @@ const { createArchetypeEnginesRouter } = require("./archetypeEnginesRoutes");
 const { initializeArchetypeEngineSchema } = require("./archetypeEnginesService");
 const { createYouthDevelopmentRouter } = require("./youthDevelopmentRoutes");
 const { createYouthDevelopmentIntakeRouter } = require("./youthDevelopmentIntakeRoutes");
+const { createYouthDevelopmentTdeRouter } = require("./youthDevelopmentTdeRoutes");
 const { generateSite } = require("./siteMaterializer");
 const { getTapCrmMode } = require("./tapCrmFeature");
 const { createTapCrmRouter, resolvePublicTap } = require("./tapCrmRoutes");
@@ -2042,6 +2043,7 @@ app.use(createYouthDevelopmentRouter({
   loadLatestYouthAssessment: loadLatestYouthAssessmentForAccount,
 }));
 app.use("/api/youth-development/intake", createYouthDevelopmentIntakeRouter());
+app.use("/api/youth-development/tde", createYouthDevelopmentTdeRouter({ pool }));
 
 app.post("/api/campaigns/create", async (req, res) => {
   let failurePoint = "init";
