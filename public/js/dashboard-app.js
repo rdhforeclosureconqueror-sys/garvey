@@ -507,6 +507,41 @@
     return null;
   }
 
+  function getCustomerReturnEngineYouthActionsContainer() {
+    var path = String((window.location && window.location.pathname) || "").toLowerCase();
+    var isCustomerReturnEngineView = path.indexOf("rewards") !== -1
+      || !!document.getElementById("assessmentMenu")
+      || !!document.getElementById("assessmentOptions");
+    if (!isCustomerReturnEngineView) return null;
+
+    var assessmentOptions = document.getElementById("assessmentOptions");
+    if (assessmentOptions) return { host: assessmentOptions, anchor: "assessmentOptions", fallback: false };
+
+    var assessmentMenu = document.getElementById("assessmentMenu");
+    if (assessmentMenu) return { host: assessmentMenu, anchor: "assessmentMenu", fallback: true };
+
+    var actionCards = document.getElementById("actionCards");
+    if (actionCards) return { host: actionCards, anchor: "actionCards", fallback: true };
+
+    return null;
+  }
+
+  function upsertYouthActionsHost(placement, hostId, html) {
+    if (!placement || !placement.host) return null;
+    var host = document.getElementById(hostId);
+    if (!host) {
+      host = document.createElement("div");
+      host.id = hostId;
+      host.style.marginTop = "10px";
+      placement.host.appendChild(host);
+    } else if (host.parentNode !== placement.host) {
+      placement.host.appendChild(host);
+      console.info("youth_actions_customer: moved host to", placement.anchor);
+    }
+    host.innerHTML = html;
+    return host;
+  }
+
   function renderActiveAssessmentYouthActions() {
     var placement = getAssessmentYouthActionsContainer();
     if (!placement || !placement.host) {
@@ -516,21 +551,25 @@
     if (placement.fallback) {
       console.info("youth_actions_customer: fallback container", placement.anchor);
     }
-    var host = document.getElementById("assessmentYouthActions");
-    if (!host) {
-      host = document.createElement("div");
-      host.id = "assessmentYouthActions";
-      host.style.marginTop = "10px";
-      placement.host.appendChild(host);
-    } else if (host.parentNode !== placement.host) {
-      placement.host.appendChild(host);
-      console.info("youth_actions_customer: moved host to", placement.anchor);
-    }
-    host.innerHTML = '' +
+    var dashboardHtml = '' +
       '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
         '<a id="takeYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake/test">Take Youth Assessment (Test)</a>' +
         '<a id="takeYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Open Youth Parent Dashboard (Preview)</a>' +
       "</div>";
+    upsertYouthActionsHost(placement, "assessmentYouthActions", dashboardHtml);
+
+    var crePlacement = getCustomerReturnEngineYouthActionsContainer();
+    if (crePlacement && crePlacement.host) {
+      if (crePlacement.fallback) {
+        console.info("youth_actions_customer: cre fallback container", crePlacement.anchor);
+      }
+      var creHtml = '' +
+        '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+          '<a id="takeYouthAssessmentBtnCre" class="btn btn-default" href="/youth-development/intake/test">Take Youth Assessment (Test)</a>' +
+          '<a id="takeYouthDashboardBtnCre" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Open Youth Parent Dashboard (Preview)</a>' +
+        "</div>";
+      upsertYouthActionsHost(crePlacement, "assessmentYouthActionsCre", creHtml);
+    }
   }
 
   function renderAdminYouthActions(ctx) {
