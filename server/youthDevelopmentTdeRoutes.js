@@ -8,6 +8,12 @@ const { generateTraceableStatements } = require("../youth-development/tde/report
 const { runTdePipeline } = require("../youth-development/tde/pipelineService");
 const { createTdePersistenceRepository } = require("../youth-development/tde/persistenceRepository");
 const { TDE_TRAIT_MAPPING_CONTRACTS } = require("../youth-development/tde/traitMappingContracts");
+const { OBSERVER_CONSENT_CONTRACT } = require("../youth-development/tde/observerContracts");
+const { captureObserverConsent } = require("../youth-development/tde/observerService");
+const { ENVIRONMENT_HOOK_EVENT_CONTRACT } = require("../youth-development/tde/environmentContracts");
+const { captureEnvironmentHook } = require("../youth-development/tde/environmentService");
+const { VALIDATION_SCHEMA, generateValidationExport } = require("../youth-development/tde/validationExportService");
+const { getParentProgressSummary } = require("../youth-development/tde/parentSummaryService");
 const {
   enrollInProgram,
   recordWeeklyProgress,
@@ -29,6 +35,9 @@ function createYouthDevelopmentTdeRouter(options = {}) {
   });
 
   router.get("/contracts/trait-mapping", (_req, res) => res.status(200).json({ ok: true, ...TDE_TRAIT_MAPPING_CONTRACTS }));
+  router.get("/observer/contracts", (_req, res) => res.status(200).json({ ok: true, contract: OBSERVER_CONSENT_CONTRACT, deterministic: true }));
+  router.get("/environment/contracts", (_req, res) => res.status(200).json({ ok: true, contract: ENVIRONMENT_HOOK_EVENT_CONTRACT, deterministic: true }));
+  router.get("/exports/validation-schema", (_req, res) => res.status(200).json({ ok: true, ...VALIDATION_SCHEMA }));
 
   router.post("/signals/extract", (req, res) => {
     const result = extractSignalsFromEvidence(req.body || {});
@@ -94,6 +103,31 @@ function createYouthDevelopmentTdeRouter(options = {}) {
 
   router.get("/program/checkpoints", (_req, res) => {
     return res.status(200).json(listProgramCheckpoints());
+  });
+
+  router.post("/observer/consent", async (req, res) => {
+    const result = await captureObserverConsent(req.body || {}, repository);
+    const status = result.ok ? 200 : 400;
+    return res.status(status).json(result);
+  });
+
+  router.post("/environment/hooks", async (req, res) => {
+    const result = await captureEnvironmentHook(req.body || {}, repository);
+    const status = result.ok ? 200 : 400;
+    return res.status(status).json(result);
+  });
+
+  router.post("/exports/validation-data", async (req, res) => {
+    const result = await generateValidationExport(req.body || {}, repository);
+    const status = result.ok ? 200 : 400;
+    return res.status(status).json(result);
+  });
+
+  router.get("/summary/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getParentProgressSummary(childId, repository);
+    return res.status(200).json(result);
   });
 
   return router;
