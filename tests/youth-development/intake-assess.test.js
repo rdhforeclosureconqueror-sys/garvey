@@ -19,11 +19,16 @@ async function startServer() {
   };
 }
 
-function buildAnswers(valueByQuestion = () => 1) {
-  return Object.fromEntries(YOUTH_QUESTION_BANK.map((question) => [question.id, valueByQuestion(question)]));
+function buildAnswers(valueByQuestion = () => 1, includeQuestion = () => true) {
+  const out = {};
+  for (const question of YOUTH_QUESTION_BANK) {
+    if (!includeQuestion(question)) continue;
+    out[question.id] = valueByQuestion(question);
+  }
+  return out;
 }
 
-test('GET /api/youth-development/questions returns deterministic question bank contract', async () => {
+test('GET /api/youth-development/questions returns authored 25-question parent-observation bank shape', async () => {
   const { server, baseUrl } = await startServer();
   try {
     const response = await fetch(`${baseUrl}/api/youth-development/questions`);
@@ -31,20 +36,37 @@ test('GET /api/youth-development/questions returns deterministic question bank c
 
     const payload = await response.json();
     assert.equal(payload.ok, true);
-    assert.equal(payload.question_count, YOUTH_QUESTION_BANK.length);
-    assert.ok(payload.question_count >= 20 && payload.question_count <= 30);
+    assert.equal(payload.question_count, 25);
+    assert.match(payload.bank_name, /Parent Observation Screener v1/);
+    assert.equal(payload.respondent, 'parent_guardian');
+    assert.match(payload.instructions, /past 6 to 8 weeks/);
+
+    const traitCounts = payload.questions.reduce((acc, question) => {
+      acc[question.primary_trait] = (acc[question.primary_trait] || 0) + 1;
+      return acc;
+    }, {});
+
+    assert.deepEqual(traitCounts, {
+      SR: 4,
+      CQ: 4,
+      CR: 4,
+      RS: 4,
+      PS: 3,
+      FB: 3,
+      DE: 3,
+    });
 
     for (const question of payload.questions) {
-      assert.match(question.id, /^Q\d+$/);
-      assert.ok(['focus', 'emotional_regulation', 'social', 'discipline', 'confidence'].includes(question.category));
-      assert.equal(question.answers.length, 4);
+      assert.match(question.id, /^YT_POBS_Q\d{2}$/);
+      assert.equal(question.answer_scale.length, 4);
+      assert.equal(typeof question.prompt, 'string');
     }
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
 });
 
-test('POST /api/youth-development/assess completes full intake pipeline and returns renderer payload', async () => {
+test('POST /api/youth-development/assess completes full 25-item question flow and returns deterministic output', async () => {
   const { server, baseUrl } = await startServer();
   try {
     const response = await fetch(`${baseUrl}/api/youth-development/assess`, {
@@ -56,9 +78,12 @@ test('POST /api/youth-development/assess completes full intake pipeline and retu
     assert.equal(response.status, 200);
     const payload = await response.json();
     assert.equal(payload.ok, true);
-    assert.equal(payload.answers_count, YOUTH_QUESTION_BANK.length);
+    assert.equal(payload.answers_count, 25);
+    assert.equal(payload.unanswered_count, 0);
     assert.equal(payload.flow.completed, true);
+    assert.equal(payload.completion.interpretation_suppressed, false);
     assert.ok(Array.isArray(payload.aggregated_trait_rows));
+    assert.equal(payload.aggregated_trait_rows.length, 7);
     assert.equal(typeof payload.rendered_html, 'string');
     assert.match(payload.rendered_html, /Parent insight narrative/);
   } finally {
@@ -66,53 +91,76 @@ test('POST /api/youth-development/assess completes full intake pipeline and retu
   }
 });
 
-test('POST /api/youth-development/assess yields deterministic differences for low/high/mixed edge cases', async () => {
+test('POST /api/youth-development/assess uses deterministic primary-trait scoring and report fields are present', async () => {
   const { server, baseUrl } = await startServer();
   try {
-    const lowResponse = await fetch(`${baseUrl}/api/youth-development/assess`, {
+    const response = await fetch(`${baseUrl}/api/youth-development/assess`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ answers: buildAnswers(() => 1) }),
+      body: JSON.stringify({
+        answers: buildAnswers((question) => (question.primary_trait === 'SR' ? 4 : 1)),
+      }),
     });
-    const highResponse = await fetch(`${baseUrl}/api/youth-development/assess`, {
+
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    const sr = payload.aggregated_trait_rows.find((row) => row.trait_code === 'SR');
+    const de = payload.aggregated_trait_rows.find((row) => row.trait_code === 'DE');
+
+    assert.equal(sr.current_score, 100);
+    assert.equal(de.current_score, 25);
+
+    for (const traitCode of ['SR', 'CQ', 'CR', 'RS', 'PS', 'FB', 'DE']) {
+      const report = payload.trait_reports[traitCode];
+      assert.ok(report);
+      for (const field of ['what_this_means', 'what_it_looks_like', 'why_it_matters', 'support_next', 'confidence_note']) {
+        assert.equal(typeof report[field], 'string');
+        assert.ok(report[field].length > 0);
+      }
+    }
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('POST /api/youth-development/assess suppresses trait interpretation when >20% unanswered', async () => {
+  const { server, baseUrl } = await startServer();
+  try {
+    const answers = buildAnswers(() => 3, (question, idx) => true);
+    const removedIds = YOUTH_QUESTION_BANK.slice(0, 6).map((q) => q.id);
+    for (const id of removedIds) delete answers[id];
+
+    const response = await fetch(`${baseUrl}/api/youth-development/assess`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ answers }),
+    });
+
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.unanswered_count, 6);
+    assert.equal(payload.completion.interpretation_suppressed, true);
+    assert.equal(payload.interpretation.incomplete, true);
+    assert.match(payload.interpretation.message, /Insufficient evidence/i);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('POST /api/youth-development/assess caps confidence at provisional levels for parent-only data', async () => {
+  const { server, baseUrl } = await startServer();
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/assess`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ answers: buildAnswers(() => 4) }),
     });
-    const mixedResponse = await fetch(`${baseUrl}/api/youth-development/assess`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        answers: buildAnswers((question) => {
-          if (question.category === 'confidence') return 4;
-          if (question.category === 'emotional_regulation') return 1;
-          return 2;
-        }),
-      }),
-    });
 
-    assert.equal(lowResponse.status, 200);
-    assert.equal(highResponse.status, 200);
-    assert.equal(mixedResponse.status, 200);
-
-    const lowPayload = await lowResponse.json();
-    const highPayload = await highResponse.json();
-    const mixedPayload = await mixedResponse.json();
-
-    assert.notEqual(
-      lowPayload.page_model.insight_narrative.opening,
-      highPayload.page_model.insight_narrative.opening,
-      'narrative opening should vary by input set'
-    );
-    assert.notEqual(
-      lowPayload.page_model.insight_narrative.next_step,
-      mixedPayload.page_model.insight_narrative.next_step,
-      'narrative conflict sentence should vary for mixed conflict profile'
-    );
-
-    const lowTop = lowPayload.interpretation.highest_trait.current_score;
-    const highTop = highPayload.interpretation.highest_trait.current_score;
-    assert.ok(highTop > lowTop, 'all-high answers should increase top trait score');
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    for (const row of payload.aggregated_trait_rows) {
+      assert.ok(row.confidence_score < 60, `confidence must remain provisional for ${row.trait_code}`);
+    }
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
