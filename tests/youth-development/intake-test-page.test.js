@@ -134,7 +134,12 @@ test('GET /youth-development/parent-dashboard renders live parent-facing dashboa
     assert.equal(response.status, 200);
     const html = await response.text();
     assert.match(html, /Youth Development Parent Dashboard/);
-    assert.match(html, /sessionStorage\.getItem\("youthDevelopmentLatestAssessment"\)/);
+    assert.match(html, /sessionStorage\.getItem\('youthDevelopmentLatestAssessment'\)/);
+    assert.match(html, /What we look at/);
+    assert.match(html, /How to support this week/);
+    assert.match(html, /Focus & Self-Control/);
+    assert.match(html, /Learning From Feedback/);
+    assert.match(html, /data-help-code=/);
     assert.match(html, /Take Youth Assessment/);
   } finally {
     await new Promise((resolve) => server.close(resolve));

@@ -2031,7 +2031,10 @@ async function loadLatestYouthAssessmentForAccount({ accountCtx }) {
     ? row.raw_answers.payload
     : null;
   if (!payload) return null;
-  return payload;
+  return {
+    ...payload,
+    saved_at: row.created_at || null,
+  };
 }
 
 app.use(createYouthDevelopmentRouter({

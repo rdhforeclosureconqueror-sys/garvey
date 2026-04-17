@@ -748,40 +748,180 @@ function renderLiveYouthParentDashboardPage() {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Youth Development Parent Dashboard</title>
     <style>
-      :root { --bg: #f8fafc; --card: #ffffff; --line: #cbd5e1; --text: #0f172a; --muted: #475569; --brand: #0f766e; }
-      body { font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 24px; }
-      main { max-width: 900px; margin: 0 auto; display: grid; gap: 14px; }
-      section { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+      :root {
+        --bg: #020617;
+        --panel: linear-gradient(145deg, rgba(15, 23, 42, 0.88), rgba(30, 41, 59, 0.78));
+        --line: rgba(148, 163, 184, 0.30);
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #22d3ee;
+        --accent-2: #6366f1;
+        --good: #34d399;
+        --watch: #f59e0b;
+        --grow: #fb7185;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at 10% -10%, rgba(34, 211, 238, 0.15), transparent 38%),
+          radial-gradient(circle at 90% 0%, rgba(99, 102, 241, 0.2), transparent 42%),
+          var(--bg);
+        padding: 16px;
+      }
+      main { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        backdrop-filter: blur(10px);
+        padding: 14px;
+      }
+      .hero-title { margin: 0 0 8px; font-size: clamp(1.2rem, 2.6vw, 1.8rem); }
       .muted { color: var(--muted); }
-      .pill { display: inline-block; border: 1px solid #99f6e4; background: #ecfeff; border-radius: 999px; padding: 3px 8px; margin: 3px 4px 3px 0; font-size: 12px; }
-      ul { margin: 8px 0 0 18px; }
-      a.btn { border: 1px solid var(--brand); background: #0f766e; color: #fff; border-radius: 999px; padding: 8px 12px; text-decoration: none; display: inline-block; }
+      .tiny { font-size: 12px; color: var(--muted); }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 4px 10px;
+        font-size: 12px;
+        margin-right: 6px;
+        margin-bottom: 6px;
+      }
+      .grid { display: grid; gap: 10px; }
+      .category-strip { grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); }
+      .category-pill {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(15, 23, 42, 0.65);
+        padding: 10px;
+      }
+      .category-pill h3 { margin: 0 0 6px; font-size: 14px; line-height: 1.25; }
+      .tech-tag { color: var(--muted); font-size: 11px; margin: 0; }
+      .help-btn {
+        width: 24px;
+        height: 24px;
+        border-radius: 999px;
+        border: 1px solid rgba(125, 211, 252, 0.5);
+        background: rgba(14, 116, 144, 0.25);
+        color: #cffafe;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .pill-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+      .cards { grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); }
+      .snapshot-card {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(2, 6, 23, 0.56);
+        padding: 12px;
+        display: grid;
+        gap: 8px;
+      }
+      .meter {
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(148, 163, 184, 0.25);
+        overflow: hidden;
+      }
+      .meter > span {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, #38bdf8, #818cf8, #34d399);
+      }
+      .status-badge {
+        display: inline-block;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        padding: 3px 8px;
+        font-size: 11px;
+      }
+      .status-strong { border-color: rgba(52, 211, 153, 0.6); color: #a7f3d0; }
+      .status-watch { border-color: rgba(245, 158, 11, 0.7); color: #fde68a; }
+      .status-grow { border-color: rgba(251, 113, 133, 0.7); color: #fecdd3; }
+      .list { margin: 0; padding-left: 18px; display: grid; gap: 8px; }
+      .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+      .btn {
+        border: 1px solid transparent;
+        border-radius: 999px;
+        text-decoration: none;
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+      .btn-primary { background: #0891b2; color: #ecfeff; border-color: rgba(6, 182, 212, 0.55); }
+      .btn-secondary { background: rgba(30, 64, 175, 0.35); color: #dbeafe; border-color: rgba(96, 165, 250, 0.5); }
+      .btn-ghost { background: transparent; color: #bae6fd; border-color: rgba(56, 189, 248, 0.45); }
+      dialog {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: #0f172a;
+        color: var(--text);
+        max-width: 480px;
+      }
+      dialog::backdrop { background: rgba(2, 6, 23, 0.7); }
+      @media (max-width: 640px) {
+        body { padding: 12px; }
+        .panel { padding: 12px; }
+        .cards { grid-template-columns: 1fr; }
+        .category-strip { grid-template-columns: 1fr 1fr; }
+      }
     </style>
   </head>
   <body>
     <main>
-      <section>
-        <h1 id="title">Youth Development Parent Dashboard</h1>
-        <p id="subtitle" class="muted">Live parent-facing assessment output.</p>
+      <section class="panel">
+        <h1 id="heroTitle" class="hero-title">Youth Development Parent Dashboard</h1>
+        <p id="heroSummary">Complete a youth assessment to see what your child currently shows and what helps next.</p>
+        <p class="tiny">Designed for ages 6–11. Developmental snapshot only: this dashboard is provisional and should be reviewed as patterns over time.</p>
+        <p class="tiny" id="completionDateLabel">Previous completion date: Not available yet.</p>
       </section>
-      <section>
-        <h2>Insight narrative</h2>
-        <p id="narrativeOpening" class="muted">No assessment has been submitted yet.</p>
-        <p id="narrativeFocus" class="muted"></p>
-        <p id="narrativeNext" class="muted"></p>
+
+      <section class="panel">
+        <h2>What we look at</h2>
+        <p class="muted">Seven developmental categories are shown below. Tap <strong>?</strong> for plain-language definitions.</p>
+        <div id="categoryStrip" class="grid category-strip"></div>
       </section>
-      <section>
-        <h2>Priority traits</h2>
-        <div id="priorities"><span class="muted">Complete an assessment to view trait signals.</span></div>
+
+      <section class="panel">
+        <h2>Snapshot cards</h2>
+        <div id="snapshotCards" class="grid cards"></div>
       </section>
-      <section>
-        <h2>Next-step prompts</h2>
-        <ul id="prompts"><li class="muted">Complete an assessment to unlock tailored prompts.</li></ul>
+
+      <section class="panel">
+        <h2>Top strengths</h2>
+        <ul id="topStrengths" class="list"><li class="muted">Complete an assessment to view strengths.</li></ul>
       </section>
-      <section>
-        <a class="btn" href="/youth-development/intake">Take Youth Assessment</a>
+
+      <section class="panel">
+        <h2>Areas to strengthen</h2>
+        <ul id="areasToStrengthen" class="list"><li class="muted">Complete an assessment to view growth areas.</li></ul>
+      </section>
+
+      <section class="panel">
+        <h2>How to support this week</h2>
+        <ul id="weeklySupport" class="list"><li class="muted">Complete an assessment to unlock support suggestions.</li></ul>
+      </section>
+
+      <section class="panel">
+        <h2>Actions</h2>
+        <div class="actions">
+          <a class="btn btn-primary" id="viewSavedDashboardBtn" href="/youth-development/parent-dashboard">View Saved Dashboard</a>
+          <a class="btn btn-secondary" id="retakeAssessmentBtn" href="/youth-development/intake">Retake Assessment</a>
+          <a class="btn btn-ghost" id="openIntakeBtn" href="/youth-development/intake">Take Youth Assessment</a>
+        </div>
       </section>
     </main>
+
+    <dialog id="categoryHelpDialog">
+      <h3 id="helpTitle" style="margin:0 0 8px;"></h3>
+      <p id="helpBody" style="margin:0 0 12px;"></p>
+      <button class="btn btn-primary" id="closeHelpBtn" type="button">Close</button>
+    </dialog>
+
     <script>
       (function () {
         let payload = null;
@@ -791,49 +931,268 @@ function renderLiveYouthParentDashboardPage() {
           email: (query.get("email") || "").trim().toLowerCase(),
         };
 
-        function applyPayload(data) {
+        const CATEGORY_META = {
+          SR: {
+            icon: "🎯",
+            parentLabel: "Focus & Self-Control",
+            technicalLabel: "Self-Regulation",
+            helpText: "This category looks at how your child manages attention, follows through, and handles the structure of a task.",
+          },
+          CQ: {
+            icon: "🔍",
+            parentLabel: "Curiosity & Love of Learning",
+            technicalLabel: "Curiosity / Exploratory Drive",
+            helpText: "This category looks at how strongly your child is drawn to explore, question, and discover.",
+          },
+          CR: {
+            icon: "💡",
+            parentLabel: "Creativity & Idea Thinking",
+            technicalLabel: "Creativity / Problem Finding",
+            helpText: "This category looks at how your child generates ideas, experiments, and thinks beyond the first answer.",
+          },
+          RS: {
+            icon: "🧩",
+            parentLabel: "Thinking & Problem Solving",
+            technicalLabel: "Reasoning / Pattern Recognition",
+            helpText: "This category looks at how your child understands patterns, logic, and how ideas connect.",
+          },
+          PS: {
+            icon: "🧗",
+            parentLabel: "Effort & Resilience",
+            technicalLabel: "Persistence / Challenge Tolerance",
+            helpText: "This category looks at how your child handles difficulty, frustration, and productive struggle.",
+          },
+          FB: {
+            icon: "🛠️",
+            parentLabel: "Learning From Feedback",
+            technicalLabel: "Feedback Responsiveness",
+            helpText: "This category looks at how your child responds when shown what to improve and whether that leads to growth.",
+          },
+          DE: {
+            icon: "🌟",
+            parentLabel: "Interests & Passion Areas",
+            technicalLabel: "Domain Engagement",
+            helpText: "This category looks at the areas your child is naturally drawn toward and grows in with repeated interest.",
+          },
+        };
+
+        const categoryOrder = ["SR", "CQ", "CR", "RS", "PS", "FB", "DE"];
+
+        function esc(value) {
+          return String(value == null ? "" : value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+        }
+
+        function asPercent(value) {
+          const n = Number(value);
+          if (!Number.isFinite(n)) return 0;
+          return Math.max(0, Math.min(100, Math.round(n)));
+        }
+
+        function formatDate(value) {
+          if (!value) return "Not available yet";
+          const d = new Date(value);
+          if (Number.isNaN(d.getTime())) return "Not available yet";
+          return d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+        }
+
+        function getMeta(code) {
+          return CATEGORY_META[String(code || "").toUpperCase()] || {
+            icon: "✨",
+            parentLabel: String(code || "Category"),
+            technicalLabel: String(code || ""),
+            helpText: "This category shows a developmental pattern from current parent observations.",
+          };
+        }
+
+        function statusTone(score) {
+          if (score >= 70) return { klass: "status-strong", label: "Current strength" };
+          if (score <= 40) return { klass: "status-grow", label: "Growth area" };
+          return { klass: "status-watch", label: "Building" };
+        }
+
+        function openHelp(code) {
+          const meta = getMeta(code);
+          const dialog = document.getElementById("categoryHelpDialog");
+          document.getElementById("helpTitle").textContent = meta.parentLabel;
+          document.getElementById("helpBody").textContent = meta.helpText;
+          if (dialog.showModal) dialog.showModal();
+        }
+
+        function normalizeCards(data) {
+          const cards = (((data || {}).page_model || {}).trait_cards || {}).cards;
+          return Array.isArray(cards) ? cards : [];
+        }
+
+        function cardByCode(cards) {
+          const map = {};
+          cards.forEach((card) => {
+            const key = String(card.trait_code || "").toUpperCase();
+            if (key) map[key] = card;
+          });
+          return map;
+        }
+
+        function renderCategoryStrip(cardsMap) {
+          const host = document.getElementById("categoryStrip");
+          host.innerHTML = categoryOrder.map((code) => {
+            const meta = getMeta(code);
+            const score = asPercent(cardsMap[code] && cardsMap[code].current_score);
+            return [
+              '<article class="category-pill">',
+                '<div class="pill-head">',
+                  '<div>',
+                    '<h3>' + esc(meta.icon + ' ' + meta.parentLabel) + '</h3>',
+                    '<p class="tech-tag">' + esc(meta.technicalLabel) + '</p>',
+                  '</div>',
+                  '<button class="help-btn" data-help-code="' + esc(code) + '" aria-label="Explain ' + esc(meta.parentLabel) + '">?</button>',
+                '</div>',
+                '<div class="chip">Score: ' + score + '%</div>',
+              '</article>'
+            ].join('');
+          }).join('');
+        }
+
+        function renderSnapshotCards(cardsMap) {
+          const host = document.getElementById("snapshotCards");
+          host.innerHTML = categoryOrder.map((code) => {
+            const meta = getMeta(code);
+            const card = cardsMap[code] || {};
+            const score = asPercent(card.current_score);
+            const tone = statusTone(score);
+            const oneLine = card.what_this_means || "More observations will make this snapshot more specific.";
+            const whatItLooksLike = card.behavior_look_fors || "Look for this across home, schoolwork, and transitions.";
+            const whyItMatters = card.why_it_matters || "This pattern can affect confidence, consistency, and learning momentum.";
+            const whatHelpsNext = card.progress_look_fors || card.emotional_context || "Keep routines predictable and practice in short repeatable blocks.";
+            return [
+              '<article class="snapshot-card">',
+                '<div class="pill-head">',
+                  '<div>',
+                    '<h3 style="margin:0 0 4px;">' + esc(meta.parentLabel) + '</h3>',
+                    '<p class="tech-tag" style="margin:0;">' + esc(meta.technicalLabel) + '</p>',
+                  '</div>',
+                  '<button class="help-btn" data-help-code="' + esc(code) + '" aria-label="Explain ' + esc(meta.parentLabel) + '">?</button>',
+                '</div>',
+                '<div><span class="status-badge ' + tone.klass + '">' + esc(tone.label) + '</span> <span class="tiny">Score: ' + score + '%</span></div>',
+                '<div class="meter" aria-label="' + esc(meta.parentLabel) + ' score meter"><span style="width:' + score + '%"></span></div>',
+                '<p><strong>What your child currently shows:</strong> ' + esc(oneLine) + '</p>',
+                '<p><strong>What this means:</strong> ' + esc(card.what_this_means || oneLine) + '</p>',
+                '<p><strong>What it looks like:</strong> ' + esc(whatItLooksLike) + '</p>',
+                '<p><strong>Why it matters:</strong> ' + esc(whyItMatters) + '</p>',
+                '<p><strong>What helps next:</strong> ' + esc(whatHelpsNext) + '</p>',
+              '</article>'
+            ].join('');
+          }).join('');
+        }
+
+        function renderStrengths(data) {
+          const host = document.getElementById("topStrengths");
+          const strengths = (((data || {}).page_model || {}).strengths || {}).items || [];
+          const items = strengths.slice(0, 3);
+          host.innerHTML = items.length
+            ? items.map((item) => {
+                const meta = getMeta(item.trait_code);
+                return '<li><strong>' + esc(meta.parentLabel) + ':</strong> ' + esc(item.keep_doing_copy || "Keep giving practice opportunities in this area.") + ' <span class="tiny">What to keep doing: ' + esc(item.actionable_next_step || "Keep a predictable routine and gently raise challenge.") + '</span></li>';
+              }).join("")
+            : '<li class="muted">No strengths are available yet.</li>';
+        }
+
+        function renderSupport(data) {
+          const host = document.getElementById("areasToStrengthen");
+          const support = (((data || {}).page_model || {}).support || {}).items || [];
+          const items = support.slice(0, 3);
+          host.innerHTML = items.length
+            ? items.map((item) => {
+                const meta = getMeta(item.trait_code);
+                return '<li><strong>' + esc(meta.parentLabel) + ':</strong> ' + esc(item.support_next_copy || "Choose one small skill practice this week.") + '<br><span class="tiny"><strong>What helps next:</strong> ' + esc(item.actionable_next_step || "Repeat one scaffolded task 2-3 times this week.") + '</span><br><span class="tiny"><strong>Progress can look like:</strong> ' + esc(item.progress_signal || "Fewer prompts and more independent attempts.") + '</span></li>';
+              }).join("")
+            : '<li class="muted">No areas to strengthen are currently flagged.</li>';
+        }
+
+        function renderWeeklySupport(data) {
+          const host = document.getElementById("weeklySupport");
+          const strengths = (((data || {}).page_model || {}).strengths || {}).items || [];
+          const support = (((data || {}).page_model || {}).support || {}).items || [];
+          const cards = normalizeCards(data).sort((a, b) => asPercent(b.current_score) - asPercent(a.current_score));
+          const topStrength = strengths[0] || cards[0] || null;
+          const topGrowth = support[0] || cards[cards.length - 1] || null;
+          const suggestions = [];
+
+          suggestions.push(topStrength
+            ? '<li><strong>Strength-based:</strong> Keep using ' + esc(getMeta(topStrength.trait_code).parentLabel) + ' in everyday tasks. Ask your child to explain what worked so they can repeat it.</li>'
+            : '<li><strong>Strength-based:</strong> Notice one thing your child did well this week and name the exact action so they can repeat it.</li>');
+
+          suggestions.push(topGrowth
+            ? '<li><strong>Growth-based:</strong> Pick one short practice activity for ' + esc(getMeta(topGrowth.trait_code).parentLabel) + ' and repeat it 2–3 times this week with calm coaching.</li>'
+            : '<li><strong>Growth-based:</strong> Pick one small challenge task and practice it in short, low-pressure rounds.</li>');
+
+          suggestions.push('<li><strong>Environment-based:</strong> Create a predictable routine (same time, same place, short duration) so progress is easier to see across the week.</li>');
+
+          host.innerHTML = suggestions.join('');
+        }
+
+        function bindHelpButtons() {
+          Array.from(document.querySelectorAll('[data-help-code]')).forEach((button) => {
+            button.addEventListener('click', function () {
+              openHelp(button.getAttribute('data-help-code'));
+            });
+          });
+        }
+
+        function applyPayload(data, opts) {
           if (!data || !data.page_model) return false;
+          const options = opts || {};
           payload = data;
-          const pageModel = payload.page_model;
-          document.getElementById("title").textContent = pageModel.page_title || "Youth Development Parent Dashboard";
-          document.getElementById("subtitle").textContent = pageModel.page_subtitle || "";
+          const cardsMap = cardByCode(normalizeCards(data));
+          const strongest = (((data.page_model || {}).strengths || {}).items || [])[0];
+          const supportArea = (((data.page_model || {}).support || {}).items || [])[0];
+          const summary = [
+            strongest ? ('Your child currently shows strongest momentum in ' + getMeta(strongest.trait_code).parentLabel + '.') : 'Your child is building developmental patterns across the seven categories.',
+            supportArea ? ('A next growth focus is ' + getMeta(supportArea.trait_code).parentLabel + '.') : 'No urgent growth flag is present today.',
+            'This is a developmental snapshot for ages 6–11 and will get stronger with repeated observations.'
+          ].join(' ');
 
-          const narrative = pageModel.insight_narrative || {};
-          document.getElementById("narrativeOpening").textContent = narrative.opening || "";
-          document.getElementById("narrativeFocus").textContent = narrative.focus_area || "";
-          document.getElementById("narrativeNext").textContent = narrative.next_step || "";
+          document.getElementById('heroTitle').textContent = data.page_model.page_title || 'Youth Development Parent Dashboard';
+          document.getElementById('heroSummary').textContent = summary;
+          document.getElementById('completionDateLabel').textContent = 'Previous completion date: ' + formatDate(options.savedAt || data.saved_at || data.generated_at || (((data.result || {}).overview || {}).generated_at));
 
-          const priorities = (payload.interpretation && payload.interpretation.priority_traits) || [];
-          document.getElementById("priorities").innerHTML = priorities.length
-            ? priorities.map((item) => "<span class=\\"pill\\">" + item.trait_name + " · " + Number(item.current_score || 0).toFixed(1) + "</span>").join("")
-            : "<span class=\\"muted\\">No priority traits were detected for this submission.</span>";
-
-          const prompts = (pageModel.action && pageModel.action.next_step_prompts) || [];
-          document.getElementById("prompts").innerHTML = prompts.length
-            ? prompts.map((item) => "<li><strong>" + item.trait_code + ":</strong> " + item.prompt + "</li>").join("")
-            : "<li class=\\"muted\\">No prompts are available for this submission.</li>";
+          renderCategoryStrip(cardsMap);
+          renderSnapshotCards(cardsMap);
+          renderStrengths(data);
+          renderSupport(data);
+          renderWeeklySupport(data);
+          bindHelpButtons();
           return true;
         }
 
         async function hydrateFromAccount() {
           if (!accountCtx.tenant || !accountCtx.email) return false;
-          const endpoint = new URL("/api/youth-development/parent-dashboard/latest", window.location.origin);
-          endpoint.searchParams.set("tenant", accountCtx.tenant);
-          endpoint.searchParams.set("email", accountCtx.email);
+          const endpoint = new URL('/api/youth-development/parent-dashboard/latest', window.location.origin);
+          endpoint.searchParams.set('tenant', accountCtx.tenant);
+          endpoint.searchParams.set('email', accountCtx.email);
           const response = await fetch(endpoint.pathname + endpoint.search);
           if (!response.ok) return false;
           const data = await response.json().catch(() => null);
           if (!data || !data.ok || !data.has_result || !data.payload) return false;
-          document.getElementById("subtitle").textContent = "Loaded from your signed-in customer account.";
-          return applyPayload(data.payload);
+          return applyPayload(data.payload, { savedAt: data.saved_at || data.payload.saved_at || '' });
         }
 
+        document.getElementById('closeHelpBtn').addEventListener('click', function () {
+          const dialog = document.getElementById('categoryHelpDialog');
+          if (dialog && dialog.close) dialog.close();
+        });
+
         try {
-          payload = JSON.parse(sessionStorage.getItem("youthDevelopmentLatestAssessment") || "null");
+          payload = JSON.parse(sessionStorage.getItem('youthDevelopmentLatestAssessment') || 'null');
         } catch (_err) {
           payload = null;
         }
-        if (applyPayload(payload)) return;
+
+        if (payload && applyPayload(payload, { savedAt: payload?.ownership?.saved_at || payload?.saved_at })) return;
         hydrateFromAccount().catch(() => null);
       }());
     </script>
