@@ -919,6 +919,22 @@ test('dashboard UI renders separate family labels for VOC, Love, Leadership, and
   assert.match(source, /Loyalty Assessments/);
 });
 
+test('dashboard UI hardens youth action insertion with stable/fallback containers', () => {
+  const source = fs.readFileSync('dashboardnew/app.js', 'utf8');
+  assert.match(source, /function getAssessmentYouthActionsContainer\(\)/);
+  assert.match(source, /assessmentFamiliesSummary\.parentNode/);
+  assert.match(source, /assessments\.panel-body/);
+  assert.match(source, /youth_actions_customer: fallback container/);
+});
+
+test('admin youth actions render from stable access panel independently of snapshot body', () => {
+  const source = fs.readFileSync('dashboardnew/app.js', 'utf8');
+  assert.match(source, /function renderAdminYouthActions\(ctx\)/);
+  assert.match(source, /accessStatusPanel/);
+  assert.match(source, /adminYouthActionsHost/);
+  assert.match(source, /renderAdminYouthActions\(ctx\);/);
+});
+
 test('leadership retakes with approved manifest bank return generated success path with diagnostics', async () => {
   const { server, baseUrl } = await startServer(createMockPool());
   try {
