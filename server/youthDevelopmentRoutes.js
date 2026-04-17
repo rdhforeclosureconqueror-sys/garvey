@@ -103,6 +103,11 @@ function normalizeAccountContext(source = {}) {
 }
 
 function resolveRequestAccountContext(req, body = {}) {
+  const authCtx = normalizeAccountContext({
+    tenant: req.authActor?.tenantSlug,
+    email: req.authActor?.email,
+    name: req.authActor?.name,
+  });
   const queryCtx = normalizeAccountContext(req.query || {});
   const bodyCtx = normalizeAccountContext(body || {});
   const headerCtx = normalizeAccountContext({
@@ -110,6 +115,15 @@ function resolveRequestAccountContext(req, body = {}) {
     email: req.headers["x-user-email"],
     name: req.headers["x-user-name"],
   });
+  if (authCtx.tenant && authCtx.email) {
+    return {
+      tenant: authCtx.tenant,
+      email: authCtx.email,
+      name: authCtx.name || bodyCtx.name || queryCtx.name || headerCtx.name,
+      cid: bodyCtx.cid || queryCtx.cid,
+      crid: bodyCtx.crid || queryCtx.crid,
+    };
+  }
   return {
     tenant: bodyCtx.tenant || queryCtx.tenant || headerCtx.tenant,
     email: bodyCtx.email || queryCtx.email || headerCtx.email,
@@ -700,7 +714,26 @@ function renderLiveYouthAssessmentPage() {
           openLiveDashboardBtn.style.display = "";
         });
 
+        async function hydrateExistingAccountResult() {
+          if (!accountCtx.tenant || !accountCtx.email) return;
+          const endpoint = new URL("/api/youth-development/parent-dashboard/latest", window.location.origin);
+          endpoint.searchParams.set("tenant", accountCtx.tenant);
+          endpoint.searchParams.set("email", accountCtx.email);
+          const response = await fetch(endpoint.pathname + endpoint.search);
+          if (!response.ok) return;
+          const latest = await response.json().catch(() => null);
+          if (!latest || latest.ok !== true || latest.has_result !== true) return;
+          resultCard.innerHTML = [
+            "<p><strong>Existing saved youth assessment found.</strong></p>",
+            "<p class=\\"muted\\">This signed-in account already has a saved result. You can reopen the parent dashboard now or retake the intake to refresh signals.</p>",
+            "<p><strong>Saved account:</strong> " + accountCtx.email + "</p>"
+          ].join("");
+          openLiveDashboardBtn.style.display = "";
+          openLiveDashboardBtn.textContent = "Resume / View Youth Results";
+        }
+
         renderQuestion();
+        hydrateExistingAccountResult().catch(() => null);
       }());
     </script>
   </body>
