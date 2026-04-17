@@ -28,3 +28,12 @@ test('applyTdeMigrations executes pending migrations', async () => {
   assert.equal(result.appliedCount, TDE_MIGRATIONS.length);
   assert.ok(calls.some((sql) => sql === 'BEGIN'));
 });
+
+
+test('phase-3 program rail migration includes additive extension tables', () => {
+  const migration = TDE_MIGRATIONS.find((entry) => entry.id === 'tde_002_phase3_program_rail_tables');
+  assert.ok(migration);
+  assert.match(migration.up, /CREATE TABLE IF NOT EXISTS tde_program_enrollments/);
+  assert.match(migration.up, /CREATE TABLE IF NOT EXISTS tde_weekly_progress_records/);
+  assert.match(migration.up, /CREATE TABLE IF NOT EXISTS tde_checkpoint_records/);
+});

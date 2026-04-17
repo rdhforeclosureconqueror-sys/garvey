@@ -75,6 +75,133 @@ const TDE_MIGRATIONS = Object.freeze([
       DROP TABLE IF EXISTS tde_extracted_signals;
     `,
   },
+  {
+    id: "tde_002_phase3_program_rail_tables",
+    description: "Create extension-only TDE 36-week program rail tables",
+    up: `
+      CREATE TABLE IF NOT EXISTS tde_child_profiles (
+        id BIGSERIAL PRIMARY KEY,
+        child_id TEXT NOT NULL UNIQUE,
+        profile_version TEXT NOT NULL,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS tde_program_enrollments (
+        id BIGSERIAL PRIMARY KEY,
+        enrollment_id TEXT NOT NULL UNIQUE,
+        child_id TEXT NOT NULL,
+        program_start_date TIMESTAMPTZ NOT NULL,
+        current_week INTEGER NOT NULL,
+        program_status TEXT NOT NULL,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS tde_weekly_progress_records (
+        id BIGSERIAL PRIMARY KEY,
+        progress_id TEXT NOT NULL UNIQUE,
+        enrollment_id TEXT NOT NULL,
+        child_id TEXT NOT NULL,
+        week_number INTEGER NOT NULL,
+        completion_status TEXT NOT NULL,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS tde_checkpoint_records (
+        id BIGSERIAL PRIMARY KEY,
+        checkpoint_id TEXT NOT NULL UNIQUE,
+        enrollment_id TEXT NOT NULL,
+        child_id TEXT NOT NULL,
+        week_number INTEGER NOT NULL,
+        checkpoint_type TEXT NOT NULL,
+        environment_review_flag BOOLEAN NOT NULL DEFAULT TRUE,
+        confidence_review_flag BOOLEAN NOT NULL DEFAULT TRUE,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS tde_session_records (
+        id BIGSERIAL PRIMARY KEY,
+        session_id TEXT NOT NULL UNIQUE,
+        progress_id TEXT NOT NULL,
+        enrollment_id TEXT NOT NULL,
+        child_id TEXT NOT NULL,
+        week_number INTEGER NOT NULL,
+        session_template_type TEXT NOT NULL,
+        observation_entry_type TEXT NOT NULL,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS tde_observer_records (
+        id BIGSERIAL PRIMARY KEY,
+        observer_record_id TEXT NOT NULL UNIQUE,
+        child_id TEXT NOT NULL,
+        observer_type TEXT NOT NULL,
+        observer_reference TEXT NOT NULL,
+        linked_entity_type TEXT NOT NULL,
+        linked_entity_id TEXT NOT NULL,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS tde_active_domain_interests (
+        id BIGSERIAL PRIMARY KEY,
+        child_id TEXT NOT NULL UNIQUE,
+        domains JSONB NOT NULL DEFAULT '[]'::jsonb,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS tde_current_trait_targets (
+        id BIGSERIAL PRIMARY KEY,
+        child_id TEXT NOT NULL UNIQUE,
+        trait_targets JSONB NOT NULL DEFAULT '[]'::jsonb,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS tde_current_environment_targets (
+        id BIGSERIAL PRIMARY KEY,
+        child_id TEXT NOT NULL UNIQUE,
+        environment_targets JSONB NOT NULL DEFAULT '[]'::jsonb,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS tde_program_week_definitions (
+        id BIGSERIAL PRIMARY KEY,
+        week_number INTEGER NOT NULL UNIQUE,
+        phase_number INTEGER NOT NULL,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+    `,
+    down: `
+      DROP TABLE IF EXISTS tde_program_week_definitions;
+      DROP TABLE IF EXISTS tde_current_environment_targets;
+      DROP TABLE IF EXISTS tde_current_trait_targets;
+      DROP TABLE IF EXISTS tde_active_domain_interests;
+      DROP TABLE IF EXISTS tde_observer_records;
+      DROP TABLE IF EXISTS tde_session_records;
+      DROP TABLE IF EXISTS tde_checkpoint_records;
+      DROP TABLE IF EXISTS tde_weekly_progress_records;
+      DROP TABLE IF EXISTS tde_program_enrollments;
+      DROP TABLE IF EXISTS tde_child_profiles;
+    `,
+  },
 ]);
 
 async function applyTdeMigrations(pool) {
