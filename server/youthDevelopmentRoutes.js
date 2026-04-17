@@ -543,7 +543,8 @@ function renderLiveYouthAssessmentPage() {
       .row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
       .controls { display: flex; gap: 8px; flex-wrap: wrap; }
       .controls button { border: 1px solid #0f766e; background: #f0fdfa; border-radius: 999px; padding: 8px 12px; cursor: pointer; }
-      pre { white-space: pre-wrap; background: #0f172a; color: #e2e8f0; border-radius: 8px; padding: 10px; }
+      .result-card { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: #f8fafc; }
+      .pill { display: inline-block; border: 1px solid #99f6e4; background: #ecfeff; border-radius: 999px; padding: 3px 8px; margin: 3px 4px 3px 0; font-size: 12px; }
     </style>
   </head>
   <body>
@@ -565,8 +566,13 @@ function renderLiveYouthAssessmentPage() {
         </div>
       </section>
       <section>
-        <h2>Result (provisional)</h2>
-        <pre id="resultBox">Not submitted.</pre>
+        <h2>Assessment submitted</h2>
+        <div id="resultCard" class="result-card">
+          <p class="muted">Complete the intake and submit to generate a parent-facing dashboard.</p>
+        </div>
+        <div class="controls" style="margin-top:10px;">
+          <a id="openLiveDashboardBtn" href="/youth-development/parent-dashboard" style="display:none;border:1px solid #0f766e;background:#0f766e;color:#fff;border-radius:999px;padding:8px 12px;text-decoration:none;">Open Youth Parent Dashboard</a>
+        </div>
       </section>
     </main>
     <script>
@@ -576,7 +582,8 @@ function renderLiveYouthAssessmentPage() {
         const completionLabel = document.getElementById("completionLabel");
         const promptEl = document.getElementById("prompt");
         const optionsEl = document.getElementById("options");
-        const resultBox = document.getElementById("resultBox");
+        const resultCard = document.getElementById("resultCard");
+        const openLiveDashboardBtn = document.getElementById("openLiveDashboardBtn");
         const state = { questions: [], index: 0, answers: {} };
 
         const questionResponse = await fetch("/api/youth-development/questions");
@@ -619,10 +626,103 @@ function renderLiveYouthAssessmentPage() {
             body: JSON.stringify({ answers: state.answers }),
           });
           const payload = await response.json();
-          resultBox.textContent = JSON.stringify(payload, null, 2);
+          if (!response.ok) {
+            resultCard.innerHTML = "<p><strong>We could not submit this assessment.</strong></p><p class=\\"muted\\">" + String(payload.error || "Request failed") + "</p>";
+            openLiveDashboardBtn.style.display = "none";
+            return;
+          }
+          try {
+            sessionStorage.setItem("youthDevelopmentLatestAssessment", JSON.stringify(payload));
+          } catch (_err) {}
+          const priorities = (payload.interpretation && payload.interpretation.priority_traits) || [];
+          const highest = payload.interpretation && payload.interpretation.highest_trait;
+          const completion = payload.completion && payload.completion.completion_rate_percent;
+          resultCard.innerHTML = [
+            "<p><strong>Assessment complete.</strong> Your responses are now available in the live parent dashboard.</p>",
+            highest ? "<p><strong>Top current signal:</strong> " + highest.trait_name + " (" + Number(highest.current_score || 0).toFixed(1) + ")</p>" : "",
+            "<p><strong>Completion:</strong> " + Number(completion || 0).toFixed(0) + "%</p>",
+            priorities.length ? "<div>" + priorities.map((item) => "<span class=\\"pill\\">" + item.trait_name + " · " + Number(item.current_score || 0).toFixed(1) + "</span>").join("") + "</div>" : ""
+          ].join("");
+          openLiveDashboardBtn.style.display = "";
         });
 
         renderQuestion();
+      }());
+    </script>
+  </body>
+</html>`;
+}
+
+function renderLiveYouthParentDashboardPage() {
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Youth Development Parent Dashboard</title>
+    <style>
+      :root { --bg: #f8fafc; --card: #ffffff; --line: #cbd5e1; --text: #0f172a; --muted: #475569; --brand: #0f766e; }
+      body { font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 24px; }
+      main { max-width: 900px; margin: 0 auto; display: grid; gap: 14px; }
+      section { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+      .muted { color: var(--muted); }
+      .pill { display: inline-block; border: 1px solid #99f6e4; background: #ecfeff; border-radius: 999px; padding: 3px 8px; margin: 3px 4px 3px 0; font-size: 12px; }
+      ul { margin: 8px 0 0 18px; }
+      a.btn { border: 1px solid var(--brand); background: #0f766e; color: #fff; border-radius: 999px; padding: 8px 12px; text-decoration: none; display: inline-block; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <h1 id="title">Youth Development Parent Dashboard</h1>
+        <p id="subtitle" class="muted">Live parent-facing assessment output.</p>
+      </section>
+      <section>
+        <h2>Insight narrative</h2>
+        <p id="narrativeOpening" class="muted">No assessment has been submitted yet.</p>
+        <p id="narrativeFocus" class="muted"></p>
+        <p id="narrativeNext" class="muted"></p>
+      </section>
+      <section>
+        <h2>Priority traits</h2>
+        <div id="priorities"><span class="muted">Complete an assessment to view trait signals.</span></div>
+      </section>
+      <section>
+        <h2>Next-step prompts</h2>
+        <ul id="prompts"><li class="muted">Complete an assessment to unlock tailored prompts.</li></ul>
+      </section>
+      <section>
+        <a class="btn" href="/youth-development/intake">Take Youth Assessment</a>
+      </section>
+    </main>
+    <script>
+      (function () {
+        let payload = null;
+        try {
+          payload = JSON.parse(sessionStorage.getItem("youthDevelopmentLatestAssessment") || "null");
+        } catch (_err) {
+          payload = null;
+        }
+        if (!payload || !payload.page_model) return;
+
+        const pageModel = payload.page_model;
+        document.getElementById("title").textContent = pageModel.page_title || "Youth Development Parent Dashboard";
+        document.getElementById("subtitle").textContent = pageModel.page_subtitle || "";
+
+        const narrative = pageModel.insight_narrative || {};
+        document.getElementById("narrativeOpening").textContent = narrative.opening || "";
+        document.getElementById("narrativeFocus").textContent = narrative.focus_area || "";
+        document.getElementById("narrativeNext").textContent = narrative.next_step || "";
+
+        const priorities = (payload.interpretation && payload.interpretation.priority_traits) || [];
+        document.getElementById("priorities").innerHTML = priorities.length
+          ? priorities.map((item) => "<span class=\\"pill\\">" + item.trait_name + " · " + Number(item.current_score || 0).toFixed(1) + "</span>").join("")
+          : "<span class=\\"muted\\">No priority traits were detected for this submission.</span>";
+
+        const prompts = (pageModel.action && pageModel.action.next_step_prompts) || [];
+        document.getElementById("prompts").innerHTML = prompts.length
+          ? prompts.map((item) => "<li><strong>" + item.trait_code + ":</strong> " + item.prompt + "</li>").join("")
+          : "<li class=\\"muted\\">No prompts are available for this submission.</li>";
       }());
     </script>
   </body>
@@ -722,6 +822,10 @@ function createYouthDevelopmentRouter() {
 
   router.get("/youth-development/intake/test", (req, res) => (
     res.status(200).type("html").send(renderYouthDevelopmentIntakeTestPage())
+  ));
+
+  router.get("/youth-development/parent-dashboard", (req, res) => (
+    res.status(200).type("html").send(renderLiveYouthParentDashboardPage())
   ));
 
   router.get("/youth-development/parent-dashboard/preview", (req, res) => {
