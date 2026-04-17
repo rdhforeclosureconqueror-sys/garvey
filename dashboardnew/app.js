@@ -508,11 +508,28 @@
   }
 
   function renderActiveAssessmentYouthActions() {
+    console.log("[YOUTH_TRACE] renderActiveAssessmentYouthActions:start", {
+      tenant: tenantFromUrl(),
+      email: ownerEmailFromUrl(),
+      bodyReady: !!document.body
+    });
+    console.log("[YOUTH_TRACE] renderActiveAssessmentYouthActions:anchors", {
+      assessmentFamiliesSummary: !!document.getElementById("assessmentFamiliesSummary"),
+      assessments: !!document.getElementById("assessments"),
+      accessStatusPanel: !!document.getElementById("accessStatusPanel"),
+      ownerSnapshotBody: !!document.getElementById("ownerSnapshotBody"),
+      body: !!document.body
+    });
     var placement = getAssessmentYouthActionsContainer();
     if (!placement || !placement.host) {
+      console.warn("[YOUTH_TRACE] renderActiveAssessmentYouthActions:exit:no-container");
       console.warn("youth_actions_customer: no stable container found for assessment buttons");
       return;
     }
+    console.log("[YOUTH_TRACE] renderActiveAssessmentYouthActions:container-selected", {
+      anchor: placement.anchor,
+      fallback: placement.fallback
+    });
     if (placement.fallback) {
       console.info("youth_actions_customer: fallback container", placement.anchor);
     }
@@ -531,12 +548,30 @@
         '<a id="takeYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake/test">Take Youth Assessment (Test)</a>' +
         '<a id="takeYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Open Youth Parent Dashboard (Preview)</a>' +
       "</div>";
+    console.log("[YOUTH_TRACE] renderActiveAssessmentYouthActions:inserted", {
+      hostChildCount: host.childElementCount,
+      hostHtmlLength: (host.innerHTML || "").length,
+      takeYouthAssessmentBtnExists: !!document.getElementById("takeYouthAssessmentBtn")
+    });
   }
 
   function renderAdminYouthActions(ctx) {
+    console.log("[YOUTH_TRACE] renderAdminYouthActions:start", {
+      tenant: ctx && ctx.tenant,
+      email: ctx && ctx.email,
+      isAdmin: !!(ctx && ctx.isAdmin === true),
+      bodyReady: !!document.body
+    });
+    console.log("[YOUTH_TRACE] renderAdminYouthActions:anchors", {
+      accessStatusPanel: !!document.getElementById("accessStatusPanel"),
+      ownerSnapshotBody: !!document.getElementById("ownerSnapshotBody"),
+      pageWrapper: !!document.getElementById("page-wrapper"),
+      body: !!document.body
+    });
     var isAdmin = !!(ctx && ctx.isAdmin === true);
     var host = document.getElementById("adminYouthActionsHost");
     if (!isAdmin) {
+      console.warn("[YOUTH_TRACE] renderAdminYouthActions:exit:not-admin");
       if (host) host.style.display = "none";
       return;
     }
@@ -562,8 +597,13 @@
     }
     if (!container) {
       console.warn("youth_actions_admin: no stable container found for admin buttons");
+      console.warn("[YOUTH_TRACE] renderAdminYouthActions:exit:no-container");
       return;
     }
+    console.log("[YOUTH_TRACE] renderAdminYouthActions:container-selected", {
+      anchor: anchor || "unknown",
+      isAdmin: isAdmin
+    });
 
     if (!host) {
       host = document.createElement("div");
@@ -580,6 +620,11 @@
         '<a id="adminYouthAssessmentBtn" class="btn btn-default" href="/youth-development/intake/test">Youth Assessment (Test)</a>' +
         '<a id="adminYouthDashboardBtn" class="btn btn-default" href="/youth-development/parent-dashboard/preview">Youth Parent Dashboard (Preview)</a>' +
       "</div>";
+    console.log("[YOUTH_TRACE] renderAdminYouthActions:inserted", {
+      hostChildCount: host.childElementCount,
+      hostHtmlLength: (host.innerHTML || "").length,
+      adminYouthAssessmentBtnExists: !!document.getElementById("adminYouthAssessmentBtn")
+    });
   }
 
   function renderCampaignLinks(tenant, ownerEmail, campaign) {
@@ -1688,10 +1733,22 @@
   }
 
   function loadOwnerSnapshot(email, tenant, cid, rid, isAdmin) {
+    console.log("[YOUTH_TRACE] loadOwnerSnapshot:start", {
+      tenant: tenant,
+      email: email,
+      isAdmin: !!isAdmin
+    });
     var el = document.getElementById("ownerSnapshotBody");
-    if (!el) return Promise.resolve();
+    if (!el) {
+      console.warn("[YOUTH_TRACE] loadOwnerSnapshot:exit:no-ownerSnapshotBody");
+      return Promise.resolve();
+    }
 
     if (!tenant || !email) {
+      console.warn("[YOUTH_TRACE] loadOwnerSnapshot:exit:missing-identity", {
+        hasTenant: !!tenant,
+        hasEmail: !!email
+      });
       var missing = [];
       if (!tenant) missing.push("tenant");
       if (!email) missing.push("email");
@@ -2132,9 +2189,21 @@
   }
 
   function renderAccessStatus(ctx) {
+    console.log("[YOUTH_TRACE] renderAccessStatus:start", {
+      tenant: ctx && ctx.tenant,
+      email: ctx && ctx.email,
+      isAdmin: !!(ctx && ctx.isAdmin),
+      role: ctx && ctx.role
+    });
     var badgeHost = document.getElementById("accessStatusBadges");
     var meta = document.getElementById("accessStatusMeta");
-    if (!badgeHost || !meta) return;
+    if (!badgeHost || !meta) {
+      console.warn("[YOUTH_TRACE] renderAccessStatus:exit:missing-host", {
+        hasBadgeHost: !!badgeHost,
+        hasMeta: !!meta
+      });
+      return;
+    }
     var badges = [];
     if (ctx.isAdmin) badges.push('<span class="label label-danger">Super Admin</span>');
     if (ctx.hasTenantOwnerAccess) badges.push('<span class="label label-success">Business Owner</span>');
@@ -2145,7 +2214,20 @@
   }
 
   function init() {
-    if (dashboardInitInFlight || dashboardInitialized) return;
+    console.log("[YOUTH_TRACE] init:start", {
+      dashboardInitInFlight: dashboardInitInFlight,
+      dashboardInitialized: dashboardInitialized,
+      path: window.location.pathname,
+      script: "/dashboardnew/app.js",
+      marker: "YOUTH_TRACE_BUILD_2026_04_17_v1"
+    });
+    if (dashboardInitInFlight || dashboardInitialized) {
+      console.warn("[YOUTH_TRACE] init:exit:already-running", {
+        dashboardInitInFlight: dashboardInitInFlight,
+        dashboardInitialized: dashboardInitialized
+      });
+      return;
+    }
     dashboardInitInFlight = true;
     var fromLoginCtx = loginCtxFromStorage();
     var urlTenant = tenantFromUrl();
@@ -2212,6 +2294,13 @@
         isAdmin: isAdmin,
         hasTenantOwnerAccess: hasTenantOwnerAccess
       });
+      console.log("[YOUTH_TRACE] init:resolved-access", {
+        tenant: tenant,
+        email: ownerEmail,
+        isAdmin: isAdmin,
+        sessionRole: sessionRole,
+        hasTenantOwnerAccess: hasTenantOwnerAccess
+      });
 
       if (!tenant || !ownerEmail) {
         dashboardInitInFlight = false;
@@ -2238,6 +2327,31 @@
       wireSpotlight(tenant, ownerEmail, isAdmin);
       wireContributions(tenant, ownerEmail, cid, rid, isAdmin);
       loadOwnerSnapshot(ownerEmail, tenant, cid, rid, isAdmin);
+      setTimeout(function () {
+        console.log("[YOUTH_TRACE] init:rerender-timeout-0");
+        renderActiveAssessmentYouthActions();
+      }, 0);
+      if (typeof window.requestAnimationFrame === "function") {
+        window.requestAnimationFrame(function () {
+          console.log("[YOUTH_TRACE] init:rerender-raf");
+          renderActiveAssessmentYouthActions();
+        });
+      }
+      setTimeout(function () {
+        if (!document.getElementById("takeYouthAssessmentBtn") && document.body) {
+          var debugHost = document.getElementById("youthActionsBodyDebugHost");
+          if (!debugHost) {
+            debugHost = document.createElement("div");
+            debugHost.id = "youthActionsBodyDebugHost";
+            debugHost.style.margin = "10px";
+            document.body.appendChild(debugHost);
+          }
+          debugHost.innerHTML = '<a id="takeYouthAssessmentBtnBodyDebug" class="btn btn-warning" href="/youth-development/intake/test">DEBUG Youth Assessment Button</a>';
+          console.warn("[YOUTH_TRACE] init:body-force-visibility-appended", {
+            bodyDebugBtnExists: !!document.getElementById("takeYouthAssessmentBtnBodyDebug")
+          });
+        }
+      }, 1000);
 
       return ensureContextReady(tenant, ownerEmail).then(function (ctx) {
         if (!ctx) return;
