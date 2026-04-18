@@ -28,6 +28,12 @@ const CALIBRATION_VARIABLES = Object.freeze({
   confidence_formula_weights: Object.freeze({ base_weight_mean_confidence: 0.65, base_weight_evidence_sufficiency: 0.35 }),
   report_statement_thresholds: Object.freeze({ low_max: 0.39, high_min: 0.7 }),
   confidence_label_thresholds: Object.freeze({ low_max: 0.39, medium_max: 0.69 }),
+  intervention_engine: Object.freeze({
+    adherence_confidence_penalty_threshold: 0.45,
+    adherence_confidence_penalty_multiplier: 0.85,
+    schedule_realism_max_days_per_week: 5,
+    deterministic_session_builder_strategy: "sorted-first-enabled-by-component",
+  }),
 });
 
 function stableStringify(value) {

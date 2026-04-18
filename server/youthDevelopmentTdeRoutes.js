@@ -28,6 +28,14 @@ const {
   getProgramWeek,
   listProgramCheckpoints,
 } = require("../youth-development/tde/programService");
+const { listActivitiesByComponent } = require("../youth-development/tde/activityBankService");
+const {
+  saveCommitmentPlan,
+  getCommitmentPlan,
+  planSession,
+  completeSession,
+  getAdherence,
+} = require("../youth-development/tde/interventionEngine");
 
 function createYouthDevelopmentTdeRouter(options = {}) {
   const router = express.Router();
@@ -160,6 +168,44 @@ function createYouthDevelopmentTdeRouter(options = {}) {
 
   router.get("/trust-content", (_req, res) => {
     return res.status(200).json(getTrustContent());
+  });
+
+  router.post("/commitment", async (req, res) => {
+    const result = await saveCommitmentPlan(req.body || {}, repository);
+    const status = result.ok ? 200 : 400;
+    return res.status(status).json(result);
+  });
+
+  router.get("/commitment/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getCommitmentPlan(childId, repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/activity-bank/:componentType", (req, res) => {
+    const result = listActivitiesByComponent(req.params.componentType);
+    if (!result.ok) return res.status(400).json({ ok: false, error: "component_type_invalid", required_components: result.required_components });
+    return res.status(200).json(result);
+  });
+
+  router.post("/session/plan", (req, res) => {
+    const result = planSession(req.body || {});
+    const status = result.ok ? 200 : 400;
+    return res.status(status).json(result);
+  });
+
+  router.post("/session/complete", async (req, res) => {
+    const result = await completeSession(req.body || {}, repository);
+    const status = result.ok ? 200 : 400;
+    return res.status(status).json(result);
+  });
+
+  router.get("/adherence/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getAdherence(childId, repository);
+    return res.status(200).json(result);
   });
 
   return router;
