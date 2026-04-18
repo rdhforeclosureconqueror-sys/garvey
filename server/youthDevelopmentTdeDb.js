@@ -267,6 +267,42 @@ const TDE_MIGRATIONS = Object.freeze([
       DROP TABLE IF EXISTS tde_observer_consent_records;
     `,
   },
+  {
+    id: "tde_004_phase7_intervention_engine_tables",
+    description: "Create extension-only commitment plan and bounded-autonomy intervention session tables",
+    up: `
+      CREATE TABLE IF NOT EXISTS tde_commitment_plans (
+        id BIGSERIAL PRIMARY KEY,
+        child_id TEXT NOT NULL UNIQUE,
+        committed_days_per_week INTEGER NOT NULL,
+        preferred_days JSONB NOT NULL DEFAULT '[]'::jsonb,
+        preferred_time_window TEXT NOT NULL,
+        session_length INTEGER NOT NULL,
+        facilitator_role TEXT NOT NULL,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS tde_intervention_sessions (
+        id BIGSERIAL PRIMARY KEY,
+        session_id TEXT NOT NULL UNIQUE,
+        child_id TEXT NOT NULL,
+        full_session_completed BOOLEAN NOT NULL DEFAULT FALSE,
+        duration_minutes INTEGER NOT NULL,
+        challenge_level TEXT NOT NULL,
+        parent_coaching_style TEXT NOT NULL,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        completed_at TIMESTAMPTZ NOT NULL,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+    `,
+    down: `
+      DROP TABLE IF EXISTS tde_intervention_sessions;
+      DROP TABLE IF EXISTS tde_commitment_plans;
+    `,
+  },
 ]);
 
 async function applyTdeMigrations(pool) {

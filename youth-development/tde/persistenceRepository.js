@@ -8,6 +8,8 @@ function createTdePersistenceRepository(pool = null) {
     observerConsents: [],
     environmentHooks: [],
     validationExports: [],
+    commitmentPlans: [],
+    interventionSessions: [],
   };
 
   async function persistSignals(runId, signals) {
@@ -439,6 +441,87 @@ function createTdePersistenceRepository(pool = null) {
     return { persisted: 1, mode: "database" };
   }
 
+  async function persistCommitmentPlan(plan) {
+    if (!pool) {
+      inMemory.commitmentPlans = inMemory.commitmentPlans.filter((entry) => entry.child_id !== plan.child_id);
+      inMemory.commitmentPlans.push(plan);
+      return { persisted: 1, mode: "memory" };
+    }
+
+    await pool.query(
+      `INSERT INTO tde_commitment_plans
+        (child_id, committed_days_per_week, preferred_days, preferred_time_window, session_length, facilitator_role, payload)
+       VALUES ($1,$2,$3::jsonb,$4,$5,$6,$7::jsonb)
+       ON CONFLICT (child_id) DO UPDATE
+       SET committed_days_per_week = EXCLUDED.committed_days_per_week,
+           preferred_days = EXCLUDED.preferred_days,
+           preferred_time_window = EXCLUDED.preferred_time_window,
+           session_length = EXCLUDED.session_length,
+           facilitator_role = EXCLUDED.facilitator_role,
+           payload = EXCLUDED.payload,
+           updated_at = NOW()`,
+      [
+        plan.child_id,
+        plan.committed_days_per_week,
+        JSON.stringify(plan.preferred_days),
+        plan.preferred_time_window,
+        plan.session_length,
+        plan.facilitator_role,
+        JSON.stringify(plan),
+      ]
+    );
+    return { persisted: 1, mode: "database" };
+  }
+
+  async function getCommitmentPlan(childId) {
+    if (!pool) {
+      return inMemory.commitmentPlans.find((entry) => entry.child_id === childId) || null;
+    }
+    const rows = await pool.query(`SELECT payload FROM tde_commitment_plans WHERE child_id = $1 LIMIT 1`, [childId]);
+    return rows.rows[0]?.payload || null;
+  }
+
+  async function persistInterventionSession(session) {
+    if (!pool) {
+      inMemory.interventionSessions = inMemory.interventionSessions.filter((entry) => entry.session_id !== session.session_id);
+      inMemory.interventionSessions.push(session);
+      return { persisted: 1, mode: "memory" };
+    }
+
+    await pool.query(
+      `INSERT INTO tde_intervention_sessions
+        (session_id, child_id, full_session_completed, duration_minutes, challenge_level, parent_coaching_style, payload, completed_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7::jsonb,$8)
+       ON CONFLICT (session_id) DO UPDATE
+       SET full_session_completed = EXCLUDED.full_session_completed,
+           duration_minutes = EXCLUDED.duration_minutes,
+           challenge_level = EXCLUDED.challenge_level,
+           parent_coaching_style = EXCLUDED.parent_coaching_style,
+           payload = EXCLUDED.payload,
+           completed_at = EXCLUDED.completed_at,
+           updated_at = NOW()`,
+      [
+        session.session_id,
+        session.child_id,
+        session.full_session_completed === true,
+        session.duration_minutes,
+        session.challenge_level,
+        session.parent_coaching_style,
+        JSON.stringify(session),
+        session.completed_at,
+      ]
+    );
+    return { persisted: 1, mode: "database" };
+  }
+
+  async function listInterventionSessions(childId) {
+    if (!pool) {
+      return inMemory.interventionSessions.filter((entry) => entry.child_id === childId);
+    }
+    const rows = await pool.query(`SELECT payload FROM tde_intervention_sessions WHERE child_id = $1 ORDER BY completed_at ASC`, [childId]);
+    return rows.rows.map((row) => row.payload || {});
+  }
+
   return {
     persistSignals,
     persistTraitScores,
@@ -452,6 +535,10 @@ function createTdePersistenceRepository(pool = null) {
     getProgramSnapshot,
     getValidationDataset,
     persistValidationExportLog,
+    persistCommitmentPlan,
+    getCommitmentPlan,
+    persistInterventionSession,
+    listInterventionSessions,
   };
 }
 

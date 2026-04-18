@@ -33,11 +33,15 @@ function scoreTraitsFromSignals(normalizedSignals = []) {
     const signalCountOk = allowedSignals.length >= contract.minimum_signal_count;
     const sourceDiversityOk = sourceTypes.size >= Math.max(2, contract.minimum_source_diversity);
     const requiredSignalsOk = requiredMissing.length === 0;
+    const nonInterventionSignals = allowedSignals.filter(
+      (signal) => String(signal.evidence_status_tag || "") !== "INTERVENTION_SESSION_LOG"
+    );
+    const interventionOnly = allowedSignals.length > 0 && nonInterventionSignals.length === 0;
 
-    const evidenceSufficient = signalCountOk && sourceDiversityOk && requiredSignalsOk && !!policyWeights;
+    const evidenceSufficient = signalCountOk && sourceDiversityOk && requiredSignalsOk && !!policyWeights && !interventionOnly;
     const evidence_sufficiency_status = evidenceSufficient
       ? "SUFFICIENT"
-      : (!sourceDiversityOk ? "INSUFFICIENT_SOURCE_DIVERSITY" : "INSUFFICIENT_EVIDENCE");
+      : (interventionOnly ? "INSUFFICIENT_NON_SESSION_SOURCE" : (!sourceDiversityOk ? "INSUFFICIENT_SOURCE_DIVERSITY" : "INSUFFICIENT_EVIDENCE"));
 
     let internal_partial_score = null;
     let reported_trait_score = null;
