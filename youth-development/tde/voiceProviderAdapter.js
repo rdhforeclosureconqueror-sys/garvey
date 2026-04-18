@@ -2,6 +2,8 @@
 
 const { deterministicId } = require("./constants");
 
+const GATEWAY_MODE_EXTERNAL = "external_gateway";
+
 function chunkText(text, options = {}) {
   const normalized = String(text || "").trim();
   if (!normalized) return [];
@@ -39,54 +41,145 @@ function chunkText(text, options = {}) {
 }
 
 function createVoiceProviderAdapter(options = {}) {
-  const provider = String(options.provider || process.env.TDE_VOICE_PROVIDER || "none").trim().toLowerCase();
-  const simulateLatencyMs = Math.max(0, Number(options.simulate_latency_ms || 0));
+  const mode = String(options.gateway_mode || process.env.VOICE_GATEWAY_MODE || GATEWAY_MODE_EXTERNAL).trim().toLowerCase();
+  const baseUrl = String(options.gateway_base_url || process.env.VOICE_GATEWAY_BASE_URL || "").trim().replace(/\/+$/, "");
+  const timeoutMs = Math.max(100, Number(options.gateway_timeout_ms || process.env.VOICE_GATEWAY_TIMEOUT_MS || 5000));
+  const gatewayToken = String(options.gateway_token || process.env.VOICE_GATEWAY_TOKEN || "").trim();
 
-  const synthesize = async ({ text, playback_id, chunk_index, section_key, voice_profile }) => {
-    const trimmedText = String(text || "").trim();
-    if (!trimmedText) {
-      return {
-        ok: false,
-        available: false,
-        provider,
-        error: "text_required",
-      };
-    }
+  function isAvailable() {
+    return mode === GATEWAY_MODE_EXTERNAL && Boolean(baseUrl);
+  }
 
-    if (simulateLatencyMs > 0) {
-      await new Promise((resolve) => setTimeout(resolve, simulateLatencyMs));
-    }
-
-    if (provider === "none" || provider === "disabled") {
-      return {
-        ok: false,
-        available: false,
-        provider,
-        error: "voice_provider_unavailable",
-      };
-    }
-
+  function getGatewayConfig() {
     return {
-      ok: true,
-      available: true,
-      provider,
-      audio_ref: `voice://${provider}/${deterministicId("audio", {
-        playback_id,
-        chunk_index,
-        section_key,
-        voice_profile,
-        text: trimmedText,
-      })}`,
-      replay_token: deterministicId("replay", { playback_id, chunk_index, section_key, provider }),
-      duration_ms: Math.max(1800, trimmedText.length * 22),
-      format: "audio/mpeg",
+      mode,
+      base_url: baseUrl || null,
+      timeout_ms: timeoutMs,
+      token_configured: Boolean(gatewayToken),
+      auth_required: false,
+      provider_path: "external_gateway",
     };
-  };
+  }
+
+  function normalizeFallback(payload = {}, status, errorMessage) {
+    return {
+      ok: false,
+      status,
+      provider: "external_gateway",
+      playable_text: String(payload.voice_text || "").trim(),
+      audio_url: null,
+      asset_ref: null,
+      replay_token: deterministicId("voice_replay", {
+        provider: "external_gateway",
+        voice_chunk_id: payload.voice_chunk_id,
+        chunk_index: payload.chunk_index,
+      }),
+      chunk_index: Number(payload.chunk_index || 0),
+      expires_at: null,
+      error: errorMessage || null,
+    };
+  }
+
+  async function callGateway(endpointPath, payload = {}) {
+    if (!isAvailable()) {
+      return normalizeFallback(payload, "provider_unavailable", "voice_gateway_unavailable");
+    }
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const response = await fetch(`${baseUrl}${endpointPath}`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          ...(gatewayToken ? { authorization: `Bearer ${gatewayToken}` } : {}),
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
+
+      const body = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        const status = response.status >= 400 && response.status < 500 ? "invalid_request" : "fallback";
+        return normalizeFallback(payload, status, String(body?.error || `gateway_http_${response.status}`));
+      }
+
+      return {
+        ok: true,
+        status: String(body.status || "ready"),
+        provider: String(body.provider || body.provider_name || "external_gateway"),
+        playable_text: String(body.playable_text || payload.voice_text || "").trim(),
+        audio_url: typeof body.audio_url === "string" ? body.audio_url : null,
+        asset_ref: typeof body.asset_ref === "string" ? body.asset_ref : null,
+        replay_token: typeof body.replay_token === "string"
+          ? body.replay_token
+          : deterministicId("voice_replay", { payload, provider: body.provider || "external_gateway" }),
+        chunk_index: Number(body.chunk_index ?? payload.chunk_index ?? 0),
+        expires_at: body.expires_at || null,
+      };
+    } catch (err) {
+      const timeoutTriggered = err && (err.name === "AbortError" || String(err.message || "").toLowerCase().includes("aborted"));
+      return normalizeFallback(payload, timeoutTriggered ? "fallback" : "provider_unavailable", timeoutTriggered ? "voice_gateway_timeout" : "voice_gateway_request_failed");
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  async function synthesizeCheckin(payload = {}) {
+    return callGateway("/internal/voice/checkin-prompt", payload);
+  }
+
+  async function synthesizeReportSection(payload = {}) {
+    return callGateway("/internal/voice/report-section", payload);
+  }
+
+  async function getConnectivity() {
+    if (!isAvailable()) {
+      return {
+        status: "provider_unavailable",
+        checked_at: new Date().toISOString(),
+        detail: "voice_gateway_base_url_missing",
+      };
+    }
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+    try {
+      const response = await fetch(`${baseUrl}/internal/voice/health`, {
+        method: "GET",
+        headers: {
+          ...(gatewayToken ? { authorization: `Bearer ${gatewayToken}` } : {}),
+        },
+        signal: controller.signal,
+      });
+
+      const body = await response.json().catch(() => ({}));
+      return {
+        status: response.ok ? "connected" : "degraded",
+        checked_at: new Date().toISOString(),
+        gateway_status: body?.status || null,
+      };
+    } catch (_err) {
+      return {
+        status: "provider_unavailable",
+        checked_at: new Date().toISOString(),
+        detail: "voice_gateway_health_unreachable",
+      };
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
 
   return {
-    provider,
-    isAvailable: () => provider !== "none" && provider !== "disabled",
-    synthesize,
+    provider: "external_gateway",
+    mode,
+    isAvailable,
+    getGatewayConfig,
+    getConnectivity,
+    synthesizeCheckin,
+    synthesizeReportSection,
     chunkText,
   };
 }

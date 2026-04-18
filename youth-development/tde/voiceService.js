@@ -14,13 +14,16 @@ function createVoiceService(options = {}) {
   const maxChunkLength = Number(CALIBRATION_VARIABLES.voice_architecture.voice_chunk_max_length || 180);
   const maxSentencesPerChunk = Number(CALIBRATION_VARIABLES.voice_architecture.voice_max_sentences_per_chunk || 2);
 
-  function getConfig() {
+  async function getConfig() {
+    const connectivity = await adapter.getConnectivity();
     return {
       ok: true,
       extension_only: true,
       deterministic: true,
       voice_enabled: adapter.isAvailable(),
       provider: adapter.provider,
+      provider_config: adapter.getGatewayConfig(),
+      connectivity,
       constraints: {
         chunk_max_length: maxChunkLength,
         max_sentences_per_chunk: maxSentencesPerChunk,
@@ -42,7 +45,7 @@ function createVoiceService(options = {}) {
     };
   }
 
-  function toChunkMetadata(playbackId, sectionKey, text, voiceProfile) {
+  function toChunkMetadata(playbackId, sectionKey, text, baseRequest = {}) {
     const chunks = adapter.chunkText(text, {
       max_chars: maxChunkLength,
       max_sentences_per_chunk: maxSentencesPerChunk,
@@ -57,40 +60,51 @@ function createVoiceService(options = {}) {
         max_chars: maxChunkLength,
         replayable: true,
         request: {
-          playback_id: playbackId,
-          section_key: sectionKey,
+          ...baseRequest,
+          voice_text: chunkText,
+          voice_chunk_id: chunkId,
           chunk_index: chunkIndex,
-          text: chunkText,
-          voice_profile: voiceProfile,
         },
       };
     });
   }
 
-  async function maybeHydrateAudio(chunks) {
-    if (!adapter.isAvailable()) {
-      return chunks.map((entry) => ({
-        ...entry,
-        available: false,
-        provider: adapter.provider,
-        audio_ref: null,
-      }));
-    }
+  async function hydrateChildChunk(entry) {
+    const synth = await adapter.synthesizeCheckin(entry.request);
+    return {
+      ...entry,
+      available: Boolean(synth.ok && (synth.audio_url || synth.asset_ref)),
+      status: synth.status,
+      provider: synth.provider,
+      provider_name: synth.provider,
+      playable_text: synth.playable_text || entry.text,
+      audio_url: synth.audio_url,
+      asset_ref: synth.asset_ref,
+      audio_ref: synth.asset_ref || synth.audio_url || null,
+      replay_token: synth.replay_token || null,
+      expires_at: synth.expires_at || null,
+      chunk_index: synth.chunk_index,
+      error: synth.error || null,
+    };
+  }
 
-    const out = [];
-    for (const entry of chunks) {
-      const synth = await adapter.synthesize(entry.request);
-      out.push({
-        ...entry,
-        available: Boolean(synth.ok),
-        provider: synth.provider,
-        audio_ref: synth.ok ? synth.audio_ref : null,
-        replay_token: synth.ok ? synth.replay_token : null,
-        duration_ms: synth.ok ? synth.duration_ms : null,
-        format: synth.ok ? synth.format : null,
-      });
-    }
-    return out;
+  async function hydrateParentChunk(entry) {
+    const synth = await adapter.synthesizeReportSection(entry.request);
+    return {
+      ...entry,
+      available: Boolean(synth.ok && (synth.audio_url || synth.asset_ref)),
+      status: synth.status,
+      provider: synth.provider,
+      provider_name: synth.provider,
+      playable_text: synth.playable_text || entry.text,
+      audio_url: synth.audio_url,
+      asset_ref: synth.asset_ref,
+      audio_ref: synth.asset_ref || synth.audio_url || null,
+      replay_token: synth.replay_token || null,
+      expires_at: synth.expires_at || null,
+      chunk_index: synth.chunk_index,
+      error: synth.error || null,
+    };
   }
 
   function readLatestCheckin(snapshot) {
@@ -124,19 +138,26 @@ function createVoiceService(options = {}) {
       const prompt = row.prompt;
       const voiceText = String(prompt.voice_text || "").trim();
       const playbackId = deterministicId("checkin_playback", { child_id: childId, checkin_id: latestCheckin.checkin_id, prompt_id: prompt.prompt_id });
-      const voiceProfile = {
-        age_band: String(prompt.age_band || latestCheckin.age_band || "8-10"),
-        voice_pacing: String(prompt.voice_pacing || "short"),
-      };
-      const chunkMetadata = toChunkMetadata(playbackId, row.key, voiceText, voiceProfile);
-      const hydratedChunks = await maybeHydrateAudio(chunkMetadata);
+      const ageBand = String(prompt.age_band || latestCheckin.age_band || "8-10");
+      const voicePacing = String(prompt.voice_pacing || "short");
+      const chunkMetadata = toChunkMetadata(playbackId, row.key, voiceText, {
+        child_id: childId,
+        age_band: ageBand,
+        prompt_id: prompt.prompt_id,
+        voice_pacing: voicePacing,
+      });
+
+      const hydratedChunks = [];
+      for (const entry of chunkMetadata) {
+        hydratedChunks.push(await hydrateChildChunk(entry));
+      }
 
       prompts.push({
         prompt_id: prompt.prompt_id,
         prompt_type: prompt.prompt_type,
         prompt_key: row.key,
-        age_band: voiceProfile.age_band,
-        voice_pacing: voiceProfile.voice_pacing,
+        age_band: ageBand,
+        voice_pacing: voicePacing,
         playback_id: playbackId,
         replay_supported: true,
         voice_required: false,
@@ -179,8 +200,15 @@ function createVoiceService(options = {}) {
       if (!section) continue;
       const voiceText = String(section.text_content || "").trim();
       const playbackId = deterministicId("parent_playback", { child_id: childId, section_key: sectionKey, voice_chunk_id: section.voice_chunk_id });
-      const chunkMetadata = toChunkMetadata(playbackId, sectionKey, voiceText, { voice_pacing: "short" });
-      const hydratedChunks = await maybeHydrateAudio(chunkMetadata);
+      const chunkMetadata = toChunkMetadata(playbackId, sectionKey, voiceText, {
+        child_id: childId,
+        section_key: sectionKey,
+      });
+
+      const hydratedChunks = [];
+      for (const entry of chunkMetadata) {
+        hydratedChunks.push(await hydrateParentChunk(entry));
+      }
 
       playbackSections.push({
         section_key: sectionKey,
