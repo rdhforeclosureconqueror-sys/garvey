@@ -30,6 +30,7 @@ function scoreTraitsFromSignals(normalizedSignals = [], options = {}) {
     });
 
     const sourceTypes = new Set(allowedSignals.map((signal) => signal.source_type));
+    const evidenceSources = new Set(allowedSignals.map((signal) => `${signal.source_type || "unknown"}:${signal.source_id || "unknown"}`));
     const presentSignalTypes = new Set(allowedSignals.map((signal) => signal.signal_type));
     const requiredMissing = contract.required_signal_types.filter((requiredType) => !presentSignalTypes.has(requiredType));
 
@@ -40,7 +41,7 @@ function scoreTraitsFromSignals(normalizedSignals = [], options = {}) {
     }
 
     const signalCountOk = allowedSignals.length >= contract.minimum_signal_count;
-    const sourceDiversityOk = sourceTypes.size >= Math.max(2, contract.minimum_source_diversity);
+    const sourceDiversityOk = evidenceSources.size >= Math.max(2, contract.minimum_source_diversity);
     const requiredSignalsOk = requiredMissing.length === 0;
     const nonInterventionSignals = allowedSignals.filter(
       (signal) => String(signal.evidence_status_tag || "") !== "INTERVENTION_SESSION_LOG"
@@ -92,7 +93,8 @@ function scoreTraitsFromSignals(normalizedSignals = [], options = {}) {
       internal_partial_score,
       confidence_score,
       signal_count: allowedSignals.length,
-      source_diversity: sourceTypes.size,
+      source_diversity: evidenceSources.size,
+      source_type_diversity: sourceTypes.size,
       missing_required_signal_types: requiredMissing,
       weighting_policy: contract.weighting_policy,
       source_signals: allowedSignals.map((signal) => signal.signal_id),

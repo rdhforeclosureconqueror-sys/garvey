@@ -10,6 +10,7 @@ function createTdePersistenceRepository(pool = null) {
     validationExports: [],
     commitmentPlans: [],
     interventionSessions: [],
+    developmentCheckins: [],
   };
 
   async function persistSignals(runId, signals) {
@@ -522,6 +523,48 @@ function createTdePersistenceRepository(pool = null) {
     return rows.rows.map((row) => row.payload || {});
   }
 
+
+  async function persistDevelopmentCheckin(checkin) {
+    if (!pool) {
+      inMemory.developmentCheckins = inMemory.developmentCheckins.filter((entry) => entry.checkin_id !== checkin.checkin_id);
+      inMemory.developmentCheckins.push(checkin);
+      return { persisted: 1, mode: "memory" };
+    }
+
+    await pool.query(
+      `INSERT INTO tde_development_checkins
+        (checkin_id, child_id, program_week, checkin_due, completed_at, evidence_source_type, payload)
+       VALUES ($1,$2,$3,$4,$5,$6,$7::jsonb)
+       ON CONFLICT (checkin_id) DO UPDATE
+       SET program_week = EXCLUDED.program_week,
+           checkin_due = EXCLUDED.checkin_due,
+           completed_at = EXCLUDED.completed_at,
+           evidence_source_type = EXCLUDED.evidence_source_type,
+           payload = EXCLUDED.payload,
+           updated_at = NOW()`,
+      [
+        checkin.checkin_id,
+        checkin.child_id,
+        checkin.program_week,
+        checkin.checkin_due === true,
+        checkin.completed_at,
+        checkin.evidence_source_type || "development_checkin",
+        JSON.stringify(checkin),
+      ]
+    );
+    return { persisted: 1, mode: "database" };
+  }
+
+  async function listDevelopmentCheckins(childId) {
+    if (!pool) {
+      return inMemory.developmentCheckins
+        .filter((entry) => entry.child_id === childId)
+        .sort((a, b) => `${a.completed_at || ""}`.localeCompare(`${b.completed_at || ""}`));
+    }
+    const rows = await pool.query(`SELECT payload FROM tde_development_checkins WHERE child_id = $1 ORDER BY completed_at ASC`, [childId]);
+    return rows.rows.map((row) => row.payload || {});
+  }
+
   return {
     persistSignals,
     persistTraitScores,
@@ -539,6 +582,8 @@ function createTdePersistenceRepository(pool = null) {
     getCommitmentPlan,
     persistInterventionSession,
     listInterventionSessions,
+    persistDevelopmentCheckin,
+    listDevelopmentCheckins,
   };
 }
 
