@@ -40,11 +40,11 @@ test('phase11 parent-experience includes developmental check-in visibility and e
           completed_at: completedAt,
           responses: {
             child: [
-              { prompt_id: blueprint.prompts.performance_based_prompts[0].prompt_id, response_text: 'strategy use', value: childScore },
-              { prompt_id: blueprint.prompts.reflection_prompts[0].prompt_id, response_text: 'reflection movement', value: reflectionScore },
+              { prompt_id: blueprint.prompts.performance_prompt.prompt_id, response_text: 'strategy use', value: childScore },
+              { prompt_id: blueprint.prompts.reflection_prompt.prompt_id, response_text: 'reflection movement', value: reflectionScore },
             ],
-            transfer: blueprint.prompts.optional_transfer_task
-              ? { prompt_id: blueprint.prompts.optional_transfer_task.prompt_id, response_text: 'transfer', value: childScore }
+            transfer: blueprint.prompts.optional_transfer_prompt
+              ? { prompt_id: blueprint.prompts.optional_transfer_prompt.prompt_id, response_text: 'transfer', value: childScore }
               : undefined,
             parent: { parent_id: 'parent-p11', response_text: 'parent context', value: parentScore },
           },

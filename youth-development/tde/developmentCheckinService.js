@@ -35,8 +35,8 @@ function toWeek(value) {
   return Math.floor(week);
 }
 
-function isBiweeklyCheckinDue(programWeek) {
-  return programWeek > 0 && (programWeek % 2 === 0);
+function isWeeklyCheckinDue(programWeek) {
+  return programWeek > 0;
 }
 
 function buildPromptId(checkinId, prefix, seed) {
@@ -46,7 +46,7 @@ function buildPromptId(checkinId, prefix, seed) {
 function generateDevelopmentCheckin(payload = {}) {
   const childId = String(payload.child_id || "").trim();
   const programWeek = toWeek(payload.program_week);
-  const checkinDue = isBiweeklyCheckinDue(programWeek);
+  const checkinDue = isWeeklyCheckinDue(programWeek);
   const calibrationVersion = String(payload.calibration_version || DEFAULT_CALIBRATION_VERSION);
 
   const checkinId = deterministicId("checkin", {
@@ -55,37 +55,61 @@ function generateDevelopmentCheckin(payload = {}) {
     calibration_version: calibrationVersion,
   });
 
+  const ageBand = String(payload.age_band || "8-10").trim() || "8-10";
+  const voiceChunkLimit = Number(CALIBRATION_VARIABLES.voice_architecture.voice_chunk_max_length || 180);
+  const cleanVoiceText = (text) => String(text || "").trim().split(/\s+/).slice(0, Math.max(1, Math.floor(voiceChunkLimit / 6))).join(" ");
   const perfStart = programWeek % PERFORMANCE_PROMPT_BANK.length;
-  const performance_based_prompts = [
-    PERFORMANCE_PROMPT_BANK[perfStart],
-    PERFORMANCE_PROMPT_BANK[(perfStart + 1) % PERFORMANCE_PROMPT_BANK.length],
-  ].map((entry, idx) => ({
-    prompt_id: buildPromptId(checkinId, "cp", `${entry.trait_code}_${idx}`),
-    prompt_type: "performance_based",
-    ...entry,
-  }));
+  const performanceEntry = PERFORMANCE_PROMPT_BANK[perfStart];
+  const performance_prompt = {
+    prompt_id: buildPromptId(checkinId, "cp", `${performanceEntry.trait_code}_0`),
+    prompt_type: "performance",
+    ...performanceEntry,
+    target_traits: [performanceEntry.trait_code],
+    age_band: ageBand,
+    voice_ready: true,
+    voice_text: cleanVoiceText(performanceEntry.prompt_text),
+    voice_pacing: "short",
+    voice_chunk_id: buildPromptId(checkinId, "voice", "performance"),
+  };
 
   const reflectionStart = programWeek % REFLECTION_PROMPT_BANK.length;
-  const reflection_prompts = [
-    REFLECTION_PROMPT_BANK[reflectionStart],
-  ].map((entry, idx) => ({
-    prompt_id: buildPromptId(checkinId, "cr", `${entry.trait_code}_${idx}`),
+  const reflectionEntry = REFLECTION_PROMPT_BANK[reflectionStart];
+  const reflection_prompt = {
+    prompt_id: buildPromptId(checkinId, "cr", `${reflectionEntry.trait_code}_0`),
     prompt_type: "reflection",
-    ...entry,
-  }));
+    ...reflectionEntry,
+    target_traits: [reflectionEntry.trait_code],
+    age_band: ageBand,
+    voice_ready: true,
+    voice_text: cleanVoiceText(reflectionEntry.prompt_text),
+    voice_pacing: "short",
+    voice_chunk_id: buildPromptId(checkinId, "voice", "reflection"),
+  };
 
-  const optional_transfer_task = (programWeek % 4 === 0)
+  const optional_transfer_prompt = (programWeek % 4 === 0)
     ? {
         prompt_id: buildPromptId(checkinId, "ct", `transfer_${programWeek}`),
-        prompt_type: "transfer_optional",
+        prompt_type: "transfer",
         ...TRANSFER_PROMPT,
+        target_traits: [TRANSFER_PROMPT.trait_code],
+        age_band: ageBand,
+        voice_ready: true,
+        voice_text: cleanVoiceText(TRANSFER_PROMPT.prompt_text),
+        voice_pacing: "medium",
+        voice_chunk_id: buildPromptId(checkinId, "voice", "transfer"),
       }
     : null;
 
-  const parent_observation_input = {
+  const parent_observation_prompt = {
     prompt_id: buildPromptId(checkinId, "parent", `parent_${programWeek}`),
-    prompt_type: "parent_observation",
+    prompt_type: "observation",
     ...PARENT_PROMPT,
+    target_traits: [PARENT_PROMPT.trait_code],
+    age_band: ageBand,
+    voice_ready: false,
+    voice_text: cleanVoiceText(PARENT_PROMPT.prompt_text),
+    voice_pacing: "short",
+    voice_chunk_id: buildPromptId(checkinId, "voice", "observation"),
   };
 
   return {
@@ -93,15 +117,17 @@ function generateDevelopmentCheckin(payload = {}) {
     child_id: childId,
     program_week: programWeek,
     checkin_due: checkinDue,
-    cadence_weeks: 2,
+    cadence_weeks: 1,
+    target_duration_minutes: Number(CALIBRATION_VARIABLES.developmental_checkins.weekly_checkin_max_duration_minutes || 5),
     calibration_version: calibrationVersion,
     prompts: {
-      performance_based_prompts,
-      reflection_prompts,
-      optional_transfer_task,
-      parent_observation_input,
+      performance_prompt,
+      reflection_prompt,
+      optional_transfer_prompt,
+      parent_observation_prompt,
     },
-    developmental_framing: "developmental_snapshot_not_quiz",
+    developmental_framing: "weekly_micro_checkin_developmental_snapshot",
+    right_wrong_scoring_disabled: true,
     deterministic: true,
     extension_only: true,
   };
@@ -115,10 +141,10 @@ function toEvidenceEntries(checkin, payload = {}) {
 
   const promptById = new Map();
   const allPromptRows = [
-    ...checkin.prompts.performance_based_prompts,
-    ...checkin.prompts.reflection_prompts,
-    checkin.prompts.optional_transfer_task,
-    checkin.prompts.parent_observation_input,
+    checkin.prompts.performance_prompt,
+    checkin.prompts.reflection_prompt,
+    checkin.prompts.optional_transfer_prompt,
+    checkin.prompts.parent_observation_prompt,
   ].filter(Boolean);
 
   for (const prompt of allPromptRows) promptById.set(prompt.prompt_id, prompt);
@@ -130,7 +156,7 @@ function toEvidenceEntries(checkin, payload = {}) {
     if (!prompt) continue;
     const observedAt = String(response.observed_at || payload.completed_at || new Date().toISOString());
     const responseText = String(response.response_text || "").trim();
-    evidence.push({
+      evidence.push({
       evidence_id: deterministicId("checkin_evidence", { checkin_id: checkin.checkin_id, prompt_id: prompt.prompt_id, source_actor: "child", response_text: responseText }),
       child_id: checkin.child_id,
       session_id: checkin.checkin_id,
@@ -144,15 +170,16 @@ function toEvidenceEntries(checkin, payload = {}) {
       value_max: 4,
       confidence_weight: Number.isFinite(Number(response.confidence_weight)) ? Number(response.confidence_weight) : 0.65,
       evidence_status_tag: EVIDENCE_STATUS_TAG.OPERATIONAL_SYSTEM_CONSTRUCT,
-      prompt_id: prompt.prompt_id,
-      raw_response: responseText,
+        prompt_id: prompt.prompt_id,
+        prompt_type: prompt.prompt_type,
+        raw_response: responseText,
       observed_at: observedAt,
       trace_ref: deterministicId("checkin_trace", { checkin_id: checkin.checkin_id, prompt_id: prompt.prompt_id, observed_at: observedAt, source_actor: "child" }),
     });
   }
 
-  if (transferResponse && checkin.prompts.optional_transfer_task && String(transferResponse.response_text || "").trim()) {
-    const prompt = checkin.prompts.optional_transfer_task;
+  if (transferResponse && checkin.prompts.optional_transfer_prompt && String(transferResponse.response_text || "").trim()) {
+    const prompt = checkin.prompts.optional_transfer_prompt;
     const observedAt = String(transferResponse.observed_at || payload.completed_at || new Date().toISOString());
     evidence.push({
       evidence_id: deterministicId("checkin_evidence", { checkin_id: checkin.checkin_id, prompt_id: prompt.prompt_id, source_actor: "child_transfer", response_text: transferResponse.response_text }),
@@ -169,6 +196,7 @@ function toEvidenceEntries(checkin, payload = {}) {
       confidence_weight: Number.isFinite(Number(transferResponse.confidence_weight)) ? Number(transferResponse.confidence_weight) : 0.6,
       evidence_status_tag: EVIDENCE_STATUS_TAG.OPERATIONAL_SYSTEM_CONSTRUCT,
       prompt_id: prompt.prompt_id,
+      prompt_type: prompt.prompt_type,
       raw_response: String(transferResponse.response_text || "").trim(),
       observed_at: observedAt,
       trace_ref: deterministicId("checkin_trace", { checkin_id: checkin.checkin_id, prompt_id: prompt.prompt_id, observed_at: observedAt, source_actor: "child_transfer" }),
@@ -176,8 +204,13 @@ function toEvidenceEntries(checkin, payload = {}) {
   }
 
   if (parentResponse && String(parentResponse.response_text || "").trim()) {
-    const prompt = checkin.prompts.parent_observation_input;
+    const prompt = checkin.prompts.parent_observation_prompt;
     const observedAt = String(parentResponse.observed_at || payload.completed_at || new Date().toISOString());
+    const normalizedObservation = {
+      observed_effort: Number.isFinite(Number(parentResponse.observed_effort)) ? Number(parentResponse.observed_effort) : 3,
+      observed_persistence: Number.isFinite(Number(parentResponse.observed_persistence)) ? Number(parentResponse.observed_persistence) : 3,
+      support_need_level: Number.isFinite(Number(parentResponse.support_need_level)) ? Number(parentResponse.support_need_level) : 2,
+    };
     evidence.push({
       evidence_id: deterministicId("checkin_evidence", { checkin_id: checkin.checkin_id, prompt_id: prompt.prompt_id, source_actor: "parent", response_text: parentResponse.response_text }),
       child_id: checkin.child_id,
@@ -193,7 +226,9 @@ function toEvidenceEntries(checkin, payload = {}) {
       confidence_weight: Number.isFinite(Number(parentResponse.confidence_weight)) ? Number(parentResponse.confidence_weight) : 0.7,
       evidence_status_tag: EVIDENCE_STATUS_TAG.OPERATIONAL_SYSTEM_CONSTRUCT,
       prompt_id: prompt.prompt_id,
+      prompt_type: prompt.prompt_type,
       raw_response: String(parentResponse.response_text || "").trim(),
+      normalized_observation: normalizedObservation,
       observed_at: observedAt,
       trace_ref: deterministicId("checkin_trace", { checkin_id: checkin.checkin_id, prompt_id: prompt.prompt_id, observed_at: observedAt, source_actor: "parent" }),
     });
@@ -232,6 +267,7 @@ async function runDevelopmentCheckin(payload = {}, repository) {
       source_id: checkin.checkin_id,
       confidence_contribution_supported: true,
       non_override_policy: "additive_distinct_source",
+      requires_additional_source_for_trait_scoring: true,
       traceable_to_raw_response: true,
     },
   };
@@ -261,6 +297,7 @@ async function runDevelopmentCheckin(payload = {}, repository) {
         reported_trait_score: entry.reported_trait_score,
       })),
       non_override_policy: "does_not_replace_session_or_intervention_evidence",
+      requires_additional_source_for_trait_scoring: true,
     },
     persistence,
     deterministic: true,
@@ -285,7 +322,7 @@ function summarizeDevelopmentCheckins(checkins = [], options = {}) {
   const latest = sorted.at(-1) || null;
   const prior = sorted.at(-2) || null;
   const currentWeek = Number(options.current_week || latest?.program_week || 1);
-  const nextExpectedWeek = currentWeek % 2 === 0 ? currentWeek + 2 : currentWeek + 1;
+  const nextExpectedWeek = currentWeek + 1;
 
   const traceableEntries = sorted.flatMap((entry) => Array.isArray(entry.evidence_map) ? entry.evidence_map : []);
   const traceabilityRatio = traceableEntries.length
@@ -320,7 +357,7 @@ function summarizeDevelopmentCheckins(checkins = [], options = {}) {
     checkin_history_count: historyCount,
     next_expected_checkin: {
       expected_program_week: nextExpectedWeek,
-      cadence_weeks: 2,
+      cadence_weeks: 1,
       status: latest && currentWeek <= Number(latest.program_week || 0) ? "awaiting_completion" : "scheduled",
     },
     latest_checkin_summary: latest
@@ -346,7 +383,29 @@ function summarizeDevelopmentCheckins(checkins = [], options = {}) {
       contributes_to_confidence_context: historyCount > 0,
       evidence_stream_weight: "supplemental_not_override",
       current_contribution: historyCount > 0 ? "development_checkin_evidence_present" : "development_checkin_evidence_missing",
+      checkin_confidence_weight: Number(CALIBRATION_VARIABLES.developmental_checkins.checkin_confidence_weight || 0.2),
     },
+    consistency: {
+      completed_checkins: historyCount,
+      expected_weekly_ratio: Number(consistencyRatio.toFixed(3)),
+      status: sufficientConsistency ? "consistent" : "inconsistent",
+    },
+    trend_signals: {
+      reflection_quality_delta: reflectionDelta,
+      transfer_attempt_quality_latest: Number(transferLatest.toFixed(3)),
+      cross_source_disagreement_present: disagreement,
+    },
+    confidence_contribution: {
+      contributes: historyCount > 0,
+      minimum_history_for_confidence: Number(CALIBRATION_VARIABLES.developmental_checkins.minimum_checkin_history_for_confidence || 3),
+      threshold_met: historyCount >= Number(CALIBRATION_VARIABLES.developmental_checkins.minimum_checkin_history_for_confidence || 3),
+    },
+    missing_data_flags: [
+      ...(historyCount === 0 ? ["weekly_checkin_history_missing"] : []),
+      ...(traceabilityRatio < 1 ? ["traceability_gap_present"] : []),
+      ...(!parentRows.length ? ["parent_observation_missing"] : []),
+      ...(!childRows.length ? ["child_response_missing"] : []),
+    ],
     evidence_sufficiency: {
       status: sufficientEvidence ? "sufficient" : "limited",
       has_enough_checkin_evidence: sufficientEvidence,
@@ -380,5 +439,5 @@ module.exports = {
   runDevelopmentCheckin,
   listDevelopmentCheckins,
   summarizeDevelopmentCheckins,
-  isBiweeklyCheckinDue,
+  isWeeklyCheckinDue,
 };

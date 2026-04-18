@@ -21,7 +21,7 @@ function mountApp() {
   };
 }
 
-test('developmental check-in generation is deterministic and biweekly', () => {
+test('developmental check-in generation is deterministic and weekly', () => {
   const payload = { child_id: 'child-p10', program_week: 10 };
   const first = generateDevelopmentCheckin(payload);
   const second = generateDevelopmentCheckin(payload);
@@ -29,12 +29,12 @@ test('developmental check-in generation is deterministic and biweekly', () => {
   assert.equal(first.checkin_due, true);
 
   const oddWeek = generateDevelopmentCheckin({ child_id: 'child-p10', program_week: 11 });
-  assert.equal(oddWeek.checkin_due, false);
+  assert.equal(oddWeek.checkin_due, true);
 });
 
 test('development check-in contract rejects invalid structure and quiz language', () => {
   const checkin = generateDevelopmentCheckin({ child_id: 'child-p10', program_week: 12 });
-  checkin.prompts.performance_based_prompts[0].prompt_text = 'What is the right answer in this quiz?';
+  checkin.prompts.performance_prompt.prompt_text = 'What is the right answer in this quiz?';
 
   const invalid = validateDevelopmentCheckinContract({
     checkin,
@@ -52,7 +52,7 @@ test('development check-in contract rejects invalid structure and quiz language'
   assert.equal(invalid.ok, false);
   assert.ok(invalid.errors.includes('developmental_language_violation'));
   assert.ok(invalid.errors.includes('minimum_two_evidence_sources_required'));
-  assert.ok(invalid.errors.includes('multi_signal_capture_child_parent_required'));
+  assert.ok(invalid.errors.includes('minimum_two_evidence_contributors_required'));
 });
 
 test('check-in route enforces multi-source evidence and persists child history', async () => {
@@ -67,7 +67,7 @@ test('check-in route enforces multi-source evidence and persists child history',
         child_id: 'child-p10-route',
         program_week: 12,
         responses: {
-          child: [{ prompt_id: generateDevelopmentCheckin({ child_id: 'child-p10-route', program_week: 12 }).prompts.performance_based_prompts[0].prompt_id, response_text: 'I stayed with a strategy', value: 3 }],
+          child: [{ prompt_id: generateDevelopmentCheckin({ child_id: 'child-p10-route', program_week: 12 }).prompts.performance_prompt.prompt_id, response_text: 'I stayed with a strategy', value: 3 }],
         },
       }),
     });
@@ -82,10 +82,10 @@ test('check-in route enforces multi-source evidence and persists child history',
         program_week: 12,
         completed_at: '2026-04-18T12:00:00.000Z',
         responses: {
-          child: [
-            { prompt_id: blueprint.prompts.performance_based_prompts[0].prompt_id, response_text: 'I planned before starting', value: 3 },
-            { prompt_id: blueprint.prompts.reflection_prompts[0].prompt_id, response_text: 'I noticed better focus on the second try', value: 3 },
-          ],
+            child: [
+            { prompt_id: blueprint.prompts.performance_prompt.prompt_id, response_text: 'I planned before starting', value: 3 },
+            { prompt_id: blueprint.prompts.reflection_prompt.prompt_id, response_text: 'I noticed better focus on the second try', value: 3 },
+            ],
           parent: { parent_id: 'parent-1', response_text: 'Child used a plan with less reminding across home tasks', value: 3 },
         },
       }),
