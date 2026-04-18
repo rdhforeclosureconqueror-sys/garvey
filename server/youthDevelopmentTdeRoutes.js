@@ -20,6 +20,13 @@ const {
   getCalibrationSummary,
 } = require("../youth-development/tde/validationOperationsService");
 const {
+  getAdminOverview,
+  getAdminRolloutStatus,
+  getAdminFeatureFlags,
+  getAdminValidationStatus,
+  getAdminEvidenceQualityOverview,
+} = require("../youth-development/tde/adminOperationsService");
+const {
   getParentExperience,
   getRoadmapForChild,
   getSupportActionsForChild,
@@ -251,6 +258,35 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     const childId = String(req.params.childId || "").trim();
     if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
     const result = await getEvidenceQualitySummary(childId, repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/admin/overview", async (req, res) => {
+    const childId = String(req.query?.child_id || "").trim();
+    const result = await getAdminOverview({ repository, voiceService, child_id: childId });
+    return res.status(200).json(result);
+  });
+
+  router.get("/admin/rollout-status", async (req, res) => {
+    const childId = String(req.query?.child_id || "").trim();
+    const result = await getAdminRolloutStatus({ repository, voiceService, child_id: childId });
+    return res.status(200).json(result);
+  });
+
+  router.get("/admin/feature-flags", async (_req, res) => {
+    const result = await getAdminFeatureFlags();
+    return res.status(200).json(result);
+  });
+
+  router.get("/admin/validation-status", async (req, res) => {
+    const childId = String(req.query?.child_id || "").trim();
+    const result = await getAdminValidationStatus({ repository, child_id: childId });
+    return res.status(200).json(result);
+  });
+
+  router.get("/admin/evidence-quality-overview", async (req, res) => {
+    const childId = String(req.query?.child_id || "").trim();
+    const result = await getAdminEvidenceQualityOverview({ repository, child_id: childId });
     return res.status(200).json(result);
   });
 
