@@ -48,10 +48,14 @@ const { SESSION_EVIDENCE_CONTRACT, validateSessionEvidenceContract } = require("
 const { INTERVENTION_ENVIRONMENT_EXTENSION_CONTRACT } = require("../youth-development/tde/interventionEnvironmentContract");
 const { DEVELOPMENT_CHECKIN_CONTRACT, VOICE_READY_SCHEMA_RULES } = require("../youth-development/tde/developmentCheckinContract");
 const { runDevelopmentCheckin, listDevelopmentCheckins } = require("../youth-development/tde/developmentCheckinService");
+const { createVoiceService } = require("../youth-development/tde/voiceService");
 
 function createYouthDevelopmentTdeRouter(options = {}) {
   const router = express.Router();
   const repository = options.repository || createTdePersistenceRepository(options.pool || null);
+  const voiceService = options.voiceService || createVoiceService({
+    provider_options: options.voice_provider_options || {},
+  });
 
   router.use((req, res, next) => {
     if (!isTdeExtensionEnabled(req)) {
@@ -76,6 +80,24 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     extension_only: true,
     contract: VOICE_READY_SCHEMA_RULES,
   }));
+
+  router.get("/voice/config", (_req, res) => {
+    return res.status(200).json(voiceService.getConfig());
+  });
+
+  router.get("/voice/checkin/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await voiceService.getChildCheckinPlayback(childId, repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/voice/sections/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await voiceService.getParentSectionPlayback(childId, repository);
+    return res.status(200).json(result);
+  });
 
   router.get("/contracts/intervention", (_req, res) => res.status(200).json({
     ok: true,
