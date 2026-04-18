@@ -12,12 +12,14 @@ async function runTdePipeline(payload, repository) {
     session_id: payload.session_id || null,
     evidence: payload.evidence || [],
     calibration_version: calibrationVersion,
+    adherence_context: payload.adherence_context || null,
   });
 
   const extraction = extractSignalsFromEvidence(payload);
-  const scoring = scoreTraitsFromSignals(extraction.extracted_signals);
+  const scoring = scoreTraitsFromSignals(extraction.extracted_signals, { adherence_context: payload.adherence_context || {} });
   const statements = generateTraceableStatements(scoring.trait_results, extraction.extracted_signals, {
     calibration_version: calibrationVersion,
+    adherence_context: payload.adherence_context || null,
   });
 
   const status = scoring.missing_contracts.length ? "completed_with_contract_gaps" : "completed";

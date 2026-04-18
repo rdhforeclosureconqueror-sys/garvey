@@ -110,9 +110,17 @@ function listActivitiesByComponent(componentType) {
   };
 }
 
+function getComponentTypeByActivityId(activityId) {
+  const target = String(activityId || "").trim();
+  if (!target) return null;
+  const match = ACTIVITY_BANK.find((activity) => activity.activity_id === target && activity.enabled !== false);
+  return match ? match.component_type : null;
+}
+
 module.exports = {
   COMPONENT_TYPES,
   ACTIVITY_BANK,
   validateActivity,
   listActivitiesByComponent,
+  getComponentTypeByActivityId,
 };

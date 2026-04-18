@@ -1,28 +1,9 @@
 "use strict";
 
-function normalizeCommitmentPlan(payload = {}) {
-  return {
-    child_id: String(payload.child_id || "").trim(),
-    committed_days_per_week: Number(payload.committed_days_per_week || 0),
-    preferred_days: Array.isArray(payload.preferred_days) ? payload.preferred_days.map((entry) => String(entry)) : [],
-    preferred_time_window: String(payload.preferred_time_window || ""),
-    session_length: Number(payload.session_length || 0),
-    facilitator_role: String(payload.facilitator_role || "parent"),
-    created_at: payload.created_at || new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  };
-}
-
-function validateCommitmentPlan(plan = {}) {
-  const errors = [];
-  if (!plan.child_id) errors.push("child_id_required");
-  if (!Number.isFinite(plan.committed_days_per_week) || plan.committed_days_per_week <= 0) errors.push("committed_days_per_week_invalid");
-  if (!Array.isArray(plan.preferred_days) || !plan.preferred_days.length) errors.push("preferred_days_required");
-  if (!plan.preferred_time_window) errors.push("preferred_time_window_required");
-  if (!Number.isFinite(plan.session_length) || plan.session_length <= 0) errors.push("session_length_invalid");
-  if (!plan.facilitator_role) errors.push("facilitator_role_required");
-  return { ok: errors.length === 0, errors };
-}
+const {
+  normalizeCommitmentPlan,
+  validateCommitmentPlan,
+} = require("./commitmentPlanContract");
 
 function summarizeAdherence(plan = null, sessions = []) {
   const completed = sessions.filter((entry) => entry.full_session_completed === true);
@@ -41,6 +22,7 @@ function summarizeAdherence(plan = null, sessions = []) {
   return {
     planned_sessions: planned,
     completed_sessions: completed.length,
+    missed_planned_sessions: Math.max(0, planned - completed.length),
     total_sessions_recorded: sessions.length,
     full_session_completion_rate: Number(fullCompletionRate.toFixed(4)),
     adherence_percentage: Number(adherencePercentage.toFixed(2)),
