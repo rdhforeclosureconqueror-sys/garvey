@@ -4,6 +4,7 @@ const { PROGRAM_PHASES, PROGRAM_WEEKS, PROGRAM_CHECKPOINTS } = require("./progra
 const { buildInterventionSummary } = require("./interventionSummaryService");
 const { summarizeDevelopmentCheckins } = require("./developmentCheckinService");
 const { CALIBRATION_VARIABLES, deterministicId } = require("./constants");
+const { registerVoiceReadableContentBlocks } = require("./voiceContentRegistry");
 
 const PHASE_LABELS = Object.freeze({
   1: "Phase 1 · Foundation",
@@ -264,11 +265,19 @@ function buildDataSufficiencyStatus(consents, hooks, progressRecords) {
 function toVoiceSection(childId, sectionKey, textContent) {
   const maxLength = Number(CALIBRATION_VARIABLES.voice_architecture.voice_chunk_max_length || 180);
   const text = String(textContent || "").trim().slice(0, maxLength);
-  return {
+  const section = {
+    section_key: sectionKey,
     text_content: text,
     voice_ready: true,
+    voice_text: text,
     voice_chunk_id: deterministicId("voice_section", { child_id: childId, section: sectionKey, text }),
+    playback_optional: true,
     max_length: maxLength,
+  };
+  const registration = registerVoiceReadableContentBlocks([section], { scope: "parent_report_section", child_id: childId });
+  return {
+    ...section,
+    readability_registration: registration.blocks[0],
   };
 }
 
@@ -325,6 +334,17 @@ function buildParentExperienceViewModel(childId, snapshot = {}) {
     environment: toVoiceSection(childId, "environment", environmentFocusAreas.length ? `Environment focus: ${environmentFocusAreas.join(", ")}.` : "Environment priorities will appear after more snapshots."),
     next_steps: toVoiceSection(childId, "next_steps", `Next step: prepare for ${nextCheckpoint.checkpoint_type} at Week ${nextCheckpoint.week_number}.`),
   };
+  const reportSectionsRegistration = registerVoiceReadableContentBlocks(
+    Object.entries(report_sections).map(([sectionKey, section]) => ({
+      section_key: sectionKey,
+      text_content: section.text_content,
+      voice_ready: section.voice_ready,
+      voice_text: section.voice_text,
+      voice_chunk_id: section.voice_chunk_id,
+      playback_optional: true,
+    })),
+    { scope: "parent_report_section", child_id: childId }
+  );
 
   return {
     ok: true,
@@ -374,6 +394,7 @@ function buildParentExperienceViewModel(childId, snapshot = {}) {
     },
     progress_over_time_summary: summarizeProgressTimeline(progressRecords),
     report_sections,
+    report_sections_registration: reportSectionsRegistration,
     next_step_plan: {
       now: "Continue weekly developmental observations using extension contracts.",
       next: `Prepare for ${nextCheckpoint.checkpoint_type} at Week ${nextCheckpoint.week_number}.`,

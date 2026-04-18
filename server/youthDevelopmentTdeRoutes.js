@@ -107,6 +107,26 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     return res.status(200).json(result);
   });
 
+  router.get("/voice/analytics/summary", async (req, res) => {
+    const childId = String(req.query?.child_id || "").trim();
+    const result = voiceService.getVoiceAnalyticsSummary({ child_id: childId || undefined });
+    return res.status(200).json(result);
+  });
+
+  router.get("/voice/pilot-status/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await voiceService.getVoicePilotStatus(childId, repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/voice/eligibility/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await voiceService.getVoiceEligibility(childId, repository);
+    return res.status(200).json(result);
+  });
+
   router.get("/contracts/intervention", (_req, res) => res.status(200).json({
     ok: true,
     deterministic: true,

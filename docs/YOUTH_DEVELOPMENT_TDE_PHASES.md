@@ -390,3 +390,51 @@ Phase 15 adds TDE operational surfacing for real voice-enabled parent/child expe
 - Confirm `voice_status.checkin_prompt_ready_for_playback` and `voice_status.parent_section_ready_for_playback` for target child IDs.
 - Review diagnostics for repeated `missing_playable_asset_indicators` and `last_fallback_reason` patterns.
 - Keep rollout in extension-only mode; live youth v1 routes remain unchanged.
+
+## Phase 16 (this pass)
+Phase 16 adds pilot rollout controls + analytics for TDE voice usage, and introduces the first universal readability/voice registration hook for new TDE content blocks.
+
+### What Phase 16 adds
+- Lightweight additive voice analytics events:
+  - `child_checkin_playback_requested`
+  - `child_replay_requested`
+  - `parent_section_playback_requested`
+  - `fallback_used`
+  - `provider_unavailable`
+  - `malformed_gateway_downgrade_used`
+  - `voice_not_shown_unavailable_or_unsupported`
+- Pilot visibility decision layer for child and parent voice surfacing using:
+  - gateway availability
+  - age-band support
+  - voice-ready content registration presence
+  - preview/rollout mode
+  - feature-flag visibility
+- Rollout bridge now carries additive voice rollout state (`enabled`, `hidden`, `fallback_only`, `preview_only`) while keeping voice optional.
+
+### Universal readability/voice registration hook
+- Added shared registration helper for newly generated TDE content blocks:
+  - `section_key`
+  - `text_content`
+  - `voice_ready`
+  - `voice_text`
+  - `voice_chunk_id`
+  - `playback_optional`
+  - `age_band` (when relevant)
+- New TDE generated content (check-in prompts and parent report sections) now uses this helper instead of one-off field wiring.
+- Voice visibility checks prefer this shared registration signal (`voice_ready_content_present`) where available.
+
+### Additive diagnostics endpoints
+- `GET /api/youth-development/tde/voice/analytics/summary`
+- `GET /api/youth-development/tde/voice/pilot-status/:childId`
+- `GET /api/youth-development/tde/voice/eligibility/:childId`
+
+### Pilot operator monitoring guidance
+- Track rising `fallback_used` + `provider_unavailable` totals for gateway risk.
+- Track `malformed_gateway_downgrade_used` for payload contract violations from the gateway.
+- Track `voice_not_shown_unavailable_or_unsupported` to distinguish rollout gating from provider outages.
+- Voice analytics are non-blocking and cannot block playback or progression.
+
+### Optionality and safety preserved
+- Voice remains optional and never required for core intake/assess/program progression.
+- Full-report single audio playback is still blocked.
+- Live youth v1 intake, assess, persistence, and parent dashboard behavior remains unchanged.
