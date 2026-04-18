@@ -4,6 +4,7 @@ const { buildInterventionSummary } = require("./interventionSummaryService");
 const { buildRecommendationInputs, generateRecommendations } = require("./recommendationService");
 const { evaluateInterventionReadiness, buildRolloutBridge } = require("./readinessRolloutService");
 const { summarizeDevelopmentCheckins } = require("./developmentCheckinService");
+const { buildInsightLayer } = require("./insightService");
 
 function buildConfidenceContext(snapshot = {}) {
   const progressRecords = Array.isArray(snapshot.progress_records) ? snapshot.progress_records : [];
@@ -88,6 +89,12 @@ async function getRollout(childId, repository) {
   };
 }
 
+
+async function getInsights(childId, repository) {
+  const snapshot = await repository.getProgramSnapshot(childId);
+  return buildInsightLayer(snapshot, { child_id: childId });
+}
+
 async function getCheckinSummary(childId, repository) {
   const snapshot = await repository.getProgramSnapshot(childId);
   const currentWeek = snapshot?.enrollment?.current_week || snapshot?.progress_records?.at(-1)?.week_number || 1;
@@ -107,4 +114,5 @@ module.exports = {
   getReadiness,
   getRollout,
   getCheckinSummary,
+  getInsights,
 };

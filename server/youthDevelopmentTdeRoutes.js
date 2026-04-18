@@ -26,6 +26,7 @@ const {
   getReadiness,
   getRollout,
   getCheckinSummary,
+  getInsights,
 } = require("../youth-development/tde/phase9ExtensionService");
 const {
   enrollInProgram,
@@ -307,6 +308,14 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     const childId = String(req.params.childId || "").trim();
     if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
     const result = await listDevelopmentCheckins(childId, repository);
+    return res.status(200).json(result);
+  });
+
+
+  router.get("/insights/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getInsights(childId, repository);
     return res.status(200).json(result);
   });
 
