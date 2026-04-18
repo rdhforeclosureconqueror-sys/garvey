@@ -10,6 +10,7 @@ const {
   buildPersonalizationModifiers,
   buildAdaptiveRecommendationExplanation,
 } = require("./personalizationService");
+const { buildGrowthTrajectory: buildGrowthTrajectoryModel, buildMilestoneComparison: buildMilestoneComparisonModel } = require("./growthTrajectoryService");
 
 function buildConfidenceContext(snapshot = {}) {
   const progressRecords = Array.isArray(snapshot.progress_records) ? snapshot.progress_records : [];
@@ -55,11 +56,15 @@ async function getRecommendations(childId, repository, options = {}) {
     Array.isArray(snapshot.development_checkins) ? snapshot.development_checkins : [],
     { current_week: snapshot?.enrollment?.current_week || snapshot?.progress_records?.at(-1)?.week_number || 1 }
   );
+  const growthTrajectory = buildGrowthTrajectoryModel(snapshot, { insights, pattern_history: patternHistory }, { child_id: childId });
   const context = buildRecommendationInputs(snapshot, commitmentPlan, sessions, confidenceContext, sufficiencyContext, {
     transfer_strength_status: checkinSummary.changes_since_prior_checkin?.transfer_attempt_quality_latest <= 1.8 ? "weak" : "stable",
     reflection_quality_status: checkinSummary.changes_since_prior_checkin?.reflection_quality_delta > 0 ? "improving" : "mixed",
     cross_source_disagreement_present: checkinSummary.cross_source_disagreement?.present === true,
     evidence_sufficiency_status: checkinSummary.evidence_sufficiency?.status || "limited",
+  }, {
+    trajectory_state: growthTrajectory.trajectory_state,
+    trajectory_confidence: growthTrajectory?.confidence_context?.confidence_label || "low",
   });
   return generateRecommendations({
     child_id: childId,
@@ -88,6 +93,24 @@ async function getPatternHistory(childId, repository) {
     missing_contracts: history.missing_contracts,
     contracts_status: history.contracts_status,
   };
+}
+
+
+async function getGrowthTrajectory(childId, repository) {
+  const snapshot = await repository.getProgramSnapshot(childId);
+  const insights = buildInsightLayer(snapshot, { child_id: childId });
+  const patternHistory = buildPatternHistory(snapshot, { child_id: childId });
+  const milestoneComparison = buildMilestoneComparisonModel(snapshot, { child_id: childId });
+  return buildGrowthTrajectoryModel(snapshot, {
+    insights,
+    pattern_history: patternHistory,
+    milestone_comparison: milestoneComparison,
+  }, { child_id: childId });
+}
+
+async function getMilestoneComparison(childId, repository) {
+  const snapshot = await repository.getProgramSnapshot(childId);
+  return buildMilestoneComparisonModel(snapshot, { child_id: childId });
 }
 
 async function getAdaptiveRecommendationExplanation(childId, repository, options = {}) {
@@ -162,4 +185,6 @@ module.exports = {
   getPersonalizationSummary,
   getPatternHistory,
   getAdaptiveRecommendationExplanation,
+  getGrowthTrajectory,
+  getMilestoneComparison,
 };

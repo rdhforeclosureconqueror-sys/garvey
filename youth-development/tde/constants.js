@@ -67,6 +67,23 @@ const CALIBRATION_VARIABLES = Object.freeze({
     inconsistency_gap_threshold_marker: "CALIBRATION_VARIABLE",
   }),
 
+
+  growth_trajectory: Object.freeze({
+    min_points_for_direction: 3,
+    improving_delta_min: 0.05,
+    regressing_delta_max: -0.05,
+    stable_delta_abs_max: 0.02,
+    plateau_delta_abs_max: 0.03,
+    inconsistent_stddev_min: 0.09,
+    low_adherence_max: 0.6,
+    min_points_for_direction_marker: "CALIBRATION_VARIABLE",
+    improving_delta_min_marker: "CALIBRATION_VARIABLE",
+    regressing_delta_max_marker: "CALIBRATION_VARIABLE",
+    stable_delta_abs_max_marker: "CALIBRATION_VARIABLE",
+    plateau_delta_abs_max_marker: "CALIBRATION_VARIABLE",
+    inconsistent_stddev_min_marker: "CALIBRATION_VARIABLE",
+    low_adherence_max_marker: "CALIBRATION_VARIABLE",
+  }),
   personalization_layer: Object.freeze({
     improving_delta_min: 0.05,
     stagnation_delta_abs_max: 0.03,

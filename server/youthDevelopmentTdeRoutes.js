@@ -30,6 +30,8 @@ const {
   getPersonalizationSummary,
   getPatternHistory,
   getAdaptiveRecommendationExplanation,
+  getGrowthTrajectory,
+  getMilestoneComparison,
 } = require("../youth-development/tde/phase9ExtensionService");
 const {
   enrollInProgram,
@@ -354,6 +356,21 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     const childId = String(req.params.childId || "").trim();
     if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
     const result = await getRecommendations(childId, repository);
+    return res.status(200).json(result);
+  });
+
+
+  router.get("/growth-trajectory/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getGrowthTrajectory(childId, repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/milestone-comparison/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getMilestoneComparison(childId, repository);
     return res.status(200).json(result);
   });
 

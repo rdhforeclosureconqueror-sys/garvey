@@ -147,6 +147,42 @@ const DEFAULT_RECOMMENDATION_RULES = Object.freeze([
     }),
     trace_label: "rule_based_operational_logic",
   }),
+  Object.freeze({
+    rule_id: "rule_add_novelty_when_trajectory_plateauing",
+    recommendation_type: "add_variation_for_plateauing_trajectory",
+    label: "Add structured variation",
+    rationale: "Plateauing directional movement can benefit from structured novelty while preserving routine safety.",
+    conditions: Object.freeze({ trajectory_state_in: ["plateauing"], adherence_status_in: ["STRONG", "MODERATE"] }),
+    output: Object.freeze({
+      action: "Introduce one new variation path in the next cycle while keeping overall structure stable.",
+      parent_language: "A small change in activity format may re-open engagement when growth movement has flattened.",
+    }),
+    trace_label: "rule_based_operational_logic",
+  }),
+  Object.freeze({
+    rule_id: "rule_stabilize_adherence_before_trajectory_interpretation",
+    recommendation_type: "stabilize_adherence_before_interpreting_inconsistent_trajectory",
+    label: "Stabilize adherence first",
+    rationale: "Inconsistent trajectory with weak adherence should prioritize implementation support before interpretation.",
+    conditions: Object.freeze({ trajectory_state_in: ["inconsistent"], adherence_status_in: ["WEAK", "MODERATE"] }),
+    output: Object.freeze({
+      action: "Prioritize schedule and environment supports for one cycle before stronger trajectory interpretation.",
+      parent_language: "Because direction is inconsistent and follow-through is uneven, strengthen routine support first.",
+    }),
+    trace_label: "rule_based_operational_logic",
+  }),
+  Object.freeze({
+    rule_id: "rule_increase_autonomy_when_trajectory_improving_consistent",
+    recommendation_type: "increase_autonomy_with_consistent_improvement",
+    label: "Increase autonomy carefully",
+    rationale: "Improving trajectory with strong consistency can support gradual autonomy expansion.",
+    conditions: Object.freeze({ trajectory_state_in: ["improving"], adherence_status_in: ["STRONG"] }),
+    output: Object.freeze({
+      action: "Add one additional child-led decision point while preserving existing support scaffolds.",
+      parent_language: "Steady improvement with strong consistency supports a gradual increase in child ownership.",
+    }),
+    trace_label: "rule_based_operational_logic",
+  }),
 ]);
 
 function toChallengeCalibration(sessions = []) {
@@ -201,10 +237,12 @@ function matchesConditions(rule, inputs) {
   if (c.checkin_reflection_improving && !inputs.checkin_reflection_improving) return false;
   if (c.cross_source_disagreement_present && !inputs.cross_source_disagreement_present) return false;
   if (c.checkin_evidence_sparse && !inputs.checkin_evidence_sparse) return false;
+  if (c.trajectory_state_in && !c.trajectory_state_in.includes(inputs.trajectory_state)) return false;
+  if (c.trajectory_confidence_in && !c.trajectory_confidence_in.includes(inputs.trajectory_confidence)) return false;
   return true;
 }
 
-function buildRecommendationInputs(snapshot = {}, plan = null, sessions = [], confidenceContext = {}, sufficiencyContext = {}, checkinContext = {}) {
+function buildRecommendationInputs(snapshot = {}, plan = null, sessions = [], confidenceContext = {}, sufficiencyContext = {}, checkinContext = {}, trajectoryContext = {}) {
   const adherence = summarizeAdherence(plan, sessions);
   const latestSession = sessions.at(-1) || {};
 
@@ -230,6 +268,8 @@ function buildRecommendationInputs(snapshot = {}, plan = null, sessions = [], co
     checkin_reflection_improving: checkinContext.reflection_quality_status === "improving",
     cross_source_disagreement_present: checkinContext.cross_source_disagreement_present === true,
     checkin_evidence_sparse: checkinContext.evidence_sufficiency_status !== "sufficient",
+    trajectory_state: String(trajectoryContext.trajectory_state || "insufficient_data"),
+    trajectory_confidence: String(trajectoryContext.trajectory_confidence || "low"),
   };
 
   inputs.requires_schedule_review = (
@@ -281,6 +321,8 @@ function generateRecommendations(context = {}, options = {}) {
           checkin_reflection_improving: context.inputs.checkin_reflection_improving,
           cross_source_disagreement_present: context.inputs.cross_source_disagreement_present,
           checkin_evidence_sparse: context.inputs.checkin_evidence_sparse,
+          trajectory_state: context.inputs.trajectory_state,
+          trajectory_confidence: context.inputs.trajectory_confidence,
         },
       },
       governance: {
