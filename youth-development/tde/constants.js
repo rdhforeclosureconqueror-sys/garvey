@@ -52,7 +52,12 @@ const CALIBRATION_VARIABLES = Object.freeze({
   }),
   voice_architecture: Object.freeze({
     voice_chunk_max_length: 180,
+    voice_max_sentences_per_chunk: 2,
+    supported_pacing: Object.freeze(["short", "medium"]),
+    default_provider: "none",
     voice_chunk_max_length_marker: "CALIBRATION_VARIABLE",
+    voice_max_sentences_per_chunk_marker: "CALIBRATION_VARIABLE",
+    default_provider_marker: "CALIBRATION_VARIABLE",
   }),
 });
 

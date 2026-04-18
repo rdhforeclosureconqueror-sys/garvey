@@ -29,6 +29,8 @@
 - New npm scripts:
   - `npm run contract:check`
   - `npm run smoke`
+- New **Youth Development Phase 13 voice delivery layer** (provider adapter + optional section/prompt playback metadata endpoints under `/api/youth-development/tde/voice/*`).
+- Phase 13 guarantees voice is optional/non-blocking, uses voice-ready text chunks, and keeps provider configuration abstracted.
 
 ### Fixed
 - Rewired reward-oriented buttons/links to route to reachable reward page:
