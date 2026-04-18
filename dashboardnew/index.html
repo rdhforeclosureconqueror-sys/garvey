@@ -115,6 +115,7 @@
             <li><a href="#communitySpotlight"><i class="fa fa-bullhorn fa-fw"></i> Community Spotlight</a></li>
             <li><a href="#contributionsSupport"><i class="fa fa-heart fa-fw"></i> Contributions</a></li>
             <li><a href="#garveyProgress"><i class="fa fa-rocket fa-fw"></i> GARVEY Progress</a></li>
+            <li><a href="#tdeOperatorConsole"><i class="fa fa-user-secret fa-fw"></i> TDE Operator Console (Internal)</a></li>
             <li><a href="#analytics"><i class="fa fa-bar-chart-o fa-fw"></i> Return Analytics</a></li>
             <li><a href="#rewards"><i class="fa fa-gift fa-fw"></i> Reward Insights</a></li>
           </ul>
@@ -533,6 +534,67 @@
             <div class="panel-body">
               <p>Continue your GARVEY Premium pathway and keep execution aligned with your latest assessment.</p>
               <a class="btn btn-warning" id="garveyHubBtn" href="#">Open GARVEY Premium Hub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="tdeOperatorConsole" style="display:none;">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-user-secret fa-fw"></i> TDE Operator Console (Internal Testing Only)</div>
+            <div class="panel-body">
+              <div class="alert alert-warning" style="margin-bottom:10px;">
+                Internal/admin-only additive surface for controlled TDE extension testing. Not public rollout UI.
+              </div>
+              <div class="row" style="margin-bottom:10px;">
+                <div class="col-md-3">
+                  <label>Child/Test Account Scope</label>
+                  <input id="tdeChildScopeInput" class="form-control" placeholder="child-phase24-test" />
+                </div>
+                <div class="col-md-3">
+                  <label>Visibility Simulation</label>
+                  <select id="tdeVisibilityStateInput" class="form-control">
+                    <option value="auto">Auto (Endpoint Derived)</option>
+                    <option value="preview_only">Preview Only</option>
+                    <option value="enabled">Enabled</option>
+                    <option value="fallback_only">Fallback Only</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>&nbsp;</label>
+                  <div>
+                    <button id="tdeLoadPanelsBtn" class="btn btn-primary">Load TDE Panels</button>
+                    <button id="tdeToggleDetailsBtn" class="btn btn-default">Toggle Explanation Views</button>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <label>Internal Surface Gate</label>
+                  <div>
+                    <button id="tdeInternalSurfaceBtn" class="btn btn-warning">Enable Internal Surface</button>
+                  </div>
+                </div>
+              </div>
+              <div id="tdeOpsStatus" class="empty-state">Internal surface disabled by default.</div>
+              <div class="row">
+                <div class="col-md-6"><div class="panel panel-default"><div class="panel-heading">TDE Overview</div><div class="panel-body" id="tdeOverviewPanel">Load a child/test account to view rollout/readiness/evidence status.</div></div></div>
+                <div class="col-md-6"><div class="panel panel-default"><div class="panel-heading">Child Development</div><div class="panel-body" id="tdeChildDevelopmentPanel">Recommendations, insights, trajectory, milestones, personalization, and parent coaching appear here.</div></div></div>
+              </div>
+              <div class="row">
+                <div class="col-md-6"><div class="panel panel-default"><div class="panel-heading">Check-in / Intervention</div><div class="panel-body" id="tdeCheckinInterventionPanel">Weekly check-in and intervention/adherence status appears here.</div></div></div>
+                <div class="col-md-6"><div class="panel panel-default"><div class="panel-heading">Voice</div><div class="panel-body" id="tdeVoicePanel">Child/parent playback, fallback state, and voice eligibility appear here.</div></div></div>
+              </div>
+              <div class="row">
+                <div class="col-md-12"><div class="panel panel-default"><div class="panel-heading">Validation / Admin</div><div class="panel-body" id="tdeValidationAdminPanel">Validation, calibration, feature flags, rollout status, and evidence quality appear here.</div></div></div>
+              </div>
+              <div class="row" id="tdeExplanationRow" style="display:none;">
+                <div class="col-md-12">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">Detailed Explanation Views (Internal)</div>
+                    <div class="panel-body" id="tdeExplanationPanel">Load a scoped child/test account to populate explanations.</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
