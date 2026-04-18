@@ -521,3 +521,43 @@ Phase 19 adds an extension-only longitudinal growth trajectory layer so directio
 ### What remains unchanged
 - Live youth v1 routes, scoring, and contracts remain unchanged.
 - Existing TDE extension contracts remain additive and backward-safe.
+
+## Phase 23 (this pass)
+Phase 23 adds extension-only admin/operator console visibility surfaces for pilot management.
+
+### What Phase 23 adds
+- Operator summary service layer covering rollout status, feature-flag state, calibration state, validation-readiness state, evidence-quality state, and missing-contract burden.
+- Additive extension-safe admin endpoints:
+  - `GET /api/youth-development/tde/admin/overview`
+  - `GET /api/youth-development/tde/admin/rollout-status`
+  - `GET /api/youth-development/tde/admin/feature-flags`
+  - `GET /api/youth-development/tde/admin/validation-status`
+  - `GET /api/youth-development/tde/admin/evidence-quality-overview`
+- Explicit rollout visibility for:
+  - current rollout mode
+  - preview-only/fallback-only/enabled/hidden surfaces
+  - voice availability status
+  - pilot eligibility summaries
+- Calibration visibility for:
+  - active calibration groups + versions
+  - key threshold families
+  - modules/output areas depending on calibration variables
+- Evidence-quality overview for:
+  - sufficiency burden
+  - missing-contract burden
+  - traceability burden
+  - source-diversity weakness
+  - sparse-data prevalence
+
+### View-only vs controllable
+- View-only: readiness, validation, evidence-quality, rollout, and calibration summaries.
+- Controllable through explicit env configuration (not hidden runtime mutation):
+  - `TDE_EXTENSION_MODE`
+  - `TDE_VOICE_FEATURE_ENABLED`
+  - `TDE_VOICE_PREVIEW_MODE`
+  - `TDE_VOICE_ROLLOUT_MODE`
+
+### What remains unchanged
+- Live youth v1 assess/intake/scoring/contracts are unchanged.
+- No hidden rollout behavior.
+- No silent calibration-setting mutation.
