@@ -10,6 +10,9 @@
   var dashboardRefreshInFlight = false;
   var pageNavigatingAway = false;
   var customerProfileCtx = { tenant: "", ownerEmail: "", cid: "", rid: "" };
+  var tdeInternalSurfaceEnabled = false;
+  var tdeShowExplanationViews = false;
+  var TDE_SCOPE_KEY = "garvey_tde_scope_v1";
 
   function apiUrl(path, query) {
     if (typeof api.buildUrl === "function") return api.buildUrl(path, query || {});
@@ -249,6 +252,30 @@
     return String(s || "").replace(/[&<>"']/g, function (c) {
       return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[c]);
     });
+  }
+
+  function renderKvList(targetId, rows, options) {
+    var target = document.getElementById(targetId);
+    if (!target) return;
+    var opts = options || {};
+    var list = Array.isArray(rows) ? rows.filter(function (entry) { return entry && entry.label; }) : [];
+    if (!list.length) {
+      target.innerHTML = '<div class="empty-state">' + escapeHtml(opts.emptyText || "No data available.") + "</div>";
+      return;
+    }
+    target.innerHTML = "<ul>" + list.map(function (entry) {
+      return "<li><b>" + escapeHtml(entry.label) + ":</b> " + escapeHtml(entry.value == null || entry.value === "" ? "-" : String(entry.value)) + "</li>";
+    }).join("") + "</ul>";
+  }
+
+  function toCsv(value) {
+    if (!Array.isArray(value)) return value == null ? "-" : String(value);
+    return value.length ? value.join(", ") : "none";
+  }
+
+  function prettyStatus(status) {
+    var text = safeTrim(status).replace(/_/g, " ");
+    return text ? text : "-";
   }
 
   function clearRefreshTimer() {
@@ -2273,6 +2300,223 @@
     });
   }
 
+  function readTdeStoredScope() {
+    try {
+      return safeTrim(localStorage.getItem(TDE_SCOPE_KEY));
+    } catch (_) {
+      return "";
+    }
+  }
+
+  function saveTdeStoredScope(scope) {
+    try {
+      if (scope) localStorage.setItem(TDE_SCOPE_KEY, scope);
+    } catch (_) {}
+  }
+
+  function tdeApiUrl(path, childId) {
+    var scoped = safeTrim(childId);
+    if (!scoped) return path;
+    if (path.indexOf(":childId") >= 0) return path.replace(":childId", encodeURIComponent(scoped));
+    var join = path.indexOf("?") >= 0 ? "&" : "?";
+    return path + join + "child_id=" + encodeURIComponent(scoped);
+  }
+
+  function renderTdePanels(payloads, childId, visibilityState) {
+    var overview = payloads.overview && payloads.overview.value || {};
+    var rollout = payloads.rollout && payloads.rollout.value || {};
+    var validation = payloads.validation && payloads.validation.value || {};
+    var evidence = payloads.evidence && payloads.evidence.value || {};
+    var flags = payloads.flags && payloads.flags.value || {};
+    var recommendations = payloads.recommendations && payloads.recommendations.value || {};
+    var insights = payloads.insights && payloads.insights.value || {};
+    var trajectory = payloads.trajectory && payloads.trajectory.value || {};
+    var milestone = payloads.milestone && payloads.milestone.value || {};
+    var personalization = payloads.personalization && payloads.personalization.value || {};
+    var parentCoaching = payloads.parentCoaching && payloads.parentCoaching.value || {};
+    var checkin = payloads.checkin && payloads.checkin.value || {};
+    var intervention = payloads.intervention && payloads.intervention.value || {};
+    var adherence = payloads.adherence && payloads.adherence.value || {};
+    var voiceCheckin = payloads.voiceCheckin && payloads.voiceCheckin.value || {};
+    var voiceSections = payloads.voiceSections && payloads.voiceSections.value || {};
+    var voiceStatus = payloads.voiceStatus && payloads.voiceStatus.value || {};
+    var voiceEligibility = payloads.voiceEligibility && payloads.voiceEligibility.value || {};
+    var explanation = payloads.explanation && payloads.explanation.value || {};
+
+    var missingContracts = [];
+    var missingFromOverview = overview && overview.admin_overview && overview.admin_overview.missing_contract_burden && overview.admin_overview.missing_contract_burden.missing_contracts;
+    if (Array.isArray(missingFromOverview)) missingContracts = missingContracts.concat(missingFromOverview);
+    var missingFromValidation = validation && validation.missing_contract_burden && validation.missing_contract_burden.missing_contracts;
+    if (Array.isArray(missingFromValidation)) missingContracts = missingContracts.concat(missingFromValidation);
+    var missingFromEvidence = evidence && evidence.evidence_quality_overview && evidence.evidence_quality_overview.missing_contract_burden && evidence.evidence_quality_overview.missing_contract_burden.missing_contracts;
+    if (Array.isArray(missingFromEvidence)) missingContracts = missingContracts.concat(missingFromEvidence);
+    missingContracts = Array.from(new Set(missingContracts.filter(Boolean)));
+
+    renderKvList("tdeOverviewPanel", [
+      { label: "Child/Test Account", value: childId || "scope required" },
+      { label: "Rollout State", value: prettyStatus(rollout.rollout_status && rollout.rollout_status.current_rollout_mode || (overview.admin_overview && overview.admin_overview.rollout_status && overview.admin_overview.rollout_status.current_rollout_mode)) },
+      { label: "Readiness State", value: prettyStatus(overview.admin_overview && overview.admin_overview.rollout_status && overview.admin_overview.rollout_status.pilot_eligibility_summary && overview.admin_overview.rollout_status.pilot_eligibility_summary.readiness_status) },
+      { label: "Voice Availability State", value: prettyStatus(overview.admin_overview && overview.admin_overview.rollout_status && overview.admin_overview.rollout_status.voice_availability_status) },
+      { label: "Evidence Quality Summary", value: prettyStatus(evidence.evidence_quality_overview && evidence.evidence_quality_overview.status) },
+      { label: "Missing-Contract Burden Summary", value: toCsv(missingContracts) },
+      { label: "Operator Visibility State", value: visibilityState === "auto" ? "endpoint-derived" : visibilityState },
+    ], { emptyText: "No TDE overview data loaded." });
+
+    renderKvList("tdeChildDevelopmentPanel", [
+      { label: "Latest Recommendations", value: toCsv((recommendations.recommendations || []).map(function (r) { return r.title || r.action || r.recommendation_id; }).slice(0, 3)) },
+      { label: "Insights", value: toCsv((insights.insights || []).map(function (i) { return i.insight || i.statement || i.signal; }).slice(0, 3)) },
+      { label: "Trajectory Summary", value: prettyStatus(trajectory.trajectory_state || trajectory.status) },
+      { label: "Milestone Comparison", value: prettyStatus(milestone.comparison_status || milestone.status) },
+      { label: "Personalization Summary", value: prettyStatus(personalization.contracts_status || personalization.status) },
+      { label: "Parent Coaching Summary", value: prettyStatus(parentCoaching.summary_status || parentCoaching.status) }
+    ], { emptyText: "No child development data loaded." });
+
+    renderKvList("tdeCheckinInterventionPanel", [
+      { label: "Weekly Check-in Status", value: prettyStatus(checkin.checkin_status || checkin.status) },
+      { label: "Check-in Summary", value: prettyStatus(checkin.evidence_sufficiency && checkin.evidence_sufficiency.status) },
+      { label: "Intervention Summary", value: prettyStatus(intervention.intervention_readiness && intervention.intervention_readiness.status || intervention.status) },
+      { label: "Session/Adherence Indicators", value: prettyStatus(adherence.adherence_status || adherence.status) }
+    ], { emptyText: "No check-in/intervention data loaded." });
+
+    renderKvList("tdeVoicePanel", [
+      { label: "Child Prompt Playback Status", value: prettyStatus(voiceCheckin.voice_state && voiceCheckin.voice_state.checkin_prompt_ready_for_playback ? "ready" : voiceCheckin.voice_state && voiceCheckin.voice_state.availability) },
+      { label: "Parent Section Playback Status", value: prettyStatus(voiceSections.voice_state && voiceSections.voice_state.parent_sections_ready_for_playback ? "ready" : voiceSections.voice_state && voiceSections.voice_state.availability) },
+      { label: "Fallback/Availability State", value: prettyStatus(voiceStatus.voice_availability_status || voiceStatus.voice_state && voiceStatus.voice_state.availability) },
+      { label: "Voice Eligibility", value: prettyStatus(voiceEligibility.eligibility_status || voiceEligibility.voice_eligibility_status) },
+      { label: "Content Registry/Readability", value: prettyStatus(voiceSections.content_registry_status || voiceCheckin.content_registry_status || "unknown") }
+    ], { emptyText: "No voice data loaded (voice is optional)." });
+
+    renderKvList("tdeValidationAdminPanel", [
+      { label: "Validation Summary", value: prettyStatus(validation.validation_status && validation.validation_status.status) },
+      { label: "Calibration Summary", value: toCsv(overview.admin_overview && overview.admin_overview.calibration_state && overview.admin_overview.calibration_state.active_calibration_versions) },
+      { label: "Feature Flags", value: toCsv(flags.feature_flags && flags.feature_flags.controllable_in_phase23) },
+      { label: "Rollout Status", value: prettyStatus(rollout.rollout_status && rollout.rollout_status.current_rollout_mode) },
+      { label: "Evidence-Quality Overview", value: prettyStatus(evidence.evidence_quality_overview && evidence.evidence_quality_overview.status) },
+      { label: "Missing Contracts (Explicit)", value: toCsv(missingContracts) }
+    ], { emptyText: "No validation/admin data loaded." });
+
+    if (tdeShowExplanationViews) {
+      renderKvList("tdeExplanationPanel", [
+        { label: "Recommendation Explanation Status", value: prettyStatus(explanation.status || explanation.contracts_status) },
+        { label: "Explanation Highlights", value: toCsv((explanation.explanations || []).map(function (entry) { return entry.title || entry.summary || entry.reason; }).slice(0, 5)) },
+        { label: "Scope", value: childId || "scope required" }
+      ], { emptyText: "No explanation data available." });
+    }
+  }
+
+  function setTdeOpsStatus(message, isError) {
+    var node = document.getElementById("tdeOpsStatus");
+    if (!node) return;
+    node.className = isError ? "text-danger" : "empty-state";
+    node.textContent = message;
+  }
+
+  function loadTdeOperatorPanels() {
+    var childInput = document.getElementById("tdeChildScopeInput");
+    var visibilityInput = document.getElementById("tdeVisibilityStateInput");
+    if (!childInput || !visibilityInput) return;
+    var childId = safeTrim(childInput.value);
+    var visibilityState = safeTrim(visibilityInput.value) || "auto";
+    saveTdeStoredScope(childId);
+    if (!childId) {
+      setTdeOpsStatus("Child/test account scope is required for deterministic panel loading.", true);
+      renderTdePanels({}, "", visibilityState);
+      return;
+    }
+    setTdeOpsStatus("Loading internal TDE panel data…", false);
+
+    var endpoints = {
+      overview: tdeApiUrl("/api/youth-development/tde/admin/overview", childId),
+      rollout: tdeApiUrl("/api/youth-development/tde/admin/rollout-status", childId),
+      flags: "/api/youth-development/tde/admin/feature-flags",
+      validation: tdeApiUrl("/api/youth-development/tde/admin/validation-status", childId),
+      evidence: tdeApiUrl("/api/youth-development/tde/admin/evidence-quality-overview", childId),
+      recommendations: tdeApiUrl("/api/youth-development/tde/recommendations/:childId", childId),
+      insights: tdeApiUrl("/api/youth-development/tde/insights/:childId", childId),
+      trajectory: tdeApiUrl("/api/youth-development/tde/growth-trajectory/:childId", childId),
+      milestone: tdeApiUrl("/api/youth-development/tde/milestone-comparison/:childId", childId),
+      personalization: tdeApiUrl("/api/youth-development/tde/personalization/:childId", childId),
+      parentCoaching: tdeApiUrl("/api/youth-development/tde/parent-coaching/:childId", childId),
+      checkin: tdeApiUrl("/api/youth-development/tde/checkin-summary/:childId", childId),
+      intervention: tdeApiUrl("/api/youth-development/tde/intervention-summary/:childId", childId),
+      adherence: tdeApiUrl("/api/youth-development/tde/adherence/:childId", childId),
+      voiceCheckin: tdeApiUrl("/api/youth-development/tde/voice/checkin/:childId", childId),
+      voiceSections: tdeApiUrl("/api/youth-development/tde/voice/sections/:childId", childId),
+      voiceStatus: tdeApiUrl("/api/youth-development/tde/voice/status/:childId", childId),
+      voiceEligibility: tdeApiUrl("/api/youth-development/tde/voice/eligibility/:childId", childId),
+      explanation: tdeApiUrl("/api/youth-development/tde/recommendations/:childId/explanation", childId)
+    };
+
+    var keys = Object.keys(endpoints);
+    Promise.all(keys.map(function (key) {
+      return jsonFetch(endpoints[key]).then(function (value) {
+        return { key: key, status: "fulfilled", value: value };
+      }).catch(function (err) {
+        return { key: key, status: "rejected", reason: err };
+      });
+    })).then(function (results) {
+      var mapped = {};
+      var failures = [];
+      results.forEach(function (result) {
+        mapped[result.key] = result;
+        if (result.status === "rejected") failures.push(result.key + ": " + (result.reason && result.reason.message || "error"));
+      });
+      renderTdePanels(mapped, childId, visibilityState);
+      if (failures.length) {
+        setTdeOpsStatus("Loaded with fallback/missing data states: " + failures.join(" | "), true);
+      } else {
+        setTdeOpsStatus("TDE internal panels loaded for child/test account: " + childId, false);
+      }
+    }).catch(function (err) {
+      setTdeOpsStatus("Unable to load TDE panel data: " + (err && err.message || err), true);
+    });
+  }
+
+  function initTdeOperatorConsole(ctx) {
+    var section = document.getElementById("tdeOperatorConsole");
+    var gateBtn = document.getElementById("tdeInternalSurfaceBtn");
+    var loadBtn = document.getElementById("tdeLoadPanelsBtn");
+    var detailsBtn = document.getElementById("tdeToggleDetailsBtn");
+    var detailsRow = document.getElementById("tdeExplanationRow");
+    var scopeInput = document.getElementById("tdeChildScopeInput");
+    if (!section || !gateBtn || !loadBtn || !detailsBtn || !detailsRow || !scopeInput) return;
+
+    if (!ctx.isAdmin) {
+      section.style.display = "none";
+      return;
+    }
+
+    section.style.display = "";
+    scopeInput.value = scopeInput.value || readTdeStoredScope();
+    setTdeOpsStatus("Internal surface disabled by default. Use the gate button to run controlled TDE extension inspection.", false);
+
+    gateBtn.addEventListener("click", function () {
+      tdeInternalSurfaceEnabled = !tdeInternalSurfaceEnabled;
+      gateBtn.textContent = tdeInternalSurfaceEnabled ? "Disable Internal Surface" : "Enable Internal Surface";
+      gateBtn.className = tdeInternalSurfaceEnabled ? "btn btn-danger" : "btn btn-warning";
+      setTdeOpsStatus(
+        tdeInternalSurfaceEnabled
+          ? "Internal surface enabled for this admin session. Load a child/test account to inspect extension data."
+          : "Internal surface disabled by default.",
+        false
+      );
+    });
+
+    detailsBtn.addEventListener("click", function () {
+      tdeShowExplanationViews = !tdeShowExplanationViews;
+      detailsRow.style.display = tdeShowExplanationViews ? "" : "none";
+      detailsBtn.className = tdeShowExplanationViews ? "btn btn-info" : "btn btn-default";
+    });
+
+    loadBtn.addEventListener("click", function () {
+      if (!tdeInternalSurfaceEnabled) {
+        setTdeOpsStatus("Enable the internal surface gate before loading TDE extension panels.", true);
+        return;
+      }
+      loadTdeOperatorPanels();
+    });
+  }
+
   function renderAccessStatus(ctx) {
     console.log("[YOUTH_TRACE] renderAccessStatus:start", {
       tenant: ctx && ctx.tenant,
@@ -2296,6 +2540,7 @@
     badgeHost.innerHTML = badges.join(" ");
     meta.textContent = "Email: " + (ctx.email || "-") + " • Session role: " + (ctx.role || "-");
     renderAdminYouthActions(ctx);
+    initTdeOperatorConsole(ctx);
   }
 
   function init() {
