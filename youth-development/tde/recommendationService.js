@@ -243,6 +243,7 @@ function buildRecommendationInputs(snapshot = {}, plan = null, sessions = [], co
 
 function generateRecommendations(context = {}, options = {}) {
   const rules = Array.isArray(options.rules) && options.rules.length ? options.rules : DEFAULT_RECOMMENDATION_RULES;
+  const recommendationModifiers = context?.personalization_modifiers?.recommendation_modifiers || {};
   const recommendations = rules
     .filter((rule) => matchesConditions(rule, context.inputs || {}))
     .map((rule) => ({
@@ -252,6 +253,18 @@ function generateRecommendations(context = {}, options = {}) {
       action: rule.output.action,
       parent_language: rule.output.parent_language,
       rationale: rule.rationale,
+      adaptive_adjustments: {
+        intensity: recommendationModifiers.intensity || "baseline",
+        frequency: recommendationModifiers.frequency || "baseline",
+        type_bias: Array.isArray(recommendationModifiers.intervention_type_bias)
+          ? recommendationModifiers.intervention_type_bias.join(",")
+          : "none",
+        confidence_cap: recommendationModifiers.confidence_cap || "normal",
+        trace: {
+          rule_path: recommendationModifiers.rule_path || "personalization/modifiers/recommendations/v1",
+          personalization_present: Boolean(context.personalization_modifiers),
+        },
+      },
       trace: {
         rule_id: rule.rule_id,
         trace_label: rule.trace_label,
@@ -284,7 +297,7 @@ function generateRecommendations(context = {}, options = {}) {
     deterministic: true,
     child_id: context.child_id,
     recommendation_engine: {
-      name: "phase9_rule_engine_v1",
+      name: "phase18_rule_engine_with_personalization_v1",
       logic_type: "rule_based_operational_logic",
       configurable: true,
       validated_truth_claim: false,
@@ -292,6 +305,7 @@ function generateRecommendations(context = {}, options = {}) {
     },
     recommendation_inputs: context.inputs,
     adherence_summary: context.adherence,
+    personalization_modifiers: context.personalization_modifiers || null,
     recommendations,
   };
 }

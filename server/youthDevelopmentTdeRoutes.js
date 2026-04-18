@@ -27,6 +27,9 @@ const {
   getRollout,
   getCheckinSummary,
   getInsights,
+  getPersonalizationSummary,
+  getPatternHistory,
+  getAdaptiveRecommendationExplanation,
 } = require("../youth-development/tde/phase9ExtensionService");
 const {
   enrollInProgram,
@@ -319,6 +322,20 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     return res.status(200).json(result);
   });
 
+  router.get("/personalization/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getPersonalizationSummary(childId, repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/pattern-history/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getPatternHistory(childId, repository);
+    return res.status(200).json(result);
+  });
+
   router.get("/checkin-summary/:childId", async (req, res) => {
     const childId = String(req.params.childId || "").trim();
     if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
@@ -337,6 +354,13 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     const childId = String(req.params.childId || "").trim();
     if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
     const result = await getRecommendations(childId, repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/recommendations/:childId/explanation", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getAdaptiveRecommendationExplanation(childId, repository);
     return res.status(200).json(result);
   });
 
