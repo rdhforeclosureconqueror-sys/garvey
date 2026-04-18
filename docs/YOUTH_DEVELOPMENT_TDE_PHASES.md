@@ -480,3 +480,44 @@ Phase 18 adds deterministic adaptive personalization on top of insights + histor
 - Live youth v1 behavior remains unchanged.
 - Existing TDE contracts remain non-breaking and additive.
 - Personalization is deterministic, traceable, and non-clinical.
+
+## Phase 19 (this pass)
+Phase 19 adds an extension-only longitudinal growth trajectory layer so directional change over time can be interpreted across all 7 pillars.
+
+### What Phase 19 adds
+- Deterministic trajectory modeling over longer windows, not only current snapshot state.
+- Milestone-to-milestone comparison summary for all pillars.
+- Explainable trajectory states:
+  - `improving`, `stable`, `plateauing`, `inconsistent`, `regressing`, `insufficient_data`
+- Pillar-level trajectory summaries with:
+  - recent direction
+  - medium-window direction
+  - confidence limits
+  - environment/context contribution interpretation
+  - adherence-limitation interpretation kept separate from child-growth interpretation
+- Additive parent/operator endpoints:
+  - `GET /api/youth-development/tde/growth-trajectory/:childId`
+  - `GET /api/youth-development/tde/milestone-comparison/:childId`
+- Additive recommendation integration using trajectory state as one input (never sole determinant).
+
+### What trajectory means vs existing layers
+- Score layer: point-in-time trait scoring from normalized evidence.
+- Insight layer: cross-source interpretation and consistency framing.
+- Personalization layer: adaptive modifiers and pattern history for plan tuning.
+- **Trajectory layer (Phase 19):** longer-window directional interpretation anchored to milestones/checkpoints.
+
+### What trajectory states do not mean
+- They are non-clinical and non-diagnostic.
+- They are not destiny/predictive claims.
+- They are bounded by data sufficiency, adherence consistency, and context traceability.
+
+### Calibration variables (Phase 19)
+- Minimum points required for directional classification.
+- Improvement/regression threshold deltas.
+- Stable/plateau windows.
+- Inconsistency volatility threshold.
+- Adherence threshold used to limit interpretation confidence.
+
+### What remains unchanged
+- Live youth v1 routes, scoring, and contracts remain unchanged.
+- Existing TDE extension contracts remain additive and backward-safe.
