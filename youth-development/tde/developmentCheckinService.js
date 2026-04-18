@@ -1,6 +1,6 @@
 "use strict";
 
-const { deterministicId, DEFAULT_CALIBRATION_VERSION, EVIDENCE_STATUS_TAG } = require("./constants");
+const { deterministicId, DEFAULT_CALIBRATION_VERSION, EVIDENCE_STATUS_TAG, CALIBRATION_VARIABLES } = require("./constants");
 const { validateDevelopmentCheckinContract } = require("./developmentCheckinContract");
 const { extractSignalsFromEvidence } = require("./signalExtractionService");
 const { scoreTraitsFromSignals } = require("./traitScoringService");
@@ -279,9 +279,106 @@ async function listDevelopmentCheckins(childId, repository) {
   };
 }
 
+function summarizeDevelopmentCheckins(checkins = [], options = {}) {
+  const sorted = [...checkins].sort((a, b) => `${a.completed_at || ""}`.localeCompare(`${b.completed_at || ""}`));
+  const historyCount = sorted.length;
+  const latest = sorted.at(-1) || null;
+  const prior = sorted.at(-2) || null;
+  const currentWeek = Number(options.current_week || latest?.program_week || 1);
+  const nextExpectedWeek = currentWeek % 2 === 0 ? currentWeek + 2 : currentWeek + 1;
+
+  const traceableEntries = sorted.flatMap((entry) => Array.isArray(entry.evidence_map) ? entry.evidence_map : []);
+  const traceabilityRatio = traceableEntries.length
+    ? traceableEntries.filter((entry) => Boolean(entry.trace_ref) && Boolean(entry.prompt_id)).length / traceableEntries.length
+    : 0;
+
+  const latestEvidence = Array.isArray(latest?.evidence_map) ? latest.evidence_map : [];
+  const priorEvidence = Array.isArray(prior?.evidence_map) ? prior.evidence_map : [];
+  const average = (rows) => rows.length ? rows.reduce((sum, row) => sum + Number(row.value || 0), 0) / rows.length : 0;
+  const bySignal = (rows, signalType) => rows.filter((row) => row.signal_type === signalType);
+  const reflectionDelta = Number((average(bySignal(latestEvidence, "improvement_delta")) - average(bySignal(priorEvidence, "improvement_delta"))).toFixed(3));
+  const transferLatest = average(bySignal(latestEvidence, "attempt_quality_change"));
+
+  const childRows = latestEvidence.filter((entry) => entry.source_actor === "child");
+  const parentRows = latestEvidence.filter((entry) => entry.source_actor === "parent");
+  const disagreementDelta = Math.abs(average(childRows) - average(parentRows));
+  const disagreementThreshold = Number(CALIBRATION_VARIABLES.developmental_checkins.disagreement_max_delta || 0.35);
+  const disagreement = parentRows.length && childRows.length && disagreementDelta > disagreementThreshold;
+
+  const consistencyRatio = historyCount
+    ? sorted.filter((entry) => entry.checkin_due === true).length / historyCount
+    : 0;
+  const sufficientHistory = historyCount >= Number(CALIBRATION_VARIABLES.developmental_checkins.minimum_history_for_sufficiency || 2);
+  const sufficientTraceability = traceabilityRatio >= Number(CALIBRATION_VARIABLES.developmental_checkins.minimum_traceability_ratio || 0.9);
+  const sufficientConsistency = consistencyRatio >= Number(CALIBRATION_VARIABLES.developmental_checkins.consistency_min_completed_ratio || 0.5);
+  const sufficientEvidence = sufficientHistory && sufficientTraceability && sufficientConsistency;
+
+  return {
+    ok: true,
+    deterministic: true,
+    extension_only: true,
+    checkin_history_count: historyCount,
+    next_expected_checkin: {
+      expected_program_week: nextExpectedWeek,
+      cadence_weeks: 2,
+      status: latest && currentWeek <= Number(latest.program_week || 0) ? "awaiting_completion" : "scheduled",
+    },
+    latest_checkin_summary: latest
+      ? {
+          checkin_id: latest.checkin_id,
+          program_week: latest.program_week,
+          completed_at: latest.completed_at,
+          developmental_summary: "Latest developmental snapshot combines child performance reflections and parent observation context.",
+        }
+      : null,
+    changes_since_prior_checkin: prior && latest
+      ? {
+          reflection_quality_delta: reflectionDelta,
+          transfer_attempt_quality_latest: Number(transferLatest.toFixed(3)),
+          interpretation: reflectionDelta > 0
+            ? "Reflection quality appears to be improving in the most recent snapshot."
+            : "Reflection quality trend is still mixed; continue regular snapshots.",
+        }
+      : {
+          interpretation: "Additional developmental check-ins are needed before change-over-time can be interpreted.",
+        },
+    confidence_contribution_context: {
+      contributes_to_confidence_context: historyCount > 0,
+      evidence_stream_weight: "supplemental_not_override",
+      current_contribution: historyCount > 0 ? "development_checkin_evidence_present" : "development_checkin_evidence_missing",
+    },
+    evidence_sufficiency: {
+      status: sufficientEvidence ? "sufficient" : "limited",
+      has_enough_checkin_evidence: sufficientEvidence,
+      history_present: sufficientHistory,
+      consistency_present: sufficientConsistency,
+      traceability_complete: sufficientTraceability,
+      missing_contracts: [
+        ...(sufficientHistory ? [] : ["development_checkin_history_required"]),
+        ...(sufficientConsistency ? [] : ["development_checkin_consistency_required"]),
+        ...(sufficientTraceability ? [] : ["development_checkin_traceability_required"]),
+      ],
+    },
+    evidence_stream_distinction: {
+      session_intervention_evidence: "implementation_and_session_behavior_stream",
+      developmental_checkin_evidence: "periodic_developmental_snapshot_stream",
+      parent_observation_evidence: "observer_context_stream",
+      separation_guard: "streams_reported_separately_no_single_source_override",
+    },
+    cross_source_disagreement: {
+      present: disagreement,
+      disagreement_delta: Number(disagreementDelta.toFixed(3)),
+      interpretation: disagreement
+        ? "Parent observation and child developmental snapshot are currently misaligned; gather more consistent observations before strong interpretation."
+        : "No major disagreement detected in latest developmental snapshot sources.",
+    },
+  };
+}
+
 module.exports = {
   generateDevelopmentCheckin,
   runDevelopmentCheckin,
   listDevelopmentCheckins,
+  summarizeDevelopmentCheckins,
   isBiweeklyCheckinDue,
 };

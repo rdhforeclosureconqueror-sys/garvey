@@ -10,12 +10,17 @@ function toConfidenceImpact(adherence) {
 }
 
 function evaluateInterventionReadiness(snapshot = {}, commitmentPlan = null, sessions = []) {
+  const checkinContext = snapshot.checkin_context || {};
   const adherence = summarizeAdherence(commitmentPlan, sessions);
 
   const interventionDataPresent = sessions.length > 0;
   const hasCommitmentPlan = Boolean(commitmentPlan);
   const adherenceSufficient = adherence.adherence_percentage >= 45;
   const sessionCompletionSufficient = adherence.full_session_completion_rate >= 0.6;
+  const checkinHistoryPresent = checkinContext.history_count >= 1;
+  const checkinConsistencySufficient = checkinContext.consistency_status !== "limited";
+  const checkinTraceabilityComplete = checkinContext.traceability_status !== "limited";
+  const crossSourceAgreementSufficient = checkinContext.cross_source_agreement_status !== "limited";
   const confidenceImpact = toConfidenceImpact(adherence);
 
   const missing = [
@@ -23,11 +28,15 @@ function evaluateInterventionReadiness(snapshot = {}, commitmentPlan = null, ses
     ...(interventionDataPresent ? [] : ["minimum_intervention_data_required"]),
     ...(adherenceSufficient ? [] : ["adherence_sufficiency_not_met"]),
     ...(sessionCompletionSufficient ? [] : ["session_completion_sufficiency_not_met"]),
+    ...(checkinHistoryPresent ? [] : ["development_checkin_history_required"]),
+    ...(checkinConsistencySufficient ? [] : ["development_checkin_consistency_required"]),
+    ...(checkinTraceabilityComplete ? [] : ["development_checkin_traceability_required"]),
+    ...(crossSourceAgreementSufficient ? [] : ["cross_source_agreement_required"]),
   ];
 
   let status = "ready";
-  if (!hasCommitmentPlan || !interventionDataPresent) status = "not_ready";
-  else if (!adherenceSufficient || !sessionCompletionSufficient) status = "partially_ready";
+  if (!hasCommitmentPlan || !interventionDataPresent || !checkinHistoryPresent) status = "not_ready";
+  else if (!adherenceSufficient || !sessionCompletionSufficient || !checkinConsistencySufficient || !checkinTraceabilityComplete || !crossSourceAgreementSufficient) status = "partially_ready";
 
   return {
     ok: true,
@@ -39,6 +48,10 @@ function evaluateInterventionReadiness(snapshot = {}, commitmentPlan = null, ses
       minimum_intervention_data_presence: interventionDataPresent,
       adherence_sufficiency: adherenceSufficient,
       session_completion_sufficiency: sessionCompletionSufficient,
+      development_checkin_history_presence: checkinHistoryPresent,
+      development_checkin_consistency: checkinConsistencySufficient,
+      development_checkin_traceability: checkinTraceabilityComplete,
+      cross_source_agreement: crossSourceAgreementSufficient,
       intervention_confidence_impact: confidenceImpact,
     },
     adherence,
