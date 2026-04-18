@@ -3,7 +3,16 @@
 const { CALIBRATION_VARIABLES, clamp01 } = require("./constants");
 const { TDE_TRAIT_MAPPING_CONTRACTS } = require("./traitMappingContracts");
 
-function scoreTraitsFromSignals(normalizedSignals = []) {
+function resolveAdherenceConfidenceModifier(adherence = {}) {
+  const adherenceStatus = String(adherence.adherence_status || "").toUpperCase();
+  const missed = Number(adherence.missed_planned_sessions || 0);
+  if (adherenceStatus === "WEAK") return { multiplier: 0.75, reason: "low_adherence_reduces_interpretive_confidence" };
+  if (missed > 0) return { multiplier: 0.9, reason: "missing_planned_sessions_reduce_interpretive_confidence" };
+  return { multiplier: 1, reason: null };
+}
+
+
+function scoreTraitsFromSignals(normalizedSignals = [], options = {}) {
   const traitResults = [];
   const missingContracts = [];
 
@@ -62,14 +71,18 @@ function scoreTraitsFromSignals(normalizedSignals = []) {
         (sourceDiversityOk ? 0.4 : 0.0) +
         (requiredSignalsOk ? 0.2 : 0.0)
       );
-      confidence_score = clamp01(
+      const baseConfidence = clamp01(
         meanConfidence * CALIBRATION_VARIABLES.confidence_formula_weights.base_weight_mean_confidence +
         sufficiencyFactor * CALIBRATION_VARIABLES.confidence_formula_weights.base_weight_evidence_sufficiency
       );
+      const adherenceModifier = resolveAdherenceConfidenceModifier(options.adherence_context || {});
+      confidence_score = clamp01(baseConfidence * adherenceModifier.multiplier);
       if (evidenceSufficient) {
         reported_trait_score = internal_partial_score;
       }
     }
+
+    const adherenceModifier = resolveAdherenceConfidenceModifier(options.adherence_context || {});
 
     traitResults.push({
       trait_code: traitCode,
@@ -83,6 +96,12 @@ function scoreTraitsFromSignals(normalizedSignals = []) {
       missing_required_signal_types: requiredMissing,
       weighting_policy: contract.weighting_policy,
       source_signals: allowedSignals.map((signal) => signal.signal_id),
+      confidence_context: {
+        adherence_quality: String((options.adherence_context || {}).adherence_status || "UNKNOWN"),
+        missed_planned_sessions: Number((options.adherence_context || {}).missed_planned_sessions || 0),
+        confidence_adjustment_reason: adherenceModifier.reason,
+        interpretive_guard: "weak_adherence_not_child_limitation",
+      },
     });
   }
 

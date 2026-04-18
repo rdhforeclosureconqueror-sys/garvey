@@ -1,8 +1,13 @@
 "use strict";
 
 const { buildSessionPlan } = require("./sessionBuilderService");
-const { validateSessionEvidence, buildInterventionEvidence } = require("./sessionExecutionService");
 const { normalizeCommitmentPlan, validateCommitmentPlan, summarizeAdherence } = require("./adherenceService");
+const {
+  INTERVENTION_ENVIRONMENT_EXTENSION_CONTRACT,
+  toCoachingStyleQuality,
+  toChallengeCalibration,
+} = require("./interventionEnvironmentContract");
+const { normalizeInterventionEvidenceToSignals } = require("./interventionSignalIntegrationService");
 const { CALIBRATION_VARIABLES, deterministicId } = require("./constants");
 
 async function saveCommitmentPlan(payload, repository) {
@@ -22,21 +27,28 @@ function planSession(payload = {}) {
   return buildSessionPlan(payload);
 }
 
-async function completeSession(payload = {}, repository) {
-  const validation = validateSessionEvidence(payload);
-  if (!validation.ok) {
-    return { ok: false, error: "session_evidence_invalid", validation_errors: validation.errors, deterministic: true, extension_only: true };
+async function completeSession(payload = {}, repository, options = {}) {
+  const integration = normalizeInterventionEvidenceToSignals(payload, options);
+  if (!integration.ok) {
+    return {
+      ok: false,
+      error: "session_evidence_invalid",
+      validation_errors: integration.validation_errors,
+      validity_status: integration.validity_status,
+      deterministic: true,
+      extension_only: true,
+    };
   }
 
   const completedSession = {
     session_id: String(payload.session_id || "").trim() || deterministicId("session_complete", {
       child_id: payload.child_id || null,
-      selected_activity_ids: validation.normalized.selected_activity_ids,
+      selected_activity_ids: integration.normalized_session.selected_activity_ids,
       completed_at: payload.completed_at || null,
     }),
     child_id: String(payload.child_id || "").trim(),
     completed_at: String(payload.completed_at || new Date().toISOString()),
-    ...validation.normalized,
+    ...integration.normalized_session,
   };
 
   if (!completedSession.child_id) {
@@ -44,12 +56,13 @@ async function completeSession(payload = {}, repository) {
   }
 
   const persistence = await repository.persistInterventionSession(completedSession);
-  const interventionEvidence = buildInterventionEvidence(completedSession);
 
   return {
     ok: true,
     session: completedSession,
-    intervention_signal_evidence: interventionEvidence,
+    intervention_signal_evidence: integration.intervention_signal_evidence,
+    traceability_refs: integration.traceability_refs,
+    evidence_validity_status: integration.validity_status,
     persistence,
     evidence_source_status: "valid_ISL_source_with_multi_source_requirement",
     deterministic: true,
@@ -67,8 +80,8 @@ async function getAdherence(childId, repository) {
       ? (plan.committed_days_per_week <= CALIBRATION_VARIABLES.intervention_engine.schedule_realism_max_days_per_week ? "REALISTIC" : "OVERSTRETCHED")
       : "UNKNOWN",
     adherence_consistency: adherence.session_consistency,
-    parent_coaching_style: sessions.at(-1)?.parent_coaching_style || "unknown",
-    challenge_calibration: sessions.at(-1)?.challenge_level || "unknown",
+    parent_coaching_style_quality: toCoachingStyleQuality(sessions.at(-1)?.parent_coaching_style),
+    challenge_calibration: toChallengeCalibration(sessions.at(-1)?.challenge_level),
     confidence_adjustment: adherence.adherence_status === "WEAK"
       ? `REDUCE_CONFIDENCE_${CALIBRATION_VARIABLES.intervention_engine.adherence_confidence_penalty_multiplier}`
       : "NO_REDUCTION",
@@ -80,6 +93,7 @@ async function getAdherence(childId, repository) {
     child_id: String(childId || ""),
     adherence,
     environment_extension,
+    environment_extension_contract: INTERVENTION_ENVIRONMENT_EXTENSION_CONTRACT,
     deterministic: true,
     extension_only: true,
   };

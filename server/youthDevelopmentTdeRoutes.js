@@ -28,7 +28,7 @@ const {
   getProgramWeek,
   listProgramCheckpoints,
 } = require("../youth-development/tde/programService");
-const { listActivitiesByComponent } = require("../youth-development/tde/activityBankService");
+const { listActivitiesByComponent, getComponentTypeByActivityId } = require("../youth-development/tde/activityBankService");
 const {
   saveCommitmentPlan,
   getCommitmentPlan,
@@ -36,6 +36,9 @@ const {
   completeSession,
   getAdherence,
 } = require("../youth-development/tde/interventionEngine");
+const { COMMITMENT_PLAN_CONTRACT } = require("../youth-development/tde/commitmentPlanContract");
+const { SESSION_EVIDENCE_CONTRACT, validateSessionEvidenceContract } = require("../youth-development/tde/sessionEvidenceContract");
+const { INTERVENTION_ENVIRONMENT_EXTENSION_CONTRACT } = require("../youth-development/tde/interventionEnvironmentContract");
 
 function createYouthDevelopmentTdeRouter(options = {}) {
   const router = express.Router();
@@ -52,6 +55,16 @@ function createYouthDevelopmentTdeRouter(options = {}) {
   router.get("/observer/contracts", (_req, res) => res.status(200).json({ ok: true, contract: OBSERVER_CONSENT_CONTRACT, deterministic: true }));
   router.get("/environment/contracts", (_req, res) => res.status(200).json({ ok: true, contract: ENVIRONMENT_HOOK_EVENT_CONTRACT, deterministic: true }));
   router.get("/exports/validation-schema", (_req, res) => res.status(200).json({ ok: true, ...VALIDATION_SCHEMA }));
+  router.get("/contracts/intervention", (_req, res) => res.status(200).json({
+    ok: true,
+    deterministic: true,
+    extension_only: true,
+    contracts: {
+      commitment_plan: COMMITMENT_PLAN_CONTRACT,
+      session_evidence: SESSION_EVIDENCE_CONTRACT,
+      environment_extension: INTERVENTION_ENVIRONMENT_EXTENSION_CONTRACT,
+    },
+  }));
 
   router.post("/signals/extract", (req, res) => {
     const result = extractSignalsFromEvidence(req.body || {});
@@ -189,6 +202,14 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     return res.status(200).json(result);
   });
 
+  router.post("/session/validate", (req, res) => {
+    const result = validateSessionEvidenceContract(req.body || {}, {
+      component_by_activity_id: (activityId) => getComponentTypeByActivityId(activityId),
+    });
+    const status = result.ok ? 200 : 400;
+    return res.status(status).json({ ...result, deterministic: true, extension_only: true });
+  });
+
   router.post("/session/plan", (req, res) => {
     const result = planSession(req.body || {});
     const status = result.ok ? 200 : 400;
@@ -196,7 +217,9 @@ function createYouthDevelopmentTdeRouter(options = {}) {
   });
 
   router.post("/session/complete", async (req, res) => {
-    const result = await completeSession(req.body || {}, repository);
+    const result = await completeSession(req.body || {}, repository, {
+      component_by_activity_id: (activityId) => getComponentTypeByActivityId(activityId),
+    });
     const status = result.ok ? 200 : 400;
     return res.status(status).json(result);
   });

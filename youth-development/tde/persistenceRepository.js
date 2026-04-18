@@ -465,7 +465,7 @@ function createTdePersistenceRepository(pool = null) {
         plan.committed_days_per_week,
         JSON.stringify(plan.preferred_days),
         plan.preferred_time_window,
-        plan.session_length,
+        plan.target_session_length,
         plan.facilitator_role,
         JSON.stringify(plan),
       ]

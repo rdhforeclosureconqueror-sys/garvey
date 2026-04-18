@@ -161,3 +161,41 @@ Phase 5 adds the first extension-safe parent-facing TDE experience layer as a **
 - non-diagnostic developmental interpretation only.
 - confidence and data sufficiency shown with every parent experience response.
 - environment and child factors reported separately.
+
+## Phase 8 (this pass)
+Phase 8 hardens intervention contracts and integrates intervention evidence into the TDE signal pipeline without replacing live youth v1 behavior.
+
+### What Phase 8 hardens
+- Formal standalone intervention contracts:
+  - `commitmentPlanContract` for commitment planning payloads.
+  - `sessionEvidenceContract` for bounded-autonomy session evidence payloads.
+  - `interventionEnvironmentContract` for environment-only adherence outputs.
+- Contract-driven session evidence normalization via dedicated intervention signal integration service.
+- Explicit exactly-4 component enforcement with one-per-required-category and no skipped categories.
+- Explicit intervention evidence validity statuses and traceability references.
+
+### How intervention evidence enters the signal pipeline
+- Session evidence is first validated by `sessionEvidenceContract`.
+- Valid evidence is transformed deterministically into intervention signal evidence (`INTERVENTION_SESSION_LOG`) by the intervention signal integration service.
+- The standard extraction and scoring pipeline consumes these signals additively.
+- Intervention-session-only signals are explicitly blocked from becoming reported trait scores.
+
+### Confidence interpretation extension (with adherence)
+- Low adherence reduces interpretive confidence.
+- Missing planned sessions reduce interpretive confidence.
+- Confidence context now carries adherence quality and adherence-adjustment rationale.
+- Weak adherence is explicitly guarded from being interpreted as child limitation.
+
+### Phase 8 extension endpoints
+- `GET /api/youth-development/tde/contracts/intervention`
+- `POST /api/youth-development/tde/session/validate`
+
+### What remains calibration-variable
+- Adherence confidence multipliers and thresholds.
+- Challenge and coaching quality interpretation bins.
+- Session evidence-to-signal weighting and confidence blending constants.
+
+### Non-negotiable preservation in Phase 8
+- Live youth v1 intake, scoring, and dashboard contracts remain unchanged.
+- Existing TDE endpoints remain additive and feature-gated.
+- Environment extension outputs remain separate from child trait outputs.
