@@ -11,6 +11,7 @@ const {
   buildAdaptiveRecommendationExplanation,
 } = require("./personalizationService");
 const { buildGrowthTrajectory: buildGrowthTrajectoryModel, buildMilestoneComparison: buildMilestoneComparisonModel } = require("./growthTrajectoryService");
+const { buildParentCoachingSummary, buildParentGuidance } = require("./parentCoachingService");
 
 function buildConfidenceContext(snapshot = {}) {
   const progressRecords = Array.isArray(snapshot.progress_records) ? snapshot.progress_records : [];
@@ -113,6 +114,19 @@ async function getMilestoneComparison(childId, repository) {
   return buildMilestoneComparisonModel(snapshot, { child_id: childId });
 }
 
+
+async function getParentCoachingSummary(childId, repository) {
+  const snapshot = await repository.getProgramSnapshot(childId);
+  const insights = buildInsightLayer(snapshot, { child_id: childId });
+  const patternHistory = buildPatternHistory(snapshot, { child_id: childId });
+  const trajectory = buildGrowthTrajectoryModel(snapshot, { insights, pattern_history: patternHistory }, { child_id: childId });
+  return buildParentCoachingSummary(snapshot, { insights, trajectory }, { child_id: childId });
+}
+
+async function getParentGuidance(childId, repository) {
+  const summary = await getParentCoachingSummary(childId, repository);
+  return buildParentGuidance(summary);
+}
 async function getAdaptiveRecommendationExplanation(childId, repository, options = {}) {
   const recommendations = await getRecommendations(childId, repository, options);
   const personalization = await getPersonalizationSummary(childId, repository);
@@ -187,4 +201,6 @@ module.exports = {
   getAdaptiveRecommendationExplanation,
   getGrowthTrajectory,
   getMilestoneComparison,
+  getParentCoachingSummary,
+  getParentGuidance,
 };
