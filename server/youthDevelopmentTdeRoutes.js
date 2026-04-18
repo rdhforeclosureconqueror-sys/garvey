@@ -81,8 +81,9 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     contract: VOICE_READY_SCHEMA_RULES,
   }));
 
-  router.get("/voice/config", (_req, res) => {
-    return res.status(200).json(voiceService.getConfig());
+  router.get("/voice/config", async (_req, res) => {
+    const result = await voiceService.getConfig();
+    return res.status(200).json(result);
   });
 
   router.get("/voice/checkin/:childId", async (req, res) => {

@@ -282,3 +282,47 @@ Phase 11 integrates developmental check-ins into the extension-only parent-facin
 - Developmental check-ins remain developmental snapshots (not quiz framing).
 - Check-in evidence is additive and never used as a single-source trait override.
 - Recommendation/readiness logic remains rule-based, traceable, configurable, and non-clinical.
+
+## Phase 14 (this pass)
+Phase 14 connects TDE voice playback to an external provider-facing gateway while keeping voice optional, additive, and non-blocking.
+
+### What Phase 14 adds
+- TDE voice runtime now calls an **external voice gateway repo** instead of direct provider calls.
+- Gateway-backed runtime endpoints used by TDE:
+  - `POST /internal/voice/checkin-prompt`
+  - `POST /internal/voice/report-section`
+- Lightweight TDE diagnostics visibility via voice config connectivity probe:
+  - `GET /internal/voice/health` (gateway side)
+- Normalized playback metadata returned in TDE voice responses for both child prompts and parent sections:
+  - `status`
+  - `provider_name`
+  - `playable_text`
+  - `audio_url`
+  - `asset_ref`
+  - `replay_token`
+  - `chunk_index`
+  - `expires_at`
+
+### Fallback behavior (non-blocking by contract)
+- If gateway is unavailable, times out, or returns a request error, TDE keeps core flows running.
+- Voice responses return fallback metadata with `playable_text` and explicit status such as:
+  - `fallback`
+  - `provider_unavailable`
+  - `invalid_request`
+- Voice remains optional and is never required for child/parent completion.
+
+### Runtime scope constraints preserved
+- Child check-ins: prompt-by-prompt, replayable, age-band aware, `voice_text`-based.
+- Parent report: section-by-section only (`summary`, `strengths`, `growth`, `still_building`, `environment`, `next_steps`).
+- Full-report single-audio blob remains blocked.
+
+### Environment/config variables (Phase 14)
+- `VOICE_GATEWAY_BASE_URL` (required for active gateway mode)
+- `VOICE_GATEWAY_MODE` (default: `external_gateway`)
+- `VOICE_GATEWAY_TIMEOUT_MS` (default: `5000`)
+- `VOICE_GATEWAY_TOKEN` (optional, future-ready auth)
+
+### Provider boundary guarantees
+- TDE does **not** directly call OpenAI.
+- Provider integration remains outside TDE and is owned by the external voice gateway.
+- TDE keeps provider-agnostic contracts and additive extension behavior under `/api/youth-development/tde/*`.
