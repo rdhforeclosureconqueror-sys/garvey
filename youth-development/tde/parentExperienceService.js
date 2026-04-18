@@ -3,6 +3,7 @@
 const { PROGRAM_PHASES, PROGRAM_WEEKS, PROGRAM_CHECKPOINTS } = require("./programRail");
 const { buildInterventionSummary } = require("./interventionSummaryService");
 const { summarizeDevelopmentCheckins } = require("./developmentCheckinService");
+const { CALIBRATION_VARIABLES, deterministicId } = require("./constants");
 
 const PHASE_LABELS = Object.freeze({
   1: "Phase 1 · Foundation",
@@ -260,6 +261,17 @@ function buildDataSufficiencyStatus(consents, hooks, progressRecords) {
   };
 }
 
+function toVoiceSection(childId, sectionKey, textContent) {
+  const maxLength = Number(CALIBRATION_VARIABLES.voice_architecture.voice_chunk_max_length || 180);
+  const text = String(textContent || "").trim().slice(0, maxLength);
+  return {
+    text_content: text,
+    voice_ready: true,
+    voice_chunk_id: deterministicId("voice_section", { child_id: childId, section: sectionKey, text }),
+    max_length: maxLength,
+  };
+}
+
 function buildConfidenceContext(progressRecords, environmentHooks, observerConsents) {
   return {
     confidence_label: progressRecords.length >= 6 ? "moderate" : "early-signal",
@@ -305,6 +317,14 @@ function buildParentExperienceViewModel(childId, snapshot = {}) {
   const supportActions = buildSupportActions(snapshot, confidenceContext, dataSufficiency);
   const interventionSessions = Array.isArray(snapshot.intervention_sessions) ? snapshot.intervention_sessions : [];
   const interventionSummary = buildInterventionSummary(childId, snapshot, snapshot.commitment_plan || null, interventionSessions);
+  const report_sections = {
+    summary: toVoiceSection(childId, "summary", `Week ${currentWeek}: developmental patterns are being tracked with extension evidence.`),
+    strengths: toVoiceSection(childId, "strengths", strongestLevers.length ? `Current strengths include ${strongestLevers.join(", ")}.` : "Strength signals are still forming this cycle."),
+    growth: toVoiceSection(childId, "growth", buildingLevers.length ? `Growth areas this week: ${buildingLevers.join(", ")}.` : "Growth focus will tighten as more weekly data is captured."),
+    still_building: toVoiceSection(childId, "still_building", checkinSummary?.changes_since_prior_checkin?.interpretation || "Still building consistent weekly pattern signals."),
+    environment: toVoiceSection(childId, "environment", environmentFocusAreas.length ? `Environment focus: ${environmentFocusAreas.join(", ")}.` : "Environment priorities will appear after more snapshots."),
+    next_steps: toVoiceSection(childId, "next_steps", `Next step: prepare for ${nextCheckpoint.checkpoint_type} at Week ${nextCheckpoint.week_number}.`),
+  };
 
   return {
     ok: true,
@@ -353,6 +373,7 @@ function buildParentExperienceViewModel(childId, snapshot = {}) {
       },
     },
     progress_over_time_summary: summarizeProgressTimeline(progressRecords),
+    report_sections,
     next_step_plan: {
       now: "Continue weekly developmental observations using extension contracts.",
       next: `Prepare for ${nextCheckpoint.checkpoint_type} at Week ${nextCheckpoint.week_number}.`,

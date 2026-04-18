@@ -46,7 +46,7 @@ const {
 const { COMMITMENT_PLAN_CONTRACT } = require("../youth-development/tde/commitmentPlanContract");
 const { SESSION_EVIDENCE_CONTRACT, validateSessionEvidenceContract } = require("../youth-development/tde/sessionEvidenceContract");
 const { INTERVENTION_ENVIRONMENT_EXTENSION_CONTRACT } = require("../youth-development/tde/interventionEnvironmentContract");
-const { DEVELOPMENT_CHECKIN_CONTRACT } = require("../youth-development/tde/developmentCheckinContract");
+const { DEVELOPMENT_CHECKIN_CONTRACT, VOICE_READY_SCHEMA_RULES } = require("../youth-development/tde/developmentCheckinContract");
 const { runDevelopmentCheckin, listDevelopmentCheckins } = require("../youth-development/tde/developmentCheckinService");
 
 function createYouthDevelopmentTdeRouter(options = {}) {
@@ -69,6 +69,12 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     deterministic: true,
     extension_only: true,
     contract: DEVELOPMENT_CHECKIN_CONTRACT,
+  }));
+  router.get("/contracts/voice", (_req, res) => res.status(200).json({
+    ok: true,
+    deterministic: true,
+    extension_only: true,
+    contract: VOICE_READY_SCHEMA_RULES,
   }));
 
   router.get("/contracts/intervention", (_req, res) => res.status(200).json({

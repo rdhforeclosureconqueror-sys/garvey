@@ -41,6 +41,18 @@ const CALIBRATION_VARIABLES = Object.freeze({
     reflection_improving_min_delta: 0.12,
     disagreement_max_delta: 0.35,
     consistency_min_completed_ratio: 0.5,
+    weekly_checkin_max_duration_minutes: 5,
+    minimum_checkin_history_for_confidence: 3,
+    checkin_confidence_weight: 0.2,
+    reflection_signal_weight: 0.35,
+    weekly_checkin_max_duration_minutes_marker: "CALIBRATION_VARIABLE",
+    minimum_checkin_history_for_confidence_marker: "CALIBRATION_VARIABLE",
+    checkin_confidence_weight_marker: "CALIBRATION_VARIABLE",
+    reflection_signal_weight_marker: "CALIBRATION_VARIABLE",
+  }),
+  voice_architecture: Object.freeze({
+    voice_chunk_max_length: 180,
+    voice_chunk_max_length_marker: "CALIBRATION_VARIABLE",
   }),
 });
 
