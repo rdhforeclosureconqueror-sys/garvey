@@ -148,15 +148,24 @@ test('deterministic intervention-to-signal transformation and no intervention-on
       missed_planned_sessions: 2,
     },
   });
+  const scoredWithMissedSessions = scoreTraitsFromSignals(extracted.extracted_signals, {
+    adherence_context: {
+      adherence_status: 'MODERATE',
+      missed_planned_sessions: 2,
+    },
+  });
 
   const srBase = scored.trait_results.find((entry) => entry.trait_code === 'SR');
   const srAdjusted = scoredWithAdherence.trait_results.find((entry) => entry.trait_code === 'SR');
+  const srMissed = scoredWithMissedSessions.trait_results.find((entry) => entry.trait_code === 'SR');
 
   assert.equal(srBase.reported_trait_score, null);
   assert.equal(srBase.evidence_sufficiency_status, 'INSUFFICIENT_NON_SESSION_SOURCE');
   assert.equal(srAdjusted.reported_trait_score, null);
   assert.ok(srAdjusted.confidence_score < srBase.confidence_score);
   assert.equal(srAdjusted.confidence_context.interpretive_guard, 'weak_adherence_not_child_limitation');
+  assert.ok(srMissed.confidence_score < srBase.confidence_score);
+  assert.equal(srMissed.confidence_context.confidence_adjustment_reason, 'missing_planned_sessions_reduce_interpretive_confidence');
 });
 
 test('phase8 contract endpoints are additive-safe and live youth v1 route remains accessible', async () => {

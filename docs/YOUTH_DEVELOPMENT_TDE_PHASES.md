@@ -177,6 +177,8 @@ Phase 8 hardens intervention contracts and integrates intervention evidence into
 ### How intervention evidence enters the signal pipeline
 - Session evidence is first validated by `sessionEvidenceContract`.
 - Valid evidence is transformed deterministically into intervention signal evidence (`INTERVENTION_SESSION_LOG`) by the intervention signal integration service.
+- `runTdePipeline` now accepts `intervention_session_evidence` and performs that contract-driven transform before standard extraction/scoring.
+- Invalid intervention session payloads are surfaced explicitly as `intervention_session_evidence_invalid` (with session contract id + validation errors).
 - The standard extraction and scoring pipeline consumes these signals additively.
 - Intervention-session-only signals are explicitly blocked from becoming reported trait scores.
 
