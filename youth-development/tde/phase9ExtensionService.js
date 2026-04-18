@@ -84,7 +84,7 @@ async function getRollout(childId, repository) {
     deterministic: true,
     child_id: childId,
     readiness,
-    rollout: buildRolloutBridge(readiness),
+    rollout: buildRolloutBridge(readiness, { voice_rollout_mode: process.env.TDE_VOICE_ROLLOUT_MODE }),
   };
 }
 

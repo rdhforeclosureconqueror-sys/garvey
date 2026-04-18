@@ -2,6 +2,7 @@
 
 const { summarizeAdherence } = require("./adherenceService");
 const { CALIBRATION_VARIABLES } = require("./constants");
+const { resolveVoiceRolloutMode } = require("./voicePilotService");
 
 function toConfidenceImpact(adherence) {
   return adherence.adherence_status === "WEAK"
@@ -67,6 +68,14 @@ function evaluateInterventionReadiness(snapshot = {}, commitmentPlan = null, ses
 function buildRolloutBridge(readiness = {}, options = {}) {
   const fallbackMode = options.fallback_mode || "extension_safe_fallback";
   const tdeAvailable = readiness.readiness_status !== "not_ready";
+  const voiceRolloutMode = resolveVoiceRolloutMode(options.voice_rollout_mode);
+  const voicePlaybackMode = voiceRolloutMode === "hidden"
+    ? "hidden"
+    : voiceRolloutMode === "fallback_only"
+      ? "fallback_only"
+      : voiceRolloutMode === "preview_only"
+        ? "preview_only"
+        : "enabled";
 
   return {
     ok: true,
@@ -76,6 +85,12 @@ function buildRolloutBridge(readiness = {}, options = {}) {
     readiness_status: readiness.readiness_status || "not_ready",
     bridge_mode: tdeAvailable ? "phase9_intervention_aware" : fallbackMode,
     fallback_safe: !tdeAvailable,
+    voice_rollout: {
+      mode: voiceRolloutMode,
+      playback_mode: voicePlaybackMode,
+      voice_required: false,
+      extension_safe: true,
+    },
     explanation: tdeAvailable
       ? "TDE extension availability includes intervention consistency checks."
       : "TDE extension remains safely withheld until intervention readiness contracts are met.",

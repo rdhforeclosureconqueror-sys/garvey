@@ -4,6 +4,7 @@ const { deterministicId, DEFAULT_CALIBRATION_VERSION, EVIDENCE_STATUS_TAG, CALIB
 const { validateDevelopmentCheckinContract } = require("./developmentCheckinContract");
 const { extractSignalsFromEvidence } = require("./signalExtractionService");
 const { scoreTraitsFromSignals } = require("./traitScoringService");
+const { registerVoiceReadableContentBlock } = require("./voiceContentRegistry");
 
 const PERFORMANCE_PROMPT_BANK = Object.freeze([
   Object.freeze({ trait_code: "SR", signal_type: "strategy_use_presence", prompt_text: "Show how you chose a strategy before starting and what helped you keep using it." }),
@@ -58,58 +59,81 @@ function generateDevelopmentCheckin(payload = {}) {
   const ageBand = String(payload.age_band || "8-10").trim() || "8-10";
   const voiceChunkLimit = Number(CALIBRATION_VARIABLES.voice_architecture.voice_chunk_max_length || 180);
   const cleanVoiceText = (text) => String(text || "").trim().split(/\s+/).slice(0, Math.max(1, Math.floor(voiceChunkLimit / 6))).join(" ");
+  const registerPromptVoiceContent = (promptKey, promptText, voiceReady = true, voicePacing = "short") => {
+    return registerVoiceReadableContentBlock({
+      section_key: promptKey,
+      text_content: promptText,
+      voice_ready: voiceReady,
+      voice_text: cleanVoiceText(promptText),
+      voice_pacing: voicePacing,
+      age_band: ageBand,
+      playback_optional: true,
+    }, { scope: "development_checkin_prompt", child_id: childId });
+  };
   const perfStart = programWeek % PERFORMANCE_PROMPT_BANK.length;
   const performanceEntry = PERFORMANCE_PROMPT_BANK[perfStart];
+  const performanceVoice = registerPromptVoiceContent("performance_prompt", performanceEntry.prompt_text, true, "short");
   const performance_prompt = {
     prompt_id: buildPromptId(checkinId, "cp", `${performanceEntry.trait_code}_0`),
     prompt_type: "performance",
     ...performanceEntry,
     target_traits: [performanceEntry.trait_code],
     age_band: ageBand,
-    voice_ready: true,
-    voice_text: cleanVoiceText(performanceEntry.prompt_text),
+    voice_ready: performanceVoice.voice_ready,
+    voice_text: performanceVoice.voice_text,
     voice_pacing: "short",
-    voice_chunk_id: buildPromptId(checkinId, "voice", "performance"),
+    voice_chunk_id: performanceVoice.voice_chunk_id,
+    readability_registration: performanceVoice,
   };
 
   const reflectionStart = programWeek % REFLECTION_PROMPT_BANK.length;
   const reflectionEntry = REFLECTION_PROMPT_BANK[reflectionStart];
+  const reflectionVoice = registerPromptVoiceContent("reflection_prompt", reflectionEntry.prompt_text, true, "short");
   const reflection_prompt = {
     prompt_id: buildPromptId(checkinId, "cr", `${reflectionEntry.trait_code}_0`),
     prompt_type: "reflection",
     ...reflectionEntry,
     target_traits: [reflectionEntry.trait_code],
     age_band: ageBand,
-    voice_ready: true,
-    voice_text: cleanVoiceText(reflectionEntry.prompt_text),
+    voice_ready: reflectionVoice.voice_ready,
+    voice_text: reflectionVoice.voice_text,
     voice_pacing: "short",
-    voice_chunk_id: buildPromptId(checkinId, "voice", "reflection"),
+    voice_chunk_id: reflectionVoice.voice_chunk_id,
+    readability_registration: reflectionVoice,
   };
 
   const optional_transfer_prompt = (programWeek % 4 === 0)
     ? {
+        ...(() => {
+          const transferVoice = registerPromptVoiceContent("optional_transfer_prompt", TRANSFER_PROMPT.prompt_text, true, "medium");
+          return {
+            voice_ready: transferVoice.voice_ready,
+            voice_text: transferVoice.voice_text,
+            voice_chunk_id: transferVoice.voice_chunk_id,
+            readability_registration: transferVoice,
+          };
+        })(),
         prompt_id: buildPromptId(checkinId, "ct", `transfer_${programWeek}`),
         prompt_type: "transfer",
         ...TRANSFER_PROMPT,
         target_traits: [TRANSFER_PROMPT.trait_code],
         age_band: ageBand,
-        voice_ready: true,
-        voice_text: cleanVoiceText(TRANSFER_PROMPT.prompt_text),
         voice_pacing: "medium",
-        voice_chunk_id: buildPromptId(checkinId, "voice", "transfer"),
       }
     : null;
 
+  const parentVoice = registerPromptVoiceContent("parent_observation_prompt", PARENT_PROMPT.prompt_text, false, "short");
   const parent_observation_prompt = {
     prompt_id: buildPromptId(checkinId, "parent", `parent_${programWeek}`),
     prompt_type: "observation",
     ...PARENT_PROMPT,
     target_traits: [PARENT_PROMPT.trait_code],
     age_band: ageBand,
-    voice_ready: false,
-    voice_text: cleanVoiceText(PARENT_PROMPT.prompt_text),
+    voice_ready: parentVoice.voice_ready,
+    voice_text: parentVoice.voice_text,
     voice_pacing: "short",
-    voice_chunk_id: buildPromptId(checkinId, "voice", "observation"),
+    voice_chunk_id: parentVoice.voice_chunk_id,
+    readability_registration: parentVoice,
   };
 
   return {

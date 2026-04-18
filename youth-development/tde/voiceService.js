@@ -3,6 +3,9 @@
 const { CALIBRATION_VARIABLES, deterministicId } = require("./constants");
 const { createVoiceProviderAdapter } = require("./voiceProviderAdapter");
 const { buildParentExperienceViewModel } = require("./parentExperienceService");
+const { createVoiceAnalyticsService } = require("./voiceAnalyticsService");
+const { createVoicePilotService } = require("./voicePilotService");
+const { registerVoiceReadableContentBlocks } = require("./voiceContentRegistry");
 
 const PARENT_SECTION_ORDER = Object.freeze(["summary", "strengths", "growth", "still_building", "environment", "next_steps"]);
 const CHILD_PROMPT_ORDER = Object.freeze(["performance_prompt", "reflection_prompt", "optional_transfer_prompt"]);
@@ -10,6 +13,8 @@ const CHILD_PROMPT_ORDER = Object.freeze(["performance_prompt", "reflection_prom
 function createVoiceService(options = {}) {
   const adapter = options.adapter || createVoiceProviderAdapter(options.provider_options || {});
   const cache = options.cache || new Map();
+  const analytics = options.analytics || createVoiceAnalyticsService();
+  const pilotService = options.pilotService || createVoicePilotService();
 
   const maxChunkLength = Number(CALIBRATION_VARIABLES.voice_architecture.voice_chunk_max_length || 180);
   const maxSentencesPerChunk = Number(CALIBRATION_VARIABLES.voice_architecture.voice_max_sentences_per_chunk || 2);
@@ -19,6 +24,13 @@ function createVoiceService(options = {}) {
 
   async function getConfig() {
     const connectivity = await adapter.getConnectivity();
+    const voicePreviewMode = String(process.env.TDE_VOICE_PREVIEW_MODE || "off").trim().toLowerCase() === "on";
+    const visibility = pilotService.evaluateVisibility({
+      gateway_status: connectivity.status,
+      preview_mode: voicePreviewMode,
+      feature_flag_enabled: String(process.env.TDE_VOICE_FEATURE_ENABLED || "on").trim().toLowerCase() !== "off",
+      voice_ready_content_present: true,
+    });
     const availabilityStatus = connectivity.status === "connected"
       ? "voice_available"
       : connectivity.status === "degraded"
@@ -30,6 +42,8 @@ function createVoiceService(options = {}) {
       extension_only: true,
       deterministic: true,
       voice_enabled: adapter.isAvailable(),
+      voice_rollout_mode: visibility.rollout_mode,
+      voice_playback_mode: visibility.playback_mode,
       voice_availability_status: availabilityStatus,
       provider: adapter.provider,
       provider_config: adapter.getGatewayConfig(),
@@ -39,6 +53,7 @@ function createVoiceService(options = {}) {
         last_fallback_reason: null,
         missing_playable_assets_detected: false,
       },
+      pilot_visibility: visibility,
       constraints: {
         chunk_max_length: maxChunkLength,
         max_sentences_per_chunk: maxSentencesPerChunk,
@@ -163,6 +178,7 @@ function createVoiceService(options = {}) {
   }
 
   async function getChildCheckinPlayback(childId, repository) {
+    analytics.record("child_checkin_playback_requested", { child_id: childId });
     const snapshot = await repository.getProgramSnapshot(childId);
     const latestCheckin = readLatestCheckin(snapshot);
 
@@ -190,6 +206,30 @@ function createVoiceService(options = {}) {
     const promptRows = CHILD_PROMPT_ORDER
       .map((promptKey) => ({ key: promptKey, prompt: latestCheckin?.prompts?.[promptKey] || null }))
       .filter((entry) => Boolean(entry.prompt));
+    const promptRegistrations = registerVoiceReadableContentBlocks(
+      promptRows.map((row) => ({
+        section_key: row.key,
+        text_content: String(row.prompt?.voice_text || row.prompt?.prompt_text || "").trim(),
+        voice_ready: Boolean(row.prompt?.voice_ready),
+        voice_text: String(row.prompt?.voice_text || "").trim(),
+        voice_chunk_id: row.prompt?.voice_chunk_id,
+        age_band: row.prompt?.age_band || latestCheckin.age_band || "8-10",
+        playback_optional: true,
+      })),
+      { scope: "development_checkin_prompt", child_id: childId }
+    );
+    const connectivity = await adapter.getConnectivity();
+    const voicePreviewMode = String(process.env.TDE_VOICE_PREVIEW_MODE || "off").trim().toLowerCase() === "on";
+    const decision = pilotService.evaluateVisibility({
+      child_id: childId,
+      age_band: latestCheckin.age_band || promptRows[0]?.prompt?.age_band || "8-10",
+      gateway_status: connectivity.status,
+      voice_ready_content_present: promptRegistrations.voice_ready_content_present,
+      preview_mode: voicePreviewMode,
+      feature_flag_enabled: String(process.env.TDE_VOICE_FEATURE_ENABLED || "on").trim().toLowerCase() !== "off",
+      supported_age_bands: supportedAgeBands,
+    });
+    if (!decision.voice_shown) analytics.record("voice_not_shown_unavailable_or_unsupported", { child_id: childId });
 
     const prompts = [];
     for (const row of promptRows) {
@@ -211,6 +251,11 @@ function createVoiceService(options = {}) {
       }
 
       const chunkState = summarizeChunkState(hydratedChunks);
+      if (chunkState.fallback_status === "fallback_active") analytics.record("fallback_used", { child_id: childId });
+      if (chunkState.provider_status !== "available") analytics.record("provider_unavailable", { child_id: childId });
+      if (hydratedChunks.some((chunk) => chunk.fallback_reason === "malformed_gateway_success_missing_playable_asset")) {
+        analytics.record("malformed_gateway_downgrade_used", { child_id: childId });
+      }
 
       prompts.push({
         prompt_id: prompt.prompt_id,
@@ -259,6 +304,7 @@ function createVoiceService(options = {}) {
       child_id: childId,
       checkin_id: latestCheckin.checkin_id,
       voice_enabled: adapter.isAvailable(),
+      voice_visibility: decision,
       one_prompt_at_a_time: true,
       voice_state: {
         availability: hasReadyPrompt ? "voice_available" : "voice_fallback_active",
@@ -269,22 +315,45 @@ function createVoiceService(options = {}) {
         last_fallback_reason: allChunks.find((entry) => entry.fallback_reason)?.fallback_reason || null,
         missing_playable_asset_indicators: allMissingPlayable,
       },
+      readability_registration: promptRegistrations,
       prompts,
       missing_contracts: prompts.length ? [] : ["voice_ready_prompt_schema_required"],
     };
   }
 
   async function getParentSectionPlayback(childId, repository) {
+    analytics.record("parent_section_playback_requested", { child_id: childId });
     const snapshot = await repository.getProgramSnapshot(childId);
     const parentExperience = buildParentExperienceViewModel(childId, snapshot);
     const sections = parentExperience?.report_sections || {};
+    const connectivity = await adapter.getConnectivity();
+    const sectionRegistrations = registerVoiceReadableContentBlocks(
+      Object.entries(sections).map(([sectionKey, section]) => ({
+        section_key: sectionKey,
+        text_content: String(section.text_content || "").trim(),
+        voice_ready: Boolean(section.voice_ready),
+        voice_text: String(section.voice_text || section.text_content || "").trim(),
+        voice_chunk_id: section.voice_chunk_id,
+        playback_optional: true,
+      })),
+      { scope: "parent_report_section", child_id: childId }
+    );
+    const voicePreviewMode = String(process.env.TDE_VOICE_PREVIEW_MODE || "off").trim().toLowerCase() === "on";
+    const decision = pilotService.evaluateVisibility({
+      child_id: childId,
+      gateway_status: connectivity.status,
+      voice_ready_content_present: sectionRegistrations.voice_ready_content_present,
+      preview_mode: voicePreviewMode,
+      feature_flag_enabled: String(process.env.TDE_VOICE_FEATURE_ENABLED || "on").trim().toLowerCase() !== "off",
+    });
+    if (!decision.voice_shown) analytics.record("voice_not_shown_unavailable_or_unsupported", { child_id: childId });
 
     const playbackSections = [];
 
     for (const sectionKey of PARENT_SECTION_ORDER) {
       const section = sections[sectionKey] || null;
       if (!section) continue;
-      const voiceText = String(section.text_content || "").trim();
+      const voiceText = String(section.voice_text || section.text_content || "").trim();
       const playbackId = deterministicId("parent_playback", { child_id: childId, section_key: sectionKey, voice_chunk_id: section.voice_chunk_id });
       const chunkMetadata = toChunkMetadata(playbackId, sectionKey, voiceText, {
         child_id: childId,
@@ -297,6 +366,11 @@ function createVoiceService(options = {}) {
       }
 
       const chunkState = summarizeChunkState(hydratedChunks);
+      if (chunkState.fallback_status === "fallback_active") analytics.record("fallback_used", { child_id: childId });
+      if (chunkState.provider_status !== "available") analytics.record("provider_unavailable", { child_id: childId });
+      if (hydratedChunks.some((chunk) => chunk.fallback_reason === "malformed_gateway_success_missing_playable_asset")) {
+        analytics.record("malformed_gateway_downgrade_used", { child_id: childId });
+      }
 
       playbackSections.push({
         section_key: sectionKey,
@@ -346,6 +420,7 @@ function createVoiceService(options = {}) {
       deterministic: true,
       child_id: childId,
       voice_enabled: adapter.isAvailable(),
+      voice_visibility: decision,
       full_report_playback_allowed: false,
       voice_state: {
         availability: hasReadySection ? "voice_available" : "voice_fallback_active",
@@ -356,6 +431,7 @@ function createVoiceService(options = {}) {
         last_fallback_reason: allChunks.find((entry) => entry.fallback_reason)?.fallback_reason || null,
         missing_playable_asset_indicators: allMissingPlayable,
       },
+      readability_registration: sectionRegistrations,
       sections: playbackSections,
       missing_contracts: playbackSections.length === PARENT_SECTION_ORDER.length ? [] : ["parent_report_sections_contract_incomplete"],
     };
@@ -398,7 +474,49 @@ function createVoiceService(options = {}) {
   }
 
   function getCachedPlayback(playbackId) {
-    return cache.get(String(playbackId || "").trim()) || null;
+    const cached = cache.get(String(playbackId || "").trim()) || null;
+    if (cached?.child_id) analytics.record("child_replay_requested", { child_id: cached.child_id });
+    return cached;
+  }
+
+  function getVoiceAnalyticsSummary(options = {}) {
+    return analytics.getSummary(options);
+  }
+
+  async function getVoicePilotStatus(childId, repository) {
+    const [config, checkin, sections] = await Promise.all([
+      getConfig(),
+      getChildCheckinPlayback(childId, repository),
+      getParentSectionPlayback(childId, repository),
+    ]);
+    return {
+      ok: true,
+      extension_only: true,
+      deterministic: true,
+      child_id: childId,
+      rollout_mode: config.voice_rollout_mode,
+      playback_mode: config.voice_playback_mode,
+      checkin_visibility: checkin.voice_visibility,
+      parent_visibility: sections.voice_visibility,
+      eligibility: {
+        child_voice_eligible: Boolean(checkin.voice_visibility?.voice_shown),
+        parent_report_voice_eligible: Boolean(sections.voice_visibility?.voice_shown),
+      },
+      missing_contracts: [...new Set([...(checkin.missing_contracts || []), ...(sections.missing_contracts || [])])],
+    };
+  }
+
+  async function getVoiceEligibility(childId, repository) {
+    const status = await getVoicePilotStatus(childId, repository);
+    return {
+      ok: true,
+      extension_only: true,
+      deterministic: true,
+      child_id: childId,
+      account_voice_eligibility: status.eligibility,
+      rollout_mode: status.rollout_mode,
+      playback_mode: status.playback_mode,
+    };
   }
 
   return {
@@ -407,6 +525,9 @@ function createVoiceService(options = {}) {
     getParentSectionPlayback,
     getVoiceAvailabilityStatus,
     getCachedPlayback,
+    getVoiceAnalyticsSummary,
+    getVoicePilotStatus,
+    getVoiceEligibility,
     parentSectionOrder: PARENT_SECTION_ORDER,
   };
 }
