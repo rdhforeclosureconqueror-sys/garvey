@@ -8,6 +8,7 @@ function createTdePersistenceRepository(pool = null) {
     observerConsents: [],
     environmentHooks: [],
     validationExports: [],
+    calibrationRefs: [],
     commitmentPlans: [],
     interventionSessions: [],
     developmentCheckins: [],
@@ -77,7 +78,10 @@ function createTdePersistenceRepository(pool = null) {
   }
 
   async function persistCalibrationRef(runId, calibrationVersion, referencedBy) {
-    if (!pool) return { persisted: 0 };
+    if (!pool) {
+      inMemory.calibrationRefs.push({ run_id: runId, calibration_version: calibrationVersion, referenced_by: referencedBy });
+      return { persisted: 1, mode: "memory" };
+    }
     await pool.query(
       `INSERT INTO tde_calibration_version_refs (run_id, calibration_version, referenced_by) VALUES ($1,$2,$3)`,
       [runId, calibrationVersion, referencedBy]
@@ -451,6 +455,26 @@ function createTdePersistenceRepository(pool = null) {
     return { persisted: 1, mode: "database" };
   }
 
+
+  async function listValidationExportLogs() {
+    if (!pool) {
+      return [...inMemory.validationExports].sort((a, b) => `${a.job_id || ""}`.localeCompare(`${b.job_id || ""}`));
+    }
+    const rows = await pool.query(`SELECT payload FROM tde_validation_export_logs ORDER BY job_id ASC`);
+    return rows.rows.map((row) => row.payload || {});
+  }
+
+  async function listCalibrationVersions() {
+    if (!pool) {
+      const versions = inMemory.calibrationRefs.map((entry) => entry.calibration_version);
+      if (!versions.length) versions.push("tde-calibration-v0");
+      return [...new Set(versions)].sort();
+    }
+    const rows = await pool.query(`SELECT DISTINCT calibration_version FROM tde_calibration_version_refs ORDER BY calibration_version ASC`);
+    const versions = rows.rows.map((row) => String(row.calibration_version || "").trim()).filter(Boolean);
+    if (!versions.length) versions.push("tde-calibration-v0");
+    return [...new Set(versions)].sort();
+  }
   async function persistCommitmentPlan(plan) {
     if (!pool) {
       inMemory.commitmentPlans = inMemory.commitmentPlans.filter((entry) => entry.child_id !== plan.child_id);
@@ -587,6 +611,8 @@ function createTdePersistenceRepository(pool = null) {
     getProgramSnapshot,
     getValidationDataset,
     persistValidationExportLog,
+    listValidationExportLogs,
+    listCalibrationVersions,
     persistCommitmentPlan,
     getCommitmentPlan,
     persistInterventionSession,

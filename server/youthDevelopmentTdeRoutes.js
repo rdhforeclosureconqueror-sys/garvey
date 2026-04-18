@@ -15,6 +15,11 @@ const { captureEnvironmentHook } = require("../youth-development/tde/environment
 const { VALIDATION_SCHEMA, generateValidationExport } = require("../youth-development/tde/validationExportService");
 const { getParentProgressSummary } = require("../youth-development/tde/parentSummaryService");
 const {
+  getEvidenceQualitySummary,
+  getValidationSummary,
+  getCalibrationSummary,
+} = require("../youth-development/tde/validationOperationsService");
+const {
   getParentExperience,
   getRoadmapForChild,
   getSupportActionsForChild,
@@ -226,6 +231,25 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     const result = await generateValidationExport(req.body || {}, repository);
     const status = result.ok ? 200 : 400;
     return res.status(status).json(result);
+  });
+
+  router.get("/validation/summary/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getValidationSummary(childId, repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/calibration/summary", async (_req, res) => {
+    const result = await getCalibrationSummary(repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/evidence-quality/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getEvidenceQualitySummary(childId, repository);
+    return res.status(200).json(result);
   });
 
   router.get("/summary/:childId", async (req, res) => {
