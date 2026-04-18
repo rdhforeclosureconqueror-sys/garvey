@@ -361,7 +361,8 @@ function createTdePersistenceRepository(pool = null) {
       const environmentHooks = inMemory.environmentHooks.filter((entry) => entry.child_id === childId);
       const commitmentPlan = inMemory.commitmentPlans.find((entry) => entry.child_id === childId) || null;
       const interventionSessions = inMemory.interventionSessions.filter((entry) => entry.child_id === childId);
-      return { enrollment, progress_records: progressRecords, observer_consents: observerConsents, environment_hooks: environmentHooks, commitment_plan: commitmentPlan, intervention_sessions: interventionSessions };
+      const developmentCheckins = inMemory.developmentCheckins.filter((entry) => entry.child_id === childId);
+      return { enrollment, progress_records: progressRecords, observer_consents: observerConsents, environment_hooks: environmentHooks, commitment_plan: commitmentPlan, intervention_sessions: interventionSessions, development_checkins: developmentCheckins };
     }
 
     const enrollmentRows = await pool.query(
@@ -382,6 +383,7 @@ function createTdePersistenceRepository(pool = null) {
     );
     const commitmentRows = await pool.query(`SELECT payload FROM tde_commitment_plans WHERE child_id = $1 LIMIT 1`, [childId]);
     const interventionRows = await pool.query(`SELECT payload FROM tde_intervention_sessions WHERE child_id = $1 ORDER BY completed_at ASC`, [childId]);
+    const checkinRows = await pool.query(`SELECT payload FROM tde_development_checkins WHERE child_id = $1 ORDER BY completed_at ASC`, [childId]);
     return {
       enrollment: enrollmentRows.rows[0]?.payload || null,
       progress_records: progressRows.rows.map((row) => row.payload || {}),
@@ -389,6 +391,7 @@ function createTdePersistenceRepository(pool = null) {
       environment_hooks: environmentRows.rows.map((row) => row.payload || {}),
       commitment_plan: commitmentRows.rows[0]?.payload || null,
       intervention_sessions: interventionRows.rows.map((row) => row.payload || {}),
+      development_checkins: checkinRows.rows.map((row) => row.payload || {}),
     };
   }
 

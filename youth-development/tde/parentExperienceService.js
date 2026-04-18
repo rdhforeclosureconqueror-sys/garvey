@@ -2,6 +2,7 @@
 
 const { PROGRAM_PHASES, PROGRAM_WEEKS, PROGRAM_CHECKPOINTS } = require("./programRail");
 const { buildInterventionSummary } = require("./interventionSummaryService");
+const { summarizeDevelopmentCheckins } = require("./developmentCheckinService");
 
 const PHASE_LABELS = Object.freeze({
   1: "Phase 1 · Foundation",
@@ -275,6 +276,7 @@ function buildParentExperienceViewModel(childId, snapshot = {}) {
   const progressRecords = Array.isArray(snapshot.progress_records) ? [...snapshot.progress_records].sort(byWeekAsc) : [];
   const environmentHooks = Array.isArray(snapshot.environment_hooks) ? snapshot.environment_hooks : [];
   const observerConsents = Array.isArray(snapshot.observer_consents) ? snapshot.observer_consents : [];
+  const developmentCheckins = Array.isArray(snapshot.development_checkins) ? snapshot.development_checkins : [];
 
   const currentWeek = normalizeWeek(enrollment?.current_week || progressRecords.at(-1)?.week_number || 1);
   const currentWeekModel = PROGRAM_WEEKS.find((entry) => entry.week_number === currentWeek) || PROGRAM_WEEKS[0];
@@ -287,6 +289,7 @@ function buildParentExperienceViewModel(childId, snapshot = {}) {
   const nextCheckpoint = PROGRAM_CHECKPOINTS.find((entry) => entry.week_number >= currentWeek) || PROGRAM_CHECKPOINTS.at(-1);
   const confidenceContext = buildConfidenceContext(progressRecords, environmentHooks, observerConsents);
   const dataSufficiency = buildDataSufficiencyStatus(observerConsents, environmentHooks, progressRecords);
+  const checkinSummary = summarizeDevelopmentCheckins(developmentCheckins, { current_week: currentWeek });
 
   const strongestLevers = Array.isArray(enrollment?.active_domain_interests)
     ? enrollment.active_domain_interests.slice(0, 3)
@@ -334,6 +337,21 @@ function buildParentExperienceViewModel(childId, snapshot = {}) {
     support_actions_for_now: supportActions.support_actions,
     confidence_context: confidenceContext,
     data_sufficiency_context: dataSufficiency,
+    developmental_checkin_context: checkinSummary,
+    evidence_streams: {
+      session_intervention_evidence: {
+        label: "Session/intervention evidence",
+        status: interventionSummary?.intervention_quality_context?.consistency_status || "limited",
+      },
+      developmental_checkin_evidence: {
+        label: "Developmental check-in evidence",
+        status: checkinSummary.evidence_sufficiency?.status || "limited",
+      },
+      parent_observation_evidence: {
+        label: "Parent observation evidence",
+        status: observerConsents.some((entry) => entry.consent_status === "granted") ? "present" : "limited",
+      },
+    },
     progress_over_time_summary: summarizeProgressTimeline(progressRecords),
     next_step_plan: {
       now: "Continue weekly developmental observations using extension contracts.",

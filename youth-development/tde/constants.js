@@ -34,6 +34,14 @@ const CALIBRATION_VARIABLES = Object.freeze({
     schedule_realism_max_days_per_week: 5,
     deterministic_session_builder_strategy: "sorted-first-enabled-by-component",
   }),
+  developmental_checkins: Object.freeze({
+    minimum_history_for_sufficiency: 2,
+    minimum_traceability_ratio: 0.9,
+    weak_transfer_max_average: 0.45,
+    reflection_improving_min_delta: 0.12,
+    disagreement_max_delta: 0.35,
+    consistency_min_completed_ratio: 0.5,
+  }),
 });
 
 function stableStringify(value) {

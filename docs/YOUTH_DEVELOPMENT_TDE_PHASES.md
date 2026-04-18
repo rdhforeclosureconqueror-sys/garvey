@@ -243,3 +243,42 @@ Phase 9 integrates intervention consistency into the extension-only parent exper
 ### What remains unchanged
 - Live youth v1 intake, assess, persistence, and parent dashboard contracts remain unchanged.
 - Phase 9 routes remain additive and feature-gated under `/api/youth-development/tde/*`.
+
+## Phase 11 (this pass)
+Phase 11 integrates developmental check-ins into the extension-only parent-facing TDE behavior, recommendation flow, and readiness logic.
+
+### What Phase 11 adds
+- Parent experience integration now includes a developmental check-in context:
+  - next expected check-in week
+  - latest check-in summary
+  - change-since-prior interpretation
+  - check-in contribution to confidence context
+  - explicit check-in evidence sufficiency and missing contracts
+  - explicit distinction between session/intervention evidence, developmental check-in evidence, and parent observation evidence
+- Extension-only check-in summary endpoint:
+  - `GET /api/youth-development/tde/checkin-summary/:childId`
+- Recommendation engine integration with developmental check-ins:
+  - weak transfer check-in patterns trigger easier transfer-task recommendations
+  - improving reflection patterns trigger gradual autonomy recommendations
+  - cross-source disagreement triggers observation-consistency recommendations
+  - sparse check-in evidence triggers routine-continuation recommendations before stronger conclusions
+- Readiness integration now includes developmental check-in sufficiency dimensions:
+  - check-in history presence
+  - check-in consistency sufficiency
+  - traceability completeness
+  - cross-source agreement status
+  - readiness still returns `ready`, `partially_ready`, or `not_ready` with explicit reasons
+
+### Calibration-variable thresholds (Phase 11)
+- Minimum check-in history count for sufficiency.
+- Minimum check-in traceability ratio.
+- Weak transfer cutoff.
+- Reflection-improvement delta threshold.
+- Cross-source disagreement threshold.
+- Check-in consistency ratio threshold.
+
+### Non-negotiable constraints preserved
+- Live youth v1 intake, assess, persistence, and parent dashboard flows remain unchanged.
+- Developmental check-ins remain developmental snapshots (not quiz framing).
+- Check-in evidence is additive and never used as a single-source trait override.
+- Recommendation/readiness logic remains rule-based, traceable, configurable, and non-clinical.

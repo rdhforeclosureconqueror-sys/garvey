@@ -31,6 +31,12 @@ function buildFixture() {
     ],
     observer_consents: [{ consent_status: 'granted' }],
     environment_hooks: [{ environment_factor: 'home_routine' }],
+    checkin_context: {
+      history_count: 2,
+      consistency_status: 'sufficient',
+      traceability_status: 'sufficient',
+      cross_source_agreement_status: 'sufficient',
+    },
   };
   const commitmentPlan = {
     child_id: 'child-p9',

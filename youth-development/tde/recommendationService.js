@@ -99,6 +99,54 @@ const DEFAULT_RECOMMENDATION_RULES = Object.freeze([
     }),
     trace_label: "rule_based_operational_logic",
   }),
+  Object.freeze({
+    rule_id: "rule_reduce_transfer_complexity_when_checkin_transfer_weak",
+    recommendation_type: "reduce_transfer_task_complexity",
+    label: "Use easier transfer tasks",
+    rationale: "When developmental check-ins show weak transfer quality, easier transfer tasks support skill carryover.",
+    conditions: Object.freeze({ checkin_transfer_weak: true }),
+    output: Object.freeze({
+      action: "Use one-step transfer tasks until carryover quality stabilizes across check-ins.",
+      parent_language: "Keep transfer practice simple for now so the child can apply strategies across settings with less friction.",
+    }),
+    trace_label: "rule_based_operational_logic",
+  }),
+  Object.freeze({
+    rule_id: "rule_increase_autonomy_when_reflection_improves",
+    recommendation_type: "increase_child_autonomy_gradually",
+    label: "Increase autonomy gradually",
+    rationale: "Improving reflection quality supports a gradual increase in child-led planning and decision-making.",
+    conditions: Object.freeze({ checkin_reflection_improving: true }),
+    output: Object.freeze({
+      action: "Increase child-led choice points by one in the next routine cycle.",
+      parent_language: "Reflection growth can support a gradual shift toward more child ownership.",
+    }),
+    trace_label: "rule_based_operational_logic",
+  }),
+  Object.freeze({
+    rule_id: "rule_hold_strong_interpretation_when_sources_disagree",
+    recommendation_type: "improve_observation_consistency_before_strong_interpretation",
+    label: "Stabilize observation consistency",
+    rationale: "When parent observations and developmental check-ins disagree, stronger conclusions should wait for consistency.",
+    conditions: Object.freeze({ cross_source_disagreement_present: true }),
+    output: Object.freeze({
+      action: "Use a short shared observation routine for 1-2 cycles before interpreting stronger developmental conclusions.",
+      parent_language: "Because sources disagree right now, prioritize consistent observations before strong interpretation.",
+    }),
+    trace_label: "rule_based_operational_logic",
+  }),
+  Object.freeze({
+    rule_id: "rule_continue_routine_when_checkin_sparse",
+    recommendation_type: "continue_routine_before_stronger_conclusion",
+    label: "Continue routine for now",
+    rationale: "Sparse developmental check-in evidence limits interpretation confidence and should prompt routine continuation.",
+    conditions: Object.freeze({ checkin_evidence_sparse: true }),
+    output: Object.freeze({
+      action: "Continue current routine and gather more developmental check-ins before changing plan intensity.",
+      parent_language: "Keep routines steady while additional check-in evidence is collected.",
+    }),
+    trace_label: "rule_based_operational_logic",
+  }),
 ]);
 
 function toChallengeCalibration(sessions = []) {
@@ -149,10 +197,14 @@ function matchesConditions(rule, inputs) {
   if (c.avg_duration_min !== undefined && !(inputs.average_session_duration_minutes >= c.avg_duration_min)) return false;
   if (c.frustration_recovery_low && inputs.frustration_recovery !== "LOW") return false;
   if (c.requires_schedule_review && !inputs.requires_schedule_review) return false;
+  if (c.checkin_transfer_weak && !inputs.checkin_transfer_weak) return false;
+  if (c.checkin_reflection_improving && !inputs.checkin_reflection_improving) return false;
+  if (c.cross_source_disagreement_present && !inputs.cross_source_disagreement_present) return false;
+  if (c.checkin_evidence_sparse && !inputs.checkin_evidence_sparse) return false;
   return true;
 }
 
-function buildRecommendationInputs(snapshot = {}, plan = null, sessions = [], confidenceContext = {}, sufficiencyContext = {}) {
+function buildRecommendationInputs(snapshot = {}, plan = null, sessions = [], confidenceContext = {}, sufficiencyContext = {}, checkinContext = {}) {
   const adherence = summarizeAdherence(plan, sessions);
   const latestSession = sessions.at(-1) || {};
 
@@ -174,6 +226,10 @@ function buildRecommendationInputs(snapshot = {}, plan = null, sessions = [], co
     average_session_duration_minutes: sessions.length
       ? Number((sessions.reduce((sum, entry) => sum + Number(entry.duration_minutes || 0), 0) / sessions.length).toFixed(2))
       : 0,
+    checkin_transfer_weak: checkinContext.transfer_strength_status === "weak",
+    checkin_reflection_improving: checkinContext.reflection_quality_status === "improving",
+    cross_source_disagreement_present: checkinContext.cross_source_disagreement_present === true,
+    checkin_evidence_sparse: checkinContext.evidence_sufficiency_status !== "sufficient",
   };
 
   inputs.requires_schedule_review = (
@@ -208,6 +264,10 @@ function generateRecommendations(context = {}, options = {}) {
           trait_growth_movement: context.inputs.trait_growth_movement,
           confidence_status: context.inputs.confidence_status,
           data_sufficiency_status: context.inputs.data_sufficiency_status,
+          checkin_transfer_weak: context.inputs.checkin_transfer_weak,
+          checkin_reflection_improving: context.inputs.checkin_reflection_improving,
+          cross_source_disagreement_present: context.inputs.cross_source_disagreement_present,
+          checkin_evidence_sparse: context.inputs.checkin_evidence_sparse,
         },
       },
       governance: {
