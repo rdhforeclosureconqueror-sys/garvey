@@ -358,7 +358,9 @@ function createTdePersistenceRepository(pool = null) {
       const progressRecords = inMemory.weeklyProgress.filter((entry) => entry.child_id === childId);
       const observerConsents = inMemory.observerConsents.filter((entry) => entry.child_id === childId);
       const environmentHooks = inMemory.environmentHooks.filter((entry) => entry.child_id === childId);
-      return { enrollment, progress_records: progressRecords, observer_consents: observerConsents, environment_hooks: environmentHooks };
+      const commitmentPlan = inMemory.commitmentPlans.find((entry) => entry.child_id === childId) || null;
+      const interventionSessions = inMemory.interventionSessions.filter((entry) => entry.child_id === childId);
+      return { enrollment, progress_records: progressRecords, observer_consents: observerConsents, environment_hooks: environmentHooks, commitment_plan: commitmentPlan, intervention_sessions: interventionSessions };
     }
 
     const enrollmentRows = await pool.query(
@@ -377,11 +379,15 @@ function createTdePersistenceRepository(pool = null) {
       `SELECT payload FROM tde_environment_hook_events WHERE child_id = $1 ORDER BY timestamp ASC, created_at ASC`,
       [childId]
     );
+    const commitmentRows = await pool.query(`SELECT payload FROM tde_commitment_plans WHERE child_id = $1 LIMIT 1`, [childId]);
+    const interventionRows = await pool.query(`SELECT payload FROM tde_intervention_sessions WHERE child_id = $1 ORDER BY completed_at ASC`, [childId]);
     return {
       enrollment: enrollmentRows.rows[0]?.payload || null,
       progress_records: progressRows.rows.map((row) => row.payload || {}),
       observer_consents: observerRows.rows.map((row) => row.payload || {}),
       environment_hooks: environmentRows.rows.map((row) => row.payload || {}),
+      commitment_plan: commitmentRows.rows[0]?.payload || null,
+      intervention_sessions: interventionRows.rows.map((row) => row.payload || {}),
     };
   }
 
