@@ -15,6 +15,12 @@ const { captureEnvironmentHook } = require("../youth-development/tde/environment
 const { VALIDATION_SCHEMA, generateValidationExport } = require("../youth-development/tde/validationExportService");
 const { getParentProgressSummary } = require("../youth-development/tde/parentSummaryService");
 const {
+  getParentExperience,
+  getRoadmapForChild,
+  getSupportActionsForChild,
+  getTrustContent,
+} = require("../youth-development/tde/parentExperienceService");
+const {
   enrollInProgram,
   recordWeeklyProgress,
   listProgramPhases,
@@ -128,6 +134,32 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
     const result = await getParentProgressSummary(childId, repository);
     return res.status(200).json(result);
+  });
+
+
+  router.get("/parent-experience/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getParentExperience(childId, repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/roadmap/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getRoadmapForChild(childId, repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/support-actions/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getSupportActionsForChild(childId, repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/trust-content", (_req, res) => {
+    return res.status(200).json(getTrustContent());
   });
 
   return router;

@@ -108,3 +108,56 @@ Phase 4 closes governance gaps and adds the first extension-safe parent-facing s
 - Validation export selection windows and inclusion thresholds.
 - Parent summary confidence labeling thresholds and sufficiency cutoffs.
 - Environment hook normalization defaults and confidence-weight interpretations.
+
+## Phase 5 (this pass)
+Phase 5 adds the first extension-safe parent-facing TDE experience layer as a **parallel read model** under `/api/youth-development/tde/*`.
+
+### What Phase 5 adds
+- Parent experience view model with explicit developmental fields:
+  - current phase/week and 36-week roadmap position
+  - completed checkpoints and next checkpoint
+  - strongest developmental levers, levers currently building, and environment focus areas
+  - concrete support actions for now with trait/environment linkage
+  - confidence context and data sufficiency context shown separately
+  - progress-over-time summary and next-step plan
+- Trust-layer content contract for parent communication that explicitly covers:
+  - what the system is
+  - what it is not (developmental, not diagnostic)
+  - how the program works
+  - why to interpret results as patterns over time
+  - what parents receive next
+  - how child and environment factors stay separate
+- 36-week roadmap presentation model:
+  - phase labels, week labels, active week, checkpoint markers
+  - current focus and upcoming focus
+  - completed vs upcoming status
+- Parent support-actions contract with required fields:
+  - `action_id`, `title`, `why_this_matters`, `linked_trait_or_environment_factor`, `suggested_timing`, `effort_level`, `trace_ref|rule_ref`, `confidence_context`, optional home example
+
+### Phase 5 extension endpoints
+- `GET /api/youth-development/tde/parent-experience/:childId`
+- `GET /api/youth-development/tde/roadmap/:childId`
+- `GET /api/youth-development/tde/support-actions/:childId`
+- `GET /api/youth-development/tde/trust-content`
+
+### What remains extension-only
+- All Phase 5 endpoints are behind `TDE_EXTENSION_MODE` and remain extension-safe/read-only.
+- No replacement of live youth v1 routes, scoring, intake payloads, or parent dashboard rendering.
+
+### Structural vs calibration-variable boundaries (Phase 5)
+- **Structural commitments**:
+  - confidence context and data sufficiency remain explicit and separate.
+  - child developmental factors and environment factors remain explicitly separated.
+  - roadmap remains 3 phases over 36 weeks with deterministic checkpoint markers.
+  - support actions remain trace/rule linked to trait or environment logic.
+- **Calibration variables**:
+  - confidence label thresholds (`early-signal` vs `moderate`).
+  - action-selection prioritization for trait/environment targets.
+  - wording variants for trust copy and support examples.
+  - sufficiency thresholds for missing-contract lists.
+
+### External trust statements allowed
+- developmental patterns over time (not one-shot conclusions).
+- non-diagnostic developmental interpretation only.
+- confidence and data sufficiency shown with every parent experience response.
+- environment and child factors reported separately.
