@@ -46,6 +46,8 @@ function createVoiceProviderAdapter(options = {}) {
   const timeoutMs = Math.max(100, Number(options.gateway_timeout_ms || process.env.VOICE_GATEWAY_TIMEOUT_MS || 5000));
   const gatewayToken = String(options.gateway_token || process.env.VOICE_GATEWAY_TOKEN || "").trim();
 
+  let lastGatewayHealthStatus = "not_checked";
+
   function isAvailable() {
     return mode === GATEWAY_MODE_EXTERNAL && Boolean(baseUrl);
   }
@@ -61,11 +63,14 @@ function createVoiceProviderAdapter(options = {}) {
     };
   }
 
-  function normalizeFallback(payload = {}, status, errorMessage) {
+  function normalizeFallback(payload = {}, status, errorMessage, overrides = {}) {
     return {
       ok: false,
       status,
       provider: "external_gateway",
+      provider_status: status === "provider_unavailable" ? "temporarily_unavailable" : "fallback_active",
+      fallback_active: true,
+      fallback_reason: errorMessage || null,
       playable_text: String(payload.voice_text || "").trim(),
       audio_url: null,
       asset_ref: null,
@@ -77,6 +82,11 @@ function createVoiceProviderAdapter(options = {}) {
       chunk_index: Number(payload.chunk_index || 0),
       expires_at: null,
       error: errorMessage || null,
+      diagnostics: {
+        last_gateway_health_status: lastGatewayHealthStatus,
+        missing_playable_asset: true,
+      },
+      ...overrides,
     };
   }
 
@@ -102,21 +112,46 @@ function createVoiceProviderAdapter(options = {}) {
 
       if (!response.ok) {
         const status = response.status >= 400 && response.status < 500 ? "invalid_request" : "fallback";
-        return normalizeFallback(payload, status, String(body?.error || `gateway_http_${response.status}`));
+        return normalizeFallback(payload, status, String(body?.error || `gateway_http_${response.status}`), {
+          diagnostics: {
+            last_gateway_health_status: lastGatewayHealthStatus,
+            gateway_http_status: response.status,
+            missing_playable_asset: true,
+          },
+        });
+      }
+
+      const audioUrl = typeof body.audio_url === "string" ? body.audio_url : null;
+      const assetRef = typeof body.asset_ref === "string" ? body.asset_ref : null;
+      if (!audioUrl && !assetRef) {
+        return normalizeFallback(payload, "fallback", "malformed_gateway_success_missing_playable_asset", {
+          diagnostics: {
+            last_gateway_health_status: lastGatewayHealthStatus,
+            malformed_gateway_payload: true,
+            missing_playable_asset: true,
+          },
+        });
       }
 
       return {
         ok: true,
         status: String(body.status || "ready"),
         provider: String(body.provider || body.provider_name || "external_gateway"),
+        provider_status: "available",
+        fallback_active: false,
+        fallback_reason: null,
         playable_text: String(body.playable_text || payload.voice_text || "").trim(),
-        audio_url: typeof body.audio_url === "string" ? body.audio_url : null,
-        asset_ref: typeof body.asset_ref === "string" ? body.asset_ref : null,
+        audio_url: audioUrl,
+        asset_ref: assetRef,
         replay_token: typeof body.replay_token === "string"
           ? body.replay_token
           : deterministicId("voice_replay", { payload, provider: body.provider || "external_gateway" }),
         chunk_index: Number(body.chunk_index ?? payload.chunk_index ?? 0),
         expires_at: body.expires_at || null,
+        diagnostics: {
+          last_gateway_health_status: lastGatewayHealthStatus,
+          missing_playable_asset: false,
+        },
       };
     } catch (err) {
       const timeoutTriggered = err && (err.name === "AbortError" || String(err.message || "").toLowerCase().includes("aborted"));
@@ -136,6 +171,7 @@ function createVoiceProviderAdapter(options = {}) {
 
   async function getConnectivity() {
     if (!isAvailable()) {
+      lastGatewayHealthStatus = "provider_unavailable";
       return {
         status: "provider_unavailable",
         checked_at: new Date().toISOString(),
@@ -156,12 +192,14 @@ function createVoiceProviderAdapter(options = {}) {
       });
 
       const body = await response.json().catch(() => ({}));
+      lastGatewayHealthStatus = response.ok ? "connected" : "degraded";
       return {
         status: response.ok ? "connected" : "degraded",
         checked_at: new Date().toISOString(),
         gateway_status: body?.status || null,
       };
     } catch (_err) {
+      lastGatewayHealthStatus = "provider_unavailable";
       return {
         status: "provider_unavailable",
         checked_at: new Date().toISOString(),
@@ -172,12 +210,19 @@ function createVoiceProviderAdapter(options = {}) {
     }
   }
 
+  function getDiagnostics() {
+    return {
+      last_gateway_health_status: lastGatewayHealthStatus,
+    };
+  }
+
   return {
     provider: "external_gateway",
     mode,
     isAvailable,
     getGatewayConfig,
     getConnectivity,
+    getDiagnostics,
     synthesizeCheckin,
     synthesizeReportSection,
     chunkText,

@@ -54,9 +54,13 @@ const CALIBRATION_VARIABLES = Object.freeze({
     voice_chunk_max_length: 180,
     voice_max_sentences_per_chunk: 2,
     supported_pacing: Object.freeze(["short", "medium"]),
+    age_band_voice_supported: Object.freeze(["8-10", "11-13", "14-16"]),
+    operational_diagnostics_enabled: true,
     default_provider: "external_gateway",
     voice_chunk_max_length_marker: "CALIBRATION_VARIABLE",
     voice_max_sentences_per_chunk_marker: "CALIBRATION_VARIABLE",
+    age_band_voice_supported_marker: "CALIBRATION_VARIABLE",
+    operational_diagnostics_enabled_marker: "CALIBRATION_VARIABLE",
     default_provider_marker: "CALIBRATION_VARIABLE",
   }),
 });

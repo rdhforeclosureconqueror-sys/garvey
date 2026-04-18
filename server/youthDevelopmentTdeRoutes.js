@@ -100,6 +100,13 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     return res.status(200).json(result);
   });
 
+  router.get("/voice/status/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await voiceService.getVoiceAvailabilityStatus(childId, repository);
+    return res.status(200).json(result);
+  });
+
   router.get("/contracts/intervention", (_req, res) => res.status(200).json({
     ok: true,
     deterministic: true,

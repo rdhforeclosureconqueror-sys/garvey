@@ -326,3 +326,67 @@ Phase 14 connects TDE voice playback to an external provider-facing gateway whil
 - TDE does **not** directly call OpenAI.
 - Provider integration remains outside TDE and is owned by the external voice gateway.
 - TDE keeps provider-agnostic contracts and additive extension behavior under `/api/youth-development/tde/*`.
+
+## Phase 15 (this pass)
+Phase 15 adds TDE operational surfacing for real voice-enabled parent/child experience while preserving non-blocking core flows.
+
+### What Phase 15 adds
+- Child weekly check-in voice view model now includes:
+  - `prompt_id`
+  - `playable_status`
+  - `fallback_status`
+  - `replay_available`
+  - `provider_status`
+  - `chunk_metadata`
+  - `playable_text_fallback`
+  - `age_band_voice_supported`
+- Parent report section voice view model now includes:
+  - `section_key`
+  - `playable_status`
+  - `fallback_status`
+  - `replay_available`
+  - `provider_status`
+  - `audio_reference_metadata`
+  - `playable_text_fallback`
+- Required section coverage preserved for:
+  - `summary`
+  - `strengths`
+  - `growth`
+  - `still_building`
+  - `environment`
+  - `next_steps`
+
+### Availability and status surfacing
+- `GET /api/youth-development/tde/voice/config` now exposes high-level voice availability state:
+  - `voice_available`
+  - `voice_fallback_active`
+  - `voice_temporarily_unavailable`
+- New additive status endpoint:
+  - `GET /api/youth-development/tde/voice/status/:childId`
+- Status endpoint surfaces:
+  - check-in prompt readiness for playback
+  - parent section readiness for playback
+  - provider/fallback visibility for pilot operations
+
+### Contract tightening and malformed-success handling
+- Gateway success payload contract tightened in TDE adapter:
+  - if `status=ok`/success but both `audio_url` and `asset_ref` are missing, payload is downgraded to safe fallback.
+- Provider status is explicit (`available`, `fallback_active`, `temporarily_unavailable`).
+- Malformed gateway success payloads never break check-in/report experiences.
+
+### Operational diagnostics (lightweight)
+- TDE voice payloads include pilot-safe diagnostics fields:
+  - `last_gateway_health_status`
+  - `last_fallback_reason`
+  - `missing_playable_asset_indicators`
+- These diagnostics are additive and non-blocking.
+
+### User-visible state model
+- **Voice available**: playable audio asset exists for at least one current chunk/section.
+- **Fallback active**: flow remains usable with `playable_text_fallback`, while playable asset is unavailable for one or more chunks/sections.
+- **Voice temporarily unavailable**: gateway/provider connectivity unavailable; voice remains optional and completion is unaffected.
+
+### Pilot/operator checks
+- Confirm `voice_status.checkin_prompt_ready_for_playback` and `voice_status.parent_section_ready_for_playback` for target child IDs.
+- Review diagnostics for repeated `missing_playable_asset_indicators` and `last_fallback_reason` patterns.
+- Keep rollout in extension-only mode; live youth v1 routes remain unchanged.
