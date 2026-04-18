@@ -10,6 +10,7 @@ const {
   buildPersonalizationModifiers,
   buildAdaptiveRecommendationExplanation,
 } = require("./personalizationService");
+const { registerReadablePlayableContentBlocks } = require("./contentRegistryService");
 
 function buildConfidenceContext(snapshot = {}) {
   const progressRecords = Array.isArray(snapshot.progress_records) ? snapshot.progress_records : [];
@@ -61,11 +62,27 @@ async function getRecommendations(childId, repository, options = {}) {
     cross_source_disagreement_present: checkinSummary.cross_source_disagreement?.present === true,
     evidence_sufficiency_status: checkinSummary.evidence_sufficiency?.status || "limited",
   });
-  return generateRecommendations({
+  const recommendationPayload = generateRecommendations({
     child_id: childId,
     ...context,
     personalization_modifiers: personalization.modifiers,
   }, options);
+
+  const contentRegistration = registerReadablePlayableContentBlocks(
+    (recommendationPayload.recommendations || []).map((entry) => ({
+      section_key: "recommendation_item",
+      text_content: entry.parent_language,
+      voice_ready: true,
+      source_module: "recommendation_service",
+      readability_level: "parent_standard",
+    })),
+    { child_id: childId, scope: "recommendations" }
+  );
+
+  return {
+    ...recommendationPayload,
+    content_registration: contentRegistration,
+  };
 }
 
 async function getPersonalizationSummary(childId, repository) {
@@ -136,7 +153,22 @@ async function getRollout(childId, repository) {
 
 async function getInsights(childId, repository) {
   const snapshot = await repository.getProgramSnapshot(childId);
-  return buildInsightLayer(snapshot, { child_id: childId });
+  const insightPayload = buildInsightLayer(snapshot, { child_id: childId });
+  const contentRegistration = registerReadablePlayableContentBlocks(
+    (insightPayload.pillar_insights || []).map((entry) => ({
+      section_key: "insight_item",
+      text_content: entry?.pillar_summary?.strengthening || "Insight is still forming.",
+      voice_ready: true,
+      source_module: "insight_service",
+      readability_level: "parent_standard",
+    })),
+    { child_id: childId, scope: "insights" }
+  );
+
+  return {
+    ...insightPayload,
+    content_registration: contentRegistration,
+  };
 }
 
 async function getCheckinSummary(childId, repository) {
@@ -146,9 +178,26 @@ async function getCheckinSummary(childId, repository) {
     Array.isArray(snapshot.development_checkins) ? snapshot.development_checkins : [],
     { current_week: currentWeek }
   );
-  return {
+  const payload = {
     child_id: childId,
     ...summary,
+  };
+  const contentRegistration = registerReadablePlayableContentBlocks([
+    {
+      section_key: "checkin_interpretation",
+      text_content: summary?.changes_since_prior_checkin?.interpretation || "Check-in interpretation is pending additional evidence.",
+      voice_ready: true,
+      source_module: "development_checkin_service",
+      readability_level: "child_friendly",
+    },
+  ], {
+    child_id: childId,
+    scope: "checkin_summary",
+  });
+
+  return {
+    ...payload,
+    content_registration: contentRegistration,
   };
 }
 

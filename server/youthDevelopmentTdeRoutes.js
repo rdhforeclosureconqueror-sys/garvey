@@ -53,6 +53,8 @@ const { INTERVENTION_ENVIRONMENT_EXTENSION_CONTRACT } = require("../youth-develo
 const { DEVELOPMENT_CHECKIN_CONTRACT, VOICE_READY_SCHEMA_RULES } = require("../youth-development/tde/developmentCheckinContract");
 const { runDevelopmentCheckin, listDevelopmentCheckins } = require("../youth-development/tde/developmentCheckinService");
 const { createVoiceService } = require("../youth-development/tde/voiceService");
+const { UNIVERSAL_CONTENT_BLOCK_CONTRACT } = require("../youth-development/tde/contentBlockContract");
+const { buildUniversalContentRegistry, buildReadabilityStatusFromRegistry } = require("../youth-development/tde/contentRegistryService");
 
 function createYouthDevelopmentTdeRouter(options = {}) {
   const router = express.Router();
@@ -83,6 +85,12 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     deterministic: true,
     extension_only: true,
     contract: VOICE_READY_SCHEMA_RULES,
+  }));
+  router.get("/contracts/content-block", (_req, res) => res.status(200).json({
+    ok: true,
+    deterministic: true,
+    extension_only: true,
+    contract: UNIVERSAL_CONTENT_BLOCK_CONTRACT,
   }));
 
   router.get("/voice/config", async (_req, res) => {
@@ -129,6 +137,28 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
     const result = await voiceService.getVoiceEligibility(childId, repository);
     return res.status(200).json(result);
+  });
+
+  router.get("/content-registry/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const snapshot = await repository.getProgramSnapshot(childId);
+    const result = {
+      child_id: childId,
+      ...buildUniversalContentRegistry(childId, snapshot),
+    };
+    return res.status(200).json(result);
+  });
+
+  router.get("/readability-status/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const snapshot = await repository.getProgramSnapshot(childId);
+    const registry = {
+      child_id: childId,
+      ...buildUniversalContentRegistry(childId, snapshot),
+    };
+    return res.status(200).json(buildReadabilityStatusFromRegistry(registry));
   });
 
   router.get("/contracts/intervention", (_req, res) => res.status(200).json({

@@ -272,6 +272,8 @@ function toVoiceSection(childId, sectionKey, textContent) {
     voice_text: text,
     voice_chunk_id: deterministicId("voice_section", { child_id: childId, section: sectionKey, text }),
     playback_optional: true,
+    source_module: "parent_experience_service",
+    readability_level: "parent_standard",
     max_length: maxLength,
   };
   const registration = registerVoiceReadableContentBlocks([section], { scope: "parent_report_section", child_id: childId });
@@ -342,6 +344,8 @@ function buildParentExperienceViewModel(childId, snapshot = {}) {
       voice_text: section.voice_text,
       voice_chunk_id: section.voice_chunk_id,
       playback_optional: true,
+      source_module: "parent_experience_service",
+      readability_level: "parent_standard",
     })),
     { scope: "parent_report_section", child_id: childId }
   );

@@ -90,6 +90,20 @@ const CALIBRATION_VARIABLES = Object.freeze({
     operational_diagnostics_enabled_marker: "CALIBRATION_VARIABLE",
     default_provider_marker: "CALIBRATION_VARIABLE",
   }),
+  readability_voice_architecture: Object.freeze({
+    content_chunk_max_chars: 220,
+    child_prompt_max_chars: 120,
+    parent_section_max_chars: 260,
+    default_readability_level: "parent_standard",
+    replay_safe_chunk_structure: "deterministic_sentence_chunks_v1",
+    section_key_allowed_pattern: "^[a-z0-9_]+$",
+    content_chunk_max_chars_marker: "CALIBRATION_VARIABLE",
+    child_prompt_max_chars_marker: "CALIBRATION_VARIABLE",
+    parent_section_max_chars_marker: "CALIBRATION_VARIABLE",
+    default_readability_level_marker: "CALIBRATION_VARIABLE",
+    replay_safe_chunk_structure_marker: "CALIBRATION_VARIABLE",
+    section_key_allowed_pattern_marker: "CALIBRATION_VARIABLE",
+  }),
 });
 
 function stableStringify(value) {

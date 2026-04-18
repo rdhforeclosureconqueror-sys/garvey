@@ -480,3 +480,62 @@ Phase 18 adds deterministic adaptive personalization on top of insights + histor
 - Live youth v1 behavior remains unchanged.
 - Existing TDE contracts remain non-breaking and additive.
 - Personalization is deterministic, traceable, and non-clinical.
+
+## Phase 20 (this pass)
+Phase 20 adds universal readability + voice-ready content architecture for TDE-generated content using shared contracts and registration.
+
+### What Phase 20 adds
+- Universal content block contract (`phase20-v1`) for readable/playable blocks with shared required fields:
+  - `content_block_id`
+  - `section_key`
+  - `text_content`
+  - `voice_ready`
+  - `voice_text`
+  - `voice_chunk_id`
+  - `playback_optional`
+  - `source_module`
+  - `registration_status`
+- Optional fields supported:
+  - `age_band`
+  - `readability_level`
+
+### Shared content registry expansion
+- New shared registry service standardizes registration for parent summaries, recommendations, trajectory summaries, insights, check-ins, and future modules.
+- Existing voice content registration now routes through the shared universal contract path (backward-compatible additive extension).
+- New additive contract endpoint:
+  - `GET /api/youth-development/tde/contracts/content-block`
+
+### Standardized chunking and sectioning rules
+- Shared section/chunk policy now enforces:
+  - max chars per chunk
+  - section key naming pattern
+  - child-safe short prompt limit
+  - parent section readability segmentation
+  - replay-safe deterministic chunk structure
+- Rule tuning is calibration-driven under `CALIBRATION_VARIABLES.readability_voice_architecture`.
+
+### Surfacing / diagnostics endpoints
+- Added additive registry visibility endpoint:
+  - `GET /api/youth-development/tde/content-registry/:childId`
+- Added additive readability completeness endpoint:
+  - `GET /api/youth-development/tde/readability-status/:childId`
+- Both endpoints surface:
+  - registered blocks
+  - voice-ready block counts
+  - missing field/contract block refs
+  - registration completeness summary
+
+### Phased rollout scope
+- Phase 20 standardizes architecture contracts and diagnostics only.
+- No full-site visual rollout is enabled in this phase.
+- No giant single full-report playback blob is introduced.
+- Existing TDE payloads remain additive/non-breaking.
+- Live youth v1 remains unchanged.
+
+### Calibration variables (Phase 20)
+- `CALIBRATION_VARIABLES.readability_voice_architecture.content_chunk_max_chars`
+- `CALIBRATION_VARIABLES.readability_voice_architecture.child_prompt_max_chars`
+- `CALIBRATION_VARIABLES.readability_voice_architecture.parent_section_max_chars`
+- `CALIBRATION_VARIABLES.readability_voice_architecture.default_readability_level`
+- `CALIBRATION_VARIABLES.readability_voice_architecture.replay_safe_chunk_structure`
+- `CALIBRATION_VARIABLES.readability_voice_architecture.section_key_allowed_pattern`
