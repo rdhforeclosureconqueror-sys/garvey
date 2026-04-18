@@ -21,6 +21,35 @@ function pickActivity(componentType, context = {}) {
   return options[0];
 }
 
+function buildSessionAdaptationHooks(payload = {}) {
+  const modifiers = payload?.personalization_modifiers?.session_planning_modifiers || payload?.session_adaptation_hooks || null;
+  if (!modifiers || typeof modifiers !== "object") {
+    return {
+      hooks_applied: false,
+      adaptation: {
+        preferred_challenge_level: "moderate",
+        reflection_prompt_count: 1,
+        deterministic_activity_bias: "core_sequence",
+      },
+      trace: {
+        rule_path: "session_builder/adaptation_hooks/default/v1",
+      },
+    };
+  }
+
+  return {
+    hooks_applied: true,
+    adaptation: {
+      preferred_challenge_level: String(modifiers.preferred_challenge_level || "moderate"),
+      reflection_prompt_count: Number(modifiers.reflection_prompt_count || 1),
+      deterministic_activity_bias: String(modifiers.deterministic_activity_bias || "core_sequence"),
+    },
+    trace: {
+      rule_path: String(modifiers.rule_path || "session_builder/adaptation_hooks/personalized/v1"),
+    },
+  };
+}
+
 function buildSessionPlan(payload = {}) {
   const childId = String(payload.child_id || "").trim();
   const facilitatorRole = String(payload.facilitator_role || "parent").trim();
@@ -60,6 +89,7 @@ function buildSessionPlan(payload = {}) {
       selected_activities: selected,
       selected_activity_ids: selected.map((entry) => entry.activity_id),
       component_count: selected.length,
+      adaptation_hooks: buildSessionAdaptationHooks(payload),
       deterministic: true,
       extension_only: true,
     },
@@ -68,4 +98,5 @@ function buildSessionPlan(payload = {}) {
 
 module.exports = {
   buildSessionPlan,
+  buildSessionAdaptationHooks,
 };

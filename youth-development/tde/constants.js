@@ -66,6 +66,17 @@ const CALIBRATION_VARIABLES = Object.freeze({
     hindering_max_average_marker: "CALIBRATION_VARIABLE",
     inconsistency_gap_threshold_marker: "CALIBRATION_VARIABLE",
   }),
+
+  personalization_layer: Object.freeze({
+    improving_delta_min: 0.05,
+    stagnation_delta_abs_max: 0.03,
+    regression_delta_max: -0.05,
+    inconsistency_completion_gap: 0.4,
+    improving_delta_min_marker: "CALIBRATION_VARIABLE",
+    stagnation_delta_abs_max_marker: "CALIBRATION_VARIABLE",
+    regression_delta_max_marker: "CALIBRATION_VARIABLE",
+    inconsistency_completion_gap_marker: "CALIBRATION_VARIABLE",
+  }),
   voice_architecture: Object.freeze({
     voice_chunk_max_length: 180,
     voice_max_sentences_per_chunk: 2,

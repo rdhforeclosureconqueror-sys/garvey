@@ -438,3 +438,45 @@ Phase 16 adds pilot rollout controls + analytics for TDE voice usage, and introd
 - Voice remains optional and never required for core intake/assess/program progression.
 - Full-report single audio playback is still blocked.
 - Live youth v1 intake, assess, persistence, and parent dashboard behavior remains unchanged.
+
+## Phase 18 (this pass)
+Phase 18 adds deterministic adaptive personalization on top of insights + historical patterns while preserving extension-only safety.
+
+### What Phase 18 adds
+- Personalization engine outputs child-specific modifiers for:
+  - recommendations
+  - session planning
+  - parent guidance
+- Historical pattern tracking for:
+  - improving trends
+  - stagnation
+  - inconsistency
+  - regression
+- Additive endpoints:
+  - `GET /api/youth-development/tde/personalization/:childId`
+  - `GET /api/youth-development/tde/pattern-history/:childId`
+  - `GET /api/youth-development/tde/recommendations/:childId/explanation`
+- Recommendation outputs now include additive adaptive adjustment traces (`adaptive_adjustments`) without removing existing fields.
+- Session planner now accepts optional personalization/session adaptation hooks and remains deterministic.
+
+### Signals used
+- phase-17 insight layer output (`insightService`)
+- weekly progress records (`trait_signal_summary` trend)
+- intervention session completion consistency
+- developmental check-in transfer trend deltas
+
+### Confidence + missing-contract behavior
+- Personalization confidence is surfaced and rule-based (`low`, `moderate`, `high`).
+- Missing historical contracts degrade output (`missing_contracts`, `contracts_status=incomplete`) rather than infer hidden conclusions.
+- Adaptation remains explainable via `rule_path` and pattern traceability fields.
+
+### Calibration variables (Phase 18)
+- `CALIBRATION_VARIABLES.personalization_layer.improving_delta_min`
+- `CALIBRATION_VARIABLES.personalization_layer.stagnation_delta_abs_max`
+- `CALIBRATION_VARIABLES.personalization_layer.regression_delta_max`
+- `CALIBRATION_VARIABLES.personalization_layer.inconsistency_completion_gap`
+
+### Safety constraints preserved
+- Live youth v1 behavior remains unchanged.
+- Existing TDE contracts remain non-breaking and additive.
+- Personalization is deterministic, traceable, and non-clinical.

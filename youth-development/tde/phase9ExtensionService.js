@@ -5,6 +5,11 @@ const { buildRecommendationInputs, generateRecommendations } = require("./recomm
 const { evaluateInterventionReadiness, buildRolloutBridge } = require("./readinessRolloutService");
 const { summarizeDevelopmentCheckins } = require("./developmentCheckinService");
 const { buildInsightLayer } = require("./insightService");
+const {
+  buildPatternHistory,
+  buildPersonalizationModifiers,
+  buildAdaptiveRecommendationExplanation,
+} = require("./personalizationService");
 
 function buildConfidenceContext(snapshot = {}) {
   const progressRecords = Array.isArray(snapshot.progress_records) ? snapshot.progress_records : [];
@@ -37,6 +42,13 @@ async function getRecommendations(childId, repository, options = {}) {
     ? snapshot.intervention_sessions
     : await repository.listInterventionSessions(childId);
 
+  const insights = buildInsightLayer(snapshot, { child_id: childId });
+  const patternHistory = buildPatternHistory(snapshot, { child_id: childId });
+  const personalization = buildPersonalizationModifiers(snapshot, insights, {
+    child_id: childId,
+    pattern_history: patternHistory,
+  });
+
   const confidenceContext = buildConfidenceContext(snapshot);
   const sufficiencyContext = buildSufficiencyContext(snapshot);
   const checkinSummary = summarizeDevelopmentCheckins(
@@ -49,7 +61,39 @@ async function getRecommendations(childId, repository, options = {}) {
     cross_source_disagreement_present: checkinSummary.cross_source_disagreement?.present === true,
     evidence_sufficiency_status: checkinSummary.evidence_sufficiency?.status || "limited",
   });
-  return generateRecommendations({ child_id: childId, ...context }, options);
+  return generateRecommendations({
+    child_id: childId,
+    ...context,
+    personalization_modifiers: personalization.modifiers,
+  }, options);
+}
+
+async function getPersonalizationSummary(childId, repository) {
+  const snapshot = await repository.getProgramSnapshot(childId);
+  const insights = buildInsightLayer(snapshot, { child_id: childId });
+  return buildPersonalizationModifiers(snapshot, insights, { child_id: childId });
+}
+
+async function getPatternHistory(childId, repository) {
+  const snapshot = await repository.getProgramSnapshot(childId);
+  const history = buildPatternHistory(snapshot, { child_id: childId });
+  return {
+    ok: true,
+    child_id: childId,
+    deterministic: true,
+    extension_only: true,
+    pattern_history_schema_version: history.pattern_history_schema_version,
+    confidence_context: history.confidence_context,
+    pattern_history: history.pattern_history,
+    missing_contracts: history.missing_contracts,
+    contracts_status: history.contracts_status,
+  };
+}
+
+async function getAdaptiveRecommendationExplanation(childId, repository, options = {}) {
+  const recommendations = await getRecommendations(childId, repository, options);
+  const personalization = await getPersonalizationSummary(childId, repository);
+  return buildAdaptiveRecommendationExplanation(recommendations, personalization);
 }
 
 async function getReadiness(childId, repository) {
@@ -115,4 +159,7 @@ module.exports = {
   getRollout,
   getCheckinSummary,
   getInsights,
+  getPersonalizationSummary,
+  getPatternHistory,
+  getAdaptiveRecommendationExplanation,
 };
