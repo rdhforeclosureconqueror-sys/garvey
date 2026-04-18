@@ -1,6 +1,7 @@
 "use strict";
 
 const { PROGRAM_PHASES, PROGRAM_WEEKS, PROGRAM_CHECKPOINTS } = require("./programRail");
+const { buildInterventionSummary } = require("./interventionSummaryService");
 
 const PHASE_LABELS = Object.freeze({
   1: "Phase 1 · Foundation",
@@ -299,6 +300,8 @@ function buildParentExperienceViewModel(childId, snapshot = {}) {
     : [];
 
   const supportActions = buildSupportActions(snapshot, confidenceContext, dataSufficiency);
+  const interventionSessions = Array.isArray(snapshot.intervention_sessions) ? snapshot.intervention_sessions : [];
+  const interventionSummary = buildInterventionSummary(childId, snapshot, snapshot.commitment_plan || null, interventionSessions);
 
   return {
     ok: true,
@@ -337,6 +340,7 @@ function buildParentExperienceViewModel(childId, snapshot = {}) {
       next: `Prepare for ${nextCheckpoint.checkpoint_type} at Week ${nextCheckpoint.week_number}.`,
       after_next_checkpoint: "Review confidence and data sufficiency to refine supports.",
     },
+    intervention_summary: interventionSummary,
     factor_separation: {
       child_development_factors: Array.isArray(enrollment?.current_trait_targets) ? enrollment.current_trait_targets : [],
       environment_factors: Array.isArray(enrollment?.current_environment_targets) ? enrollment.current_environment_targets : [],

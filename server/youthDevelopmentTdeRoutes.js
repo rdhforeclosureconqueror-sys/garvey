@@ -21,6 +21,12 @@ const {
   getTrustContent,
 } = require("../youth-development/tde/parentExperienceService");
 const {
+  getRecommendations,
+  getInterventionSummary,
+  getReadiness,
+  getRollout,
+} = require("../youth-development/tde/phase9ExtensionService");
+const {
   enrollInProgram,
   recordWeeklyProgress,
   listProgramPhases,
@@ -228,6 +234,34 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     const childId = String(req.params.childId || "").trim();
     if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
     const result = await getAdherence(childId, repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/recommendations/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getRecommendations(childId, repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/intervention-summary/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getInterventionSummary(childId, repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/readiness/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getReadiness(childId, repository);
+    return res.status(200).json(result);
+  });
+
+  router.get("/rollout/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await getRollout(childId, repository);
     return res.status(200).json(result);
   });
 

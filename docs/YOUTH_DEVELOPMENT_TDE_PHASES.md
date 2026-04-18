@@ -199,3 +199,47 @@ Phase 8 hardens intervention contracts and integrates intervention evidence into
 - Live youth v1 intake, scoring, and dashboard contracts remain unchanged.
 - Existing TDE endpoints remain additive and feature-gated.
 - Environment extension outputs remain separate from child trait outputs.
+
+## Phase 9 (this pass)
+Phase 9 integrates intervention consistency into the extension-only parent experience, recommendation logic, and readiness/rollout bridge behavior.
+
+### What Phase 9 adds
+- Parent experience integration now includes intervention implementation context:
+  - commitment plan summary
+  - planned vs completed sessions
+  - adherence percentage
+  - full-session completion rate
+  - consistency status
+  - intervention quality context
+  - adherence-aware confidence interpretation
+  - explicit distinction between child developmental signals, environment factors, and implementation consistency
+- Extension-only rule-based recommendation engine with traceable, configurable operational rules.
+- Intervention-aware readiness states and rollout bridge decisions:
+  - `ready`, `partially_ready`, `not_ready`
+  - explicit reasons for each status
+  - fallback-safe rollout behavior when minimum intervention readiness is not met
+
+### Phase 9 extension endpoints
+- `GET /api/youth-development/tde/recommendations/:childId`
+- `GET /api/youth-development/tde/intervention-summary/:childId`
+- `GET /api/youth-development/tde/readiness/:childId`
+- `GET /api/youth-development/tde/rollout/:childId`
+
+### Recommendation generation notes
+- Recommendations are produced by a non-clinical **rule-based operational logic** service.
+- Rules are traceable and include matched inputs and rule IDs.
+- Recommendation outputs are not validated truth claims.
+
+### Intervention-quality impact notes
+- Confidence interpretation remains visible and can be lowered when adherence is weak.
+- Data sufficiency remains visible alongside confidence context.
+- Weak adherence is framed as implementation-context information, not child blame.
+
+### Calibration variables (Phase 9)
+- Readiness thresholds for adherence sufficiency and session-completion sufficiency.
+- Rule trigger thresholds (e.g., completion-rate cutoffs, trait-movement bins, schedule-review conditions).
+- Confidence/sufficiency boundary values used by recommendation and readiness contexts.
+
+### What remains unchanged
+- Live youth v1 intake, assess, persistence, and parent dashboard contracts remain unchanged.
+- Phase 9 routes remain additive and feature-gated under `/api/youth-development/tde/*`.
