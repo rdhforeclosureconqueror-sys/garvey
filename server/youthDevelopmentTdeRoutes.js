@@ -45,6 +45,8 @@ const {
 const { COMMITMENT_PLAN_CONTRACT } = require("../youth-development/tde/commitmentPlanContract");
 const { SESSION_EVIDENCE_CONTRACT, validateSessionEvidenceContract } = require("../youth-development/tde/sessionEvidenceContract");
 const { INTERVENTION_ENVIRONMENT_EXTENSION_CONTRACT } = require("../youth-development/tde/interventionEnvironmentContract");
+const { DEVELOPMENT_CHECKIN_CONTRACT } = require("../youth-development/tde/developmentCheckinContract");
+const { runDevelopmentCheckin, listDevelopmentCheckins } = require("../youth-development/tde/developmentCheckinService");
 
 function createYouthDevelopmentTdeRouter(options = {}) {
   const router = express.Router();
@@ -61,6 +63,13 @@ function createYouthDevelopmentTdeRouter(options = {}) {
   router.get("/observer/contracts", (_req, res) => res.status(200).json({ ok: true, contract: OBSERVER_CONSENT_CONTRACT, deterministic: true }));
   router.get("/environment/contracts", (_req, res) => res.status(200).json({ ok: true, contract: ENVIRONMENT_HOOK_EVENT_CONTRACT, deterministic: true }));
   router.get("/exports/validation-schema", (_req, res) => res.status(200).json({ ok: true, ...VALIDATION_SCHEMA }));
+  router.get("/contracts/development-checkin", (_req, res) => res.status(200).json({
+    ok: true,
+    deterministic: true,
+    extension_only: true,
+    contract: DEVELOPMENT_CHECKIN_CONTRACT,
+  }));
+
   router.get("/contracts/intervention", (_req, res) => res.status(200).json({
     ok: true,
     deterministic: true,
@@ -228,6 +237,20 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     });
     const status = result.ok ? 200 : 400;
     return res.status(status).json(result);
+  });
+
+
+  router.post("/checkin/run", async (req, res) => {
+    const result = await runDevelopmentCheckin(req.body || {}, repository);
+    const status = result.ok ? 200 : 400;
+    return res.status(status).json(result);
+  });
+
+  router.get("/checkin/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    const result = await listDevelopmentCheckins(childId, repository);
+    return res.status(200).json(result);
   });
 
   router.get("/adherence/:childId", async (req, res) => {

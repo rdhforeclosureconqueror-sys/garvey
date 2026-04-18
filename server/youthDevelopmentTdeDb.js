@@ -303,6 +303,28 @@ const TDE_MIGRATIONS = Object.freeze([
       DROP TABLE IF EXISTS tde_commitment_plans;
     `,
   },
+
+  {
+    id: "tde_005_phase10_development_checkin_tables",
+    description: "Create extension-only biweekly developmental check-in table",
+    up: `
+      CREATE TABLE IF NOT EXISTS tde_development_checkins (
+        id BIGSERIAL PRIMARY KEY,
+        checkin_id TEXT NOT NULL UNIQUE,
+        child_id TEXT NOT NULL,
+        program_week INTEGER NOT NULL,
+        checkin_due BOOLEAN NOT NULL DEFAULT TRUE,
+        completed_at TIMESTAMPTZ NOT NULL,
+        evidence_source_type TEXT NOT NULL DEFAULT 'development_checkin',
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+    `,
+    down: `
+      DROP TABLE IF EXISTS tde_development_checkins;
+    `,
+  },
 ]);
 
 async function applyTdeMigrations(pool) {
