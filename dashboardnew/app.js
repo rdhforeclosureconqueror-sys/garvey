@@ -2484,17 +2484,21 @@
 
   function initTdeOperatorConsole(ctx) {
     var section = document.getElementById("tdeOperatorConsole");
+    var secondaryCard = document.getElementById("tdeOperatorConsoleLinkCard");
     var gateBtn = document.getElementById("tdeInternalSurfaceBtn");
     var loadBtn = document.getElementById("tdeLoadPanelsBtn");
     var detailsBtn = document.getElementById("tdeToggleDetailsBtn");
     var detailsRow = document.getElementById("tdeExplanationRow");
     var scopeInput = document.getElementById("tdeChildScopeInput");
-    if (!section || !gateBtn || !loadBtn || !detailsBtn || !detailsRow || !scopeInput) return;
 
     if (!ctx.isAdmin) {
-      section.style.display = "none";
+      if (section) section.style.display = "none";
+      if (secondaryCard) secondaryCard.style.display = "none";
       return;
     }
+
+    if (secondaryCard) secondaryCard.style.display = "";
+    if (!section || !gateBtn || !loadBtn || !detailsBtn || !detailsRow || !scopeInput) return;
 
     section.style.display = "";
     scopeInput.value = scopeInput.value || readTdeStoredScope();

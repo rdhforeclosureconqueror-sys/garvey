@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Youth Development Experience</title>
   <script src="/js/api-contract.js" defer></script>
+  <script src="/js/tde-operator-console.js" defer></script>
   <style>
     body { font-family: Inter, system-ui, sans-serif; margin: 0; background: #020617; color: #e2e8f0; }
     main { max-width: 980px; margin: 0 auto; padding: 20px; display: grid; gap: 12px; }
@@ -48,6 +49,37 @@
       <h3 style="margin-top:12px;">Action prompts</h3>
       <ul id="prompts"></ul>
     </section>
+
+    <section id="tdeOperatorConsole" style="display:none;">
+      <h2>TDE Operator Console (Internal Testing Only)</h2>
+      <p class="muted">Internal/admin-only additive surface for controlled TDE extension testing. Not public rollout UI.</p>
+      <div class="row">
+        <label>Child/Test Account Scope
+          <input id="tdeChildScopeInput" type="text" placeholder="child-phase24-test" />
+        </label>
+        <label>Visibility Simulation
+          <select id="tdeVisibilityStateInput">
+            <option value="auto">Auto (Endpoint Derived)</option>
+            <option value="preview_only">Preview Only</option>
+            <option value="enabled">Enabled</option>
+            <option value="fallback_only">Fallback Only</option>
+          </select>
+        </label>
+      </div>
+      <div class="row">
+        <button id="tdeInternalSurfaceBtn" type="button">Enable Internal Surface</button>
+        <button id="tdeLoadPanelsBtn" type="button">Load TDE Panels</button>
+        <button id="tdeToggleDetailsBtn" type="button">Toggle Explanation Views</button>
+      </div>
+      <p id="tdeOpsStatus" class="muted">Internal surface disabled by default.</p>
+      <section><h3>TDE Overview</h3><div id="tdeOverviewPanel" class="card">Load a child/test account to view rollout/readiness/evidence status.</div></section>
+      <section><h3>Child Development</h3><div id="tdeChildDevelopmentPanel" class="card">Recommendations, insights, trajectory, milestones, personalization, and parent coaching appear here.</div></section>
+      <section><h3>Check-in / Intervention</h3><div id="tdeCheckinInterventionPanel" class="card">Weekly check-in and intervention/adherence status appears here.</div></section>
+      <section><h3>Voice</h3><div id="tdeVoicePanel" class="card">Child/parent playback, fallback state, and voice eligibility appear here.</div></section>
+      <section><h3>Validation / Admin</h3><div id="tdeValidationAdminPanel" class="card">Validation, calibration, feature flags, rollout status, and evidence quality appear here.</div></section>
+      <section id="tdeExplanationRow" style="display:none;"><h3>Detailed Explanation Views (Internal)</h3><div id="tdeExplanationPanel" class="card">Load a scoped child/test account to populate explanations.</div></section>
+    </section>
+
   </main>
 
   <script>
