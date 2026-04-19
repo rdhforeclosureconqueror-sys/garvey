@@ -4,24 +4,86 @@ const { Pool } = require("pg");
 const { initializeKanbanSchema } = require("./kanbanDb");
 const { applyTapCrmMigrations, verifyTapCrmSchema } = require("./tapCrmDb");
 
-const connectionString = process.env.DATABASE_URL;
+function readEnvTrimmed(name) {
+  const value = process.env[name];
+  if (value == null) return "";
+  return String(value).trim();
+}
 
-const pool = new Pool(
-  connectionString
-    ? {
-        connectionString,
-        ssl: connectionString.includes("localhost")
-          ? false
-          : { rejectUnauthorized: false },
-      }
-    : {
-        host: process.env.PGHOST || "127.0.0.1",
-        port: Number(process.env.PGPORT || 5432),
-        user: process.env.PGUSER || "postgres",
-        password: process.env.PGPASSWORD || "postgres",
-        database: process.env.PGDATABASE || "garvey",
-      }
-);
+function redactConnectionString(raw) {
+  if (!raw) return null;
+  try {
+    const parsed = new URL(raw);
+    return `${parsed.protocol}//${parsed.username ? `${parsed.username}:***@` : ""}${parsed.host}${parsed.pathname || ""}`;
+  } catch (_) {
+    return "<invalid_database_url>";
+  }
+}
+
+function hasLikelyCompleteHostname(host) {
+  const normalized = String(host || "").trim().toLowerCase();
+  if (!normalized) return false;
+  if (["localhost", "127.0.0.1", "::1"].includes(normalized)) return true;
+  return normalized.includes(".");
+}
+
+function buildDbPoolConfig() {
+  const databaseUrl = readEnvTrimmed("DATABASE_URL");
+  const pgHost = readEnvTrimmed("PGHOST") || "127.0.0.1";
+  const pgPort = Number(readEnvTrimmed("PGPORT") || 5432);
+  const pgUser = readEnvTrimmed("PGUSER") || "postgres";
+  const pgPassword = readEnvTrimmed("PGPASSWORD") || "postgres";
+  const pgDatabase = readEnvTrimmed("PGDATABASE") || "garvey";
+
+  if (databaseUrl) {
+    let parsedUrl = null;
+    try {
+      parsedUrl = new URL(databaseUrl);
+    } catch (_) {
+      parsedUrl = null;
+    }
+
+    const hostname = parsedUrl ? parsedUrl.hostname : null;
+    const isLocal = hostname ? ["localhost", "127.0.0.1", "::1"].includes(hostname) : databaseUrl.includes("localhost");
+    return {
+      poolConfig: {
+        connectionString: databaseUrl,
+        ssl: isLocal ? false : { rejectUnauthorized: false },
+      },
+      diagnostics: {
+        strategy: "DATABASE_URL",
+        hostSource: "DATABASE_URL",
+        host: hostname || null,
+        databaseUrl: redactConnectionString(databaseUrl),
+        pgHostConfigured: pgHost || null,
+      },
+    };
+  }
+
+  return {
+    poolConfig: {
+      host: pgHost,
+      port: pgPort,
+      user: pgUser,
+      password: pgPassword,
+      database: pgDatabase,
+    },
+    diagnostics: {
+      strategy: "PG_ENV",
+      hostSource: "PGHOST",
+      host: pgHost,
+      hostLooksComplete: hasLikelyCompleteHostname(pgHost),
+      port: pgPort,
+      user: pgUser,
+      database: pgDatabase,
+      passwordConfigured: Boolean(readEnvTrimmed("PGPASSWORD")),
+      databaseUrl: null,
+    },
+  };
+}
+
+const dbConnectionResolution = buildDbPoolConfig();
+const pool = new Pool(dbConnectionResolution.poolConfig);
 
 function parseTenantSlugList(raw) {
   return new Set(
@@ -74,6 +136,7 @@ async function backfillContributionsEnabledForExistingTenants() {
 
 async function initializeDatabase() {
   console.log("🧠 Initializing database...");
+  console.log("🧠 DB connection resolution", dbConnectionResolution.diagnostics);
 
   // ==================================================
   // CORE TABLES
@@ -1335,4 +1398,5 @@ async function initializeDatabase() {
 module.exports = {
   pool,
   initializeDatabase,
+  dbConnectionResolution,
 };

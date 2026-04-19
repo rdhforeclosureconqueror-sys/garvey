@@ -15,7 +15,7 @@ const fs = require("fs/promises");
 const crypto = require("crypto");
 const QRCode = require("qrcode");
 
-const { pool, initializeDatabase } = require("./db");
+const { pool, initializeDatabase, dbConnectionResolution } = require("./db");
 const {
   ensureTenant,
   getTenantBySlug,
@@ -7073,7 +7073,13 @@ app.get("/api/verify/intelligence/:slug", tenantMiddleware, async (req, res) => 
       );
     });
   } catch (err) {
-    console.error("Database initialization failed", err);
+    console.error("Database initialization failed", {
+      message: err && err.message,
+      code: err && err.code,
+      host: err && err.hostname,
+      db_resolution: dbConnectionResolution && dbConnectionResolution.diagnostics,
+    });
+    console.error(err);
     process.exit(1);
   }
 })();
