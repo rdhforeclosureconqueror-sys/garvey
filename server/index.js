@@ -1078,10 +1078,22 @@ function buildProgramBridgePayload({
   const hasEnrollment = Boolean(enrollment && enrollment.enrollment_id);
   const programStatus = String(enrollment?.program_status || (hasEnrollment ? "active" : "not_started")).trim().toLowerCase();
   const canLaunch = Boolean(assessmentComplete && profileReady);
-  const ctaLabel = hasEnrollment ? "Continue Development Plan" : "Start Program";
+  const ctaLabel = hasEnrollment ? "Continue Program" : "Start Program";
   const ctaUrl = canLaunch
     ? `/youth-development/program?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}&child_id=${encodeURIComponent(childId)}`
     : "";
+  const nextAction = !assessmentComplete
+    ? "Complete intake walkthrough"
+    : (!profileReady ? "Complete child profile setup" : (hasEnrollment ? `Continue Week ${currentWeek}` : "Start Program"));
+  const blockedReason = assessmentComplete
+    ? (!profileReady ? "child_profile_missing" : null)
+    : "assessment_incomplete";
+  const ctaContract = {
+    label: ctaLabel,
+    href: ctaUrl,
+    action: hasEnrollment ? "continue_program" : "start_program",
+    blocked_reason: canLaunch ? null : blockedReason,
+  };
 
   return {
     ok: true,
@@ -1096,13 +1108,29 @@ function buildProgramBridgePayload({
     program_status_label: hasEnrollment ? (programStatus === "active" ? "In progress" : "Paused") : (canLaunch ? "Ready to start" : "Setup needed"),
     current_week: canLaunch ? currentWeek : null,
     current_phase_name: phase?.phase_name || null,
-    next_recommended_action: !assessmentComplete
-      ? "Complete assessment intake first"
-      : (!profileReady ? "Complete child profile setup" : (hasEnrollment ? `Continue Week ${currentWeek}` : "Begin Week 1")),
+    next_recommended_action: nextAction,
     parent_summary: !assessmentComplete
       ? "Assessment incomplete. Complete intake before launching the program."
       : (!profileReady ? "Program setup is incomplete because child profile scope is missing." : (hasEnrollment ? `${childName} is enrolled and ready to continue the guided program.` : `${childName} is ready to start the guided development program.`)),
     cta: canLaunch ? { label: ctaLabel, href: ctaUrl } : null,
+    parent_program_state: {
+      child_scope: {
+        child_id: childId || null,
+        child_name: childName,
+        profile_ready: profileReady,
+      },
+      program: {
+        status: programStatus,
+        status_label: hasEnrollment ? (programStatus === "active" ? "In progress" : "Paused") : (canLaunch ? "Ready to start" : "Setup needed"),
+        has_enrollment: hasEnrollment,
+        enrollment_id: enrollment?.enrollment_id || null,
+        current_phase_name: phase?.phase_name || null,
+        current_week: canLaunch ? currentWeek : null,
+      },
+      next_action: nextAction,
+      blocked_reason: canLaunch ? null : blockedReason,
+      cta: ctaContract,
+    },
   };
 }
 

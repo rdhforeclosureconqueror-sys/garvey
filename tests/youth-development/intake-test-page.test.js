@@ -117,10 +117,10 @@ test('GET /youth-development/intake renders live single-question parent-observat
     assert.match(html, /Youth Talent Development Intake — Parent Observation Screener v1/);
     assert.match(html, /Question 1 of 25/);
     assert.match(html, /Submit assessment/);
-    assert.match(html, /Open Youth Parent Dashboard/);
+    assert.match(html, /View Dashboard/);
     assert.match(html, /Start Program/);
     assert.match(html, /\/api\/youth-development\/parent-dashboard\/latest/);
-    assert.match(html, /Resume \/ View Youth Results/);
+    assert.doesNotMatch(html, /Resume \/ View Youth Results/);
     assert.match(html, /past 6 to 8 weeks/);
     assert.doesNotMatch(html, /JSON\.stringify\(payload, null, 2\)/);
   } finally {
@@ -142,7 +142,7 @@ test('GET /youth-development/parent-dashboard renders live parent-facing dashboa
     assert.match(html, /Focus & Self-Control/);
     assert.match(html, /Learning From Feedback/);
     assert.match(html, /data-help-code=/);
-    assert.match(html, /Take Youth Assessment/);
+    assert.match(html, /Start Intake Walkthrough/);
     assert.match(html, /\/api\/youth-development\/program\/bridge/);
   } finally {
     await new Promise((resolve) => server.close(resolve));

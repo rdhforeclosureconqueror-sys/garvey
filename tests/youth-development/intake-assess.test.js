@@ -362,7 +362,7 @@ test('POST /api/youth-development/program/launch returns resume state and does n
       current_week: 4,
       current_phase_name: 'Foundation',
       next_recommended_action: 'Continue Week 4',
-      cta: { label: 'Continue Development Plan', href: '/youth-development/program?tenant=demo&email=parent%40example.com&child_id=' + childId },
+      cta: { label: 'Continue Program', href: '/youth-development/program?tenant=demo&email=parent%40example.com&child_id=' + childId },
     }),
   }));
   const server = http.createServer(app);

@@ -3,17 +3,68 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Youth Development Parent Intake</title>
+  <title>Youth Development Parent Journey</title>
+  <style>
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; padding: 20px; background: #0b1220; color: #e2e8f0; }
+    main { max-width: 1100px; margin: 0 auto; display: grid; gap: 14px; }
+    .panel { border: 1px solid rgba(148,163,184,0.35); background: #111827; border-radius: 12px; padding: 14px; }
+    .muted { color: #94a3b8; }
+    .grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .btn { display: inline-block; border: 1px solid #2563eb; color: #fff; background: #2563eb; border-radius: 999px; padding: 8px 12px; text-decoration: none; font-weight: 600; }
+    .btn.secondary { background: transparent; color: #93c5fd; }
+    .tiny { font-size: 12px; }
+    .row { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    input, select { width: 100%; border: 1px solid rgba(148,163,184,0.45); background: #020617; color: #e2e8f0; border-radius: 8px; padding: 8px; }
+  </style>
+  <script src="/js/tde-operator-console.js" defer></script>
 </head>
 <body>
-  <p>Loading the parent intake walkthrough…</p>
-  <script>
-    (function () {
-      const target = new URL("/youth-development/intake", window.location.origin);
-      const current = new URL(window.location.href);
-      current.searchParams.forEach((value, key) => target.searchParams.set(key, value));
-      window.location.replace(target.pathname + target.search);
-    }());
-  </script>
+  <main>
+    <section class="panel">
+      <h1>Youth Development Parent Journey</h1>
+      <p class="muted">Canonical parent flow: Intake Walkthrough → Dashboard Results → Start/Continue Program → Weekly Execution.</p>
+      <div class="grid">
+        <a class="btn" href="/youth-development/intake">Start Intake Walkthrough</a>
+        <a class="btn secondary" href="/youth-development/parent-dashboard">View Dashboard</a>
+        <a class="btn secondary" href="/youth-development/program">Open Program</a>
+      </div>
+      <p class="tiny muted">Legacy route note: this page is a shell/entry route. Core parent experience runs on the routes above.</p>
+    </section>
+
+    <section id="tdeOperatorConsole" class="panel" style="display:none;">
+      <h2>TDE Operator Console (Internal Testing Only)</h2>
+      <p class="muted tiny">Enable the internal surface gate before loading TDE extension panels.</p>
+      <div class="grid">
+        <button id="tdeInternalSurfaceBtn" class="btn" type="button">Enable Internal Surface Gate</button>
+        <button id="tdeLoadPanelsBtn" class="btn secondary" type="button" disabled>Load TDE Panels</button>
+        <button id="tdeToggleDetailsBtn" class="btn secondary" type="button" disabled>Toggle Details</button>
+      </div>
+      <p id="tdeOpsStatus" class="muted">Internal surface disabled by default.</p>
+
+      <div class="row">
+        <label>Child Scope
+          <input id="tdeChildScopeInput" type="text" placeholder="child_id=:childId" />
+        </label>
+        <label>Operator Visibility State
+          <select id="tdeVisibilityStateInput">
+            <option value="auto">auto</option>
+            <option value="parent_safe">parent_safe</option>
+            <option value="internal_test_mode">internal_test_mode</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="row">
+        <section id="tdeOverviewPanel" class="panel"></section>
+        <section id="tdeChildDevelopmentPanel" class="panel"></section>
+        <section id="tdeCheckinInterventionPanel" class="panel"></section>
+        <section id="tdeVoicePanel" class="panel"></section>
+        <section id="tdeValidationAdminPanel" class="panel"></section>
+      </div>
+      <div id="tdeExplanationRow" style="display:none;">
+        <section id="tdeExplanationPanel" class="panel"></section>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
