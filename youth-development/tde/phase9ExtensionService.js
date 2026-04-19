@@ -12,6 +12,12 @@ const {
 } = require("./personalizationService");
 const { buildGrowthTrajectory: buildGrowthTrajectoryModel, buildMilestoneComparison: buildMilestoneComparisonModel } = require("./growthTrajectoryService");
 const { buildParentCoachingSummary, buildParentGuidance } = require("./parentCoachingService");
+const {
+  normalizeRecommendationsPayload,
+  normalizeInsightsPayload,
+  normalizeCheckinSummaryPayload,
+  normalizeExplanationPayload,
+} = require("./uiDisplayContractService");
 
 function buildConfidenceContext(snapshot = {}) {
   const progressRecords = Array.isArray(snapshot.progress_records) ? snapshot.progress_records : [];
@@ -67,11 +73,12 @@ async function getRecommendations(childId, repository, options = {}) {
     trajectory_state: growthTrajectory.trajectory_state,
     trajectory_confidence: growthTrajectory?.confidence_context?.confidence_label || "low",
   });
-  return generateRecommendations({
+  const recommendations = generateRecommendations({
     child_id: childId,
     ...context,
     personalization_modifiers: personalization.modifiers,
   }, options);
+  return normalizeRecommendationsPayload(recommendations);
 }
 
 async function getPersonalizationSummary(childId, repository) {
@@ -130,7 +137,7 @@ async function getParentGuidance(childId, repository) {
 async function getAdaptiveRecommendationExplanation(childId, repository, options = {}) {
   const recommendations = await getRecommendations(childId, repository, options);
   const personalization = await getPersonalizationSummary(childId, repository);
-  return buildAdaptiveRecommendationExplanation(recommendations, personalization);
+  return normalizeExplanationPayload(buildAdaptiveRecommendationExplanation(recommendations, personalization));
 }
 
 async function getReadiness(childId, repository) {
@@ -173,7 +180,7 @@ async function getRollout(childId, repository) {
 
 async function getInsights(childId, repository) {
   const snapshot = await repository.getProgramSnapshot(childId);
-  return buildInsightLayer(snapshot, { child_id: childId });
+  return normalizeInsightsPayload(buildInsightLayer(snapshot, { child_id: childId }));
 }
 
 async function getCheckinSummary(childId, repository) {
@@ -183,10 +190,10 @@ async function getCheckinSummary(childId, repository) {
     Array.isArray(snapshot.development_checkins) ? snapshot.development_checkins : [],
     { current_week: currentWeek }
   );
-  return {
+  return normalizeCheckinSummaryPayload({
     child_id: childId,
     ...summary,
-  };
+  });
 }
 
 module.exports = {
