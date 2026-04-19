@@ -133,6 +133,21 @@ const SUPPORT_ACTION_LABELS = Object.freeze({
   resource_scaffold_pack: "Resource scaffold pack",
 });
 
+const CANONICAL_PARENT_ROUTES = Object.freeze({
+  entry: "/youth-development/intake",
+  dashboard: "/youth-development/parent-dashboard",
+  program: "/youth-development/program",
+});
+
+const CANONICAL_CTA_LABELS = Object.freeze({
+  startProgram: "Start Program",
+  continueProgram: "Continue Program",
+  returnToDashboard: "Return to Dashboard",
+  resumeWeekPrefix: "Resume Week",
+  saveReflection: "Save Reflection",
+  saveObservation: "Save Observation",
+});
+
 function safeTrim(value) {
   return String(value ?? "").trim();
 }
@@ -176,6 +191,14 @@ function resolveRequestAccountContext(req, body = {}) {
     cid: bodyCtx.cid || queryCtx.cid,
     crid: bodyCtx.crid || queryCtx.crid,
   };
+}
+
+function isInternalSurfaceRequestAllowed(req) {
+  if (process.env.NODE_ENV !== "production") return true;
+  if (req?.isAdmin === true) return true;
+  if (req?.authActor?.isAdmin === true) return true;
+  const internalQuery = String(req?.query?.internal || "").trim();
+  return internalQuery === "1";
 }
 
 function labelFor(map, code) {
@@ -428,6 +451,17 @@ function buildProgramWeekContentState({ bridgeState, childId, childProfiles, exe
         child_name: entry.child_name || null,
       })),
       next_action: "Select a child in Parent Dashboard, then continue.",
+      parent_program_state: {
+        child_scope: {
+          required: true,
+          selected_child_id: null,
+        },
+        program_status: "setup_required",
+        current_week: null,
+        next_action: "Select child scope",
+        blocked_reason: "child_scope_required",
+        cta: null,
+      },
     };
   }
   if (!bridgeState || bridgeState.ok !== true) {
@@ -437,6 +471,21 @@ function buildProgramWeekContentState({ bridgeState, childId, childProfiles, exe
       state_label: "Program state unavailable",
       messages: ["Program bridge state could not be resolved for this child."],
       next_action: "Return to Parent Dashboard and retry.",
+      parent_program_state: {
+        child_scope: {
+          required: true,
+          selected_child_id: childId,
+        },
+        program_status: "unknown",
+        current_week: null,
+        next_action: "Return to Parent Dashboard",
+        blocked_reason: "program_bridge_unavailable",
+        cta: {
+          label: CANONICAL_CTA_LABELS.returnToDashboard,
+          href: `${CANONICAL_PARENT_ROUTES.dashboard}?child_id=${encodeURIComponent(childId)}`,
+          action: "return_to_dashboard",
+        },
+      },
     };
   }
   if (bridgeState.setup_needed === true || bridgeState.launch_allowed !== true) {
@@ -446,6 +495,17 @@ function buildProgramWeekContentState({ bridgeState, childId, childProfiles, exe
       state_label: "Setup incomplete",
       messages: ["Program setup is incomplete. Week content will appear after setup is complete."],
       next_action: String(bridgeState.next_recommended_action || "Complete setup"),
+      parent_program_state: {
+        child_scope: {
+          required: true,
+          selected_child_id: childId,
+        },
+        program_status: "setup_required",
+        current_week: null,
+        next_action: String(bridgeState.next_recommended_action || "Complete setup"),
+        blocked_reason: String(bridgeState.reason || "setup_incomplete"),
+        cta: bridgeState.cta || null,
+      },
     };
   }
   if (bridgeState.has_enrollment !== true) {
@@ -455,6 +515,17 @@ function buildProgramWeekContentState({ bridgeState, childId, childProfiles, exe
       state_label: "Enrollment not started",
       messages: ["No active enrollment found for this child. Start the program to unlock Week 1 content."],
       next_action: String(bridgeState.next_recommended_action || "Begin Week 1"),
+      parent_program_state: {
+        child_scope: {
+          required: true,
+          selected_child_id: childId,
+        },
+        program_status: "not_started",
+        current_week: 1,
+        next_action: String(bridgeState.next_recommended_action || "Start Program"),
+        blocked_reason: "enrollment_missing",
+        cta: bridgeState.cta || null,
+      },
     };
   }
   const currentWeek = Math.max(1, Math.min(36, Number(bridgeState.current_week) || 1));
@@ -466,8 +537,27 @@ function buildProgramWeekContentState({ bridgeState, childId, childProfiles, exe
       state_label: "Current week content missing",
       messages: [`No rail definition was found for week ${currentWeek}.`],
       next_action: "Contact support to restore week contract wiring.",
+      parent_program_state: {
+        child_scope: {
+          required: true,
+          selected_child_id: childId,
+        },
+        program_status: "active",
+        current_week: currentWeek,
+        next_action: "Contact support",
+        blocked_reason: "week_content_missing",
+        cta: {
+          label: CANONICAL_CTA_LABELS.returnToDashboard,
+          href: `${CANONICAL_PARENT_ROUTES.dashboard}?child_id=${encodeURIComponent(childId)}`,
+          action: "return_to_dashboard",
+        },
+      },
     };
   }
+  const normalizedExecutionState = normalizeExecutionState(executionState || defaultExecutionState(), currentWeek);
+  const bridgeParentState = bridgeState.parent_program_state && typeof bridgeState.parent_program_state === "object"
+    ? bridgeState.parent_program_state
+    : {};
   return {
     ok: true,
     state: "content_ready",
@@ -475,7 +565,7 @@ function buildProgramWeekContentState({ bridgeState, childId, childProfiles, exe
     child_id: childId,
     current_week: currentWeek,
     week_content: buildWeekContentFromRail(weekModel, bridgeState, planningState || {}),
-    execution_state: normalizeExecutionState(executionState || defaultExecutionState(), currentWeek),
+    execution_state: normalizedExecutionState,
     execution_contract: {
       allowed_actions: WEEKLY_EXECUTION_ACTIONS,
       child_scope_required: true,
@@ -484,6 +574,23 @@ function buildProgramWeekContentState({ bridgeState, childId, childProfiles, exe
       step_required_action: "mark_step_complete",
     },
     next_action: String(bridgeState.next_recommended_action || `Continue Week ${currentWeek}`),
+    parent_program_state: {
+      child_scope: bridgeParentState.child_scope || {
+        required: true,
+        selected_child_id: childId,
+      },
+      program_status: String(bridgeState.program_status || "active"),
+      current_phase_name: bridgeState.current_phase_name || null,
+      current_week: currentWeek,
+      next_action: String(bridgeState.next_recommended_action || `Continue Week ${currentWeek}`),
+      blocked_reason: normalizedExecutionState.blocked_reason || null,
+      cta: bridgeParentState.cta || bridgeState.cta || null,
+      weekly_execution: {
+        week_status: normalizedExecutionState.week_status,
+        active_step_key: normalizedExecutionState.active_step_key,
+        blocked_reason: normalizedExecutionState.blocked_reason || null,
+      },
+    },
   };
 }
 
@@ -976,7 +1083,7 @@ function renderLiveYouthAssessmentPage() {
           <p class="muted">Complete the intake and submit to generate a parent-facing dashboard.</p>
         </div>
         <div class="controls" style="margin-top:10px;">
-          <a id="openLiveDashboardBtn" href="/youth-development/parent-dashboard" style="display:none;border:1px solid #0f766e;background:#0f766e;color:#fff;border-radius:999px;padding:8px 12px;text-decoration:none;">Open Youth Parent Dashboard</a>
+          <a id="openLiveDashboardBtn" href="/youth-development/parent-dashboard" style="display:none;border:1px solid #0f766e;background:#0f766e;color:#fff;border-radius:999px;padding:8px 12px;text-decoration:none;">View Dashboard</a>
           <a id="startProgramBtn" href="/youth-development/program" style="display:none;border:1px solid #1d4ed8;background:#1d4ed8;color:#fff;border-radius:999px;padding:8px 12px;text-decoration:none;">Start Program</a>
         </div>
       </section>
@@ -1122,9 +1229,12 @@ function renderLiveYouthAssessmentPage() {
             "<p><strong>Saved account:</strong> " + accountCtx.email + "</p>"
           ].join("");
           openLiveDashboardBtn.style.display = "";
-          openLiveDashboardBtn.textContent = "Resume / View Youth Results";
+          openLiveDashboardBtn.textContent = "View Dashboard";
           startProgramBtn.style.display = "";
-          startProgramBtn.textContent = "Start / Continue Program";
+          const bridgeCtaLabel = latest && latest.payload && latest.payload.bridge && latest.payload.bridge.cta
+            ? latest.payload.bridge.cta.label
+            : "";
+          startProgramBtn.textContent = String(bridgeCtaLabel || "Start Program");
         }
 
         renderQuestion();
@@ -1315,7 +1425,7 @@ function renderLiveYouthParentDashboardPage() {
         <div class="actions">
           <a class="btn btn-primary" id="viewSavedDashboardBtn" href="/youth-development/parent-dashboard">View Saved Dashboard</a>
           <a class="btn btn-secondary" id="retakeAssessmentBtn" href="/youth-development/intake">Retake Assessment</a>
-          <a class="btn btn-ghost" id="openIntakeBtn" href="/youth-development/intake">Take Youth Assessment</a>
+          <a class="btn btn-ghost" id="openIntakeBtn" href="/youth-development/intake">Start Intake Walkthrough</a>
         </div>
       </section>
     </main>
@@ -1743,7 +1853,7 @@ function renderLiveYouthProgramPage() {
         <ul id="programStatusList" class="list"><li class="muted">Loading…</li></ul>
         <div class="actions">
           <button id="launchBtn" class="btn btn-primary" type="button" style="display:none;">Start Program</button>
-          <a id="dashboardBtn" class="btn btn-secondary" href="/youth-development/parent-dashboard">Back to Parent Dashboard</a>
+          <a id="dashboardBtn" class="btn btn-secondary" href="/youth-development/parent-dashboard">Return to Dashboard</a>
         </div>
       </section>
       <section class="panel">
@@ -1767,7 +1877,7 @@ function renderLiveYouthProgramPage() {
             <ul id="roadmapList" class="roadmap-list"><li class="muted">Loading roadmap…</li></ul>
             <div class="week-nav">
               <button id="prevWeekBtn" class="btn btn-ghost" type="button">Previous week</button>
-              <button id="nextWeekBtn" class="btn btn-ghost" type="button">Next week preview</button>
+              <button id="nextWeekBtn" class="btn btn-ghost" type="button">Next Week</button>
             </div>
           </div>
         </div>
@@ -2005,7 +2115,12 @@ function renderLiveYouthProgramPage() {
             + " · Completed steps: " + String(completed) + "/4"
             + " · Resume ready: " + String(state.resume_ready === true ? "yes" : "no")
             + (state.blocked_reason ? " · Blocked: " + String(state.blocked_reason) : "");
-          startResumeWeekBtn.textContent = state.week_status === "not_started" ? "Start Week" : "Resume Week";
+          const currentWeek = latestWeekPayload && latestWeekPayload.week_content
+            ? Number(latestWeekPayload.week_content.week_number || latestWeekPayload.current_week || 1)
+            : 1;
+          startResumeWeekBtn.textContent = state.week_status === "not_started"
+            ? "Start Program"
+            : ("Resume Week " + String(state.week_number || currentWeek || 1));
           continueNextWeekBtn.disabled = state.next_week_available !== true;
           continueStepBtn.disabled = state.week_status === "blocked";
           markStepCompleteBtn.disabled = state.week_status === "ready_for_next_week" || state.week_status === "completed";
@@ -2132,7 +2247,7 @@ function renderLiveYouthProgramPage() {
             "Current week: " + String(payload.current_week || 1),
             "Next action: " + String(payload.next_recommended_action || "Begin current week"),
           ]);
-          launchBtn.textContent = "Continue Development Plan";
+          launchBtn.textContent = "Continue Program";
           launchBtn.disabled = false;
           dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
           await loadWeekExperience();
@@ -2325,7 +2440,9 @@ function createYouthDevelopmentRouter(options = {}) {
   ));
 
   router.get("/youth-development/intake/test", (req, res) => (
-    res.status(200).type("html").send(renderYouthDevelopmentIntakeTestPage())
+    (isInternalSurfaceRequestAllowed(req)
+      ? res.status(200).type("html").send(renderYouthDevelopmentIntakeTestPage())
+      : res.status(404).type("html").send("<h1>Not Found</h1>"))
   ));
 
   router.get("/youth-development/parent-dashboard", (req, res) => (
@@ -2336,6 +2453,9 @@ function createYouthDevelopmentRouter(options = {}) {
   ));
 
   router.get("/youth-development/parent-dashboard/preview", (req, res) => {
+    if (!isInternalSurfaceRequestAllowed(req)) {
+      return res.status(404).type("html").send("<h1>Not Found</h1>");
+    }
     const payload = buildPreviewPayload();
     const html = renderYouthDevelopmentParentDashboardPage(payload.page_model, {
       previewLabel: "Preview / test-only output (deterministic fixture, no production data)",
@@ -2613,6 +2733,9 @@ function createYouthDevelopmentRouter(options = {}) {
   });
 
   router.get("/api/youth-development/parent-dashboard/preview", (req, res) => {
+    if (!isInternalSurfaceRequestAllowed(req)) {
+      return res.status(404).json({ ok: false, error: "not_found" });
+    }
     const payload = buildPreviewPayload();
     return res.status(200).json({
       preview: true,

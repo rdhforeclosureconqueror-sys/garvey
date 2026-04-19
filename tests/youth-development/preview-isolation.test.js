@@ -11,10 +11,10 @@ function readIndexSource() {
 
 test('youth preview router mount remains isolated and mounted exactly once', () => {
   const source = readIndexSource();
-  const createRouterCount = (source.match(/createYouthDevelopmentRouter\(\)/g) || []).length;
-  const mountCount = (source.match(/app\.use\(createYouthDevelopmentRouter\(\)\);/g) || []).length;
+  const createRouterCount = (source.match(/createYouthDevelopmentRouter\(\s*\{/g) || []).length;
+  const mountCount = (source.match(/app\.use\(createYouthDevelopmentRouter\(\s*\{/g) || []).length;
 
-  assert.equal(createRouterCount, 1, 'createYouthDevelopmentRouter() should appear exactly once in server/index.js');
+  assert.equal(createRouterCount, 1, 'createYouthDevelopmentRouter({...}) should appear exactly once in server/index.js');
   assert.equal(mountCount, 1, 'youth-development router should be mounted exactly once');
 });
 
