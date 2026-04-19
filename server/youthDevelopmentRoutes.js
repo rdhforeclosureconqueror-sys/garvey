@@ -13,6 +13,8 @@ const {
 const { getQuestionFlowState, validateAnswers } = require("../youth-development/question-engine/youthQuestionFlow");
 const { runYouthIntakeScoring } = require("../youth-development/question-engine/youthScoringMap");
 const { PROGRAM_WEEKS } = require("../youth-development/tde/programRail");
+const { buildSessionPlan } = require("../youth-development/tde/sessionBuilderService");
+const { listActivitiesByComponent } = require("../youth-development/tde/activityBankService");
 
 const PREVIEW_AGGREGATED_ROWS = Object.freeze([
   Object.freeze({
@@ -174,10 +176,79 @@ function labelFor(map, code) {
   return map[code] || String(code);
 }
 
+const COMPONENT_GROUPS = Object.freeze({
+  core: Object.freeze(["RULE_BASED_REGULATION", "ATTENTION_MINDFULNESS"]),
+  stretch: "CHALLENGE_SUSTAINED_FOCUS",
+  reflection: "REFLECTION_COACHING",
+});
+
+function buildRoadmap(currentWeek) {
+  return [currentWeek - 1, currentWeek, currentWeek + 1]
+    .filter((week) => week >= 1 && week <= 36)
+    .map((weekNumber) => {
+      const model = PROGRAM_WEEKS.find((entry) => Number(entry.week_number) === Number(weekNumber));
+      return {
+        week_number: weekNumber,
+        phase_name: String(model?.phase_name || "Foundation"),
+        weekly_goal: String(model?.weekly_goal || `Week ${weekNumber} roadmap details are loading.`),
+        status: weekNumber < currentWeek ? "completed" : (weekNumber === currentWeek ? "current" : "upcoming"),
+      };
+    });
+}
+
+function normalizeActivity(activity = {}) {
+  return {
+    activity_id: String(activity.activity_id || ""),
+    component_type: String(activity.component_type || ""),
+    title: String(activity.title || "Untitled activity"),
+    description: String(activity.description || "Activity details unavailable."),
+    estimated_duration: Number(activity.estimated_duration || 0),
+    materials_needed: Array.isArray(activity.materials_needed) ? activity.materials_needed : [],
+    facilitation_instructions: String(activity.facilitation_instructions || ""),
+    target_traits: Array.isArray(activity.target_traits) ? activity.target_traits : [],
+  };
+}
+
+function buildActivitySurface({ childId, phaseNumber }) {
+  const safeChildId = String(childId || "").trim() || "child-week-preview";
+  const sessionPlan = buildSessionPlan({
+    child_id: safeChildId,
+    phase_number: Number(phaseNumber || 1),
+    facilitator_role: "parent",
+  });
+  const selectedActivities = sessionPlan?.ok === true && Array.isArray(sessionPlan.session_plan?.selected_activities)
+    ? sessionPlan.session_plan.selected_activities.map((entry) => normalizeActivity(entry))
+    : [];
+  const pickFromSelected = (componentType) => selectedActivities.find((entry) => String(entry.component_type || entry.componentType || "").trim() === componentType);
+  const coreBankOptions = COMPONENT_GROUPS.core.flatMap((componentType) => {
+    const listed = listActivitiesByComponent(componentType);
+    return Array.isArray(listed.activities) ? listed.activities.map((entry) => normalizeActivity(entry)) : [];
+  });
+  return {
+    session_plan: sessionPlan?.ok === true ? {
+      session_id: String(sessionPlan.session_plan.session_id || ""),
+      facilitator_role: String(sessionPlan.session_plan.facilitator_role || "parent"),
+      selected_activity_ids: Array.isArray(sessionPlan.session_plan.selected_activity_ids) ? sessionPlan.session_plan.selected_activity_ids : [],
+      component_count: Number(sessionPlan.session_plan.component_count || selectedActivities.length || 0),
+    } : null,
+    selected_path: {
+      core_activity: pickFromSelected("RULE_BASED_REGULATION") || pickFromSelected("ATTENTION_MINDFULNESS") || null,
+      stretch_challenge: pickFromSelected(COMPONENT_GROUPS.stretch) || null,
+      reflection: pickFromSelected(COMPONENT_GROUPS.reflection) || null,
+    },
+    banks: {
+      core_activity: coreBankOptions,
+      stretch_challenge: listActivitiesByComponent(COMPONENT_GROUPS.stretch).activities.map((entry) => normalizeActivity(entry)),
+      reflection: listActivitiesByComponent(COMPONENT_GROUPS.reflection).activities.map((entry) => normalizeActivity(entry)),
+    },
+  };
+}
+
 function buildWeekContentFromRail(weekModel, bridgeState = {}) {
   if (!weekModel || typeof weekModel !== "object") return null;
   const weekNumber = Number(weekModel.week_number) || 1;
   const phaseName = String(weekModel.phase_name || "Foundation");
+  const phaseNumber = Number(weekModel.phase_number || 1);
   const activityLabel = labelFor(ACTIVITY_LABELS, weekModel.core_activity_type);
   const stretchLabel = labelFor(STRETCH_LABELS, weekModel.stretch_challenge_type);
   const reflectionLabel = labelFor(REFLECTION_LABELS, weekModel.reflection_loop_type);
@@ -186,11 +257,19 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}) {
     ? labelFor(SUPPORT_ACTION_LABELS, weekModel.optional_support_action)
     : "Keep the current home routine and capture one short parent observation note.";
   const targetTraits = Array.isArray(weekModel.target_traits) ? weekModel.target_traits : [];
+  const progressPercent = Math.max(0, Math.min(100, Math.round((weekNumber / 36) * 100)));
+  const activitySurface = buildActivitySurface({ childId: bridgeState.child_id, phaseNumber });
   return {
     week_number: weekNumber,
     title: `Week ${weekNumber} · ${phaseName}`,
     objective: String(weekModel.weekly_goal || `Week ${weekNumber} objective is loading.`),
     phase_week_context: `Phase ${weekModel.phase_number || 1} (${phaseName}), Week ${weekNumber} of 36.`,
+    week_purpose: `This week strengthens ${targetTraits.join(" + ") || "core developmental traits"} through repeatable parent-guided sessions.`,
+    weekly_goals: [
+      `Complete the core session flow at least 2 times this week using ${activityLabel || "the guided core activity"}.`,
+      `Use ${stretchLabel || "the stretch challenge"} once after the core routine feels stable.`,
+      `Capture one reflection and one parent observation before week close.`,
+    ],
     content_blocks: {
       core_activity: activityLabel || "Core activity not mapped",
       stretch_challenge: stretchLabel || "Stretch challenge not mapped",
@@ -198,9 +277,30 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}) {
       observation_entry: observationLabel || "Observation entry not mapped",
       optional_support_action: supportActionLabel,
     },
+    parent_guidance: [
+      `Prepare materials before session start and set a predictable time window.`,
+      `Name the target traits (${targetTraits.join(", ") || "current targets"}) before beginning.`,
+      `Use brief coaching language and keep sessions short enough for consistency.`,
+    ],
     parent_guidance_setup: `Set up ${activityLabel || "the core activity"} and cue ${targetTraits.join(" + ") || "current trait targets"} before the session.`,
     current_activity_session_plan: `Run ${activityLabel || "the core activity"}, then apply ${stretchLabel || "a stretch challenge"} to build week momentum.`,
     reflection_checkin_support: `Close with ${reflectionLabel || "a reflection loop"}, capture ${observationLabel || "an observation"}, and apply ${supportActionLabel}.`,
+    session_flow: [
+      { step: "Core activity", detail: `Run ${activityLabel || "core activity"} and capture one quick win.` },
+      { step: "Stretch challenge", detail: `Use ${stretchLabel || "stretch challenge"} for transfer and resilience practice.` },
+      { step: "Reflection/check-in", detail: `Prompt ${reflectionLabel || "reflection loop"} and ask child what changed.` },
+      { step: "Observation/support", detail: `Record ${observationLabel || "observation note"} and schedule ${supportActionLabel}.` },
+    ],
+    observation_support_area: `Observation focus: ${observationLabel || "Parent observation note"}. Support action: ${supportActionLabel}.`,
+    activity_bank_surface: activitySurface,
+    progress: {
+      current_week: weekNumber,
+      total_weeks: 36,
+      percent_complete: progressPercent,
+      completion_status: weekNumber <= 1 ? "starting" : "in_progress",
+      completed_weeks_estimate: Math.max(0, weekNumber - 1),
+    },
+    roadmap: buildRoadmap(weekNumber),
     next_action: String(bridgeState.next_recommended_action || `Continue Week ${weekNumber}`),
   };
 }
@@ -1501,6 +1601,19 @@ function renderLiveYouthProgramPage() {
       .state-line { margin: 0; color: #94a3b8; }
       .chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
       .chip { border: 1px solid rgba(148, 163, 184, 0.4); border-radius: 999px; padding: 4px 10px; font-size: 12px; color: #bfdbfe; }
+      .grid-2 { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+      .progress-wrap { margin-top: 8px; }
+      .progress-track { width: 100%; height: 10px; border-radius: 999px; background: rgba(148, 163, 184, 0.25); overflow: hidden; }
+      .progress-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #3b82f6); width: 0%; transition: width 180ms ease; }
+      .roadmap-list { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 6px; }
+      .roadmap-item-current { color: #bfdbfe; font-weight: 600; }
+      .roadmap-item-completed { color: #86efac; }
+      .activity-card { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 10px; background: rgba(2, 6, 23, 0.55); margin-top: 8px; }
+      .activity-card h4 { margin: 0 0 4px; font-size: 0.95rem; }
+      .tiny { font-size: 12px; color: #94a3b8; }
+      .week-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+      .btn-ghost { background: rgba(30, 41, 59, 0.45); border-color: rgba(148, 163, 184, 0.45); color: #e2e8f0; }
+      textarea.input { width: 100%; min-height: 72px; margin-top: 8px; background: rgba(2, 6, 23, 0.75); color: #e2e8f0; border: 1px solid rgba(148, 163, 184, 0.45); border-radius: 8px; padding: 8px; font: inherit; }
     </style>
   </head>
   <body>
@@ -1523,6 +1636,41 @@ function renderLiveYouthProgramPage() {
           <h3 class="state-title">Loading week content…</h3>
           <p class="state-line">Resolving child-scoped week experience.</p>
         </div>
+        <div class="grid-2">
+          <div class="state-box">
+            <h3 class="state-title">Weekly goals + parent guidance</h3>
+            <ul id="weeklyGoals" class="list"><li class="muted">Loading goals…</li></ul>
+            <ul id="weeklyGuidance" class="list"><li class="muted">Loading parent guidance…</li></ul>
+          </div>
+          <div class="state-box">
+            <h3 class="state-title">Week progress + roadmap</h3>
+            <p id="progressSummary" class="state-line">Loading progress…</p>
+            <div class="progress-wrap">
+              <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+            </div>
+            <ul id="roadmapList" class="roadmap-list"><li class="muted">Loading roadmap…</li></ul>
+            <div class="week-nav">
+              <button id="prevWeekBtn" class="btn btn-ghost" type="button">Previous week</button>
+              <button id="nextWeekBtn" class="btn btn-ghost" type="button">Next week preview</button>
+            </div>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="state-box">
+            <h3 class="state-title">Session flow + activity bank</h3>
+            <ul id="sessionFlowList" class="list"><li class="muted">Loading session flow…</li></ul>
+            <div id="activityBankSurface"><p class="state-line">Loading activity options…</p></div>
+          </div>
+          <div class="state-box">
+            <h3 class="state-title">Reflection + observation/support</h3>
+            <p id="observationSupport" class="state-line">Loading observation/support…</p>
+            <label class="tiny" for="parentReflectionInput">Parent reflection / check-in notes</label>
+            <textarea id="parentReflectionInput" class="input" placeholder="What worked this week? What should shift next week?"></textarea>
+            <label class="tiny" for="parentObservationInput">Observation / support note</label>
+            <textarea id="parentObservationInput" class="input" placeholder="What did you observe and what support action will you use next?"></textarea>
+            <p id="nextActionArea" class="state-line">Next action loading…</p>
+          </div>
+        </div>
       </section>
     </main>
     <script>
@@ -1538,6 +1686,21 @@ function renderLiveYouthProgramPage() {
         const launchBtn = document.getElementById("launchBtn");
         const dashboardBtn = document.getElementById("dashboardBtn");
         const weekExperience = document.getElementById("weekExperience");
+        const weeklyGoals = document.getElementById("weeklyGoals");
+        const weeklyGuidance = document.getElementById("weeklyGuidance");
+        const progressSummary = document.getElementById("progressSummary");
+        const progressFill = document.getElementById("progressFill");
+        const roadmapList = document.getElementById("roadmapList");
+        const prevWeekBtn = document.getElementById("prevWeekBtn");
+        const nextWeekBtn = document.getElementById("nextWeekBtn");
+        const sessionFlowList = document.getElementById("sessionFlowList");
+        const activityBankSurface = document.getElementById("activityBankSurface");
+        const observationSupport = document.getElementById("observationSupport");
+        const nextActionArea = document.getElementById("nextActionArea");
+
+        let latestBridge = null;
+        let latestWeekPayload = null;
+        let navWeekOffset = 0;
 
         function esc(value) {
           return String(value == null ? "" : value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -1561,6 +1724,78 @@ function renderLiveYouthProgramPage() {
             safeChips ? '<div class="chip-row">' + safeChips + '</div>' : "",
             nextAction ? '<p class="state-line"><strong>Next action:</strong> ' + esc(nextAction) + '</p>' : "",
           ].join("");
+        }
+        function setListHtml(host, items, className) {
+          host.innerHTML = (items || []).length
+            ? items.map((line) => '<li' + (className ? ' class="' + className + '"' : '') + '>' + line + '</li>').join("")
+            : '<li class="muted">No items available yet.</li>';
+        }
+        function renderActivityCard(title, activity) {
+          if (!activity) return '<div class="activity-card"><h4>' + esc(title) + '</h4><p class="tiny">No mapped activity selected yet.</p></div>';
+          return [
+            '<div class="activity-card">',
+            '<h4>' + esc(title + ": " + activity.title) + '</h4>',
+            '<p class="tiny">' + esc(activity.description || "No description available.") + '</p>',
+            '<p class="tiny"><strong>Duration:</strong> ' + esc((activity.estimated_duration || 0) + " min") + '</p>',
+            '<p class="tiny"><strong>Materials:</strong> ' + esc((activity.materials_needed || []).join(", ") || "None") + '</p>',
+            '</div>',
+          ].join("");
+        }
+        function renderWeekDetails(week, nextAction, navOffset) {
+          const weekNumber = Number(week.week_number || 1);
+          const navWeekNumber = Math.max(1, Math.min(36, weekNumber + Number(navOffset || 0)));
+          const roadmap = Array.isArray(week.roadmap) ? week.roadmap : [];
+          const focusedRoadmapEntry = roadmap.find((entry) => Number(entry.week_number) === navWeekNumber) || null;
+          const showingWeek = focusedRoadmapEntry ? navWeekNumber : weekNumber;
+          const showingGoal = focusedRoadmapEntry ? focusedRoadmapEntry.weekly_goal : week.objective;
+          const showingPhase = focusedRoadmapEntry ? focusedRoadmapEntry.phase_name : (String(week.title || "").split("·")[1] || "Foundation").trim();
+
+          renderStateCard(
+            'Week ' + showingWeek + ' · ' + showingPhase,
+            [
+              week.week_purpose || week.objective || "Week objective is loading.",
+              "Primary goal: " + String(showingGoal || "Goal not available."),
+              "Phase/week context: " + String(week.phase_week_context || ""),
+            ],
+            [
+              "Core: " + String(week.content_blocks?.core_activity || "N/A"),
+              "Stretch: " + String(week.content_blocks?.stretch_challenge || "N/A"),
+              "Reflection: " + String(week.content_blocks?.reflection_loop || "N/A"),
+              "Observation: " + String(week.content_blocks?.observation_entry || "N/A"),
+            ],
+            nextAction || week.next_action || "Continue this week"
+          );
+
+          setListHtml(weeklyGoals, (week.weekly_goals || []).map((line) => esc(line)));
+          setListHtml(weeklyGuidance, (week.parent_guidance || []).map((line) => '<span class="tiny">Parent guidance:</span> ' + esc(line)));
+          const progress = week.progress || {};
+          progressSummary.textContent = "Week " + String(progress.current_week || week.week_number || 1) + " of " + String(progress.total_weeks || 36) + " · " + String(progress.percent_complete || 0) + "% roadmap progress";
+          progressFill.style.width = String(Math.max(0, Math.min(100, Number(progress.percent_complete || 0)))) + "%";
+          setListHtml(
+            roadmapList,
+            roadmap.map((entry) => {
+              const statusClass = entry.status === "current" ? "roadmap-item-current" : (entry.status === "completed" ? "roadmap-item-completed" : "");
+              return '<span class="' + statusClass + '">' + esc("Week " + entry.week_number + " · " + entry.status + " · " + entry.weekly_goal) + '</span>';
+            })
+          );
+
+          setListHtml(
+            sessionFlowList,
+            (week.session_flow || []).map((row) => '<strong>' + esc(row.step || "Step") + ':</strong> ' + esc(row.detail || ""))
+          );
+          const selectedPath = week.activity_bank_surface?.selected_path || {};
+          const bankSummary = week.activity_bank_surface?.banks || {};
+          activityBankSurface.innerHTML = [
+            renderActivityCard("Active core path", selectedPath.core_activity),
+            renderActivityCard("Active stretch challenge", selectedPath.stretch_challenge),
+            renderActivityCard("Active reflection loop", selectedPath.reflection),
+            '<div class="activity-card"><h4>Weekly options from activity bank</h4><p class="tiny">Core options: ' + esc(String((bankSummary.core_activity || []).length)) + ' · Stretch options: ' + esc(String((bankSummary.stretch_challenge || []).length)) + ' · Reflection options: ' + esc(String((bankSummary.reflection || []).length)) + '</p></div>',
+          ].join("");
+
+          observationSupport.textContent = String(week.observation_support_area || week.reflection_checkin_support || "Observation/support details unavailable.");
+          nextActionArea.innerHTML = "<strong>Next action:</strong> " + esc(nextAction || week.next_action || "Continue this week flow.");
+          prevWeekBtn.disabled = showingWeek <= 1;
+          nextWeekBtn.disabled = showingWeek >= 36;
         }
 
         async function loadWeekExperience() {
@@ -1586,19 +1821,8 @@ function renderLiveYouthProgramPage() {
             );
             return;
           }
-          const week = payload.week_content;
-          renderStateCard(week.title, [
-            week.objective,
-            "Phase/week context: " + String(week.phase_week_context || ""),
-            "Parent guidance/setup: " + String(week.parent_guidance_setup || ""),
-            "Current activity/session: " + String(week.current_activity_session_plan || ""),
-            "Reflection/check-in: " + String(week.reflection_checkin_support || ""),
-          ], [
-            "Core: " + String(week.content_blocks?.core_activity || "N/A"),
-            "Stretch: " + String(week.content_blocks?.stretch_challenge || "N/A"),
-            "Reflection: " + String(week.content_blocks?.reflection_loop || "N/A"),
-            "Observation: " + String(week.content_blocks?.observation_entry || "N/A"),
-          ], week.next_action || payload.next_action || "Continue this week");
+          latestWeekPayload = payload;
+          renderWeekDetails(payload.week_content, payload.next_action, navWeekOffset);
         }
 
         dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
@@ -1616,6 +1840,7 @@ function renderLiveYouthProgramPage() {
             return null;
           }
           hero.textContent = String(payload.parent_summary || "Program bridge ready.");
+          latestBridge = payload;
           setList([
             "Status: " + String(payload.program_status_label || "Setup needed"),
             "Current phase: " + String(payload.current_phase_name || "Not assigned"),
@@ -1631,7 +1856,18 @@ function renderLiveYouthProgramPage() {
           return payload;
         }
 
+        function openWeekFlow() {
+          if (!latestWeekPayload || !latestWeekPayload.week_content) return;
+          navWeekOffset = 0;
+          renderWeekDetails(latestWeekPayload.week_content, latestWeekPayload.next_action, navWeekOffset);
+          weekExperience.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
         launchBtn.addEventListener("click", async function () {
+          if (latestBridge && latestBridge.has_enrollment === true) {
+            openWeekFlow();
+            return;
+          }
           launchBtn.disabled = true;
           const response = await fetch("/api/youth-development/program/launch", {
             method: "POST",
@@ -1656,10 +1892,25 @@ function renderLiveYouthProgramPage() {
           launchBtn.disabled = false;
           dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
           await loadWeekExperience();
+          openWeekFlow();
         });
 
-        await loadBridge();
+        prevWeekBtn.addEventListener("click", function () {
+          if (!latestWeekPayload || !latestWeekPayload.week_content) return;
+          const currentWeek = Number(latestWeekPayload.week_content.week_number || 1);
+          navWeekOffset = Math.max(1 - currentWeek, navWeekOffset - 1);
+          renderWeekDetails(latestWeekPayload.week_content, latestWeekPayload.next_action, navWeekOffset);
+        });
+        nextWeekBtn.addEventListener("click", function () {
+          if (!latestWeekPayload || !latestWeekPayload.week_content) return;
+          const currentWeek = Number(latestWeekPayload.week_content.week_number || 1);
+          navWeekOffset = Math.min(36 - currentWeek, navWeekOffset + 1);
+          renderWeekDetails(latestWeekPayload.week_content, latestWeekPayload.next_action, navWeekOffset);
+        });
+
+        const bridge = await loadBridge();
         await loadWeekExperience();
+        if (bridge && bridge.has_enrollment === true) openWeekFlow();
       }());
     </script>
   </body>

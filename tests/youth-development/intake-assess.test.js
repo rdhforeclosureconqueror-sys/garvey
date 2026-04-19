@@ -417,6 +417,17 @@ test('GET /api/youth-development/program/week-content returns current week guide
     assert.match(payload.week_content.title, /Week 1/);
     assert.match(payload.week_content.phase_week_context, /Week 1 of 36/);
     assert.ok(payload.week_content.content_blocks.core_activity);
+    assert.equal(Array.isArray(payload.week_content.weekly_goals), true);
+    assert.equal(Array.isArray(payload.week_content.parent_guidance), true);
+    assert.equal(Array.isArray(payload.week_content.session_flow), true);
+    assert.ok(payload.week_content.observation_support_area);
+    assert.ok(payload.week_content.progress);
+    assert.equal(payload.week_content.progress.total_weeks, 36);
+    assert.equal(Array.isArray(payload.week_content.roadmap), true);
+    assert.equal(payload.week_content.roadmap.some((entry) => entry.status === 'current'), true);
+    assert.ok(payload.week_content.activity_bank_surface);
+    assert.ok(payload.week_content.activity_bank_surface.selected_path);
+    assert.equal(Array.isArray(payload.week_content.activity_bank_surface.banks.core_activity), true);
     assert.ok(payload.week_content.parent_guidance_setup);
     assert.ok(payload.week_content.current_activity_session_plan);
     assert.ok(payload.week_content.reflection_checkin_support);
