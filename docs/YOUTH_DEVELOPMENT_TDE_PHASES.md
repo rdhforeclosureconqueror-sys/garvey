@@ -561,3 +561,39 @@ Phase 23 adds extension-only admin/operator console visibility surfaces for pilo
 - Live youth v1 assess/intake/scoring/contracts are unchanged.
 - No hidden rollout behavior.
 - No silent calibration-setting mutation.
+
+## Phase 25 (this pass)
+Phase 25 normalizes additive UI-facing display contracts for the internal TDE operator console so pilot rendering can rely on stable fields rather than tolerant ad hoc field guessing.
+
+### What Phase 25 normalizes
+- Recommendations now include normalized display fields in payload and per-item rows:
+  - `display_title`
+  - `display_label`
+  - `display_status`
+  - `display_summary`
+  - `display_items[]`
+- Insights now expose normalized display fields plus additive flattened `insights[]` rows for UI rendering safety.
+- Recommendation explanation payloads now include normalized additive display fields and additive `explanations[]` rows.
+- Check-in summary payload now includes additive display contract fields for predictable panel-level rendering.
+- Voice endpoints now expose normalized status/display fields for operator readability:
+  - `content_registry_status`
+  - `readability_status`
+  - `voice_readiness_status`
+  - plus panel-level display fields (`display_*`).
+
+### UI-facing contract guidance
+- **Use normalized display fields first** in dashboard/operator surfaces:
+  - panel title/label/status/summary from `display_*`
+  - list rows from `display_items[]`
+  - voice panel status from `voice_readiness_status`, `content_registry_status`, `readability_status`
+- **Legacy/raw fields remain available** and are not removed in this phase:
+  - recommendations: `recommendations[]`, `recommendation_engine`, traces
+  - insights: `pillar_insights[]`, `cross_source_insight_summary`
+  - explanation: `recommendation_deltas[]`, `modifiers_applied`
+  - voice: `voice_state`, `readability_registration`, diagnostics/provider metadata
+
+### Backward-safety constraints preserved
+- No breaking endpoint contract changes; only additive fields.
+- No live youth v1 route changes.
+- No dashboard/public route removals.
+- Missing contracts remain explicit and surfaced (not hidden).

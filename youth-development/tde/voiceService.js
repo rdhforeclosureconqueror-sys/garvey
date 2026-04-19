@@ -6,6 +6,7 @@ const { buildParentExperienceViewModel } = require("./parentExperienceService");
 const { createVoiceAnalyticsService } = require("./voiceAnalyticsService");
 const { createVoicePilotService } = require("./voicePilotService");
 const { registerVoiceReadableContentBlocks } = require("./voiceContentRegistry");
+const { normalizeVoiceDisplay } = require("./uiDisplayContractService");
 
 const PARENT_SECTION_ORDER = Object.freeze(["summary", "strengths", "growth", "still_building", "environment", "next_steps"]);
 const CHILD_PROMPT_ORDER = Object.freeze(["performance_prompt", "reflection_prompt", "optional_transfer_prompt"]);
@@ -183,7 +184,7 @@ function createVoiceService(options = {}) {
     const latestCheckin = readLatestCheckin(snapshot);
 
     if (!latestCheckin) {
-      return {
+      return normalizeVoiceDisplay({
         ok: true,
         extension_only: true,
         deterministic: true,
@@ -200,7 +201,7 @@ function createVoiceService(options = {}) {
           missing_playable_asset_indicators: [],
         },
         missing_contracts: ["development_checkin_history_required"],
-      };
+      }, { displayTitle: "Voice Check-in", displayLabel: "voice_checkin_panel" });
     }
 
     const promptRows = CHILD_PROMPT_ORDER
@@ -297,7 +298,7 @@ function createVoiceService(options = {}) {
     const allMissingPlayable = allChunks.filter((entry) => !entry.playable).map((entry) => entry.chunk_id);
     const hasReadyPrompt = prompts.some((entry) => entry.playable_status === "ready");
 
-    return {
+    return normalizeVoiceDisplay({
       ok: true,
       extension_only: true,
       deterministic: true,
@@ -318,7 +319,7 @@ function createVoiceService(options = {}) {
       readability_registration: promptRegistrations,
       prompts,
       missing_contracts: prompts.length ? [] : ["voice_ready_prompt_schema_required"],
-    };
+    }, { displayTitle: "Voice Check-in", displayLabel: "voice_checkin_panel" });
   }
 
   async function getParentSectionPlayback(childId, repository) {
@@ -414,7 +415,7 @@ function createVoiceService(options = {}) {
     const allMissingPlayable = allChunks.filter((entry) => !entry.playable).map((entry) => entry.chunk_id);
     const hasReadySection = playbackSections.some((entry) => entry.playable_status === "ready");
 
-    return {
+    return normalizeVoiceDisplay({
       ok: true,
       extension_only: true,
       deterministic: true,
@@ -434,7 +435,7 @@ function createVoiceService(options = {}) {
       readability_registration: sectionRegistrations,
       sections: playbackSections,
       missing_contracts: playbackSections.length === PARENT_SECTION_ORDER.length ? [] : ["parent_report_sections_contract_incomplete"],
-    };
+    }, { displayTitle: "Voice Parent Sections", displayLabel: "voice_parent_sections_panel" });
   }
 
   async function getVoiceAvailabilityStatus(childId, repository) {
@@ -444,7 +445,7 @@ function createVoiceService(options = {}) {
       getParentSectionPlayback(childId, repository),
     ]);
 
-    return {
+    return normalizeVoiceDisplay({
       ok: true,
       extension_only: true,
       deterministic: true,
@@ -470,7 +471,12 @@ function createVoiceService(options = {}) {
         ],
       },
       missing_contracts: [...new Set([...(checkin.missing_contracts || []), ...(sections.missing_contracts || [])])],
-    };
+      display_items: [
+        config.voice_availability_status,
+        checkin.voice_state?.availability || "unknown",
+        sections.voice_state?.availability || "unknown",
+      ],
+    }, { displayTitle: "Voice Status", displayLabel: "voice_status_panel", defaultReadiness: config.voice_availability_status });
   }
 
   function getCachedPlayback(playbackId) {
@@ -489,7 +495,7 @@ function createVoiceService(options = {}) {
       getChildCheckinPlayback(childId, repository),
       getParentSectionPlayback(childId, repository),
     ]);
-    return {
+    return normalizeVoiceDisplay({
       ok: true,
       extension_only: true,
       deterministic: true,
@@ -503,12 +509,13 @@ function createVoiceService(options = {}) {
         parent_report_voice_eligible: Boolean(sections.voice_visibility?.voice_shown),
       },
       missing_contracts: [...new Set([...(checkin.missing_contracts || []), ...(sections.missing_contracts || [])])],
-    };
+      voice_readiness_status: (checkin.voice_visibility?.voice_shown || sections.voice_visibility?.voice_shown) ? "voice_ready" : "voice_not_ready",
+    }, { displayTitle: "Voice Pilot Status", displayLabel: "voice_pilot_panel" });
   }
 
   async function getVoiceEligibility(childId, repository) {
     const status = await getVoicePilotStatus(childId, repository);
-    return {
+    return normalizeVoiceDisplay({
       ok: true,
       extension_only: true,
       deterministic: true,
@@ -516,7 +523,8 @@ function createVoiceService(options = {}) {
       account_voice_eligibility: status.eligibility,
       rollout_mode: status.rollout_mode,
       playback_mode: status.playback_mode,
-    };
+      voice_readiness_status: status.eligibility?.child_voice_eligible || status.eligibility?.parent_report_voice_eligible ? "voice_ready" : "voice_not_ready",
+    }, { displayTitle: "Voice Eligibility", displayLabel: "voice_eligibility_panel" });
   }
 
   return {

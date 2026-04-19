@@ -278,6 +278,16 @@
     return text ? text : "-";
   }
 
+  function displayValue(entry, keys, fallback) {
+    var list = Array.isArray(keys) ? keys : [keys];
+    for (var i = 0; i < list.length; i += 1) {
+      var value = entry && entry[list[i]];
+      var normalized = safeTrim(value);
+      if (normalized) return normalized;
+    }
+    return safeTrim(fallback) || "-";
+  }
+
   function clearRefreshTimer() {
     if (window.__garveyDashboardRefreshTimer) {
       clearInterval(window.__garveyDashboardRefreshTimer);
@@ -2363,27 +2373,27 @@
     ], { emptyText: "No TDE overview data loaded." });
 
     renderKvList("tdeChildDevelopmentPanel", [
-      { label: "Latest Recommendations", value: toCsv((recommendations.recommendations || []).map(function (r) { return r.title || r.action || r.recommendation_id; }).slice(0, 3)) },
-      { label: "Insights", value: toCsv((insights.insights || []).map(function (i) { return i.insight || i.statement || i.signal; }).slice(0, 3)) },
-      { label: "Trajectory Summary", value: prettyStatus(trajectory.trajectory_state || trajectory.status) },
-      { label: "Milestone Comparison", value: prettyStatus(milestone.comparison_status || milestone.status) },
-      { label: "Personalization Summary", value: prettyStatus(personalization.contracts_status || personalization.status) },
-      { label: "Parent Coaching Summary", value: prettyStatus(parentCoaching.summary_status || parentCoaching.status) }
+      { label: "Latest Recommendations", value: toCsv((recommendations.display_items || []).slice(0, 3).length ? (recommendations.display_items || []).slice(0, 3) : (recommendations.recommendations || []).map(function (r) { return displayValue(r, ["display_title", "title", "action", "recommendation_id"], "recommendation"); }).slice(0, 3)) },
+      { label: "Insights", value: toCsv((insights.display_items || []).slice(0, 3).length ? (insights.display_items || []).slice(0, 3) : (insights.insights || []).map(function (i) { return displayValue(i, ["display_title", "insight", "statement", "signal"], "insight"); }).slice(0, 3)) },
+      { label: "Trajectory Summary", value: prettyStatus(displayValue(trajectory, ["display_status", "trajectory_state", "status"], "unknown")) },
+      { label: "Milestone Comparison", value: prettyStatus(displayValue(milestone, ["display_status", "comparison_status", "status"], "unknown")) },
+      { label: "Personalization Summary", value: prettyStatus(displayValue(personalization, ["display_status", "contracts_status", "status"], "unknown")) },
+      { label: "Parent Coaching Summary", value: prettyStatus(displayValue(parentCoaching, ["display_status", "summary_status", "status"], "unknown")) }
     ], { emptyText: "No child development data loaded." });
 
     renderKvList("tdeCheckinInterventionPanel", [
-      { label: "Weekly Check-in Status", value: prettyStatus(checkin.checkin_status || checkin.status) },
-      { label: "Check-in Summary", value: prettyStatus(checkin.evidence_sufficiency && checkin.evidence_sufficiency.status) },
-      { label: "Intervention Summary", value: prettyStatus(intervention.intervention_readiness && intervention.intervention_readiness.status || intervention.status) },
-      { label: "Session/Adherence Indicators", value: prettyStatus(adherence.adherence_status || adherence.status) }
+      { label: "Weekly Check-in Status", value: prettyStatus(displayValue(checkin, ["display_status", "checkin_status", "status"], "unknown")) },
+      { label: "Check-in Summary", value: prettyStatus(displayValue(checkin, ["display_summary"], checkin.evidence_sufficiency && checkin.evidence_sufficiency.status)) },
+      { label: "Intervention Summary", value: prettyStatus(displayValue(intervention, ["display_status", "status"], intervention.intervention_readiness && intervention.intervention_readiness.status)) },
+      { label: "Session/Adherence Indicators", value: prettyStatus(displayValue(adherence, ["display_status", "adherence_status", "status"], "unknown")) }
     ], { emptyText: "No check-in/intervention data loaded." });
 
     renderKvList("tdeVoicePanel", [
-      { label: "Child Prompt Playback Status", value: prettyStatus(voiceCheckin.voice_state && voiceCheckin.voice_state.checkin_prompt_ready_for_playback ? "ready" : voiceCheckin.voice_state && voiceCheckin.voice_state.availability) },
-      { label: "Parent Section Playback Status", value: prettyStatus(voiceSections.voice_state && voiceSections.voice_state.parent_sections_ready_for_playback ? "ready" : voiceSections.voice_state && voiceSections.voice_state.availability) },
-      { label: "Fallback/Availability State", value: prettyStatus(voiceStatus.voice_availability_status || voiceStatus.voice_state && voiceStatus.voice_state.availability) },
-      { label: "Voice Eligibility", value: prettyStatus(voiceEligibility.eligibility_status || voiceEligibility.voice_eligibility_status) },
-      { label: "Content Registry/Readability", value: prettyStatus(voiceSections.content_registry_status || voiceCheckin.content_registry_status || "unknown") }
+      { label: "Child Prompt Playback Status", value: prettyStatus(displayValue(voiceCheckin, ["display_status", "voice_readiness_status"], voiceCheckin.voice_state && voiceCheckin.voice_state.availability)) },
+      { label: "Parent Section Playback Status", value: prettyStatus(displayValue(voiceSections, ["display_status", "voice_readiness_status"], voiceSections.voice_state && voiceSections.voice_state.availability)) },
+      { label: "Fallback/Availability State", value: prettyStatus(displayValue(voiceStatus, ["display_status", "voice_readiness_status", "voice_availability_status"], voiceStatus.voice_state && voiceStatus.voice_state.availability)) },
+      { label: "Voice Eligibility", value: prettyStatus(displayValue(voiceEligibility, ["display_status", "voice_readiness_status", "eligibility_status", "voice_eligibility_status"], "unknown")) },
+      { label: "Content Registry/Readability", value: prettyStatus(displayValue(voiceSections, ["content_registry_status", "readability_status"], displayValue(voiceCheckin, ["content_registry_status", "readability_status"], "unknown"))) }
     ], { emptyText: "No voice data loaded (voice is optional)." });
 
     renderKvList("tdeValidationAdminPanel", [
@@ -2397,8 +2407,8 @@
 
     if (tdeShowExplanationViews) {
       renderKvList("tdeExplanationPanel", [
-        { label: "Recommendation Explanation Status", value: prettyStatus(explanation.status || explanation.contracts_status) },
-        { label: "Explanation Highlights", value: toCsv((explanation.explanations || []).map(function (entry) { return entry.title || entry.summary || entry.reason; }).slice(0, 5)) },
+        { label: "Recommendation Explanation Status", value: prettyStatus(displayValue(explanation, ["display_status", "status", "contracts_status"], "unknown")) },
+        { label: "Explanation Highlights", value: toCsv((explanation.display_items || []).slice(0, 5).length ? (explanation.display_items || []).slice(0, 5) : (explanation.explanations || []).map(function (entry) { return displayValue(entry, ["display_title", "title", "summary", "reason"], "explanation"); }).slice(0, 5)) },
         { label: "Scope", value: childId || "scope required" }
       ], { emptyText: "No explanation data available." });
     }
