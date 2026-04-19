@@ -413,6 +413,11 @@ test('GET /api/youth-development/program/week-content returns current week guide
       next_recommended_action: 'Continue Week 1',
     }),
     getProgramWeekExecution: async () => savedExecution,
+    getProgramWeekPlanning: async () => ({
+      commitment_plan: { days_per_week: 3, preferred_days: ['monday', 'wednesday', 'friday'], preferred_time: '17:30', session_duration_minutes: 30, start_date: '2026-04-19' },
+      scheduled_sessions: [{ session_id: 'plan-1', day: 'monday', day_label: 'Monday', time: '17:30', status: 'planned', core_activity_title: 'Breathe and Count Reset' }],
+      accountability: { planned_this_week: 3, completed_this_week: 1, consistency_label: 'building' },
+    }),
     saveProgramWeekExecution: async ({ actionType, note }) => {
       if (actionType === 'save_reflection') {
         savedExecution = { ...savedExecution, reflection_note: note, reflection_saved: true, week_status: 'in_progress', resume_ready: true };
@@ -453,8 +458,59 @@ test('GET /api/youth-development/program/week-content returns current week guide
     assert.equal(payload.week_content.content_audit.ok, true);
     assert.deepEqual(payload.week_content.content_audit.classifications.placeholder_demo_filler_content, []);
     assert.ok(payload.week_content.parent_prompts.reflection_prompt);
+    assert.ok(payload.week_content.bank_depth_audit);
+    assert.ok(Array.isArray(payload.week_content.bank_depth_audit.areas));
+    assert.ok(payload.week_content.lesson_plan_template);
+    assert.ok(Array.isArray(payload.week_content.lesson_plan_template.blocks));
+    assert.ok(payload.week_content.commitment_plan);
+    assert.ok(Array.isArray(payload.week_content.scheduled_sessions));
+    assert.ok(payload.week_content.accountability);
     assert.doesNotMatch(String(payload.week_content.objective), /loading\\.|fixture|placeholder/i);
     assert.doesNotMatch(String(payload.week_content.week_purpose), /loading\\.|fixture|placeholder/i);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('program commitment, session plan, and completion routes persist planner operations', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    saveProgramCommitmentPlan: async ({ commitment }) => ({ ok: true, commitment_plan: commitment, accountability: { planned_this_week: 3, completed_this_week: 0, consistency_label: 'early' } }),
+    saveProgramSessionPlan: async ({ payload }) => ({ ok: true, scheduled_sessions: payload.scheduled_sessions || [] }),
+    markProgramSessionComplete: async ({ sessionId }) => ({ ok: true, session_id: sessionId }),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const commitment = await fetch(`${baseUrl}/api/youth-development/program/commitment`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', email: 'parent@example.com', child_id: 'child-real-1', days_per_week: 3, preferred_days: ['monday'], preferred_time: '17:30', session_duration_minutes: 30, start_date: '2026-04-19' }),
+    });
+    const commitmentPayload = await commitment.json();
+    assert.equal(commitmentPayload.ok, true);
+    assert.equal(commitmentPayload.commitment_plan.days_per_week, 3);
+
+    const sessionPlan = await fetch(`${baseUrl}/api/youth-development/program/session-plan`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', email: 'parent@example.com', child_id: 'child-real-1', week_number: 1, scheduled_sessions: [{ session_id: 'plan-1', day: 'monday', time: '17:30', status: 'planned' }] }),
+    });
+    const sessionPlanPayload = await sessionPlan.json();
+    assert.equal(sessionPlanPayload.ok, true);
+    assert.equal(sessionPlanPayload.scheduled_sessions.length, 1);
+
+    const complete = await fetch(`${baseUrl}/api/youth-development/program/session-complete`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', email: 'parent@example.com', child_id: 'child-real-1', week_number: 1, session_id: 'plan-1' }),
+    });
+    const completePayload = await complete.json();
+    assert.equal(completePayload.ok, true);
+    assert.equal(completePayload.session_id, 'plan-1');
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

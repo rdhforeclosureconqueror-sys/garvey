@@ -2279,6 +2279,143 @@ async function loadProgramWeekExecutionForAccount({ accountCtx, childId = "", we
   return normalizeExecutionState(execution, week);
 }
 
+function summarizeSessionAdherence(commitmentPlan, scheduledSessions = [], completedSessions = []) {
+  const planned = scheduledSessions.filter((entry) => entry.status === "planned" || entry.status === "completed").length;
+  const completed = completedSessions.length || scheduledSessions.filter((entry) => entry.status === "completed").length;
+  const ratio = planned > 0 ? completed / planned : 0;
+  return {
+    planned_this_week: planned,
+    completed_this_week: completed,
+    committed_this_week: Number(commitmentPlan?.days_per_week || commitmentPlan?.committed_days_per_week || 0),
+    consistency_ratio: Number(ratio.toFixed(2)),
+    consistency_label: ratio >= 0.85 ? "strong" : ratio >= 0.6 ? "building" : "early",
+  };
+}
+
+function buildScheduledSessionsFromCommitment(commitmentPlan = {}, activitySurface = {}, weekNumber = 1) {
+  const preferredDays = Array.isArray(commitmentPlan.preferred_days) && commitmentPlan.preferred_days.length
+    ? commitmentPlan.preferred_days
+    : ["monday", "wednesday", "friday"];
+  const days = preferredDays.slice(0, Math.max(1, Number(commitmentPlan.days_per_week || commitmentPlan.committed_days_per_week || 3)));
+  const time = String(commitmentPlan.preferred_time || "17:30");
+  const core = (((activitySurface || {}).selected_path || {}).core_activity || {}).title || "Guided core activity";
+  const stretch = (((activitySurface || {}).selected_path || {}).stretch_challenge || {}).title || "Stretch challenge";
+  return days.map((day, idx) => ({
+    session_id: `plan-${weekNumber}-${idx + 1}-${String(day).slice(0, 3)}`,
+    day: String(day),
+    day_label: String(day).slice(0, 1).toUpperCase() + String(day).slice(1),
+    time,
+    status: "planned",
+    core_activity_title: core,
+    stretch_activity_title: stretch,
+    selected_activity_ids: [],
+  }));
+}
+
+async function loadProgramWeekPlanningForAccount({ accountCtx, childId = "", weekNumber = 1 }) {
+  const bridge = await getProgramBridgeStateForAccount({ accountCtx, childId });
+  if (!bridge?.child_id || !bridge?.enrollment_id) return { commitment_plan: null, scheduled_sessions: [], accountability: summarizeSessionAdherence(null, [], []) };
+  const week = Math.max(1, Math.min(36, Number(weekNumber || bridge.current_week || 1)));
+  const [progressRows, commitmentRows, completedRows] = await Promise.all([
+    pool.query(
+      `SELECT payload FROM tde_weekly_progress_records WHERE enrollment_id = $1 AND child_id = $2 AND week_number = $3 ORDER BY updated_at DESC LIMIT 1`,
+      [bridge.enrollment_id, bridge.child_id, week]
+    ),
+    pool.query(`SELECT payload FROM tde_commitment_plans WHERE child_id = $1 LIMIT 1`, [bridge.child_id]),
+    pool.query(`SELECT payload FROM tde_intervention_sessions WHERE child_id = $1 AND DATE(completed_at) >= CURRENT_DATE - INTERVAL '6 day'`, [bridge.child_id]),
+  ]);
+  const progressPayload = progressRows.rows[0]?.payload || {};
+  const commitmentPlan = commitmentRows.rows[0]?.payload || null;
+  const scheduled = Array.isArray(progressPayload.scheduled_sessions) && progressPayload.scheduled_sessions.length
+    ? progressPayload.scheduled_sessions
+    : (commitmentPlan ? buildScheduledSessionsFromCommitment(commitmentPlan, {}, week) : []);
+  const completed = completedRows.rows.map((row) => row.payload || {}).filter(Boolean);
+  return {
+    commitment_plan: commitmentPlan,
+    scheduled_sessions: scheduled,
+    accountability: summarizeSessionAdherence(commitmentPlan, scheduled, completed),
+  };
+}
+
+async function saveProgramCommitmentPlanForAccount({ accountCtx, childId = "", commitment = {} }) {
+  const bridge = await getProgramBridgeStateForAccount({ accountCtx, childId });
+  if (!bridge?.child_id || !bridge?.enrollment_id) return { ok: false, error: "program_enrollment_required" };
+  const payload = {
+    child_id: bridge.child_id,
+    days_per_week: Math.max(1, Math.min(7, Number(commitment.days_per_week || 3))),
+    committed_days_per_week: Math.max(1, Math.min(7, Number(commitment.days_per_week || 3))),
+    preferred_days: Array.isArray(commitment.preferred_days) ? commitment.preferred_days : [],
+    preferred_time: String(commitment.preferred_time || "17:30"),
+    preferred_time_window: String(commitment.preferred_time || "17:30"),
+    session_duration_minutes: Math.max(10, Math.min(120, Number(commitment.session_duration_minutes || 30))),
+    session_length: Math.max(10, Math.min(120, Number(commitment.session_duration_minutes || 30))),
+    start_date: String(commitment.start_date || new Date().toISOString().slice(0, 10)),
+    facilitator_role: "parent",
+  };
+  await pool.query(
+    `INSERT INTO tde_commitment_plans (child_id, committed_days_per_week, preferred_days, preferred_time_window, session_length, facilitator_role, payload)
+     VALUES ($1,$2,$3::jsonb,$4,$5,$6,$7::jsonb)
+     ON CONFLICT (child_id) DO UPDATE SET
+      committed_days_per_week = EXCLUDED.committed_days_per_week,
+      preferred_days = EXCLUDED.preferred_days,
+      preferred_time_window = EXCLUDED.preferred_time_window,
+      session_length = EXCLUDED.session_length,
+      facilitator_role = EXCLUDED.facilitator_role,
+      payload = EXCLUDED.payload,
+      updated_at = NOW()`,
+    [bridge.child_id, payload.committed_days_per_week, JSON.stringify(payload.preferred_days), payload.preferred_time_window, payload.session_length, payload.facilitator_role, JSON.stringify(payload)]
+  );
+  const week = Number(commitment.week_number || bridge.current_week || 1);
+  const scheduledDefaults = buildScheduledSessionsFromCommitment(payload, {}, week);
+  await saveProgramSessionPlanForAccount({
+    accountCtx,
+    childId: bridge.child_id,
+    weekNumber: week,
+    payload: { scheduled_sessions: scheduledDefaults },
+  });
+  const planning = await loadProgramWeekPlanningForAccount({ accountCtx, childId: bridge.child_id, weekNumber: week });
+  return { ok: true, commitment_plan: planning.commitment_plan, accountability: planning.accountability };
+}
+
+async function saveProgramSessionPlanForAccount({ accountCtx, childId = "", weekNumber = 1, payload = {} }) {
+  const bridge = await getProgramBridgeStateForAccount({ accountCtx, childId });
+  if (!bridge?.child_id || !bridge?.enrollment_id) return { ok: false, error: "program_enrollment_required" };
+  const week = Math.max(1, Math.min(36, Number(weekNumber || bridge.current_week || 1)));
+  const progressId = `wpr-${bridge.enrollment_id}-${week}`;
+  const existingRows = await pool.query(`SELECT payload FROM tde_weekly_progress_records WHERE progress_id = $1 LIMIT 1`, [progressId]);
+  const basePayload = existingRows.rows[0]?.payload || { progress_id: progressId, enrollment_id: bridge.enrollment_id, child_id: bridge.child_id, week_number: week, completion_status: "in_progress" };
+  const scheduled = Array.isArray(payload.scheduled_sessions) ? payload.scheduled_sessions : [];
+  const nextPayload = { ...basePayload, scheduled_sessions: scheduled, updated_at: new Date().toISOString() };
+  await pool.query(
+    `INSERT INTO tde_weekly_progress_records (progress_id, enrollment_id, child_id, week_number, completion_status, payload)
+     VALUES ($1,$2,$3,$4,$5,$6::jsonb)
+     ON CONFLICT (progress_id) DO UPDATE SET payload = EXCLUDED.payload, updated_at = NOW()`,
+    [progressId, bridge.enrollment_id, bridge.child_id, week, nextPayload.completion_status, JSON.stringify(nextPayload)]
+  );
+  return { ok: true, scheduled_sessions: scheduled };
+}
+
+async function markProgramSessionCompleteForAccount({ accountCtx, childId = "", weekNumber = 1, sessionId = "" }) {
+  const bridge = await getProgramBridgeStateForAccount({ accountCtx, childId });
+  if (!bridge?.child_id || !bridge?.enrollment_id) return { ok: false, error: "program_enrollment_required" };
+  const week = Math.max(1, Math.min(36, Number(weekNumber || bridge.current_week || 1)));
+  if (!sessionId) return { ok: false, error: "session_id_required" };
+  await pool.query(
+    `INSERT INTO tde_intervention_sessions (session_id, child_id, full_session_completed, duration_minutes, challenge_level, parent_coaching_style, payload, completed_at)
+     VALUES ($1,$2,$3,$4,$5,$6,$7::jsonb,NOW())
+     ON CONFLICT (session_id) DO UPDATE SET full_session_completed = EXCLUDED.full_session_completed, payload = EXCLUDED.payload, updated_at = NOW()`,
+    [sessionId, bridge.child_id, true, 30, "moderate", "supportive", JSON.stringify({ source: "parent_program_calendar" })]
+  );
+  const progressId = `wpr-${bridge.enrollment_id}-${week}`;
+  const rows = await pool.query(`SELECT payload FROM tde_weekly_progress_records WHERE progress_id = $1 LIMIT 1`, [progressId]);
+  const basePayload = rows.rows[0]?.payload || {};
+  const scheduled = (Array.isArray(basePayload.scheduled_sessions) ? basePayload.scheduled_sessions : []).map((entry) => (
+    String(entry.session_id) === String(sessionId) ? { ...entry, status: "completed", completed_at: new Date().toISOString() } : entry
+  ));
+  await saveProgramSessionPlanForAccount({ accountCtx, childId: bridge.child_id, weekNumber: week, payload: { scheduled_sessions: scheduled } });
+  return { ok: true, session_id: sessionId, week_number: week, scheduled_sessions: scheduled };
+}
+
 async function saveProgramWeekExecutionForAccount({ accountCtx, childId = "", weekNumber = 1, actionType = "", stepKey = "", note = "" }) {
   const validation = validateWeeklyExecutionActionPayload({
     tenant: accountCtx?.tenant,
@@ -2373,6 +2510,10 @@ app.use(createYouthDevelopmentRouter({
   launchProgramForChild: launchProgramForAccount,
   getProgramWeekExecution: loadProgramWeekExecutionForAccount,
   saveProgramWeekExecution: saveProgramWeekExecutionForAccount,
+  getProgramWeekPlanning: loadProgramWeekPlanningForAccount,
+  saveProgramCommitmentPlan: saveProgramCommitmentPlanForAccount,
+  saveProgramSessionPlan: saveProgramSessionPlanForAccount,
+  markProgramSessionComplete: markProgramSessionCompleteForAccount,
 }));
 app.use("/api/youth-development/intake", createYouthDevelopmentIntakeRouter());
 app.use("/api/youth-development/tde", createYouthDevelopmentTdeRouter({ pool }));

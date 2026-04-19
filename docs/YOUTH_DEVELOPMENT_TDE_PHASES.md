@@ -638,3 +638,33 @@ Phase 26 adds the missing parent-facing bridge from completed youth assessment i
 - Live youth v1 assessment routes, 25-question intake contract, and current parent result breakdown remain intact.
 - Existing youth parent dashboard trait/result rendering remains additive-safe.
 - TDE admin/operator paths are not required for parent program start/continue.
+
+## Phase 27 — Parent weekly planning + scheduling layer (additive)
+
+Phase 27 adds an execution-grade parent weekly planner on `/youth-development/program` without replacing governed weekly content.
+
+- **Commitment-planning model**
+  - Parent sets child-scoped weekly cadence: `days_per_week`, `preferred_days`, `preferred_time`, `session_duration_minutes`, and `start_date`.
+  - Persisted in `tde_commitment_plans.payload` and surfaced in `week_content.commitment_plan`.
+- **Calendar/session-template model**
+  - Weekly agenda is stored child+week scoped in `tde_weekly_progress_records.payload.scheduled_sessions`.
+  - Session template is deterministic and governed from bank defaults with block guidance:
+    - opening routine
+    - prep
+    - core activity
+    - transition
+    - stretch challenge
+    - transition
+    - reflection
+    - observation/close
+- **Canonical bank ownership**
+  - Weekly planned activities are sourced from `youth-development/tde/activityBankService.js`.
+  - Program page receives bank depth/audit metadata from `week_content.bank_depth_audit`.
+- **Planned vs completed accountability**
+  - `planned_this_week`: agenda sessions in scheduled plan.
+  - `completed_this_week`: completed agenda sessions and intervention session completions.
+  - `consistency_ratio` + `consistency_label` surfaced in `week_content.accountability`.
+
+### Non-regression commitments
+- Existing assessment → Start Program → Week content flow remains intact.
+- Live youth v1 routes/contracts remain unchanged; this is additive to parent program surfaces only.
