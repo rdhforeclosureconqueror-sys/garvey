@@ -68,6 +68,39 @@ Week-content payload now includes additive normalized parent state:
 - `parent_program_state.cta`
 - `parent_program_state.weekly_execution` (week status, active step, blocked reason)
 
+## Weekly planner/calendar + lesson-plan model (parent-facing)
+
+The weekly program surface at `/youth-development/program` now includes a parent-ready planning/execution hierarchy:
+
+1. **Today’s Session**
+2. **Next Scheduled Session**
+3. **This Week at a Glance**
+4. **Week-in-Program Marker**
+5. **Weekly Planner Calendar + adherence**
+6. **Teacher-Style Lesson Plan**
+
+Model and source-of-truth expectations:
+- Commitment source: `week_content.commitment_plan`.
+- Session schedule source: `week_content.scheduled_sessions`.
+- Lesson-plan source: `week_content.lesson_plan_template.blocks`.
+- Weekly execution source: `execution_state` and weekly execution contract actions.
+- Progress/adherence source: `week_content.accountability` plus scheduled session state.
+
+Visual semantics:
+- Weekly completion count = `completed sessions / planned sessions`.
+- Adherence bar = completion ratio across scheduled sessions for the current week.
+- Session status markers: `planned`, `in_progress`, `completed`, `missed` (derived display state when supported by schedule context).
+
+Canonical parent controls in planner/session views:
+- **Open Scheduled Session**
+- **View Lesson Plan**
+- **Mark Session Complete**
+- **Resume Session**
+- **Open Next Scheduled Session**
+- **Return to Weekly Overview**
+
+All controls remain child/week scoped and route through existing governed contracts/endpoints.
+
 ## Remaining known exceptions
 - `/youth-development.html#tdeOperatorConsole` remains as a compatible operator entry anchor for internal workflows.
 - TDE operator console stays hidden by default and only displays for admin session contexts.

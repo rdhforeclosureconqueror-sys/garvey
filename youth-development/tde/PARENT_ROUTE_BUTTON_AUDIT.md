@@ -20,6 +20,12 @@
 | Continue Next Week | `action_type=continue_next_week` | same + progression guard (`ready_for_next_week`) and explicit error payload when blocked | tenant+email+child_id+week | fixed (working + blocked behavior explicit) |
 | Previous week / Next week preview | in-page week offset preview | unchanged preview nav, deterministic bounds [1..36] | loaded week content | validated |
 | Launch Program button | `POST /api/youth-development/program/launch` | unchanged + child/account scope retained | tenant+email(+child_id when available) | validated |
+| Open Scheduled Session | in-page agenda/session card click | in-page lesson-plan focus state + selected session scope | child_id+week+session_id | validated |
+| View Lesson Plan | in-page agenda/session card click | in-page lesson-plan render from `lesson_plan_template` + selected session scope | child_id+week+session_id | validated |
+| Mark Session Complete (planner/session) | `POST /api/youth-development/program/session-complete` | same endpoint + persisted scheduled session status update | tenant+email+child_id+week+session_id | validated |
+| Resume Session | in-page control | uses weekly execution contract `action_type=start_week` | tenant+email+child_id+week | validated |
+| Open Next Scheduled Session | in-page control | selects next planned/in-progress session + lesson-plan focus | child_id+week+session_id | validated |
+| Return to Weekly Overview | in-page control | scroll/focus return to week overview panel | client state only | validated |
 
 ## Known broken symptoms fixed
 - Parent-facing **Continue Next Week** path now returns explicit guard errors and UI feedback instead of silent no-op when progression requirements are unmet.
@@ -29,3 +35,4 @@
 - Assessment -> Start Program -> Week 1 bridge preserved.
 - Weekly governance/audit metadata retained.
 - Live youth v1 routes untouched.
+- Planner/session additions remain parent-facing and child/week scoped (no admin-only routing introduced).
