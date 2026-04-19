@@ -73,6 +73,27 @@
 
   var internalEnabled = false;
   var showDetails = false;
+  var INTERNAL_TEST_SCOPE = "test1";
+
+  function resolveAccountContext() {
+    var query = new URLSearchParams(window.location.search || "");
+    return {
+      tenant: safeTrim(query.get("tenant")),
+      email: safeTrim(query.get("email")).toLowerCase(),
+      childId: safeTrim(query.get("child_id") || query.get("childId")),
+      internalTestMode: ["1", "true", "yes", "on"].indexOf(safeTrim(query.get("internal_test_mode")).toLowerCase()) >= 0
+    };
+  }
+
+  function loadChildProfiles(accountCtx) {
+    if (!accountCtx.tenant || !accountCtx.email) return Promise.resolve([]);
+    var endpoint = new URL("/api/youth-development/children", window.location.origin);
+    endpoint.searchParams.set("tenant", accountCtx.tenant);
+    endpoint.searchParams.set("email", accountCtx.email);
+    return jsonFetch(endpoint.pathname + endpoint.search).then(function (payload) {
+      return Array.isArray(payload && payload.children) ? payload.children : [];
+    }).catch(function () { return []; });
+  }
 
   function renderPanels(mapped, childId, visibilityState) {
     var overview = mapped.overview && mapped.overview.value || {};
@@ -171,11 +192,11 @@
     }
 
     var endpoints = {
-      overview: tdeApi("/api/youth-development/tde/admin/overview?childId=:childId", childId),
-      rollout: tdeApi("/api/youth-development/tde/admin/rollout-status?childId=:childId", childId),
+      overview: tdeApi("/api/youth-development/tde/admin/overview?child_id=:childId", childId),
+      rollout: tdeApi("/api/youth-development/tde/admin/rollout-status?child_id=:childId", childId),
       flags: "/api/youth-development/tde/admin/feature-flags",
-      validation: tdeApi("/api/youth-development/tde/admin/validation-status?childId=:childId", childId),
-      evidence: tdeApi("/api/youth-development/tde/admin/evidence-quality-overview?childId=:childId", childId),
+      validation: tdeApi("/api/youth-development/tde/admin/validation-status?child_id=:childId", childId),
+      evidence: tdeApi("/api/youth-development/tde/admin/evidence-quality-overview?child_id=:childId", childId),
       recommendations: tdeApi("/api/youth-development/tde/recommendations/:childId", childId),
       insights: tdeApi("/api/youth-development/tde/insights/:childId", childId),
       trajectory: tdeApi("/api/youth-development/tde/growth-trajectory/:childId", childId),
@@ -230,6 +251,27 @@
       var loadBtn = document.getElementById("tdeLoadPanelsBtn");
       var detailsBtn = document.getElementById("tdeToggleDetailsBtn");
       var detailsRow = document.getElementById("tdeExplanationRow");
+      var childScopeInput = document.getElementById("tdeChildScopeInput");
+      var accountCtx = resolveAccountContext();
+      loadChildProfiles(accountCtx).then(function (children) {
+        if (!childScopeInput) return;
+        if (children.length === 1) {
+          childScopeInput.value = safeTrim(children[0].child_id);
+          setStatus("Real child scope detected and auto-selected: " + safeTrim(children[0].child_name || children[0].child_id), false);
+          return;
+        }
+        if (children.length > 1) {
+          setStatus("Multiple child profiles available. Select one child scope before loading panels.", false);
+          return;
+        }
+        if (accountCtx.internalTestMode) {
+          childScopeInput.value = childScopeInput.value || INTERNAL_TEST_SCOPE;
+          setStatus("No real child profile in scope. Internal test mode is enabled for placeholder scope use.", true);
+        } else {
+          childScopeInput.value = "";
+          setStatus("No child in scope. Complete child setup from youth intake (include child name) to enable child-scoped loading.", true);
+        }
+      });
       if (gateBtn) {
         gateBtn.addEventListener("click", function () {
           internalEnabled = !internalEnabled;

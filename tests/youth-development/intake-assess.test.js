@@ -168,14 +168,21 @@ test('POST /api/youth-development/assess caps confidence at provisional levels f
 
 test('POST /api/youth-development/assess binds ownership when tenant/email are present and persistence hook is configured', async () => {
   const records = new Map();
+  const children = new Map();
   const app = express();
   app.use(express.json());
   app.use(createYouthDevelopmentRouter({
-    persistYouthAssessment: async ({ accountCtx, responsePayload }) => {
+    persistYouthAssessment: async ({ accountCtx, responsePayload, requestBody }) => {
       records.set(`${accountCtx.tenant}:${accountCtx.email}`, responsePayload);
-      return { account_bound: true, tenant: accountCtx.tenant, email: accountCtx.email, submission_id: 999 };
+      const childProfile = {
+        child_id: 'child-maya-1',
+        child_name: requestBody.child_name || null,
+      };
+      children.set(`${accountCtx.tenant}:${accountCtx.email}`, [childProfile]);
+      return { account_bound: true, tenant: accountCtx.tenant, email: accountCtx.email, submission_id: 999, child_profile: childProfile };
     },
     loadLatestYouthAssessment: async ({ accountCtx }) => records.get(`${accountCtx.tenant}:${accountCtx.email}`) || null,
+    listYouthChildProfiles: async ({ accountCtx }) => children.get(`${accountCtx.tenant}:${accountCtx.email}`) || [],
   }));
   const server = http.createServer(app);
   await new Promise((resolve) => server.listen(0, resolve));
@@ -188,6 +195,7 @@ test('POST /api/youth-development/assess binds ownership when tenant/email are p
       body: JSON.stringify({
         tenant: 'demo',
         email: 'parent@example.com',
+        child_name: 'Maya',
         answers: buildAnswers(() => 2),
       }),
     });
@@ -197,6 +205,8 @@ test('POST /api/youth-development/assess binds ownership when tenant/email are p
     assert.equal(payload.ownership.tenant, 'demo');
     assert.equal(payload.ownership.email, 'parent@example.com');
     assert.equal(payload.ownership.submission_id, 999);
+    assert.equal(payload.ownership.child_profile.child_name, 'Maya');
+    assert.equal(payload.ownership.child_profile.child_id, 'child-maya-1');
 
     const latest = await fetch(`${baseUrl}/api/youth-development/parent-dashboard/latest?tenant=demo&email=parent@example.com`);
     assert.equal(latest.status, 200);
@@ -204,6 +214,13 @@ test('POST /api/youth-development/assess binds ownership when tenant/email are p
     assert.equal(latestPayload.ok, true);
     assert.equal(latestPayload.has_result, true);
     assert.ok(latestPayload.payload && latestPayload.payload.page_model);
+
+    const childrenRes = await fetch(`${baseUrl}/api/youth-development/children?tenant=demo&email=parent@example.com`);
+    assert.equal(childrenRes.status, 200);
+    const childrenPayload = await childrenRes.json();
+    assert.equal(childrenPayload.ok, true);
+    assert.equal(childrenPayload.has_children, true);
+    assert.equal(childrenPayload.children[0].child_id, 'child-maya-1');
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
@@ -244,6 +261,39 @@ test('POST /api/youth-development/assess uses signed-in auth actor identity when
     assert.equal(payload.ownership.email, 'signed-in@example.com');
     assert.equal(capturedAccountCtx.tenant, 'signed-tenant');
     assert.equal(capturedAccountCtx.email, 'signed-in@example.com');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('GET /api/youth-development/parent-dashboard/latest forwards optional child_id scope and children endpoint is additive-safe', async () => {
+  let capturedChildId = null;
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    loadLatestYouthAssessment: async ({ childId }) => {
+      capturedChildId = childId;
+      return null;
+    },
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const latestRes = await fetch(`${baseUrl}/api/youth-development/parent-dashboard/latest?tenant=demo&email=parent@example.com&child_id=child-real-1`);
+    assert.equal(latestRes.status, 200);
+    const latestPayload = await latestRes.json();
+    assert.equal(latestPayload.ok, true);
+    assert.equal(latestPayload.has_result, false);
+    assert.equal(capturedChildId, 'child-real-1');
+
+    const childrenRes = await fetch(`${baseUrl}/api/youth-development/children?tenant=demo&email=parent@example.com`);
+    assert.equal(childrenRes.status, 200);
+    const childrenPayload = await childrenRes.json();
+    assert.equal(childrenPayload.ok, true);
+    assert.equal(childrenPayload.has_children, false);
+    assert.equal(childrenPayload.reason, 'persistence_not_enabled');
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
