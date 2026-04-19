@@ -494,7 +494,7 @@ test('POST /api/youth-development/program/week-execution persists reflection/obs
     const start = await fetch(`${baseUrl}/api/youth-development/program/week-execution`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ action_type: 'start_week' }),
+      body: JSON.stringify({ tenant: 'demo', email: 'parent@example.com', child_id: 'child-real-1', week_number: 1, action_type: 'start_week' }),
     });
     assert.equal(start.status, 200);
     const startPayload = await start.json();
@@ -504,7 +504,7 @@ test('POST /api/youth-development/program/week-execution persists reflection/obs
     const reflection = await fetch(`${baseUrl}/api/youth-development/program/week-execution`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ action_type: 'save_reflection', note: 'Reflection note saved.' }),
+      body: JSON.stringify({ tenant: 'demo', email: 'parent@example.com', child_id: 'child-real-1', week_number: 1, action_type: 'save_reflection', note: 'Reflection note saved.' }),
     });
     const reflectionPayload = await reflection.json();
     assert.equal(reflectionPayload.execution_state.reflection_saved, true);
@@ -513,7 +513,7 @@ test('POST /api/youth-development/program/week-execution persists reflection/obs
     const observation = await fetch(`${baseUrl}/api/youth-development/program/week-execution`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ action_type: 'save_observation', note: 'Observation note saved.' }),
+      body: JSON.stringify({ tenant: 'demo', email: 'parent@example.com', child_id: 'child-real-1', week_number: 1, action_type: 'save_observation', note: 'Observation note saved.' }),
     });
     const observationPayload = await observation.json();
     assert.equal(observationPayload.execution_state.observation_saved, true);
@@ -545,6 +545,71 @@ test('GET /api/youth-development/program/week-content enforces child scope for m
     assert.equal(payload.state, 'child_scope_required');
     assert.equal(Array.isArray(payload.child_scope_options), true);
     assert.equal(payload.child_scope_options.length, 2);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('POST /api/youth-development/program/week-execution rejects invalid payloads with explicit contract errors', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    saveProgramWeekExecution: async () => ({ ok: true }),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/program/week-execution`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', email: 'parent@example.com', child_id: 'child-real-1', week_number: 1, action_type: 'save_reflection' }),
+    });
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ok, false);
+    assert.equal(payload.error, 'week_execution_contract_invalid');
+    assert.equal(Array.isArray(payload.messages), true);
+    assert.match(payload.messages.join(' '), /note is required/);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('POST /api/youth-development/program/week-execution normalizes legacy continue_next_step action and keeps child scope', async () => {
+  const app = express();
+  app.use(express.json());
+  let seenAction = null;
+  let seenChild = null;
+  app.use(createYouthDevelopmentRouter({
+    saveProgramWeekExecution: async ({ actionType, childId }) => {
+      seenAction = actionType;
+      seenChild = childId;
+      return { ok: true, execution_state: { week_status: 'in_progress' } };
+    },
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/program/week-execution`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        tenant: 'demo',
+        email: 'parent@example.com',
+        child_id: 'child-real-1',
+        week_number: 1,
+        action_type: 'continue_next_step',
+      }),
+    });
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ok, true);
+    assert.equal(seenAction, 'continue_to_next_step');
+    assert.equal(seenChild, 'child-real-1');
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

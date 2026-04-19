@@ -164,8 +164,14 @@ test('GET /youth-development/program renders parent-facing guided development la
     assert.match(html, /Session flow \+ activity bank/);
     assert.match(html, /Reflection \+ observation\/support/);
     assert.match(html, /parentReflectionInput/);
+    assert.match(html, /continueNextWeekBtn/);
+    assert.match(html, /saveReflectionBtn/);
+    assert.match(html, /saveObservationBtn/);
+    assert.match(html, /markStepCompleteBtn/);
     assert.match(html, /prevWeekBtn/);
     assert.match(html, /\/api\/youth-development\/program\/week-content/);
+    assert.match(html, /continue_to_next_step/);
+    assert.match(html, /dashboardBtn\.href = withCtx/);
     assert.match(html, /Start Program/);
     assert.match(html, /if \(latestBridge && latestBridge\.has_enrollment === true\)/);
     assert.match(html, /openWeekFlow\(\)/);

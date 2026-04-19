@@ -14,18 +14,23 @@
 ## Week execution persistence
 - Parent week execution state is persisted in `tde_weekly_progress_records.payload.execution_state`.
 - Persisted fields include:
-  - `week_status` (`not_started` | `in_progress` | `completed`)
+  - `week_status` (`not_started` | `in_progress` | `blocked` | `ready_for_next_week` | `completed`)
   - `completed_step_keys`
   - `active_step_index`
   - `reflection_note`, `observation_note`
   - `reflection_saved`, `observation_saved`
   - `resume_ready`, `next_week_available`
+  - `blocked_reason`, `invalid_action_count`, `last_action`
 - Week completion requires all governed steps complete plus both reflection and observation notes saved.
 
 ## Progression rules
 - No automatic week advance on page load.
-- Week only advances on explicit `continue_next_week` action and only when `week_status=completed`.
+- Week only advances on explicit `continue_next_week` action and only when `week_status=ready_for_next_week`.
 - Assessment -> Results -> Start Program -> Week 1 bridge remains intact.
+
+## Contract references
+- Weekly action/payload/state-machine contract: `youth-development/tde/WEEKLY_EXECUTION_CONTRACT.md`.
+- Parent route/button verification map: `youth-development/tde/PARENT_ROUTE_BUTTON_AUDIT.md`.
 
 ## Authored vs structural labels
 - Authored content: week title/objective/week purpose/guidance/reflection+observation prompts.
