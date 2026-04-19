@@ -66,6 +66,24 @@ test('GET /api/youth-development/questions returns authored 25-question parent-o
   }
 });
 
+test('GET /youth-development/intake serves real walkthrough UI contract', async () => {
+  const { server, baseUrl } = await startServer();
+  try {
+    const response = await fetch(`${baseUrl}/youth-development/intake`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+
+    assert.match(html, /Question 1 of 25/);
+    assert.match(html, /state = \{ questions: \[\], index: 0, answers: \{\} \}/);
+    assert.match(html, /fetch\("\/api\/youth-development\/questions"\)/);
+    assert.match(html, /Please answer the intake questions before submitting\./);
+    assert.match(html, /childNameInput/);
+    assert.match(html, /\/api\/youth-development\/assess/);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
 test('POST /api/youth-development/assess completes full 25-item question flow and returns deterministic output', async () => {
   const { server, baseUrl } = await startServer();
   try {

@@ -609,6 +609,7 @@ function renderLiveYouthAssessmentPage() {
         <div class="row"><strong id="progressLabel">Question 1 of 25</strong><span id="completionLabel" class="muted">0% complete</span></div>
         <h2 id="prompt">Loading assessment…</h2>
         <div id="options" class="options"></div>
+        <p id="intakeStatus" class="muted" aria-live="polite">Answer the intake questions, then submit.</p>
         <div class="controls">
           <button id="prevBtn" type="button">Previous</button>
           <button id="nextBtn" type="button">Next</button>
@@ -632,6 +633,7 @@ function renderLiveYouthAssessmentPage() {
         const completionLabel = document.getElementById("completionLabel");
         const promptEl = document.getElementById("prompt");
         const optionsEl = document.getElementById("options");
+        const intakeStatus = document.getElementById("intakeStatus");
         const resultCard = document.getElementById("resultCard");
         const openLiveDashboardBtn = document.getElementById("openLiveDashboardBtn");
         const state = { questions: [], index: 0, answers: {} };
@@ -683,6 +685,14 @@ function renderLiveYouthAssessmentPage() {
           renderQuestion();
         });
         document.getElementById("submitBtn").addEventListener("click", async () => {
+          const answeredCount = Object.keys(state.answers).length;
+          if (!answeredCount) {
+            intakeStatus.textContent = "Please answer the intake questions before submitting.";
+            resultCard.innerHTML = "<p><strong>Assessment not submitted.</strong></p><p class=\\"muted\\">Please answer the intake questions before submitting.</p>";
+            openLiveDashboardBtn.style.display = "none";
+            return;
+          }
+          intakeStatus.textContent = "Submitting assessment...";
           const response = await fetch("/api/youth-development/assess", {
             method: "POST",
             headers: { "content-type": "application/json" },
@@ -701,6 +711,7 @@ function renderLiveYouthAssessmentPage() {
           const payload = await response.json();
           if (!response.ok) {
             resultCard.innerHTML = "<p><strong>We could not submit this assessment.</strong></p><p class=\\"muted\\">" + String(payload.error || "Request failed") + "</p>";
+            intakeStatus.textContent = String(payload.error || "Request failed");
             openLiveDashboardBtn.style.display = "none";
             return;
           }
@@ -722,6 +733,7 @@ function renderLiveYouthAssessmentPage() {
             "<p><strong>Completion:</strong> " + Number(completion || 0).toFixed(0) + "%</p>",
             priorities.length ? "<div>" + priorities.map((item) => "<span class=\\"pill\\">" + item.trait_name + " · " + Number(item.current_score || 0).toFixed(1) + "</span>").join("") + "</div>" : ""
           ].join("");
+          intakeStatus.textContent = "Submitted " + payload.answers_count + " of " + payload.question_count + " answers.";
           openLiveDashboardBtn.style.display = "";
         });
 
@@ -1371,7 +1383,6 @@ function createYouthDevelopmentRouter(options = {}) {
         validation_errors: validation.errors,
       });
     }
-
     try {
       const payload = buildYouthAssessPayload(validation.answers, {
         unansweredCount: validation.unanswered_question_ids.length,
