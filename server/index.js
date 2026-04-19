@@ -69,6 +69,12 @@ const { createYouthDevelopmentRouter } = require("./youthDevelopmentRoutes");
 const { createYouthDevelopmentIntakeRouter } = require("./youthDevelopmentIntakeRoutes");
 const { createYouthDevelopmentTdeRouter } = require("./youthDevelopmentTdeRoutes");
 const { PROGRAM_PHASES } = require("../youth-development/tde/programRail");
+const {
+  defaultExecutionState,
+  normalizeExecutionState,
+  validateWeeklyExecutionActionPayload,
+  applyWeeklyExecutionAction,
+} = require("../youth-development/tde/weeklyExecutionContract");
 const { generateSite } = require("./siteMaterializer");
 const { getTapCrmMode } = require("./tapCrmFeature");
 const { createTapCrmRouter, resolvePublicTap } = require("./tapCrmRoutes");
@@ -2257,20 +2263,6 @@ async function launchProgramForAccount({ accountCtx, childId = "" }) {
   return getProgramBridgeStateForAccount({ accountCtx, childId: bridge.child_id });
 }
 
-function defaultExecutionState() {
-  return {
-    week_status: "not_started",
-    completed_step_keys: [],
-    active_step_index: 0,
-    reflection_note: "",
-    observation_note: "",
-    reflection_saved: false,
-    observation_saved: false,
-    resume_ready: false,
-    next_week_available: false,
-  };
-}
-
 async function loadProgramWeekExecutionForAccount({ accountCtx, childId = "", weekNumber = 1 }) {
   const bridge = await getProgramBridgeStateForAccount({ accountCtx, childId });
   if (!bridge?.child_id || !bridge?.enrollment_id) return defaultExecutionState();
@@ -2284,16 +2276,26 @@ async function loadProgramWeekExecutionForAccount({ accountCtx, childId = "", we
   );
   const payload = rows.rows[0]?.payload || {};
   const execution = payload.execution_state && typeof payload.execution_state === "object" ? payload.execution_state : {};
-  const merged = { ...defaultExecutionState(), ...execution };
-  merged.next_week_available = merged.week_status === "completed" && week < 36;
-  merged.resume_ready = merged.week_status === "in_progress" || merged.week_status === "completed";
-  return merged;
+  return normalizeExecutionState(execution, week);
 }
 
 async function saveProgramWeekExecutionForAccount({ accountCtx, childId = "", weekNumber = 1, actionType = "", stepKey = "", note = "" }) {
+  const validation = validateWeeklyExecutionActionPayload({
+    tenant: accountCtx?.tenant,
+    email: accountCtx?.email,
+    child_id: childId,
+    week_number: weekNumber,
+    action_type: actionType,
+    step_key: stepKey,
+    note,
+  });
+  if (!validation.ok) {
+    return { ok: false, error: "week_execution_contract_invalid", messages: validation.errors };
+  }
+
   const bridge = await getProgramBridgeStateForAccount({ accountCtx, childId });
   if (!bridge?.child_id || !bridge?.enrollment_id) return { ok: false, error: "program_enrollment_required" };
-  const week = Math.max(1, Math.min(36, Number(weekNumber || bridge.current_week || 1)));
+  const week = Math.max(1, Math.min(36, Number(validation.normalized.week_number || bridge.current_week || 1)));
   const progressRows = await pool.query(
     `SELECT payload, progress_id FROM tde_weekly_progress_records
      WHERE enrollment_id = $1 AND child_id = $2 AND week_number = $3
@@ -2308,36 +2310,24 @@ async function saveProgramWeekExecutionForAccount({ accountCtx, childId = "", we
     week_number: week,
     completion_status: "in_progress",
   };
-  const execution = { ...defaultExecutionState(), ...(basePayload.execution_state || {}) };
-  const normalizedAction = String(actionType || "").trim().toLowerCase();
-  const steps = ["core_activity", "stretch_challenge", "reflection_checkin", "observation_support"];
-  if (normalizedAction === "start_week") execution.week_status = execution.week_status === "completed" ? "completed" : "in_progress";
-  if (normalizedAction === "save_reflection") {
-    execution.reflection_note = String(note || "").trim().slice(0, 2000);
-    execution.reflection_saved = execution.reflection_note.length > 0;
-    if (execution.week_status === "not_started") execution.week_status = "in_progress";
+  const executionAction = applyWeeklyExecutionAction({
+    currentState: basePayload.execution_state || {},
+    actionType: validation.normalized.action_type,
+    stepKey: validation.normalized.step_key,
+    note: validation.normalized.note,
+    weekNumber: week,
+  });
+  const execution = executionAction.state;
+  if (executionAction.ok === false && executionAction.invalid_action === "progression_guard_failed") {
+    return {
+      ok: false,
+      error: "progression_guard_failed",
+      message: execution.blocked_reason || "Week progression requirements are not complete.",
+      execution_state: execution,
+      week_number: week,
+    };
   }
-  if (normalizedAction === "save_observation") {
-    execution.observation_note = String(note || "").trim().slice(0, 2000);
-    execution.observation_saved = execution.observation_note.length > 0;
-    if (execution.week_status === "not_started") execution.week_status = "in_progress";
-  }
-  if (normalizedAction === "mark_step_complete") {
-    const requestedStep = steps.includes(stepKey) ? stepKey : steps[Math.max(0, Math.min(steps.length - 1, Number(execution.active_step_index || 0)))];
-    execution.completed_step_keys = [...new Set([...(execution.completed_step_keys || []), requestedStep])];
-    execution.active_step_index = Math.min(steps.length - 1, execution.completed_step_keys.length);
-    if (execution.week_status === "not_started") execution.week_status = "in_progress";
-  }
-  if (normalizedAction === "continue_next_step") {
-    execution.active_step_index = Math.min(steps.length - 1, Number(execution.active_step_index || 0) + 1);
-    if (execution.week_status === "not_started") execution.week_status = "in_progress";
-  }
-
-  const completionEligible = steps.every((step) => (execution.completed_step_keys || []).includes(step))
-    && execution.reflection_saved === true
-    && execution.observation_saved === true;
-  if (completionEligible) execution.week_status = "completed";
-  if (normalizedAction === "continue_next_week" && execution.week_status === "completed" && week < 36) {
+  if (validation.normalized.action_type === "continue_next_week" && execution.week_status === "completed" && week < 36) {
     await pool.query(
       `UPDATE tde_program_enrollments
        SET current_week = $1,
@@ -2348,12 +2338,11 @@ async function saveProgramWeekExecutionForAccount({ accountCtx, childId = "", we
     );
   }
 
-  execution.next_week_available = execution.week_status === "completed" && week < 36;
-  execution.resume_ready = execution.week_status === "in_progress" || execution.week_status === "completed";
+  const normalizedExecution = normalizeExecutionState(execution, week);
   const updatedPayload = {
     ...basePayload,
-    completion_status: execution.week_status === "completed" ? "complete" : "in_progress",
-    execution_state: execution,
+    completion_status: normalizedExecution.week_status === "completed" ? "complete" : "in_progress",
+    execution_state: normalizedExecution,
     updated_at: new Date().toISOString(),
   };
   await pool.query(
@@ -2370,8 +2359,9 @@ async function saveProgramWeekExecutionForAccount({ accountCtx, childId = "", we
     ok: true,
     child_id: bridge.child_id,
     week_number: week,
-    execution_state: execution,
+    execution_state: normalizedExecution,
     bridge_state: await getProgramBridgeStateForAccount({ accountCtx, childId: bridge.child_id }),
+    action_transition: executionAction.transition,
   };
 }
 

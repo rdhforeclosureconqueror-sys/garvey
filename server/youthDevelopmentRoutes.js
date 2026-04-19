@@ -16,6 +16,12 @@ const { PROGRAM_WEEKS } = require("../youth-development/tde/programRail");
 const { buildSessionPlan } = require("../youth-development/tde/sessionBuilderService");
 const { listActivitiesByComponent } = require("../youth-development/tde/activityBankService");
 const { getAuthoredWeekContent, auditWeeklyContentSources, STEP_SEQUENCE } = require("../youth-development/content/weeklyProgramContent");
+const {
+  defaultExecutionState,
+  normalizeExecutionState,
+  validateWeeklyExecutionActionPayload,
+  WEEKLY_EXECUTION_ACTIONS,
+} = require("../youth-development/tde/weeklyExecutionContract");
 
 const PREVIEW_AGGREGATED_ROWS = Object.freeze([
   Object.freeze({
@@ -304,6 +310,8 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}) {
       reflection_prompt: String(authored?.reflection_prompt || "What helped your child improve this week?"),
       observation_prompt: String(authored?.observation_prompt || "What support pattern did you notice this week?"),
     },
+    completion_labels: authored?.completion_labels || null,
+    progression_labels: authored?.progression_labels || null,
     content_audit: auditWeeklyContentSources(),
     activity_bank_surface: activitySurface,
     progress: {
@@ -381,16 +389,13 @@ function buildProgramWeekContentState({ bridgeState, childId, childProfiles, exe
     child_id: childId,
     current_week: currentWeek,
     week_content: buildWeekContentFromRail(weekModel, bridgeState),
-    execution_state: executionState || {
-      week_status: "not_started",
-      completed_step_keys: [],
-      active_step_index: 0,
-      reflection_note: "",
-      observation_note: "",
-      reflection_saved: false,
-      observation_saved: false,
-      resume_ready: false,
-      next_week_available: false,
+    execution_state: normalizeExecutionState(executionState || defaultExecutionState(), currentWeek),
+    execution_contract: {
+      allowed_actions: WEEKLY_EXECUTION_ACTIONS,
+      child_scope_required: true,
+      week_scope_required: true,
+      note_required_actions: ["save_reflection", "save_observation"],
+      step_required_action: "mark_step_complete",
     },
     next_action: String(bridgeState.next_recommended_action || `Continue Week ${currentWeek}`),
   };
@@ -1698,8 +1703,8 @@ function renderLiveYouthProgramPage() {
             <div class="week-nav">
               <button id="startResumeWeekBtn" class="btn btn-primary" type="button">Start Week</button>
               <button id="markStepCompleteBtn" class="btn btn-secondary" type="button">Mark Step Complete</button>
-              <button id="continueStepBtn" class="btn btn-ghost" type="button">Continue to Next Step</button>
-              <button id="continueNextWeekBtn" class="btn btn-ghost" type="button">Continue Next Week</button>
+            <button id="continueStepBtn" class="btn btn-ghost" type="button">Continue to Next Step</button>
+            <button id="continueNextWeekBtn" class="btn btn-ghost" type="button">Continue Next Week</button>
             </div>
             <p id="nextActionArea" class="state-line">Next action loading…</p>
           </div>
@@ -1845,9 +1850,12 @@ function renderLiveYouthProgramPage() {
           const completed = Array.isArray(state.completed_step_keys) ? state.completed_step_keys.length : 0;
           executionStateArea.textContent = "Status: " + String(state.week_status || "not_started")
             + " · Completed steps: " + String(completed) + "/4"
-            + " · Resume ready: " + String(state.resume_ready === true ? "yes" : "no");
+            + " · Resume ready: " + String(state.resume_ready === true ? "yes" : "no")
+            + (state.blocked_reason ? " · Blocked: " + String(state.blocked_reason) : "");
           startResumeWeekBtn.textContent = state.week_status === "not_started" ? "Start Week" : "Resume Week";
           continueNextWeekBtn.disabled = state.next_week_available !== true;
+          continueStepBtn.disabled = state.week_status === "blocked";
+          markStepCompleteBtn.disabled = state.week_status === "ready_for_next_week" || state.week_status === "completed";
           parentReflectionInput.value = String(state.reflection_note || "");
           parentObservationInput.value = String(state.observation_note || "");
         }
@@ -1867,7 +1875,11 @@ function renderLiveYouthProgramPage() {
             body: JSON.stringify(body),
           });
           const payload = response.ok ? await response.json().catch(() => null) : null;
-          if (!payload || payload.ok !== true) return;
+          if (!payload || payload.ok !== true) {
+            nextActionArea.innerHTML = "<strong>Action blocked:</strong> " + esc(String((payload && (payload.message || payload.error)) || "Unable to process action."));
+            if (payload && payload.execution_state) renderExecutionState(payload.execution_state);
+            return;
+          }
           latestWeekPayload.execution_state = payload.execution_state;
           if (payload.bridge_state && typeof payload.bridge_state.current_week === "number") {
             latestWeekPayload.current_week = payload.bridge_state.current_week;
@@ -2002,7 +2014,7 @@ function renderLiveYouthProgramPage() {
           await saveExecutionAction("mark_step_complete", { step_key: stepOrder[Math.max(0, Math.min(stepOrder.length - 1, idx))] });
         });
         continueStepBtn.addEventListener("click", async function () {
-          await saveExecutionAction("continue_next_step");
+          await saveExecutionAction("continue_to_next_step");
         });
         continueNextWeekBtn.addEventListener("click", async function () {
           await saveExecutionAction("continue_next_week");
@@ -2320,14 +2332,33 @@ function createYouthDevelopmentRouter(options = {}) {
     try {
       const accountCtx = resolveRequestAccountContext(req, req.body || {});
       const childId = safeTrim(req.body?.child_id || req.body?.childId || req.query?.child_id || req.query?.childId);
+      const actionTypeRaw = safeTrim(req.body?.action_type || req.body?.actionType);
+      const normalizedActionType = actionTypeRaw === "continue_next_step" ? "continue_to_next_step" : actionTypeRaw;
+      const validation = validateWeeklyExecutionActionPayload({
+        tenant: accountCtx.tenant,
+        email: accountCtx.email,
+        child_id: childId,
+        week_number: Number(req.body?.week_number || req.body?.weekNumber || 1),
+        action_type: normalizedActionType,
+        step_key: safeTrim(req.body?.step_key || req.body?.stepKey),
+        note: String(req.body?.note || ""),
+      });
+      if (!validation.ok) {
+        return res.status(200).json({
+          ok: false,
+          error: "week_execution_contract_invalid",
+          messages: validation.errors,
+          allowed_actions: WEEKLY_EXECUTION_ACTIONS,
+        });
+      }
       const result = await saveProgramWeekExecution({
         accountCtx,
         request: req,
         childId,
-        weekNumber: Number(req.body?.week_number || req.body?.weekNumber || 1),
-        actionType: safeTrim(req.body?.action_type || req.body?.actionType),
-        stepKey: safeTrim(req.body?.step_key || req.body?.stepKey),
-        note: String(req.body?.note || ""),
+        weekNumber: validation.normalized.week_number,
+        actionType: validation.normalized.action_type,
+        stepKey: validation.normalized.step_key,
+        note: validation.normalized.note,
       });
       return res.status(200).json(result);
     } catch (err) {

@@ -9,6 +9,35 @@ const STEP_SEQUENCE = Object.freeze([
   Object.freeze({ step_key: "observation_support", label: "Observation + Support", completion_rule: "parent_marks_complete" }),
 ]);
 
+const WEEKLY_CONTENT_CONTRACT = Object.freeze({
+  required_fields: Object.freeze([
+    "week_number",
+    "title",
+    "objective",
+    "week_purpose",
+    "parent_guidance",
+    "reflection_prompt",
+    "observation_prompt",
+    "step_sequence",
+    "completion_labels",
+    "progression_labels",
+  ]),
+  authored_parent_fields: Object.freeze([
+    "title",
+    "objective",
+    "week_purpose",
+    "parent_guidance",
+    "reflection_prompt",
+    "observation_prompt",
+  ]),
+  structural_fields: Object.freeze([
+    "phase_week_context",
+    "progress",
+    "roadmap",
+    "step_status_labels",
+  ]),
+});
+
 const PHASE_CONTENT = Object.freeze({
   1: Object.freeze({
     title_prefix: "Foundation Routine",
@@ -65,6 +94,17 @@ function getAuthoredWeekContent(weekNumber) {
     reflection_prompt: phaseContent.reflection_prompt,
     observation_prompt: phaseContent.observation_prompt,
     step_sequence: STEP_SEQUENCE,
+    completion_labels: Object.freeze({
+      not_started: "Week not started",
+      in_progress: "Week in progress",
+      blocked: "Week blocked",
+      ready_for_next_week: "Ready for next week",
+      completed: "Week completed",
+    }),
+    progression_labels: Object.freeze({
+      continue_to_next_step: "Continue to next step",
+      continue_next_week: "Continue next week",
+    }),
     source_trace: {
       title: "authored_phase_content",
       objective: "authored_phase_content",
@@ -73,6 +113,8 @@ function getAuthoredWeekContent(weekNumber) {
       reflection_prompt: "authored_phase_content",
       observation_prompt: "authored_phase_content",
       step_sequence: "structured_rail_definition",
+      completion_labels: "governed_program_labels",
+      progression_labels: "governed_program_labels",
     },
   };
 }
@@ -96,11 +138,13 @@ function auditWeeklyContentSources() {
       generated_but_not_bank_governed: [],
       unclear_origin: [],
     },
+    weekly_content_contract: WEEKLY_CONTENT_CONTRACT,
   };
 }
 
 module.exports = {
   STEP_SEQUENCE,
+  WEEKLY_CONTENT_CONTRACT,
   getAuthoredWeekContent,
   auditWeeklyContentSources,
 };
