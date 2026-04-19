@@ -160,8 +160,15 @@ test('GET /youth-development/program renders parent-facing guided development la
     assert.match(html, /\/api\/youth-development\/program\/bridge/);
     assert.match(html, /\/api\/youth-development\/program\/launch/);
     assert.match(html, /Current week guided experience/);
+    assert.match(html, /Week progress \+ roadmap/);
+    assert.match(html, /Session flow \+ activity bank/);
+    assert.match(html, /Reflection \+ observation\/support/);
+    assert.match(html, /parentReflectionInput/);
+    assert.match(html, /prevWeekBtn/);
     assert.match(html, /\/api\/youth-development\/program\/week-content/);
     assert.match(html, /Start Program/);
+    assert.match(html, /if \(latestBridge && latestBridge\.has_enrollment === true\)/);
+    assert.match(html, /openWeekFlow\(\)/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
