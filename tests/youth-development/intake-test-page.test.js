@@ -118,6 +118,7 @@ test('GET /youth-development/intake renders live single-question parent-observat
     assert.match(html, /Question 1 of 25/);
     assert.match(html, /Submit assessment/);
     assert.match(html, /Open Youth Parent Dashboard/);
+    assert.match(html, /Start Program/);
     assert.match(html, /\/api\/youth-development\/parent-dashboard\/latest/);
     assert.match(html, /Resume \/ View Youth Results/);
     assert.match(html, /past 6 to 8 weeks/);
@@ -137,10 +138,28 @@ test('GET /youth-development/parent-dashboard renders live parent-facing dashboa
     assert.match(html, /sessionStorage\.getItem\('youthDevelopmentLatestAssessment'\)/);
     assert.match(html, /What we look at/);
     assert.match(html, /How to support this week/);
+    assert.match(html, /Development program/);
     assert.match(html, /Focus & Self-Control/);
     assert.match(html, /Learning From Feedback/);
     assert.match(html, /data-help-code=/);
     assert.match(html, /Take Youth Assessment/);
+    assert.match(html, /\/api\/youth-development\/program\/bridge/);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('GET /youth-development/program renders parent-facing guided development launch surface', async () => {
+  const { server, baseUrl } = await startServer();
+  try {
+    const response = await fetch(`${baseUrl}/youth-development/program`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, /Youth Development Program/);
+    assert.match(html, /Program status/);
+    assert.match(html, /\/api\/youth-development\/program\/bridge/);
+    assert.match(html, /\/api\/youth-development\/program\/launch/);
+    assert.match(html, /Start Program/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

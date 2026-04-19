@@ -68,6 +68,7 @@ const { initializeArchetypeEngineSchema } = require("./archetypeEnginesService")
 const { createYouthDevelopmentRouter } = require("./youthDevelopmentRoutes");
 const { createYouthDevelopmentIntakeRouter } = require("./youthDevelopmentIntakeRoutes");
 const { createYouthDevelopmentTdeRouter } = require("./youthDevelopmentTdeRoutes");
+const { PROGRAM_PHASES } = require("../youth-development/tde/programRail");
 const { generateSite } = require("./siteMaterializer");
 const { getTapCrmMode } = require("./tapCrmFeature");
 const { createTapCrmRouter, resolvePublicTap } = require("./tapCrmRoutes");
@@ -1047,6 +1048,55 @@ function buildChildProfileFromInput(accountCtx = {}, requestBody = {}) {
     child_age_band: ageBand || null,
     child_grade_band: gradeBand || null,
     profile_status: childName ? "ready" : "identity_incomplete",
+  };
+}
+
+function resolvePhaseForWeek(weekNumber) {
+  const week = Number(weekNumber);
+  if (!Number.isInteger(week) || week < 1) return null;
+  return PROGRAM_PHASES.find((phase) => week >= phase.start_week && week <= phase.end_week) || null;
+}
+
+function buildProgramBridgePayload({
+  tenant,
+  email,
+  childProfile,
+  assessmentComplete,
+  enrollment,
+}) {
+  const childId = normalizeChildScopeId(childProfile?.child_id || "");
+  const childName = normalizeChildDisplayName(childProfile?.child_name || "") || "Child";
+  const profileReady = childProfile?.profile_status === "ready" && Boolean(childId);
+  const currentWeek = Math.max(1, Math.min(36, Number(enrollment?.current_week) || 1));
+  const phase = resolvePhaseForWeek(currentWeek);
+  const hasEnrollment = Boolean(enrollment && enrollment.enrollment_id);
+  const programStatus = String(enrollment?.program_status || (hasEnrollment ? "active" : "not_started")).trim().toLowerCase();
+  const canLaunch = Boolean(assessmentComplete && profileReady);
+  const ctaLabel = hasEnrollment ? "Continue Development Plan" : "Start Program";
+  const ctaUrl = canLaunch
+    ? `/youth-development/program?tenant=${encodeURIComponent(tenant)}&email=${encodeURIComponent(email)}&child_id=${encodeURIComponent(childId)}`
+    : "";
+
+  return {
+    ok: true,
+    child_id: childId || null,
+    child_name: childName,
+    assessment_complete: assessmentComplete === true,
+    setup_needed: !profileReady,
+    launch_allowed: canLaunch,
+    has_enrollment: hasEnrollment,
+    enrollment_id: enrollment?.enrollment_id || null,
+    program_status: programStatus,
+    program_status_label: hasEnrollment ? (programStatus === "active" ? "In progress" : "Paused") : (canLaunch ? "Ready to start" : "Setup needed"),
+    current_week: canLaunch ? currentWeek : null,
+    current_phase_name: phase?.phase_name || null,
+    next_recommended_action: !assessmentComplete
+      ? "Complete assessment intake first"
+      : (!profileReady ? "Complete child profile setup" : (hasEnrollment ? `Continue Week ${currentWeek}` : "Begin Week 1")),
+    parent_summary: !assessmentComplete
+      ? "Assessment incomplete. Complete intake before launching the program."
+      : (!profileReady ? "Program setup is incomplete because child profile scope is missing." : (hasEnrollment ? `${childName} is enrolled and ready to continue the guided program.` : `${childName} is ready to start the guided development program.`)),
+    cta: canLaunch ? { label: ctaLabel, href: ctaUrl } : null,
   };
 }
 
@@ -2119,10 +2169,100 @@ async function listYouthChildProfilesForAccount({ accountCtx }) {
   return [...seen.values()];
 }
 
+async function resolveChildProfileForAccount({ accountCtx, childId = "" }) {
+  const profiles = await listYouthChildProfilesForAccount({ accountCtx });
+  if (!profiles.length) return null;
+  const scopedChildId = normalizeChildScopeId(childId);
+  if (!scopedChildId) return profiles.length === 1 ? profiles[0] : null;
+  return profiles.find((entry) => String(entry.child_id || "") === scopedChildId) || null;
+}
+
+async function loadLatestProgramEnrollmentByChildId(childId) {
+  const scopedChildId = normalizeChildScopeId(childId);
+  if (!scopedChildId) return null;
+  const rows = await pool.query(
+    `SELECT payload FROM tde_program_enrollments
+     WHERE child_id = $1
+     ORDER BY updated_at DESC, created_at DESC
+     LIMIT 1`,
+    [scopedChildId]
+  );
+  return rows.rows[0]?.payload || null;
+}
+
+async function getProgramBridgeStateForAccount({ accountCtx, childId = "" }) {
+  const tenantSlug = String(accountCtx?.tenant || "").trim().toLowerCase();
+  const email = normalizeEmail(accountCtx?.email || "");
+  if (!tenantSlug || !email) {
+    return { ok: true, launch_allowed: false, reason: "account_scope_missing", parent_summary: "Tenant/email context is required." };
+  }
+  const childProfile = await resolveChildProfileForAccount({ accountCtx, childId });
+  if (!childProfile) {
+    return {
+      ok: true,
+      launch_allowed: false,
+      reason: "child_profile_missing",
+      parent_summary: "No child profile found for this account.",
+      setup_needed: true,
+    };
+  }
+  const latestAssessment = await loadLatestYouthAssessmentForAccount({ accountCtx, childId: childProfile.child_id });
+  const enrollment = await loadLatestProgramEnrollmentByChildId(childProfile.child_id);
+  return buildProgramBridgePayload({
+    tenant: tenantSlug,
+    email,
+    childProfile,
+    assessmentComplete: Boolean(latestAssessment),
+    enrollment,
+  });
+}
+
+async function launchProgramForAccount({ accountCtx, childId = "" }) {
+  const bridge = await getProgramBridgeStateForAccount({ accountCtx, childId });
+  if (!bridge || bridge.ok !== true) return { ok: false, error: "program_bridge_unavailable" };
+  if (bridge.launch_allowed !== true) {
+    return { ...bridge, ok: true, launch_allowed: false, reason: bridge.reason || "program_not_launchable" };
+  }
+  if (bridge.has_enrollment && bridge.enrollment_id) {
+    return bridge;
+  }
+  const nowIso = new Date().toISOString();
+  const enrollmentId = `enr-${normalizeChildScopeId(bridge.child_id)}-${Date.now()}`;
+  const enrollmentPayload = {
+    enrollment_id: enrollmentId,
+    child_id: bridge.child_id,
+    program_start_date: nowIso,
+    current_week: 1,
+    program_status: "active",
+    created_at: nowIso,
+  };
+  await pool.query(
+    `INSERT INTO tde_program_enrollments
+      (enrollment_id, child_id, program_start_date, current_week, program_status, payload)
+     VALUES ($1,$2,$3,$4,$5,$6::jsonb)
+     ON CONFLICT (enrollment_id) DO UPDATE
+     SET current_week = EXCLUDED.current_week,
+         program_status = EXCLUDED.program_status,
+         payload = EXCLUDED.payload,
+         updated_at = NOW()`,
+    [
+      enrollmentPayload.enrollment_id,
+      enrollmentPayload.child_id,
+      enrollmentPayload.program_start_date,
+      enrollmentPayload.current_week,
+      enrollmentPayload.program_status,
+      JSON.stringify(enrollmentPayload),
+    ]
+  );
+  return getProgramBridgeStateForAccount({ accountCtx, childId: bridge.child_id });
+}
+
 app.use(createYouthDevelopmentRouter({
   persistYouthAssessment: persistYouthAssessmentForAccount,
   loadLatestYouthAssessment: loadLatestYouthAssessmentForAccount,
   listYouthChildProfiles: listYouthChildProfilesForAccount,
+  getProgramBridgeState: getProgramBridgeStateForAccount,
+  launchProgramForChild: launchProgramForAccount,
 }));
 app.use("/api/youth-development/intake", createYouthDevelopmentIntakeRouter());
 app.use("/api/youth-development/tde", createYouthDevelopmentTdeRouter({ pool }));
