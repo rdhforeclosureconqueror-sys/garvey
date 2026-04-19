@@ -80,6 +80,9 @@ test('parent-facing youth pages use canonical CTA taxonomy and remove drift labe
     assert.match(programHtml, /Return to Dashboard/);
     assert.match(programHtml, /Save Reflection/);
     assert.match(programHtml, /Save Observation/);
+    assert.match(programHtml, /Today’s Session/);
+    assert.match(programHtml, /Next Scheduled Session/);
+    assert.match(programHtml, /This Week at a Glance/);
     assert.doesNotMatch(programHtml, /Back to Parent Dashboard/);
     assert.doesNotMatch(programHtml, /Next week preview/);
   } finally {
@@ -118,4 +121,3 @@ test('internal preview/test routes are gated in production unless explicit inter
     else process.env.NODE_ENV = priorNodeEnv;
   }
 });
-

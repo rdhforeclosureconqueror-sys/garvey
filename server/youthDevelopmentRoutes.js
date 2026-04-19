@@ -1840,6 +1840,26 @@ function renderLiveYouthProgramPage() {
       .btn-ghost { background: rgba(30, 41, 59, 0.45); border-color: rgba(148, 163, 184, 0.45); color: #e2e8f0; }
       textarea.input { width: 100%; min-height: 72px; margin-top: 8px; background: rgba(2, 6, 23, 0.75); color: #e2e8f0; border: 1px solid rgba(148, 163, 184, 0.45); border-radius: 8px; padding: 8px; font: inherit; }
       .input { width: 100%; margin-top: 6px; background: rgba(2, 6, 23, 0.75); color: #e2e8f0; border: 1px solid rgba(148, 163, 184, 0.45); border-radius: 8px; padding: 8px; font: inherit; }
+      .planner-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 10px; }
+      .planner-metric { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 10px; background: rgba(2, 6, 23, 0.4); }
+      .planner-metric h4 { margin: 0 0 4px; font-size: 0.9rem; }
+      .planner-metric p { margin: 0; font-size: 13px; color: #cbd5e1; }
+      .status-pill { border-radius: 999px; padding: 2px 8px; font-size: 11px; border: 1px solid rgba(148, 163, 184, 0.5); text-transform: capitalize; }
+      .status-completed { border-color: rgba(34, 197, 94, 0.8); color: #86efac; }
+      .status-planned { border-color: rgba(56, 189, 248, 0.8); color: #bfdbfe; }
+      .status-in_progress { border-color: rgba(250, 204, 21, 0.8); color: #fde68a; }
+      .status-missed { border-color: rgba(248, 113, 113, 0.8); color: #fca5a5; }
+      .calendar-grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+      .calendar-day { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 8px; background: rgba(2, 6, 23, 0.45); }
+      .calendar-day.today { border-color: rgba(56, 189, 248, 0.75); box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.25); }
+      .calendar-day h4 { margin: 0 0 6px; font-size: 13px; color: #dbeafe; }
+      .session-row { margin: 0 0 6px; font-size: 12px; color: #cbd5e1; display: grid; gap: 4px; }
+      .session-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+      .session-actions .btn { padding: 6px 10px; font-size: 12px; }
+      .lesson-plan { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 10px; background: rgba(2, 6, 23, 0.45); margin-top: 8px; }
+      .lesson-plan table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
+      .lesson-plan th, .lesson-plan td { border: 1px solid rgba(148, 163, 184, 0.35); padding: 6px; text-align: left; vertical-align: top; }
+      .checklist { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; }
     </style>
   </head>
   <body>
@@ -1909,6 +1929,24 @@ function renderLiveYouthProgramPage() {
       </section>
       <section class="panel">
         <h2>Weekly planner + calendar agenda</h2>
+        <div class="planner-grid">
+          <div class="planner-metric">
+            <h4>Today’s Session</h4>
+            <p id="todaySessionCard">Loading today’s session…</p>
+          </div>
+          <div class="planner-metric">
+            <h4>Next Scheduled Session</h4>
+            <p id="nextSessionCard">Loading next scheduled session…</p>
+          </div>
+          <div class="planner-metric">
+            <h4>This Week at a Glance</h4>
+            <p id="weekAtGlanceCard">Loading weekly planner summary…</p>
+          </div>
+          <div class="planner-metric">
+            <h4>Week-in-Program Marker</h4>
+            <p id="weekMarkerCard">Loading week marker…</p>
+          </div>
+        </div>
         <div class="grid-2">
           <div class="state-box">
             <h3 class="state-title">Parent commitment setup</h3>
@@ -1921,11 +1959,27 @@ function renderLiveYouthProgramPage() {
             <p id="commitmentSummary" class="tiny muted">Commitment not set.</p>
           </div>
           <div class="state-box">
-            <h3 class="state-title">Calendar + adherence</h3>
+            <h3 class="state-title">Weekly Planner Calendar + adherence</h3>
             <p id="adherenceSummary" class="state-line">Loading adherence summary…</p>
+            <div class="progress-wrap">
+              <div class="progress-track"><div id="adherenceFill" class="progress-fill"></div></div>
+            </div>
+            <p id="completionCountSummary" class="tiny muted">Planned vs completed loading…</p>
+            <div id="plannerCalendarGrid" class="calendar-grid"><div class="calendar-day"><p class="tiny muted">Loading weekly planner calendar…</p></div></div>
             <ul id="agendaList" class="list"><li class="muted">Loading scheduled sessions…</li></ul>
             <button id="markNextSessionCompleteBtn" class="btn btn-secondary" type="button">Mark Next Session Complete</button>
+            <button id="openNextSessionBtn" class="btn btn-ghost" type="button">Open Next Scheduled Session</button>
             <p id="nextScheduledSession" class="tiny muted">Next scheduled session loading…</p>
+          </div>
+        </div>
+        <div class="state-box">
+          <h3 class="state-title">Teacher-Style Lesson Plan</h3>
+          <p id="lessonPlanSessionHeader" class="state-line">Select a scheduled session to view lesson plan details.</p>
+          <div id="lessonPlanView" class="lesson-plan"><p class="tiny muted">Lesson plan loading…</p></div>
+          <div class="session-actions">
+            <button id="resumeSessionBtn" class="btn btn-primary" type="button">Resume Session</button>
+            <button id="completeSelectedSessionBtn" class="btn btn-secondary" type="button">Mark Session Complete</button>
+            <button id="returnWeeklyOverviewBtn" class="btn btn-ghost" type="button">Return to Weekly Overview</button>
           </div>
         </div>
       </section>
@@ -1971,13 +2025,27 @@ function renderLiveYouthProgramPage() {
         const saveCommitmentBtn = document.getElementById("saveCommitmentBtn");
         const commitmentSummary = document.getElementById("commitmentSummary");
         const adherenceSummary = document.getElementById("adherenceSummary");
+        const adherenceFill = document.getElementById("adherenceFill");
+        const completionCountSummary = document.getElementById("completionCountSummary");
+        const plannerCalendarGrid = document.getElementById("plannerCalendarGrid");
         const agendaList = document.getElementById("agendaList");
         const markNextSessionCompleteBtn = document.getElementById("markNextSessionCompleteBtn");
+        const openNextSessionBtn = document.getElementById("openNextSessionBtn");
         const nextScheduledSession = document.getElementById("nextScheduledSession");
+        const todaySessionCard = document.getElementById("todaySessionCard");
+        const nextSessionCard = document.getElementById("nextSessionCard");
+        const weekAtGlanceCard = document.getElementById("weekAtGlanceCard");
+        const weekMarkerCard = document.getElementById("weekMarkerCard");
+        const lessonPlanSessionHeader = document.getElementById("lessonPlanSessionHeader");
+        const lessonPlanView = document.getElementById("lessonPlanView");
+        const resumeSessionBtn = document.getElementById("resumeSessionBtn");
+        const completeSelectedSessionBtn = document.getElementById("completeSelectedSessionBtn");
+        const returnWeeklyOverviewBtn = document.getElementById("returnWeeklyOverviewBtn");
 
         let latestBridge = null;
         let latestWeekPayload = null;
         let navWeekOffset = 0;
+        let selectedSessionId = "";
 
         function esc(value) {
           return String(value == null ? "" : value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -2016,6 +2084,109 @@ function renderLiveYouthProgramPage() {
             '<p class="tiny"><strong>Duration:</strong> ' + esc((activity.estimated_duration || 0) + " min") + '</p>',
             '<p class="tiny"><strong>Materials:</strong> ' + esc((activity.materials_needed || []).join(", ") || "None") + '</p>',
             '</div>',
+          ].join("");
+        }
+        function to12Hour(time24) {
+          const raw = String(time24 || "").trim();
+          const parts = raw.split(":");
+          if (parts.length < 2) return raw || "TBD";
+          const hour = Number(parts[0]);
+          const minute = Number(parts[1]);
+          if (!Number.isFinite(hour) || !Number.isFinite(minute)) return raw || "TBD";
+          const suffix = hour >= 12 ? "PM" : "AM";
+          const h = hour % 12 || 12;
+          return h + ":" + String(minute).padStart(2, "0") + " " + suffix;
+        }
+        function addMinutesToTime(time24, minutesToAdd) {
+          const raw = String(time24 || "").trim();
+          const parts = raw.split(":");
+          if (parts.length < 2) return "TBD";
+          const hour = Number(parts[0]);
+          const minute = Number(parts[1]);
+          if (!Number.isFinite(hour) || !Number.isFinite(minute)) return "TBD";
+          const total = ((hour * 60) + minute + Number(minutesToAdd || 0) + 1440) % 1440;
+          const outHour = Math.floor(total / 60);
+          const outMin = total % 60;
+          return to12Hour(String(outHour).padStart(2, "0") + ":" + String(outMin).padStart(2, "0"));
+        }
+        function normalizeSessionStatus(entry, todayName) {
+          const explicit = String(entry.status || "").toLowerCase();
+          if (explicit === "completed") return "completed";
+          if (explicit === "in_progress") return "in_progress";
+          if (explicit === "planned") {
+            if (String(entry.day || "").toLowerCase() === String(todayName || "").toLowerCase() && explicit !== "completed") return "in_progress";
+            return "planned";
+          }
+          return "missed";
+        }
+        function dayOrder(dayName) {
+          const idx = DAYS.indexOf(String(dayName || "").toLowerCase());
+          return idx >= 0 ? idx : 99;
+        }
+        function buildPlannerModel(week) {
+          const scheduledRaw = Array.isArray(week.scheduled_sessions) ? week.scheduled_sessions : [];
+          const commitment = week.commitment_plan || {};
+          const accountability = week.accountability || {};
+          const now = new Date();
+          const todayName = DAYS[now.getUTCDay() === 0 ? 6 : now.getUTCDay() - 1];
+          const duration = Number(commitment.session_duration_minutes || commitment.target_session_length || 30);
+          const scheduled = scheduledRaw
+            .map((entry) => ({ ...entry, normalized_status: normalizeSessionStatus(entry, todayName) }))
+            .sort((a, b) => dayOrder(a.day) - dayOrder(b.day));
+          const todaySession = scheduled.find((entry) => String(entry.day || "").toLowerCase() === todayName) || null;
+          const nextSession = scheduled.find((entry) => entry.normalized_status === "planned" || entry.normalized_status === "in_progress") || null;
+          const completedCount = scheduled.filter((entry) => entry.normalized_status === "completed").length;
+          const plannedCount = scheduled.length;
+          const adherenceRatio = plannedCount > 0 ? completedCount / plannedCount : Number(accountability.consistency_ratio || 0);
+          return {
+            scheduled,
+            duration,
+            todaySession,
+            nextSession,
+            completedCount,
+            plannedCount,
+            adherenceRatio: Math.max(0, Math.min(1, Number(adherenceRatio || 0))),
+            accountability,
+          };
+        }
+        function renderLessonPlan(session, week) {
+          const template = week.lesson_plan_template || {};
+          const duration = Number(week.commitment_plan?.session_duration_minutes || week.commitment_plan?.target_session_length || template.total_minutes || 30);
+          const status = session?.normalized_status || "planned";
+          const sessionTitle = session
+            ? String(session.core_activity_title || "Guided weekly session")
+            : String(week.content_blocks?.core_activity || "Guided weekly session");
+          const startTime = to12Hour(session?.time || template.scheduled_at || "17:30");
+          const endTime = addMinutesToTime(session?.time || "17:30", duration);
+          const blocks = Array.isArray(template.blocks) ? template.blocks : [];
+          const labelMap = {
+            opening_routine: "Opening Routine",
+            prep_time: "Prep",
+            core_activity: "Core Activity",
+            transition: "Transition",
+            stretch_challenge: "Stretch",
+            reflection: "Reflection",
+            observation_close: "Observation / Close",
+          };
+          const parentGuidance = Array.isArray(week.parent_guidance) ? week.parent_guidance : [];
+          const materials = [session?.core_activity_title, session?.stretch_activity_title, "Notebook or reflection card", "Timer"]
+            .filter(Boolean);
+          lessonPlanSessionHeader.innerHTML = '<strong>' + esc(sessionTitle) + '</strong> · '
+            + esc(startTime) + " to " + esc(endTime) + " · "
+            + '<span class="status-pill status-' + esc(status) + '">' + esc(status.replace("_", " ")) + "</span>";
+          lessonPlanView.innerHTML = [
+            '<p class="tiny"><strong>Session title:</strong> ' + esc(sessionTitle) + '</p>',
+            '<p class="tiny"><strong>Start time:</strong> ' + esc(startTime) + ' · <strong>Estimated end:</strong> ' + esc(endTime) + '</p>',
+            '<p class="tiny"><strong>Materials needed:</strong> ' + esc(materials.join(", ")) + '</p>',
+            '<table><thead><tr><th>Block</th><th>Estimated duration</th><th>Child-friendly step</th><th>What parent does</th></tr></thead><tbody>',
+            blocks.length
+              ? blocks.map((row) => '<tr><td>' + esc(labelMap[row.segment] || row.segment || "Session step") + '</td><td>' + esc(String(row.minutes || 0) + " min") + '</td><td>'
+                + esc(row.segment === "core_activity" ? "Try it together" : row.segment === "reflection" ? "Share one win" : "Keep the flow moving")
+                + '</td><td>' + esc(row.title || week.reflection_checkin_support || "Guide with short cues and keep momentum.") + '</td></tr>').join("")
+              : '<tr><td colspan="4">Lesson-plan blocks unavailable for this session.</td></tr>',
+            '</tbody></table>',
+            '<p class="tiny"><strong>Parent guidance:</strong></p>',
+            '<ul class="checklist">' + (parentGuidance.length ? parentGuidance.map((item) => '<li>' + esc(item) + '</li>').join("") : "<li>No guidance available.</li>") + "</ul>",
           ].join("");
         }
         function renderWeekDetails(week, nextAction, navOffset) {
@@ -2082,9 +2253,10 @@ function renderLiveYouthProgramPage() {
         }
 
         function renderPlanner(week) {
+          const planner = buildPlannerModel(week);
           const commitment = week.commitment_plan || {};
-          const scheduled = Array.isArray(week.scheduled_sessions) ? week.scheduled_sessions : [];
-          const accountability = week.accountability || {};
+          const scheduled = planner.scheduled;
+          const accountability = planner.accountability;
           commitDaysInput.value = String(commitment.days_per_week || commitment.committed_days_per_week || 3);
           commitPreferredDaysInput.value = Array.isArray(commitment.preferred_days) ? commitment.preferred_days.join(",") : "";
           commitTimeInput.value = String(commitment.preferred_time || "17:30");
@@ -2095,17 +2267,52 @@ function renderLiveYouthProgramPage() {
           adherenceSummary.textContent = "Planned this week: " + String(accountability.planned_this_week || 0)
             + " · Completed this week: " + String(accountability.completed_this_week || 0)
             + " · Consistency: " + String(accountability.consistency_label || "early");
+          completionCountSummary.textContent = "Weekly completion count: " + String(planner.completedCount) + " of " + String(planner.plannedCount) + " planned sessions complete.";
+          adherenceFill.style.width = String(Math.round(planner.adherenceRatio * 100)) + "%";
           agendaList.innerHTML = scheduled.length ? scheduled.map((entry) =>
-            '<li><strong>' + esc(String(entry.day_label || entry.day || "Session")) + '</strong> @ ' + esc(String(entry.time || ""))
-            + ' · ' + esc(String(entry.status || "planned"))
+            '<li><strong>' + esc(String(entry.day_label || entry.day || "Session")) + '</strong> @ ' + esc(to12Hour(entry.time || ""))
+            + ' · <span class="status-pill status-' + esc(entry.normalized_status) + '">' + esc(String(entry.normalized_status || "planned").replace("_", " ")) + "</span>"
             + ' · Core: ' + esc(String(entry.core_activity_title || "auto"))
+            + '<div class="session-actions"><button class="btn btn-ghost" type="button" data-action="open-session" data-session-id="' + esc(String(entry.session_id || "")) + '">Open Scheduled Session</button>'
+            + '<button class="btn btn-ghost" type="button" data-action="view-lesson-plan" data-session-id="' + esc(String(entry.session_id || "")) + '">View Lesson Plan</button>'
+            + '<button class="btn btn-secondary" type="button" data-action="complete-session" data-session-id="' + esc(String(entry.session_id || "")) + '"' + (entry.normalized_status === "completed" ? " disabled" : "") + '>Mark Session Complete</button>'
+            + '<button class="btn btn-primary" type="button" data-action="resume-session" data-session-id="' + esc(String(entry.session_id || "")) + '">Resume Session</button></div>'
             + '</li>').join("") : '<li class="muted">No sessions scheduled yet.</li>';
-          const next = scheduled.find((entry) => entry.status !== "completed") || null;
+          const next = planner.nextSession;
+          const today = planner.todaySession;
+          todaySessionCard.textContent = today
+            ? String(today.day_label || today.day || "Today") + " at " + to12Hour(today.time || "") + " · " + String(today.core_activity_title || "Guided session")
+            : "No session scheduled for today. Use commitment setup to place one.";
+          nextSessionCard.textContent = next
+            ? String(next.day_label || next.day || "") + " at " + to12Hour(next.time || "") + " · " + String(next.core_activity_title || "Guided session")
+            : "No upcoming session currently planned.";
+          weekAtGlanceCard.textContent = String(planner.completedCount) + "/" + String(planner.plannedCount) + " sessions completed · Consistency " + String(accountability.consistency_label || "early") + ".";
+          weekMarkerCard.textContent = "Week " + String(week.week_number || 1) + " of 36 (" + String(week.progress?.percent_complete || 0) + "% program progress).";
+          plannerCalendarGrid.innerHTML = DAYS.map((dayName) => {
+            const sessions = scheduled.filter((entry) => String(entry.day || "").toLowerCase() === dayName);
+            const isToday = Boolean(today && String(today.day || "").toLowerCase() === dayName);
+            return '<article class="calendar-day' + (isToday ? " today" : "") + '"><h4>' + esc(dayName.slice(0, 1).toUpperCase() + dayName.slice(1)) + '</h4>'
+              + (sessions.length
+                ? sessions.map((entry) => '<div class="session-row"><span>' + esc(to12Hour(entry.time || "")) + " · " + esc(String(entry.core_activity_title || "Session")) + '</span>'
+                  + '<span class="status-pill status-' + esc(entry.normalized_status) + '">' + esc(entry.normalized_status.replace("_", " ")) + "</span></div>").join("")
+                : '<p class="tiny muted">No planned session</p>')
+              + "</article>";
+          }).join("");
           nextScheduledSession.textContent = next
-            ? "Next scheduled session: " + String(next.day_label || next.day || "") + " " + String(next.time || "") + " (" + String(next.session_id || "") + ")"
+            ? "Next scheduled session: " + String(next.day_label || next.day || "") + " " + to12Hour(next.time || "") + " (" + String(next.session_id || "") + ")"
             : "No upcoming sessions. Set commitment to generate schedule.";
           markNextSessionCompleteBtn.disabled = !next;
           markNextSessionCompleteBtn.dataset.sessionId = next ? String(next.session_id || "") : "";
+          openNextSessionBtn.disabled = !next;
+          openNextSessionBtn.dataset.sessionId = next ? String(next.session_id || "") : "";
+          const selected = (selectedSessionId && scheduled.find((entry) => String(entry.session_id) === String(selectedSessionId)))
+            || next
+            || today
+            || scheduled[0]
+            || null;
+          selectedSessionId = selected ? String(selected.session_id || "") : "";
+          completeSelectedSessionBtn.disabled = !selected || selected.normalized_status === "completed";
+          renderLessonPlan(selected, week);
         }
 
         function renderExecutionState(executionState) {
@@ -2326,6 +2533,63 @@ function renderLiveYouthProgramPage() {
             }),
           });
           await loadWeekExperience();
+        });
+        openNextSessionBtn.addEventListener("click", function () {
+          const sessionId = String(openNextSessionBtn.dataset.sessionId || "");
+          if (!sessionId || !latestWeekPayload?.week_content) return;
+          selectedSessionId = sessionId;
+          renderPlanner(latestWeekPayload.week_content);
+          lessonPlanView.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        agendaList.addEventListener("click", async function (event) {
+          const target = event.target;
+          if (!target || !target.dataset) return;
+          const action = String(target.dataset.action || "");
+          const sessionId = String(target.dataset.sessionId || "");
+          if (!action || !sessionId || !latestWeekPayload?.week_content) return;
+          selectedSessionId = sessionId;
+          if (action === "complete-session") {
+            await fetch("/api/youth-development/program/session-complete", {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({
+                tenant: accountCtx.tenant,
+                email: accountCtx.email,
+                child_id: accountCtx.child_id,
+                week_number: latestWeekPayload.current_week,
+                session_id: sessionId,
+              }),
+            });
+            await loadWeekExperience();
+            return;
+          }
+          if (action === "resume-session") {
+            await saveExecutionAction("start_week");
+          }
+          renderPlanner(latestWeekPayload.week_content);
+          lessonPlanView.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        resumeSessionBtn.addEventListener("click", async function () {
+          if (!selectedSessionId) return;
+          await saveExecutionAction("start_week");
+        });
+        completeSelectedSessionBtn.addEventListener("click", async function () {
+          if (!selectedSessionId || !latestWeekPayload) return;
+          await fetch("/api/youth-development/program/session-complete", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              tenant: accountCtx.tenant,
+              email: accountCtx.email,
+              child_id: accountCtx.child_id,
+              week_number: latestWeekPayload.current_week,
+              session_id: selectedSessionId,
+            }),
+          });
+          await loadWeekExperience();
+        });
+        returnWeeklyOverviewBtn.addEventListener("click", function () {
+          weekExperience.scrollIntoView({ behavior: "smooth", block: "start" });
         });
 
         const bridge = await loadBridge();
