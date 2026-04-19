@@ -68,6 +68,7 @@ const { SESSION_EVIDENCE_CONTRACT, validateSessionEvidenceContract } = require("
 const { INTERVENTION_ENVIRONMENT_EXTENSION_CONTRACT } = require("../youth-development/tde/interventionEnvironmentContract");
 const { DEVELOPMENT_CHECKIN_CONTRACT, VOICE_READY_SCHEMA_RULES } = require("../youth-development/tde/developmentCheckinContract");
 const { runDevelopmentCheckin, listDevelopmentCheckins } = require("../youth-development/tde/developmentCheckinService");
+const { auditAssessmentContentBanks, ASSESSMENT_CONTENT_BANKS, getMilestoneItems, getBankInventorySummary } = require("../youth-development/content/assessmentContentBanks");
 const { createVoiceService } = require("../youth-development/tde/voiceService");
 
 function createYouthDevelopmentTdeRouter(options = {}) {
@@ -94,6 +95,31 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     extension_only: true,
     contract: DEVELOPMENT_CHECKIN_CONTRACT,
   }));
+  router.get("/content/audit", (_req, res) => res.status(200).json({
+    ok: true,
+    deterministic: true,
+    extension_only: true,
+    ...auditAssessmentContentBanks(),
+  }));
+
+  router.get("/content/inventory", (req, res) => {
+    const week = Number(req.query?.week || 12);
+    const ageBand = String(req.query?.age_band || "8-10").trim();
+    return res.status(200).json({
+      ok: true,
+      deterministic: true,
+      extension_only: true,
+      inventory_counts: getBankInventorySummary(),
+      banks: ASSESSMENT_CONTENT_BANKS,
+      milestone_items: getMilestoneItems(week, ageBand),
+      wiring: {
+        parent_intake_questions_endpoint: "/api/youth-development/questions",
+        weekly_checkin_run_endpoint: "/api/youth-development/tde/checkin/run",
+        milestone_comparison_endpoint: "/api/youth-development/tde/milestone-comparison/:childId",
+      },
+    });
+  });
+
   router.get("/contracts/voice", (_req, res) => res.status(200).json({
     ok: true,
     deterministic: true,

@@ -5,30 +5,7 @@ const { validateDevelopmentCheckinContract } = require("./developmentCheckinCont
 const { extractSignalsFromEvidence } = require("./signalExtractionService");
 const { scoreTraitsFromSignals } = require("./traitScoringService");
 const { registerVoiceReadableContentBlock } = require("./voiceContentRegistry");
-
-const PERFORMANCE_PROMPT_BANK = Object.freeze([
-  Object.freeze({ trait_code: "SR", signal_type: "strategy_use_presence", prompt_text: "Show how you chose a strategy before starting and what helped you keep using it." }),
-  Object.freeze({ trait_code: "PS", signal_type: "reengagement_latency", prompt_text: "When the task felt hard, describe what you did to re-engage and keep going." }),
-  Object.freeze({ trait_code: "RS", signal_type: "justification_quality", prompt_text: "Walk through how you decided what to try first and why it made sense." }),
-  Object.freeze({ trait_code: "CQ", signal_type: "inquiry_depth", prompt_text: "Share one question you asked yourself that opened a new way to explore the activity." }),
-]);
-
-const REFLECTION_PROMPT_BANK = Object.freeze([
-  Object.freeze({ trait_code: "DE", signal_type: "domain_commitment_language", prompt_text: "What felt meaningful about this work for your growth this week?" }),
-  Object.freeze({ trait_code: "FB", signal_type: "improvement_delta", prompt_text: "What changed between your first attempt and your latest attempt?" }),
-]);
-
-const TRANSFER_PROMPT = Object.freeze({
-  trait_code: "CR",
-  signal_type: "attempt_quality_change",
-  prompt_text: "Optional transfer: try the same strategy in a different setting and note what shifted.",
-});
-
-const PARENT_PROMPT = Object.freeze({
-  trait_code: "SR",
-  signal_type: "context_consistency",
-  prompt_text: "Parent observation: describe what you noticed about the child's approach, persistence, and support needs across contexts.",
-});
+const { pickWeeklyCheckinItems } = require("../content/assessmentContentBanks");
 
 function toWeek(value) {
   const week = Number(value);
@@ -70,14 +47,18 @@ function generateDevelopmentCheckin(payload = {}) {
       playback_optional: true,
     }, { scope: "development_checkin_prompt", child_id: childId });
   };
-  const perfStart = programWeek % PERFORMANCE_PROMPT_BANK.length;
-  const performanceEntry = PERFORMANCE_PROMPT_BANK[perfStart];
+  const authoredPrompts = pickWeeklyCheckinItems({ week: programWeek, age_band: ageBand });
+  const performanceEntry = authoredPrompts.performance_prompt || {};
   const performanceVoice = registerPromptVoiceContent("performance_prompt", performanceEntry.prompt_text, true, "short");
   const performance_prompt = {
-    prompt_id: buildPromptId(checkinId, "cp", `${performanceEntry.trait_code}_0`),
+    prompt_id: buildPromptId(checkinId, "cp", `${performanceEntry.item_id || "perf"}_${programWeek}`),
     prompt_type: "performance",
-    ...performanceEntry,
-    target_traits: [performanceEntry.trait_code],
+    prompt_text: performanceEntry.prompt_text,
+    trait_code: performanceEntry.target_traits?.[0] || "SR",
+    signal_type: performanceEntry.signal_type || "strategy_use_presence",
+    target_traits: performanceEntry.target_traits || ["SR"],
+    source_module: performanceEntry.source_module || "youth-development/tde/developmentCheckinService",
+    content_version: performanceEntry.content_version || calibrationVersion,
     age_band: ageBand,
     voice_ready: performanceVoice.voice_ready,
     voice_text: performanceVoice.voice_text,
@@ -86,14 +67,17 @@ function generateDevelopmentCheckin(payload = {}) {
     readability_registration: performanceVoice,
   };
 
-  const reflectionStart = programWeek % REFLECTION_PROMPT_BANK.length;
-  const reflectionEntry = REFLECTION_PROMPT_BANK[reflectionStart];
+  const reflectionEntry = authoredPrompts.reflection_prompt || {};
   const reflectionVoice = registerPromptVoiceContent("reflection_prompt", reflectionEntry.prompt_text, true, "short");
   const reflection_prompt = {
-    prompt_id: buildPromptId(checkinId, "cr", `${reflectionEntry.trait_code}_0`),
+    prompt_id: buildPromptId(checkinId, "cr", `${reflectionEntry.item_id || "reflection"}_${programWeek}`),
     prompt_type: "reflection",
-    ...reflectionEntry,
-    target_traits: [reflectionEntry.trait_code],
+    prompt_text: reflectionEntry.prompt_text,
+    trait_code: reflectionEntry.target_traits?.[0] || "FB",
+    signal_type: reflectionEntry.signal_type || "improvement_delta",
+    target_traits: reflectionEntry.target_traits || ["FB"],
+    source_module: reflectionEntry.source_module || "youth-development/tde/developmentCheckinService",
+    content_version: reflectionEntry.content_version || calibrationVersion,
     age_band: ageBand,
     voice_ready: reflectionVoice.voice_ready,
     voice_text: reflectionVoice.voice_text,
@@ -102,10 +86,11 @@ function generateDevelopmentCheckin(payload = {}) {
     readability_registration: reflectionVoice,
   };
 
-  const optional_transfer_prompt = (programWeek % 4 === 0)
+  const transferEntry = authoredPrompts.optional_transfer_prompt;
+  const optional_transfer_prompt = transferEntry
     ? {
         ...(() => {
-          const transferVoice = registerPromptVoiceContent("optional_transfer_prompt", TRANSFER_PROMPT.prompt_text, true, "medium");
+          const transferVoice = registerPromptVoiceContent("optional_transfer_prompt", transferEntry.prompt_text, true, "medium");
           return {
             voice_ready: transferVoice.voice_ready,
             voice_text: transferVoice.voice_text,
@@ -113,21 +98,30 @@ function generateDevelopmentCheckin(payload = {}) {
             readability_registration: transferVoice,
           };
         })(),
-        prompt_id: buildPromptId(checkinId, "ct", `transfer_${programWeek}`),
+        prompt_id: buildPromptId(checkinId, "ct", `${transferEntry.item_id || "transfer"}_${programWeek}`),
         prompt_type: "transfer",
-        ...TRANSFER_PROMPT,
-        target_traits: [TRANSFER_PROMPT.trait_code],
+        prompt_text: transferEntry.prompt_text,
+        trait_code: transferEntry.target_traits?.[0] || "CR",
+        signal_type: transferEntry.signal_type || "attempt_quality_change",
+        target_traits: transferEntry.target_traits || ["CR"],
+        source_module: transferEntry.source_module || "youth-development/tde/developmentCheckinService",
+        content_version: transferEntry.content_version || calibrationVersion,
         age_band: ageBand,
         voice_pacing: "medium",
       }
     : null;
 
-  const parentVoice = registerPromptVoiceContent("parent_observation_prompt", PARENT_PROMPT.prompt_text, false, "short");
+  const parentEntry = authoredPrompts.parent_observation_prompt || {};
+  const parentVoice = registerPromptVoiceContent("parent_observation_prompt", parentEntry.prompt_text, false, "short");
   const parent_observation_prompt = {
-    prompt_id: buildPromptId(checkinId, "parent", `parent_${programWeek}`),
+    prompt_id: buildPromptId(checkinId, "parent", `${parentEntry.item_id || "parent"}_${programWeek}`),
     prompt_type: "observation",
-    ...PARENT_PROMPT,
-    target_traits: [PARENT_PROMPT.trait_code],
+    prompt_text: parentEntry.prompt_text,
+    trait_code: parentEntry.target_traits?.[0] || "SR",
+    signal_type: parentEntry.signal_type || "context_consistency",
+    target_traits: parentEntry.target_traits || ["SR"],
+    source_module: parentEntry.source_module || "youth-development/tde/developmentCheckinService",
+    content_version: parentEntry.content_version || calibrationVersion,
     age_band: ageBand,
     voice_ready: parentVoice.voice_ready,
     voice_text: parentVoice.voice_text,
