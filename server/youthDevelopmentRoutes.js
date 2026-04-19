@@ -12,6 +12,7 @@ const {
 } = require("../youth-development/question-engine/youthQuestionBank");
 const { getQuestionFlowState, validateAnswers } = require("../youth-development/question-engine/youthQuestionFlow");
 const { runYouthIntakeScoring } = require("../youth-development/question-engine/youthScoringMap");
+const { PROGRAM_WEEKS } = require("../youth-development/tde/programRail");
 
 const PREVIEW_AGGREGATED_ROWS = Object.freeze([
   Object.freeze({
@@ -88,6 +89,41 @@ const INTAKE_TEST_FIXTURE = Object.freeze({
   }),
 });
 
+const ACTIVITY_LABELS = Object.freeze({
+  guided_skill_practice: "Guided skill practice",
+  scenario_decision_lab: "Scenario decision lab",
+  project_build_cycle: "Project build cycle",
+  peer_feedback_exchange: "Peer feedback exchange",
+});
+
+const STRETCH_LABELS = Object.freeze({
+  complexity_increase: "Complexity increase challenge",
+  time_constraint_variant: "Time-constraint variant",
+  novel_domain_transfer: "Novel domain transfer",
+  leadership_micro_role: "Leadership micro-role",
+});
+
+const REFLECTION_LABELS = Object.freeze({
+  self_explanation_journal: "Self-explanation journal",
+  mentor_dialogue_prompt: "Mentor dialogue prompt",
+  goal_adjustment_review: "Goal adjustment review",
+});
+
+const OBSERVATION_LABELS = Object.freeze({
+  task_event_observation: "Task-event observation",
+  teacher_observation_note: "Teacher observation note",
+  parent_observation_note: "Parent observation note",
+  self_report_observation: "Self-report observation",
+});
+
+const SUPPORT_ACTION_LABELS = Object.freeze({
+  family_reflection_prompt: "Family reflection prompt",
+  teacher_alignment_note: "Teacher alignment note",
+  mentor_checkin: "Mentor check-in",
+  routine_reset_micro_plan: "Routine reset micro-plan",
+  resource_scaffold_pack: "Resource scaffold pack",
+});
+
 function safeTrim(value) {
   return String(value ?? "").trim();
 }
@@ -130,6 +166,109 @@ function resolveRequestAccountContext(req, body = {}) {
     name: bodyCtx.name || queryCtx.name || headerCtx.name,
     cid: bodyCtx.cid || queryCtx.cid,
     crid: bodyCtx.crid || queryCtx.crid,
+  };
+}
+
+function labelFor(map, code) {
+  if (!code) return null;
+  return map[code] || String(code);
+}
+
+function buildWeekContentFromRail(weekModel, bridgeState = {}) {
+  if (!weekModel || typeof weekModel !== "object") return null;
+  const weekNumber = Number(weekModel.week_number) || 1;
+  const phaseName = String(weekModel.phase_name || "Foundation");
+  const activityLabel = labelFor(ACTIVITY_LABELS, weekModel.core_activity_type);
+  const stretchLabel = labelFor(STRETCH_LABELS, weekModel.stretch_challenge_type);
+  const reflectionLabel = labelFor(REFLECTION_LABELS, weekModel.reflection_loop_type);
+  const observationLabel = labelFor(OBSERVATION_LABELS, weekModel.observation_entry_type);
+  const supportActionLabel = weekModel.optional_support_action
+    ? labelFor(SUPPORT_ACTION_LABELS, weekModel.optional_support_action)
+    : "Keep the current home routine and capture one short parent observation note.";
+  const targetTraits = Array.isArray(weekModel.target_traits) ? weekModel.target_traits : [];
+  return {
+    week_number: weekNumber,
+    title: `Week ${weekNumber} · ${phaseName}`,
+    objective: String(weekModel.weekly_goal || `Week ${weekNumber} objective is loading.`),
+    phase_week_context: `Phase ${weekModel.phase_number || 1} (${phaseName}), Week ${weekNumber} of 36.`,
+    content_blocks: {
+      core_activity: activityLabel || "Core activity not mapped",
+      stretch_challenge: stretchLabel || "Stretch challenge not mapped",
+      reflection_loop: reflectionLabel || "Reflection loop not mapped",
+      observation_entry: observationLabel || "Observation entry not mapped",
+      optional_support_action: supportActionLabel,
+    },
+    parent_guidance_setup: `Set up ${activityLabel || "the core activity"} and cue ${targetTraits.join(" + ") || "current trait targets"} before the session.`,
+    current_activity_session_plan: `Run ${activityLabel || "the core activity"}, then apply ${stretchLabel || "a stretch challenge"} to build week momentum.`,
+    reflection_checkin_support: `Close with ${reflectionLabel || "a reflection loop"}, capture ${observationLabel || "an observation"}, and apply ${supportActionLabel}.`,
+    next_action: String(bridgeState.next_recommended_action || `Continue Week ${weekNumber}`),
+  };
+}
+
+function buildProgramWeekContentState({ bridgeState, childId, childProfiles }) {
+  if (!childId) {
+    const options = Array.isArray(childProfiles) ? childProfiles : [];
+    const multiple = options.length > 1;
+    return {
+      ok: true,
+      state: "child_scope_required",
+      state_label: multiple ? "Choose a child to continue" : "Child scope required",
+      messages: multiple
+        ? ["Multiple child profiles detected. Select the child to open the current week content."]
+        : ["Child scope is required before week content can be loaded."],
+      child_scope_options: options.map((entry) => ({
+        child_id: entry.child_id || null,
+        child_name: entry.child_name || null,
+      })),
+      next_action: "Select a child in Parent Dashboard, then continue.",
+    };
+  }
+  if (!bridgeState || bridgeState.ok !== true) {
+    return {
+      ok: true,
+      state: "bridge_unavailable",
+      state_label: "Program state unavailable",
+      messages: ["Program bridge state could not be resolved for this child."],
+      next_action: "Return to Parent Dashboard and retry.",
+    };
+  }
+  if (bridgeState.setup_needed === true || bridgeState.launch_allowed !== true) {
+    return {
+      ok: true,
+      state: "setup_incomplete",
+      state_label: "Setup incomplete",
+      messages: ["Program setup is incomplete. Week content will appear after setup is complete."],
+      next_action: String(bridgeState.next_recommended_action || "Complete setup"),
+    };
+  }
+  if (bridgeState.has_enrollment !== true) {
+    return {
+      ok: true,
+      state: "no_enrollment_found",
+      state_label: "Enrollment not started",
+      messages: ["No active enrollment found for this child. Start the program to unlock Week 1 content."],
+      next_action: String(bridgeState.next_recommended_action || "Begin Week 1"),
+    };
+  }
+  const currentWeek = Math.max(1, Math.min(36, Number(bridgeState.current_week) || 1));
+  const weekModel = PROGRAM_WEEKS.find((entry) => Number(entry.week_number) === currentWeek);
+  if (!weekModel) {
+    return {
+      ok: true,
+      state: "week_content_missing",
+      state_label: "Current week content missing",
+      messages: [`No rail definition was found for week ${currentWeek}.`],
+      next_action: "Contact support to restore week contract wiring.",
+    };
+  }
+  return {
+    ok: true,
+    state: "content_ready",
+    state_label: "Week content ready",
+    child_id: childId,
+    current_week: currentWeek,
+    week_content: buildWeekContentFromRail(weekModel, bridgeState),
+    next_action: String(bridgeState.next_recommended_action || `Continue Week ${currentWeek}`),
   };
 }
 
@@ -1357,6 +1496,11 @@ function renderLiveYouthProgramPage() {
       .btn { border: 1px solid transparent; border-radius: 999px; padding: 8px 12px; text-decoration: none; display: inline-block; cursor: pointer; }
       .btn-primary { background: #1d4ed8; border-color: rgba(59, 130, 246, 0.65); color: #eff6ff; }
       .btn-secondary { background: rgba(6, 95, 70, 0.25); border-color: rgba(16, 185, 129, 0.65); color: #d1fae5; }
+      .state-box { border: 1px dashed rgba(148, 163, 184, 0.5); border-radius: 12px; padding: 12px; background: rgba(15, 23, 42, 0.55); }
+      .state-title { margin: 0 0 6px; font-size: 1rem; }
+      .state-line { margin: 0; color: #94a3b8; }
+      .chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+      .chip { border: 1px solid rgba(148, 163, 184, 0.4); border-radius: 999px; padding: 4px 10px; font-size: 12px; color: #bfdbfe; }
     </style>
   </head>
   <body>
@@ -1373,6 +1517,13 @@ function renderLiveYouthProgramPage() {
           <a id="dashboardBtn" class="btn btn-secondary" href="/youth-development/parent-dashboard">Back to Parent Dashboard</a>
         </div>
       </section>
+      <section class="panel">
+        <h2>Current week guided experience</h2>
+        <div id="weekExperience" class="state-box">
+          <h3 class="state-title">Loading week content…</h3>
+          <p class="state-line">Resolving child-scoped week experience.</p>
+        </div>
+      </section>
     </main>
     <script>
       (async function () {
@@ -1386,6 +1537,7 @@ function renderLiveYouthProgramPage() {
         const list = document.getElementById("programStatusList");
         const launchBtn = document.getElementById("launchBtn");
         const dashboardBtn = document.getElementById("dashboardBtn");
+        const weekExperience = document.getElementById("weekExperience");
 
         function esc(value) {
           return String(value == null ? "" : value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -1399,6 +1551,54 @@ function renderLiveYouthProgramPage() {
           if (accountCtx.email) url.searchParams.set("email", accountCtx.email);
           if (accountCtx.child_id) url.searchParams.set("child_id", accountCtx.child_id);
           return url.pathname + url.search;
+        }
+        function renderStateCard(title, lines, chips, nextAction) {
+          const safeLines = (lines || []).map((line) => '<p class="state-line">' + esc(line) + '</p>').join("");
+          const safeChips = (chips || []).map((chip) => '<span class="chip">' + esc(chip) + '</span>').join("");
+          weekExperience.innerHTML = [
+            '<h3 class="state-title">' + esc(title || "Week experience") + '</h3>',
+            safeLines || '<p class="state-line">No details available.</p>',
+            safeChips ? '<div class="chip-row">' + safeChips + '</div>' : "",
+            nextAction ? '<p class="state-line"><strong>Next action:</strong> ' + esc(nextAction) + '</p>' : "",
+          ].join("");
+        }
+
+        async function loadWeekExperience() {
+          const url = new URL("/api/youth-development/program/week-content", window.location.origin);
+          if (accountCtx.tenant) url.searchParams.set("tenant", accountCtx.tenant);
+          if (accountCtx.email) url.searchParams.set("email", accountCtx.email);
+          if (accountCtx.child_id) url.searchParams.set("child_id", accountCtx.child_id);
+          const response = await fetch(url.pathname + url.search);
+          const payload = response.ok ? await response.json().catch(() => null) : null;
+          if (!payload || payload.ok !== true) {
+            renderStateCard("Unable to load week content", [
+              "Week content could not be loaded for this child scope.",
+              "Verify tenant, parent email, and child selection.",
+            ], [], "Return to Parent Dashboard");
+            return;
+          }
+          if (payload.state !== "content_ready" || !payload.week_content) {
+            renderStateCard(
+              payload.state_label || "Week content unavailable",
+              Array.isArray(payload.messages) ? payload.messages : ["No week-content module is available for the current state."],
+              Array.isArray(payload.child_scope_options) ? payload.child_scope_options.map((entry) => "Child: " + String(entry.child_name || entry.child_id || "Unknown")) : [],
+              payload.next_action || "Resolve child scope then continue"
+            );
+            return;
+          }
+          const week = payload.week_content;
+          renderStateCard(week.title, [
+            week.objective,
+            "Phase/week context: " + String(week.phase_week_context || ""),
+            "Parent guidance/setup: " + String(week.parent_guidance_setup || ""),
+            "Current activity/session: " + String(week.current_activity_session_plan || ""),
+            "Reflection/check-in: " + String(week.reflection_checkin_support || ""),
+          ], [
+            "Core: " + String(week.content_blocks?.core_activity || "N/A"),
+            "Stretch: " + String(week.content_blocks?.stretch_challenge || "N/A"),
+            "Reflection: " + String(week.content_blocks?.reflection_loop || "N/A"),
+            "Observation: " + String(week.content_blocks?.observation_entry || "N/A"),
+          ], week.next_action || payload.next_action || "Continue this week");
         }
 
         dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
@@ -1455,9 +1655,11 @@ function renderLiveYouthProgramPage() {
           launchBtn.textContent = "Continue Development Plan";
           launchBtn.disabled = false;
           dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
+          await loadWeekExperience();
         });
 
         await loadBridge();
+        await loadWeekExperience();
       }());
     </script>
   </body>
@@ -1691,6 +1893,30 @@ function createYouthDevelopmentRouter(options = {}) {
     } catch (err) {
       console.error("youth_children_lookup_failed", err);
       return res.status(500).json({ ok: false, error: "youth_children_lookup_failed" });
+    }
+  });
+
+  router.get("/api/youth-development/program/week-content", async (req, res) => {
+    const childId = safeTrim(req.query?.child_id || req.query?.childId);
+    const accountCtx = resolveRequestAccountContext(req, req.query || {});
+    try {
+      const [bridgeState, childProfiles] = await Promise.all([
+        getProgramBridgeState
+          ? getProgramBridgeState({ accountCtx, request: req, childId: childId || null })
+          : Promise.resolve(null),
+        (!childId && listYouthChildProfiles && accountCtx.tenant && accountCtx.email)
+          ? listYouthChildProfiles({ accountCtx, request: req })
+          : Promise.resolve([]),
+      ]);
+      const payload = buildProgramWeekContentState({
+        bridgeState,
+        childId,
+        childProfiles: Array.isArray(childProfiles) ? childProfiles : [],
+      });
+      return res.status(200).json(payload);
+    } catch (err) {
+      console.error("youth_program_week_content_failed", err);
+      return res.status(500).json({ ok: false, error: "youth_program_week_content_failed" });
     }
   });
 
