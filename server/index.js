@@ -2257,12 +2257,132 @@ async function launchProgramForAccount({ accountCtx, childId = "" }) {
   return getProgramBridgeStateForAccount({ accountCtx, childId: bridge.child_id });
 }
 
+function defaultExecutionState() {
+  return {
+    week_status: "not_started",
+    completed_step_keys: [],
+    active_step_index: 0,
+    reflection_note: "",
+    observation_note: "",
+    reflection_saved: false,
+    observation_saved: false,
+    resume_ready: false,
+    next_week_available: false,
+  };
+}
+
+async function loadProgramWeekExecutionForAccount({ accountCtx, childId = "", weekNumber = 1 }) {
+  const bridge = await getProgramBridgeStateForAccount({ accountCtx, childId });
+  if (!bridge?.child_id || !bridge?.enrollment_id) return defaultExecutionState();
+  const week = Math.max(1, Math.min(36, Number(weekNumber || bridge.current_week || 1)));
+  const rows = await pool.query(
+    `SELECT payload FROM tde_weekly_progress_records
+     WHERE enrollment_id = $1 AND child_id = $2 AND week_number = $3
+     ORDER BY updated_at DESC, created_at DESC
+     LIMIT 1`,
+    [bridge.enrollment_id, bridge.child_id, week]
+  );
+  const payload = rows.rows[0]?.payload || {};
+  const execution = payload.execution_state && typeof payload.execution_state === "object" ? payload.execution_state : {};
+  const merged = { ...defaultExecutionState(), ...execution };
+  merged.next_week_available = merged.week_status === "completed" && week < 36;
+  merged.resume_ready = merged.week_status === "in_progress" || merged.week_status === "completed";
+  return merged;
+}
+
+async function saveProgramWeekExecutionForAccount({ accountCtx, childId = "", weekNumber = 1, actionType = "", stepKey = "", note = "" }) {
+  const bridge = await getProgramBridgeStateForAccount({ accountCtx, childId });
+  if (!bridge?.child_id || !bridge?.enrollment_id) return { ok: false, error: "program_enrollment_required" };
+  const week = Math.max(1, Math.min(36, Number(weekNumber || bridge.current_week || 1)));
+  const progressRows = await pool.query(
+    `SELECT payload, progress_id FROM tde_weekly_progress_records
+     WHERE enrollment_id = $1 AND child_id = $2 AND week_number = $3
+     ORDER BY updated_at DESC, created_at DESC
+     LIMIT 1`,
+    [bridge.enrollment_id, bridge.child_id, week]
+  );
+  const basePayload = progressRows.rows[0]?.payload || {
+    progress_id: `wpr-${bridge.enrollment_id}-${week}`,
+    enrollment_id: bridge.enrollment_id,
+    child_id: bridge.child_id,
+    week_number: week,
+    completion_status: "in_progress",
+  };
+  const execution = { ...defaultExecutionState(), ...(basePayload.execution_state || {}) };
+  const normalizedAction = String(actionType || "").trim().toLowerCase();
+  const steps = ["core_activity", "stretch_challenge", "reflection_checkin", "observation_support"];
+  if (normalizedAction === "start_week") execution.week_status = execution.week_status === "completed" ? "completed" : "in_progress";
+  if (normalizedAction === "save_reflection") {
+    execution.reflection_note = String(note || "").trim().slice(0, 2000);
+    execution.reflection_saved = execution.reflection_note.length > 0;
+    if (execution.week_status === "not_started") execution.week_status = "in_progress";
+  }
+  if (normalizedAction === "save_observation") {
+    execution.observation_note = String(note || "").trim().slice(0, 2000);
+    execution.observation_saved = execution.observation_note.length > 0;
+    if (execution.week_status === "not_started") execution.week_status = "in_progress";
+  }
+  if (normalizedAction === "mark_step_complete") {
+    const requestedStep = steps.includes(stepKey) ? stepKey : steps[Math.max(0, Math.min(steps.length - 1, Number(execution.active_step_index || 0)))];
+    execution.completed_step_keys = [...new Set([...(execution.completed_step_keys || []), requestedStep])];
+    execution.active_step_index = Math.min(steps.length - 1, execution.completed_step_keys.length);
+    if (execution.week_status === "not_started") execution.week_status = "in_progress";
+  }
+  if (normalizedAction === "continue_next_step") {
+    execution.active_step_index = Math.min(steps.length - 1, Number(execution.active_step_index || 0) + 1);
+    if (execution.week_status === "not_started") execution.week_status = "in_progress";
+  }
+
+  const completionEligible = steps.every((step) => (execution.completed_step_keys || []).includes(step))
+    && execution.reflection_saved === true
+    && execution.observation_saved === true;
+  if (completionEligible) execution.week_status = "completed";
+  if (normalizedAction === "continue_next_week" && execution.week_status === "completed" && week < 36) {
+    await pool.query(
+      `UPDATE tde_program_enrollments
+       SET current_week = $1,
+           payload = jsonb_set(payload, '{current_week}', to_jsonb($1::int), true),
+           updated_at = NOW()
+       WHERE enrollment_id = $2`,
+      [week + 1, bridge.enrollment_id]
+    );
+  }
+
+  execution.next_week_available = execution.week_status === "completed" && week < 36;
+  execution.resume_ready = execution.week_status === "in_progress" || execution.week_status === "completed";
+  const updatedPayload = {
+    ...basePayload,
+    completion_status: execution.week_status === "completed" ? "complete" : "in_progress",
+    execution_state: execution,
+    updated_at: new Date().toISOString(),
+  };
+  await pool.query(
+    `INSERT INTO tde_weekly_progress_records
+      (progress_id, enrollment_id, child_id, week_number, completion_status, payload)
+     VALUES ($1,$2,$3,$4,$5,$6::jsonb)
+     ON CONFLICT (progress_id) DO UPDATE
+     SET completion_status = EXCLUDED.completion_status,
+         payload = EXCLUDED.payload,
+         updated_at = NOW()`,
+    [updatedPayload.progress_id, bridge.enrollment_id, bridge.child_id, week, updatedPayload.completion_status, JSON.stringify(updatedPayload)]
+  );
+  return {
+    ok: true,
+    child_id: bridge.child_id,
+    week_number: week,
+    execution_state: execution,
+    bridge_state: await getProgramBridgeStateForAccount({ accountCtx, childId: bridge.child_id }),
+  };
+}
+
 app.use(createYouthDevelopmentRouter({
   persistYouthAssessment: persistYouthAssessmentForAccount,
   loadLatestYouthAssessment: loadLatestYouthAssessmentForAccount,
   listYouthChildProfiles: listYouthChildProfilesForAccount,
   getProgramBridgeState: getProgramBridgeStateForAccount,
   launchProgramForChild: launchProgramForAccount,
+  getProgramWeekExecution: loadProgramWeekExecutionForAccount,
+  saveProgramWeekExecution: saveProgramWeekExecutionForAccount,
 }));
 app.use("/api/youth-development/intake", createYouthDevelopmentIntakeRouter());
 app.use("/api/youth-development/tde", createYouthDevelopmentTdeRouter({ pool }));

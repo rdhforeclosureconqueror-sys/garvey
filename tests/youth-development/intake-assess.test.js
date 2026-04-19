@@ -390,6 +390,17 @@ test('POST /api/youth-development/program/launch returns resume state and does n
 test('GET /api/youth-development/program/week-content returns current week guided content from program rail when enrolled', async () => {
   const app = express();
   app.use(express.json());
+  let savedExecution = {
+    week_status: 'not_started',
+    completed_step_keys: [],
+    active_step_index: 0,
+    reflection_note: '',
+    observation_note: '',
+    reflection_saved: false,
+    observation_saved: false,
+    resume_ready: false,
+    next_week_available: false,
+  };
   app.use(createYouthDevelopmentRouter({
     getProgramBridgeState: async ({ childId }) => ({
       ok: true,
@@ -401,6 +412,13 @@ test('GET /api/youth-development/program/week-content returns current week guide
       current_phase_name: 'Foundation',
       next_recommended_action: 'Continue Week 1',
     }),
+    getProgramWeekExecution: async () => savedExecution,
+    saveProgramWeekExecution: async ({ actionType, note }) => {
+      if (actionType === 'save_reflection') {
+        savedExecution = { ...savedExecution, reflection_note: note, reflection_saved: true, week_status: 'in_progress', resume_ready: true };
+      }
+      return { ok: true, execution_state: savedExecution };
+    },
   }));
   const server = http.createServer(app);
   await new Promise((resolve) => server.listen(0, resolve));
@@ -431,6 +449,75 @@ test('GET /api/youth-development/program/week-content returns current week guide
     assert.ok(payload.week_content.parent_guidance_setup);
     assert.ok(payload.week_content.current_activity_session_plan);
     assert.ok(payload.week_content.reflection_checkin_support);
+    assert.ok(payload.execution_state);
+    assert.equal(payload.week_content.content_audit.ok, true);
+    assert.deepEqual(payload.week_content.content_audit.classifications.placeholder_demo_filler_content, []);
+    assert.ok(payload.week_content.parent_prompts.reflection_prompt);
+    assert.doesNotMatch(String(payload.week_content.objective), /loading\\.|fixture|placeholder/i);
+    assert.doesNotMatch(String(payload.week_content.week_purpose), /loading\\.|fixture|placeholder/i);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('POST /api/youth-development/program/week-execution persists reflection/observation and supports resume progression controls', async () => {
+  const app = express();
+  app.use(express.json());
+  let executionState = {
+    week_status: 'not_started',
+    completed_step_keys: [],
+    active_step_index: 0,
+    reflection_note: '',
+    observation_note: '',
+    reflection_saved: false,
+    observation_saved: false,
+    resume_ready: false,
+    next_week_available: false,
+  };
+  app.use(createYouthDevelopmentRouter({
+    saveProgramWeekExecution: async ({ actionType, stepKey, note }) => {
+      if (actionType === 'start_week') executionState = { ...executionState, week_status: 'in_progress', resume_ready: true };
+      if (actionType === 'save_reflection') executionState = { ...executionState, reflection_note: note, reflection_saved: true, resume_ready: true };
+      if (actionType === 'save_observation') executionState = { ...executionState, observation_note: note, observation_saved: true, resume_ready: true };
+      if (actionType === 'mark_step_complete') executionState = { ...executionState, completed_step_keys: [...new Set([...executionState.completed_step_keys, stepKey])] };
+      if (executionState.completed_step_keys.length >= 4 && executionState.reflection_saved && executionState.observation_saved) {
+        executionState = { ...executionState, week_status: 'completed', next_week_available: true };
+      }
+      return { ok: true, execution_state: executionState, bridge_state: { current_week: 1 } };
+    },
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const start = await fetch(`${baseUrl}/api/youth-development/program/week-execution`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ action_type: 'start_week' }),
+    });
+    assert.equal(start.status, 200);
+    const startPayload = await start.json();
+    assert.equal(startPayload.execution_state.week_status, 'in_progress');
+    assert.equal(startPayload.execution_state.resume_ready, true);
+
+    const reflection = await fetch(`${baseUrl}/api/youth-development/program/week-execution`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ action_type: 'save_reflection', note: 'Reflection note saved.' }),
+    });
+    const reflectionPayload = await reflection.json();
+    assert.equal(reflectionPayload.execution_state.reflection_saved, true);
+    assert.equal(reflectionPayload.execution_state.reflection_note, 'Reflection note saved.');
+
+    const observation = await fetch(`${baseUrl}/api/youth-development/program/week-execution`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ action_type: 'save_observation', note: 'Observation note saved.' }),
+    });
+    const observationPayload = await observation.json();
+    assert.equal(observationPayload.execution_state.observation_saved, true);
+    assert.equal(observationPayload.execution_state.observation_note, 'Observation note saved.');
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
