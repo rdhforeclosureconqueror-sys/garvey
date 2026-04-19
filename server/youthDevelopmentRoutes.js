@@ -623,6 +623,7 @@ function renderLiveYouthAssessmentPage() {
         </div>
         <div class="controls" style="margin-top:10px;">
           <a id="openLiveDashboardBtn" href="/youth-development/parent-dashboard" style="display:none;border:1px solid #0f766e;background:#0f766e;color:#fff;border-radius:999px;padding:8px 12px;text-decoration:none;">Open Youth Parent Dashboard</a>
+          <a id="startProgramBtn" href="/youth-development/program" style="display:none;border:1px solid #1d4ed8;background:#1d4ed8;color:#fff;border-radius:999px;padding:8px 12px;text-decoration:none;">Start Program</a>
         </div>
       </section>
     </main>
@@ -636,6 +637,7 @@ function renderLiveYouthAssessmentPage() {
         const intakeStatus = document.getElementById("intakeStatus");
         const resultCard = document.getElementById("resultCard");
         const openLiveDashboardBtn = document.getElementById("openLiveDashboardBtn");
+        const startProgramBtn = document.getElementById("startProgramBtn");
         const state = { questions: [], index: 0, answers: {} };
         const query = new URLSearchParams(window.location.search);
         const accountCtx = {
@@ -649,6 +651,9 @@ function renderLiveYouthAssessmentPage() {
           const dashUrl = new URL("/youth-development/parent-dashboard", window.location.origin);
           Object.entries(accountCtx).forEach(([key, value]) => { if (value) dashUrl.searchParams.set(key, value); });
           openLiveDashboardBtn.href = dashUrl.pathname + dashUrl.search;
+          const programUrl = new URL("/youth-development/program", window.location.origin);
+          Object.entries(accountCtx).forEach(([key, value]) => { if (value) programUrl.searchParams.set(key, value); });
+          startProgramBtn.href = programUrl.pathname + programUrl.search;
         }
 
         const questionResponse = await fetch("/api/youth-development/questions");
@@ -690,6 +695,7 @@ function renderLiveYouthAssessmentPage() {
             intakeStatus.textContent = "Please answer the intake questions before submitting.";
             resultCard.innerHTML = "<p><strong>Assessment not submitted.</strong></p><p class=\\"muted\\">Please answer the intake questions before submitting.</p>";
             openLiveDashboardBtn.style.display = "none";
+            startProgramBtn.style.display = "none";
             return;
           }
           intakeStatus.textContent = "Submitting assessment...";
@@ -713,6 +719,7 @@ function renderLiveYouthAssessmentPage() {
             resultCard.innerHTML = "<p><strong>We could not submit this assessment.</strong></p><p class=\\"muted\\">" + String(payload.error || "Request failed") + "</p>";
             intakeStatus.textContent = String(payload.error || "Request failed");
             openLiveDashboardBtn.style.display = "none";
+            startProgramBtn.style.display = "none";
             return;
           }
           try {
@@ -735,6 +742,15 @@ function renderLiveYouthAssessmentPage() {
           ].join("");
           intakeStatus.textContent = "Submitted " + payload.answers_count + " of " + payload.question_count + " answers.";
           openLiveDashboardBtn.style.display = "";
+          const scopedChildId = ((((payload || {}).ownership || {}).child_profile || {}).child_id || "").trim();
+          if (scopedChildId) {
+            const launchUrl = new URL(startProgramBtn.href, window.location.origin);
+            launchUrl.searchParams.set("child_id", scopedChildId);
+            startProgramBtn.href = launchUrl.pathname + launchUrl.search;
+            startProgramBtn.style.display = "";
+          } else {
+            startProgramBtn.style.display = "none";
+          }
         });
 
         async function hydrateExistingAccountResult() {
@@ -753,6 +769,8 @@ function renderLiveYouthAssessmentPage() {
           ].join("");
           openLiveDashboardBtn.style.display = "";
           openLiveDashboardBtn.textContent = "Resume / View Youth Results";
+          startProgramBtn.style.display = "";
+          startProgramBtn.textContent = "Start / Continue Program";
         }
 
         renderQuestion();
@@ -930,6 +948,15 @@ function renderLiveYouthParentDashboardPage() {
       </section>
 
       <section class="panel">
+        <h2>Development program</h2>
+        <p id="programStatusSummary" class="muted">Complete an assessment to unlock your child-specific development program.</p>
+        <ul id="programStatusList" class="list"><li class="muted">No program status yet.</li></ul>
+        <div class="actions">
+          <a class="btn btn-primary" id="programLaunchBtn" href="/youth-development/program" style="display:none;">Start Program</a>
+        </div>
+      </section>
+
+      <section class="panel">
         <h2>Actions</h2>
         <div class="actions">
           <a class="btn btn-primary" id="viewSavedDashboardBtn" href="/youth-development/parent-dashboard">View Saved Dashboard</a>
@@ -953,6 +980,9 @@ function renderLiveYouthParentDashboardPage() {
           tenant: (query.get("tenant") || "").trim(),
           email: (query.get("email") || "").trim().toLowerCase(),
         };
+        const programStatusSummary = document.getElementById("programStatusSummary");
+        const programStatusList = document.getElementById("programStatusList");
+        const programLaunchBtn = document.getElementById("programLaunchBtn");
 
         const CATEGORY_META = {
           SR: {
@@ -1166,6 +1196,59 @@ function renderLiveYouthParentDashboardPage() {
           });
         }
 
+        function setProgramStatus(summary, items, cta) {
+          programStatusSummary.textContent = summary || "Program status unavailable.";
+          const rows = Array.isArray(items) ? items : [];
+          programStatusList.innerHTML = rows.length
+            ? rows.map((line) => '<li>' + esc(line) + '</li>').join('')
+            : '<li class="muted">No program status yet.</li>';
+          if (cta && cta.href && cta.label) {
+            programLaunchBtn.href = cta.href;
+            programLaunchBtn.textContent = cta.label;
+            programLaunchBtn.style.display = "";
+          } else {
+            programLaunchBtn.style.display = "none";
+          }
+        }
+
+        async function hydrateProgramBridge(scopedChild, hasAssessment) {
+          if (!accountCtx.tenant || !accountCtx.email) {
+            setProgramStatus("Add tenant/email context to load parent program state.", [], null);
+            return;
+          }
+          if (!scopedChild || !scopedChild.child_id) {
+            if (hasAssessment) {
+              setProgramStatus("Child profile setup is required before program launch.", ["Add child name in intake so we can preserve child scope."], null);
+            } else {
+              setProgramStatus("Assessment is incomplete. Finish intake first.", ["Program launch appears only after a completed assessment."], {
+                href: "/youth-development/intake?tenant=" + encodeURIComponent(accountCtx.tenant) + "&email=" + encodeURIComponent(accountCtx.email),
+                label: "Return to Intake",
+              });
+            }
+            return;
+          }
+          const endpoint = new URL('/api/youth-development/program/bridge', window.location.origin);
+          endpoint.searchParams.set('tenant', accountCtx.tenant);
+          endpoint.searchParams.set('email', accountCtx.email);
+          endpoint.searchParams.set('child_id', String(scopedChild.child_id));
+          const response = await fetch(endpoint.pathname + endpoint.search);
+          const bridge = response.ok ? await response.json().catch(() => null) : null;
+          if (!bridge || bridge.ok !== true) {
+            setProgramStatus("Program state could not be loaded yet.", ["You can still open the program screen and retry launch."], {
+              href: "/youth-development/program?tenant=" + encodeURIComponent(accountCtx.tenant) + "&email=" + encodeURIComponent(accountCtx.email) + "&child_id=" + encodeURIComponent(String(scopedChild.child_id)),
+              label: "Open Program",
+            });
+            return;
+          }
+          const itemLines = [
+            "Status: " + String(bridge.program_status_label || "Setup needed"),
+            "Current phase: " + String(bridge.current_phase_name || "Not assigned"),
+            "Current week: " + String(bridge.current_week || "Not assigned"),
+            "Next recommended action: " + String(bridge.next_recommended_action || "Complete setup"),
+          ];
+          setProgramStatus(bridge.parent_summary || "Program bridge ready.", itemLines, bridge.cta || null);
+        }
+
         function applyPayload(data, opts) {
           if (!data || !data.page_model) return false;
           const options = opts || {};
@@ -1204,6 +1287,7 @@ function renderLiveYouthParentDashboardPage() {
           if (!childProfiles.length) {
             document.getElementById('heroSummary').textContent = 'No child profile is linked to this account yet. Complete intake with child name to create child scope.';
             document.getElementById('weeklySupport').innerHTML = '<li class="muted">Child profile setup needed before child-scoped TDE loading is available.</li>';
+            await hydrateProgramBridge(null, false);
             return false;
           }
           const scopedChild = requestedChildId
@@ -1218,6 +1302,7 @@ function renderLiveYouthParentDashboardPage() {
               dash.searchParams.set('child_id', String(entry.child_id || ''));
               return '<li><a href="' + esc(dash.pathname + dash.search) + '">' + esc(entry.child_name || entry.child_id || 'Child profile') + '</a></li>';
             }).join('');
+            setProgramStatus("Multiple children are available. Choose child scope first.", childProfiles.map((entry) => "Select " + (entry.child_name || entry.child_id || "Child profile")), null);
             return false;
           }
           const endpoint = new URL('/api/youth-development/parent-dashboard/latest', window.location.origin);
@@ -1227,8 +1312,13 @@ function renderLiveYouthParentDashboardPage() {
           const response = await fetch(endpoint.pathname + endpoint.search);
           if (!response.ok) return false;
           const data = await response.json().catch(() => null);
-          if (!data || !data.ok || !data.has_result || !data.payload) return false;
-          return applyPayload(data.payload, { savedAt: data.saved_at || data.payload.saved_at || '' });
+          if (!data || !data.ok || !data.has_result || !data.payload) {
+            await hydrateProgramBridge(scopedChild, false);
+            return false;
+          }
+          const applied = applyPayload(data.payload, { savedAt: data.saved_at || data.payload.saved_at || '' });
+          await hydrateProgramBridge(scopedChild, applied === true);
+          return applied;
         }
 
         document.getElementById('closeHelpBtn').addEventListener('click', function () {
@@ -1244,6 +1334,130 @@ function renderLiveYouthParentDashboardPage() {
 
         if (payload && applyPayload(payload, { savedAt: payload?.ownership?.saved_at || payload?.saved_at })) return;
         hydrateFromAccount().catch(() => null);
+      }());
+    </script>
+  </body>
+</html>`;
+}
+
+function renderLiveYouthProgramPage() {
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Youth Development Program</title>
+    <style>
+      body { font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; padding: 20px; background: #020617; color: #e2e8f0; }
+      main { max-width: 840px; margin: 0 auto; display: grid; gap: 12px; }
+      .panel { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 14px; padding: 14px; background: rgba(15, 23, 42, 0.85); }
+      .muted { color: #94a3b8; }
+      .list { margin: 0; padding-left: 18px; display: grid; gap: 8px; }
+      .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+      .btn { border: 1px solid transparent; border-radius: 999px; padding: 8px 12px; text-decoration: none; display: inline-block; cursor: pointer; }
+      .btn-primary { background: #1d4ed8; border-color: rgba(59, 130, 246, 0.65); color: #eff6ff; }
+      .btn-secondary { background: rgba(6, 95, 70, 0.25); border-color: rgba(16, 185, 129, 0.65); color: #d1fae5; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="panel">
+        <h1>Youth Development Program</h1>
+        <p id="programHero" class="muted">Loading child-scoped program readiness…</p>
+      </section>
+      <section class="panel">
+        <h2>Program status</h2>
+        <ul id="programStatusList" class="list"><li class="muted">Loading…</li></ul>
+        <div class="actions">
+          <button id="launchBtn" class="btn btn-primary" type="button" style="display:none;">Start Program</button>
+          <a id="dashboardBtn" class="btn btn-secondary" href="/youth-development/parent-dashboard">Back to Parent Dashboard</a>
+        </div>
+      </section>
+    </main>
+    <script>
+      (async function () {
+        const query = new URLSearchParams(window.location.search);
+        const accountCtx = {
+          tenant: (query.get("tenant") || "").trim(),
+          email: (query.get("email") || "").trim().toLowerCase(),
+          child_id: (query.get("child_id") || query.get("childId") || "").trim(),
+        };
+        const hero = document.getElementById("programHero");
+        const list = document.getElementById("programStatusList");
+        const launchBtn = document.getElementById("launchBtn");
+        const dashboardBtn = document.getElementById("dashboardBtn");
+
+        function esc(value) {
+          return String(value == null ? "" : value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+        function setList(items) {
+          list.innerHTML = (items || []).map((line) => '<li>' + esc(line) + '</li>').join("") || '<li class="muted">No status available.</li>';
+        }
+        function withCtx(path) {
+          const url = new URL(path, window.location.origin);
+          if (accountCtx.tenant) url.searchParams.set("tenant", accountCtx.tenant);
+          if (accountCtx.email) url.searchParams.set("email", accountCtx.email);
+          if (accountCtx.child_id) url.searchParams.set("child_id", accountCtx.child_id);
+          return url.pathname + url.search;
+        }
+
+        dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
+
+        async function loadBridge() {
+          const bridgeUrl = new URL("/api/youth-development/program/bridge", window.location.origin);
+          if (accountCtx.tenant) bridgeUrl.searchParams.set("tenant", accountCtx.tenant);
+          if (accountCtx.email) bridgeUrl.searchParams.set("email", accountCtx.email);
+          if (accountCtx.child_id) bridgeUrl.searchParams.set("child_id", accountCtx.child_id);
+          const response = await fetch(bridgeUrl.pathname + bridgeUrl.search);
+          const payload = response.ok ? await response.json().catch(() => null) : null;
+          if (!payload || payload.ok !== true) {
+            hero.textContent = "Program bridge could not load. Ensure tenant/email/child scope is present.";
+            setList(["Missing or invalid account context.", "If assessment is incomplete, return to intake first."]);
+            return null;
+          }
+          hero.textContent = String(payload.parent_summary || "Program bridge ready.");
+          setList([
+            "Status: " + String(payload.program_status_label || "Setup needed"),
+            "Current phase: " + String(payload.current_phase_name || "Not assigned"),
+            "Current week: " + String(payload.current_week || "Not assigned"),
+            "Next action: " + String(payload.next_recommended_action || "Complete setup"),
+          ]);
+          if (payload.launch_allowed === true) {
+            launchBtn.style.display = "";
+            launchBtn.textContent = String((payload.cta && payload.cta.label) || "Start Program");
+          } else {
+            launchBtn.style.display = "none";
+          }
+          return payload;
+        }
+
+        launchBtn.addEventListener("click", async function () {
+          launchBtn.disabled = true;
+          const response = await fetch("/api/youth-development/program/launch", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(accountCtx),
+          });
+          const payload = response.ok ? await response.json().catch(() => null) : null;
+          if (!payload || payload.ok !== true) {
+            hero.textContent = "Program launch failed. Please retry.";
+            launchBtn.disabled = false;
+            return;
+          }
+          accountCtx.child_id = String(payload.child_id || accountCtx.child_id || "");
+          hero.textContent = String(payload.parent_summary || "Program launch confirmed.");
+          setList([
+            "Status: " + String(payload.program_status_label || "Active"),
+            "Current phase: " + String(payload.current_phase_name || "Foundation"),
+            "Current week: " + String(payload.current_week || 1),
+            "Next action: " + String(payload.next_recommended_action || "Begin current week"),
+          ]);
+          launchBtn.textContent = "Continue Development Plan";
+          launchBtn.disabled = false;
+          dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
+        });
+
+        await loadBridge();
       }());
     </script>
   </body>
@@ -1339,6 +1553,8 @@ function createYouthDevelopmentRouter(options = {}) {
   const persistYouthAssessment = typeof options.persistYouthAssessment === "function" ? options.persistYouthAssessment : null;
   const loadLatestYouthAssessment = typeof options.loadLatestYouthAssessment === "function" ? options.loadLatestYouthAssessment : null;
   const listYouthChildProfiles = typeof options.listYouthChildProfiles === "function" ? options.listYouthChildProfiles : null;
+  const getProgramBridgeState = typeof options.getProgramBridgeState === "function" ? options.getProgramBridgeState : null;
+  const launchProgramForChild = typeof options.launchProgramForChild === "function" ? options.launchProgramForChild : null;
 
   router.get("/youth-development/intake", (req, res) => (
     res.status(200).type("html").send(renderLiveYouthAssessmentPage())
@@ -1350,6 +1566,9 @@ function createYouthDevelopmentRouter(options = {}) {
 
   router.get("/youth-development/parent-dashboard", (req, res) => (
     res.status(200).type("html").send(renderLiveYouthParentDashboardPage())
+  ));
+  router.get("/youth-development/program", (req, res) => (
+    res.status(200).type("html").send(renderLiveYouthProgramPage())
   ));
 
   router.get("/youth-development/parent-dashboard/preview", (req, res) => {
@@ -1472,6 +1691,36 @@ function createYouthDevelopmentRouter(options = {}) {
     } catch (err) {
       console.error("youth_children_lookup_failed", err);
       return res.status(500).json({ ok: false, error: "youth_children_lookup_failed" });
+    }
+  });
+
+  router.get("/api/youth-development/program/bridge", async (req, res) => {
+    if (!getProgramBridgeState) {
+      return res.status(200).json({ ok: true, launch_allowed: false, reason: "program_bridge_not_enabled" });
+    }
+    try {
+      const childId = safeTrim(req.query?.child_id || req.query?.childId);
+      const accountCtx = resolveRequestAccountContext(req, req.body || {});
+      const state = await getProgramBridgeState({ accountCtx, request: req, childId });
+      return res.status(200).json(state || { ok: true, launch_allowed: false, reason: "program_state_unavailable" });
+    } catch (err) {
+      console.error("youth_program_bridge_failed", err);
+      return res.status(500).json({ ok: false, error: "youth_program_bridge_failed" });
+    }
+  });
+
+  router.post("/api/youth-development/program/launch", async (req, res) => {
+    if (!launchProgramForChild) {
+      return res.status(200).json({ ok: true, launch_allowed: false, reason: "program_launch_not_enabled" });
+    }
+    try {
+      const childId = safeTrim(req.body?.child_id || req.body?.childId || req.query?.child_id || req.query?.childId);
+      const accountCtx = resolveRequestAccountContext(req, req.body || {});
+      const launched = await launchProgramForChild({ accountCtx, request: req, childId });
+      return res.status(200).json(launched || { ok: false, error: "program_launch_unavailable" });
+    } catch (err) {
+      console.error("youth_program_launch_failed", err);
+      return res.status(500).json({ ok: false, error: "youth_program_launch_failed" });
     }
   });
 

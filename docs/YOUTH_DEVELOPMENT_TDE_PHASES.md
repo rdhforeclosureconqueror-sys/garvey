@@ -597,3 +597,44 @@ Phase 25 normalizes additive UI-facing display contracts for the internal TDE op
 - No live youth v1 route changes.
 - No dashboard/public route removals.
 - Missing contracts remain explicit and surfaced (not hidden).
+
+## Phase 26 (this pass)
+Phase 26 adds the missing parent-facing bridge from completed youth assessment into the guided development program while preserving live youth v1 assessment and dashboard behavior.
+
+### What Phase 26 adds
+- Parent-facing program bridge endpoints in the live youth namespace:
+  - `GET /api/youth-development/program/bridge`
+  - `POST /api/youth-development/program/launch`
+- New parent-facing guided program page:
+  - `GET /youth-development/program`
+- Additive parent dashboard/program CTA behavior:
+  - start/continue CTA appears only when child/account scope is eligible.
+  - program state summary shows status, phase, week, and next recommended action.
+- Intake completion bridge CTA:
+  - after successful assessment completion, parent sees direct `Start Program` CTA when child scope is present.
+
+### Start vs Continue contract
+- **Start Program** appears when:
+  - assessment is complete,
+  - child profile scope is ready,
+  - no active enrollment exists.
+- **Continue Development Plan** appears when:
+  - assessment is complete,
+  - child profile scope is ready,
+  - enrollment already exists and has an assigned current week/phase.
+
+### Child scope continuity contract
+- Program bridge and launch are bound to tenant + parent email + child profile scope.
+- Child scope resolution uses existing persisted youth assessment ownership records.
+- Child display context (name and child_id), latest assessment linkage, and authored content-bank availability remain preserved.
+
+### Setup and incomplete states surfaced
+- Assessment incomplete → parent is directed back to intake.
+- No child profile found / child profile incomplete → explicit setup-needed message.
+- Multiple children → parent is prompted to select child scope first.
+- Program launch unavailable (bridge disabled or context missing) → explicit non-fatal status, no hidden redirects.
+
+### What remains unchanged
+- Live youth v1 assessment routes, 25-question intake contract, and current parent result breakdown remain intact.
+- Existing youth parent dashboard trait/result rendering remains additive-safe.
+- TDE admin/operator paths are not required for parent program start/continue.

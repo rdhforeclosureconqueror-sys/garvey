@@ -316,3 +316,73 @@ test('GET /api/youth-development/parent-dashboard/latest forwards optional child
     await new Promise((resolve) => server.close(resolve));
   }
 });
+
+test('GET /api/youth-development/program/bridge returns child-scoped parent launch status', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    getProgramBridgeState: async ({ childId }) => ({
+      ok: true,
+      child_id: childId,
+      launch_allowed: true,
+      has_enrollment: false,
+      current_week: 1,
+      current_phase_name: 'Foundation',
+      next_recommended_action: 'Begin Week 1',
+      cta: { label: 'Start Program', href: '/youth-development/program?tenant=demo&email=parent%40example.com&child_id=' + childId },
+    }),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/program/bridge?tenant=demo&email=parent@example.com&child_id=child-real-1`);
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ok, true);
+    assert.equal(payload.child_id, 'child-real-1');
+    assert.equal(payload.launch_allowed, true);
+    assert.equal(payload.current_week, 1);
+    assert.equal(payload.current_phase_name, 'Foundation');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('POST /api/youth-development/program/launch returns resume state and does not loop parent to intake', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    launchProgramForChild: async ({ childId }) => ({
+      ok: true,
+      child_id: childId,
+      launch_allowed: true,
+      has_enrollment: true,
+      current_week: 4,
+      current_phase_name: 'Foundation',
+      next_recommended_action: 'Continue Week 4',
+      cta: { label: 'Continue Development Plan', href: '/youth-development/program?tenant=demo&email=parent%40example.com&child_id=' + childId },
+    }),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/program/launch`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', email: 'parent@example.com', child_id: 'child-real-1' }),
+    });
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ok, true);
+    assert.equal(payload.has_enrollment, true);
+    assert.equal(payload.next_recommended_action, 'Continue Week 4');
+    assert.match(String(payload.cta && payload.cta.href), /\/youth-development\/program/);
+    assert.doesNotMatch(String(payload.cta && payload.cta.href), /\/youth-development\/intake/);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
