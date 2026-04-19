@@ -187,7 +187,13 @@ const COMPONENT_GROUPS = Object.freeze({
   core: Object.freeze(["RULE_BASED_REGULATION", "ATTENTION_MINDFULNESS"]),
   stretch: "CHALLENGE_SUSTAINED_FOCUS",
   reflection: "REFLECTION_COACHING",
+  opening: "OPENING_ROUTINE",
+  transition: "TRANSITION_ROUTINE",
+  closing: "CLOSING_ROUTINE",
+  observation: "OBSERVATION_SUPPORT",
 });
+
+const DAYS = Object.freeze(["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]);
 
 function buildRoadmap(currentWeek) {
   return [currentWeek - 1, currentWeek, currentWeek + 1]
@@ -247,11 +253,78 @@ function buildActivitySurface({ childId, phaseNumber }) {
       core_activity: coreBankOptions,
       stretch_challenge: listActivitiesByComponent(COMPONENT_GROUPS.stretch).activities.map((entry) => normalizeActivity(entry)),
       reflection: listActivitiesByComponent(COMPONENT_GROUPS.reflection).activities.map((entry) => normalizeActivity(entry)),
+      opening_routine: listActivitiesByComponent(COMPONENT_GROUPS.opening).activities.map((entry) => normalizeActivity(entry)),
+      transition_routine: listActivitiesByComponent(COMPONENT_GROUPS.transition).activities.map((entry) => normalizeActivity(entry)),
+      closing_routine: listActivitiesByComponent(COMPONENT_GROUPS.closing).activities.map((entry) => normalizeActivity(entry)),
+      observation_support: listActivitiesByComponent(COMPONENT_GROUPS.observation).activities.map((entry) => normalizeActivity(entry)),
     },
   };
 }
 
-function buildWeekContentFromRail(weekModel, bridgeState = {}) {
+function auditActivityBankDepth(activitySurface = {}) {
+  const banks = activitySurface.banks || {};
+  const read = (key) => Array.isArray(banks[key]) ? banks[key] : [];
+  const summarize = (key, minimum, categoriesMissing, proposedAdditions) => {
+    const count = read(key).length;
+    return {
+      category: key,
+      current_count: count,
+      depth_limit: count < minimum ? `too_thin_for_weekly_planning (${count}/${minimum})` : "usable",
+      missing_categories: categoriesMissing,
+      proposed_authored_additions: proposedAdditions,
+    };
+  };
+  return {
+    generated_at: new Date().toISOString(),
+    areas: [
+      summarize("core_activity", 4, ["phase-specific choice ladders", "child-choice variants"], ["rule cues", "attention starts", "phase progression variants"]),
+      summarize("stretch_challenge", 3, ["transfer pressure variants", "leadership variants"], ["transfer map sprint", "choice complexity ramp"]),
+      summarize("reflection", 3, ["multi-step loops", "next-session bridge prompts"], ["growth loop reflection", "evidence + transfer prompt variants"]),
+      summarize("observation_support", 2, ["trigger tracking", "support action timing"], ["support action tracker"]),
+      summarize("opening_routine", 1, ["intention setup"], ["intention check-in"]),
+      summarize("transition_routine", 1, ["energy reset"], ["90-second reset transition"]),
+      summarize("closing_routine", 1, ["session close + accountability"], ["observation exit ticket"]),
+    ],
+  };
+}
+
+function buildSessionTemplate({ activitySurface, durationMinutes, scheduledAt, selectedActivityIds = [] }) {
+  const banks = activitySurface?.banks || {};
+  const selectedById = new Map();
+  Object.values(banks).flat().forEach((item) => selectedById.set(item.activity_id, item));
+  const picked = selectedActivityIds.map((id) => selectedById.get(id)).filter(Boolean);
+  const selected = {
+    opening: picked.find((item) => item.component_type === COMPONENT_GROUPS.opening) || (banks.opening_routine || [])[0] || null,
+    core: picked.find((item) => COMPONENT_GROUPS.core.includes(item.component_type)) || (banks.core_activity || [])[0] || null,
+    stretch: picked.find((item) => item.component_type === COMPONENT_GROUPS.stretch) || (banks.stretch_challenge || [])[0] || null,
+    reflection: picked.find((item) => item.component_type === COMPONENT_GROUPS.reflection) || (banks.reflection || [])[0] || null,
+    observation: picked.find((item) => item.component_type === COMPONENT_GROUPS.observation) || (banks.observation_support || [])[0] || null,
+    transition: (banks.transition_routine || [])[0] || null,
+    close: (banks.closing_routine || [])[0] || null,
+  };
+  const block = (segment, minutes, activity) => ({
+    segment,
+    minutes,
+    activity_id: activity?.activity_id || null,
+    title: activity?.title || null,
+  });
+  return {
+    scheduled_at: scheduledAt || null,
+    total_minutes: Number(durationMinutes || 30),
+    blocks: [
+      block("opening_routine", 4, selected.opening),
+      block("prep_time", 3, null),
+      block("core_activity", 12, selected.core),
+      block("transition", 2, selected.transition),
+      block("stretch_challenge", 6, selected.stretch),
+      block("transition", 1, selected.transition),
+      block("reflection", 4, selected.reflection),
+      block("observation_close", 3, selected.observation || selected.close),
+    ],
+  };
+}
+
+function buildWeekContentFromRail(weekModel, bridgeState = {}, planningState = {}) {
   if (!weekModel || typeof weekModel !== "object") return null;
   const weekNumber = Number(weekModel.week_number) || 1;
   const phaseName = String(weekModel.phase_name || "Foundation");
@@ -267,6 +340,14 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}) {
   const targetTraits = Array.isArray(weekModel.target_traits) ? weekModel.target_traits : [];
   const progressPercent = Math.max(0, Math.min(100, Math.round((weekNumber / 36) * 100)));
   const activitySurface = buildActivitySurface({ childId: bridgeState.child_id, phaseNumber });
+  const commitment = planningState.commitment_plan || null;
+  const plannedSessions = Array.isArray(planningState.scheduled_sessions) ? planningState.scheduled_sessions : [];
+  const sessionTemplate = buildSessionTemplate({
+    activitySurface,
+    durationMinutes: commitment?.session_duration_minutes || commitment?.target_session_length || 30,
+    scheduledAt: plannedSessions[0]?.scheduled_at || null,
+    selectedActivityIds: plannedSessions[0]?.selected_activity_ids || [],
+  });
   const stepSequence = Array.isArray(authored?.step_sequence) ? authored.step_sequence : STEP_SEQUENCE;
   return {
     week_number: weekNumber,
@@ -314,6 +395,11 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}) {
     progression_labels: authored?.progression_labels || null,
     content_audit: auditWeeklyContentSources(),
     activity_bank_surface: activitySurface,
+    bank_depth_audit: auditActivityBankDepth(activitySurface),
+    commitment_plan: commitment,
+    scheduled_sessions: plannedSessions,
+    lesson_plan_template: sessionTemplate,
+    accountability: planningState.accountability || null,
     progress: {
       current_week: weekNumber,
       total_weeks: 36,
@@ -326,7 +412,7 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}) {
   };
 }
 
-function buildProgramWeekContentState({ bridgeState, childId, childProfiles, executionState = null }) {
+function buildProgramWeekContentState({ bridgeState, childId, childProfiles, executionState = null, planningState = null }) {
   if (!childId) {
     const options = Array.isArray(childProfiles) ? childProfiles : [];
     const multiple = options.length > 1;
@@ -388,7 +474,7 @@ function buildProgramWeekContentState({ bridgeState, childId, childProfiles, exe
     state_label: "Week content ready",
     child_id: childId,
     current_week: currentWeek,
-    week_content: buildWeekContentFromRail(weekModel, bridgeState),
+    week_content: buildWeekContentFromRail(weekModel, bridgeState, planningState || {}),
     execution_state: normalizeExecutionState(executionState || defaultExecutionState(), currentWeek),
     execution_contract: {
       allowed_actions: WEEKLY_EXECUTION_ACTIONS,
@@ -1643,6 +1729,7 @@ function renderLiveYouthProgramPage() {
       .week-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
       .btn-ghost { background: rgba(30, 41, 59, 0.45); border-color: rgba(148, 163, 184, 0.45); color: #e2e8f0; }
       textarea.input { width: 100%; min-height: 72px; margin-top: 8px; background: rgba(2, 6, 23, 0.75); color: #e2e8f0; border: 1px solid rgba(148, 163, 184, 0.45); border-radius: 8px; padding: 8px; font: inherit; }
+      .input { width: 100%; margin-top: 6px; background: rgba(2, 6, 23, 0.75); color: #e2e8f0; border: 1px solid rgba(148, 163, 184, 0.45); border-radius: 8px; padding: 8px; font: inherit; }
     </style>
   </head>
   <body>
@@ -1710,6 +1797,28 @@ function renderLiveYouthProgramPage() {
           </div>
         </div>
       </section>
+      <section class="panel">
+        <h2>Weekly planner + calendar agenda</h2>
+        <div class="grid-2">
+          <div class="state-box">
+            <h3 class="state-title">Parent commitment setup</h3>
+            <label class="tiny">Days per week</label><input id="commitDaysInput" class="input" type="number" min="1" max="7" value="3" />
+            <label class="tiny">Preferred days (comma separated)</label><input id="commitPreferredDaysInput" class="input" placeholder="monday,wednesday,saturday" />
+            <label class="tiny">Preferred time (HH:MM)</label><input id="commitTimeInput" class="input" type="time" value="17:30" />
+            <label class="tiny">Session duration minutes</label><input id="commitDurationInput" class="input" type="number" min="10" max="120" value="30" />
+            <label class="tiny">Start date</label><input id="commitStartDateInput" class="input" type="date" />
+            <button id="saveCommitmentBtn" class="btn btn-primary" type="button">Set Commitment</button>
+            <p id="commitmentSummary" class="tiny muted">Commitment not set.</p>
+          </div>
+          <div class="state-box">
+            <h3 class="state-title">Calendar + adherence</h3>
+            <p id="adherenceSummary" class="state-line">Loading adherence summary…</p>
+            <ul id="agendaList" class="list"><li class="muted">Loading scheduled sessions…</li></ul>
+            <button id="markNextSessionCompleteBtn" class="btn btn-secondary" type="button">Mark Next Session Complete</button>
+            <p id="nextScheduledSession" class="tiny muted">Next scheduled session loading…</p>
+          </div>
+        </div>
+      </section>
     </main>
     <script>
       (async function () {
@@ -1744,6 +1853,17 @@ function renderLiveYouthProgramPage() {
         const continueNextWeekBtn = document.getElementById("continueNextWeekBtn");
         const executionStateArea = document.getElementById("executionStateArea");
         const nextActionArea = document.getElementById("nextActionArea");
+        const commitDaysInput = document.getElementById("commitDaysInput");
+        const commitPreferredDaysInput = document.getElementById("commitPreferredDaysInput");
+        const commitTimeInput = document.getElementById("commitTimeInput");
+        const commitDurationInput = document.getElementById("commitDurationInput");
+        const commitStartDateInput = document.getElementById("commitStartDateInput");
+        const saveCommitmentBtn = document.getElementById("saveCommitmentBtn");
+        const commitmentSummary = document.getElementById("commitmentSummary");
+        const adherenceSummary = document.getElementById("adherenceSummary");
+        const agendaList = document.getElementById("agendaList");
+        const markNextSessionCompleteBtn = document.getElementById("markNextSessionCompleteBtn");
+        const nextScheduledSession = document.getElementById("nextScheduledSession");
 
         let latestBridge = null;
         let latestWeekPayload = null;
@@ -1836,13 +1956,46 @@ function renderLiveYouthProgramPage() {
             renderActivityCard("Active core path", selectedPath.core_activity),
             renderActivityCard("Active stretch challenge", selectedPath.stretch_challenge),
             renderActivityCard("Active reflection loop", selectedPath.reflection),
-            '<div class="activity-card"><h4>Weekly options from activity bank</h4><p class="tiny">Core options: ' + esc(String((bankSummary.core_activity || []).length)) + ' · Stretch options: ' + esc(String((bankSummary.stretch_challenge || []).length)) + ' · Reflection options: ' + esc(String((bankSummary.reflection || []).length)) + '</p></div>',
+            '<div class="activity-card"><h4>Weekly options from activity bank</h4><p class="tiny">Core: ' + esc(String((bankSummary.core_activity || []).length))
+            + ' · Stretch: ' + esc(String((bankSummary.stretch_challenge || []).length))
+            + ' · Reflection: ' + esc(String((bankSummary.reflection || []).length))
+            + ' · Opening: ' + esc(String((bankSummary.opening_routine || []).length))
+            + ' · Transition: ' + esc(String((bankSummary.transition_routine || []).length))
+            + ' · Closing: ' + esc(String((bankSummary.closing_routine || []).length))
+            + '</p></div>',
           ].join("");
 
           observationSupport.textContent = String(week.observation_support_area || week.reflection_checkin_support || "Observation/support details unavailable.");
           nextActionArea.innerHTML = "<strong>Next action:</strong> " + esc(nextAction || week.next_action || "Continue this week flow.");
           prevWeekBtn.disabled = showingWeek <= 1;
           nextWeekBtn.disabled = showingWeek >= 36;
+        }
+
+        function renderPlanner(week) {
+          const commitment = week.commitment_plan || {};
+          const scheduled = Array.isArray(week.scheduled_sessions) ? week.scheduled_sessions : [];
+          const accountability = week.accountability || {};
+          commitDaysInput.value = String(commitment.days_per_week || commitment.committed_days_per_week || 3);
+          commitPreferredDaysInput.value = Array.isArray(commitment.preferred_days) ? commitment.preferred_days.join(",") : "";
+          commitTimeInput.value = String(commitment.preferred_time || "17:30");
+          commitDurationInput.value = String(commitment.session_duration_minutes || commitment.target_session_length || 30);
+          commitStartDateInput.value = String(commitment.start_date || "").slice(0, 10);
+          commitmentSummary.textContent = "Committed: " + String(commitment.days_per_week || commitment.committed_days_per_week || 0)
+            + "/week · Preferred days: " + String((commitment.preferred_days || []).join(", ") || "none");
+          adherenceSummary.textContent = "Planned this week: " + String(accountability.planned_this_week || 0)
+            + " · Completed this week: " + String(accountability.completed_this_week || 0)
+            + " · Consistency: " + String(accountability.consistency_label || "early");
+          agendaList.innerHTML = scheduled.length ? scheduled.map((entry) =>
+            '<li><strong>' + esc(String(entry.day_label || entry.day || "Session")) + '</strong> @ ' + esc(String(entry.time || ""))
+            + ' · ' + esc(String(entry.status || "planned"))
+            + ' · Core: ' + esc(String(entry.core_activity_title || "auto"))
+            + '</li>').join("") : '<li class="muted">No sessions scheduled yet.</li>';
+          const next = scheduled.find((entry) => entry.status !== "completed") || null;
+          nextScheduledSession.textContent = next
+            ? "Next scheduled session: " + String(next.day_label || next.day || "") + " " + String(next.time || "") + " (" + String(next.session_id || "") + ")"
+            : "No upcoming sessions. Set commitment to generate schedule.";
+          markNextSessionCompleteBtn.disabled = !next;
+          markNextSessionCompleteBtn.dataset.sessionId = next ? String(next.session_id || "") : "";
         }
 
         function renderExecutionState(executionState) {
@@ -1912,6 +2065,7 @@ function renderLiveYouthProgramPage() {
           }
           latestWeekPayload = payload;
           renderWeekDetails(payload.week_content, payload.next_action, navWeekOffset);
+          renderPlanner(payload.week_content);
           renderExecutionState(payload.execution_state || null);
         }
 
@@ -2021,6 +2175,43 @@ function renderLiveYouthProgramPage() {
           await loadBridge();
           await loadWeekExperience();
         });
+        saveCommitmentBtn.addEventListener("click", async function () {
+          if (!latestWeekPayload || !latestWeekPayload.week_content) return;
+          const response = await fetch("/api/youth-development/program/commitment", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              tenant: accountCtx.tenant,
+              email: accountCtx.email,
+              child_id: accountCtx.child_id,
+              week_number: latestWeekPayload.current_week,
+              days_per_week: Number(commitDaysInput.value || 3),
+              preferred_days: String(commitPreferredDaysInput.value || "").split(",").map((d) => d.trim().toLowerCase()).filter(Boolean),
+              preferred_time: String(commitTimeInput.value || "17:30"),
+              session_duration_minutes: Number(commitDurationInput.value || 30),
+              start_date: String(commitStartDateInput.value || new Date().toISOString().slice(0, 10)),
+            }),
+          });
+          const payload = response.ok ? await response.json().catch(() => null) : null;
+          if (!payload || payload.ok !== true) return;
+          await loadWeekExperience();
+        });
+        markNextSessionCompleteBtn.addEventListener("click", async function () {
+          const sessionId = String(markNextSessionCompleteBtn.dataset.sessionId || "");
+          if (!sessionId || !latestWeekPayload) return;
+          await fetch("/api/youth-development/program/session-complete", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              tenant: accountCtx.tenant,
+              email: accountCtx.email,
+              child_id: accountCtx.child_id,
+              week_number: latestWeekPayload.current_week,
+              session_id: sessionId,
+            }),
+          });
+          await loadWeekExperience();
+        });
 
         const bridge = await loadBridge();
         await loadWeekExperience();
@@ -2124,6 +2315,10 @@ function createYouthDevelopmentRouter(options = {}) {
   const launchProgramForChild = typeof options.launchProgramForChild === "function" ? options.launchProgramForChild : null;
   const getProgramWeekExecution = typeof options.getProgramWeekExecution === "function" ? options.getProgramWeekExecution : null;
   const saveProgramWeekExecution = typeof options.saveProgramWeekExecution === "function" ? options.saveProgramWeekExecution : null;
+  const getProgramWeekPlanning = typeof options.getProgramWeekPlanning === "function" ? options.getProgramWeekPlanning : null;
+  const saveProgramCommitmentPlan = typeof options.saveProgramCommitmentPlan === "function" ? options.saveProgramCommitmentPlan : null;
+  const saveProgramSessionPlan = typeof options.saveProgramSessionPlan === "function" ? options.saveProgramSessionPlan : null;
+  const markProgramSessionComplete = typeof options.markProgramSessionComplete === "function" ? options.markProgramSessionComplete : null;
 
   router.get("/youth-development/intake", (req, res) => (
     res.status(200).type("html").send(renderLiveYouthAssessmentPage())
@@ -2287,6 +2482,14 @@ function createYouthDevelopmentRouter(options = {}) {
             weekNumber: Number(bridgeState?.current_week || 1),
           })
           : null,
+        planningState: getProgramWeekPlanning
+          ? await getProgramWeekPlanning({
+            accountCtx,
+            request: req,
+            childId,
+            weekNumber: Number(bridgeState?.current_week || 1),
+          })
+          : null,
       });
       return res.status(200).json(payload);
     } catch (err) {
@@ -2364,6 +2567,48 @@ function createYouthDevelopmentRouter(options = {}) {
     } catch (err) {
       console.error("youth_program_week_execution_failed", err);
       return res.status(500).json({ ok: false, error: "youth_program_week_execution_failed" });
+    }
+  });
+
+  router.post("/api/youth-development/program/commitment", async (req, res) => {
+    if (!saveProgramCommitmentPlan) return res.status(200).json({ ok: false, error: "commitment_plan_not_enabled" });
+    try {
+      const accountCtx = resolveRequestAccountContext(req, req.body || {});
+      const childId = safeTrim(req.body?.child_id || req.body?.childId);
+      const result = await saveProgramCommitmentPlan({ accountCtx, request: req, childId, commitment: req.body || {} });
+      return res.status(200).json(result);
+    } catch (err) {
+      console.error("youth_program_commitment_save_failed", err);
+      return res.status(500).json({ ok: false, error: "youth_program_commitment_save_failed" });
+    }
+  });
+
+  router.post("/api/youth-development/program/session-plan", async (req, res) => {
+    if (!saveProgramSessionPlan) return res.status(200).json({ ok: false, error: "session_plan_not_enabled" });
+    try {
+      const accountCtx = resolveRequestAccountContext(req, req.body || {});
+      const childId = safeTrim(req.body?.child_id || req.body?.childId);
+      const weekNumber = Number(req.body?.week_number || req.body?.weekNumber || 1);
+      const result = await saveProgramSessionPlan({ accountCtx, request: req, childId, weekNumber, payload: req.body || {} });
+      return res.status(200).json(result);
+    } catch (err) {
+      console.error("youth_program_session_plan_save_failed", err);
+      return res.status(500).json({ ok: false, error: "youth_program_session_plan_save_failed" });
+    }
+  });
+
+  router.post("/api/youth-development/program/session-complete", async (req, res) => {
+    if (!markProgramSessionComplete) return res.status(200).json({ ok: false, error: "session_complete_not_enabled" });
+    try {
+      const accountCtx = resolveRequestAccountContext(req, req.body || {});
+      const childId = safeTrim(req.body?.child_id || req.body?.childId);
+      const weekNumber = Number(req.body?.week_number || req.body?.weekNumber || 1);
+      const sessionId = safeTrim(req.body?.session_id || req.body?.sessionId);
+      const result = await markProgramSessionComplete({ accountCtx, request: req, childId, weekNumber, sessionId });
+      return res.status(200).json(result);
+    } catch (err) {
+      console.error("youth_program_session_complete_failed", err);
+      return res.status(500).json({ ok: false, error: "youth_program_session_complete_failed" });
     }
   });
 
