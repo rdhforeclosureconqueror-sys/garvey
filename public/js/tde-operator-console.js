@@ -3,27 +3,53 @@
     return String(value == null ? "" : value).trim();
   }
 
+  function escapeHtml(value) {
+    return String(value || "").replace(/[&<>"']/g, function (ch) {
+      return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[ch]);
+    });
+  }
+
+  function toCsv(value) {
+    if (!Array.isArray(value)) return value == null ? "-" : String(value);
+    return value.length ? value.join(", ") : "none";
+  }
+
+  function prettyStatus(status) {
+    var text = safeTrim(status).replace(/_/g, " ");
+    return text || "-";
+  }
+
+  function pickValue(entry, keys, fallback) {
+    var list = Array.isArray(keys) ? keys : [keys];
+    for (var i = 0; i < list.length; i += 1) {
+      var key = list[i];
+      if (!key) continue;
+      var value = entry && entry[key];
+      if (Array.isArray(value) && value.length) return value.join(", ");
+      var normalized = safeTrim(value);
+      if (normalized) return normalized;
+    }
+    return safeTrim(fallback) || "-";
+  }
+
+  function renderKvPanel(id, rows, emptyText) {
+    var node = document.getElementById(id);
+    if (!node) return;
+    var list = Array.isArray(rows) ? rows.filter(function (entry) { return entry && entry.label; }) : [];
+    if (!list.length) {
+      node.innerHTML = "<div class='muted'>" + escapeHtml(emptyText || "No data available.") + "</div>";
+      return;
+    }
+    node.innerHTML = "<ul style='margin:0;padding-left:18px;'>" + list.map(function (entry) {
+      return "<li><b>" + escapeHtml(entry.label) + ":</b> " + escapeHtml(entry.value == null || entry.value === "" ? "-" : String(entry.value)) + "</li>";
+    }).join("") + "</ul>";
+  }
+
   function setStatus(message, isError) {
     var node = document.getElementById("tdeOpsStatus");
     if (!node) return;
     node.textContent = message;
     node.className = isError ? "muted text-danger" : "muted";
-  }
-
-  function displayValue(value) {
-    if (value == null || value === "") return "-";
-    if (typeof value === "string") return value;
-    if (typeof value === "number" || typeof value === "boolean") return String(value);
-    if (Array.isArray(value)) return value.length ? value.join(", ") : "-";
-    return JSON.stringify(value);
-  }
-
-  function renderPanel(id, payload) {
-    var node = document.getElementById(id);
-    if (!node) return;
-    node.innerHTML = "<pre style='white-space:pre-wrap;margin:0;'>" +
-      displayValue(payload) +
-      "</pre>";
   }
 
   function jsonFetch(url) {
@@ -48,10 +74,99 @@
   var internalEnabled = false;
   var showDetails = false;
 
+  function renderPanels(mapped, childId, visibilityState) {
+    var overview = mapped.overview && mapped.overview.value || {};
+    var rollout = mapped.rollout && mapped.rollout.value || {};
+    var validation = mapped.validation && mapped.validation.value || {};
+    var evidence = mapped.evidence && mapped.evidence.value || {};
+    var flags = mapped.flags && mapped.flags.value || {};
+    var recommendations = mapped.recommendations && mapped.recommendations.value || {};
+    var insights = mapped.insights && mapped.insights.value || {};
+    var trajectory = mapped.trajectory && mapped.trajectory.value || {};
+    var milestone = mapped.milestone && mapped.milestone.value || {};
+    var personalization = mapped.personalization && mapped.personalization.value || {};
+    var parentCoaching = mapped.parentCoaching && mapped.parentCoaching.value || {};
+    var checkin = mapped.checkin && mapped.checkin.value || {};
+    var intervention = mapped.intervention && mapped.intervention.value || {};
+    var adherence = mapped.adherence && mapped.adherence.value || {};
+    var voiceCheckin = mapped.voiceCheckin && mapped.voiceCheckin.value || {};
+    var voiceSections = mapped.voiceSections && mapped.voiceSections.value || {};
+    var voiceStatus = mapped.voiceStatus && mapped.voiceStatus.value || {};
+    var voiceEligibility = mapped.voiceEligibility && mapped.voiceEligibility.value || {};
+    var explanation = mapped.explanation && mapped.explanation.value || {};
+
+    var missingContracts = [];
+    var missingFromOverview = overview && overview.admin_overview && overview.admin_overview.missing_contract_burden && overview.admin_overview.missing_contract_burden.missing_contracts;
+    if (Array.isArray(missingFromOverview)) missingContracts = missingContracts.concat(missingFromOverview);
+    var missingFromValidation = validation && validation.missing_contract_burden && validation.missing_contract_burden.missing_contracts;
+    if (Array.isArray(missingFromValidation)) missingContracts = missingContracts.concat(missingFromValidation);
+    var missingFromEvidence = evidence && evidence.evidence_quality_overview && evidence.evidence_quality_overview.missing_contract_burden && evidence.evidence_quality_overview.missing_contract_burden.missing_contracts;
+    if (Array.isArray(missingFromEvidence)) missingContracts = missingContracts.concat(missingFromEvidence);
+    missingContracts = Array.from(new Set(missingContracts.filter(Boolean)));
+
+    renderKvPanel("tdeOverviewPanel", [
+      { label: "Child/Test Account", value: childId || "scope required" },
+      { label: "Overview", value: pickValue(overview, ["display_title", "display_summary"], "TDE Overview") },
+      { label: "Rollout State", value: prettyStatus(rollout.rollout_status && rollout.rollout_status.current_rollout_mode || (overview.admin_overview && overview.admin_overview.rollout_status && overview.admin_overview.rollout_status.current_rollout_mode)) },
+      { label: "Readiness State", value: prettyStatus(overview.admin_overview && overview.admin_overview.rollout_status && overview.admin_overview.rollout_status.pilot_eligibility_summary && overview.admin_overview.rollout_status.pilot_eligibility_summary.readiness_status) },
+      { label: "Voice Availability State", value: prettyStatus(overview.admin_overview && overview.admin_overview.rollout_status && overview.admin_overview.rollout_status.voice_availability_status) },
+      { label: "Evidence Quality Summary", value: prettyStatus(evidence.evidence_quality_overview && evidence.evidence_quality_overview.status) },
+      { label: "Missing-Contract Burden Summary", value: toCsv(missingContracts) },
+      { label: "Operator Visibility State", value: visibilityState === "auto" ? "endpoint-derived" : visibilityState }
+    ], "No TDE overview data loaded.");
+
+    renderKvPanel("tdeChildDevelopmentPanel", [
+      { label: "Latest Recommendations", value: toCsv((recommendations.display_items || []).slice(0, 3).length ? (recommendations.display_items || []).slice(0, 3) : (recommendations.recommendations || []).map(function (r) { return pickValue(r, ["display_title", "title", "action", "recommendation_id"], "recommendation"); }).slice(0, 3)) },
+      { label: "Recommendations Status", value: prettyStatus(pickValue(recommendations, ["display_status", "contracts_status", "status"], "unknown")) },
+      { label: "Insights", value: toCsv((insights.display_items || []).slice(0, 3).length ? (insights.display_items || []).slice(0, 3) : (insights.insights || []).map(function (i) { return pickValue(i, ["display_title", "insight", "statement", "signal"], "insight"); }).slice(0, 3)) },
+      { label: "Insights Status", value: prettyStatus(pickValue(insights, ["display_status", "contracts_status", "status"], "unknown")) },
+      { label: "Trajectory Summary", value: prettyStatus(pickValue(trajectory, ["display_status", "trajectory_state", "status"], "unknown")) },
+      { label: "Milestone Comparison", value: prettyStatus(pickValue(milestone, ["display_status", "comparison_status", "status"], "unknown")) },
+      { label: "Personalization Summary", value: prettyStatus(pickValue(personalization, ["display_status", "contracts_status", "status"], "unknown")) },
+      { label: "Parent Coaching Summary", value: prettyStatus(pickValue(parentCoaching, ["display_status", "summary_status", "status"], "unknown")) }
+    ], "No child development data loaded.");
+
+    renderKvPanel("tdeCheckinInterventionPanel", [
+      { label: "Weekly Check-in Status", value: prettyStatus(pickValue(checkin, ["display_status", "checkin_status", "status"], "unknown")) },
+      { label: "Check-in Summary", value: prettyStatus(pickValue(checkin, ["display_summary"], checkin.evidence_sufficiency && checkin.evidence_sufficiency.status)) },
+      { label: "Intervention Summary", value: prettyStatus(pickValue(intervention, ["display_status", "status"], intervention.intervention_readiness && intervention.intervention_readiness.status)) },
+      { label: "Session/Adherence Indicators", value: prettyStatus(pickValue(adherence, ["display_status", "adherence_status", "status"], "unknown")) }
+    ], "No check-in/intervention data loaded.");
+
+    renderKvPanel("tdeVoicePanel", [
+      { label: "Child Prompt Playback Status", value: prettyStatus(pickValue(voiceCheckin, ["display_status", "voice_readiness_status"], voiceCheckin.voice_state && voiceCheckin.voice_state.availability)) },
+      { label: "Parent Section Playback Status", value: prettyStatus(pickValue(voiceSections, ["display_status", "voice_readiness_status"], voiceSections.voice_state && voiceSections.voice_state.availability)) },
+      { label: "Fallback/Availability State", value: prettyStatus(pickValue(voiceStatus, ["display_status", "voice_readiness_status", "voice_availability_status"], voiceStatus.voice_state && voiceStatus.voice_state.availability)) },
+      { label: "Voice Eligibility", value: prettyStatus(pickValue(voiceEligibility, ["display_status", "voice_readiness_status", "eligibility_status", "voice_eligibility_status"], "unknown")) },
+      { label: "Content Registry Status", value: prettyStatus(pickValue(voiceSections, ["content_registry_status"], pickValue(voiceCheckin, ["content_registry_status"], "unknown"))) },
+      { label: "Readability Status", value: prettyStatus(pickValue(voiceSections, ["readability_status"], pickValue(voiceCheckin, ["readability_status"], "unknown"))) },
+      { label: "Voice Readiness Status", value: prettyStatus(pickValue(voiceSections, ["voice_readiness_status"], pickValue(voiceCheckin, ["voice_readiness_status"], "unknown"))) }
+    ], "No voice data loaded (voice is optional).");
+
+    renderKvPanel("tdeValidationAdminPanel", [
+      { label: "Validation Summary", value: prettyStatus(validation.validation_status && validation.validation_status.status) },
+      { label: "Calibration Summary", value: toCsv(overview.admin_overview && overview.admin_overview.calibration_state && overview.admin_overview.calibration_state.active_calibration_versions) },
+      { label: "Feature Flags", value: toCsv(flags.feature_flags && flags.feature_flags.controllable_in_phase23) },
+      { label: "Rollout Status", value: prettyStatus(rollout.rollout_status && rollout.rollout_status.current_rollout_mode) },
+      { label: "Evidence-Quality Overview", value: prettyStatus(evidence.evidence_quality_overview && evidence.evidence_quality_overview.status) },
+      { label: "Missing Contracts (Explicit)", value: toCsv(missingContracts) }
+    ], "No validation/admin data loaded.");
+
+    if (showDetails) {
+      renderKvPanel("tdeExplanationPanel", [
+        { label: "Recommendation Explanation Status", value: prettyStatus(pickValue(explanation, ["display_status", "status", "contracts_status"], "unknown")) },
+        { label: "Explanation Highlights", value: toCsv((explanation.display_items || []).slice(0, 5).length ? (explanation.display_items || []).slice(0, 5) : (explanation.explanations || []).map(function (entry) { return pickValue(entry, ["display_title", "title", "summary", "reason"], "explanation"); }).slice(0, 5)) },
+        { label: "Scope", value: childId || "scope required" }
+      ], "No explanation data available.");
+    }
+  }
+
   function loadPanels() {
     var childId = safeTrim((document.getElementById("tdeChildScopeInput") || {}).value);
+    var visibilityState = safeTrim((document.getElementById("tdeVisibilityStateInput") || {}).value) || "auto";
     if (!childId) {
       setStatus("Child/test account scope is required for deterministic panel loading.", true);
+      renderPanels({}, "", visibilityState);
       return;
     }
 
@@ -93,39 +208,7 @@
         if (result.status === "rejected") failures.push(result.key + ": " + (result.reason && result.reason.message || "error"));
       });
 
-      renderPanel("tdeOverviewPanel", {
-        overview: mapped.overview,
-        rollout: mapped.rollout,
-        flags: mapped.flags,
-        validation: mapped.validation,
-        evidence: mapped.evidence
-      });
-      renderPanel("tdeChildDevelopmentPanel", {
-        recommendations: mapped.recommendations,
-        insights: mapped.insights,
-        trajectory: mapped.trajectory,
-        milestone: mapped.milestone,
-        personalization: mapped.personalization,
-        parentCoaching: mapped.parentCoaching
-      });
-      renderPanel("tdeCheckinInterventionPanel", {
-        checkin: mapped.checkin,
-        intervention: mapped.intervention,
-        adherence: mapped.adherence
-      });
-      renderPanel("tdeVoicePanel", {
-        voiceCheckin: mapped.voiceCheckin,
-        voiceSections: mapped.voiceSections,
-        voiceStatus: mapped.voiceStatus,
-        voiceEligibility: mapped.voiceEligibility
-      });
-      renderPanel("tdeValidationAdminPanel", {
-        rollout: mapped.rollout,
-        flags: mapped.flags,
-        validation: mapped.validation,
-        evidence: mapped.evidence
-      });
-      if (showDetails) renderPanel("tdeExplanationPanel", { explanation: mapped.explanation });
+      renderPanels(mapped, childId, visibilityState);
 
       if (failures.length) setStatus("Loaded with fallback/missing data states: " + failures.join(" | "), true);
       else setStatus("TDE internal panels loaded for child/test account: " + childId, false);
