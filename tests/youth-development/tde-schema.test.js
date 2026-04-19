@@ -1,7 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 
-const { TDE_MIGRATIONS, applyTdeMigrations } = require('../../server/youthDevelopmentTdeDb');
+const { TDE_MIGRATIONS, applyTdeMigrations, verifyTdeSchema } = require('../../server/youthDevelopmentTdeDb');
 
 test('tde migrations are isolated and reversible', () => {
   assert.ok(TDE_MIGRATIONS.length > 0);
@@ -44,4 +44,21 @@ test('phase-4 migration includes governance gap closure tables', () => {
   assert.match(migration.up, /CREATE TABLE IF NOT EXISTS tde_observer_consent_records/);
   assert.match(migration.up, /CREATE TABLE IF NOT EXISTS tde_environment_hook_events/);
   assert.match(migration.up, /CREATE TABLE IF NOT EXISTS tde_validation_export_logs/);
+});
+
+test('verifyTdeSchema reports missing required TDE tables', async () => {
+  const pool = {
+    async query() {
+      return {
+        rows: [
+          { table_name: 'tde_schema_migrations' },
+          { table_name: 'tde_child_profiles' },
+        ],
+      };
+    },
+  };
+
+  const result = await verifyTdeSchema(pool);
+  assert.equal(result.ok, false);
+  assert.ok(result.missingTables.includes('tde_program_enrollments'));
 });

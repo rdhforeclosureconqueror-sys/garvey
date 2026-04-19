@@ -3,6 +3,7 @@
 const { Pool } = require("pg");
 const { initializeKanbanSchema } = require("./kanbanDb");
 const { applyTapCrmMigrations, verifyTapCrmSchema } = require("./tapCrmDb");
+const { applyTdeMigrations, verifyTdeSchema } = require("./youthDevelopmentTdeDb");
 
 function readEnvTrimmed(name) {
   const value = process.env[name];
@@ -1368,6 +1369,18 @@ async function initializeDatabase() {
     missing_tables: tapCrmSchemaReport.missingTables,
     missing_indexes: tapCrmSchemaReport.missingIndexes,
   });
+
+  const tdeMigrationResult = await applyTdeMigrations(pool);
+  const tdeSchemaReport = await verifyTdeSchema(pool);
+  console.log("✅ Youth Development TDE schema ready", {
+    applied_migrations: tdeMigrationResult.appliedCount,
+    total_migrations: tdeMigrationResult.totalMigrations,
+    schema_ok: tdeSchemaReport.ok,
+    missing_tables: tdeSchemaReport.missingTables,
+  });
+  if (!tdeSchemaReport.ok) {
+    throw new Error(`youth development tde schema incomplete: missing tables ${tdeSchemaReport.missingTables.join(", ")}`);
+  }
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS owner_customer_messages (

@@ -348,7 +348,38 @@ async function applyTdeMigrations(pool) {
   return { totalMigrations: TDE_MIGRATIONS.length, appliedCount };
 }
 
+const REQUIRED_TDE_TABLES = Object.freeze([
+  "tde_schema_migrations",
+  "tde_child_profiles",
+  "tde_program_enrollments",
+  "tde_weekly_progress_records",
+  "tde_checkpoint_records",
+  "tde_session_records",
+  "tde_program_week_definitions",
+]);
+
+async function verifyTdeSchema(pool) {
+  const tableNames = REQUIRED_TDE_TABLES;
+  const existing = await pool.query(
+    `
+      SELECT table_name
+      FROM information_schema.tables
+      WHERE table_schema = 'public'
+        AND table_name = ANY($1::text[])
+    `,
+    [tableNames]
+  );
+  const present = new Set(existing.rows.map((row) => String(row.table_name || "")));
+  const missingTables = tableNames.filter((tableName) => !present.has(tableName));
+  return {
+    ok: missingTables.length === 0,
+    requiredTables: tableNames,
+    missingTables,
+  };
+}
+
 module.exports = {
   TDE_MIGRATIONS,
   applyTdeMigrations,
+  verifyTdeSchema,
 };
