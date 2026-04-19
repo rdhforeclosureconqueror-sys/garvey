@@ -15,6 +15,7 @@ const { runYouthIntakeScoring } = require("../youth-development/question-engine/
 const { PROGRAM_WEEKS } = require("../youth-development/tde/programRail");
 const { buildSessionPlan } = require("../youth-development/tde/sessionBuilderService");
 const { listActivitiesByComponent } = require("../youth-development/tde/activityBankService");
+const { getAuthoredWeekContent, auditWeeklyContentSources, STEP_SEQUENCE } = require("../youth-development/content/weeklyProgramContent");
 
 const PREVIEW_AGGREGATED_ROWS = Object.freeze([
   Object.freeze({
@@ -190,7 +191,7 @@ function buildRoadmap(currentWeek) {
       return {
         week_number: weekNumber,
         phase_name: String(model?.phase_name || "Foundation"),
-        weekly_goal: String(model?.weekly_goal || `Week ${weekNumber} roadmap details are loading.`),
+        weekly_goal: String(getAuthoredWeekContent(weekNumber)?.objective || model?.weekly_goal || `Week ${weekNumber} objective unavailable.`),
         status: weekNumber < currentWeek ? "completed" : (weekNumber === currentWeek ? "current" : "upcoming"),
       };
     });
@@ -253,18 +254,20 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}) {
   const stretchLabel = labelFor(STRETCH_LABELS, weekModel.stretch_challenge_type);
   const reflectionLabel = labelFor(REFLECTION_LABELS, weekModel.reflection_loop_type);
   const observationLabel = labelFor(OBSERVATION_LABELS, weekModel.observation_entry_type);
+  const authored = getAuthoredWeekContent(weekNumber);
   const supportActionLabel = weekModel.optional_support_action
     ? labelFor(SUPPORT_ACTION_LABELS, weekModel.optional_support_action)
-    : "Keep the current home routine and capture one short parent observation note.";
+    : "Keep the current home routine and capture one parent observation note.";
   const targetTraits = Array.isArray(weekModel.target_traits) ? weekModel.target_traits : [];
   const progressPercent = Math.max(0, Math.min(100, Math.round((weekNumber / 36) * 100)));
   const activitySurface = buildActivitySurface({ childId: bridgeState.child_id, phaseNumber });
+  const stepSequence = Array.isArray(authored?.step_sequence) ? authored.step_sequence : STEP_SEQUENCE;
   return {
     week_number: weekNumber,
-    title: `Week ${weekNumber} · ${phaseName}`,
-    objective: String(weekModel.weekly_goal || `Week ${weekNumber} objective is loading.`),
+    title: String(authored?.title || `Week ${weekNumber} · ${phaseName}`),
+    objective: String(authored?.objective || weekModel.weekly_goal || `Week ${weekNumber} objective unavailable.`),
     phase_week_context: `Phase ${weekModel.phase_number || 1} (${phaseName}), Week ${weekNumber} of 36.`,
-    week_purpose: `This week strengthens ${targetTraits.join(" + ") || "core developmental traits"} through repeatable parent-guided sessions.`,
+    week_purpose: String(authored?.week_purpose || `This week strengthens ${targetTraits.join(" + ") || "core developmental traits"} through repeatable parent-guided sessions.`),
     weekly_goals: [
       `Complete the core session flow at least 2 times this week using ${activityLabel || "the guided core activity"}.`,
       `Use ${stretchLabel || "the stretch challenge"} once after the core routine feels stable.`,
@@ -277,7 +280,7 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}) {
       observation_entry: observationLabel || "Observation entry not mapped",
       optional_support_action: supportActionLabel,
     },
-    parent_guidance: [
+    parent_guidance: Array.isArray(authored?.parent_guidance) ? [...authored.parent_guidance] : [
       `Prepare materials before session start and set a predictable time window.`,
       `Name the target traits (${targetTraits.join(", ") || "current targets"}) before beginning.`,
       `Use brief coaching language and keep sessions short enough for consistency.`,
@@ -285,13 +288,23 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}) {
     parent_guidance_setup: `Set up ${activityLabel || "the core activity"} and cue ${targetTraits.join(" + ") || "current trait targets"} before the session.`,
     current_activity_session_plan: `Run ${activityLabel || "the core activity"}, then apply ${stretchLabel || "a stretch challenge"} to build week momentum.`,
     reflection_checkin_support: `Close with ${reflectionLabel || "a reflection loop"}, capture ${observationLabel || "an observation"}, and apply ${supportActionLabel}.`,
-    session_flow: [
-      { step: "Core activity", detail: `Run ${activityLabel || "core activity"} and capture one quick win.` },
-      { step: "Stretch challenge", detail: `Use ${stretchLabel || "stretch challenge"} for transfer and resilience practice.` },
-      { step: "Reflection/check-in", detail: `Prompt ${reflectionLabel || "reflection loop"} and ask child what changed.` },
-      { step: "Observation/support", detail: `Record ${observationLabel || "observation note"} and schedule ${supportActionLabel}.` },
-    ],
+    session_flow: stepSequence.map((step) => ({
+      step_key: step.step_key,
+      step: step.label,
+      detail: step.step_key === "core_activity"
+        ? `Run ${activityLabel || "core activity"} and capture one quick win.`
+        : step.step_key === "stretch_challenge"
+          ? `Use ${stretchLabel || "stretch challenge"} for transfer and resilience practice.`
+          : step.step_key === "reflection_checkin"
+            ? `Prompt ${reflectionLabel || "reflection loop"} and ask child what changed.`
+            : `Record ${observationLabel || "observation note"} and schedule ${supportActionLabel}.`,
+    })),
     observation_support_area: `Observation focus: ${observationLabel || "Parent observation note"}. Support action: ${supportActionLabel}.`,
+    parent_prompts: {
+      reflection_prompt: String(authored?.reflection_prompt || "What helped your child improve this week?"),
+      observation_prompt: String(authored?.observation_prompt || "What support pattern did you notice this week?"),
+    },
+    content_audit: auditWeeklyContentSources(),
     activity_bank_surface: activitySurface,
     progress: {
       current_week: weekNumber,
@@ -305,7 +318,7 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}) {
   };
 }
 
-function buildProgramWeekContentState({ bridgeState, childId, childProfiles }) {
+function buildProgramWeekContentState({ bridgeState, childId, childProfiles, executionState = null }) {
   if (!childId) {
     const options = Array.isArray(childProfiles) ? childProfiles : [];
     const multiple = options.length > 1;
@@ -368,6 +381,17 @@ function buildProgramWeekContentState({ bridgeState, childId, childProfiles }) {
     child_id: childId,
     current_week: currentWeek,
     week_content: buildWeekContentFromRail(weekModel, bridgeState),
+    execution_state: executionState || {
+      week_status: "not_started",
+      completed_step_keys: [],
+      active_step_index: 0,
+      reflection_note: "",
+      observation_note: "",
+      reflection_saved: false,
+      observation_saved: false,
+      resume_ready: false,
+      next_week_available: false,
+    },
     next_action: String(bridgeState.next_recommended_action || `Continue Week ${currentWeek}`),
   };
 }
@@ -1666,8 +1690,17 @@ function renderLiveYouthProgramPage() {
             <p id="observationSupport" class="state-line">Loading observation/support…</p>
             <label class="tiny" for="parentReflectionInput">Parent reflection / check-in notes</label>
             <textarea id="parentReflectionInput" class="input" placeholder="What worked this week? What should shift next week?"></textarea>
+            <button id="saveReflectionBtn" class="btn btn-secondary" type="button">Save Reflection</button>
             <label class="tiny" for="parentObservationInput">Observation / support note</label>
             <textarea id="parentObservationInput" class="input" placeholder="What did you observe and what support action will you use next?"></textarea>
+            <button id="saveObservationBtn" class="btn btn-secondary" type="button">Save Observation</button>
+            <p id="executionStateArea" class="tiny muted">Execution state loading…</p>
+            <div class="week-nav">
+              <button id="startResumeWeekBtn" class="btn btn-primary" type="button">Start Week</button>
+              <button id="markStepCompleteBtn" class="btn btn-secondary" type="button">Mark Step Complete</button>
+              <button id="continueStepBtn" class="btn btn-ghost" type="button">Continue to Next Step</button>
+              <button id="continueNextWeekBtn" class="btn btn-ghost" type="button">Continue Next Week</button>
+            </div>
             <p id="nextActionArea" class="state-line">Next action loading…</p>
           </div>
         </div>
@@ -1696,6 +1729,15 @@ function renderLiveYouthProgramPage() {
         const sessionFlowList = document.getElementById("sessionFlowList");
         const activityBankSurface = document.getElementById("activityBankSurface");
         const observationSupport = document.getElementById("observationSupport");
+        const parentReflectionInput = document.getElementById("parentReflectionInput");
+        const parentObservationInput = document.getElementById("parentObservationInput");
+        const saveReflectionBtn = document.getElementById("saveReflectionBtn");
+        const saveObservationBtn = document.getElementById("saveObservationBtn");
+        const startResumeWeekBtn = document.getElementById("startResumeWeekBtn");
+        const markStepCompleteBtn = document.getElementById("markStepCompleteBtn");
+        const continueStepBtn = document.getElementById("continueStepBtn");
+        const continueNextWeekBtn = document.getElementById("continueNextWeekBtn");
+        const executionStateArea = document.getElementById("executionStateArea");
         const nextActionArea = document.getElementById("nextActionArea");
 
         let latestBridge = null;
@@ -1798,6 +1840,41 @@ function renderLiveYouthProgramPage() {
           nextWeekBtn.disabled = showingWeek >= 36;
         }
 
+        function renderExecutionState(executionState) {
+          const state = executionState || {};
+          const completed = Array.isArray(state.completed_step_keys) ? state.completed_step_keys.length : 0;
+          executionStateArea.textContent = "Status: " + String(state.week_status || "not_started")
+            + " · Completed steps: " + String(completed) + "/4"
+            + " · Resume ready: " + String(state.resume_ready === true ? "yes" : "no");
+          startResumeWeekBtn.textContent = state.week_status === "not_started" ? "Start Week" : "Resume Week";
+          continueNextWeekBtn.disabled = state.next_week_available !== true;
+          parentReflectionInput.value = String(state.reflection_note || "");
+          parentObservationInput.value = String(state.observation_note || "");
+        }
+
+        async function saveExecutionAction(actionType, extra) {
+          if (!latestWeekPayload || !latestWeekPayload.week_content) return;
+          const body = Object.assign({
+            tenant: accountCtx.tenant,
+            email: accountCtx.email,
+            child_id: accountCtx.child_id,
+            week_number: Number(latestWeekPayload.current_week || latestWeekPayload.week_content.week_number || 1),
+            action_type: actionType,
+          }, extra || {});
+          const response = await fetch("/api/youth-development/program/week-execution", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          const payload = response.ok ? await response.json().catch(() => null) : null;
+          if (!payload || payload.ok !== true) return;
+          latestWeekPayload.execution_state = payload.execution_state;
+          if (payload.bridge_state && typeof payload.bridge_state.current_week === "number") {
+            latestWeekPayload.current_week = payload.bridge_state.current_week;
+          }
+          renderExecutionState(payload.execution_state);
+        }
+
         async function loadWeekExperience() {
           const url = new URL("/api/youth-development/program/week-content", window.location.origin);
           if (accountCtx.tenant) url.searchParams.set("tenant", accountCtx.tenant);
@@ -1823,6 +1900,7 @@ function renderLiveYouthProgramPage() {
           }
           latestWeekPayload = payload;
           renderWeekDetails(payload.week_content, payload.next_action, navWeekOffset);
+          renderExecutionState(payload.execution_state || null);
         }
 
         dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
@@ -1906,6 +1984,30 @@ function renderLiveYouthProgramPage() {
           const currentWeek = Number(latestWeekPayload.week_content.week_number || 1);
           navWeekOffset = Math.min(36 - currentWeek, navWeekOffset + 1);
           renderWeekDetails(latestWeekPayload.week_content, latestWeekPayload.next_action, navWeekOffset);
+        });
+
+        startResumeWeekBtn.addEventListener("click", async function () {
+          await saveExecutionAction("start_week");
+        });
+        saveReflectionBtn.addEventListener("click", async function () {
+          await saveExecutionAction("save_reflection", { note: String(parentReflectionInput.value || "") });
+        });
+        saveObservationBtn.addEventListener("click", async function () {
+          await saveExecutionAction("save_observation", { note: String(parentObservationInput.value || "") });
+        });
+        markStepCompleteBtn.addEventListener("click", async function () {
+          const state = latestWeekPayload?.execution_state || {};
+          const stepOrder = ["core_activity", "stretch_challenge", "reflection_checkin", "observation_support"];
+          const idx = Number(state.active_step_index || 0);
+          await saveExecutionAction("mark_step_complete", { step_key: stepOrder[Math.max(0, Math.min(stepOrder.length - 1, idx))] });
+        });
+        continueStepBtn.addEventListener("click", async function () {
+          await saveExecutionAction("continue_next_step");
+        });
+        continueNextWeekBtn.addEventListener("click", async function () {
+          await saveExecutionAction("continue_next_week");
+          await loadBridge();
+          await loadWeekExperience();
         });
 
         const bridge = await loadBridge();
@@ -2008,6 +2110,8 @@ function createYouthDevelopmentRouter(options = {}) {
   const listYouthChildProfiles = typeof options.listYouthChildProfiles === "function" ? options.listYouthChildProfiles : null;
   const getProgramBridgeState = typeof options.getProgramBridgeState === "function" ? options.getProgramBridgeState : null;
   const launchProgramForChild = typeof options.launchProgramForChild === "function" ? options.launchProgramForChild : null;
+  const getProgramWeekExecution = typeof options.getProgramWeekExecution === "function" ? options.getProgramWeekExecution : null;
+  const saveProgramWeekExecution = typeof options.saveProgramWeekExecution === "function" ? options.saveProgramWeekExecution : null;
 
   router.get("/youth-development/intake", (req, res) => (
     res.status(200).type("html").send(renderLiveYouthAssessmentPage())
@@ -2163,6 +2267,14 @@ function createYouthDevelopmentRouter(options = {}) {
         bridgeState,
         childId,
         childProfiles: Array.isArray(childProfiles) ? childProfiles : [],
+        executionState: getProgramWeekExecution
+          ? await getProgramWeekExecution({
+            accountCtx,
+            request: req,
+            childId,
+            weekNumber: Number(bridgeState?.current_week || 1),
+          })
+          : null,
       });
       return res.status(200).json(payload);
     } catch (err) {
@@ -2198,6 +2310,29 @@ function createYouthDevelopmentRouter(options = {}) {
     } catch (err) {
       console.error("youth_program_launch_failed", err);
       return res.status(500).json({ ok: false, error: "youth_program_launch_failed" });
+    }
+  });
+
+  router.post("/api/youth-development/program/week-execution", async (req, res) => {
+    if (!saveProgramWeekExecution) {
+      return res.status(200).json({ ok: false, error: "week_execution_not_enabled" });
+    }
+    try {
+      const accountCtx = resolveRequestAccountContext(req, req.body || {});
+      const childId = safeTrim(req.body?.child_id || req.body?.childId || req.query?.child_id || req.query?.childId);
+      const result = await saveProgramWeekExecution({
+        accountCtx,
+        request: req,
+        childId,
+        weekNumber: Number(req.body?.week_number || req.body?.weekNumber || 1),
+        actionType: safeTrim(req.body?.action_type || req.body?.actionType),
+        stepKey: safeTrim(req.body?.step_key || req.body?.stepKey),
+        note: String(req.body?.note || ""),
+      });
+      return res.status(200).json(result);
+    } catch (err) {
+      console.error("youth_program_week_execution_failed", err);
+      return res.status(500).json({ ok: false, error: "youth_program_week_execution_failed" });
     }
   });
 
