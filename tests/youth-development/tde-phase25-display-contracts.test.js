@@ -92,6 +92,22 @@ test("phase25 operator dashboard rendering now reads normalized display contract
   assert.match(source, /voice_readiness_status/);
 });
 
+test("phase26 youth dashboard operator rendering reads normalized display contracts with legacy-safe fallbacks", () => {
+  const source = fs.readFileSync("public/js/tde-operator-console.js", "utf8");
+  assert.match(source, /display_title/);
+  assert.match(source, /display_status/);
+  assert.match(source, /display_items/);
+  assert.match(source, /display_summary/);
+  assert.match(source, /content_registry_status/);
+  assert.match(source, /readability_status/);
+  assert.match(source, /voice_readiness_status/);
+
+  assert.match(source, /recommendation_id/);
+  assert.match(source, /checkin_status/);
+  assert.match(source, /eligibility_status/);
+  assert.match(source, /Loaded with fallback\/missing data states/);
+});
+
 test("phase25 does not regress live youth v1 routes", async () => {
   const app = mountApp();
   try {
@@ -111,4 +127,3 @@ test("phase25 does not regress live youth v1 routes", async () => {
     await app.close();
   }
 });
-
