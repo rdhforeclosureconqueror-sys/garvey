@@ -599,6 +599,11 @@ function renderLiveYouthAssessmentPage() {
         <h1>Youth Talent Development Intake — Parent Observation Screener v1</h1>
         <p>${YOUTH_PARENT_INSTRUCTIONS}</p>
         <p class="muted">This screener is evidence-informed and designed for developmental support. It is not a validated diagnostic tool and does not predict future success.</p>
+        <div class="options" style="margin-top:12px;">
+          <label>Child name (recommended for child-scoped loading)<br /><input id="childNameInput" type="text" placeholder="e.g. Maya" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:8px;" /></label>
+          <label>Child age band (optional)<br /><input id="childAgeBandInput" type="text" placeholder="e.g. 8-10" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:8px;" /></label>
+          <label>Child grade band (optional)<br /><input id="childGradeBandInput" type="text" placeholder="e.g. Grade 3-4" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:8px;" /></label>
+        </div>
       </section>
       <section>
         <div class="row"><strong id="progressLabel">Question 1 of 25</strong><span id="completionLabel" class="muted">0% complete</span></div>
@@ -688,6 +693,9 @@ function renderLiveYouthAssessmentPage() {
               name: accountCtx.name || undefined,
               cid: accountCtx.cid || undefined,
               crid: accountCtx.crid || undefined,
+              child_name: (document.getElementById("childNameInput") || {}).value || undefined,
+              child_age_band: (document.getElementById("childAgeBandInput") || {}).value || undefined,
+              child_grade_band: (document.getElementById("childGradeBandInput") || {}).value || undefined,
             }),
           });
           const payload = await response.json();
@@ -707,6 +715,9 @@ function renderLiveYouthAssessmentPage() {
             payload.ownership && payload.ownership.account_bound
               ? "<p><strong>Saved to account:</strong> " + payload.ownership.email + "</p>"
               : "",
+            payload.ownership && payload.ownership.child_profile && payload.ownership.child_profile.child_id
+              ? "<p><strong>Child scope:</strong> " + (payload.ownership.child_profile.child_name || "Child") + " (" + payload.ownership.child_profile.child_id + ")</p>"
+              : "<p class=\\"muted\\">Child identity is incomplete. Add child name to create a dedicated child scope.</p>",
             highest ? "<p><strong>Top current signal:</strong> " + highest.trait_name + " (" + Number(highest.current_score || 0).toFixed(1) + ")</p>" : "",
             "<p><strong>Completion:</strong> " + Number(completion || 0).toFixed(0) + "%</p>",
             priorities.length ? "<div>" + priorities.map((item) => "<span class=\\"pill\\">" + item.trait_name + " · " + Number(item.current_score || 0).toFixed(1) + "</span>").join("") + "</div>" : ""
@@ -1171,9 +1182,36 @@ function renderLiveYouthParentDashboardPage() {
 
         async function hydrateFromAccount() {
           if (!accountCtx.tenant || !accountCtx.email) return false;
+          const requestedChildId = (query.get('child_id') || query.get('childId') || '').trim();
+          const childrenEndpoint = new URL('/api/youth-development/children', window.location.origin);
+          childrenEndpoint.searchParams.set('tenant', accountCtx.tenant);
+          childrenEndpoint.searchParams.set('email', accountCtx.email);
+          const childrenResponse = await fetch(childrenEndpoint.pathname + childrenEndpoint.search);
+          const childrenPayload = childrenResponse.ok ? await childrenResponse.json().catch(() => null) : null;
+          const childProfiles = Array.isArray(childrenPayload && childrenPayload.children) ? childrenPayload.children : [];
+          if (!childProfiles.length) {
+            document.getElementById('heroSummary').textContent = 'No child profile is linked to this account yet. Complete intake with child name to create child scope.';
+            document.getElementById('weeklySupport').innerHTML = '<li class="muted">Child profile setup needed before child-scoped TDE loading is available.</li>';
+            return false;
+          }
+          const scopedChild = requestedChildId
+            ? childProfiles.find((entry) => String(entry.child_id || '') === requestedChildId)
+            : (childProfiles.length === 1 ? childProfiles[0] : null);
+          if (!scopedChild && childProfiles.length > 1) {
+            document.getElementById('heroSummary').textContent = 'Multiple child profiles found. Select a child scope to continue.';
+            document.getElementById('weeklySupport').innerHTML = childProfiles.map((entry) => {
+              const dash = new URL('/youth-development/parent-dashboard', window.location.origin);
+              dash.searchParams.set('tenant', accountCtx.tenant);
+              dash.searchParams.set('email', accountCtx.email);
+              dash.searchParams.set('child_id', String(entry.child_id || ''));
+              return '<li><a href="' + esc(dash.pathname + dash.search) + '">' + esc(entry.child_name || entry.child_id || 'Child profile') + '</a></li>';
+            }).join('');
+            return false;
+          }
           const endpoint = new URL('/api/youth-development/parent-dashboard/latest', window.location.origin);
           endpoint.searchParams.set('tenant', accountCtx.tenant);
           endpoint.searchParams.set('email', accountCtx.email);
+          if (scopedChild && scopedChild.child_id) endpoint.searchParams.set('child_id', String(scopedChild.child_id));
           const response = await fetch(endpoint.pathname + endpoint.search);
           if (!response.ok) return false;
           const data = await response.json().catch(() => null);
@@ -1288,6 +1326,7 @@ function createYouthDevelopmentRouter(options = {}) {
   const router = express.Router();
   const persistYouthAssessment = typeof options.persistYouthAssessment === "function" ? options.persistYouthAssessment : null;
   const loadLatestYouthAssessment = typeof options.loadLatestYouthAssessment === "function" ? options.loadLatestYouthAssessment : null;
+  const listYouthChildProfiles = typeof options.listYouthChildProfiles === "function" ? options.listYouthChildProfiles : null;
 
   router.get("/youth-development/intake", (req, res) => (
     res.status(200).type("html").send(renderLiveYouthAssessmentPage())
@@ -1338,15 +1377,23 @@ function createYouthDevelopmentRouter(options = {}) {
         unansweredCount: validation.unanswered_question_ids.length,
       });
       const accountCtx = resolveRequestAccountContext(req, req.body || {});
+      const childProfile = {
+        child_id: safeTrim(req.body?.child_id || req.body?.childId) || null,
+        child_name: safeTrim(req.body?.child_name || req.body?.childName) || null,
+        child_age_band: safeTrim(req.body?.child_age_band || req.body?.childAgeBand) || null,
+        child_grade_band: safeTrim(req.body?.child_grade_band || req.body?.childGradeBand) || null,
+      };
       let ownership = {
         account_bound: false,
         tenant: accountCtx.tenant || null,
         email: accountCtx.email || null,
+        child_profile: childProfile,
       };
       if (persistYouthAssessment && accountCtx.tenant && accountCtx.email) {
         const saved = await persistYouthAssessment({
           accountCtx,
           request: req,
+          requestBody: req.body || {},
           responsePayload: payload,
           validation,
           answers: validation.answers,
@@ -1388,14 +1435,32 @@ function createYouthDevelopmentRouter(options = {}) {
       return res.status(400).json({ ok: false, error: "tenant and email are required" });
     }
     try {
-      const latest = await loadLatestYouthAssessment({ accountCtx, request: req });
+      const childId = safeTrim(req.query?.child_id || req.query?.childId);
+      const latest = await loadLatestYouthAssessment({ accountCtx, request: req, childId });
       if (!latest) {
-        return res.status(200).json({ ok: true, has_result: false, payload: null });
+        return res.status(200).json({ ok: true, has_result: false, payload: null, child_id: childId || null });
       }
-      return res.status(200).json({ ok: true, has_result: true, payload: latest });
+      return res.status(200).json({ ok: true, has_result: true, payload: latest, child_id: childId || latest?.ownership?.child_profile?.child_id || null });
     } catch (err) {
       console.error("youth_latest_lookup_failed", err);
       return res.status(500).json({ ok: false, error: "youth_latest_lookup_failed" });
+    }
+  });
+
+  router.get("/api/youth-development/children", async (req, res) => {
+    if (!listYouthChildProfiles) {
+      return res.status(200).json({ ok: true, has_children: false, children: [], reason: "persistence_not_enabled" });
+    }
+    const accountCtx = resolveRequestAccountContext(req, req.query || {});
+    if (!accountCtx.tenant || !accountCtx.email) {
+      return res.status(400).json({ ok: false, error: "tenant and email are required" });
+    }
+    try {
+      const children = await listYouthChildProfiles({ accountCtx, request: req });
+      return res.status(200).json({ ok: true, has_children: children.length > 0, children });
+    } catch (err) {
+      console.error("youth_children_lookup_failed", err);
+      return res.status(500).json({ ok: false, error: "youth_children_lookup_failed" });
     }
   });
 

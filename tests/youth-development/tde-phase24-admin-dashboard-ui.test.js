@@ -31,8 +31,12 @@ test("phase24 operator UI uses extension endpoints with explicit sparse-data fal
   const source = fs.readFileSync("public/js/tde-operator-console.js", "utf8");
   assert.match(source, /\/api\/owner\/session/);
   assert.match(source, /\/api\/youth-development\/tde\/admin\/overview/);
+  assert.match(source, /child_id=:childId/);
+  assert.match(source, /\/api\/youth-development\/children/);
   assert.match(source, /\/api\/youth-development\/tde\/recommendations\/:childId/);
   assert.match(source, /\/api\/youth-development\/tde\/voice\/status\/:childId/);
+  assert.match(source, /No child in scope/);
+  assert.match(source, /internal_test_mode/);
   assert.match(source, /Loaded with fallback\/missing data states/);
   assert.match(source, /Enable the internal surface gate before loading TDE extension panels/);
 });

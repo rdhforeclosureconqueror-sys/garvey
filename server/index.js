@@ -1013,6 +1013,43 @@ function randomSlug(prefix = "campaign") {
   return `${normalizeSlug(prefix) || "campaign"}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
+function normalizeChildDisplayName(value) {
+  const normalized = String(value || "").trim().replace(/\s+/g, " ");
+  return normalized.slice(0, 120);
+}
+
+function normalizeChildScopeId(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 96);
+}
+
+function deriveChildScopeId({ tenantSlug, email, childName }) {
+  const nameSlug = normalizeSlug(childName || "child") || "child";
+  const digest = sha256(`${tenantSlug}|${email}|${nameSlug}`).slice(0, 12);
+  return `child-${nameSlug}-${digest}`;
+}
+
+function buildChildProfileFromInput(accountCtx = {}, requestBody = {}) {
+  const tenantSlug = String(accountCtx?.tenant || "").trim().toLowerCase();
+  const email = normalizeEmail(accountCtx?.email || "");
+  const childName = normalizeChildDisplayName(requestBody?.child_name || requestBody?.childName || "");
+  const explicitChildId = normalizeChildScopeId(requestBody?.child_id || requestBody?.childId || "");
+  const ageBand = String(requestBody?.child_age_band || requestBody?.childAgeBand || "").trim();
+  const gradeBand = String(requestBody?.child_grade_band || requestBody?.childGradeBand || "").trim();
+  const childId = explicitChildId || (tenantSlug && email ? deriveChildScopeId({ tenantSlug, email, childName }) : "");
+  return {
+    child_id: childId || null,
+    child_name: childName || null,
+    child_age_band: ageBand || null,
+    child_grade_band: gradeBand || null,
+    profile_status: childName ? "ready" : "identity_incomplete",
+  };
+}
+
 async function createCampaignRecord({
   tenantId,
   label,
@@ -1946,6 +1983,7 @@ async function persistYouthAssessmentForAccount({
   responsePayload,
   answers,
   unansweredQuestionIds,
+  requestBody,
 }) {
   const tenantSlug = String(accountCtx?.tenant || "").trim().toLowerCase();
   const email = normalizeEmail(accountCtx?.email || "");
@@ -1959,6 +1997,7 @@ async function persistYouthAssessmentForAccount({
   const user = await findTenantUser(tenant.id, email, pool, accountCtx?.name || "");
   const interpretedPrimary = String(responsePayload?.scoring?.interpretation?.highest_trait?.trait_name || "").trim();
   const interpretedSecondary = String(responsePayload?.scoring?.interpretation?.lowest_trait?.trait_name || "").trim();
+  const childProfile = buildChildProfileFromInput(accountCtx, requestBody);
   const rawPayload = {
     youth_assessment_version: "parent_observation_screener_v1",
     answers,
@@ -1978,6 +2017,7 @@ async function persistYouthAssessmentForAccount({
       user_id: user.id,
       cid: String(accountCtx?.cid || "").trim() || null,
       crid: String(accountCtx?.crid || "").trim() || null,
+      child_profile: childProfile,
     },
     stored_at: new Date().toISOString(),
   };
@@ -2006,15 +2046,17 @@ async function persistYouthAssessmentForAccount({
     user_id: user.id,
     submission_id: inserted.rows[0]?.id || null,
     saved_at: inserted.rows[0]?.created_at || null,
+    child_profile: childProfile,
   };
 }
 
-async function loadLatestYouthAssessmentForAccount({ accountCtx }) {
+async function loadLatestYouthAssessmentForAccount({ accountCtx, childId = "" }) {
   const tenantSlug = String(accountCtx?.tenant || "").trim().toLowerCase();
   const email = normalizeEmail(accountCtx?.email || "");
   if (!tenantSlug || !email) return null;
   const tenant = await getTenantBySlug(tenantSlug);
   if (!tenant) return null;
+  const scopedChildId = normalizeChildScopeId(childId);
   const latest = await pool.query(
     `SELECT a.raw_answers, a.id, a.created_at
      FROM assessment_submissions a
@@ -2022,9 +2064,10 @@ async function loadLatestYouthAssessmentForAccount({ accountCtx }) {
      WHERE a.tenant_id = $1
        AND a.assessment_type = 'youth'
        AND LOWER(COALESCE(a.customer_email, u.email, '')) = $2
+       AND ($3 = '' OR COALESCE(a.raw_answers->'ownership'->'child_profile'->>'child_id', '') = $3)
      ORDER BY a.created_at DESC, a.id DESC
      LIMIT 1`,
-    [tenant.id, email]
+    [tenant.id, email, scopedChildId]
   );
   const row = latest.rows[0];
   if (!row || !row.raw_answers || typeof row.raw_answers !== "object") return null;
@@ -2038,9 +2081,48 @@ async function loadLatestYouthAssessmentForAccount({ accountCtx }) {
   };
 }
 
+async function listYouthChildProfilesForAccount({ accountCtx }) {
+  const tenantSlug = String(accountCtx?.tenant || "").trim().toLowerCase();
+  const email = normalizeEmail(accountCtx?.email || "");
+  if (!tenantSlug || !email) return [];
+  const tenant = await getTenantBySlug(tenantSlug);
+  if (!tenant) return [];
+  const rows = await pool.query(
+    `SELECT a.id, a.created_at, a.customer_name, a.raw_answers
+     FROM assessment_submissions a
+     LEFT JOIN users u ON u.id = a.user_id
+     WHERE a.tenant_id = $1
+       AND a.assessment_type = 'youth'
+       AND LOWER(COALESCE(a.customer_email, u.email, '')) = $2
+     ORDER BY a.created_at DESC, a.id DESC
+     LIMIT 100`,
+    [tenant.id, email]
+  );
+
+  const seen = new Map();
+  for (const row of rows.rows) {
+    const raw = row.raw_answers && typeof row.raw_answers === "object" ? row.raw_answers : {};
+    const persisted = raw.ownership?.child_profile || {};
+    const fallbackName = normalizeChildDisplayName(persisted.child_name || row.customer_name || "Child profile needed");
+    const derivedId = normalizeChildScopeId(persisted.child_id) || deriveChildScopeId({ tenantSlug, email, childName: fallbackName || `child-${row.id}` });
+    if (seen.has(derivedId)) continue;
+    seen.set(derivedId, {
+      child_id: derivedId,
+      child_name: fallbackName || "Child profile needed",
+      child_age_band: persisted.child_age_band || null,
+      child_grade_band: persisted.child_grade_band || null,
+      profile_status: fallbackName ? "ready" : "identity_incomplete",
+      latest_assessment_at: row.created_at || null,
+      source: persisted.child_id ? "explicit_profile" : "legacy_assessment_fallback",
+    });
+  }
+  return [...seen.values()];
+}
+
 app.use(createYouthDevelopmentRouter({
   persistYouthAssessment: persistYouthAssessmentForAccount,
   loadLatestYouthAssessment: loadLatestYouthAssessmentForAccount,
+  listYouthChildProfiles: listYouthChildProfilesForAccount,
 }));
 app.use("/api/youth-development/intake", createYouthDevelopmentIntakeRouter());
 app.use("/api/youth-development/tde", createYouthDevelopmentTdeRouter({ pool }));
