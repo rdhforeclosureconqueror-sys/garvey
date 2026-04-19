@@ -159,6 +159,8 @@ test('GET /youth-development/program renders parent-facing guided development la
     assert.match(html, /Program status/);
     assert.match(html, /\/api\/youth-development\/program\/bridge/);
     assert.match(html, /\/api\/youth-development\/program\/launch/);
+    assert.match(html, /Current week guided experience/);
+    assert.match(html, /\/api\/youth-development\/program\/week-content/);
     assert.match(html, /Start Program/);
   } finally {
     await new Promise((resolve) => server.close(resolve));

@@ -386,3 +386,68 @@ test('POST /api/youth-development/program/launch returns resume state and does n
     await new Promise((resolve) => server.close(resolve));
   }
 });
+
+test('GET /api/youth-development/program/week-content returns current week guided content from program rail when enrolled', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    getProgramBridgeState: async ({ childId }) => ({
+      ok: true,
+      child_id: childId,
+      launch_allowed: true,
+      setup_needed: false,
+      has_enrollment: true,
+      current_week: 1,
+      current_phase_name: 'Foundation',
+      next_recommended_action: 'Continue Week 1',
+    }),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/program/week-content?tenant=demo&email=parent@example.com&child_id=child-real-1`);
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ok, true);
+    assert.equal(payload.state, 'content_ready');
+    assert.equal(payload.current_week, 1);
+    assert.equal(payload.week_content.week_number, 1);
+    assert.match(payload.week_content.title, /Week 1/);
+    assert.match(payload.week_content.phase_week_context, /Week 1 of 36/);
+    assert.ok(payload.week_content.content_blocks.core_activity);
+    assert.ok(payload.week_content.parent_guidance_setup);
+    assert.ok(payload.week_content.current_activity_session_plan);
+    assert.ok(payload.week_content.reflection_checkin_support);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('GET /api/youth-development/program/week-content enforces child scope for multi-child accounts', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    getProgramBridgeState: async () => ({ ok: true, launch_allowed: true, has_enrollment: true, current_week: 1 }),
+    listYouthChildProfiles: async () => ([
+      { child_id: 'child-a', child_name: 'A' },
+      { child_id: 'child-b', child_name: 'B' },
+    ]),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/program/week-content?tenant=demo&email=parent@example.com`);
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ok, true);
+    assert.equal(payload.state, 'child_scope_required');
+    assert.equal(Array.isArray(payload.child_scope_options), true);
+    assert.equal(payload.child_scope_options.length, 2);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
