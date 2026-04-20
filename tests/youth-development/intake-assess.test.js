@@ -583,7 +583,17 @@ test('program commitment, session plan, and completion routes persist planner op
   const app = express();
   app.use(express.json());
   app.use(createYouthDevelopmentRouter({
-    saveProgramCommitmentPlan: async ({ commitment }) => ({ ok: true, commitment_plan: commitment, accountability: { planned_this_week: 3, completed_this_week: 0, consistency_label: 'early' } }),
+    saveProgramCommitmentPlan: async ({ commitment }) => ({
+      ok: true,
+      commitment_plan: commitment,
+      commitment_setup_status: 'complete',
+      planner_setup_required: false,
+      scheduled_sessions: [
+        { session_id: 'plan-1', day: 'monday', day_label: 'Monday', time: '17:30', status: 'planned' },
+        { session_id: 'plan-2', day: 'wednesday', day_label: 'Wednesday', time: '17:30', status: 'planned' },
+      ],
+      accountability: { planned_this_week: 3, completed_this_week: 0, consistency_label: 'early' },
+    }),
     saveProgramSessionPlan: async ({ payload }) => ({ ok: true, scheduled_sessions: payload.scheduled_sessions || [] }),
     markProgramSessionComplete: async ({ sessionId }) => ({ ok: true, session_id: sessionId }),
   }));
@@ -610,6 +620,10 @@ test('program commitment, session plan, and completion routes persist planner op
     const commitmentPayload = await commitment.json();
     assert.equal(commitmentPayload.ok, true);
     assert.equal(commitmentPayload.commitment_plan.weekly_frequency, 3);
+    assert.equal(commitmentPayload.commitment_setup_status, 'complete');
+    assert.equal(commitmentPayload.planner_setup_required, false);
+    assert.equal(Array.isArray(commitmentPayload.scheduled_sessions), true);
+    assert.equal(commitmentPayload.scheduled_sessions.length, 2);
 
     const sessionPlan = await fetch(`${baseUrl}/api/youth-development/program/session-plan`, {
       method: 'POST',

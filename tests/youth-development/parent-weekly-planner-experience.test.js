@@ -268,6 +268,10 @@ test('program page script contains canonical planner gating states and suppresse
     assert.match(html, /setup_required/);
     assert.match(html, /setup_complete_but_no_sessions/);
     assert.match(html, /setup_complete_with_sessions/);
+    assert.match(html, /id="commitmentSaveFeedback"/);
+    assert.match(html, /id="commitmentSchedulePreview"/);
+    assert.match(html, /Your weekly plan is set\./);
+    assert.match(html, /Weekly plan save failed:/);
     assert.match(html, /progressDataSurface\.classList\.toggle\("is-hidden", !hasSessions\)/);
     assert.match(html, /todaySessionPanel\.classList\.toggle\("is-hidden", !hasSessions\)/);
   } finally {

@@ -2503,13 +2503,22 @@ async function loadProgramWeekPlanningForAccount({ accountCtx, childId = "", wee
   const commitmentPlan = commitmentRows.rows[0]?.payload
     ? normalizeParentCommitmentPlan(commitmentRows.rows[0].payload)
     : null;
-  const scheduledSource = Array.isArray(progressPayload.scheduled_sessions) && progressPayload.scheduled_sessions.length
+  const hasPersistedSessions = Array.isArray(progressPayload.scheduled_sessions) && progressPayload.scheduled_sessions.length > 0;
+  let scheduledSource = hasPersistedSessions
     ? progressPayload.scheduled_sessions
     : (commitmentPlan ? buildScheduledSessionsFromCommitment(commitmentPlan, {}, week) : []);
   const scheduledValidation = validateScheduledSessions({ scheduled_sessions: scheduledSource }, { childId: bridge.child_id, weekNumber: week });
   const scheduled = scheduledValidation.ok
     ? scheduledValidation.normalized
     : [];
+  if (commitmentPlan && !hasPersistedSessions && scheduled.length > 0) {
+    await saveProgramSessionPlanForAccount({
+      accountCtx,
+      childId: bridge.child_id,
+      weekNumber: week,
+      payload: { scheduled_sessions: scheduled },
+    });
+  }
   const completed = completedRows.rows.map((row) => row.payload || {}).filter(Boolean);
   const baseAccountability = summarizeSessionAdherence(commitmentPlan, scheduled, completed);
   const analyticsAccountability = buildMultiWeekAnalytics({
@@ -2533,7 +2542,10 @@ async function saveProgramCommitmentPlanForAccount({ accountCtx, childId = "", c
   if (!validation.ok) {
     return { ok: false, error: "commitment_setup_invalid", messages: validation.errors, required_fields: ["weekly_frequency", "preferred_days", "preferred_time", "session_length", "energy_type"] };
   }
-  const payload = normalizeParentCommitmentPlan({ ...validation.normalized, child_id: bridge.child_id });
+  const payload = {
+    ...normalizeParentCommitmentPlan({ ...validation.normalized, child_id: bridge.child_id }),
+    commitment_setup_status: "complete",
+  };
   await pool.query(
     `INSERT INTO tde_commitment_plans (child_id, committed_days_per_week, preferred_days, preferred_time_window, session_length, facilitator_role, payload)
      VALUES ($1,$2,$3::jsonb,$4,$5,$6,$7::jsonb)
@@ -2556,7 +2568,14 @@ async function saveProgramCommitmentPlanForAccount({ accountCtx, childId = "", c
     payload: { scheduled_sessions: scheduledDefaults },
   });
   const planning = await loadProgramWeekPlanningForAccount({ accountCtx, childId: bridge.child_id, weekNumber: week });
-  return { ok: true, commitment_plan: planning.commitment_plan, accountability: planning.accountability };
+  return {
+    ok: true,
+    commitment_plan: planning.commitment_plan,
+    commitment_setup_status: "complete",
+    planner_setup_required: false,
+    scheduled_sessions: planning.scheduled_sessions || [],
+    accountability: planning.accountability,
+  };
 }
 
 async function saveProgramSessionPlanForAccount({ accountCtx, childId = "", weekNumber = 1, payload = {} }) {
