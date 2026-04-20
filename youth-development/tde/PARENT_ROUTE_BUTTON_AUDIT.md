@@ -35,6 +35,10 @@
 ## Known broken symptoms fixed
 - Parent-facing **Continue Next Week** path now returns explicit guard errors and UI feedback instead of silent no-op when progression requirements are unmet.
 - Legacy action mismatch (`continue_next_step` vs `continue_to_next_step`) is normalized server-side and corrected client-side.
+- Weekly planner mixed-state split fixed with explicit parent-facing planner states:
+  - `setup_required`: setup CTA visible; schedule-dependent cards/metrics hidden.
+  - `setup_complete_but_no_sessions`: explicit recovery copy; no fake loading placeholders.
+  - `setup_complete_with_sessions`: today/next/planner/adherence surfaces visible with real scheduled-session data.
 
 ## Regression-safe constraints preserved
 - Assessment -> Start Program -> Week 1 bridge preserved.

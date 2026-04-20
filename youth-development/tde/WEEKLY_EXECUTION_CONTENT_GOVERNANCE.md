@@ -57,6 +57,21 @@
 - Program phase progress marker:
   - Displayed as week index within a 12-week phase segment (structural marker only; not interpreted growth).
 
+## Canonical weekly planner state model (parent program page)
+- State model is child-scoped + current-week scoped and is mutually exclusive:
+  1. `setup_required`
+     - Criteria: commitment contract incomplete (`isParentCommitmentSetupComplete=false`).
+     - Visible: Build Your Weekly Plan controls + explicit recovery copy.
+     - Hidden/suppressed: today session card, next session card, planner calendar, lesson-plan surface, adherence/progress dashboard metrics.
+  2. `setup_complete_but_no_sessions`
+     - Criteria: commitment complete but `scheduled_sessions.length === 0`.
+     - Visible: explicit issue/recovery guidance (re-save Build Your Weekly Plan to regenerate sessions).
+     - Hidden/suppressed: same schedule-dependent surfaces as above; no fake loading panels.
+  3. `setup_complete_with_sessions`
+     - Criteria: commitment complete and `scheduled_sessions.length > 0`.
+     - Visible: today/next session cards, planner calendar, lesson-plan surface, adherence/progress metrics, trend bars, week markers.
+- API contract: `week_content.planner_surface_state` provides canonical `state`, `label`, `message`, `setup_complete`, and `scheduled_session_count`.
+
 ## Next-best-action guidance rules
 - Guidance labels are canonical and state-driven:
   - `Start Today’s Session`
@@ -84,3 +99,11 @@
 - Adherence/progress metrics describe implementation completion only, not trait growth or child capability conclusions.
 - Missing prior-week fields means no trend claim (must show unavailable status).
 - Consistency markers are descriptive, not diagnostic.
+
+## Setup/save/load/session-generation dependency rules
+- Commitment save path:
+  - Parent submits `POST /api/youth-development/program/commitment`.
+  - Commitment is validated + persisted, then deterministic week-scoped sessions are generated from commitment defaults.
+  - Program page reload uses `GET /api/youth-development/program/week-content`, which loads both bridge progression and planning payload.
+- Planner/session surfaces must only render live schedule-dependent data after week-content load resolves to `planner_surface_state=setup_complete_with_sessions`.
+- If progression is ahead of planning (e.g., Week 2 active but no setup), UI must show explicit setup-needed recovery copy and must not imply today/next sessions exist.
