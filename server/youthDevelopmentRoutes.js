@@ -2055,7 +2055,9 @@ function renderLiveYouthProgramPage() {
             <label class="tiny">Energy type</label><select id="commitEnergyTypeInput" class="input"><option value="calm">calm</option><option value="balanced" selected>balanced</option><option value="high-energy">high-energy</option></select>
             <label class="tiny">Start date</label><input id="commitStartDateInput" class="input" type="date" />
             <button id="saveCommitmentBtn" class="btn btn-primary" type="button">Build Your Weekly Plan</button>
+            <p id="commitmentSaveFeedback" class="tiny muted" role="status" aria-live="polite"></p>
             <p id="commitmentSummary" class="tiny muted">Commitment not set.</p>
+            <ul id="commitmentSchedulePreview" class="list"><li class="muted">Schedule preview will appear after plan save.</li></ul>
           </div>
           <div id="weeklyPlannerDataSurface" class="state-box">
             <h3 class="state-title">Weekly Planner Calendar + adherence</h3>
@@ -2224,6 +2226,8 @@ function renderLiveYouthProgramPage() {
         const commitEnergyTypeInput = document.getElementById("commitEnergyTypeInput");
         const commitStartDateInput = document.getElementById("commitStartDateInput");
         const saveCommitmentBtn = document.getElementById("saveCommitmentBtn");
+        const commitmentSaveFeedback = document.getElementById("commitmentSaveFeedback");
+        const commitmentSchedulePreview = document.getElementById("commitmentSchedulePreview");
         const commitmentSummary = document.getElementById("commitmentSummary");
         const plannerStateCopy = document.getElementById("plannerStateCopy");
         const plannerStateMessage = document.getElementById("plannerStateMessage");
@@ -2347,6 +2351,12 @@ function renderLiveYouthProgramPage() {
           return Array.from(commitPreferredDaysGroup.querySelectorAll("input[data-day-checkbox]:checked"))
             .map((node) => String(node.getAttribute("data-day-checkbox") || "").toLowerCase())
             .filter(Boolean);
+        }
+        function renderCommitmentSchedulePreview(sessions) {
+          const rows = Array.isArray(sessions) ? sessions : [];
+          commitmentSchedulePreview.innerHTML = rows.length
+            ? rows.map((entry) => "<li><strong>" + esc(String(entry.day_label || entry.day || "Session")) + "</strong> @ " + esc(to12Hour(entry.time || "")) + "</li>").join("")
+            : '<li class="muted">No sessions generated yet.</li>';
         }
         function plannerSetupComplete(week) {
           const commitment = week.commitment_plan || {};
@@ -2785,6 +2795,7 @@ function renderLiveYouthProgramPage() {
           commitStartDateInput.value = String(commitment.start_date || "").slice(0, 10);
           commitmentSummary.textContent = "Committed: " + String(commitment.weekly_frequency || commitment.days_per_week || commitment.committed_days_per_week || 0)
             + "/week · Preferred days: " + String((commitment.preferred_days || []).join(", ") || "none");
+          renderCommitmentSchedulePreview(scheduled);
           adherenceSummary.textContent = "Planned this week: " + String(accountability.planned_this_week || 0)
             + " · Completed this week: " + String(accountability.completed_this_week || 0)
             + " · Consistency: " + String(accountability.consistency_label || "early");
@@ -3067,6 +3078,7 @@ function renderLiveYouthProgramPage() {
           const preferredDays = getSelectedPreferredDays();
           const weeklyFrequency = Number(commitDaysInput.value || preferredDays.length || 3);
           const sessionLength = Number(commitDurationInput.value || 30);
+          commitmentSaveFeedback.textContent = "";
           await withButtonBusy(saveCommitmentBtn, "Saving Plan…", async function () {
             const response = await fetch("/api/youth-development/program/commitment", {
               method: "POST",
@@ -3090,7 +3102,13 @@ function renderLiveYouthProgramPage() {
               }),
             });
             const payload = response.ok ? await response.json().catch(() => null) : null;
-            if (!payload || payload.ok !== true) return;
+            if (!payload || payload.ok !== true) {
+              const messages = Array.isArray(payload?.messages) ? payload.messages.join(", ") : String(payload?.message || payload?.error || "Unable to save weekly plan.");
+              commitmentSaveFeedback.textContent = "Weekly plan save failed: " + messages;
+              return;
+            }
+            commitmentSaveFeedback.textContent = "Your weekly plan is set.";
+            renderCommitmentSchedulePreview(payload.scheduled_sessions || []);
             await loadWeekExperience();
           });
         });
@@ -3627,7 +3645,15 @@ function createYouthDevelopmentRouter(options = {}) {
         child_id: childId || validation.normalized.child_id,
       });
       const result = await saveProgramCommitmentPlan({ accountCtx, request: req, childId, commitment: normalizedCommitment });
-      return res.status(200).json(result);
+      const normalizedResult = result && typeof result === "object"
+        ? {
+          ...result,
+          commitment_setup_status: String(result.commitment_setup_status || (result.ok === true ? "complete" : "required")),
+          planner_setup_required: result.ok === true ? false : Boolean(result.planner_setup_required),
+          scheduled_sessions: Array.isArray(result.scheduled_sessions) ? result.scheduled_sessions : [],
+        }
+        : { ok: false, error: "commitment_plan_save_invalid_result", commitment_setup_status: "required", planner_setup_required: true, scheduled_sessions: [] };
+      return res.status(200).json(normalizedResult);
     } catch (err) {
       console.error("youth_program_commitment_save_failed", err);
       return res.status(500).json({ ok: false, error: "youth_program_commitment_save_failed" });
