@@ -236,21 +236,34 @@ function normalizeActivity(activity = {}) {
   return {
     activity_id: String(activity.activity_id || ""),
     component_type: String(activity.component_type || ""),
+    category: String(activity.category || ""),
+    subcategory: String(activity.subcategory || ""),
     title: String(activity.title || "Untitled activity"),
     description: String(activity.description || "Activity details unavailable."),
     estimated_duration: Number(activity.estimated_duration || 0),
     materials_needed: Array.isArray(activity.materials_needed) ? activity.materials_needed : [],
     facilitation_instructions: String(activity.facilitation_instructions || ""),
     target_traits: Array.isArray(activity.target_traits) ? activity.target_traits : [],
+    available_variations: Array.isArray(activity.available_variations || activity.variations)
+      ? (activity.available_variations || activity.variations).map((variation) => ({
+        variation_id: String(variation.variation_id || ""),
+        variation_level: String(variation.variation_level || ""),
+        variation_type: String(variation.variation_type || ""),
+        instructions: String(variation.instructions || ""),
+        duration: Number(variation.duration || 0),
+        materials: Array.isArray(variation.materials) ? variation.materials : [],
+      }))
+      : [],
   };
 }
 
-function buildActivitySurface({ childId, phaseNumber }) {
+function buildActivitySurface({ childId, phaseNumber, parentCustomization = null }) {
   const safeChildId = String(childId || "").trim() || "child-week-preview";
   const sessionPlan = buildSessionPlan({
     child_id: safeChildId,
     phase_number: Number(phaseNumber || 1),
     facilitator_role: "parent",
+    parent_customization: parentCustomization || undefined,
   });
   const selectedActivities = sessionPlan?.ok === true && Array.isArray(sessionPlan.session_plan?.selected_activities)
     ? sessionPlan.session_plan.selected_activities.map((entry) => normalizeActivity(entry))
@@ -265,7 +278,10 @@ function buildActivitySurface({ childId, phaseNumber }) {
       session_id: String(sessionPlan.session_plan.session_id || ""),
       facilitator_role: String(sessionPlan.session_plan.facilitator_role || "parent"),
       selected_activity_ids: Array.isArray(sessionPlan.session_plan.selected_activity_ids) ? sessionPlan.session_plan.selected_activity_ids : [],
+      selected_variation_ids: Array.isArray(sessionPlan.session_plan.selected_variation_ids) ? sessionPlan.session_plan.selected_variation_ids : [],
       component_count: Number(sessionPlan.session_plan.component_count || selectedActivities.length || 0),
+      parent_customization: sessionPlan.session_plan.parent_customization || null,
+      component_choices: sessionPlan.session_plan.component_choices || {},
     } : null,
     selected_path: {
       core_activity: pickFromSelected("RULE_BASED_REGULATION") || pickFromSelected("ATTENTION_MINDFULNESS") || null,
@@ -287,26 +303,50 @@ function buildActivitySurface({ childId, phaseNumber }) {
 function auditActivityBankDepth(activitySurface = {}) {
   const banks = activitySurface.banks || {};
   const read = (key) => Array.isArray(banks[key]) ? banks[key] : [];
-  const summarize = (key, minimum, categoriesMissing, proposedAdditions) => {
-    const count = read(key).length;
+  const summarize = (key, minimum, requiredSubcategories) => {
+    const items = read(key);
+    const count = items.length;
+    const activityCountsBySubcategory = items.reduce((acc, item) => {
+      const subcategory = String(item?.subcategory || "uncategorized");
+      acc[subcategory] = (acc[subcategory] || 0) + 1;
+      return acc;
+    }, {});
+    const variationCountsByActivity = items.reduce((acc, item) => {
+      acc[String(item.activity_id || "")] = Array.isArray(item.available_variations) ? item.available_variations.length : 0;
+      return acc;
+    }, {});
+    const missingSubcategories = requiredSubcategories.filter((name) => !Object.prototype.hasOwnProperty.call(activityCountsBySubcategory, name));
+    const subcategoriesBelowDepthThreshold = Object.entries(activityCountsBySubcategory)
+      .filter(([, subCount]) => Number(subCount) < 5)
+      .map(([subcategory, subCount]) => ({ subcategory, count: subCount, threshold: 5 }));
+    const activitiesBelowVariationThreshold = Object.entries(variationCountsByActivity)
+      .filter(([, variationCount]) => Number(variationCount) < 2)
+      .map(([activity_id, variationCount]) => ({ activity_id, count: variationCount, threshold: 2 }));
     return {
       category: key,
       current_count: count,
       depth_limit: count < minimum ? `too_thin_for_weekly_planning (${count}/${minimum})` : "usable",
-      missing_categories: categoriesMissing,
-      proposed_authored_additions: proposedAdditions,
+      activity_counts_by_subcategory: activityCountsBySubcategory,
+      variation_counts_by_activity: variationCountsByActivity,
+      missing_subcategories: missingSubcategories,
+      subcategories_below_depth_threshold: subcategoriesBelowDepthThreshold,
+      activities_below_variation_threshold: activitiesBelowVariationThreshold,
     };
   };
   return {
     generated_at: new Date().toISOString(),
+    soft_targets: {
+      minimum_activities_per_subcategory: 5,
+      minimum_variations_per_activity: 2,
+    },
     areas: [
-      summarize("core_activity", 4, ["phase-specific choice ladders", "child-choice variants"], ["rule cues", "attention starts", "phase progression variants"]),
-      summarize("stretch_challenge", 3, ["transfer pressure variants", "leadership variants"], ["transfer map sprint", "choice complexity ramp"]),
-      summarize("reflection", 3, ["multi-step loops", "next-session bridge prompts"], ["growth loop reflection", "evidence + transfer prompt variants"]),
-      summarize("observation_support", 2, ["trigger tracking", "support action timing"], ["support action tracker"]),
-      summarize("opening_routine", 1, ["intention setup"], ["intention check-in"]),
-      summarize("transition_routine", 1, ["energy reset"], ["90-second reset transition"]),
-      summarize("closing_routine", 1, ["session close + accountability"], ["observation exit ticket"]),
+      summarize("core_activity", 4, ["focus_control", "emotional_regulation", "task_initiation", "problem_solving", "working_memory", "cognitive_flexibility"]),
+      summarize("stretch_challenge", 3, ["complexity_increase", "time_pressure", "multi_step_challenge", "distraction_resistance", "transfer_challenge"]),
+      summarize("reflection", 3, ["verbal_reflection", "visual_reflection", "guided_questions", "self_rating", "story_reflection"]),
+      summarize("observation_support", 2, ["parent_observation", "habit_anchor"]),
+      summarize("opening_routine", 1, ["calm_entry", "energy_activation", "attention_reset", "routine_anchor"]),
+      summarize("transition_routine", 1, ["reset_refocus", "movement_transition", "countdown_transition"]),
+      summarize("closing_routine", 1, ["child_summary", "reinforcement"]),
     ],
   };
 }
@@ -330,6 +370,8 @@ function buildSessionTemplate({ activitySurface, durationMinutes, scheduledAt, s
     minutes,
     activity_id: activity?.activity_id || null,
     title: activity?.title || null,
+    subcategory: activity?.subcategory || null,
+    available_variation_count: Array.isArray(activity?.available_variations) ? activity.available_variations.length : 0,
   });
   return {
     scheduled_at: scheduledAt || null,
@@ -362,7 +404,16 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}, planningState = {
     : "Keep the current home routine and capture one parent observation note.";
   const targetTraits = Array.isArray(weekModel.target_traits) ? weekModel.target_traits : [];
   const progressPercent = Math.max(0, Math.min(100, Math.round((weekNumber / 36) * 100)));
-  const activitySurface = buildActivitySurface({ childId: bridgeState.child_id, phaseNumber });
+  const parentCustomization = planningState?.commitment_plan?.parent_customization
+    || (planningState?.commitment_plan
+      ? {
+        difficulty_level: planningState.commitment_plan.difficulty_level,
+        session_length: planningState.commitment_plan.session_length || planningState.commitment_plan.session_duration_minutes || planningState.commitment_plan.target_session_length,
+        energy_type: planningState.commitment_plan.energy_type,
+        weekly_frequency: planningState.commitment_plan.weekly_frequency,
+      }
+      : null);
+  const activitySurface = buildActivitySurface({ childId: bridgeState.child_id, phaseNumber, parentCustomization });
   const commitment = planningState.commitment_plan || null;
   const plannedSessions = Array.isArray(planningState.scheduled_sessions) ? planningState.scheduled_sessions : [];
   const sessionTemplate = buildSessionTemplate({
@@ -2077,12 +2128,27 @@ function renderLiveYouthProgramPage() {
         }
         function renderActivityCard(title, activity) {
           if (!activity) return '<div class="activity-card"><h4>' + esc(title) + '</h4><p class="tiny">No mapped activity selected yet.</p></div>';
+          const variations = Array.isArray(activity.available_variations) ? activity.available_variations : [];
           return [
             '<div class="activity-card">',
             '<h4>' + esc(title + ": " + activity.title) + '</h4>',
             '<p class="tiny">' + esc(activity.description || "No description available.") + '</p>',
+            '<p class="tiny"><strong>Subcategory:</strong> ' + esc(activity.subcategory || "n/a") + '</p>',
             '<p class="tiny"><strong>Duration:</strong> ' + esc((activity.estimated_duration || 0) + " min") + '</p>',
             '<p class="tiny"><strong>Materials:</strong> ' + esc((activity.materials_needed || []).join(", ") || "None") + '</p>',
+            variations.length
+              ? '<p class="tiny"><strong>Variation options:</strong> ' + esc(variations.map((item) => item.variation_level + " · " + item.variation_type).join(" | ")) + '</p>'
+              : '<p class="tiny"><strong>Variation options:</strong> none</p>',
+            '</div>',
+          ].join("");
+        }
+        function renderAlternativeOptions(title, options) {
+          const rows = Array.isArray(options) ? options : [];
+          return [
+            '<div class="activity-card"><h4>' + esc(title) + '</h4>',
+            rows.length
+              ? '<ul class="tiny">' + rows.map((item) => '<li>' + esc(item.title || item.activity_id || "Alternative") + ' <span class="muted">(' + esc(item.subcategory || "n/a") + ')</span></li>').join("") + '</ul>'
+              : '<p class="tiny">No alternatives available.</p>',
             '</div>',
           ].join("");
         }
@@ -2233,17 +2299,26 @@ function renderLiveYouthProgramPage() {
           );
           const selectedPath = week.activity_bank_surface?.selected_path || {};
           const bankSummary = week.activity_bank_surface?.banks || {};
+          const componentChoices = week.activity_bank_surface?.session_plan?.component_choices || {};
+          const coreChoices = [componentChoices.RULE_BASED_REGULATION, componentChoices.ATTENTION_MINDFULNESS].filter(Boolean);
+          const stretchChoices = componentChoices.CHALLENGE_SUSTAINED_FOCUS || null;
+          const reflectionChoices = componentChoices.REFLECTION_COACHING || null;
           activityBankSurface.innerHTML = [
             renderActivityCard("Active core path", selectedPath.core_activity),
             renderActivityCard("Active stretch challenge", selectedPath.stretch_challenge),
             renderActivityCard("Active reflection loop", selectedPath.reflection),
+            renderAlternativeOptions("Core alternatives", coreChoices.flatMap((entry) => entry.available_alternatives || []).slice(0, 3)),
+            renderAlternativeOptions("Stretch alternatives", stretchChoices?.available_alternatives || []),
+            renderAlternativeOptions("Reflection alternatives", reflectionChoices?.available_alternatives || []),
             '<div class="activity-card"><h4>Weekly options from activity bank</h4><p class="tiny">Core: ' + esc(String((bankSummary.core_activity || []).length))
             + ' · Stretch: ' + esc(String((bankSummary.stretch_challenge || []).length))
             + ' · Reflection: ' + esc(String((bankSummary.reflection || []).length))
             + ' · Opening: ' + esc(String((bankSummary.opening_routine || []).length))
             + ' · Transition: ' + esc(String((bankSummary.transition_routine || []).length))
             + ' · Closing: ' + esc(String((bankSummary.closing_routine || []).length))
-            + '</p></div>',
+            + '</p><p class="tiny"><strong>Core options:</strong> ' + esc(String((bankSummary.core_activity || []).length))
+            + ' · <strong>Stretch options:</strong> ' + esc(String((bankSummary.stretch_challenge || []).length))
+            + ' · <strong>Reflection options:</strong> ' + esc(String((bankSummary.reflection || []).length)) + '</p></div>',
           ].join("");
 
           observationSupport.textContent = String(week.observation_support_area || week.reflection_checkin_support || "Observation/support details unavailable.");

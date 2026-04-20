@@ -55,7 +55,7 @@ const {
   getProgramWeek,
   listProgramCheckpoints,
 } = require("../youth-development/tde/programService");
-const { listActivitiesByComponent, getComponentTypeByActivityId } = require("../youth-development/tde/activityBankService");
+const { listActivitiesByComponent, getComponentTypeByActivityId, ACTIVITY_CATEGORIES, ALL_COMPONENT_TYPES } = require("../youth-development/tde/activityBankService");
 const {
   saveCommitmentPlan,
   getCommitmentPlan,
@@ -360,6 +360,41 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
     const result = await getCommitmentPlan(childId, repository);
     return res.status(200).json(result);
+  });
+
+  router.get("/activity-bank/audit/depth", (_req, res) => {
+    const allActivities = ALL_COMPONENT_TYPES.flatMap((componentType) => listActivitiesByComponent(componentType).activities || []);
+    const totalsByCategory = allActivities.reduce((acc, activity) => {
+      const category = String(activity.category || "uncategorized");
+      acc[category] = (acc[category] || 0) + 1;
+      return acc;
+    }, {});
+    const totalsBySubcategory = allActivities.reduce((acc, activity) => {
+      const subcategory = String(activity.subcategory || "uncategorized");
+      acc[subcategory] = (acc[subcategory] || 0) + 1;
+      return acc;
+    }, {});
+    const variationsPerActivity = allActivities.reduce((acc, activity) => {
+      acc[String(activity.activity_id || "")] = Array.isArray(activity.variations) ? activity.variations.length : 0;
+      return acc;
+    }, {});
+    const requiredSubcategories = Object.values(ACTIVITY_CATEGORIES).flat();
+    return res.status(200).json({
+      ok: true,
+      soft_targets: { minimum_activities_per_subcategory: 5, minimum_variations_per_activity: 2 },
+      total_activities_per_category: totalsByCategory,
+      total_activities_per_subcategory: totalsBySubcategory,
+      total_variations_per_activity: variationsPerActivity,
+      missing_subcategories: requiredSubcategories.filter((subcategory) => !Object.prototype.hasOwnProperty.call(totalsBySubcategory, subcategory)),
+      categories_below_minimum_depth_threshold: Object.entries(totalsBySubcategory)
+        .filter(([, count]) => Number(count) < 5)
+        .map(([subcategory, count]) => ({ subcategory, count, threshold: 5 })),
+      activities_below_minimum_variation_threshold: Object.entries(variationsPerActivity)
+        .filter(([, count]) => Number(count) < 2)
+        .map(([activity_id, count]) => ({ activity_id, count, threshold: 2 })),
+      deterministic: true,
+      extension_only: true,
+    });
   });
 
   router.get("/activity-bank/:componentType", (req, res) => {
