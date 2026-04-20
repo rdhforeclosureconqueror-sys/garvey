@@ -27,6 +27,8 @@ test('program page renders parent planner, calendar, and lesson-plan surfaces', 
     assert.match(html, /Parent Progress \+ Adherence Dashboard/);
     assert.match(html, /Multi-week trends\/history/);
     assert.match(html, /Current week completion/);
+    assert.match(html, /Last week completion/);
+    assert.match(html, /Week-over-week delta/);
     assert.match(html, /Week-over-week view loading/);
     assert.match(html, /Loading last 4 weeks completion bars/);
     assert.match(html, /Consistency trend loading/);
@@ -35,6 +37,7 @@ test('program page renders parent planner, calendar, and lesson-plan surfaces', 
     assert.match(html, /Adherence progress \(planned vs completed sessions\)/);
     assert.match(html, /Next-best-action/);
     assert.match(html, /Determining next best action/);
+    assert.match(html, /Run Next Best Action/);
     assert.match(html, /Weekly Planner Calendar \+ adherence/);
     assert.match(html, /Teacher-Style Lesson Plan/);
     assert.match(html, /Open Scheduled Session/);
@@ -223,6 +226,9 @@ test('program page includes canonical next-best-action guidance labels', async (
     assert.match(html, /Resume Session/);
     assert.match(html, /Complete Reflection/);
     assert.match(html, /Finish this week to unlock Next Week/);
+    assert.match(html, /id="nextBestActionBtn"/);
+    assert.match(html, /nextBestActionBtn\.addEventListener\("click"/);
+    assert.match(html, /dataset\.actionType/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

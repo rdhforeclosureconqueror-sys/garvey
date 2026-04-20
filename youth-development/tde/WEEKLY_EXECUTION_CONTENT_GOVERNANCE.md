@@ -47,6 +47,8 @@
   - In-progress sessions (`status=in_progress` plus same-day planned session marker behavior in UI)
   - Missed sessions (`status=missed` or unsupported statuses normalized as missed)
   - Current week completion percent (`completed/planned * 100`)
+  - Last week completion percent (`accountability.last_week_completion_percent` or `week_over_week.prior_week_completion_percent` when present)
+  - Week-over-week delta points (`week_over_week.delta_points`) when explicit comparison payload exists
   - Consistency marker (`accountability.consistency_label`)
 - Week-over-week comparisons:
   - If `accountability.last_week_completion_percent` is present, dashboard shows point delta vs current week.
@@ -65,6 +67,18 @@
 - Guidance must never be a no-op:
   - Blocked reasons from execution state are surfaced explicitly in UI.
   - Child/week scope is rendered alongside guidance context.
+  - `Run Next Best Action` button must map to existing scoped controls only (start/resume session, reflection prompt focus, continue next week).
+
+## Visual element meanings
+- Progress bars:
+  - `Adherence progress` bar maps to planned-vs-completed session ratio for this week only.
+  - `Current week completion` bar maps to completed/planned percentage for this week only.
+- Trend bars:
+  - Multi-week bars render historical completion percentages from persisted weekly records.
+  - If history is unavailable, UI shows explicit unavailable copy rather than interpolated values.
+- Week markers:
+  - Week markers summarize structural context (current week completion, week-over-week trend, phase week index, streak marker).
+  - Markers are operational adherence summaries and do not imply developmental trait change.
 
 ## Interpretation limits (must remain explicit)
 - Adherence/progress metrics describe implementation completion only, not trait growth or child capability conclusions.

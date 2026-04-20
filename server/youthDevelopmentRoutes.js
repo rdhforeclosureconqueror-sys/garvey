@@ -1944,6 +1944,7 @@ function renderLiveYouthProgramPage() {
       .trend-bar-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #3b82f6); }
       .trend-bar-fill-label { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 11px; color: #e2e8f0; font-weight: 700; }
       .next-action-box { margin-top: 8px; border: 1px dashed rgba(148, 163, 184, 0.5); border-radius: 10px; padding: 8px; background: rgba(15, 23, 42, 0.55); }
+      .next-action-controls { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
       .week-markers { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; }
       .btn[aria-busy="true"] { opacity: 0.8; cursor: progress; }
       .btn-active { box-shadow: inset 0 0 0 2px rgba(125, 211, 252, 0.3); }
@@ -2105,6 +2106,8 @@ function renderLiveYouthProgramPage() {
           <article class="progress-metric-tile"><p class="label">In progress this week</p><p id="progressInProgressCount" class="value">0</p></article>
           <article class="progress-metric-tile"><p class="label">Missed this week</p><p id="progressMissedCount" class="value">0</p></article>
           <article class="progress-metric-tile"><p class="label">Current week completion</p><p id="progressCompletionPercent" class="value">0%</p></article>
+          <article class="progress-metric-tile"><p class="label">Last week completion</p><p id="progressLastWeekPercent" class="value">—</p></article>
+          <article class="progress-metric-tile"><p class="label">Week-over-week delta</p><p id="progressWowDelta" class="value">—</p></article>
           <article class="progress-metric-tile"><p class="label">Consistency marker</p><p id="progressConsistencyMarker" class="value">—</p></article>
         </div>
         <div class="motivation-banner">
@@ -2130,6 +2133,9 @@ function renderLiveYouthProgramPage() {
         <div class="next-action-box">
           <p id="nextBestActionCopy" class="state-line" role="status" aria-live="polite" aria-atomic="true">Determining next best action…</p>
           <p id="nextBestActionBlocked" class="tiny muted" role="status" aria-live="polite" aria-atomic="true"></p>
+          <div class="next-action-controls">
+            <button id="nextBestActionBtn" class="btn btn-primary" type="button">Run Next Best Action</button>
+          </div>
         </div>
       </section>
       
@@ -2195,6 +2201,8 @@ function renderLiveYouthProgramPage() {
         const progressInProgressCount = document.getElementById("progressInProgressCount");
         const progressMissedCount = document.getElementById("progressMissedCount");
         const progressCompletionPercent = document.getElementById("progressCompletionPercent");
+        const progressLastWeekPercent = document.getElementById("progressLastWeekPercent");
+        const progressWowDelta = document.getElementById("progressWowDelta");
         const progressConsistencyMarker = document.getElementById("progressConsistencyMarker");
         const motivationSummary = document.getElementById("motivationSummary");
         const motivationChips = document.getElementById("motivationChips");
@@ -2206,6 +2214,7 @@ function renderLiveYouthProgramPage() {
         const weekMarkersList = document.getElementById("weekMarkersList");
         const nextBestActionCopy = document.getElementById("nextBestActionCopy");
         const nextBestActionBlocked = document.getElementById("nextBestActionBlocked");
+        const nextBestActionBtn = document.getElementById("nextBestActionBtn");
         const lessonPlanSessionHeader = document.getElementById("lessonPlanSessionHeader");
         const lessonPlanView = document.getElementById("lessonPlanView");
         const resumeSessionBtn = document.getElementById("resumeSessionBtn");
@@ -2434,6 +2443,7 @@ function renderLiveYouthProgramPage() {
           const consistency = String(accountability.consistency_label || "forming");
           const wow = accountability.week_over_week || {};
           const lastWeekPct = Number(wow.prior_week_completion_percent ?? accountability.last_week_completion_percent);
+          const wowDelta = Number(wow.delta_points);
           const phaseWeek = Number(week.week_number || 1);
           const phaseIndex = ((phaseWeek - 1) % 12) + 1;
           const streakContract = accountability.streak_contract || {};
@@ -2443,6 +2453,10 @@ function renderLiveYouthProgramPage() {
           progressInProgressCount.textContent = String(inProgress);
           progressMissedCount.textContent = String(missed);
           progressCompletionPercent.textContent = String(completionPct.toFixed(1)) + "%";
+          progressLastWeekPercent.textContent = Number.isFinite(lastWeekPct) ? String(lastWeekPct.toFixed(1)) + "%" : "—";
+          progressWowDelta.textContent = wow.comparison_available && Number.isFinite(wowDelta)
+            ? ((wowDelta > 0 ? "+" : "") + String(wowDelta.toFixed(1)) + " pts")
+            : "—";
           progressConsistencyMarker.textContent = consistency;
           completionFill.style.width = String(Math.max(0, Math.min(100, completionPct))) + "%";
           if (motivationSummary) {
@@ -2487,11 +2501,31 @@ function renderLiveYouthProgramPage() {
           setListHtml(weekMarkersList, markers.map((item) => esc(item)));
           const state = executionState || {};
           let nextLabel = "Start Today’s Session";
-          if (state.week_status === "in_progress" || state.resume_ready === true) nextLabel = "Resume Session";
-          if (!state.reflection_saved) nextLabel = "Complete Reflection";
-          if (state.week_status === "ready_for_next_week" && state.next_week_available !== true) nextLabel = "Finish this week to unlock Next Week";
-          if (state.week_status === "completed" && state.next_week_available === true) nextLabel = "Continue Next Week";
+          let nextActionType = "start_today_session";
+          let nextActionBlocked = false;
+          if (state.week_status === "in_progress" || state.resume_ready === true) {
+            nextLabel = "Resume Session";
+            nextActionType = "resume_session";
+          }
+          if (!state.reflection_saved) {
+            nextLabel = "Complete Reflection";
+            nextActionType = "complete_reflection";
+          }
+          if (state.week_status === "ready_for_next_week" && state.next_week_available !== true) {
+            nextLabel = "Finish this week to unlock Next Week";
+            nextActionType = "unlock_next_week";
+            nextActionBlocked = true;
+          }
+          if (state.week_status === "completed" && state.next_week_available === true) {
+            nextLabel = "Continue Next Week";
+            nextActionType = "continue_next_week";
+          }
           nextBestActionCopy.textContent = "Next best action: " + nextLabel;
+          if (nextBestActionBtn) {
+            nextBestActionBtn.dataset.actionType = nextActionType;
+            nextBestActionBtn.textContent = nextLabel;
+            nextBestActionBtn.disabled = nextActionBlocked;
+          }
           nextBestActionBlocked.textContent = state.blocked_reason
             ? "Blocked reason: " + String(state.blocked_reason)
             : "Scope: child " + String(latestWeekPayload?.child_id || accountCtx.child_id || "unknown") + " · week " + String(week.week_number || 1);
@@ -2882,6 +2916,29 @@ function renderLiveYouthProgramPage() {
             await loadBridge();
             await loadWeekExperience();
           });
+        });
+        nextBestActionBtn.addEventListener("click", function () {
+          const nextAction = String(nextBestActionBtn.dataset.actionType || "");
+          if (nextAction === "start_today_session" || nextAction === "resume_session") {
+            if (!startTodaySessionBtn.disabled) {
+              startTodaySessionBtn.click();
+              return;
+            }
+            if (!resumeTodaySessionBtn.disabled) {
+              resumeTodaySessionBtn.click();
+              return;
+            }
+          }
+          if (nextAction === "complete_reflection") {
+            parentReflectionInput.focus();
+            setNextActionStatus("Next action", "Add a reflection note, then select Save Reflection.");
+            return;
+          }
+          if (nextAction === "continue_next_week") {
+            continueNextWeekBtn.click();
+            return;
+          }
+          setNextActionStatus("Action blocked", "Finish this week to unlock Next Week.");
         });
         saveCommitmentBtn.addEventListener("click", async function () {
           if (!latestWeekPayload || !latestWeekPayload.week_content) return;
