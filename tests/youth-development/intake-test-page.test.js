@@ -168,6 +168,14 @@ test('GET /youth-development/program renders parent-facing guided development la
     assert.match(html, /saveReflectionBtn/);
     assert.match(html, /saveObservationBtn/);
     assert.match(html, /markStepCompleteBtn/);
+    assert.match(html, /id="nextActionArea"[^>]*role="status"[^>]*aria-live="polite"[^>]*aria-atomic="true"/);
+    assert.match(html, /id="executionStateArea"[^>]*role="status"[^>]*aria-live="polite"[^>]*aria-atomic="true"/);
+    assert.match(html, /id="nextBestActionCopy"[^>]*role="status"[^>]*aria-live="polite"/);
+    assert.match(html, /id="nextBestActionBlocked"[^>]*role="status"[^>]*aria-live="polite"/);
+    assert.match(html, /function setNextActionStatus\(prefix, message\)/);
+    assert.match(html, /const ACTION_CONFIRMATIONS = \{/);
+    assert.match(html, /setNextActionStatus\("Action complete", ACTION_CONFIRMATIONS\[actionType\] \|\| "Update saved\."\)/);
+    assert.match(html, /setNextActionStatus\("Action blocked"/);
     assert.match(html, /prevWeekBtn/);
     assert.match(html, /\/api\/youth-development\/program\/week-content/);
     assert.match(html, /continue_to_next_step/);
