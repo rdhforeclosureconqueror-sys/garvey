@@ -26,6 +26,10 @@
 | Resume Session | in-page control | uses weekly execution contract `action_type=start_week` | tenant+email+child_id+week | validated |
 | Open Next Scheduled Session | in-page control | selects next planned/in-progress session + lesson-plan focus | child_id+week+session_id | validated |
 | Return to Weekly Overview | in-page control | scroll/focus return to week overview panel | client state only | validated |
+| Next best action (Start Today’s Session) | parent progress dashboard guidance | mirrors same `startTodaySessionBtn` target session scope; disabled when unavailable | child_id+week+session_id | validated |
+| Next best action (Resume Session) | parent progress dashboard guidance | mirrors same session resume flow (`action_type=start_week`) | tenant+email+child_id+week | validated |
+| Next best action (Complete Reflection) | parent progress dashboard guidance | directs parent to reflection note save path (`action_type=save_reflection`) | tenant+email+child_id+week+note | validated |
+| Next best action (Finish this week to unlock Next Week) | parent progress dashboard guidance | explicit blocked-state copy only when progression contract unmet | tenant+email+child_id+week | validated |
 
 ## Known broken symptoms fixed
 - Parent-facing **Continue Next Week** path now returns explicit guard errors and UI feedback instead of silent no-op when progression requirements are unmet.

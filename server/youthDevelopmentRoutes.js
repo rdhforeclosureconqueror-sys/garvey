@@ -1912,6 +1912,7 @@ function renderLiveYouthProgramPage() {
       .status-planned { border-color: rgba(56, 189, 248, 0.8); color: #bfdbfe; }
       .status-in_progress { border-color: rgba(250, 204, 21, 0.8); color: #fde68a; }
       .status-missed { border-color: rgba(248, 113, 113, 0.8); color: #fca5a5; }
+      .status-blocked { border-color: rgba(251, 191, 36, 0.8); color: #fcd34d; }
       .calendar-grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
       .calendar-day { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 8px; background: rgba(2, 6, 23, 0.45); }
       .calendar-day.today { border-color: rgba(56, 189, 248, 0.75); box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.25); }
@@ -1923,6 +1924,12 @@ function renderLiveYouthProgramPage() {
       .lesson-plan table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
       .lesson-plan th, .lesson-plan td { border: 1px solid rgba(148, 163, 184, 0.35); padding: 6px; text-align: left; vertical-align: top; }
       .checklist { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; }
+      .progress-metrics-grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); margin-top: 8px; }
+      .progress-metric-tile { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 8px; background: rgba(2, 6, 23, 0.55); }
+      .progress-metric-tile .label { font-size: 11px; color: #94a3b8; margin: 0; }
+      .progress-metric-tile .value { font-size: 18px; color: #e2e8f0; font-weight: 700; margin: 2px 0 0; }
+      .next-action-box { margin-top: 8px; border: 1px dashed rgba(148, 163, 184, 0.5); border-radius: 10px; padding: 8px; background: rgba(15, 23, 42, 0.55); }
+      .week-markers { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; }
       #todaySessionPanel { order: 1; }
       #weeklyCalendarPanel { order: 2; }
       #currentWeekPanel { order: 3; }
@@ -2017,6 +2024,26 @@ function renderLiveYouthProgramPage() {
             <h4>Week-in-Program Marker</h4>
             <p id="weekMarkerCard">Loading week marker…</p>
           </div>
+        </div>
+      </section>
+      <section class="panel" id="parentProgressPanel">
+        <h2>Parent Progress + Adherence Dashboard</h2>
+        <div class="progress-metrics-grid">
+          <article class="progress-metric-tile"><p class="label">Planned this week</p><p id="progressPlannedCount" class="value">0</p></article>
+          <article class="progress-metric-tile"><p class="label">Completed this week</p><p id="progressCompletedCount" class="value">0</p></article>
+          <article class="progress-metric-tile"><p class="label">In progress this week</p><p id="progressInProgressCount" class="value">0</p></article>
+          <article class="progress-metric-tile"><p class="label">Missed this week</p><p id="progressMissedCount" class="value">0</p></article>
+          <article class="progress-metric-tile"><p class="label">Current week completion</p><p id="progressCompletionPercent" class="value">0%</p></article>
+          <article class="progress-metric-tile"><p class="label">Consistency marker</p><p id="progressConsistencyMarker" class="value">—</p></article>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-track"><div id="completionFill" class="progress-fill"></div></div>
+        </div>
+        <p id="weekComparisonSummary" class="state-line">Week-over-week view loading…</p>
+        <ul id="weekMarkersList" class="week-markers"><li class="muted">Loading week markers…</li></ul>
+        <div class="next-action-box">
+          <p id="nextBestActionCopy" class="state-line">Determining next best action…</p>
+          <p id="nextBestActionBlocked" class="tiny muted"></p>
         </div>
       </section>
       <section class="panel" id="weeklyCalendarPanel">
@@ -2122,6 +2149,17 @@ function renderLiveYouthProgramPage() {
         const nextSessionCard = document.getElementById("nextSessionCard");
         const weekAtGlanceCard = document.getElementById("weekAtGlanceCard");
         const weekMarkerCard = document.getElementById("weekMarkerCard");
+        const progressPlannedCount = document.getElementById("progressPlannedCount");
+        const progressCompletedCount = document.getElementById("progressCompletedCount");
+        const progressInProgressCount = document.getElementById("progressInProgressCount");
+        const progressMissedCount = document.getElementById("progressMissedCount");
+        const progressCompletionPercent = document.getElementById("progressCompletionPercent");
+        const progressConsistencyMarker = document.getElementById("progressConsistencyMarker");
+        const completionFill = document.getElementById("completionFill");
+        const weekComparisonSummary = document.getElementById("weekComparisonSummary");
+        const weekMarkersList = document.getElementById("weekMarkersList");
+        const nextBestActionCopy = document.getElementById("nextBestActionCopy");
+        const nextBestActionBlocked = document.getElementById("nextBestActionBlocked");
         const lessonPlanSessionHeader = document.getElementById("lessonPlanSessionHeader");
         const lessonPlanView = document.getElementById("lessonPlanView");
         const resumeSessionBtn = document.getElementById("resumeSessionBtn");
@@ -2276,6 +2314,55 @@ function renderLiveYouthProgramPage() {
             adherenceRatio: Math.max(0, Math.min(1, Number(adherenceRatio || 0))),
             accountability,
           };
+        }
+        function describeTrend(currentPct, lastPct) {
+          if (!Number.isFinite(lastPct)) return "No last-week comparison available yet.";
+          const delta = Number((currentPct - lastPct).toFixed(1));
+          if (Math.abs(delta) < 0.1) return "On pace with last week (" + String(lastPct.toFixed(1)) + "%).";
+          return delta > 0
+            ? "Up " + String(delta.toFixed(1)) + " points vs last week (" + String(lastPct.toFixed(1)) + "% → " + String(currentPct.toFixed(1)) + "%)."
+            : "Down " + String(Math.abs(delta).toFixed(1)) + " points vs last week (" + String(lastPct.toFixed(1)) + "% → " + String(currentPct.toFixed(1)) + "%).";
+        }
+        function renderProgressDashboard(week, planner, executionState) {
+          const scheduled = Array.isArray(planner.scheduled) ? planner.scheduled : [];
+          const completed = scheduled.filter((entry) => entry.normalized_status === "completed").length;
+          const inProgress = scheduled.filter((entry) => entry.normalized_status === "in_progress").length;
+          const missed = scheduled.filter((entry) => entry.normalized_status === "missed").length;
+          const planned = scheduled.length;
+          const completionPct = planned > 0 ? Number(((completed / planned) * 100).toFixed(1)) : 0;
+          const accountability = planner.accountability || {};
+          const consistency = String(accountability.consistency_label || "forming");
+          const lastWeekPct = Number(accountability.last_week_completion_percent);
+          const phaseWeek = Number(week.week_number || 1);
+          const phaseIndex = ((phaseWeek - 1) % 12) + 1;
+          const streakWeeks = Number(accountability.current_streak_weeks || accountability.consistency_streak_weeks || 0);
+          progressPlannedCount.textContent = String(planned);
+          progressCompletedCount.textContent = String(completed);
+          progressInProgressCount.textContent = String(inProgress);
+          progressMissedCount.textContent = String(missed);
+          progressCompletionPercent.textContent = String(completionPct.toFixed(1)) + "%";
+          progressConsistencyMarker.textContent = consistency;
+          completionFill.style.width = String(Math.max(0, Math.min(100, completionPct))) + "%";
+          weekComparisonSummary.textContent = describeTrend(completionPct, Number.isFinite(lastWeekPct) ? lastWeekPct : NaN);
+          const markers = [
+            "Week " + String(phaseWeek) + " completion: " + String(completionPct.toFixed(1)) + "%",
+            "Week-over-week: " + describeTrend(completionPct, Number.isFinite(lastWeekPct) ? lastWeekPct : NaN),
+            "Program phase progress: week " + String(phaseIndex) + " of 12 in current phase.",
+            streakWeeks > 0
+              ? "Current completion streak: " + String(streakWeeks) + " week" + (streakWeeks === 1 ? "" : "s")
+              : "Current completion streak: not established yet",
+          ];
+          setListHtml(weekMarkersList, markers.map((item) => esc(item)));
+          const state = executionState || {};
+          let nextLabel = "Start Today’s Session";
+          if (state.week_status === "in_progress" || state.resume_ready === true) nextLabel = "Resume Session";
+          if (!state.reflection_saved) nextLabel = "Complete Reflection";
+          if (state.week_status === "ready_for_next_week" && state.next_week_available !== true) nextLabel = "Finish this week to unlock Next Week";
+          if (state.week_status === "completed" && state.next_week_available === true) nextLabel = "Continue Next Week";
+          nextBestActionCopy.textContent = "Next best action: " + nextLabel;
+          nextBestActionBlocked.textContent = state.blocked_reason
+            ? "Blocked reason: " + String(state.blocked_reason)
+            : "Scope: child " + String(latestWeekPayload?.child_id || accountCtx.child_id || "unknown") + " · week " + String(week.week_number || 1);
         }
         function renderLessonPlan(session, week) {
           const template = week.lesson_plan_template || {};
@@ -2463,6 +2550,7 @@ function renderLiveYouthProgramPage() {
           selectedSessionId = selected ? String(selected.session_id || "") : "";
           completeSelectedSessionBtn.disabled = !selected || selected.normalized_status === "completed";
           renderLessonPlan(selected, week);
+          renderProgressDashboard(week, planner, latestWeekPayload?.execution_state || null);
         }
 
         function renderExecutionState(executionState) {
@@ -2510,6 +2598,7 @@ function renderLiveYouthProgramPage() {
             latestWeekPayload.current_week = payload.bridge_state.current_week;
           }
           renderExecutionState(payload.execution_state);
+          renderProgressDashboard(latestWeekPayload.week_content, buildPlannerModel(latestWeekPayload.week_content), payload.execution_state || {});
         }
 
         async function loadWeekExperience() {
