@@ -2085,14 +2085,14 @@ function renderLiveYouthProgramPage() {
             <label class="tiny" for="parentObservationInput">Observation / support note</label>
             <textarea id="parentObservationInput" class="input" placeholder="What did you observe and what support action will you use next?"></textarea>
             <button id="saveObservationBtn" class="btn btn-secondary" type="button">Save Observation</button>
-            <p id="executionStateArea" class="tiny muted">Execution state loading…</p>
+            <p id="executionStateArea" class="tiny muted" role="status" aria-live="polite" aria-atomic="true">Execution state loading…</p>
             <div class="week-nav">
               <button id="startResumeWeekBtn" class="btn btn-primary" type="button">Start Week</button>
               <button id="markStepCompleteBtn" class="btn btn-secondary" type="button">Mark Step Complete</button>
             <button id="continueStepBtn" class="btn btn-ghost" type="button">Continue to Next Step</button>
             <button id="continueNextWeekBtn" class="btn btn-ghost" type="button">Continue Next Week</button>
             </div>
-            <p id="nextActionArea" class="state-line">Next action loading…</p>
+            <p id="nextActionArea" class="state-line" role="status" aria-live="polite" aria-atomic="true">Next action loading…</p>
           </div>
         </div>
       </section>
@@ -2128,8 +2128,8 @@ function renderLiveYouthProgramPage() {
         <ul id="weekMarkersList" class="week-markers"><li class="muted">Loading week markers…</li></ul>
         <h3 class="subsection-title">Next-best-action</h3>
         <div class="next-action-box">
-          <p id="nextBestActionCopy" class="state-line">Determining next best action…</p>
-          <p id="nextBestActionBlocked" class="tiny muted"></p>
+          <p id="nextBestActionCopy" class="state-line" role="status" aria-live="polite" aria-atomic="true">Determining next best action…</p>
+          <p id="nextBestActionBlocked" class="tiny muted" role="status" aria-live="polite" aria-atomic="true"></p>
         </div>
       </section>
       
@@ -2240,6 +2240,17 @@ function renderLiveYouthProgramPage() {
         function esc(value) {
           return String(value == null ? "" : value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
+        function setNextActionStatus(prefix, message) {
+          nextActionArea.innerHTML = "<strong>" + esc(String(prefix || "Next action")) + ":</strong> " + esc(String(message || "Continue this week flow."));
+        }
+        const ACTION_CONFIRMATIONS = {
+          start_week: "Week started/resumed. Continue the guided flow.",
+          save_reflection: "Reflection saved.",
+          save_observation: "Observation/support note saved.",
+          mark_step_complete: "Current step marked complete.",
+          continue_to_next_step: "Moved to the next step.",
+          continue_next_week: "Advanced to the next week.",
+        };
         function setList(items) {
           list.innerHTML = (items || []).map((line) => '<li>' + esc(line) + '</li>').join("") || '<li class="muted">No status available.</li>';
         }
@@ -2601,7 +2612,7 @@ function renderLiveYouthProgramPage() {
           ].join("");
 
           observationSupport.textContent = String(week.observation_support_area || week.reflection_checkin_support || "Observation/support details unavailable.");
-          nextActionArea.innerHTML = "<strong>Next action:</strong> " + esc(nextAction || week.next_action || "Continue this week flow.");
+          setNextActionStatus("Next action", nextAction || week.next_action || "Continue this week flow.");
           prevWeekBtn.disabled = showingWeek <= 1;
           nextWeekBtn.disabled = showingWeek >= 36;
         }
@@ -2717,7 +2728,7 @@ function renderLiveYouthProgramPage() {
           });
           const payload = response.ok ? await response.json().catch(() => null) : null;
           if (!payload || payload.ok !== true) {
-            nextActionArea.innerHTML = "<strong>Action blocked:</strong> " + esc(String((payload && (payload.message || payload.error)) || "Unable to process action."));
+            setNextActionStatus("Action blocked", String((payload && (payload.message || payload.error)) || "Unable to process action."));
             if (payload && payload.execution_state) renderExecutionState(payload.execution_state);
             return;
           }
@@ -2727,6 +2738,7 @@ function renderLiveYouthProgramPage() {
           }
           renderExecutionState(payload.execution_state);
           renderProgressDashboard(latestWeekPayload.week_content, buildPlannerModel(latestWeekPayload.week_content), payload.execution_state || {});
+          setNextActionStatus("Action complete", ACTION_CONFIRMATIONS[actionType] || "Update saved.");
         }
 
         async function loadWeekExperience() {
@@ -2841,30 +2853,30 @@ function renderLiveYouthProgramPage() {
         });
 
         startResumeWeekBtn.addEventListener("click", async function () {
-          nextActionArea.innerHTML = "<strong>Action in progress:</strong> Starting/resuming current week…";
+          setNextActionStatus("Action in progress", "Starting/resuming current week…");
           await withButtonBusy(startResumeWeekBtn, "Starting…", async () => saveExecutionAction("start_week"));
         });
         saveReflectionBtn.addEventListener("click", async function () {
-          nextActionArea.innerHTML = "<strong>Action in progress:</strong> Saving reflection…";
+          setNextActionStatus("Action in progress", "Saving reflection…");
           await withButtonBusy(saveReflectionBtn, "Saving…", async () => saveExecutionAction("save_reflection", { note: String(parentReflectionInput.value || "") }));
         });
         saveObservationBtn.addEventListener("click", async function () {
-          nextActionArea.innerHTML = "<strong>Action in progress:</strong> Saving observation…";
+          setNextActionStatus("Action in progress", "Saving observation…");
           await withButtonBusy(saveObservationBtn, "Saving…", async () => saveExecutionAction("save_observation", { note: String(parentObservationInput.value || "") }));
         });
         markStepCompleteBtn.addEventListener("click", async function () {
           const state = latestWeekPayload?.execution_state || {};
           const stepOrder = ["core_activity", "stretch_challenge", "reflection_checkin", "observation_support"];
           const idx = Number(state.active_step_index || 0);
-          nextActionArea.innerHTML = "<strong>Action in progress:</strong> Marking current step complete…";
+          setNextActionStatus("Action in progress", "Marking current step complete…");
           await withButtonBusy(markStepCompleteBtn, "Marking…", async () => saveExecutionAction("mark_step_complete", { step_key: stepOrder[Math.max(0, Math.min(stepOrder.length - 1, idx))] }));
         });
         continueStepBtn.addEventListener("click", async function () {
-          nextActionArea.innerHTML = "<strong>Action in progress:</strong> Moving to next step…";
+          setNextActionStatus("Action in progress", "Moving to next step…");
           await withButtonBusy(continueStepBtn, "Continuing…", async () => saveExecutionAction("continue_to_next_step"));
         });
         continueNextWeekBtn.addEventListener("click", async function () {
-          nextActionArea.innerHTML = "<strong>Action in progress:</strong> Moving to next week…";
+          setNextActionStatus("Action in progress", "Moving to next week…");
           await withButtonBusy(continueNextWeekBtn, "Continuing…", async function () {
             await saveExecutionAction("continue_next_week");
             await loadBridge();
@@ -2926,7 +2938,7 @@ function renderLiveYouthProgramPage() {
           if (!sessionId || !latestWeekPayload?.week_content) return;
           selectedSessionId = sessionId;
           renderPlanner(latestWeekPayload.week_content);
-          nextActionArea.innerHTML = "<strong>Action in progress:</strong> Opened scheduled session lesson plan.";
+          setNextActionStatus("Action in progress", "Opened scheduled session lesson plan.");
           focusLessonPlan();
         });
         startTodaySessionBtn.addEventListener("click", async function () {
@@ -2936,11 +2948,11 @@ function renderLiveYouthProgramPage() {
           if (selectedSessionId) {
             await withButtonBusy(startTodaySessionBtn, "Starting…", async function () {
               await saveExecutionAction("start_week");
-              nextActionArea.innerHTML = "<strong>Action in progress:</strong> Starting today’s selected session.";
+              setNextActionStatus("Action in progress", "Starting today’s selected session.");
               focusLessonPlan();
             });
           } else {
-            nextActionArea.innerHTML = "<strong>Action blocked:</strong> Build your weekly plan and schedule a session first.";
+            setNextActionStatus("Action blocked", "Build your weekly plan and schedule a session first.");
           }
         });
         resumeTodaySessionBtn.addEventListener("click", async function () {
@@ -2950,11 +2962,11 @@ function renderLiveYouthProgramPage() {
           if (selectedSessionId) {
             await withButtonBusy(resumeTodaySessionBtn, "Resuming…", async function () {
               await saveExecutionAction("continue_to_next_step");
-              nextActionArea.innerHTML = "<strong>Action in progress:</strong> Resuming selected session.";
+              setNextActionStatus("Action in progress", "Resuming selected session.");
               focusLessonPlan();
             });
           } else {
-            nextActionArea.innerHTML = "<strong>Action blocked:</strong> No session to resume.";
+            setNextActionStatus("Action blocked", "No session to resume.");
           }
         });
         viewWeeklyPlanBtn.addEventListener("click", function () {
@@ -2969,7 +2981,7 @@ function renderLiveYouthProgramPage() {
           if (!sessionId || !latestWeekPayload?.week_content) return;
           selectedSessionId = sessionId;
           renderPlanner(latestWeekPayload.week_content);
-          nextActionArea.innerHTML = "<strong>Action in progress:</strong> Opened lesson plan for selected session.";
+          setNextActionStatus("Action in progress", "Opened lesson plan for selected session.");
           focusLessonPlan();
         });
         agendaList.addEventListener("click", async function (event) {
@@ -2980,7 +2992,7 @@ function renderLiveYouthProgramPage() {
           if (!action || !sessionId || !latestWeekPayload?.week_content) return;
           selectedSessionId = sessionId;
           if (action === "complete-session") {
-            nextActionArea.innerHTML = "<strong>Action in progress:</strong> Marking selected session complete…";
+            setNextActionStatus("Action in progress", "Marking selected session complete…");
             await fetch("/api/youth-development/program/session-complete", {
               method: "POST",
               headers: { "content-type": "application/json" },
@@ -2996,7 +3008,7 @@ function renderLiveYouthProgramPage() {
             return;
           }
           if (action === "resume-session") {
-            nextActionArea.innerHTML = "<strong>Action in progress:</strong> Resuming selected session…";
+            setNextActionStatus("Action in progress", "Resuming selected session…");
             await saveExecutionAction("start_week");
           }
           renderPlanner(latestWeekPayload.week_content);
@@ -3004,12 +3016,12 @@ function renderLiveYouthProgramPage() {
         });
         resumeSessionBtn.addEventListener("click", async function () {
           if (!selectedSessionId) return;
-          nextActionArea.innerHTML = "<strong>Action in progress:</strong> Resuming selected lesson-plan session…";
+          setNextActionStatus("Action in progress", "Resuming selected lesson-plan session…");
           await withButtonBusy(resumeSessionBtn, "Resuming…", async () => saveExecutionAction("start_week"));
         });
         completeSelectedSessionBtn.addEventListener("click", async function () {
           if (!selectedSessionId || !latestWeekPayload) return;
-          nextActionArea.innerHTML = "<strong>Action in progress:</strong> Completing selected lesson-plan session…";
+          setNextActionStatus("Action in progress", "Completing selected lesson-plan session…");
           await withButtonBusy(completeSelectedSessionBtn, "Completing…", async function () {
             await fetch("/api/youth-development/program/session-complete", {
               method: "POST",

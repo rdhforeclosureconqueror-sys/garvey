@@ -40,3 +40,13 @@
 - Weekly governance/audit metadata retained.
 - Live youth v1 routes untouched.
 - Planner/session additions remain parent-facing and child/week scoped (no admin-only routing introduced).
+
+## Accessibility live-region usage (weekly program feedback)
+- Dynamic parent feedback regions on `/youth-development/program` now use `role="status"` + `aria-live="polite"` (with `aria-atomic="true"` on core status lines) so assistive technologies announce updates without interrupting active reading.
+- Primary announcement region: `#nextActionArea` (next action guidance, in-progress state, blocked state, and completion confirmations for weekly execution controls).
+- Supporting announcement regions: `#executionStateArea`, `#nextBestActionCopy`, and `#nextBestActionBlocked` for execution-state transitions and progress-panel next-best-action updates.
+- Announcement behavior expectation:
+  - Action starts announce as “Action in progress: …”
+  - Guard/progression failures announce as “Action blocked: …”
+  - Successful weekly execution actions announce as “Action complete: …” with action-specific confirmation copy.
+- These updates are additive UI semantics/copy only; weekly contracts and route behavior remain unchanged.
