@@ -41,8 +41,8 @@ test('action inventory classifies contracted, deprecated alias, pass-through, an
   assert.equal(alias.classification, 'deprecated_alias');
   assert.equal(alias.resolved_action_type, 'continue_to_next_step');
 
-  const passThrough = resolveWeeklyExecutionActionType('route_external_support');
-  assert.equal(passThrough.classification, 'uncontracted_pass_through');
+  const externalSupport = resolveWeeklyExecutionActionType('route_external_support');
+  assert.equal(externalSupport.classification, 'contracted_and_validated');
 
   const unknown = resolveWeeklyExecutionActionType('unmapped_action_x');
   assert.equal(unknown.classification, 'unknown_or_unresolved');
@@ -53,35 +53,51 @@ test('coverage report surfaces totals and highest-risk remaining gaps', () => {
     observedActions: ['unknown_shadow_action'],
   });
   assert.equal(report.total_actions > 0, true);
-  assert.equal(report.contracted_count >= 7, true);
+  assert.equal(report.contracted_count >= 10, true);
   assert.equal(report.aliases_count >= 1, true);
-  assert.equal(report.uncontracted_count >= 4, true);
+  assert.equal(report.uncontracted_count, 1);
   assert.equal(Array.isArray(report.highest_risk_remaining_gaps), true);
-  assert.equal(report.highest_risk_remaining_gaps[0].action_type, 'create_case_profile');
+  assert.equal(report.highest_risk_remaining_gaps[0].action_type, 'unknown_shadow_action');
 });
 
-test('validator supports compatibility mode for uncontracted pass-through actions', () => {
-  const strict = validateWeeklyExecutionActionPayload({
+test('validator enforces and normalizes newly contracted high-risk actions', () => {
+  const invalid = validateWeeklyExecutionActionPayload({
     tenant: 'demo',
     email: 'parent@example.com',
     child_id: 'child-1',
     week_number: 1,
     action_type: 'route_external_support',
   });
-  assert.equal(strict.ok, false);
+  assert.equal(invalid.ok, false);
+  assert.match(invalid.errors.join(' '), /support_channel is required/);
 
-  const compatibility = validateWeeklyExecutionActionPayload({
+  const validRoute = validateWeeklyExecutionActionPayload({
     tenant: 'demo',
     email: 'parent@example.com',
     child_id: 'child-1',
     week_number: 1,
     action_type: 'route_external_support',
-  }, {
-    allowUncontractedPassThrough: true,
+    support_channel: 'Phone',
+    destination_team: 'Crisis_Response',
+    routing_reason: 'Urgent school safety issue',
+    urgency_level: 'Urgent',
   });
-  assert.equal(compatibility.ok, true);
-  assert.equal(compatibility.normalized.action_classification, 'uncontracted_pass_through');
-  assert.equal(compatibility.normalized.pass_through, true);
+  assert.equal(validRoute.ok, true);
+  assert.equal(validRoute.normalized.action_classification, 'contracted_and_validated');
+  assert.equal(validRoute.normalized.action_payload.support_channel, 'phone');
+  assert.equal(validRoute.normalized.action_payload.destination_team, 'crisis_response');
+
+  const validTouchpoint = validateWeeklyExecutionActionPayload({
+    tenant: 'demo',
+    email: 'parent@example.com',
+    child_id: 'child-1',
+    week_number: 1,
+    action_type: 'record_onboarding_touchpoint',
+    touchpoint_type: 'initial_intake_call',
+    touchpoint_outcome: 'completed',
+  });
+  assert.equal(validTouchpoint.ok, true);
+  assert.equal(validTouchpoint.normalized.action_payload.touchpoint_note, '');
 });
 
 test('state machine blocks continue_to_next_step until current step is complete', () => {
@@ -134,4 +150,20 @@ test('continue_next_week is blocked before ready state and succeeds when ready',
   });
   assert.equal(success.ok, true);
   assert.equal(success.state.week_status, 'completed');
+});
+
+test('state machine accepts contracted side-effect actions via central action path', () => {
+  const result = applyWeeklyExecutionAction({
+    currentState: defaultExecutionState(),
+    actionType: 'create_case_profile',
+    weekNumber: 1,
+    actionPayload: {
+      case_profile_type: 'needs_assessment',
+      initiated_by: 'parent',
+      case_priority: 'standard',
+    },
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.state.last_action, 'create_case_profile');
+  assert.equal(result.state.last_side_effect_action, 'create_case_profile');
 });

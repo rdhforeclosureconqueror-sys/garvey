@@ -929,7 +929,51 @@ test('POST /api/youth-development/program/week-execution normalizes legacy conti
   }
 });
 
-test('POST /api/youth-development/program/week-execution keeps strict behavior for uncontracted pass-through actions', async () => {
+test('POST /api/youth-development/program/week-execution validates and forwards newly contracted high-risk actions', async () => {
+  const app = express();
+  app.use(express.json());
+  let seenAction = null;
+  let seenPayload = null;
+  app.use(createYouthDevelopmentRouter({
+    saveProgramWeekExecution: async ({ actionType, actionPayload }) => {
+      seenAction = actionType;
+      seenPayload = actionPayload;
+      return { ok: true, execution_state: { week_status: 'in_progress' } };
+    },
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/program/week-execution`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        tenant: 'demo',
+        email: 'parent@example.com',
+        child_id: 'child-real-1',
+        week_number: 1,
+        action_type: 'route_external_support',
+        support_channel: 'Phone',
+        destination_team: 'Crisis_Response',
+        routing_reason: 'Immediate follow up needed',
+        urgency_level: 'Urgent',
+      }),
+    });
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ok, true);
+    assert.equal(seenAction, 'route_external_support');
+    assert.equal(seenPayload.support_channel, 'phone');
+    assert.equal(seenPayload.destination_team, 'crisis_response');
+    assert.equal(seenPayload.urgency_level, 'urgent');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('POST /api/youth-development/program/week-execution rejects incomplete newly contracted side-effect actions', async () => {
   const app = express();
   app.use(express.json());
   app.use(createYouthDevelopmentRouter({
@@ -948,13 +992,15 @@ test('POST /api/youth-development/program/week-execution keeps strict behavior f
         email: 'parent@example.com',
         child_id: 'child-real-1',
         week_number: 1,
-        action_type: 'route_external_support',
+        action_type: 'create_case_profile',
       }),
     });
     assert.equal(response.status, 200);
     const payload = await response.json();
     assert.equal(payload.ok, false);
     assert.equal(payload.error, 'week_execution_contract_invalid');
+    assert.match(payload.messages.join(' '), /case_profile_type is required/);
+    assert.match(payload.messages.join(' '), /initiated_by is required/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
@@ -973,9 +1019,9 @@ test('GET /api/youth-development/program/week-execution/audit returns coverage s
     assert.equal(response.status, 200);
     const payload = await response.json();
     assert.equal(payload.ok, true);
-    assert.equal(payload.audit.contracted_count >= 7, true);
+    assert.equal(payload.audit.contracted_count >= 10, true);
     assert.equal(payload.audit.aliases_count >= 1, true);
-    assert.equal(payload.audit.uncontracted_count >= 4, true);
+    assert.equal(payload.audit.uncontracted_count >= 1, true);
     assert.equal(Array.isArray(payload.audit.highest_risk_remaining_gaps), true);
     assert.equal(
       payload.audit.highest_risk_remaining_gaps.some((entry) => entry.action_type === 'unknown_route_action'),

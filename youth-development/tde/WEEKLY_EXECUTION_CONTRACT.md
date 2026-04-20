@@ -8,6 +8,9 @@
 - `mark_step_complete`
 - `continue_to_next_step`
 - `continue_next_week`
+- `create_case_profile`
+- `route_external_support`
+- `record_onboarding_touchpoint`
 
 ## Action contract coverage audit (2026-04-20)
 
@@ -21,27 +24,24 @@
 | `continue_to_next_step` | `contracted_and_validated` | strict contract + progression guard | high |
 | `continue_next_week` | `contracted_and_validated` | strict contract + progression guard | high |
 | `continue_next_step` | `deprecated_alias` | normalized to `continue_to_next_step` | high |
-| `create_case_profile` | `uncontracted_pass_through` | compatibility-only (not executed in strict route) | highest |
-| `route_external_support` | `uncontracted_pass_through` | compatibility-only (not executed in strict route) | highest |
-| `record_onboarding_touchpoint` | `uncontracted_pass_through` | compatibility-only (not executed in strict route) | high |
+| `create_case_profile` | `contracted_and_validated` | strict contract + centralized execution path | highest |
+| `route_external_support` | `contracted_and_validated` | strict contract + centralized execution path | highest |
+| `record_onboarding_touchpoint` | `contracted_and_validated` | strict contract + centralized execution path | high |
 
 Unknown observed actions are classified as `unknown_or_unresolved` and surfaced in audit output.
 
 ## Execution path policy
 
 - **Strict execution route (default):**
-  - `POST /api/youth-development/program/week-execution` accepts only `contracted_and_validated` and `deprecated_alias` actions.
-  - Uncontracted/unknown actions return `week_execution_contract_invalid`.
-- **Compatibility classification mode:**
-  - Validator can be run with `allowUncontractedPassThrough=true` for audit/telemetry pipelines to preserve visibility without forcing immediate hard-fail in analysis contexts.
-  - This compatibility mode does **not** execute uncontracted actions in the live strict route.
+  - `POST /api/youth-development/program/week-execution` accepts only `contracted_and_validated` and `deprecated_alias` actions through a single resolver + validator path.
+  - Uncontracted/unknown actions still return `week_execution_contract_invalid`.
 
-## Next actions to contract
+## Coverage summary after this pass
 
-Priority order for follow-up contracting:
-1. `create_case_profile` (profile/case creation side effects).
-2. `route_external_support` (external routing and downstream handoff risk).
-3. `record_onboarding_touchpoint` (onboarding-critical traceability).
+- Contracted and validated actions: **10**
+- Deprecated aliases: **1**
+- Uncontracted actions: **0**
+- Remaining unresolved risk entries: unknown observed action types only (`unknown_or_unresolved`).
 
 ## Required payload contract
 Required for all actions:
@@ -55,6 +55,25 @@ Additional required fields by action:
 - `save_reflection`: `note`
 - `save_observation`: `note`
 - `mark_step_complete`: `step_key` (`core_activity|stretch_challenge|reflection_checkin|observation_support`)
+- `create_case_profile`: `case_profile_type`, `initiated_by`
+- `route_external_support`: `support_channel`, `destination_team`, `routing_reason`
+- `record_onboarding_touchpoint`: `touchpoint_type`, `touchpoint_outcome`
+
+Defaults and normalization:
+- `create_case_profile`
+  - defaults: `case_priority=standard`, `referral_source=program_weekly_execution`
+  - normalized: lowercased/trimmed enum fields.
+- `route_external_support`
+  - defaults: `urgency_level=routine`, `referral_source=program_weekly_execution`
+  - normalized: `support_channel`, `destination_team`, `urgency_level` lowercased + trimmed; `routing_reason` trimmed and capped at 500 chars.
+- `record_onboarding_touchpoint`
+  - defaults: `touchpoint_note=""`
+  - normalized: `touchpoint_type`, `touchpoint_outcome` lowercased + trimmed; `touchpoint_note` trimmed and capped at 2000 chars.
+
+Validation behavior:
+- `case_priority` must be one of `low|standard|high|urgent`.
+- `urgency_level` must be one of `routine|expedited|urgent|emergency`.
+- `touchpoint_outcome` must be one of `completed|attempted|deferred|unable_to_contact`.
 
 Invalid payloads return:
 - `ok: false`
