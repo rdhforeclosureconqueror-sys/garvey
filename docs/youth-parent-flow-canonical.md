@@ -101,6 +101,34 @@ Canonical parent controls in planner/session views:
 
 All controls remain child/week scoped and route through existing governed contracts/endpoints.
 
+## Parent weekly-program visual hierarchy (UI polish v2)
+
+Parent weekly execution view (`/youth-development/program`) now emphasizes a stable, motivating read order while preserving existing contracts and flow logic.
+
+Top-level visual priority order:
+1. **Today’s Session**
+2. **Weekly Planner / Calendar**
+3. **Current Week Guided Experience**
+4. **Parent Progress + Adherence Dashboard**
+5. **Multi-week trends/history** (inside progress dashboard)
+6. **Optional activity alternatives/details** (inside current-week activity bank surface)
+
+Section purpose/clarity rules:
+- **Today’s Session**: fastest parent action path for same-day execution; always contains start/resume/session-context cues.
+- **Weekly Planner / Calendar**: commitment setup + schedule + lesson-plan details; this remains the canonical planning/execution bridge.
+- **Current Week Guided Experience**: guidance, roadmap, activity bank alternatives, and reflection/observation support.
+- **Progress + Adherence Dashboard**: numeric week status, completion/adherence bars, trend summaries, and next-best-action framing.
+- **Multi-week trends/history**: compact 4-week completion bars, consistency trend path, and phase marker for long-view context.
+
+Motivation/summary copy rules (governed parent-safe framing):
+- Allowed tone: specific, measurable, encouragement-oriented.
+- Avoid overclaims or trait-level conclusions; never infer child capability from adherence alone.
+- Prefer concrete statements tied to scoped data:
+  - “You completed X of Y sessions this week.”
+  - “One more session unlocks next week momentum.”
+  - “You’re building consistency…”
+- Keep statements child/week scoped and directly derived from planner/accountability contract values.
+
 ### Canonical parent commitment/setup contract (save + load)
 
 `POST /api/youth-development/program/commitment` now enforces a strict setup contract for guided weekly planning.

@@ -25,11 +25,15 @@ test('program page renders parent planner, calendar, and lesson-plan surfaces', 
     assert.match(html, /Next Scheduled Session/);
     assert.match(html, /This Week at a Glance/);
     assert.match(html, /Parent Progress \+ Adherence Dashboard/);
+    assert.match(html, /Multi-week trends\/history/);
     assert.match(html, /Current week completion/);
     assert.match(html, /Week-over-week view loading/);
     assert.match(html, /Loading last 4 weeks completion bars/);
     assert.match(html, /Consistency trend loading/);
     assert.match(html, /Phase progress marker loading/);
+    assert.match(html, /Loading weekly momentum summary/);
+    assert.match(html, /Adherence progress \(planned vs completed sessions\)/);
+    assert.match(html, /Next-best-action/);
     assert.match(html, /Determining next best action/);
     assert.match(html, /Weekly Planner Calendar \+ adherence/);
     assert.match(html, /Teacher-Style Lesson Plan/);
@@ -37,6 +41,30 @@ test('program page renders parent planner, calendar, and lesson-plan surfaces', 
     assert.match(html, /View Lesson Plan/);
     assert.match(html, /Resume Session/);
     assert.match(html, /Return to Weekly Overview/);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('program page keeps parent weekly sections in intended visual priority order', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({}));
+  const { server, baseUrl } = await withServer(app);
+  try {
+    const html = await (await fetch(`${baseUrl}/youth-development/program`)).text();
+    const todayIndex = html.indexOf('<section class="panel" id="todaySessionPanel">');
+    const plannerIndex = html.indexOf('<section class="panel" id="weeklyCalendarPanel">');
+    const currentWeekIndex = html.indexOf('<section class="panel" id="currentWeekPanel">');
+    const progressIndex = html.indexOf('<section class="panel" id="parentProgressPanel">');
+    assert.ok(todayIndex > 0);
+    assert.ok(plannerIndex > 0);
+    assert.ok(currentWeekIndex > 0);
+    assert.ok(progressIndex > 0);
+    assert.match(html, /#todaySessionPanel \{ order: 1; \}/);
+    assert.match(html, /#weeklyCalendarPanel \{ order: 2; \}/);
+    assert.match(html, /#currentWeekPanel \{ order: 3; \}/);
+    assert.match(html, /#parentProgressPanel \{ order: 4; \}/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
