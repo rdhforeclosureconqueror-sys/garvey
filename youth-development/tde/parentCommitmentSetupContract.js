@@ -24,6 +24,9 @@ const DAY_ALIASES = Object.freeze({
 const SESSION_LENGTHS = Object.freeze([15, 30, 45]);
 const ENERGY_TYPES = Object.freeze(["calm", "balanced", "high-energy"]);
 const WEEKLY_FREQUENCY_VALUES = Object.freeze([2, 3, 4, 5]);
+const SCHEDULED_SESSION_STATUS_VALUES = Object.freeze(["planned", "in_progress", "completed", "missed"]);
+const TIME_24H_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
+const ISO_DATE_ONLY_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/;
 
 function toInt(value, fallback = 0) {
   const numeric = Number(value);
@@ -60,7 +63,11 @@ function normalizePreferredDays(days) {
 function normalizePreferredTime(payload = {}) {
   const direct = String(payload.preferred_time || "").trim();
   if (direct) return direct;
-  return String(payload.preferred_time_window || "").trim();
+  const window = payload.preferred_time_window;
+  if (window && typeof window === "object" && !Array.isArray(window)) {
+    return String(window.start_time || window.start || "").trim();
+  }
+  return String(window || "").trim();
 }
 
 function normalizeSessionLength(payload = {}) {
@@ -71,13 +78,58 @@ function normalizeEnergyType(payload = {}) {
   return String(payload.energy_type || "").trim().toLowerCase();
 }
 
+function isValidTime24(value) {
+  return TIME_24H_PATTERN.test(String(value || "").trim());
+}
+
+function normalizeStartDate(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return { ok: true, value: new Date().toISOString().slice(0, 10), source: "defaulted" };
+  const direct = raw.match(ISO_DATE_ONLY_PATTERN);
+  if (direct) {
+    const normalized = `${direct[1]}-${direct[2]}-${direct[3]}`;
+    const parsed = new Date(`${normalized}T00:00:00.000Z`);
+    if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== normalized) {
+      return { ok: false, value: "", source: "invalid" };
+    }
+    return { ok: true, value: normalized, source: "provided" };
+  }
+  const parsed = new Date(raw);
+  if (Number.isNaN(parsed.getTime())) return { ok: false, value: "", source: "invalid" };
+  return { ok: true, value: parsed.toISOString().slice(0, 10), source: "provided" };
+}
+
+function normalizePreferredTimeWindow(payload = {}) {
+  const rawWindow = payload.preferred_time_window;
+  if (!rawWindow || typeof rawWindow === "string") {
+    return {
+      kind: "time",
+      start_time: normalizePreferredTime(payload),
+      end_time: "",
+      timezone: "",
+      label: String(rawWindow || "").trim(),
+    };
+  }
+  if (typeof rawWindow === "object" && !Array.isArray(rawWindow)) {
+    return {
+      kind: "window",
+      start_time: String(rawWindow.start_time || rawWindow.start || "").trim(),
+      end_time: String(rawWindow.end_time || rawWindow.end || "").trim(),
+      timezone: String(rawWindow.timezone || "").trim(),
+      label: String(rawWindow.label || "").trim(),
+    };
+  }
+  return { kind: "invalid", start_time: "", end_time: "", timezone: "", label: "" };
+}
+
 function normalizeParentCommitmentPlan(payload = {}) {
   const weeklyFrequency = normalizeWeeklyFrequency(payload);
   const preferredDays = normalizePreferredDays(payload.preferred_days);
   const preferredTime = normalizePreferredTime(payload);
+  const preferredTimeWindow = normalizePreferredTimeWindow(payload);
   const sessionLength = normalizeSessionLength(payload);
   const energyType = normalizeEnergyType(payload);
-  const startDate = String(payload.start_date || "").trim() || new Date().toISOString().slice(0, 10);
+  const startDate = normalizeStartDate(payload.start_date).value;
   return {
     child_id: String(payload.child_id || "").trim(),
     weekly_frequency: weeklyFrequency,
@@ -86,6 +138,7 @@ function normalizeParentCommitmentPlan(payload = {}) {
     preferred_days: preferredDays,
     preferred_time: preferredTime,
     preferred_time_window: preferredTime,
+    preferred_time_window_detail: preferredTimeWindow,
     session_length: sessionLength,
     session_duration_minutes: sessionLength,
     target_session_length: sessionLength,
@@ -104,9 +157,75 @@ function validateParentCommitmentSetup(payload = {}) {
   } else if (normalized.preferred_days.some((day) => !CANONICAL_DAYS.includes(day))) {
     errors.push("preferred_days_invalid");
   }
-  if (!normalized.preferred_time) errors.push("preferred_time_required");
+  if (!normalized.preferred_time) {
+    errors.push("preferred_time_required");
+  } else if (!isValidTime24(normalized.preferred_time)) {
+    errors.push("preferred_time_invalid");
+  }
+  const preferredWindow = normalizePreferredTimeWindow(payload);
+  if (preferredWindow.kind === "invalid") {
+    errors.push("preferred_time_window_invalid");
+  } else if (preferredWindow.kind === "window") {
+    if (!isValidTime24(preferredWindow.start_time) || !isValidTime24(preferredWindow.end_time)) {
+      errors.push("preferred_time_window_invalid");
+    } else if (preferredWindow.start_time >= preferredWindow.end_time) {
+      errors.push("preferred_time_window_invalid_range");
+    }
+  } else if (String(payload.preferred_time_window || "").trim() && !isValidTime24(payload.preferred_time_window)) {
+    errors.push("preferred_time_window_invalid");
+  }
+  if (!normalizeStartDate(payload.start_date).ok) errors.push("start_date_invalid");
   if (!SESSION_LENGTHS.includes(normalized.session_length)) errors.push("session_length_invalid");
   if (!ENERGY_TYPES.includes(normalized.energy_type)) errors.push("energy_type_invalid");
+  return { ok: errors.length === 0, errors, normalized };
+}
+
+function normalizeScheduledSessionEntry(entry = {}, { childId = "", weekNumber = 1 } = {}) {
+  const fallbackTime = "17:30";
+  const normalizedDay = DAY_ALIASES[String(entry.day || "").trim().toLowerCase()] || "";
+  const normalized = {
+    session_id: String(entry.session_id || "").trim(),
+    child_id: String(entry.child_id || childId || "").trim() || undefined,
+    week_number: Number(entry.week_number || weekNumber || 1),
+    day: normalizedDay,
+    day_label: String(entry.day_label || (normalizedDay ? normalizedDay.slice(0, 1).toUpperCase() + normalizedDay.slice(1) : "")).trim(),
+    time: String(entry.time || "").trim() || fallbackTime,
+    status: String(entry.status || "planned").trim().toLowerCase(),
+    core_activity_title: String(entry.core_activity_title || "").trim(),
+    stretch_activity_title: String(entry.stretch_activity_title || "").trim(),
+    selected_activity_ids: Array.isArray(entry.selected_activity_ids) ? [...new Set(entry.selected_activity_ids.map((id) => String(id || "").trim()).filter(Boolean))] : [],
+    lesson_plan_block_ids: Array.isArray(entry.lesson_plan_block_ids) ? [...new Set(entry.lesson_plan_block_ids.map((id) => String(id || "").trim()).filter(Boolean))] : [],
+  };
+  if (entry.completed_at) normalized.completed_at = String(entry.completed_at);
+  if (entry.started_at) normalized.started_at = String(entry.started_at);
+  return normalized;
+}
+
+function validateScheduledSessions(payload = {}, { childId = "", weekNumber = 1 } = {}) {
+  const rawSessions = Array.isArray(payload.scheduled_sessions) ? payload.scheduled_sessions : [];
+  const errors = [];
+  const normalized = [];
+  rawSessions.forEach((entry, idx) => {
+    const item = normalizeScheduledSessionEntry(entry, { childId, weekNumber });
+    const key = `scheduled_sessions[${idx}]`;
+    if (!item.session_id) errors.push(`${key}.session_id_required`);
+    if (!CANONICAL_DAYS.includes(item.day)) errors.push(`${key}.day_invalid`);
+    if (!isValidTime24(item.time)) errors.push(`${key}.time_invalid`);
+    if (!SCHEDULED_SESSION_STATUS_VALUES.includes(item.status)) errors.push(`${key}.status_invalid`);
+    if (item.child_id && childId && item.child_id !== childId) errors.push(`${key}.child_scope_mismatch`);
+    if (!Number.isInteger(item.week_number) || item.week_number < 1 || item.week_number > 36) {
+      errors.push(`${key}.week_number_invalid`);
+    } else if (Number(weekNumber) && Number(item.week_number) !== Number(weekNumber)) {
+      errors.push(`${key}.week_scope_mismatch`);
+    }
+    const hasActivityReference = item.selected_activity_ids.length > 0
+      || item.lesson_plan_block_ids.length > 0
+      || Boolean(item.core_activity_title);
+    if ((item.status === "in_progress" || item.status === "completed") && !hasActivityReference) {
+      errors.push(`${key}.activity_reference_required`);
+    }
+    normalized.push(item);
+  });
   return { ok: errors.length === 0, errors, normalized };
 }
 
@@ -119,8 +238,12 @@ module.exports = {
   SESSION_LENGTHS,
   ENERGY_TYPES,
   WEEKLY_FREQUENCY_VALUES,
+  SCHEDULED_SESSION_STATUS_VALUES,
   normalizeWeeklyFrequency,
+  normalizeStartDate,
+  isValidTime24,
   normalizeParentCommitmentPlan,
   validateParentCommitmentSetup,
+  validateScheduledSessions,
   isParentCommitmentSetupComplete,
 };

@@ -108,7 +108,7 @@ All controls remain child/week scoped and route through existing governed contra
 Required fields:
 - `weekly_frequency` (canonical integer `2|3|4|5`)
 - `preferred_days` (array of canonical weekday names, e.g. `["monday","wednesday"]`)
-- `preferred_time` or `preferred_time_window` (non-empty)
+- `preferred_time` or `preferred_time_window` (canonical `HH:MM` 24h time)
 - `session_length` or equivalent session length alias (`session_duration_minutes`, `target_session_length`) with allowed values `15|30|45`
 - `energy_type` (`calm|balanced|high-energy`)
 
@@ -117,9 +117,43 @@ Normalization behavior:
 - Legacy frequency values (`"2x"`, `"3x"`, `"5x"`) are accepted and normalized to `2`, `3`, `5`.
 - Legacy aliases (`days_per_week`, `committed_days_per_week`) are accepted on input and normalized to canonical `weekly_frequency`.
 - Day aliases (`mon`, `tue`, `wed`, etc.) are normalized to canonical full day names.
+- `preferred_time_window` supports either legacy string form (`"17:30"`) or structured object form (`{ start_time, end_time, timezone }`), but both forms require canonical `HH:MM` values.
+- `start_date` is normalized to canonical `YYYY-MM-DD`. Missing values are defaulted to current UTC date; malformed values are rejected.
 - Saved payload is returned in normalized shape and reused by planner rendering, schedule generation, and accountability/adherence summaries.
 
 Invalid setup payloads are explicitly rejected with `error: "commitment_setup_invalid"` and validation messages; incomplete setup is not silently accepted.
+
+### Canonical scheduled session payload contract
+
+`POST /api/youth-development/program/session-plan` validates `scheduled_sessions` before persistence.
+
+Per-session required fields:
+- `session_id` (non-empty string)
+- `day` (canonical day name; aliases like `mon` are normalized)
+- `time` (`HH:MM` 24h)
+- `status` (`planned|in_progress|completed|missed`, defaults to `planned` when omitted)
+
+Scope and reference validation:
+- `child_id` (if provided) must match current child scope.
+- `week_number` (if provided) must match the route/week payload scope and remain within `1..36`.
+- For `in_progress`/`completed` sessions, at least one activity or lesson-plan reference must be present (`selected_activity_ids`, `lesson_plan_block_ids`, or `core_activity_title`).
+
+Save/load consistency:
+- Validated+normalized session entries are persisted as the only source read by weekly planner/calendar and lesson-plan rendering.
+- Invalid persisted schedule rows are dropped at load time instead of being silently coerced.
+
+### Rejected payload examples
+
+- `preferred_time: "5:30pm"` → `preferred_time_invalid`
+- `preferred_time_window: { start_time: "18:30", end_time: "17:00" }` → `preferred_time_window_invalid_range`
+- `start_date: "2026-02-30"` → `start_date_invalid`
+- `scheduled_sessions[0]: { session_id: "", day: "funday", time: "5pm", status: "done" }` → required/day/time/status validation errors
+
+### Backward compatibility rules
+
+- Canonical weekly frequency normalization is unchanged (`weekly_frequency` numeric plus accepted aliases).
+- Existing guided weekly setup remains valid when sending canonical `preferred_time` string values.
+- Legacy `preferred_time_window` string payloads continue to work when they are valid canonical times.
 
 ## Remaining known exceptions
 - `/youth-development.html#tdeOperatorConsole` remains as a compatible operator entry anchor for internal workflows.

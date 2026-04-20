@@ -78,6 +78,7 @@ const {
 const {
   normalizeParentCommitmentPlan,
   validateParentCommitmentSetup,
+  validateScheduledSessions,
 } = require("../youth-development/tde/parentCommitmentSetupContract");
 const { generateSite } = require("./siteMaterializer");
 const { getTapCrmMode } = require("./tapCrmFeature");
@@ -2360,9 +2361,13 @@ async function loadProgramWeekPlanningForAccount({ accountCtx, childId = "", wee
   const commitmentPlan = commitmentRows.rows[0]?.payload
     ? normalizeParentCommitmentPlan(commitmentRows.rows[0].payload)
     : null;
-  const scheduled = Array.isArray(progressPayload.scheduled_sessions) && progressPayload.scheduled_sessions.length
+  const scheduledSource = Array.isArray(progressPayload.scheduled_sessions) && progressPayload.scheduled_sessions.length
     ? progressPayload.scheduled_sessions
     : (commitmentPlan ? buildScheduledSessionsFromCommitment(commitmentPlan, {}, week) : []);
+  const scheduledValidation = validateScheduledSessions({ scheduled_sessions: scheduledSource }, { childId: bridge.child_id, weekNumber: week });
+  const scheduled = scheduledValidation.ok
+    ? scheduledValidation.normalized
+    : [];
   const completed = completedRows.rows.map((row) => row.payload || {}).filter(Boolean);
   return {
     commitment_plan: commitmentPlan,
@@ -2411,7 +2416,11 @@ async function saveProgramSessionPlanForAccount({ accountCtx, childId = "", week
   const progressId = `wpr-${bridge.enrollment_id}-${week}`;
   const existingRows = await pool.query(`SELECT payload FROM tde_weekly_progress_records WHERE progress_id = $1 LIMIT 1`, [progressId]);
   const basePayload = existingRows.rows[0]?.payload || { progress_id: progressId, enrollment_id: bridge.enrollment_id, child_id: bridge.child_id, week_number: week, completion_status: "in_progress" };
-  const scheduled = Array.isArray(payload.scheduled_sessions) ? payload.scheduled_sessions : [];
+  const scheduledValidation = validateScheduledSessions(payload, { childId: bridge.child_id, weekNumber: week });
+  if (!scheduledValidation.ok) {
+    return { ok: false, error: "scheduled_sessions_invalid", messages: scheduledValidation.errors };
+  }
+  const scheduled = scheduledValidation.normalized;
   const nextPayload = { ...basePayload, scheduled_sessions: scheduled, updated_at: new Date().toISOString() };
   await pool.query(
     `INSERT INTO tde_weekly_progress_records (progress_id, enrollment_id, child_id, week_number, completion_status, payload)

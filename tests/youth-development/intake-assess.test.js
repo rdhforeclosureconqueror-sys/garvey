@@ -660,6 +660,79 @@ test('program commitment route rejects incomplete setup contract payloads', asyn
   }
 });
 
+test('program commitment route rejects malformed time window and invalid start date', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    saveProgramCommitmentPlan: async () => ({ ok: true }),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const commitment = await fetch(`${baseUrl}/api/youth-development/program/commitment`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        tenant: 'demo',
+        email: 'parent@example.com',
+        child_id: 'child-real-1',
+        weekly_frequency: 3,
+        preferred_days: ['monday'],
+        preferred_time_window: { start_time: '18:30', end_time: '17:30' },
+        session_length: 30,
+        energy_type: 'balanced',
+        start_date: '2026-02-30',
+      }),
+    });
+    assert.equal(commitment.status, 200);
+    const payload = await commitment.json();
+    assert.equal(payload.ok, false);
+    assert.equal(payload.error, 'commitment_setup_invalid');
+    assert.ok(payload.messages.includes('preferred_time_window_invalid_range'));
+    assert.ok(payload.messages.includes('start_date_invalid'));
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('program session-plan route surfaces scheduled session schema violations', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    saveProgramSessionPlan: async ({ payload }) => {
+      const sessions = Array.isArray(payload.scheduled_sessions) ? payload.scheduled_sessions : [];
+      const invalid = sessions.find((entry) => !entry.session_id || !entry.day || !entry.time);
+      if (invalid) return { ok: false, error: 'scheduled_sessions_invalid', messages: ['scheduled_sessions[0].session_id_required'] };
+      return { ok: true, scheduled_sessions: sessions };
+    },
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const sessionPlan = await fetch(`${baseUrl}/api/youth-development/program/session-plan`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        tenant: 'demo',
+        email: 'parent@example.com',
+        child_id: 'child-real-1',
+        week_number: 1,
+        scheduled_sessions: [{ session_id: '', day: 'monday', time: '17:30', status: 'planned' }],
+      }),
+    });
+    assert.equal(sessionPlan.status, 200);
+    const payload = await sessionPlan.json();
+    assert.equal(payload.ok, false);
+    assert.equal(payload.error, 'scheduled_sessions_invalid');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
 test('POST /api/youth-development/program/week-execution persists reflection/observation and supports resume progression controls', async () => {
   const app = express();
   app.use(express.json());
