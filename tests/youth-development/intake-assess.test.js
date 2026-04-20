@@ -633,6 +633,47 @@ test('program commitment, session plan, and completion routes persist planner op
   }
 });
 
+
+test('program session completion route forwards scoped schedule identifiers', async () => {
+  const app = express();
+  app.use(express.json());
+  let captured = null;
+  app.use(createYouthDevelopmentRouter({
+    markProgramSessionComplete: async (payload) => {
+      captured = payload;
+      return { ok: true, session_id: payload.sessionId };
+    },
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const complete = await fetch(`${baseUrl}/api/youth-development/program/session-complete`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        tenant: 'demo',
+        email: 'parent@example.com',
+        child_id: 'child-real-1',
+        week_number: 1,
+        session_id: 'plan-1',
+        day: 'monday',
+        time: '17:30',
+        scheduled_at: '2026-04-20T17:30:00.000Z',
+      }),
+    });
+    assert.equal(complete.status, 200);
+    const payload = await complete.json();
+    assert.equal(payload.ok, true);
+    assert.equal(captured.day, 'monday');
+    assert.equal(captured.time, '17:30');
+    assert.equal(captured.scheduledAt, '2026-04-20T17:30:00.000Z');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
 test('program commitment route rejects incomplete setup contract payloads', async () => {
   const app = express();
   app.use(express.json());

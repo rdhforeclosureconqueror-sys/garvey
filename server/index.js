@@ -80,6 +80,9 @@ const {
   validateParentCommitmentSetup,
   validateScheduledSessions,
 } = require("../youth-development/tde/parentCommitmentSetupContract");
+const {
+  applySessionCompletionToSchedule,
+} = require("../youth-development/tde/parentSessionMutationIntegrity");
 const { generateSite } = require("./siteMaterializer");
 const { getTapCrmMode } = require("./tapCrmFeature");
 const { createTapCrmRouter, resolvePublicTap } = require("./tapCrmRoutes");
@@ -2431,25 +2434,84 @@ async function saveProgramSessionPlanForAccount({ accountCtx, childId = "", week
   return { ok: true, scheduled_sessions: scheduled };
 }
 
-async function markProgramSessionCompleteForAccount({ accountCtx, childId = "", weekNumber = 1, sessionId = "" }) {
+async function markProgramSessionCompleteForAccount({ accountCtx, childId = "", weekNumber = 1, sessionId = "", day = "", time = "", scheduledAt = "" }) {
   const bridge = await getProgramBridgeStateForAccount({ accountCtx, childId });
   if (!bridge?.child_id || !bridge?.enrollment_id) return { ok: false, error: "program_enrollment_required" };
   const week = Math.max(1, Math.min(36, Number(weekNumber || bridge.current_week || 1)));
-  if (!sessionId) return { ok: false, error: "session_id_required" };
-  await pool.query(
+  const normalizedSessionId = String(sessionId || "").trim();
+  if (!normalizedSessionId) return { ok: false, error: "session_id_required" };
+
+  const progressRows = await pool.query(
+    `SELECT payload FROM tde_weekly_progress_records
+     WHERE enrollment_id = $1 AND child_id = $2 AND week_number = $3
+     ORDER BY updated_at DESC, created_at DESC
+     LIMIT 1`,
+    [bridge.enrollment_id, bridge.child_id, week]
+  );
+  const basePayload = progressRows.rows[0]?.payload || {};
+  const scheduledSource = Array.isArray(basePayload.scheduled_sessions) ? basePayload.scheduled_sessions : [];
+  const completion = applySessionCompletionToSchedule({
+    scheduledSessions: scheduledSource,
+    childId: bridge.child_id,
+    weekNumber: week,
+    sessionId: normalizedSessionId,
+    scheduleScope: { day, time, scheduled_at: scheduledAt },
+  });
+  if (!completion.ok) {
+    return {
+      ok: false,
+      error: completion.error || "session_completion_invalid",
+      message: completion.message || null,
+      messages: completion.messages || [],
+    };
+  }
+
+  const scopedSession = completion.completed_session || {};
+  const existingSessionRows = await pool.query(
+    `SELECT child_id FROM tde_intervention_sessions WHERE session_id = $1 LIMIT 1`,
+    [normalizedSessionId]
+  );
+  if (existingSessionRows.rows[0]?.child_id && String(existingSessionRows.rows[0].child_id) !== String(bridge.child_id)) {
+    return { ok: false, error: "session_scope_conflict", message: "session_id_already_linked_to_another_child" };
+  }
+
+  const interventionPayload = {
+    source: "parent_program_calendar",
+    enrollment_id: bridge.enrollment_id,
+    child_id: bridge.child_id,
+    week_number: week,
+    session_id: normalizedSessionId,
+    day: scopedSession.day || null,
+    time: scopedSession.time || null,
+    scheduled_at: scopedSession.scheduled_at || null,
+  };
+  const interventionWrite = await pool.query(
     `INSERT INTO tde_intervention_sessions (session_id, child_id, full_session_completed, duration_minutes, challenge_level, parent_coaching_style, payload, completed_at)
      VALUES ($1,$2,$3,$4,$5,$6,$7::jsonb,NOW())
-     ON CONFLICT (session_id) DO UPDATE SET full_session_completed = EXCLUDED.full_session_completed, payload = EXCLUDED.payload, updated_at = NOW()`,
-    [sessionId, bridge.child_id, true, 30, "moderate", "supportive", JSON.stringify({ source: "parent_program_calendar" })]
+     ON CONFLICT (session_id) DO UPDATE
+       SET full_session_completed = EXCLUDED.full_session_completed,
+           payload = EXCLUDED.payload,
+           updated_at = NOW()
+     WHERE tde_intervention_sessions.child_id = EXCLUDED.child_id
+     RETURNING session_id`,
+    [normalizedSessionId, bridge.child_id, true, 30, "moderate", "supportive", JSON.stringify(interventionPayload)]
   );
-  const progressId = `wpr-${bridge.enrollment_id}-${week}`;
-  const rows = await pool.query(`SELECT payload FROM tde_weekly_progress_records WHERE progress_id = $1 LIMIT 1`, [progressId]);
-  const basePayload = rows.rows[0]?.payload || {};
-  const scheduled = (Array.isArray(basePayload.scheduled_sessions) ? basePayload.scheduled_sessions : []).map((entry) => (
-    String(entry.session_id) === String(sessionId) ? { ...entry, status: "completed", completed_at: new Date().toISOString() } : entry
-  ));
-  await saveProgramSessionPlanForAccount({ accountCtx, childId: bridge.child_id, weekNumber: week, payload: { scheduled_sessions: scheduled } });
-  return { ok: true, session_id: sessionId, week_number: week, scheduled_sessions: scheduled };
+  if (interventionWrite.rowCount < 1) {
+    return { ok: false, error: "session_scope_conflict", message: "intervention_session_scope_update_rejected" };
+  }
+
+  await saveProgramSessionPlanForAccount({
+    accountCtx,
+    childId: bridge.child_id,
+    weekNumber: week,
+    payload: { scheduled_sessions: completion.scheduled_sessions },
+  });
+  return {
+    ok: true,
+    session_id: normalizedSessionId,
+    week_number: week,
+    scheduled_sessions: completion.scheduled_sessions,
+  };
 }
 
 async function saveProgramWeekExecutionForAccount({ accountCtx, childId = "", weekNumber = 1, actionType = "", stepKey = "", note = "" }) {

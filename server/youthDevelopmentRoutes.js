@@ -3196,7 +3196,10 @@ function createYouthDevelopmentRouter(options = {}) {
       const childId = safeTrim(req.body?.child_id || req.body?.childId);
       const weekNumber = Number(req.body?.week_number || req.body?.weekNumber || 1);
       const sessionId = safeTrim(req.body?.session_id || req.body?.sessionId);
-      const result = await markProgramSessionComplete({ accountCtx, request: req, childId, weekNumber, sessionId });
+      const day = safeTrim(req.body?.day);
+      const time = safeTrim(req.body?.time);
+      const scheduledAt = safeTrim(req.body?.scheduled_at || req.body?.scheduledAt);
+      const result = await markProgramSessionComplete({ accountCtx, request: req, childId, weekNumber, sessionId, day, time, scheduledAt });
       return res.status(200).json(result);
     } catch (err) {
       console.error("youth_program_session_complete_failed", err);

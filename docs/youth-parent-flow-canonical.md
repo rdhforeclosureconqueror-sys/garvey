@@ -136,10 +136,24 @@ Per-session required fields:
 Scope and reference validation:
 - `child_id` (if provided) must match current child scope.
 - `week_number` (if provided) must match the route/week payload scope and remain within `1..36`.
+- `session_id` values must be unique within the submitted `scheduled_sessions` array.
 - For `in_progress`/`completed` sessions, at least one activity or lesson-plan reference must be present (`selected_activity_ids`, `lesson_plan_block_ids`, or `core_activity_title`).
+
+Timestamp behavior (`scheduled_at`) decision:
+- Canonical schedule identity remains `day + time` for planner UX continuity.
+- `scheduled_at` is now an **optional strict field**: when present, it is normalized to canonical ISO-8601 UTC (`YYYY-MM-DDTHH:mm:ss.sssZ`).
+- When `scheduled_at` is present, it must align with canonical `day` and `time`; mismatches are rejected (`scheduled_at_day_mismatch`, `scheduled_at_time_mismatch`).
+- Invalid timestamp values are rejected (`scheduled_at_invalid`) rather than silently coerced.
+
+Session completion/update mutation integrity (`POST /api/youth-development/program/session-complete`):
+- Mutations are scope-checked against canonical planner state using `child_id + week_number + session_id`.
+- Optional schedule guards (`day`, `time`, `scheduled_at`) can be supplied; if supplied and mismatched, completion is rejected (`session_scope_mismatch`).
+- Completion writes are blocked if `session_id` is already linked to a different child (`session_scope_conflict`).
+- Only scoped canonical schedule rows are mutated; ambiguous/missing scoped sessions are rejected and never auto-created.
 
 Save/load consistency:
 - Validated+normalized session entries are persisted as the only source read by weekly planner/calendar and lesson-plan rendering.
+- Session completion updates are derived from validated schedule payloads to keep adherence/accountability summaries aligned with canonical schedule truth.
 - Invalid persisted schedule rows are dropped at load time instead of being silently coerced.
 
 ### Rejected payload examples
