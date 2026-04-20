@@ -27,6 +27,7 @@ const WEEKLY_FREQUENCY_VALUES = Object.freeze([2, 3, 4, 5]);
 const SCHEDULED_SESSION_STATUS_VALUES = Object.freeze(["planned", "in_progress", "completed", "missed"]);
 const TIME_24H_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
 const ISO_DATE_ONLY_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/;
+const CANONICAL_DAY_BY_UTC_INDEX = Object.freeze(["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]);
 
 function toInt(value, fallback = 0) {
   const numeric = Number(value);
@@ -198,17 +199,33 @@ function normalizeScheduledSessionEntry(entry = {}, { childId = "", weekNumber =
   };
   if (entry.completed_at) normalized.completed_at = String(entry.completed_at);
   if (entry.started_at) normalized.started_at = String(entry.started_at);
+  if (entry.scheduled_at !== undefined && entry.scheduled_at !== null && String(entry.scheduled_at).trim()) {
+    normalized.scheduled_at = String(entry.scheduled_at).trim();
+  }
   return normalized;
+}
+
+function normalizeScheduledAt(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return { ok: true, value: "" };
+  const parsed = new Date(raw);
+  if (Number.isNaN(parsed.getTime())) return { ok: false, value: "", error: "scheduled_at_invalid" };
+  return { ok: true, value: parsed.toISOString() };
 }
 
 function validateScheduledSessions(payload = {}, { childId = "", weekNumber = 1 } = {}) {
   const rawSessions = Array.isArray(payload.scheduled_sessions) ? payload.scheduled_sessions : [];
   const errors = [];
   const normalized = [];
+  const sessionIds = new Set();
   rawSessions.forEach((entry, idx) => {
     const item = normalizeScheduledSessionEntry(entry, { childId, weekNumber });
     const key = `scheduled_sessions[${idx}]`;
     if (!item.session_id) errors.push(`${key}.session_id_required`);
+    if (item.session_id) {
+      if (sessionIds.has(item.session_id)) errors.push(`${key}.session_id_duplicate`);
+      sessionIds.add(item.session_id);
+    }
     if (!CANONICAL_DAYS.includes(item.day)) errors.push(`${key}.day_invalid`);
     if (!isValidTime24(item.time)) errors.push(`${key}.time_invalid`);
     if (!SCHEDULED_SESSION_STATUS_VALUES.includes(item.status)) errors.push(`${key}.status_invalid`);
@@ -223,6 +240,17 @@ function validateScheduledSessions(payload = {}, { childId = "", weekNumber = 1 
       || Boolean(item.core_activity_title);
     if ((item.status === "in_progress" || item.status === "completed") && !hasActivityReference) {
       errors.push(`${key}.activity_reference_required`);
+    }
+    const scheduledAt = normalizeScheduledAt(item.scheduled_at);
+    if (!scheduledAt.ok) {
+      errors.push(`${key}.scheduled_at_invalid`);
+    } else if (scheduledAt.value) {
+      item.scheduled_at = scheduledAt.value;
+      const parsed = new Date(item.scheduled_at);
+      const scheduledDay = CANONICAL_DAY_BY_UTC_INDEX[parsed.getUTCDay()];
+      const scheduledTime = parsed.toISOString().slice(11, 16);
+      if (item.day && scheduledDay !== item.day) errors.push(`${key}.scheduled_at_day_mismatch`);
+      if (item.time && scheduledTime !== item.time) errors.push(`${key}.scheduled_at_time_mismatch`);
     }
     normalized.push(item);
   });
@@ -245,5 +273,7 @@ module.exports = {
   normalizeParentCommitmentPlan,
   validateParentCommitmentSetup,
   validateScheduledSessions,
+  normalizeScheduledSessionEntry,
+  normalizeScheduledAt,
   isParentCommitmentSetupComplete,
 };

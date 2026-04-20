@@ -116,6 +116,55 @@ test("scheduled sessions schema validates required fields and scope consistency"
   assert.ok(invalid.errors.includes("scheduled_sessions[0].week_scope_mismatch"));
 });
 
+
+
+test("scheduled sessions enforce canonical scheduled_at timestamp consistency", () => {
+  const valid = validateScheduledSessions({
+    scheduled_sessions: [
+      {
+        session_id: "wk-1-mon-1",
+        day: "monday",
+        time: "17:30",
+        status: "planned",
+        week_number: 1,
+        child_id: "child-1",
+        selected_activity_ids: ["act-1"],
+        scheduled_at: "2026-04-20T17:30:00.000Z",
+      },
+    ],
+  }, { childId: "child-1", weekNumber: 1 });
+  assert.equal(valid.ok, true);
+  assert.equal(valid.normalized[0].scheduled_at, "2026-04-20T17:30:00.000Z");
+
+  const invalid = validateScheduledSessions({
+    scheduled_sessions: [
+      {
+        session_id: "wk-1-mon-1",
+        day: "monday",
+        time: "17:30",
+        status: "planned",
+        week_number: 1,
+        child_id: "child-1",
+        selected_activity_ids: ["act-1"],
+        scheduled_at: "2026-04-20T18:30:00.000Z",
+      },
+    ],
+  }, { childId: "child-1", weekNumber: 1 });
+  assert.equal(invalid.ok, false);
+  assert.ok(invalid.errors.includes("scheduled_sessions[0].scheduled_at_time_mismatch"));
+});
+
+test("scheduled sessions reject duplicate session identifiers", () => {
+  const invalid = validateScheduledSessions({
+    scheduled_sessions: [
+      { session_id: "wk-1-mon", day: "monday", time: "17:30", status: "planned", week_number: 1, child_id: "child-1", selected_activity_ids: ["act-1"] },
+      { session_id: "wk-1-mon", day: "wednesday", time: "17:30", status: "planned", week_number: 1, child_id: "child-1", selected_activity_ids: ["act-2"] },
+    ],
+  }, { childId: "child-1", weekNumber: 1 });
+  assert.equal(invalid.ok, false);
+  assert.ok(invalid.errors.includes("scheduled_sessions[1].session_id_duplicate"));
+});
+
 test("time and date helpers enforce canonical formats", () => {
   assert.equal(isValidTime24("00:00"), true);
   assert.equal(isValidTime24("23:59"), true);
