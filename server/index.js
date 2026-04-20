@@ -2661,7 +2661,15 @@ async function markProgramSessionCompleteForAccount({ accountCtx, childId = "", 
   };
 }
 
-async function saveProgramWeekExecutionForAccount({ accountCtx, childId = "", weekNumber = 1, actionType = "", stepKey = "", note = "" }) {
+async function saveProgramWeekExecutionForAccount({
+  accountCtx,
+  childId = "",
+  weekNumber = 1,
+  actionType = "",
+  stepKey = "",
+  note = "",
+  actionPayload = {},
+}) {
   const validation = validateWeeklyExecutionActionPayload({
     tenant: accountCtx?.tenant,
     email: accountCtx?.email,
@@ -2697,6 +2705,7 @@ async function saveProgramWeekExecutionForAccount({ accountCtx, childId = "", we
     actionType: validation.normalized.action_type,
     stepKey: validation.normalized.step_key,
     note: validation.normalized.note,
+    actionPayload,
     weekNumber: week,
   });
   const execution = executionAction.state;

@@ -3555,6 +3555,17 @@ function createYouthDevelopmentRouter(options = {}) {
         action_type: safeTrim(req.body?.action_type || req.body?.actionType),
         step_key: safeTrim(req.body?.step_key || req.body?.stepKey),
         note: String(req.body?.note || ""),
+        case_profile_type: safeTrim(req.body?.case_profile_type || req.body?.caseProfileType),
+        initiated_by: safeTrim(req.body?.initiated_by || req.body?.initiatedBy),
+        case_priority: safeTrim(req.body?.case_priority || req.body?.casePriority),
+        referral_source: safeTrim(req.body?.referral_source || req.body?.referralSource),
+        support_channel: safeTrim(req.body?.support_channel || req.body?.supportChannel),
+        destination_team: safeTrim(req.body?.destination_team || req.body?.destinationTeam),
+        routing_reason: String(req.body?.routing_reason || req.body?.routingReason || ""),
+        urgency_level: safeTrim(req.body?.urgency_level || req.body?.urgencyLevel),
+        touchpoint_type: safeTrim(req.body?.touchpoint_type || req.body?.touchpointType),
+        touchpoint_outcome: safeTrim(req.body?.touchpoint_outcome || req.body?.touchpointOutcome),
+        touchpoint_note: String(req.body?.touchpoint_note || req.body?.touchpointNote || ""),
       });
       if (!validation.ok) {
         return res.status(200).json({
@@ -3572,6 +3583,7 @@ function createYouthDevelopmentRouter(options = {}) {
         actionType: validation.normalized.action_type,
         stepKey: validation.normalized.step_key,
         note: validation.normalized.note,
+        actionPayload: validation.normalized.action_payload,
       });
       return res.status(200).json(result);
     } catch (err) {

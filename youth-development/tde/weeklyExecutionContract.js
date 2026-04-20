@@ -8,17 +8,16 @@ const WEEKLY_EXECUTION_ACTIONS = Object.freeze([
   "mark_step_complete",
   "continue_to_next_step",
   "continue_next_week",
+  "create_case_profile",
+  "route_external_support",
+  "record_onboarding_touchpoint",
 ]);
 
 const DEPRECATED_ACTION_ALIASES = Object.freeze({
   continue_next_step: "continue_to_next_step",
 });
 
-const UNCONTRACTED_PASS_THROUGH_ACTIONS = Object.freeze([
-  "create_case_profile",
-  "route_external_support",
-  "record_onboarding_touchpoint",
-]);
+const UNCONTRACTED_PASS_THROUGH_ACTIONS = Object.freeze([]);
 
 const STEP_SEQUENCE = Object.freeze([
   "core_activity",
@@ -43,6 +42,18 @@ const ACTION_CONTRACT = Object.freeze({
   mark_step_complete: Object.freeze({ required_fields: ["step_key"] }),
   continue_to_next_step: Object.freeze({ required_fields: [] }),
   continue_next_week: Object.freeze({ required_fields: [] }),
+  create_case_profile: Object.freeze({
+    required_fields: ["case_profile_type", "initiated_by"],
+    defaults: Object.freeze({ case_priority: "standard", referral_source: "program_weekly_execution" }),
+  }),
+  route_external_support: Object.freeze({
+    required_fields: ["support_channel", "destination_team", "routing_reason"],
+    defaults: Object.freeze({ urgency_level: "routine", referral_source: "program_weekly_execution" }),
+  }),
+  record_onboarding_touchpoint: Object.freeze({
+    required_fields: ["touchpoint_type", "touchpoint_outcome"],
+    defaults: Object.freeze({ touchpoint_note: "" }),
+  }),
 });
 
 const ACTION_RISK_FACTORS = Object.freeze({
@@ -312,6 +323,18 @@ function validateWeeklyExecutionActionPayload(payload = {}, options = {}) {
   const actionType = actionResolution.resolved_action_type;
   const stepKey = String(payload.step_key || payload.stepKey || "").trim();
   const note = String(payload.note || "").trim();
+  const caseProfileType = String(payload.case_profile_type || payload.caseProfileType || "").trim().toLowerCase();
+  const initiatedBy = String(payload.initiated_by || payload.initiatedBy || "").trim().toLowerCase();
+  const casePriority = String(payload.case_priority || payload.casePriority || ACTION_CONTRACT.create_case_profile.defaults.case_priority).trim().toLowerCase();
+  const referralSource = String(payload.referral_source || payload.referralSource || "").trim().toLowerCase()
+    || ACTION_CONTRACT.create_case_profile.defaults.referral_source;
+  const supportChannel = String(payload.support_channel || payload.supportChannel || "").trim().toLowerCase();
+  const destinationTeam = String(payload.destination_team || payload.destinationTeam || "").trim().toLowerCase();
+  const routingReason = String(payload.routing_reason || payload.routingReason || "").trim().slice(0, 500);
+  const urgencyLevel = String(payload.urgency_level || payload.urgencyLevel || ACTION_CONTRACT.route_external_support.defaults.urgency_level).trim().toLowerCase();
+  const touchpointType = String(payload.touchpoint_type || payload.touchpointType || "").trim().toLowerCase();
+  const touchpointOutcome = String(payload.touchpoint_outcome || payload.touchpointOutcome || "").trim().toLowerCase();
+  const touchpointNote = String(payload.touchpoint_note || payload.touchpointNote || ACTION_CONTRACT.record_onboarding_touchpoint.defaults.touchpoint_note).trim().slice(0, 2000);
 
   if (!tenant) errors.push("tenant is required");
   if (!email) errors.push("email is required");
@@ -329,6 +352,23 @@ function validateWeeklyExecutionActionPayload(payload = {}, options = {}) {
   if (actionContract?.required_fields.includes("step_key") && !STEP_SEQUENCE.includes(stepKey)) {
     errors.push("step_key must be one of core_activity, stretch_challenge, reflection_checkin, observation_support");
   }
+  if (actionContract?.required_fields.includes("case_profile_type") && !caseProfileType) errors.push("case_profile_type is required");
+  if (actionContract?.required_fields.includes("initiated_by") && !initiatedBy) errors.push("initiated_by is required");
+  if (actionContract?.required_fields.includes("support_channel") && !supportChannel) errors.push("support_channel is required");
+  if (actionContract?.required_fields.includes("destination_team") && !destinationTeam) errors.push("destination_team is required");
+  if (actionContract?.required_fields.includes("routing_reason") && !routingReason) errors.push("routing_reason is required");
+  if (actionContract?.required_fields.includes("touchpoint_type") && !touchpointType) errors.push("touchpoint_type is required");
+  if (actionContract?.required_fields.includes("touchpoint_outcome") && !touchpointOutcome) errors.push("touchpoint_outcome is required");
+
+  if (casePriority && !["low", "standard", "high", "urgent"].includes(casePriority)) {
+    errors.push("case_priority must be one of low, standard, high, urgent");
+  }
+  if (urgencyLevel && !["routine", "expedited", "urgent", "emergency"].includes(urgencyLevel)) {
+    errors.push("urgency_level must be one of routine, expedited, urgent, emergency");
+  }
+  if (touchpointOutcome && !["completed", "attempted", "deferred", "unable_to_contact"].includes(touchpointOutcome)) {
+    errors.push("touchpoint_outcome must be one of completed, attempted, deferred, unable_to_contact");
+  }
 
   return {
     ok: errors.length === 0,
@@ -344,6 +384,19 @@ function validateWeeklyExecutionActionPayload(payload = {}, options = {}) {
       pass_through: allowUncontractedPassThrough && actionResolution.classification === "uncontracted_pass_through",
       step_key: stepKey,
       note,
+      action_payload: {
+        case_profile_type: caseProfileType,
+        initiated_by: initiatedBy,
+        case_priority: casePriority,
+        referral_source: referralSource,
+        support_channel: supportChannel,
+        destination_team: destinationTeam,
+        routing_reason: routingReason,
+        urgency_level: urgencyLevel,
+        touchpoint_type: touchpointType,
+        touchpoint_outcome: touchpointOutcome,
+        touchpoint_note: touchpointNote,
+      },
     },
   };
 }
@@ -353,7 +406,7 @@ function expectedStepForIndex(state) {
   return STEP_SEQUENCE[idx];
 }
 
-function applyWeeklyExecutionAction({ currentState, actionType, stepKey, note, weekNumber }) {
+function applyWeeklyExecutionAction({ currentState, actionType, stepKey, note, weekNumber, actionPayload = {} }) {
   const state = normalizeExecutionState(currentState, weekNumber);
   const action = String(actionType || "").trim().toLowerCase();
   const result = {
@@ -420,6 +473,12 @@ function applyWeeklyExecutionAction({ currentState, actionType, stepKey, note, w
     } else {
       next.week_status = "completed";
     }
+  } else if (action === "create_case_profile" || action === "route_external_support" || action === "record_onboarding_touchpoint") {
+    next.last_side_effect_action = action;
+    next.last_side_effect_payload = {
+      ...actionPayload,
+      recorded_at: new Date().toISOString(),
+    };
   }
 
   const normalizedNext = normalizeExecutionState(next, weekNumber);
