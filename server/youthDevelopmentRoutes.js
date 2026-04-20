@@ -1878,6 +1878,8 @@ function renderLiveYouthProgramPage() {
       body { font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; padding: 20px; background: #020617; color: #e2e8f0; }
       main { max-width: 840px; margin: 0 auto; display: grid; gap: 12px; }
       .panel { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 14px; padding: 14px; background: rgba(15, 23, 42, 0.85); }
+      .panel h2 { margin: 0 0 8px; font-size: 1.1rem; letter-spacing: 0.01em; }
+      .section-kicker { margin: 0 0 10px; font-size: 12px; color: #93c5fd; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; }
       .muted { color: #94a3b8; }
       .list { margin: 0; padding-left: 18px; display: grid; gap: 8px; }
       .actions { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -1891,7 +1893,8 @@ function renderLiveYouthProgramPage() {
       .chip { border: 1px solid rgba(148, 163, 184, 0.4); border-radius: 999px; padding: 4px 10px; font-size: 12px; color: #bfdbfe; }
       .grid-2 { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
       .progress-wrap { margin-top: 8px; }
-      .progress-track { width: 100%; height: 10px; border-radius: 999px; background: rgba(148, 163, 184, 0.25); overflow: hidden; }
+      .progress-label { margin: 0 0 4px; font-size: 12px; color: #bfdbfe; font-weight: 600; }
+      .progress-track { width: 100%; height: 12px; border-radius: 999px; background: rgba(148, 163, 184, 0.25); overflow: hidden; }
       .progress-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #3b82f6); width: 0%; transition: width 180ms ease; }
       .roadmap-list { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 6px; }
       .roadmap-item-current { color: #bfdbfe; font-weight: 600; }
@@ -1905,6 +1908,7 @@ function renderLiveYouthProgramPage() {
       .input { width: 100%; margin-top: 6px; background: rgba(2, 6, 23, 0.75); color: #e2e8f0; border: 1px solid rgba(148, 163, 184, 0.45); border-radius: 8px; padding: 8px; font: inherit; }
       .planner-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 10px; }
       .planner-metric { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 10px; background: rgba(2, 6, 23, 0.4); }
+      .planner-metric.today-focus { border-color: rgba(59, 130, 246, 0.8); box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.25); background: rgba(30, 64, 175, 0.12); }
       .planner-metric h4 { margin: 0 0 4px; font-size: 0.9rem; }
       .planner-metric p { margin: 0; font-size: 13px; color: #cbd5e1; }
       .status-pill { border-radius: 999px; padding: 2px 8px; font-size: 11px; border: 1px solid rgba(148, 163, 184, 0.5); text-transform: capitalize; }
@@ -1923,16 +1927,22 @@ function renderLiveYouthProgramPage() {
       .lesson-plan { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 10px; background: rgba(2, 6, 23, 0.45); margin-top: 8px; }
       .lesson-plan table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
       .lesson-plan th, .lesson-plan td { border: 1px solid rgba(148, 163, 184, 0.35); padding: 6px; text-align: left; vertical-align: top; }
+      .lesson-plan th { background: rgba(30, 41, 59, 0.65); color: #dbeafe; }
       .checklist { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; }
       .progress-metrics-grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); margin-top: 8px; }
       .progress-metric-tile { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 8px; background: rgba(2, 6, 23, 0.55); }
       .progress-metric-tile .label { font-size: 11px; color: #94a3b8; margin: 0; }
       .progress-metric-tile .value { font-size: 18px; color: #e2e8f0; font-weight: 700; margin: 2px 0 0; }
+      .motivation-banner { margin-top: 8px; border: 1px solid rgba(59, 130, 246, 0.55); border-radius: 10px; padding: 10px; background: rgba(30, 64, 175, 0.16); }
+      .motivation-banner p { margin: 0; }
+      .subsection-title { margin: 12px 0 6px; font-size: 0.95rem; color: #dbeafe; }
+      .trend-history-card { border: 1px solid rgba(148, 163, 184, 0.35); border-radius: 10px; padding: 10px; background: rgba(2, 6, 23, 0.45); margin-top: 8px; }
       .next-action-box { margin-top: 8px; border: 1px dashed rgba(148, 163, 184, 0.5); border-radius: 10px; padding: 8px; background: rgba(15, 23, 42, 0.55); }
       .week-markers { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; }
       #todaySessionPanel { order: 1; }
       #weeklyCalendarPanel { order: 2; }
       #currentWeekPanel { order: 3; }
+      #parentProgressPanel { order: 4; }
     </style>
   </head>
   <body>
@@ -1950,6 +1960,7 @@ function renderLiveYouthProgramPage() {
         </div>
       </section>
       <section class="panel" id="currentWeekPanel">
+        <p class="section-kicker">This week</p>
         <h2>Current week guided experience</h2>
         <div id="weekExperience" class="state-box">
           <h3 class="state-title">Loading week content…</h3>
@@ -2001,9 +2012,10 @@ function renderLiveYouthProgramPage() {
         </div>
       </section>
       <section class="panel" id="todaySessionPanel">
+        <p class="section-kicker">Today</p>
         <h2>Today’s Session</h2>
         <div class="planner-grid">
-          <div class="planner-metric">
+          <div class="planner-metric today-focus">
             <h4>Today’s Session</h4>
             <p id="todaySessionCard">Loading today’s session…</p>
             <div class="session-actions">
@@ -2027,6 +2039,7 @@ function renderLiveYouthProgramPage() {
         </div>
       </section>
       <section class="panel" id="parentProgressPanel">
+        <p class="section-kicker">Progress</p>
         <h2>Parent Progress + Adherence Dashboard</h2>
         <div class="progress-metrics-grid">
           <article class="progress-metric-tile"><p class="label">Planned this week</p><p id="progressPlannedCount" class="value">0</p></article>
@@ -2036,20 +2049,29 @@ function renderLiveYouthProgramPage() {
           <article class="progress-metric-tile"><p class="label">Current week completion</p><p id="progressCompletionPercent" class="value">0%</p></article>
           <article class="progress-metric-tile"><p class="label">Consistency marker</p><p id="progressConsistencyMarker" class="value">—</p></article>
         </div>
+        <div class="motivation-banner">
+          <p id="motivationSummary" class="state-line">Loading weekly momentum summary…</p>
+        </div>
         <div class="progress-wrap">
+          <p class="progress-label">Current week completion</p>
           <div class="progress-track"><div id="completionFill" class="progress-fill"></div></div>
         </div>
         <p id="weekComparisonSummary" class="state-line">Week-over-week view loading…</p>
-        <div id="lastFourWeeksBars" class="tiny muted">Loading last 4 weeks completion bars…</div>
-        <p id="consistencyTrendSummary" class="tiny muted">Consistency trend loading…</p>
-        <p id="phaseProgressMarker" class="tiny muted">Phase progress marker loading…</p>
+        <h3 class="subsection-title">Multi-week trends/history</h3>
+        <div class="trend-history-card">
+          <div id="lastFourWeeksBars" class="tiny muted">Loading last 4 weeks completion bars…</div>
+          <p id="consistencyTrendSummary" class="tiny muted">Consistency trend loading…</p>
+          <p id="phaseProgressMarker" class="tiny muted">Phase progress marker loading…</p>
+        </div>
         <ul id="weekMarkersList" class="week-markers"><li class="muted">Loading week markers…</li></ul>
+        <h3 class="subsection-title">Next-best-action</h3>
         <div class="next-action-box">
           <p id="nextBestActionCopy" class="state-line">Determining next best action…</p>
           <p id="nextBestActionBlocked" class="tiny muted"></p>
         </div>
       </section>
       <section class="panel" id="weeklyCalendarPanel">
+        <p class="section-kicker">This week</p>
         <h2>Weekly Plan Calendar (Primary)</h2>
         <div class="planner-grid">
           <div class="planner-metric">
@@ -2074,6 +2096,7 @@ function renderLiveYouthProgramPage() {
             <h3 class="state-title">Weekly Planner Calendar + adherence</h3>
             <p id="adherenceSummary" class="state-line">Loading adherence summary…</p>
             <div class="progress-wrap">
+              <p class="progress-label">Adherence progress (planned vs completed sessions)</p>
               <div class="progress-track"><div id="adherenceFill" class="progress-fill"></div></div>
             </div>
             <p id="completionCountSummary" class="tiny muted">Planned vs completed loading…</p>
@@ -2158,6 +2181,7 @@ function renderLiveYouthProgramPage() {
         const progressMissedCount = document.getElementById("progressMissedCount");
         const progressCompletionPercent = document.getElementById("progressCompletionPercent");
         const progressConsistencyMarker = document.getElementById("progressConsistencyMarker");
+        const motivationSummary = document.getElementById("motivationSummary");
         const completionFill = document.getElementById("completionFill");
         const weekComparisonSummary = document.getElementById("weekComparisonSummary");
         const lastFourWeeksBars = document.getElementById("lastFourWeeksBars");
@@ -2341,7 +2365,7 @@ function renderLiveYouthProgramPage() {
             const glyphCount = Math.max(1, Math.round(percent / 10));
             return "W" + String(row.week_number) + " " + "█".repeat(glyphCount).padEnd(10, "░") + " " + String(percent.toFixed(1)) + "% (" + String(row.consistency_marker || "early") + ")";
           });
-          lastFourWeeksBars.innerHTML = "<strong>Last 4 weeks completion bars:</strong><br>" + bars.map((row) => esc(row)).join("<br>");
+          lastFourWeeksBars.innerHTML = "<strong>Last 4 weeks completion bars (newest week listed last):</strong><br>" + bars.map((row) => esc(row)).join("<br>");
           const consistencyPath = trend.map((row) => "W" + String(row.week_number) + ":" + String(row.consistency_marker || "early")).join(" → ");
           consistencyTrendSummary.textContent = "Consistency trend: " + consistencyPath;
         }
@@ -2367,6 +2391,19 @@ function renderLiveYouthProgramPage() {
           progressCompletionPercent.textContent = String(completionPct.toFixed(1)) + "%";
           progressConsistencyMarker.textContent = consistency;
           completionFill.style.width = String(Math.max(0, Math.min(100, completionPct))) + "%";
+          if (motivationSummary) {
+            const remaining = Math.max(0, planned - completed);
+            const completionLine = "You completed " + String(completed) + " of " + String(planned) + " sessions this week.";
+            const unlockLine = remaining <= 0
+              ? "This week is complete and next week is ready."
+              : (remaining === 1
+                ? "One more session unlocks next week momentum."
+                : String(remaining) + " more sessions keep this week on track for next week unlock.");
+            const streakLine = streakWeeks > 0
+              ? "You’re building consistency with a " + String(streakWeeks) + "-week streak."
+              : "You’re building consistency by showing up this week.";
+            motivationSummary.textContent = [completionLine, unlockLine, streakLine].join(" ");
+          }
           weekComparisonSummary.textContent = wow.comparison_available
             ? describeTrend(Number(wow.current_week_completion_percent || completionPct), Number(wow.prior_week_completion_percent))
             : describeTrend(completionPct, Number.isFinite(lastWeekPct) ? lastWeekPct : NaN);
