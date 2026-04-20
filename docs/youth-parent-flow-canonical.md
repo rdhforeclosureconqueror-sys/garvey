@@ -105,7 +105,7 @@ All controls remain child/week scoped and route through existing governed contra
 
 Parent weekly execution view (`/youth-development/program`) now emphasizes a stable, motivating read order while preserving existing contracts and flow logic.
 
-Top-level visual priority order:
+Top-level canonical **DOM + visual** priority order:
 1. **Today’s Session**
 2. **Weekly Planner / Calendar**
 3. **Current Week Guided Experience**
@@ -113,12 +113,39 @@ Top-level visual priority order:
 5. **Multi-week trends/history** (inside progress dashboard)
 6. **Optional activity alternatives/details** (inside current-week activity bank surface)
 
+Accessibility/structure requirement:
+- DOM order must match visual order (no CSS `order` overrides for primary section sequencing).
+- Screen-reader and non-CSS consumers should encounter the same parent intent hierarchy.
+
 Section purpose/clarity rules:
 - **Today’s Session**: fastest parent action path for same-day execution; always contains start/resume/session-context cues.
 - **Weekly Planner / Calendar**: commitment setup + schedule + lesson-plan details; this remains the canonical planning/execution bridge.
 - **Current Week Guided Experience**: guidance, roadmap, activity bank alternatives, and reflection/observation support.
 - **Progress + Adherence Dashboard**: numeric week status, completion/adherence bars, trend summaries, and next-best-action framing.
 - **Multi-week trends/history**: compact 4-week completion bars, consistency trend path, and phase marker for long-view context.
+- Multi-week trend visualization uses semantic div bars (`trend-bar-track` + `trend-bar-fill`) with in-bar labels (e.g., `75.0%`), not text glyph bars (`█`/`░`).
+
+### Canonical interaction feedback rules (parent weekly program)
+
+All primary parent actions must show an immediate state signal to avoid dead-click ambiguity:
+- Use button busy markers (`aria-busy="true"` + temporary active styling) during async actions.
+- Set immediate inline status copy in `nextActionArea` for start/resume/complete/continue actions.
+- Selected planner/session context must be visually explicit:
+  - calendar day selection marker (`data-selected-day="true"`),
+  - agenda/session row selection marker (`data-selected-session="true"`).
+- “Open Lesson Plan” actions must both scroll and focus the lesson-plan surface for keyboard + screen-reader continuity.
+- Step progression in lesson plan should expose explicit classes for current vs completed state:
+  - active step: `step-active`
+  - completed step: `step-complete`
+
+### Motivation readability standards
+
+Motivation summary remains a concise sentence-level narrative, and additionally renders quick-scan chips:
+- `Completed sessions: X`
+- `Remaining sessions: Y`
+- `Streak: N weeks` (only when streak is present)
+
+This remains child/week scoped and derived only from planner/accountability values.
 
 Motivation/summary copy rules (governed parent-safe framing):
 - Allowed tone: specific, measurable, encouragement-oriented.
