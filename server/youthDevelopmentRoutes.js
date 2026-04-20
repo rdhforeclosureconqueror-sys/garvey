@@ -2040,6 +2040,9 @@ function renderLiveYouthProgramPage() {
           <div class="progress-track"><div id="completionFill" class="progress-fill"></div></div>
         </div>
         <p id="weekComparisonSummary" class="state-line">Week-over-week view loading…</p>
+        <div id="lastFourWeeksBars" class="tiny muted">Loading last 4 weeks completion bars…</div>
+        <p id="consistencyTrendSummary" class="tiny muted">Consistency trend loading…</p>
+        <p id="phaseProgressMarker" class="tiny muted">Phase progress marker loading…</p>
         <ul id="weekMarkersList" class="week-markers"><li class="muted">Loading week markers…</li></ul>
         <div class="next-action-box">
           <p id="nextBestActionCopy" class="state-line">Determining next best action…</p>
@@ -2157,6 +2160,9 @@ function renderLiveYouthProgramPage() {
         const progressConsistencyMarker = document.getElementById("progressConsistencyMarker");
         const completionFill = document.getElementById("completionFill");
         const weekComparisonSummary = document.getElementById("weekComparisonSummary");
+        const lastFourWeeksBars = document.getElementById("lastFourWeeksBars");
+        const consistencyTrendSummary = document.getElementById("consistencyTrendSummary");
+        const phaseProgressMarker = document.getElementById("phaseProgressMarker");
         const weekMarkersList = document.getElementById("weekMarkersList");
         const nextBestActionCopy = document.getElementById("nextBestActionCopy");
         const nextBestActionBlocked = document.getElementById("nextBestActionBlocked");
@@ -2323,6 +2329,22 @@ function renderLiveYouthProgramPage() {
             ? "Up " + String(delta.toFixed(1)) + " points vs last week (" + String(lastPct.toFixed(1)) + "% → " + String(currentPct.toFixed(1)) + "%)."
             : "Down " + String(Math.abs(delta).toFixed(1)) + " points vs last week (" + String(lastPct.toFixed(1)) + "% → " + String(currentPct.toFixed(1)) + "%).";
         }
+        function renderMultiWeekBars(accountability) {
+          const trend = accountability?.trend_history?.weeks;
+          if (!Array.isArray(trend) || trend.length === 0) {
+            lastFourWeeksBars.textContent = "Last 4 weeks completion bars unavailable yet.";
+            consistencyTrendSummary.textContent = "Consistency trend unavailable.";
+            return;
+          }
+          const bars = trend.map((row) => {
+            const percent = Math.max(0, Math.min(100, Number(row.completion_percent || 0)));
+            const glyphCount = Math.max(1, Math.round(percent / 10));
+            return "W" + String(row.week_number) + " " + "█".repeat(glyphCount).padEnd(10, "░") + " " + String(percent.toFixed(1)) + "% (" + String(row.consistency_marker || "early") + ")";
+          });
+          lastFourWeeksBars.innerHTML = "<strong>Last 4 weeks completion bars:</strong><br>" + bars.map((row) => esc(row)).join("<br>");
+          const consistencyPath = trend.map((row) => "W" + String(row.week_number) + ":" + String(row.consistency_marker || "early")).join(" → ");
+          consistencyTrendSummary.textContent = "Consistency trend: " + consistencyPath;
+        }
         function renderProgressDashboard(week, planner, executionState) {
           const scheduled = Array.isArray(planner.scheduled) ? planner.scheduled : [];
           const completed = scheduled.filter((entry) => entry.normalized_status === "completed").length;
@@ -2332,10 +2354,12 @@ function renderLiveYouthProgramPage() {
           const completionPct = planned > 0 ? Number(((completed / planned) * 100).toFixed(1)) : 0;
           const accountability = planner.accountability || {};
           const consistency = String(accountability.consistency_label || "forming");
-          const lastWeekPct = Number(accountability.last_week_completion_percent);
+          const wow = accountability.week_over_week || {};
+          const lastWeekPct = Number(wow.prior_week_completion_percent ?? accountability.last_week_completion_percent);
           const phaseWeek = Number(week.week_number || 1);
           const phaseIndex = ((phaseWeek - 1) % 12) + 1;
-          const streakWeeks = Number(accountability.current_streak_weeks || accountability.consistency_streak_weeks || 0);
+          const streakContract = accountability.streak_contract || {};
+          const streakWeeks = Number(streakContract.current_streak_weeks || accountability.current_streak_weeks || accountability.consistency_streak_weeks || 0);
           progressPlannedCount.textContent = String(planned);
           progressCompletedCount.textContent = String(completed);
           progressInProgressCount.textContent = String(inProgress);
@@ -2343,10 +2367,19 @@ function renderLiveYouthProgramPage() {
           progressCompletionPercent.textContent = String(completionPct.toFixed(1)) + "%";
           progressConsistencyMarker.textContent = consistency;
           completionFill.style.width = String(Math.max(0, Math.min(100, completionPct))) + "%";
-          weekComparisonSummary.textContent = describeTrend(completionPct, Number.isFinite(lastWeekPct) ? lastWeekPct : NaN);
+          weekComparisonSummary.textContent = wow.comparison_available
+            ? describeTrend(Number(wow.current_week_completion_percent || completionPct), Number(wow.prior_week_completion_percent))
+            : describeTrend(completionPct, Number.isFinite(lastWeekPct) ? lastWeekPct : NaN);
+          renderMultiWeekBars(accountability);
+          const phaseMarker = accountability.phase_progress_marker || {};
+          phaseProgressMarker.textContent = phaseMarker.interpretation
+            ? "Phase marker: " + String(phaseMarker.interpretation)
+            : "Phase marker: week " + String(phaseIndex) + " of 12 in current phase.";
           const markers = [
             "Week " + String(phaseWeek) + " completion: " + String(completionPct.toFixed(1)) + "%",
-            "Week-over-week: " + describeTrend(completionPct, Number.isFinite(lastWeekPct) ? lastWeekPct : NaN),
+            "Week-over-week: " + (wow.comparison_available
+              ? describeTrend(Number(wow.current_week_completion_percent || completionPct), Number(wow.prior_week_completion_percent))
+              : describeTrend(completionPct, Number.isFinite(lastWeekPct) ? lastWeekPct : NaN)),
             "Program phase progress: week " + String(phaseIndex) + " of 12 in current phase.",
             streakWeeks > 0
               ? "Current completion streak: " + String(streakWeeks) + " week" + (streakWeeks === 1 ? "" : "s")

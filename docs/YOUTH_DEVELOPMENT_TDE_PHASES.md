@@ -668,3 +668,54 @@ Phase 27 adds an execution-grade parent weekly planner on `/youth-development/pr
 ### Non-regression commitments
 - Existing assessment → Start Program → Week content flow remains intact.
 - Live youth v1 routes/contracts remain unchanged; this is additive to parent program surfaces only.
+
+## Phase 28 — Multi-week parent analytics + trend history (additive)
+
+Phase 28 upgrades parent-facing progress visibility so it is not limited to current-week snapshots.
+
+### Historical analytics model (child/week scoped, persisted-data only)
+- `week_content.accountability.trend_history` is now a stable historical read model:
+  - `schema_version: "multi_week_progress_history_v1"`
+  - `window_weeks: 4`
+  - `weeks[]` rows include:
+    - `week_number`
+    - `planned_sessions`
+    - `completed_sessions`
+    - `completion_percent`
+    - `consistency_marker`
+    - `week_status`
+    - phase marker fields (`phase_number`, `phase_week_index`) when available.
+- Data source is persisted weekly planner/execution records (`tde_weekly_progress_records.payload.scheduled_sessions`) and persisted weekly status.
+- No synthetic progress rows are fabricated for missing persisted weeks.
+
+### Week-over-week support contract
+- `week_content.accountability.week_over_week` is now first-class and stable:
+  - `comparison_available`
+  - `current_week_completion_percent`
+  - `prior_week_completion_percent`
+  - `delta_points`
+  - `direction` (`up|down|flat|insufficient_history`)
+- Week-over-week is derived from persisted week summaries, not optional convenience-only fields.
+
+### Streak/consistency contract
+- `week_content.accountability.streak_contract` introduced:
+  - `contract_version: "program_streak_contract_v1"`
+  - metric: weekly completion percent
+  - threshold: `80%`
+  - `current_streak_weeks`
+  - `longest_streak_weeks_in_window`
+  - `consistency_status`
+  - `evaluated_through_week`
+- Parent-facing aliases remain (`current_streak_weeks`, `consistency_streak_weeks`) for backward safety.
+
+### Parent-facing trend visuals added
+- Program page now renders:
+  - last 4 weeks completion bars (text-rendered)
+  - consistency trend string
+  - phase progress marker
+- This is additive and remains deterministic for server-render + API payload behavior.
+
+### Interpretation limits
+- Historical trend confidence is limited when fewer than two persisted weeks are available (`direction: insufficient_history`).
+- `no_plan`/low-data weeks reflect planner state, not child capability.
+- Streak is strictly completion-threshold based and should not be treated as a diagnosis or broad developmental conclusion.

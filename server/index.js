@@ -2328,6 +2328,134 @@ function summarizeSessionAdherence(commitmentPlan, scheduledSessions = [], compl
   };
 }
 
+function summarizeConsistencyLabel(ratio, plannedCount) {
+  if (plannedCount <= 0) return "no_plan";
+  if (ratio >= 0.85) return "strong";
+  if (ratio >= 0.6) return "building";
+  return "early";
+}
+
+function summarizeWeekTrendRow(weekNumber, payload = {}) {
+  const scheduled = Array.isArray(payload.scheduled_sessions) ? payload.scheduled_sessions : [];
+  const planned = scheduled.filter((entry) => {
+    const status = String(entry?.status || "").toLowerCase();
+    return status === "planned" || status === "completed" || status === "in_progress" || status === "missed";
+  }).length;
+  const completed = scheduled.filter((entry) => String(entry?.status || "").toLowerCase() === "completed").length;
+  const ratio = planned > 0 ? completed / planned : 0;
+  const phase = PROGRAM_PHASES.find((entry) => Number(weekNumber) >= Number(entry.start_week) && Number(weekNumber) <= Number(entry.end_week)) || null;
+  return {
+    week_number: Number(weekNumber),
+    planned_sessions: planned,
+    completed_sessions: completed,
+    completion_percent: Number((ratio * 100).toFixed(1)),
+    consistency_marker: summarizeConsistencyLabel(ratio, planned),
+    week_status: String(payload.completion_status || "in_progress"),
+    phase_number: phase?.phase_number || null,
+    phase_week_index: phase ? Number(weekNumber) - Number(phase.start_week) + 1 : null,
+  };
+}
+
+function buildWeekOverWeek(currentWeekSummary, priorWeekSummary) {
+  if (!currentWeekSummary || !priorWeekSummary) {
+    return {
+      comparison_available: false,
+      comparison_type: "week_over_week_completion_percent",
+      current_week_completion_percent: Number(currentWeekSummary?.completion_percent || 0),
+      prior_week_completion_percent: null,
+      delta_points: null,
+      direction: "insufficient_history",
+    };
+  }
+  const delta = Number((Number(currentWeekSummary.completion_percent || 0) - Number(priorWeekSummary.completion_percent || 0)).toFixed(1));
+  return {
+    comparison_available: true,
+    comparison_type: "week_over_week_completion_percent",
+    current_week_completion_percent: Number(currentWeekSummary.completion_percent || 0),
+    prior_week_completion_percent: Number(priorWeekSummary.completion_percent || 0),
+    delta_points: delta,
+    direction: delta > 0 ? "up" : delta < 0 ? "down" : "flat",
+    current_week_number: Number(currentWeekSummary.week_number || 0),
+    prior_week_number: Number(priorWeekSummary.week_number || 0),
+  };
+}
+
+function buildStreakContract(trendRows = [], currentWeek = 1, options = {}) {
+  const thresholdPercent = Number(options.threshold_percent || 80);
+  const currentWeekNumber = Number(currentWeek || 1);
+  const byWeekDesc = [...trendRows].sort((a, b) => Number(b.week_number) - Number(a.week_number));
+  let currentStreak = 0;
+  for (const row of byWeekDesc) {
+    if (Number(row.week_number) > currentWeekNumber) continue;
+    const meetsThreshold = Number(row.completion_percent || 0) >= thresholdPercent && Number(row.planned_sessions || 0) > 0;
+    if (!meetsThreshold) break;
+    currentStreak += 1;
+  }
+  let longestStreak = 0;
+  let active = 0;
+  const byWeekAsc = [...trendRows].sort((a, b) => Number(a.week_number) - Number(b.week_number));
+  for (const row of byWeekAsc) {
+    const meetsThreshold = Number(row.completion_percent || 0) >= thresholdPercent && Number(row.planned_sessions || 0) > 0;
+    if (meetsThreshold) {
+      active += 1;
+      longestStreak = Math.max(longestStreak, active);
+    } else {
+      active = 0;
+    }
+  }
+  return {
+    contract_version: "program_streak_contract_v1",
+    metric: "weekly_completion_percent",
+    threshold_percent: thresholdPercent,
+    current_streak_weeks: currentStreak,
+    longest_streak_weeks_in_window: longestStreak,
+    consistency_status: currentStreak >= 4 ? "strong" : currentStreak >= 2 ? "building" : currentStreak >= 1 ? "starting" : "not_started",
+    evaluated_through_week: currentWeekNumber,
+    evaluation_window_weeks: trendRows.length,
+  };
+}
+
+function buildMultiWeekAnalytics({ currentWeek, currentWeekPayload, priorWeekPayload, historyRows = [], defaultAccountability = {} }) {
+  const currentSummary = summarizeWeekTrendRow(currentWeek, currentWeekPayload || {});
+  const priorSummary = priorWeekPayload ? summarizeWeekTrendRow(currentWeek - 1, priorWeekPayload) : null;
+  const historySummaries = historyRows.map((entry) => summarizeWeekTrendRow(entry.week_number, entry.payload || {}));
+  const trendRows = [...historySummaries, currentSummary]
+    .filter((row, idx, all) => all.findIndex((candidate) => Number(candidate.week_number) === Number(row.week_number)) === idx)
+    .sort((a, b) => Number(a.week_number) - Number(b.week_number));
+  const lastFour = trendRows.slice(-4);
+  const streakContract = buildStreakContract(trendRows, currentWeek);
+  const weekOverWeek = buildWeekOverWeek(currentSummary, priorSummary);
+
+  return {
+    planned_this_week: Number(defaultAccountability.planned_this_week ?? currentSummary.planned_sessions ?? 0),
+    completed_this_week: Number(defaultAccountability.completed_this_week ?? currentSummary.completed_sessions ?? 0),
+    committed_this_week: Number(defaultAccountability.committed_this_week || 0),
+    consistency_ratio: Number(defaultAccountability.consistency_ratio ?? Number((currentSummary.completion_percent / 100).toFixed(2))),
+    consistency_label: String(defaultAccountability.consistency_label || currentSummary.consistency_marker || "early"),
+    completion_percent_this_week: Number(currentSummary.completion_percent || 0),
+    week_status: String(currentSummary.week_status || "in_progress"),
+    week_over_week: weekOverWeek,
+    streak_contract: streakContract,
+    current_streak_weeks: streakContract.current_streak_weeks,
+    consistency_streak_weeks: streakContract.current_streak_weeks,
+    last_week_completion_percent: priorSummary ? Number(priorSummary.completion_percent || 0) : null,
+    trend_history: {
+      schema_version: "multi_week_progress_history_v1",
+      window_weeks: 4,
+      weeks: lastFour,
+      chart_hint: "completion_bars_last_4_weeks",
+    },
+    phase_progress_marker: {
+      current_phase_number: currentSummary.phase_number,
+      current_phase_week_index: currentSummary.phase_week_index,
+      phase_span_weeks: 12,
+      interpretation: currentSummary.phase_week_index
+        ? `Week ${currentSummary.phase_week_index} of 12 in the active phase.`
+        : "Phase position unavailable.",
+    },
+  };
+}
+
 function buildScheduledSessionsFromCommitment(commitmentPlan = {}, activitySurface = {}, weekNumber = 1) {
   const preferredDays = Array.isArray(commitmentPlan.preferred_days) && commitmentPlan.preferred_days.length
     ? commitmentPlan.preferred_days
@@ -2352,10 +2480,21 @@ async function loadProgramWeekPlanningForAccount({ accountCtx, childId = "", wee
   const bridge = await getProgramBridgeStateForAccount({ accountCtx, childId });
   if (!bridge?.child_id || !bridge?.enrollment_id) return { commitment_plan: null, scheduled_sessions: [], accountability: summarizeSessionAdherence(null, [], []) };
   const week = Math.max(1, Math.min(36, Number(weekNumber || bridge.current_week || 1)));
-  const [progressRows, commitmentRows, completedRows] = await Promise.all([
+  const [progressRows, priorProgressRows, recentProgressRows, commitmentRows, completedRows] = await Promise.all([
     pool.query(
       `SELECT payload FROM tde_weekly_progress_records WHERE enrollment_id = $1 AND child_id = $2 AND week_number = $3 ORDER BY updated_at DESC LIMIT 1`,
       [bridge.enrollment_id, bridge.child_id, week]
+    ),
+    pool.query(
+      `SELECT payload FROM tde_weekly_progress_records WHERE enrollment_id = $1 AND child_id = $2 AND week_number = $3 ORDER BY updated_at DESC LIMIT 1`,
+      [bridge.enrollment_id, bridge.child_id, Math.max(1, week - 1)]
+    ),
+    pool.query(
+      `SELECT week_number, payload
+       FROM tde_weekly_progress_records
+       WHERE enrollment_id = $1 AND child_id = $2 AND week_number BETWEEN $3 AND $4
+       ORDER BY week_number ASC`,
+      [bridge.enrollment_id, bridge.child_id, Math.max(1, week - 3), week]
     ),
     pool.query(`SELECT payload FROM tde_commitment_plans WHERE child_id = $1 LIMIT 1`, [bridge.child_id]),
     pool.query(`SELECT payload FROM tde_intervention_sessions WHERE child_id = $1 AND DATE(completed_at) >= CURRENT_DATE - INTERVAL '6 day'`, [bridge.child_id]),
@@ -2372,10 +2511,18 @@ async function loadProgramWeekPlanningForAccount({ accountCtx, childId = "", wee
     ? scheduledValidation.normalized
     : [];
   const completed = completedRows.rows.map((row) => row.payload || {}).filter(Boolean);
+  const baseAccountability = summarizeSessionAdherence(commitmentPlan, scheduled, completed);
+  const analyticsAccountability = buildMultiWeekAnalytics({
+    currentWeek: week,
+    currentWeekPayload: { ...progressPayload, scheduled_sessions: scheduled },
+    priorWeekPayload: priorProgressRows.rows[0]?.payload || null,
+    historyRows: recentProgressRows.rows.map((row) => ({ week_number: Number(row.week_number || 0), payload: row.payload || {} })),
+    defaultAccountability: baseAccountability,
+  });
   return {
     commitment_plan: commitmentPlan,
     scheduled_sessions: scheduled,
-    accountability: summarizeSessionAdherence(commitmentPlan, scheduled, completed),
+    accountability: analyticsAccountability,
   };
 }
 
