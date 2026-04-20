@@ -27,6 +27,9 @@ test('program page renders parent planner, calendar, and lesson-plan surfaces', 
     assert.match(html, /Parent Progress \+ Adherence Dashboard/);
     assert.match(html, /Current week completion/);
     assert.match(html, /Week-over-week view loading/);
+    assert.match(html, /Loading last 4 weeks completion bars/);
+    assert.match(html, /Consistency trend loading/);
+    assert.match(html, /Phase progress marker loading/);
     assert.match(html, /Determining next best action/);
     assert.match(html, /Weekly Planner Calendar \+ adherence/);
     assert.match(html, /Teacher-Style Lesson Plan/);
@@ -87,6 +90,34 @@ test('week-content payload includes planner schedule, lesson-plan blocks, and ac
         consistency_label: 'early',
         last_week_completion_percent: 66.7,
         current_streak_weeks: 2,
+        week_over_week: {
+          comparison_available: true,
+          current_week_completion_percent: 33.3,
+          prior_week_completion_percent: 66.7,
+          delta_points: -33.4,
+          direction: 'down',
+        },
+        streak_contract: {
+          contract_version: 'program_streak_contract_v1',
+          threshold_percent: 80,
+          current_streak_weeks: 2,
+        },
+        trend_history: {
+          schema_version: 'multi_week_progress_history_v1',
+          window_weeks: 4,
+          weeks: [
+            { week_number: 1, completion_percent: 100, consistency_marker: 'strong', planned_sessions: 3, completed_sessions: 3, week_status: 'complete' },
+            { week_number: 2, completion_percent: 66.7, consistency_marker: 'building', planned_sessions: 3, completed_sessions: 2, week_status: 'in_progress' },
+            { week_number: 3, completion_percent: 66.7, consistency_marker: 'building', planned_sessions: 3, completed_sessions: 2, week_status: 'in_progress' },
+            { week_number: 4, completion_percent: 33.3, consistency_marker: 'early', planned_sessions: 3, completed_sessions: 1, week_status: 'in_progress' },
+          ],
+        },
+        phase_progress_marker: {
+          current_phase_number: 1,
+          current_phase_week_index: 4,
+          phase_span_weeks: 12,
+          interpretation: 'Week 4 of 12 in the active phase.',
+        },
       },
     }),
   }));
@@ -108,6 +139,10 @@ test('week-content payload includes planner schedule, lesson-plan blocks, and ac
     assert.equal(payload.week_content.accountability.completed_this_week, 1);
     assert.equal(payload.week_content.accountability.last_week_completion_percent, 66.7);
     assert.equal(payload.week_content.accountability.current_streak_weeks, 2);
+    assert.equal(payload.week_content.accountability.week_over_week.comparison_available, true);
+    assert.equal(payload.week_content.accountability.streak_contract.contract_version, 'program_streak_contract_v1');
+    assert.equal(payload.week_content.accountability.trend_history.weeks.length, 4);
+    assert.equal(payload.week_content.accountability.phase_progress_marker.current_phase_week_index, 4);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

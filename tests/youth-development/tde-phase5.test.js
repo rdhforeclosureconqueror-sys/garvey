@@ -7,6 +7,7 @@ const { createYouthDevelopmentRouter } = require('../../server/youthDevelopmentR
 const { createYouthDevelopmentIntakeRouter } = require('../../server/youthDevelopmentIntakeRoutes');
 const {
   buildParentExperienceViewModel,
+  buildHistoricalAnalytics,
   buildRoadmapViewModel,
   buildSupportActions,
   getTrustContent,
@@ -57,6 +58,21 @@ test('phase-5 parent experience view model is deterministic and keeps confidence
   assert.ok(first.confidence_context.confidence_label);
   assert.ok(first.data_sufficiency_context.status);
   assert.equal(first.factor_separation.separation_guard, 'child_and_environment_factors_reported_separately');
+  assert.equal(first.historical_analytics.schema_version, 'parent_multi_week_analytics_v1');
+  assert.equal(Array.isArray(first.historical_analytics.trend_history.weeks), true);
+  assert.ok(first.historical_analytics.streak_contract.contract_version);
+  assert.ok(first.historical_analytics.week_over_week.direction);
+});
+
+test('phase-5 historical analytics contract provides stable multi-week payload and streak behavior', () => {
+  const analytics = buildHistoricalAnalytics(snapshot.progress_records, 12);
+  assert.equal(analytics.schema_version, 'parent_multi_week_analytics_v1');
+  assert.equal(analytics.trend_history.window_weeks, 4);
+  assert.equal(Array.isArray(analytics.trend_history.weeks), true);
+  assert.equal(analytics.week_over_week.comparison_available, true);
+  assert.equal(typeof analytics.week_over_week.current_week_completion_percent, 'number');
+  assert.equal(analytics.streak_contract.contract_version, 'parent_consistency_streak_v1');
+  assert.equal(typeof analytics.streak_contract.current_streak_weeks, 'number');
 });
 
 test('phase-5 roadmap model includes full 36-week progression and checkpoint status', () => {
@@ -109,6 +125,9 @@ test('phase-5 extension endpoints are additive and feature-gated', async () => {
     const parent = await parentRes.json();
     assert.equal(parentRes.status, 200);
     assert.equal(parent.extension_only, true);
+    assert.ok(parent.historical_analytics);
+    assert.equal(Array.isArray(parent.historical_analytics.trend_history.weeks), true);
+    assert.ok(parent.historical_analytics.streak_contract);
 
     const roadmapRes = await fetch(`${app.baseUrl}/api/youth-development/tde/roadmap/child-phase5`);
     const roadmap = await roadmapRes.json();

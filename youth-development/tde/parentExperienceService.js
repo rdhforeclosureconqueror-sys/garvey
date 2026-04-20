@@ -156,6 +156,85 @@ function summarizeProgressTimeline(progressRecords) {
   };
 }
 
+function summarizeRecordCompletion(record = {}) {
+  const scheduled = Array.isArray(record.scheduled_sessions) ? record.scheduled_sessions : [];
+  const plannedSessions = scheduled.filter((entry) => {
+    const status = String(entry?.status || "").toLowerCase();
+    return status === "planned" || status === "completed" || status === "in_progress" || status === "missed";
+  }).length;
+  const completedSessions = scheduled.filter((entry) => String(entry?.status || "").toLowerCase() === "completed").length;
+  if (plannedSessions > 0) return { planned_sessions: plannedSessions, completed_sessions: completedSessions, completion_percent: Number(((completedSessions / plannedSessions) * 100).toFixed(1)) };
+  if (String(record.completion_status || "").toLowerCase() === "complete") return { planned_sessions: 1, completed_sessions: 1, completion_percent: 100 };
+  return { planned_sessions: 0, completed_sessions: 0, completion_percent: 0 };
+}
+
+function toConsistencyMarker(completionPercent, plannedSessions) {
+  if (!plannedSessions) return "no_plan";
+  if (completionPercent >= 85) return "strong";
+  if (completionPercent >= 60) return "building";
+  return "early";
+}
+
+function buildHistoricalAnalytics(progressRecords = [], currentWeek = 1) {
+  const rows = progressRecords.map((entry) => {
+    const completion = summarizeRecordCompletion(entry);
+    const weekNumber = Number(entry.week_number || 0);
+    const weekModel = PROGRAM_WEEKS.find((week) => Number(week.week_number) === weekNumber) || null;
+    return {
+      week_number: weekNumber,
+      planned_sessions: completion.planned_sessions,
+      completed_sessions: completion.completed_sessions,
+      completion_percent: completion.completion_percent,
+      consistency_marker: toConsistencyMarker(completion.completion_percent, completion.planned_sessions),
+      week_status: String(entry.completion_status || "in_progress"),
+      phase_number: weekModel?.phase_number || null,
+    };
+  }).sort((a, b) => Number(a.week_number) - Number(b.week_number));
+
+  const currentRow = rows.find((row) => Number(row.week_number) === Number(currentWeek)) || rows.at(-1) || null;
+  const priorRow = currentRow ? rows.filter((row) => Number(row.week_number) < Number(currentRow.week_number)).at(-1) : null;
+  const streakThreshold = 80;
+  const reversedRows = [...rows].sort((a, b) => Number(b.week_number) - Number(a.week_number));
+  let streak = 0;
+  for (const row of reversedRows) {
+    if (row.completion_percent >= streakThreshold && row.planned_sessions > 0) streak += 1;
+    else break;
+  }
+
+  return {
+    schema_version: "parent_multi_week_analytics_v1",
+    trend_history: {
+      window_weeks: 4,
+      weeks: rows.slice(-4),
+      chart_hint: "completion_bars_last_4_weeks",
+    },
+    week_over_week: {
+      comparison_available: Boolean(currentRow && priorRow),
+      current_week_number: currentRow?.week_number || null,
+      prior_week_number: priorRow?.week_number || null,
+      current_week_completion_percent: currentRow?.completion_percent || 0,
+      prior_week_completion_percent: priorRow?.completion_percent || null,
+      delta_points: currentRow && priorRow ? Number((currentRow.completion_percent - priorRow.completion_percent).toFixed(1)) : null,
+      direction: currentRow && priorRow
+        ? (currentRow.completion_percent > priorRow.completion_percent ? "up" : currentRow.completion_percent < priorRow.completion_percent ? "down" : "flat")
+        : "insufficient_history",
+    },
+    streak_contract: {
+      contract_version: "parent_consistency_streak_v1",
+      metric: "weekly_completion_percent",
+      threshold_percent: streakThreshold,
+      current_streak_weeks: streak,
+      consistency_status: streak >= 4 ? "strong" : streak >= 2 ? "building" : streak >= 1 ? "starting" : "not_started",
+      evaluated_through_week: currentWeek,
+    },
+    phase_progress_marker: {
+      current_phase_number: currentRow?.phase_number || null,
+      current_phase_week_index: currentRow?.phase_number ? (Number(currentRow.week_number) - ((Number(currentRow.phase_number) - 1) * 12)) : null,
+      phase_span_weeks: 12,
+    },
+  };
+}
+
 function buildRoadmapViewModel(currentWeek) {
   const week = normalizeWeek(currentWeek);
   const currentWeekModel = PROGRAM_WEEKS.find((entry) => entry.week_number === week) || PROGRAM_WEEKS[0];
@@ -311,6 +390,7 @@ function buildParentExperienceViewModel(childId, snapshot = {}) {
   const confidenceContext = buildConfidenceContext(progressRecords, environmentHooks, observerConsents);
   const dataSufficiency = buildDataSufficiencyStatus(observerConsents, environmentHooks, progressRecords);
   const checkinSummary = summarizeDevelopmentCheckins(developmentCheckins, { current_week: currentWeek });
+  const historicalAnalytics = buildHistoricalAnalytics(progressRecords, currentWeek);
 
   const strongestLevers = Array.isArray(enrollment?.active_domain_interests)
     ? enrollment.active_domain_interests.slice(0, 3)
@@ -393,6 +473,7 @@ function buildParentExperienceViewModel(childId, snapshot = {}) {
       },
     },
     progress_over_time_summary: summarizeProgressTimeline(progressRecords),
+    historical_analytics: historicalAnalytics,
     report_sections,
     report_sections_registration: reportSectionsRegistration,
     next_step_plan: {
@@ -444,6 +525,7 @@ function getTrustContent() {
 module.exports = {
   TRUST_CONTENT_CONTRACT,
   buildParentExperienceViewModel,
+  buildHistoricalAnalytics,
   buildRoadmapViewModel,
   buildSupportActions,
   getParentExperience,
