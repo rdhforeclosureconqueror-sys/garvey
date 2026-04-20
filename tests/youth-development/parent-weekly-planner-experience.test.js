@@ -143,6 +143,7 @@ test('week-content payload includes planner schedule, lesson-plan blocks, and ac
         preferred_days: ['monday', 'wednesday', 'friday'],
         preferred_time: '17:30',
         session_duration_minutes: 30,
+        energy_type: 'balanced',
         start_date: '2026-04-13',
       },
       scheduled_sessions: [
@@ -210,6 +211,65 @@ test('week-content payload includes planner schedule, lesson-plan blocks, and ac
     assert.equal(payload.week_content.accountability.streak_contract.contract_version, 'program_streak_contract_v1');
     assert.equal(payload.week_content.accountability.trend_history.weeks.length, 4);
     assert.equal(payload.week_content.accountability.phase_progress_marker.current_phase_week_index, 4);
+    assert.equal(payload.week_content.planner_surface_state.state, 'setup_complete_with_sessions');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('week-content payload marks setup_required when commitment and schedule are missing despite active week progression', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    getProgramBridgeState: async () => ({
+      ok: true,
+      child_id: 'child-2',
+      launch_allowed: true,
+      setup_needed: false,
+      has_enrollment: true,
+      current_week: 2,
+      current_phase_name: 'Foundation',
+      next_recommended_action: 'Continue Week 2',
+      cta: { label: 'Continue Program', href: '/youth-development/program?child_id=child-2' },
+      parent_program_state: { child_scope: { selected_child_id: 'child-2' }, cta: { label: 'Continue Program', href: '/youth-development/program?child_id=child-2' } },
+    }),
+    getProgramWeekPlanning: async () => ({
+      commitment_plan: null,
+      scheduled_sessions: [],
+      accountability: null,
+    }),
+  }));
+
+  const { server, baseUrl } = await withServer(app);
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/program/week-content?tenant=demo&email=parent@example.com&child_id=child-2`);
+    const payload = await response.json();
+    assert.equal(response.status, 200);
+    assert.equal(payload.ok, true);
+    assert.equal(payload.state, 'content_ready');
+    assert.equal(payload.current_week, 2);
+    assert.equal(payload.week_content.planner_surface_state.state, 'setup_required');
+    assert.equal(payload.week_content.planner_setup_required, true);
+    assert.equal(payload.week_content.scheduled_sessions.length, 0);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('program page script contains canonical planner gating states and suppresses schedule-dependent surfaces until sessions exist', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({}));
+  const { server, baseUrl } = await withServer(app);
+  try {
+    const html = await (await fetch(`${baseUrl}/youth-development/program`)).text();
+    assert.match(html, /id="plannerStateMessage"/);
+    assert.match(html, /id="progressStateMessage"/);
+    assert.match(html, /setup_required/);
+    assert.match(html, /setup_complete_but_no_sessions/);
+    assert.match(html, /setup_complete_with_sessions/);
+    assert.match(html, /progressDataSurface\.classList\.toggle\("is-hidden", !hasSessions\)/);
+    assert.match(html, /todaySessionPanel\.classList\.toggle\("is-hidden", !hasSessions\)/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

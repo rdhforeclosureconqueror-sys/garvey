@@ -161,6 +161,36 @@ function isCommitmentSetupComplete(commitment = {}) {
   return isParentCommitmentSetupComplete(commitment);
 }
 
+function resolvePlannerSurfaceState({ commitment = null, scheduledSessions = [] } = {}) {
+  const setupComplete = isCommitmentSetupComplete(commitment || {});
+  const scheduledCount = Array.isArray(scheduledSessions) ? scheduledSessions.length : 0;
+  if (!setupComplete) {
+    return {
+      state: "setup_required",
+      label: "Setup required",
+      message: "Build Your Weekly Plan to unlock today/next session cards, planner calendar, and adherence dashboard.",
+      setup_complete: false,
+      scheduled_session_count: 0,
+    };
+  }
+  if (scheduledCount <= 0) {
+    return {
+      state: "setup_complete_but_no_sessions",
+      label: "Setup complete, no sessions yet",
+      message: "Commitment is saved, but no sessions are scheduled yet. Re-save Build Your Weekly Plan to regenerate this week’s sessions.",
+      setup_complete: true,
+      scheduled_session_count: 0,
+    };
+  }
+  return {
+    state: "setup_complete_with_sessions",
+    label: "Planner ready",
+    message: "Planner setup complete and scheduled sessions are available.",
+    setup_complete: true,
+    scheduled_session_count: scheduledCount,
+  };
+}
+
 function normalizeAccountContext(source = {}) {
   return {
     tenant: safeTrim(source.tenant || source.tenant_slug).toLowerCase(),
@@ -426,6 +456,7 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}, planningState = {
   const commitment = planningState.commitment_plan ? normalizeParentCommitmentPlan(planningState.commitment_plan) : null;
   const setupComplete = isCommitmentSetupComplete(commitment || {});
   const plannedSessions = Array.isArray(planningState.scheduled_sessions) ? planningState.scheduled_sessions : [];
+  const plannerSurfaceState = resolvePlannerSurfaceState({ commitment, scheduledSessions: plannedSessions });
   const sessionTemplate = buildSessionTemplate({
     activitySurface,
     durationMinutes: commitment?.session_duration_minutes || commitment?.target_session_length || 30,
@@ -484,6 +515,7 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}, planningState = {
     commitment_setup_status: setupComplete ? "complete" : "required",
     commitment_plan: commitment,
     scheduled_sessions: plannedSessions,
+    planner_surface_state: plannerSurfaceState,
     lesson_plan_template: sessionTemplate,
     accountability: planningState.accountability || null,
     progress: {
@@ -1954,6 +1986,7 @@ function renderLiveYouthProgramPage() {
       .motivation-chip { border: 1px solid rgba(96, 165, 250, 0.7); border-radius: 999px; padding: 4px 10px; font-size: 12px; color: #dbeafe; background: rgba(30, 58, 138, 0.35); }
       .step-active { font-weight: 700; color: #bfdbfe; }
       .step-complete { color: #86efac; }
+      .is-hidden { display: none !important; }
     </style>
   </head>
   <body>
@@ -2006,6 +2039,10 @@ function renderLiveYouthProgramPage() {
             <p class="tiny muted">Set your weekly commitment before planner execution is unlocked.</p>
           </div>
         </div>
+        <div id="plannerStateMessage" class="state-box">
+          <h3 class="state-title">Planner setup status</h3>
+          <p id="plannerStateCopy" class="state-line">Resolving planner setup…</p>
+        </div>
         <div class="grid-2">
           <div class="state-box">
             <h3 class="state-title">Build Your Weekly Plan</h3>
@@ -2019,7 +2056,7 @@ function renderLiveYouthProgramPage() {
             <button id="saveCommitmentBtn" class="btn btn-primary" type="button">Build Your Weekly Plan</button>
             <p id="commitmentSummary" class="tiny muted">Commitment not set.</p>
           </div>
-          <div class="state-box">
+          <div id="weeklyPlannerDataSurface" class="state-box">
             <h3 class="state-title">Weekly Planner Calendar + adherence</h3>
             <p id="adherenceSummary" class="state-line">Loading adherence summary…</p>
             <div class="progress-wrap">
@@ -2034,7 +2071,7 @@ function renderLiveYouthProgramPage() {
             <p id="nextScheduledSession" class="tiny muted">Next scheduled session loading…</p>
           </div>
         </div>
-        <div class="state-box">
+        <div id="lessonPlanSurface" class="state-box">
           <h3 class="state-title">Teacher-Style Lesson Plan</h3>
           <p id="lessonPlanSessionHeader" class="state-line">Select a scheduled session to view lesson plan details.</p>
           <div id="lessonPlanView" class="lesson-plan" tabindex="-1"><p class="tiny muted">Lesson plan loading…</p></div>
@@ -2100,6 +2137,11 @@ function renderLiveYouthProgramPage() {
       <section class="panel" id="parentProgressPanel">
         <p class="section-kicker">Progress</p>
         <h2>Parent Progress + Adherence Dashboard</h2>
+        <div id="progressStateMessage" class="state-box">
+          <h3 class="state-title">Progress visibility status</h3>
+          <p id="progressStateCopy" class="state-line">Resolving planner-connected progress state…</p>
+        </div>
+        <div id="progressDataSurface">
         <div class="progress-metrics-grid">
           <article class="progress-metric-tile"><p class="label">Planned this week</p><p id="progressPlannedCount" class="value">0</p></article>
           <article class="progress-metric-tile"><p class="label">Completed this week</p><p id="progressCompletedCount" class="value">0</p></article>
@@ -2136,6 +2178,7 @@ function renderLiveYouthProgramPage() {
           <div class="next-action-controls">
             <button id="nextBestActionBtn" class="btn btn-primary" type="button">Run Next Best Action</button>
           </div>
+        </div>
         </div>
       </section>
       
@@ -2181,6 +2224,10 @@ function renderLiveYouthProgramPage() {
         const commitStartDateInput = document.getElementById("commitStartDateInput");
         const saveCommitmentBtn = document.getElementById("saveCommitmentBtn");
         const commitmentSummary = document.getElementById("commitmentSummary");
+        const plannerStateCopy = document.getElementById("plannerStateCopy");
+        const plannerStateMessage = document.getElementById("plannerStateMessage");
+        const weeklyPlannerDataSurface = document.getElementById("weeklyPlannerDataSurface");
+        const lessonPlanSurface = document.getElementById("lessonPlanSurface");
         const adherenceSummary = document.getElementById("adherenceSummary");
         const adherenceFill = document.getElementById("adherenceFill");
         const completionCountSummary = document.getElementById("completionCountSummary");
@@ -2212,6 +2259,8 @@ function renderLiveYouthProgramPage() {
         const consistencyTrendSummary = document.getElementById("consistencyTrendSummary");
         const phaseProgressMarker = document.getElementById("phaseProgressMarker");
         const weekMarkersList = document.getElementById("weekMarkersList");
+        const progressStateCopy = document.getElementById("progressStateCopy");
+        const progressDataSurface = document.getElementById("progressDataSurface");
         const nextBestActionCopy = document.getElementById("nextBestActionCopy");
         const nextBestActionBlocked = document.getElementById("nextBestActionBlocked");
         const nextBestActionBtn = document.getElementById("nextBestActionBtn");
@@ -2220,6 +2269,7 @@ function renderLiveYouthProgramPage() {
         const resumeSessionBtn = document.getElementById("resumeSessionBtn");
         const completeSelectedSessionBtn = document.getElementById("completeSelectedSessionBtn");
         const returnWeeklyOverviewBtn = document.getElementById("returnWeeklyOverviewBtn");
+        const todaySessionPanel = document.getElementById("todaySessionPanel");
 
         let latestBridge = null;
         let latestWeekPayload = null;
@@ -2306,6 +2356,50 @@ function renderLiveYouthProgramPage() {
           const energyType = String(commitment.energy_type || "").trim().toLowerCase();
           return frequency >= 2 && frequency <= 5 && preferredDays.length > 0 && Boolean(preferredTime)
             && [15, 30, 45].includes(sessionLength) && ["calm", "balanced", "high-energy"].includes(energyType);
+        }
+        function derivePlannerSurfaceState(week, planner) {
+          const fallbackSetupComplete = plannerSetupComplete(week);
+          const scheduledCount = Array.isArray(planner?.scheduled) ? planner.scheduled.length : 0;
+          const apiState = week && week.planner_surface_state && typeof week.planner_surface_state === "object"
+            ? week.planner_surface_state
+            : null;
+          const state = String(apiState?.state || (fallbackSetupComplete
+            ? (scheduledCount > 0 ? "setup_complete_with_sessions" : "setup_complete_but_no_sessions")
+            : "setup_required"));
+          const messageByState = {
+            setup_required: "Build Your Weekly Plan to unlock today/next sessions, planner calendar, and adherence progress.",
+            setup_complete_but_no_sessions: "Commitment is saved but this week has no scheduled sessions yet. Re-save Build Your Weekly Plan to regenerate sessions.",
+            setup_complete_with_sessions: "Planner setup complete. Today/next sessions, calendar, and progress are active.",
+          };
+          return {
+            state,
+            setupComplete: state !== "setup_required",
+            hasSessions: state === "setup_complete_with_sessions",
+            message: String(apiState?.message || messageByState[state] || messageByState.setup_required),
+          };
+        }
+        function applyPlannerVisibility(plannerState, week) {
+          const state = String(plannerState?.state || "setup_required");
+          const hasSessions = plannerState?.hasSessions === true;
+          const showingWeek = Number(week?.week_number || latestWeekPayload?.current_week || 1);
+          const recoveryPrefix = "Week " + String(showingWeek) + " is active in program progression, but planner setup is not complete.";
+          todaySessionPanel.classList.toggle("is-hidden", !hasSessions);
+          weeklyPlannerDataSurface.classList.toggle("is-hidden", !hasSessions);
+          lessonPlanSurface.classList.toggle("is-hidden", !hasSessions);
+          progressDataSurface.classList.toggle("is-hidden", !hasSessions);
+          plannerStateMessage.classList.remove("is-hidden");
+          if (state === "setup_required") {
+            plannerStateCopy.textContent = recoveryPrefix + " Complete Build Your Weekly Plan to enable sessions and adherence tracking.";
+            progressStateCopy.textContent = "Progress metrics are hidden until commitment + scheduled sessions exist.";
+            return;
+          }
+          if (state === "setup_complete_but_no_sessions") {
+            plannerStateCopy.textContent = "Planner setup exists but no sessions were generated for this week. Re-save Build Your Weekly Plan to recover schedule generation.";
+            progressStateCopy.textContent = "Progress metrics are hidden until at least one scheduled session exists.";
+            return;
+          }
+          plannerStateCopy.textContent = String(plannerState?.message || "Planner setup complete and schedule loaded.");
+          progressStateCopy.textContent = "Planner-connected progress metrics are active for this week.";
         }
         function renderActivityCard(title, activity) {
           if (!activity) return '<div class="activity-card"><h4>' + esc(title) + '</h4><p class="tiny">No mapped activity selected yet.</p></div>';
@@ -2432,7 +2526,29 @@ function renderLiveYouthProgramPage() {
           const consistencyPath = trend.map((row) => "W" + String(row.week_number) + ":" + String(row.consistency_marker || "early")).join(" → ");
           consistencyTrendSummary.textContent = "Consistency trend: " + consistencyPath;
         }
-        function renderProgressDashboard(week, planner, executionState) {
+        function renderProgressDashboard(week, planner, executionState, plannerState) {
+          if (!plannerState || plannerState.hasSessions !== true) {
+            progressPlannedCount.textContent = "—";
+            progressCompletedCount.textContent = "—";
+            progressInProgressCount.textContent = "—";
+            progressMissedCount.textContent = "—";
+            progressCompletionPercent.textContent = "—";
+            progressLastWeekPercent.textContent = "—";
+            progressWowDelta.textContent = "—";
+            progressConsistencyMarker.textContent = "—";
+            completionFill.style.width = "0%";
+            weekComparisonSummary.textContent = "Week-over-week view unavailable until sessions are scheduled.";
+            motivationSummary.textContent = "Build and load scheduled sessions to unlock adherence and momentum analytics.";
+            motivationChips.innerHTML = [
+              '<span class="motivation-chip">Completed sessions: —</span>',
+              '<span class="motivation-chip">Remaining sessions: —</span>',
+            ].join("");
+            lastFourWeeksBars.innerHTML = '<p class="tiny muted">Trend bars activate after sessions are scheduled.</p>';
+            consistencyTrendSummary.textContent = "Consistency trend unavailable until sessions are scheduled.";
+            phaseProgressMarker.textContent = "Phase progress marker will align with schedule-backed execution once sessions exist.";
+            weekMarkersList.innerHTML = '<li class="muted">Week markers unavailable until sessions are scheduled.</li>';
+            return;
+          }
           const scheduled = Array.isArray(planner.scheduled) ? planner.scheduled : [];
           const completed = scheduled.filter((entry) => entry.normalized_status === "completed").length;
           const inProgress = scheduled.filter((entry) => entry.normalized_status === "in_progress").length;
@@ -2656,7 +2772,10 @@ function renderLiveYouthProgramPage() {
           const commitment = week.commitment_plan || {};
           const scheduled = planner.scheduled;
           const accountability = planner.accountability;
-          const setupComplete = plannerSetupComplete(week);
+          const plannerState = derivePlannerSurfaceState(week, planner);
+          const setupComplete = plannerState.setupComplete;
+          const hasSessions = plannerState.hasSessions;
+          applyPlannerVisibility(plannerState, week);
           commitDaysInput.value = String(commitment.weekly_frequency || commitment.days_per_week || commitment.committed_days_per_week || 3);
           renderPreferredDayPicker(Array.isArray(commitment.preferred_days) ? commitment.preferred_days : []);
           commitTimeInput.value = String(commitment.preferred_time || commitment.preferred_time_window || "17:30");
@@ -2670,7 +2789,7 @@ function renderLiveYouthProgramPage() {
             + " · Consistency: " + String(accountability.consistency_label || "early");
           completionCountSummary.textContent = "Weekly completion count: " + String(planner.completedCount) + " of " + String(planner.plannedCount) + " planned sessions complete.";
           adherenceFill.style.width = String(Math.round(planner.adherenceRatio * 100)) + "%";
-          agendaList.innerHTML = setupComplete && scheduled.length ? scheduled.map((entry) => {
+          agendaList.innerHTML = hasSessions && scheduled.length ? scheduled.map((entry) => {
             const isSelected = String(entry.session_id || "") === String(selectedSessionId || "");
             return '<li class="session-row' + (isSelected ? " selected" : "") + '" data-selected-session="' + (isSelected ? "true" : "false") + '"><strong>' + esc(String(entry.day_label || entry.day || "Session")) + '</strong> @ ' + esc(to12Hour(entry.time || ""))
             + ' · <span class="status-pill status-' + esc(entry.normalized_status) + '">' + esc(String(entry.normalized_status || "planned").replace("_", " ")) + "</span>"
@@ -2680,23 +2799,23 @@ function renderLiveYouthProgramPage() {
             + '<button class="btn btn-secondary" type="button" data-action="complete-session" data-session-id="' + esc(String(entry.session_id || "")) + '"' + (entry.normalized_status === "completed" ? " disabled" : "") + '>Mark Session Complete</button>'
             + '<button class="btn btn-primary" type="button" data-action="resume-session" data-session-id="' + esc(String(entry.session_id || "")) + '">Resume Session</button></div>'
             + '</li>';
-          }).join("") : '<li class="muted">' + (setupComplete ? "No sessions scheduled yet." : "Complete Build Your Weekly Plan to unlock calendar sessions.") + '</li>';
+          }).join("") : '<li class="muted">' + (setupComplete ? "No sessions scheduled yet. Re-save Build Your Weekly Plan to regenerate this week." : "Complete Build Your Weekly Plan to unlock calendar sessions.") + '</li>';
           const next = planner.nextSession;
           const today = planner.todaySession;
-          todaySessionCard.textContent = today
+          todaySessionCard.textContent = hasSessions && today
             ? String(today.day_label || today.day || "Today") + " at " + to12Hour(today.time || "") + " · " + String(today.core_activity_title || "Guided session")
-            : (next ? "No session today. Next: " + String(next.day_label || next.day || "") + " at " + to12Hour(next.time || "") : "No upcoming sessions. Build your weekly plan.");
-          nextSessionCard.textContent = next
+            : (hasSessions && next ? "No session today. Next: " + String(next.day_label || next.day || "") + " at " + to12Hour(next.time || "") : "No session available.");
+          nextSessionCard.textContent = hasSessions && next
             ? String(next.day_label || next.day || "") + " at " + to12Hour(next.time || "") + " · " + String(next.core_activity_title || "Guided session")
             : "No upcoming session currently planned.";
-          const startTarget = today || next || null;
-          startTodaySessionBtn.disabled = !setupComplete || !startTarget;
+          const startTarget = hasSessions ? (today || next || null) : null;
+          startTodaySessionBtn.disabled = !hasSessions || !startTarget;
           startTodaySessionBtn.dataset.sessionId = startTarget ? String(startTarget.session_id || "") : "";
-          resumeTodaySessionBtn.disabled = !setupComplete || !startTarget;
+          resumeTodaySessionBtn.disabled = !hasSessions || !startTarget;
           resumeTodaySessionBtn.dataset.sessionId = startTarget ? String(startTarget.session_id || "") : "";
           weekAtGlanceCard.textContent = String(planner.completedCount) + "/" + String(planner.plannedCount) + " sessions completed · Consistency " + String(accountability.consistency_label || "early") + ".";
           weekMarkerCard.textContent = "Week " + String(week.week_number || 1) + " of 36 (" + String(week.progress?.percent_complete || 0) + "% program progress).";
-          plannerCalendarGrid.innerHTML = setupComplete ? DAYS.map((dayName) => {
+          plannerCalendarGrid.innerHTML = hasSessions ? DAYS.map((dayName) => {
             const sessions = scheduled.filter((entry) => String(entry.day || "").toLowerCase() === dayName);
             const isToday = Boolean(today && String(today.day || "").toLowerCase() === dayName);
             const hasSelected = sessions.some((entry) => String(entry.session_id || "") === String(selectedSessionId || ""));
@@ -2707,15 +2826,15 @@ function renderLiveYouthProgramPage() {
                 : '<p class="tiny muted">No planned session</p>')
               + (sessions[0] ? '<div class="session-actions"><button class="btn btn-ghost" type="button" data-action="open-session" data-session-id="' + esc(String(sessions[0].session_id || "")) + '">Open Lesson Plan</button></div>' : "")
               + "</article>";
-          }).join("") : '<div class="calendar-day"><p class="tiny muted">Build Your Weekly Plan to activate calendar-first scheduling.</p></div>';
-          nextScheduledSession.textContent = next
+          }).join("") : '<div class="calendar-day"><p class="tiny muted">' + esc(plannerState.message) + '</p></div>';
+          nextScheduledSession.textContent = hasSessions && next
             ? "Next scheduled session: " + String(next.day_label || next.day || "") + " " + to12Hour(next.time || "") + " (" + String(next.session_id || "") + ")"
-            : "No upcoming sessions. Set commitment to generate schedule.";
-          markNextSessionCompleteBtn.disabled = !next;
-          markNextSessionCompleteBtn.dataset.sessionId = next ? String(next.session_id || "") : "";
-          openNextSessionBtn.disabled = !next;
-          openNextSessionBtn.dataset.sessionId = next ? String(next.session_id || "") : "";
-          const selected = setupComplete && ((selectedSessionId && scheduled.find((entry) => String(entry.session_id) === String(selectedSessionId)))
+            : "No upcoming sessions.";
+          markNextSessionCompleteBtn.disabled = !hasSessions || !next;
+          markNextSessionCompleteBtn.dataset.sessionId = hasSessions && next ? String(next.session_id || "") : "";
+          openNextSessionBtn.disabled = !hasSessions || !next;
+          openNextSessionBtn.dataset.sessionId = hasSessions && next ? String(next.session_id || "") : "";
+          const selected = hasSessions && ((selectedSessionId && scheduled.find((entry) => String(entry.session_id) === String(selectedSessionId)))
             || next
             || today
             || scheduled[0]
@@ -2723,7 +2842,7 @@ function renderLiveYouthProgramPage() {
           selectedSessionId = selected ? String(selected.session_id || "") : "";
           completeSelectedSessionBtn.disabled = !selected || selected.normalized_status === "completed";
           renderLessonPlan(selected, week);
-          renderProgressDashboard(week, planner, latestWeekPayload?.execution_state || null);
+          renderProgressDashboard(week, planner, latestWeekPayload?.execution_state || null, plannerState);
         }
 
         function renderExecutionState(executionState) {
@@ -2771,7 +2890,9 @@ function renderLiveYouthProgramPage() {
             latestWeekPayload.current_week = payload.bridge_state.current_week;
           }
           renderExecutionState(payload.execution_state);
-          renderProgressDashboard(latestWeekPayload.week_content, buildPlannerModel(latestWeekPayload.week_content), payload.execution_state || {});
+          const plannerModel = buildPlannerModel(latestWeekPayload.week_content);
+          const plannerState = derivePlannerSurfaceState(latestWeekPayload.week_content, plannerModel);
+          renderProgressDashboard(latestWeekPayload.week_content, plannerModel, payload.execution_state || {}, plannerState);
           setNextActionStatus("Action complete", ACTION_CONFIRMATIONS[actionType] || "Update saved.");
         }
 
