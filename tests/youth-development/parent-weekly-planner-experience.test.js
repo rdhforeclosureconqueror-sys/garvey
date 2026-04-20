@@ -54,17 +54,53 @@ test('program page keeps parent weekly sections in intended visual priority orde
   try {
     const html = await (await fetch(`${baseUrl}/youth-development/program`)).text();
     const todayIndex = html.indexOf('<section class="panel" id="todaySessionPanel">');
-    const plannerIndex = html.indexOf('<section class="panel" id="weeklyCalendarPanel">');
     const currentWeekIndex = html.indexOf('<section class="panel" id="currentWeekPanel">');
     const progressIndex = html.indexOf('<section class="panel" id="parentProgressPanel">');
+    const plannerIndex = html.indexOf('<section class="panel" id="weeklyCalendarPanel">');
     assert.ok(todayIndex > 0);
     assert.ok(plannerIndex > 0);
     assert.ok(currentWeekIndex > 0);
     assert.ok(progressIndex > 0);
-    assert.match(html, /#todaySessionPanel \{ order: 1; \}/);
-    assert.match(html, /#weeklyCalendarPanel \{ order: 2; \}/);
-    assert.match(html, /#currentWeekPanel \{ order: 3; \}/);
-    assert.match(html, /#parentProgressPanel \{ order: 4; \}/);
+    assert.ok(todayIndex < plannerIndex);
+    assert.ok(plannerIndex < currentWeekIndex);
+    assert.ok(currentWeekIndex < progressIndex);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('program page renders interaction feedback markers and semantic trend visuals', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({}));
+  const { server, baseUrl } = await withServer(app);
+  try {
+    const html = await (await fetch(`${baseUrl}/youth-development/program`)).text();
+    assert.match(html, /btn\[aria-busy="true"\]/);
+    assert.match(html, /withButtonBusy/);
+    assert.match(html, /data-selected-session/);
+    assert.match(html, /data-selected-day/);
+    assert.match(html, /trend-bar-track/);
+    assert.match(html, /trend-bar-fill-label/);
+    assert.doesNotMatch(html, /"█"\.repeat/);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('program page renders motivation chips and step-state classes for readability', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({}));
+  const { server, baseUrl } = await withServer(app);
+  try {
+    const html = await (await fetch(`${baseUrl}/youth-development/program`)).text();
+    assert.match(html, /id="motivationChips"/);
+    assert.match(html, /motivation-chip/);
+    assert.match(html, /Completed sessions:/);
+    assert.match(html, /Remaining sessions:/);
+    assert.match(html, /step-active/);
+    assert.match(html, /step-complete/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
