@@ -928,3 +928,60 @@ test('POST /api/youth-development/program/week-execution normalizes legacy conti
     await new Promise((resolve) => server.close(resolve));
   }
 });
+
+test('POST /api/youth-development/program/week-execution keeps strict behavior for uncontracted pass-through actions', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    saveProgramWeekExecution: async () => ({ ok: true }),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/program/week-execution`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        tenant: 'demo',
+        email: 'parent@example.com',
+        child_id: 'child-real-1',
+        week_number: 1,
+        action_type: 'route_external_support',
+      }),
+    });
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ok, false);
+    assert.equal(payload.error, 'week_execution_contract_invalid');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('GET /api/youth-development/program/week-execution/audit returns coverage summary and unresolved observed actions', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({}));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/program/week-execution/audit?observed_actions=unknown_route_action`);
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ok, true);
+    assert.equal(payload.audit.contracted_count >= 7, true);
+    assert.equal(payload.audit.aliases_count >= 1, true);
+    assert.equal(payload.audit.uncontracted_count >= 4, true);
+    assert.equal(Array.isArray(payload.audit.highest_risk_remaining_gaps), true);
+    assert.equal(
+      payload.audit.highest_risk_remaining_gaps.some((entry) => entry.action_type === 'unknown_route_action'),
+      true
+    );
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});

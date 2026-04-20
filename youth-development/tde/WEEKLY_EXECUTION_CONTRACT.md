@@ -9,6 +9,40 @@
 - `continue_to_next_step`
 - `continue_next_week`
 
+## Action contract coverage audit (2026-04-20)
+
+| action_type | classification | validation path | risk priority |
+| --- | --- | --- | --- |
+| `start_week` | `contracted_and_validated` | strict contract + state machine | high |
+| `resume_week` | `contracted_and_validated` | strict contract + state machine | medium |
+| `save_reflection` | `contracted_and_validated` | strict contract (`note` required) | high |
+| `save_observation` | `contracted_and_validated` | strict contract (`note` required) | high |
+| `mark_step_complete` | `contracted_and_validated` | strict contract (`step_key` required) | high |
+| `continue_to_next_step` | `contracted_and_validated` | strict contract + progression guard | high |
+| `continue_next_week` | `contracted_and_validated` | strict contract + progression guard | high |
+| `continue_next_step` | `deprecated_alias` | normalized to `continue_to_next_step` | high |
+| `create_case_profile` | `uncontracted_pass_through` | compatibility-only (not executed in strict route) | highest |
+| `route_external_support` | `uncontracted_pass_through` | compatibility-only (not executed in strict route) | highest |
+| `record_onboarding_touchpoint` | `uncontracted_pass_through` | compatibility-only (not executed in strict route) | high |
+
+Unknown observed actions are classified as `unknown_or_unresolved` and surfaced in audit output.
+
+## Execution path policy
+
+- **Strict execution route (default):**
+  - `POST /api/youth-development/program/week-execution` accepts only `contracted_and_validated` and `deprecated_alias` actions.
+  - Uncontracted/unknown actions return `week_execution_contract_invalid`.
+- **Compatibility classification mode:**
+  - Validator can be run with `allowUncontractedPassThrough=true` for audit/telemetry pipelines to preserve visibility without forcing immediate hard-fail in analysis contexts.
+  - This compatibility mode does **not** execute uncontracted actions in the live strict route.
+
+## Next actions to contract
+
+Priority order for follow-up contracting:
+1. `create_case_profile` (profile/case creation side effects).
+2. `route_external_support` (external routing and downstream handoff risk).
+3. `record_onboarding_touchpoint` (onboarding-critical traceability).
+
 ## Required payload contract
 Required for all actions:
 - `tenant` (string)
