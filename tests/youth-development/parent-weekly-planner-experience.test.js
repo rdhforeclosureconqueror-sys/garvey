@@ -24,6 +24,10 @@ test('program page renders parent planner, calendar, and lesson-plan surfaces', 
     assert.match(html, /Today’s Session/);
     assert.match(html, /Next Scheduled Session/);
     assert.match(html, /This Week at a Glance/);
+    assert.match(html, /Parent Progress \+ Adherence Dashboard/);
+    assert.match(html, /Current week completion/);
+    assert.match(html, /Week-over-week view loading/);
+    assert.match(html, /Determining next best action/);
     assert.match(html, /Weekly Planner Calendar \+ adherence/);
     assert.match(html, /Teacher-Style Lesson Plan/);
     assert.match(html, /Open Scheduled Session/);
@@ -81,6 +85,8 @@ test('week-content payload includes planner schedule, lesson-plan blocks, and ac
         completed_this_week: 1,
         consistency_ratio: 0.33,
         consistency_label: 'early',
+        last_week_completion_percent: 66.7,
+        current_streak_weeks: 2,
       },
     }),
   }));
@@ -100,6 +106,24 @@ test('week-content payload includes planner schedule, lesson-plan blocks, and ac
     assert.match(JSON.stringify(payload.week_content.lesson_plan_template.blocks), /observation_close/);
     assert.equal(payload.week_content.accountability.planned_this_week, 3);
     assert.equal(payload.week_content.accountability.completed_this_week, 1);
+    assert.equal(payload.week_content.accountability.last_week_completion_percent, 66.7);
+    assert.equal(payload.week_content.accountability.current_streak_weeks, 2);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('program page includes canonical next-best-action guidance labels', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({}));
+  const { server, baseUrl } = await withServer(app);
+  try {
+    const html = await (await fetch(`${baseUrl}/youth-development/program`)).text();
+    assert.match(html, /Start Today’s Session/);
+    assert.match(html, /Resume Session/);
+    assert.match(html, /Complete Reflection/);
+    assert.match(html, /Finish this week to unlock Next Week/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

@@ -35,3 +35,38 @@
 ## Authored vs structural labels
 - Authored content: week title/objective/week purpose/guidance/reflection+observation prompts.
 - Structural labels only: phase/week context labels, roadmap status labels, progress state labels, step status display labels.
+
+## Parent progress + adherence dashboard semantics
+- Surface location: parent-facing `/youth-development/program` weekly experience.
+- Scope rules:
+  - Always child-scoped (`child_id`) and current-week scoped (`week_content.week_number`).
+  - All counts are derived from persisted `scheduled_sessions[*].status` + governed execution state where available.
+- Current-week metrics shown:
+  - Planned sessions (`scheduled_sessions.length`)
+  - Completed sessions (`status=completed`)
+  - In-progress sessions (`status=in_progress` plus same-day planned session marker behavior in UI)
+  - Missed sessions (`status=missed` or unsupported statuses normalized as missed)
+  - Current week completion percent (`completed/planned * 100`)
+  - Consistency marker (`accountability.consistency_label`)
+- Week-over-week comparisons:
+  - If `accountability.last_week_completion_percent` is present, dashboard shows point delta vs current week.
+  - If absent, UI must explicitly state that last-week comparison is unavailable.
+  - Optional consistency streak marker can be shown only when `accountability.current_streak_weeks` (or `consistency_streak_weeks`) is present.
+- Program phase progress marker:
+  - Displayed as week index within a 12-week phase segment (structural marker only; not interpreted growth).
+
+## Next-best-action guidance rules
+- Guidance labels are canonical and state-driven:
+  - `Start Today’s Session`
+  - `Resume Session`
+  - `Complete Reflection`
+  - `Finish this week to unlock Next Week`
+  - `Continue Next Week`
+- Guidance must never be a no-op:
+  - Blocked reasons from execution state are surfaced explicitly in UI.
+  - Child/week scope is rendered alongside guidance context.
+
+## Interpretation limits (must remain explicit)
+- Adherence/progress metrics describe implementation completion only, not trait growth or child capability conclusions.
+- Missing prior-week fields means no trend claim (must show unavailable status).
+- Consistency markers are descriptive, not diagnostic.
