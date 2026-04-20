@@ -4,7 +4,10 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 
 const {
+  isValidTime24,
+  normalizeStartDate,
   normalizeParentCommitmentPlan,
+  validateScheduledSessions,
   validateParentCommitmentSetup,
 } = require("../../youth-development/tde/parentCommitmentSetupContract");
 
@@ -41,6 +44,43 @@ test("rejects incomplete or malformed setup payloads", () => {
   assert.ok(validation.errors.includes("energy_type_invalid"));
 });
 
+test("rejects invalid preferred time and invalid start date", () => {
+  const validation = validateParentCommitmentSetup({
+    weekly_frequency: 3,
+    preferred_days: ["monday", "wednesday"],
+    preferred_time: "5:30pm",
+    session_length: 30,
+    energy_type: "balanced",
+    start_date: "2026-02-30",
+  });
+  assert.equal(validation.ok, false);
+  assert.ok(validation.errors.includes("preferred_time_invalid"));
+  assert.ok(validation.errors.includes("start_date_invalid"));
+});
+
+test("validates structured preferred time window shape", () => {
+  const valid = validateParentCommitmentSetup({
+    weekly_frequency: 3,
+    preferred_days: ["monday", "wednesday"],
+    preferred_time_window: { start_time: "17:30", end_time: "18:30", timezone: "UTC" },
+    session_length: 30,
+    energy_type: "balanced",
+    start_date: "2026-04-19",
+  });
+  assert.equal(valid.ok, true);
+  assert.equal(valid.normalized.preferred_time, "17:30");
+  const invalid = validateParentCommitmentSetup({
+    weekly_frequency: 3,
+    preferred_days: ["monday", "wednesday"],
+    preferred_time_window: { start_time: "18:30", end_time: "18:00" },
+    session_length: 30,
+    energy_type: "balanced",
+    start_date: "2026-04-19",
+  });
+  assert.equal(invalid.ok, false);
+  assert.ok(invalid.errors.includes("preferred_time_window_invalid_range"));
+});
+
 test("accepts canonical setup payload", () => {
   const validation = validateParentCommitmentSetup({
     weekly_frequency: 3,
@@ -51,4 +91,35 @@ test("accepts canonical setup payload", () => {
   });
   assert.equal(validation.ok, true);
   assert.equal(validation.normalized.weekly_frequency, 3);
+});
+
+test("scheduled sessions schema validates required fields and scope consistency", () => {
+  const valid = validateScheduledSessions({
+    scheduled_sessions: [
+      { session_id: "wk-1-mon", day: "monday", time: "17:30", status: "planned", week_number: 1, child_id: "child-1", selected_activity_ids: ["act-1"] },
+    ],
+  }, { childId: "child-1", weekNumber: 1 });
+  assert.equal(valid.ok, true);
+  assert.equal(valid.normalized.length, 1);
+
+  const invalid = validateScheduledSessions({
+    scheduled_sessions: [
+      { session_id: "", day: "funday", time: "5pm", status: "done", week_number: 2, child_id: "child-2" },
+    ],
+  }, { childId: "child-1", weekNumber: 1 });
+  assert.equal(invalid.ok, false);
+  assert.ok(invalid.errors.includes("scheduled_sessions[0].session_id_required"));
+  assert.ok(invalid.errors.includes("scheduled_sessions[0].day_invalid"));
+  assert.ok(invalid.errors.includes("scheduled_sessions[0].time_invalid"));
+  assert.ok(invalid.errors.includes("scheduled_sessions[0].status_invalid"));
+  assert.ok(invalid.errors.includes("scheduled_sessions[0].child_scope_mismatch"));
+  assert.ok(invalid.errors.includes("scheduled_sessions[0].week_scope_mismatch"));
+});
+
+test("time and date helpers enforce canonical formats", () => {
+  assert.equal(isValidTime24("00:00"), true);
+  assert.equal(isValidTime24("23:59"), true);
+  assert.equal(isValidTime24("24:00"), false);
+  assert.equal(normalizeStartDate("2026-04-19").ok, true);
+  assert.equal(normalizeStartDate("2026-02-30").ok, false);
 });
