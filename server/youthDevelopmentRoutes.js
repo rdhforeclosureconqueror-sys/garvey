@@ -19,6 +19,7 @@ const { getAuthoredWeekContent, auditWeeklyContentSources, STEP_SEQUENCE } = req
 const {
   defaultExecutionState,
   normalizeExecutionState,
+  buildWeeklyExecutionCoverageReport,
   validateWeeklyExecutionActionPayload,
   WEEKLY_EXECUTION_ACTIONS,
 } = require("../youth-development/tde/weeklyExecutionContract");
@@ -3546,14 +3547,12 @@ function createYouthDevelopmentRouter(options = {}) {
     try {
       const accountCtx = resolveRequestAccountContext(req, req.body || {});
       const childId = safeTrim(req.body?.child_id || req.body?.childId || req.query?.child_id || req.query?.childId);
-      const actionTypeRaw = safeTrim(req.body?.action_type || req.body?.actionType);
-      const normalizedActionType = actionTypeRaw === "continue_next_step" ? "continue_to_next_step" : actionTypeRaw;
       const validation = validateWeeklyExecutionActionPayload({
         tenant: accountCtx.tenant,
         email: accountCtx.email,
         child_id: childId,
         week_number: Number(req.body?.week_number || req.body?.weekNumber || 1),
-        action_type: normalizedActionType,
+        action_type: safeTrim(req.body?.action_type || req.body?.actionType),
         step_key: safeTrim(req.body?.step_key || req.body?.stepKey),
         note: String(req.body?.note || ""),
       });
@@ -3578,6 +3577,22 @@ function createYouthDevelopmentRouter(options = {}) {
     } catch (err) {
       console.error("youth_program_week_execution_failed", err);
       return res.status(500).json({ ok: false, error: "youth_program_week_execution_failed" });
+    }
+  });
+
+  router.get("/api/youth-development/program/week-execution/audit", async (req, res) => {
+    try {
+      const observedActions = String(req.query?.observed_actions || "")
+        .split(",")
+        .map((value) => safeTrim(value).toLowerCase())
+        .filter(Boolean);
+      return res.status(200).json({
+        ok: true,
+        audit: buildWeeklyExecutionCoverageReport({ observedActions }),
+      });
+    } catch (err) {
+      console.error("youth_program_week_execution_audit_failed", err);
+      return res.status(500).json({ ok: false, error: "youth_program_week_execution_audit_failed" });
     }
   });
 

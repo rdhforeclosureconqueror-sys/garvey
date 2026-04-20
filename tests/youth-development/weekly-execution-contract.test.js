@@ -3,6 +3,8 @@ const assert = require('node:assert/strict');
 
 const {
   defaultExecutionState,
+  resolveWeeklyExecutionActionType,
+  buildWeeklyExecutionCoverageReport,
   validateWeeklyExecutionActionPayload,
   applyWeeklyExecutionAction,
   normalizeExecutionState,
@@ -28,6 +30,58 @@ test('weekly execution payload validator enforces scoped required fields and all
     step_key: 'core_activity',
   });
   assert.equal(valid.ok, true);
+});
+
+test('action inventory classifies contracted, deprecated alias, pass-through, and unknown actions', () => {
+  const contracted = resolveWeeklyExecutionActionType('save_reflection');
+  assert.equal(contracted.classification, 'contracted_and_validated');
+  assert.equal(contracted.resolved_action_type, 'save_reflection');
+
+  const alias = resolveWeeklyExecutionActionType('continue_next_step');
+  assert.equal(alias.classification, 'deprecated_alias');
+  assert.equal(alias.resolved_action_type, 'continue_to_next_step');
+
+  const passThrough = resolveWeeklyExecutionActionType('route_external_support');
+  assert.equal(passThrough.classification, 'uncontracted_pass_through');
+
+  const unknown = resolveWeeklyExecutionActionType('unmapped_action_x');
+  assert.equal(unknown.classification, 'unknown_or_unresolved');
+});
+
+test('coverage report surfaces totals and highest-risk remaining gaps', () => {
+  const report = buildWeeklyExecutionCoverageReport({
+    observedActions: ['unknown_shadow_action'],
+  });
+  assert.equal(report.total_actions > 0, true);
+  assert.equal(report.contracted_count >= 7, true);
+  assert.equal(report.aliases_count >= 1, true);
+  assert.equal(report.uncontracted_count >= 4, true);
+  assert.equal(Array.isArray(report.highest_risk_remaining_gaps), true);
+  assert.equal(report.highest_risk_remaining_gaps[0].action_type, 'create_case_profile');
+});
+
+test('validator supports compatibility mode for uncontracted pass-through actions', () => {
+  const strict = validateWeeklyExecutionActionPayload({
+    tenant: 'demo',
+    email: 'parent@example.com',
+    child_id: 'child-1',
+    week_number: 1,
+    action_type: 'route_external_support',
+  });
+  assert.equal(strict.ok, false);
+
+  const compatibility = validateWeeklyExecutionActionPayload({
+    tenant: 'demo',
+    email: 'parent@example.com',
+    child_id: 'child-1',
+    week_number: 1,
+    action_type: 'route_external_support',
+  }, {
+    allowUncontractedPassThrough: true,
+  });
+  assert.equal(compatibility.ok, true);
+  assert.equal(compatibility.normalized.action_classification, 'uncontracted_pass_through');
+  assert.equal(compatibility.normalized.pass_through, true);
 });
 
 test('state machine blocks continue_to_next_step until current step is complete', () => {
