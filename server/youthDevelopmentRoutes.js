@@ -141,7 +141,7 @@ const CANONICAL_PARENT_ROUTES = Object.freeze({
 
 const CANONICAL_CTA_LABELS = Object.freeze({
   startProgram: "Start Program",
-  continueProgram: "Continue Program",
+  continueProgram: "View Weekly Plan",
   returnToDashboard: "Return to Dashboard",
   resumeWeekPrefix: "Resume Week",
   saveReflection: "Save Reflection",
@@ -150,6 +150,20 @@ const CANONICAL_CTA_LABELS = Object.freeze({
 
 function safeTrim(value) {
   return String(value ?? "").trim();
+}
+
+function isCommitmentSetupComplete(commitment = {}) {
+  const weeklyFrequency = Number(commitment.weekly_frequency || commitment.days_per_week || commitment.committed_days_per_week || 0);
+  const preferredDays = Array.isArray(commitment.preferred_days) ? commitment.preferred_days.filter(Boolean) : [];
+  const preferredTime = safeTrim(commitment.preferred_time || commitment.preferred_time_window);
+  const sessionLength = Number(commitment.session_length || commitment.session_duration_minutes || commitment.target_session_length || 0);
+  const energyType = safeTrim(commitment.energy_type).toLowerCase();
+  return weeklyFrequency >= 2
+    && weeklyFrequency <= 5
+    && preferredDays.length > 0
+    && Boolean(preferredTime)
+    && [15, 30, 45].includes(sessionLength)
+    && ["calm", "balanced", "high-energy"].includes(energyType);
 }
 
 function normalizeAccountContext(source = {}) {
@@ -415,6 +429,7 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}, planningState = {
       : null);
   const activitySurface = buildActivitySurface({ childId: bridgeState.child_id, phaseNumber, parentCustomization });
   const commitment = planningState.commitment_plan || null;
+  const setupComplete = isCommitmentSetupComplete(commitment || {});
   const plannedSessions = Array.isArray(planningState.scheduled_sessions) ? planningState.scheduled_sessions : [];
   const sessionTemplate = buildSessionTemplate({
     activitySurface,
@@ -470,6 +485,8 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}, planningState = {
     content_audit: auditWeeklyContentSources(),
     activity_bank_surface: activitySurface,
     bank_depth_audit: auditActivityBankDepth(activitySurface),
+    planner_setup_required: !setupComplete,
+    commitment_setup_status: setupComplete ? "complete" : "required",
     commitment_plan: commitment,
     scheduled_sessions: plannedSessions,
     lesson_plan_template: sessionTemplate,
@@ -1911,6 +1928,9 @@ function renderLiveYouthProgramPage() {
       .lesson-plan table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
       .lesson-plan th, .lesson-plan td { border: 1px solid rgba(148, 163, 184, 0.35); padding: 6px; text-align: left; vertical-align: top; }
       .checklist { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; }
+      #todaySessionPanel { order: 1; }
+      #weeklyCalendarPanel { order: 2; }
+      #currentWeekPanel { order: 3; }
     </style>
   </head>
   <body>
@@ -1927,7 +1947,7 @@ function renderLiveYouthProgramPage() {
           <a id="dashboardBtn" class="btn btn-secondary" href="/youth-development/parent-dashboard">Return to Dashboard</a>
         </div>
       </section>
-      <section class="panel">
+      <section class="panel" id="currentWeekPanel">
         <h2>Current week guided experience</h2>
         <div id="weekExperience" class="state-box">
           <h3 class="state-title">Loading week content…</h3>
@@ -1978,12 +1998,17 @@ function renderLiveYouthProgramPage() {
           </div>
         </div>
       </section>
-      <section class="panel">
-        <h2>Weekly planner + calendar agenda</h2>
+      <section class="panel" id="todaySessionPanel">
+        <h2>Today’s Session</h2>
         <div class="planner-grid">
           <div class="planner-metric">
             <h4>Today’s Session</h4>
             <p id="todaySessionCard">Loading today’s session…</p>
+            <div class="session-actions">
+              <button id="startTodaySessionBtn" class="btn btn-primary" type="button">Start Today’s Session</button>
+              <button id="resumeTodaySessionBtn" class="btn btn-secondary" type="button">Resume Session</button>
+              <button id="viewWeeklyPlanBtn" class="btn btn-ghost" type="button">View Weekly Plan</button>
+            </div>
           </div>
           <div class="planner-metric">
             <h4>Next Scheduled Session</h4>
@@ -1998,15 +2023,26 @@ function renderLiveYouthProgramPage() {
             <p id="weekMarkerCard">Loading week marker…</p>
           </div>
         </div>
+      </section>
+      <section class="panel" id="weeklyCalendarPanel">
+        <h2>Weekly Plan Calendar (Primary)</h2>
+        <div class="planner-grid">
+          <div class="planner-metric">
+            <h4>Build Your Weekly Plan</h4>
+            <p class="tiny muted">Set your weekly commitment before planner execution is unlocked.</p>
+          </div>
+        </div>
         <div class="grid-2">
           <div class="state-box">
-            <h3 class="state-title">Parent commitment setup</h3>
-            <label class="tiny">Days per week</label><input id="commitDaysInput" class="input" type="number" min="1" max="7" value="3" />
-            <label class="tiny">Preferred days (comma separated)</label><input id="commitPreferredDaysInput" class="input" placeholder="monday,wednesday,saturday" />
-            <label class="tiny">Preferred time (HH:MM)</label><input id="commitTimeInput" class="input" type="time" value="17:30" />
-            <label class="tiny">Session duration minutes</label><input id="commitDurationInput" class="input" type="number" min="10" max="120" value="30" />
+            <h3 class="state-title">Build Your Weekly Plan</h3>
+            <label class="tiny">Weekly frequency (2–5 sessions)</label><input id="commitDaysInput" class="input" type="number" min="2" max="5" value="3" />
+            <label class="tiny">Preferred days</label>
+            <div id="commitPreferredDaysGroup" class="chip-row"></div>
+            <label class="tiny">Preferred time</label><input id="commitTimeInput" class="input" type="time" value="17:30" />
+            <label class="tiny">Session length (minutes)</label><select id="commitDurationInput" class="input"><option value="15">15</option><option value="30" selected>30</option><option value="45">45</option></select>
+            <label class="tiny">Energy type</label><select id="commitEnergyTypeInput" class="input"><option value="calm">calm</option><option value="balanced" selected>balanced</option><option value="high-energy">high-energy</option></select>
             <label class="tiny">Start date</label><input id="commitStartDateInput" class="input" type="date" />
-            <button id="saveCommitmentBtn" class="btn btn-primary" type="button">Set Commitment</button>
+            <button id="saveCommitmentBtn" class="btn btn-primary" type="button">Build Your Weekly Plan</button>
             <p id="commitmentSummary" class="tiny muted">Commitment not set.</p>
           </div>
           <div class="state-box">
@@ -2030,7 +2066,7 @@ function renderLiveYouthProgramPage() {
           <div class="session-actions">
             <button id="resumeSessionBtn" class="btn btn-primary" type="button">Resume Session</button>
             <button id="completeSelectedSessionBtn" class="btn btn-secondary" type="button">Mark Session Complete</button>
-            <button id="returnWeeklyOverviewBtn" class="btn btn-ghost" type="button">Return to Weekly Overview</button>
+            <button id="returnWeeklyOverviewBtn" class="btn btn-ghost" type="button">View Weekly Plan</button>
           </div>
         </div>
       </section>
@@ -2069,9 +2105,10 @@ function renderLiveYouthProgramPage() {
         const executionStateArea = document.getElementById("executionStateArea");
         const nextActionArea = document.getElementById("nextActionArea");
         const commitDaysInput = document.getElementById("commitDaysInput");
-        const commitPreferredDaysInput = document.getElementById("commitPreferredDaysInput");
+        const commitPreferredDaysGroup = document.getElementById("commitPreferredDaysGroup");
         const commitTimeInput = document.getElementById("commitTimeInput");
         const commitDurationInput = document.getElementById("commitDurationInput");
+        const commitEnergyTypeInput = document.getElementById("commitEnergyTypeInput");
         const commitStartDateInput = document.getElementById("commitStartDateInput");
         const saveCommitmentBtn = document.getElementById("saveCommitmentBtn");
         const commitmentSummary = document.getElementById("commitmentSummary");
@@ -2084,6 +2121,9 @@ function renderLiveYouthProgramPage() {
         const openNextSessionBtn = document.getElementById("openNextSessionBtn");
         const nextScheduledSession = document.getElementById("nextScheduledSession");
         const todaySessionCard = document.getElementById("todaySessionCard");
+        const startTodaySessionBtn = document.getElementById("startTodaySessionBtn");
+        const resumeTodaySessionBtn = document.getElementById("resumeTodaySessionBtn");
+        const viewWeeklyPlanBtn = document.getElementById("viewWeeklyPlanBtn");
         const nextSessionCard = document.getElementById("nextSessionCard");
         const weekAtGlanceCard = document.getElementById("weekAtGlanceCard");
         const weekMarkerCard = document.getElementById("weekMarkerCard");
@@ -2126,6 +2166,28 @@ function renderLiveYouthProgramPage() {
             ? items.map((line) => '<li' + (className ? ' class="' + className + '"' : '') + '>' + line + '</li>').join("")
             : '<li class="muted">No items available yet.</li>';
         }
+        function renderPreferredDayPicker(selectedDays) {
+          const selected = new Set((selectedDays || []).map((item) => String(item || "").toLowerCase()));
+          commitPreferredDaysGroup.innerHTML = DAYS.map((day) => {
+            const label = day.slice(0, 1).toUpperCase() + day.slice(1, 3);
+            return '<label class="chip"><input type="checkbox" data-day-checkbox="' + esc(day) + '"' + (selected.has(day) ? " checked" : "") + '> ' + esc(label) + "</label>";
+          }).join("");
+        }
+        function getSelectedPreferredDays() {
+          return Array.from(commitPreferredDaysGroup.querySelectorAll("input[data-day-checkbox]:checked"))
+            .map((node) => String(node.getAttribute("data-day-checkbox") || "").toLowerCase())
+            .filter(Boolean);
+        }
+        function plannerSetupComplete(week) {
+          const commitment = week.commitment_plan || {};
+          const frequency = Number(commitment.weekly_frequency || commitment.days_per_week || commitment.committed_days_per_week || 0);
+          const preferredDays = Array.isArray(commitment.preferred_days) ? commitment.preferred_days : [];
+          const preferredTime = String(commitment.preferred_time || commitment.preferred_time_window || "").trim();
+          const sessionLength = Number(commitment.session_length || commitment.session_duration_minutes || commitment.target_session_length || 0);
+          const energyType = String(commitment.energy_type || "").trim().toLowerCase();
+          return frequency >= 2 && frequency <= 5 && preferredDays.length > 0 && Boolean(preferredTime)
+            && [15, 30, 45].includes(sessionLength) && ["calm", "balanced", "high-energy"].includes(energyType);
+        }
         function renderActivityCard(title, activity) {
           if (!activity) return '<div class="activity-card"><h4>' + esc(title) + '</h4><p class="tiny">No mapped activity selected yet.</p></div>';
           const variations = Array.isArray(activity.available_variations) ? activity.available_variations : [];
@@ -2144,11 +2206,16 @@ function renderLiveYouthProgramPage() {
         }
         function renderAlternativeOptions(title, options) {
           const rows = Array.isArray(options) ? options : [];
+          const primaryRows = rows.slice(0, 2);
+          const overflowRows = rows.slice(2);
           return [
             '<div class="activity-card"><h4>' + esc(title) + '</h4>',
-            rows.length
-              ? '<ul class="tiny">' + rows.map((item) => '<li>' + esc(item.title || item.activity_id || "Alternative") + ' <span class="muted">(' + esc(item.subcategory || "n/a") + ')</span></li>').join("") + '</ul>'
+            primaryRows.length
+              ? '<ul class="tiny">' + primaryRows.map((item) => '<li>' + esc(item.title || item.activity_id || "Alternative") + ' <span class="muted">(' + esc(item.subcategory || "n/a") + ')</span></li>').join("") + '</ul>'
               : '<p class="tiny">No alternatives available.</p>',
+            overflowRows.length
+              ? '<details class="tiny"><summary>View More Options</summary><ul class="tiny">' + overflowRows.map((item) => '<li>' + esc(item.title || item.activity_id || "Alternative") + ' <span class="muted">(' + esc(item.subcategory || "n/a") + ')</span></li>').join("") + "</ul></details>"
+              : "",
             '</div>',
           ].join("");
         }
@@ -2235,6 +2302,9 @@ function renderLiveYouthProgramPage() {
             observation_close: "Observation / Close",
           };
           const parentGuidance = Array.isArray(week.parent_guidance) ? week.parent_guidance : [];
+          const executionState = latestWeekPayload?.execution_state || {};
+          const stepOrder = ["core_activity", "stretch_challenge", "reflection_checkin", "observation_support"];
+          const activeStepIndex = Math.max(0, Math.min(stepOrder.length - 1, Number(executionState.active_step_index || 0)));
           const materials = [session?.core_activity_title, session?.stretch_activity_title, "Notebook or reflection card", "Timer"]
             .filter(Boolean);
           lessonPlanSessionHeader.innerHTML = '<strong>' + esc(sessionTitle) + '</strong> · '
@@ -2253,6 +2323,8 @@ function renderLiveYouthProgramPage() {
             '</tbody></table>',
             '<p class="tiny"><strong>Parent guidance:</strong></p>',
             '<ul class="checklist">' + (parentGuidance.length ? parentGuidance.map((item) => '<li>' + esc(item) + '</li>').join("") : "<li>No guidance available.</li>") + "</ul>",
+            '<p class="tiny"><strong>Current step:</strong> ' + esc(String(stepOrder[activeStepIndex] || "core_activity").replace("_", " ")) + '</p>',
+            '<ul class="checklist">' + stepOrder.map((step, index) => '<li' + (index === activeStepIndex ? ' style="font-weight:700;color:#bfdbfe;"' : '') + '>' + esc(String(step).replace("_", " ")) + '</li>').join("") + "</ul>",
           ].join("");
         }
         function renderWeekDetails(week, nextAction, navOffset) {
@@ -2307,7 +2379,7 @@ function renderLiveYouthProgramPage() {
             renderActivityCard("Active core path", selectedPath.core_activity),
             renderActivityCard("Active stretch challenge", selectedPath.stretch_challenge),
             renderActivityCard("Active reflection loop", selectedPath.reflection),
-            renderAlternativeOptions("Core alternatives", coreChoices.flatMap((entry) => entry.available_alternatives || []).slice(0, 3)),
+            renderAlternativeOptions("Core alternatives", coreChoices.flatMap((entry) => entry.available_alternatives || [])),
             renderAlternativeOptions("Stretch alternatives", stretchChoices?.available_alternatives || []),
             renderAlternativeOptions("Reflection alternatives", reflectionChoices?.available_alternatives || []),
             '<div class="activity-card"><h4>Weekly options from activity bank</h4><p class="tiny">Core: ' + esc(String((bankSummary.core_activity || []).length))
@@ -2332,38 +2404,45 @@ function renderLiveYouthProgramPage() {
           const commitment = week.commitment_plan || {};
           const scheduled = planner.scheduled;
           const accountability = planner.accountability;
-          commitDaysInput.value = String(commitment.days_per_week || commitment.committed_days_per_week || 3);
-          commitPreferredDaysInput.value = Array.isArray(commitment.preferred_days) ? commitment.preferred_days.join(",") : "";
-          commitTimeInput.value = String(commitment.preferred_time || "17:30");
-          commitDurationInput.value = String(commitment.session_duration_minutes || commitment.target_session_length || 30);
+          const setupComplete = plannerSetupComplete(week);
+          commitDaysInput.value = String(commitment.weekly_frequency || commitment.days_per_week || commitment.committed_days_per_week || 3);
+          renderPreferredDayPicker(Array.isArray(commitment.preferred_days) ? commitment.preferred_days : []);
+          commitTimeInput.value = String(commitment.preferred_time || commitment.preferred_time_window || "17:30");
+          commitDurationInput.value = String(commitment.session_length || commitment.session_duration_minutes || commitment.target_session_length || 30);
+          commitEnergyTypeInput.value = String(commitment.energy_type || "balanced");
           commitStartDateInput.value = String(commitment.start_date || "").slice(0, 10);
-          commitmentSummary.textContent = "Committed: " + String(commitment.days_per_week || commitment.committed_days_per_week || 0)
+          commitmentSummary.textContent = "Committed: " + String(commitment.weekly_frequency || commitment.days_per_week || commitment.committed_days_per_week || 0)
             + "/week · Preferred days: " + String((commitment.preferred_days || []).join(", ") || "none");
           adherenceSummary.textContent = "Planned this week: " + String(accountability.planned_this_week || 0)
             + " · Completed this week: " + String(accountability.completed_this_week || 0)
             + " · Consistency: " + String(accountability.consistency_label || "early");
           completionCountSummary.textContent = "Weekly completion count: " + String(planner.completedCount) + " of " + String(planner.plannedCount) + " planned sessions complete.";
           adherenceFill.style.width = String(Math.round(planner.adherenceRatio * 100)) + "%";
-          agendaList.innerHTML = scheduled.length ? scheduled.map((entry) =>
+          agendaList.innerHTML = setupComplete && scheduled.length ? scheduled.map((entry) =>
             '<li><strong>' + esc(String(entry.day_label || entry.day || "Session")) + '</strong> @ ' + esc(to12Hour(entry.time || ""))
             + ' · <span class="status-pill status-' + esc(entry.normalized_status) + '">' + esc(String(entry.normalized_status || "planned").replace("_", " ")) + "</span>"
             + ' · Core: ' + esc(String(entry.core_activity_title || "auto"))
-            + '<div class="session-actions"><button class="btn btn-ghost" type="button" data-action="open-session" data-session-id="' + esc(String(entry.session_id || "")) + '">Open Scheduled Session</button>'
+            + '<div class="session-actions"><button class="btn btn-ghost" type="button" data-action="open-session" data-session-id="' + esc(String(entry.session_id || "")) + '">Start Session</button>'
             + '<button class="btn btn-ghost" type="button" data-action="view-lesson-plan" data-session-id="' + esc(String(entry.session_id || "")) + '">View Lesson Plan</button>'
             + '<button class="btn btn-secondary" type="button" data-action="complete-session" data-session-id="' + esc(String(entry.session_id || "")) + '"' + (entry.normalized_status === "completed" ? " disabled" : "") + '>Mark Session Complete</button>'
             + '<button class="btn btn-primary" type="button" data-action="resume-session" data-session-id="' + esc(String(entry.session_id || "")) + '">Resume Session</button></div>'
-            + '</li>').join("") : '<li class="muted">No sessions scheduled yet.</li>';
+            + '</li>').join("") : '<li class="muted">' + (setupComplete ? "No sessions scheduled yet." : "Complete Build Your Weekly Plan to unlock calendar sessions.") + '</li>';
           const next = planner.nextSession;
           const today = planner.todaySession;
           todaySessionCard.textContent = today
             ? String(today.day_label || today.day || "Today") + " at " + to12Hour(today.time || "") + " · " + String(today.core_activity_title || "Guided session")
-            : "No session scheduled for today. Use commitment setup to place one.";
+            : (next ? "No session today. Next: " + String(next.day_label || next.day || "") + " at " + to12Hour(next.time || "") : "No upcoming sessions. Build your weekly plan.");
           nextSessionCard.textContent = next
             ? String(next.day_label || next.day || "") + " at " + to12Hour(next.time || "") + " · " + String(next.core_activity_title || "Guided session")
             : "No upcoming session currently planned.";
+          const startTarget = today || next || null;
+          startTodaySessionBtn.disabled = !setupComplete || !startTarget;
+          startTodaySessionBtn.dataset.sessionId = startTarget ? String(startTarget.session_id || "") : "";
+          resumeTodaySessionBtn.disabled = !setupComplete || !startTarget;
+          resumeTodaySessionBtn.dataset.sessionId = startTarget ? String(startTarget.session_id || "") : "";
           weekAtGlanceCard.textContent = String(planner.completedCount) + "/" + String(planner.plannedCount) + " sessions completed · Consistency " + String(accountability.consistency_label || "early") + ".";
           weekMarkerCard.textContent = "Week " + String(week.week_number || 1) + " of 36 (" + String(week.progress?.percent_complete || 0) + "% program progress).";
-          plannerCalendarGrid.innerHTML = DAYS.map((dayName) => {
+          plannerCalendarGrid.innerHTML = setupComplete ? DAYS.map((dayName) => {
             const sessions = scheduled.filter((entry) => String(entry.day || "").toLowerCase() === dayName);
             const isToday = Boolean(today && String(today.day || "").toLowerCase() === dayName);
             return '<article class="calendar-day' + (isToday ? " today" : "") + '"><h4>' + esc(dayName.slice(0, 1).toUpperCase() + dayName.slice(1)) + '</h4>'
@@ -2371,8 +2450,9 @@ function renderLiveYouthProgramPage() {
                 ? sessions.map((entry) => '<div class="session-row"><span>' + esc(to12Hour(entry.time || "")) + " · " + esc(String(entry.core_activity_title || "Session")) + '</span>'
                   + '<span class="status-pill status-' + esc(entry.normalized_status) + '">' + esc(entry.normalized_status.replace("_", " ")) + "</span></div>").join("")
                 : '<p class="tiny muted">No planned session</p>')
+              + (sessions[0] ? '<div class="session-actions"><button class="btn btn-ghost" type="button" data-action="open-session" data-session-id="' + esc(String(sessions[0].session_id || "")) + '">Open Lesson Plan</button></div>' : "")
               + "</article>";
-          }).join("");
+          }).join("") : '<div class="calendar-day"><p class="tiny muted">Build Your Weekly Plan to activate calendar-first scheduling.</p></div>';
           nextScheduledSession.textContent = next
             ? "Next scheduled session: " + String(next.day_label || next.day || "") + " " + to12Hour(next.time || "") + " (" + String(next.session_id || "") + ")"
             : "No upcoming sessions. Set commitment to generate schedule.";
@@ -2380,11 +2460,11 @@ function renderLiveYouthProgramPage() {
           markNextSessionCompleteBtn.dataset.sessionId = next ? String(next.session_id || "") : "";
           openNextSessionBtn.disabled = !next;
           openNextSessionBtn.dataset.sessionId = next ? String(next.session_id || "") : "";
-          const selected = (selectedSessionId && scheduled.find((entry) => String(entry.session_id) === String(selectedSessionId)))
+          const selected = setupComplete && ((selectedSessionId && scheduled.find((entry) => String(entry.session_id) === String(selectedSessionId)))
             || next
             || today
             || scheduled[0]
-            || null;
+            || null);
           selectedSessionId = selected ? String(selected.session_id || "") : "";
           completeSelectedSessionBtn.disabled = !selected || selected.normalized_status === "completed";
           renderLessonPlan(selected, week);
@@ -2501,7 +2581,7 @@ function renderLiveYouthProgramPage() {
           if (!latestWeekPayload || !latestWeekPayload.week_content) return;
           navWeekOffset = 0;
           renderWeekDetails(latestWeekPayload.week_content, latestWeekPayload.next_action, navWeekOffset);
-          weekExperience.scrollIntoView({ behavior: "smooth", block: "start" });
+          plannerCalendarGrid.scrollIntoView({ behavior: "smooth", block: "start" });
         }
 
         launchBtn.addEventListener("click", async function () {
@@ -2529,7 +2609,7 @@ function renderLiveYouthProgramPage() {
             "Current week: " + String(payload.current_week || 1),
             "Next action: " + String(payload.next_recommended_action || "Begin current week"),
           ]);
-          launchBtn.textContent = "Continue Program";
+          launchBtn.textContent = "View Weekly Plan";
           launchBtn.disabled = false;
           dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
           await loadWeekExperience();
@@ -2574,6 +2654,9 @@ function renderLiveYouthProgramPage() {
         });
         saveCommitmentBtn.addEventListener("click", async function () {
           if (!latestWeekPayload || !latestWeekPayload.week_content) return;
+          const preferredDays = getSelectedPreferredDays();
+          const weeklyFrequency = Number(commitDaysInput.value || preferredDays.length || 3);
+          const sessionLength = Number(commitDurationInput.value || 30);
           const response = await fetch("/api/youth-development/program/commitment", {
             method: "POST",
             headers: { "content-type": "application/json" },
@@ -2582,10 +2665,16 @@ function renderLiveYouthProgramPage() {
               email: accountCtx.email,
               child_id: accountCtx.child_id,
               week_number: latestWeekPayload.current_week,
-              days_per_week: Number(commitDaysInput.value || 3),
-              preferred_days: String(commitPreferredDaysInput.value || "").split(",").map((d) => d.trim().toLowerCase()).filter(Boolean),
+              weekly_frequency: weeklyFrequency,
+              days_per_week: weeklyFrequency,
+              committed_days_per_week: weeklyFrequency,
+              preferred_days: preferredDays,
               preferred_time: String(commitTimeInput.value || "17:30"),
-              session_duration_minutes: Number(commitDurationInput.value || 30),
+              preferred_time_window: String(commitTimeInput.value || "17:30"),
+              session_length: sessionLength,
+              target_session_length: sessionLength,
+              session_duration_minutes: sessionLength,
+              energy_type: String(commitEnergyTypeInput.value || "balanced"),
               start_date: String(commitStartDateInput.value || new Date().toISOString().slice(0, 10)),
             }),
           });
@@ -2611,6 +2700,42 @@ function renderLiveYouthProgramPage() {
         });
         openNextSessionBtn.addEventListener("click", function () {
           const sessionId = String(openNextSessionBtn.dataset.sessionId || "");
+          if (!sessionId || !latestWeekPayload?.week_content) return;
+          selectedSessionId = sessionId;
+          renderPlanner(latestWeekPayload.week_content);
+          lessonPlanView.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        startTodaySessionBtn.addEventListener("click", async function () {
+          if (!latestWeekPayload?.week_content) return;
+          if (startTodaySessionBtn.dataset.sessionId) selectedSessionId = String(startTodaySessionBtn.dataset.sessionId);
+          renderPlanner(latestWeekPayload.week_content);
+          if (selectedSessionId) {
+            await saveExecutionAction("start_week");
+            lessonPlanView.scrollIntoView({ behavior: "smooth", block: "start" });
+          } else {
+            nextActionArea.innerHTML = "<strong>Action blocked:</strong> Build your weekly plan and schedule a session first.";
+          }
+        });
+        resumeTodaySessionBtn.addEventListener("click", async function () {
+          if (!latestWeekPayload?.week_content) return;
+          if (resumeTodaySessionBtn.dataset.sessionId) selectedSessionId = String(resumeTodaySessionBtn.dataset.sessionId);
+          renderPlanner(latestWeekPayload.week_content);
+          if (selectedSessionId) {
+            await saveExecutionAction("continue_to_next_step");
+            lessonPlanView.scrollIntoView({ behavior: "smooth", block: "start" });
+          } else {
+            nextActionArea.innerHTML = "<strong>Action blocked:</strong> No session to resume.";
+          }
+        });
+        viewWeeklyPlanBtn.addEventListener("click", function () {
+          plannerCalendarGrid.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        plannerCalendarGrid.addEventListener("click", function (event) {
+          const target = event.target;
+          if (!target || !target.dataset) return;
+          const action = String(target.dataset.action || "");
+          if (action !== "open-session") return;
+          const sessionId = String(target.dataset.sessionId || "");
           if (!sessionId || !latestWeekPayload?.week_content) return;
           selectedSessionId = sessionId;
           renderPlanner(latestWeekPayload.week_content);

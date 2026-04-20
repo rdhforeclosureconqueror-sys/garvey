@@ -362,7 +362,7 @@ test('POST /api/youth-development/program/launch returns resume state and does n
       current_week: 4,
       current_phase_name: 'Foundation',
       next_recommended_action: 'Continue Week 4',
-      cta: { label: 'Continue Program', href: '/youth-development/program?tenant=demo&email=parent%40example.com&child_id=' + childId },
+      cta: { label: 'View Weekly Plan', href: '/youth-development/program?tenant=demo&email=parent%40example.com&child_id=' + childId },
     }),
   }));
   const server = http.createServer(app);
@@ -382,6 +382,30 @@ test('POST /api/youth-development/program/launch returns resume state and does n
     assert.equal(payload.next_recommended_action, 'Continue Week 4');
     assert.match(String(payload.cta && payload.cta.href), /\/youth-development\/program/);
     assert.doesNotMatch(String(payload.cta && payload.cta.href), /\/youth-development\/intake/);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('GET /youth-development/program serves guided parent-first planner copy and normalized CTAs', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({}));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/youth-development/program`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, /Build Your Weekly Plan/);
+    assert.match(html, /Today’s Session/);
+    assert.match(html, /Start Today’s Session/);
+    assert.match(html, /View Weekly Plan/);
+    assert.match(html, /View More Options/);
+    assert.doesNotMatch(html, /Continue Program/);
+    assert.doesNotMatch(html, /Continue Development Plan/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
@@ -467,6 +491,89 @@ test('GET /api/youth-development/program/week-content returns current week guide
     assert.ok(payload.week_content.accountability);
     assert.doesNotMatch(String(payload.week_content.objective), /loading\\.|fixture|placeholder/i);
     assert.doesNotMatch(String(payload.week_content.week_purpose), /loading\\.|fixture|placeholder/i);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('week-content marks planner setup required until commitment fields are complete', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    getProgramBridgeState: async ({ childId }) => ({
+      ok: true,
+      child_id: childId,
+      launch_allowed: true,
+      setup_needed: false,
+      has_enrollment: true,
+      current_week: 1,
+      current_phase_name: 'Foundation',
+      next_recommended_action: 'Continue Week 1',
+    }),
+    getProgramWeekExecution: async () => ({ week_status: 'not_started', completed_step_keys: [], active_step_index: 0 }),
+    getProgramWeekPlanning: async () => ({
+      commitment_plan: {
+        days_per_week: 3,
+        preferred_days: ['monday'],
+        preferred_time: '17:30',
+        session_duration_minutes: 30,
+      },
+      scheduled_sessions: [],
+      accountability: { planned_this_week: 0, completed_this_week: 0, consistency_label: 'early' },
+    }),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/program/week-content?tenant=demo&email=parent@example.com&child_id=child-real-1`);
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.week_content.planner_setup_required, true);
+    assert.equal(payload.week_content.commitment_setup_status, 'required');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('week-content marks planner setup complete when weekly commitment includes frequency, days, time, length, and energy', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    getProgramBridgeState: async ({ childId }) => ({
+      ok: true,
+      child_id: childId,
+      launch_allowed: true,
+      setup_needed: false,
+      has_enrollment: true,
+      current_week: 1,
+      current_phase_name: 'Foundation',
+      next_recommended_action: 'Continue Week 1',
+    }),
+    getProgramWeekExecution: async () => ({ week_status: 'not_started', completed_step_keys: [], active_step_index: 0 }),
+    getProgramWeekPlanning: async () => ({
+      commitment_plan: {
+        weekly_frequency: 4,
+        preferred_days: ['monday', 'wednesday'],
+        preferred_time: '17:30',
+        session_length: 30,
+        energy_type: 'balanced',
+      },
+      scheduled_sessions: [{ session_id: 'plan-1', day: 'monday', time: '17:30', status: 'planned' }],
+      accountability: { planned_this_week: 1, completed_this_week: 0, consistency_label: 'early' },
+    }),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/program/week-content?tenant=demo&email=parent@example.com&child_id=child-real-1`);
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.week_content.planner_setup_required, false);
+    assert.equal(payload.week_content.commitment_setup_status, 'complete');
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
