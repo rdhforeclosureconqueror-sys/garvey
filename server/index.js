@@ -75,6 +75,10 @@ const {
   validateWeeklyExecutionActionPayload,
   applyWeeklyExecutionAction,
 } = require("../youth-development/tde/weeklyExecutionContract");
+const {
+  normalizeParentCommitmentPlan,
+  validateParentCommitmentSetup,
+} = require("../youth-development/tde/parentCommitmentSetupContract");
 const { generateSite } = require("./siteMaterializer");
 const { getTapCrmMode } = require("./tapCrmFeature");
 const { createTapCrmRouter, resolvePublicTap } = require("./tapCrmRoutes");
@@ -2314,7 +2318,7 @@ function summarizeSessionAdherence(commitmentPlan, scheduledSessions = [], compl
   return {
     planned_this_week: planned,
     completed_this_week: completed,
-    committed_this_week: Number(commitmentPlan?.days_per_week || commitmentPlan?.committed_days_per_week || 0),
+    committed_this_week: Number(commitmentPlan?.weekly_frequency || commitmentPlan?.days_per_week || commitmentPlan?.committed_days_per_week || 0),
     consistency_ratio: Number(ratio.toFixed(2)),
     consistency_label: ratio >= 0.85 ? "strong" : ratio >= 0.6 ? "building" : "early",
   };
@@ -2324,8 +2328,8 @@ function buildScheduledSessionsFromCommitment(commitmentPlan = {}, activitySurfa
   const preferredDays = Array.isArray(commitmentPlan.preferred_days) && commitmentPlan.preferred_days.length
     ? commitmentPlan.preferred_days
     : ["monday", "wednesday", "friday"];
-  const days = preferredDays.slice(0, Math.max(1, Number(commitmentPlan.days_per_week || commitmentPlan.committed_days_per_week || 3)));
-  const time = String(commitmentPlan.preferred_time || "17:30");
+  const days = preferredDays.slice(0, Math.max(1, Number(commitmentPlan.weekly_frequency || commitmentPlan.days_per_week || commitmentPlan.committed_days_per_week || 3)));
+  const time = String(commitmentPlan.preferred_time || commitmentPlan.preferred_time_window || "17:30");
   const core = (((activitySurface || {}).selected_path || {}).core_activity || {}).title || "Guided core activity";
   const stretch = (((activitySurface || {}).selected_path || {}).stretch_challenge || {}).title || "Stretch challenge";
   return days.map((day, idx) => ({
@@ -2353,7 +2357,9 @@ async function loadProgramWeekPlanningForAccount({ accountCtx, childId = "", wee
     pool.query(`SELECT payload FROM tde_intervention_sessions WHERE child_id = $1 AND DATE(completed_at) >= CURRENT_DATE - INTERVAL '6 day'`, [bridge.child_id]),
   ]);
   const progressPayload = progressRows.rows[0]?.payload || {};
-  const commitmentPlan = commitmentRows.rows[0]?.payload || null;
+  const commitmentPlan = commitmentRows.rows[0]?.payload
+    ? normalizeParentCommitmentPlan(commitmentRows.rows[0].payload)
+    : null;
   const scheduled = Array.isArray(progressPayload.scheduled_sessions) && progressPayload.scheduled_sessions.length
     ? progressPayload.scheduled_sessions
     : (commitmentPlan ? buildScheduledSessionsFromCommitment(commitmentPlan, {}, week) : []);
@@ -2368,18 +2374,11 @@ async function loadProgramWeekPlanningForAccount({ accountCtx, childId = "", wee
 async function saveProgramCommitmentPlanForAccount({ accountCtx, childId = "", commitment = {} }) {
   const bridge = await getProgramBridgeStateForAccount({ accountCtx, childId });
   if (!bridge?.child_id || !bridge?.enrollment_id) return { ok: false, error: "program_enrollment_required" };
-  const payload = {
-    child_id: bridge.child_id,
-    days_per_week: Math.max(1, Math.min(7, Number(commitment.days_per_week || 3))),
-    committed_days_per_week: Math.max(1, Math.min(7, Number(commitment.days_per_week || 3))),
-    preferred_days: Array.isArray(commitment.preferred_days) ? commitment.preferred_days : [],
-    preferred_time: String(commitment.preferred_time || "17:30"),
-    preferred_time_window: String(commitment.preferred_time || "17:30"),
-    session_duration_minutes: Math.max(10, Math.min(120, Number(commitment.session_duration_minutes || 30))),
-    session_length: Math.max(10, Math.min(120, Number(commitment.session_duration_minutes || 30))),
-    start_date: String(commitment.start_date || new Date().toISOString().slice(0, 10)),
-    facilitator_role: "parent",
-  };
+  const validation = validateParentCommitmentSetup({ ...commitment, child_id: bridge.child_id });
+  if (!validation.ok) {
+    return { ok: false, error: "commitment_setup_invalid", messages: validation.errors, required_fields: ["weekly_frequency", "preferred_days", "preferred_time", "session_length", "energy_type"] };
+  }
+  const payload = normalizeParentCommitmentPlan({ ...validation.normalized, child_id: bridge.child_id });
   await pool.query(
     `INSERT INTO tde_commitment_plans (child_id, committed_days_per_week, preferred_days, preferred_time_window, session_length, facilitator_role, payload)
      VALUES ($1,$2,$3::jsonb,$4,$5,$6,$7::jsonb)

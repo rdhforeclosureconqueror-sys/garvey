@@ -595,11 +595,21 @@ test('program commitment, session plan, and completion routes persist planner op
     const commitment = await fetch(`${baseUrl}/api/youth-development/program/commitment`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ tenant: 'demo', email: 'parent@example.com', child_id: 'child-real-1', days_per_week: 3, preferred_days: ['monday'], preferred_time: '17:30', session_duration_minutes: 30, start_date: '2026-04-19' }),
+      body: JSON.stringify({
+        tenant: 'demo',
+        email: 'parent@example.com',
+        child_id: 'child-real-1',
+        weekly_frequency: '3x',
+        preferred_days: ['monday'],
+        preferred_time: '17:30',
+        session_length: 30,
+        energy_type: 'balanced',
+        start_date: '2026-04-19',
+      }),
     });
     const commitmentPayload = await commitment.json();
     assert.equal(commitmentPayload.ok, true);
-    assert.equal(commitmentPayload.commitment_plan.days_per_week, 3);
+    assert.equal(commitmentPayload.commitment_plan.weekly_frequency, 3);
 
     const sessionPlan = await fetch(`${baseUrl}/api/youth-development/program/session-plan`, {
       method: 'POST',
@@ -618,6 +628,33 @@ test('program commitment, session plan, and completion routes persist planner op
     const completePayload = await complete.json();
     assert.equal(completePayload.ok, true);
     assert.equal(completePayload.session_id, 'plan-1');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('program commitment route rejects incomplete setup contract payloads', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    saveProgramCommitmentPlan: async () => ({ ok: true }),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const commitment = await fetch(`${baseUrl}/api/youth-development/program/commitment`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', email: 'parent@example.com', child_id: 'child-real-1', preferred_days: ['monday'] }),
+    });
+    assert.equal(commitment.status, 200);
+    const payload = await commitment.json();
+    assert.equal(payload.ok, false);
+    assert.equal(payload.error, 'commitment_setup_invalid');
+    assert.ok(Array.isArray(payload.required_fields));
+    assert.ok(payload.messages.includes('weekly_frequency_invalid'));
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
