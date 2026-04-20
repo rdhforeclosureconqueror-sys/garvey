@@ -101,6 +101,26 @@ Canonical parent controls in planner/session views:
 
 All controls remain child/week scoped and route through existing governed contracts/endpoints.
 
+### Canonical parent commitment/setup contract (save + load)
+
+`POST /api/youth-development/program/commitment` now enforces a strict setup contract for guided weekly planning.
+
+Required fields:
+- `weekly_frequency` (canonical integer `2|3|4|5`)
+- `preferred_days` (array of canonical weekday names, e.g. `["monday","wednesday"]`)
+- `preferred_time` or `preferred_time_window` (non-empty)
+- `session_length` or equivalent session length alias (`session_duration_minutes`, `target_session_length`) with allowed values `15|30|45`
+- `energy_type` (`calm|balanced|high-energy`)
+
+Normalization behavior:
+- Canonical frequency is numeric `weekly_frequency`.
+- Legacy frequency values (`"2x"`, `"3x"`, `"5x"`) are accepted and normalized to `2`, `3`, `5`.
+- Legacy aliases (`days_per_week`, `committed_days_per_week`) are accepted on input and normalized to canonical `weekly_frequency`.
+- Day aliases (`mon`, `tue`, `wed`, etc.) are normalized to canonical full day names.
+- Saved payload is returned in normalized shape and reused by planner rendering, schedule generation, and accountability/adherence summaries.
+
+Invalid setup payloads are explicitly rejected with `error: "commitment_setup_invalid"` and validation messages; incomplete setup is not silently accepted.
+
 ## Remaining known exceptions
 - `/youth-development.html#tdeOperatorConsole` remains as a compatible operator entry anchor for internal workflows.
 - TDE operator console stays hidden by default and only displays for admin session contexts.

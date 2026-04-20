@@ -22,6 +22,11 @@ const {
   validateWeeklyExecutionActionPayload,
   WEEKLY_EXECUTION_ACTIONS,
 } = require("../youth-development/tde/weeklyExecutionContract");
+const {
+  normalizeParentCommitmentPlan,
+  validateParentCommitmentSetup,
+  isParentCommitmentSetupComplete,
+} = require("../youth-development/tde/parentCommitmentSetupContract");
 
 const PREVIEW_AGGREGATED_ROWS = Object.freeze([
   Object.freeze({
@@ -153,17 +158,7 @@ function safeTrim(value) {
 }
 
 function isCommitmentSetupComplete(commitment = {}) {
-  const weeklyFrequency = Number(commitment.weekly_frequency || commitment.days_per_week || commitment.committed_days_per_week || 0);
-  const preferredDays = Array.isArray(commitment.preferred_days) ? commitment.preferred_days.filter(Boolean) : [];
-  const preferredTime = safeTrim(commitment.preferred_time || commitment.preferred_time_window);
-  const sessionLength = Number(commitment.session_length || commitment.session_duration_minutes || commitment.target_session_length || 0);
-  const energyType = safeTrim(commitment.energy_type).toLowerCase();
-  return weeklyFrequency >= 2
-    && weeklyFrequency <= 5
-    && preferredDays.length > 0
-    && Boolean(preferredTime)
-    && [15, 30, 45].includes(sessionLength)
-    && ["calm", "balanced", "high-energy"].includes(energyType);
+  return isParentCommitmentSetupComplete(commitment);
 }
 
 function normalizeAccountContext(source = {}) {
@@ -428,7 +423,7 @@ function buildWeekContentFromRail(weekModel, bridgeState = {}, planningState = {
       }
       : null);
   const activitySurface = buildActivitySurface({ childId: bridgeState.child_id, phaseNumber, parentCustomization });
-  const commitment = planningState.commitment_plan || null;
+  const commitment = planningState.commitment_plan ? normalizeParentCommitmentPlan(planningState.commitment_plan) : null;
   const setupComplete = isCommitmentSetupComplete(commitment || {});
   const plannedSessions = Array.isArray(planningState.scheduled_sessions) ? planningState.scheduled_sessions : [];
   const sessionTemplate = buildSessionTemplate({
@@ -2055,7 +2050,7 @@ function renderLiveYouthProgramPage() {
             <div id="plannerCalendarGrid" class="calendar-grid"><div class="calendar-day"><p class="tiny muted">Loading weekly planner calendar…</p></div></div>
             <ul id="agendaList" class="list"><li class="muted">Loading scheduled sessions…</li></ul>
             <button id="markNextSessionCompleteBtn" class="btn btn-secondary" type="button">Mark Next Session Complete</button>
-            <button id="openNextSessionBtn" class="btn btn-ghost" type="button">Open Next Scheduled Session</button>
+            <button id="openNextSessionBtn" class="btn btn-ghost" type="button">Open Scheduled Session</button>
             <p id="nextScheduledSession" class="tiny muted">Next scheduled session loading…</p>
           </div>
         </div>
@@ -2066,7 +2061,7 @@ function renderLiveYouthProgramPage() {
           <div class="session-actions">
             <button id="resumeSessionBtn" class="btn btn-primary" type="button">Resume Session</button>
             <button id="completeSelectedSessionBtn" class="btn btn-secondary" type="button">Mark Session Complete</button>
-            <button id="returnWeeklyOverviewBtn" class="btn btn-ghost" type="button">View Weekly Plan</button>
+            <button id="returnWeeklyOverviewBtn" class="btn btn-ghost" type="button">Return to Weekly Overview</button>
           </div>
         </div>
       </section>
@@ -3159,7 +3154,20 @@ function createYouthDevelopmentRouter(options = {}) {
     try {
       const accountCtx = resolveRequestAccountContext(req, req.body || {});
       const childId = safeTrim(req.body?.child_id || req.body?.childId);
-      const result = await saveProgramCommitmentPlan({ accountCtx, request: req, childId, commitment: req.body || {} });
+      const validation = validateParentCommitmentSetup(req.body || {});
+      if (!validation.ok) {
+        return res.status(200).json({
+          ok: false,
+          error: "commitment_setup_invalid",
+          messages: validation.errors,
+          required_fields: ["weekly_frequency", "preferred_days", "preferred_time", "session_length", "energy_type"],
+        });
+      }
+      const normalizedCommitment = normalizeParentCommitmentPlan({
+        ...validation.normalized,
+        child_id: childId || validation.normalized.child_id,
+      });
+      const result = await saveProgramCommitmentPlan({ accountCtx, request: req, childId, commitment: normalizedCommitment });
       return res.status(200).json(result);
     } catch (err) {
       console.error("youth_program_commitment_save_failed", err);
