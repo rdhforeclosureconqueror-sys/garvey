@@ -30,6 +30,7 @@
 | Next best action (Resume Session) | parent progress dashboard guidance | mirrors same session resume flow (`action_type=start_week`) | tenant+email+child_id+week | validated |
 | Next best action (Complete Reflection) | parent progress dashboard guidance | directs parent to reflection note save path (`action_type=save_reflection`) | tenant+email+child_id+week+note | validated |
 | Next best action (Finish this week to unlock Next Week) | parent progress dashboard guidance | explicit blocked-state copy only when progression contract unmet | tenant+email+child_id+week | validated |
+| Run Next Best Action | parent progress dashboard action button | dispatches to existing scoped controls (start/resume session, focus reflection, or continue next week); blocked copy when week not unlockable | child_id+week + existing control scope | validated |
 
 ## Known broken symptoms fixed
 - Parent-facing **Continue Next Week** path now returns explicit guard errors and UI feedback instead of silent no-op when progression requirements are unmet.
