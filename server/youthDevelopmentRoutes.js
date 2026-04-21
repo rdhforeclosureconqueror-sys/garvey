@@ -118,6 +118,25 @@ const STRETCH_LABELS = Object.freeze({
   leadership_micro_role: "Leadership micro-role",
 });
 
+const PROGRAM_CONNECTIVITY_CONTROLS = Object.freeze([
+  Object.freeze({ label: "Build Your Weekly Plan", surface: "weekly planner", handler: "saveCommitmentBtn.click", endpoint: "POST /api/youth-development/program/commitment", scope: "tenant+email+child+week", status: "working" }),
+  Object.freeze({ label: "Start Today’s Session", surface: "program page / Today", handler: "startTodaySessionBtn.click", endpoint: "POST /api/youth-development/program/week-execution", scope: "tenant+email+child+week+session", status: "working" }),
+  Object.freeze({ label: "Resume Session", surface: "program page / Today + lesson plan + agenda", handler: "resumeTodaySessionBtn.click | resumeSessionBtn.click | data-action=resume-session", endpoint: "POST /api/youth-development/program/week-execution", scope: "tenant+email+child+week+session", status: "working" }),
+  Object.freeze({ label: "View Weekly Plan", surface: "program page / Today", handler: "viewWeeklyPlanBtn.click", endpoint: "client-scroll:#plannerCalendarGrid", scope: "child/week local view", status: "working" }),
+  Object.freeze({ label: "Open Scheduled Session", surface: "weekly planner", handler: "openNextSessionBtn.click", endpoint: "client-render:lesson-plan", scope: "child/week/session local view", status: "working" }),
+  Object.freeze({ label: "Open Lesson Plan", surface: "weekly planner calendar", handler: "plannerCalendarGrid.click[data-action=open-session]", endpoint: "client-render:lesson-plan", scope: "child/week/session local view", status: "working" }),
+  Object.freeze({ label: "Mark Session Complete", surface: "weekly planner + lesson plan + agenda", handler: "markNextSessionCompleteBtn.click | completeSelectedSessionBtn.click | data-action=complete-session", endpoint: "POST /api/youth-development/program/session-complete", scope: "tenant+email+child+week+session", status: "working" }),
+  Object.freeze({ label: "Save Reflection", surface: "current week guided experience", handler: "saveReflectionBtn.click", endpoint: "POST /api/youth-development/program/week-execution", scope: "tenant+email+child+week", status: "working" }),
+  Object.freeze({ label: "Save Observation", surface: "current week guided experience", handler: "saveObservationBtn.click", endpoint: "POST /api/youth-development/program/week-execution", scope: "tenant+email+child+week", status: "working" }),
+  Object.freeze({ label: "Mark Step Complete", surface: "current week guided experience", handler: "markStepCompleteBtn.click", endpoint: "POST /api/youth-development/program/week-execution", scope: "tenant+email+child+week+step", status: "working" }),
+  Object.freeze({ label: "Continue to Next Step", surface: "current week guided experience", handler: "continueStepBtn.click", endpoint: "POST /api/youth-development/program/week-execution", scope: "tenant+email+child+week", status: "working" }),
+  Object.freeze({ label: "Continue Next Week", surface: "current week guided experience", handler: "continueNextWeekBtn.click", endpoint: "POST /api/youth-development/program/week-execution", scope: "tenant+email+child+week", status: "working" }),
+  Object.freeze({ label: "Return to Dashboard", surface: "program page", handler: "dashboardBtn.href", endpoint: "GET /youth-development/parent-dashboard", scope: "tenant+email+child", status: "working" }),
+  Object.freeze({ label: "Start Program / Continue Program", surface: "intake + parent dashboard + program launch", handler: "launchBtn.click", endpoint: "POST /api/youth-development/program/launch", scope: "tenant+email+child", status: "working" }),
+  Object.freeze({ label: "Previous week", surface: "current week guided experience", handler: "prevWeekBtn.click", endpoint: "client-nav:renderWeekDetails", scope: "child/week local view", status: "working" }),
+  Object.freeze({ label: "Next Week", surface: "current week guided experience", handler: "nextWeekBtn.click", endpoint: "client-nav:renderWeekDetails", scope: "child/week local view", status: "working" }),
+]);
+
 const REFLECTION_LABELS = Object.freeze({
   self_explanation_journal: "Self-explanation journal",
   mentor_dialogue_prompt: "Mentor dialogue prompt",
@@ -2352,6 +2371,33 @@ function renderLiveYouthProgramPage() {
             .map((node) => String(node.getAttribute("data-day-checkbox") || "").toLowerCase())
             .filter(Boolean);
         }
+        function validateCommitmentFormInputs() {
+          const preferredDays = getSelectedPreferredDays();
+          const weeklyFrequency = Number(commitDaysInput.value || preferredDays.length || 3);
+          const preferredTime = String(commitTimeInput.value || "").trim();
+          const sessionLength = Number(commitDurationInput.value || 0);
+          const startDateRaw = String(commitStartDateInput.value || "").trim();
+          const startDate = startDateRaw || new Date().toISOString().slice(0, 10);
+          const errors = [];
+          if (!Number.isInteger(weeklyFrequency) || weeklyFrequency < 2 || weeklyFrequency > 5) {
+            errors.push("Select a weekly frequency between 2 and 5 sessions.");
+          }
+          if (!Array.isArray(preferredDays) || preferredDays.length < 1) {
+            errors.push("Select at least one preferred day before saving.");
+          }
+          if (!/^([01]\d|2[0-3]):([0-5]\d)$/.test(preferredTime)) {
+            errors.push("Choose a valid preferred time in HH:MM format.");
+          }
+          if (![15, 30, 45].includes(sessionLength)) {
+            errors.push("Select a valid session length (15, 30, or 45 minutes).");
+          }
+          const parsedDate = new Date(startDate + "T00:00:00.000Z");
+          const dateLooksValid = Number.isFinite(parsedDate.getTime()) && parsedDate.toISOString().slice(0, 10) === startDate;
+          if (!dateLooksValid) {
+            errors.push("Choose a valid start date.");
+          }
+          return { ok: errors.length === 0, errors, weeklyFrequency, preferredDays, preferredTime, sessionLength, startDate };
+        }
         function renderCommitmentSchedulePreview(sessions) {
           const rows = Array.isArray(sessions) ? sessions : [];
           commitmentSchedulePreview.innerHTML = rows.length
@@ -2908,6 +2954,26 @@ function renderLiveYouthProgramPage() {
           setNextActionStatus("Action complete", ACTION_CONFIRMATIONS[actionType] || "Update saved.");
         }
 
+        async function submitSessionComplete(sessionId) {
+          if (!latestWeekPayload || !sessionId) return { ok: false, error: "session_id_required" };
+          const response = await fetch("/api/youth-development/program/session-complete", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              tenant: accountCtx.tenant,
+              email: accountCtx.email,
+              child_id: accountCtx.child_id,
+              week_number: latestWeekPayload.current_week,
+              session_id: sessionId,
+            }),
+          });
+          const payload = response.ok ? await response.json().catch(() => null) : null;
+          if (!payload || payload.ok !== true) {
+            return { ok: false, error: String(payload?.error || payload?.message || "session_complete_failed") };
+          }
+          return { ok: true, payload };
+        }
+
         async function loadWeekExperience() {
           const url = new URL("/api/youth-development/program/week-content", window.location.origin);
           if (accountCtx.tenant) url.searchParams.set("tenant", accountCtx.tenant);
@@ -3075,10 +3141,12 @@ function renderLiveYouthProgramPage() {
         });
         saveCommitmentBtn.addEventListener("click", async function () {
           if (!latestWeekPayload || !latestWeekPayload.week_content) return;
-          const preferredDays = getSelectedPreferredDays();
-          const weeklyFrequency = Number(commitDaysInput.value || preferredDays.length || 3);
-          const sessionLength = Number(commitDurationInput.value || 30);
+          const validation = validateCommitmentFormInputs();
           commitmentSaveFeedback.textContent = "";
+          if (!validation.ok) {
+            commitmentSaveFeedback.textContent = "Fix before saving: " + validation.errors.join(" ");
+            return;
+          }
           await withButtonBusy(saveCommitmentBtn, "Saving Plan…", async function () {
             const response = await fetch("/api/youth-development/program/commitment", {
               method: "POST",
@@ -3088,17 +3156,17 @@ function renderLiveYouthProgramPage() {
                 email: accountCtx.email,
                 child_id: accountCtx.child_id,
                 week_number: latestWeekPayload.current_week,
-                weekly_frequency: weeklyFrequency,
-                days_per_week: weeklyFrequency,
-                committed_days_per_week: weeklyFrequency,
-                preferred_days: preferredDays,
-                preferred_time: String(commitTimeInput.value || "17:30"),
-                preferred_time_window: String(commitTimeInput.value || "17:30"),
-                session_length: sessionLength,
-                target_session_length: sessionLength,
-                session_duration_minutes: sessionLength,
+                weekly_frequency: validation.weeklyFrequency,
+                days_per_week: validation.weeklyFrequency,
+                committed_days_per_week: validation.weeklyFrequency,
+                preferred_days: validation.preferredDays,
+                preferred_time: validation.preferredTime,
+                preferred_time_window: validation.preferredTime,
+                session_length: validation.sessionLength,
+                target_session_length: validation.sessionLength,
+                session_duration_minutes: validation.sessionLength,
                 energy_type: String(commitEnergyTypeInput.value || "balanced"),
-                start_date: String(commitStartDateInput.value || new Date().toISOString().slice(0, 10)),
+                start_date: validation.startDate,
               }),
             });
             const payload = response.ok ? await response.json().catch(() => null) : null;
@@ -3116,17 +3184,11 @@ function renderLiveYouthProgramPage() {
           const sessionId = String(markNextSessionCompleteBtn.dataset.sessionId || "");
           if (!sessionId || !latestWeekPayload) return;
           await withButtonBusy(markNextSessionCompleteBtn, "Completing…", async function () {
-            await fetch("/api/youth-development/program/session-complete", {
-              method: "POST",
-              headers: { "content-type": "application/json" },
-              body: JSON.stringify({
-                tenant: accountCtx.tenant,
-                email: accountCtx.email,
-                child_id: accountCtx.child_id,
-                week_number: latestWeekPayload.current_week,
-                session_id: sessionId,
-              }),
-            });
+            const result = await submitSessionComplete(sessionId);
+            if (!result.ok) {
+              setNextActionStatus("Action blocked", "Could not mark session complete: " + String(result.error || "unknown_error"));
+              return;
+            }
             await loadWeekExperience();
           });
         });
@@ -3190,17 +3252,11 @@ function renderLiveYouthProgramPage() {
           selectedSessionId = sessionId;
           if (action === "complete-session") {
             setNextActionStatus("Action in progress", "Marking selected session complete…");
-            await fetch("/api/youth-development/program/session-complete", {
-              method: "POST",
-              headers: { "content-type": "application/json" },
-              body: JSON.stringify({
-                tenant: accountCtx.tenant,
-                email: accountCtx.email,
-                child_id: accountCtx.child_id,
-                week_number: latestWeekPayload.current_week,
-                session_id: sessionId,
-              }),
-            });
+            const result = await submitSessionComplete(sessionId);
+            if (!result.ok) {
+              setNextActionStatus("Action blocked", "Could not mark session complete: " + String(result.error || "unknown_error"));
+              return;
+            }
             await loadWeekExperience();
             return;
           }
@@ -3220,17 +3276,11 @@ function renderLiveYouthProgramPage() {
           if (!selectedSessionId || !latestWeekPayload) return;
           setNextActionStatus("Action in progress", "Completing selected lesson-plan session…");
           await withButtonBusy(completeSelectedSessionBtn, "Completing…", async function () {
-            await fetch("/api/youth-development/program/session-complete", {
-              method: "POST",
-              headers: { "content-type": "application/json" },
-              body: JSON.stringify({
-                tenant: accountCtx.tenant,
-                email: accountCtx.email,
-                child_id: accountCtx.child_id,
-                week_number: latestWeekPayload.current_week,
-                session_id: selectedSessionId,
-              }),
-            });
+            const result = await submitSessionComplete(selectedSessionId);
+            if (!result.ok) {
+              setNextActionStatus("Action blocked", "Could not mark session complete: " + String(result.error || "unknown_error"));
+              return;
+            }
             await loadWeekExperience();
           });
         });
@@ -3623,6 +3673,25 @@ function createYouthDevelopmentRouter(options = {}) {
     } catch (err) {
       console.error("youth_program_week_execution_audit_failed", err);
       return res.status(500).json({ ok: false, error: "youth_program_week_execution_audit_failed" });
+    }
+  });
+
+  router.get("/api/youth-development/program/connectivity-audit", async (_req, res) => {
+    try {
+      return res.status(200).json({
+        ok: true,
+        contract: "parent_program_connectivity_audit_v1",
+        controls: PROGRAM_CONNECTIVITY_CONTROLS,
+        totals: {
+          controls: PROGRAM_CONNECTIVITY_CONTROLS.length,
+          working: PROGRAM_CONNECTIVITY_CONTROLS.filter((entry) => entry.status === "working").length,
+          partial: PROGRAM_CONNECTIVITY_CONTROLS.filter((entry) => entry.status === "partial").length,
+          broken: PROGRAM_CONNECTIVITY_CONTROLS.filter((entry) => entry.status === "broken").length,
+        },
+      });
+    } catch (err) {
+      console.error("youth_program_connectivity_audit_failed", err);
+      return res.status(500).json({ ok: false, error: "youth_program_connectivity_audit_failed" });
     }
   });
 
