@@ -317,6 +317,118 @@ test('GET /api/youth-development/parent-dashboard/latest forwards optional child
   }
 });
 
+test('assessment history continuity keeps prior records while latest result updates for same child scope', async () => {
+  const records = new Map();
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    persistYouthAssessment: async ({ accountCtx, responsePayload, requestBody }) => {
+      const key = `${accountCtx.tenant}:${accountCtx.email}:${requestBody.child_id || 'child-real-1'}`;
+      const history = records.get(key) || [];
+      const nextEntry = {
+        ...responsePayload,
+        saved_at: new Date(Date.now() + history.length * 1000).toISOString(),
+        interpretation: {
+          ...responsePayload.scoring.interpretation,
+        },
+      };
+      history.unshift(nextEntry);
+      records.set(key, history);
+      return {
+        account_bound: true,
+        tenant: accountCtx.tenant,
+        email: accountCtx.email,
+        child_profile: { child_id: requestBody.child_id || 'child-real-1', child_name: requestBody.child_name || 'Maya' },
+      };
+    },
+    loadLatestYouthAssessment: async ({ accountCtx, childId }) => {
+      const key = `${accountCtx.tenant}:${accountCtx.email}:${childId || 'child-real-1'}`;
+      const history = records.get(key) || [];
+      if (!history.length) return null;
+      return {
+        ...history[0],
+        assessment_history: history.map((entry, idx) => ({
+          submission_id: idx + 1,
+          saved_at: entry.saved_at,
+          child_profile: { child_id: childId || 'child-real-1', child_name: 'Maya' },
+          interpretation: entry.interpretation || {},
+        })),
+      };
+    },
+    listYouthChildProfiles: async () => ([{ child_id: 'child-real-1', child_name: 'Maya' }]),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const first = await fetch(`${baseUrl}/api/youth-development/assess`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', email: 'parent@example.com', child_id: 'child-real-1', child_name: 'Maya', answers: buildAnswers(() => 2) }),
+    });
+    assert.equal(first.status, 200);
+    const second = await fetch(`${baseUrl}/api/youth-development/assess`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ tenant: 'demo', email: 'parent@example.com', child_id: 'child-real-1', child_name: 'Maya', answers: buildAnswers(() => 3) }),
+    });
+    assert.equal(second.status, 200);
+
+    const latestRes = await fetch(`${baseUrl}/api/youth-development/parent-dashboard/latest?tenant=demo&email=parent@example.com&child_id=child-real-1`);
+    assert.equal(latestRes.status, 200);
+    const latest = await latestRes.json();
+    assert.equal(latest.ok, true);
+    assert.equal(latest.has_result, true);
+    assert.ok(Array.isArray(latest.payload.assessment_history));
+    assert.equal(latest.payload.assessment_history.length, 2);
+    assert.equal(latest.payload.assessment_history[0].child_profile.child_id, 'child-real-1');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('program bridge consumes saved assessment context and does not false-empty when latest result exists', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    loadLatestYouthAssessment: async ({ childId }) => ({
+      page_model: { page_title: 'Youth Development Parent Dashboard' },
+      saved_at: '2026-04-01T00:00:00.000Z',
+      assessment_history: [{ submission_id: 1, child_profile: { child_id: childId || 'child-real-1' } }],
+    }),
+    listYouthChildProfiles: async () => ([{ child_id: 'child-real-1', child_name: 'Maya' }]),
+    getProgramBridgeState: async ({ childId }) => ({
+      ok: true,
+      child_id: childId,
+      launch_allowed: true,
+      has_enrollment: false,
+      current_week: 1,
+      next_recommended_action: 'Start Program',
+      cta: { label: 'Start Program', href: `/youth-development/program?child_id=${childId}` },
+    }),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const latest = await fetch(`${baseUrl}/api/youth-development/parent-dashboard/latest?tenant=demo&email=parent@example.com&child_id=child-real-1`);
+    assert.equal(latest.status, 200);
+    const latestPayload = await latest.json();
+    assert.equal(latestPayload.has_result, true);
+
+    const bridge = await fetch(`${baseUrl}/api/youth-development/program/bridge?tenant=demo&email=parent@example.com&child_id=child-real-1`);
+    assert.equal(bridge.status, 200);
+    const bridgePayload = await bridge.json();
+    assert.equal(bridgePayload.ok, true);
+    assert.equal(bridgePayload.launch_allowed, true);
+    assert.equal(bridgePayload.child_id, 'child-real-1');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
 test('GET /api/youth-development/program/bridge returns child-scoped parent launch status', async () => {
   const app = express();
   app.use(express.json());

@@ -1593,6 +1593,11 @@ function renderLiveYouthParentDashboardPage() {
       </section>
 
       <section class="panel">
+        <h2>Assessment history</h2>
+        <ul id="assessmentHistory" class="list"><li class="muted">Complete an assessment to build history continuity.</li></ul>
+      </section>
+
+      <section class="panel">
         <h2>Development program</h2>
         <p id="programStatusSummary" class="muted">Complete an assessment to unlock your child-specific development program.</p>
         <ul id="programStatusList" class="list"><li class="muted">No program status yet.</li></ul>
@@ -1849,6 +1854,28 @@ function renderLiveYouthParentDashboardPage() {
           suggestions.push('<li><strong>Environment-based:</strong> Create a predictable routine (same time, same place, short duration) so progress is easier to see across the week.</li>');
 
           host.innerHTML = suggestions.join('');
+        }
+
+        function renderAssessmentHistory(data) {
+          const host = document.getElementById("assessmentHistory");
+          const history = Array.isArray(data && data.assessment_history) ? data.assessment_history : [];
+          if (!history.length) {
+            host.innerHTML = '<li class="muted">No saved assessment history found for this child/account scope.</li>';
+            return;
+          }
+          host.innerHTML = history.slice(0, 12).map((entry, idx) => {
+            const highest = entry && entry.interpretation && entry.interpretation.highest_trait ? entry.interpretation.highest_trait : {};
+            const lowest = entry && entry.interpretation && entry.interpretation.lowest_trait ? entry.interpretation.lowest_trait : {};
+            const completed = formatDate(entry && entry.saved_at);
+            const childName = String(entry?.child_profile?.child_name || "").trim();
+            const rowLabel = idx === 0 ? "Latest" : ("Previous #" + String(idx));
+            return '<li><strong>' + esc(rowLabel) + ' assessment:</strong> '
+              + esc(completed)
+              + (childName ? (' · Child: ' + esc(childName)) : '')
+              + (highest && highest.trait_name ? (' · Top strength: ' + esc(highest.trait_name)) : '')
+              + (lowest && lowest.trait_name ? (' · Growth focus: ' + esc(lowest.trait_name)) : '')
+              + '</li>';
+          }).join("");
         }
 
         function bindHelpButtons() {
@@ -2187,6 +2214,7 @@ function renderLiveYouthParentDashboardPage() {
           renderStrengths(data);
           renderSupport(data);
           renderWeeklySupport(data);
+          renderAssessmentHistory(data);
           bindHelpButtons();
           return true;
         }
