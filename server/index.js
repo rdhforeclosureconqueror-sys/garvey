@@ -1066,6 +1066,52 @@ function buildChildProfileFromInput(accountCtx = {}, requestBody = {}) {
   };
 }
 
+function deriveLegacyChildScopeIdFromRow({ tenantSlug = "", email = "", rawAnswers = {}, customerName = "" }) {
+  const normalizedTenant = String(tenantSlug || "").trim().toLowerCase();
+  const normalizedEmail = normalizeEmail(email || "");
+  if (!normalizedTenant || !normalizedEmail) return "";
+  const ownershipProfile = rawAnswers?.ownership?.child_profile || {};
+  const persistedChildName = normalizeChildDisplayName(ownershipProfile?.child_name || "");
+  const fallbackChildName = normalizeChildDisplayName(customerName || "");
+  const candidateName = persistedChildName || fallbackChildName;
+  if (!candidateName) return "";
+  return deriveChildScopeId({ tenantSlug: normalizedTenant, email: normalizedEmail, childName: candidateName });
+}
+
+function mapYouthAssessmentHistoryEntry({ row, tenantSlug = "", email = "" }) {
+  const raw = row?.raw_answers && typeof row.raw_answers === "object" ? row.raw_answers : {};
+  const payload = raw?.payload && typeof raw.payload === "object" ? raw.payload : {};
+  const ownership = raw?.ownership && typeof raw.ownership === "object" ? raw.ownership : {};
+  const childProfile = ownership?.child_profile && typeof ownership.child_profile === "object"
+    ? ownership.child_profile
+    : {};
+  const normalizedChildId = normalizeChildScopeId(childProfile?.child_id || "")
+    || deriveLegacyChildScopeIdFromRow({
+      tenantSlug,
+      email,
+      rawAnswers: raw,
+      customerName: row?.customer_name || "",
+    })
+    || null;
+  const highest = payload?.interpretation?.highest_trait || {};
+  const lowest = payload?.interpretation?.lowest_trait || {};
+  return {
+    submission_id: row?.id || null,
+    saved_at: row?.created_at || null,
+    child_profile: {
+      child_id: normalizedChildId,
+      child_name: normalizeChildDisplayName(childProfile?.child_name || row?.customer_name || "") || null,
+      child_age_band: childProfile?.child_age_band || null,
+      child_grade_band: childProfile?.child_grade_band || null,
+    },
+    interpretation: {
+      highest_trait: highest || {},
+      lowest_trait: lowest || {},
+    },
+    completion: payload?.completion || {},
+  };
+}
+
 function resolvePhaseForWeek(weekNumber) {
   const week = Number(weekNumber);
   if (!Number.isInteger(week) || week < 1) return null;
@@ -2132,6 +2178,13 @@ async function persistYouthAssessmentForAccount({
       String(accountCtx?.cid || "").trim() || null,
     ]
   );
+  console.info("youth_assessment_persisted", {
+    tenant: tenant.slug,
+    email: user.email,
+    user_id: user.id,
+    submission_id: inserted.rows[0]?.id || null,
+    child_id: childProfile.child_id || null,
+  });
   return {
     account_bound: true,
     tenant: tenant.slug,
@@ -2151,26 +2204,53 @@ async function loadLatestYouthAssessmentForAccount({ accountCtx, childId = "" })
   if (!tenant) return null;
   const scopedChildId = normalizeChildScopeId(childId);
   const latest = await pool.query(
-    `SELECT a.raw_answers, a.id, a.created_at
+    `SELECT a.raw_answers, a.id, a.created_at, a.customer_name
      FROM assessment_submissions a
      LEFT JOIN users u ON u.id = a.user_id
      WHERE a.tenant_id = $1
        AND a.assessment_type = 'youth'
        AND LOWER(COALESCE(a.customer_email, u.email, '')) = $2
-       AND ($3 = '' OR COALESCE(a.raw_answers->'ownership'->'child_profile'->>'child_id', '') = $3)
      ORDER BY a.created_at DESC, a.id DESC
-     LIMIT 1`,
-    [tenant.id, email, scopedChildId]
+     LIMIT 100`,
+    [tenant.id, email]
   );
-  const row = latest.rows[0];
+  const scopedRows = latest.rows.filter((row) => {
+    if (!scopedChildId) return true;
+    const raw = row?.raw_answers && typeof row.raw_answers === "object" ? row.raw_answers : {};
+    const explicitChildId = normalizeChildScopeId(raw?.ownership?.child_profile?.child_id || "");
+    if (explicitChildId && explicitChildId === scopedChildId) return true;
+    const derivedLegacyChildId = deriveLegacyChildScopeIdFromRow({
+      tenantSlug,
+      email,
+      rawAnswers: raw,
+      customerName: row?.customer_name || "",
+    });
+    return Boolean(derivedLegacyChildId && derivedLegacyChildId === scopedChildId);
+  });
+  const row = scopedRows[0];
   if (!row || !row.raw_answers || typeof row.raw_answers !== "object") return null;
   const payload = row.raw_answers.payload && typeof row.raw_answers.payload === "object"
     ? row.raw_answers.payload
     : null;
   if (!payload) return null;
+  const history = scopedRows.map((entry) => mapYouthAssessmentHistoryEntry({ row: entry, tenantSlug, email }));
+  console.info("youth_assessment_latest_lookup", {
+    tenant: tenant.slug,
+    email,
+    requested_child_id: scopedChildId || null,
+    scoped_result_count: scopedRows.length,
+    latest_submission_id: row.id || null,
+  });
   return {
     ...payload,
+    ownership: row.raw_answers.ownership && typeof row.raw_answers.ownership === "object" ? row.raw_answers.ownership : {},
     saved_at: row.created_at || null,
+    assessment_history: history,
+    diagnostics: {
+      scoped_history_count: scopedRows.length,
+      latest_submission_id: row.id || null,
+      requested_child_id: scopedChildId || null,
+    },
   };
 }
 
