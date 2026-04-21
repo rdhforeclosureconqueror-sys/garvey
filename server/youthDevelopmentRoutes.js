@@ -1499,6 +1499,8 @@ function renderLiveYouthParentDashboardPage() {
       .btn-primary { background: #0891b2; color: #ecfeff; border-color: rgba(6, 182, 212, 0.55); }
       .btn-secondary { background: rgba(30, 64, 175, 0.35); color: #dbeafe; border-color: rgba(96, 165, 250, 0.5); }
       .btn-ghost { background: transparent; color: #bae6fd; border-color: rgba(56, 189, 248, 0.45); }
+      .voice-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 6px 0 10px; }
+      .voice-btn { font-size: 12px; padding: 6px 10px; }
       dialog {
         border: 1px solid var(--line);
         border-radius: 14px;
@@ -1532,21 +1534,34 @@ function renderLiveYouthParentDashboardPage() {
 
       <section class="panel">
         <h2>Snapshot cards</h2>
+        <p id="snapshotVoiceStatus" class="tiny muted">Read-aloud status: checking…</p>
         <div id="snapshotCards" class="grid cards"></div>
       </section>
 
       <section class="panel">
         <h2>Top strengths</h2>
+        <div class="voice-controls">
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-control="topStrengths" data-voice-label="Top strengths">Read this section</button>
+          <span id="topStrengthsVoiceStatus" class="tiny muted">Read-aloud status: checking…</span>
+        </div>
         <ul id="topStrengths" class="list"><li class="muted">Complete an assessment to view strengths.</li></ul>
       </section>
 
       <section class="panel">
         <h2>Areas to strengthen</h2>
+        <div class="voice-controls">
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-control="areasToStrengthen" data-voice-label="Areas to strengthen">Read this section</button>
+          <span id="areasToStrengthenVoiceStatus" class="tiny muted">Read-aloud status: checking…</span>
+        </div>
         <ul id="areasToStrengthen" class="list"><li class="muted">Complete an assessment to view growth areas.</li></ul>
       </section>
 
       <section class="panel">
         <h2>How to support this week</h2>
+        <div class="voice-controls">
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-control="weeklySupport" data-voice-label="How to support this week">Read this section</button>
+          <span id="weeklySupportVoiceStatus" class="tiny muted">Read-aloud status: checking…</span>
+        </div>
         <ul id="weeklySupport" class="list"><li class="muted">Complete an assessment to unlock support suggestions.</li></ul>
       </section>
 
@@ -1583,6 +1598,7 @@ function renderLiveYouthParentDashboardPage() {
           tenant: (query.get("tenant") || "").trim(),
           email: (query.get("email") || "").trim().toLowerCase(),
         };
+        const voiceState = { childId: "", sectionMap: {}, displayStatus: "voice_unknown" };
         const programStatusSummary = document.getElementById("programStatusSummary");
         const programStatusList = document.getElementById("programStatusList");
         const programLaunchBtn = document.getElementById("programLaunchBtn");
@@ -1725,7 +1741,7 @@ function renderLiveYouthParentDashboardPage() {
             const whyItMatters = card.why_it_matters || "This pattern can affect confidence, consistency, and learning momentum.";
             const whatHelpsNext = card.progress_look_fors || card.emotional_context || "Keep routines predictable and practice in short repeatable blocks.";
             return [
-              '<article class="snapshot-card">',
+              '<article class="snapshot-card" data-snapshot-card="' + esc(code) + '">',
                 '<div class="pill-head">',
                   '<div>',
                     '<h3 style="margin:0 0 4px;">' + esc(meta.parentLabel) + '</h3>',
@@ -1733,6 +1749,7 @@ function renderLiveYouthParentDashboardPage() {
                   '</div>',
                   '<button class="help-btn" data-help-code="' + esc(code) + '" aria-label="Explain ' + esc(meta.parentLabel) + '">?</button>',
                 '</div>',
+                '<div class="voice-controls"><button class="btn btn-ghost voice-btn" type="button" data-voice-card="' + esc(code) + '">Read this card</button></div>',
                 '<div><span class="status-badge ' + tone.klass + '">' + esc(tone.label) + '</span> <span class="tiny">Score: ' + score + '%</span></div>',
                 '<div class="meter" aria-label="' + esc(meta.parentLabel) + ' score meter"><span style="width:' + score + '%"></span></div>',
                 '<p><strong>What your child currently shows:</strong> ' + esc(oneLine) + '</p>',
@@ -1795,6 +1812,91 @@ function renderLiveYouthParentDashboardPage() {
           Array.from(document.querySelectorAll('[data-help-code]')).forEach((button) => {
             button.addEventListener('click', function () {
               openHelp(button.getAttribute('data-help-code'));
+            });
+          });
+        }
+        function updateVoiceStatusCopy() {
+          const summary = String(voiceState.displayStatus || "voice_unknown").replace(/_/g, " ");
+          ["snapshotVoiceStatus", "topStrengthsVoiceStatus", "areasToStrengthenVoiceStatus", "weeklySupportVoiceStatus"].forEach((id) => {
+            const host = document.getElementById(id);
+            if (host) host.textContent = "Read-aloud status: " + summary + ".";
+          });
+        }
+        function getReadableTextFromElement(id) {
+          const host = document.getElementById(id);
+          if (!host) return "";
+          return String(host.textContent || "").replace(/\s+/g, " ").trim();
+        }
+        function safePlayText(text) {
+          const speech = typeof window !== "undefined" ? window.speechSynthesis : null;
+          const spoken = String(text || "").trim();
+          if (!speech || typeof window.SpeechSynthesisUtterance !== "function" || !spoken) return false;
+          try {
+            speech.cancel();
+            speech.speak(new window.SpeechSynthesisUtterance(spoken));
+            return true;
+          } catch (_err) {
+            return false;
+          }
+        }
+        async function loadVoiceSectionsForChild(childId) {
+          if (!childId) return;
+          try {
+            const response = await fetch('/api/youth-development/tde/voice/sections/' + encodeURIComponent(String(childId)));
+            const payload = response.ok ? await response.json().catch(() => null) : null;
+            if (!payload || payload.ok !== true) {
+              voiceState.displayStatus = "voice_unavailable";
+              updateVoiceStatusCopy();
+              return;
+            }
+            voiceState.sectionMap = (Array.isArray(payload.sections) ? payload.sections : []).reduce((acc, item) => {
+              const key = String(item.section_key || "").trim();
+              if (key) acc[key] = item;
+              return acc;
+            }, {});
+            voiceState.displayStatus = String(payload.display_status || payload.voice_readiness_status || payload.voice_state?.availability || "voice_unknown");
+            updateVoiceStatusCopy();
+          } catch (_err) {
+            voiceState.displayStatus = "voice_unavailable";
+            updateVoiceStatusCopy();
+          }
+        }
+        function sectionVoiceTextForTarget(targetId, fallbackText) {
+          const map = voiceState.sectionMap || {};
+          const keys = targetId === "topStrengths"
+            ? ["top_strengths", "strengths", "summary"]
+            : targetId === "areasToStrengthen"
+              ? ["areas_to_strengthen", "support", "growth_focus"]
+              : targetId === "weeklySupport"
+                ? ["weekly_support", "weekly_program_support", "next_actions"]
+                : [];
+          for (const key of keys) {
+            const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
+            if (text) return text;
+          }
+          return String(fallbackText || "").trim();
+        }
+        function bindVoiceControls() {
+          Array.from(document.querySelectorAll("[data-voice-control]")).forEach((button) => {
+            button.addEventListener("click", function () {
+              const targetId = String(button.getAttribute("data-voice-control") || "").trim();
+              const label = String(button.getAttribute("data-voice-label") || targetId || "section");
+              const fallbackText = getReadableTextFromElement(targetId);
+              const voiceText = sectionVoiceTextForTarget(targetId, fallbackText);
+              if (!safePlayText(voiceText)) {
+                alert("Read-aloud is unavailable on this device right now. You can still read: " + label + ".");
+              }
+            });
+          });
+          Array.from(document.querySelectorAll("[data-voice-card]")).forEach((button) => {
+            button.addEventListener("click", function () {
+              const code = String(button.getAttribute("data-voice-card") || "").trim().toUpperCase();
+              const cardHost = document.querySelector('[data-snapshot-card="' + code + '"]');
+              const fallbackText = String(cardHost?.textContent || "").replace(/\s+/g, " ").trim();
+              const voiceText = String(voiceState.sectionMap[code]?.voice_text || fallbackText || "").trim();
+              if (!safePlayText(voiceText)) {
+                alert("Read-aloud is unavailable on this device right now. This card remains readable in text.");
+              }
             });
           });
         }
@@ -1875,6 +1977,7 @@ function renderLiveYouthParentDashboardPage() {
           renderSupport(data);
           renderWeeklySupport(data);
           bindHelpButtons();
+          bindVoiceControls();
           return true;
         }
 
@@ -1919,6 +2022,8 @@ function renderLiveYouthParentDashboardPage() {
             await hydrateProgramBridge(scopedChild, false);
             return false;
           }
+          voiceState.childId = String(scopedChild?.child_id || "");
+          await loadVoiceSectionsForChild(voiceState.childId);
           const applied = applyPayload(data.payload, { savedAt: data.saved_at || data.payload.saved_at || '' });
           await hydrateProgramBridge(scopedChild, applied === true);
           return applied;
@@ -1936,6 +2041,7 @@ function renderLiveYouthParentDashboardPage() {
         }
 
         if (payload && applyPayload(payload, { savedAt: payload?.ownership?.saved_at || payload?.saved_at })) return;
+        updateVoiceStatusCopy();
         hydrateFromAccount().catch(() => null);
       }());
     </script>
@@ -2031,6 +2137,8 @@ function renderLiveYouthProgramPage() {
       .step-active { font-weight: 700; color: #bfdbfe; }
       .step-complete { color: #86efac; }
       .is-hidden { display: none !important; }
+      .field-error { color: #fecaca; margin: 4px 0 0; font-size: 12px; }
+      .voice-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 6px 0 0; }
     </style>
   </head>
   <body>
@@ -2091,6 +2199,7 @@ function renderLiveYouthProgramPage() {
           <div class="state-box">
             <h3 class="state-title">Build Your Weekly Plan</h3>
             <label class="tiny">Weekly frequency (2–5 sessions)</label><input id="commitDaysInput" class="input" type="number" min="2" max="5" value="3" />
+            <p id="commitDaysError" class="field-error" role="status" aria-live="polite"></p>
             <label class="tiny">Preferred days</label>
             <div id="commitPreferredDaysGroup" class="chip-row">
               <label class="chip"><input type="checkbox" data-day-checkbox="monday"> Mon</label>
@@ -2101,11 +2210,16 @@ function renderLiveYouthProgramPage() {
               <label class="chip"><input type="checkbox" data-day-checkbox="saturday"> Sat</label>
               <label class="chip"><input type="checkbox" data-day-checkbox="sunday"> Sun</label>
             </div>
+            <p id="commitPreferredDaysError" class="field-error" role="status" aria-live="polite"></p>
             <label class="tiny">Preferred time</label><input id="commitTimeInput" class="input" type="text" value="5:30 PM" placeholder="5:30 PM" inputmode="text" />
+            <p id="commitTimeError" class="field-error" role="status" aria-live="polite"></p>
             <p class="tiny muted">Use parent-friendly time, for example 5:30 PM.</p>
             <label class="tiny">Session length (minutes)</label><select id="commitDurationInput" class="input"><option value="15">15</option><option value="30" selected>30</option><option value="45">45</option></select>
+            <p id="commitDurationError" class="field-error" role="status" aria-live="polite"></p>
             <label class="tiny">Energy type</label><select id="commitEnergyTypeInput" class="input"><option value="calm">calm</option><option value="balanced" selected>balanced</option><option value="high-energy">high-energy</option></select>
+            <p id="commitEnergyError" class="field-error" role="status" aria-live="polite"></p>
             <label class="tiny">Start date</label><input id="commitStartDateInput" class="input" type="date" />
+            <p id="commitStartDateError" class="field-error" role="status" aria-live="polite"></p>
             <button id="saveCommitmentBtn" class="btn btn-primary" type="button">Build Your Weekly Plan</button>
             <p id="commitmentSaveFeedback" class="tiny muted" role="status" aria-live="polite"></p>
             <p id="commitmentSummary" class="tiny muted">Commitment not set.</p>
@@ -2147,6 +2261,10 @@ function renderLiveYouthProgramPage() {
         <div class="grid-2">
           <div class="state-box">
             <h3 class="state-title">Weekly goals + parent guidance</h3>
+            <div class="voice-controls">
+              <button id="readWeeklyGoalsBtn" class="btn btn-ghost" type="button">Read weekly goals</button>
+              <span id="weeklyGoalsVoiceStatus" class="tiny muted">Read-aloud fallback ready.</span>
+            </div>
             <ul id="weeklyGoals" class="list"><li class="muted">Loading goals…</li></ul>
             <ul id="weeklyGuidance" class="list"><li class="muted">Loading parent guidance…</li></ul>
           </div>
@@ -2253,6 +2371,8 @@ function renderLiveYouthProgramPage() {
         const weekExperience = document.getElementById("weekExperience");
         const weeklyGoals = document.getElementById("weeklyGoals");
         const weeklyGuidance = document.getElementById("weeklyGuidance");
+        const readWeeklyGoalsBtn = document.getElementById("readWeeklyGoalsBtn");
+        const weeklyGoalsVoiceStatus = document.getElementById("weeklyGoalsVoiceStatus");
         const progressSummary = document.getElementById("progressSummary");
         const progressFill = document.getElementById("progressFill");
         const roadmapList = document.getElementById("roadmapList");
@@ -2274,9 +2394,15 @@ function renderLiveYouthProgramPage() {
         const commitDaysInput = document.getElementById("commitDaysInput");
         const commitPreferredDaysGroup = document.getElementById("commitPreferredDaysGroup");
         const commitTimeInput = document.getElementById("commitTimeInput");
+        const commitDaysError = document.getElementById("commitDaysError");
+        const commitPreferredDaysError = document.getElementById("commitPreferredDaysError");
+        const commitTimeError = document.getElementById("commitTimeError");
         const commitDurationInput = document.getElementById("commitDurationInput");
+        const commitDurationError = document.getElementById("commitDurationError");
         const commitEnergyTypeInput = document.getElementById("commitEnergyTypeInput");
+        const commitEnergyError = document.getElementById("commitEnergyError");
         const commitStartDateInput = document.getElementById("commitStartDateInput");
+        const commitStartDateError = document.getElementById("commitStartDateError");
         const saveCommitmentBtn = document.getElementById("saveCommitmentBtn");
         const commitmentSaveFeedback = document.getElementById("commitmentSaveFeedback");
         const commitmentSchedulePreview = document.getElementById("commitmentSchedulePreview");
@@ -2332,6 +2458,7 @@ function renderLiveYouthProgramPage() {
         let latestWeekPayload = null;
         let navWeekOffset = 0;
         let selectedSessionId = "";
+        const plannerCommitmentState = { preferredTime: toCanonical12Hour(String(commitTimeInput?.value || "5:30 PM")) };
         function setButtonBusy(button, isBusy, busyLabel) {
           if (!button) return;
           if (!button.dataset.defaultLabel) button.dataset.defaultLabel = button.textContent;
@@ -2404,6 +2531,56 @@ function renderLiveYouthProgramPage() {
             .map((node) => String(node.getAttribute("data-day-checkbox") || "").toLowerCase())
             .filter(Boolean);
         }
+        function setPlannerFieldErrors(errorMap) {
+          commitDaysError.textContent = errorMap.weekly_frequency || "";
+          commitPreferredDaysError.textContent = errorMap.preferred_days || "";
+          commitTimeError.textContent = errorMap.preferred_time || "";
+          commitDurationError.textContent = errorMap.session_length || "";
+          commitEnergyError.textContent = errorMap.energy_type || "";
+          commitStartDateError.textContent = errorMap.start_date || "";
+        }
+        function toFieldErrorMap(errors) {
+          const map = {};
+          (errors || []).forEach((entry) => {
+            const token = String(entry || "").toLowerCase();
+            if (token.includes("weekly_frequency")) map.weekly_frequency = "Select a weekly frequency between 2 and 5 sessions.";
+            else if (token.includes("preferred_days")) map.preferred_days = "Select at least one preferred day before saving.";
+            else if (token.includes("preferred_time")) map.preferred_time = "Choose a valid preferred time like 5:30 PM.";
+            else if (token.includes("session_length")) map.session_length = "Select a valid session length (15, 30, or 45 minutes).";
+            else if (token.includes("energy_type")) map.energy_type = "Select calm, balanced, or high-energy.";
+            else if (token.includes("start_date")) map.start_date = "Choose a valid start date.";
+          });
+          return map;
+        }
+        function syncPreferredTimeState() {
+          plannerCommitmentState.preferredTime = toCanonical12Hour(String(commitTimeInput.value || "").trim());
+        }
+        function safePlayText(text) {
+          const spoken = String(text || "").trim();
+          const speech = typeof window !== "undefined" ? window.speechSynthesis : null;
+          if (!spoken || !speech || typeof window.SpeechSynthesisUtterance !== "function") return false;
+          try {
+            speech.cancel();
+            speech.speak(new window.SpeechSynthesisUtterance(spoken));
+            return true;
+          } catch (_err) {
+            return false;
+          }
+        }
+        async function loadProgramVoiceStatus() {
+          const childId = String(accountCtx.child_id || "").trim();
+          if (!childId || !weeklyGoalsVoiceStatus) return;
+          try {
+            const response = await fetch("/api/youth-development/tde/voice/sections/" + encodeURIComponent(childId));
+            const payload = response.ok ? await response.json().catch(() => null) : null;
+            const status = payload && payload.ok === true
+              ? String(payload.display_status || payload.voice_readiness_status || payload.voice_state?.availability || "voice_unknown")
+              : "voice_unavailable";
+            weeklyGoalsVoiceStatus.textContent = "Read-aloud status: " + status.replace(/_/g, " ") + ".";
+          } catch (_err) {
+            weeklyGoalsVoiceStatus.textContent = "Read-aloud status: voice unavailable.";
+          }
+        }
         function parse12HourTime(time12) {
           const raw = String(time12 || "").trim();
           const match = raw.match(/^([1-9]|1[0-2]):([0-5]\d)\s*(AM|PM)$/i);
@@ -2430,35 +2607,42 @@ function renderLiveYouthProgramPage() {
         function validateCommitmentFormInputs() {
           const preferredDays = getSelectedPreferredDays();
           const weeklyFrequency = Number(commitDaysInput.value || preferredDays.length || 3);
+          syncPreferredTimeState();
           const preferredTimeRaw = String(commitTimeInput.value || "").trim();
-          const preferredTime = toCanonical12Hour(preferredTimeRaw);
+          const preferredTime = String(plannerCommitmentState.preferredTime || toCanonical12Hour(preferredTimeRaw)).trim();
           const sessionLength = Number(commitDurationInput.value || 0);
           const startDateRaw = String(commitStartDateInput.value || "").trim();
           const startDate = startDateRaw || new Date().toISOString().slice(0, 10);
           const errors = [];
+          const fieldErrors = {};
           if (!Number.isInteger(weeklyFrequency) || weeklyFrequency < 2 || weeklyFrequency > 5) {
             errors.push("Select a weekly frequency between 2 and 5 sessions.");
+            fieldErrors.weekly_frequency = "Select a weekly frequency between 2 and 5 sessions.";
           }
           if (!Array.isArray(preferredDays) || preferredDays.length < 1) {
             errors.push("Select at least one preferred day before saving.");
+            fieldErrors.preferred_days = "Select at least one preferred day before saving.";
           }
           if (!parse12HourTime(preferredTime)) {
             errors.push("Choose a valid preferred time like 5:30 PM.");
+            fieldErrors.preferred_time = "Choose a valid preferred time like 5:30 PM.";
           }
           if (![15, 30, 45].includes(sessionLength)) {
             errors.push("Select a valid session length (15, 30, or 45 minutes).");
+            fieldErrors.session_length = "Select a valid session length (15, 30, or 45 minutes).";
           }
           const parsedDate = new Date(startDate + "T00:00:00.000Z");
           const dateLooksValid = Number.isFinite(parsedDate.getTime()) && parsedDate.toISOString().slice(0, 10) === startDate;
           if (!dateLooksValid) {
             errors.push("Choose a valid start date.");
+            fieldErrors.start_date = "Choose a valid start date.";
           }
           console.info("[planner-commitment-debug] validateCommitmentFormInputs", {
             preferred_time_ui_raw: preferredTimeRaw,
             preferred_time_ui_canonical: preferredTime,
             preferred_time_ui_valid: Boolean(parse12HourTime(preferredTime)),
           });
-          return { ok: errors.length === 0, errors, weeklyFrequency, preferredDays, preferredTime, sessionLength, startDate };
+          return { ok: errors.length === 0, errors, fieldErrors, weeklyFrequency, preferredDays, preferredTime, sessionLength, startDate };
         }
         function renderCommitmentSchedulePreview(sessions) {
           const rows = Array.isArray(sessions) ? sessions : [];
@@ -2900,6 +3084,7 @@ function renderLiveYouthProgramPage() {
           commitDaysInput.value = String(commitment.weekly_frequency || commitment.days_per_week || commitment.committed_days_per_week || 3);
           renderPreferredDayPicker(Array.isArray(commitment.preferred_days) ? commitment.preferred_days : []);
           commitTimeInput.value = toCanonical12Hour(String(commitment.preferred_time || commitment.preferred_time_window || "5:30 PM"));
+          syncPreferredTimeState();
           commitDurationInput.value = String(commitment.session_length || commitment.session_duration_minutes || commitment.target_session_length || 30);
           commitEnergyTypeInput.value = String(commitment.energy_type || "balanced");
           commitStartDateInput.value = String(commitment.start_date || "").slice(0, 10);
@@ -3062,6 +3247,7 @@ function renderLiveYouthProgramPage() {
             return;
           }
           latestWeekPayload = payload;
+          await loadProgramVoiceStatus();
           renderWeekDetails(payload.week_content, payload.next_action, navWeekOffset);
           renderPlanner(payload.week_content);
           renderExecutionState(payload.execution_state || null);
@@ -3203,12 +3389,39 @@ function renderLiveYouthProgramPage() {
           }
           setNextActionStatus("Action blocked", "Finish this week to unlock Next Week.");
         });
+        commitTimeInput.addEventListener("input", function () {
+          syncPreferredTimeState();
+          commitTimeError.textContent = "";
+        });
+        commitTimeInput.addEventListener("blur", function () {
+          syncPreferredTimeState();
+          if (parse12HourTime(plannerCommitmentState.preferredTime)) {
+            commitTimeInput.value = plannerCommitmentState.preferredTime;
+          }
+        });
+        commitPreferredDaysGroup.addEventListener("change", function () {
+          commitPreferredDaysError.textContent = "";
+        });
+        if (readWeeklyGoalsBtn) {
+          readWeeklyGoalsBtn.addEventListener("click", function () {
+            const text = [
+              String(weeklyGoals.textContent || "").trim(),
+              String(weeklyGuidance.textContent || "").trim(),
+            ].filter(Boolean).join(". ");
+            if (safePlayText(text)) {
+              if (weeklyGoalsVoiceStatus) weeklyGoalsVoiceStatus.textContent = "Read-aloud playing for weekly goals + guidance.";
+            } else if (weeklyGoalsVoiceStatus) {
+              weeklyGoalsVoiceStatus.textContent = "Read-aloud unavailable in this browser. Text remains visible.";
+            }
+          });
+        }
         saveCommitmentBtn.addEventListener("click", async function () {
           if (!latestWeekPayload || !latestWeekPayload.week_content) return;
           const validation = validateCommitmentFormInputs();
           commitmentSaveFeedback.textContent = "";
+          setPlannerFieldErrors(validation.fieldErrors || {});
           if (!validation.ok) {
-            commitmentSaveFeedback.textContent = "Fix before saving: " + validation.errors.join(" ");
+            commitmentSaveFeedback.textContent = "Unable to save yet. Check the highlighted fields and retry.";
             return;
           }
           await withButtonBusy(saveCommitmentBtn, "Saving Plan…", async function () {
@@ -3240,10 +3453,14 @@ function renderLiveYouthProgramPage() {
             });
             const payload = response.ok ? await response.json().catch(() => null) : null;
             if (!payload || payload.ok !== true) {
-              const messages = Array.isArray(payload?.messages) ? payload.messages.join(", ") : String(payload?.message || payload?.error || "Unable to save weekly plan.");
+              const messageTokens = Array.isArray(payload?.messages) ? payload.messages : [String(payload?.message || payload?.error || "unable_to_save_weekly_plan")];
+              const fieldMap = toFieldErrorMap(messageTokens);
+              setPlannerFieldErrors(fieldMap);
+              const messages = Object.values(fieldMap).length ? Object.values(fieldMap).join(" ") : messageTokens.join(", ");
               commitmentSaveFeedback.textContent = "Weekly plan save failed: " + messages;
               return;
             }
+            setPlannerFieldErrors({});
             commitmentSaveFeedback.textContent = "Your weekly plan is set.";
             renderCommitmentSchedulePreview(payload.scheduled_sessions || []);
             await loadWeekExperience();
