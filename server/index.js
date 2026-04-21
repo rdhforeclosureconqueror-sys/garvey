@@ -1080,7 +1080,7 @@ function deriveLegacyChildScopeIdFromRow({ tenantSlug = "", email = "", rawAnswe
 
 function mapYouthAssessmentHistoryEntry({ row, tenantSlug = "", email = "" }) {
   const raw = row?.raw_answers && typeof row.raw_answers === "object" ? row.raw_answers : {};
-  const payload = raw?.payload && typeof raw.payload === "object" ? raw.payload : {};
+  const payload = extractYouthAssessmentPayloadFromRaw(raw);
   const ownership = raw?.ownership && typeof raw.ownership === "object" ? raw.ownership : {};
   const childProfile = ownership?.child_profile && typeof ownership.child_profile === "object"
     ? ownership.child_profile
@@ -1109,6 +1109,38 @@ function mapYouthAssessmentHistoryEntry({ row, tenantSlug = "", email = "" }) {
       lowest_trait: lowest || {},
     },
     completion: payload?.completion || {},
+  };
+}
+
+function extractYouthAssessmentPayloadFromRaw(rawAnswers = {}) {
+  const raw = rawAnswers && typeof rawAnswers === "object" ? rawAnswers : {};
+  const nestedPayload = raw?.payload && typeof raw.payload === "object" ? raw.payload : null;
+  if (nestedPayload) return nestedPayload;
+
+  const legacyPayload = raw?.result_payload && typeof raw.result_payload === "object" ? raw.result_payload : null;
+  if (legacyPayload) return legacyPayload;
+
+  const hasLegacyTopLevelPayload = Boolean(
+    (raw?.result && typeof raw.result === "object")
+    || (raw?.dashboard && typeof raw.dashboard === "object")
+    || (raw?.page_model && typeof raw.page_model === "object")
+    || (raw?.trait_reports && Array.isArray(raw.trait_reports))
+    || (raw?.aggregated_trait_rows && Array.isArray(raw.aggregated_trait_rows))
+    || (raw?.completion && typeof raw.completion === "object")
+    || (raw?.interpretation && typeof raw.interpretation === "object")
+  );
+  if (!hasLegacyTopLevelPayload) return null;
+
+  return {
+    interpretation: raw?.interpretation || raw?.scoring?.interpretation || {},
+    completion: raw?.completion || raw?.scoring?.completion || {},
+    result: raw?.result || {},
+    dashboard: raw?.dashboard || {},
+    page_model: raw?.page_model || {},
+    trait_reports: Array.isArray(raw?.trait_reports) ? raw.trait_reports : [],
+    aggregated_trait_rows: Array.isArray(raw?.aggregated_trait_rows)
+      ? raw.aggregated_trait_rows
+      : (Array.isArray(raw?.scoring?.trait_rows) ? raw.scoring.trait_rows : []),
   };
 }
 
@@ -2227,18 +2259,36 @@ async function loadLatestYouthAssessmentForAccount({ accountCtx, childId = "" })
     });
     return Boolean(derivedLegacyChildId && derivedLegacyChildId === scopedChildId);
   });
-  const row = scopedRows[0];
+  const legacyUnscopedRows = scopedChildId
+    ? latest.rows.filter((row) => {
+      const raw = row?.raw_answers && typeof row.raw_answers === "object" ? row.raw_answers : {};
+      const explicitChildId = normalizeChildScopeId(raw?.ownership?.child_profile?.child_id || "");
+      if (explicitChildId) return false;
+      const derivedLegacyChildId = deriveLegacyChildScopeIdFromRow({
+        tenantSlug,
+        email,
+        rawAnswers: raw,
+        customerName: row?.customer_name || "",
+      });
+      return !derivedLegacyChildId;
+    })
+    : [];
+  const selectedRows = scopedRows.length ? scopedRows : (legacyUnscopedRows.length ? legacyUnscopedRows : scopedRows);
+  const row = selectedRows[0];
   if (!row || !row.raw_answers || typeof row.raw_answers !== "object") return null;
-  const payload = row.raw_answers.payload && typeof row.raw_answers.payload === "object"
-    ? row.raw_answers.payload
-    : null;
+  const payload = extractYouthAssessmentPayloadFromRaw(row.raw_answers);
   if (!payload) return null;
-  const history = scopedRows.map((entry) => mapYouthAssessmentHistoryEntry({ row: entry, tenantSlug, email }));
+  const history = selectedRows.map((entry) => mapYouthAssessmentHistoryEntry({ row: entry, tenantSlug, email }));
+  const selectionPath = scopedRows.length
+    ? "child_scope_match"
+    : (legacyUnscopedRows.length ? "legacy_unscoped_fallback" : "none");
   console.info("youth_assessment_latest_lookup", {
     tenant: tenant.slug,
     email,
     requested_child_id: scopedChildId || null,
     scoped_result_count: scopedRows.length,
+    selected_result_count: selectedRows.length,
+    selection_path: selectionPath,
     latest_submission_id: row.id || null,
   });
   return {
@@ -2248,8 +2298,10 @@ async function loadLatestYouthAssessmentForAccount({ accountCtx, childId = "" })
     assessment_history: history,
     diagnostics: {
       scoped_history_count: scopedRows.length,
+      selected_history_count: selectedRows.length,
       latest_submission_id: row.id || null,
       requested_child_id: scopedChildId || null,
+      latest_selection_path: selectionPath,
     },
   };
 }

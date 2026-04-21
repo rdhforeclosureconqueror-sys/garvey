@@ -2219,6 +2219,21 @@ function renderLiveYouthParentDashboardPage() {
           return true;
         }
 
+        function renderNoSavedAssessmentState(reasonCode, scopedChild) {
+          const reason = String(reasonCode || "no_saved_parent_assessment").trim();
+          const reasonLabel = reason === "requested_child_scope_not_found"
+            ? "Requested child scope is not available under this account."
+            : (reason === "no_saved_parent_assessment_for_child_scope"
+              ? "No saved parent assessment exists for this child scope yet."
+              : "No saved parent assessment exists for this account yet.");
+          const childLabel = scopedChild && scopedChild.child_name
+            ? (" for " + String(scopedChild.child_name))
+            : "";
+          document.getElementById("heroSummary").textContent = reasonLabel + childLabel + " Complete intake to create parent assessment continuity.";
+          document.getElementById("assessmentHistory").innerHTML = '<li class="muted">No saved assessment history found for this child/account scope.</li>';
+          document.getElementById("weeklySupport").innerHTML = '<li class="muted">No saved parent assessment context is currently available. Run intake to populate support suggestions.</li>';
+        }
+
         async function hydrateFromAccount() {
           if (!accountCtx.tenant || !accountCtx.email) return false;
           const requestedChildId = (query.get('child_id') || query.get('childId') || '').trim();
@@ -2257,6 +2272,7 @@ function renderLiveYouthParentDashboardPage() {
           if (!response.ok) return false;
           const data = await response.json().catch(() => null);
           if (!data || !data.ok || !data.has_result || !data.payload) {
+            renderNoSavedAssessmentState(data && data.reason, scopedChild);
             await hydrateProgramBridge(scopedChild, false);
             return false;
           }
@@ -4297,7 +4313,19 @@ function createYouthDevelopmentRouter(options = {}) {
       const childId = safeTrim(req.query?.child_id || req.query?.childId);
       const latest = await loadLatestYouthAssessment({ accountCtx, request: req, childId });
       if (!latest) {
-        return res.status(200).json({ ok: true, has_result: false, payload: null, child_id: childId || null });
+        let reason = "no_saved_parent_assessment";
+        if (childId && listYouthChildProfiles) {
+          const childProfiles = await listYouthChildProfiles({ accountCtx, request: req });
+          const matchedChild = childProfiles.find((entry) => String(entry?.child_id || "") === String(childId));
+          reason = matchedChild ? "no_saved_parent_assessment_for_child_scope" : "requested_child_scope_not_found";
+        }
+        console.info("youth_parent_dashboard_latest_empty", {
+          tenant: accountCtx.tenant,
+          email: accountCtx.email,
+          requested_child_id: childId || null,
+          reason,
+        });
+        return res.status(200).json({ ok: true, has_result: false, payload: null, child_id: childId || null, reason });
       }
       return res.status(200).json({ ok: true, has_result: true, payload: latest, child_id: childId || latest?.ownership?.child_profile?.child_id || null });
     } catch (err) {
