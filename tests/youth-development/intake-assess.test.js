@@ -489,6 +489,55 @@ test('GET /api/youth-development/program/bridge returns child-scoped parent laun
     assert.equal(payload.launch_allowed, true);
     assert.equal(payload.current_week, 1);
     assert.equal(payload.current_phase_name, 'Foundation');
+    assert.equal(payload.diagnostics.route, '/api/youth-development/program/bridge');
+    assert.equal(payload.diagnostics.scope.resolved_child_id, 'child-real-1');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('GET /api/youth-development/program/week-content includes continuity diagnostics for scoped runtime trace', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    getProgramBridgeState: async ({ childId }) => ({
+      ok: true,
+      child_id: childId,
+      launch_allowed: true,
+      setup_needed: false,
+      has_enrollment: true,
+      current_week: 1,
+      current_phase_name: 'Foundation',
+      next_recommended_action: 'Continue Week 1',
+    }),
+    getProgramWeekExecution: async () => ({ week_status: 'not_started', completed_step_keys: [], active_step_index: 0 }),
+    getProgramWeekPlanning: async () => ({
+      commitment_plan: {
+        days_per_week: 3,
+        preferred_days: ['monday', 'wednesday', 'friday'],
+        preferred_time: '5:30 PM',
+        session_duration_minutes: 30,
+        energy_type: 'balanced',
+        start_date: '2026-04-19',
+      },
+      scheduled_sessions: [{ session_id: 'plan-1', day: 'monday', day_label: 'Monday', time: '17:30', status: 'planned' }],
+      accountability: { planned_this_week: 1, completed_this_week: 0, consistency_label: 'early' },
+    }),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/program/week-content?tenant=demo&email=parent@example.com&child_id=child-real-1`);
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ok, true);
+    assert.equal(payload.state, 'content_ready');
+    assert.equal(payload.diagnostics.route, '/api/youth-development/program/week-content');
+    assert.equal(payload.diagnostics.scope.requested_child_id, 'child-real-1');
+    assert.equal(payload.diagnostics.continuity_state, 'content_ready');
+    assert.equal(payload.diagnostics.depends_on.bridge_state_available, true);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
@@ -548,6 +597,8 @@ test('GET /youth-development/program serves guided parent-first planner copy and
     assert.match(html, /Start Today’s Session/);
     assert.match(html, /View Weekly Plan/);
     assert.match(html, /View More Options/);
+    assert.match(html, /accountCtx\.child_id = String\(payload\.child_id \|\| accountCtx\.child_id \|\| ""\)\.trim\(\);/);
+    assert.match(html, /payload\?\.parent_program_state\?\.child_scope\?\.selected_child_id/);
     assert.doesNotMatch(html, /Continue Program/);
     assert.doesNotMatch(html, /Continue Development Plan/);
   } finally {
