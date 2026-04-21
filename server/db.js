@@ -719,6 +719,7 @@ async function initializeDatabase() {
       personal_weakness_archetype TEXT,
       personal_counts JSONB DEFAULT '{}'::jsonb,
       cid TEXT,
+      child_id TEXT,
       created_at TIMESTAMP DEFAULT NOW()
     );
     ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS campaign_id INTEGER;
@@ -734,6 +735,7 @@ async function initializeDatabase() {
     ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS personal_weakness_archetype TEXT;
     ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS personal_counts JSONB DEFAULT '{}'::jsonb;
     ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS cid TEXT;
+    ALTER TABLE assessment_submissions ADD COLUMN IF NOT EXISTS child_id TEXT;
   `);
 
   await pool.query(`

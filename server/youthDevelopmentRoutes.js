@@ -4419,6 +4419,11 @@ function createYouthDevelopmentRouter(options = {}) {
           payload: null,
           child_id: childId || null,
           reason,
+          latest_submission_id: null,
+          latest_created_at: null,
+          candidate_submission_ids: [],
+          selection_ordering: "created_at DESC, submission_id DESC",
+          selection_reason: reason,
           diagnostics: {
             route: "/api/youth-development/parent-dashboard/latest",
             handler: "createYouthDevelopmentRouter.parentDashboardLatest",
@@ -4440,6 +4445,11 @@ function createYouthDevelopmentRouter(options = {}) {
         has_result: true,
         payload: latest,
         child_id: childId || latest?.ownership?.child_profile?.child_id || null,
+        latest_submission_id: latest?.diagnostics?.latest_submission_id || null,
+        latest_created_at: latest?.diagnostics?.latest_created_at || null,
+        candidate_submission_ids: latest?.diagnostics?.candidate_submission_ids || [],
+        selection_ordering: latest?.diagnostics?.selection_ordering || "created_at DESC, submission_id DESC",
+        selection_reason: latest?.diagnostics?.selection_reason || null,
         diagnostics: {
           route: "/api/youth-development/parent-dashboard/latest",
           handler: "createYouthDevelopmentRouter.parentDashboardLatest",

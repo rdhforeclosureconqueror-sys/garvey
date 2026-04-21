@@ -68,6 +68,7 @@ const { initializeArchetypeEngineSchema } = require("./archetypeEnginesService")
 const { createYouthDevelopmentRouter } = require("./youthDevelopmentRoutes");
 const { createYouthDevelopmentIntakeRouter } = require("./youthDevelopmentIntakeRoutes");
 const { createYouthDevelopmentTdeRouter } = require("./youthDevelopmentTdeRoutes");
+const { selectLatestYouthSubmission } = require("./youthLatestSelection");
 const { PROGRAM_PHASES } = require("../youth-development/tde/programRail");
 const {
   defaultExecutionState,
@@ -2212,9 +2213,9 @@ async function persistYouthAssessmentForAccount({
   const inserted = await pool.query(
     `INSERT INTO assessment_submissions (
       tenant_id, user_id, assessment_type, primary_archetype, secondary_archetype,
-      raw_answers, customer_name, customer_email, cid
+      raw_answers, customer_name, customer_email, cid, child_id
     )
-    VALUES ($1, $2, 'youth', $3, $4, $5::jsonb, $6, $7, $8)
+    VALUES ($1, $2, 'youth', $3, $4, $5::jsonb, $6, $7, $8, $9)
     RETURNING id, created_at`,
     [
       tenant.id,
@@ -2225,6 +2226,7 @@ async function persistYouthAssessmentForAccount({
       String(accountCtx?.name || user.name || "").trim() || null,
       user.email,
       String(accountCtx?.cid || "").trim() || null,
+      childProfile.child_id || null,
     ]
   );
   console.info("youth_assessment_persisted", {
@@ -2253,7 +2255,7 @@ async function loadLatestYouthAssessmentForAccount({ accountCtx, childId = "" })
   if (!tenant) return null;
   const scopedChildId = normalizeChildScopeId(childId);
   const latest = await pool.query(
-    `SELECT a.raw_answers, a.id, a.created_at, a.customer_name
+    `SELECT a.raw_answers, a.id, a.created_at, a.customer_name, a.child_id
      FROM assessment_submissions a
      LEFT JOIN users u ON u.id = a.user_id
      WHERE a.tenant_id = $1
@@ -2263,50 +2265,37 @@ async function loadLatestYouthAssessmentForAccount({ accountCtx, childId = "" })
      LIMIT 100`,
     [tenant.id, email]
   );
-  const scopedRows = latest.rows.filter((row) => {
-    if (!scopedChildId) return true;
-    const raw = row?.raw_answers && typeof row.raw_answers === "object" ? row.raw_answers : {};
-    const explicitChildId = normalizeChildScopeId(raw?.ownership?.child_profile?.child_id || "");
-    if (explicitChildId && explicitChildId === scopedChildId) return true;
-    const derivedLegacyChildId = deriveLegacyChildScopeIdFromRow({
-      tenantSlug,
-      email,
-      rawAnswers: raw,
-      customerName: row?.customer_name || "",
-    });
-    return Boolean(derivedLegacyChildId && derivedLegacyChildId === scopedChildId);
-  });
-  const legacyUnscopedRows = scopedChildId
-    ? latest.rows.filter((row) => {
+  const selection = selectLatestYouthSubmission({
+    rows: latest.rows,
+    requestedChildId: scopedChildId,
+    deriveLegacyChildScopeId: (row) => {
       const raw = row?.raw_answers && typeof row.raw_answers === "object" ? row.raw_answers : {};
-      const explicitChildId = normalizeChildScopeId(raw?.ownership?.child_profile?.child_id || "");
-      if (explicitChildId) return false;
-      const derivedLegacyChildId = deriveLegacyChildScopeIdFromRow({
+      return deriveLegacyChildScopeIdFromRow({
         tenantSlug,
         email,
         rawAnswers: raw,
         customerName: row?.customer_name || "",
       });
-      return !derivedLegacyChildId;
-    })
-    : [];
-  const selectedRows = scopedRows.length ? scopedRows : (legacyUnscopedRows.length ? legacyUnscopedRows : scopedRows);
-  const row = selectedRows[0];
+    },
+  });
+  const selectedRows = selection.selectedRows;
+  const row = selection.latestRow;
   if (!row || !row.raw_answers || typeof row.raw_answers !== "object") return null;
   const payload = extractYouthAssessmentPayloadFromRaw(row.raw_answers);
   if (!payload) return null;
   const history = selectedRows.map((entry) => mapYouthAssessmentHistoryEntry({ row: entry, tenantSlug, email }));
-  const selectionPath = scopedRows.length
-    ? "child_scope_match"
-    : (legacyUnscopedRows.length ? "legacy_unscoped_fallback" : "none");
+  const selectionPath = selection.selectionPath;
   console.info("youth_assessment_latest_lookup", {
     tenant: tenant.slug,
     email,
     requested_child_id: scopedChildId || null,
-    scoped_result_count: scopedRows.length,
+    scoped_result_count: selection.scopedRows.length,
     selected_result_count: selectedRows.length,
     selection_path: selectionPath,
     latest_submission_id: row.id || null,
+    candidate_submission_ids: selection.candidateSubmissionIds,
+    selection_ordering: selection.ordering,
+    selection_reason: selection.selectionReason,
   });
   return {
     ...payload,
@@ -2314,11 +2303,15 @@ async function loadLatestYouthAssessmentForAccount({ accountCtx, childId = "" })
     saved_at: row.created_at || null,
     assessment_history: history,
     diagnostics: {
-      scoped_history_count: scopedRows.length,
+      scoped_history_count: selection.scopedRows.length,
       selected_history_count: selectedRows.length,
       latest_submission_id: row.id || null,
+      latest_created_at: row.created_at || null,
       requested_child_id: scopedChildId || null,
       latest_selection_path: selectionPath,
+      candidate_submission_ids: selection.candidateSubmissionIds,
+      selection_ordering: selection.ordering,
+      selection_reason: selection.selectionReason,
     },
   };
 }
