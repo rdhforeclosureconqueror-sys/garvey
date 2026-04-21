@@ -138,6 +138,11 @@ test('GET /youth-development/parent-dashboard renders live parent-facing dashboa
     assert.match(html, /sessionStorage\.getItem\('youthDevelopmentLatestAssessment'\)/);
     assert.match(html, /What we look at/);
     assert.match(html, /How to support this week/);
+    assert.match(html, /Read this card/);
+    assert.match(html, /data-voice-control="topStrengths"/);
+    assert.match(html, /data-voice-control="areasToStrengthen"/);
+    assert.match(html, /data-voice-control="weeklySupport"/);
+    assert.match(html, /\/api\/youth-development\/tde\/voice\/sections\//);
     assert.match(html, /Development program/);
     assert.match(html, /Focus & Self-Control/);
     assert.match(html, /Learning From Feedback/);
