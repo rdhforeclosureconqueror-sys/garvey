@@ -715,6 +715,80 @@ test('program commitment route rejects incomplete setup contract payloads', asyn
   }
 });
 
+test('program commitment route rejects payloads with no preferred days selected', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    saveProgramCommitmentPlan: async () => ({ ok: true }),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const commitment = await fetch(`${baseUrl}/api/youth-development/program/commitment`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        tenant: 'demo',
+        email: 'parent@example.com',
+        child_id: 'child-real-1',
+        weekly_frequency: 3,
+        preferred_days: [],
+        preferred_time: '17:30',
+        session_length: 30,
+        energy_type: 'balanced',
+      }),
+    });
+    assert.equal(commitment.status, 200);
+    const payload = await commitment.json();
+    assert.equal(payload.ok, false);
+    assert.equal(payload.error, 'commitment_setup_invalid');
+    assert.ok(payload.messages.includes('preferred_days_required'));
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('program commitment route accepts valid preferred_days payload and forwards normalized setup', async () => {
+  const app = express();
+  app.use(express.json());
+  let captured = null;
+  app.use(createYouthDevelopmentRouter({
+    saveProgramCommitmentPlan: async ({ commitment }) => {
+      captured = commitment;
+      return { ok: true, commitment_setup_status: 'complete', planner_setup_required: false, scheduled_sessions: [{ session_id: 'plan-1' }] };
+    },
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const commitment = await fetch(`${baseUrl}/api/youth-development/program/commitment`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        tenant: 'demo',
+        email: 'parent@example.com',
+        child_id: 'child-real-1',
+        weekly_frequency: 3,
+        preferred_days: ['Mon', 'wed', 'Friday'],
+        preferred_time: '17:30',
+        session_length: 30,
+        energy_type: 'balanced',
+        start_date: '2026-04-20',
+      }),
+    });
+    assert.equal(commitment.status, 200);
+    const payload = await commitment.json();
+    assert.equal(payload.ok, true);
+    assert.deepEqual(captured.preferred_days, ['monday', 'wednesday', 'friday']);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
 test('program commitment route rejects malformed time window and invalid start date', async () => {
   const app = express();
   app.use(express.json());
@@ -1041,6 +1115,32 @@ test('GET /api/youth-development/program/week-execution/audit returns coverage s
       payload.audit.highest_risk_remaining_gaps.some((entry) => entry.action_type === 'unknown_route_action'),
       true
     );
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('GET /api/youth-development/program/connectivity-audit returns major parent/program controls and statuses', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({}));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/program/connectivity-audit`);
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ok, true);
+    assert.equal(payload.contract, 'parent_program_connectivity_audit_v1');
+    assert.ok(payload.totals.controls >= 16);
+    const labels = payload.controls.map((entry) => entry.label);
+    assert.ok(labels.includes('Build Your Weekly Plan'));
+    assert.ok(labels.includes('Start Today’s Session'));
+    assert.ok(labels.includes('Resume Session'));
+    assert.ok(labels.includes('Save Reflection'));
+    assert.ok(labels.includes('Continue Next Week'));
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
