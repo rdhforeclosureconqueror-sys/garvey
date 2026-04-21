@@ -1875,13 +1875,13 @@ function renderLiveYouthParentDashboardPage() {
         function sectionVoiceTextForTarget(targetId, fallbackText) {
           const map = voiceState.sectionMap || {};
           const keys = targetId === "topStrengths"
-            ? ["top_strengths", "strengths", "summary"]
+            ? ["strengths", "summary", "next_steps"]
             : targetId === "areasToStrengthen"
-              ? ["areas_to_strengthen", "support", "growth_focus"]
+              ? ["growth", "still_building", "next_steps"]
               : targetId === "weeklySupport"
-                ? ["weekly_support", "weekly_program_support", "next_actions"]
+                ? ["environment", "next_steps", "growth"]
                 : targetId === "snapshotCards"
-                  ? ["summary", "top_strengths", "areas_to_strengthen"]
+                  ? ["summary", "strengths", "growth"]
                 : [];
           for (const key of keys) {
             const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
@@ -1889,28 +1889,47 @@ function renderLiveYouthParentDashboardPage() {
           }
           return String(fallbackText || "").trim();
         }
+        function sectionVoiceTextForCardCode(cardCode, fallbackText) {
+          const map = voiceState.sectionMap || {};
+          const normalized = String(cardCode || "").trim().toUpperCase();
+          const candidates = [
+            "trait_" + normalized.toLowerCase(),
+            normalized,
+            normalized.toLowerCase(),
+            "strengths",
+            "growth",
+            "summary",
+          ];
+          for (const key of candidates) {
+            const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
+            if (text) return text;
+          }
+          return String(fallbackText || "").trim();
+        }
         function bindVoiceControls() {
-          Array.from(document.querySelectorAll("[data-voice-control]")).forEach((button) => {
-            button.addEventListener("click", function () {
-              const targetId = String(button.getAttribute("data-voice-control") || "").trim();
-              const label = String(button.getAttribute("data-voice-label") || targetId || "section");
+          if (bindVoiceControls.bound) return;
+          bindVoiceControls.bound = true;
+          document.addEventListener("click", function (event) {
+            const controlButton = event.target && event.target.closest ? event.target.closest("[data-voice-control]") : null;
+            if (controlButton) {
+              const targetId = String(controlButton.getAttribute("data-voice-control") || "").trim();
+              const label = String(controlButton.getAttribute("data-voice-label") || targetId || "section");
               const fallbackText = getReadableTextFromElement(targetId);
               const voiceText = sectionVoiceTextForTarget(targetId, fallbackText);
               if (!safePlayText(voiceText)) {
                 alert("Read-aloud is unavailable on this device right now. You can still read: " + label + ".");
               }
-            });
-          });
-          Array.from(document.querySelectorAll("[data-voice-card]")).forEach((button) => {
-            button.addEventListener("click", function () {
-              const code = String(button.getAttribute("data-voice-card") || "").trim().toUpperCase();
-              const cardHost = document.querySelector('[data-snapshot-card="' + code + '"]');
-              const fallbackText = String(cardHost?.textContent || "").replace(/\s+/g, " ").trim();
-              const voiceText = String(voiceState.sectionMap[code]?.voice_text || fallbackText || "").trim();
-              if (!safePlayText(voiceText)) {
-                alert("Read-aloud is unavailable on this device right now. This card remains readable in text.");
-              }
-            });
+              return;
+            }
+            const cardButton = event.target && event.target.closest ? event.target.closest("[data-voice-card]") : null;
+            if (!cardButton) return;
+            const code = String(cardButton.getAttribute("data-voice-card") || "").trim().toUpperCase();
+            const cardHost = document.querySelector('[data-snapshot-card="' + code + '"]');
+            const fallbackText = String(cardHost?.textContent || "").replace(/\s+/g, " ").trim();
+            const voiceText = sectionVoiceTextForCardCode(code, fallbackText);
+            if (!safePlayText(voiceText)) {
+              alert("Read-aloud is unavailable on this device right now. This card remains readable in text.");
+            }
           });
         }
 
@@ -1990,7 +2009,6 @@ function renderLiveYouthParentDashboardPage() {
           renderSupport(data);
           renderWeeklySupport(data);
           bindHelpButtons();
-          bindVoiceControls();
           return true;
         }
 
@@ -2053,6 +2071,7 @@ function renderLiveYouthParentDashboardPage() {
           payload = null;
         }
 
+        bindVoiceControls();
         if (payload && applyPayload(payload, { savedAt: payload?.ownership?.saved_at || payload?.saved_at })) return;
         updateVoiceStatusCopy();
         hydrateFromAccount().catch(() => null);
@@ -2488,6 +2507,7 @@ function renderLiveYouthProgramPage() {
         let navWeekOffset = 0;
         let selectedSessionId = "";
         const plannerCommitmentState = { preferredTime: toCanonical12Hour(String(commitTimeInput?.value || "5:30 PM")) };
+        const programVoiceState = { status: "voice_unknown", sectionMap: {} };
         function setButtonBusy(button, isBusy, busyLabel) {
           if (!button) return;
           if (!button.dataset.defaultLabel) button.dataset.defaultLabel = button.textContent;
@@ -2622,10 +2642,30 @@ function renderLiveYouthProgramPage() {
             const status = payload && payload.ok === true
               ? String(payload.display_status || payload.voice_readiness_status || payload.voice_state?.availability || "voice_unknown")
               : "voice_unavailable";
+            const map = payload && payload.ok === true && Array.isArray(payload.sections)
+              ? payload.sections.reduce((acc, item) => {
+                  const key = String(item.section_key || "").trim();
+                  if (key) acc[key] = item;
+                  return acc;
+                }, {})
+              : {};
+            programVoiceState.status = status;
+            programVoiceState.sectionMap = map;
             weeklyGoalsVoiceStatus.textContent = "Read-aloud status: " + status.replace(/_/g, " ") + ".";
           } catch (_err) {
+            programVoiceState.status = "voice_unavailable";
+            programVoiceState.sectionMap = {};
             weeklyGoalsVoiceStatus.textContent = "Read-aloud status: voice unavailable.";
           }
+        }
+        function getProgramVoiceText(keys, fallbackText) {
+          const map = programVoiceState.sectionMap || {};
+          const candidates = Array.isArray(keys) ? keys : [];
+          for (const key of candidates) {
+            const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
+            if (text) return text;
+          }
+          return String(fallbackText || "").trim();
         }
         function parse12HourTime(time12) {
           const raw = String(time12 || "").trim();
@@ -3448,10 +3488,11 @@ function renderLiveYouthProgramPage() {
         });
         if (readWeeklyGoalsBtn) {
           readWeeklyGoalsBtn.addEventListener("click", function () {
-            const text = [
+            const fallbackText = [
               String(weeklyGoals.textContent || "").trim(),
               String(weeklyGuidance.textContent || "").trim(),
             ].filter(Boolean).join(". ");
+            const text = getProgramVoiceText(["summary", "next_steps", "strengths"], fallbackText);
             if (safePlayText(text)) {
               if (weeklyGoalsVoiceStatus) weeklyGoalsVoiceStatus.textContent = "Read-aloud playing for weekly goals + guidance.";
             } else if (weeklyGoalsVoiceStatus) {
@@ -3461,11 +3502,12 @@ function renderLiveYouthProgramPage() {
         }
         if (readProgramSupportBtn) {
           readProgramSupportBtn.addEventListener("click", function () {
-            const text = [
+            const fallbackText = [
               String(sessionFlowList.textContent || "").trim(),
               String(activityBankSurface.textContent || "").trim(),
               String(observationSupport.textContent || "").trim(),
             ].filter(Boolean).join(". ");
+            const text = getProgramVoiceText(["growth", "environment", "still_building"], fallbackText);
             if (safePlayText(text)) {
               if (weeklyGoalsVoiceStatus) weeklyGoalsVoiceStatus.textContent = "Read-aloud playing for support sections.";
             } else if (weeklyGoalsVoiceStatus) {
@@ -3475,11 +3517,12 @@ function renderLiveYouthProgramPage() {
         }
         if (readProgressSummaryBtn) {
           readProgressSummaryBtn.addEventListener("click", function () {
-            const text = [
+            const fallbackText = [
               String(motivationSummary.textContent || "").trim(),
               String(weekComparisonSummary.textContent || "").trim(),
               String(nextBestActionCopy.textContent || "").trim(),
             ].filter(Boolean).join(". ");
+            const text = getProgramVoiceText(["still_building", "next_steps", "summary"], fallbackText);
             if (!safePlayText(text) && weeklyGoalsVoiceStatus) {
               weeklyGoalsVoiceStatus.textContent = "Read-aloud unavailable in this browser. Text remains visible.";
             }
