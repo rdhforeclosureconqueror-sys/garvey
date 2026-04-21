@@ -527,6 +527,28 @@ function createVoiceService(options = {}) {
     }, { displayTitle: "Voice Eligibility", displayLabel: "voice_eligibility_panel" });
   }
 
+  async function resolveAssetReference({ child_id: childId, asset_ref: assetRef } = {}) {
+    const normalizedAssetRef = String(assetRef || "").trim();
+    if (!normalizedAssetRef) {
+      return { ok: false, error: "asset_ref_required", audio_url: null, asset_ref: null };
+    }
+    if (!adapter.resolveAssetReference) {
+      return { ok: false, error: "asset_ref_resolution_not_supported", audio_url: null, asset_ref: normalizedAssetRef };
+    }
+    const resolved = await adapter.resolveAssetReference({ child_id: childId, asset_ref: normalizedAssetRef });
+    return normalizeVoiceDisplay({
+      ok: Boolean(resolved.ok && (resolved.audio_url || resolved.asset_ref)),
+      extension_only: true,
+      deterministic: true,
+      child_id: childId || null,
+      asset_ref: normalizedAssetRef,
+      audio_url: resolved.audio_url || null,
+      provider_status: resolved.provider_status || (resolved.ok ? "available" : "fallback_active"),
+      diagnostics: resolved.diagnostics || null,
+      error: resolved.error || null,
+    }, { displayTitle: "Voice Asset Resolution", displayLabel: "voice_asset_resolution" });
+  }
+
   return {
     getConfig,
     getChildCheckinPlayback,
@@ -536,6 +558,7 @@ function createVoiceService(options = {}) {
     getVoiceAnalyticsSummary,
     getVoicePilotStatus,
     getVoiceEligibility,
+    resolveAssetReference,
     parentSectionOrder: PARENT_SECTION_ORDER,
   };
 }

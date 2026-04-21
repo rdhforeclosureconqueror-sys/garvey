@@ -169,6 +169,37 @@ function createVoiceProviderAdapter(options = {}) {
     return callGateway("/internal/voice/report-section", payload);
   }
 
+  async function resolveAssetReference(payload = {}) {
+    const assetRef = String(payload.asset_ref || "").trim();
+    if (!assetRef) {
+      return { ok: false, status: "invalid_request", error: "asset_ref_required", audio_url: null, asset_ref: null };
+    }
+    if (/^https?:\/\//i.test(assetRef)) {
+      return {
+        ok: true,
+        status: "ready",
+        provider: "external_gateway",
+        provider_status: "available",
+        audio_url: assetRef,
+        asset_ref: assetRef,
+      };
+    }
+    const resolved = await callGateway("/internal/voice/resolve-asset", {
+      child_id: payload.child_id,
+      asset_ref: assetRef,
+    });
+    return {
+      ok: Boolean(resolved.ok && (resolved.audio_url || resolved.asset_ref)),
+      status: resolved.status,
+      provider: resolved.provider,
+      provider_status: resolved.provider_status,
+      error: resolved.error || resolved.fallback_reason || null,
+      audio_url: resolved.audio_url || null,
+      asset_ref: resolved.asset_ref || assetRef,
+      diagnostics: resolved.diagnostics || null,
+    };
+  }
+
   async function getConnectivity() {
     if (!isAvailable()) {
       lastGatewayHealthStatus = "provider_unavailable";
@@ -225,6 +256,7 @@ function createVoiceProviderAdapter(options = {}) {
     getDiagnostics,
     synthesizeCheckin,
     synthesizeReportSection,
+    resolveAssetReference,
     chunkText,
   };
 }

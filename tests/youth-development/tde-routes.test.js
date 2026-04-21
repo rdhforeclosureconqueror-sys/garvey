@@ -157,3 +157,23 @@ test('live youth v1 routes remain unchanged', async () => {
     await app.close();
   }
 });
+
+test('voice asset resolution endpoint exists and validates required asset_ref', async () => {
+  process.env.TDE_EXTENSION_MODE = 'on';
+  const app = mountApp();
+  try {
+    const missingRef = await fetch(`${app.baseUrl}/api/youth-development/tde/voice/assets/resolve`);
+    assert.equal(missingRef.status, 400);
+    const missingPayload = await missingRef.json();
+    assert.equal(missingPayload.error, 'asset_ref_required');
+
+    const unresolved = await fetch(`${app.baseUrl}/api/youth-development/tde/voice/assets/resolve?child_id=child-1&asset_ref=asset%3A%2F%2Fvoice%2Fabc`);
+    assert.equal(unresolved.status, 200);
+    const unresolvedPayload = await unresolved.json();
+    assert.equal(unresolvedPayload.ok, false);
+    assert.equal(typeof unresolvedPayload.asset_ref, 'string');
+  } finally {
+    await app.close();
+    delete process.env.TDE_EXTENSION_MODE;
+  }
+});
