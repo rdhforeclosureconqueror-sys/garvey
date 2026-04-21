@@ -225,6 +225,8 @@ test('POST /api/youth-development/assess binds ownership when tenant/email are p
     assert.equal(payload.ownership.submission_id, 999);
     assert.equal(payload.ownership.child_profile.child_name, 'Maya');
     assert.equal(payload.ownership.child_profile.child_id, 'child-maya-1');
+    assert.equal(payload.diagnostics.continuity.persist_attempted, true);
+    assert.equal(payload.diagnostics.continuity.persist_inserted, true);
 
     const latest = await fetch(`${baseUrl}/api/youth-development/parent-dashboard/latest?tenant=demo&email=parent@example.com`);
     assert.equal(latest.status, 200);
@@ -244,6 +246,44 @@ test('POST /api/youth-development/assess binds ownership when tenant/email are p
   }
 });
 
+test('POST /api/youth-development/assess fails hard when account-scoped persistence does not insert', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    persistYouthAssessment: async ({ accountCtx }) => ({
+      account_bound: false,
+      tenant: accountCtx.tenant,
+      email: accountCtx.email,
+    }),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/assess`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        tenant: 'demo',
+        email: 'parent@example.com',
+        answers: buildAnswers(() => 2),
+      }),
+    });
+
+    assert.equal(response.status, 500);
+    const payload = await response.json();
+    assert.equal(payload.ok, false);
+    assert.equal(payload.error, 'youth_assessment_persist_required_failed');
+    assert.equal(payload.diagnostics.continuity.submit_received, true);
+    assert.equal(payload.diagnostics.continuity.result_generated, true);
+    assert.equal(payload.diagnostics.continuity.persist_attempted, true);
+    assert.equal(payload.diagnostics.continuity.persist_inserted, false);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
 test('POST /api/youth-development/assess uses signed-in auth actor identity when auth context is present', async () => {
   let capturedAccountCtx = null;
   const app = express();
@@ -255,7 +295,7 @@ test('POST /api/youth-development/assess uses signed-in auth actor identity when
   app.use(createYouthDevelopmentRouter({
     persistYouthAssessment: async ({ accountCtx }) => {
       capturedAccountCtx = accountCtx;
-      return { account_bound: true, tenant: accountCtx.tenant, email: accountCtx.email };
+      return { account_bound: true, tenant: accountCtx.tenant, email: accountCtx.email, submission_id: 101 };
     },
   }));
   const server = http.createServer(app);
@@ -370,6 +410,7 @@ test('assessment history continuity keeps prior records while latest result upda
         account_bound: true,
         tenant: accountCtx.tenant,
         email: accountCtx.email,
+        submission_id: history.length + 1,
         child_profile: { child_id: requestBody.child_id || 'child-real-1', child_name: requestBody.child_name || 'Maya' },
       };
     },
@@ -415,6 +456,7 @@ test('assessment history continuity keeps prior records while latest result upda
     assert.ok(Array.isArray(latest.payload.assessment_history));
     assert.equal(latest.payload.assessment_history.length, 2);
     assert.equal(latest.payload.assessment_history[0].child_profile.child_id, 'child-real-1');
+    assert.equal(latest.diagnostics.continuity.selected_history_count, 0);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

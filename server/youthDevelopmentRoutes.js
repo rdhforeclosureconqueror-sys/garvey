@@ -1336,9 +1336,12 @@ function renderLiveYouthAssessmentPage() {
           const priorities = (payload.interpretation && payload.interpretation.priority_traits) || [];
           const highest = payload.interpretation && payload.interpretation.highest_trait;
           const completion = payload.completion && payload.completion.completion_rate_percent;
+          const savedToAccount = Boolean(payload && payload.ownership && payload.ownership.account_bound);
           resultCard.innerHTML = [
-            "<p><strong>Assessment complete.</strong> Your responses are now available in the live parent dashboard.</p>",
-            payload.ownership && payload.ownership.account_bound
+            savedToAccount
+              ? "<p><strong>Assessment complete.</strong> Your responses are now available in the live parent dashboard.</p>"
+              : "<p><strong>Assessment scored but not saved.</strong> Sign in with tenant/email scope before continuing.</p>",
+            savedToAccount
               ? "<p><strong>Saved to account:</strong> " + payload.ownership.email + "</p>"
               : "",
             payload.ownership && payload.ownership.child_profile && payload.ownership.child_profile.child_id
@@ -1349,9 +1352,9 @@ function renderLiveYouthAssessmentPage() {
             priorities.length ? "<div>" + priorities.map((item) => "<span class=\\"pill\\">" + item.trait_name + " · " + Number(item.current_score || 0).toFixed(1) + "</span>").join("") + "</div>" : ""
           ].join("");
           intakeStatus.textContent = "Submitted " + payload.answers_count + " of " + payload.question_count + " answers.";
-          openLiveDashboardBtn.style.display = "";
+          openLiveDashboardBtn.style.display = savedToAccount ? "" : "none";
           const scopedChildId = ((((payload || {}).ownership || {}).child_profile || {}).child_id || "").trim();
-          if (scopedChildId) {
+          if (savedToAccount && scopedChildId) {
             const launchUrl = new URL(startProgramBtn.href, window.location.origin);
             launchUrl.searchParams.set("child_id", scopedChildId);
             startProgramBtn.href = launchUrl.pathname + launchUrl.search;
@@ -4257,10 +4260,24 @@ function createYouthDevelopmentRouter(options = {}) {
       });
     }
     try {
+      const accountCtx = resolveRequestAccountContext(req, req.body || {});
+      console.info("youth_assessment_submit_received", {
+        tenant: accountCtx.tenant || null,
+        email: accountCtx.email || null,
+        answer_count: validation.answers.length,
+        unanswered_count: validation.unanswered_question_ids.length,
+        requested_child_id: safeTrim(req.body?.child_id || req.body?.childId) || null,
+      });
       const payload = buildYouthAssessPayload(validation.answers, {
         unansweredCount: validation.unanswered_question_ids.length,
       });
-      const accountCtx = resolveRequestAccountContext(req, req.body || {});
+      console.info("youth_assessment_result_generated", {
+        tenant: accountCtx.tenant || null,
+        email: accountCtx.email || null,
+        answer_count: validation.answers.length,
+        highest_trait: payload?.scoring?.interpretation?.highest_trait?.trait_code || null,
+        lowest_trait: payload?.scoring?.interpretation?.lowest_trait?.trait_code || null,
+      });
       const childProfile = {
         child_id: safeTrim(req.body?.child_id || req.body?.childId) || null,
         child_name: safeTrim(req.body?.child_name || req.body?.childName) || null,
@@ -4273,7 +4290,16 @@ function createYouthDevelopmentRouter(options = {}) {
         email: accountCtx.email || null,
         child_profile: childProfile,
       };
+      const accountScopePresent = Boolean(accountCtx.tenant && accountCtx.email);
+      let persistenceDiagnostics = {
+        persistence_enabled: Boolean(persistYouthAssessment),
+        account_scope_present: accountScopePresent,
+        attempted: false,
+        inserted: false,
+        error: null,
+      };
       if (persistYouthAssessment && accountCtx.tenant && accountCtx.email) {
+        persistenceDiagnostics.attempted = true;
         const saved = await persistYouthAssessment({
           accountCtx,
           request: req,
@@ -4284,7 +4310,46 @@ function createYouthDevelopmentRouter(options = {}) {
           unansweredQuestionIds: validation.unanswered_question_ids,
         });
         if (saved && typeof saved === "object") ownership = Object.assign(ownership, saved);
+        persistenceDiagnostics.inserted = ownership.account_bound === true && Boolean(ownership.submission_id);
+        persistenceDiagnostics.submission_id = ownership.submission_id || null;
+        persistenceDiagnostics.saved_child_id = ownership?.child_profile?.child_id || null;
       }
+      if (accountScopePresent && persistenceDiagnostics.persistence_enabled && persistenceDiagnostics.inserted !== true) {
+        console.error("youth_assessment_persist_required_failed", {
+          tenant: accountCtx.tenant || null,
+          email: accountCtx.email || null,
+          answer_count: validation.answers.length,
+          child_id: ownership?.child_profile?.child_id || null,
+          submission_id: ownership?.submission_id || null,
+        });
+        return res.status(500).json({
+          ok: false,
+          error: "youth_assessment_persist_required_failed",
+          ownership,
+          diagnostics: {
+            route: "/api/youth-development/assess",
+            handler: "createYouthDevelopmentRouter.assess",
+            continuity: {
+              submit_received: true,
+              answer_count: validation.answers.length,
+              unanswered_count: validation.unanswered_question_ids.length,
+              result_generated: true,
+              persist_attempted: persistenceDiagnostics.attempted,
+              persist_inserted: false,
+              latest_lookup_ready: false,
+              history_lookup_ready: false,
+            },
+          },
+        });
+      }
+      console.info("youth_assessment_persist_result", {
+        tenant: accountCtx.tenant || null,
+        email: accountCtx.email || null,
+        persist_attempted: persistenceDiagnostics.attempted,
+        persist_inserted: persistenceDiagnostics.inserted,
+        submission_id: ownership?.submission_id || null,
+        child_id: ownership?.child_profile?.child_id || null,
+      });
       return res.status(200).json({
         ok: true,
         question_count: YOUTH_QUESTION_BANK.length,
@@ -4300,6 +4365,20 @@ function createYouthDevelopmentRouter(options = {}) {
         page_model: payload.page_model,
         rendered_html: payload.rendered_html,
         ownership,
+        diagnostics: {
+          route: "/api/youth-development/assess",
+          handler: "createYouthDevelopmentRouter.assess",
+          continuity: {
+            submit_received: true,
+            answer_count: validation.answers.length,
+            unanswered_count: validation.unanswered_question_ids.length,
+            result_generated: true,
+            persist_attempted: persistenceDiagnostics.attempted,
+            persist_inserted: persistenceDiagnostics.inserted,
+            submission_id: ownership?.submission_id || null,
+            persisted_child_id: ownership?.child_profile?.child_id || null,
+          },
+        },
       });
     } catch (err) {
       console.error("youth_assess_failed", err);

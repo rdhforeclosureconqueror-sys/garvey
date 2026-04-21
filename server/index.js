@@ -2158,11 +2158,28 @@ async function persistYouthAssessmentForAccount({
 }) {
   const tenantSlug = String(accountCtx?.tenant || "").trim().toLowerCase();
   const email = normalizeEmail(accountCtx?.email || "");
+  console.info("youth_assessment_persist_attempt", {
+    tenant: tenantSlug || null,
+    email: email || null,
+    answer_count: Array.isArray(answers) ? answers.length : 0,
+    unanswered_count: Array.isArray(unansweredQuestionIds) ? unansweredQuestionIds.length : 0,
+    child_id: normalizeChildScopeId(requestBody?.child_id || requestBody?.childId || "") || null,
+  });
   if (!tenantSlug || !email) {
+    console.info("youth_assessment_persist_skipped", {
+      tenant: tenantSlug || null,
+      email: email || null,
+      reason: "account_scope_missing",
+    });
     return { account_bound: false, tenant: tenantSlug || null, email: email || null };
   }
   const tenant = await getTenantBySlug(tenantSlug);
   if (!tenant) {
+    console.error("youth_assessment_persist_skipped", {
+      tenant: tenantSlug,
+      email,
+      reason: "tenant_not_found",
+    });
     return { account_bound: false, tenant: tenantSlug, email };
   }
   const user = await findTenantUser(tenant.id, email, pool, accountCtx?.name || "");
@@ -2383,13 +2400,24 @@ async function getProgramBridgeStateForAccount({ accountCtx, childId = "" }) {
   }
   const latestAssessment = await loadLatestYouthAssessmentForAccount({ accountCtx, childId: childProfile.child_id });
   const enrollment = await loadLatestProgramEnrollmentByChildId(childProfile.child_id);
-  return buildProgramBridgePayload({
+  const bridgePayload = buildProgramBridgePayload({
     tenant: tenantSlug,
     email,
     childProfile,
     assessmentComplete: Boolean(latestAssessment),
     enrollment,
   });
+  console.info("youth_program_bridge_resolved", {
+    tenant: tenantSlug,
+    email,
+    child_id: bridgePayload.child_id || null,
+    assessment_complete: bridgePayload.assessment_complete === true,
+    launch_allowed: bridgePayload.launch_allowed === true,
+    has_enrollment: bridgePayload.has_enrollment === true,
+    reason: bridgePayload.reason || null,
+    next_action: bridgePayload.next_recommended_action || null,
+  });
+  return bridgePayload;
 }
 
 async function launchProgramForAccount({ accountCtx, childId = "" }) {
