@@ -3685,6 +3685,11 @@ function renderLiveYouthProgramPage() {
             return;
           }
           if (payload.state !== "content_ready" || !payload.week_content) {
+            const resolvedScope = String(payload?.child_id || payload?.parent_program_state?.child_scope?.selected_child_id || "").trim();
+            if (resolvedScope && !accountCtx.child_id) {
+              accountCtx.child_id = resolvedScope;
+              dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
+            }
             renderStateCard(
               payload.state_label || "Week content unavailable",
               Array.isArray(payload.messages) ? payload.messages : ["No week-content module is available for the current state."],
@@ -3694,6 +3699,8 @@ function renderLiveYouthProgramPage() {
             return;
           }
           latestWeekPayload = payload;
+          accountCtx.child_id = String(payload.child_id || accountCtx.child_id || "").trim();
+          dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
           await loadProgramVoiceStatus();
           renderWeekDetails(payload.week_content, payload.next_action, navWeekOffset);
           renderPlanner(payload.week_content);
@@ -3714,6 +3721,8 @@ function renderLiveYouthProgramPage() {
             setList(["Missing or invalid account context.", "If assessment is incomplete, return to intake first."]);
             return null;
           }
+          accountCtx.child_id = String(payload.child_id || accountCtx.child_id || "").trim();
+          dashboardBtn.href = withCtx("/youth-development/parent-dashboard");
           hero.textContent = String(payload.parent_summary || "Program bridge ready.");
           latestBridge = payload;
           setList([
@@ -4325,9 +4334,48 @@ function createYouthDevelopmentRouter(options = {}) {
           requested_child_id: childId || null,
           reason,
         });
-        return res.status(200).json({ ok: true, has_result: false, payload: null, child_id: childId || null, reason });
+        return res.status(200).json({
+          ok: true,
+          has_result: false,
+          payload: null,
+          child_id: childId || null,
+          reason,
+          diagnostics: {
+            route: "/api/youth-development/parent-dashboard/latest",
+            handler: "createYouthDevelopmentRouter.parentDashboardLatest",
+            scope: {
+              tenant: accountCtx.tenant || null,
+              email: accountCtx.email || null,
+              requested_child_id: childId || null,
+            },
+            continuity: {
+              selected_latest_result: null,
+              selected_history_count: 0,
+              reason,
+            },
+          },
+        });
       }
-      return res.status(200).json({ ok: true, has_result: true, payload: latest, child_id: childId || latest?.ownership?.child_profile?.child_id || null });
+      return res.status(200).json({
+        ok: true,
+        has_result: true,
+        payload: latest,
+        child_id: childId || latest?.ownership?.child_profile?.child_id || null,
+        diagnostics: {
+          route: "/api/youth-development/parent-dashboard/latest",
+          handler: "createYouthDevelopmentRouter.parentDashboardLatest",
+          scope: {
+            tenant: accountCtx.tenant || null,
+            email: accountCtx.email || null,
+            requested_child_id: childId || null,
+          },
+          continuity: {
+            selected_latest_result: latest?.diagnostics?.latest_submission_id || null,
+            selected_history_count: Number(latest?.diagnostics?.selected_history_count || 0),
+            latest_selection_path: latest?.diagnostics?.latest_selection_path || null,
+          },
+        },
+      });
     } catch (err) {
       console.error("youth_latest_lookup_failed", err);
       return res.status(500).json({ ok: false, error: "youth_latest_lookup_failed" });
@@ -4384,7 +4432,24 @@ function createYouthDevelopmentRouter(options = {}) {
           })
           : null,
       });
-      return res.status(200).json(payload);
+      return res.status(200).json({
+        ...payload,
+        diagnostics: {
+          route: "/api/youth-development/program/week-content",
+          handler: "createYouthDevelopmentRouter.programWeekContent",
+          scope: {
+            tenant: accountCtx.tenant || null,
+            email: accountCtx.email || null,
+            requested_child_id: childId || null,
+          },
+          depends_on: {
+            bridge_state_available: Boolean(bridgeState && bridgeState.ok === true),
+            execution_state_available: Boolean(payload?.execution_state),
+            planning_state_available: Boolean(payload?.week_content?.commitment_plan || payload?.week_content?.scheduled_sessions),
+          },
+          continuity_state: String(payload?.state || "unknown"),
+        },
+      });
     } catch (err) {
       console.error("youth_program_week_content_failed", err);
       return res.status(500).json({ ok: false, error: "youth_program_week_content_failed" });
@@ -4399,7 +4464,25 @@ function createYouthDevelopmentRouter(options = {}) {
       const childId = safeTrim(req.query?.child_id || req.query?.childId);
       const accountCtx = resolveRequestAccountContext(req, req.body || {});
       const state = await getProgramBridgeState({ accountCtx, request: req, childId });
-      return res.status(200).json(state || { ok: true, launch_allowed: false, reason: "program_state_unavailable" });
+      const bridgePayload = state || { ok: true, launch_allowed: false, reason: "program_state_unavailable" };
+      return res.status(200).json({
+        ...bridgePayload,
+        diagnostics: {
+          route: "/api/youth-development/program/bridge",
+          handler: "createYouthDevelopmentRouter.programBridge",
+          scope: {
+            tenant: accountCtx.tenant || null,
+            email: accountCtx.email || null,
+            requested_child_id: childId || null,
+            resolved_child_id: bridgePayload?.child_id || null,
+          },
+          continuity: {
+            launch_allowed: bridgePayload?.launch_allowed === true,
+            has_enrollment: bridgePayload?.has_enrollment === true,
+            reason: bridgePayload?.reason || null,
+          },
+        },
+      });
     } catch (err) {
       console.error("youth_program_bridge_failed", err);
       return res.status(500).json({ ok: false, error: "youth_program_bridge_failed" });
@@ -4466,7 +4549,20 @@ function createYouthDevelopmentRouter(options = {}) {
         note: validation.normalized.note,
         actionPayload: validation.normalized.action_payload,
       });
-      return res.status(200).json(result);
+      return res.status(200).json({
+        ...(result || {}),
+        diagnostics: {
+          route: "/api/youth-development/program/week-execution",
+          handler: "createYouthDevelopmentRouter.programWeekExecution",
+          scope: {
+            tenant: accountCtx.tenant || null,
+            email: accountCtx.email || null,
+            child_id: childId || null,
+            week_number: validation.normalized.week_number,
+          },
+          action_type: validation.normalized.action_type,
+        },
+      });
     } catch (err) {
       console.error("youth_program_week_execution_failed", err);
       return res.status(500).json({ ok: false, error: "youth_program_week_execution_failed" });
@@ -4543,7 +4639,20 @@ function createYouthDevelopmentRouter(options = {}) {
           scheduled_sessions: Array.isArray(result.scheduled_sessions) ? result.scheduled_sessions : [],
         }
         : { ok: false, error: "commitment_plan_save_invalid_result", commitment_setup_status: "required", planner_setup_required: true, scheduled_sessions: [] };
-      return res.status(200).json(normalizedResult);
+      return res.status(200).json({
+        ...normalizedResult,
+        diagnostics: {
+          route: "/api/youth-development/program/commitment",
+          handler: "createYouthDevelopmentRouter.programCommitment",
+          scope: {
+            tenant: accountCtx.tenant || null,
+            email: accountCtx.email || null,
+            child_id: childId || null,
+          },
+          commitment_setup_status: normalizedResult.commitment_setup_status || null,
+          scheduled_session_count: Array.isArray(normalizedResult.scheduled_sessions) ? normalizedResult.scheduled_sessions.length : 0,
+        },
+      });
     } catch (err) {
       console.error("youth_program_commitment_save_failed", err);
       return res.status(500).json({ ok: false, error: "youth_program_commitment_save_failed" });
@@ -4557,7 +4666,20 @@ function createYouthDevelopmentRouter(options = {}) {
       const childId = safeTrim(req.body?.child_id || req.body?.childId);
       const weekNumber = Number(req.body?.week_number || req.body?.weekNumber || 1);
       const result = await saveProgramSessionPlan({ accountCtx, request: req, childId, weekNumber, payload: req.body || {} });
-      return res.status(200).json(result);
+      return res.status(200).json({
+        ...(result || {}),
+        diagnostics: {
+          route: "/api/youth-development/program/session-plan",
+          handler: "createYouthDevelopmentRouter.programSessionPlan",
+          scope: {
+            tenant: accountCtx.tenant || null,
+            email: accountCtx.email || null,
+            child_id: childId || null,
+            week_number: weekNumber,
+          },
+          scheduled_session_count: Array.isArray(result?.scheduled_sessions) ? result.scheduled_sessions.length : 0,
+        },
+      });
     } catch (err) {
       console.error("youth_program_session_plan_save_failed", err);
       return res.status(500).json({ ok: false, error: "youth_program_session_plan_save_failed" });
@@ -4575,7 +4697,20 @@ function createYouthDevelopmentRouter(options = {}) {
       const time = safeTrim(req.body?.time);
       const scheduledAt = safeTrim(req.body?.scheduled_at || req.body?.scheduledAt);
       const result = await markProgramSessionComplete({ accountCtx, request: req, childId, weekNumber, sessionId, day, time, scheduledAt });
-      return res.status(200).json(result);
+      return res.status(200).json({
+        ...(result || {}),
+        diagnostics: {
+          route: "/api/youth-development/program/session-complete",
+          handler: "createYouthDevelopmentRouter.programSessionComplete",
+          scope: {
+            tenant: accountCtx.tenant || null,
+            email: accountCtx.email || null,
+            child_id: childId || null,
+            week_number: weekNumber,
+            session_id: sessionId || null,
+          },
+        },
+      });
     } catch (err) {
       console.error("youth_program_session_complete_failed", err);
       return res.status(500).json({ ok: false, error: "youth_program_session_complete_failed" });
