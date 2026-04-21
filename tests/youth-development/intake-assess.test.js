@@ -774,7 +774,7 @@ test('program commitment route accepts valid preferred_days payload and forwards
         child_id: 'child-real-1',
         weekly_frequency: 3,
         preferred_days: ['Mon', 'wed', 'Friday'],
-        preferred_time: '5:30 PM',
+        preferred_time: '17:30:00',
         session_length: 30,
         energy_type: 'balanced',
         start_date: '2026-04-20',
@@ -784,6 +784,8 @@ test('program commitment route accepts valid preferred_days payload and forwards
     const payload = await commitment.json();
     assert.equal(payload.ok, true);
     assert.deepEqual(captured.preferred_days, ['monday', 'wednesday', 'friday']);
+    assert.equal(captured.preferred_time, '5:30 PM');
+    assert.equal(captured.preferred_time_window, '5:30 PM');
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

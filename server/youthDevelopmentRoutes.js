@@ -2405,12 +2405,12 @@ function renderLiveYouthProgramPage() {
             .filter(Boolean);
         }
         function parse12HourTime(time12) {
-          const raw = String(time12 || "").trim().toUpperCase();
-          const match = raw.match(/^([1-9]|1[0-2]):([0-5]\d)\s(AM|PM)$/);
+          const raw = String(time12 || "").trim();
+          const match = raw.match(/^([1-9]|1[0-2]):([0-5]\d)\s*(AM|PM)$/i);
           if (!match) return null;
           const hour12 = Number(match[1]);
           const minute = Number(match[2]);
-          const suffix = match[3];
+          const suffix = String(match[3] || "").toUpperCase();
           let hour24 = hour12 % 12;
           if (suffix === "PM") hour24 += 12;
           return { hour24, minute, canonical: hour12 + ":" + String(minute).padStart(2, "0") + " " + suffix };
@@ -2419,7 +2419,7 @@ function renderLiveYouthProgramPage() {
           const raw = String(value || "").trim();
           const from12 = parse12HourTime(raw);
           if (from12) return from12.canonical;
-          const match24 = raw.match(/^([01]\d|2[0-3]):([0-5]\d)$/);
+          const match24 = raw.match(/^([01]\d|2[0-3]):([0-5]\d)(?::[0-5]\d)?$/);
           if (!match24) return raw;
           const hour24 = Number(match24[1]);
           const minute = Number(match24[2]);
@@ -2453,6 +2453,11 @@ function renderLiveYouthProgramPage() {
           if (!dateLooksValid) {
             errors.push("Choose a valid start date.");
           }
+          console.info("[planner-commitment-debug] validateCommitmentFormInputs", {
+            preferred_time_ui_raw: preferredTimeRaw,
+            preferred_time_ui_canonical: preferredTime,
+            preferred_time_ui_valid: Boolean(parse12HourTime(preferredTime)),
+          });
           return { ok: errors.length === 0, errors, weeklyFrequency, preferredDays, preferredTime, sessionLength, startDate };
         }
         function renderCommitmentSchedulePreview(sessions) {
@@ -3207,26 +3212,31 @@ function renderLiveYouthProgramPage() {
             return;
           }
           await withButtonBusy(saveCommitmentBtn, "Saving Plan…", async function () {
+            const requestBody = {
+              tenant: accountCtx.tenant,
+              email: accountCtx.email,
+              child_id: accountCtx.child_id,
+              week_number: latestWeekPayload.current_week,
+              weekly_frequency: validation.weeklyFrequency,
+              days_per_week: validation.weeklyFrequency,
+              committed_days_per_week: validation.weeklyFrequency,
+              preferred_days: validation.preferredDays,
+              preferred_time: validation.preferredTime,
+              preferred_time_window: validation.preferredTime,
+              session_length: validation.sessionLength,
+              target_session_length: validation.sessionLength,
+              session_duration_minutes: validation.sessionLength,
+              energy_type: String(commitEnergyTypeInput.value || "balanced"),
+              start_date: validation.startDate,
+            };
+            console.info("[planner-commitment-debug] submitCommitment", {
+              preferred_time_submitted: requestBody.preferred_time,
+              preferred_time_window_submitted: requestBody.preferred_time_window,
+            });
             const response = await fetch("/api/youth-development/program/commitment", {
               method: "POST",
               headers: { "content-type": "application/json" },
-              body: JSON.stringify({
-                tenant: accountCtx.tenant,
-                email: accountCtx.email,
-                child_id: accountCtx.child_id,
-                week_number: latestWeekPayload.current_week,
-                weekly_frequency: validation.weeklyFrequency,
-                days_per_week: validation.weeklyFrequency,
-                committed_days_per_week: validation.weeklyFrequency,
-                preferred_days: validation.preferredDays,
-                preferred_time: validation.preferredTime,
-                preferred_time_window: validation.preferredTime,
-                session_length: validation.sessionLength,
-                target_session_length: validation.sessionLength,
-                session_duration_minutes: validation.sessionLength,
-                energy_type: String(commitEnergyTypeInput.value || "balanced"),
-                start_date: validation.startDate,
-              }),
+              body: JSON.stringify(requestBody),
             });
             const payload = response.ok ? await response.json().catch(() => null) : null;
             if (!payload || payload.ok !== true) {
@@ -3759,6 +3769,10 @@ function createYouthDevelopmentRouter(options = {}) {
     try {
       const accountCtx = resolveRequestAccountContext(req, req.body || {});
       const childId = safeTrim(req.body?.child_id || req.body?.childId);
+      console.info("[planner-commitment-debug] receivedCommitmentRequest", {
+        preferred_time_received: safeTrim(req.body?.preferred_time),
+        preferred_time_window_received: safeTrim(req.body?.preferred_time_window),
+      });
       const validation = validateParentCommitmentSetup(req.body || {});
       if (!validation.ok) {
         return res.status(200).json({
@@ -3771,6 +3785,10 @@ function createYouthDevelopmentRouter(options = {}) {
       const normalizedCommitment = normalizeParentCommitmentPlan({
         ...validation.normalized,
         child_id: childId || validation.normalized.child_id,
+      });
+      console.info("[planner-commitment-debug] normalizedCommitment", {
+        preferred_time_normalized: normalizedCommitment.preferred_time,
+        preferred_time_window_normalized: normalizedCommitment.preferred_time_window,
       });
       const result = await saveProgramCommitmentPlan({ accountCtx, request: req, childId, commitment: normalizedCommitment });
       const normalizedResult = result && typeof result === "object"
