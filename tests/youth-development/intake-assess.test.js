@@ -317,6 +317,38 @@ test('GET /api/youth-development/parent-dashboard/latest forwards optional child
   }
 });
 
+test('GET /api/youth-development/parent-dashboard/latest returns explicit empty reasons for scoped parent-assessment misses', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    loadLatestYouthAssessment: async () => null,
+    listYouthChildProfiles: async () => ([
+      { child_id: 'child-real-1', child_name: 'Maya' },
+    ]),
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const scopedMissing = await fetch(`${baseUrl}/api/youth-development/parent-dashboard/latest?tenant=demo&email=parent@example.com&child_id=child-real-1`);
+    assert.equal(scopedMissing.status, 200);
+    const scopedPayload = await scopedMissing.json();
+    assert.equal(scopedPayload.ok, true);
+    assert.equal(scopedPayload.has_result, false);
+    assert.equal(scopedPayload.reason, 'no_saved_parent_assessment_for_child_scope');
+
+    const wrongScope = await fetch(`${baseUrl}/api/youth-development/parent-dashboard/latest?tenant=demo&email=parent@example.com&child_id=child-missing`);
+    assert.equal(wrongScope.status, 200);
+    const wrongScopePayload = await wrongScope.json();
+    assert.equal(wrongScopePayload.ok, true);
+    assert.equal(wrongScopePayload.has_result, false);
+    assert.equal(wrongScopePayload.reason, 'requested_child_scope_not_found');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
 test('assessment history continuity keeps prior records while latest result updates for same child scope', async () => {
   const records = new Map();
   const app = express();
