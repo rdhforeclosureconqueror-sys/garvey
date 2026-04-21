@@ -79,6 +79,7 @@ const {
   normalizeParentCommitmentPlan,
   validateParentCommitmentSetup,
   validateScheduledSessions,
+  convert12To24,
 } = require("../youth-development/tde/parentCommitmentSetupContract");
 const {
   applySessionCompletionToSchedule,
@@ -2461,7 +2462,8 @@ function buildScheduledSessionsFromCommitment(commitmentPlan = {}, activitySurfa
     ? commitmentPlan.preferred_days
     : ["monday", "wednesday", "friday"];
   const days = preferredDays.slice(0, Math.max(1, Number(commitmentPlan.weekly_frequency || commitmentPlan.days_per_week || commitmentPlan.committed_days_per_week || 3)));
-  const time = String(commitmentPlan.preferred_time || commitmentPlan.preferred_time_window || "17:30");
+  const preferredTimeRaw = String(commitmentPlan.preferred_time || commitmentPlan.preferred_time_window || "5:30 PM");
+  const time = convert12To24(preferredTimeRaw) || preferredTimeRaw || "17:30";
   const core = (((activitySurface || {}).selected_path || {}).core_activity || {}).title || "Guided core activity";
   const stretch = (((activitySurface || {}).selected_path || {}).stretch_challenge || {}).title || "Stretch challenge";
   return days.map((day, idx) => ({
