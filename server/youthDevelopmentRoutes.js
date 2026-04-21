@@ -2069,7 +2069,8 @@ function renderLiveYouthProgramPage() {
             <label class="tiny">Weekly frequency (2–5 sessions)</label><input id="commitDaysInput" class="input" type="number" min="2" max="5" value="3" />
             <label class="tiny">Preferred days</label>
             <div id="commitPreferredDaysGroup" class="chip-row"></div>
-            <label class="tiny">Preferred time</label><input id="commitTimeInput" class="input" type="time" value="17:30" />
+            <label class="tiny">Preferred time</label><input id="commitTimeInput" class="input" type="text" value="5:30 PM" placeholder="5:30 PM" inputmode="text" />
+            <p class="tiny muted">Use parent-friendly time, for example 5:30 PM.</p>
             <label class="tiny">Session length (minutes)</label><select id="commitDurationInput" class="input"><option value="15">15</option><option value="30" selected>30</option><option value="45">45</option></select>
             <label class="tiny">Energy type</label><select id="commitEnergyTypeInput" class="input"><option value="calm">calm</option><option value="balanced" selected>balanced</option><option value="high-energy">high-energy</option></select>
             <label class="tiny">Start date</label><input id="commitStartDateInput" class="input" type="date" />
@@ -2371,10 +2372,34 @@ function renderLiveYouthProgramPage() {
             .map((node) => String(node.getAttribute("data-day-checkbox") || "").toLowerCase())
             .filter(Boolean);
         }
+        function parse12HourTime(time12) {
+          const raw = String(time12 || "").trim().toUpperCase();
+          const match = raw.match(/^([1-9]|1[0-2]):([0-5]\d)\s(AM|PM)$/);
+          if (!match) return null;
+          const hour12 = Number(match[1]);
+          const minute = Number(match[2]);
+          const suffix = match[3];
+          let hour24 = hour12 % 12;
+          if (suffix === "PM") hour24 += 12;
+          return { hour24, minute, canonical: hour12 + ":" + String(minute).padStart(2, "0") + " " + suffix };
+        }
+        function toCanonical12Hour(value) {
+          const raw = String(value || "").trim();
+          const from12 = parse12HourTime(raw);
+          if (from12) return from12.canonical;
+          const match24 = raw.match(/^([01]\d|2[0-3]):([0-5]\d)$/);
+          if (!match24) return raw;
+          const hour24 = Number(match24[1]);
+          const minute = Number(match24[2]);
+          const suffix = hour24 >= 12 ? "PM" : "AM";
+          const hour12 = hour24 % 12 || 12;
+          return hour12 + ":" + String(minute).padStart(2, "0") + " " + suffix;
+        }
         function validateCommitmentFormInputs() {
           const preferredDays = getSelectedPreferredDays();
           const weeklyFrequency = Number(commitDaysInput.value || preferredDays.length || 3);
-          const preferredTime = String(commitTimeInput.value || "").trim();
+          const preferredTimeRaw = String(commitTimeInput.value || "").trim();
+          const preferredTime = toCanonical12Hour(preferredTimeRaw);
           const sessionLength = Number(commitDurationInput.value || 0);
           const startDateRaw = String(commitStartDateInput.value || "").trim();
           const startDate = startDateRaw || new Date().toISOString().slice(0, 10);
@@ -2385,8 +2410,8 @@ function renderLiveYouthProgramPage() {
           if (!Array.isArray(preferredDays) || preferredDays.length < 1) {
             errors.push("Select at least one preferred day before saving.");
           }
-          if (!/^([01]\d|2[0-3]):([0-5]\d)$/.test(preferredTime)) {
-            errors.push("Choose a valid preferred time in HH:MM format.");
+          if (!parse12HourTime(preferredTime)) {
+            errors.push("Choose a valid preferred time like 5:30 PM.");
           }
           if (![15, 30, 45].includes(sessionLength)) {
             errors.push("Select a valid session length (15, 30, or 45 minutes).");
@@ -2491,14 +2516,8 @@ function renderLiveYouthProgramPage() {
         }
         function to12Hour(time24) {
           const raw = String(time24 || "").trim();
-          const parts = raw.split(":");
-          if (parts.length < 2) return raw || "TBD";
-          const hour = Number(parts[0]);
-          const minute = Number(parts[1]);
-          if (!Number.isFinite(hour) || !Number.isFinite(minute)) return raw || "TBD";
-          const suffix = hour >= 12 ? "PM" : "AM";
-          const h = hour % 12 || 12;
-          return h + ":" + String(minute).padStart(2, "0") + " " + suffix;
+          const canonical = toCanonical12Hour(raw);
+          return parse12HourTime(canonical) ? canonical : (raw || "TBD");
         }
         function addMinutesToTime(time24, minutesToAdd) {
           const raw = String(time24 || "").trim();
@@ -2835,7 +2854,7 @@ function renderLiveYouthProgramPage() {
           applyPlannerVisibility(plannerState, week);
           commitDaysInput.value = String(commitment.weekly_frequency || commitment.days_per_week || commitment.committed_days_per_week || 3);
           renderPreferredDayPicker(Array.isArray(commitment.preferred_days) ? commitment.preferred_days : []);
-          commitTimeInput.value = String(commitment.preferred_time || commitment.preferred_time_window || "17:30");
+          commitTimeInput.value = toCanonical12Hour(String(commitment.preferred_time || commitment.preferred_time_window || "5:30 PM"));
           commitDurationInput.value = String(commitment.session_length || commitment.session_duration_minutes || commitment.target_session_length || 30);
           commitEnergyTypeInput.value = String(commitment.energy_type || "balanced");
           commitStartDateInput.value = String(commitment.start_date || "").slice(0, 10);

@@ -39,6 +39,9 @@ test('program page renders parent planner, calendar, and lesson-plan surfaces', 
     assert.match(html, /Determining next best action/);
     assert.match(html, /Run Next Best Action/);
     assert.match(html, /Weekly Planner Calendar \+ adherence/);
+    assert.match(html, /placeholder="5:30 PM"/);
+    assert.match(html, /Choose a valid preferred time like 5:30 PM\./);
+    assert.doesNotMatch(html, /HH:MM format/);
     assert.match(html, /Teacher-Style Lesson Plan/);
     assert.match(html, /Open Scheduled Session/);
     assert.match(html, /View Lesson Plan/);

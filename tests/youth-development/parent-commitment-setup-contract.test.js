@@ -5,6 +5,7 @@ const assert = require("node:assert/strict");
 
 const {
   isValidTime24,
+  isValidTime12,
   normalizeStartDate,
   normalizeParentCommitmentPlan,
   validateScheduledSessions,
@@ -23,7 +24,7 @@ test("normalizes legacy weekly frequency values and canonical setup fields", () 
   assert.equal(normalized.weekly_frequency, 5);
   assert.equal(normalized.days_per_week, 5);
   assert.deepEqual(normalized.preferred_days, ["monday", "wednesday", "friday"]);
-  assert.equal(normalized.preferred_time, "17:00");
+  assert.equal(normalized.preferred_time, "5:00 PM");
   assert.equal(normalized.session_length, 45);
   assert.equal(normalized.energy_type, "high-energy");
 });
@@ -62,17 +63,17 @@ test("validates structured preferred time window shape", () => {
   const valid = validateParentCommitmentSetup({
     weekly_frequency: 3,
     preferred_days: ["monday", "wednesday"],
-    preferred_time_window: { start_time: "17:30", end_time: "18:30", timezone: "UTC" },
+    preferred_time_window: { start_time: "5:30 PM", end_time: "6:30 PM", timezone: "UTC" },
     session_length: 30,
     energy_type: "balanced",
     start_date: "2026-04-19",
   });
   assert.equal(valid.ok, true);
-  assert.equal(valid.normalized.preferred_time, "17:30");
+  assert.equal(valid.normalized.preferred_time, "5:30 PM");
   const invalid = validateParentCommitmentSetup({
     weekly_frequency: 3,
     preferred_days: ["monday", "wednesday"],
-    preferred_time_window: { start_time: "18:30", end_time: "18:00" },
+    preferred_time_window: { start_time: "6:30 PM", end_time: "6:00 PM" },
     session_length: 30,
     energy_type: "balanced",
     start_date: "2026-04-19",
@@ -85,7 +86,7 @@ test("accepts canonical setup payload", () => {
   const validation = validateParentCommitmentSetup({
     weekly_frequency: 3,
     preferred_days: ["monday", "wednesday"],
-    preferred_time: "17:30",
+    preferred_time: "5:30 PM",
     session_length: 30,
     energy_type: "balanced",
   });
@@ -166,6 +167,8 @@ test("scheduled sessions reject duplicate session identifiers", () => {
 });
 
 test("time and date helpers enforce canonical formats", () => {
+  assert.equal(isValidTime12("5:30 PM"), true);
+  assert.equal(isValidTime12("05:30 PM"), false);
   assert.equal(isValidTime24("00:00"), true);
   assert.equal(isValidTime24("23:59"), true);
   assert.equal(isValidTime24("24:00"), false);

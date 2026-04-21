@@ -26,6 +26,7 @@ const ENERGY_TYPES = Object.freeze(["calm", "balanced", "high-energy"]);
 const WEEKLY_FREQUENCY_VALUES = Object.freeze([2, 3, 4, 5]);
 const SCHEDULED_SESSION_STATUS_VALUES = Object.freeze(["planned", "in_progress", "completed", "missed"]);
 const TIME_24H_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
+const TIME_12H_PATTERN = /^(?:[1-9]|1[0-2]):([0-5]\d)\s(AM|PM)$/;
 const ISO_DATE_ONLY_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/;
 const CANONICAL_DAY_BY_UTC_INDEX = Object.freeze(["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]);
 
@@ -63,12 +64,12 @@ function normalizePreferredDays(days) {
 
 function normalizePreferredTime(payload = {}) {
   const direct = String(payload.preferred_time || "").trim();
-  if (direct) return direct;
+  if (direct) return toCanonicalPreferredTime(direct);
   const window = payload.preferred_time_window;
   if (window && typeof window === "object" && !Array.isArray(window)) {
-    return String(window.start_time || window.start || "").trim();
+    return toCanonicalPreferredTime(String(window.start_time || window.start || "").trim());
   }
-  return String(window || "").trim();
+  return toCanonicalPreferredTime(String(window || "").trim());
 }
 
 function normalizeSessionLength(payload = {}) {
@@ -81,6 +82,45 @@ function normalizeEnergyType(payload = {}) {
 
 function isValidTime24(value) {
   return TIME_24H_PATTERN.test(String(value || "").trim());
+}
+
+function isValidTime12(value) {
+  return TIME_12H_PATTERN.test(String(value || "").trim().toUpperCase());
+}
+
+function convert24To12(value) {
+  const raw = String(value || "").trim();
+  const match = raw.match(TIME_24H_PATTERN);
+  if (!match) return "";
+  const hour24 = Number(match[1]);
+  const minute = String(match[2]).padStart(2, "0");
+  const suffix = hour24 >= 12 ? "PM" : "AM";
+  const hour12 = hour24 % 12 || 12;
+  return `${hour12}:${minute} ${suffix}`;
+}
+
+function convert12To24(value) {
+  const raw = String(value || "").trim().toUpperCase();
+  const match = raw.match(TIME_12H_PATTERN);
+  if (!match) return "";
+  const hour12 = Number(raw.split(":")[0]);
+  const minute = String(match[1]);
+  const suffix = match[2];
+  let hour24 = hour12 % 12;
+  if (suffix === "PM") hour24 += 12;
+  return `${String(hour24).padStart(2, "0")}:${minute}`;
+}
+
+function toCanonicalPreferredTime(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+  if (isValidTime12(raw)) {
+    const [time, suffixRaw] = raw.toUpperCase().split(" ");
+    const [hour, minute] = time.split(":");
+    return `${String(Number(hour))}:${String(minute).padStart(2, "0")} ${suffixRaw}`;
+  }
+  if (isValidTime24(raw)) return convert24To12(raw);
+  return raw;
 }
 
 function normalizeStartDate(value) {
@@ -114,8 +154,8 @@ function normalizePreferredTimeWindow(payload = {}) {
   if (typeof rawWindow === "object" && !Array.isArray(rawWindow)) {
     return {
       kind: "window",
-      start_time: String(rawWindow.start_time || rawWindow.start || "").trim(),
-      end_time: String(rawWindow.end_time || rawWindow.end || "").trim(),
+      start_time: toCanonicalPreferredTime(String(rawWindow.start_time || rawWindow.start || "").trim()),
+      end_time: toCanonicalPreferredTime(String(rawWindow.end_time || rawWindow.end || "").trim()),
       timezone: String(rawWindow.timezone || "").trim(),
       label: String(rawWindow.label || "").trim(),
     };
@@ -160,19 +200,19 @@ function validateParentCommitmentSetup(payload = {}) {
   }
   if (!normalized.preferred_time) {
     errors.push("preferred_time_required");
-  } else if (!isValidTime24(normalized.preferred_time)) {
+  } else if (!isValidTime12(normalized.preferred_time)) {
     errors.push("preferred_time_invalid");
   }
   const preferredWindow = normalizePreferredTimeWindow(payload);
   if (preferredWindow.kind === "invalid") {
     errors.push("preferred_time_window_invalid");
   } else if (preferredWindow.kind === "window") {
-    if (!isValidTime24(preferredWindow.start_time) || !isValidTime24(preferredWindow.end_time)) {
+    if (!isValidTime12(preferredWindow.start_time) || !isValidTime12(preferredWindow.end_time)) {
       errors.push("preferred_time_window_invalid");
-    } else if (preferredWindow.start_time >= preferredWindow.end_time) {
+    } else if (convert12To24(preferredWindow.start_time) >= convert12To24(preferredWindow.end_time)) {
       errors.push("preferred_time_window_invalid_range");
     }
-  } else if (String(payload.preferred_time_window || "").trim() && !isValidTime24(payload.preferred_time_window)) {
+  } else if (String(payload.preferred_time_window || "").trim() && !isValidTime12(normalized.preferred_time_window)) {
     errors.push("preferred_time_window_invalid");
   }
   if (!normalizeStartDate(payload.start_date).ok) errors.push("start_date_invalid");
@@ -270,6 +310,10 @@ module.exports = {
   normalizeWeeklyFrequency,
   normalizeStartDate,
   isValidTime24,
+  isValidTime12,
+  convert24To12,
+  convert12To24,
+  toCanonicalPreferredTime,
   normalizeParentCommitmentPlan,
   validateParentCommitmentSetup,
   validateScheduledSessions,
