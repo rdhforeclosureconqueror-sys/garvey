@@ -44,9 +44,13 @@ test('program page renders parent planner, calendar, and lesson-plan surfaces', 
     assert.match(html, /data-day-checkbox="sunday"/);
     assert.match(html, /id="commitTimeError"/);
     assert.match(html, /id="commitPreferredDaysError"/);
+    assert.match(html, /id="commitTimeHourInput"/);
+    assert.match(html, /id="commitTimeMinuteInput"/);
+    assert.match(html, /id="commitTimeMeridiemInput"/);
     assert.match(html, /preferred_days: validation\.preferredDays/);
     assert.match(html, /Select at least one preferred day before saving\./);
-    assert.match(html, /placeholder="5:30 PM"/);
+    assert.match(html, /syncPreferredTimePickerFromValue/);
+    assert.match(html, /commitTimeHourInput\.addEventListener\("change"/);
     assert.match(html, /Choose a valid preferred time like 5:30 PM\./);
     assert.match(html, /syncPreferredTimeState/);
     assert.match(html, /Unable to save yet\. Check the highlighted fields and retry\./);
@@ -54,6 +58,8 @@ test('program page renders parent planner, calendar, and lesson-plan surfaces', 
     assert.match(html, /preferred_time_ui_raw/);
     assert.match(html, /preferred_time_submitted/);
     assert.match(html, /id="readWeeklyGoalsBtn"/);
+    assert.match(html, /id="readProgramSupportBtn"/);
+    assert.match(html, /id="readProgressSummaryBtn"/);
     assert.match(html, /\/api\/youth-development\/tde\/voice\/sections\//);
     assert.doesNotMatch(html, /HH:MM format/);
     assert.match(html, /Teacher-Style Lesson Plan/);

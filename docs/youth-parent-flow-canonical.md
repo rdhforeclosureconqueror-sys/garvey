@@ -101,6 +101,52 @@ Canonical parent controls in planner/session views:
 
 All controls remain child/week scoped and route through existing governed contracts/endpoints.
 
+## Parent-facing read-aloud surfaces (dashboard + program)
+
+Read-aloud controls must be visibly rendered on the live parent routes (`/youth-development/parent-dashboard`, `/youth-development/program`) and not rely on backend availability alone.
+
+Dashboard sections with visible controls:
+- **Snapshot cards**
+  - Per-card: `Read this card` (`data-voice-card="{trait_code}"`)
+  - Section summary: `Read snapshot summary` (`data-voice-control="snapshotCards"`)
+- **Top strengths** (`data-voice-control="topStrengths"`)
+- **Areas to strengthen** (`data-voice-control="areasToStrengthen"`)
+- **How to support this week** (`data-voice-control="weeklySupport"`)
+
+Program sections with visible controls:
+- **Weekly goals + parent guidance** (`#readWeeklyGoalsBtn`)
+- **Session flow/activity bank/observation support** (`#readProgramSupportBtn`)
+- **Progress/adherence summary** (`#readProgressSummaryBtn`)
+
+Read-aloud wiring:
+- Primary content source: `GET /api/youth-development/tde/voice/sections/:childId`.
+- Playback path: browser `speechSynthesis`.
+- Fallback: visible parent-readable text remains primary if speech is unavailable; status copy surfaces fallback state.
+
+Intentionally not voice-enabled (current scope):
+- Form-only setup controls (frequency/day/time/duration pickers).
+- Internal/operator-only admin/debug controls.
+
+## Preferred-time picker behavior (parent weekly planner)
+
+`Build Your Weekly Plan` now uses a selectable time control (scroll/select-style):
+- Hour select: `#commitTimeHourInput` (1–12)
+- Minute select: `#commitTimeMinuteInput` (`00`, `15`, `30`, `45`)
+- Meridiem select: `#commitTimeMeridiemInput` (`AM`, `PM`)
+
+Submission/data trace:
+1. Parent selects time using the 3 selects.
+2. Client assembles canonical 12-hour value (`h:mm AM/PM`) and stores it in `plannerCommitmentState.preferredTime`.
+3. Hidden canonical field (`#commitTimeInput`) mirrors selected canonical value.
+4. `validateCommitmentFormInputs()` validates canonical time.
+5. Submit payload sends both `preferred_time` and `preferred_time_window` with the same canonical selected value.
+6. Backend normalizes via `validateParentCommitmentSetup` + `normalizeParentCommitmentPlan`.
+7. Persisted commitment reloads through `/api/youth-development/program/week-content`.
+8. `renderPlanner()` rehydrates picker state from persisted `commitment_plan.preferred_time|preferred_time_window`.
+
+Canonical control/endpoint map is also machine-readable at:
+- `GET /api/youth-development/program/connectivity-audit`
+
 ## Parent weekly-program visual hierarchy (UI polish v2)
 
 Parent weekly execution view (`/youth-development/program`) now emphasizes a stable, motivating read order while preserving existing contracts and flow logic.

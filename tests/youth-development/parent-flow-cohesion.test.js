@@ -73,6 +73,11 @@ test('parent-facing youth pages use canonical CTA taxonomy and remove drift labe
 
     const dashboardHtml = await (await fetch(`${baseUrl}/youth-development/parent-dashboard`)).text();
     assert.match(dashboardHtml, /Start Program/);
+    assert.match(dashboardHtml, /data-voice-control="snapshotCards"/);
+    assert.match(dashboardHtml, /data-voice-control="topStrengths"/);
+    assert.match(dashboardHtml, /data-voice-control="areasToStrengthen"/);
+    assert.match(dashboardHtml, /data-voice-control="weeklySupport"/);
+    assert.match(dashboardHtml, /data-voice-card="/);
     assert.match(dashboardHtml, /Return to Dashboard|View Saved Dashboard/);
     assert.doesNotMatch(dashboardHtml, /Continue Development Plan/);
 
@@ -83,8 +88,36 @@ test('parent-facing youth pages use canonical CTA taxonomy and remove drift labe
     assert.match(programHtml, /Today’s Session/);
     assert.match(programHtml, /Next Scheduled Session/);
     assert.match(programHtml, /This Week at a Glance/);
+    assert.match(programHtml, /id="readWeeklyGoalsBtn"/);
+    assert.match(programHtml, /id="readProgramSupportBtn"/);
+    assert.match(programHtml, /id="readProgressSummaryBtn"/);
+    assert.match(programHtml, /id="commitTimeHourInput"/);
+    assert.match(programHtml, /id="commitTimeMinuteInput"/);
+    assert.match(programHtml, /id="commitTimeMeridiemInput"/);
+    assert.match(programHtml, /syncPreferredTimePickerFromValue/);
     assert.doesNotMatch(programHtml, /Back to Parent Dashboard/);
     assert.doesNotMatch(programHtml, /Next week preview/);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('connectivity audit contract includes parent-facing voice controls and preferred-time picker mapping', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({}));
+  const { server, baseUrl } = await withServer(app);
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/program/connectivity-audit`);
+    const payload = await response.json();
+    assert.equal(response.status, 200);
+    assert.equal(payload.ok, true);
+    const labels = (payload.controls || []).map((row) => row.label);
+    assert.ok(labels.includes('Snapshot Cards Read-Aloud'));
+    assert.ok(labels.includes('Weekly Goals Read-Aloud'));
+    assert.ok(labels.includes('Program Support Read-Aloud'));
+    assert.ok(labels.includes('Progress Summary Read-Aloud'));
+    assert.ok(labels.includes('Preferred Time Picker'));
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
