@@ -78,6 +78,8 @@ test('parent-facing youth pages use canonical CTA taxonomy and remove drift labe
     assert.match(dashboardHtml, /data-voice-control="areasToStrengthen"/);
     assert.match(dashboardHtml, /data-voice-control="weeklySupport"/);
     assert.match(dashboardHtml, /data-voice-card="/);
+    assert.match(dashboardHtml, /AI voice status checking…/);
+    assert.match(dashboardHtml, /playing OpenAI gateway audio/);
     assert.match(dashboardHtml, /Return to Dashboard|View Saved Dashboard/);
     assert.doesNotMatch(dashboardHtml, /Continue Development Plan/);
 
@@ -91,6 +93,9 @@ test('parent-facing youth pages use canonical CTA taxonomy and remove drift labe
     assert.match(programHtml, /id="readWeeklyGoalsBtn"/);
     assert.match(programHtml, /id="readProgramSupportBtn"/);
     assert.match(programHtml, /id="readProgressSummaryBtn"/);
+    assert.match(programHtml, /AI voice status checking…/);
+    assert.match(programHtml, /getProgramVoiceSelection\(keys, fallbackText\)/);
+    assert.match(programHtml, /playProgramVoiceSelection\(selection, fallbackFailureMessage\)/);
     assert.match(programHtml, /id="commitTimeHourInput"/);
     assert.match(programHtml, /id="commitTimeMinuteInput"/);
     assert.match(programHtml, /id="commitTimeMeridiemInput"/);

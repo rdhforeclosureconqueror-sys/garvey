@@ -142,9 +142,13 @@ test('GET /youth-development/parent-dashboard renders live parent-facing dashboa
     assert.match(html, /data-voice-control="topStrengths"/);
     assert.match(html, /data-voice-control="areasToStrengthen"/);
     assert.match(html, /data-voice-control="weeklySupport"/);
-    assert.match(html, /sectionVoiceTextForTarget\(targetId, fallbackText\)/);
+    assert.match(html, /sectionVoicePlaybackForTarget\(targetId, fallbackText\)/);
     assert.match(html, /\["strengths", "summary", "next_steps"\]/);
     assert.match(html, /\["growth", "still_building", "next_steps"\]/);
+    assert.match(html, /safePlayProviderAudio\(audioUrl\)/);
+    assert.match(html, /getProviderAudioFromSection\(section\)/);
+    assert.match(html, /AI voice ready \(OpenAI gateway audio available\)\./);
+    assert.match(html, /AI voice unavailable, using text-to-speech fallback/);
     assert.match(html, /bindVoiceControls\.bound/);
     assert.match(html, /document\.addEventListener\("click"/);
     assert.match(html, /\/api\/youth-development\/tde\/voice\/sections\//);
@@ -193,10 +197,15 @@ test('GET /youth-development/program renders parent-facing guided development la
     assert.match(html, /Start Program/);
     assert.match(html, /if \(latestBridge && latestBridge\.has_enrollment === true\)/);
     assert.match(html, /openWeekFlow\(\)/);
-    assert.match(html, /getProgramVoiceText\(keys, fallbackText\)/);
-    assert.match(html, /programVoiceState = \{ status: "voice_unknown", sectionMap: \{\} \}/);
+    assert.match(html, /getProgramVoiceSelection\(keys, fallbackText\)/);
+    assert.match(html, /getProgramProviderAudio\(section\)/);
+    assert.match(html, /safePlayProviderAudio\(audioUrl\)/);
+    assert.match(html, /programVoiceState = \{/);
+    assert.match(html, /providerAudioAvailable: false/);
     assert.match(html, /\["summary", "next_steps", "strengths"\]/);
     assert.match(html, /\["growth", "environment", "still_building"\]/);
+    assert.match(html, /AI voice ready \(OpenAI gateway audio available\)\./);
+    assert.match(html, /AI voice unavailable, using text-to-speech fallback/);
     assert.match(html, /Read-aloud unavailable in this browser\. Text remains visible\./);
   } finally {
     await new Promise((resolve) => server.close(resolve));

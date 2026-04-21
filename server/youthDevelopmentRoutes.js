@@ -1545,7 +1545,7 @@ function renderLiveYouthParentDashboardPage() {
         <div class="voice-controls">
           <button class="btn btn-ghost voice-btn" type="button" data-voice-control="snapshotCards" data-voice-label="Snapshot cards">Read snapshot summary</button>
         </div>
-        <p id="snapshotVoiceStatus" class="tiny muted">Read-aloud status: checking…</p>
+        <p id="snapshotVoiceStatus" class="tiny muted">AI voice status checking…</p>
         <div id="snapshotCards" class="grid cards"></div>
       </section>
 
@@ -1553,7 +1553,7 @@ function renderLiveYouthParentDashboardPage() {
         <h2>Top strengths</h2>
         <div class="voice-controls">
           <button class="btn btn-ghost voice-btn" type="button" data-voice-control="topStrengths" data-voice-label="Top strengths">Read this section</button>
-          <span id="topStrengthsVoiceStatus" class="tiny muted">Read-aloud status: checking…</span>
+          <span id="topStrengthsVoiceStatus" class="tiny muted">AI voice status checking…</span>
         </div>
         <ul id="topStrengths" class="list"><li class="muted">Complete an assessment to view strengths.</li></ul>
       </section>
@@ -1562,7 +1562,7 @@ function renderLiveYouthParentDashboardPage() {
         <h2>Areas to strengthen</h2>
         <div class="voice-controls">
           <button class="btn btn-ghost voice-btn" type="button" data-voice-control="areasToStrengthen" data-voice-label="Areas to strengthen">Read this section</button>
-          <span id="areasToStrengthenVoiceStatus" class="tiny muted">Read-aloud status: checking…</span>
+          <span id="areasToStrengthenVoiceStatus" class="tiny muted">AI voice status checking…</span>
         </div>
         <ul id="areasToStrengthen" class="list"><li class="muted">Complete an assessment to view growth areas.</li></ul>
       </section>
@@ -1571,7 +1571,7 @@ function renderLiveYouthParentDashboardPage() {
         <h2>How to support this week</h2>
         <div class="voice-controls">
           <button class="btn btn-ghost voice-btn" type="button" data-voice-control="weeklySupport" data-voice-label="How to support this week">Read this section</button>
-          <span id="weeklySupportVoiceStatus" class="tiny muted">Read-aloud status: checking…</span>
+          <span id="weeklySupportVoiceStatus" class="tiny muted">AI voice status checking…</span>
         </div>
         <ul id="weeklySupport" class="list"><li class="muted">Complete an assessment to unlock support suggestions.</li></ul>
       </section>
@@ -1609,7 +1609,15 @@ function renderLiveYouthParentDashboardPage() {
           tenant: (query.get("tenant") || "").trim(),
           email: (query.get("email") || "").trim().toLowerCase(),
         };
-        const voiceState = { childId: "", sectionMap: {}, displayStatus: "voice_unknown" };
+        const voiceState = {
+          childId: "",
+          sectionMap: {},
+          displayStatus: "voice_unknown",
+          providerAudioAvailable: false,
+          providerName: "",
+          lastPlaybackMode: "none",
+        };
+        const dashboardVoicePlayback = { activeAudio: null };
         const programStatusSummary = document.getElementById("programStatusSummary");
         const programStatusList = document.getElementById("programStatusList");
         const programLaunchBtn = document.getElementById("programLaunchBtn");
@@ -1826,11 +1834,23 @@ function renderLiveYouthParentDashboardPage() {
             });
           });
         }
+        function parentVoiceStatusMessage() {
+          if (voiceState.lastPlaybackMode === "provider") return "AI voice ready (playing OpenAI gateway audio).";
+          if (voiceState.lastPlaybackMode === "fallback_tts") return "AI voice unavailable, using text-to-speech fallback.";
+          if (voiceState.providerAudioAvailable) return "AI voice ready (OpenAI gateway audio available).";
+          if (voiceState.displayStatus === "voice_unavailable" || voiceState.displayStatus === "voice_temporarily_unavailable") {
+            return "AI voice unavailable, using text-to-speech fallback when supported.";
+          }
+          if (voiceState.displayStatus === "voice_fallback_active") {
+            return "AI voice unavailable, using text-to-speech fallback when supported.";
+          }
+          return "AI voice status pending. Text remains readable.";
+        }
         function updateVoiceStatusCopy() {
-          const summary = String(voiceState.displayStatus || "voice_unknown").replace(/_/g, " ");
+          const summary = parentVoiceStatusMessage();
           ["snapshotVoiceStatus", "topStrengthsVoiceStatus", "areasToStrengthenVoiceStatus", "weeklySupportVoiceStatus"].forEach((id) => {
             const host = document.getElementById(id);
-            if (host) host.textContent = "Read-aloud status: " + summary + ".";
+            if (host) host.textContent = summary;
           });
         }
         function getReadableTextFromElement(id) {
@@ -1850,6 +1870,36 @@ function renderLiveYouthParentDashboardPage() {
             return false;
           }
         }
+        async function safePlayProviderAudio(audioUrl) {
+          const src = String(audioUrl || "").trim();
+          if (!src) return false;
+          try {
+            if (dashboardVoicePlayback.activeAudio && typeof dashboardVoicePlayback.activeAudio.pause === "function") {
+              dashboardVoicePlayback.activeAudio.pause();
+              dashboardVoicePlayback.activeAudio.currentTime = 0;
+            }
+            const audio = new Audio(src);
+            dashboardVoicePlayback.activeAudio = audio;
+            await audio.play();
+            return true;
+          } catch (_err) {
+            return false;
+          }
+        }
+        function getProviderAudioFromSection(section) {
+          const chunks = Array.isArray(section?.chunks) ? section.chunks : [];
+          const providerChunk = chunks.find((chunk) => {
+            const provider = String(chunk?.provider || chunk?.provider_name || "").toLowerCase();
+            return typeof chunk?.audio_url === "string"
+              && chunk.audio_url.trim().length > 0
+              && String(chunk?.provider_status || "").toLowerCase() === "available"
+              && provider.includes("openai");
+          });
+          return providerChunk ? {
+            audioUrl: String(providerChunk.audio_url || "").trim(),
+            providerName: String(providerChunk.provider || providerChunk.provider_name || "openai-via-gateway").trim(),
+          } : null;
+        }
         async function loadVoiceSectionsForChild(childId) {
           if (!childId) return;
           try {
@@ -1865,14 +1915,20 @@ function renderLiveYouthParentDashboardPage() {
               if (key) acc[key] = item;
               return acc;
             }, {});
+            const sectionEntries = Object.values(voiceState.sectionMap);
+            const providerAudio = sectionEntries.map((entry) => getProviderAudioFromSection(entry)).find(Boolean) || null;
+            voiceState.providerAudioAvailable = Boolean(providerAudio && providerAudio.audioUrl);
+            voiceState.providerName = providerAudio ? providerAudio.providerName : "";
             voiceState.displayStatus = String(payload.display_status || payload.voice_readiness_status || payload.voice_state?.availability || "voice_unknown");
             updateVoiceStatusCopy();
           } catch (_err) {
             voiceState.displayStatus = "voice_unavailable";
+            voiceState.providerAudioAvailable = false;
+            voiceState.providerName = "";
             updateVoiceStatusCopy();
           }
         }
-        function sectionVoiceTextForTarget(targetId, fallbackText) {
+        function sectionVoicePlaybackForTarget(targetId, fallbackText) {
           const map = voiceState.sectionMap || {};
           const keys = targetId === "topStrengths"
             ? ["strengths", "summary", "next_steps"]
@@ -1884,12 +1940,19 @@ function renderLiveYouthParentDashboardPage() {
                   ? ["summary", "strengths", "growth"]
                 : [];
           for (const key of keys) {
-            const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
-            if (text) return text;
+            const providerAudio = getProviderAudioFromSection(map[key]);
+            if (providerAudio && providerAudio.audioUrl) {
+              const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || fallbackText || "").trim();
+              return { text, audioUrl: providerAudio.audioUrl, source: "provider" };
+            }
           }
-          return String(fallbackText || "").trim();
+          for (const key of keys) {
+            const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
+            if (text) return { text, audioUrl: "", source: "fallback_tts" };
+          }
+          return { text: String(fallbackText || "").trim(), audioUrl: "", source: "fallback_tts" };
         }
-        function sectionVoiceTextForCardCode(cardCode, fallbackText) {
+        function sectionVoicePlaybackForCardCode(cardCode, fallbackText) {
           const map = voiceState.sectionMap || {};
           const normalized = String(cardCode || "").trim().toUpperCase();
           const candidates = [
@@ -1901,24 +1964,48 @@ function renderLiveYouthParentDashboardPage() {
             "summary",
           ];
           for (const key of candidates) {
-            const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
-            if (text) return text;
+            const providerAudio = getProviderAudioFromSection(map[key]);
+            if (providerAudio && providerAudio.audioUrl) {
+              const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || fallbackText || "").trim();
+              return { text, audioUrl: providerAudio.audioUrl, source: "provider" };
+            }
           }
-          return String(fallbackText || "").trim();
+          for (const key of candidates) {
+            const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
+            if (text) return { text, audioUrl: "", source: "fallback_tts" };
+          }
+          return { text: String(fallbackText || "").trim(), audioUrl: "", source: "fallback_tts" };
+        }
+        async function playParentVoiceSelection(selection, label) {
+          if (selection.audioUrl) {
+            const providerPlayed = await safePlayProviderAudio(selection.audioUrl);
+            if (providerPlayed) {
+              voiceState.lastPlaybackMode = "provider";
+              updateVoiceStatusCopy();
+              return true;
+            }
+          }
+          const fallbackPlayed = safePlayText(selection.text);
+          if (fallbackPlayed) {
+            voiceState.lastPlaybackMode = "fallback_tts";
+            updateVoiceStatusCopy();
+            return true;
+          }
+          voiceState.lastPlaybackMode = "none";
+          alert("Read-aloud is unavailable on this device right now. You can still read: " + label + ".");
+          return false;
         }
         function bindVoiceControls() {
           if (bindVoiceControls.bound) return;
           bindVoiceControls.bound = true;
-          document.addEventListener("click", function (event) {
+          document.addEventListener("click", async function (event) {
             const controlButton = event.target && event.target.closest ? event.target.closest("[data-voice-control]") : null;
             if (controlButton) {
               const targetId = String(controlButton.getAttribute("data-voice-control") || "").trim();
               const label = String(controlButton.getAttribute("data-voice-label") || targetId || "section");
               const fallbackText = getReadableTextFromElement(targetId);
-              const voiceText = sectionVoiceTextForTarget(targetId, fallbackText);
-              if (!safePlayText(voiceText)) {
-                alert("Read-aloud is unavailable on this device right now. You can still read: " + label + ".");
-              }
+              const selection = sectionVoicePlaybackForTarget(targetId, fallbackText);
+              await playParentVoiceSelection(selection, label);
               return;
             }
             const cardButton = event.target && event.target.closest ? event.target.closest("[data-voice-card]") : null;
@@ -1926,10 +2013,8 @@ function renderLiveYouthParentDashboardPage() {
             const code = String(cardButton.getAttribute("data-voice-card") || "").trim().toUpperCase();
             const cardHost = document.querySelector('[data-snapshot-card="' + code + '"]');
             const fallbackText = String(cardHost?.textContent || "").replace(/\s+/g, " ").trim();
-            const voiceText = sectionVoiceTextForCardCode(code, fallbackText);
-            if (!safePlayText(voiceText)) {
-              alert("Read-aloud is unavailable on this device right now. This card remains readable in text.");
-            }
+            const selection = sectionVoicePlaybackForCardCode(code, fallbackText);
+            await playParentVoiceSelection(selection, "snapshot card");
           });
         }
 
@@ -2303,7 +2388,7 @@ function renderLiveYouthProgramPage() {
             <div class="voice-controls">
               <button id="readWeeklyGoalsBtn" class="btn btn-ghost" type="button">Read weekly goals</button>
               <button id="readProgramSupportBtn" class="btn btn-ghost" type="button">Read support sections</button>
-              <span id="weeklyGoalsVoiceStatus" class="tiny muted">Read-aloud fallback ready.</span>
+              <span id="weeklyGoalsVoiceStatus" class="tiny muted">AI voice status checking…</span>
             </div>
             <ul id="weeklyGoals" class="list"><li class="muted">Loading goals…</li></ul>
             <ul id="weeklyGuidance" class="list"><li class="muted">Loading parent guidance…</li></ul>
@@ -2507,7 +2592,14 @@ function renderLiveYouthProgramPage() {
         let navWeekOffset = 0;
         let selectedSessionId = "";
         const plannerCommitmentState = { preferredTime: toCanonical12Hour(String(commitTimeInput?.value || "5:30 PM")) };
-        const programVoiceState = { status: "voice_unknown", sectionMap: {} };
+        const programVoiceState = {
+          status: "voice_unknown",
+          sectionMap: {},
+          providerAudioAvailable: false,
+          providerName: "",
+          lastPlaybackMode: "none",
+        };
+        const programVoicePlayback = { activeAudio: null };
         function setButtonBusy(button, isBusy, busyLabel) {
           if (!button) return;
           if (!button.dataset.defaultLabel) button.dataset.defaultLabel = button.textContent;
@@ -2633,6 +2725,60 @@ function renderLiveYouthProgramPage() {
             return false;
           }
         }
+        async function safePlayProviderAudio(audioUrl) {
+          const src = String(audioUrl || "").trim();
+          if (!src) return false;
+          try {
+            if (programVoicePlayback.activeAudio && typeof programVoicePlayback.activeAudio.pause === "function") {
+              programVoicePlayback.activeAudio.pause();
+              programVoicePlayback.activeAudio.currentTime = 0;
+            }
+            const audio = new Audio(src);
+            programVoicePlayback.activeAudio = audio;
+            await audio.play();
+            return true;
+          } catch (_err) {
+            return false;
+          }
+        }
+        function getProgramProviderAudio(section) {
+          const chunks = Array.isArray(section?.chunks) ? section.chunks : [];
+          const providerChunk = chunks.find((chunk) => {
+            const provider = String(chunk?.provider || chunk?.provider_name || "").toLowerCase();
+            return typeof chunk?.audio_url === "string"
+              && chunk.audio_url.trim().length > 0
+              && String(chunk?.provider_status || "").toLowerCase() === "available"
+              && provider.includes("openai");
+          });
+          return providerChunk ? {
+            audioUrl: String(providerChunk.audio_url || "").trim(),
+            providerName: String(providerChunk.provider || providerChunk.provider_name || "openai-via-gateway").trim(),
+          } : null;
+        }
+        function updateProgramVoiceStatus(messageOverride) {
+          if (!weeklyGoalsVoiceStatus) return;
+          if (messageOverride) {
+            weeklyGoalsVoiceStatus.textContent = messageOverride;
+            return;
+          }
+          if (programVoiceState.lastPlaybackMode === "provider") {
+            weeklyGoalsVoiceStatus.textContent = "AI voice ready (playing OpenAI gateway audio).";
+            return;
+          }
+          if (programVoiceState.lastPlaybackMode === "fallback_tts") {
+            weeklyGoalsVoiceStatus.textContent = "AI voice unavailable, using text-to-speech fallback.";
+            return;
+          }
+          if (programVoiceState.providerAudioAvailable) {
+            weeklyGoalsVoiceStatus.textContent = "AI voice ready (OpenAI gateway audio available).";
+            return;
+          }
+          if (programVoiceState.status === "voice_unavailable" || programVoiceState.status === "voice_temporarily_unavailable" || programVoiceState.status === "voice_fallback_active") {
+            weeklyGoalsVoiceStatus.textContent = "AI voice unavailable, using text-to-speech fallback when supported.";
+            return;
+          }
+          weeklyGoalsVoiceStatus.textContent = "AI voice status pending. Text remains readable.";
+        }
         async function loadProgramVoiceStatus() {
           const childId = String(accountCtx.child_id || "").trim();
           if (!childId || !weeklyGoalsVoiceStatus) return;
@@ -2651,21 +2797,53 @@ function renderLiveYouthProgramPage() {
               : {};
             programVoiceState.status = status;
             programVoiceState.sectionMap = map;
-            weeklyGoalsVoiceStatus.textContent = "Read-aloud status: " + status.replace(/_/g, " ") + ".";
+            const providerAudio = Object.values(map).map((entry) => getProgramProviderAudio(entry)).find(Boolean) || null;
+            programVoiceState.providerAudioAvailable = Boolean(providerAudio && providerAudio.audioUrl);
+            programVoiceState.providerName = providerAudio ? providerAudio.providerName : "";
+            programVoiceState.lastPlaybackMode = "none";
+            updateProgramVoiceStatus();
           } catch (_err) {
             programVoiceState.status = "voice_unavailable";
             programVoiceState.sectionMap = {};
-            weeklyGoalsVoiceStatus.textContent = "Read-aloud status: voice unavailable.";
+            programVoiceState.providerAudioAvailable = false;
+            programVoiceState.providerName = "";
+            programVoiceState.lastPlaybackMode = "none";
+            updateProgramVoiceStatus();
           }
         }
-        function getProgramVoiceText(keys, fallbackText) {
+        function getProgramVoiceSelection(keys, fallbackText) {
           const map = programVoiceState.sectionMap || {};
           const candidates = Array.isArray(keys) ? keys : [];
           for (const key of candidates) {
-            const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
-            if (text) return text;
+            const providerAudio = getProgramProviderAudio(map[key]);
+            if (providerAudio && providerAudio.audioUrl) {
+              const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || fallbackText || "").trim();
+              return { text, audioUrl: providerAudio.audioUrl, source: "provider" };
+            }
           }
-          return String(fallbackText || "").trim();
+          for (const key of candidates) {
+            const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
+            if (text) return { text, audioUrl: "", source: "fallback_tts" };
+          }
+          return { text: String(fallbackText || "").trim(), audioUrl: "", source: "fallback_tts" };
+        }
+        async function playProgramVoiceSelection(selection, fallbackFailureMessage) {
+          if (selection.audioUrl) {
+            const providerPlayed = await safePlayProviderAudio(selection.audioUrl);
+            if (providerPlayed) {
+              programVoiceState.lastPlaybackMode = "provider";
+              updateProgramVoiceStatus();
+              return true;
+            }
+          }
+          if (safePlayText(selection.text)) {
+            programVoiceState.lastPlaybackMode = "fallback_tts";
+            updateProgramVoiceStatus();
+            return true;
+          }
+          programVoiceState.lastPlaybackMode = "none";
+          updateProgramVoiceStatus(fallbackFailureMessage || "Read-aloud unavailable in this browser. Text remains visible.");
+          return false;
         }
         function parse12HourTime(time12) {
           const raw = String(time12 || "").trim();
@@ -3487,45 +3665,35 @@ function renderLiveYouthProgramPage() {
           commitPreferredDaysError.textContent = "";
         });
         if (readWeeklyGoalsBtn) {
-          readWeeklyGoalsBtn.addEventListener("click", function () {
+          readWeeklyGoalsBtn.addEventListener("click", async function () {
             const fallbackText = [
               String(weeklyGoals.textContent || "").trim(),
               String(weeklyGuidance.textContent || "").trim(),
             ].filter(Boolean).join(". ");
-            const text = getProgramVoiceText(["summary", "next_steps", "strengths"], fallbackText);
-            if (safePlayText(text)) {
-              if (weeklyGoalsVoiceStatus) weeklyGoalsVoiceStatus.textContent = "Read-aloud playing for weekly goals + guidance.";
-            } else if (weeklyGoalsVoiceStatus) {
-              weeklyGoalsVoiceStatus.textContent = "Read-aloud unavailable in this browser. Text remains visible.";
-            }
+            const selection = getProgramVoiceSelection(["summary", "next_steps", "strengths"], fallbackText);
+            await playProgramVoiceSelection(selection, "Read-aloud unavailable in this browser. Text remains visible.");
           });
         }
         if (readProgramSupportBtn) {
-          readProgramSupportBtn.addEventListener("click", function () {
+          readProgramSupportBtn.addEventListener("click", async function () {
             const fallbackText = [
               String(sessionFlowList.textContent || "").trim(),
               String(activityBankSurface.textContent || "").trim(),
               String(observationSupport.textContent || "").trim(),
             ].filter(Boolean).join(". ");
-            const text = getProgramVoiceText(["growth", "environment", "still_building"], fallbackText);
-            if (safePlayText(text)) {
-              if (weeklyGoalsVoiceStatus) weeklyGoalsVoiceStatus.textContent = "Read-aloud playing for support sections.";
-            } else if (weeklyGoalsVoiceStatus) {
-              weeklyGoalsVoiceStatus.textContent = "Read-aloud unavailable in this browser. Text remains visible.";
-            }
+            const selection = getProgramVoiceSelection(["growth", "environment", "still_building"], fallbackText);
+            await playProgramVoiceSelection(selection, "Read-aloud unavailable in this browser. Text remains visible.");
           });
         }
         if (readProgressSummaryBtn) {
-          readProgressSummaryBtn.addEventListener("click", function () {
+          readProgressSummaryBtn.addEventListener("click", async function () {
             const fallbackText = [
               String(motivationSummary.textContent || "").trim(),
               String(weekComparisonSummary.textContent || "").trim(),
               String(nextBestActionCopy.textContent || "").trim(),
             ].filter(Boolean).join(". ");
-            const text = getProgramVoiceText(["still_building", "next_steps", "summary"], fallbackText);
-            if (!safePlayText(text) && weeklyGoalsVoiceStatus) {
-              weeklyGoalsVoiceStatus.textContent = "Read-aloud unavailable in this browser. Text remains visible.";
-            }
+            const selection = getProgramVoiceSelection(["still_building", "next_steps", "summary"], fallbackText);
+            await playProgramVoiceSelection(selection, "Read-aloud unavailable in this browser. Text remains visible.");
           });
         }
         saveCommitmentBtn.addEventListener("click", async function () {
