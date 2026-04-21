@@ -46,6 +46,9 @@ test('program page renders parent planner, calendar, and lesson-plan surfaces', 
     assert.match(html, /Select at least one preferred day before saving\./);
     assert.match(html, /placeholder="5:30 PM"/);
     assert.match(html, /Choose a valid preferred time like 5:30 PM\./);
+    assert.match(html, /\[planner-commitment-debug\] validateCommitmentFormInputs/);
+    assert.match(html, /preferred_time_ui_raw/);
+    assert.match(html, /preferred_time_submitted/);
     assert.doesNotMatch(html, /HH:MM format/);
     assert.match(html, /Teacher-Style Lesson Plan/);
     assert.match(html, /Open Scheduled Session/);

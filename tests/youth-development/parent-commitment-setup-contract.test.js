@@ -49,7 +49,7 @@ test("rejects invalid preferred time and invalid start date", () => {
   const validation = validateParentCommitmentSetup({
     weekly_frequency: 3,
     preferred_days: ["monday", "wednesday"],
-    preferred_time: "5:30pm",
+    preferred_time: "5:30",
     session_length: 30,
     energy_type: "balanced",
     start_date: "2026-02-30",
@@ -92,6 +92,28 @@ test("accepts canonical setup payload", () => {
   });
   assert.equal(validation.ok, true);
   assert.equal(validation.normalized.weekly_frequency, 3);
+});
+
+test("normalizes parent-selected time strings without spacing and with 24-hour seconds", () => {
+  const noSpace = validateParentCommitmentSetup({
+    weekly_frequency: 3,
+    preferred_days: ["monday", "wednesday"],
+    preferred_time: "5:30pm",
+    session_length: 30,
+    energy_type: "balanced",
+  });
+  assert.equal(noSpace.ok, true);
+  assert.equal(noSpace.normalized.preferred_time, "5:30 PM");
+
+  const withSeconds = validateParentCommitmentSetup({
+    weekly_frequency: 3,
+    preferred_days: ["monday", "wednesday"],
+    preferred_time: "17:30:00",
+    session_length: 30,
+    energy_type: "balanced",
+  });
+  assert.equal(withSeconds.ok, true);
+  assert.equal(withSeconds.normalized.preferred_time, "5:30 PM");
 });
 
 test("scheduled sessions schema validates required fields and scope consistency", () => {
@@ -168,8 +190,10 @@ test("scheduled sessions reject duplicate session identifiers", () => {
 
 test("time and date helpers enforce canonical formats", () => {
   assert.equal(isValidTime12("5:30 PM"), true);
+  assert.equal(isValidTime12("5:30pm"), true);
   assert.equal(isValidTime12("05:30 PM"), false);
   assert.equal(isValidTime24("00:00"), true);
+  assert.equal(isValidTime24("17:30:00"), true);
   assert.equal(isValidTime24("23:59"), true);
   assert.equal(isValidTime24("24:00"), false);
   assert.equal(normalizeStartDate("2026-04-19").ok, true);

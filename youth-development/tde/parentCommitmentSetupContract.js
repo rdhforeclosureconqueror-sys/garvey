@@ -25,8 +25,8 @@ const SESSION_LENGTHS = Object.freeze([15, 30, 45]);
 const ENERGY_TYPES = Object.freeze(["calm", "balanced", "high-energy"]);
 const WEEKLY_FREQUENCY_VALUES = Object.freeze([2, 3, 4, 5]);
 const SCHEDULED_SESSION_STATUS_VALUES = Object.freeze(["planned", "in_progress", "completed", "missed"]);
-const TIME_24H_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
-const TIME_12H_PATTERN = /^(?:[1-9]|1[0-2]):([0-5]\d)\s(AM|PM)$/;
+const TIME_24H_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)(?::([0-5]\d))?$/;
+const TIME_12H_PATTERN = /^([1-9]|1[0-2]):([0-5]\d)\s*(AM|PM)$/i;
 const ISO_DATE_ONLY_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/;
 const CANONICAL_DAY_BY_UTC_INDEX = Object.freeze(["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]);
 
@@ -85,7 +85,7 @@ function isValidTime24(value) {
 }
 
 function isValidTime12(value) {
-  return TIME_12H_PATTERN.test(String(value || "").trim().toUpperCase());
+  return TIME_12H_PATTERN.test(String(value || "").trim());
 }
 
 function convert24To12(value) {
@@ -100,12 +100,12 @@ function convert24To12(value) {
 }
 
 function convert12To24(value) {
-  const raw = String(value || "").trim().toUpperCase();
+  const raw = String(value || "").trim();
   const match = raw.match(TIME_12H_PATTERN);
   if (!match) return "";
-  const hour12 = Number(raw.split(":")[0]);
-  const minute = String(match[1]);
-  const suffix = match[2];
+  const hour12 = Number(match[1]);
+  const minute = String(match[2]);
+  const suffix = String(match[3] || "").toUpperCase();
   let hour24 = hour12 % 12;
   if (suffix === "PM") hour24 += 12;
   return `${String(hour24).padStart(2, "0")}:${minute}`;
@@ -114,10 +114,12 @@ function convert12To24(value) {
 function toCanonicalPreferredTime(value) {
   const raw = String(value || "").trim();
   if (!raw) return "";
-  if (isValidTime12(raw)) {
-    const [time, suffixRaw] = raw.toUpperCase().split(" ");
-    const [hour, minute] = time.split(":");
-    return `${String(Number(hour))}:${String(minute).padStart(2, "0")} ${suffixRaw}`;
+  const match12 = raw.match(TIME_12H_PATTERN);
+  if (match12) {
+    const hour = Number(match12[1]);
+    const minute = String(match12[2]).padStart(2, "0");
+    const suffixRaw = String(match12[3] || "").toUpperCase();
+    return `${hour}:${minute} ${suffixRaw}`;
   }
   if (isValidTime24(raw)) return convert24To12(raw);
   return raw;
