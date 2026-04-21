@@ -120,8 +120,10 @@ Program sections with visible controls:
 
 Read-aloud wiring:
 - Primary content source: `GET /api/youth-development/tde/voice/sections/:childId`.
+- Parent dashboard section keys consumed from this endpoint: `summary`, `strengths`, `growth`, `still_building`, `environment`, `next_steps`.
 - Playback path: browser `speechSynthesis`.
 - Fallback: visible parent-readable text remains primary if speech is unavailable; status copy surfaces fallback state.
+- Visibility/gating: controls are always rendered on parent pages; when child scope is missing or provider/audio is unavailable, controls continue to use readable-text fallback and show fallback status copy.
 
 Intentionally not voice-enabled (current scope):
 - Form-only setup controls (frequency/day/time/duration pickers).
