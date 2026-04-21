@@ -1134,9 +1134,14 @@ test('GET /api/youth-development/program/connectivity-audit returns major parent
     const payload = await response.json();
     assert.equal(payload.ok, true);
     assert.equal(payload.contract, 'parent_program_connectivity_audit_v1');
-    assert.ok(payload.totals.controls >= 16);
+    assert.ok(payload.totals.controls >= 21);
     const labels = payload.controls.map((entry) => entry.label);
     assert.ok(labels.includes('Build Your Weekly Plan'));
+    assert.ok(labels.includes('Preferred Days Selector'));
+    assert.ok(labels.includes('Setup Required Message'));
+    assert.ok(labels.includes('No Sessions Yet Message'));
+    assert.ok(labels.includes('Lesson Plan Empty State'));
+    assert.ok(labels.includes('Progress Empty State'));
     assert.ok(labels.includes('Start Today’s Session'));
     assert.ok(labels.includes('Resume Session'));
     assert.ok(labels.includes('Save Reflection'));

@@ -39,6 +39,11 @@ test('program page renders parent planner, calendar, and lesson-plan surfaces', 
     assert.match(html, /Determining next best action/);
     assert.match(html, /Run Next Best Action/);
     assert.match(html, /Weekly Planner Calendar \+ adherence/);
+    assert.match(html, /id="commitPreferredDaysGroup"/);
+    assert.match(html, /data-day-checkbox="monday"/);
+    assert.match(html, /data-day-checkbox="sunday"/);
+    assert.match(html, /preferred_days: validation\.preferredDays/);
+    assert.match(html, /Select at least one preferred day before saving\./);
     assert.match(html, /placeholder="5:30 PM"/);
     assert.match(html, /Choose a valid preferred time like 5:30 PM\./);
     assert.doesNotMatch(html, /HH:MM format/);
@@ -269,14 +274,19 @@ test('program page script contains canonical planner gating states and suppresse
     assert.match(html, /id="plannerStateMessage"/);
     assert.match(html, /id="progressStateMessage"/);
     assert.match(html, /setup_required/);
-    assert.match(html, /setup_complete_but_no_sessions/);
+    assert.match(html, /setup_complete_generating_sessions/);
+    assert.match(html, /no_sessions_yet/);
     assert.match(html, /setup_complete_with_sessions/);
+    assert.match(html, /execution_in_progress/);
     assert.match(html, /id="commitmentSaveFeedback"/);
     assert.match(html, /id="commitmentSchedulePreview"/);
     assert.match(html, /Your weekly plan is set\./);
     assert.match(html, /Weekly plan save failed:/);
     assert.match(html, /progressDataSurface\.classList\.toggle\("is-hidden", !hasSessions\)/);
     assert.match(html, /todaySessionPanel\.classList\.toggle\("is-hidden", !hasSessions\)/);
+    assert.match(html, /Complete your weekly plan to generate sessions\./);
+    assert.match(html, /Your lesson plan will appear after sessions are scheduled\./);
+    assert.match(html, /Progress tracking begins after your first scheduled session\./);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
