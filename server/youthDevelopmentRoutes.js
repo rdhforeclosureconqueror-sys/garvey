@@ -1544,6 +1544,10 @@ function renderLiveYouthParentDashboardPage() {
         <h2>Snapshot cards</h2>
         <div class="voice-controls">
           <button class="btn btn-ghost voice-btn" type="button" data-voice-control="snapshotCards" data-voice-label="Snapshot cards">Read snapshot summary</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="play" data-voice-scope="snapshotCards">Play</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="pause" data-voice-scope="snapshotCards">Pause</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="back10" data-voice-scope="snapshotCards">Back 10s</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="forward10" data-voice-scope="snapshotCards">Forward 10s</button>
         </div>
         <p id="snapshotVoiceStatus" class="tiny muted">AI voice status checking…</p>
         <div id="snapshotCards" class="grid cards"></div>
@@ -1553,6 +1557,10 @@ function renderLiveYouthParentDashboardPage() {
         <h2>Top strengths</h2>
         <div class="voice-controls">
           <button class="btn btn-ghost voice-btn" type="button" data-voice-control="topStrengths" data-voice-label="Top strengths">Read this section</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="play" data-voice-scope="topStrengths">Play</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="pause" data-voice-scope="topStrengths">Pause</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="back10" data-voice-scope="topStrengths">Back 10s</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="forward10" data-voice-scope="topStrengths">Forward 10s</button>
           <span id="topStrengthsVoiceStatus" class="tiny muted">AI voice status checking…</span>
         </div>
         <ul id="topStrengths" class="list"><li class="muted">Complete an assessment to view strengths.</li></ul>
@@ -1562,6 +1570,10 @@ function renderLiveYouthParentDashboardPage() {
         <h2>Areas to strengthen</h2>
         <div class="voice-controls">
           <button class="btn btn-ghost voice-btn" type="button" data-voice-control="areasToStrengthen" data-voice-label="Areas to strengthen">Read this section</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="play" data-voice-scope="areasToStrengthen">Play</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="pause" data-voice-scope="areasToStrengthen">Pause</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="back10" data-voice-scope="areasToStrengthen">Back 10s</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="forward10" data-voice-scope="areasToStrengthen">Forward 10s</button>
           <span id="areasToStrengthenVoiceStatus" class="tiny muted">AI voice status checking…</span>
         </div>
         <ul id="areasToStrengthen" class="list"><li class="muted">Complete an assessment to view growth areas.</li></ul>
@@ -1571,6 +1583,10 @@ function renderLiveYouthParentDashboardPage() {
         <h2>How to support this week</h2>
         <div class="voice-controls">
           <button class="btn btn-ghost voice-btn" type="button" data-voice-control="weeklySupport" data-voice-label="How to support this week">Read this section</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="play" data-voice-scope="weeklySupport">Play</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="pause" data-voice-scope="weeklySupport">Pause</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="back10" data-voice-scope="weeklySupport">Back 10s</button>
+          <button class="btn btn-ghost voice-btn" type="button" data-voice-action="forward10" data-voice-scope="weeklySupport">Forward 10s</button>
           <span id="weeklySupportVoiceStatus" class="tiny muted">AI voice status checking…</span>
         </div>
         <ul id="weeklySupport" class="list"><li class="muted">Complete an assessment to unlock support suggestions.</li></ul>
@@ -1615,9 +1631,11 @@ function renderLiveYouthParentDashboardPage() {
           displayStatus: "voice_unknown",
           providerAudioAvailable: false,
           providerName: "",
+          playbackState: "ready",
+          statusDetail: "",
           lastPlaybackMode: "none",
         };
-        const dashboardVoicePlayback = { activeAudio: null };
+        const dashboardVoicePlayback = { activeAudio: null, activeScope: "", selectionByScope: {}, fallbackScope: "" };
         const programStatusSummary = document.getElementById("programStatusSummary");
         const programStatusList = document.getElementById("programStatusList");
         const programLaunchBtn = document.getElementById("programLaunchBtn");
@@ -1768,7 +1786,13 @@ function renderLiveYouthParentDashboardPage() {
                   '</div>',
                   '<button class="help-btn" data-help-code="' + esc(code) + '" aria-label="Explain ' + esc(meta.parentLabel) + '">?</button>',
                 '</div>',
-                '<div class="voice-controls"><button class="btn btn-ghost voice-btn" type="button" data-voice-card="' + esc(code) + '">Read this card</button></div>',
+                '<div class="voice-controls">'
+                  + '<button class="btn btn-ghost voice-btn" type="button" data-voice-card="' + esc(code) + '">Read this card</button>'
+                  + '<button class="btn btn-ghost voice-btn" type="button" data-voice-action="play" data-voice-scope="card:' + esc(code) + '">Play</button>'
+                  + '<button class="btn btn-ghost voice-btn" type="button" data-voice-action="pause" data-voice-scope="card:' + esc(code) + '">Pause</button>'
+                  + '<button class="btn btn-ghost voice-btn" type="button" data-voice-action="back10" data-voice-scope="card:' + esc(code) + '">Back 10s</button>'
+                  + '<button class="btn btn-ghost voice-btn" type="button" data-voice-action="forward10" data-voice-scope="card:' + esc(code) + '">Forward 10s</button>'
+                  + '</div>',
                 '<div><span class="status-badge ' + tone.klass + '">' + esc(tone.label) + '</span> <span class="tiny">Score: ' + score + '%</span></div>',
                 '<div class="meter" aria-label="' + esc(meta.parentLabel) + ' score meter"><span style="width:' + score + '%"></span></div>',
                 '<p><strong>What your child currently shows:</strong> ' + esc(oneLine) + '</p>',
@@ -1835,14 +1859,13 @@ function renderLiveYouthParentDashboardPage() {
           });
         }
         function parentVoiceStatusMessage() {
-          if (voiceState.lastPlaybackMode === "provider") return "AI voice ready (playing OpenAI gateway audio).";
-          if (voiceState.lastPlaybackMode === "fallback_tts") return "AI voice unavailable, using text-to-speech fallback.";
+          if (voiceState.playbackState === "playing" && voiceState.lastPlaybackMode === "provider") return "playing AI voice (OpenAI gateway audio).";
+          if (voiceState.playbackState === "paused" && voiceState.lastPlaybackMode === "provider") return "paused AI voice.";
+          if (voiceState.playbackState === "playing" && voiceState.lastPlaybackMode === "fallback_tts") return "AI voice unavailable, using fallback browser speech.";
+          if (voiceState.playbackState === "failed") return voiceState.statusDetail || "AI voice playback failed.";
           if (voiceState.providerAudioAvailable) return "AI voice ready (OpenAI gateway audio available).";
-          if (voiceState.displayStatus === "voice_unavailable" || voiceState.displayStatus === "voice_temporarily_unavailable") {
-            return "AI voice unavailable, using text-to-speech fallback when supported.";
-          }
-          if (voiceState.displayStatus === "voice_fallback_active") {
-            return "AI voice unavailable, using text-to-speech fallback when supported.";
+          if (voiceState.displayStatus === "voice_unavailable" || voiceState.displayStatus === "voice_temporarily_unavailable" || voiceState.displayStatus === "voice_fallback_active") {
+            return "AI voice unavailable, using fallback browser speech when supported.";
           }
           return "AI voice status pending. Text remains readable.";
         }
@@ -1865,13 +1888,25 @@ function renderLiveYouthParentDashboardPage() {
           try {
             speech.cancel();
             speech.speak(new window.SpeechSynthesisUtterance(spoken));
+            dashboardVoicePlayback.fallbackScope = dashboardVoicePlayback.activeScope;
             return true;
           } catch (_err) {
             return false;
           }
         }
-        async function safePlayProviderAudio(audioUrl) {
-          const src = String(audioUrl || "").trim();
+        async function resolveProviderAudioUrl(providerAudio) {
+          const audioUrl = String(providerAudio?.audioUrl || "").trim();
+          if (audioUrl) return audioUrl;
+          const assetRef = String(providerAudio?.assetRef || "").trim();
+          if (!assetRef) return "";
+          if (/^https?:\/\//i.test(assetRef)) return assetRef;
+          const endpoint = "/api/youth-development/tde/voice/assets/resolve?child_id=" + encodeURIComponent(String(voiceState.childId || "")) + "&asset_ref=" + encodeURIComponent(assetRef);
+          const response = await fetch(endpoint);
+          const payload = response.ok ? await response.json().catch(() => null) : null;
+          return String(payload?.audio_url || "").trim();
+        }
+        async function safePlayProviderAudio(providerAudio) {
+          const src = await resolveProviderAudioUrl(providerAudio);
           if (!src) return false;
           try {
             if (dashboardVoicePlayback.activeAudio && typeof dashboardVoicePlayback.activeAudio.pause === "function") {
@@ -1890,13 +1925,14 @@ function renderLiveYouthParentDashboardPage() {
           const chunks = Array.isArray(section?.chunks) ? section.chunks : [];
           const providerChunk = chunks.find((chunk) => {
             const provider = String(chunk?.provider || chunk?.provider_name || "").toLowerCase();
-            return typeof chunk?.audio_url === "string"
-              && chunk.audio_url.trim().length > 0
+            return (typeof chunk?.audio_url === "string" && chunk.audio_url.trim().length > 0
+              || typeof chunk?.asset_ref === "string" && chunk.asset_ref.trim().length > 0)
               && String(chunk?.provider_status || "").toLowerCase() === "available"
               && provider.includes("openai");
           });
           return providerChunk ? {
             audioUrl: String(providerChunk.audio_url || "").trim(),
+            assetRef: String(providerChunk.asset_ref || "").trim(),
             providerName: String(providerChunk.provider || providerChunk.provider_name || "openai-via-gateway").trim(),
           } : null;
         }
@@ -1917,8 +1953,10 @@ function renderLiveYouthParentDashboardPage() {
             }, {});
             const sectionEntries = Object.values(voiceState.sectionMap);
             const providerAudio = sectionEntries.map((entry) => getProviderAudioFromSection(entry)).find(Boolean) || null;
-            voiceState.providerAudioAvailable = Boolean(providerAudio && providerAudio.audioUrl);
+            voiceState.providerAudioAvailable = Boolean(providerAudio && (providerAudio.audioUrl || providerAudio.assetRef));
             voiceState.providerName = providerAudio ? providerAudio.providerName : "";
+            voiceState.playbackState = "ready";
+            voiceState.statusDetail = "";
             voiceState.displayStatus = String(payload.display_status || payload.voice_readiness_status || payload.voice_state?.availability || "voice_unknown");
             updateVoiceStatusCopy();
           } catch (_err) {
@@ -1941,9 +1979,9 @@ function renderLiveYouthParentDashboardPage() {
                 : [];
           for (const key of keys) {
             const providerAudio = getProviderAudioFromSection(map[key]);
-            if (providerAudio && providerAudio.audioUrl) {
+            if (providerAudio && (providerAudio.audioUrl || providerAudio.assetRef)) {
               const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || fallbackText || "").trim();
-              return { text, audioUrl: providerAudio.audioUrl, source: "provider" };
+              return { text, providerAudio, source: "provider" };
             }
           }
           for (const key of keys) {
@@ -1965,9 +2003,9 @@ function renderLiveYouthParentDashboardPage() {
           ];
           for (const key of candidates) {
             const providerAudio = getProviderAudioFromSection(map[key]);
-            if (providerAudio && providerAudio.audioUrl) {
+            if (providerAudio && (providerAudio.audioUrl || providerAudio.assetRef)) {
               const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || fallbackText || "").trim();
-              return { text, audioUrl: providerAudio.audioUrl, source: "provider" };
+              return { text, providerAudio, source: "provider" };
             }
           }
           for (const key of candidates) {
@@ -1976,11 +2014,14 @@ function renderLiveYouthParentDashboardPage() {
           }
           return { text: String(fallbackText || "").trim(), audioUrl: "", source: "fallback_tts" };
         }
-        async function playParentVoiceSelection(selection, label) {
-          if (selection.audioUrl) {
-            const providerPlayed = await safePlayProviderAudio(selection.audioUrl);
+        async function playParentVoiceSelection(selection, label, scopeId) {
+          dashboardVoicePlayback.activeScope = String(scopeId || "");
+          if (selection.providerAudio) {
+            const providerPlayed = await safePlayProviderAudio(selection.providerAudio);
             if (providerPlayed) {
               voiceState.lastPlaybackMode = "provider";
+              voiceState.playbackState = "playing";
+              voiceState.statusDetail = "";
               updateVoiceStatusCopy();
               return true;
             }
@@ -1988,10 +2029,15 @@ function renderLiveYouthParentDashboardPage() {
           const fallbackPlayed = safePlayText(selection.text);
           if (fallbackPlayed) {
             voiceState.lastPlaybackMode = "fallback_tts";
+            voiceState.playbackState = "playing";
+            voiceState.statusDetail = "AI voice unavailable, using fallback browser speech.";
             updateVoiceStatusCopy();
             return true;
           }
           voiceState.lastPlaybackMode = "none";
+          voiceState.playbackState = "failed";
+          voiceState.statusDetail = "AI voice playback failed; fallback also unavailable on this device.";
+          updateVoiceStatusCopy();
           alert("Read-aloud is unavailable on this device right now. You can still read: " + label + ".");
           return false;
         }
@@ -2005,8 +2051,55 @@ function renderLiveYouthParentDashboardPage() {
               const label = String(controlButton.getAttribute("data-voice-label") || targetId || "section");
               const fallbackText = getReadableTextFromElement(targetId);
               const selection = sectionVoicePlaybackForTarget(targetId, fallbackText);
-              await playParentVoiceSelection(selection, label);
+              dashboardVoicePlayback.selectionByScope[targetId] = selection;
+              await playParentVoiceSelection(selection, label, targetId);
               return;
+            }
+            const actionButton = event.target && event.target.closest ? event.target.closest("[data-voice-action]") : null;
+            if (actionButton) {
+              const action = String(actionButton.getAttribute("data-voice-action") || "").trim();
+              const scope = String(actionButton.getAttribute("data-voice-scope") || "").trim();
+              const audio = dashboardVoicePlayback.activeAudio;
+              if (action === "pause") {
+                if (audio && typeof audio.pause === "function") {
+                  audio.pause();
+                  voiceState.playbackState = "paused";
+                  voiceState.lastPlaybackMode = "provider";
+                } else {
+                  const speech = typeof window !== "undefined" ? window.speechSynthesis : null;
+                  if (speech && typeof speech.pause === "function") speech.pause();
+                  voiceState.playbackState = "paused";
+                  voiceState.lastPlaybackMode = "fallback_tts";
+                  voiceState.statusDetail = "Fallback browser speech paused.";
+                }
+                updateVoiceStatusCopy();
+                return;
+              }
+              if (action === "back10" || action === "forward10") {
+                if (audio && typeof audio.currentTime === "number") {
+                  const delta = action === "back10" ? -10 : 10;
+                  audio.currentTime = Math.max(0, Math.min((audio.duration || Number.MAX_SAFE_INTEGER), audio.currentTime + delta));
+                  voiceState.playbackState = "playing";
+                } else {
+                  voiceState.statusDetail = "Fallback browser speech cannot seek by 10 seconds.";
+                }
+                updateVoiceStatusCopy();
+                return;
+              }
+              if (action === "play" && scope) {
+                const cachedSelection = dashboardVoicePlayback.selectionByScope[scope];
+                if (audio && scope === dashboardVoicePlayback.activeScope && audio.paused) {
+                  await audio.play().catch(() => null);
+                  voiceState.playbackState = "playing";
+                  voiceState.lastPlaybackMode = "provider";
+                  updateVoiceStatusCopy();
+                  return;
+                }
+                if (cachedSelection) {
+                  await playParentVoiceSelection(cachedSelection, scope, scope);
+                }
+                return;
+              }
             }
             const cardButton = event.target && event.target.closest ? event.target.closest("[data-voice-card]") : null;
             if (!cardButton) return;
@@ -2014,7 +2107,8 @@ function renderLiveYouthParentDashboardPage() {
             const cardHost = document.querySelector('[data-snapshot-card="' + code + '"]');
             const fallbackText = String(cardHost?.textContent || "").replace(/\s+/g, " ").trim();
             const selection = sectionVoicePlaybackForCardCode(code, fallbackText);
-            await playParentVoiceSelection(selection, "snapshot card");
+            dashboardVoicePlayback.selectionByScope["card:" + code] = selection;
+            await playParentVoiceSelection(selection, "snapshot card", "card:" + code);
           });
         }
 
@@ -2387,7 +2481,15 @@ function renderLiveYouthProgramPage() {
             <h3 class="state-title">Weekly goals + parent guidance</h3>
             <div class="voice-controls">
               <button id="readWeeklyGoalsBtn" class="btn btn-ghost" type="button">Read weekly goals</button>
+              <button class="btn btn-ghost" type="button" data-program-voice-action="play" data-program-voice-scope="weeklyGoals">Play</button>
+              <button class="btn btn-ghost" type="button" data-program-voice-action="pause" data-program-voice-scope="weeklyGoals">Pause</button>
+              <button class="btn btn-ghost" type="button" data-program-voice-action="back10" data-program-voice-scope="weeklyGoals">Back 10s</button>
+              <button class="btn btn-ghost" type="button" data-program-voice-action="forward10" data-program-voice-scope="weeklyGoals">Forward 10s</button>
               <button id="readProgramSupportBtn" class="btn btn-ghost" type="button">Read support sections</button>
+              <button class="btn btn-ghost" type="button" data-program-voice-action="play" data-program-voice-scope="programSupport">Play</button>
+              <button class="btn btn-ghost" type="button" data-program-voice-action="pause" data-program-voice-scope="programSupport">Pause</button>
+              <button class="btn btn-ghost" type="button" data-program-voice-action="back10" data-program-voice-scope="programSupport">Back 10s</button>
+              <button class="btn btn-ghost" type="button" data-program-voice-action="forward10" data-program-voice-scope="programSupport">Forward 10s</button>
               <span id="weeklyGoalsVoiceStatus" class="tiny muted">AI voice status checking…</span>
             </div>
             <ul id="weeklyGoals" class="list"><li class="muted">Loading goals…</li></ul>
@@ -2437,6 +2539,10 @@ function renderLiveYouthProgramPage() {
         <h2>Parent Progress + Adherence Dashboard</h2>
         <div class="voice-controls">
           <button id="readProgressSummaryBtn" class="btn btn-ghost" type="button">Read progress summary</button>
+          <button class="btn btn-ghost" type="button" data-program-voice-action="play" data-program-voice-scope="progressSummary">Play</button>
+          <button class="btn btn-ghost" type="button" data-program-voice-action="pause" data-program-voice-scope="progressSummary">Pause</button>
+          <button class="btn btn-ghost" type="button" data-program-voice-action="back10" data-program-voice-scope="progressSummary">Back 10s</button>
+          <button class="btn btn-ghost" type="button" data-program-voice-action="forward10" data-program-voice-scope="progressSummary">Forward 10s</button>
         </div>
         <div id="progressStateMessage" class="state-box">
           <h3 class="state-title">Progress visibility status</h3>
@@ -2597,9 +2703,11 @@ function renderLiveYouthProgramPage() {
           sectionMap: {},
           providerAudioAvailable: false,
           providerName: "",
+          playbackState: "ready",
+          statusDetail: "",
           lastPlaybackMode: "none",
         };
-        const programVoicePlayback = { activeAudio: null };
+        const programVoicePlayback = { activeAudio: null, activeScope: "", selectionByScope: {} };
         function setButtonBusy(button, isBusy, busyLabel) {
           if (!button) return;
           if (!button.dataset.defaultLabel) button.dataset.defaultLabel = button.textContent;
@@ -2725,8 +2833,19 @@ function renderLiveYouthProgramPage() {
             return false;
           }
         }
-        async function safePlayProviderAudio(audioUrl) {
-          const src = String(audioUrl || "").trim();
+        async function resolveProgramProviderAudioUrl(providerAudio) {
+          const audioUrl = String(providerAudio?.audioUrl || "").trim();
+          if (audioUrl) return audioUrl;
+          const assetRef = String(providerAudio?.assetRef || "").trim();
+          if (!assetRef) return "";
+          if (/^https?:\/\//i.test(assetRef)) return assetRef;
+          const endpoint = "/api/youth-development/tde/voice/assets/resolve?child_id=" + encodeURIComponent(String(accountCtx.child_id || "")) + "&asset_ref=" + encodeURIComponent(assetRef);
+          const response = await fetch(endpoint);
+          const payload = response.ok ? await response.json().catch(() => null) : null;
+          return String(payload?.audio_url || "").trim();
+        }
+        async function safePlayProviderAudio(providerAudio) {
+          const src = await resolveProgramProviderAudioUrl(providerAudio);
           if (!src) return false;
           try {
             if (programVoicePlayback.activeAudio && typeof programVoicePlayback.activeAudio.pause === "function") {
@@ -2745,13 +2864,16 @@ function renderLiveYouthProgramPage() {
           const chunks = Array.isArray(section?.chunks) ? section.chunks : [];
           const providerChunk = chunks.find((chunk) => {
             const provider = String(chunk?.provider || chunk?.provider_name || "").toLowerCase();
-            return typeof chunk?.audio_url === "string"
+            return (typeof chunk?.audio_url === "string"
               && chunk.audio_url.trim().length > 0
+              || typeof chunk?.asset_ref === "string"
+              && chunk.asset_ref.trim().length > 0)
               && String(chunk?.provider_status || "").toLowerCase() === "available"
               && provider.includes("openai");
           });
           return providerChunk ? {
             audioUrl: String(providerChunk.audio_url || "").trim(),
+            assetRef: String(providerChunk.asset_ref || "").trim(),
             providerName: String(providerChunk.provider || providerChunk.provider_name || "openai-via-gateway").trim(),
           } : null;
         }
@@ -2761,12 +2883,20 @@ function renderLiveYouthProgramPage() {
             weeklyGoalsVoiceStatus.textContent = messageOverride;
             return;
           }
-          if (programVoiceState.lastPlaybackMode === "provider") {
-            weeklyGoalsVoiceStatus.textContent = "AI voice ready (playing OpenAI gateway audio).";
+          if (programVoiceState.playbackState === "playing" && programVoiceState.lastPlaybackMode === "provider") {
+            weeklyGoalsVoiceStatus.textContent = "playing AI voice (OpenAI gateway audio).";
             return;
           }
-          if (programVoiceState.lastPlaybackMode === "fallback_tts") {
-            weeklyGoalsVoiceStatus.textContent = "AI voice unavailable, using text-to-speech fallback.";
+          if (programVoiceState.playbackState === "paused" && programVoiceState.lastPlaybackMode === "provider") {
+            weeklyGoalsVoiceStatus.textContent = "paused AI voice.";
+            return;
+          }
+          if (programVoiceState.playbackState === "playing" && programVoiceState.lastPlaybackMode === "fallback_tts") {
+            weeklyGoalsVoiceStatus.textContent = "AI voice unavailable, using fallback browser speech.";
+            return;
+          }
+          if (programVoiceState.playbackState === "failed") {
+            weeklyGoalsVoiceStatus.textContent = programVoiceState.statusDetail || "AI voice playback failed.";
             return;
           }
           if (programVoiceState.providerAudioAvailable) {
@@ -2798,8 +2928,10 @@ function renderLiveYouthProgramPage() {
             programVoiceState.status = status;
             programVoiceState.sectionMap = map;
             const providerAudio = Object.values(map).map((entry) => getProgramProviderAudio(entry)).find(Boolean) || null;
-            programVoiceState.providerAudioAvailable = Boolean(providerAudio && providerAudio.audioUrl);
+            programVoiceState.providerAudioAvailable = Boolean(providerAudio && (providerAudio.audioUrl || providerAudio.assetRef));
             programVoiceState.providerName = providerAudio ? providerAudio.providerName : "";
+            programVoiceState.playbackState = "ready";
+            programVoiceState.statusDetail = "";
             programVoiceState.lastPlaybackMode = "none";
             updateProgramVoiceStatus();
           } catch (_err) {
@@ -2816,9 +2948,9 @@ function renderLiveYouthProgramPage() {
           const candidates = Array.isArray(keys) ? keys : [];
           for (const key of candidates) {
             const providerAudio = getProgramProviderAudio(map[key]);
-            if (providerAudio && providerAudio.audioUrl) {
+            if (providerAudio && (providerAudio.audioUrl || providerAudio.assetRef)) {
               const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || fallbackText || "").trim();
-              return { text, audioUrl: providerAudio.audioUrl, source: "provider" };
+              return { text, providerAudio, source: "provider" };
             }
           }
           for (const key of candidates) {
@@ -2828,20 +2960,26 @@ function renderLiveYouthProgramPage() {
           return { text: String(fallbackText || "").trim(), audioUrl: "", source: "fallback_tts" };
         }
         async function playProgramVoiceSelection(selection, fallbackFailureMessage) {
-          if (selection.audioUrl) {
-            const providerPlayed = await safePlayProviderAudio(selection.audioUrl);
+          if (selection.providerAudio) {
+            const providerPlayed = await safePlayProviderAudio(selection.providerAudio);
             if (providerPlayed) {
               programVoiceState.lastPlaybackMode = "provider";
+              programVoiceState.playbackState = "playing";
+              programVoiceState.statusDetail = "";
               updateProgramVoiceStatus();
               return true;
             }
           }
           if (safePlayText(selection.text)) {
             programVoiceState.lastPlaybackMode = "fallback_tts";
+            programVoiceState.playbackState = "playing";
+            programVoiceState.statusDetail = "AI voice unavailable, using fallback browser speech.";
             updateProgramVoiceStatus();
             return true;
           }
           programVoiceState.lastPlaybackMode = "none";
+          programVoiceState.playbackState = "failed";
+          programVoiceState.statusDetail = "AI voice playback failed; fallback browser speech unavailable.";
           updateProgramVoiceStatus(fallbackFailureMessage || "Read-aloud unavailable in this browser. Text remains visible.");
           return false;
         }
@@ -3671,6 +3809,8 @@ function renderLiveYouthProgramPage() {
               String(weeklyGuidance.textContent || "").trim(),
             ].filter(Boolean).join(". ");
             const selection = getProgramVoiceSelection(["summary", "next_steps", "strengths"], fallbackText);
+            programVoicePlayback.selectionByScope.weeklyGoals = selection;
+            programVoicePlayback.activeScope = "weeklyGoals";
             await playProgramVoiceSelection(selection, "Read-aloud unavailable in this browser. Text remains visible.");
           });
         }
@@ -3682,6 +3822,8 @@ function renderLiveYouthProgramPage() {
               String(observationSupport.textContent || "").trim(),
             ].filter(Boolean).join(". ");
             const selection = getProgramVoiceSelection(["growth", "environment", "still_building"], fallbackText);
+            programVoicePlayback.selectionByScope.programSupport = selection;
+            programVoicePlayback.activeScope = "programSupport";
             await playProgramVoiceSelection(selection, "Read-aloud unavailable in this browser. Text remains visible.");
           });
         }
@@ -3693,9 +3835,57 @@ function renderLiveYouthProgramPage() {
               String(nextBestActionCopy.textContent || "").trim(),
             ].filter(Boolean).join(". ");
             const selection = getProgramVoiceSelection(["still_building", "next_steps", "summary"], fallbackText);
+            programVoicePlayback.selectionByScope.progressSummary = selection;
+            programVoicePlayback.activeScope = "progressSummary";
             await playProgramVoiceSelection(selection, "Read-aloud unavailable in this browser. Text remains visible.");
           });
         }
+        document.addEventListener("click", async function (event) {
+          const button = event.target && event.target.closest ? event.target.closest("[data-program-voice-action]") : null;
+          if (!button) return;
+          const action = String(button.getAttribute("data-program-voice-action") || "").trim();
+          const scope = String(button.getAttribute("data-program-voice-scope") || "").trim();
+          const audio = programVoicePlayback.activeAudio;
+          if (action === "pause") {
+            if (audio && typeof audio.pause === "function") {
+              audio.pause();
+              programVoiceState.lastPlaybackMode = "provider";
+            } else {
+              const speech = typeof window !== "undefined" ? window.speechSynthesis : null;
+              if (speech && typeof speech.pause === "function") speech.pause();
+              programVoiceState.lastPlaybackMode = "fallback_tts";
+              programVoiceState.statusDetail = "Fallback browser speech paused.";
+            }
+            programVoiceState.playbackState = "paused";
+            updateProgramVoiceStatus();
+            return;
+          }
+          if (action === "back10" || action === "forward10") {
+            if (audio && typeof audio.currentTime === "number") {
+              const delta = action === "back10" ? -10 : 10;
+              audio.currentTime = Math.max(0, Math.min((audio.duration || Number.MAX_SAFE_INTEGER), audio.currentTime + delta));
+              programVoiceState.playbackState = "playing";
+            } else {
+              programVoiceState.statusDetail = "Fallback browser speech cannot seek by 10 seconds.";
+            }
+            updateProgramVoiceStatus();
+            return;
+          }
+          if (action === "play" && scope) {
+            if (audio && audio.paused && scope === programVoicePlayback.activeScope) {
+              await audio.play().catch(() => null);
+              programVoiceState.lastPlaybackMode = "provider";
+              programVoiceState.playbackState = "playing";
+              updateProgramVoiceStatus();
+              return;
+            }
+            const selection = programVoicePlayback.selectionByScope[scope];
+            if (selection) {
+              programVoicePlayback.activeScope = scope;
+              await playProgramVoiceSelection(selection, "Read-aloud unavailable in this browser. Text remains visible.");
+            }
+          }
+        });
         saveCommitmentBtn.addEventListener("click", async function () {
           if (!latestWeekPayload || !latestWeekPayload.week_content) return;
           const validation = validateCommitmentFormInputs();

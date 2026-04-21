@@ -146,6 +146,14 @@ function createYouthDevelopmentTdeRouter(options = {}) {
     return res.status(200).json(result);
   });
 
+  router.get("/voice/assets/resolve", async (req, res) => {
+    const childId = String(req.query?.child_id || "").trim();
+    const assetRef = String(req.query?.asset_ref || "").trim();
+    if (!assetRef) return res.status(400).json({ ok: false, error: "asset_ref_required" });
+    const result = await voiceService.resolveAssetReference({ child_id: childId || null, asset_ref: assetRef });
+    return res.status(200).json(result);
+  });
+
   router.get("/voice/status/:childId", async (req, res) => {
     const childId = String(req.params.childId || "").trim();
     if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });

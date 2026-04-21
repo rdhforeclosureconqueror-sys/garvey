@@ -46,6 +46,18 @@
 - Live youth v1 routes untouched.
 - Planner/session additions remain parent-facing and child/week scoped (no admin-only routing introduced).
 
+## Parent-facing AI voice playback path + selection rules
+- Parent dashboard + parent program read-aloud controls both trigger client handlers in `server/youthDevelopmentRoutes.js` and call `GET /api/youth-development/tde/voice/sections/:childId`.
+- Route path: `server/youthDevelopmentTdeRoutes.js -> voiceService.getParentSectionPlayback -> voiceProviderAdapter.synthesizeReportSection`.
+- Provider-first selection rule:
+  - Prefer OpenAI/provider chunk when `provider_status=available` and either `audio_url` **or** `asset_ref` exists.
+  - If only `asset_ref` exists, UI attempts `GET /api/youth-development/tde/voice/assets/resolve?child_id=...&asset_ref=...`.
+  - Browser speech fallback is used only when provider media is unavailable or provider playback fails.
+- Playback controls are section/card scoped and surfaced where read-aloud exists:
+  - Play, Pause, Back 10s, Forward 10s.
+  - Real provider audio uses `HTMLAudioElement` state/seek controls.
+  - Browser `speechSynthesis` fallback cannot seek reliably; UI reports this as a limitation and does not label fallback as OpenAI audio.
+
 ## Accessibility live-region usage (weekly program feedback)
 - Dynamic parent feedback regions on `/youth-development/program` now use `role="status"` + `aria-live="polite"` (with `aria-atomic="true"` on core status lines) so assistive technologies announce updates without interrupting active reading.
 - Primary announcement region: `#nextActionArea` (next action guidance, in-progress state, blocked state, and completion confirmations for weekly execution controls).

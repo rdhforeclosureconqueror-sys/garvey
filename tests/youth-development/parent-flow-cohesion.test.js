@@ -79,7 +79,11 @@ test('parent-facing youth pages use canonical CTA taxonomy and remove drift labe
     assert.match(dashboardHtml, /data-voice-control="weeklySupport"/);
     assert.match(dashboardHtml, /data-voice-card="/);
     assert.match(dashboardHtml, /AI voice status checking…/);
-    assert.match(dashboardHtml, /playing OpenAI gateway audio/);
+    assert.match(dashboardHtml, /playing AI voice \(OpenAI gateway audio\)/);
+    assert.match(dashboardHtml, /data-voice-action="play"/);
+    assert.match(dashboardHtml, /data-voice-action="pause"/);
+    assert.match(dashboardHtml, /data-voice-action="back10"/);
+    assert.match(dashboardHtml, /data-voice-action="forward10"/);
     assert.match(dashboardHtml, /Return to Dashboard|View Saved Dashboard/);
     assert.doesNotMatch(dashboardHtml, /Continue Development Plan/);
 
@@ -94,6 +98,10 @@ test('parent-facing youth pages use canonical CTA taxonomy and remove drift labe
     assert.match(programHtml, /id="readProgramSupportBtn"/);
     assert.match(programHtml, /id="readProgressSummaryBtn"/);
     assert.match(programHtml, /AI voice status checking…/);
+    assert.match(programHtml, /data-program-voice-action="play"/);
+    assert.match(programHtml, /data-program-voice-action="pause"/);
+    assert.match(programHtml, /data-program-voice-action="back10"/);
+    assert.match(programHtml, /data-program-voice-action="forward10"/);
     assert.match(programHtml, /getProgramVoiceSelection\(keys, fallbackText\)/);
     assert.match(programHtml, /playProgramVoiceSelection\(selection, fallbackFailureMessage\)/);
     assert.match(programHtml, /id="commitTimeHourInput"/);
