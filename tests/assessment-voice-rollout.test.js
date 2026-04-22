@@ -6,63 +6,86 @@ const http = require('http');
 
 const { createAssessmentVoiceRouter } = require('../server/assessmentVoiceRoutes');
 
-async function startApp(adapter) {
+async function startApp(options = {}) {
   const app = express();
   app.use(express.json());
-  app.use('/api/assessment/voice', createAssessmentVoiceRouter({ adapter }));
+  app.use('/api/assessment/voice', createAssessmentVoiceRouter(options));
   const server = http.createServer(app);
   await new Promise((resolve) => server.listen(0, resolve));
   const address = server.address();
   return { server, baseUrl: `http://127.0.0.1:${address.port}` };
 }
 
-test('assessment voice route exposes provider-ready payload and fallback distinction', async (t) => {
-  const adapter = {
-    isAvailable: () => true,
-    health: async () => ({ gateway_reachable: true, provider: 'openai-via-gateway' }),
-    synthesizeReportSection: async () => ({
-      provider_status: 'available',
-      provider: 'openai-via-gateway',
-      playable_text: 'hello world',
-      audio_url: 'https://audio.example/voice.mp3',
-      replay_token: 'replay_1',
-    }),
-    resolveAsset: async () => ({ resolved: false }),
+async function startVoiceRepo({ fail = false } = {}) {
+  const calls = [];
+  const app = express();
+  app.use(express.json());
+
+  app.post('/speak', (req, res) => {
+    calls.push({ method: req.method, path: req.path, body: req.body, headers: req.headers });
+    if (fail) return res.status(503).json({ error: 'provider_down' });
+    return res.status(200).type('audio/mpeg').send(Buffer.from('fake-mpeg-audio-bytes', 'utf8'));
+  });
+
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const address = server.address();
+  return {
+    server,
+    calls,
+    baseUrl: `http://127.0.0.1:${address.port}`,
+    close: async () => new Promise((resolve) => server.close(resolve)),
   };
-  const app = await startApp(adapter);
-  t.after(async () => new Promise((resolve) => app.server.close(resolve)));
+}
+
+test('assessment voice route uses upstream /speak and streams raw audio bytes', async (t) => {
+  const voiceRepo = await startVoiceRepo();
+  const app = await startApp({ voice_repo_base_url: voiceRepo.baseUrl });
+  t.after(async () => {
+    await voiceRepo.close();
+    await new Promise((resolve) => app.server.close(resolve));
+  });
 
   const cfgRes = await fetch(`${app.baseUrl}/api/assessment/voice/config`);
   const cfg = await cfgRes.json();
   assert.equal(cfgRes.status, 200);
   assert.equal(cfg.provider_ready, true);
+  assert.equal(cfg.upstream_route, '/speak');
 
   const res = await fetch(`${app.baseUrl}/api/assessment/voice/section`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ surface: 'archetype_assessment', section_key: 'question_prompt', voice_text: 'hello world' }),
+    body: JSON.stringify({ surface: 'archetype_assessment', section_key: 'result_summary', voice_text: 'hello world', format: 'mp3' }),
   });
   const body = await res.json();
   assert.equal(res.status, 200);
   assert.equal(body.voice_mode, 'provider_audio');
   assert.equal(body.provider_ready, true);
-  assert.equal(typeof body.voice_chunk_id, 'string');
+  assert.equal(body.upstream_route, '/speak');
+  assert.equal(body.provider_audio_content_type, 'audio/mpeg');
+  assert.equal(body.provider_audio_bytes > 0, true);
+  assert.match(String(body.audio_url || ''), /\/api\/assessment\/voice\/stream\//);
+
+  assert.equal(voiceRepo.calls.length, 1);
+  assert.equal(voiceRepo.calls[0].method, 'POST');
+  assert.equal(voiceRepo.calls[0].path, '/speak');
+  assert.equal(voiceRepo.calls[0].body.text, 'hello world');
+  assert.equal(voiceRepo.calls[0].body.format, 'mp3');
+
+  const streamRes = await fetch(`${app.baseUrl}${body.audio_url}`);
+  const streamBytes = Buffer.from(await streamRes.arrayBuffer());
+  assert.equal(streamRes.status, 200);
+  assert.equal(streamRes.headers.get('content-type'), 'audio/mpeg');
+  assert.equal(streamBytes.equals(Buffer.from('fake-mpeg-audio-bytes', 'utf8')), true);
 });
 
-test('assessment voice route signals fallback mode without pretending provider audio', async (t) => {
-  const adapter = {
-    isAvailable: () => false,
-    health: async () => ({ gateway_reachable: false }),
-    synthesizeReportSection: async () => ({
-      provider_status: 'fallback',
-      provider: 'browser_speech_synthesis',
-      fallback_reason: 'voice_gateway_unavailable',
-      playable_text: 'fallback text',
-    }),
-    resolveAsset: async () => ({ resolved: false }),
-  };
-  const app = await startApp(adapter);
-  t.after(async () => new Promise((resolve) => app.server.close(resolve)));
+test('assessment voice route signals fallback only when upstream/provider is unavailable', async (t) => {
+  const voiceRepo = await startVoiceRepo({ fail: true });
+  const app = await startApp({ voice_repo_base_url: voiceRepo.baseUrl });
+  t.after(async () => {
+    await voiceRepo.close();
+    await new Promise((resolve) => app.server.close(resolve));
+  });
 
   const res = await fetch(`${app.baseUrl}/api/assessment/voice/section`, {
     method: 'POST',
@@ -72,21 +95,22 @@ test('assessment voice route signals fallback mode without pretending provider a
   const body = await res.json();
   assert.equal(body.voice_mode, 'fallback_browser_speech');
   assert.equal(body.provider_ready, false);
-  assert.equal(body.fallback_reason, 'voice_gateway_unavailable');
+  assert.equal(body.fallback_reason, 'voice_repo_http_503');
 });
 
-test('assessment surfaces include reusable voice wiring and visible controls', () => {
+test('assessment surfaces include voice controls on results/sections and not question-by-question prompts', () => {
   const intake = fs.readFileSync('public/intake.html', 'utf8');
   const experience = fs.readFileSync('public/archetype-engines/experience.js', 'utf8');
   const shared = fs.readFileSync('public/js/assessment-voice.js', 'utf8');
   const indexSource = fs.readFileSync('server/index.js', 'utf8');
 
   assert.match(intake, /assessment-voice\.js/);
-  assert.match(intake, /section_key: "question_prompt"/);
+  assert.doesNotMatch(intake, /section_key: "question_prompt"/);
   assert.match(intake, /section_key: "result_summary"/);
   assert.match(experience, /createVoiceController\("archetype_assessment"/);
+  assert.doesNotMatch(experience, /section_key: "question_prompt"/);
   assert.match(experience, /section_key: "recommendations_action_plan"/);
   assert.match(shared, /data-voice-action="play"/);
   assert.match(shared, /AI voice unavailable, using fallback browser speech\./);
-  assert.match(indexSource, /app\.use\(\"\/api\/assessment\/voice\", createAssessmentVoiceRouter\(\)\);/);
+  assert.match(indexSource, /app\.use\("\/api\/assessment\/voice", createAssessmentVoiceRouter\(\)\);/);
 });
