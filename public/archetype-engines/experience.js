@@ -23,6 +23,13 @@ function parseRoute() {
   return null;
 }
 
+function createVoiceController(surface, scopeId) {
+  return window.AssessmentVoice?.createController({
+    surface,
+    scope_id: scopeId,
+  }) || null;
+}
+
 async function jsonFetch(url, init) {
   const res = await fetch(url, init);
   if (!res.ok) throw new Error(`Failed (${res.status}) ${url}`);
@@ -709,6 +716,7 @@ function renderAssessmentQuestions(app, engine, query, startPayload) {
     submitting: false,
     status: "",
   };
+  const assessmentVoice = createVoiceController("archetype_assessment", `${engine}:${assessmentId}`);
 
   const render = () => {
     const q = questions[state.index];
@@ -781,6 +789,17 @@ function renderAssessmentQuestions(app, engine, query, startPayload) {
           <div id="assessmentStatus" class="muted">${esc(state.status)}</div>
         </form>
       </section>`;
+
+    assessmentVoice?.bind(app.querySelector("h1"), {
+      section_key: "assessment_instructions",
+      section_label: `${engine} assessment instructions`,
+      voice_text: `${titleCase(engine)} assessment. Question ${state.index + 1} of ${questions.length}.`,
+    });
+    assessmentVoice?.bind(app.querySelector("h2"), {
+      section_key: "question_prompt",
+      section_label: `${engine} question prompt`,
+      voice_text: q.prompt || "",
+    });
 
     const form = document.getElementById("assessmentQuestionForm");
     const backBtn = document.getElementById("assessmentBack");
@@ -859,6 +878,12 @@ function renderConsentStep(app, engine, query, contract) {
       <button id="consentContinue" class="chip">Accept and continue</button>
       <div id="assessmentStatus" class="muted"></div>
     </section>`;
+  const consentVoice = createVoiceController("archetype_consent", `${engine}:consent`);
+  consentVoice?.bind(app.querySelector(".section"), {
+    section_key: "assessment_instructions",
+    section_label: `${engine} consent instructions`,
+    voice_text: `${contract?.heading || `${titleCase(engine)} Assessment`}. ${(contract?.body || []).join(" ")}`,
+  });
 
   const statusNode = document.getElementById("assessmentStatus");
   const continueBtn = document.getElementById("consentContinue");
@@ -1689,6 +1714,24 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     <section class="section">
       <a class="crumb" href="${routeTo(engine, "browse", query)}">Browse all ${titleCase(engine)} archetypes →</a>
     </section>`;
+  const resultVoice = createVoiceController("archetype_result", `${engine}:${resultId}`);
+  resultVoice?.bind(app.querySelector(".section.hero"), {
+    section_key: "result_summary",
+    section_label: `${engine} result summary`,
+    voice_text: `Primary ${displayName(engine, primary, payload.primaryArchetype?.code || "")}. Secondary ${displayName(engine, secondary, payload.secondaryArchetype?.code || "")}.`,
+  });
+  const patternSection = Array.from(app.querySelectorAll(".section")).find((node) => /Your Pattern|How You Become Loyal|Your Leadership Pattern/i.test(node.textContent || ""));
+  resultVoice?.bind(patternSection, {
+    section_key: "strengths_growth_support",
+    section_label: `${engine} strengths and growth`,
+    voice_text: String(patternSection?.textContent || "").trim().slice(0, 900),
+  });
+  const actionsSection = Array.from(app.querySelectorAll(".section")).find((node) => /Improvement Plan|Growth Path|Take Love Assessment|What to do next/i.test(node.textContent || ""));
+  resultVoice?.bind(actionsSection, {
+    section_key: "recommendations_action_plan",
+    section_label: `${engine} recommendations`,
+    voice_text: String(actionsSection?.textContent || "").trim().slice(0, 900),
+  });
   if (engine === "love") wireLoveVariantToggle(options.onLoveVariantChange || (() => {}));
   if (engine === "loyalty" || engine === "leadership") wireLoyaltyAccordion(app);
 }
