@@ -79,6 +79,24 @@ test('GET /youth-development/intake serves real walkthrough UI contract', async 
     assert.match(html, /Please answer the intake questions before submitting\./);
     assert.match(html, /childNameInput/);
     assert.match(html, /\/api\/youth-development\/assess/);
+    assert.match(html, /applyScopedChildNavigation\(scopedChildId, "assess_response"\)/);
+    assert.match(html, /openLiveDashboardBtn\.href = dashUrl\.pathname \+ dashUrl\.search/);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('GET /youth-development/parent-dashboard adopts persisted child scope from runtime payload and traces latest continuity', async () => {
+  const { server, baseUrl } = await startServer();
+  try {
+    const response = await fetch(`${baseUrl}/youth-development/parent-dashboard`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+
+    assert.match(html, /child_id: \(query\.get\("child_id"\) \|\| query\.get\("childId"\) \|\| ""\)\.trim\(\)/);
+    assert.match(html, /applyScopedChildContext\(persistedChildId, "session_payload"\)/);
+    assert.match(html, /endpoint\.searchParams\.set\('child_id', String\(scopedChild\.child_id\)\)/);
+    assert.match(html, /selected_submission_id: data\.latest_submission_id \|\| null/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
@@ -227,6 +245,8 @@ test('POST /api/youth-development/assess binds ownership when tenant/email are p
     assert.equal(payload.ownership.child_profile.child_id, 'child-maya-1');
     assert.equal(payload.diagnostics.continuity.persist_attempted, true);
     assert.equal(payload.diagnostics.continuity.persist_inserted, true);
+    assert.equal(payload.diagnostics.continuity.persisted_child_id, 'child-maya-1');
+    assert.equal(payload.diagnostics.continuity.submission_id, 999);
 
     const latest = await fetch(`${baseUrl}/api/youth-development/parent-dashboard/latest?tenant=demo&email=parent@example.com`);
     assert.equal(latest.status, 200);
