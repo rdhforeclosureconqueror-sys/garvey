@@ -1,6 +1,20 @@
 "use strict";
 
 (function initAssessmentVoice(global) {
+  const diagnostics = global.__assessmentVoiceDiagnostics || [];
+  global.__assessmentVoiceDiagnostics = diagnostics;
+
+  function emitDiagnostic(event) {
+    const payload = { ts: new Date().toISOString(), ...event };
+    diagnostics.push(payload);
+    if (diagnostics.length > 100) diagnostics.shift();
+    try {
+      console.info("assessment_voice_diagnostic", payload);
+    } catch (_) {
+      // no-op
+    }
+  }
+
   function esc(s) {
     return String(s || "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
@@ -39,6 +53,7 @@
       const controls = document.createElement("div");
       controls.className = "assessment-voice-controls";
       controls.setAttribute("data-assessment-voice-control", sectionKey);
+      controls.setAttribute("data-voice-route", "/api/assessment/voice/section");
       controls.innerHTML = `
         <button type="button" data-voice-action="play">Listen</button>
         <button type="button" data-voice-action="pause">Pause</button>
@@ -64,6 +79,21 @@
         });
         if (hydrated.voice_mode === "provider_audio") setStatus("AI voice ready (OpenAI/provider audio available).");
         else setStatus("AI voice unavailable, using fallback browser speech.");
+        controls.setAttribute("data-voice-mode", String(hydrated.voice_mode || "unknown"));
+        controls.setAttribute("data-upstream-route", String(hydrated.upstream_route || "/speak"));
+        controls.setAttribute("data-provider-ready", hydrated.provider_ready ? "true" : "false");
+        emitDiagnostic({
+          mode: "hydrate",
+          section_key: sectionKey,
+          surface,
+          scope_id: scopeId,
+          route: "/api/assessment/voice/section",
+          upstream_route: hydrated.upstream_route || "/speak",
+          provider_ready: Boolean(hydrated.provider_ready),
+          provider_status: hydrated.provider_status || null,
+          playback_mode: hydrated.voice_mode || "unknown",
+          fallback_reason: hydrated.fallback_reason || null,
+        });
         return hydrated;
       };
 
@@ -75,17 +105,38 @@
             currentAudio = new Audio(payload.audio_url);
             await currentAudio.play();
             setStatus("Playing AI voice (OpenAI/provider audio).");
+            emitDiagnostic({
+              mode: "playback_selected",
+              section_key: sectionKey,
+              surface,
+              playback_mode: "provider_audio",
+              upstream_route: payload.upstream_route || "/speak",
+              stream_url: payload.audio_url,
+            });
             return;
           }
           if (synth) {
             const ut = new SpeechSynthesisUtterance(payload.playable_text || voiceText);
             synth.speak(ut);
             setStatus("Using browser speech fallback (seeking may be limited).");
+            emitDiagnostic({
+              mode: "playback_selected",
+              section_key: sectionKey,
+              surface,
+              playback_mode: "fallback_browser_speech",
+              fallback_reason: payload.fallback_reason || "provider_audio_unavailable",
+            });
             return;
           }
           setStatus("No audio path available in this browser.");
         } catch (_err) {
           setStatus("Voice playback unavailable right now.");
+          emitDiagnostic({
+            mode: "playback_error",
+            section_key: sectionKey,
+            surface,
+            playback_mode: "error",
+          });
         }
       });
 

@@ -716,8 +716,6 @@ function renderAssessmentQuestions(app, engine, query, startPayload) {
     submitting: false,
     status: "",
   };
-  const assessmentVoice = createVoiceController("archetype_assessment", `${engine}:${assessmentId}`);
-
   const render = () => {
     const q = questions[state.index];
     const selected = state.answers[q.id] || "";
@@ -761,6 +759,7 @@ function renderAssessmentQuestions(app, engine, query, startPayload) {
     app.innerHTML = `
       <section class="section">
         <h1>${titleCase(engine)} Assessment</h1>
+        <div class="muted" data-voice-diagnostic="question_flow_voice_disabled">Voice controls are disabled during question flow.</div>
         <p class="muted">Assessment started. Bank: ${esc(selectedBankId || "default")}.</p>
         <div class="assessment-progress-meta">
           <div class="chip">Question ${state.index + 1} of ${questions.length}</div>
@@ -789,6 +788,13 @@ function renderAssessmentQuestions(app, engine, query, startPayload) {
           <div id="assessmentStatus" class="muted">${esc(state.status)}</div>
         </form>
       </section>`;
+    console.info("assessment_voice_diagnostic", {
+      mode: "question_flow_voice_disabled",
+      route: window.location.pathname,
+      script: "/archetype-engines/experience.js",
+      surface: "assessment_question_flow",
+      question_voice_controls_rendered: false,
+    });
 
     const form = document.getElementById("assessmentQuestionForm");
     const backBtn = document.getElementById("assessmentBack");
@@ -1713,6 +1719,18 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     section_key: "recommendations_action_plan",
     section_label: `${engine} recommendations`,
     voice_text: String(actionsSection?.textContent || "").trim().slice(0, 900),
+  });
+  app.setAttribute("data-live-assessment-page", "archetype-engines-experience");
+  app.setAttribute("data-live-assessment-script", "/archetype-engines/experience.js");
+  console.info("assessment_voice_diagnostic", {
+    mode: "result_voice_binding",
+    route: window.location.pathname,
+    script: "/archetype-engines/experience.js",
+    surface: "archetype_result",
+    endpoint: "/api/assessment/voice/section",
+    upstream_route: "/speak",
+    question_voice_controls_rendered: false,
+    result_voice_controls_rendered: true,
   });
   if (engine === "love") wireLoveVariantToggle(options.onLoveVariantChange || (() => {}));
   if (engine === "loyalty" || engine === "leadership") wireLoyaltyAccordion(app);

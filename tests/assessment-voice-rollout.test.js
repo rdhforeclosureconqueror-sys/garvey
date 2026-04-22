@@ -100,6 +100,7 @@ test('assessment voice route signals fallback only when upstream/provider is una
 
 test('assessment surfaces include voice controls on results/sections and not question-by-question prompts', () => {
   const intake = fs.readFileSync('public/intake.html', 'utf8');
+  const experienceHtml = fs.readFileSync('public/archetype-engines/experience.html', 'utf8');
   const experience = fs.readFileSync('public/archetype-engines/experience.js', 'utf8');
   const shared = fs.readFileSync('public/js/assessment-voice.js', 'utf8');
   const indexSource = fs.readFileSync('server/index.js', 'utf8');
@@ -107,10 +108,18 @@ test('assessment surfaces include voice controls on results/sections and not que
   assert.match(intake, /assessment-voice\.js/);
   assert.doesNotMatch(intake, /section_key: "question_prompt"/);
   assert.match(intake, /section_key: "result_summary"/);
-  assert.match(experience, /createVoiceController\("archetype_assessment"/);
+  assert.match(experienceHtml, /<script src="\/archetype-engines\/experience\.js"><\/script>/);
+  assert.match(experienceHtml, /<script src="\/js\/assessment-voice\.js"><\/script>/);
+  assert.doesNotMatch(experience, /createVoiceController\("archetype_assessment"/);
+  assert.match(experience, /data-voice-diagnostic="question_flow_voice_disabled"/);
+  assert.match(experience, /question_voice_controls_rendered:\s*false/);
+  assert.match(experience, /createVoiceController\("archetype_result"/);
   assert.doesNotMatch(experience, /section_key: "question_prompt"/);
   assert.match(experience, /section_key: "recommendations_action_plan"/);
   assert.match(shared, /data-voice-action="play"/);
+  assert.match(shared, /data-voice-route/);
+  assert.match(shared, /__assessmentVoiceDiagnostics/);
+  assert.match(shared, /playback_mode:\s*"provider_audio"/);
   assert.match(shared, /AI voice unavailable, using fallback browser speech\./);
   assert.match(indexSource, /app\.use\("\/api\/assessment\/voice", createAssessmentVoiceRouter\(\)\);/);
 });
