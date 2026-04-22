@@ -110,6 +110,41 @@ function createAssessmentVoiceRouter(options = {}) {
     });
   });
 
+  router.post("/warmup", async (req, res) => {
+    sweepAudioCache();
+    const surface = String(req.body?.surface || "assessment").trim().toLowerCase();
+    const scopeId = String(req.body?.scope_id || `${surface}_scope`).trim();
+    const preflight = req.body?.preflight === true;
+    const warmText = String(req.body?.warm_text || "Voice readiness warm-up.").trim();
+    let providerPayload = null;
+    if (preflight) {
+      providerPayload = await synthesizeViaSpeak({
+        text: warmText,
+        voice: req.body?.voice,
+        format: req.body?.format || "mp3",
+      });
+    }
+    const providerReady = preflight
+      ? Boolean(providerPayload?.provider_status === "available" && providerPayload?.stream_token)
+      : Boolean(voiceRepoBaseUrl);
+    return res.status(200).json({
+      ok: true,
+      endpoint: "/api/assessment/voice/warmup",
+      warmup_mode: preflight ? "provider_preflight" : "provider_config_only",
+      surface,
+      scope_id: scopeId,
+      provider_ready: providerReady,
+      provider_status: providerPayload?.provider_status || (voiceRepoBaseUrl ? "available" : "provider_unavailable"),
+      upstream_route: "/speak",
+      upstream_method: "POST",
+      voice_mode: providerReady ? "provider_audio" : "fallback_browser_speech",
+      fallback_reason: providerReady ? null : (providerPayload?.fallback_reason || (voiceRepoBaseUrl ? "provider_audio_unavailable" : "voice_repo_base_url_missing")),
+      preflight_audio_url: providerPayload?.stream_token ? `/api/assessment/voice/stream/${providerPayload.stream_token}` : null,
+      provider_audio_content_type: providerPayload?.content_type || null,
+      provider_audio_bytes: Number(providerPayload?.bytes_length || 0),
+    });
+  });
+
   router.post("/section", async (req, res) => {
     sweepAudioCache();
 

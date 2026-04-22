@@ -23,10 +23,11 @@ function parseRoute() {
   return null;
 }
 
-function createVoiceController(surface, scopeId) {
+function createVoiceController(surface, scopeId, warmupPromise) {
   return window.AssessmentVoice?.createController({
     surface,
     scope_id: scopeId,
+    warmup_promise: warmupPromise || null,
   }) || null;
 }
 
@@ -858,6 +859,23 @@ async function startAssessmentFlow(app, engine, query, consentId) {
     headers: { "content-type": "application/json" },
     body: JSON.stringify(payload),
   });
+  window.AssessmentVoice?.warmup?.({
+    surface: "archetype_assessment",
+    scope_id: `${engine}:assessment:start`,
+    preflight: true,
+    warm_text: `${titleCase(engine)} assessment voice warm-up.`,
+    format: "mp3",
+  }).then((warm) => {
+    console.info("assessment_voice_diagnostic", {
+      mode: "assessment_voice_warmup",
+      route: window.location.pathname,
+      surface: "archetype_assessment",
+      endpoint: "/api/assessment/voice/warmup",
+      upstream_route: warm?.upstream_route || "/speak",
+      provider_ready: Boolean(warm?.provider_ready),
+      voice_mode: warm?.voice_mode || "unknown",
+    });
+  }).catch(() => null);
   renderAssessmentQuestions(app, engine, query, startPayload);
 }
 
@@ -1534,6 +1552,13 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     `
     : "";
 
+  const conciseSummaryVoice = [
+    `Primary archetype ${displayName(engine, primary, payload.primaryArchetype?.code || "")}.`,
+    `Secondary archetype ${displayName(engine, secondary, payload.secondaryArchetype?.code || "")}.`,
+    payload.hybridArchetype ? `Hybrid: ${hybridLabel}.` : "No hybrid label in this result.",
+    "Framing: use this as a compass, not a fixed identity.",
+  ].join(" ");
+
   app.innerHTML = `
     <section class="section hero">
       <div>
@@ -1546,6 +1571,11 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
         <div class="muted">Result ID: ${esc(resultId)}</div>
       </div>
       <div>${cardVisual(primary || secondary, { engine, loveImageVariant: selectedVariant })}</div>
+    </section>
+
+    <section class="section" data-voice-role="summary-intro">
+      <h2>Hear your 20-second summary first</h2>
+      <p class="muted">${esc(conciseSummaryVoice)}</p>
     </section>
 
     ${loyaltyHeaderSections}
@@ -1587,10 +1617,10 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     ${!isLoyaltyEngine ? `<section class="section">
       <h2>Top 3 Breakdown</h2>
       <div class="top3">
-      ${top3.map((item) => {
+      ${top3.map((item, idx) => {
         const a = codeIndex[item.code] || {};
         const bal = payload.balanceStates?.dimensions?.[item.code] || payload.balanceState || payload.balanceStates?.overall || "balanced";
-        return `<div class="card">
+        return `<div class="card" data-voice-role="${idx === 0 ? "primary-card" : (idx === 1 ? "secondary-card" : "top3-card")}">
           <h3>${esc(displayName(engine, a, item.code))}</h3>
           ${displaySubtitle(engine, a, item.code) ? `<div class="muted">${esc(displaySubtitle(engine, a, item.code))}</div>` : ""}
           <div>${item.score.toFixed(1)}%</div>
@@ -1604,7 +1634,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
       </div>
     </section>` : ""}
 
-    ${!isLoyaltyEngine ? `<section class="section">
+    ${!isLoyaltyEngine ? `<section class="section" data-voice-role="hybrid-summary">
       <h2>Output Contract</h2>
       <div class="${isLoveEngine ? "output-contract output-contract-love" : "insights"}">
         <div class="${isLoveEngine ? "output-card output-card-lead" : "kv"}"><b>🧬 Primary Archetype</b>${esc(displayName(engine, primary, payload.primaryArchetype?.code || ""))}</div>
@@ -1654,7 +1684,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     </section>
     ` : ""}
 
-    ${!isLoyaltyEngine && !isLeadershipEngine ? `<section class="section">
+    ${!isLoyaltyEngine && !isLeadershipEngine ? `<section class="section" data-voice-role="strengths-growth-support">
       <h2>Your Pattern</h2>
       <div class="insights">
         <div class="kv"><b>Primary Insight</b>${esc(insightOrFallback(payload.primaryInsight, "Primary pattern insight is not available yet."))}</div>
@@ -1662,7 +1692,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
       </div>
     </section>` : ""}
 
-    ${!isLoyaltyEngine && !isLeadershipEngine ? `<section class="section">
+    ${!isLoyaltyEngine && !isLeadershipEngine ? `<section class="section" data-voice-role="strengths-growth-support">
       <h2>Your Current State</h2>
       <div class="insights">
         <div class="kv"><b>Balance Insight</b>${esc(insightOrFallback(payload.balanceInsight, strongestGap(payload.desiredCurrentGap || payload.desiredVsCurrent, codeToName)))}</div>
@@ -1670,7 +1700,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
       </div>
     </section>` : ""}
 
-    ${!isLoyaltyEngine && !isLeadershipEngine ? `<section class="section">
+    ${!isLoyaltyEngine && !isLeadershipEngine ? `<section class="section" data-voice-role="strengths-growth-support">
       <h2>Self Alignment</h2>
       <div class="insights">
         <div class="kv"><b>Identity Gap Insight</b>${esc(insightOrFallback(payload.identityGapInsight, strongestGap(payload.identityBehaviorGap, codeToName)))}</div>
@@ -1702,23 +1732,52 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     <section class="section">
       <a class="crumb" href="${routeTo(engine, "browse", query)}">Browse all ${titleCase(engine)} archetypes →</a>
     </section>`;
-  const resultVoice = createVoiceController("archetype_result", `${engine}:${resultId}`);
-  resultVoice?.bind(app.querySelector(".section.hero"), {
-    section_key: "result_summary",
-    section_label: `${engine} result summary`,
-    voice_text: `Primary ${displayName(engine, primary, payload.primaryArchetype?.code || "")}. Secondary ${displayName(engine, secondary, payload.secondaryArchetype?.code || "")}.`,
+  const resultVoiceWarmup = window.AssessmentVoice?.warmup?.({
+    surface: "archetype_result",
+    scope_id: `${engine}:${resultId}`,
+    preflight: false,
   });
-  const patternSection = Array.from(app.querySelectorAll(".section")).find((node) => /Your Pattern|How You Become Loyal|Your Leadership Pattern/i.test(node.textContent || ""));
-  resultVoice?.bind(patternSection, {
-    section_key: "strengths_growth_support",
-    section_label: `${engine} strengths and growth`,
-    voice_text: String(patternSection?.textContent || "").trim().slice(0, 900),
+  const resultVoice = createVoiceController("archetype_result", `${engine}:${resultId}`, resultVoiceWarmup);
+  resultVoice?.bind(app.querySelector('[data-voice-role="summary-intro"]'), {
+    section_key: "result_summary_intro",
+    section_label: `${engine} result intro summary`,
+    voice_text: conciseSummaryVoice,
+    voice_tier: "summary",
+    prefetch: true,
   });
+  resultVoice?.bind(app.querySelector('[data-voice-role="primary-card"]'), {
+    section_key: "primary_archetype_card",
+    section_label: `${engine} primary archetype card`,
+    voice_text: String(app.querySelector('[data-voice-role="primary-card"]')?.textContent || "").trim().slice(0, 700),
+    voice_tier: "full_section",
+  });
+  resultVoice?.bind(app.querySelector('[data-voice-role="secondary-card"]'), {
+    section_key: "secondary_archetype_card",
+    section_label: `${engine} secondary archetype card`,
+    voice_text: String(app.querySelector('[data-voice-role="secondary-card"]')?.textContent || "").trim().slice(0, 700),
+    voice_tier: "full_section",
+  });
+  resultVoice?.bind(app.querySelector('[data-voice-role="hybrid-summary"]'), {
+    section_key: "hybrid_summary",
+    section_label: `${engine} hybrid summary`,
+    voice_text: String(app.querySelector('[data-voice-role="hybrid-summary"]')?.textContent || "").trim().slice(0, 700),
+    voice_tier: "full_section",
+  });
+  const strengthsSections = Array.from(app.querySelectorAll('[data-voice-role="strengths-growth-support"]'));
+  for (const [idx, section] of strengthsSections.entries()) {
+    resultVoice?.bind(section, {
+      section_key: `strengths_growth_support_${idx + 1}`,
+      section_label: `${engine} strengths growth support ${idx + 1}`,
+      voice_text: String(section?.textContent || "").trim().slice(0, 900),
+      voice_tier: "full_section",
+    });
+  }
   const actionsSection = Array.from(app.querySelectorAll(".section")).find((node) => /Improvement Plan|Growth Path|Take Love Assessment|What to do next/i.test(node.textContent || ""));
   resultVoice?.bind(actionsSection, {
     section_key: "recommendations_action_plan",
-    section_label: `${engine} recommendations`,
+    section_label: `${engine} recommendations action plan`,
     voice_text: String(actionsSection?.textContent || "").trim().slice(0, 900),
+    voice_tier: "full_section",
   });
   app.setAttribute("data-live-assessment-page", "archetype-engines-experience");
   app.setAttribute("data-live-assessment-script", "/archetype-engines/experience.js");
@@ -1728,6 +1787,7 @@ function renderResult(app, engine, archetypes, resultId, payload, query, options
     script: "/archetype-engines/experience.js",
     surface: "archetype_result",
     endpoint: "/api/assessment/voice/section",
+    warmup_endpoint: "/api/assessment/voice/warmup",
     upstream_route: "/speak",
     question_voice_controls_rendered: false,
     result_voice_controls_rendered: true,
