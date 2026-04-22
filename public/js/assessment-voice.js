@@ -29,9 +29,22 @@
     return res.json();
   }
 
+  async function postWarmup(payload) {
+    const res = await fetch("/api/assessment/voice/warmup", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload || {}),
+    });
+    if (!res.ok) throw new Error(`voice_warmup_failed_${res.status}`);
+    return res.json();
+  }
+
   function createController(defaults = {}) {
     let currentAudio = null;
     const synth = global.speechSynthesis;
+    const warmupPromise = defaults.warmup_promise && typeof defaults.warmup_promise.then === "function"
+      ? defaults.warmup_promise
+      : null;
 
     const stopCurrent = () => {
       if (currentAudio) {
@@ -48,6 +61,7 @@
       const voiceText = String(block.voice_text || block.text_content || target.textContent || "").trim();
       const scopeId = String(block.scope_id || defaults.scope_id || "default_scope").trim();
       const surface = String(block.surface || defaults.surface || "assessment").trim();
+      const voiceTier = String(block.voice_tier || "full_section").trim();
       if (!voiceText) return;
 
       const controls = document.createElement("div");
@@ -59,7 +73,7 @@
         <button type="button" data-voice-action="pause">Pause</button>
         <button type="button" data-voice-action="back10">« 10s</button>
         <button type="button" data-voice-action="forward10">10s »</button>
-        <span data-voice-status>AI voice status checking…</span>`;
+        <span data-voice-status>${warmupPromise ? "Warming AI voice…" : "AI voice status checking…"}</span>`;
       target.prepend(controls);
 
       const statusNode = controls.querySelector("[data-voice-status]");
@@ -68,6 +82,10 @@
       let hydrated = null;
       const hydrate = async () => {
         if (hydrated) return hydrated;
+        if (warmupPromise) {
+          setStatus("Warming AI voice…");
+          await warmupPromise.catch(() => null);
+        }
         hydrated = await postSection({
           surface,
           scope_id: scopeId,
@@ -77,8 +95,9 @@
           text_content: voiceText,
           voice_ready: true,
         });
-        if (hydrated.voice_mode === "provider_audio") setStatus("AI voice ready (OpenAI/provider audio available).");
-        else setStatus("AI voice unavailable, using fallback browser speech.");
+        if (hydrated.voice_mode === "provider_audio") {
+          setStatus(voiceTier === "summary" ? "AI voice ready — ready to hear summary." : "AI voice ready — ready to hear full section.");
+        } else setStatus("AI voice unavailable, using fallback.");
         controls.setAttribute("data-voice-mode", String(hydrated.voice_mode || "unknown"));
         controls.setAttribute("data-upstream-route", String(hydrated.upstream_route || "/speak"));
         controls.setAttribute("data-provider-ready", hydrated.provider_ready ? "true" : "false");
@@ -96,6 +115,12 @@
         });
         return hydrated;
       };
+
+      if (block.prefetch === true) {
+        hydrate().catch(() => {
+          setStatus("AI voice unavailable, using fallback.");
+        });
+      }
 
       controls.querySelector('[data-voice-action="play"]')?.addEventListener("click", async () => {
         try {
@@ -118,7 +143,7 @@
           if (synth) {
             const ut = new SpeechSynthesisUtterance(payload.playable_text || voiceText);
             synth.speak(ut);
-            setStatus("Using browser speech fallback (seeking may be limited).");
+            setStatus("AI voice unavailable, using fallback.");
             emitDiagnostic({
               mode: "playback_selected",
               section_key: sectionKey,
@@ -166,4 +191,5 @@
   }
 
   global.AssessmentVoice = { createController, esc };
+  global.AssessmentVoice.warmup = postWarmup;
 })(window);

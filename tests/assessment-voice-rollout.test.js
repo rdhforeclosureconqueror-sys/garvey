@@ -98,6 +98,31 @@ test('assessment voice route signals fallback only when upstream/provider is una
   assert.equal(body.fallback_reason, 'voice_repo_http_503');
 });
 
+test('assessment voice warmup preflights provider readiness without autoplay side effects', async (t) => {
+  const voiceRepo = await startVoiceRepo();
+  const app = await startApp({ voice_repo_base_url: voiceRepo.baseUrl });
+  t.after(async () => {
+    await voiceRepo.close();
+    await new Promise((resolve) => app.server.close(resolve));
+  });
+
+  const res = await fetch(`${app.baseUrl}/api/assessment/voice/warmup`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ surface: 'archetype_assessment', preflight: true, warm_text: 'warm test' }),
+  });
+  const body = await res.json();
+  assert.equal(res.status, 200);
+  assert.equal(body.endpoint, '/api/assessment/voice/warmup');
+  assert.equal(body.warmup_mode, 'provider_preflight');
+  assert.equal(body.provider_ready, true);
+  assert.equal(body.upstream_route, '/speak');
+  assert.equal(body.voice_mode, 'provider_audio');
+  assert.equal(voiceRepo.calls.length, 1);
+  assert.equal(voiceRepo.calls[0].path, '/speak');
+  assert.equal(voiceRepo.calls[0].body.text, 'warm test');
+});
+
 test('assessment surfaces include voice controls on results/sections and not question-by-question prompts', () => {
   const intake = fs.readFileSync('public/intake.html', 'utf8');
   const experienceHtml = fs.readFileSync('public/archetype-engines/experience.html', 'utf8');
@@ -115,11 +140,20 @@ test('assessment surfaces include voice controls on results/sections and not que
   assert.match(experience, /question_voice_controls_rendered:\s*false/);
   assert.match(experience, /createVoiceController\("archetype_result"/);
   assert.doesNotMatch(experience, /section_key: "question_prompt"/);
+  assert.match(experience, /section_key: "result_summary_intro"/);
+  assert.match(experience, /section_key: "primary_archetype_card"/);
+  assert.match(experience, /section_key: "secondary_archetype_card"/);
+  assert.match(experience, /section_key: "hybrid_summary"/);
   assert.match(experience, /section_key: "recommendations_action_plan"/);
+  assert.match(experience, /\/api\/assessment\/voice\/warmup/);
+  assert.doesNotMatch(experience, /autoplay/);
   assert.match(shared, /data-voice-action="play"/);
   assert.match(shared, /data-voice-route/);
   assert.match(shared, /__assessmentVoiceDiagnostics/);
   assert.match(shared, /playback_mode:\s*"provider_audio"/);
-  assert.match(shared, /AI voice unavailable, using fallback browser speech\./);
+  assert.match(shared, /Warming AI voice/);
+  assert.match(shared, /ready to hear summary/);
+  assert.match(shared, /ready to hear full section/);
+  assert.match(shared, /AI voice unavailable, using fallback/);
   assert.match(indexSource, /app\.use\("\/api\/assessment\/voice", createAssessmentVoiceRouter\(\)\);/);
 });

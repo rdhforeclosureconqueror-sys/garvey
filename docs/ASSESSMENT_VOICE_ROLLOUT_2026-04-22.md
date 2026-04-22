@@ -29,14 +29,17 @@ No route-specific auth is required for `/speak`.
 - Config route: `GET /api/assessment/voice/config`
   - Reports provider readiness and upstream contract metadata.
 
-## Voice surface scope (intentionally narrowed)
+## Voice surface scope (result-focused and section-scoped)
 
 Voice remains enabled for section-level summary/result/card-like surfaces where latency is acceptable:
 - `/intake.html`
   - `section_key: result_summary`
 - `/archetype-engines/:engine/result/:resultId`
-  - `section_key: result_summary`
-  - `section_key: strengths_growth_support`
+  - `section_key: result_summary_intro` (short-summary-first primary control)
+  - `section_key: primary_archetype_card`
+  - `section_key: secondary_archetype_card`
+  - `section_key: hybrid_summary`
+  - `section_key: strengths_growth_support_1` (and additional indexed sections when present)
   - `section_key: recommendations_action_plan`
 
 Voice is intentionally deprioritized for question-by-question assessment flow in this pass:
@@ -49,3 +52,15 @@ Voice is intentionally deprioritized for question-by-question assessment flow in
 - Fallback mode (`fallback_browser_speech`) is used only when upstream/provider audio is unavailable.
 - Fallback state remains explicitly labeled in UI status text; it is not treated as proof of OpenAI/provider connectivity.
 - Text remains readable regardless of voice provider availability.
+
+## Warm-up / prefetch behavior
+
+- Assessment start triggers `POST /api/assessment/voice/warmup` with `preflight: true` to warm provider readiness.
+- Result pages call `POST /api/assessment/voice/warmup` with `preflight: false` for non-blocking readiness checks.
+- The short summary block (`result_summary_intro`) is prefetched via `POST /api/assessment/voice/section` at bind time to reduce first-play latency.
+- Warm-up never auto-plays audio; playback remains user-initiated.
+
+## UX rule: short summary first, deeper playback by choice
+
+- The first voice option is a concise summary covering primary archetype, secondary archetype, hybrid framing, and one-sentence guidance.
+- Full section/card playback is exposed as separate user-controlled controls after summary readiness.
