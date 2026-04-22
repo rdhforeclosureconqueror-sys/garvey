@@ -1254,14 +1254,42 @@ function renderLiveYouthAssessmentPage() {
           name: (query.get("name") || "").trim(),
           cid: (query.get("cid") || "").trim(),
           crid: (query.get("crid") || query.get("rid") || "").trim(),
+          child_id: (query.get("child_id") || query.get("childId") || "").trim(),
         };
-        if (accountCtx.tenant || accountCtx.email) {
+        function applyScopedChildNavigation(scopedChildId, sourceLabel) {
+          const childId = String(scopedChildId || "").trim();
+          if (childId) accountCtx.child_id = childId;
+          if (!(accountCtx.tenant || accountCtx.email)) return;
           const dashUrl = new URL("/youth-development/parent-dashboard", window.location.origin);
           Object.entries(accountCtx).forEach(([key, value]) => { if (value) dashUrl.searchParams.set(key, value); });
+          if (!accountCtx.child_id) dashUrl.searchParams.delete("child_id");
           openLiveDashboardBtn.href = dashUrl.pathname + dashUrl.search;
           const programUrl = new URL("/youth-development/program", window.location.origin);
           Object.entries(accountCtx).forEach(([key, value]) => { if (value) programUrl.searchParams.set(key, value); });
+          if (!accountCtx.child_id) programUrl.searchParams.delete("child_id");
           startProgramBtn.href = programUrl.pathname + programUrl.search;
+          if (accountCtx.child_id) {
+            console.info("youth_assessment_client_child_scope_adopted", {
+              source: String(sourceLabel || "unknown"),
+              adopted_child_id: accountCtx.child_id,
+            });
+          }
+        }
+        if (accountCtx.tenant || accountCtx.email) {
+          applyScopedChildNavigation(accountCtx.child_id || "", "query");
+        }
+
+        function persistLatestContinuitySnapshot(payload) {
+          try {
+            const scopedChildId = String((payload?.ownership?.child_profile?.child_id || payload?.child_id || "")).trim();
+            const snapshot = {
+              saved_child_id: scopedChildId || null,
+              submission_id: payload?.ownership?.submission_id || null,
+              saved_at: payload?.ownership?.saved_at || payload?.saved_at || null,
+            };
+            sessionStorage.setItem("youthDevelopmentLatestAssessment", JSON.stringify(payload));
+            sessionStorage.setItem("youthDevelopmentLatestContinuity", JSON.stringify(snapshot));
+          } catch (_err) {}
         }
 
         const questionResponse = await fetch("/api/youth-development/questions");
@@ -1330,9 +1358,7 @@ function renderLiveYouthAssessmentPage() {
             startProgramBtn.style.display = "none";
             return;
           }
-          try {
-            sessionStorage.setItem("youthDevelopmentLatestAssessment", JSON.stringify(payload));
-          } catch (_err) {}
+          persistLatestContinuitySnapshot(payload);
           const priorities = (payload.interpretation && payload.interpretation.priority_traits) || [];
           const highest = payload.interpretation && payload.interpretation.highest_trait;
           const completion = payload.completion && payload.completion.completion_rate_percent;
@@ -1354,10 +1380,14 @@ function renderLiveYouthAssessmentPage() {
           intakeStatus.textContent = "Submitted " + payload.answers_count + " of " + payload.question_count + " answers.";
           openLiveDashboardBtn.style.display = savedToAccount ? "" : "none";
           const scopedChildId = ((((payload || {}).ownership || {}).child_profile || {}).child_id || "").trim();
+          if (savedToAccount) {
+            console.info("youth_assessment_client_save_response", {
+              persisted_child_id: scopedChildId || null,
+              submission_id: payload?.ownership?.submission_id || null,
+            });
+          }
           if (savedToAccount && scopedChildId) {
-            const launchUrl = new URL(startProgramBtn.href, window.location.origin);
-            launchUrl.searchParams.set("child_id", scopedChildId);
-            startProgramBtn.href = launchUrl.pathname + launchUrl.search;
+            applyScopedChildNavigation(scopedChildId, "assess_response");
             startProgramBtn.style.display = "";
           } else {
             startProgramBtn.style.display = "none";
@@ -1373,6 +1403,8 @@ function renderLiveYouthAssessmentPage() {
           if (!response.ok) return;
           const latest = await response.json().catch(() => null);
           if (!latest || latest.ok !== true || latest.has_result !== true) return;
+          const scopedChildId = String(latest.child_id || latest?.payload?.ownership?.child_profile?.child_id || "").trim();
+          applyScopedChildNavigation(scopedChildId, "latest_lookup");
           resultCard.innerHTML = [
             "<p><strong>Existing saved youth assessment found.</strong></p>",
             "<p class=\\"muted\\">This signed-in account already has a saved result. You can reopen the parent dashboard now or retake the intake to refresh signals.</p>",
@@ -1632,6 +1664,7 @@ function renderLiveYouthParentDashboardPage() {
         const accountCtx = {
           tenant: (query.get("tenant") || "").trim(),
           email: (query.get("email") || "").trim().toLowerCase(),
+          child_id: (query.get("child_id") || query.get("childId") || "").trim(),
         };
         const voiceState = {
           childId: "",
@@ -1647,6 +1680,40 @@ function renderLiveYouthParentDashboardPage() {
         const programStatusSummary = document.getElementById("programStatusSummary");
         const programStatusList = document.getElementById("programStatusList");
         const programLaunchBtn = document.getElementById("programLaunchBtn");
+        const viewSavedDashboardBtn = document.getElementById("viewSavedDashboardBtn");
+        const retakeAssessmentBtn = document.getElementById("retakeAssessmentBtn");
+        const openIntakeBtn = document.getElementById("openIntakeBtn");
+
+        function withAccountScope(pathname) {
+          const url = new URL(pathname, window.location.origin);
+          if (accountCtx.tenant) url.searchParams.set("tenant", accountCtx.tenant);
+          if (accountCtx.email) url.searchParams.set("email", accountCtx.email);
+          if (accountCtx.child_id) url.searchParams.set("child_id", accountCtx.child_id);
+          return url.pathname + url.search;
+        }
+
+        function persistScopedChildOnUrl() {
+          if (!accountCtx.child_id) return;
+          const next = new URL(window.location.href);
+          if (next.searchParams.get("child_id") === accountCtx.child_id) return;
+          next.searchParams.set("child_id", accountCtx.child_id);
+          window.history.replaceState({}, "", next.pathname + next.search);
+        }
+
+        function applyScopedChildContext(scopedChildId, sourceLabel) {
+          const childId = String(scopedChildId || "").trim();
+          if (!childId) return;
+          accountCtx.child_id = childId;
+          viewSavedDashboardBtn.href = withAccountScope("/youth-development/parent-dashboard");
+          retakeAssessmentBtn.href = withAccountScope("/youth-development/intake");
+          openIntakeBtn.href = withAccountScope("/youth-development/intake");
+          programLaunchBtn.href = withAccountScope("/youth-development/program");
+          persistScopedChildOnUrl();
+          console.info("youth_dashboard_client_child_scope_adopted", {
+            source: String(sourceLabel || "unknown"),
+            adopted_child_id: accountCtx.child_id,
+          });
+        }
 
         const CATEGORY_META = {
           SR: {
@@ -2177,6 +2244,9 @@ function renderLiveYouthParentDashboardPage() {
           endpoint.searchParams.set('tenant', accountCtx.tenant);
           endpoint.searchParams.set('email', accountCtx.email);
           endpoint.searchParams.set('child_id', String(scopedChild.child_id));
+          console.info("youth_dashboard_program_bridge_request_scope", {
+            requested_child_id: String(scopedChild.child_id || ""),
+          });
           const response = await fetch(endpoint.pathname + endpoint.search);
           const bridge = response.ok ? await response.json().catch(() => null) : null;
           if (!bridge || bridge.ok !== true) {
@@ -2239,7 +2309,7 @@ function renderLiveYouthParentDashboardPage() {
 
         async function hydrateFromAccount() {
           if (!accountCtx.tenant || !accountCtx.email) return false;
-          const requestedChildId = (query.get('child_id') || query.get('childId') || '').trim();
+          const requestedChildId = String(accountCtx.child_id || query.get('child_id') || query.get('childId') || '').trim();
           const childrenEndpoint = new URL('/api/youth-development/children', window.location.origin);
           childrenEndpoint.searchParams.set('tenant', accountCtx.tenant);
           childrenEndpoint.searchParams.set('email', accountCtx.email);
@@ -2255,6 +2325,9 @@ function renderLiveYouthParentDashboardPage() {
           const scopedChild = requestedChildId
             ? childProfiles.find((entry) => String(entry.child_id || '') === requestedChildId)
             : (childProfiles.length === 1 ? childProfiles[0] : null);
+          if (scopedChild && scopedChild.child_id) {
+            applyScopedChildContext(scopedChild.child_id, "children_scope_resolution");
+          }
           if (!scopedChild && childProfiles.length > 1) {
             document.getElementById('heroSummary').textContent = 'Multiple child profiles found. Select a child scope to continue.';
             document.getElementById('weeklySupport').innerHTML = childProfiles.map((entry) => {
@@ -2271,6 +2344,9 @@ function renderLiveYouthParentDashboardPage() {
           endpoint.searchParams.set('tenant', accountCtx.tenant);
           endpoint.searchParams.set('email', accountCtx.email);
           if (scopedChild && scopedChild.child_id) endpoint.searchParams.set('child_id', String(scopedChild.child_id));
+          console.info("youth_dashboard_latest_request_scope", {
+            requested_child_id: scopedChild?.child_id || null,
+          });
           const response = await fetch(endpoint.pathname + endpoint.search);
           if (!response.ok) return false;
           const data = await response.json().catch(() => null);
@@ -2279,6 +2355,12 @@ function renderLiveYouthParentDashboardPage() {
             await hydrateProgramBridge(scopedChild, false);
             return false;
           }
+          const latestChildId = String(data.child_id || data?.payload?.ownership?.child_profile?.child_id || scopedChild?.child_id || "").trim();
+          if (latestChildId) applyScopedChildContext(latestChildId, "latest_response");
+          console.info("youth_dashboard_latest_selected", {
+            selected_submission_id: data.latest_submission_id || null,
+            selected_child_id: latestChildId || null,
+          });
           voiceState.childId = String(scopedChild?.child_id || "");
           await loadVoiceSectionsForChild(voiceState.childId);
           const applied = applyPayload(data.payload, { savedAt: data.saved_at || data.payload.saved_at || '' });
@@ -2298,7 +2380,21 @@ function renderLiveYouthParentDashboardPage() {
         }
 
         bindVoiceControls();
-        if (payload && applyPayload(payload, { savedAt: payload?.ownership?.saved_at || payload?.saved_at })) return;
+        if (payload && applyPayload(payload, { savedAt: payload?.ownership?.saved_at || payload?.saved_at })) {
+          const persistedChildId = String(payload?.ownership?.child_profile?.child_id || payload?.child_id || "").trim();
+          if (persistedChildId) {
+            applyScopedChildContext(persistedChildId, "session_payload");
+            voiceState.childId = persistedChildId;
+            loadVoiceSectionsForChild(voiceState.childId).catch(() => null);
+            const sessionScopedChild = {
+              child_id: persistedChildId,
+              child_name: String(payload?.ownership?.child_profile?.child_name || "").trim() || null,
+            };
+            hydrateProgramBridge(sessionScopedChild, true).catch(() => null);
+          }
+          updateVoiceStatusCopy();
+          return;
+        }
         updateVoiceStatusCopy();
         hydrateFromAccount().catch(() => null);
       }());
