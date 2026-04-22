@@ -68,6 +68,7 @@ const { initializeArchetypeEngineSchema } = require("./archetypeEnginesService")
 const { createYouthDevelopmentRouter } = require("./youthDevelopmentRoutes");
 const { createYouthDevelopmentIntakeRouter } = require("./youthDevelopmentIntakeRoutes");
 const { createYouthDevelopmentTdeRouter } = require("./youthDevelopmentTdeRoutes");
+const { createAssessmentVoiceRouter } = require("./assessmentVoiceRoutes");
 const { selectLatestYouthSubmission } = require("./youthLatestSelection");
 const { PROGRAM_PHASES } = require("../youth-development/tde/programRail");
 const {
@@ -2149,6 +2150,7 @@ app.use("/api/routing", routingRoutes({ pool, ensureTenant }));
 app.use("/api/stability", routingRoutes({ pool, ensureTenant }));
 app.use("/api/evolution", evolutionRoutes({ pool, ensureTenant }));
 app.use("/api/archetype-engines", createArchetypeEnginesRouter({ pool }));
+app.use("/api/assessment/voice", createAssessmentVoiceRouter());
 
 async function persistYouthAssessmentForAccount({
   accountCtx,

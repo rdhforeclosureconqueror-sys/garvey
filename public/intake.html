@@ -59,6 +59,7 @@
   </div>
 
   <script src="/js/api-contract.js" defer></script>
+  <script src="/js/assessment-voice.js" defer></script>
   <script defer>
   "use strict";
 
@@ -101,6 +102,10 @@
     const type = (new URLSearchParams(window.location.search).get("assessment") || "business_owner").trim().toLowerCase();
     return type === "customer" ? "customer" : "business_owner";
   }
+  const assessmentVoice = window.AssessmentVoice?.createController({
+    surface: "intake_assessment",
+    scope_id: `${getTenant() || "tenant"}:${getAssessmentType()}`,
+  }) || null;
 
   function buildUrlCompat(path, params) {
     const api = window.GarveyApi;
@@ -187,6 +192,11 @@
     });
 
     updateProgress();
+    assessmentVoice?.bind($("questionText"), {
+      section_key: "question_prompt",
+      section_label: `Question ${currentIndex + 1} prompt`,
+      voice_text: q.text || "",
+    });
   }
 
   function normalizeResultPayload(data) {
@@ -259,6 +269,7 @@
     const customerExtra = `<div class="result-card"><div><b>What offers you'll love:</b> personalized offers aligned to ${escapeHtml(payload.primary || "your profile")}.</div><div><b>Best way to reward you:</b> instant points + milestone perks.</div><div><b>Best way to message you:</b> concise, value-forward messages with clear next action.</div>${payload.personalityPrimary ? `<div><b>Personality read:</b> ${escapeHtml(payload.personalityPrimary)}</div>` : ""}</div>`;
 
     container.innerHTML = `
+      <div id="resultSummaryVoice" class="result-card">Assessment summary read-aloud</div>
       <div class="result-card">
         <div><b>Primary:</b> ${escapeHtml(payload.primary)}</div>
         <div><b>Secondary:</b> ${escapeHtml(payload.secondary)}</div>
@@ -280,6 +291,11 @@
         $("statusWidget")?.scrollIntoView({ behavior: "smooth" });
       });
     }
+    assessmentVoice?.bind($("resultSummaryVoice"), {
+      section_key: "result_summary",
+      section_label: "Assessment result summary",
+      voice_text: `Primary ${payload.primary || "not available"}. Secondary ${payload.secondary || "not available"}. Growth area ${payload.weakness || "not available"}.`,
+    });
   }
 
   async function submitAssessment() {
