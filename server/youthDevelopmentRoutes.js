@@ -1714,6 +1714,27 @@ function renderLiveYouthParentDashboardPage() {
             adopted_child_id: accountCtx.child_id,
           });
         }
+        function logDashboardContinuity(eventName, details) {
+          const payload = {
+            event: String(eventName || "unknown"),
+            at: new Date().toISOString(),
+            ...(details && typeof details === "object" ? details : {}),
+          };
+          console.info("youth_dashboard_continuity_trace", payload);
+          try {
+            const prior = Array.isArray(window.__youthDashboardContinuityTrace) ? window.__youthDashboardContinuityTrace : [];
+            prior.push(payload);
+            window.__youthDashboardContinuityTrace = prior.slice(-30);
+          } catch (_err) {}
+        }
+        function scopedProgramHref(href, fallbackPathname) {
+          const base = String(href || "").trim() || String(fallbackPathname || "/youth-development/program");
+          const url = new URL(base, window.location.origin);
+          if (accountCtx.tenant) url.searchParams.set("tenant", accountCtx.tenant);
+          if (accountCtx.email) url.searchParams.set("email", accountCtx.email);
+          if (accountCtx.child_id) url.searchParams.set("child_id", accountCtx.child_id);
+          return url.pathname + url.search;
+        }
 
         const CATEGORY_META = {
           SR: {
@@ -2216,7 +2237,7 @@ function renderLiveYouthParentDashboardPage() {
             ? rows.map((line) => '<li>' + esc(line) + '</li>').join('')
             : '<li class="muted">No program status yet.</li>';
           if (cta && cta.href && cta.label) {
-            programLaunchBtn.href = cta.href;
+            programLaunchBtn.href = scopedProgramHref(cta.href, "/youth-development/program");
             programLaunchBtn.textContent = cta.label;
             programLaunchBtn.style.display = "";
           } else {
@@ -2310,23 +2331,30 @@ function renderLiveYouthParentDashboardPage() {
         async function hydrateFromAccount() {
           if (!accountCtx.tenant || !accountCtx.email) return false;
           const requestedChildId = String(accountCtx.child_id || query.get('child_id') || query.get('childId') || '').trim();
+          logDashboardContinuity("hydrate_start", {
+            tenant_present: Boolean(accountCtx.tenant),
+            email_present: Boolean(accountCtx.email),
+            requested_child_id: requestedChildId || null,
+          });
           const childrenEndpoint = new URL('/api/youth-development/children', window.location.origin);
           childrenEndpoint.searchParams.set('tenant', accountCtx.tenant);
           childrenEndpoint.searchParams.set('email', accountCtx.email);
-          const childrenResponse = await fetch(childrenEndpoint.pathname + childrenEndpoint.search);
-          const childrenPayload = childrenResponse.ok ? await childrenResponse.json().catch(() => null) : null;
+          const childrenResponse = await fetch(childrenEndpoint.pathname + childrenEndpoint.search).catch(() => null);
+          const childrenPayload = childrenResponse && childrenResponse.ok ? await childrenResponse.json().catch(() => null) : null;
           const childProfiles = Array.isArray(childrenPayload && childrenPayload.children) ? childrenPayload.children : [];
-          if (!childProfiles.length) {
-            document.getElementById('heroSummary').textContent = 'No child profile is linked to this account yet. Complete intake with child name to create child scope.';
-            document.getElementById('weeklySupport').innerHTML = '<li class="muted">Child profile setup needed before child-scoped TDE loading is available.</li>';
-            await hydrateProgramBridge(null, false);
-            return false;
-          }
+          logDashboardContinuity("children_lookup_complete", {
+            response_ok: Boolean(childrenResponse && childrenResponse.ok),
+            children_count: childProfiles.length,
+          });
           const scopedChild = requestedChildId
             ? childProfiles.find((entry) => String(entry.child_id || '') === requestedChildId)
             : (childProfiles.length === 1 ? childProfiles[0] : null);
           if (scopedChild && scopedChild.child_id) {
             applyScopedChildContext(scopedChild.child_id, "children_scope_resolution");
+            logDashboardContinuity("child_scope_adopted", {
+              source: "children_scope_resolution",
+              selected_child_id: scopedChild.child_id,
+            });
           }
           if (!scopedChild && childProfiles.length > 1) {
             document.getElementById('heroSummary').textContent = 'Multiple child profiles found. Select a child scope to continue.';
@@ -2338,21 +2366,44 @@ function renderLiveYouthParentDashboardPage() {
               return '<li><a href="' + esc(dash.pathname + dash.search) + '">' + esc(entry.child_name || entry.child_id || 'Child profile') + '</a></li>';
             }).join('');
             setProgramStatus("Multiple children are available. Choose child scope first.", childProfiles.map((entry) => "Select " + (entry.child_name || entry.child_id || "Child profile")), null);
+            logDashboardContinuity("render_skipped", {
+              reason: "multi_child_scope_selection_required",
+              children_count: childProfiles.length,
+            });
             return false;
           }
           const endpoint = new URL('/api/youth-development/parent-dashboard/latest', window.location.origin);
           endpoint.searchParams.set('tenant', accountCtx.tenant);
           endpoint.searchParams.set('email', accountCtx.email);
-          if (scopedChild && scopedChild.child_id) endpoint.searchParams.set('child_id', String(scopedChild.child_id));
+          const latestRequestChildId = String((scopedChild && scopedChild.child_id) || requestedChildId || "").trim();
+          if (latestRequestChildId) endpoint.searchParams.set('child_id', latestRequestChildId);
           console.info("youth_dashboard_latest_request_scope", {
-            requested_child_id: scopedChild?.child_id || null,
+            requested_child_id: latestRequestChildId || null,
+          });
+          logDashboardContinuity("latest_lookup_request", {
+            requested_child_id: latestRequestChildId || null,
           });
           const response = await fetch(endpoint.pathname + endpoint.search);
           if (!response.ok) return false;
           const data = await response.json().catch(() => null);
+          logDashboardContinuity("latest_lookup_response", {
+            response_ok: Boolean(data && data.ok === true),
+            has_result: Boolean(data && data.has_result === true),
+            selected_submission_id: data?.latest_submission_id || null,
+            selected_child_id: data?.child_id || null,
+          });
           if (!data || !data.ok || !data.has_result || !data.payload) {
-            renderNoSavedAssessmentState(data && data.reason, scopedChild);
-            await hydrateProgramBridge(scopedChild, false);
+            if (!childProfiles.length && !requestedChildId) {
+              document.getElementById('heroSummary').textContent = 'No child profile is linked to this account yet. Complete intake with child name to create child scope.';
+              document.getElementById('weeklySupport').innerHTML = '<li class="muted">Child profile setup needed before child-scoped TDE loading is available.</li>';
+            } else {
+              renderNoSavedAssessmentState(data && data.reason, scopedChild);
+            }
+            await hydrateProgramBridge(scopedChild || null, false);
+            logDashboardContinuity("render_skipped", {
+              reason: data?.reason || "latest_not_available",
+              requested_child_id: latestRequestChildId || null,
+            });
             return false;
           }
           const latestChildId = String(data.child_id || data?.payload?.ownership?.child_profile?.child_id || scopedChild?.child_id || "").trim();
@@ -2361,10 +2412,24 @@ function renderLiveYouthParentDashboardPage() {
             selected_submission_id: data.latest_submission_id || null,
             selected_child_id: latestChildId || null,
           });
-          voiceState.childId = String(scopedChild?.child_id || "");
+          logDashboardContinuity("latest_selected", {
+            selected_submission_id: data.latest_submission_id || null,
+            selected_child_id: latestChildId || null,
+          });
+          voiceState.childId = String(latestChildId || scopedChild?.child_id || "");
           await loadVoiceSectionsForChild(voiceState.childId);
           const applied = applyPayload(data.payload, { savedAt: data.saved_at || data.payload.saved_at || '' });
-          await hydrateProgramBridge(scopedChild, applied === true);
+          logDashboardContinuity("render_applied", {
+            render_applied: applied === true,
+            source: "latest_payload",
+          });
+          const resolvedScopedChild = latestChildId
+            ? {
+                child_id: latestChildId,
+                child_name: String(scopedChild?.child_name || data?.payload?.ownership?.child_profile?.child_name || "").trim() || null,
+              }
+            : (scopedChild || null);
+          await hydrateProgramBridge(resolvedScopedChild, applied === true);
           return applied;
         }
 
