@@ -192,11 +192,6 @@
     });
 
     updateProgress();
-    assessmentVoice?.bind($("questionText"), {
-      section_key: "question_prompt",
-      section_label: `Question ${currentIndex + 1} prompt`,
-      voice_text: q.text || "",
-    });
   }
 
   function normalizeResultPayload(data) {

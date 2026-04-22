@@ -790,17 +790,6 @@ function renderAssessmentQuestions(app, engine, query, startPayload) {
         </form>
       </section>`;
 
-    assessmentVoice?.bind(app.querySelector("h1"), {
-      section_key: "assessment_instructions",
-      section_label: `${engine} assessment instructions`,
-      voice_text: `${titleCase(engine)} assessment. Question ${state.index + 1} of ${questions.length}.`,
-    });
-    assessmentVoice?.bind(app.querySelector("h2"), {
-      section_key: "question_prompt",
-      section_label: `${engine} question prompt`,
-      voice_text: q.prompt || "",
-    });
-
     const form = document.getElementById("assessmentQuestionForm");
     const backBtn = document.getElementById("assessmentBack");
 
@@ -878,13 +867,6 @@ function renderConsentStep(app, engine, query, contract) {
       <button id="consentContinue" class="chip">Accept and continue</button>
       <div id="assessmentStatus" class="muted"></div>
     </section>`;
-  const consentVoice = createVoiceController("archetype_consent", `${engine}:consent`);
-  consentVoice?.bind(app.querySelector(".section"), {
-    section_key: "assessment_instructions",
-    section_label: `${engine} consent instructions`,
-    voice_text: `${contract?.heading || `${titleCase(engine)} Assessment`}. ${(contract?.body || []).join(" ")}`,
-  });
-
   const statusNode = document.getElementById("assessmentStatus");
   const continueBtn = document.getElementById("consentContinue");
   continueBtn?.addEventListener("click", async () => {
