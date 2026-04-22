@@ -95,8 +95,11 @@ test('GET /youth-development/parent-dashboard adopts persisted child scope from 
 
     assert.match(html, /child_id: \(query\.get\("child_id"\) \|\| query\.get\("childId"\) \|\| ""\)\.trim\(\)/);
     assert.match(html, /applyScopedChildContext\(persistedChildId, "session_payload"\)/);
-    assert.match(html, /endpoint\.searchParams\.set\('child_id', String\(scopedChild\.child_id\)\)/);
+    assert.match(html, /const latestRequestChildId = String\(\(scopedChild && scopedChild\.child_id\) \|\| requestedChildId \|\| ""\)\.trim\(\)/);
+    assert.match(html, /if \(latestRequestChildId\) endpoint\.searchParams\.set\('child_id', latestRequestChildId\)/);
     assert.match(html, /selected_submission_id: data\.latest_submission_id \|\| null/);
+    assert.match(html, /logDashboardContinuity\("latest_lookup_response"/);
+    assert.match(html, /if \(!childProfiles\.length && !requestedChildId\) \{/);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
