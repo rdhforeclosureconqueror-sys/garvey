@@ -153,7 +153,11 @@ test('GET /youth-development/parent-dashboard renders live parent-facing dashboa
     assert.match(html, /data-voice-action="forward10"/);
     assert.match(html, /bindVoiceControls\.bound/);
     assert.match(html, /document\.addEventListener\("click"/);
-    assert.match(html, /\/api\/youth-development\/tde\/voice\/sections\//);
+    assert.match(html, /\/api\/youth-development\/voice\/sections\//);
+    assert.match(html, /id="dashboardVoiceDiagnostics"/);
+    assert.match(html, /updateDashboardVoiceDiagnostics/);
+    assert.match(html, /playback_mode: "provider_audio"/);
+    assert.match(html, /playback_mode: "fallback_browser_speech"/);
     assert.match(html, /Development program/);
     assert.match(html, /Focus & Self-Control/);
     assert.match(html, /Learning From Feedback/);

@@ -1585,6 +1585,7 @@ function renderLiveYouthParentDashboardPage() {
           <button class="btn btn-ghost voice-btn" type="button" data-voice-action="forward10" data-voice-scope="snapshotCards">Forward 10s</button>
         </div>
         <p id="snapshotVoiceStatus" class="tiny muted">AI voice status checking…</p>
+        <p id="dashboardVoiceDiagnostics" class="tiny muted">voice_mode: pending · provider_status: unknown · fallback_reason: none · audio_source: unknown</p>
         <div id="snapshotCards" class="grid cards"></div>
       </section>
 
@@ -1676,7 +1677,16 @@ function renderLiveYouthParentDashboardPage() {
           statusDetail: "",
           lastPlaybackMode: "none",
         };
+        const dashboardVoiceDiagnosticsState = {
+          route: "",
+          responsePayload: null,
+          playbackMode: "pending",
+          providerStatus: "unknown",
+          fallbackReason: "none",
+          audioSource: "unknown",
+        };
         const dashboardVoicePlayback = { activeAudio: null, activeScope: "", selectionByScope: {}, fallbackScope: "" };
+        const dashboardVoiceDiagnostics = document.getElementById("dashboardVoiceDiagnostics");
         const programStatusSummary = document.getElementById("programStatusSummary");
         const programStatusList = document.getElementById("programStatusList");
         const programLaunchBtn = document.getElementById("programLaunchBtn");
@@ -1994,6 +2004,25 @@ function renderLiveYouthParentDashboardPage() {
             if (host) host.textContent = summary;
           });
         }
+        function updateDashboardVoiceDiagnostics(partial) {
+          Object.assign(dashboardVoiceDiagnosticsState, partial || {});
+          if (dashboardVoiceDiagnostics) {
+            dashboardVoiceDiagnostics.textContent = "voice_mode: " + String(dashboardVoiceDiagnosticsState.playbackMode || "pending")
+              + " · provider_status: " + String(dashboardVoiceDiagnosticsState.providerStatus || "unknown")
+              + " · fallback_reason: " + String(dashboardVoiceDiagnosticsState.fallbackReason || "none")
+              + " · audio_source: " + String(dashboardVoiceDiagnosticsState.audioSource || "unknown");
+          }
+          if (typeof window !== "undefined") {
+            window.__dashboardVoiceRuntimeDiagnostics = {
+              route_called: dashboardVoiceDiagnosticsState.route || null,
+              response_payload: dashboardVoiceDiagnosticsState.responsePayload || null,
+              playback_mode: dashboardVoiceDiagnosticsState.playbackMode || null,
+              provider_status: dashboardVoiceDiagnosticsState.providerStatus || null,
+              fallback_reason: dashboardVoiceDiagnosticsState.fallbackReason || null,
+              audio_source: dashboardVoiceDiagnosticsState.audioSource || null,
+            };
+          }
+        }
         function getReadableTextFromElement(id) {
           const host = document.getElementById(id);
           if (!host) return "";
@@ -2069,6 +2098,14 @@ function renderLiveYouthParentDashboardPage() {
             });
             if (!payload || payload.ok !== true) {
               voiceState.displayStatus = "voice_unavailable";
+              updateDashboardVoiceDiagnostics({
+                route: endpoint,
+                responsePayload: payload,
+                playbackMode: "fallback_browser_speech",
+                providerStatus: "voice_unavailable",
+                fallbackReason: "voice_sections_request_failed",
+                audioSource: "browser_speech",
+              });
               updateVoiceStatusCopy();
               return;
             }
@@ -2078,17 +2115,34 @@ function renderLiveYouthParentDashboardPage() {
               return acc;
             }, {});
             const sectionEntries = Object.values(voiceState.sectionMap);
+            const fallbackChunk = sectionEntries.flatMap((entry) => Array.isArray(entry?.chunks) ? entry.chunks : []).find((chunk) => String(chunk?.provider_status || "").toLowerCase() !== "available");
             const providerAudio = sectionEntries.map((entry) => getProviderAudioFromSection(entry)).find(Boolean) || null;
             voiceState.providerAudioAvailable = Boolean(providerAudio && (providerAudio.audioUrl || providerAudio.assetRef));
             voiceState.providerName = providerAudio ? providerAudio.providerName : "";
             voiceState.playbackState = "ready";
             voiceState.statusDetail = "";
             voiceState.displayStatus = String(payload.display_status || payload.voice_readiness_status || payload.voice_state?.availability || "voice_unknown");
+            updateDashboardVoiceDiagnostics({
+              route: endpoint,
+              responsePayload: payload,
+              playbackMode: "pending",
+              providerStatus: providerAudio ? "available" : String(fallbackChunk?.provider_status || voiceState.displayStatus || "unknown"),
+              fallbackReason: String(fallbackChunk?.fallback_reason || "none"),
+              audioSource: providerAudio ? "provider_audio_candidate" : "browser_speech_candidate",
+            });
             updateVoiceStatusCopy();
           } catch (_err) {
             voiceState.displayStatus = "voice_unavailable";
             voiceState.providerAudioAvailable = false;
             voiceState.providerName = "";
+            updateDashboardVoiceDiagnostics({
+              route: "/api/youth-development/voice/sections/" + encodeURIComponent(String(childId || "")),
+              responsePayload: null,
+              playbackMode: "fallback_browser_speech",
+              providerStatus: "voice_unavailable",
+              fallbackReason: "voice_sections_fetch_failed",
+              audioSource: "browser_speech",
+            });
             updateVoiceStatusCopy();
           }
         }
@@ -2142,27 +2196,76 @@ function renderLiveYouthParentDashboardPage() {
         }
         async function playParentVoiceSelection(selection, label, scopeId) {
           dashboardVoicePlayback.activeScope = String(scopeId || "");
+          console.info("youth_dashboard_voice_playback_attempt", {
+            scope: dashboardVoicePlayback.activeScope || null,
+            selection_source: selection?.source || null,
+            provider_audio_candidate: Boolean(selection?.providerAudio),
+          });
           if (selection.providerAudio) {
             const providerPlayed = await safePlayProviderAudio(selection.providerAudio);
             if (providerPlayed) {
               voiceState.lastPlaybackMode = "provider";
               voiceState.playbackState = "playing";
               voiceState.statusDetail = "";
+              updateDashboardVoiceDiagnostics({
+                playbackMode: "provider_audio",
+                providerStatus: "available",
+                fallbackReason: "none",
+                audioSource: "direct_provider_audio",
+              });
+              console.info("youth_dashboard_voice_playback_result", {
+                playback_mode: "provider_audio",
+                provider_status: "available",
+                fallback_reason: null,
+              });
               updateVoiceStatusCopy();
               return true;
             }
+            updateDashboardVoiceDiagnostics({
+              playbackMode: "fallback_browser_speech",
+              providerStatus: "fallback_active",
+              fallbackReason: "provider_audio_playback_failed",
+              audioSource: "browser_speech",
+            });
+            console.info("youth_dashboard_voice_playback_result", {
+              playback_mode: "fallback_browser_speech",
+              provider_status: "fallback_active",
+              fallback_reason: "provider_audio_playback_failed",
+            });
           }
           const fallbackPlayed = safePlayText(selection.text);
           if (fallbackPlayed) {
             voiceState.lastPlaybackMode = "fallback_tts";
             voiceState.playbackState = "playing";
             voiceState.statusDetail = "AI voice unavailable, using fallback browser speech.";
+            updateDashboardVoiceDiagnostics({
+              playbackMode: "fallback_browser_speech",
+              providerStatus: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
+              fallbackReason: selection.providerAudio ? "provider_audio_playback_failed" : "provider_audio_unavailable",
+              audioSource: "browser_speech",
+            });
+            console.info("youth_dashboard_voice_playback_result", {
+              playback_mode: "fallback_browser_speech",
+              provider_status: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
+              fallback_reason: selection.providerAudio ? "provider_audio_playback_failed" : "provider_audio_unavailable",
+            });
             updateVoiceStatusCopy();
             return true;
           }
           voiceState.lastPlaybackMode = "none";
           voiceState.playbackState = "failed";
           voiceState.statusDetail = "AI voice playback failed; fallback also unavailable on this device.";
+          updateDashboardVoiceDiagnostics({
+            playbackMode: "unavailable",
+            providerStatus: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
+            fallbackReason: "browser_speech_unavailable",
+            audioSource: "none",
+          });
+          console.info("youth_dashboard_voice_playback_result", {
+            playback_mode: "unavailable",
+            provider_status: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
+            fallback_reason: "browser_speech_unavailable",
+          });
           updateVoiceStatusCopy();
           alert("Read-aloud is unavailable on this device right now. You can still read: " + label + ".");
           return false;
@@ -2661,6 +2764,7 @@ function renderLiveYouthProgramPage() {
             <p id="commitStartDateError" class="field-error" role="status" aria-live="polite"></p>
             <button id="saveCommitmentBtn" class="btn btn-primary" type="button">Build Your Weekly Plan</button>
             <p id="commitmentSaveFeedback" class="tiny muted" role="status" aria-live="polite"></p>
+            <p id="commitmentActionTrace" class="tiny muted" role="status" aria-live="polite">planner action trace: waiting for input.</p>
             <p id="commitmentSummary" class="tiny muted">Commitment not set.</p>
             <ul id="commitmentSchedulePreview" class="list"><li class="muted">Schedule preview will appear after plan save.</li></ul>
           </div>
@@ -2713,6 +2817,7 @@ function renderLiveYouthProgramPage() {
               <button class="btn btn-ghost" type="button" data-program-voice-action="forward10" data-program-voice-scope="programSupport">Forward 10s</button>
               <span id="weeklyGoalsVoiceStatus" class="tiny muted">AI voice status checking…</span>
             </div>
+            <p id="programVoiceDiagnostics" class="tiny muted">voice_mode: pending · provider_status: unknown · fallback_reason: none · audio_source: unknown</p>
             <ul id="weeklyGoals" class="list"><li class="muted">Loading goals…</li></ul>
             <ul id="weeklyGuidance" class="list"><li class="muted">Loading parent guidance…</li></ul>
           </div>
@@ -2830,6 +2935,7 @@ function renderLiveYouthProgramPage() {
         const readProgramSupportBtn = document.getElementById("readProgramSupportBtn");
         const readProgressSummaryBtn = document.getElementById("readProgressSummaryBtn");
         const weeklyGoalsVoiceStatus = document.getElementById("weeklyGoalsVoiceStatus");
+        const programVoiceDiagnostics = document.getElementById("programVoiceDiagnostics");
         const progressSummary = document.getElementById("progressSummary");
         const progressFill = document.getElementById("progressFill");
         const roadmapList = document.getElementById("roadmapList");
@@ -2865,6 +2971,7 @@ function renderLiveYouthProgramPage() {
         const commitStartDateError = document.getElementById("commitStartDateError");
         const saveCommitmentBtn = document.getElementById("saveCommitmentBtn");
         const commitmentSaveFeedback = document.getElementById("commitmentSaveFeedback");
+        const commitmentActionTrace = document.getElementById("commitmentActionTrace");
         const commitmentSchedulePreview = document.getElementById("commitmentSchedulePreview");
         const commitmentSummary = document.getElementById("commitmentSummary");
         const plannerStateCopy = document.getElementById("plannerStateCopy");
@@ -2919,6 +3026,7 @@ function renderLiveYouthProgramPage() {
         let navWeekOffset = 0;
         let selectedSessionId = "";
         const plannerCommitmentState = { preferredTime: toCanonical12Hour(String(commitTimeInput?.value || "5:30 PM")) };
+        const plannerRuntime = { handler: "saveCommitmentBtn.click", route: "/api/youth-development/program/commitment" };
         const programVoiceState = {
           status: "voice_unknown",
           sectionMap: {},
@@ -2927,6 +3035,14 @@ function renderLiveYouthProgramPage() {
           playbackState: "ready",
           statusDetail: "",
           lastPlaybackMode: "none",
+        };
+        const programVoiceDiagnosticsState = {
+          route: "",
+          responsePayload: null,
+          playbackMode: "pending",
+          providerStatus: "unknown",
+          fallbackReason: "none",
+          audioSource: "unknown",
         };
         const programVoicePlayback = { activeAudio: null, activeScope: "", selectionByScope: {} };
         function setButtonBusy(button, isBusy, busyLabel) {
@@ -3098,6 +3214,25 @@ function renderLiveYouthProgramPage() {
             providerName: String(providerChunk.provider || providerChunk.provider_name || "openai-via-gateway").trim(),
           } : null;
         }
+        function updateProgramVoiceDiagnostics(partial) {
+          Object.assign(programVoiceDiagnosticsState, partial || {});
+          if (programVoiceDiagnostics) {
+            programVoiceDiagnostics.textContent = "voice_mode: " + String(programVoiceDiagnosticsState.playbackMode || "pending")
+              + " · provider_status: " + String(programVoiceDiagnosticsState.providerStatus || "unknown")
+              + " · fallback_reason: " + String(programVoiceDiagnosticsState.fallbackReason || "none")
+              + " · audio_source: " + String(programVoiceDiagnosticsState.audioSource || "unknown");
+          }
+          if (typeof window !== "undefined") {
+            window.__programVoiceRuntimeDiagnostics = {
+              route_called: programVoiceDiagnosticsState.route || null,
+              response_payload: programVoiceDiagnosticsState.responsePayload || null,
+              playback_mode: programVoiceDiagnosticsState.playbackMode || null,
+              provider_status: programVoiceDiagnosticsState.providerStatus || null,
+              fallback_reason: programVoiceDiagnosticsState.fallbackReason || null,
+              audio_source: programVoiceDiagnosticsState.audioSource || null,
+            };
+          }
+        }
         function updateProgramVoiceStatus(messageOverride) {
           if (!weeklyGoalsVoiceStatus) return;
           if (messageOverride) {
@@ -3156,12 +3291,21 @@ function renderLiveYouthProgramPage() {
               : {};
             programVoiceState.status = status;
             programVoiceState.sectionMap = map;
+            const fallbackChunk = Object.values(map).flatMap((entry) => Array.isArray(entry?.chunks) ? entry.chunks : []).find((chunk) => String(chunk?.provider_status || "").toLowerCase() !== "available");
             const providerAudio = Object.values(map).map((entry) => getProgramProviderAudio(entry)).find(Boolean) || null;
             programVoiceState.providerAudioAvailable = Boolean(providerAudio && (providerAudio.audioUrl || providerAudio.assetRef));
             programVoiceState.providerName = providerAudio ? providerAudio.providerName : "";
             programVoiceState.playbackState = "ready";
             programVoiceState.statusDetail = "";
             programVoiceState.lastPlaybackMode = "none";
+            updateProgramVoiceDiagnostics({
+              route: endpoint,
+              responsePayload: payload,
+              playbackMode: "pending",
+              providerStatus: providerAudio ? "available" : String(fallbackChunk?.provider_status || status || "unknown"),
+              fallbackReason: String(fallbackChunk?.fallback_reason || "none"),
+              audioSource: providerAudio ? "provider_audio_candidate" : "browser_speech_candidate",
+            });
             updateProgramVoiceStatus();
           } catch (_err) {
             programVoiceState.status = "voice_unavailable";
@@ -3169,6 +3313,14 @@ function renderLiveYouthProgramPage() {
             programVoiceState.providerAudioAvailable = false;
             programVoiceState.providerName = "";
             programVoiceState.lastPlaybackMode = "none";
+            updateProgramVoiceDiagnostics({
+              route: "/api/youth-development/voice/sections/" + encodeURIComponent(childId),
+              responsePayload: null,
+              playbackMode: "fallback_browser_speech",
+              providerStatus: "voice_unavailable",
+              fallbackReason: "voice_sections_fetch_failed",
+              audioSource: "browser_speech",
+            });
             updateProgramVoiceStatus();
           }
         }
@@ -3189,26 +3341,75 @@ function renderLiveYouthProgramPage() {
           return { text: String(fallbackText || "").trim(), audioUrl: "", source: "fallback_tts" };
         }
         async function playProgramVoiceSelection(selection, fallbackFailureMessage) {
+          console.info("[program-voice-debug] playback_attempt", {
+            scope: programVoicePlayback.activeScope || null,
+            selection_source: selection?.source || null,
+            provider_audio_candidate: Boolean(selection?.providerAudio),
+          });
           if (selection.providerAudio) {
             const providerPlayed = await safePlayProviderAudio(selection.providerAudio);
             if (providerPlayed) {
               programVoiceState.lastPlaybackMode = "provider";
               programVoiceState.playbackState = "playing";
               programVoiceState.statusDetail = "";
+              updateProgramVoiceDiagnostics({
+                playbackMode: "provider_audio",
+                providerStatus: "available",
+                fallbackReason: "none",
+                audioSource: "direct_provider_audio",
+              });
+              console.info("[program-voice-debug] playback_result", {
+                playback_mode: "provider_audio",
+                provider_status: "available",
+                fallback_reason: null,
+              });
               updateProgramVoiceStatus();
               return true;
             }
+            updateProgramVoiceDiagnostics({
+              playbackMode: "fallback_browser_speech",
+              providerStatus: "fallback_active",
+              fallbackReason: "provider_audio_playback_failed",
+              audioSource: "browser_speech",
+            });
+            console.info("[program-voice-debug] playback_result", {
+              playback_mode: "fallback_browser_speech",
+              provider_status: "fallback_active",
+              fallback_reason: "provider_audio_playback_failed",
+            });
           }
           if (safePlayText(selection.text)) {
             programVoiceState.lastPlaybackMode = "fallback_tts";
             programVoiceState.playbackState = "playing";
             programVoiceState.statusDetail = "AI voice unavailable, using fallback browser speech.";
+            updateProgramVoiceDiagnostics({
+              playbackMode: "fallback_browser_speech",
+              providerStatus: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
+              fallbackReason: selection.providerAudio ? "provider_audio_playback_failed" : "provider_audio_unavailable",
+              audioSource: "browser_speech",
+            });
+            console.info("[program-voice-debug] playback_result", {
+              playback_mode: "fallback_browser_speech",
+              provider_status: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
+              fallback_reason: selection.providerAudio ? "provider_audio_playback_failed" : "provider_audio_unavailable",
+            });
             updateProgramVoiceStatus();
             return true;
           }
           programVoiceState.lastPlaybackMode = "none";
           programVoiceState.playbackState = "failed";
           programVoiceState.statusDetail = "AI voice playback failed; fallback browser speech unavailable.";
+          updateProgramVoiceDiagnostics({
+            playbackMode: "unavailable",
+            providerStatus: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
+            fallbackReason: "browser_speech_unavailable",
+            audioSource: "none",
+          });
+          console.info("[program-voice-debug] playback_result", {
+            playback_mode: "unavailable",
+            provider_status: selection.providerAudio ? "fallback_active" : "provider_audio_unavailable",
+            fallback_reason: "browser_speech_unavailable",
+          });
           updateProgramVoiceStatus(fallbackFailureMessage || "Read-aloud unavailable in this browser. Text remains visible.");
           return false;
         }
@@ -4137,12 +4338,33 @@ function renderLiveYouthProgramPage() {
           }
         });
         saveCommitmentBtn.addEventListener("click", async function () {
-          if (!latestWeekPayload || !latestWeekPayload.week_content) return;
+          const clickTrace = {
+            handler: plannerRuntime.handler,
+            button_disabled: Boolean(saveCommitmentBtn.disabled),
+            latest_week_payload_ready: Boolean(latestWeekPayload && latestWeekPayload.week_content),
+          };
+          commitmentActionTrace.textContent = "planner action trace: click handler fired.";
+          console.info("[planner-commitment-debug] click", clickTrace);
+          if (!latestWeekPayload || !latestWeekPayload.week_content) {
+            commitmentSaveFeedback.textContent = "Weekly plan save blocked: week content is not loaded yet. Reload this page and retry.";
+            commitmentActionTrace.textContent = "planner action trace: blocked_before_validation (week_content_missing).";
+            console.info("[planner-commitment-debug] blocked", { ...clickTrace, reason: "week_content_missing" });
+            return;
+          }
           const validation = validateCommitmentFormInputs();
           commitmentSaveFeedback.textContent = "";
           setPlannerFieldErrors(validation.fieldErrors || {});
+          commitmentActionTrace.textContent = "planner action trace: validation_checked (ok=" + String(validation.ok) + ").";
+          console.info("[planner-commitment-debug] validation_state", {
+            ...clickTrace,
+            validation_ok: validation.ok,
+            validation_errors: validation.errors,
+            weekly_frequency: validation.weeklyFrequency,
+            preferred_days_count: validation.preferredDays.length,
+          });
           if (!validation.ok) {
             commitmentSaveFeedback.textContent = "Unable to save yet. Check the highlighted fields and retry.";
+            commitmentActionTrace.textContent = "planner action trace: blocked_before_request (validation_failed).";
             return;
           }
           await withButtonBusy(saveCommitmentBtn, "Saving Plan…", async function () {
@@ -4163,9 +4385,12 @@ function renderLiveYouthProgramPage() {
               energy_type: String(commitEnergyTypeInput.value || "balanced"),
               start_date: validation.startDate,
             };
+            commitmentActionTrace.textContent = "planner action trace: request_ready (route=" + plannerRuntime.route + ").";
             console.info("[planner-commitment-debug] submitCommitment", {
               preferred_time_submitted: requestBody.preferred_time,
               preferred_time_window_submitted: requestBody.preferred_time_window,
+              request_route: plannerRuntime.route,
+              request_payload: requestBody,
             });
             const response = await fetch("/api/youth-development/program/commitment", {
               method: "POST",
@@ -4173,16 +4398,24 @@ function renderLiveYouthProgramPage() {
               body: JSON.stringify(requestBody),
             });
             const payload = response.ok ? await response.json().catch(() => null) : null;
+            console.info("[planner-commitment-debug] response", {
+              route: plannerRuntime.route,
+              http_status: response.status,
+              ok: Boolean(payload && payload.ok === true),
+              payload,
+            });
             if (!payload || payload.ok !== true) {
               const messageTokens = Array.isArray(payload?.messages) ? payload.messages : [String(payload?.message || payload?.error || "unable_to_save_weekly_plan")];
               const fieldMap = toFieldErrorMap(messageTokens);
               setPlannerFieldErrors(fieldMap);
               const messages = Object.values(fieldMap).length ? Object.values(fieldMap).join(" ") : messageTokens.join(", ");
               commitmentSaveFeedback.textContent = "Weekly plan save failed: " + messages;
+              commitmentActionTrace.textContent = "planner action trace: response_failed (" + String(payload?.error || "unknown_error") + ").";
               return;
             }
             setPlannerFieldErrors({});
             commitmentSaveFeedback.textContent = "Your weekly plan is set.";
+            commitmentActionTrace.textContent = "planner action trace: response_ok (scheduled_sessions=" + String((payload.scheduled_sessions || []).length) + ").";
             renderCommitmentSchedulePreview(payload.scheduled_sessions || []);
             await loadWeekExperience();
           });
