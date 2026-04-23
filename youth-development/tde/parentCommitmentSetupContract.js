@@ -200,9 +200,7 @@ function validateParentCommitmentSetup(payload = {}) {
   } else if (normalized.preferred_days.some((day) => !CANONICAL_DAYS.includes(day))) {
     errors.push("preferred_days_invalid");
   }
-  if (!normalized.preferred_time) {
-    errors.push("preferred_time_required");
-  } else if (!isValidTime12(normalized.preferred_time)) {
+  if (normalized.preferred_time && !isValidTime12(normalized.preferred_time)) {
     errors.push("preferred_time_invalid");
   }
   const preferredWindow = normalizePreferredTimeWindow(payload);

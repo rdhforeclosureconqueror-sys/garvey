@@ -55,13 +55,13 @@ test('program page renders parent planner, calendar, and lesson-plan surfaces', 
     assert.match(html, /syncPreferredTimePickerFromValue/);
     assert.match(html, /updatePreferredTimeDiagnostics/);
     assert.match(html, /Preferred time diagnostics: displayed/);
-    assert.match(html, /preferredTimeValidation: parse12HourTime\(preferredTime\) \? preferredTime : "invalid"/);
+    assert.match(html, /preferredTimeValidation: preferredTime \? \(parse12HourTime\(preferredTime\) \? preferredTime : "invalid"\) : "optional_blank"/);
     assert.match(html, /preferredTimeSubmitted: requestBody\.preferred_time/);
     assert.match(html, /commitTimeHourInput\.addEventListener\("input"/);
     assert.match(html, /commitTimeMinuteInput\.addEventListener\("input"/);
     assert.match(html, /commitTimeMeridiemInput\.addEventListener\("input"/);
     assert.match(html, /commitTimeHourInput\.addEventListener\("change"/);
-    assert.match(html, /Choose a valid preferred time like 5:30 PM\./);
+    assert.match(html, /Preferred time is optional; if provided, use a valid time like 5:30 PM\./);
     assert.match(html, /syncPreferredTimeState/);
     assert.match(html, /Unable to save yet\. Check the highlighted fields and retry\./);
     assert.match(html, /\[planner-commitment-debug\] validateCommitmentFormInputs/);

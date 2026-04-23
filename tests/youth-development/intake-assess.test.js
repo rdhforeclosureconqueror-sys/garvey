@@ -970,6 +970,7 @@ test('program commitment route rejects incomplete setup contract payloads', asyn
     assert.equal(payload.ok, false);
     assert.equal(payload.error, 'commitment_setup_invalid');
     assert.ok(Array.isArray(payload.required_fields));
+    assert.equal(payload.required_fields.includes('preferred_time'), false);
     assert.ok(payload.messages.includes('weekly_frequency_invalid'));
   } finally {
     await new Promise((resolve) => server.close(resolve));
@@ -1047,6 +1048,57 @@ test('program commitment route accepts valid preferred_days payload and forwards
     assert.deepEqual(captured.preferred_days, ['monday', 'wednesday', 'friday']);
     assert.equal(captured.preferred_time, '5:30 PM');
     assert.equal(captured.preferred_time_window, '5:30 PM');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('program commitment route accepts optional blank preferred_time and persists empty preferred time fields', async () => {
+  const app = express();
+  app.use(express.json());
+  let captured = null;
+  app.use(createYouthDevelopmentRouter({
+    saveProgramCommitmentPlan: async ({ commitment }) => {
+      captured = commitment;
+      return {
+        ok: true,
+        commitment_plan: commitment,
+        commitment_setup_status: 'complete',
+        planner_setup_required: false,
+        scheduled_sessions: [{ session_id: 'plan-1', day: 'monday', day_label: 'Monday', time: '17:30', status: 'planned' }],
+      };
+    },
+  }));
+  const server = http.createServer(app);
+  await new Promise((resolve) => server.listen(0, resolve));
+  const addr = server.address();
+  const baseUrl = `http://127.0.0.1:${addr.port}`;
+  try {
+    const commitment = await fetch(`${baseUrl}/api/youth-development/program/commitment`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        tenant: 'demo',
+        email: 'parent@example.com',
+        child_id: 'child-real-1',
+        weekly_frequency: 3,
+        preferred_days: ['Mon', 'wed', 'Friday'],
+        preferred_time: '',
+        preferred_time_window: '',
+        session_length: 30,
+        energy_type: 'balanced',
+        start_date: '2026-04-20',
+      }),
+    });
+    assert.equal(commitment.status, 200);
+    const payload = await commitment.json();
+    assert.equal(payload.ok, true);
+    assert.equal(captured.preferred_time, '');
+    assert.equal(captured.preferred_time_window, '');
+    assert.equal(payload.commitment_plan.preferred_time, '');
+    assert.equal(payload.commitment_plan.preferred_time_window, '');
+    assert.equal(payload.commitment_setup_status, 'complete');
+    assert.equal(payload.planner_setup_required, false);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

@@ -2814,17 +2814,17 @@ function renderLiveYouthProgramPage() {
               <label class="chip"><input type="checkbox" data-day-checkbox="sunday"> Sun</label>
             </div>
             <p id="commitPreferredDaysError" class="field-error" role="status" aria-live="polite"></p>
-            <label class="tiny">Preferred time</label>
+            <label class="tiny">Preferred time (optional)</label>
             <div class="time-picker-row">
-              <select id="commitTimeHourInput" class="input" aria-label="Preferred time hour"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5" selected>5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select>
-              <select id="commitTimeMinuteInput" class="input" aria-label="Preferred time minute"><option value="00">00</option><option value="15">15</option><option value="30" selected>30</option><option value="45">45</option></select>
-              <select id="commitTimeMeridiemInput" class="input" aria-label="Preferred time AM/PM"><option value="AM">AM</option><option value="PM" selected>PM</option></select>
+              <select id="commitTimeHourInput" class="input" aria-label="Preferred time hour"><option value="" selected>--</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select>
+              <select id="commitTimeMinuteInput" class="input" aria-label="Preferred time minute"><option value="" selected>--</option><option value="00">00</option><option value="15">15</option><option value="30">30</option><option value="45">45</option></select>
+              <select id="commitTimeMeridiemInput" class="input" aria-label="Preferred time AM/PM"><option value="" selected>--</option><option value="AM">AM</option><option value="PM">PM</option></select>
             </div>
-            <input id="commitTimeInput" class="input" type="text" value="5:30 PM" placeholder="5:30 PM" style="display:none;" readonly />
-            <input id="commitPreferredTimeCanonicalInput" type="hidden" name="preferred_time" value="5:30 PM" />
+            <input id="commitTimeInput" class="input" type="text" value="" placeholder="5:30 PM" style="display:none;" readonly />
+            <input id="commitPreferredTimeCanonicalInput" type="hidden" name="preferred_time" value="" />
             <p id="commitTimeError" class="field-error" role="status" aria-live="polite"></p>
-            <p class="tiny muted">Select a parent-friendly time (example: 5:30 PM).</p>
-            <p id="commitTimeBindingDiagnostics" class="tiny muted" role="status" aria-live="polite">Preferred time diagnostics: displayed 5:30 PM · canonical 5:30 PM · validation pending · submitted pending.</p>
+            <p class="tiny muted">Optional. If you select a time, use a parent-friendly format (example: 5:30 PM).</p>
+            <p id="commitTimeBindingDiagnostics" class="tiny muted" role="status" aria-live="polite">Preferred time diagnostics: displayed none_selected · canonical none_selected · validation pending · submitted pending.</p>
             <label class="tiny">Session length (minutes)</label><select id="commitDurationInput" class="input"><option value="15">15</option><option value="30" selected>30</option><option value="45">45</option></select>
             <p id="commitDurationError" class="field-error" role="status" aria-live="polite"></p>
             <label class="tiny">Energy type</label><select id="commitEnergyTypeInput" class="input"><option value="calm">calm</option><option value="balanced" selected>balanced</option><option value="high-energy">high-energy</option></select>
@@ -3207,7 +3207,7 @@ function renderLiveYouthProgramPage() {
             const token = String(entry || "").toLowerCase();
             if (token.includes("weekly_frequency")) map.weekly_frequency = "Select a weekly frequency between 2 and 5 sessions.";
             else if (token.includes("preferred_days")) map.preferred_days = "Select at least one preferred day before saving.";
-            else if (token.includes("preferred_time")) map.preferred_time = "Choose a valid preferred time like 5:30 PM.";
+            else if (token.includes("preferred_time")) map.preferred_time = "Preferred time is optional; if provided, use a valid time like 5:30 PM.";
             else if (token.includes("session_length")) map.session_length = "Select a valid session length (15, 30, or 45 minutes).";
             else if (token.includes("energy_type")) map.energy_type = "Select calm, balanced, or high-energy.";
             else if (token.includes("start_date")) map.start_date = "Choose a valid start date.";
@@ -3215,13 +3215,12 @@ function renderLiveYouthProgramPage() {
           return map;
         }
         function syncPreferredTimeState() {
-          const displayValue = ((String(commitTimeHourInput?.value || "").trim() || "5")
-            + ":" + (String(commitTimeMinuteInput?.value || "").trim() || "30")
-            + " " + (String(commitTimeMeridiemInput?.value || "").trim().toUpperCase() || "PM")).trim();
           const hour = String(commitTimeHourInput?.value || "").trim();
           const minute = String(commitTimeMinuteInput?.value || "").trim();
           const meridiem = String(commitTimeMeridiemInput?.value || "").trim().toUpperCase();
-          const composed = hour && minute && (meridiem === "AM" || meridiem === "PM")
+          const hasFullTimeSelection = hour && minute && (meridiem === "AM" || meridiem === "PM");
+          const displayValue = hasFullTimeSelection ? (hour + ":" + minute + " " + meridiem) : "none_selected";
+          const composed = hasFullTimeSelection
             ? (hour + ":" + minute + " " + meridiem)
             : String(commitTimeInput.value || "").trim();
           plannerCommitmentState.preferredTime = toCanonical12Hour(composed);
@@ -3233,8 +3232,8 @@ function renderLiveYouthProgramPage() {
         function updatePreferredTimeDiagnostics(partial) {
           Object.assign(plannerCommitmentState, partial || {});
           if (!commitTimeBindingDiagnostics) return;
-          const displayed = String(plannerCommitmentState.preferredTimeDisplayed || "pending").trim() || "pending";
-          const canonical = String(plannerCommitmentState.preferredTime || "").trim() || "pending";
+          const displayed = String(plannerCommitmentState.preferredTimeDisplayed || "none_selected").trim() || "none_selected";
+          const canonical = String(plannerCommitmentState.preferredTime || "").trim() || "none_selected";
           const validation = String(plannerCommitmentState.preferredTimeValidation || "pending").trim() || "pending";
           const submitted = String(plannerCommitmentState.preferredTimeSubmitted || "pending").trim() || "pending";
           commitTimeBindingDiagnostics.textContent = "Preferred time diagnostics: displayed " + displayed
@@ -3245,12 +3244,17 @@ function renderLiveYouthProgramPage() {
         function syncPreferredTimePickerFromValue(value) {
           const canonical = toCanonical12Hour(String(value || "").trim());
           const parsed = parse12HourTime(canonical);
-          if (!parsed) return;
+          if (!parsed) {
+            if (commitTimeHourInput) commitTimeHourInput.value = "";
+            if (commitTimeMinuteInput) commitTimeMinuteInput.value = "";
+            if (commitTimeMeridiemInput) commitTimeMeridiemInput.value = "";
+            return;
+          }
           const [hourPart, minuteSuffix] = parsed.canonical.split(":");
           const minuteParts = String(minuteSuffix || "").split(" ");
-          if (commitTimeHourInput) commitTimeHourInput.value = String(hourPart || "5");
-          if (commitTimeMinuteInput) commitTimeMinuteInput.value = String(minuteParts[0] || "30");
-          if (commitTimeMeridiemInput) commitTimeMeridiemInput.value = String(minuteParts[1] || "PM").toUpperCase();
+          if (commitTimeHourInput) commitTimeHourInput.value = String(hourPart || "");
+          if (commitTimeMinuteInput) commitTimeMinuteInput.value = String(minuteParts[0] || "");
+          if (commitTimeMeridiemInput) commitTimeMeridiemInput.value = String(minuteParts[1] || "").toUpperCase();
         }
         function safePlayText(text) {
           const spoken = String(text || "").trim();
@@ -3552,12 +3556,12 @@ function renderLiveYouthProgramPage() {
             errors.push("Select at least one preferred day before saving.");
             fieldErrors.preferred_days = "Select at least one preferred day before saving.";
           }
-          if (!parse12HourTime(preferredTime)) {
-            errors.push("Choose a valid preferred time like 5:30 PM.");
-            fieldErrors.preferred_time = "Choose a valid preferred time like 5:30 PM.";
+          if (preferredTime && !parse12HourTime(preferredTime)) {
+            errors.push("Preferred time is optional; if provided, use a valid time like 5:30 PM.");
+            fieldErrors.preferred_time = "Preferred time is optional; if provided, use a valid time like 5:30 PM.";
           }
           updatePreferredTimeDiagnostics({
-            preferredTimeValidation: parse12HourTime(preferredTime) ? preferredTime : "invalid",
+            preferredTimeValidation: preferredTime ? (parse12HourTime(preferredTime) ? preferredTime : "invalid") : "optional_blank",
           });
           if (![15, 30, 45].includes(sessionLength)) {
             errors.push("Select a valid session length (15, 30, or 45 minutes).");
@@ -3589,7 +3593,8 @@ function renderLiveYouthProgramPage() {
           const preferredTime = String(commitment.preferred_time || commitment.preferred_time_window || "").trim();
           const sessionLength = Number(commitment.session_length || commitment.session_duration_minutes || commitment.target_session_length || 0);
           const energyType = String(commitment.energy_type || "").trim().toLowerCase();
-          return frequency >= 2 && frequency <= 5 && preferredDays.length > 0 && Boolean(preferredTime)
+          const preferredTimeValid = !preferredTime || Boolean(parse12HourTime(preferredTime));
+          return frequency >= 2 && frequency <= 5 && preferredDays.length > 0 && preferredTimeValid
             && [15, 30, 45].includes(sessionLength) && ["calm", "balanced", "high-energy"].includes(energyType);
         }
         function derivePlannerSurfaceState(week, planner, executionState) {
@@ -4015,7 +4020,7 @@ function renderLiveYouthProgramPage() {
           applyPlannerVisibility(plannerState, week);
           commitDaysInput.value = String(commitment.weekly_frequency || commitment.days_per_week || commitment.committed_days_per_week || 3);
           renderPreferredDayPicker(Array.isArray(commitment.preferred_days) ? commitment.preferred_days : []);
-          commitTimeInput.value = toCanonical12Hour(String(commitment.preferred_time || commitment.preferred_time_window || "5:30 PM"));
+          commitTimeInput.value = toCanonical12Hour(String(commitment.preferred_time || commitment.preferred_time_window || ""));
           syncPreferredTimePickerFromValue(commitTimeInput.value);
           syncPreferredTimeState();
           updatePreferredTimeDiagnostics({
@@ -5160,6 +5165,14 @@ function createYouthDevelopmentRouter(options = {}) {
         text_content: textContent,
         voice: safeTrim(req.body?.voice) || undefined,
       });
+      const providerDiagnostics = payload?.diagnostics && typeof payload.diagnostics === "object" ? payload.diagnostics : {};
+      const upstreamStatus = providerDiagnostics.gateway_http_status ?? null;
+      const upstreamContentType = providerDiagnostics.gateway_content_type
+        || providerDiagnostics.provider_audio_content_type
+        || null;
+      const upstreamByteCount = Number(providerDiagnostics.provider_audio_bytes || 0);
+      const providerAudioAvailable = Boolean(payload?.ok && (safeTrim(payload?.audio_url) || safeTrim(payload?.asset_ref)));
+      const providerAvailabilityDecision = providerAudioAvailable ? "provider_audio_available" : "provider_audio_unavailable";
       return res.status(200).json({
         ...(payload || { ok: false, status: "provider_unavailable", fallback_reason: "provider_unavailable" }),
         diagnostics: {
@@ -5168,6 +5181,13 @@ function createYouthDevelopmentRouter(options = {}) {
           section_key: sectionKey,
           text_length: textContent.length,
           upstream_route: "/speak",
+          upstream_status: upstreamStatus,
+          upstream_content_type: upstreamContentType,
+          upstream_byte_count: upstreamByteCount,
+          provider_audio_available: providerAudioAvailable,
+          provider_availability_decision: providerAvailabilityDecision,
+          provider_status: payload?.provider_status || null,
+          fallback_reason: payload?.fallback_reason || null,
         },
       });
     } catch (err) {
@@ -5351,7 +5371,7 @@ function createYouthDevelopmentRouter(options = {}) {
           ok: false,
           error: "commitment_setup_invalid",
           messages: validation.errors,
-          required_fields: ["weekly_frequency", "preferred_days", "preferred_time", "session_length", "energy_type", "start_date"],
+          required_fields: ["weekly_frequency", "preferred_days", "session_length", "energy_type", "start_date"],
         });
       }
       const normalizedCommitment = normalizeParentCommitmentPlan({
