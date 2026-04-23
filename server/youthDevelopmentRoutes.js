@@ -119,13 +119,13 @@ const STRETCH_LABELS = Object.freeze({
 });
 
 const PROGRAM_CONNECTIVITY_CONTROLS = Object.freeze([
-  Object.freeze({ label: "Snapshot Cards Read-Aloud", surface: "parent dashboard snapshot cards", handler: "data-voice-card.click", endpoint: "GET /api/youth-development/tde/voice/sections/:childId + speechSynthesis fallback", scope: "child-scoped parent dashboard", status: "working" }),
-  Object.freeze({ label: "Top Strengths Read-Aloud", surface: "parent dashboard", handler: "data-voice-control=topStrengths.click", endpoint: "GET /api/youth-development/tde/voice/sections/:childId + speechSynthesis fallback", scope: "child-scoped parent dashboard", status: "working" }),
-  Object.freeze({ label: "Areas to Strengthen Read-Aloud", surface: "parent dashboard", handler: "data-voice-control=areasToStrengthen.click", endpoint: "GET /api/youth-development/tde/voice/sections/:childId + speechSynthesis fallback", scope: "child-scoped parent dashboard", status: "working" }),
-  Object.freeze({ label: "Weekly Support Read-Aloud", surface: "parent dashboard", handler: "data-voice-control=weeklySupport.click", endpoint: "GET /api/youth-development/tde/voice/sections/:childId + speechSynthesis fallback", scope: "child-scoped parent dashboard", status: "working" }),
-  Object.freeze({ label: "Weekly Goals Read-Aloud", surface: "program page / weekly goals", handler: "readWeeklyGoalsBtn.click", endpoint: "GET /api/youth-development/tde/voice/sections/:childId + speechSynthesis fallback", scope: "tenant+email+child+week", status: "working" }),
-  Object.freeze({ label: "Program Support Read-Aloud", surface: "program page / support sections", handler: "readProgramSupportBtn.click", endpoint: "GET /api/youth-development/tde/voice/sections/:childId + speechSynthesis fallback", scope: "tenant+email+child+week", status: "working" }),
-  Object.freeze({ label: "Progress Summary Read-Aloud", surface: "program page / progress dashboard", handler: "readProgressSummaryBtn.click", endpoint: "GET /api/youth-development/tde/voice/sections/:childId + speechSynthesis fallback", scope: "tenant+email+child+week", status: "working" }),
+  Object.freeze({ label: "Snapshot Cards Read-Aloud", surface: "parent dashboard snapshot cards", handler: "data-voice-card.click", endpoint: "GET /api/youth-development/voice/sections/:childId + speechSynthesis fallback", scope: "child-scoped parent dashboard", status: "working" }),
+  Object.freeze({ label: "Top Strengths Read-Aloud", surface: "parent dashboard", handler: "data-voice-control=topStrengths.click", endpoint: "GET /api/youth-development/voice/sections/:childId + speechSynthesis fallback", scope: "child-scoped parent dashboard", status: "working" }),
+  Object.freeze({ label: "Areas to Strengthen Read-Aloud", surface: "parent dashboard", handler: "data-voice-control=areasToStrengthen.click", endpoint: "GET /api/youth-development/voice/sections/:childId + speechSynthesis fallback", scope: "child-scoped parent dashboard", status: "working" }),
+  Object.freeze({ label: "Weekly Support Read-Aloud", surface: "parent dashboard", handler: "data-voice-control=weeklySupport.click", endpoint: "GET /api/youth-development/voice/sections/:childId + speechSynthesis fallback", scope: "child-scoped parent dashboard", status: "working" }),
+  Object.freeze({ label: "Weekly Goals Read-Aloud", surface: "program page / weekly goals", handler: "readWeeklyGoalsBtn.click", endpoint: "GET /api/youth-development/voice/sections/:childId + speechSynthesis fallback", scope: "tenant+email+child+week", status: "working" }),
+  Object.freeze({ label: "Program Support Read-Aloud", surface: "program page / support sections", handler: "readProgramSupportBtn.click", endpoint: "GET /api/youth-development/voice/sections/:childId + speechSynthesis fallback", scope: "tenant+email+child+week", status: "working" }),
+  Object.freeze({ label: "Progress Summary Read-Aloud", surface: "program page / progress dashboard", handler: "readProgressSummaryBtn.click", endpoint: "GET /api/youth-development/voice/sections/:childId + speechSynthesis fallback", scope: "tenant+email+child+week", status: "working" }),
   Object.freeze({ label: "Build Your Weekly Plan", surface: "weekly planner", handler: "saveCommitmentBtn.click", endpoint: "POST /api/youth-development/program/commitment", scope: "tenant+email+child+week", status: "working" }),
   Object.freeze({ label: "Preferred Time Picker", surface: "weekly planner setup", handler: "commitTimeHourInput.change | commitTimeMinuteInput.change | commitTimeMeridiemInput.change", endpoint: "payload.preferred_time + payload.preferred_time_window", scope: "child/week commitment setup", status: "working" }),
   Object.freeze({ label: "Preferred Days Selector", surface: "weekly planner setup", handler: "commitPreferredDaysGroup.change[data-day-checkbox]", endpoint: "payload.preferred_days[]", scope: "child/week commitment setup", status: "working" }),
@@ -2018,7 +2018,7 @@ function renderLiveYouthParentDashboardPage() {
           const assetRef = String(providerAudio?.assetRef || "").trim();
           if (!assetRef) return "";
           if (/^https?:\\\/\\\//i.test(assetRef)) return assetRef;
-          const endpoint = "/api/youth-development/tde/voice/assets/resolve?child_id=" + encodeURIComponent(String(voiceState.childId || "")) + "&asset_ref=" + encodeURIComponent(assetRef);
+          const endpoint = "/api/youth-development/voice/assets/resolve?child_id=" + encodeURIComponent(String(voiceState.childId || "")) + "&asset_ref=" + encodeURIComponent(assetRef);
           const response = await fetch(endpoint);
           const payload = response.ok ? await response.json().catch(() => null) : null;
           return String(payload?.audio_url || "").trim();
@@ -2057,8 +2057,16 @@ function renderLiveYouthParentDashboardPage() {
         async function loadVoiceSectionsForChild(childId) {
           if (!childId) return;
           try {
-            const response = await fetch('/api/youth-development/tde/voice/sections/' + encodeURIComponent(String(childId)));
+            const endpoint = '/api/youth-development/voice/sections/' + encodeURIComponent(String(childId));
+            const response = await fetch(endpoint);
             const payload = response.ok ? await response.json().catch(() => null) : null;
+            console.info("youth_dashboard_voice_sections_response", {
+              endpoint,
+              status: response.status,
+              ok: Boolean(payload && payload.ok === true),
+              child_id: String(childId || ""),
+              section_count: Array.isArray(payload?.sections) ? payload.sections.length : 0,
+            });
             if (!payload || payload.ok !== true) {
               voiceState.displayStatus = "voice_unavailable";
               updateVoiceStatusCopy();
@@ -3052,7 +3060,7 @@ function renderLiveYouthProgramPage() {
           const assetRef = String(providerAudio?.assetRef || "").trim();
           if (!assetRef) return "";
           if (assetRef.toLowerCase().startsWith("http://") || assetRef.toLowerCase().startsWith("https://")) return assetRef;
-          const endpoint = "/api/youth-development/tde/voice/assets/resolve?child_id=" + encodeURIComponent(String(accountCtx.child_id || "")) + "&asset_ref=" + encodeURIComponent(assetRef);
+          const endpoint = "/api/youth-development/voice/assets/resolve?child_id=" + encodeURIComponent(String(accountCtx.child_id || "")) + "&asset_ref=" + encodeURIComponent(assetRef);
           const response = await fetch(endpoint);
           const payload = response.ok ? await response.json().catch(() => null) : null;
           return String(payload?.audio_url || "").trim();
@@ -3126,8 +3134,16 @@ function renderLiveYouthProgramPage() {
           const childId = String(accountCtx.child_id || "").trim();
           if (!childId || !weeklyGoalsVoiceStatus) return;
           try {
-            const response = await fetch("/api/youth-development/tde/voice/sections/" + encodeURIComponent(childId));
+            const endpoint = "/api/youth-development/voice/sections/" + encodeURIComponent(childId);
+            const response = await fetch(endpoint);
             const payload = response.ok ? await response.json().catch(() => null) : null;
+            console.info("[program-voice-debug] sections_response", {
+              endpoint,
+              status: response.status,
+              ok: Boolean(payload && payload.ok === true),
+              child_id: childId,
+              section_count: Array.isArray(payload?.sections) ? payload.sections.length : 0,
+            });
             const status = payload && payload.ok === true
               ? String(payload.display_status || payload.voice_readiness_status || payload.voice_state?.availability || "voice_unknown")
               : "voice_unavailable";
@@ -3922,14 +3938,26 @@ function renderLiveYouthProgramPage() {
             return;
           }
           await withButtonBusy(launchBtn, "Starting Program…", async function () {
+            console.info("[program-launch-debug] click", {
+              tenant: accountCtx.tenant || null,
+              email: accountCtx.email || null,
+              child_id: accountCtx.child_id || null,
+            });
             const response = await fetch("/api/youth-development/program/launch", {
               method: "POST",
               headers: { "content-type": "application/json" },
               body: JSON.stringify(accountCtx),
             });
             const payload = response.ok ? await response.json().catch(() => null) : null;
+            console.info("[program-launch-debug] response", {
+              status: response.status,
+              ok: Boolean(payload && payload.ok === true),
+              error: payload?.error || null,
+              reason: payload?.reason || null,
+              child_id: payload?.child_id || null,
+            });
             if (!payload || payload.ok !== true) {
-              hero.textContent = "Program launch failed. Please retry.";
+              hero.textContent = "Program launch failed: " + String(payload?.error || payload?.reason || "unknown_error") + ".";
               return;
             }
             accountCtx.child_id = String(payload.child_id || accountCtx.child_id || "");
@@ -4373,6 +4401,8 @@ function createYouthDevelopmentRouter(options = {}) {
   const saveProgramCommitmentPlan = typeof options.saveProgramCommitmentPlan === "function" ? options.saveProgramCommitmentPlan : null;
   const saveProgramSessionPlan = typeof options.saveProgramSessionPlan === "function" ? options.saveProgramSessionPlan : null;
   const markProgramSessionComplete = typeof options.markProgramSessionComplete === "function" ? options.markProgramSessionComplete : null;
+  const getVoiceSectionsForChild = typeof options.getVoiceSectionsForChild === "function" ? options.getVoiceSectionsForChild : null;
+  const resolveVoiceAssetByRef = typeof options.resolveVoiceAssetByRef === "function" ? options.resolveVoiceAssetByRef : null;
 
   router.get("/youth-development/intake", (req, res) => (
     res.status(200).type("html").send(renderLiveYouthAssessmentPage())
@@ -4711,6 +4741,62 @@ function createYouthDevelopmentRouter(options = {}) {
     }
   });
 
+
+  router.get("/api/youth-development/voice/sections/:childId", async (req, res) => {
+    const childId = safeTrim(req.params?.childId);
+    const accountCtx = resolveRequestAccountContext(req, req.query || {});
+    if (!childId) {
+      return res.status(400).json({ ok: false, error: "child_id_required" });
+    }
+    if (!getVoiceSectionsForChild) {
+      return res.status(200).json({
+        ok: true,
+        child_id: childId,
+        sections: [],
+        display_status: "voice_fallback_active",
+        diagnostics: {
+          route: "/api/youth-development/voice/sections/:childId",
+          mounted: true,
+          provider_enabled: false,
+        },
+      });
+    }
+    try {
+      const payload = await getVoiceSectionsForChild({ accountCtx, request: req, childId });
+      return res.status(200).json({
+        ...(payload || { ok: true, child_id: childId, sections: [], display_status: "voice_fallback_active" }),
+        diagnostics: {
+          route: "/api/youth-development/voice/sections/:childId",
+          mounted: true,
+          scope: {
+            tenant: accountCtx.tenant || null,
+            email: accountCtx.email || null,
+            child_id: childId,
+          },
+        },
+      });
+    } catch (err) {
+      console.error("youth_voice_sections_failed", err);
+      return res.status(500).json({ ok: false, error: "youth_voice_sections_failed" });
+    }
+  });
+
+  router.get("/api/youth-development/voice/assets/resolve", async (req, res) => {
+    const childId = safeTrim(req.query?.child_id);
+    const assetRef = safeTrim(req.query?.asset_ref);
+    if (!assetRef) return res.status(400).json({ ok: false, error: "asset_ref_required" });
+    if (!resolveVoiceAssetByRef) {
+      return res.status(200).json({ ok: false, error: "voice_asset_resolver_not_enabled" });
+    }
+    try {
+      const payload = await resolveVoiceAssetByRef({ child_id: childId || null, asset_ref: assetRef });
+      return res.status(200).json(payload || { ok: false, error: "voice_asset_unavailable" });
+    } catch (err) {
+      console.error("youth_voice_asset_resolve_failed", err);
+      return res.status(500).json({ ok: false, error: "youth_voice_asset_resolve_failed" });
+    }
+  });
+
   router.get("/api/youth-development/program/bridge", async (req, res) => {
     if (!getProgramBridgeState) {
       return res.status(200).json({ ok: true, launch_allowed: false, reason: "program_bridge_not_enabled" });
@@ -4752,7 +4838,19 @@ function createYouthDevelopmentRouter(options = {}) {
       const childId = safeTrim(req.body?.child_id || req.body?.childId || req.query?.child_id || req.query?.childId);
       const accountCtx = resolveRequestAccountContext(req, req.body || {});
       const launched = await launchProgramForChild({ accountCtx, request: req, childId });
-      return res.status(200).json(launched || { ok: false, error: "program_launch_unavailable" });
+      return res.status(200).json({
+        ...(launched || { ok: false, error: "program_launch_unavailable" }),
+        diagnostics: {
+          route: "/api/youth-development/program/launch",
+          handler: "createYouthDevelopmentRouter.programLaunch",
+          scope: {
+            tenant: accountCtx.tenant || null,
+            email: accountCtx.email || null,
+            requested_child_id: childId || null,
+            resolved_child_id: launched?.child_id || null,
+          },
+        },
+      });
     } catch (err) {
       console.error("youth_program_launch_failed", err);
       return res.status(500).json({ ok: false, error: "youth_program_launch_failed" });
