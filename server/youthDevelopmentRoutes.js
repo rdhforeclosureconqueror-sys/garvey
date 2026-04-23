@@ -2017,7 +2017,7 @@ function renderLiveYouthParentDashboardPage() {
           if (audioUrl) return audioUrl;
           const assetRef = String(providerAudio?.assetRef || "").trim();
           if (!assetRef) return "";
-          if (/^https?:\/\//i.test(assetRef)) return assetRef;
+          if (/^https?:\\\/\\\//i.test(assetRef)) return assetRef;
           const endpoint = "/api/youth-development/tde/voice/assets/resolve?child_id=" + encodeURIComponent(String(voiceState.childId || "")) + "&asset_ref=" + encodeURIComponent(assetRef);
           const response = await fetch(endpoint);
           const payload = response.ok ? await response.json().catch(() => null) : null;
@@ -3051,7 +3051,7 @@ function renderLiveYouthProgramPage() {
           if (audioUrl) return audioUrl;
           const assetRef = String(providerAudio?.assetRef || "").trim();
           if (!assetRef) return "";
-          if (/^https?:\/\//i.test(assetRef)) return assetRef;
+          if (assetRef.toLowerCase().startsWith("http://") || assetRef.toLowerCase().startsWith("https://")) return assetRef;
           const endpoint = "/api/youth-development/tde/voice/assets/resolve?child_id=" + encodeURIComponent(String(accountCtx.child_id || "")) + "&asset_ref=" + encodeURIComponent(assetRef);
           const response = await fetch(endpoint);
           const payload = response.ok ? await response.json().catch(() => null) : null;

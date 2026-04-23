@@ -325,3 +325,27 @@ test('program page includes canonical next-best-action guidance labels', async (
     await new Promise((resolve) => server.close(resolve));
   }
 });
+
+test('program page script parses and keeps provider audio helper placement valid', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({}));
+  const { server, baseUrl } = await withServer(app);
+  try {
+    const html = await (await fetch(`${baseUrl}/youth-development/program`)).text();
+    const scriptMatch = html.match(/<script>([\s\S]*?)<\/script>/);
+    assert.ok(scriptMatch, 'Expected inlined program page script block.');
+    const script = scriptMatch[1];
+    assert.doesNotThrow(() => new Function(script), 'Program page script must parse without syntax errors.');
+    assert.match(script, /async function resolveProgramProviderAudioUrl\(providerAudio\)/);
+    assert.ok(
+      script.includes('if (assetRef.toLowerCase().startsWith("http://") || assetRef.toLowerCase().startsWith("https://")) return assetRef;'),
+      'Program provider audio URL resolver must keep direct absolute URL handling in the emitted script.'
+    );
+    const resolverIdx = script.indexOf('async function resolveProgramProviderAudioUrl(providerAudio)');
+    const playerIdx = script.indexOf('async function safePlayProviderAudio(providerAudio)');
+    assert.ok(resolverIdx >= 0 && playerIdx > resolverIdx, 'Provider URL resolver must be declared before provider playback helper.');
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
