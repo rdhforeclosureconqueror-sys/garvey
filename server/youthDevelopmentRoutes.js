@@ -2357,7 +2357,15 @@ function renderLiveYouthParentDashboardPage() {
             });
           }
           if (!scopedChild && childProfiles.length > 1) {
-            document.getElementById('heroSummary').textContent = 'Multiple child profiles found. Select a child scope to continue.';
+            const fallbackChild = childProfiles[0] || null;
+            if (fallbackChild && fallbackChild.child_id) {
+              applyScopedChildContext(fallbackChild.child_id, "multi_child_latest_fallback");
+              logDashboardContinuity("child_scope_adopted", {
+                source: "multi_child_latest_fallback",
+                selected_child_id: fallbackChild.child_id,
+                children_count: childProfiles.length,
+              });
+            }
             document.getElementById('weeklySupport').innerHTML = childProfiles.map((entry) => {
               const dash = new URL('/youth-development/parent-dashboard', window.location.origin);
               dash.searchParams.set('tenant', accountCtx.tenant);
@@ -2365,17 +2373,14 @@ function renderLiveYouthParentDashboardPage() {
               dash.searchParams.set('child_id', String(entry.child_id || ''));
               return '<li><a href="' + esc(dash.pathname + dash.search) + '">' + esc(entry.child_name || entry.child_id || 'Child profile') + '</a></li>';
             }).join('');
-            setProgramStatus("Multiple children are available. Choose child scope first.", childProfiles.map((entry) => "Select " + (entry.child_name || entry.child_id || "Child profile")), null);
-            logDashboardContinuity("render_skipped", {
-              reason: "multi_child_scope_selection_required",
-              children_count: childProfiles.length,
-            });
-            return false;
+            document.getElementById('heroSummary').textContent = fallbackChild
+              ? ('Multiple child profiles found. Showing latest saved child scope for now: ' + String(fallbackChild.child_name || fallbackChild.child_id || 'Child profile') + '.')
+              : 'Multiple child profiles found. Select a child scope to continue.';
           }
           const endpoint = new URL('/api/youth-development/parent-dashboard/latest', window.location.origin);
           endpoint.searchParams.set('tenant', accountCtx.tenant);
           endpoint.searchParams.set('email', accountCtx.email);
-          const latestRequestChildId = String((scopedChild && scopedChild.child_id) || requestedChildId || "").trim();
+          const latestRequestChildId = String((scopedChild && scopedChild.child_id) || accountCtx.child_id || requestedChildId || "").trim();
           if (latestRequestChildId) endpoint.searchParams.set('child_id', latestRequestChildId);
           console.info("youth_dashboard_latest_request_scope", {
             requested_child_id: latestRequestChildId || null,
