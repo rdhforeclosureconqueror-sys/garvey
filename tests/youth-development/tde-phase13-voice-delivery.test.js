@@ -80,6 +80,19 @@ function mountGatewayApp({ delayMs = 0, fail = false } = {}) {
   };
 }
 
+function mountGatewayAppWithContentType(contentType = "audio/mpeg") {
+  const app = express();
+  app.use(express.json());
+  app.get("/health", (_req, res) => res.status(200).json({ ok: true, status: "healthy" }));
+  app.post("/speak", (req, res) => res.status(200).type(contentType).send(Buffer.from(`audio:${String(req.body?.text || "")}`)));
+  const server = app.listen(0);
+  const port = server.address().port;
+  return {
+    baseUrl: `http://127.0.0.1:${port}`,
+    close: () => new Promise((resolve) => server.close(resolve)),
+  };
+}
+
 test("phase14 adapter uses external gateway mode and chunking still enforces short chunks", async () => {
   const gateway = mountGatewayApp();
   const adapter = createVoiceProviderAdapter({ gateway_mode: "external_gateway", gateway_base_url: gateway.baseUrl, gateway_timeout_ms: 1000 });
@@ -200,5 +213,74 @@ test("phase14 timeout/failure falls back to playable_text and never blocks core 
     delete process.env.TDE_EXTENSION_MODE;
     await app.close();
     await gateway.close();
+  }
+});
+
+test("phase14 adapter treats octet-stream upstream audio as playable provider audio", async () => {
+  const gateway = mountGatewayAppWithContentType("application/octet-stream");
+  const adapter = createVoiceProviderAdapter({
+    gateway_mode: "external_gateway",
+    gateway_base_url: gateway.baseUrl,
+    gateway_timeout_ms: 500,
+  });
+  try {
+    const synth = await adapter.synthesizeReportSection({
+      child_id: "child-phase14-octet",
+      section_key: "summary",
+      text_content: "Read this section.",
+      voice_text: "Read this section.",
+    });
+    assert.equal(synth.ok, true);
+    assert.equal(synth.provider_status, "available");
+    assert.equal(synth.audio_url.startsWith("data:audio/mpeg;base64,"), true);
+    assert.equal(synth.diagnostics.provider_audio_content_type, "audio/mpeg");
+    assert.equal(synth.diagnostics.provider_audio_content_type_normalized, true);
+  } finally {
+    await gateway.close();
+  }
+});
+
+test("phase14 parent /voice/speak route exposes upstream diagnostics and provider availability decision", async () => {
+  const app = express();
+  app.use(express.json());
+  app.use(createYouthDevelopmentRouter({
+    getVoiceSynthesisForSection: async () => ({
+      ok: true,
+      provider: "openai-via-upstream-speak",
+      provider_status: "available",
+      audio_url: "data:audio/mpeg;base64,QUJD",
+      asset_ref: null,
+      fallback_reason: null,
+      diagnostics: {
+        upstream_route: "/speak",
+        gateway_http_status: 200,
+        gateway_content_type: "audio/mpeg",
+        provider_audio_bytes: 3,
+      },
+    }),
+  }));
+  const server = app.listen(0);
+  const baseUrl = `http://127.0.0.1:${server.address().port}`;
+  try {
+    const response = await fetch(`${baseUrl}/api/youth-development/voice/speak`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        child_id: "child-phase14-route",
+        section_key: "summary",
+        text_content: "Playback text",
+      }),
+    });
+    assert.equal(response.status, 200);
+    const payload = await response.json();
+    assert.equal(payload.ok, true);
+    assert.equal(payload.diagnostics.route, "/api/youth-development/voice/speak");
+    assert.equal(payload.diagnostics.upstream_status, 200);
+    assert.equal(payload.diagnostics.upstream_content_type, "audio/mpeg");
+    assert.equal(payload.diagnostics.upstream_byte_count, 3);
+    assert.equal(payload.diagnostics.provider_audio_available, true);
+    assert.equal(payload.diagnostics.provider_availability_decision, "provider_audio_available");
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
   }
 });
