@@ -2754,8 +2754,10 @@ function renderLiveYouthProgramPage() {
               <select id="commitTimeMeridiemInput" class="input" aria-label="Preferred time AM/PM"><option value="AM">AM</option><option value="PM" selected>PM</option></select>
             </div>
             <input id="commitTimeInput" class="input" type="text" value="5:30 PM" placeholder="5:30 PM" style="display:none;" readonly />
+            <input id="commitPreferredTimeCanonicalInput" type="hidden" name="preferred_time" value="5:30 PM" />
             <p id="commitTimeError" class="field-error" role="status" aria-live="polite"></p>
             <p class="tiny muted">Select a parent-friendly time (example: 5:30 PM).</p>
+            <p id="commitTimeBindingDiagnostics" class="tiny muted" role="status" aria-live="polite">Preferred time diagnostics: displayed 5:30 PM · canonical 5:30 PM · validation pending · submitted pending.</p>
             <label class="tiny">Session length (minutes)</label><select id="commitDurationInput" class="input"><option value="15">15</option><option value="30" selected>30</option><option value="45">45</option></select>
             <p id="commitDurationError" class="field-error" role="status" aria-live="polite"></p>
             <label class="tiny">Energy type</label><select id="commitEnergyTypeInput" class="input"><option value="calm">calm</option><option value="balanced" selected>balanced</option><option value="high-energy">high-energy</option></select>
@@ -2957,6 +2959,7 @@ function renderLiveYouthProgramPage() {
         const commitDaysInput = document.getElementById("commitDaysInput");
         const commitPreferredDaysGroup = document.getElementById("commitPreferredDaysGroup");
         const commitTimeInput = document.getElementById("commitTimeInput");
+        const commitPreferredTimeCanonicalInput = document.getElementById("commitPreferredTimeCanonicalInput");
         const commitTimeHourInput = document.getElementById("commitTimeHourInput");
         const commitTimeMinuteInput = document.getElementById("commitTimeMinuteInput");
         const commitTimeMeridiemInput = document.getElementById("commitTimeMeridiemInput");
@@ -2969,6 +2972,7 @@ function renderLiveYouthProgramPage() {
         const commitEnergyError = document.getElementById("commitEnergyError");
         const commitStartDateInput = document.getElementById("commitStartDateInput");
         const commitStartDateError = document.getElementById("commitStartDateError");
+        const commitTimeBindingDiagnostics = document.getElementById("commitTimeBindingDiagnostics");
         const saveCommitmentBtn = document.getElementById("saveCommitmentBtn");
         const commitmentSaveFeedback = document.getElementById("commitmentSaveFeedback");
         const commitmentActionTrace = document.getElementById("commitmentActionTrace");
@@ -3025,7 +3029,12 @@ function renderLiveYouthProgramPage() {
         let latestWeekPayload = null;
         let navWeekOffset = 0;
         let selectedSessionId = "";
-        const plannerCommitmentState = { preferredTime: toCanonical12Hour(String(commitTimeInput?.value || "5:30 PM")) };
+        const plannerCommitmentState = {
+          preferredTime: toCanonical12Hour(String(commitTimeInput?.value || "5:30 PM")),
+          preferredTimeDisplayed: String(commitTimeInput?.value || "5:30 PM").trim() || "5:30 PM",
+          preferredTimeValidation: "pending",
+          preferredTimeSubmitted: "pending",
+        };
         const plannerRuntime = { handler: "saveCommitmentBtn.click", route: "/api/youth-development/program/commitment" };
         const programVoiceState = {
           status: "voice_unknown",
@@ -3139,6 +3148,9 @@ function renderLiveYouthProgramPage() {
           return map;
         }
         function syncPreferredTimeState() {
+          const displayValue = ((String(commitTimeHourInput?.value || "").trim() || "5")
+            + ":" + (String(commitTimeMinuteInput?.value || "").trim() || "30")
+            + " " + (String(commitTimeMeridiemInput?.value || "").trim().toUpperCase() || "PM")).trim();
           const hour = String(commitTimeHourInput?.value || "").trim();
           const minute = String(commitTimeMinuteInput?.value || "").trim();
           const meridiem = String(commitTimeMeridiemInput?.value || "").trim().toUpperCase();
@@ -3146,7 +3158,22 @@ function renderLiveYouthProgramPage() {
             ? (hour + ":" + minute + " " + meridiem)
             : String(commitTimeInput.value || "").trim();
           plannerCommitmentState.preferredTime = toCanonical12Hour(composed);
+          plannerCommitmentState.preferredTimeDisplayed = displayValue;
           commitTimeInput.value = plannerCommitmentState.preferredTime;
+          if (commitPreferredTimeCanonicalInput) commitPreferredTimeCanonicalInput.value = plannerCommitmentState.preferredTime;
+          updatePreferredTimeDiagnostics();
+        }
+        function updatePreferredTimeDiagnostics(partial) {
+          Object.assign(plannerCommitmentState, partial || {});
+          if (!commitTimeBindingDiagnostics) return;
+          const displayed = String(plannerCommitmentState.preferredTimeDisplayed || "pending").trim() || "pending";
+          const canonical = String(plannerCommitmentState.preferredTime || "").trim() || "pending";
+          const validation = String(plannerCommitmentState.preferredTimeValidation || "pending").trim() || "pending";
+          const submitted = String(plannerCommitmentState.preferredTimeSubmitted || "pending").trim() || "pending";
+          commitTimeBindingDiagnostics.textContent = "Preferred time diagnostics: displayed " + displayed
+            + " · canonical " + canonical
+            + " · validation " + validation
+            + " · submitted " + submitted + ".";
         }
         function syncPreferredTimePickerFromValue(value) {
           const canonical = toCanonical12Hour(String(value || "").trim());
@@ -3459,6 +3486,9 @@ function renderLiveYouthProgramPage() {
             errors.push("Choose a valid preferred time like 5:30 PM.");
             fieldErrors.preferred_time = "Choose a valid preferred time like 5:30 PM.";
           }
+          updatePreferredTimeDiagnostics({
+            preferredTimeValidation: parse12HourTime(preferredTime) ? preferredTime : "invalid",
+          });
           if (![15, 30, 45].includes(sessionLength)) {
             errors.push("Select a valid session length (15, 30, or 45 minutes).");
             fieldErrors.session_length = "Select a valid session length (15, 30, or 45 minutes).";
@@ -3918,6 +3948,10 @@ function renderLiveYouthProgramPage() {
           commitTimeInput.value = toCanonical12Hour(String(commitment.preferred_time || commitment.preferred_time_window || "5:30 PM"));
           syncPreferredTimePickerFromValue(commitTimeInput.value);
           syncPreferredTimeState();
+          updatePreferredTimeDiagnostics({
+            preferredTimeValidation: "pending",
+            preferredTimeSubmitted: "pending",
+          });
           commitDurationInput.value = String(commitment.session_length || commitment.session_duration_minutes || commitment.target_session_length || 30);
           commitEnergyTypeInput.value = String(commitment.energy_type || "balanced");
           commitStartDateInput.value = String(commitment.start_date || "").slice(0, 10);
@@ -4247,8 +4281,11 @@ function renderLiveYouthProgramPage() {
           syncPreferredTimeState();
           commitTimeError.textContent = "";
         };
+        if (commitTimeHourInput) commitTimeHourInput.addEventListener("input", onPreferredTimePickerChange);
         if (commitTimeHourInput) commitTimeHourInput.addEventListener("change", onPreferredTimePickerChange);
+        if (commitTimeMinuteInput) commitTimeMinuteInput.addEventListener("input", onPreferredTimePickerChange);
         if (commitTimeMinuteInput) commitTimeMinuteInput.addEventListener("change", onPreferredTimePickerChange);
+        if (commitTimeMeridiemInput) commitTimeMeridiemInput.addEventListener("input", onPreferredTimePickerChange);
         if (commitTimeMeridiemInput) commitTimeMeridiemInput.addEventListener("change", onPreferredTimePickerChange);
         commitPreferredDaysGroup.addEventListener("change", function () {
           commitPreferredDaysError.textContent = "";
@@ -4405,6 +4442,9 @@ function renderLiveYouthProgramPage() {
               payload,
             });
             if (!payload || payload.ok !== true) {
+              updatePreferredTimeDiagnostics({
+                preferredTimeSubmitted: requestBody.preferred_time,
+              });
               const messageTokens = Array.isArray(payload?.messages) ? payload.messages : [String(payload?.message || payload?.error || "unable_to_save_weekly_plan")];
               const fieldMap = toFieldErrorMap(messageTokens);
               setPlannerFieldErrors(fieldMap);
@@ -4413,6 +4453,9 @@ function renderLiveYouthProgramPage() {
               commitmentActionTrace.textContent = "planner action trace: response_failed (" + String(payload?.error || "unknown_error") + ").";
               return;
             }
+            updatePreferredTimeDiagnostics({
+              preferredTimeSubmitted: requestBody.preferred_time,
+            });
             setPlannerFieldErrors({});
             commitmentSaveFeedback.textContent = "Your weekly plan is set.";
             commitmentActionTrace.textContent = "planner action trace: response_ok (scheduled_sessions=" + String((payload.scheduled_sessions || []).length) + ").";
