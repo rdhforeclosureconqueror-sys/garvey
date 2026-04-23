@@ -2068,6 +2068,70 @@ function renderLiveYouthParentDashboardPage() {
             return false;
           }
         }
+        async function requestProgramProviderAudio(text, sectionKey) {
+          const childId = String(accountCtx.child_id || "").trim();
+          const fullText = String(text || "").trim();
+          if (!childId || !fullText) return null;
+          const response = await fetch("/api/youth-development/voice/speak", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              child_id: childId,
+              section_key: String(sectionKey || "program_section"),
+              text_content: fullText,
+            }),
+          });
+          const payload = response.ok ? await response.json().catch(() => null) : null;
+          console.info("[program-voice-debug] upstream_speak", {
+            route: "/api/youth-development/voice/speak",
+            method: "POST",
+            status: response.status,
+            section_key: String(sectionKey || "program_section"),
+            text_length: fullText.length,
+            playback_mode: payload?.ok ? "provider_audio" : "fallback_browser_speech",
+            audio_source: payload?.audio_url ? "direct_provider_audio" : "browser_speech",
+            fallback_reason: payload?.fallback_reason || null,
+            upstream_route: payload?.upstream_route || "/speak",
+          });
+          if (!payload || payload.ok !== true || !(payload.audio_url || payload.asset_ref)) return null;
+          return {
+            audioUrl: String(payload.audio_url || "").trim(),
+            assetRef: String(payload.asset_ref || "").trim(),
+            providerName: String(payload.provider || "openai-via-upstream-speak").trim(),
+          };
+        }
+        async function requestDashboardProviderAudio(text, sectionKey) {
+          const childId = String(voiceState.childId || "").trim();
+          const fullText = String(text || "").trim();
+          if (!childId || !fullText) return null;
+          const response = await fetch("/api/youth-development/voice/speak", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              child_id: childId,
+              section_key: String(sectionKey || "dashboard_section"),
+              text_content: fullText,
+            }),
+          });
+          const payload = response.ok ? await response.json().catch(() => null) : null;
+          console.info("youth_dashboard_voice_upstream_speak", {
+            route: "/api/youth-development/voice/speak",
+            method: "POST",
+            status: response.status,
+            section_key: String(sectionKey || "dashboard_section"),
+            text_length: fullText.length,
+            playback_mode: payload?.ok ? "provider_audio" : "fallback_browser_speech",
+            audio_source: payload?.audio_url ? "direct_provider_audio" : "browser_speech",
+            fallback_reason: payload?.fallback_reason || null,
+            upstream_route: payload?.upstream_route || "/speak",
+          });
+          if (!payload || payload.ok !== true || !(payload.audio_url || payload.asset_ref)) return null;
+          return {
+            audioUrl: String(payload.audio_url || "").trim(),
+            assetRef: String(payload.asset_ref || "").trim(),
+            providerName: String(payload.provider || "openai-via-upstream-speak"),
+          };
+        }
         function getProviderAudioFromSection(section) {
           const chunks = Array.isArray(section?.chunks) ? section.chunks : [];
           const providerChunk = chunks.find((chunk) => {
@@ -2160,12 +2224,12 @@ function renderLiveYouthParentDashboardPage() {
           for (const key of keys) {
             const providerAudio = getProviderAudioFromSection(map[key]);
             if (providerAudio && (providerAudio.audioUrl || providerAudio.assetRef)) {
-              const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || fallbackText || "").trim();
+              const text = String(fallbackText || map[key]?.text_content || map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
               return { text, providerAudio, source: "provider" };
             }
           }
           for (const key of keys) {
-            const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
+            const text = String(fallbackText || map[key]?.text_content || map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
             if (text) return { text, audioUrl: "", source: "fallback_tts" };
           }
           return { text: String(fallbackText || "").trim(), audioUrl: "", source: "fallback_tts" };
@@ -2184,12 +2248,12 @@ function renderLiveYouthParentDashboardPage() {
           for (const key of candidates) {
             const providerAudio = getProviderAudioFromSection(map[key]);
             if (providerAudio && (providerAudio.audioUrl || providerAudio.assetRef)) {
-              const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || fallbackText || "").trim();
+              const text = String(fallbackText || map[key]?.text_content || map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
               return { text, providerAudio, source: "provider" };
             }
           }
           for (const key of candidates) {
-            const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
+            const text = String(fallbackText || map[key]?.text_content || map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
             if (text) return { text, audioUrl: "", source: "fallback_tts" };
           }
           return { text: String(fallbackText || "").trim(), audioUrl: "", source: "fallback_tts" };
@@ -2200,7 +2264,10 @@ function renderLiveYouthParentDashboardPage() {
             scope: dashboardVoicePlayback.activeScope || null,
             selection_source: selection?.source || null,
             provider_audio_candidate: Boolean(selection?.providerAudio),
+            text_length: String(selection?.text || "").trim().length,
           });
+          const providerFromSpeak = await requestDashboardProviderAudio(selection?.text, scopeId || "dashboard_section");
+          if (providerFromSpeak) selection.providerAudio = providerFromSpeak;
           if (selection.providerAudio) {
             const providerPlayed = await safePlayProviderAudio(selection.providerAudio);
             if (providerPlayed) {
@@ -3357,12 +3424,12 @@ function renderLiveYouthProgramPage() {
           for (const key of candidates) {
             const providerAudio = getProgramProviderAudio(map[key]);
             if (providerAudio && (providerAudio.audioUrl || providerAudio.assetRef)) {
-              const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || fallbackText || "").trim();
+              const text = String(fallbackText || map[key]?.text_content || map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
               return { text, providerAudio, source: "provider" };
             }
           }
           for (const key of candidates) {
-            const text = String(map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
+            const text = String(fallbackText || map[key]?.text_content || map[key]?.voice_text || map[key]?.playable_text_fallback || "").trim();
             if (text) return { text, audioUrl: "", source: "fallback_tts" };
           }
           return { text: String(fallbackText || "").trim(), audioUrl: "", source: "fallback_tts" };
@@ -3372,7 +3439,10 @@ function renderLiveYouthProgramPage() {
             scope: programVoicePlayback.activeScope || null,
             selection_source: selection?.source || null,
             provider_audio_candidate: Boolean(selection?.providerAudio),
+            text_length: String(selection?.text || "").trim().length,
           });
+          const providerFromSpeak = await requestProgramProviderAudio(selection?.text, programVoicePlayback.activeScope || "program_section");
+          if (providerFromSpeak) selection.providerAudio = providerFromSpeak;
           if (selection.providerAudio) {
             const providerPlayed = await safePlayProviderAudio(selection.providerAudio);
             if (providerPlayed) {
@@ -4679,6 +4749,7 @@ function createYouthDevelopmentRouter(options = {}) {
   const markProgramSessionComplete = typeof options.markProgramSessionComplete === "function" ? options.markProgramSessionComplete : null;
   const getVoiceSectionsForChild = typeof options.getVoiceSectionsForChild === "function" ? options.getVoiceSectionsForChild : null;
   const resolveVoiceAssetByRef = typeof options.resolveVoiceAssetByRef === "function" ? options.resolveVoiceAssetByRef : null;
+  const getVoiceSynthesisForSection = typeof options.getVoiceSynthesisForSection === "function" ? options.getVoiceSynthesisForSection : null;
 
   router.get("/youth-development/intake", (req, res) => (
     res.status(200).type("html").send(renderLiveYouthAssessmentPage())
@@ -5070,6 +5141,38 @@ function createYouthDevelopmentRouter(options = {}) {
     } catch (err) {
       console.error("youth_voice_asset_resolve_failed", err);
       return res.status(500).json({ ok: false, error: "youth_voice_asset_resolve_failed" });
+    }
+  });
+
+  router.post("/api/youth-development/voice/speak", async (req, res) => {
+    const childId = safeTrim(req.body?.child_id || req.body?.childId);
+    const sectionKey = safeTrim(req.body?.section_key || req.body?.sectionKey) || "section";
+    const textContent = safeTrim(req.body?.text_content || req.body?.textContent || req.body?.voice_text);
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+    if (!textContent) return res.status(400).json({ ok: false, error: "text_content_required" });
+    if (!getVoiceSynthesisForSection) {
+      return res.status(200).json({ ok: false, status: "provider_unavailable", fallback_reason: "voice_synthesis_not_enabled" });
+    }
+    try {
+      const payload = await getVoiceSynthesisForSection({
+        child_id: childId,
+        section_key: sectionKey,
+        text_content: textContent,
+        voice: safeTrim(req.body?.voice) || undefined,
+      });
+      return res.status(200).json({
+        ...(payload || { ok: false, status: "provider_unavailable", fallback_reason: "provider_unavailable" }),
+        diagnostics: {
+          route: "/api/youth-development/voice/speak",
+          method: "POST",
+          section_key: sectionKey,
+          text_length: textContent.length,
+          upstream_route: "/speak",
+        },
+      });
+    } catch (err) {
+      console.error("youth_voice_speak_failed", err);
+      return res.status(500).json({ ok: false, error: "youth_voice_speak_failed" });
     }
   });
 

@@ -2953,6 +2953,12 @@ app.use(createYouthDevelopmentRouter({
   markProgramSessionComplete: markProgramSessionCompleteForAccount,
   getVoiceSectionsForChild: async ({ childId }) => youthVoiceService.getParentSectionPlayback(String(childId || ""), youthVoiceRepository),
   resolveVoiceAssetByRef: async ({ child_id, asset_ref }) => youthVoiceService.resolveAssetReference({ child_id, asset_ref }),
+  getVoiceSynthesisForSection: async ({ child_id, section_key, text_content, voice }) => youthVoiceService.synthesizeParentSectionLive({
+    child_id,
+    section_key,
+    text_content,
+    voice,
+  }),
 }));
 app.use("/api/youth-development/intake", createYouthDevelopmentIntakeRouter());
 app.use("/api/youth-development/tde", createYouthDevelopmentTdeRouter({

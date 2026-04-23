@@ -59,6 +59,42 @@ test('program launch endpoint returns route diagnostics for button action tracin
   }
 });
 
+test('voice speak endpoint is mounted and returns provider synthesis payload with diagnostics', async () => {
+  const app = mountApp({
+    getVoiceSynthesisForSection: async ({ child_id, section_key, text_content }) => ({
+      ok: true,
+      provider: 'openai-via-upstream-speak',
+      provider_status: 'available',
+      section_key,
+      text_length: String(text_content || '').length,
+      audio_url: 'https://audio.example/generated.mp3',
+      upstream_route: '/speak',
+      child_id,
+    }),
+  });
+  try {
+    const res = await fetch(`${app.baseUrl}/api/youth-development/voice/speak`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        child_id: 'child-live',
+        section_key: 'summary',
+        text_content: 'This is full dashboard card body text for synthesis.',
+      }),
+    });
+    assert.equal(res.status, 200);
+    const payload = await res.json();
+    assert.equal(payload.ok, true);
+    assert.equal(payload.provider, 'openai-via-upstream-speak');
+    assert.equal(payload.text_length, 52);
+    assert.equal(payload.diagnostics.route, '/api/youth-development/voice/speak');
+    assert.equal(payload.diagnostics.method, 'POST');
+    assert.equal(payload.diagnostics.upstream_route, '/speak');
+  } finally {
+    await app.close();
+  }
+});
+
 test('dashboard and program pages call canonical non-TDE voice endpoint', async () => {
   const app = mountApp();
   try {

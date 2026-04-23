@@ -42,7 +42,12 @@ function chunkText(text, options = {}) {
 
 function createVoiceProviderAdapter(options = {}) {
   const mode = String(options.gateway_mode || process.env.VOICE_GATEWAY_MODE || GATEWAY_MODE_EXTERNAL).trim().toLowerCase();
-  const baseUrl = String(options.gateway_base_url || process.env.VOICE_GATEWAY_BASE_URL || "").trim().replace(/\/+$/, "");
+  const baseUrl = String(
+    options.gateway_base_url
+    || process.env.VOICE_REPO_BASE_URL
+    || process.env.VOICE_GATEWAY_BASE_URL
+    || ""
+  ).trim().replace(/\/+$/, "");
   const timeoutMs = Math.max(100, Number(options.gateway_timeout_ms || process.env.VOICE_GATEWAY_TIMEOUT_MS || 5000));
   const gatewayToken = String(options.gateway_token || process.env.VOICE_GATEWAY_TOKEN || "").trim();
 
@@ -60,6 +65,7 @@ function createVoiceProviderAdapter(options = {}) {
       token_configured: Boolean(gatewayToken),
       auth_required: false,
       provider_path: "external_gateway",
+      upstream_route: "/speak",
     };
   }
 
@@ -90,7 +96,12 @@ function createVoiceProviderAdapter(options = {}) {
     };
   }
 
-  async function callGateway(endpointPath, payload = {}) {
+  function toDataAudioUrl(contentType, bytes) {
+    if (!bytes || !bytes.length) return null;
+    return `data:${contentType || "audio/mpeg"};base64,${Buffer.from(bytes).toString("base64")}`;
+  }
+
+  async function callGateway(payload = {}) {
     if (!isAvailable()) {
       return normalizeFallback(payload, "provider_unavailable", "voice_gateway_unavailable");
     }
@@ -98,59 +109,65 @@ function createVoiceProviderAdapter(options = {}) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), timeoutMs);
     try {
-      const response = await fetch(`${baseUrl}${endpointPath}`, {
+      const response = await fetch(`${baseUrl}/speak`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
           ...(gatewayToken ? { authorization: `Bearer ${gatewayToken}` } : {}),
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          text: String(payload.voice_text || payload.text_content || "").trim(),
+          voice: payload.voice || undefined,
+        }),
         signal: controller.signal,
       });
 
-      const body = await response.json().catch(() => ({}));
-
       if (!response.ok) {
         const status = response.status >= 400 && response.status < 500 ? "invalid_request" : "fallback";
-        return normalizeFallback(payload, status, String(body?.error || `gateway_http_${response.status}`), {
+        return normalizeFallback(payload, status, `voice_repo_http_${response.status}`, {
           diagnostics: {
             last_gateway_health_status: lastGatewayHealthStatus,
             gateway_http_status: response.status,
             missing_playable_asset: true,
+            upstream_route: "/speak",
           },
         });
       }
 
-      const audioUrl = typeof body.audio_url === "string" ? body.audio_url : null;
-      const assetRef = typeof body.asset_ref === "string" ? body.asset_ref : null;
-      if (!audioUrl && !assetRef) {
+      const contentType = String(response.headers.get("content-type") || "").toLowerCase();
+      if (!contentType.startsWith("audio/")) {
         return normalizeFallback(payload, "fallback", "malformed_gateway_success_missing_playable_asset", {
           diagnostics: {
             last_gateway_health_status: lastGatewayHealthStatus,
             malformed_gateway_payload: true,
             missing_playable_asset: true,
+            upstream_route: "/speak",
           },
         });
       }
+      const audioBytes = Buffer.from(await response.arrayBuffer());
+      const audioUrl = toDataAudioUrl(contentType || "audio/mpeg", audioBytes);
+      if (!audioUrl) return normalizeFallback(payload, "fallback", "voice_repo_empty_audio");
 
       return {
         ok: true,
-        status: String(body.status || "ready"),
-        provider: String(body.provider || body.provider_name || "external_gateway"),
+        status: "ready",
+        provider: "openai-via-upstream-speak",
         provider_status: "available",
         fallback_active: false,
         fallback_reason: null,
-        playable_text: String(body.playable_text || payload.voice_text || "").trim(),
+        playable_text: String(payload.voice_text || payload.text_content || "").trim(),
         audio_url: audioUrl,
-        asset_ref: assetRef,
-        replay_token: typeof body.replay_token === "string"
-          ? body.replay_token
-          : deterministicId("voice_replay", { payload, provider: body.provider || "external_gateway" }),
-        chunk_index: Number(body.chunk_index ?? payload.chunk_index ?? 0),
-        expires_at: body.expires_at || null,
+        asset_ref: null,
+        replay_token: deterministicId("voice_replay", { payload, provider: "openai-via-upstream-speak" }),
+        chunk_index: Number(payload.chunk_index ?? 0),
+        expires_at: null,
         diagnostics: {
           last_gateway_health_status: lastGatewayHealthStatus,
           missing_playable_asset: false,
+          upstream_route: "/speak",
+          provider_audio_bytes: audioBytes.length,
+          provider_audio_content_type: contentType || "audio/mpeg",
         },
       };
     } catch (err) {
@@ -162,11 +179,11 @@ function createVoiceProviderAdapter(options = {}) {
   }
 
   async function synthesizeCheckin(payload = {}) {
-    return callGateway("/internal/voice/checkin-prompt", payload);
+    return callGateway(payload);
   }
 
   async function synthesizeReportSection(payload = {}) {
-    return callGateway("/internal/voice/report-section", payload);
+    return callGateway(payload);
   }
 
   async function resolveAssetReference(payload = {}) {
@@ -184,20 +201,7 @@ function createVoiceProviderAdapter(options = {}) {
         asset_ref: assetRef,
       };
     }
-    const resolved = await callGateway("/internal/voice/resolve-asset", {
-      child_id: payload.child_id,
-      asset_ref: assetRef,
-    });
-    return {
-      ok: Boolean(resolved.ok && (resolved.audio_url || resolved.asset_ref)),
-      status: resolved.status,
-      provider: resolved.provider,
-      provider_status: resolved.provider_status,
-      error: resolved.error || resolved.fallback_reason || null,
-      audio_url: resolved.audio_url || null,
-      asset_ref: resolved.asset_ref || assetRef,
-      diagnostics: resolved.diagnostics || null,
-    };
+    return { ok: false, status: "invalid_request", error: "voice_asset_resolution_not_supported", audio_url: null, asset_ref: assetRef };
   }
 
   async function getConnectivity() {
@@ -214,7 +218,7 @@ function createVoiceProviderAdapter(options = {}) {
     const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
     try {
-      const response = await fetch(`${baseUrl}/internal/voice/health`, {
+      const response = await fetch(`${baseUrl}/health`, {
         method: "GET",
         headers: {
           ...(gatewayToken ? { authorization: `Bearer ${gatewayToken}` } : {}),

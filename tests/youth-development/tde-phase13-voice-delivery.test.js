@@ -62,38 +62,14 @@ function mountGatewayApp({ delayMs = 0, fail = false } = {}) {
   const app = express();
   app.use(express.json());
 
-  app.get("/internal/voice/health", (_req, res) => {
+  app.get("/health", (_req, res) => {
     return res.status(200).json({ ok: true, status: "healthy" });
   });
 
-  app.post("/internal/voice/checkin-prompt", async (req, res) => {
+  app.post("/speak", async (req, res) => {
     if (delayMs) await new Promise((resolve) => setTimeout(resolve, delayMs));
-    if (fail) return res.status(503).json({ error: "gateway_unavailable" });
-
-    return res.status(200).json({
-      status: "ready",
-      provider: "openai-via-gateway",
-      playable_text: req.body.voice_text,
-      audio_url: `https://audio.example/checkin/${req.body.voice_chunk_id}`,
-      replay_token: `replay_${req.body.voice_chunk_id}`,
-      chunk_index: req.body.chunk_index,
-      expires_at: "2026-04-25T00:00:00.000Z",
-    });
-  });
-
-  app.post("/internal/voice/report-section", async (req, res) => {
-    if (delayMs) await new Promise((resolve) => setTimeout(resolve, delayMs));
-    if (fail) return res.status(422).json({ error: "invalid_section" });
-
-    return res.status(200).json({
-      status: "ready",
-      provider: "openai-via-gateway",
-      playable_text: req.body.voice_text,
-      asset_ref: `asset://voice/${req.body.voice_chunk_id}`,
-      replay_token: `replay_${req.body.voice_chunk_id}`,
-      chunk_index: req.body.chunk_index,
-      expires_at: "2026-04-25T00:00:00.000Z",
-    });
+    if (fail) return res.status(503).type("application/json").send(JSON.stringify({ error: "gateway_unavailable" }));
+    return res.status(200).type("audio/mpeg").send(Buffer.from(`audio:${String(req.body?.text || "")}`));
   });
 
   const server = app.listen(0);
@@ -144,8 +120,8 @@ test("phase14 child check-in playback returns normalized playable output from ga
     assert.equal(performance.uses_voice_text_only, true);
     assert.equal(performance.age_band, "8-10");
     assert.equal(performance.chunks[0].status, "ready");
-    assert.equal(performance.chunks[0].provider_name, "openai-via-gateway");
-    assert.equal(typeof performance.chunks[0].audio_url, "string");
+    assert.equal(performance.chunks[0].provider_name, "openai-via-upstream-speak");
+    assert.equal(performance.chunks[0].audio_url.startsWith("data:audio/mpeg;base64,"), true);
     assert.equal(performance.chunks[0].playable_text.includes("Read this short reflection prompt."), true);
   } finally {
     await gateway.close();
@@ -171,7 +147,8 @@ test("phase14 parent section playback returns section-level references without f
     assert.equal(payload.sections.length, 6);
     assert.deepEqual(payload.sections.map((entry) => entry.section_key), ["summary", "strengths", "growth", "still_building", "environment", "next_steps"]);
     assert.equal(payload.sections.every((entry) => entry.chunks[0].status === "ready"), true);
-    assert.equal(payload.sections.every((entry) => typeof entry.chunks[0].asset_ref === "string"), true);
+    assert.equal(payload.sections.every((entry) => typeof entry.chunks[0].audio_url === "string"), true);
+    assert.equal(payload.sections.every((entry) => entry.chunk_count === 1), true);
   } finally {
     await gateway.close();
   }
