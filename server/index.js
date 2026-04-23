@@ -69,6 +69,8 @@ const { createYouthDevelopmentRouter } = require("./youthDevelopmentRoutes");
 const { createYouthDevelopmentIntakeRouter } = require("./youthDevelopmentIntakeRoutes");
 const { createYouthDevelopmentTdeRouter } = require("./youthDevelopmentTdeRoutes");
 const { createAssessmentVoiceRouter } = require("./assessmentVoiceRoutes");
+const { createTdePersistenceRepository } = require("../youth-development/tde/persistenceRepository");
+const { createVoiceService } = require("../youth-development/tde/voiceService");
 const { selectLatestYouthSubmission } = require("./youthLatestSelection");
 const { PROGRAM_PHASES } = require("../youth-development/tde/programRail");
 const {
@@ -2932,6 +2934,11 @@ async function saveProgramWeekExecutionForAccount({
   };
 }
 
+const youthVoiceRepository = createTdePersistenceRepository(pool);
+const youthVoiceService = createVoiceService({
+  provider_options: {},
+});
+
 app.use(createYouthDevelopmentRouter({
   persistYouthAssessment: persistYouthAssessmentForAccount,
   loadLatestYouthAssessment: loadLatestYouthAssessmentForAccount,
@@ -2944,9 +2951,15 @@ app.use(createYouthDevelopmentRouter({
   saveProgramCommitmentPlan: saveProgramCommitmentPlanForAccount,
   saveProgramSessionPlan: saveProgramSessionPlanForAccount,
   markProgramSessionComplete: markProgramSessionCompleteForAccount,
+  getVoiceSectionsForChild: async ({ childId }) => youthVoiceService.getParentSectionPlayback(String(childId || ""), youthVoiceRepository),
+  resolveVoiceAssetByRef: async ({ child_id, asset_ref }) => youthVoiceService.resolveAssetReference({ child_id, asset_ref }),
 }));
 app.use("/api/youth-development/intake", createYouthDevelopmentIntakeRouter());
-app.use("/api/youth-development/tde", createYouthDevelopmentTdeRouter({ pool }));
+app.use("/api/youth-development/tde", createYouthDevelopmentTdeRouter({
+  pool,
+  repository: youthVoiceRepository,
+  voiceService: youthVoiceService,
+}));
 
 app.post("/api/campaigns/create", async (req, res) => {
   let failurePoint = "init";
