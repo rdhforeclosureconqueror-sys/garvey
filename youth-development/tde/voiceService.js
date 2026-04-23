@@ -172,6 +172,34 @@ function createVoiceService(options = {}) {
     };
   }
 
+  async function synthesizeParentSectionLive(request = {}) {
+    const text = String(request.text_content || request.voice_text || "").trim();
+    if (!text) {
+      return {
+        ok: false,
+        status: "invalid_request",
+        provider_status: "invalid_request",
+        fallback_reason: "text_content_required",
+        playable_text: "",
+        audio_url: null,
+        asset_ref: null,
+      };
+    }
+    const synthesized = await adapter.synthesizeReportSection({
+      child_id: request.child_id,
+      section_key: request.section_key || "section",
+      text_content: text,
+      voice_text: text,
+      voice: request.voice,
+    });
+    return {
+      ...synthesized,
+      section_key: String(request.section_key || "section"),
+      text_length: text.length,
+      upstream_route: "/speak",
+    };
+  }
+
   function readLatestCheckin(snapshot) {
     const checkins = Array.isArray(snapshot?.development_checkins) ? snapshot.development_checkins : [];
     const sorted = [...checkins].sort((a, b) => `${a.completed_at || ""}`.localeCompare(`${b.completed_at || ""}`));
@@ -356,10 +384,22 @@ function createVoiceService(options = {}) {
       if (!section) continue;
       const voiceText = String(section.voice_text || section.text_content || "").trim();
       const playbackId = deterministicId("parent_playback", { child_id: childId, section_key: sectionKey, voice_chunk_id: section.voice_chunk_id });
-      const chunkMetadata = toChunkMetadata(playbackId, sectionKey, voiceText, {
-        child_id: childId,
-        section_key: sectionKey,
-      });
+      const chunkId = deterministicId("voice_chunk", { playback_id: playbackId, section_key: sectionKey, chunk_index: 0, voiceText });
+      const chunkMetadata = [{
+        chunk_id: chunkId,
+        chunk_index: 0,
+        text: voiceText,
+        max_chars: voiceText.length,
+        replayable: true,
+        request: {
+          child_id: childId,
+          section_key: sectionKey,
+          voice_text: voiceText,
+          text_content: voiceText,
+          voice_chunk_id: chunkId,
+          chunk_index: 0,
+        },
+      }];
 
       const hydratedChunks = [];
       for (const entry of chunkMetadata) {
@@ -375,6 +415,8 @@ function createVoiceService(options = {}) {
 
       playbackSections.push({
         section_key: sectionKey,
+        text_content: voiceText,
+        voice_text: voiceText,
         playback_id: playbackId,
         replay_supported: true,
         replay_available: chunkState.replay_available,
@@ -559,6 +601,7 @@ function createVoiceService(options = {}) {
     getVoicePilotStatus,
     getVoiceEligibility,
     resolveAssetReference,
+    synthesizeParentSectionLive,
     parentSectionOrder: PARENT_SECTION_ORDER,
   };
 }
