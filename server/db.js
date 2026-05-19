@@ -4,6 +4,7 @@ const { Pool } = require("pg");
 const { initializeKanbanSchema } = require("./kanbanDb");
 const { applyTapCrmMigrations, verifyTapCrmSchema } = require("./tapCrmDb");
 const { applyTdeMigrations, verifyTdeSchema } = require("./youthDevelopmentTdeDb");
+const { applyGatesMigrations, verifyGatesSchema } = require("./gatesDb");
 
 function readEnvTrimmed(name) {
   const value = process.env[name];
@@ -1371,6 +1372,21 @@ async function initializeDatabase() {
     missing_tables: tapCrmSchemaReport.missingTables,
     missing_indexes: tapCrmSchemaReport.missingIndexes,
   });
+
+  const gatesMigrationResult = await applyGatesMigrations(pool);
+  console.log("✅ gates_migration_applied", {
+    applied_migrations: gatesMigrationResult.appliedCount,
+    total_migrations: gatesMigrationResult.totalMigrations,
+  });
+  const gatesSchemaReport = await verifyGatesSchema(pool);
+  console.log("✅ gates_schema_ready", {
+    schema_ok: gatesSchemaReport.ok,
+    missing_tables: gatesSchemaReport.missingTables,
+    missing_indexes: gatesSchemaReport.missingIndexes,
+  });
+  if (!gatesSchemaReport.ok) {
+    throw new Error(`gates schema incomplete: missing tables ${gatesSchemaReport.missingTables.join(", ")}; missing indexes ${gatesSchemaReport.missingIndexes.join(", ")}`);
+  }
 
   const tdeMigrationResult = await applyTdeMigrations(pool);
   const tdeSchemaReport = await verifyTdeSchema(pool);
