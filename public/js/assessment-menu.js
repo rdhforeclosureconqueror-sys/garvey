@@ -36,6 +36,12 @@ function buildAssessmentRegistry() {
       description: "Complete the parent-observation youth development screener.",
       engineType: "youth",
     },
+    {
+      key: "gates",
+      title: "Youth Rite of Passage Assessment",
+      description: "Explore your child's developmental Gates through guided parent observation.",
+      engineType: "gates",
+    },
   ];
 }
 
@@ -71,6 +77,8 @@ function buildAssessmentHref(option, params) {
     ? "/voc.html"
     : option?.key === "youth"
       ? "/youth-development/intake"
+      : option?.key === "gates"
+        ? "/gates"
     : `/archetype-engines/${option.engineType}/assessment`;
   const url = new URL(basePath, origin || "http://localhost");
   applyCommonContext(url, ctx, query, sourceType);

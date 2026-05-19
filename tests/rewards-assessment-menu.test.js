@@ -20,12 +20,13 @@ test("assessment registry renders all required customer options", () => {
     ctx: { tenant: "demo", email: "user@example.com", name: "Jane", cid: "c-1", rid: "r-1" },
   });
 
-  assert.deepEqual(options.map((x) => x.key), ["voc", "love", "leadership", "loyalty", "youth"]);
+  assert.deepEqual(options.map((x) => x.key), ["voc", "love", "leadership", "loyalty", "youth", "gates"]);
   assert.equal(options[0].title, "Voice of the Customer");
   assert.equal(options[1].title, "Take Love Assessment");
   assert.equal(options[2].title, "Take Leadership Assessment");
   assert.equal(options[3].title, "Take Loyalty Assessment");
   assert.equal(options[4].title, "Take Youth Assessment");
+  assert.equal(options[5].title, "Youth Rite of Passage Assessment");
 });
 
 test("assessment routes stay isolated and carry return-page context", () => {
@@ -46,6 +47,7 @@ test("assessment routes stay isolated and carry return-page context", () => {
   assert.doesNotMatch(links.love, /\/browse\?/);
   assert.doesNotMatch(links.leadership, /\/browse\?/);
   assert.doesNotMatch(links.loyalty, /\/browse\?/);
+  assert.match(links.gates, /^\/gates\?/);
 
   for (const href of Object.values(links)) {
     assert.match(href, /tenant=demo/);
