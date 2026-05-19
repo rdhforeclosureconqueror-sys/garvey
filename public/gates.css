@@ -1,4 +1,45 @@
-body { font-family: Arial, sans-serif; margin: 0; background: #f7f8fa; color: #1f2430; }
-.gates-shell { max-width: 760px; margin: 3rem auto; padding: 1.5rem; background: #fff; border: 1px solid #dde3ea; border-radius: 10px; }
-.status { font-weight: 600; color: #2f5f96; }
-.disclaimer { color: #5f6773; }
+body {
+  font-family: Inter, Avenir, Arial, sans-serif;
+  margin: 0;
+  background: radial-gradient(circle at top, #2d1f55 0%, #101a2b 45%, #090f1c 100%);
+  color: #eff4ff;
+  min-height: 100vh;
+}
+.gates-shell { max-width: 920px; margin: 2rem auto; padding: 1rem; }
+.gates-card {
+  background: linear-gradient(155deg, rgba(18, 29, 49, 0.94), rgba(31, 16, 54, 0.9));
+  border: 1px solid rgba(132, 178, 255, 0.35);
+  border-radius: 18px;
+  box-shadow: 0 0 0 1px rgba(130, 199, 255, 0.08), 0 16px 35px rgba(7, 10, 20, 0.45);
+  padding: 1.25rem;
+}
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.panel { background: rgba(255,255,255,0.03); border: 1px solid rgba(143,197,255,0.2); border-radius: 14px; padding: 1rem; }
+.gate-card { box-shadow: 0 0 18px rgba(91, 167, 255, 0.22); }
+.lede { color: #d8e7ff; }
+.status { font-weight: 700; color: #9fd4ff; }
+.disclaimer { color: #c8d8f8; font-size: 0.95rem; }
+button, .btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  border: 0;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  min-height: 44px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(120deg, #5763ff, #7a4ef6);
+  text-decoration: none;
+}
+.btn.secondary { background: #24344d; }
+input { width: 100%; margin: 0.35rem 0; padding: 0.65rem; border-radius: 10px; border: 1px solid rgba(159, 196, 255, 0.35); background: #111b2f; color: #f4f8ff; }
+fieldset { margin: 0.8rem 0; }
+label { margin-right: 0.5rem; }
+.stack { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.status-message { min-height: 1.5rem; font-weight: 600; }
+.status-message.error { color: #ff9ca8; }
+.status-message.success { color: #8ff5c5; }
+@media (max-width: 640px) {
+  .gates-shell { margin: 1rem auto; }
+  .gates-card { padding: 1rem; }
+}
