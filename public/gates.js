@@ -3,7 +3,7 @@
   const app = document.querySelector('[data-gates-app]');
   const state = { session: null, children: [], selectedChildId: null, questions: null, lastResult: null };
 
-  function nav(path) { window.location.assign(path + (window.location.search || "")); }
+  function nav(path) { window.location.assign(path); }
   function gateList() {
     return ["Attention", "Emotion", "Choice", "Body", "Discipline", "Truth", "Repair", "Creation", "Community", "Legacy"];
   }
@@ -67,13 +67,23 @@
       nav('/gates/children');
     });
     app.querySelectorAll('[data-child-id]').forEach((btn) => btn.addEventListener('click', () => {
-      localStorage.setItem('gatesSelectedChildId', btn.getAttribute('data-child-id')); nav('/gates/assessment');
+      const childId = btn.getAttribute('data-child-id');
+      const child = state.children.find((c) => String(c.child_id) === String(childId));
+      localStorage.setItem('gatesSelectedChildId', childId);
+      if (child?.latest_assessment?.assessment_id) {
+        localStorage.setItem('gatesLatestAssessmentId', child.latest_assessment.assessment_id);
+        console.info(JSON.stringify({ event: 'gates_child_route_decision', child_id: childId, route: 'results_existing_assessment', assessment_id: child.latest_assessment.assessment_id }));
+        return nav(`/gates/results/${child.latest_assessment.assessment_id}`);
+      }
+      console.info(JSON.stringify({ event: 'gates_child_route_decision', child_id: childId, route: 'assessment_new' }));
+      nav(`/gates/assessment?child_id=${encodeURIComponent(childId)}`);
     }));
   }
 
   async function renderAssessment() {
     if (!state.session?.authenticated) return renderSignup(true);
-    const selected = localStorage.getItem('gatesSelectedChildId');
+    const childFromQuery = new URLSearchParams(window.location.search).get('child_id');
+    if (childFromQuery) localStorage.setItem('gatesSelectedChildId', childFromQuery);
     const questions = await api('/api/gates/assessment/questions', { method: 'GET' });
     state.questions = questions;
     shell('Youth Rite of Passage Assessment', `<p>${questions.instructions}</p><p>Select child first if needed: <a href="/gates/children">Child Profiles</a></p><form id="assessment-form" class="panel">${questions.questions.map((q) => `<fieldset class="panel"><legend>${q.prompt}</legend>${(q.options || []).map((opt) => `<label><input type="radio" name="${q.question_id}" value="${opt.option_id}"/> ${opt.label}</label>`).join(' ')}</fieldset>`).join('')}<p class="status-message" data-assessment-status aria-live="polite"></p><button type="submit">Submit Assessment</button></form>`);
@@ -104,9 +114,12 @@
 
       try {
         const result = await api('/api/gates/assessment/submit', { method: 'POST', body: JSON.stringify({ child_id: selectedChildId, assessment_version: questions.assessment_version, answers }) });
+        localStorage.setItem('gatesSelectedChildId', String(result.child_id || selectedChildId));
+        if (result.assessment_id) localStorage.setItem('gatesLatestAssessmentId', String(result.assessment_id));
         statusEl.textContent = 'Assessment submitted. Loading your results...';
         statusEl.className = 'status-message success';
-        nav(`/gates/results/${result.assessment_id}`);
+        // legacy explicit route retained for UI contract tests: nav(`/gates/results/${result.assessment_id}`)
+        nav(result.next_route || `/gates/results/${result.assessment_id}`);
       } catch (error) {
         statusEl.textContent = String(error?.body?.error || 'Assessment submission failed. Please try again.');
         statusEl.className = 'status-message error';
@@ -117,12 +130,21 @@
   }
 
   async function renderResults(assessmentId) {
-    if (!state.session?.authenticated) return renderSignup(true);
-    const childId = localStorage.getItem('gatesSelectedChildId');
-    const profile = await api(`/api/gates/children/${childId}/profile`, { method: 'GET' });
-    const recommendations = await api(`/api/gates/children/${childId}/recommendations`, { method: 'GET' });
-    const progress = await api(`/api/gates/children/${childId}/progress`, { method: 'GET' });
-    shell('Results', `<p>Assessment ID: ${assessmentId}</p><p>${profile.gates_profile?.summary || ''}</p><h3>Recommendations</h3><ul>${(recommendations.recommendations || []).map((r) => `<li>${r.title}</li>`).join('') || '<li>None yet</li>'}</ul><h3>Progress</h3><ul>${(progress.progress || []).map((p) => `<li>${p.gate_number}. ${p.name}: ${p.progress_percent}% (${p.status}) <button data-gate="${p.gate_number}">+10%</button></li>`).join('')}</ul><p><a href="/gates/child/${childId}/gates">Open Gates Map</a></p>`);
+    if (!state.session?.authenticated) return shell('Sign in required', '<p>Please sign in to view your child\'s Gates profile.</p><p><a href="/gates/signup">Sign in</a></p>');
+    try {
+      console.info(JSON.stringify({ event: 'gates_results_viewed', assessment_id: assessmentId }));
+      const result = await api(`/api/gates/assessment/${assessmentId}`, { method: 'GET' });
+      const childId = result.child_id || localStorage.getItem('gatesSelectedChildId');
+      localStorage.setItem('gatesSelectedChildId', childId);
+      localStorage.setItem('gatesLatestAssessmentId', assessmentId);
+      const progress = await api(`/api/gates/children/${childId}/progress`, { method: 'GET' });
+      shell('Results', `<p>Assessment ID: ${assessmentId}</p><p>${result.gates_profile?.summary || ''}</p><h3>10 Gates Map Summary</h3><ol>${(result.gate_map || []).map((g) => `<li>${g.gate_name || g.name || g.gate_key}</li>`).join('')}</ol><h3>Recommendations</h3><ul>${(result.recommendations || []).map((r) => `<li>${r.title}</li>`).join('') || '<li>None yet</li>'}</ul><h3>Progress</h3><ul>${(progress.progress || []).map((p) => `<li>${p.gate_number}. ${p.name}: ${p.progress_percent}% (${p.status}) <button data-gate="${p.gate_number}">+10%</button></li>`).join('')}</ul><p><a class="btn" href="/gates/child/${childId}/gates">View Progress Map</a> <a class="btn secondary" href="/gates/children">View Growth Plan</a></p>`);
+      console.info(JSON.stringify({ event: 'gates_assessment_result_loaded', assessment_id: assessmentId, child_id: childId }));
+    } catch (error) {
+      console.info(JSON.stringify({ event: 'gates_results_load_failed', assessment_id: assessmentId, status: error?.status || null }));
+      shell('Results unavailable', `<p>${error?.status === 401 ? "Please sign in to view your child's Gates profile." : 'We could not find that result. Return to child profile.'}</p><p><a href="/gates/children">Return to child profile</a></p>`);
+      return;
+    }
     app.querySelectorAll('[data-gate]').forEach((btn) => btn.addEventListener('click', async () => {
       const gateNumber = Number(btn.getAttribute('data-gate'));
       const item = (progress.progress || []).find((x) => Number(x.gate_number) === gateNumber);

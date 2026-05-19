@@ -320,8 +320,31 @@ function createGatesRouter({ pool = defaultPool } = {}) {
   router.get("/api/gates/children", async (req, res) => {
     const sessionState = await resolveGatesSession({ req, pool });
     if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
-    const rows = await pool.query("SELECT id, first_name FROM gates_child_profiles WHERE parent_id = $1 ORDER BY created_at DESC", [sessionState.parentProfile.id]);
-    return res.json({ ok: true, children: rows.rows.map(formatChildProfileRow) });
+    const rows = await pool.query(
+      `SELECT c.id, c.first_name,
+              a.id AS latest_assessment_id,
+              a.created_at AS latest_assessment_created_at
+       FROM gates_child_profiles c
+       LEFT JOIN LATERAL (
+         SELECT id, created_at
+         FROM gates_assessments
+         WHERE parent_id = $1 AND child_id = c.id
+         ORDER BY created_at DESC
+         LIMIT 1
+       ) a ON TRUE
+       WHERE c.parent_id = $1
+       ORDER BY c.created_at DESC`,
+      [sessionState.parentProfile.id]
+    );
+    return res.json({
+      ok: true,
+      children: rows.rows.map((row) => ({
+        ...formatChildProfileRow(row),
+        latest_assessment: row.latest_assessment_id
+          ? { assessment_id: String(row.latest_assessment_id), created_at: row.latest_assessment_created_at || null }
+          : null,
+      })),
+    });
   });
 
   router.post("/api/gates/children", async (req, res) => {
@@ -482,6 +505,47 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       return res.status(500).json({ error: "Unable to save assessment" });
     } finally {
       client.release();
+    }
+  });
+
+  router.get("/api/gates/assessment/:assessmentId", async (req, res) => {
+    try {
+      const sessionState = await resolveGatesSession({ req, pool });
+      if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
+      const assessmentId = String(req.params.assessmentId || "").trim();
+      const found = await pool.query(
+        `SELECT id, parent_id, child_id, payload, created_at
+         FROM gates_assessments
+         WHERE CAST(id AS text) = $1 OR (payload->>'assessment_id') = $1
+         ORDER BY created_at DESC
+         LIMIT 1`,
+        [assessmentId]
+      );
+      const row = found.rows[0];
+      if (!row) return res.status(404).json({ error: "assessment_not_found" });
+      if (Number(row.parent_id) !== Number(sessionState.parentProfile.id)) return res.status(403).json({ error: "forbidden" });
+      const payload = row.payload && typeof row.payload === "object" ? row.payload : {};
+      const recommendations = generateGatesRecommendations({
+        child_id: String(row.child_id || ""),
+        gates_profile: payload.gates_profile || {},
+        gate_scores: payload.gate_scores || [],
+        current_growth_gate: payload.gates_profile?.current_growth_gate?.gate_key || payload.current_growth_gate || null,
+        child_age_band: "",
+      });
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_result_loaded", parent_id: sessionState.parentProfile.id, assessment_id: assessmentId }));
+      return res.json({
+        ok: true,
+        assessment_id: String(row.id),
+        child_id: String(row.child_id),
+        gates_profile: payload.gates_profile || null,
+        gate_map: payload.gate_map || payload.gates_profile?.gate_map || [],
+        confidence_summary: payload.confidence_summary || null,
+        recommendations,
+        created_at: row.created_at || null,
+      });
+    } catch (err) {
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_results_load_failed", reason: "server_error", assessment_id: String(req.params.assessmentId || "") }));
+      return res.status(500).json({ error: "gates assessment load failed" });
     }
   });
 
