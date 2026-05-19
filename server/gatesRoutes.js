@@ -12,6 +12,8 @@ const {
   GATES,
   QUESTIONS,
 } = require("../gates/gatesAssessmentQuestions");
+const { scoreGatesAssessment } = require("../gates/gatesScoring");
+const { buildGatesProfile } = require("../gates/gatesProfileBuilder");
 const { ROLES } = require("./accessControl");
 const { pool: defaultPool } = require("./db");
 
@@ -298,7 +300,94 @@ function createGatesRouter({ pool = defaultPool } = {}) {
     }
     const profile = formatChildProfileRow(row);
     console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_child_profile_loaded", parent_id: sessionState.parentProfile.id, child_id: profile.child_id }));
-    return res.json({ ok: true, child_profile: profile });
+    const latest = await pool.query(
+      "SELECT id, payload, created_at FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY created_at DESC LIMIT 1",
+      [sessionState.parentProfile.id, req.params.childId]
+    );
+    const latestAssessment = latest.rows[0] || null;
+    return res.json({
+      ok: true,
+      child_profile: profile,
+      latest_assessment: latestAssessment ? {
+        assessment_id: latestAssessment.id,
+        created_at: latestAssessment.created_at || null,
+      } : null,
+      latest_gates_profile: latestAssessment?.payload?.gates_profile || null,
+      latest_gate_map: latestAssessment?.payload?.gate_map || null,
+    });
+  });
+
+  router.post("/api/gates/assessment/submit", async (req, res) => {
+    console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_submit_received" }));
+    const client = await pool.connect();
+    try {
+      const sessionState = await resolveGatesSession({ req, pool: client });
+      if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
+      const childId = String(req.body?.child_id || "").trim();
+      const assessmentVersion = String(req.body?.assessment_version || "").trim();
+      const answers = req.body?.answers;
+      if (!childId || assessmentVersion !== GATES_ASSESSMENT_VERSION || !Array.isArray(answers)) {
+        console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_validation_failed", reason: "invalid_payload_shape" }));
+        return res.status(400).json({ error: "invalid payload" });
+      }
+      const child = await client.query("SELECT id, parent_id FROM gates_child_profiles WHERE id = $1 LIMIT 1", [childId]);
+      const row = child.rows[0];
+      if (!row) return res.status(400).json({ error: "invalid payload" });
+      if (Number(row.parent_id) !== Number(sessionState.parentProfile.id)) {
+        return res.status(403).json({ error: "forbidden" });
+      }
+      let scored;
+      try {
+        scored = scoreGatesAssessment(answers);
+      } catch (error) {
+        console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_validation_failed", reason: String(error?.message || error) }));
+        return res.status(400).json({ error: "invalid payload" });
+      }
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_scored", child_id: childId }));
+      const gatesProfile = buildGatesProfile(scored);
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_profile_generated", child_id: childId }));
+      const assessmentId = `ga_${crypto.randomUUID().replaceAll("-", "")}`;
+      const payload = {
+        assessment_id: assessmentId,
+        child_id: childId,
+        assessment_version: assessmentVersion,
+        raw_answers: answers,
+        normalized_scores: scored.normalized_scores,
+        gate_scores: scored.gate_scores,
+        gates_profile: gatesProfile,
+        gate_map: gatesProfile.gate_map,
+        confidence_summary: scored.confidence_summary,
+      };
+      await client.query("BEGIN");
+      await client.query(
+        "INSERT INTO gates_assessments (parent_id, child_id, assessment_key, payload, created_at) VALUES ($1, $2, $3, $4::jsonb, NOW())",
+        [sessionState.parentProfile.id, childId, assessmentVersion, JSON.stringify(payload)]
+      );
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_saved", assessment_id: assessmentId }));
+      for (const gate of scored.gate_scores) {
+        const existing = await client.query(
+          "SELECT id FROM gates_progress WHERE parent_id = $1 AND child_id = $2 AND progress_key = $3 LIMIT 1",
+          [sessionState.parentProfile.id, childId, gate.gate_key]
+        );
+        if (existing.rows[0]) {
+          await client.query("UPDATE gates_progress SET progress_value = $1::jsonb, updated_at = NOW() WHERE id = $2", [JSON.stringify(gate), existing.rows[0].id]);
+        } else {
+          await client.query(
+            "INSERT INTO gates_progress (parent_id, child_id, progress_key, progress_value, created_at, updated_at) VALUES ($1, $2, $3, $4::jsonb, NOW(), NOW())",
+            [sessionState.parentProfile.id, childId, gate.gate_key, JSON.stringify(gate)]
+          );
+        }
+      }
+      await client.query("COMMIT");
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_progress_initialized", child_id: childId }));
+      return res.status(201).json({ ok: true, assessment_id: assessmentId, child_id: childId, gates_profile: gatesProfile, gate_map: gatesProfile.gate_map, confidence_summary: scored.confidence_summary, next_route: `/gates/results/${assessmentId}` });
+    } catch (err) {
+      await client.query("ROLLBACK").catch(() => {});
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_submit_failed", error: String(err?.message || err) }));
+      return res.status(500).json({ error: "gates assessment submit failed" });
+    } finally {
+      client.release();
+    }
   });
 
   router.post("/api/gates/auth/signout", async (req, res) => {

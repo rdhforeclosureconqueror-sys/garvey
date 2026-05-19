@@ -27,5 +27,15 @@
     renderAssessmentDisclaimer(disclaimer = "") {
       return `<aside class="gates-assessment-disclaimer"><p>${String(disclaimer || "")}</p></aside>`;
     },
+    renderResultsShell() {
+      return '<section class="gates-results-shell"><div data-gates-profile-summary></div><div data-gates-map-shell></div></section>';
+    },
+    renderGatesProfileSummary(profile = {}) {
+      return `<section class="gates-profile-summary"><p>${String(profile.summary || "")}</p></section>`;
+    },
+    renderGatesMapShell(gateMap = []) {
+      const count = Array.isArray(gateMap) ? gateMap.length : 0;
+      return `<section class="gates-map-shell" data-gates-count="${count}"></section>`;
+    },
   };
 })();
