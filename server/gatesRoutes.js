@@ -380,22 +380,54 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       const childId = String(req.body?.child_id || "").trim();
       const assessmentVersion = String(req.body?.assessment_version || "").trim();
       const answers = req.body?.answers;
-      if (!childId || assessmentVersion !== GATES_ASSESSMENT_VERSION || !Array.isArray(answers)) {
-        console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_validation_failed", reason: "invalid_payload_shape" }));
-        return res.status(400).json({ error: "invalid payload" });
+      const fail = ({ status = 400, reason, error, firstInvalidQuestionId = null, firstInvalidValue = null, dbCode = null }) => {
+        console.info(JSON.stringify({
+          ts: new Date().toISOString(),
+          event: "gates_assessment_submit_failed",
+          reason,
+          child_id_present: Boolean(childId),
+          assessment_version: assessmentVersion || null,
+          answer_count: Array.isArray(answers) ? answers.length : 0,
+          first_invalid_question_id: firstInvalidQuestionId,
+          first_invalid_value: firstInvalidValue,
+          parent_user_id_present: Boolean(sessionState?.parentProfile?.id),
+          db_error_code: dbCode,
+        }));
+        return res.status(status).json({ error });
+      };
+      if (!childId) return fail({ reason: "missing_child_id", error: "No child selected" });
+      if (assessmentVersion !== GATES_ASSESSMENT_VERSION) return fail({ reason: "assessment_version_mismatch", error: "Assessment version mismatch" });
+      if (!Array.isArray(answers) || answers.length === 0) return fail({ reason: "missing_answers", error: "Please answer all questions" });
+      if (answers.some((answer) => !String(answer?.question_id || "").trim())) {
+        return fail({ reason: "invalid_question_id", error: "Please answer all questions" });
       }
       const child = await client.query("SELECT id, parent_id FROM gates_child_profiles WHERE id = $1 LIMIT 1", [childId]);
       const row = child.rows[0];
-      if (!row) return res.status(400).json({ error: "invalid payload" });
+      if (!row) return fail({ reason: "child_not_found", error: "Child profile not found for this parent" });
       if (Number(row.parent_id) !== Number(sessionState.parentProfile.id)) {
+        console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_submit_failed", reason: "child_ownership_denied", child_id_present: true, parent_user_id_present: true }));
         return res.status(403).json({ error: "forbidden" });
       }
       let scored;
       try {
         scored = scoreGatesAssessment(answers);
       } catch (error) {
-        console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_validation_failed", reason: String(error?.message || error) }));
-        return res.status(400).json({ error: "invalid payload" });
+        const reason = String(error?.message || error);
+        const firstInvalid = Array.isArray(answers)
+          ? answers.find((answer) => {
+              const questionId = String(answer?.question_id || "").trim();
+              const value = String(answer?.value || "").trim().toLowerCase();
+              if (!questionId) return true;
+              if (!QUESTIONS.find((question) => question.question_id === questionId)) return true;
+              return !["rarely", "sometimes", "often", "consistently"].includes(value);
+            })
+          : null;
+        return fail({
+          reason,
+          error: reason === "invalid_option_value" ? "Invalid answer value" : "Please answer all questions",
+          firstInvalidQuestionId: firstInvalid ? String(firstInvalid.question_id || "").trim() || null : null,
+          firstInvalidValue: firstInvalid ? String(firstInvalid.value || "").trim() || null : null,
+        });
       }
       console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_scored", child_id: childId }));
       const gatesProfile = buildGatesProfile(scored);
@@ -437,8 +469,17 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       return res.status(201).json({ ok: true, assessment_id: assessmentId, child_id: childId, gates_profile: gatesProfile, gate_map: gatesProfile.gate_map, confidence_summary: scored.confidence_summary, next_route: `/gates/results/${assessmentId}` });
     } catch (err) {
       await client.query("ROLLBACK").catch(() => {});
-      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_submit_failed", error: String(err?.message || err) }));
-      return res.status(500).json({ error: "gates assessment submit failed" });
+      console.info(JSON.stringify({
+        ts: new Date().toISOString(),
+        event: "gates_assessment_submit_failed",
+        reason: "database_or_server_error",
+        child_id_present: Boolean(String(req.body?.child_id || "").trim()),
+        assessment_version: String(req.body?.assessment_version || "").trim() || null,
+        answer_count: Array.isArray(req.body?.answers) ? req.body.answers.length : 0,
+        parent_user_id_present: true,
+        db_error_code: err?.code || null,
+      }));
+      return res.status(500).json({ error: "Unable to save assessment" });
     } finally {
       client.release();
     }
