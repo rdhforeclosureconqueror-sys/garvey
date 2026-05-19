@@ -4,6 +4,14 @@ const express = require("express");
 const path = require("path");
 const crypto = require("crypto");
 const { GATES_CATALOG } = require("../gates/gatesCatalog");
+const {
+  GATES_ASSESSMENT_VERSION,
+  GATES_ASSESSMENT_TITLE,
+  GATES_ASSESSMENT_INSTRUCTIONS,
+  GATES_ASSESSMENT_DISCLAIMER,
+  GATES,
+  QUESTIONS,
+} = require("../gates/gatesAssessmentQuestions");
 const { ROLES } = require("./accessControl");
 const { pool: defaultPool } = require("./db");
 
@@ -155,6 +163,29 @@ function createGatesRouter({ pool = defaultPool } = {}) {
   });
 
   router.get("/api/gates/catalog", (req, res) => res.status(200).json({ gates: GATES_CATALOG }));
+
+  router.get("/api/gates/assessment/questions", async (req, res) => {
+    try {
+      const sessionState = await resolveGatesSession({ req, pool });
+      if (!sessionState.authenticated) {
+        console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_questions_load_failed", reason: "unauthenticated" }));
+        return res.status(401).json({ error: "unauthenticated" });
+      }
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_questions_loaded", parent_id: sessionState.parentProfile.id }));
+      return res.status(200).json({
+        ok: true,
+        assessment_version: GATES_ASSESSMENT_VERSION,
+        title: GATES_ASSESSMENT_TITLE,
+        instructions: GATES_ASSESSMENT_INSTRUCTIONS,
+        non_diagnostic_disclaimer: GATES_ASSESSMENT_DISCLAIMER,
+        gates: GATES,
+        questions: QUESTIONS,
+      });
+    } catch (err) {
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_questions_load_failed", reason: "server_error" }));
+      return res.status(500).json({ error: "gates assessment questions load failed" });
+    }
+  });
 
   router.post("/api/gates/auth/signup", async (req, res) => {
     const client = await pool.connect();
