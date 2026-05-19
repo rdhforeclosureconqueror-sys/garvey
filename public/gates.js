@@ -76,7 +76,7 @@
     const selected = localStorage.getItem('gatesSelectedChildId');
     const questions = await api('/api/gates/assessment/questions', { method: 'GET' });
     state.questions = questions;
-    shell('Youth Rite of Passage Assessment', `<p>${questions.instructions}</p><p>Select child first if needed: <a href="/gates/children">Child Profiles</a></p><form id="assessment-form" class="panel">${questions.questions.map((q) => `<fieldset class="panel"><legend>${q.prompt}</legend>${[1,2,3,4,5].map((v) => `<label><input type="radio" name="${q.question_id}" value="${v}"/> ${v}</label>`).join(' ')}</fieldset>`).join('')}<p class="status-message" data-assessment-status aria-live="polite"></p><button type="submit">Submit Assessment</button></form>`);
+    shell('Youth Rite of Passage Assessment', `<p>${questions.instructions}</p><p>Select child first if needed: <a href="/gates/children">Child Profiles</a></p><form id="assessment-form" class="panel">${questions.questions.map((q) => `<fieldset class="panel"><legend>${q.prompt}</legend>${(q.options || []).map((opt) => `<label><input type="radio" name="${q.question_id}" value="${opt.option_id}"/> ${opt.label}</label>`).join(' ')}</fieldset>`).join('')}<p class="status-message" data-assessment-status aria-live="polite"></p><button type="submit">Submit Assessment</button></form>`);
     document.querySelector('#assessment-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const statusEl = document.querySelector('[data-assessment-status]');
@@ -90,8 +90,8 @@
         return;
       }
 
-      const answers = questions.questions.map((q) => ({ question_id: q.question_id, answer: Number(fd.get(q.question_id)) }));
-      if (answers.some((a) => !Number.isFinite(a.answer) || a.answer < 1 || a.answer > 5)) {
+      const answers = questions.questions.map((q) => ({ question_id: q.question_id, value: String(fd.get(q.question_id) || "").trim().toLowerCase() }));
+      if (answers.some((a) => !a.value)) {
         statusEl.textContent = 'Please answer every question before submitting.';
         statusEl.className = 'status-message error';
         return;
@@ -107,8 +107,8 @@
         statusEl.textContent = 'Assessment submitted. Loading your results...';
         statusEl.className = 'status-message success';
         nav(`/gates/results/${result.assessment_id}`);
-      } catch {
-        statusEl.textContent = 'Assessment submission failed. Please try again.';
+      } catch (error) {
+        statusEl.textContent = String(error?.body?.error || 'Assessment submission failed. Please try again.');
         statusEl.className = 'status-message error';
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit Assessment';

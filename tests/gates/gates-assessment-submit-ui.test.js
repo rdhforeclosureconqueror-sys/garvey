@@ -30,7 +30,7 @@ test('assessment submit UI wiring and payload/redirect expectations are present'
     assert.match(js, /#assessment-form'\)\.addEventListener\('submit'/);
     assert.match(js, /child_id:\s*selectedChildId/);
     assert.match(js, /assessment_version:\s*questions\.assessment_version/);
-    assert.match(js, /questions\.questions\.map\(\(q\) => \(\{ question_id: q\.question_id, answer: Number\(fd\.get\(q\.question_id\)\) \}\)\)/);
+    assert.match(js, /questions\.questions\.map\(\(q\) => \(\{ question_id: q\.question_id, value: String\(fd\.get\(q\.question_id\) \|\| ""\)\.trim\(\)\.toLowerCase\(\) \}\)\)/);
     assert.match(js, /api\('\/api\/gates\/assessment\/submit'/);
     assert.match(js, /Please select a child profile before submitting the assessment\./);
     assert.match(js, /Please answer every question before submitting\./);
