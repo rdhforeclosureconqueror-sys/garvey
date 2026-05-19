@@ -14,6 +14,7 @@ const {
 } = require("../gates/gatesAssessmentQuestions");
 const { scoreGatesAssessment } = require("../gates/gatesScoring");
 const { buildGatesProfile } = require("../gates/gatesProfileBuilder");
+const { generateGatesRecommendations } = require("../gates/gatesRecommendations");
 const { ROLES } = require("./accessControl");
 const { pool: defaultPool } = require("./db");
 
@@ -387,6 +388,59 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       return res.status(500).json({ error: "gates assessment submit failed" });
     } finally {
       client.release();
+    }
+  });
+
+
+  router.get("/api/gates/children/:childId/recommendations", async (req, res) => {
+    try {
+      const sessionState = await resolveGatesSession({ req, pool });
+      if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
+
+      const child = await pool.query("SELECT id, parent_id, first_name FROM gates_child_profiles WHERE id = $1 LIMIT 1", [req.params.childId]);
+      const row = child.rows[0];
+      if (!row || Number(row.parent_id) !== Number(sessionState.parentProfile.id)) {
+        console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_recommendations_ownership_denied", parent_id: sessionState.parentProfile.id, child_id: req.params.childId }));
+        return res.status(403).json({ error: "forbidden" });
+      }
+
+      const latest = await pool.query(
+        "SELECT id, payload, created_at FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY created_at DESC LIMIT 1",
+        [sessionState.parentProfile.id, req.params.childId]
+      );
+      const latestAssessment = latest.rows[0];
+      if (!latestAssessment?.payload) return res.json({ ok: true, child_id: String(req.params.childId), recommendations: [] });
+
+      const childProfile = formatChildProfileRow(row);
+      const recommendations = generateGatesRecommendations({
+        child_id: String(req.params.childId),
+        gates_profile: latestAssessment.payload.gates_profile || {},
+        gate_scores: latestAssessment.payload.gate_scores || [],
+        current_growth_gate: latestAssessment.payload.gates_profile?.current_growth_gate?.gate_key || latestAssessment.payload.current_growth_gate || null,
+        child_age_band: childProfile.child_age_band || "",
+      });
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_recommendations_generated", child_id: req.params.childId, count: recommendations.length }));
+
+      for (const rec of recommendations) {
+        const existing = await pool.query(
+          "SELECT id FROM gates_practice_recommendations WHERE parent_id = $1 AND child_id = $2 AND recommendation_key = $3 LIMIT 1",
+          [sessionState.parentProfile.id, req.params.childId, rec.recommendation_id]
+        );
+        if (existing.rows[0]) {
+          await pool.query("UPDATE gates_practice_recommendations SET payload = $1::jsonb, updated_at = NOW() WHERE id = $2", [JSON.stringify(rec), existing.rows[0].id]);
+        } else {
+          await pool.query(
+            "INSERT INTO gates_practice_recommendations (parent_id, child_id, recommendation_key, payload, created_at, updated_at) VALUES ($1, $2, $3, $4::jsonb, NOW(), NOW())",
+            [sessionState.parentProfile.id, req.params.childId, rec.recommendation_id, JSON.stringify(rec)]
+          );
+        }
+      }
+
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_recommendations_loaded", child_id: req.params.childId, count: recommendations.length }));
+      return res.json({ ok: true, child_id: String(req.params.childId), recommendations });
+    } catch (err) {
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_recommendations_generation_failed", error: String(err?.message || err) }));
+      return res.status(500).json({ error: "gates recommendations failed" });
     }
   });
 

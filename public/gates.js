@@ -37,5 +37,15 @@
       const count = Array.isArray(gateMap) ? gateMap.length : 0;
       return `<section class="gates-map-shell" data-gates-count="${count}"></section>`;
     },
+    renderRecommendationsEmptyState() {
+      return '<section class="gates-recommendations-empty"><p>No recommendations available yet.</p></section>';
+    },
+    renderRecommendationCard(recommendation = {}) {
+      return `<article class="gates-recommendation-card" data-gate-key="${String(recommendation.gate_key || "")}"><h4>${String(recommendation.title || "")}</h4><p>${String(recommendation.description || "")}</p></article>`;
+    },
+    renderRecommendationsListShell(recommendations = []) {
+      if (!Array.isArray(recommendations) || recommendations.length === 0) return this.renderRecommendationsEmptyState();
+      return `<section class="gates-recommendations-shell">${recommendations.map((r) => this.renderRecommendationCard(r)).join("")}</section>`;
+    },
   };
 })();

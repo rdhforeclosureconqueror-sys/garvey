@@ -49,4 +49,17 @@ function renderGatesMapShell(gateMap = []) {
   return `<section class="gates-map-shell" data-gates-count="${Array.isArray(gateMap) ? gateMap.length : 0}"></section>`;
 }
 
-module.exports = { renderChildProfileList, renderChildProfileCard, renderEmptyChildrenState, renderAssessmentIntro, renderAssessmentQuestionListShell, renderAssessmentDisclaimer, renderResultsShell, renderGatesProfileSummary, renderGatesMapShell };
+function renderRecommendationsEmptyState() {
+  return '<section class="gates-recommendations-empty"><p>No recommendations available yet.</p></section>';
+}
+
+function renderRecommendationCard(recommendation = {}) {
+  return `<article class="gates-recommendation-card" data-gate-key="${escapeHtml(recommendation.gate_key || "")}"><h4>${escapeHtml(recommendation.title || "")}</h4><p>${escapeHtml(recommendation.description || "")}</p></article>`;
+}
+
+function renderRecommendationsListShell(recommendations = []) {
+  if (!Array.isArray(recommendations) || recommendations.length === 0) return renderRecommendationsEmptyState();
+  return `<section class="gates-recommendations-shell">${recommendations.map(renderRecommendationCard).join("")}</section>`;
+}
+
+module.exports = { renderChildProfileList, renderChildProfileCard, renderEmptyChildrenState, renderAssessmentIntro, renderAssessmentQuestionListShell, renderAssessmentDisclaimer, renderResultsShell, renderGatesProfileSummary, renderGatesMapShell, renderRecommendationsListShell, renderRecommendationCard, renderRecommendationsEmptyState };
