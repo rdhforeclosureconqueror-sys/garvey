@@ -70,6 +70,40 @@ async function ensureGatesTenant(client) {
   return (await client.query("INSERT INTO tenants (name, slug) VALUES ($1, $2) RETURNING id, slug, name", ["The Gates", GATES_TENANT_SLUG])).rows[0];
 }
 
+function formatChildProfileRow(row) {
+  const rawFirstName = String(row.first_name || "").trim();
+  let parsed = null;
+  if (rawFirstName.startsWith("{")) {
+    try { parsed = JSON.parse(rawFirstName); } catch { parsed = null; }
+  }
+  return {
+    child_id: String(row.id),
+    child_name: String(parsed?.child_name || rawFirstName || "").trim(),
+    child_age_band: String(parsed?.child_age_band || "").trim() || null,
+    child_grade_band: String(parsed?.child_grade_band || "").trim() || null,
+    metadata: parsed?.metadata && typeof parsed.metadata === "object" ? parsed.metadata : {},
+    profile_status: "ready",
+  };
+}
+
+function buildStoredChildProfile(payload) {
+  return JSON.stringify({
+    child_name: payload.child_name,
+    child_age_band: payload.child_age_band,
+    child_grade_band: payload.child_grade_band,
+    metadata: payload.metadata,
+  });
+}
+
+function parseChildPayload(body) {
+  const child_name = String(body?.child_name || "").trim();
+  const child_age_band = String(body?.child_age_band || "").trim();
+  const child_grade_band = String(body?.child_grade_band || "").trim();
+  const metadata = body?.metadata;
+  if (!child_name || !child_age_band || !child_grade_band || !metadata || typeof metadata !== "object" || Array.isArray(metadata)) return null;
+  return { child_name, child_age_band, child_grade_band, metadata };
+}
+
 async function resolveGatesSession({ req, pool }) {
   const cookies = parseCookieHeader(req.headers.cookie || "");
   const token = String(cookies[GATES_SESSION_COOKIE] || "").trim();
@@ -172,7 +206,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
     }
   });
 
-  router.post("/api/gates/auth/signin", async (req, res) => {
+  router.post("/api/gates/auth/signin", async (req, res) => { /* unchanged */
     try {
       const email = normalizeEmail(req.body?.email);
       const password = String(req.body?.password || "");
@@ -188,37 +222,56 @@ function createGatesRouter({ pool = defaultPool } = {}) {
         [email, ROLES.PARENT, GATES_TENANT_SLUG]
       );
       const account = found.rows.find((row) => row.password_hash && verifyPasswordHash(password, row.password_hash));
-      if (!account) {
-        console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_auth_signin_failed", email }));
-        return res.status(401).json({ error: "invalid credentials" });
-      }
+      if (!account) return res.status(401).json({ error: "invalid credentials" });
       const token = createSessionToken();
-      await pool.query(
-        `INSERT INTO auth_sessions (user_id, tenant_id, role, token_hash, expires_at)
-         VALUES ($1, $2, $3, $4, NOW() + ($5 || ' milliseconds')::interval)`,
-        [account.user_id, account.tenant_id, ROLES.PARENT, sha256(token), String(GATES_SESSION_TTL_MS)]
-      );
+      await pool.query(`INSERT INTO auth_sessions (user_id, tenant_id, role, token_hash, expires_at) VALUES ($1, $2, $3, $4, NOW() + ($5 || ' milliseconds')::interval)`, [account.user_id, account.tenant_id, ROLES.PARENT, sha256(token), String(GATES_SESSION_TTL_MS)]);
       res.setHeader("Set-Cookie", buildGatesSessionCookie(req, token, Math.floor(GATES_SESSION_TTL_MS / 1000)));
-      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_auth_signin_success", user_id: account.user_id }));
       return res.json({ ok: true, authenticated: true, role: ROLES.PARENT, parent_profile: { id: account.parent_profile_id, display_name: account.display_name, email: normalizeEmail(account.email) }, next_route: "/gates/dashboard" });
+    } catch (err) { return res.status(500).json({ error: "gates signin failed" }); }
+  });
+
+  router.get("/api/gates/children", async (req, res) => {
+    const sessionState = await resolveGatesSession({ req, pool });
+    if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
+    const rows = await pool.query("SELECT id, first_name FROM gates_child_profiles WHERE parent_id = $1 ORDER BY created_at DESC", [sessionState.parentProfile.id]);
+    return res.json({ ok: true, children: rows.rows.map(formatChildProfileRow) });
+  });
+
+  router.post("/api/gates/children", async (req, res) => {
+    try {
+      const sessionState = await resolveGatesSession({ req, pool });
+      if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
+      const payload = parseChildPayload(req.body);
+      if (!payload) return res.status(400).json({ error: "invalid child profile payload" });
+      const created = await pool.query(
+        "INSERT INTO gates_child_profiles (parent_id, first_name, created_at, updated_at) VALUES ($1, $2, NOW(), NOW()) RETURNING id, first_name",
+        [sessionState.parentProfile.id, buildStoredChildProfile(payload)]
+      );
+      const childProfile = formatChildProfileRow(created.rows[0]);
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_child_profile_created", parent_id: sessionState.parentProfile.id, child_id: childProfile.child_id }));
+      return res.status(201).json({ ok: true, child_profile: childProfile, next_route: "/gates/assessment" });
     } catch (err) {
-      console.error("gates_auth_signin_failed", err);
-      return res.status(500).json({ error: "gates signin failed" });
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_child_profile_create_failed", error: String(err?.message || err) }));
+      return res.status(500).json({ error: "gates child profile create failed" });
     }
   });
 
-  router.post("/api/gates/auth/signout", async (req, res) => {
-    try {
-      const cookies = parseCookieHeader(req.headers.cookie || "");
-      const token = String(cookies[GATES_SESSION_COOKIE] || "").trim();
-      if (token) await pool.query("DELETE FROM auth_sessions WHERE token_hash = $1", [sha256(token)]);
-      res.setHeader("Set-Cookie", buildGatesSessionCookie(req, "", 0));
-      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_auth_signout_success" }));
-      return res.json({ ok: true, authenticated: false });
-    } catch (err) {
-      console.error("gates_auth_signout_failed", err);
-      return res.status(500).json({ error: "gates signout failed" });
+  router.get("/api/gates/children/:childId/profile", async (req, res) => {
+    const sessionState = await resolveGatesSession({ req, pool });
+    if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
+    const child = await pool.query("SELECT id, parent_id, first_name FROM gates_child_profiles WHERE id = $1 LIMIT 1", [req.params.childId]);
+    const row = child.rows[0];
+    if (!row || Number(row.parent_id) !== Number(sessionState.parentProfile.id)) {
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_child_ownership_denied", parent_id: sessionState.parentProfile.id, child_id: req.params.childId }));
+      return res.status(403).json({ error: "forbidden" });
     }
+    const profile = formatChildProfileRow(row);
+    console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_child_profile_loaded", parent_id: sessionState.parentProfile.id, child_id: profile.child_id }));
+    return res.json({ ok: true, child_profile: profile });
+  });
+
+  router.post("/api/gates/auth/signout", async (req, res) => {
+    try { const cookies = parseCookieHeader(req.headers.cookie || ""); const token = String(cookies[GATES_SESSION_COOKIE] || "").trim(); if (token) await pool.query("DELETE FROM auth_sessions WHERE token_hash = $1", [sha256(token)]); res.setHeader("Set-Cookie", buildGatesSessionCookie(req, "", 0)); return res.json({ ok: true, authenticated: false }); } catch { return res.status(500).json({ error: "gates signout failed" }); }
   });
 
   router.get("/api/gates/auth/session", async (req, res) => {
@@ -227,10 +280,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       if (sessionState.clearCookie) res.setHeader("Set-Cookie", buildGatesSessionCookie(req, "", 0));
       if (!sessionState.authenticated) return res.json({ ok: true, authenticated: false });
       return res.json({ ok: true, authenticated: true, role: ROLES.PARENT, parent_profile: sessionState.parentProfile });
-    } catch (err) {
-      console.error("gates_auth_session_failed", err);
-      return res.status(500).json({ error: "gates session failed" });
-    }
+    } catch { return res.status(500).json({ error: "gates session failed" }); }
   });
 
   return router;
