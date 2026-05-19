@@ -37,4 +37,16 @@ function renderAssessmentDisclaimer(disclaimer = "") {
   return `<aside class="gates-assessment-disclaimer"><p>${escapeHtml(disclaimer)}</p></aside>`;
 }
 
-module.exports = { renderChildProfileList, renderChildProfileCard, renderEmptyChildrenState, renderAssessmentIntro, renderAssessmentQuestionListShell, renderAssessmentDisclaimer };
+function renderResultsShell() {
+  return '<section class="gates-results-shell"><div data-gates-profile-summary></div><div data-gates-map-shell></div></section>';
+}
+
+function renderGatesProfileSummary(profile = {}) {
+  return `<section class="gates-profile-summary"><p>${escapeHtml(profile.summary || "")}</p></section>`;
+}
+
+function renderGatesMapShell(gateMap = []) {
+  return `<section class="gates-map-shell" data-gates-count="${Array.isArray(gateMap) ? gateMap.length : 0}"></section>`;
+}
+
+module.exports = { renderChildProfileList, renderChildProfileCard, renderEmptyChildrenState, renderAssessmentIntro, renderAssessmentQuestionListShell, renderAssessmentDisclaimer, renderResultsShell, renderGatesProfileSummary, renderGatesMapShell };
