@@ -22,6 +22,53 @@ const GATES_SESSION_COOKIE = "gates_parent_session";
 const GATES_SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 const GATES_TENANT_SLUG = "the-gates";
 
+
+const GATES_PROGRESS_STATUSES = new Set(["not_started", "emerging", "practicing", "integrated", "revisit"]);
+const GATES_PROGRESS_GATE_DEFS = GATES.map((gate, index) => ({
+  gate_number: index + 1,
+  gate_key: String(gate.gate_key || ""),
+  name: String(gate.name || ""),
+}));
+
+function parseProgressUpdatePayload(body) {
+  const gateNumber = Number(body?.gate_number);
+  const status = String(body?.status || "").trim();
+  const progressPercent = Number(body?.progress_percent);
+  const parentNote = body?.parent_note == null ? null : String(body.parent_note);
+  const observedResponse = body?.observed_response == null ? null : String(body.observed_response);
+  const payload = body?.payload;
+
+  if (!Number.isInteger(gateNumber) || gateNumber < 1 || gateNumber > 10) return null;
+  if (!GATES_PROGRESS_STATUSES.has(status)) return null;
+  if (!Number.isFinite(progressPercent) || progressPercent < 0 || progressPercent > 100) return null;
+  if (parentNote != null && parentNote.length > 1000) return null;
+  if (observedResponse != null && observedResponse.length > 1000) return null;
+  if (payload != null && (typeof payload !== "object" || Array.isArray(payload))) return null;
+
+  return {
+    gate_number: gateNumber,
+    status,
+    progress_percent: progressPercent,
+    parent_note: parentNote,
+    observed_response: observedResponse,
+    payload: payload && typeof payload === "object" ? payload : {},
+  };
+}
+
+function buildProgressResponse(baseGate, progressRow) {
+  const value = progressRow?.progress_value && typeof progressRow.progress_value === "object" ? progressRow.progress_value : {};
+  return {
+    gate_number: baseGate.gate_number,
+    gate_key: baseGate.gate_key,
+    name: baseGate.name,
+    status: GATES_PROGRESS_STATUSES.has(String(value.status || "")) ? String(value.status) : "not_started",
+    progress_percent: Number.isFinite(Number(value.progress_percent)) ? Number(value.progress_percent) : 0,
+    current_focus: Boolean(value.current_focus),
+    last_activity_at: progressRow?.updated_at || null,
+    evidence: value.evidence && typeof value.evidence === "object" && !Array.isArray(value.evidence) ? value.evidence : {},
+  };
+}
+
 function normalizeEmail(value) {
   return String(value || "").trim().toLowerCase();
 }
@@ -386,6 +433,74 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       await client.query("ROLLBACK").catch(() => {});
       console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_submit_failed", error: String(err?.message || err) }));
       return res.status(500).json({ error: "gates assessment submit failed" });
+    } finally {
+      client.release();
+    }
+  });
+
+
+  router.get("/api/gates/children/:childId/progress", async (req, res) => {
+    try {
+      const sessionState = await resolveGatesSession({ req, pool });
+      if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
+      const child = await pool.query("SELECT id, parent_id FROM gates_child_profiles WHERE id = $1 LIMIT 1", [req.params.childId]);
+      const childRow = child.rows[0];
+      if (!childRow || Number(childRow.parent_id) !== Number(sessionState.parentProfile.id)) {
+        console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_progress_ownership_denied", parent_id: sessionState.parentProfile.id, child_id: req.params.childId }));
+        return res.status(403).json({ error: "forbidden" });
+      }
+      const rows = await pool.query("SELECT progress_key, progress_value, updated_at FROM gates_progress WHERE parent_id = $1 AND child_id = $2", [sessionState.parentProfile.id, req.params.childId]);
+      const byKey = new Map(rows.rows.map((r) => [String(r.progress_key || ""), r]));
+      const progress = GATES_PROGRESS_GATE_DEFS.map((gate) => buildProgressResponse(gate, byKey.get(gate.gate_key)));
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_progress_loaded", parent_id: sessionState.parentProfile.id, child_id: req.params.childId }));
+      return res.json({ ok: true, child_id: String(req.params.childId), progress });
+    } catch (err) {
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_progress_update_failed", child_id: req.params.childId, error: String(err?.message || err) }));
+      return res.status(500).json({ error: "gates progress load failed" });
+    }
+  });
+
+  router.post("/api/gates/children/:childId/progress", async (req, res) => {
+    const client = await pool.connect();
+    try {
+      const sessionState = await resolveGatesSession({ req, pool: client });
+      if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
+      const child = await client.query("SELECT id, parent_id FROM gates_child_profiles WHERE id = $1 LIMIT 1", [req.params.childId]);
+      const childRow = child.rows[0];
+      if (!childRow || Number(childRow.parent_id) !== Number(sessionState.parentProfile.id)) {
+        console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_progress_ownership_denied", parent_id: sessionState.parentProfile.id, child_id: req.params.childId }));
+        return res.status(403).json({ error: "forbidden" });
+      }
+      const parsed = parseProgressUpdatePayload(req.body);
+      if (!parsed) return res.status(400).json({ error: "invalid payload" });
+      const gateDef = GATES_PROGRESS_GATE_DEFS.find((gate) => gate.gate_number === parsed.gate_number);
+      if (!gateDef) return res.status(400).json({ error: "invalid payload" });
+      const nowIso = new Date().toISOString();
+      const progressValue = {
+        gate_number: parsed.gate_number,
+        gate_key: gateDef.gate_key,
+        name: gateDef.name,
+        status: parsed.status,
+        progress_percent: parsed.progress_percent,
+        current_focus: parsed.status === "practicing",
+        evidence: parsed.payload,
+      };
+      await client.query("BEGIN");
+      const existing = await client.query("SELECT id FROM gates_progress WHERE parent_id = $1 AND child_id = $2 AND progress_key = $3 LIMIT 1", [sessionState.parentProfile.id, req.params.childId, gateDef.gate_key]);
+      if (existing.rows[0]) {
+        await client.query("UPDATE gates_progress SET progress_value = $1::jsonb, updated_at = NOW() WHERE id = $2", [JSON.stringify(progressValue), existing.rows[0].id]);
+      } else {
+        await client.query("INSERT INTO gates_progress (parent_id, child_id, progress_key, progress_value, created_at, updated_at) VALUES ($1, $2, $3, $4::jsonb, NOW(), NOW())", [sessionState.parentProfile.id, req.params.childId, gateDef.gate_key, JSON.stringify(progressValue)]);
+      }
+      await client.query("INSERT INTO gates_practice_logs (parent_id, child_id, gate_key, payload, created_at, updated_at) VALUES ($1, $2, $3, $4::jsonb, NOW(), NOW())", [sessionState.parentProfile.id, req.params.childId, gateDef.gate_key, JSON.stringify({ gate_number: parsed.gate_number, status: parsed.status, progress_percent: parsed.progress_percent, parent_note: parsed.parent_note, observed_response: parsed.observed_response, payload: parsed.payload, logged_at: nowIso })]);
+      await client.query("COMMIT");
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_practice_log_created", parent_id: sessionState.parentProfile.id, child_id: req.params.childId, gate_key: gateDef.gate_key }));
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_progress_updated", parent_id: sessionState.parentProfile.id, child_id: req.params.childId, gate_key: gateDef.gate_key }));
+      return res.status(200).json({ ok: true, child_id: String(req.params.childId), gate_key: gateDef.gate_key });
+    } catch (err) {
+      await client.query("ROLLBACK").catch(() => {});
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_progress_update_failed", child_id: req.params.childId, error: String(err?.message || err) }));
+      return res.status(500).json({ error: "gates progress update failed" });
     } finally {
       client.release();
     }

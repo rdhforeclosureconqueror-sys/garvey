@@ -37,6 +37,20 @@
       const count = Array.isArray(gateMap) ? gateMap.length : 0;
       return `<section class="gates-map-shell" data-gates-count="${count}"></section>`;
     },
+
+    renderProgressMapShell(progress = []) {
+      const count = Array.isArray(progress) ? progress.length : 0;
+      return `<section class="gates-progress-map-shell" data-progress-count="${count}"></section>`;
+    },
+    renderProgressCard(entry = {}) {
+      return `<article class="gates-progress-card" data-gate-number="${String(entry.gate_number || "")}"><h4>${String(entry.name || "")}</h4><p>${String(entry.status || "not_started")}</p><p>${String(entry.progress_percent || 0)}%</p></article>`;
+    },
+    renderProgressUpdateFormShell(entry = {}) {
+      return `<form class="gates-progress-update-form" data-gate-number="${String(entry.gate_number || "")}"><textarea name="parent_note" placeholder="Parent note"></textarea><textarea name="observed_response" placeholder="Observed response"></textarea></form>`;
+    },
+    renderProgressEmptyState() {
+      return '<section class="gates-progress-empty"><p>No progress updates yet.</p></section>';
+    },
     renderRecommendationsEmptyState() {
       return '<section class="gates-recommendations-empty"><p>No recommendations available yet.</p></section>';
     },
