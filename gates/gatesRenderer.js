@@ -49,6 +49,24 @@ function renderGatesMapShell(gateMap = []) {
   return `<section class="gates-map-shell" data-gates-count="${Array.isArray(gateMap) ? gateMap.length : 0}"></section>`;
 }
 
+
+
+function renderProgressMapShell(progress = []) {
+  return `<section class="gates-progress-map-shell" data-progress-count="${Array.isArray(progress) ? progress.length : 0}"></section>`;
+}
+
+function renderProgressCard(entry = {}) {
+  return `<article class="gates-progress-card" data-gate-number="${escapeHtml(entry.gate_number || "")}"><h4>${escapeHtml(entry.name || "")}</h4><p>${escapeHtml(entry.status || "not_started")}</p><p>${escapeHtml(entry.progress_percent || 0)}%</p></article>`;
+}
+
+function renderProgressUpdateFormShell(entry = {}) {
+  return `<form class="gates-progress-update-form" data-gate-number="${escapeHtml(entry.gate_number || "")}"><textarea name="parent_note" placeholder="Parent note"></textarea><textarea name="observed_response" placeholder="Observed response"></textarea></form>`;
+}
+
+function renderProgressEmptyState() {
+  return '<section class="gates-progress-empty"><p>No progress updates yet.</p></section>';
+}
+
 function renderRecommendationsEmptyState() {
   return '<section class="gates-recommendations-empty"><p>No recommendations available yet.</p></section>';
 }
@@ -62,4 +80,4 @@ function renderRecommendationsListShell(recommendations = []) {
   return `<section class="gates-recommendations-shell">${recommendations.map(renderRecommendationCard).join("")}</section>`;
 }
 
-module.exports = { renderChildProfileList, renderChildProfileCard, renderEmptyChildrenState, renderAssessmentIntro, renderAssessmentQuestionListShell, renderAssessmentDisclaimer, renderResultsShell, renderGatesProfileSummary, renderGatesMapShell, renderRecommendationsListShell, renderRecommendationCard, renderRecommendationsEmptyState };
+module.exports = { renderChildProfileList, renderChildProfileCard, renderEmptyChildrenState, renderAssessmentIntro, renderAssessmentQuestionListShell, renderAssessmentDisclaimer, renderResultsShell, renderGatesProfileSummary, renderGatesMapShell, renderProgressMapShell, renderProgressCard, renderProgressUpdateFormShell, renderProgressEmptyState, renderRecommendationsListShell, renderRecommendationCard, renderRecommendationsEmptyState };
