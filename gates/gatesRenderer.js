@@ -25,4 +25,16 @@ function renderChildProfileList(children = []) {
   return `<section class="gates-child-list">${children.map(renderChildProfileCard).join("")}</section>`;
 }
 
-module.exports = { renderChildProfileList, renderChildProfileCard, renderEmptyChildrenState };
+function renderAssessmentIntro(payload = {}) {
+  return `<section class="gates-assessment-intro"><h2>${escapeHtml(payload.title || "")}</h2><p>${escapeHtml(payload.instructions || "")}</p></section>`;
+}
+
+function renderAssessmentQuestionListShell(questions = []) {
+  return `<section class="gates-assessment-question-shell" data-question-count="${questions.length}"></section>`;
+}
+
+function renderAssessmentDisclaimer(disclaimer = "") {
+  return `<aside class="gates-assessment-disclaimer"><p>${escapeHtml(disclaimer)}</p></aside>`;
+}
+
+module.exports = { renderChildProfileList, renderChildProfileCard, renderEmptyChildrenState, renderAssessmentIntro, renderAssessmentQuestionListShell, renderAssessmentDisclaimer };

@@ -15,5 +15,17 @@
       if (!Array.isArray(children) || children.length === 0) return this.renderEmptyState();
       return `<section class="gates-child-list">${children.map((child) => this.renderChildCard(child)).join("")}</section>`;
     },
+    renderAssessmentIntro(data = {}) {
+      const title = String(data.title || "");
+      const instructions = String(data.instructions || "");
+      return `<section class="gates-assessment-intro"><h2>${title}</h2><p>${instructions}</p></section>`;
+    },
+    renderAssessmentQuestionListShell(questions = []) {
+      const count = Array.isArray(questions) ? questions.length : 0;
+      return `<section class="gates-assessment-question-shell" data-question-count="${count}"></section>`;
+    },
+    renderAssessmentDisclaimer(disclaimer = "") {
+      return `<aside class="gates-assessment-disclaimer"><p>${String(disclaimer || "")}</p></aside>`;
+    },
   };
 })();
