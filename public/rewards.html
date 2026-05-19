@@ -1222,6 +1222,7 @@ function navigateAssessment(key) {
   if (!selected) return;
   state.selectedAssessmentKey = selected.key;
   document.getElementById("openAssessment").href = selected.href;
+  if (selected.key === "gates") logRewardsTrace("gates_assessment_entry_clicked", { href: selected.href });
   window.location.href = selected.href;
 }
 
