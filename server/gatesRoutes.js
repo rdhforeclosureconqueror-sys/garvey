@@ -205,7 +205,13 @@ async function resolveGatesSession({ req, pool }) {
 function createGatesRouter({ pool = defaultPool } = {}) {
   const router = express.Router();
 
-  router.get("/gates", (req, res) => res.sendFile(path.join(__dirname, "..", "public", "gates.html")));
+  const sendGatesShell = (req, res) => res.sendFile(path.join(__dirname, "..", "public", "gates.html"));
+  router.get("/gates", sendGatesShell);
+  router.get("/gates/signup", sendGatesShell);
+  router.get("/gates/children", sendGatesShell);
+  router.get("/gates/assessment", sendGatesShell);
+  router.get("/gates/results/:assessmentId", sendGatesShell);
+  router.get("/gates/child/:childId/gates", sendGatesShell);
 
   router.get("/api/gates/health", (req, res) => {
     console.log(JSON.stringify({ ts: new Date().toISOString(), event: "gates_health_check" }));

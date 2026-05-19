@@ -5,7 +5,6 @@ const path = require("path");
 const http = require("http");
 
 const { createGatesRouter } = require("../../server/gatesRoutes");
-const { GATES_CATALOG } = require("../../gates/gatesCatalog");
 
 async function startServer() {
   const app = express();
@@ -28,7 +27,8 @@ test("gates route shell mounts safely", async () => {
     assert.equal(gatesPage.status, 200);
     const gatesHtml = await gatesPage.text();
     assert.match(gatesHtml, /The Gates/);
-    for (const gateName of GATES_CATALOG) assert.match(gatesHtml, new RegExp(gateName));
+    assert.match(gatesHtml, /Start Youth Rite of Passage Assessment/);
+    assert.doesNotMatch(gatesHtml, /coming soon/i);
     assert.match(gatesHtml, /Non-diagnostic disclaimer/i);
 
     const coreHealth = await fetch(`${baseUrl}/health`);
