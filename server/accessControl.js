@@ -5,6 +5,7 @@ const ROLES = Object.freeze({
   BUSINESS_OWNER: "business_owner",
   STAFF_OPERATOR: "staff_operator",
   CUSTOMER: "customer",
+  PARENT: "parent",
   ANONYMOUS: "anonymous",
 });
 
@@ -27,6 +28,7 @@ const ACTIONS = Object.freeze({
   TAP_TAGS_MANAGE: "tap:tags:manage",
   TAP_TEMPLATES_MANAGE: "tap:templates:manage",
   TAP_ANALYTICS_VIEW: "tap:analytics:view",
+  GATES_AUTH_SESSION_READ: "gates:auth:session:read",
 });
 
 const POLICY_BY_ROLE = Object.freeze({
@@ -69,6 +71,12 @@ const POLICY_BY_ROLE = Object.freeze({
       ACTIONS.RESULTS_READ_CUSTOMER,
     ],
     resource_scope: "self_and_tenant_safe_only",
+  },
+  [ROLES.PARENT]: {
+    actions: [
+      ACTIONS.GATES_AUTH_SESSION_READ,
+    ],
+    resource_scope: "tenant_only",
   },
   [ROLES.ANONYMOUS]: { actions: [], resource_scope: "public_only" },
 });
