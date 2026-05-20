@@ -128,10 +128,42 @@
     }));
   }
 
+  async function resolveSelectedChildId() {
+    const fromQuery = new URLSearchParams(window.location.search).get('child_id');
+    if (fromQuery) {
+      localStorage.setItem('gatesSelectedChildId', fromQuery);
+      return String(fromQuery);
+    }
+    const childrenRes = await api('/api/gates/children', { method: 'GET' });
+    const children = childrenRes.children || [];
+    const stored = String(localStorage.getItem('gatesSelectedChildId') || '').trim();
+    if (stored && children.some((c) => String(c.child_id) === stored)) return stored;
+    const withAssessment = children.find((c) => c?.latest_assessment?.assessment_id);
+    if (withAssessment) {
+      localStorage.setItem('gatesSelectedChildId', String(withAssessment.child_id));
+      localStorage.setItem('gatesLatestAssessmentId', String(withAssessment.latest_assessment.assessment_id));
+      return String(withAssessment.child_id);
+    }
+    if (children[0]?.child_id) {
+      localStorage.setItem('gatesSelectedChildId', String(children[0].child_id));
+      return String(children[0].child_id);
+    }
+    return '';
+  }
+
   async function renderAssessment() {
     if (!state.session?.authenticated) return renderSignup(true);
-    const childFromQuery = new URLSearchParams(window.location.search).get('child_id');
-    if (childFromQuery) localStorage.setItem('gatesSelectedChildId', childFromQuery);
+    const selectedChildId = await resolveSelectedChildId();
+    if (!selectedChildId) {
+      shell('Youth Rite of Passage Assessment', '<p>Please create or select a child profile before starting an assessment.</p><p><a href="/gates/children">Go to Child Profiles</a></p>');
+      return;
+    }
+    const selectedProfile = await api(`/api/gates/children/${selectedChildId}/profile`, { method: 'GET' });
+    if (selectedProfile?.latest_assessment?.assessment_id) {
+      localStorage.setItem('gatesLatestAssessmentId', String(selectedProfile.latest_assessment.assessment_id));
+      nav(`/gates/results/${selectedProfile.latest_assessment.assessment_id}`);
+      return;
+    }
     const questions = await api('/api/gates/assessment/questions', { method: 'GET' });
     state.questions = questions;
     shell('Youth Rite of Passage Assessment', `<p>${questions.instructions}</p><p>Select child first if needed: <a href="/gates/children">Child Profiles</a></p><form id="assessment-form" class="panel">${questions.questions.map((q) => `<fieldset class="panel"><legend>${q.prompt}</legend>${(q.options || []).map((opt) => `<label><input type="radio" name="${q.question_id}" value="${opt.option_id}"/> ${opt.label}</label>`).join(' ')}</fieldset>`).join('')}<p class="status-message" data-assessment-status aria-live="polite"></p><button type="submit">Submit Assessment</button></form>`);
@@ -139,7 +171,7 @@
       e.preventDefault();
       const statusEl = document.querySelector('[data-assessment-status]');
       const submitBtn = e.target.querySelector('button[type="submit"]');
-      const selectedChildId = localStorage.getItem('gatesSelectedChildId');
+      const selectedChildId = String(localStorage.getItem('gatesSelectedChildId') || '').trim();
       const fd = new FormData(e.target);
 
       if (!selectedChildId) {
@@ -252,3 +284,4 @@
   }
   init();
 })();
+    if (p === '/gates/dashboard') return renderChildren();
