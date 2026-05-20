@@ -24,22 +24,25 @@ const EXPECTED_INDEXES = [
   'gates_practice_logs_parent_child_idx',
   'gates_story_content_story_key_idx',
   'gates_guidance_messages_guidance_key_idx',
+  'gates_progress_parent_child_key_uq',
+  'gates_practice_recommendations_parent_child_key_uq',
+  'gates_practice_logs_parent_child_gate_idx',
 ];
 
 test('GATES_MIGRATIONS define additive, non-destructive infrastructure', () => {
   assert.ok(GATES_MIGRATIONS.length > 0);
-  for (const migration of GATES_MIGRATIONS) {
+  const body = GATES_MIGRATIONS.flatMap((migration) => {
     assert.match(migration.id, /^gates-/);
-    const body = migration.statements.join('\n');
-    for (const tableName of EXPECTED_TABLES) {
-      if (tableName === 'gates_schema_migrations') continue;
-      assert.match(body, new RegExp(`CREATE TABLE IF NOT EXISTS ${tableName}`));
-    }
-    assert.doesNotMatch(body, /DROP\s+TABLE/i);
-    assert.doesNotMatch(body, /ALTER\s+TABLE\s+(?!gates_)/i);
-    assert.match(body, /CREATE UNIQUE INDEX IF NOT EXISTS gates_parent_profiles_email_lower_uq\s+ON gates_parent_profiles \(LOWER\(email\)\)/i);
-    assert.doesNotMatch(body, /UNIQUE\s*\(\s*LOWER\(email\)\s*\)/i);
+    return migration.statements;
+  }).join('\n');
+  for (const tableName of EXPECTED_TABLES) {
+    if (tableName === 'gates_schema_migrations') continue;
+    assert.match(body, new RegExp(`CREATE TABLE IF NOT EXISTS ${tableName}`));
   }
+  assert.doesNotMatch(body, /DROP\s+TABLE/i);
+  assert.doesNotMatch(body, /ALTER\s+TABLE\s+(?!gates_)/i);
+  assert.match(body, /CREATE UNIQUE INDEX IF NOT EXISTS gates_parent_profiles_email_lower_uq\s+ON gates_parent_profiles \(LOWER\(email\)\)/i);
+  assert.doesNotMatch(body, /UNIQUE\s*\(\s*LOWER\(email\)\s*\)/i);
 });
 
 test('applyGatesMigrations is repeatable and only applies pending migrations', async () => {
