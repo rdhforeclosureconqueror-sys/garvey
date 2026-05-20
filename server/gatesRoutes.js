@@ -390,6 +390,14 @@ function createGatesRouter({ pool = defaultPool } = {}) {
         created_at: latestAssessment.created_at || null,
       } : null,
       latest_gates_profile: latestAssessment?.payload?.gates_profile || null,
+      gates_profile: latestAssessment?.payload?.gates_profile || null,
+      gate_map: latestAssessment?.payload?.gate_map || null,
+      current_growth_gate: latestAssessment?.payload?.gates_profile?.growth_gate?.gate_key || null,
+      blueprint_guidance: latestAssessment?.payload?.gates_profile ? {
+        reflection_focus: latestAssessment.payload.gates_profile.reflection_focus || null,
+        observation_focus: latestAssessment.payload.gates_profile.observation_focus || null,
+        ceremony_readiness_hint: latestAssessment.payload.gates_profile.ceremony_readiness_hint || null,
+      } : null,
       latest_gate_map: latestAssessment?.payload?.gate_map || null,
     });
   });
@@ -454,7 +462,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       }
       console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_scored", child_id: childId }));
       const gatesProfile = buildGatesProfile(scored);
-      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_profile_generated", child_id: childId }));
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_stage_profile_generated", child_id: childId }));
       const assessmentId = `ga_${crypto.randomUUID().replaceAll("-", "")}`;
       const payload = {
         assessment_id: assessmentId,
@@ -541,6 +549,9 @@ function createGatesRouter({ pool = defaultPool } = {}) {
         gate_map: payload.gate_map || payload.gates_profile?.gate_map || [],
         confidence_summary: payload.confidence_summary || null,
         recommendations,
+        current_growth_gate: payload.gates_profile?.growth_gate?.gate_key || null,
+        practice_progress: [],
+        blueprint_guidance: payload.gates_profile ? { reflection_focus: payload.gates_profile.reflection_focus, observation_focus: payload.gates_profile.observation_focus, ceremony_readiness_hint: payload.gates_profile.ceremony_readiness_hint } : null,
         created_at: row.created_at || null,
       });
     } catch (err) {
@@ -564,7 +575,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       const byKey = new Map(rows.rows.map((r) => [String(r.progress_key || ""), r]));
       const progress = GATES_PROGRESS_GATE_DEFS.map((gate) => buildProgressResponse(gate, byKey.get(gate.gate_key)));
       console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_progress_loaded", parent_id: sessionState.parentProfile.id, child_id: req.params.childId }));
-      return res.json({ ok: true, child_id: String(req.params.childId), progress });
+      return res.json({ ok: true, child_id: String(req.params.childId), practice_progress: progress, progress });
     } catch (err) {
       console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_progress_update_failed", child_id: req.params.childId, error: String(err?.message || err) }));
       return res.status(500).json({ error: "gates progress load failed" });
@@ -645,7 +656,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
         current_growth_gate: latestAssessment.payload.gates_profile?.current_growth_gate?.gate_key || latestAssessment.payload.current_growth_gate || null,
         child_age_band: childProfile.child_age_band || "",
       });
-      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_recommendations_generated", child_id: req.params.childId, count: recommendations.length }));
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_blueprint_recommendations_generated", child_id: req.params.childId, count: recommendations.length }));
 
       for (const rec of recommendations) {
         const existing = await pool.query(
