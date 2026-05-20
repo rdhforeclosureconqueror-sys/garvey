@@ -1,0 +1,4 @@
+"use strict";
+const INTEGRATED_CHILD_PROFILE_CONTRACT_VERSION = "v1";
+function createBaseIntegratedProfile({ childId = null } = {}) { return { contract_version: INTEGRATED_CHILD_PROFILE_CONTRACT_VERSION, child_profile: { child_id: childId || null, child_name: null, child_age_band: null, child_grade_band: null }, gates_profile: null, identity_profile: null, tde_profile: null, integrated_summary: "Developmental context is still emerging.", emerging_strengths: [], stabilizing_gates: [], developmental_supports: [], habit_focuses: [], integration_signals: [], family_practices: [], parent_mirror_prompts: [], ceremony_readiness: { status: "not_enough_context_yet", note: "Use steady observation and family practices to watch for integration signals over time." }, source_presence: { gates: false, identity: false, tde: false } }; }
+module.exports = { INTEGRATED_CHILD_PROFILE_CONTRACT_VERSION, createBaseIntegratedProfile };
