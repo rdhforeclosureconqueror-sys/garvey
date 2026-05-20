@@ -19,6 +19,36 @@
     app.innerHTML = `<main class="gates-shell"><section class="gates-card"><h1>The Gates</h1><h2>${title}</h2><p class="disclaimer">${DISCLAIMER}</p>${bodyHtml}</section></main>`;
   }
 
+  function toList(items) {
+    if (!Array.isArray(items)) return [];
+    return items.map((item) => String(item || '').trim()).filter(Boolean);
+  }
+
+  function renderIntegratedProfilePreview(profile) {
+    const sources = profile?.source_presence || {};
+    const hasIdentitySignals = Boolean(sources.identity || profile?.identity_profile || profile?.identity_signals);
+    const hasDevelopmentalSignals = Boolean(sources.developmental_signals || profile?.developmental_signals);
+    const sourcePresence = [
+      `Gates: ${sources.gates === false ? 'Not present' : 'Present'}`,
+      `Identity: ${hasIdentitySignals ? 'Present' : 'Not present'}`,
+      `Developmental Signals: ${hasDevelopmentalSignals ? 'Present' : 'Not present'}`
+    ];
+
+    const emergingStrengths = toList(profile?.emerging_strengths || profile?.strengths);
+    const developmentalSupports = toList(profile?.developmental_supports || profile?.supports);
+    const familyPractices = toList(profile?.family_practices || profile?.recommended_practices);
+    const currentTendencies = toList(profile?.current_tendencies || profile?.tendencies);
+    const integrationSignals = toList(profile?.integration_signals);
+    const hasNonGatesSignals = hasIdentitySignals || hasDevelopmentalSignals;
+
+    const section = (label, values) => `<h4>${label}</h4>${values.length ? `<ul>${values.map((value) => `<li>${value}</li>`).join('')}</ul>` : '<p>Not available yet.</p>'}`;
+    const fallback = hasNonGatesSignals
+      ? ''
+      : '<p class="status">We currently have Gates-only integration signals. As additional integration signals become available, this preview will expand with emerging strengths, current tendencies, developmental supports, and family practices.</p>';
+
+    return `<section class="panel"><h3>Emerging Identity + Gates Insight</h3><p>This read-only preview highlights integration signals from current parent observations.</p><h4>Source presence</h4><ul>${sourcePresence.map((value) => `<li>${value}</li>`).join('')}</ul>${section('Emerging strengths', emergingStrengths)}${section('Current tendencies', currentTendencies)}${section('Developmental supports', developmentalSupports)}${section('Family practices', familyPractices)}${section('Integration signals', integrationSignals)}${fallback}</section>`;
+  }
+
   async function loadSession() {
     try { state.session = await api('/api/gates/auth/session', { method: 'GET' }); }
     catch { state.session = { authenticated: false }; }
@@ -139,8 +169,9 @@
       localStorage.setItem('gatesSelectedChildId', childId);
       localStorage.setItem('gatesLatestAssessmentId', assessmentId);
       const progress = await api(`/api/gates/children/${childId}/progress`, { method: 'GET' });
+      const integratedProfile = await api(`/api/gates/children/${childId}/integrated-profile`, { method: 'GET' }).catch(() => null);
       const growthGate = (result.gate_map || []).find((g) => g.gate_key === result.gates_profile?.growth_gate?.gate_key) || (result.gate_map || [])[0] || { gate_number: 1, name: 'Attention' };
-      shell('Current Gates Profile', `<p><strong>Child:</strong> ${result.child_name || 'Selected child'}</p><p>${result.gates_profile?.summary || ''}</p><p>${result.gates_profile?.stage_explainer || 'These stages reflect current parent observations from the assessment.'}</p><p>These reflections come from parent observation, not diagnosis.</p><h3>Strongest Gates</h3><p>${(result.gates_profile?.strongest_gates || []).join(', ') || 'Developing'}</p><h3>Growth Gate</h3><p>${result.gates_profile?.growth_gate?.name || 'Attention'} (${result.gates_profile?.growth_gate?.current_stage || 'emerging'})</p><h3>Gate Stages</h3><ol>${(result.gate_map || []).map((g) => `<li>${g.name || g.gate_key}: ${g.current_stage || 'emerging'}</li>`).join('')}</ol><h3>Blueprint Next Steps</h3><ul>${(result.recommendations || []).map((r) => `<li>${r.title}</li>`).join('') || '<li>None yet</li>'}</ul><section class="walking-gate"><h3>Walking the Gate</h3><p><strong>Current Growth Gate:</strong> ${result.gates_profile?.growth_gate?.name || 'Attention'}</p><p><strong>Why this Gate matters:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>This week's reflection:</strong> ${result.gates_profile?.reflection_focus || ''}</p><p><strong>Journal prompt:</strong> ${result.gates_profile?.journal_prompt || ''}</p><p><strong>Parent observation focus:</strong> ${result.gates_profile?.observation_focus || ''}</p><p><strong>Family practice:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>Ceremony suggestion:</strong> ${result.gates_profile?.ceremony_readiness_hint || ''}</p><p><a class="btn" href="/gates/child/${childId}/gates/${growthGate.gate_number || 1}">Begin This Gate</a> <a class="btn secondary" href="/gates/child/${childId}/gates">View Practice Progress</a></p></section><h3>Practice Progress</h3><p>Practice progress starts at 0% and grows as your family completes Gates practices.</p><ul>${(progress.progress || []).map((p) => `<li>${p.gate_number}. ${p.name}: ${p.progress_percent}% (${p.status}) <button data-gate="${p.gate_number}">+10%</button></li>`).join('')}</ul><p><a class="btn" href="/gates/child/${childId}/gates">View Progress Map</a> <a class="btn secondary" href="/gates/children">View Growth Plan</a></p>`);
+      shell('Current Gates Profile', `<p><strong>Child:</strong> ${result.child_name || 'Selected child'}</p><p>${result.gates_profile?.summary || ''}</p><p>${result.gates_profile?.stage_explainer || 'These stages reflect current parent observations from the assessment.'}</p><p>These reflections come from parent observation, not diagnosis.</p>${renderIntegratedProfilePreview(integratedProfile)}<h3>Strongest Gates</h3><p>${(result.gates_profile?.strongest_gates || []).join(', ') || 'Developing'}</p><h3>Growth Gate</h3><p>${result.gates_profile?.growth_gate?.name || 'Attention'} (${result.gates_profile?.growth_gate?.current_stage || 'emerging'})</p><h3>Gate Stages</h3><ol>${(result.gate_map || []).map((g) => `<li>${g.name || g.gate_key}: ${g.current_stage || 'emerging'}</li>`).join('')}</ol><h3>Blueprint Next Steps</h3><ul>${(result.recommendations || []).map((r) => `<li>${r.title}</li>`).join('') || '<li>None yet</li>'}</ul><section class="walking-gate"><h3>Walking the Gate</h3><p><strong>Current Growth Gate:</strong> ${result.gates_profile?.growth_gate?.name || 'Attention'}</p><p><strong>Why this Gate matters:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>This week's reflection:</strong> ${result.gates_profile?.reflection_focus || ''}</p><p><strong>Journal prompt:</strong> ${result.gates_profile?.journal_prompt || ''}</p><p><strong>Parent observation focus:</strong> ${result.gates_profile?.observation_focus || ''}</p><p><strong>Family practice:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>Ceremony suggestion:</strong> ${result.gates_profile?.ceremony_readiness_hint || ''}</p><p><a class="btn" href="/gates/child/${childId}/gates/${growthGate.gate_number || 1}">Begin This Gate</a> <a class="btn secondary" href="/gates/child/${childId}/gates">View Practice Progress</a></p></section><h3>Practice Progress</h3><p>Practice progress starts at 0% and grows as your family completes Gates practices.</p><ul>${(progress.progress || []).map((p) => `<li>${p.gate_number}. ${p.name}: ${p.progress_percent}% (${p.status}) <button data-gate="${p.gate_number}">+10%</button></li>`).join('')}</ul><p><a class="btn" href="/gates/child/${childId}/gates">View Progress Map</a> <a class="btn secondary" href="/gates/children">View Growth Plan</a></p>`);
       console.info(JSON.stringify({ event: 'gates_stage_profile_rendered', assessment_id: assessmentId, child_id: childId }));
       console.info(JSON.stringify({ event: 'gates_generic_recommendations_removed', assessment_id: assessmentId, child_id: childId }));
       console.info(JSON.stringify({ event: 'gates_walking_gate_rendered', assessment_id: assessmentId, child_id: childId }));
