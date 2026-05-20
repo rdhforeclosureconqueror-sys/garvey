@@ -1,5 +1,6 @@
 "use strict";
 const { createBaseIntegratedProfile } = require("./integrationContracts");
+const { buildDevelopmentPatternEngine } = require("./developmentPatternEngine");
 function buildIntegratedChildProfile({ childId, childProfile = null, gatesData = null, identityData = null, tdeData = null } = {}) {
   const profile = createBaseIntegratedProfile({ childId });
   if (childProfile) profile.child_profile = { child_id: childProfile.child_id || childId || null, child_name: childProfile.child_name || null, child_age_band: childProfile.child_age_band || null, child_grade_band: childProfile.child_grade_band || null };
@@ -15,6 +16,13 @@ function buildIntegratedChildProfile({ childId, childProfile = null, gatesData =
   profile.family_practices.push("Choose one shared weekly family practice and review what felt supportive.");
   profile.parent_mirror_prompts.push("What support helped this child feel more grounded this week?");
   profile.integrated_summary = "This integrated profile combines emerging tendencies with developmental supports while keeping each source system independent.";
+  profile.development_patterns = buildDevelopmentPatternEngine({
+    gatesProfile: gatesData?.gates_profile || gatesData || null,
+    practiceProgress: gatesData?.practice_progress || [],
+    habitSignals: gatesData?.habit_signals || [],
+    integratedIdentityPreview: profile,
+    parentCheckins: gatesData?.parent_checkins || [],
+  });
   return profile;
 }
 module.exports = { buildIntegratedChildProfile };

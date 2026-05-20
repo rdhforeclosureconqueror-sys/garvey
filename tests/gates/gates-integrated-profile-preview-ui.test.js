@@ -10,6 +10,7 @@ test('integrated profile preview renders with gates-only fallback copy and no fl
 
   assert.match(js, /api\(`\/api\/gates\/children\/\$\{childId\}\/integrated-profile`/);
   assert.match(js, /Emerging Identity \+ Gates Insight/);
+  assert.match(js, /Development Journey/);
   assert.match(js, /Gates-only integration signals/);
   assert.match(js, /emerging strengths, current tendencies, developmental supports, and family practices/);
   assert.match(js, /return renderLanding\(\)/);
