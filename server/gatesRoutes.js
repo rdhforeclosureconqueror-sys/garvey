@@ -460,7 +460,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
           firstInvalidValue: firstInvalid ? String(firstInvalid.value || "").trim() || null : null,
         });
       }
-      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_scored", child_id: childId }));
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_stage_scores_calculated", child_id: childId, gate_count: scored.gate_scores.length }));
       const gatesProfile = buildGatesProfile(scored);
       console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_stage_profile_generated", child_id: childId }));
       const assessmentId = `ga_${crypto.randomUUID().replaceAll("-", "")}`;
