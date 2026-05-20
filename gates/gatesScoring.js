@@ -3,11 +3,11 @@
 const { GATES, QUESTIONS } = require("./gatesAssessmentQuestions");
 
 const OPTION_WEIGHTS = Object.freeze({ rarely: 1, sometimes: 2, often: 3, consistently: 4 });
-const STATUS_BY_RATIO = Object.freeze([
-  { max: 0.25, status: "not_started" },
-  { max: 0.5, status: "emerging" },
-  { max: 0.75, status: "practicing" },
-  { max: 1, status: "integrated" },
+const STAGE_BY_RATIO = Object.freeze([
+  { max: 0.24, stage: "emerging" },
+  { max: 0.49, stage: "developing" },
+  { max: 0.74, stage: "practicing" },
+  { max: 1, stage: "integrating" },
 ]);
 
 function buildQuestionIndex() {
@@ -39,11 +39,11 @@ function validateAndNormalizeAnswers(answers) {
   return normalized;
 }
 
-function statusFromNormalized(normalizedScore) {
-  for (const entry of STATUS_BY_RATIO) {
-    if (normalizedScore <= entry.max) return entry.status;
+function stageFromNormalized(normalizedScore) {
+  for (const entry of STAGE_BY_RATIO) {
+    if (normalizedScore <= entry.max) return entry.stage;
   }
-  return "integrated";
+  return "integrating";
 }
 
 function scoreGatesAssessment(answers) {
@@ -68,7 +68,7 @@ function scoreGatesAssessment(answers) {
       raw_score: rawScore,
       max_score: maxScore,
       normalized_score: normalizedScore,
-      status: statusFromNormalized(normalizedScore),
+      current_stage: stageFromNormalized(normalizedScore),
     };
   });
 
@@ -98,4 +98,4 @@ function scoreGatesAssessment(answers) {
   };
 }
 
-module.exports = { scoreGatesAssessment, validateAndNormalizeAnswers };
+module.exports = { scoreGatesAssessment, validateAndNormalizeAnswers, stageFromNormalized };
