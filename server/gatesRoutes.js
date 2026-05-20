@@ -326,29 +326,25 @@ function createGatesRouter({ pool = defaultPool } = {}) {
     const sessionState = await resolveGatesSession({ req, pool });
     if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
     const rows = await pool.query(
-      `SELECT c.id, c.first_name,
-              a.id AS latest_assessment_id,
-              a.created_at AS latest_assessment_created_at
-       FROM gates_child_profiles c
-       LEFT JOIN LATERAL (
-         SELECT id, created_at
-         FROM gates_assessments
-         WHERE parent_id = $1 AND child_id = c.id
-         ORDER BY created_at DESC
-         LIMIT 1
-       ) a ON TRUE
-       WHERE c.parent_id = $1
-       ORDER BY c.created_at DESC`,
+      "SELECT c.id, c.first_name FROM gates_child_profiles c WHERE c.parent_id = $1",
       [sessionState.parentProfile.id]
     );
+    const children = [];
+    for (const row of rows.rows) {
+      const latest = await pool.query(
+        "SELECT id, created_at FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY created_at DESC LIMIT 1",
+        [sessionState.parentProfile.id, row.id]
+      );
+      children.push({
+        ...formatChildProfileRow(row),
+        latest_assessment: latest.rows[0]
+          ? { assessment_id: String(latest.rows[0].id), created_at: latest.rows[0].created_at || null }
+          : null,
+      });
+    }
     return res.json({
       ok: true,
-      children: rows.rows.map((row) => ({
-        ...formatChildProfileRow(row),
-        latest_assessment: row.latest_assessment_id
-          ? { assessment_id: String(row.latest_assessment_id), created_at: row.latest_assessment_created_at || null }
-          : null,
-      })),
+      children,
     });
   });
 
@@ -485,6 +481,12 @@ function createGatesRouter({ pool = defaultPool } = {}) {
         "INSERT INTO gates_assessments (parent_id, child_id, assessment_key, payload, created_at) VALUES ($1, $2, $3, $4::jsonb, NOW())",
         [sessionState.parentProfile.id, childId, assessmentVersion, JSON.stringify(payload)]
       );
+      for (const gateDef of GATES_PROGRESS_GATE_DEFS) {
+        await client.query(
+          "INSERT INTO gates_progress (parent_id, child_id, progress_key, progress_value, created_at, updated_at) VALUES ($1, $2, $3, $4::jsonb, NOW(), NOW()) ON CONFLICT (parent_id, child_id, progress_key) DO NOTHING",
+          [sessionState.parentProfile.id, childId, gateDef.gate_key, JSON.stringify({ gate_number: gateDef.gate_number, gate_key: gateDef.gate_key, name: gateDef.name, status: "not_started", progress_percent: 0, current_focus: false, evidence: {} })]
+        );
+      }
       console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_saved", assessment_id: assessmentId }));
       await client.query("COMMIT");
       console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_progress_initialized", child_id: childId }));

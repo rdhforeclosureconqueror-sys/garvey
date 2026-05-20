@@ -86,6 +86,35 @@ const GATES_MIGRATIONS = [
         ON gates_guidance_messages(guidance_key);`,
     ],
   },
+  {
+    id: "gates-002-runtime-contract-alignment",
+    statements: [
+      `ALTER TABLE gates_practice_recommendations
+        ADD COLUMN IF NOT EXISTS payload JSONB NOT NULL DEFAULT '{}'::jsonb;`,
+      `ALTER TABLE gates_practice_recommendations
+        ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW();`,
+      `UPDATE gates_practice_recommendations
+        SET payload = recommendation
+        WHERE (payload IS NULL OR payload = '{}'::jsonb)
+          AND recommendation IS NOT NULL;`,
+      `ALTER TABLE gates_practice_logs
+        ADD COLUMN IF NOT EXISTS gate_key TEXT;`,
+      `ALTER TABLE gates_practice_logs
+        ADD COLUMN IF NOT EXISTS payload JSONB NOT NULL DEFAULT '{}'::jsonb;`,
+      `ALTER TABLE gates_practice_logs
+        ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW();`,
+      `UPDATE gates_practice_logs
+        SET payload = log_data
+        WHERE (payload IS NULL OR payload = '{}'::jsonb)
+          AND log_data IS NOT NULL;`,
+      `CREATE UNIQUE INDEX IF NOT EXISTS gates_progress_parent_child_key_uq
+        ON gates_progress(parent_id, child_id, progress_key);`,
+      `CREATE UNIQUE INDEX IF NOT EXISTS gates_practice_recommendations_parent_child_key_uq
+        ON gates_practice_recommendations(parent_id, child_id, recommendation_key);`,
+      `CREATE INDEX IF NOT EXISTS gates_practice_logs_parent_child_gate_idx
+        ON gates_practice_logs(parent_id, child_id, gate_key, created_at DESC);`,
+    ],
+  },
 ];
 
 async function applyGatesMigrations(pool) {
@@ -146,6 +175,9 @@ async function verifyGatesSchema(pool) {
     "gates_practice_logs_parent_child_idx",
     "gates_story_content_story_key_idx",
     "gates_guidance_messages_guidance_key_idx",
+    "gates_progress_parent_child_key_uq",
+    "gates_practice_recommendations_parent_child_key_uq",
+    "gates_practice_logs_parent_child_gate_idx",
   ];
 
   const tableResult = await pool.query(
