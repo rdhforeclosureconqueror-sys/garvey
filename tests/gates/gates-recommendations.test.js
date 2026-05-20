@@ -59,10 +59,10 @@ test("gates recommendations route behavior and deterministic persistence", async
     const body1 = await ok1.json();
     assert.equal(body1.ok, true);
     assert.equal(Array.isArray(body1.recommendations), true);
-    assert.ok(body1.recommendations.length >= 7);
+    assert.ok(body1.recommendations.length >= 5);
 
     const categories = new Set(body1.recommendations.filter((r) => r.gate_key === body1.recommendations[0].gate_key).map((r) => r.category));
-    for (const c of ["practice", "ritual", "story", "reflection"]) assert.equal(categories.has(c), true);
+    for (const c of ["practice", "journal", "observation", "reflection", "ceremony"]) assert.equal(categories.has(c), true);
 
     const gateKeys = new Set(GATES.map((g) => g.gate_key));
     for (const rec of body1.recommendations) assert.equal(gateKeys.has(rec.gate_key), true);

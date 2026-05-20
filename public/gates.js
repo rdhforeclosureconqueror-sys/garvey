@@ -134,12 +134,14 @@
     try {
       console.info(JSON.stringify({ event: 'gates_results_viewed', assessment_id: assessmentId }));
       const result = await api(`/api/gates/assessment/${assessmentId}`, { method: 'GET' });
+      console.info(JSON.stringify({ event: 'gates_blueprint_loaded', assessment_id: assessmentId }));
       const childId = result.child_id || localStorage.getItem('gatesSelectedChildId');
       localStorage.setItem('gatesSelectedChildId', childId);
       localStorage.setItem('gatesLatestAssessmentId', assessmentId);
       const progress = await api(`/api/gates/children/${childId}/progress`, { method: 'GET' });
-      shell('Results', `<p>Assessment ID: ${assessmentId}</p><p>${result.gates_profile?.summary || ''}</p><h3>10 Gates Map Summary</h3><ol>${(result.gate_map || []).map((g) => `<li>${g.gate_name || g.name || g.gate_key}</li>`).join('')}</ol><h3>Recommendations</h3><ul>${(result.recommendations || []).map((r) => `<li>${r.title}</li>`).join('') || '<li>None yet</li>'}</ul><h3>Progress</h3><ul>${(progress.progress || []).map((p) => `<li>${p.gate_number}. ${p.name}: ${p.progress_percent}% (${p.status}) <button data-gate="${p.gate_number}">+10%</button></li>`).join('')}</ul><p><a class="btn" href="/gates/child/${childId}/gates">View Progress Map</a> <a class="btn secondary" href="/gates/children">View Growth Plan</a></p>`);
-      console.info(JSON.stringify({ event: 'gates_assessment_result_loaded', assessment_id: assessmentId, child_id: childId }));
+      shell('Current Gates Profile', `<p><strong>Child:</strong> ${result.child_name || 'Selected child'}</p><p>${result.gates_profile?.summary || ''}</p><p>These reflections come from parent observation, not diagnosis.</p><h3>Strongest Gates</h3><p>${(result.gates_profile?.strongest_gates || []).join(', ') || 'Developing'}</p><h3>Growth Gate</h3><p>${result.gates_profile?.growth_gate?.name || 'Attention'} (${result.gates_profile?.growth_gate?.current_stage || 'emerging'})</p><h3>Gate Stages</h3><ol>${(result.gate_map || []).map((g) => `<li>${g.name || g.gate_key}: ${g.current_stage || 'emerging'}</li>`).join('')}</ol><h3>Recommended Next Step</h3><ul>${(result.recommendations || []).map((r) => `<li>${r.title}</li>`).join('') || '<li>None yet</li>'}</ul><h3>Practice Progress</h3><p>Practice progress starts at 0% and grows as your family completes Gates practices.</p><ul>${(progress.progress || []).map((p) => `<li>${p.gate_number}. ${p.name}: ${p.progress_percent}% (${p.status}) <button data-gate="${p.gate_number}">+10%</button></li>`).join('')}</ul><p><a class="btn" href="/gates/child/${childId}/gates">View Progress Map</a> <a class="btn secondary" href="/gates/children">View Growth Plan</a></p>`);
+      console.info(JSON.stringify({ event: 'gates_blueprint_profile_rendered', assessment_id: assessmentId, child_id: childId }));
+      console.info(JSON.stringify({ event: 'gates_ceremony_guidance_presented', child_id: childId }));
     } catch (error) {
       console.info(JSON.stringify({ event: 'gates_results_load_failed', assessment_id: assessmentId, status: error?.status || null }));
       shell('Results unavailable', `<p>${error?.status === 401 ? "Please sign in to view your child's Gates profile." : 'We could not find that result. Return to child profile.'}</p><p><a href="/gates/children">Return to child profile</a></p>`);
@@ -156,7 +158,7 @@
   async function renderGateMap(childId) {
     if (!state.session?.authenticated) return renderSignup(true);
     const profile = await api(`/api/gates/children/${childId}/profile`, { method: 'GET' });
-    shell('Gates map', `<p>${profile.gates_profile?.summary || 'No Gates profile yet.'}</p><ol>${(profile.gates_profile?.gate_map || []).map((g) => `<li>${g.gate_name || g.name || g.gate_key}</li>`).join('')}</ol><p><a href="/gates/results/latest">Back to results</a></p>`);
+    const gp = profile.gates_profile || profile.latest_gates_profile; shell('Gates map', `<p>${gp?.summary || 'No Gates profile yet.'}</p><ol>${(gp?.gate_map || []).map((g) => `<li>${g.name || g.gate_key}: ${g.current_stage || 'emerging'}</li>`).join('')}</ol><p>Practice progress starts at 0% and grows as your family completes Gates practices.</p><p><a href="/gates/results/latest">Back to results</a></p>`);
   }
 
   async function init() {
