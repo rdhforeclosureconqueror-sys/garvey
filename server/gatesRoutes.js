@@ -16,6 +16,7 @@ const { scoreGatesAssessment } = require("../gates/gatesScoring");
 const { buildGatesProfile } = require("../gates/gatesProfileBuilder");
 const { generateGatesRecommendations } = require("../gates/gatesRecommendations");
 const { FIRST_GENERATION_BLUEPRINT } = require("../gates/firstGenerationBlueprint");
+const { loadIntegratedChildProfile } = require("../integration/identityGatesBridgeService");
 const { ROLES } = require("./accessControl");
 const { pool: defaultPool } = require("./db");
 
@@ -670,6 +671,26 @@ function createGatesRouter({ pool = defaultPool } = {}) {
   });
 
 
+
+  router.get("/api/gates/children/:childId/integrated-profile", async (req, res) => {
+    try {
+      const sessionState = await resolveGatesSession({ req, pool });
+      if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
+      const result = await loadIntegratedChildProfile({ pool, parentId: sessionState.parentProfile.id, childId: req.params.childId });
+      if (!result.ok) {
+        console.info(JSON.stringify({ ts: new Date().toISOString(), event: "integrated_child_profile_missing_sources", child_id: req.params.childId }));
+        return res.status(404).json({ error: result.error || "not_found" });
+      }
+      const presence = result.integrated_profile?.source_presence || {};
+      const count = [presence.gates, presence.identity, presence.tde].filter(Boolean).length;
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "identity_gates_bridge_composed", child_id: req.params.childId, source_count: count }));
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: count === 3 ? "integrated_child_profile_loaded" : "integrated_child_profile_partial", child_id: req.params.childId }));
+      return res.json({ ok: true, integrated_profile: result.integrated_profile });
+    } catch (err) {
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "integrated_child_profile_missing_sources", child_id: req.params.childId, error: String(err?.message || err) }));
+      return res.status(500).json({ error: "integrated_profile_load_failed" });
+    }
+  });
 
   router.get("/api/gates/children/:childId/gates/:gateNumber", async (req, res) => {
     try {
