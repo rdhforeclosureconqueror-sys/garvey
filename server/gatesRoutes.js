@@ -15,6 +15,7 @@ const {
 const { scoreGatesAssessment } = require("../gates/gatesScoring");
 const { buildGatesProfile } = require("../gates/gatesProfileBuilder");
 const { generateGatesRecommendations } = require("../gates/gatesRecommendations");
+const { FIRST_GENERATION_BLUEPRINT } = require("../gates/firstGenerationBlueprint");
 const { ROLES } = require("./accessControl");
 const { pool: defaultPool } = require("./db");
 
@@ -212,6 +213,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
   router.get("/gates/assessment", sendGatesShell);
   router.get("/gates/results/:assessmentId", sendGatesShell);
   router.get("/gates/child/:childId/gates", sendGatesShell);
+  router.get("/gates/child/:childId/gates/:gateNumber", sendGatesShell);
 
   router.get("/api/gates/health", (req, res) => {
     console.log(JSON.stringify({ ts: new Date().toISOString(), event: "gates_health_check" }));
@@ -481,20 +483,6 @@ function createGatesRouter({ pool = defaultPool } = {}) {
         [sessionState.parentProfile.id, childId, assessmentVersion, JSON.stringify(payload)]
       );
       console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_assessment_saved", assessment_id: assessmentId }));
-      for (const gate of scored.gate_scores) {
-        const existing = await client.query(
-          "SELECT id FROM gates_progress WHERE parent_id = $1 AND child_id = $2 AND progress_key = $3 LIMIT 1",
-          [sessionState.parentProfile.id, childId, gate.gate_key]
-        );
-        if (existing.rows[0]) {
-          await client.query("UPDATE gates_progress SET progress_value = $1::jsonb, updated_at = NOW() WHERE id = $2", [JSON.stringify(gate), existing.rows[0].id]);
-        } else {
-          await client.query(
-            "INSERT INTO gates_progress (parent_id, child_id, progress_key, progress_value, created_at, updated_at) VALUES ($1, $2, $3, $4::jsonb, NOW(), NOW())",
-            [sessionState.parentProfile.id, childId, gate.gate_key, JSON.stringify(gate)]
-          );
-        }
-      }
       await client.query("COMMIT");
       console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_progress_initialized", child_id: childId }));
       return res.status(201).json({ ok: true, assessment_id: assessmentId, child_id: childId, gates_profile: gatesProfile, gate_map: gatesProfile.gate_map, confidence_summary: scored.confidence_summary, next_route: `/gates/results/${assessmentId}` });
@@ -678,6 +666,31 @@ function createGatesRouter({ pool = defaultPool } = {}) {
     } catch (err) {
       console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_recommendations_generation_failed", error: String(err?.message || err) }));
       return res.status(500).json({ error: "gates recommendations failed" });
+    }
+  });
+
+
+
+  router.get("/api/gates/children/:childId/gates/:gateNumber", async (req, res) => {
+    try {
+      const sessionState = await resolveGatesSession({ req, pool });
+      if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
+      const child = await pool.query("SELECT id, parent_id, first_name FROM gates_child_profiles WHERE id = $1 LIMIT 1", [req.params.childId]);
+      const row = child.rows[0];
+      if (!row || Number(row.parent_id) !== Number(sessionState.parentProfile.id)) return res.status(403).json({ error: "forbidden" });
+      const gateNumber = Number(req.params.gateNumber);
+      const blueprint = FIRST_GENERATION_BLUEPRINT.find((g) => Number(g.gate_number) === gateNumber);
+      if (!blueprint) return res.status(404).json({ error: "gate_not_found" });
+
+      const latest = await pool.query("SELECT id, payload, created_at FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY created_at DESC LIMIT 1", [sessionState.parentProfile.id, req.params.childId]);
+      const payload = latest.rows[0]?.payload || {};
+      const gateStage = (payload.gate_map || payload.gates_profile?.gate_map || []).find((g) => Number(g.gate_number) === gateNumber) || null;
+      const progRows = await pool.query("SELECT progress_key, progress_value, updated_at FROM gates_progress WHERE parent_id = $1 AND child_id = $2", [sessionState.parentProfile.id, req.params.childId]);
+      const progressByKey = new Map(progRows.rows.map((r) => [String(r.progress_key || ""), r]));
+      const gateProgress = buildProgressResponse(GATES_PROGRESS_GATE_DEFS.find((g) => g.gate_number === gateNumber), progressByKey.get(blueprint.gate_key));
+      return res.json({ ok:true, child_id:String(req.params.childId), gate_number:gateNumber, gate_key: blueprint.gate_key, stage: gateStage?.current_stage || "emerging", gate: blueprint, practice_progress: gateProgress });
+    } catch {
+      return res.status(500).json({ error: "gates gate detail failed" });
     }
   });
 
