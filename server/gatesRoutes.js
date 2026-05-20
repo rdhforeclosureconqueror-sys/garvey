@@ -16,6 +16,7 @@ const { scoreGatesAssessment } = require("../gates/gatesScoring");
 const { buildGatesProfile } = require("../gates/gatesProfileBuilder");
 const { generateGatesRecommendations } = require("../gates/gatesRecommendations");
 const { FIRST_GENERATION_BLUEPRINT } = require("../gates/firstGenerationBlueprint");
+const { GATES_HABIT_BANK, getGateHabitByKey } = require("../gates/gatesHabitBank");
 const { loadIntegratedChildProfile } = require("../integration/identityGatesBridgeService");
 const { ROLES } = require("./accessControl");
 const { pool: defaultPool } = require("./db");
@@ -222,6 +223,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
   });
 
   router.get("/api/gates/catalog", (req, res) => res.status(200).json({ gates: GATES_CATALOG }));
+  router.get("/api/gates/habit-bank", (req, res) => res.status(200).json({ ok: true, habit_bank: GATES_HABIT_BANK }));
 
   router.get("/api/gates/assessment/questions", async (req, res) => {
     try {
@@ -689,6 +691,32 @@ function createGatesRouter({ pool = defaultPool } = {}) {
     } catch (err) {
       console.info(JSON.stringify({ ts: new Date().toISOString(), event: "integrated_child_profile_missing_sources", child_id: req.params.childId, error: String(err?.message || err) }));
       return res.status(500).json({ error: "integrated_profile_load_failed" });
+    }
+  });
+
+  router.get("/api/gates/children/:childId/habit-bank", async (req, res) => {
+    try {
+      const sessionState = await resolveGatesSession({ req, pool });
+      if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
+      const child = await pool.query("SELECT id, parent_id FROM gates_child_profiles WHERE id = $1 LIMIT 1", [req.params.childId]);
+      const childRow = child.rows[0];
+      if (!childRow || Number(childRow.parent_id) !== Number(sessionState.parentProfile.id)) return res.status(403).json({ error: "forbidden" });
+      const latest = await pool.query("SELECT payload FROM gates_assessments WHERE parent_id = $1 AND child_id = $2 ORDER BY created_at DESC LIMIT 1", [sessionState.parentProfile.id, req.params.childId]);
+      const payload = latest.rows[0]?.payload || {};
+      const gatesProfile = payload.gates_profile || {};
+      const growthGateKey = gatesProfile?.growth_gate?.gate_key || gatesProfile?.current_growth_gate?.gate_key || payload.current_growth_gate || null;
+      const integratedProfile = await loadIntegratedChildProfile({ pool, parentId: sessionState.parentProfile.id, childId: req.params.childId }).catch(() => null);
+      const prioritized = getGateHabitByKey(growthGateKey);
+      return res.json({
+        ok: true,
+        child_id: String(req.params.childId),
+        current_growth_gate: growthGateKey,
+        gates_profile: gatesProfile || null,
+        integrated_identity_preview: integratedProfile?.ok ? integratedProfile.integrated_profile : null,
+        recommended_habits: prioritized ? [prioritized, ...GATES_HABIT_BANK.filter((g) => g.gate_key !== prioritized.gate_key)] : GATES_HABIT_BANK,
+      });
+    } catch {
+      return res.status(500).json({ error: "gates child habit bank failed" });
     }
   });
 
