@@ -211,6 +211,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
   const sendGatesShell = (req, res) => res.sendFile(path.join(__dirname, "..", "public", "gates.html"));
   router.get("/gates", sendGatesShell);
   router.get("/gates/signup", sendGatesShell);
+  router.get("/gates/dashboard", sendGatesShell);
   router.get("/gates/children", sendGatesShell);
   router.get("/gates/assessment", sendGatesShell);
   router.get("/gates/results/:assessmentId", sendGatesShell);
@@ -318,7 +319,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       const token = createSessionToken();
       await pool.query(`INSERT INTO auth_sessions (user_id, tenant_id, role, token_hash, expires_at) VALUES ($1, $2, $3, $4, NOW() + ($5 || ' milliseconds')::interval)`, [account.user_id, account.tenant_id, ROLES.PARENT, sha256(token), String(GATES_SESSION_TTL_MS)]);
       res.setHeader("Set-Cookie", buildGatesSessionCookie(req, token, Math.floor(GATES_SESSION_TTL_MS / 1000)));
-      return res.json({ ok: true, authenticated: true, role: ROLES.PARENT, parent_profile: { id: account.parent_profile_id, display_name: account.display_name, email: normalizeEmail(account.email) }, next_route: "/gates/dashboard" });
+      return res.json({ ok: true, authenticated: true, role: ROLES.PARENT, parent_profile: { id: account.parent_profile_id, display_name: account.display_name, email: normalizeEmail(account.email) }, next_route: "/gates/children" });
     } catch (err) { return res.status(500).json({ error: "gates signin failed" }); }
   });
 
@@ -753,8 +754,8 @@ function createGatesRouter({ pool = defaultPool } = {}) {
     try {
       const sessionState = await resolveGatesSession({ req, pool });
       if (sessionState.clearCookie) res.setHeader("Set-Cookie", buildGatesSessionCookie(req, "", 0));
-      if (!sessionState.authenticated) return res.json({ ok: true, authenticated: false });
-      return res.json({ ok: true, authenticated: true, role: ROLES.PARENT, parent_profile: sessionState.parentProfile });
+      if (!sessionState.authenticated) return res.json({ ok: true, authenticated: false, next_route: "/gates/signup" });
+      return res.json({ ok: true, authenticated: true, role: ROLES.PARENT, parent_profile: sessionState.parentProfile, next_route: "/gates/children" });
     } catch { return res.status(500).json({ error: "gates session failed" }); }
   });
 

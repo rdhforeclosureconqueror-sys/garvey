@@ -91,7 +91,7 @@ test("gates parent auth session foundation", async () => {
     assert.equal(signinRes.status, 200);
     const signinJson = await signinRes.json();
     assert.equal(signinJson.authenticated, true);
-    assert.equal(signinJson.next_route, "/gates/dashboard");
+    assert.equal(signinJson.next_route, "/gates/children");
 
     const sessionRes = await fetch(`${baseUrl}/api/gates/auth/session`, { headers: { cookie: signinRes.headers.get("set-cookie") } });
     const sessionJson = await sessionRes.json();
