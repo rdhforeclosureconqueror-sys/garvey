@@ -85,7 +85,10 @@
       <p class="lede">Parents can now run the Youth Rite of Passage pilot flow end-to-end for their child.</p>
       <h3>10 Gates Overview</h3>
       <ol class="gate-overview">${gateList().map((x) => `<li>${x}</li>`).join('')}</ol>
-      <div class="stack"><a class="btn" href="${primaryHref}">Start Youth Rite of Passage Assessment</a><a class="btn secondary" href="/gates/signup">Parent Sign In</a></div>
+      <div class="stack" data-gates-entry-ctas>
+        <a class="btn" data-gates-cta="start" href="${primaryHref}">Start Youth Rite of Passage Assessment</a>
+        <a class="btn secondary" data-gates-cta="signin" href="/gates/signup">Parent Sign In</a>
+      </div>
     `);
   }
 
@@ -292,4 +295,3 @@
   }
   init();
 })();
-    if (p === '/gates/dashboard') return renderChildren();
