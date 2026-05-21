@@ -218,6 +218,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
   router.get("/gates/results/:assessmentId", sendGatesShell);
   router.get("/gates/child/:childId/gates", sendGatesShell);
   router.get("/gates/child/:childId/gates/:gateNumber", sendGatesShell);
+  router.get("/gates/child/:childId/reflection/:gateNumber", sendGatesShell);
 
   router.get("/api/gates/health", (req, res) => {
     console.log(JSON.stringify({ ts: new Date().toISOString(), event: "gates_health_check" }));
@@ -402,6 +403,47 @@ function createGatesRouter({ pool = defaultPool } = {}) {
         ceremony_readiness_hint: latestAssessment.payload.gates_profile.ceremony_readiness_hint || null,
       } : null,
       latest_gate_map: latestAssessment?.payload?.gate_map || null,
+    });
+  });
+
+  router.get("/api/gates/children/:childId/reflection/:gateNumber/prototype", async (req, res) => {
+    const sessionState = await resolveGatesSession({ req, pool });
+    if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
+
+    const gateNumber = Number(req.params.gateNumber);
+    if (!Number.isInteger(gateNumber) || gateNumber < 1 || gateNumber > 10) {
+      return res.status(404).json({ error: "reflection prototype not found" });
+    }
+
+    const child = await pool.query("SELECT id, parent_id, first_name FROM gates_child_profiles WHERE id = $1 LIMIT 1", [req.params.childId]);
+    if (!child.rows[0]) return res.status(404).json({ error: "reflection prototype not found" });
+    if (Number(child.rows[0].parent_id) !== Number(sessionState.parentProfile.id)) {
+      return res.status(403).json({ error: "forbidden" });
+    }
+
+    if (gateNumber !== 2) return res.status(404).json({ error: "reflection prototype not found" });
+
+    console.info(JSON.stringify({
+      ts: new Date().toISOString(),
+      event: "child_reflection_prototype_viewed",
+      parent_id: sessionState.parentProfile.id,
+      child_id: String(req.params.childId),
+      gate_number: gateNumber,
+    }));
+
+    return res.status(200).json({
+      ok: true,
+      prototype: true,
+      child_id: String(req.params.childId),
+      gate_number: 2,
+      gate_name: "Emotion",
+      world_name: "Valley of Weather",
+      intro_story: "In the Valley of Weather, feelings move like skies. We can notice them gently and let them pass.",
+      prompt: "Which weather feels closest to your feelings today?",
+      symbols: ["storm", "fog", "rain", "wind", "sunshine"],
+      followup_prompt: "What helps this weather soften?",
+      followup_options: ["breathing", "quiet", "movement", "hug", "words", "drawing"],
+      ending: "Feelings are messages, not enemies.",
     });
   });
 
