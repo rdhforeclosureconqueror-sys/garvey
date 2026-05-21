@@ -115,6 +115,37 @@ const GATES_MIGRATIONS = [
         ON gates_practice_logs(parent_id, child_id, gate_key, created_at DESC);`,
     ],
   },
+  {
+    id: "gates-003-development-timeline-foundation",
+    statements: [
+      `CREATE TABLE IF NOT EXISTS gates_development_timeline (
+        id BIGSERIAL PRIMARY KEY,
+        timeline_event_id TEXT NOT NULL,
+        child_id BIGINT REFERENCES gates_child_profiles(id) ON DELETE CASCADE,
+        parent_user_id BIGINT REFERENCES gates_parent_profiles(id) ON DELETE CASCADE,
+        event_type TEXT NOT NULL,
+        gate_number INTEGER,
+        gate_key TEXT,
+        title TEXT NOT NULL,
+        summary TEXT NOT NULL,
+        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+        source_type TEXT NOT NULL,
+        source_id TEXT,
+        occurred_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );`,
+      `CREATE UNIQUE INDEX IF NOT EXISTS gates_development_timeline_event_id_uq
+        ON gates_development_timeline (timeline_event_id);`,
+      `CREATE INDEX IF NOT EXISTS gates_development_timeline_child_occurred_idx
+        ON gates_development_timeline (child_id, occurred_at DESC);`,
+      `CREATE INDEX IF NOT EXISTS gates_development_timeline_parent_child_idx
+        ON gates_development_timeline (parent_user_id, child_id);`,
+      `CREATE INDEX IF NOT EXISTS gates_development_timeline_event_type_idx
+        ON gates_development_timeline (event_type);`,
+      `CREATE INDEX IF NOT EXISTS gates_development_timeline_gate_number_idx
+        ON gates_development_timeline (gate_number);`,
+    ],
+  },
 ];
 
 async function applyGatesMigrations(pool) {
@@ -164,6 +195,7 @@ async function verifyGatesSchema(pool) {
     "gates_practice_logs",
     "gates_story_content",
     "gates_guidance_messages",
+    "gates_development_timeline",
   ];
 
   const requiredIndexes = [
@@ -178,6 +210,11 @@ async function verifyGatesSchema(pool) {
     "gates_progress_parent_child_key_uq",
     "gates_practice_recommendations_parent_child_key_uq",
     "gates_practice_logs_parent_child_gate_idx",
+    "gates_development_timeline_event_id_uq",
+    "gates_development_timeline_child_occurred_idx",
+    "gates_development_timeline_parent_child_idx",
+    "gates_development_timeline_event_type_idx",
+    "gates_development_timeline_gate_number_idx",
   ];
 
   const tableResult = await pool.query(

@@ -13,6 +13,7 @@ const EXPECTED_TABLES = [
   'gates_practice_logs',
   'gates_story_content',
   'gates_guidance_messages',
+  'gates_development_timeline',
 ];
 
 const EXPECTED_INDEXES = [
@@ -27,6 +28,11 @@ const EXPECTED_INDEXES = [
   'gates_progress_parent_child_key_uq',
   'gates_practice_recommendations_parent_child_key_uq',
   'gates_practice_logs_parent_child_gate_idx',
+  'gates_development_timeline_event_id_uq',
+  'gates_development_timeline_child_occurred_idx',
+  'gates_development_timeline_parent_child_idx',
+  'gates_development_timeline_event_type_idx',
+  'gates_development_timeline_gate_number_idx',
 ];
 
 test('GATES_MIGRATIONS define additive, non-destructive infrastructure', () => {
