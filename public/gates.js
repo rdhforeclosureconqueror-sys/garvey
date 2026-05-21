@@ -281,6 +281,34 @@
     });
   }
 
+  async function renderReflectionPrototype(childId, gateNumber) {
+    if (!state.session?.authenticated) return renderSignup(true);
+    try {
+      const prototype = await api(`/api/gates/children/${childId}/reflection/${gateNumber}/prototype`, { method: 'GET' });
+      const symbolCards = (prototype.symbols || []).map((symbol) => `<button class="btn secondary" type="button" data-symbol="${symbol}" style="min-height:60px;text-transform:capitalize;">${symbol}</button>`).join(' ');
+      const followupCards = (prototype.followup_options || []).map((item) => `<button class="btn secondary" type="button" data-followup="${item}" style="min-height:60px;text-transform:capitalize;">${item}</button>`).join(' ');
+
+      shell(`Gate ${prototype.gate_number}: ${prototype.gate_name}`, `<section class="panel"><p><strong>World:</strong> ${prototype.world_name}</p><p>${prototype.intro_story}</p><h3>${prototype.prompt}</h3><div class="card-grid">${symbolCards}</div><div id="followup-shell" style="display:none;"><h3>${prototype.followup_prompt}</h3><div class="card-grid">${followupCards}</div><p id="ending-shell" style="display:none;"><em>${prototype.ending}</em></p></div><p><a class="btn secondary" href="/gates/child/${childId}/gates">Back to Gates Map</a></p></section>`);
+      console.info(JSON.stringify({ event: 'child_reflection_prototype_viewed', child_id: String(childId), gate_number: Number(gateNumber) }));
+
+      const memoryState = { symbol: null, followup: null };
+      app.querySelectorAll('[data-symbol]').forEach((btn) => btn.addEventListener('click', () => {
+        memoryState.symbol = btn.getAttribute('data-symbol');
+        app.querySelector('#followup-shell').style.display = 'block';
+        console.info(JSON.stringify({ event: 'child_reflection_symbol_selected', child_id: String(childId), gate_number: Number(gateNumber) }));
+      }));
+
+      app.querySelectorAll('[data-followup]').forEach((btn) => btn.addEventListener('click', () => {
+        memoryState.followup = btn.getAttribute('data-followup');
+        app.querySelector('#ending-shell').style.display = 'block';
+        console.info(JSON.stringify({ event: 'child_reflection_followup_selected', child_id: String(childId), gate_number: Number(gateNumber) }));
+      }));
+    } catch (error) {
+      const message = error?.status === 403 ? 'This child profile is not available in your account.' : 'This reflection prototype is not available yet.';
+      shell('Reflection unavailable', `<p>${message}</p><p><a href="/gates/children">Return to child profiles</a></p>`);
+    }
+  }
+
   async function init() {
     await loadSession();
     const p = window.location.pathname;
@@ -289,6 +317,7 @@
     if (p === '/gates/children') return renderChildren();
     if (p === '/gates/assessment') return renderAssessment();
     if (p.startsWith('/gates/results/')) return renderResults(p.split('/').pop());
+    if (/^\/gates\/child\/[^/]+\/reflection\/\d+$/.test(p)) { const parts = p.split('/'); return renderReflectionPrototype(parts[3], parts[5]); }
     if (/^\/gates\/child\/[^/]+\/gates\/\d+$/.test(p)) { const parts = p.split('/'); return renderGateDetail(parts[3], parts[5]); }
     if (p.startsWith('/gates/child/') && p.endsWith('/gates')) return renderGateMap(p.split('/')[3]);
     return renderLanding();
