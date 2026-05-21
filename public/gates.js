@@ -288,10 +288,18 @@
       const symbolCards = (prototype.symbols || []).map((symbol) => `<button class="btn secondary" type="button" data-symbol="${symbol}" style="min-height:60px;text-transform:capitalize;">${symbol}</button>`).join(' ');
       const followupCards = (prototype.followup_options || []).map((item) => `<button class="btn secondary" type="button" data-followup="${item}" style="min-height:60px;text-transform:capitalize;">${item}</button>`).join(' ');
 
-      shell(`Gate ${prototype.gate_number}: ${prototype.gate_name}`, `<section class="panel"><p><strong>World:</strong> ${prototype.world_name}</p><p>${prototype.intro_story}</p><h3>${prototype.prompt}</h3><div class="card-grid">${symbolCards}</div><div id="followup-shell" style="display:none;"><h3>${prototype.followup_prompt}</h3><div class="card-grid">${followupCards}</div><p id="ending-shell" style="display:none;"><em>${prototype.ending}</em></p></div><p><a class="btn secondary" href="/gates/child/${childId}/gates">Back to Gates Map</a></p></section>`);
+      shell(`Gate ${prototype.gate_number}: ${prototype.gate_name}`, `<section class="panel"><p><strong>World:</strong> ${prototype.world_name}</p><p>${prototype.intro_story}</p><p><strong>Step 1 of 2:</strong> Choose one card below.</p><h3>${prototype.prompt}</h3><div class="card-grid">${symbolCards}</div><div id="followup-shell" style="display:none;"><p><strong>Step 2 of 2:</strong> Choose one support option.</p><h3>${prototype.followup_prompt}</h3><div class="card-grid">${followupCards}</div><p id="ending-shell" style="display:none;"><em>${prototype.ending}</em></p></div><p><button class="btn secondary" type="button" id="reflection-pause">Pause</button> <a class="btn secondary" id="reflection-return-parent" href="/gates/children">Return to parent</a></p><p><a class="btn secondary" href="/gates/child/${childId}/gates">Back to Gates Map</a></p></section>`);
       console.info(JSON.stringify({ event: 'child_reflection_prototype_viewed', child_id: String(childId), gate_number: Number(gateNumber) }));
 
       const memoryState = { symbol: null, followup: null };
+      app.querySelector('#reflection-pause')?.addEventListener('click', () => {
+        console.info(JSON.stringify({ event: 'child_reflection_pause_selected', child_id: String(childId), gate_number: Number(gateNumber) }));
+        shell('Pause', `<section class="panel"><p>You can take a quiet pause any time.</p><p><a class="btn" href="/gates/child/${childId}/reflection/${gateNumber}">Continue reflection</a> <a class="btn secondary" href="/gates/children">Return to parent</a></p></section>`);
+      });
+      app.querySelector('#reflection-return-parent')?.addEventListener('click', () => {
+        console.info(JSON.stringify({ event: 'child_reflection_parent_return_selected', child_id: String(childId), gate_number: Number(gateNumber) }));
+      });
+
       app.querySelectorAll('[data-symbol]').forEach((btn) => btn.addEventListener('click', () => {
         memoryState.symbol = btn.getAttribute('data-symbol');
         app.querySelector('#followup-shell').style.display = 'block';

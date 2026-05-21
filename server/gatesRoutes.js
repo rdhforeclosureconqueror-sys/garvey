@@ -411,7 +411,40 @@ function createGatesRouter({ pool = defaultPool } = {}) {
     if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
 
     const gateNumber = Number(req.params.gateNumber);
-    if (!Number.isInteger(gateNumber) || gateNumber < 1 || gateNumber > 10) {
+    const prototypesByGate = {
+      1: {
+        gate_name: "Attention",
+        world_name: "Forest of Whispers",
+        intro_story: "In the Forest of Whispers, small signals can guide us when we notice them with care.",
+        prompt: "What is calling for your attention today?",
+        symbols: ["whisper", "bird", "path", "light", "stillness"],
+        followup_prompt: "What helps you return to the path?",
+        followup_options: ["listening", "breathing", "slowing down", "asking for help", "taking one step"],
+        ending: "What we give attention to becomes part of us.",
+      },
+      2: {
+        gate_name: "Emotion",
+        world_name: "Valley of Weather",
+        intro_story: "In the Valley of Weather, feelings move like skies. We can notice them gently and let them pass.",
+        prompt: "Which weather feels closest to your feelings today?",
+        symbols: ["storm", "fog", "rain", "wind", "sunshine"],
+        followup_prompt: "What helps this weather soften?",
+        followup_options: ["breathing", "quiet", "movement", "hug", "words", "drawing"],
+        ending: "Feelings are messages, not enemies.",
+      },
+      3: {
+        gate_name: "Choice",
+        world_name: "Crossing Paths",
+        intro_story: "At Crossing Paths, each choice is a gentle step that can shape where we go next.",
+        prompt: "Which path would you choose today?",
+        symbols: ["easy path", "brave path", "kind path", "quiet path", "helpful path"],
+        followup_prompt: "What helps you choose with care?",
+        followup_options: ["pausing", "remembering", "asking", "thinking ahead", "trying again"],
+        ending: "Every repeated choice becomes a direction.",
+      },
+    };
+
+    if (!Number.isInteger(gateNumber) || !prototypesByGate[gateNumber]) {
       return res.status(404).json({ error: "reflection prototype not found" });
     }
 
@@ -421,12 +454,10 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       return res.status(403).json({ error: "forbidden" });
     }
 
-    if (gateNumber !== 2) return res.status(404).json({ error: "reflection prototype not found" });
-
     console.info(JSON.stringify({
       ts: new Date().toISOString(),
       event: "child_reflection_prototype_viewed",
-      parent_id: sessionState.parentProfile.id,
+      parent_user_id: sessionState.parentProfile.id,
       child_id: String(req.params.childId),
       gate_number: gateNumber,
     }));
@@ -435,15 +466,8 @@ function createGatesRouter({ pool = defaultPool } = {}) {
       ok: true,
       prototype: true,
       child_id: String(req.params.childId),
-      gate_number: 2,
-      gate_name: "Emotion",
-      world_name: "Valley of Weather",
-      intro_story: "In the Valley of Weather, feelings move like skies. We can notice them gently and let them pass.",
-      prompt: "Which weather feels closest to your feelings today?",
-      symbols: ["storm", "fog", "rain", "wind", "sunshine"],
-      followup_prompt: "What helps this weather soften?",
-      followup_options: ["breathing", "quiet", "movement", "hug", "words", "drawing"],
-      ending: "Feelings are messages, not enemies.",
+      gate_number: gateNumber,
+      ...prototypesByGate[gateNumber],
     });
   });
 
