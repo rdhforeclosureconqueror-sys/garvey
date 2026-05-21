@@ -2,6 +2,8 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const express = require("express");
 const http = require("http");
+const fs = require("fs");
+const path = require("path");
 
 const { createGatesRouter } = require("../../server/gatesRoutes");
 
@@ -76,38 +78,57 @@ async function signupAndCookie(baseUrl, email) {
   return signin.headers.get("set-cookie");
 }
 
-test("gates child reflection prototype route shell and safeguards", async () => {
+test("gates child reflection runtime supports gates 1-3 with safe shell", async () => {
   const { server, baseUrl } = await startServer();
   try {
-    const shell = await fetch(`${baseUrl}/gates/child/1/reflection/2`);
-    assert.equal(shell.status, 200);
-
-    const unauth = await fetch(`${baseUrl}/api/gates/children/1/reflection/2/prototype`);
+    const unauth = await fetch(`${baseUrl}/api/gates/children/1/reflection/1/prototype`);
     assert.equal(unauth.status, 401);
 
     const cookie1 = await signupAndCookie(baseUrl, "parent1@example.com");
     const childCreate = await fetch(`${baseUrl}/api/gates/children`, { method: "POST", headers: { "content-type": "application/json", cookie: cookie1 }, body: JSON.stringify({ child_name: "Sky", child_age_band: "7-9", child_grade_band: "2-3", metadata: { source: "test" } }) });
     const childId = (await childCreate.json()).child_profile.child_id;
 
-    const reflection = await fetch(`${baseUrl}/api/gates/children/${childId}/reflection/2/prototype`, { headers: { cookie: cookie1 } });
-    assert.equal(reflection.status, 200);
-    const reflectionJson = await reflection.json();
-    assert.equal(reflectionJson.world_name, "Valley of Weather");
-    assert.deepEqual(reflectionJson.symbols, ["storm", "fog", "rain", "wind", "sunshine"]);
-    const reflectionBlob = JSON.stringify(reflectionJson).toLowerCase();
-    assert.equal(reflectionBlob.includes("score"), false);
-    assert.equal(reflectionBlob.includes("correct"), false);
-    assert.equal(reflectionBlob.includes("incorrect"), false);
+    const gateChecks = [
+      { gate: 1, world: "Forest of Whispers", symbols: ["whisper", "bird", "path", "light", "stillness"] },
+      { gate: 2, world: "Valley of Weather", symbols: ["storm", "fog", "rain", "wind", "sunshine"] },
+      { gate: 3, world: "Crossing Paths", symbols: ["easy path", "brave path", "kind path", "quiet path", "helpful path"] },
+    ];
 
-    const invalidGate = await fetch(`${baseUrl}/api/gates/children/${childId}/reflection/11/prototype`, { headers: { cookie: cookie1 } });
+    for (const check of gateChecks) {
+      const reflection = await fetch(`${baseUrl}/api/gates/children/${childId}/reflection/${check.gate}/prototype`, { headers: { cookie: cookie1 } });
+      assert.equal(reflection.status, 200);
+      const reflectionJson = await reflection.json();
+      assert.equal(reflectionJson.world_name, check.world);
+      assert.deepEqual(reflectionJson.symbols, check.symbols);
+      const blob = JSON.stringify(reflectionJson).toLowerCase();
+      assert.equal(blob.includes("score"), false);
+      assert.equal(blob.includes("correct"), false);
+      assert.equal(blob.includes("incorrect"), false);
+      assert.equal(blob.includes("fail"), false);
+    }
+
+    const invalidGate = await fetch(`${baseUrl}/api/gates/children/${childId}/reflection/4/prototype`, { headers: { cookie: cookie1 } });
     assert.equal(invalidGate.status, 404);
 
     const cookie2 = await signupAndCookie(baseUrl, "parent2@example.com");
     const forbidden = await fetch(`${baseUrl}/api/gates/children/${childId}/reflection/2/prototype`, { headers: { cookie: cookie2 } });
     assert.equal(forbidden.status, 403);
 
-    const missingChild = await fetch(`${baseUrl}/api/gates/children/999/reflection/2/prototype`, { headers: { cookie: cookie1 } });
-    assert.equal(missingChild.status, 404);
+    const shell = await fetch(`${baseUrl}/gates/child/${childId}/reflection/2`);
+    const shellText = await shell.text();
+    assert.equal(shell.status, 200);
+    assert.match(shellText, /gates\.js/);
+
+    const runtimeText = fs.readFileSync(path.join(__dirname, "../../public/gates.js"), "utf8");
+    assert.match(runtimeText, /Pause/);
+    assert.match(runtimeText, /Return to parent/);
+
+    const persistenceRoute = await fetch(`${baseUrl}/api/gates/children/${childId}/reflection/2/prototype`, {
+      method: "POST",
+      headers: { "content-type": "application/json", cookie: cookie1 },
+      body: JSON.stringify({ selected_symbol: "storm" }),
+    });
+    assert.equal(persistenceRoute.status, 404);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
