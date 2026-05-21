@@ -18,6 +18,7 @@ const { generateGatesRecommendations } = require("../gates/gatesRecommendations"
 const { FIRST_GENERATION_BLUEPRINT } = require("../gates/firstGenerationBlueprint");
 const { GATES_HABIT_BANK, getGateHabitByKey } = require("../gates/gatesHabitBank");
 const { loadIntegratedChildProfile } = require("../integration/identityGatesBridgeService");
+const { recordDevelopmentTimelineEvent, listDevelopmentTimeline, summarizeTimelineForChild } = require("../gates/gatesDevelopmentTimeline");
 const { ROLES } = require("./accessControl");
 const { pool: defaultPool } = require("./db");
 
@@ -482,6 +483,8 @@ function createGatesRouter({ pool = defaultPool } = {}) {
         "INSERT INTO gates_assessments (parent_id, child_id, assessment_key, payload, created_at) VALUES ($1, $2, $3, $4::jsonb, NOW())",
         [sessionState.parentProfile.id, childId, assessmentVersion, JSON.stringify(payload)]
       );
+      await recordDevelopmentTimelineEvent(client, { child_id: childId, parent_user_id: sessionState.parentProfile.id, event_type: "assessment_completed", title: "Gates assessment completed", summary: "A new Gates profile was created from parent observations.", source_type: "assessment_submit", source_id: assessmentId });
+      await recordDevelopmentTimelineEvent(client, { child_id: childId, parent_user_id: sessionState.parentProfile.id, event_type: "growth_gate_selected", gate_number: gatesProfile?.growth_gate?.gate_number || null, gate_key: gatesProfile?.growth_gate?.gate_key || null, title: `Growth Gate identified: ${gatesProfile?.growth_gate?.name || "Attention"}`, summary: `${gatesProfile?.growth_gate?.name || "Attention"} became the current focus for Walking the Gate.`, source_type: "assessment_submit", source_id: assessmentId });
       for (const gateDef of GATES_PROGRESS_GATE_DEFS) {
         await client.query(
           "INSERT INTO gates_progress (parent_id, child_id, progress_key, progress_value, created_at, updated_at) VALUES ($1, $2, $3, $4::jsonb, NOW(), NOW()) ON CONFLICT (parent_id, child_id, progress_key) DO NOTHING",
@@ -609,6 +612,7 @@ function createGatesRouter({ pool = defaultPool } = {}) {
         await client.query("INSERT INTO gates_progress (parent_id, child_id, progress_key, progress_value, created_at, updated_at) VALUES ($1, $2, $3, $4::jsonb, NOW(), NOW())", [sessionState.parentProfile.id, req.params.childId, gateDef.gate_key, JSON.stringify(progressValue)]);
       }
       await client.query("INSERT INTO gates_practice_logs (parent_id, child_id, gate_key, payload, created_at, updated_at) VALUES ($1, $2, $3, $4::jsonb, NOW(), NOW())", [sessionState.parentProfile.id, req.params.childId, gateDef.gate_key, JSON.stringify({ gate_number: parsed.gate_number, status: parsed.status, progress_percent: parsed.progress_percent, parent_note: parsed.parent_note, observed_response: parsed.observed_response, payload: parsed.payload, logged_at: nowIso })]);
+      await recordDevelopmentTimelineEvent(client, { child_id: req.params.childId, parent_user_id: sessionState.parentProfile.id, event_type: "practice_progress_updated", gate_number: parsed.gate_number, gate_key: gateDef.gate_key, title: "Practice progress updated", summary: "A family practice moment was recorded for this Gate.", source_type: "practice_progress_update", source_id: `${req.params.childId}:${gateDef.gate_key}:${parsed.progress_percent}` });
       await client.query("COMMIT");
       console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_practice_log_created", parent_id: sessionState.parentProfile.id, child_id: req.params.childId, gate_key: gateDef.gate_key }));
       console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_progress_updated", parent_id: sessionState.parentProfile.id, child_id: req.params.childId, gate_key: gateDef.gate_key }));
@@ -672,6 +676,25 @@ function createGatesRouter({ pool = defaultPool } = {}) {
     } catch (err) {
       console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_recommendations_generation_failed", error: String(err?.message || err) }));
       return res.status(500).json({ error: "gates recommendations failed" });
+    }
+  });
+
+  router.get("/api/gates/children/:childId/timeline", async (req, res) => {
+    try {
+      const sessionState = await resolveGatesSession({ req, pool });
+      if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
+      const child = await pool.query("SELECT id, parent_id FROM gates_child_profiles WHERE id = $1 LIMIT 1", [req.params.childId]);
+      if (!child.rows[0] || Number(child.rows[0].parent_id) !== Number(sessionState.parentProfile.id)) {
+        console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_timeline_ownership_denied", child_id: req.params.childId, parent_user_id: sessionState.parentProfile.id }));
+        return res.status(403).json({ error: "forbidden" });
+      }
+      const timeline = await listDevelopmentTimeline(pool, { child_id: req.params.childId, parent_user_id: sessionState.parentProfile.id, limit: 5 });
+      const summary = summarizeTimelineForChild(timeline);
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_timeline_loaded", child_id: req.params.childId, parent_user_id: sessionState.parentProfile.id }));
+      return res.status(200).json({ ok: true, child_id: String(req.params.childId), timeline, summary });
+    } catch (err) {
+      console.info(JSON.stringify({ ts: new Date().toISOString(), event: "gates_timeline_load_failed", child_id: req.params.childId, error: String(err?.message || err) }));
+      return res.status(500).json({ error: "gates timeline load failed" });
     }
   });
 
