@@ -3,6 +3,21 @@
   const app = document.querySelector('[data-gates-app]');
   const state = { session: null, children: [], selectedChildId: null, questions: null, lastResult: null };
 
+  const GATE_KEY_BY_NUMBER = ["attention", "emotion", "choice", "body", "discipline", "truth", "repair", "creation", "community", "legacy"];
+  const GATE_PRACTICE_GAME_DISCLAIMER = "These games are optional developmental practices. They are not tests, grades, or diagnoses.";
+  const GATE_PRACTICE_GAMES = [
+    { title: "Rhythm Race", what_it_practices: "sustained attention, timing control, and self-regulation under pace", supported_gates: ["attention", "body", "discipline"], suggested_duration: "6-10 minutes", observation_signals: ["Returns attention to the beat after a miss.", "Keeps movements coordinated with rhythm changes."], parent_reflection_prompt: "What helped your child return to focus when rhythm changed?" },
+    { title: "Visual Memory", what_it_practices: "working memory, visual recall, and pattern tracking", supported_gates: ["attention", "truth", "creation"], suggested_duration: "8-12 minutes", observation_signals: ["Describes a memory strategy aloud.", "Stays engaged after an incorrect attempt."], parent_reflection_prompt: "What memory strategy seemed to help today?" },
+    { title: "Picture Puzzle", what_it_practices: "problem solving, planning, and visual-spatial organization", supported_gates: ["choice", "discipline", "creation"], suggested_duration: "10-15 minutes", observation_signals: ["Breaks puzzle into manageable steps.", "Persists after a failed fit."], parent_reflection_prompt: "What did persistence look like in this activity?" },
+    { title: "Brick Burst", what_it_practices: "response inhibition, focus switching, and frustration recovery", supported_gates: ["attention", "emotion", "discipline"], suggested_duration: "8-12 minutes", observation_signals: ["Resets calmly after missing a target.", "Adjusts pace when speed increases."], parent_reflection_prompt: "How did your child recover after a mistake?" },
+    { title: "Freeze Runner", what_it_practices: "inhibitory control and start-stop regulation", supported_gates: ["attention", "body", "discipline"], suggested_duration: "5-8 minutes", observation_signals: ["Stops quickly on cue.", "Waits for restart signal without rushing."], parent_reflection_prompt: "What helped your child pause before acting?" },
+    { title: "Distraction Defender", what_it_practices: "selective attention and distractor filtering", supported_gates: ["attention", "truth", "discipline"], suggested_duration: "7-10 minutes", observation_signals: ["Returns to task after distraction.", "Names distraction and refocuses."], parent_reflection_prompt: "What refocus strategy was most effective today?" },
+    { title: "Plasma Hold", what_it_practices: "steady control, impulse management, and patient effort", supported_gates: ["body", "discipline", "legacy"], suggested_duration: "6-9 minutes", observation_signals: ["Maintains steady control over time.", "Recovers composure after losing hold."], parent_reflection_prompt: "What signs of self-control stood out during steady-hold moments?" },
+    { title: "Calm Reactor", what_it_practices: "emotional regulation and pause-and-choose responses", supported_gates: ["emotion", "choice", "repair"], suggested_duration: "6-10 minutes", observation_signals: ["Uses a pause before reacting.", "Recovers after high-intensity moments."], parent_reflection_prompt: "When did your child choose calm over speed?" },
+    { title: "Switch Matrix", what_it_practices: "cognitive flexibility and adaptive rule switching", supported_gates: ["choice", "truth", "creation"], suggested_duration: "8-12 minutes", observation_signals: ["Adapts when rules change.", "Improves accuracy after early mismatches."], parent_reflection_prompt: "How did your child handle unexpected rule changes?" }
+  ];
+
+
   function nav(path) { window.location.assign(path); }
   function gateList() {
     return ["Attention", "Emotion", "Choice", "Body", "Discipline", "Truth", "Repair", "Creation", "Community", "Legacy"];
@@ -265,6 +280,14 @@
     }));
   }
 
+
+  function renderGatePracticeGames(gate) {
+    const gateKey = GATE_KEY_BY_NUMBER[Number(gate?.gate_number || 0) - 1] || String(gate?.gate_key || "").trim().toLowerCase();
+    const games = GATE_PRACTICE_GAMES.filter((game) => game.supported_gates.includes(gateKey));
+    if (!games.length) return "";
+    return `<section class="panel"><h3>Gate Practice Games</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p>${games.map((game) => `<article class="panel gate-practice-game"><h4>${game.title}</h4><p><strong>What it practices:</strong> ${game.what_it_practices}</p><p><strong>Which Gate it supports:</strong> ${gate.name}</p><p><strong>Suggested duration:</strong> ${game.suggested_duration}</p><h5>Observation signals</h5><ul>${(game.observation_signals || []).map((signal) => `<li>${signal}</li>`).join("")}</ul><p><strong>Parent reflection prompt:</strong> ${game.parent_reflection_prompt}</p></article>`).join("")}</section>`;
+  }
+
   async function renderGateMap(childId) {
     if (!state.session?.authenticated) return renderSignup(true);
     const profile = await api(`/api/gates/children/${childId}/profile`, { method: 'GET' });
@@ -290,7 +313,7 @@
     const growthHabit = (habitBank?.recommended_habits || []).find((item) => Number(item.gate_number) === Number(gateNumber)) || (habitBank?.recommended_habits || [])[0] || null;
     const gate = detail.gate || {};
     const p = detail.practice_progress || { progress_percent: 0, status: 'not_started' };
-    shell(`Gate ${gate.gate_number}: ${gate.name}`, `<p><strong>Current stage:</strong> ${detail.stage}</p>${renderGrowthSignalsPanel(growthHabit, "detail")}<h3>Core lesson</h3><p>${gate.core_lesson || ''}</p><h3>Child learning statement</h3><p>${gate.child_learning_statement || ''}</p><h3>Reflection questions</h3><ul>${(gate.reflection_questions || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Journal prompts</h3><ul>${(gate.journal_prompts || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Developing signs</h3><ul>${(gate.developing_signs || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Integration signs</h3><ul>${(gate.integration_signs || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Ceremony</h3><p>${gate.ceremony || ''}</p>${renderChildReflectionCta(childId, gate.gate_number)}<h3>Practice progress</h3><p>${p.progress_percent}% (${p.status})</p><p><button class="btn" id="progress-plus">+10% Practice</button> <a class="btn secondary" href="/gates/child/${childId}/gates">Back to Gates Map</a></p>`);
+    shell(`Gate ${gate.gate_number}: ${gate.name}`, `<p><strong>Current stage:</strong> ${detail.stage}</p>${renderGrowthSignalsPanel(growthHabit, "detail")}<h3>Core lesson</h3><p>${gate.core_lesson || ''}</p><h3>Child learning statement</h3><p>${gate.child_learning_statement || ''}</p><h3>Reflection questions</h3><ul>${(gate.reflection_questions || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Journal prompts</h3><ul>${(gate.journal_prompts || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Developing signs</h3><ul>${(gate.developing_signs || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Integration signs</h3><ul>${(gate.integration_signs || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Ceremony</h3><p>${gate.ceremony || ''}</p>${renderGatePracticeGames(gate)}${renderChildReflectionCta(childId, gate.gate_number)}<h3>Practice progress</h3><p>${p.progress_percent}% (${p.status})</p><p><button class="btn" id="progress-plus">+10% Practice</button> <a class="btn secondary" href="/gates/child/${childId}/gates">Back to Gates Map</a></p>`);
     app.querySelectorAll('[data-child-reflection-entry="true"]').forEach((link) => link.addEventListener('click', () => {
       console.info(JSON.stringify({ event: 'child_reflection_entry_clicked', child_id: String(link.getAttribute('data-child-id') || ''), gate_number: Number(link.getAttribute('data-gate-number') || 0) || null }));
     }));
