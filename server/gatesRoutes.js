@@ -21,6 +21,7 @@ const { loadIntegratedChildProfile } = require("../integration/identityGatesBrid
 const { recordDevelopmentTimelineEvent, listDevelopmentTimeline, summarizeTimelineForChild } = require("../gates/gatesDevelopmentTimeline");
 const { ROLES } = require("./accessControl");
 const { pool: defaultPool } = require("./db");
+const { GATES_PRACTICE_GAME_REGISTRY, GATES_PRACTICE_GAME_DISCLAIMER } = require("../gates/gatesPracticeGameRegistry");
 
 const GATES_SESSION_COOKIE = "gates_parent_session";
 const GATES_SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7;
@@ -219,6 +220,21 @@ function createGatesRouter({ pool = defaultPool } = {}) {
   router.get("/gates/child/:childId/gates", sendGatesShell);
   router.get("/gates/child/:childId/gates/:gateNumber", sendGatesShell);
   router.get("/gates/child/:childId/reflection/:gateNumber", sendGatesShell);
+  router.get("/gates/practice-games", sendGatesShell);
+  router.get("/gates/practice-games/:gameKey", sendGatesShell);
+
+  router.get("/gates/child/:childId/practice-games/:gameKey", async (req, res) => {
+    try {
+      const sessionState = await resolveGatesSession({ req, pool });
+      if (!sessionState.authenticated) return res.status(401).send("Sign in required");
+      const childId = String(req.params.childId || "").trim();
+      const rows = await pool.query(`SELECT cp.id FROM child_profiles cp JOIN gates_parent_profiles gp ON gp.user_id = cp.parent_id WHERE cp.id = $1 AND gp.id = $2 LIMIT 1`, [childId, sessionState.parentProfile.id]);
+      if (!rows.rows[0]) return res.status(403).send("Forbidden");
+      return sendGatesShell(req, res);
+    } catch {
+      return res.status(500).send("Server error");
+    }
+  });
 
   router.get("/api/gates/health", (req, res) => {
     console.log(JSON.stringify({ ts: new Date().toISOString(), event: "gates_health_check" }));
@@ -226,6 +242,9 @@ function createGatesRouter({ pool = defaultPool } = {}) {
   });
 
   router.get("/api/gates/catalog", (req, res) => res.status(200).json({ gates: GATES_CATALOG }));
+  router.get("/api/gates/practice-games", (req, res) =>
+    res.status(200).json({ ok: true, disclaimer: GATES_PRACTICE_GAME_DISCLAIMER, games: GATES_PRACTICE_GAME_REGISTRY })
+  );
   router.get("/api/gates/habit-bank", (req, res) => res.status(200).json({ ok: true, habit_bank: GATES_HABIT_BANK }));
 
   router.get("/api/gates/assessment/questions", async (req, res) => {

@@ -113,6 +113,7 @@
       <div class="stack" data-gates-entry-ctas>
         <a class="btn" data-gates-cta="start" href="${primaryHref}">Start Youth Rite of Passage Assessment</a>
         <a class="btn secondary" data-gates-cta="signin" href="/gates/signup">Parent Sign In</a>
+        <a class="btn secondary" href="/gates/practice-games">Explore Practice Games</a>
       </div>
     `);
   }
@@ -259,7 +260,7 @@
       const habitBank = await api(`/api/gates/children/${childId}/habit-bank`, { method: 'GET' }).catch(() => null);
       const growthHabit = (habitBank?.recommended_habits || [])[0] || null;
       const growthGate = (result.gate_map || []).find((g) => g.gate_key === result.gates_profile?.growth_gate?.gate_key) || (result.gate_map || [])[0] || { gate_number: 1, name: 'Attention' };
-      shell('Current Gates Profile', `<p><strong>Child:</strong> ${result.child_name || 'Selected child'}</p><p>${result.gates_profile?.summary || ''}</p><p>${result.gates_profile?.stage_explainer || 'These stages reflect current parent observations from the assessment.'}</p><p>These reflections come from parent observation, not diagnosis.</p>${renderGrowthSignalsPanel(growthHabit, "results")}<h3>Strongest Gates</h3><p>${(result.gates_profile?.strongest_gates || []).join(', ') || 'Developing'}</p><h3>Growth Gate</h3><p>${result.gates_profile?.growth_gate?.name || 'Attention'} (${result.gates_profile?.growth_gate?.current_stage || 'emerging'})</p><h3>Gate Stages</h3><ol>${(result.gate_map || []).map((g) => `<li>${g.name || g.gate_key}: ${g.current_stage || 'emerging'}</li>`).join('')}</ol><h3>Blueprint Next Steps</h3><ul>${(result.recommendations || []).map((r) => `<li>${r.title}</li>`).join('') || '<li>None yet</li>'}</ul><section class="walking-gate"><h3>Walking the Gate</h3><p><strong>Current Growth Gate:</strong> ${result.gates_profile?.growth_gate?.name || 'Attention'}</p><p><strong>Why this Gate matters:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>This week's reflection:</strong> ${result.gates_profile?.reflection_focus || ''}</p><p><strong>Journal prompt:</strong> ${result.gates_profile?.journal_prompt || ''}</p><p><strong>Parent observation focus:</strong> ${result.gates_profile?.observation_focus || ''}</p><p><strong>Family practice:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>Ceremony suggestion:</strong> ${result.gates_profile?.ceremony_readiness_hint || ''}</p>${renderChildReflectionCta(childId, growthGate.gate_number)}<p><a class="btn" href="/gates/child/${childId}/gates/${growthGate.gate_number || 1}">Begin This Gate</a> <a class="btn secondary" href="/gates/child/${childId}/gates">View Practice Progress</a></p></section><h3>Practice Progress</h3><p>Practice progress starts at 0% and grows as your family completes Gates practices.</p><ul>${(progress.progress || []).map((p) => `<li>${p.gate_number}. ${p.name}: ${p.progress_percent}% (${p.status}) <button data-gate="${p.gate_number}">+10%</button></li>`).join('')}</ul>${renderDevelopmentJourney(integratedProfile?.development_patterns)}${renderDevelopmentTimeline(timeline)}${renderIntegratedProfilePreview(integratedProfile)}<p><a class="btn" href="/gates/child/${childId}/gates">View Progress Map</a> <a class="btn secondary" href="/gates/children">View Growth Plan</a></p>`);
+      shell('Current Gates Profile', `<p><strong>Child:</strong> ${result.child_name || 'Selected child'}</p><p>${result.gates_profile?.summary || ''}</p><p>${result.gates_profile?.stage_explainer || 'These stages reflect current parent observations from the assessment.'}</p><p>These reflections come from parent observation, not diagnosis.</p>${renderGrowthSignalsPanel(growthHabit, "results")}<h3>Strongest Gates</h3><p>${(result.gates_profile?.strongest_gates || []).join(', ') || 'Developing'}</p><h3>Growth Gate</h3><p>${result.gates_profile?.growth_gate?.name || 'Attention'} (${result.gates_profile?.growth_gate?.current_stage || 'emerging'})</p><h3>Gate Stages</h3><ol>${(result.gate_map || []).map((g) => `<li>${g.name || g.gate_key}: ${g.current_stage || 'emerging'}</li>`).join('')}</ol><p><a class="btn secondary" href="/gates/practice-games">Gate Practice Games</a> Explore optional developmental games that support attention, emotion, choice, discipline, and more.</p><h3>Blueprint Next Steps</h3><ul>${(result.recommendations || []).map((r) => `<li>${r.title}</li>`).join('') || '<li>None yet</li>'}</ul><section class="walking-gate"><h3>Walking the Gate</h3><p><strong>Current Growth Gate:</strong> ${result.gates_profile?.growth_gate?.name || 'Attention'}</p><p><strong>Why this Gate matters:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>This week's reflection:</strong> ${result.gates_profile?.reflection_focus || ''}</p><p><strong>Journal prompt:</strong> ${result.gates_profile?.journal_prompt || ''}</p><p><strong>Parent observation focus:</strong> ${result.gates_profile?.observation_focus || ''}</p><p><strong>Family practice:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>Ceremony suggestion:</strong> ${result.gates_profile?.ceremony_readiness_hint || ''}</p>${renderChildReflectionCta(childId, growthGate.gate_number)}<p><a class="btn" href="/gates/child/${childId}/gates/${growthGate.gate_number || 1}">Begin This Gate</a> <a class="btn secondary" href="/gates/child/${childId}/gates">View Practice Progress</a></p></section><h3>Practice Progress</h3><p>Practice progress starts at 0% and grows as your family completes Gates practices.</p><ul>${(progress.progress || []).map((p) => `<li>${p.gate_number}. ${p.name}: ${p.progress_percent}% (${p.status}) <button data-gate="${p.gate_number}">+10%</button></li>`).join('')}</ul>${renderDevelopmentJourney(integratedProfile?.development_patterns)}${renderDevelopmentTimeline(timeline)}${renderIntegratedProfilePreview(integratedProfile)}<p><a class="btn" href="/gates/child/${childId}/gates">View Progress Map</a> <a class="btn secondary" href="/gates/children">View Growth Plan</a></p>`);
       console.info(JSON.stringify({ event: 'gates_stage_profile_rendered', assessment_id: assessmentId, child_id: childId }));
       console.info(JSON.stringify({ event: 'gates_generic_recommendations_removed', assessment_id: assessmentId, child_id: childId }));
       console.info(JSON.stringify({ event: 'gates_walking_gate_rendered', assessment_id: assessmentId, child_id: childId }));
@@ -281,11 +282,15 @@
   }
 
 
-  function renderGatePracticeGames(gate) {
+  function renderGatePracticeGames(gate, childId) {
     const gateKey = GATE_KEY_BY_NUMBER[Number(gate?.gate_number || 0) - 1] || String(gate?.gate_key || "").trim().toLowerCase();
-    const games = GATE_PRACTICE_GAMES.filter((game) => game.supported_gates.includes(gateKey));
+    const games = [
+      { game_key: "brain-game-suite", title: "Brain Game Suite", supported_gates: ["attention","body","discipline","truth","choice","creation"], suggested_duration: "6-15 minutes", what_it_practices: "attention, memory, and problem solving" },
+      { game_key: "brick-burst", title: "Brick Burst", supported_gates: ["attention","emotion","discipline"], suggested_duration: "8-12 minutes", what_it_practices: "response inhibition and frustration recovery" },
+      { game_key: "neurospark-kids-lab", title: "NeuroSpark Kids Lab", supported_gates: ["attention","emotion","choice","discipline","body","truth","repair","creation","legacy"], suggested_duration: "5-12 minutes", what_it_practices: "regulation, flexibility, and self-control" }
+    ].filter((game) => game.supported_gates.includes(gateKey));
     if (!games.length) return "";
-    return `<section class="panel"><h3>Gate Practice Games</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p>${games.map((game) => `<article class="panel gate-practice-game"><h4>${game.title}</h4><p><strong>What it practices:</strong> ${game.what_it_practices}</p><p><strong>Which Gate it supports:</strong> ${gate.name}</p><p><strong>Suggested duration:</strong> ${game.suggested_duration}</p><h5>Observation signals</h5><ul>${(game.observation_signals || []).map((signal) => `<li>${signal}</li>`).join("")}</ul><p><strong>Parent reflection prompt:</strong> ${game.parent_reflection_prompt}</p></article>`).join("")}</section>`;
+    return `<section class="panel"><h3>Gate Practice Games</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p>${games.map((game) => `<article class="panel gate-practice-game"><h4>${game.title}</h4><p><strong>What it practices:</strong> ${game.what_it_practices}</p><p><strong>Which Gate it supports:</strong> ${gate.name}</p><p><strong>Suggested duration:</strong> ${game.suggested_duration}</p><h5>Observation signals</h5><ul><li>Notice effort and calm return after mistakes.</li></ul><p><strong>Parent reflection prompt:</strong> What helped your child self-correct today?</p><p><a class="btn" href="/gates/child/${childId}/practice-games/${game.game_key}">Play Practice Game</a></p></article>`).join("")}</section>`;
   }
 
   async function renderGateMap(childId) {
@@ -313,7 +318,7 @@
     const growthHabit = (habitBank?.recommended_habits || []).find((item) => Number(item.gate_number) === Number(gateNumber)) || (habitBank?.recommended_habits || [])[0] || null;
     const gate = detail.gate || {};
     const p = detail.practice_progress || { progress_percent: 0, status: 'not_started' };
-    shell(`Gate ${gate.gate_number}: ${gate.name}`, `<p><strong>Current stage:</strong> ${detail.stage}</p>${renderGrowthSignalsPanel(growthHabit, "detail")}<h3>Core lesson</h3><p>${gate.core_lesson || ''}</p><h3>Child learning statement</h3><p>${gate.child_learning_statement || ''}</p><h3>Reflection questions</h3><ul>${(gate.reflection_questions || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Journal prompts</h3><ul>${(gate.journal_prompts || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Developing signs</h3><ul>${(gate.developing_signs || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Integration signs</h3><ul>${(gate.integration_signs || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Ceremony</h3><p>${gate.ceremony || ''}</p>${renderGatePracticeGames(gate)}${renderChildReflectionCta(childId, gate.gate_number)}<h3>Practice progress</h3><p>${p.progress_percent}% (${p.status})</p><p><button class="btn" id="progress-plus">+10% Practice</button> <a class="btn secondary" href="/gates/child/${childId}/gates">Back to Gates Map</a></p>`);
+    shell(`Gate ${gate.gate_number}: ${gate.name}`, `<p><strong>Current stage:</strong> ${detail.stage}</p>${renderGrowthSignalsPanel(growthHabit, "detail")}<h3>Core lesson</h3><p>${gate.core_lesson || ''}</p><h3>Child learning statement</h3><p>${gate.child_learning_statement || ''}</p><h3>Reflection questions</h3><ul>${(gate.reflection_questions || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Journal prompts</h3><ul>${(gate.journal_prompts || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Developing signs</h3><ul>${(gate.developing_signs || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Integration signs</h3><ul>${(gate.integration_signs || []).map((x) => `<li>${x}</li>`).join('')}</ul><h3>Ceremony</h3><p>${gate.ceremony || ''}</p>${renderGatePracticeGames(gate, childId)}${renderChildReflectionCta(childId, gate.gate_number)}<h3>Practice progress</h3><p>${p.progress_percent}% (${p.status})</p><p><button class="btn" id="progress-plus">+10% Practice</button> <a class="btn secondary" href="/gates/child/${childId}/gates">Back to Gates Map</a></p>`);
     app.querySelectorAll('[data-child-reflection-entry="true"]').forEach((link) => link.addEventListener('click', () => {
       console.info(JSON.stringify({ event: 'child_reflection_entry_clicked', child_id: String(link.getAttribute('data-child-id') || ''), gate_number: Number(link.getAttribute('data-gate-number') || 0) || null }));
     }));
@@ -359,6 +364,24 @@
     }
   }
 
+
+  async function renderPracticeGameHub() {
+    const games = [
+      { game_key: "brain-game-suite", title: "Brain Game Suite", practices: "attention, memory, and problem solving", gates: "Attention, Body, Discipline, Truth, Choice, Creation", duration: "6-15 minutes" },
+      { game_key: "brick-burst", title: "Brick Burst", practices: "response inhibition and frustration recovery", gates: "Attention, Emotion, Discipline", duration: "8-12 minutes" },
+      { game_key: "neurospark-kids-lab", title: "NeuroSpark Kids Lab", practices: "self-regulation and flexibility", gates: "Attention, Emotion, Choice, Discipline, and more", duration: "5-12 minutes" }
+    ];
+    shell('Gate Practice Games', `<section class="card-grid">${games.map((g)=>`<article class="panel"><h3>${g.title}</h3><p><strong>What it practices:</strong> ${g.practices}</p><p><strong>Supported Gates:</strong> ${g.gates}</p><p><strong>Suggested duration:</strong> ${g.duration}</p><p>These games are optional developmental practices. They are not tests, grades, or diagnoses.</p><p><a class="btn" href="/gates/practice-games/${g.game_key}">Try Game</a></p></article>`).join('')}</section>`);
+  }
+
+  async function renderPracticeGameLaunch(gameKey, childId = null) {
+    const title = gameKey.split('-').map((x)=>x[0].toUpperCase()+x.slice(1)).join(' ');
+    const route = `/gates/practice-games/${gameKey}`;
+    const childMeta = childId ? `<p><strong>Child:</strong> ${childId}</p><p><a class="btn secondary" href="/gates/child/${childId}/gates">Back to Gate</a></p>` : '';
+    const cta = childId ? '' : '<p>Create a child profile to connect this practice to a Gates journey.</p>';
+    shell(`Practice Game: ${title}`, `<p>${GATE_PRACTICE_GAME_DISCLAIMER}</p><p>Notice effort, calm return, and self-correction more than score.</p>${childMeta}<iframe title="${title}" src="/gates/practice-games/${gameKey}.html" style="width:100%;min-height:560px;border:1px solid #ddd;"></iframe>${cta}<p><a href="/gates/practice-games">Back to Practice Games</a></p>`);
+  }
+
   async function init() {
     await loadSession();
     const p = window.location.pathname;
@@ -366,6 +389,9 @@
     if (p === '/gates/signup') return renderSignup();
     if (p === '/gates/children') return renderChildren();
     if (p === '/gates/assessment') return renderAssessment();
+    if (p === '/gates/practice-games') return renderPracticeGameHub();
+    if (/^\/gates\/practice-games\/[^/]+$/.test(p)) return renderPracticeGameLaunch(p.split('/').pop());
+    if (/^\/gates\/child\/[^/]+\/practice-games\/[^/]+$/.test(p)) { const parts = p.split('/'); return renderPracticeGameLaunch(parts[5], parts[3]); }
     if (p.startsWith('/gates/results/')) return renderResults(p.split('/').pop());
     if (/^\/gates\/child\/[^/]+\/reflection\/\d+$/.test(p)) { const parts = p.split('/'); return renderReflectionPrototype(parts[3], parts[5]); }
     if (/^\/gates\/child\/[^/]+\/gates\/\d+$/.test(p)) { const parts = p.split('/'); return renderGateDetail(parts[3], parts[5]); }
