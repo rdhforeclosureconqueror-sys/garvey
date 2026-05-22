@@ -5,6 +5,7 @@
 
   const GATE_KEY_BY_NUMBER = ["attention", "emotion", "choice", "body", "discipline", "truth", "repair", "creation", "community", "legacy"];
   const GATE_PRACTICE_GAME_DISCLAIMER = "These games are optional developmental practices. They are not tests, grades, or diagnoses.";
+  const GATEQUEST_PROTOTYPE_DISCLAIMER = "GateQuest is a standalone developmental practice prototype. Prototype play does not change official Gates assessments, stage profiles, or progress outcomes.";
   const GATE_PRACTICE_GAMES = [
     { title: "Rhythm Race", what_it_practices: "sustained attention, timing control, and self-regulation under pace", supported_gates: ["attention", "body", "discipline"], suggested_duration: "6-10 minutes", observation_signals: ["Returns attention to the beat after a miss.", "Keeps movements coordinated with rhythm changes."], parent_reflection_prompt: "What helped your child return to focus when rhythm changed?" },
     { title: "Visual Memory", what_it_practices: "working memory, visual recall, and pattern tracking", supported_gates: ["attention", "truth", "creation"], suggested_duration: "8-12 minutes", observation_signals: ["Describes a memory strategy aloud.", "Stays engaged after an incorrect attempt."], parent_reflection_prompt: "What memory strategy seemed to help today?" },
@@ -113,6 +114,7 @@
       <div class="stack" data-gates-entry-ctas>
         <a class="btn" data-gates-cta="start" href="${primaryHref}">Start Youth Rite of Passage Assessment</a>
         <a class="btn secondary" data-gates-cta="signin" href="/gates/signup">Parent Sign In</a>
+        <a class="btn secondary" data-gatequest-public-launch href="/gates/prototypes/gatequest">Launch GateQuest Prototype (Standalone)</a>
       </div>
     `);
   }
@@ -285,7 +287,14 @@
     const gateKey = GATE_KEY_BY_NUMBER[Number(gate?.gate_number || 0) - 1] || String(gate?.gate_key || "").trim().toLowerCase();
     const games = GATE_PRACTICE_GAMES.filter((game) => game.supported_gates.includes(gateKey));
     if (!games.length) return "";
-    return `<section class="panel"><h3>Gate Practice Games</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p>${games.map((game) => `<article class="panel gate-practice-game"><h4>${game.title}</h4><p><strong>What it practices:</strong> ${game.what_it_practices}</p><p><strong>Which Gate it supports:</strong> ${gate.name}</p><p><strong>Suggested duration:</strong> ${game.suggested_duration}</p><h5>Observation signals</h5><ul>${(game.observation_signals || []).map((signal) => `<li>${signal}</li>`).join("")}</ul><p><strong>Parent reflection prompt:</strong> ${game.parent_reflection_prompt}</p></article>`).join("")}</section>`;
+    return `<section class="panel"><h3>Gate Practice Games</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p>${games.map((game) => `<article class="panel gate-practice-game"><h4>${game.title}</h4><p><strong>What it practices:</strong> ${game.what_it_practices}</p><p><strong>Which Gate it supports:</strong> ${gate.name}</p><p><strong>Suggested duration:</strong> ${game.suggested_duration}</p><h5>Observation signals</h5><ul>${(game.observation_signals || []).map((signal) => `<li>${signal}</li>`).join("")}</ul><p><strong>Parent reflection prompt:</strong> ${game.parent_reflection_prompt}</p><p><a class="btn secondary" href="/gates/child/${encodeURIComponent(String(localStorage.getItem('gatesSelectedChildId') || ''))}/prototypes/gatequest">Launch GateQuest Prototype</a></p></article>`).join("")}</section>`;
+  }
+
+  async function renderGateQuestLaunch(childId = null) {
+    const launch = childId
+      ? await api(`/api/gates/children/${childId}/prototypes/gatequest/launch`, { method: "GET" })
+      : await api("/api/gates/prototypes/gatequest/public-launch", { method: "GET" });
+    shell("GateQuest Prototype", `<p>${GATEQUEST_PROTOTYPE_DISCLAIMER}</p><p>${launch.non_diagnostic_disclaimer || DISCLAIMER}</p><p>This practice prototype runs in an isolated sandbox frame.</p><iframe title="GateQuest Prototype" src="${launch.launch_url}" sandbox="allow-scripts allow-same-origin" referrerpolicy="no-referrer" style="width:100%;min-height:720px;border:1px solid #2f4a7d;border-radius:12px;background:#08101f;"></iframe><p><a class="btn secondary" href="/gates">Back to Gates landing</a>${childId ? ` <a class="btn secondary" href="/gates/child/${childId}/gates">Back to Gates map</a>` : ""}</p>`);
   }
 
   async function renderGateMap(childId) {
@@ -368,6 +377,8 @@
     if (p === '/gates/assessment') return renderAssessment();
     if (p.startsWith('/gates/results/')) return renderResults(p.split('/').pop());
     if (/^\/gates\/child\/[^/]+\/reflection\/\d+$/.test(p)) { const parts = p.split('/'); return renderReflectionPrototype(parts[3], parts[5]); }
+    if (/^\/gates\/child\/[^/]+\/prototypes\/gatequest$/.test(p)) { const parts = p.split('/'); return renderGateQuestLaunch(parts[3]); }
+    if (p === '/gates/prototypes/gatequest') return renderGateQuestLaunch();
     if (/^\/gates\/child\/[^/]+\/gates\/\d+$/.test(p)) { const parts = p.split('/'); return renderGateDetail(parts[3], parts[5]); }
     if (p.startsWith('/gates/child/') && p.endsWith('/gates')) return renderGateMap(p.split('/')[3]);
     return renderLanding();

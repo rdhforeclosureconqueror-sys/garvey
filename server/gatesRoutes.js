@@ -219,6 +219,8 @@ function createGatesRouter({ pool = defaultPool } = {}) {
   router.get("/gates/child/:childId/gates", sendGatesShell);
   router.get("/gates/child/:childId/gates/:gateNumber", sendGatesShell);
   router.get("/gates/child/:childId/reflection/:gateNumber", sendGatesShell);
+  router.get("/gates/prototypes/gatequest", sendGatesShell);
+  router.get("/gates/child/:childId/prototypes/gatequest", sendGatesShell);
 
   router.get("/api/gates/health", (req, res) => {
     console.log(JSON.stringify({ ts: new Date().toISOString(), event: "gates_health_check" }));
@@ -227,6 +229,35 @@ function createGatesRouter({ pool = defaultPool } = {}) {
 
   router.get("/api/gates/catalog", (req, res) => res.status(200).json({ gates: GATES_CATALOG }));
   router.get("/api/gates/habit-bank", (req, res) => res.status(200).json({ ok: true, habit_bank: GATES_HABIT_BANK }));
+  router.get("/api/gates/prototypes/gatequest/public-launch", (req, res) => {
+    return res.status(200).json({
+      ok: true,
+      prototype: "gatequest",
+      launch_url: "/gamehub/gatequest-standalone.html?mode=public",
+      non_diagnostic_disclaimer: GATES_ASSESSMENT_DISCLAIMER,
+      prototype_disclaimer: "GateQuest is a standalone developmental practice prototype. Scores and activity in this prototype do not affect official Gates assessment outcomes.",
+    });
+  });
+  router.get("/api/gates/children/:childId/prototypes/gatequest/launch", async (req, res) => {
+    try {
+      const sessionState = await resolveGatesSession({ req, pool });
+      if (!sessionState.authenticated) return res.status(401).json({ error: "unauthenticated" });
+      const childId = Number(req.params.childId);
+      if (!Number.isInteger(childId) || childId <= 0) return res.status(400).json({ error: "invalid child id" });
+      const child = (await pool.query("SELECT id, parent_id, first_name FROM gates_child_profiles WHERE id = $1 LIMIT 1", [childId])).rows[0];
+      if (!child || Number(child.parent_id) !== Number(sessionState.parentProfile.id)) return res.status(403).json({ error: "forbidden" });
+      return res.status(200).json({
+        ok: true,
+        prototype: "gatequest",
+        child_id: String(childId),
+        launch_url: `/gamehub/gatequest-standalone.html?mode=child&child_id=${encodeURIComponent(String(childId))}`,
+        non_diagnostic_disclaimer: GATES_ASSESSMENT_DISCLAIMER,
+        prototype_disclaimer: "GateQuest is a standalone developmental practice prototype. Scores and activity in this prototype do not affect official Gates assessment outcomes.",
+      });
+    } catch {
+      return res.status(500).json({ error: "gatequest launch failed" });
+    }
+  });
 
   router.get("/api/gates/assessment/questions", async (req, res) => {
     try {

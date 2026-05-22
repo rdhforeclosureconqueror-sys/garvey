@@ -41,7 +41,7 @@ async function signup(base) { const r = await fetch(`${base}/api/gates/auth/sign
 test('gates route/session contract normalization', async () => {
   const { server, base, pool } = await startServer();
   try {
-    const mounted = ['/gates','/gates/signup','/gates/dashboard','/gates/children','/gates/assessment','/gates/results/abc','/gates/child/1/gates','/gates/child/1/gates/1'];
+    const mounted = ['/gates','/gates/signup','/gates/dashboard','/gates/children','/gates/assessment','/gates/results/abc','/gates/child/1/gates','/gates/child/1/gates/1','/gates/prototypes/gatequest','/gates/child/1/prototypes/gatequest'];
     for (const route of mounted) assert.equal((await fetch(`${base}${route}`)).status, 200);
 
     const signupRes = await signup(base);
@@ -78,5 +78,19 @@ test('gates route/session contract normalization', async () => {
     const routesSource = fs.readFileSync(path.join(process.cwd(), 'server', 'gatesRoutes.js'), 'utf8');
     const dashboardRef = routesSource.includes('/gates/dashboard');
     assert.equal(dashboardRef, true);
+    const publicLaunch = await fetch(`${base}/api/gates/prototypes/gatequest/public-launch`);
+    assert.equal(publicLaunch.status, 200);
+    const publicLaunchJson = await publicLaunch.json();
+    assert.match(publicLaunchJson.prototype_disclaimer, /standalone developmental practice prototype/i);
+    assert.match(publicLaunchJson.launch_url, /\/gamehub\/gatequest-standalone\.html/);
+
+    const childLaunchAuthed = await fetch(`${base}/api/gates/children/1/prototypes/gatequest/launch`, { headers:{ cookie: signupRes.cookie } });
+    assert.equal(childLaunchAuthed.status, 200);
+    const childLaunchAuthedJson = await childLaunchAuthed.json();
+    assert.equal(childLaunchAuthedJson.child_id, '1');
+    assert.match(childLaunchAuthedJson.launch_url, /mode=child/);
+
+    const childLaunchAnon = await fetch(`${base}/api/gates/children/1/prototypes/gatequest/launch`);
+    assert.equal(childLaunchAnon.status, 401);
   } finally { await new Promise((r)=>server.close(r)); }
 });
