@@ -1,1 +1,37 @@
-{"id":"sample-questions","items":[{"id":"q-1","prompt":"Spell tag","answer":"tag"}]}
+{
+  "id": "sample-questions",
+  "items": [
+    {
+      "id": "m7_sample_1",
+      "subject": "Math",
+      "grade": 7,
+      "domain": "Expressions & Equations",
+      "skill": "Solve a two-step equation",
+      "prerequisite_skill": "Solve a one-step equation",
+      "difficulty": 2,
+      "prompt": "Solve: 3x + 4 = 19",
+      "choices": ["x = 3", "x = 4", "x = 5", "x = 6"],
+      "answer": "x = 5",
+      "explanation": "Subtract 4 to get 3x = 15, then divide by 3.",
+      "tags": ["algebra", "equations"]
+    },
+    {
+      "id": "e6_sample_1",
+      "subject": "English",
+      "grade": 6,
+      "domain": "Main Idea",
+      "skill": "Identify the main idea",
+      "difficulty": 1,
+      "prompt": "Which sentence best states the main idea of a paragraph?",
+      "choices": [
+        "A minor detail from the middle",
+        "The sentence that repeats a name",
+        "The overall point that details support",
+        "The final sentence only"
+      ],
+      "answer": "The overall point that details support",
+      "explanation": "Main idea is the central message, while details provide support.",
+      "tags": ["reading"]
+    }
+  ]
+}

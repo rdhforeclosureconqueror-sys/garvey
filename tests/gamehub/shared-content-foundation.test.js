@@ -59,3 +59,30 @@ test('games keep fallback and no tracking wiring', ()=> {
   assert.doesNotMatch(sight, /track|gate score|gates tracking/i);
   assert.doesNotMatch(game6, /track|gate score|gates tracking/i);
 });
+
+
+test('question bank sample validates and adapts for adaptive_learning', async ()=> {
+  const fetchImpl = async (p)=>({ok:true,json:async()=>readJson(`public${p}`)});
+  const bank = await shared.loadQuestionBank('/gamehub/content/question-bank.sample.json', null, fetchImpl);
+  assert.ok(bank.items.length >= 2);
+  const adapted = shared.fromQuestionBankToAdaptiveItems(bank);
+  assert.ok(adapted.every((item)=>item.id && item.prompt && item.correct_answer));
+  assert.ok(adapted.some((item)=> item.subject === 'Math' && Array.isArray(item.choices)));
+});
+
+test('adaptive_learning keeps fallback QUESTION_BANK while supporting shared loader', ()=> {
+  const adaptive = fs.readFileSync(path.join(root, 'public/gamehub/adaptive_learning'),'utf8');
+  assert.match(adaptive, /const QUESTION_BANK=\[/);
+  assert.match(adaptive, /bootstrapQuestionBank/);
+  assert.match(adaptive, /loadQuestionBank/);
+});
+
+test('no tracking or gates wiring introduced for adaptive_learning extraction', ()=> {
+  const adaptive = fs.readFileSync(path.join(root, 'public/gamehub/adaptive_learning'),'utf8');
+  assert.doesNotMatch(adaptive, /gates tracking|track event|track\(/i);
+});
+
+test('question bank sample remains small', ()=> {
+  const bank = readJson('public/gamehub/content/question-bank.sample.json');
+  assert.ok(bank.items.length <= 10);
+});

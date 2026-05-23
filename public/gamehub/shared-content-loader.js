@@ -9,6 +9,29 @@
   };
   function validateRequired(item, fields){ return isObject(item) && fields.every((f)=> item[f] !== undefined && item[f] !== null && item[f] !== ''); }
   function validateWordBank(payload){ return Array.isArray(payload?.items) && payload.items.every((it)=>validateRequired(it, schemas.wordBankItem)); }
+
+  function validateQuestionBank(payload){ return Array.isArray(payload?.items) && payload.items.every((it)=>validateRequired(it, schemas.questionBankItem)); }
+  async function loadQuestionBank(path, fallback, fetchImpl){
+    const json = await loadJson(path, fetchImpl);
+    if (!validateQuestionBank(json)) return fallback;
+    return json;
+  }
+  function fromQuestionBankToAdaptiveItems(questionBank){
+    return (questionBank?.items || []).map((it)=>({
+      id: it.id,
+      subject: it.subject || 'Mixed',
+      grade: Number.isFinite(Number(it.grade)) ? Number(it.grade) : 7,
+      domain: it.domain || 'General',
+      skill: it.skill || 'General comprehension',
+      prerequisite_skill: it.prerequisite_skill || '',
+      difficulty: Number.isFinite(Number(it.difficulty)) ? Number(it.difficulty) : 2,
+      prompt: it.prompt,
+      choices: Array.isArray(it.choices) ? it.choices : [String(it.answer)],
+      correct_answer: it.answer,
+      correct_explanation: it.explanation || '',
+      tags: Array.isArray(it.tags) ? it.tags : []
+    }));
+  }
   async function loadJson(path, fetchImpl){
     const fetcher = fetchImpl || global.fetch;
     if (!fetcher) return null;
@@ -39,11 +62,14 @@
     schemas,
     validateRequired,
     validateWordBank,
+    validateQuestionBank,
     loadJson,
     loadWordBank,
+    loadQuestionBank,
     fromWordBankToSpellingLesson,
     fromWordBankToSightWordsDeck,
-    fromWordBankToGame6Set
+    fromWordBankToGame6Set,
+    fromQuestionBankToAdaptiveItems
   };
 })(typeof window !== 'undefined' ? window : globalThis);
 
