@@ -37,9 +37,10 @@
 <div id="game" class="game-box"></div>
 <div id="pointsSplash">+10</div>
 
+<script src="/gamehub/shared-content-loader.js"></script>
 <script>
 // ---------------------- WORD BANK -----------------------
-const words = [
+let words = [
   { word:"reluctant", def:"unwilling", syn:"hesitant", ant:"eager" },
   { word:"vital", def:"necessary for life", syn:"essential", ant:"unimportant" },
   { word:"peculiar", def:"strange or unusual", syn:"odd", ant:"normal" },
@@ -49,6 +50,21 @@ const words = [
 ];
 
 let score = 0;
+
+async function initializeSharedContent(){
+  if(!window.GamehubSharedContent) return;
+  const bank = await window.GamehubSharedContent.loadWordBank('/gamehub/content/word-bank.sample.json', null);
+  if(!bank) return;
+  const sharedWords = window.GamehubSharedContent.fromWordBankToGame6Set(bank);
+  if(sharedWords.length){
+    const merged = new Map();
+    words.forEach((item)=>merged.set(item.word.toLowerCase(), item));
+    sharedWords.forEach((item)=>merged.set(item.word.toLowerCase(), item));
+    words = Array.from(merged.values());
+  }
+}
+initializeSharedContent();
+
 
 // ---------------------- UTILITIES -----------------------
 function splashPoints(){

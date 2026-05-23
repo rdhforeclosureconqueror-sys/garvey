@@ -21,10 +21,19 @@
   }
   function fromWordBankToSpellingLesson(wordBank, grade){
     const items = (wordBank?.items || []).filter((it)=> grade ? it.grade === grade : true);
-    return items.map((it)=>({grade: it.grade || grade || 1, word: it.word, def: it.definition, example: it.example || ''}));
+    return items.map((it)=>({grade: it.grade || grade || 1, word: it.word, def: it.definition, example: it.example || it.sentence || ''}));
   }
   function fromWordBankToSightWordsDeck(wordBank){
     return (wordBank?.items || []).map((it)=> it.word);
+  }
+  function fromWordBankToGame6Set(wordBank){
+    return (wordBank?.items || []).filter((it)=> it.synonym || it.antonym || it.definition).map((it)=>({
+      word: it.word,
+      def: it.definition,
+      syn: it.synonym || it.syn || it.definition,
+      ant: it.antonym || it.ant || it.definition,
+      sentence: it.sentence || it.template || it.example || ''
+    }));
   }
   global.GamehubSharedContent = {
     schemas,
@@ -33,7 +42,8 @@
     loadJson,
     loadWordBank,
     fromWordBankToSpellingLesson,
-    fromWordBankToSightWordsDeck
+    fromWordBankToSightWordsDeck,
+    fromWordBankToGame6Set
   };
 })(typeof window !== 'undefined' ? window : globalThis);
 
