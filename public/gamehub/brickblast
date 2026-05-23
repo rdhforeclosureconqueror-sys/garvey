@@ -173,8 +173,14 @@
     </div>
   </div>
 </div>
+<script src="/gamehub/gamehub-session-adapter.js"></script>
 <script>
 (() => {
+  const GAME_KEY = "brickblast";
+  const ACTIVITY_KEY = "brickblast_combo_rush";
+  const GAME_MODE = "combo_rush";
+  const adapter = typeof globalThis !== "undefined" ? globalThis.GameHubSessionAdapter : null;
+  let currentRoundStartedAt = 0;
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");
   const scoreEl = document.getElementById("score");
@@ -199,6 +205,28 @@
   let laserCooldown = 0;
   let activeTimers = { laser:0, sticky:0, big:0, slow:0 };
   let shake = 0;
+
+  function getLevelBand(levelNumber){
+    if(levelNumber <= 3) return "early";
+    if(levelNumber <= 6) return "mid";
+    return "late";
+  }
+  function getDurationBand(startedAtMs){
+    if(!startedAtMs) return "short";
+    const elapsed = Math.max(0, Date.now() - startedAtMs);
+    if(elapsed < 45000) return "short";
+    if(elapsed < 120000) return "medium";
+    return "long";
+  }
+  function getPersistenceBand(livesRemaining){
+    if(livesRemaining >= 3) return "steady";
+    if(livesRemaining >= 1) return "recovering";
+    return "critical";
+  }
+  function emitAdapterEvent(eventName, payload){
+    if(!adapter || typeof adapter.emit !== "function") return;
+    adapter.emit(eventName, payload);
+  }
 
   const paddle = {
     x: 0, y: 0, w: 120, h: 16, speed: 760, targetX: null
@@ -287,6 +315,11 @@
       }
     }
     toastMsg("Level " + level + " • New Shape • Speed " + Math.round(levelSpeed()), true, 1200);
+    currentRoundStartedAt = Date.now();
+    emitAdapterEvent("round_started", {
+      level_band: getLevelBand(level),
+      activity_key: ACTIVITY_KEY
+    });
   }
 
   function newBall(stuck=false, x=null, y=null, vx=null, vy=null){
@@ -335,6 +368,18 @@
 
   function start(){
     resetGame();
+    if(adapter && typeof adapter.startSession === "function"){
+      adapter.startSession({
+        game_key: GAME_KEY,
+        activity_key: ACTIVITY_KEY,
+        mode: GAME_MODE
+      });
+    }
+    emitAdapterEvent("game_session_started", {
+      game_key: GAME_KEY,
+      activity_key: ACTIVITY_KEY,
+      mode: GAME_MODE
+    });
     running = true;
     menu.classList.add("hidden");
     gameOver.classList.add("hidden");
@@ -435,6 +480,9 @@
     if(balls.length === 0){
       lives--; combo = 0;
       updateHud();
+      emitAdapterEvent("recovery_after_miss", {
+        event_category: "life_lost"
+      });
       if(lives <= 0) end(false);
       else {
         balls = [newBall(true)];
@@ -576,6 +624,8 @@
     particles = particles.filter(p=>p.life>0);
   }
   function celebrateRound(){
+    const completedLevelBand = getLevelBand(level);
+    const previousLevel = level;
     const clearBonus = 500 + level*120 + bestCombo*25;
     score += clearBonus;
     toastMsg("ROUND CLEAR! +" + clearBonus, true, 1400);
@@ -586,8 +636,18 @@
     }
     roundClearFreeze = 1.35;
     level++;
+    const nextLevelBand = getLevelBand(level);
     lives = Math.min(5, lives + 1);
     updateHud();
+    emitAdapterEvent("round_completed", {
+      success: true,
+      duration_band: getDurationBand(currentRoundStartedAt),
+      level_band: completedLevelBand
+    });
+    emitAdapterEvent("level_changed", {
+      previous_level_band: getLevelBand(previousLevel),
+      next_level_band: nextLevelBand
+    });
     setTimeout(()=>{ if(running){ buildLevel(); updateHud(); } }, 1350);
   }
 
@@ -710,6 +770,16 @@
 
   function end(won){
     running = false;
+    const completionState = won ? "completed" : "life_depleted";
+    const endPayload = {
+      completion_state: completionState,
+      level_band: getLevelBand(level),
+      persistence_band: getPersistenceBand(lives)
+    };
+    emitAdapterEvent("game_session_ended", endPayload);
+    if(adapter && typeof adapter.endSession === "function"){
+      adapter.endSession(endPayload);
+    }
     endTitle.textContent = won ? "Victory!" : "Game Over";
     endText.textContent = "Final Score: " + score + " • Level Reached: " + level + " • Best Combo: " + bestCombo + "x";
     gameOver.classList.remove("hidden");
