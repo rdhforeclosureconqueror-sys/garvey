@@ -71,3 +71,34 @@ BrickBlast is the first minimal pilot wired to the adapter. This is still local/
 - Allowed payload categories are banded/enum-style signals only.
 - Not emitted: exact score, exact combo count, exact coordinates, raw collision data, diagnostics, or child identifiers.
 - Registry `tracking_ready` remains `false` for all games while this pilot is validated.
+
+## Surf pilot (local-only preview)
+Surf is the second minimal pilot wired to the adapter and remains local/in-memory only:
+- no server tracking
+- no database writes
+- no Gates scoring wiring
+- no child identity fields
+- no raw math prompts or raw answers
+
+### Surf event map
+- `game_session_started`
+  - payload keys: `game_key`, `activity_key`, `mode`
+- `round_started`
+  - payload keys: `activity_key`, `mode`
+- `challenge_selected`
+  - payload keys: `difficulty`, `activity_key`
+- `round_completed`
+  - payload keys: `success`, `attempt_count_band`, `difficulty`, `activity_key`
+- `recovery_after_miss`
+  - payload keys: `event_category`, `streak_band`
+- `level_changed`
+  - payload keys: `level_band`
+- `persistence_signal`
+  - payload keys: `persistence_band`
+- `game_session_ended`
+  - payload keys: `completion_state`, `duration_band`, `persistence_band`
+
+### Surf guardrails
+- Adapter payloads use only enum/banded safety fields.
+- Surf does not emit exact math question text, raw answers, exact scores, exact coins, exact coordinates, diagnostics, or child identifiers.
+- Registry `tracking_ready` remains `false`.

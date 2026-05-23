@@ -118,7 +118,20 @@
   </div>
 </div>
 
+<script src="/gamehub/gamehub-session-adapter.js"></script>
 <script>
+const GAME_KEY='surf';
+const ACTIVITY_KEY='surf_unicorn_learning_hearts';
+const GAME_MODE='standard';
+const adapter = typeof globalThis !== 'undefined' ? globalThis.GameHubSessionAdapter : null;
+function emitAdapterEvent(eventName, payload){ if(adapter && typeof adapter.emit==='function') adapter.emit(eventName,payload); }
+function getAttemptCountBand(attempts){ if(attempts<=1) return 'single'; if(attempts===2) return 'few'; return 'many'; }
+function getStreakBand(streak){ if(streak<=0) return 'none'; if(streak<=2) return 'building'; return 'hot'; }
+function getLevelBand(streak){ if(streak<=1) return 'intro'; if(streak<=3) return 'progressing'; return 'advanced'; }
+function getDurationBand(startedAt){ const e=Math.max(0,Date.now()-startedAt); if(e<45000) return 'short'; if(e<120000) return 'medium'; return 'long'; }
+function getPersistenceBand(streak){ if(streak<=0) return 'reset'; if(streak<=2) return 'steady'; return 'persistent'; }
+let sessionStartedAt=0;
+
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 const flash = document.getElementById('flash');
@@ -188,6 +201,10 @@ function spawn(type=null, start=false){
 }
 
 function resetGame(){
+  sessionStartedAt=Date.now();
+  if(adapter && typeof adapter.startSession==='function'){ adapter.startSession({game_key:GAME_KEY,activity_key:ACTIVITY_KEY,mode:GAME_MODE}); }
+  emitAdapterEvent('game_session_started',{game_key:GAME_KEY,activity_key:ACTIVITY_KEY,mode:GAME_MODE});
+  emitAdapterEvent('round_started',{activity_key:ACTIVITY_KEY,mode:GAME_MODE});
   state.running=true; state.paused=false; state.over=false;
   state.score=0; state.coins=0; state.streak=0; state.speed=1.0; state.t=0;
   state.x=0; state.y=H*0.15; state.boost=false;
@@ -215,6 +232,7 @@ function celebrate(){
 }
 
 function openQuestion(){
+  emitAdapterEvent('round_started',{activity_key:ACTIVITY_KEY,mode:GAME_MODE});
   state.paused=true;
   $('questionScreen').classList.remove('hidden');
   $('difficultyBlock').classList.remove('hidden');
@@ -224,6 +242,7 @@ function openQuestion(){
 }
 
 function chooseDifficulty(diff){
+  emitAdapterEvent('challenge_selected',{difficulty:diff,activity_key:ACTIVITY_KEY});
   state.qDifficulty=diff;
   state.qAttempts=0;
   $('difficultyBlock').classList.add('hidden');
@@ -267,6 +286,7 @@ function renderChoices(){
 }
 
 function reward(){
+  const previousStreak=state.streak;
   if(state.qDifficulty==='easy'){
     state.energy=clamp(state.energy+surfConfig.rewards.easy.energy,0,100);
     state.magic=clamp(state.magic+14,0,100);
@@ -281,12 +301,18 @@ function reward(){
     state.energy=100; state.magic=100; state.boostMeter=100; state.coins+=20;
   }
   state.streak += 1;
+  if(getLevelBand(previousStreak)!==getLevelBand(state.streak)){
+    emitAdapterEvent('level_changed',{level_band:getLevelBand(state.streak)});
+  } else {
+    emitAdapterEvent('persistence_signal',{persistence_band:getPersistenceBand(state.streak)});
+  }
   celebrate();
   updateHUD();
 }
 
 function answerQuestion(choice){
   if(choice===state.qCurrent.ans){
+    emitAdapterEvent('round_completed',{success:true,attempt_count_band:getAttemptCountBand(state.qAttempts+1),difficulty:state.qDifficulty,activity_key:ACTIVITY_KEY});
     $('feedback').textContent='Correct! Power restored.';
     $('feedback').className='feedback good';
     reward();
@@ -294,13 +320,16 @@ function answerQuestion(choice){
   } else {
     state.qAttempts += 1;
     if(state.qAttempts >= 2){
+      emitAdapterEvent('round_completed',{success:false,attempt_count_band:getAttemptCountBand(state.qAttempts),difficulty:state.qDifficulty,activity_key:ACTIVITY_KEY});
       $('feedback').textContent='Two misses. Back to the surf.';
       $('feedback').className='feedback bad';
+      emitAdapterEvent('recovery_after_miss',{event_category:'miss_continue',streak_band:getStreakBand(state.streak)});
       state.streak=0;
       updateHUD();
       setTimeout(()=>{ state.paused=false; $('questionScreen').classList.add('hidden'); },700);
     } else {
       $('feedback').textContent='Not quite. New question.';
+      emitAdapterEvent('recovery_after_miss',{event_category:'miss_retry',streak_band:getStreakBand(state.streak)});
       $('feedback').className='feedback bad';
       setTimeout(()=>makeQuestion(),550);
     }
@@ -396,6 +425,8 @@ function update(dt){
     state.boostMeter = clamp(state.boostMeter + dt*4, 0, 100);
   }
   if(state.energy<=0){
+    emitAdapterEvent('game_session_ended',{completion_state:'energy_depleted',duration_band:getDurationBand(sessionStartedAt),persistence_band:getPersistenceBand(state.streak)});
+    if(adapter && typeof adapter.endSession==='function'){ adapter.endSession({completion_state:'energy_depleted',duration_band:getDurationBand(sessionStartedAt),persistence_band:getPersistenceBand(state.streak)}); }
     state.over=true; state.running=false;
     $('gameOverText').textContent=`Score: ${Math.floor(state.score)} | Coins: ${state.coins}`;
     $('gameOver').classList.remove('hidden');
@@ -433,9 +464,9 @@ function update(dt){
     if(Math.hypot((W/2+o.x)-px,o.y-py) < o.r+24){
       if(o.type==='coin'){ o.dead=true; state.coins += 1; state.score += 12; }
       else if(o.type==='question'){ o.dead=true; openQuestion(); break; }
-      else if(o.type==='rock'){ o.dead=true; state.energy = clamp(state.energy-16,0,100); }
-      else if(o.type==='shark'){ o.dead=true; state.energy = clamp(state.energy-25,0,100); }
-      else if(o.type==='piranha'){ o.dead=true; state.energy = clamp(state.energy-12,0,100); }
+      else if(o.type==='rock'){ o.dead=true; state.energy = clamp(state.energy-16,0,100); emitAdapterEvent('recovery_after_miss',{event_category:'energy_loss_continue',streak_band:getStreakBand(state.streak)}); }
+      else if(o.type==='shark'){ o.dead=true; state.energy = clamp(state.energy-25,0,100); emitAdapterEvent('recovery_after_miss',{event_category:'energy_loss_continue',streak_band:getStreakBand(state.streak)}); }
+      else if(o.type==='piranha'){ o.dead=true; state.energy = clamp(state.energy-12,0,100); emitAdapterEvent('recovery_after_miss',{event_category:'energy_loss_continue',streak_band:getStreakBand(state.streak)}); }
     }
   }
 
