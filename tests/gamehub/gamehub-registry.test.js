@@ -18,6 +18,7 @@ const REQUIRED_FIELDS = [
   'content_source_type',
   'config_ready',
   'tracking_ready',
+  'adapter_ready',
   'public_launch_allowed',
   'parent_context_launch_allowed',
   'child_context_launch_allowed',
@@ -66,6 +67,12 @@ test('tracking_ready is false for all games in PR5 foundation phase', () => {
   });
 });
 
+
+test('adapter_ready is true for all games when shared adapter scaffold is available', () => {
+  registryModule.listGames().forEach((entry) => {
+    assert.equal(entry.adapter_ready, true, `${entry.game_key} adapter_ready must remain true`);
+  });
+});
 test('registry helper returns context-specific launchable lists without scoring/tracking logic', () => {
   const publicGames = registryModule.getLaunchableGames('public');
   const parentGames = registryModule.getLaunchableGames('parent');
