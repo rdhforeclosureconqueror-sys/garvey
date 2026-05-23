@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Brick Burst: Combo Rush</title>
+<style>
+  :root {
+    --bg1:#080914;
+    --bg2:#151933;
+    --panel:rgba(255,255,255,.09);
+    --text:#f7f7ff;
+    --muted:#b9c0ff;
+    --accent:#ffd166;
+    --danger:#ff4d6d;
+    --good:#66ffb3;
+  }
+  *{box-sizing:border-box}
+  html,body{
+    margin:0;
+    height:100%;
+    overflow:hidden;
+    background:radial-gradient(circle at 50% 0%, var(--bg2), var(--bg1) 70%);
+    color:var(--text);
+    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    touch-action:none;
+  }
+  #wrap{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  canvas{
+    width:100vw;
+    height:100vh;
+    display:block;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,209,102,.12), transparent 25%),
+      radial-gradient(circle at 80% 10%, rgba(102,255,179,.10), transparent 22%),
+      linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
+  }
+  .hud{
+    position:absolute;
+    top:10px;
+    left:10px;
+    right:10px;
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    pointer-events:none;
+    font-weight:800;
+    text-shadow:0 2px 8px #000;
+    z-index:5;
+  }
+  .pill{
+    background:var(--panel);
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:999px;
+    padding:8px 11px;
+    backdrop-filter:blur(8px);
+    font-size:13px;
+  }
+  .center{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:10;
+  }
+  .card{
+    max-width:560px;
+    width:min(92vw,560px);
+    background:rgba(10,12,27,.86);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:24px;
+    box-shadow:0 20px 80px rgba(0,0,0,.55);
+    padding:24px;
+    text-align:center;
+    backdrop-filter:blur(12px);
+  }
+  h1{
+    margin:0 0 8px;
+    font-size:clamp(34px,8vw,58px);
+    line-height:.95;
+    letter-spacing:-2px;
+  }
+  p{color:var(--muted); line-height:1.45; margin:10px 0}
+  button{
+    appearance:none;
+    border:0;
+    cursor:pointer;
+    border-radius:16px;
+    padding:14px 18px;
+    font-weight:900;
+    font-size:16px;
+    color:#121212;
+    background:linear-gradient(135deg,#ffd166,#66ffb3);
+    box-shadow:0 10px 30px rgba(255,209,102,.25);
+    margin-top:12px;
+  }
+  .small{
+    font-size:13px;
+    color:#d8dcff;
+  }
+  .hidden{display:none}
+  .controls{
+    margin-top:14px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    text-align:left;
+    font-size:13px;
+    color:#d8dcff;
+  }
+  .toast{
+    position:absolute;
+    bottom:82px;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(0,0,0,.55);
+    border:1px solid rgba(255,255,255,.2);
+    padding:9px 13px;
+    border-radius:999px;
+    font-weight:800;
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .25s, transform .25s;
+    z-index:7;
+  }
+  .toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(-8px);
+  }
+  .toast.big{font-size:clamp(24px,7vw,44px);padding:22px 24px;background:rgba(10,12,27,.82)}
+  .timerPill{background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:7px 10px;font-weight:900;font-size:12px;box-shadow:0 5px 18px rgba(0,0,0,.25)}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <canvas id="game"></canvas>
+  <div class="hud">
+    <div class="pill">Score: <span id="score">0</span></div>
+    <div class="pill">Level: <span id="level">1</span></div>
+    <div class="pill">Lives: <span id="lives">3</span></div>
+    <div class="pill">Best Combo: <span id="bestCombo">0</span>x</div>
+  </div>
+  <div id="timers" style="position:absolute;top:54px;left:10px;right:10px;display:flex;gap:8px;flex-wrap:wrap;z-index:6;pointer-events:none"></div>
+  <div id="toast" class="toast"></div>
+  <div id="menu" class="center">
+    <div class="card">
+      <h1>Brick Burst</h1>
+      <p>Combo Rush Edition: faster levels, shaped brick boards, more mystery drops, visible power-up timers, combo bonuses, and round-clear celebrations.</p>
+      <button id="startBtn">START GAME</button>
+      <div class="controls">
+        <div>Desktop: ← → or A/D</div>
+        <div>Launch / Laser: Space</div>
+        <div>Mobile: Drag the paddle</div>
+        <div>Tap screen to launch</div>
+      </div>
+      <p class="small">Catch falling capsules. Avoid letting every ball fall below the paddle.</p>
+    </div>
+  </div>
+  <div id="gameOver" class="center hidden">
+    <div class="card">
+      <h1 id="endTitle">Game Over</h1>
+      <p id="endText"></p>
+      <button id="restartBtn">PLAY AGAIN</button>
+    </div>
+  </div>
+</div>
+<script>
+(() => {
+  const canvas = document.getElementById("game");
+  const ctx = canvas.getContext("2d");
+  const scoreEl = document.getElementById("score");
+  const levelEl = document.getElementById("level");
+  const livesEl = document.getElementById("lives");
+  const bestComboEl = document.getElementById("bestCombo");
+  const timersEl = document.getElementById("timers");
+  const menu = document.getElementById("menu");
+  const gameOver = document.getElementById("gameOver");
+  const endTitle = document.getElementById("endTitle");
+  const endText = document.getElementById("endText");
+  const toast = document.getElementById("toast");
+
+  let W = 0, H = 0, DPR = 1;
+  let running = false;
+  let score = 0, level = 1, lives = 3, combo = 0, bestCombo = 0, comboPulse = 0, roundClearFreeze = 0;
+  let keys = {};
+  let bricks = [], balls = [], drops = [], lasers = [], particles = [];
+  let last = 0;
+  let sticky = false;
+  let laserMode = false;
+  let laserCooldown = 0;
+  let activeTimers = { laser:0, sticky:0, big:0, slow:0 };
+  let shake = 0;
+
+  const paddle = {
+    x: 0, y: 0, w: 120, h: 16, speed: 760, targetX: null
+  };
+
+  const POWER = {
+    MULTI: {label:"MULTI-BALL", char:"●", color:"#66ffb3"},
+    BOMB: {label:"BOMB BLAST", char:"✹", color:"#ff4d6d"},
+    BIG: {label:"BIG PADDLE", char:"⇔", color:"#ffd166"},
+    STICKY: {label:"STICKY", char:"☉", color:"#9b8cff"},
+    LASER: {label:"LASER", char:"⚡", color:"#8ee9ff"},
+    SLOW: {label:"SLOW BALL", char:"⌁", color:"#ffffff"}
+  };
+
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    canvas.width = W * DPR; canvas.height = H * DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    paddle.y = H - 56;
+    paddle.x = Math.max(20, Math.min(W - paddle.w - 20, paddle.x || W/2 - paddle.w/2));
+  }
+
+  function resetGame(){
+    score = 0; level = 1; lives = 3; combo = 0; bestCombo = 0; activeTimers = { laser:0, sticky:0, big:0, slow:0 };
+    paddle.w = Math.min(135, W * .28);
+    paddle.x = W/2 - paddle.w/2;
+    sticky = false; laserMode = false;
+    buildLevel();
+    updateHud();
+  }
+
+
+  function shapeAllows(shape,r,c,rows,cols){
+    const mid=(cols-1)/2;
+    if(shape===0) return true; // wall
+    if(shape===1) return Math.abs(c-mid) <= r + 1; // pyramid
+    if(shape===2) return Math.abs(c-mid) + Math.abs(r-(rows-1)/2) <= Math.max(3, rows*.72); // diamond
+    if(shape===3) return r===0 || r===rows-1 || c===0 || c===cols-1 || (r>1 && c%3===0); // fortress
+    if(shape===4) return Math.sin((c/cols)*Math.PI*2 + r*.78) > -.22 || r===rows-1; // wave
+    if(shape===5) return c<cols*.28 || c>cols*.72 || r>rows*.62; // towers
+    if(shape===6) return Math.abs(c-r)<2 || Math.abs((cols-1-c)-r)<2 || r>rows-3; // X burst
+    return true;
+  }
+
+  function buildLevel(){
+    bricks = []; drops = []; lasers = []; particles = [];
+    balls = [newBall(true)];
+    paddle.w = Math.max(88, Math.min(150, paddle.w));
+    const cols = Math.max(7, Math.min(12, Math.floor(W / 64)));
+    const rows = Math.min(10, 5 + Math.floor(level*.8));
+    const shape = (level - 1) % 7;
+    const gap = 7;
+    const top = 78;
+    const side = 14;
+    const bw = (W - side*2 - gap*(cols-1)) / cols;
+    const bh = Math.max(20, Math.min(32, H * .035));
+    for(let r=0;r<rows;r++){
+      for(let c=0;c<cols;c++){
+        if(!shapeAllows(shape,r,c,rows,cols)) continue;
+        const roll = Math.random();
+        const mysteryChance = .24 + Math.min(.14, level*.012);
+        const bombChance = .08 + Math.min(.08, level*.006);
+        const type = roll < bombChance ? "bomb" : roll < bombChance + mysteryChance ? "mystery" : "normal";
+        const hp = r < 2 + Math.floor(level/2) ? 2 : 1;
+        bricks.push({
+          x: side + c*(bw+gap),
+          y: top + r*(bh+gap),
+          w: bw, h: bh,
+          hp, maxHp: hp,
+          type,
+          dead:false
+        });
+      }
+    }
+    toastMsg("Level " + level + " • New Shape • Speed " + Math.round(Math.min(760,315+level*38)), true, 1200);
+  }
+
+  function newBall(stuck=false, x=null, y=null, vx=null, vy=null){
+    const speed = Math.min(760, 315 + level * 38);
+    return {
+      x: x ?? paddle.x + paddle.w/2,
+      y: y ?? paddle.y - 13,
+      r: 8,
+      vx: vx ?? (Math.random()>.5 ? speed*.45 : -speed*.45),
+      vy: vy ?? -speed,
+      stuck
+    };
+  }
+
+  function updateHud(){
+    scoreEl.textContent = score;
+    levelEl.textContent = level;
+    livesEl.textContent = lives;
+    if(bestComboEl) bestComboEl.textContent = bestCombo;
+  }
+
+  function toastMsg(msg,big=false,ms=900){
+    toast.textContent = msg;
+    toast.classList.toggle("big", big);
+    toast.classList.add("show");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(()=>toast.classList.remove("show"), ms);
+  }
+  function updateTimers(){
+    timersEl.innerHTML = "";
+    const items = [
+      ["laser","LASER"],
+      ["sticky","STICKY"],
+      ["big","BIG PADDLE"],
+      ["slow","SLOW FIELD"]
+    ];
+    for(const [key,label] of items){
+      if(activeTimers[key] > 0){
+        const d = document.createElement("div");
+        d.className = "timerPill";
+        d.textContent = label + " " + activeTimers[key].toFixed(1) + "s";
+        timersEl.appendChild(d);
+      }
+    }
+  }
+
+  function start(){
+    resetGame();
+    running = true;
+    menu.classList.add("hidden");
+    gameOver.classList.add("hidden");
+    last = performance.now();
+    requestAnimationFrame(loop);
+  }
+
+  function launchBalls(){
+    balls.forEach(b=>{
+      if(b.stuck){
+        b.stuck=false;
+        b.vy = -Math.abs(330 + level*25);
+        if(Math.abs(b.vx) < 60) b.vx = (Math.random()>.5?1:-1)*140;
+      }
+    });
+  }
+
+  function fireLaser(){
+    if(activeTimers.laser <= 0 || laserCooldown > 0) return;
+    lasers.push({x:paddle.x + 14, y:paddle.y, w:4, h:18, vy:-720});
+    lasers.push({x:paddle.x + paddle.w - 18, y:paddle.y, w:4, h:18, vy:-720});
+    laserCooldown = .22;
+  }
+
+  function loop(t){
+    const dt = Math.min(.033, (t-last)/1000 || .016);
+    last = t;
+    if(running) {
+      update(dt);
+      draw();
+      requestAnimationFrame(loop);
+    }
+  }
+
+  function update(dt){
+    if(roundClearFreeze > 0){ roundClearFreeze -= dt; updateEffectsOnly(dt); draw(); return; }
+    for(const k in activeTimers) activeTimers[k] = Math.max(0, activeTimers[k] - dt);
+    sticky = activeTimers.sticky > 0;
+    laserMode = activeTimers.laser > 0;
+    updateTimers();
+    comboPulse = Math.max(0, comboPulse - dt*3);
+    if(keys.ArrowLeft || keys.a) paddle.x -= paddle.speed * dt;
+    if(keys.ArrowRight || keys.d) paddle.x += paddle.speed * dt;
+    if(paddle.targetX !== null) {
+      paddle.x += (paddle.targetX - paddle.x - paddle.w/2) * Math.min(1, dt*14);
+    }
+    paddle.x = Math.max(8, Math.min(W - paddle.w - 8, paddle.x));
+    laserCooldown = Math.max(0, laserCooldown - dt);
+    shake = Math.max(0, shake - dt * 18);
+
+    for(const b of balls){
+      if(b.stuck){
+        b.x = paddle.x + paddle.w/2;
+        b.y = paddle.y - b.r - 2;
+        continue;
+      }
+
+      const slowFactor = activeTimers.slow > 0 ? .72 : 1;
+      b.x += b.vx * dt * slowFactor;
+      b.y += b.vy * dt * slowFactor;
+      const minSpeed = Math.min(760,315+level*38) * .95;
+      const sp = Math.hypot(b.vx,b.vy);
+      if(sp < minSpeed){ b.vx = b.vx/sp*minSpeed; b.vy = b.vy/sp*minSpeed; }
+
+      if(b.x - b.r < 0){ b.x = b.r; b.vx *= -1; }
+      if(b.x + b.r > W){ b.x = W - b.r; b.vx *= -1; }
+      if(b.y - b.r < 0){ b.y = b.r; b.vy *= -1; }
+
+      if(b.y + b.r >= paddle.y && b.y - b.r <= paddle.y + paddle.h && b.x >= paddle.x && b.x <= paddle.x + paddle.w && b.vy > 0){
+        const hit = (b.x - (paddle.x + paddle.w/2)) / (paddle.w/2);
+        const speed = Math.hypot(b.vx,b.vy) * 1.01;
+        b.vx = hit * speed * .85;
+        b.vy = -Math.sqrt(Math.max(120*120, speed*speed - b.vx*b.vx));
+        b.y = paddle.y - b.r - 1;
+        if(combo >= 4) toastMsg("Combo banked: " + combo + "x", false, 800);
+        combo = 0;
+        if(sticky){
+          b.stuck = true;
+          toastMsg("Sticky catch");
+        }
+        addParticles(b.x, b.y, 8, "#ffd166");
+      }
+
+      for(const br of bricks){
+        if(br.dead) continue;
+        if(circleRect(b.x,b.y,b.r,br)){
+          hitBrick(br, b.x, b.y);
+          const cx = Math.max(br.x, Math.min(b.x, br.x+br.w));
+          const cy = Math.max(br.y, Math.min(b.y, br.y+br.h));
+          const dx = b.x - cx, dy = b.y - cy;
+          if(Math.abs(dx) > Math.abs(dy)) b.vx *= -1; else b.vy *= -1;
+          break;
+        }
+      }
+    }
+
+    balls = balls.filter(b => b.y - b.r < H + 20);
+    if(balls.length === 0){
+      lives--; combo = 0;
+      updateHud();
+      if(lives <= 0) end(false);
+      else {
+        balls = [newBall(true)];
+        toastMsg("Life lost");
+      }
+    }
+
+    for(const d of drops){
+      d.y += d.vy * dt;
+      d.spin += dt * 6;
+      if(d.y + d.r >= paddle.y && d.y - d.r <= paddle.y+paddle.h && d.x >= paddle.x && d.x <= paddle.x+paddle.w){
+        activatePower(d.kind, d.x, d.y);
+        d.dead = true;
+      }
+      if(d.y > H + 30) d.dead = true;
+    }
+    drops = drops.filter(d=>!d.dead);
+
+    for(const l of lasers){
+      l.y += l.vy * dt;
+      for(const br of bricks){
+        if(!br.dead && l.x < br.x+br.w && l.x+l.w > br.x && l.y < br.y+br.h && l.y+l.h > br.y){
+          hitBrick(br, l.x, l.y);
+          l.dead = true;
+          break;
+        }
+      }
+      if(l.y < -30) l.dead = true;
+    }
+    lasers = lasers.filter(l=>!l.dead);
+
+    for(const p of particles){
+      p.x += p.vx*dt; p.y += p.vy*dt; p.life -= dt; p.vy += 120*dt;
+    }
+    particles = particles.filter(p=>p.life>0);
+
+    if(bricks.every(b=>b.dead)){
+      celebrateRound();
+    }
+  }
+
+  function circleRect(cx,cy,r,rect){
+    const x = Math.max(rect.x, Math.min(cx, rect.x+rect.w));
+    const y = Math.max(rect.y, Math.min(cy, rect.y+rect.h));
+    const dx = cx-x, dy = cy-y;
+    return dx*dx + dy*dy <= r*r;
+  }
+
+  function hitBrick(br, x, y){
+    combo++;
+    bestCombo = Math.max(bestCombo, combo);
+    comboPulse = 1;
+    br.hp--;
+    const comboBonus = combo >= 4 ? combo * 6 : 0;
+    score += (br.type === "bomb" ? 25 : 10) + comboBonus;
+    if(combo === 4) toastMsg("4x COMBO! Bonus active", false, 900);
+    if(combo === 8) toastMsg("8x HOT STREAK!", true, 1100);
+    if(combo === 12){ toastMsg("12x MEGA COMBO!", true, 1200); spawnDrop(x,y); }
+    if(combo > 0 && combo % 5 === 0) addFloatingText(x,y, combo + "x COMBO +" + comboBonus, "#ffd166", 18);
+    addParticles(x,y,12, brickColor(br));
+    if(br.hp <= 0){
+      br.dead = true;
+      score += 15 + Math.floor(combo*1.5);
+      if(br.type === "bomb") bombAt(br.x+br.w/2, br.y+br.h/2, 92);
+      if(br.type === "mystery" || Math.random() < .10) spawnDrop(br.x+br.w/2, br.y+br.h/2);
+    }
+    updateHud();
+  }
+
+  function bombAt(x,y,radius){
+    shake = .5;
+    toastMsg("Bomb blast!");
+    addParticles(x,y,35,"#ff4d6d");
+    for(const br of bricks){
+      if(br.dead) continue;
+      const bx = br.x + br.w/2, by = br.y + br.h/2;
+      if(Math.hypot(bx-x, by-y) < radius){
+        br.dead = true;
+        score += 20;
+        addParticles(bx,by,8,brickColor(br));
+      }
+    }
+    updateHud();
+  }
+
+  function spawnDrop(x,y){
+    const keys = Object.keys(POWER);
+    const kind = keys[Math.floor(Math.random()*keys.length)];
+    drops.push({x,y,r:12,kind,vy:120+level*8,spin:0,dead:false});
+  }
+
+  function activatePower(kind,x,y){
+    const p = POWER[kind];
+    toastMsg(p.label + ((kind==="BIG"||kind==="STICKY"||kind==="LASER"||kind==="SLOW") ? " — timed!" : ""));
+    addParticles(x,y,18,p.color);
+    if(kind === "MULTI"){
+      const source = balls[0] || newBall(false,x,y);
+      balls.push(newBall(false, source.x, source.y, 260, -360));
+      balls.push(newBall(false, source.x, source.y, -260, -360));
+    }
+    if(kind === "BOMB") bombAt(x,y,115);
+    if(kind === "BIG"){
+      paddle.w = Math.min(W*.48, paddle.w + 36);
+      activeTimers.big = 7;
+    }
+    if(kind === "STICKY"){
+      activeTimers.sticky = 6;
+    }
+    if(kind === "LASER"){
+      activeTimers.laser = 6;
+    }
+    if(kind === "SLOW"){
+      activeTimers.slow = 5; balls.forEach(b=>{ b.vx *= .86; b.vy *= .86; });
+    }
+  }
+
+  function addParticles(x,y,n,color){
+    for(let i=0;i<n;i++){
+      const a = Math.random()*Math.PI*2;
+      const s = 50 + Math.random()*230;
+      particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:.35+Math.random()*.45,color,size:2+Math.random()*3});
+    }
+  }
+
+  function brickColor(br){
+    if(br.type === "bomb") return "#ff4d6d";
+    if(br.type === "mystery") return "#ffd166";
+    return br.hp > 1 ? "#8ee9ff" : "#66ffb3";
+  }
+
+
+  function addFloatingText(x,y,text,color="#ffd166",size=18){
+    particles.push({x,y,vx:0,vy:-40,life:1.1,color,size,text});
+  }
+  function updateEffectsOnly(dt){
+    for(const p of particles){
+      p.x += p.vx*dt; p.y += p.vy*dt; p.life -= dt; p.vy += p.text ? 0 : 120*dt;
+    }
+    particles = particles.filter(p=>p.life>0);
+  }
+  function celebrateRound(){
+    const clearBonus = 500 + level*120 + bestCombo*25;
+    score += clearBonus;
+    toastMsg("ROUND CLEAR! +" + clearBonus, true, 1400);
+    shake = .8;
+    for(let i=0;i<90;i++){
+      const x = W/2, y = H*.28, a = Math.random()*Math.PI*2, sp = 90 + Math.random()*520;
+      particles.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-120,life:1.8,color:["#ffd166","#66ffb3","#8ee9ff","#ff4d6d","#b59cff"][i%5],size:3+Math.random()*5});
+    }
+    roundClearFreeze = 1.35;
+    level++;
+    lives = Math.min(5, lives + 1);
+    updateHud();
+    setTimeout(()=>{ if(running){ buildLevel(); updateHud(); } }, 1350);
+  }
+
+  function draw(){
+    ctx.save();
+    ctx.clearRect(0,0,W,H);
+    if(shake>0){
+      ctx.translate((Math.random()-.5)*shake*10, (Math.random()-.5)*shake*10);
+    }
+
+    drawStars();
+
+    for(const br of bricks){
+      if(br.dead) continue;
+      const color = brickColor(br);
+      roundRect(br.x, br.y, br.w, br.h, 8, color, true);
+      ctx.globalAlpha = .35;
+      roundRect(br.x+4, br.y+4, br.w-8, Math.max(3,br.h*.25), 5, "#fff", true);
+      ctx.globalAlpha = 1;
+      if(br.type === "bomb" || br.type === "mystery"){
+        ctx.fillStyle = "#111";
+        ctx.font = "900 14px system-ui";
+        ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        ctx.fillText(br.type === "bomb" ? "✹" : "?", br.x+br.w/2, br.y+br.h/2+1);
+      }
+    }
+
+    for(const l of lasers){
+      roundRect(l.x,l.y,l.w,l.h,3,"#8ee9ff",true);
+    }
+
+    for(const d of drops){
+      const p = POWER[d.kind];
+      ctx.save();
+      ctx.translate(d.x,d.y);
+      ctx.rotate(d.spin);
+      ctx.fillStyle = p.color;
+      ctx.beginPath(); ctx.arc(0,0,d.r,0,Math.PI*2); ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,.7)";
+      ctx.lineWidth = 2; ctx.stroke();
+      ctx.fillStyle = "#101020";
+      ctx.font = "900 14px system-ui";
+      ctx.textAlign="center"; ctx.textBaseline="middle";
+      ctx.fillText(p.char,0,1);
+      ctx.restore();
+    }
+
+    if(activeTimers.big <= 0 && paddle.w > Math.min(135,W*.30)) paddle.w += (Math.min(135,W*.30) - paddle.w) * .04;
+    const grad = ctx.createLinearGradient(paddle.x,paddle.y,paddle.x+paddle.w,paddle.y);
+    grad.addColorStop(0,"#ffd166");
+    grad.addColorStop(1, activeTimers.laser > 0 ? "#8ee9ff" : "#66ffb3");
+    roundRect(paddle.x,paddle.y,paddle.w,paddle.h,10,grad,true);
+    ctx.fillStyle = "rgba(255,255,255,.5)";
+    roundRect(paddle.x+8,paddle.y+3,paddle.w-16,4,5,"rgba(255,255,255,.45)",true);
+
+    for(const b of balls){
+      ctx.beginPath();
+      const g = ctx.createRadialGradient(b.x-3,b.y-4,2,b.x,b.y,b.r+4);
+      g.addColorStop(0,"#fff");
+      g.addColorStop(1, b.stuck ? "#ffd166" : "#f2f4ff");
+      ctx.fillStyle = g;
+      ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+      ctx.fill();
+      ctx.shadowColor = "#fff";
+      ctx.shadowBlur = 12;
+      ctx.strokeStyle = "rgba(255,255,255,.5)";
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+    }
+
+    for(const p of particles){
+      ctx.globalAlpha = Math.max(0, p.life/.8);
+      ctx.fillStyle = p.color;
+      if(p.text){ ctx.font = "900 " + p.size + "px system-ui"; ctx.textAlign="center"; ctx.fillText(p.text,p.x,p.y); } else { ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill(); }
+      ctx.globalAlpha = 1;
+    }
+
+    if(combo >= 2){
+      ctx.fillStyle = combo >= 8 ? "#ff4d6d" : "#ffd166";
+      ctx.font = "900 " + (20 + comboPulse*8) + "px system-ui";
+      ctx.textAlign = "center";
+      ctx.fillText(combo + "x COMBO", W/2, 86);
+    }
+    if(!balls.some(b=>!b.stuck)){
+      ctx.fillStyle = "rgba(255,255,255,.8)";
+      ctx.font = "800 16px system-ui";
+      ctx.textAlign="center";
+      ctx.fillText("Tap or press SPACE to launch", W/2, H-90);
+    }
+    if(activeTimers.laser > 0){
+      ctx.fillStyle = "rgba(142,233,255,.9)";
+      ctx.font = "800 13px system-ui";
+      ctx.textAlign="center";
+      ctx.fillText("LASER READY — SPACE / TAP", W/2, H-30);
+    }
+
+    ctx.restore();
+  }
+
+  function drawStars(){
+    ctx.globalAlpha = .35;
+    ctx.fillStyle = "#fff";
+    for(let i=0;i<42;i++){
+      const x = (i*97 % W);
+      const y = (i*53 % H);
+      ctx.fillRect(x,y,1.5,1.5);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function roundRect(x,y,w,h,r,fill,doFill){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);
+    ctx.arcTo(x+w,y,x+w,y+h,r);
+    ctx.arcTo(x+w,y+h,x,y+h,r);
+    ctx.arcTo(x,y+h,x,y,r);
+    ctx.arcTo(x,y,x+w,y,r);
+    if(doFill){ ctx.fillStyle = fill; ctx.fill(); }
+  }
+
+  function end(won){
+    running = false;
+    endTitle.textContent = won ? "Victory!" : "Game Over";
+    endText.textContent = "Final Score: " + score + " • Level Reached: " + level + " • Best Combo: " + bestCombo + "x";
+    gameOver.classList.remove("hidden");
+  }
+
+  addEventListener("resize", resize);
+  resize();
+
+  document.getElementById("startBtn").addEventListener("click", start);
+  document.getElementById("restartBtn").addEventListener("click", start);
+
+  addEventListener("keydown", e=>{
+    keys[e.key] = true;
+    if(e.key === " "){
+      e.preventDefault();
+      if(activeTimers.laser > 0) fireLaser();
+      launchBalls();
+    }
+  });
+  addEventListener("keyup", e=>keys[e.key]=false);
+
+  function pointerMove(e){
+    const p = e.touches ? e.touches[0] : e;
+    paddle.targetX = p.clientX;
+  }
+  canvas.addEventListener("pointermove", pointerMove);
+  canvas.addEventListener("pointerdown", e=>{
+    paddle.targetX = e.clientX;
+    if(activeTimers.laser > 0) fireLaser();
+    launchBalls();
+  });
+  canvas.addEventListener("touchmove", e=>{
+    e.preventDefault();
+    pointerMove(e);
+  }, {passive:false});
+  canvas.addEventListener("touchstart", e=>{
+    e.preventDefault();
+    pointerMove(e);
+    if(activeTimers.laser > 0) fireLaser();
+    launchBalls();
+  }, {passive:false});
+})();
+</script>
+</body>
+</html>
