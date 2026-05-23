@@ -131,3 +131,32 @@ Spelling is the third minimal pilot wired to the adapter and remains local/in-me
 - Adapter payloads are limited to canonical safety keys (`game_key`, `activity_key`, `mode`, `success`, `duration_band`, `persistence_band`, `completion_state`, `event_category`).
 - Spelling does not emit raw words, typed answers, exact question text, exact score values, diagnostics, or child identifiers.
 - Registry `tracking_ready` remains `false`.
+
+## 1st Grade Sight Words pilot (local-only preview)
+1st Grade Sight Words is the fourth minimal pilot wired to the adapter and remains local/in-memory only:
+- no server tracking
+- no database writes
+- no Gates scoring wiring
+- no child identity fields
+- no raw words, typed letters, or raw answer text in adapter payloads
+
+### 1st Grade Sight Words event map
+- `game_session_started`
+  - payload keys: `game_key`, `activity_key`, `mode`
+- `activity_selected`
+  - payload keys: `game_key`, `activity_key`, `mode`
+- `round_started`
+  - payload keys: `game_key`, `activity_key`, `mode`
+- `round_completed`
+  - payload keys: `game_key`, `activity_key`, `mode`, `success`, `duration_band`, `persistence_band`
+- `retry_started`
+  - payload keys: `game_key`, `activity_key`, `mode`, `event_category`
+- `recovery_after_miss`
+  - payload keys: `game_key`, `activity_key`, `mode`, `event_category`
+- `game_session_ended`
+  - payload keys: `game_key`, `activity_key`, `mode`, `completion_state`, `duration_band`, `persistence_band`
+
+### 1st Grade Sight Words guardrails
+- Adapter payloads are limited to canonical safety keys (`game_key`, `activity_key`, `mode`, `success`, `duration_band`, `persistence_band`, `completion_state`, `event_category`, `hint_band`).
+- Sight Words does not emit raw words, typed letters, raw answers, exact question text, exact score values, diagnostics, or child identifiers.
+- Registry `tracking_ready` remains `false`.

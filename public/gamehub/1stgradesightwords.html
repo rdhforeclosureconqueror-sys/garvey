@@ -197,6 +197,7 @@
 </div>
 
 <script src="/gamehub/shared-content-loader.js"></script>
+<script src="/gamehub/gamehub-session-adapter.js"></script>
 <script>
 /** =========================
  *  WORD BANK (your exact list)
@@ -278,6 +279,78 @@ async function initializeSharedContent(){
 }
 initializeSharedContent();
 
+const GAME_KEY = "1stgradesightwords";
+const ACTIVITY_KEYS = {
+  match: "match_mode",
+  learn: "learn_mode"
+};
+let adapterSessionStarted = false;
+let sessionStartMs = Date.now();
+let activeActivityKey = ACTIVITY_KEYS.match;
+let activeMode = "match";
+let roundStartMs = Date.now();
+let learnAttempted = false;
+let learnHadMiss = false;
+
+function getDurationBand(ms){
+  if(ms < 15000) return "brief";
+  if(ms < 45000) return "steady";
+  return "extended";
+}
+
+function emitAdapterEvent(eventName, payload){
+  if(!window.GamehubSessionAdapter || typeof window.GamehubSessionAdapter.emit !== "function") return;
+  window.GamehubSessionAdapter.emit(eventName, payload);
+}
+
+function startAdapterSession(){
+  if(adapterSessionStarted || !window.GamehubSessionAdapter) return;
+  sessionStartMs = Date.now();
+  adapterSessionStarted = true;
+  if(typeof window.GamehubSessionAdapter.startSession === "function"){
+    window.GamehubSessionAdapter.startSession({
+      game_key: GAME_KEY,
+      activity_key: activeActivityKey,
+      mode: activeMode
+    });
+  }
+  emitAdapterEvent("game_session_started", {
+    game_key: GAME_KEY,
+    activity_key: activeActivityKey,
+    mode: activeMode
+  });
+}
+
+function switchActivity(activityKey, mode){
+  activeActivityKey = activityKey;
+  activeMode = mode;
+  emitAdapterEvent("activity_selected", {
+    game_key: GAME_KEY,
+    activity_key: activeActivityKey,
+    mode: activeMode
+  });
+}
+
+function startRound(){
+  roundStartMs = Date.now();
+  emitAdapterEvent("round_started", {
+    game_key: GAME_KEY,
+    activity_key: activeActivityKey,
+    mode: activeMode
+  });
+}
+
+function markRoundCompleted(success, persistenceBand){
+  emitAdapterEvent("round_completed", {
+    game_key: GAME_KEY,
+    activity_key: activeActivityKey,
+    mode: activeMode,
+    success,
+    duration_band: getDurationBand(Date.now() - roundStartMs),
+    persistence_band: persistenceBand
+  });
+}
+
 /** =========================
  *  MATCH GAME
  *  ========================= */
@@ -286,6 +359,9 @@ let first=null, second=null, lock=false;
 function shuffle(arr){ return arr.sort(()=>Math.random()-0.5); }
 
 function startMatch(){
+  startAdapterSession();
+  switchActivity(ACTIVITY_KEYS.match, "match");
+  startRound();
   const game = document.getElementById("game");
   game.innerHTML="";
   first=second=null; lock=false;
@@ -361,6 +437,11 @@ function renderBlankedWord(word, idx){
 }
 
 function newLearn(){
+  startAdapterSession();
+  switchActivity(ACTIVITY_KEYS.learn, "learn");
+  startRound();
+  learnAttempted = false;
+  learnHadMiss = false;
   // pick a word
   currentWord = WORDS[Math.floor(Math.random()*WORDS.length)];
   const options = SENT[currentWord] || [`I see ${currentWord}.`];
@@ -392,10 +473,29 @@ function checkLetter(){
   }
 
   if(input === missingChar){
+    const persistenceBand = learnHadMiss ? "retry_then_success" : "first_try_success";
+    markRoundCompleted(true, persistenceBand);
     fb.innerHTML = `<span class="ok">✅ Correct!</span>`;
     // auto-next after a short pause (feels good for kids)
     setTimeout(newLearn, 650);
   } else {
+    if(!learnAttempted){
+      emitAdapterEvent("retry_started", {
+        game_key: GAME_KEY,
+        activity_key: activeActivityKey,
+        mode: activeMode,
+        event_category: "first_miss"
+      });
+    } else if(!learnHadMiss){
+      emitAdapterEvent("recovery_after_miss", {
+        game_key: GAME_KEY,
+        activity_key: activeActivityKey,
+        mode: activeMode,
+        event_category: "continued_after_miss"
+      });
+    }
+    learnAttempted = true;
+    learnHadMiss = true;
     fb.innerHTML = `<span class="no">❌ Try again.</span>`;
   }
 }
@@ -412,6 +512,22 @@ document.addEventListener("keydown", (e)=>{
   if(e.key === "Enter"){
     const active = document.activeElement;
     if(active && active.id === "letterInput") checkLetter();
+  }
+});
+
+window.addEventListener("beforeunload", ()=>{
+  if(!adapterSessionStarted) return;
+  const summary = {
+    game_key: GAME_KEY,
+    activity_key: activeActivityKey,
+    mode: activeMode,
+    completion_state: "exit",
+    duration_band: getDurationBand(Date.now() - sessionStartMs),
+    persistence_band: learnHadMiss ? "attempted_recovery" : "steady_play"
+  };
+  emitAdapterEvent("game_session_ended", summary);
+  if(window.GamehubSessionAdapter && typeof window.GamehubSessionAdapter.endSession === "function"){
+    window.GamehubSessionAdapter.endSession(summary);
   }
 });
 
