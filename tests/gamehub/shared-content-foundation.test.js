@@ -17,7 +17,7 @@ test('schemas exist', ()=> {
 test('sample content loads + validates', async ()=> {
   const fetchImpl = async (p)=>({ok:true,json:async()=>readJson(`public${p}`)});
   const bank = await shared.loadWordBank('/gamehub/content/word-bank.sample.json', null, fetchImpl);
-  assert.ok(bank.items.length >= 2);
+  assert.ok(bank.items.length >= 3);
 });
 
 test('adapter creates spelling lesson items', ()=> {
@@ -32,11 +32,30 @@ test('adapter creates sight words deck', ()=> {
   assert.ok(deck.includes('these'));
 });
 
+test('adapter creates game6 set', ()=> {
+  const bank = readJson('public/gamehub/content/word-bank.sample.json');
+  const set = shared.fromWordBankToGame6Set(bank);
+  assert.ok(set.some((i)=> i.word === 'vital' && i.syn === 'essential' && i.ant === 'unimportant'));
+});
+
+test('one shared bank supports spelling, sight words, and game6', ()=> {
+  const bank = readJson('public/gamehub/content/word-bank.sample.json');
+  const spelling = shared.fromWordBankToSpellingLesson(bank);
+  const sight = shared.fromWordBankToSightWordsDeck(bank);
+  const game6 = shared.fromWordBankToGame6Set(bank);
+  assert.ok(spelling.length > 0);
+  assert.ok(sight.length > 0);
+  assert.ok(game6.length > 0);
+});
+
 test('games keep fallback and no tracking wiring', ()=> {
   const spelling = fs.readFileSync(path.join(root, 'public/gamehub/spelling'),'utf8');
   const sight = fs.readFileSync(path.join(root, 'public/gamehub/1stgradesightwords'),'utf8');
+  const game6 = fs.readFileSync(path.join(root, 'public/gamehub/game6'),'utf8');
   assert.match(spelling, /WORDS_FALLBACK/);
   assert.match(sight, /WORDS_FALLBACK/);
+  assert.match(game6, /let words = \[/);
   assert.doesNotMatch(spelling, /track|gate score|gates tracking/i);
   assert.doesNotMatch(sight, /track|gate score|gates tracking/i);
+  assert.doesNotMatch(game6, /track|gate score|gates tracking/i);
 });

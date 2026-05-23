@@ -1,7 +1,7 @@
-# GameHub Shared Content Foundation (PR1)
+# GameHub Shared Content Foundation (PR2)
 
 ## Schemas
-- `word-bank-item`: id, word, definition (+ optional example, grade)
+- `word-bank-item`: id, word, definition (+ optional example, grade, sentence, template, synonym, antonym)
 - `question-bank-item`: id, prompt, answer
 - `lesson-pool`: id, title, wordBankPath
 - `difficulty-config`: id, label (+ optional maxItems)
@@ -13,14 +13,33 @@
 - `public/gamehub/config/` small sample difficulty and mode presets
 - `public/gamehub/shared-content-loader.js` lightweight loader/validators/adapters
 
-## Adding future content
-1. Add JSON file into `public/gamehub/content/` or `public/gamehub/config/`.
-2. Keep required fields in each schema.
-3. Validate through loader helper before wiring into gameplay.
-4. Start with additive content, preserving in-game fallback arrays.
+## Game migration notes
+- `spelling` remains fallback-safe and consumes shared word-bank items through `fromWordBankToSpellingLesson`.
+- `1stgradesightwords` remains fallback-safe and consumes shared word-bank items through `fromWordBankToSightWordsDeck`.
+- `game6` now consumes shared word-bank items through `fromWordBankToGame6Set`, while keeping internal arena content as fallback.
 
-## Migration order for remaining games
-1. Word-first games (matching, spelling, sight words variants)
-2. Question-driven quiz games
-3. Adaptive/mode-heavy games (after config presets mature)
-4. Gates-linked score-aware games last (separate PR)
+## Unified word-bank compatibility notes
+One shared bank now supports all three games with a normalized core:
+- Required core: `id`, `word`, `definition`
+- Literacy support fields: `example`, `sentence`, `template`, `grade`
+- Word-relation support fields: `synonym`, `antonym`
+
+Normalization adjustments used by adapters:
+- `game6` maps `synonym`/`antonym` into `syn`/`ant` runtime fields.
+- `spelling` prefers `example` but can also consume `sentence` when present.
+- `1stgradesightwords` only consumes `word`, making richer fields non-breaking.
+
+Field gaps observed:
+- Banks without `synonym`/`antonym` are still valid and load safely; game6 adapter falls back to definition text for those rounds.
+
+## Recommended future literacy content structure
+Use one additive bank per grade cluster with this shape:
+- core: `id`, `word`, `definition`, `grade`
+- reading context: `example`, `sentence`, `template`
+- vocabulary relations: `synonym`, `antonym`
+
+Keep content progressive and migration-safe:
+1. Start with small mixed-grade banks.
+2. Expand by grade-specific files.
+3. Introduce larger libraries only after gameplay validation per game.
+4. Keep tracking/Gates concerns in separate PRs.
