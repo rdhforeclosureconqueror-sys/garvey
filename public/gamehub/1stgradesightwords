@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sight Words – Match & Learn</title>
+<style>
+  body{
+    font-family:"Comic Sans MS", Arial, sans-serif;
+    background: linear-gradient(270deg,#0f2027,#203a43,#2c5364);
+    background-size: 600% 600%;
+    animation: bg 14s ease infinite;
+    color:#e0f7fa;
+    text-align:center;
+    padding:18px;
+  }
+  @keyframes bg{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+
+  h1,h2{ text-shadow:0 0 10px #00e5ff; margin: 10px 0; }
+
+  .wrap{
+    max-width: 980px;
+    margin: 0 auto;
+    display: grid;
+    gap: 18px;
+  }
+
+  section{
+    background: rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 16px;
+  }
+
+  .row{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    align-items:center;
+    margin: 10px 0;
+  }
+
+  button, select{
+    font-size: 16px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: none;
+  }
+  button{
+    background:#00e5ff;
+    cursor:pointer;
+  }
+
+  /* MATCH GAME */
+  #game{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .card{
+    background: rgba(0,229,255,0.22);
+    border: 2px solid rgba(0,229,255,0.35);
+    border-radius: 14px;
+    padding: 18px 10px;
+    font-size: 22px;
+    font-weight: 700;
+    color: transparent;
+    cursor: pointer;
+    user-select:none;
+    box-shadow: 0 0 12px rgba(0,229,255,0.25);
+    transition: transform .15s;
+  }
+  .card:hover{ transform: scale(1.03); }
+  .card.revealed{
+    background:#fff;
+    color:#263238;
+    cursor: default;
+  }
+  .card.matched{
+    background:#00e676;
+    color:#004d40;
+    cursor: default;
+  }
+
+  /* LEARN ZONE */
+  .learnBox{
+    max-width: 820px;
+    margin: 0 auto;
+    text-align:left;
+  }
+  .label{
+    font-size:14px;
+    opacity: .9;
+    margin-bottom: 6px;
+  }
+  .sentence{
+    font-size: 24px;
+    line-height: 1.25;
+    margin: 10px 0 14px;
+    text-align:center;
+  }
+  .target{
+    display:inline-block;
+    padding: 4px 10px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    margin: 0 4px;
+  }
+  .blank{
+    display:inline-block;
+    min-width: 20px;
+    border-bottom: 3px solid #00e5ff;
+    text-align:center;
+    font-weight: 900;
+    padding: 0 4px;
+  }
+  .inputRow{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+    margin-top: 10px;
+  }
+  input{
+    font-size: 20px;
+    width: 70px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    text-align:center;
+  }
+  .feedback{
+    margin-top: 10px;
+    font-size: 18px;
+    text-align:center;
+    min-height: 24px;
+  }
+  .ok{ color:#69f0ae; font-weight:700; }
+  .no{ color:#ff8a80; font-weight:700; }
+
+  .smallNote{
+    font-size: 14px;
+    opacity: .85;
+    margin-top: 10px;
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <h1>🚀 Sight Words – Match & Learn</h1>
+
+  <!-- MATCH -->
+  <section>
+    <h2>🧩 Match the Words</h2>
+    <div class="row">
+      <label>
+        Cards:
+        <select id="matchSize">
+          <option value="12">3×4 (12 cards)</option>
+          <option value="16">4×4 (16 cards)</option>
+          <option value="18">3×6 (18 cards)</option>
+          <option value="24">4×6 (24 cards)</option>
+        </select>
+      </label>
+      <button onclick="startMatch()">🔄 New Match</button>
+    </div>
+    <div id="game"></div>
+  </section>
+
+  <!-- LEARN -->
+  <section>
+    <h2>✏️ Learn the Words</h2>
+    <div class="learnBox">
+      <div class="label">Read the sentence. Type the missing letter.</div>
+      <div id="learnSentence" class="sentence"></div>
+
+      <div class="inputRow">
+        <input id="letterInput" maxlength="1" placeholder="a"/>
+        <button onclick="checkLetter()">Check</button>
+        <button onclick="showWord()">Show Word</button>
+        <button onclick="newLearn()">➡️ Next</button>
+      </div>
+
+      <div id="learnFeedback" class="feedback"></div>
+      <div id="learnHint" class="smallNote"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+/** =========================
+ *  WORD BANK (your exact list)
+ *  ========================= */
+const WORDS = [
+  "these","while","one","once","begin","above",
+  "don't","out","have","made","where","like","home",
+  "there","name","use","think","almost","help","among",
+  "could","since","love","open","place","would",
+  "it","push","this","go","when","for","me","of","be",
+  "talk","that","not","you","my","was","most","what","get",
+  "will","find","pull","with","off","form"
+];
+
+/** =========================
+ *  SENTENCES (logical + simple)
+ *  Each word has 2 options.
+ *  ========================= */
+const SENT = {
+  "these": ["Put these on the table.", "I like these red shoes."],
+  "while": ["I read while you cook.", "Wait here while I tie my shoe."],
+  "one": ["I have one red ball.", "Pick one book to read."],
+  "once": ["I went there once.", "Once I saw a big frog."],
+  "begin": ["Begin when I say go.", "We begin our game now."],
+  "above": ["The bird is above the tree.", "Look above the door."],
+  "don't": ["Don't run in the hall.", "Don't touch the hot pan."],
+  "out": ["Go out to play.", "The light is out."],
+  "have": ["I have a new pencil.", "We have two cats."],
+  "made": ["I made a paper boat.", "Mom made soup for us."],
+  "where": ["Where is my hat?", "Where do you want to go?"],
+  "like": ["I like to read.", "Do you like this song?"],
+  "home": ["I walk home after school.", "My home is warm."],
+  "there": ["Put it there, please.", "There is a dog."],
+  "name": ["My name is Sam.", "Write your name here."],
+  "use": ["Use a crayon, please.", "We use soap to wash."],
+  "think": ["I think it will rain.", "Think before you speak."],
+  "almost": ["I am almost done.", "The cup is almost full."],
+  "help": ["Help me tie my shoe.", "I will help you read."],
+  "among": ["Hide among the trees.", "The cat is among the boxes."],
+  "could": ["I could jump high.", "We could play a game."],
+  "since": ["I have been here since Monday.", "Since lunch, I feel full."],
+  "love": ["I love my family.", "We love to laugh."],
+  "open": ["Open the door, please.", "I open my book."],
+  "place": ["Put it in its place.", "This is a nice place."],
+  "would": ["I would like some water.", "He would help if he could."],
+  "it": ["It is my turn.", "It is cold today."],
+  "push": ["Push the door gently.", "Push the swing."],
+  "this": ["This is my book.", "This is fun!"],
+  "go": ["Go to the line.", "Ready, set, go!"],
+  "when": ["When will we eat?", "Tell me when you are ready."],
+  "for": ["This gift is for you.", "I made it for Mom."],
+  "me": ["Come with me.", "That is for me."],
+  "of": ["A cup of milk.", "The top of the hill."],
+  "be": ["Be kind to others.", "Be quiet, please."],
+  "talk": ["Talk in a soft voice.", "We talk after school."],
+  "that": ["That is my chair.", "I want that one."],
+  "not": ["Do not run.", "This is not mine."],
+  "you": ["You can do it!", "I will help you."],
+  "my": ["My dog is small.", "That is my pen."],
+  "was": ["I was happy today.", "He was late."],
+  "most": ["I like pizza most.", "Most birds can fly."],
+  "what": ["What is your name?", "What do you see?"],
+  "get": ["Get your coat.", "I get a snack."],
+  "will": ["I will help you.", "We will go soon."],
+  "find": ["Find the red crayon.", "I can find my shoes."],
+  "pull": ["Pull the door open.", "Pull the wagon."],
+  "with": ["I play with my friend.", "Read with me."],
+  "off": ["Turn off the light.", "Take off your hat."],
+  "form": ["Make a line in this form.", "The clay can form a ball."]
+};
+
+/** =========================
+ *  MATCH GAME
+ *  ========================= */
+let first=null, second=null, lock=false;
+
+function shuffle(arr){ return arr.sort(()=>Math.random()-0.5); }
+
+function startMatch(){
+  const game = document.getElementById("game");
+  game.innerHTML="";
+  first=second=null; lock=false;
+
+  const totalCards = parseInt(document.getElementById("matchSize").value, 10);
+  const pairs = totalCards/2;
+
+  const chosen = shuffle([...WORDS]).slice(0, pairs);
+  const deck = shuffle([...chosen, ...chosen]);
+
+  deck.forEach(word=>{
+    const c = document.createElement("div");
+    c.className="card";
+    c.textContent=word;
+    c.onclick=()=>flip(c);
+    game.appendChild(c);
+  });
+}
+
+function flip(card){
+  if(lock || card.classList.contains("revealed")) return;
+  card.classList.add("revealed");
+
+  if(!first){ first=card; return; }
+  second=card;
+
+  if(first.textContent === second.textContent){
+    first.classList.add("matched");
+    second.classList.add("matched");
+    first=second=null;
+  } else {
+    lock=true;
+    setTimeout(()=>{
+      first.classList.remove("revealed");
+      second.classList.remove("revealed");
+      first=second=null;
+      lock=false;
+    }, 850);
+  }
+}
+
+/** =========================
+ *  LEARN ZONE
+ *  Exactly ONE missing letter in the target word only
+ *  ========================= */
+let currentWord = "";
+let missingChar = "";
+let missingIndex = -1;
+let currentSentence = "";
+
+function pickMissingIndex(word){
+  // Don’t blank the apostrophe in "don't" (makes it confusing)
+  const badIndexes = new Set();
+  for(let i=0;i<word.length;i++){
+    if(word[i]==="'") badIndexes.add(i);
+  }
+  // pick a letter index not apostrophe
+  let tries=0;
+  while(tries<20){
+    const idx = Math.floor(Math.random()*word.length);
+    if(!badIndexes.has(idx)) return idx;
+    tries++;
+  }
+  // fallback: first non-apostrophe
+  for(let i=0;i<word.length;i++) if(word[i] !== "'") return i;
+  return 0;
+}
+
+function renderBlankedWord(word, idx){
+  const before = word.slice(0, idx);
+  const after  = word.slice(idx+1);
+  return `${before}<span class="blank">_</span>${after}`;
+}
+
+function newLearn(){
+  // pick a word
+  currentWord = WORDS[Math.floor(Math.random()*WORDS.length)];
+  const options = SENT[currentWord] || [`I see ${currentWord}.`];
+  currentSentence = options[Math.floor(Math.random()*options.length)];
+
+  // pick one missing letter in the target word
+  missingIndex = pickMissingIndex(currentWord);
+  missingChar = currentWord[missingIndex].toLowerCase();
+
+  // build sentence with the target word blanked
+  const blanked = `<span class="target">${renderBlankedWord(currentWord, missingIndex)}</span>`;
+  const sentenceWithBlank = currentSentence.replace(currentWord, blanked);
+
+  document.getElementById("learnSentence").innerHTML = sentenceWithBlank;
+  document.getElementById("letterInput").value = "";
+  document.getElementById("learnFeedback").innerHTML = "";
+  document.getElementById("learnHint").innerHTML =
+    `Word: <b>${currentWord}</b> (type the missing letter)`;
+  document.getElementById("letterInput").focus();
+}
+
+function checkLetter(){
+  const input = (document.getElementById("letterInput").value || "").toLowerCase();
+  const fb = document.getElementById("learnFeedback");
+
+  if(!input){
+    fb.innerHTML = `<span class="no">Type one letter.</span>`;
+    return;
+  }
+
+  if(input === missingChar){
+    fb.innerHTML = `<span class="ok">✅ Correct!</span>`;
+    // auto-next after a short pause (feels good for kids)
+    setTimeout(newLearn, 650);
+  } else {
+    fb.innerHTML = `<span class="no">❌ Try again.</span>`;
+  }
+}
+
+function showWord(){
+  // reveal the full word as a gentle help
+  const fb = document.getElementById("learnFeedback");
+  fb.innerHTML = `Hint: the word is <span class="ok">${currentWord}</span>`;
+  document.getElementById("letterInput").focus();
+}
+
+// Enter key checks
+document.addEventListener("keydown", (e)=>{
+  if(e.key === "Enter"){
+    const active = document.activeElement;
+    if(active && active.id === "letterInput") checkLetter();
+  }
+});
+
+// init
+startMatch();
+newLearn();
+</script>
+</body>
+</html>
