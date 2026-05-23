@@ -25,8 +25,8 @@
     if (!registryApi || typeof registryApi.getLaunchableGames !== 'function') return [];
     return registryApi.getLaunchableGames(context);
   }
-  function buildGameHubLaunchPath(filePath, childId = '') {
-    const path = String(filePath || '').trim();
+  function buildGameHubLaunchPath(launchPath, childId = '') {
+    const path = String(launchPath || '').trim();
     if (!path) return '/gamehub/index.html';
     if (!childId) return path;
     const separator = path.includes('?') ? '&' : '?';
@@ -42,7 +42,7 @@
     if (!entries.length) {
       return `<section class="panel"><h3>Practice Games</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p>${intro}<p><a class="btn secondary" href="/gamehub/index.html">Explore Practice Games</a></p></section>`;
     }
-    const previews = entries.slice(0, 4).map((entry) => `<li><a href="${buildGameHubLaunchPath(entry.file_path, childId)}">${entry.title}</a> <span>(${entry.game_type})</span></li>`).join('');
+    const previews = entries.slice(0, 4).map((entry) => `<li><a href="${buildGameHubLaunchPath(entry.launch_path || entry.file_path, childId)}">${entry.title}</a> <span>(${entry.game_type})</span></li>`).join('');
     return `<section class="panel" data-practice-games-section><h3>Practice Games</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p>${intro}<ul>${previews}</ul><p><a class="btn secondary" data-gamehub-discovery-link href="/gamehub/index.html">Explore Practice Games</a></p></section>`;
   }
   function gateList() {

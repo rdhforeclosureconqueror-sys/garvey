@@ -70,3 +70,8 @@ Any stale references should be audited in follow-up PRs with route-level tests b
 - **Neutral learner fallback rule:** Until Gates runtime context is formally connected, GameHub games should default to neutral learner labels such as `Learner`, `Player`, or `Demo Learner` so standalone public access remains playable.
 - **Future Gates context plan:** A later phase may pass safe, scoped context from Gates into GameHub at launch time. That phase must avoid direct child identity leakage and must preserve standalone behavior when context is absent.
 - **No-tracking status:** PR7 remains no-tracking. No event instrumentation, scoring pipeline integration, or game-result database writeback is introduced.
+
+## PR8 playable launch path rule
+- **Rule:** Every GameHub registry entry must include a browser-playable `launch_path` that resolves to HTML (typically a `.html` file under `public/gamehub`).
+- **Compatibility:** `file_path` remains as source-file metadata, while UI entry points (`/gamehub/index.html` and Gates practice links) must launch through `launch_path`.
+- **Safety:** This is launch-behavior-only. No gameplay changes, tracking hooks, scoring integration, or database-write wiring are added in this phase.

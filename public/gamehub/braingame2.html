@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NeuroGrid Future Lab</title>
+<style>
+:root{
+  --bg:#050813;
+  --bg2:#0a1122;
+  --card:rgba(7,14,30,.82);
+  --edge:rgba(91,204,255,.22);
+  --ink:#eef6ff;
+  --muted:#9bb0d2;
+  --cyan:#54deff;
+  --violet:#8b63ff;
+  --pink:#ff65a8;
+  --good:#61ffb0;
+  --warn:#ffc864;
+  --danger:#ff6b7a;
+  --shadow:0 22px 60px rgba(0,0,0,.42);
+  --glow:0 0 0 1px rgba(84,222,255,.12), 0 0 18px rgba(84,222,255,.12), inset 0 0 0 1px rgba(255,255,255,.03);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:
+radial-gradient(circle at 20% 0%, rgba(84,222,255,.10), transparent 28%),
+radial-gradient(circle at 80% 10%, rgba(139,99,255,.13), transparent 24%),
+linear-gradient(180deg, #04070f 0%, #091224 48%, #050913 100%);
+color:var(--ink);}
+body{padding:24px}
+.container{max-width:1280px;margin:0 auto}
+.hero{
+  padding:24px;border:1px solid var(--edge);border-radius:24px;background:linear-gradient(180deg, rgba(10,18,38,.92), rgba(8,14,28,.82));
+  box-shadow:var(--shadow), var(--glow);position:relative;overflow:hidden;margin-bottom:20px;
+}
+.hero:before,.panel:before{content:"";position:absolute;inset:0;background:
+linear-gradient(90deg, transparent, rgba(84,222,255,.05), transparent);
+pointer-events:none}
+h1{margin:0 0 8px;font-size:clamp(28px,4vw,48px);letter-spacing:.04em;text-transform:uppercase}
+.sub{color:var(--muted);max-width:900px;line-height:1.45}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px}
+.panel{
+  position:relative;padding:18px;border:1px solid var(--edge);border-radius:22px;background:var(--card);
+  box-shadow:var(--shadow), var(--glow);overflow:hidden
+}
+.badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px}
+h2{margin:0 0 8px;font-size:26px}
+.desc{color:var(--muted);line-height:1.4;margin-bottom:12px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 12px}
+button{
+  appearance:none;border:none;border-radius:999px;padding:11px 16px;background:linear-gradient(180deg, rgba(84,222,255,.22), rgba(84,222,255,.11));
+  color:var(--ink);cursor:pointer;font-weight:700;letter-spacing:.03em;border:1px solid rgba(84,222,255,.28)
+}
+button.secondary{background:linear-gradient(180deg, rgba(139,99,255,.25), rgba(139,99,255,.10));border-color:rgba(139,99,255,.28)}
+button.warn{background:linear-gradient(180deg, rgba(255,101,168,.25), rgba(255,101,168,.09));border-color:rgba(255,101,168,.3)}
+button:active{transform:translateY(1px) scale(.995)}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0 14px}
+.stat{
+  border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.03);padding:10px 12px;border-radius:14px
+}
+.stat .label{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:4px}
+.stat .value{font-size:22px;font-weight:800}
+.canvasWrap{
+  border:1px solid rgba(255,255,255,.08);border-radius:22px;overflow:hidden;background:
+  radial-gradient(circle at 50% 0%, rgba(84,222,255,.1), transparent 40%),
+  linear-gradient(180deg,#091120,#050a15);
+}
+canvas{display:block;width:100%;height:auto}
+.hint{font-size:13px;color:var(--muted);margin-top:10px}
+.tagline{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.pill{font-size:12px;padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);color:#d7e9ff}
+.gridBoard{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px
+}
+.tile{
+  aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;font-size:32px;border-radius:18px;
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.08);
+  cursor:pointer;user-select:none;transition:transform .14s ease, box-shadow .14s ease, border-color .14s ease
+}
+.tile:hover{transform:translateY(-2px);box-shadow:0 10px 18px rgba(0,0,0,.25);border-color:rgba(84,222,255,.3)}
+.tile.bad{animation:shake .25s linear 1}
+.tile.good{animation:pulse .28s ease 1}
+.mission{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08)}
+.target{font-size:20px;font-weight:800}
+.small{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.wheelWrap{display:grid;place-items:center;padding:16px}
+#wheelCanvas{max-width:360px}
+.meter{height:14px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08)}
+.meter > div{height:100%;width:0;background:linear-gradient(90deg, var(--cyan), var(--good), var(--warn), var(--pink));transition:width .06s linear}
+
+.flipControl{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0}
+.flipControl input[type=range]{width:180px}
+.flipValue{min-width:54px;font-weight:800;color:var(--cyan)}
+.slotWrap{margin-top:14px;padding:18px;border-radius:20px;border:1px solid rgba(255,255,255,.08);background:
+linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03))}
+.slotMachine{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:center}
+.reel{
+  position:relative;height:170px;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.1);
+  background:linear-gradient(180deg, rgba(6,18,34,.9), rgba(14,20,38,.95));
+  box-shadow:inset 0 0 24px rgba(84,222,255,.08), 0 0 24px rgba(0,0,0,.2)
+}
+.reel:before,.reel:after{content:"";position:absolute;left:0;right:0;height:36px;z-index:2;pointer-events:none}
+.reel:before{top:0;background:linear-gradient(180deg, rgba(4,7,15,.95), rgba(4,7,15,0))}
+.reel:after{bottom:0;background:linear-gradient(0deg, rgba(4,7,15,.95), rgba(4,7,15,0))}
+.reelWindow{position:absolute;left:10px;right:10px;top:50%;height:56px;transform:translateY(-50%);border-radius:14px;border:2px solid rgba(255,200,100,.8);box-shadow:0 0 22px rgba(255,200,100,.24), inset 0 0 14px rgba(255,200,100,.18);z-index:3}
+.reelTrack{position:absolute;left:0;right:0;top:0}
+.reelSymbol{height:56px;display:grid;place-items:center;font-size:40px;text-shadow:0 0 12px rgba(255,255,255,.15)}
+.celebrate{
+  animation:celebratePulse .7s ease-in-out 3;
+  box-shadow:0 0 0 1px rgba(255,215,0,.4), 0 0 22px rgba(255,215,0,.25), 0 0 46px rgba(255,105,180,.2);
+}
+.confettiBurst{position:relative;min-height:28px;margin-top:10px;overflow:hidden}
+.confettiPiece{
+  position:absolute;top:-8px;font-size:18px;animation:confettiFall 1.7s linear forwards;
+}
+@keyframes celebratePulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.03)}
+}
+@keyframes confettiFall{
+  0%{transform:translateY(-12px) rotate(0deg);opacity:1}
+  100%{transform:translateY(70px) rotate(420deg);opacity:0}
+}
+
+.statusLine{font-size:14px;color:var(--muted);margin-top:10px;min-height:22px}
+.breath{
+  height:140px;border-radius:50%;width:140px;margin:12px auto;display:grid;place-items:center;
+  background:radial-gradient(circle at 50% 45%, rgba(84,222,255,.32), rgba(84,222,255,.08), transparent 75%);
+  border:1px solid rgba(84,222,255,.22);box-shadow:0 0 28px rgba(84,222,255,.18);
+  transition:transform .9s ease-in-out
+}
+.breath.active{transform:scale(1.24)}
+.switchArea{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.card{
+  min-height:88px;border-radius:18px;border:1px solid rgba(255,255,255,.09);display:grid;place-items:center;background:rgba(255,255,255,.04);font-size:34px;font-weight:800;cursor:pointer
+}
+.footerNote{margin-top:18px;color:var(--muted);font-size:13px}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+@media (max-width:700px){
+  body{padding:14px}
+  .stats{grid-template-columns:1fr}
+  .gridBoard{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <section class="hero">
+    <div class="badge">NeuroGrid // Executive Function Arcade</div>
+    <h1>Future Brain Missions</h1>
+    <div class="sub">A self-contained offline HTML arcade with redesigned mini-games for focus, self-control, delayed gratification, emotional regulation, and rule switching. Open this file directly in a browser or host it locally.</div>
+  </section>
+
+  <div class="grid">
+    <section class="panel">
+      <div class="badge">Mission 01 // Inhibition</div>
+      <h2>Maze Freeze Run</h2>
+      <div class="tagline">
+        <span class="pill">Auto-runner</span>
+        <span class="pill">Spider patrol</span>
+        <span class="pill">Stop on danger</span>
+      </div>
+      <div class="desc">Your runner keeps moving through a neon maze. A spider patrol crosses the corridor. Hit <b>Space</b> or tap <b>Stop</b> before the spider blocks your path. Stop too late and you collide. Stop too early for too long and you lose momentum.</div>
+      <div class="controls">
+        <button id="mazeStart">Launch Run</button>
+        <button id="mazeStop" class="warn">Stop / Freeze</button>
+        <button id="mazeReset" class="secondary">Reset</button>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="label">Score</span><span class="value" id="mazeScore">0</span></div>
+        <div class="stat"><span class="label">Near-miss saves</span><span class="value" id="mazeSaves">0</span></div>
+        <div class="stat"><span class="label">Collisions</span><span class="value" id="mazeHits">0</span></div>
+      </div>
+      <div class="canvasWrap"><canvas id="mazeCanvas" width="560" height="310"></canvas></div>
+      <div class="statusLine" id="mazeStatus">Press Launch Run. The runner never stops unless you command it.</div>
+      <div class="hint">Design note: the character is drawn directly into the maze scene with a 3-frame running animation so it feels embedded in the world instead of boxed in.</div>
+    </section>
+
+    <section class="panel">
+      <div class="badge">Mission 02 // Selective Attention</div>
+      <h2>Signal Sorter</h2>
+      <div class="tagline">
+        <span class="pill">Faces</span>
+        <span class="pill">Fruits</span>
+        <span class="pill">Category switching</span>
+      </div>
+      <div class="desc">This starts as a distraction task, but now it feels more like a futuristic sorting grid. The target flips between <b>emoji faces</b> and <b>fruit</b>. Tap only items from the current category while visual distractions pulse around the board.</div>
+      <div class="controls">
+        <button id="sorterStart">Activate Grid</button>
+        <button id="sorterReset" class="secondary">Reset</button>
+      </div>
+      <div class="flipControl">
+        <label class="small" for="sorterFlipRange">Flip interval</label>
+        <input id="sorterFlipRange" type="range" min="2" max="8" step="1" value="4" />
+        <div class="flipValue" id="sorterFlipValue">4s</div>
+      </div>
+      <div class="mission">
+        <div>
+          <div class="small">Current target</div>
+          <div class="target" id="sorterTarget">Idle</div>
+        </div>
+        <div>
+          <div class="small">Rule flips in</div>
+          <div class="target" id="sorterTimer">—</div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="label">Score</span><span class="value" id="sorterScore">0</span></div>
+        <div class="stat"><span class="label">Correct taps</span><span class="value" id="sorterGood">0</span></div>
+        <div class="stat"><span class="label">Wrong taps</span><span class="value" id="sorterBad">0</span></div>
+      </div>
+      <div class="gridBoard" id="sorterBoard"></div>
+      <div class="statusLine" id="sorterStatus">Faces and fruits will shuffle constantly. Ignore the decoys.</div>
+    </section>
+
+    <section class="panel">
+      <div class="badge">Mission 03 // Delayed Gratification</div>
+      <h2>Quantum Prize Wheel</h2>
+      <div class="tagline">
+        <span class="pill">Hold to build speed</span>
+        <span class="pill">3 reel slot machine</span>
+        <span class="pill">Jackpot celebration</span>
+      </div>
+      <div class="desc">This is now a replayable casino-style slot machine. Hold the button to charge spin power, release to let all three reels slow down, and try to line up stars or a jackpot in the center window. Strong timing gives better control, and every win triggers a celebration kids can feel.</div>
+      <div class="controls">
+        <button id="wheelHold">Hold to Spin</button>
+        <button id="wheelReset" class="secondary">Reset</button>
+      </div>
+      <div class="meter"><div id="wheelMeterFill"></div></div>
+      <div class="slotWrap" id="slotWrap">
+        <div class="slotMachine">
+          <div class="reel"><div class="reelWindow"></div><div class="reelTrack" id="reel0"></div></div>
+          <div class="reel"><div class="reelWindow"></div><div class="reelTrack" id="reel1"></div></div>
+          <div class="reel"><div class="reelWindow"></div><div class="reelTrack" id="reel2"></div></div>
+        </div>
+        <div class="confettiBurst" id="wheelConfetti"></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="label">Score</span><span class="value" id="wheelScore">0</span></div>
+        <div class="stat"><span class="label">Last prize</span><span class="value" id="wheelPrize">—</span></div>
+        <div class="stat"><span class="label">Jackpots</span><span class="value" id="wheelJackpots">0</span></div>
+      </div>
+      <div class="statusLine" id="wheelStatus">Hold to charge and release to spin. You can reset or keep spinning as many times as you want.</div>
+    </section>
+
+    <section class="panel">
+      <div class="badge">Mission 04 // Emotional Regulation</div>
+      <h2>Emotion Meter Challenge</h2>
+      <div class="desc">Mistakes raise the frustration meter. When it spikes, the breathing core expands and contracts. Match the breathing rhythm to settle the system before continuing.</div>
+      <div class="controls">
+        <button id="emoStart">Start</button>
+        <button id="emoMistake" class="warn">Trigger Mistake</button>
+        <button id="emoBreath" class="secondary">Breath</button>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="label">Calm</span><span class="value" id="emoCalm">100</span></div>
+        <div class="stat"><span class="label">Frustration</span><span class="value" id="emoFrustration">0</span></div>
+        <div class="stat"><span class="label">Recovered</span><span class="value" id="emoRecovered">0</span></div>
+      </div>
+      <div class="breath" id="breathOrb"><div>In / Out</div></div>
+      <div class="statusLine" id="emoStatus">Keep the system calm. Mistakes increase emotional load.</div>
+    </section>
+
+    <section class="panel">
+      <div class="badge">Mission 05 // Flexibility</div>
+      <h2>Task Switching Lab</h2>
+      <div class="desc">Rules change in real time. Pick cards by <b>color</b>, then suddenly by <b>shape</b>, then by <b>count</b>. The right answer depends on the current rule, not the previous one.</div>
+      <div class="controls">
+        <button id="switchStart">Start Lab</button>
+        <button id="switchReset" class="secondary">Reset</button>
+      </div>
+      <div class="mission">
+        <div>
+          <div class="small">Rule</div>
+          <div class="target" id="switchRule">Idle</div>
+        </div>
+        <div>
+          <div class="small">Target value</div>
+          <div class="target" id="switchTarget">—</div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="label">Score</span><span class="value" id="switchScore">0</span></div>
+        <div class="stat"><span class="label">Correct</span><span class="value" id="switchCorrect">0</span></div>
+        <div class="stat"><span class="label">Errors</span><span class="value" id="switchErrors">0</span></div>
+      </div>
+      <div class="switchArea" id="switchArea"></div>
+      <div class="statusLine" id="switchStatus">Stay flexible. The rule can switch at any moment.</div>
+    </section>
+  </div>
+
+  <div class="footerNote">Controls: Space also activates Stop in Maze Freeze Run. Everything runs in this single file with no external libraries.</div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+/* ------------ Mission 1: Maze Freeze Run ------------ */
+const maze = {
+  canvas:$('mazeCanvas'), score:0, saves:0, hits:0, running:false,
+  playerX:70, playerY:210, speed:2.2, frame:0, frameTick:0, frozen:false,
+  spiderX:640, spiderY:170, spiderV:-3, collisionCooldown:0, savedThisPass:false
+};
+maze.ctx = maze.canvas.getContext('2d');
+
+function updateMazeStats(){
+  $('mazeScore').textContent = maze.score;
+  $('mazeSaves').textContent = maze.saves;
+  $('mazeHits').textContent = maze.hits;
+}
+function drawRunner(ctx,x,y,frame){
+  ctx.save();
+  ctx.translate(x,y);
+  ctx.lineWidth=4;
+  ctx.lineCap='round';
+  ctx.strokeStyle='#f4fbff';
+  ctx.fillStyle='#7ff0ff';
+  ctx.shadowColor='rgba(84,222,255,.7)';
+  ctx.shadowBlur=10;
+  ctx.beginPath(); ctx.arc(0,-22,9,0,Math.PI*2); ctx.fill();
+  ctx.shadowBlur=0;
+  // body
+  ctx.beginPath(); ctx.moveTo(0,-13); ctx.lineTo(0,8); ctx.stroke();
+  // arms
+  ctx.beginPath();
+  if(frame===0){ ctx.moveTo(0,-2); ctx.lineTo(-12,6); ctx.moveTo(0,-2); ctx.lineTo(12,-8); }
+  if(frame===1){ ctx.moveTo(0,-2); ctx.lineTo(-13,-8); ctx.moveTo(0,-2); ctx.lineTo(13,4); }
+  if(frame===2){ ctx.moveTo(0,-2); ctx.lineTo(-10,2); ctx.moveTo(0,-2); ctx.lineTo(10,2); }
+  ctx.stroke();
+  // legs
+  ctx.beginPath();
+  if(frame===0){ ctx.moveTo(0,8); ctx.lineTo(-12,26); ctx.moveTo(0,8); ctx.lineTo(14,18); }
+  if(frame===1){ ctx.moveTo(0,8); ctx.lineTo(-8,18); ctx.moveTo(0,8); ctx.lineTo(12,28); }
+  if(frame===2){ ctx.moveTo(0,8); ctx.lineTo(-10,24); ctx.moveTo(0,8); ctx.lineTo(10,24); }
+  ctx.stroke();
+  ctx.restore();
+}
+function drawSpider(ctx,x,y){
+  ctx.save();
+  ctx.translate(x,y);
+  ctx.strokeStyle='#ff76ad';
+  ctx.fillStyle='#141018';
+  ctx.lineWidth=3;
+  ctx.beginPath();
+  ctx.ellipse(0,0,18,14,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.arc(18,-2,9,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  for(let i=-1;i<=1;i+=2){
+    for(let j=0;j<4;j++){
+      const dy = -10 + j*8;
+      ctx.beginPath();
+      ctx.moveTo(i*10, dy);
+      ctx.lineTo(i*(28+j*2), dy-10+i*j);
+      ctx.stroke();
+    }
+  }
+  ctx.fillStyle='#fff';
+  ctx.beginPath(); ctx.arc(21,-4,2.4,0,Math.PI*2); ctx.arc(16,-4,2.4,0,Math.PI*2); ctx.fill();
+  ctx.restore();
+}
+function drawMaze(){
+  const c=maze.ctx,w=maze.canvas.width,h=maze.canvas.height;
+  c.clearRect(0,0,w,h);
+  // background
+  const g=c.createLinearGradient(0,0,0,h);
+  g.addColorStop(0,'#0a1530'); g.addColorStop(1,'#050a13');
+  c.fillStyle=g; c.fillRect(0,0,w,h);
+  // maze walls and floor perspective
+  c.fillStyle='#0f2143';
+  c.beginPath();
+  c.moveTo(0,40); c.lineTo(w,18); c.lineTo(w,82); c.lineTo(0,116); c.closePath(); c.fill();
+  c.beginPath();
+  c.moveTo(0,235); c.lineTo(w,205); c.lineTo(w,310); c.lineTo(0,310); c.closePath(); c.fill();
+  c.fillStyle='#091121';
+  c.beginPath();
+  c.moveTo(0,116); c.lineTo(w,82); c.lineTo(w,205); c.lineTo(0,235); c.closePath(); c.fill();
+  // corridor glow
+  c.strokeStyle='rgba(84,222,255,.28)';
+  c.lineWidth=2;
+  for(let i=0;i<6;i++){
+    const x=40+i*90;
+    c.beginPath();
+    c.moveTo(x,112); c.lineTo(x+40,86); c.lineTo(x+40,201); c.lineTo(x,230); c.stroke();
+  }
+  // floor path
+  c.strokeStyle='rgba(84,222,255,.55)';
+  c.lineWidth=4;
+  c.beginPath();
+  c.moveTo(0,226); c.lineTo(w,198); c.stroke();
+  c.beginPath();
+  c.moveTo(0,122); c.lineTo(w,86); c.stroke();
+
+  // warning zone
+  c.fillStyle='rgba(255,102,146,.12)';
+  c.beginPath();
+  c.moveTo(250,112); c.lineTo(340,100); c.lineTo(340,208); c.lineTo(250,220); c.closePath(); c.fill();
+
+  // player and spider on center lane
+  const laneY = 190 - maze.playerX*0.05;
+  drawRunner(c, maze.playerX, laneY, maze.frame);
+  drawSpider(c, maze.spiderX, 168);
+  // HUD
+  c.fillStyle='rgba(238,246,255,.85)';
+  c.font='700 16px Inter, sans-serif';
+  c.fillText(maze.frozen ? 'STOPPED' : 'RUNNING', 18, 28);
+  if(maze.spiderX < 380 && maze.spiderX > 210){
+    c.fillStyle='rgba(255,107,122,.98)';
+    c.font='800 26px Inter, sans-serif';
+    c.fillText('SPIDER CROSSING', 180, 42);
+  }
+}
+function mazeTick(){
+  if(maze.running){
+    if(!maze.frozen){
+      maze.playerX += maze.speed;
+      maze.score += 0.03;
+      maze.frameTick++;
+      if(maze.frameTick % 6 === 0) maze.frame = (maze.frame+1)%3;
+    } else {
+      maze.score = Math.max(0, maze.score - 0.01);
+    }
+    maze.spiderX += maze.spiderV;
+    if(maze.spiderX < -40){
+      maze.spiderX = 620 + Math.random()*90;
+      maze.savedThisPass = false;
+      maze.spiderV = - (2.6 + Math.random()*1.6);
+    }
+    const dx = Math.abs(maze.playerX - maze.spiderX);
+    if(dx < 24 && !maze.frozen && maze.collisionCooldown <= 0){
+      maze.hits++;
+      maze.score = Math.max(0, maze.score - 8);
+      maze.collisionCooldown = 50;
+      $('mazeStatus').textContent = 'Collision. The spider crossed your path before you stopped.';
+    }
+    if(dx < 44 && maze.frozen && !maze.savedThisPass){
+      maze.saves++;
+      maze.score += 5;
+      maze.savedThisPass = true;
+      $('mazeStatus').textContent = 'Great stop. You froze before entering the spider path.';
+    }
+    if(maze.playerX > 600){
+      maze.playerX = -10;
+      maze.score += 3;
+      $('mazeStatus').textContent = 'Corridor cleared. New maze segment loading.';
+    }
+    if(maze.collisionCooldown > 0) maze.collisionCooldown--;
+    updateMazeStats();
+  }
+  drawMaze();
+  requestAnimationFrame(mazeTick);
+}
+mazeTick();
+
+$('mazeStart').onclick = () => {
+  maze.running = true;
+  $('mazeStatus').textContent = 'Run active. Watch for spider crossings and stop on time.';
+};
+function doMazeStop(){
+  if(!maze.running) return;
+  maze.frozen = true;
+  $('mazeStatus').textContent = 'Stopped. Wait until the path clears, then press Launch Run again.';
+}
+$('mazeStop').onclick = doMazeStop;
+$('mazeReset').onclick = () => {
+  Object.assign(maze,{score:0,saves:0,hits:0,running:false,playerX:70,frame:0,spiderX:640,spiderV:-3,frozen:false,savedThisPass:false});
+  updateMazeStats();
+  $('mazeStatus').textContent = 'Reset complete. Press Launch Run.';
+};
+document.addEventListener('keydown', e => {
+  if(e.code === 'Space'){
+    e.preventDefault();
+    doMazeStop();
+  }
+});
+document.addEventListener('keyup', e => {
+  if(e.code === 'Space' && maze.running){
+    maze.frozen = false;
+    $('mazeStatus').textContent = 'Running again.';
+  }
+});
+$('mazeStop').addEventListener('pointerdown', ()=>{ doMazeStop(); });
+$('mazeStop').addEventListener('pointerup', ()=>{ if(maze.running){maze.frozen=false;$('mazeStatus').textContent='Running again.';} });
+$('mazeStart').addEventListener('pointerdown', ()=>{ maze.frozen=false; });
+
+/* ------------ Mission 2: Signal Sorter ------------ */
+const faces = ['😀','😎','🤖','😇','🥳','😺'];
+const fruits = ['🍎','🍌','🍓','🍇','🍊','🍉'];
+const distractors = ['⚡','🌀','✨','💥','🔊','❌'];
+const sorter = {running:false, score:0, good:0, bad:0, target:'Faces', flipEvery:4, flipCountdown:4, elapsed:0};
+
+function updateSorterStats(){
+  $('sorterScore').textContent = sorter.score;
+  $('sorterGood').textContent = sorter.good;
+  $('sorterBad').textContent = sorter.bad;
+  $('sorterTarget').textContent = sorter.running ? `Tap ${sorter.target}` : 'Idle';
+  $('sorterTimer').textContent = sorter.running ? `${sorter.flipCountdown}s` : '—';
+  $('sorterFlipValue').textContent = `${sorter.flipEvery}s`;
+}
+function buildSorterBoard(){
+  const board = $('sorterBoard');
+  board.innerHTML='';
+  const items=[];
+  for(let i=0;i<6;i++) items.push({type:'face', val:faces[Math.floor(Math.random()*faces.length)]});
+  for(let i=0;i<6;i++) items.push({type:'fruit', val:fruits[Math.floor(Math.random()*fruits.length)]});
+  for(let i=0;i<4;i++) items.push({type:'dist', val:distractors[Math.floor(Math.random()*distractors.length)]});
+  items.sort(()=>Math.random()-0.5).slice(0,16).forEach(item=>{
+    const tile=document.createElement('button');
+    tile.className='tile';
+    tile.textContent=item.val;
+    tile.onclick=()=>{
+      if(!sorter.running) return;
+      const correct = (sorter.target==='Faces' && item.type==='face') || (sorter.target==='Fruits' && item.type==='fruit');
+      if(correct){
+        sorter.score += 2; sorter.good++; tile.classList.add('good');
+        $('sorterStatus').textContent = `Correct. Stay on ${sorter.target} until the timer hits 0.`;
+      }else{
+        sorter.score = Math.max(0, sorter.score - 1); sorter.bad++; tile.classList.add('bad');
+        $('sorterStatus').textContent = `Wrong tap. Ignore everything except ${sorter.target}.`;
+      }
+      updateSorterStats();
+      setTimeout(buildSorterBoard, 180);
+    };
+    board.appendChild(tile);
+  });
+}
+let sorterInterval=null;
+$('sorterFlipRange').addEventListener('input', (e)=>{
+  sorter.flipEvery = Number(e.target.value);
+  if(!sorter.running) sorter.flipCountdown = sorter.flipEvery;
+  updateSorterStats();
+});
+$('sorterStart').onclick = () => {
+  sorter.running = true;
+  sorter.elapsed = 0;
+  sorter.flipCountdown = sorter.flipEvery;
+  sorter.target = 'Faces';
+  updateSorterStats();
+  buildSorterBoard();
+  $('sorterStatus').textContent = `Grid active. Rule flips every ${sorter.flipEvery} seconds.`;
+  clearInterval(sorterInterval);
+  sorterInterval = setInterval(()=>{
+    if(!sorter.running) return;
+    sorter.elapsed++;
+    sorter.flipCountdown = Math.max(0, sorter.flipEvery - (sorter.elapsed % sorter.flipEvery));
+    if(sorter.flipCountdown === 0){
+      sorter.target = sorter.target === 'Faces' ? 'Fruits' : 'Faces';
+      sorter.flipCountdown = sorter.flipEvery;
+      $('sorterStatus').textContent = `Rule changed. Now tap ${sorter.target}.`;
+      buildSorterBoard();
+    }
+    updateSorterStats();
+  },1000);
+};
+$('sorterReset').onclick = ()=>{
+  Object.assign(sorter,{running:false, score:0, good:0, bad:0, target:'Faces', flipEvery:Number($('sorterFlipRange').value), flipCountdown:Number($('sorterFlipRange').value), elapsed:0});
+  clearInterval(sorterInterval);
+  $('sorterBoard').innerHTML='';
+  $('sorterStatus').textContent='Faces and fruits stay stable until the exact flip interval. Ignore the decoys.';
+  updateSorterStats();
+};
+updateSorterStats();
+
+/* ------------ Mission 3: Quantum Prize Wheel ------------ */
+const slotSymbols = [
+  {icon:'⭐', label:'Star', score:2},
+  {icon:'🍒', label:'Cherry', score:3},
+  {icon:'💎', label:'Gem', score:5},
+  {icon:'7', label:'Seven', score:8},
+  {icon:'🌈', label:'Rainbow', score:4},
+  {icon:'🪙', label:'Coin', score:1},
+  {icon:'🏆', label:'Trophy', score:6}
+];
+const reelEls = [$('reel0'), $('reel1'), $('reel2')];
+const slotWrap = $('slotWrap');
+const wheel = {
+  charge:0, charging:false, score:0, jackpots:0, lastPrize:'—',
+  spinning:false,
+  reels:[
+    {pos:0, speed:0, spinning:false, target:0, result:0},
+    {pos:0, speed:0, spinning:false, target:0, result:0},
+    {pos:0, speed:0, spinning:false, target:0, result:0}
+  ]
+};
+
+function buildReel(el){
+  el.innerHTML = '';
+  const list = [...slotSymbols, ...slotSymbols, ...slotSymbols];
+  list.forEach(sym=>{
+    const div = document.createElement('div');
+    div.className = 'reelSymbol';
+    div.textContent = sym.icon;
+    el.appendChild(div);
+  });
+}
+reelEls.forEach(buildReel);
+
+function drawReels(){
+  const h = 56;
+  wheel.reels.forEach((reel, i)=>{
+    const total = slotSymbols.length * h;
+    const normalized = ((reel.pos % total) + total) % total;
+    reelEls[i].style.transform = `translateY(${-normalized}px)`;
+  });
+}
+function updateWheelStats(){
+  $('wheelMeterFill').style.width = `${Math.min(100, wheel.charge*100)}%`;
+  $('wheelScore').textContent = wheel.score;
+  $('wheelPrize').textContent = wheel.lastPrize;
+  $('wheelJackpots').textContent = wheel.jackpots;
+}
+function celebrate(message, jackpot=false){
+  slotWrap.classList.add('celebrate');
+  const burst = $('wheelConfetti');
+  burst.innerHTML = '';
+  const pieces = jackpot ? ['🎉','✨','🏆','🌟','💥','🎊'] : ['✨','⭐','🎉','🌟'];
+  for(let i=0;i<18;i++){
+    const p = document.createElement('div');
+    p.className = 'confettiPiece';
+    p.textContent = pieces[Math.floor(Math.random()*pieces.length)];
+    p.style.left = `${Math.random()*100}%`;
+    p.style.animationDelay = `${Math.random()*0.35}s`;
+    burst.appendChild(p);
+  }
+  $('wheelStatus').textContent = message;
+  setTimeout(()=>slotWrap.classList.remove('celebrate'), 2400);
+}
+function resolveSpin(){
+  const center = wheel.reels.map(r => slotSymbols[r.result]);
+  const icons = center.map(s=>s.icon);
+  const sameAll = icons[0] === icons[1] && icons[1] === icons[2];
+  const stars = center.filter(s=>s.icon==='⭐').length;
+  if(sameAll && icons[0] === '7'){
+    wheel.score += 20; wheel.jackpots++; wheel.lastPrize = '777 JACKPOT';
+    celebrate('JACKPOT! Triple 7 landed in the center window!', true);
+  }else if(sameAll){
+    const prize = 10 + center[0].score;
+    wheel.score += prize; wheel.lastPrize = `Triple ${center[0].label}`;
+    celebrate(`Big win! Triple ${center[0].label} for +${prize}.`, false);
+  }else if(stars >= 2){
+    wheel.score += 6; wheel.lastPrize = 'Star Match';
+    celebrate('Star match! You lined up enough stars for a bonus.', false);
+  }else{
+    const points = center.reduce((a,b)=>a+b.score,0);
+    wheel.score += points; wheel.lastPrize = icons.join(' ');
+    $('wheelStatus').textContent = `Spin complete. You earned +${points}. Keep spinning for a jackpot.`;
+  }
+  updateWheelStats();
+}
+function slotLoop(){
+  if(wheel.charging && !wheel.spinning){
+    wheel.charge = Math.min(1, wheel.charge + 0.014);
+    updateWheelStats();
+  }
+  if(wheel.spinning){
+    let active = false;
+    wheel.reels.forEach((reel)=>{
+      if(reel.spinning){
+        reel.pos += reel.speed;
+        reel.speed *= 0.985;
+        if(reel.speed <= reel.target){
+          reel.speed = 0;
+          reel.spinning = false;
+          reel.result = Math.round((((reel.pos % (slotSymbols.length*56)) + (slotSymbols.length*56)) % (slotSymbols.length*56)) / 56) % slotSymbols.length;
+          reel.pos = reel.result * 56;
+        } else {
+          active = true;
+        }
+      }
+    });
+    drawReels();
+    if(!active){
+      wheel.spinning = false;
+      resolveSpin();
+      wheel.charge = 0;
+      updateWheelStats();
+    }
+  }
+  requestAnimationFrame(slotLoop);
+}
+drawReels(); slotLoop(); updateWheelStats();
+
+$('wheelHold').addEventListener('pointerdown', ()=>{
+  if(wheel.spinning) return;
+  wheel.charging = true;
+  $('wheelStatus').textContent = 'Charging slot reels. Release for the spin.';
+});
+window.addEventListener('pointerup', ()=>{
+  if(!wheel.charging || wheel.spinning) return;
+  wheel.charging = false;
+  wheel.spinning = true;
+  const controlBonus = Math.max(0, 1 - Math.abs(wheel.charge - 0.62));
+  wheel.reels.forEach((reel, idx)=>{
+    reel.spinning = true;
+    reel.speed = 24 + wheel.charge*32 + controlBonus*6 + idx*2.5;
+    reel.target = 1.6 + idx*0.2;
+  });
+  $('wheelStatus').textContent = 'Reels spinning...';
+});
+$('wheelReset').onclick = ()=>{
+  Object.assign(wheel,{charge:0, charging:false, score:0, jackpots:0, lastPrize:'—', spinning:false,
+    reels:[
+      {pos:0, speed:0, spinning:false, target:0, result:0},
+      {pos:0, speed:0, spinning:false, target:0, result:0},
+      {pos:0, speed:0, spinning:false, target:0, result:0}
+    ]});
+  $('wheelConfetti').innerHTML = '';
+  drawReels();
+  updateWheelStats();
+  $('wheelStatus').textContent = 'Slot machine reset. Hold to spin again.';
+};
+
+/* ------------ Mission 4: Emotion Meter ------------ */
+const emo = {calm:100, frustration:0, recovered:0, active:false};
+function updateEmo(){
+  $('emoCalm').textContent = emo.calm;
+  $('emoFrustration').textContent = emo.frustration;
+  $('emoRecovered').textContent = emo.recovered;
+}
+$('emoStart').onclick = ()=>{
+  emo.active=true;
+  $('emoStatus').textContent='Challenge active. Keep calm under pressure.';
+};
+$('emoMistake').onclick = ()=>{
+  if(!emo.active) return;
+  emo.frustration = Math.min(100, emo.frustration + 18);
+  emo.calm = Math.max(0, emo.calm - 12);
+  $('emoStatus').textContent='Mistake detected. Breathe to regulate before continuing.';
+  updateEmo();
+};
+let breathIn=false;
+setInterval(()=>{
+  $('breathOrb').classList.toggle('active', breathIn = !breathIn);
+},900);
+$('emoBreath').onclick = ()=>{
+  if(!emo.active) return;
+  emo.frustration = Math.max(0, emo.frustration - 14);
+  emo.calm = Math.min(100, emo.calm + 10);
+  if(emo.frustration < 20) emo.recovered++;
+  $('emoStatus').textContent='Breathing pattern matched. Regulation improving.';
+  updateEmo();
+};
+updateEmo();
+
+/* ------------ Mission 5: Task Switching Lab ------------ */
+const switchGame = {running:false, rule:'color', target:'Blue', score:0, correct:0, errors:0};
+const switchCardsData = [
+  {shape:'●', color:'Blue', count:1},
+  {shape:'▲', color:'Red', count:2},
+  {shape:'■', color:'Green', count:3},
+  {shape:'●', color:'Red', count:2},
+  {shape:'▲', color:'Blue', count:1},
+  {shape:'■', color:'Green', count:1}
+];
+function updateSwitchStats(){
+  $('switchRule').textContent = switchGame.running ? switchGame.rule : 'Idle';
+  $('switchTarget').textContent = switchGame.running ? switchGame.target : '—';
+  $('switchScore').textContent = switchGame.score;
+  $('switchCorrect').textContent = switchGame.correct;
+  $('switchErrors').textContent = switchGame.errors;
+}
+function renderSwitchCards(){
+  const area=$('switchArea'); area.innerHTML='';
+  switchCardsData.sort(()=>Math.random()-0.5).forEach(card=>{
+    const el=document.createElement('button');
+    el.className='card';
+    el.innerHTML = `${card.shape.repeat(card.count)}<div class="small" style="margin-top:6px">${card.color}</div>`;
+    el.onclick=()=>{
+      if(!switchGame.running) return;
+      const match = (switchGame.rule==='color' && card.color===switchGame.target)
+        || (switchGame.rule==='shape' && card.shape===switchGame.target)
+        || (switchGame.rule==='count' && String(card.count)===String(switchGame.target));
+      if(match){
+        switchGame.score += 2; switchGame.correct++;
+        $('switchStatus').textContent='Correct. Stay ready for the next rule shift.';
+      } else {
+        switchGame.score = Math.max(0, switchGame.score - 1); switchGame.errors++;
+        $('switchStatus').textContent='Incorrect. The old rule may have tricked you.';
+      }
+      if(Math.random()<0.7) flipSwitchRule();
+      updateSwitchStats(); renderSwitchCards();
+    };
+    area.appendChild(el);
+  });
+}
+function flipSwitchRule(){
+  const rules=['color','shape','count'];
+  switchGame.rule = rules[Math.floor(Math.random()*rules.length)];
+  if(switchGame.rule==='color') switchGame.target = ['Blue','Red','Green'][Math.floor(Math.random()*3)];
+  if(switchGame.rule==='shape') switchGame.target = ['●','▲','■'][Math.floor(Math.random()*3)];
+  if(switchGame.rule==='count') switchGame.target = [1,2,3][Math.floor(Math.random()*3)];
+}
+$('switchStart').onclick=()=>{
+  switchGame.running=true; switchGame.score=0; switchGame.correct=0; switchGame.errors=0;
+  flipSwitchRule(); updateSwitchStats(); renderSwitchCards();
+  $('switchStatus').textContent='Lab active. Respond to the current rule only.';
+};
+$('switchReset').onclick=()=>{
+  Object.assign(switchGame,{running:false, rule:'color', target:'Blue', score:0, correct:0, errors:0});
+  $('switchArea').innerHTML=''; updateSwitchStats();
+  $('switchStatus').textContent='Stay flexible. The rule can switch at any moment.';
+};
+updateSwitchStats();
+</script>
+</body>
+</html>

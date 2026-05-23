@@ -28,7 +28,7 @@
       registry.getLaunchableGames('public').forEach((entry) => {
         const item = document.createElement('li');
         const anchor = document.createElement('a');
-        anchor.href = entry.file_path;
+        anchor.href = entry.launch_path || entry.file_path;
         anchor.textContent = entry.title;
         const meta = document.createElement('div');
         meta.className = 'meta';
