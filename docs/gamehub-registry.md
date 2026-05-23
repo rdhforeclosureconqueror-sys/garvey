@@ -75,3 +75,9 @@ Any stale references should be audited in follow-up PRs with route-level tests b
 - **Rule:** Every GameHub registry entry must include a browser-playable `launch_path` that resolves to HTML (typically a `.html` file under `public/gamehub`).
 - **Compatibility:** `file_path` remains as source-file metadata, while UI entry points (`/gamehub/index.html` and Gates practice links) must launch through `launch_path`.
 - **Safety:** This is launch-behavior-only. No gameplay changes, tracking hooks, scoring integration, or database-write wiring are added in this phase.
+
+## PR9 identity cleanup rule across all GameHub games
+- **Cross-game identity rule:** Every playable GameHub game (canonical extensionless source plus matching `.html` launch file) must avoid hardcoded active-child identity in launch/UI defaults, runtime fallbacks, and localStorage write keys.
+- **Allowed neutral labels:** Use neutral fallback labels only: `Learner`, `Player`, and `Demo Learner`, until Gates explicitly provides safe runtime context.
+- **Fictional content boundary:** Clearly fictional story characters may remain when they are not presented as the logged-in child identity.
+- **Safety guardrail:** This cleanup is identity-only; it does not add tracking, scoring integration, or database writes.
