@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GameHub</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; background: #f8fafc; color: #0f172a; }
+    h1 { margin-bottom: 0.5rem; }
+    .note { margin-bottom: 1.5rem; color: #334155; }
+    ul { list-style: none; padding: 0; display: grid; gap: 0.75rem; }
+    li { background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0.75rem 1rem; }
+    a { color: #1d4ed8; text-decoration: none; font-weight: 600; }
+    .meta { font-size: 0.9rem; color: #475569; margin-top: 0.25rem; }
+  </style>
+</head>
+<body>
+  <h1>GameHub</h1>
+  <p class="note">Registry-backed launch index. Existing standalone game routes remain unchanged.</p>
+  <ul id="gamehub-list"></ul>
+
+  <script src="/gamehub/gamehub-registry.js"></script>
+  <script>
+    (function renderGameHubIndex() {
+      const registry = window.GameHubRegistry;
+      const listEl = document.getElementById('gamehub-list');
+      if (!registry || !listEl) return;
+      registry.getLaunchableGames('public').forEach((entry) => {
+        const item = document.createElement('li');
+        const anchor = document.createElement('a');
+        anchor.href = entry.file_path;
+        anchor.textContent = entry.title;
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+        meta.textContent = `${entry.game_type} • Ages ${entry.suggested_age_range}`;
+        const description = document.createElement('div');
+        description.className = 'meta';
+        description.textContent = entry.description;
+        item.appendChild(anchor);
+        item.appendChild(meta);
+        item.appendChild(description);
+        listEl.appendChild(item);
+      });
+    })();
+  </script>
+</body>
+</html>
