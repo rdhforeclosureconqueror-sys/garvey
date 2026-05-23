@@ -63,3 +63,10 @@ Any stale references should be audited in follow-up PRs with route-level tests b
 - Metadata accuracy depends on ongoing maintenance when new games are added.
 - Age ranges and practice capacities are currently curated defaults and may need curriculum review.
 - Launch permissions are currently permissive and should be tightened once parent/child policy rules are finalized.
+
+
+## PR7 identity cleanup and neutral learner context
+- **Identity ownership rule:** GameHub standalone files must not hardcode an active child identity in UI defaults, launch copy, storage keys, or runtime fallbacks. Identity remains owned by Gates.
+- **Neutral learner fallback rule:** Until Gates runtime context is formally connected, GameHub games should default to neutral learner labels such as `Learner`, `Player`, or `Demo Learner` so standalone public access remains playable.
+- **Future Gates context plan:** A later phase may pass safe, scoped context from Gates into GameHub at launch time. That phase must avoid direct child identity leakage and must preserve standalone behavior when context is absent.
+- **No-tracking status:** PR7 remains no-tracking. No event instrumentation, scoring pipeline integration, or game-result database writeback is introduced.
