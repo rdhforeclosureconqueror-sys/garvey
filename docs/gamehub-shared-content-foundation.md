@@ -72,3 +72,18 @@ Normalization behavior for adaptive runtime:
 - If shared content has incomplete optional metadata, reports may be less specific (domain/skill labels), but gameplay still runs safely.
 - Choice quality and distractor quality are not yet validated by schema; this remains a future content-governance concern.
 - Adaptive item defaults (grade/difficulty) are intentionally conservative and may need tuning once larger curated banks are introduced.
+
+## PR4 arcade config-readiness (Surf + BrickBlast)
+- Added shared loader helpers for `loadDifficultyConfig()` and `loadModePresets()` with validation and safe fallback behavior when JSON is missing or invalid.
+- Surf now centralizes safe tunables in `SURF_DEFAULT_CONFIG` (speed bounds/curve inputs, spawn mix limits, reward amounts, streak thresholds, and question ranges) while preserving current defaults.
+- BrickBlast now centralizes safe tunables in `BRICKBLAST_DEFAULT_CONFIG` (starting lives, level speed curve, power-up durations, drop rates, level progression knobs, and combo thresholds) while preserving current defaults.
+- Added sample mode presets for `support`, `standard`, and `challenge` in config only. No Gate activation/wiring was added.
+
+### Future Gate-mode usage
+- Gate/mode systems can map a selected preset id to per-game tunables before session start.
+- Current implementation intentionally keeps defaults local and fallback-safe so future mode wiring can be additive.
+
+### Remaining risks
+- Current game files are single-page scripts; tunables are centralized but not yet extracted into standalone runtime config files per game.
+- Numeric config validity is intentionally light; stricter per-field validation can be added once Gate wiring and authoring tooling are introduced.
+- Preset-to-game mapping is not active yet by design; this PR is configuration readiness only.

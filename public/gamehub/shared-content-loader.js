@@ -37,6 +37,20 @@
     if (!fetcher) return null;
     try { const res = await fetcher(path); if (!res.ok) return null; return await res.json(); } catch { return null; }
   }
+
+  function validateDifficultyConfig(payload){ return Array.isArray(payload?.difficulties) && payload.difficulties.every((it)=>validateRequired(it, schemas.difficultyConfig)); }
+  function validateModePresets(payload){ return Array.isArray(payload?.presets) && payload.presets.every((it)=>validateRequired(it, schemas.modePreset)); }
+  async function loadDifficultyConfig(path, fallback, fetchImpl){
+    const json = await loadJson(path, fetchImpl);
+    if (!validateDifficultyConfig(json)) return fallback;
+    return json;
+  }
+  async function loadModePresets(path, fallback, fetchImpl){
+    const json = await loadJson(path, fetchImpl);
+    if (!validateModePresets(json)) return fallback;
+    return json;
+  }
+
   async function loadWordBank(path, fallback, fetchImpl){
     const json = await loadJson(path, fetchImpl);
     if (!validateWordBank(json)) return fallback;
@@ -63,9 +77,13 @@
     validateRequired,
     validateWordBank,
     validateQuestionBank,
+    validateDifficultyConfig,
+    validateModePresets,
     loadJson,
     loadWordBank,
     loadQuestionBank,
+    loadDifficultyConfig,
+    loadModePresets,
     fromWordBankToSpellingLesson,
     fromWordBankToSightWordsDeck,
     fromWordBankToGame6Set,
