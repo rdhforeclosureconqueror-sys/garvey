@@ -80,6 +80,7 @@
 
     <div class="footer-note wrap">Tip: this file saves history only in this browser on this device.</div>
   </div>
+<script src="/gamehub/shared-content-loader.js"></script>
 <script>
 const CELEBRATIONS=["Yes! You spotted that.","Great job. You’re leveling up.","Nice work. That skill is getting stronger.","Boom. You got it right.","Beautiful thinking."];
 const ENCOURAGEMENT=["Good try. Let’s break it down.","Not quite. Here’s what this question was asking.","You’re close. Let’s look at the skill underneath it.","This is a growth moment. Check the explanation below."];
@@ -120,7 +121,34 @@ const GAME_RUNTIME_CONTEXT_FALLBACK={child_display_name:"Learner",child_age_band
 function getRuntimeContext(){const ctx=window.__GATES_GAME_CONTEXT__||window.__GAME_RUNTIME_CONTEXT__||{};return {...GAME_RUNTIME_CONTEXT_FALLBACK,...ctx}}
 function getHistoryStorageKey(){const ctx=getRuntimeContext();const profilePart=ctx.profile_id?`profile_${ctx.profile_id}`:"standalone";return `gamehub_adaptive_learning_history_${profilePart}`}
 
-const state={session:null,pool:[],currentIndex:0,currentQuestion:null,currentAnswer:null,results:[]};
+
+const QUESTION_BANK_PATH="/gamehub/content/question-bank.sample.json";
+function parseGrade(value, fallback){ const grade = Number(value); return Number.isFinite(grade) ? grade : fallback; }
+function parseDifficulty(value, fallback){ const difficulty = Number(value); return Number.isFinite(difficulty) ? difficulty : fallback; }
+async function bootstrapQuestionBank(){
+  const shared = globalThis.GamehubSharedContent;
+  if (!shared || typeof shared.loadQuestionBank !== "function" || typeof shared.fromQuestionBankToAdaptiveItems !== "function") {
+    state.questionBankSource = "fallback";
+    return;
+  }
+  const payload = await shared.loadQuestionBank(QUESTION_BANK_PATH, null);
+  if (!payload) { state.questionBankSource = "fallback"; return; }
+  const adapted = shared.fromQuestionBankToAdaptiveItems(payload).map((item)=>({
+    ...item,
+    grade: parseGrade(item.grade, 7),
+    difficulty: parseDifficulty(item.difficulty, 2),
+    question_type: "multiple_choice",
+    correct_explanation: item.correct_explanation || "",
+    wrong_feedback: item.wrong_feedback || "",
+    celebration_text: item.celebration_text || "",
+    passage: item.passage || ""
+  }));
+  if (adapted.length) {
+    QUESTION_BANK.splice(0, QUESTION_BANK.length, ...adapted);
+    state.questionBankSource = "shared-question-bank";
+  }
+}
+const state={session:null,pool:[],currentIndex:0,currentQuestion:null,currentAnswer:null,results:[],questionBankSource:"fallback"};
 function byId(id){return document.getElementById(id)} function show(el){el.classList.remove("hidden")} function hide(el){el.classList.add("hidden")} function confettiEmoji(){return ["🎉","✨","🌟","🙌","💥"][Math.floor(Math.random()*5)]}
 function filterBank(subject){if(subject==="Mixed") return QUESTION_BANK.slice(); return QUESTION_BANK.filter(q=>q.subject===subject)}
 function getHistory(){try{return JSON.parse(localStorage.getItem(getHistoryStorageKey())||"[]")}catch{return []}} function setHistory(data){localStorage.setItem(getHistoryStorageKey(),JSON.stringify(data))}
@@ -143,7 +171,7 @@ function resetToHome(){show(byId("startScreen"));hide(byId("quizScreen"));hide(b
 function demoSession(){startSession({studentName:"Demo Learner",subject:"Mixed",startingGrade:6,questionCount:15,mode:"diagnostic",goal:"balanced"});while(state.results.length<state.session.questionCount){const q=state.currentQuestion;const shouldBeCorrect=state.results.length%2===0||state.results.length===7;state.currentAnswer=shouldBeCorrect?q.correct_answer:q.choices.find(c=>c!==q.correct_answer);submitAnswer();if(state.results.length<state.session.questionCount) nextQuestion()}}
 function escapeHtml(str){return String(str).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
 byId("startBtn").onclick=()=>startSession({studentName:byId("studentName").value.trim()||getRuntimeContext().child_display_name||"Demo Learner",subject:byId("subjectSelect").value,startingGrade:byId("gradeSelect").value,questionCount:byId("questionCount").value,mode:byId("modeSelect").value,goal:byId("goalSelect").value});
-byId("submitBtn").onclick=submitAnswer;byId("nextBtn").onclick=nextQuestion;byId("newSessionBtn").onclick=resetToHome;byId("saveSessionBtn").onclick=saveSession;byId("quitBtn").onclick=finishSession;byId("loadHistoryBtn").onclick=renderHistory;byId("backHomeBtn").onclick=resetToHome;byId("clearHistoryBtn").onclick=()=>{if(confirm("Clear saved session history on this browser?")){setHistory([]);renderHistory()}};byId("demoBtn").onclick=demoSession;(function init(){const ctx=getRuntimeContext();const nameInput=byId("studentName");if(nameInput){nameInput.value=ctx.child_display_name||nameInput.value||"Demo Learner"}const history=getHistory();if(history.length){const note=document.createElement("p");note.className="small";note.textContent=`Saved sessions in this context: ${history.length}`;byId("startScreen").appendChild(note)}})();
+byId("submitBtn").onclick=submitAnswer;byId("nextBtn").onclick=nextQuestion;byId("newSessionBtn").onclick=resetToHome;byId("saveSessionBtn").onclick=saveSession;byId("quitBtn").onclick=finishSession;byId("loadHistoryBtn").onclick=renderHistory;byId("backHomeBtn").onclick=resetToHome;byId("clearHistoryBtn").onclick=()=>{if(confirm("Clear saved session history on this browser?")){setHistory([]);renderHistory()}};byId("demoBtn").onclick=demoSession;(async function init(){await bootstrapQuestionBank();const ctx=getRuntimeContext();const nameInput=byId("studentName");if(nameInput){nameInput.value=ctx.child_display_name||nameInput.value||"Demo Learner"}const history=getHistory();if(history.length){const note=document.createElement("p");note.className="small";note.textContent=`Saved sessions in this context: ${history.length}`;byId("startScreen").appendChild(note)}const contentNote=document.createElement("p");contentNote.className="small";contentNote.textContent=`Question bank source: ${state.questionBankSource}`;byId("startScreen").appendChild(contentNote)})();
 </script>
 </body>
 </html>

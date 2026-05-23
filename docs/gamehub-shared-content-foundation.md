@@ -43,3 +43,32 @@ Keep content progressive and migration-safe:
 2. Expand by grade-specific files.
 3. Introduce larger libraries only after gameplay validation per game.
 4. Keep tracking/Gates concerns in separate PRs.
+
+## PR3 adaptive_learning migration notes
+- `adaptive_learning` now attempts to load `/gamehub/content/question-bank.sample.json` through `GamehubSharedContent.loadQuestionBank`.
+- Runtime behavior remains fallback-safe: the existing in-file `QUESTION_BANK` is still the default when external content is missing or invalid.
+- A shared adapter `fromQuestionBankToAdaptiveItems` now maps compatible question-bank entries to adaptive runtime fields without changing session flow or scoring behavior.
+
+## Question-bank compatibility notes
+Required core remains minimal and backward compatible:
+- `id`, `prompt`, `answer`
+
+Optional compatibility fields now supported for adaptive extraction:
+- `grade`, `domain`, `skill`, `prerequisite_skill`, `difficulty`, `explanation`, `subject`, `tags`, `choices`
+
+Normalization behavior for adaptive runtime:
+- `answer` -> `correct_answer`
+- `explanation` -> `correct_explanation`
+- missing `choices` are safely defaulted to `[answer]`
+- missing `grade`/`difficulty` are safely defaulted to grade 7 / difficulty 2
+
+## Future content-loading guidance
+1. Keep shared question banks additive and small while validating gameplay parity.
+2. Expand libraries only after separate review of pacing, distribution, and difficulty balance.
+3. Keep tracking/Gates integration out of this lane and ship those concerns in dedicated PRs.
+4. Preserve in-file fallbacks until all GameHub games have mature external content paths.
+
+## Remaining cleanup risks
+- If shared content has incomplete optional metadata, reports may be less specific (domain/skill labels), but gameplay still runs safely.
+- Choice quality and distractor quality are not yet validated by schema; this remains a future content-governance concern.
+- Adaptive item defaults (grade/difficulty) are intentionally conservative and may need tuning once larger curated banks are introduced.

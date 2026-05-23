@@ -1,1 +1,18 @@
-{"type":"object","required":["id","prompt","answer"],"properties":{"id":{"type":"string"},"prompt":{"type":"string"},"answer":{"type":"string"}}}
+{
+  "type": "object",
+  "required": ["id", "prompt", "answer"],
+  "properties": {
+    "id": { "type": "string" },
+    "prompt": { "type": "string" },
+    "answer": { "type": "string" },
+    "grade": { "type": ["integer", "string"] },
+    "domain": { "type": "string" },
+    "skill": { "type": "string" },
+    "prerequisite_skill": { "type": "string" },
+    "difficulty": { "type": ["integer", "string"] },
+    "explanation": { "type": "string" },
+    "subject": { "type": "string" },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "choices": { "type": "array", "items": { "type": "string" } }
+  }
+}
