@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Spelling Match Arena</title>
+  <style>
+    body { font-family: Arial; background: #111; color: #fff; text-align: center; }
+    .game-box { margin-top: 40px; }
+    button {
+      padding: 12px 20px; margin: 10px; border: none; border-radius: 6px;
+      background: #00aaff; color: white; font-size: 18px; cursor: pointer;
+    }
+    .option {
+      background: #222; padding: 15px; margin: 10px;
+      border-radius: 8px; cursor: pointer; font-size: 20px;
+    }
+    .option:hover { background: #333; }
+
+    #pointsSplash {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      font-size: 50px; display: none; color: yellow;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Spelling Match Arena</h1>
+<p>Select your game mode</p>
+
+<div id="menu">
+  <button onclick="startSpeedMatch()">Speed Match</button>
+  <button onclick="startSynonym()">Synonym Smash</button>
+  <button onclick="startAntonym()">Antonym Hunter</button>
+  <button onclick="startDefinitionMatch()">Word Match</button>
+</div>
+
+<div id="game" class="game-box"></div>
+<div id="pointsSplash">+10</div>
+
+<script>
+// ---------------------- WORD BANK -----------------------
+const words = [
+  { word:"reluctant", def:"unwilling", syn:"hesitant", ant:"eager" },
+  { word:"vital", def:"necessary for life", syn:"essential", ant:"unimportant" },
+  { word:"peculiar", def:"strange or unusual", syn:"odd", ant:"normal" },
+  { word:"scarce", def:"hard to find", syn:"rare", ant:"abundant" },
+  { word:"immense", def:"very large", syn:"enormous", ant:"tiny" },
+  { word:"influence", def:"power to affect", syn:"impact", ant:"ignore" }
+];
+
+let score = 0;
+
+// ---------------------- UTILITIES -----------------------
+function splashPoints(){
+  const sp = document.getElementById("pointsSplash");
+  sp.style.display = "block";
+  setTimeout(()=> sp.style.display="none", 500);
+}
+
+// ---------------------- SPEED MATCH -----------------------
+function startSpeedMatch(){
+  document.getElementById("menu").style.display="none";
+  runSpeedRound();
+}
+
+function runSpeedRound(){
+  const w = words[Math.floor(Math.random()*words.length)];
+  const options = shuffle([
+    w.def,
+    words[Math.floor(Math.random()*words.length)].def,
+    words[Math.floor(Math.random()*words.length)].def
+  ]);
+
+  document.getElementById("game").innerHTML = `
+    <h2>${w.word}</h2>
+    ${options.map(o=>`<div class='option' onclick="checkSpeed('${o}','${w.def}')">${o}</div>`).join("")}
+  `;
+}
+
+function checkSpeed(choice, correct){
+  if(choice === correct){
+    score += 10;
+    splashPoints();
+  }
+  runSpeedRound();
+}
+
+// ---------------------- SYNONYM SMASH -----------------------
+function startSynonym(){
+  document.getElementById("menu").style.display="none";
+  runSynRound();
+}
+
+function runSynRound(){
+  const w = words[Math.floor(Math.random()*words.length)];
+  const options = shuffle([
+    w.syn,
+    words[Math.floor(Math.random()*words.length)].syn,
+    words[Math.floor(Math.random()*words.length)].syn
+  ]);
+
+  document.getElementById("game").innerHTML = `
+    <h2>${w.word}</h2>
+    ${options.map(o=>`<div class='option' onclick="checkSyn('${o}','${w.syn}')">${o}</div>`).join("")}
+  `;
+}
+
+function checkSyn(choice, correct){
+  if(choice === correct){
+    score += 10;
+    splashPoints();
+  }
+  runSynRound();
+}
+
+// ---------------------- ANTONYM HUNTER -----------------------
+function startAntonym(){
+  document.getElementById("menu").style.display="none";
+  runAntRound();
+}
+
+function runAntRound(){
+  const w = words[Math.floor(Math.random()*words.length)];
+  const options = shuffle([
+    w.ant,
+    words[Math.floor(Math.random()*words.length)].ant,
+    words[Math.floor(Math.random()*words.length)].ant
+  ]);
+
+  document.getElementById("game").innerHTML = `
+    <h2>${w.word}</h2>
+    ${options.map(o=>`<div class='option' onclick="checkAnt('${o}','${w.ant}')">${o}</div>`).join("")}
+  `;
+}
+
+function checkAnt(choice, correct){
+  if(choice === correct){
+    score += 10;
+    splashPoints();
+  }
+  runAntRound();
+}
+
+// ---------------------- DEFINITION MATCH -----------------------
+function startDefinitionMatch(){
+  document.getElementById("menu").style.display="none";
+  runDefRound();
+}
+
+function runDefRound(){
+  const w = words[Math.floor(Math.random()*words.length)];
+  const options = shuffle([
+    w.def,
+    words[Math.floor(Math.random()*words.length)].def,
+    words[Math.floor(Math.random()*words.length)].def
+  ]);
+
+  document.getElementById("game").innerHTML = `
+    <h2>${w.word}</h2>
+    ${options.map(o=>`<div class='option' onclick="checkDef('${o}','${w.def}')">${o}</div>`).join("")}
+  `;
+}
+
+function checkDef(choice, correct){
+  if(choice === correct){
+    score += 10;
+    splashPoints();
+  }
+  runDefRound();
+}
+
+// ---------------------- SHUFFLE UTILITY -----------------------
+function shuffle(arr){
+  return arr.sort(()=>Math.random()-0.5);
+}
+</script>
+
+</body>
+</html>
