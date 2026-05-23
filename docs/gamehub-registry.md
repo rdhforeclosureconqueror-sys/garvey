@@ -47,6 +47,13 @@ Planned follow-up phases can use registry metadata for:
 - Config readiness checks (`config_ready`)
 - Event instrumentation readiness (`tracking_ready`, currently false)
 
+## PR6 discovery integration in Gates
+- **Gates landing discovery path:** The Gates landing page now includes a public CTA, **“Explore Practice Games”**, linking to `/gamehub/index.html`.
+- **Parent/profile discovery path:** The authenticated Gates profile/results flow now includes a lightweight **Practice Games** section that renders from GameHub registry metadata (via `getLaunchableGames('child'|'parent')`), plus a direct link to `/gamehub/index.html`.
+- **Child-context launch readiness:** When a child profile is active, GameHub links include a non-authoritative `child_profile_hint` query parameter for future launch-context routing. No child identity is passed into game runtime logic in this phase.
+- **Safety copy:** Gates surfaces include the standardized language: “These games are optional developmental practices. They are not tests, grades, or diagnoses.”
+- **No-tracking status:** This phase remains discovery-only. No tracking, Gates scoring integration, or game-result database writeback is introduced.
+
 ## Stale reference handling
 No GateQuest-era routes were removed in this phase.
 

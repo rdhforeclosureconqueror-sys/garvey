@@ -20,6 +20,31 @@
 
 
   function nav(path) { window.location.assign(path); }
+  function getRegistryLaunchableGames(context = 'public') {
+    const registryApi = globalThis.GameHubRegistry;
+    if (!registryApi || typeof registryApi.getLaunchableGames !== 'function') return [];
+    return registryApi.getLaunchableGames(context);
+  }
+  function buildGameHubLaunchPath(filePath, childId = '') {
+    const path = String(filePath || '').trim();
+    if (!path) return '/gamehub/index.html';
+    if (!childId) return path;
+    const separator = path.includes('?') ? '&' : '?';
+    return `${path}${separator}child_profile_hint=${encodeURIComponent(String(childId))}`;
+  }
+  function renderGameHubPracticeSection(options = {}) {
+    const childId = String(options.childId || '').trim();
+    const context = childId ? 'child' : 'parent';
+    const entries = getRegistryLaunchableGames(context);
+    const intro = childId
+      ? '<p>Child launch readiness is prepared for future context-aware routing. Current launches stay standalone.</p>'
+      : '<p>Explore optional game practice experiences from GameHub.</p>';
+    if (!entries.length) {
+      return `<section class="panel"><h3>Practice Games</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p>${intro}<p><a class="btn secondary" href="/gamehub/index.html">Explore Practice Games</a></p></section>`;
+    }
+    const previews = entries.slice(0, 4).map((entry) => `<li><a href="${buildGameHubLaunchPath(entry.file_path, childId)}">${entry.title}</a> <span>(${entry.game_type})</span></li>`).join('');
+    return `<section class="panel" data-practice-games-section><h3>Practice Games</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p>${intro}<ul>${previews}</ul><p><a class="btn secondary" data-gamehub-discovery-link href="/gamehub/index.html">Explore Practice Games</a></p></section>`;
+  }
   function gateList() {
     return ["Attention", "Emotion", "Choice", "Body", "Discipline", "Truth", "Repair", "Creation", "Community", "Legacy"];
   }
@@ -114,6 +139,7 @@
       <div class="stack" data-gates-entry-ctas>
         <a class="btn" data-gates-cta="start" href="${primaryHref}">Start Youth Rite of Passage Assessment</a>
         <a class="btn secondary" data-gates-cta="signin" href="/gates/signup">Parent Sign In</a>
+        <a class="btn secondary" data-gates-cta="gamehub" href="/gamehub/index.html">Explore Practice Games</a>
         <a class="btn secondary" data-gatequest-public-launch href="/gates/prototypes/gatequest">Launch GateQuest Prototype (Standalone)</a>
       </div>
     `);
@@ -261,7 +287,7 @@
       const habitBank = await api(`/api/gates/children/${childId}/habit-bank`, { method: 'GET' }).catch(() => null);
       const growthHabit = (habitBank?.recommended_habits || [])[0] || null;
       const growthGate = (result.gate_map || []).find((g) => g.gate_key === result.gates_profile?.growth_gate?.gate_key) || (result.gate_map || [])[0] || { gate_number: 1, name: 'Attention' };
-      shell('Current Gates Profile', `<p><strong>Child:</strong> ${result.child_name || 'Selected child'}</p><p>${result.gates_profile?.summary || ''}</p><p>${result.gates_profile?.stage_explainer || 'These stages reflect current parent observations from the assessment.'}</p><p>These reflections come from parent observation, not diagnosis.</p>${renderGrowthSignalsPanel(growthHabit, "results")}<h3>Strongest Gates</h3><p>${(result.gates_profile?.strongest_gates || []).join(', ') || 'Developing'}</p><h3>Growth Gate</h3><p>${result.gates_profile?.growth_gate?.name || 'Attention'} (${result.gates_profile?.growth_gate?.current_stage || 'emerging'})</p><h3>Gate Stages</h3><ol>${(result.gate_map || []).map((g) => `<li>${g.name || g.gate_key}: ${g.current_stage || 'emerging'}</li>`).join('')}</ol><h3>Blueprint Next Steps</h3><ul>${(result.recommendations || []).map((r) => `<li>${r.title}</li>`).join('') || '<li>None yet</li>'}</ul><section class="walking-gate"><h3>Walking the Gate</h3><p><strong>Current Growth Gate:</strong> ${result.gates_profile?.growth_gate?.name || 'Attention'}</p><p><strong>Why this Gate matters:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>This week's reflection:</strong> ${result.gates_profile?.reflection_focus || ''}</p><p><strong>Journal prompt:</strong> ${result.gates_profile?.journal_prompt || ''}</p><p><strong>Parent observation focus:</strong> ${result.gates_profile?.observation_focus || ''}</p><p><strong>Family practice:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>Ceremony suggestion:</strong> ${result.gates_profile?.ceremony_readiness_hint || ''}</p>${renderChildReflectionCta(childId, growthGate.gate_number)}<p><a class="btn" href="/gates/child/${childId}/gates/${growthGate.gate_number || 1}">Begin This Gate</a> <a class="btn secondary" href="/gates/child/${childId}/gates">View Practice Progress</a></p></section><h3>Practice Progress</h3><p>Practice progress starts at 0% and grows as your family completes Gates practices.</p><ul>${(progress.progress || []).map((p) => `<li>${p.gate_number}. ${p.name}: ${p.progress_percent}% (${p.status}) <button data-gate="${p.gate_number}">+10%</button></li>`).join('')}</ul>${renderDevelopmentJourney(integratedProfile?.development_patterns)}${renderDevelopmentTimeline(timeline)}${renderIntegratedProfilePreview(integratedProfile)}<p><a class="btn" href="/gates/child/${childId}/gates">View Progress Map</a> <a class="btn secondary" href="/gates/children">View Growth Plan</a></p>`);
+      shell('Current Gates Profile', `<p><strong>Child:</strong> ${result.child_name || 'Selected child'}</p><p>${result.gates_profile?.summary || ''}</p><p>${result.gates_profile?.stage_explainer || 'These stages reflect current parent observations from the assessment.'}</p><p>These reflections come from parent observation, not diagnosis.</p>${renderGrowthSignalsPanel(growthHabit, "results")}<h3>Strongest Gates</h3><p>${(result.gates_profile?.strongest_gates || []).join(', ') || 'Developing'}</p><h3>Growth Gate</h3><p>${result.gates_profile?.growth_gate?.name || 'Attention'} (${result.gates_profile?.growth_gate?.current_stage || 'emerging'})</p><h3>Gate Stages</h3><ol>${(result.gate_map || []).map((g) => `<li>${g.name || g.gate_key}: ${g.current_stage || 'emerging'}</li>`).join('')}</ol><h3>Blueprint Next Steps</h3><ul>${(result.recommendations || []).map((r) => `<li>${r.title}</li>`).join('') || '<li>None yet</li>'}</ul><section class="walking-gate"><h3>Walking the Gate</h3><p><strong>Current Growth Gate:</strong> ${result.gates_profile?.growth_gate?.name || 'Attention'}</p><p><strong>Why this Gate matters:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>This week's reflection:</strong> ${result.gates_profile?.reflection_focus || ''}</p><p><strong>Journal prompt:</strong> ${result.gates_profile?.journal_prompt || ''}</p><p><strong>Parent observation focus:</strong> ${result.gates_profile?.observation_focus || ''}</p><p><strong>Family practice:</strong> ${result.gates_profile?.suggested_next_practice || ''}</p><p><strong>Ceremony suggestion:</strong> ${result.gates_profile?.ceremony_readiness_hint || ''}</p>${renderChildReflectionCta(childId, growthGate.gate_number)}<p><a class="btn" href="/gates/child/${childId}/gates/${growthGate.gate_number || 1}">Begin This Gate</a> <a class="btn secondary" href="/gates/child/${childId}/gates">View Practice Progress</a></p></section><h3>Practice Progress</h3><p>Practice progress starts at 0% and grows as your family completes Gates practices.</p><ul>${(progress.progress || []).map((p) => `<li>${p.gate_number}. ${p.name}: ${p.progress_percent}% (${p.status}) <button data-gate="${p.gate_number}">+10%</button></li>`).join('')}</ul>${renderGameHubPracticeSection({ childId })}${renderDevelopmentJourney(integratedProfile?.development_patterns)}${renderDevelopmentTimeline(timeline)}${renderIntegratedProfilePreview(integratedProfile)}<p><a class="btn" href="/gates/child/${childId}/gates">View Progress Map</a> <a class="btn secondary" href="/gates/children">View Growth Plan</a></p>`);
       console.info(JSON.stringify({ event: 'gates_stage_profile_rendered', assessment_id: assessmentId, child_id: childId }));
       console.info(JSON.stringify({ event: 'gates_generic_recommendations_removed', assessment_id: assessmentId, child_id: childId }));
       console.info(JSON.stringify({ event: 'gates_walking_gate_rendered', assessment_id: assessmentId, child_id: childId }));
