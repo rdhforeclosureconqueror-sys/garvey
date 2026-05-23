@@ -102,3 +102,32 @@ Surf is the second minimal pilot wired to the adapter and remains local/in-memor
 - Adapter payloads use only enum/banded safety fields.
 - Surf does not emit exact math question text, raw answers, exact scores, exact coins, exact coordinates, diagnostics, or child identifiers.
 - Registry `tracking_ready` remains `false`.
+
+## Spelling pilot (local-only preview)
+Spelling is the third minimal pilot wired to the adapter and remains local/in-memory only:
+- no server tracking
+- no database writes
+- no Gates scoring wiring
+- no child identity fields
+- no raw spelling words, typed answers, or exact question text in adapter payloads
+
+### Spelling event map
+- `game_session_started`
+  - payload keys: `game_key`, `activity_key`, `mode`
+- `activity_selected`
+  - payload keys: `activity_key`, `mode`
+- `round_started`
+  - payload keys: `activity_key`, `mode`
+- `round_completed`
+  - payload keys: `success`, `duration_band`, `activity_key`, `mode`
+- `retry_started`
+  - payload keys: `event_category`, `persistence_band`
+- `recovery_after_miss`
+  - payload keys: `event_category`, `persistence_band`
+- `game_session_ended`
+  - payload keys: `completion_state`, `duration_band`, `persistence_band`
+
+### Spelling guardrails
+- Adapter payloads are limited to canonical safety keys (`game_key`, `activity_key`, `mode`, `success`, `duration_band`, `persistence_band`, `completion_state`, `event_category`).
+- Spelling does not emit raw words, typed answers, exact question text, exact score values, diagnostics, or child identifiers.
+- Registry `tracking_ready` remains `false`.

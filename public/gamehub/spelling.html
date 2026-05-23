@@ -320,7 +320,60 @@
   </div>
 
   <script src="/gamehub/shared-content-loader.js"></script>
+  <script src="/gamehub/gamehub-session-adapter.js"></script>
   <script>
+    const GAME_KEY = "spelling";
+    const ACTIVITY_KEYS = Object.freeze({
+      LESSON: "lesson",
+      QUIZ: "quiz",
+      I_SPY: "i_spy"
+    });
+    const SESSION_MODE = "lesson_quiz_i_spy";
+    const adapter = window.GamehubSessionAdapter || null;
+    let sessionStartedAt = Date.now();
+    let sessionHasEnded = false;
+    let retrySignalCount = 0;
+    let missRecoveryCount = 0;
+
+    function emitAdapterEvent(eventName, payload) {
+      if (adapter && typeof adapter.emit === "function") adapter.emit(eventName, payload);
+    }
+
+    function getDurationBand(startedAt) {
+      const seconds = Math.max(0, Math.floor((Date.now() - startedAt) / 1000));
+      if (seconds < 60) return "under_1m";
+      if (seconds < 180) return "1_to_3m";
+      if (seconds < 420) return "3_to_7m";
+      return "7m_plus";
+    }
+
+    function getPersistenceBand() {
+      const attempts = retrySignalCount + missRecoveryCount;
+      if (attempts <= 1) return "low";
+      if (attempts <= 4) return "medium";
+      return "high";
+    }
+
+    function startTrackedSession() {
+      sessionStartedAt = Date.now();
+      sessionHasEnded = false;
+      retrySignalCount = 0;
+      missRecoveryCount = 0;
+      emitAdapterEvent("game_session_started", { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS.LESSON, mode: SESSION_MODE });
+      emitAdapterEvent("activity_selected", { activity_key: ACTIVITY_KEYS.LESSON, mode: SESSION_MODE });
+      emitAdapterEvent("round_started", { activity_key: ACTIVITY_KEYS.LESSON, mode: SESSION_MODE });
+    }
+
+    function endTrackedSession(completionState) {
+      if (sessionHasEnded) return;
+      sessionHasEnded = true;
+      emitAdapterEvent("game_session_ended", {
+        completion_state: completionState,
+        duration_band: getDurationBand(sessionStartedAt),
+        persistence_band: getPersistenceBand()
+      });
+    }
+
     /* ====== WORD DATA: GRADE 1 + GRADE 3 ====== */
     const WORDS_FALLBACK = [
       // Grade 1 full list
@@ -585,6 +638,7 @@
       answerInput.disabled = true;
       checkBtn.disabled = true;
       mode = "lesson";
+      startTrackedSession();
 
       // reset I-spy visuals
       gameClue.textContent = "I spy with my little eye… words we just learned! Start the game when you’re ready.";
@@ -603,6 +657,12 @@
     function nextLesson() {
       lessonIndex++;
       if (lessonIndex >= lessonSet.length) {
+        emitAdapterEvent("round_completed", {
+          success: true,
+          duration_band: getDurationBand(sessionStartedAt),
+          activity_key: ACTIVITY_KEYS.LESSON,
+          mode: SESSION_MODE
+        });
         mode = "idle";
         modeLabel.textContent = "Mode: LESSON COMPLETE ✅";
         wordDisplay.textContent = "Great job! Lesson finished.";
@@ -625,6 +685,8 @@
 
     function startQuiz() {
       if (!quizSet.length) return;
+      emitAdapterEvent("activity_selected", { activity_key: ACTIVITY_KEYS.QUIZ, mode: SESSION_MODE });
+      emitAdapterEvent("round_started", { activity_key: ACTIVITY_KEYS.QUIZ, mode: SESSION_MODE });
       mode = "quiz";
       modeLabel.textContent = "Mode: QUIZ (say meaning, then spell)";
       quizIndex = 0;
@@ -670,6 +732,10 @@
         feedbackDisplay.className = "feedback correct";
         unicornDisplay.textContent = "🦄✨";
       } else {
+        retrySignalCount += 1;
+        emitAdapterEvent("retry_started", { event_category: "quiz_retry", persistence_band: getPersistenceBand() });
+        missRecoveryCount += 1;
+        emitAdapterEvent("recovery_after_miss", { event_category: "quiz_after_miss", persistence_band: getPersistenceBand() });
         feedbackDisplay.textContent = `Almost! Correct spelling: ${item.word}`;
         feedbackDisplay.className = "feedback wrong";
         unicornDisplay.textContent = "";
@@ -684,6 +750,13 @@
       if (mode !== "quiz") return;
       quizIndex++;
       if (quizIndex >= quizSet.length) {
+        emitAdapterEvent("round_completed", {
+          success: quizCorrect >= Math.ceil(quizSet.length * 0.7),
+          duration_band: getDurationBand(sessionStartedAt),
+          activity_key: ACTIVITY_KEYS.QUIZ,
+          mode: SESSION_MODE
+        });
+        endTrackedSession("completed");
         mode = "idle";
         modeLabel.textContent = "Mode: QUIZ COMPLETE 🎉";
         wordDisplay.textContent = "Quiz finished!";
@@ -710,6 +783,8 @@
         alert("Start a lesson first so we know which 10 words to play with.");
         return;
       }
+      emitAdapterEvent("activity_selected", { activity_key: ACTIVITY_KEYS.I_SPY, mode: SESSION_MODE });
+      emitAdapterEvent("round_started", { activity_key: ACTIVITY_KEYS.I_SPY, mode: SESSION_MODE });
       mode = "game";
       gameIndex = 0;
       gameCorrect = 0;
@@ -778,6 +853,8 @@
         gameFeedback.textContent = `Yes! “${answer.word}” is the word we spied.`;
         gameUnicorn.textContent = "🦄✨";
       } else {
+        missRecoveryCount += 1;
+        emitAdapterEvent("recovery_after_miss", { event_category: "game_after_miss", persistence_band: getPersistenceBand() });
         gameFeedback.textContent = `Good try! We were spying “${answer.word}”.`;
         gameUnicorn.textContent = "";
       }
@@ -787,6 +864,13 @@
       setTimeout(() => {
         gameIndex++;
         if (gameIndex >= gameSet.length) {
+          emitAdapterEvent("round_completed", {
+            success: gameCorrect >= Math.ceil(gameSet.length * 0.7),
+            duration_band: getDurationBand(sessionStartedAt),
+            activity_key: ACTIVITY_KEYS.I_SPY,
+            mode: SESSION_MODE
+          });
+          endTrackedSession("completed");
           mode = "idle";
           gameClue.textContent = "I-Spy game finished!";
           gameCounter.textContent = `Score: ${gameCorrect} / ${gameSet.length}`;
@@ -817,6 +901,10 @@
         e.preventDefault();
         checkAnswer();
       }
+    });
+
+    window.addEventListener("beforeunload", () => {
+      endTrackedSession("abandoned");
     });
   </script>
 </body>
