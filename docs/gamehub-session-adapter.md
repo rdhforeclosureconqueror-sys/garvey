@@ -189,3 +189,38 @@ Game6 / Spelling Match Arena is the fifth minimal pilot wired to the adapter and
 - Adapter payloads are limited to canonical safety keys (`game_key`, `activity_key`, `mode`, `success`, `duration_band`, `persistence_band`, `completion_state`, `event_category`, `accuracy_band`).
 - Game6 does not emit raw words, prompt text, selected answer text, exact score values, diagnostics, or child identifiers.
 - Registry `tracking_ready` remains `false`.
+
+## Adaptive Learning pilot (local-only preview)
+Adaptive Learning is now minimally instrumented with the same no-op session adapter pattern and remains local/in-memory only:
+- no server tracking
+- no database writes
+- no Gates scoring wiring
+- no raw prompts, selected answers, correct answers, explanations, or learner-name payloads
+- no diagnostic/readiness labels in adapter payloads
+
+### Adaptive Learning event map
+- `game_session_started`
+  - payload keys: `game_key`, `activity_key`, `mode`
+- `activity_selected`
+  - payload keys: `game_key`, `activity_key`, `mode`, `subject`
+- `round_started`
+  - payload keys: `game_key`, `activity_key`, `mode`, `subject`, `difficulty_band`, `grade_band`
+- `round_completed`
+  - payload keys: `game_key`, `activity_key`, `mode`, `difficulty_band`, `grade_band`, `duration_band`, `accuracy_band`
+- `level_changed`
+  - payload keys: `game_key`, `activity_key`, `mode`, `difficulty_band`, `grade_band`
+- `challenge_selected`
+  - payload keys: `game_key`, `activity_key`, `mode`, `difficulty_band`, `grade_band`
+- `accuracy_summary`
+  - payload keys: `game_key`, `activity_key`, `mode`, `accuracy_band`, `difficulty_band`, `grade_band`
+- `persistence_signal`
+  - payload keys: `game_key`, `activity_key`, `mode`, `persistence_band`
+- `recovery_after_miss`
+  - payload keys: `game_key`, `activity_key`, `mode`, `event_category`
+- `game_session_ended`
+  - payload keys: `game_key`, `activity_key`, `mode`, `completion_state`, `duration_band`, `persistence_band`
+
+### Adaptive Learning guardrails
+- Payloads are aggregate/banded only: no raw educational content leaves runtime.
+- Instrumentation does not alter adaptive flow, question selection, results rendering, or local history behavior.
+- `tracking_ready` remains `false`.
