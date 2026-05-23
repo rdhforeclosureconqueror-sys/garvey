@@ -196,11 +196,12 @@
   </section>
 </div>
 
+<script src="/gamehub/shared-content-loader.js"></script>
 <script>
 /** =========================
  *  WORD BANK (your exact list)
  *  ========================= */
-const WORDS = [
+const WORDS_FALLBACK = [
   "these","while","one","once","begin","above",
   "don't","out","have","made","where","like","home",
   "there","name","use","think","almost","help","among",
@@ -214,7 +215,7 @@ const WORDS = [
  *  SENTENCES (logical + simple)
  *  Each word has 2 options.
  *  ========================= */
-const SENT = {
+const SENT_FALLBACK = {
   "these": ["Put these on the table.", "I like these red shoes."],
   "while": ["I read while you cook.", "Wait here while I tie my shoe."],
   "one": ["I have one red ball.", "Pick one book to read."],
@@ -266,6 +267,16 @@ const SENT = {
   "off": ["Turn off the light.", "Take off your hat."],
   "form": ["Make a line in this form.", "The clay can form a ball."]
 };
+
+
+async function initializeSharedContent(){
+  if(!window.GamehubSharedContent) return;
+  const bank=await window.GamehubSharedContent.loadWordBank('/gamehub/content/word-bank.sample.json', null);
+  if(!bank) return;
+  const words=window.GamehubSharedContent.fromWordBankToSightWordsDeck(bank);
+  if(words.length){ WORDS = Array.from(new Set(words.concat(WORDS_FALLBACK))); }
+}
+initializeSharedContent();
 
 /** =========================
  *  MATCH GAME

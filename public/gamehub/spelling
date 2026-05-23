@@ -319,9 +319,10 @@
     </div>
   </div>
 
+  <script src="/gamehub/shared-content-loader.js"></script>
   <script>
     /* ====== WORD DATA: GRADE 1 + GRADE 3 ====== */
-    const WORDS = [
+    const WORDS_FALLBACK = [
       // Grade 1 full list
       { grade: 1, word: "tag", def: "a small label you put on something", example: "Please leave the price tag on the shirt." },
       { grade: 1, word: "stuck", def: "unable to move or get free", example: "My shoe was stuck in the mud." },
@@ -432,6 +433,19 @@
     const GAME_RUNTIME_CONTEXT_FALLBACK={child_display_name:"Player",child_age_band:null,profile_id:null,session_id:null,gate_context:null};
     function getRuntimeContext(){const ctx=window.__GATES_GAME_CONTEXT__||window.__GAME_RUNTIME_CONTEXT__||{};return {...GAME_RUNTIME_CONTEXT_FALLBACK,...ctx}}
 
+
+    async function initializeSharedContent() {
+      if (!window.GamehubSharedContent) return;
+      const bank = await window.GamehubSharedContent.loadWordBank('/gamehub/content/word-bank.sample.json', null);
+      if (!bank) return;
+      const converted = window.GamehubSharedContent.fromWordBankToSpellingLesson(bank);
+      if (converted.length) {
+        window.__GAMEHUB_SPELLING_WORDS__ = converted.concat(WORDS_FALLBACK);
+      }
+    }
+
+    initializeSharedContent();
+
     /* ====== STATE ====== */
     let lessonSet = [];
     let quizSet = [];
@@ -479,8 +493,12 @@
 
     /* ====== HELPERS ====== */
 
+    function getActiveWords() {
+      return window.__GAMEHUB_SPELLING_WORDS__ || WORDS_FALLBACK;
+    }
+
     function randomTenByGrade(grade) {
-      const pool = WORDS.filter(w => w.grade === grade);
+      const pool = getActiveWords().filter(w => w.grade === grade);
       const copy = pool.slice();
       for (let i = copy.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
