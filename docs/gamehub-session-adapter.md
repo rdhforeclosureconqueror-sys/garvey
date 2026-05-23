@@ -160,3 +160,32 @@ Spelling is the third minimal pilot wired to the adapter and remains local/in-me
 - Adapter payloads are limited to canonical safety keys (`game_key`, `activity_key`, `mode`, `success`, `duration_band`, `persistence_band`, `completion_state`, `event_category`, `hint_band`).
 - Sight Words does not emit raw words, typed letters, raw answers, exact question text, exact score values, diagnostics, or child identifiers.
 - Registry `tracking_ready` remains `false`.
+
+## Game6 (Spelling Match Arena) pilot (local-only preview)
+Game6 / Spelling Match Arena is the fifth minimal pilot wired to the adapter and remains local/in-memory only:
+- no server tracking
+- no database writes
+- no Gates scoring wiring
+- no child identity fields
+- no raw words, prompts, selected answers, or answer text in adapter payloads
+
+### Game6 event map
+- `game_session_started`
+  - payload keys: `game_key`, `activity_key`, `mode`
+- `activity_selected`
+  - payload keys: `game_key`, `activity_key`, `mode`
+- `round_started`
+  - payload keys: `game_key`, `activity_key`, `mode`
+- `round_completed`
+  - payload keys: `game_key`, `activity_key`, `mode`, `success`, `duration_band`, `persistence_band`, `accuracy_band`
+- `retry_started`
+  - payload keys: `game_key`, `activity_key`, `mode`, `event_category`
+- `recovery_after_miss`
+  - payload keys: `game_key`, `activity_key`, `mode`, `event_category`
+- `game_session_ended`
+  - payload keys: `game_key`, `activity_key`, `mode`, `completion_state`, `duration_band`, `persistence_band`
+
+### Game6 guardrails
+- Adapter payloads are limited to canonical safety keys (`game_key`, `activity_key`, `mode`, `success`, `duration_band`, `persistence_band`, `completion_state`, `event_category`, `accuracy_band`).
+- Game6 does not emit raw words, prompt text, selected answer text, exact score values, diagnostics, or child identifiers.
+- Registry `tracking_ready` remains `false`.

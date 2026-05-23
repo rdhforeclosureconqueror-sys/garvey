@@ -38,6 +38,7 @@
 <div id="pointsSplash">+10</div>
 
 <script src="/gamehub/shared-content-loader.js"></script>
+<script src="/gamehub/gamehub-session-adapter.js"></script>
 <script>
 // ---------------------- WORD BANK -----------------------
 let words = [
@@ -65,6 +66,90 @@ async function initializeSharedContent(){
 }
 initializeSharedContent();
 
+const GAME_KEY = "game6";
+const SESSION_MODE = "local_pilot";
+const ACTIVITY_KEYS = Object.freeze({
+  SPEED: "speed_mode",
+  SYNONYM: "synonym_mode",
+  ANTONYM: "antonym_mode",
+  DEFINITION: "definition_mode"
+});
+
+const adapter = window.GamehubSessionAdapter || null;
+let adapterSessionStarted = false;
+let activeActivityKey = null;
+let roundStartAt = 0;
+let missesBeforeSuccess = 0;
+
+function emitAdapterEvent(eventName, payload){
+  if(adapter && typeof adapter.emit === "function") adapter.emit(eventName, payload);
+}
+
+function ensureAdapterSession(){
+  if(adapterSessionStarted || !adapter) return;
+  if(typeof adapter.startSession === "function") {
+    adapter.startSession({ game_key: GAME_KEY, mode: SESSION_MODE });
+  }
+  adapterSessionStarted = true;
+  emitAdapterEvent("game_session_started", { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS.SPEED, mode: SESSION_MODE });
+}
+
+function beginActivity(activityKey){
+  ensureAdapterSession();
+  activeActivityKey = activityKey;
+  missesBeforeSuccess = 0;
+  emitAdapterEvent("activity_selected", { game_key: GAME_KEY, activity_key: activityKey, mode: SESSION_MODE });
+  emitAdapterEvent("round_started", { game_key: GAME_KEY, activity_key: activityKey, mode: SESSION_MODE });
+  roundStartAt = Date.now();
+}
+
+function getDurationBand(ms){
+  if(ms < 1500) return "quick";
+  if(ms < 5000) return "steady";
+  return "extended";
+}
+
+function getAccuracyBand(){
+  if(missesBeforeSuccess === 0) return "perfect";
+  if(missesBeforeSuccess === 1) return "recovering";
+  return "persisting";
+}
+
+function getPersistenceBand(){
+  if(missesBeforeSuccess === 0) return "steady";
+  if(missesBeforeSuccess === 1) return "recovering";
+  return "persistent";
+}
+
+function trackRoundOutcome(success){
+  if(!activeActivityKey) return;
+  const elapsed = Math.max(0, Date.now() - roundStartAt);
+  emitAdapterEvent("round_completed", {
+    game_key: GAME_KEY,
+    activity_key: activeActivityKey,
+    mode: SESSION_MODE,
+    success,
+    duration_band: getDurationBand(elapsed),
+    accuracy_band: getAccuracyBand(),
+    persistence_band: getPersistenceBand()
+  });
+  emitAdapterEvent("round_started", { game_key: GAME_KEY, activity_key: activeActivityKey, mode: SESSION_MODE });
+  roundStartAt = Date.now();
+}
+
+window.addEventListener("beforeunload", () => {
+  if(!adapterSessionStarted) return;
+  const summary = {
+    game_key: GAME_KEY,
+    activity_key: activeActivityKey || ACTIVITY_KEYS.SPEED,
+    mode: SESSION_MODE,
+    completion_state: "manual_exit",
+    duration_band: "steady",
+    persistence_band: getPersistenceBand()
+  };
+  emitAdapterEvent("game_session_ended", summary);
+  if(adapter && typeof adapter.endSession === "function") adapter.endSession(summary);
+});
 
 // ---------------------- UTILITIES -----------------------
 function splashPoints(){
@@ -76,6 +161,7 @@ function splashPoints(){
 // ---------------------- SPEED MATCH -----------------------
 function startSpeedMatch(){
   document.getElementById("menu").style.display="none";
+  beginActivity(ACTIVITY_KEYS.SPEED);
   runSpeedRound();
 }
 
@@ -94,9 +180,18 @@ function runSpeedRound(){
 }
 
 function checkSpeed(choice, correct){
-  if(choice === correct){
+  const success = choice === correct;
+  if(success){
     score += 10;
     splashPoints();
+    if(missesBeforeSuccess > 0){
+      emitAdapterEvent("recovery_after_miss", { game_key: GAME_KEY, activity_key: activeActivityKey, mode: SESSION_MODE, event_category: "round_recovered" });
+    }
+    trackRoundOutcome(true);
+    missesBeforeSuccess = 0;
+  } else {
+    missesBeforeSuccess += 1;
+    emitAdapterEvent("retry_started", { game_key: GAME_KEY, activity_key: activeActivityKey, mode: SESSION_MODE, event_category: "round_retry" });
   }
   runSpeedRound();
 }
@@ -104,6 +199,7 @@ function checkSpeed(choice, correct){
 // ---------------------- SYNONYM SMASH -----------------------
 function startSynonym(){
   document.getElementById("menu").style.display="none";
+  beginActivity(ACTIVITY_KEYS.SYNONYM);
   runSynRound();
 }
 
@@ -122,9 +218,18 @@ function runSynRound(){
 }
 
 function checkSyn(choice, correct){
-  if(choice === correct){
+  const success = choice === correct;
+  if(success){
     score += 10;
     splashPoints();
+    if(missesBeforeSuccess > 0){
+      emitAdapterEvent("recovery_after_miss", { game_key: GAME_KEY, activity_key: activeActivityKey, mode: SESSION_MODE, event_category: "round_recovered" });
+    }
+    trackRoundOutcome(true);
+    missesBeforeSuccess = 0;
+  } else {
+    missesBeforeSuccess += 1;
+    emitAdapterEvent("retry_started", { game_key: GAME_KEY, activity_key: activeActivityKey, mode: SESSION_MODE, event_category: "round_retry" });
   }
   runSynRound();
 }
@@ -132,6 +237,7 @@ function checkSyn(choice, correct){
 // ---------------------- ANTONYM HUNTER -----------------------
 function startAntonym(){
   document.getElementById("menu").style.display="none";
+  beginActivity(ACTIVITY_KEYS.ANTONYM);
   runAntRound();
 }
 
@@ -150,9 +256,18 @@ function runAntRound(){
 }
 
 function checkAnt(choice, correct){
-  if(choice === correct){
+  const success = choice === correct;
+  if(success){
     score += 10;
     splashPoints();
+    if(missesBeforeSuccess > 0){
+      emitAdapterEvent("recovery_after_miss", { game_key: GAME_KEY, activity_key: activeActivityKey, mode: SESSION_MODE, event_category: "round_recovered" });
+    }
+    trackRoundOutcome(true);
+    missesBeforeSuccess = 0;
+  } else {
+    missesBeforeSuccess += 1;
+    emitAdapterEvent("retry_started", { game_key: GAME_KEY, activity_key: activeActivityKey, mode: SESSION_MODE, event_category: "round_retry" });
   }
   runAntRound();
 }
@@ -160,6 +275,7 @@ function checkAnt(choice, correct){
 // ---------------------- DEFINITION MATCH -----------------------
 function startDefinitionMatch(){
   document.getElementById("menu").style.display="none";
+  beginActivity(ACTIVITY_KEYS.DEFINITION);
   runDefRound();
 }
 
@@ -178,9 +294,18 @@ function runDefRound(){
 }
 
 function checkDef(choice, correct){
-  if(choice === correct){
+  const success = choice === correct;
+  if(success){
     score += 10;
     splashPoints();
+    if(missesBeforeSuccess > 0){
+      emitAdapterEvent("recovery_after_miss", { game_key: GAME_KEY, activity_key: activeActivityKey, mode: SESSION_MODE, event_category: "round_recovered" });
+    }
+    trackRoundOutcome(true);
+    missesBeforeSuccess = 0;
+  } else {
+    missesBeforeSuccess += 1;
+    emitAdapterEvent("retry_started", { game_key: GAME_KEY, activity_key: activeActivityKey, mode: SESSION_MODE, event_category: "round_retry" });
   }
   runDefRound();
 }
