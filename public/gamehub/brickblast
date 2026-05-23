@@ -190,7 +190,7 @@
 
   let W = 0, H = 0, DPR = 1;
   let running = false;
-  let score = 0, level = 1, lives = 3, combo = 0, bestCombo = 0, comboPulse = 0, roundClearFreeze = 0;
+  let score = 0, level = 1, lives = brickblastConfig.startingLives, combo = 0, bestCombo = 0, comboPulse = 0, roundClearFreeze = 0;
   let keys = {};
   let bricks = [], balls = [], drops = [], lasers = [], particles = [];
   let last = 0;
@@ -203,6 +203,18 @@
   const paddle = {
     x: 0, y: 0, w: 120, h: 16, speed: 760, targetX: null
   };
+
+
+  const BRICKBLAST_DEFAULT_CONFIG = {
+    startingLives:3,
+    speedCurve:{base:315,perLevel:38,max:760,minMultiplier:0.95,reboundBase:330,reboundPerLevel:25,ballAccel:1.01,hitFactor:0.85},
+    powerupDurations:{laser:6,sticky:8,big:10,slow:7},
+    dropRates:{mysteryBase:0.24,mysteryCapAdd:0.14,mysteryPerLevel:0.012,bombBase:0.08,bombCapAdd:0.08,bombPerLevel:0.006,mysteryDropChance:0.10,dropFallBase:120,dropFallPerLevel:8},
+    levelScaling:{maxRows:10,baseRows:5,rowPerLevel:0.8,hpLeadRowsBase:2,hpLeadRowsPerLevel:2},
+    combo:{bonusThreshold:4,bonusMultiplier:6,milestones:[4,8,12,5]}
+  };
+  const brickblastConfig = { ...BRICKBLAST_DEFAULT_CONFIG };
+  const levelSpeed = ()=> Math.min(brickblastConfig.speedCurve.max, brickblastConfig.speedCurve.base + level * brickblastConfig.speedCurve.perLevel);
 
   const POWER = {
     MULTI: {label:"MULTI-BALL", char:"●", color:"#66ffb3"},
@@ -223,7 +235,7 @@
   }
 
   function resetGame(){
-    score = 0; level = 1; lives = 3; combo = 0; bestCombo = 0; activeTimers = { laser:0, sticky:0, big:0, slow:0 };
+    score = 0; level = 1; lives = brickblastConfig.startingLives; combo = 0; bestCombo = 0; activeTimers = { laser:0, sticky:0, big:0, slow:0 };
     paddle.w = Math.min(135, W * .28);
     paddle.x = W/2 - paddle.w/2;
     sticky = false; laserMode = false;
@@ -249,7 +261,7 @@
     balls = [newBall(true)];
     paddle.w = Math.max(88, Math.min(150, paddle.w));
     const cols = Math.max(7, Math.min(12, Math.floor(W / 64)));
-    const rows = Math.min(10, 5 + Math.floor(level*.8));
+    const rows = Math.min(brickblastConfig.levelScaling.maxRows, brickblastConfig.levelScaling.baseRows + Math.floor(level*brickblastConfig.levelScaling.rowPerLevel));
     const shape = (level - 1) % 7;
     const gap = 7;
     const top = 78;
@@ -260,10 +272,10 @@
       for(let c=0;c<cols;c++){
         if(!shapeAllows(shape,r,c,rows,cols)) continue;
         const roll = Math.random();
-        const mysteryChance = .24 + Math.min(.14, level*.012);
-        const bombChance = .08 + Math.min(.08, level*.006);
+        const mysteryChance = brickblastConfig.dropRates.mysteryBase + Math.min(brickblastConfig.dropRates.mysteryCapAdd, level*brickblastConfig.dropRates.mysteryPerLevel);
+        const bombChance = brickblastConfig.dropRates.bombBase + Math.min(brickblastConfig.dropRates.bombCapAdd, level*brickblastConfig.dropRates.bombPerLevel);
         const type = roll < bombChance ? "bomb" : roll < bombChance + mysteryChance ? "mystery" : "normal";
-        const hp = r < 2 + Math.floor(level/2) ? 2 : 1;
+        const hp = r < brickblastConfig.levelScaling.hpLeadRowsBase + Math.floor(level/brickblastConfig.levelScaling.hpLeadRowsPerLevel) ? 2 : 1;
         bricks.push({
           x: side + c*(bw+gap),
           y: top + r*(bh+gap),
@@ -274,11 +286,11 @@
         });
       }
     }
-    toastMsg("Level " + level + " • New Shape • Speed " + Math.round(Math.min(760,315+level*38)), true, 1200);
+    toastMsg("Level " + level + " • New Shape • Speed " + Math.round(levelSpeed()), true, 1200);
   }
 
   function newBall(stuck=false, x=null, y=null, vx=null, vy=null){
-    const speed = Math.min(760, 315 + level * 38);
+    const speed = levelSpeed();
     return {
       x: x ?? paddle.x + paddle.w/2,
       y: y ?? paddle.y - 13,
@@ -334,7 +346,7 @@
     balls.forEach(b=>{
       if(b.stuck){
         b.stuck=false;
-        b.vy = -Math.abs(330 + level*25);
+        b.vy = -Math.abs(brickblastConfig.speedCurve.reboundBase + level*brickblastConfig.speedCurve.reboundPerLevel);
         if(Math.abs(b.vx) < 60) b.vx = (Math.random()>.5?1:-1)*140;
       }
     });
@@ -383,7 +395,7 @@
       const slowFactor = activeTimers.slow > 0 ? .72 : 1;
       b.x += b.vx * dt * slowFactor;
       b.y += b.vy * dt * slowFactor;
-      const minSpeed = Math.min(760,315+level*38) * .95;
+      const minSpeed = levelSpeed() * brickblastConfig.speedCurve.minMultiplier;
       const sp = Math.hypot(b.vx,b.vy);
       if(sp < minSpeed){ b.vx = b.vx/sp*minSpeed; b.vy = b.vy/sp*minSpeed; }
 
@@ -393,8 +405,8 @@
 
       if(b.y + b.r >= paddle.y && b.y - b.r <= paddle.y + paddle.h && b.x >= paddle.x && b.x <= paddle.x + paddle.w && b.vy > 0){
         const hit = (b.x - (paddle.x + paddle.w/2)) / (paddle.w/2);
-        const speed = Math.hypot(b.vx,b.vy) * 1.01;
-        b.vx = hit * speed * .85;
+        const speed = Math.hypot(b.vx,b.vy) * brickblastConfig.speedCurve.ballAccel;
+        b.vx = hit * speed * brickblastConfig.speedCurve.hitFactor;
         b.vy = -Math.sqrt(Math.max(120*120, speed*speed - b.vx*b.vx));
         b.y = paddle.y - b.r - 1;
         if(combo >= 4) toastMsg("Combo banked: " + combo + "x", false, 800);
@@ -476,18 +488,18 @@
     bestCombo = Math.max(bestCombo, combo);
     comboPulse = 1;
     br.hp--;
-    const comboBonus = combo >= 4 ? combo * 6 : 0;
+    const comboBonus = combo >= brickblastConfig.combo.bonusThreshold ? combo * brickblastConfig.combo.bonusMultiplier : 0;
     score += (br.type === "bomb" ? 25 : 10) + comboBonus;
-    if(combo === 4) toastMsg("4x COMBO! Bonus active", false, 900);
-    if(combo === 8) toastMsg("8x HOT STREAK!", true, 1100);
-    if(combo === 12){ toastMsg("12x MEGA COMBO!", true, 1200); spawnDrop(x,y); }
-    if(combo > 0 && combo % 5 === 0) addFloatingText(x,y, combo + "x COMBO +" + comboBonus, "#ffd166", 18);
+    if(combo === brickblastConfig.combo.milestones[0]) toastMsg("4x COMBO! Bonus active", false, 900);
+    if(combo === brickblastConfig.combo.milestones[1]) toastMsg("8x HOT STREAK!", true, 1100);
+    if(combo === brickblastConfig.combo.milestones[2]){ toastMsg("12x MEGA COMBO!", true, 1200); spawnDrop(x,y); }
+    if(combo > 0 && combo % brickblastConfig.combo.milestones[3] === 0) addFloatingText(x,y, combo + "x COMBO +" + comboBonus, "#ffd166", 18);
     addParticles(x,y,12, brickColor(br));
     if(br.hp <= 0){
       br.dead = true;
       score += 15 + Math.floor(combo*1.5);
       if(br.type === "bomb") bombAt(br.x+br.w/2, br.y+br.h/2, 92);
-      if(br.type === "mystery" || Math.random() < .10) spawnDrop(br.x+br.w/2, br.y+br.h/2);
+      if(br.type === "mystery" || Math.random() < brickblastConfig.dropRates.mysteryDropChance) spawnDrop(br.x+br.w/2, br.y+br.h/2);
     }
     updateHud();
   }
@@ -511,7 +523,7 @@
   function spawnDrop(x,y){
     const keys = Object.keys(POWER);
     const kind = keys[Math.floor(Math.random()*keys.length)];
-    drops.push({x,y,r:12,kind,vy:120+level*8,spin:0,dead:false});
+    drops.push({x,y,r:12,kind,vy:brickblastConfig.dropRates.dropFallBase+level*brickblastConfig.dropRates.dropFallPerLevel,spin:0,dead:false});
   }
 
   function activatePower(kind,x,y){
@@ -532,7 +544,7 @@
       activeTimers.sticky = 6;
     }
     if(kind === "LASER"){
-      activeTimers.laser = 6;
+      activeTimers.laser = brickblastConfig.powerupDurations.laser;
     }
     if(kind === "SLOW"){
       activeTimers.slow = 5; balls.forEach(b=>{ b.vx *= .86; b.vy *= .86; });

@@ -1,1 +1,7 @@
-{"difficulties":[{"id":"easy","label":"Easy","maxItems":10}]}
+{
+  "difficulties": [
+    {"id":"easy","label":"Easy","maxItems":10,"questionRange":{"min":0,"max":10}},
+    {"id":"medium","label":"Medium","maxItems":12,"questionRange":{"min":10,"max":100}},
+    {"id":"hard","label":"Hard","maxItems":14,"questionRange":{"min":10,"max":100}}
+  ]
+}

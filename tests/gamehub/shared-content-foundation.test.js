@@ -86,3 +86,32 @@ test('question bank sample remains small', ()=> {
   const bank = readJson('public/gamehub/content/question-bank.sample.json');
   assert.ok(bank.items.length <= 10);
 });
+
+
+test('difficulty and mode config loaders support fallback on invalid/missing data', async ()=> {
+  const goodFetch = async (p)=>({ok:true,json:async()=>readJson(`public${p}`)});
+  const badFetch = async ()=>({ok:true,json:async()=>({oops:true})});
+  const missingFetch = async ()=>({ok:false,json:async()=>({})});
+
+  const fallbackDifficulty = { difficulties:[{id:'fallback',label:'Fallback'}] };
+  const fallbackPresets = { presets:[{id:'fallback',label:'Fallback'}] };
+
+  const difficulty = await shared.loadDifficultyConfig('/gamehub/config/difficulty.sample.json', fallbackDifficulty, goodFetch);
+  const presets = await shared.loadModePresets('/gamehub/config/mode-presets.sample.json', fallbackPresets, goodFetch);
+  assert.ok(difficulty.difficulties.length >= 3);
+  assert.ok(presets.presets.some((p)=>p.id === 'support'));
+
+  assert.equal(await shared.loadDifficultyConfig('/missing.json', fallbackDifficulty, missingFetch), fallbackDifficulty);
+  assert.equal(await shared.loadModePresets('/missing.json', fallbackPresets, missingFetch), fallbackPresets);
+  assert.equal(await shared.loadDifficultyConfig('/broken.json', fallbackDifficulty, badFetch), fallbackDifficulty);
+  assert.equal(await shared.loadModePresets('/broken.json', fallbackPresets, badFetch), fallbackPresets);
+});
+
+test('surf and brickblast remain fallback-safe and config-ready without gates/tracking wiring', ()=> {
+  const surf = fs.readFileSync(path.join(root, 'public/gamehub/surf'),'utf8');
+  const brick = fs.readFileSync(path.join(root, 'public/gamehub/brickblast'),'utf8');
+  assert.match(surf, /SURF_DEFAULT_CONFIG/);
+  assert.match(brick, /BRICKBLAST_DEFAULT_CONFIG/);
+  assert.doesNotMatch(surf, /gate|track\(/i);
+  assert.doesNotMatch(brick, /gate|track\(/i);
+});

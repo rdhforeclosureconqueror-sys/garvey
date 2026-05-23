@@ -139,6 +139,17 @@ const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
 const rand=(a,b)=>Math.random()*(b-a)+a;
 const keys={};
 
+const SURF_DEFAULT_CONFIG = {
+  speed:{min:0.6,max:1.8,step:0.1,baseWorld:150,boostMultiplier:1.55},
+  streak:{tripleThreshold:2,rainbowThreshold:4},
+  spawn:{initialCount:12,maxObjects:20,types:['coin','coin','coin','rock','shark','piranha','question']},
+  rewards:{easy:{energy:20,magic:10,boost:8,coins:1,score:35},medium:{energy:35,magic:18,boost:14,coins:2,score:60},hard:{energy:100,magic:32,boost:22,coins:3,score:95}},
+  questionRanges:{easy:{a:[0,10],b:[0,10]},medium:{a:[10,100],b:[0,10]},hard:{a:[10,100],b:[10,100]}},
+  modePresetNames:['support','standard','challenge']
+};
+const surfConfig = { ...SURF_DEFAULT_CONFIG };
+
+
 const state = {
   running:false, paused:false, over:false,
   score:0, coins:0, streak:0, speed:1.0, t:0,
@@ -153,7 +164,7 @@ function updateHUD(){
   $('coins').textContent='Coins: '+state.coins;
   $('streak').textContent='Streak: '+state.streak;
   $('speed').textContent='Speed: '+state.speed.toFixed(1)+'x';
-  $('weapon').textContent = state.streak >= 4 ? 'Magic: Rainbow Hearts+' : state.streak >= 2 ? 'Magic: Triple Hearts' : 'Magic: Hearts';
+  $('weapon').textContent = state.streak >= surfConfig.streak.rainbowThreshold ? 'Magic: Rainbow Hearts+' : state.streak >= surfConfig.streak.tripleThreshold ? 'Magic: Triple Hearts' : 'Magic: Hearts';
   $('energyFill').style.width=state.energy+'%';
   $('magicFill').style.width=state.magic+'%';
   $('boostFill').style.width=state.boostMeter+'%';
@@ -163,7 +174,7 @@ function updateHUD(){
 }
 
 function spawn(type=null, start=false){
-  const types=['coin','coin','coin','rock','shark','piranha','question'];
+  const types=surfConfig.spawn.types;
   type = type || types[Math.floor(Math.random()*types.length)];
   state.objs.push({
     type,
@@ -182,7 +193,7 @@ function resetGame(){
   state.x=0; state.y=H*0.15; state.boost=false;
   state.energy=100; state.magic=100; state.boostMeter=100;
   state.hearts=[]; state.objs=[]; state.ripples=[]; state.particles=[];
-  for(let i=0;i<12;i++) spawn(null, true);
+  for(let i=0;i<surfConfig.spawn.initialCount;i++) spawn(null, true);
   $('menu').classList.add('hidden');
   $('gameOver').classList.add('hidden');
   $('questionScreen').classList.add('hidden');
@@ -223,13 +234,13 @@ function chooseDifficulty(diff){
 function makeQuestion(){
   let a,b,op;
   if(state.qDifficulty==='easy'){
-    a=Math.floor(rand(0,10)); b=Math.floor(rand(0,10)); op=Math.random()<0.5?'+':'-';
+    a=Math.floor(rand(surfConfig.questionRanges.easy.a[0],surfConfig.questionRanges.easy.a[1])); b=Math.floor(rand(surfConfig.questionRanges.easy.b[0],surfConfig.questionRanges.easy.b[1])); op=Math.random()<0.5?'+':'-';
     if(op==='-'&&b>a)[a,b]=[b,a];
   } else if(state.qDifficulty==='medium'){
-    a=Math.floor(rand(10,100)); b=Math.floor(rand(0,10)); op=Math.random()<0.5?'+':'-';
+    a=Math.floor(rand(surfConfig.questionRanges.medium.a[0],surfConfig.questionRanges.medium.a[1])); b=Math.floor(rand(surfConfig.questionRanges.medium.b[0],surfConfig.questionRanges.medium.b[1])); op=Math.random()<0.5?'+':'-';
     if(op==='-'&&b>a)b=Math.floor(rand(0,a+1));
   } else {
-    a=Math.floor(rand(10,100)); b=Math.floor(rand(10,100)); op=Math.random()<0.5?'+':'-';
+    a=Math.floor(rand(surfConfig.questionRanges.hard.a[0],surfConfig.questionRanges.hard.a[1])); b=Math.floor(rand(surfConfig.questionRanges.hard.b[0],surfConfig.questionRanges.hard.b[1])); op=Math.random()<0.5?'+':'-';
     if(op==='-'&&b>a)[a,b]=[b,a];
   }
   const ans = op==='+' ? a+b : a-b;
@@ -257,9 +268,9 @@ function renderChoices(){
 
 function reward(){
   if(state.qDifficulty==='easy'){
-    state.energy=clamp(state.energy+20,0,100);
+    state.energy=clamp(state.energy+surfConfig.rewards.easy.energy,0,100);
     state.magic=clamp(state.magic+14,0,100);
-    state.boostMeter=clamp(state.boostMeter+14,0,100);
+    state.boostMeter=clamp(state.boostMeter+surfConfig.rewards.medium.boost,0,100);
     state.coins+=6;
   } else if(state.qDifficulty==='medium'){
     state.energy=clamp(state.energy+48,0,100);
@@ -301,16 +312,16 @@ $('hardBtn').onclick=()=>chooseDifficulty('hard');
 
 function shoot(){
   if(!state.running||state.paused) return;
-  const cost = state.streak>=4 ? 10 : state.streak>=2 ? 9 : 8;
+  const cost = state.streak>=surfConfig.streak.rainbowThreshold ? 10 : state.streak>=surfConfig.streak.tripleThreshold ? 9 : 8;
   if(state.magic < cost) return;
   state.magic -= cost;
   const originX = state.x;
   const originY = H*0.72 + state.y - 50;
-  if(state.streak>=4){
+  if(state.streak>=surfConfig.streak.rainbowThreshold){
     state.hearts.push({x:originX,y:originY,vx:0,vy:-7,color:'#ff77c8'});
     state.hearts.push({x:originX,y:originY,vx:-2.1,vy:-6.5,color:'#67c5ff'});
     state.hearts.push({x:originX,y:originY,vx:2.1,vy:-6.5,color:'#ffe66f'});
-  } else if(state.streak>=2){
+  } else if(state.streak>=surfConfig.streak.tripleThreshold){
     state.hearts.push({x:originX,y:originY,vx:0,vy:-7,color:'#ff77c8'});
     state.hearts.push({x:originX,y:originY,vx:-2.1,vy:-6.5,color:'#ff77c8'});
     state.hearts.push({x:originX,y:originY,vx:2.1,vy:-6.5,color:'#ff77c8'});
@@ -357,8 +368,8 @@ addEventListener('keydown', e=>{
   if(!state.running && e.key==='Enter') startGame();
   if(e.code==='Space' && state.running && !state.paused){ e.preventDefault(); shoot(); }
   if(e.key==='Shift' && state.running && !state.paused && state.boostMeter>=8) state.boost=true;
-  if(e.key==='-'||e.key==='_') state.speed=clamp(Number((state.speed-0.1).toFixed(1)),0.6,1.8);
-  if(e.key==='='||e.key==='+') state.speed=clamp(Number((state.speed+0.1).toFixed(1)),0.6,1.8);
+  if(e.key==='-'||e.key==='_') state.speed=clamp(Number((state.speed-0.1).toFixed(1)),surfConfig.speed.min,surfConfig.speed.max);
+  if(e.key==='='||e.key==='+') state.speed=clamp(Number((state.speed+0.1).toFixed(1)),surfConfig.speed.min,surfConfig.speed.max);
 });
 addEventListener('keyup', e=>{ keys[e.key]=false; if(e.key==='Shift') state.boost=false; });
 
@@ -374,7 +385,7 @@ function update(dt){
   state.x=clamp(state.x,-W*0.36,W*0.36);
   state.y=clamp(state.y,-H*0.18,H*0.18);
 
-  const worldSpeed = 150*state.speed*(state.boost && state.boostMeter>0 ? 1.55 : 1);
+  const worldSpeed = surfConfig.speed.baseWorld*state.speed*(state.boost && state.boostMeter>0 ? surfConfig.speed.boostMultiplier : 1);
   state.score += dt*(12 + worldSpeed*0.08);
   state.energy = clamp(state.energy - dt*0.82, 0, 100);
   state.magic = clamp(state.magic + dt*1.5, 0, 100);
@@ -400,7 +411,7 @@ function update(dt){
     if(o.type==='piranha') o.x += Math.sin(state.t*5+o.wob)*35*dt;
   }
   state.objs = state.objs.filter(o=>o.y<H+80 && !o.dead);
-  while(state.objs.length<20) spawn();
+  while(state.objs.length<surfConfig.spawn.maxObjects) spawn();
 
   for(const b of state.hearts){ b.x += b.vx; b.y += b.vy; }
   state.hearts = state.hearts.filter(b=>b.y>-40 && !b.dead);
