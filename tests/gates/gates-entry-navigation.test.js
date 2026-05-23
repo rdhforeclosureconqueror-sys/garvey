@@ -53,6 +53,8 @@ test("gates entry CTAs and session navigation contract", async () => {
     const gatesHtml = await (await fetch(`${base}/gates`)).text();
     assert.match(gatesHtml, /data-gates-cta="start"/);
     assert.match(gatesHtml, /data-gates-cta="signin"/);
+    assert.match(gatesHtml, /data-gates-cta="gamehub"/);
+    assert.match(gatesHtml, /href="\/gamehub\/index\.html"/);
     assert.equal(gatesHtml.includes('href="/gates"'), false);
 
     const signupShellHtml = await (await fetch(`${base}/gates/signup`)).text();
@@ -64,6 +66,10 @@ test("gates entry CTAs and session navigation contract", async () => {
     assert.match(clientBundle, /Parent account access/);
     assert.match(clientBundle, /Create Parent Account/);
     assert.match(clientBundle, /Parent Sign In/);
+    assert.match(clientBundle, /getRegistryLaunchableGames/);
+    assert.match(clientBundle, /renderGameHubPracticeSection/);
+    assert.match(clientBundle, /child_profile_hint=/);
+    assert.match(clientBundle, /These games are optional developmental practices\. They are not tests, grades, or diagnoses\./);
     assert.match(clientBundle, /const primaryHref = state\.session\?\.authenticated \? '\/gates\/children' : '\/gates\/signup';/);
     assert.equal(clientBundle.includes("if (p === '/gates/dashboard') return renderChildren();"), false);
 
