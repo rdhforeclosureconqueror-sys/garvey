@@ -287,7 +287,7 @@
     <div class="quiz-card">
       <div class="section-title">Quiz: Say the meaning, then spell it</div>
       <div style="text-align:center; font-size:13px; color:#555;">
-        The word will show above. She says what it means out loud, then types the spelling.
+        The word will show above. The learner says what it means out loud, then types the spelling.
       </div>
       <div class="input-row">
         <input id="answerInput" type="text" placeholder="Type the spelling here…" disabled />
@@ -302,7 +302,7 @@
     <div class="game-card">
       <div class="section-title">I-Spy Word Hunt 🔍</div>
       <div style="text-align:center; font-size:13px; color:#555;">
-        Uses the same 10 lesson words. The bot says “I spy a word that means…” and she taps the right word.
+        Uses the same 10 lesson words. The bot says “I spy a word that means…” and the learner taps the right word.
       </div>
       <div class="game-clue" id="gameClue">
         Start a lesson first, then click “Start I-Spy Game”.
@@ -428,6 +428,9 @@
       { grade: 3, word: "dangerous", def: "able to cause harm or injury", example: "It is dangerous to cross the street without looking." },
       { grade: 3, word: "February", def: "the second month of the year", example: "Valentine Day is in February." }
     ];
+
+    const GAME_RUNTIME_CONTEXT_FALLBACK={child_display_name:"Player",child_age_band:null,profile_id:null,session_id:null,gate_context:null};
+    function getRuntimeContext(){const ctx=window.__GATES_GAME_CONTEXT__||window.__GAME_RUNTIME_CONTEXT__||{};return {...GAME_RUNTIME_CONTEXT_FALLBACK,...ctx}}
 
     /* ====== STATE ====== */
     let lessonSet = [];
