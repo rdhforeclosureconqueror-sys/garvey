@@ -45,5 +45,29 @@ This allows structural signal prototyping without collecting sensitive child run
 - `tracking_ready` remains `false` for every game in `public/gamehub/gamehub-registry.js`.
 - `adapter_ready` is `true` for every game only to indicate shared scaffold availability, not per-game instrumentation completion.
 
-## Why this phase comes before game-by-game instrumentation
-A single adapter contract and payload guardrail must exist first so later instrumentation work can be consistent, testable, and safe. This PR does not add per-game event wiring and does not modify gameplay mechanics.
+## BrickBlast pilot (local-only preview)
+BrickBlast is the first minimal pilot wired to the adapter. This is still local/in-memory only:
+- no server tracking
+- no database writes
+- no Gates scoring wiring
+- no child identity fields
+- no raw answers or exact gameplay telemetry fields
+
+### BrickBlast event map
+- `game_session_started`
+  - payload keys: `game_key`, `activity_key`, `mode`
+- `round_started`
+  - payload keys: `level_band`, `activity_key`
+- `round_completed`
+  - payload keys: `success`, `duration_band`, `level_band`
+- `level_changed`
+  - payload keys: `previous_level_band`, `next_level_band`
+- `recovery_after_miss`
+  - payload keys: `event_category`
+- `game_session_ended`
+  - payload keys: `completion_state`, `level_band`, `persistence_band`
+
+### Guardrails for this pilot
+- Allowed payload categories are banded/enum-style signals only.
+- Not emitted: exact score, exact combo count, exact coordinates, raw collision data, diagnostics, or child identifiers.
+- Registry `tracking_ready` remains `false` for all games while this pilot is validated.
