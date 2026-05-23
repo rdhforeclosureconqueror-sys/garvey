@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Spelling Bee Lesson, Quiz & I-Spy 🐝</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg,#fce38a,#f38181,#f7a1ff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .app {
+      background: rgba(255,255,255,0.97);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      width: 1000px;
+      max-width: 97vw;
+      padding: 24px 28px 30px;
+      margin: 20px;
+    }
+    h1 {
+      margin-top: 0;
+      text-align: center;
+      font-size: 32px;
+      color: #4a148c;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 18px;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    select, button {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    select {
+      background: #f3e5f5;
+      color: #4a148c;
+    }
+    button.primary {
+      background: #ff6f61;
+      color: white;
+      font-weight: 600;
+    }
+    button.secondary {
+      background: #ede7f6;
+      color: #4a148c;
+      font-weight: 600;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+    .strip {
+      background: #fafafa;
+      border-radius: 16px;
+      padding: 18px 20px;
+      border: 2px solid #f3e5f5;
+      margin-bottom: 10px;
+    }
+    .mode-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 6px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .mode-label {
+      font-weight: 600;
+      color: #6a1b9a;
+    }
+    .big-word {
+      text-align: center;
+      font-size: 40px;
+      font-weight: 800;
+      margin: 8px 0 4px;
+      color: #1a237e;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      word-break: break-word;
+    }
+    .syllables {
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: #6a1b9a;
+    }
+    .explain-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      font-size: 14px;
+      color: #333;
+    }
+    .explain-block strong {
+      color: #4a148c;
+    }
+    .prompt-line {
+      grid-column: 1 / -1;
+      margin-top: 6px;
+      font-weight: 600;
+      color: #ff6f61;
+    }
+    .quiz-card, .game-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px 20px;
+      border: 2px dashed #e1bee7;
+      margin-top: 10px;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #4a148c;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+    .input-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 10px;
+      margin-top: 6px;
+    }
+    input[type="text"] {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid #ccc;
+      min-width: 260px;
+      font-size: 18px;
+      text-align: center;
+    }
+    .feedback {
+      text-align: center;
+      font-size: 16px;
+      min-height: 22px;
+      margin-bottom: 4px;
+    }
+    .feedback.correct {
+      color: #2e7d32;
+    }
+    .feedback.wrong {
+      color: #c62828;
+    }
+    .unicorn {
+      text-align: center;
+      font-size: 32px;
+      height: 36px;
+      margin-bottom: 2px;
+    }
+    .progress-dots {
+      text-align: center;
+      letter-spacing: 6px;
+      font-size: 18px;
+      margin-top: 6px;
+    }
+    .progress-dots span {
+      opacity: 0.3;
+    }
+    .progress-dots span.active {
+      opacity: 1;
+    }
+    /* I-Spy styles */
+    .game-clue {
+      text-align: center;
+      font-size: 15px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .options-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+    .option-btn {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: #ffe0f7;
+      color: #4a148c;
+      font-weight: 600;
+      min-width: 110px;
+    }
+    .option-btn.correct {
+      background: #c8e6c9;
+      color: #1b5e20;
+    }
+    .option-btn.wrong {
+      background: #ffcdd2;
+      color: #b71c1c;
+    }
+    .game-feedback {
+      text-align: center;
+      min-height: 22px;
+      font-size: 15px;
+      margin-top: 4px;
+    }
+    .game-counter {
+      text-align: center;
+      font-size: 13px;
+      color: #555;
+      margin-top: 2px;
+    }
+    .game-unicorn {
+      text-align: center;
+      font-size: 28px;
+      height: 30px;
+      margin-top: 2px;
+    }
+    @media (max-width: 720px) {
+      .explain-row {
+        grid-template-columns: 1fr;
+      }
+      .big-word { font-size: 30px; }
+      input[type="text"] { min-width: 200px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>Spelling Bee World 🐝</h1>
+    <div class="subtitle">
+      1️⃣ Learn 10 words • 2️⃣ Quiz spelling • 3️⃣ Play I-Spy with the same words  
+      Choose Grade 1 or Grade 3 from the Scripps lists.
+    </div>
+
+    <div class="controls">
+      <label>
+        Grade:
+        <select id="gradeSelect">
+          <option value="1">1st grade (One Bee)</option>
+          <option value="3">3rd grade (One Bee)</option>
+        </select>
+      </label>
+      <button class="primary" id="startLessonBtn">Start Lesson (10 words)</button>
+      <button class="secondary" id="startQuizBtn" disabled>Start Quiz on These 10 Words</button>
+      <button class="secondary" id="startGameBtn" disabled>Start I-Spy Game</button>
+      <button class="secondary" id="nextLessonBtn" disabled>Next Lesson Word ➜</button>
+      <button class="secondary" id="nextQuizBtn" disabled>Next Quiz Word ➜</button>
+    </div>
+
+    <!-- LESSON STRIP -->
+    <div class="strip">
+      <div class="mode-row">
+        <div class="mode-label" id="modeLabel">Mode: —</div>
+        <div id="counterLabel">Lesson: 0 / 0 • Quiz: 0 / 0 (Correct: 0)</div>
+      </div>
+      <div class="big-word" id="wordDisplay">Click “Start Lesson (10 words)”</div>
+      <div class="syllables" id="syllableDisplay"></div>
+      <div class="explain-row">
+        <div class="explain-block">
+          <strong>Meaning:</strong>
+          <div id="meaningDisplay">—</div>
+        </div>
+        <div class="explain-block">
+          <strong>Example:</strong>
+          <div id="exampleDisplay">—</div>
+        </div>
+        <div class="prompt-line" id="promptDisplay">
+          In lesson mode, read the word, clap the syllables, say the meaning, then read the example together.
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIZ AREA -->
+    <div class="quiz-card">
+      <div class="section-title">Quiz: Say the meaning, then spell it</div>
+      <div style="text-align:center; font-size:13px; color:#555;">
+        The word will show above. She says what it means out loud, then types the spelling.
+      </div>
+      <div class="input-row">
+        <input id="answerInput" type="text" placeholder="Type the spelling here…" disabled />
+        <button class="primary" id="checkBtn" disabled>Check ✅</button>
+      </div>
+      <div class="unicorn" id="unicornDisplay"></div>
+      <div class="feedback" id="feedbackDisplay"></div>
+      <div class="progress-dots" id="progressDots"></div>
+    </div>
+
+    <!-- I-SPY GAME -->
+    <div class="game-card">
+      <div class="section-title">I-Spy Word Hunt 🔍</div>
+      <div style="text-align:center; font-size:13px; color:#555;">
+        Uses the same 10 lesson words. The bot says “I spy a word that means…” and she taps the right word.
+      </div>
+      <div class="game-clue" id="gameClue">
+        Start a lesson first, then click “Start I-Spy Game”.
+      </div>
+      <div class="options-row">
+        <button class="option-btn" id="opt0" disabled>—</button>
+        <button class="option-btn" id="opt1" disabled>—</button>
+        <button class="option-btn" id="opt2" disabled>—</button>
+        <button class="option-btn" id="opt3" disabled>—</button>
+      </div>
+      <div class="game-unicorn" id="gameUnicorn"></div>
+      <div class="game-feedback" id="gameFeedback"></div>
+      <div class="game-counter" id="gameCounter"></div>
+    </div>
+  </div>
+
+  <script>
+    /* ====== WORD DATA: GRADE 1 + GRADE 3 ====== */
+    const WORDS = [
+      // Grade 1 full list
+      { grade: 1, word: "tag", def: "a small label you put on something", example: "Please leave the price tag on the shirt." },
+      { grade: 1, word: "stuck", def: "unable to move or get free", example: "My shoe was stuck in the mud." },
+      { grade: 1, word: "hold", def: "to keep something in your hands or arms", example: "Can you hold the door open for me?" },
+      { grade: 1, word: "scrub", def: "to clean by rubbing hard", example: "We had to scrub the dirty pan." },
+      { grade: 1, word: "cozy", def: "warm, comfortable, and snug", example: "We read a book in a cozy blanket fort." },
+      { grade: 1, word: "yawn", def: "to open your mouth wide when you are tired or bored", example: "She began to yawn during the long movie." },
+      { grade: 1, word: "crowd", def: "a large group of people together", example: "A big crowd filled the stadium." },
+      { grade: 1, word: "sharks", def: "large fish with sharp teeth that live in the ocean", example: "We watched a show about great white sharks." },
+      { grade: 1, word: "taffy", def: "a soft, chewy candy", example: "He bought a piece of strawberry taffy." },
+      { grade: 1, word: "tight", def: "close-fitting or firmly fastened", example: "Tie your shoes tight so they don’t fall off." },
+      { grade: 1, word: "ruby", def: "a deep red precious stone", example: "Her ring had a bright ruby in the center." },
+      { grade: 1, word: "wire", def: "a thin metal thread used to carry electricity or hold things together", example: "The fence was made of metal wire." },
+      { grade: 1, word: "bucket", def: "an open container with a handle used to carry things", example: "We filled the bucket with water." },
+      { grade: 1, word: "tender", def: "soft and easy to chew, or gentle and kind", example: "The chicken was tender and tasty." },
+      { grade: 1, word: "farmer", def: "a person who grows crops or raises animals for food", example: "The farmer fed the cows early in the morning." },
+      { grade: 1, word: "hockey", def: "a sport played with sticks and a puck or ball", example: "They play hockey on ice in the winter." },
+      { grade: 1, word: "send", def: "to cause something to go to another person or place", example: "Please send me a picture of your drawing." },
+      { grade: 1, word: "snug", def: "fitting closely and comfortably", example: "The kitten felt snug in the little box." },
+      { grade: 1, word: "mind", def: "your thoughts and feelings; to care about something", example: "She has a curious mind." },
+      { grade: 1, word: "draw", def: "to make a picture with a pencil, pen, or crayon", example: "He likes to draw superheroes." },
+      { grade: 1, word: "tint", def: "a slight color added to something", example: "The window had a blue tint." },
+      { grade: 1, word: "tank", def: "a container for holding liquid", example: "We filled the fish tank with clean water." },
+      { grade: 1, word: "pond", def: "a small body of still water", example: "Ducks swam in the pond." },
+      { grade: 1, word: "quilt", def: "a thick blanket made of layers of cloth sewn together", example: "Grandma made a quilt from old shirts." },
+      { grade: 1, word: "comfy", def: "very comfortable", example: "These slippers are so comfy." },
+      { grade: 1, word: "candy", def: "sweet food made mostly of sugar", example: "She had a piece of lemon candy." },
+      { grade: 1, word: "close", def: "to shut something; near", example: "Please close the door when you leave." },
+      { grade: 1, word: "skater", def: "someone who moves on ice or wheels using skates", example: "The skater spun quickly on the ice." },
+      { grade: 1, word: "chance", def: "a possibility or opportunity", example: "You have a chance to win the game." },
+      { grade: 1, word: "paste", def: "a thick, soft mix used for sticking things together", example: "Use paste to glue the paper hearts." },
+      { grade: 1, word: "parent", def: "a mother or father", example: "Each parent sat in the front row." },
+      { grade: 1, word: "slime", def: "a thick, slippery, gooey substance", example: "They played with green slime in science class." },
+      { grade: 1, word: "shortcut", def: "a quicker way to get somewhere", example: "We took a shortcut through the park." },
+      { grade: 1, word: "deck", def: "a wooden floor outside a house or on a ship", example: "We ate dinner on the back deck." },
+      { grade: 1, word: "fish", def: "an animal that lives in water and breathes through gills", example: "He saw a bright orange fish in the tank." },
+      { grade: 1, word: "stay", def: "to remain in a place", example: "Please stay in your seat." },
+      { grade: 1, word: "brown", def: "a color like chocolate or soil", example: "The dog has brown fur." },
+      { grade: 1, word: "milk", def: "a white drink that comes from cows or other animals", example: "She poured milk into her cereal." },
+      { grade: 1, word: "want", def: "to wish for something", example: "I want to read another story." },
+      { grade: 1, word: "skirt", def: "a piece of clothing that hangs from the waist", example: "Her skirt is bright yellow." },
+      { grade: 1, word: "twigs", def: "small, thin branches from a tree or bush", example: "We snapped twigs for the campfire." },
+      { grade: 1, word: "stretch", def: "to pull something so it becomes longer or looser", example: "Stretch your arms before you run." },
+      { grade: 1, word: "scrunch", def: "to crush or squeeze something into a tight shape", example: "She began to scrunch the paper into a ball." },
+      { grade: 1, word: "tackle", def: "to grab someone and bring them to the ground in a game", example: "You are not allowed to tackle in this sport." },
+      { grade: 1, word: "giant", def: "very large; a huge person or creature", example: "We saw a giant pumpkin at the fair." },
+      { grade: 1, word: "baskets", def: "open containers made of woven material", example: "She carried apples in two baskets." },
+      { grade: 1, word: "melon", def: "a large round fruit with sweet flesh", example: "They shared a slice of melon." },
+      { grade: 1, word: "tail", def: "the long back part of an animal’s body", example: "The cat’s tail swished back and forth." },
+      { grade: 1, word: "insects", def: "small animals with six legs and often wings", example: "We studied insects like ants and bees." },
+      { grade: 1, word: "teeth", def: "the hard white parts in your mouth used for biting and chewing", example: "Brush your teeth twice a day." },
+
+      // Grade 3 full list
+      { grade: 3, word: "unicorn", def: "a magical horse with one horn on its head", example: "She drew a pink unicorn with sparkles." },
+      { grade: 3, word: "pirates", def: "people who rob ships at sea", example: "The story was about pirates searching for treasure." },
+      { grade: 3, word: "leaning", def: "bending or tilting to one side", example: "The tall tree was leaning toward the river." },
+      { grade: 3, word: "acrobat", def: "a performer who does flips, jumps, and tricks", example: "The acrobat did a flip on the high rope." },
+      { grade: 3, word: "forepaw", def: "a front foot of an animal like a dog or cat", example: "The puppy hurt its forepaw on a sharp rock." },
+      { grade: 3, word: "recipe", def: "a set of instructions for cooking something", example: "We used a cookie recipe from Grandma." },
+      { grade: 3, word: "mermaid", def: "a make-believe creature with a human top and a fish tail", example: "The mermaid swam beside the boat in the movie." },
+      { grade: 3, word: "incredible", def: "very hard to believe; amazing", example: "The magician did an incredible trick." },
+      { grade: 3, word: "nervous", def: "worried or a little scared about something", example: "She felt nervous before her big test." },
+      { grade: 3, word: "raise", def: "to lift something up or increase it", example: "Please raise your hand if you know the answer." },
+      { grade: 3, word: "attacked", def: "went after someone or something to hurt it", example: "The angry bees attacked the bear." },
+      { grade: 3, word: "streetlights", def: "lights on tall poles along roads and streets", example: "The streetlights came on as it grew dark." },
+      { grade: 3, word: "shouting", def: "speaking very loudly or yelling", example: "We heard fans shouting at the game." },
+      { grade: 3, word: "dinosaur", def: "a large reptile that lived long ago", example: "He loves to read books about dinosaur fossils." },
+      { grade: 3, word: "gorgeous", def: "very beautiful", example: "The sunset over the ocean was gorgeous." },
+      { grade: 3, word: "avocado", def: "a green fruit with soft inside that is used in salads and dips", example: "She mashed the avocado to make guacamole." },
+      { grade: 3, word: "formation", def: "the way something is shaped or arranged", example: "The birds flew in a V formation." },
+
+      { grade: 3, word: "faraway", def: "very distant or far", example: "They dreamed of visiting a faraway island." },
+      { grade: 3, word: "understand", def: "to know what something means", example: "Do you understand the directions?" },
+      { grade: 3, word: "breakfast", def: "the first meal you eat in the morning", example: "We had pancakes for breakfast." },
+      { grade: 3, word: "message", def: "information sent from one person to another", example: "He left a message on her phone." },
+      { grade: 3, word: "elephant", def: "a very large gray animal with a trunk", example: "The elephant sprayed water with its trunk." },
+      { grade: 3, word: "garbage", def: "waste or things that are thrown away", example: "Please put the garbage in the trash can." },
+      { grade: 3, word: "bombarded", def: "hit or attacked again and again", example: "The ship was bombarded with water from the waves." },
+      { grade: 3, word: "leather", def: "material made from animal skin", example: "He wore a leather belt with his jeans." },
+      { grade: 3, word: "peppercorn", def: "a small dried berry used to make pepper", example: "The chef crushed a peppercorn in his hand." },
+      { grade: 3, word: "weather", def: "the condition of the air like sun, rain, or wind", example: "The weather today is sunny and warm." },
+      { grade: 3, word: "turnout", def: "the number of people who show up for an event", example: "There was a big turnout at the school play." },
+      { grade: 3, word: "journey", def: "a trip from one place to another", example: "Their journey across the desert took days." },
+      { grade: 3, word: "asleep", def: "not awake; sleeping", example: "The baby was asleep in her crib." },
+      { grade: 3, word: "brilliant", def: "very bright or very smart", example: "The stars looked brilliant in the night sky." },
+      { grade: 3, word: "monsoon", def: "a season of heavy rains in some parts of the world", example: "During the monsoon, it rained almost every day." },
+      { grade: 3, word: "valentine", def: "a card or gift given on Valentine Day to show love", example: "She made a valentine for her best friend." },
+      { grade: 3, word: "especially", def: "more than usual; in particular", example: "He loves all fruit, especially mangoes." },
+
+      { grade: 3, word: "heater", def: "a device that makes a room warm", example: "The heater kept the house cozy in winter." },
+      { grade: 3, word: "wooden", def: "made of wood", example: "They crossed a small wooden bridge." },
+      { grade: 3, word: "window", def: "an opening in a wall with glass to let in light", example: "She looked out the window at the rain." },
+      { grade: 3, word: "chocolate", def: "a sweet brown treat made from cocoa", example: "We shared a chocolate bar after dinner." },
+      { grade: 3, word: "hedgehog", def: "a small animal with a back covered in short spines", example: "The hedgehog curled into a ball." },
+      { grade: 3, word: "surprise", def: "something that happens suddenly and unexpectedly", example: "The party was a surprise for her birthday." },
+      { grade: 3, word: "disability", def: "a condition that makes it harder for someone to do some things", example: "The ramp helps students with a disability enter the school." },
+      { grade: 3, word: "countess", def: "a woman with a royal or noble title", example: "The countess lived in a large stone castle." },
+      { grade: 3, word: "cartwheel", def: "a sideways flip where hands and feet touch the ground in a circle", example: "She did a cartwheel across the grass." },
+      { grade: 3, word: "zooming", def: "moving very fast", example: "Cars were zooming down the highway." },
+      { grade: 3, word: "eaten", def: "already chewed and swallowed", example: "Most of the cake was already eaten." },
+      { grade: 3, word: "courtyard", def: "an open space surrounded by buildings or walls", example: "Children played games in the school courtyard." },
+      { grade: 3, word: "curious", def: "wanting to know or learn more about something", example: "The child was curious about how robots work." },
+      { grade: 3, word: "vacuum", def: "a machine that cleans floors by sucking up dirt", example: "He used the vacuum to clean the carpet." },
+      { grade: 3, word: "dangerous", def: "able to cause harm or injury", example: "It is dangerous to cross the street without looking." },
+      { grade: 3, word: "February", def: "the second month of the year", example: "Valentine Day is in February." }
+    ];
+
+    /* ====== STATE ====== */
+    let lessonSet = [];
+    let quizSet = [];
+    let lessonIndex = 0;
+    let quizIndex = 0;
+    let quizCorrect = 0;
+    let mode = "idle"; // "lesson", "quiz", "game", "idle"
+
+    let gameSet = [];
+    let gameIndex = 0;
+    let gameCorrect = 0;
+
+    /* ====== ELEMENTS ====== */
+    const gradeSelect    = document.getElementById("gradeSelect");
+    const startLessonBtn = document.getElementById("startLessonBtn");
+    const startQuizBtn   = document.getElementById("startQuizBtn");
+    const startGameBtn   = document.getElementById("startGameBtn");
+    const nextLessonBtn  = document.getElementById("nextLessonBtn");
+    const nextQuizBtn    = document.getElementById("nextQuizBtn");
+
+    const modeLabel      = document.getElementById("modeLabel");
+    const counterLabel   = document.getElementById("counterLabel");
+    const wordDisplay    = document.getElementById("wordDisplay");
+    const syllableDisplay= document.getElementById("syllableDisplay");
+    const meaningDisplay = document.getElementById("meaningDisplay");
+    const exampleDisplay = document.getElementById("exampleDisplay");
+    const promptDisplay  = document.getElementById("promptDisplay");
+
+    const answerInput    = document.getElementById("answerInput");
+    const checkBtn       = document.getElementById("checkBtn");
+    const unicornDisplay = document.getElementById("unicornDisplay");
+    const feedbackDisplay= document.getElementById("feedbackDisplay");
+    const progressDots   = document.getElementById("progressDots");
+
+    const gameClue       = document.getElementById("gameClue");
+    const gameUnicorn    = document.getElementById("gameUnicorn");
+    const gameFeedback   = document.getElementById("gameFeedback");
+    const gameCounter    = document.getElementById("gameCounter");
+    const optionButtons  = [
+      document.getElementById("opt0"),
+      document.getElementById("opt1"),
+      document.getElementById("opt2"),
+      document.getElementById("opt3")
+    ];
+
+    /* ====== HELPERS ====== */
+
+    function randomTenByGrade(grade) {
+      const pool = WORDS.filter(w => w.grade === grade);
+      const copy = pool.slice();
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy.slice(0, 10);
+    }
+
+    function autoSyllables(word) {
+      const cleaned = word.replace(/[^a-zA-Z]/g, "");
+      if (!cleaned) return "";
+      const parts = cleaned
+        .toLowerCase()
+        .replace(/y/g, "y-")
+        .replace(/([aeiou])([^aeiou])/g, "$1-$2")
+        .split("-")
+        .filter(Boolean);
+      return parts.join(" · ");
+    }
+
+    function updateCounter() {
+      const lessonTotal = lessonSet.length;
+      const quizTotal = quizSet.length;
+      const lessonPart = lessonTotal ? `${Math.min(lessonIndex + 1, lessonTotal)} / ${lessonTotal}` : "0 / 0";
+      const quizPart   = quizTotal   ? `${Math.min(quizIndex + 1, quizTotal)} / ${quizTotal}`   : "0 / 0";
+      counterLabel.textContent = `Lesson: ${lessonPart} • Quiz: ${quizPart} (Correct: ${quizCorrect})`;
+    }
+
+    function updateDots() {
+      const total = quizSet.length || 10;
+      let html = "";
+      for (let i = 0; i < total; i++) {
+        const isDone = i < quizIndex;
+        const isCurrent = i === quizIndex;
+        const symbol = isDone ? "●" : "○";
+        html += `<span class="${isCurrent ? "active" : ""}">${symbol}</span>`;
+      }
+      progressDots.innerHTML = html;
+    }
+
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+    }
+
+    /* ====== LESSON ====== */
+
+    function showLessonWord() {
+      mode = "lesson";
+      modeLabel.textContent = "Mode: LESSON (learn the word)";
+      const item = lessonSet[lessonIndex];
+      if (!item) return;
+      wordDisplay.textContent = item.word;
+      syllableDisplay.textContent = autoSyllables(item.word);
+      meaningDisplay.textContent = item.def;
+      exampleDisplay.textContent = item.example;
+      promptDisplay.textContent =
+        "Read the word, clap the syllables, say the meaning, then read the example sentence together.";
+      answerInput.value = "";
+      answerInput.disabled = true;
+      checkBtn.disabled = true;
+      unicornDisplay.textContent = "";
+      feedbackDisplay.textContent = "";
+      updateCounter();
+      updateDots();
+    }
+
+    function startLesson() {
+      const grade = parseInt(gradeSelect.value, 10);
+      lessonSet = randomTenByGrade(grade);
+      quizSet   = lessonSet.slice();      // same words for quiz
+      gameSet   = lessonSet.slice();      // same words for game
+      lessonIndex = 0;
+      quizIndex = 0;
+      quizCorrect = 0;
+      gameIndex = 0;
+      gameCorrect = 0;
+      startQuizBtn.disabled = true;
+      startGameBtn.disabled = false;
+      nextLessonBtn.disabled = false;
+      nextQuizBtn.disabled = true;
+      answerInput.disabled = true;
+      checkBtn.disabled = true;
+      mode = "lesson";
+
+      // reset I-spy visuals
+      gameClue.textContent = "I spy with my little eye… words we just learned! Start the game when you’re ready.";
+      gameFeedback.textContent = "";
+      gameUnicorn.textContent = "";
+      gameCounter.textContent = "";
+      optionButtons.forEach(btn => {
+        btn.textContent = "—";
+        btn.classList.remove("correct","wrong");
+        btn.disabled = true;
+      });
+
+      showLessonWord();
+    }
+
+    function nextLesson() {
+      lessonIndex++;
+      if (lessonIndex >= lessonSet.length) {
+        mode = "idle";
+        modeLabel.textContent = "Mode: LESSON COMPLETE ✅";
+        wordDisplay.textContent = "Great job! Lesson finished.";
+        syllableDisplay.textContent = "";
+        meaningDisplay.textContent = "Click “Start Quiz on These 10 Words” or play the I-Spy game.";
+        exampleDisplay.textContent = "";
+        promptDisplay.textContent =
+          "In the quiz, you will SAY the meaning out loud and then spell the word.";
+        nextLessonBtn.disabled = true;
+        startQuizBtn.disabled = false;
+        answerInput.disabled = true;
+        checkBtn.disabled = true;
+        updateCounter();
+        return;
+      }
+      showLessonWord();
+    }
+
+    /* ====== QUIZ ====== */
+
+    function startQuiz() {
+      if (!quizSet.length) return;
+      mode = "quiz";
+      modeLabel.textContent = "Mode: QUIZ (say meaning, then spell)";
+      quizIndex = 0;
+      quizCorrect = 0;
+      shuffleArray(quizSet);
+      startQuizBtn.disabled = true;
+      nextQuizBtn.disabled = false;
+      answerInput.disabled = false;
+      checkBtn.disabled = false;
+      nextLessonBtn.disabled = true;
+      unicornDisplay.textContent = "";
+      feedbackDisplay.textContent = "";
+      updateDots();
+      showQuizWord();
+    }
+
+    function showQuizWord() {
+      const item = quizSet[quizIndex];
+      if (!item) return;
+      wordDisplay.textContent = item.word;
+      syllableDisplay.textContent = autoSyllables(item.word);
+      meaningDisplay.textContent = "(Quiz) Say the meaning out loud before you type.";
+      exampleDisplay.textContent = "";
+      promptDisplay.textContent =
+        "Say what this word means in your own words, then type the spelling and press CHECK.";
+      answerInput.value = "";
+      answerInput.focus();
+      unicornDisplay.textContent = "";
+      feedbackDisplay.textContent = "";
+      updateCounter();
+      updateDots();
+    }
+
+    function checkAnswer() {
+      if (mode !== "quiz") return;
+      const item = quizSet[quizIndex];
+      const guess = answerInput.value.trim();
+      if (!guess) return;
+      const correct = guess.toLowerCase() === item.word.toLowerCase();
+      if (correct) {
+        quizCorrect++;
+        feedbackDisplay.textContent = "Excellent! Spelling is correct.";
+        feedbackDisplay.className = "feedback correct";
+        unicornDisplay.textContent = "🦄✨";
+      } else {
+        feedbackDisplay.textContent = `Almost! Correct spelling: ${item.word}`;
+        feedbackDisplay.className = "feedback wrong";
+        unicornDisplay.textContent = "";
+      }
+      // show meaning + example so you can check understanding
+      meaningDisplay.textContent = item.def;
+      exampleDisplay.textContent = item.example;
+      updateCounter();
+    }
+
+    function nextQuiz() {
+      if (mode !== "quiz") return;
+      quizIndex++;
+      if (quizIndex >= quizSet.length) {
+        mode = "idle";
+        modeLabel.textContent = "Mode: QUIZ COMPLETE 🎉";
+        wordDisplay.textContent = "Quiz finished!";
+        syllableDisplay.textContent = "";
+        meaningDisplay.textContent =
+          `You spelled ${quizCorrect} out of ${quizSet.length} correctly.`;
+        exampleDisplay.textContent =
+          "Talk about any tricky words together, then start another lesson round or play I-Spy.";
+        promptDisplay.textContent = "Click “Start Lesson (10 words)” to keep practicing.";
+        answerInput.disabled = true;
+        checkBtn.disabled = true;
+        nextQuizBtn.disabled = true;
+        unicornDisplay.textContent = quizCorrect >= 8 ? "🦄🌈 Amazing work!" : "🐝 Keep buzzing!";
+        updateDots();
+        return;
+      }
+      showQuizWord();
+    }
+
+    /* ====== I-SPY GAME ====== */
+
+    function startGame() {
+      if (!gameSet.length) {
+        alert("Start a lesson first so we know which 10 words to play with.");
+        return;
+      }
+      mode = "game";
+      gameIndex = 0;
+      gameCorrect = 0;
+      shuffleArray(gameSet);
+      startGameBtn.disabled = false; // stays clickable if you want to restart
+      optionButtons.forEach(btn => btn.disabled = false);
+      gameFeedback.textContent = "";
+      gameUnicorn.textContent = "";
+      showGameRound();
+    }
+
+    function showGameRound() {
+      const item = gameSet[gameIndex];
+      if (!item) return;
+      gameClue.textContent = `I spy a word that means: “${item.def}”`;
+      gameCounter.textContent = `Round ${gameIndex + 1} of ${gameSet.length} (Correct: ${gameCorrect})`;
+      gameUnicorn.textContent = "";
+      gameFeedback.textContent = "";
+
+      // Build options = correct + up to 3 other random lesson words
+      let options = [item];
+      const pool = gameSet.filter(w => w.word !== item.word);
+      shuffleArray(pool);
+      while (options.length < 4 && pool.length) {
+        options.push(pool.pop());
+      }
+      shuffleArray(options);
+
+      optionButtons.forEach((btn, idx) => {
+        const opt = options[idx];
+        if (opt) {
+          btn.textContent = opt.word;
+          btn.dataset.word = opt.word;
+          btn.disabled = false;
+          btn.classList.remove("correct","wrong");
+        } else {
+          btn.textContent = "—";
+          btn.dataset.word = "";
+          btn.disabled = true;
+          btn.classList.remove("correct","wrong");
+        }
+      });
+    }
+
+    function handleOptionClick(e) {
+      if (mode !== "game") return;
+      const btn = e.currentTarget;
+      const chosen = btn.dataset.word;
+      if (!chosen) return;
+
+      const answer = gameSet[gameIndex];
+      const isCorrect = chosen.toLowerCase() === answer.word.toLowerCase();
+
+      optionButtons.forEach(b => {
+        b.classList.remove("correct","wrong");
+        if (!b.dataset.word) return;
+        if (b.dataset.word.toLowerCase() === answer.word.toLowerCase()) {
+          b.classList.add("correct");
+        } else if (b.dataset.word === chosen && !isCorrect) {
+          b.classList.add("wrong");
+        }
+      });
+
+      if (isCorrect) {
+        gameCorrect++;
+        gameFeedback.textContent = `Yes! “${answer.word}” is the word we spied.`;
+        gameUnicorn.textContent = "🦄✨";
+      } else {
+        gameFeedback.textContent = `Good try! We were spying “${answer.word}”.`;
+        gameUnicorn.textContent = "";
+      }
+      gameCounter.textContent = `Round ${gameIndex + 1} of ${gameSet.length} (Correct: ${gameCorrect})`;
+
+      // Move to next round after a short pause
+      setTimeout(() => {
+        gameIndex++;
+        if (gameIndex >= gameSet.length) {
+          mode = "idle";
+          gameClue.textContent = "I-Spy game finished!";
+          gameCounter.textContent = `Score: ${gameCorrect} / ${gameSet.length}`;
+          gameFeedback.textContent =
+            gameCorrect >= 8 ? "Word detective level: LEGEND 🔍🦄" : "Nice work! Play again to beat your score.";
+          gameUnicorn.textContent = gameCorrect >= 8 ? "🌈" : "";
+          optionButtons.forEach(b => b.disabled = true);
+        } else {
+          showGameRound();
+        }
+      }, 900);
+    }
+
+    /* ====== EVENT LISTENERS ====== */
+    startLessonBtn.addEventListener("click", startLesson);
+    nextLessonBtn.addEventListener("click", nextLesson);
+    startQuizBtn.addEventListener("click", startQuiz);
+    nextQuizBtn.addEventListener("click", nextQuiz);
+    checkBtn.addEventListener("click", checkAnswer);
+    startGameBtn.addEventListener("click", startGame);
+
+    optionButtons.forEach(btn => {
+      btn.addEventListener("click", handleOptionClick);
+    });
+
+    answerInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        checkAnswer();
+      }
+    });
+  </script>
+</body>
+</html>
