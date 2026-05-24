@@ -245,3 +245,34 @@ Checkers remains `hold_for_repair` and is intentionally excluded from local pilo
   - no server/database writes
   - no child scoring
   - no gameplay mechanic changes
+
+
+## PR31 final GameHub ↔ Gates integration status dashboard
+
+The table below is the **single planning source of truth** for current GameHub/Gates integration readiness.
+
+| Game | Playable | Local instrumentation | Mode preset aware | Gate mapped | Gate Detail recommendation ready | Tracking ready | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| adaptive_learning | Yes | Yes (`local_pilot_ready`) | Yes | Yes | Yes | No | Local-only instrumentation + mapping; adapter data remains in-memory only. |
+| braingame2 | Yes | Yes (`local_pilot_ready`) | Yes | Yes | Yes | No | Mini-suite pilot instrumentation remains local-only; no server ingestion. |
+| braingames | Yes | Yes (`local_pilot_ready`) | Yes | Yes | Yes | No | Mini-suite pilot instrumentation remains local-only; no score linkage. |
+| brickblast | Yes | Yes (`local_pilot_ready`) | Yes | Yes | Yes | No | Local-only pilot instrumentation with gate mapping/recommendation support. |
+| checkers | No (`hold_for_repair`) | No | No | No | No | No | Not playable and intentionally excluded from Gate Detail recommendations. |
+| game6 | Yes | Yes (`local_pilot_ready`) | Yes | Yes | Yes | No | Local-only instrumentation; mode presets are launch-context framing only. |
+| spelling | Yes | Yes (`local_pilot_ready`) | Yes | Yes | Yes | No | Local-only instrumentation; no child scoring or diagnosis logic. |
+| 1stgradesightwords | Yes | Yes (`local_pilot_ready`) | Yes | Yes | Yes | No | Local-only instrumentation; recommendation support remains descriptive-only. |
+| surf | Yes | Yes (`local_pilot_ready`) | Yes | Yes | Yes | No | Local-only instrumentation; no DB/server writes and no tracking enablement. |
+
+### Before tracking can be enabled
+
+Tracking must remain disabled (`tracking_ready: false` for all games) until all of the following are complete:
+
+- [ ] Privacy review approved for child-practice signal handling.
+- [ ] Parent consent flow designed and implemented for any non-local telemetry.
+- [ ] Server event ingestion architecture designed, reviewed, and security-approved.
+- [ ] Child identity handoff design finalized with minimum-necessary scoped identifiers.
+- [ ] Aggregation-only reducer defined so analytics consume summaries, not raw child event streams.
+- [ ] No raw answer payload rules codified and enforced in adapter + ingestion contracts.
+- [ ] Deletion/export policy implemented for child/family data rights workflows.
+- [ ] Clinical/diagnostic language guardrails formally documented and test-enforced.
+

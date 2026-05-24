@@ -342,3 +342,13 @@ This PR does **not** change adapter runtime behavior. It remains local/in-memory
 | spelling | learning | focus, consistency | literacy_practice; attention_focus; persistence | strong | No payload shape changes. |
 | 1stgradesightwords | learning, confidence | focus | literacy_practice; attention_focus; recovery_after_setback | strong | No payload shape changes. |
 | surf | persistence, focus | resilience | body_timing; recovery_after_setback; persistence; attention_focus; emotional_regulation | medium | No payload shape changes. |
+
+## PR31 integration status alignment
+
+GameHub session adapter usage remains **local-only instrumentation** for pilot-ready games. This adapter is not a tracking pipeline and must not be treated as production telemetry until the PR31 before-tracking checklist is complete.
+
+Operational status constraints:
+- `tracking_ready` remains `false` for every registry game.
+- Adapter signals remain runtime-local/in-memory.
+- No server event ingestion, child scoring, or database writes are introduced.
+- Gate Detail recommendations remain descriptive planning support only.
