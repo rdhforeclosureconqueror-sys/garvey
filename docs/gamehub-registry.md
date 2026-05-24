@@ -225,3 +225,23 @@ Checkers remains `hold_for_repair` and is intentionally excluded from local pilo
   - no child scoring
   - no diagnosis language or logic
   - mini-game lifecycle and markers remain intact
+
+## PR30 Gate Detail suggested launch context (optional-only)
+- Gate Detail recommendation cards can now include optional **suggested launch context** using existing `getLaunchContextForGame()` plumbing.
+- Registry entries may define:
+  - `suggested_mode_preset` (`support`, `standard`, or `challenge`)
+  - `suggested_practice_path` (safe token)
+- Gate Detail cards render:
+  - **Suggested starting style**
+  - **Suggested path** (when available)
+- Launch links apply optional context fields only when suggestion metadata exists; baseline launch behavior remains unchanged.
+- Parent choice remains authoritative:
+  - suggestions are optional and non-authoritative
+  - no inferred outcomes or diagnosis
+  - no override of parent decisions
+- Guardrails remain unchanged:
+  - no tracking enablement
+  - `tracking_ready` remains `false`
+  - no server/database writes
+  - no child scoring
+  - no gameplay mechanic changes

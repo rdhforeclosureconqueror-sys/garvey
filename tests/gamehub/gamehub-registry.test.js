@@ -146,3 +146,9 @@ test('mapping remains interpretation-only with no diagnostic language or score/w
   assert.doesNotMatch(registrySource, /gates score|official gates score|score_writeback|insert into|database|db\.|fetch\(|xmlhttprequest/i);
   assert.doesNotMatch(registrySource, /tracking_ready\s*:\s*true/i);
 });
+
+test('suggested metadata is optional and valid when present', () => {
+  registryModule.listGames().forEach((entry) => {
+    assert.equal(registryModule.hasValidSuggestedMetadata(entry), true, `${entry.game_key} has invalid suggested metadata`);
+  });
+});

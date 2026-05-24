@@ -38,6 +38,8 @@
       secondary_gates: ['resilience'],
       signal_confidence: 'strong',
       signal_categories: ['attention_focus', 'adaptive_reasoning', 'challenge_choice', 'persistence'],
+      suggested_mode_preset: 'support',
+      suggested_practice_path: 'guided_focus',
       parent_reflection_prompt: 'What helped your child stay focused during this game?',
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
@@ -64,6 +66,8 @@
       secondary_gates: ['problem-solving'],
       signal_confidence: 'medium',
       signal_categories: ['attention_focus', 'cognitive_flexibility', 'challenge_choice'],
+      suggested_mode_preset: 'standard',
+      suggested_practice_path: 'switching_practice',
       parent_reflection_prompt: 'What strategy did your child try next when a rule changed?',
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
@@ -90,6 +94,8 @@
       secondary_gates: ['consistency'],
       signal_confidence: 'medium',
       signal_categories: ['attention_focus', 'cognitive_flexibility', 'persistence', 'strategy_use'],
+      suggested_mode_preset: 'standard',
+      suggested_practice_path: 'steady_progress',
       parent_reflection_prompt: 'What did your child do after something felt hard?',
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
@@ -116,6 +122,8 @@
       secondary_gates: ['resilience'],
       signal_confidence: 'strong',
       signal_categories: ['attention_focus', 'recovery_after_setback', 'persistence', 'body_timing'],
+      suggested_mode_preset: 'support',
+      suggested_practice_path: 'reset_and_retry',
       parent_reflection_prompt: 'How did your child recover after a mistake?',
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
@@ -163,6 +171,8 @@
       secondary_gates: ['confidence', 'problem-solving'],
       signal_confidence: 'medium',
       signal_categories: ['literacy_practice', 'adaptive_reasoning', 'strategy_use', 'challenge_choice'],
+      suggested_mode_preset: 'challenge',
+      suggested_practice_path: 'advanced_word_challenge',
       parent_reflection_prompt: 'What strategy did your child try next?',
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
@@ -189,6 +199,8 @@
       secondary_gates: ['focus', 'consistency'],
       signal_confidence: 'strong',
       signal_categories: ['literacy_practice', 'attention_focus', 'persistence'],
+      suggested_mode_preset: 'support',
+      suggested_practice_path: 'daily_literacy',
       parent_reflection_prompt: 'What helped your child stay focused on the words?',
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
@@ -215,6 +227,8 @@
       secondary_gates: ['focus'],
       signal_confidence: 'strong',
       signal_categories: ['literacy_practice', 'attention_focus', 'recovery_after_setback'],
+      suggested_mode_preset: 'support',
+      suggested_practice_path: 'confidence_builder',
       parent_reflection_prompt: 'What did your child do after a missed word or mistake?',
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
@@ -241,6 +255,8 @@
       secondary_gates: ['resilience'],
       signal_confidence: 'medium',
       signal_categories: ['body_timing', 'recovery_after_setback', 'persistence', 'attention_focus', 'emotional_regulation'],
+      suggested_mode_preset: 'standard',
+      suggested_practice_path: 'timing_and_recovery',
       parent_reflection_prompt: 'Did your child choose a safer challenge or a harder challenge?',
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
@@ -332,6 +348,19 @@
     });
   }
 
+  function hasValidSuggestedMetadata(entry) {
+    if (!entry || typeof entry !== 'object') return false;
+    const hasPreset = Object.prototype.hasOwnProperty.call(entry, 'suggested_mode_preset');
+    const hasPath = Object.prototype.hasOwnProperty.call(entry, 'suggested_practice_path');
+    if (!hasPreset && !hasPath) return true;
+    if (hasPreset) {
+      const preset = typeof entry.suggested_mode_preset === 'string' ? entry.suggested_mode_preset.trim().toLowerCase() : '';
+      if (!SUPPORTED_MODE_PRESETS.includes(preset)) return false;
+    }
+    if (hasPath && !isSafeOptionalToken(entry.suggested_practice_path)) return false;
+    return true;
+  }
+
   function getGateAlignmentSummary() {
     const gateMap = new Map();
 
@@ -376,6 +405,7 @@
     getLaunchableGames,
     getGamesByGate,
     getGateAlignmentSummary,
-    getLaunchContextForGame
+    getLaunchContextForGame,
+    hasValidSuggestedMetadata
   };
 });
