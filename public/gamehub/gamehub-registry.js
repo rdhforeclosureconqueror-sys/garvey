@@ -323,12 +323,64 @@
     return Array.from(gateMap.values()).sort((a, b) => a.gate_name.localeCompare(b.gate_name));
   }
 
+  function getRecommendedStartingPaths() {
+    const byKey = Object.fromEntries(GAMEHUB_REGISTRY.map((entry) => [entry.game_key, entry]));
+
+    function safeGames(keys) {
+      return keys
+        .map((key) => byKey[key])
+        .filter((entry) => entry
+          && entry.instrumentation_status === 'local_pilot_ready'
+          && entry.local_instrumentation_ready === true
+          && entry.tracking_ready === false
+          && entry.game_key !== 'checkers'
+          && typeof entry.launch_path === 'string'
+          && entry.launch_path.endsWith('.html'));
+    }
+
+    return [
+      {
+        path_key: 'focus_flex',
+        title: 'Focus & Flex Path',
+        description: 'Great first picks for attention, adapting to changes, and staying with a task.',
+        related_gates: ['focus', 'consistency', 'problem-solving'],
+        safety_note: 'Optional practice only. This path is not a test or grade.',
+        games: safeGames(['braingames', 'braingame2', 'adaptive_learning'])
+      },
+      {
+        path_key: 'reading_language',
+        title: 'Reading & Language Path',
+        description: 'A gentle reading-and-words sequence to build confidence with literacy practice.',
+        related_gates: ['learning', 'confidence'],
+        safety_note: 'Optional practice only. This path is not a test or grade.',
+        games: safeGames(['first_grade_sight_words', 'spelling', 'game6'])
+      },
+      {
+        path_key: 'challenge_recovery',
+        title: 'Challenge & Recovery Path',
+        description: 'Try fast rounds that help kids bounce back after mistakes and keep going.',
+        related_gates: ['persistence', 'resilience', 'focus'],
+        safety_note: 'Optional practice only. This path is not a test or grade.',
+        games: safeGames(['brickblast', 'surf', 'adaptive_learning'])
+      },
+      {
+        path_key: 'adaptive_practice',
+        title: 'Adaptive Practice Path',
+        description: 'Mixes adaptive and strategy-style practice so families can follow the child’s pace.',
+        related_gates: ['learning', 'focus', 'adaptability'],
+        safety_note: 'Optional practice only. This path is not a test or grade.',
+        games: safeGames(['adaptive_learning', 'game6', 'braingame2', 'surf'])
+      }
+    ];
+  }
+
   return {
     GAMEHUB_REGISTRY,
     listGames,
     getGameByKey,
     getLaunchableGames,
     getGamesByGate,
-    getGateAlignmentSummary
+    getGateAlignmentSummary,
+    getRecommendedStartingPaths
   };
 });

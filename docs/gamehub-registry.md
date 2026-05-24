@@ -169,3 +169,25 @@ Checkers remains `hold_for_repair` and is intentionally excluded from local pilo
   - no diagnosis generation
   - no parent-response capture/storage
   - no gameplay changes
+
+## PR25 recommended starting paths (optional parent navigation support)
+- GameHub index now includes a **“Where to start”** section for parents.
+- The section includes this language verbatim: **“Start anywhere. These paths are suggestions, not requirements.”**
+- Four optional suggested paths are provided from existing registry metadata:
+  - Focus & Flex Path
+  - Reading & Language Path
+  - Challenge & Recovery Path
+  - Adaptive Practice Path
+- Each path includes:
+  - short parent-friendly description
+  - 2–4 recommended games
+  - related Gates
+  - a safety note
+- Recommended games must launch via playable `launch_path` HTML routes.
+- `checkers` remains excluded while `instrumentation_status` is `hold_for_repair`.
+- This layer is optional navigation support only; it does **not** add:
+  - tracking enablement
+  - Gates scoring connections
+  - diagnoses or child ranking
+  - database writes
+  - gameplay changes
