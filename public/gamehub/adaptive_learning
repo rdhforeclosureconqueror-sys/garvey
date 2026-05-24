@@ -37,7 +37,7 @@
       <div class="topbar">
         <div>
           <h1>Adaptive Learning System</h1>
-          <p>Adaptive Math + English diagnostic for grades 6–8, with skill breakdown, prerequisite mapping, and next-step planning.</p>
+          <p>Adaptive Math + English practice for grades 6–8, with skill snapshots, prerequisite support clues, and suggested next learning steps.</p>
         </div>
         <div>
           <span class="pill">Version 2A</span>
@@ -48,19 +48,19 @@
     </div>
 
     <div id="startScreen" class="card">
-      <h2>Start a New Session</h2>
+      <h2>Start a Practice Session</h2>
       <div class="row">
         <div class="col-4"><label>Learner name</label><input id="studentName" value="Demo Learner" /></div>
         <div class="col-4"><label>Subject</label><select id="subjectSelect"><option value="Mixed">Mixed</option><option value="Math">Math</option><option value="English">English</option></select></div>
         <div class="col-4"><label>Starting grade</label><select id="gradeSelect"><option value="6">6</option><option value="7" selected>7</option><option value="8">8</option></select></div>
         <div class="col-4"><label>Number of questions</label><select id="questionCount"><option value="10">10</option><option value="15" selected>15</option><option value="20">20</option></select></div>
-        <div class="col-4"><label>Mode</label><select id="modeSelect"><option value="diagnostic" selected>Diagnostic</option><option value="practice">Practice Diagnostic</option><option value="challenge">Challenge</option></select></div>
+        <div class="col-4"><label>Session style</label><select id="modeSelect"><option value="diagnostic" selected>Balanced Practice</option><option value="practice">Guided Practice</option><option value="challenge">Challenge Practice</option></select></div>
         <div class="col-4"><label>Session goal</label><select id="goalSelect"><option value="balanced" selected>Balanced</option><option value="stretch">Stretch Upward</option><option value="support">Extra Support</option></select></div>
       </div>
       <div class="hr"></div>
-      <h3>What this version does</h3>
+      <h3>What this practice version does</h3>
       <p class="small" id="modeNotice">Practice mode: Standard</p>
-      <p>After the session, this version shows what the learner got right, what the learner got wrong, the skill each question tested, likely prerequisites for missed skills, and a recommended next-step learning path.</p>
+      <p>After the session, this version shares what felt strong, what needs more practice, the skill each question practiced, likely prerequisite supports, and a suggested next-step learning path.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px"><button id="startBtn">Start Session</button><button class="secondary" id="loadHistoryBtn">View History</button><button class="ghost" id="demoBtn">Load Demo Session</button></div>
     </div>
 
@@ -74,16 +74,16 @@
 
     <div id="resultsScreen" class="hidden">
       <div class="card"><div class="section-title"><div><h2>Session Results</h2><p id="resultsIntro"></p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button id="saveSessionBtn">Save Session</button><button class="secondary" id="newSessionBtn">Start New Session</button></div></div><div class="stats" id="statsGrid"></div></div>
-      <div class="card"><h2>Placement + Instructional Readiness</h2><p id="placementText"></p><div id="placementPills"></div></div>
+      <div class="card"><h2>Practice Snapshot + Learning Readiness</h2><p id="placementText"></p><div id="placementPills"></div><p class="small">Practice snapshots are learning moments, not grades or labels.</p></div>
       <div class="card"><h2>Strengths</h2><div id="strengthsBox"></div></div>
-      <div class="card"><h2>Developing Areas</h2><div id="developingBox"></div></div>
-      <div class="card"><h2>Priority Gaps + Likely Prerequisites</h2><div id="gapsBox"></div></div>
+      <div class="card"><h2>Skills to Keep Building</h2><div id="developingBox"></div></div>
+      <div class="card"><h2>Priority Practice Needs + Likely Prerequisites</h2><div id="gapsBox"></div></div>
       <div class="card"><h2>Recommended Next Learning Path</h2><div id="pathBox"></div></div>
       <div class="card"><h2>Question-by-Question Review</h2><div id="reviewBox"></div></div>
     </div>
 
     <div id="historyScreen" class="card hidden">
-      <div class="section-title"><div><h2>Saved Session History</h2><p>Track growth over time using browser storage on this computer.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="secondary" id="backHomeBtn">Back Home</button><button class="ghost" id="clearHistoryBtn">Clear History</button></div></div>
+      <div class="section-title"><div><h2>Saved Session History</h2><p>Review practice snapshots over time using browser storage on this computer.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="secondary" id="backHomeBtn">Back Home</button><button class="ghost" id="clearHistoryBtn">Clear History</button></div></div>
       <div id="historyBox"></div>
     </div>
 
