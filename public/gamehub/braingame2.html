@@ -151,6 +151,7 @@ linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03))}
     <div class="badge">NeuroGrid // Executive Function Arcade</div>
     <h1>Future Brain Missions</h1>
     <div class="sub">A self-contained offline HTML arcade with redesigned mini-games for focus, self-control, delayed gratification, emotional regulation, and rule switching. Open this file directly in a browser or host it locally.</div>
+    <div class="sub" id="modeNotice">Practice mode: Standard</div>
   </section>
 
   <div class="grid">
@@ -306,6 +307,16 @@ const ACTIVITY_KEYS = {
   emotion: 'emotion_meter_challenge',
   switcher: 'task_switching_lab'
 };
+
+const GAME_RUNTIME_CONTEXT_FALLBACK = { child_display_name:'Player', child_age_band:null, profile_id:null, session_id:null, gate_context:null, practice_path:null, mode_preset:'standard' };
+function normalizeModePreset(value){ const v = typeof value === 'string' ? value.trim().toLowerCase() : ''; return ['support','standard','challenge'].includes(v) ? v : 'standard'; }
+function labelModePreset(value){ if(value==='support') return 'Support'; if(value==='challenge') return 'Challenge'; return 'Standard'; }
+function getLaunchContext(){ const params = new URLSearchParams(window.location.search); const raw = window.__GATES_GAME_CONTEXT__ || window.__GAME_RUNTIME_CONTEXT__ || {}; const merged = { ...GAME_RUNTIME_CONTEXT_FALLBACK, ...raw }; if(params.has('gate_context')) merged.gate_context = params.get('gate_context'); if(params.has('practice_path')) merged.practice_path = params.get('practice_path'); if(params.has('mode_preset')) merged.mode_preset = params.get('mode_preset'); return { ...merged, mode_preset: normalizeModePreset(merged.mode_preset) }; }
+const launchContext = getLaunchContext();
+const modePresetConfig = { support:{ mazeSpeed:2.0, sorterFlipDefault:5, wheelChargeBoost:0.85, framing:'gentle' }, standard:{ mazeSpeed:2.2, sorterFlipDefault:4, wheelChargeBoost:1, framing:'standard' }, challenge:{ mazeSpeed:2.4, sorterFlipDefault:3, wheelChargeBoost:1.08, framing:'challenge' } };
+const appliedModePreset = modePresetConfig[launchContext.mode_preset] || modePresetConfig.standard;
+const modeNoticeEl = $('modeNotice'); if(modeNoticeEl) modeNoticeEl.textContent = `Practice mode: ${labelModePreset(launchContext.mode_preset)}`;
+
 const adapterFactory = window.GamehubSessionAdapter;
 const adapter = adapterFactory && typeof adapterFactory.createSessionAdapter === 'function'
   ? adapterFactory.createSessionAdapter({ gameKey: GAME_KEY, mode: SESSION_MODE })
@@ -365,7 +376,7 @@ function endAdapterSession(state){
 /* ------------ Mission 1: Maze Freeze Run ------------ */
 const maze = {
   canvas:$('mazeCanvas'), score:0, saves:0, hits:0, running:false,
-  playerX:70, playerY:210, speed:2.2, frame:0, frameTick:0, frozen:false,
+  playerX:70, playerY:210, speed:appliedModePreset.mazeSpeed, frame:0, frameTick:0, frozen:false,
   spiderX:640, spiderY:170, spiderV:-3, collisionCooldown:0, savedThisPass:false
 };
 maze.ctx = maze.canvas.getContext('2d');
@@ -559,7 +570,7 @@ $('mazeStart').addEventListener('pointerdown', ()=>{ maze.frozen=false; });
 const faces = ['😀','😎','🤖','😇','🥳','😺'];
 const fruits = ['🍎','🍌','🍓','🍇','🍊','🍉'];
 const distractors = ['⚡','🌀','✨','💥','🔊','❌'];
-const sorter = {running:false, score:0, good:0, bad:0, target:'Faces', flipEvery:4, flipCountdown:4, elapsed:0};
+const sorter = {running:false, score:0, good:0, bad:0, target:'Faces', flipEvery:appliedModePreset.sorterFlipDefault, flipCountdown:appliedModePreset.sorterFlipDefault, elapsed:0};
 
 function updateSorterStats(){
   $('sorterScore').textContent = sorter.score;
@@ -593,7 +604,8 @@ function buildSorterBoard(){
         sorter.score = Math.max(0, sorter.score - 1); sorter.bad++; tile.classList.add('bad');
         $('sorterStatus').textContent = `Wrong tap. Ignore everything except ${sorter.target}.`;
       }
-      updateSorterStats();
+      $('sorterFlipRange').value = String(appliedModePreset.sorterFlipDefault);
+updateSorterStats();
       setTimeout(buildSorterBoard, 180);
     };
     board.appendChild(tile);

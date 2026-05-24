@@ -461,6 +461,7 @@
     </div>
 
     <div class="footer-note">
+      <span id="modeNotice">Practice mode: Standard</span><br/>
       Open this file directly in your browser or serve it from a local folder. No external libraries required.
     </div>
   </div>
@@ -469,6 +470,13 @@
   <script>
     const GAME_KEY = 'braingames';
     const SESSION_MODE = 'local_pilot';
+    const GAME_RUNTIME_CONTEXT_FALLBACK = { child_display_name: 'Player', child_age_band: null, profile_id: null, session_id: null, gate_context: null, practice_path: null, mode_preset: 'standard' };
+    function normalizeModePreset(value){ const v = typeof value === 'string' ? value.trim().toLowerCase() : ''; return ['support','standard','challenge'].includes(v) ? v : 'standard'; }
+    function labelModePreset(value){ if (value === 'support') return 'Support'; if (value === 'challenge') return 'Challenge'; return 'Standard'; }
+    function getLaunchContext(){ const params = new URLSearchParams(window.location.search); const raw = window.__GATES_GAME_CONTEXT__ || window.__GAME_RUNTIME_CONTEXT__ || {}; const merged = { ...GAME_RUNTIME_CONTEXT_FALLBACK, ...raw }; if (params.has('gate_context')) merged.gate_context = params.get('gate_context'); if (params.has('practice_path')) merged.practice_path = params.get('practice_path'); if (params.has('mode_preset')) merged.mode_preset = params.get('mode_preset'); return { ...merged, mode_preset: normalizeModePreset(merged.mode_preset) }; }
+    const launchContext = getLaunchContext();
+    const modePresetConfig = { support: { freezeBaseSpeed: 2.55, freezeDelayFloor: 1800, freezeWindowMs: 1800, powerChargeBonus: 0.1 }, standard: { freezeBaseSpeed: 2.8, freezeDelayFloor: 1500, freezeWindowMs: 1500, powerChargeBonus: 0.15 }, challenge: { freezeBaseSpeed: 3.05, freezeDelayFloor: 1300, freezeWindowMs: 1300, powerChargeBonus: 0.2 } };
+    const appliedModePreset = modePresetConfig[launchContext.mode_preset] || modePresetConfig.standard;
     const ACTIVITY_KEYS = {
       freeze: 'freeze_runner',
       defender: 'distraction_defender',
@@ -572,6 +580,8 @@
       designCopy: document.getElementById('designCopy'),
       globalControls: document.getElementById('globalControls')
     };
+    const modeNoticeEl = document.getElementById('modeNotice');
+    if (modeNoticeEl) modeNoticeEl.textContent = `Practice mode: ${labelModePreset(launchContext.mode_preset)}`;
 
     const bestKey = 'neuroSparkBestScoresV1';
     const bestScores = JSON.parse(localStorage.getItem(bestKey) || '{}');
@@ -674,7 +684,7 @@
       let playing = false;
       let freezeActive = false;
       let frozen = false;
-      let speed = 2.8;
+      let speed = appliedModePreset.freezeBaseSpeed;
       let x = 28, y = 220;
       let direction = 1;
       let spiderX = 480, spiderY = 220, spiderDir = -1;
@@ -708,7 +718,7 @@
       function spawnFreezeEvent() {
         clearTimeout(nextFreezeTimeout);
         if (!playing) return;
-        const delay = Math.max(1500, 3800 - (games.freeze.level - 1) * 260 + Math.random() * 1000);
+        const delay = Math.max(appliedModePreset.freezeDelayFloor, 3800 - (games.freeze.level - 1) * 260 + Math.random() * 1000);
         nextFreezeTimeout = setTimeout(() => {
           if (!playing) return;
           freezeActive = true;
@@ -721,7 +731,7 @@
             banner.style.display = 'none';
             setStatus('Good. Move again.', 'var(--good)');
             spawnFreezeEvent();
-          }, 1500 + Math.random() * 700);
+          }, appliedModePreset.freezeWindowMs + Math.random() * 700);
         }, delay);
       }
 
@@ -972,7 +982,7 @@
         holding = true;
         clearInterval(int);
         int = setInterval(() => {
-          power += 1.8 + games.power.level * 0.15;
+          power += 1.8 + games.power.level * appliedModePreset.powerChargeBonus;
           if (power >= 100) {
             power = 100;
             update();
