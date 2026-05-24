@@ -146,10 +146,10 @@
       adapter_ready: true,
       local_instrumentation_ready: false,
       instrumentation_status: 'hold_for_repair',
-      public_launch_allowed: true,
-      parent_context_launch_allowed: true,
-      child_context_launch_allowed: true,
-      safety_notes: 'Registry-only launch metadata; no mechanics changes.'
+      public_launch_allowed: false,
+      parent_context_launch_allowed: false,
+      child_context_launch_allowed: false,
+      safety_notes: 'Hold for repair: excluded from parent-facing and public discovery until browser-playable repairs are complete.'
     },
     {
       game_key: 'game6',
