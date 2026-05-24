@@ -294,3 +294,19 @@ Tracking must remain disabled (`tracking_ready: false` for all games) until all 
   - no server/database writes
   - no child scoring or diagnosis logic
   - no gameplay changes
+
+## PR33 lightweight GameHub UX consistency pass (identity/navigation only)
+- Added a lightweight shared in-game GameHub identity strip across playable launch files.
+- Shared strip includes:
+  - `GameHub Practice` badge
+  - consistent `Practice mode: ...` display derived from launch context `mode_preset`
+  - optional `Back to GameHub` navigation link
+- Scope is UX consistency only:
+  - no gameplay mechanics standardization
+  - no engine refactor or shared runtime rewrite
+  - no launch-path rewiring
+- Safety/guardrails remain unchanged:
+  - no tracking enablement (`tracking_ready` remains false)
+  - no scoring linkage
+  - no database/server write integration
+  - no diagnosis logic
