@@ -321,3 +321,24 @@ Each internal mini-game is treated as an activity:
 | spelling | Yes | Yes | Yes | No | Adapter pilot active; local/in-memory only. |
 | 1stgradesightwords | Yes | Yes | Yes | No | Adapter pilot active; local/in-memory only. |
 | surf | Yes | Yes | Yes | No | Adapter pilot active; local/in-memory only. |
+
+## PR20 mapping-only interpretation layer
+
+GameHub registry metadata now includes developmental mapping fields for each `local_pilot_ready` game:
+- `primary_gates`
+- `secondary_gates`
+- `signal_confidence` (`strong`, `medium`, `light`)
+- `signal_categories` (safe interpretation categories only)
+
+This PR does **not** change adapter runtime behavior. It remains local/in-memory and no-op safe.
+
+| Game | Primary Gates | Secondary Gates | Signal Categories | Confidence | Notes |
+| --- | --- | --- | --- | --- | --- |
+| adaptive_learning | learning, focus | resilience | attention_focus; adaptive_reasoning; challenge_choice; persistence | strong | No payload shape changes. |
+| braingame2 | focus | problem-solving | attention_focus; cognitive_flexibility; challenge_choice | medium | No payload shape changes. |
+| braingames | focus | consistency | attention_focus; cognitive_flexibility; persistence; strategy_use | medium | No payload shape changes. |
+| brickblast | focus, persistence | resilience | attention_focus; recovery_after_setback; persistence; body_timing | strong | No payload shape changes. |
+| game6 | learning | confidence, problem-solving | literacy_practice; adaptive_reasoning; strategy_use; challenge_choice | medium | No payload shape changes. |
+| spelling | learning | focus, consistency | literacy_practice; attention_focus; persistence | strong | No payload shape changes. |
+| 1stgradesightwords | learning, confidence | focus | literacy_practice; attention_focus; recovery_after_setback | strong | No payload shape changes. |
+| surf | persistence, focus | resilience | body_timing; recovery_after_setback; persistence; attention_focus; emotional_regulation | medium | No payload shape changes. |

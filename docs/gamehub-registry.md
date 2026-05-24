@@ -96,3 +96,27 @@ Any stale references should be audited in follow-up PRs with route-level tests b
 | spelling | Yes | Yes | Yes | No | Local-only pilot instrumentation present. |
 | 1stgradesightwords | Yes | Yes | Yes | No | Local-only pilot instrumentation present. |
 | surf | Yes | Yes | Yes | No | Local-only pilot instrumentation present. |
+
+## PR20 developmental mapping layer (metadata only)
+
+This phase adds descriptive GameHub-to-Gates developmental mapping metadata for **local_pilot_ready** games only.
+
+Guardrails in this phase:
+- mapping metadata is interpretation support only
+- no server tracking
+- no database writes
+- no tracking readiness enablement (`tracking_ready` remains `false`)
+- no official Gates score linkage
+
+| Game | Primary Gates | Secondary Gates | Signal Categories | Confidence | Notes |
+| --- | --- | --- | --- | --- | --- |
+| adaptive_learning | learning, focus | resilience | attention_focus; adaptive_reasoning; challenge_choice; persistence | strong | Quiz flow supports focus/challenge interpretation only. |
+| braingame2 | focus | problem-solving | attention_focus; cognitive_flexibility; challenge_choice | medium | Lightweight cognitive signal mapping, no scoring. |
+| braingames | focus | consistency | attention_focus; cognitive_flexibility; persistence; strategy_use | medium | Mini-suite mapping remains descriptive-only. |
+| brickblast | focus, persistence | resilience | attention_focus; recovery_after_setback; persistence; body_timing | strong | Arcade recovery/persistence signals only. |
+| game6 | learning | confidence, problem-solving | literacy_practice; adaptive_reasoning; strategy_use; challenge_choice | medium | Vocabulary interpretation support only. |
+| spelling | learning | focus, consistency | literacy_practice; attention_focus; persistence | strong | Literacy practice mapping only. |
+| 1stgradesightwords | learning, confidence | focus | literacy_practice; attention_focus; recovery_after_setback | strong | Early literacy confidence interpretation only. |
+| surf | persistence, focus | resilience | body_timing; recovery_after_setback; persistence; attention_focus; emotional_regulation | medium | Reflex/regulation signals only; no Gates scoring. |
+
+Checkers remains `hold_for_repair` and is intentionally excluded from local pilot mapping metadata.

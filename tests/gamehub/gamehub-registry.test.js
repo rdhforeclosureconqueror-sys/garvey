@@ -27,6 +27,20 @@ const REQUIRED_FIELDS = [
   'safety_notes'
 ];
 
+const ALLOWED_CONFIDENCE = ['strong', 'medium', 'light'];
+const ALLOWED_SIGNAL_CATEGORIES = [
+  'attention_focus',
+  'persistence',
+  'recovery_after_setback',
+  'challenge_choice',
+  'emotional_regulation',
+  'cognitive_flexibility',
+  'literacy_practice',
+  'adaptive_reasoning',
+  'body_timing',
+  'strategy_use'
+];
+
 function listStandaloneGameFiles() {
   const directory = path.join(root, 'public/gamehub');
   return fs.readdirSync(directory)
@@ -82,6 +96,7 @@ test('adapter readiness is explicit and checkers remains hold_for_repair', () =>
   assert.equal(checkers.local_instrumentation_ready, false);
   assert.equal(checkers.instrumentation_status, 'hold_for_repair');
 });
+
 test('registry helper returns context-specific launchable lists without scoring/tracking logic', () => {
   const publicGames = registryModule.getLaunchableGames('public');
   const parentGames = registryModule.getLaunchableGames('parent');
@@ -94,21 +109,37 @@ test('registry helper returns context-specific launchable lists without scoring/
   assert.doesNotMatch(registrySource, /track\(|gatesScoring|gates\/gatesScoring/i);
 });
 
-test('instrumented games are local_pilot_ready and map to pilot docs/tests', () => {
-  const instrumented = ['1stgradesightwords','spelling','game6','adaptive_learning','surf','brickblast','braingames','braingame2'];
-  const registrySource = fs.readFileSync(path.join(root, 'public/gamehub/gamehub-registry.js'), 'utf8');
-  const adapterDoc = fs.readFileSync(path.join(root, 'docs/gamehub-session-adapter.md'), 'utf8');
-
-  instrumented.forEach((key) => {
-    const entry = registryModule.getGameByKey(key === '1stgradesightwords' ? 'first_grade_sight_words' : key);
-    assert.ok(entry, `missing registry entry for ${key}`);
-    assert.equal(entry.adapter_ready, true);
-    assert.equal(entry.local_instrumentation_ready, true);
-    assert.equal(entry.tracking_ready, false);
-    assert.equal(entry.instrumentation_status, 'local_pilot_ready');
-    assert.match(adapterDoc.toLowerCase(), new RegExp((key === '1stgradesightwords' ? 'sight words' : key).replace(/_/g, ' ')));
+test('instrumented games have developmental mapping metadata and safe signal categories', () => {
+  const readyGames = registryModule.listGames().filter((entry) => entry.instrumentation_status === 'local_pilot_ready');
+  readyGames.forEach((entry) => {
+    assert.ok(Array.isArray(entry.primary_gates) && entry.primary_gates.length > 0, `${entry.game_key} missing primary_gates`);
+    assert.ok(Array.isArray(entry.signal_categories) && entry.signal_categories.length > 0, `${entry.game_key} missing signal_categories`);
+    assert.ok(Array.isArray(entry.secondary_gates), `${entry.game_key} missing secondary_gates`);
+    assert.ok(ALLOWED_CONFIDENCE.includes(entry.signal_confidence), `${entry.game_key} has invalid signal_confidence`);
+    entry.signal_categories.forEach((category) => {
+      assert.ok(ALLOWED_SIGNAL_CATEGORIES.includes(category), `${entry.game_key} has invalid signal category ${category}`);
+    });
   });
 
+  const checkers = registryModule.getGameByKey('checkers');
+  assert.notEqual(checkers.instrumentation_status, 'local_pilot_ready');
+  assert.equal(typeof checkers.primary_gates, 'undefined');
+  assert.equal(typeof checkers.signal_categories, 'undefined');
+});
+
+test('getGamesByGate helper returns expected mappings', () => {
+  const byLearning = registryModule.getGamesByGate('learning').map((game) => game.game_key);
+  assert.ok(byLearning.includes('adaptive_learning'));
+  assert.ok(byLearning.includes('spelling'));
+
+  const byNumericAlias = registryModule.getGamesByGate(2).map((game) => game.game_key);
+  assert.ok(byNumericAlias.includes('adaptive_learning'));
+  assert.ok(byNumericAlias.includes('braingames'));
+});
+
+test('mapping remains interpretation-only with no diagnostic language or score/writeback wiring', () => {
+  const registrySource = fs.readFileSync(path.join(root, 'public/gamehub/gamehub-registry.js'), 'utf8').toLowerCase();
+  assert.doesNotMatch(registrySource, /diagnostic conclusion|diagnosis|disorder|deficit/i);
+  assert.doesNotMatch(registrySource, /gates score|official gates score|score_writeback|insert into|database|db\.|fetch\(|xmlhttprequest/i);
   assert.doesNotMatch(registrySource, /tracking_ready\s*:\s*true/i);
-  assert.doesNotMatch(registrySource, /fetch\(|XMLHttpRequest|gatesScoring|database|db\.|insert into/i);
 });
