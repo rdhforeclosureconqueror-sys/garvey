@@ -12,12 +12,23 @@
     li { background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0.75rem 1rem; }
     a { color: #1d4ed8; text-decoration: none; font-weight: 600; }
     .meta { font-size: 0.9rem; color: #475569; margin-top: 0.25rem; }
+    .section { margin-top: 2rem; }
+    .safety { font-size: 0.95rem; color: #334155; background: #e2e8f0; border-radius: 8px; padding: 0.75rem 1rem; }
+    .gate-card { background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 0.75rem; }
+    .gate-list { list-style: disc; padding-left: 1.25rem; display: block; }
+    .pill { display: inline-block; border: 1px solid #94a3b8; border-radius: 999px; padding: 0.15rem 0.45rem; font-size: 0.8rem; color: #334155; margin-right: 0.35rem; margin-top: 0.35rem; }
   </style>
 </head>
 <body>
   <h1>GameHub</h1>
   <p class="note">Registry-backed launch index. Existing standalone game routes remain unchanged.</p>
   <ul id="gamehub-list"></ul>
+
+  <section class="section" aria-labelledby="gates-alignment-title">
+    <h2 id="gates-alignment-title">How these games support the Gates</h2>
+    <p class="safety">These games are optional developmental practices. They are not tests, grades, or diagnoses.</p>
+    <div id="gates-alignment-summary"></div>
+  </section>
 
   <script src="/gamehub/gamehub-session-adapter.js"></script>
   <script src="/gamehub/gamehub-registry.js"></script>
@@ -41,6 +52,48 @@
         item.appendChild(meta);
         item.appendChild(description);
         listEl.appendChild(item);
+      });
+
+      const summaryEl = document.getElementById('gates-alignment-summary');
+      if (!summaryEl || typeof registry.getGateAlignmentSummary !== 'function') return;
+      registry.getGateAlignmentSummary().forEach((group) => {
+        const card = document.createElement('article');
+        card.className = 'gate-card';
+        const title = document.createElement('h3');
+        title.textContent = group.gate_name;
+        const keyMeta = document.createElement('div');
+        keyMeta.className = 'meta';
+        keyMeta.textContent = `Gate key: ${group.gate_key}`;
+        card.appendChild(title);
+        card.appendChild(keyMeta);
+
+        const gamesList = document.createElement('ul');
+        gamesList.className = 'gate-list';
+        group.games.forEach((game) => {
+          const li = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = game.launch_path || game.file_path;
+          link.textContent = game.title;
+          li.appendChild(link);
+
+          const confidence = document.createElement('span');
+          confidence.className = 'pill';
+          confidence.textContent = `Confidence: ${game.signal_confidence || 'n/a'}`;
+          li.appendChild(confidence);
+
+          const categories = Array.isArray(game.signal_categories) ? game.signal_categories : [];
+          categories.forEach((category) => {
+            const categoryPill = document.createElement('span');
+            categoryPill.className = 'pill';
+            categoryPill.textContent = category;
+            li.appendChild(categoryPill);
+          });
+
+          gamesList.appendChild(li);
+        });
+
+        card.appendChild(gamesList);
+        summaryEl.appendChild(card);
       });
     })();
   </script>

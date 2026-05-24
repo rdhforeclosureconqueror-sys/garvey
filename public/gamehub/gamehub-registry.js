@@ -286,11 +286,49 @@
     });
   }
 
+  function getGateAlignmentSummary() {
+    const gateMap = new Map();
+
+    GAMEHUB_REGISTRY.forEach((entry) => {
+      if (entry.instrumentation_status !== 'local_pilot_ready') {
+        return;
+      }
+      if (entry.local_instrumentation_ready !== true || entry.tracking_ready !== false || entry.game_key === 'checkers') {
+        return;
+      }
+
+      const gateKeys = [];
+      if (Array.isArray(entry.primary_gates)) {
+        gateKeys.push(...entry.primary_gates);
+      }
+      if (Array.isArray(entry.secondary_gates)) {
+        gateKeys.push(...entry.secondary_gates);
+      }
+
+      gateKeys.forEach((gateKey) => {
+        if (!gateKey) return;
+        const normalizedGateKey = String(gateKey).trim().toLowerCase();
+        if (!normalizedGateKey) return;
+        if (!gateMap.has(normalizedGateKey)) {
+          gateMap.set(normalizedGateKey, {
+            gate_key: normalizedGateKey,
+            gate_name: normalizedGateKey,
+            games: []
+          });
+        }
+        gateMap.get(normalizedGateKey).games.push(entry);
+      });
+    });
+
+    return Array.from(gateMap.values()).sort((a, b) => a.gate_name.localeCompare(b.gate_name));
+  }
+
   return {
     GAMEHUB_REGISTRY,
     listGames,
     getGameByKey,
     getLaunchableGames,
-    getGamesByGate
+    getGamesByGate,
+    getGateAlignmentSummary
   };
 });
