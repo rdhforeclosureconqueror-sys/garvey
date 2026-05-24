@@ -37,9 +37,18 @@ test("results CTAs route to different destinations", () => {
 
 test("gate detail page renders blueprint sections", () => {
   const js = fs.readFileSync("public/gates.js", "utf8");
-  for (const section of ["Core lesson", "Child learning statement", "Reflection questions", "Journal prompts", "Developing signs", "Integration signs", "Ceremony", "Practice Games for this Gate"]) {
+  for (const section of ["Core lesson", "Child learning statement", "Reflection questions", "Journal prompts", "Developing signs", "Integration signs", "Ceremony", "Practice Games for this Gate", "Parent reflection:"]) {
     assert.ok(js.includes(section));
   }
+});
+
+test("parent reflection prompts remain observational and non-diagnostic", () => {
+  const js = fs.readFileSync("public/gates.js", "utf8");
+  assert.ok(js.includes("These prompts are for reflection only and are not used to score or diagnose."));
+  assert.ok(js.includes("What helped your child stay focused?"));
+  assert.ok(js.includes("How did your child recover after a mistake?"));
+  assert.ok(js.includes("What strategy did your child try next?"));
+  assert.doesNotMatch(js.toLowerCase(), /parent reflection:[^<]*(diagnosis|diagnostic|disorder|deficit|condition)/i);
 });
 
 test("gates map shows 10 cards and separates progress from stage", () => {

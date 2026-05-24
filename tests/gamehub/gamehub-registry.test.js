@@ -119,6 +119,9 @@ test('instrumented games have developmental mapping metadata and safe signal cat
     entry.signal_categories.forEach((category) => {
       assert.ok(ALLOWED_SIGNAL_CATEGORIES.includes(category), `${entry.game_key} has invalid signal category ${category}`);
     });
+    assert.equal(typeof entry.parent_reflection_prompt, 'string', `${entry.game_key} missing parent_reflection_prompt`);
+    assert.notEqual(entry.parent_reflection_prompt.trim(), '', `${entry.game_key} parent_reflection_prompt must not be empty`);
+    assert.doesNotMatch(entry.parent_reflection_prompt.toLowerCase(), /diagnosis|diagnostic|disorder|deficit|condition|score|grade/i);
   });
 
   const checkers = registryModule.getGameByKey('checkers');
