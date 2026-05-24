@@ -45,6 +45,10 @@ test('gate detail practice recommendations use gate mapping helper and launch_pa
   assert.match(source, /Focus and sustained attention/);
   assert.doesNotMatch(source, /developmental outcome|child outcome|diagnostic conclusion/i);
   assert.match(source, /buildGameHubLaunchPath\(game\.launch_path \|\| game\.file_path, childId\)/);
+  assert.match(source, /Suggested starting style:/);
+  assert.match(source, /Suggested path:/);
+  assert.match(source, /getLaunchContextForGame\(game\.game_key/);
+  assert.doesNotMatch(source, /tracking_ready\s*=\s*true|insert\s+into|update\s+gates_/i);
 
   const focusGames = registry.getGamesByGate('focus').filter((entry) => (
     entry.instrumentation_status === 'local_pilot_ready'

@@ -368,7 +368,20 @@
       if (!interpretedSignals.length) return '';
       return `<h5>What this game practices</h5><ul>${interpretedSignals.map((label) => `<li>${label}</li>`).join('')}</ul>`;
     };
-    return `<section class="panel" data-gate-detail-practice-games><h3>Practice Games for this Gate</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p><p>${interpretationNote}</p>${games.map((game) => `<article class="panel gate-practice-game"><h4>${game.title}</h4><p>${game.description || ''}</p>${renderParentPracticeInterpretation(game)}${getParentReflectionPrompt(game) ? `<p><strong>Parent reflection:</strong> ${getParentReflectionPrompt(game)}</p>` : ''}<p><strong>Primary Gate fit:</strong> ${(game.primary_gates || []).join(', ') || 'Not specified'}</p><p><strong>Secondary Gate fit:</strong> ${(game.secondary_gates || []).join(', ') || 'Not specified'}</p><p><strong>Confidence:</strong> ${game.signal_confidence || game.confidence || 'Not specified'}</p><p><a class="btn secondary" href="${buildGameHubLaunchPath(game.launch_path || game.file_path, childId)}">Launch ${game.title}</a></p></article>`).join("")}<p class="disclaimer">These prompts are for reflection only and are not used to score or diagnose.</p></section>`;
+    return `<section class="panel" data-gate-detail-practice-games><h3>Practice Games for this Gate</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p><p>${interpretationNote}</p>${games.map((game) => {
+      const registryApi = globalThis.GameHubRegistry;
+      const hasSuggestedModePreset = typeof game.suggested_mode_preset === 'string' && game.suggested_mode_preset.trim();
+      const hasSuggestedPracticePath = typeof game.suggested_practice_path === 'string' && game.suggested_practice_path.trim();
+      const launch = (registryApi && typeof registryApi.getLaunchContextForGame === 'function' && (hasSuggestedModePreset || hasSuggestedPracticePath))
+        ? registryApi.getLaunchContextForGame(game.game_key, {
+            gate_context: gateKey,
+            mode_preset: hasSuggestedModePreset ? game.suggested_mode_preset : undefined,
+            practice_path: hasSuggestedPracticePath ? game.suggested_practice_path : undefined
+          })
+        : null;
+      const launchPath = launch?.launch_path || buildGameHubLaunchPath(game.launch_path || game.file_path, childId);
+      return `<article class="panel gate-practice-game"><h4>${game.title}</h4><p>${game.description || ''}</p>${renderParentPracticeInterpretation(game)}${hasSuggestedModePreset ? `<p><strong>Suggested starting style:</strong> ${String(game.suggested_mode_preset).trim().toLowerCase()}</p>` : ''}${hasSuggestedPracticePath ? `<p><strong>Suggested path:</strong> ${String(game.suggested_practice_path).trim().toLowerCase().replace(/_/g, ' ')}</p>` : ''}${getParentReflectionPrompt(game) ? `<p><strong>Parent reflection:</strong> ${getParentReflectionPrompt(game)}</p>` : ''}<p><strong>Primary Gate fit:</strong> ${(game.primary_gates || []).join(', ') || 'Not specified'}</p><p><strong>Secondary Gate fit:</strong> ${(game.secondary_gates || []).join(', ') || 'Not specified'}</p><p><strong>Confidence:</strong> ${game.signal_confidence || game.confidence || 'Not specified'}</p><p><a class="btn secondary" href="${launchPath}">Launch ${game.title}</a></p></article>`;
+    }).join("")}<p class="disclaimer">These prompts are for reflection only and are not used to score or diagnose.</p></section>`;
   }
 
   async function renderGateQuestLaunch(childId = null) {

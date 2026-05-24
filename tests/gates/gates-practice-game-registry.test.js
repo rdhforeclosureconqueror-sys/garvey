@@ -58,6 +58,8 @@ test("registry disclaimer is non-diagnostic and UI section is present in gate de
     "Primary Gate fit:",
     "Secondary Gate fit:",
     "Confidence:",
+    "Suggested starting style:",
+    "Suggested path:",
     "Children may engage with these games in different ways. Practice experiences do not equal grades or diagnoses.",
     "These games are optional developmental practices. They are not tests, grades, or diagnoses."
   ]) {
