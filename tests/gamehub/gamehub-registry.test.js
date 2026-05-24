@@ -19,6 +19,8 @@ const REQUIRED_FIELDS = [
   'config_ready',
   'tracking_ready',
   'adapter_ready',
+  'local_instrumentation_ready',
+  'instrumentation_status',
   'public_launch_allowed',
   'parent_context_launch_allowed',
   'child_context_launch_allowed',
@@ -68,10 +70,17 @@ test('tracking_ready is false for all games in PR5 foundation phase', () => {
 });
 
 
-test('adapter_ready is true for all games when shared adapter scaffold is available', () => {
+test('adapter readiness is explicit and checkers remains hold_for_repair', () => {
   registryModule.listGames().forEach((entry) => {
-    assert.equal(entry.adapter_ready, true, `${entry.game_key} adapter_ready must remain true`);
+    assert.equal(typeof entry.adapter_ready, 'boolean');
+    assert.equal(typeof entry.local_instrumentation_ready, 'boolean');
+    assert.ok(['local_pilot_ready', 'not_instrumented', 'hold_for_repair'].includes(entry.instrumentation_status));
   });
+
+  const checkers = registryModule.getGameByKey('checkers');
+  assert.equal(checkers.adapter_ready, true);
+  assert.equal(checkers.local_instrumentation_ready, false);
+  assert.equal(checkers.instrumentation_status, 'hold_for_repair');
 });
 test('registry helper returns context-specific launchable lists without scoring/tracking logic', () => {
   const publicGames = registryModule.getLaunchableGames('public');
@@ -83,4 +92,23 @@ test('registry helper returns context-specific launchable lists without scoring/
 
   const registrySource = fs.readFileSync(path.join(root, 'public/gamehub/gamehub-registry.js'), 'utf8');
   assert.doesNotMatch(registrySource, /track\(|gatesScoring|gates\/gatesScoring/i);
+});
+
+test('instrumented games are local_pilot_ready and map to pilot docs/tests', () => {
+  const instrumented = ['1stgradesightwords','spelling','game6','adaptive_learning','surf','brickblast','braingames','braingame2'];
+  const registrySource = fs.readFileSync(path.join(root, 'public/gamehub/gamehub-registry.js'), 'utf8');
+  const adapterDoc = fs.readFileSync(path.join(root, 'docs/gamehub-session-adapter.md'), 'utf8');
+
+  instrumented.forEach((key) => {
+    const entry = registryModule.getGameByKey(key === '1stgradesightwords' ? 'first_grade_sight_words' : key);
+    assert.ok(entry, `missing registry entry for ${key}`);
+    assert.equal(entry.adapter_ready, true);
+    assert.equal(entry.local_instrumentation_ready, true);
+    assert.equal(entry.tracking_ready, false);
+    assert.equal(entry.instrumentation_status, 'local_pilot_ready');
+    assert.match(adapterDoc.toLowerCase(), new RegExp((key === '1stgradesightwords' ? 'sight words' : key).replace(/_/g, ' ')));
+  });
+
+  assert.doesNotMatch(registrySource, /tracking_ready\s*:\s*true/i);
+  assert.doesNotMatch(registrySource, /fetch\(|XMLHttpRequest|gatesScoring|database|db\.|insert into/i);
 });
