@@ -17,6 +17,7 @@
     .gate-card { background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 0.75rem; }
     .gate-list { list-style: disc; padding-left: 1.25rem; display: block; }
     .pill { display: inline-block; border: 1px solid #94a3b8; border-radius: 999px; padding: 0.15rem 0.45rem; font-size: 0.8rem; color: #334155; margin-right: 0.35rem; margin-top: 0.35rem; }
+    .path-card { background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 0.75rem; }
   </style>
 </head>
 <body>
@@ -28,6 +29,12 @@
     <h2 id="gates-alignment-title">How these games support the Gates</h2>
     <p class="safety">These games are optional developmental practices. They are not tests, grades, or diagnoses.</p>
     <div id="gates-alignment-summary"></div>
+  </section>
+
+  <section class="section" aria-labelledby="where-to-start-title">
+    <h2 id="where-to-start-title">Where to start</h2>
+    <p class="safety">Start anywhere. These paths are suggestions, not requirements.</p>
+    <div id="recommended-starting-paths"></div>
   </section>
 
   <script src="/gamehub/gamehub-session-adapter.js"></script>
@@ -94,6 +101,46 @@
 
         card.appendChild(gamesList);
         summaryEl.appendChild(card);
+      });
+
+      const pathRoot = document.getElementById('recommended-starting-paths');
+      if (!pathRoot || typeof registry.getRecommendedStartingPaths !== 'function') return;
+      registry.getRecommendedStartingPaths().forEach((path) => {
+        const card = document.createElement('article');
+        card.className = 'path-card';
+
+        const title = document.createElement('h3');
+        title.textContent = path.title;
+        card.appendChild(title);
+
+        const description = document.createElement('div');
+        description.className = 'meta';
+        description.textContent = path.description;
+        card.appendChild(description);
+
+        const gates = document.createElement('div');
+        gates.className = 'meta';
+        gates.textContent = `Related Gates: ${Array.isArray(path.related_gates) ? path.related_gates.join(', ') : ''}`;
+        card.appendChild(gates);
+
+        const gamesList = document.createElement('ul');
+        gamesList.className = 'gate-list';
+        (Array.isArray(path.games) ? path.games : []).forEach((game) => {
+          const li = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = game.launch_path || game.file_path;
+          link.textContent = game.title;
+          li.appendChild(link);
+          gamesList.appendChild(li);
+        });
+        card.appendChild(gamesList);
+
+        const safety = document.createElement('div');
+        safety.className = 'meta';
+        safety.textContent = path.safety_note;
+        card.appendChild(safety);
+
+        pathRoot.appendChild(card);
       });
     })();
   </script>
