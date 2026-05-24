@@ -120,3 +120,16 @@ Guardrails in this phase:
 | surf | persistence, focus | resilience | body_timing; recovery_after_setback; persistence; attention_focus; emotional_regulation | medium | Reflex/regulation signals only; no Gates scoring. |
 
 Checkers remains `hold_for_repair` and is intentionally excluded from local pilot mapping metadata.
+
+
+## PR21 Gates gate-detail practice recommendations (mapping-only)
+- Gate Detail pages render a **“Practice Games for this Gate”** section using `getGamesByGate(gateNumberOrKey)`.
+- Rendering is **mapping-only** and optional. It does **not** introduce tracking, scoring linkage, diagnostic conclusions, or database writeback.
+- Games are included only when all of the following are true:
+  - `instrumentation_status === local_pilot_ready`
+  - `local_instrumentation_ready === true`
+  - `tracking_ready === false`
+- `checkers` remains excluded while `hold_for_repair`.
+- Cards show title, short description, primary/secondary gate fit, parent-friendly signal categories, confidence label, and launch links via playable `launch_path`.
+- Safety copy shown in Gate Detail: “These games are optional developmental practices. They are not tests, grades, or diagnoses.”
+- Launch behavior remains unchanged: public launches continue to work; optional child/profile hints remain non-authoritative; no child identity is passed into game runtime logic.

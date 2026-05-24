@@ -27,3 +27,29 @@ test('discovery phase does not add tracking, gates scoring linkage, or db-write 
   assert.doesNotMatch(source, /tracking_ready\s*=\s*true/i);
   assert.doesNotMatch(source, /gatesScoring|insert\s+into|update\s+gates_/i);
 });
+
+
+test('gate detail practice recommendations use gate mapping helper and launch_path links', () => {
+  const source = fs.readFileSync(path.join(process.cwd(), 'public', 'gates.js'), 'utf8');
+  assert.match(source, /getGateMappedPracticeGames\(/);
+  assert.match(source, /getGamesByGate\(gateNumberOrKey\)/);
+  assert.match(source, /Practice Games for this Gate/);
+  assert.match(source, /instrumentation_status === 'local_pilot_ready'/);
+  assert.match(source, /local_instrumentation_ready === true/);
+  assert.match(source, /tracking_ready === false/);
+  assert.match(source, /game_key !== 'checkers'/);
+  assert.match(source, /These games are optional developmental practices\. They are not tests, grades, or diagnoses\./);
+  assert.match(source, /buildGameHubLaunchPath\(game\.launch_path \|\| game\.file_path, childId\)/);
+
+  const focusGames = registry.getGamesByGate('focus').filter((entry) => (
+    entry.instrumentation_status === 'local_pilot_ready'
+    && entry.local_instrumentation_ready === true
+    && entry.tracking_ready === false
+    && entry.game_key !== 'checkers'
+  ));
+  assert.ok(focusGames.length > 0);
+  assert.equal(focusGames.some((entry) => entry.game_key === 'checkers'), false);
+  for (const entry of focusGames) {
+    assert.ok(entry.launch_path.endsWith('.html'));
+  }
+});
