@@ -10,8 +10,13 @@
     "skill": { "type": "string" },
     "prerequisite_skill": { "type": "string" },
     "difficulty": { "type": ["integer", "string"] },
+    "difficulty_label": { "type": "string" },
     "explanation": { "type": "string" },
     "subject": { "type": "string" },
+    "category": { "type": "string" },
+    "theme": { "type": "string" },
+    "phonics_focus": { "type": "string" },
+    "standards": { "type": "array", "items": { "type": "string" } },
     "tags": { "type": "array", "items": { "type": "string" } },
     "choices": { "type": "array", "items": { "type": "string" } }
   }

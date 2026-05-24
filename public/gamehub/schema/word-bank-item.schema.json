@@ -1,1 +1,22 @@
-{"type":"object","required":["id","word","definition"],"properties":{"id":{"type":"string"},"word":{"type":"string"},"definition":{"type":"string"},"example":{"type":"string"},"sentence":{"type":"string"},"template":{"type":"string"},"synonym":{"type":"string"},"antonym":{"type":"string"},"grade":{"type":"number"}}}
+{
+  "type": "object",
+  "required": ["id", "word", "definition"],
+  "properties": {
+    "id": { "type": "string" },
+    "word": { "type": "string" },
+    "definition": { "type": "string" },
+    "example": { "type": "string" },
+    "sentence": { "type": "string" },
+    "template": { "type": "string" },
+    "synonym": { "type": "string" },
+    "antonym": { "type": "string" },
+    "grade": { "type": ["integer", "number", "string"] },
+    "difficulty": { "type": ["integer", "number", "string"] },
+    "difficulty_label": { "type": "string" },
+    "subject": { "type": "string" },
+    "category": { "type": "string" },
+    "theme": { "type": "string" },
+    "phonics_focus": { "type": "string" },
+    "tags": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -57,8 +57,12 @@
     return json;
   }
   function fromWordBankToSpellingLesson(wordBank, grade){
-    const items = (wordBank?.items || []).filter((it)=> grade ? it.grade === grade : true);
-    return items.map((it)=>({grade: it.grade || grade || 1, word: it.word, def: it.definition, example: it.example || it.sentence || ''}));
+    const requestedGrade = Number.isFinite(Number(grade)) ? Number(grade) : null;
+    const items = (wordBank?.items || []).filter((it)=> {
+      if (requestedGrade === null) return true;
+      return Number(it.grade) === requestedGrade;
+    });
+    return items.map((it)=>({grade: Number.isFinite(Number(it.grade)) ? Number(it.grade) : (requestedGrade || 1), word: it.word, def: it.definition, example: it.example || it.sentence || ''}));
   }
   function fromWordBankToSightWordsDeck(wordBank){
     return (wordBank?.items || []).map((it)=> it.word);
