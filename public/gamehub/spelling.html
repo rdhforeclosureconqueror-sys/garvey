@@ -243,6 +243,7 @@
     <div class="subtitle">
       1️⃣ Learn 10 words • 2️⃣ Quiz spelling • 3️⃣ Play I-Spy with the same words  
       Choose Grade 1 or Grade 3 from the Scripps lists.
+      <br/><strong id="modeNotice">Practice mode: Standard</strong>
     </div>
 
     <div class="controls">
@@ -483,7 +484,13 @@
       { grade: 3, word: "February", def: "the second month of the year", example: "Valentine Day is in February." }
     ];
 
-    const GAME_RUNTIME_CONTEXT_FALLBACK={child_display_name:"Player",child_age_band:null,profile_id:null,session_id:null,gate_context:null};
+    const GAME_RUNTIME_CONTEXT_FALLBACK={child_display_name:"Player",child_age_band:null,profile_id:null,session_id:null,gate_context:null,practice_path:null,mode_preset:"standard"};
+    const spellingPresetConfig={support:{lessonWordCount:8,framing:"Take your time—let’s build confidence one word at a time."},standard:{lessonWordCount:10,framing:"Steady practice mode for everyday spelling growth."},challenge:{lessonWordCount:12,framing:"Challenge mode adds a longer practice set for extra stretch."}};
+    function normalizeModePreset(v){const c=typeof v==="string"?v.trim().toLowerCase():"";return c==="support"||c==="challenge"?c:"standard"}
+    function labelModePreset(v){const n=normalizeModePreset(v);return n.charAt(0).toUpperCase()+n.slice(1)}
+    function getLaunchContext(){const params=new URLSearchParams(window.location.search);const rawCtx=window.__GATES_GAME_CONTEXT__||window.__GAME_RUNTIME_CONTEXT__||{};const merged={...GAME_RUNTIME_CONTEXT_FALLBACK,...rawCtx};if(params.has("gate_context")) merged.gate_context=params.get("gate_context");if(params.has("practice_path")) merged.practice_path=params.get("practice_path");if(params.has("mode_preset")) merged.mode_preset=params.get("mode_preset");return {...merged,mode_preset:normalizeModePreset(merged.mode_preset)}}
+    const launchContext=getLaunchContext();
+    const appliedSpellingPreset=spellingPresetConfig[launchContext.mode_preset]||spellingPresetConfig.standard;
     function getRuntimeContext(){const ctx=window.__GATES_GAME_CONTEXT__||window.__GAME_RUNTIME_CONTEXT__||{};return {...GAME_RUNTIME_CONTEXT_FALLBACK,...ctx}}
 
 

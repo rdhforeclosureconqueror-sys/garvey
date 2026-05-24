@@ -157,6 +157,7 @@
 
 <div class="wrap">
   <h1>🚀 Sight Words – Match & Learn</h1>
+  <p id="modeNotice">Practice mode: Standard</p>
 
   <!-- MATCH -->
   <section>
@@ -284,6 +285,13 @@ const ACTIVITY_KEYS = {
   match: "match_mode",
   learn: "learn_mode"
 };
+const GAME_RUNTIME_CONTEXT_FALLBACK={child_display_name:"Learner",child_age_band:null,profile_id:null,session_id:null,gate_context:null,practice_path:null,mode_preset:"standard"};
+function normalizeModePreset(v){const c=typeof v==="string"?v.trim().toLowerCase():"";return c==="support"||c==="challenge"?c:"standard"}
+function labelModePreset(v){const n=normalizeModePreset(v);return n.charAt(0).toUpperCase()+n.slice(1)}
+function getLaunchContext(){const params=new URLSearchParams(window.location.search);const raw=window.__GATES_GAME_CONTEXT__||window.__GAME_RUNTIME_CONTEXT__||{};const merged={...GAME_RUNTIME_CONTEXT_FALLBACK,...raw};if(params.has("gate_context")) merged.gate_context=params.get("gate_context");if(params.has("practice_path")) merged.practice_path=params.get("practice_path");if(params.has("mode_preset")) merged.mode_preset=params.get("mode_preset");return {...merged,mode_preset:normalizeModePreset(merged.mode_preset)}}
+const launchContext=getLaunchContext();
+const sightWordsPresetConfig={support:{defaultMatchSize:"12",learnFraming:"Support mode uses a smaller card set and extra hint-first pacing."},standard:{defaultMatchSize:"16",learnFraming:"Standard mode balances matching and letter practice."},challenge:{defaultMatchSize:"24",learnFraming:"Challenge mode uses a bigger card set for longer rounds."}};
+const appliedSightWordsPreset=sightWordsPresetConfig[launchContext.mode_preset]||sightWordsPresetConfig.standard;
 let adapterSessionStarted = false;
 let sessionStartMs = Date.now();
 let activeActivityKey = ACTIVITY_KEYS.match;
@@ -532,6 +540,9 @@ window.addEventListener("beforeunload", ()=>{
 });
 
 // init
+const modeNoticeEl=document.getElementById("modeNotice"); if(modeNoticeEl) modeNoticeEl.textContent=`Practice mode: ${labelModePreset(launchContext.mode_preset)}`;
+const matchSizeEl=document.getElementById("matchSize"); if(matchSizeEl) matchSizeEl.value=appliedSightWordsPreset.defaultMatchSize;
+const learnHintBoot=document.getElementById("learnHint"); if(learnHintBoot) learnHintBoot.textContent=appliedSightWordsPreset.learnFraming;
 startMatch();
 newLearn();
 </script>
