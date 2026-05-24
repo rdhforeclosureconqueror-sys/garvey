@@ -37,7 +37,7 @@ test("results CTAs route to different destinations", () => {
 
 test("gate detail page renders blueprint sections", () => {
   const js = fs.readFileSync("public/gates.js", "utf8");
-  for (const section of ["Core lesson", "Child learning statement", "Reflection questions", "Journal prompts", "Developing signs", "Integration signs", "Ceremony"]) {
+  for (const section of ["Core lesson", "Child learning statement", "Reflection questions", "Journal prompts", "Developing signs", "Integration signs", "Ceremony", "Practice Games for this Gate"]) {
     assert.ok(js.includes(section));
   }
 });
