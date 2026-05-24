@@ -1,1 +1,77 @@
-{"id":"sample-k-3","items":[{"id":"wb-1","word":"tag","definition":"a small label","example":"Read the tag.","sentence":"Read the tag on your bag.","synonym":"label","antonym":"blank","grade":1},{"id":"wb-2","word":"these","definition":"more than one nearby thing","example":"These are mine.","template":"These are the ___ books.","synonym":"those-here","antonym":"that","grade":1},{"id":"wb-3","word":"unicorn","definition":"a mythical horse with one horn","example":"The unicorn is purple.","synonym":"mythic horse","antonym":"real animal","grade":3},{"id":"wb-4","word":"vital","definition":"necessary for life","sentence":"Water is vital for plants.","synonym":"essential","antonym":"unimportant","grade":3}]}
+{
+  "id": "sample-k-3",
+  "metadata": {
+    "purpose": "Literacy practice sample",
+    "subjects": ["ELA"],
+    "grade_bands": [1, 3],
+    "notes": "Small sample for cross-game loader compatibility; not a full curriculum bank."
+  },
+  "items": [
+    {
+      "id": "wb-1",
+      "word": "tag",
+      "definition": "a small label",
+      "example": "Read the tag.",
+      "sentence": "Read the tag on your bag.",
+      "synonym": "label",
+      "antonym": "blank",
+      "grade": 1,
+      "difficulty": 1,
+      "difficulty_label": "support",
+      "subject": "ELA",
+      "category": "foundational-reading",
+      "theme": "school-objects",
+      "phonics_focus": "short-a-cvc",
+      "tags": ["subject:ela", "grade:1", "domain:phonics", "skill:cvc-decoding", "theme:school"]
+    },
+    {
+      "id": "wb-2",
+      "word": "these",
+      "definition": "more than one nearby thing",
+      "example": "These are mine.",
+      "template": "These are the ___ books.",
+      "synonym": "those-here",
+      "antonym": "that",
+      "grade": 1,
+      "difficulty": 1,
+      "difficulty_label": "support",
+      "subject": "ELA",
+      "category": "sight-words",
+      "theme": "classroom-language",
+      "phonics_focus": "high-frequency-irregular",
+      "tags": ["subject:ela", "grade:1", "domain:fluency", "skill:high-frequency-word", "theme:classroom"]
+    },
+    {
+      "id": "wb-3",
+      "word": "unicorn",
+      "definition": "a mythical horse with one horn",
+      "example": "The unicorn is purple.",
+      "synonym": "mythic horse",
+      "antonym": "real animal",
+      "grade": 3,
+      "difficulty": 2,
+      "difficulty_label": "standard",
+      "subject": "ELA",
+      "category": "vocabulary-development",
+      "theme": "imagination",
+      "phonics_focus": "multisyllabic-decoding",
+      "tags": ["subject:ela", "grade:3", "domain:vocabulary", "skill:context-vocabulary", "theme:fantasy"]
+    },
+    {
+      "id": "wb-4",
+      "word": "vital",
+      "definition": "necessary for life",
+      "sentence": "Water is vital for plants.",
+      "synonym": "essential",
+      "antonym": "unimportant",
+      "grade": 3,
+      "difficulty": 2,
+      "difficulty_label": "challenge",
+      "subject": "ELA",
+      "category": "academic-vocabulary",
+      "theme": "science-connections",
+      "phonics_focus": "open-syllable-vowel",
+      "tags": ["subject:ela", "grade:3", "domain:vocabulary", "skill:synonym-antonym", "theme:science"]
+    }
+  ]
+}

@@ -341,3 +341,38 @@ Tracking must remain disabled (`tracking_ready: false` for all games) until all 
   - no scoring or diagnosis additions
   - no adaptive engine rewrite
   - no GameHub registry logic changes
+
+## PR37 content scalability foundation (adaptive + literacy targets)
+- Scope limited to lightweight content/readiness surfaces only:
+  - `public/gamehub/content/*`
+  - `public/gamehub/schema/*`
+  - `public/gamehub/shared-content-loader.js`
+  - `tests/gamehub/*`
+  - this registry document
+- Primary targets covered in compatibility checks:
+  - `adaptive_learning`
+  - `spelling`
+  - `1stgradesightwords`
+  - `game6`
+- Content expansion audit outcomes (sample-bank level):
+  - **Scalability limit:** sample banks were previously flat/minimal and hard to extend consistently.
+  - **Metadata gaps:** optional expansion metadata (theme/category/phonics/difficulty labels) was not represented in schemas.
+  - **Duplication risk:** without structured tags and metadata conventions, game-specific curation could drift into repeated or inconsistent labeling.
+  - **Readiness response:** added lightweight metadata and structured tags to keep expansion curation consistent while staying sample-sized.
+- Schema strengthening (backward-compatible):
+  - Question bank item schema now supports optional `category`, `theme`, `phonics_focus`, `difficulty_label`, and `standards` fields.
+  - Word bank item schema now supports optional `difficulty`, `difficulty_label`, `subject`, `category`, `theme`, `phonics_focus`, and `tags` fields.
+  - Required core fields remain unchanged so existing loaders/content continue to work.
+- Shared loader compatibility:
+  - Preserved existing adapters for spelling/sight words/game6/adaptive.
+  - Improved grade filtering tolerance in spelling adapter so numeric-string grade values remain compatible with existing numeric behavior.
+- Sample-content organization:
+  - Kept sample banks intentionally small (no mass content expansion).
+  - Added top-level metadata and structured tags to word-bank samples for curation readiness.
+- Guardrails (unchanged):
+  - no tracking enablement
+  - no scoring/diagnosis logic
+  - no server or database writes
+  - no game engine rewrites
+  - no gameplay redesign
+  - no Gates logic changes
