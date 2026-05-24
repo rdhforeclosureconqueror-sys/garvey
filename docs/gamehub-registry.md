@@ -187,3 +187,22 @@ Checkers remains `hold_for_repair` and is intentionally excluded from local pilo
   - no server/database writes
   - no child scoring or diagnosis logic
   - no gameplay mechanics changes
+
+## PR28 expanded launch-context mode presets for literacy practice games
+- Extended launch-context awareness to `spelling`, `1stgradesightwords`, and `game6`.
+- These games now safely parse optional runtime launch context fields:
+  - `mode_preset`
+  - `practice_path`
+  - `gate_context`
+- Preset behavior is **practice-style-only framing/configuration** with safe fallback to `standard` when preset values are absent or unsupported.
+- Added visible in-game notice in each launch file: **“Practice mode: Support / Standard / Challenge”**.
+- Preset effects remain bounded and non-diagnostic:
+  - `spelling`: softer/stronger framing and smaller/larger default lesson set.
+  - `1stgradesightwords`: softer/harder framing with smaller/larger default card count.
+  - `game6`: softer/more demanding timing bands and round framing copy.
+- Guardrails remain unchanged:
+  - no tracking enablement
+  - `tracking_ready` remains `false`
+  - no server/database writes
+  - no child scoring
+  - no diagnosis language or logic
