@@ -39,6 +39,11 @@ test('gate detail practice recommendations use gate mapping helper and launch_pa
   assert.match(source, /tracking_ready === false/);
   assert.match(source, /game_key !== 'checkers'/);
   assert.match(source, /These games are optional developmental practices\. They are not tests, grades, or diagnoses\./);
+
+  assert.match(source, /What this game practices/);
+  assert.match(source, /Children may engage with these games in different ways\. Practice experiences do not equal grades or diagnoses\./);
+  assert.match(source, /Focus and sustained attention/);
+  assert.doesNotMatch(source, /developmental outcome|child outcome|diagnostic conclusion/i);
   assert.match(source, /buildGameHubLaunchPath\(game\.launch_path \|\| game\.file_path, childId\)/);
 
   const focusGames = registry.getGamesByGate('focus').filter((entry) => (

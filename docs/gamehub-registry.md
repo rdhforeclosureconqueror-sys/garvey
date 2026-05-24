@@ -133,3 +133,11 @@ Checkers remains `hold_for_repair` and is intentionally excluded from local pilo
 - Cards show title, short description, primary/secondary gate fit, parent-friendly signal categories, confidence label, and launch links via playable `launch_path`.
 - Safety copy shown in Gate Detail: “These games are optional developmental practices. They are not tests, grades, or diagnoses.”
 - Launch behavior remains unchanged: public launches continue to work; optional child/profile hints remain non-authoritative; no child identity is passed into game runtime logic.
+
+
+## PR22 Parent Practice Interpretation layer (descriptive-only)
+- Gate recommendation cards may include an optional **“What this game practices”** section derived from registry `signal_categories`.
+- Signal categories are translated into parent-friendly interpretation language (for example, `attention_focus` → “Focus and sustained attention”).
+- Parent-facing note: “Children may engage with these games in different ways. Practice experiences do not equal grades or diagnoses.”
+- This interpretation layer is descriptive and non-authoritative. It does **not** infer developmental outcomes, does not create diagnoses, and does not generate scores.
+- No telemetry or runtime changes were added: no tracking enablement, no database writes, and no launch-path behavior changes.

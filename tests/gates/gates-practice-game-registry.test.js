@@ -53,12 +53,12 @@ test("registry disclaimer is non-diagnostic and UI section is present in gate de
 
   const ui = fs.readFileSync("public/gates.js", "utf8");
   for (const marker of [
-    "Gate Practice Games",
-    "What it practices:",
-    "Which Gate it supports:",
-    "Suggested duration:",
-    "Observation signals",
-    "Parent reflection prompt:",
+    "Practice Games for this Gate",
+    "What this game practices",
+    "Primary Gate fit:",
+    "Secondary Gate fit:",
+    "Confidence:",
+    "Children may engage with these games in different ways. Practice experiences do not equal grades or diagnoses.",
     "These games are optional developmental practices. They are not tests, grades, or diagnoses."
   ]) {
     assert.ok(ui.includes(marker));
