@@ -5,6 +5,18 @@
   }
   root.GameHubRegistry = factory();
 })(typeof globalThis !== 'undefined' ? globalThis : this, function createGameHubRegistryModule() {
+  const GATE_KEY_ALIASES = Object.freeze({
+    1: 'learning',
+    2: 'focus',
+    3: 'resilience',
+    4: 'problem-solving',
+    5: 'consistency',
+    6: 'confidence',
+    7: 'self-control',
+    8: 'persistence',
+    9: 'adaptability'
+  });
+
   const GAMEHUB_REGISTRY = Object.freeze([
     {
       game_key: 'adaptive_learning',
@@ -22,6 +34,10 @@
       adapter_ready: true,
       local_instrumentation_ready: true,
       instrumentation_status: 'local_pilot_ready',
+      primary_gates: ['learning', 'focus'],
+      secondary_gates: ['resilience'],
+      signal_confidence: 'strong',
+      signal_categories: ['attention_focus', 'adaptive_reasoning', 'challenge_choice', 'persistence'],
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
       child_context_launch_allowed: true,
@@ -43,6 +59,10 @@
       adapter_ready: true,
       local_instrumentation_ready: true,
       instrumentation_status: 'local_pilot_ready',
+      primary_gates: ['focus'],
+      secondary_gates: ['problem-solving'],
+      signal_confidence: 'medium',
+      signal_categories: ['attention_focus', 'cognitive_flexibility', 'challenge_choice'],
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
       child_context_launch_allowed: true,
@@ -64,6 +84,10 @@
       adapter_ready: true,
       local_instrumentation_ready: true,
       instrumentation_status: 'local_pilot_ready',
+      primary_gates: ['focus'],
+      secondary_gates: ['consistency'],
+      signal_confidence: 'medium',
+      signal_categories: ['attention_focus', 'cognitive_flexibility', 'persistence', 'strategy_use'],
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
       child_context_launch_allowed: true,
@@ -85,6 +109,10 @@
       adapter_ready: true,
       local_instrumentation_ready: true,
       instrumentation_status: 'local_pilot_ready',
+      primary_gates: ['focus', 'persistence'],
+      secondary_gates: ['resilience'],
+      signal_confidence: 'strong',
+      signal_categories: ['attention_focus', 'recovery_after_setback', 'persistence', 'body_timing'],
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
       child_context_launch_allowed: true,
@@ -127,6 +155,10 @@
       adapter_ready: true,
       local_instrumentation_ready: true,
       instrumentation_status: 'local_pilot_ready',
+      primary_gates: ['learning'],
+      secondary_gates: ['confidence', 'problem-solving'],
+      signal_confidence: 'medium',
+      signal_categories: ['literacy_practice', 'adaptive_reasoning', 'strategy_use', 'challenge_choice'],
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
       child_context_launch_allowed: true,
@@ -148,6 +180,10 @@
       adapter_ready: true,
       local_instrumentation_ready: true,
       instrumentation_status: 'local_pilot_ready',
+      primary_gates: ['learning'],
+      secondary_gates: ['focus', 'consistency'],
+      signal_confidence: 'strong',
+      signal_categories: ['literacy_practice', 'attention_focus', 'persistence'],
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
       child_context_launch_allowed: true,
@@ -169,6 +205,10 @@
       adapter_ready: true,
       local_instrumentation_ready: true,
       instrumentation_status: 'local_pilot_ready',
+      primary_gates: ['learning', 'confidence'],
+      secondary_gates: ['focus'],
+      signal_confidence: 'strong',
+      signal_categories: ['literacy_practice', 'attention_focus', 'recovery_after_setback'],
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
       child_context_launch_allowed: true,
@@ -190,6 +230,10 @@
       adapter_ready: true,
       local_instrumentation_ready: true,
       instrumentation_status: 'local_pilot_ready',
+      primary_gates: ['persistence', 'focus'],
+      secondary_gates: ['resilience'],
+      signal_confidence: 'medium',
+      signal_categories: ['body_timing', 'recovery_after_setback', 'persistence', 'attention_focus', 'emotional_regulation'],
       public_launch_allowed: true,
       parent_context_launch_allowed: true,
       child_context_launch_allowed: true,
@@ -218,10 +262,27 @@
     return [];
   }
 
+  function getGamesByGate(gateNumberOrKey) {
+    const normalized = String(gateNumberOrKey || '').trim().toLowerCase();
+    if (!normalized) {
+      return [];
+    }
+    const resolvedGateKey = GATE_KEY_ALIASES[normalized] || normalized;
+    return GAMEHUB_REGISTRY.filter((entry) => {
+      const primary = Array.isArray(entry.primary_gates) ? entry.primary_gates : [];
+      const secondary = Array.isArray(entry.secondary_gates) ? entry.secondary_gates : [];
+      const supported = Array.isArray(entry.supported_gate_tags) ? entry.supported_gate_tags : [];
+      return primary.includes(resolvedGateKey)
+        || secondary.includes(resolvedGateKey)
+        || supported.includes(resolvedGateKey);
+    });
+  }
+
   return {
     GAMEHUB_REGISTRY,
     listGames,
     getGameByKey,
-    getLaunchableGames
+    getLaunchableGames,
+    getGamesByGate
   };
 });
