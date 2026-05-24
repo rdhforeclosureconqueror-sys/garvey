@@ -47,16 +47,16 @@
 
   function toParentFriendlySignalCategory(category) {
     const labels = {
-      attention_focus: 'focus and attention',
-      persistence: 'persistence through challenge',
-      recovery_after_setback: 'recovery after mistakes',
-      challenge_choice: 'comfort with challenge',
-      emotional_regulation: 'emotional regulation',
-      cognitive_flexibility: 'flexible thinking',
-      literacy_practice: 'literacy practice',
-      adaptive_reasoning: 'adaptive reasoning',
-      body_timing: 'timing and body coordination',
-      strategy_use: 'strategy use'
+      attention_focus: 'Focus and sustained attention',
+      persistence: 'Continuing through challenge',
+      recovery_after_setback: 'Trying again after mistakes',
+      challenge_choice: 'Making challenge decisions',
+      emotional_regulation: 'Practicing calm and recovery',
+      cognitive_flexibility: 'Switching and adapting',
+      literacy_practice: 'Reading and language practice',
+      adaptive_reasoning: 'Responding to changing difficulty',
+      body_timing: 'Timing and coordination',
+      strategy_use: 'Trying and adjusting strategies'
     };
     return labels[category] || String(category || '').replace(/_/g, ' ');
   }
@@ -341,7 +341,13 @@
     const gateKey = GATE_KEY_BY_NUMBER[Number(gate?.gate_number || 0) - 1] || String(gate?.gate_key || "").trim().toLowerCase();
     const games = getGateMappedPracticeGames(gate?.gate_number || gateKey);
     if (!games.length) return "";
-    return `<section class="panel" data-gate-detail-practice-games><h3>Practice Games for this Gate</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p>${games.map((game) => `<article class="panel gate-practice-game"><h4>${game.title}</h4><p>${game.description || ''}</p><p><strong>Primary Gate fit:</strong> ${(game.primary_gates || []).join(', ') || 'Not specified'}</p><p><strong>Secondary Gate fit:</strong> ${(game.secondary_gates || []).join(', ') || 'Not specified'}</p><p><strong>Signal categories:</strong> ${(game.signal_categories || []).map(toParentFriendlySignalCategory).join(', ') || 'Not specified'}</p><p><strong>Confidence:</strong> ${game.signal_confidence || 'Not specified'}</p><p><a class="btn secondary" href="${buildGameHubLaunchPath(game.launch_path || game.file_path, childId)}">Launch ${game.title}</a></p></article>`).join("")}</section>`;
+    const interpretationNote = 'Children may engage with these games in different ways. Practice experiences do not equal grades or diagnoses.';
+    const renderParentPracticeInterpretation = (game) => {
+      const interpretedSignals = (game.signal_categories || []).map(toParentFriendlySignalCategory).filter(Boolean);
+      if (!interpretedSignals.length) return '';
+      return `<h5>What this game practices</h5><ul>${interpretedSignals.map((label) => `<li>${label}</li>`).join('')}</ul>`;
+    };
+    return `<section class="panel" data-gate-detail-practice-games><h3>Practice Games for this Gate</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p><p>${interpretationNote}</p>${games.map((game) => `<article class="panel gate-practice-game"><h4>${game.title}</h4><p>${game.description || ''}</p>${renderParentPracticeInterpretation(game)}<p><strong>Primary Gate fit:</strong> ${(game.primary_gates || []).join(', ') || 'Not specified'}</p><p><strong>Secondary Gate fit:</strong> ${(game.secondary_gates || []).join(', ') || 'Not specified'}</p><p><strong>Confidence:</strong> ${game.signal_confidence || game.confidence || 'Not specified'}</p><p><a class="btn secondary" href="${buildGameHubLaunchPath(game.launch_path || game.file_path, childId)}">Launch ${game.title}</a></p></article>`).join("")}</section>`;
   }
 
   async function renderGateQuestLaunch(childId = null) {
