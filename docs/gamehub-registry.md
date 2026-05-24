@@ -329,3 +329,15 @@ Tracking must remain disabled (`tracking_ready: false` for all games) until all 
   - `parent_context_launch_allowed: false`
   - `child_context_launch_allowed: false`
 - This is a discovery/launch safety change only. No tracking, scoring, diagnosis, or database-write wiring was added.
+
+## PR36 Adaptive Learning content and UX readiness pass (expansion prep only)
+- Scope limited to Adaptive Learning content framing and learner/parent-facing session language.
+- Updated in-game copy to emphasize practice snapshots and learning moments rather than school-test framing.
+- Added parent-facing note inside Adaptive results: **“Practice snapshots are learning moments, not grades or labels.”**
+- Applied lightweight question-bank sample organization improvements (`question-bank.sample.json`) with clearer metadata and tag grouping style for future expansion.
+- Guardrails preserved:
+  - no tracking enablement
+  - no server/database writes
+  - no scoring or diagnosis additions
+  - no adaptive engine rewrite
+  - no GameHub registry logic changes

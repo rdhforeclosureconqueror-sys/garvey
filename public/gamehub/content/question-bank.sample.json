@@ -1,5 +1,11 @@
 {
   "id": "sample-questions",
+  "metadata": {
+    "purpose": "Adaptive Learning practice sample",
+    "subjects": ["Math", "English"],
+    "grade_bands": [6, 7],
+    "notes": "Sample structure only; not a full curriculum bank."
+  },
   "items": [
     {
       "id": "m7_sample_1",
@@ -13,7 +19,7 @@
       "choices": ["x = 3", "x = 4", "x = 5", "x = 6"],
       "answer": "x = 5",
       "explanation": "Subtract 4 to get 3x = 15, then divide by 3.",
-      "tags": ["algebra", "equations"]
+      "tags": ["subject:math", "grade:7", "domain:expressions-equations", "skill:two-step-equation"]
     },
     {
       "id": "e6_sample_1",
@@ -31,7 +37,7 @@
       ],
       "answer": "The overall point that details support",
       "explanation": "Main idea is the central message, while details provide support.",
-      "tags": ["reading"]
+      "tags": ["subject:english", "grade:6", "domain:main-idea", "skill:main-idea"]
     }
   ]
 }
