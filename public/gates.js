@@ -60,6 +60,27 @@
     };
     return labels[category] || String(category || '').replace(/_/g, ' ');
   }
+  function getParentReflectionPrompt(game) {
+    const directPrompt = String(game?.parent_reflection_prompt || '').trim();
+    if (directPrompt) return directPrompt;
+    const promptBySignalCategory = {
+      attention_focus: 'What helped your child stay focused?',
+      persistence: 'What did your child do after something felt hard?',
+      recovery_after_setback: 'How did your child recover after a mistake?',
+      challenge_choice: 'Did your child choose a safer challenge or a harder challenge?',
+      emotional_regulation: 'What helped your child return to calm after a hard moment?',
+      cognitive_flexibility: 'What strategy did your child try next when the rules changed?',
+      literacy_practice: 'What reading or word strategy did your child try next?',
+      adaptive_reasoning: 'How did your child adjust when the game became easier or harder?',
+      body_timing: 'What helped your child coordinate timing and control?',
+      strategy_use: 'What strategy did your child try next?'
+    };
+    const categories = Array.isArray(game?.signal_categories) ? game.signal_categories : [];
+    for (const category of categories) {
+      if (promptBySignalCategory[category]) return promptBySignalCategory[category];
+    }
+    return '';
+  }
   function renderGameHubPracticeSection(options = {}) {
     const childId = String(options.childId || '').trim();
     const context = childId ? 'child' : 'parent';
@@ -347,7 +368,7 @@
       if (!interpretedSignals.length) return '';
       return `<h5>What this game practices</h5><ul>${interpretedSignals.map((label) => `<li>${label}</li>`).join('')}</ul>`;
     };
-    return `<section class="panel" data-gate-detail-practice-games><h3>Practice Games for this Gate</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p><p>${interpretationNote}</p>${games.map((game) => `<article class="panel gate-practice-game"><h4>${game.title}</h4><p>${game.description || ''}</p>${renderParentPracticeInterpretation(game)}<p><strong>Primary Gate fit:</strong> ${(game.primary_gates || []).join(', ') || 'Not specified'}</p><p><strong>Secondary Gate fit:</strong> ${(game.secondary_gates || []).join(', ') || 'Not specified'}</p><p><strong>Confidence:</strong> ${game.signal_confidence || game.confidence || 'Not specified'}</p><p><a class="btn secondary" href="${buildGameHubLaunchPath(game.launch_path || game.file_path, childId)}">Launch ${game.title}</a></p></article>`).join("")}</section>`;
+    return `<section class="panel" data-gate-detail-practice-games><h3>Practice Games for this Gate</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p><p>${interpretationNote}</p>${games.map((game) => `<article class="panel gate-practice-game"><h4>${game.title}</h4><p>${game.description || ''}</p>${renderParentPracticeInterpretation(game)}${getParentReflectionPrompt(game) ? `<p><strong>Parent reflection:</strong> ${getParentReflectionPrompt(game)}</p>` : ''}<p><strong>Primary Gate fit:</strong> ${(game.primary_gates || []).join(', ') || 'Not specified'}</p><p><strong>Secondary Gate fit:</strong> ${(game.secondary_gates || []).join(', ') || 'Not specified'}</p><p><strong>Confidence:</strong> ${game.signal_confidence || game.confidence || 'Not specified'}</p><p><a class="btn secondary" href="${buildGameHubLaunchPath(game.launch_path || game.file_path, childId)}">Launch ${game.title}</a></p></article>`).join("")}<p class="disclaimer">These prompts are for reflection only and are not used to score or diagnose.</p></section>`;
   }
 
   async function renderGateQuestLaunch(childId = null) {

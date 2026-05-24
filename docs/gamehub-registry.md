@@ -141,3 +141,15 @@ Checkers remains `hold_for_repair` and is intentionally excluded from local pilo
 - Parent-facing note: “Children may engage with these games in different ways. Practice experiences do not equal grades or diagnoses.”
 - This interpretation layer is descriptive and non-authoritative. It does **not** infer developmental outcomes, does not create diagnoses, and does not generate scores.
 - No telemetry or runtime changes were added: no tracking enablement, no database writes, and no launch-path behavior changes.
+
+## PR23 Parent reflection prompts on Gate Detail practice cards
+- Gate Detail recommendation cards now support an optional **Parent reflection** line for each practice game.
+- Prompt metadata can be provided directly in GameHub registry entries (`parent_reflection_prompt`) or derived from existing `signal_categories` fallbacks.
+- Prompts are observational conversation supports only (for example focus, recovery, strategy attempts, and challenge choices).
+- Safety copy is shown alongside cards: **“These prompts are for reflection only and are not used to score or diagnose.”**
+- Guardrails remain unchanged:
+  - no server tracking
+  - no database writes
+  - no parent-response input or storage
+  - no Gates scoring linkage
+  - no gameplay changes
