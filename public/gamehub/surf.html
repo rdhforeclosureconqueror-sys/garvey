@@ -74,6 +74,7 @@
     <p>This fixed version keeps the <strong>surfing</strong>, the <strong>unicorn princess</strong>, the <strong>math questions</strong>, the <strong>score</strong>, and the <strong>HUD</strong>.</p>
     <p>Hit a <strong>question mark</strong> to choose Easy, Medium, or Hard math.</p>
     <p><strong>2 correct in a row</strong> = triple heart spray. <strong>4+ streak</strong> = rainbow heart power.</p>
+    <div class="tag" id="modeNotice">Practice mode: Standard</div>
     <div class="tag">Arrow keys move • Space shoots rainbow hearts • Shift boosts • - / + changes speed</div>
     <div style="margin-top:18px"><button onclick="startGame()">Start Game</button></div>
   </div>
@@ -132,6 +133,13 @@ function getDurationBand(startedAt){ const e=Math.max(0,Date.now()-startedAt); i
 function getPersistenceBand(streak){ if(streak<=0) return 'reset'; if(streak<=2) return 'steady'; return 'persistent'; }
 let sessionStartedAt=0;
 
+const GAME_RUNTIME_CONTEXT_FALLBACK={child_display_name:"Player",child_age_band:null,profile_id:null,session_id:null,gate_context:null,practice_path:null,mode_preset:"standard"};
+function normalizeModePreset(v){const c=typeof v==='string'?v.trim().toLowerCase():'';return c==='support'||c==='challenge'?c:'standard'}
+function getLaunchContext(){const ctx=window.__GATES_GAME_CONTEXT__||window.__GAME_RUNTIME_CONTEXT__||{};const merged={...GAME_RUNTIME_CONTEXT_FALLBACK,...ctx};return {...merged,mode_preset:normalizeModePreset(merged.mode_preset)} }
+const launchContext=getLaunchContext();
+const modePreset=launchContext.mode_preset;
+
+
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 const flash = document.getElementById('flash');
@@ -152,12 +160,14 @@ const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
 const rand=(a,b)=>Math.random()*(b-a)+a;
 const keys={};
 
+const surfPresetConfig={support:{speedBaseWorld:136,speedBoostMultiplier:1.48,spawnMaxObjects:18,questionRanges:{easy:{a:[0,8],b:[0,8]},medium:{a:[8,60],b:[0,8]},hard:{a:[8,70],b:[8,35]}}},standard:{speedBaseWorld:150,speedBoostMultiplier:1.55,spawnMaxObjects:20,questionRanges:{easy:{a:[0,10],b:[0,10]},medium:{a:[10,100],b:[0,10]},hard:{a:[10,100],b:[10,100]}}},challenge:{speedBaseWorld:168,speedBoostMultiplier:1.62,spawnMaxObjects:22,questionRanges:{easy:{a:[0,12],b:[0,12]},medium:{a:[12,120],b:[0,14]},hard:{a:[15,140],b:[12,120]}}}};
+const appliedSurfPreset=surfPresetConfig[modePreset]||surfPresetConfig.standard;
 const SURF_DEFAULT_CONFIG = {
-  speed:{min:0.6,max:1.8,step:0.1,baseWorld:150,boostMultiplier:1.55},
+  speed:{min:0.6,max:1.8,step:0.1,baseWorld:appliedSurfPreset.speedBaseWorld,boostMultiplier:appliedSurfPreset.speedBoostMultiplier},
   streak:{tripleThreshold:2,rainbowThreshold:4},
-  spawn:{initialCount:12,maxObjects:20,types:['coin','coin','coin','rock','shark','piranha','question']},
+  spawn:{initialCount:12,maxObjects:appliedSurfPreset.spawnMaxObjects,types:['coin','coin','coin','rock','shark','piranha','question']},
   rewards:{easy:{energy:20,magic:10,boost:8,coins:1,score:35},medium:{energy:35,magic:18,boost:14,coins:2,score:60},hard:{energy:100,magic:32,boost:22,coins:3,score:95}},
-  questionRanges:{easy:{a:[0,10],b:[0,10]},medium:{a:[10,100],b:[0,10]},hard:{a:[10,100],b:[10,100]}},
+  questionRanges:appliedSurfPreset.questionRanges,
   modePresetNames:['support','standard','challenge']
 };
 const surfConfig = { ...SURF_DEFAULT_CONFIG };

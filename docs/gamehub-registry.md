@@ -180,6 +180,7 @@ Checkers remains `hold_for_repair` and is intentionally excluded from local pilo
 - The helper validates safe values, rejects unsupported/unsafe params, and always uses playable registry `launch_path` as the base route.
 - GameHub index now includes parent-facing mode preset selection UI with options **Support**, **Standard**, and **Challenge**.
 - Parent-facing safety language added: “Practice modes change the experience style, not your child’s value or ability.”
+- Launch-context-aware games (`surf`, `brickblast`, `adaptive_learning`) interpret `mode_preset` as **configuration tuning only** (pacing, ranges, escalation/session framing), preserving core gameplay identity and mechanics.
 - Scope guardrails for PR26:
   - no tracking enablement
   - `tracking_ready` remains `false`

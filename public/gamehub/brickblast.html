@@ -154,6 +154,7 @@
   <div id="menu" class="center">
     <div class="card">
       <h1>Brick Burst</h1>
+      <p class="small" id="modeNotice">Practice mode: Standard</p>
       <p>Combo Rush Edition: faster levels, shaped brick boards, more mystery drops, visible power-up timers, combo bonuses, and round-clear celebrations.</p>
       <button id="startBtn">START GAME</button>
       <div class="controls">
@@ -180,6 +181,11 @@
   const ACTIVITY_KEY = "brickblast_combo_rush";
   const GAME_MODE = "combo_rush";
   const adapter = typeof globalThis !== "undefined" ? globalThis.GameHubSessionAdapter : null;
+  const GAME_RUNTIME_CONTEXT_FALLBACK={child_display_name:"Player",child_age_band:null,profile_id:null,session_id:null,gate_context:null,practice_path:null,mode_preset:"standard"};
+  function normalizeModePreset(v){const c=typeof v==="string"?v.trim().toLowerCase():"";return c==="support"||c==="challenge"?c:"standard"}
+  function getLaunchContext(){const ctx=window.__GATES_GAME_CONTEXT__||window.__GAME_RUNTIME_CONTEXT__||{};const merged={...GAME_RUNTIME_CONTEXT_FALLBACK,...ctx};return {...merged,mode_preset:normalizeModePreset(merged.mode_preset)}}
+  const launchContext=getLaunchContext();
+  const modePreset=launchContext.mode_preset;
   let currentRoundStartedAt = 0;
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");
@@ -235,13 +241,15 @@
 
   const BRICKBLAST_DEFAULT_CONFIG = {
     startingLives:3,
-    speedCurve:{base:315,perLevel:38,max:760,minMultiplier:0.95,reboundBase:330,reboundPerLevel:25,ballAccel:1.01,hitFactor:0.85},
-    powerupDurations:{laser:6,sticky:8,big:10,slow:7},
-    dropRates:{mysteryBase:0.24,mysteryCapAdd:0.14,mysteryPerLevel:0.012,bombBase:0.08,bombCapAdd:0.08,bombPerLevel:0.006,mysteryDropChance:0.10,dropFallBase:120,dropFallPerLevel:8},
+    speedCurve:{base:appliedBrickblastPreset.speedCurve.base,perLevel:appliedBrickblastPreset.speedCurve.perLevel,max:760,minMultiplier:0.95,reboundBase:330,reboundPerLevel:25,ballAccel:1.01,hitFactor:0.85},
+    powerupDurations:{laser:Math.round(6*appliedBrickblastPreset.powerupMultiplier),sticky:Math.round(8*appliedBrickblastPreset.powerupMultiplier),big:Math.round(10*appliedBrickblastPreset.powerupMultiplier),slow:Math.round(7*appliedBrickblastPreset.powerupMultiplier)},
+    dropRates:{mysteryBase:0.24,mysteryCapAdd:0.14,mysteryPerLevel:0.012,bombBase:0.08,bombCapAdd:0.08,bombPerLevel:0.006,mysteryDropChance:appliedBrickblastPreset.dropChance,dropFallBase:120,dropFallPerLevel:8},
     levelScaling:{maxRows:10,baseRows:5,rowPerLevel:0.8,hpLeadRowsBase:2,hpLeadRowsPerLevel:2},
-    combo:{bonusThreshold:4,bonusMultiplier:6,milestones:[4,8,12,5]}
+    combo:{bonusThreshold:4,bonusMultiplier:6,milestones:appliedBrickblastPreset.comboMilestones}
   };
-  const brickblastConfig = { ...BRICKBLAST_DEFAULT_CONFIG };
+  const brickblastPresetConfig={support:{speedCurve:{base:300,perLevel:33},powerupMultiplier:1.15,comboMilestones:[4,8,12],dropChance:0.3},standard:{speedCurve:{base:315,perLevel:38},powerupMultiplier:1,comboMilestones:[5,9,12],dropChance:0.33},challenge:{speedCurve:{base:332,perLevel:42},powerupMultiplier:0.95,comboMilestones:[5,8,11],dropChance:0.35}};
+const appliedBrickblastPreset=brickblastPresetConfig[modePreset]||brickblastPresetConfig.standard;
+const brickblastConfig = { ...BRICKBLAST_DEFAULT_CONFIG };
   const levelSpeed = ()=> Math.min(brickblastConfig.speedCurve.max, brickblastConfig.speedCurve.base + level * brickblastConfig.speedCurve.perLevel);
 
   const POWER = {
