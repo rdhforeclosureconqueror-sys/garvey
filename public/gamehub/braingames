@@ -465,7 +465,51 @@
     </div>
   </div>
 
+  <script src="./gamehub-session-adapter.js"></script>
   <script>
+    const GAME_KEY = 'braingames';
+    const SESSION_MODE = 'local_pilot';
+    const ACTIVITY_KEYS = {
+      freeze: 'freeze_runner',
+      defender: 'distraction_defender',
+      power: 'plasma_hold',
+      emotion: 'calm_reactor',
+      switch: 'switch_matrix'
+    };
+    const adapter = window.GamehubSessionAdapter || null;
+    let adapterSessionStarted = false;
+    let adapterSessionEnded = false;
+
+    function emitAdapterEvent(eventName, payload) {
+      if (adapter && typeof adapter.emit === 'function') adapter.emit(eventName, payload);
+    }
+
+    function ensureAdapterSession() {
+      if (adapterSessionStarted || !adapter) return;
+      if (typeof adapter.startSession === 'function') adapter.startSession({ game_key: GAME_KEY, mode: SESSION_MODE });
+      emitAdapterEvent('game_session_started', { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS[currentGame], mode: SESSION_MODE });
+      adapterSessionStarted = true;
+      adapterSessionEnded = false;
+    }
+
+    function endAdapterSession(completionState) {
+      if (!adapterSessionStarted || adapterSessionEnded || !adapter) return;
+      emitAdapterEvent('game_session_ended', {
+        game_key: GAME_KEY,
+        activity_key: ACTIVITY_KEYS[currentGame],
+        mode: SESSION_MODE,
+        completion_state: completionState || 'exit',
+        persistence_band: 'unknown'
+      });
+      if (typeof adapter.endSession === 'function') adapter.endSession({ completion_state: completionState || 'exit' });
+      adapterSessionEnded = true;
+    }
+
+    function durationBand(ms) {
+      if (!Number.isFinite(ms) || ms < 10000) return 'short';
+      if (ms < 30000) return 'medium';
+      return 'long';
+    }
     const games = {
       freeze: {
         name: 'Freeze Runner',
@@ -569,7 +613,9 @@
     }
 
     function switchGame(gameKey) {
+      ensureAdapterSession();
       currentGame = gameKey;
+      emitAdapterEvent('activity_selected', { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS[gameKey], mode: SESSION_MODE });
       document.querySelectorAll('.game-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.game === gameKey));
       clearScene();
       games[gameKey].score = 0;
@@ -636,6 +682,7 @@
       let frame;
       let freezeTimeout;
       let nextFreezeTimeout;
+      let roundStartedAt = 0;
 
       function positionHoles() {
         const width = scene.clientWidth;
@@ -679,6 +726,8 @@
       }
 
       function startGame() {
+        ensureAdapterSession();
+        roundStartedAt = Date.now();
         games.freeze.score = 0;
         games.freeze.level = 1;
         updateHud();
@@ -689,6 +738,7 @@
         runner.classList.remove('frozen');
         resetPositions();
         setStatus('Run through the maze. Freeze when the alert flashes.');
+        emitAdapterEvent('round_started', { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS.freeze, mode: SESSION_MODE, level_band: 'intro' });
         spawnFreezeEvent();
         cancelAnimationFrame(frame);
         frame = requestAnimationFrame(loop);
@@ -701,6 +751,14 @@
         cancelAnimationFrame(frame);
         saveBest('freeze', games.freeze.score);
         setStatus(message, 'var(--bad)');
+        emitAdapterEvent('round_completed', {
+          game_key: GAME_KEY,
+          activity_key: ACTIVITY_KEYS.freeze,
+          mode: SESSION_MODE,
+          success: false,
+          duration_band: durationBand(Date.now() - roundStartedAt),
+          level_band: games.freeze.level > 4 ? 'advanced' : games.freeze.level > 2 ? 'developing' : 'intro'
+        });
       }
 
       function checkHoleCollision() {
@@ -722,6 +780,7 @@
           if (y > scene.clientHeight - 92) {
             games.freeze.score += 10;
             games.freeze.level = 1 + Math.floor(games.freeze.score / 30);
+            emitAdapterEvent('level_changed', { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS.freeze, mode: SESSION_MODE, level_band: games.freeze.level > 4 ? 'advanced' : games.freeze.level > 2 ? 'developing' : 'intro' });
             speed = 2.8 + (games.freeze.level - 1) * 0.55;
             updateHud();
             x = 28; y = 220;
@@ -761,10 +820,12 @@
           games.freeze.level = 1 + Math.floor(games.freeze.score / 30);
           updateHud();
           setStatus('Frozen successfully. Hold still...', 'var(--good)');
+          emitAdapterEvent('recovery_after_miss', { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS.freeze, mode: SESSION_MODE, event_category: 'timing_recovery' });
         } else {
           games.freeze.score = Math.max(0, games.freeze.score - 2);
           updateHud();
           setStatus('Too early. Wait for the alert.', 'var(--warn)');
+          emitAdapterEvent('persistence_signal', { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS.freeze, mode: SESSION_MODE, persistence_band: 'continuing' });
         }
       }, 'secondary');
 
@@ -1219,6 +1280,7 @@
     }
 
     switchGame('freeze');
+    window.addEventListener('beforeunload', () => endAdapterSession('exit'));
   </script>
 </body>
 </html>

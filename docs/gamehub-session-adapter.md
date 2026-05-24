@@ -224,3 +224,44 @@ Adaptive Learning is now minimally instrumented with the same no-op session adap
 - Payloads are aggregate/banded only: no raw educational content leaves runtime.
 - Instrumentation does not alter adaptive flow, question selection, results rendering, or local history behavior.
 - `tracking_ready` remains `false`.
+
+## NeuroSpark Kids Lab (braingames) mini-suite pilot (local-only preview)
+NeuroSpark Kids Lab (`braingames`) is instrumented as a **mini-suite** pilot with shared local/in-memory session signaling only:
+- no server tracking
+- no database writes
+- no Gates scoring wiring
+- no child identity fields
+- no raw prompts/questions/answers
+- no exact score values
+
+### Mini-suite activity mapping
+Each mini-game is treated as a suite activity (not a separate tracking system):
+- `freeze_runner`
+- `distraction_defender`
+- `plasma_hold`
+- `calm_reactor`
+- `switch_matrix`
+
+### NeuroSpark pilot event map
+- `game_session_started`
+  - payload keys: `game_key`, `activity_key`, `mode`
+- `activity_selected`
+  - payload keys: `game_key`, `activity_key`, `mode`
+- `round_started`
+  - payload keys: `game_key`, `activity_key`, `mode`, `level_band`
+- `round_completed`
+  - payload keys: `game_key`, `activity_key`, `mode`, `success`, `duration_band`, `level_band`
+- `level_changed`
+  - payload keys: `game_key`, `activity_key`, `mode`, `level_band`
+- `persistence_signal`
+  - payload keys: `game_key`, `activity_key`, `mode`, `persistence_band`
+- `recovery_after_miss`
+  - payload keys: `game_key`, `activity_key`, `mode`, `event_category`
+- `game_session_ended`
+  - payload keys: `game_key`, `activity_key`, `mode`, `completion_state`, `persistence_band`
+
+### NeuroSpark pilot guardrails
+- Allowed payload keys remain limited to canonical safety keys only (`game_key`, `activity_key`, `mode`, `success`, `duration_band`, `persistence_band`, `level_band`, `completion_state`, `event_category`).
+- No raw gameplay telemetry, exact score fields, or free text child content are emitted.
+- Instrumentation is adapter-only and does not change mini-game behavior.
+- `tracking_ready` remains `false`.
