@@ -276,3 +276,21 @@ Tracking must remain disabled (`tracking_ready: false` for all games) until all 
 - [ ] Deletion/export policy implemented for child/family data rights workflows.
 - [ ] Clinical/diagnostic language guardrails formally documented and test-enforced.
 
+
+## PR32 parent-facing readiness note on GameHub index (communication-only)
+- Added a parent-facing **"About these practice games"** section to `public/gamehub/index.html`.
+- The note clarifies what is ready now in plain language:
+  - games are playable
+  - games are optional
+  - families can explore by Gate support area or by practice path
+- The note also clarifies what is not ready/what is not happening:
+  - games are **not** tests, grades, or diagnoses
+  - practice modes are experience styles only
+  - no game results are currently used to score Gates
+- This is communication-only and does not add or expose runtime internals.
+- Guardrails remain unchanged:
+  - no tracking enablement
+  - `tracking_ready` remains `false`
+  - no server/database writes
+  - no child scoring or diagnosis logic
+  - no gameplay changes
