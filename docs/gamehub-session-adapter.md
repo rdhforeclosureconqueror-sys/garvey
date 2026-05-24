@@ -265,3 +265,44 @@ Each mini-game is treated as a suite activity (not a separate tracking system):
 - No raw gameplay telemetry, exact score fields, or free text child content are emitted.
 - Instrumentation is adapter-only and does not change mini-game behavior.
 - `tracking_ready` remains `false`.
+
+## BrainGame2 mini-suite pilot (local-only preview)
+BrainGame2 (`braingame2`) is now minimally instrumented using the same local-only session adapter pilot pattern:
+- no server tracking
+- no database/storage writes
+- no Gates scoring wiring
+- no child identity fields
+- no raw prompts/questions/answers
+- no exact score/jackpot/prize payload fields
+
+### BrainGame2 mini-suite activity mapping
+Each internal mini-game is treated as an activity:
+- `maze_freeze_run`
+- `signal_sorter`
+- `quantum_prize_wheel`
+- `emotion_meter_challenge`
+- `task_switching_lab`
+
+### BrainGame2 pilot event map
+- `game_session_started`
+  - payload keys: `game_key`, `activity_key`, `mode`
+- `activity_selected`
+  - payload keys: `game_key`, `activity_key`, `mode`
+- `round_started`
+  - payload keys: `game_key`, `activity_key`, `mode`, `level_band`
+- `round_completed`
+  - payload keys: `game_key`, `activity_key`, `mode`, `success`, `duration_band`, `level_band`
+- `level_changed`
+  - payload keys: `game_key`, `activity_key`, `mode`, `level_band`
+- `persistence_signal`
+  - payload keys: `game_key`, `activity_key`, `mode`, `persistence_band`
+- `recovery_after_miss`
+  - payload keys: `game_key`, `activity_key`, `mode`, `event_category`
+- `game_session_ended`
+  - payload keys: `game_key`, `activity_key`, `mode`, `completion_state`, `persistence_band`
+
+### BrainGame2 guardrails
+- Canonical events only for this mini-suite pilot.
+- Payloads remain limited to canonical safety keys only (`game_key`, `activity_key`, `mode`, `success`, `duration_band`, `persistence_band`, `level_band`, `completion_state`, `event_category`).
+- Instrumentation remains local/in-memory only and does not change gameplay behavior.
+- `tracking_ready` remains `false`.
