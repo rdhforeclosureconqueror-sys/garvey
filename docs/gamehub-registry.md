@@ -257,7 +257,7 @@ The table below is the **single planning source of truth** for current GameHub/G
 | braingame2 | Yes | Yes (`local_pilot_ready`) | Yes | Yes | Yes | No | Mini-suite pilot instrumentation remains local-only; no server ingestion. |
 | braingames | Yes | Yes (`local_pilot_ready`) | Yes | Yes | Yes | No | Mini-suite pilot instrumentation remains local-only; no score linkage. |
 | brickblast | Yes | Yes (`local_pilot_ready`) | Yes | Yes | Yes | No | Local-only pilot instrumentation with gate mapping/recommendation support. |
-| checkers | No (`hold_for_repair`) | No | No | No | No | No | Not playable and intentionally excluded from Gate Detail recommendations. |
+| checkers | No (`hold_for_repair`) | No | No | No | No | No | Not playable; excluded from public/parent/child launch discovery surfaces and Gate Detail recommendations until repaired. |
 | game6 | Yes | Yes (`local_pilot_ready`) | Yes | Yes | Yes | No | Local-only instrumentation; mode presets are launch-context framing only. |
 | spelling | Yes | Yes (`local_pilot_ready`) | Yes | Yes | Yes | No | Local-only instrumentation; no child scoring or diagnosis logic. |
 | 1stgradesightwords | Yes | Yes (`local_pilot_ready`) | Yes | Yes | Yes | No | Local-only instrumentation; recommendation support remains descriptive-only. |
@@ -320,3 +320,12 @@ Tracking must remain disabled (`tracking_ready: false` for all games) until all 
   - no scoring pipeline additions
   - no database-write logic
   - no gameplay engine/mechanics redesign
+
+
+## PR35 checkers launch retirement while hold_for_repair
+- Checkers remains `instrumentation_status: hold_for_repair` with `tracking_ready: false` and `local_instrumentation_ready: false`.
+- Because the current launch file is not reliably browser-playable, Checkers is now excluded from active discovery surfaces by setting:
+  - `public_launch_allowed: false`
+  - `parent_context_launch_allowed: false`
+  - `child_context_launch_allowed: false`
+- This is a discovery/launch safety change only. No tracking, scoring, diagnosis, or database-write wiring was added.
