@@ -22,6 +22,18 @@
 <body>
   <h1>GameHub</h1>
   <p class="note">Registry-backed launch index. Existing standalone game routes remain unchanged.</p>
+
+  <section class="section" aria-labelledby="mode-preset-title">
+    <h2 id="mode-preset-title">Practice mode preset</h2>
+    <p class="safety">Practice modes change the experience style, not your child’s value or ability.</p>
+    <label for="mode-preset-select">Choose a preset:</label>
+    <select id="mode-preset-select">
+      <option value="support">Support</option>
+      <option value="standard" selected>Standard</option>
+      <option value="challenge">Challenge</option>
+    </select>
+  </section>
+
   <ul id="gamehub-list"></ul>
 
   <section class="section" aria-labelledby="gates-alignment-title">
@@ -37,10 +49,20 @@
       const registry = window.GameHubRegistry;
       const listEl = document.getElementById('gamehub-list');
       if (!registry || !listEl) return;
+      const presetEl = document.getElementById('mode-preset-select');
+      const getModePreset = () => (presetEl && presetEl.value ? presetEl.value : 'standard');
+      const buildLaunchHref = (entry) => {
+        if (typeof registry.getLaunchContextForGame !== 'function') {
+          return entry.launch_path || entry.file_path;
+        }
+        const launchContext = registry.getLaunchContextForGame(entry.game_key, { mode_preset: getModePreset() });
+        return launchContext ? launchContext.launch_path : (entry.launch_path || entry.file_path);
+      };
+
       registry.getLaunchableGames('public').forEach((entry) => {
         const item = document.createElement('li');
         const anchor = document.createElement('a');
-        anchor.href = entry.launch_path || entry.file_path;
+        anchor.href = buildLaunchHref(entry);
         anchor.textContent = entry.title;
         const meta = document.createElement('div');
         meta.className = 'meta';
@@ -53,6 +75,18 @@
         item.appendChild(description);
         listEl.appendChild(item);
       });
+
+      if (presetEl) {
+        presetEl.addEventListener('change', () => {
+          listEl.querySelectorAll('li a').forEach((anchor, index) => {
+            const entries = registry.getLaunchableGames('public');
+            const entry = entries[index];
+            if (entry) {
+              anchor.href = buildLaunchHref(entry);
+            }
+          });
+        });
+      }
 
       const summaryEl = document.getElementById('gates-alignment-summary');
       if (!summaryEl || typeof registry.getGateAlignmentSummary !== 'function') return;
