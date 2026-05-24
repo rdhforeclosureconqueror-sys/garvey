@@ -206,3 +206,22 @@ Checkers remains `hold_for_repair` and is intentionally excluded from local pilo
   - no server/database writes
   - no child scoring
   - no diagnosis language or logic
+
+## PR29 launch-context mode presets for mini-suite arcade games
+- Extended launch-context awareness to `braingames` and `braingame2`.
+- These mini-suite launch files now safely parse optional runtime launch context fields:
+  - `mode_preset`
+  - `practice_path`
+  - `gate_context`
+- Presets are interpreted as **optional practice style only** with safe fallback to `standard`.
+- Added visible in-game notice in each launch file: **“Practice mode: Support / Standard / Challenge”**.
+- Preset effects are configuration/framing only where safe:
+  - `braingames`: gentle/standard/challenge pacing adjustments on freeze timing and charge pace.
+  - `braingame2`: gentle/standard/challenge defaults for maze pace, sorter flip pacing, and wheel charge pace.
+- Guardrails remain unchanged:
+  - no tracking enablement
+  - `tracking_ready` remains `false`
+  - no server/database writes
+  - no child scoring
+  - no diagnosis language or logic
+  - mini-game lifecycle and markers remain intact

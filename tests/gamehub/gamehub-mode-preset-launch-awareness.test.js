@@ -10,7 +10,7 @@ function read(rel) {
 }
 
 test('expanded eligible games parse launch context mode_preset with standard fallback', () => {
-  ['public/gamehub/spelling', 'public/gamehub/1stgradesightwords', 'public/gamehub/game6'].forEach((rel) => {
+  ['public/gamehub/spelling', 'public/gamehub/1stgradesightwords', 'public/gamehub/game6', 'public/gamehub/braingames', 'public/gamehub/braingame2'].forEach((rel) => {
     const src = read(rel);
     assert.match(src, /mode_preset/);
     assert.match(src, /practice_path/);
@@ -46,7 +46,7 @@ test('preset launch-awareness patch keeps tracking/db/scoring wiring off', () =>
 });
 
 test('game launch files remain playable HTML and include optional practice mode notice', () => {
-  ['spelling', '1stgradesightwords', 'game6'].forEach((name) => {
+  ['spelling', '1stgradesightwords', 'game6', 'braingames', 'braingame2'].forEach((name) => {
     const html = read(`public/gamehub/${name}.html`);
     assert.match(html, /<!DOCTYPE html>/i);
     assert.match(html, /Practice mode:\s*(Support|Standard|Challenge)/);
