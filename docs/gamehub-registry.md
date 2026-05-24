@@ -81,3 +81,18 @@ Any stale references should be audited in follow-up PRs with route-level tests b
 - **Allowed neutral labels:** Use neutral fallback labels only: `Learner`, `Player`, and `Demo Learner`, until Gates explicitly provides safe runtime context.
 - **Fictional content boundary:** Clearly fictional story characters may remain when they are not presented as the logged-in child identity.
 - **Safety guardrail:** This cleanup is identity-only; it does not add tracking, scoring integration, or database writes.
+
+
+## PR19 instrumentation audit status table
+
+| Game | Playable | Shared content/config ready | Local adapter pilot | Tracking ready | Notes |
+| --- | --- | --- | --- | --- | --- |
+| adaptive_learning | Yes | Yes | Yes | No | Local-only pilot instrumentation present. |
+| braingame2 | Yes | No | Yes | No | Mini-suite pilot instrumentation present. |
+| braingames | Yes | No | Yes | No | Mini-suite pilot instrumentation present. |
+| brickblast | Yes | Yes | Yes | No | Local-only pilot instrumentation present. |
+| checkers | No (malformed source mirrors markdown draft) | No | No | No | Hold for repair; do not mark local-instrumentation ready. |
+| game6 | Yes | Yes | Yes | No | Local-only pilot instrumentation present. |
+| spelling | Yes | Yes | Yes | No | Local-only pilot instrumentation present. |
+| 1stgradesightwords | Yes | Yes | Yes | No | Local-only pilot instrumentation present. |
+| surf | Yes | Yes | Yes | No | Local-only pilot instrumentation present. |

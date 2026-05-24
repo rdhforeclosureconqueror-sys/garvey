@@ -306,3 +306,18 @@ Each internal mini-game is treated as an activity:
 - Payloads remain limited to canonical safety keys only (`game_key`, `activity_key`, `mode`, `success`, `duration_band`, `persistence_band`, `level_band`, `completion_state`, `event_category`).
 - Instrumentation remains local/in-memory only and does not change gameplay behavior.
 - `tracking_ready` remains `false`.
+
+
+## PR19 instrumentation audit snapshot
+
+| Game | Playable | Shared content/config ready | Local adapter pilot | Tracking ready | Notes |
+| --- | --- | --- | --- | --- | --- |
+| adaptive_learning | Yes | Yes | Yes | No | Adapter pilot active; local/in-memory only. |
+| braingame2 | Yes | No | Yes | No | Adapter pilot active; local/in-memory only. |
+| braingames | Yes | No | Yes | No | Adapter pilot active; local/in-memory only. |
+| brickblast | Yes | Yes | Yes | No | Adapter pilot active; local/in-memory only. |
+| checkers | No | No | No | No | Hold for repair due to malformed source content. |
+| game6 | Yes | Yes | Yes | No | Adapter pilot active; local/in-memory only. |
+| spelling | Yes | Yes | Yes | No | Adapter pilot active; local/in-memory only. |
+| 1stgradesightwords | Yes | Yes | Yes | No | Adapter pilot active; local/in-memory only. |
+| surf | Yes | Yes | Yes | No | Adapter pilot active; local/in-memory only. |
