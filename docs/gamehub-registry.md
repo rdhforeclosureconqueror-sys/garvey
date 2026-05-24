@@ -169,3 +169,20 @@ Checkers remains `hold_for_repair` and is intentionally excluded from local pilo
   - no diagnosis generation
   - no parent-response capture/storage
   - no gameplay changes
+
+## PR26 launch-context and mode-preset handoff foundation
+- Added a runtime-only launch-context helper: `getLaunchContextForGame(gameKey, options)`.
+- Supported optional context fields are URL/config-only:
+  - `game_key` (always included)
+  - `gate_context` (optional)
+  - `practice_path` (optional)
+  - `mode_preset` (optional; allowed: `support`, `standard`, `challenge`)
+- The helper validates safe values, rejects unsupported/unsafe params, and always uses playable registry `launch_path` as the base route.
+- GameHub index now includes parent-facing mode preset selection UI with options **Support**, **Standard**, and **Challenge**.
+- Parent-facing safety language added: “Practice modes change the experience style, not your child’s value or ability.”
+- Scope guardrails for PR26:
+  - no tracking enablement
+  - `tracking_ready` remains `false`
+  - no server/database writes
+  - no child scoring or diagnosis logic
+  - no gameplay mechanics changes

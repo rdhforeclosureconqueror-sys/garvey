@@ -249,6 +249,52 @@
     }
   ]);
 
+
+
+  const SUPPORTED_MODE_PRESETS = Object.freeze(['support', 'standard', 'challenge']);
+  const SAFE_TOKEN_PATTERN = /^[a-z0-9_-]{1,64}$/;
+
+  function isSafeOptionalToken(value) {
+    if (typeof value !== 'string') return false;
+    const normalized = value.trim().toLowerCase();
+    return SAFE_TOKEN_PATTERN.test(normalized);
+  }
+
+  function buildLaunchPathWithContext(launchPath, context) {
+    const query = new URLSearchParams(context);
+    const separator = launchPath.includes('?') ? '&' : '?';
+    return `${launchPath}${separator}${query.toString()}`;
+  }
+
+  function getLaunchContextForGame(gameKey, options) {
+    const entry = getGameByKey(gameKey);
+    if (!entry || !entry.launch_path) return null;
+
+    const source = options && typeof options === 'object' ? options : {};
+    const normalized = { game_key: entry.game_key };
+
+    if (Object.prototype.hasOwnProperty.call(source, 'gate_context')) {
+      if (!isSafeOptionalToken(source.gate_context)) return null;
+      normalized.gate_context = String(source.gate_context).trim().toLowerCase();
+    }
+
+    if (Object.prototype.hasOwnProperty.call(source, 'practice_path')) {
+      if (!isSafeOptionalToken(source.practice_path)) return null;
+      normalized.practice_path = String(source.practice_path).trim().toLowerCase();
+    }
+
+    if (Object.prototype.hasOwnProperty.call(source, 'mode_preset')) {
+      const candidate = typeof source.mode_preset === 'string' ? source.mode_preset.trim().toLowerCase() : '';
+      if (!SUPPORTED_MODE_PRESETS.includes(candidate)) return null;
+      normalized.mode_preset = candidate;
+    }
+
+    return {
+      context: normalized,
+      launch_path: buildLaunchPathWithContext(entry.launch_path, normalized)
+    };
+  }
+
   function listGames() {
     return GAMEHUB_REGISTRY.slice();
   }
@@ -329,6 +375,7 @@
     getGameByKey,
     getLaunchableGames,
     getGamesByGate,
-    getGateAlignmentSummary
+    getGateAlignmentSummary,
+    getLaunchContextForGame
   };
 });
