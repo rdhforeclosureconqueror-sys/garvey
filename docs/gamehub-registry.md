@@ -310,3 +310,13 @@ Tracking must remain disabled (`tracking_ready: false` for all games) until all 
   - no scoring linkage
   - no database/server write integration
   - no diagnosis logic
+
+## PR34 GameHub shared-strip UX regression cleanup (post-PR33)
+- Audited all playable GameHub launch pages under `public/gamehub/*` for shared strip placement, mobile layout safety, canvas/control overlap risk, back-link behavior, and practice-mode display behavior.
+- Applied lightweight placement-only fix to the shared GameHub strip mount logic so the strip is inserted into each page’s local start/menu container when available (falling back to `body` only when necessary).
+- This preserves each game’s visual identity while reducing risk of full-screen gameplay overlap from body-level insertion.
+- Confirmed guardrails remain unchanged:
+  - no tracking enablement
+  - no scoring pipeline additions
+  - no database-write logic
+  - no gameplay engine/mechanics redesign

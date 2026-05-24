@@ -1317,7 +1317,18 @@
     <div class="gamehub-practice-mode" aria-live="polite">Practice mode: ${modeLabel}</div>
     <a class="gamehub-back-link" href="/gamehub/index.html">Back to GameHub</a>
   `;
-  body.insertBefore(host, body.firstChild);
+  const placementTargets = [
+    '#menu .card',
+    '#startScreen',
+    '.start-screen',
+    '.menu',
+    'main',
+    'body'
+  ];
+  const target = placementTargets
+    .map((selector) => body.querySelector(selector))
+    .find(Boolean) || body;
+  target.insertBefore(host, target.firstChild);
 })();
 </script>
 
