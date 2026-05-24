@@ -153,3 +153,19 @@ Checkers remains `hold_for_repair` and is intentionally excluded from local pilo
   - no parent-response input or storage
   - no Gates scoring linkage
   - no gameplay changes
+
+## PR24 parent-facing Gates alignment summary (overview-only)
+- GameHub index now includes a **“How these games support the Gates”** section for parent-facing high-level orientation.
+- The section groups games by mapped Gate key/name and shows:
+  - linked games under each Gate
+  - signal categories
+  - confidence labels
+- The section intentionally excludes any game still `hold_for_repair` (including `checkers`).
+- Safety language is included verbatim: **“These games are optional developmental practices. They are not tests, grades, or diagnoses.”**
+- Scope remains overview-only:
+  - no tracking enablement
+  - no database writes
+  - no Gates scoring connection
+  - no diagnosis generation
+  - no parent-response capture/storage
+  - no gameplay changes
