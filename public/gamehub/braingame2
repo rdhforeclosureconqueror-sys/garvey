@@ -143,6 +143,7 @@ linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03))}
   .gridBoard{grid-template-columns:repeat(4,1fr)}
 }
 </style>
+<script src="./gamehub-session-adapter.js"></script>
 </head>
 <body>
 <div class="container">
@@ -296,6 +297,71 @@ linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03))}
 <script>
 const $ = id => document.getElementById(id);
 
+const GAME_KEY = 'braingame2';
+const SESSION_MODE = 'local_pilot';
+const ACTIVITY_KEYS = {
+  maze: 'maze_freeze_run',
+  sorter: 'signal_sorter',
+  wheel: 'quantum_prize_wheel',
+  emotion: 'emotion_meter_challenge',
+  switcher: 'task_switching_lab'
+};
+const adapterFactory = window.GamehubSessionAdapter;
+const adapter = adapterFactory && typeof adapterFactory.createSessionAdapter === 'function'
+  ? adapterFactory.createSessionAdapter({ gameKey: GAME_KEY, mode: SESSION_MODE })
+  : null;
+let adapterSessionStarted = false;
+let adapterSessionEnded = false;
+const activityRoundStart = new Map();
+
+function ensureAdapterSession(){
+  if(adapterSessionStarted || !adapter) return;
+  if(typeof adapter.startSession === 'function') adapter.startSession({ game_key: GAME_KEY, mode: SESSION_MODE });
+  adapterSessionStarted = true;
+  emitAdapterEvent('game_session_started', { game_key: GAME_KEY, mode: SESSION_MODE, activity_key: ACTIVITY_KEYS.maze });
+}
+function emitAdapterEvent(eventName, payload){
+  if(!adapter || typeof adapter.emit !== 'function') return;
+  adapter.emit(eventName, payload || {});
+}
+function markActivitySelected(activityKey){
+  ensureAdapterSession();
+  emitAdapterEvent('activity_selected', { game_key: GAME_KEY, activity_key: activityKey, mode: SESSION_MODE });
+}
+function markRoundStarted(activityKey){
+  activityRoundStart.set(activityKey, Date.now());
+  emitAdapterEvent('round_started', { game_key: GAME_KEY, activity_key: activityKey, mode: SESSION_MODE, level_band: 'core' });
+}
+function getDurationBand(ms){
+  if(ms < 10000) return 'short';
+  if(ms < 30000) return 'medium';
+  return 'long';
+}
+function markRoundCompleted(activityKey, success){
+  const startedAt = activityRoundStart.get(activityKey) || Date.now();
+  emitAdapterEvent('round_completed', {
+    game_key: GAME_KEY,
+    activity_key: activityKey,
+    mode: SESSION_MODE,
+    success: Boolean(success),
+    duration_band: getDurationBand(Math.max(0, Date.now() - startedAt)),
+    level_band: 'core'
+  });
+}
+function endAdapterSession(state){
+  if(adapterSessionEnded || !adapter) return;
+  emitAdapterEvent('game_session_ended', {
+    game_key: GAME_KEY,
+    activity_key: ACTIVITY_KEYS.maze,
+    mode: SESSION_MODE,
+    completion_state: state || 'exit',
+    persistence_band: 'engaged'
+  });
+  if(typeof adapter.endSession === 'function') adapter.endSession({ completion_state: state || 'exit' });
+  adapterSessionEnded = true;
+}
+
+
 /* ------------ Mission 1: Maze Freeze Run ------------ */
 const maze = {
   canvas:$('mazeCanvas'), score:0, saves:0, hits:0, running:false,
@@ -431,12 +497,17 @@ function mazeTick(){
       maze.score = Math.max(0, maze.score - 8);
       maze.collisionCooldown = 50;
       $('mazeStatus').textContent = 'Collision. The spider crossed your path before you stopped.';
+      emitAdapterEvent('persistence_signal', { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS.maze, mode: SESSION_MODE, persistence_band: 'retrying' });
+      markRoundCompleted(ACTIVITY_KEYS.maze, false);
     }
     if(dx < 44 && maze.frozen && !maze.savedThisPass){
       maze.saves++;
       maze.score += 5;
       maze.savedThisPass = true;
       $('mazeStatus').textContent = 'Great stop. You froze before entering the spider path.';
+      emitAdapterEvent('recovery_after_miss', { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS.maze, mode: SESSION_MODE, event_category: 'continued_after_miss' });
+      emitAdapterEvent('persistence_signal', { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS.maze, mode: SESSION_MODE, persistence_band: 'engaged' });
+      markRoundCompleted(ACTIVITY_KEYS.maze, true);
     }
     if(maze.playerX > 600){
       maze.playerX = -10;
@@ -452,6 +523,8 @@ function mazeTick(){
 mazeTick();
 
 $('mazeStart').onclick = () => {
+  markActivitySelected(ACTIVITY_KEYS.maze);
+  markRoundStarted(ACTIVITY_KEYS.maze);
   maze.running = true;
   $('mazeStatus').textContent = 'Run active. Watch for spider crossings and stop on time.';
 };
@@ -511,9 +584,12 @@ function buildSorterBoard(){
       if(!sorter.running) return;
       const correct = (sorter.target==='Faces' && item.type==='face') || (sorter.target==='Fruits' && item.type==='fruit');
       if(correct){
+        markRoundCompleted(ACTIVITY_KEYS.sorter, true);
         sorter.score += 2; sorter.good++; tile.classList.add('good');
         $('sorterStatus').textContent = `Correct. Stay on ${sorter.target} until the timer hits 0.`;
       }else{
+        markRoundCompleted(ACTIVITY_KEYS.sorter, false);
+        emitAdapterEvent('persistence_signal', { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS.sorter, mode: SESSION_MODE, persistence_band: 'retrying' });
         sorter.score = Math.max(0, sorter.score - 1); sorter.bad++; tile.classList.add('bad');
         $('sorterStatus').textContent = `Wrong tap. Ignore everything except ${sorter.target}.`;
       }
@@ -530,6 +606,8 @@ $('sorterFlipRange').addEventListener('input', (e)=>{
   updateSorterStats();
 });
 $('sorterStart').onclick = () => {
+  markActivitySelected(ACTIVITY_KEYS.sorter);
+  markRoundStarted(ACTIVITY_KEYS.sorter);
   sorter.running = true;
   sorter.elapsed = 0;
   sorter.flipCountdown = sorter.flipEvery;
@@ -546,6 +624,7 @@ $('sorterStart').onclick = () => {
       sorter.target = sorter.target === 'Faces' ? 'Fruits' : 'Faces';
       sorter.flipCountdown = sorter.flipEvery;
       $('sorterStatus').textContent = `Rule changed. Now tap ${sorter.target}.`;
+      emitAdapterEvent('level_changed', { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS.sorter, mode: SESSION_MODE, level_band: sorter.target === 'Faces' ? 'faces' : 'fruits' });
       buildSorterBoard();
     }
     updateSorterStats();
@@ -630,6 +709,7 @@ function resolveSpin(){
   const sameAll = icons[0] === icons[1] && icons[1] === icons[2];
   const stars = center.filter(s=>s.icon==='⭐').length;
   if(sameAll && icons[0] === '7'){
+    emitAdapterEvent('level_changed', { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS.wheel, mode: SESSION_MODE, level_band: 'bonus' });
     wheel.score += 20; wheel.jackpots++; wheel.lastPrize = '777 JACKPOT';
     celebrate('JACKPOT! Triple 7 landed in the center window!', true);
   }else if(sameAll){
@@ -680,6 +760,8 @@ function slotLoop(){
 drawReels(); slotLoop(); updateWheelStats();
 
 $('wheelHold').addEventListener('pointerdown', ()=>{
+  markActivitySelected(ACTIVITY_KEYS.wheel);
+  markRoundStarted(ACTIVITY_KEYS.wheel);
   if(wheel.spinning) return;
   wheel.charging = true;
   $('wheelStatus').textContent = 'Charging slot reels. Release for the spin.';
@@ -717,6 +799,8 @@ function updateEmo(){
   $('emoRecovered').textContent = emo.recovered;
 }
 $('emoStart').onclick = ()=>{
+  markActivitySelected(ACTIVITY_KEYS.emotion);
+  markRoundStarted(ACTIVITY_KEYS.emotion);
   emo.active=true;
   $('emoStatus').textContent='Challenge active. Keep calm under pressure.';
 };
@@ -725,6 +809,7 @@ $('emoMistake').onclick = ()=>{
   emo.frustration = Math.min(100, emo.frustration + 18);
   emo.calm = Math.max(0, emo.calm - 12);
   $('emoStatus').textContent='Mistake detected. Breathe to regulate before continuing.';
+  emitAdapterEvent('persistence_signal', { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS.emotion, mode: SESSION_MODE, persistence_band: 'retrying' });
   updateEmo();
 };
 let breathIn=false;
@@ -737,6 +822,8 @@ $('emoBreath').onclick = ()=>{
   emo.calm = Math.min(100, emo.calm + 10);
   if(emo.frustration < 20) emo.recovered++;
   $('emoStatus').textContent='Breathing pattern matched. Regulation improving.';
+  emitAdapterEvent('recovery_after_miss', { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS.emotion, mode: SESSION_MODE, event_category: 'continued_after_miss' });
+  markRoundCompleted(ACTIVITY_KEYS.emotion, true);
   updateEmo();
 };
 updateEmo();
@@ -770,13 +857,15 @@ function renderSwitchCards(){
         || (switchGame.rule==='shape' && card.shape===switchGame.target)
         || (switchGame.rule==='count' && String(card.count)===String(switchGame.target));
       if(match){
+        markRoundCompleted(ACTIVITY_KEYS.switcher, true);
         switchGame.score += 2; switchGame.correct++;
         $('switchStatus').textContent='Correct. Stay ready for the next rule shift.';
       } else {
+        markRoundCompleted(ACTIVITY_KEYS.switcher, false);
         switchGame.score = Math.max(0, switchGame.score - 1); switchGame.errors++;
         $('switchStatus').textContent='Incorrect. The old rule may have tricked you.';
       }
-      if(Math.random()<0.7) flipSwitchRule();
+      if(Math.random()<0.7) { flipSwitchRule(); emitAdapterEvent('level_changed', { game_key: GAME_KEY, activity_key: ACTIVITY_KEYS.switcher, mode: SESSION_MODE, level_band: String(switchGame.rule) }); }
       updateSwitchStats(); renderSwitchCards();
     };
     area.appendChild(el);
@@ -790,6 +879,8 @@ function flipSwitchRule(){
   if(switchGame.rule==='count') switchGame.target = [1,2,3][Math.floor(Math.random()*3)];
 }
 $('switchStart').onclick=()=>{
+  markActivitySelected(ACTIVITY_KEYS.switcher);
+  markRoundStarted(ACTIVITY_KEYS.switcher);
   switchGame.running=true; switchGame.score=0; switchGame.correct=0; switchGame.errors=0;
   flipSwitchRule(); updateSwitchStats(); renderSwitchCards();
   $('switchStatus').textContent='Lab active. Respond to the current rule only.';
@@ -800,6 +891,7 @@ $('switchReset').onclick=()=>{
   $('switchStatus').textContent='Stay flexible. The rule can switch at any moment.';
 };
 updateSwitchStats();
+window.addEventListener('beforeunload', () => endAdapterSession('exit'));
 </script>
 </body>
 </html>
