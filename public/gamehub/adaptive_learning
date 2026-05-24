@@ -22,6 +22,14 @@
     .small{font-size:.9rem;color:var(--muted)} .celebrate{font-size:1.1rem;font-weight:800;letter-spacing:.02em;animation:pop .45s ease} @keyframes pop{0%{transform:scale(.95);opacity:0}70%{transform:scale(1.03);opacity:1}100%{transform:scale(1);opacity:1}}
     .section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.hr{height:1px;background:var(--border);margin:12px 0}.footer-note{font-size:.9rem;color:#94a3b8}.badge-mastered{background:rgba(16,185,129,.18)}.badge-developing{background:rgba(96,165,250,.18)}.badge-gap{background:rgba(245,158,11,.18)}
   </style>
+
+  <style id="gamehub-shared-identity-style">
+    .gamehub-shared-identity { display:flex; align-items:center; justify-content:space-between; gap:0.75rem; flex-wrap:wrap; margin: 0 0 0.75rem; padding: 0.55rem 0.75rem; border-radius: 10px; border: 1px solid rgba(148,163,184,0.45); background: rgba(15,23,42,0.16); }
+    .gamehub-shared-badge { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; opacity: 0.95; }
+    .gamehub-practice-mode { font-size: 0.85rem; font-weight: 600; opacity: 0.92; }
+    .gamehub-back-link { font-size: 0.85rem; font-weight: 700; text-decoration: none; border-bottom: 1px solid currentColor; }
+  </style>
+
 </head>
 <body>
   <div class="wrap">
@@ -196,5 +204,26 @@ byId("startBtn").onclick=()=>startSession({studentName:byId("studentName").value
 byId("submitBtn").onclick=submitAnswer;window.addEventListener("beforeunload",()=>endAdapterSession("manual_exit"));byId("nextBtn").onclick=nextQuestion;byId("newSessionBtn").onclick=resetToHome;byId("saveSessionBtn").onclick=saveSession;byId("quitBtn").onclick=finishSession;byId("loadHistoryBtn").onclick=renderHistory;byId("backHomeBtn").onclick=resetToHome;byId("clearHistoryBtn").onclick=()=>{if(confirm("Clear saved session history on this browser?")){setHistory([]);renderHistory()}};byId("demoBtn").onclick=demoSession;function labelModePreset(v){return v.charAt(0).toUpperCase()+v.slice(1)}
 (async function init(){await bootstrapQuestionBank();const ctx=getRuntimeContext();const preset=adaptivePresetConfig[ctx.mode_preset]||adaptivePresetConfig.standard;const modeNoticeEl=byId('modeNotice');if(modeNoticeEl) modeNoticeEl.textContent=`Practice mode: ${labelModePreset(ctx.mode_preset)}`;if(byId('questionCount')) byId('questionCount').value=preset.defaultQuestionCount;if(byId('goalSelect')) byId('goalSelect').value=preset.defaultGoal;if(byId('modeSelect')) byId('modeSelect').value=preset.defaultMode;const nameInput=byId("studentName");if(nameInput){nameInput.value=ctx.child_display_name||nameInput.value||DEFAULT_LEARNER_NAME}const history=getHistory();if(history.length){const note=document.createElement("p");note.className="small";note.textContent=`Saved sessions in this context: ${history.length}`;byId("startScreen").appendChild(note)}const contentNote=document.createElement("p");contentNote.className="small";contentNote.textContent=`Question bank source: ${state.questionBankSource}`;byId("startScreen").appendChild(contentNote)})();
 </script>
+
+<script>
+(function addGameHubSharedIdentity(){
+  if (window.__gamehubSharedIdentityMounted) return;
+  window.__gamehubSharedIdentityMounted = true;
+  const body = document.body;
+  if (!body) return;
+  const host = document.createElement('div');
+  host.className = 'gamehub-shared-identity';
+  const params = new URLSearchParams(window.location.search || '');
+  const mode = (params.get('mode_preset') || 'standard').toLowerCase();
+  const modeLabel = mode.charAt(0).toUpperCase() + mode.slice(1);
+  host.innerHTML = `
+    <div class="gamehub-shared-badge">GameHub Practice</div>
+    <div class="gamehub-practice-mode" aria-live="polite">Practice mode: ${modeLabel}</div>
+    <a class="gamehub-back-link" href="/gamehub/index.html">Back to GameHub</a>
+  `;
+  body.insertBefore(host, body.firstChild);
+})();
+</script>
+
 </body>
 </html>

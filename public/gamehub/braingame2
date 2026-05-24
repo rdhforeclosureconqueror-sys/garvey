@@ -144,6 +144,14 @@ linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03))}
 }
 </style>
 <script src="./gamehub-session-adapter.js"></script>
+
+  <style id="gamehub-shared-identity-style">
+    .gamehub-shared-identity { display:flex; align-items:center; justify-content:space-between; gap:0.75rem; flex-wrap:wrap; margin: 0 0 0.75rem; padding: 0.55rem 0.75rem; border-radius: 10px; border: 1px solid rgba(148,163,184,0.45); background: rgba(15,23,42,0.16); }
+    .gamehub-shared-badge { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; opacity: 0.95; }
+    .gamehub-practice-mode { font-size: 0.85rem; font-weight: 600; opacity: 0.92; }
+    .gamehub-back-link { font-size: 0.85rem; font-weight: 700; text-decoration: none; border-bottom: 1px solid currentColor; }
+  </style>
+
 </head>
 <body>
 <div class="container">
@@ -905,5 +913,26 @@ $('switchReset').onclick=()=>{
 updateSwitchStats();
 window.addEventListener('beforeunload', () => endAdapterSession('exit'));
 </script>
+
+<script>
+(function addGameHubSharedIdentity(){
+  if (window.__gamehubSharedIdentityMounted) return;
+  window.__gamehubSharedIdentityMounted = true;
+  const body = document.body;
+  if (!body) return;
+  const host = document.createElement('div');
+  host.className = 'gamehub-shared-identity';
+  const params = new URLSearchParams(window.location.search || '');
+  const mode = (params.get('mode_preset') || 'standard').toLowerCase();
+  const modeLabel = mode.charAt(0).toUpperCase() + mode.slice(1);
+  host.innerHTML = `
+    <div class="gamehub-shared-badge">GameHub Practice</div>
+    <div class="gamehub-practice-mode" aria-live="polite">Practice mode: ${modeLabel}</div>
+    <a class="gamehub-back-link" href="/gamehub/index.html">Back to GameHub</a>
+  `;
+  body.insertBefore(host, body.firstChild);
+})();
+</script>
+
 </body>
 </html>
