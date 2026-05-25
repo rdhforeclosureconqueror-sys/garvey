@@ -1330,3 +1330,348 @@ Document Grade 6 as:
 Middle-school bridge architecture
 
 and completion of Phase 1A.
+
+# Grade 6 Master Roadmap (V1)
+
+Grade 6 represents:
+
+The Bridge to Middle School Thinking.
+
+This is a major developmental transition.
+
+Students move from:
+
+concrete arithmetic
+
+toward:
+
+abstract reasoning.
+
+This is where:
+
+- algebraic thinking begins
+- ratios and proportional reasoning emerge
+- evidence-based reading deepens
+- structured argument becomes expected
+
+Document Grade 6 as an especially important transition year and note its predictive value for:
+
+- algebra
+- science
+- analytical writing
+- academic independence
+
+Document planning note:
+
+Grade 6 serves as a powerful launch endpoint and middle-school bridge.
+
+## Grade 6 Year Profile
+
+By the end of Grade 6 most children should:
+
+Reading / English:
+- read complex literary and informational texts
+- analyze evidence and arguments
+- make supported inferences
+- compare perspectives
+- write organized essays and responses
+- communicate clearly using grade-level language
+
+Math:
+- understand ratios and proportional reasoning
+- work fluently with fractions and decimals
+- solve equations and expressions
+- analyze data and statistics
+- apply geometry concepts
+- explain and defend mathematical reasoning
+
+This becomes the Grade 6 Success Profile.
+
+Parents should understand:
+
+What does Grade 6 mastery look like?
+
+## Grade 6 Math Roadmap
+
+Research identifies Grade 6 as:
+
+Algebra Readiness + Proportional Thinking.
+
+This is the beginning of:
+
+formal mathematical abstraction.
+
+Domain 1: Ratios + Proportional Reasoning
+Critical domain and strong predictor of later algebra success.
+
+Skills:
+- ratio meaning
+- equivalent ratios
+- ratio tables
+- unit rate
+- percent foundations
+- proportional reasoning
+- real-world ratios
+
+Parent Goal:
+Understand relationships between quantities.
+
+Domain 2: Fractions + Decimals + Rational Numbers
+
+Continuation with increased depth.
+
+Skills:
+- fraction operations
+- decimal operations
+- compare rational numbers
+- number line reasoning
+- positive and negative numbers
+- rational number relationships
+
+Parent Goal:
+Work confidently with all number forms.
+
+Domain 3: Expressions + Equations
+Major transition domain.
+
+Beginning algebra.
+
+Skills:
+- variables
+- expressions
+- evaluate expressions
+- equations
+- solve one-step equations
+- equality reasoning
+- algebra foundations
+
+Parent Goal:
+Use symbols to represent thinking.
+
+Domain 4: Problem Solving + Mathematical Reasoning
+
+Reasoning becomes explicit.
+
+Skills:
+- multi-step problems
+- model situations
+- justify answers
+- explain reasoning
+- strategy selection
+- mathematical communication
+
+Parent Goal:
+Think mathematically and independently.
+
+Domain 5: Geometry + Measurement
+
+Increasingly conceptual.
+
+Skills:
+- area
+- surface area
+- volume
+- coordinate plane
+- angle relationships
+- geometric reasoning
+
+Parent Goal:
+Understand space and measurement logically.
+
+Domain 6: Statistics + Data
+
+Formal data interpretation begins.
+
+Skills:
+- statistical questions
+- data displays
+- mean
+- median
+- variability
+- interpret graphs
+- data reasoning
+
+Parent Goal:
+Understand and analyze information.
+
+## Grade 6 Reading / English Roadmap
+
+Grade 6 emphasizes:
+
+Analytical Reading + Academic Writing.
+
+Students increasingly:
+
+- evaluate ideas
+- compare viewpoints
+- support interpretations
+- understand argument structure
+
+Document this as a middle-school transition in literacy.
+
+Domain 1: Reading Comprehension
+
+More sophisticated reading expectations.
+
+Skills:
+- summarize
+- analyze text
+- compare texts
+- text structure
+- informational reading
+- literary analysis
+
+Parent Goal:
+Understand complex ideas.
+
+Domain 2: Evidence + Inference
+Major reasoning domain.
+
+Skills:
+- cite evidence
+- support claims
+- infer meaning
+- analyze details
+- justify conclusions
+- explain reasoning
+
+Parent Goal:
+Support thinking with proof.
+
+Domain 3: Argument + Perspective
+Important Grade 6 domain.
+
+Skills:
+- argument structure
+- claims
+- evidence
+- counterpoints
+- perspective
+- bias foundations
+- compare viewpoints
+
+Parent Goal:
+Evaluate ideas critically.
+
+Domain 4: Vocabulary + Academic Language
+
+Language becomes increasingly academic.
+
+Skills:
+- context clues
+- figurative language
+- academic vocabulary
+- word nuance
+- precise meaning
+- discipline language
+
+Parent Goal:
+Use and understand sophisticated language.
+
+Domain 5: Writing + Essays
+
+Strong organizational expectations.
+
+Skills:
+- argumentative writing
+- informational writing
+- narrative writing
+- thesis
+- evidence
+- transitions
+- revision
+- conclusions
+
+Parent Goal:
+Write clearly and persuasively.
+
+Domain 6: Grammar + Language
+
+Applied communication.
+
+Skills:
+- sentence complexity
+- punctuation
+- grammar application
+- editing
+- formal language
+- usage conventions
+
+Parent Goal:
+Communicate effectively and correctly.
+
+## Parent Roadmap Example
+
+Future dashboard example:
+
+Grade 6 Roadmap
+
+Math:
+- Ratios: Developing
+- Fractions/Decimals: Near Mastery
+- Expressions: Emerging
+- Statistics: Developing
+
+Reading:
+- Comprehension: Mastered
+- Evidence: Developing
+- Argument: Emerging
+- Essay Writing: Developing
+
+Overall Progress:
+69%
+
+Priority Focus:
+Expressions and argument writing.
+
+## Phase 1A Status
+
+Completed:
+
+- Grade 1 roadmap
+- Grade 2 roadmap
+- Grade 3 roadmap
+- Grade 4 roadmap
+- Grade 5 roadmap
+- Grade 6 roadmap
+
+Document milestone:
+
+We now have:
+
+Full Grade 1–6 Standards + Parent Roadmap Foundation.
+
+This represents:
+
+the curriculum operating system.
+
+## Next Phase Preview
+
+Create transition section only.
+
+No implementation.
+
+# Phase 1B
+Skill Graph + Master Skill Inventory
+
+Document this as the next planning phase.
+
+Purpose:
+
+Build:
+
+Grade
+→ Domain
+→ Skill
+→ Subskill
+→ Prerequisites
+→ Difficulty ladder
+→ Mastery targets
+
+Document this as:
+
+the factory blueprint for lessons, checkpoints, questions, and adaptive pathways.
+
+No Phase 1B implementation yet.
+
+Only planning transition language.

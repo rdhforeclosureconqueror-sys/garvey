@@ -120,3 +120,22 @@ This research set supports the documentation-level foundation for Adaptive Learn
   - Core relevance: supports conceptual continuity from whole-number structure into Grade 5 fraction and decimal reasoning.
 - **Lee, H. S., et al.** (2016). *Fractions and Decimals: Conceptual and Procedural Distinctions*.
   - Core relevance: supports explicit Grade 5 distinction between procedural fluency and conceptual understanding across rational-number domains.
+
+## 10) Grade 6 Master Roadmap Support
+
+- **Daro, P., Mosher, F. A., & Corcoran, T. B.** (2011). *Learning Trajectories in Mathematics*.
+  - Core relevance: supports Grade 6 progression mapping from arithmetic fluency into proportional reasoning and algebra readiness.
+- **Confrey, J., Maloney, A. P., & Corley, A. K.** (2014). *Learning Trajectories: A Framework for Connecting Standards with Curriculum*.
+  - Core relevance: supports standards-to-curriculum continuity for Grade 6 domain sequencing and transition coherence.
+- **Corcoran, T. B., Mosher, F. A., & Rogat, A.** (2009). *Learning Progressions and Evidence-Based Reform*.
+  - Core relevance: supports evidence-based progression design for middle-school bridge documentation.
+- **Slavin, R. E., Lake, C., & Groff, C.** (2009). *Effective Programs in Middle School Mathematics*.
+  - Core relevance: supports Grade 6 instructional emphasis on proportional thinking, reasoning, and algebra-entry preparation.
+- **Lee, J.** (2010). *Growth Trajectories of Reading and Math Achievement*.
+  - Core relevance: supports Grade 6 as a predictive transition year for later academic outcomes in math and literacy.
+- **Siemon, D.** (2021). *Learning Progressions in Mathematics*.
+  - Core relevance: supports progression-based design of Grade 6 mathematical abstraction and conceptual sequencing.
+- **Fonger, N. L., et al.** (2018). *Developing Learning Progressions for Curriculum and Instruction*.
+  - Core relevance: supports domain-to-skill progression architecture for roadmap and parent-visible mastery pathways.
+- **Rasmussen, C., & Marrongelle, K.** (2006). *Integrating Student Reasoning and Mathematics Instruction*.
+  - Core relevance: supports Grade 6 focus on explicit mathematical reasoning, explanation, and argumentation.
