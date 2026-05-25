@@ -444,3 +444,265 @@ Next planned roadmap:
 - curriculum content
 
 It does not introduce runtime wiring, tracking logic, grading logic, gates logic, DB/server writes, or mastery scoring execution.
+
+# Grade 3 Master Roadmap (V1)
+
+Grade 3 is a developmental pivot year.
+
+Students shift from:
+
+learning foundational mechanics
+
+to
+
+using those mechanics independently.
+
+This transition is often described as:
+
+"learn to read → read to learn"
+
+and
+
+"basic operations → mathematical reasoning."
+
+If Grade 3 is weak, later struggles compound.
+
+This makes Grade 3 one of the most important grades in the system.
+
+## Grade 3 Year Profile
+
+By the end of Grade 3 most children should:
+
+Reading / English:
+- read independently and fluently
+- understand stories and informational texts
+- identify main ideas and details
+- use evidence from text
+- understand vocabulary in context
+- write organized paragraphs and responses
+
+Math:
+- multiply and divide
+- understand fractions
+- solve multi-step problems
+- understand measurement and area
+- interpret graphs and data
+- explain mathematical thinking
+
+This becomes the Grade 3 Success Profile.
+
+## Grade 3 Math Roadmap
+
+Domain 1: Multiplication
+Critical domain.
+
+Skills:
+- equal groups
+- multiplication meaning
+- arrays
+- repeated addition
+- multiplication facts
+- multiplication strategies
+- fact fluency
+
+Parent Goal:
+Understand multiplication as a relationship.
+
+Domain 2: Division
+Skills:
+- sharing equally
+- grouping
+- division meaning
+- fact families
+- division strategies
+- multiplication/division relationship
+
+Parent Goal:
+Understand division as connected to multiplication.
+
+Domain 3: Fractions Foundations
+Important predictor of later algebra success.
+
+Skills:
+- fraction meaning
+- numerator
+- denominator
+- fraction models
+- equivalent fractions
+- compare fractions
+
+Parent Goal:
+Understand parts of a whole.
+
+Domain 4: Problem Solving
+Skills:
+- multi-step problems
+- operation choice
+- reasoning
+- explain solutions
+- model problems
+
+Parent Goal:
+Think through math problems independently.
+
+Domain 5: Measurement + Geometry
+Skills:
+- perimeter
+- area
+- measurement units
+- elapsed time
+- shapes
+- geometric reasoning
+
+Parent Goal:
+Measure and describe space.
+
+Domain 6: Data + Graphs
+Skills:
+- bar graphs
+- picture graphs
+- data interpretation
+- compare data
+- simple statistics
+
+Parent Goal:
+Organize and understand information.
+
+## Grade 3 Reading / English Roadmap
+
+Grade 3 comprehension becomes central.
+
+Students should:
+
+not only decode
+
+but also:
+
+understand, analyze, and explain.
+
+Domain 1: Reading Fluency
+Skills:
+- accuracy
+- pacing
+- expression
+- stamina
+- independent reading
+
+Parent Goal:
+Read confidently.
+
+Domain 2: Reading Comprehension
+Critical domain.
+
+Skills:
+- main idea
+- supporting details
+- summarize
+- sequence
+- compare texts
+- story structure
+
+Parent Goal:
+Understand meaning deeply.
+
+Domain 3: Evidence + Inference
+Beginning higher-level reasoning.
+
+Skills:
+- text evidence
+- answer from text
+- simple inference
+- draw conclusions
+- support ideas
+
+Parent Goal:
+Use proof and reasoning.
+
+Domain 4: Vocabulary + Word Meaning
+Skills:
+- context clues
+- figurative language beginnings
+- synonyms
+- antonyms
+- word relationships
+- academic vocabulary
+
+Parent Goal:
+Build stronger language.
+
+Domain 5: Writing
+Major Grade 3 shift.
+
+Skills:
+- paragraph writing
+- topic sentence
+- supporting details
+- organization
+- opinion writing
+- narrative writing
+
+Parent Goal:
+Write clearly and logically.
+
+Domain 6: Grammar + Language
+Skills:
+- sentence types
+- punctuation
+- capitalization
+- nouns
+- verbs
+- adjectives
+- pronouns
+- editing
+
+Parent Goal:
+Use language correctly.
+
+## Parent Roadmap Example
+
+Future dashboard example:
+
+Grade 3 Roadmap
+
+Math:
+- Multiplication: Developing
+- Division: Emerging
+- Fractions: Near Mastery
+- Problem Solving: Developing
+
+Reading:
+- Fluency: Mastered
+- Comprehension: Developing
+- Evidence + Inference: Emerging
+- Writing: Developing
+
+Overall Progress:
+58%
+
+Priority Focus:
+Division foundations and text evidence.
+
+## Important System Note
+
+Developmental pattern now visible:
+
+Grades 1–2:
+Foundation
+
+Grade 3:
+Transition / Independence
+
+Grades 4–6:
+Complexity + abstraction
+
+Document this as a planning insight supported by learning progression research.
+
+## System Status
+
+Current roadmap coverage:
+- Grade 1
+- Grade 2
+- Grade 3
+
+Next planned roadmap:
+- Grade 4 Master Roadmap
