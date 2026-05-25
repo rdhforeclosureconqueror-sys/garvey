@@ -101,3 +101,22 @@ This research set supports the documentation-level foundation for Adaptive Learn
   - Core relevance: supports developmental ladder framing from foundational numeracy toward Grade 4 abstraction and reasoning.
 - **Gold, S., et al.** (2025). *Skills Framework and Learning Progressions*.
   - Core relevance: supports modern skills-map structuring and domain progression articulation for Grade 4 roadmap documentation.
+
+## 9) Grade 5 Master Roadmap Support
+
+- **Hiebert, J.** (2020). *Mathematical, Cognitive, and Instructional Analyses of Decimal Fractions*.
+  - Core relevance: supports Grade 5 decimal-concept development and links conceptual understanding to later rational-number fluency.
+- **Van Galen, F., et al.** (2008). *Fractions, Percentages, Decimals and Proportions*.
+  - Core relevance: supports coherent Grade 5 progression across rational-number representations and proportional reasoning foundations.
+- **Wellberg, S., Briggs, D. C., et al.** (2023). *Big Ideas in the Understanding of Fractions*.
+  - Core relevance: supports Grade 5 fraction centrality as a predictor of later algebraic and ratio-based success.
+- **Kiuhara, S. A., et al.** (2020). *Constructing Written Arguments to Develop Fraction Knowledge*.
+  - Core relevance: supports Grade 5 integration of fraction reasoning with evidence-based mathematical explanation.
+- **Kiuhara, S. A., et al.** (2024). *Teaching Argument Writing in Math Class*.
+  - Core relevance: supports Grade 5 argumentation shift from procedural response to defendable mathematical communication.
+- **Arieli-Attali, M., & Cayton-Hodges, G.** (2014). *Competency Models and Rational Number Progressions*.
+  - Core relevance: supports progression mapping of Grade 5 rational-number competencies for documentation-first roadmap design.
+- **Wu, H.** (2011). *Understanding Numbers in Elementary School Mathematics*.
+  - Core relevance: supports conceptual continuity from whole-number structure into Grade 5 fraction and decimal reasoning.
+- **Lee, H. S., et al.** (2016). *Fractions and Decimals: Conceptual and Procedural Distinctions*.
+  - Core relevance: supports explicit Grade 5 distinction between procedural fluency and conceptual understanding across rational-number domains.
