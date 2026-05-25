@@ -63,3 +63,22 @@ This research set supports the documentation-level foundation for Adaptive Learn
 - This reference layer is intentionally documentation-first and does not alter runtime behavior.
 - Future iterations may add publication metadata (DOI/ISBN/URLs) and evidence summaries per domain.
 - The reference set should remain versioned with major Adaptive Learning framework updates.
+
+## 7) Grade 3 Master Roadmap Support
+
+- **Hulbert, E. T., et al.** (2023). *A Focus on Multiplication and Division*.
+  - Core relevance: supports Domain 1 and Domain 2 emphasis on conceptual connections between multiplication and division as Grade 3 critical transition content.
+- **Gojak, L. M., & Miles, R. H.** (2015). *The Common Core Mathematics Companion Grades 3–5*.
+  - Core relevance: supports standards-aligned Grade 3 domain sequencing across operations, fractions, measurement, geometry, and data.
+- **Dixon, J. K., & Nolan, E. C.** (2016). *Mathematics for Teaching Grades 3–5*.
+  - Core relevance: supports development of reasoning, problem solving, and conceptual explanation in Grade 3 mathematics instruction.
+- **Lee, J.** (2010). *Growth Trajectories of Reading and Math Achievement*.
+  - Core relevance: supports the Grade 3 pivot framing by documenting cumulative growth patterns and transition risk points across elementary years.
+- **Bicknell, B., et al.** (2016). *Developing Understanding of Multiplication and Division*.
+  - Core relevance: supports strategy progression and relational understanding required for Grade 3 multiplication/division proficiency.
+- **REACH** (2019). *Comprehensive Literacy and Numeracy Programs*.
+  - Core relevance: supports coordinated cross-domain literacy and numeracy planning for Grade 3 transition-to-independence expectations.
+- **Lindström-Sandahl, H.** (2024). *Early Elementary Reading and Mathematics Interventions*.
+  - Core relevance: supports targeted intervention planning for students not yet meeting Grade 3 transition benchmarks.
+- **Fuson, K. C.** (2003). *Pre-K to Grade 2 Goals and Standards*.
+  - Core relevance: supports the documented developmental continuity from Grades 1–2 foundations into Grade 3 independence.
