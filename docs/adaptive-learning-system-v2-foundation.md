@@ -258,6 +258,189 @@ Everything later plugs into this foundation.
 This document defines the educational framework layer between:
 
 - adaptive engine
+
+# Grade 2 Master Roadmap (V1)
+
+Grade 2 is a consolidation and bridge year.
+
+Grade 1 builds basics.
+Grade 2 builds automaticity and independence.
+Grade 3 shifts toward reading to learn and more complex math.
+
+## Grade 2 Year Profile
+
+By the end of Grade 2, most children should:
+
+Reading / English:
+- read fluently and accurately
+- understand stories and informational text
+- answer questions using evidence
+- build vocabulary
+- write organized paragraphs
+- apply grammar and punctuation correctly
+
+Math:
+- add and subtract within 100
+- understand place value deeply
+- begin multiplication foundations
+- solve word problems
+- work with measurement and money
+- understand shapes and data
+
+This becomes the Grade 2 Success Profile.
+
+## Grade 2 Math Roadmap
+
+Domain 1: Number Sense + Place Value
+Skills:
+- count within 1000
+- skip counting
+- compare numbers
+- expanded form
+- hundreds tens ones
+- compose/decompose numbers
+Parent Goal:
+Understand how larger numbers work.
+
+Domain 2: Addition + Subtraction
+Skills:
+- fluency within 20
+- add within 100
+- subtract within 100
+- regrouping
+- mental strategies
+- number relationships
+Parent Goal:
+Solve efficiently and accurately.
+
+Domain 3: Word Problems
+Skills:
+- one-step problems
+- two-step problems
+- identify operations
+- represent situations
+- explain reasoning
+Parent Goal:
+Use math to solve problems.
+
+Domain 4: Early Multiplication Foundations
+Note:
+This is foundation only, not full multiplication tables.
+Skills:
+- equal groups
+- repeated addition
+- arrays
+- patterns
+- doubles
+Parent Goal:
+Prepare for multiplication thinking.
+
+Domain 5: Measurement + Money + Time
+Skills:
+- measure length
+- compare measurements
+- tell time
+- count money
+- use calendars
+Parent Goal:
+Apply math to daily life.
+
+Domain 6: Geometry + Data
+Skills:
+- shapes
+- attributes
+- partitions
+- graphs
+- picture graphs
+- bar graphs
+Parent Goal:
+Organize and describe information.
+
+## Grade 2 Reading / English Roadmap
+
+Domain 1: Reading Fluency
+Skills:
+- smooth reading
+- accuracy
+- phrasing
+- repeated reading
+- self-correction
+Parent Goal:
+Read comfortably and independently.
+
+Domain 2: Word Study + Vocabulary
+Skills:
+- prefixes/suffixes
+- context clues
+- multiple meaning words
+- vocabulary growth
+- word relationships
+Parent Goal:
+Understand more powerful language.
+
+Domain 3: Reading Comprehension
+Skills:
+- main idea
+- details
+- sequence
+- cause/effect
+- compare texts
+- summarize
+Parent Goal:
+Understand and explain reading.
+
+Domain 4: Text Evidence
+Skills:
+- answer from text
+- locate details
+- support ideas
+- reread for information
+Parent Goal:
+Use proof when answering.
+
+Domain 5: Writing + Grammar
+Skills:
+- complete paragraphs
+- organization
+- capitalization
+- punctuation
+- nouns
+- verbs
+- adjectives
+- sentence variety
+Parent Goal:
+Communicate clearly and correctly.
+
+## Parent Roadmap Example
+
+Grade 2 Roadmap example:
+
+Math Progress:
+- Place Value: Mastered
+- Addition/Subtraction: Developing
+- Word Problems: Near Mastery
+- Measurement: Emerging
+
+Reading Progress:
+- Fluency: Mastered
+- Vocabulary: Developing
+- Comprehension: Developing
+- Writing: Emerging
+
+Overall Grade Progress:
+61%
+
+Next Recommendation:
+Two-digit subtraction with regrouping.
+
+## System Status
+
+Current roadmap coverage:
+- Grade 1 roadmap
+- Grade 2 roadmap
+
+Next planned roadmap:
+- Grade 3 Master Roadmap
 - curriculum content
 
 It does not introduce runtime wiring, tracking logic, grading logic, gates logic, DB/server writes, or mastery scoring execution.
