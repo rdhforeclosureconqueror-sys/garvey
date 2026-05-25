@@ -999,3 +999,334 @@ Current roadmap coverage:
 
 Next planned roadmap:
 - Grade 5 Master Roadmap
+
+## Grade 5 Master Roadmap (V1)
+
+Grade 5 represents:
+
+Pre–Middle School Preparation.
+
+Students increasingly move toward:
+
+- abstract thinking
+- argumentation
+- deeper reasoning
+- conceptual mathematics
+- evidence-based communication
+
+Grade 5 is no longer only:
+
+"do the work"
+
+but increasingly:
+
+"explain and defend the work."
+
+Document this as an important developmental shift for both mathematics and literacy.
+
+## Grade 5 Year Profile
+
+By the end of Grade 5 most children should:
+
+Reading / English:
+- read complex literary and informational texts
+- analyze themes and ideas
+- compare texts and viewpoints
+- support answers with evidence
+- write organized essays and arguments
+- use grammar and vocabulary effectively
+
+Math:
+- work fluently with fractions and decimals
+- multiply and divide with larger numbers
+- solve multi-step and real-world problems
+- understand volume and geometry
+- explain mathematical reasoning
+- prepare for proportional and algebraic thinking
+
+This becomes the Grade 5 Success Profile.
+
+Parents should understand:
+
+What does Grade 5 readiness and success look like?
+
+## Grade 5 Math Roadmap
+
+Research identifies Grade 5 as:
+
+Rational Number + Reasoning Development.
+
+Fractions and decimals become dominant and strongly predict later success in:
+
+- algebra
+- ratios
+- proportional reasoning
+
+Domain 1: Multi-Digit Operations + Fluency
+
+Skills:
+- multi-digit multiplication
+- long division
+- estimation
+- mental computation
+- operation fluency
+- efficient strategies
+
+Parent Goal:
+Solve accurately and efficiently.
+
+Domain 2: Fractions (Critical Domain)
+
+Major Grade 5 domain.
+
+Skills:
+- equivalent fractions
+- compare fractions
+- add fractions
+- subtract fractions
+- multiply fractions foundations
+- divide fractions foundations
+- fraction models
+- fraction reasoning
+
+Parent Goal:
+Understand fractions as numbers and relationships.
+
+Domain 3: Decimals
+
+Strong conceptual focus.
+
+Skills:
+- place value
+- compare decimals
+- add decimals
+- subtract decimals
+- multiply decimals
+- decimal reasoning
+
+Parent Goal:
+Work confidently with decimals.
+
+Domain 4: Volume + Measurement
+
+New major concept.
+
+Skills:
+- volume meaning
+- unit cubes
+- volume formulas
+- measurement conversion
+- real-world measurement
+
+Parent Goal:
+Measure three-dimensional space.
+
+Domain 5: Problem Solving + Mathematical Argument
+
+Important cognitive shift.
+
+Students increasingly explain.
+
+Skills:
+- multi-step reasoning
+- justify solutions
+- explain thinking
+- model problems
+- mathematical writing
+- defend answers
+
+Parent Goal:
+Think and reason mathematically.
+
+Domain 6: Geometry + Coordinate Thinking
+
+Beginning coordinate reasoning.
+
+Skills:
+- coordinate plane basics
+- graphing points
+- geometric classification
+- angle reasoning
+- spatial reasoning
+
+Parent Goal:
+Understand relationships in space.
+
+## Grade 5 Reading / English Roadmap
+
+Grade 5 literacy emphasizes:
+
+Analysis + Evidence.
+
+Students increasingly:
+
+- compare ideas
+- analyze authors
+- support interpretations
+- organize written arguments
+
+This prepares learners for middle-school literacy expectations.
+
+Domain 1: Reading Comprehension
+
+Still foundational.
+
+Skills:
+- summarize
+- analyze ideas
+- compare texts
+- identify structure
+- informational reading
+- literary analysis
+
+Parent Goal:
+Understand deeper meaning.
+
+Domain 2: Evidence + Inference
+
+More advanced than Grade 4.
+
+Skills:
+- infer meaning
+- cite evidence
+- support claims
+- analyze details
+- justify conclusions
+
+Parent Goal:
+Support ideas with proof.
+
+Domain 3: Theme + Author Craft
+
+Major Grade 5 domain.
+
+Skills:
+- theme
+- author's purpose
+- perspective
+- tone
+- point of view
+- compare authors
+
+Parent Goal:
+Understand how texts are constructed.
+
+Domain 4: Vocabulary + Academic Language
+
+Skills:
+- academic vocabulary
+- figurative language
+- context clues
+- word relationships
+- precise meaning
+- language nuance
+
+Parent Goal:
+Use stronger language.
+
+Domain 5: Writing + Essays
+
+Major expansion.
+
+Skills:
+- opinion essays
+- informational essays
+- narrative writing
+- introductions
+- supporting evidence
+- transitions
+- revision
+- conclusions
+
+Parent Goal:
+Write clearly and persuasively.
+
+Domain 6: Grammar + Language
+
+Skills:
+- sentence complexity
+- punctuation
+- editing
+- grammar application
+- language conventions
+- word usage
+
+Parent Goal:
+Communicate accurately.
+
+## Parent Roadmap Example
+
+Future dashboard example:
+
+Grade 5 Roadmap
+
+Math:
+- Operations: Mastered
+- Fractions: Developing
+- Decimals: Developing
+- Volume: Emerging
+- Math Reasoning: Near Mastery
+
+Reading:
+- Comprehension: Mastered
+- Evidence + Inference: Developing
+- Author Craft: Emerging
+- Essay Writing: Developing
+
+Overall Progress:
+67%
+
+Priority Focus:
+Fractions and written argument.
+
+## Important System Insight
+
+Document the developmental ladder:
+
+Grades 1–2:
+Foundation
+
+↓
+
+Grade 3:
+Independence
+
+↓
+
+Grade 4:
+Reasoning
+
+↓
+
+Grade 5:
+Argument + abstraction
+
+Add planning insight:
+
+Difficulty increasingly reflects:
+
+- reasoning load
+- explanation quality
+- transfer ability
+
+—not merely computational challenge.
+
+Document this as a Diamond Standard planning principle for future adaptive design.
+
+## System Status
+
+Current roadmap coverage:
+- Grade 1
+- Grade 2
+- Grade 3
+- Grade 4
+- Grade 5
+
+Next planned roadmap:
+- Grade 6 Master Roadmap
+
+Document Grade 6 as:
+
+Middle-school bridge architecture
+
+and completion of Phase 1A.
