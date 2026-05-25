@@ -82,3 +82,22 @@ This research set supports the documentation-level foundation for Adaptive Learn
   - Core relevance: supports targeted intervention planning for students not yet meeting Grade 3 transition benchmarks.
 - **Fuson, K. C.** (2003). *Pre-K to Grade 2 Goals and Standards*.
   - Core relevance: supports the documented developmental continuity from Grades 1–2 foundations into Grade 3 independence.
+
+## 8) Grade 4 Master Roadmap Support
+
+- **Wellberg, S., Briggs, D. C., et al.** (2023). *Big Ideas in the Understanding of Fractions*.
+  - Core relevance: supports Grade 4 fraction-domain centrality and conceptual progression as a predictor of later algebraic readiness.
+- **Schoen, R. C., et al.** (2018). *Elementary Mathematics Student Assessment*.
+  - Core relevance: supports coherent Grade 4 assessment framing across multi-digit operations, fractions, and applied reasoning.
+- **Cole, S. K., & Swanson, C.** (2022). *Through-Year Assessment and Learning Progressions*.
+  - Core relevance: supports progression-based monitoring logic for developmental shifts in Grade 4 reasoning demands.
+- **Kiuhara, S. A., et al.** (2020). *Constructing Written Arguments to Develop Fraction Knowledge*.
+  - Core relevance: supports integration of mathematical explanation and evidence-based reasoning within Grade 4 fraction learning.
+- **Kiuhara, S. A., et al.** (2024). *Teaching Argument Writing in Math Class*.
+  - Core relevance: supports explicit emphasis on explanation, justification, and disciplinary writing in Grade 4 math domains.
+- **Carmichael, S. B., et al.** (2010). *The State of State Standards*.
+  - Core relevance: supports standards-alignment review for Grade 4 expectations in literacy and mathematics.
+- **Harrison, R. M.** (2012). *Learning Progressions in Mathematics Education*.
+  - Core relevance: supports developmental ladder framing from foundational numeracy toward Grade 4 abstraction and reasoning.
+- **Gold, S., et al.** (2025). *Skills Framework and Learning Progressions*.
+  - Core relevance: supports modern skills-map structuring and domain progression articulation for Grade 4 roadmap documentation.
