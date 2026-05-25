@@ -706,3 +706,296 @@ Current roadmap coverage:
 
 Next planned roadmap:
 - Grade 4 Master Roadmap
+
+## Grade 4 Master Roadmap (V1)
+
+Grade 4 represents a shift into:
+
+Upper Elementary Thinking.
+
+Grades 1–3:
+
+learn core mechanics.
+
+Grade 4:
+
+apply, analyze, and explain.
+
+The cognitive demand increases.
+
+Students are increasingly expected to:
+
+- justify answers
+- handle longer problems
+- read more complex texts
+- manage multiple ideas
+- write with evidence
+
+Document this as a major developmental shift and note that this is where adaptive support becomes especially valuable.
+
+## Grade 4 Year Profile
+
+By the end of Grade 4 most children should:
+
+Reading / English:
+- read complex stories and informational texts
+- identify themes and main ideas
+- make inferences
+- use evidence from text
+- understand figurative language
+- write organized multi-paragraph responses
+
+Math:
+- multiply and divide multi-digit numbers
+- understand fractions deeply
+- solve multi-step problems
+- work with decimals
+- understand geometry and measurement
+- explain reasoning clearly
+
+This becomes the Grade 4 Success Profile.
+
+## Grade 4 Math Roadmap
+
+Research identifies Grade 4 as:
+
+the fraction + reasoning year.
+
+Fractions become increasingly foundational for later algebra.
+
+Domain 1: Multi-Digit Operations
+Major fluency domain.
+
+Skills:
+- multi-digit multiplication
+- multiplication strategies
+- long multiplication foundations
+- multi-digit division
+- estimation
+- mental math
+- operation fluency
+
+Parent Goal:
+Solve larger calculations efficiently.
+
+Domain 2: Fractions (Critical Domain)
+Major predictive domain.
+
+Skills:
+- equivalent fractions
+- compare fractions
+- simplify fractions
+- fraction number line
+- add fractions
+- subtract fractions
+- fraction reasoning
+
+Parent Goal:
+Understand fractions as real numbers.
+
+Domain 3: Decimals Foundations
+Early decimal reasoning.
+
+Skills:
+- tenths
+- hundredths
+- decimal notation
+- compare decimals
+- decimal models
+- decimal place value
+
+Parent Goal:
+Understand numbers smaller than one.
+
+Domain 4: Problem Solving + Mathematical Reasoning
+Increasingly advanced reasoning.
+
+Skills:
+- multi-step problems
+- explain reasoning
+- choose operations
+- justify answers
+- model solutions
+
+Parent Goal:
+Think through problems independently.
+
+Domain 5: Measurement + Geometry
+Skills:
+- area
+- perimeter
+- angles
+- measurement conversion
+- lines
+- geometric properties
+
+Parent Goal:
+Understand space and measurement.
+
+Domain 6: Data + Interpretation
+Skills:
+- graphs
+- charts
+- interpret data
+- compare datasets
+- basic statistics
+
+Parent Goal:
+Analyze information logically.
+
+## Grade 4 Reading / English Roadmap
+
+Grade 4 introduces:
+
+Deeper Meaning-Making.
+
+Students are increasingly expected to:
+
+not only understand
+
+but also:
+
+interpret and support ideas.
+
+Domain 1: Reading Comprehension
+Central domain.
+
+Skills:
+- main idea
+- summarize
+- key details
+- text structure
+- compare texts
+- informational reading
+
+Parent Goal:
+Understand complex meaning.
+
+Domain 2: Inference + Evidence
+Major reasoning jump.
+
+Skills:
+- infer meaning
+- draw conclusions
+- support answers
+- cite evidence
+- explain thinking
+
+Parent Goal:
+Read between the lines.
+
+Domain 3: Vocabulary + Figurative Language
+Language sophistication increases.
+
+Skills:
+- context clues
+- figurative language
+- idioms
+- similes
+- metaphors
+- academic vocabulary
+
+Parent Goal:
+Understand richer language.
+
+Domain 4: Theme + Author Purpose
+Beginning literary analysis.
+
+Skills:
+- theme
+- author's purpose
+- point of view
+- message
+- compare perspectives
+
+Parent Goal:
+Understand why texts are written.
+
+Domain 5: Writing
+Expanded writing expectations.
+
+Skills:
+- multi-paragraph writing
+- organization
+- transitions
+- informational writing
+- opinion writing
+- narrative writing
+- revision
+
+Parent Goal:
+Communicate clearly and logically.
+
+Domain 6: Grammar + Language
+Skills:
+- sentence structure
+- punctuation
+- capitalization
+- parts of speech
+- editing
+- grammar application
+
+Parent Goal:
+Use language accurately.
+
+## Parent Roadmap Example
+
+Future dashboard example:
+
+Grade 4 Roadmap
+
+Math:
+- Multi-Digit Operations: Developing
+- Fractions: Emerging
+- Decimals: Developing
+- Problem Solving: Near Mastery
+
+Reading:
+- Comprehension: Mastered
+- Inference + Evidence: Developing
+- Theme + Purpose: Emerging
+- Writing: Developing
+
+Overall Progress:
+63%
+
+Priority Focus:
+Fractions and text inference.
+
+## Important System Discovery
+
+Document this developmental ladder:
+
+Grades 1–2:
+Foundations
+
+↓
+
+Grade 3:
+Independence
+
+↓
+
+Grade 4:
+Reasoning + abstraction
+
+Add planning insight:
+
+As grades increase, difficulty should increasingly reflect:
+
+reasoning demand
+
+—not merely harder numbers.
+
+Document this as a Diamond Standard design principle for future planning only.
+
+## System Status
+
+Current roadmap coverage:
+- Grade 1
+- Grade 2
+- Grade 3
+- Grade 4
+
+Next planned roadmap:
+- Grade 5 Master Roadmap
