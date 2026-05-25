@@ -37,6 +37,25 @@ This research set supports the documentation-level foundation for Adaptive Learn
 - **Wiggins, G., & McTighe, J.** (2005). *Understanding by Design* (Expanded 2nd ed.). ASCD.
   - Core relevance: backward design structure for aligning goals, evidence, and learning experiences.
 
+## 6) Grade 2 Master Roadmap Support
+
+- **Guskey, T. R.** (2022). *Implementing Mastery Learning*.
+  - Core relevance: supports practical mastery implementation guidance for consolidation years such as Grade 2.
+- **Daro, P., Mosher, F. A., & Corcoran, T. B.** (2011). *Learning Trajectories in Mathematics*.
+  - Core relevance: supports coherent sequencing of Grade 2 numeracy growth from place value through operations and problem solving.
+- **Clements, D. H., & Sarama, J.** (2016). *Math, Science, and Technology in the Early Grades*. *The Future of Children*.
+  - Core relevance: supports integrated early-grade mathematical reasoning and conceptual development.
+- **Scammacca, N., et al.** (2020). *Reading and Math Growth in Grades 1–5*.
+  - Core relevance: supports expectations for cumulative growth patterns across elementary grades, including Grade 2 transition milestones.
+- **Bryant, D. P., et al.** (2021). *Early Numeracy Intervention and Grade 2 Mathematics*.
+  - Core relevance: informs Grade 2 intervention design and progression expectations in foundational numeracy.
+- **Duckworth, K., & Schoon, I.** (2010). *Literacy, Numeracy and Primary School Progress*.
+  - Core relevance: supports the relationship between early literacy/numeracy competency and later primary progress.
+- **Duschl, R., et al.** (2011). *Learning Progressions and Teaching Sequences*.
+  - Core relevance: reinforces progression-based instructional sequencing and developmental coherence.
+- **REACH** (2019). *Comprehensive Primary Grade Literacy and Numeracy Programs*.
+  - Core relevance: supports whole-program alignment for coordinated literacy and numeracy advancement.
+
 ---
 
 ## Notes for Future Expansion
