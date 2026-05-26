@@ -177,10 +177,11 @@ After the above fixes are completed and green in CI, it is reasonable to begin G
 - avoid schema expansion as part of Grade 2 runtime introduction unless separately approved.
 
 
-## Grade 1 Pilot Hardening Status (2026-05-26)
-- ✅ Legacy tests updated to align with server-backed Grade 1 Adaptive V2 persistence and intentional fetch usage.
-- ✅ Grade 1 content catalog now loads from explicit manifest (`grade1-artifact-manifest.v1.json`) to avoid directory listing dependency on static hosts.
-- ✅ Runtime now surfaces visible retry/status feedback for content load, checkpoint package load, persistence save/load, Gates candidate signal fetch, and voice fallback/rejection.
-- ✅ Guardrails re-validated: no raw prompt/answer storage, no Gates scoring writes, no diagnosis/pass-fail language.
-- **Readiness:** Grade 1 is pilot-ready.
-- **Next step:** Grade 2 runtime can begin per migration plan scope.
+
+## Multi-question checkpoint session fix (2026-05-26)
+- Grade 1 Adaptive V2 checkpoint runtime now supports true multi-question sessions instead of single-question-only behavior per selected skill.
+- Session question count respects 10/15/20 selector when enough Grade 1 content is available, and gracefully caps to available questions.
+- Question progression now advances as Question 1 of N, 2 of N, etc., with cross-skill pull within the selected Grade 1 subject to reduce repeated prompts.
+- Runtime avoids unnecessary repeats by preferring unseen checkpoint question IDs before reusing previously seen items.
+- Session completion renders a supportive summary with aggregate-only progress (attempts, correct/total, hints, mastery band, next recommended skill).
+- No Grade 2 runtime was introduced; no new Gates scoring writes were added; AI voice provider behavior remains unchanged; raw prompt/answer text is still not persisted.

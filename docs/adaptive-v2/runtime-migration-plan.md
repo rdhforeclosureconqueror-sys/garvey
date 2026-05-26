@@ -976,9 +976,11 @@ Confirmed constraints:
 - No Grades 2–6 voice runtime wiring.
 - No diagnosis or pass/fail language introduced in voice pathing.
 
-## Grade 1 Hardening Completion Update (2026-05-26)
-- Grade 1 runtime hardening fixes are complete and validated in tests.
-- Catalog loading is now manifest-driven for static hosting compatibility.
-- Failure pathways now show user-visible retry/status guidance.
-- Safety boundaries remain unchanged (no Gates scoring writes, no diagnosis/pass-fail language, no raw prompt/answer persistence).
-- **Decision:** proceed to Grade 2 runtime implementation.
+
+## Multi-question checkpoint session fix (2026-05-26)
+- Grade 1 Adaptive V2 checkpoint runtime now supports true multi-question sessions instead of single-question-only behavior per selected skill.
+- Session question count respects 10/15/20 selector when enough Grade 1 content is available, and gracefully caps to available questions.
+- Question progression now advances as Question 1 of N, 2 of N, etc., with cross-skill pull within the selected Grade 1 subject to reduce repeated prompts.
+- Runtime avoids unnecessary repeats by preferring unseen checkpoint question IDs before reusing previously seen items.
+- Session completion renders a supportive summary with aggregate-only progress (attempts, correct/total, hints, mastery band, next recommended skill).
+- No Grade 2 runtime was introduced; no new Gates scoring writes were added; AI voice provider behavior remains unchanged; raw prompt/answer text is still not persisted.
