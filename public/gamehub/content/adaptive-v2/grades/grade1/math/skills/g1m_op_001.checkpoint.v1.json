@@ -1,0 +1,41 @@
+{
+  "schema_version": "v1",
+  "checkpoint_id": "G1M_OP_001_CP1",
+  "skill": "Addition Foundations Within 20",
+  "questions": [
+    {
+      "question_id": "G1M_OP_001_CP1_Q1",
+      "prompt": "2 + 2 = ?",
+      "answer": "4"
+    },
+    {
+      "question_id": "G1M_OP_001_CP1_Q2",
+      "prompt": "3 + 4 = ?",
+      "answer": "7"
+    },
+    {
+      "question_id": "G1M_OP_001_CP1_Q3",
+      "prompt": "5 + 1 = ?",
+      "answer": "6"
+    }
+  ],
+  "pass_threshold": 0.8,
+  "feedback_rules": [
+    {
+      "condition": "score >= pass_threshold",
+      "feedback": "Advance to next practice set."
+    },
+    {
+      "condition": "score < pass_threshold",
+      "feedback": "Assign mini-reteach and guided practice loop."
+    }
+  ],
+  "pathway_recommendation": {
+    "if_pass": "adaptive_practice",
+    "if_fail": "lesson_support_loop"
+  },
+  "source_metadata": {
+    "source_phase_folder": "phase-7a",
+    "source_file": "Grade 1 Math Production Operations Skill 5 Addition Foundations (Within 20)"
+  }
+}

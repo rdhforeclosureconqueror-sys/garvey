@@ -1,0 +1,41 @@
+{
+  "schema_version": "v1",
+  "checkpoint_id": "G1M_OP_003_CP1",
+  "skill": "Fact Fluency and Number Bonds Within 10",
+  "questions": [
+    {
+      "question_id": "G1M_OP_003_CP1_Q1",
+      "prompt": "2 + __ = 4",
+      "answer": "2"
+    },
+    {
+      "question_id": "G1M_OP_003_CP1_Q2",
+      "prompt": "5 = 3 + __",
+      "answer": "2"
+    },
+    {
+      "question_id": "G1M_OP_003_CP1_Q3",
+      "prompt": "1 + 4 = ?",
+      "answer": "5"
+    }
+  ],
+  "pass_threshold": 0.8,
+  "feedback_rules": [
+    {
+      "condition": "score >= pass_threshold",
+      "feedback": "Advance to next practice set."
+    },
+    {
+      "condition": "score < pass_threshold",
+      "feedback": "Assign mini-reteach and guided practice loop."
+    }
+  ],
+  "pathway_recommendation": {
+    "if_pass": "adaptive_practice",
+    "if_fail": "lesson_support_loop"
+  },
+  "source_metadata": {
+    "source_phase_folder": "phase-7a",
+    "source_file": "Grade 1 Math Production Operations Skill 7 Fact Fluency + Number Bonds (Within 10)"
+  }
+}

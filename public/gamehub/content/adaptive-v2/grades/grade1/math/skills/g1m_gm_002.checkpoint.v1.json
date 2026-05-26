@@ -1,0 +1,41 @@
+{
+  "schema_version": "v1",
+  "checkpoint_id": "G1M_GM_002_CP1",
+  "skill": "Measurement Foundations",
+  "questions": [
+    {
+      "question_id": "G1M_GM_002_CP1_Q1",
+      "prompt": "Which is longer: rope or ribbon?",
+      "answer": "rope"
+    },
+    {
+      "question_id": "G1M_GM_002_CP1_Q2",
+      "prompt": "Which is heavier: rock or leaf?",
+      "answer": "rock"
+    },
+    {
+      "question_id": "G1M_GM_002_CP1_Q3",
+      "prompt": "Which is taller: tree or flower?",
+      "answer": "tree"
+    }
+  ],
+  "pass_threshold": 0.8,
+  "feedback_rules": [
+    {
+      "condition": "score >= pass_threshold",
+      "feedback": "Advance to next practice set."
+    },
+    {
+      "condition": "score < pass_threshold",
+      "feedback": "Assign mini-reteach and guided practice loop."
+    }
+  ],
+  "pathway_recommendation": {
+    "if_pass": "adaptive_practice",
+    "if_fail": "lesson_support_loop"
+  },
+  "source_metadata": {
+    "source_phase_folder": "phase-7a",
+    "source_file": "Grade 1 Math Production Geometry + Measurement Skill 9 Measurement Foundations (Length, Height, Weight, Comparison)"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": "v1",
+  "checkpoint_id": "G1M_NS_004_CP1",
+  "skill": "Place Value Foundations",
+  "questions": [
+    {
+      "question_id": "G1M_NS_004_CP1_Q1",
+      "prompt": "1 ten and 4 ones = ?",
+      "answer": "14"
+    },
+    {
+      "question_id": "G1M_NS_004_CP1_Q2",
+      "prompt": "How many tens in 18?",
+      "answer": "1"
+    },
+    {
+      "question_id": "G1M_NS_004_CP1_Q3",
+      "prompt": "How many ones in 18?",
+      "answer": "8"
+    }
+  ],
+  "pass_threshold": 0.8,
+  "feedback_rules": [
+    {
+      "condition": "score >= pass_threshold",
+      "feedback": "Advance to next practice set."
+    },
+    {
+      "condition": "score < pass_threshold",
+      "feedback": "Assign mini-reteach and guided practice loop."
+    }
+  ],
+  "pathway_recommendation": {
+    "if_pass": "adaptive_practice",
+    "if_fail": "lesson_support_loop"
+  },
+  "source_metadata": {
+    "source_phase_folder": "phase-7a",
+    "source_file": "Grade 1 Math Production Number Sense Skill 4 Place Value Foundations (Tens + Ones)"
+  }
+}
