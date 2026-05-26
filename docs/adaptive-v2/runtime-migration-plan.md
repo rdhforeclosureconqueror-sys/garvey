@@ -946,3 +946,32 @@ This PR J update is documentation-only planning that:
 - and enumerates required tests before any voice implementation.
 
 No runtime voice wiring or route/provider implementation is included in PR J.
+
+### 15.8 PR K implementation status (2026-05-26)
+
+PR K implements **Grade 1 Adaptive V2 voice support only** using the PR J guardrails.
+
+Delivered:
+- Added sibling route: `POST /api/adaptive-v2/voice/sections`.
+- Enforced Grade 1 + `adaptive_v2` runtime guard.
+- Enforced section allowlist for voice-safe blocks only:
+  - `lesson_snippet`
+  - `worked_example`
+  - `hints`
+  - `checkpoint_instructions`
+  - `supportive_feedback`
+  - `next_practice_recommendation`
+- Added short-text sanitation and unsafe/private text rejection for voice payloads.
+- Added Grade 1 runtime UI controls:
+  - Listen to lesson
+  - Listen to example
+  - Listen to hint
+  - Stop voice
+- Kept voice non-blocking with browser speech fallback behavior.
+
+Confirmed constraints:
+- No changes to existing assessment or youth-development voice routes.
+- No voice provider behavior changes.
+- No Gates scoring added.
+- No Grades 2–6 voice runtime wiring.
+- No diagnosis or pass/fail language introduced in voice pathing.
