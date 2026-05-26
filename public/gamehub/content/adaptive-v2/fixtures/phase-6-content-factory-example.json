@@ -1,0 +1,63 @@
+{
+  "source_intake": {
+    "phase_id": "phase-7a",
+    "source_file": "Grade 1 Math Production Number Sense Skill 1 Counting to 120",
+    "curriculum_index_ref": "phase-7a:grade-1-math-counting-to-120"
+  },
+  "normalization": {
+    "normalization_profile": "phase6-v1",
+    "routing": {
+      "grade": "Grade 1",
+      "subject": "Math",
+      "domain": "Number Sense",
+      "skill": "counting-to-120"
+    },
+    "deterministic_seed": "phase-7a|grade-1|math|counting-to-120"
+  },
+  "generated": {
+    "lesson_package": {
+      "schema_version": "v1",
+      "lesson_package_id": "lp-phase-7a-grade-1-math-counting-to-120-v1",
+      "phase_id": "phase-7a",
+      "skill": "counting-to-120",
+      "lesson_snippet": {
+        "concept_explanation": "Numbers can be counted in order with ones and tens patterns."
+      },
+      "worked_example": {
+        "problem": "Count from 98 to 102.",
+        "steps": [{ "label": "Step 1", "content": "Count 98, 99, 100, 101, 102." }],
+        "final_answer": "98, 99, 100, 101, 102"
+      },
+      "hint_ladder": {
+        "hint_1": "Start at 98.",
+        "hint_2": "Say each next number by adding one.",
+        "hint_3": "99 comes after 98 and 100 comes after 99."
+      },
+      "guided_practice": [{
+        "practice_id": "gp-1",
+        "support_type": "number_line",
+        "prompt": "What number comes after 109?",
+        "choices": ["110", "119", "111"],
+        "correct_answer": "110",
+        "coaching_feedback": "Correct: counting forward by one from 109 gives 110."
+      }],
+      "checkpoint_ref": { "checkpoint_id": "cp-phase-7a-grade-1-math-counting-to-120-v1" }
+    },
+    "checkpoint": {
+      "schema_version": "v1",
+      "checkpoint_id": "cp-phase-7a-grade-1-math-counting-to-120-v1",
+      "skill": "counting-to-120",
+      "questions": [{
+        "question_id": "q1",
+        "prompt": "Count forward: 67, 68, __",
+        "answer": "69"
+      }],
+      "pass_threshold": 0.8
+    }
+  },
+  "validation": {
+    "schema_valid": true,
+    "deterministic_output": true,
+    "review_flags": []
+  }
+}

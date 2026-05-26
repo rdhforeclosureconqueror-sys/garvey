@@ -601,3 +601,23 @@ Notes:
 - Contracts capture Learn Layer components: mini lesson snippet, worked example, hint ladder, guided practice, checkpoint, feedback hooks, pathway recommendation, and mastery support metadata.
 - Artifacts are stub-level and intentionally non-production.
 - Production lesson files remain unconverted pending Phase 2 contract sign-off and later per-phase conversion passes.
+
+
+## Phase 6 contract status update (2026-05-26)
+
+Status: **Completed for planning/contracts only** (no runtime wiring).
+
+Artifacts added:
+- `docs/adaptive-v2/content-factory-contracts.md`
+- `public/gamehub/content/adaptive-v2/fixtures/phase-6-content-factory-example.json`
+- `scripts/adaptive-v2/validate-phase6-content-factory-fixture.mjs`
+
+Key outcomes:
+- Formalized intake, normalization, generation, validation, review-flag, deterministic-output, and routing contracts from Phase 6 source intent.
+- Added tiny pseudo-output fixture only; no production lesson conversion performed.
+- Preserved non-goals: no runtime wiring, no engine logic changes, no tracking/DB writes, no scoring/diagnosis behavior changes.
+
+Remaining before Grade 1 production conversion:
+- Finalize deterministic ID and normalization-profile policy.
+- Approve routing/misconception vocabularies.
+- Execute first controlled conversion pass for `Phase 7A/7B` with review queue and schema validation.
