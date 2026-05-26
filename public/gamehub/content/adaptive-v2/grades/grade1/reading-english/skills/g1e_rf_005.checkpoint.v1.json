@@ -1,0 +1,41 @@
+{
+  "schema_version": "v1",
+  "checkpoint_id": "G1E_RF_005_CP1",
+  "skill": "Reading Simple Sentences and Early Fluency",
+  "questions": [
+    {
+      "question_id": "G1E_RF_005_CP1_Q1",
+      "prompt": "Read: I see a bug.",
+      "answer": "I see a bug."
+    },
+    {
+      "question_id": "G1E_RF_005_CP1_Q2",
+      "prompt": "Read: The dog can run.",
+      "answer": "The dog can run."
+    },
+    {
+      "question_id": "G1E_RF_005_CP1_Q3",
+      "prompt": "Who runs?",
+      "answer": "dog"
+    }
+  ],
+  "pass_threshold": 0.8,
+  "feedback_rules": [
+    {
+      "condition": "score >= pass_threshold",
+      "feedback": "Advance to next practice set."
+    },
+    {
+      "condition": "score < pass_threshold",
+      "feedback": "Assign mini-reteach and guided practice loop."
+    }
+  ],
+  "pathway_recommendation": {
+    "if_pass": "adaptive_practice",
+    "if_fail": "lesson_support_loop"
+  },
+  "source_metadata": {
+    "source_phase_folder": "phase-7b",
+    "source_file": "Grade 1 English Production Reading Foundations Skill 5 Reading Simple Sentences + Early Fluency"
+  }
+}

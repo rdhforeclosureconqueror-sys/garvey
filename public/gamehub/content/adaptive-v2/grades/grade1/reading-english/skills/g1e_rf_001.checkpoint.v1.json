@@ -1,0 +1,41 @@
+{
+  "schema_version": "v1",
+  "checkpoint_id": "G1E_RF_001_CP1",
+  "skill": "Letter Recognition and Letter Sounds",
+  "questions": [
+    {
+      "question_id": "G1E_RF_001_CP1_Q1",
+      "prompt": "What sound does S make?",
+      "answer": "/s/"
+    },
+    {
+      "question_id": "G1E_RF_001_CP1_Q2",
+      "prompt": "Match B to lowercase.",
+      "answer": "b"
+    },
+    {
+      "question_id": "G1E_RF_001_CP1_Q3",
+      "prompt": "Which letter makes /m/?",
+      "answer": "M"
+    }
+  ],
+  "pass_threshold": 0.8,
+  "feedback_rules": [
+    {
+      "condition": "score >= pass_threshold",
+      "feedback": "Advance to next practice set."
+    },
+    {
+      "condition": "score < pass_threshold",
+      "feedback": "Assign mini-reteach and guided practice loop."
+    }
+  ],
+  "pathway_recommendation": {
+    "if_pass": "adaptive_practice",
+    "if_fail": "lesson_support_loop"
+  },
+  "source_metadata": {
+    "source_phase_folder": "phase-7b",
+    "source_file": "Grade 1 English Production Reading Foundations Skill 1 Letter Recognition + Letter Sounds (Phonics Foundation)"
+  }
+}

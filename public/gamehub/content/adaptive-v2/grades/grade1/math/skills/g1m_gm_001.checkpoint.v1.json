@@ -1,0 +1,41 @@
+{
+  "schema_version": "v1",
+  "checkpoint_id": "G1M_GM_001_CP1",
+  "skill": "Shapes and Spatial Reasoning",
+  "questions": [
+    {
+      "question_id": "G1M_GM_001_CP1_Q1",
+      "prompt": "Name a shape with 4 sides.",
+      "answer": "square"
+    },
+    {
+      "question_id": "G1M_GM_001_CP1_Q2",
+      "prompt": "Which shape is round?",
+      "answer": "circle"
+    },
+    {
+      "question_id": "G1M_GM_001_CP1_Q3",
+      "prompt": "How many sides does a triangle have?",
+      "answer": "3"
+    }
+  ],
+  "pass_threshold": 0.8,
+  "feedback_rules": [
+    {
+      "condition": "score >= pass_threshold",
+      "feedback": "Advance to next practice set."
+    },
+    {
+      "condition": "score < pass_threshold",
+      "feedback": "Assign mini-reteach and guided practice loop."
+    }
+  ],
+  "pathway_recommendation": {
+    "if_pass": "adaptive_practice",
+    "if_fail": "lesson_support_loop"
+  },
+  "source_metadata": {
+    "source_phase_folder": "phase-7a",
+    "source_file": "Grade 1 Math Production Geometry + Measurement Skill 8 Shapes + Spatial Reasoning"
+  }
+}

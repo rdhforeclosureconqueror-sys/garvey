@@ -16,59 +16,134 @@
     "checkpoint_ref"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "v1" },
-    "lesson_package_id": { "type": "string", "minLength": 1 },
-    "phase_id": { "type": "string", "const": "phase-2" },
-    "grade": { "type": ["integer", "string"] },
-    "subject": { "type": "string" },
-    "domain": { "type": "string" },
-    "skill": { "type": "string", "minLength": 1 },
-    "objective": { "type": "string" },
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "lesson_package_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "phase_id": {
+      "type": "string",
+      "enum": [
+        "phase-2",
+        "phase-7a",
+        "phase-7b"
+      ]
+    },
+    "grade": {
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "subject": {
+      "type": "string"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "skill": {
+      "type": "string",
+      "minLength": 1
+    },
+    "objective": {
+      "type": "string"
+    },
     "lesson_snippet": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["key_vocabulary", "concept_explanation", "lesson_summary"],
+      "required": [
+        "key_vocabulary",
+        "concept_explanation",
+        "lesson_summary"
+      ],
       "properties": {
-        "key_vocabulary": { "type": "array", "items": { "type": "string" } },
-        "concept_explanation": { "type": "string" },
-        "visual_model": { "type": "string" },
-        "common_misconception": { "type": "string" },
-        "real_world_connection": { "type": "string" },
-        "lesson_summary": { "type": "string" }
+        "key_vocabulary": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "concept_explanation": {
+          "type": "string"
+        },
+        "visual_model": {
+          "type": "string"
+        },
+        "common_misconception": {
+          "type": "string"
+        },
+        "real_world_connection": {
+          "type": "string"
+        },
+        "lesson_summary": {
+          "type": "string"
+        }
       }
     },
     "worked_example": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["problem", "steps", "final_answer"],
+      "required": [
+        "problem",
+        "steps",
+        "final_answer"
+      ],
       "properties": {
-        "problem": { "type": "string" },
+        "problem": {
+          "type": "string"
+        },
         "steps": {
           "type": "array",
           "minItems": 1,
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["label", "content"],
+            "required": [
+              "label",
+              "content"
+            ],
             "properties": {
-              "label": { "type": "string" },
-              "content": { "type": "string" }
+              "label": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              }
             }
           }
         },
-        "thinking_notes": { "type": "string" },
-        "final_answer": { "type": "string" },
-        "reflection_prompt": { "type": "string" }
+        "thinking_notes": {
+          "type": "string"
+        },
+        "final_answer": {
+          "type": "string"
+        },
+        "reflection_prompt": {
+          "type": "string"
+        }
       }
     },
     "hint_ladder": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["hint_1", "hint_2", "hint_3"],
+      "required": [
+        "hint_1",
+        "hint_2",
+        "hint_3"
+      ],
       "properties": {
-        "hint_1": { "type": "string" },
-        "hint_2": { "type": "string" },
-        "hint_3": { "type": "string" }
+        "hint_1": {
+          "type": "string"
+        },
+        "hint_2": {
+          "type": "string"
+        },
+        "hint_3": {
+          "type": "string"
+        }
       }
     },
     "guided_practice": {
@@ -77,50 +152,97 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["practice_id", "prompt", "correct_answer"],
+        "required": [
+          "practice_id",
+          "prompt",
+          "correct_answer"
+        ],
         "properties": {
-          "practice_id": { "type": "string" },
-          "support_type": { "type": "string" },
-          "prompt": { "type": "string" },
-          "choices": { "type": "array", "items": { "type": "string" } },
-          "correct_answer": { "type": "string" },
-          "coaching_feedback": { "type": "string" }
+          "practice_id": {
+            "type": "string"
+          },
+          "support_type": {
+            "type": "string"
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "correct_answer": {
+            "type": "string"
+          },
+          "coaching_feedback": {
+            "type": "string"
+          }
         }
       }
     },
     "checkpoint_ref": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["checkpoint_id"],
+      "required": [
+        "checkpoint_id"
+      ],
       "properties": {
-        "checkpoint_id": { "type": "string" }
+        "checkpoint_id": {
+          "type": "string"
+        }
       }
     },
     "next_practice_recommendation": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "pathway": { "type": "string" },
-        "reason": { "type": "string" }
+        "pathway": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
       }
     },
     "mastery_support_metadata": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "accuracy": { "type": "number", "minimum": 0, "maximum": 1 },
-        "attempts": { "type": "integer", "minimum": 0 },
-        "hints_used": { "type": "integer", "minimum": 0 },
-        "confidence_score": { "type": "number", "minimum": 0, "maximum": 1 },
-        "mastery_status": { "type": "string" }
+        "accuracy": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "attempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hints_used": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "confidence_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "mastery_status": {
+          "type": "string"
+        }
       }
     },
     "source_metadata": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "source_phase_folder": { "type": "string" },
-        "source_file": { "type": "string" }
+        "source_phase_folder": {
+          "type": "string"
+        },
+        "source_file": {
+          "type": "string"
+        }
       }
     }
   }

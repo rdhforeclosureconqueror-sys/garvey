@@ -1,0 +1,41 @@
+{
+  "schema_version": "v1",
+  "checkpoint_id": "G1M_NS_002_CP1",
+  "skill": "Count Forward and Backward",
+  "questions": [
+    {
+      "question_id": "G1M_NS_002_CP1_Q1",
+      "prompt": "Count forward: 1,2,__",
+      "answer": "3"
+    },
+    {
+      "question_id": "G1M_NS_002_CP1_Q2",
+      "prompt": "Count backward: 4,3,__",
+      "answer": "2"
+    },
+    {
+      "question_id": "G1M_NS_002_CP1_Q3",
+      "prompt": "Count forward from 6.",
+      "answer": "7"
+    }
+  ],
+  "pass_threshold": 0.8,
+  "feedback_rules": [
+    {
+      "condition": "score >= pass_threshold",
+      "feedback": "Advance to next practice set."
+    },
+    {
+      "condition": "score < pass_threshold",
+      "feedback": "Assign mini-reteach and guided practice loop."
+    }
+  ],
+  "pathway_recommendation": {
+    "if_pass": "adaptive_practice",
+    "if_fail": "lesson_support_loop"
+  },
+  "source_metadata": {
+    "source_phase_folder": "phase-7a",
+    "source_file": "Grade 1 Math Production Number Sense Skill 2 Count Forward + Backward"
+  }
+}

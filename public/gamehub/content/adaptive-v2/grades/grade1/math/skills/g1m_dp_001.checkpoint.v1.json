@@ -1,0 +1,41 @@
+{
+  "schema_version": "v1",
+  "checkpoint_id": "G1M_DP_001_CP1",
+  "skill": "Sorting Categories and Pattern Recognition",
+  "questions": [
+    {
+      "question_id": "G1M_DP_001_CP1_Q1",
+      "prompt": "Red, blue, red, __",
+      "answer": "blue"
+    },
+    {
+      "question_id": "G1M_DP_001_CP1_Q2",
+      "prompt": "Sort by color.",
+      "answer": "same color groups"
+    },
+    {
+      "question_id": "G1M_DP_001_CP1_Q3",
+      "prompt": "Circle, square, circle, __",
+      "answer": "square"
+    }
+  ],
+  "pass_threshold": 0.8,
+  "feedback_rules": [
+    {
+      "condition": "score >= pass_threshold",
+      "feedback": "Advance to next practice set."
+    },
+    {
+      "condition": "score < pass_threshold",
+      "feedback": "Assign mini-reteach and guided practice loop."
+    }
+  ],
+  "pathway_recommendation": {
+    "if_pass": "adaptive_practice",
+    "if_fail": "lesson_support_loop"
+  },
+  "source_metadata": {
+    "source_phase_folder": "phase-7a",
+    "source_file": "Grade 1 Math Production Data + Patterns Skill 10 Sorting, Categories, and Pattern Recognition"
+  }
+}
