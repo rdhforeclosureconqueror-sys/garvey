@@ -554,3 +554,32 @@ After manifest/index is stable, proceed to **phase-1b** then **Phase 2**, then f
 - `Phase 16`: 10 files
 - `Phase 17`: 10 files
 - `Phase 18`: 10 files
+
+---
+
+## Control Layer 0 (new): Shared Curriculum Manifest/Index (required before Phase 2 conversion)
+
+A master index now exists at:
+
+- `public/gamehub/content/adaptive-v2/manifests/curriculum-index.v1.json`
+
+And is governed by schema:
+
+- `public/gamehub/content/adaptive-v2/schemas/curriculum-index.schema.json`
+
+This manifest is now the **first control layer** before any Phase 2 conversion work. It provides a safe inventory-only map of curriculum-source inputs and explicitly enforces that:
+
+- source discovery is complete and auditable,
+- `Phase 10` absence is documented and allowed,
+- every referenced source file physically exists,
+- no duplicate source entries are present,
+- no runtime wiring/tracking/scoring/diagnosis/db behaviors are introduced at this stage.
+
+Validation command:
+
+- `npm run validate:curriculum-index`
+
+Gate policy update:
+
+- **Phase 2 conversion is blocked** unless the curriculum index validator passes.
+- Passing this validator means it is safe to proceed to Phase 2 conversion planning/implementation (still without runtime wiring).
