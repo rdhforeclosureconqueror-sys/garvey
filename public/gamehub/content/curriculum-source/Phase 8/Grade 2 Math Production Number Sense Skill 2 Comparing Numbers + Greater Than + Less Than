@@ -1,0 +1,466 @@
+Excellent.
+
+We continue:
+
+# Phase 8
+
+# Grade 2 Math Production
+
+# Number Sense
+
+# Skill 2
+
+# Comparing Numbers + Greater Than + Less Than
+
+Research consistently shows:
+
+# Number Comparison
+
+is a core:
+
+```text
+number sense skill
+```
+
+Students learn:
+
+```text
+compare quantity
+→ compare place value
+→ compare numbers
+→ justify thinking
+```
+
+This develops:
+
+* magnitude understanding
+* mental math
+* logical reasoning
+* estimation
+* arithmetic readiness
+
+This becomes:
+
+# Number Magnitude Thinking
+
+Common misconception:
+
+children may compare:
+
+```text
+52 and 47
+```
+
+by:
+
+```text
+2 > 7
+```
+
+instead of:
+
+```text
+5 tens > 4 tens
+```
+
+This skill teaches:
+
+```text
+place value comparison
+```
+
+---
+
+# Skill Metadata
+
+Copy-paste:
+
+```json
+{
+  "skill_id":"G2M_NS_002",
+  "grade":2,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Comparing Numbers Greater Than and Less Than",
+  "mastery_threshold":85,
+  "difficulty_range":[1,2,3]
+}
+```
+
+---
+
+# MINI LESSON
+
+Copy-paste:
+
+```json
+{
+  "lesson_id":"G2M_NS_002_L1",
+  "grade":2,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Comparing Numbers Greater Than and Less Than",
+  "objective":"Students compare numbers to 100 using place value and symbols.",
+  "key_vocabulary":[
+    "greater than",
+    "less than",
+    "equal",
+    "compare",
+    "symbol"
+  ],
+  "concept_explanation":"Numbers can be compared by looking at tens and ones. Greater means bigger. Less means smaller.",
+  "visual_model":"Place-value comparison chart.",
+  "common_misconception":"Comparing ones before tens.",
+  "real_world_connection":"Money, scores, prices, and counting objects.",
+  "lesson_summary":"Compare tens first, then ones."
+}
+```
+
+---
+
+# WORKED EXAMPLE
+
+Copy-paste:
+
+```json
+{
+  "example_id":"G2M_NS_002_EX1",
+  "skill":"Comparing Numbers Greater Than and Less Than",
+  "problem":"Compare 45 and 38.",
+  "step_1":"Look at tens.",
+  "step_2":"4 tens is greater than 3 tens.",
+  "step_3":"Choose symbol.",
+  "thinking_notes":"Compare largest place first.",
+  "final_answer":"45 > 38",
+  "reflection_prompt":"Which number has more tens?"
+}
+```
+
+---
+
+# WORKED EXAMPLE 2
+
+Equal tens.
+
+Copy-paste:
+
+```json
+{
+  "example_id":"G2M_NS_002_EX2",
+  "skill":"Comparing Numbers Greater Than and Less Than",
+  "problem":"Compare 62 and 68.",
+  "step_1":"Compare tens.",
+  "step_2":"Tens are equal.",
+  "step_3":"Compare ones.",
+  "thinking_notes":"When tens match, compare ones.",
+  "final_answer":"62 < 68",
+  "reflection_prompt":"Why compare ones?"
+}
+```
+
+---
+
+# HINT LADDER
+
+Copy-paste:
+
+```json
+{
+  "skill":"Comparing Numbers Greater Than and Less Than",
+  "hint_1":"Compare tens first.",
+  "hint_2":"If equal, compare ones.",
+  "hint_3":"Choose the correct symbol."
+}
+```
+
+---
+
+# GUIDED PRACTICE
+
+## Guided Practice 1
+
+Copy-paste:
+
+```json
+{
+  "practice_id":"G2M_NS_002_GP1",
+  "skill":"Comparing Numbers Greater Than and Less Than",
+  "support_type":"place_value_compare",
+  "prompt":"Which number is greater?",
+  "choices":[
+    "54",
+    "45",
+    "equal"
+  ],
+  "correct_answer":"54",
+  "coaching_feedback":"Compare tens first."
+}
+```
+
+---
+
+## Guided Practice 2
+
+Copy-paste:
+
+```json
+{
+  "practice_id":"G2M_NS_002_GP2",
+  "skill":"Comparing Numbers Greater Than and Less Than",
+  "support_type":"symbol_match",
+  "prompt":"Choose the correct symbol: 33 __ 29",
+  "choices":[
+    ">",
+    "<",
+    "="
+  ],
+  "correct_answer":">",
+  "coaching_feedback":"33 has more tens."
+}
+```
+
+---
+
+# CHECKPOINT
+
+Copy-paste:
+
+```json
+{
+  "checkpoint_id":"G2M_NS_002_CP1",
+  "skill":"Comparing Numbers Greater Than and Less Than",
+  "pass_score":80,
+  "questions":[
+    {
+      "prompt":"Compare 61 and 52",
+      "answer":">"
+    },
+    {
+      "prompt":"Compare 44 and 44",
+      "answer":"="
+    },
+    {
+      "prompt":"Which is smaller: 71 or 79?",
+      "answer":"71"
+    }
+  ]
+}
+```
+
+---
+
+# ADAPTIVE QUESTION BANK
+
+Minimum:
+
+8 questions.
+
+---
+
+# Question 1
+
+Difficulty 1
+
+Copy-paste:
+
+```json
+{
+  "id":"G2M_NS_002_Q1",
+  "grade":2,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Comparing Numbers Greater Than and Less Than",
+  "difficulty":1,
+  "cognitive_level":"recall",
+  "misconception_tag":"ones_first",
+  "question_type":"multiple_choice",
+  "prompt":"Which is greater?",
+  "choices":[
+    "67",
+    "59",
+    "equal"
+  ],
+  "correct_answer":"67",
+  "correct_explanation":"6 tens is greater than 5 tens.",
+  "wrong_feedback":"Compare tens first.",
+  "hint_1":"Look left digit.",
+  "hint_2":"Compare tens.",
+  "hint_3":"67."
+}
+```
+
+---
+
+# Question 2
+
+Difficulty 1
+
+Copy-paste:
+
+```json
+{
+  "id":"G2M_NS_002_Q2",
+  "grade":2,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Comparing Numbers Greater Than and Less Than",
+  "difficulty":1,
+  "cognitive_level":"recall",
+  "misconception_tag":"symbol_confusion",
+  "question_type":"multiple_choice",
+  "prompt":"Choose symbol: 25 __ 42",
+  "choices":[
+    "<",
+    ">",
+    "="
+  ],
+  "correct_answer":"<",
+  "correct_explanation":"25 is less than 42.",
+  "wrong_feedback":"Compare tens.",
+  "hint_1":"2 tens vs 4 tens.",
+  "hint_2":"Which is bigger?",
+  "hint_3":"<"
+}
+```
+
+---
+
+# Question 3
+
+Difficulty 2
+
+Copy-paste:
+
+```json
+{
+  "id":"G2M_NS_002_Q3",
+  "grade":2,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Comparing Numbers Greater Than and Less Than",
+  "difficulty":2,
+  "cognitive_level":"application",
+  "misconception_tag":"ones_first",
+  "question_type":"multiple_choice",
+  "prompt":"Which is smaller?",
+  "choices":[
+    "46",
+    "64",
+    "equal"
+  ],
+  "correct_answer":"46",
+  "correct_explanation":"4 tens is less than 6 tens.",
+  "wrong_feedback":"Compare place value.",
+  "hint_1":"Compare tens.",
+  "hint_2":"Smaller tens wins.",
+  "hint_3":"46."
+}
+```
+
+---
+
+# Question 4
+
+Difficulty 2
+
+Copy-paste:
+
+```json
+{
+  "id":"G2M_NS_002_Q4",
+  "grade":2,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Comparing Numbers Greater Than and Less Than",
+  "difficulty":2,
+  "cognitive_level":"application",
+  "misconception_tag":"equal_confusion",
+  "question_type":"short_response",
+  "prompt":"Compare 55 and 55.",
+  "correct_answer":"=",
+  "correct_explanation":"Both numbers are equal.",
+  "wrong_feedback":"Compare both numbers carefully.",
+  "hint_1":"Same tens?",
+  "hint_2":"Same ones?",
+  "hint_3":"Equal."
+}
+```
+
+---
+
+# MISCONCEPTION BANK
+
+Copy-paste:
+
+```json
+[
+  {
+    "skill":"Comparing Numbers Greater Than and Less Than",
+    "misconception":"ones_first",
+    "wrong_pattern":"compares ones before tens",
+    "reteach_strategy":"place-value comparison chart"
+  },
+  {
+    "skill":"Comparing Numbers Greater Than and Less Than",
+    "misconception":"symbol_confusion",
+    "wrong_pattern":"mixes up greater-than and less-than symbols",
+    "reteach_strategy":"alligator symbol and quantity matching"
+  }
+]
+```
+
+---
+
+# REVIEW BANK
+
+Copy-paste:
+
+```json
+[
+  {
+    "review_id":"RV1",
+    "prompt":"Which is greater: 81 or 18?",
+    "answer":"81"
+  },
+  {
+    "review_id":"RV2",
+    "prompt":"Choose symbol: 40 __ 40",
+    "answer":"="
+  }
+]
+```
+
+---
+
+# GRADE 2 MATH STATUS
+
+Completed:
+
+✓ Number Sense
+✓ Skill 1 — Place Value to 100
+✓ Skill 2 — Comparing Numbers + Greater Than + Less Than
+
+Grade 2 Math:
+
+~20% complete.
+
+Next:
+
+# Grade 2 Math
+
+# Number Sense
+
+# Skill 3
+
+# Skip Counting + Patterns + Number Sequences
+
+Research informing this package includes:
+
+*Sowder, J. T. (2020). Making Sense of Numbers in School Mathematics.*
+*Mohyuddin, R. G., & Khalil, U. (2016). Misconceptions of Students in Learning Mathematics at Primary Level.*
+*Yang, D. C., & Lin, Y. C. (2015). Assessing Children's Performance and Misconceptions in Number Sense.*
+*Lin, Y. C., Yang, D. C., & Li, M. N. (2016). Diagnosing Students' Misconceptions in Number Sense.*
+*Sood, S., & Jitendra, A. K. (2007). Number Sense Instruction in Mathematics Textbooks.*
+*Dyson, N. I., Jordan, N. C., & Glutting, J. (2013). A Number Sense Intervention for At-Risk Learners.*
+*Jordan, N. C., et al. (2012). Building Kindergartners' Number Sense.*
+*Yang, D. C., Hsu, C. J., & Huang, M. C. (2004). Teaching and Learning Number Sense.*
