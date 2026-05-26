@@ -317,6 +317,13 @@ Does not count as proof:
 - Wire Grade 1 learn+checkpoint loop from `adaptive-v2` content assets.
 - Validate skill graph linkage for grade1 math + reading english.
 
+**Status (2026-05-26): Completed (Grade 1 runtime wiring only, local state).**
+- Grade 1 V2 runtime panel added to the active Adaptive shell with subject + skill selection and “start recommended skill” support.
+- Grade 1 Math and Reading/English lesson packages and checkpoints now load from `public/gamehub/content/adaptive-v2/grades/grade1/*` at runtime.
+- Learner flow supports lesson snippet, worked example, hint ladder, checkpoint response input, supportive feedback messaging, and next-practice recommendation display.
+- State for PR B remains local/in-memory in browser runtime flow.
+- No DB writes, tracking enablement, Gates scoring connection, AI voice wiring, or Grades 2–6 runtime wiring added in PR B.
+
 ## PR C — Local progress model
 
 - Introduce structured local progress contract mirroring future server schema.
