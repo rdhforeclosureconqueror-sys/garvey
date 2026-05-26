@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "graph_file",
+    "grade",
+    "subject",
+    "version",
+    "checks",
+    "unresolved_prerequisites",
+    "needs_review_count"
+  ],
+  "properties": {
+    "graph_file": {
+      "type": "string"
+    },
+    "grade": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "unresolved_prerequisites": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "needs_review_count": {
+      "type": "integer"
+    }
+  }
+}

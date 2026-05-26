@@ -1,0 +1,253 @@
+{
+  "graph_file": "curriculum-framework/skill-graphs/grade2/math/graph.v1.json",
+  "grade": "grade2",
+  "subject": "math",
+  "version": "v1",
+  "checks": [
+    {
+      "name": "graph_file_exists",
+      "pass": true
+    },
+    {
+      "name": "grade_subject_version_present",
+      "pass": true
+    },
+    {
+      "name": "domain_codes_unique",
+      "pass": true
+    },
+    {
+      "name": "skill_codes_unique",
+      "pass": true
+    },
+    {
+      "name": "required_fields_present",
+      "pass": true
+    },
+    {
+      "name": "validation_report_exists",
+      "pass": true
+    },
+    {
+      "name": "needs_review_preserved",
+      "pass": true
+    },
+    {
+      "name": "no_tracking_scoring_db_logic_added",
+      "pass": true
+    }
+  ],
+  "unresolved_prerequisites": [
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_001",
+      "token": "g1_count_forward"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_001",
+      "token": "g1_number_order"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_002",
+      "token": "g1_tens_ones"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_002",
+      "token": "g2_count_1000"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_003",
+      "token": "hundreds_tens_ones"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_003",
+      "token": "compose_numbers"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_004",
+      "token": "expanded_form"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_004",
+      "token": "place_value"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_001",
+      "token": "g1_addition_facts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_001",
+      "token": "place_value"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_002",
+      "token": "addition_within_100"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_002",
+      "token": "place_value_understanding"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_003",
+      "token": "g1_subtraction"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_003",
+      "token": "place_value"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_004",
+      "token": "subtraction_within_100"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_004",
+      "token": "place_value"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_004",
+      "token": "regrouping_addition"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_WP_001",
+      "token": "addition"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_WP_001",
+      "token": "subtraction"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_WP_001",
+      "token": "math_story_understanding"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_WP_002",
+      "token": "one_step_problems"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_WP_002",
+      "token": "regrouping"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_EM_001",
+      "token": "counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_EM_001",
+      "token": "addition_fluency"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_EM_001",
+      "token": "skip_counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_EM_002",
+      "token": "equal_groups"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_EM_002",
+      "token": "addition_within_100"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_EM_003",
+      "token": "equal_groups"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_EM_003",
+      "token": "repeated_addition"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_MMT_001",
+      "token": "g1_measure_objects"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_MMT_001",
+      "token": "counting_units"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_MMT_002",
+      "token": "g1_time_basics"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_MMT_002",
+      "token": "skip_counting_by_5"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_MMT_003",
+      "token": "addition"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_MMT_003",
+      "token": "skip_counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_MMT_003",
+      "token": "place_value"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_GD_001",
+      "token": "g1_shapes"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_GD_001",
+      "token": "shape_attributes"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_GD_002",
+      "token": "counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_GD_002",
+      "token": "compare_numbers"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_GD_003",
+      "token": "picture_graphs"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_GD_003",
+      "token": "comparison_skills"
+    }
+  ],
+  "needs_review_count": 42
+}

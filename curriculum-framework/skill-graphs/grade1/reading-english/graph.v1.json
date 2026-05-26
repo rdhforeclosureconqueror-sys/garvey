@@ -1,0 +1,560 @@
+{
+  "version": "v1",
+  "grade": "grade1",
+  "subject": "reading-english",
+  "source_file": "public/gamehub/content/curriculum-source/phase-1b/Grade1-ReadingEnglish-SkillGraph\u2014V1",
+  "domains": [
+    {
+      "name": "Foundational Reading",
+      "code": "G1E_FR",
+      "skills": [
+        {
+          "name": "Phonemic Awareness",
+          "code": "G1E_FR_001",
+          "subskills": [
+            "hear_sounds",
+            "identify_beginning_sounds",
+            "identify_ending_sounds",
+            "blend_sounds",
+            "segment_sounds"
+          ],
+          "prerequisites": [
+            "oral_language",
+            "listening_attention"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Letter-Sound Knowledge",
+          "code": "G1E_FR_002",
+          "subskills": [
+            "uppercase_letters",
+            "lowercase_letters",
+            "consonant_sounds",
+            "short_vowels",
+            "long_vowels_beginning"
+          ],
+          "prerequisites": [
+            "phonemic_awareness",
+            "print_concepts"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Blending + Decoding",
+          "code": "G1E_FR_003",
+          "subskills": [
+            "blend_cvc_words",
+            "decode_short_vowel_words",
+            "decode_simple_words",
+            "read_word_families"
+          ],
+          "prerequisites": [
+            "letter_sound_knowledge",
+            "phonemic_awareness"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Sight Words",
+          "code": "G1E_FR_004",
+          "subskills": [
+            "recognize_common_words",
+            "read_high_frequency_words",
+            "use_sight_words_in_sentences"
+          ],
+          "prerequisites": [
+            "print_concepts",
+            "basic_decoding"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Reading Fluency",
+      "code": "G1E_FL",
+      "skills": [
+        {
+          "name": "Accuracy",
+          "code": "G1E_FL_001",
+          "subskills": [
+            "read_words_correctly",
+            "self_correct",
+            "track_print"
+          ],
+          "prerequisites": [
+            "decoding",
+            "sight_words"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Pacing",
+          "code": "G1E_FL_002",
+          "subskills": [
+            "read_smoothly",
+            "pause_at_punctuation",
+            "avoid_word_by_word_reading"
+          ],
+          "prerequisites": [
+            "accuracy",
+            "basic_sentence_reading"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Expression",
+          "code": "G1E_FL_003",
+          "subskills": [
+            "use_voice",
+            "match_punctuation",
+            "read_dialogue"
+          ],
+          "prerequisites": [
+            "pacing",
+            "basic_comprehension"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Reading Comprehension",
+      "code": "G1E_RC",
+      "skills": [
+        {
+          "name": "Key Details",
+          "code": "G1E_RC_001",
+          "subskills": [
+            "who",
+            "what",
+            "where",
+            "when",
+            "important_details"
+          ],
+          "prerequisites": [
+            "listening_comprehension",
+            "basic_sentence_reading"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Story Sequence",
+          "code": "G1E_RC_002",
+          "subskills": [
+            "beginning",
+            "middle",
+            "end",
+            "first_next_last",
+            "retell_events"
+          ],
+          "prerequisites": [
+            "key_details",
+            "oral_retelling"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Characters + Setting",
+          "code": "G1E_RC_003",
+          "subskills": [
+            "identify_characters",
+            "identify_setting",
+            "describe_character_actions"
+          ],
+          "prerequisites": [
+            "key_details",
+            "story_sequence"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Vocabulary",
+      "code": "G1E_VOC",
+      "skills": [
+        {
+          "name": "Word Meaning",
+          "code": "G1E_VOC_001",
+          "subskills": [
+            "basic_word_meaning",
+            "picture_support",
+            "use_word_in_sentence"
+          ],
+          "prerequisites": [
+            "oral_language",
+            "listening_comprehension"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Context Clues",
+          "code": "G1E_VOC_002",
+          "subskills": [
+            "use_picture_clues",
+            "use_sentence_clues",
+            "infer_simple_meaning"
+          ],
+          "prerequisites": [
+            "word_meaning",
+            "basic_comprehension"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Writing + Grammar",
+      "code": "G1E_WG",
+      "skills": [
+        {
+          "name": "Sentence Formation",
+          "code": "G1E_WG_001",
+          "subskills": [
+            "complete_sentence",
+            "subject_predicate_beginning",
+            "word_order"
+          ],
+          "prerequisites": [
+            "oral_language",
+            "letter_formation",
+            "basic_vocabulary"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Capitalization + Punctuation",
+          "code": "G1E_WG_002",
+          "subskills": [
+            "capitalize_first_word",
+            "capitalize_names",
+            "period",
+            "question_mark",
+            "exclamation_mark"
+          ],
+          "prerequisites": [
+            "sentence_formation",
+            "print_concepts"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Nouns + Verbs",
+          "code": "G1E_WG_003",
+          "subskills": [
+            "identify_people_places_things",
+            "identify_action_words",
+            "use_nouns_and_verbs"
+          ],
+          "prerequisites": [
+            "sentence_formation",
+            "basic_vocabulary"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "inventory": {
+    "total_skills_reported": 15,
+    "recommended_bank_min": 120,
+    "recommended_bank_diamond": 180
+  },
+  "notes": [
+    "Next:"
+  ],
+  "needs_review_items": [
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_001",
+      "token": "oral_language"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_001",
+      "token": "listening_attention"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_002",
+      "token": "phonemic_awareness"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_002",
+      "token": "print_concepts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_003",
+      "token": "letter_sound_knowledge"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_003",
+      "token": "phonemic_awareness"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_004",
+      "token": "print_concepts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_004",
+      "token": "basic_decoding"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FL_001",
+      "token": "decoding"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FL_001",
+      "token": "sight_words"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FL_002",
+      "token": "accuracy"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FL_002",
+      "token": "basic_sentence_reading"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FL_003",
+      "token": "pacing"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FL_003",
+      "token": "basic_comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_RC_001",
+      "token": "listening_comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_RC_001",
+      "token": "basic_sentence_reading"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_RC_002",
+      "token": "key_details"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_RC_002",
+      "token": "oral_retelling"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_RC_003",
+      "token": "key_details"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_RC_003",
+      "token": "story_sequence"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_VOC_001",
+      "token": "oral_language"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_VOC_001",
+      "token": "listening_comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_VOC_002",
+      "token": "word_meaning"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_VOC_002",
+      "token": "basic_comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_WG_001",
+      "token": "oral_language"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_WG_001",
+      "token": "letter_formation"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_WG_001",
+      "token": "basic_vocabulary"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_WG_002",
+      "token": "sentence_formation"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_WG_002",
+      "token": "print_concepts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_WG_003",
+      "token": "sentence_formation"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_WG_003",
+      "token": "basic_vocabulary"
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "graph_file": "curriculum-framework/skill-graphs/grade1/reading-english/graph.v1.json",
+  "grade": "grade1",
+  "subject": "reading-english",
+  "version": "v1",
+  "checks": [
+    {
+      "name": "graph_file_exists",
+      "pass": true
+    },
+    {
+      "name": "grade_subject_version_present",
+      "pass": true
+    },
+    {
+      "name": "domain_codes_unique",
+      "pass": true
+    },
+    {
+      "name": "skill_codes_unique",
+      "pass": true
+    },
+    {
+      "name": "required_fields_present",
+      "pass": true
+    },
+    {
+      "name": "validation_report_exists",
+      "pass": true
+    },
+    {
+      "name": "needs_review_preserved",
+      "pass": true
+    },
+    {
+      "name": "no_tracking_scoring_db_logic_added",
+      "pass": true
+    }
+  ],
+  "unresolved_prerequisites": [
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_001",
+      "token": "oral_language"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_001",
+      "token": "listening_attention"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_002",
+      "token": "phonemic_awareness"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_002",
+      "token": "print_concepts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_003",
+      "token": "letter_sound_knowledge"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_003",
+      "token": "phonemic_awareness"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_004",
+      "token": "print_concepts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FR_004",
+      "token": "basic_decoding"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FL_001",
+      "token": "decoding"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FL_001",
+      "token": "sight_words"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FL_002",
+      "token": "accuracy"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FL_002",
+      "token": "basic_sentence_reading"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FL_003",
+      "token": "pacing"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_FL_003",
+      "token": "basic_comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_RC_001",
+      "token": "listening_comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_RC_001",
+      "token": "basic_sentence_reading"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_RC_002",
+      "token": "key_details"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_RC_002",
+      "token": "oral_retelling"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_RC_003",
+      "token": "key_details"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_RC_003",
+      "token": "story_sequence"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_VOC_001",
+      "token": "oral_language"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_VOC_001",
+      "token": "listening_comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_VOC_002",
+      "token": "word_meaning"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_VOC_002",
+      "token": "basic_comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_WG_001",
+      "token": "oral_language"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_WG_001",
+      "token": "letter_formation"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_WG_001",
+      "token": "basic_vocabulary"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_WG_002",
+      "token": "sentence_formation"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_WG_002",
+      "token": "print_concepts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_WG_003",
+      "token": "sentence_formation"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1E_WG_003",
+      "token": "basic_vocabulary"
+    }
+  ],
+  "needs_review_count": 31
+}

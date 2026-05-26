@@ -1,0 +1,193 @@
+{
+  "graph_file": "curriculum-framework/skill-graphs/grade2/reading-english/graph.v1.json",
+  "grade": "grade2",
+  "subject": "reading-english",
+  "version": "v1",
+  "checks": [
+    {
+      "name": "graph_file_exists",
+      "pass": true
+    },
+    {
+      "name": "grade_subject_version_present",
+      "pass": true
+    },
+    {
+      "name": "domain_codes_unique",
+      "pass": true
+    },
+    {
+      "name": "skill_codes_unique",
+      "pass": true
+    },
+    {
+      "name": "required_fields_present",
+      "pass": true
+    },
+    {
+      "name": "validation_report_exists",
+      "pass": true
+    },
+    {
+      "name": "needs_review_preserved",
+      "pass": true
+    },
+    {
+      "name": "no_tracking_scoring_db_logic_added",
+      "pass": true
+    }
+  ],
+  "unresolved_prerequisites": [
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_FL_001",
+      "token": "g1_decoding"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_FL_001",
+      "token": "g1_sight_words"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_FL_002",
+      "token": "accuracy"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_FL_002",
+      "token": "sentence_reading"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_FL_003",
+      "token": "pacing"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_FL_003",
+      "token": "basic_comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_VOC_001",
+      "token": "g1_word_meaning"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_VOC_001",
+      "token": "oral_language"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_VOC_002",
+      "token": "vocabulary_meaning"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_VOC_002",
+      "token": "basic_comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_VOC_003",
+      "token": "decoding"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_VOC_003",
+      "token": "vocabulary"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_001",
+      "token": "g1_key_details"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_001",
+      "token": "fluency"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_002",
+      "token": "story_sequence"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_002",
+      "token": "key_details"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_003",
+      "token": "main_idea"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_003",
+      "token": "sequence"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_004",
+      "token": "comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_004",
+      "token": "basic_reasoning"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_TE_001",
+      "token": "comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_TE_001",
+      "token": "fluency"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_TE_002",
+      "token": "find_answers_in_text"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_TE_002",
+      "token": "main_idea"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_WG_001",
+      "token": "g1_sentence_formation"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_WG_001",
+      "token": "oral_expression"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_WG_002",
+      "token": "g1_nouns_verbs"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_WG_002",
+      "token": "sentence_formation"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_WG_003",
+      "token": "g1_punctuation"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_WG_003",
+      "token": "sentence_writing"
+    }
+  ],
+  "needs_review_count": 30
+}
