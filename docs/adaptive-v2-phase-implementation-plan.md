@@ -583,3 +583,21 @@ Gate policy update:
 
 - **Phase 2 conversion is blocked** unless the curriculum index validator passes.
 - Passing this validator means it is safe to proceed to Phase 2 conversion planning/implementation (still without runtime wiring).
+
+---
+
+## Phase 2 contract status update (2026-05-26)
+
+Status: **Completed for planning/contracts only** (no runtime wiring).
+
+Delivered artifacts:
+- `docs/adaptive-v2/learn-layer-contracts.md`
+- `public/gamehub/content/adaptive-v2/schemas/lesson-package.schema.json`
+- `public/gamehub/content/adaptive-v2/schemas/checkpoint.schema.json`
+- `public/gamehub/content/adaptive-v2/fixtures/phase-2-contract-examples.json`
+- `scripts/adaptive-v2/validate-phase2-contract-fixtures.mjs`
+
+Notes:
+- Contracts capture Learn Layer components: mini lesson snippet, worked example, hint ladder, guided practice, checkpoint, feedback hooks, pathway recommendation, and mastery support metadata.
+- Artifacts are stub-level and intentionally non-production.
+- Production lesson files remain unconverted pending Phase 2 contract sign-off and later per-phase conversion passes.
