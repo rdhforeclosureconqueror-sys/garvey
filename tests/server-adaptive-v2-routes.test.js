@@ -1,0 +1,45 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const express = require('express');
+const http = require('http');
+const { createAdaptiveV2Router } = require('../server/adaptiveV2Routes');
+
+function makePool() {
+  const state = { progress: new Map(), attempts: [] };
+  return {
+    state,
+    async query(sql, params = []) {
+      const q = String(sql);
+      if (q.includes('INSERT INTO adaptive_v2_skill_progress')) {
+        state.progress.set(params[0], { selected_skill_id: params[1], checkpoint_attempts: params[2], correct_count: params[3], total_count: params[4], hint_usage_count: params[5], mastery_band: params[6], next_recommended_skill_id: params[7], parent_summary_snapshot: JSON.parse(params[8]) });
+        return { rows: [] };
+      }
+      if (q.includes('INSERT INTO adaptive_v2_checkpoint_attempts')) { state.attempts.push(params); return { rows: [] }; }
+      if (q.includes('FROM adaptive_v2_skill_progress')) {
+        const row = state.progress.get(params[0]);
+        return { rows: row ? [row] : [] };
+      }
+      return { rows: [] };
+    },
+  };
+}
+
+async function start() { const pool = makePool(); const app = express(); app.use(express.json()); app.use(createAdaptiveV2Router({ pool })); const server = http.createServer(app); await new Promise(r=>server.listen(0,r)); return { pool, server, baseUrl:`http://127.0.0.1:${server.address().port}`}; }
+
+test('adaptive v2 grade1 progress write/read and guardrails', async () => {
+  const { server, baseUrl, pool } = await start();
+  try {
+    const bad = await fetch(`${baseUrl}/api/adaptive-v2/progress/checkpoint-attempt`, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({ child_id:'c1', grade:'2', runtime_version:'adaptive_v2', skill_id:'s1' }) });
+    assert.equal(bad.status, 400);
+
+    const ok = await fetch(`${baseUrl}/api/adaptive-v2/progress/checkpoint-attempt`, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({ child_id:'c1', grade:'1', runtime_version:'adaptive_v2', skill_id:'s1', checkpoint_attempts:1, correct_count:1, total_count:1, hint_usage_count:0, mastery_band:'developing', next_recommended_skill_id:'s2', parent_summary_snapshot:{ note:'supportive summary only' } }) });
+    assert.equal(ok.status, 200);
+
+    const read = await fetch(`${baseUrl}/api/adaptive-v2/progress/summary/c1`);
+    const body = await read.json();
+    assert.equal(body.empty_state, false);
+    assert.equal(body.progress.next_recommended_skill_id, 's2');
+    assert.equal(pool.state.attempts.length, 1);
+    assert.equal(JSON.stringify(body).toLowerCase().includes('diagnosis'), false);
+  } finally { await new Promise(r=>server.close(r)); }
+});
