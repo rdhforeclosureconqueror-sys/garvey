@@ -619,3 +619,131 @@ Safety/constraints enforced:
 - No raw checkpoint prompt/answer text persisted.
 - No diagnostic/clinical/pass-fail labels introduced in persistence payloads.
 - Additive-only rollout with route-level guards to preserve rollback ability.
+
+
+## 12) PR G — Adaptive V2 Grade 1 → Gates Signal Planning (Design-Only)
+
+Date: 2026-05-26  
+Intent: define **planning contracts only** for how Grade 1 Adaptive V2 progress can inform Gates developmental signals.  
+Non-goals in PR G: no Gates scoring implementation, no new Gates writes, no Adaptive runtime behavior changes.
+
+### 12.1 Existing Gates signal/scoring architecture (as reviewed)
+
+- Gates assessment scoring (`gates/gatesScoring.js`) is currently survey-answer based and computes per-gate normalized stage bands from weighted response options.
+- Gates practice signal architecture (`gates/gatePracticeSignalSchema.js` + `docs/gate-practice-signal-architecture.md`) defines developmental-only event examples, safety guardrails, and forbidden metrics/language.
+- Gates practice registry (`gates/gatesPracticeGameRegistry.js`) maps games to supported gate keys and parent-facing observation prompts.
+- Adaptive Grade 1 progress persistence (`server/adaptiveV2Routes.js`) currently stores Grade 1 aggregates and checkpoint-attempt rows, but has no runtime mapper into Gates.
+
+### 12.2 Proposed mapping: Adaptive Grade 1 progress → developmental Gates signals
+
+Adaptive evidence should map into **signal candidates** (not score outputs) aligned with target gate themes:
+
+1. **Persistence after challenge**
+   - Candidate source evidence: repeated attempts after misses; continuing through checkpoint completion.
+   - Proposed gate alignment: `discipline`, `repair` supportive signals.
+
+2. **Attention/focus through lesson + checkpoint**
+   - Candidate source evidence: lesson-to-checkpoint follow-through within a session; checkpoint completion without abandoning flow.
+   - Proposed gate alignment: `attention` supportive signals.
+
+3. **Discipline/consistency**
+   - Candidate source evidence: return sessions over time; sustained skill-practice completion across sessions.
+   - Proposed gate alignment: `discipline` supportive signals.
+
+4. **Truth/learning accuracy**
+   - Candidate source evidence: mastery trend band changes across multiple checkpoint attempts (never a single-score interpretation).
+   - Proposed gate alignment: `truth` supportive signals.
+
+5. **Repair/recovery after missed checkpoints**
+   - Candidate source evidence: re-attempt behavior and next-step follow-through after misses.
+   - Proposed gate alignment: `repair` supportive signals.
+
+### 12.3 What must NOT count as Gates evidence
+
+The mapper must explicitly reject these as standalone evidence:
+
+- one missed question,
+- raw score alone,
+- one session alone,
+- clinical diagnosis framing,
+- pass/fail judgment language.
+
+### 12.4 Safe aggregate signal proposal (Grade 1 only)
+
+PR G planning proposes a lightweight aggregate envelope generated from existing Grade 1 fields:
+
+- `skill_practice_completion_band`
+  - derived from completed skill/checkpoint flow frequency over a rolling window.
+- `checkpoint_attempt_count_band`
+  - bucketed attempt-count range (for example: `early`, `building`, `established`).
+- `hint_usage_band`
+  - bucketed hint usage (for example: `low`, `moderate`, `high`) without punitive interpretation.
+- `mastery_band_trend`
+  - trend descriptor from repeated `emerging/developing/consistent` evidence.
+- `repeated_practice_flag`
+  - indicates whether return practice occurred across multiple sessions/days.
+- `next_step_follow_through_band`
+  - indicates how often recommended-next-skill actions were followed.
+
+All outputs remain descriptive “practice signal candidates,” never diagnostic labels.
+
+### 12.5 API/data-flow plan (no implementation yet)
+
+Planned flow contract:
+
+1. Adaptive runtime continues current Grade 1 writes to Adaptive tables/routes only.
+2. A future **read-only mapper job/function** (server-side) reads Adaptive Grade 1 aggregates by `child_id`.
+3. Mapper computes safe aggregate bands and emits an in-memory `adaptive_gate_signal_candidates` object.
+4. Gates routes can optionally read this object for preview/reporting once approved.
+5. No write-back to Gates scoring/progress tables until dedicated implementation PR and governance sign-off.
+
+Recommended future payload shape (design only):
+
+```json
+{
+  "child_id": "<id>",
+  "runtime_version": "adaptive_v2",
+  "grade": 1,
+  "evidence_window_days": 14,
+  "signals": {
+    "persistence_after_challenge": { "band": "building", "confidence": "early" },
+    "attention_focus_followthrough": { "band": "consistent", "confidence": "medium" },
+    "discipline_consistency": { "band": "building", "confidence": "early" },
+    "truth_learning_accuracy": { "band": "developing", "confidence": "early" },
+    "repair_recovery": { "band": "building", "confidence": "early" }
+  },
+  "guardrails": {
+    "single_session_not_sufficient": true,
+    "no_pass_fail_language": true,
+    "non_diagnostic_only": true
+  }
+}
+```
+
+### 12.6 Tests required before implementation
+
+Pre-implementation tests should be added first (red/contract tests), including:
+
+1. **Mapper evidence-threshold tests**
+   - verify single session/single miss cannot produce elevated confidence.
+
+2. **Forbidden-evidence exclusion tests**
+   - verify raw score-only payloads are rejected for signal generation.
+
+3. **Banding contract tests**
+   - verify stable bucket mapping for attempts, hints, mastery trend, and follow-through.
+
+4. **Language safety tests**
+   - verify output copy/tokens exclude diagnosis and pass/fail terms.
+
+5. **No-write guarantee tests**
+   - verify PR G planning path does not insert/update Gates scoring/progress records.
+
+6. **Grade-scope tests**
+   - verify mapper scope remains Grade 1 only; Grades 2–6 persistence remains disabled.
+
+### 12.7 Registry/docs alignment updates required in implementation PR (not this PR G plan)
+
+- Extend gates signal docs/registry metadata with Adaptive V2 as a `tracking_ready: false` source until scoring integration is formally enabled.
+- Keep all GameHub and Gates summaries explicitly developmental, non-diagnostic, and non-pass/fail.
+- Preserve current disclaimer contracts in Gates practice docs and game registry.
