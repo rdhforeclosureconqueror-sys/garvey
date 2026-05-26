@@ -4,6 +4,22 @@ const { mapAdaptiveV2Grade1ToGatesSignals } = require("./adaptiveV2Grade1GatesSi
 
 const ALLOWED_MASTERY_BANDS = new Set(["emerging", "developing", "consistent"]);
 
+const VOICE_ALLOWED_SECTIONS = new Set(["lesson_snippet", "worked_example", "hints", "checkpoint_instructions", "supportive_feedback", "next_practice_recommendation"]);
+
+function cleanVoiceText(value) {
+  return String(value || "").replace(/\s+/g, " ").trim().slice(0, 280);
+}
+
+function isVoiceUnsafe(text) {
+  const t = String(text || "").toLowerCase();
+  if (!t) return true;
+  if (/\b(pass|fail|diagnos|disorder|condition|deficit)\b/i.test(t)) return true;
+  if (/\b(ssn|social security|dob|date of birth|email|phone|address|password|token)\b/i.test(t)) return true;
+  if (/\b(answer key|correct answer|raw prompt)\b/i.test(t)) return true;
+  if (/[^\s]+@[^\s]+\.[^\s]+/.test(t)) return true;
+  return false;
+}
+
 function toBand(v) {
   const n = String(v || "").trim().toLowerCase();
   return ALLOWED_MASTERY_BANDS.has(n) ? n : "emerging";
@@ -76,6 +92,34 @@ function createAdaptiveV2Router({ pool }) {
       last_updated_at: progress.updated_at || progress.created_at || null
     };
     return res.json({ ok: true, empty_state: false, progress, parent_summary: parentSummary, summary_contract_version: 'pr_f_v1' });
+  });
+
+
+  router.post("/api/adaptive-v2/voice/sections", async (req, res) => {
+    const b = req.body || {};
+    if (String(b.grade || "") !== "1" || String(b.runtime_version || "") !== "adaptive_v2") {
+      return res.status(400).json({ ok: false, error: "grade1_adaptive_v2_only" });
+    }
+    const sectionKey = String(b.section_key || "").trim().toLowerCase();
+    if (!VOICE_ALLOWED_SECTIONS.has(sectionKey)) {
+      return res.status(400).json({ ok: false, error: "section_not_allowed" });
+    }
+    const text = cleanVoiceText(b.text_content || b.voice_text);
+    if (isVoiceUnsafe(text)) {
+      return res.status(400).json({ ok: false, error: "unsafe_or_private_text" });
+    }
+    return res.json({
+      ok: true,
+      grade: "1",
+      runtime_version: "adaptive_v2",
+      section_key: sectionKey,
+      playable_text: text,
+      provider_status: "fallback",
+      voice_mode: "fallback_browser_speech",
+      fallback_reason: "adaptive_v2_grade1_voice_safe_fallback",
+      audio_url: null,
+      readable_without_voice: true
+    });
   });
 
   router.get("/api/adaptive-v2/gates-signals/:childId", async (req, res) => {

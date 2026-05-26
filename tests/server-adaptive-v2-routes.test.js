@@ -105,3 +105,38 @@ test('adaptive v2 grade1 mapper empty-state and grade1 guard behavior', async ()
     assert.equal(bad.status, 400);
   } finally { await new Promise(r=>server.close(r)); }
 });
+
+
+test('adaptive v2 grade1 voice sections route exists and falls back safely', async () => {
+  const { server, baseUrl } = await start();
+  try {
+    const res = await fetch(`${baseUrl}/api/adaptive-v2/voice/sections`, {
+      method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({ grade:'1', runtime_version:'adaptive_v2', section_key:'lesson_snippet', text_content:'Count by ones to solve this.' })
+    });
+    assert.equal(res.status, 200);
+    const body = await res.json();
+    assert.equal(body.ok, true);
+    assert.equal(body.voice_mode, 'fallback_browser_speech');
+    assert.equal(typeof body.playable_text, 'string');
+  } finally { await new Promise(r=>server.close(r)); }
+});
+
+test('adaptive v2 grade1 voice sections rejects unsafe/private text and disallowed sections', async () => {
+  const { server, baseUrl } = await start();
+  try {
+    const badSection = await fetch(`${baseUrl}/api/adaptive-v2/voice/sections`, {
+      method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({ grade:'1', runtime_version:'adaptive_v2', section_key:'raw_prompt', text_content:'safe text' })
+    });
+    assert.equal(badSection.status, 400);
+
+    const privatePayload = await fetch(`${baseUrl}/api/adaptive-v2/voice/sections`, {
+      method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({ grade:'1', runtime_version:'adaptive_v2', section_key:'hints', text_content:'Email is kid@example.com' })
+    });
+    assert.equal(privatePayload.status, 400);
+    const body = await privatePayload.json();
+    assert.equal(body.error, 'unsafe_or_private_text');
+  } finally { await new Promise(r=>server.close(r)); }
+});
