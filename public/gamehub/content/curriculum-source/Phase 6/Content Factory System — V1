@@ -1,0 +1,750 @@
+Excellent.
+
+Now we build the system that makes:
+
+# Unlimited High-Quality Content
+
+This is the factory.
+
+Without this:
+
+Adaptive becomes:
+
+hard to scale.
+
+With this:
+
+you can generate:
+
+thousands of questions,
+
+lessons,
+
+and checkpoints
+
+without quality collapse.
+
+This is how large platforms operate.
+
+---
+
+# Phase 6
+
+# Content Factory System — V1
+
+Research in:
+
+* Educational Measurement
+* Item Writing
+* Cognitive Diagnostic Assessment
+* Distractor Engineering
+* Question Quality Analytics
+
+consistently shows:
+
+good adaptive systems do NOT write random questions.
+
+They use:
+
+# Controlled Content Architecture
+
+This ensures:
+
+```text id="r7m1qe"
+validity
+reliability
+difficulty control
+misconception detection
+```
+
+This becomes:
+
+your content operating system.
+
+---
+
+# PART 1
+
+# Content Factory Philosophy
+
+Current problem:
+
+```text id="m4v8rt"
+one question
+per skill
+```
+
+Not reliable.
+
+Research shows:
+
+multiple observations are required.
+
+Recommended:
+
+Minimum:
+
+```text id="x2m6qe"
+8 items per skill
+```
+
+Diamond:
+
+```text id="p9v3rx"
+12–15 items
+```
+
+Why?
+
+One question may reflect:
+
+luck
+
+carelessness
+
+guessing.
+
+Question pools improve:
+
+reliability.
+
+---
+
+# Diamond Content Stack
+
+Each skill should contain:
+
+```text id="o5m7qe"
+Mini Lesson
+Worked Example
+Hint Ladder
+Guided Practice
+Checkpoint
+Adaptive Question Bank
+Review Bank
+Misconception Bank
+```
+
+This creates:
+
+instruction + assessment.
+
+---
+
+# PART 2
+
+# Question Design Architecture
+
+Research shows strong items measure:
+
+thinking.
+
+Not trickery.
+
+Every question should have:
+
+---
+
+Target Skill
+
+---
+
+Cognitive Level
+
+---
+
+Difficulty
+
+---
+
+Misconception Target
+
+---
+
+Feedback Logic
+
+---
+
+Question Schema
+
+Copy-paste:
+
+```json id="q3v9rt"
+{
+  "id":"",
+  "grade":0,
+  "subject":"",
+  "domain":"",
+  "skill":"",
+  "difficulty":1,
+  "cognitive_level":"",
+  "misconception_tag":"",
+  "question_type":"",
+  "prompt":"",
+  "choices":[],
+  "correct_answer":"",
+  "correct_explanation":"",
+  "wrong_feedback":"",
+  "hint_1":"",
+  "hint_2":"",
+  "hint_3":""
+}
+```
+
+This becomes:
+
+standardized content production.
+
+---
+
+# PART 3
+
+# Difficulty Framework
+
+This is critical.
+
+Difficulty must be:
+
+engineered.
+
+Not guessed.
+
+Research supports:
+
+3-level systems.
+
+---
+
+# Difficulty 1
+
+Support
+
+Goal:
+
+success.
+
+Uses:
+
+```text id="v0m5qe"
+visuals
+models
+single-step
+```
+
+Student:
+
+learning.
+
+---
+
+# Difficulty 2
+
+Independent
+
+Goal:
+
+fluency.
+
+Uses:
+
+```text id="k7m2rt"
+standard problems
+minimal support
+```
+
+Student:
+
+applying.
+
+---
+
+# Difficulty 3
+
+Transfer
+
+Goal:
+
+reasoning.
+
+Uses:
+
+```text id="r1v8qe"
+multi-step
+explain
+real-world
+```
+
+Student:
+
+generalizing.
+
+---
+
+# Difficulty Object
+
+```json id="t4m6rx"
+{
+  "difficulty":1,
+  "supports":"",
+  "thinking_level":""
+}
+```
+
+---
+
+# PART 4
+
+# Cognitive Demand Framework
+
+Research shows good assessment includes:
+
+multiple thinking levels.
+
+Recommended:
+
+---
+
+## Recall
+
+Know.
+
+---
+
+## Application
+
+Use.
+
+---
+
+## Reasoning
+
+Explain.
+
+---
+
+Framework:
+
+```text id="x9m3qe"
+recall
+application
+reasoning
+```
+
+This prevents:
+
+shallow learning.
+
+---
+
+Example:
+
+Fractions.
+
+Recall:
+
+```text id="d5v1rt"
+Which fraction is larger?
+```
+
+Application:
+
+```text id="y7m4qe"
+Compare using models.
+```
+
+Reasoning:
+
+```text id="n0v8rx"
+Explain why.
+```
+
+Balanced banks matter.
+
+---
+
+# PART 5
+
+# Misconception Bank System
+
+This is:
+
+one of your strongest future assets.
+
+Research shows distractors work best when tied to:
+
+# Real Mistakes
+
+Not random wrong answers.
+
+---
+
+Example:
+
+Fractions.
+
+Correct:
+
+```text id="p8m2qe"
+1/2 + 1/2 = 1
+```
+
+Misconception:
+
+```text id="o4v7rt"
+1+1 / 2+2
+=
+2/4
+```
+
+This becomes:
+
+diagnostic.
+
+---
+
+# Misconception Object
+
+Copy-paste:
+
+```json id="u6m1rx"
+{
+  "skill":"",
+  "misconception":"",
+  "wrong_pattern":"",
+  "reteach_strategy":""
+}
+```
+
+---
+
+Example:
+
+```text id="m3v5qe"
+fraction_denominator_addition
+```
+
+Now wrong answers become:
+
+learning signals.
+
+---
+
+# PART 6
+
+# Distractor Engineering Rules
+
+Research strongly supports:
+
+# Plausible Distractors
+
+Wrong answers should:
+
+look believable.
+
+Never:
+
+obviously wrong.
+
+---
+
+Bad:
+
+```text id="k2m8rt"
+1000
+banana
+7
+```
+
+Good:
+
+based on:
+
+* common errors
+* incomplete reasoning
+* misconception patterns
+
+---
+
+Distractor rules:
+
+---
+
+Same format
+
+---
+
+Same length
+
+---
+
+Same grammar
+
+---
+
+Misconception-based
+
+---
+
+Distractor Object
+
+```json id="j9v4qe"
+{
+  "correct":"",
+  "distractors":[],
+  "misconception_tags":[]
+}
+```
+
+This creates:
+
+clean measurement.
+
+---
+
+# PART 7
+
+# Question Variety Engine
+
+Adaptive systems fail when:
+
+everything looks identical.
+
+Research supports:
+
+multiple item types.
+
+Recommended mix:
+
+---
+
+Multiple Choice
+
+```text id="v7m2rx"
+40%
+```
+
+---
+
+Short Response
+
+```text id="q0m6qe"
+25%
+```
+
+---
+
+Manipulative / Visual
+
+```text id="r5v9rt"
+15%
+```
+
+---
+
+Real-World Problems
+
+```text id="x1m4qe"
+20%
+```
+
+This increases:
+
+engagement + validity.
+
+---
+
+# Item-Type Schema
+
+```json id="w8m3rx"
+{
+  "question_type":"",
+  "interaction_type":"",
+  "scoring_logic":""
+}
+```
+
+---
+
+# PART 8
+
+# Lesson Factory Templates
+
+Now we scale teaching.
+
+Every skill should generate:
+
+---
+
+Mini Lesson
+
+---
+
+Worked Example
+
+---
+
+Guided Practice
+
+---
+
+Checkpoint
+
+Template:
+
+```json id="n6v1qe"
+{
+  "skill":"",
+  "lesson":"",
+  "example":"",
+  "practice":[],
+  "checkpoint":[]
+}
+```
+
+This enables:
+
+mass production.
+
+---
+
+# PART 9
+
+# Content QA Engine
+
+This protects quality.
+
+Research shows content must be reviewed using analytics.
+
+QA checks:
+
+---
+
+Too Easy
+
+---
+
+Too Hard
+
+---
+
+Weak Distractors
+
+---
+
+Low Discrimination
+
+---
+
+Confusing Language
+
+---
+
+Bias Review
+
+---
+
+QA Schema
+
+```json id="g4m8rt"
+{
+  "content_id":"",
+  "difficulty_index":0,
+  "discrimination":0,
+  "revision_flag":false
+}
+```
+
+This creates:
+
+continuous refinement.
+
+---
+
+# PART 10
+
+# Factory Production Pipeline
+
+This is how content gets built.
+
+Full pipeline:
+
+```text id="p2v7qe"
+Skill
+↓
+Lesson Template
+↓
+Example
+↓
+Hints
+↓
+Question Set
+↓
+Misconceptions
+↓
+QA Review
+↓
+Publish
+↓
+Analytics Feedback
+↓
+Improve
+```
+
+This becomes:
+
+your content assembly line.
+
+---
+
+# PHASE 6 STATUS
+
+Built:
+
+✓ Question Architecture
+✓ Difficulty Framework
+✓ Cognitive Demand System
+✓ Misconception Banks
+✓ Distractor Engineering
+✓ Question Variety
+✓ Lesson Factory
+✓ QA Engine
+✓ Production Pipeline
+
+You now have:
+
+# Content Manufacturing Layer
+
+This means:
+
+we can finally begin:
+
+# Phase 7
+
+# Full Copy-Paste Content Production
+
+This is where we generate:
+
+```text id="z5m1rt"
+actual lessons
+actual questions
+actual hints
+actual checkpoints
+actual banks
+```
+
+—for every Grade 1–6 skill.
+
+That becomes:
+
+website-ready curriculum.
+
+Research informing this architecture includes:
+
+*Gierl, M. J., Bulut, O., Guo, Q., & Zhang, X. (2017). Developing, Analyzing, and Using Distractors for Multiple-Choice Tests in Education. Review of Educational Research.*
+*Chamberlain, D. J., & Jeter, R. (2020). Creating Diagnostic Assessments: Automated Distractor Generation With Integrity.*
+*Ali, S. H., & Ruit, K. G. (2015). The Impact of Item Flaws and Distractor Functioning on Multiple-Choice Question Quality.*
+*Arhin, A. K. (2024). Developing Distractors for Mathematics Multiple-Choice Items: A Literature Review.*
+*Lai, H., Gierl, M. J., Touchie, C., & Pugh, D. (2016). Using Automatic Item Generation to Improve the Quality of MCQ Distractors.*
+*March, D. M., Perrett, D., & Hubbard, C. (2021). Evidence-Based Distractor Generation in Multiple-Choice Tests.*
+*Özdemir, A. Z., & Toker, Z. (2025). Analysis of Distractors in Mathematics Questions and Their Potential to Lead Misconceptions.*
+*Schmauder, R., & Daugherty, K. (2025). The Art and Science of Item Writing.*
