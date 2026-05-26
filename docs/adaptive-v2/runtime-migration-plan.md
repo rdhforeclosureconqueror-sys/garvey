@@ -305,6 +305,13 @@ Does not count as proof:
 - Switch runtime config flags from preview semantics to production-intent routing (still no DB writes).
 - Add compatibility guard so shell still loads.
 
+**Status (2026-05-26): Completed (shell/range migration only).**
+- Active runtime selector now presents grades 1–6 only.
+- Visible shell label updated to **“Adaptive Learning V2 — Grades 1–6”**.
+- Parent-facing checkpoint copy now states checkpoints are guidance, not pass/fail labels.
+- Legacy grade 6–8 fallback content remains in repository but is treated as archive/fallback-only in active runtime filtering.
+- No DB writes, tracking enablement, Gates scoring connection, or AI voice wiring added in PR A.
+
 ## PR B — Grade 1 V2 runtime
 
 - Wire Grade 1 learn+checkpoint loop from `adaptive-v2` content assets.
