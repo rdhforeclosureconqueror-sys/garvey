@@ -1,0 +1,747 @@
+{
+  "version": "v1",
+  "grade": "grade2",
+  "subject": "math",
+  "source_file": "public/gamehub/content/curriculum-source/phase-1b/Grade 2 Math Skill Graph \u2014 V1",
+  "domains": [
+    {
+      "name": "Number Sense + Place Value",
+      "code": "G2M_NS",
+      "skills": [
+        {
+          "name": "Count Within 1000",
+          "code": "G2M_NS_001",
+          "subskills": [
+            "count_to_200",
+            "count_to_500",
+            "count_to_1000",
+            "skip_count",
+            "count_patterns"
+          ],
+          "prerequisites": [
+            "g1_count_forward",
+            "g1_number_order"
+          ],
+          "difficulty": [
+            "1 supported counting",
+            "2 independent counting",
+            "3 pattern reasoning"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Hundreds Tens Ones",
+          "code": "G2M_NS_002",
+          "subskills": [
+            "hundreds",
+            "tens",
+            "ones",
+            "base10_models",
+            "place_value_language"
+          ],
+          "prerequisites": [
+            "g1_tens_ones",
+            "g2_count_1000"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Expanded Form",
+          "code": "G2M_NS_003",
+          "subskills": [
+            "expanded_notation",
+            "number_building",
+            "part_whole",
+            "place_value_decomposition"
+          ],
+          "prerequisites": [
+            "hundreds_tens_ones",
+            "compose_numbers"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Compare + Order Numbers",
+          "code": "G2M_NS_004",
+          "subskills": [
+            "greater_than",
+            "less_than",
+            "equal_to",
+            "order_numbers",
+            "number_line_ordering"
+          ],
+          "prerequisites": [
+            "expanded_form",
+            "place_value"
+          ],
+          "difficulty": [
+            "1 visual models",
+            "2 symbolic comparison",
+            "3 reasoning comparison"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Addition + Subtraction",
+      "code": "G2M_AS",
+      "skills": [
+        {
+          "name": "Addition Within 100",
+          "code": "G2M_AS_001",
+          "subskills": [
+            "two_digit_addition",
+            "mental_addition",
+            "number_line_addition",
+            "place_value_strategy"
+          ],
+          "prerequisites": [
+            "g1_addition_facts",
+            "place_value"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Regrouping Addition",
+          "code": "G2M_AS_002",
+          "subskills": [
+            "carry_over",
+            "regroup_tens",
+            "base10_models",
+            "explain_regrouping"
+          ],
+          "prerequisites": [
+            "addition_within_100",
+            "place_value_understanding"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Subtraction Within 100",
+          "code": "G2M_AS_003",
+          "subskills": [
+            "two_digit_subtraction",
+            "mental_subtraction",
+            "difference",
+            "number_line_subtraction"
+          ],
+          "prerequisites": [
+            "g1_subtraction",
+            "place_value"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Regrouping Subtraction",
+          "code": "G2M_AS_004",
+          "subskills": [
+            "borrow_regroup",
+            "trade_tens",
+            "base10_reasoning",
+            "explain_subtraction"
+          ],
+          "prerequisites": [
+            "subtraction_within_100",
+            "place_value",
+            "regrouping_addition"
+          ],
+          "difficulty": [
+            "1 visual regrouping",
+            "2 numeric regrouping",
+            "3 reasoning + explanation"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Word Problems",
+      "code": "G2M_WP",
+      "skills": [
+        {
+          "name": "One-Step Problems",
+          "code": "G2M_WP_001",
+          "subskills": [
+            "identify_operation",
+            "solve_story_problem",
+            "write_equation"
+          ],
+          "prerequisites": [
+            "addition",
+            "subtraction",
+            "math_story_understanding"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Two-Step Problems",
+          "code": "G2M_WP_002",
+          "subskills": [
+            "multiple_operations",
+            "reasoning_steps",
+            "explain_solution"
+          ],
+          "prerequisites": [
+            "one_step_problems",
+            "regrouping"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Early Multiplication Foundations",
+      "code": "G2M_EM",
+      "skills": [
+        {
+          "name": "Equal Groups",
+          "code": "G2M_EM_001",
+          "subskills": [
+            "group_objects",
+            "same_size_groups",
+            "count_groups",
+            "compare_groups"
+          ],
+          "prerequisites": [
+            "counting",
+            "addition_fluency",
+            "skip_counting"
+          ],
+          "difficulty": [
+            "1 visual groups",
+            "2 numeric groups",
+            "3 reasoning groups"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Repeated Addition",
+          "code": "G2M_EM_002",
+          "subskills": [
+            "add_equal_groups",
+            "represent_repeated_addition",
+            "count_by_groups"
+          ],
+          "prerequisites": [
+            "equal_groups",
+            "addition_within_100"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Arrays Foundations",
+          "code": "G2M_EM_003",
+          "subskills": [
+            "rows",
+            "columns",
+            "build_arrays",
+            "interpret_arrays"
+          ],
+          "prerequisites": [
+            "equal_groups",
+            "repeated_addition"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Measurement + Money + Time",
+      "code": "G2M_MMT",
+      "skills": [
+        {
+          "name": "Measure Length",
+          "code": "G2M_MMT_001",
+          "subskills": [
+            "inches",
+            "centimeters",
+            "compare_lengths",
+            "estimate_length"
+          ],
+          "prerequisites": [
+            "g1_measure_objects",
+            "counting_units"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Tell Time",
+          "code": "G2M_MMT_002",
+          "subskills": [
+            "hour",
+            "half_hour",
+            "quarter_hour",
+            "five_minute_intervals",
+            "elapsed_time_beginning"
+          ],
+          "prerequisites": [
+            "g1_time_basics",
+            "skip_counting_by_5"
+          ],
+          "difficulty": [
+            "1 read clock",
+            "2 calculate time",
+            "3 reasoning about time"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Money",
+          "code": "G2M_MMT_003",
+          "subskills": [
+            "coin_identification",
+            "coin_values",
+            "count_money",
+            "make_amounts"
+          ],
+          "prerequisites": [
+            "addition",
+            "skip_counting",
+            "place_value"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Geometry + Data",
+      "code": "G2M_GD",
+      "skills": [
+        {
+          "name": "Shapes + Attributes",
+          "code": "G2M_GD_001",
+          "subskills": [
+            "shape_names",
+            "sides",
+            "corners",
+            "compare_shapes",
+            "partition_shapes"
+          ],
+          "prerequisites": [
+            "g1_shapes",
+            "shape_attributes"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Picture + Bar Graphs",
+          "code": "G2M_GD_002",
+          "subskills": [
+            "read_graphs",
+            "collect_data",
+            "compare_data",
+            "graph_interpretation"
+          ],
+          "prerequisites": [
+            "counting",
+            "compare_numbers"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Data Questions",
+          "code": "G2M_GD_003",
+          "subskills": [
+            "ask_questions",
+            "organize_data",
+            "analyze_results"
+          ],
+          "prerequisites": [
+            "picture_graphs",
+            "comparison_skills"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "inventory": {
+    "total_skills_reported": 19,
+    "recommended_bank_diamond": 228
+  },
+  "notes": [
+    "# SYSTEM STATUS",
+    "Next:",
+    "# SYSTEM STATUS",
+    "Next:"
+  ],
+  "needs_review_items": [
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_001",
+      "token": "g1_count_forward"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_001",
+      "token": "g1_number_order"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_002",
+      "token": "g1_tens_ones"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_002",
+      "token": "g2_count_1000"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_003",
+      "token": "hundreds_tens_ones"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_003",
+      "token": "compose_numbers"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_004",
+      "token": "expanded_form"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_NS_004",
+      "token": "place_value"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_001",
+      "token": "g1_addition_facts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_001",
+      "token": "place_value"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_002",
+      "token": "addition_within_100"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_002",
+      "token": "place_value_understanding"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_003",
+      "token": "g1_subtraction"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_003",
+      "token": "place_value"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_004",
+      "token": "subtraction_within_100"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_004",
+      "token": "place_value"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_AS_004",
+      "token": "regrouping_addition"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_WP_001",
+      "token": "addition"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_WP_001",
+      "token": "subtraction"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_WP_001",
+      "token": "math_story_understanding"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_WP_002",
+      "token": "one_step_problems"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_WP_002",
+      "token": "regrouping"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_EM_001",
+      "token": "counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_EM_001",
+      "token": "addition_fluency"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_EM_001",
+      "token": "skip_counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_EM_002",
+      "token": "equal_groups"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_EM_002",
+      "token": "addition_within_100"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_EM_003",
+      "token": "equal_groups"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_EM_003",
+      "token": "repeated_addition"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_MMT_001",
+      "token": "g1_measure_objects"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_MMT_001",
+      "token": "counting_units"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_MMT_002",
+      "token": "g1_time_basics"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_MMT_002",
+      "token": "skip_counting_by_5"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_MMT_003",
+      "token": "addition"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_MMT_003",
+      "token": "skip_counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_MMT_003",
+      "token": "place_value"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_GD_001",
+      "token": "g1_shapes"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_GD_001",
+      "token": "shape_attributes"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_GD_002",
+      "token": "counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_GD_002",
+      "token": "compare_numbers"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_GD_003",
+      "token": "picture_graphs"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2M_GD_003",
+      "token": "comparison_skills"
+    }
+  ]
+}

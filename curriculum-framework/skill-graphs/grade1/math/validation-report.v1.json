@@ -1,0 +1,213 @@
+{
+  "graph_file": "curriculum-framework/skill-graphs/grade1/math/graph.v1.json",
+  "grade": "grade1",
+  "subject": "math",
+  "version": "v1",
+  "checks": [
+    {
+      "name": "graph_file_exists",
+      "pass": true
+    },
+    {
+      "name": "grade_subject_version_present",
+      "pass": true
+    },
+    {
+      "name": "domain_codes_unique",
+      "pass": false
+    },
+    {
+      "name": "skill_codes_unique",
+      "pass": true
+    },
+    {
+      "name": "required_fields_present",
+      "pass": true
+    },
+    {
+      "name": "validation_report_exists",
+      "pass": true
+    },
+    {
+      "name": "needs_review_preserved",
+      "pass": true
+    },
+    {
+      "name": "no_tracking_scoring_db_logic_added",
+      "pass": true
+    }
+  ],
+  "unresolved_prerequisites": [
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_NS_002",
+      "token": "count_forward"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_NS_003",
+      "token": "count_forward"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_NS_004",
+      "token": "number_order"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_PV_001",
+      "token": "count_to_100"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_PV_002",
+      "token": "tens_ones"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_PV_003",
+      "token": "compose_numbers"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_001",
+      "token": "counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_001",
+      "token": "number_order"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_002",
+      "token": "addition_facts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_002",
+      "token": "count_backward"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_003",
+      "token": "addition"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_003",
+      "token": "subtraction"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_003",
+      "token": "measurement"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_003",
+      "token": "geometry"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_001",
+      "token": "counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_001",
+      "token": "addition_facts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_001",
+      "token": "subtraction_facts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_001",
+      "token": "85+"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_002",
+      "token": "addition_facts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_002",
+      "token": "understand_math_stories"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_003",
+      "token": "subtraction_facts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_003",
+      "token": "understand_math_stories"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_MT_001",
+      "token": "comparison_language"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_MT_001",
+      "token": "number_order"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_MT_002",
+      "token": "counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_MT_002",
+      "token": "compare_length"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_MT_003",
+      "token": "number_order"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_MT_003",
+      "token": "counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_GEO_001",
+      "token": "visual_discrimination"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_GEO_001",
+      "token": "basic_vocabulary"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_GEO_002",
+      "token": "identify_2d_shapes"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_GEO_002",
+      "token": "spatial_language"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_GEO_003",
+      "token": "identify_2d_shapes"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_GEO_003",
+      "token": "identify_3d_shapes"
+    }
+  ],
+  "needs_review_count": 34
+}

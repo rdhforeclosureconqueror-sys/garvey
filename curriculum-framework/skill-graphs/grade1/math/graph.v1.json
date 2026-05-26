@@ -1,0 +1,674 @@
+{
+  "version": "v1",
+  "grade": "grade1",
+  "subject": "math",
+  "source_file": "public/gamehub/content/curriculum-source/phase-1b/grade1-math-skill-graph.md",
+  "domains": [
+    {
+      "name": "Number Sense + Counting",
+      "code": "Skill 1",
+      "skills": [
+        {
+          "name": "Count Backward",
+          "code": "G1M_NS_002",
+          "subskills": [
+            "backward_from_20",
+            "backward_from_50",
+            "backward_from_100"
+          ],
+          "prerequisites": [
+            "count_forward"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Number Order",
+          "code": "G1M_NS_003",
+          "subskills": [
+            "before_after",
+            "missing_numbers",
+            "ordering_sets"
+          ],
+          "prerequisites": [
+            "count_forward"
+          ],
+          "difficulty": [
+            "1",
+            "sequence support",
+            "2",
+            "independent sequence",
+            "3",
+            "complex missing patterns"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Compare Numbers",
+          "code": "G1M_NS_004",
+          "subskills": [
+            "greater_than",
+            "less_than",
+            "equal_to",
+            "compare_quantities"
+          ],
+          "prerequisites": [
+            "number_order"
+          ],
+          "difficulty": [
+            "1",
+            "visual comparison",
+            "2",
+            "symbol comparison",
+            "3",
+            "reasoning comparison"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Place Value",
+      "code": "",
+      "skills": [
+        {
+          "name": "Tens + Ones",
+          "code": "G1M_PV_001",
+          "subskills": [
+            "tens",
+            "ones",
+            "grouping",
+            "base10_understanding"
+          ],
+          "prerequisites": [
+            "count_to_100"
+          ],
+          "difficulty": [
+            "1",
+            "visual grouping",
+            "2",
+            "numeric grouping",
+            "3",
+            "missing-part reasoning"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Compose Numbers",
+          "code": "G1M_PV_002",
+          "subskills": [
+            "build_numbers",
+            "represent_numbers",
+            "part_whole"
+          ],
+          "prerequisites": [
+            "tens_ones"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Decompose Numbers",
+          "code": "G1M_PV_003",
+          "subskills": [
+            "break_apart_numbers",
+            "flexible_number_thinking",
+            "part_whole_reasoning"
+          ],
+          "prerequisites": [
+            "compose_numbers"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Addition + Subtraction",
+      "code": "",
+      "skills": [
+        {
+          "name": "Addition Facts",
+          "code": "G1M_AS_001",
+          "subskills": [
+            "add_with_objects",
+            "add_with_number_line",
+            "facts_to_10",
+            "facts_to_20"
+          ],
+          "prerequisites": [
+            "counting",
+            "number_order"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Subtraction Facts",
+          "code": "G1M_AS_002",
+          "subskills": [
+            "take_away",
+            "difference",
+            "facts_to_10",
+            "facts_to_20"
+          ],
+          "prerequisites": [
+            "addition_facts",
+            "count_backward"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Missing Number Equations",
+          "code": "G1M_AS_003",
+          "subskills": [
+            "unknown_addend",
+            "unknown_difference",
+            "balance_thinking"
+          ],
+          "prerequisites": [
+            "addition",
+            "subtraction",
+            "measurement",
+            "geometry"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Word Problems",
+      "code": "G1M_WP",
+      "skills": [
+        {
+          "name": "Understand Math Stories",
+          "code": "G1M_WP_001",
+          "subskills": [
+            "identify_numbers",
+            "identify_question",
+            "understand_story_context"
+          ],
+          "prerequisites": [
+            "counting",
+            "addition_facts",
+            "subtraction_facts",
+            "85+"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Addition Word Problems",
+          "code": "G1M_WP_002",
+          "subskills": [
+            "join_problems",
+            "put_together_problems",
+            "choose_addition",
+            "write_equation"
+          ],
+          "prerequisites": [
+            "addition_facts",
+            "understand_math_stories"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Subtraction Word Problems",
+          "code": "G1M_WP_003",
+          "subskills": [
+            "take_apart",
+            "take_away",
+            "compare_difference",
+            "choose_subtraction",
+            "write_equation"
+          ],
+          "prerequisites": [
+            "subtraction_facts",
+            "understand_math_stories"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Measurement + Time",
+      "code": "G1M_MT",
+      "skills": [
+        {
+          "name": "Compare Length",
+          "code": "G1M_MT_001",
+          "subskills": [
+            "longer_shorter",
+            "taller_shorter",
+            "order_by_length",
+            "compare_objects"
+          ],
+          "prerequisites": [
+            "comparison_language",
+            "number_order"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Measure Objects",
+          "code": "G1M_MT_002",
+          "subskills": [
+            "nonstandard_units",
+            "count_units",
+            "measure_length",
+            "compare_measurements"
+          ],
+          "prerequisites": [
+            "counting",
+            "compare_length"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Time Basics",
+          "code": "G1M_MT_003",
+          "subskills": [
+            "hour",
+            "half_hour",
+            "daily_sequence",
+            "calendar_basics"
+          ],
+          "prerequisites": [
+            "number_order",
+            "counting"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Geometry",
+      "code": "G1M_GEO",
+      "skills": [
+        {
+          "name": "Identify 2D Shapes",
+          "code": "G1M_GEO_001",
+          "subskills": [
+            "circle",
+            "square",
+            "triangle",
+            "rectangle",
+            "shape_names"
+          ],
+          "prerequisites": [
+            "visual_discrimination",
+            "basic_vocabulary"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Identify 3D Shapes",
+          "code": "G1M_GEO_002",
+          "subskills": [
+            "cube",
+            "sphere",
+            "cone",
+            "cylinder",
+            "real_world_shapes"
+          ],
+          "prerequisites": [
+            "identify_2d_shapes",
+            "spatial_language"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Shape Attributes",
+          "code": "G1M_GEO_003",
+          "subskills": [
+            "sides",
+            "corners",
+            "faces",
+            "edges",
+            "compare_shapes"
+          ],
+          "prerequisites": [
+            "identify_2d_shapes",
+            "identify_3d_shapes"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "inventory": {
+    "total_skills_reported": 19,
+    "recommended_bank_min": 152,
+    "recommended_bank_diamond": 228
+  },
+  "notes": [
+    "Next:",
+    "Next:"
+  ],
+  "needs_review_items": [
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_NS_002",
+      "token": "count_forward"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_NS_003",
+      "token": "count_forward"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_NS_004",
+      "token": "number_order"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_PV_001",
+      "token": "count_to_100"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_PV_002",
+      "token": "tens_ones"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_PV_003",
+      "token": "compose_numbers"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_001",
+      "token": "counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_001",
+      "token": "number_order"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_002",
+      "token": "addition_facts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_002",
+      "token": "count_backward"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_003",
+      "token": "addition"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_003",
+      "token": "subtraction"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_003",
+      "token": "measurement"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_AS_003",
+      "token": "geometry"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_001",
+      "token": "counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_001",
+      "token": "addition_facts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_001",
+      "token": "subtraction_facts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_001",
+      "token": "85+"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_002",
+      "token": "addition_facts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_002",
+      "token": "understand_math_stories"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_003",
+      "token": "subtraction_facts"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_WP_003",
+      "token": "understand_math_stories"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_MT_001",
+      "token": "comparison_language"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_MT_001",
+      "token": "number_order"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_MT_002",
+      "token": "counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_MT_002",
+      "token": "compare_length"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_MT_003",
+      "token": "number_order"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_MT_003",
+      "token": "counting"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_GEO_001",
+      "token": "visual_discrimination"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_GEO_001",
+      "token": "basic_vocabulary"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_GEO_002",
+      "token": "identify_2d_shapes"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_GEO_002",
+      "token": "spatial_language"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_GEO_003",
+      "token": "identify_2d_shapes"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G1M_GEO_003",
+      "token": "identify_3d_shapes"
+    }
+  ]
+}

@@ -1,0 +1,559 @@
+{
+  "version": "v1",
+  "grade": "grade2",
+  "subject": "reading-english",
+  "source_file": "public/gamehub/content/curriculum-source/phase-1b/Grade 2 Reading-English Skill Graph \u2014 V1",
+  "domains": [
+    {
+      "name": "Reading Fluency",
+      "code": "G2E_FL",
+      "skills": [
+        {
+          "name": "Accuracy",
+          "code": "G2E_FL_001",
+          "subskills": [
+            "decode_multisyllable_words_beginning",
+            "self_correct",
+            "track_text",
+            "word_accuracy"
+          ],
+          "prerequisites": [
+            "g1_decoding",
+            "g1_sight_words"
+          ],
+          "difficulty": [
+            "1 supported reading",
+            "2 independent reading",
+            "3 unfamiliar word reading"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Reading Rate + Pacing",
+          "code": "G2E_FL_002",
+          "subskills": [
+            "smooth_reading",
+            "phrase_reading",
+            "punctuation_pauses",
+            "reduce_word_by_word"
+          ],
+          "prerequisites": [
+            "accuracy",
+            "sentence_reading"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Expression + Prosody",
+          "code": "G2E_FL_003",
+          "subskills": [
+            "voice_expression",
+            "dialogue_reading",
+            "match_tone",
+            "meaningful_reading"
+          ],
+          "prerequisites": [
+            "pacing",
+            "basic_comprehension"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Vocabulary + Word Study",
+      "code": "G2E_VOC",
+      "skills": [
+        {
+          "name": "Vocabulary Meaning",
+          "code": "G2E_VOC_001",
+          "subskills": [
+            "multiple_meanings",
+            "precise_meaning",
+            "category_words",
+            "word_relationships"
+          ],
+          "prerequisites": [
+            "g1_word_meaning",
+            "oral_language"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Context Clues",
+          "code": "G2E_VOC_002",
+          "subskills": [
+            "sentence_clues",
+            "picture_clues",
+            "infer_word_meaning",
+            "confirm_meaning"
+          ],
+          "prerequisites": [
+            "vocabulary_meaning",
+            "basic_comprehension"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Word Parts Foundations",
+          "code": "G2E_VOC_003",
+          "subskills": [
+            "prefix_intro",
+            "suffix_intro",
+            "base_word_awareness"
+          ],
+          "prerequisites": [
+            "decoding",
+            "vocabulary"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Reading Comprehension",
+      "code": "G2E_RC",
+      "skills": [
+        {
+          "name": "Main Idea + Details",
+          "code": "G2E_RC_001",
+          "subskills": [
+            "main_idea",
+            "supporting_details",
+            "important_information"
+          ],
+          "prerequisites": [
+            "g1_key_details",
+            "fluency"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Sequence + Summarize",
+          "code": "G2E_RC_002",
+          "subskills": [
+            "story_order",
+            "retell",
+            "summarize_short_text",
+            "beginning_middle_end"
+          ],
+          "prerequisites": [
+            "story_sequence",
+            "key_details"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Cause + Effect",
+          "code": "G2E_RC_003",
+          "subskills": [
+            "cause",
+            "effect",
+            "connect_events",
+            "explain_why"
+          ],
+          "prerequisites": [
+            "main_idea",
+            "sequence"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Compare + Contrast",
+          "code": "G2E_RC_004",
+          "subskills": [
+            "similarities",
+            "differences",
+            "compare_characters",
+            "compare_texts"
+          ],
+          "prerequisites": [
+            "comprehension",
+            "basic_reasoning"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Text Evidence Foundations",
+      "code": "G2E_TE",
+      "skills": [
+        {
+          "name": "Find Answers in Text",
+          "code": "G2E_TE_001",
+          "subskills": [
+            "locate_information",
+            "reread_text",
+            "answer_using_text"
+          ],
+          "prerequisites": [
+            "comprehension",
+            "fluency"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Support Answers",
+          "code": "G2E_TE_002",
+          "subskills": [
+            "use_details",
+            "prove_answer",
+            "explain_response"
+          ],
+          "prerequisites": [
+            "find_answers_in_text",
+            "main_idea"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Writing + Grammar",
+      "code": "G2E_WG",
+      "skills": [
+        {
+          "name": "Paragraph Writing",
+          "code": "G2E_WG_001",
+          "subskills": [
+            "topic_sentence",
+            "detail_sentence",
+            "closing_sentence",
+            "organization"
+          ],
+          "prerequisites": [
+            "g1_sentence_formation",
+            "oral_expression"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Grammar Application",
+          "code": "G2E_WG_002",
+          "subskills": [
+            "nouns",
+            "verbs",
+            "adjectives",
+            "sentence_editing"
+          ],
+          "prerequisites": [
+            "g1_nouns_verbs",
+            "sentence_formation"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Capitalization + Punctuation",
+          "code": "G2E_WG_003",
+          "subskills": [
+            "capitals",
+            "commas_intro",
+            "periods",
+            "question_marks",
+            "editing"
+          ],
+          "prerequisites": [
+            "g1_punctuation",
+            "sentence_writing"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "inventory": {
+    "total_skills_reported": 15,
+    "recommended_bank_diamond": 180
+  },
+  "notes": [
+    "# SYSTEM STATUS",
+    "# Grade 3 Math Skill Graph"
+  ],
+  "needs_review_items": [
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_FL_001",
+      "token": "g1_decoding"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_FL_001",
+      "token": "g1_sight_words"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_FL_002",
+      "token": "accuracy"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_FL_002",
+      "token": "sentence_reading"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_FL_003",
+      "token": "pacing"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_FL_003",
+      "token": "basic_comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_VOC_001",
+      "token": "g1_word_meaning"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_VOC_001",
+      "token": "oral_language"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_VOC_002",
+      "token": "vocabulary_meaning"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_VOC_002",
+      "token": "basic_comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_VOC_003",
+      "token": "decoding"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_VOC_003",
+      "token": "vocabulary"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_001",
+      "token": "g1_key_details"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_001",
+      "token": "fluency"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_002",
+      "token": "story_sequence"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_002",
+      "token": "key_details"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_003",
+      "token": "main_idea"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_003",
+      "token": "sequence"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_004",
+      "token": "comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_RC_004",
+      "token": "basic_reasoning"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_TE_001",
+      "token": "comprehension"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_TE_001",
+      "token": "fluency"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_TE_002",
+      "token": "find_answers_in_text"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_TE_002",
+      "token": "main_idea"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_WG_001",
+      "token": "g1_sentence_formation"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_WG_001",
+      "token": "oral_expression"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_WG_002",
+      "token": "g1_nouns_verbs"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_WG_002",
+      "token": "sentence_formation"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_WG_003",
+      "token": "g1_punctuation"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G2E_WG_003",
+      "token": "sentence_writing"
+    }
+  ]
+}

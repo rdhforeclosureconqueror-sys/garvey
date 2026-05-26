@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "version",
+    "grade",
+    "subject",
+    "source_file",
+    "domains",
+    "inventory",
+    "notes"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "grade": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "source_file": {
+      "type": "string"
+    },
+    "domains": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "code",
+          "skills"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "skills": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "name",
+                "code",
+                "subskills",
+                "prerequisites",
+                "difficulty",
+                "mastery_target",
+                "question_bank_recommendation",
+                "needs_review",
+                "notes"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "subskills": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "prerequisites": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "difficulty": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mastery_target": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "question_bank_recommendation": {
+                  "type": "object"
+                },
+                "needs_review": {
+                  "type": "boolean"
+                },
+                "notes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "inventory": {
+      "type": "object"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "needs_review_items": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}
