@@ -1,0 +1,442 @@
+Excellent.
+
+We now continue:
+
+# Phase 7A
+
+# Grade 1 Math Production
+
+# Geometry + Measurement
+
+# Skill 8
+
+# Shapes + Spatial Reasoning
+
+Research consistently shows:
+
+# Geometry
+
+is NOT:
+
+```text
+shape memorization
+```
+
+alone.
+
+It is:
+
+```text
+visual reasoning
++
+spatial thinking
++
+shape properties
+```
+
+Early geometry predicts:
+
+* problem solving
+* STEM readiness
+* reasoning ability
+* visual-spatial development
+
+Students learn:
+
+```text
+recognize
+→ describe
+→ compare
+→ reason about shapes
+```
+
+This becomes:
+
+# Spatial Intelligence
+
+---
+
+# Skill Metadata
+
+Copy-paste:
+
+```json
+{
+  "skill_id":"G1M_GM_001",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Geometry and Measurement",
+  "skill":"Shapes and Spatial Reasoning",
+  "mastery_threshold":85,
+  "difficulty_range":[1,2,3]
+}
+```
+
+---
+
+# MINI LESSON
+
+Copy-paste:
+
+```json
+{
+  "lesson_id":"G1M_GM_001_L1",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Geometry and Measurement",
+  "skill":"Shapes and Spatial Reasoning",
+  "objective":"Students identify and describe basic 2D shapes and spatial relationships.",
+  "key_vocabulary":[
+    "shape",
+    "side",
+    "corner",
+    "circle",
+    "square",
+    "triangle",
+    "rectangle"
+  ],
+  "concept_explanation":"Shapes have names and properties. Some have straight sides and corners. Some are round.",
+  "visual_model":"Common 2D shapes shown in different orientations.",
+  "common_misconception":"Believing a shape changes name when rotated.",
+  "real_world_connection":"Signs, windows, clocks, and toys.",
+  "lesson_summary":"Shapes can be named and described by their features."
+}
+```
+
+---
+
+# WORKED EXAMPLE
+
+Copy-paste:
+
+```json
+{
+  "example_id":"G1M_GM_001_EX1",
+  "skill":"Shapes and Spatial Reasoning",
+  "problem":"What shape is this? △",
+  "step_1":"Look at the shape.",
+  "step_2":"Count the sides.",
+  "step_3":"Three sides means triangle.",
+  "thinking_notes":"Shapes are identified by properties.",
+  "final_answer":"Triangle",
+  "reflection_prompt":"How many sides does it have?"
+}
+```
+
+---
+
+# WORKED EXAMPLE 2
+
+Orientation reasoning.
+
+Copy-paste:
+
+```json
+{
+  "example_id":"G1M_GM_001_EX2",
+  "skill":"Shapes and Spatial Reasoning",
+  "problem":"Is this still a square if it is turned? ◇",
+  "step_1":"Look at the sides.",
+  "step_2":"Check if they stay equal.",
+  "step_3":"Turning does not change the shape.",
+  "thinking_notes":"Rotation does not change shape identity.",
+  "final_answer":"Yes, it is still a square.",
+  "reflection_prompt":"Did the shape change or only turn?"
+}
+```
+
+---
+
+# HINT LADDER
+
+Copy-paste:
+
+```json
+{
+  "skill":"Shapes and Spatial Reasoning",
+  "hint_1":"Look carefully at the shape.",
+  "hint_2":"Count sides and corners.",
+  "hint_3":"Think about shape properties."
+}
+```
+
+---
+
+# GUIDED PRACTICE
+
+---
+
+## Guided Practice 1
+
+Copy-paste:
+
+```json
+{
+  "practice_id":"G1M_GM_001_GP1",
+  "skill":"Shapes and Spatial Reasoning",
+  "support_type":"shape_identification",
+  "prompt":"Which shape has 3 sides?",
+  "choices":["triangle","circle","square"],
+  "correct_answer":"triangle",
+  "coaching_feedback":"Count the sides carefully."
+}
+```
+
+---
+
+## Guided Practice 2
+
+Copy-paste:
+
+```json
+{
+  "practice_id":"G1M_GM_001_GP2",
+  "skill":"Shapes and Spatial Reasoning",
+  "support_type":"shape_properties",
+  "prompt":"Which shape is round?",
+  "choices":["circle","square","rectangle"],
+  "correct_answer":"circle",
+  "coaching_feedback":"Round shapes have no corners."
+}
+```
+
+---
+
+# CHECKPOINT
+
+Copy-paste:
+
+```json
+{
+  "checkpoint_id":"G1M_GM_001_CP1",
+  "skill":"Shapes and Spatial Reasoning",
+  "pass_score":80,
+  "questions":[
+    {
+      "prompt":"Name a shape with 4 sides.",
+      "answer":"square"
+    },
+    {
+      "prompt":"Which shape is round?",
+      "answer":"circle"
+    },
+    {
+      "prompt":"How many sides does a triangle have?",
+      "answer":"3"
+    }
+  ]
+}
+```
+
+---
+
+# ADAPTIVE QUESTION BANK
+
+Minimum:
+
+8 questions.
+
+---
+
+# Question 1
+
+Difficulty 1
+
+Copy-paste:
+
+```json
+{
+  "id":"G1M_GM_001_Q1",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Geometry and Measurement",
+  "skill":"Shapes and Spatial Reasoning",
+  "difficulty":1,
+  "cognitive_level":"recall",
+  "misconception_tag":"shape_label_confusion",
+  "question_type":"multiple_choice",
+  "prompt":"Which shape is a triangle?",
+  "choices":["△","○","□"],
+  "correct_answer":"△",
+  "correct_explanation":"A triangle has 3 sides.",
+  "wrong_feedback":"Count the sides.",
+  "hint_1":"Look carefully.",
+  "hint_2":"Count sides.",
+  "hint_3":"Triangle = 3 sides."
+}
+```
+
+---
+
+# Question 2
+
+Difficulty 1
+
+Copy-paste:
+
+```json
+{
+  "id":"G1M_GM_001_Q2",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Geometry and Measurement",
+  "skill":"Shapes and Spatial Reasoning",
+  "difficulty":1,
+  "cognitive_level":"recall",
+  "misconception_tag":"rotation_confusion",
+  "question_type":"multiple_choice",
+  "prompt":"Is this still a square? ◇",
+  "choices":["yes","no","triangle"],
+  "correct_answer":"yes",
+  "correct_explanation":"Turning a square does not change it.",
+  "wrong_feedback":"The shape only turned.",
+  "hint_1":"Look at the sides.",
+  "hint_2":"Turning does not rename shapes.",
+  "hint_3":"It is still a square."
+}
+```
+
+---
+
+# Question 3
+
+Difficulty 2
+
+Copy-paste:
+
+```json
+{
+  "id":"G1M_GM_001_Q3",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Geometry and Measurement",
+  "skill":"Shapes and Spatial Reasoning",
+  "difficulty":2,
+  "cognitive_level":"application",
+  "misconception_tag":"corner_confusion",
+  "question_type":"multiple_choice",
+  "prompt":"Which shape has 4 corners?",
+  "choices":["square","circle","triangle"],
+  "correct_answer":"square",
+  "correct_explanation":"Squares have four corners.",
+  "wrong_feedback":"Corners are where sides meet.",
+  "hint_1":"Count corners.",
+  "hint_2":"Look for meeting points.",
+  "hint_3":"Square has 4."
+}
+```
+
+---
+
+# Question 4
+
+Difficulty 2
+
+Copy-paste:
+
+```json
+{
+  "id":"G1M_GM_001_Q4",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Geometry and Measurement",
+  "skill":"Shapes and Spatial Reasoning",
+  "difficulty":2,
+  "cognitive_level":"application",
+  "misconception_tag":"property_confusion",
+  "question_type":"short_response",
+  "prompt":"How many sides does a rectangle have?",
+  "correct_answer":"4",
+  "correct_explanation":"Rectangles have four sides.",
+  "wrong_feedback":"Count each side carefully.",
+  "hint_1":"Look around the shape.",
+  "hint_2":"Count each edge.",
+  "hint_3":"1,2,3,4."
+}
+```
+
+---
+
+# MISCONCEPTION BANK
+
+Copy-paste:
+
+```json
+[
+  {
+    "skill":"Shapes and Spatial Reasoning",
+    "misconception":"rotation_confusion",
+    "wrong_pattern":"believes rotated shape is different",
+    "reteach_strategy":"show rotated examples"
+  },
+  {
+    "skill":"Shapes and Spatial Reasoning",
+    "misconception":"corner_confusion",
+    "wrong_pattern":"cannot identify corners",
+    "reteach_strategy":"trace sides and corners physically"
+  }
+]
+```
+
+---
+
+# REVIEW BANK
+
+Copy-paste:
+
+```json
+[
+  {
+    "review_id":"RV1",
+    "prompt":"How many sides does a square have?",
+    "answer":"4"
+  },
+  {
+    "review_id":"RV2",
+    "prompt":"Which shape is round?",
+    "answer":"circle"
+  }
+]
+```
+
+---
+
+# PRODUCTION STATUS
+
+Completed:
+
+✓ Grade 1 Math
+✓ Number Sense (1–4)
+✓ Operations (5–7)
+✓ Geometry + Measurement
+✓ Skill 8 — Shapes + Spatial Reasoning
+
+Next:
+
+# Grade 1 Math
+
+# Geometry + Measurement
+
+# Skill 9
+
+# Measurement Foundations (length, height, weight, comparison)
+
+This introduces:
+
+```text
+compare
+measure
+estimate
+real-world quantities
+```
+
+Research informing this package includes:
+
+*Clements, D. H. (2003). Geometric and Spatial Thinking in Early Childhood Education.*
+*Clements, D. H., & Battista, M. T. (2006). Geometry and Spatial Reasoning.*
+*Clements, D. H., & Sarama, J. (2020). Learning and Teaching Early Math.*
+*Lehrer, R., Jenkins, M., & Osana, H. (2012). Longitudinal Study of Children's Reasoning About Space and Geometry.*
+*Žilková, K., Partová, E., Kopáčová, J., et al. (2018). Young Children's Concepts of Geometric Shapes.*
+*Karaca, E. T. (2023). Geometrical Reasoning Related to 2D and 3D Shapes.*
+*Chingala, C. (2020). Teaching of Geometric and Spatial Reasoning in Early Childhood Education.*
+*Clements, D. H. (1998). Geometric and Spatial Thinking in Young Children.*
