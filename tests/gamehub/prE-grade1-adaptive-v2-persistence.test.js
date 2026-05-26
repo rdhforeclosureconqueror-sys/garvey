@@ -25,9 +25,11 @@ test('grade 1 persistence avoids raw prompt/answer persistence keys in write pay
 
 test('prF parent summary panel renders persisted and empty-state copy', () => {
   const adaptive = fs.readFileSync(path.join(root, 'public/gamehub/adaptive_learning.html'), 'utf8');
-  assert.match(adaptive, /Current practice profile/);
+  assert.match(adaptive, /Parent Progress Summary/);
   assert.match(adaptive, /Growth areas/);
-  assert.match(adaptive, /Recommended next step/);
-  assert.match(adaptive, /Recent practice activity/);
+  assert.match(adaptive, /Long-term recommendation/);
+  assert.match(adaptive, /Recent activity/);
   assert.match(adaptive, /No saved Grade 1 progress yet/);
+  assert.doesNotMatch(adaptive, /Converted planning artifact only; runtime pathway mapping pending\./);
+  assert.doesNotMatch(adaptive, /Current practice profile/);
 });

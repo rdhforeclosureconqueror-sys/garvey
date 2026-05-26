@@ -18,13 +18,22 @@ test('checkpoint attempts and hint usage are represented and persisted through c
 });
 
 test('parent-friendly local summary sections render in runtime panel', () => {
-  assert.match(adaptive, /Current practice profile/);
+  assert.match(adaptive, /Today's Practice Session/);
   assert.match(adaptive, /Growing skills/);
   assert.match(adaptive, /Needs more practice/);
-  assert.match(adaptive, /Recommended next step/);
+  assert.match(adaptive, /Session recommendation/);
+  assert.match(adaptive, /Parent Progress Summary/);
+  assert.doesNotMatch(adaptive, /Converted planning artifact only; runtime pathway mapping pending\./);
 });
 
 test('no gates scoring or diagnosis/pass-fail language is introduced', () => {
   assert.doesNotMatch(adaptive, /gatesScoring|gate score|connect gates/i);
   assert.doesNotMatch(adaptive, /pass\/fail outcome|clinical diagnosis/i);
+});
+
+
+test('selected session count maps exactly to rendered queue length without overshoot', () => {
+  const adaptiveHtml = fs.readFileSync(path.join(root, 'public/gamehub/adaptive_learning.html'), 'utf8');
+  assert.match(adaptiveHtml, /for\(let i=0;i<desired;i\+=1\)/);
+  assert.match(adaptiveHtml, /grade1V2State\.session\.queue\.length/);
 });
