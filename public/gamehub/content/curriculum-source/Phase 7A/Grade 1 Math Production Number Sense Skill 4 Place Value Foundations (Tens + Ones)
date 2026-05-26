@@ -1,0 +1,431 @@
+Excellent.
+
+We now continue:
+
+# Phase 7A
+
+# Grade 1 Math Production
+
+# Number Sense
+
+# Skill 4
+
+# Place Value Foundations (Tens + Ones)
+
+Research consistently identifies:
+
+# Place Value
+
+as one of the most important concepts in elementary math.
+
+Students learn:
+
+```text
+numbers are built
+not memorized
+```
+
+This is the foundation for:
+
+* addition
+* subtraction
+* regrouping
+* mental math
+* later multiplication
+
+Children move from:
+
+```text
+counting numbers
+```
+
+to:
+
+```text
+understanding number structure
+```
+
+---
+
+# Skill Metadata
+
+Copy-paste:
+
+```json
+{
+  "skill_id":"G1M_NS_004",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Place Value Foundations",
+  "mastery_threshold":85,
+  "difficulty_range":[1,2,3]
+}
+```
+
+---
+
+# MINI LESSON
+
+Copy-paste:
+
+```json
+{
+  "lesson_id":"G1M_NS_004_L1",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Place Value Foundations",
+  "objective":"Students understand tens and ones in two-digit numbers.",
+  "key_vocabulary":[
+    "tens",
+    "ones",
+    "group",
+    "place value",
+    "digit"
+  ],
+  "concept_explanation":"Numbers can be grouped into tens and ones. One ten means 10 ones together.",
+  "visual_model":"Base-ten blocks or bundled sticks.",
+  "common_misconception":"Reading digits separately instead of understanding value.",
+  "real_world_connection":"Counting pencils or blocks in groups of ten.",
+  "lesson_summary":"Numbers are made of tens and ones."
+}
+```
+
+---
+
+# WORKED EXAMPLE
+
+Copy-paste:
+
+```json
+{
+  "example_id":"G1M_NS_004_EX1",
+  "skill":"Place Value Foundations",
+  "problem":"What number has 1 ten and 3 ones?",
+  "step_1":"One ten equals 10.",
+  "step_2":"Add 3 ones.",
+  "step_3":"10 + 3 = 13.",
+  "thinking_notes":"A ten is a group of ten ones.",
+  "final_answer":"13",
+  "reflection_prompt":"How many tens and ones are there?"
+}
+```
+
+---
+
+# WORKED EXAMPLE 2
+
+Copy-paste:
+
+```json
+{
+  "example_id":"G1M_NS_004_EX2",
+  "skill":"Place Value Foundations",
+  "problem":"How many tens and ones are in 15?",
+  "step_1":"Look at the number 15.",
+  "step_2":"The 1 means one ten.",
+  "step_3":"The 5 means five ones.",
+  "thinking_notes":"Digits have place value.",
+  "final_answer":"1 ten and 5 ones",
+  "reflection_prompt":"What does each digit mean?"
+}
+```
+
+---
+
+# HINT LADDER
+
+Copy-paste:
+
+```json
+{
+  "skill":"Place Value Foundations",
+  "hint_1":"Look at the tens and ones.",
+  "hint_2":"A ten means 10 ones grouped together.",
+  "hint_3":"Count tens first, then ones."
+}
+```
+
+---
+
+# GUIDED PRACTICE
+
+---
+
+## Guided Practice 1
+
+Copy-paste:
+
+```json
+{
+  "practice_id":"G1M_NS_004_GP1",
+  "skill":"Place Value Foundations",
+  "support_type":"base_ten_blocks",
+  "prompt":"1 ten and 2 ones equals?",
+  "choices":["12","21","10"],
+  "correct_answer":"12",
+  "coaching_feedback":"Count the ten first, then the ones."
+}
+```
+
+---
+
+## Guided Practice 2
+
+Copy-paste:
+
+```json
+{
+  "practice_id":"G1M_NS_004_GP2",
+  "skill":"Place Value Foundations",
+  "support_type":"digit_analysis",
+  "prompt":"How many ones are in 14?",
+  "choices":["1","4","14"],
+  "correct_answer":"4",
+  "coaching_feedback":"The ones digit shows leftover ones."
+}
+```
+
+---
+
+# CHECKPOINT
+
+Copy-paste:
+
+```json
+{
+  "checkpoint_id":"G1M_NS_004_CP1",
+  "skill":"Place Value Foundations",
+  "pass_score":80,
+  "questions":[
+    {
+      "prompt":"1 ten and 4 ones = ?",
+      "answer":"14"
+    },
+    {
+      "prompt":"How many tens in 18?",
+      "answer":"1"
+    },
+    {
+      "prompt":"How many ones in 18?",
+      "answer":"8"
+    }
+  ]
+}
+```
+
+---
+
+# ADAPTIVE QUESTION BANK
+
+Minimum:
+
+8 questions.
+
+---
+
+# Question 1
+
+Difficulty 1
+
+Copy-paste:
+
+```json
+{
+  "id":"G1M_NS_004_Q1",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Place Value Foundations",
+  "difficulty":1,
+  "cognitive_level":"recall",
+  "misconception_tag":"digit_value_confusion",
+  "question_type":"multiple_choice",
+  "prompt":"1 ten and 1 one equals?",
+  "choices":["11","10","1"],
+  "correct_answer":"11",
+  "correct_explanation":"One ten and one one make 11.",
+  "wrong_feedback":"Count the ten and the one together.",
+  "hint_1":"Ten means 10.",
+  "hint_2":"Add the ones.",
+  "hint_3":"10 + 1 = 11."
+}
+```
+
+---
+
+# Question 2
+
+Difficulty 1
+
+Copy-paste:
+
+```json
+{
+  "id":"G1M_NS_004_Q2",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Place Value Foundations",
+  "difficulty":1,
+  "cognitive_level":"recall",
+  "misconception_tag":"ones_confusion",
+  "question_type":"multiple_choice",
+  "prompt":"How many ones are in 17?",
+  "choices":["1","7","17"],
+  "correct_answer":"7",
+  "correct_explanation":"The ones digit is 7.",
+  "wrong_feedback":"Look at the last digit.",
+  "hint_1":"Find the ones place.",
+  "hint_2":"The last digit shows ones.",
+  "hint_3":"17 has 7 ones."
+}
+```
+
+---
+
+# Question 3
+
+Difficulty 2
+
+Copy-paste:
+
+```json
+{
+  "id":"G1M_NS_004_Q3",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Place Value Foundations",
+  "difficulty":2,
+  "cognitive_level":"application",
+  "misconception_tag":"reversed_digits",
+  "question_type":"multiple_choice",
+  "prompt":"2 tens and 3 ones equals?",
+  "choices":["23","32","20"],
+  "correct_answer":"23",
+  "correct_explanation":"Two tens are 20 and three ones are 3.",
+  "wrong_feedback":"Count tens first.",
+  "hint_1":"2 tens = 20.",
+  "hint_2":"Add the ones.",
+  "hint_3":"20 + 3 = 23."
+}
+```
+
+---
+
+# Question 4
+
+Difficulty 2
+
+Copy-paste:
+
+```json
+{
+  "id":"G1M_NS_004_Q4",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Place Value Foundations",
+  "difficulty":2,
+  "cognitive_level":"application",
+  "misconception_tag":"digit_value_confusion",
+  "question_type":"short_response",
+  "prompt":"How many tens are in 19?",
+  "correct_answer":"1",
+  "correct_explanation":"19 has 1 ten and 9 ones.",
+  "wrong_feedback":"Look at the tens digit.",
+  "hint_1":"The first digit shows tens.",
+  "hint_2":"Think 10 + 9.",
+  "hint_3":"19 has 1 ten."
+}
+```
+
+---
+
+# MISCONCEPTION BANK
+
+Copy-paste:
+
+```json
+[
+  {
+    "skill":"Place Value Foundations",
+    "misconception":"digit_value_confusion",
+    "wrong_pattern":"reads digits separately",
+    "reteach_strategy":"use base-ten blocks"
+  },
+  {
+    "skill":"Place Value Foundations",
+    "misconception":"reversed_digits",
+    "wrong_pattern":"reverses tens and ones",
+    "reteach_strategy":"build numbers physically"
+  }
+]
+```
+
+---
+
+# REVIEW BANK
+
+Copy-paste:
+
+```json
+[
+  {
+    "review_id":"RV1",
+    "prompt":"1 ten and 6 ones = ?",
+    "answer":"16"
+  },
+  {
+    "review_id":"RV2",
+    "prompt":"How many ones in 13?",
+    "answer":"3"
+  }
+]
+```
+
+---
+
+# PRODUCTION STATUS
+
+Completed:
+
+✓ Grade 1 Math
+✓ Number Sense
+✓ Skill 1 — Count to 20
+✓ Skill 2 — Count Forward + Backward
+✓ Skill 3 — Compare Numbers
+✓ Skill 4 — Place Value Foundations
+
+Next:
+
+# Grade 1 Math
+
+# Operations
+
+# Skill 5
+
+# Addition Foundations (within 20)
+
+This introduces:
+
+```text
+combining
+part-part-whole thinking
+early operation reasoning
+```
+
+Research informing this package includes:
+
+*Clements, D. H., & Sarama, J. (2020). Learning and Teaching Early Math.*
+*Sarama, J., & Clements, D. H. (2009). Early Childhood Mathematics Education Research.*
+*Lai, M. Y., & Fung, C. I. (2017). A Possible Learning Trajectory for Base-10 Development.*
+*Ryan, J., & Williams, J. (2007). Children’s Mathematics: Learning From Errors and Misconceptions.*
+*Van den Heuvel-Panhuizen, M. (2008). Children Learn Mathematics.*
+*Themane, K. M., & Luneta, K. (2021). Misconceptions in Learning Mathematics Place Value.*
+*Clements, D. H., & Sarama, J. (2025). Systematic Review of Learning Trajectories in Early Mathematics.*
+*Baroody, A. J., Lai, M., & Mix, K. S. (2014). Early Number and Operation Sense.*
+
+[https://r2.gptseek.com/pin_review_scholar.png](https://r2.gptseek.com/pin_review_scholar.png)
