@@ -800,3 +800,149 @@ Intent: surface Grade 1 Adaptive V2 candidate Gates signals in parent-facing UI 
 - No diagnosis or pass/fail framing.
 - No raw prompt/answer leakage in the parent-facing candidate signals section.
 - Grades 2–6 persistence remains disabled.
+
+## 15) PR J — Adaptive V2 Grade 1 AI Voice Integration Planning (Design-Only, Report)
+
+Date: 2026-05-26  
+Intent: define how Adaptive V2 Grade 1 can connect to the existing AI voice system **without implementing voice wiring yet**.
+
+Non-goals in PR J: no AI voice implementation, no voice route changes, no provider behavior changes, no Gates scoring changes, no Grades 2–6 runtime enablement, and no diagnosis/pass-fail language.
+
+### 15.1 Existing voice routes/services inventory (repo audit)
+
+Current reusable voice infrastructure already exists in two patterns:
+
+1. **Assessment voice router (generic provider-audio + fallback pattern)**
+   - Route family: `/api/assessment/voice/*`.
+   - Core behaviors:
+     - provider-preferred `POST /section` synthesis via upstream `/speak`,
+     - browser fallback mode when upstream unavailable,
+     - short-lived stream token cache (`/stream/:token`),
+     - config + warmup readiness endpoints.
+   - Key characteristics to reuse for Adaptive V2:
+     - optional/non-blocking voice,
+     - explicit `voice_mode` (`provider_audio` vs `fallback_browser_speech`),
+     - narrow `voice_text` payload surface,
+     - route diagnostics that do not require exposing private content.
+
+2. **Youth-development/TDE voice stack (voice-ready content registry + status surfaces)**
+   - Route families: `/api/youth-development/voice/*` and `/api/youth-development/tde/voice/*`.
+   - Service pattern includes:
+     - voice-ready chunk registration (`voice_text`, `voice_chunk_id`, `voice_ready`),
+     - per-child readiness/status endpoints,
+     - optional gateway/provider delivery with fallback,
+     - voice analytics/pilot visibility that remain additive and non-blocking.
+   - Key characteristics to reuse for Adaptive V2:
+     - readable-without-voice guarantee,
+     - playback diagnostics and availability status,
+     - section-level voice content model rather than full-report monoliths.
+
+Conclusion from audit: Adaptive V2 Grade 1 can connect using existing architecture conventions (provider optionality + fallback + chunked voice-safe text) without introducing new provider behavior.
+
+### 15.2 Adaptive V2 Grade 1 text surfaces that are voice-ready candidates
+
+For Grade 1 runtime, these content units are appropriate for future voice rendering (as short section-level blocks):
+
+1. **Lesson snippet**
+   - One concise instructional explanation for current skill.
+2. **Worked example**
+   - One step-by-step short model example.
+3. **Hints**
+   - Micro-hints (one idea at a time), not long paragraphs.
+4. **Checkpoint instructions**
+   - Clear “what to do now” prompt text.
+5. **Supportive feedback**
+   - Growth-oriented acknowledgment and gentle next-action cue.
+6. **Next practice recommendation**
+   - Simple “try this next” suggestion tied to selected skill.
+7. **Parent summary (optional)**
+   - Short family-facing recap suitable for read-aloud when present.
+
+All items remain text-first in PR J planning; voice is future additive playback only.
+
+### 15.3 Voice-safe text contract for Adaptive V2 Grade 1 (proposed)
+
+Adaptive V2 should adopt a strict voice-safe contract before wiring any endpoint:
+
+1. **No raw private data**
+   - Do not place raw personal identifiers, account metadata, or sensitive free-text into voice payload fields.
+2. **No unnecessary child identity in voice payloads**
+   - Voice text blocks should be identity-minimized; avoid unnecessary naming inside spoken strings.
+3. **No diagnosis/pass-fail framing**
+   - Use developmental, supportive language only.
+4. **Short readable sections**
+   - Section-level chunks only; avoid large narrative blobs.
+   - Prefer single-purpose strings for readability and replay.
+5. **Readable-without-voice requirement**
+   - Voice content must remain equivalent to on-screen text; voice never required for progression.
+6. **Fallback-first resilience**
+   - If provider/gateway unavailable, browser speech fallback remains acceptable with no core flow blocking.
+
+Suggested canonical payload shape for later implementation planning:
+
+- `surface` (e.g., `adaptive_v2_grade1`)
+- `section_key` (e.g., `lesson_snippet`, `worked_example`, `hint_1`, `checkpoint_instruction`, `supportive_feedback`, `next_practice`, `parent_summary`)
+- `voice_text` (sanitized, short, identity-minimized)
+- `voice_chunk_id` (deterministic chunk id)
+- `voice_ready` (boolean)
+- `readable_without_voice` (always true)
+
+### 15.4 Endpoint strategy recommendation
+
+Recommendation: **add a sibling Adaptive V2 voice endpoint in a future implementation PR, while reusing existing internal voice patterns and fallback behavior**.
+
+Rationale:
+
+- Reusing the existing assessment route directly would work technically, but a sibling endpoint gives clearer ownership, safer contract evolution, and explicit Adaptive scoping.
+- Changing existing youth/assessment voice routes is unnecessary and out-of-scope; sibling route avoids regression risk.
+- Client-side browser speech only is viable as temporary bootstrap, but it loses provider-readiness observability and route-level diagnostics already proven in current voice stacks.
+
+Planned direction (future PR, not implemented here):
+
+- New route family concept: `/api/adaptive-v2/voice/*` (sibling).
+- Internally reuse established patterns:
+  - provider-preferred + fallback mode,
+  - section/chunk text model,
+  - status/config endpoint for voice availability,
+  - non-blocking behavior with `readable_without_voice=true`.
+
+### 15.5 Pre-implementation test plan (required before voice wiring)
+
+Before any implementation, add/extend tests to lock the contract:
+
+1. **Route contract tests (Adaptive sibling endpoint)**
+   - config/status endpoint returns availability + fallback metadata.
+   - section synthesis endpoint returns provider mode or fallback mode deterministically.
+
+2. **Voice-safe content tests**
+   - only approved `section_key` values accepted for Grade 1 voice payloads.
+   - `voice_text` length/readability constraints enforced.
+   - payload rejects/normalizes forbidden diagnosis/pass-fail language patterns.
+
+3. **Privacy/identity minimization tests**
+   - no raw child private fields echoed in response body.
+   - no unnecessary identity leakage in diagnostics fields.
+
+4. **Fallback/non-blocking tests**
+   - provider/gateway outage results in `fallback_browser_speech` (or equivalent fallback mode), never a blocked adaptive lesson/checkpoint flow.
+
+5. **Grade scope tests**
+   - Grade 1-only runtime scope remains enforced for Adaptive V2 voice rollout.
+   - Grades 2–6 voice runtime remains disabled.
+
+6. **Regression tests (no unrelated behavior drift)**
+   - no changes to existing voice route contracts,
+   - no Gates scoring changes,
+   - no adaptive checkpoint persistence contract regressions.
+
+### 15.6 PR J output summary
+
+This PR J update is documentation-only planning that:
+
+- audits existing AI voice routes/services,
+- defines Grade 1 Adaptive voice-ready text surfaces,
+- specifies a voice-safe text contract,
+- recommends sibling Adaptive V2 voice endpoints over modifying existing routes,
+- and enumerates required tests before any voice implementation.
+
+No runtime voice wiring or route/provider implementation is included in PR J.
