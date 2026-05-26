@@ -1,0 +1,548 @@
+{
+  "version": "v1",
+  "grade": "grade3",
+  "subject": "math",
+  "source_file": "public/gamehub/content/curriculum-source/phase-1b/Grade 3 Math Skill Graph \u2014 V1",
+  "domains": [
+    {
+      "name": "Multiplication",
+      "code": "G3M_MULT",
+      "skills": [
+        {
+          "name": "Equal Groups + Multiplication Meaning",
+          "code": "G3M_MULT_001",
+          "subskills": [
+            "equal_groups",
+            "multiplication_as_groups",
+            "count_groups",
+            "represent_groups"
+          ],
+          "prerequisites": [
+            "g2_equal_groups",
+            "g2_repeated_addition"
+          ],
+          "difficulty": [
+            "1 visual groups",
+            "2 symbolic multiplication",
+            "3 reasoning about groups"
+          ],
+          "mastery_target": "85+",
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Arrays + Area Models",
+          "code": "G3M_MULT_002",
+          "subskills": [
+            "rows",
+            "columns",
+            "build_arrays",
+            "interpret_arrays",
+            "array_reasoning"
+          ],
+          "prerequisites": [
+            "equal_groups",
+            "g2_arrays"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Multiplication Facts",
+          "code": "G3M_MULT_003",
+          "subskills": [
+            "facts_2s",
+            "facts_5s",
+            "facts_10s",
+            "facts_3s",
+            "facts_4s",
+            "facts_6to9"
+          ],
+          "prerequisites": [
+            "multiplication_meaning",
+            "skip_counting",
+            "arrays"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Multiplication Strategies",
+          "code": "G3M_MULT_004",
+          "subskills": [
+            "doubles",
+            "near_doubles",
+            "break_apart_numbers",
+            "distributive_thinking_beginning",
+            "mental_multiplication"
+          ],
+          "prerequisites": [
+            "multiplication_facts",
+            "place_value"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Division",
+      "code": "G3M_DIV",
+      "skills": [
+        {
+          "name": "Division Meaning",
+          "code": "G3M_DIV_001",
+          "subskills": [
+            "sharing_equally",
+            "grouping",
+            "division_as_groups",
+            "equal_shares"
+          ],
+          "prerequisites": [
+            "multiplication_meaning",
+            "equal_groups"
+          ],
+          "difficulty": [
+            "1 concrete sharing",
+            "2 numeric division",
+            "3 reasoning about division"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Fact Families",
+          "code": "G3M_DIV_002",
+          "subskills": [
+            "multiplication_division_connection",
+            "related_facts",
+            "inverse_operations"
+          ],
+          "prerequisites": [
+            "multiplication_facts",
+            "division_meaning"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Division Facts",
+          "code": "G3M_DIV_003",
+          "subskills": [
+            "basic_division_facts",
+            "division_fluency",
+            "quotient_understanding"
+          ],
+          "prerequisites": [
+            "fact_families",
+            "multiplication_facts"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Division Strategies",
+          "code": "G3M_DIV_004",
+          "subskills": [
+            "skip_count_division",
+            "repeated_subtraction",
+            "number_line_division",
+            "mental_division"
+          ],
+          "prerequisites": [
+            "division_facts",
+            "subtraction_reasoning"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Fractions Foundations",
+      "code": "G3M_FRAC",
+      "skills": [
+        {
+          "name": "Fraction Meaning",
+          "code": "G3M_FRAC_001",
+          "subskills": [
+            "part_of_whole",
+            "equal_parts",
+            "fraction_language",
+            "fraction_models"
+          ],
+          "prerequisites": [
+            "division_meaning",
+            "shape_partitioning"
+          ],
+          "difficulty": [
+            "1 visual fractions",
+            "2 symbolic fractions",
+            "3 reasoning about fractions"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Numerator + Denominator",
+          "code": "G3M_FRAC_002",
+          "subskills": [
+            "identify_numerator",
+            "identify_denominator",
+            "fraction_labels",
+            "explain_parts"
+          ],
+          "prerequisites": [
+            "fraction_meaning"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Fraction Models + Number Line",
+          "code": "G3M_FRAC_003",
+          "subskills": [
+            "fraction_bars",
+            "fraction_circles",
+            "fraction_number_line",
+            "locate_fractions"
+          ],
+          "prerequisites": [
+            "numerator_denominator",
+            "number_order"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Problem Solving + Mathematical Reasoning",
+      "code": "G3M_PS",
+      "skills": [
+        {
+          "name": "One-Step Problems",
+          "code": "G3M_PS_001",
+          "subskills": [
+            "identify_operation",
+            "write_equation",
+            "solve_context_problem"
+          ],
+          "prerequisites": [
+            "multiplication",
+            "division",
+            "addition_subtraction"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Multi-Step Problems",
+          "code": "G3M_PS_002",
+          "subskills": [
+            "multiple_operations",
+            "plan_steps",
+            "problem_strategy"
+          ],
+          "prerequisites": [
+            "one_step_problems",
+            "operation_fluency"
+          ],
+          "difficulty": [
+            "1 guided steps",
+            "2 independent steps",
+            "3 reasoning + justification"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Explain Mathematical Thinking",
+          "code": "G3M_PS_003",
+          "subskills": [
+            "explain_strategy",
+            "justify_answer",
+            "math_language"
+          ],
+          "prerequisites": [
+            "multi_step_problems",
+            "operation_understanding"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Measurement + Geometry",
+      "code": "G3M_MG",
+      "skills": [
+        {
+          "name": "Area",
+          "code": "G3M_MG_001",
+          "subskills": [
+            "unit_squares",
+            "area_models",
+            "count_area",
+            "area_as_covering"
+          ],
+          "prerequisites": [
+            "arrays",
+            "multiplication_meaning"
+          ],
+          "difficulty": [
+            "1 count squares",
+            "2 multiply dimensions",
+            "3 reasoning about area"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Perimeter",
+          "code": "G3M_MG_002",
+          "subskills": [
+            "boundary_length",
+            "measure_sides",
+            "find_perimeter",
+            "compare_shapes"
+          ],
+          "prerequisites": [
+            "measurement",
+            "addition",
+            "linear_measure"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Geometry + Shapes",
+          "code": "G3M_MG_003",
+          "subskills": [
+            "quadrilaterals",
+            "shape_attributes",
+            "classify_shapes",
+            "angle_intro"
+          ],
+          "prerequisites": [
+            "g2_shapes",
+            "shape_attributes"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Data + Graphs",
+      "code": "G3M_DG",
+      "skills": [
+        {
+          "name": "Read Graphs",
+          "code": "G3M_DG_001",
+          "subskills": [
+            "bar_graphs",
+            "picture_graphs",
+            "interpret_data",
+            "compare_values"
+          ],
+          "prerequisites": [
+            "g2_graphs",
+            "compare_numbers"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Create Graphs",
+          "code": "G3M_DG_002",
+          "subskills": [
+            "collect_data",
+            "organize_data",
+            "build_graph",
+            "label_graph"
+          ],
+          "prerequisites": [
+            "read_graphs",
+            "data_questions"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Interpret Data",
+          "code": "G3M_DG_003",
+          "subskills": [
+            "draw_conclusions",
+            "compare_data",
+            "answer_questions",
+            "reason_from_data"
+          ],
+          "prerequisites": [
+            "create_graphs",
+            "problem_solving"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Normalized from Phase 1B narrative source; unresolved prerequisites and ambiguous mastery/question-bank details are preserved via needs_review=true."
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "graph_file": "curriculum-framework/skill-graphs/grade6/math/graph.v1.json",
+  "grade": "grade6",
+  "subject": "math",
+  "version": "v1",
+  "checks": [
+    {
+      "name": "graph_file_exists",
+      "pass": true
+    },
+    {
+      "name": "grade_subject_version_present",
+      "pass": true
+    },
+    {
+      "name": "domain_codes_unique",
+      "pass": true
+    },
+    {
+      "name": "skill_codes_unique",
+      "pass": true
+    },
+    {
+      "name": "required_fields_present",
+      "pass": true
+    },
+    {
+      "name": "validation_report_exists",
+      "pass": true
+    },
+    {
+      "name": "needs_review_preserved",
+      "pass": true
+    },
+    {
+      "name": "no_tracking_scoring_db_logic_added",
+      "pass": true
+    }
+  ],
+  "unresolved_prerequisites": [
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_RP_001",
+      "token": "g5_fraction_reasoning"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_RP_001",
+      "token": "multiplicative_thinking"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_RP_002",
+      "token": "ratio_meaning"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_RP_002",
+      "token": "equivalent_fractions"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_RP_003",
+      "token": "equivalent_ratios"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_RP_003",
+      "token": "division_reasoning"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_RP_004",
+      "token": "fractions"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_RP_004",
+      "token": "decimals"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_RP_004",
+      "token": "ratio_reasoning"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_EAF_001",
+      "token": "g5_patterns"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_EAF_001",
+      "token": "operation_reasoning"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_EAF_002",
+      "token": "operation_fluency"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_EAF_002",
+      "token": "expressions"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_EAF_003",
+      "token": "variables"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_EAF_003",
+      "token": "order_operations"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_NS_001",
+      "token": "number_line"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_NS_001",
+      "token": "compare_numbers"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_NS_002",
+      "token": "positive_negative_numbers"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_GC_001",
+      "token": "g5_coordinate_plane"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_GC_001",
+      "token": "number_order"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_GC_002",
+      "token": "g5_area"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_GC_002",
+      "token": "shape_reasoning"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_GC_003",
+      "token": "g5_volume"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_GC_003",
+      "token": "geometry_understanding"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_SDR_001",
+      "token": "g5_data_reasoning"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_SDR_001",
+      "token": "graphs"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_SDR_002",
+      "token": "statistical_questions"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_SDR_002",
+      "token": "graph_understanding"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_SDR_003",
+      "token": "data_displays"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_SDR_003",
+      "token": "operations"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_SDR_004",
+      "token": "measures_center"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_SDR_004",
+      "token": "display_interpretation"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_PMA_001",
+      "token": "g5_problem_solving"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_PMA_001",
+      "token": "operation_fluency"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_PMA_002",
+      "token": "multi_step_problem_solving"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_PMA_002",
+      "token": "equations"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_PMA_003",
+      "token": "explain_thinking"
+    },
+    {
+      "type": "unresolved_prerequisite",
+      "skill": "G6M_PMA_003",
+      "token": "problem_solving"
+    }
+  ],
+  "needs_review_count": 19
+}

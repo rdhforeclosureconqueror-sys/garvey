@@ -1,0 +1,548 @@
+{
+  "version": "v1",
+  "grade": "grade6",
+  "subject": "math",
+  "source_file": "public/gamehub/content/curriculum-source/phase-1b/Grade 6 Math Skill Graph \u2014 V1",
+  "domains": [
+    {
+      "name": "Ratios + Proportional Reasoning",
+      "code": "G6M_RP",
+      "skills": [
+        {
+          "name": "Ratio Meaning",
+          "code": "G6M_RP_001",
+          "subskills": [
+            "part_to_part",
+            "part_to_whole",
+            "ratio_language",
+            "visual_ratios",
+            "ratio_models"
+          ],
+          "prerequisites": [
+            "g5_fraction_reasoning",
+            "multiplicative_thinking"
+          ],
+          "difficulty": [
+            "1 visual_ratio",
+            "2 symbolic_ratio",
+            "3 reasoning_ratio"
+          ],
+          "mastery_target": "85+",
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Equivalent Ratios",
+          "code": "G6M_RP_002",
+          "subskills": [
+            "ratio_scaling",
+            "equivalent_ratios",
+            "tables",
+            "visual_equivalence"
+          ],
+          "prerequisites": [
+            "ratio_meaning",
+            "equivalent_fractions"
+          ],
+          "difficulty": [
+            "1 models",
+            "2 tables",
+            "3 reasoning"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Unit Rate + Rate Reasoning",
+          "code": "G6M_RP_003",
+          "subskills": [
+            "unit_rate",
+            "rate_language",
+            "compare_rates",
+            "real_world_rates"
+          ],
+          "prerequisites": [
+            "equivalent_ratios",
+            "division_reasoning"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Percent Foundations",
+          "code": "G6M_RP_004",
+          "subskills": [
+            "percent_meaning",
+            "percent_models",
+            "fraction_percent_decimal",
+            "benchmark_percents"
+          ],
+          "prerequisites": [
+            "fractions",
+            "decimals",
+            "ratio_reasoning"
+          ],
+          "difficulty": [
+            "1 visual_percent",
+            "2 conversion",
+            "3 reasoning_percent"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Expressions + Algebra Foundations",
+      "code": "G6M_EAF",
+      "skills": [
+        {
+          "name": "Variables + Expressions",
+          "code": "G6M_EAF_001",
+          "subskills": [
+            "variable_meaning",
+            "write_expressions",
+            "evaluate_expressions",
+            "algebra_language"
+          ],
+          "prerequisites": [
+            "g5_patterns",
+            "operation_reasoning"
+          ],
+          "difficulty": [
+            "1 identify_variable",
+            "2 write_expression",
+            "3 interpret_expression"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Order of Operations",
+          "code": "G6M_EAF_002",
+          "subskills": [
+            "grouping_symbols",
+            "operation_priority",
+            "evaluate_steps",
+            "check_reasoning"
+          ],
+          "prerequisites": [
+            "operation_fluency",
+            "expressions"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Equations Foundations",
+          "code": "G6M_EAF_003",
+          "subskills": [
+            "equation_meaning",
+            "balance_concept",
+            "missing_value",
+            "one_step_equations_intro"
+          ],
+          "prerequisites": [
+            "variables",
+            "order_operations"
+          ],
+          "difficulty": [
+            "1 solve_model",
+            "2 solve_symbolically",
+            "3 explain_equation"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Number System + Integers Foundations",
+      "code": "G6M_NS",
+      "skills": [
+        {
+          "name": "Positive + Negative Numbers",
+          "code": "G6M_NS_001",
+          "subskills": [
+            "integer_meaning",
+            "positive_negative",
+            "real_world_context",
+            "number_line_integers"
+          ],
+          "prerequisites": [
+            "number_line",
+            "compare_numbers"
+          ],
+          "difficulty": [
+            "1 concrete_context",
+            "2 symbolic_integer",
+            "3 reasoning_integer"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Compare + Order Integers",
+          "code": "G6M_NS_002",
+          "subskills": [
+            "integer_order",
+            "greater_less",
+            "distance_number_line",
+            "magnitude_reasoning"
+          ],
+          "prerequisites": [
+            "positive_negative_numbers"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Geometry + Coordinate Reasoning",
+      "code": "G6M_GC",
+      "skills": [
+        {
+          "name": "Coordinate Plane",
+          "code": "G6M_GC_001",
+          "subskills": [
+            "four_quadrants",
+            "plot_points",
+            "interpret_coordinates",
+            "coordinate_distance_intro"
+          ],
+          "prerequisites": [
+            "g5_coordinate_plane",
+            "number_order"
+          ],
+          "difficulty": [
+            "1 locate_points",
+            "2 interpret_points",
+            "3 coordinate_reasoning"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Geometry + Area",
+          "code": "G6M_GC_002",
+          "subskills": [
+            "triangles",
+            "quadrilaterals",
+            "area_formula",
+            "composite_shapes"
+          ],
+          "prerequisites": [
+            "g5_area",
+            "shape_reasoning"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Surface Area + Volume",
+          "code": "G6M_GC_003",
+          "subskills": [
+            "nets",
+            "surface_area",
+            "volume_reasoning",
+            "three_dimensional_shapes"
+          ],
+          "prerequisites": [
+            "g5_volume",
+            "geometry_understanding"
+          ],
+          "difficulty": [
+            "1 models",
+            "2 formulas",
+            "3 reasoning_transfer"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Statistics + Data Reasoning",
+      "code": "G6M_SDR",
+      "skills": [
+        {
+          "name": "Statistical Questions",
+          "code": "G6M_SDR_001",
+          "subskills": [
+            "statistical_question",
+            "data_variation",
+            "question_design",
+            "data_collection"
+          ],
+          "prerequisites": [
+            "g5_data_reasoning",
+            "graphs"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Data Displays",
+          "code": "G6M_SDR_002",
+          "subskills": [
+            "dot_plots",
+            "histograms_intro",
+            "box_plot_intro",
+            "display_interpretation"
+          ],
+          "prerequisites": [
+            "statistical_questions",
+            "graph_understanding"
+          ],
+          "difficulty": [
+            "1 read_display",
+            "2 compare_display",
+            "3 infer_patterns"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Measures of Center",
+          "code": "G6M_SDR_003",
+          "subskills": [
+            "mean",
+            "median",
+            "mode",
+            "interpret_center"
+          ],
+          "prerequisites": [
+            "data_displays",
+            "operations"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Data Conclusions",
+          "code": "G6M_SDR_004",
+          "subskills": [
+            "compare_datasets",
+            "draw_conclusions",
+            "support_claims",
+            "reason_from_data"
+          ],
+          "prerequisites": [
+            "measures_center",
+            "display_interpretation"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Problem Solving + Mathematical Argument",
+      "code": "G6M_PMA",
+      "skills": [
+        {
+          "name": "Multi-Step Problem Solving",
+          "code": "G6M_PMA_001",
+          "subskills": [
+            "plan_solution",
+            "choose_strategy",
+            "multiple_steps",
+            "check_reasonableness"
+          ],
+          "prerequisites": [
+            "g5_problem_solving",
+            "operation_fluency"
+          ],
+          "difficulty": [
+            "1 guided",
+            "2 independent",
+            "3 justify_process"
+          ],
+          "mastery_target": "85+",
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Mathematical Modeling",
+          "code": "G6M_PMA_002",
+          "subskills": [
+            "represent_context",
+            "write_equations",
+            "model_situations",
+            "apply_math"
+          ],
+          "prerequisites": [
+            "multi_step_problem_solving",
+            "equations"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Mathematical Argument",
+          "code": "G6M_PMA_003",
+          "subskills": [
+            "justify_reasoning",
+            "compare_methods",
+            "defend_solution",
+            "mathematical_communication"
+          ],
+          "prerequisites": [
+            "explain_thinking",
+            "problem_solving"
+          ],
+          "difficulty": [
+            "1 explain",
+            "2 justify",
+            "3 defend"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Normalized from Phase 1B narrative source; unresolved prerequisites and ambiguous mastery/question-bank details are preserved via needs_review=true."
+  ]
+}

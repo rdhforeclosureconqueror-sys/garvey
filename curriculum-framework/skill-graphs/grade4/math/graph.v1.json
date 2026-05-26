@@ -1,0 +1,505 @@
+{
+  "version": "v1",
+  "grade": "grade4",
+  "subject": "math",
+  "source_file": "public/gamehub/content/curriculum-source/phase-1b/Grade 4 Math Skill Graph \u2014 V1",
+  "domains": [
+    {
+      "name": "Multi-Digit Operations",
+      "code": "G4M_MDO",
+      "skills": [
+        {
+          "name": "Multi-Digit Multiplication",
+          "code": "G4M_MDO_001",
+          "subskills": [
+            "partial_products",
+            "area_model",
+            "multi_digit_multiply",
+            "place_value_reasoning"
+          ],
+          "prerequisites": [
+            "g3_multiplication_facts",
+            "g3_arrays",
+            "place_value"
+          ],
+          "difficulty": [
+            "1 visual models",
+            "2 algorithm use",
+            "3 reasoning + explanation"
+          ],
+          "mastery_target": "85+",
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Multi-Digit Division",
+          "code": "G4M_MDO_002",
+          "subskills": [
+            "division_models",
+            "partial_quotients",
+            "long_division_intro",
+            "division_reasoning"
+          ],
+          "prerequisites": [
+            "g3_division",
+            "multiplication_relationship",
+            "place_value"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Estimation + Number Sense",
+          "code": "G4M_MDO_003",
+          "subskills": [
+            "rounding",
+            "compatible_numbers",
+            "reasonable_answer_check",
+            "mental_estimation"
+          ],
+          "prerequisites": [
+            "place_value",
+            "multi_digit_operations"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Fractions",
+      "code": "G4M_FR",
+      "skills": [
+        {
+          "name": "Equivalent Fractions",
+          "code": "G4M_FR_001",
+          "subskills": [
+            "generate_equivalent",
+            "simplify_fraction",
+            "fraction_scaling",
+            "visual_equivalence"
+          ],
+          "prerequisites": [
+            "g3_equivalent_fractions",
+            "fraction_models"
+          ],
+          "difficulty": [
+            "1 visual",
+            "2 symbolic",
+            "3 reasoning"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Compare + Order Fractions",
+          "code": "G4M_FR_002",
+          "subskills": [
+            "same_denominator",
+            "same_numerator",
+            "number_line_compare",
+            "order_fractions"
+          ],
+          "prerequisites": [
+            "equivalent_fractions",
+            "fraction_number_line"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Add + Subtract Fractions",
+          "code": "G4M_FR_003",
+          "subskills": [
+            "same_denominator",
+            "fraction_models",
+            "explain_fraction_operations"
+          ],
+          "prerequisites": [
+            "compare_fractions",
+            "addition_reasoning"
+          ],
+          "difficulty": [
+            "1 visual support",
+            "2 symbolic computation",
+            "3 explanation + transfer"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Fraction Reasoning",
+          "code": "G4M_FR_004",
+          "subskills": [
+            "fraction_size",
+            "benchmark_fractions",
+            "reason_about_parts",
+            "justify_fraction_thinking"
+          ],
+          "prerequisites": [
+            "fraction_operations",
+            "equivalence"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Decimals Foundations",
+      "code": "G4M_DEC",
+      "skills": [
+        {
+          "name": "Tenths + Hundredths",
+          "code": "G4M_DEC_001",
+          "subskills": [
+            "tenths",
+            "hundredths",
+            "decimal_models",
+            "decimal_language"
+          ],
+          "prerequisites": [
+            "place_value",
+            "fraction_understanding"
+          ],
+          "difficulty": [
+            "1 models",
+            "2 notation",
+            "3 reasoning"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Compare Decimals",
+          "code": "G4M_DEC_002",
+          "subskills": [
+            "decimal_order",
+            "greater_less",
+            "number_line_decimals",
+            "compare_values"
+          ],
+          "prerequisites": [
+            "tenths_hundredths",
+            "compare_numbers"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Problem Solving + Mathematical Reasoning",
+      "code": "G4M_PS",
+      "skills": [
+        {
+          "name": "Multi-Step Problems",
+          "code": "G4M_PS_001",
+          "subskills": [
+            "identify_operations",
+            "plan_solution",
+            "multiple_steps",
+            "check_solution"
+          ],
+          "prerequisites": [
+            "g3_multi_step",
+            "operation_fluency"
+          ],
+          "difficulty": [
+            "1 guided",
+            "2 independent",
+            "3 explanation_required"
+          ],
+          "mastery_target": "85+",
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Mathematical Modeling",
+          "code": "G4M_PS_002",
+          "subskills": [
+            "draw_models",
+            "equation_modeling",
+            "represent_situations",
+            "choose_strategy"
+          ],
+          "prerequisites": [
+            "multi_step_problems",
+            "fraction_understanding"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Explain + Justify Reasoning",
+          "code": "G4M_PS_003",
+          "subskills": [
+            "justify_answers",
+            "math_language",
+            "explain_strategy",
+            "evaluate_reasonableness"
+          ],
+          "prerequisites": [
+            "mathematical_modeling",
+            "problem_solving"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Measurement + Geometry",
+      "code": "G4M_MG",
+      "skills": [
+        {
+          "name": "Area + Perimeter",
+          "code": "G4M_MG_001",
+          "subskills": [
+            "find_area",
+            "find_perimeter",
+            "compare_measurements",
+            "apply_formulas"
+          ],
+          "prerequisites": [
+            "g3_area",
+            "g3_perimeter",
+            "multiplication"
+          ],
+          "difficulty": [
+            "1 measure",
+            "2 formula",
+            "3 reasoning_comparison"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Angles + Geometry",
+          "code": "G4M_MG_002",
+          "subskills": [
+            "angle_meaning",
+            "measure_angles",
+            "compare_angles",
+            "classify_angles"
+          ],
+          "prerequisites": [
+            "shape_attributes",
+            "measurement"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Coordinate + Spatial Reasoning",
+          "code": "G4M_MG_003",
+          "subskills": [
+            "grid_location",
+            "coordinates_intro",
+            "visual_spatial_reasoning",
+            "map_positions"
+          ],
+          "prerequisites": [
+            "geometry_foundations",
+            "number_order"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Data + Interpretation",
+      "code": "G4M_DI",
+      "skills": [
+        {
+          "name": "Read + Interpret Graphs",
+          "code": "G4M_DI_001",
+          "subskills": [
+            "bar_graphs",
+            "line_plots",
+            "data_comparison",
+            "graph_reasoning"
+          ],
+          "prerequisites": [
+            "g3_graphs",
+            "compare_numbers"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Create Data Displays",
+          "code": "G4M_DI_002",
+          "subskills": [
+            "collect_data",
+            "organize_data",
+            "create_graphs",
+            "label_displays"
+          ],
+          "prerequisites": [
+            "read_graphs",
+            "data_questions"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Data Analysis + Conclusions",
+          "code": "G4M_DI_003",
+          "subskills": [
+            "draw_conclusions",
+            "identify_patterns",
+            "compare_datasets",
+            "support_conclusions"
+          ],
+          "prerequisites": [
+            "create_displays",
+            "problem_solving"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Normalized from Phase 1B narrative source; unresolved prerequisites and ambiguous mastery/question-bank details are preserved via needs_review=true."
+  ]
+}

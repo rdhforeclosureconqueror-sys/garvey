@@ -1,0 +1,425 @@
+{
+  "version": "v1",
+  "grade": "grade3",
+  "subject": "reading-english",
+  "source_file": "public/gamehub/content/curriculum-source/phase-1b/Grade 3 Reading English Skill Graph \u2014 V1",
+  "domains": [
+    {
+      "name": "Reading Fluency",
+      "code": "G3E_FL",
+      "skills": [
+        {
+          "name": "Fluency Accuracy",
+          "code": "G3E_FL_001",
+          "subskills": [
+            "accurate_reading",
+            "self_correction",
+            "multisyllable_accuracy"
+          ],
+          "prerequisites": [
+            "g2_accuracy",
+            "g2_word_study"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Reading Rate + Stamina",
+          "code": "G3E_FL_002",
+          "subskills": [
+            "sustained_reading",
+            "smooth_pacing",
+            "paragraph_reading"
+          ],
+          "prerequisites": [
+            "accuracy",
+            "independent_reading"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Expression + Meaning",
+          "code": "G3E_FL_003",
+          "subskills": [
+            "prosody",
+            "tone",
+            "voice_expression",
+            "meaningful_reading"
+          ],
+          "prerequisites": [
+            "reading_rate",
+            "comprehension"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Reading Comprehension",
+      "code": "G3E_RC",
+      "skills": [
+        {
+          "name": "Main Idea + Supporting Details",
+          "code": "G3E_RC_001",
+          "subskills": [
+            "main_idea",
+            "key_details",
+            "important_information"
+          ],
+          "prerequisites": [
+            "g2_main_idea",
+            "g2_comprehension"
+          ],
+          "difficulty": [
+            "1 identify",
+            "2 explain",
+            "3 justify"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Summarizing",
+          "code": "G3E_RC_002",
+          "subskills": [
+            "retell",
+            "short_summary",
+            "important_vs_unimportant"
+          ],
+          "prerequisites": [
+            "main_idea",
+            "sequence"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Story Structure",
+          "code": "G3E_RC_003",
+          "subskills": [
+            "beginning_middle_end",
+            "problem_solution",
+            "character_events",
+            "plot_structure"
+          ],
+          "prerequisites": [
+            "story_sequence",
+            "summarize"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Compare + Contrast Texts",
+          "code": "G3E_RC_004",
+          "subskills": [
+            "compare_characters",
+            "compare_events",
+            "compare_texts",
+            "similarities_differences"
+          ],
+          "prerequisites": [
+            "comprehension",
+            "basic_reasoning"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Evidence + Inference",
+      "code": "G3E_EI",
+      "skills": [
+        {
+          "name": "Text Evidence",
+          "code": "G3E_EI_001",
+          "subskills": [
+            "find_proof",
+            "locate_details",
+            "support_answers",
+            "reread_text"
+          ],
+          "prerequisites": [
+            "g2_support_answers",
+            "fluency"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Simple Inference",
+          "code": "G3E_EI_002",
+          "subskills": [
+            "infer_feelings",
+            "infer_events",
+            "read_between_lines",
+            "draw_conclusions"
+          ],
+          "prerequisites": [
+            "text_evidence",
+            "comprehension"
+          ],
+          "difficulty": [
+            "1 guided inference",
+            "2 independent inference",
+            "3 evidence-based inference"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Explain Thinking",
+          "code": "G3E_EI_003",
+          "subskills": [
+            "justify_answers",
+            "explain_reasoning",
+            "use_text_support"
+          ],
+          "prerequisites": [
+            "simple_inference",
+            "text_evidence"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Vocabulary + Language",
+      "code": "G3E_VL",
+      "skills": [
+        {
+          "name": "Context Clues",
+          "code": "G3E_VL_001",
+          "subskills": [
+            "sentence_context",
+            "infer_word_meaning",
+            "confirm_meaning"
+          ],
+          "prerequisites": [
+            "g2_context_clues",
+            "comprehension"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Figurative Language Foundations",
+          "code": "G3E_VL_002",
+          "subskills": [
+            "simile_intro",
+            "idiom_intro",
+            "nonliteral_language"
+          ],
+          "prerequisites": [
+            "vocabulary",
+            "basic_inference"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Academic Vocabulary",
+          "code": "G3E_VL_003",
+          "subskills": [
+            "content_words",
+            "precise_meaning",
+            "academic_language"
+          ],
+          "prerequisites": [
+            "context_clues",
+            "reading_exposure"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Writing + Grammar",
+      "code": "G3E_WG",
+      "skills": [
+        {
+          "name": "Paragraph Writing",
+          "code": "G3E_WG_001",
+          "subskills": [
+            "topic_sentence",
+            "supporting_details",
+            "organization",
+            "closing_sentence"
+          ],
+          "prerequisites": [
+            "g2_paragraph",
+            "oral_expression"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Opinion + Narrative Writing",
+          "code": "G3E_WG_002",
+          "subskills": [
+            "opinion_statement",
+            "reasons",
+            "story_writing",
+            "organization"
+          ],
+          "prerequisites": [
+            "paragraph_writing",
+            "sentence_control"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Grammar + Editing",
+          "code": "G3E_WG_003",
+          "subskills": [
+            "punctuation",
+            "capitalization",
+            "sentence_editing",
+            "parts_of_speech"
+          ],
+          "prerequisites": [
+            "g2_grammar",
+            "writing_basics"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Normalized from Phase 1B narrative source; unresolved prerequisites and ambiguous mastery/question-bank details are preserved via needs_review=true."
+  ]
+}

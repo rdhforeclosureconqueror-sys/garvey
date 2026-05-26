@@ -1,0 +1,419 @@
+{
+  "version": "v1",
+  "grade": "grade5",
+  "subject": "reading-english",
+  "source_file": "public/gamehub/content/curriculum-source/phase-1b/Grade 5 Reading English Skill Graph \u2014 V1",
+  "domains": [
+    {
+      "name": "Reading Comprehension + Analysis",
+      "code": "G5E_RC",
+      "skills": [
+        {
+          "name": "Main Idea + Analytical Summary",
+          "code": "G5E_RC_001",
+          "subskills": [
+            "main_idea",
+            "important_details",
+            "analytical_summary",
+            "evaluate_importance"
+          ],
+          "prerequisites": [
+            "g4_summary",
+            "g4_text_structure"
+          ],
+          "difficulty": [
+            "1 identify",
+            "2 explain",
+            "3 evaluate"
+          ],
+          "mastery_target": "85+",
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Text Structure + Organization",
+          "code": "G5E_RC_002",
+          "subskills": [
+            "cause_effect",
+            "compare_contrast",
+            "problem_solution",
+            "organizational_patterns"
+          ],
+          "prerequisites": [
+            "g4_text_structure",
+            "comprehension"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Compare + Analyze Texts",
+          "code": "G5E_RC_003",
+          "subskills": [
+            "compare_information",
+            "cross_text_analysis",
+            "theme_comparison",
+            "evaluate_sources_beginning"
+          ],
+          "prerequisites": [
+            "g4_compare_texts",
+            "analysis"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Evidence + Inference",
+      "code": "G5E_EI",
+      "skills": [
+        {
+          "name": "Evidence-Based Analysis",
+          "code": "G5E_EI_001",
+          "subskills": [
+            "locate_evidence",
+            "cite_details",
+            "support_claims",
+            "explain_evidence"
+          ],
+          "prerequisites": [
+            "g4_evidence",
+            "explain_thinking"
+          ],
+          "difficulty": [
+            "1 locate",
+            "2 support",
+            "3 defend"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Advanced Inference",
+          "code": "G5E_EI_002",
+          "subskills": [
+            "infer_theme",
+            "infer_motives",
+            "infer_author_message",
+            "draw_conclusions"
+          ],
+          "prerequisites": [
+            "g4_inference",
+            "theme"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Explain + Defend Thinking",
+          "code": "G5E_EI_003",
+          "subskills": [
+            "justify_interpretation",
+            "defend_response",
+            "reason_from_text",
+            "explain_conclusion"
+          ],
+          "prerequisites": [
+            "advanced_inference",
+            "evidence_analysis"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Theme + Author Craft",
+      "code": "G5E_TAC",
+      "skills": [
+        {
+          "name": "Theme Analysis",
+          "code": "G5E_TAC_001",
+          "subskills": [
+            "identify_theme",
+            "theme_development",
+            "support_theme",
+            "compare_themes"
+          ],
+          "prerequisites": [
+            "g4_theme",
+            "inference"
+          ],
+          "difficulty": [
+            "1 identify",
+            "2 explain",
+            "3 defend_theme"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Author Purpose + Craft",
+          "code": "G5E_TAC_002",
+          "subskills": [
+            "author_choices",
+            "purpose",
+            "word_choice",
+            "tone",
+            "craft_effect"
+          ],
+          "prerequisites": [
+            "g4_author_purpose",
+            "figurative_language"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Point of View + Perspective",
+          "code": "G5E_TAC_003",
+          "subskills": [
+            "narrator",
+            "perspective",
+            "bias_intro",
+            "compare_viewpoints"
+          ],
+          "prerequisites": [
+            "g4_point_of_view",
+            "author_craft"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Vocabulary + Academic Language",
+      "code": "G5E_VAL",
+      "skills": [
+        {
+          "name": "Context + Academic Vocabulary",
+          "code": "G5E_VAL_001",
+          "subskills": [
+            "context_meaning",
+            "academic_terms",
+            "precise_language",
+            "word_relationships"
+          ],
+          "prerequisites": [
+            "g4_academic_vocab",
+            "context_clues"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Figurative + Nuanced Language",
+          "code": "G5E_VAL_002",
+          "subskills": [
+            "metaphor",
+            "idiom",
+            "figurative_effect",
+            "tone_language"
+          ],
+          "prerequisites": [
+            "g4_figurative_language",
+            "inference"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Word Choice + Precision",
+          "code": "G5E_VAL_003",
+          "subskills": [
+            "connotation_intro",
+            "precise_words",
+            "meaning_shades",
+            "language_effect"
+          ],
+          "prerequisites": [
+            "vocabulary_growth",
+            "author_craft"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "name": "Writing + Grammar",
+      "code": "G5E_WG",
+      "skills": [
+        {
+          "name": "Essay Organization",
+          "code": "G5E_WG_001",
+          "subskills": [
+            "introduction",
+            "body_paragraphs",
+            "transitions",
+            "conclusion",
+            "organization"
+          ],
+          "prerequisites": [
+            "g4_multi_paragraph",
+            "organization"
+          ],
+          "difficulty": [
+            "1 guided",
+            "2 organized",
+            "3 independent"
+          ],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Opinion + Informational Essays",
+          "code": "G5E_WG_002",
+          "subskills": [
+            "claim",
+            "supporting_evidence",
+            "examples",
+            "logical_reasoning"
+          ],
+          "prerequisites": [
+            "essay_organization",
+            "evidence_work"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        },
+        {
+          "name": "Grammar + Revision",
+          "code": "G5E_WG_003",
+          "subskills": [
+            "editing",
+            "sentence_variety",
+            "grammar_application",
+            "revision"
+          ],
+          "prerequisites": [
+            "g4_editing",
+            "sentence_control"
+          ],
+          "difficulty": [],
+          "mastery_target": null,
+          "question_bank_recommendation": {
+            "min": null,
+            "target": null,
+            "max": null,
+            "source_text": null
+          },
+          "needs_review": true,
+          "notes": []
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Normalized from Phase 1B narrative source; unresolved prerequisites and ambiguous mastery/question-bank details are preserved via needs_review=true."
+  ]
+}
