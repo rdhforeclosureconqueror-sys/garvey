@@ -1,5 +1,6 @@
 "use strict";
 const express = require("express");
+const { mapAdaptiveV2Grade1ToGatesSignals } = require("./adaptiveV2Grade1GatesSignalMapper");
 
 const ALLOWED_MASTERY_BANDS = new Set(["emerging", "developing", "consistent"]);
 
@@ -75,6 +76,30 @@ function createAdaptiveV2Router({ pool }) {
       last_updated_at: progress.updated_at || progress.created_at || null
     };
     return res.json({ ok: true, empty_state: false, progress, parent_summary: parentSummary, summary_contract_version: 'pr_f_v1' });
+  });
+
+  router.get("/api/adaptive-v2/gates-signals/:childId", async (req, res) => {
+    const childId = String(req.params.childId || "").trim();
+    if (!childId) return res.status(400).json({ ok: false, error: "child_id_required" });
+
+    const result = await pool.query(
+      `SELECT selected_skill_id, checkpoint_attempts, hint_usage_count, mastery_band, next_recommended_skill_id
+       FROM adaptive_v2_skill_progress
+       WHERE child_id=$1 AND grade='1' AND runtime_version='adaptive_v2'
+       LIMIT 1`,
+      [childId]
+    );
+
+    if (!result.rows.length) {
+      return res.json({ ok: true, child_id: childId, source: "adaptive_v2_grade1", empty_state: true, signals: [] });
+    }
+
+    return res.json(mapAdaptiveV2Grade1ToGatesSignals({
+      childId,
+      progressRow: result.rows[0],
+      grade: "1",
+      runtimeVersion: "adaptive_v2"
+    }));
   });
 
   return router;
