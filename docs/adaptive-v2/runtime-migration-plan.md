@@ -340,15 +340,21 @@ Does not count as proof:
 - Add server contracts and feature flag scaffolding.
 - No writes without explicit consent + config enablement.
 
-## PR E — Gates signal mapping
+## PR E — Grade 1 persistence baseline
 
-- Add explicit mapper from adaptive events to gated signal payloads.
-- Include minimum evidence thresholds and non-punitive guardrails.
+- Grade 1-only persistence contracts for checkpoint-attempt write + summary read.
+- No Gates scoring writes or mapper activation in PR E.
 
 ## PR F — Parent summary/reporting
 
-- Parent-facing summary API/view contracts.
-- Language compliance pass (assessment/checkpoint/practice profile/growth area terminology).
+- Parent-facing Grade 1 persisted summary UI + API contract usage.
+- Language compliance pass (Current practice profile, Growth areas, Recommended next step, Recent practice activity).
+
+**Status (2026-05-26): Completed (Grade 1 parent-facing persisted summary only).**
+- Runtime now renders persisted parent summary fields: practiced skills, growth areas, needs more practice, current mastery bands, recommended next step, recent practice activity, and last updated timestamp.
+- Summary route response includes `parent_summary` and `summary_contract_version=pr_f_v1` for Grade 1 only.
+- Empty-state UI copy renders when no saved Grade 1 progress is present.
+- No Gates scoring writes, AI voice changes, Grades 2–6 persistence, or raw prompt/answer storage added in PR F.
 
 ## Later — AI voice integration
 

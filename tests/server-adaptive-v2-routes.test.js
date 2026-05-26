@@ -39,7 +39,22 @@ test('adaptive v2 grade1 progress write/read and guardrails', async () => {
     const body = await read.json();
     assert.equal(body.empty_state, false);
     assert.equal(body.progress.next_recommended_skill_id, 's2');
+    assert.equal(body.summary_contract_version, 'pr_f_v1');
+    assert.equal(Array.isArray(body.parent_summary.practiced_skills), true);
+    assert.equal(typeof body.parent_summary.recommended_next_step, 'string');
     assert.equal(pool.state.attempts.length, 1);
     assert.equal(JSON.stringify(body).toLowerCase().includes('diagnosis'), false);
+  } finally { await new Promise(r=>server.close(r)); }
+});
+
+
+test('adaptive v2 summary route empty state includes parent summary scaffold fields', async () => {
+  const { server, baseUrl } = await start();
+  try {
+    const read = await fetch(`${baseUrl}/api/adaptive-v2/progress/summary/none-yet`);
+    const body = await read.json();
+    assert.equal(body.empty_state, true);
+    assert.equal(body.parent_summary, null);
+    assert.equal(body.summary_contract_version, 'pr_f_v1');
   } finally { await new Promise(r=>server.close(r)); }
 });

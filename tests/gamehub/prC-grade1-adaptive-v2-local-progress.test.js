@@ -7,7 +7,7 @@ const root = path.join(__dirname, '../..');
 const adaptive = fs.readFileSync(path.join(root, 'public/gamehub/adaptive_learning'), 'utf8');
 
 test('grade 1 adaptive v2 progress state is local and in-memory for runtime pilot', () => {
-  assert.match(adaptive, /Grade 1 Adaptive V2 runtime \(PR E\)/);
+  assert.match(adaptive, /Grade 1 Adaptive V2 runtime \(PR [EF]\)/);
   assert.match(adaptive, /progress:\{currentSelectedSkill:"",checkpointAttempts:0,correctCount:0,totalCount:0,hintUsage:0,localMasteryBand:"emerging",nextRecommendedSkill:""\}/);
 });
 
