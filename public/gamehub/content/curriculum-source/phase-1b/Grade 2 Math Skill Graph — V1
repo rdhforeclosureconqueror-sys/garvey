@@ -1,0 +1,868 @@
+Excellent.
+
+Now we scale.
+
+We begin:
+
+# Phase 1B
+
+# Grade 2 Math Skill Graph — V1
+
+Research on Grade 2 math learning progressions is very consistent:
+
+Grade 2 is the:
+
+# Place Value + Regrouping Year
+
+This is where math becomes:
+
+less counting
+
+and more:
+
+**structured number thinking.**
+
+The adaptive graph becomes even more important here because many Grade 2 struggles trace back to:
+
+* weak counting
+* weak place value
+* weak addition foundations
+
+So Grade 2 graphing must be dependency-heavy.
+
+---
+
+# GRADE 2 MATH
+
+# MASTER SKILL GRAPH (V1)
+
+Architecture:
+
+```text id="t40e61"
+Domain
+↓
+Skill
+↓
+Subskill
+↓
+Prerequisites
+↓
+Difficulty ladder
+↓
+Mastery
+```
+
+---
+
+# DOMAIN 1
+
+# Number Sense + Place Value
+
+Domain Code:
+
+```text id="i6k2dg"
+G2M_NS
+```
+
+Research identifies place value as one of the strongest predictors of later math success.
+
+This domain is critical.
+
+---
+
+## Skill 1
+
+# Count Within 1000
+
+Code:
+
+```text id="z7j2cm"
+G2M_NS_001
+```
+
+Subskills:
+
+```text id="7p0v8k"
+count_to_200
+count_to_500
+count_to_1000
+skip_count
+count_patterns
+```
+
+Prerequisites:
+
+```text id="g31z0t"
+G1_count_forward
+G1_number_order
+```
+
+Difficulty:
+
+```text id="ah98xb"
+1 supported counting
+2 independent counting
+3 pattern reasoning
+```
+
+---
+
+## Skill 2
+
+# Hundreds Tens Ones
+
+Code:
+
+```text id="0wlkj2"
+G2M_NS_002
+```
+
+Subskills:
+
+```text id="f3l7gr"
+hundreds
+tens
+ones
+base10_models
+place_value_language
+```
+
+Prerequisites:
+
+```text id="h90xrw"
+G1_tens_ones
+G2_count_1000
+```
+
+This becomes:
+
+advanced place value.
+
+---
+
+## Skill 3
+
+# Expanded Form
+
+Code:
+
+```text id="t7fh8n"
+G2M_NS_003
+```
+
+Subskills:
+
+```text id="e6cz3j"
+expanded_notation
+number_building
+part_whole
+place_value_decomposition
+```
+
+Prerequisites:
+
+```text id="4j3tsp"
+hundreds_tens_ones
+compose_numbers
+```
+
+---
+
+## Skill 4
+
+# Compare + Order Numbers
+
+Code:
+
+```text id="n49x7k"
+G2M_NS_004
+```
+
+Subskills:
+
+```text id="k7ht0x"
+greater_than
+less_than
+equal_to
+order_numbers
+number_line_ordering
+```
+
+Prerequisites:
+
+```text id="l5bw31"
+expanded_form
+place_value
+```
+
+Difficulty:
+
+```text id="w1v8pb"
+1 visual models
+2 symbolic comparison
+3 reasoning comparison
+```
+
+---
+
+# DOMAIN 2
+
+# Addition + Subtraction
+
+Domain Code:
+
+```text id="j38rz4"
+G2M_AS
+```
+
+Research shows:
+
+Grade 2 is the:
+
+# Regrouping Year
+
+This is one of the biggest conceptual jumps in elementary math.
+
+---
+
+## Skill 1
+
+# Addition Within 100
+
+Code:
+
+```text id="mkc4n8"
+G2M_AS_001
+```
+
+Subskills:
+
+```text id="n2m7fr"
+two_digit_addition
+mental_addition
+number_line_addition
+place_value_strategy
+```
+
+Prerequisites:
+
+```text id="5px1ze"
+G1_addition_facts
+place_value
+```
+
+---
+
+## Skill 2
+
+# Regrouping Addition
+
+Code:
+
+```text id="z8t7fk"
+G2M_AS_002
+```
+
+Critical skill.
+
+Subskills:
+
+```text id="53q6od"
+carry_over
+regroup_tens
+base10_models
+explain_regrouping
+```
+
+Prerequisites:
+
+```text id="63k15w"
+addition_within_100
+place_value_understanding
+```
+
+Research strongly supports:
+
+teach concept first
+
+then algorithm.
+
+---
+
+## Skill 3
+
+# Subtraction Within 100
+
+Code:
+
+```text id="k9m4yj"
+G2M_AS_003
+```
+
+Subskills:
+
+```text id="r71m1j"
+two_digit_subtraction
+mental_subtraction
+difference
+number_line_subtraction
+```
+
+Prerequisites:
+
+```text id="5v59s2"
+G1_subtraction
+place_value
+```
+
+---
+
+## Skill 4
+
+# Regrouping Subtraction
+
+Code:
+
+```text id="k7k6vm"
+G2M_AS_004
+```
+
+Major conceptual challenge.
+
+Subskills:
+
+```text id="u03dlj"
+borrow_regroup
+trade_tens
+base10_reasoning
+explain_subtraction
+```
+
+Prerequisites:
+
+```text id="r1h7yt"
+subtraction_within_100
+place_value
+regrouping_addition
+```
+
+Difficulty:
+
+```text id="q7abn2"
+1 visual regrouping
+2 numeric regrouping
+3 reasoning + explanation
+```
+
+---
+
+# DOMAIN 3
+
+# Word Problems
+
+Domain Code:
+
+```text id="8km8xe"
+G2M_WP
+```
+
+Research supports integrating operations into real situations.
+
+---
+
+## Skill 1
+
+# One-Step Problems
+
+Code:
+
+```text id="jw7u4q"
+G2M_WP_001
+```
+
+Subskills:
+
+```text id="7e1j3j"
+identify_operation
+solve_story_problem
+write_equation
+```
+
+Prerequisites:
+
+```text id="mw8tbj"
+addition
+subtraction
+math_story_understanding
+```
+
+---
+
+## Skill 2
+
+# Two-Step Problems
+
+Code:
+
+```text id="oqr2m6"
+G2M_WP_002
+```
+
+Subskills:
+
+```text id="18m30x"
+multiple_operations
+reasoning_steps
+explain_solution
+```
+
+Prerequisites:
+
+```text id="x4g5ah"
+one_step_problems
+regrouping
+```
+
+This begins:
+
+structured reasoning.
+
+---
+
+# SYSTEM STATUS
+
+Built:
+
+✓ Grade 1 Math graph complete
+✓ Grade 1 English graph complete
+✓ Grade 2 Math graph started
+
+Next:
+
+# Continue Grade 2 Math Graph
+
+Still remaining:
+
+* Early Multiplication Foundations
+* Measurement + Money + Time
+* Geometry + Data
+* Grade 2 skill totals + question targets
+
+Research informing this sequence includes:
+
+*Fuson, K. C. (2020). Research on Learning and Teaching Addition and Subtraction of Whole Numbers.*
+*Rogers, A. (2024). Evidence-Based Place Value Developmental Progression.*
+*MacDonald, B. L., et al. (2018). Components of Place Value Understanding.*
+*Flores, M. M. (2009). Teaching Subtraction with Regrouping.*
+*Fuson, K. C. (2003). Pre-K to Grade 2 Goals and Standards.*
+*Schuhl, S., et al. (2020). Mathematics Unit Planning in Grades PreK–2.*
+Perfect.
+
+We now complete:
+
+# Phase 1B
+
+# Grade 2 Math Skill Graph — Complete V1
+
+We already built:
+
+✓ Number Sense + Place Value
+✓ Addition + Subtraction
+✓ Word Problems
+
+Now we finish Grade 2.
+
+---
+
+# DOMAIN 4
+
+# Early Multiplication Foundations
+
+Domain Code:
+
+```text id="x81w6m"
+G2M_EM
+```
+
+Research consistently shows:
+
+multiplication should begin as:
+
+**equal groups + repeated addition**
+
+—not memorized tables.
+
+This matters.
+
+---
+
+## Skill 1
+
+# Equal Groups
+
+Code:
+
+```text id="f18v6p"
+G2M_EM_001
+```
+
+Subskills:
+
+```text id="t12j9a"
+group_objects
+same_size_groups
+count_groups
+compare_groups
+```
+
+Prerequisites:
+
+```text id="k49a2r"
+counting
+addition_fluency
+skip_counting
+```
+
+Difficulty:
+
+```text id="x4v9nk"
+1 visual groups
+2 numeric groups
+3 reasoning groups
+```
+
+---
+
+## Skill 2
+
+# Repeated Addition
+
+Code:
+
+```text id="c4u6hd"
+G2M_EM_002
+```
+
+Subskills:
+
+```text id="5e5jzd"
+add_equal_groups
+represent_repeated_addition
+count_by_groups
+```
+
+Prerequisites:
+
+```text id="7r0r5j"
+equal_groups
+addition_within_100
+```
+
+This becomes:
+
+multiplication foundation.
+
+---
+
+## Skill 3
+
+# Arrays Foundations
+
+Code:
+
+```text id="8b6qv5"
+G2M_EM_003
+```
+
+Subskills:
+
+```text id="e1l2fw"
+rows
+columns
+build_arrays
+interpret_arrays
+```
+
+Prerequisites:
+
+```text id="2x0k5r"
+equal_groups
+repeated_addition
+```
+
+Important:
+
+Arrays later support:
+
+* multiplication
+* area
+* geometry
+
+Very high-value skill.
+
+---
+
+# DOMAIN 5
+
+# Measurement + Money + Time
+
+Domain Code:
+
+```text id="g4s1fp"
+G2M_MMT
+```
+
+Research supports measurement as:
+
+**applied numeracy.**
+
+---
+
+## Skill 1
+
+# Measure Length
+
+Code:
+
+```text id="w8f1lx"
+G2M_MMT_001
+```
+
+Subskills:
+
+```text id="n0m3eg"
+inches
+centimeters
+compare_lengths
+estimate_length
+```
+
+Prerequisites:
+
+```text id="3m7w6r"
+G1_measure_objects
+counting_units
+```
+
+---
+
+## Skill 2
+
+# Tell Time
+
+Code:
+
+```text id="j5n8ru"
+G2M_MMT_002
+```
+
+Subskills:
+
+```text id="n1t8ju"
+hour
+half_hour
+quarter_hour
+five_minute_intervals
+elapsed_time_beginning
+```
+
+Prerequisites:
+
+```text id="0y9pj2"
+G1_time_basics
+skip_counting_by_5
+```
+
+Difficulty:
+
+```text id="q7k3ob"
+1 read clock
+2 calculate time
+3 reasoning about time
+```
+
+---
+
+## Skill 3
+
+# Money
+
+Code:
+
+```text id="g8d6ha"
+G2M_MMT_003
+```
+
+Subskills:
+
+```text id="m0j2ra"
+coin_identification
+coin_values
+count_money
+make_amounts
+```
+
+Prerequisites:
+
+```text id="q7m2vp"
+addition
+skip_counting
+place_value
+```
+
+Money supports:
+
+real-world math transfer.
+
+---
+
+# DOMAIN 6
+
+# Geometry + Data
+
+Domain Code:
+
+```text id="y6t4jc"
+G2M_GD
+```
+
+---
+
+## Skill 1
+
+# Shapes + Attributes
+
+Code:
+
+```text id="x5p9ud"
+G2M_GD_001
+```
+
+Subskills:
+
+```text id="j1z4lm"
+shape_names
+sides
+corners
+compare_shapes
+partition_shapes
+```
+
+Prerequisites:
+
+```text id="o7v2ah"
+G1_shapes
+shape_attributes
+```
+
+---
+
+## Skill 2
+
+# Picture + Bar Graphs
+
+Code:
+
+```text id="u6k3rq"
+G2M_GD_002
+```
+
+Subskills:
+
+```text id="p4t6gc"
+read_graphs
+collect_data
+compare_data
+graph_interpretation
+```
+
+Prerequisites:
+
+```text id="d3e1sj"
+counting
+compare_numbers
+```
+
+---
+
+## Skill 3
+
+# Data Questions
+
+Code:
+
+```text id="n5r1fv"
+G2M_GD_003
+```
+
+Subskills:
+
+```text id="k0b7el"
+ask_questions
+organize_data
+analyze_results
+```
+
+Prerequisites:
+
+```text id="f0v6ke"
+picture_graphs
+comparison_skills
+```
+
+This becomes:
+
+early statistics reasoning.
+
+---
+
+# Grade 2 Math Master Skill Count
+
+```text id="j3m7z2"
+Number Sense + Place Value: 4
+Addition/Subtraction: 4
+Word Problems: 2
+Early Multiplication: 3
+Measurement/Money/Time: 3
+Geometry + Data: 3
+
+Total Grade 2 Math Skills: 19
+```
+
+Recommended question bank:
+
+```text id="j5n8a4"
+19 skills × 8 minimum = 152 questions
+19 skills × 12 diamond = 228 questions
+```
+
+---
+
+# SYSTEM STATUS
+
+Completed:
+
+✓ Grade 1 Math graph
+✓ Grade 1 English graph
+✓ Grade 2 Math graph complete
+
+Next:
+
+# Grade 2 Reading / English Skill Graph — V1
+
+This is where literacy begins shifting from:
+
+**learning to decode**
+
+toward:
+
+**reading with fluency + meaning.**
+
+Research informing this sequence includes:
+
+*Fuson, K. C. (2003). Developing Mathematical Power in Whole Number Operations.*
+*Sarama, J., & Clements, D. H. (2009). Early Childhood Mathematics Education Research.*
+*Daro, P., Mosher, F. A., & Corcoran, T. B. (2011). Learning Trajectories in Mathematics.*
+*Kim, E. M., et al. (2017). A Learning Progression for Geometrical Measurement.*
+*Wu, H. (2009). What's Sophisticated About Elementary Mathematics.*
+*Van den Heuvel-Panhuizen, M., & Buys, K. (2008). Young Children Learn Measurement and Geometry.*
