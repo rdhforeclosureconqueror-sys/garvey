@@ -5,7 +5,7 @@ const http = require('http');
 const { createAdaptiveV2Router } = require('../server/adaptiveV2Routes');
 
 function makePool() {
-  const state = { progress: new Map(), attempts: [] };
+  const state = { progress: new Map(), attempts: [], gatesWrites: 0 };
   return {
     state,
     async query(sql, params = []) {
@@ -15,6 +15,7 @@ function makePool() {
         return { rows: [] };
       }
       if (q.includes('INSERT INTO adaptive_v2_checkpoint_attempts')) { state.attempts.push(params); return { rows: [] }; }
+      if (q.includes('INSERT INTO gates_') || q.includes('UPDATE gates_')) { state.gatesWrites += 1; return { rows: [] }; }
       if (q.includes('FROM adaptive_v2_skill_progress')) {
         const row = state.progress.get(params[0]);
         return { rows: row ? [row] : [] };
@@ -56,5 +57,51 @@ test('adaptive v2 summary route empty state includes parent summary scaffold fie
     assert.equal(body.empty_state, true);
     assert.equal(body.parent_summary, null);
     assert.equal(body.summary_contract_version, 'pr_f_v1');
+  } finally { await new Promise(r=>server.close(r)); }
+});
+
+
+test('adaptive v2 grade1 mapper route returns read-only candidate signals and safe aggregates', async () => {
+  const { server, baseUrl, pool } = await start();
+  try {
+    await fetch(`${baseUrl}/api/adaptive-v2/progress/checkpoint-attempt`, {
+      method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({ child_id:'c2', grade:'1', runtime_version:'adaptive_v2', skill_id:'math-1', checkpoint_attempts:3, correct_count:2, total_count:3, hint_usage_count:2, mastery_band:'developing', next_recommended_skill_id:'math-2', parent_summary_snapshot:{ note:'aggregate only' } })
+    });
+
+    const read = await fetch(`${baseUrl}/api/adaptive-v2/gates-signals/c2`);
+    const body = await read.json();
+
+    assert.equal(read.status, 200);
+    assert.equal(body.ok, true);
+    assert.equal(body.source, 'adaptive_v2_grade1');
+    assert.equal(body.empty_state, false);
+    assert.equal(Array.isArray(body.signals), true);
+    assert.equal(body.signals.length > 0, true);
+    assert.equal(body.signals.every((s) => s.source === 'adaptive_v2_grade1'), true);
+    assert.equal(body.signals.every((s) => typeof s.gate_key === 'string' && typeof s.gate_name === 'string'), true);
+    assert.equal(body.signals.every((s) => typeof s.signal_category === 'string' && typeof s.confidence_band === 'string'), true);
+
+    const serialized = JSON.stringify(body).toLowerCase();
+    assert.equal(serialized.includes('prompt'), false);
+    assert.equal(serialized.includes('answer'), false);
+    assert.equal(serialized.includes('diagnos'), false);
+    assert.equal(serialized.includes('pass'), false);
+    assert.equal(serialized.includes('fail'), false);
+    assert.equal(pool.state.gatesWrites, 0);
+  } finally { await new Promise(r=>server.close(r)); }
+});
+
+test('adaptive v2 grade1 mapper empty-state and grade1 guard behavior', async () => {
+  const { server, baseUrl } = await start();
+  try {
+    const empty = await fetch(`${baseUrl}/api/adaptive-v2/gates-signals/none`);
+    const body = await empty.json();
+    assert.equal(empty.status, 200);
+    assert.equal(body.empty_state, true);
+    assert.deepEqual(body.signals, []);
+
+    const bad = await fetch(`${baseUrl}/api/adaptive-v2/progress/checkpoint-attempt`, { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({ child_id:'c3', grade:'2', runtime_version:'adaptive_v2', skill_id:'s1' }) });
+    assert.equal(bad.status, 400);
   } finally { await new Promise(r=>server.close(r)); }
 });

@@ -124,3 +124,13 @@ This planning note clarifies how Adaptive V2 Grade 1 progress may later contribu
 - A single miss, a raw score alone, or one session alone must not be treated as sufficient Gates evidence.
 - Adaptive-derived signals remain non-diagnostic and must never be expressed as pass/fail judgments.
 - PR G is planning only: no scoring implementation, no Gates writes, and no runtime behavior changes.
+
+
+## Adaptive V2 Grade 1 PR H (Read-Only Mapper Implementation)
+
+PR H introduces a read-only candidate signal mapper for persisted Adaptive V2 Grade 1 progress.
+
+- Output is candidate-signal only and includes gate key/name, signal category, confidence band, supporting aggregate, and source `adaptive_v2_grade1`.
+- Supporting data remains safe aggregate-only (practiced skill count, checkpoint attempt count, hint usage band, mastery band, repeated practice, next-step follow-through when available).
+- No prompt text, answer text, child ranking, diagnostic labeling, or pass/fail framing is emitted.
+- No Gates scoring or Gates writeback is performed in this phase.

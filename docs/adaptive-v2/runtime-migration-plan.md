@@ -747,3 +747,30 @@ Pre-implementation tests should be added first (red/contract tests), including:
 - Extend gates signal docs/registry metadata with Adaptive V2 as a `tracking_ready: false` source until scoring integration is formally enabled.
 - Keep all GameHub and Gates summaries explicitly developmental, non-diagnostic, and non-pass/fail.
 - Preserve current disclaimer contracts in Gates practice docs and game registry.
+
+
+## 13) PR H — Adaptive V2 Grade 1 Candidate Gates Signal Mapper (Read-Only)
+
+Date: 2026-05-26  
+Intent: implement a **read-only** mapper that converts persisted Grade 1 Adaptive V2 progress into candidate Gates-aligned developmental signals.  
+Non-goals in PR H: no Gates scoring, no Gates database writes, no child ranking, and no diagnosis/pass-fail outputs.
+
+### 13.1 Implemented scope
+
+- Added a Grade 1-only read mapper that transforms persisted Adaptive V2 progress aggregates into candidate signal entries with:
+  - gate key + gate name
+  - signal category
+  - confidence band
+  - supporting aggregate only
+  - `source: adaptive_v2_grade1`
+- Added optional read-only route: `GET /api/adaptive-v2/gates-signals/:childId`.
+- Route performs read queries only against `adaptive_v2_skill_progress` and returns empty-state payload when no Grade 1 record exists.
+
+### 13.2 Guardrails preserved
+
+- No writeback to Gates tables or scoring records.
+- No raw prompts/answers in mapper output.
+- Grade 1-only persistence guard remains unchanged on checkpoint attempt writes.
+- Output remains developmental candidate mapping only (not official Gates score output).
+- Grades 2–6 persistence and mapper activation remain disabled.
+
