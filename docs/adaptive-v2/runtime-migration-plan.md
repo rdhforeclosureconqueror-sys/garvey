@@ -596,3 +596,20 @@ Gating requirements before any write path is live:
 - No Gates scoring integration.
 - No AI voice integration.
 - No Grades 2–6 wiring.
+
+### 11.5 PR E implementation status (2026-05-26)
+
+PR E enables **controlled Grade 1 Adaptive V2 persistence only**.
+
+Activated:
+- `POST /api/adaptive-v2/progress/checkpoint-attempt`
+- `GET /api/adaptive-v2/progress/summary/:childId`
+- Database tables for Grade 1 Adaptive V2 progress snapshots and checkpoint attempt logs.
+- Runtime restore flow for previously practiced Grade 1 Adaptive V2 skills, counters, mastery band, and next recommendation.
+
+Safety/constraints enforced:
+- Grade 1 only (`grade='1'`) and runtime version `adaptive_v2` only.
+- No Gates scoring writes, no Gates contribution mapping, no AI voice writes.
+- No raw checkpoint prompt/answer text persisted.
+- No diagnostic/clinical/pass-fail labels introduced in persistence payloads.
+- Additive-only rollout with route-level guards to preserve rollback ability.

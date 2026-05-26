@@ -93,6 +93,7 @@ const { getTapCrmMode } = require("./tapCrmFeature");
 const { createTapCrmRouter, resolvePublicTap } = require("./tapCrmRoutes");
 const { buildTapHubViewModel, renderTapHubPage, renderTapHubErrorPage } = require("./tapHubRenderer");
 const { createGatesRouter } = require("./gatesRoutes");
+const { createAdaptiveV2Router } = require("./adaptiveV2Routes");
 
 // Optional Site Generator (won't crash if missing)
 let siteGenerator = null;
@@ -286,6 +287,7 @@ app.get("/archetype-engines/:engine/assessment", (req, res, next) => {
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 app.use(createGatesRouter());
+app.use(createAdaptiveV2Router({ pool }));
 console.log(JSON.stringify({ ts: new Date().toISOString(), event: "gates_router_mounted" }));
 
 if (TAP_CRM_ROUTES_MOUNTED) {

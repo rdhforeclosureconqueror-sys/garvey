@@ -230,6 +230,38 @@ async function initializeDatabase() {
   await pool.query(`CREATE INDEX IF NOT EXISTS idx_memberships_tenant_role ON tenant_memberships(tenant_id, role);`);
   await pool.query(`CREATE INDEX IF NOT EXISTS idx_sessions_token_hash ON auth_sessions(token_hash);`);
 
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS adaptive_v2_skill_progress (
+      id SERIAL PRIMARY KEY,
+      child_id TEXT NOT NULL,
+      grade TEXT NOT NULL,
+      runtime_version TEXT NOT NULL,
+      selected_skill_id TEXT NOT NULL,
+      checkpoint_attempts INTEGER NOT NULL DEFAULT 0,
+      correct_count INTEGER NOT NULL DEFAULT 0,
+      total_count INTEGER NOT NULL DEFAULT 0,
+      hint_usage_count INTEGER NOT NULL DEFAULT 0,
+      mastery_band TEXT NOT NULL DEFAULT 'emerging',
+      next_recommended_skill_id TEXT,
+      parent_summary_snapshot JSONB NOT NULL DEFAULT '{}'::jsonb,
+      created_at TIMESTAMP DEFAULT NOW(),
+      updated_at TIMESTAMP DEFAULT NOW(),
+      UNIQUE (child_id, grade, runtime_version)
+    );
+    CREATE TABLE IF NOT EXISTS adaptive_v2_checkpoint_attempts (
+      id SERIAL PRIMARY KEY,
+      child_id TEXT NOT NULL,
+      grade TEXT NOT NULL,
+      runtime_version TEXT NOT NULL,
+      skill_id TEXT NOT NULL,
+      checkpoint_id TEXT NOT NULL,
+      is_correct BOOLEAN NOT NULL,
+      mastery_band_after TEXT,
+      next_recommended_skill_id TEXT,
+      created_at TIMESTAMP DEFAULT NOW()
+    );
+  `);
+
   // ==================================================
   // QUESTIONS TABLE (PHASE 2 CORE)
   // ==================================================

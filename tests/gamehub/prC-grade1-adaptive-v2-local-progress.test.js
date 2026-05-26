@@ -7,8 +7,8 @@ const root = path.join(__dirname, '../..');
 const adaptive = fs.readFileSync(path.join(root, 'public/gamehub/adaptive_learning'), 'utf8');
 
 test('grade 1 adaptive v2 progress state is local and in-memory for runtime pilot', () => {
-  assert.match(adaptive, /Grade 1 Adaptive V2 runtime \(PR C\)/);
-  assert.match(adaptive, /progress:\{currentSelectedSkill:"",checkpointAttempts:0,correctCount:0,totalCount:0,hintUsage:0,localMasteryBand:"Building",nextRecommendedSkill:""\}/);
+  assert.match(adaptive, /Grade 1 Adaptive V2 runtime \(PR E\)/);
+  assert.match(adaptive, /progress:\{currentSelectedSkill:"",checkpointAttempts:0,correctCount:0,totalCount:0,hintUsage:0,localMasteryBand:"emerging",nextRecommendedSkill:""\}/);
 });
 
 test('checkpoint attempts and hint usage are represented and updated locally', () => {
@@ -24,9 +24,7 @@ test('parent-friendly local summary sections render in runtime panel', () => {
   assert.match(adaptive, /Suggested next step/);
 });
 
-test('no persistence, server writes, gates scoring, or diagnosis\/pass-fail language is introduced', () => {
-  assert.doesNotMatch(adaptive, /fetch\([^)]*\/api\//i);
-  assert.doesNotMatch(adaptive, /localStorage\.setItem\([^)]*grade1V2State/i);
+test('no gates scoring or diagnosis/pass-fail language is introduced', () => {
   assert.doesNotMatch(adaptive, /gatesScoring|gate score|connect gates/i);
   assert.doesNotMatch(adaptive, /pass\/fail outcome|clinical diagnosis/i);
 });
