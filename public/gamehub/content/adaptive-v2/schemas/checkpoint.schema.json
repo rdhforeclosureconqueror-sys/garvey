@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "adaptive-v2/schemas/checkpoint.schema.json",
+  "title": "Adaptive V2 Checkpoint (Phase 2 planning stub)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "checkpoint_id", "skill", "questions", "pass_threshold"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "v1" },
+    "checkpoint_id": { "type": "string", "minLength": 1 },
+    "skill": { "type": "string", "minLength": 1 },
+    "questions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["question_id", "prompt"],
+        "properties": {
+          "question_id": { "type": "string" },
+          "prompt": { "type": "string" },
+          "choices": { "type": "array", "items": { "type": "string" } },
+          "answer": { "type": "string" }
+        }
+      }
+    },
+    "pass_threshold": { "type": "number", "minimum": 0, "maximum": 1 },
+    "max_items": { "type": "integer", "minimum": 1 },
+    "feedback_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["condition", "feedback"],
+        "properties": {
+          "condition": { "type": "string" },
+          "feedback": { "type": "string" }
+        }
+      }
+    },
+    "pathway_recommendation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "if_pass": { "type": "string" },
+        "if_fail": { "type": "string" }
+      }
+    },
+    "source_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_phase_folder": { "type": "string" },
+        "source_file": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "lesson_package_example": {
+    "schema_version": "v1",
+    "lesson_package_id": "phase2-fractions-equal-parts-sample",
+    "phase_id": "phase-2",
+    "grade": 3,
+    "subject": "Math",
+    "skill": "fractions-as-equal-parts",
+    "lesson_snippet": {
+      "key_vocabulary": ["fraction", "numerator", "denominator"],
+      "concept_explanation": "Fractions describe equal parts of one whole.",
+      "lesson_summary": "Denominator is total parts; numerator is selected parts."
+    },
+    "worked_example": {
+      "problem": "What fraction is shaded if 1 of 4 equal parts is shaded?",
+      "steps": [
+        { "label": "Step 1", "content": "Count total equal parts: 4." },
+        { "label": "Step 2", "content": "Count shaded parts: 1." }
+      ],
+      "final_answer": "1/4"
+    },
+    "hint_ladder": {
+      "hint_1": "Look at the whole shape first.",
+      "hint_2": "Count equal parts before counting shaded parts.",
+      "hint_3": "There are 4 equal parts and 1 shaded part."
+    },
+    "guided_practice": [
+      {
+        "practice_id": "gp-1",
+        "support_type": "choice_narrowing",
+        "prompt": "Pick the fraction for 2 shaded parts out of 4.",
+        "choices": ["1/4", "2/4", "3/4"],
+        "correct_answer": "2/4",
+        "coaching_feedback": "Great: denominator stays 4 because total parts stay 4."
+      }
+    ],
+    "checkpoint_ref": {
+      "checkpoint_id": "cp-fractions-equal-parts-sample"
+    }
+  },
+  "checkpoint_example": {
+    "schema_version": "v1",
+    "checkpoint_id": "cp-fractions-equal-parts-sample",
+    "skill": "fractions-as-equal-parts",
+    "questions": [
+      {
+        "question_id": "q1",
+        "prompt": "Write the fraction for 3 shaded parts out of 4.",
+        "answer": "3/4"
+      }
+    ],
+    "pass_threshold": 0.8,
+    "pathway_recommendation": {
+      "if_pass": "adaptive_practice",
+      "if_fail": "lesson_support_loop"
+    }
+  }
+}
