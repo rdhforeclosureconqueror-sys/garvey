@@ -329,6 +329,12 @@ Does not count as proof:
 - Introduce structured local progress contract mirroring future server schema.
 - Add migration from legacy history payload shape.
 
+**Status (2026-05-26): Completed (Grade 1 local pilot progress model only).**
+- Grade 1 runtime now keeps an in-memory progress object for: current selected skill, checkpoint attempts, correct count, total count, hint usage, local mastery band, and next recommended skill.
+- Parent-facing panel now renders **Current practice profile**, **Growing skills**, **Needs more practice**, and **Suggested next step** using constructive language.
+- Progress remains local/in-memory only and resets on page reload.
+- No DB writes, server persistence, Gates scoring, AI voice wiring, or Grades 2–6 runtime wiring were added in PR C.
+
 ## PR D — Database write model (gated/off by default)
 
 - Add server contracts and feature flag scaffolding.
