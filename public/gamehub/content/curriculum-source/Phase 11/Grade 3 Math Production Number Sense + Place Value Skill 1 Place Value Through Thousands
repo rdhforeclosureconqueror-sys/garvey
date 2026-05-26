@@ -1,0 +1,514 @@
+Excellent.
+
+We now begin:
+
+# Phase 11
+
+# Grade 3 Math Production
+
+# Number Sense + Place Value
+
+# Skill 1
+
+# Place Value Through Thousands
+
+Research consistently shows:
+
+# Place Value
+
+is one of the most important:
+
+```text
+early math foundations
+```
+
+because students learn:
+
+```text
+digit
+→ value
+→ position
+→ quantity
+```
+
+This is NOT:
+
+```text
+memorizing numbers
+```
+
+It is:
+
+```text
+understanding
+how numbers work
+```
+
+Students learn:
+
+```text
+ones
+→ tens
+→ hundreds
+→ thousands
+```
+
+This develops:
+
+* number sense
+* mental math
+* estimation
+* computation readiness
+* later multiplication/division understanding
+
+This becomes:
+
+# Quantity Structure Thinking
+
+Common misconceptions:
+
+children may believe:
+
+```text
+digit
+=
+value
+```
+
+Example:
+
+they may think:
+
+```text
+345
+```
+
+means:
+
+```text
+3 + 4 + 5
+```
+
+instead of:
+
+```text
+300 + 40 + 5
+```
+
+Or they may:
+
+```text
+reverse place value
+```
+
+and confuse:
+
+```text
+53
+and
+35
+```
+
+This skill teaches:
+
+```text
+position gives value
+```
+
+---
+
+# Skill Metadata
+
+Copy-paste:
+
+```json
+{
+  "skill_id":"G3M_NS_001",
+  "grade":3,
+  "subject":"Math",
+  "domain":"Number Sense and Place Value",
+  "skill":"Place Value Through Thousands",
+  "mastery_threshold":85,
+  "difficulty_range":[1,2,3]
+}
+```
+
+---
+
+# MINI LESSON
+
+Copy-paste:
+
+```json
+{
+  "lesson_id":"G3M_NS_001_L1",
+  "grade":3,
+  "subject":"Math",
+  "domain":"Number Sense and Place Value",
+  "skill":"Place Value Through Thousands",
+  "objective":"Students understand the value of digits through the thousands place.",
+  "key_vocabulary":[
+    "digit",
+    "place value",
+    "ones",
+    "tens",
+    "hundreds",
+    "thousands"
+  ],
+  "concept_explanation":"A digit's value depends on where it is placed in a number.",
+  "visual_model":"Place value chart showing ones, tens, hundreds, and thousands.",
+  "common_misconception":"Thinking digit and value are the same.",
+  "real_world_connection":"Money, population, counting objects, and distances.",
+  "lesson_summary":"Place determines value."
+}
+```
+
+---
+
+# WORKED EXAMPLE
+
+Copy-paste:
+
+```json
+{
+  "example_id":"G3M_NS_001_EX1",
+  "skill":"Place Value Through Thousands",
+  "problem":"What is the value of the 4 in 4,326?",
+  "step_1":"Find digit.",
+  "step_2":"Find its place.",
+  "step_3":"State value.",
+  "thinking_notes":"Position matters.",
+  "final_answer":"4,000",
+  "reflection_prompt":"Which place was 4 in?"
+}
+```
+
+---
+
+# WORKED EXAMPLE 2
+
+Expanded form.
+
+Copy-paste:
+
+```json
+{
+  "example_id":"G3M_NS_001_EX2",
+  "skill":"Place Value Through Thousands",
+  "problem":"Write 582 in expanded form.",
+  "step_1":"Find hundreds.",
+  "step_2":"Find tens.",
+  "step_3":"Find ones.",
+  "thinking_notes":"Break apart by place value.",
+  "final_answer":"500 + 80 + 2",
+  "reflection_prompt":"How did place help?"
+}
+```
+
+---
+
+# HINT LADDER
+
+Copy-paste:
+
+```json
+{
+  "skill":"Place Value Through Thousands",
+  "hint_1":"Look at digit.",
+  "hint_2":"Find its place.",
+  "hint_3":"Position gives value."
+}
+```
+
+---
+
+# GUIDED PRACTICE
+
+## Guided Practice 1
+
+Copy-paste:
+
+```json
+{
+  "practice_id":"G3M_NS_001_GP1",
+  "skill":"Place Value Through Thousands",
+  "support_type":"place_value_chart",
+  "prompt":"What is the value of 3 in 342?",
+  "choices":[
+    "300",
+    "30",
+    "3"
+  ],
+  "correct_answer":"300",
+  "coaching_feedback":"3 is in hundreds place."
+}
+```
+
+---
+
+## Guided Practice 2
+
+Copy-paste:
+
+```json
+{
+  "practice_id":"G3M_NS_001_GP2",
+  "skill":"Place Value Through Thousands",
+  "support_type":"expanded_form",
+  "prompt":"Which shows 764 in expanded form?",
+  "choices":[
+    "700 + 60 + 4",
+    "7 + 6 + 4",
+    "70 + 64"
+  ],
+  "correct_answer":"700 + 60 + 4",
+  "coaching_feedback":"Break apart by place."
+}
+```
+
+---
+
+# CHECKPOINT
+
+Copy-paste:
+
+```json
+{
+  "checkpoint_id":"G3M_NS_001_CP1",
+  "skill":"Place Value Through Thousands",
+  "pass_score":80,
+  "questions":[
+    {
+      "prompt":"What gives digit value?",
+      "answer":"place"
+    },
+    {
+      "prompt":"Value of 5 in 523?",
+      "answer":"500"
+    },
+    {
+      "prompt":"Can same digit have different values?",
+      "answer":"yes"
+    }
+  ]
+}
+```
+
+---
+
+# ADAPTIVE QUESTION BANK
+
+Minimum:
+
+8 questions.
+
+---
+
+# Question 1
+
+Difficulty 1
+
+Copy-paste:
+
+```json
+{
+  "id":"G3M_NS_001_Q1",
+  "grade":3,
+  "subject":"Math",
+  "domain":"Number Sense and Place Value",
+  "skill":"Place Value Through Thousands",
+  "difficulty":1,
+  "cognitive_level":"recall",
+  "misconception_tag":"digit_equals_value",
+  "question_type":"multiple_choice",
+  "prompt":"What is the value of 6 in 642?",
+  "choices":[
+    "600",
+    "60",
+    "6"
+  ],
+  "correct_answer":"600",
+  "correct_explanation":"6 is in hundreds place.",
+  "wrong_feedback":"Find place first.",
+  "hint_1":"Hundreds?",
+  "hint_2":"Position.",
+  "hint_3":"600."
+}
+```
+
+---
+
+# Question 2
+
+Difficulty 1
+
+Copy-paste:
+
+```json
+{
+  "id":"G3M_NS_001_Q2",
+  "grade":3,
+  "subject":"Math",
+  "domain":"Number Sense and Place Value",
+  "skill":"Place Value Through Thousands",
+  "difficulty":1,
+  "cognitive_level":"recall",
+  "misconception_tag":"expanded_form_confusion",
+  "question_type":"multiple_choice",
+  "prompt":"Expanded form of 321?",
+  "choices":[
+    "300 + 20 + 1",
+    "3 + 2 + 1",
+    "30 + 21"
+  ],
+  "correct_answer":"300 + 20 + 1",
+  "correct_explanation":"Each digit keeps place value.",
+  "wrong_feedback":"Break apart correctly.",
+  "hint_1":"Hundreds.",
+  "hint_2":"Tens.",
+  "hint_3":"300 + 20 + 1."
+}
+```
+
+---
+
+# Question 3
+
+Difficulty 2
+
+Copy-paste:
+
+```json
+{
+  "id":"G3M_NS_001_Q3",
+  "grade":3,
+  "subject":"Math",
+  "domain":"Number Sense and Place Value",
+  "skill":"Place Value Through Thousands",
+  "difficulty":2,
+  "cognitive_level":"application",
+  "misconception_tag":"reversal_error",
+  "question_type":"multiple_choice",
+  "prompt":"Which number has 5 in the tens place?",
+  "choices":[
+    "352",
+    "325",
+    "235"
+  ],
+  "correct_answer":"352",
+  "correct_explanation":"5 is in tens place.",
+  "wrong_feedback":"Count places from right.",
+  "hint_1":"Ones first.",
+  "hint_2":"Then tens.",
+  "hint_3":"352."
+}
+```
+
+---
+
+# Question 4
+
+Difficulty 2
+
+Copy-paste:
+
+```json
+{
+  "id":"G3M_NS_001_Q4",
+  "grade":3,
+  "subject":"Math",
+  "domain":"Number Sense and Place Value",
+  "skill":"Place Value Through Thousands",
+  "difficulty":2,
+  "cognitive_level":"application",
+  "misconception_tag":"digit_equals_value",
+  "question_type":"short_response",
+  "prompt":"Write 4,203 in expanded form.",
+  "correct_answer":"4,000 + 200 + 3",
+  "correct_explanation":"Use place values.",
+  "wrong_feedback":"Break apart by place.",
+  "hint_1":"Thousands.",
+  "hint_2":"Hundreds.",
+  "hint_3":"4,000 + 200 + 3."
+}
+```
+
+---
+
+# MISCONCEPTION BANK
+
+Copy-paste:
+
+```json
+[
+  {
+    "skill":"Place Value Through Thousands",
+    "misconception":"digit_equals_value",
+    "wrong_pattern":"treats digit as its value",
+    "reteach_strategy":"base-ten blocks and place charts"
+  },
+  {
+    "skill":"Place Value Through Thousands",
+    "misconception":"reversal_error",
+    "wrong_pattern":"reverses digit positions",
+    "reteach_strategy":"right-to-left place tracking"
+  }
+]
+```
+
+---
+
+# REVIEW BANK
+
+Copy-paste:
+
+```json
+[
+  {
+    "review_id":"RV1",
+    "prompt":"What gives digit value?",
+    "answer":"place"
+  },
+  {
+    "review_id":"RV2",
+    "prompt":"Value of 7 in 712?",
+    "answer":"700"
+  }
+]
+```
+
+---
+
+# GRADE 3 MATH STATUS
+
+Completed:
+
+✓ Number Sense + Place Value
+✓ Skill 1 — Place Value Through Thousands
+
+Grade 3 Math:
+
+```text
+~10% complete
+```
+
+Next:
+
+# Grade 3 Math
+
+# Number Sense + Place Value
+
+# Skill 2
+
+# Comparing + Ordering Numbers
+
+Research informing this package includes:
+
+*Hiebert, J., & Wearne, D. (1992). Links Between Teaching and Learning Place Value With Understanding. Journal for Research in Mathematics Education.*
+*Price, P. S. (2001). The Development of Year 3 Students' Place-Value Understanding.*
+*Mohyuddin, R. G., & Khalil, U. (2016). Misconceptions of Students in Learning Mathematics at Primary Level.*
+*Themane, K. M., & Luneta, K. (2021). Misconceptions and Associated Errors in the Learning of Mathematics Place Value.*
+*Herzog, M., & Fritz, A. (2022). Place Value Understanding Explains Individual Differences in Writing Numbers.*
+*Stella, M. E., & Fleming, M. R. (2011). Clarity in Mathematics Instruction.*
+*Farro-Lynd, D. A. (2003). Pre-Service Elementary Teachers' Understanding and Misconceptions Regarding Place Value.*
+*Sowder, J. T. (2020). Making Sense of Numbers in School Mathematics.*
