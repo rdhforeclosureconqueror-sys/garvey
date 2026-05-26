@@ -409,3 +409,190 @@ This report intentionally excludes implementation. No changes are proposed here 
 - Gates scoring calculation,
 - production event persistence.
 
+
+
+## 11) PR D Persistence Planning (Design-Only, No Writes Yet)
+
+Date: 2026-05-26  
+Intent: finalize Adaptive V2 Grade 1 persistence model and write contracts **before** enabling any storage writes.
+
+### 11.1 Existing storage patterns reviewed
+
+- **Gates profile ownership model:** uses `gates_parent_profiles` + `gates_child_profiles` with parent-child ownership checks in routes before reading/writing progress.
+- **Gates progress model:** stores canonical per-key progress in `gates_progress.progress_value` (JSONB) and append-only history in `gates_practice_logs.payload` (JSONB), with parent/child and key indexes.
+- **Auth/session linking model:** server resolves parent auth session, then scopes all reads/writes to owned `child_id`.
+- **Adaptive runtime (current PR C):** keeps Grade 1 progress in local in-memory object only (checkpoint attempts, correct/total, hint usage, local mastery band, next recommended skill), with no server write path.
+
+PR D should follow these proven patterns: ownership-scoped records, one canonical summary row per key, optional append-only event trail, and JSON payloads only for structured data.
+
+### 11.2 Proposed Adaptive V2 persistence schema
+
+All tables below are **design contracts only** for PR D documentation. Implementation and writes stay disabled.
+
+1. `adaptive_v2_sessions`
+   - Purpose: learner/session envelope and runtime context.
+   - Columns:
+     - `id BIGSERIAL PRIMARY KEY`
+     - `session_id TEXT NOT NULL UNIQUE` (runtime-generated stable session id)
+     - `parent_id BIGINT REFERENCES gates_parent_profiles(id) ON DELETE SET NULL`
+     - `child_id BIGINT REFERENCES gates_child_profiles(id) ON DELETE CASCADE`
+     - `learner_id TEXT NOT NULL` (non-PII runtime learner key; can mirror child id token)
+     - `grade INTEGER NOT NULL CHECK (grade BETWEEN 1 AND 6)`
+     - `subject TEXT NOT NULL`
+     - `runtime_version TEXT NOT NULL`
+     - `started_at TIMESTAMPTZ NOT NULL`
+     - `ended_at TIMESTAMPTZ`
+     - `created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()`
+     - `updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()`
+   - Indexes:
+     - `(parent_id, child_id, started_at DESC)`
+     - `(child_id, created_at DESC)`
+
+2. `adaptive_v2_skill_progress`
+   - Purpose: canonical upsert row for current per-skill aggregate progress.
+   - Natural key: `(child_id, grade, subject, skill_id)`.
+   - Columns:
+     - `id BIGSERIAL PRIMARY KEY`
+     - `parent_id BIGINT REFERENCES gates_parent_profiles(id) ON DELETE SET NULL`
+     - `child_id BIGINT REFERENCES gates_child_profiles(id) ON DELETE CASCADE`
+     - `grade INTEGER NOT NULL CHECK (grade BETWEEN 1 AND 6)`
+     - `subject TEXT NOT NULL`
+     - `skill_id TEXT NOT NULL`
+     - `checkpoint_attempts INTEGER NOT NULL DEFAULT 0`
+     - `correct_count INTEGER NOT NULL DEFAULT 0`
+     - `total_count INTEGER NOT NULL DEFAULT 0`
+     - `hint_usage_count INTEGER NOT NULL DEFAULT 0`
+     - `local_mastery_band TEXT NOT NULL DEFAULT 'emerging'`
+     - `next_recommended_skill_id TEXT`
+     - `last_session_id TEXT`
+     - `first_evidence_at TIMESTAMPTZ`
+     - `last_evidence_at TIMESTAMPTZ`
+     - `created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()`
+     - `updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()`
+   - Constraints:
+     - `UNIQUE (child_id, grade, subject, skill_id)`
+     - `CHECK (checkpoint_attempts >= 0 AND correct_count >= 0 AND total_count >= 0 AND hint_usage_count >= 0)`
+     - `CHECK (correct_count <= total_count)`
+     - `CHECK (local_mastery_band IN ('emerging','developing','consistent'))`
+
+3. `adaptive_v2_checkpoint_attempts`
+   - Purpose: append-only attempt ledger for audit/debug and trend views.
+   - Columns:
+     - `id BIGSERIAL PRIMARY KEY`
+     - `attempt_id TEXT NOT NULL UNIQUE`
+     - `session_id TEXT NOT NULL`
+     - `parent_id BIGINT REFERENCES gates_parent_profiles(id) ON DELETE SET NULL`
+     - `child_id BIGINT REFERENCES gates_child_profiles(id) ON DELETE CASCADE`
+     - `grade INTEGER NOT NULL CHECK (grade BETWEEN 1 AND 6)`
+     - `subject TEXT NOT NULL`
+     - `skill_id TEXT NOT NULL`
+     - `checkpoint_id TEXT`
+     - `attempt_index INTEGER NOT NULL`
+     - `is_correct BOOLEAN NOT NULL`
+     - `hint_used BOOLEAN NOT NULL DEFAULT FALSE`
+     - `mastery_band_after TEXT`
+     - `next_recommended_skill_id TEXT`
+     - `occurred_at TIMESTAMPTZ NOT NULL`
+     - `created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()`
+   - Indexes:
+     - `(child_id, skill_id, occurred_at DESC)`
+     - `(session_id, occurred_at ASC)`
+
+4. `adaptive_v2_parent_summaries`
+   - Purpose: parent-visible denormalized summary snapshots (read optimized).
+   - Natural key: `(child_id, summary_key)`.
+   - Columns:
+     - `id BIGSERIAL PRIMARY KEY`
+     - `parent_id BIGINT REFERENCES gates_parent_profiles(id) ON DELETE SET NULL`
+     - `child_id BIGINT REFERENCES gates_child_profiles(id) ON DELETE CASCADE`
+     - `summary_key TEXT NOT NULL` (for example: `grade1:math:latest`)
+     - `summary_payload JSONB NOT NULL DEFAULT '{}'::jsonb`
+     - `generated_from_session_id TEXT`
+     - `generated_at TIMESTAMPTZ NOT NULL`
+     - `created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()`
+     - `updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()`
+   - Constraints:
+     - `UNIQUE (child_id, summary_key)`
+
+### 11.3 Field mapping from PR C local progress to PR D schema
+
+- `grade1V2State.progress.checkpointAttempts` → `adaptive_v2_skill_progress.checkpoint_attempts`
+- `grade1V2State.progress.correctCount` → `adaptive_v2_skill_progress.correct_count`
+- `grade1V2State.progress.totalCount` → `adaptive_v2_skill_progress.total_count`
+- `grade1V2State.progress.hintUsage` → `adaptive_v2_skill_progress.hint_usage_count`
+- `grade1V2State.progress.localMasteryBand` → `adaptive_v2_skill_progress.local_mastery_band`
+- `grade1V2State.progress.nextRecommendedSkill` → `adaptive_v2_skill_progress.next_recommended_skill_id`
+- Per-checkpoint submit action in runtime → one row in `adaptive_v2_checkpoint_attempts`
+
+### 11.4 Do-not-store rules (hard requirements)
+
+1. **No raw typed free text by default.**
+   - Do not persist open text answer input from checkpoint boxes unless an explicit approved policy/version says otherwise.
+   - Persist normalized booleans/counts/IDs only (`is_correct`, `hint_used`, `skill_id`, timestamps).
+
+2. **No clinical/diagnosis labeling.**
+   - Never store fields implying diagnosis, disorder, deficit classification, or medicalized category.
+
+3. **No shame/pass-fail identity labels.**
+   - No persisted status values such as `failed`, `bad student`, `low ability`.
+   - Use supportive mastery bands only (`emerging/developing/consistent`) and situational evidence framing.
+
+4. **No unnecessary prompt/answer text duplication.**
+   - Do not store full prompt copy, passage text, or answer strings in persistence tables.
+   - Reference content by IDs (`skill_id`, `checkpoint_id`, item id if needed later).
+
+### 11.5 API route plan (contracts only; writes disabled)
+
+PR D may introduce route contracts + validation behind feature gates, but must keep effective writes off.
+
+Proposed endpoints:
+
+- `POST /api/adaptive-v2/progress/session/start`
+  - Validates child ownership + payload shape.
+  - Returns `session_id` and `write_enabled: false` until later enablement.
+
+- `POST /api/adaptive-v2/progress/checkpoint-attempt`
+  - Validates IDs/count-safe fields only.
+  - In PR D behavior: can dry-run validation and return accepted schema echo; no DB mutation.
+
+- `GET /api/adaptive-v2/progress/summary/:childId`
+  - Returns latest parent-visible summary (or empty scaffold) using approved language contract.
+
+Gating requirements before any write path is live:
+
+- global feature flag (example `ADAPTIVE_V2_PROGRESS_WRITE_ENABLED=false` by default),
+- explicit parent consent/version check,
+- ownership check (`parent_id` owns `child_id`),
+- payload-level denylist for prohibited fields.
+
+### 11.6 Tests required before enabling writes
+
+1. **Schema + migration tests**
+   - New tables/constraints/indexes exist as designed.
+   - Unique keys prevent duplicate per-skill canonical rows.
+
+2. **Guardrail tests (writes still off)**
+   - With write flag off, route calls do not mutate DB and return explicit non-write state.
+   - Consent missing/invalid blocks write intent.
+
+3. **Validation/privacy tests**
+   - Payloads containing raw free text fields are rejected/sanitized.
+   - Payloads containing prohibited clinical/pass-fail labels are rejected.
+   - `correct_count > total_count` rejected.
+
+4. **Ownership/auth tests**
+   - Parent cannot access/update another parent’s child progress scope.
+   - Unauthenticated calls are rejected.
+
+5. **Contract consistency tests**
+   - Local PR C progress keys map 1:1 to API payload contract fields.
+   - Parent summary response uses approved terms only (`assessment`, `checkpoint`, `practice profile`, `growth area`, `next recommended skill`).
+
+### 11.7 Explicit non-goals reaffirmed for PR D
+
+- No runtime behavior changes.
+- No database writes enabled.
+- No adaptive tracking turned on.
+- No Gates scoring integration.
+- No AI voice integration.
+- No Grades 2–6 wiring.
