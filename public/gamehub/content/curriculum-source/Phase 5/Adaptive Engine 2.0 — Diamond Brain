@@ -1,0 +1,754 @@
+Excellent.
+
+Now we build the:
+
+# Diamond Brain
+
+This is the largest upgrade yet.
+
+Your current engine:
+
+works.
+
+But it is:
+
+# Momentum Adaptive
+
+Meaning:
+
+```text id="n4v8qe"
+2 right
+→ harder
+2 wrong
+→ easier
+```
+
+Research shows elite adaptive systems use:
+
+```text id="u7m3rt"
+mastery
+memory
+confidence
+knowledge state
+```
+
+—not streaks alone.
+
+This is where Adaptive becomes:
+
+# Adaptive Engine 2.0
+
+---
+
+# Phase 5
+
+# Adaptive Engine 2.0 — Diamond Brain
+
+Research in:
+
+* Bayesian Knowledge Tracing
+* Mastery Learning
+* Intelligent Tutoring Systems
+* Spaced Retrieval
+* Learner Modeling
+
+consistently supports:
+
+adaptive systems that estimate:
+
+```text id="r1m7qe"
+What does the learner know?
+How confidently?
+Will they remember?
+What should happen next?
+```
+
+This becomes:
+
+true personalization.
+
+---
+
+# PART 1
+
+# Engine Evolution
+
+Current:
+
+---
+
+# Adaptive 1.0
+
+```text id="p8m2rx"
+streaks
+```
+
+Good.
+
+Simple.
+
+But limited.
+
+---
+
+New:
+
+---
+
+# Adaptive 2.0
+
+Decision inputs:
+
+```text id="x4v9rt"
+mastery
+confidence
+forgetting risk
+prerequisites
+engagement
+error patterns
+```
+
+This becomes:
+
+multi-signal adaptation.
+
+---
+
+# New Core Engine Object
+
+Copy-paste:
+
+```json id="j3v6qe"
+{
+  "skill":"",
+  "mastery":0,
+  "confidence":0,
+  "forgetting_risk":0,
+  "engagement":0,
+  "error_pattern":"",
+  "recommended_next":""
+}
+```
+
+This becomes:
+
+learner state.
+
+---
+
+# PART 2
+
+# Skill Mastery Adaptation
+
+This is:
+
+the primary upgrade.
+
+Current:
+
+```text id="k9m1rt"
+grade moves
+```
+
+New:
+
+```text id="d2v7qe"
+skill moves
+```
+
+Research supports:
+
+skill-based adaptation.
+
+Not grade-only.
+
+---
+
+Old:
+
+```text id="h5m4rx"
+Grade 4
+→ Grade 5
+```
+
+New:
+
+Example:
+
+```text id="y8v2qe"
+Fractions mastered
+Geometry weak
+```
+
+System adapts:
+
+per skill.
+
+This is:
+
+far more precise.
+
+---
+
+# Skill Mastery Rules
+
+Suggested:
+
+---
+
+Mastered
+
+```text id="m0v6rt"
+85+
+```
+
+---
+
+Developing
+
+```text id="u3m9qe"
+70–84
+```
+
+---
+
+Support Needed
+
+```text id="t7m1rx"
+below 70
+```
+
+---
+
+Routing:
+
+```text id="r5v8qe"
+weak skill
+→ reteach
+strong skill
+→ advance
+```
+
+---
+
+# PART 3
+
+# Knowledge Tracing Layer
+
+This is:
+
+major AI behavior.
+
+Research identifies knowledge tracing as:
+
+estimating:
+
+# Probability of Knowing
+
+not:
+
+single-score guessing.
+
+---
+
+Instead of:
+
+```text id="f1m4rt"
+82%
+```
+
+system estimates:
+
+```text id="k6v2qe"
+likely understands fractions
+```
+
+with:
+
+confidence.
+
+---
+
+Knowledge state updates after:
+
+every interaction.
+
+Signals:
+
+---
+
+Correctness
+
+---
+
+Hint Use
+
+---
+
+Attempts
+
+---
+
+Speed
+
+---
+
+Consistency
+
+---
+
+# Knowledge State Object
+
+Copy-paste:
+
+```json id="o9m7rx"
+{
+  "skill":"",
+  "knowledge_probability":0,
+  "confidence_probability":0,
+  "attempt_history":[]
+}
+```
+
+Example:
+
+```text id="p4v1qe"
+Fractions
+
+Knowledge:
+78%
+
+Confidence:
+64%
+```
+
+This becomes:
+
+live learner estimation.
+
+---
+
+# PART 4
+
+# Confidence Modeling
+
+This is:
+
+hugely underused.
+
+Research shows:
+
+confidence matters.
+
+Two learners can score:
+
+85
+
+but differ.
+
+---
+
+Example:
+
+Learner A:
+
+```text id="m2v8rt"
+85
+few hints
+fast
+stable
+```
+
+High confidence.
+
+---
+
+Learner B:
+
+```text id="u6m3qe"
+85
+many hints
+many retries
+```
+
+Fragile mastery.
+
+Important difference.
+
+---
+
+Confidence formula:
+
+Suggested:
+
+```text id="q1v7rx"
+accuracy
++
+independence
++
+consistency
+-
+hint dependence
+```
+
+Confidence score:
+
+```text id="t9m4qe"
+0–100
+```
+
+---
+
+Confidence Object:
+
+```json id="x5m2rt"
+{
+  "skill":"",
+  "confidence_score":0,
+  "hint_dependency":0,
+  "independence_level":0
+}
+```
+
+This becomes:
+
+mastery quality.
+
+Not merely mastery.
+
+---
+
+# PART 5
+
+# Forgetting + Spaced Review Engine
+
+This is one of the biggest upgrades.
+
+Research strongly supports:
+
+# Spaced Retrieval
+
+Memory fades.
+
+Even after mastery.
+
+Most systems ignore this.
+
+---
+
+Your system should ask:
+
+```text id="k8v5qe"
+Will they remember?
+```
+
+Not only:
+
+```text id="w3m1rx"
+Did they learn?
+```
+
+---
+
+Memory model:
+
+Suggested review windows:
+
+---
+
+Early mastery
+
+```text id="r7v4qe"
+1–3 days
+```
+
+---
+
+Stable mastery
+
+```text id="o2m8rt"
+1 week
+```
+
+---
+
+Long-term mastery
+
+```text id="m6v9qe"
+2–4 weeks
+```
+
+---
+
+Review scheduler:
+
+```text id="j0m5rx"
+mastered skill
+→ scheduled revisit
+```
+
+This creates:
+
+durable learning.
+
+---
+
+# Review Object
+
+Copy-paste:
+
+```json id="q4v7qe"
+{
+  "skill":"",
+  "last_mastered":"",
+  "next_review":"",
+  "forgetting_risk":0
+}
+```
+
+---
+
+# PART 6
+
+# Adaptive Decision Tree 2.0
+
+Now the engine thinks.
+
+Not merely reacts.
+
+Decision logic:
+
+---
+
+Step 1
+
+Skill mastery?
+
+---
+
+Step 2
+
+Confidence?
+
+---
+
+Step 3
+
+Forgetting risk?
+
+---
+
+Step 4
+
+Prerequisite gaps?
+
+---
+
+Step 5
+
+Engagement risk?
+
+---
+
+Then:
+
+decision.
+
+---
+
+Example:
+
+```text id="s8m2rt"
+Fractions:
+83 mastery
+45 confidence
+```
+
+System:
+
+NOT advance.
+
+Instead:
+
+```text id="y4v1qe"
+reinforce
+```
+
+This prevents:
+
+false mastery.
+
+---
+
+# Decision Tree
+
+```text id="r9m6qe"
+Mastery high
++
+Confidence high
+=
+Advance
+
+Mastery high
++
+Confidence weak
+=
+Reinforce
+
+Mastery low
+=
+Support loop
+
+Mastered
++
+High forgetting risk
+=
+Review
+```
+
+This is:
+
+diamond-level adaptation.
+
+---
+
+# PART 7
+
+# Personal Learning Path Generator
+
+This becomes:
+
+your recommendation AI.
+
+Not static pathways.
+
+Dynamic.
+
+---
+
+System builds:
+
+individual roadmap.
+
+Example:
+
+```text id="v2m7rx"
+Equivalent fractions
+↓
+Fraction compare
+↓
+Fraction add/subtract
+↓
+Review
+↓
+Advance
+```
+
+Unique:
+
+per learner.
+
+---
+
+Pathway Object
+
+```json id="k5v3qe"
+{
+  "student_id":"",
+  "current_skill":"",
+  "recommended_path":[],
+  "review_skills":[]
+}
+```
+
+This becomes:
+
+personal curriculum.
+
+---
+
+# PART 8
+
+# Diamond Engine Flow
+
+Full system:
+
+```text id="x8m4rt"
+Mini Lesson
+↓
+Worked Example
+↓
+Hints
+↓
+Guided Practice
+↓
+Checkpoint
+↓
+Mastery Update
+↓
+Knowledge Trace Update
+↓
+Confidence Update
+↓
+Review Scheduling
+↓
+Path Generator
+↓
+Adaptive Next Skill
+```
+
+This is:
+
+elite tutoring-system architecture.
+
+---
+
+# PHASE 5 STATUS
+
+Built:
+
+✓ Skill Mastery Adaptation
+✓ Knowledge Tracing
+✓ Confidence Modeling
+✓ Forgetting Engine
+✓ Spaced Review
+✓ Dynamic Routing
+✓ Personal Learning Paths
+✓ Adaptive 2.0 Decision Tree
+
+You now have:
+
+# Diamond Adaptive Brain
+
+Next:
+
+# Phase 6
+
+# Content Factory System
+
+This is where we build:
+
+```text id="q2m9rt"
+question generation rules
+difficulty templates
+misconception banks
+answer patterns
+lesson templates
+quality controls
+```
+
+This is how we generate:
+
+**all copy-paste content at scale**
+for Grades 1–6.
+
+Research informing this structure includes:
+
+*Pelánek, R. (2017). Bayesian Knowledge Tracing, Logistic Models, and Beyond.*
+*Šarić-Grgić, I., Grubišić, A., & Gašpar, A. (2024). Twenty-five Years of Bayesian Knowledge Tracing: A Systematic Review. User Modeling and User-Adapted Interaction.*
+*Sapountzi, A., Bhulai, S., & Cornelisz, I. (2019). Dynamic Knowledge Tracing Models for Large-Scale Adaptive Learning Environments.*
+*Carlon, M. K. J., & Cross, J. S. (2022). Knowledge Tracing for Adaptive Learning in a Metacognitive Tutor.*
+*Schuetze, B. A., Yan, V. X., & Carvalho, P. F. (2025). Session-to-Session Dynamics of Learning and Forgetting.*
+*Papakostas, C., Troussas, C., & Krouska, A. (2025). Enhanced Learning Behaviors and Ability Knowledge Tracing.*
+*Subha, R., Gayathri, N., & Sasireka, S. (2024). Intelligent Tutoring Systems Using LSTM Networks and Bayesian Knowledge Tracing.*
+*Ma, F., Zhu, C., Lei, P., & Yuan, P. (2025). Enhanced Learning Behaviors and Ability Knowledge Tracing.*
