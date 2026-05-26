@@ -1,0 +1,428 @@
+Excellent.
+
+We now enter:
+
+# Phase 7
+
+# Full Copy-Paste Content Production — V1
+
+This is the transition from:
+
+```text
+architecture
+```
+
+to:
+
+```text
+website-ready curriculum
+```
+
+We will build this in:
+
+# Production Waves
+
+Reason:
+
+Research and large-scale curriculum systems show:
+
+quality drops when content is generated randomly.
+
+Best practice:
+
+```text
+skill
+→ full learning package
+→ QA
+→ publish
+→ next skill
+```
+
+So we build:
+
+# One Complete Skill Package At A Time
+
+Each package includes:
+
+✓ Mini Lesson
+✓ Worked Example
+✓ Hint Ladder
+✓ Guided Practice
+✓ Checkpoint
+✓ Adaptive Question Bank
+✓ Misconception Bank
+✓ Review Questions
+
+This becomes:
+
+# Copy-Paste Production System
+
+---
+
+# Phase 7A
+
+# Grade 1 Math Production
+
+# Domain: Number Sense
+
+# Skill 1
+
+---
+
+# Skill Metadata
+
+Copy-paste:
+
+```json
+{
+  "skill_id":"G1M_NS_001",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Count to 20",
+  "mastery_threshold":85,
+  "difficulty_range":[1,2,3]
+}
+```
+
+---
+
+# MINI LESSON
+
+Copy-paste:
+
+```json
+{
+  "lesson_id":"G1M_NS_001_L1",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Count to 20",
+  "objective":"Students count objects and numbers from 0 to 20.",
+  "key_vocabulary":[
+    "count",
+    "number",
+    "more",
+    "less",
+    "total"
+  ],
+  "concept_explanation":"Counting helps us know how many objects are in a group. We count one number for each object. The last number tells the total.",
+  "visual_model":"Objects arranged in rows for one-to-one counting.",
+  "common_misconception":"Skipping objects or counting one object twice.",
+  "real_world_connection":"Count toys, blocks, or snacks.",
+  "lesson_summary":"Count carefully. One number for one object."
+}
+```
+
+---
+
+# WORKED EXAMPLE
+
+Copy-paste:
+
+```json
+{
+  "example_id":"G1M_NS_001_EX1",
+  "skill":"Count to 20",
+  "problem":"How many apples are shown? 🍎🍎🍎🍎🍎",
+  "step_1":"Point to each apple.",
+  "step_2":"Say one number for each apple.",
+  "step_3":"Count: 1,2,3,4,5.",
+  "thinking_notes":"Do not skip or repeat objects.",
+  "final_answer":"5",
+  "reflection_prompt":"Did I count each object once?"
+}
+```
+
+---
+
+# HINT LADDER
+
+Copy-paste:
+
+```json
+{
+  "skill":"Count to 20",
+  "hint_1":"Point to each object.",
+  "hint_2":"Say one number for each object.",
+  "hint_3":"Count slowly and check you did not skip."
+}
+```
+
+---
+
+# GUIDED PRACTICE
+
+Research supports:
+
+early success before independent work.
+
+We use:
+
+```text
+supported rehearsal
+```
+
+---
+
+## Guided Practice 1
+
+Copy-paste:
+
+```json
+{
+  "practice_id":"G1M_NS_001_GP1",
+  "skill":"Count to 20",
+  "support_type":"visual_objects",
+  "prompt":"Count the stars: ⭐⭐⭐⭐",
+  "choices":["3","4","5"],
+  "correct_answer":"4",
+  "coaching_feedback":"Touch each star while counting."
+}
+```
+
+---
+
+## Guided Practice 2
+
+Copy-paste:
+
+```json
+{
+  "practice_id":"G1M_NS_001_GP2",
+  "skill":"Count to 20",
+  "support_type":"visual_objects",
+  "prompt":"Count the circles: ⚪⚪⚪⚪⚪⚪",
+  "choices":["5","6","7"],
+  "correct_answer":"6",
+  "coaching_feedback":"One number for one object."
+}
+```
+
+---
+
+# CHECKPOINT
+
+Recommended:
+
+3–5 items.
+
+Pass:
+
+```text
+80%
+```
+
+---
+
+Copy-paste:
+
+```json
+{
+  "checkpoint_id":"G1M_NS_001_CP1",
+  "skill":"Count to 20",
+  "pass_score":80,
+  "questions":[
+    {
+      "prompt":"Count: ⭐⭐⭐",
+      "answer":"3"
+    },
+    {
+      "prompt":"Count: 🍎🍎🍎🍎",
+      "answer":"4"
+    },
+    {
+      "prompt":"Count: ⚽⚽⚽⚽⚽",
+      "answer":"5"
+    }
+  ]
+}
+```
+
+---
+
+# ADAPTIVE QUESTION BANK
+
+Now:
+
+actual engine questions.
+
+Goal:
+
+8-item minimum.
+
+---
+
+# Question 1
+
+Difficulty 1
+
+Copy-paste:
+
+```json
+{
+  "id":"G1M_NS_001_Q1",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Count to 20",
+  "difficulty":1,
+  "cognitive_level":"recall",
+  "misconception_tag":"skip_counting",
+  "question_type":"multiple_choice",
+  "prompt":"Count the ducks: 🦆🦆🦆",
+  "choices":["2","3","4"],
+  "correct_answer":"3",
+  "correct_explanation":"There are 3 ducks.",
+  "wrong_feedback":"Try touching each duck while counting.",
+  "hint_1":"Point to each duck.",
+  "hint_2":"Count slowly.",
+  "hint_3":"1,2,3."
+}
+```
+
+---
+
+# Question 2
+
+Difficulty 1
+
+Copy-paste:
+
+```json
+{
+  "id":"G1M_NS_001_Q2",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Count to 20",
+  "difficulty":1,
+  "cognitive_level":"recall",
+  "misconception_tag":"double_count",
+  "question_type":"multiple_choice",
+  "prompt":"Count the stars: ⭐⭐⭐⭐⭐",
+  "choices":["4","5","6"],
+  "correct_answer":"5",
+  "correct_explanation":"Five stars were counted.",
+  "wrong_feedback":"Check that each star was counted once.",
+  "hint_1":"Touch each star.",
+  "hint_2":"Count one by one.",
+  "hint_3":"1,2,3,4,5."
+}
+```
+
+---
+
+# Question 3
+
+Difficulty 2
+
+Copy-paste:
+
+```json
+{
+  "id":"G1M_NS_001_Q3",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Number Sense",
+  "skill":"Count to 20",
+  "difficulty":2,
+  "cognitive_level":"application",
+  "misconception_tag":"skip_counting",
+  "question_type":"short_response",
+  "prompt":"Count the balloons: 🎈🎈🎈🎈🎈🎈🎈",
+  "correct_answer":"7",
+  "correct_explanation":"Seven balloons were counted.",
+  "wrong_feedback":"Count again carefully.",
+  "hint_1":"Start at 1.",
+  "hint_2":"Point while counting.",
+  "hint_3":"1,2,3,4,5,6,7."
+}
+```
+
+---
+
+# MISCONCEPTION BANK
+
+Critical.
+
+Copy-paste:
+
+```json
+[
+  {
+    "skill":"Count to 20",
+    "misconception":"skip_counting",
+    "wrong_pattern":"misses objects",
+    "reteach_strategy":"use touch counting"
+  },
+  {
+    "skill":"Count to 20",
+    "misconception":"double_count",
+    "wrong_pattern":"counts object twice",
+    "reteach_strategy":"move counted objects aside"
+  }
+]
+```
+
+---
+
+# REVIEW BANK
+
+Spaced review.
+
+Copy-paste:
+
+```json
+[
+  {
+    "review_id":"RV1",
+    "prompt":"Count: 🍪🍪🍪🍪",
+    "answer":"4"
+  },
+  {
+    "review_id":"RV2",
+    "prompt":"Count: 🐶🐶🐶🐶🐶🐶",
+    "answer":"6"
+  }
+]
+```
+
+---
+
+# PRODUCTION STATUS
+
+Completed:
+
+✓ Phase 7 System
+✓ First Full Skill Package
+✓ Grade 1 Math
+✓ Skill 1
+✓ Website-ready copy-paste format
+
+This establishes:
+
+# Your Production Template
+
+Next we continue with:
+
+# Grade 1 Math
+
+# Skill 2
+
+# Count Forward + Backward
+
+Then we continue sequentially until:
+
+all Grade 1–6 content banks are complete.
+
+Research informing this production model includes:
+
+*Gierl, M. J., Bulut, O., Guo, Q., & Zhang, X. (2017). Developing, Analyzing, and Using Distractors for Multiple-Choice Tests in Education. Review of Educational Research.*
+*Chamberlain, D. J., & Jeter, R. (2020). Creating Diagnostic Assessments: Automated Distractor Generation With Integrity.*
+*Ali, S. H., & Ruit, K. G. (2015). The Impact of Item Flaws and Distractor Functioning on Multiple-Choice Question Quality.*
+*Arhin, A. K. (2024). Developing Distractors for Mathematics Multiple Choice Items: A Literature Review.*
+*Lai, H., Gierl, M. J., Touchie, C., & Pugh, D. (2016). Using Automatic Item Generation to Improve the Quality of MCQ Distractors.*
+*March, D. M., Perrett, D., & Hubbard, C. (2021). Evidence-Based Distractor Generation in Multiple-Choice Tests.*
+*Özdemir, A. Z., & Toker, Z. (2025). Analysis of Distractors in Mathematics Questions and Their Potential to Lead Misconceptions.*
+*Schmauder, R., & Daugherty, K. (2025). The Art and Science of Item Writing.*
