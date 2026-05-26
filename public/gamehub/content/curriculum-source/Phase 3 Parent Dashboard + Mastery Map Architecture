@@ -1,0 +1,685 @@
+Excellent.
+
+Now we build what becomes your:
+
+# Parent Intelligence System
+
+This is not merely:
+
+progress reporting.
+
+Research on learning analytics and mastery systems shows:
+
+parents engage more and make better decisions when dashboards answer:
+
+```text id="6lsu5a"
+What should my child know?
+Where are they now?
+What is mastered?
+What needs support?
+What should we do next?
+```
+
+This becomes:
+
+# Trust Architecture
+
+Parents stay when progress feels:
+
+visible
+
+and
+
+understandable.
+
+---
+
+# Phase 3
+
+# Parent Dashboard + Mastery Map Architecture
+
+This becomes:
+
+the family-facing operating system.
+
+System goal:
+
+remove:
+
+guesswork
+
+anxiety
+
+confusion.
+
+---
+
+# PART 1
+
+# Parent Dashboard Philosophy
+
+Most education dashboards fail because they show:
+
+```text id="n59jpw"
+scores
+charts
+percentages
+```
+
+without:
+
+meaning.
+
+Research consistently shows:
+
+parents need:
+
+# Interpretation
+
+not data overload.
+
+---
+
+Your dashboard should answer:
+
+---
+
+## Question 1
+
+# What Is My Child Supposed To Learn?
+
+Standards roadmap.
+
+---
+
+## Question 2
+
+# Where Are They Right Now?
+
+Mastery map.
+
+---
+
+## Question 3
+
+# What Is Strong?
+
+Strength zone.
+
+---
+
+## Question 4
+
+# What Needs Support?
+
+Gap identification.
+
+---
+
+## Question 5
+
+# What Happens Next?
+
+Action pathway.
+
+This is:
+
+high-retention design.
+
+---
+
+# PART 2
+
+# Grade Roadmap Layer
+
+This fulfills your earlier vision.
+
+Parents need:
+
+country-grade expectations.
+
+Not hidden standards.
+
+---
+
+Example:
+
+Grade 3 math.
+
+Dashboard displays:
+
+---
+
+# Grade Expectations
+
+Child should be able to:
+
+✓ Multiply and divide within range
+✓ Understand fractions
+✓ Solve multi-step problems
+✓ Read graphs
+✓ Explain reasoning
+
+---
+
+This creates:
+
+clarity.
+
+---
+
+# Roadmap Schema
+
+Copy-paste:
+
+```json id="jzszl9"
+{
+  "grade":3,
+  "subject":"Math",
+  "year_expectations":[],
+  "domains":[],
+  "skills":[]
+}
+```
+
+This links directly to:
+
+skill graph.
+
+---
+
+# PART 3
+
+# Mastery Map
+
+This becomes:
+
+the core dashboard.
+
+Research supports:
+
+visual mastery maps improve:
+
+* parent understanding
+* learner motivation
+* self-regulation
+
+---
+
+Your system should avoid:
+
+```text id="h1j9s5"
+92%
+```
+
+alone.
+
+Instead:
+
+show:
+
+---
+
+# Mastery Status
+
+Four-tier model.
+
+Recommended:
+
+---
+
+## Not Started
+
+Gray
+
+(or neutral icon)
+
+---
+
+## Developing
+
+Early understanding.
+
+Recommended:
+
+```text id="m5r2pq"
+0–69
+```
+
+---
+
+## Progressing
+
+Approaching mastery.
+
+Recommended:
+
+```text id="7h38yl"
+70–84
+```
+
+---
+
+## Mastered
+
+Independent.
+
+Recommended:
+
+```text id="3wd7rl"
+85+
+```
+
+---
+
+This matches:
+
+mastery learning research.
+
+---
+
+# Mastery Object
+
+Copy-paste:
+
+```json id="50xqqm"
+{
+  "skill":"",
+  "mastery_score":0,
+  "status":"",
+  "attempts":0,
+  "last_practice":"",
+  "confidence":0
+}
+```
+
+---
+
+# PART 4
+
+# Domain Heat Map
+
+This becomes:
+
+high-value visual intelligence.
+
+Instead of:
+
+hundreds of questions—
+
+parents see:
+
+subject health.
+
+Example:
+
+Grade 4 Math:
+
+```text id="xmn0cm"
+Operations      92 Mastered
+Fractions       68 Developing
+Geometry        84 Progressing
+Data            88 Mastered
+Problem Solving 73 Progressing
+```
+
+This instantly shows:
+
+where support is needed.
+
+---
+
+# Domain Analytics Schema
+
+```json id="v2h42s"
+{
+  "domain":"",
+  "mastery_average":0,
+  "status":"",
+  "priority_level":""
+}
+```
+
+Priority:
+
+```text id="a6o7sy"
+high
+medium
+low
+```
+
+---
+
+# PART 5
+
+# Learning Journey Timeline
+
+Research shows families prefer:
+
+progress over grades.
+
+Timeline solves this.
+
+---
+
+Example:
+
+```text id="ptc6tt"
+Jan:
+Fractions 45
+
+Feb:
+62
+
+Mar:
+79
+
+Apr:
+88
+```
+
+Parents see:
+
+growth.
+
+Not failure.
+
+This is psychologically important.
+
+---
+
+# Timeline Object
+
+Copy-paste:
+
+```json id="scl0ux"
+{
+  "skill":"",
+  "date":"",
+  "score":"",
+  "status":""
+}
+```
+
+---
+
+# PART 6
+
+# Gap Detection Engine
+
+This becomes:
+
+one of your strongest features.
+
+Current system already has:
+
+prerequisites.
+
+Now we formalize.
+
+---
+
+Gap logic:
+
+If:
+
+```text id="zjlwm4"
+target skill weak
+AND
+prerequisite weak
+```
+
+then:
+
+system flags:
+
+# Root Cause Gap
+
+Not symptom.
+
+Example:
+
+```text id="76m9bn"
+Struggling:
+Fractions
+
+Root:
+Equivalent fractions
+```
+
+Parents see:
+
+cause.
+
+Not blame.
+
+---
+
+# Gap Schema
+
+```json id="6m1bhu"
+{
+  "skill":"",
+  "prerequisite":"",
+  "gap_level":"",
+  "recommended_action":""
+}
+```
+
+Gap levels:
+
+```text id="ftk1kp"
+mild
+moderate
+high
+```
+
+---
+
+# PART 7
+
+# Next-Step Recommendation Engine
+
+This becomes:
+
+# Guided Action
+
+Research shows dashboards improve outcomes when paired with:
+
+clear action.
+
+---
+
+Avoid:
+
+```text id="0fr3iw"
+Needs improvement
+```
+
+Instead:
+
+show:
+
+---
+
+Example:
+
+```text id="aef5go"
+Next Recommended:
+
+1 Practice equivalent fractions
+2 Complete mini lesson
+3 Retry checkpoint
+4 Advance to fraction comparison
+```
+
+This feels:
+
+actionable.
+
+---
+
+# Recommendation Object
+
+```json id="qbg6mc"
+{
+  "skill":"",
+  "recommended_lessons":[],
+  "recommended_practice":[],
+  "priority":""
+}
+```
+
+---
+
+# PART 8
+
+# Parent Weekly Report Engine
+
+This becomes:
+
+retention + engagement.
+
+Automatic report:
+
+---
+
+## This Week
+
+Practice:
+
+```text id="4rz24f"
+18 questions
+```
+
+Mastered:
+
+```text id="5f8skx"
+3 skills
+```
+
+Developing:
+
+```text id="74v0cv"
+2 skills
+```
+
+Focus Next Week:
+
+```text id="sj7q0r"
+fraction comparison
+```
+
+Keep:
+
+short
+
+clear
+
+positive.
+
+---
+
+# Weekly Report Schema
+
+```json id="jlwmcu"
+{
+  "week":"",
+  "skills_mastered":[],
+  "developing_skills":[],
+  "practice_count":0,
+  "focus_next_week":""
+}
+```
+
+---
+
+# PART 9
+
+# Parent Dashboard UI Structure
+
+Recommended layout:
+
+---
+
+TOP
+
+Child Snapshot
+
+```text id="5yzv4l"
+Grade
+Streak
+Mastery %
+Focus Skill
+```
+
+---
+
+MIDDLE
+
+Roadmap + Heat Map
+
+---
+
+LOWER
+
+Timeline + Recommendations
+
+---
+
+BOTTOM
+
+Weekly Report
+
+This creates:
+
+clean information hierarchy.
+
+---
+
+# PHASE 3 STATUS
+
+Built:
+
+✓ Grade Roadmap
+✓ Mastery Map
+✓ Domain Heat Map
+✓ Timeline
+✓ Gap Detection
+✓ Recommendation Engine
+✓ Weekly Reports
+✓ Parent Dashboard UI
+
+You now have:
+
+# Parent Intelligence Layer
+
+Next:
+
+# Phase 4
+
+# Teacher/Admin Dashboard + Learning Analytics Engine
+
+This becomes:
+
+the system brain:
+
+```text id="lht7wx"
+misconceptions
+engagement
+dropoff
+mastery trends
+content quality
+question effectiveness
+```
+
+Research informing this architecture includes:
+
+*Alam, M. I., Malone, L., & Nadolny, L. (2023). Gamified Learning Analytics Dashboards and Academic Achievement. Journal of Computer Assisted Learning.*
+*Hou, X., Nagashima, T., & Aleven, V. (2022). Dashboards Supporting Mastery Learning in Gamified Environments.*
+*Wiedbusch, M. (2021). Intelligent Teacher Dashboards and Self-Regulated Learning. Frontiers in Education.*
+*Jivet, I. (2021). The Dashboard That Loved Me: Adaptive Learning Analytics.*
+*Pei, B., Cheng, Y., Ambrose, A., et al. (2024). LearningViz: Visualizing and Closing Learning Gaps.*
+*Silalahi, J. A., & Tjiandra, C. A. (2025). Real-Time Effort-Based Parental Dashboards.*
+*Alabi, H. (2021). Dashboard Comprehension and Learning Strategy.*
+*Shahidan, N. F. A., & Ibrahim, A. F. (2024). Student Performance Visualization.*
