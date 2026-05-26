@@ -134,3 +134,23 @@ PR H introduces a read-only candidate signal mapper for persisted Adaptive V2 Gr
 - Supporting data remains safe aggregate-only (practiced skill count, checkpoint attempt count, hint usage band, mastery band, repeated practice, next-step follow-through when available).
 - No prompt text, answer text, child ranking, diagnostic labeling, or pass/fail framing is emitted.
 - No Gates scoring or Gates writeback is performed in this phase.
+
+## Adaptive V2 Grade 1 PR I (Parent-Facing Read-Only Display)
+
+Date: 2026-05-26
+
+PR I adds parent-facing rendering of Adaptive V2 Grade 1 candidate signals in Adaptive Learning.
+
+- Source route: `GET /api/adaptive-v2/gates-signals/:childId`.
+- Surface label: **Possible Gates Practice Signals**.
+- Display contract: gate name, signal category, confidence band, supporting aggregate summary.
+- Safety copy is explicit: “These are practice signals, not scores, grades, or diagnoses.”
+- Empty state is explicit: “Complete a few practice checkpoints to see possible practice signals.”
+
+Guardrails remain unchanged:
+- read-only display only,
+- no Gates scores,
+- no Gates writeback,
+- no diagnosis/pass-fail language,
+- no raw prompt/answer exposure,
+- no Grades 2–6 persistence activation.

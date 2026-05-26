@@ -774,3 +774,29 @@ Non-goals in PR H: no Gates scoring, no Gates database writes, no child ranking,
 - Output remains developmental candidate mapping only (not official Gates score output).
 - Grades 2–6 persistence and mapper activation remain disabled.
 
+
+## 14) PR I — Parent-Facing Display of Read-Only Adaptive V2 Grade 1 Candidate Gates Signals
+
+Date: 2026-05-26  
+Intent: surface Grade 1 Adaptive V2 candidate Gates signals in parent-facing UI as read-only guidance.
+
+### 14.1 Implemented scope
+
+- Adaptive Learning Grade 1 panel now fetches candidate signals from `GET /api/adaptive-v2/gates-signals/:childId`.
+- Added parent-facing section title: **Possible Gates Practice Signals**.
+- Added display fields:
+  - gate name,
+  - signal category,
+  - confidence band,
+  - supporting aggregate summary.
+- Added safety copy: “These are practice signals, not scores, grades, or diagnoses.”
+- Added empty state copy: “Complete a few practice checkpoints to see possible practice signals.”
+
+### 14.2 Guardrails preserved
+
+- Read-only display only; no Gates scoring/writeback added.
+- No Gates database schema/field updates.
+- No child ranking outputs.
+- No diagnosis or pass/fail framing.
+- No raw prompt/answer leakage in the parent-facing candidate signals section.
+- Grades 2–6 persistence remains disabled.
