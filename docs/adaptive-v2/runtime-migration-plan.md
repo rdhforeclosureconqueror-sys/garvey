@@ -975,3 +975,12 @@ Confirmed constraints:
 - No Gates scoring added.
 - No Grades 2–6 voice runtime wiring.
 - No diagnosis or pass/fail language introduced in voice pathing.
+
+
+## Multi-question checkpoint session fix (2026-05-26)
+- Grade 1 Adaptive V2 checkpoint runtime now supports true multi-question sessions instead of single-question-only behavior per selected skill.
+- Session question count respects 10/15/20 selector when enough Grade 1 content is available, and gracefully caps to available questions.
+- Question progression now advances as Question 1 of N, 2 of N, etc., with cross-skill pull within the selected Grade 1 subject to reduce repeated prompts.
+- Runtime avoids unnecessary repeats by preferring unseen checkpoint question IDs before reusing previously seen items.
+- Session completion renders a supportive summary with aggregate-only progress (attempts, correct/total, hints, mastery band, next recommended skill).
+- No Grade 2 runtime was introduced; no new Gates scoring writes were added; AI voice provider behavior remains unchanged; raw prompt/answer text is still not persisted.
