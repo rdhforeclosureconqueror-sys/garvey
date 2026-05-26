@@ -1,0 +1,604 @@
+Excellent.
+
+We now begin the layer that upgrades Adaptive from:
+
+# Practice Engine
+
+into:
+
+# Full Learning Engine
+
+Research across tutoring systems, cognitive science, and mastery learning consistently shows:
+
+students learn best through:
+
+```text
+teach
+→ model
+→ scaffold
+→ practice
+→ feedback
+→ mastery check
+→ adaptive reinforcement
+```
+
+Not:
+
+```text
+question
+→ right/wrong
+```
+
+This is the biggest upgrade.
+
+---
+
+# Phase 2
+
+# Learn Layer Architecture — V1
+
+This is the:
+
+# Diamond Standard Learning Loop
+
+New system flow:
+
+```text
+Mini Lesson
+↓
+Worked Example
+↓
+Hint Ladder
+↓
+Guided Practice
+↓
+Checkpoint
+↓
+Adaptive Practice
+↓
+Mastery Decision
+↓
+Pathway Recommendation
+```
+
+This becomes:
+
+your instructional operating system.
+
+---
+
+# PART 1
+
+# Mini Lesson Layer
+
+Current system:
+
+```text
+feedback only
+```
+
+Missing:
+
+```text
+pre-teaching
+```
+
+Research shows:
+
+short instruction before practice significantly improves success.
+
+---
+
+## Mini Lesson Purpose
+
+Teach:
+
+* concept
+* vocabulary
+* visual model
+* key rule
+* misconception warning
+
+Length:
+
+```text
+60–180 seconds
+```
+
+Short.
+
+Focused.
+
+High completion.
+
+---
+
+# Mini Lesson Schema
+
+Copy-paste architecture:
+
+```json
+{
+  "lesson_id":"",
+  "grade":1,
+  "subject":"",
+  "domain":"",
+  "skill":"",
+  "objective":"",
+  "key_vocabulary":[],
+  "concept_explanation":"",
+  "visual_model":"",
+  "common_misconception":"",
+  "real_world_connection":"",
+  "lesson_summary":""
+}
+```
+
+Example:
+
+Grade 3 fractions:
+
+```text
+Fractions show equal parts of a whole.
+The denominator shows total equal parts.
+The numerator shows selected parts.
+```
+
+---
+
+# PART 2
+
+# Worked Example Layer
+
+Research repeatedly shows:
+
+# Worked Examples Are One of the Highest-Impact Learning Tools
+
+Especially:
+
+* math
+* grammar
+* reasoning
+
+Students learn by:
+
+seeing thinking.
+
+---
+
+## Worked Example Purpose
+
+Show:
+
+```text
+how
++
+why
+```
+
+Not merely:
+
+answer.
+
+---
+
+# Worked Example Schema
+
+Copy-paste ready:
+
+```json
+{
+  "example_id":"",
+  "skill":"",
+  "problem":"",
+  "step_1":"",
+  "step_2":"",
+  "step_3":"",
+  "thinking_notes":"",
+  "final_answer":"",
+  "reflection_prompt":""
+}
+```
+
+Example:
+
+Grade 4 multiplication:
+
+```text
+23 × 4
+
+Step 1:
+20 × 4 = 80
+
+Step 2:
+3 × 4 = 12
+
+Step 3:
+80 + 12 = 92
+
+Why:
+Break apart using place value.
+```
+
+---
+
+# PART 3
+
+# Hint Ladder
+
+This is one of the biggest missing pieces.
+
+Research on tutoring systems shows:
+
+# Weak-to-Strong Hints
+
+outperform:
+
+immediate answers.
+
+Students retain more.
+
+---
+
+Your system should NEVER jump:
+
+```text
+wrong
+→ answer
+```
+
+Instead:
+
+---
+
+# Hint Ladder Architecture
+
+Three levels.
+
+---
+
+## Hint 1
+
+Light Prompt
+
+Purpose:
+
+attention redirection.
+
+Example:
+
+```text
+Look carefully at the denominator.
+```
+
+---
+
+## Hint 2
+
+Strategy Hint
+
+Purpose:
+
+suggest process.
+
+Example:
+
+```text
+Count how many equal parts exist first.
+```
+
+---
+
+## Hint 3
+
+Near-Solution Hint
+
+Purpose:
+
+guided solve.
+
+Example:
+
+```text
+There are 4 equal parts and 1 is shaded.
+```
+
+Only then:
+
+solution reveal.
+
+---
+
+# Hint Schema
+
+Copy-paste:
+
+```json
+{
+  "skill":"",
+  "hint_1":"",
+  "hint_2":"",
+  "hint_3":""
+}
+```
+
+---
+
+# PART 4
+
+# Guided Practice Layer
+
+Current system:
+
+```text
+assessment heavy
+```
+
+Missing:
+
+# Scaffolded Rehearsal
+
+Research shows mastery improves through:
+
+supported repetition.
+
+---
+
+Guided practice should be:
+
+low stakes.
+
+Usually:
+
+2–4 items.
+
+---
+
+Support types:
+
+```text
+visuals
+sentence starters
+partial solutions
+choice narrowing
+```
+
+---
+
+# Guided Practice Schema
+
+```json
+{
+  "practice_id":"",
+  "skill":"",
+  "support_type":"",
+  "prompt":"",
+  "choices":[],
+  "correct_answer":"",
+  "coaching_feedback":""
+}
+```
+
+---
+
+# PART 5
+
+# Checkpoint Layer
+
+This is:
+
+# Learning Verification
+
+Not full adaptive yet.
+
+Checkpoint asks:
+
+```text
+Did instruction work?
+```
+
+---
+
+Checkpoint rules:
+
+Recommended:
+
+```text
+3–5 items
+```
+
+Pass threshold:
+
+```text
+80%
+```
+
+If pass:
+
+```text
+Adaptive Practice
+```
+
+If fail:
+
+```text
+Lesson Support Loop
+```
+
+---
+
+Checkpoint schema:
+
+```json
+{
+  "checkpoint_id":"",
+  "skill":"",
+  "questions":[],
+  "pass_score":80
+}
+```
+
+---
+
+# PART 6
+
+# Mastery Engine Upgrade
+
+This is critical.
+
+Your current engine is:
+
+# Momentum Adaptive
+
+based on streaks.
+
+Research-supported systems use:
+
+# Skill Mastery
+
+instead.
+
+---
+
+Current:
+
+```text
+2 correct
+→ harder
+```
+
+Upgrade:
+
+Track:
+
+```text
+skill_mastery
+confidence
+attempts
+hint_use
+error_patterns
+```
+
+---
+
+# New Mastery Formula
+
+Copy-paste logic:
+
+```text
+MasteryScore =
+accuracy
++
+independence
++
+consistency
+-
+heavy_hint_dependency
+```
+
+Recommended:
+
+```text
+85 mastery
+70 developing
+below 70 reteach
+```
+
+---
+
+# New Learner Profile Object
+
+```json
+{
+  "skill":"",
+  "accuracy":0,
+  "attempts":0,
+  "hints_used":0,
+  "mastery_status":"",
+  "last_seen":"",
+  "confidence_score":0
+}
+```
+
+This becomes:
+
+persistent intelligence.
+
+---
+
+# PART 7
+
+# Learn Loop Decision Tree
+
+Full engine:
+
+```text
+Lesson
+↓
+Worked Example
+↓
+Guided Practice
+↓
+Checkpoint
+
+PASS?
+↓ YES
+Adaptive Practice
+↓
+Mastered
+
+NO
+↓
+Hint Support
+↓
+Mini-Reteach
+↓
+Checkpoint Again
+```
+
+This is:
+
+gold-standard instructional flow.
+
+---
+
+# PHASE 2 STATUS
+
+Built:
+
+✓ Learn Layer Architecture
+✓ Mini Lessons
+✓ Worked Examples
+✓ Hint Ladder
+✓ Guided Practice
+✓ Checkpoints
+✓ Mastery Upgrade
+✓ Learning Decision Tree
+
+Next:
+
+# Phase 3
+
+# Parent Dashboard + Mastery Map Architecture
+
+This builds:
+
+```text
+What should my child know?
+Where are they now?
+What is mastered?
+What is next?
+```
+
+—the parent intelligence layer.
+
+Research informing this architecture includes:
+
+*Chi, M. T. H. (1996). Constructing Self-Explanations and Scaffolded Explanations in Tutoring. Applied Cognitive Psychology.*
+*Salden, R. J. C. M., Aleven, V., Schwonke, R., & Renkl, A. (2010). The Expertise Reversal Effect and Worked Examples in Tutored Problem Solving. Instructional Science.*
+*McNeill, K. L., Lizotte, D. J., Krajcik, J., & Marx, R. W. (2006). Supporting Students' Construction of Explanations by Fading Scaffolds. Journal of the Learning Sciences.*
+*Basu, S., Biswas, G., & Kinnebrew, J. S. (2017). Learner Modeling for Adaptive Scaffolding. User Modeling and User-Adapted Interaction.*
+*Holden, H. K., & Sinatra, A. M. (2014). A Guide to Scaffolding and Guided Instructional Strategies for ITSs.*
+*Liu, H., Zhang, Y., & Jia, J. (2024). Guiding and Adaptive Prompts for Intelligent Tutoring Systems. IEEE Transactions on Learning Technologies.*
+*Flores, R. A. (2011). Adaptively Faded Worked Examples in Mathematics Problem Solving.*
+*Ball, R., & Fairlamb, A. (2025). The Scaffolding Effect.*
