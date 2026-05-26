@@ -176,3 +176,11 @@ After the above fixes are completed and green in CI, it is reasonable to begin G
 - keep candidate signal mapping read-only,
 - avoid schema expansion as part of Grade 2 runtime introduction unless separately approved.
 
+
+## Grade 1 Pilot Hardening Status (2026-05-26)
+- ✅ Legacy tests updated to align with server-backed Grade 1 Adaptive V2 persistence and intentional fetch usage.
+- ✅ Grade 1 content catalog now loads from explicit manifest (`grade1-artifact-manifest.v1.json`) to avoid directory listing dependency on static hosts.
+- ✅ Runtime now surfaces visible retry/status feedback for content load, checkpoint package load, persistence save/load, Gates candidate signal fetch, and voice fallback/rejection.
+- ✅ Guardrails re-validated: no raw prompt/answer storage, no Gates scoring writes, no diagnosis/pass-fail language.
+- **Readiness:** Grade 1 is pilot-ready.
+- **Next step:** Grade 2 runtime can begin per migration plan scope.

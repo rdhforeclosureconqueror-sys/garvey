@@ -975,3 +975,10 @@ Confirmed constraints:
 - No Gates scoring added.
 - No Grades 2–6 voice runtime wiring.
 - No diagnosis or pass/fail language introduced in voice pathing.
+
+## Grade 1 Hardening Completion Update (2026-05-26)
+- Grade 1 runtime hardening fixes are complete and validated in tests.
+- Catalog loading is now manifest-driven for static hosting compatibility.
+- Failure pathways now show user-visible retry/status guidance.
+- Safety boundaries remain unchanged (no Gates scoring writes, no diagnosis/pass-fail language, no raw prompt/answer persistence).
+- **Decision:** proceed to Grade 2 runtime implementation.
