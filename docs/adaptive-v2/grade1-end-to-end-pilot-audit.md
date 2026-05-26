@@ -185,3 +185,10 @@ After the above fixes are completed and green in CI, it is reasonable to begin G
 - Runtime avoids unnecessary repeats by preferring unseen checkpoint question IDs before reusing previously seen items.
 - Session completion renders a supportive summary with aggregate-only progress (attempts, correct/total, hints, mastery band, next recommended skill).
 - No Grade 2 runtime was introduced; no new Gates scoring writes were added; AI voice provider behavior remains unchanged; raw prompt/answer text is still not persisted.
+
+## Checkpoint runtime format update (2026-05-26)
+- Grade 1 checkpoint runtime now defaults to multiple-choice rendering when `choices` or `options` are present on a checkpoint question.
+- If a checkpoint question does not include `choices`/`options`, runtime preserves typed-answer fallback behavior.
+- Answer checking now accepts selected choice value through the same correctness comparison pathway used for typed inputs.
+- Persistence remains aggregate-only (`isCorrect` + counters) and does not store raw selected answer text.
+- This update keeps supportive feedback language and does not introduce Gates scoring writes or pass/fail framing.
