@@ -14,7 +14,7 @@ test('adaptive page launches with existing shell and selector preserved', () => 
 
 test('grade 1 v2 runtime panel loads math and reading\/english content', () => {
   assert.match(adaptive, /Grade 1 Adaptive V2 runtime \(PR [BCEF]\)/);
-  assert.match(adaptive, /reading-english/);
+  assert.match(adaptive, /grade1-artifact-manifest\.v1\.json/);
   assert.match(adaptive, /math/);
 });
 
