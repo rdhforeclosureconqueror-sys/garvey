@@ -112,3 +112,15 @@ Required guardrails:
 - no ad targeting from child data
 - no biometric inference
 - no hidden profiling
+
+
+## Adaptive V2 Grade 1 Planning Note (PR G, Design-Only)
+
+Date: 2026-05-26
+
+This planning note clarifies how Adaptive V2 Grade 1 progress may later contribute to Gates developmental signals.
+
+- Adaptive V2 Grade 1 may provide **aggregate practice signal candidates only** (for example persistence, attention follow-through, consistency, learning accuracy trend, and repair/recovery).
+- A single miss, a raw score alone, or one session alone must not be treated as sufficient Gates evidence.
+- Adaptive-derived signals remain non-diagnostic and must never be expressed as pass/fail judgments.
+- PR G is planning only: no scoring implementation, no Gates writes, and no runtime behavior changes.
