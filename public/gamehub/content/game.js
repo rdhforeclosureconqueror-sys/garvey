@@ -379,7 +379,7 @@ function draw(dt, t){
     const x = n.x*tileSize - 12, y = n.y*tileSize - 26;
     drawCharacterShadow(n.x * tileSize + 30, n.y * tileSize + 62);
     if(img) drawCharacterSprite(img, x, y, 84, 94); else drawCircle(x+32,y+40,22,'#fff');
-    drawLabel(n.name, n.x*tileSize+32, n.y*tileSize-10);
+    drawNameLabel(n.name, n.x*tileSize + 32, y, 94);
   });
 
   // player glow when focusing
@@ -397,7 +397,7 @@ function draw(dt, t){
     'chars.right';
   const pimg = IMAGES[charKey];
   drawCharacterShadow(game.player.px + 30, game.player.py + 66, 46, 15);
-  if(pimg) drawCharacterSprite(pimg, game.player.px-16, game.player.py-30, 92, 104, true);
+  if(pimg) drawCharacterSprite(pimg, game.player.px-16, game.player.py-30, 92, 104, { hero: true, glow: game.quietActive > 0 });
   else drawCircle(game.player.px+32, game.player.py+32, 24, '#6ff0ea');
 
   // HUD marker over Mara during delivery
@@ -428,15 +428,28 @@ function drawCharacterShadow(x, y, width = 44, height = 14){
   ctx.fill();
   ctx.restore();
 }
-function drawCharacterSprite(img, x, y, width, height, hero = false){
+function drawCharacterSprite(img, x, y, width, height, options = {}){
+  const hero = Boolean(options.hero);
+  const glow = Boolean(options.glow);
   ctx.save();
   ctx.globalAlpha = 1;
+  if(glow){
+    const glowX = x + width / 2;
+    const glowY = y + height * 0.52;
+    const glowRadius = Math.max(width, height) * 0.65;
+    const aura = ctx.createRadialGradient(glowX, glowY, glowRadius * 0.2, glowX, glowY, glowRadius);
+    aura.addColorStop(0, 'rgba(243,197,103,0.28)');
+    aura.addColorStop(0.55, 'rgba(243,197,103,0.14)');
+    aura.addColorStop(1, 'rgba(243,197,103,0)');
+    ctx.fillStyle = aura;
+    ctx.beginPath();
+    ctx.arc(glowX, glowY, glowRadius, 0, Math.PI * 2);
+    ctx.fill();
+  }
   ctx.shadowColor = 'rgba(0,0,0,0.75)';
-  ctx.shadowBlur = 8;
+  ctx.shadowBlur = hero ? 9 : 7;
   ctx.shadowOffsetY = 4;
-  ctx.filter = hero ? 'drop-shadow(0px 0px 5px rgba(90,255,232,0.45))' : 'drop-shadow(0px 0px 3px rgba(0,0,0,0.45))';
-  ctx.drawImage(img, x, y, width, height);
-  // normalization pass in case source PNG alpha is baked low
+  ctx.filter = 'none';
   ctx.drawImage(img, x, y, width, height);
   ctx.restore();
 }
@@ -452,6 +465,10 @@ function drawProp(type,x,y,w,h){
     ctx.fillStyle = type==='bridge' ? '#8a5b32' : '#466';
     ctx.fillRect(px,py,w*tileSize,h*tileSize);
   }
+}
+function drawNameLabel(text, x, y, spriteHeight){
+  const labelY = y - 10;
+  drawLabel(text, x, labelY);
 }
 function drawLabel(text,x,y){
   ctx.font = 'bold 13px Inter, sans-serif';
