@@ -91,7 +91,13 @@
     if (!entries.length) {
       return `<section class="panel"><h3>Practice Games</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p>${intro}<p><a class="btn secondary" href="/gamehub/index.html">Explore Practice Games</a></p></section>`;
     }
-    const previews = entries.slice(0, 4).map((entry) => `<li><a href="${buildGameHubLaunchPath(entry.launch_path || entry.file_path, childId)}">${entry.title}</a> <span>(${entry.game_type})</span></li>`).join('');
+    const previews = entries.slice(0, 4).map((entry) => {
+      const launch = (registryApi && typeof registryApi.getLaunchContextForGame === 'function')
+        ? registryApi.getLaunchContextForGame(entry.game_key, { child_profile_hint: childId, grade: '1' })
+        : null;
+      const href = launch?.launch_path || buildGameHubLaunchPath(entry.launch_path || entry.file_path, childId);
+      return `<li><a href="${href}">${entry.title}</a> <span>(${entry.game_type})</span></li>`;
+    }).join('');
     return `<section class="panel" data-practice-games-section><h3>Practice Games</h3><p>${GATE_PRACTICE_GAME_DISCLAIMER}</p>${intro}<ul>${previews}</ul><p><a class="btn secondary" data-gamehub-discovery-link href="/gamehub/index.html">Explore Practice Games</a></p></section>`;
   }
   function gateList() {
@@ -372,11 +378,13 @@
       const registryApi = globalThis.GameHubRegistry;
       const hasSuggestedModePreset = typeof game.suggested_mode_preset === 'string' && game.suggested_mode_preset.trim();
       const hasSuggestedPracticePath = typeof game.suggested_practice_path === 'string' && game.suggested_practice_path.trim();
-      const launch = (registryApi && typeof registryApi.getLaunchContextForGame === 'function' && (hasSuggestedModePreset || hasSuggestedPracticePath))
+      const launch = (registryApi && typeof registryApi.getLaunchContextForGame === 'function')
         ? registryApi.getLaunchContextForGame(game.game_key, {
             gate_context: gateKey,
             mode_preset: hasSuggestedModePreset ? game.suggested_mode_preset : undefined,
-            practice_path: hasSuggestedPracticePath ? game.suggested_practice_path : undefined
+            practice_path: hasSuggestedPracticePath ? game.suggested_practice_path : undefined,
+            child_profile_hint: childId,
+            grade: '1'
           })
         : null;
       const launchPath = launch?.launch_path || buildGameHubLaunchPath(game.launch_path || game.file_path, childId);

@@ -299,10 +299,25 @@
       normalized.practice_path = String(source.practice_path).trim().toLowerCase();
     }
 
+
+    if (Object.prototype.hasOwnProperty.call(source, 'child_profile_hint')) {
+      if (!isSafeOptionalToken(source.child_profile_hint)) return null;
+      normalized.child_profile_hint = String(source.child_profile_hint).trim().toLowerCase();
+    }
+
     if (Object.prototype.hasOwnProperty.call(source, 'mode_preset')) {
       const candidate = typeof source.mode_preset === 'string' ? source.mode_preset.trim().toLowerCase() : '';
       if (!SUPPORTED_MODE_PRESETS.includes(candidate)) return null;
       normalized.mode_preset = candidate;
+    }
+
+    if (entry.game_key === 'adaptive_learning') {
+      normalized.adaptive_v2 = 'true';
+      const candidateGrade = Object.prototype.hasOwnProperty.call(source, 'grade') ? String(source.grade || '').trim() : '';
+      if (candidateGrade) {
+        if (!/^([1-6])$/.test(candidateGrade)) return null;
+        normalized.grade = candidateGrade;
+      }
     }
 
     return {
