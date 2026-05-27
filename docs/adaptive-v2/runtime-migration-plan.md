@@ -986,3 +986,13 @@ Confirmed constraints:
 - Runtime avoids unnecessary repeats by preferring unseen checkpoint question IDs before reusing previously seen items.
 - Session completion renders a supportive summary with aggregate-only progress (attempts, correct/total, hints, mastery band, next recommended skill).
 - No Grade 2 runtime was introduced; no new Gates scoring writes were added; AI voice provider behavior remains unchanged; raw prompt/answer text is still not persisted.
+
+## Runtime cutover update (2026-05-27)
+- Main learner **Start Session** flow in `public/gamehub/adaptive_learning` is now the active Grade 1 Adaptive V2 runtime path.
+- Root cause of prior mismatch: the start button continued to call `startSession(...)` against `filterBank(...)` / `QUESTION_BANK` (legacy 6–8 source), while Grade 1 V2 lived in a separate checkpoint panel.
+- Cutover behavior:
+  - Grade 1 start sessions map directly from Grade 1 Adaptive V2 checkpoint artifacts into the primary session UI.
+  - Question count selection (10/15/20) remains preserved.
+  - Legacy 6–8 content remains archived in-repo and is not deleted, but is disabled from the active Grade 1 runtime path.
+- Learner-facing panel update:
+  - Separate Grade 1 checkpoint panel is now internal/dev-only (hidden from runtime start experience).
