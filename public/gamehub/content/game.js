@@ -41,19 +41,19 @@ qs('quietBtn').onclick = () => triggerQuietListen();
 
 const ASSET_PATHS = {
   tiles: {
-    grass:'./assets/tiles/grass.png', signalGrass:'./assets/tiles/signal_grass.png', path:'./assets/tiles/path.png', signalPath:'./assets/tiles/signal_path.png'
+    grass:'./grass.png', signalGrass:'./signal_grass.png', path:'./path.png', signalPath:'./signal_path.png'
   },
   props: {
-    tree:'./assets/props/tree.png', stallBlue:'./assets/props/stall_blue.png', stallPurple:'./assets/props/stall_purple.png', gate:'./assets/props/gate.png', parcel:'./assets/props/parcel.png', bridge:'./assets/props/bridge.png', pathStone:'./assets/props/path_stone.png'
+    tree:'./tree.png', gate:'./gate.png', parcel:'./parcel.png', bridge:'./bridge.png', pathStone:'./path_stone.png'
   },
   chars: {
-    front:'./assets/chars/orin_front.png', back:'./assets/chars/orin_back.png', left:'./assets/chars/orin_left.png', right:'./assets/chars/orin_right.png', focus:'./assets/chars/orin_focus.png', worried:'./assets/chars/orin_worried.png'
+    front:'./orin_front.png', back:'./orin_back.png', left:'./orin_left.png', right:'./orin_right.png'
   },
   npcs: {
-    mother:'./assets/npcs/mother.png', jori:'./assets/npcs/jori.png', red:'./assets/npcs/red_hat_kid.png', lou:'./assets/npcs/long_story_lou.png', mara:'./assets/npcs/mara.png', keeper:'./assets/npcs/keeper.png'
+    mother:'./mother.png', jori:'./jori.png', red:'./red_hat_kid.png', lou:'./long_story_lou.png', mara:'./mara.png', keeper:'./keeper.png'
   },
   fx: {
-    gold:'./assets/fx/scatterbug_gold_big.png', green:'./assets/fx/scatterbug_green.png', blue:'./assets/fx/scatterbug_blue.png', purple:'./assets/fx/scatterbug_purple.png'
+    gold:'./scatterbug_gold_big.png', green:'./scatterbug_green.png', blue:'./scatterbug_blue.png', purple:'./scatterbug_purple.png'
   }
 };
 
@@ -152,7 +152,7 @@ function resetState(){
   npcData.forEach(n=>n.met=false);
   updateMissionUI();
   emitEvent('lesson_started', { lessonId:'attention_signal_path_v2', gate:'gate_attention' });
-  showDialogue('Mother', 'Guide', 'Your first mission is simple. Deliver this parcel to Mara near the South Bridge before time runs out. Stay on mission, Orin.', './assets/npcs/mother.png', [
+  showDialogue('Mother', 'Guide', 'Your first mission is simple. Deliver this parcel to Mara near the South Bridge before time runs out. Stay on mission, Orin.', './mother.png', [
     { label:'I will stay on mission.', primary:true, action(){ game.dialogueOpen=false; hideDialogue(); toastMsg('Mission started: deliver the parcel.'); } }
   ]);
 }
@@ -204,7 +204,7 @@ function update(dt){
           game.phase = 3;
           game.pieces = 2;
           updateMissionUI();
-          showDialogue('The Keeper', 'Guardian of the First Gate', 'You cleared the scatterbugs. Now use Quiet Listen and follow the glowing signal path to the Gate.', './assets/npcs/keeper.png', [
+          showDialogue('The Keeper', 'Guardian of the First Gate', 'You cleared the scatterbugs. Now use Quiet Listen and follow the glowing signal path to the Gate.', './keeper.png', [
             { label:'I am ready.', primary:true, action(){ hideDialogue(); } }
           ]);
         }
@@ -257,20 +257,20 @@ function nearestNpc(){
 
 function handleNpc(npc){
   if(npc.id==='jori'){
-    showDialogue('Jori', 'Helpful Merchant', 'Helpful clue: Mara is near the South Bridge. Helpful voices guide you back to the mission.', './assets/npcs/jori.png', [
+    showDialogue('Jori', 'Helpful Merchant', 'Helpful clue: Mara is near the South Bridge. Helpful voices guide you back to the mission.', './jori.png', [
       { label:'Thanks for the clue.', primary:true, action(){ hideDialogue(); toastMsg('Helpful clue received.'); emitEvent('checkpoint_passed',{checkpoint:'talked_to_helpful_npc'}); } }
     ]);
     return;
   }
   if(npc.id==='red'){
-    showDialogue('Red Hat Kid', 'Distraction Test', 'Want a side mission? Find a red hat in the city... actually I am the red hat! Do you want to keep chasing distractions?', './assets/npcs/red_hat_kid.png', [
+    showDialogue('Red Hat Kid', 'Distraction Test', 'Want a side mission? Find a red hat in the city... actually I am the red hat! Do you want to keep chasing distractions?', './red_hat_kid.png', [
       { label:'Stay on mission', primary:true, action(){ hideDialogue(); game.focus = Math.min(100, game.focus + 2); game.recovered += 1; toastMsg('Good choice. You returned to the mission.'); } },
       { label:'Get distracted', action(){ hideDialogue(); game.focus = Math.max(0, game.focus - 10); game.distracted += 1; toastMsg('That distraction cost you focus.'); } }
     ]);
     return;
   }
   if(npc.id==='lou'){
-    showDialogue('Long Story Lou', 'Distraction Test', 'I have a very long story. It starts with a cart, then a goat, then another cart. Want to hear all of it right now?', './assets/npcs/long_story_lou.png', [
+    showDialogue('Long Story Lou', 'Distraction Test', 'I have a very long story. It starts with a cart, then a goat, then another cart. Want to hear all of it right now?', './long_story_lou.png', [
       { label:'Not right now', primary:true, action(){ hideDialogue(); game.focus = Math.min(100, game.focus + 2); game.recovered += 1; toastMsg('You protected your attention.'); } },
       { label:'Tell me everything', action(){ hideDialogue(); game.focus = Math.max(0, game.focus - 12); game.distracted += 1; toastMsg('Too much talking pulled you off mission.'); } }
     ]);
@@ -278,7 +278,7 @@ function handleNpc(npc){
   }
   if(npc.id==='mara'){
     if(game.phase!==1) {
-      showDialogue('Mara', 'Near the South Bridge', 'You already delivered the parcel. Thank you.', './assets/npcs/mara.png', [{ label:'Continue', primary:true, action(){ hideDialogue(); } }]);
+      showDialogue('Mara', 'Near the South Bridge', 'You already delivered the parcel. Thank you.', './mara.png', [{ label:'Continue', primary:true, action(){ hideDialogue(); } }]);
       return;
     }
     const inTime = game.timer > 0;
@@ -286,21 +286,21 @@ function handleNpc(npc){
     game.phase = 2;
     game.pieces = 1;
     updateMissionUI();
-    showDialogue('Mara', 'Near the South Bridge', inTime ? 'You found me in time. Strong attention! But scatterbugs are still causing confusion in the city. Catch 3 of them.' : 'You found me. The timer ended, but you still stayed with the mission. Now catch 3 scatterbugs causing confusion in the city.', './assets/npcs/mara.png', [
+    showDialogue('Mara', 'Near the South Bridge', inTime ? 'You found me in time. Strong attention! But scatterbugs are still causing confusion in the city. Catch 3 of them.' : 'You found me. The timer ended, but you still stayed with the mission. Now catch 3 scatterbugs causing confusion in the city.', './mara.png', [
       { label:'I will catch them.', primary:true, action(){ hideDialogue(); emitEvent('lesson_step_completed',{step:'delivery_complete', completedWithinTime: inTime}); toastMsg('Mission 2 started: catch 3 scatterbugs.'); } }
     ]);
     return;
   }
   if(npc.id==='keeper'){
     if(game.phase<3){
-      showDialogue('The Keeper', 'Guardian of the First Gate', 'The Gate opens when your attention steadies. First finish what is in front of you.', './assets/npcs/keeper.png', [{ label:'Understood.', primary:true, action(){ hideDialogue(); } }]);
+      showDialogue('The Keeper', 'Guardian of the First Gate', 'The Gate opens when your attention steadies. First finish what is in front of you.', './keeper.png', [{ label:'Understood.', primary:true, action(){ hideDialogue(); } }]);
     } else {
-      showDialogue('The Keeper', 'Guardian of the First Gate', 'Use Quiet Listen. The signal path brightens for those who choose attention.', './assets/npcs/keeper.png', [{ label:'I hear the path.', primary:true, action(){ hideDialogue(); } }]);
+      showDialogue('The Keeper', 'Guardian of the First Gate', 'Use Quiet Listen. The signal path brightens for those who choose attention.', './keeper.png', [{ label:'I hear the path.', primary:true, action(){ hideDialogue(); } }]);
     }
     return;
   }
   if(npc.id==='mother'){
-    showDialogue('Mother', 'Guide', 'You notice more than others. Let that help you. Stay with the mission and do not let every voice lead you.', './assets/npcs/mother.png', [{ label:'I remember.', primary:true, action(){ hideDialogue(); } }]);
+    showDialogue('Mother', 'Guide', 'You notice more than others. Let that help you. Stay with the mission and do not let every voice lead you.', './mother.png', [{ label:'I remember.', primary:true, action(){ hideDialogue(); } }]);
   }
 }
 
@@ -483,15 +483,22 @@ function completeGame(){
 }
 
 function emitEvent(eventType, payload){
+  const params = new URLSearchParams(window.location.search);
+  const childId = (params.get('child_id') || '').trim();
+  const sessionId = (params.get('sessionId') || '').trim();
   const event = {
     source:'rite.lesson.event.v1', contractVersion:'1.0', eventType,
-    timestamp: new Date().toISOString(), payload
+    timestamp: new Date().toISOString(), payload,
+    lessonId: 'attention_signal_path_v2', gate_key: 'gate_attention', sessionId
   };
   try { window.parent?.postMessage(event, '*'); } catch(e){}
   try {
     const queue = JSON.parse(localStorage.getItem('rite_event_queue') || '[]');
     queue.push(event); localStorage.setItem('rite_event_queue', JSON.stringify(queue));
   } catch(e){}
-  // Lightweight REST attempt; Codex can wire fully.
-  fetch('./rite-events-stub-do-not-use-in-prod', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(event) }).catch(()=>{});
+  if(!childId) return;
+  const endpoint = eventType === 'lesson_completed'
+    ? `/api/gates/children/${encodeURIComponent(childId)}/rite/completions`
+    : `/api/gates/children/${encodeURIComponent(childId)}/rite/events`;
+  fetch(endpoint, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(event) }).catch(()=>{});
 }
