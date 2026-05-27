@@ -1570,6 +1570,14 @@ function renderLiveYouthParentDashboardPage() {
       </section>
 
       <section class="panel">
+        <h2>Adaptive Learning</h2>
+        <p>Grade 1–6 school-skill lessons, practice, and growth snapshots.</p>
+        <div class="actions">
+          <a class="btn btn-secondary" id="openAdaptiveV2HubBtn" href="/gamehub/adaptive-v2-hub.html">Open Adaptive V2 Lesson Hub</a>
+        </div>
+      </section>
+
+      <section class="panel">
         <h2>What we look at</h2>
         <p class="muted">Seven developmental categories are shown below. Tap <strong>?</strong> for plain-language definitions.</p>
         <div id="categoryStrip" class="grid category-strip"></div>
