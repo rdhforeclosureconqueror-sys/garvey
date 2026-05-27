@@ -340,6 +340,7 @@ function updateUI(){
 }
 
 function draw(dt, t){
+  ctx.globalAlpha = 1;
   ctx.clearRect(0,0,canvas.width,canvas.height);
   // world background
   for(let y=0; y<rows; y++){
@@ -369,13 +370,15 @@ function draw(dt, t){
       else drawCircle(bx,by,16,'#f3c567');
     }
   }
+  ctx.globalAlpha = 1;
 
   // NPCs
   npcData.forEach(n=>{
     if(n.id==='keeper' && game.phase<3) return;
     const img = IMAGES[n.img];
     const x = n.x*tileSize - 12, y = n.y*tileSize - 26;
-    if(img) ctx.drawImage(img, x, y, 82, 96); else drawCircle(x+32,y+40,22,'#fff');
+    drawCharacterShadow(n.x * tileSize + 30, n.y * tileSize + 62);
+    if(img) drawCharacterSprite(img, x, y, 84, 94); else drawCircle(x+32,y+40,22,'#fff');
     drawLabel(n.name, n.x*tileSize+32, n.y*tileSize-10);
   });
 
@@ -387,9 +390,14 @@ function draw(dt, t){
     ctx.restore();
   }
   // player
-  const charKey = game.player.dir==='front' ? 'chars.front' : game.player.dir==='back' ? 'chars.back' : game.player.dir==='left' ? 'chars.left' : 'chars.right';
+  const charKey =
+    game.player.dir === 'front' ? 'chars.front' :
+    game.player.dir === 'back' ? 'chars.back' :
+    game.player.dir === 'left' ? 'chars.left' :
+    'chars.right';
   const pimg = IMAGES[charKey];
-  if(pimg) ctx.drawImage(pimg, game.player.px-14, game.player.py-26, 88, 100);
+  drawCharacterShadow(game.player.px + 30, game.player.py + 66, 46, 15);
+  if(pimg) drawCharacterSprite(pimg, game.player.px-16, game.player.py-30, 92, 104, true);
   else drawCircle(game.player.px+32, game.player.py+32, 24, '#6ff0ea');
 
   // HUD marker over Mara during delivery
@@ -409,6 +417,27 @@ function drawTile(key, x, y, alpha=1){
     ctx.fillStyle = key.includes('path') ? '#a17a46' : '#234f39';
     ctx.fillRect(x*tileSize, y*tileSize, tileSize, tileSize);
   }
+  ctx.restore();
+}
+function drawCharacterShadow(x, y, width = 44, height = 14){
+  ctx.save();
+  ctx.globalAlpha = 0.45;
+  ctx.fillStyle = 'rgba(0,0,0,0.75)';
+  ctx.beginPath();
+  ctx.ellipse(x, y, width, height, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+function drawCharacterSprite(img, x, y, width, height, hero = false){
+  ctx.save();
+  ctx.globalAlpha = 1;
+  ctx.shadowColor = 'rgba(0,0,0,0.75)';
+  ctx.shadowBlur = 8;
+  ctx.shadowOffsetY = 4;
+  ctx.filter = hero ? 'drop-shadow(0px 0px 5px rgba(90,255,232,0.45))' : 'drop-shadow(0px 0px 3px rgba(0,0,0,0.45))';
+  ctx.drawImage(img, x, y, width, height);
+  // normalization pass in case source PNG alpha is baked low
+  ctx.drawImage(img, x, y, width, height);
   ctx.restore();
 }
 function drawProp(type,x,y,w,h){
