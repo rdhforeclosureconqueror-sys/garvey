@@ -11,6 +11,8 @@
     .btn{display:inline-block;padding:10px 12px;border-radius:10px;text-decoration:none;border:1px solid #475569;color:#e2e8f0;background:#1e293b}
     .btn.primary{background:#0ea5e9;border-color:#38bdf8;color:#082f49}
     .muted{color:#94a3b8}
+    .lesson-card{background:#0b1220;border:1px solid #334155;border-radius:12px;padding:14px}
+    .lesson-card h3,.lesson-card p{margin:0 0 8px}
   </style>
 </head>
 <body>
@@ -23,6 +25,16 @@
     <section class="panel">
       <h2>Select grade</h2>
       <div class="grid" id="gradeGrid"></div>
+    </section>
+    <section class="panel rite-adventures">
+      <h2>Rite of Passage Adventures</h2>
+      <div class="lesson-card">
+        <h3>The Signal Path</h3>
+        <p class="muted">Gate 1 — Attention</p>
+        <p>Help Orin deliver a parcel, avoid distractions, catch Scatterbugs, and follow the glowing path.</p>
+        <p class="muted">Grade band: Grades 1–3</p>
+        <button id="launchSignalPath" class="btn primary">Start Adventure</button>
+      </div>
     </section>
     <section class="panel">
       <h2 id="gradeTitle">Pick a grade</h2>
@@ -40,7 +52,19 @@
     const gradeGrid=document.getElementById('gradeGrid');
     const gradeTitle=document.getElementById('gradeTitle');
     const gradeContent=document.getElementById('gradeContent');
+    const launchSignalPathBtn=document.getElementById('launchSignalPath');
     function lessonHref(){ return '/gamehub/adaptive_learning.html?grade=1&runtime_version=adaptive_v2'; }
+    function getLaunchContext(){
+      const params=new URLSearchParams(window.location.search);
+      return {
+        childId:(params.get('child_id')||'').trim()||'demo_child',
+        sessionId:(params.get('sessionId')||'').trim()||'demo_session'
+      };
+    }
+    function buildSignalPathUrl(){
+      const { childId, sessionId } = getLaunchContext();
+      return `/gamehub/content/index.html?child_id=${encodeURIComponent(childId)}&sessionId=${encodeURIComponent(sessionId)}&gradeBand=grades_1_3`;
+    }
     function renderGrade(g){
       gradeTitle.textContent=`Grade ${g} lesson hub`;
       if(g!==1){ gradeContent.innerHTML='<p>Coming soon. Grade content is being wired for this grade.</p>'; return; }
@@ -48,6 +72,7 @@
     }
     gradeGrid.innerHTML=grades.map((g)=>`<button class="btn" data-grade="${g}">Grade ${g}</button>`).join('');
     gradeGrid.querySelectorAll('[data-grade]').forEach((btn)=>btn.addEventListener('click',()=>renderGrade(Number(btn.dataset.grade))));
+    launchSignalPathBtn.addEventListener('click',()=>{ window.location.href=buildSignalPathUrl(); });
     renderGrade(1);
   </script>
 </body>
