@@ -6,17 +6,41 @@
     {
       "question_id": "G1E_RC_001_CP1_Q1",
       "prompt": "What happened first? Kim ran then rested.",
-      "answer": "Kim ran"
+      "answer": "Kim ran",
+      "choices": [
+        "not Kim ran",
+        "maybe Kim ran",
+        "other",
+        "Kim ran"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_RC_001_CP1_Q2",
       "prompt": "What happened last? Dog barked and slept.",
-      "answer": "slept"
+      "answer": "slept",
+      "choices": [
+        "blept",
+        "sleptt",
+        "slept",
+        "slepa"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_RC_001_CP1_Q3",
       "prompt": "Retell: Cat climbed tree then jumped down.",
-      "answer": "Cat climbed tree and jumped down"
+      "answer": "Cat climbed tree and jumped down",
+      "choices": [
+        "other",
+        "Cat climbed tree and jumped down",
+        "not Cat climbed tree and jumped down",
+        "maybe Cat climbed tree and jumped down"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     }
   ],
   "pass_threshold": 0.8,

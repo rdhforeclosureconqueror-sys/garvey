@@ -6,17 +6,41 @@
     {
       "question_id": "G1E_RF_005_CP1_Q1",
       "prompt": "Read: I see a bug.",
-      "answer": "I see a bug."
+      "answer": "I see a bug.",
+      "choices": [
+        "I see a bug.",
+        "not I see a bug.",
+        "maybe I see a bug.",
+        "other"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_RF_005_CP1_Q2",
       "prompt": "Read: The dog can run.",
-      "answer": "The dog can run."
+      "answer": "The dog can run.",
+      "choices": [
+        "not The dog can run.",
+        "maybe The dog can run.",
+        "other",
+        "The dog can run."
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_RF_005_CP1_Q3",
       "prompt": "Who runs?",
-      "answer": "dog"
+      "answer": "dog",
+      "choices": [
+        "bog",
+        "dogg",
+        "dog",
+        "doa"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     }
   ],
   "pass_threshold": 0.8,

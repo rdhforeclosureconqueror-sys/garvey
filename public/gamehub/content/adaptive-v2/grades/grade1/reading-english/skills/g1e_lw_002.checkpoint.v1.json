@@ -6,17 +6,41 @@
     {
       "question_id": "G1E_LW_002_CP1_Q1",
       "prompt": "Name a word that describes snow.",
-      "answer": "cold"
+      "answer": "cold",
+      "choices": [
+        "cold",
+        "cola",
+        "bold",
+        "coldd"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_LW_002_CP1_Q2",
       "prompt": "Which sentence has detail?",
-      "answer": "The dog is fluffy."
+      "answer": "The dog is fluffy.",
+      "choices": [
+        "not The dog is fluffy.",
+        "maybe The dog is fluffy.",
+        "other",
+        "The dog is fluffy."
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_LW_002_CP1_Q3",
       "prompt": "What do describing words do?",
-      "answer": "tell more"
+      "answer": "tell more",
+      "choices": [
+        "maybe tell more",
+        "other",
+        "tell more",
+        "not tell more"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     }
   ],
   "pass_threshold": 0.8,

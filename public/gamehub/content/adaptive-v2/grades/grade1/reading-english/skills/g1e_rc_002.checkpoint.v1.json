@@ -6,17 +6,41 @@
     {
       "question_id": "G1E_RC_002_CP1_Q1",
       "prompt": "Text: Frogs jump and swim. Main idea?",
-      "answer": "frogs"
+      "answer": "frogs",
+      "choices": [
+        "brogs",
+        "frogss",
+        "frogs",
+        "froga"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_RC_002_CP1_Q2",
       "prompt": "Text: Trees are tall. Detail?",
-      "answer": "tall"
+      "answer": "tall",
+      "choices": [
+        "talll",
+        "tall",
+        "tala",
+        "ball"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_RC_002_CP1_Q3",
       "prompt": "What is a main idea?",
-      "answer": "what text is mostly about"
+      "answer": "what text is mostly about",
+      "choices": [
+        "what text is mostly about",
+        "not what text is mostly about",
+        "maybe what text is mostly about",
+        "other"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     }
   ],
   "pass_threshold": 0.8,

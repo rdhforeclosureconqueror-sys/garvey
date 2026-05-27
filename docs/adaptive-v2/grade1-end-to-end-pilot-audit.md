@@ -192,3 +192,19 @@ After the above fixes are completed and green in CI, it is reasonable to begin G
 - Answer checking now accepts selected choice value through the same correctness comparison pathway used for typed inputs.
 - Persistence remains aggregate-only (`isCorrect` + counters) and does not store raw selected answer text.
 - This update keeps supportive feedback language and does not introduce Gates scoring writes or pass/fail framing.
+
+## Grade 1 checkpoint option backfill policy (2026-05-27)
+- Scope: Grade 1 checkpoint artifacts under `public/gamehub/content/adaptive-v2/grades/grade1/**.checkpoint.v1.json`.
+- Policy: preserve existing `choices`/`options`; for missing sets, backfill 3–4 age-appropriate multiple-choice options with exactly one correct answer.
+- Generated option metadata now required per backfilled question:
+  - `generated_options: true`
+  - `option_generation_source: "grade1_checkpoint_backfill"`
+- Runtime behavior remains unchanged in safety terms:
+  - use multiple-choice UI whenever `choices`/`options` exist,
+  - keep typed input as fallback only when options are not present,
+  - do not persist raw selected answer text.
+- Backfill inspection report:
+  - checkpoint questions inspected: **60**
+  - questions that already had options: **0**
+  - questions backfilled with options: **60**
+  - questions needing manual review: **0**

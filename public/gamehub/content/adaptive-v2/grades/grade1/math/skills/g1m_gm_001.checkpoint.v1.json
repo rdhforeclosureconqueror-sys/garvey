@@ -6,17 +6,41 @@
     {
       "question_id": "G1M_GM_001_CP1_Q1",
       "prompt": "Name a shape with 4 sides.",
-      "answer": "square"
+      "answer": "square",
+      "choices": [
+        "square",
+        "squara",
+        "bquare",
+        "squaree"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1M_GM_001_CP1_Q2",
       "prompt": "Which shape is round?",
-      "answer": "circle"
+      "answer": "circle",
+      "choices": [
+        "circla",
+        "bircle",
+        "circlee",
+        "circle"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1M_GM_001_CP1_Q3",
       "prompt": "How many sides does a triangle have?",
-      "answer": "3"
+      "answer": "3",
+      "choices": [
+        "2",
+        "5",
+        "3",
+        "4"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     }
   ],
   "pass_threshold": 0.8,
