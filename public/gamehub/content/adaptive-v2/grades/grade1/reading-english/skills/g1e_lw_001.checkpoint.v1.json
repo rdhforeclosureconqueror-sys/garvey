@@ -6,17 +6,41 @@
     {
       "question_id": "G1E_LW_001_CP1_Q1",
       "prompt": "Fix: i run",
-      "answer": "I run."
+      "answer": "I run.",
+      "choices": [
+        "other",
+        "I run.",
+        "not I run.",
+        "maybe I run."
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_LW_001_CP1_Q2",
       "prompt": "Does sentence need punctuation?",
-      "answer": "yes"
+      "answer": "yes",
+      "choices": [
+        "yes",
+        "no",
+        "maybe",
+        "not sure"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_LW_001_CP1_Q3",
       "prompt": "Which letter begins sentence?",
-      "answer": "capital"
+      "answer": "capital",
+      "choices": [
+        "not capital",
+        "maybe capital",
+        "other",
+        "capital"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     }
   ],
   "pass_threshold": 0.8,

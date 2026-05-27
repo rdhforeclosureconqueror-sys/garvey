@@ -6,17 +6,41 @@
     {
       "question_id": "G1E_RC_003_CP1_Q1",
       "prompt": "Dark clouds appear. Prediction?",
-      "answer": "rain"
+      "answer": "rain",
+      "choices": [
+        "rainn",
+        "rain",
+        "raia",
+        "bain"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_RC_003_CP1_Q2",
       "prompt": "What is a question about a story?",
-      "answer": "something you wonder"
+      "answer": "something you wonder",
+      "choices": [
+        "something you wonder",
+        "not something you wonder",
+        "maybe something you wonder",
+        "other"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_RC_003_CP1_Q3",
       "prompt": "Prediction uses what?",
-      "answer": "clues"
+      "answer": "clues",
+      "choices": [
+        "cluea",
+        "blues",
+        "cluess",
+        "clues"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     }
   ],
   "pass_threshold": 0.8,

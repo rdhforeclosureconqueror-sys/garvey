@@ -6,17 +6,41 @@
     {
       "question_id": "G1M_NS_003_CP1_Q1",
       "prompt": "Which is greater: 3 or 5?",
-      "answer": "5"
+      "answer": "5",
+      "choices": [
+        "7",
+        "5",
+        "6",
+        "4"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1M_NS_003_CP1_Q2",
       "prompt": "Which is less: 7 or 2?",
-      "answer": "2"
+      "answer": "2",
+      "choices": [
+        "2",
+        "3",
+        "1",
+        "4"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1M_NS_003_CP1_Q3",
       "prompt": "Compare: 4 and 4",
-      "answer": "equal"
+      "answer": "equal",
+      "choices": [
+        "equaa",
+        "bqual",
+        "equall",
+        "equal"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     }
   ],
   "pass_threshold": 0.8,

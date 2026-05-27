@@ -6,17 +6,41 @@
     {
       "question_id": "G1M_OP_002_CP1_Q1",
       "prompt": "4 - 1 = ?",
-      "answer": "3"
+      "answer": "3",
+      "choices": [
+        "3",
+        "4",
+        "2",
+        "5"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1M_OP_002_CP1_Q2",
       "prompt": "7 - 3 = ?",
-      "answer": "4"
+      "answer": "4",
+      "choices": [
+        "5",
+        "3",
+        "6",
+        "4"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1M_OP_002_CP1_Q3",
       "prompt": "9 - 2 = ?",
-      "answer": "7"
+      "answer": "7",
+      "choices": [
+        "6",
+        "9",
+        "7",
+        "8"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     }
   ],
   "pass_threshold": 0.8,

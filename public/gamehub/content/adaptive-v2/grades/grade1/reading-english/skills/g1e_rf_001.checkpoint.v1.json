@@ -6,17 +6,41 @@
     {
       "question_id": "G1E_RF_001_CP1_Q1",
       "prompt": "What sound does S make?",
-      "answer": "/s/"
+      "answer": "/s/",
+      "choices": [
+        "/s/",
+        "not /s/",
+        "maybe /s/",
+        "other"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_RF_001_CP1_Q2",
       "prompt": "Match B to lowercase.",
-      "answer": "b"
+      "answer": "b",
+      "choices": [
+        "b",
+        "d",
+        "p",
+        "q"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_RF_001_CP1_Q3",
       "prompt": "Which letter makes /m/?",
-      "answer": "M"
+      "answer": "M",
+      "choices": [
+        "M",
+        "N",
+        "S",
+        "T"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     }
   ],
   "pass_threshold": 0.8,

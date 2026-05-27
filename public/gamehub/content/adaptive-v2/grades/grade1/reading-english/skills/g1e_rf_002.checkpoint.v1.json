@@ -6,17 +6,41 @@
     {
       "question_id": "G1E_RF_002_CP1_Q1",
       "prompt": "What beginning sound is in dog?",
-      "answer": "/d/"
+      "answer": "/d/",
+      "choices": [
+        "not /d/",
+        "maybe /d/",
+        "other",
+        "/d/"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_RF_002_CP1_Q2",
       "prompt": "Which word starts with /s/?",
-      "answer": "sun"
+      "answer": "sun",
+      "choices": [
+        "bun",
+        "sunn",
+        "sun",
+        "sua"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1E_RF_002_CP1_Q3",
       "prompt": "What beginning sound is in map?",
-      "answer": "/m/"
+      "answer": "/m/",
+      "choices": [
+        "other",
+        "/m/",
+        "not /m/",
+        "maybe /m/"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     }
   ],
   "pass_threshold": 0.8,

@@ -6,17 +6,41 @@
     {
       "question_id": "G1M_DP_001_CP1_Q1",
       "prompt": "Red, blue, red, __",
-      "answer": "blue"
+      "answer": "blue",
+      "choices": [
+        "blue",
+        "red",
+        "green",
+        "yellow"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1M_DP_001_CP1_Q2",
       "prompt": "Sort by color.",
-      "answer": "same color groups"
+      "answer": "same color groups",
+      "choices": [
+        "not same color groups",
+        "maybe same color groups",
+        "other",
+        "same color groups"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     },
     {
       "question_id": "G1M_DP_001_CP1_Q3",
       "prompt": "Circle, square, circle, __",
-      "answer": "square"
+      "answer": "square",
+      "choices": [
+        "blue",
+        "green",
+        "square",
+        "red"
+      ],
+      "generated_options": true,
+      "option_generation_source": "grade1_checkpoint_backfill"
     }
   ],
   "pass_threshold": 0.8,
