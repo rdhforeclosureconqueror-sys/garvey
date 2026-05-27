@@ -262,6 +262,34 @@
       parent_context_launch_allowed: true,
       child_context_launch_allowed: true,
       safety_notes: 'No player identity binding in this phase.'
+    },
+    {
+      game_key: 'attention_signal_path_v2',
+      title: 'The Signal Path',
+      file_path: '/gamehub/content/index.html',
+      launch_path: '/gamehub/content/index.html',
+      description: 'Gate 1 attention adventure mission with delivery, scatterbugs, and signal path focus practice.',
+      game_type: 'adventure_mission',
+      primary_capacities: ['attention', 'focus recovery'],
+      suggested_age_range: '6-9',
+      supported_gate_tags: ['gate_attention', 'attention', 'focus'],
+      content_source_type: 'embedded_static_content',
+      config_ready: true,
+      tracking_ready: true,
+      adapter_ready: true,
+      local_instrumentation_ready: true,
+      instrumentation_status: 'pilot',
+      primary_gates: ['attention'],
+      secondary_gates: ['focus'],
+      signal_confidence: 'strong',
+      signal_categories: ['attention_focus', 'recovery_after_setback', 'persistence'],
+      suggested_mode_preset: 'support',
+      suggested_practice_path: 'guided_focus',
+      parent_reflection_prompt: 'When distracted, how did your child return to the mission?',
+      public_launch_allowed: true,
+      parent_context_launch_allowed: true,
+      child_context_launch_allowed: true,
+      safety_notes: 'Supports postMessage, localStorage fallback, and Gates rite tracking routes.'
     }
   ]);
 
