@@ -60,7 +60,7 @@
         if (typeof registry.getLaunchContextForGame !== 'function') {
           return entry.launch_path || entry.file_path;
         }
-        const launchContext = registry.getLaunchContextForGame(entry.game_key, { mode_preset: getModePreset() });
+        const launchContext = registry.getLaunchContextForGame(entry.game_key, { mode_preset: getModePreset(), grade: '1' });
         return launchContext ? launchContext.launch_path : (entry.launch_path || entry.file_path);
       };
 

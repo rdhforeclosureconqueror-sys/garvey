@@ -984,3 +984,11 @@ Confirmed constraints:
 - Runtime avoids unnecessary repeats by preferring unseen checkpoint question IDs before reusing previously seen items.
 - Session completion renders a supportive summary with aggregate-only progress (attempts, correct/total, hints, mastery band, next recommended skill).
 - No Grade 2 runtime was introduced; no new Gates scoring writes were added; AI voice provider behavior remains unchanged; raw prompt/answer text is still not persisted.
+
+## Routing fix status (2026-05-27)
+
+- ✅ Fixed: Gates/profile/GameHub adaptive launch links now resolve through `GameHubRegistry.getLaunchContextForGame(...)` with `game_key=adaptive_learning` and `adaptive_v2=true`.
+- ✅ Added Grade 1 launch hint propagation for profile/Gates contexts (`grade=1` where profile context is available).
+- ✅ Preserved `mode_preset` in launch context.
+- ✅ Prevented legacy-default launch fallback by making registry context the default launch builder for adaptive links on Gates and GameHub index surfaces.
+- ⚠️ Legacy adaptive shell remains in file as archive/fallback behavior only; it is not the default launch target from profile/Gates/GameHub links.
