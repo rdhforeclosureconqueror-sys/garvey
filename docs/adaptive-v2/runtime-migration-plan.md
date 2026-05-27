@@ -996,3 +996,32 @@ Confirmed constraints:
   - Legacy 6–8 content remains archived in-repo and is not deleted, but is disabled from the active Grade 1 runtime path.
 - Learner-facing panel update:
   - Separate Grade 1 checkpoint panel is now internal/dev-only (hidden from runtime start experience).
+
+---
+
+## 9) Runtime Wiring Addendum (2026-05-27)
+
+### 9.1 Lesson hub launch path
+
+- Canonical lesson hub route: `/gamehub/adaptive-v2-hub.html`.
+- This hub is now the shared launch surface from Youth Development/Gates and Rite of Passage child profile/dashboard surfaces.
+
+### 9.2 Grade behavior
+
+- Grade list exposes 1–6.
+- Grade 1 is active and routes to the existing Grade 1 Adaptive V2 learn/start flow.
+- Grades 2–6 are explicitly marked “coming soon” and return no broken-state runtime actions.
+
+### 9.3 Mapping metadata contract
+
+Adaptive lesson skills may map to these development areas:
+
+1. Focus & Self-Control
+2. Curiosity & Love of Learning
+3. Creativity & Idea Thinking
+4. Thinking & Problem Solving
+5. Effort & Resilience
+6. Learning From Feedback
+7. Interests & Passion Areas
+
+Secondary mapping is allowed to Gates and Rite of Passage areas as optional signal overlays. Adaptive Learning remains school-skill-based and should not be treated as the Rite of Passage assessment/book system.
