@@ -208,3 +208,15 @@ After the above fixes are completed and green in CI, it is reasonable to begin G
   - questions that already had options: **0**
   - questions backfilled with options: **60**
   - questions needing manual review: **0**
+
+## Start Session runtime-path correction (2026-05-27)
+- Confirmed root cause: Start Session previously used legacy runtime question sourcing (`QUESTION_BANK` path), which included Grade 6 “Identify the main idea” items.
+- Correction shipped:
+  - Grade 1 Start Session now sources questions from Grade 1 Adaptive V2 checkpoint artifacts.
+  - Question rendering remains the main session UI (`Question X of N`, answer choices, check, next, results).
+  - Grade 1-only enforcement for this path prevents Grade 6 legacy prompts from appearing in Grade 1 sessions.
+- Safety constraints preserved:
+  - No DB schema changes.
+  - No Gates scoring writes introduced.
+  - Aggregate progress persistence only; no raw prompt/answer text writes.
+  - Supportive results language retained and old prerequisite framing softened.
