@@ -44,10 +44,16 @@
   <script>
     const grades=[1,2,3,4,5,6];
     const grade1Lessons=[
-      {id:'g1m_ns_001',domain:'Math · Number Sense',title:'Count and compare within 20'},
-      {id:'g1m_op_001',domain:'Math · Operations',title:'Add within 10'},
-      {id:'g1e_rf_001',domain:'Reading · Foundational Skills',title:'Letter sounds and blending'},
-      {id:'g1e_rc_001',domain:'Reading · Comprehension',title:'Answer who/what/where questions'}
+      {id:'g1m_ns_001',domain:'Math · Number Sense',title:'Count and compare within 20',status:'active'},
+      {id:'g1m_op_001',domain:'Math · Operations',title:'Add within 10',status:'active'},
+      {id:'g1m_op_003',domain:'Math · Operations',title:'Subtract within 10',status:'coming_soon'},
+      {id:'g1m_ns_004',domain:'Math · Place Value',title:'Place value: tens and ones',status:'coming_soon'},
+      {id:'g1m_gm_001',domain:'Math · Geometry',title:'Shapes and attributes',status:'coming_soon'},
+      {id:'g1m_gm_002',domain:'Math · Measurement',title:'Measurement and time basics',status:'coming_soon'},
+      {id:'g1e_rf_001',domain:'Reading · Foundational Skills',title:'Letter sounds and blending',status:'active'},
+      {id:'g1e_rf_005',domain:'Reading · Fluency',title:'Sight words and sentence reading',status:'coming_soon'},
+      {id:'g1e_rc_001',domain:'Reading · Comprehension',title:'Answer who/what/where questions',status:'active'},
+      {id:'g1e_lw_001',domain:'Writing · Composition',title:'Write a simple sentence',status:'coming_soon'}
     ];
     const gradeGrid=document.getElementById('gradeGrid');
     const gradeTitle=document.getElementById('gradeTitle');
@@ -68,7 +74,7 @@
     function renderGrade(g){
       gradeTitle.textContent=`Grade ${g} lesson hub`;
       if(g!==1){ gradeContent.innerHTML='<p>Coming soon. Grade content is being wired for this grade.</p>'; return; }
-      gradeContent.innerHTML=`<ul>${grade1Lessons.map((l)=>`<li><strong>${l.title}</strong><br><span class="muted">${l.domain}</span><br><a class="btn primary" href="${lessonHref()}">Learn this skill / Start Session</a></li>`).join('')}</ul>`;
+      gradeContent.innerHTML=`<ul>${grade1Lessons.map((l)=>`<li><strong>${l.title}</strong><br><span class="muted">${l.domain}</span><br>${l.status==='active'?`<a class="btn primary" href="${lessonHref()}">Learn this skill / Start Session</a>`:'<button class="btn" type="button" disabled aria-disabled="true">Coming Soon</button>'}</li>`).join('')}</ul>`;
     }
     gradeGrid.innerHTML=grades.map((g)=>`<button class="btn" data-grade="${g}">Grade ${g}</button>`).join('');
     gradeGrid.querySelectorAll('[data-grade]').forEach((btn)=>btn.addEventListener('click',()=>renderGrade(Number(btn.dataset.grade))));
