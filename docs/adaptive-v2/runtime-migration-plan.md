@@ -968,6 +968,8 @@ Delivered:
   - Listen to hint
   - Stop voice
 - Kept voice non-blocking with browser speech fallback behavior.
+- Runtime now shows clear Grade 1 voice status copy: “Voice is starting…”, “Voice is playing.”, “Voice unavailable in this browser. Please read the text on screen.”, and “Voice stopped.”
+- When voice route responds with `voice_mode: fallback_browser_speech`, the client immediately invokes `speechSynthesis.speak(...)` from the same button click path.
 
 Confirmed constraints:
 - No changes to existing assessment or youth-development voice routes.
