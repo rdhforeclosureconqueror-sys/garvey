@@ -9,12 +9,15 @@
   "lesson":{"story_mission":"Help Puzzle Park organize and finish patterns.","mini_lesson":"Sort by one attribute, then extend repeating patterns."},
   "worked_examples":[{"text":"Red, blue, red, blue, ? => red"}],
   "hint_ladder":["Look at color first.","Check what repeats."],
-  "guided_practice":[{"id":"gp1","question_type":"sorting_visual","visual_model":"sorting_visual","prompt":"Sort by color: red ball, blue ball, red cube","items":["red ball","blue ball","red cube"],"answer":"red ball,red cube","misconception_tag":"sort_attribute_mismatch"}],
-  "checkpoint":[{"id":"cp1","question_type":"pattern_completion","visual_model":"pattern_completion","prompt":"Complete: circle, square, circle, square, ?","sequence":["circle","square","circle","square"],"answer":"circle","misconception_tag":"pattern_repeat_missed"}],
-  "adaptive_question_bank":[{"id":"aq1","question_type":"sorting_visual","visual_model":"sorting_visual","prompt":"Pick the animals: cat, 3, dog","items":["cat","3","dog"],"answer":"cat,dog"},{"id":"aq2","question_type":"pattern_completion","visual_model":"pattern_completion","prompt":"1,2,1,2,?","sequence":["1","2","1","2"],"answer":"1"}],
+  "guided_practice":[{"question_id":"gp1","question_type":"multiple_choice","visual_model":"sorting_visual","prompt":"Sort by color: which two are red?","items":["red ball","blue ball","red cube"],"options":["red ball and red cube","blue ball and red cube","red ball and blue ball"],"correct_answer":"red ball and red cube","misconception_tag":"sort_attribute_mismatch"}],
+  "checkpoint":[{"question_id":"cp1","question_type":"short_response","visual_model":"pattern_completion","prompt":"Complete: circle, square, circle, square, ?","sequence":["circle","square","circle","square"],"correct_answer":"circle","acceptable_answers":["Circle"],"misconception_tag":"pattern_repeat_missed"}],
+  "adaptive_question_bank":[{"question_id":"aq1","question_type":"multiple_choice","visual_model":"sorting_visual","prompt":"Pick the animals.","items":["cat","3","dog"],"options":["cat and dog","3 and dog","cat and 3"],"correct_answer":"cat and dog"},{"question_id":"aq2","question_type":"short_response","visual_model":"pattern_completion","prompt":"1,2,1,2,?","sequence":["1","2","1","2"],"correct_answer":"1"}],
   "misconception_bank":{"sort_attribute_mismatch":"Learner switched attribute mid-sort.","pattern_repeat_missed":"Learner did not track repeating core."},
   "review_bank":[{"prompt":"Try another AB pattern."}],
   "game_theme":{"name":"Data Detectives","world":"Puzzle Park"},
+  "support_type":"small-group",
+  "zone":"mixed",
+  "feedback_fields":{"correct":"Nice sorting!","incorrect":"Try checking one attribute only."},
   "next_skill_id":"G1M_DP_002",
   "remediation_skill_id":"G1M_DP_000"
 }
