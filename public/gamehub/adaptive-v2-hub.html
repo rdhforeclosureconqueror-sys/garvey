@@ -13,6 +13,8 @@
     .muted{color:#94a3b8}
     .lesson-card{background:#0b1220;border:1px solid #334155;border-radius:12px;padding:14px}
     .lesson-card h3,.lesson-card p{margin:0 0 8px}
+    .lesson-list{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+    .lesson-list li{background:#0b1220;border:1px solid #334155;border-radius:12px;padding:14px}
   </style>
 </head>
 <body>
@@ -24,7 +26,12 @@
     </section>
     <section class="panel">
       <h2>Grade 1 Skill World Missions</h2>
-      <p class="muted">Choose a mission and begin your learner adventure.</p>
+      <p class="muted">Generated SkillPackage missions load from the Skill World manifest.</p>
+      <div id="skillWorldMissionGrid" class="grid"></div>
+    </section>
+    <section class="panel">
+      <h2>Recognition / Selection Grade 1 pilot</h2>
+      <p class="muted">Prototype recognition and selection mini-games remain available while additional skills are packaged.</p>
       <div id="pilotGrid" class="grid"></div>
     </section>
     <section class="panel">
@@ -48,21 +55,24 @@
   </main>
   <script>
     const grades=[1,2,3,4,5,6];
-    const grade1Lessons=[
-      {id:'g1m_ns_001',domain:'Math · Number Sense',title:'Count and compare within 20',status:'active'},
-      {id:'g1m_op_001',domain:'Math · Operations',title:'Add within 10',status:'active'},
-      {id:'g1m_op_003',domain:'Math · Operations',title:'Subtract within 10',status:'coming_soon'},
-      {id:'g1m_ns_004',domain:'Math · Place Value',title:'Place value: tens and ones',status:'coming_soon'},
-      {id:'g1m_gm_001',domain:'Math · Geometry',title:'Shapes and attributes',status:'coming_soon'},
-      {id:'g1m_gm_002',domain:'Math · Measurement',title:'Measurement and time basics',status:'coming_soon'},
-      {id:'g1e_rf_001',domain:'Reading · Foundational Skills',title:'Letter sounds and blending',status:'active'},
-      {id:'g1e_rf_005',domain:'Reading · Fluency',title:'Sight words and sentence reading',status:'coming_soon'},
-      {id:'g1e_rc_001',domain:'Reading · Comprehension',title:'Answer who/what/where questions',status:'active'},
-      {id:'g1e_lw_001',domain:'Writing · Composition',title:'Write a simple sentence',status:'coming_soon'}
+    const skillWorldManifestUrl='/gamehub/skill-world/content/manifest.json';
+    const grade1PlannedLessons=[
+      {id:'g1m_ns_001',subject:'Math',domain:'Number Sense',title:'Count and compare within 20'},
+      {id:'g1m_op_001',subject:'Math',domain:'Operations',title:'Add within 10'},
+      {id:'g1m_op_003',subject:'Math',domain:'Operations',title:'Subtract within 10'},
+      {id:'g1m_ns_004',subject:'Math',domain:'Place Value',title:'Place value: tens and ones'},
+      {id:'g1m_gm_001',subject:'Math',domain:'Geometry',title:'Shapes and attributes'},
+      {id:'g1m_gm_002',subject:'Math',domain:'Measurement',title:'Measurement and time basics'},
+      {id:'g1e_rf_001',subject:'Reading',domain:'Foundational Skills',title:'Letter sounds and blending'},
+      {id:'g1e_rf_005',subject:'Reading',domain:'Fluency',title:'Sight words and sentence reading'},
+      {id:'g1e_rc_001',subject:'Reading',domain:'Comprehension',title:'Answer who/what/where questions'},
+      {id:'g1e_lw_001',subject:'Writing',domain:'Composition',title:'Write a simple sentence'}
     ];
+    let grade1SkillWorldPackages=[];
     const gradeGrid=document.getElementById('gradeGrid');
     const gradeTitle=document.getElementById('gradeTitle');
     const gradeContent=document.getElementById('gradeContent');
+    const skillWorldMissionGrid=document.getElementById('skillWorldMissionGrid');
     const launchSignalPathBtn=document.getElementById('launchSignalPath');
 
     const pilotSkills=[
@@ -75,7 +85,32 @@
     ];
     function pilotHref(skill){ return `/gamehub/recognition-selection-pilot.html?skill=${encodeURIComponent(skill)}`; }
 
-    function lessonHref(){ return '/gamehub/adaptive_learning.html?grade=1&runtime_version=adaptive_v2'; }
+    function skillWorldHref(skillId){ return `/skill-world/${encodeURIComponent(skillId)}`; }
+    function escapeHtml(value){
+      return String(value ?? '').replace(/[&<>"']/g,(char)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    }
+    async function loadSkillWorldPackages(){
+      try{
+        const manifest=await (await fetch(skillWorldManifestUrl)).json();
+        const packageFiles=Array.isArray(manifest.packages)?manifest.packages:[];
+        const packages=await Promise.all(packageFiles.map(async(file)=>{
+          const pkg=await (await fetch(`/gamehub/skill-world/content/${file}`)).json();
+          return {
+            skill_id:pkg.skill_id,
+            grade:pkg.grade,
+            subject:pkg.subject,
+            domain:pkg.domain,
+            title:pkg.skill,
+            route:skillWorldHref(pkg.skill_id),
+            status:'active'
+          };
+        }));
+        return packages.filter((pkg)=>pkg.skill_id&&Number(pkg.grade)===1);
+      }catch(err){
+        console.error('Unable to load Skill World package manifest',err);
+        return [];
+      }
+    }
     function getLaunchContext(){
       const params=new URLSearchParams(window.location.search);
       return {
@@ -87,16 +122,45 @@
       const { childId, sessionId } = getLaunchContext();
       return `/gamehub/content/index.html?child_id=${encodeURIComponent(childId)}&sessionId=${encodeURIComponent(sessionId)}&gradeBand=grades_1_3`;
     }
+    function renderMissionButton(pkg){
+      return `<a class="btn primary" data-skill-id="${escapeHtml(pkg.skill_id)}" href="${escapeHtml(pkg.route)}">${escapeHtml(pkg.title)}<br><span>Start Skill World</span></a>`;
+    }
+    function renderGeneratedMission(pkg){
+      return `<li data-skill-id="${escapeHtml(pkg.skill_id)}"><strong>${escapeHtml(pkg.title)}</strong><br><span class="muted">Grade ${escapeHtml(pkg.grade)} · ${escapeHtml(pkg.subject)} · ${escapeHtml(pkg.domain)} · ${escapeHtml(pkg.skill_id)}</span><br><a class="btn primary" href="${escapeHtml(pkg.route)}">Start Skill World</a></li>`;
+    }
+    function renderPlannedLesson(lesson){
+      return `<li data-skill-id="${escapeHtml(lesson.id)}"><strong>${escapeHtml(lesson.title)}</strong><br><span class="muted">${escapeHtml(lesson.subject)} · ${escapeHtml(lesson.domain)}</span><br><button class="btn" type="button" disabled aria-disabled="true">Coming Soon</button></li>`;
+    }
+    function buildGrade1Lessons(){
+      const packagesById=new Map(grade1SkillWorldPackages.map((pkg)=>[pkg.skill_id.toLowerCase(),pkg]));
+      const generatedRows=grade1SkillWorldPackages.map(renderGeneratedMission);
+      const plannedRows=grade1PlannedLessons
+        .filter((lesson)=>!packagesById.has(lesson.id.toLowerCase()))
+        .map(renderPlannedLesson);
+      return [...generatedRows,...plannedRows].join('');
+    }
+    function renderSkillWorldMissionGrid(){
+      skillWorldMissionGrid.innerHTML=grade1SkillWorldPackages.length
+        ? grade1SkillWorldPackages.map(renderMissionButton).join('')
+        : '<p class="muted">Generated Skill World missions are loading.</p>';
+    }
     function renderGrade(g){
       gradeTitle.textContent=`Grade ${g} lesson hub`;
       if(g!==1){ gradeContent.innerHTML='<p>Coming soon. Grade content is being wired for this grade.</p>'; return; }
-      gradeContent.innerHTML=`<ul>${grade1Lessons.map((l)=>`<li><strong>${l.title}</strong><br><span class="muted">${l.domain}</span><br>${l.status==='active'?`<a class="btn primary" href="${lessonHref()}">Learn this skill / Start Session</a>`:'<button class="btn" type="button" disabled aria-disabled="true">Coming Soon</button>'}</li>`).join('')}</ul>`;
+      const rows=buildGrade1Lessons();
+      gradeContent.innerHTML=`<ul class="lesson-list">${rows||'<li class="muted">Generated Skill World missions are loading.</li>'}</ul>`;
     }
     gradeGrid.innerHTML=grades.map((g)=>`<button class="btn" data-grade="${g}">Grade ${g}</button>`).join('');
     gradeGrid.querySelectorAll('[data-grade]').forEach((btn)=>btn.addEventListener('click',()=>renderGrade(Number(btn.dataset.grade))));
     launchSignalPathBtn.addEventListener('click',()=>{ window.location.href=buildSignalPathUrl(); });
     document.getElementById('pilotGrid').innerHTML=pilotSkills.map((skill)=>`<a class="btn" href="${pilotHref(skill.id)}">Start ${skill.name}</a>`).join('');
+    renderSkillWorldMissionGrid();
     renderGrade(1);
+    loadSkillWorldPackages().then((packages)=>{
+      grade1SkillWorldPackages=packages;
+      renderSkillWorldMissionGrid();
+      renderGrade(1);
+    });
   </script>
 </body>
 </html>
