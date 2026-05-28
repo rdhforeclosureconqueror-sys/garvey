@@ -1,0 +1,13 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"SkillPackage",
+  "type":"object",
+  "required":["skill_id","grade","subject","domain","skill","mastery_threshold","lesson","worked_examples","hint_ladder","guided_practice","checkpoint","adaptive_question_bank","misconception_bank","review_bank","game_theme"],
+  "properties":{
+    "skill_id":{"type":"string"},"grade":{"type":"integer"},"subject":{"type":"string"},"domain":{"type":"string"},"skill":{"type":"string"},"mastery_threshold":{"type":"number"},"difficulty_range":{"type":"array","items":{"type":"number"}},
+    "lesson":{"type":"object"},"worked_examples":{"type":"array","items":{"type":"object"}},"hint_ladder":{"type":"array","items":{"type":"string"}},
+    "guided_practice":{"$ref":"#/$defs/questions"},"checkpoint":{"$ref":"#/$defs/questions"},"adaptive_question_bank":{"$ref":"#/$defs/questions"},
+    "misconception_bank":{"type":"object"},"review_bank":{"type":"array","items":{"type":"object"}},"game_theme":{"type":"object"},"next_skill_id":{"type":"string"},"remediation_skill_id":{"type":"string"}
+  },
+  "$defs":{"questions":{"type":"array","items":{"type":"object","required":["id","question_type","prompt","answer"],"properties":{"id":{"type":"string"},"question_type":{"enum":["multiple_choice","short_response","visual_objects","number_sequence","number_line","comparison","base_ten_blocks","addition_model","subtraction_model","number_bond","shape_identification","measurement_comparison","pattern_completion","sorting_visual"]},"visual_model":{"type":"string"},"prompt":{"type":"string"},"answer":{},"misconception_tag":{"type":"string"}}}}}
+}
