@@ -21,7 +21,7 @@ test('adaptive card appears on youth development dashboard', () => {
 
 test('adaptive v2 hub supports grade 1 lessons and safe grades 2-6 coming soon state', () => {
   assert.match(hub, /const grades=\[1,2,3,4,5,6\]/);
-  assert.match(hub, /Learn this skill \/ Start Session/);
+  assert.match(hub, /Start Skill World/);
   assert.match(hub, /Coming soon\. Grade content is being wired for this grade\./);
   assert.doesNotMatch(hub, /grade\s*6[^\n]*\?/i);
 });
@@ -39,5 +39,5 @@ test('recognition/selection pilot routes are discoverable from adaptive hub', ()
   assert.match(recognitionPilot, /const PILOT_MAP=\{/);
   assert.match(recognitionPilot, /g1e_rf_001/);
   assert.match(recognitionPilot, /g1m_dp_001/);
-  assert.match(recognitionPilot, /Manual QA checklist/);
+  assert.match(recognitionPilot, /Skill World Missions/);
 });
