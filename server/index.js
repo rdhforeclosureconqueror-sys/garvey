@@ -284,6 +284,10 @@ app.get("/archetype-engines/:engine/assessment", (req, res, next) => {
   return res.sendFile(path.join(__dirname, "..", "public", "archetype-engines", "experience.html"));
 });
 
+app.get("/skill-world/:skillId", (req, res) => {
+  return res.sendFile(path.join(__dirname, "..", "public", "gamehub", "skill-world", "index.html"));
+});
+
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 app.use(createGatesRouter());

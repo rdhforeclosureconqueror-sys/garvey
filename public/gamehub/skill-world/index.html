@@ -1,0 +1,11 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>Skill World Generator</title></head><body>
+<div id='app'></div>
+<script src='/gamehub/skill-world/engine/recommendation-helper.js'></script>
+<script src='/gamehub/skill-world/engine/growth-data-adapter.js'></script>
+<script src='/gamehub/skill-world/renderers/visual-model-registry.js'></script>
+<script src='/gamehub/skill-world/engine/skill-world-renderer.js'></script>
+<script>
+(async function(){const id=(location.pathname.split('/').pop()||'G1M_DP_001').toUpperCase();const r=await fetch(`/gamehub/skill-world/content/${id}.skill-package.v1.json`);const p=await r.json();const state=SkillWorldRenderer.createState();const zoneQuestions=[...p.guided_practice,...p.adaptive_question_bank,...p.checkpoint];let i=0;const app=document.getElementById('app');
+function render(){const q=zoneQuestions[i];const screen=SkillWorldRenderer.SCREENS[state.screen]||'PracticeZoneScreen';if(!q){const payload=SkillWorldRenderer.finalize(state,p,'demo-learner');app.innerHTML=`<h2>BadgeScreen</h2><p>Stars: ${state.stars}</p><h3>GrowthProfileScreen</h3><p>Recommended: ${payload.recommended_next_skill}</p><a href='/gamehub/adaptive-v2-hub.html'>AdaptiveHubExit</a>`;return;}app.innerHTML=`<h2>${screen}</h2><h3>${p.lesson.story_mission}</h3><p>${q.prompt}</p>${SkillWorldVisualRegistry.render(q)}<div><button id='show'>Show Answer</button><button id='ok'>Continue</button><button id='hint'>Hint</button></div><div id='a'></div>`;document.getElementById('show').addEventListener('click',()=>{document.getElementById('a').textContent=`Answer: ${q.answer}`;});document.getElementById('hint').addEventListener('click',()=>SkillWorldRenderer.useHint(state));document.getElementById('ok').addEventListener('click',()=>{SkillWorldRenderer.submitAnswer(state,'zone-'+state.screen,q,q.answer);i++;state.screen=Math.min(state.screen+1,6);render();});}
+render();})();
+</script></body></html>

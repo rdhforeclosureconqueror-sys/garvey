@@ -1,0 +1,20 @@
+{
+  "skill_id":"G1M_DP_001",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Data & Patterns",
+  "skill":"Sorting Categories and Pattern Recognition",
+  "mastery_threshold":80,
+  "difficulty_range":[1,2],
+  "lesson":{"story_mission":"Help Puzzle Park organize and finish patterns.","mini_lesson":"Sort by one attribute, then extend repeating patterns."},
+  "worked_examples":[{"text":"Red, blue, red, blue, ? => red"}],
+  "hint_ladder":["Look at color first.","Check what repeats."],
+  "guided_practice":[{"id":"gp1","question_type":"sorting_visual","visual_model":"sorting_visual","prompt":"Sort by color: red ball, blue ball, red cube","items":["red ball","blue ball","red cube"],"answer":"red ball,red cube","misconception_tag":"sort_attribute_mismatch"}],
+  "checkpoint":[{"id":"cp1","question_type":"pattern_completion","visual_model":"pattern_completion","prompt":"Complete: circle, square, circle, square, ?","sequence":["circle","square","circle","square"],"answer":"circle","misconception_tag":"pattern_repeat_missed"}],
+  "adaptive_question_bank":[{"id":"aq1","question_type":"sorting_visual","visual_model":"sorting_visual","prompt":"Pick the animals: cat, 3, dog","items":["cat","3","dog"],"answer":"cat,dog"},{"id":"aq2","question_type":"pattern_completion","visual_model":"pattern_completion","prompt":"1,2,1,2,?","sequence":["1","2","1","2"],"answer":"1"}],
+  "misconception_bank":{"sort_attribute_mismatch":"Learner switched attribute mid-sort.","pattern_repeat_missed":"Learner did not track repeating core."},
+  "review_bank":[{"prompt":"Try another AB pattern."}],
+  "game_theme":{"name":"Data Detectives","world":"Puzzle Park"},
+  "next_skill_id":"G1M_DP_002",
+  "remediation_skill_id":"G1M_DP_000"
+}
