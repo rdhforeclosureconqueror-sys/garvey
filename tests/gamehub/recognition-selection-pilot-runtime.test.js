@@ -35,7 +35,8 @@ test('all six pilot configs validate and create playable runtime sessions', () =
   }
 });
 
-test('runtime error messaging includes validation details and fetch status context', () => {
-  assert.match(pilotPage, /Config invalid for \$\{skillKey\}: \$\{message\}/);
-  assert.match(pilotPage, /Failed loading config \(\$\{response\.status\}\): \$\{configPath\}/);
+test('runtime fallback messaging is learner-safe when mission cannot load', () => {
+  assert.match(pilotPage, /Mission unavailable/);
+  assert.doesNotMatch(pilotPage, /Config invalid for \$\{skillKey\}: \$\{message\}/);
+  assert.doesNotMatch(pilotPage, /Failed loading config \(\$\{response\.status\}\): \$\{configPath\}/);
 });
