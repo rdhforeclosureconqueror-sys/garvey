@@ -1,0 +1,20 @@
+{
+  "schema_version": "v1",
+  "engine_family": "recognition_selection",
+  "mission_id": "g1m_gm_001_recognition_pilot",
+  "skill_id": "G1M_GM_001",
+  "grade": 1,
+  "subject": "Math",
+  "domain": "Geometry and Measurement",
+  "questions": [
+    {
+      "id": "G1M_GM_001_Q1",
+      "prompt": "Which shape has 3 sides?",
+      "choices": [{"id":"a","text":"Triangle"},{"id":"b","text":"Square"},{"id":"c","text":"Circle"}],
+      "correct_choice_id": "a",
+      "hint": "Count the sides.",
+      "feedback_correct": "Yes, triangle has 3 sides.",
+      "feedback_incorrect": "Try counting sides again."
+    }
+  ]
+}

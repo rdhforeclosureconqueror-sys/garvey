@@ -1,0 +1,20 @@
+{
+  "schema_version": "v1",
+  "engine_family": "recognition_selection",
+  "mission_id": "g1m_dp_001_recognition_pilot",
+  "skill_id": "G1M_DP_001",
+  "grade": 1,
+  "subject": "Math",
+  "domain": "Data and Patterns",
+  "questions": [
+    {
+      "id": "G1M_DP_001_Q1",
+      "prompt": "Which comes next: 🔴🔵🔴🔵 ?",
+      "choices": [{"id":"a","text":"🔴"},{"id":"b","text":"🔵"},{"id":"c","text":"🟢"}],
+      "correct_choice_id": "a",
+      "hint": "Look for the repeating AB pattern.",
+      "feedback_correct": "Great pattern thinking!",
+      "feedback_incorrect": "Find what repeats in order."
+    }
+  ]
+}

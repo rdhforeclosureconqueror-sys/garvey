@@ -1,0 +1,21 @@
+{
+  "schema_version": "v1",
+  "engine_family": "recognition_selection",
+  "mission_id": "g1e_rf_002_recognition_pilot",
+  "skill_id": "G1E_RF_002",
+  "grade": 1,
+  "subject": "English",
+  "domain": "Reading Foundations",
+  "questions": [
+    {
+      "id": "G1E_RF_002_Q1",
+      "prompt": "What is the beginning sound in 'sun'?",
+      "tts_text": "What is the beginning sound in sun?",
+      "choices": [{"id":"a","text":"/s/"},{"id":"b","text":"/m/"},{"id":"c","text":"/t/"}],
+      "correct_choice_id": "a",
+      "hint": "Stretch the word: sssun.",
+      "feedback_correct": "Great listening!",
+      "feedback_incorrect": "Try saying the first sound slowly."
+    }
+  ]
+}

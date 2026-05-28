@@ -1,0 +1,21 @@
+{
+  "schema_version": "v1",
+  "engine_family": "recognition_selection",
+  "mission_id": "g1m_ns_003_recognition_pilot",
+  "skill_id": "G1M_NS_003",
+  "grade": 1,
+  "subject": "Math",
+  "domain": "Number Sense",
+  "questions": [
+    {
+      "id": "G1M_NS_003_Q1",
+      "prompt": "Which number is greater?",
+      "image_url": "/gamehub/content/placeholder-number-cards.png",
+      "choices": [{"id":"a","text":"9"},{"id":"b","text":"6"}],
+      "correct_choice_id": "a",
+      "hint": "Think about which number comes later when counting.",
+      "feedback_correct": "Correct! 9 is greater than 6.",
+      "feedback_incorrect": "Count up to compare them."
+    }
+  ]
+}
