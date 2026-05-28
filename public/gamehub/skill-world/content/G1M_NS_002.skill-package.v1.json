@@ -1,0 +1,52 @@
+{
+  "skill_id":"G1M_NS_002",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Number Sense + Counting",
+  "skill":"Count Forward and Backward Within 120",
+  "mastery_threshold":80,
+  "difficulty_range":[1,3],
+  "lesson":{"story_mission":"Repair the Sky Number Line from 0 to 120.","mini_lesson":"When we cross a decade, the tens digit changes and counting keeps a steady +1 or -1 step."},
+  "worked_examples":[
+    {"text":"99, 100, 101: after 99, the tens and ones reset to make 100."},
+    {"text":"110, 109, 108: counting backward decreases by one each step."}
+  ],
+  "hint_ladder":["Say the numbers aloud one by one.","Check whether you are adding 1 or subtracting 1.","Watch the tens digit at decade transitions like 99→100 and 109→110."],
+  "guided_practice":[
+    {"question_id":"G1M_NS_002_GP1","question_type":"short_response","visual_model":"number_line_0_120","prompt":"Count forward: 18, 19, __, 21","correct_answer":"20","misconception_tag":"digit_reversal"},
+    {"question_id":"G1M_NS_002_GP2","question_type":"short_response","visual_model":"number_line_0_120","prompt":"Count backward: 43, 42, __, 40","correct_answer":"41","misconception_tag":"backward_count_drop"},
+    {"question_id":"G1M_NS_002_GP3","question_type":"number_sequence","visual_model":"comparison_cards","prompt":"Build the next three numbers after 97.","correct_answer":"98,99,100","acceptable_answers":["98 99 100"],"misconception_tag":"decade_transition_skip"},
+    {"question_id":"G1M_NS_002_GP4","question_type":"multiple_choice","visual_model":"number_line_0_120","prompt":"Which number comes right after 109?","options":["119","110","100"],"correct_answer":"110","misconception_tag":"decade_transition_skip"},
+    {"question_id":"G1M_NS_002_GP5","question_type":"short_response","visual_model":"number_line_0_120","prompt":"Fill in the missing number: 100, __, 102","correct_answer":"101","misconception_tag":"digit_reversal"},
+    {"question_id":"G1M_NS_002_GP6","question_type":"multiple_choice","visual_model":"comparison_cards","prompt":"Pick the correct backward sequence.","options":["120, 119, 118","120, 121, 122","120, 110, 100"],"correct_answer":"120, 119, 118","misconception_tag":"backward_count_drop"}
+  ],
+  "adaptive_question_bank":[
+    {"question_id":"G1M_NS_002_AQ1","question_type":"short_response","visual_model":"number_line_0_120","prompt":"What number comes after 58?","correct_answer":"59","misconception_tag":"digit_reversal"},
+    {"question_id":"G1M_NS_002_AQ2","question_type":"short_response","visual_model":"number_line_0_120","prompt":"What number comes before 70?","correct_answer":"69","misconception_tag":"backward_count_drop"},
+    {"question_id":"G1M_NS_002_AQ3","question_type":"multiple_choice","visual_model":"comparison_cards","prompt":"Choose the number between 88 and 90.","options":["87","89","91"],"correct_answer":"89","misconception_tag":"digit_reversal"},
+    {"question_id":"G1M_NS_002_AQ4","question_type":"number_sequence","visual_model":"number_line_0_120","prompt":"Write the next three numbers: 98, __, __, __","correct_answer":"99,100,101","acceptable_answers":["99 100 101"],"misconception_tag":"decade_transition_skip"},
+    {"question_id":"G1M_NS_002_AQ5","question_type":"short_response","visual_model":"number_line_0_120","prompt":"Count backward one step from 100.","correct_answer":"99","misconception_tag":"decade_transition_skip"},
+    {"question_id":"G1M_NS_002_AQ6","question_type":"multiple_choice","visual_model":"comparison_cards","prompt":"Which sequence counts by ones correctly?","options":["106, 107, 108","106, 108, 109","106, 105, 104"],"correct_answer":"106, 107, 108","misconception_tag":"digit_reversal"},
+    {"question_id":"G1M_NS_002_AQ7","question_type":"short_response","visual_model":"number_line_0_120","prompt":"What number comes after 119?","correct_answer":"120","misconception_tag":"decade_transition_skip"},
+    {"question_id":"G1M_NS_002_AQ8","question_type":"short_response","visual_model":"number_line_0_120","prompt":"What number comes before 111?","correct_answer":"110","misconception_tag":"backward_count_drop"},
+    {"question_id":"G1M_NS_002_AQ9","question_type":"multiple_choice","visual_model":"comparison_cards","prompt":"Find the missing number: 109, __, 111","options":["100","110","119"],"correct_answer":"110","misconception_tag":"decade_transition_skip"},
+    {"question_id":"G1M_NS_002_AQ10","question_type":"number_sequence","visual_model":"number_line_0_120","prompt":"Count backward from 32 for three numbers.","correct_answer":"31,30,29","acceptable_answers":["31 30 29"],"misconception_tag":"backward_count_drop"},
+    {"question_id":"G1M_NS_002_AQ11","question_type":"short_response","visual_model":"number_line_0_120","prompt":"Fill in: 39, 40, __","correct_answer":"41","misconception_tag":"digit_reversal"},
+    {"question_id":"G1M_NS_002_AQ12","question_type":"multiple_choice","visual_model":"comparison_cards","prompt":"Which is correct after 99?","options":["100","90","109"],"correct_answer":"100","misconception_tag":"decade_transition_skip"}
+  ],
+  "checkpoint":[
+    {"question_id":"G1M_NS_002_CP1","question_type":"short_response","visual_model":"number_line_0_120","prompt":"Write the next number: 99, __","correct_answer":"100","misconception_tag":"decade_transition_skip"},
+    {"question_id":"G1M_NS_002_CP2","question_type":"short_response","visual_model":"number_line_0_120","prompt":"Write the next number: 109, __","correct_answer":"110","misconception_tag":"decade_transition_skip"},
+    {"question_id":"G1M_NS_002_CP3","question_type":"multiple_choice","visual_model":"comparison_cards","prompt":"What comes before 100?","options":["101","99","90"],"correct_answer":"99","misconception_tag":"backward_count_drop"},
+    {"question_id":"G1M_NS_002_CP4","question_type":"number_sequence","visual_model":"number_line_0_120","prompt":"Complete: 117, 118, __, 120","correct_answer":"119","misconception_tag":"digit_reversal"}
+  ],
+  "misconception_bank":{
+    "decade_transition_skip":"Learner loses track when tens digit changes at decade boundaries.",
+    "digit_reversal":"Learner reverses or misreads digit order in two-digit numbers.",
+    "backward_count_drop":"Learner skips numbers or changes direction when counting backward."
+  },
+  "review_bank":[{"prompt":"Practice crossing 99→100 and 109→110 on a number line."}],
+  "game_theme":{"name":"Skyline Counter Quest","world":"Cloud Number Harbor"},
+  "next_skill_id":"G1M_PV_001",
+  "remediation_skill_id":"G1M_NS_001"
+}
