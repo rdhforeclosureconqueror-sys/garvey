@@ -3,30 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Grade 1 Recognition / Selection Pilot</title>
+  <title>Skill World Missions</title>
   <style>
-    body{font-family:Arial,sans-serif;background:#0f172a;color:#e2e8f0;margin:0;padding:20px}
-    .panel{background:#111827;border:1px solid #334155;border-radius:12px;padding:16px;margin-bottom:14px}
-    .btn{display:inline-block;padding:10px 12px;border-radius:10px;border:1px solid #475569;color:#e2e8f0;background:#1e293b;cursor:pointer}
-    .btn.primary{background:#0ea5e9;border-color:#38bdf8;color:#082f49}
+    body{font-family:Arial,sans-serif;background:linear-gradient(180deg,#1d4ed8,#0f172a);color:#e2e8f0;margin:0;padding:20px}
+    .shell{max-width:960px;margin:0 auto}
+    .panel{background:#0b1220;border:1px solid #334155;border-radius:16px;padding:18px;margin-bottom:14px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;border:1px solid #475569;color:#e2e8f0;background:#1e293b;cursor:pointer}
+    .btn.primary{background:#facc15;border-color:#fde047;color:#1f2937;font-weight:700}
     .btn:disabled{opacity:.45;cursor:not-allowed}
     .choices{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-    .pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#1e293b;border:1px solid #334155;margin-right:8px}
-    .hint{background:#0b1220;border:1px solid #334155;border-radius:8px;padding:10px}
-    .small{font-size:.92rem;color:#94a3b8}
-    code{background:#0b1220;padding:2px 6px;border-radius:6px}
+    .chip{display:inline-block;padding:4px 10px;border-radius:999px;background:#1e293b;border:1px solid #334155;margin:2px 6px 2px 0}
+    .hint{background:#172554;border:1px solid #3b82f6;border-radius:8px;padding:10px;margin-top:10px}
+    .small{font-size:.92rem;color:#cbd5e1}
+    .good{color:#86efac}.bad{color:#fda4af}
+    .map{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:8px}
+    .map div{border:1px solid #334155;border-radius:10px;padding:8px;background:#111827}
   </style>
 </head>
 <body>
-  <main>
-    <section class="panel">
-      <h1>Recognition / Selection Pilot Runtime</h1>
-      <p class="small">Launch with <code>?skill=g1e_rf_001</code> (or one of the six pilot skill keys).</p>
-      <p id="routeNote" class="small"></p>
-    </section>
-    <section class="panel" id="statusPanel">Loading pilot runtime…</section>
-    <section class="panel" id="missionPanel" style="display:none"></section>
-    <section class="panel" id="qaPanel" style="display:none"></section>
+  <main class="shell">
+    <section class="panel" id="headerPanel"></section>
+    <section class="panel" id="mapPanel"></section>
+    <section class="panel" id="stagePanel"></section>
   </main>
   <script src="/gamehub/gamehub-session-adapter.js"></script>
   <script src="/gamehub/engines/recognition-selection/recognition-selection-engine.js"></script>
@@ -39,74 +37,97 @@
       g1m_gm_001:'/gamehub/content/adaptive-v2/grades/grade1/pilot-recognition-selection/g1m_gm_001.config.v1.json',
       g1m_dp_001:'/gamehub/content/adaptive-v2/grades/grade1/pilot-recognition-selection/g1m_dp_001.config.v1.json'
     };
-    const runtime={events:[],mission:null,config:null};
+    const SKILL_META={
+      g1e_rf_001:{name:'Sound Safari',theme:'Jungle Letter Rescue'},
+      g1e_rf_002:{name:'Blend Bridge',theme:'River Reading Quest'},
+      g1e_rf_004:{name:'Word Rocket',theme:'Skyline Fluency Flight'},
+      g1m_ns_003:{name:'Number Trail',theme:'Forest Counting Trek'},
+      g1m_gm_001:{name:'Shape Scout',theme:'Crystal Cave Geometry'},
+      g1m_dp_001:{name:'Data Detectives',theme:'Puzzle Park Patterns'}
+    };
+
+    const runtime={mission:null,config:null,stage:0,hintsUsed:0,lastFeedback:null,correct:0,total:0,retries:0};
     const params=new URLSearchParams(window.location.search||'');
     const skillKey=String(params.get('skill')||'g1e_rf_001').trim().toLowerCase();
     const configPath=PILOT_MAP[skillKey];
-    const routeNote=document.getElementById('routeNote');
-    routeNote.textContent=`Route: /gamehub/recognition-selection-pilot.html?skill=${encodeURIComponent(skillKey)}`;
-
-    function pushEvent(name,payload){runtime.events.push({name,payload,at:new Date().toISOString()});}
-    function renderStatus(msg){document.getElementById('statusPanel').innerHTML=`<h2>Runtime status</h2><p>${esc(msg)}</p>`;}
+    const meta=SKILL_META[skillKey]||{name:'Skill Mission',theme:'Learning Quest'};
     function esc(v){return String(v||'').replace(/[&<>"']/g,(m)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 
+    const STAGES=['Story Mission','Mini Lesson','Watch Me','Practice Zone','Challenge','Checkpoint','Badge Earned','Growth Data Saved'];
+
+    function stars(){ const pct=runtime.total?Math.round((runtime.correct/runtime.total)*100):0; return pct>=90?'⭐⭐⭐':pct>=70?'⭐⭐':'⭐'; }
+    function accuracy(){ return runtime.total?Math.round((runtime.correct/runtime.total)*100):0; }
+
+    function renderHeader(){
+      document.getElementById('headerPanel').innerHTML=`<h1>Skill World: ${esc(meta.name)}</h1><p>${esc(meta.theme)}</p><p><span class="chip">Stars ${stars()}</span><span class="chip">Accuracy ${accuracy()}%</span><span class="chip">Hints Used ${runtime.hintsUsed}</span><span class="chip">Current Zone ${esc(STAGES[runtime.stage]||'Story Mission')}</span></p>`;
+    }
+    function renderMap(){
+      document.getElementById('mapPanel').innerHTML=`<h2>Progress Map</h2><div class="map">${STAGES.map((s,i)=>`<div>${i<runtime.stage?'✅':i===runtime.stage?'🧭':'⬜'} ${esc(s)}</div>`).join('')}</div>`;
+    }
+
+    function renderIntro(){
+      const host=document.getElementById('stagePanel');
+      host.innerHTML=`<h2>1) Story Mission</h2><p>You are the hero! Complete each zone to help your team finish today's mission.</p>
+      <h2>2) Mini Lesson</h2><p>Quick tip: listen carefully, look for clues, and choose your best answer.</p>
+      <h2>3) Watch Me</h2><p>Watch one sample, then it's your turn in Practice Zone.</p>
+      <button class="btn primary" id="startPracticeBtn">Start Practice Zone</button>`;
+      document.getElementById('startPracticeBtn').onclick=()=>{runtime.stage=3;renderMission();};
+    }
+
     function renderMission(){
-      const host=document.getElementById('missionPanel');
+      const host=document.getElementById('stagePanel');
       const m=runtime.mission;
       const view=m.getQuestionView();
-      const feedback=view.feedback?`<p><strong>Feedback:</strong> ${esc(view.feedback.message||'')}</p>`:'';
-      const hint=view.hint?`<div class="hint"><strong>Hint:</strong> ${esc(view.hint)}</div>`:'<p class="small">Hint hidden until first miss.</p>';
-      const choices=(view.choices||[]).map(c=>`<button class="btn" data-choice="${esc(c.id)}">${esc(c.label||c.text||c.id)}</button>`).join('');
-      host.style.display='block';
-      host.innerHTML=`<h2>Mission</h2><p><span class="pill">Skill: ${esc(runtime.config.skill_id)}</span><span class="pill">Question ${m.getProgress().index+1}/${m.getProgress().total}</span></p><p>${esc(view.prompt)}</p><div class="choices">${choices}</div>${feedback}${hint}<div style="margin-top:10px"><button class="btn" id="showQaBtn">Show QA checklist</button></div>`;
+      const feedback=runtime.lastFeedback?`<p class="${runtime.lastFeedback.correct?'good':'bad'}"><strong>${runtime.lastFeedback.correct?'Great job!':'Try again!'}</strong> ${esc(runtime.lastFeedback.message||'')}</p>`:'';
+      const hint=view.hint?`<div class="hint"><strong>Hint:</strong> ${esc(view.hint)} <button class="btn" id="retryBtn">Retry</button></div>`:'<p class="small">Need help? Miss one and a hint appears.</p>';
+      const choices=(view.choices||[]).map(c=>`<button class="btn" data-choice="${esc(c.id)}">${esc(c.label||c.text||'Choice')}</button>`).join('');
+      host.innerHTML=`<h2>${runtime.stage===4?'5) Challenge':'4) Practice Zone'}</h2><p>${esc(view.prompt)}</p><div class="choices">${choices}</div>${feedback}${hint}`;
       host.querySelectorAll('[data-choice]').forEach(btn=>btn.onclick=()=>{
         const result=m.submitAnswer(btn.dataset.choice);
-        pushEvent('answer_submitted',result);
-        if(result && result.progress && result.progress.done){
-          const summary=m.finalize();
-          pushEvent('mission_finalized',summary);
-          renderCompletion(summary);
-          return;
-        }
-        renderMission();
+        runtime.total=result && result.progress ? result.progress.index + (result.progress.done?1:0) : runtime.total;
+        if(result && result.correct) runtime.correct += 1;
+        runtime.lastFeedback=result && result.feedback ? {correct:!!result.correct,message:result.feedback.message||''} : {correct:!!(result&&result.correct),message:''};
+        if(!result.correct && m.getQuestionView().hint){ runtime.hintsUsed += 1; }
+        if(result && result.progress && result.progress.done){ runtime.stage=5; return renderCheckpoint(m.finalize()); }
+        if((result && result.progress && result.progress.index)>=1){ runtime.stage=4; }
+        renderHeader(); renderMap(); renderMission();
       });
-      document.getElementById('showQaBtn').onclick=renderQa;
+      const retryBtn=document.getElementById('retryBtn');
+      if(retryBtn) retryBtn.onclick=()=>{ runtime.retries += 1; runtime.lastFeedback={correct:false,message:'Nice effort—use the hint and choose again.'}; renderMission(); };
+      renderHeader(); renderMap();
     }
 
-    function renderCompletion(summary){
-      document.getElementById('missionPanel').innerHTML=`<h2>Mission complete</h2><p><strong>Completion state:</strong> ${esc(summary.completion_state)}</p><p><strong>Mastery signal:</strong> ${esc(summary.mastery_signal)}</p><p><strong>Correct:</strong> ${summary.correct_count}/${summary.total_questions}</p><button class="btn primary" id="qaDoneBtn">Open QA checklist</button>`;
-      document.getElementById('qaDoneBtn').onclick=renderQa;
+    function renderCheckpoint(summary){
+      runtime.stage=6;
+      const host=document.getElementById('stagePanel');
+      host.innerHTML=`<h2>6) Checkpoint</h2><p>You finished the challenge!</p><p><span class="chip">Accuracy ${accuracy()}%</span><span class="chip">Hints ${runtime.hintsUsed}</span><span class="chip">Stars ${stars()}</span></p><button class="btn primary" id="badgeBtn">Claim Badge</button>`;
+      document.getElementById('badgeBtn').onclick=()=>renderBadge(summary);
+      renderHeader(); renderMap();
     }
-
-    function renderQa(){
-      const host=document.getElementById('qaPanel');
-      const names=runtime.events.map(e=>e.name);
-      host.style.display='block';
-      host.innerHTML=`<h2>Manual QA checklist</h2><ul><li>✅ Mission starts (session created).</li><li>✅ Prompt renders.</li><li>✅ Answer choices render.</li><li>✅ Answer selection works.</li><li>✅ Feedback displays.</li><li>✅ Hint appears after miss.</li><li>✅ Retry flow works (<code>retry_started</code> event).</li><li>✅ Progress/mastery signal available on finalize.</li><li>✅ Completion state emitted.</li></ul><p class="small"><strong>Captured events:</strong> ${esc(names.join(', ')||'none')}</p>`;
+    function renderBadge(summary){
+      runtime.stage=7;
+      const host=document.getElementById('stagePanel');
+      host.innerHTML=`<h2>7) Badge / Mission Complete</h2><p>🏅 Badge unlocked: <strong>${esc(meta.name)} Explorer</strong></p><p>Mastery level: <strong>${esc(summary.mastery_signal||'growing')}</strong></p><button class="btn primary" id="saveBtn">Continue</button>`;
+      document.getElementById('saveBtn').onclick=()=>renderSaved(summary);
+      renderHeader(); renderMap();
+    }
+    function renderSaved(summary){
+      runtime.stage=8;
+      document.getElementById('stagePanel').innerHTML=`<h2>8) Growth Data Saved</h2><p>Your progress is saved!</p><p><strong>Summary:</strong> ${runtime.correct} correct out of ${summary.total_questions||runtime.total}, ${accuracy()}% accuracy, ${runtime.hintsUsed} hints used.</p><p><a class="btn primary" href="/gamehub/adaptive-v2-hub.html">Choose another mission</a></p>`;
+      renderHeader(); renderMap();
     }
 
     async function boot(){
-      if(!configPath){renderStatus('Unknown pilot skill key. Use one of: '+Object.keys(PILOT_MAP).join(', '));return;}
-      if(!window.RecognitionSelectionEngine){renderStatus('RecognitionSelectionEngine failed to load.');return;}
+      if(!configPath || !window.RecognitionSelectionEngine){document.getElementById('stagePanel').innerHTML='<h2>Mission unavailable</h2>';return;}
       const response=await fetch(configPath);
-      if(!response.ok){renderStatus(`Failed loading config (${response.status}): ${configPath}`);return;}
+      if(!response.ok){document.getElementById('stagePanel').innerHTML='<h2>Mission unavailable</h2>';return;}
       const config=await response.json();
-      let normalizedConfig;
-      try {
-        normalizedConfig=window.RecognitionSelectionEngine.validateConfig(config);
-      } catch (error) {
-        const message=error&&error.message?error.message:String(error);
-        renderStatus(`Config invalid for ${skillKey}: ${message}`);
-        return;
-      }
+      const normalizedConfig=window.RecognitionSelectionEngine.validateConfig(config);
       runtime.config=normalizedConfig;
-      pushEvent('config_loaded',{skill:normalizedConfig.skill_id,path:configPath});
       runtime.mission=window.RecognitionSelectionEngine.createEngineSession(normalizedConfig,{sessionAdapter:window.GamehubSessionAdapter,ttsHook:()=>Promise.resolve()});
-      pushEvent('mission_started',{skill:config.skill_id});
-      renderStatus(`Loaded ${normalizedConfig.skill_id} from ${configPath}`);
-      renderMission();
+      renderHeader(); renderMap(); renderIntro();
     }
-    boot().catch((err)=>renderStatus(`Runtime error: ${esc(err&&err.message?err.message:err)}`));
+    boot().catch(()=>{document.getElementById('stagePanel').innerHTML='<h2>Mission unavailable</h2>';});
   </script>
 </body>
 </html>

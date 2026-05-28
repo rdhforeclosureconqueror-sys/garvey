@@ -23,8 +23,8 @@
       <p class="muted">Grade 1 lessons are active now. Grades 2–6 are staged as coming soon.</p>
     </section>
     <section class="panel">
-      <h2>Recognition / Selection Grade 1 pilot</h2>
-      <p class="muted">Safe runtime validation route for six pilot configs only.</p>
+      <h2>Grade 1 Skill World Missions</h2>
+      <p class="muted">Choose a mission and begin your learner adventure.</p>
       <div id="pilotGrid" class="grid"></div>
     </section>
     <section class="panel">
@@ -65,7 +65,14 @@
     const gradeContent=document.getElementById('gradeContent');
     const launchSignalPathBtn=document.getElementById('launchSignalPath');
 
-    const pilotSkills=['g1e_rf_001','g1e_rf_002','g1e_rf_004','g1m_ns_003','g1m_gm_001','g1m_dp_001'];
+    const pilotSkills=[
+      {id:'g1e_rf_001',name:'Sound Safari'},
+      {id:'g1e_rf_002',name:'Blend Bridge'},
+      {id:'g1e_rf_004',name:'Word Rocket'},
+      {id:'g1m_ns_003',name:'Number Trail'},
+      {id:'g1m_gm_001',name:'Shape Scout'},
+      {id:'g1m_dp_001',name:'Data Detectives'}
+    ];
     function pilotHref(skill){ return `/gamehub/recognition-selection-pilot.html?skill=${encodeURIComponent(skill)}`; }
 
     function lessonHref(){ return '/gamehub/adaptive_learning.html?grade=1&runtime_version=adaptive_v2'; }
@@ -88,7 +95,7 @@
     gradeGrid.innerHTML=grades.map((g)=>`<button class="btn" data-grade="${g}">Grade ${g}</button>`).join('');
     gradeGrid.querySelectorAll('[data-grade]').forEach((btn)=>btn.addEventListener('click',()=>renderGrade(Number(btn.dataset.grade))));
     launchSignalPathBtn.addEventListener('click',()=>{ window.location.href=buildSignalPathUrl(); });
-    document.getElementById('pilotGrid').innerHTML=pilotSkills.map((skill)=>`<a class="btn" href="${pilotHref(skill)}">Launch ${skill.toUpperCase()}</a>`).join('');
+    document.getElementById('pilotGrid').innerHTML=pilotSkills.map((skill)=>`<a class="btn" href="${pilotHref(skill.id)}">Start ${skill.name}</a>`).join('');
     renderGrade(1);
   </script>
 </body>
