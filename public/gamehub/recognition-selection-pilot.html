@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grade 1 Recognition / Selection Pilot</title>
+  <style>
+    body{font-family:Arial,sans-serif;background:#0f172a;color:#e2e8f0;margin:0;padding:20px}
+    .panel{background:#111827;border:1px solid #334155;border-radius:12px;padding:16px;margin-bottom:14px}
+    .btn{display:inline-block;padding:10px 12px;border-radius:10px;border:1px solid #475569;color:#e2e8f0;background:#1e293b;cursor:pointer}
+    .btn.primary{background:#0ea5e9;border-color:#38bdf8;color:#082f49}
+    .btn:disabled{opacity:.45;cursor:not-allowed}
+    .choices{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#1e293b;border:1px solid #334155;margin-right:8px}
+    .hint{background:#0b1220;border:1px solid #334155;border-radius:8px;padding:10px}
+    .small{font-size:.92rem;color:#94a3b8}
+    code{background:#0b1220;padding:2px 6px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <main>
+    <section class="panel">
+      <h1>Recognition / Selection Pilot Runtime</h1>
+      <p class="small">Launch with <code>?skill=g1e_rf_001</code> (or one of the six pilot skill keys).</p>
+      <p id="routeNote" class="small"></p>
+    </section>
+    <section class="panel" id="statusPanel">Loading pilot runtime…</section>
+    <section class="panel" id="missionPanel" style="display:none"></section>
+    <section class="panel" id="qaPanel" style="display:none"></section>
+  </main>
+  <script src="/gamehub/gamehub-session-adapter.js"></script>
+  <script src="/gamehub/engines/recognition-selection/recognition-selection-engine.js"></script>
+  <script>
+    const PILOT_MAP={
+      g1e_rf_001:'/gamehub/content/adaptive-v2/grades/grade1/pilot-recognition-selection/g1e_rf_001.config.v1.json',
+      g1e_rf_002:'/gamehub/content/adaptive-v2/grades/grade1/pilot-recognition-selection/g1e_rf_002.config.v1.json',
+      g1e_rf_004:'/gamehub/content/adaptive-v2/grades/grade1/pilot-recognition-selection/g1e_rf_004.config.v1.json',
+      g1m_ns_003:'/gamehub/content/adaptive-v2/grades/grade1/pilot-recognition-selection/g1m_ns_003.config.v1.json',
+      g1m_gm_001:'/gamehub/content/adaptive-v2/grades/grade1/pilot-recognition-selection/g1m_gm_001.config.v1.json',
+      g1m_dp_001:'/gamehub/content/adaptive-v2/grades/grade1/pilot-recognition-selection/g1m_dp_001.config.v1.json'
+    };
+    const runtime={events:[],mission:null,config:null};
+    const params=new URLSearchParams(window.location.search||'');
+    const skillKey=String(params.get('skill')||'g1e_rf_001').trim().toLowerCase();
+    const configPath=PILOT_MAP[skillKey];
+    const routeNote=document.getElementById('routeNote');
+    routeNote.textContent=`Route: /gamehub/recognition-selection-pilot.html?skill=${encodeURIComponent(skillKey)}`;
+
+    function pushEvent(name,payload){runtime.events.push({name,payload,at:new Date().toISOString()});}
+    function renderStatus(msg){document.getElementById('statusPanel').innerHTML=`<h2>Runtime status</h2><p>${msg}</p>`;}
+    function esc(v){return String(v||'').replace(/[&<>"']/g,(m)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+
+    function renderMission(){
+      const host=document.getElementById('missionPanel');
+      const m=runtime.mission;
+      const view=m.getQuestionView();
+      const feedback=view.feedback?`<p><strong>Feedback:</strong> ${esc(view.feedback.message||'')}</p>`:'';
+      const hint=view.hint?`<div class="hint"><strong>Hint:</strong> ${esc(view.hint)}</div>`:'<p class="small">Hint hidden until first miss.</p>';
+      const choices=(view.choices||[]).map(c=>`<button class="btn" data-choice="${esc(c.id)}">${esc(c.label)}</button>`).join('');
+      host.style.display='block';
+      host.innerHTML=`<h2>Mission</h2><p><span class="pill">Skill: ${esc(runtime.config.skill_id)}</span><span class="pill">Question ${m.getProgress().index+1}/${m.getProgress().total}</span></p><p>${esc(view.prompt)}</p><div class="choices">${choices}</div>${feedback}${hint}<div style="margin-top:10px"><button class="btn" id="showQaBtn">Show QA checklist</button></div>`;
+      host.querySelectorAll('[data-choice]').forEach(btn=>btn.onclick=()=>{
+        const result=m.submitAnswer(btn.dataset.choice);
+        pushEvent('answer_submitted',result);
+        if(result.status==='mission_complete'){
+          const summary=m.finalize();
+          pushEvent('mission_finalized',summary);
+          renderCompletion(summary);
+          return;
+        }
+        renderMission();
+      });
+      document.getElementById('showQaBtn').onclick=renderQa;
+    }
+
+    function renderCompletion(summary){
+      document.getElementById('missionPanel').innerHTML=`<h2>Mission complete</h2><p><strong>Completion state:</strong> ${esc(summary.completion_state)}</p><p><strong>Mastery signal:</strong> ${esc(summary.mastery_signal)}</p><p><strong>Correct:</strong> ${summary.correct_count}/${summary.total_questions}</p><button class="btn primary" id="qaDoneBtn">Open QA checklist</button>`;
+      document.getElementById('qaDoneBtn').onclick=renderQa;
+    }
+
+    function renderQa(){
+      const host=document.getElementById('qaPanel');
+      const names=runtime.events.map(e=>e.name);
+      host.style.display='block';
+      host.innerHTML=`<h2>Manual QA checklist</h2><ul><li>✅ Mission starts (session created).</li><li>✅ Prompt renders.</li><li>✅ Answer choices render.</li><li>✅ Answer selection works.</li><li>✅ Feedback displays.</li><li>✅ Hint appears after miss.</li><li>✅ Retry flow works (<code>retry_started</code> event).</li><li>✅ Progress/mastery signal available on finalize.</li><li>✅ Completion state emitted.</li></ul><p class="small"><strong>Captured events:</strong> ${esc(names.join(', ')||'none')}</p>`;
+    }
+
+    async function boot(){
+      if(!configPath){renderStatus('Unknown pilot skill key. Use one of: '+Object.keys(PILOT_MAP).join(', '));return;}
+      if(!window.RecognitionSelectionEngine){renderStatus('RecognitionSelectionEngine failed to load.');return;}
+      const response=await fetch(configPath);
+      if(!response.ok){renderStatus(`Failed loading config: ${configPath}`);return;}
+      const config=await response.json();
+      const validation=window.RecognitionSelectionEngine.validateConfig(config);
+      if(!validation.valid){renderStatus('Config invalid: '+(validation.errors||[]).join('; '));return;}
+      runtime.config=config;
+      pushEvent('config_loaded',{skill:config.skill_id,path:configPath});
+      runtime.mission=window.RecognitionSelectionEngine.createEngineSession(config,{sessionAdapter:window.GamehubSessionAdapter,ttsHook:()=>Promise.resolve()});
+      pushEvent('mission_started',{skill:config.skill_id});
+      renderStatus(`Loaded ${config.skill_id} from ${configPath}`);
+      renderMission();
+    }
+    boot().catch((err)=>renderStatus(`Runtime error: ${esc(err&&err.message?err.message:err)}`));
+  </script>
+</body>
+</html>

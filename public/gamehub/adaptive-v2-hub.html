@@ -23,6 +23,11 @@
       <p class="muted">Grade 1 lessons are active now. Grades 2–6 are staged as coming soon.</p>
     </section>
     <section class="panel">
+      <h2>Recognition / Selection Grade 1 pilot</h2>
+      <p class="muted">Safe runtime validation route for six pilot configs only.</p>
+      <div id="pilotGrid" class="grid"></div>
+    </section>
+    <section class="panel">
       <h2>Select grade</h2>
       <div class="grid" id="gradeGrid"></div>
     </section>
@@ -59,6 +64,10 @@
     const gradeTitle=document.getElementById('gradeTitle');
     const gradeContent=document.getElementById('gradeContent');
     const launchSignalPathBtn=document.getElementById('launchSignalPath');
+
+    const pilotSkills=['g1e_rf_001','g1e_rf_002','g1e_rf_004','g1m_ns_003','g1m_gm_001','g1m_dp_001'];
+    function pilotHref(skill){ return `/gamehub/recognition-selection-pilot.html?skill=${encodeURIComponent(skill)}`; }
+
     function lessonHref(){ return '/gamehub/adaptive_learning.html?grade=1&runtime_version=adaptive_v2'; }
     function getLaunchContext(){
       const params=new URLSearchParams(window.location.search);
@@ -79,6 +88,7 @@
     gradeGrid.innerHTML=grades.map((g)=>`<button class="btn" data-grade="${g}">Grade ${g}</button>`).join('');
     gradeGrid.querySelectorAll('[data-grade]').forEach((btn)=>btn.addEventListener('click',()=>renderGrade(Number(btn.dataset.grade))));
     launchSignalPathBtn.addEventListener('click',()=>{ window.location.href=buildSignalPathUrl(); });
+    document.getElementById('pilotGrid').innerHTML=pilotSkills.map((skill)=>`<a class="btn" href="${pilotHref(skill)}">Launch ${skill.toUpperCase()}</a>`).join('');
     renderGrade(1);
   </script>
 </body>
