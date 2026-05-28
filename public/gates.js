@@ -177,7 +177,19 @@
 
 
   function renderAdaptiveLearningCard() {
-    return `<section class="panel"><h3>Adaptive Learning</h3><p>Grade 1–6 school-skill lessons, practice, and growth snapshots.</p><p><a class="btn secondary" href="/gamehub/adaptive-v2-hub.html">Open Adaptive V2 Lesson Hub</a></p></section>`;
+    const pilotLaunches = [
+      { domain: 'ELA', label: 'Letter Recognition and Letter Sounds', skillId: 'G1E_RF_001' },
+      { domain: 'ELA', label: 'Beginning Sounds', skillId: 'G1E_RF_002' },
+      { domain: 'ELA', label: 'Sight Words', skillId: 'G1E_RF_004' },
+      { domain: 'Math', label: 'Compare Numbers', skillId: 'G1M_NS_003' },
+      { domain: 'Math', label: 'Shapes and Spatial Reasoning', skillId: 'G1M_GM_001' },
+      { domain: 'Math', label: 'Sorting and Patterns', skillId: 'G1M_DP_001' }
+    ];
+    const pilotLinks = pilotLaunches.map((entry) => {
+      const href = `/gamehub/recognition-selection-pilot.html?skill=${encodeURIComponent(entry.skillId)}`;
+      return `<li><a class="btn secondary" data-pilot-skill="${entry.skillId}" href="${href}">${entry.domain}: ${entry.label}</a></li>`;
+    }).join('');
+    return `<section class="panel"><h3>Adaptive Learning</h3><p>Grade 1–6 school-skill lessons, practice, and growth snapshots.</p><p><a class="btn secondary" href="/gamehub/adaptive-v2-hub.html">Open Adaptive V2 Lesson Hub</a></p><section class="panel" aria-label="grade-1-pilot-games-internal-testing"><h4>Grade 1 Pilot Games (Internal Testing)</h4><p class="status">Internal pilot access only. Not part of public learner rollout.</p><ul class="gate-overview">${pilotLinks}</ul></section></section>`;
   }
 
   async function loadSession() {
