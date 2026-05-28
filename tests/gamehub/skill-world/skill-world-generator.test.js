@@ -5,9 +5,11 @@ const root=path.join(__dirname,'..','..','..');
 const dp=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill-world/content/G1M_DP_001.skill-package.v1.json'),'utf8'));
 const op=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill-world/content/G1M_OP_003.skill-package.v1.json'),'utf8'));
 const ns=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill-world/content/G1M_NS_002.skill-package.v1.json'),'utf8'));
+const pv=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill-world/content/G1M_PV_001.skill-package.v1.json'),'utf8'));
 const Renderer=require(path.join(root,'public/gamehub/skill-world/engine/skill-world-renderer.js'));
 const Adapter=require(path.join(root,'public/gamehub/skill-world/engine/growth-data-adapter.js'));
 const Schema=require(path.join(root,'public/gamehub/skill-world/engine/skill-package-schema.js'));
+const VisualRegistry=require(path.join(root,'public/gamehub/skill-world/renderers/visual-model-registry.js'));
 
 global.localStorage={_m:new Map(),setItem(k,v){this._m.set(k,v)},getItem(k){return this._m.get(k)||null}};
 
@@ -57,4 +59,28 @@ Renderer.submitAnswer(st3,'checkpoint',ns.checkpoint[1],ns.checkpoint[1].correct
 const growth3=Renderer.finalize(st3,ns,'learner-3');
 assert.equal(growth3.skill_id,'G1M_NS_002');
 assert.ok(['mastered','review'].includes(growth3.mastery_status));
+
+assert.equal(Schema.validateSkillPackage(pv).valid,true);
+assert.ok(pv.lesson.mini_lesson.includes('ten is a bundle of 10 ones'));
+assert.ok(pv.worked_examples.some((example)=>example.text.includes('10 ones = 1 ten')));
+assert.ok(pv.guided_practice.length>=6);
+assert.ok(pv.adaptive_question_bank.length>=12);
+assert.ok(pv.checkpoint.length>=4);
+const pvQuestions=[...pv.guided_practice,...pv.adaptive_question_bank,...pv.checkpoint];
+const labelBothParts=pvQuestions.filter((q)=>/how many tens and how many ones|label both parts/i.test(q.prompt));
+assert.ok(labelBothParts.length>=8);
+assert.deepEqual([...new Set(pvQuestions.map((q)=>q.representation).filter(Boolean))].sort(), ['blocks','chart','numeral']);
+['ones_tens_swap','ten_not_unitized','digit_name_value_confusion'].forEach((tag)=>{
+  assert.ok(pv.misconception_bank[tag]);
+  assert.ok(pvQuestions.some((q)=>q.misconception_tag===tag));
+});
+assert.ok(pvQuestions.every((q)=>VisualRegistry.render(q) !== '<div></div>'));
+const st4=Renderer.createState();
+Renderer.submitAnswer(st4,'guided',pv.guided_practice[1],'3 tens and 4 ones');
+Renderer.submitAnswer(st4,'challenge',pv.adaptive_question_bank[8],'10 tens, 4 ones');
+Renderer.submitAnswer(st4,'checkpoint',pv.checkpoint[3],pv.checkpoint[3].correct_answer);
+const growth4=Renderer.finalize(st4,pv,'learner-4');
+assert.equal(growth4.skill_id,'G1M_PV_001');
+assert.equal(growth4.mastery_status,'mastered');
+
 console.log('skill-world-generator tests passed');
