@@ -1,0 +1,446 @@
+{
+  "skill_id": "G1M_PV_001",
+  "grade": 1,
+  "subject": "Math",
+  "domain": "Place Value",
+  "skill": "Tens and Ones as Base-Ten Units",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    3
+  ],
+  "lesson": {
+    "story_mission": "Pack fireflies into lantern crates so every 10 ones becomes 1 ten.",
+    "mini_lesson": "A ten is a bundle of 10 ones. Two-digit numbers tell how many tens and how many ones are in the number. For 47, the 4 means 4 tens and the 7 means 7 ones."
+  },
+  "worked_examples": [
+    {
+      "text": "10 ones = 1 ten, so 10 loose cubes can be bundled into one ten-rod."
+    },
+    {
+      "text": "36 has 3 tens and 6 ones because 30 + 6 = 36."
+    },
+    {
+      "text": "8 tens and 2 ones make 82 because 80 + 2 = 82."
+    }
+  ],
+  "hint_ladder": [
+    "Circle each full group of 10 ones first.",
+    "Read the tens digit to count tens, then read the ones digit to count ones.",
+    "Check by adding tens value plus ones value."
+  ],
+  "guided_practice": [
+    {
+      "id": "G1M_PV_001_GP1",
+      "question_id": "G1M_PV_001_GP1",
+      "question_type": "base_ten_blocks",
+      "visual_model": "base_ten_blocks",
+      "prompt": "Lantern crates show 10 ones bundled together. 10 ones = how many ten?",
+      "value": 10,
+      "tens": 1,
+      "ones": 0,
+      "answer": "1 ten",
+      "correct_answer": "1 ten",
+      "acceptable_answers": [
+        "one ten",
+        "1"
+      ],
+      "representation": "blocks",
+      "misconception_tag": "ten_not_unitized"
+    },
+    {
+      "id": "G1M_PV_001_GP2",
+      "question_id": "G1M_PV_001_GP2",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Use the place-value chart: 34 has how many tens and how many ones?",
+      "value": 34,
+      "tens": 3,
+      "ones": 4,
+      "answer": "3 tens, 4 ones",
+      "correct_answer": "3 tens, 4 ones",
+      "acceptable_answers": [
+        "3 tens 4 ones",
+        "3,4",
+        "3 tens and 4 ones"
+      ],
+      "representation": "chart",
+      "misconception_tag": "digit_name_value_confusion"
+    },
+    {
+      "id": "G1M_PV_001_GP3",
+      "question_id": "G1M_PV_001_GP3",
+      "question_type": "multiple_choice",
+      "visual_model": "base_ten_blocks",
+      "prompt": "Which label matches 5 ten-rods and 7 ones?",
+      "value": 57,
+      "tens": 5,
+      "ones": 7,
+      "options": [
+        "7 tens, 5 ones",
+        "5 tens, 7 ones",
+        "57 tens, 0 ones"
+      ],
+      "answer": "5 tens, 7 ones",
+      "correct_answer": "5 tens, 7 ones",
+      "representation": "blocks",
+      "misconception_tag": "ones_tens_swap"
+    },
+    {
+      "id": "G1M_PV_001_GP4",
+      "question_id": "G1M_PV_001_GP4",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Write the number made by 6 tens and 2 ones.",
+      "tens": 6,
+      "ones": 2,
+      "answer": "62",
+      "correct_answer": "62",
+      "representation": "chart",
+      "misconception_tag": "digit_name_value_confusion"
+    },
+    {
+      "id": "G1M_PV_001_GP5",
+      "question_id": "G1M_PV_001_GP5",
+      "question_type": "short_response",
+      "visual_model": "base_ten_blocks",
+      "prompt": "A model has 4 tens and 9 ones. Label both parts.",
+      "value": 49,
+      "tens": 4,
+      "ones": 9,
+      "answer": "4 tens, 9 ones",
+      "correct_answer": "4 tens, 9 ones",
+      "acceptable_answers": [
+        "4 tens 9 ones",
+        "4,9",
+        "4 tens and 9 ones"
+      ],
+      "representation": "blocks",
+      "misconception_tag": "ones_tens_swap"
+    },
+    {
+      "id": "G1M_PV_001_GP6",
+      "question_id": "G1M_PV_001_GP6",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "Which shows that 10 ones can be regrouped?",
+      "options": [
+        "10 ones = 10 tens",
+        "10 ones = 1 ten",
+        "1 one = 10 tens"
+      ],
+      "answer": "10 ones = 1 ten",
+      "correct_answer": "10 ones = 1 ten",
+      "representation": "chart",
+      "misconception_tag": "ten_not_unitized"
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G1M_PV_001_AQ1",
+      "question_id": "G1M_PV_001_AQ1",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Label both parts of 28: how many tens and how many ones?",
+      "value": 28,
+      "tens": 2,
+      "ones": 8,
+      "answer": "2 tens, 8 ones",
+      "correct_answer": "2 tens, 8 ones",
+      "acceptable_answers": [
+        "2 tens 8 ones",
+        "2,8",
+        "2 tens and 8 ones"
+      ],
+      "representation": "numeral",
+      "misconception_tag": "digit_name_value_confusion"
+    },
+    {
+      "id": "G1M_PV_001_AQ2",
+      "question_id": "G1M_PV_001_AQ2",
+      "question_type": "base_ten_blocks",
+      "visual_model": "base_ten_blocks",
+      "prompt": "Base-ten blocks show 7 tens and 3 ones. What number is shown?",
+      "value": 73,
+      "tens": 7,
+      "ones": 3,
+      "answer": "73",
+      "correct_answer": "73",
+      "representation": "blocks",
+      "misconception_tag": "ones_tens_swap"
+    },
+    {
+      "id": "G1M_PV_001_AQ3",
+      "question_id": "G1M_PV_001_AQ3",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Label both parts of 91: how many tens and how many ones?",
+      "value": 91,
+      "tens": 9,
+      "ones": 1,
+      "answer": "9 tens, 1 one",
+      "correct_answer": "9 tens, 1 one",
+      "acceptable_answers": [
+        "9 tens 1 one",
+        "9 tens, 1 ones",
+        "9,1",
+        "9 tens and 1 one"
+      ],
+      "representation": "numeral",
+      "misconception_tag": "digit_name_value_confusion"
+    },
+    {
+      "id": "G1M_PV_001_AQ4",
+      "question_id": "G1M_PV_001_AQ4",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "Which chart matches 46?",
+      "value": 46,
+      "options": [
+        "4 tens, 6 ones",
+        "6 tens, 4 ones",
+        "40 tens, 6 ones"
+      ],
+      "answer": "4 tens, 6 ones",
+      "correct_answer": "4 tens, 6 ones",
+      "representation": "chart",
+      "misconception_tag": "ones_tens_swap"
+    },
+    {
+      "id": "G1M_PV_001_AQ5",
+      "question_id": "G1M_PV_001_AQ5",
+      "question_type": "short_response",
+      "visual_model": "base_ten_blocks",
+      "prompt": "A block model has 8 tens and 0 ones. What number is it?",
+      "value": 80,
+      "tens": 8,
+      "ones": 0,
+      "answer": "80",
+      "correct_answer": "80",
+      "representation": "blocks",
+      "misconception_tag": "digit_name_value_confusion"
+    },
+    {
+      "id": "G1M_PV_001_AQ6",
+      "question_id": "G1M_PV_001_AQ6",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Label both parts of 65: how many tens and how many ones?",
+      "value": 65,
+      "tens": 6,
+      "ones": 5,
+      "answer": "6 tens, 5 ones",
+      "correct_answer": "6 tens, 5 ones",
+      "acceptable_answers": [
+        "6 tens 5 ones",
+        "6,5",
+        "6 tens and 5 ones"
+      ],
+      "representation": "numeral",
+      "misconception_tag": "ones_tens_swap"
+    },
+    {
+      "id": "G1M_PV_001_AQ7",
+      "question_id": "G1M_PV_001_AQ7",
+      "question_type": "multiple_choice",
+      "visual_model": "base_ten_blocks",
+      "prompt": "A learner has 12 ones. What should they bundle first?",
+      "options": [
+        "1 ten and 2 ones",
+        "12 tens and 0 ones",
+        "0 tens and 12 ones forever"
+      ],
+      "answer": "1 ten and 2 ones",
+      "correct_answer": "1 ten and 2 ones",
+      "representation": "blocks",
+      "misconception_tag": "ten_not_unitized"
+    },
+    {
+      "id": "G1M_PV_001_AQ8",
+      "question_id": "G1M_PV_001_AQ8",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Write the number: 11 tens and 4 ones.",
+      "tens": 11,
+      "ones": 4,
+      "answer": "114",
+      "correct_answer": "114",
+      "representation": "chart",
+      "misconception_tag": "digit_name_value_confusion"
+    },
+    {
+      "id": "G1M_PV_001_AQ9",
+      "question_id": "G1M_PV_001_AQ9",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Label both parts of 104: how many tens and how many ones?",
+      "value": 104,
+      "tens": 10,
+      "ones": 4,
+      "answer": "10 tens, 4 ones",
+      "correct_answer": "10 tens, 4 ones",
+      "acceptable_answers": [
+        "10 tens 4 ones",
+        "10,4",
+        "10 tens and 4 ones"
+      ],
+      "representation": "numeral",
+      "misconception_tag": "digit_name_value_confusion"
+    },
+    {
+      "id": "G1M_PV_001_AQ10",
+      "question_id": "G1M_PV_001_AQ10",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "Which equation matches 7 tens and 6 ones?",
+      "options": [
+        "70 + 6 = 76",
+        "7 + 60 = 67",
+        "76 + 0 = 7"
+      ],
+      "answer": "70 + 6 = 76",
+      "correct_answer": "70 + 6 = 76",
+      "representation": "chart",
+      "misconception_tag": "digit_name_value_confusion"
+    },
+    {
+      "id": "G1M_PV_001_AQ11",
+      "question_id": "G1M_PV_001_AQ11",
+      "question_type": "short_response",
+      "visual_model": "base_ten_blocks",
+      "prompt": "Label both parts of a 39 block model: how many tens and how many ones?",
+      "value": 39,
+      "tens": 3,
+      "ones": 9,
+      "answer": "3 tens, 9 ones",
+      "correct_answer": "3 tens, 9 ones",
+      "acceptable_answers": [
+        "3 tens 9 ones",
+        "3,9",
+        "3 tens and 9 ones"
+      ],
+      "representation": "blocks",
+      "misconception_tag": "ones_tens_swap"
+    },
+    {
+      "id": "G1M_PV_001_AQ12",
+      "question_id": "G1M_PV_001_AQ12",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Label both parts of 120: how many tens and how many ones?",
+      "value": 120,
+      "tens": 12,
+      "ones": 0,
+      "answer": "12 tens, 0 ones",
+      "correct_answer": "12 tens, 0 ones",
+      "acceptable_answers": [
+        "12 tens 0 ones",
+        "12,0",
+        "12 tens and 0 ones"
+      ],
+      "representation": "numeral",
+      "misconception_tag": "digit_name_value_confusion"
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G1M_PV_001_CP1",
+      "question_id": "G1M_PV_001_CP1",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Checkpoint: Label both parts of 58 with tens and ones.",
+      "value": 58,
+      "tens": 5,
+      "ones": 8,
+      "answer": "5 tens, 8 ones",
+      "correct_answer": "5 tens, 8 ones",
+      "acceptable_answers": [
+        "5 tens 8 ones",
+        "5,8",
+        "5 tens and 8 ones"
+      ],
+      "representation": "chart",
+      "misconception_tag": "ones_tens_swap"
+    },
+    {
+      "id": "G1M_PV_001_CP2",
+      "question_id": "G1M_PV_001_CP2",
+      "question_type": "base_ten_blocks",
+      "visual_model": "base_ten_blocks",
+      "prompt": "Checkpoint: A model has 9 tens and 6 ones. What number is shown?",
+      "value": 96,
+      "tens": 9,
+      "ones": 6,
+      "answer": "96",
+      "correct_answer": "96",
+      "representation": "blocks",
+      "misconception_tag": "digit_name_value_confusion"
+    },
+    {
+      "id": "G1M_PV_001_CP3",
+      "question_id": "G1M_PV_001_CP3",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "Checkpoint: Which statement is true about 10 ones?",
+      "options": [
+        "10 ones = 1 ten",
+        "10 ones = 0 tens",
+        "10 ones = 10 tens"
+      ],
+      "answer": "10 ones = 1 ten",
+      "correct_answer": "10 ones = 1 ten",
+      "representation": "chart",
+      "misconception_tag": "ten_not_unitized"
+    },
+    {
+      "id": "G1M_PV_001_CP4",
+      "question_id": "G1M_PV_001_CP4",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Checkpoint: Label both parts of 117 with tens and ones.",
+      "value": 117,
+      "tens": 11,
+      "ones": 7,
+      "answer": "11 tens, 7 ones",
+      "correct_answer": "11 tens, 7 ones",
+      "acceptable_answers": [
+        "11 tens 7 ones",
+        "11,7",
+        "11 tens and 7 ones"
+      ],
+      "representation": "numeral",
+      "misconception_tag": "digit_name_value_confusion"
+    }
+  ],
+  "misconception_bank": {
+    "ones_tens_swap": "Learner may reverse the tens and ones positions instead of reading tens first.",
+    "ten_not_unitized": "Learner may not yet see 10 ones as one composite ten-unit.",
+    "digit_name_value_confusion": "Learner may name a digit without connecting it to its place value."
+  },
+  "review_bank": [
+    {
+      "prompt": "Build 10 ones, trade them for 1 ten, and say the trade aloud."
+    },
+    {
+      "prompt": "Read two-digit numbers as tens first, ones second."
+    },
+    {
+      "prompt": "Match base-ten blocks, numerals, and place-value charts for the same number."
+    }
+  ],
+  "game_theme": {
+    "name": "Lantern Place-Value Workshop",
+    "world": "Number Harbor"
+  },
+  "support_type": "teacher-led",
+  "explanation_fields": {
+    "why_it_matters": "Tens-and-ones unitizing prepares learners to compare, add, and subtract two-digit numbers using place value."
+  },
+  "feedback_fields": {
+    "correct": "Great! You named the tens and ones.",
+    "incorrect": "Count full groups of ten first, then count loose ones."
+  },
+  "next_skill_id": "G1M_NS_004",
+  "remediation_skill_id": "G1M_NS_002",
+  "source_work_item": "G1-P0-002"
+}
