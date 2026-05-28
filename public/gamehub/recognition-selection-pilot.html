@@ -47,7 +47,7 @@
     routeNote.textContent=`Route: /gamehub/recognition-selection-pilot.html?skill=${encodeURIComponent(skillKey)}`;
 
     function pushEvent(name,payload){runtime.events.push({name,payload,at:new Date().toISOString()});}
-    function renderStatus(msg){document.getElementById('statusPanel').innerHTML=`<h2>Runtime status</h2><p>${msg}</p>`;}
+    function renderStatus(msg){document.getElementById('statusPanel').innerHTML=`<h2>Runtime status</h2><p>${esc(msg)}</p>`;}
     function esc(v){return String(v||'').replace(/[&<>"']/g,(m)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 
     function renderMission(){
@@ -56,13 +56,13 @@
       const view=m.getQuestionView();
       const feedback=view.feedback?`<p><strong>Feedback:</strong> ${esc(view.feedback.message||'')}</p>`:'';
       const hint=view.hint?`<div class="hint"><strong>Hint:</strong> ${esc(view.hint)}</div>`:'<p class="small">Hint hidden until first miss.</p>';
-      const choices=(view.choices||[]).map(c=>`<button class="btn" data-choice="${esc(c.id)}">${esc(c.label)}</button>`).join('');
+      const choices=(view.choices||[]).map(c=>`<button class="btn" data-choice="${esc(c.id)}">${esc(c.label||c.text||c.id)}</button>`).join('');
       host.style.display='block';
       host.innerHTML=`<h2>Mission</h2><p><span class="pill">Skill: ${esc(runtime.config.skill_id)}</span><span class="pill">Question ${m.getProgress().index+1}/${m.getProgress().total}</span></p><p>${esc(view.prompt)}</p><div class="choices">${choices}</div>${feedback}${hint}<div style="margin-top:10px"><button class="btn" id="showQaBtn">Show QA checklist</button></div>`;
       host.querySelectorAll('[data-choice]').forEach(btn=>btn.onclick=()=>{
         const result=m.submitAnswer(btn.dataset.choice);
         pushEvent('answer_submitted',result);
-        if(result.status==='mission_complete'){
+        if(result && result.progress && result.progress.done){
           const summary=m.finalize();
           pushEvent('mission_finalized',summary);
           renderCompletion(summary);
@@ -89,15 +89,21 @@
       if(!configPath){renderStatus('Unknown pilot skill key. Use one of: '+Object.keys(PILOT_MAP).join(', '));return;}
       if(!window.RecognitionSelectionEngine){renderStatus('RecognitionSelectionEngine failed to load.');return;}
       const response=await fetch(configPath);
-      if(!response.ok){renderStatus(`Failed loading config: ${configPath}`);return;}
+      if(!response.ok){renderStatus(`Failed loading config (${response.status}): ${configPath}`);return;}
       const config=await response.json();
-      const validation=window.RecognitionSelectionEngine.validateConfig(config);
-      if(!validation.valid){renderStatus('Config invalid: '+(validation.errors||[]).join('; '));return;}
-      runtime.config=config;
-      pushEvent('config_loaded',{skill:config.skill_id,path:configPath});
-      runtime.mission=window.RecognitionSelectionEngine.createEngineSession(config,{sessionAdapter:window.GamehubSessionAdapter,ttsHook:()=>Promise.resolve()});
+      let normalizedConfig;
+      try {
+        normalizedConfig=window.RecognitionSelectionEngine.validateConfig(config);
+      } catch (error) {
+        const message=error&&error.message?error.message:String(error);
+        renderStatus(`Config invalid for ${skillKey}: ${message}`);
+        return;
+      }
+      runtime.config=normalizedConfig;
+      pushEvent('config_loaded',{skill:normalizedConfig.skill_id,path:configPath});
+      runtime.mission=window.RecognitionSelectionEngine.createEngineSession(normalizedConfig,{sessionAdapter:window.GamehubSessionAdapter,ttsHook:()=>Promise.resolve()});
       pushEvent('mission_started',{skill:config.skill_id});
-      renderStatus(`Loaded ${config.skill_id} from ${configPath}`);
+      renderStatus(`Loaded ${normalizedConfig.skill_id} from ${configPath}`);
       renderMission();
     }
     boot().catch((err)=>renderStatus(`Runtime error: ${esc(err&&err.message?err.message:err)}`));
