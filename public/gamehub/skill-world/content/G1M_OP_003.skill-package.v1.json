@@ -1,0 +1,23 @@
+{
+  "skill_id":"G1M_OP_003",
+  "grade":1,
+  "subject":"Math",
+  "domain":"Operations",
+  "skill":"Fact Fluency and Number Bonds Within 10",
+  "mastery_threshold":80,
+  "difficulty_range":[1,2],
+  "lesson":{"story_mission":"Power up Bond Bridge with number pairs to 10.","mini_lesson":"Number bonds show how two parts make a whole."},
+  "worked_examples":[{"text":"If the whole is 10 and one part is 6, the missing part is 4."}],
+  "hint_ladder":["Start at 10.","Count up from the known part.","Check both parts make 10."],
+  "guided_practice":[{"question_id":"gp_nb_1","question_type":"short_response","visual_model":"number_bond","prompt":"10 = 7 + ?","whole":10,"part_a":7,"part_b":"?","correct_answer":"3","acceptable_answers":["03"],"misconception_tag":"bond_missing_part"}],
+  "adaptive_question_bank":[{"question_id":"aq_nb_1","question_type":"multiple_choice","visual_model":"number_bond","prompt":"Which pair makes 10?","options":["8 and 1","6 and 4","5 and 2"],"correct_answer":"6 and 4","misconception_tag":"bond_pair_error"}],
+  "checkpoint":[{"question_id":"cp_ff_1","question_type":"short_response","visual_model":"addition_model","prompt":"5 + 5 = ?","a":5,"b":5,"correct_answer":"10","misconception_tag":"fact_fluency_slow"}],
+  "misconception_bank":{"bond_missing_part":"Learner is not yet decomposing from the whole.","bond_pair_error":"Learner confuses near pairs with exact bonds.","fact_fluency_slow":"Learner needs repeated practice on doubles."},
+  "review_bank":[{"prompt":"Try more make-10 missing-part facts."}],
+  "game_theme":{"name":"Bond Bridge","world":"Number Harbor"},
+  "support_type":"teacher-led",
+  "explanation_fields":{"why_it_matters":"Helps build mental math fluency."},
+  "feedback_fields":{"correct":"Great bond!","incorrect":"Try a pair that totals 10."},
+  "next_skill_id":"G1M_OP_004",
+  "remediation_skill_id":"G1M_OP_002"
+}
