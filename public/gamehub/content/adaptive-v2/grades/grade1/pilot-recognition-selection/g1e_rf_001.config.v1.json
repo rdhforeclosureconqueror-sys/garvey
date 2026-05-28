@@ -1,0 +1,21 @@
+{
+  "schema_version": "v1",
+  "engine_family": "recognition_selection",
+  "mission_id": "g1e_rf_001_recognition_pilot",
+  "skill_id": "G1E_RF_001",
+  "grade": 1,
+  "subject": "English",
+  "domain": "Reading Foundations",
+  "engine_options": { "maxAttemptsPerQuestion": 2, "masteryThreshold": 0.8 },
+  "questions": [
+    {
+      "id": "G1E_RF_001_Q1",
+      "prompt": "Which letter makes the /m/ sound?",
+      "choices": [{"id":"a","text":"m"},{"id":"b","text":"s"},{"id":"c","text":"t"}],
+      "correct_choice_id": "a",
+      "hint": "Say each sound out loud.",
+      "feedback_correct": "Yes! m makes /m/.",
+      "feedback_incorrect": "Almost. Try the sound again."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "v1",
+  "engine_family": "recognition_selection",
+  "mission_id": "g1e_rf_004_recognition_pilot",
+  "skill_id": "G1E_RF_004",
+  "grade": 1,
+  "subject": "English",
+  "domain": "Reading Foundations",
+  "questions": [
+    {
+      "id": "G1E_RF_004_Q1",
+      "prompt": "Pick the sight word: the",
+      "choices": [{"id":"a","text":"then"},{"id":"b","text":"the"},{"id":"c","text":"they"}],
+      "correct_choice_id": "b",
+      "hint": "Look for exactly three letters: t-h-e.",
+      "feedback_correct": "You found it!",
+      "feedback_incorrect": "Check each letter carefully."
+    }
+  ]
+}
