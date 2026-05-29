@@ -9,10 +9,30 @@
 <script>
 (async function(){
  const id=(location.pathname.split('/').pop()||'G1M_DP_001').toUpperCase(); const app=document.getElementById('app');
- try{const p=await (await fetch(`/gamehub/skill-world/content/${id}.skill-package.v1.json`)).json(); const state=SkillWorldRenderer.createState(); const rendered=SkillWorldRenderer.renderSkillWorld(p,{state,failClosed:true}); app.innerHTML=rendered.html;
- function refreshChrome(){const shell=SkillWorldRenderer.renderSkillWorld(p,{state}).html; const temp=document.createElement('div'); temp.innerHTML=shell; app.querySelector('.mission-map').innerHTML=temp.querySelector('.mission-map').innerHTML; app.querySelector('.sw-stats').innerHTML=temp.querySelector('.sw-stats').innerHTML;}
- function activeQuestion(section){const zone=section.classList.contains('challenge-screen')?'challenge':section.classList.contains('checkpoint-screen')?'checkpoint':'practice'; const q=zone==='challenge'?(p.adaptive_question_bank||[])[0]:zone==='checkpoint'?(p.checkpoint||[])[0]:(p.guided_practice||[])[0]; return {zone,q};}
- app.addEventListener('click',(e)=>{const step=e.target.closest('.mission-step'); if(step){state.stepIndex=[...app.querySelectorAll('.mission-step')].indexOf(step); refreshChrome(); return;} const hint=e.target.closest('#hint'); if(hint){SkillWorldRenderer.useHint(state); const fb=hint.closest('.question-card').querySelector('.feedback-area'); fb.textContent=hint.nextElementSibling.textContent; refreshChrome(); return;} const show=e.target.closest('#show'); if(show){const section=show.closest('.screen'); const {zone,q}=activeQuestion(section); const r=SkillWorldRenderer.showAnswerAndContinue(state,zone,q); const fb=section.querySelector('.feedback-area'); fb.className='feedback-area wrong'; fb.textContent=`Answer: ${r.correctAnswer}. Continue when ready!`; refreshChrome(); return;} const ans=e.target.closest('.ans'); if(ans){const section=ans.closest('.screen'); const {zone,q}=activeQuestion(section); const r=SkillWorldRenderer.submitAnswer(state,zone,q,ans.dataset.val); const fb=section.querySelector('.feedback-area'); fb.className=`feedback-area ${r.correct?'correct':'wrong'}`; fb.textContent=r.correct?'Correct! Great model work.':`Not yet. Correct answer: ${r.correctAnswer}.`; refreshChrome(); return;} const submit=e.target.closest('#submit'); if(submit){const section=submit.closest('.screen'); const {zone,q}=activeQuestion(section); const r=SkillWorldRenderer.submitAnswer(state,zone,q,section.querySelector('#short').value); const fb=section.querySelector('.feedback-area'); fb.className=`feedback-area ${r.correct?'correct':'wrong'}`; fb.textContent=r.correct?'Correct! Great model work.':`Not yet. Correct answer: ${r.correctAnswer}.`; refreshChrome(); }});
+ try{const p=await (await fetch(`/gamehub/skill-world/content/${id}.skill-package.v1.json`)).json(); const state=SkillWorldRenderer.createState();
+ function render(){const rendered=SkillWorldRenderer.renderSkillWorld(p,{state,failClosed:true,profile:state.profile}); app.innerHTML=rendered.html; window.scrollTo({top:0,behavior:'smooth'});}
+ function activeQuestion(section){const step=Number(section?.dataset?.stepIndex||state.stepIndex||0); return SkillWorldRenderer.zoneQuestion(p,step);}
+ function answerFeedback(section,result){const fb=section.querySelector('.feedback-area'); if(!fb)return; fb.className=`feedback-card feedback-area ${result.correct?'correct':'wrong'}`; fb.textContent=result.correct?'Correct! Great model work.':`Not yet. Correct answer: ${result.correctAnswer}.`;}
+ function updateQuestionNext(section){const next=section.querySelector('#next'); if(next)next.disabled=!SkillWorldRenderer.canAdvance(state,p);}
+ render();
+ app.addEventListener('click',(e)=>{
+   const step=e.target.closest('.mission-step');
+   if(step){const requested=Number(step.dataset.stepIndex); if(requested<=state.stepIndex){state.stepIndex=requested; render();} return;}
+   const hint=e.target.closest('#hint');
+   if(hint){SkillWorldRenderer.useHint(state); const fb=hint.closest('.question-card').querySelector('.feedback-area'); fb.textContent=hint.nextElementSibling.textContent; const statTemp=document.createElement('div'); statTemp.innerHTML=SkillWorldRenderer.renderStats(state,p); app.querySelector('.sw-stats').innerHTML=statTemp.querySelector('.sw-stats').innerHTML; return;}
+   const show=e.target.closest('#show');
+   if(show){const section=show.closest('.screen'); const {zone,q}=activeQuestion(section); const r=SkillWorldRenderer.showAnswerAndContinue(state,zone,q); const fb=section.querySelector('.feedback-area'); fb.className='feedback-card feedback-area wrong'; fb.textContent=`Answer: ${r.correctAnswer}. Press Next when you are ready!`; updateQuestionNext(section); return;}
+   const ans=e.target.closest('.ans');
+   if(ans){const section=ans.closest('.screen'); const {zone,q}=activeQuestion(section); const r=SkillWorldRenderer.submitAnswer(state,zone,q,ans.dataset.val); answerFeedback(section,r); updateQuestionNext(section); return;}
+   const submit=e.target.closest('#submit');
+   if(submit){const section=submit.closest('.screen'); const {zone,q}=activeQuestion(section); const r=SkillWorldRenderer.submitAnswer(state,zone,q,section.querySelector('#short').value); answerFeedback(section,r); updateQuestionNext(section); return;}
+   const replay=e.target.closest('.replay-mission');
+   if(replay){Object.assign(state,SkillWorldRenderer.createState()); render(); return;}
+   const next=e.target.closest('.mission-next');
+   if(next){if(next.classList.contains('save-growth')){state.profile=SkillWorldRenderer.finalize(state,p,'local-learner');}
+     if(SkillWorldRenderer.advanceMission(state,p)){render();}
+   }
+ });
  }catch(err){app.innerHTML=`<main class="skill-world-shell"><section class="central-screen-card developer-error"><h1>Skill World package error</h1><p>${String(err.message||err)}</p><p>This generator fails closed instead of rendering a plain quiz.</p></section></main>`; console.error(err);}
 })();
 </script></body></html>
