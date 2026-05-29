@@ -116,5 +116,1630 @@
   },
   "next_skill_id": "G1M_DP_002",
   "remediation_skill_id": "G1M_DP_000",
-  "level_banks_status": "planned"
+  "level_banks": [
+    {
+      "level_id": "G1M_DP_001_LVL1",
+      "label": "Level 1: Sort by One Attribute",
+      "focus": "sort by color, shape, size, or type",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1M_DP_001_LVL1_Q01",
+          "prompt": "Which group matches this sorting rule: sort by color? Choose the red circles.",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "red circles",
+          "choices": [
+            "red circles",
+            "blue items",
+            "circles"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "classification_error",
+          "explanation": "The group red circles matches one color rule.",
+          "feedback": "Nice work. The group red circles matches one color rule.",
+          "items": [
+            "red circle",
+            "red circle",
+            "blue circle",
+            "red square"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL1_Q02",
+          "prompt": "Which group matches this sorting rule: sort by color? Choose the blue shapes.",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "blue shapes",
+          "choices": [
+            "blue shapes",
+            "blue items",
+            "circles"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "classification_error",
+          "explanation": "The group blue shapes matches one color rule.",
+          "feedback": "Nice work. The group blue shapes matches one color rule.",
+          "items": [
+            "blue circle",
+            "blue square",
+            "red square",
+            "green triangle"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL1_Q03",
+          "prompt": "Which group matches this sorting rule: sort by shape? Choose the circles.",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "circles",
+          "choices": [
+            "circles",
+            "blue items",
+            "squares"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "classification_error",
+          "explanation": "The group circles matches one shape rule.",
+          "feedback": "Nice work. The group circles matches one shape rule.",
+          "items": [
+            "red circle",
+            "blue circle",
+            "red square",
+            "blue triangle"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL1_Q04",
+          "prompt": "Which group matches this sorting rule: sort by shape? Choose the squares.",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "squares",
+          "choices": [
+            "squares",
+            "blue items",
+            "circles"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "classification_error",
+          "explanation": "The group squares matches one shape rule.",
+          "feedback": "Nice work. The group squares matches one shape rule.",
+          "items": [
+            "red square",
+            "blue square",
+            "red circle",
+            "blue circle"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL1_Q05",
+          "prompt": "Which group matches this sorting rule: sort by size? Choose the small items.",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "small items",
+          "choices": [
+            "small items",
+            "blue items",
+            "circles"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "classification_error",
+          "explanation": "The group small items matches one size rule.",
+          "feedback": "Nice work. The group small items matches one size rule.",
+          "items": [
+            "small ball",
+            "small cube",
+            "big ball",
+            "big cube"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL1_Q06",
+          "prompt": "Which group matches this sorting rule: sort by type? Choose the animals.",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "animals",
+          "choices": [
+            "animals",
+            "blue items",
+            "circles"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "classification_error",
+          "explanation": "The group animals matches one type rule.",
+          "feedback": "Nice work. The group animals matches one type rule.",
+          "items": [
+            "cat",
+            "dog",
+            "red circle",
+            "blue square"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL1_Q07",
+          "prompt": "Which group matches this sorting rule: sort by type? Choose the balls.",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "balls",
+          "choices": [
+            "balls",
+            "blue items",
+            "circles"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "classification_error",
+          "explanation": "The group balls matches one type rule.",
+          "feedback": "Nice work. The group balls matches one type rule.",
+          "items": [
+            "red ball",
+            "blue ball",
+            "red cube",
+            "blue cube"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL1_Q08",
+          "prompt": "Which group matches this sorting rule: sort by shape? Choose the triangles.",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "triangles",
+          "choices": [
+            "triangles",
+            "blue items",
+            "circles"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "classification_error",
+          "explanation": "The group triangles matches one shape rule.",
+          "feedback": "Nice work. The group triangles matches one shape rule.",
+          "items": [
+            "red triangle",
+            "blue triangle",
+            "red circle",
+            "blue square"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL1_Q09",
+          "prompt": "Which group matches this sorting rule: sort by size? Choose the big items.",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "big items",
+          "choices": [
+            "big items",
+            "blue items",
+            "circles"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "classification_error",
+          "explanation": "The group big items matches one size rule.",
+          "feedback": "Nice work. The group big items matches one size rule.",
+          "items": [
+            "big ball",
+            "big cube",
+            "small ball",
+            "small cube"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL1_Q10",
+          "prompt": "Which group matches this sorting rule: sort by color? Choose the red items.",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "red items",
+          "choices": [
+            "red items",
+            "blue items",
+            "circles"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "classification_error",
+          "explanation": "The group red items matches one color rule.",
+          "feedback": "Nice work. The group red items matches one color rule.",
+          "items": [
+            "red ball",
+            "red cube",
+            "blue ball",
+            "blue cube"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1M_DP_001_LVL2",
+      "label": "Level 2: Complete AB Patterns",
+      "focus": "complete simple repeating patterns",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1M_DP_001_LVL2_Q01",
+          "prompt": "Complete the AB pattern: red, blue, red, blue, __",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "red",
+          "choices": [
+            "red",
+            "blue",
+            "star"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_break",
+          "explanation": "The pattern repeats red, blue, so the next item is red.",
+          "feedback": "Nice work. The pattern repeats red, blue, so the next item is red.",
+          "sequence": [
+            "red",
+            "blue",
+            "red",
+            "blue"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL2_Q02",
+          "prompt": "Complete the AB pattern: circle, square, circle, square, __",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "circle",
+          "choices": [
+            "circle",
+            "square",
+            "star"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_break",
+          "explanation": "The pattern repeats circle, square, so the next item is circle.",
+          "feedback": "Nice work. The pattern repeats circle, square, so the next item is circle.",
+          "sequence": [
+            "circle",
+            "square",
+            "circle",
+            "square"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL2_Q03",
+          "prompt": "Complete the AB pattern: cat, dog, cat, dog, __",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "cat",
+          "choices": [
+            "cat",
+            "dog",
+            "star"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_break",
+          "explanation": "The pattern repeats cat, dog, so the next item is cat.",
+          "feedback": "Nice work. The pattern repeats cat, dog, so the next item is cat.",
+          "sequence": [
+            "cat",
+            "dog",
+            "cat",
+            "dog"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL2_Q04",
+          "prompt": "Complete the AB pattern: big, small, big, small, __",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "big",
+          "choices": [
+            "big",
+            "small",
+            "star"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_break",
+          "explanation": "The pattern repeats big, small, so the next item is big.",
+          "feedback": "Nice work. The pattern repeats big, small, so the next item is big.",
+          "sequence": [
+            "big",
+            "small",
+            "big",
+            "small"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL2_Q05",
+          "prompt": "Complete the AB pattern: triangle, circle, triangle, circle, __",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "triangle",
+          "choices": [
+            "triangle",
+            "circle",
+            "star"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_break",
+          "explanation": "The pattern repeats triangle, circle, so the next item is triangle.",
+          "feedback": "Nice work. The pattern repeats triangle, circle, so the next item is triangle.",
+          "sequence": [
+            "triangle",
+            "circle",
+            "triangle",
+            "circle"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL2_Q06",
+          "prompt": "Complete the AB pattern: red ball, blue ball, red ball, blue ball, __",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "red ball",
+          "choices": [
+            "red ball",
+            "blue ball",
+            "star"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_break",
+          "explanation": "The pattern repeats red ball, blue ball, so the next item is red ball.",
+          "feedback": "Nice work. The pattern repeats red ball, blue ball, so the next item is red ball.",
+          "sequence": [
+            "red ball",
+            "blue ball",
+            "red ball",
+            "blue ball"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL2_Q07",
+          "prompt": "Complete the AB pattern: cube, ball, cube, ball, __",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "cube",
+          "choices": [
+            "cube",
+            "ball",
+            "star"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_break",
+          "explanation": "The pattern repeats cube, ball, so the next item is cube.",
+          "feedback": "Nice work. The pattern repeats cube, ball, so the next item is cube.",
+          "sequence": [
+            "cube",
+            "ball",
+            "cube",
+            "ball"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL2_Q08",
+          "prompt": "Complete the AB pattern: yellow, green, yellow, green, __",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "yellow",
+          "choices": [
+            "yellow",
+            "green",
+            "star"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_break",
+          "explanation": "The pattern repeats yellow, green, so the next item is yellow.",
+          "feedback": "Nice work. The pattern repeats yellow, green, so the next item is yellow.",
+          "sequence": [
+            "yellow",
+            "green",
+            "yellow",
+            "green"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL2_Q09",
+          "prompt": "Complete the AB pattern: square, triangle, square, triangle, __",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "square",
+          "choices": [
+            "square",
+            "triangle",
+            "star"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_break",
+          "explanation": "The pattern repeats square, triangle, so the next item is square.",
+          "feedback": "Nice work. The pattern repeats square, triangle, so the next item is square.",
+          "sequence": [
+            "square",
+            "triangle",
+            "square",
+            "triangle"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL2_Q10",
+          "prompt": "Complete the AB pattern: dog, cat, dog, cat, __",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "dog",
+          "choices": [
+            "dog",
+            "cat",
+            "star"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_break",
+          "explanation": "The pattern repeats dog, cat, so the next item is dog.",
+          "feedback": "Nice work. The pattern repeats dog, cat, so the next item is dog.",
+          "sequence": [
+            "dog",
+            "cat",
+            "dog",
+            "cat"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1M_DP_001_LVL3",
+      "label": "Level 3: Complete AAB / ABB Patterns",
+      "focus": "identify and extend repeating units",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1M_DP_001_LVL3_Q01",
+          "prompt": "Complete the AAB/ABB pattern: red, red, blue, red, red, blue, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "red",
+          "acceptable_answers": [
+            "red",
+            "red.",
+            "Red",
+            "RED"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_confusion",
+          "explanation": "The repeating unit starts again, so the next item is red.",
+          "feedback": "Good thinking. The repeating unit starts again, so the next item is red.",
+          "sequence": [
+            "red",
+            "red",
+            "blue",
+            "red",
+            "red",
+            "blue"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL3_Q02",
+          "prompt": "Complete the AAB/ABB pattern: circle, circle, square, circle, circle, square, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "circle",
+          "acceptable_answers": [
+            "circle",
+            "circle.",
+            "Circle",
+            "CIRCLE"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_confusion",
+          "explanation": "The repeating unit starts again, so the next item is circle.",
+          "feedback": "Good thinking. The repeating unit starts again, so the next item is circle.",
+          "sequence": [
+            "circle",
+            "circle",
+            "square",
+            "circle",
+            "circle",
+            "square"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL3_Q03",
+          "prompt": "Complete the AAB/ABB pattern: cat, dog, dog, cat, dog, dog, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "cat",
+          "acceptable_answers": [
+            "cat",
+            "cat.",
+            "Cat",
+            "CAT"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_confusion",
+          "explanation": "The repeating unit starts again, so the next item is cat.",
+          "feedback": "Good thinking. The repeating unit starts again, so the next item is cat.",
+          "sequence": [
+            "cat",
+            "dog",
+            "dog",
+            "cat",
+            "dog",
+            "dog"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL3_Q04",
+          "prompt": "Complete the AAB/ABB pattern: big, small, small, big, small, small, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "big",
+          "acceptable_answers": [
+            "big",
+            "big.",
+            "Big",
+            "BIG"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_confusion",
+          "explanation": "The repeating unit starts again, so the next item is big.",
+          "feedback": "Good thinking. The repeating unit starts again, so the next item is big.",
+          "sequence": [
+            "big",
+            "small",
+            "small",
+            "big",
+            "small",
+            "small"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL3_Q05",
+          "prompt": "Complete the AAB/ABB pattern: triangle, triangle, circle, triangle, triangle, circle, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "triangle",
+          "acceptable_answers": [
+            "triangle",
+            "triangle.",
+            "Triangle",
+            "TRIANGLE"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_confusion",
+          "explanation": "The repeating unit starts again, so the next item is triangle.",
+          "feedback": "Good thinking. The repeating unit starts again, so the next item is triangle.",
+          "sequence": [
+            "triangle",
+            "triangle",
+            "circle",
+            "triangle",
+            "triangle",
+            "circle"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL3_Q06",
+          "prompt": "Complete the AAB/ABB pattern: red ball, blue ball, blue ball, red ball, blue ball, blue ball, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "red ball",
+          "acceptable_answers": [
+            "red ball",
+            "red ball."
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_confusion",
+          "explanation": "The repeating unit starts again, so the next item is red ball.",
+          "feedback": "Good thinking. The repeating unit starts again, so the next item is red ball.",
+          "sequence": [
+            "red ball",
+            "blue ball",
+            "blue ball",
+            "red ball",
+            "blue ball",
+            "blue ball"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL3_Q07",
+          "prompt": "Complete the AAB/ABB pattern: cube, cube, ball, cube, cube, ball, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "cube",
+          "acceptable_answers": [
+            "cube",
+            "cube.",
+            "Cube",
+            "CUBE"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_confusion",
+          "explanation": "The repeating unit starts again, so the next item is cube.",
+          "feedback": "Good thinking. The repeating unit starts again, so the next item is cube.",
+          "sequence": [
+            "cube",
+            "cube",
+            "ball",
+            "cube",
+            "cube",
+            "ball"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL3_Q08",
+          "prompt": "Complete the AAB/ABB pattern: yellow, green, green, yellow, green, green, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "yellow",
+          "acceptable_answers": [
+            "yellow",
+            "yellow.",
+            "Yellow",
+            "YELLOW"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_confusion",
+          "explanation": "The repeating unit starts again, so the next item is yellow.",
+          "feedback": "Good thinking. The repeating unit starts again, so the next item is yellow.",
+          "sequence": [
+            "yellow",
+            "green",
+            "green",
+            "yellow",
+            "green",
+            "green"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL3_Q09",
+          "prompt": "Complete the AAB/ABB pattern: square, triangle, triangle, square, triangle, triangle, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "square",
+          "acceptable_answers": [
+            "square",
+            "square.",
+            "Square",
+            "SQUARE"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_confusion",
+          "explanation": "The repeating unit starts again, so the next item is square.",
+          "feedback": "Good thinking. The repeating unit starts again, so the next item is square.",
+          "sequence": [
+            "square",
+            "triangle",
+            "triangle",
+            "square",
+            "triangle",
+            "triangle"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL3_Q10",
+          "prompt": "Complete the AAB/ABB pattern: dog, dog, cat, dog, dog, cat, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "dog",
+          "acceptable_answers": [
+            "dog",
+            "dog.",
+            "Dog",
+            "DOG"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_confusion",
+          "explanation": "The repeating unit starts again, so the next item is dog.",
+          "feedback": "Good thinking. The repeating unit starts again, so the next item is dog.",
+          "sequence": [
+            "dog",
+            "dog",
+            "cat",
+            "dog",
+            "dog",
+            "cat"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1M_DP_001_LVL4",
+      "label": "Level 4: Find the Rule",
+      "focus": "name or select the sorting/pattern rule",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1M_DP_001_LVL4_Q01",
+          "prompt": "Find the rule for this set: red circle, red square, red triangle. What rule fits?",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "red",
+          "choices": [
+            "red",
+            "different colors",
+            "all squares"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "sorting_rule_change",
+          "explanation": "The rule is red.",
+          "feedback": "Nice work. The rule is red.",
+          "items": [
+            "red circle",
+            "red square",
+            "red triangle"
+          ],
+          "sequence": [
+            "red circle",
+            "red square",
+            "red triangle"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL4_Q02",
+          "prompt": "Find the rule for this set: blue ball, blue cube, blue triangle. What rule fits?",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "blue",
+          "choices": [
+            "blue",
+            "different colors",
+            "all squares"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "sorting_rule_change",
+          "explanation": "The rule is blue.",
+          "feedback": "Nice work. The rule is blue.",
+          "items": [
+            "blue ball",
+            "blue cube",
+            "blue triangle"
+          ],
+          "sequence": [
+            "blue ball",
+            "blue cube",
+            "blue triangle"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL4_Q03",
+          "prompt": "Find the rule for this set: red circle, blue circle, green circle. What rule fits?",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "circle",
+          "choices": [
+            "circle",
+            "different colors",
+            "all squares"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "sorting_rule_change",
+          "explanation": "The rule is circle.",
+          "feedback": "Nice work. The rule is circle.",
+          "items": [
+            "red circle",
+            "blue circle",
+            "green circle"
+          ],
+          "sequence": [
+            "red circle",
+            "blue circle",
+            "green circle"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL4_Q04",
+          "prompt": "Find the rule for this set: small ball, small cube, small cat. What rule fits?",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "small",
+          "choices": [
+            "small",
+            "different colors",
+            "all squares"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "sorting_rule_change",
+          "explanation": "The rule is small.",
+          "feedback": "Nice work. The rule is small.",
+          "items": [
+            "small ball",
+            "small cube",
+            "small cat"
+          ],
+          "sequence": [
+            "small ball",
+            "small cube",
+            "small cat"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL4_Q05",
+          "prompt": "Find the rule for this set: cat, dog, bird. What rule fits?",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "animals",
+          "choices": [
+            "animals",
+            "different colors",
+            "all squares"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "sorting_rule_change",
+          "explanation": "The rule is animals.",
+          "feedback": "Nice work. The rule is animals.",
+          "items": [
+            "cat",
+            "dog",
+            "bird"
+          ],
+          "sequence": [
+            "cat",
+            "dog",
+            "bird"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL4_Q06",
+          "prompt": "Find the rule for this set: big ball, big cube, big square. What rule fits?",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "big",
+          "choices": [
+            "big",
+            "different colors",
+            "all squares"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "sorting_rule_change",
+          "explanation": "The rule is big.",
+          "feedback": "Nice work. The rule is big.",
+          "items": [
+            "big ball",
+            "big cube",
+            "big square"
+          ],
+          "sequence": [
+            "big ball",
+            "big cube",
+            "big square"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL4_Q07",
+          "prompt": "Find the rule for this set: red triangle, blue triangle, green triangle. What rule fits?",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "triangle",
+          "choices": [
+            "triangle",
+            "different colors",
+            "all squares"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "sorting_rule_change",
+          "explanation": "The rule is triangle.",
+          "feedback": "Nice work. The rule is triangle.",
+          "items": [
+            "red triangle",
+            "blue triangle",
+            "green triangle"
+          ],
+          "sequence": [
+            "red triangle",
+            "blue triangle",
+            "green triangle"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL4_Q08",
+          "prompt": "Find the rule for this set: ball, ball, ball. What rule fits?",
+          "question_type": "multiple_choice",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "balls",
+          "choices": [
+            "balls",
+            "different colors",
+            "all squares"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "sorting_rule_change",
+          "explanation": "The rule is balls.",
+          "feedback": "Nice work. The rule is balls.",
+          "items": [
+            "ball",
+            "ball",
+            "ball"
+          ],
+          "sequence": [
+            "ball",
+            "ball",
+            "ball"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL4_Q09",
+          "prompt": "Find the rule for this set: square, circle, square, circle. What rule fits?",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "AB pattern",
+          "choices": [
+            "AB pattern",
+            "sort by size",
+            "all animals"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_confusion",
+          "explanation": "The rule is AB pattern.",
+          "feedback": "Nice work. The rule is AB pattern.",
+          "items": [
+            "square",
+            "circle",
+            "square",
+            "circle"
+          ],
+          "sequence": [
+            "square",
+            "circle",
+            "square",
+            "circle"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_LVL4_Q10",
+          "prompt": "Find the rule for this set: red, red, blue, red, red, blue. What rule fits?",
+          "question_type": "multiple_choice",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "AAB pattern",
+          "choices": [
+            "AAB pattern",
+            "sort by size",
+            "all animals"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_confusion",
+          "explanation": "The rule is AAB pattern.",
+          "feedback": "Nice work. The rule is AAB pattern.",
+          "items": [
+            "red",
+            "red",
+            "blue",
+            "red",
+            "red",
+            "blue"
+          ],
+          "sequence": [
+            "red",
+            "red",
+            "blue",
+            "red",
+            "red",
+            "blue"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1M_DP_001_MIXED",
+      "label": "Mixed",
+      "focus": "mixed sorting and pattern recognition",
+      "difficulty": 5,
+      "question_count_required": 12,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1M_DP_001_MIXED_Q01",
+          "prompt": "Sort rule: red ball, red cube, red circle. What is the rule?",
+          "question_type": "short_response",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "red",
+          "acceptable_answers": [
+            "red",
+            "red.",
+            "Red",
+            "RED"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "classification_error",
+          "explanation": "The answer is red because it follows one sorting or pattern rule.",
+          "feedback": "Good thinking. The answer is red because it follows one sorting or pattern rule.",
+          "items": [
+            " red ball",
+            " red cube",
+            " red circle"
+          ],
+          "sequence": [
+            " red ball",
+            " red cube",
+            " red circle. What is the rule?"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_MIXED_Q02",
+          "prompt": "Complete: circle, square, circle, square, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "circle",
+          "acceptable_answers": [
+            "circle",
+            "circle.",
+            "Circle",
+            "CIRCLE"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_break",
+          "explanation": "The answer is circle because it follows one sorting or pattern rule.",
+          "feedback": "Good thinking. The answer is circle because it follows one sorting or pattern rule.",
+          "items": [
+            " circle",
+            " square",
+            " circle",
+            " square",
+            " __"
+          ],
+          "sequence": [
+            " circle",
+            " square",
+            " circle",
+            " square",
+            " __"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_MIXED_Q03",
+          "prompt": "Complete: red, red, blue, red, red, blue, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "red",
+          "acceptable_answers": [
+            "red",
+            "red.",
+            "Red",
+            "RED"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_confusion",
+          "explanation": "The answer is red because it follows one sorting or pattern rule.",
+          "feedback": "Good thinking. The answer is red because it follows one sorting or pattern rule.",
+          "items": [
+            " red",
+            " red",
+            " blue",
+            " red",
+            " red",
+            " blue",
+            " __"
+          ],
+          "sequence": [
+            " red",
+            " red",
+            " blue",
+            " red",
+            " red",
+            " blue",
+            " __"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_MIXED_Q04",
+          "prompt": "Find the rule: small cat, small dog, small ball",
+          "question_type": "short_response",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "small",
+          "acceptable_answers": [
+            "small",
+            "small.",
+            "Small",
+            "SMALL"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "sorting_rule_change",
+          "explanation": "The answer is small because it follows one sorting or pattern rule.",
+          "feedback": "Good thinking. The answer is small because it follows one sorting or pattern rule.",
+          "items": [
+            " small cat",
+            " small dog",
+            " small ball"
+          ],
+          "sequence": [
+            " small cat",
+            " small dog",
+            " small ball"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_MIXED_Q05",
+          "prompt": "Complete: cat, dog, dog, cat, dog, dog, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "cat",
+          "acceptable_answers": [
+            "cat",
+            "cat.",
+            "Cat",
+            "CAT"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_confusion",
+          "explanation": "The answer is cat because it follows one sorting or pattern rule.",
+          "feedback": "Good thinking. The answer is cat because it follows one sorting or pattern rule.",
+          "items": [
+            " cat",
+            " dog",
+            " dog",
+            " cat",
+            " dog",
+            " dog",
+            " __"
+          ],
+          "sequence": [
+            " cat",
+            " dog",
+            " dog",
+            " cat",
+            " dog",
+            " dog",
+            " __"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_MIXED_Q06",
+          "prompt": "Sort rule: blue circle, red circle, green circle",
+          "question_type": "short_response",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "circle",
+          "acceptable_answers": [
+            "circle",
+            "circle.",
+            "Circle",
+            "CIRCLE"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "classification_error",
+          "explanation": "The answer is circle because it follows one sorting or pattern rule.",
+          "feedback": "Good thinking. The answer is circle because it follows one sorting or pattern rule.",
+          "items": [
+            " blue circle",
+            " red circle",
+            " green circle"
+          ],
+          "sequence": [
+            " blue circle",
+            " red circle",
+            " green circle"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_MIXED_Q07",
+          "prompt": "Complete: big, small, big, small, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "big",
+          "acceptable_answers": [
+            "big",
+            "big.",
+            "Big",
+            "BIG"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_break",
+          "explanation": "The answer is big because it follows one sorting or pattern rule.",
+          "feedback": "Good thinking. The answer is big because it follows one sorting or pattern rule.",
+          "items": [
+            " big",
+            " small",
+            " big",
+            " small",
+            " __"
+          ],
+          "sequence": [
+            " big",
+            " small",
+            " big",
+            " small",
+            " __"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_MIXED_Q08",
+          "prompt": "Find the rule: triangle, triangle, triangle",
+          "question_type": "short_response",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "triangle",
+          "acceptable_answers": [
+            "triangle",
+            "triangle.",
+            "Triangle",
+            "TRIANGLE"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "classification_error",
+          "explanation": "The answer is triangle because it follows one sorting or pattern rule.",
+          "feedback": "Good thinking. The answer is triangle because it follows one sorting or pattern rule.",
+          "items": [
+            " triangle",
+            " triangle",
+            " triangle"
+          ],
+          "sequence": [
+            " triangle",
+            " triangle",
+            " triangle"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_MIXED_Q09",
+          "prompt": "Complete: cube, cube, ball, cube, cube, ball, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "cube",
+          "acceptable_answers": [
+            "cube",
+            "cube.",
+            "Cube",
+            "CUBE"
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_confusion",
+          "explanation": "The answer is cube because it follows one sorting or pattern rule.",
+          "feedback": "Good thinking. The answer is cube because it follows one sorting or pattern rule.",
+          "items": [
+            " cube",
+            " cube",
+            " ball",
+            " cube",
+            " cube",
+            " ball",
+            " __"
+          ],
+          "sequence": [
+            " cube",
+            " cube",
+            " ball",
+            " cube",
+            " cube",
+            " ball",
+            " __"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_MIXED_Q10",
+          "prompt": "Sort rule: cat, dog, bird",
+          "question_type": "short_response",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "animals",
+          "acceptable_answers": [
+            "animals",
+            "animals.",
+            "Animals",
+            "ANIMALS"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "classification_error",
+          "explanation": "The answer is animals because it follows one sorting or pattern rule.",
+          "feedback": "Good thinking. The answer is animals because it follows one sorting or pattern rule.",
+          "items": [
+            " cat",
+            " dog",
+            " bird"
+          ],
+          "sequence": [
+            " cat",
+            " dog",
+            " bird"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_MIXED_Q11",
+          "prompt": "Complete: red ball, blue ball, red ball, blue ball, __",
+          "question_type": "short_response",
+          "visual_model": "pattern_completion",
+          "support_type": "pattern_completion",
+          "correct_answer": "red ball",
+          "acceptable_answers": [
+            "red ball",
+            "red ball."
+          ],
+          "hints": [
+            "Circle the repeating unit.",
+            "Say the pattern out loud.",
+            "Use the repeat to predict the missing item."
+          ],
+          "misconception_tag": "pattern_break",
+          "explanation": "The answer is red ball because it follows one sorting or pattern rule.",
+          "feedback": "Good thinking. The answer is red ball because it follows one sorting or pattern rule.",
+          "items": [
+            " red ball",
+            " blue ball",
+            " red ball",
+            " blue ball",
+            " __"
+          ],
+          "sequence": [
+            " red ball",
+            " blue ball",
+            " red ball",
+            " blue ball",
+            " __"
+          ]
+        },
+        {
+          "question_id": "G1M_DP_001_MIXED_Q12",
+          "prompt": "Find the rule: big cube, big ball, big square",
+          "question_type": "short_response",
+          "visual_model": "sorting_visual",
+          "support_type": "sorting_visual",
+          "correct_answer": "big",
+          "acceptable_answers": [
+            "big",
+            "big.",
+            "Big",
+            "BIG"
+          ],
+          "hints": [
+            "Look for one attribute that stays the same.",
+            "Compare color, shape, size, or type.",
+            "Choose the rule that matches every item in the group."
+          ],
+          "misconception_tag": "sorting_rule_change",
+          "explanation": "The answer is big because it follows one sorting or pattern rule.",
+          "feedback": "Good thinking. The answer is big because it follows one sorting or pattern rule.",
+          "items": [
+            " big cube",
+            " big ball",
+            " big square"
+          ],
+          "sequence": [
+            " big cube",
+            " big ball",
+            " big square"
+          ]
+        }
+      ]
+    }
+  ]
 }

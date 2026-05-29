@@ -268,5 +268,1212 @@
   },
   "next_skill_id": "G1M_PV_001",
   "remediation_skill_id": "G1M_NS_001",
-  "level_banks_status": "planned"
+  "level_banks": [
+    {
+      "level_id": "G1M_NS_002_LVL1",
+      "label": "Level 1: Count Forward by 1",
+      "focus": "count forward within 120",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1M_NS_002_LVL1_Q01",
+          "prompt": "Count forward by 1: 3, 4, 5, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "6",
+          "choices": [
+            "6",
+            "5",
+            "7"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "Counting forward by 1 after 5 lands on 6.",
+          "feedback": "Nice work. Counting forward by 1 after 5 lands on 6.",
+          "min": 3,
+          "max": 6
+        },
+        {
+          "question_id": "G1M_NS_002_LVL1_Q02",
+          "prompt": "Count forward by 1: 14, 15, 16, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "17",
+          "choices": [
+            "17",
+            "16",
+            "18"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "Counting forward by 1 after 16 lands on 17.",
+          "feedback": "Nice work. Counting forward by 1 after 16 lands on 17.",
+          "min": 14,
+          "max": 17
+        },
+        {
+          "question_id": "G1M_NS_002_LVL1_Q03",
+          "prompt": "Count forward by 1: 27, 28, 29, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "30",
+          "choices": [
+            "30",
+            "29",
+            "31"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "digit_reversal",
+          "explanation": "Counting forward by 1 after 29 lands on 30.",
+          "feedback": "Nice work. Counting forward by 1 after 29 lands on 30.",
+          "min": 27,
+          "max": 30
+        },
+        {
+          "question_id": "G1M_NS_002_LVL1_Q04",
+          "prompt": "Count forward by 1: 38, 39, 40, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "41",
+          "choices": [
+            "41",
+            "40",
+            "42"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "Counting forward by 1 after 40 lands on 41.",
+          "feedback": "Nice work. Counting forward by 1 after 40 lands on 41.",
+          "min": 38,
+          "max": 41
+        },
+        {
+          "question_id": "G1M_NS_002_LVL1_Q05",
+          "prompt": "Count forward by 1: 46, 47, 48, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "49",
+          "choices": [
+            "49",
+            "48",
+            "50"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "Counting forward by 1 after 48 lands on 49.",
+          "feedback": "Nice work. Counting forward by 1 after 48 lands on 49.",
+          "min": 46,
+          "max": 49
+        },
+        {
+          "question_id": "G1M_NS_002_LVL1_Q06",
+          "prompt": "Count forward by 1: 57, 58, 59, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "60",
+          "choices": [
+            "60",
+            "59",
+            "61"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "Counting forward by 1 after 59 lands on 60.",
+          "feedback": "Nice work. Counting forward by 1 after 59 lands on 60.",
+          "min": 57,
+          "max": 60
+        },
+        {
+          "question_id": "G1M_NS_002_LVL1_Q07",
+          "prompt": "Count forward by 1: 68, 69, 70, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "71",
+          "choices": [
+            "71",
+            "70",
+            "72"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "Counting forward by 1 after 70 lands on 71.",
+          "feedback": "Nice work. Counting forward by 1 after 70 lands on 71.",
+          "min": 68,
+          "max": 71
+        },
+        {
+          "question_id": "G1M_NS_002_LVL1_Q08",
+          "prompt": "Count forward by 1: 79, 80, 81, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "82",
+          "choices": [
+            "82",
+            "81",
+            "83"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "Counting forward by 1 after 81 lands on 82.",
+          "feedback": "Nice work. Counting forward by 1 after 81 lands on 82.",
+          "min": 79,
+          "max": 82
+        },
+        {
+          "question_id": "G1M_NS_002_LVL1_Q09",
+          "prompt": "Count forward by 1: 88, 89, 90, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "91",
+          "choices": [
+            "91",
+            "90",
+            "92"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "digit_reversal",
+          "explanation": "Counting forward by 1 after 90 lands on 91.",
+          "feedback": "Nice work. Counting forward by 1 after 90 lands on 91.",
+          "min": 88,
+          "max": 91
+        },
+        {
+          "question_id": "G1M_NS_002_LVL1_Q10",
+          "prompt": "Count forward by 1: 116, 117, 118, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "119",
+          "choices": [
+            "119",
+            "118",
+            "120"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "Counting forward by 1 after 118 lands on 119.",
+          "feedback": "Nice work. Counting forward by 1 after 118 lands on 119.",
+          "min": 116,
+          "max": 119
+        }
+      ]
+    },
+    {
+      "level_id": "G1M_NS_002_LVL2",
+      "label": "Level 2: Count Backward by 1",
+      "focus": "count backward within 120",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1M_NS_002_LVL2_Q01",
+          "prompt": "Count backward by 1: 12, 11, 10, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "9",
+          "choices": [
+            "9",
+            "10",
+            "8"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step backward for -1.",
+            "Say the sequence out loud and choose the number before."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "Counting backward by 1 after 10 lands on 9.",
+          "feedback": "Nice work. Counting backward by 1 after 10 lands on 9.",
+          "min": 9,
+          "max": 12
+        },
+        {
+          "question_id": "G1M_NS_002_LVL2_Q02",
+          "prompt": "Count backward by 1: 24, 23, 22, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "21",
+          "choices": [
+            "21",
+            "22",
+            "20"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step backward for -1.",
+            "Say the sequence out loud and choose the number before."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "Counting backward by 1 after 22 lands on 21.",
+          "feedback": "Nice work. Counting backward by 1 after 22 lands on 21.",
+          "min": 21,
+          "max": 24
+        },
+        {
+          "question_id": "G1M_NS_002_LVL2_Q03",
+          "prompt": "Count backward by 1: 35, 34, 33, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "32",
+          "choices": [
+            "32",
+            "33",
+            "31"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step backward for -1.",
+            "Say the sequence out loud and choose the number before."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "Counting backward by 1 after 33 lands on 32.",
+          "feedback": "Nice work. Counting backward by 1 after 33 lands on 32.",
+          "min": 32,
+          "max": 35
+        },
+        {
+          "question_id": "G1M_NS_002_LVL2_Q04",
+          "prompt": "Count backward by 1: 47, 46, 45, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "44",
+          "choices": [
+            "44",
+            "45",
+            "43"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step backward for -1.",
+            "Say the sequence out loud and choose the number before."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "Counting backward by 1 after 45 lands on 44.",
+          "feedback": "Nice work. Counting backward by 1 after 45 lands on 44.",
+          "min": 44,
+          "max": 47
+        },
+        {
+          "question_id": "G1M_NS_002_LVL2_Q05",
+          "prompt": "Count backward by 1: 58, 57, 56, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "55",
+          "choices": [
+            "55",
+            "56",
+            "54"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step backward for -1.",
+            "Say the sequence out loud and choose the number before."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "Counting backward by 1 after 56 lands on 55.",
+          "feedback": "Nice work. Counting backward by 1 after 56 lands on 55.",
+          "min": 55,
+          "max": 58
+        },
+        {
+          "question_id": "G1M_NS_002_LVL2_Q06",
+          "prompt": "Count backward by 1: 69, 68, 67, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "66",
+          "choices": [
+            "66",
+            "67",
+            "65"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step backward for -1.",
+            "Say the sequence out loud and choose the number before."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "Counting backward by 1 after 67 lands on 66.",
+          "feedback": "Nice work. Counting backward by 1 after 67 lands on 66.",
+          "min": 66,
+          "max": 69
+        },
+        {
+          "question_id": "G1M_NS_002_LVL2_Q07",
+          "prompt": "Count backward by 1: 80, 79, 78, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "77",
+          "choices": [
+            "77",
+            "78",
+            "76"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step backward for -1.",
+            "Say the sequence out loud and choose the number before."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "Counting backward by 1 after 78 lands on 77.",
+          "feedback": "Nice work. Counting backward by 1 after 78 lands on 77.",
+          "min": 77,
+          "max": 80
+        },
+        {
+          "question_id": "G1M_NS_002_LVL2_Q08",
+          "prompt": "Count backward by 1: 91, 90, 89, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "88",
+          "choices": [
+            "88",
+            "89",
+            "87"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step backward for -1.",
+            "Say the sequence out loud and choose the number before."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "Counting backward by 1 after 89 lands on 88.",
+          "feedback": "Nice work. Counting backward by 1 after 89 lands on 88.",
+          "min": 88,
+          "max": 91
+        },
+        {
+          "question_id": "G1M_NS_002_LVL2_Q09",
+          "prompt": "Count backward by 1: 103, 102, 101, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "100",
+          "choices": [
+            "100",
+            "101",
+            "99"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step backward for -1.",
+            "Say the sequence out loud and choose the number before."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "Counting backward by 1 after 101 lands on 100.",
+          "feedback": "Nice work. Counting backward by 1 after 101 lands on 100.",
+          "min": 100,
+          "max": 103
+        },
+        {
+          "question_id": "G1M_NS_002_LVL2_Q10",
+          "prompt": "Count backward by 1: 120, 119, 118, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "117",
+          "choices": [
+            "117",
+            "118",
+            "116"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step backward for -1.",
+            "Say the sequence out loud and choose the number before."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "Counting backward by 1 after 118 lands on 117.",
+          "feedback": "Nice work. Counting backward by 1 after 118 lands on 117.",
+          "min": 117,
+          "max": 120
+        }
+      ]
+    },
+    {
+      "level_id": "G1M_NS_002_LVL3",
+      "label": "Level 3: Decade Transitions",
+      "focus": "crossing 19\u219220, 29\u219230, 99\u2192100, 109\u2192110",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1M_NS_002_LVL3_Q01",
+          "prompt": "Cross the decade: 17, 18, 19, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "20",
+          "choices": [
+            "20",
+            "10",
+            "21"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "decade_transition_skip",
+          "explanation": "After 19, the next number is 20; the tens digit changes at the decade.",
+          "feedback": "Nice work. After 19, the next number is 20; the tens digit changes at the decade.",
+          "min": 17,
+          "max": 20
+        },
+        {
+          "question_id": "G1M_NS_002_LVL3_Q02",
+          "prompt": "Cross the decade: 27, 28, 29, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "30",
+          "choices": [
+            "30",
+            "20",
+            "31"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "decade_transition_skip",
+          "explanation": "After 29, the next number is 30; the tens digit changes at the decade.",
+          "feedback": "Nice work. After 29, the next number is 30; the tens digit changes at the decade.",
+          "min": 27,
+          "max": 30
+        },
+        {
+          "question_id": "G1M_NS_002_LVL3_Q03",
+          "prompt": "Cross the decade: 37, 38, 39, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "40",
+          "choices": [
+            "40",
+            "30",
+            "41"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "decade_transition_skip",
+          "explanation": "After 39, the next number is 40; the tens digit changes at the decade.",
+          "feedback": "Nice work. After 39, the next number is 40; the tens digit changes at the decade.",
+          "min": 37,
+          "max": 40
+        },
+        {
+          "question_id": "G1M_NS_002_LVL3_Q04",
+          "prompt": "Cross the decade: 47, 48, 49, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "50",
+          "choices": [
+            "50",
+            "40",
+            "51"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "decade_transition_skip",
+          "explanation": "After 49, the next number is 50; the tens digit changes at the decade.",
+          "feedback": "Nice work. After 49, the next number is 50; the tens digit changes at the decade.",
+          "min": 47,
+          "max": 50
+        },
+        {
+          "question_id": "G1M_NS_002_LVL3_Q05",
+          "prompt": "Cross the decade: 57, 58, 59, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "60",
+          "choices": [
+            "60",
+            "50",
+            "61"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "decade_transition_skip",
+          "explanation": "After 59, the next number is 60; the tens digit changes at the decade.",
+          "feedback": "Nice work. After 59, the next number is 60; the tens digit changes at the decade.",
+          "min": 57,
+          "max": 60
+        },
+        {
+          "question_id": "G1M_NS_002_LVL3_Q06",
+          "prompt": "Cross the decade: 67, 68, 69, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "70",
+          "choices": [
+            "70",
+            "60",
+            "71"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "decade_transition_skip",
+          "explanation": "After 69, the next number is 70; the tens digit changes at the decade.",
+          "feedback": "Nice work. After 69, the next number is 70; the tens digit changes at the decade.",
+          "min": 67,
+          "max": 70
+        },
+        {
+          "question_id": "G1M_NS_002_LVL3_Q07",
+          "prompt": "Cross the decade: 77, 78, 79, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "80",
+          "choices": [
+            "80",
+            "70",
+            "81"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "decade_transition_skip",
+          "explanation": "After 79, the next number is 80; the tens digit changes at the decade.",
+          "feedback": "Nice work. After 79, the next number is 80; the tens digit changes at the decade.",
+          "min": 77,
+          "max": 80
+        },
+        {
+          "question_id": "G1M_NS_002_LVL3_Q08",
+          "prompt": "Cross the decade: 87, 88, 89, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "90",
+          "choices": [
+            "90",
+            "80",
+            "91"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "decade_transition_skip",
+          "explanation": "After 89, the next number is 90; the tens digit changes at the decade.",
+          "feedback": "Nice work. After 89, the next number is 90; the tens digit changes at the decade.",
+          "min": 87,
+          "max": 90
+        },
+        {
+          "question_id": "G1M_NS_002_LVL3_Q09",
+          "prompt": "Cross the decade: 97, 98, 99, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "100",
+          "choices": [
+            "100",
+            "90",
+            "101"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "decade_transition_skip",
+          "explanation": "After 99, the next number is 100; the tens digit changes at the decade.",
+          "feedback": "Nice work. After 99, the next number is 100; the tens digit changes at the decade.",
+          "min": 97,
+          "max": 100
+        },
+        {
+          "question_id": "G1M_NS_002_LVL3_Q10",
+          "prompt": "Cross the decade: 107, 108, 109, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "110",
+          "choices": [
+            "110",
+            "100",
+            "111"
+          ],
+          "hints": [
+            "Point to each number as you count.",
+            "Move one step forward for +1.",
+            "Say the sequence out loud and choose the next number."
+          ],
+          "misconception_tag": "decade_transition_skip",
+          "explanation": "After 109, the next number is 110; the tens digit changes at the decade.",
+          "feedback": "Nice work. After 109, the next number is 110; the tens digit changes at the decade.",
+          "min": 107,
+          "max": 110
+        }
+      ]
+    },
+    {
+      "level_id": "G1M_NS_002_LVL4",
+      "label": "Level 4: Missing Numbers",
+      "focus": "fill missing numbers in sequences",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1M_NS_002_LVL4_Q01",
+          "prompt": "Fill the missing number: 21, 22, __, 24",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "23",
+          "acceptable_answers": [
+            "23",
+            "23."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "The missing number is 23 because the sequence counts by ones.",
+          "feedback": "Good thinking. The missing number is 23 because the sequence counts by ones.",
+          "min": 20,
+          "max": 25
+        },
+        {
+          "question_id": "G1M_NS_002_LVL4_Q02",
+          "prompt": "Fill the missing number: 34, __, 36, 37",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "35",
+          "acceptable_answers": [
+            "35",
+            "35."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "The missing number is 35 because the sequence counts by ones.",
+          "feedback": "Good thinking. The missing number is 35 because the sequence counts by ones.",
+          "min": 33,
+          "max": 38
+        },
+        {
+          "question_id": "G1M_NS_002_LVL4_Q03",
+          "prompt": "Fill the missing number: 48, 49, __, 51",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "50",
+          "acceptable_answers": [
+            "50",
+            "50."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "The missing number is 50 because the sequence counts by ones.",
+          "feedback": "Good thinking. The missing number is 50 because the sequence counts by ones.",
+          "min": 47,
+          "max": 52
+        },
+        {
+          "question_id": "G1M_NS_002_LVL4_Q04",
+          "prompt": "Fill the missing number: 62, __, 64, 65",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "63",
+          "acceptable_answers": [
+            "63",
+            "63."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "The missing number is 63 because the sequence counts by ones.",
+          "feedback": "Good thinking. The missing number is 63 because the sequence counts by ones.",
+          "min": 61,
+          "max": 66
+        },
+        {
+          "question_id": "G1M_NS_002_LVL4_Q05",
+          "prompt": "Fill the missing number: 78, 79, __, 81",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "80",
+          "acceptable_answers": [
+            "80",
+            "80."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "The missing number is 80 because the sequence counts by ones.",
+          "feedback": "Good thinking. The missing number is 80 because the sequence counts by ones.",
+          "min": 77,
+          "max": 82
+        },
+        {
+          "question_id": "G1M_NS_002_LVL4_Q06",
+          "prompt": "Fill the missing number: 94, __, 96, 97",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "95",
+          "acceptable_answers": [
+            "95",
+            "95."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "The missing number is 95 because the sequence counts by ones.",
+          "feedback": "Good thinking. The missing number is 95 because the sequence counts by ones.",
+          "min": 93,
+          "max": 98
+        },
+        {
+          "question_id": "G1M_NS_002_LVL4_Q07",
+          "prompt": "Fill the missing number: 99, __, 101, 102",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "100",
+          "acceptable_answers": [
+            "100",
+            "100."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "The missing number is 100 because the sequence counts by ones.",
+          "feedback": "Good thinking. The missing number is 100 because the sequence counts by ones.",
+          "min": 98,
+          "max": 103
+        },
+        {
+          "question_id": "G1M_NS_002_LVL4_Q08",
+          "prompt": "Fill the missing number: 108, 109, __, 111",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "110",
+          "acceptable_answers": [
+            "110",
+            "110."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "The missing number is 110 because the sequence counts by ones.",
+          "feedback": "Good thinking. The missing number is 110 because the sequence counts by ones.",
+          "min": 107,
+          "max": 112
+        },
+        {
+          "question_id": "G1M_NS_002_LVL4_Q09",
+          "prompt": "Fill the missing number: 73, 72, __, 70",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "71",
+          "acceptable_answers": [
+            "71",
+            "71."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "The missing number is 71 because the sequence counts by ones.",
+          "feedback": "Good thinking. The missing number is 71 because the sequence counts by ones.",
+          "min": 69,
+          "max": 74
+        },
+        {
+          "question_id": "G1M_NS_002_LVL4_Q10",
+          "prompt": "Fill the missing number: 56, __, 54, 53",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "55",
+          "acceptable_answers": [
+            "55",
+            "55."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "The missing number is 55 because the sequence counts by ones.",
+          "feedback": "Good thinking. The missing number is 55 because the sequence counts by ones.",
+          "min": 52,
+          "max": 57
+        }
+      ]
+    },
+    {
+      "level_id": "G1M_NS_002_MIXED",
+      "label": "Mixed",
+      "focus": "mixed forward/backward/counting transitions",
+      "difficulty": 5,
+      "question_count_required": 12,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1M_NS_002_MIXED_Q01",
+          "prompt": "Count forward: 18, 19, __",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "20",
+          "acceptable_answers": [
+            "20",
+            "20."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "decade_transition_skip",
+          "explanation": "The correct counting number is 20.",
+          "feedback": "Good thinking. The correct counting number is 20."
+        },
+        {
+          "question_id": "G1M_NS_002_MIXED_Q02",
+          "prompt": "Count backward: 31, 30, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "29",
+          "choices": [
+            "29",
+            "30",
+            "28"
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "The correct counting number is 29.",
+          "feedback": "Nice work. The correct counting number is 29."
+        },
+        {
+          "question_id": "G1M_NS_002_MIXED_Q03",
+          "prompt": "Fill the blank: 98, 99, __",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "100",
+          "acceptable_answers": [
+            "100",
+            "100."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "decade_transition_skip",
+          "explanation": "The correct counting number is 100.",
+          "feedback": "Good thinking. The correct counting number is 100."
+        },
+        {
+          "question_id": "G1M_NS_002_MIXED_Q04",
+          "prompt": "What comes next: 109, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "110",
+          "choices": [
+            "110",
+            "111",
+            "109"
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "decade_transition_skip",
+          "explanation": "The correct counting number is 110.",
+          "feedback": "Nice work. The correct counting number is 110."
+        },
+        {
+          "question_id": "G1M_NS_002_MIXED_Q05",
+          "prompt": "Count forward: 64, 65, __",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "66",
+          "acceptable_answers": [
+            "66",
+            "66."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "The correct counting number is 66.",
+          "feedback": "Good thinking. The correct counting number is 66."
+        },
+        {
+          "question_id": "G1M_NS_002_MIXED_Q06",
+          "prompt": "Count backward: 72, 71, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "70",
+          "choices": [
+            "70",
+            "71",
+            "69"
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "The correct counting number is 70.",
+          "feedback": "Nice work. The correct counting number is 70."
+        },
+        {
+          "question_id": "G1M_NS_002_MIXED_Q07",
+          "prompt": "Fill the blank: 43, __, 45",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "44",
+          "acceptable_answers": [
+            "44",
+            "44."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "explanation": "The correct counting number is 44.",
+          "feedback": "Good thinking. The correct counting number is 44."
+        },
+        {
+          "question_id": "G1M_NS_002_MIXED_Q08",
+          "prompt": "What comes before 58?",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "57",
+          "choices": [
+            "57",
+            "58",
+            "56"
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "The correct counting number is 57.",
+          "feedback": "Nice work. The correct counting number is 57."
+        },
+        {
+          "question_id": "G1M_NS_002_MIXED_Q09",
+          "prompt": "Count forward: 116, 117, __",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "118",
+          "acceptable_answers": [
+            "118",
+            "118."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "digit_reversal",
+          "explanation": "The correct counting number is 118.",
+          "feedback": "Good thinking. The correct counting number is 118."
+        },
+        {
+          "question_id": "G1M_NS_002_MIXED_Q10",
+          "prompt": "Fill the blank: 28, 29, __",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "30",
+          "choices": [
+            "30",
+            "31",
+            "29"
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "decade_transition_skip",
+          "explanation": "The correct counting number is 30.",
+          "feedback": "Nice work. The correct counting number is 30."
+        },
+        {
+          "question_id": "G1M_NS_002_MIXED_Q11",
+          "prompt": "Count backward: 101, 100, __",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "support_type": "number_sequence",
+          "correct_answer": "99",
+          "acceptable_answers": [
+            "99",
+            "99."
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "backward_count_drop",
+          "explanation": "The correct counting number is 99.",
+          "feedback": "Good thinking. The correct counting number is 99."
+        },
+        {
+          "question_id": "G1M_NS_002_MIXED_Q12",
+          "prompt": "What comes after 89?",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "support_type": "number_line",
+          "correct_answer": "90",
+          "choices": [
+            "90",
+            "91",
+            "89"
+          ],
+          "hints": [
+            "Find the numbers you know first.",
+            "Count by ones through the blank.",
+            "Check that the sequence keeps the same direction."
+          ],
+          "misconception_tag": "decade_transition_skip",
+          "explanation": "The correct counting number is 90.",
+          "feedback": "Nice work. The correct counting number is 90."
+        }
+      ]
+    }
+  ]
 }
