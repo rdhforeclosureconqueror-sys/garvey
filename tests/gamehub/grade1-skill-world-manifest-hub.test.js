@@ -48,10 +48,13 @@ test('Adaptive Grade 1 hub loads package manifest and renders Skill World button
   assert.match(hub, /title:pkg\.skill/);
   assert.match(hub, /route:skillWorldHref\(pkg\.skill_id\)/);
   assert.match(hub, /Start Skill World/);
+  assert.match(hub, /has_drill:Array\.isArray\(pkg\.level_banks\)&&pkg\.level_banks\.length>0/);
+  assert.match(hub, /Practice This Skill/);
 });
 
 test('Adaptive Grade 1 hub routes generated missions to /skill-world/:skillId', () => {
   assert.match(hub, /function skillWorldHref\(skillId\)\{ return `\/skill-world\/\$\{encodeURIComponent\(skillId\)\}`; \}/);
+  assert.match(hub, /function skillWorldDrillHref\(skillId\)\{ return `\/skill-world\/\$\{encodeURIComponent\(skillId\)\}\/drill`; \}/);
   assert.match(hub, /href="\$\{escapeHtml\(pkg\.route\)\}"/);
   assert.doesNotMatch(hub, /G1M_NS_002[^\n]*Start Skill World/);
   assert.doesNotMatch(hub, /G1M_PV_001[^\n]*Start Skill World/);

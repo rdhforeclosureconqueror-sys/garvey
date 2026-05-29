@@ -86,6 +86,7 @@
     function pilotHref(skill){ return `/gamehub/recognition-selection-pilot.html?skill=${encodeURIComponent(skill)}`; }
 
     function skillWorldHref(skillId){ return `/skill-world/${encodeURIComponent(skillId)}`; }
+    function skillWorldDrillHref(skillId){ return `/skill-world/${encodeURIComponent(skillId)}/drill`; }
     function escapeHtml(value){
       return String(value ?? '').replace(/[&<>"']/g,(char)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
     }
@@ -102,7 +103,8 @@
             domain:pkg.domain,
             title:pkg.skill,
             route:skillWorldHref(pkg.skill_id),
-            status:'active'
+            status:'active',
+            has_drill:Array.isArray(pkg.level_banks)&&pkg.level_banks.length>0
           };
         }));
         return packages.filter((pkg)=>pkg.skill_id&&Number(pkg.grade)===1);
@@ -126,7 +128,8 @@
       return `<a class="btn primary" data-skill-id="${escapeHtml(pkg.skill_id)}" href="${escapeHtml(pkg.route)}">${escapeHtml(pkg.title)}<br><span>Start Skill World</span></a>`;
     }
     function renderGeneratedMission(pkg){
-      return `<li data-skill-id="${escapeHtml(pkg.skill_id)}"><strong>${escapeHtml(pkg.title)}</strong><br><span class="muted">Grade ${escapeHtml(pkg.grade)} · ${escapeHtml(pkg.subject)} · ${escapeHtml(pkg.domain)} · ${escapeHtml(pkg.skill_id)}</span><br><a class="btn primary" href="${escapeHtml(pkg.route)}">Start Skill World</a></li>`;
+      const drillLink=pkg.has_drill?` <a class="btn" href="${escapeHtml(skillWorldDrillHref(pkg.skill_id))}">Practice This Skill</a>`:'';
+      return `<li data-skill-id="${escapeHtml(pkg.skill_id)}"><strong>${escapeHtml(pkg.title)}</strong><br><span class="muted">Grade ${escapeHtml(pkg.grade)} · ${escapeHtml(pkg.subject)} · ${escapeHtml(pkg.domain)} · ${escapeHtml(pkg.skill_id)}</span><br><a class="btn primary" href="${escapeHtml(pkg.route)}">Start Skill World</a>${drillLink}</li>`;
     }
     function renderPlannedLesson(lesson){
       return `<li data-skill-id="${escapeHtml(lesson.id)}"><strong>${escapeHtml(lesson.title)}</strong><br><span class="muted">${escapeHtml(lesson.subject)} · ${escapeHtml(lesson.domain)}</span><br><button class="btn" type="button" disabled aria-disabled="true">Coming Soon</button></li>`;
