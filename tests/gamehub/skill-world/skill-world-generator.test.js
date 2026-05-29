@@ -106,6 +106,23 @@ const showAfterWrong=Renderer.showAnswerAndContinue(state,'guided',gp);
 assert.equal(showAfterWrong.correct,false);
 assert.equal(Renderer.evaluateAnswer(cp,'  CIRCLE '),true);
 
+const shortResponseOneTen={ question_type:'short_response', correct_answer:'1 ten', acceptable_answers:['one ten','1 tens'] };
+assert.equal(Renderer.evaluateAnswer(shortResponseOneTen,'1 ten'),true,'short_response accepts exact correct answer');
+assert.equal(Renderer.evaluateAnswer(shortResponseOneTen,'1 ten.'),true,'short_response accepts trailing punctuation');
+assert.equal(Renderer.evaluateAnswer(shortResponseOneTen,'  1   ten  '),true,'short_response trims and collapses repeated spaces');
+assert.equal(Renderer.evaluateAnswer(shortResponseOneTen,'one ten'),true,'short_response accepts normalized acceptable_answers');
+assert.equal(Renderer.evaluateAnswer(shortResponseOneTen,'1 tens'),true,'short_response accepts listed plural acceptable answer');
+assert.equal(Renderer.evaluateAnswer(shortResponseOneTen,'2 tens'),false,'short_response rejects unrelated wrong answers');
+const oneTenState=Renderer.createState();
+const oneTenResult=Renderer.submitAnswer(oneTenState,'practice',shortResponseOneTen,'1 ten.');
+assert.equal(oneTenResult.correct,true,'equivalent short_response answer earns correct feedback');
+assert.equal(oneTenState.correct,1,'equivalent short_response answer awards credit');
+assert.equal(oneTenState.stars,1,'equivalent short_response answer awards a star');
+const revealOnlyState=Renderer.createState();
+Renderer.showAnswerAndContinue(revealOnlyState,'practice',shortResponseOneTen);
+assert.equal(revealOnlyState.correct,0,'Show Answer does not award credit');
+assert.equal(revealOnlyState.stars,0,'Show Answer does not award a star');
+
 const growth=Renderer.finalize(state,dp,'learner-1');
 assert.deepEqual(Object.keys(growth).sort(),['accuracy_percent','attempts','completed_at','correct','domain','grade','hints_used','learner_id','mastery_status','misconception_watch','recommended_next_skill','skill','skill_id','stars_earned','subject'].sort());
 assert.equal(growth.mastery_status,growth.accuracy_percent>=dp.mastery_threshold?'mastered':'review');
@@ -147,6 +164,13 @@ assert.equal(growth3.skill_id,'G1M_NS_002');
 assert.ok(['mastered','review'].includes(growth3.mastery_status));
 
 assert.equal(Schema.validateSkillPackage(pv).valid,true);
+const pvOneTenQuestions=[...pv.guided_practice,...pv.adaptive_question_bank,...pv.checkpoint].filter((q)=>q.correct_answer==='1 ten');
+assert.ok(pvOneTenQuestions.length>=1,'G1M_PV_001 should include 1 ten questions');
+pvOneTenQuestions.forEach((q)=>{
+  ['1 ten','1 ten.','one ten','one ten.','1 tens'].forEach((answer)=>assert.ok(q.acceptable_answers.includes(answer), `${q.id || q.question_id} missing acceptable answer ${answer}`));
+});
+assert.ok(Renderer.evaluateAnswer(pvOneTenQuestions[0],'1 ten.'),'G1M_PV_001 1 ten item accepts punctuated equivalent answer');
+assert.equal(Renderer.evaluateAnswer(pvOneTenQuestions[0],'2 tens'),false,'G1M_PV_001 1 ten item rejects unrelated answer');
 assert.ok(pv.lesson.mini_lesson.includes('ten is a bundle of 10 ones'));
 assert.ok(pv.worked_examples.some((example)=>example.text.includes('10 ones = 1 ten')));
 assert.ok(pv.guided_practice.length>=6);
