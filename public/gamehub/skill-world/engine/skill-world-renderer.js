@@ -3,7 +3,7 @@
   const SCREENS=['StoryMissionScreen','MiniLessonScreen','WorkedExampleScreen','GuidedDemoScreen','QuestionZoneScreen','ChallengeZoneScreen','CheckpointScreen','BadgeScreen','GrowthProfileScreen'];
   const createState=()=>({stepIndex:0,attempts:0,correct:0,stars:0,hintsUsed:0,answeredByZoneQuestion:{},misconceptionTags:[],lastResult:null,profile:null});
   const esc=(v)=>String(v??'').replace(/[&<>"']/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const normalize=(v)=>String(v??'').trim().toLowerCase();
+  const normalize=(v)=>String(v??'').replace(/[‐-―−]/g,'-').trim().toLowerCase().replace(/\s+/g,' ').replace(/[.,!?]+$/g,'').trim();
   const key=(zone,q)=>`${zone}:${q.question_id||q.id||q.prompt}`;
   function getCorrectAnswer(q){return q.correct_answer??q.answer;}
   function evaluateAnswer(question,answer){const norm=normalize(answer); const expected=[getCorrectAnswer(question),...((question.acceptable_answers)||[])].map(normalize); return expected.includes(norm);}
