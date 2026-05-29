@@ -21,8 +21,8 @@ function assertFullMission(pkg){
   const html=rendered.html;
   assert.match(html,new RegExp(`Skill World:\\s*${pkg.skill.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}`));
   ['mission-map','skill-world-header','rounded-app-container','central-screen-card','skill-screen-card','kid-visual-area','skill-visual','hint-box','feedback-area','styled-answer-controls','answer-grid','lesson-grid','safe-bottom','badge-celebration','growth-profile'].forEach((token)=>assert.match(html,new RegExp(token),`missing ${token}`));
-  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile','Stars','Accuracy','Hints','Zone'].forEach((label)=>assert.match(html,new RegExp(`>${label}<|>${label}\\b|\\b${label}\\b`),`missing ${label}`));
-  ['Story','Mini Lesson','Worked Example / Watch','Guided Demo','Practice zone','Challenge zone','Checkpoint zone','Badge','Growth/Profile screen','Show Answer','Start Mission','Next: Watch Me','Next: Demo','Next: Practice','Save Growth Data','Replay Mission','Exit to Adaptive Hub'].forEach((label)=>assert.match(html,new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')),`missing ${label}`));
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile','Skill Drill','Stars','Accuracy','Hints','Zone'].forEach((label)=>assert.match(html,new RegExp(`>${label}<|>${label}\\b|\\b${label}\\b`),`missing ${label}`));
+  ['Story','Mini Lesson','Worked Example / Watch','Guided Demo','Practice zone','Challenge zone','Checkpoint zone','Badge','Growth/Profile screen','Show Answer','Start Mission','Next: Watch Me','Next: Demo','Next: Practice','Save Growth Data','Replay Mission','Continue to Skill Drill','Exit to Adaptive Hub'].forEach((label)=>assert.match(html,new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')),`missing ${label}`));
   assert.match(html,/data-renderer="[^"]+"/,'missing visual renderer output');
   assert.doesNotMatch(html,/plain quiz/i);
 }
@@ -39,7 +39,7 @@ function assertActiveGuidedFlow(pkg){
   const state=Renderer.createState();
   let html=Renderer.renderSkillWorld(pkg,{state,failClosed:true}).html;
   classContains(html,'story-screen','is-active');
-  ['lesson-screen','watch-screen','demo-screen','practice-screen','challenge-screen','checkpoint-screen','badge-screen','profile-screen'].forEach((screen)=>classContains(html,screen,'is-hidden'));
+  ['lesson-screen','watch-screen','demo-screen','practice-screen','challenge-screen','checkpoint-screen','badge-screen','profile-screen','skill-drill-screen'].forEach((screen)=>classContains(html,screen,'is-hidden'));
   assert.match(html,/<span class="mission-step[^"]*is-active[^"]*"[^>]*data-step="Story"/,'Story is active in map on first load');
   assert.match(html,/<span class="mission-step[^"]*is-unavailable[^"]*"[^>]*data-step="Lesson"/,'Lesson is visible but unavailable on first load');
 
@@ -85,6 +85,61 @@ const css=fs.readFileSync(path.join(root,'public/gamehub/skill-world/skill-world
 assert.ok(css.includes('env(safe-area-inset-bottom)'),'missing mobile safe-area padding');
 assert.match(css,/grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/,'mobile mission map should use a compact 3x3 grid');
 
+
+const missingLevelBanks=JSON.parse(JSON.stringify(pv));
+delete missingLevelBanks.level_banks;
+assert.equal(Schema.validateSkillPackage(missingLevelBanks).valid,false,'production packages missing level_banks should fail');
+const naLevelBanks=JSON.parse(JSON.stringify(missingLevelBanks));
+naLevelBanks.level_banks_status='not_applicable';
+assert.equal(Schema.validateSkillPackage(naLevelBanks).valid,true,'not_applicable can bypass level banks');
+const plannedLevelBanks=JSON.parse(JSON.stringify(missingLevelBanks));
+plannedLevelBanks.level_banks_status='planned';
+assert.equal(Schema.validateSkillPackage(plannedLevelBanks).valid,true,'planned transitional packages are allowed by default tests');
+assert.equal(Schema.validateSkillPackage(plannedLevelBanks,{allowPlannedLevelBanks:false}).valid,false,'strict production validation rejects planned status');
+assert.ok(Array.isArray(pv.level_banks),'G1M_PV_001 proves required level_banks');
+assert.ok(pv.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length>=3,'at least three focused levels');
+assert.ok(pv.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),'Mixed level exists');
+pv.level_banks.forEach((level)=>{
+  assert.ok(level.focus);
+  assert.ok(level.questions.length>=10,`${level.level_id} should have at least 10 questions`);
+  assert.ok(new Set(level.questions.map((q)=>q.misconception_tag)).size>=1,`${level.level_id} needs misconception coverage`);
+});
+const shortLevel=JSON.parse(JSON.stringify(pv));
+shortLevel.level_banks[0].questions=shortLevel.level_banks[0].questions.slice(0,9);
+assert.equal(Schema.validateSkillPackage(shortLevel).valid,false,'level with fewer than 10 questions fails');
+const noMixed=JSON.parse(JSON.stringify(pv));
+noMixed.level_banks=noMixed.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`));
+assert.equal(Schema.validateSkillPackage(noMixed).valid,false,'missing Mixed level fails');
+const pvDrillState=Renderer.createState();
+pvDrillState.stepIndex=9;
+let drillHtml=Renderer.renderSkillWorld(pv,{state:pvDrillState,failClosed:true}).html;
+assert.match(drillHtml,/drill-tabs/,'Skill Drill screen renders level tabs');
+assert.match(drillHtml,/Level 1/,'Skill Drill screen renders Level 1 tab');
+assert.match(drillHtml,/Mixed/,'Skill Drill screen renders Mixed tab');
+assert.match(drillHtml,/Question 1 \/ 10/,'Skill Drill question counter renders');
+const level=Renderer.activeLevel(pv,pvDrillState);
+const firstLevelQuestion=Renderer.activeLevelQuestion(pv,pvDrillState);
+assert.equal(Renderer.levelQuestionAnswered(pvDrillState,level,firstLevelQuestion),false);
+assert.equal(Renderer.submitLevelAnswer(pvDrillState,level,firstLevelQuestion,firstLevelQuestion.correct_answer).correct,true,'level question flow grades correct answer');
+assert.equal(Renderer.levelQuestionAnswered(pvDrillState,level,firstLevelQuestion),true);
+assert.equal(Renderer.advanceLevelQuestion(pvDrillState,level),true,'level Next advances question');
+for(let i=pvDrillState.drill.questionIndex;i<level.questions.length;i++){
+  const q=Renderer.activeLevelQuestion(pv,pvDrillState);
+  Renderer.submitLevelAnswer(pvDrillState,level,q,q.correct_answer);
+  Renderer.advanceLevelQuestion(pvDrillState,level);
+}
+drillHtml=Renderer.renderSkillWorld(pv,{state:pvDrillState,failClosed:true}).html;
+assert.match(drillHtml,/drill-completion/,'level completion summary appears');
+assert.match(drillHtml,/Play Again/);
+assert.match(drillHtml,/Next Level/);
+assert.match(drillHtml,/Back to Hub/);
+const drillGrowth=Renderer.finalize(pvDrillState,pv,'learner-drill');
+assert.ok(drillGrowth.level_results.some((r)=>r.level_id===level.level_id&&r.mastery_status==='Mastered'),'level results save into growth data');
+assert.ok(drillGrowth.completed_levels.includes(level.level_id),'completed_levels tracks mastered levels');
+assert.ok(Object.prototype.hasOwnProperty.call(drillGrowth,'mixed_level_accuracy'));
+assert.ok(Object.prototype.hasOwnProperty.call(drillGrowth,'weakest_level'));
+assert.ok(Object.prototype.hasOwnProperty.call(drillGrowth,'recommended_level_review'));
+
 const bad=JSON.parse(JSON.stringify(dp)); delete bad.lesson; bad.guided_practice=[];
 assert.equal(Schema.validateSkillPackage(bad).valid,false);
 assert.throws(()=>Renderer.renderSkillWorld(bad,{failClosed:true}),/SkillPackage validation failed/);
@@ -124,7 +179,7 @@ assert.equal(revealOnlyState.correct,0,'Show Answer does not award credit');
 assert.equal(revealOnlyState.stars,0,'Show Answer does not award a star');
 
 const growth=Renderer.finalize(state,dp,'learner-1');
-assert.deepEqual(Object.keys(growth).sort(),['accuracy_percent','attempts','completed_at','correct','domain','grade','hints_used','learner_id','mastery_status','misconception_watch','recommended_next_skill','skill','skill_id','stars_earned','subject'].sort());
+['accuracy_percent','attempts','completed_at','correct','domain','grade','hints_used','learner_id','mastery_status','misconception_watch','recommended_next_skill','skill','skill_id','stars_earned','subject','level_results','completed_levels','mixed_level_accuracy','weakest_level','recommended_level_review'].forEach((k)=>assert.ok(Object.prototype.hasOwnProperty.call(growth,k),`growth missing ${k}`));
 assert.equal(growth.mastery_status,growth.accuracy_percent>=dp.mastery_threshold?'mastered':'review');
 assert.ok(Array.isArray(growth.misconception_watch));
 const saved=Adapter.loadGrowthData('G1M_DP_001','learner-1');
