@@ -20,7 +20,7 @@ function assertFullMission(pkg){
   const rendered=Renderer.renderSkillWorld(pkg,{failClosed:true});
   const html=rendered.html;
   assert.match(html,new RegExp(`Skill World:\\s*${pkg.skill.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}`));
-  ['mission-map','skill-world-header','rounded-app-container','central-screen-card','kid-visual-area','hint-box','feedback-area','styled-answer-controls','badge-celebration','growth-profile'].forEach((token)=>assert.match(html,new RegExp(token),`missing ${token}`));
+  ['mission-map','skill-world-header','rounded-app-container','central-screen-card','skill-screen-card','kid-visual-area','skill-visual','hint-box','feedback-area','styled-answer-controls','answer-grid','lesson-grid','safe-bottom','badge-celebration','growth-profile'].forEach((token)=>assert.match(html,new RegExp(token),`missing ${token}`));
   ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile','Stars','Accuracy','Hints','Zone'].forEach((label)=>assert.match(html,new RegExp(`>${label}<|>${label}\\b|\\b${label}\\b`),`missing ${label}`));
   ['Story','Mini Lesson','Worked Example / Watch','Guided Demo','Practice zone','Challenge zone','Checkpoint zone','Badge','Growth/Profile screen','Show Answer / Continue'].forEach((label)=>assert.match(html,new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')),`missing ${label}`));
   assert.match(html,/data-renderer="[^"]+"/,'missing visual renderer output');
@@ -32,7 +32,9 @@ const index=fs.readFileSync(path.join(root,'public/gamehub/skill-world/index.htm
 assert.match(index,/skill-world\.css/);
 assert.match(index,/failClosed:true/);
 const css=fs.readFileSync(path.join(root,'public/gamehub/skill-world/skill-world.css'),'utf8');
-['skill-world-header','mission-map','stat-card','answer-button','feedback-area','badge-celebration','visual-model','@media'].forEach((token)=>assert.match(css,new RegExp(token)));
+['skill-world-header','mission-map','stat-card','answer-button','feedback-area','badge-celebration','visual-model','skill-visual','skill-visual-inner','visual-scroll','answer-grid','lesson-grid','safe-bottom','overflow-x:hidden','@media'].forEach((token)=>assert.match(css,new RegExp(token)));
+assert.ok(css.includes('env(safe-area-inset-bottom)'),'missing mobile safe-area padding');
+assert.match(css,/grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/,'mobile mission map should use a compact 3x3 grid');
 
 const bad=JSON.parse(JSON.stringify(dp)); delete bad.lesson; bad.guided_practice=[];
 assert.equal(Schema.validateSkillPackage(bad).valid,false);
@@ -79,7 +81,14 @@ assert.ok(ns.checkpoint.length>=4);
 assert.ok(ns.checkpoint.some((q)=>String(q.prompt).includes('99')));
 assert.ok(ns.checkpoint.some((q)=>String(q.prompt).includes('109')));
 assert.match(VisualRegistry.render(ns.guided_practice[0]),/number-line-visual/);
-assert.match(VisualRegistry.render(ns.guided_practice[0]),/sw-number-line/);
+const nsLine=VisualRegistry.render(ns.guided_practice[0]);
+assert.match(nsLine,/sw-number-line/);
+assert.match(nsLine,/visual-scroll number-line-window/);
+assert.match(nsLine,/skill-visual-inner number-line-visual/);
+assert.match(nsLine,/Focused number line/);
+const nsNearHundred=VisualRegistry.render(ns.checkpoint.find((q)=>String(q.prompt).includes('99')));
+assert.match(nsNearHundred,/number-line-window/);
+assert.match(nsNearHundred,/>99<|>\?<|>100</,'focused number line keeps the missing tick visible');
 const st3=Renderer.createState();
 Renderer.submitAnswer(st3,'guided',ns.guided_practice[0],ns.guided_practice[0].correct_answer);
 Renderer.submitAnswer(st3,'challenge',ns.adaptive_question_bank[3],ns.adaptive_question_bank[3].correct_answer);
@@ -104,6 +113,7 @@ assert.deepEqual([...new Set(pvQuestions.map((q)=>q.representation).filter(Boole
 });
 const pvVisual=VisualRegistry.render(pv.guided_practice.find((q)=>q.visual_model==='base_ten_blocks')||pv.guided_practice[0]);
 assert.match(pvVisual,/base-ten-visual/);
+assert.match(pvVisual,/skill-visual-inner/);
 assert.match(pvVisual,/place-value-chart/);
 assert.match(pvVisual,/10 ones = 1 ten/);
 assert.ok(pvQuestions.every((q)=>VisualRegistry.render(q) !== '<div></div>'));
@@ -117,9 +127,11 @@ assert.equal(growth4.mastery_status,'mastered');
 
 const dpPattern=VisualRegistry.render(dp.checkpoint[0]);
 assert.match(dpPattern,/pattern-visual/);
+assert.match(dpPattern,/visual-scroll/);
 assert.match(dpPattern,/pattern-token missing/);
 const dpSort=VisualRegistry.render(dp.guided_practice[0]);
 assert.match(dpSort,/sorting-visual/);
+assert.match(dpSort,/visual-scroll/);
 assert.match(dpSort,/sorting-bins/);
 
 console.log('skill-world-generator tests passed');
