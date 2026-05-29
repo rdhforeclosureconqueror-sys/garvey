@@ -90,5 +90,1272 @@
   },
   "next_skill_id": "G1M_OP_004",
   "remediation_skill_id": "G1M_OP_002",
-  "level_banks_status": "planned"
+  "level_banks": [
+    {
+      "level_id": "G1M_OP_003_LVL1",
+      "label": "Level 1: Make 5",
+      "focus": "number bonds within 5",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1M_OP_003_LVL1_Q01",
+          "prompt": "What number bond makes 5: 0 + __ = 5?",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "5",
+          "choices": [
+            "5",
+            "6",
+            "4"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "explanation": "0 and 5 are parts that make the whole 5.",
+          "feedback": "Nice work. 0 and 5 are parts that make the whole 5.",
+          "whole": 5,
+          "part_a": 0,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL1_Q02",
+          "prompt": "What number bond makes 5: 1 + __ = 5?",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "4",
+          "choices": [
+            "4",
+            "5",
+            "3"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "explanation": "1 and 4 are parts that make the whole 5.",
+          "feedback": "Nice work. 1 and 4 are parts that make the whole 5.",
+          "whole": 5,
+          "part_a": 1,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL1_Q03",
+          "prompt": "What number bond makes 5: 2 + __ = 5?",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "3",
+          "choices": [
+            "3",
+            "4",
+            "2"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "explanation": "2 and 3 are parts that make the whole 5.",
+          "feedback": "Nice work. 2 and 3 are parts that make the whole 5.",
+          "whole": 5,
+          "part_a": 2,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL1_Q04",
+          "prompt": "What number bond makes 5: 3 + __ = 5?",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "2",
+          "choices": [
+            "2",
+            "3",
+            "1"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "explanation": "3 and 2 are parts that make the whole 5.",
+          "feedback": "Nice work. 3 and 2 are parts that make the whole 5.",
+          "whole": 5,
+          "part_a": 3,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL1_Q05",
+          "prompt": "What number bond makes 5: 4 + __ = 5?",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "1",
+          "choices": [
+            "1",
+            "2",
+            "0"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "explanation": "4 and 1 are parts that make the whole 5.",
+          "feedback": "Nice work. 4 and 1 are parts that make the whole 5.",
+          "whole": 5,
+          "part_a": 4,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL1_Q06",
+          "prompt": "What number bond makes 5: 5 + __ = 5?",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "0",
+          "choices": [
+            "0",
+            "1",
+            "0"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "explanation": "5 and 0 are parts that make the whole 5.",
+          "feedback": "Nice work. 5 and 0 are parts that make the whole 5.",
+          "whole": 5,
+          "part_a": 5,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL1_Q07",
+          "prompt": "What number bond makes 4: 1 + __ = 4?",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "3",
+          "choices": [
+            "3",
+            "4",
+            "2"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "explanation": "1 and 3 are parts that make the whole 4.",
+          "feedback": "Nice work. 1 and 3 are parts that make the whole 4.",
+          "whole": 4,
+          "part_a": 1,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL1_Q08",
+          "prompt": "What number bond makes 4: 2 + __ = 4?",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "2",
+          "choices": [
+            "2",
+            "3",
+            "1"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "explanation": "2 and 2 are parts that make the whole 4.",
+          "feedback": "Nice work. 2 and 2 are parts that make the whole 4.",
+          "whole": 4,
+          "part_a": 2,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL1_Q09",
+          "prompt": "What number bond makes 4: 0 + __ = 4?",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "4",
+          "choices": [
+            "4",
+            "5",
+            "3"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "explanation": "0 and 4 are parts that make the whole 4.",
+          "feedback": "Nice work. 0 and 4 are parts that make the whole 4.",
+          "whole": 4,
+          "part_a": 0,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL1_Q10",
+          "prompt": "What number bond makes 3: 1 + __ = 3?",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "2",
+          "choices": [
+            "2",
+            "3",
+            "1"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "explanation": "1 and 2 are parts that make the whole 3.",
+          "feedback": "Nice work. 1 and 2 are parts that make the whole 3.",
+          "whole": 3,
+          "part_a": 1,
+          "part_b": "?"
+        }
+      ]
+    },
+    {
+      "level_id": "G1M_OP_003_LVL2",
+      "label": "Level 2: Make 10",
+      "focus": "number bonds to 10",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1M_OP_003_LVL2_Q01",
+          "prompt": "Make 10: 0 + __ = 10",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "10",
+          "choices": [
+            "10",
+            "0",
+            "9"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "single_bond_thinking",
+          "explanation": "0 needs 10 more to make 10.",
+          "feedback": "Nice work. 0 needs 10 more to make 10.",
+          "whole": 10,
+          "part_a": 0,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL2_Q02",
+          "prompt": "Make 10: 1 + __ = 10",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "9",
+          "choices": [
+            "9",
+            "10",
+            "8"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "single_bond_thinking",
+          "explanation": "1 needs 9 more to make 10.",
+          "feedback": "Nice work. 1 needs 9 more to make 10.",
+          "whole": 10,
+          "part_a": 1,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL2_Q03",
+          "prompt": "Make 10: 2 + __ = 10",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "8",
+          "choices": [
+            "8",
+            "9",
+            "7"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "single_bond_thinking",
+          "explanation": "2 needs 8 more to make 10.",
+          "feedback": "Nice work. 2 needs 8 more to make 10.",
+          "whole": 10,
+          "part_a": 2,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL2_Q04",
+          "prompt": "Make 10: 3 + __ = 10",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "7",
+          "choices": [
+            "7",
+            "8",
+            "6"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "single_bond_thinking",
+          "explanation": "3 needs 7 more to make 10.",
+          "feedback": "Nice work. 3 needs 7 more to make 10.",
+          "whole": 10,
+          "part_a": 3,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL2_Q05",
+          "prompt": "Make 10: 4 + __ = 10",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "6",
+          "choices": [
+            "6",
+            "7",
+            "5"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "single_bond_thinking",
+          "explanation": "4 needs 6 more to make 10.",
+          "feedback": "Nice work. 4 needs 6 more to make 10.",
+          "whole": 10,
+          "part_a": 4,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL2_Q06",
+          "prompt": "Make 10: 5 + __ = 10",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "5",
+          "choices": [
+            "5",
+            "6",
+            "4"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "single_bond_thinking",
+          "explanation": "5 needs 5 more to make 10.",
+          "feedback": "Nice work. 5 needs 5 more to make 10.",
+          "whole": 10,
+          "part_a": 5,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL2_Q07",
+          "prompt": "Make 10: 6 + __ = 10",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "4",
+          "choices": [
+            "4",
+            "5",
+            "3"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "single_bond_thinking",
+          "explanation": "6 needs 4 more to make 10.",
+          "feedback": "Nice work. 6 needs 4 more to make 10.",
+          "whole": 10,
+          "part_a": 6,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL2_Q08",
+          "prompt": "Make 10: 7 + __ = 10",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "3",
+          "choices": [
+            "3",
+            "4",
+            "2"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "single_bond_thinking",
+          "explanation": "7 needs 3 more to make 10.",
+          "feedback": "Nice work. 7 needs 3 more to make 10.",
+          "whole": 10,
+          "part_a": 7,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL2_Q09",
+          "prompt": "Make 10: 8 + __ = 10",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "2",
+          "choices": [
+            "2",
+            "3",
+            "1"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "single_bond_thinking",
+          "explanation": "8 needs 2 more to make 10.",
+          "feedback": "Nice work. 8 needs 2 more to make 10.",
+          "whole": 10,
+          "part_a": 8,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL2_Q10",
+          "prompt": "Make 10: 9 + __ = 10",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "1",
+          "choices": [
+            "1",
+            "2",
+            "0"
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "single_bond_thinking",
+          "explanation": "9 needs 1 more to make 10.",
+          "feedback": "Nice work. 9 needs 1 more to make 10.",
+          "whole": 10,
+          "part_a": 9,
+          "part_b": "?"
+        }
+      ]
+    },
+    {
+      "level_id": "G1M_OP_003_LVL3",
+      "label": "Level 3: Missing Part",
+      "focus": "find the missing part in part-part-whole",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1M_OP_003_LVL3_Q01",
+          "prompt": "Find the missing part: whole 6, one part 2, missing part __",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4",
+            "4."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "part_whole_confusion",
+          "explanation": "The missing part is 4 because 2 + 4 = 6.",
+          "feedback": "Good thinking. The missing part is 4 because 2 + 4 = 6.",
+          "whole": 6,
+          "part_a": 2,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL3_Q02",
+          "prompt": "Find the missing part: whole 7, one part 3, missing part __",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4",
+            "4."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "part_whole_confusion",
+          "explanation": "The missing part is 4 because 3 + 4 = 7.",
+          "feedback": "Good thinking. The missing part is 4 because 3 + 4 = 7.",
+          "whole": 7,
+          "part_a": 3,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL3_Q03",
+          "prompt": "Find the missing part: whole 8, one part 5, missing part __",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "3",
+          "acceptable_answers": [
+            "3",
+            "3."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "part_whole_confusion",
+          "explanation": "The missing part is 3 because 5 + 3 = 8.",
+          "feedback": "Good thinking. The missing part is 3 because 5 + 3 = 8.",
+          "whole": 8,
+          "part_a": 5,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL3_Q04",
+          "prompt": "Find the missing part: whole 9, one part 4, missing part __",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5",
+            "5."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "part_whole_confusion",
+          "explanation": "The missing part is 5 because 4 + 5 = 9.",
+          "feedback": "Good thinking. The missing part is 5 because 4 + 5 = 9.",
+          "whole": 9,
+          "part_a": 4,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL3_Q05",
+          "prompt": "Find the missing part: whole 10, one part 6, missing part __",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4",
+            "4."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "part_whole_confusion",
+          "explanation": "The missing part is 4 because 6 + 4 = 10.",
+          "feedback": "Good thinking. The missing part is 4 because 6 + 4 = 10.",
+          "whole": 10,
+          "part_a": 6,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL3_Q06",
+          "prompt": "Find the missing part: whole 5, one part 1, missing part __",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4",
+            "4."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "part_whole_confusion",
+          "explanation": "The missing part is 4 because 1 + 4 = 5.",
+          "feedback": "Good thinking. The missing part is 4 because 1 + 4 = 5.",
+          "whole": 5,
+          "part_a": 1,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL3_Q07",
+          "prompt": "Find the missing part: whole 7, one part 5, missing part __",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "2",
+          "acceptable_answers": [
+            "2",
+            "2."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "part_whole_confusion",
+          "explanation": "The missing part is 2 because 5 + 2 = 7.",
+          "feedback": "Good thinking. The missing part is 2 because 5 + 2 = 7.",
+          "whole": 7,
+          "part_a": 5,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL3_Q08",
+          "prompt": "Find the missing part: whole 8, one part 2, missing part __",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6",
+            "6."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "part_whole_confusion",
+          "explanation": "The missing part is 6 because 2 + 6 = 8.",
+          "feedback": "Good thinking. The missing part is 6 because 2 + 6 = 8.",
+          "whole": 8,
+          "part_a": 2,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL3_Q09",
+          "prompt": "Find the missing part: whole 9, one part 7, missing part __",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "2",
+          "acceptable_answers": [
+            "2",
+            "2."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "part_whole_confusion",
+          "explanation": "The missing part is 2 because 7 + 2 = 9.",
+          "feedback": "Good thinking. The missing part is 2 because 7 + 2 = 9.",
+          "whole": 9,
+          "part_a": 7,
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_LVL3_Q10",
+          "prompt": "Find the missing part: whole 10, one part 3, missing part __",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "7",
+          "acceptable_answers": [
+            "7",
+            "7."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "part_whole_confusion",
+          "explanation": "The missing part is 7 because 3 + 7 = 10.",
+          "feedback": "Good thinking. The missing part is 7 because 3 + 7 = 10.",
+          "whole": 10,
+          "part_a": 3,
+          "part_b": "?"
+        }
+      ]
+    },
+    {
+      "level_id": "G1M_OP_003_LVL4",
+      "label": "Level 4: Fast Facts",
+      "focus": "addition facts within 10",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1M_OP_003_LVL4_Q01",
+          "prompt": "Fast fact: 1 + 2 = __",
+          "question_type": "multiple_choice",
+          "visual_model": "addition_model",
+          "support_type": "addition_model",
+          "correct_answer": "3",
+          "choices": [
+            "3",
+            "4",
+            "2"
+          ],
+          "hints": [
+            "Start with the bigger addend.",
+            "Count on the smaller addend.",
+            "Check that the sum is 10 or less."
+          ],
+          "misconception_tag": "fact_confusion",
+          "explanation": "1 + 2 = 3.",
+          "feedback": "Nice work. 1 + 2 = 3.",
+          "a": 1,
+          "b": 2
+        },
+        {
+          "question_id": "G1M_OP_003_LVL4_Q02",
+          "prompt": "Fast fact: 2 + 3 = __",
+          "question_type": "multiple_choice",
+          "visual_model": "addition_model",
+          "support_type": "addition_model",
+          "correct_answer": "5",
+          "choices": [
+            "5",
+            "6",
+            "4"
+          ],
+          "hints": [
+            "Start with the bigger addend.",
+            "Count on the smaller addend.",
+            "Check that the sum is 10 or less."
+          ],
+          "misconception_tag": "fact_confusion",
+          "explanation": "2 + 3 = 5.",
+          "feedback": "Nice work. 2 + 3 = 5.",
+          "a": 2,
+          "b": 3
+        },
+        {
+          "question_id": "G1M_OP_003_LVL4_Q03",
+          "prompt": "Fast fact: 4 + 1 = __",
+          "question_type": "multiple_choice",
+          "visual_model": "addition_model",
+          "support_type": "addition_model",
+          "correct_answer": "5",
+          "choices": [
+            "5",
+            "6",
+            "4"
+          ],
+          "hints": [
+            "Start with the bigger addend.",
+            "Count on the smaller addend.",
+            "Check that the sum is 10 or less."
+          ],
+          "misconception_tag": "fact_confusion",
+          "explanation": "4 + 1 = 5.",
+          "feedback": "Nice work. 4 + 1 = 5.",
+          "a": 4,
+          "b": 1
+        },
+        {
+          "question_id": "G1M_OP_003_LVL4_Q04",
+          "prompt": "Fast fact: 5 + 2 = __",
+          "question_type": "multiple_choice",
+          "visual_model": "addition_model",
+          "support_type": "addition_model",
+          "correct_answer": "7",
+          "choices": [
+            "7",
+            "8",
+            "6"
+          ],
+          "hints": [
+            "Start with the bigger addend.",
+            "Count on the smaller addend.",
+            "Check that the sum is 10 or less."
+          ],
+          "misconception_tag": "fact_confusion",
+          "explanation": "5 + 2 = 7.",
+          "feedback": "Nice work. 5 + 2 = 7.",
+          "a": 5,
+          "b": 2
+        },
+        {
+          "question_id": "G1M_OP_003_LVL4_Q05",
+          "prompt": "Fast fact: 3 + 3 = __",
+          "question_type": "multiple_choice",
+          "visual_model": "addition_model",
+          "support_type": "addition_model",
+          "correct_answer": "6",
+          "choices": [
+            "6",
+            "7",
+            "5"
+          ],
+          "hints": [
+            "Start with the bigger addend.",
+            "Count on the smaller addend.",
+            "Check that the sum is 10 or less."
+          ],
+          "misconception_tag": "fact_confusion",
+          "explanation": "3 + 3 = 6.",
+          "feedback": "Nice work. 3 + 3 = 6.",
+          "a": 3,
+          "b": 3
+        },
+        {
+          "question_id": "G1M_OP_003_LVL4_Q06",
+          "prompt": "Fast fact: 6 + 1 = __",
+          "question_type": "multiple_choice",
+          "visual_model": "addition_model",
+          "support_type": "addition_model",
+          "correct_answer": "7",
+          "choices": [
+            "7",
+            "8",
+            "6"
+          ],
+          "hints": [
+            "Start with the bigger addend.",
+            "Count on the smaller addend.",
+            "Check that the sum is 10 or less."
+          ],
+          "misconception_tag": "fact_confusion",
+          "explanation": "6 + 1 = 7.",
+          "feedback": "Nice work. 6 + 1 = 7.",
+          "a": 6,
+          "b": 1
+        },
+        {
+          "question_id": "G1M_OP_003_LVL4_Q07",
+          "prompt": "Fast fact: 4 + 4 = __",
+          "question_type": "multiple_choice",
+          "visual_model": "addition_model",
+          "support_type": "addition_model",
+          "correct_answer": "8",
+          "choices": [
+            "8",
+            "9",
+            "7"
+          ],
+          "hints": [
+            "Start with the bigger addend.",
+            "Count on the smaller addend.",
+            "Check that the sum is 10 or less."
+          ],
+          "misconception_tag": "fact_confusion",
+          "explanation": "4 + 4 = 8.",
+          "feedback": "Nice work. 4 + 4 = 8.",
+          "a": 4,
+          "b": 4
+        },
+        {
+          "question_id": "G1M_OP_003_LVL4_Q08",
+          "prompt": "Fast fact: 7 + 2 = __",
+          "question_type": "multiple_choice",
+          "visual_model": "addition_model",
+          "support_type": "addition_model",
+          "correct_answer": "9",
+          "choices": [
+            "9",
+            "10",
+            "8"
+          ],
+          "hints": [
+            "Start with the bigger addend.",
+            "Count on the smaller addend.",
+            "Check that the sum is 10 or less."
+          ],
+          "misconception_tag": "fact_confusion",
+          "explanation": "7 + 2 = 9.",
+          "feedback": "Nice work. 7 + 2 = 9.",
+          "a": 7,
+          "b": 2
+        },
+        {
+          "question_id": "G1M_OP_003_LVL4_Q09",
+          "prompt": "Fast fact: 5 + 4 = __",
+          "question_type": "multiple_choice",
+          "visual_model": "addition_model",
+          "support_type": "addition_model",
+          "correct_answer": "9",
+          "choices": [
+            "9",
+            "10",
+            "8"
+          ],
+          "hints": [
+            "Start with the bigger addend.",
+            "Count on the smaller addend.",
+            "Check that the sum is 10 or less."
+          ],
+          "misconception_tag": "fact_confusion",
+          "explanation": "5 + 4 = 9.",
+          "feedback": "Nice work. 5 + 4 = 9.",
+          "a": 5,
+          "b": 4
+        },
+        {
+          "question_id": "G1M_OP_003_LVL4_Q10",
+          "prompt": "Fast fact: 6 + 3 = __",
+          "question_type": "multiple_choice",
+          "visual_model": "addition_model",
+          "support_type": "addition_model",
+          "correct_answer": "9",
+          "choices": [
+            "9",
+            "10",
+            "8"
+          ],
+          "hints": [
+            "Start with the bigger addend.",
+            "Count on the smaller addend.",
+            "Check that the sum is 10 or less."
+          ],
+          "misconception_tag": "fact_confusion",
+          "explanation": "6 + 3 = 9.",
+          "feedback": "Nice work. 6 + 3 = 9.",
+          "a": 6,
+          "b": 3
+        }
+      ]
+    },
+    {
+      "level_id": "G1M_OP_003_MIXED",
+      "label": "Mixed",
+      "focus": "mixed number bonds and fact fluency within 10",
+      "difficulty": 5,
+      "question_count_required": 12,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1M_OP_003_MIXED_Q01",
+          "prompt": "Make 5: 2 + __ = 5",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "3",
+          "acceptable_answers": [
+            "3",
+            "3."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "explanation": "The answer is 3.",
+          "feedback": "Good thinking. The answer is 3.",
+          "whole": null,
+          "part_a": "?",
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_MIXED_Q02",
+          "prompt": "Make 10: 6 + __ = 10",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4",
+            "4."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "single_bond_thinking",
+          "explanation": "The answer is 4.",
+          "feedback": "Good thinking. The answer is 4.",
+          "whole": 10,
+          "part_a": "?",
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_MIXED_Q03",
+          "prompt": "Whole 8, part 3, missing part __",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5",
+            "5."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "part_whole_confusion",
+          "explanation": "The answer is 5.",
+          "feedback": "Good thinking. The answer is 5.",
+          "whole": null,
+          "part_a": "?",
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_MIXED_Q04",
+          "prompt": "Fast fact: 4 + 5 = __",
+          "question_type": "short_response",
+          "visual_model": "addition_model",
+          "support_type": "addition_model",
+          "correct_answer": "9",
+          "acceptable_answers": [
+            "9",
+            "9."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "fact_confusion",
+          "explanation": "The answer is 9.",
+          "feedback": "Good thinking. The answer is 9.",
+          "whole": null,
+          "part_a": "?",
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_MIXED_Q05",
+          "prompt": "Make 10: 1 + __ = 10",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "9",
+          "acceptable_answers": [
+            "9",
+            "9."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "single_bond_thinking",
+          "explanation": "The answer is 9.",
+          "feedback": "Good thinking. The answer is 9.",
+          "whole": 10,
+          "part_a": "?",
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_MIXED_Q06",
+          "prompt": "Fast fact: 3 + 6 = __",
+          "question_type": "short_response",
+          "visual_model": "addition_model",
+          "support_type": "addition_model",
+          "correct_answer": "9",
+          "acceptable_answers": [
+            "9",
+            "9."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "fact_confusion",
+          "explanation": "The answer is 9.",
+          "feedback": "Good thinking. The answer is 9.",
+          "whole": null,
+          "part_a": "?",
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_MIXED_Q07",
+          "prompt": "Whole 7, part 2, missing part __",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5",
+            "5."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "explanation": "The answer is 5.",
+          "feedback": "Good thinking. The answer is 5.",
+          "whole": null,
+          "part_a": "?",
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_MIXED_Q08",
+          "prompt": "Make 5: 4 + __ = 5",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "1",
+          "acceptable_answers": [
+            "1",
+            "1."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "explanation": "The answer is 1.",
+          "feedback": "Good thinking. The answer is 1.",
+          "whole": null,
+          "part_a": "?",
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_MIXED_Q09",
+          "prompt": "Fast fact: 2 + 7 = __",
+          "question_type": "short_response",
+          "visual_model": "visual_objects",
+          "support_type": "visual_objects",
+          "correct_answer": "9",
+          "acceptable_answers": [
+            "9",
+            "9."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "fact_confusion",
+          "explanation": "The answer is 9.",
+          "feedback": "Good thinking. The answer is 9.",
+          "whole": null,
+          "part_a": "?",
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_MIXED_Q10",
+          "prompt": "Make 10: 8 + __ = 10",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "2",
+          "acceptable_answers": [
+            "2",
+            "2."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "single_bond_thinking",
+          "explanation": "The answer is 2.",
+          "feedback": "Good thinking. The answer is 2.",
+          "whole": 10,
+          "part_a": "?",
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_MIXED_Q11",
+          "prompt": "Whole 10, part 5, missing part __",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "support_type": "number_bond",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5",
+            "5."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "part_whole_confusion",
+          "explanation": "The answer is 5.",
+          "feedback": "Good thinking. The answer is 5.",
+          "whole": 10,
+          "part_a": "?",
+          "part_b": "?"
+        },
+        {
+          "question_id": "G1M_OP_003_MIXED_Q12",
+          "prompt": "Fast fact: 5 + 5 = __",
+          "question_type": "short_response",
+          "visual_model": "addition_model",
+          "support_type": "addition_model",
+          "correct_answer": "10",
+          "acceptable_answers": [
+            "10",
+            "10."
+          ],
+          "hints": [
+            "Look at the whole and the known part.",
+            "Count on from the known part to the whole.",
+            "The missing part joins the known part to make the whole."
+          ],
+          "misconception_tag": "fact_confusion",
+          "explanation": "The answer is 10.",
+          "feedback": "Good thinking. The answer is 10.",
+          "whole": null,
+          "part_a": "?",
+          "part_b": "?"
+        }
+      ]
+    }
+  ]
 }

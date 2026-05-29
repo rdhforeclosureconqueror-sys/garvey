@@ -1,6 +1,6 @@
 (function(root,factory){if(typeof module==='object'&&module.exports){module.exports=factory();}else{root.SkillPackageSchema=factory();}})(typeof self!=='undefined'?self:this,function(){
   const QUESTION_TYPES=['multiple_choice','short_response','visual_objects','number_sequence','number_line','comparison','comparison_cards','base_ten_blocks','place_value_chart','addition_model','subtraction_model','number_bond','shape_identification','measurement_comparison','pattern_completion','sorting_visual'];
-  const VISUAL_MODELS=['visual_objects','number_line','number_line_0_120','comparison','comparison_cards','base_ten_blocks','place_value_chart','addition_model','subtraction_model','number_bond','shape_identification','measurement_comparison','pattern_completion','sorting_visual'];
+  const VISUAL_MODELS=['visual_objects','number_sequence','number_line','number_line_0_120','comparison','comparison_cards','base_ten_blocks','place_value_chart','addition_model','subtraction_model','number_bond','shape_identification','measurement_comparison','pattern_completion','sorting_visual'];
   const REQUIRED_MINIMUMS={guided_practice:1,checkpoint:1,adaptive_question_bank:1};
   const LEVEL_BANK_STATUS_VALUES=['not_applicable','planned'];
   function ensureQuestionId(question,index,prefix){if(!question.question_id&&!question.id){question.question_id=`${prefix}_${index+1}`;} return question.question_id||question.id;}

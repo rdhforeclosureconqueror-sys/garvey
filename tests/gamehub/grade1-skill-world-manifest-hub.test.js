@@ -37,6 +37,21 @@ test('Grade 1 generated Skill World missions expose required hub fields', () => 
   }
 });
 
+
+test('Active Grade 1 packages expose real level banks for hub Practice This Skill buttons', () => {
+  const requiredSkillIds = ['G1M_NS_002', 'G1M_OP_003', 'G1M_DP_001'];
+  const packages = manifest.packages.map(readPackage).filter((pkg) => requiredSkillIds.includes(pkg.skill_id));
+
+  assert.deepEqual(packages.map((pkg) => pkg.skill_id).sort(), requiredSkillIds.sort());
+  for (const pkg of packages) {
+    assert.equal(pkg.level_banks_status, undefined);
+    assert.equal(Array.isArray(pkg.level_banks), true);
+    assert.equal(pkg.level_banks.length >= 5, true);
+    assert.equal(pkg.level_banks.some((level) => /mixed/i.test(`${level.level_id} ${level.label}`)), true);
+    assert.equal(pkg.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+  }
+});
+
 test('Adaptive Grade 1 hub loads package manifest and renders Skill World buttons', () => {
   assert.match(hub, /skillWorldManifestUrl='\/gamehub\/skill-world\/content\/manifest\.json'/);
   assert.match(hub, /async function loadSkillWorldPackages\(\)/);

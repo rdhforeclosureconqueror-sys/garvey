@@ -22,7 +22,7 @@ function assertFullMission(pkg){
   assert.match(html,new RegExp(`Skill World:\\s*${pkg.skill.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}`));
   ['mission-map','skill-world-header','rounded-app-container','central-screen-card','skill-screen-card','kid-visual-area','skill-visual','hint-box','feedback-area','styled-answer-controls','answer-grid','lesson-grid','safe-bottom','badge-celebration','growth-profile'].forEach((token)=>assert.match(html,new RegExp(token),`missing ${token}`));
   ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile','Stars','Accuracy','Hints','Zone'].forEach((label)=>assert.match(html,new RegExp(`>${label}<|>${label}\b|\b${label}\b`),`missing ${label}`));
-  assert.doesNotMatch(html,/data-step="Skill Drill"/,'Skill Drill is not embedded as a mission-map step');
+  assert.doesNotMatch(html,/data-step="Skill Drill"/,'Skill Practice is not embedded as a mission-map step');
   if(Renderer.hasRealLevelBanks(pkg)){assert.match(html,/Continue to Skill Practice/,'production packages launch practice from Profile');}
   else{assert.doesNotMatch(html,/Continue to Skill Practice/,'transitional packages do not show a dead Skill Practice entry');}
   ['Story','Mini Lesson','Worked Example / Watch','Guided Demo','Practice zone','Challenge zone','Checkpoint zone','Badge','Growth/Profile screen','Show Answer','Start Mission','Next: Watch Me','Next: Demo','Next: Practice','Save Growth Data','Replay Mission','Exit to Adaptive Hub'].forEach((label)=>assert.match(html,new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')),`missing ${label}`));
@@ -83,7 +83,7 @@ function assertActiveGuidedFlow(pkg){
 const index=fs.readFileSync(path.join(root,'public/gamehub/skill-world/index.html'),'utf8');
 assert.match(index,/skill-world\.css/);
 assert.match(index,/failClosed:true/);
-assert.match(index,/drillPath/,'/skill-world/:skillId/drill launches Skill Drill mode');
+assert.match(index,/drillPath/,'/skill-world/:skillId/drill launches Skill Practice mode');
 const css=fs.readFileSync(path.join(root,'public/gamehub/skill-world/skill-world.css'),'utf8');
 ['skill-world-header','mission-map','stat-card','answer-button','feedback-area','badge-celebration','visual-model','skill-visual','skill-visual-inner','visual-scroll','answer-grid','lesson-grid','safe-bottom','overflow-x:hidden','@media'].forEach((token)=>assert.match(css,new RegExp(token)));
 assert.ok(css.includes('env(safe-area-inset-bottom)'),'missing mobile safe-area padding');
@@ -91,10 +91,10 @@ assert.match(css,/grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/,'mobile mis
 
 
 function missionStepNames(html){return [...html.matchAll(/<span class="mission-step[^"]*"[^>]*data-step="([^"]+)"/g)].map((m)=>m[1]);}
-assert.deepEqual(Renderer.stepLabels(pv),['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],'Mission order excludes Skill Drill for real level banks');
+assert.deepEqual(Renderer.stepLabels(pv),['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],'Mission order excludes Skill Practice for real level banks');
 assert.deepEqual(missionStepNames(Renderer.renderSkillWorld(pv,{failClosed:true}).html),Renderer.stepLabels(pv),'rendered mission map follows production order');
-assert.deepEqual(Renderer.stepLabels(dp),['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],'planned transitional packages hide Skill Drill from the routed mission order');
-assert.deepEqual(missionStepNames(Renderer.renderSkillWorld(dp,{failClosed:true}).html),Renderer.stepLabels(dp),'planned package map does not show Skill Drill after Profile');
+assert.deepEqual(Renderer.stepLabels(dp),['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],'active packages keep Skill Practice out of the routed mission order');
+assert.deepEqual(missionStepNames(Renderer.renderSkillWorld(dp,{failClosed:true}).html),Renderer.stepLabels(dp),'active package map does not show Skill Practice after Profile');
 
 function completeZoneAndAdvance(state,pkg,stepIndex){
   const {zone,q}=Renderer.zoneQuestion(pkg,stepIndex);
@@ -123,17 +123,17 @@ for(let i=0;i<4;i++)assert.equal(Renderer.advanceMission(dpFlowState,dp),true,`D
 completeZoneAndAdvance(dpFlowState,dp,4);
 completeZoneAndAdvance(dpFlowState,dp,5);
 completeZoneAndAdvance(dpFlowState,dp,6);
-assert.equal(dpFlowState.stepIndex,7,'G1M_DP_001 routes Checkpoint to Badge without planned Skill Drill');
+assert.equal(dpFlowState.stepIndex,7,'G1M_DP_001 routes Checkpoint to Badge before Profile');
 let dpFlowHtml=Renderer.renderSkillWorld(dp,{state:dpFlowState,failClosed:true}).html;
-assert.doesNotMatch(dpFlowHtml,/skill-drill-screen/,'G1M_DP_001 does not render a dead planned drill screen after Profile');
+assert.doesNotMatch(dpFlowHtml,/skill-drill-screen/,'G1M_DP_001 does not embed practice as a mission screen');
 classContains(dpFlowHtml,'badge-screen','is-active');
 dpFlowState.profile=Renderer.finalize(dpFlowState,dp,'dp-flow-learner');
 assert.equal(Renderer.advanceMission(dpFlowState,dp),true,'G1M_DP_001 routes Badge to Profile');
-assert.equal(dpFlowState.stepIndex,8,'Profile is final for planned package');
-assert.equal(Renderer.advanceMission(dpFlowState,dp),false,'planned package Profile remains final');
+assert.equal(dpFlowState.stepIndex,8,'Profile is final after Skill Practice moved to its own center');
+assert.equal(Renderer.advanceMission(dpFlowState,dp),false,'Profile remains final in the mission flow');
 const dpProfileHtml=Renderer.renderSkillWorld(dp,{state:dpFlowState,failClosed:true}).html;
-assert.doesNotMatch(dpProfileHtml,/Continue to Skill Practice|data-step="Skill Drill"/,'planned package Profile does not send learners to a planned drill');
-assert.match(dpProfileHtml,/Skill Practice coming soon/,'planned package can explain Skill Practice is coming soon');
+assert.match(dpProfileHtml,/Continue to Skill Practice/,'G1M_DP_001 Profile launches Skill Practice for real level banks');
+assert.doesNotMatch(dpProfileHtml,/Skill Practice coming soon|data-step="Skill Drill"/,'G1M_DP_001 no longer shows coming soon practice copy');
 
 
 const missingLevelBanks=JSON.parse(JSON.stringify(pv));
@@ -154,6 +154,30 @@ pv.level_banks.forEach((level)=>{
   assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} should have 10–12 questions`);
   assert.ok(new Set(level.questions.map((q)=>q.misconception_tag)).size>=1,`${level.level_id} needs misconception coverage`);
 });
+
+[ns,op,dp].forEach((pkg)=>{
+  assert.ok(Array.isArray(pkg.level_banks),`${pkg.skill_id} has real level_banks`);
+  assert.equal(pkg.level_banks_status,undefined,`${pkg.skill_id} does not keep planned level_banks_status`);
+  assert.ok(pkg.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length>=4,`${pkg.skill_id} has at least 4 focused levels`);
+  assert.ok(pkg.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),`${pkg.skill_id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>{
+    assert.ok(level.level_id&&level.label&&level.focus&&level.difficulty&&level.question_count_required&&level.mastery_threshold,`${pkg.skill_id} ${level.level_id} has required level fields`);
+    assert.ok(level.questions.length>=10&&level.questions.length<=12,`${pkg.skill_id} ${level.level_id} has 10–12 questions`);
+    if(/mixed/i.test(`${level.level_id} ${level.label}`)){assert.ok(level.questions.length>=10&&level.questions.length<=12,`${pkg.skill_id} Mixed level has 10–12 questions`);}
+    level.questions.forEach((q)=>{
+      assert.ok(q.question_id&&q.prompt&&q.question_type&&(q.support_type||q.visual_model)&&q.correct_answer!==undefined&&q.hints&&q.misconception_tag&&(q.feedback||q.explanation),`${pkg.skill_id} ${level.level_id} question has required fields`);
+      if(q.question_type==='short_response'){assert.ok(Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0,`${q.question_id} short_response includes acceptable_answers`);}
+    });
+  });
+  const drillState=Renderer.createState();
+  const practiceHtml=Renderer.renderSkillWorld(pkg,{state:drillState,mode:'drill',failClosed:true}).html;
+  assert.match(practiceHtml,/Skill Practice Center/,`${pkg.skill_id} Skill Practice Center renders`);
+  assert.match(practiceHtml,/level-card/,`${pkg.skill_id} Skill Practice Center renders level cards`);
+  const profileState=Renderer.createState();
+  profileState.stepIndex=8;
+  const profileHtml=Renderer.renderSkillWorld(pkg,{state:profileState,failClosed:true}).html;
+  assert.match(profileHtml,/Continue to Skill Practice/,`${pkg.skill_id} Profile shows Continue to Skill Practice`);
+});
 const shortLevel=JSON.parse(JSON.stringify(pv));
 shortLevel.level_banks[0].questions=shortLevel.level_banks[0].questions.slice(0,9);
 assert.equal(Schema.validateSkillPackage(shortLevel).valid,false,'level with fewer than 10 questions fails');
@@ -166,13 +190,13 @@ assert.equal(Schema.validateSkillPackage(noMixed).valid,false,'missing Mixed lev
 const pvDrillState=Renderer.createState();
 pvDrillState.stepIndex=7;
 let drillHtml=Renderer.renderSkillWorld(pv,{state:pvDrillState,mode:'drill',failClosed:true}).html;
-assert.match(drillHtml,/Skill Drill Center/,'Skill Drill Center renders');
+assert.match(drillHtml,/Skill Practice Center/,'Skill Practice Center renders');
 assert.match(drillHtml,/level-card/,'level cards render');
-assert.match(drillHtml,/Level 1/,'Skill Drill Center renders Level 1 card');
-assert.match(drillHtml,/Mixed/,'Skill Drill Center renders Mixed card');
+assert.match(drillHtml,/Level 1/,'Skill Practice Center renders Level 1 card');
+assert.match(drillHtml,/Mixed/,'Skill Practice Center renders Mixed card');
 Renderer.selectLevel(pvDrillState,0);
 drillHtml=Renderer.renderSkillWorld(pv,{state:pvDrillState,mode:'drill',failClosed:true}).html;
-assert.match(drillHtml,/Question 1 \/ 10/,'Skill Drill question counter renders');
+assert.match(drillHtml,/Question 1 \/ 10/,'Skill Practice question counter renders');
 const level=Renderer.activeLevel(pv,pvDrillState);
 const firstLevelQuestion=Renderer.activeLevelQuestion(pv,pvDrillState);
 assert.equal(Renderer.levelQuestionAnswered(pvDrillState,level,firstLevelQuestion),false);
@@ -188,10 +212,10 @@ drillHtml=Renderer.renderSkillWorld(pv,{state:pvDrillState,failClosed:true}).htm
 assert.match(drillHtml,/drill-completion/,'level completion summary appears');
 assert.match(drillHtml,/Replay Level/);
 assert.match(drillHtml,/Next Level/);
-assert.match(drillHtml,/Back to Skill Drill Center/);
+assert.match(drillHtml,/Back to Skill Practice Center/);
 Renderer.backToDrillCenter(pvDrillState);
 drillHtml=Renderer.renderSkillWorld(pv,{state:pvDrillState,mode:'drill',failClosed:true}).html;
-assert.match(drillHtml,/Skill Drill Center/,'Back to Skill Drill Center works');
+assert.match(drillHtml,/Skill Practice Center/,'Back to Skill Practice Center works');
 const drillGrowth=Renderer.finalize(pvDrillState,pv,'learner-drill');
 assert.ok(drillGrowth.mission_growth,'mission growth data is separate from drill growth data');
 assert.ok(drillGrowth.drill_growth,'drill growth data is separate from mission growth data');
