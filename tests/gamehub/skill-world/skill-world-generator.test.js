@@ -22,12 +22,61 @@ function assertFullMission(pkg){
   assert.match(html,new RegExp(`Skill World:\\s*${pkg.skill.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}`));
   ['mission-map','skill-world-header','rounded-app-container','central-screen-card','skill-screen-card','kid-visual-area','skill-visual','hint-box','feedback-area','styled-answer-controls','answer-grid','lesson-grid','safe-bottom','badge-celebration','growth-profile'].forEach((token)=>assert.match(html,new RegExp(token),`missing ${token}`));
   ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile','Stars','Accuracy','Hints','Zone'].forEach((label)=>assert.match(html,new RegExp(`>${label}<|>${label}\\b|\\b${label}\\b`),`missing ${label}`));
-  ['Story','Mini Lesson','Worked Example / Watch','Guided Demo','Practice zone','Challenge zone','Checkpoint zone','Badge','Growth/Profile screen','Show Answer / Continue'].forEach((label)=>assert.match(html,new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')),`missing ${label}`));
+  ['Story','Mini Lesson','Worked Example / Watch','Guided Demo','Practice zone','Challenge zone','Checkpoint zone','Badge','Growth/Profile screen','Show Answer','Start Mission','Next: Watch Me','Next: Demo','Next: Practice','Save Growth Data','Replay Mission','Exit to Adaptive Hub'].forEach((label)=>assert.match(html,new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')),`missing ${label}`));
   assert.match(html,/data-renderer="[^"]+"/,'missing visual renderer output');
   assert.doesNotMatch(html,/plain quiz/i);
 }
 
 [dp,op,ns,pv].forEach(assertFullMission);
+
+function classContains(html, screenClass, expected){
+  const re=new RegExp(`<section class="([^"]*\\b${screenClass}\\b[^"]*)"`);
+  const match=html.match(re);
+  assert.ok(match,`missing ${screenClass}`);
+  assert.ok(match[1].split(/\s+/).includes(expected),`${screenClass} should include ${expected}; got ${match[1]}`);
+}
+function assertActiveGuidedFlow(pkg){
+  const state=Renderer.createState();
+  let html=Renderer.renderSkillWorld(pkg,{state,failClosed:true}).html;
+  classContains(html,'story-screen','is-active');
+  ['lesson-screen','watch-screen','demo-screen','practice-screen','challenge-screen','checkpoint-screen','badge-screen','profile-screen'].forEach((screen)=>classContains(html,screen,'is-hidden'));
+  assert.match(html,/<span class="mission-step[^"]*is-active[^"]*"[^>]*data-step="Story"/,'Story is active in map on first load');
+  assert.match(html,/<span class="mission-step[^"]*is-unavailable[^"]*"[^>]*data-step="Lesson"/,'Lesson is visible but unavailable on first load');
+
+  assert.equal(Renderer.advanceMission(state,pkg),true,'Start Mission advances Story to Lesson');
+  html=Renderer.renderSkillWorld(pkg,{state}).html;
+  classContains(html,'lesson-screen','is-active');
+  classContains(html,'story-screen','is-hidden');
+  assert.match(html,/<span class="mission-step[^"]*is-complete[^"]*"[^>]*data-step="Story"/,'Story map step becomes complete');
+  assert.match(html,/<span class="mission-step[^"]*is-active[^"]*"[^>]*data-step="Lesson"/,'Lesson map step becomes active');
+
+  assert.equal(Renderer.advanceMission(state,pkg),true,'Lesson advances to Watch');
+  assert.equal(state.stepIndex,2);
+  assert.equal(Renderer.advanceMission(state,pkg),true,'Watch advances to Demo');
+  assert.equal(state.stepIndex,3);
+  assert.equal(Renderer.advanceMission(state,pkg),true,'Demo advances to Practice');
+  assert.equal(state.stepIndex,4);
+  html=Renderer.renderSkillWorld(pkg,{state}).html;
+  classContains(html,'practice-screen','is-active');
+  classContains(html,'badge-screen','is-hidden');
+  classContains(html,'profile-screen','is-hidden');
+  assert.match(html,/<button id="next" class="continue-button mission-next" disabled>Next<\/button>/,'Practice Next is disabled before an answer or Show Answer');
+  assert.equal(Renderer.canAdvance(state,pkg),false,'Practice cannot advance before answer or Show Answer');
+  assert.equal(Renderer.advanceMission(state,pkg),false,'Practice stays put before answer or Show Answer');
+
+  Renderer.showAnswerAndContinue(state,'practice',pkg.guided_practice[0]);
+  assert.equal(Renderer.canAdvance(state,pkg),true,'Show Answer unlocks Practice Next');
+  html=Renderer.renderSkillWorld(pkg,{state}).html;
+  assert.match(html,/<button id="next" class="continue-button mission-next" >Next<\/button>|<button id="next" class="continue-button mission-next">Next<\/button>/,'Practice Next is enabled after Show Answer');
+  assert.equal(Renderer.advanceMission(state,pkg),true,'Practice advances after Show Answer');
+  assert.equal(state.stepIndex,5);
+  html=Renderer.renderSkillWorld(pkg,{state}).html;
+  assert.match(html,/<span class="mission-step[^"]*is-complete[^"]*"[^>]*data-step="Practice"/,'Practice map step becomes complete');
+  assert.match(html,/<span class="mission-step[^"]*is-active[^"]*"[^>]*data-step="Challenge"/,'Challenge map step becomes active');
+  classContains(html,'badge-screen','is-hidden');
+  classContains(html,'profile-screen','is-hidden');
+}
+[dp,op,ns,pv].forEach(assertActiveGuidedFlow);
 const index=fs.readFileSync(path.join(root,'public/gamehub/skill-world/index.html'),'utf8');
 assert.match(index,/skill-world\.css/);
 assert.match(index,/failClosed:true/);
