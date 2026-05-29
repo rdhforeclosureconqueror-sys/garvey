@@ -21,8 +21,10 @@ function assertFullMission(pkg){
   const html=rendered.html;
   assert.match(html,new RegExp(`Skill World:\\s*${pkg.skill.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}`));
   ['mission-map','skill-world-header','rounded-app-container','central-screen-card','skill-screen-card','kid-visual-area','skill-visual','hint-box','feedback-area','styled-answer-controls','answer-grid','lesson-grid','safe-bottom','badge-celebration','growth-profile'].forEach((token)=>assert.match(html,new RegExp(token),`missing ${token}`));
-  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile','Skill Drill','Stars','Accuracy','Hints','Zone'].forEach((label)=>assert.match(html,new RegExp(`>${label}<|>${label}\\b|\\b${label}\\b`),`missing ${label}`));
-  ['Story','Mini Lesson','Worked Example / Watch','Guided Demo','Practice zone','Challenge zone','Checkpoint zone','Badge','Growth/Profile screen','Show Answer','Start Mission','Next: Watch Me','Next: Demo','Next: Practice','Save Growth Data','Replay Mission','Continue to Skill Drill','Exit to Adaptive Hub'].forEach((label)=>assert.match(html,new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')),`missing ${label}`));
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile','Stars','Accuracy','Hints','Zone'].forEach((label)=>assert.match(html,new RegExp(`>${label}<|>${label}\b|\b${label}\b`),`missing ${label}`));
+  if(Renderer.hasRealLevelBanks(pkg)){assert.match(html,/Skill Drill/,'production packages show Skill Drill in the mission flow');}
+  else{assert.doesNotMatch(html,/data-step="Skill Drill"/,'transitional packages do not route to a planned Skill Drill screen');}
+  ['Story','Mini Lesson','Worked Example / Watch','Guided Demo','Practice zone','Challenge zone','Checkpoint zone','Badge','Growth/Profile screen','Show Answer','Start Mission','Next: Watch Me','Next: Demo','Next: Practice','Save Growth Data','Replay Mission','Exit to Adaptive Hub'].forEach((label)=>assert.match(html,new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')),`missing ${label}`));
   assert.match(html,/data-renderer="[^"]+"/,'missing visual renderer output');
   assert.doesNotMatch(html,/plain quiz/i);
 }
@@ -39,7 +41,8 @@ function assertActiveGuidedFlow(pkg){
   const state=Renderer.createState();
   let html=Renderer.renderSkillWorld(pkg,{state,failClosed:true}).html;
   classContains(html,'story-screen','is-active');
-  ['lesson-screen','watch-screen','demo-screen','practice-screen','challenge-screen','checkpoint-screen','badge-screen','profile-screen','skill-drill-screen'].forEach((screen)=>classContains(html,screen,'is-hidden'));
+  ['lesson-screen','watch-screen','demo-screen','practice-screen','challenge-screen','checkpoint-screen','badge-screen','profile-screen'].forEach((screen)=>classContains(html,screen,'is-hidden'));
+  if(Renderer.hasRealLevelBanks(pkg)){classContains(html,'skill-drill-screen','is-hidden');}
   assert.match(html,/<span class="mission-step[^"]*is-active[^"]*"[^>]*data-step="Story"/,'Story is active in map on first load');
   assert.match(html,/<span class="mission-step[^"]*is-unavailable[^"]*"[^>]*data-step="Lesson"/,'Lesson is visible but unavailable on first load');
 
@@ -86,6 +89,61 @@ assert.ok(css.includes('env(safe-area-inset-bottom)'),'missing mobile safe-area 
 assert.match(css,/grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/,'mobile mission map should use a compact 3x3 grid');
 
 
+function missionStepNames(html){return [...html.matchAll(/<span class="mission-step[^"]*"[^>]*data-step="([^"]+)"/g)].map((m)=>m[1]);}
+assert.deepEqual(Renderer.stepLabels(pv),['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Skill Drill','Badge','Profile'],'Mission order places Skill Drill before Badge/Profile for real level banks');
+assert.deepEqual(missionStepNames(Renderer.renderSkillWorld(pv,{failClosed:true}).html),Renderer.stepLabels(pv),'rendered mission map follows production order');
+assert.deepEqual(Renderer.stepLabels(dp),['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],'planned transitional packages hide Skill Drill from the routed mission order');
+assert.deepEqual(missionStepNames(Renderer.renderSkillWorld(dp,{failClosed:true}).html),Renderer.stepLabels(dp),'planned package map does not show Skill Drill after Profile');
+
+function completeZoneAndAdvance(state,pkg,stepIndex){
+  const {zone,q}=Renderer.zoneQuestion(pkg,stepIndex);
+  Renderer.showAnswerAndContinue(state,zone,q);
+  assert.equal(Renderer.advanceMission(state,pkg),true,`${zone} advances after it is answered or revealed`);
+}
+const pvFlowState=Renderer.createState();
+for(let i=0;i<4;i++)assert.equal(Renderer.advanceMission(pvFlowState,pv),true,`PV advances through intro step ${i}`);
+completeZoneAndAdvance(pvFlowState,pv,4);
+completeZoneAndAdvance(pvFlowState,pv,5);
+completeZoneAndAdvance(pvFlowState,pv,6);
+assert.equal(pvFlowState.stepIndex,7,'G1M_PV_001 routes Checkpoint to Skill Drill');
+let pvFlowHtml=Renderer.renderSkillWorld(pv,{state:pvFlowState,failClosed:true}).html;
+classContains(pvFlowHtml,'skill-drill-screen','is-active');
+classContains(pvFlowHtml,'badge-screen','is-hidden');
+assert.equal(Renderer.canAdvance(pvFlowState,pv),false,'Badge remains hidden/locked until all Skill Drill levels are complete');
+pv.level_banks.forEach((levelToComplete,levelIndex)=>{
+  Renderer.selectLevel(pvFlowState,levelIndex);
+  for(let i=0;i<levelToComplete.questions.length;i++){
+    const q=Renderer.activeLevelQuestion(pv,pvFlowState);
+    Renderer.submitLevelAnswer(pvFlowState,levelToComplete,q,q.correct_answer);
+    Renderer.advanceLevelQuestion(pvFlowState,levelToComplete);
+  }
+});
+assert.equal(Renderer.drillComplete(pvFlowState,pv),true,'all real Skill Drill levels can be completed');
+assert.equal(Renderer.advanceMission(pvFlowState,pv),true,'G1M_PV_001 routes Skill Drill completion to Badge');
+assert.equal(pvFlowState.stepIndex,8,'Badge follows Skill Drill for G1M_PV_001');
+pvFlowHtml=Renderer.renderSkillWorld(pv,{state:pvFlowState,failClosed:true}).html;
+classContains(pvFlowHtml,'badge-screen','is-active');
+pvFlowState.profile=Renderer.finalize(pvFlowState,pv,'pv-flow-learner');
+assert.equal(Renderer.advanceMission(pvFlowState,pv),true,'G1M_PV_001 routes Badge to Profile');
+assert.equal(pvFlowState.stepIndex,9,'Profile is final for G1M_PV_001');
+assert.equal(Renderer.advanceMission(pvFlowState,pv),false,'Profile remains the final screen');
+
+const dpFlowState=Renderer.createState();
+for(let i=0;i<4;i++)assert.equal(Renderer.advanceMission(dpFlowState,dp),true,`DP advances through intro step ${i}`);
+completeZoneAndAdvance(dpFlowState,dp,4);
+completeZoneAndAdvance(dpFlowState,dp,5);
+completeZoneAndAdvance(dpFlowState,dp,6);
+assert.equal(dpFlowState.stepIndex,7,'G1M_DP_001 routes Checkpoint to Badge without planned Skill Drill');
+let dpFlowHtml=Renderer.renderSkillWorld(dp,{state:dpFlowState,failClosed:true}).html;
+assert.doesNotMatch(dpFlowHtml,/skill-drill-screen/,'G1M_DP_001 does not render a dead planned drill screen after Profile');
+classContains(dpFlowHtml,'badge-screen','is-active');
+dpFlowState.profile=Renderer.finalize(dpFlowState,dp,'dp-flow-learner');
+assert.equal(Renderer.advanceMission(dpFlowState,dp),true,'G1M_DP_001 routes Badge to Profile');
+assert.equal(dpFlowState.stepIndex,8,'Profile is final for planned package');
+assert.equal(Renderer.advanceMission(dpFlowState,dp),false,'planned package Profile remains final');
+assert.doesNotMatch(Renderer.renderSkillWorld(dp,{state:dpFlowState,failClosed:true}).html,/Continue to Skill Drill|data-step="Skill Drill"/,'planned package Profile does not send learners to a planned drill');
+
+
 const missingLevelBanks=JSON.parse(JSON.stringify(pv));
 delete missingLevelBanks.level_banks;
 assert.equal(Schema.validateSkillPackage(missingLevelBanks).valid,false,'production packages missing level_banks should fail');
@@ -111,7 +169,7 @@ const noMixed=JSON.parse(JSON.stringify(pv));
 noMixed.level_banks=noMixed.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`));
 assert.equal(Schema.validateSkillPackage(noMixed).valid,false,'missing Mixed level fails');
 const pvDrillState=Renderer.createState();
-pvDrillState.stepIndex=9;
+pvDrillState.stepIndex=7;
 let drillHtml=Renderer.renderSkillWorld(pv,{state:pvDrillState,failClosed:true}).html;
 assert.match(drillHtml,/drill-tabs/,'Skill Drill screen renders level tabs');
 assert.match(drillHtml,/Level 1/,'Skill Drill screen renders Level 1 tab');
@@ -162,6 +220,13 @@ assert.equal(showAfterWrong.correct,false);
 assert.equal(Renderer.evaluateAnswer(cp,'  CIRCLE '),true);
 
 const shortResponseOneTen={ question_type:'short_response', correct_answer:'1 ten', acceptable_answers:['one ten','1 tens'] };
+assert.equal(Renderer.evaluateAnswer({question_type:'short_response',correct_answer:'circle'},'Circle'),true,'short_response accepts Circle for correct_answer circle');
+assert.equal(Renderer.evaluateAnswer({question_type:'short_response',correct_answer:'circle'},'CIRCLE'),true,'short_response accepts CIRCLE for correct_answer circle');
+assert.equal(Renderer.evaluateAnswer({question_type:'short_response',correct_answer:'circle'},'circle.'),true,'short_response accepts circle. for correct_answer circle');
+assert.equal(Renderer.evaluateAnswer({question_type:'short_response',correct_answer:'shape',acceptable_answers:['circle']},'CIRCLE'),true,'short_response capitalization normalization applies to acceptable_answers');
+assert.equal(Renderer.evaluateAnswer(dp.checkpoint[0],'Circle'),true,'G1M_DP_001 checkpoint accepts capitalization normalization');
+assert.equal(Renderer.evaluateAnswer(dp.checkpoint[0],'CIRCLE'),true,'G1M_DP_001 checkpoint accepts all-caps normalization');
+assert.equal(Renderer.evaluateAnswer(dp.checkpoint[0],'triangle'),false,'G1M_DP_001 checkpoint rejects unrelated answers');
 assert.equal(Renderer.evaluateAnswer(shortResponseOneTen,'1 ten'),true,'short_response accepts exact correct answer');
 assert.equal(Renderer.evaluateAnswer(shortResponseOneTen,'1 ten.'),true,'short_response accepts trailing punctuation');
 assert.equal(Renderer.evaluateAnswer(shortResponseOneTen,'  1   ten  '),true,'short_response trims and collapses repeated spaces');
