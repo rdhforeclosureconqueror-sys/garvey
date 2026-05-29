@@ -8,9 +8,9 @@
 <script src='/gamehub/skill-world/engine/skill-world-renderer.js'></script>
 <script>
 (async function(){
- const id=(location.pathname.split('/').pop()||'G1M_DP_001').toUpperCase(); const app=document.getElementById('app');
- try{const p=await (await fetch(`/gamehub/skill-world/content/${id}.skill-package.v1.json`)).json(); const state=SkillWorldRenderer.createState();
- function render(){const rendered=SkillWorldRenderer.renderSkillWorld(p,{state,failClosed:true,profile:state.profile}); app.innerHTML=rendered.html; window.scrollTo({top:0,behavior:'smooth'});}
+ const parts=location.pathname.split('/').filter(Boolean); const drillPath=parts[parts.length-1]==='drill'; const id=((drillPath?parts[parts.length-2]:parts[parts.length-1])||'G1M_DP_001').toUpperCase(); const app=document.getElementById('app');
+ try{const p=await (await fetch(`/gamehub/skill-world/content/${id}.skill-package.v1.json`)).json(); const state=SkillWorldRenderer.createState(); if(drillPath)state.mode='drill';
+ function render(){const rendered=SkillWorldRenderer.renderSkillWorld(p,{state,mode:state.mode,failClosed:true,profile:state.profile}); app.innerHTML=rendered.html; window.scrollTo({top:0,behavior:'smooth'});}
  function activeQuestion(section){const step=Number(section?.dataset?.stepIndex||state.stepIndex||0); return SkillWorldRenderer.zoneQuestion(p,step);}
  function answerFeedback(section,result){const fb=section.querySelector('.feedback-area'); if(!fb)return; fb.className=`feedback-card feedback-area ${result.correct?'correct':'wrong'}`; fb.textContent=result.correct?'Correct! Great model work.':`Not yet. Correct answer: ${result.correctAnswer}.`;}
  function updateQuestionNext(section){const next=section.querySelector('#next'); if(next)next.disabled=!SkillWorldRenderer.canAdvance(state,p);}
@@ -20,25 +20,27 @@
  render();
  app.addEventListener('click',(e)=>{
    const step=e.target.closest('.mission-step');
-   if(step){const requested=Number(step.dataset.stepIndex); if(requested<=state.stepIndex){state.stepIndex=requested; render();} return;}
-	   const tab=e.target.closest('.drill-tab');
-	   if(tab){SkillWorldRenderer.selectLevel(state,Number(tab.dataset.levelIndex)); render(); return;}
+   if(step){const requested=Number(step.dataset.stepIndex); if(requested<=state.stepIndex){state.mode='mission'; state.stepIndex=requested; render();} return;}
+   const practice=e.target.closest('.continue-skill-practice');
+   if(practice){e.preventDefault(); state.mode='drill'; SkillWorldRenderer.backToDrillCenter(state); render(); return;}
+	   const startLevel=e.target.closest('.start-level');
+	   if(startLevel){SkillWorldRenderer.selectLevel(state,Number(startLevel.dataset.levelIndex)); render(); return;}
 	   const drillHint=e.target.closest('#drill-hint');
 	   if(drillHint){SkillWorldRenderer.useHint(state); const fb=drillHint.closest('.drill-question-card').querySelector('.drill-feedback'); fb.textContent=drillHint.nextElementSibling.textContent; return;}
 	   const drillShow=e.target.closest('#drill-show');
-	   if(drillShow){const section=drillShow.closest('.skill-drill-screen'); const r=SkillWorldRenderer.showLevelAnswer(state,activeDrillLevel(),activeDrillQuestion()); drillFeedback(section,r); return;}
+	   if(drillShow){const section=drillShow.closest('section'); const r=SkillWorldRenderer.showLevelAnswer(state,activeDrillLevel(),activeDrillQuestion()); drillFeedback(section,r); return;}
 	   const drillAns=e.target.closest('.drill-ans');
-	   if(drillAns){const section=drillAns.closest('.skill-drill-screen'); const r=SkillWorldRenderer.submitLevelAnswer(state,activeDrillLevel(),activeDrillQuestion(),drillAns.dataset.val); drillFeedback(section,r); return;}
+	   if(drillAns){const section=drillAns.closest('section'); const r=SkillWorldRenderer.submitLevelAnswer(state,activeDrillLevel(),activeDrillQuestion(),drillAns.dataset.val); drillFeedback(section,r); return;}
 	   const drillSubmit=e.target.closest('#drill-submit');
-	   if(drillSubmit){const section=drillSubmit.closest('.skill-drill-screen'); const r=SkillWorldRenderer.submitLevelAnswer(state,activeDrillLevel(),activeDrillQuestion(),section.querySelector('#drill-short').value); drillFeedback(section,r); return;}
+	   if(drillSubmit){const section=drillSubmit.closest('section'); const r=SkillWorldRenderer.submitLevelAnswer(state,activeDrillLevel(),activeDrillQuestion(),section.querySelector('#drill-short').value); drillFeedback(section,r); return;}
 	   const drillNext=e.target.closest('#drill-next');
 	   if(drillNext){SkillWorldRenderer.advanceLevelQuestion(state,activeDrillLevel()); state.profile=SkillWorldRenderer.finalize(state,p,'local-learner'); render(); return;}
 	   const playAgain=e.target.closest('.play-level-again');
 	   if(playAgain){SkillWorldRenderer.playLevelAgain(state,activeDrillLevel()); render(); return;}
 	   const nextLevel=e.target.closest('.next-level');
 	   if(nextLevel){SkillWorldRenderer.nextLevel(state,p); render(); return;}
-	   const backDrill=e.target.closest('.back-to-drill-hub');
-	   if(backDrill){render(); return;}
+	   const backDrill=e.target.closest('.back-to-drill-center');
+	   if(backDrill){SkillWorldRenderer.backToDrillCenter(state); render(); return;}
    const hint=e.target.closest('#hint');
    if(hint){SkillWorldRenderer.useHint(state); const fb=hint.closest('.question-card').querySelector('.feedback-area'); fb.textContent=hint.nextElementSibling.textContent; const statTemp=document.createElement('div'); statTemp.innerHTML=SkillWorldRenderer.renderStats(state,p); app.querySelector('.sw-stats').innerHTML=statTemp.querySelector('.sw-stats').innerHTML; return;}
    const show=e.target.closest('#show');
@@ -48,10 +50,10 @@
    const submit=e.target.closest('#submit');
    if(submit){const section=submit.closest('.screen'); const {zone,q}=activeQuestion(section); const r=SkillWorldRenderer.submitAnswer(state,zone,q,section.querySelector('#short').value); answerFeedback(section,r); updateQuestionNext(section); return;}
    const replay=e.target.closest('.replay-mission');
-   if(replay){Object.assign(state,SkillWorldRenderer.createState()); render(); return;}
+   if(replay){Object.assign(state,SkillWorldRenderer.createState()); state.mode='mission'; render(); return;}
    const next=e.target.closest('.mission-next');
    if(next){if(next.classList.contains('save-growth')){state.profile=SkillWorldRenderer.finalize(state,p,'local-learner');}
-     if(SkillWorldRenderer.advanceMission(state,p)){render();}
+     if(SkillWorldRenderer.advanceMission(state,p)){state.mode='mission'; render();}
    }
  });
  }catch(err){app.innerHTML=`<main class="skill-world-shell"><section class="central-screen-card developer-error"><h1>Skill World package error</h1><p>${String(err.message||err)}</p><p>This generator fails closed instead of rendering a plain quiz.</p></section></main>`; console.error(err);}

@@ -284,6 +284,10 @@ app.get("/archetype-engines/:engine/assessment", (req, res, next) => {
   return res.sendFile(path.join(__dirname, "..", "public", "archetype-engines", "experience.html"));
 });
 
+app.get("/skill-world/:skillId/drill", (req, res) => {
+  return res.sendFile(path.join(__dirname, "..", "public", "gamehub", "skill-world", "index.html"));
+});
+
 app.get("/skill-world/:skillId", (req, res) => {
   return res.sendFile(path.join(__dirname, "..", "public", "gamehub", "skill-world", "index.html"));
 });

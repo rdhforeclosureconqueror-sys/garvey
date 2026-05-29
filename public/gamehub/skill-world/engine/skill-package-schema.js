@@ -31,7 +31,7 @@
       if(level.questions.length<10){errors.push(`${zone}.questions must include at least 10 questions`);}
       if(level.questions.length<required){errors.push(`${zone}.questions length must meet question_count_required`);}
       if(isMixed&&level.questions.length<10){errors.push(`${zone} Mixed level must have 10-12 questions`);}
-      if(level.questions.length>12){warnings.push(`${zone}.questions has more than 12 questions; UI will still render all questions`);}
+      if(level.questions.length>12){errors.push(`${zone}.questions must include no more than 12 questions`);}
       const tags=new Set();
       level.questions.forEach((q,i)=>{validateQuestion(q,i,`${zone}.questions`,errors,warnings); if(q.misconception_tag){tags.add(q.misconception_tag);}});
       if(tags.size<1){errors.push(`${zone} must include misconception coverage`);}
