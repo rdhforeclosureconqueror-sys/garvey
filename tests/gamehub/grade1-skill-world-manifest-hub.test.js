@@ -172,6 +172,13 @@ test('Adaptive Grade 1 hub routes generated missions to /skill-world/:skillId', 
 
 test('Grade 3 Skill World packages appear from manifest for the hub', () => {
   const expectedGrade3 = new Map([
+    ['G3M_MUL_001', 'Multiplication Foundations'],
+    ['G3M_DIV_001', 'Division Foundations'],
+    ['G3M_FACT_001', 'Multiplication and Division Fluency'],
+    ['G3M_WP_001', 'Two-Step Word Problems'],
+    ['G3M_PV_001', 'Place Value and Rounding to 1,000'],
+    ['G3M_FR_001', 'Fraction Foundations'],
+    ['G3M_FR_002', 'Equivalent Fractions and Comparing Fractions']
     ['G3M_MUL_001', { skill: 'Multiplication Foundations', domain: 'Operations and Algebraic Thinking' }],
     ['G3M_DIV_001', { skill: 'Division Foundations', domain: 'Operations and Algebraic Thinking' }],
     ['G3M_FACT_001', { skill: 'Multiplication and Division Fluency', domain: 'Operations and Algebraic Thinking' }],
@@ -189,6 +196,9 @@ test('Grade 3 Skill World packages appear from manifest for the hub', () => {
     assert.ok(g3, `${skillId} package loads from manifest`);
     assert.equal(g3.grade, 3);
     assert.equal(g3.subject, 'Math');
+    const expectedDomain = skillId === 'G3M_PV_001' ? 'Number and Operations in Base Ten' : (skillId.startsWith('G3M_FR_') ? 'Number and Operations—Fractions' : 'Operations and Algebraic Thinking');
+    assert.equal(g3.domain, expectedDomain);
+    assert.equal(g3.skill, skill);
     assert.equal(g3.domain, expected.domain);
     assert.equal(g3.skill, expected.skill);
     assert.equal(Array.isArray(g3.level_banks), true);

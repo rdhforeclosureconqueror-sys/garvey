@@ -1,0 +1,2179 @@
+{
+  "skill_id": "G3M_FR_002",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_docs": [
+      "docs/grade3_math_completion_plan.md",
+      "curriculum-framework/plans/grade3-math-completion-plan.v1.json"
+    ],
+    "source_plan": "curriculum-framework/plans/grade3-math-completion-plan.v1.json"
+  },
+  "grade": 3,
+  "subject": "Math",
+  "domain": "Number and Operations—Fractions",
+  "skill": "Equivalent Fractions and Comparing Fractions",
+  "mastery_threshold": 0.8,
+  "difficulty_range": "Grade 3 foundation",
+  "lesson": {
+    "story_mission": "Guide the Fraction Compass crew as they match equivalent paths and compare fractions on bars, circles, and number lines.",
+    "mini_lesson": "Equivalent fractions name the same point or same amount. To compare fractions, use equal wholes and attend to same numerators or same denominators.",
+    "objective": "Recognize equivalent fractions and compare fractions with the same numerator or denominator.",
+    "key_vocabulary": [
+      "equivalent fractions",
+      "compare",
+      "same numerator",
+      "same denominator",
+      "greater than",
+      "less than",
+      "equal to",
+      "number line"
+    ],
+    "concept_explanation": "Fractions such as 1/2 and 2/4 are equivalent because they cover the same amount. With the same denominator, the larger numerator is larger. With the same numerator, the smaller denominator makes larger parts.",
+    "common_misconception": "Learners may think different numbers cannot be equal, treat larger denominators as larger fractions, focus only on numerators, or misplace fractions on a number line.",
+    "real_world_connection": "Comparing fractions helps with recipes, distances, and sharing fairly.",
+    "lesson_summary": "Use models to find equivalent fractions, then compare same denominators, same numerators, or positions on a number line.",
+    "visual_model": "fraction_bar"
+  },
+  "worked_examples": [
+    {
+      "id": "G3M_FR_002_LVL1_Q1",
+      "question_id": "G3M_FR_002_LVL1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "fraction_bar",
+      "prompt": "Which fraction is equivalent to 1/2?",
+      "answer": "2/4",
+      "correct_answer": "2/4",
+      "misconception_tag": "equivalent_fraction_confusion",
+      "hints": [
+        "Use equal-sized parts or the number line.",
+        "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+        "Use <, >, or = to compare."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 2/4.",
+      "numerator": 2,
+      "denominator": 4,
+      "choices": [
+        "2/4",
+        "1/1/2",
+        "1/8"
+      ],
+      "acceptable_answers": [
+        "2/4",
+        "two fourths",
+        "two-fourths",
+        "=",
+        "equal"
+      ]
+    },
+    {
+      "id": "G3M_FR_002_LVL2_Q1",
+      "question_id": "G3M_FR_002_LVL2_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "comparison",
+      "prompt": "Compare 1/4 __ 3/4.",
+      "answer": "<",
+      "correct_answer": "<",
+      "misconception_tag": "denominator_size_confusion",
+      "hints": [
+        "Use equal-sized parts or the number line.",
+        "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+        "Use <, >, or = to compare."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is <.",
+      "left": "1/4",
+      "right": "3/4",
+      "left_value": "1/4",
+      "right_value": "3/4",
+      "acceptable_answers": [
+        "<",
+        "less than"
+      ],
+      "choices": [
+        "<",
+        "NaN",
+        "NaN"
+      ]
+    },
+    {
+      "id": "G3M_FR_002_LVL3_Q1",
+      "question_id": "G3M_FR_002_LVL3_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "fraction_bar",
+      "prompt": "Compare 1/2 __ 1/3.",
+      "answer": ">",
+      "correct_answer": ">",
+      "misconception_tag": "numerator_focus_error",
+      "hints": [
+        "Use equal-sized parts or the number line.",
+        "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+        "Use <, >, or = to compare."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is >.",
+      "numerator": 1,
+      "denominator": 2,
+      "left_value": "1/2",
+      "right_value": "1/3",
+      "acceptable_answers": [
+        ">",
+        "greater than"
+      ],
+      "choices": [
+        ">",
+        "NaN",
+        "NaN"
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "Use equal-sized parts or the number line.",
+    "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+    "Use <, >, or = to compare."
+  ],
+  "guided_practice": [
+    {
+      "id": "G3M_FR_002_LVL1_Q1",
+      "question_id": "G3M_FR_002_LVL1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "fraction_bar",
+      "prompt": "Which fraction is equivalent to 1/2?",
+      "answer": "2/4",
+      "correct_answer": "2/4",
+      "misconception_tag": "equivalent_fraction_confusion",
+      "hints": [
+        "Use equal-sized parts or the number line.",
+        "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+        "Use <, >, or = to compare."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 2/4.",
+      "numerator": 2,
+      "denominator": 4,
+      "choices": [
+        "2/4",
+        "1/1/2",
+        "1/8"
+      ],
+      "acceptable_answers": [
+        "2/4",
+        "two fourths",
+        "two-fourths",
+        "=",
+        "equal"
+      ]
+    },
+    {
+      "id": "G3M_FR_002_LVL2_Q1",
+      "question_id": "G3M_FR_002_LVL2_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "comparison",
+      "prompt": "Compare 1/4 __ 3/4.",
+      "answer": "<",
+      "correct_answer": "<",
+      "misconception_tag": "denominator_size_confusion",
+      "hints": [
+        "Use equal-sized parts or the number line.",
+        "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+        "Use <, >, or = to compare."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is <.",
+      "left": "1/4",
+      "right": "3/4",
+      "left_value": "1/4",
+      "right_value": "3/4",
+      "acceptable_answers": [
+        "<",
+        "less than"
+      ],
+      "choices": [
+        "<",
+        "NaN",
+        "NaN"
+      ]
+    },
+    {
+      "id": "G3M_FR_002_LVL3_Q1",
+      "question_id": "G3M_FR_002_LVL3_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "fraction_bar",
+      "prompt": "Compare 1/2 __ 1/3.",
+      "answer": ">",
+      "correct_answer": ">",
+      "misconception_tag": "numerator_focus_error",
+      "hints": [
+        "Use equal-sized parts or the number line.",
+        "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+        "Use <, >, or = to compare."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is >.",
+      "numerator": 1,
+      "denominator": 2,
+      "left_value": "1/2",
+      "right_value": "1/3",
+      "acceptable_answers": [
+        ">",
+        "greater than"
+      ],
+      "choices": [
+        ">",
+        "NaN",
+        "NaN"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G3M_FR_002_LVL1_Q1",
+      "question_id": "G3M_FR_002_LVL1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "fraction_bar",
+      "prompt": "Which fraction is equivalent to 1/2?",
+      "answer": "2/4",
+      "correct_answer": "2/4",
+      "misconception_tag": "equivalent_fraction_confusion",
+      "hints": [
+        "Use equal-sized parts or the number line.",
+        "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+        "Use <, >, or = to compare."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 2/4.",
+      "numerator": 2,
+      "denominator": 4,
+      "choices": [
+        "2/4",
+        "1/1/2",
+        "1/8"
+      ],
+      "acceptable_answers": [
+        "2/4",
+        "two fourths",
+        "two-fourths",
+        "=",
+        "equal"
+      ]
+    },
+    {
+      "id": "G3M_FR_002_LVL1_Q2",
+      "question_id": "G3M_FR_002_LVL1_Q2",
+      "question_type": "fraction_response",
+      "visual_model": "fraction_circle",
+      "prompt": "Which fraction is equivalent to 1/3?",
+      "answer": "2/6",
+      "correct_answer": "2/6",
+      "misconception_tag": "equivalent_fraction_confusion",
+      "hints": [
+        "Use equal-sized parts or the number line.",
+        "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+        "Use <, >, or = to compare."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 2/6.",
+      "numerator": 2,
+      "denominator": 6,
+      "choices": [
+        "2/6",
+        "1/1/3",
+        "1/8"
+      ],
+      "acceptable_answers": [
+        "2/6",
+        "=",
+        "equal"
+      ]
+    },
+    {
+      "id": "G3M_FR_002_LVL1_Q3",
+      "question_id": "G3M_FR_002_LVL1_Q3",
+      "question_type": "multiple_choice",
+      "visual_model": "fraction_bar",
+      "prompt": "Which fraction is equivalent to 2/3?",
+      "answer": "4/6",
+      "correct_answer": "4/6",
+      "misconception_tag": "equivalent_fraction_confusion",
+      "hints": [
+        "Use equal-sized parts or the number line.",
+        "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+        "Use <, >, or = to compare."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 4/6.",
+      "numerator": 4,
+      "denominator": 6,
+      "choices": [
+        "4/6",
+        "2/1/3",
+        "1/8"
+      ],
+      "acceptable_answers": [
+        "4/6",
+        "=",
+        "equal"
+      ]
+    },
+    {
+      "id": "G3M_FR_002_LVL2_Q1",
+      "question_id": "G3M_FR_002_LVL2_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "comparison",
+      "prompt": "Compare 1/4 __ 3/4.",
+      "answer": "<",
+      "correct_answer": "<",
+      "misconception_tag": "denominator_size_confusion",
+      "hints": [
+        "Use equal-sized parts or the number line.",
+        "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+        "Use <, >, or = to compare."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is <.",
+      "left": "1/4",
+      "right": "3/4",
+      "left_value": "1/4",
+      "right_value": "3/4",
+      "acceptable_answers": [
+        "<",
+        "less than"
+      ],
+      "choices": [
+        "<",
+        "NaN",
+        "NaN"
+      ]
+    },
+    {
+      "id": "G3M_FR_002_LVL2_Q2",
+      "question_id": "G3M_FR_002_LVL2_Q2",
+      "question_type": "comparison",
+      "visual_model": "comparison",
+      "prompt": "Compare 3/8 __ 5/8.",
+      "answer": "<",
+      "correct_answer": "<",
+      "misconception_tag": "denominator_size_confusion",
+      "hints": [
+        "Use equal-sized parts or the number line.",
+        "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+        "Use <, >, or = to compare."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is <.",
+      "left": "3/8",
+      "right": "5/8",
+      "left_value": "3/8",
+      "right_value": "5/8",
+      "acceptable_answers": [
+        "<",
+        "less than"
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G3M_FR_002_LVL1_Q1",
+      "question_id": "G3M_FR_002_LVL1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "fraction_bar",
+      "prompt": "Which fraction is equivalent to 1/2?",
+      "answer": "2/4",
+      "correct_answer": "2/4",
+      "misconception_tag": "equivalent_fraction_confusion",
+      "hints": [
+        "Use equal-sized parts or the number line.",
+        "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+        "Use <, >, or = to compare."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 2/4.",
+      "numerator": 2,
+      "denominator": 4,
+      "choices": [
+        "2/4",
+        "1/1/2",
+        "1/8"
+      ],
+      "acceptable_answers": [
+        "2/4",
+        "two fourths",
+        "two-fourths",
+        "=",
+        "equal"
+      ]
+    },
+    {
+      "id": "G3M_FR_002_LVL4_Q1",
+      "question_id": "G3M_FR_002_LVL4_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "number_line",
+      "prompt": "Use the number line to compare 1/2 __ 3/4.",
+      "answer": "<",
+      "correct_answer": "<",
+      "misconception_tag": "fraction_number_line_error",
+      "hints": [
+        "Use equal-sized parts or the number line.",
+        "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+        "Use <, >, or = to compare."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is <.",
+      "numerator": 1,
+      "denominator": 2,
+      "left_value": "1/2",
+      "right_value": "3/4",
+      "acceptable_answers": [
+        "<",
+        "less than"
+      ],
+      "choices": [
+        "<",
+        "NaN",
+        "NaN"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "equivalent_fraction_confusion": "equivalent fraction confusion",
+    "denominator_size_confusion": "denominator size confusion",
+    "numerator_focus_error": "numerator focus error",
+    "fraction_number_line_error": "fraction number line error"
+  },
+  "review_bank": [
+    {
+      "id": "G3M_FR_002_LVL2_Q1",
+      "question_id": "G3M_FR_002_LVL2_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "comparison",
+      "prompt": "Compare 1/4 __ 3/4.",
+      "answer": "<",
+      "correct_answer": "<",
+      "misconception_tag": "denominator_size_confusion",
+      "hints": [
+        "Use equal-sized parts or the number line.",
+        "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+        "Use <, >, or = to compare."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is <.",
+      "left": "1/4",
+      "right": "3/4",
+      "left_value": "1/4",
+      "right_value": "3/4",
+      "acceptable_answers": [
+        "<",
+        "less than"
+      ],
+      "choices": [
+        "<",
+        "NaN",
+        "NaN"
+      ]
+    },
+    {
+      "id": "G3M_FR_002_LVL3_Q1",
+      "question_id": "G3M_FR_002_LVL3_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "fraction_bar",
+      "prompt": "Compare 1/2 __ 1/3.",
+      "answer": ">",
+      "correct_answer": ">",
+      "misconception_tag": "numerator_focus_error",
+      "hints": [
+        "Use equal-sized parts or the number line.",
+        "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+        "Use <, >, or = to compare."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is >.",
+      "numerator": 1,
+      "denominator": 2,
+      "left_value": "1/2",
+      "right_value": "1/3",
+      "acceptable_answers": [
+        ">",
+        "greater than"
+      ],
+      "choices": [
+        ">",
+        "NaN",
+        "NaN"
+      ]
+    }
+  ],
+  "game_theme": {
+    "title": "Fraction Compass",
+    "name": "Fraction Compass",
+    "mission_intro": "Navigate equivalent paths and comparison clues with the Fraction Compass crew.",
+    "badge_name": "Fraction Comparator"
+  },
+  "next_skill_id": null,
+  "remediation_skill_id": null,
+  "level_banks": [
+    {
+      "level_id": "G3M_FR_002_L1",
+      "label": "Level 1: Equivalent Fractions",
+      "focus": "Recognize equivalent fractions with models.",
+      "difficulty": "Grade 3 foundation",
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_FR_002_LVL1_Q1",
+          "question_id": "G3M_FR_002_LVL1_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Which fraction is equivalent to 1/2?",
+          "answer": "2/4",
+          "correct_answer": "2/4",
+          "misconception_tag": "equivalent_fraction_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 2/4.",
+          "numerator": 2,
+          "denominator": 4,
+          "choices": [
+            "2/4",
+            "1/1/2",
+            "1/8"
+          ],
+          "acceptable_answers": [
+            "2/4",
+            "two fourths",
+            "two-fourths",
+            "=",
+            "equal"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL1_Q2",
+          "question_id": "G3M_FR_002_LVL1_Q2",
+          "question_type": "short_response",
+          "visual_model": "fraction_circle",
+          "prompt": "Which fraction is equivalent to 1/3?",
+          "answer": "2/6",
+          "correct_answer": "2/6",
+          "misconception_tag": "equivalent_fraction_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 2/6.",
+          "numerator": 2,
+          "denominator": 6,
+          "choices": [
+            "2/6",
+            "1/1/3",
+            "1/8"
+          ],
+          "acceptable_answers": [
+            "2/6",
+            "=",
+            "equal"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL1_Q3",
+          "question_id": "G3M_FR_002_LVL1_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Which fraction is equivalent to 2/3?",
+          "answer": "4/6",
+          "correct_answer": "4/6",
+          "misconception_tag": "equivalent_fraction_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 4/6.",
+          "numerator": 4,
+          "denominator": 6,
+          "choices": [
+            "4/6",
+            "2/1/3",
+            "1/8"
+          ],
+          "acceptable_answers": [
+            "4/6",
+            "=",
+            "equal"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL1_Q4",
+          "question_id": "G3M_FR_002_LVL1_Q4",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_circle",
+          "prompt": "Which fraction is equivalent to 1/4?",
+          "answer": "2/8",
+          "correct_answer": "2/8",
+          "misconception_tag": "equivalent_fraction_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 2/8.",
+          "numerator": 2,
+          "denominator": 8,
+          "choices": [
+            "2/8",
+            "1/1/4",
+            "1/8"
+          ],
+          "acceptable_answers": [
+            "2/8",
+            "=",
+            "equal"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL1_Q5",
+          "question_id": "G3M_FR_002_LVL1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Which fraction is equivalent to 3/4?",
+          "answer": "6/8",
+          "correct_answer": "6/8",
+          "misconception_tag": "equivalent_fraction_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 6/8.",
+          "numerator": 6,
+          "denominator": 8,
+          "choices": [
+            "6/8",
+            "3/1/4",
+            "1/8"
+          ],
+          "acceptable_answers": [
+            "6/8",
+            "=",
+            "equal"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL1_Q6",
+          "question_id": "G3M_FR_002_LVL1_Q6",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_circle",
+          "prompt": "Which fraction is equivalent to 1/2?",
+          "answer": "4/8",
+          "correct_answer": "4/8",
+          "misconception_tag": "equivalent_fraction_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 4/8.",
+          "numerator": 4,
+          "denominator": 8,
+          "choices": [
+            "4/8",
+            "1/1/2",
+            "1/8"
+          ],
+          "acceptable_answers": [
+            "4/8",
+            "=",
+            "equal"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL1_Q7",
+          "question_id": "G3M_FR_002_LVL1_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Which fraction is equivalent to 2/4?",
+          "answer": "4/8",
+          "correct_answer": "4/8",
+          "misconception_tag": "equivalent_fraction_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 4/8.",
+          "numerator": 4,
+          "denominator": 8,
+          "choices": [
+            "4/8",
+            "2/1/4",
+            "1/8"
+          ],
+          "acceptable_answers": [
+            "4/8",
+            "=",
+            "equal"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL1_Q8",
+          "question_id": "G3M_FR_002_LVL1_Q8",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_circle",
+          "prompt": "Which fraction is equivalent to 3/6?",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "equivalent_fraction_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 1/2.",
+          "numerator": 1,
+          "denominator": 2,
+          "choices": [
+            "1/2",
+            "3/1/6",
+            "1/8"
+          ],
+          "acceptable_answers": [
+            "1/2",
+            "one half",
+            "one-half",
+            "half",
+            "=",
+            "equal"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL1_Q9",
+          "question_id": "G3M_FR_002_LVL1_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Which fraction is equivalent to 2/2?",
+          "answer": "4/4",
+          "correct_answer": "4/4",
+          "misconception_tag": "equivalent_fraction_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 4/4.",
+          "numerator": 4,
+          "denominator": 4,
+          "choices": [
+            "4/4",
+            "2/1/2",
+            "1/8"
+          ],
+          "acceptable_answers": [
+            "4/4",
+            "four fourths",
+            "four-fourths",
+            "1",
+            "=",
+            "equal"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL1_Q10",
+          "question_id": "G3M_FR_002_LVL1_Q10",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_circle",
+          "prompt": "Which fraction is equivalent to 3/3?",
+          "answer": "6/6",
+          "correct_answer": "6/6",
+          "misconception_tag": "equivalent_fraction_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 6/6.",
+          "numerator": 6,
+          "denominator": 6,
+          "choices": [
+            "6/6",
+            "3/1/3",
+            "1/8"
+          ],
+          "acceptable_answers": [
+            "6/6",
+            "six sixths",
+            "six-sixths",
+            "1",
+            "=",
+            "equal"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_FR_002_L2",
+      "label": "Level 2: Compare Same Denominator",
+      "focus": "Compare fractions with the same denominator.",
+      "difficulty": "Grade 3 foundation",
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_FR_002_LVL2_Q1",
+          "question_id": "G3M_FR_002_LVL2_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 1/4 __ 3/4.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "denominator_size_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is <.",
+          "left": "1/4",
+          "right": "3/4",
+          "left_value": "1/4",
+          "right_value": "3/4",
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ],
+          "choices": [
+            "<",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL2_Q2",
+          "question_id": "G3M_FR_002_LVL2_Q2",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 3/8 __ 5/8.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "denominator_size_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is <.",
+          "left": "3/8",
+          "right": "5/8",
+          "left_value": "3/8",
+          "right_value": "5/8",
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL2_Q3",
+          "question_id": "G3M_FR_002_LVL2_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 2/6 __ 1/6.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "denominator_size_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is >.",
+          "left": "2/6",
+          "right": "1/6",
+          "left_value": "2/6",
+          "right_value": "1/6",
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ],
+          "choices": [
+            ">",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL2_Q4",
+          "question_id": "G3M_FR_002_LVL2_Q4",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 4/4 __ 3/4.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "denominator_size_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is >.",
+          "left": "4/4",
+          "right": "3/4",
+          "left_value": "4/4",
+          "right_value": "3/4",
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL2_Q5",
+          "question_id": "G3M_FR_002_LVL2_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 2/3 __ 2/3.",
+          "answer": "=",
+          "correct_answer": "=",
+          "misconception_tag": "denominator_size_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is =.",
+          "left": "2/3",
+          "right": "2/3",
+          "left_value": "2/3",
+          "right_value": "2/3",
+          "acceptable_answers": [
+            "=",
+            "equal to"
+          ],
+          "choices": [
+            "=",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL2_Q6",
+          "question_id": "G3M_FR_002_LVL2_Q6",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 1/6 __ 5/6.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "denominator_size_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is <.",
+          "left": "1/6",
+          "right": "5/6",
+          "left_value": "1/6",
+          "right_value": "5/6",
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL2_Q7",
+          "question_id": "G3M_FR_002_LVL2_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 7/8 __ 6/8.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "denominator_size_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is >.",
+          "left": "7/8",
+          "right": "6/8",
+          "left_value": "7/8",
+          "right_value": "6/8",
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ],
+          "choices": [
+            ">",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL2_Q8",
+          "question_id": "G3M_FR_002_LVL2_Q8",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 2/4 __ 3/4.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "denominator_size_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is <.",
+          "left": "2/4",
+          "right": "3/4",
+          "left_value": "2/4",
+          "right_value": "3/4",
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL2_Q9",
+          "question_id": "G3M_FR_002_LVL2_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 3/6 __ 3/6.",
+          "answer": "=",
+          "correct_answer": "=",
+          "misconception_tag": "denominator_size_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is =.",
+          "left": "3/6",
+          "right": "3/6",
+          "left_value": "3/6",
+          "right_value": "3/6",
+          "acceptable_answers": [
+            "=",
+            "equal to"
+          ],
+          "choices": [
+            "=",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL2_Q10",
+          "question_id": "G3M_FR_002_LVL2_Q10",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 5/8 __ 1/8.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "denominator_size_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is >.",
+          "left": "5/8",
+          "right": "1/8",
+          "left_value": "5/8",
+          "right_value": "1/8",
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_FR_002_L3",
+      "label": "Level 3: Compare Same Numerator",
+      "focus": "Compare fractions with the same numerator.",
+      "difficulty": "Grade 3 foundation",
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_FR_002_LVL3_Q1",
+          "question_id": "G3M_FR_002_LVL3_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Compare 1/2 __ 1/3.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "numerator_focus_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is >.",
+          "numerator": 1,
+          "denominator": 2,
+          "left_value": "1/2",
+          "right_value": "1/3",
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ],
+          "choices": [
+            ">",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL3_Q2",
+          "question_id": "G3M_FR_002_LVL3_Q2",
+          "question_type": "comparison",
+          "visual_model": "fraction_bar",
+          "prompt": "Compare 1/4 __ 1/8.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "numerator_focus_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is >.",
+          "numerator": 1,
+          "denominator": 4,
+          "left_value": "1/4",
+          "right_value": "1/8",
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL3_Q3",
+          "question_id": "G3M_FR_002_LVL3_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Compare 2/3 __ 2/6.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "numerator_focus_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is >.",
+          "numerator": 2,
+          "denominator": 3,
+          "left_value": "2/3",
+          "right_value": "2/6",
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ],
+          "choices": [
+            ">",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL3_Q4",
+          "question_id": "G3M_FR_002_LVL3_Q4",
+          "question_type": "comparison",
+          "visual_model": "fraction_bar",
+          "prompt": "Compare 3/4 __ 3/8.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "numerator_focus_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is >.",
+          "numerator": 3,
+          "denominator": 4,
+          "left_value": "3/4",
+          "right_value": "3/8",
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL3_Q5",
+          "question_id": "G3M_FR_002_LVL3_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Compare 1/6 __ 1/4.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "numerator_focus_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is <.",
+          "numerator": 1,
+          "denominator": 6,
+          "left_value": "1/6",
+          "right_value": "1/4",
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ],
+          "choices": [
+            "<",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL3_Q6",
+          "question_id": "G3M_FR_002_LVL3_Q6",
+          "question_type": "comparison",
+          "visual_model": "fraction_bar",
+          "prompt": "Compare 2/8 __ 2/4.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "numerator_focus_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is <.",
+          "numerator": 2,
+          "denominator": 8,
+          "left_value": "2/8",
+          "right_value": "2/4",
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL3_Q7",
+          "question_id": "G3M_FR_002_LVL3_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Compare 3/6 __ 3/3.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "numerator_focus_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is <.",
+          "numerator": 3,
+          "denominator": 6,
+          "left_value": "3/6",
+          "right_value": "3/3",
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ],
+          "choices": [
+            "<",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL3_Q8",
+          "question_id": "G3M_FR_002_LVL3_Q8",
+          "question_type": "comparison",
+          "visual_model": "fraction_bar",
+          "prompt": "Compare 1/3 __ 1/3.",
+          "answer": "=",
+          "correct_answer": "=",
+          "misconception_tag": "numerator_focus_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is =.",
+          "numerator": 1,
+          "denominator": 3,
+          "left_value": "1/3",
+          "right_value": "1/3",
+          "acceptable_answers": [
+            "=",
+            "equal to"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL3_Q9",
+          "question_id": "G3M_FR_002_LVL3_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Compare 2/4 __ 2/8.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "numerator_focus_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is >.",
+          "numerator": 2,
+          "denominator": 4,
+          "left_value": "2/4",
+          "right_value": "2/8",
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ],
+          "choices": [
+            ">",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL3_Q10",
+          "question_id": "G3M_FR_002_LVL3_Q10",
+          "question_type": "comparison",
+          "visual_model": "fraction_bar",
+          "prompt": "Compare 4/8 __ 4/6.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "numerator_focus_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is <.",
+          "numerator": 4,
+          "denominator": 8,
+          "left_value": "4/8",
+          "right_value": "4/6",
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_FR_002_L4",
+      "label": "Level 4: Fraction Number Line Comparisons",
+      "focus": "Compare fractions by their positions on a number line.",
+      "difficulty": "Grade 3 foundation",
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_FR_002_LVL4_Q1",
+          "question_id": "G3M_FR_002_LVL4_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Use the number line to compare 1/2 __ 3/4.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "fraction_number_line_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is <.",
+          "numerator": 1,
+          "denominator": 2,
+          "left_value": "1/2",
+          "right_value": "3/4",
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ],
+          "choices": [
+            "<",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL4_Q2",
+          "question_id": "G3M_FR_002_LVL4_Q2",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Use the number line to compare 2/3 __ 1/3.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "fraction_number_line_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is >.",
+          "numerator": 2,
+          "denominator": 3,
+          "left_value": "2/3",
+          "right_value": "1/3",
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL4_Q3",
+          "question_id": "G3M_FR_002_LVL4_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Use the number line to compare 1/4 __ 2/4.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "fraction_number_line_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is <.",
+          "numerator": 1,
+          "denominator": 4,
+          "left_value": "1/4",
+          "right_value": "2/4",
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ],
+          "choices": [
+            "<",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL4_Q4",
+          "question_id": "G3M_FR_002_LVL4_Q4",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Use the number line to compare 5/6 __ 3/6.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "fraction_number_line_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is >.",
+          "numerator": 5,
+          "denominator": 6,
+          "left_value": "5/6",
+          "right_value": "3/6",
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL4_Q5",
+          "question_id": "G3M_FR_002_LVL4_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Use the number line to compare 3/8 __ 6/8.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "fraction_number_line_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is <.",
+          "numerator": 3,
+          "denominator": 8,
+          "left_value": "3/8",
+          "right_value": "6/8",
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ],
+          "choices": [
+            "<",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL4_Q6",
+          "question_id": "G3M_FR_002_LVL4_Q6",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Use the number line to compare 4/4 __ 1/1.",
+          "answer": "=",
+          "correct_answer": "=",
+          "misconception_tag": "fraction_number_line_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is =.",
+          "numerator": 4,
+          "denominator": 4,
+          "left_value": "4/4",
+          "right_value": "1/1",
+          "acceptable_answers": [
+            "=",
+            "equal to"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL4_Q7",
+          "question_id": "G3M_FR_002_LVL4_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Use the number line to compare 2/6 __ 1/2.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "fraction_number_line_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is <.",
+          "numerator": 2,
+          "denominator": 6,
+          "left_value": "2/6",
+          "right_value": "1/2",
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ],
+          "choices": [
+            "<",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL4_Q8",
+          "question_id": "G3M_FR_002_LVL4_Q8",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Use the number line to compare 7/8 __ 3/4.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "fraction_number_line_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is >.",
+          "numerator": 7,
+          "denominator": 8,
+          "left_value": "7/8",
+          "right_value": "3/4",
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL4_Q9",
+          "question_id": "G3M_FR_002_LVL4_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Use the number line to compare 1/3 __ 2/6.",
+          "answer": "=",
+          "correct_answer": "=",
+          "misconception_tag": "fraction_number_line_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is =.",
+          "numerator": 1,
+          "denominator": 3,
+          "left_value": "1/3",
+          "right_value": "2/6",
+          "acceptable_answers": [
+            "=",
+            "equal to"
+          ],
+          "choices": [
+            "=",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_LVL4_Q10",
+          "question_id": "G3M_FR_002_LVL4_Q10",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Use the number line to compare 2/4 __ 1/2.",
+          "answer": "=",
+          "correct_answer": "=",
+          "misconception_tag": "fraction_number_line_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is =.",
+          "numerator": 2,
+          "denominator": 4,
+          "left_value": "2/4",
+          "right_value": "1/2",
+          "acceptable_answers": [
+            "=",
+            "equal to"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_FR_002_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed review",
+      "difficulty": "Grade 3 foundation",
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_FR_002_MIXED_Q1",
+          "question_id": "G3M_FR_002_MIXED_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Which fraction is equivalent to 1/2?",
+          "answer": "2/4",
+          "correct_answer": "2/4",
+          "misconception_tag": "equivalent_fraction_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 2/4.",
+          "numerator": 2,
+          "denominator": 4,
+          "choices": [
+            "2/4",
+            "1/1/2",
+            "1/8"
+          ],
+          "acceptable_answers": [
+            "2/4",
+            "two fourths",
+            "two-fourths",
+            "=",
+            "equal"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_MIXED_Q2",
+          "question_id": "G3M_FR_002_MIXED_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 1/4 __ 3/4.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "denominator_size_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is <.",
+          "left": "1/4",
+          "right": "3/4",
+          "left_value": "1/4",
+          "right_value": "3/4",
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ],
+          "choices": [
+            "<",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_MIXED_Q3",
+          "question_id": "G3M_FR_002_MIXED_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Compare 1/2 __ 1/3.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "numerator_focus_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is >.",
+          "numerator": 1,
+          "denominator": 2,
+          "left_value": "1/2",
+          "right_value": "1/3",
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ],
+          "choices": [
+            ">",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_MIXED_Q4",
+          "question_id": "G3M_FR_002_MIXED_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Use the number line to compare 1/2 __ 3/4.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "fraction_number_line_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is <.",
+          "numerator": 1,
+          "denominator": 2,
+          "left_value": "1/2",
+          "right_value": "3/4",
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ],
+          "choices": [
+            "<",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_MIXED_Q5",
+          "question_id": "G3M_FR_002_MIXED_Q5",
+          "question_type": "fraction_response",
+          "visual_model": "fraction_circle",
+          "prompt": "Which fraction is equivalent to 1/4?",
+          "answer": "2/8",
+          "correct_answer": "2/8",
+          "misconception_tag": "equivalent_fraction_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 2/8.",
+          "numerator": 2,
+          "denominator": 8,
+          "choices": [
+            "2/8",
+            "1/1/4",
+            "1/8"
+          ],
+          "acceptable_answers": [
+            "2/8",
+            "=",
+            "equal"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_MIXED_Q6",
+          "question_id": "G3M_FR_002_MIXED_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 7/8 __ 6/8.",
+          "answer": ">",
+          "correct_answer": ">",
+          "misconception_tag": "denominator_size_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is >.",
+          "left": "7/8",
+          "right": "6/8",
+          "left_value": "7/8",
+          "right_value": "6/8",
+          "acceptable_answers": [
+            ">",
+            "greater than"
+          ],
+          "choices": [
+            ">",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_MIXED_Q7",
+          "question_id": "G3M_FR_002_MIXED_Q7",
+          "question_type": "comparison",
+          "visual_model": "fraction_bar",
+          "prompt": "Compare 2/8 __ 2/4.",
+          "answer": "<",
+          "correct_answer": "<",
+          "misconception_tag": "numerator_focus_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is <.",
+          "numerator": 2,
+          "denominator": 8,
+          "left_value": "2/8",
+          "right_value": "2/4",
+          "acceptable_answers": [
+            "<",
+            "less than"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_MIXED_Q8",
+          "question_id": "G3M_FR_002_MIXED_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Use the number line to compare 1/3 __ 2/6.",
+          "answer": "=",
+          "correct_answer": "=",
+          "misconception_tag": "fraction_number_line_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is =.",
+          "numerator": 1,
+          "denominator": 3,
+          "left_value": "1/3",
+          "right_value": "2/6",
+          "acceptable_answers": [
+            "=",
+            "equal to"
+          ],
+          "choices": [
+            "=",
+            "NaN",
+            "NaN"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_MIXED_Q9",
+          "question_id": "G3M_FR_002_MIXED_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "fraction_bar",
+          "prompt": "Which fraction is equivalent to 2/2?",
+          "answer": "4/4",
+          "correct_answer": "4/4",
+          "misconception_tag": "equivalent_fraction_confusion",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 4/4.",
+          "numerator": 4,
+          "denominator": 4,
+          "choices": [
+            "4/4",
+            "2/1/2",
+            "1/8"
+          ],
+          "acceptable_answers": [
+            "4/4",
+            "four fourths",
+            "four-fourths",
+            "1",
+            "=",
+            "equal"
+          ]
+        },
+        {
+          "id": "G3M_FR_002_MIXED_Q10",
+          "question_id": "G3M_FR_002_MIXED_Q10",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Use the number line to compare 2/4 __ 1/2.",
+          "answer": "=",
+          "correct_answer": "=",
+          "misconception_tag": "fraction_number_line_error",
+          "hints": [
+            "Use equal-sized parts or the number line.",
+            "Same denominator: compare numerators. Same numerator: the smaller denominator is larger.",
+            "Use <, >, or = to compare."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is =.",
+          "numerator": 2,
+          "denominator": 4,
+          "left_value": "2/4",
+          "right_value": "1/2",
+          "acceptable_answers": [
+            "=",
+            "equal to"
+          ]
+        }
+      ]
+    }
+  ]
+}
