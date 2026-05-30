@@ -1,0 +1,2288 @@
+{
+  "skill_id": "G3M_MD_001",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_docs": [
+      "docs/grade3_math_completion_plan.md",
+      "curriculum-framework/plans/grade3-math-completion-plan.v1.json"
+    ],
+    "source_plan": "curriculum-framework/plans/grade3-math-completion-plan.v1.json"
+  },
+  "grade": 3,
+  "subject": "Math",
+  "domain": "Measurement and Data",
+  "skill": "Time, Measurement, and Data",
+  "mastery_threshold": 0.8,
+  "difficulty_range": "Grade 3 measurement and geometry",
+  "lesson": {
+    "story_mission": "Join the Skill World design crew to use solve elapsed time, measurement, mass, volume, graph, and line plot problems in real classroom missions.",
+    "mini_lesson": "Solve elapsed time, measurement, mass, volume, graph, and line plot problems.",
+    "objective": "Solve elapsed time, measurement, mass, volume, graph, and line plot problems.",
+    "key_vocabulary": [
+      "elapsed time",
+      "minute",
+      "gram",
+      "kilogram",
+      "liter",
+      "milliliter",
+      "bar graph",
+      "line plot",
+      "fractional measurement"
+    ],
+    "concept_explanation": "Use models and precise math language to solve elapsed time, measurement, mass, volume, graph, and line plot problems. Explain the strategy and include units when the answer needs them.",
+    "visual_model": "elapsed_time_timeline",
+    "common_misconception": "Learners may subtract clock numbers without counting across the hour.",
+    "real_world_connection": "These skills help with schedules, materials, maps, art projects, and data from everyday activities.",
+    "lesson_summary": "Read the task, choose the model, solve carefully, and check that the answer matches the question.",
+    "hints": [
+      "Read what the question asks.",
+      "Use the visual model to organize the information.",
+      "Check that your answer includes the right unit or name."
+    ]
+  },
+  "worked_examples": [
+    {
+      "id": "G3M_MD_001_LVL1_Q1",
+      "question_id": "G3M_MD_001_LVL1_Q1",
+      "question_type": "short_response",
+      "visual_model": "elapsed_time_timeline",
+      "prompt": "A science station starts at 8:12 and ends at 8:47. How much time passes?",
+      "answer": "35 minutes",
+      "correct_answer": "35 minutes",
+      "misconception_tag": "elapsed_time_confusion",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 35 minutes.",
+      "acceptable_answers": [
+        "35",
+        "35 minutes",
+        "35 min"
+      ],
+      "start_time": "8:12",
+      "end_time": "8:47",
+      "elapsed_minutes": "35 minutes",
+      "jumps": [
+        "30 min",
+        "5 min"
+      ]
+    },
+    {
+      "id": "G3M_MD_001_LVL1_Q2",
+      "question_id": "G3M_MD_001_LVL1_Q2",
+      "question_type": "multiple_choice",
+      "visual_model": "analog_clock",
+      "prompt": "A science station starts at 9:05 and ends at 9:38. How much time passes?",
+      "answer": "33 minutes",
+      "correct_answer": "33 minutes",
+      "misconception_tag": "elapsed_time_confusion",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 33 minutes.",
+      "acceptable_answers": [
+        "33",
+        "33 minutes",
+        "33 min"
+      ],
+      "choices": [
+        "33 minutes",
+        "38 minutes",
+        "23 minutes"
+      ],
+      "start_time": "9:05",
+      "end_time": "9:38",
+      "elapsed_minutes": "33 minutes",
+      "jumps": [
+        "30 min",
+        "3 min"
+      ],
+      "time": "9:05"
+    },
+    {
+      "id": "G3M_MD_001_LVL1_Q3",
+      "question_id": "G3M_MD_001_LVL1_Q3",
+      "question_type": "elapsed_time",
+      "visual_model": "elapsed_time_timeline",
+      "prompt": "A science station starts at 10:20 and ends at 11:04. How much time passes?",
+      "answer": "44 minutes",
+      "correct_answer": "44 minutes",
+      "misconception_tag": "elapsed_time_confusion",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 44 minutes.",
+      "acceptable_answers": [
+        "44",
+        "44 minutes",
+        "44 min"
+      ],
+      "start_time": "10:20",
+      "end_time": "11:04",
+      "elapsed_minutes": "44 minutes",
+      "jumps": [
+        "30 min",
+        "14 min"
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "Read what the question asks.",
+    "Use the visual model to organize the information.",
+    "Check that your answer includes the right unit or name."
+  ],
+  "guided_practice": [
+    {
+      "id": "G3M_MD_001_LVL1_Q1",
+      "question_id": "G3M_MD_001_LVL1_Q1",
+      "question_type": "short_response",
+      "visual_model": "elapsed_time_timeline",
+      "prompt": "A science station starts at 8:12 and ends at 8:47. How much time passes?",
+      "answer": "35 minutes",
+      "correct_answer": "35 minutes",
+      "misconception_tag": "elapsed_time_confusion",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 35 minutes.",
+      "acceptable_answers": [
+        "35",
+        "35 minutes",
+        "35 min"
+      ],
+      "start_time": "8:12",
+      "end_time": "8:47",
+      "elapsed_minutes": "35 minutes",
+      "jumps": [
+        "30 min",
+        "5 min"
+      ]
+    },
+    {
+      "id": "G3M_MD_001_LVL1_Q2",
+      "question_id": "G3M_MD_001_LVL1_Q2",
+      "question_type": "multiple_choice",
+      "visual_model": "analog_clock",
+      "prompt": "A science station starts at 9:05 and ends at 9:38. How much time passes?",
+      "answer": "33 minutes",
+      "correct_answer": "33 minutes",
+      "misconception_tag": "elapsed_time_confusion",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 33 minutes.",
+      "acceptable_answers": [
+        "33",
+        "33 minutes",
+        "33 min"
+      ],
+      "choices": [
+        "33 minutes",
+        "38 minutes",
+        "23 minutes"
+      ],
+      "start_time": "9:05",
+      "end_time": "9:38",
+      "elapsed_minutes": "33 minutes",
+      "jumps": [
+        "30 min",
+        "3 min"
+      ],
+      "time": "9:05"
+    },
+    {
+      "id": "G3M_MD_001_LVL1_Q3",
+      "question_id": "G3M_MD_001_LVL1_Q3",
+      "question_type": "elapsed_time",
+      "visual_model": "elapsed_time_timeline",
+      "prompt": "A science station starts at 10:20 and ends at 11:04. How much time passes?",
+      "answer": "44 minutes",
+      "correct_answer": "44 minutes",
+      "misconception_tag": "elapsed_time_confusion",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 44 minutes.",
+      "acceptable_answers": [
+        "44",
+        "44 minutes",
+        "44 min"
+      ],
+      "start_time": "10:20",
+      "end_time": "11:04",
+      "elapsed_minutes": "44 minutes",
+      "jumps": [
+        "30 min",
+        "14 min"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G3M_MD_001_LVL1_Q4",
+      "question_id": "G3M_MD_001_LVL1_Q4",
+      "question_type": "short_response",
+      "visual_model": "elapsed_time_timeline",
+      "prompt": "A science station starts at 1:18 and ends at 2:03. How much time passes?",
+      "answer": "45 minutes",
+      "correct_answer": "45 minutes",
+      "misconception_tag": "elapsed_time_confusion",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 45 minutes.",
+      "acceptable_answers": [
+        "45",
+        "45 minutes",
+        "45 min"
+      ],
+      "start_time": "1:18",
+      "end_time": "2:03",
+      "elapsed_minutes": "45 minutes",
+      "jumps": [
+        "30 min",
+        "15 min"
+      ]
+    },
+    {
+      "id": "G3M_MD_001_LVL1_Q5",
+      "question_id": "G3M_MD_001_LVL1_Q5",
+      "question_type": "multiple_choice",
+      "visual_model": "elapsed_time_timeline",
+      "prompt": "A science station starts at 3:07 and ends at 3:59. How much time passes?",
+      "answer": "52 minutes",
+      "correct_answer": "52 minutes",
+      "misconception_tag": "elapsed_time_confusion",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 52 minutes.",
+      "acceptable_answers": [
+        "52",
+        "52 minutes",
+        "52 min"
+      ],
+      "choices": [
+        "52 minutes",
+        "57 minutes",
+        "42 minutes"
+      ],
+      "start_time": "3:07",
+      "end_time": "3:59",
+      "elapsed_minutes": "52 minutes",
+      "jumps": [
+        "30 min",
+        "22 min"
+      ]
+    },
+    {
+      "id": "G3M_MD_001_LVL1_Q6",
+      "question_id": "G3M_MD_001_LVL1_Q6",
+      "question_type": "elapsed_time",
+      "visual_model": "elapsed_time_timeline",
+      "prompt": "A science station starts at 4:36 and ends at 5:11. How much time passes?",
+      "answer": "35 minutes",
+      "correct_answer": "35 minutes",
+      "misconception_tag": "elapsed_time_confusion",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 35 minutes.",
+      "acceptable_answers": [
+        "35",
+        "35 minutes",
+        "35 min"
+      ],
+      "start_time": "4:36",
+      "end_time": "5:11",
+      "elapsed_minutes": "35 minutes",
+      "jumps": [
+        "30 min",
+        "5 min"
+      ]
+    },
+    {
+      "id": "G3M_MD_001_LVL1_Q7",
+      "question_id": "G3M_MD_001_LVL1_Q7",
+      "question_type": "short_response",
+      "visual_model": "elapsed_time_timeline",
+      "prompt": "A science station starts at 6:14 and ends at 6:49. How much time passes?",
+      "answer": "35 minutes",
+      "correct_answer": "35 minutes",
+      "misconception_tag": "elapsed_time_confusion",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 35 minutes.",
+      "acceptable_answers": [
+        "35",
+        "35 minutes",
+        "35 min"
+      ],
+      "start_time": "6:14",
+      "end_time": "6:49",
+      "elapsed_minutes": "35 minutes",
+      "jumps": [
+        "30 min",
+        "5 min"
+      ]
+    },
+    {
+      "id": "G3M_MD_001_LVL1_Q8",
+      "question_id": "G3M_MD_001_LVL1_Q8",
+      "question_type": "multiple_choice",
+      "visual_model": "elapsed_time_timeline",
+      "prompt": "A science station starts at 7:25 and ends at 8:10. How much time passes?",
+      "answer": "45 minutes",
+      "correct_answer": "45 minutes",
+      "misconception_tag": "elapsed_time_confusion",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 45 minutes.",
+      "acceptable_answers": [
+        "45",
+        "45 minutes",
+        "45 min"
+      ],
+      "choices": [
+        "45 minutes",
+        "50 minutes",
+        "35 minutes"
+      ],
+      "start_time": "7:25",
+      "end_time": "8:10",
+      "elapsed_minutes": "45 minutes",
+      "jumps": [
+        "30 min",
+        "15 min"
+      ]
+    },
+    {
+      "id": "G3M_MD_001_LVL1_Q9",
+      "question_id": "G3M_MD_001_LVL1_Q9",
+      "question_type": "elapsed_time",
+      "visual_model": "elapsed_time_timeline",
+      "prompt": "A science station starts at 11:32 and ends at 12:06. How much time passes?",
+      "answer": "34 minutes",
+      "correct_answer": "34 minutes",
+      "misconception_tag": "elapsed_time_confusion",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 34 minutes.",
+      "acceptable_answers": [
+        "34",
+        "34 minutes",
+        "34 min"
+      ],
+      "start_time": "11:32",
+      "end_time": "12:06",
+      "elapsed_minutes": "34 minutes",
+      "jumps": [
+        "30 min",
+        "4 min"
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G3M_MD_001_LVL1_Q10",
+      "question_id": "G3M_MD_001_LVL1_Q10",
+      "question_type": "short_response",
+      "visual_model": "elapsed_time_timeline",
+      "prompt": "A science station starts at 2:41 and ends at 3:16. How much time passes?",
+      "answer": "35 minutes",
+      "correct_answer": "35 minutes",
+      "misconception_tag": "elapsed_time_confusion",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 35 minutes.",
+      "acceptable_answers": [
+        "35",
+        "35 minutes",
+        "35 min"
+      ],
+      "start_time": "2:41",
+      "end_time": "3:16",
+      "elapsed_minutes": "35 minutes",
+      "jumps": [
+        "30 min",
+        "5 min"
+      ]
+    },
+    {
+      "id": "G3M_MD_001_LVL2_Q1",
+      "question_id": "G3M_MD_001_LVL2_Q1",
+      "question_type": "short_response",
+      "visual_model": "measurement_comparison",
+      "prompt": "Which measurement best fits the mass of a apple: 140 grams, 1400 grams, or 14 grams?",
+      "answer": "140 grams",
+      "correct_answer": "140 grams",
+      "misconception_tag": "unit_conversion_confusion",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 140 grams.",
+      "acceptable_answers": [
+        "140 grams",
+        "140 gram",
+        "140"
+      ],
+      "left": "140 grams",
+      "right": "1400 grams",
+      "measure_kind": "mass"
+    },
+    {
+      "id": "G3M_MD_001_LVL2_Q2",
+      "question_id": "G3M_MD_001_LVL2_Q2",
+      "question_type": "multiple_choice",
+      "visual_model": "measurement_comparison",
+      "prompt": "Which measurement best fits the mass of a book: 1 kilogram, 10 kilogram, or 1 kilogram?",
+      "answer": "1 kilogram",
+      "correct_answer": "1 kilogram",
+      "misconception_tag": "unit_conversion_confusion",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 1 kilogram.",
+      "acceptable_answers": [
+        "1 kilogram",
+        "1"
+      ],
+      "left": "1 kilogram",
+      "right": "10 kilogram",
+      "measure_kind": "mass",
+      "choices": [
+        "1 kilogram",
+        "2 kilogram",
+        "0 kilogram"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "elapsed_time_confusion": "Learners may subtract clock numbers without counting across the hour.",
+    "unit_conversion_confusion": "Learners may mix grams, kilograms, liters, and milliliters.",
+    "graph_scale_confusion": "Learners may count bars instead of using the graph scale.",
+    "line_plot_fraction_error": "Learners may read fractional marks as whole numbers."
+  },
+  "review_bank": [],
+  "game_theme": {
+    "title": "Skill World: Time, Measurement, and Data",
+    "mission_intro": "Build confidence with time, measurement, and data through a guided mission and focused practice levels.",
+    "badge_name": "Time, Measurement, and Data Badge"
+  },
+  "level_banks": [
+    {
+      "level_id": "G3M_MD_001_LVL1",
+      "label": "Level 1: Elapsed Time",
+      "focus": "elapsed time to the minute",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_MD_001_LVL1_Q1",
+          "question_id": "G3M_MD_001_LVL1_Q1",
+          "question_type": "short_response",
+          "visual_model": "elapsed_time_timeline",
+          "prompt": "A science station starts at 8:12 and ends at 8:47. How much time passes?",
+          "answer": "35 minutes",
+          "correct_answer": "35 minutes",
+          "misconception_tag": "elapsed_time_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 35 minutes.",
+          "acceptable_answers": [
+            "35",
+            "35 minutes",
+            "35 min"
+          ],
+          "start_time": "8:12",
+          "end_time": "8:47",
+          "elapsed_minutes": "35 minutes",
+          "jumps": [
+            "30 min",
+            "5 min"
+          ]
+        },
+        {
+          "id": "G3M_MD_001_LVL1_Q2",
+          "question_id": "G3M_MD_001_LVL1_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "analog_clock",
+          "prompt": "A science station starts at 9:05 and ends at 9:38. How much time passes?",
+          "answer": "33 minutes",
+          "correct_answer": "33 minutes",
+          "misconception_tag": "elapsed_time_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 33 minutes.",
+          "acceptable_answers": [
+            "33",
+            "33 minutes",
+            "33 min"
+          ],
+          "choices": [
+            "33 minutes",
+            "38 minutes",
+            "23 minutes"
+          ],
+          "start_time": "9:05",
+          "end_time": "9:38",
+          "elapsed_minutes": "33 minutes",
+          "jumps": [
+            "30 min",
+            "3 min"
+          ],
+          "time": "9:05"
+        },
+        {
+          "id": "G3M_MD_001_LVL1_Q3",
+          "question_id": "G3M_MD_001_LVL1_Q3",
+          "question_type": "elapsed_time",
+          "visual_model": "elapsed_time_timeline",
+          "prompt": "A science station starts at 10:20 and ends at 11:04. How much time passes?",
+          "answer": "44 minutes",
+          "correct_answer": "44 minutes",
+          "misconception_tag": "elapsed_time_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 44 minutes.",
+          "acceptable_answers": [
+            "44",
+            "44 minutes",
+            "44 min"
+          ],
+          "start_time": "10:20",
+          "end_time": "11:04",
+          "elapsed_minutes": "44 minutes",
+          "jumps": [
+            "30 min",
+            "14 min"
+          ]
+        },
+        {
+          "id": "G3M_MD_001_LVL1_Q4",
+          "question_id": "G3M_MD_001_LVL1_Q4",
+          "question_type": "short_response",
+          "visual_model": "elapsed_time_timeline",
+          "prompt": "A science station starts at 1:18 and ends at 2:03. How much time passes?",
+          "answer": "45 minutes",
+          "correct_answer": "45 minutes",
+          "misconception_tag": "elapsed_time_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 45 minutes.",
+          "acceptable_answers": [
+            "45",
+            "45 minutes",
+            "45 min"
+          ],
+          "start_time": "1:18",
+          "end_time": "2:03",
+          "elapsed_minutes": "45 minutes",
+          "jumps": [
+            "30 min",
+            "15 min"
+          ]
+        },
+        {
+          "id": "G3M_MD_001_LVL1_Q5",
+          "question_id": "G3M_MD_001_LVL1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "elapsed_time_timeline",
+          "prompt": "A science station starts at 3:07 and ends at 3:59. How much time passes?",
+          "answer": "52 minutes",
+          "correct_answer": "52 minutes",
+          "misconception_tag": "elapsed_time_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 52 minutes.",
+          "acceptable_answers": [
+            "52",
+            "52 minutes",
+            "52 min"
+          ],
+          "choices": [
+            "52 minutes",
+            "57 minutes",
+            "42 minutes"
+          ],
+          "start_time": "3:07",
+          "end_time": "3:59",
+          "elapsed_minutes": "52 minutes",
+          "jumps": [
+            "30 min",
+            "22 min"
+          ]
+        },
+        {
+          "id": "G3M_MD_001_LVL1_Q6",
+          "question_id": "G3M_MD_001_LVL1_Q6",
+          "question_type": "elapsed_time",
+          "visual_model": "elapsed_time_timeline",
+          "prompt": "A science station starts at 4:36 and ends at 5:11. How much time passes?",
+          "answer": "35 minutes",
+          "correct_answer": "35 minutes",
+          "misconception_tag": "elapsed_time_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 35 minutes.",
+          "acceptable_answers": [
+            "35",
+            "35 minutes",
+            "35 min"
+          ],
+          "start_time": "4:36",
+          "end_time": "5:11",
+          "elapsed_minutes": "35 minutes",
+          "jumps": [
+            "30 min",
+            "5 min"
+          ]
+        },
+        {
+          "id": "G3M_MD_001_LVL1_Q7",
+          "question_id": "G3M_MD_001_LVL1_Q7",
+          "question_type": "short_response",
+          "visual_model": "elapsed_time_timeline",
+          "prompt": "A science station starts at 6:14 and ends at 6:49. How much time passes?",
+          "answer": "35 minutes",
+          "correct_answer": "35 minutes",
+          "misconception_tag": "elapsed_time_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 35 minutes.",
+          "acceptable_answers": [
+            "35",
+            "35 minutes",
+            "35 min"
+          ],
+          "start_time": "6:14",
+          "end_time": "6:49",
+          "elapsed_minutes": "35 minutes",
+          "jumps": [
+            "30 min",
+            "5 min"
+          ]
+        },
+        {
+          "id": "G3M_MD_001_LVL1_Q8",
+          "question_id": "G3M_MD_001_LVL1_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "elapsed_time_timeline",
+          "prompt": "A science station starts at 7:25 and ends at 8:10. How much time passes?",
+          "answer": "45 minutes",
+          "correct_answer": "45 minutes",
+          "misconception_tag": "elapsed_time_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 45 minutes.",
+          "acceptable_answers": [
+            "45",
+            "45 minutes",
+            "45 min"
+          ],
+          "choices": [
+            "45 minutes",
+            "50 minutes",
+            "35 minutes"
+          ],
+          "start_time": "7:25",
+          "end_time": "8:10",
+          "elapsed_minutes": "45 minutes",
+          "jumps": [
+            "30 min",
+            "15 min"
+          ]
+        },
+        {
+          "id": "G3M_MD_001_LVL1_Q9",
+          "question_id": "G3M_MD_001_LVL1_Q9",
+          "question_type": "elapsed_time",
+          "visual_model": "elapsed_time_timeline",
+          "prompt": "A science station starts at 11:32 and ends at 12:06. How much time passes?",
+          "answer": "34 minutes",
+          "correct_answer": "34 minutes",
+          "misconception_tag": "elapsed_time_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 34 minutes.",
+          "acceptable_answers": [
+            "34",
+            "34 minutes",
+            "34 min"
+          ],
+          "start_time": "11:32",
+          "end_time": "12:06",
+          "elapsed_minutes": "34 minutes",
+          "jumps": [
+            "30 min",
+            "4 min"
+          ]
+        },
+        {
+          "id": "G3M_MD_001_LVL1_Q10",
+          "question_id": "G3M_MD_001_LVL1_Q10",
+          "question_type": "short_response",
+          "visual_model": "elapsed_time_timeline",
+          "prompt": "A science station starts at 2:41 and ends at 3:16. How much time passes?",
+          "answer": "35 minutes",
+          "correct_answer": "35 minutes",
+          "misconception_tag": "elapsed_time_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 35 minutes.",
+          "acceptable_answers": [
+            "35",
+            "35 minutes",
+            "35 min"
+          ],
+          "start_time": "2:41",
+          "end_time": "3:16",
+          "elapsed_minutes": "35 minutes",
+          "jumps": [
+            "30 min",
+            "5 min"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_MD_001_LVL2",
+      "label": "Level 2: Measure Mass and Volume",
+      "focus": "mass and volume measurement",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_MD_001_LVL2_Q1",
+          "question_id": "G3M_MD_001_LVL2_Q1",
+          "question_type": "short_response",
+          "visual_model": "measurement_comparison",
+          "prompt": "Which measurement best fits the mass of a apple: 140 grams, 1400 grams, or 14 grams?",
+          "answer": "140 grams",
+          "correct_answer": "140 grams",
+          "misconception_tag": "unit_conversion_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 140 grams.",
+          "acceptable_answers": [
+            "140 grams",
+            "140 gram",
+            "140"
+          ],
+          "left": "140 grams",
+          "right": "1400 grams",
+          "measure_kind": "mass"
+        },
+        {
+          "id": "G3M_MD_001_LVL2_Q2",
+          "question_id": "G3M_MD_001_LVL2_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "measurement_comparison",
+          "prompt": "Which measurement best fits the mass of a book: 1 kilogram, 10 kilogram, or 1 kilogram?",
+          "answer": "1 kilogram",
+          "correct_answer": "1 kilogram",
+          "misconception_tag": "unit_conversion_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 1 kilogram.",
+          "acceptable_answers": [
+            "1 kilogram",
+            "1"
+          ],
+          "left": "1 kilogram",
+          "right": "10 kilogram",
+          "measure_kind": "mass",
+          "choices": [
+            "1 kilogram",
+            "2 kilogram",
+            "0 kilogram"
+          ]
+        },
+        {
+          "id": "G3M_MD_001_LVL2_Q3",
+          "question_id": "G3M_MD_001_LVL2_Q3",
+          "question_type": "measurement",
+          "visual_model": "measurement_comparison",
+          "prompt": "Which measurement best fits the volume of a water bottle: 500 milliliters, 5000 milliliters, or 50 milliliters?",
+          "answer": "500 milliliters",
+          "correct_answer": "500 milliliters",
+          "misconception_tag": "unit_conversion_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 500 milliliters.",
+          "acceptable_answers": [
+            "500 milliliters",
+            "500 milliliter",
+            "500"
+          ],
+          "choices": [
+            "500 milliliters",
+            "5000 milliliters",
+            "50 milliliters"
+          ],
+          "left": "500 milliliters",
+          "right": "5000 milliliters",
+          "measure_kind": "volume"
+        },
+        {
+          "id": "G3M_MD_001_LVL2_Q4",
+          "question_id": "G3M_MD_001_LVL2_Q4",
+          "question_type": "short_response",
+          "visual_model": "measurement_comparison",
+          "prompt": "Which measurement best fits the volume of a fish tank: 12 liters, 120 liters, or 1 liters?",
+          "answer": "12 liters",
+          "correct_answer": "12 liters",
+          "misconception_tag": "unit_conversion_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 12 liters.",
+          "acceptable_answers": [
+            "12 liters",
+            "12 liter",
+            "12"
+          ],
+          "left": "12 liters",
+          "right": "120 liters",
+          "measure_kind": "volume"
+        },
+        {
+          "id": "G3M_MD_001_LVL2_Q5",
+          "question_id": "G3M_MD_001_LVL2_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "measurement_comparison",
+          "prompt": "Which measurement best fits the mass of a bag of rice: 2 kilograms, 20 kilograms, or 1 kilograms?",
+          "answer": "2 kilograms",
+          "correct_answer": "2 kilograms",
+          "misconception_tag": "unit_conversion_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 2 kilograms.",
+          "acceptable_answers": [
+            "2 kilograms",
+            "2 kilogram",
+            "2"
+          ],
+          "left": "2 kilograms",
+          "right": "20 kilograms",
+          "measure_kind": "mass",
+          "choices": [
+            "2 kilograms",
+            "3 kilograms",
+            "1 kilograms"
+          ]
+        },
+        {
+          "id": "G3M_MD_001_LVL2_Q6",
+          "question_id": "G3M_MD_001_LVL2_Q6",
+          "question_type": "measurement",
+          "visual_model": "measurement_comparison",
+          "prompt": "Which measurement best fits the volume of a juice box: 250 milliliters, 2500 milliliters, or 25 milliliters?",
+          "answer": "250 milliliters",
+          "correct_answer": "250 milliliters",
+          "misconception_tag": "unit_conversion_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 250 milliliters.",
+          "acceptable_answers": [
+            "250 milliliters",
+            "250 milliliter",
+            "250"
+          ],
+          "choices": [
+            "250 milliliters",
+            "2500 milliliters",
+            "25 milliliters"
+          ],
+          "left": "250 milliliters",
+          "right": "2500 milliliters",
+          "measure_kind": "volume"
+        },
+        {
+          "id": "G3M_MD_001_LVL2_Q7",
+          "question_id": "G3M_MD_001_LVL2_Q7",
+          "question_type": "short_response",
+          "visual_model": "measurement_comparison",
+          "prompt": "Which measurement best fits the mass of a paper clip: 1 gram, 10 gram, or 1 gram?",
+          "answer": "1 gram",
+          "correct_answer": "1 gram",
+          "misconception_tag": "unit_conversion_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 1 gram.",
+          "acceptable_answers": [
+            "1 gram",
+            "1"
+          ],
+          "left": "1 gram",
+          "right": "10 gram",
+          "measure_kind": "mass"
+        },
+        {
+          "id": "G3M_MD_001_LVL2_Q8",
+          "question_id": "G3M_MD_001_LVL2_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "measurement_comparison",
+          "prompt": "Which measurement best fits the volume of a watering can: 3 liters, 30 liters, or 1 liters?",
+          "answer": "3 liters",
+          "correct_answer": "3 liters",
+          "misconception_tag": "unit_conversion_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 3 liters.",
+          "acceptable_answers": [
+            "3 liters",
+            "3 liter",
+            "3"
+          ],
+          "left": "3 liters",
+          "right": "30 liters",
+          "measure_kind": "volume",
+          "choices": [
+            "3 liters",
+            "4 liters",
+            "2 liters"
+          ]
+        },
+        {
+          "id": "G3M_MD_001_LVL2_Q9",
+          "question_id": "G3M_MD_001_LVL2_Q9",
+          "question_type": "measurement",
+          "visual_model": "measurement_comparison",
+          "prompt": "Which measurement best fits the mass of a pumpkin: 5 kilograms, 50 kilograms, or 1 kilograms?",
+          "answer": "5 kilograms",
+          "correct_answer": "5 kilograms",
+          "misconception_tag": "unit_conversion_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 5 kilograms.",
+          "acceptable_answers": [
+            "5 kilograms",
+            "5 kilogram",
+            "5"
+          ],
+          "choices": [
+            "5 kilograms",
+            "50 kilograms",
+            "1 kilograms"
+          ],
+          "left": "5 kilograms",
+          "right": "50 kilograms",
+          "measure_kind": "mass"
+        },
+        {
+          "id": "G3M_MD_001_LVL2_Q10",
+          "question_id": "G3M_MD_001_LVL2_Q10",
+          "question_type": "short_response",
+          "visual_model": "measurement_comparison",
+          "prompt": "Which measurement best fits the volume of a medicine cup: 30 milliliters, 300 milliliters, or 3 milliliters?",
+          "answer": "30 milliliters",
+          "correct_answer": "30 milliliters",
+          "misconception_tag": "unit_conversion_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 30 milliliters.",
+          "acceptable_answers": [
+            "30 milliliters",
+            "30 milliliter",
+            "30"
+          ],
+          "left": "30 milliliters",
+          "right": "300 milliliters",
+          "measure_kind": "volume"
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_MD_001_LVL3",
+      "label": "Level 3: Graphs and Data",
+      "focus": "picture and bar graph interpretation",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_MD_001_LVL3_Q1",
+          "question_id": "G3M_MD_001_LVL3_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_graph",
+          "prompt": "The class fruit bar graph shows apples: 8. How many students chose apples?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 8.",
+          "acceptable_answers": [
+            "8",
+            "8 votes",
+            "8 students"
+          ],
+          "choices": [
+            "8",
+            "10",
+            "6"
+          ],
+          "labels": [
+            "apples",
+            "other"
+          ],
+          "values": [
+            8,
+            10
+          ],
+          "scale": 1
+        },
+        {
+          "id": "G3M_MD_001_LVL3_Q2",
+          "question_id": "G3M_MD_001_LVL3_Q2",
+          "question_type": "short_response",
+          "visual_model": "bar_graph",
+          "prompt": "The class fruit bar graph shows oranges: 6. How many students chose oranges?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 6.",
+          "acceptable_answers": [
+            "6",
+            "6 votes",
+            "6 students"
+          ],
+          "labels": [
+            "oranges",
+            "other"
+          ],
+          "values": [
+            6,
+            8
+          ],
+          "scale": 1
+        },
+        {
+          "id": "G3M_MD_001_LVL3_Q3",
+          "question_id": "G3M_MD_001_LVL3_Q3",
+          "question_type": "data_interpretation",
+          "visual_model": "bar_graph",
+          "prompt": "The class fruit bar graph shows bananas: 10. How many students chose bananas?",
+          "answer": "10",
+          "correct_answer": "10",
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 10.",
+          "acceptable_answers": [
+            "10",
+            "10 votes",
+            "10 students"
+          ],
+          "labels": [
+            "bananas",
+            "other"
+          ],
+          "values": [
+            10,
+            12
+          ],
+          "scale": 1
+        },
+        {
+          "id": "G3M_MD_001_LVL3_Q4",
+          "question_id": "G3M_MD_001_LVL3_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_graph",
+          "prompt": "The class fruit bar graph shows pears: 4. How many students chose pears?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 4.",
+          "acceptable_answers": [
+            "4",
+            "4 votes",
+            "4 students"
+          ],
+          "choices": [
+            "4",
+            "6",
+            "2"
+          ],
+          "labels": [
+            "pears",
+            "other"
+          ],
+          "values": [
+            4,
+            6
+          ],
+          "scale": 1
+        },
+        {
+          "id": "G3M_MD_001_LVL3_Q5",
+          "question_id": "G3M_MD_001_LVL3_Q5",
+          "question_type": "short_response",
+          "visual_model": "bar_graph",
+          "prompt": "The class fruit bar graph shows grapes: 12. How many students chose grapes?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 12.",
+          "acceptable_answers": [
+            "12",
+            "12 votes",
+            "12 students"
+          ],
+          "labels": [
+            "grapes",
+            "other"
+          ],
+          "values": [
+            12,
+            14
+          ],
+          "scale": 1
+        },
+        {
+          "id": "G3M_MD_001_LVL3_Q6",
+          "question_id": "G3M_MD_001_LVL3_Q6",
+          "question_type": "data_interpretation",
+          "visual_model": "bar_graph",
+          "prompt": "The class fruit bar graph shows kiwi: 5. How many students chose kiwi?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 5.",
+          "acceptable_answers": [
+            "5",
+            "5 votes",
+            "5 students"
+          ],
+          "labels": [
+            "kiwi",
+            "other"
+          ],
+          "values": [
+            5,
+            7
+          ],
+          "scale": 1
+        },
+        {
+          "id": "G3M_MD_001_LVL3_Q7",
+          "question_id": "G3M_MD_001_LVL3_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_graph",
+          "prompt": "The class fruit bar graph shows plums: 7. How many students chose plums?",
+          "answer": "7",
+          "correct_answer": "7",
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 7.",
+          "acceptable_answers": [
+            "7",
+            "7 votes",
+            "7 students"
+          ],
+          "choices": [
+            "7",
+            "9",
+            "5"
+          ],
+          "labels": [
+            "plums",
+            "other"
+          ],
+          "values": [
+            7,
+            9
+          ],
+          "scale": 1
+        },
+        {
+          "id": "G3M_MD_001_LVL3_Q8",
+          "question_id": "G3M_MD_001_LVL3_Q8",
+          "question_type": "short_response",
+          "visual_model": "bar_graph",
+          "prompt": "The class fruit bar graph shows mangoes: 9. How many students chose mangoes?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 9.",
+          "acceptable_answers": [
+            "9",
+            "9 votes",
+            "9 students"
+          ],
+          "labels": [
+            "mangoes",
+            "other"
+          ],
+          "values": [
+            9,
+            11
+          ],
+          "scale": 1
+        },
+        {
+          "id": "G3M_MD_001_LVL3_Q9",
+          "question_id": "G3M_MD_001_LVL3_Q9",
+          "question_type": "data_interpretation",
+          "visual_model": "bar_graph",
+          "prompt": "The class fruit bar graph shows peaches: 11. How many students chose peaches?",
+          "answer": "11",
+          "correct_answer": "11",
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 11.",
+          "acceptable_answers": [
+            "11",
+            "11 votes",
+            "11 students"
+          ],
+          "labels": [
+            "peaches",
+            "other"
+          ],
+          "values": [
+            11,
+            13
+          ],
+          "scale": 1
+        },
+        {
+          "id": "G3M_MD_001_LVL3_Q10",
+          "question_id": "G3M_MD_001_LVL3_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_graph",
+          "prompt": "The class fruit bar graph shows lemons: 3. How many students chose lemons?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 3.",
+          "acceptable_answers": [
+            "3",
+            "3 votes",
+            "3 students"
+          ],
+          "choices": [
+            "3",
+            "5",
+            "1"
+          ],
+          "labels": [
+            "lemons",
+            "other"
+          ],
+          "values": [
+            3,
+            5
+          ],
+          "scale": 1
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_MD_001_LVL4",
+      "label": "Level 4: Line Plots with Fractions",
+      "focus": "line plots with fractional measurements",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_MD_001_LVL4_Q1",
+          "question_id": "G3M_MD_001_LVL4_Q1",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "A line plot of ribbon lengths has 3 X marks above 1/2 inch. What fractional length is shown?",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 1/2.",
+          "acceptable_answers": [
+            "1/2",
+            "1/2",
+            "1/2 inches",
+            "1/2 in"
+          ],
+          "points": [
+            "1/2",
+            "1/2",
+            "1/2"
+          ],
+          "unit": "inch"
+        },
+        {
+          "id": "G3M_MD_001_LVL4_Q2",
+          "question_id": "G3M_MD_001_LVL4_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "line_plot",
+          "prompt": "A line plot of ribbon lengths has 2 X marks above 1/4 inch. What fractional length is shown?",
+          "answer": "1/4",
+          "correct_answer": "1/4",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 1/4.",
+          "acceptable_answers": [
+            "1/4",
+            "1/4",
+            "1/4 inches",
+            "1/4 in"
+          ],
+          "choices": [
+            "1/4",
+            "1/3",
+            "2/4"
+          ],
+          "points": [
+            "1/4",
+            "1/4"
+          ],
+          "unit": "inch"
+        },
+        {
+          "id": "G3M_MD_001_LVL4_Q3",
+          "question_id": "G3M_MD_001_LVL4_Q3",
+          "question_type": "short_response",
+          "visual_model": "line_plot",
+          "prompt": "A line plot of ribbon lengths has 4 X marks above 3/4 inch. What fractional length is shown?",
+          "answer": "3/4",
+          "correct_answer": "3/4",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 3/4.",
+          "acceptable_answers": [
+            "3/4",
+            "3/4",
+            "3/4 inches",
+            "3/4 in"
+          ],
+          "points": [
+            "3/4",
+            "3/4",
+            "3/4",
+            "3/4"
+          ],
+          "unit": "inch"
+        },
+        {
+          "id": "G3M_MD_001_LVL4_Q4",
+          "question_id": "G3M_MD_001_LVL4_Q4",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "A line plot of ribbon lengths has 1 X marks above 1 1/2 inch. What fractional length is shown?",
+          "answer": "1 1/2",
+          "correct_answer": "1 1/2",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 1 1/2.",
+          "acceptable_answers": [
+            "1 1/2",
+            "1+1/2",
+            "1 1/2 inches",
+            "1 1/2 in"
+          ],
+          "points": [
+            "1 1/2"
+          ],
+          "unit": "inch"
+        },
+        {
+          "id": "G3M_MD_001_LVL4_Q5",
+          "question_id": "G3M_MD_001_LVL4_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "line_plot",
+          "prompt": "A line plot of ribbon lengths has 2 X marks above 2 1/4 inch. What fractional length is shown?",
+          "answer": "2 1/4",
+          "correct_answer": "2 1/4",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 2 1/4.",
+          "acceptable_answers": [
+            "2 1/4",
+            "2+1/4",
+            "2 1/4 inches",
+            "2 1/4 in"
+          ],
+          "choices": [
+            "2 1/4",
+            "1/3",
+            "2/4"
+          ],
+          "points": [
+            "2 1/4",
+            "2 1/4"
+          ],
+          "unit": "inch"
+        },
+        {
+          "id": "G3M_MD_001_LVL4_Q6",
+          "question_id": "G3M_MD_001_LVL4_Q6",
+          "question_type": "short_response",
+          "visual_model": "line_plot",
+          "prompt": "A line plot of ribbon lengths has 3 X marks above 2 1/2 inch. What fractional length is shown?",
+          "answer": "2 1/2",
+          "correct_answer": "2 1/2",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 2 1/2.",
+          "acceptable_answers": [
+            "2 1/2",
+            "2+1/2",
+            "2 1/2 inches",
+            "2 1/2 in"
+          ],
+          "points": [
+            "2 1/2",
+            "2 1/2",
+            "2 1/2"
+          ],
+          "unit": "inch"
+        },
+        {
+          "id": "G3M_MD_001_LVL4_Q7",
+          "question_id": "G3M_MD_001_LVL4_Q7",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "A line plot of ribbon lengths has 5 X marks above 3/4 inch. What fractional length is shown?",
+          "answer": "3/4",
+          "correct_answer": "3/4",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 3/4.",
+          "acceptable_answers": [
+            "3/4",
+            "3/4",
+            "3/4 inches",
+            "3/4 in"
+          ],
+          "points": [
+            "3/4",
+            "3/4",
+            "3/4",
+            "3/4",
+            "3/4"
+          ],
+          "unit": "inch"
+        },
+        {
+          "id": "G3M_MD_001_LVL4_Q8",
+          "question_id": "G3M_MD_001_LVL4_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "line_plot",
+          "prompt": "A line plot of ribbon lengths has 2 X marks above 1 3/4 inch. What fractional length is shown?",
+          "answer": "1 3/4",
+          "correct_answer": "1 3/4",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 1 3/4.",
+          "acceptable_answers": [
+            "1 3/4",
+            "1+3/4",
+            "1 3/4 inches",
+            "1 3/4 in"
+          ],
+          "choices": [
+            "1 3/4",
+            "1/3",
+            "2/4"
+          ],
+          "points": [
+            "1 3/4",
+            "1 3/4"
+          ],
+          "unit": "inch"
+        },
+        {
+          "id": "G3M_MD_001_LVL4_Q9",
+          "question_id": "G3M_MD_001_LVL4_Q9",
+          "question_type": "short_response",
+          "visual_model": "line_plot",
+          "prompt": "A line plot of ribbon lengths has 1 X marks above 3 1/2 inch. What fractional length is shown?",
+          "answer": "3 1/2",
+          "correct_answer": "3 1/2",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 3 1/2.",
+          "acceptable_answers": [
+            "3 1/2",
+            "3+1/2",
+            "3 1/2 inches",
+            "3 1/2 in"
+          ],
+          "points": [
+            "3 1/2"
+          ],
+          "unit": "inch"
+        },
+        {
+          "id": "G3M_MD_001_LVL4_Q10",
+          "question_id": "G3M_MD_001_LVL4_Q10",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "A line plot of ribbon lengths has 4 X marks above 2 3/4 inch. What fractional length is shown?",
+          "answer": "2 3/4",
+          "correct_answer": "2 3/4",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 2 3/4.",
+          "acceptable_answers": [
+            "2 3/4",
+            "2+3/4",
+            "2 3/4 inches",
+            "2 3/4 in"
+          ],
+          "points": [
+            "2 3/4",
+            "2 3/4",
+            "2 3/4",
+            "2 3/4"
+          ],
+          "unit": "inch"
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_MD_001_MIXED",
+      "label": "Mixed",
+      "focus": "mixed measurement and data review",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_MD_001_MIXED_Q1",
+          "question_id": "G3M_MD_001_MIXED_Q1",
+          "question_type": "short_response",
+          "visual_model": "elapsed_time_timeline",
+          "prompt": "A science station starts at 8:12 and ends at 8:47. How much time passes?",
+          "answer": "35 minutes",
+          "correct_answer": "35 minutes",
+          "misconception_tag": "elapsed_time_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 35 minutes.",
+          "acceptable_answers": [
+            "35",
+            "35 minutes",
+            "35 min"
+          ],
+          "start_time": "8:12",
+          "end_time": "8:47",
+          "elapsed_minutes": "35 minutes",
+          "jumps": [
+            "30 min",
+            "5 min"
+          ]
+        },
+        {
+          "id": "G3M_MD_001_MIXED_Q2",
+          "question_id": "G3M_MD_001_MIXED_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "elapsed_time_timeline",
+          "prompt": "A science station starts at 9:05 and ends at 9:38. How much time passes?",
+          "answer": "33 minutes",
+          "correct_answer": "33 minutes",
+          "misconception_tag": "elapsed_time_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 33 minutes.",
+          "acceptable_answers": [
+            "33",
+            "33 minutes",
+            "33 min"
+          ],
+          "choices": [
+            "33 minutes",
+            "38 minutes",
+            "23 minutes"
+          ],
+          "start_time": "9:05",
+          "end_time": "9:38",
+          "elapsed_minutes": "33 minutes",
+          "jumps": [
+            "30 min",
+            "3 min"
+          ]
+        },
+        {
+          "id": "G3M_MD_001_MIXED_Q3",
+          "question_id": "G3M_MD_001_MIXED_Q3",
+          "question_type": "short_response",
+          "visual_model": "measurement_comparison",
+          "prompt": "Which measurement best fits the mass of a apple: 140 grams, 1400 grams, or 14 grams?",
+          "answer": "140 grams",
+          "correct_answer": "140 grams",
+          "misconception_tag": "unit_conversion_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 140 grams.",
+          "acceptable_answers": [
+            "140 grams",
+            "140 gram",
+            "140"
+          ],
+          "left": "140 grams",
+          "right": "1400 grams",
+          "measure_kind": "mass"
+        },
+        {
+          "id": "G3M_MD_001_MIXED_Q4",
+          "question_id": "G3M_MD_001_MIXED_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "measurement_comparison",
+          "prompt": "Which measurement best fits the mass of a book: 1 kilogram, 10 kilogram, or 1 kilogram?",
+          "answer": "1 kilogram",
+          "correct_answer": "1 kilogram",
+          "misconception_tag": "unit_conversion_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 1 kilogram.",
+          "acceptable_answers": [
+            "1 kilogram",
+            "1"
+          ],
+          "left": "1 kilogram",
+          "right": "10 kilogram",
+          "measure_kind": "mass",
+          "choices": [
+            "1 kilogram",
+            "2 kilogram",
+            "0 kilogram"
+          ]
+        },
+        {
+          "id": "G3M_MD_001_MIXED_Q5",
+          "question_id": "G3M_MD_001_MIXED_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_graph",
+          "prompt": "The class fruit bar graph shows apples: 8. How many students chose apples?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 8.",
+          "acceptable_answers": [
+            "8",
+            "8 votes",
+            "8 students"
+          ],
+          "choices": [
+            "8",
+            "10",
+            "6"
+          ],
+          "labels": [
+            "apples",
+            "other"
+          ],
+          "values": [
+            8,
+            10
+          ],
+          "scale": 1
+        },
+        {
+          "id": "G3M_MD_001_MIXED_Q6",
+          "question_id": "G3M_MD_001_MIXED_Q6",
+          "question_type": "short_response",
+          "visual_model": "bar_graph",
+          "prompt": "The class fruit bar graph shows oranges: 6. How many students chose oranges?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 6.",
+          "acceptable_answers": [
+            "6",
+            "6 votes",
+            "6 students"
+          ],
+          "labels": [
+            "oranges",
+            "other"
+          ],
+          "values": [
+            6,
+            8
+          ],
+          "scale": 1
+        },
+        {
+          "id": "G3M_MD_001_MIXED_Q7",
+          "question_id": "G3M_MD_001_MIXED_Q7",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "A line plot of ribbon lengths has 3 X marks above 1/2 inch. What fractional length is shown?",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 1/2.",
+          "acceptable_answers": [
+            "1/2",
+            "1/2",
+            "1/2 inches",
+            "1/2 in"
+          ],
+          "points": [
+            "1/2",
+            "1/2",
+            "1/2"
+          ],
+          "unit": "inch"
+        },
+        {
+          "id": "G3M_MD_001_MIXED_Q8",
+          "question_id": "G3M_MD_001_MIXED_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "line_plot",
+          "prompt": "A line plot of ribbon lengths has 2 X marks above 1/4 inch. What fractional length is shown?",
+          "answer": "1/4",
+          "correct_answer": "1/4",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 1/4.",
+          "acceptable_answers": [
+            "1/4",
+            "1/4",
+            "1/4 inches",
+            "1/4 in"
+          ],
+          "choices": [
+            "1/4",
+            "1/3",
+            "2/4"
+          ],
+          "points": [
+            "1/4",
+            "1/4"
+          ],
+          "unit": "inch"
+        },
+        {
+          "id": "G3M_MD_001_MIXED_Q9",
+          "question_id": "G3M_MD_001_MIXED_Q9",
+          "question_type": "short_response",
+          "visual_model": "line_plot",
+          "prompt": "A line plot of ribbon lengths has 4 X marks above 3/4 inch. What fractional length is shown?",
+          "answer": "3/4",
+          "correct_answer": "3/4",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 3/4.",
+          "acceptable_answers": [
+            "3/4",
+            "3/4",
+            "3/4 inches",
+            "3/4 in"
+          ],
+          "points": [
+            "3/4",
+            "3/4",
+            "3/4",
+            "3/4"
+          ],
+          "unit": "inch"
+        },
+        {
+          "id": "G3M_MD_001_MIXED_Q10",
+          "question_id": "G3M_MD_001_MIXED_Q10",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "A line plot of ribbon lengths has 1 X marks above 1 1/2 inch. What fractional length is shown?",
+          "answer": "1 1/2",
+          "correct_answer": "1 1/2",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 1 1/2.",
+          "acceptable_answers": [
+            "1 1/2",
+            "1+1/2",
+            "1 1/2 inches",
+            "1 1/2 in"
+          ],
+          "points": [
+            "1 1/2"
+          ],
+          "unit": "inch"
+        }
+      ]
+    }
+  ]
+}

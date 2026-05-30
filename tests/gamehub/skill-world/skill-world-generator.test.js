@@ -8,6 +8,7 @@ const grade1Packages=grade1SkillIds.map(load);
 const grade2SkillIds=['G2E_RF_001','G2E_RF_002','G2E_FL_001','G2E_VOC_001','G2E_RC_001','G2E_RC_002','G2E_RC_003','G2E_WR_001','G2E_WR_002','G2E_WR_003','G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
 const grade2Packages=grade2SkillIds.map(load);
 const grade3SkillIds=['G3M_MUL_001','G3M_DIV_001','G3M_FACT_001','G3M_WP_001','G3M_PV_001','G3M_FR_001','G3M_FR_002'];
+const grade3SkillIds=['G3M_MUL_001','G3M_DIV_001','G3M_FACT_001','G3M_WP_001','G3M_MD_001','G3M_GM_001','G3M_GM_002'];
 const grade3Packages=grade3SkillIds.map(load);
 const g3MultiplicationFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_MUL_001');
 const g3DivisionFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_DIV_001');
@@ -16,6 +17,9 @@ const g3WordProblems=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_WP_001');
 const g3PlaceValueRounding=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_PV_001');
 const g3FractionFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_FR_001');
 const g3FractionComparisons=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_FR_002');
+const g3MeasurementData=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_MD_001');
+const g3AreaPerimeter=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_GM_001');
+const g3GeometryShapes=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_GM_002');
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
 const g2FluencyEnglish=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_FL_001');
@@ -980,6 +984,13 @@ const grade3BaseTenFractionPackages=[
   {pkg:g3FractionComparisons,id:'G3M_FR_002',domain:'Number and Operations—Fractions',skill:'Equivalent Fractions and Comparing Fractions',labels:['Level 1: Equivalent Fractions','Level 2: Compare Same Denominator','Level 3: Compare Same Numerator','Level 4: Fraction Number Line Comparisons','Mixed'],visuals:['fraction_bar','fraction_circle','number_line','comparison'],types:['multiple_choice','short_response','fraction_response','comparison'],tags:['equivalent_fraction_confusion','denominator_size_confusion','numerator_focus_error','fraction_number_line_error']}
 ];
 grade3BaseTenFractionPackages.forEach(({pkg,id,domain,skill,labels,visuals,types,tags})=>{
+const grade3MeasurementGeometryPackages=[
+  {pkg:g3MeasurementData,id:'G3M_MD_001',domain:'Measurement and Data',skill:'Time, Measurement, and Data',labels:['Level 1: Elapsed Time','Level 2: Measure Mass and Volume','Level 3: Graphs and Data','Level 4: Line Plots with Fractions','Mixed'],visuals:['analog_clock','elapsed_time_timeline','measurement_comparison','bar_graph','line_plot'],types:['multiple_choice','short_response','elapsed_time','measurement','data_interpretation'],tags:['elapsed_time_confusion','unit_conversion_confusion','graph_scale_confusion','line_plot_fraction_error'],answerTypes:['elapsed_time','measurement','data_interpretation','short_response']},
+  {pkg:g3AreaPerimeter,id:'G3M_GM_001',domain:'Measurement and Geometry',skill:'Area and Perimeter',labels:['Level 1: Count Square Units','Level 2: Area of Rectangles','Level 3: Perimeter','Level 4: Area vs Perimeter','Mixed'],visuals:['area_model','grid_model','perimeter_path','rectangle_model'],types:['multiple_choice','short_response','area_response','perimeter_response'],tags:['area_perimeter_confusion','square_unit_count_error','side_length_addition_error','formula_misuse'],answerTypes:['area_response','perimeter_response','short_response']},
+  {pkg:g3GeometryShapes,id:'G3M_GM_002',domain:'Geometry',skill:'Shapes, Attributes, and Partitioning',labels:['Level 1: Shape Attributes','Level 2: Quadrilaterals','Level 3: Partition Shapes','Level 4: Fractions from Shapes','Mixed'],visuals:['shape_identification','attribute_sort','partition_shapes','fraction_circle'],types:['multiple_choice','short_response','sorting','fraction_response'],tags:['quadrilateral_confusion','attribute_overgeneralization','unequal_partition_error','fraction_shape_confusion'],answerTypes:['short_response','sorting','fraction_response']}
+];
+grade3MeasurementGeometryPackages.forEach(({pkg,id,domain,skill,labels,visuals,types,tags,answerTypes})=>{
+  assert.ok(pkg,`${id} package loads`);
   const questions=pkg.level_banks.flatMap((level)=>level.questions);
   assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates in strict production mode`);
   assert.equal(pkg.grade,3);
@@ -987,6 +998,7 @@ grade3BaseTenFractionPackages.forEach(({pkg,id,domain,skill,labels,visuals,types
   assert.equal(pkg.domain,domain);
   assert.equal(pkg.skill,skill);
   assert.equal(Array.isArray(pkg.level_banks),true,`${id} has real level_banks`);
+  assert.equal(Array.isArray(pkg.level_banks),true,`${id} has level_banks`);
   assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
   assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${id} has Mixed level`);
   pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
@@ -996,6 +1008,7 @@ grade3BaseTenFractionPackages.forEach(({pkg,id,domain,skill,labels,visuals,types
   types.forEach((type)=>assert.ok(questions.some((q)=>q.question_type===type),`${id} includes ${type}`));
   tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${id} includes misconception ${tag}`));
   assert.ok(questions.filter((q)=>q.question_type!=='multiple_choice').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),`${id} non-multiple-choice items have acceptable_answers`);
+  answerTypes.forEach((type)=>assert.ok(questions.filter((q)=>q.question_type===type).every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),`${id} ${type} acceptable_answers exist`));
   const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
   ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${id} mission renders ${label}`));
   assert.match(missionHtml,/Continue to Skill Practice/,`${id} profile links to Skill Practice Center`);
@@ -1016,6 +1029,14 @@ assert.match(VisualRegistry.render(g3FrQuestions.find((q)=>q.visual_model==='fra
 assert.match(VisualRegistry.render(g3FrQuestions.find((q)=>q.visual_model==='fraction_circle')),/data-renderer="fraction_circle"/,'fraction_circle output exists');
 assert.match(VisualRegistry.render(g3CmpQuestions.find((q)=>q.visual_model==='fraction_bar')),/data-renderer="fraction_bar"/,'G3M_FR_002 fraction_bar output exists');
 assert.match(VisualRegistry.render(g3CmpQuestions.find((q)=>q.visual_model==='fraction_circle')),/data-renderer="fraction_circle"/,'G3M_FR_002 fraction_circle output exists');
+['elapsed_time_timeline','area_model','grid_model','perimeter_path','rectangle_model','attribute_sort'].forEach((visual)=>{
+  const question=[g3MeasurementData,g3AreaPerimeter,g3GeometryShapes].flatMap((pkg)=>pkg.level_banks.flatMap((level)=>level.questions)).find((q)=>q.visual_model===visual);
+  assert.match(VisualRegistry.render(question),new RegExp(`data-renderer="${visual}"`),`${visual} output exists`);
+});
+assert.ok(g3MeasurementData.level_banks.flatMap((level)=>level.questions).some((q)=>q.visual_model==='line_plot'&&Array.isArray(q.acceptable_answers)&&q.acceptable_answers.some((answer)=>String(answer).includes('/'))),'G3M_MD_001 fraction line-plot acceptable answers exist');
+assert.ok(g3AreaPerimeter.level_banks.flatMap((level)=>level.questions).some((q)=>/square units|sq units/.test((q.acceptable_answers||[]).join(' '))),'G3M_GM_001 area acceptable answers include square-unit language');
+assert.ok(g3GeometryShapes.level_banks.flatMap((level)=>level.questions).some((q)=>q.question_type==='fraction_response'&&Array.isArray(q.acceptable_answers)&&q.acceptable_answers.some((answer)=>String(answer).includes('/'))),'G3M_GM_002 fraction acceptable answers exist');
+assert.ok(g3GeometryShapes.level_banks.flatMap((level)=>level.questions).some((q)=>/(quadrilateral|triangle|rectangle|square)/i.test((q.acceptable_answers||[]).join(' '))),'G3M_GM_002 shape acceptable answers exist');
 
 
 console.log('skill-world-generator tests passed');
