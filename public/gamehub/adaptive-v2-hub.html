@@ -25,8 +25,8 @@
       <p class="muted">Grade 1 lessons are active now. Grades 2–6 are staged as coming soon.</p>
     </section>
     <section class="panel">
-      <h2>Grade 1 Math Skill World Missions</h2>
-      <p class="muted">Active Grade 1 Math SkillPackage missions load from the Skill World manifest.</p>
+      <h2>Grade 1 Skill World Missions</h2>
+      <p class="muted">Active Grade 1 SkillPackage missions load from the Skill World manifest.</p>
       <div id="skillWorldMissionGrid" class="grid"></div>
     </section>
     <section class="panel">
@@ -95,7 +95,7 @@
             has_drill:Array.isArray(pkg.level_banks)&&pkg.level_banks.length>0
           };
         }));
-        return packages.filter((pkg)=>pkg.skill_id&&Number(pkg.grade)===1&&pkg.subject==='Math'&&pkg.status==='active');
+        return packages.filter((pkg)=>pkg.skill_id&&Number(pkg.grade)===1&&pkg.status==='active');
       }catch(err){
         console.error('Unable to load Skill World package manifest',err);
         return [];

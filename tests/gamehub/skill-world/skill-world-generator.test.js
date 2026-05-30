@@ -3,7 +3,7 @@ const fs=require('fs');
 const path=require('path');
 const root=path.join(__dirname,'..','..','..');
 const load=(id)=>JSON.parse(fs.readFileSync(path.join(root,`public/gamehub/skill-world/content/${id}.skill-package.v1.json`),'utf8'));
-const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_GM_001','G1M_GM_002','G1M_DP_001','G1M_MD_TIME_001'];
+const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_GM_001','G1M_GM_002','G1M_DP_001','G1M_MD_TIME_001','G1E_RF_001'];
 const grade1Packages=grade1SkillIds.map(load);
 const byId=Object.fromEntries(grade1Packages.map((pkg)=>[pkg.skill_id,pkg]));
 const dp=byId.G1M_DP_001;
@@ -11,6 +11,7 @@ const op=byId.G1M_OP_003;
 const ns=byId.G1M_NS_002;
 const pv=byId.G1M_PV_001;
 const time=byId.G1M_MD_TIME_001;
+const englishLetters=byId.G1E_RF_001;
 const Renderer=require(path.join(root,'public/gamehub/skill-world/engine/skill-world-renderer.js'));
 const Adapter=require(path.join(root,'public/gamehub/skill-world/engine/growth-data-adapter.js'));
 const Schema=require(path.join(root,'public/gamehub/skill-world/engine/skill-package-schema.js'));
@@ -93,7 +94,6 @@ const css=fs.readFileSync(path.join(root,'public/gamehub/skill-world/skill-world
 assert.ok(css.includes('env(safe-area-inset-bottom)'),'missing mobile safe-area padding');
 assert.match(css,/grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/,'mobile mission map should use a compact 3x3 grid');
 
-
 function missionStepNames(html){return [...html.matchAll(/<span class="mission-step[^"]*"[^>]*data-step="([^"]+)"/g)].map((m)=>m[1]);}
 assert.deepEqual(Renderer.stepLabels(pv),['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],'Mission order excludes Skill Practice for real level banks');
 assert.deepEqual(missionStepNames(Renderer.renderSkillWorld(pv,{failClosed:true}).html),Renderer.stepLabels(pv),'rendered mission map follows production order');
@@ -138,7 +138,6 @@ assert.equal(Renderer.advanceMission(dpFlowState,dp),false,'Profile remains fina
 const dpProfileHtml=Renderer.renderSkillWorld(dp,{state:dpFlowState,failClosed:true}).html;
 assert.match(dpProfileHtml,/Continue to Skill Practice/,'G1M_DP_001 Profile launches Skill Practice for real level banks');
 assert.doesNotMatch(dpProfileHtml,/Skill Practice coming soon|data-step="Skill Drill"/,'G1M_DP_001 no longer shows coming soon practice copy');
-
 
 const missingLevelBanks=JSON.parse(JSON.stringify(pv));
 delete missingLevelBanks.level_banks;
@@ -350,6 +349,37 @@ Renderer.submitAnswer(st4,'checkpoint',pv.checkpoint[3],pv.checkpoint[3].correct
 const growth4=Renderer.finalize(st4,pv,'learner-4');
 assert.equal(growth4.skill_id,'G1M_PV_001');
 assert.equal(growth4.mastery_status,'mastered');
+
+assert.equal(Schema.validateSkillPackage(englishLetters).valid,true,'G1E_RF_001 schema validates');
+assert.equal(englishLetters.skill,'Letter Recognition and Sounds');
+assert.equal(englishLetters.subject,'English');
+assert.equal(englishLetters.domain,'Reading Foundations');
+assert.deepEqual(englishLetters.level_banks.map((level)=>level.level_id),['G1E_RF_001_LVL1','G1E_RF_001_LVL2','G1E_RF_001_LVL3','G1E_RF_001_LVL4','G1E_RF_001_MIXED']);
+assert.equal(englishLetters.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length,4,'G1E_RF_001 has four focused levels');
+englishLetters.level_banks.forEach((level)=>{
+  assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`);
+});
+assert.equal(englishLetters.level_banks.find((level)=>level.level_id==='G1E_RF_001_MIXED').questions.length,12,'G1E_RF_001 Mixed has 12 questions');
+['letter_name_confusion','uppercase_lowercase_confusion','sound_symbol_confusion','visually_similar_letter_confusion'].forEach((tag)=>{
+  assert.ok(englishLetters.misconception_bank[tag],`G1E_RF_001 misconception bank includes ${tag}`);
+  assert.ok(englishLetters.level_banks.flatMap((level)=>level.questions).some((q)=>q.misconception_tag===tag),`G1E_RF_001 questions cover ${tag}`);
+});
+const englishQuestions=[...englishLetters.guided_practice,...englishLetters.adaptive_question_bank,...englishLetters.checkpoint,...englishLetters.level_banks.flatMap((level)=>level.questions)];
+englishQuestions.filter((q)=>q.question_type==='short_response').forEach((q)=>assert.ok(Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0,`${q.question_id} has acceptable_answers`));
+assert.match(VisualRegistry.render(englishQuestions.find((q)=>q.visual_model==='letter_card')),/letter-card-visual/,'letter_card renderer output exists');
+assert.match(VisualRegistry.render(englishQuestions.find((q)=>q.visual_model==='letter_card')),/data-renderer="letter_card"/,'letter_card data renderer exists');
+assert.match(VisualRegistry.render(englishQuestions.find((q)=>q.visual_model==='sound_match')),/sound-match-visual/,'sound_match renderer output exists');
+assert.match(VisualRegistry.render(englishQuestions.find((q)=>q.visual_model==='picture_choice')),/picture-choice-visual/,'picture_choice renderer output exists');
+assert.ok(englishQuestions.some((q)=>q.visual_model==='visual_objects'),'G1E_RF_001 uses visual_objects support');
+assert.ok(Schema.VISUAL_MODELS.includes('letter_card'));
+assert.ok(Schema.VISUAL_MODELS.includes('sound_match'));
+assert.ok(Schema.VISUAL_MODELS.includes('picture_choice'));
+assert.ok(Schema.VISUAL_MODELS.includes('word_card'));
+assert.ok(Schema.VISUAL_MODELS.includes('sentence_card'));
+const englishMissionHtml=Renderer.renderSkillWorld(englishLetters,{failClosed:true}).html;
+['Story','Mini Lesson','Worked Example / Watch','Guided Demo','Practice zone','Challenge zone','Checkpoint zone','Badge','Growth/Profile screen'].forEach((label)=>assert.match(englishMissionHtml,new RegExp(label.replace(/[.*+?^${}()|[\\]\\]/g,'\\$&')),`G1E_RF_001 mission missing ${label}`));
+assert.match(Renderer.renderSkillWorld(englishLetters,{mode:'drill',failClosed:true}).html,/Skill Practice Center/,'G1E_RF_001 Skill Practice Center renders');
+assert.ok(Renderer.evaluateAnswer(englishQuestions.find((q)=>q.question_type==='short_response'&&q.correct_answer==='a'),'A'),'G1E_RF_001 short_response accepts case-insensitive acceptable answer');
 
 const dpPattern=VisualRegistry.render(dp.checkpoint[0]);
 assert.match(dpPattern,/pattern-visual/);

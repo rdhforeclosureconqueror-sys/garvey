@@ -1,0 +1,2001 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade1-english-completion-plan.v1.json",
+    "production_proof_package": true,
+    "created_at": "2026-05-30"
+  },
+  "skill_id": "G1E_RF_001",
+  "grade": 1,
+  "subject": "English",
+  "domain": "Reading Foundations",
+  "skill": "Letter Recognition and Sounds",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Help the Alphabet Forest Ranger match letter cards to the sounds animals hear at the reading trail.",
+    "objective": "I can identify uppercase and lowercase letters and match common letters to their sounds.",
+    "key_vocabulary": [
+      "letter",
+      "uppercase",
+      "lowercase",
+      "sound",
+      "beginning sound"
+    ],
+    "concept_explanation": "Letters are symbols. Each letter has a name, an uppercase form, a lowercase form, and one or more sounds. In this mission, we use common beginning sounds to connect print to speech.",
+    "visual_model": "letter_card",
+    "common_misconception": "A letter name is not always the same as the sound it makes, and uppercase and lowercase partners can look different.",
+    "real_world_connection": "We use letters and beginning sounds when reading signs, names, labels, and books.",
+    "lesson_summary": "Look at the letter shape, name the letter, then say or choose its common sound.",
+    "mini_lesson": "First look at the letter card. Decide if it is uppercase or lowercase. Then connect the printed letter to a common sound, like M says /m/ in moon."
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: The card shows M / m. M is the uppercase letter. Moon begins with /m/, so M matches /m/.",
+      "correct_answer": "/m/"
+    },
+    {
+      "text": "Demo: The picture is sun. Sun begins with /s/. The letter S makes /s/, so choose S.",
+      "correct_answer": "S"
+    }
+  ],
+  "hint_ladder": [
+    "Look at the letter shape first.",
+    "Say the letter name, then say the common sound.",
+    "Use the picture clue to check the beginning sound."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G1E_RF_001_GP1",
+      "prompt": "Which card shows uppercase M?",
+      "question_type": "multiple_choice",
+      "visual_model": "letter_card",
+      "support_type": "letter_card",
+      "correct_answer": "M",
+      "choices": [
+        "M",
+        "N",
+        "P"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "letter_name_confusion",
+      "explanation": "Uppercase M is the capital form of the letter.",
+      "feedback": "Nice work: M matches.",
+      "letter": "M",
+      "paired_form": "M / m",
+      "letter_label": "uppercase"
+    },
+    {
+      "question_id": "G1E_RF_001_GP2",
+      "prompt": "Which card shows lowercase T?",
+      "question_type": "multiple_choice",
+      "visual_model": "letter_card",
+      "support_type": "letter_card",
+      "correct_answer": "t",
+      "choices": [
+        "t",
+        "u",
+        "w"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "uppercase_lowercase_confusion",
+      "explanation": "Lowercase t is the small form that matches uppercase T.",
+      "feedback": "Nice work: t matches.",
+      "letter": "t",
+      "paired_form": "T / t",
+      "letter_label": "lowercase"
+    },
+    {
+      "question_id": "G1E_RF_001_GP3",
+      "prompt": "What common sound does S make?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_match",
+      "support_type": "sound_match",
+      "correct_answer": "/s/",
+      "choices": [
+        "/s/",
+        "/a/",
+        "/b/"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "sound_symbol_confusion",
+      "explanation": "S commonly makes the /s/ sound as in sun.",
+      "feedback": "Nice work: /s/ matches.",
+      "letter": "S",
+      "target_letter": "S",
+      "sound": "/s/",
+      "word": "sun",
+      "picture": "sun"
+    },
+    {
+      "question_id": "G1E_RF_001_GP4",
+      "prompt": "Which letter starts ball?",
+      "question_type": "multiple_choice",
+      "visual_model": "picture_choice",
+      "support_type": "picture_choice",
+      "correct_answer": "B",
+      "choices": [
+        "B",
+        "A",
+        "C"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "letter_name_confusion",
+      "explanation": "Ball begins with B and the /b/ sound.",
+      "feedback": "Nice work: B matches.",
+      "letter": "B",
+      "target_letter": "B",
+      "sound": "/b/",
+      "word": "ball",
+      "picture": "ball"
+    },
+    {
+      "question_id": "G1E_RF_001_GP5",
+      "prompt": "Write the lowercase partner for A.",
+      "question_type": "short_response",
+      "visual_model": "letter_card",
+      "support_type": "letter_card",
+      "correct_answer": "a",
+      "acceptable_answers": [
+        "a",
+        "A"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "uppercase_lowercase_confusion",
+      "explanation": "The answer is a.",
+      "feedback": "Yes: a matches.",
+      "letter": "A",
+      "paired_form": "A / a",
+      "letter_label": "uppercase"
+    },
+    {
+      "question_id": "G1E_RF_001_GP6",
+      "prompt": "Which uppercase letter makes /d/?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_match",
+      "support_type": "sound_match",
+      "correct_answer": "D",
+      "choices": [
+        "D",
+        "A",
+        "B"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "sound_symbol_confusion",
+      "explanation": "Dog begins with D and the /d/ sound.",
+      "feedback": "Nice work: D matches.",
+      "letter": "D",
+      "target_letter": "D",
+      "sound": "/d/",
+      "word": "dog",
+      "picture": "dog"
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G1E_RF_001_AQ1",
+      "prompt": "What common sound does M make?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_match",
+      "support_type": "sound_match",
+      "correct_answer": "/m/",
+      "choices": [
+        "/m/",
+        "/a/",
+        "/b/"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "sound_symbol_confusion",
+      "explanation": "M commonly makes the /m/ sound as in moon.",
+      "feedback": "Nice work: /m/ matches.",
+      "letter": "M",
+      "target_letter": "M",
+      "sound": "/m/",
+      "word": "moon",
+      "picture": "moon"
+    },
+    {
+      "question_id": "G1E_RF_001_AQ2",
+      "prompt": "What common sound does S make?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_match",
+      "support_type": "sound_match",
+      "correct_answer": "/s/",
+      "choices": [
+        "/s/",
+        "/a/",
+        "/b/"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "sound_symbol_confusion",
+      "explanation": "S commonly makes the /s/ sound as in sun.",
+      "feedback": "Nice work: /s/ matches.",
+      "letter": "S",
+      "target_letter": "S",
+      "sound": "/s/",
+      "word": "sun",
+      "picture": "sun"
+    },
+    {
+      "question_id": "G1E_RF_001_AQ3",
+      "prompt": "What common sound does T make?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_match",
+      "support_type": "sound_match",
+      "correct_answer": "/t/",
+      "choices": [
+        "/t/",
+        "/a/",
+        "/b/"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "sound_symbol_confusion",
+      "explanation": "T commonly makes the /t/ sound as in turtle.",
+      "feedback": "Nice work: /t/ matches.",
+      "letter": "T",
+      "target_letter": "T",
+      "sound": "/t/",
+      "word": "turtle",
+      "picture": "turtle"
+    },
+    {
+      "question_id": "G1E_RF_001_AQ4",
+      "prompt": "Write the common sound for letter B.",
+      "question_type": "short_response",
+      "visual_model": "sound_match",
+      "support_type": "sound_match",
+      "correct_answer": "/b/",
+      "acceptable_answers": [
+        "/b/",
+        "b",
+        "b sound"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "sound_symbol_confusion",
+      "explanation": "B commonly makes the /b/ sound as in ball.",
+      "feedback": "Yes: /b/ matches.",
+      "letter": "B",
+      "target_letter": "B",
+      "sound": "/b/",
+      "word": "ball",
+      "picture": "ball"
+    },
+    {
+      "question_id": "G1E_RF_001_AQ5",
+      "prompt": "What common sound does A make?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_match",
+      "support_type": "sound_match",
+      "correct_answer": "/a/",
+      "choices": [
+        "/a/",
+        "/b/",
+        "/k/"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "sound_symbol_confusion",
+      "explanation": "A commonly makes the /a/ sound as in apple.",
+      "feedback": "Nice work: /a/ matches.",
+      "letter": "A",
+      "target_letter": "A",
+      "sound": "/a/",
+      "word": "apple",
+      "picture": "apple"
+    },
+    {
+      "question_id": "G1E_RF_001_AQ6",
+      "prompt": "What common sound does D make?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_match",
+      "support_type": "sound_match",
+      "correct_answer": "/d/",
+      "choices": [
+        "/d/",
+        "/a/",
+        "/b/"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "sound_symbol_confusion",
+      "explanation": "D commonly makes the /d/ sound as in dog.",
+      "feedback": "Nice work: /d/ matches.",
+      "letter": "D",
+      "target_letter": "D",
+      "sound": "/d/",
+      "word": "dog",
+      "picture": "dog"
+    },
+    {
+      "question_id": "G1E_RF_001_AQ7",
+      "prompt": "Which letter starts fish?",
+      "question_type": "multiple_choice",
+      "visual_model": "picture_choice",
+      "support_type": "picture_choice",
+      "correct_answer": "F",
+      "choices": [
+        "F",
+        "A",
+        "B"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "letter_name_confusion",
+      "explanation": "Fish begins with F and the /f/ sound.",
+      "feedback": "Nice work: F matches.",
+      "letter": "F",
+      "target_letter": "F",
+      "sound": "/f/",
+      "word": "fish",
+      "picture": "fish"
+    },
+    {
+      "question_id": "G1E_RF_001_AQ8",
+      "prompt": "Which uppercase letter makes /l/?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_match",
+      "support_type": "sound_match",
+      "correct_answer": "L",
+      "choices": [
+        "L",
+        "A",
+        "B"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "sound_symbol_confusion",
+      "explanation": "Leaf begins with L and the /l/ sound.",
+      "feedback": "Nice work: L matches.",
+      "letter": "L",
+      "target_letter": "L",
+      "sound": "/l/",
+      "word": "leaf",
+      "picture": "leaf"
+    },
+    {
+      "question_id": "G1E_RF_001_AQ9",
+      "prompt": "Which letter starts nest?",
+      "question_type": "multiple_choice",
+      "visual_model": "picture_choice",
+      "support_type": "picture_choice",
+      "correct_answer": "N",
+      "choices": [
+        "N",
+        "A",
+        "B"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "letter_name_confusion",
+      "explanation": "Nest begins with N and the /n/ sound.",
+      "feedback": "Nice work: N matches.",
+      "letter": "N",
+      "target_letter": "N",
+      "sound": "/n/",
+      "word": "nest",
+      "picture": "nest"
+    },
+    {
+      "question_id": "G1E_RF_001_AQ10",
+      "prompt": "Which uppercase letter makes /p/?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_match",
+      "support_type": "sound_match",
+      "correct_answer": "P",
+      "choices": [
+        "P",
+        "A",
+        "B"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "sound_symbol_confusion",
+      "explanation": "Pig begins with P and the /p/ sound.",
+      "feedback": "Nice work: P matches.",
+      "letter": "P",
+      "target_letter": "P",
+      "sound": "/p/",
+      "word": "pig",
+      "picture": "pig"
+    },
+    {
+      "question_id": "G1E_RF_001_AQ11",
+      "prompt": "Which object begins with the /m/ sound?",
+      "question_type": "multiple_choice",
+      "visual_model": "visual_objects",
+      "support_type": "visual_objects",
+      "correct_answer": "moon",
+      "choices": [
+        "moon",
+        "sun",
+        "dog"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "sound_symbol_confusion",
+      "explanation": "Moon begins with the /m/ sound.",
+      "feedback": "Nice work: moon begins with /m/.",
+      "objects": [
+        "moon",
+        "sun",
+        "dog"
+      ],
+      "target_sound": "/m/"
+    },
+    {
+      "question_id": "G1E_RF_001_AQ12",
+      "prompt": "Write the uppercase letter that makes /h/.",
+      "question_type": "short_response",
+      "visual_model": "sound_match",
+      "support_type": "sound_match",
+      "correct_answer": "H",
+      "acceptable_answers": [
+        "H",
+        "h"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "sound_symbol_confusion",
+      "explanation": "The letter H makes /h/ as in hat.",
+      "feedback": "Yes: H matches.",
+      "letter": "H",
+      "target_letter": "H",
+      "sound": "/h/",
+      "word": "hat",
+      "picture": "hat"
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G1E_RF_001_CP1",
+      "prompt": "Which card shows uppercase S?",
+      "question_type": "multiple_choice",
+      "visual_model": "letter_card",
+      "support_type": "letter_card",
+      "correct_answer": "S",
+      "choices": [
+        "S",
+        "T",
+        "V"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "letter_name_confusion",
+      "explanation": "Uppercase S is the capital form of the letter.",
+      "feedback": "Nice work: S matches.",
+      "letter": "S",
+      "paired_form": "S / s",
+      "letter_label": "uppercase"
+    },
+    {
+      "question_id": "G1E_RF_001_CP2",
+      "prompt": "Which card shows lowercase M?",
+      "question_type": "multiple_choice",
+      "visual_model": "letter_card",
+      "support_type": "letter_card",
+      "correct_answer": "m",
+      "choices": [
+        "m",
+        "n",
+        "p"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "uppercase_lowercase_confusion",
+      "explanation": "Lowercase m is the small form that matches uppercase M.",
+      "feedback": "Nice work: m matches.",
+      "letter": "m",
+      "paired_form": "M / m",
+      "letter_label": "lowercase"
+    },
+    {
+      "question_id": "G1E_RF_001_CP3",
+      "prompt": "Write the common sound for letter T.",
+      "question_type": "short_response",
+      "visual_model": "sound_match",
+      "support_type": "sound_match",
+      "correct_answer": "/t/",
+      "acceptable_answers": [
+        "/t/",
+        "t",
+        "t sound"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "sound_symbol_confusion",
+      "explanation": "T commonly makes the /t/ sound as in turtle.",
+      "feedback": "Yes: /t/ matches.",
+      "letter": "T",
+      "target_letter": "T",
+      "sound": "/t/",
+      "word": "turtle",
+      "picture": "turtle"
+    },
+    {
+      "question_id": "G1E_RF_001_CP4",
+      "prompt": "Which letter starts fish?",
+      "question_type": "multiple_choice",
+      "visual_model": "picture_choice",
+      "support_type": "picture_choice",
+      "correct_answer": "F",
+      "choices": [
+        "F",
+        "A",
+        "B"
+      ],
+      "hints": [
+        "Look closely at the letter or picture.",
+        "Say the letter name and the sound slowly.",
+        "Check that the sound and symbol match."
+      ],
+      "misconception_tag": "letter_name_confusion",
+      "explanation": "Fish begins with F and the /f/ sound.",
+      "feedback": "Nice work: F matches.",
+      "letter": "F",
+      "target_letter": "F",
+      "sound": "/f/",
+      "word": "fish",
+      "picture": "fish"
+    }
+  ],
+  "misconception_bank": {
+    "letter_name_confusion": "Learners may say a letter name when the question asks for a sound.",
+    "uppercase_lowercase_confusion": "Learners may not connect uppercase and lowercase forms of the same letter.",
+    "sound_symbol_confusion": "Learners may know a sound but choose a different printed letter.",
+    "visually_similar_letter_confusion": "Learners may mix letters that look alike, such as b and d or p and q."
+  },
+  "review_bank": {
+    "letter_name_confusion": [
+      "Ask: Is the question asking for the letter name or the sound?"
+    ],
+    "uppercase_lowercase_confusion": [
+      "Pair the capital and small form on one card."
+    ],
+    "sound_symbol_confusion": [
+      "Say the sound, then trace the letter that makes it."
+    ],
+    "visually_similar_letter_confusion": [
+      "Compare the tall stick, circle, and direction of each letter."
+    ]
+  },
+  "game_theme": {
+    "title": "Alphabet Forest Sound Scout",
+    "name": "Alphabet Forest Sound Scout",
+    "mission_intro": "Find letter cards, listen for beginning sounds, and earn the Sound Scout Badge.",
+    "badge_name": "Sound Scout Badge"
+  },
+  "support_type": "letter_card",
+  "feedback_fields": [
+    "correct",
+    "explanation",
+    "misconception_tag"
+  ],
+  "next_skill_id": "G1E_RF_002",
+  "remediation_skill_id": "G1E_RF_001_REVIEW",
+  "level_banks": [
+    {
+      "level_id": "G1E_RF_001_LVL1",
+      "label": "Level 1: Uppercase Letters",
+      "focus": "Identify uppercase letters from letter cards.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_RF_001_LVL1_Q01",
+          "prompt": "Which card shows uppercase A?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "A",
+          "choices": [
+            "A",
+            "B",
+            "D"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Uppercase A is the capital form of the letter.",
+          "feedback": "Nice work: A matches.",
+          "letter": "A",
+          "paired_form": "A / a",
+          "letter_label": "uppercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL1_Q02",
+          "prompt": "Which card shows uppercase B?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "B",
+          "choices": [
+            "B",
+            "C",
+            "E"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Uppercase B is the capital form of the letter.",
+          "feedback": "Nice work: B matches.",
+          "letter": "B",
+          "paired_form": "B / b",
+          "letter_label": "uppercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL1_Q03",
+          "prompt": "Which card shows uppercase C?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "C",
+          "choices": [
+            "C",
+            "D",
+            "F"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Uppercase C is the capital form of the letter.",
+          "feedback": "Nice work: C matches.",
+          "letter": "C",
+          "paired_form": "C / c",
+          "letter_label": "uppercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL1_Q04",
+          "prompt": "Which card shows uppercase D?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "D",
+          "choices": [
+            "D",
+            "B",
+            "P"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "visually_similar_letter_confusion",
+          "explanation": "Uppercase D is the capital form of the letter.",
+          "feedback": "Nice work: D matches.",
+          "letter": "D",
+          "paired_form": "D / d",
+          "letter_label": "uppercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL1_Q05",
+          "prompt": "Which card shows uppercase F?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "F",
+          "choices": [
+            "F",
+            "G",
+            "I"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Uppercase F is the capital form of the letter.",
+          "feedback": "Nice work: F matches.",
+          "letter": "F",
+          "paired_form": "F / f",
+          "letter_label": "uppercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL1_Q06",
+          "prompt": "Which card shows uppercase H?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "H",
+          "choices": [
+            "H",
+            "I",
+            "K"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Uppercase H is the capital form of the letter.",
+          "feedback": "Nice work: H matches.",
+          "letter": "H",
+          "paired_form": "H / h",
+          "letter_label": "uppercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL1_Q07",
+          "prompt": "Which card shows uppercase L?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "L",
+          "choices": [
+            "L",
+            "M",
+            "O"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Uppercase L is the capital form of the letter.",
+          "feedback": "Nice work: L matches.",
+          "letter": "L",
+          "paired_form": "L / l",
+          "letter_label": "uppercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL1_Q08",
+          "prompt": "Which card shows uppercase M?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "M",
+          "choices": [
+            "M",
+            "N",
+            "P"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Uppercase M is the capital form of the letter.",
+          "feedback": "Nice work: M matches.",
+          "letter": "M",
+          "paired_form": "M / m",
+          "letter_label": "uppercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL1_Q09",
+          "prompt": "Which card shows uppercase S?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "S",
+          "choices": [
+            "S",
+            "T",
+            "V"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Uppercase S is the capital form of the letter.",
+          "feedback": "Nice work: S matches.",
+          "letter": "S",
+          "paired_form": "S / s",
+          "letter_label": "uppercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL1_Q10",
+          "prompt": "Which card shows uppercase T?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "T",
+          "choices": [
+            "T",
+            "U",
+            "W"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Uppercase T is the capital form of the letter.",
+          "feedback": "Nice work: T matches.",
+          "letter": "T",
+          "paired_form": "T / t",
+          "letter_label": "uppercase"
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_RF_001_LVL2",
+      "label": "Level 2: Lowercase Letters",
+      "focus": "Identify lowercase letters from letter cards.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_RF_001_LVL2_Q01",
+          "prompt": "Which card shows lowercase A?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "a",
+          "choices": [
+            "a",
+            "b",
+            "d"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "uppercase_lowercase_confusion",
+          "explanation": "Lowercase a is the small form that matches uppercase A.",
+          "feedback": "Nice work: a matches.",
+          "letter": "a",
+          "paired_form": "A / a",
+          "letter_label": "lowercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL2_Q02",
+          "prompt": "Which card shows lowercase B?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "b",
+          "choices": [
+            "b",
+            "d",
+            "p"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "visually_similar_letter_confusion",
+          "explanation": "Lowercase b is the small form that matches uppercase B.",
+          "feedback": "Nice work: b matches.",
+          "letter": "b",
+          "paired_form": "B / b",
+          "letter_label": "lowercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL2_Q03",
+          "prompt": "Which card shows lowercase C?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "c",
+          "choices": [
+            "c",
+            "d",
+            "f"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "uppercase_lowercase_confusion",
+          "explanation": "Lowercase c is the small form that matches uppercase C.",
+          "feedback": "Nice work: c matches.",
+          "letter": "c",
+          "paired_form": "C / c",
+          "letter_label": "lowercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL2_Q04",
+          "prompt": "Which card shows lowercase D?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "d",
+          "choices": [
+            "d",
+            "e",
+            "g"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "uppercase_lowercase_confusion",
+          "explanation": "Lowercase d is the small form that matches uppercase D.",
+          "feedback": "Nice work: d matches.",
+          "letter": "d",
+          "paired_form": "D / d",
+          "letter_label": "lowercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL2_Q05",
+          "prompt": "Which card shows lowercase F?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "f",
+          "choices": [
+            "f",
+            "g",
+            "i"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "uppercase_lowercase_confusion",
+          "explanation": "Lowercase f is the small form that matches uppercase F.",
+          "feedback": "Nice work: f matches.",
+          "letter": "f",
+          "paired_form": "F / f",
+          "letter_label": "lowercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL2_Q06",
+          "prompt": "Which card shows lowercase H?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "h",
+          "choices": [
+            "h",
+            "i",
+            "k"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "uppercase_lowercase_confusion",
+          "explanation": "Lowercase h is the small form that matches uppercase H.",
+          "feedback": "Nice work: h matches.",
+          "letter": "h",
+          "paired_form": "H / h",
+          "letter_label": "lowercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL2_Q07",
+          "prompt": "Which card shows lowercase L?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "l",
+          "choices": [
+            "l",
+            "m",
+            "o"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "uppercase_lowercase_confusion",
+          "explanation": "Lowercase l is the small form that matches uppercase L.",
+          "feedback": "Nice work: l matches.",
+          "letter": "l",
+          "paired_form": "L / l",
+          "letter_label": "lowercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL2_Q08",
+          "prompt": "Which card shows lowercase M?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "m",
+          "choices": [
+            "m",
+            "n",
+            "p"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "uppercase_lowercase_confusion",
+          "explanation": "Lowercase m is the small form that matches uppercase M.",
+          "feedback": "Nice work: m matches.",
+          "letter": "m",
+          "paired_form": "M / m",
+          "letter_label": "lowercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL2_Q09",
+          "prompt": "Which card shows lowercase S?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "s",
+          "choices": [
+            "s",
+            "t",
+            "v"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "uppercase_lowercase_confusion",
+          "explanation": "Lowercase s is the small form that matches uppercase S.",
+          "feedback": "Nice work: s matches.",
+          "letter": "s",
+          "paired_form": "S / s",
+          "letter_label": "lowercase"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL2_Q10",
+          "prompt": "Which card shows lowercase T?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "t",
+          "choices": [
+            "t",
+            "u",
+            "w"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "uppercase_lowercase_confusion",
+          "explanation": "Lowercase t is the small form that matches uppercase T.",
+          "feedback": "Nice work: t matches.",
+          "letter": "t",
+          "paired_form": "T / t",
+          "letter_label": "lowercase"
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_RF_001_LVL3",
+      "label": "Level 3: Letter Sounds",
+      "focus": "Match letters to common sounds.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_RF_001_LVL3_Q01",
+          "prompt": "What common sound does M make?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "/m/",
+          "choices": [
+            "/m/",
+            "/a/",
+            "/b/"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "M commonly makes the /m/ sound as in moon.",
+          "feedback": "Nice work: /m/ matches.",
+          "letter": "M",
+          "target_letter": "M",
+          "sound": "/m/",
+          "word": "moon",
+          "picture": "moon"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL3_Q02",
+          "prompt": "What common sound does S make?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "/s/",
+          "choices": [
+            "/s/",
+            "/a/",
+            "/b/"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "S commonly makes the /s/ sound as in sun.",
+          "feedback": "Nice work: /s/ matches.",
+          "letter": "S",
+          "target_letter": "S",
+          "sound": "/s/",
+          "word": "sun",
+          "picture": "sun"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL3_Q03",
+          "prompt": "What common sound does T make?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "/t/",
+          "choices": [
+            "/t/",
+            "/a/",
+            "/b/"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "T commonly makes the /t/ sound as in turtle.",
+          "feedback": "Nice work: /t/ matches.",
+          "letter": "T",
+          "target_letter": "T",
+          "sound": "/t/",
+          "word": "turtle",
+          "picture": "turtle"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL3_Q04",
+          "prompt": "What common sound does B make?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "/b/",
+          "choices": [
+            "/b/",
+            "/a/",
+            "/k/"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "B commonly makes the /b/ sound as in ball.",
+          "feedback": "Nice work: /b/ matches.",
+          "letter": "B",
+          "target_letter": "B",
+          "sound": "/b/",
+          "word": "ball",
+          "picture": "ball"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL3_Q05",
+          "prompt": "Write the common sound for letter A.",
+          "question_type": "short_response",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "/a/",
+          "acceptable_answers": [
+            "/a/",
+            "a",
+            "a sound"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "A commonly makes the /a/ sound as in apple.",
+          "feedback": "Yes: /a/ matches.",
+          "letter": "A",
+          "target_letter": "A",
+          "sound": "/a/",
+          "word": "apple",
+          "picture": "apple"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL3_Q06",
+          "prompt": "What common sound does D make?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "/d/",
+          "choices": [
+            "/d/",
+            "/a/",
+            "/b/"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "D commonly makes the /d/ sound as in dog.",
+          "feedback": "Nice work: /d/ matches.",
+          "letter": "D",
+          "target_letter": "D",
+          "sound": "/d/",
+          "word": "dog",
+          "picture": "dog"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL3_Q07",
+          "prompt": "What common sound does F make?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "/f/",
+          "choices": [
+            "/f/",
+            "/a/",
+            "/b/"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "F commonly makes the /f/ sound as in fish.",
+          "feedback": "Nice work: /f/ matches.",
+          "letter": "F",
+          "target_letter": "F",
+          "sound": "/f/",
+          "word": "fish",
+          "picture": "fish"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL3_Q08",
+          "prompt": "What common sound does L make?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "/l/",
+          "choices": [
+            "/l/",
+            "/a/",
+            "/b/"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "L commonly makes the /l/ sound as in leaf.",
+          "feedback": "Nice work: /l/ matches.",
+          "letter": "L",
+          "target_letter": "L",
+          "sound": "/l/",
+          "word": "leaf",
+          "picture": "leaf"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL3_Q09",
+          "prompt": "What common sound does N make?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "/n/",
+          "choices": [
+            "/n/",
+            "/a/",
+            "/b/"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "N commonly makes the /n/ sound as in nest.",
+          "feedback": "Nice work: /n/ matches.",
+          "letter": "N",
+          "target_letter": "N",
+          "sound": "/n/",
+          "word": "nest",
+          "picture": "nest"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL3_Q10",
+          "prompt": "Write the common sound for letter P.",
+          "question_type": "short_response",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "/p/",
+          "acceptable_answers": [
+            "/p/",
+            "p",
+            "p sound"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "P commonly makes the /p/ sound as in pig.",
+          "feedback": "Yes: /p/ matches.",
+          "letter": "P",
+          "target_letter": "P",
+          "sound": "/p/",
+          "word": "pig",
+          "picture": "pig"
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_RF_001_LVL4",
+      "label": "Level 4: Match Letter to Sound",
+      "focus": "Choose the letter that makes a given sound or picture beginning sound.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_RF_001_LVL4_Q01",
+          "prompt": "Which uppercase letter makes /m/?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "M",
+          "choices": [
+            "M",
+            "A",
+            "B"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "Moon begins with M and the /m/ sound.",
+          "feedback": "Nice work: M matches.",
+          "letter": "M",
+          "target_letter": "M",
+          "sound": "/m/",
+          "word": "moon",
+          "picture": "moon"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL4_Q02",
+          "prompt": "Which letter starts sun?",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "S",
+          "choices": [
+            "S",
+            "A",
+            "B"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Sun begins with S and the /s/ sound.",
+          "feedback": "Nice work: S matches.",
+          "letter": "S",
+          "target_letter": "S",
+          "sound": "/s/",
+          "word": "sun",
+          "picture": "sun"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL4_Q03",
+          "prompt": "Which uppercase letter makes /t/?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "T",
+          "choices": [
+            "T",
+            "A",
+            "B"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "Turtle begins with T and the /t/ sound.",
+          "feedback": "Nice work: T matches.",
+          "letter": "T",
+          "target_letter": "T",
+          "sound": "/t/",
+          "word": "turtle",
+          "picture": "turtle"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL4_Q04",
+          "prompt": "Which letter starts ball?",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "B",
+          "choices": [
+            "B",
+            "A",
+            "C"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Ball begins with B and the /b/ sound.",
+          "feedback": "Nice work: B matches.",
+          "letter": "B",
+          "target_letter": "B",
+          "sound": "/b/",
+          "word": "ball",
+          "picture": "ball"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL4_Q05",
+          "prompt": "Which uppercase letter makes /a/?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "A",
+          "choices": [
+            "A",
+            "B",
+            "C"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "Apple begins with A and the /a/ sound.",
+          "feedback": "Nice work: A matches.",
+          "letter": "A",
+          "target_letter": "A",
+          "sound": "/a/",
+          "word": "apple",
+          "picture": "apple"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL4_Q06",
+          "prompt": "Which letter starts dog?",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "D",
+          "choices": [
+            "D",
+            "A",
+            "B"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Dog begins with D and the /d/ sound.",
+          "feedback": "Nice work: D matches.",
+          "letter": "D",
+          "target_letter": "D",
+          "sound": "/d/",
+          "word": "dog",
+          "picture": "dog"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL4_Q07",
+          "prompt": "Which uppercase letter makes /f/?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "F",
+          "choices": [
+            "F",
+            "A",
+            "B"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "Fish begins with F and the /f/ sound.",
+          "feedback": "Nice work: F matches.",
+          "letter": "F",
+          "target_letter": "F",
+          "sound": "/f/",
+          "word": "fish",
+          "picture": "fish"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL4_Q08",
+          "prompt": "Which letter starts leaf?",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "L",
+          "choices": [
+            "L",
+            "A",
+            "B"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Leaf begins with L and the /l/ sound.",
+          "feedback": "Nice work: L matches.",
+          "letter": "L",
+          "target_letter": "L",
+          "sound": "/l/",
+          "word": "leaf",
+          "picture": "leaf"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL4_Q09",
+          "prompt": "Write the uppercase letter that makes /n/.",
+          "question_type": "short_response",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "N",
+          "acceptable_answers": [
+            "N",
+            "n"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "The letter N makes /n/ as in nest.",
+          "feedback": "Yes: N matches.",
+          "letter": "N",
+          "target_letter": "N",
+          "sound": "/n/",
+          "word": "nest",
+          "picture": "nest"
+        },
+        {
+          "question_id": "G1E_RF_001_LVL4_Q10",
+          "prompt": "Which letter starts pig?",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "P",
+          "choices": [
+            "P",
+            "A",
+            "B"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Pig begins with P and the /p/ sound.",
+          "feedback": "Nice work: P matches.",
+          "letter": "P",
+          "target_letter": "P",
+          "sound": "/p/",
+          "word": "pig",
+          "picture": "pig"
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_RF_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed letter recognition and sounds.",
+      "difficulty": 4,
+      "question_count_required": 12,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_RF_001_MIXED_Q01",
+          "prompt": "Which card shows uppercase A?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "A",
+          "choices": [
+            "A",
+            "B",
+            "D"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Uppercase A is the capital form of the letter.",
+          "feedback": "Nice work: A matches.",
+          "letter": "A",
+          "paired_form": "A / a",
+          "letter_label": "uppercase"
+        },
+        {
+          "question_id": "G1E_RF_001_MIXED_Q02",
+          "prompt": "Which card shows lowercase B?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "b",
+          "choices": [
+            "b",
+            "d",
+            "p"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "visually_similar_letter_confusion",
+          "explanation": "Lowercase b is the small form that matches uppercase B.",
+          "feedback": "Nice work: b matches.",
+          "letter": "b",
+          "paired_form": "B / b",
+          "letter_label": "lowercase"
+        },
+        {
+          "question_id": "G1E_RF_001_MIXED_Q03",
+          "prompt": "What common sound does M make?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "/m/",
+          "choices": [
+            "/m/",
+            "/a/",
+            "/b/"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "M commonly makes the /m/ sound as in moon.",
+          "feedback": "Nice work: /m/ matches.",
+          "letter": "M",
+          "target_letter": "M",
+          "sound": "/m/",
+          "word": "moon",
+          "picture": "moon"
+        },
+        {
+          "question_id": "G1E_RF_001_MIXED_Q04",
+          "prompt": "Which letter starts sun?",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "S",
+          "choices": [
+            "S",
+            "A",
+            "B"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Sun begins with S and the /s/ sound.",
+          "feedback": "Nice work: S matches.",
+          "letter": "S",
+          "target_letter": "S",
+          "sound": "/s/",
+          "word": "sun",
+          "picture": "sun"
+        },
+        {
+          "question_id": "G1E_RF_001_MIXED_Q05",
+          "prompt": "Which card shows uppercase F?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "F",
+          "choices": [
+            "F",
+            "G",
+            "I"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Uppercase F is the capital form of the letter.",
+          "feedback": "Nice work: F matches.",
+          "letter": "F",
+          "paired_form": "F / f",
+          "letter_label": "uppercase"
+        },
+        {
+          "question_id": "G1E_RF_001_MIXED_Q06",
+          "prompt": "Which card shows lowercase H?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "h",
+          "choices": [
+            "h",
+            "i",
+            "k"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "uppercase_lowercase_confusion",
+          "explanation": "Lowercase h is the small form that matches uppercase H.",
+          "feedback": "Nice work: h matches.",
+          "letter": "h",
+          "paired_form": "H / h",
+          "letter_label": "lowercase"
+        },
+        {
+          "question_id": "G1E_RF_001_MIXED_Q07",
+          "prompt": "Write the common sound for letter A.",
+          "question_type": "short_response",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "/a/",
+          "acceptable_answers": [
+            "/a/",
+            "a",
+            "a sound"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "A commonly makes the /a/ sound as in apple.",
+          "feedback": "Yes: /a/ matches.",
+          "letter": "A",
+          "target_letter": "A",
+          "sound": "/a/",
+          "word": "apple",
+          "picture": "apple"
+        },
+        {
+          "question_id": "G1E_RF_001_MIXED_Q08",
+          "prompt": "Which letter starts dog?",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "D",
+          "choices": [
+            "D",
+            "A",
+            "B"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Dog begins with D and the /d/ sound.",
+          "feedback": "Nice work: D matches.",
+          "letter": "D",
+          "target_letter": "D",
+          "sound": "/d/",
+          "word": "dog",
+          "picture": "dog"
+        },
+        {
+          "question_id": "G1E_RF_001_MIXED_Q09",
+          "prompt": "Which card shows uppercase T?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "T",
+          "choices": [
+            "T",
+            "U",
+            "W"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "letter_name_confusion",
+          "explanation": "Uppercase T is the capital form of the letter.",
+          "feedback": "Nice work: T matches.",
+          "letter": "T",
+          "paired_form": "T / t",
+          "letter_label": "uppercase"
+        },
+        {
+          "question_id": "G1E_RF_001_MIXED_Q10",
+          "prompt": "Which card shows lowercase S?",
+          "question_type": "multiple_choice",
+          "visual_model": "letter_card",
+          "support_type": "letter_card",
+          "correct_answer": "s",
+          "choices": [
+            "s",
+            "t",
+            "v"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "uppercase_lowercase_confusion",
+          "explanation": "Lowercase s is the small form that matches uppercase S.",
+          "feedback": "Nice work: s matches.",
+          "letter": "s",
+          "paired_form": "S / s",
+          "letter_label": "lowercase"
+        },
+        {
+          "question_id": "G1E_RF_001_MIXED_Q11",
+          "prompt": "Write the common sound for letter P.",
+          "question_type": "short_response",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "/p/",
+          "acceptable_answers": [
+            "/p/",
+            "p",
+            "p sound"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "P commonly makes the /p/ sound as in pig.",
+          "feedback": "Yes: /p/ matches.",
+          "letter": "P",
+          "target_letter": "P",
+          "sound": "/p/",
+          "word": "pig",
+          "picture": "pig"
+        },
+        {
+          "question_id": "G1E_RF_001_MIXED_Q12",
+          "prompt": "Write the uppercase letter that makes /n/.",
+          "question_type": "short_response",
+          "visual_model": "sound_match",
+          "support_type": "sound_match",
+          "correct_answer": "N",
+          "acceptable_answers": [
+            "N",
+            "n"
+          ],
+          "hints": [
+            "Look closely at the letter or picture.",
+            "Say the letter name and the sound slowly.",
+            "Check that the sound and symbol match."
+          ],
+          "misconception_tag": "sound_symbol_confusion",
+          "explanation": "The letter N makes /n/ as in nest.",
+          "feedback": "Yes: N matches.",
+          "letter": "N",
+          "target_letter": "N",
+          "sound": "/n/",
+          "word": "nest",
+          "picture": "nest"
+        }
+      ]
+    }
+  ]
+}
