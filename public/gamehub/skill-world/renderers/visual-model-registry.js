@@ -11,8 +11,22 @@
  function numberBond(q){const found=nums([q.prompt,q.correct_answer,q.whole,q.part_a,q.part_b].join(' ')); const whole=safe(q.whole,found[0]||'?'), a=safe(q.part_a,found[1]||'?'), b=safe(q.part_b,found[2]||'?'); return `<div class="visual-model skill-visual-inner number-bond-visual" data-renderer="number_bond"><div class="bond-circle whole">${esc(whole)}</div><div class="bond-lines"><span></span><span></span></div><div class="bond-parts"><div class="bond-circle part">${esc(a)}</div><div class="bond-circle part missing">${esc(b)}</div></div><p class="sw-visual-caption">Whole and parts connect to make the fact family.</p></div>`;}
  function pattern(q){const seq=q.sequence||String(q.prompt||'').split(/[,→]/).map(s=>s.trim()).filter(Boolean).slice(0,6); const core=seq.slice(0,2).join(' '); return `<div class="visual-model skill-visual-inner pattern-visual" data-renderer="pattern_completion"><div class="visual-scroll"><div class="pattern-row">${seq.map((x)=>`<span class="pattern-token">${emojiFor(x)}<small>${esc(x)}</small></span>`).join('')}<span class="pattern-token missing">?</span></div></div><p class="sw-visual-caption">Repeating unit: <strong>${esc(core||'look for the repeat')}</strong></p></div>`;}
  function sorting(q){const items=q.items||[]; const animals=items.filter(x=>/cat|dog|bird|fish/i.test(x)); const rest=items.filter(x=>!animals.includes(x)); return `<div class="visual-model skill-visual-inner sorting-visual" data-renderer="sorting_visual"><div class="visual-scroll"><div class="sorting-source">${objectTokens(items)}</div></div><div class="sorting-bins"><div class="sort-bin"><h4>Group A</h4>${objectTokens(animals.length?animals:items.filter(x=>/red/i.test(x)))}</div><div class="sort-bin"><h4>Group B</h4>${objectTokens(rest.length?rest:items.filter(x=>!/red/i.test(x)))}</div></div><p class="sw-visual-caption">Sorting rule: keep one attribute the same inside each bin.</p></div>`;}
+
+ function analogClock(q){
+  const hourRaw=Number.isFinite(Number(q.hour))?Number(q.hour):(nums(q.correct_answer)[0]||12);
+  const minuteRaw=Number.isFinite(Number(q.minute))?Number(q.minute):(nums(q.correct_answer)[1]||0);
+  const hour=((hourRaw-1)%12+12)%12+1;
+  const minute=Math.max(0,Math.min(59,minuteRaw));
+  const minuteAngle=minute*6;
+  const hourAngle=((hour%12)*30)+(minute/2);
+  const numbers=Array.from({length:12},(_,i)=>{const n=i+1; const angle=(n*30-90)*Math.PI/180; const x=50+40*Math.cos(angle); const y=50+40*Math.sin(angle); return `<span class="clock-number n${n}" style="left:${x}%;top:${y}%">${n}</span>`;}).join('');
+  const digital=`${hour}:${String(minute).padStart(2,'0')}`;
+  return `<div class="visual-model skill-visual-inner analog-clock-visual" data-renderer="analog_clock"><div class="clock-face" aria-label="analog clock showing ${esc(digital)}">${numbers}<span class="clock-center"></span><span class="clock-hand hour-hand" style="transform:rotate(${hourAngle}deg)"></span><span class="clock-hand minute-hand" style="transform:rotate(${minuteAngle}deg)"></span></div><p class="sw-visual-caption"><strong>${esc(digital)}</strong>: the short hand shows the hour and the long hand shows the minutes.</p></div>`;
+ }
+ function digitalTime(q){const hour=safe(q.hour,nums(q.correct_answer)[0]||'?'); const minute=String(safe(q.minute,nums(q.correct_answer)[1]||0)).padStart(2,'0'); return `<div class="visual-model skill-visual-inner digital-time-visual" data-renderer="digital_time"><div class="digital-clock">${esc(hour)}:${esc(minute)}</div><p class="sw-visual-caption">Read hour, colon, then minutes.</p></div>`;}
+
  const renderers={
-  pattern_completion:pattern, sorting_visual:sorting, number_sequence:numberSequence, number_bond:numberBond,
+  pattern_completion:pattern, sorting_visual:sorting, number_sequence:numberSequence, number_bond:numberBond, analog_clock:analogClock, digital_time:digitalTime, time_matching:analogClock,
   comparison:(q)=>`<div class="visual-model skill-visual-inner comparison-visual" data-renderer="comparison"><div class="compare-card">${objectTokens(q.left_items, q.left)}</div><strong class="compare-symbol">&gt; &lt; =</strong><div class="compare-card">${objectTokens(q.right_items, q.right)}</div></div>`,
   comparison_cards:(q)=>numberLine(q), number_line_0_120:(q)=>numberLine(q),
   visual_objects:(q)=>`<div class="visual-model skill-visual-inner object-visual" data-renderer="visual_objects">${objectTokens(q.objects,q.object_count||q.correct_answer)}</div>`,

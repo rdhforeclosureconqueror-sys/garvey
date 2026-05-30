@@ -1,6 +1,6 @@
 (function(root,factory){if(typeof module==='object'&&module.exports){module.exports=factory();}else{root.SkillPackageSchema=factory();}})(typeof self!=='undefined'?self:this,function(){
-  const QUESTION_TYPES=['multiple_choice','short_response','visual_objects','number_sequence','number_line','comparison','comparison_cards','base_ten_blocks','place_value_chart','addition_model','subtraction_model','number_bond','shape_identification','measurement_comparison','pattern_completion','sorting_visual'];
-  const VISUAL_MODELS=['visual_objects','number_sequence','number_line','number_line_0_120','comparison','comparison_cards','base_ten_blocks','place_value_chart','addition_model','subtraction_model','number_bond','shape_identification','measurement_comparison','pattern_completion','sorting_visual'];
+  const QUESTION_TYPES=['multiple_choice','short_response','visual_objects','number_sequence','number_line','comparison','comparison_cards','base_ten_blocks','place_value_chart','addition_model','subtraction_model','number_bond','shape_identification','measurement_comparison','pattern_completion','sorting_visual','analog_clock','digital_time','time_matching'];
+  const VISUAL_MODELS=['visual_objects','number_sequence','number_line','number_line_0_120','comparison','comparison_cards','base_ten_blocks','place_value_chart','addition_model','subtraction_model','number_bond','shape_identification','measurement_comparison','pattern_completion','sorting_visual','analog_clock','digital_time','time_matching'];
   const REQUIRED_MINIMUMS={guided_practice:1,checkpoint:1,adaptive_question_bank:1};
   const LEVEL_BANK_STATUS_VALUES=['not_applicable','planned'];
   function ensureQuestionId(question,index,prefix){if(!question.question_id&&!question.id){question.question_id=`${prefix}_${index+1}`;} return question.question_id||question.id;}
@@ -16,11 +16,11 @@
       else{warnings.push('level_banks_status planned is transitional; production packages require level_banks'); return;}
     }
     if(!Array.isArray(skillPackage.level_banks)){errors.push('level_banks must exist for production packages unless level_banks_status is not_applicable'); return;}
-    if(skillPackage.level_banks.length<4){errors.push('level_banks must include at least 3 focused levels plus one Mixed level');}
+    if(skillPackage.level_banks.length<5){errors.push('level_banks must include at least 4 focused levels plus one Mixed level');}
     const mixed=skillPackage.level_banks.filter((level)=>/mixed/i.test(String(level.level_id||level.label||'')));
     if(mixed.length<1){errors.push('level_banks must include a Mixed level');}
     const focused=skillPackage.level_banks.filter((level)=>!/mixed/i.test(String(level.level_id||level.label||'')));
-    if(focused.length<3){errors.push('level_banks must include at least 3 focused levels');}
+    if(focused.length<4){errors.push('level_banks must include at least 4 focused levels');}
     skillPackage.level_banks.forEach((level,levelIndex)=>{
       const zone=`level_banks[${levelIndex}]`;
       ['level_id','label','focus','difficulty','question_count_required','mastery_threshold'].forEach((k)=>{if(!has(level,k)){errors.push(`${zone} missing ${k}`);}});

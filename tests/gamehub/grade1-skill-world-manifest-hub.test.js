@@ -23,7 +23,7 @@ test('Skill World manifest includes every generated package file', () => {
 });
 
 test('Grade 1 generated Skill World missions expose required hub fields', () => {
-  const requiredSkillIds = ['G1M_NS_002', 'G1M_PV_001', 'G1M_OP_003', 'G1M_DP_001'];
+  const requiredSkillIds = ['G1M_NS_001', 'G1M_NS_002', 'G1M_NS_003', 'G1M_PV_001', 'G1M_OP_001', 'G1M_OP_002', 'G1M_OP_003', 'G1M_GM_001', 'G1M_GM_002', 'G1M_DP_001', 'G1M_MD_TIME_001'];
   const packages = manifest.packages.map(readPackage);
   const packageIds = packages.map((pkg) => pkg.skill_id).sort();
 
@@ -39,7 +39,7 @@ test('Grade 1 generated Skill World missions expose required hub fields', () => 
 
 
 test('Active Grade 1 packages expose real level banks for hub Practice This Skill buttons', () => {
-  const requiredSkillIds = ['G1M_NS_002', 'G1M_OP_003', 'G1M_DP_001'];
+  const requiredSkillIds = ['G1M_NS_001', 'G1M_NS_002', 'G1M_NS_003', 'G1M_PV_001', 'G1M_OP_001', 'G1M_OP_002', 'G1M_OP_003', 'G1M_GM_001', 'G1M_GM_002', 'G1M_DP_001', 'G1M_MD_TIME_001'];
   const packages = manifest.packages.map(readPackage).filter((pkg) => requiredSkillIds.includes(pkg.skill_id));
 
   assert.deepEqual(packages.map((pkg) => pkg.skill_id).sort(), requiredSkillIds.sort());

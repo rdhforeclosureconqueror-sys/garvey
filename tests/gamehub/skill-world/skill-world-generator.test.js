@@ -3,10 +3,14 @@ const fs=require('fs');
 const path=require('path');
 const root=path.join(__dirname,'..','..','..');
 const load=(id)=>JSON.parse(fs.readFileSync(path.join(root,`public/gamehub/skill-world/content/${id}.skill-package.v1.json`),'utf8'));
-const dp=load('G1M_DP_001');
-const op=load('G1M_OP_003');
-const ns=load('G1M_NS_002');
-const pv=load('G1M_PV_001');
+const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_GM_001','G1M_GM_002','G1M_DP_001','G1M_MD_TIME_001'];
+const grade1Packages=grade1SkillIds.map(load);
+const byId=Object.fromEntries(grade1Packages.map((pkg)=>[pkg.skill_id,pkg]));
+const dp=byId.G1M_DP_001;
+const op=byId.G1M_OP_003;
+const ns=byId.G1M_NS_002;
+const pv=byId.G1M_PV_001;
+const time=byId.G1M_MD_TIME_001;
 const Renderer=require(path.join(root,'public/gamehub/skill-world/engine/skill-world-renderer.js'));
 const Adapter=require(path.join(root,'public/gamehub/skill-world/engine/growth-data-adapter.js'));
 const Schema=require(path.join(root,'public/gamehub/skill-world/engine/skill-package-schema.js'));
@@ -30,7 +34,7 @@ function assertFullMission(pkg){
   assert.doesNotMatch(html,/plain quiz/i);
 }
 
-[dp,op,ns,pv].forEach(assertFullMission);
+grade1Packages.forEach(assertFullMission);
 
 function classContains(html, screenClass, expected){
   const re=new RegExp(`<section class="([^"]*\\b${screenClass}\\b[^"]*)"`);
@@ -79,7 +83,7 @@ function assertActiveGuidedFlow(pkg){
   classContains(html,'badge-screen','is-hidden');
   classContains(html,'profile-screen','is-hidden');
 }
-[dp,op,ns,pv].forEach(assertActiveGuidedFlow);
+grade1Packages.forEach(assertActiveGuidedFlow);
 const index=fs.readFileSync(path.join(root,'public/gamehub/skill-world/index.html'),'utf8');
 assert.match(index,/skill-world\.css/);
 assert.match(index,/failClosed:true/);
@@ -155,7 +159,7 @@ pv.level_banks.forEach((level)=>{
   assert.ok(new Set(level.questions.map((q)=>q.misconception_tag)).size>=1,`${level.level_id} needs misconception coverage`);
 });
 
-[ns,op,dp].forEach((pkg)=>{
+grade1Packages.forEach((pkg)=>{
   assert.ok(Array.isArray(pkg.level_banks),`${pkg.skill_id} has real level_banks`);
   assert.equal(pkg.level_banks_status,undefined,`${pkg.skill_id} does not keep planned level_banks_status`);
   assert.ok(pkg.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length>=4,`${pkg.skill_id} has at least 4 focused levels`);
@@ -278,14 +282,16 @@ const saved=Adapter.loadGrowthData('G1M_DP_001','learner-1');
 assert.equal(saved.skill_id,'G1M_DP_001');
 
 const st2=Renderer.createState();
-Renderer.submitAnswer(st2,'guided',op.guided_practice[0],'3');
-Renderer.submitAnswer(st2,'challenge',op.adaptive_question_bank[0],'6 and 4');
-Renderer.submitAnswer(st2,'checkpoint',op.checkpoint[0],'10');
+Renderer.submitAnswer(st2,'guided',op.guided_practice[0],op.guided_practice[0].correct_answer);
+Renderer.submitAnswer(st2,'challenge',op.adaptive_question_bank[0],op.adaptive_question_bank[0].correct_answer);
+Renderer.submitAnswer(st2,'checkpoint',op.checkpoint[0],op.checkpoint[0].correct_answer);
 const growth2=Renderer.finalize(st2,op,'learner-2');
 assert.equal(growth2.mastery_status,'mastered');
 assert.equal(growth2.recommended_next_skill,op.next_skill_id);
-assert.match(VisualRegistry.render(op.guided_practice[0]),/number-bond-visual/);
-assert.match(VisualRegistry.render(op.guided_practice[0]),/bond-lines/);
+const bondQuestion=[...op.guided_practice,...op.adaptive_question_bank,...op.checkpoint].find((q)=>q.visual_model==='number_bond');
+assert.ok(bondQuestion,'G1M_OP_003 includes a number bond visual');
+assert.match(VisualRegistry.render(bondQuestion),/number-bond-visual/);
+assert.match(VisualRegistry.render(bondQuestion),/bond-lines/);
 
 assert.equal(Schema.validateSkillPackage(ns).valid,true);
 assert.ok(ns.guided_practice.length>=6);
@@ -353,5 +359,11 @@ const dpSort=VisualRegistry.render(dp.guided_practice[0]);
 assert.match(dpSort,/sorting-visual/);
 assert.match(dpSort,/visual-scroll/);
 assert.match(dpSort,/sorting-bins/);
+const clockVisual=VisualRegistry.render(time.guided_practice[0]);
+assert.match(clockVisual,/analog-clock-visual/);
+assert.match(clockVisual,/clock-face/);
+assert.match(clockVisual,/clock-number n12/);
+assert.match(clockVisual,/hour-hand/);
+assert.match(clockVisual,/minute-hand/);
 
 console.log('skill-world-generator tests passed');
