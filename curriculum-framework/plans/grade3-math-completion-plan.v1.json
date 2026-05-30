@@ -1,0 +1,1118 @@
+{
+  "version": "v1",
+  "grade": "grade3",
+  "subject": "math",
+  "generated_from": "docs/grade3_math_completion_plan.md",
+  "status": "planning_only_no_packages_implemented",
+  "production_standard": {
+    "skill_package_json": true,
+    "skill_world_generator": true,
+    "guided_mission_sequence": [
+      "Story",
+      "Lesson",
+      "Watch",
+      "Demo",
+      "Practice",
+      "Challenge",
+      "Checkpoint",
+      "Badge",
+      "Profile"
+    ],
+    "skill_practice_center": {
+      "minimum_levels": [
+        "Level 1",
+        "Level 2",
+        "Level 3",
+        "Level 4",
+        "Mixed"
+      ],
+      "questions_per_level": "10-12"
+    },
+    "manifest_hub_exposure": "All packages must appear through manifest/graph-driven discovery, not hardcoded placeholders.",
+    "one_off_games_allowed": false,
+    "placeholder_cards_allowed": false
+  },
+  "renderer_assessment": {
+    "supported_or_reusable_from_grades_1_2": [
+      {
+        "model": "number_line",
+        "status": "supported",
+        "notes": "Grade 1-2 plans already rely on this renderer; extend labels/tick density for Grade 3 fractions and rounding."
+      },
+      {
+        "model": "comparison",
+        "status": "supported",
+        "notes": "Usable for whole-number and fraction comparison after fraction answer normalization is added."
+      },
+      {
+        "model": "place_value_chart",
+        "status": "partial",
+        "notes": "Grade 2 identified hundreds/tens/ones extension; Grade 3 can reuse if 1,000 and rounding metadata are supported."
+      },
+      {
+        "model": "expanded_form",
+        "status": "planned_from_grade2",
+        "notes": "Needed again for Grade 3 place value."
+      },
+      {
+        "model": "word_problem_model",
+        "status": "planned_from_grade2",
+        "notes": "Reusable for Grade 3 two-step problems with operation metadata."
+      },
+      {
+        "model": "bar_model",
+        "status": "planned_from_grade2",
+        "notes": "Reusable for two-step word problems."
+      },
+      {
+        "model": "equation_builder",
+        "status": "planned_from_grade2",
+        "notes": "Reusable for equation setup and two-step tracking."
+      },
+      {
+        "model": "array_model",
+        "status": "planned_from_grade2",
+        "notes": "Must be productionized for Grade 3 multiplication/division arrays."
+      },
+      {
+        "model": "analog_clock",
+        "status": "supported",
+        "notes": "Extend for elapsed-time prompts and timelines."
+      },
+      {
+        "model": "measurement_comparison",
+        "status": "supported",
+        "notes": "Extend to mass and volume contexts."
+      },
+      {
+        "model": "bar_graph",
+        "status": "planned_from_grade2",
+        "notes": "Reusable with scaled bar graphs."
+      },
+      {
+        "model": "line_plot",
+        "status": "planned_from_grade2",
+        "notes": "Extend to fractional measurements."
+      },
+      {
+        "model": "partition_shapes",
+        "status": "planned_from_grade2",
+        "notes": "Reusable for equal partitions and fractions from shapes."
+      },
+      {
+        "model": "shape_identification",
+        "status": "supported",
+        "notes": "Extend to quadrilateral attributes."
+      }
+    ],
+    "new_or_extended_renderers_needed": [
+      {
+        "model": "equal_groups",
+        "need": "new or confirm graph-token renderer; shows group count, objects per group, and total."
+      },
+      {
+        "model": "repeated_addition",
+        "need": "new renderer for repeated-addition expressions aligned to multiplication."
+      },
+      {
+        "model": "multiplication_model",
+        "need": "new composite renderer connecting groups, arrays, repeated addition, and equation."
+      },
+      {
+        "model": "division_model",
+        "need": "new renderer for equal sharing and equal groups, including no-remainder Grade 3 foundations."
+      },
+      {
+        "model": "fact_family_model",
+        "need": "new renderer for multiplication/division inverse relationships."
+      },
+      {
+        "model": "multiplication_chart",
+        "need": "new renderer for facts within 100 and highlighted products."
+      },
+      {
+        "model": "skip_counting",
+        "need": "new renderer or extend number_sequence for fact strategies."
+      },
+      {
+        "model": "operation_sort",
+        "need": "new renderer/interaction for selecting operations in word problems."
+      },
+      {
+        "model": "rounding_model",
+        "need": "new renderer for midpoint, nearest 10, and nearest 100 decisions."
+      },
+      {
+        "model": "fraction_bar",
+        "need": "new renderer for unit fractions, equivalence, and comparisons."
+      },
+      {
+        "model": "fraction_circle",
+        "need": "new renderer for equal parts and shape-based fractions."
+      },
+      {
+        "model": "elapsed_time_timeline",
+        "need": "new renderer connecting start time, jumps, and end time."
+      },
+      {
+        "model": "area_model",
+        "need": "new renderer for square-unit area."
+      },
+      {
+        "model": "grid_model",
+        "need": "new renderer for counting square units and rectangular arrays."
+      },
+      {
+        "model": "perimeter_path",
+        "need": "new renderer for distance around figures."
+      },
+      {
+        "model": "rectangle_model",
+        "need": "new renderer for side lengths, area, and perimeter distinctions."
+      },
+      {
+        "model": "attribute_sort",
+        "need": "new renderer/interaction for sorting shapes by properties."
+      }
+    ]
+  },
+  "schema_updates_needed": [
+    "Keep SkillPackage JSON as the source of truth and require generator mappings for the full Guided Mission sequence: Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, Profile.",
+    "Require level_banks validation for every Grade 3 Math production package: four focused levels plus Mixed, each with question_count_required between 10 and 12 and a mastery threshold.",
+    "Document or enumerate Grade 3 Math visual_model values for all supported, planned, and new models used by this plan; the current schema leaves visual_model as a string, so runtime renderer registry coverage must be the enforcement point if enum validation is not added.",
+    "Add or map Grade 3 question_type values: model_interpretation, equation_entry, array_counting, fact_family_match, missing_number, sequence_build, timed_fluency, constructed_equation, two_step_response, operation_sort, strategy_explain, rounding_response, expanded_form, fraction_entry, partition_counting, elapsed_time, measurement_reading, graph_reading, data_interpretation, grid_counting, visual_selection, and attribute_sort.",
+    "Add item metadata for visual operands such as group_count, objects_per_group, rows, columns, divisor, dividend, quotient, start_time, elapsed_minutes, unit, shape_attributes, side_lengths, partitions, numerator, denominator, and acceptable_equivalent_forms.",
+    "Require manifest/graph/hub metadata for Grade 3 Math packages so discovery is manifest-driven and never created as hardcoded placeholder cards."
+  ],
+  "acceptable_answer_needs": [
+    "Numeric answers must normalize words, digits, commas, and equations where the item permits them, e.g. 24, twenty-four, 6 x 4, and 4 x 6 for commutative multiplication contexts.",
+    "Multiplication and division answers must distinguish product, quotient, unknown factor, and equation-form responses; inverse facts should be accepted only when they answer the prompt.",
+    "Two-step word problems need final answer validation plus optional intermediate answer/equation validation so a correct final number with an invalid plan can be flagged for review where required.",
+    "Rounding answers must normalize nearest-ten and nearest-hundred forms and preserve the requested place; 300 is not acceptable for nearest 10 when 270 is required.",
+    "Fraction answers must normalize slash forms, words, equivalent forms when the prompt asks for equivalence, and comparison symbols/words; non-equivalent simplified answers must be rejected when exact representation is required.",
+    "Time answers must normalize elapsed minutes, hours/minutes, and clock times while preserving a.m./p.m. only when the prompt includes it.",
+    "Measurement and geometry answers must require correct units, including square units for area and linear units for perimeter, unless the prompt explicitly asks for a number only.",
+    "Graph and line-plot responses must preserve scale, fractional tick values, and category labels."
+  ],
+  "skills": [
+    {
+      "skill_id": "G3M_MUL_001",
+      "title": "Multiplication Foundations",
+      "domain": "Operations and Algebraic Thinking",
+      "focus": "understand multiplication as equal groups, arrays, and repeated addition",
+      "level_banks": [
+        {
+          "label": "Level 1",
+          "name": "Equal Groups",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 2",
+          "name": "Arrays",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 3",
+          "name": "Repeated Addition",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 4",
+          "name": "Multiplication Equations",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Mixed",
+          "name": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "equal_groups",
+        "array_model",
+        "repeated_addition",
+        "multiplication_model"
+      ],
+      "misconception_tags": [
+        "equal_groups_confusion",
+        "array_rows_columns_confusion",
+        "repeated_addition_confusion",
+        "multiplication_symbol_confusion"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "model_interpretation",
+        "equation_entry",
+        "array_counting",
+        "matching"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G3M_DIV_001",
+      "title": "Division Foundations",
+      "domain": "Operations and Algebraic Thinking",
+      "focus": "understand division as equal sharing and equal groups",
+      "level_banks": [
+        {
+          "label": "Level 1",
+          "name": "Equal Sharing",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 2",
+          "name": "Equal Groups",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 3",
+          "name": "Division Equations",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 4",
+          "name": "Multiplication and Division Relationship",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Mixed",
+          "name": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "division_model",
+        "equal_groups",
+        "array_model",
+        "fact_family_model"
+      ],
+      "misconception_tags": [
+        "sharing_grouping_confusion",
+        "remainder_confusion",
+        "division_symbol_confusion",
+        "inverse_operation_confusion"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "model_interpretation",
+        "equation_entry",
+        "fact_family_match",
+        "matching"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G3M_FACT_001",
+      "title": "Multiplication and Division Fluency",
+      "domain": "Operations and Algebraic Thinking",
+      "focus": "fluently multiply and divide within 100 using strategies",
+      "level_banks": [
+        {
+          "label": "Level 1",
+          "name": "2s, 5s, and 10s",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 2",
+          "name": "3s and 4s",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 3",
+          "name": "6s, 7s, and 8s",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 4",
+          "name": "9s and Mixed Facts",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Mixed",
+          "name": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "multiplication_chart",
+        "fact_family_model",
+        "array_model",
+        "skip_counting"
+      ],
+      "misconception_tags": [
+        "fact_recall_gap",
+        "inverse_fact_confusion",
+        "skip_count_error",
+        "multiplication_division_mixup"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "fact_family_match",
+        "missing_number",
+        "sequence_build",
+        "timed_fluency"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G3M_WP_001",
+      "title": "Two-Step Word Problems",
+      "domain": "Operations and Algebraic Thinking",
+      "focus": "solve two-step word problems using all four operations",
+      "level_banks": [
+        {
+          "label": "Level 1",
+          "name": "One-Step Review",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 2",
+          "name": "Two-Step Addition/Subtraction",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 3",
+          "name": "Two-Step Multiplication/Division",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 4",
+          "name": "Mixed Operation Problems",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Mixed",
+          "name": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "word_problem_model",
+        "bar_model",
+        "equation_builder",
+        "operation_sort"
+      ],
+      "misconception_tags": [
+        "operation_selection_error",
+        "two_step_tracking_error",
+        "hidden_question_confusion",
+        "equation_setup_error"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "constructed_equation",
+        "two_step_response",
+        "operation_sort",
+        "strategy_explain"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G3M_PV_001",
+      "title": "Place Value and Rounding to 1,000",
+      "domain": "Number and Operations in Base Ten",
+      "focus": "use place value to round whole numbers to nearest 10 or 100",
+      "level_banks": [
+        {
+          "label": "Level 1",
+          "name": "Place Value to 1,000",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 2",
+          "name": "Round to Nearest 10",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 3",
+          "name": "Round to Nearest 100",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 4",
+          "name": "Add/Subtract Using Place Value",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Mixed",
+          "name": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "place_value_chart",
+        "number_line",
+        "rounding_model",
+        "expanded_form"
+      ],
+      "misconception_tags": [
+        "rounding_direction_error",
+        "midpoint_confusion",
+        "place_value_error",
+        "zero_placeholder_confusion"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "number_line",
+        "place_value_chart",
+        "rounding_response",
+        "expanded_form"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G3M_FR_001",
+      "title": "Fraction Foundations",
+      "domain": "Number and Operations\u2014Fractions",
+      "focus": "understand fractions as equal parts and numbers on a number line",
+      "level_banks": [
+        {
+          "label": "Level 1",
+          "name": "Equal Parts",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 2",
+          "name": "Unit Fractions",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 3",
+          "name": "Fractions on a Number Line",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 4",
+          "name": "Whole Numbers as Fractions",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Mixed",
+          "name": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "fraction_bar",
+        "fraction_circle",
+        "number_line",
+        "partition_shapes"
+      ],
+      "misconception_tags": [
+        "unequal_parts_confusion",
+        "numerator_denominator_confusion",
+        "fraction_size_confusion",
+        "whole_as_fraction_confusion"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "visual_selection",
+        "fraction_entry",
+        "number_line",
+        "partition_counting"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G3M_FR_002",
+      "title": "Equivalent Fractions and Comparing Fractions",
+      "domain": "Number and Operations\u2014Fractions",
+      "focus": "recognize equivalent fractions and compare fractions with same numerator or denominator",
+      "level_banks": [
+        {
+          "label": "Level 1",
+          "name": "Equivalent Fractions",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 2",
+          "name": "Compare Same Denominator",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 3",
+          "name": "Compare Same Numerator",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 4",
+          "name": "Fraction Number Line Comparisons",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Mixed",
+          "name": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "fraction_bar",
+        "fraction_circle",
+        "number_line",
+        "comparison"
+      ],
+      "misconception_tags": [
+        "equivalent_fraction_confusion",
+        "denominator_size_confusion",
+        "numerator_focus_error",
+        "fraction_number_line_error"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "comparison",
+        "fraction_entry",
+        "number_line",
+        "matching"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G3M_MD_001",
+      "title": "Time, Measurement, and Data",
+      "domain": "Measurement and Data",
+      "focus": "elapsed time, measurement, mass, volume, picture/bar graphs, and line plots",
+      "level_banks": [
+        {
+          "label": "Level 1",
+          "name": "Elapsed Time",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 2",
+          "name": "Measure Mass and Volume",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 3",
+          "name": "Graphs and Data",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 4",
+          "name": "Line Plots with Fractions",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Mixed",
+          "name": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "analog_clock",
+        "elapsed_time_timeline",
+        "measurement_comparison",
+        "bar_graph",
+        "line_plot"
+      ],
+      "misconception_tags": [
+        "elapsed_time_confusion",
+        "unit_conversion_confusion",
+        "graph_scale_confusion",
+        "line_plot_fraction_error"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "time_matching",
+        "elapsed_time",
+        "measurement_reading",
+        "graph_reading",
+        "data_interpretation"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G3M_GM_001",
+      "title": "Area and Perimeter",
+      "domain": "Measurement and Geometry",
+      "focus": "understand area as square units and perimeter as distance around",
+      "level_banks": [
+        {
+          "label": "Level 1",
+          "name": "Count Square Units",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 2",
+          "name": "Area of Rectangles",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 3",
+          "name": "Perimeter",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 4",
+          "name": "Area vs Perimeter",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Mixed",
+          "name": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "area_model",
+        "grid_model",
+        "perimeter_path",
+        "rectangle_model"
+      ],
+      "misconception_tags": [
+        "area_perimeter_confusion",
+        "square_unit_count_error",
+        "side_length_addition_error",
+        "formula_misuse"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "grid_counting",
+        "measurement_reading",
+        "constructed_equation",
+        "model_interpretation"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G3M_GM_002",
+      "title": "Shapes, Attributes, and Partitioning",
+      "domain": "Geometry",
+      "focus": "reason about quadrilaterals and partition shapes into equal parts",
+      "level_banks": [
+        {
+          "label": "Level 1",
+          "name": "Shape Attributes",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 2",
+          "name": "Quadrilaterals",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 3",
+          "name": "Partition Shapes",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Level 4",
+          "name": "Fractions from Shapes",
+          "question_count_required": "10-12"
+        },
+        {
+          "label": "Mixed",
+          "name": "Mixed",
+          "question_count_required": "10-12"
+        }
+      ],
+      "visual_models": [
+        "shape_identification",
+        "attribute_sort",
+        "partition_shapes",
+        "fraction_circle"
+      ],
+      "misconception_tags": [
+        "quadrilateral_confusion",
+        "attribute_overgeneralization",
+        "unequal_partition_error",
+        "fraction_shape_confusion"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "visual_selection",
+        "attribute_sort",
+        "sorting_visual",
+        "fraction_entry"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    }
+  ],
+  "contractor_ready_backlog": [
+    {
+      "id": "G3M-BACKLOG-001",
+      "title": "Finalize Grade 3 Math schema/runtime contract",
+      "owner": "curriculum-platform",
+      "deliverables": [
+        "Schema or registry mappings for all Grade 3 visual_model and question_type values",
+        "Practice Center validation for 4 focused levels plus Mixed",
+        "Guided Mission generator mapping contract"
+      ],
+      "acceptance": [
+        "All planned Grade 3 Math fields validate or have documented runtime mappings.",
+        "No package can pass with placeholder level banks or missing mission stages."
+      ]
+    },
+    {
+      "id": "G3M-BACKLOG-002",
+      "title": "Implement Grade 3 Math visual renderers",
+      "owner": "skill-world/renderers",
+      "deliverables": [
+        "Renderer coverage for every new renderer in this plan",
+        "Canonical fixture item per renderer",
+        "No fallback placeholder UI for planned models"
+      ],
+      "acceptance": [
+        "Renderer registry covers all Grade 3 visual models.",
+        "Fixtures render multiplication, division, fractions, time, area/perimeter, and geometry examples."
+      ]
+    },
+    {
+      "id": "G3M-BACKLOG-003",
+      "title": "Build acceptable-answer normalization for Grade 3 Math",
+      "owner": "assessment-runtime",
+      "deliverables": [
+        "Numeric/equation normalizers",
+        "Fraction equivalence and comparison normalizers",
+        "Time, measurement, area, perimeter, and graph response normalizers"
+      ],
+      "acceptance": [
+        "Correct equivalent answers are accepted where intended.",
+        "Wrong units or wrong representation are rejected when prompt constraints require precision."
+      ]
+    },
+    {
+      "id": "G3M-BACKLOG-004",
+      "title": "Create production SkillPackage for G3M_MUL_001",
+      "owner": "content-production",
+      "deliverables": [
+        "SkillPackage JSON with Guided Mission source content",
+        "Practice Center level_banks with 4 focused levels plus Mixed",
+        "Manifest/graph entry"
+      ],
+      "acceptance": [
+        "G3M_MUL_001 validates as a production SkillPackage.",
+        "Hub exposure is manifest-driven and contains no placeholder card."
+      ]
+    },
+    {
+      "id": "G3M-BACKLOG-005",
+      "title": "Create production SkillPackage for G3M_DIV_001",
+      "owner": "content-production",
+      "deliverables": [
+        "SkillPackage JSON",
+        "Practice Center level_banks",
+        "Manifest/graph entry"
+      ],
+      "acceptance": [
+        "G3M_DIV_001 validates and renders equal-sharing/equal-groups visuals."
+      ]
+    },
+    {
+      "id": "G3M-BACKLOG-006",
+      "title": "Create production SkillPackage for G3M_FACT_001",
+      "owner": "content-production",
+      "deliverables": [
+        "SkillPackage JSON",
+        "Practice Center fact fluency levels",
+        "Manifest/graph entry"
+      ],
+      "acceptance": [
+        "G3M_FACT_001 validates with multiplication/division fact strategy coverage."
+      ]
+    },
+    {
+      "id": "G3M-BACKLOG-007",
+      "title": "Create production SkillPackage for G3M_WP_001",
+      "owner": "content-production",
+      "deliverables": [
+        "SkillPackage JSON",
+        "Two-step word-problem banks",
+        "Manifest/graph entry"
+      ],
+      "acceptance": [
+        "G3M_WP_001 validates with two-step tracking and operation selection support."
+      ]
+    },
+    {
+      "id": "G3M-BACKLOG-008",
+      "title": "Create production SkillPackage for G3M_PV_001",
+      "owner": "content-production",
+      "deliverables": [
+        "SkillPackage JSON",
+        "Rounding/place-value banks",
+        "Manifest/graph entry"
+      ],
+      "acceptance": [
+        "G3M_PV_001 validates with nearest 10/100 rounding models."
+      ]
+    },
+    {
+      "id": "G3M-BACKLOG-009",
+      "title": "Create production SkillPackage for G3M_FR_001",
+      "owner": "content-production",
+      "deliverables": [
+        "SkillPackage JSON",
+        "Fraction foundations banks",
+        "Manifest/graph entry"
+      ],
+      "acceptance": [
+        "G3M_FR_001 validates with equal parts and number-line fractions."
+      ]
+    },
+    {
+      "id": "G3M-BACKLOG-010",
+      "title": "Create production SkillPackage for G3M_FR_002",
+      "owner": "content-production",
+      "deliverables": [
+        "SkillPackage JSON",
+        "Equivalent/comparing fraction banks",
+        "Manifest/graph entry"
+      ],
+      "acceptance": [
+        "G3M_FR_002 validates with fraction comparison/equivalence visuals."
+      ]
+    },
+    {
+      "id": "G3M-BACKLOG-011",
+      "title": "Create production SkillPackage for G3M_MD_001",
+      "owner": "content-production",
+      "deliverables": [
+        "SkillPackage JSON",
+        "Time/measurement/data banks",
+        "Manifest/graph entry"
+      ],
+      "acceptance": [
+        "G3M_MD_001 validates with elapsed time, mass/volume, graph, and fractional line-plot support."
+      ]
+    },
+    {
+      "id": "G3M-BACKLOG-012",
+      "title": "Create production SkillPackage for G3M_GM_001",
+      "owner": "content-production",
+      "deliverables": [
+        "SkillPackage JSON",
+        "Area/perimeter banks",
+        "Manifest/graph entry"
+      ],
+      "acceptance": [
+        "G3M_GM_001 validates with area/perimeter renderer support."
+      ]
+    },
+    {
+      "id": "G3M-BACKLOG-013",
+      "title": "Create production SkillPackage for G3M_GM_002",
+      "owner": "content-production",
+      "deliverables": [
+        "SkillPackage JSON",
+        "Shapes/attributes/partitioning banks",
+        "Manifest/graph entry"
+      ],
+      "acceptance": [
+        "G3M_GM_002 validates with quadrilateral, attribute sort, and partitioning support."
+      ]
+    },
+    {
+      "id": "G3M-BACKLOG-014",
+      "title": "Run Grade 3 Math production readiness gate",
+      "owner": "qa/curriculum",
+      "deliverables": [
+        "Schema validation report",
+        "Renderer fixture report",
+        "Manifest/hub discovery report",
+        "Practice Center level-bank audit"
+      ],
+      "acceptance": [
+        "All ten packages are manifest-discoverable.",
+        "No one-off games or placeholder cards are present."
+      ]
+    }
+  ],
+  "production_gate_before_package_buildout": [
+    "Confirm schema/runtime mappings for every Grade 3 Math question type and visual model.",
+    "Confirm renderer registry production support for all planned visual models.",
+    "Confirm acceptable-answer normalization for all Grade 3 Math response families.",
+    "Confirm manifest/graph/hub discovery for every future package.",
+    "Confirm each Skill Practice Center has four focused levels plus Mixed with 10-12 production questions each."
+  ]
+}
