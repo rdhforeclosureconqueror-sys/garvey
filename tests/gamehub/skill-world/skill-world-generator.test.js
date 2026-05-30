@@ -5,8 +5,12 @@ const root=path.join(__dirname,'..','..','..');
 const load=(id)=>JSON.parse(fs.readFileSync(path.join(root,`public/gamehub/skill-world/content/${id}.skill-package.v1.json`),'utf8'));
 const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_GM_001','G1M_GM_002','G1M_DP_001','G1M_MD_TIME_001','G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
 const grade1Packages=grade1SkillIds.map(load);
-const g2PlaceValue=load('G2M_PV_001');
-const byId=Object.fromEntries([...grade1Packages,g2PlaceValue].map((pkg)=>[pkg.skill_id,pkg]));
+const grade2SkillIds=['G2M_PV_001','G2M_NS_001','G2M_NS_002'];
+const grade2Packages=grade2SkillIds.map(load);
+const g2PlaceValue=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_PV_001');
+const g2CountReadWrite=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_NS_001');
+const g2Compare=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_NS_002');
+const byId=Object.fromEntries([...grade1Packages,...grade2Packages].map((pkg)=>[pkg.skill_id,pkg]));
 const dp=byId.G1M_DP_001;
 const op=byId.G1M_OP_003;
 const ns=byId.G1M_NS_002;
@@ -37,7 +41,7 @@ function assertFullMission(pkg){
 }
 
 grade1Packages.forEach(assertFullMission);
-assertFullMission(g2PlaceValue);
+grade2Packages.forEach(assertFullMission);
 
 function classContains(html, screenClass, expected){
   const re=new RegExp(`<section class="([^"]*\\b${screenClass}\\b[^"]*)"`);
@@ -478,6 +482,70 @@ assert.match(g2DrillHtml,/Skill Practice Center/,'G2M_PV_001 Skill Practice Cent
 assert.match(g2DrillHtml,/class="level-card compact-level-card"/,'G2M_PV_001 drill uses compact level cards');
 assert.match(g2DrillHtml,/class="level-card-meta"/,'G2M_PV_001 drill keeps compact level metadata');
 assert.ok(Renderer.evaluateAnswer(g2Questions.find((q)=>q.question_type==='short_response'&&q.correct_answer==='300 + 40 + 2'),'300 + 40 + 2.'),'G2M_PV_001 short_response accepts acceptable answer');
+
+
+const grade2ProductionIds=['G2M_NS_001','G2M_PV_001','G2M_NS_002'];
+grade2ProductionIds.forEach((id)=>{
+  const pkg=byId[id];
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates as production package`);
+  assert.equal(pkg.grade,2,`${id} is Grade 2`);
+  assert.equal(pkg.subject,'Math',`${id} is Math`);
+  assert.ok(Array.isArray(pkg.level_banks),`${id} has real level_banks`);
+  assert.equal(pkg.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length,4,`${id} has four focused levels`);
+  assert.ok(pkg.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>{
+    assert.ok(level.questions.length>=10&&level.questions.length<=12,`${id} ${level.level_id} has 10-12 questions`);
+    level.questions.forEach((question)=>{
+      assert.ok(question.question_id&&question.prompt&&question.question_type&&(question.support_type||question.visual_model)&&question.correct_answer!==undefined&&question.hints&&question.misconception_tag&&(question.feedback||question.explanation),`${question.question_id} has required production fields`);
+      assert.notEqual(VisualRegistry.render(question),'<div></div>',`${question.question_id} has renderer output`);
+      if(question.question_type==='short_response')assert.ok(Array.isArray(question.acceptable_answers)&&question.acceptable_answers.length>0,`${question.question_id} short_response has acceptable_answers`);
+    });
+  });
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Mini Lesson','Worked Example / Watch','Guided Demo','Practice zone','Challenge zone','Checkpoint zone','Badge','Growth/Profile screen'].forEach((label)=>assert.match(missionHtml,new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')),`${id} mission missing ${label}`));
+  const drillHtml=Renderer.renderSkillWorld(pkg,{mode:'drill',failClosed:true}).html;
+  assert.match(drillHtml,/Skill Practice Center/,`${id} Skill Practice Center renders`);
+  assert.match(drillHtml,/class="level-card compact-level-card"/,`${id} drill uses compact level cards`);
+});
+
+assert.equal(g2CountReadWrite.domain,'Number Sense / Base Ten');
+assert.equal(g2CountReadWrite.skill,'Count, Read, and Write Numbers to 1,000');
+assert.deepEqual(g2CountReadWrite.level_banks.map((level)=>level.label),['Level 1: Count Within 1,000','Level 2: Read and Write Numbers','Level 3: Skip Count by 5s and 10s','Level 4: Skip Count by 100s','Mixed']);
+['sequence_gap_error','hundreds_transition_error','skip_count_error','numeral_word_mismatch'].forEach((tag)=>{
+  assert.ok(g2CountReadWrite.misconception_bank[tag],`G2M_NS_001 misconception bank includes ${tag}`);
+  assert.ok(g2CountReadWrite.level_banks.flatMap((level)=>level.questions).some((q)=>q.misconception_tag===tag),`G2M_NS_001 level banks cover ${tag}`);
+});
+const g2CountQuestions=[...g2CountReadWrite.guided_practice,...g2CountReadWrite.adaptive_question_bank,...g2CountReadWrite.checkpoint,...g2CountReadWrite.level_banks.flatMap((level)=>level.questions)];
+assert.ok(g2CountQuestions.some((q)=>String(q.prompt).includes('198')&&String(q.prompt).includes('199')&&String(q.correct_answer).replace(',','')==='200'),'G2M_NS_001 includes 198, 199, 200 transition');
+assert.ok(g2CountQuestions.some((q)=>String(q.prompt).includes('998')&&String(q.prompt).includes('999')&&String(q.correct_answer).replace(',','')==='1000'),'G2M_NS_001 includes 998, 999, 1000 transition');
+assert.ok(g2CountQuestions.some((q)=>q.misconception_tag==='numeral_word_mismatch'&&q.question_type==='short_response'&&q.acceptable_answers?.length),'G2M_NS_001 includes number-word short responses with acceptable_answers');
+assert.ok(g2CountQuestions.some((q)=>q.step===5),'G2M_NS_001 includes skip-count by 5s');
+assert.ok(g2CountQuestions.some((q)=>q.step===10),'G2M_NS_001 includes skip-count by 10s');
+assert.ok(g2CountQuestions.some((q)=>q.step===100),'G2M_NS_001 includes skip-count by 100s');
+assert.match(VisualRegistry.render(g2CountQuestions.find((q)=>q.visual_model==='number_sequence')),/data-renderer="number_sequence"/,'number_sequence renderer output exists for G2M_NS_001');
+assert.match(VisualRegistry.render(g2CountQuestions.find((q)=>q.visual_model==='place_value_chart')),/data-renderer="place_value_chart"/,'place_value_chart renderer output exists for G2M_NS_001');
+assert.ok(Renderer.evaluateAnswer(g2CountQuestions.find((q)=>q.correct_answer==='1000'&&q.question_type==='short_response'),'1,000'),'G2M_NS_001 accepts comma form for 1000');
+
+assert.equal(g2Compare.domain,'Number and Operations in Base Ten');
+assert.equal(g2Compare.skill,'Compare Three-Digit Numbers');
+assert.deepEqual(g2Compare.level_banks.map((level)=>level.label),['Level 1: Compare Hundreds','Level 2: Compare Tens','Level 3: Compare Ones','Level 4: Use >, <, =','Mixed']);
+['compares_left_to_right_incorrectly','symbol_reversal','place_value_compare_error','equal_confusion'].forEach((tag)=>{
+  assert.ok(g2Compare.misconception_bank[tag],`G2M_NS_002 misconception bank includes ${tag}`);
+  assert.ok(g2Compare.level_banks.flatMap((level)=>level.questions).some((q)=>q.misconception_tag===tag),`G2M_NS_002 level banks cover ${tag}`);
+});
+const g2CompareQuestions=[...g2Compare.guided_practice,...g2Compare.adaptive_question_bank,...g2Compare.checkpoint,...g2Compare.level_banks.flatMap((level)=>level.questions)];
+assert.ok(g2CompareQuestions.some((q)=>Math.floor(q.left/100)!==Math.floor(q.right/100)),'G2M_NS_002 includes comparisons where hundreds decide');
+assert.ok(g2CompareQuestions.some((q)=>Math.floor(q.left/100)===Math.floor(q.right/100)&&Math.floor((q.left%100)/10)!==Math.floor((q.right%100)/10)),'G2M_NS_002 includes comparisons where tens decide');
+assert.ok(g2CompareQuestions.some((q)=>Math.floor(q.left/10)===Math.floor(q.right/10)&&q.left%10!==q.right%10),'G2M_NS_002 includes comparisons where ones decide');
+assert.ok(g2CompareQuestions.some((q)=>q.correct_answer==='='),'G2M_NS_002 includes equality examples');
+assert.ok(g2CompareQuestions.some((q)=>['>','<','='].includes(q.correct_answer)),'G2M_NS_002 includes symbol selection');
+assert.ok(g2CompareQuestions.filter((q)=>q.question_type==='short_response').every((q)=>q.acceptable_answers&&q.acceptable_answers.some((answer)=>/greater than|less than|equal to|>|<|=/.test(answer))), 'G2M_NS_002 short responses include symbol/word acceptable_answers');
+assert.match(VisualRegistry.render(g2CompareQuestions.find((q)=>q.visual_model==='comparison')),/data-renderer="comparison"/,'comparison renderer output exists for G2M_NS_002');
+assert.match(VisualRegistry.render(g2CompareQuestions.find((q)=>q.visual_model==='place_value_chart')),/data-renderer="place_value_chart"/,'place_value_chart renderer output exists for G2M_NS_002');
+assert.match(VisualRegistry.render(g2CompareQuestions.find((q)=>q.visual_model==='base_ten_blocks')),/data-renderer="base_ten_blocks"/,'base_ten_blocks renderer output exists for G2M_NS_002');
+assert.ok(Renderer.evaluateAnswer(g2CompareQuestions.find((q)=>q.correct_answer==='>'),'greater than'),'G2M_NS_002 accepts greater than word form');
+assert.ok(Renderer.evaluateAnswer(g2CompareQuestions.find((q)=>q.correct_answer==='<'),'less than'),'G2M_NS_002 accepts less than word form');
+assert.ok(Renderer.evaluateAnswer(g2CompareQuestions.find((q)=>q.correct_answer==='='),'equal to'),'G2M_NS_002 accepts equal to word form');
 
 const dpPattern=VisualRegistry.render(dp.checkpoint[0]);
 assert.match(dpPattern,/pattern-visual/);

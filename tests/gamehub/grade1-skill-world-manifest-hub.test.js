@@ -16,7 +16,7 @@ const packageFiles = fs.readdirSync(contentDir)
 const requiredGrade1MathSkillIds = ['G1M_NS_001', 'G1M_NS_002', 'G1M_NS_003', 'G1M_PV_001', 'G1M_OP_001', 'G1M_OP_002', 'G1M_OP_003', 'G1M_GM_001', 'G1M_GM_002', 'G1M_DP_001', 'G1M_MD_TIME_001'];
 const requiredGrade1EnglishSkillIds = ['G1E_RF_001', 'G1E_RF_002', 'G1E_PH_001', 'G1E_PH_002', 'G1E_SW_001', 'G1E_FL_001', 'G1E_RC_001', 'G1E_RC_002', 'G1E_WR_001', 'G1E_WR_002'];
 const requiredGrade1SkillIds = [...requiredGrade1MathSkillIds, ...requiredGrade1EnglishSkillIds];
-const requiredGrade2SkillIds = ['G2M_PV_001'];
+const requiredGrade2SkillIds = ['G2M_NS_001', 'G2M_PV_001', 'G2M_NS_002'];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -97,21 +97,27 @@ test('All Grade 1 English Skill World packages appear from manifest for the hub'
   assert.match(hub, /Practice This Skill/);
 });
 
-test('Grade 2 Skill World package appears from manifest for the hub', () => {
+test('Grade 2 Skill World packages appear from manifest for the hub', () => {
   const packages = manifest.packages.map(readPackage);
-  const g2 = packages.find((pkg) => pkg.skill_id === 'G2M_PV_001');
-  assert.ok(g2);
-  assert.equal(g2.grade, 2);
-  assert.equal(g2.subject, 'Math');
-  assert.equal(g2.domain, 'Number and Operations in Base Ten');
-  assert.equal(g2.skill, 'Place Value to Hundreds');
-  assert.equal(Array.isArray(g2.level_banks), true);
-  assert.equal(g2.level_banks.filter((level) => !/mixed/i.test(`${level.level_id} ${level.label}`)).length, 4);
-  assert.equal(g2.level_banks.some((level) => /mixed/i.test(`${level.level_id} ${level.label}`)), true);
-  assert.equal(`/skill-world/${encodeURIComponent(g2.skill_id)}/drill`, '/skill-world/G2M_PV_001/drill');
+  const grade2Packages = packages.filter((pkg) => requiredGrade2SkillIds.includes(pkg.skill_id));
+  assert.deepEqual(grade2Packages.map((pkg) => pkg.skill_id).sort(), [...requiredGrade2SkillIds].sort());
+  for (const g2 of grade2Packages) {
+    assert.equal(g2.grade, 2);
+    assert.equal(g2.subject, 'Math');
+    assert.equal(Array.isArray(g2.level_banks), true);
+    assert.equal(g2.level_banks.filter((level) => !/mixed/i.test(`${level.level_id} ${level.label}`)).length, 4);
+    assert.equal(g2.level_banks.some((level) => /mixed/i.test(`${level.level_id} ${level.label}`)), true);
+    assert.equal(g2.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+    assert.equal(`/skill-world/${encodeURIComponent(g2.skill_id)}/drill`, `/skill-world/${g2.skill_id}/drill`);
+  }
+  assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_NS_001').domain, 'Number Sense / Base Ten');
+  assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_NS_001').skill, 'Count, Read, and Write Numbers to 1,000');
+  assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_NS_002').domain, 'Number and Operations in Base Ten');
+  assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_NS_002').skill, 'Compare Three-Digit Numbers');
   assert.match(hub, /function buildGradeLessons\(grade\)/);
   assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
   assert.doesNotMatch(hub, /if\(g!==1\)/);
+  assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);
 });
 

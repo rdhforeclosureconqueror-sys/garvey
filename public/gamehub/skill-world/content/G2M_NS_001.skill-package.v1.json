@@ -1,0 +1,2412 @@
+{
+  "skill_id": "G2M_NS_001",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_plan": "curriculum-framework/plans/grade2-math-completion-plan.v1.json",
+    "style_reference": "public/gamehub/skill-world/content/G2M_PV_001.skill-package.v1.json"
+  },
+  "grade": 2,
+  "subject": "Math",
+  "domain": "Number Sense / Base Ten",
+  "skill": "Count, Read, and Write Numbers to 1,000",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Help the Number Trail Rangers repair missing signs on a trail that stretches all the way to 1,000.",
+    "mini_lesson": "Numbers to 1,000 can be counted one at a time, read in word form, or skip-counted by equal jumps. Watch carefully at hundreds transitions: 198, 199, 200 and 998, 999, 1,000.",
+    "objective": "Count, read, write, and skip-count numbers within 1,000.",
+    "key_vocabulary": [
+      "count",
+      "number sequence",
+      "skip count",
+      "hundreds",
+      "word form",
+      "numeral"
+    ],
+    "concept_explanation": "A sequence follows a rule. Counting by 1 changes to the next number, counting by 5s or 10s makes equal jumps, and counting by 100s changes the hundreds.",
+    "visual_model": "number_sequence",
+    "common_misconception": "A child may skip over a hundred transition, such as saying 199, 201, because the new hundred sounds different.",
+    "real_world_connection": "Counting and reading numbers helps with addresses, pages, game scores, and collecting large groups.",
+    "lesson_summary": "Use place value and the counting rule to fill missing numbers and match numerals to word forms."
+  },
+  "worked_examples": [
+    {
+      "text": "198, 199, 200 counts across a hundreds transition."
+    },
+    {
+      "text": "342 is read as three hundred forty-two."
+    },
+    {
+      "text": "Counting by 100s from 275 gives 275, 375, 475, 575."
+    }
+  ],
+  "hint_ladder": [
+    "Find the counting rule.",
+    "Use hundreds, tens, and ones to check the number.",
+    "Say the full sequence aloud before choosing."
+  ],
+  "guided_practice": [
+    {
+      "id": "G2M_NS_001_L1_Q1",
+      "question_id": "G2M_NS_001_L1_Q1",
+      "question_type": "number_sequence",
+      "visual_model": "number_sequence",
+      "prompt": "Fill the missing number: 196, 197, 198, __, 200",
+      "sequence": [
+        "196",
+        "197",
+        "198",
+        "__",
+        "200"
+      ],
+      "answer": "199",
+      "correct_answer": "199",
+      "acceptable_answers": [
+        "199"
+      ],
+      "misconception_tag": "hundreds_transition_error",
+      "hints": [
+        "Find the skip-count rule.",
+        "Add the same amount each step.",
+        "Check every number in the sequence."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "The pattern counts by 1.",
+      "step": 1
+    },
+    {
+      "id": "G2M_NS_001_L2_Q1",
+      "question_id": "G2M_NS_001_L2_Q1",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Write 342 in word form.",
+      "answer": "three hundred forty-two",
+      "correct_answer": "three hundred forty-two",
+      "acceptable_answers": [
+        "three hundred forty-two",
+        "three hundred forty two",
+        "three hundred forty-two."
+      ],
+      "misconception_tag": "numeral_word_mismatch",
+      "hints": [
+        "Find hundreds, tens, and ones.",
+        "Read the hundreds first, then the tens and ones.",
+        "Match the numeral and word form exactly."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "Equivalent answers are accepted when they name the same number.",
+      "value": 342,
+      "number": 342,
+      "hundreds": 3,
+      "tens": 4,
+      "ones": 2
+    },
+    {
+      "id": "G2M_NS_001_L3_Q1",
+      "question_id": "G2M_NS_001_L3_Q1",
+      "question_type": "number_sequence",
+      "visual_model": "number_sequence",
+      "prompt": "Fill the missing number: 125, 130, 135, __, 145",
+      "sequence": [
+        "125",
+        "130",
+        "135",
+        "__",
+        "145"
+      ],
+      "answer": "140",
+      "correct_answer": "140",
+      "acceptable_answers": [
+        "140"
+      ],
+      "misconception_tag": "skip_count_error",
+      "hints": [
+        "Find the skip-count rule.",
+        "Add the same amount each step.",
+        "Check every number in the sequence."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "The pattern counts by 5.",
+      "step": 5
+    },
+    {
+      "id": "G2M_NS_001_L4_Q2",
+      "question_id": "G2M_NS_001_L4_Q2",
+      "question_type": "number_sequence",
+      "visual_model": "number_sequence",
+      "prompt": "Fill the missing number: 275, 375, 475, __",
+      "sequence": [
+        "275",
+        "375",
+        "475",
+        "__"
+      ],
+      "answer": "575",
+      "correct_answer": "575",
+      "acceptable_answers": [
+        "575"
+      ],
+      "misconception_tag": "skip_count_error",
+      "hints": [
+        "Find the skip-count rule.",
+        "Add the same amount each step.",
+        "Check every number in the sequence."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "The pattern counts by 100.",
+      "step": 100
+    },
+    {
+      "id": "G2M_NS_001_L1_Q3",
+      "question_id": "G2M_NS_001_L1_Q3",
+      "question_type": "number_sequence",
+      "visual_model": "number_sequence",
+      "prompt": "Fill the missing number: 996, 997, 998, 999, __",
+      "sequence": [
+        "996",
+        "997",
+        "998",
+        "999",
+        "__"
+      ],
+      "answer": "1000",
+      "correct_answer": "1000",
+      "acceptable_answers": [
+        "1000",
+        "1,000"
+      ],
+      "misconception_tag": "hundreds_transition_error",
+      "hints": [
+        "Find the skip-count rule.",
+        "Add the same amount each step.",
+        "Check every number in the sequence."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "The pattern counts by 1.",
+      "step": 1
+    },
+    {
+      "id": "G2M_NS_001_L2_Q3",
+      "question_id": "G2M_NS_001_L2_Q3",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Write 1000 in word form.",
+      "answer": "one thousand",
+      "correct_answer": "one thousand",
+      "acceptable_answers": [
+        "one thousand",
+        "one thousand."
+      ],
+      "misconception_tag": "numeral_word_mismatch",
+      "hints": [
+        "Find hundreds, tens, and ones.",
+        "Read the hundreds first, then the tens and ones.",
+        "Match the numeral and word form exactly."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "Equivalent answers are accepted when they name the same number.",
+      "value": 1000,
+      "number": 1000,
+      "hundreds": 10,
+      "tens": 0,
+      "ones": 0
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G2M_NS_001_L1_Q5",
+      "question_id": "G2M_NS_001_L1_Q5",
+      "question_type": "short_response",
+      "visual_model": "number_line",
+      "prompt": "What number comes after 409?",
+      "answer": "410",
+      "correct_answer": "410",
+      "acceptable_answers": [
+        "410",
+        "four hundred ten"
+      ],
+      "misconception_tag": "sequence_gap_error",
+      "hints": [
+        "Look at the number before and after.",
+        "Count carefully across the tens or hundreds change.",
+        "Check that the sequence follows the counting rule."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "Equivalent answers are accepted when they name the same number.",
+      "value": 410,
+      "number": 410,
+      "hundreds": 4,
+      "tens": 1,
+      "ones": 0,
+      "min": 406,
+      "max": 414
+    },
+    {
+      "id": "G2M_NS_001_L1_Q6",
+      "question_id": "G2M_NS_001_L1_Q6",
+      "question_type": "short_response",
+      "visual_model": "number_line",
+      "prompt": "What number comes before 700?",
+      "answer": "699",
+      "correct_answer": "699",
+      "acceptable_answers": [
+        "699",
+        "six hundred ninety-nine"
+      ],
+      "misconception_tag": "hundreds_transition_error",
+      "hints": [
+        "Look at the number before and after.",
+        "Count carefully across the tens or hundreds change.",
+        "Check that the sequence follows the counting rule."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "Equivalent answers are accepted when they name the same number.",
+      "value": 699,
+      "number": 699,
+      "hundreds": 6,
+      "tens": 9,
+      "ones": 9,
+      "min": 695,
+      "max": 703
+    },
+    {
+      "id": "G2M_NS_001_L1_Q7",
+      "question_id": "G2M_NS_001_L1_Q7",
+      "question_type": "multiple_choice",
+      "visual_model": "number_sequence",
+      "prompt": "Which sequence counts forward by 1 across a hundred?",
+      "answer": "298, 299, 300",
+      "correct_answer": "298, 299, 300",
+      "misconception_tag": "hundreds_transition_error",
+      "hints": [
+        "Look at the number before and after.",
+        "Count carefully across the tens or hundreds change.",
+        "Check that the sequence follows the counting rule."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "Use place value and counting patterns to decide.",
+      "options": [
+        "298, 299, 300",
+        "298, 299, 301",
+        "298, 300, 301"
+      ],
+      "sequence": [
+        "298",
+        "299",
+        "300"
+      ]
+    },
+    {
+      "id": "G2M_NS_001_L1_Q8",
+      "question_id": "G2M_NS_001_L1_Q8",
+      "question_type": "short_response",
+      "visual_model": "number_line",
+      "prompt": "What number is between 549 and 551?",
+      "answer": "550",
+      "correct_answer": "550",
+      "acceptable_answers": [
+        "550",
+        "five hundred fifty"
+      ],
+      "misconception_tag": "sequence_gap_error",
+      "hints": [
+        "Look at the number before and after.",
+        "Count carefully across the tens or hundreds change.",
+        "Check that the sequence follows the counting rule."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "Equivalent answers are accepted when they name the same number.",
+      "value": 550,
+      "number": 550,
+      "hundreds": 5,
+      "tens": 5,
+      "ones": 0,
+      "min": 546,
+      "max": 554
+    },
+    {
+      "id": "G2M_NS_001_L2_Q5",
+      "question_id": "G2M_NS_001_L2_Q5",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "Which word form matches 890?",
+      "answer": "eight hundred ninety",
+      "correct_answer": "eight hundred ninety",
+      "misconception_tag": "numeral_word_mismatch",
+      "hints": [
+        "Find hundreds, tens, and ones.",
+        "Read the hundreds first, then the tens and ones.",
+        "Match the numeral and word form exactly."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "Use place value and counting patterns to decide.",
+      "options": [
+        "eight hundred ninety",
+        "eight thousand ninety",
+        "eight hundred eighty"
+      ],
+      "value": 890,
+      "number": 890,
+      "hundreds": 8,
+      "tens": 9,
+      "ones": 0
+    },
+    {
+      "id": "G2M_NS_001_L2_Q6",
+      "question_id": "G2M_NS_001_L2_Q6",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "Which numeral matches nine hundred five?",
+      "answer": "905",
+      "correct_answer": "905",
+      "misconception_tag": "numeral_word_mismatch",
+      "hints": [
+        "Find hundreds, tens, and ones.",
+        "Read the hundreds first, then the tens and ones.",
+        "Match the numeral and word form exactly."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "Use place value and counting patterns to decide.",
+      "options": [
+        "950",
+        "905",
+        "95"
+      ],
+      "value": 905,
+      "number": 905,
+      "hundreds": 9,
+      "tens": 0,
+      "ones": 5
+    },
+    {
+      "id": "G2M_NS_001_L2_Q7",
+      "question_id": "G2M_NS_001_L2_Q7",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Write 630 in word form.",
+      "answer": "six hundred thirty",
+      "correct_answer": "six hundred thirty",
+      "acceptable_answers": [
+        "six hundred thirty",
+        "six hundred thirty."
+      ],
+      "misconception_tag": "numeral_word_mismatch",
+      "hints": [
+        "Find hundreds, tens, and ones.",
+        "Read the hundreds first, then the tens and ones.",
+        "Match the numeral and word form exactly."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "Equivalent answers are accepted when they name the same number.",
+      "value": 630,
+      "number": 630,
+      "hundreds": 6,
+      "tens": 3,
+      "ones": 0
+    },
+    {
+      "id": "G2M_NS_001_L2_Q8",
+      "question_id": "G2M_NS_001_L2_Q8",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Write two hundred eighty-four as a number.",
+      "answer": "284",
+      "correct_answer": "284",
+      "acceptable_answers": [
+        "284"
+      ],
+      "misconception_tag": "numeral_word_mismatch",
+      "hints": [
+        "Find hundreds, tens, and ones.",
+        "Read the hundreds first, then the tens and ones.",
+        "Match the numeral and word form exactly."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "Equivalent answers are accepted when they name the same number.",
+      "value": 284,
+      "number": 284,
+      "hundreds": 2,
+      "tens": 8,
+      "ones": 4
+    },
+    {
+      "id": "G2M_NS_001_L3_Q5",
+      "question_id": "G2M_NS_001_L3_Q5",
+      "question_type": "multiple_choice",
+      "visual_model": "number_sequence",
+      "prompt": "Count by 5s: 565, 570, 575, __",
+      "answer": "580",
+      "correct_answer": "580",
+      "misconception_tag": "skip_count_error",
+      "hints": [
+        "Look at the number before and after.",
+        "Count carefully across the tens or hundreds change.",
+        "Check that the sequence follows the counting rule."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "Use place value and counting patterns to decide.",
+      "options": [
+        "580",
+        "585",
+        "590"
+      ],
+      "sequence": [
+        "565",
+        "570",
+        "575",
+        "__"
+      ]
+    },
+    {
+      "id": "G2M_NS_001_L3_Q6",
+      "question_id": "G2M_NS_001_L3_Q6",
+      "question_type": "short_response",
+      "visual_model": "number_sequence",
+      "prompt": "Count by 10s: 340, 350, 360, __",
+      "answer": "370",
+      "correct_answer": "370",
+      "acceptable_answers": [
+        "370",
+        "three hundred seventy"
+      ],
+      "misconception_tag": "skip_count_error",
+      "hints": [
+        "Find the skip-count rule.",
+        "Add the same amount each step.",
+        "Check every number in the sequence."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "Equivalent answers are accepted when they name the same number.",
+      "sequence": [
+        "340",
+        "350",
+        "360",
+        "__"
+      ]
+    },
+    {
+      "id": "G2M_NS_001_L3_Q7",
+      "question_id": "G2M_NS_001_L3_Q7",
+      "question_type": "number_sequence",
+      "visual_model": "number_sequence",
+      "prompt": "Fill the missing number: 795, 800, 805, __",
+      "sequence": [
+        "795",
+        "800",
+        "805",
+        "__"
+      ],
+      "answer": "810",
+      "correct_answer": "810",
+      "acceptable_answers": [
+        "810"
+      ],
+      "misconception_tag": "skip_count_error",
+      "hints": [
+        "Find the skip-count rule.",
+        "Add the same amount each step.",
+        "Check every number in the sequence."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "The pattern counts by 5.",
+      "step": 5
+    },
+    {
+      "id": "G2M_NS_001_L3_Q8",
+      "question_id": "G2M_NS_001_L3_Q8",
+      "question_type": "number_sequence",
+      "visual_model": "number_sequence",
+      "prompt": "Fill the missing number: 610, 620, 630, __",
+      "sequence": [
+        "610",
+        "620",
+        "630",
+        "__"
+      ],
+      "answer": "640",
+      "correct_answer": "640",
+      "acceptable_answers": [
+        "640"
+      ],
+      "misconception_tag": "skip_count_error",
+      "hints": [
+        "Find the skip-count rule.",
+        "Add the same amount each step.",
+        "Check every number in the sequence."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "The pattern counts by 10.",
+      "step": 10
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G2M_NS_001_L1_Q2",
+      "question_id": "G2M_NS_001_L1_Q2",
+      "question_type": "number_sequence",
+      "visual_model": "number_sequence",
+      "prompt": "Fill the missing number: 198, 199, __, 201, 202",
+      "sequence": [
+        "198",
+        "199",
+        "__",
+        "201",
+        "202"
+      ],
+      "answer": "200",
+      "correct_answer": "200",
+      "acceptable_answers": [
+        "200"
+      ],
+      "misconception_tag": "hundreds_transition_error",
+      "hints": [
+        "Find the skip-count rule.",
+        "Add the same amount each step.",
+        "Check every number in the sequence."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "The pattern counts by 1.",
+      "step": 1
+    },
+    {
+      "id": "G2M_NS_001_L1_Q10",
+      "question_id": "G2M_NS_001_L1_Q10",
+      "question_type": "short_response",
+      "visual_model": "number_line",
+      "prompt": "What number comes after 999?",
+      "answer": "1000",
+      "correct_answer": "1000",
+      "acceptable_answers": [
+        "1000",
+        "1,000",
+        "one thousand"
+      ],
+      "misconception_tag": "hundreds_transition_error",
+      "hints": [
+        "Look at the number before and after.",
+        "Count carefully across the tens or hundreds change.",
+        "Check that the sequence follows the counting rule."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "Equivalent answers are accepted when they name the same number.",
+      "value": 1000,
+      "number": 1000,
+      "hundreds": 10,
+      "tens": 0,
+      "ones": 0,
+      "min": 996,
+      "max": 1000
+    },
+    {
+      "id": "G2M_NS_001_L3_Q9",
+      "question_id": "G2M_NS_001_L3_Q9",
+      "question_type": "number_sequence",
+      "visual_model": "number_sequence",
+      "prompt": "Fill the missing number: 985, 990, 995, __",
+      "sequence": [
+        "985",
+        "990",
+        "995",
+        "__"
+      ],
+      "answer": "1000",
+      "correct_answer": "1000",
+      "acceptable_answers": [
+        "1000",
+        "1,000"
+      ],
+      "misconception_tag": "skip_count_error",
+      "hints": [
+        "Find the skip-count rule.",
+        "Add the same amount each step.",
+        "Check every number in the sequence."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "The pattern counts by 5.",
+      "step": 5
+    },
+    {
+      "id": "G2M_NS_001_L4_Q4",
+      "question_id": "G2M_NS_001_L4_Q4",
+      "question_type": "number_sequence",
+      "visual_model": "number_sequence",
+      "prompt": "Fill the missing number: 700, 800, 900, __",
+      "sequence": [
+        "700",
+        "800",
+        "900",
+        "__"
+      ],
+      "answer": "1000",
+      "correct_answer": "1000",
+      "acceptable_answers": [
+        "1000",
+        "1,000"
+      ],
+      "misconception_tag": "skip_count_error",
+      "hints": [
+        "Find the skip-count rule.",
+        "Add the same amount each step.",
+        "Check every number in the sequence."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "The pattern counts by 100.",
+      "step": 100
+    }
+  ],
+  "misconception_bank": {
+    "sequence_gap_error": "Missing or repeating a number when counting by ones.",
+    "hundreds_transition_error": "Losing the sequence when a new hundred or 1,000 appears.",
+    "skip_count_error": "Adding the wrong skip-count amount.",
+    "numeral_word_mismatch": "Matching a numeral with a different word form."
+  },
+  "review_bank": [
+    {
+      "id": "G2M_NS_001_M_Q1",
+      "question_id": "G2M_NS_001_M_Q1",
+      "question_type": "number_sequence",
+      "visual_model": "number_sequence",
+      "prompt": "Fill the missing number: 198, 199, __",
+      "sequence": [
+        "198",
+        "199",
+        "__"
+      ],
+      "answer": "200",
+      "correct_answer": "200",
+      "acceptable_answers": [
+        "200"
+      ],
+      "misconception_tag": "hundreds_transition_error",
+      "hints": [
+        "Find the skip-count rule.",
+        "Add the same amount each step.",
+        "Check every number in the sequence."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "The pattern counts by 1.",
+      "step": 1
+    },
+    {
+      "id": "G2M_NS_001_M_Q2",
+      "question_id": "G2M_NS_001_M_Q2",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Write 1000 in word form.",
+      "answer": "one thousand",
+      "correct_answer": "one thousand",
+      "acceptable_answers": [
+        "one thousand",
+        "one thousand."
+      ],
+      "misconception_tag": "numeral_word_mismatch",
+      "hints": [
+        "Find hundreds, tens, and ones.",
+        "Read the hundreds first, then the tens and ones.",
+        "Match the numeral and word form exactly."
+      ],
+      "feedback": {
+        "correct": "Nice number sense!",
+        "incorrect": "Try the place-value or sequence clue again."
+      },
+      "explanation": "Equivalent answers are accepted when they name the same number.",
+      "value": 1000,
+      "number": 1000,
+      "hundreds": 10,
+      "tens": 0,
+      "ones": 0
+    }
+  ],
+  "game_theme": {
+    "title": "Number Trail to 1,000",
+    "mission_intro": "Repair the trail signs by counting and reading numbers to 1,000.",
+    "badge_name": "1,000 Trail Ranger"
+  },
+  "next_skill_id": "G2M_PV_001",
+  "remediation_skill_id": "G1M_NS_002",
+  "level_banks": [
+    {
+      "level_id": "G2M_NS_001_LVL1",
+      "label": "Level 1: Count Within 1,000",
+      "focus": "Count forward and backward within 1,000, including hundreds transitions.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_NS_001_L1_Q1",
+          "question_id": "G2M_NS_001_L1_Q1",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 196, 197, 198, __, 200",
+          "sequence": [
+            "196",
+            "197",
+            "198",
+            "__",
+            "200"
+          ],
+          "answer": "199",
+          "correct_answer": "199",
+          "acceptable_answers": [
+            "199"
+          ],
+          "misconception_tag": "hundreds_transition_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 1.",
+          "step": 1
+        },
+        {
+          "id": "G2M_NS_001_L1_Q2",
+          "question_id": "G2M_NS_001_L1_Q2",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 198, 199, __, 201, 202",
+          "sequence": [
+            "198",
+            "199",
+            "__",
+            "201",
+            "202"
+          ],
+          "answer": "200",
+          "correct_answer": "200",
+          "acceptable_answers": [
+            "200"
+          ],
+          "misconception_tag": "hundreds_transition_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 1.",
+          "step": 1
+        },
+        {
+          "id": "G2M_NS_001_L1_Q3",
+          "question_id": "G2M_NS_001_L1_Q3",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 996, 997, 998, 999, __",
+          "sequence": [
+            "996",
+            "997",
+            "998",
+            "999",
+            "__"
+          ],
+          "answer": "1000",
+          "correct_answer": "1000",
+          "acceptable_answers": [
+            "1000",
+            "1,000"
+          ],
+          "misconception_tag": "hundreds_transition_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 1.",
+          "step": 1
+        },
+        {
+          "id": "G2M_NS_001_L1_Q4",
+          "question_id": "G2M_NS_001_L1_Q4",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 997, 998, 999, __",
+          "sequence": [
+            "997",
+            "998",
+            "999",
+            "__"
+          ],
+          "answer": "1000",
+          "correct_answer": "1000",
+          "acceptable_answers": [
+            "1000",
+            "1,000"
+          ],
+          "misconception_tag": "hundreds_transition_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 1.",
+          "step": 1
+        },
+        {
+          "id": "G2M_NS_001_L1_Q5",
+          "question_id": "G2M_NS_001_L1_Q5",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "What number comes after 409?",
+          "answer": "410",
+          "correct_answer": "410",
+          "acceptable_answers": [
+            "410",
+            "four hundred ten"
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "hints": [
+            "Look at the number before and after.",
+            "Count carefully across the tens or hundreds change.",
+            "Check that the sequence follows the counting rule."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 410,
+          "number": 410,
+          "hundreds": 4,
+          "tens": 1,
+          "ones": 0,
+          "min": 406,
+          "max": 414
+        },
+        {
+          "id": "G2M_NS_001_L1_Q6",
+          "question_id": "G2M_NS_001_L1_Q6",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "What number comes before 700?",
+          "answer": "699",
+          "correct_answer": "699",
+          "acceptable_answers": [
+            "699",
+            "six hundred ninety-nine"
+          ],
+          "misconception_tag": "hundreds_transition_error",
+          "hints": [
+            "Look at the number before and after.",
+            "Count carefully across the tens or hundreds change.",
+            "Check that the sequence follows the counting rule."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 699,
+          "number": 699,
+          "hundreds": 6,
+          "tens": 9,
+          "ones": 9,
+          "min": 695,
+          "max": 703
+        },
+        {
+          "id": "G2M_NS_001_L1_Q7",
+          "question_id": "G2M_NS_001_L1_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "prompt": "Which sequence counts forward by 1 across a hundred?",
+          "answer": "298, 299, 300",
+          "correct_answer": "298, 299, 300",
+          "misconception_tag": "hundreds_transition_error",
+          "hints": [
+            "Look at the number before and after.",
+            "Count carefully across the tens or hundreds change.",
+            "Check that the sequence follows the counting rule."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Use place value and counting patterns to decide.",
+          "options": [
+            "298, 299, 300",
+            "298, 299, 301",
+            "298, 300, 301"
+          ],
+          "sequence": [
+            "298",
+            "299",
+            "300"
+          ]
+        },
+        {
+          "id": "G2M_NS_001_L1_Q8",
+          "question_id": "G2M_NS_001_L1_Q8",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "What number is between 549 and 551?",
+          "answer": "550",
+          "correct_answer": "550",
+          "acceptable_answers": [
+            "550",
+            "five hundred fifty"
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "hints": [
+            "Look at the number before and after.",
+            "Count carefully across the tens or hundreds change.",
+            "Check that the sequence follows the counting rule."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 550,
+          "number": 550,
+          "hundreds": 5,
+          "tens": 5,
+          "ones": 0,
+          "min": 546,
+          "max": 554
+        },
+        {
+          "id": "G2M_NS_001_L1_Q9",
+          "question_id": "G2M_NS_001_L1_Q9",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 789, 790, __, 792",
+          "sequence": [
+            "789",
+            "790",
+            "__",
+            "792"
+          ],
+          "answer": "791",
+          "correct_answer": "791",
+          "acceptable_answers": [
+            "791"
+          ],
+          "misconception_tag": "sequence_gap_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 1.",
+          "step": 1
+        },
+        {
+          "id": "G2M_NS_001_L1_Q10",
+          "question_id": "G2M_NS_001_L1_Q10",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "What number comes after 999?",
+          "answer": "1000",
+          "correct_answer": "1000",
+          "acceptable_answers": [
+            "1000",
+            "1,000",
+            "one thousand"
+          ],
+          "misconception_tag": "hundreds_transition_error",
+          "hints": [
+            "Look at the number before and after.",
+            "Count carefully across the tens or hundreds change.",
+            "Check that the sequence follows the counting rule."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 1000,
+          "number": 1000,
+          "hundreds": 10,
+          "tens": 0,
+          "ones": 0,
+          "min": 996,
+          "max": 1000
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_NS_001_LVL2",
+      "label": "Level 2: Read and Write Numbers",
+      "focus": "Match numerals and word forms through 1,000.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_NS_001_L2_Q1",
+          "question_id": "G2M_NS_001_L2_Q1",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Write 342 in word form.",
+          "answer": "three hundred forty-two",
+          "correct_answer": "three hundred forty-two",
+          "acceptable_answers": [
+            "three hundred forty-two",
+            "three hundred forty two",
+            "three hundred forty-two."
+          ],
+          "misconception_tag": "numeral_word_mismatch",
+          "hints": [
+            "Find hundreds, tens, and ones.",
+            "Read the hundreds first, then the tens and ones.",
+            "Match the numeral and word form exactly."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 342,
+          "number": 342,
+          "hundreds": 3,
+          "tens": 4,
+          "ones": 2
+        },
+        {
+          "id": "G2M_NS_001_L2_Q2",
+          "question_id": "G2M_NS_001_L2_Q2",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Write five hundred six as a number.",
+          "answer": "506",
+          "correct_answer": "506",
+          "acceptable_answers": [
+            "506"
+          ],
+          "misconception_tag": "numeral_word_mismatch",
+          "hints": [
+            "Find hundreds, tens, and ones.",
+            "Read the hundreds first, then the tens and ones.",
+            "Match the numeral and word form exactly."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 506,
+          "number": 506,
+          "hundreds": 5,
+          "tens": 0,
+          "ones": 6
+        },
+        {
+          "id": "G2M_NS_001_L2_Q3",
+          "question_id": "G2M_NS_001_L2_Q3",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Write 1000 in word form.",
+          "answer": "one thousand",
+          "correct_answer": "one thousand",
+          "acceptable_answers": [
+            "one thousand",
+            "one thousand."
+          ],
+          "misconception_tag": "numeral_word_mismatch",
+          "hints": [
+            "Find hundreds, tens, and ones.",
+            "Read the hundreds first, then the tens and ones.",
+            "Match the numeral and word form exactly."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 1000,
+          "number": 1000,
+          "hundreds": 10,
+          "tens": 0,
+          "ones": 0
+        },
+        {
+          "id": "G2M_NS_001_L2_Q4",
+          "question_id": "G2M_NS_001_L2_Q4",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Write seven hundred nineteen as a number.",
+          "answer": "719",
+          "correct_answer": "719",
+          "acceptable_answers": [
+            "719"
+          ],
+          "misconception_tag": "numeral_word_mismatch",
+          "hints": [
+            "Find hundreds, tens, and ones.",
+            "Read the hundreds first, then the tens and ones.",
+            "Match the numeral and word form exactly."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 719,
+          "number": 719,
+          "hundreds": 7,
+          "tens": 1,
+          "ones": 9
+        },
+        {
+          "id": "G2M_NS_001_L2_Q5",
+          "question_id": "G2M_NS_001_L2_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Which word form matches 890?",
+          "answer": "eight hundred ninety",
+          "correct_answer": "eight hundred ninety",
+          "misconception_tag": "numeral_word_mismatch",
+          "hints": [
+            "Find hundreds, tens, and ones.",
+            "Read the hundreds first, then the tens and ones.",
+            "Match the numeral and word form exactly."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Use place value and counting patterns to decide.",
+          "options": [
+            "eight hundred ninety",
+            "eight thousand ninety",
+            "eight hundred eighty"
+          ],
+          "value": 890,
+          "number": 890,
+          "hundreds": 8,
+          "tens": 9,
+          "ones": 0
+        },
+        {
+          "id": "G2M_NS_001_L2_Q6",
+          "question_id": "G2M_NS_001_L2_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Which numeral matches nine hundred five?",
+          "answer": "905",
+          "correct_answer": "905",
+          "misconception_tag": "numeral_word_mismatch",
+          "hints": [
+            "Find hundreds, tens, and ones.",
+            "Read the hundreds first, then the tens and ones.",
+            "Match the numeral and word form exactly."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Use place value and counting patterns to decide.",
+          "options": [
+            "950",
+            "905",
+            "95"
+          ],
+          "value": 905,
+          "number": 905,
+          "hundreds": 9,
+          "tens": 0,
+          "ones": 5
+        },
+        {
+          "id": "G2M_NS_001_L2_Q7",
+          "question_id": "G2M_NS_001_L2_Q7",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Write 630 in word form.",
+          "answer": "six hundred thirty",
+          "correct_answer": "six hundred thirty",
+          "acceptable_answers": [
+            "six hundred thirty",
+            "six hundred thirty."
+          ],
+          "misconception_tag": "numeral_word_mismatch",
+          "hints": [
+            "Find hundreds, tens, and ones.",
+            "Read the hundreds first, then the tens and ones.",
+            "Match the numeral and word form exactly."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 630,
+          "number": 630,
+          "hundreds": 6,
+          "tens": 3,
+          "ones": 0
+        },
+        {
+          "id": "G2M_NS_001_L2_Q8",
+          "question_id": "G2M_NS_001_L2_Q8",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Write two hundred eighty-four as a number.",
+          "answer": "284",
+          "correct_answer": "284",
+          "acceptable_answers": [
+            "284"
+          ],
+          "misconception_tag": "numeral_word_mismatch",
+          "hints": [
+            "Find hundreds, tens, and ones.",
+            "Read the hundreds first, then the tens and ones.",
+            "Match the numeral and word form exactly."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 284,
+          "number": 284,
+          "hundreds": 2,
+          "tens": 8,
+          "ones": 4
+        },
+        {
+          "id": "G2M_NS_001_L2_Q9",
+          "question_id": "G2M_NS_001_L2_Q9",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Write 999 in word form.",
+          "answer": "nine hundred ninety-nine",
+          "correct_answer": "nine hundred ninety-nine",
+          "acceptable_answers": [
+            "nine hundred ninety-nine",
+            "nine hundred ninety nine",
+            "nine hundred ninety-nine."
+          ],
+          "misconception_tag": "numeral_word_mismatch",
+          "hints": [
+            "Find hundreds, tens, and ones.",
+            "Read the hundreds first, then the tens and ones.",
+            "Match the numeral and word form exactly."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 999,
+          "number": 999,
+          "hundreds": 9,
+          "tens": 9,
+          "ones": 9
+        },
+        {
+          "id": "G2M_NS_001_L2_Q10",
+          "question_id": "G2M_NS_001_L2_Q10",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Write four hundred one as a number.",
+          "answer": "401",
+          "correct_answer": "401",
+          "acceptable_answers": [
+            "401"
+          ],
+          "misconception_tag": "numeral_word_mismatch",
+          "hints": [
+            "Find hundreds, tens, and ones.",
+            "Read the hundreds first, then the tens and ones.",
+            "Match the numeral and word form exactly."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 401,
+          "number": 401,
+          "hundreds": 4,
+          "tens": 0,
+          "ones": 1
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_NS_001_LVL3",
+      "label": "Level 3: Skip Count by 5s and 10s",
+      "focus": "Skip-count by 5s and 10s within 1,000.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_NS_001_L3_Q1",
+          "question_id": "G2M_NS_001_L3_Q1",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 125, 130, 135, __, 145",
+          "sequence": [
+            "125",
+            "130",
+            "135",
+            "__",
+            "145"
+          ],
+          "answer": "140",
+          "correct_answer": "140",
+          "acceptable_answers": [
+            "140"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 5.",
+          "step": 5
+        },
+        {
+          "id": "G2M_NS_001_L3_Q2",
+          "question_id": "G2M_NS_001_L3_Q2",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 485, 490, 495, __",
+          "sequence": [
+            "485",
+            "490",
+            "495",
+            "__"
+          ],
+          "answer": "500",
+          "correct_answer": "500",
+          "acceptable_answers": [
+            "500"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 5.",
+          "step": 5
+        },
+        {
+          "id": "G2M_NS_001_L3_Q3",
+          "question_id": "G2M_NS_001_L3_Q3",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 970, 980, 990, __",
+          "sequence": [
+            "970",
+            "980",
+            "990",
+            "__"
+          ],
+          "answer": "1000",
+          "correct_answer": "1000",
+          "acceptable_answers": [
+            "1000",
+            "1,000"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 10.",
+          "step": 10
+        },
+        {
+          "id": "G2M_NS_001_L3_Q4",
+          "question_id": "G2M_NS_001_L3_Q4",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 210, 220, __, 240",
+          "sequence": [
+            "210",
+            "220",
+            "__",
+            "240"
+          ],
+          "answer": "230",
+          "correct_answer": "230",
+          "acceptable_answers": [
+            "230"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 10.",
+          "step": 10
+        },
+        {
+          "id": "G2M_NS_001_L3_Q5",
+          "question_id": "G2M_NS_001_L3_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "prompt": "Count by 5s: 565, 570, 575, __",
+          "answer": "580",
+          "correct_answer": "580",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Look at the number before and after.",
+            "Count carefully across the tens or hundreds change.",
+            "Check that the sequence follows the counting rule."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Use place value and counting patterns to decide.",
+          "options": [
+            "580",
+            "585",
+            "590"
+          ],
+          "sequence": [
+            "565",
+            "570",
+            "575",
+            "__"
+          ]
+        },
+        {
+          "id": "G2M_NS_001_L3_Q6",
+          "question_id": "G2M_NS_001_L3_Q6",
+          "question_type": "short_response",
+          "visual_model": "number_sequence",
+          "prompt": "Count by 10s: 340, 350, 360, __",
+          "answer": "370",
+          "correct_answer": "370",
+          "acceptable_answers": [
+            "370",
+            "three hundred seventy"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "sequence": [
+            "340",
+            "350",
+            "360",
+            "__"
+          ]
+        },
+        {
+          "id": "G2M_NS_001_L3_Q7",
+          "question_id": "G2M_NS_001_L3_Q7",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 795, 800, 805, __",
+          "sequence": [
+            "795",
+            "800",
+            "805",
+            "__"
+          ],
+          "answer": "810",
+          "correct_answer": "810",
+          "acceptable_answers": [
+            "810"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 5.",
+          "step": 5
+        },
+        {
+          "id": "G2M_NS_001_L3_Q8",
+          "question_id": "G2M_NS_001_L3_Q8",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 610, 620, 630, __",
+          "sequence": [
+            "610",
+            "620",
+            "630",
+            "__"
+          ],
+          "answer": "640",
+          "correct_answer": "640",
+          "acceptable_answers": [
+            "640"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 10.",
+          "step": 10
+        },
+        {
+          "id": "G2M_NS_001_L3_Q9",
+          "question_id": "G2M_NS_001_L3_Q9",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 985, 990, 995, __",
+          "sequence": [
+            "985",
+            "990",
+            "995",
+            "__"
+          ],
+          "answer": "1000",
+          "correct_answer": "1000",
+          "acceptable_answers": [
+            "1000",
+            "1,000"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 5.",
+          "step": 5
+        },
+        {
+          "id": "G2M_NS_001_L3_Q10",
+          "question_id": "G2M_NS_001_L3_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "prompt": "Which list skip-counts by 10?",
+          "answer": "450, 460, 470",
+          "correct_answer": "450, 460, 470",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Look at the number before and after.",
+            "Count carefully across the tens or hundreds change.",
+            "Check that the sequence follows the counting rule."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Use place value and counting patterns to decide.",
+          "options": [
+            "450, 460, 470",
+            "450, 455, 460",
+            "450, 550, 650"
+          ],
+          "sequence": [
+            "450",
+            "460",
+            "470"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_NS_001_LVL4",
+      "label": "Level 4: Skip Count by 100s",
+      "focus": "Skip-count by hundreds and notice the hundreds digit changing.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_NS_001_L4_Q1",
+          "question_id": "G2M_NS_001_L4_Q1",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 100, 200, 300, __",
+          "sequence": [
+            "100",
+            "200",
+            "300",
+            "__"
+          ],
+          "answer": "400",
+          "correct_answer": "400",
+          "acceptable_answers": [
+            "400"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 100.",
+          "step": 100
+        },
+        {
+          "id": "G2M_NS_001_L4_Q2",
+          "question_id": "G2M_NS_001_L4_Q2",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 275, 375, 475, __",
+          "sequence": [
+            "275",
+            "375",
+            "475",
+            "__"
+          ],
+          "answer": "575",
+          "correct_answer": "575",
+          "acceptable_answers": [
+            "575"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 100.",
+          "step": 100
+        },
+        {
+          "id": "G2M_NS_001_L4_Q3",
+          "question_id": "G2M_NS_001_L4_Q3",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 600, 700, 800, __",
+          "sequence": [
+            "600",
+            "700",
+            "800",
+            "__"
+          ],
+          "answer": "900",
+          "correct_answer": "900",
+          "acceptable_answers": [
+            "900"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 100.",
+          "step": 100
+        },
+        {
+          "id": "G2M_NS_001_L4_Q4",
+          "question_id": "G2M_NS_001_L4_Q4",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 700, 800, 900, __",
+          "sequence": [
+            "700",
+            "800",
+            "900",
+            "__"
+          ],
+          "answer": "1000",
+          "correct_answer": "1000",
+          "acceptable_answers": [
+            "1000",
+            "1,000"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 100.",
+          "step": 100
+        },
+        {
+          "id": "G2M_NS_001_L4_Q5",
+          "question_id": "G2M_NS_001_L4_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Count by 100s from 318: 318, 418, __",
+          "answer": "518",
+          "correct_answer": "518",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Look at the number before and after.",
+            "Count carefully across the tens or hundreds change.",
+            "Check that the sequence follows the counting rule."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Use place value and counting patterns to decide.",
+          "options": [
+            "508",
+            "518",
+            "618"
+          ],
+          "value": 518,
+          "number": 518,
+          "hundreds": 5,
+          "tens": 1,
+          "ones": 8
+        },
+        {
+          "id": "G2M_NS_001_L4_Q6",
+          "question_id": "G2M_NS_001_L4_Q6",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "What is 100 more than 642?",
+          "answer": "742",
+          "correct_answer": "742",
+          "acceptable_answers": [
+            "742",
+            "seven hundred forty-two"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 742,
+          "number": 742,
+          "hundreds": 7,
+          "tens": 4,
+          "ones": 2
+        },
+        {
+          "id": "G2M_NS_001_L4_Q7",
+          "question_id": "G2M_NS_001_L4_Q7",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "What is 100 less than 900?",
+          "answer": "800",
+          "correct_answer": "800",
+          "acceptable_answers": [
+            "800",
+            "eight hundred"
+          ],
+          "misconception_tag": "hundreds_transition_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 800,
+          "number": 800,
+          "hundreds": 8,
+          "tens": 0,
+          "ones": 0
+        },
+        {
+          "id": "G2M_NS_001_L4_Q8",
+          "question_id": "G2M_NS_001_L4_Q8",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 88, 188, 288, __",
+          "sequence": [
+            "88",
+            "188",
+            "288",
+            "__"
+          ],
+          "answer": "388",
+          "correct_answer": "388",
+          "acceptable_answers": [
+            "388"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 100.",
+          "step": 100
+        },
+        {
+          "id": "G2M_NS_001_L4_Q9",
+          "question_id": "G2M_NS_001_L4_Q9",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 505, 605, 705, __",
+          "sequence": [
+            "505",
+            "605",
+            "705",
+            "__"
+          ],
+          "answer": "805",
+          "correct_answer": "805",
+          "acceptable_answers": [
+            "805"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 100.",
+          "step": 100
+        },
+        {
+          "id": "G2M_NS_001_L4_Q10",
+          "question_id": "G2M_NS_001_L4_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "number_sequence",
+          "prompt": "Which number comes next when counting by 100s: 650, 750, 850, __?",
+          "answer": "950",
+          "correct_answer": "950",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Look at the number before and after.",
+            "Count carefully across the tens or hundreds change.",
+            "Check that the sequence follows the counting rule."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Use place value and counting patterns to decide.",
+          "options": [
+            "860",
+            "900",
+            "950"
+          ],
+          "sequence": [
+            "650",
+            "750",
+            "850",
+            "__"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_NS_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mix counting, reading, writing, and skip-counting within 1,000.",
+      "difficulty": 4,
+      "question_count_required": 12,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_NS_001_M_Q1",
+          "question_id": "G2M_NS_001_M_Q1",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 198, 199, __",
+          "sequence": [
+            "198",
+            "199",
+            "__"
+          ],
+          "answer": "200",
+          "correct_answer": "200",
+          "acceptable_answers": [
+            "200"
+          ],
+          "misconception_tag": "hundreds_transition_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 1.",
+          "step": 1
+        },
+        {
+          "id": "G2M_NS_001_M_Q2",
+          "question_id": "G2M_NS_001_M_Q2",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Write 1000 in word form.",
+          "answer": "one thousand",
+          "correct_answer": "one thousand",
+          "acceptable_answers": [
+            "one thousand",
+            "one thousand."
+          ],
+          "misconception_tag": "numeral_word_mismatch",
+          "hints": [
+            "Find hundreds, tens, and ones.",
+            "Read the hundreds first, then the tens and ones.",
+            "Match the numeral and word form exactly."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 1000,
+          "number": 1000,
+          "hundreds": 10,
+          "tens": 0,
+          "ones": 0
+        },
+        {
+          "id": "G2M_NS_001_M_Q3",
+          "question_id": "G2M_NS_001_M_Q3",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 940, 950, 960, __",
+          "sequence": [
+            "940",
+            "950",
+            "960",
+            "__"
+          ],
+          "answer": "970",
+          "correct_answer": "970",
+          "acceptable_answers": [
+            "970"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 10.",
+          "step": 10
+        },
+        {
+          "id": "G2M_NS_001_M_Q4",
+          "question_id": "G2M_NS_001_M_Q4",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Write six hundred fifteen as a number.",
+          "answer": "615",
+          "correct_answer": "615",
+          "acceptable_answers": [
+            "615"
+          ],
+          "misconception_tag": "numeral_word_mismatch",
+          "hints": [
+            "Find hundreds, tens, and ones.",
+            "Read the hundreds first, then the tens and ones.",
+            "Match the numeral and word form exactly."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 615,
+          "number": 615,
+          "hundreds": 6,
+          "tens": 1,
+          "ones": 5
+        },
+        {
+          "id": "G2M_NS_001_M_Q5",
+          "question_id": "G2M_NS_001_M_Q5",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 750, 800, 850, __",
+          "sequence": [
+            "750",
+            "800",
+            "850",
+            "__"
+          ],
+          "answer": "900",
+          "correct_answer": "900",
+          "acceptable_answers": [
+            "900"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 50.",
+          "step": 50
+        },
+        {
+          "id": "G2M_NS_001_M_Q6",
+          "question_id": "G2M_NS_001_M_Q6",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "What number comes before 1000?",
+          "answer": "999",
+          "correct_answer": "999",
+          "acceptable_answers": [
+            "999",
+            "nine hundred ninety-nine"
+          ],
+          "misconception_tag": "hundreds_transition_error",
+          "hints": [
+            "Look at the number before and after.",
+            "Count carefully across the tens or hundreds change.",
+            "Check that the sequence follows the counting rule."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 999,
+          "number": 999,
+          "hundreds": 9,
+          "tens": 9,
+          "ones": 9,
+          "min": 995,
+          "max": 1000
+        },
+        {
+          "id": "G2M_NS_001_M_Q7",
+          "question_id": "G2M_NS_001_M_Q7",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 335, 340, 345, __",
+          "sequence": [
+            "335",
+            "340",
+            "345",
+            "__"
+          ],
+          "answer": "350",
+          "correct_answer": "350",
+          "acceptable_answers": [
+            "350"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 5.",
+          "step": 5
+        },
+        {
+          "id": "G2M_NS_001_M_Q8",
+          "question_id": "G2M_NS_001_M_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Which word form matches 408?",
+          "answer": "four hundred eight",
+          "correct_answer": "four hundred eight",
+          "misconception_tag": "numeral_word_mismatch",
+          "hints": [
+            "Find hundreds, tens, and ones.",
+            "Read the hundreds first, then the tens and ones.",
+            "Match the numeral and word form exactly."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Use place value and counting patterns to decide.",
+          "options": [
+            "four hundred eight",
+            "four thousand eight",
+            "three hundred ninety-eight"
+          ],
+          "value": 408,
+          "number": 408,
+          "hundreds": 4,
+          "tens": 0,
+          "ones": 8
+        },
+        {
+          "id": "G2M_NS_001_M_Q9",
+          "question_id": "G2M_NS_001_M_Q9",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 222, 322, 422, __",
+          "sequence": [
+            "222",
+            "322",
+            "422",
+            "__"
+          ],
+          "answer": "522",
+          "correct_answer": "522",
+          "acceptable_answers": [
+            "522"
+          ],
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 100.",
+          "step": 100
+        },
+        {
+          "id": "G2M_NS_001_M_Q10",
+          "question_id": "G2M_NS_001_M_Q10",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "What number comes after 899?",
+          "answer": "900",
+          "correct_answer": "900",
+          "acceptable_answers": [
+            "900",
+            "nine hundred"
+          ],
+          "misconception_tag": "hundreds_transition_error",
+          "hints": [
+            "Look at the number before and after.",
+            "Count carefully across the tens or hundreds change.",
+            "Check that the sequence follows the counting rule."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 900,
+          "number": 900,
+          "hundreds": 9,
+          "tens": 0,
+          "ones": 0,
+          "min": 896,
+          "max": 904
+        },
+        {
+          "id": "G2M_NS_001_M_Q11",
+          "question_id": "G2M_NS_001_M_Q11",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Write nine hundred ninety as a number.",
+          "answer": "990",
+          "correct_answer": "990",
+          "acceptable_answers": [
+            "990"
+          ],
+          "misconception_tag": "numeral_word_mismatch",
+          "hints": [
+            "Find hundreds, tens, and ones.",
+            "Read the hundreds first, then the tens and ones.",
+            "Match the numeral and word form exactly."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "Equivalent answers are accepted when they name the same number.",
+          "value": 990,
+          "number": 990,
+          "hundreds": 9,
+          "tens": 9,
+          "ones": 0
+        },
+        {
+          "id": "G2M_NS_001_M_Q12",
+          "question_id": "G2M_NS_001_M_Q12",
+          "question_type": "number_sequence",
+          "visual_model": "number_sequence",
+          "prompt": "Fill the missing number: 998, 999, __",
+          "sequence": [
+            "998",
+            "999",
+            "__"
+          ],
+          "answer": "1000",
+          "correct_answer": "1000",
+          "acceptable_answers": [
+            "1000",
+            "1,000"
+          ],
+          "misconception_tag": "hundreds_transition_error",
+          "hints": [
+            "Find the skip-count rule.",
+            "Add the same amount each step.",
+            "Check every number in the sequence."
+          ],
+          "feedback": {
+            "correct": "Nice number sense!",
+            "incorrect": "Try the place-value or sequence clue again."
+          },
+          "explanation": "The pattern counts by 1.",
+          "step": 1
+        }
+      ]
+    }
+  ]
+}
