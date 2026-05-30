@@ -1,0 +1,2185 @@
+{
+  "skill_id": "G3M_DIV_001",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_docs": [
+      "docs/grade3_math_completion_plan.md",
+      "curriculum-framework/plans/grade3-math-completion-plan.v1.json"
+    ],
+    "source_plan": "curriculum-framework/plans/grade3-math-completion-plan.v1.json"
+  },
+  "grade": 3,
+  "subject": "Math",
+  "domain": "Operations and Algebraic Thinking",
+  "skill": "Division Foundations",
+  "mastery_threshold": 0.8,
+  "difficulty_range": "Grade 3 operations",
+  "lesson": {
+    "story_mission": "Join the Operations Trail team to understand division as equal sharing and equal groups.",
+    "mini_lesson": "Understand division as equal sharing and equal groups.",
+    "objective": "Understand division as equal sharing and equal groups.",
+    "key_vocabulary": [
+      "division",
+      "dividend",
+      "divisor",
+      "quotient",
+      "equal sharing",
+      "equal groups"
+    ],
+    "concept_explanation": "Understand division as equal sharing and equal groups. Use models, equations, and careful checking to explain each answer.",
+    "visual_model": "division_model",
+    "common_misconception": "Learners may choose an operation too quickly or miss how the model connects to the equation.",
+    "real_world_connection": "These skills help solve classroom supplies, games, snacks, teams, and sharing situations.",
+    "lesson_summary": "Read the situation, build the model, write the equation, solve, and check with an inverse or another strategy.",
+    "hints": [
+      "Read the problem and name what is known.",
+      "Use the model to connect numbers to an equation.",
+      "Check that the answer matches the question asked."
+    ]
+  },
+  "worked_examples": [
+    {
+      "visual_model": "division_model",
+      "prompt": "Share 12 counters equally among 3 friends. How many counters does each friend get?",
+      "correct_answer": "4",
+      "total": 12,
+      "groups": 3,
+      "items_per_group": 4,
+      "equation": "12 \u00f7 3 = 4",
+      "text": "Share 12 counters equally among 3 friends. How many counters does each friend get?"
+    },
+    {
+      "visual_model": "division_model",
+      "prompt": "Share 15 counters equally among 5 friends. How many counters does each friend get?",
+      "correct_answer": "3",
+      "total": 15,
+      "groups": 5,
+      "items_per_group": 3,
+      "equation": "15 \u00f7 5 = 3",
+      "text": "Share 15 counters equally among 5 friends. How many counters does each friend get?"
+    },
+    {
+      "visual_model": "division_model",
+      "prompt": "Share 18 counters equally among 6 friends. How many counters does each friend get?",
+      "correct_answer": "3",
+      "total": 18,
+      "groups": 6,
+      "items_per_group": 3,
+      "equation": "18 \u00f7 6 = 3",
+      "text": "Share 18 counters equally among 6 friends. How many counters does each friend get?"
+    }
+  ],
+  "hint_ladder": [
+    "Read the problem and name what is known.",
+    "Use the model to connect numbers to an equation.",
+    "Check that the answer matches the question asked."
+  ],
+  "guided_practice": [
+    {
+      "id": "G3M_DIV_001_LVL1_Q1",
+      "question_id": "G3M_DIV_001_LVL1_Q1",
+      "question_type": "short_response",
+      "visual_model": "division_model",
+      "prompt": "Share 12 counters equally among 3 friends. How many counters does each friend get?",
+      "answer": "4",
+      "correct_answer": "4",
+      "misconception_tag": "sharing_grouping_confusion",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 4.",
+      "acceptable_answers": [
+        "4",
+        "4 objects",
+        "4 items"
+      ],
+      "total": 12,
+      "dividend": 12,
+      "groups": 3,
+      "divisor": 3,
+      "items_per_group": 4,
+      "quotient": 4,
+      "equation": "12 \u00f7 3 = 4",
+      "mode": "sharing"
+    },
+    {
+      "id": "G3M_DIV_001_LVL1_Q2",
+      "question_id": "G3M_DIV_001_LVL1_Q2",
+      "question_type": "division_equation",
+      "visual_model": "division_model",
+      "prompt": "Share 15 counters equally among 5 friends. How many counters does each friend get?",
+      "answer": "3",
+      "correct_answer": "3",
+      "misconception_tag": "sharing_grouping_confusion",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 3.",
+      "acceptable_answers": [
+        "3",
+        "3 objects",
+        "3 items"
+      ],
+      "total": 15,
+      "dividend": 15,
+      "groups": 5,
+      "divisor": 5,
+      "items_per_group": 3,
+      "quotient": 3,
+      "equation": "15 \u00f7 5 = 3",
+      "mode": "sharing"
+    },
+    {
+      "id": "G3M_DIV_001_LVL1_Q3",
+      "question_id": "G3M_DIV_001_LVL1_Q3",
+      "question_type": "multiple_choice",
+      "visual_model": "division_model",
+      "prompt": "Share 18 counters equally among 6 friends. How many counters does each friend get?",
+      "answer": "3",
+      "correct_answer": "3",
+      "misconception_tag": "sharing_grouping_confusion",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 3.",
+      "choices": [
+        "3",
+        "4",
+        "2"
+      ],
+      "total": 18,
+      "dividend": 18,
+      "groups": 6,
+      "divisor": 6,
+      "items_per_group": 3,
+      "quotient": 3,
+      "equation": "18 \u00f7 6 = 3",
+      "mode": "sharing"
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G3M_DIV_001_LVL1_Q4",
+      "question_id": "G3M_DIV_001_LVL1_Q4",
+      "question_type": "short_response",
+      "visual_model": "division_model",
+      "prompt": "Share 20 counters equally among 4 friends. How many counters does each friend get?",
+      "answer": "5",
+      "correct_answer": "5",
+      "misconception_tag": "sharing_grouping_confusion",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 5.",
+      "acceptable_answers": [
+        "5",
+        "5 objects",
+        "5 items"
+      ],
+      "total": 20,
+      "dividend": 20,
+      "groups": 4,
+      "divisor": 4,
+      "items_per_group": 5,
+      "quotient": 5,
+      "equation": "20 \u00f7 4 = 5",
+      "mode": "sharing"
+    },
+    {
+      "id": "G3M_DIV_001_LVL1_Q5",
+      "question_id": "G3M_DIV_001_LVL1_Q5",
+      "question_type": "division_equation",
+      "visual_model": "division_model",
+      "prompt": "Share 24 counters equally among 6 friends. How many counters does each friend get?",
+      "answer": "4",
+      "correct_answer": "4",
+      "misconception_tag": "sharing_grouping_confusion",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 4.",
+      "acceptable_answers": [
+        "4",
+        "4 objects",
+        "4 items"
+      ],
+      "total": 24,
+      "dividend": 24,
+      "groups": 6,
+      "divisor": 6,
+      "items_per_group": 4,
+      "quotient": 4,
+      "equation": "24 \u00f7 6 = 4",
+      "mode": "sharing"
+    },
+    {
+      "id": "G3M_DIV_001_LVL1_Q6",
+      "question_id": "G3M_DIV_001_LVL1_Q6",
+      "question_type": "multiple_choice",
+      "visual_model": "division_model",
+      "prompt": "Share 16 counters equally among 4 friends. How many counters does each friend get?",
+      "answer": "4",
+      "correct_answer": "4",
+      "misconception_tag": "sharing_grouping_confusion",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 4.",
+      "choices": [
+        "4",
+        "5",
+        "3"
+      ],
+      "total": 16,
+      "dividend": 16,
+      "groups": 4,
+      "divisor": 4,
+      "items_per_group": 4,
+      "quotient": 4,
+      "equation": "16 \u00f7 4 = 4",
+      "mode": "sharing"
+    },
+    {
+      "id": "G3M_DIV_001_LVL1_Q7",
+      "question_id": "G3M_DIV_001_LVL1_Q7",
+      "question_type": "short_response",
+      "visual_model": "division_model",
+      "prompt": "Share 21 counters equally among 7 friends. How many counters does each friend get?",
+      "answer": "3",
+      "correct_answer": "3",
+      "misconception_tag": "sharing_grouping_confusion",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 3.",
+      "acceptable_answers": [
+        "3",
+        "3 objects",
+        "3 items"
+      ],
+      "total": 21,
+      "dividend": 21,
+      "groups": 7,
+      "divisor": 7,
+      "items_per_group": 3,
+      "quotient": 3,
+      "equation": "21 \u00f7 7 = 3",
+      "mode": "sharing"
+    },
+    {
+      "id": "G3M_DIV_001_LVL1_Q8",
+      "question_id": "G3M_DIV_001_LVL1_Q8",
+      "question_type": "division_equation",
+      "visual_model": "division_model",
+      "prompt": "Share 27 counters equally among 3 friends. How many counters does each friend get?",
+      "answer": "9",
+      "correct_answer": "9",
+      "misconception_tag": "sharing_grouping_confusion",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 9.",
+      "acceptable_answers": [
+        "9",
+        "9 objects",
+        "9 items"
+      ],
+      "total": 27,
+      "dividend": 27,
+      "groups": 3,
+      "divisor": 3,
+      "items_per_group": 9,
+      "quotient": 9,
+      "equation": "27 \u00f7 3 = 9",
+      "mode": "sharing"
+    },
+    {
+      "id": "G3M_DIV_001_LVL1_Q9",
+      "question_id": "G3M_DIV_001_LVL1_Q9",
+      "question_type": "multiple_choice",
+      "visual_model": "division_model",
+      "prompt": "Share 30 counters equally among 5 friends. How many counters does each friend get?",
+      "answer": "6",
+      "correct_answer": "6",
+      "misconception_tag": "sharing_grouping_confusion",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 6.",
+      "choices": [
+        "6",
+        "7",
+        "5"
+      ],
+      "total": 30,
+      "dividend": 30,
+      "groups": 5,
+      "divisor": 5,
+      "items_per_group": 6,
+      "quotient": 6,
+      "equation": "30 \u00f7 5 = 6",
+      "mode": "sharing"
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G3M_DIV_001_MIXED_Q8",
+      "question_id": "G3M_DIV_001_MIXED_Q8",
+      "question_type": "division_equation",
+      "visual_model": "fact_family_model",
+      "prompt": "The facts use 8, 9, and 72. What is 72 \u00f7 8?",
+      "answer": "9",
+      "correct_answer": "9",
+      "misconception_tag": "inverse_operation_confusion",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 9.",
+      "acceptable_answers": [
+        "9",
+        "9 objects",
+        "9 items"
+      ],
+      "factor_a": 8,
+      "factor_b": 9,
+      "product": 72,
+      "total": 72,
+      "equation": "72 \u00f7 8 = 9"
+    },
+    {
+      "id": "G3M_DIV_001_MIXED_Q9",
+      "question_id": "G3M_DIV_001_MIXED_Q9",
+      "question_type": "multiple_choice",
+      "visual_model": "division_model",
+      "prompt": "Solve with the model: 54 \u00f7 6 = ?",
+      "answer": "9",
+      "correct_answer": "9",
+      "misconception_tag": "division_symbol_confusion",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 9.",
+      "choices": [
+        "9",
+        "10",
+        "8"
+      ],
+      "total": 54,
+      "dividend": 54,
+      "groups": 6,
+      "divisor": 6,
+      "items_per_group": 9,
+      "quotient": 9,
+      "equation": "54 \u00f7 6 = 9",
+      "rows": 6,
+      "columns": 9
+    },
+    {
+      "id": "G3M_DIV_001_MIXED_Q10",
+      "question_id": "G3M_DIV_001_MIXED_Q10",
+      "question_type": "short_response",
+      "visual_model": "equal_groups",
+      "prompt": "Solve with the model: 63 \u00f7 7 = ?",
+      "answer": "9",
+      "correct_answer": "9",
+      "misconception_tag": "sharing_grouping_confusion",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 9.",
+      "acceptable_answers": [
+        "9",
+        "9 objects",
+        "9 items"
+      ],
+      "total": 63,
+      "dividend": 63,
+      "groups": 7,
+      "divisor": 7,
+      "items_per_group": 9,
+      "quotient": 9,
+      "equation": "63 \u00f7 7 = 9",
+      "rows": 7,
+      "columns": 9
+    }
+  ],
+  "misconception_bank": {
+    "sharing_grouping_confusion": "Learner may mix up number of groups with number in each group.",
+    "remainder_confusion": "Learner may expect leftovers in no-remainder foundation facts.",
+    "division_symbol_confusion": "Learner may misread the division symbol or reverse dividend and divisor.",
+    "inverse_operation_confusion": "Learner may not use multiplication to check division."
+  },
+  "review_bank": [],
+  "game_theme": {
+    "title": "Division Foundations",
+    "mission_intro": "Complete the Operations Trail by proving you can understand division as equal sharing and equal groups.",
+    "badge_name": "Division Trail Guide"
+  },
+  "level_banks": [
+    {
+      "level_id": "G3M_DIV_001_LVL1",
+      "label": "Level 1: Equal Sharing",
+      "focus": "share totals equally",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_DIV_001_LVL1_Q1",
+          "question_id": "G3M_DIV_001_LVL1_Q1",
+          "question_type": "short_response",
+          "visual_model": "division_model",
+          "prompt": "Share 12 counters equally among 3 friends. How many counters does each friend get?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 4.",
+          "acceptable_answers": [
+            "4",
+            "4 objects",
+            "4 items"
+          ],
+          "total": 12,
+          "dividend": 12,
+          "groups": 3,
+          "divisor": 3,
+          "items_per_group": 4,
+          "quotient": 4,
+          "equation": "12 \u00f7 3 = 4",
+          "mode": "sharing"
+        },
+        {
+          "id": "G3M_DIV_001_LVL1_Q2",
+          "question_id": "G3M_DIV_001_LVL1_Q2",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Share 15 counters equally among 5 friends. How many counters does each friend get?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 3.",
+          "acceptable_answers": [
+            "3",
+            "3 objects",
+            "3 items"
+          ],
+          "total": 15,
+          "dividend": 15,
+          "groups": 5,
+          "divisor": 5,
+          "items_per_group": 3,
+          "quotient": 3,
+          "equation": "15 \u00f7 5 = 3",
+          "mode": "sharing"
+        },
+        {
+          "id": "G3M_DIV_001_LVL1_Q3",
+          "question_id": "G3M_DIV_001_LVL1_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Share 18 counters equally among 6 friends. How many counters does each friend get?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 3.",
+          "choices": [
+            "3",
+            "4",
+            "2"
+          ],
+          "total": 18,
+          "dividend": 18,
+          "groups": 6,
+          "divisor": 6,
+          "items_per_group": 3,
+          "quotient": 3,
+          "equation": "18 \u00f7 6 = 3",
+          "mode": "sharing"
+        },
+        {
+          "id": "G3M_DIV_001_LVL1_Q4",
+          "question_id": "G3M_DIV_001_LVL1_Q4",
+          "question_type": "short_response",
+          "visual_model": "division_model",
+          "prompt": "Share 20 counters equally among 4 friends. How many counters does each friend get?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 5.",
+          "acceptable_answers": [
+            "5",
+            "5 objects",
+            "5 items"
+          ],
+          "total": 20,
+          "dividend": 20,
+          "groups": 4,
+          "divisor": 4,
+          "items_per_group": 5,
+          "quotient": 5,
+          "equation": "20 \u00f7 4 = 5",
+          "mode": "sharing"
+        },
+        {
+          "id": "G3M_DIV_001_LVL1_Q5",
+          "question_id": "G3M_DIV_001_LVL1_Q5",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Share 24 counters equally among 6 friends. How many counters does each friend get?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 4.",
+          "acceptable_answers": [
+            "4",
+            "4 objects",
+            "4 items"
+          ],
+          "total": 24,
+          "dividend": 24,
+          "groups": 6,
+          "divisor": 6,
+          "items_per_group": 4,
+          "quotient": 4,
+          "equation": "24 \u00f7 6 = 4",
+          "mode": "sharing"
+        },
+        {
+          "id": "G3M_DIV_001_LVL1_Q6",
+          "question_id": "G3M_DIV_001_LVL1_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Share 16 counters equally among 4 friends. How many counters does each friend get?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 4.",
+          "choices": [
+            "4",
+            "5",
+            "3"
+          ],
+          "total": 16,
+          "dividend": 16,
+          "groups": 4,
+          "divisor": 4,
+          "items_per_group": 4,
+          "quotient": 4,
+          "equation": "16 \u00f7 4 = 4",
+          "mode": "sharing"
+        },
+        {
+          "id": "G3M_DIV_001_LVL1_Q7",
+          "question_id": "G3M_DIV_001_LVL1_Q7",
+          "question_type": "short_response",
+          "visual_model": "division_model",
+          "prompt": "Share 21 counters equally among 7 friends. How many counters does each friend get?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 3.",
+          "acceptable_answers": [
+            "3",
+            "3 objects",
+            "3 items"
+          ],
+          "total": 21,
+          "dividend": 21,
+          "groups": 7,
+          "divisor": 7,
+          "items_per_group": 3,
+          "quotient": 3,
+          "equation": "21 \u00f7 7 = 3",
+          "mode": "sharing"
+        },
+        {
+          "id": "G3M_DIV_001_LVL1_Q8",
+          "question_id": "G3M_DIV_001_LVL1_Q8",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Share 27 counters equally among 3 friends. How many counters does each friend get?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 9.",
+          "acceptable_answers": [
+            "9",
+            "9 objects",
+            "9 items"
+          ],
+          "total": 27,
+          "dividend": 27,
+          "groups": 3,
+          "divisor": 3,
+          "items_per_group": 9,
+          "quotient": 9,
+          "equation": "27 \u00f7 3 = 9",
+          "mode": "sharing"
+        },
+        {
+          "id": "G3M_DIV_001_LVL1_Q9",
+          "question_id": "G3M_DIV_001_LVL1_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Share 30 counters equally among 5 friends. How many counters does each friend get?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 6.",
+          "choices": [
+            "6",
+            "7",
+            "5"
+          ],
+          "total": 30,
+          "dividend": 30,
+          "groups": 5,
+          "divisor": 5,
+          "items_per_group": 6,
+          "quotient": 6,
+          "equation": "30 \u00f7 5 = 6",
+          "mode": "sharing"
+        },
+        {
+          "id": "G3M_DIV_001_LVL1_Q10",
+          "question_id": "G3M_DIV_001_LVL1_Q10",
+          "question_type": "short_response",
+          "visual_model": "division_model",
+          "prompt": "Share 36 counters equally among 6 friends. How many counters does each friend get?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 6.",
+          "acceptable_answers": [
+            "6",
+            "6 objects",
+            "6 items"
+          ],
+          "total": 36,
+          "dividend": 36,
+          "groups": 6,
+          "divisor": 6,
+          "items_per_group": 6,
+          "quotient": 6,
+          "equation": "36 \u00f7 6 = 6",
+          "mode": "sharing"
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_DIV_001_LVL2",
+      "label": "Level 2: Equal Groups",
+      "focus": "find number of equal groups or size of groups",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_DIV_001_LVL2_Q1",
+          "question_id": "G3M_DIV_001_LVL2_Q1",
+          "question_type": "short_response",
+          "visual_model": "equal_groups",
+          "prompt": "Make equal groups from 12 counters with 4 counters in each group. How many groups can you make?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 3.",
+          "acceptable_answers": [
+            "3",
+            "3 objects",
+            "3 items"
+          ],
+          "total": 12,
+          "dividend": 12,
+          "groups": 4,
+          "divisor": 4,
+          "items_per_group": 3,
+          "quotient": 3,
+          "equation": "12 \u00f7 4 = 3",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL2_Q2",
+          "question_id": "G3M_DIV_001_LVL2_Q2",
+          "question_type": "division_equation",
+          "visual_model": "equal_groups",
+          "prompt": "Make equal groups from 18 counters with 3 counters in each group. How many groups can you make?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 6.",
+          "acceptable_answers": [
+            "6",
+            "6 objects",
+            "6 items"
+          ],
+          "total": 18,
+          "dividend": 18,
+          "groups": 3,
+          "divisor": 3,
+          "items_per_group": 6,
+          "quotient": 6,
+          "equation": "18 \u00f7 3 = 6",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL2_Q3",
+          "question_id": "G3M_DIV_001_LVL2_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "equal_groups",
+          "prompt": "Make equal groups from 24 counters with 8 counters in each group. How many groups can you make?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 3.",
+          "choices": [
+            "3",
+            "4",
+            "2"
+          ],
+          "total": 24,
+          "dividend": 24,
+          "groups": 8,
+          "divisor": 8,
+          "items_per_group": 3,
+          "quotient": 3,
+          "equation": "24 \u00f7 8 = 3",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL2_Q4",
+          "question_id": "G3M_DIV_001_LVL2_Q4",
+          "question_type": "short_response",
+          "visual_model": "equal_groups",
+          "prompt": "Make equal groups from 28 counters with 7 counters in each group. How many groups can you make?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 4.",
+          "acceptable_answers": [
+            "4",
+            "4 objects",
+            "4 items"
+          ],
+          "total": 28,
+          "dividend": 28,
+          "groups": 7,
+          "divisor": 7,
+          "items_per_group": 4,
+          "quotient": 4,
+          "equation": "28 \u00f7 7 = 4",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL2_Q5",
+          "question_id": "G3M_DIV_001_LVL2_Q5",
+          "question_type": "division_equation",
+          "visual_model": "equal_groups",
+          "prompt": "Make equal groups from 32 counters with 4 counters in each group. How many groups can you make?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 8.",
+          "acceptable_answers": [
+            "8",
+            "8 objects",
+            "8 items"
+          ],
+          "total": 32,
+          "dividend": 32,
+          "groups": 4,
+          "divisor": 4,
+          "items_per_group": 8,
+          "quotient": 8,
+          "equation": "32 \u00f7 4 = 8",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL2_Q6",
+          "question_id": "G3M_DIV_001_LVL2_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "equal_groups",
+          "prompt": "Make equal groups from 35 counters with 5 counters in each group. How many groups can you make?",
+          "answer": "7",
+          "correct_answer": "7",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 7.",
+          "choices": [
+            "7",
+            "8",
+            "6"
+          ],
+          "total": 35,
+          "dividend": 35,
+          "groups": 5,
+          "divisor": 5,
+          "items_per_group": 7,
+          "quotient": 7,
+          "equation": "35 \u00f7 5 = 7",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL2_Q7",
+          "question_id": "G3M_DIV_001_LVL2_Q7",
+          "question_type": "short_response",
+          "visual_model": "equal_groups",
+          "prompt": "Make equal groups from 40 counters with 8 counters in each group. How many groups can you make?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 5.",
+          "acceptable_answers": [
+            "5",
+            "5 objects",
+            "5 items"
+          ],
+          "total": 40,
+          "dividend": 40,
+          "groups": 8,
+          "divisor": 8,
+          "items_per_group": 5,
+          "quotient": 5,
+          "equation": "40 \u00f7 8 = 5",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL2_Q8",
+          "question_id": "G3M_DIV_001_LVL2_Q8",
+          "question_type": "division_equation",
+          "visual_model": "equal_groups",
+          "prompt": "Make equal groups from 42 counters with 6 counters in each group. How many groups can you make?",
+          "answer": "7",
+          "correct_answer": "7",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 7.",
+          "acceptable_answers": [
+            "7",
+            "7 objects",
+            "7 items"
+          ],
+          "total": 42,
+          "dividend": 42,
+          "groups": 6,
+          "divisor": 6,
+          "items_per_group": 7,
+          "quotient": 7,
+          "equation": "42 \u00f7 6 = 7",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL2_Q9",
+          "question_id": "G3M_DIV_001_LVL2_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "equal_groups",
+          "prompt": "Make equal groups from 45 counters with 9 counters in each group. How many groups can you make?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 5.",
+          "choices": [
+            "5",
+            "6",
+            "4"
+          ],
+          "total": 45,
+          "dividend": 45,
+          "groups": 9,
+          "divisor": 9,
+          "items_per_group": 5,
+          "quotient": 5,
+          "equation": "45 \u00f7 9 = 5",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL2_Q10",
+          "question_id": "G3M_DIV_001_LVL2_Q10",
+          "question_type": "short_response",
+          "visual_model": "equal_groups",
+          "prompt": "Make equal groups from 48 counters with 6 counters in each group. How many groups can you make?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 8.",
+          "acceptable_answers": [
+            "8",
+            "8 objects",
+            "8 items"
+          ],
+          "total": 48,
+          "dividend": 48,
+          "groups": 6,
+          "divisor": 6,
+          "items_per_group": 8,
+          "quotient": 8,
+          "equation": "48 \u00f7 6 = 8",
+          "mode": "groups"
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_DIV_001_LVL3",
+      "label": "Level 3: Division Equations",
+      "focus": "match models to division equations",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_DIV_001_LVL3_Q1",
+          "question_id": "G3M_DIV_001_LVL3_Q1",
+          "question_type": "short_response",
+          "visual_model": "division_model",
+          "prompt": "Which quotient makes this equation true: 14 \u00f7 2 = ?",
+          "answer": "7",
+          "correct_answer": "7",
+          "misconception_tag": "division_symbol_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 7.",
+          "acceptable_answers": [
+            "7",
+            "7 objects",
+            "7 items"
+          ],
+          "total": 14,
+          "dividend": 14,
+          "groups": 2,
+          "divisor": 2,
+          "items_per_group": 7,
+          "quotient": 7,
+          "equation": "14 \u00f7 2 = 7",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL3_Q2",
+          "question_id": "G3M_DIV_001_LVL3_Q2",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Which quotient makes this equation true: 18 \u00f7 9 = ?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "division_symbol_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 2.",
+          "acceptable_answers": [
+            "2",
+            "2 objects",
+            "2 items"
+          ],
+          "total": 18,
+          "dividend": 18,
+          "groups": 9,
+          "divisor": 9,
+          "items_per_group": 2,
+          "quotient": 2,
+          "equation": "18 \u00f7 9 = 2",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL3_Q3",
+          "question_id": "G3M_DIV_001_LVL3_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Which quotient makes this equation true: 24 \u00f7 3 = ?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "division_symbol_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 8.",
+          "choices": [
+            "8",
+            "9",
+            "7"
+          ],
+          "total": 24,
+          "dividend": 24,
+          "groups": 3,
+          "divisor": 3,
+          "items_per_group": 8,
+          "quotient": 8,
+          "equation": "24 \u00f7 3 = 8",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL3_Q4",
+          "question_id": "G3M_DIV_001_LVL3_Q4",
+          "question_type": "short_response",
+          "visual_model": "division_model",
+          "prompt": "Which quotient makes this equation true: 27 \u00f7 9 = ?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "division_symbol_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 3.",
+          "acceptable_answers": [
+            "3",
+            "3 objects",
+            "3 items"
+          ],
+          "total": 27,
+          "dividend": 27,
+          "groups": 9,
+          "divisor": 9,
+          "items_per_group": 3,
+          "quotient": 3,
+          "equation": "27 \u00f7 9 = 3",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL3_Q5",
+          "question_id": "G3M_DIV_001_LVL3_Q5",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Which quotient makes this equation true: 30 \u00f7 6 = ?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "division_symbol_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 5.",
+          "acceptable_answers": [
+            "5",
+            "5 objects",
+            "5 items"
+          ],
+          "total": 30,
+          "dividend": 30,
+          "groups": 6,
+          "divisor": 6,
+          "items_per_group": 5,
+          "quotient": 5,
+          "equation": "30 \u00f7 6 = 5",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL3_Q6",
+          "question_id": "G3M_DIV_001_LVL3_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Which quotient makes this equation true: 36 \u00f7 4 = ?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "division_symbol_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 9.",
+          "choices": [
+            "9",
+            "10",
+            "8"
+          ],
+          "total": 36,
+          "dividend": 36,
+          "groups": 4,
+          "divisor": 4,
+          "items_per_group": 9,
+          "quotient": 9,
+          "equation": "36 \u00f7 4 = 9",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL3_Q7",
+          "question_id": "G3M_DIV_001_LVL3_Q7",
+          "question_type": "short_response",
+          "visual_model": "division_model",
+          "prompt": "Which quotient makes this equation true: 42 \u00f7 7 = ?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "division_symbol_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 6.",
+          "acceptable_answers": [
+            "6",
+            "6 objects",
+            "6 items"
+          ],
+          "total": 42,
+          "dividend": 42,
+          "groups": 7,
+          "divisor": 7,
+          "items_per_group": 6,
+          "quotient": 6,
+          "equation": "42 \u00f7 7 = 6",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL3_Q8",
+          "question_id": "G3M_DIV_001_LVL3_Q8",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Which quotient makes this equation true: 48 \u00f7 8 = ?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "division_symbol_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 6.",
+          "acceptable_answers": [
+            "6",
+            "6 objects",
+            "6 items"
+          ],
+          "total": 48,
+          "dividend": 48,
+          "groups": 8,
+          "divisor": 8,
+          "items_per_group": 6,
+          "quotient": 6,
+          "equation": "48 \u00f7 8 = 6",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL3_Q9",
+          "question_id": "G3M_DIV_001_LVL3_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Which quotient makes this equation true: 54 \u00f7 6 = ?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "division_symbol_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 9.",
+          "choices": [
+            "9",
+            "10",
+            "8"
+          ],
+          "total": 54,
+          "dividend": 54,
+          "groups": 6,
+          "divisor": 6,
+          "items_per_group": 9,
+          "quotient": 9,
+          "equation": "54 \u00f7 6 = 9",
+          "mode": "groups"
+        },
+        {
+          "id": "G3M_DIV_001_LVL3_Q10",
+          "question_id": "G3M_DIV_001_LVL3_Q10",
+          "question_type": "short_response",
+          "visual_model": "division_model",
+          "prompt": "Which quotient makes this equation true: 56 \u00f7 7 = ?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "division_symbol_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 8.",
+          "acceptable_answers": [
+            "8",
+            "8 objects",
+            "8 items"
+          ],
+          "total": 56,
+          "dividend": 56,
+          "groups": 7,
+          "divisor": 7,
+          "items_per_group": 8,
+          "quotient": 8,
+          "equation": "56 \u00f7 7 = 8",
+          "mode": "groups"
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_DIV_001_LVL4",
+      "label": "Level 4: Multiplication and Division Relationship",
+      "focus": "use inverse multiplication facts",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_DIV_001_LVL4_Q1",
+          "question_id": "G3M_DIV_001_LVL4_Q1",
+          "question_type": "division_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "Use the fact family for 3, 4, and 12. What is 12 \u00f7 3?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 4.",
+          "acceptable_answers": [
+            "4",
+            "4 objects",
+            "4 items"
+          ],
+          "factor_a": 3,
+          "factor_b": 4,
+          "product": 12,
+          "total": 12,
+          "groups": 3,
+          "items_per_group": 4,
+          "equation": "12 \u00f7 3 = 4"
+        },
+        {
+          "id": "G3M_DIV_001_LVL4_Q2",
+          "question_id": "G3M_DIV_001_LVL4_Q2",
+          "question_type": "division_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "Use the fact family for 5, 6, and 30. What is 30 \u00f7 5?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 6.",
+          "acceptable_answers": [
+            "6",
+            "6 objects",
+            "6 items"
+          ],
+          "factor_a": 5,
+          "factor_b": 6,
+          "product": 30,
+          "total": 30,
+          "groups": 5,
+          "items_per_group": 6,
+          "equation": "30 \u00f7 5 = 6"
+        },
+        {
+          "id": "G3M_DIV_001_LVL4_Q3",
+          "question_id": "G3M_DIV_001_LVL4_Q3",
+          "question_type": "division_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "Use the fact family for 7, 8, and 56. What is 56 \u00f7 7?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 8.",
+          "acceptable_answers": [
+            "8",
+            "8 objects",
+            "8 items"
+          ],
+          "factor_a": 7,
+          "factor_b": 8,
+          "product": 56,
+          "total": 56,
+          "groups": 7,
+          "items_per_group": 8,
+          "equation": "56 \u00f7 7 = 8"
+        },
+        {
+          "id": "G3M_DIV_001_LVL4_Q4",
+          "question_id": "G3M_DIV_001_LVL4_Q4",
+          "question_type": "division_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "Use the fact family for 9, 4, and 36. What is 36 \u00f7 9?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 4.",
+          "acceptable_answers": [
+            "4",
+            "4 objects",
+            "4 items"
+          ],
+          "factor_a": 9,
+          "factor_b": 4,
+          "product": 36,
+          "total": 36,
+          "groups": 9,
+          "items_per_group": 4,
+          "equation": "36 \u00f7 9 = 4"
+        },
+        {
+          "id": "G3M_DIV_001_LVL4_Q5",
+          "question_id": "G3M_DIV_001_LVL4_Q5",
+          "question_type": "division_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "Use the fact family for 6, 6, and 36. What is 36 \u00f7 6?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 6.",
+          "acceptable_answers": [
+            "6",
+            "6 objects",
+            "6 items"
+          ],
+          "factor_a": 6,
+          "factor_b": 6,
+          "product": 36,
+          "total": 36,
+          "groups": 6,
+          "items_per_group": 6,
+          "equation": "36 \u00f7 6 = 6"
+        },
+        {
+          "id": "G3M_DIV_001_LVL4_Q6",
+          "question_id": "G3M_DIV_001_LVL4_Q6",
+          "question_type": "division_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "Use the fact family for 8, 5, and 40. What is 40 \u00f7 8?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 5.",
+          "acceptable_answers": [
+            "5",
+            "5 objects",
+            "5 items"
+          ],
+          "factor_a": 8,
+          "factor_b": 5,
+          "product": 40,
+          "total": 40,
+          "groups": 8,
+          "items_per_group": 5,
+          "equation": "40 \u00f7 8 = 5"
+        },
+        {
+          "id": "G3M_DIV_001_LVL4_Q7",
+          "question_id": "G3M_DIV_001_LVL4_Q7",
+          "question_type": "division_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "Use the fact family for 7, 3, and 21. What is 21 \u00f7 7?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 3.",
+          "acceptable_answers": [
+            "3",
+            "3 objects",
+            "3 items"
+          ],
+          "factor_a": 7,
+          "factor_b": 3,
+          "product": 21,
+          "total": 21,
+          "groups": 7,
+          "items_per_group": 3,
+          "equation": "21 \u00f7 7 = 3"
+        },
+        {
+          "id": "G3M_DIV_001_LVL4_Q8",
+          "question_id": "G3M_DIV_001_LVL4_Q8",
+          "question_type": "division_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "Use the fact family for 9, 8, and 72. What is 72 \u00f7 9?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 8.",
+          "acceptable_answers": [
+            "8",
+            "8 objects",
+            "8 items"
+          ],
+          "factor_a": 9,
+          "factor_b": 8,
+          "product": 72,
+          "total": 72,
+          "groups": 9,
+          "items_per_group": 8,
+          "equation": "72 \u00f7 9 = 8"
+        },
+        {
+          "id": "G3M_DIV_001_LVL4_Q9",
+          "question_id": "G3M_DIV_001_LVL4_Q9",
+          "question_type": "division_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "Use the fact family for 10, 6, and 60. What is 60 \u00f7 10?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 6.",
+          "acceptable_answers": [
+            "6",
+            "6 objects",
+            "6 items"
+          ],
+          "factor_a": 10,
+          "factor_b": 6,
+          "product": 60,
+          "total": 60,
+          "groups": 10,
+          "items_per_group": 6,
+          "equation": "60 \u00f7 10 = 6"
+        },
+        {
+          "id": "G3M_DIV_001_LVL4_Q10",
+          "question_id": "G3M_DIV_001_LVL4_Q10",
+          "question_type": "division_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "Use the fact family for 11, 4, and 44. What is 44 \u00f7 11?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 4.",
+          "acceptable_answers": [
+            "4",
+            "4 objects",
+            "4 items"
+          ],
+          "factor_a": 11,
+          "factor_b": 4,
+          "product": 44,
+          "total": 44,
+          "groups": 11,
+          "items_per_group": 4,
+          "equation": "44 \u00f7 11 = 4"
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_DIV_001_MIXED",
+      "label": "Mixed",
+      "focus": "solve mixed division foundation tasks",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_DIV_001_MIXED_Q1",
+          "question_id": "G3M_DIV_001_MIXED_Q1",
+          "question_type": "short_response",
+          "visual_model": "division_model",
+          "prompt": "Solve with the model: 18 \u00f7 3 = ?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 6.",
+          "acceptable_answers": [
+            "6",
+            "6 objects",
+            "6 items"
+          ],
+          "total": 18,
+          "dividend": 18,
+          "groups": 3,
+          "divisor": 3,
+          "items_per_group": 6,
+          "quotient": 6,
+          "equation": "18 \u00f7 3 = 6",
+          "rows": 3,
+          "columns": 6
+        },
+        {
+          "id": "G3M_DIV_001_MIXED_Q2",
+          "question_id": "G3M_DIV_001_MIXED_Q2",
+          "question_type": "division_equation",
+          "visual_model": "equal_groups",
+          "prompt": "Solve with the model: 24 \u00f7 4 = ?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 6.",
+          "acceptable_answers": [
+            "6",
+            "6 objects",
+            "6 items"
+          ],
+          "total": 24,
+          "dividend": 24,
+          "groups": 4,
+          "divisor": 4,
+          "items_per_group": 6,
+          "quotient": 6,
+          "equation": "24 \u00f7 4 = 6",
+          "rows": 4,
+          "columns": 6
+        },
+        {
+          "id": "G3M_DIV_001_MIXED_Q3",
+          "question_id": "G3M_DIV_001_MIXED_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "array_model",
+          "prompt": "Solve with the model: 30 \u00f7 5 = ?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "division_symbol_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 6.",
+          "choices": [
+            "6",
+            "7",
+            "5"
+          ],
+          "total": 30,
+          "dividend": 30,
+          "groups": 5,
+          "divisor": 5,
+          "items_per_group": 6,
+          "quotient": 6,
+          "equation": "30 \u00f7 5 = 6",
+          "rows": 5,
+          "columns": 6
+        },
+        {
+          "id": "G3M_DIV_001_MIXED_Q4",
+          "question_id": "G3M_DIV_001_MIXED_Q4",
+          "question_type": "short_response",
+          "visual_model": "fact_family_model",
+          "prompt": "The facts use 6, 7, and 42. What is 42 \u00f7 6?",
+          "answer": "7",
+          "correct_answer": "7",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 7.",
+          "acceptable_answers": [
+            "7",
+            "7 objects",
+            "7 items"
+          ],
+          "factor_a": 6,
+          "factor_b": 7,
+          "product": 42,
+          "total": 42,
+          "equation": "42 \u00f7 6 = 7"
+        },
+        {
+          "id": "G3M_DIV_001_MIXED_Q5",
+          "question_id": "G3M_DIV_001_MIXED_Q5",
+          "question_type": "division_equation",
+          "visual_model": "division_model",
+          "prompt": "Solve with the model: 36 \u00f7 9 = ?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "remainder_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 4.",
+          "acceptable_answers": [
+            "4",
+            "4 objects",
+            "4 items"
+          ],
+          "total": 36,
+          "dividend": 36,
+          "groups": 9,
+          "divisor": 9,
+          "items_per_group": 4,
+          "quotient": 4,
+          "equation": "36 \u00f7 9 = 4",
+          "rows": 9,
+          "columns": 4
+        },
+        {
+          "id": "G3M_DIV_001_MIXED_Q6",
+          "question_id": "G3M_DIV_001_MIXED_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "equal_groups",
+          "prompt": "Solve with the model: 40 \u00f7 8 = ?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 5.",
+          "choices": [
+            "5",
+            "6",
+            "4"
+          ],
+          "total": 40,
+          "dividend": 40,
+          "groups": 8,
+          "divisor": 8,
+          "items_per_group": 5,
+          "quotient": 5,
+          "equation": "40 \u00f7 8 = 5",
+          "rows": 8,
+          "columns": 5
+        },
+        {
+          "id": "G3M_DIV_001_MIXED_Q7",
+          "question_id": "G3M_DIV_001_MIXED_Q7",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "Solve with the model: 42 \u00f7 6 = ?",
+          "answer": "7",
+          "correct_answer": "7",
+          "misconception_tag": "division_symbol_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 7.",
+          "acceptable_answers": [
+            "7",
+            "7 objects",
+            "7 items"
+          ],
+          "total": 42,
+          "dividend": 42,
+          "groups": 6,
+          "divisor": 6,
+          "items_per_group": 7,
+          "quotient": 7,
+          "equation": "42 \u00f7 6 = 7",
+          "rows": 6,
+          "columns": 7
+        },
+        {
+          "id": "G3M_DIV_001_MIXED_Q8",
+          "question_id": "G3M_DIV_001_MIXED_Q8",
+          "question_type": "division_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "The facts use 8, 9, and 72. What is 72 \u00f7 8?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "inverse_operation_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 9.",
+          "acceptable_answers": [
+            "9",
+            "9 objects",
+            "9 items"
+          ],
+          "factor_a": 8,
+          "factor_b": 9,
+          "product": 72,
+          "total": 72,
+          "equation": "72 \u00f7 8 = 9"
+        },
+        {
+          "id": "G3M_DIV_001_MIXED_Q9",
+          "question_id": "G3M_DIV_001_MIXED_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "division_model",
+          "prompt": "Solve with the model: 54 \u00f7 6 = ?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "division_symbol_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 9.",
+          "choices": [
+            "9",
+            "10",
+            "8"
+          ],
+          "total": 54,
+          "dividend": 54,
+          "groups": 6,
+          "divisor": 6,
+          "items_per_group": 9,
+          "quotient": 9,
+          "equation": "54 \u00f7 6 = 9",
+          "rows": 6,
+          "columns": 9
+        },
+        {
+          "id": "G3M_DIV_001_MIXED_Q10",
+          "question_id": "G3M_DIV_001_MIXED_Q10",
+          "question_type": "short_response",
+          "visual_model": "equal_groups",
+          "prompt": "Solve with the model: 63 \u00f7 7 = ?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "sharing_grouping_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 9.",
+          "acceptable_answers": [
+            "9",
+            "9 objects",
+            "9 items"
+          ],
+          "total": 63,
+          "dividend": 63,
+          "groups": 7,
+          "divisor": 7,
+          "items_per_group": 9,
+          "quotient": 9,
+          "equation": "63 \u00f7 7 = 9",
+          "rows": 7,
+          "columns": 9
+        }
+      ]
+    }
+  ]
+}
