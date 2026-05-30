@@ -1,0 +1,2675 @@
+{
+  "skill_id": "G2M_NS_002",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_plan": "curriculum-framework/plans/grade2-math-completion-plan.v1.json",
+    "style_reference": "public/gamehub/skill-world/content/G2M_PV_001.skill-package.v1.json"
+  },
+  "grade": 2,
+  "subject": "Math",
+  "domain": "Number and Operations in Base Ten",
+  "skill": "Compare Three-Digit Numbers",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Help the Number Gatekeepers place the correct comparison symbol so each bridge opens safely.",
+    "mini_lesson": "Compare three-digit numbers from left to right by place value. First compare hundreds. If hundreds are equal, compare tens. If tens are equal, compare ones. Use > for greater than, < for less than, and = for equal to.",
+    "objective": "Compare three-digit numbers using hundreds, tens, ones, and the symbols >, <, and =.",
+    "key_vocabulary": [
+      "compare",
+      "greater than",
+      "less than",
+      "equal to",
+      "hundreds",
+      "tens",
+      "ones"
+    ],
+    "concept_explanation": "The first place where the digits differ decides which number is greater. If every place matches, the numbers are equal.",
+    "visual_model": "comparison",
+    "common_misconception": "A child may reverse the symbol or compare only the first digit they notice instead of using place value.",
+    "real_world_connection": "Comparing numbers helps choose higher scores, larger page numbers, and bigger collections.",
+    "lesson_summary": "Compare hundreds, then tens, then ones, and select the symbol that makes the statement true."
+  },
+  "worked_examples": [
+    {
+      "text": "642 > 542 because 6 hundreds is greater than 5 hundreds."
+    },
+    {
+      "text": "381 < 392 because the hundreds are equal, but 8 tens is less than 9 tens."
+    },
+    {
+      "text": "515 = 515 because every digit is the same."
+    }
+  ],
+  "hint_ladder": [
+    "Compare hundreds first.",
+    "If hundreds tie, compare tens. If tens tie, compare ones.",
+    "Choose the symbol that points to the smaller number."
+  ],
+  "guided_practice": [
+    {
+      "id": "G2M_NS_002_L1_Q1",
+      "question_id": "G2M_NS_002_L1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "comparison",
+      "prompt": "Compare 345 and 268. Choose >, <, or =.",
+      "answer": ">",
+      "correct_answer": ">",
+      "acceptable_answers": [
+        ">",
+        "greater than",
+        "greater"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "345 is greater than 268.",
+      "left": 345,
+      "right": 268,
+      "left_value": 345,
+      "right_value": 268,
+      "options": [
+        ">",
+        "<",
+        "="
+      ]
+    },
+    {
+      "id": "G2M_NS_002_L2_Q1",
+      "question_id": "G2M_NS_002_L2_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "Compare 456 and 432. Choose >, <, or =.",
+      "answer": ">",
+      "correct_answer": ">",
+      "acceptable_answers": [
+        ">",
+        "greater than",
+        "greater"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "456 is greater than 432.",
+      "left": 456,
+      "right": 432,
+      "left_value": 456,
+      "right_value": 432,
+      "value": 456,
+      "number": 456,
+      "hundreds": 4,
+      "tens": 5,
+      "ones": 6,
+      "options": [
+        ">",
+        "<",
+        "="
+      ]
+    },
+    {
+      "id": "G2M_NS_002_L3_Q1",
+      "question_id": "G2M_NS_002_L3_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "comparison",
+      "prompt": "Compare 458 and 452. Choose >, <, or =.",
+      "answer": ">",
+      "correct_answer": ">",
+      "acceptable_answers": [
+        ">",
+        "greater than",
+        "greater"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "458 is greater than 452.",
+      "left": 458,
+      "right": 452,
+      "left_value": 458,
+      "right_value": 452,
+      "options": [
+        ">",
+        "<",
+        "="
+      ]
+    },
+    {
+      "id": "G2M_NS_002_L4_Q1",
+      "question_id": "G2M_NS_002_L4_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "comparison",
+      "prompt": "Compare 345 and 345. Choose >, <, or =.",
+      "answer": "=",
+      "correct_answer": "=",
+      "acceptable_answers": [
+        "=",
+        "equal to",
+        "equal",
+        "same"
+      ],
+      "misconception_tag": "equal_confusion",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "345 is equal to 345.",
+      "left": 345,
+      "right": 345,
+      "left_value": 345,
+      "right_value": 345,
+      "options": [
+        ">",
+        "<",
+        "="
+      ]
+    },
+    {
+      "id": "G2M_NS_002_L4_Q2",
+      "question_id": "G2M_NS_002_L4_Q2",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Compare 620 and 602. Choose >, <, or =.",
+      "answer": ">",
+      "correct_answer": ">",
+      "acceptable_answers": [
+        ">",
+        "greater than",
+        "greater"
+      ],
+      "misconception_tag": "symbol_reversal",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "620 is greater than 602.",
+      "left": 620,
+      "right": 602,
+      "left_value": 620,
+      "right_value": 602,
+      "value": 620,
+      "number": 620,
+      "hundreds": 6,
+      "tens": 2,
+      "ones": 0
+    },
+    {
+      "id": "G2M_NS_002_L1_Q3",
+      "question_id": "G2M_NS_002_L1_Q3",
+      "question_type": "multiple_choice",
+      "visual_model": "number_line",
+      "prompt": "Compare 701 and 699. Choose >, <, or =.",
+      "answer": ">",
+      "correct_answer": ">",
+      "acceptable_answers": [
+        ">",
+        "greater than",
+        "greater"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "701 is greater than 699.",
+      "left": 701,
+      "right": 699,
+      "left_value": 701,
+      "right_value": 699,
+      "min": 695,
+      "max": 705,
+      "options": [
+        ">",
+        "<",
+        "="
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G2M_NS_002_L1_Q4",
+      "question_id": "G2M_NS_002_L1_Q4",
+      "question_type": "comparison",
+      "visual_model": "comparison",
+      "prompt": "Compare 250 and 350. Choose >, <, or =.",
+      "answer": "<",
+      "correct_answer": "<",
+      "acceptable_answers": [
+        "<",
+        "less than",
+        "less"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "250 is less than 350.",
+      "left": 250,
+      "right": 350,
+      "left_value": 250,
+      "right_value": 350
+    },
+    {
+      "id": "G2M_NS_002_L1_Q5",
+      "question_id": "G2M_NS_002_L1_Q5",
+      "question_type": "multiple_choice",
+      "visual_model": "base_ten_blocks",
+      "prompt": "Compare 900 and 800. Choose >, <, or =.",
+      "answer": ">",
+      "correct_answer": ">",
+      "acceptable_answers": [
+        ">",
+        "greater than",
+        "greater"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "900 is greater than 800.",
+      "left": 900,
+      "right": 800,
+      "left_value": 900,
+      "right_value": 800,
+      "value": 900,
+      "number": 900,
+      "hundreds": 9,
+      "tens": 0,
+      "ones": 0,
+      "options": [
+        ">",
+        "<",
+        "="
+      ]
+    },
+    {
+      "id": "G2M_NS_002_L1_Q6",
+      "question_id": "G2M_NS_002_L1_Q6",
+      "question_type": "short_response",
+      "visual_model": "comparison",
+      "prompt": "Compare 118 and 218. Choose >, <, or =.",
+      "answer": "<",
+      "correct_answer": "<",
+      "acceptable_answers": [
+        "<",
+        "less than",
+        "less"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "118 is less than 218.",
+      "left": 118,
+      "right": 218,
+      "left_value": 118,
+      "right_value": 218
+    },
+    {
+      "id": "G2M_NS_002_L1_Q7",
+      "question_id": "G2M_NS_002_L1_Q7",
+      "question_type": "comparison",
+      "visual_model": "place_value_chart",
+      "prompt": "Compare 640 and 540. Choose >, <, or =.",
+      "answer": ">",
+      "correct_answer": ">",
+      "acceptable_answers": [
+        ">",
+        "greater than",
+        "greater"
+      ],
+      "misconception_tag": "compares_left_to_right_incorrectly",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "640 is greater than 540.",
+      "left": 640,
+      "right": 540,
+      "left_value": 640,
+      "right_value": 540,
+      "value": 640,
+      "number": 640,
+      "hundreds": 6,
+      "tens": 4,
+      "ones": 0
+    },
+    {
+      "id": "G2M_NS_002_L2_Q4",
+      "question_id": "G2M_NS_002_L2_Q4",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "Compare 540 and 510. Choose >, <, or =.",
+      "answer": ">",
+      "correct_answer": ">",
+      "acceptable_answers": [
+        ">",
+        "greater than",
+        "greater"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "540 is greater than 510.",
+      "left": 540,
+      "right": 510,
+      "left_value": 540,
+      "right_value": 510,
+      "value": 540,
+      "number": 540,
+      "hundreds": 5,
+      "tens": 4,
+      "ones": 0,
+      "options": [
+        ">",
+        "<",
+        "="
+      ]
+    },
+    {
+      "id": "G2M_NS_002_L2_Q5",
+      "question_id": "G2M_NS_002_L2_Q5",
+      "question_type": "short_response",
+      "visual_model": "number_line",
+      "prompt": "Compare 307 and 390. Choose >, <, or =.",
+      "answer": "<",
+      "correct_answer": "<",
+      "acceptable_answers": [
+        "<",
+        "less than",
+        "less"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "307 is less than 390.",
+      "left": 307,
+      "right": 390,
+      "left_value": 307,
+      "right_value": 390,
+      "min": 305,
+      "max": 392
+    },
+    {
+      "id": "G2M_NS_002_L2_Q6",
+      "question_id": "G2M_NS_002_L2_Q6",
+      "question_type": "comparison",
+      "visual_model": "comparison",
+      "prompt": "Compare 870 and 820. Choose >, <, or =.",
+      "answer": ">",
+      "correct_answer": ">",
+      "acceptable_answers": [
+        ">",
+        "greater than",
+        "greater"
+      ],
+      "misconception_tag": "compares_left_to_right_incorrectly",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "870 is greater than 820.",
+      "left": 870,
+      "right": 820,
+      "left_value": 870,
+      "right_value": 820
+    },
+    {
+      "id": "G2M_NS_002_L2_Q7",
+      "question_id": "G2M_NS_002_L2_Q7",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "Compare 254 and 296. Choose >, <, or =.",
+      "answer": "<",
+      "correct_answer": "<",
+      "acceptable_answers": [
+        "<",
+        "less than",
+        "less"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "254 is less than 296.",
+      "left": 254,
+      "right": 296,
+      "left_value": 254,
+      "right_value": 296,
+      "value": 254,
+      "number": 254,
+      "hundreds": 2,
+      "tens": 5,
+      "ones": 4,
+      "options": [
+        ">",
+        "<",
+        "="
+      ]
+    },
+    {
+      "id": "G2M_NS_002_L3_Q4",
+      "question_id": "G2M_NS_002_L3_Q4",
+      "question_type": "multiple_choice",
+      "visual_model": "base_ten_blocks",
+      "prompt": "Compare 905 and 902. Choose >, <, or =.",
+      "answer": ">",
+      "correct_answer": ">",
+      "acceptable_answers": [
+        ">",
+        "greater than",
+        "greater"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "905 is greater than 902.",
+      "left": 905,
+      "right": 902,
+      "left_value": 905,
+      "right_value": 902,
+      "value": 905,
+      "number": 905,
+      "hundreds": 9,
+      "tens": 0,
+      "ones": 5,
+      "options": [
+        ">",
+        "<",
+        "="
+      ]
+    },
+    {
+      "id": "G2M_NS_002_L3_Q5",
+      "question_id": "G2M_NS_002_L3_Q5",
+      "question_type": "short_response",
+      "visual_model": "comparison",
+      "prompt": "Compare 286 and 289. Choose >, <, or =.",
+      "answer": "<",
+      "correct_answer": "<",
+      "acceptable_answers": [
+        "<",
+        "less than",
+        "less"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "286 is less than 289.",
+      "left": 286,
+      "right": 289,
+      "left_value": 286,
+      "right_value": 289
+    },
+    {
+      "id": "G2M_NS_002_L3_Q6",
+      "question_id": "G2M_NS_002_L3_Q6",
+      "question_type": "comparison",
+      "visual_model": "place_value_chart",
+      "prompt": "Compare 777 and 771. Choose >, <, or =.",
+      "answer": ">",
+      "correct_answer": ">",
+      "acceptable_answers": [
+        ">",
+        "greater than",
+        "greater"
+      ],
+      "misconception_tag": "compares_left_to_right_incorrectly",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "777 is greater than 771.",
+      "left": 777,
+      "right": 771,
+      "left_value": 777,
+      "right_value": 771,
+      "value": 777,
+      "number": 777,
+      "hundreds": 7,
+      "tens": 7,
+      "ones": 7
+    },
+    {
+      "id": "G2M_NS_002_L3_Q7",
+      "question_id": "G2M_NS_002_L3_Q7",
+      "question_type": "multiple_choice",
+      "visual_model": "comparison",
+      "prompt": "Compare 333 and 336. Choose >, <, or =.",
+      "answer": "<",
+      "correct_answer": "<",
+      "acceptable_answers": [
+        "<",
+        "less than",
+        "less"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "333 is less than 336.",
+      "left": 333,
+      "right": 336,
+      "left_value": 333,
+      "right_value": 336,
+      "options": [
+        ">",
+        "<",
+        "="
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G2M_NS_002_L1_Q9",
+      "question_id": "G2M_NS_002_L1_Q9",
+      "question_type": "short_response",
+      "visual_model": "comparison",
+      "prompt": "Compare 1000 and 999. Choose >, <, or =.",
+      "answer": ">",
+      "correct_answer": ">",
+      "acceptable_answers": [
+        ">",
+        "greater than",
+        "greater"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "1000 is greater than 999.",
+      "left": 1000,
+      "right": 999,
+      "left_value": 1000,
+      "right_value": 999
+    },
+    {
+      "id": "G2M_NS_002_L2_Q10",
+      "question_id": "G2M_NS_002_L2_Q10",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "Compare 444 and 484. Choose >, <, or =.",
+      "answer": "<",
+      "correct_answer": "<",
+      "acceptable_answers": [
+        "<",
+        "less than",
+        "less"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "444 is less than 484.",
+      "left": 444,
+      "right": 484,
+      "left_value": 444,
+      "right_value": 484,
+      "value": 444,
+      "number": 444,
+      "hundreds": 4,
+      "tens": 4,
+      "ones": 4,
+      "options": [
+        ">",
+        "<",
+        "="
+      ]
+    },
+    {
+      "id": "G2M_NS_002_L3_Q9",
+      "question_id": "G2M_NS_002_L3_Q9",
+      "question_type": "comparison",
+      "visual_model": "comparison",
+      "prompt": "Compare 990 and 999. Choose >, <, or =.",
+      "answer": "<",
+      "correct_answer": "<",
+      "acceptable_answers": [
+        "<",
+        "less than",
+        "less"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "990 is less than 999.",
+      "left": 990,
+      "right": 999,
+      "left_value": 990,
+      "right_value": 999
+    },
+    {
+      "id": "G2M_NS_002_L4_Q7",
+      "question_id": "G2M_NS_002_L4_Q7",
+      "question_type": "short_response",
+      "visual_model": "comparison",
+      "prompt": "Compare 1000 and 1000. Choose >, <, or =.",
+      "answer": "=",
+      "correct_answer": "=",
+      "acceptable_answers": [
+        "=",
+        "equal to",
+        "equal",
+        "same"
+      ],
+      "misconception_tag": "equal_confusion",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "1000 is equal to 1000.",
+      "left": 1000,
+      "right": 1000,
+      "left_value": 1000,
+      "right_value": 1000
+    }
+  ],
+  "misconception_bank": {
+    "compares_left_to_right_incorrectly": "Compares a visible digit without using the place-value order.",
+    "symbol_reversal": "Chooses the symbol pointing the wrong way.",
+    "place_value_compare_error": "Does not move from hundreds to tens to ones correctly.",
+    "equal_confusion": "Does not recognize equality when both numbers match."
+  },
+  "review_bank": [
+    {
+      "id": "G2M_NS_002_M_Q1",
+      "question_id": "G2M_NS_002_M_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "comparison",
+      "prompt": "Compare 642 and 542. Choose >, <, or =.",
+      "answer": ">",
+      "correct_answer": ">",
+      "acceptable_answers": [
+        ">",
+        "greater than",
+        "greater"
+      ],
+      "misconception_tag": "place_value_compare_error",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "642 is greater than 542.",
+      "left": 642,
+      "right": 542,
+      "left_value": 642,
+      "right_value": 542,
+      "options": [
+        ">",
+        "<",
+        "="
+      ]
+    },
+    {
+      "id": "G2M_NS_002_M_Q4",
+      "question_id": "G2M_NS_002_M_Q4",
+      "question_type": "short_response",
+      "visual_model": "base_ten_blocks",
+      "prompt": "Compare 515 and 515. Choose >, <, or =.",
+      "answer": "=",
+      "correct_answer": "=",
+      "acceptable_answers": [
+        "=",
+        "equal to",
+        "equal",
+        "same"
+      ],
+      "misconception_tag": "equal_confusion",
+      "hints": [
+        "Compare hundreds first.",
+        "If hundreds tie, compare tens. If tens tie, compare ones.",
+        "Choose the symbol that points to the smaller number."
+      ],
+      "feedback": {
+        "correct": "Great comparing!",
+        "incorrect": "Compare one place at a time from hundreds to ones."
+      },
+      "explanation": "515 is equal to 515.",
+      "left": 515,
+      "right": 515,
+      "left_value": 515,
+      "right_value": 515,
+      "value": 515,
+      "number": 515,
+      "hundreds": 5,
+      "tens": 1,
+      "ones": 5
+    }
+  ],
+  "game_theme": {
+    "title": "Comparison Gatekeepers",
+    "mission_intro": "Open each bridge by comparing three-digit numbers.",
+    "badge_name": "Comparison Gatekeeper"
+  },
+  "next_skill_id": "G2M_OP_001",
+  "remediation_skill_id": "G2M_PV_001",
+  "level_banks": [
+    {
+      "level_id": "G2M_NS_002_LVL1",
+      "label": "Level 1: Compare Hundreds",
+      "focus": "Compare numbers when the hundreds place decides.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_NS_002_L1_Q1",
+          "question_id": "G2M_NS_002_L1_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 345 and 268. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "345 is greater than 268.",
+          "left": 345,
+          "right": 268,
+          "left_value": 345,
+          "right_value": 268,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_L1_Q2",
+          "question_id": "G2M_NS_002_L1_Q2",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Compare 412 and 589. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "412 is less than 589.",
+          "left": 412,
+          "right": 589,
+          "left_value": 412,
+          "right_value": 589,
+          "value": 412,
+          "number": 412,
+          "hundreds": 4,
+          "tens": 1,
+          "ones": 2
+        },
+        {
+          "id": "G2M_NS_002_L1_Q3",
+          "question_id": "G2M_NS_002_L1_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Compare 701 and 699. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "701 is greater than 699.",
+          "left": 701,
+          "right": 699,
+          "left_value": 701,
+          "right_value": 699,
+          "min": 695,
+          "max": 705,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_L1_Q4",
+          "question_id": "G2M_NS_002_L1_Q4",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 250 and 350. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "250 is less than 350.",
+          "left": 250,
+          "right": 350,
+          "left_value": 250,
+          "right_value": 350
+        },
+        {
+          "id": "G2M_NS_002_L1_Q5",
+          "question_id": "G2M_NS_002_L1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Compare 900 and 800. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "900 is greater than 800.",
+          "left": 900,
+          "right": 800,
+          "left_value": 900,
+          "right_value": 800,
+          "value": 900,
+          "number": 900,
+          "hundreds": 9,
+          "tens": 0,
+          "ones": 0,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_L1_Q6",
+          "question_id": "G2M_NS_002_L1_Q6",
+          "question_type": "short_response",
+          "visual_model": "comparison",
+          "prompt": "Compare 118 and 218. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "118 is less than 218.",
+          "left": 118,
+          "right": 218,
+          "left_value": 118,
+          "right_value": 218
+        },
+        {
+          "id": "G2M_NS_002_L1_Q7",
+          "question_id": "G2M_NS_002_L1_Q7",
+          "question_type": "comparison",
+          "visual_model": "place_value_chart",
+          "prompt": "Compare 640 and 540. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "compares_left_to_right_incorrectly",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "640 is greater than 540.",
+          "left": 640,
+          "right": 540,
+          "left_value": 640,
+          "right_value": 540,
+          "value": 640,
+          "number": 640,
+          "hundreds": 6,
+          "tens": 4,
+          "ones": 0
+        },
+        {
+          "id": "G2M_NS_002_L1_Q8",
+          "question_id": "G2M_NS_002_L1_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Compare 399 and 400. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "399 is less than 400.",
+          "left": 399,
+          "right": 400,
+          "left_value": 399,
+          "right_value": 400,
+          "min": 396,
+          "max": 403,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_L1_Q9",
+          "question_id": "G2M_NS_002_L1_Q9",
+          "question_type": "short_response",
+          "visual_model": "comparison",
+          "prompt": "Compare 1000 and 999. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "1000 is greater than 999.",
+          "left": 1000,
+          "right": 999,
+          "left_value": 1000,
+          "right_value": 999
+        },
+        {
+          "id": "G2M_NS_002_L1_Q10",
+          "question_id": "G2M_NS_002_L1_Q10",
+          "question_type": "comparison",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Compare 287 and 187. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "287 is greater than 187.",
+          "left": 287,
+          "right": 187,
+          "left_value": 287,
+          "right_value": 187,
+          "value": 287,
+          "number": 287,
+          "hundreds": 2,
+          "tens": 8,
+          "ones": 7
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_NS_002_LVL2",
+      "label": "Level 2: Compare Tens",
+      "focus": "Compare tens after hundreds are equal.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_NS_002_L2_Q1",
+          "question_id": "G2M_NS_002_L2_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Compare 456 and 432. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "456 is greater than 432.",
+          "left": 456,
+          "right": 432,
+          "left_value": 456,
+          "right_value": 432,
+          "value": 456,
+          "number": 456,
+          "hundreds": 4,
+          "tens": 5,
+          "ones": 6,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_L2_Q2",
+          "question_id": "G2M_NS_002_L2_Q2",
+          "question_type": "short_response",
+          "visual_model": "comparison",
+          "prompt": "Compare 781 and 798. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "781 is less than 798.",
+          "left": 781,
+          "right": 798,
+          "left_value": 781,
+          "right_value": 798
+        },
+        {
+          "id": "G2M_NS_002_L2_Q3",
+          "question_id": "G2M_NS_002_L2_Q3",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 629 and 681. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "629 is less than 681.",
+          "left": 629,
+          "right": 681,
+          "left_value": 629,
+          "right_value": 681
+        },
+        {
+          "id": "G2M_NS_002_L2_Q4",
+          "question_id": "G2M_NS_002_L2_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Compare 540 and 510. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "540 is greater than 510.",
+          "left": 540,
+          "right": 510,
+          "left_value": 540,
+          "right_value": 510,
+          "value": 540,
+          "number": 540,
+          "hundreds": 5,
+          "tens": 4,
+          "ones": 0,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_L2_Q5",
+          "question_id": "G2M_NS_002_L2_Q5",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Compare 307 and 390. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "307 is less than 390.",
+          "left": 307,
+          "right": 390,
+          "left_value": 307,
+          "right_value": 390,
+          "min": 305,
+          "max": 392
+        },
+        {
+          "id": "G2M_NS_002_L2_Q6",
+          "question_id": "G2M_NS_002_L2_Q6",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 870 and 820. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "compares_left_to_right_incorrectly",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "870 is greater than 820.",
+          "left": 870,
+          "right": 820,
+          "left_value": 870,
+          "right_value": 820
+        },
+        {
+          "id": "G2M_NS_002_L2_Q7",
+          "question_id": "G2M_NS_002_L2_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Compare 254 and 296. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "254 is less than 296.",
+          "left": 254,
+          "right": 296,
+          "left_value": 254,
+          "right_value": 296,
+          "value": 254,
+          "number": 254,
+          "hundreds": 2,
+          "tens": 5,
+          "ones": 4,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_L2_Q8",
+          "question_id": "G2M_NS_002_L2_Q8",
+          "question_type": "short_response",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Compare 935 and 915. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "935 is greater than 915.",
+          "left": 935,
+          "right": 915,
+          "left_value": 935,
+          "right_value": 915,
+          "value": 935,
+          "number": 935,
+          "hundreds": 9,
+          "tens": 3,
+          "ones": 5
+        },
+        {
+          "id": "G2M_NS_002_L2_Q9",
+          "question_id": "G2M_NS_002_L2_Q9",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 672 and 652. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "672 is greater than 652.",
+          "left": 672,
+          "right": 652,
+          "left_value": 672,
+          "right_value": 652
+        },
+        {
+          "id": "G2M_NS_002_L2_Q10",
+          "question_id": "G2M_NS_002_L2_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Compare 444 and 484. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "444 is less than 484.",
+          "left": 444,
+          "right": 484,
+          "left_value": 444,
+          "right_value": 484,
+          "value": 444,
+          "number": 444,
+          "hundreds": 4,
+          "tens": 4,
+          "ones": 4,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_NS_002_LVL3",
+      "label": "Level 3: Compare Ones",
+      "focus": "Compare ones after hundreds and tens are equal.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_NS_002_L3_Q1",
+          "question_id": "G2M_NS_002_L3_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 458 and 452. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "458 is greater than 452.",
+          "left": 458,
+          "right": 452,
+          "left_value": 458,
+          "right_value": 452,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_L3_Q2",
+          "question_id": "G2M_NS_002_L3_Q2",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Compare 719 and 716. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "719 is greater than 716.",
+          "left": 719,
+          "right": 716,
+          "left_value": 719,
+          "right_value": 716,
+          "value": 719,
+          "number": 719,
+          "hundreds": 7,
+          "tens": 1,
+          "ones": 9
+        },
+        {
+          "id": "G2M_NS_002_L3_Q3",
+          "question_id": "G2M_NS_002_L3_Q3",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Compare 630 and 638. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "630 is less than 638.",
+          "left": 630,
+          "right": 638,
+          "left_value": 630,
+          "right_value": 638,
+          "min": 628,
+          "max": 640
+        },
+        {
+          "id": "G2M_NS_002_L3_Q4",
+          "question_id": "G2M_NS_002_L3_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Compare 905 and 902. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "905 is greater than 902.",
+          "left": 905,
+          "right": 902,
+          "left_value": 905,
+          "right_value": 902,
+          "value": 905,
+          "number": 905,
+          "hundreds": 9,
+          "tens": 0,
+          "ones": 5,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_L3_Q5",
+          "question_id": "G2M_NS_002_L3_Q5",
+          "question_type": "short_response",
+          "visual_model": "comparison",
+          "prompt": "Compare 286 and 289. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "286 is less than 289.",
+          "left": 286,
+          "right": 289,
+          "left_value": 286,
+          "right_value": 289
+        },
+        {
+          "id": "G2M_NS_002_L3_Q6",
+          "question_id": "G2M_NS_002_L3_Q6",
+          "question_type": "comparison",
+          "visual_model": "place_value_chart",
+          "prompt": "Compare 777 and 771. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "compares_left_to_right_incorrectly",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "777 is greater than 771.",
+          "left": 777,
+          "right": 771,
+          "left_value": 777,
+          "right_value": 771,
+          "value": 777,
+          "number": 777,
+          "hundreds": 7,
+          "tens": 7,
+          "ones": 7
+        },
+        {
+          "id": "G2M_NS_002_L3_Q7",
+          "question_id": "G2M_NS_002_L3_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 333 and 336. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "333 is less than 336.",
+          "left": 333,
+          "right": 336,
+          "left_value": 333,
+          "right_value": 336,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_L3_Q8",
+          "question_id": "G2M_NS_002_L3_Q8",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Compare 804 and 801. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "804 is greater than 801.",
+          "left": 804,
+          "right": 801,
+          "left_value": 804,
+          "right_value": 801,
+          "min": 800,
+          "max": 806
+        },
+        {
+          "id": "G2M_NS_002_L3_Q9",
+          "question_id": "G2M_NS_002_L3_Q9",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 990 and 999. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "990 is less than 999.",
+          "left": 990,
+          "right": 999,
+          "left_value": 990,
+          "right_value": 999
+        },
+        {
+          "id": "G2M_NS_002_L3_Q10",
+          "question_id": "G2M_NS_002_L3_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Compare 512 and 510. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "512 is greater than 510.",
+          "left": 512,
+          "right": 510,
+          "left_value": 512,
+          "right_value": 510,
+          "value": 512,
+          "number": 512,
+          "hundreds": 5,
+          "tens": 1,
+          "ones": 2,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_NS_002_LVL4",
+      "label": "Level 4: Use >, <, =",
+      "focus": "Select and read comparison symbols, including equality.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_NS_002_L4_Q1",
+          "question_id": "G2M_NS_002_L4_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 345 and 345. Choose >, <, or =.",
+          "answer": "=",
+          "correct_answer": "=",
+          "acceptable_answers": [
+            "=",
+            "equal to",
+            "equal",
+            "same"
+          ],
+          "misconception_tag": "equal_confusion",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "345 is equal to 345.",
+          "left": 345,
+          "right": 345,
+          "left_value": 345,
+          "right_value": 345,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_L4_Q2",
+          "question_id": "G2M_NS_002_L4_Q2",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Compare 620 and 602. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "symbol_reversal",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "620 is greater than 602.",
+          "left": 620,
+          "right": 602,
+          "left_value": 620,
+          "right_value": 602,
+          "value": 620,
+          "number": 620,
+          "hundreds": 6,
+          "tens": 2,
+          "ones": 0
+        },
+        {
+          "id": "G2M_NS_002_L4_Q3",
+          "question_id": "G2M_NS_002_L4_Q3",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Compare 499 and 500. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "symbol_reversal",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "499 is less than 500.",
+          "left": 499,
+          "right": 500,
+          "left_value": 499,
+          "right_value": 500,
+          "min": 496,
+          "max": 503
+        },
+        {
+          "id": "G2M_NS_002_L4_Q4",
+          "question_id": "G2M_NS_002_L4_Q4",
+          "question_type": "short_response",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Compare 888 and 888. Choose >, <, or =.",
+          "answer": "=",
+          "correct_answer": "=",
+          "acceptable_answers": [
+            "=",
+            "equal to",
+            "equal",
+            "same"
+          ],
+          "misconception_tag": "equal_confusion",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "888 is equal to 888.",
+          "left": 888,
+          "right": 888,
+          "left_value": 888,
+          "right_value": 888,
+          "value": 888,
+          "number": 888,
+          "hundreds": 8,
+          "tens": 8,
+          "ones": 8
+        },
+        {
+          "id": "G2M_NS_002_L4_Q5",
+          "question_id": "G2M_NS_002_L4_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 731 and 713. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "symbol_reversal",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "731 is greater than 713.",
+          "left": 731,
+          "right": 713,
+          "left_value": 731,
+          "right_value": 713,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_L4_Q6",
+          "question_id": "G2M_NS_002_L4_Q6",
+          "question_type": "comparison",
+          "visual_model": "place_value_chart",
+          "prompt": "Compare 204 and 240. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "symbol_reversal",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "204 is less than 240.",
+          "left": 204,
+          "right": 240,
+          "left_value": 204,
+          "right_value": 240,
+          "value": 204,
+          "number": 204,
+          "hundreds": 2,
+          "tens": 0,
+          "ones": 4
+        },
+        {
+          "id": "G2M_NS_002_L4_Q7",
+          "question_id": "G2M_NS_002_L4_Q7",
+          "question_type": "short_response",
+          "visual_model": "comparison",
+          "prompt": "Compare 1000 and 1000. Choose >, <, or =.",
+          "answer": "=",
+          "correct_answer": "=",
+          "acceptable_answers": [
+            "=",
+            "equal to",
+            "equal",
+            "same"
+          ],
+          "misconception_tag": "equal_confusion",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "1000 is equal to 1000.",
+          "left": 1000,
+          "right": 1000,
+          "left_value": 1000,
+          "right_value": 1000
+        },
+        {
+          "id": "G2M_NS_002_L4_Q8",
+          "question_id": "G2M_NS_002_L4_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 567 and 576. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "symbol_reversal",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "567 is less than 576.",
+          "left": 567,
+          "right": 576,
+          "left_value": 567,
+          "right_value": 576,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_L4_Q9",
+          "question_id": "G2M_NS_002_L4_Q9",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Compare 909 and 990. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "symbol_reversal",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "909 is less than 990.",
+          "left": 909,
+          "right": 990,
+          "left_value": 909,
+          "right_value": 990,
+          "min": 906,
+          "max": 993
+        },
+        {
+          "id": "G2M_NS_002_L4_Q10",
+          "question_id": "G2M_NS_002_L4_Q10",
+          "question_type": "comparison",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Compare 450 and 405. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "symbol_reversal",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "450 is greater than 405.",
+          "left": 450,
+          "right": 405,
+          "left_value": 450,
+          "right_value": 405,
+          "value": 450,
+          "number": 450,
+          "hundreds": 4,
+          "tens": 5,
+          "ones": 0
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_NS_002_MIXED",
+      "label": "Mixed",
+      "focus": "Mix hundreds, tens, ones, equality, and symbol comparisons.",
+      "difficulty": 4,
+      "question_count_required": 12,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_NS_002_M_Q1",
+          "question_id": "G2M_NS_002_M_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 642 and 542. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "642 is greater than 542.",
+          "left": 642,
+          "right": 542,
+          "left_value": 642,
+          "right_value": 542,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_M_Q2",
+          "question_id": "G2M_NS_002_M_Q2",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Compare 381 and 392. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "381 is less than 392.",
+          "left": 381,
+          "right": 392,
+          "left_value": 381,
+          "right_value": 392,
+          "value": 381,
+          "number": 381,
+          "hundreds": 3,
+          "tens": 8,
+          "ones": 1
+        },
+        {
+          "id": "G2M_NS_002_M_Q3",
+          "question_id": "G2M_NS_002_M_Q3",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 728 and 724. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "728 is greater than 724.",
+          "left": 728,
+          "right": 724,
+          "left_value": 728,
+          "right_value": 724
+        },
+        {
+          "id": "G2M_NS_002_M_Q4",
+          "question_id": "G2M_NS_002_M_Q4",
+          "question_type": "short_response",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Compare 515 and 515. Choose >, <, or =.",
+          "answer": "=",
+          "correct_answer": "=",
+          "acceptable_answers": [
+            "=",
+            "equal to",
+            "equal",
+            "same"
+          ],
+          "misconception_tag": "equal_confusion",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "515 is equal to 515.",
+          "left": 515,
+          "right": 515,
+          "left_value": 515,
+          "right_value": 515,
+          "value": 515,
+          "number": 515,
+          "hundreds": 5,
+          "tens": 1,
+          "ones": 5
+        },
+        {
+          "id": "G2M_NS_002_M_Q5",
+          "question_id": "G2M_NS_002_M_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Compare 999 and 1000. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "999 is less than 1000.",
+          "left": 999,
+          "right": 1000,
+          "left_value": 999,
+          "right_value": 1000,
+          "min": 996,
+          "max": 1000,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_M_Q6",
+          "question_id": "G2M_NS_002_M_Q6",
+          "question_type": "comparison",
+          "visual_model": "comparison",
+          "prompt": "Compare 870 and 807. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "symbol_reversal",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "870 is greater than 807.",
+          "left": 870,
+          "right": 807,
+          "left_value": 870,
+          "right_value": 807
+        },
+        {
+          "id": "G2M_NS_002_M_Q7",
+          "question_id": "G2M_NS_002_M_Q7",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Compare 456 and 465. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "456 is less than 465.",
+          "left": 456,
+          "right": 465,
+          "left_value": 456,
+          "right_value": 465,
+          "value": 456,
+          "number": 456,
+          "hundreds": 4,
+          "tens": 5,
+          "ones": 6
+        },
+        {
+          "id": "G2M_NS_002_M_Q8",
+          "question_id": "G2M_NS_002_M_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "comparison",
+          "prompt": "Compare 222 and 222. Choose >, <, or =.",
+          "answer": "=",
+          "correct_answer": "=",
+          "acceptable_answers": [
+            "=",
+            "equal to",
+            "equal",
+            "same"
+          ],
+          "misconception_tag": "equal_confusion",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "222 is equal to 222.",
+          "left": 222,
+          "right": 222,
+          "left_value": 222,
+          "right_value": 222,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_M_Q9",
+          "question_id": "G2M_NS_002_M_Q9",
+          "question_type": "comparison",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Compare 604 and 640. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "compares_left_to_right_incorrectly",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "604 is less than 640.",
+          "left": 604,
+          "right": 640,
+          "left_value": 604,
+          "right_value": 640,
+          "value": 604,
+          "number": 604,
+          "hundreds": 6,
+          "tens": 0,
+          "ones": 4
+        },
+        {
+          "id": "G2M_NS_002_M_Q10",
+          "question_id": "G2M_NS_002_M_Q10",
+          "question_type": "short_response",
+          "visual_model": "comparison",
+          "prompt": "Compare 790 and 709. Choose >, <, or =.",
+          "answer": ">",
+          "correct_answer": ">",
+          "acceptable_answers": [
+            ">",
+            "greater than",
+            "greater"
+          ],
+          "misconception_tag": "symbol_reversal",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "790 is greater than 709.",
+          "left": 790,
+          "right": 709,
+          "left_value": 790,
+          "right_value": 709
+        },
+        {
+          "id": "G2M_NS_002_M_Q11",
+          "question_id": "G2M_NS_002_M_Q11",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Compare 318 and 381. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "318 is less than 381.",
+          "left": 318,
+          "right": 381,
+          "left_value": 318,
+          "right_value": 381,
+          "value": 318,
+          "number": 318,
+          "hundreds": 3,
+          "tens": 1,
+          "ones": 8,
+          "options": [
+            ">",
+            "<",
+            "="
+          ]
+        },
+        {
+          "id": "G2M_NS_002_M_Q12",
+          "question_id": "G2M_NS_002_M_Q12",
+          "question_type": "comparison",
+          "visual_model": "number_line",
+          "prompt": "Compare 905 and 950. Choose >, <, or =.",
+          "answer": "<",
+          "correct_answer": "<",
+          "acceptable_answers": [
+            "<",
+            "less than",
+            "less"
+          ],
+          "misconception_tag": "place_value_compare_error",
+          "hints": [
+            "Compare hundreds first.",
+            "If hundreds tie, compare tens. If tens tie, compare ones.",
+            "Choose the symbol that points to the smaller number."
+          ],
+          "feedback": {
+            "correct": "Great comparing!",
+            "incorrect": "Compare one place at a time from hundreds to ones."
+          },
+          "explanation": "905 is less than 950.",
+          "left": 905,
+          "right": 950,
+          "left_value": 905,
+          "right_value": 950,
+          "min": 902,
+          "max": 953
+        }
+      ]
+    }
+  ]
+}
