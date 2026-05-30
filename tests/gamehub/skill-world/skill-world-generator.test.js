@@ -5,11 +5,14 @@ const root=path.join(__dirname,'..','..','..');
 const load=(id)=>JSON.parse(fs.readFileSync(path.join(root,`public/gamehub/skill-world/content/${id}.skill-package.v1.json`),'utf8'));
 const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_GM_001','G1M_GM_002','G1M_DP_001','G1M_MD_TIME_001','G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
 const grade1Packages=grade1SkillIds.map(load);
-const grade2SkillIds=['G2M_PV_001','G2M_NS_001','G2M_NS_002'];
+const grade2SkillIds=['G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003'];
 const grade2Packages=grade2SkillIds.map(load);
 const g2PlaceValue=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_PV_001');
 const g2CountReadWrite=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_NS_001');
 const g2Compare=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_NS_002');
+const g2AddWithin100=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_OP_001');
+const g2SubtractWithin100=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_OP_002');
+const g2FluencyWithin20=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_OP_003');
 const byId=Object.fromEntries([...grade1Packages,...grade2Packages].map((pkg)=>[pkg.skill_id,pkg]));
 const dp=byId.G1M_DP_001;
 const op=byId.G1M_OP_003;
@@ -484,7 +487,7 @@ assert.match(g2DrillHtml,/class="level-card-meta"/,'G2M_PV_001 drill keeps compa
 assert.ok(Renderer.evaluateAnswer(g2Questions.find((q)=>q.question_type==='short_response'&&q.correct_answer==='300 + 40 + 2'),'300 + 40 + 2.'),'G2M_PV_001 short_response accepts acceptable answer');
 
 
-const grade2ProductionIds=['G2M_NS_001','G2M_PV_001','G2M_NS_002'];
+const grade2ProductionIds=['G2M_NS_001','G2M_PV_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003'];
 grade2ProductionIds.forEach((id)=>{
   const pkg=byId[id];
   assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates as production package`);
@@ -546,6 +549,66 @@ assert.match(VisualRegistry.render(g2CompareQuestions.find((q)=>q.visual_model==
 assert.ok(Renderer.evaluateAnswer(g2CompareQuestions.find((q)=>q.correct_answer==='>'),'greater than'),'G2M_NS_002 accepts greater than word form');
 assert.ok(Renderer.evaluateAnswer(g2CompareQuestions.find((q)=>q.correct_answer==='<'),'less than'),'G2M_NS_002 accepts less than word form');
 assert.ok(Renderer.evaluateAnswer(g2CompareQuestions.find((q)=>q.correct_answer==='='),'equal to'),'G2M_NS_002 accepts equal to word form');
+
+
+function assertG2OperationsPackage(pkg,labels,tags){
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${pkg.skill_id} schema validates as production package`);
+  assert.deepEqual(pkg.level_banks.map((level)=>level.label),labels,`${pkg.skill_id} has expected level labels`);
+  tags.forEach((tag)=>{
+    assert.ok(pkg.misconception_bank[tag],`${pkg.skill_id} misconception bank includes ${tag}`);
+    assert.ok(pkg.level_banks.flatMap((level)=>level.questions).some((q)=>q.misconception_tag===tag),`${pkg.skill_id} level banks cover ${tag}`);
+  });
+  assert.equal(pkg.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length,4,`${pkg.skill_id} has four focused levels`);
+  assert.ok(pkg.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),`${pkg.skill_id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${pkg.skill_id} ${level.level_id} has 10-12 questions`));
+  assert.ok(pkg.level_banks.flatMap((level)=>level.questions).filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length),`${pkg.skill_id} short-response numeric items have acceptable_answers`);
+  const html=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.ok(html.includes(label),`${pkg.skill_id} full Skill World flow includes ${label}`));
+  const drillHtml=Renderer.renderSkillWorld(pkg,{mode:'drill',failClosed:true}).html;
+  assert.match(drillHtml,/Skill Practice Center/,`${pkg.skill_id} Skill Practice Center renders`);
+}
+
+assert.equal(g2AddWithin100.domain,'Operations / Base Ten');
+assert.equal(g2AddWithin100.skill,'Add Within 100');
+assertG2OperationsPackage(g2AddWithin100,['Level 1: Add Tens','Level 2: Add Ones','Level 3: Add Two-Digit Numbers Without Regrouping','Level 4: Add Two-Digit Numbers With Regrouping','Mixed'],['regrouping_confusion','ones_tens_alignment_error','count_all_overuse','place_value_addition_error']);
+const g2AddQuestions=[...g2AddWithin100.guided_practice,...g2AddWithin100.adaptive_question_bank,...g2AddWithin100.checkpoint,...g2AddWithin100.level_banks.flatMap((level)=>level.questions)];
+assert.ok(g2AddQuestions.some((q)=>q.operation==='addition'&&!q.regrouping&&Number(q.a)>=10&&Number(q.b)>=10),'G2M_OP_001 includes two-digit addition without regrouping');
+assert.ok(g2AddQuestions.some((q)=>q.operation==='addition'&&q.regrouping&&Number(q.a)>=10&&Number(q.b)>=10),'G2M_OP_001 includes two-digit addition with regrouping');
+assert.ok(g2AddQuestions.some((q)=>q.visual_model==='place_value_chart'),'G2M_OP_001 includes tens/ones alignment with place_value_chart');
+assert.ok(g2AddQuestions.some((q)=>q.visual_model==='base_ten_blocks'),'G2M_OP_001 includes base-ten block models');
+assert.ok(g2AddQuestions.some((q)=>q.visual_model==='number_line'),'G2M_OP_001 includes number-line strategy examples');
+assert.match(VisualRegistry.render(g2AddQuestions.find((q)=>q.visual_model==='addition_model')),/data-renderer="addition_model"/,'addition_model output exists for G2M_OP_001');
+assert.match(VisualRegistry.render(g2AddQuestions.find((q)=>q.visual_model==='base_ten_blocks')),/addition/,'base_ten_blocks supports addition context');
+const g2AddShort=g2AddQuestions.find((q)=>q.question_type==='short_response');
+assert.ok(Renderer.evaluateAnswer(g2AddShort,g2AddShort.correct_answer),'G2M_OP_001 accepts short-response numeric sums');
+
+assert.equal(g2SubtractWithin100.domain,'Operations / Base Ten');
+assert.equal(g2SubtractWithin100.skill,'Subtract Within 100');
+assertG2OperationsPackage(g2SubtractWithin100,['Level 1: Subtract Tens','Level 2: Subtract Ones','Level 3: Subtract Without Regrouping','Level 4: Subtract With Regrouping','Mixed'],['regrouping_confusion','subtracts_smaller_from_larger_digit','tens_ones_alignment_error','count_back_error']);
+const g2SubtractQuestions=[...g2SubtractWithin100.guided_practice,...g2SubtractWithin100.adaptive_question_bank,...g2SubtractWithin100.checkpoint,...g2SubtractWithin100.level_banks.flatMap((level)=>level.questions)];
+assert.ok(g2SubtractQuestions.some((q)=>q.operation==='subtraction'&&!q.regrouping&&Number(q.minuend)>=10&&Number(q.subtrahend)>=10),'G2M_OP_002 includes two-digit subtraction without regrouping');
+assert.ok(g2SubtractQuestions.some((q)=>q.operation==='subtraction'&&q.regrouping&&Number(q.minuend)>=10&&Number(q.subtrahend)>=10),'G2M_OP_002 includes two-digit subtraction with regrouping');
+assert.ok(g2SubtractQuestions.some((q)=>q.visual_model==='place_value_chart'),'G2M_OP_002 includes tens/ones alignment with place_value_chart');
+assert.ok(g2SubtractQuestions.some((q)=>q.visual_model==='base_ten_blocks'&&q.regrouping),'G2M_OP_002 includes base-ten decomposition examples');
+assert.ok(g2SubtractQuestions.some((q)=>q.visual_model==='number_line'),'G2M_OP_002 includes number-line count-back examples');
+assert.match(VisualRegistry.render(g2SubtractQuestions.find((q)=>q.visual_model==='subtraction_model')),/data-renderer="subtraction_model"/,'subtraction_model output exists for G2M_OP_002');
+assert.match(VisualRegistry.render(g2SubtractQuestions.find((q)=>q.visual_model==='base_ten_blocks')),/subtraction/,'base_ten_blocks supports subtraction context');
+const g2SubtractShort=g2SubtractQuestions.find((q)=>q.question_type==='short_response');
+assert.ok(Renderer.evaluateAnswer(g2SubtractShort,g2SubtractShort.correct_answer),'G2M_OP_002 accepts short-response numeric differences');
+
+assert.equal(g2FluencyWithin20.domain,'Operations and Algebraic Thinking');
+assert.equal(g2FluencyWithin20.skill,'Fluency With Addition and Subtraction Within 20');
+assertG2OperationsPackage(g2FluencyWithin20,['Level 1: Make 10','Level 2: Doubles and Near Doubles','Level 3: Related Facts','Level 4: Missing Addend / Missing Part','Mixed'],['make_ten_confusion','doubles_confusion','related_fact_confusion','missing_part_confusion']);
+const g2FluencyQuestions=[...g2FluencyWithin20.guided_practice,...g2FluencyWithin20.adaptive_question_bank,...g2FluencyWithin20.checkpoint,...g2FluencyWithin20.level_banks.flatMap((level)=>level.questions)];
+assert.ok(g2FluencyQuestions.some((q)=>q.misconception_tag==='make_ten_confusion'),'G2M_OP_003 includes make-10 examples');
+assert.ok(g2FluencyQuestions.some((q)=>q.misconception_tag==='doubles_confusion'),'G2M_OP_003 includes doubles and near doubles');
+assert.ok(g2FluencyQuestions.some((q)=>q.misconception_tag==='related_fact_confusion'),'G2M_OP_003 includes fact families / related facts');
+assert.ok(g2FluencyQuestions.some((q)=>q.misconception_tag==='missing_part_confusion'),'G2M_OP_003 includes missing addend and missing part problems');
+assert.match(VisualRegistry.render(g2FluencyQuestions.find((q)=>q.visual_model==='ten_frame')),/data-renderer="ten_frame"/,'ten_frame output exists for G2M_OP_003');
+assert.match(VisualRegistry.render(g2FluencyQuestions.find((q)=>q.visual_model==='addition_model')),/data-renderer="addition_model"/,'addition_model output exists for G2M_OP_003');
+assert.match(VisualRegistry.render(g2FluencyQuestions.find((q)=>q.visual_model==='subtraction_model')),/data-renderer="subtraction_model"/,'subtraction_model output exists for G2M_OP_003');
+const g2FluencyShort=g2FluencyQuestions.find((q)=>q.question_type==='short_response');
+assert.ok(Renderer.evaluateAnswer(g2FluencyShort,g2FluencyShort.correct_answer),'G2M_OP_003 accepts short-response numeric answers');
 
 const dpPattern=VisualRegistry.render(dp.checkpoint[0]);
 assert.match(dpPattern,/pattern-visual/);
