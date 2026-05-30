@@ -86,8 +86,8 @@ button,input,select,textarea{font:inherit;max-width:100%}
 .mission-step.is-unavailable{opacity:.58;background:#f8fafc}
 
 .sw-stats{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}
-.stat-card{min-width:0;background:linear-gradient(180deg,#fff,#f4fbff);border-radius:22px;border:2px solid #c2defe;padding:16px;text-align:center;box-shadow:0 10px 22px rgba(32,48,79,.1)}
-.stat-card b{display:block;color:#596b8f}.stat-card span{font-size:clamp(1.15rem,3vw,1.45rem);font-weight:900}
+.stat-card{min-width:0;background:linear-gradient(180deg,#fff,#f4fbff);border-radius:22px;border:2px solid #c2defe;padding:16px;text-align:center;box-shadow:0 10px 22px rgba(32,48,79,.1);display:flex;flex-direction:column;align-items:center;gap:4px}
+.stat-label{display:block;color:#596b8f;font-size:.82rem;font-weight:800;letter-spacing:.02em;line-height:1.2}.stat-value{display:block;color:#1f3a5f;font-size:clamp(1.15rem,3vw,1.45rem);font-weight:900;line-height:1.15;overflow-wrap:anywhere}
 
 .central-screen-card,.skill-screen-card{
   width:100%;
@@ -218,10 +218,13 @@ button,input,select,textarea{font:inherit;max-width:100%}
 @media (max-width:760px){
   .drill-tabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.drill-tab{padding:10px;border-radius:16px;font-size:.9rem}.drill-level-header{display:block}.drill-progress{justify-content:flex-start}.drill-visual{min-height:180px}.drill-actions{grid-template-columns:1fr}
 }
-.level-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0}
-.level-card{background:#fff;border:3px solid #8bd3ff;border-radius:24px;padding:16px;box-shadow:0 8px 0 rgba(49,130,206,.16)}
-.level-card h3{margin:.25rem 0 .75rem;color:#1f3a5f}
+.level-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:14px 0}
+.level-card{background:#fff;border:3px solid #8bd3ff;border-radius:24px;padding:14px;box-shadow:0 8px 0 rgba(49,130,206,.16)}
+.level-card h3{margin:.2rem 0 .55rem;color:#1f3a5f;line-height:1.2}
+.level-card-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 12px}
+.level-card-meta div{background:#f6fbff;border:2px solid #d7ecff;border-radius:16px;padding:8px 6px;min-width:0}
+.level-card-meta dt{font-size:.72rem;font-weight:800;color:#596b8f;line-height:1.15}.level-card-meta dd{margin:2px 0 0;font-size:.9rem;font-weight:900;color:#1f3a5f;line-height:1.15;overflow-wrap:anywhere}
 .level-card .primary,.continue-skill-practice{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:999px;padding:10px 14px;font-weight:900}
 .skill-drill-center .level-card-grid,.skill-drill-level-screen .question-card{margin-top:12px}
 .skill-practice-coming-soon{background:#fff7ed;border:2px solid #fed7aa;border-radius:18px;padding:12px;font-weight:900;color:#9a3412}
-@media(max-width:720px){.level-card-grid{grid-template-columns:1fr}}
+@media(max-width:720px){.level-card-grid{grid-template-columns:1fr;gap:10px;margin:10px 0}.level-card{padding:10px 12px;border-radius:18px;box-shadow:0 5px 0 rgba(49,130,206,.14)}.level-card h3{font-size:1rem;margin:.1rem 0 .35rem}.level-card .zone-label{margin-bottom:3px}.level-card-meta{gap:6px;margin:8px 0 10px}.level-card-meta div{padding:6px 5px;border-radius:12px}.level-card-meta dt{font-size:.68rem}.level-card-meta dd{font-size:.82rem}.level-card .primary.start-level{width:100%;min-height:44px;padding:10px 14px}}

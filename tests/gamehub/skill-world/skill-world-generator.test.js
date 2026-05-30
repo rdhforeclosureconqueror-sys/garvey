@@ -199,6 +199,11 @@ assert.match(drillHtml,/Skill Practice Center/,'Skill Practice Center renders');
 assert.match(drillHtml,/level-card/,'level cards render');
 assert.match(drillHtml,/Level 1/,'Skill Practice Center renders Level 1 card');
 assert.match(drillHtml,/Mixed/,'Skill Practice Center renders Mixed card');
+assert.match(drillHtml,/class="level-card compact-level-card"/,'Skill Practice Center uses compact level card markup');
+assert.match(drillHtml,/class="level-card-meta"/,'Skill Practice Center groups level facts in compact metadata');
+assert.match(drillHtml,/<dt>Questions<\/dt><dd>10<\/dd>/,'Skill Practice Center keeps question count visible');
+assert.match(drillHtml,/<dt>Mastery<\/dt><dd>80%<\/dd>/,'Skill Practice Center keeps mastery threshold visible');
+assert.match(drillHtml,/<dt>Status<\/dt><dd>Not started<\/dd>/,'Skill Practice Center keeps level status visible');
 Renderer.selectLevel(pvDrillState,0);
 drillHtml=Renderer.renderSkillWorld(pv,{state:pvDrillState,mode:'drill',failClosed:true}).html;
 assert.match(drillHtml,/Question 1 \/ 10/,'Skill Practice question counter renders');
@@ -233,6 +238,14 @@ assert.ok(Object.prototype.hasOwnProperty.call(drillGrowth,'recommended_level_re
 const bad=JSON.parse(JSON.stringify(dp)); delete bad.lesson; bad.guided_practice=[];
 assert.equal(Schema.validateSkillPackage(bad).valid,false);
 assert.throws(()=>Renderer.renderSkillWorld(bad,{failClosed:true}),/SkillPackage validation failed/);
+
+const statsState=Renderer.createState();
+const statsHtml=Renderer.renderStats(statsState,dp);
+assert.match(statsHtml,/<span class="stat-label">Stars<\/span><span class="stat-value">0<\/span>/,'Stats render Stars label and value separately');
+assert.match(statsHtml,/<span class="stat-label">Accuracy<\/span><span class="stat-value">0%<\/span>/,'Stats render Accuracy label and value separately');
+assert.match(statsHtml,/<span class="stat-label">Hints<\/span><span class="stat-value">0<\/span>/,'Stats render Hints label and value separately');
+assert.match(statsHtml,/<span class="stat-label">Zone<\/span><span class="stat-value">Story<\/span>/,'Stats render Zone label and value separately');
+assert.doesNotMatch(statsHtml,/<div class="stat-card"><span>Stars<\/span><strong>0<\/strong><\/div>/,'Stats no longer rely on adjacent unlabeled inline text');
 
 const state=Renderer.createState();
 const gp=dp.guided_practice[0], challenge=dp.adaptive_question_bank[0], cp=dp.checkpoint[0];
@@ -460,7 +473,10 @@ assert.match(g2BaseTen,/Hundreds flats/,'base_ten_blocks supports hundreds flats
 assert.match(g2BaseTen,/hundred-flat/,'base_ten_blocks renders hundred-flat elements');
 const g2MissionHtml=Renderer.renderSkillWorld(g2PlaceValue,{failClosed:true}).html;
 ['Story','Mini Lesson','Worked Example / Watch','Guided Demo','Practice zone','Challenge zone','Checkpoint zone','Badge','Growth/Profile screen'].forEach((label)=>assert.match(g2MissionHtml,new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')),`G2M_PV_001 mission missing ${label}`));
-assert.match(Renderer.renderSkillWorld(g2PlaceValue,{mode:'drill',failClosed:true}).html,/Skill Practice Center/,'G2M_PV_001 Skill Practice Center renders');
+const g2DrillHtml=Renderer.renderSkillWorld(g2PlaceValue,{mode:'drill',failClosed:true}).html;
+assert.match(g2DrillHtml,/Skill Practice Center/,'G2M_PV_001 Skill Practice Center renders');
+assert.match(g2DrillHtml,/class="level-card compact-level-card"/,'G2M_PV_001 drill uses compact level cards');
+assert.match(g2DrillHtml,/class="level-card-meta"/,'G2M_PV_001 drill keeps compact level metadata');
 assert.ok(Renderer.evaluateAnswer(g2Questions.find((q)=>q.question_type==='short_response'&&q.correct_answer==='300 + 40 + 2'),'300 + 40 + 2.'),'G2M_PV_001 short_response accepts acceptable answer');
 
 const dpPattern=VisualRegistry.render(dp.checkpoint[0]);
