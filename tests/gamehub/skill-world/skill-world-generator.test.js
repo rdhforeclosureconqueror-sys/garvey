@@ -1,14 +1,14 @@
 const assert=require('assert');
 const fs=require('fs');
 const path=require('path');
+const vm=require('vm');
 const root=path.join(__dirname,'..','..','..');
 const load=(id)=>JSON.parse(fs.readFileSync(path.join(root,`public/gamehub/skill-world/content/${id}.skill-package.v1.json`),'utf8'));
 const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_GM_001','G1M_GM_002','G1M_DP_001','G1M_MD_TIME_001','G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
 const grade1Packages=grade1SkillIds.map(load);
 const grade2SkillIds=['G2E_RF_001','G2E_RF_002','G2E_FL_001','G2E_VOC_001','G2E_RC_001','G2E_RC_002','G2E_RC_003','G2E_WR_001','G2E_WR_002','G2E_WR_003','G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
 const grade2Packages=grade2SkillIds.map(load);
-const grade3SkillIds=['G3M_MUL_001','G3M_DIV_001','G3M_FACT_001','G3M_WP_001','G3M_PV_001','G3M_FR_001','G3M_FR_002'];
-const grade3SkillIds=['G3M_MUL_001','G3M_DIV_001','G3M_FACT_001','G3M_WP_001','G3M_MD_001','G3M_GM_001','G3M_GM_002'];
+const grade3SkillIds=['G3M_MUL_001','G3M_DIV_001','G3M_FACT_001','G3M_WP_001','G3M_PV_001','G3M_FR_001','G3M_FR_002','G3M_MD_001','G3M_GM_001','G3M_GM_002'];
 const grade3Packages=grade3SkillIds.map(load);
 const g3MultiplicationFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_MUL_001');
 const g3DivisionFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_DIV_001');
@@ -54,7 +54,47 @@ const Adapter=require(path.join(root,'public/gamehub/skill-world/engine/growth-d
 const Schema=require(path.join(root,'public/gamehub/skill-world/engine/skill-package-schema.js'));
 const VisualRegistry=require(path.join(root,'public/gamehub/skill-world/renderers/visual-model-registry.js'));
 
+const schemaSource=fs.readFileSync(path.join(root,'public/gamehub/skill-world/engine/skill-package-schema.js'),'utf8');
+const recommendationSource=fs.readFileSync(path.join(root,'public/gamehub/skill-world/engine/recommendation-helper.js'),'utf8');
+const growthAdapterSource=fs.readFileSync(path.join(root,'public/gamehub/skill-world/engine/growth-data-adapter.js'),'utf8');
+const visualRegistrySource=fs.readFileSync(path.join(root,'public/gamehub/skill-world/renderers/visual-model-registry.js'),'utf8');
+const rendererSource=fs.readFileSync(path.join(root,'public/gamehub/skill-world/engine/skill-world-renderer.js'),'utf8');
+const skillWorldIndex=fs.readFileSync(path.join(root,'public/gamehub/skill-world/index.html'),'utf8');
 global.localStorage={_m:new Map(),setItem(k,v){this._m.set(k,v)},getItem(k){return this._m.get(k)||null}};
+
+assert.equal(typeof Schema.validateSkillPackage,'function','Node require exposes validateSkillPackage');
+assert.equal(typeof Schema.ensureQuestionId,'function','Node require exposes ensureQuestionId');
+assert.equal(typeof Schema.validateQuestionTypes,'function','Node require exposes validateQuestionTypes');
+const browserContext={console,window:null,self:null,globalThis:null,localStorage:global.localStorage};
+browserContext.window=browserContext;
+browserContext.self=browserContext;
+browserContext.globalThis=browserContext;
+vm.runInNewContext(schemaSource,browserContext,{filename:'skill-package-schema.js'});
+assert.ok(browserContext.SkillPackageSchema,'browser/global simulation exposes SkillPackageSchema');
+assert.equal(typeof browserContext.SkillPackageSchema.validateSkillPackage,'function','browser/global simulation exposes SkillPackageSchema.validateSkillPackage');
+assert.equal(typeof browserContext.SkillPackageSchema.ensureQuestionId,'function','browser/global simulation exposes SkillPackageSchema.ensureQuestionId');
+assert.equal(typeof browserContext.SkillPackageSchema.validateQuestionTypes,'function','browser/global simulation exposes SkillPackageSchema.validateQuestionTypes');
+vm.runInNewContext(recommendationSource,browserContext,{filename:'recommendation-helper.js'});
+vm.runInNewContext(growthAdapterSource,browserContext,{filename:'growth-data-adapter.js'});
+vm.runInNewContext(visualRegistrySource,browserContext,{filename:'visual-model-registry.js'});
+vm.runInNewContext(rendererSource,browserContext,{filename:'skill-world-renderer.js'});
+assert.equal(typeof browserContext.SkillWorldRenderer.renderSkillWorld,'function','renderer can access the browser schema object and export itself');
+assert.match(browserContext.SkillWorldRenderer.renderSkillWorld(load('G1M_NS_001'),{failClosed:true}).html,/Skill World:|Skill Practice Center/,'browser/global renderer renders with schema validation');
+assert.ok(skillWorldIndex.indexOf('skill-package-schema.js')>-1,'Skill World index includes skill-package-schema.js');
+assert.ok(skillWorldIndex.indexOf('skill-world-renderer.js')>-1,'Skill World index includes skill-world-renderer.js');
+assert.ok(skillWorldIndex.indexOf('skill-package-schema.js')<skillWorldIndex.indexOf('skill-world-renderer.js'),'generated HTML loads skill-package-schema.js before skill-world-renderer.js');
+
+const requiredSkillWorldRoutes=['G1M_NS_001','G1E_RF_001','G2M_PV_001','G2E_RF_001','G3M_MUL_001','G3M_FR_001','G3M_MD_001'];
+requiredSkillWorldRoutes.forEach((id)=>{
+  const html=Renderer.renderSkillWorld(load(id),{failClosed:true}).html;
+  assert.match(html,/Skill World:/,`/skill-world/${id} renders Skill World mission HTML`);
+});
+['G1M_NS_001','G2M_PV_001','G3M_MUL_001'].forEach((id)=>{
+  const state=Renderer.createState();
+  state.mode='drill';
+  const html=Renderer.renderSkillWorld(load(id),{state,mode:'drill',failClosed:true}).html;
+  assert.match(html,/Skill Practice Center/,`/skill-world/${id}/drill renders Skill Practice HTML`);
+});
 
 assert.ok(g2AdvancedPhonics,'G2E_RF_001 package loads');
 assert.equal(Schema.validateSkillPackage(g2AdvancedPhonics,{allowPlannedLevelBanks:false}).valid,true,'G2E_RF_001 validates in strict production mode');
@@ -984,6 +1024,27 @@ const grade3BaseTenFractionPackages=[
   {pkg:g3FractionComparisons,id:'G3M_FR_002',domain:'Number and Operations—Fractions',skill:'Equivalent Fractions and Comparing Fractions',labels:['Level 1: Equivalent Fractions','Level 2: Compare Same Denominator','Level 3: Compare Same Numerator','Level 4: Fraction Number Line Comparisons','Mixed'],visuals:['fraction_bar','fraction_circle','number_line','comparison'],types:['multiple_choice','short_response','fraction_response','comparison'],tags:['equivalent_fraction_confusion','denominator_size_confusion','numerator_focus_error','fraction_number_line_error']}
 ];
 grade3BaseTenFractionPackages.forEach(({pkg,id,domain,skill,labels,visuals,types,tags})=>{
+  assert.ok(pkg,`${id} package loads`);
+  const questions=pkg.level_banks.flatMap((level)=>level.questions);
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates in strict production mode`);
+  assert.equal(pkg.grade,3);
+  assert.equal(pkg.subject,'Math');
+  assert.equal(pkg.domain,domain);
+  assert.equal(pkg.skill,skill);
+  assert.equal(Array.isArray(pkg.level_banks),true,`${id} has level_banks`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+  labels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${id} includes ${label}`));
+  visuals.forEach((visual)=>assert.ok(Schema.VISUAL_MODELS.includes(visual),`schema accepts ${visual}`));
+  visuals.forEach((visual)=>assert.ok(questions.some((q)=>q.visual_model===visual),`${id} includes ${visual}`));
+  types.forEach((type)=>assert.ok(questions.some((q)=>q.question_type===type),`${id} includes ${type}`));
+  tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${id} includes misconception ${tag}`));
+  assert.ok(questions.filter((q)=>q.question_type!=='multiple_choice').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),`${id} non-multiple-choice items have acceptable_answers`);
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${id} mission renders ${label}`));
+  assert.match(missionHtml,/Continue to Skill Practice/,`${id} profile links to Skill Practice Center`);
+});
 const grade3MeasurementGeometryPackages=[
   {pkg:g3MeasurementData,id:'G3M_MD_001',domain:'Measurement and Data',skill:'Time, Measurement, and Data',labels:['Level 1: Elapsed Time','Level 2: Measure Mass and Volume','Level 3: Graphs and Data','Level 4: Line Plots with Fractions','Mixed'],visuals:['analog_clock','elapsed_time_timeline','measurement_comparison','bar_graph','line_plot'],types:['multiple_choice','short_response','elapsed_time','measurement','data_interpretation'],tags:['elapsed_time_confusion','unit_conversion_confusion','graph_scale_confusion','line_plot_fraction_error'],answerTypes:['elapsed_time','measurement','data_interpretation','short_response']},
   {pkg:g3AreaPerimeter,id:'G3M_GM_001',domain:'Measurement and Geometry',skill:'Area and Perimeter',labels:['Level 1: Count Square Units','Level 2: Area of Rectangles','Level 3: Perimeter','Level 4: Area vs Perimeter','Mixed'],visuals:['area_model','grid_model','perimeter_path','rectangle_model'],types:['multiple_choice','short_response','area_response','perimeter_response'],tags:['area_perimeter_confusion','square_unit_count_error','side_length_addition_error','formula_misuse'],answerTypes:['area_response','perimeter_response','short_response']},
