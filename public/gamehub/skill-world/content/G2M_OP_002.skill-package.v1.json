@@ -1,0 +1,2572 @@
+{
+  "skill_id": "G2M_OP_002",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_plan": "curriculum-framework/plans/grade2-math-completion-plan.v1.json"
+  },
+  "grade": 2,
+  "subject": "Math",
+  "domain": "Operations / Base Ten",
+  "skill": "Subtract Within 100",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Help the Trail Rangers figure out how many supplies remain after deliveries.",
+    "mini_lesson": "Subtract two-digit numbers by place value. Line up tens and ones, subtract ones first, and regroup 1 ten as 10 ones when there are not enough ones.",
+    "objective": "Subtract two-digit numbers within 100 using drawings, number lines, and place value.",
+    "key_vocabulary": [
+      "subtract",
+      "difference",
+      "tens",
+      "ones",
+      "regroup",
+      "decompose"
+    ],
+    "concept_explanation": "Two-digit subtraction compares ones with ones and tens with tens. When the top number has too few ones, decompose 1 ten into 10 ones.",
+    "visual_model": "subtraction_model",
+    "common_misconception": "A child may subtract the smaller digit from the larger digit instead of regrouping.",
+    "real_world_connection": "Subtracting within 100 helps track leftovers, distances, and scores.",
+    "lesson_summary": "Subtract ones, regroup if needed, subtract tens, and check the difference.",
+    "hints": [
+      "Line up tens with tens and ones with ones.",
+      "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+      "Then subtract the tens and write the difference."
+    ]
+  },
+  "worked_examples": [
+    {
+      "text": "70 - 30 = 40 because 7 tens minus 3 tens leaves 4 tens."
+    },
+    {
+      "text": "58 - 24 = 34 because 8 ones - 4 ones = 4 ones and 5 tens - 2 tens = 3 tens."
+    },
+    {
+      "text": "52 - 28 = 24 because regroup 5 tens 2 ones as 4 tens 12 ones."
+    }
+  ],
+  "hint_ladder": [
+    "Line up tens with tens and ones with ones.",
+    "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+    "Then subtract the tens and write the difference."
+  ],
+  "misconception_bank": {
+    "regrouping_confusion": "Learner may forget to trade 1 ten for 10 ones.",
+    "subtracts_smaller_from_larger_digit": "Learner may subtract the smaller digit from the larger digit regardless of order.",
+    "tens_ones_alignment_error": "Learner may subtract tens from ones or ones from tens.",
+    "count_back_error": "Learner may count back too many or too few spaces."
+  },
+  "game_theme": {
+    "title": "Subtract Within 100",
+    "mission_intro": "Help the Trail Rangers figure out how many supplies remain after deliveries.",
+    "badge_name": "Subtraction Strategist"
+  },
+  "guided_practice": [
+    {
+      "id": "G2M_OP_002_LVL1_Q1",
+      "question_id": "G2M_OP_002_LVL1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "base_ten_blocks",
+      "prompt": "Subtract 80 - 30. What is the difference?",
+      "answer": "50",
+      "correct_answer": "50",
+      "acceptable_answers": [
+        "50"
+      ],
+      "misconception_tag": "count_back_error",
+      "hints": [
+        "Line up tens with tens and ones with ones.",
+        "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+        "Then subtract the tens and write the difference."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "80 - 30 = 50. Subtract ones and tens without regrouping.",
+      "options": [
+        "49",
+        "50",
+        "51",
+        "60"
+      ],
+      "choices": [
+        "49",
+        "50",
+        "51",
+        "60"
+      ],
+      "a": 80,
+      "b": 30,
+      "minuend": 80,
+      "subtrahend": 30,
+      "operation": "subtraction",
+      "value": 80,
+      "difference": 50,
+      "regrouping": false,
+      "ones_a": 0,
+      "ones_b": 0,
+      "tens_a": 8,
+      "tens_b": 3
+    },
+    {
+      "id": "G2M_OP_002_LVL1_Q2",
+      "question_id": "G2M_OP_002_LVL1_Q2",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Subtract 70 - 20. What is the difference?",
+      "answer": "50",
+      "correct_answer": "50",
+      "acceptable_answers": [
+        "50"
+      ],
+      "misconception_tag": "tens_ones_alignment_error",
+      "hints": [
+        "Line up tens with tens and ones with ones.",
+        "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+        "Then subtract the tens and write the difference."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "70 - 20 = 50. Subtract ones and tens without regrouping.",
+      "a": 70,
+      "b": 20,
+      "minuend": 70,
+      "subtrahend": 20,
+      "operation": "subtraction",
+      "value": 70,
+      "difference": 50,
+      "regrouping": false,
+      "ones_a": 0,
+      "ones_b": 0,
+      "tens_a": 7,
+      "tens_b": 2
+    },
+    {
+      "id": "G2M_OP_002_LVL1_Q3",
+      "question_id": "G2M_OP_002_LVL1_Q3",
+      "question_type": "short_response",
+      "visual_model": "number_line",
+      "prompt": "Subtract 90 - 40. What is the difference?",
+      "answer": "50",
+      "correct_answer": "50",
+      "acceptable_answers": [
+        "50"
+      ],
+      "misconception_tag": "count_back_error",
+      "hints": [
+        "Line up tens with tens and ones with ones.",
+        "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+        "Then subtract the tens and write the difference."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "90 - 40 = 50. Subtract ones and tens without regrouping.",
+      "a": 90,
+      "b": 40,
+      "minuend": 90,
+      "subtrahend": 40,
+      "operation": "subtraction",
+      "value": 90,
+      "difference": 50,
+      "regrouping": false,
+      "ones_a": 0,
+      "ones_b": 0,
+      "tens_a": 9,
+      "tens_b": 4
+    },
+    {
+      "id": "G2M_OP_002_LVL1_Q4",
+      "question_id": "G2M_OP_002_LVL1_Q4",
+      "question_type": "multiple_choice",
+      "visual_model": "subtraction_model",
+      "prompt": "Subtract 60 - 10. What is the difference?",
+      "answer": "50",
+      "correct_answer": "50",
+      "acceptable_answers": [
+        "50"
+      ],
+      "misconception_tag": "tens_ones_alignment_error",
+      "hints": [
+        "Line up tens with tens and ones with ones.",
+        "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+        "Then subtract the tens and write the difference."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "60 - 10 = 50. Subtract ones and tens without regrouping.",
+      "options": [
+        "49",
+        "50",
+        "51",
+        "60"
+      ],
+      "choices": [
+        "49",
+        "50",
+        "51",
+        "60"
+      ],
+      "a": 60,
+      "b": 10,
+      "minuend": 60,
+      "subtrahend": 10,
+      "operation": "subtraction",
+      "value": 60,
+      "difference": 50,
+      "regrouping": false,
+      "ones_a": 0,
+      "ones_b": 0,
+      "tens_a": 6,
+      "tens_b": 1
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G2M_OP_002_LVL4_Q1",
+      "question_id": "G2M_OP_002_LVL4_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "base_ten_blocks",
+      "prompt": "Subtract 52 - 28. What is the difference?",
+      "answer": "24",
+      "correct_answer": "24",
+      "acceptable_answers": [
+        "24"
+      ],
+      "misconception_tag": "regrouping_confusion",
+      "hints": [
+        "Line up tens with tens and ones with ones.",
+        "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+        "Then subtract the tens and write the difference."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "52 - 28 = 24. Regroup 1 ten as 10 ones before subtracting ones.",
+      "options": [
+        "23",
+        "24",
+        "25",
+        "34"
+      ],
+      "choices": [
+        "23",
+        "24",
+        "25",
+        "34"
+      ],
+      "a": 52,
+      "b": 28,
+      "minuend": 52,
+      "subtrahend": 28,
+      "operation": "subtraction",
+      "value": 52,
+      "difference": 24,
+      "regrouping": true,
+      "ones_a": 2,
+      "ones_b": 8,
+      "tens_a": 5,
+      "tens_b": 2
+    },
+    {
+      "id": "G2M_OP_002_LVL4_Q2",
+      "question_id": "G2M_OP_002_LVL4_Q2",
+      "question_type": "short_response",
+      "visual_model": "number_line",
+      "prompt": "Subtract 63 - 37. What is the difference?",
+      "answer": "26",
+      "correct_answer": "26",
+      "acceptable_answers": [
+        "26"
+      ],
+      "misconception_tag": "count_back_error",
+      "hints": [
+        "Line up tens with tens and ones with ones.",
+        "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+        "Then subtract the tens and write the difference."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "63 - 37 = 26. Regroup 1 ten as 10 ones before subtracting ones.",
+      "a": 63,
+      "b": 37,
+      "minuend": 63,
+      "subtrahend": 37,
+      "operation": "subtraction",
+      "value": 63,
+      "difference": 26,
+      "regrouping": true,
+      "ones_a": 3,
+      "ones_b": 7,
+      "tens_a": 6,
+      "tens_b": 3
+    },
+    {
+      "id": "G2M_OP_002_LVL4_Q3",
+      "question_id": "G2M_OP_002_LVL4_Q3",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Subtract 71 - 46. What is the difference?",
+      "answer": "25",
+      "correct_answer": "25",
+      "acceptable_answers": [
+        "25"
+      ],
+      "misconception_tag": "regrouping_confusion",
+      "hints": [
+        "Line up tens with tens and ones with ones.",
+        "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+        "Then subtract the tens and write the difference."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "71 - 46 = 25. Regroup 1 ten as 10 ones before subtracting ones.",
+      "a": 71,
+      "b": 46,
+      "minuend": 71,
+      "subtrahend": 46,
+      "operation": "subtraction",
+      "value": 71,
+      "difference": 25,
+      "regrouping": true,
+      "ones_a": 1,
+      "ones_b": 6,
+      "tens_a": 7,
+      "tens_b": 4
+    },
+    {
+      "id": "G2M_OP_002_LVL4_Q4",
+      "question_id": "G2M_OP_002_LVL4_Q4",
+      "question_type": "multiple_choice",
+      "visual_model": "subtraction_model",
+      "prompt": "Subtract 84 - 59. What is the difference?",
+      "answer": "25",
+      "correct_answer": "25",
+      "acceptable_answers": [
+        "25"
+      ],
+      "misconception_tag": "subtracts_smaller_from_larger_digit",
+      "hints": [
+        "Line up tens with tens and ones with ones.",
+        "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+        "Then subtract the tens and write the difference."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "84 - 59 = 25. Regroup 1 ten as 10 ones before subtracting ones.",
+      "options": [
+        "24",
+        "25",
+        "26",
+        "35"
+      ],
+      "choices": [
+        "24",
+        "25",
+        "26",
+        "35"
+      ],
+      "a": 84,
+      "b": 59,
+      "minuend": 84,
+      "subtrahend": 59,
+      "operation": "subtraction",
+      "value": 84,
+      "difference": 25,
+      "regrouping": true,
+      "ones_a": 4,
+      "ones_b": 9,
+      "tens_a": 8,
+      "tens_b": 5
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G2M_OP_002_MIXED_Q1",
+      "question_id": "G2M_OP_002_MIXED_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "base_ten_blocks",
+      "prompt": "Subtract 80 - 30. What is the difference?",
+      "answer": "50",
+      "correct_answer": "50",
+      "acceptable_answers": [
+        "50"
+      ],
+      "misconception_tag": "count_back_error",
+      "hints": [
+        "Line up tens with tens and ones with ones.",
+        "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+        "Then subtract the tens and write the difference."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "80 - 30 = 50. Subtract ones and tens without regrouping.",
+      "options": [
+        "49",
+        "50",
+        "51",
+        "60"
+      ],
+      "choices": [
+        "49",
+        "50",
+        "51",
+        "60"
+      ],
+      "a": 80,
+      "b": 30,
+      "minuend": 80,
+      "subtrahend": 30,
+      "operation": "subtraction",
+      "value": 80,
+      "difference": 50,
+      "regrouping": false,
+      "ones_a": 0,
+      "ones_b": 0,
+      "tens_a": 8,
+      "tens_b": 3
+    },
+    {
+      "id": "G2M_OP_002_MIXED_Q2",
+      "question_id": "G2M_OP_002_MIXED_Q2",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "Subtract 70 - 20. What is the difference?",
+      "answer": "50",
+      "correct_answer": "50",
+      "acceptable_answers": [
+        "50"
+      ],
+      "misconception_tag": "tens_ones_alignment_error",
+      "hints": [
+        "Line up tens with tens and ones with ones.",
+        "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+        "Then subtract the tens and write the difference."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "70 - 20 = 50. Subtract ones and tens without regrouping.",
+      "a": 70,
+      "b": 20,
+      "minuend": 70,
+      "subtrahend": 20,
+      "operation": "subtraction",
+      "value": 70,
+      "difference": 50,
+      "regrouping": false,
+      "ones_a": 0,
+      "ones_b": 0,
+      "tens_a": 7,
+      "tens_b": 2
+    },
+    {
+      "id": "G2M_OP_002_MIXED_Q3",
+      "question_id": "G2M_OP_002_MIXED_Q3",
+      "question_type": "multiple_choice",
+      "visual_model": "subtraction_model",
+      "prompt": "Subtract 48 - 5. What is the difference?",
+      "answer": "43",
+      "correct_answer": "43",
+      "acceptable_answers": [
+        "43"
+      ],
+      "misconception_tag": "tens_ones_alignment_error",
+      "hints": [
+        "Line up tens with tens and ones with ones.",
+        "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+        "Then subtract the tens and write the difference."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "48 - 5 = 43. Subtract ones and tens without regrouping.",
+      "options": [
+        "42",
+        "43",
+        "44",
+        "53"
+      ],
+      "choices": [
+        "42",
+        "43",
+        "44",
+        "53"
+      ],
+      "a": 48,
+      "b": 5,
+      "minuend": 48,
+      "subtrahend": 5,
+      "operation": "subtraction",
+      "value": 48,
+      "difference": 43,
+      "regrouping": false,
+      "ones_a": 8,
+      "ones_b": 5,
+      "tens_a": 4,
+      "tens_b": 0
+    }
+  ],
+  "level_banks": [
+    {
+      "level_id": "G2M_OP_002_LVL1",
+      "label": "Level 1: Subtract Tens",
+      "focus": "Subtract multiples of ten using tens rods.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_OP_002_LVL1_Q1",
+          "question_id": "G2M_OP_002_LVL1_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Subtract 80 - 30. What is the difference?",
+          "answer": "50",
+          "correct_answer": "50",
+          "acceptable_answers": [
+            "50"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "80 - 30 = 50. Subtract ones and tens without regrouping.",
+          "options": [
+            "49",
+            "50",
+            "51",
+            "60"
+          ],
+          "choices": [
+            "49",
+            "50",
+            "51",
+            "60"
+          ],
+          "a": 80,
+          "b": 30,
+          "minuend": 80,
+          "subtrahend": 30,
+          "operation": "subtraction",
+          "value": 80,
+          "difference": 50,
+          "regrouping": false,
+          "ones_a": 0,
+          "ones_b": 0,
+          "tens_a": 8,
+          "tens_b": 3
+        },
+        {
+          "id": "G2M_OP_002_LVL1_Q2",
+          "question_id": "G2M_OP_002_LVL1_Q2",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Subtract 70 - 20. What is the difference?",
+          "answer": "50",
+          "correct_answer": "50",
+          "acceptable_answers": [
+            "50"
+          ],
+          "misconception_tag": "tens_ones_alignment_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "70 - 20 = 50. Subtract ones and tens without regrouping.",
+          "a": 70,
+          "b": 20,
+          "minuend": 70,
+          "subtrahend": 20,
+          "operation": "subtraction",
+          "value": 70,
+          "difference": 50,
+          "regrouping": false,
+          "ones_a": 0,
+          "ones_b": 0,
+          "tens_a": 7,
+          "tens_b": 2
+        },
+        {
+          "id": "G2M_OP_002_LVL1_Q3",
+          "question_id": "G2M_OP_002_LVL1_Q3",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Subtract 90 - 40. What is the difference?",
+          "answer": "50",
+          "correct_answer": "50",
+          "acceptable_answers": [
+            "50"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "90 - 40 = 50. Subtract ones and tens without regrouping.",
+          "a": 90,
+          "b": 40,
+          "minuend": 90,
+          "subtrahend": 40,
+          "operation": "subtraction",
+          "value": 90,
+          "difference": 50,
+          "regrouping": false,
+          "ones_a": 0,
+          "ones_b": 0,
+          "tens_a": 9,
+          "tens_b": 4
+        },
+        {
+          "id": "G2M_OP_002_LVL1_Q4",
+          "question_id": "G2M_OP_002_LVL1_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "subtraction_model",
+          "prompt": "Subtract 60 - 10. What is the difference?",
+          "answer": "50",
+          "correct_answer": "50",
+          "acceptable_answers": [
+            "50"
+          ],
+          "misconception_tag": "tens_ones_alignment_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "60 - 10 = 50. Subtract ones and tens without regrouping.",
+          "options": [
+            "49",
+            "50",
+            "51",
+            "60"
+          ],
+          "choices": [
+            "49",
+            "50",
+            "51",
+            "60"
+          ],
+          "a": 60,
+          "b": 10,
+          "minuend": 60,
+          "subtrahend": 10,
+          "operation": "subtraction",
+          "value": 60,
+          "difference": 50,
+          "regrouping": false,
+          "ones_a": 0,
+          "ones_b": 0,
+          "tens_a": 6,
+          "tens_b": 1
+        },
+        {
+          "id": "G2M_OP_002_LVL1_Q5",
+          "question_id": "G2M_OP_002_LVL1_Q5",
+          "question_type": "short_response",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Subtract 50 - 30. What is the difference?",
+          "answer": "20",
+          "correct_answer": "20",
+          "acceptable_answers": [
+            "20"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "50 - 30 = 20. Subtract ones and tens without regrouping.",
+          "a": 50,
+          "b": 30,
+          "minuend": 50,
+          "subtrahend": 30,
+          "operation": "subtraction",
+          "value": 50,
+          "difference": 20,
+          "regrouping": false,
+          "ones_a": 0,
+          "ones_b": 0,
+          "tens_a": 5,
+          "tens_b": 3
+        },
+        {
+          "id": "G2M_OP_002_LVL1_Q6",
+          "question_id": "G2M_OP_002_LVL1_Q6",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Subtract 40 - 20. What is the difference?",
+          "answer": "20",
+          "correct_answer": "20",
+          "acceptable_answers": [
+            "20"
+          ],
+          "misconception_tag": "tens_ones_alignment_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "40 - 20 = 20. Subtract ones and tens without regrouping.",
+          "a": 40,
+          "b": 20,
+          "minuend": 40,
+          "subtrahend": 20,
+          "operation": "subtraction",
+          "value": 40,
+          "difference": 20,
+          "regrouping": false,
+          "ones_a": 0,
+          "ones_b": 0,
+          "tens_a": 4,
+          "tens_b": 2
+        },
+        {
+          "id": "G2M_OP_002_LVL1_Q7",
+          "question_id": "G2M_OP_002_LVL1_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Subtract 100 - 50. What is the difference?",
+          "answer": "50",
+          "correct_answer": "50",
+          "acceptable_answers": [
+            "50"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "100 - 50 = 50. Subtract ones and tens without regrouping.",
+          "options": [
+            "49",
+            "50",
+            "51",
+            "60"
+          ],
+          "choices": [
+            "49",
+            "50",
+            "51",
+            "60"
+          ],
+          "a": 100,
+          "b": 50,
+          "minuend": 100,
+          "subtrahend": 50,
+          "operation": "subtraction",
+          "value": 100,
+          "difference": 50,
+          "regrouping": false,
+          "ones_a": 0,
+          "ones_b": 0,
+          "tens_a": 10,
+          "tens_b": 5
+        },
+        {
+          "id": "G2M_OP_002_LVL1_Q8",
+          "question_id": "G2M_OP_002_LVL1_Q8",
+          "question_type": "short_response",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Subtract 80 - 60. What is the difference?",
+          "answer": "20",
+          "correct_answer": "20",
+          "acceptable_answers": [
+            "20"
+          ],
+          "misconception_tag": "tens_ones_alignment_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "80 - 60 = 20. Subtract ones and tens without regrouping.",
+          "a": 80,
+          "b": 60,
+          "minuend": 80,
+          "subtrahend": 60,
+          "operation": "subtraction",
+          "value": 80,
+          "difference": 20,
+          "regrouping": false,
+          "ones_a": 0,
+          "ones_b": 0,
+          "tens_a": 8,
+          "tens_b": 6
+        },
+        {
+          "id": "G2M_OP_002_LVL1_Q9",
+          "question_id": "G2M_OP_002_LVL1_Q9",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Subtract 70 - 40. What is the difference?",
+          "answer": "30",
+          "correct_answer": "30",
+          "acceptable_answers": [
+            "30"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "70 - 40 = 30. Subtract ones and tens without regrouping.",
+          "a": 70,
+          "b": 40,
+          "minuend": 70,
+          "subtrahend": 40,
+          "operation": "subtraction",
+          "value": 70,
+          "difference": 30,
+          "regrouping": false,
+          "ones_a": 0,
+          "ones_b": 0,
+          "tens_a": 7,
+          "tens_b": 4
+        },
+        {
+          "id": "G2M_OP_002_LVL1_Q10",
+          "question_id": "G2M_OP_002_LVL1_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "subtraction_model",
+          "prompt": "Subtract 90 - 20. What is the difference?",
+          "answer": "70",
+          "correct_answer": "70",
+          "acceptable_answers": [
+            "70"
+          ],
+          "misconception_tag": "tens_ones_alignment_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "90 - 20 = 70. Subtract ones and tens without regrouping.",
+          "options": [
+            "69",
+            "70",
+            "71",
+            "80"
+          ],
+          "choices": [
+            "69",
+            "70",
+            "71",
+            "80"
+          ],
+          "a": 90,
+          "b": 20,
+          "minuend": 90,
+          "subtrahend": 20,
+          "operation": "subtraction",
+          "value": 90,
+          "difference": 70,
+          "regrouping": false,
+          "ones_a": 0,
+          "ones_b": 0,
+          "tens_a": 9,
+          "tens_b": 2
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_OP_002_LVL2",
+      "label": "Level 2: Subtract Ones",
+      "focus": "Subtract ones from two-digit numbers.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_OP_002_LVL2_Q1",
+          "question_id": "G2M_OP_002_LVL2_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "subtraction_model",
+          "prompt": "Subtract 48 - 5. What is the difference?",
+          "answer": "43",
+          "correct_answer": "43",
+          "acceptable_answers": [
+            "43"
+          ],
+          "misconception_tag": "tens_ones_alignment_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "48 - 5 = 43. Subtract ones and tens without regrouping.",
+          "options": [
+            "42",
+            "43",
+            "44",
+            "53"
+          ],
+          "choices": [
+            "42",
+            "43",
+            "44",
+            "53"
+          ],
+          "a": 48,
+          "b": 5,
+          "minuend": 48,
+          "subtrahend": 5,
+          "operation": "subtraction",
+          "value": 48,
+          "difference": 43,
+          "regrouping": false,
+          "ones_a": 8,
+          "ones_b": 5,
+          "tens_a": 4,
+          "tens_b": 0
+        },
+        {
+          "id": "G2M_OP_002_LVL2_Q2",
+          "question_id": "G2M_OP_002_LVL2_Q2",
+          "question_type": "short_response",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Subtract 67 - 4. What is the difference?",
+          "answer": "63",
+          "correct_answer": "63",
+          "acceptable_answers": [
+            "63"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "67 - 4 = 63. Subtract ones and tens without regrouping.",
+          "a": 67,
+          "b": 4,
+          "minuend": 67,
+          "subtrahend": 4,
+          "operation": "subtraction",
+          "value": 67,
+          "difference": 63,
+          "regrouping": false,
+          "ones_a": 7,
+          "ones_b": 4,
+          "tens_a": 6,
+          "tens_b": 0
+        },
+        {
+          "id": "G2M_OP_002_LVL2_Q3",
+          "question_id": "G2M_OP_002_LVL2_Q3",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Subtract 95 - 3. What is the difference?",
+          "answer": "92",
+          "correct_answer": "92",
+          "acceptable_answers": [
+            "92"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "95 - 3 = 92. Subtract ones and tens without regrouping.",
+          "a": 95,
+          "b": 3,
+          "minuend": 95,
+          "subtrahend": 3,
+          "operation": "subtraction",
+          "value": 95,
+          "difference": 92,
+          "regrouping": false,
+          "ones_a": 5,
+          "ones_b": 3,
+          "tens_a": 9,
+          "tens_b": 0
+        },
+        {
+          "id": "G2M_OP_002_LVL2_Q4",
+          "question_id": "G2M_OP_002_LVL2_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Subtract 39 - 6. What is the difference?",
+          "answer": "33",
+          "correct_answer": "33",
+          "acceptable_answers": [
+            "33"
+          ],
+          "misconception_tag": "tens_ones_alignment_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "39 - 6 = 33. Subtract ones and tens without regrouping.",
+          "options": [
+            "32",
+            "33",
+            "34",
+            "43"
+          ],
+          "choices": [
+            "32",
+            "33",
+            "34",
+            "43"
+          ],
+          "a": 39,
+          "b": 6,
+          "minuend": 39,
+          "subtrahend": 6,
+          "operation": "subtraction",
+          "value": 39,
+          "difference": 33,
+          "regrouping": false,
+          "ones_a": 9,
+          "ones_b": 6,
+          "tens_a": 3,
+          "tens_b": 0
+        },
+        {
+          "id": "G2M_OP_002_LVL2_Q5",
+          "question_id": "G2M_OP_002_LVL2_Q5",
+          "question_type": "short_response",
+          "visual_model": "subtraction_model",
+          "prompt": "Subtract 72 - 2. What is the difference?",
+          "answer": "70",
+          "correct_answer": "70",
+          "acceptable_answers": [
+            "70"
+          ],
+          "misconception_tag": "subtracts_smaller_from_larger_digit",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "72 - 2 = 70. Subtract ones and tens without regrouping.",
+          "a": 72,
+          "b": 2,
+          "minuend": 72,
+          "subtrahend": 2,
+          "operation": "subtraction",
+          "value": 72,
+          "difference": 70,
+          "regrouping": false,
+          "ones_a": 2,
+          "ones_b": 2,
+          "tens_a": 7,
+          "tens_b": 0
+        },
+        {
+          "id": "G2M_OP_002_LVL2_Q6",
+          "question_id": "G2M_OP_002_LVL2_Q6",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Subtract 58 - 7. What is the difference?",
+          "answer": "51",
+          "correct_answer": "51",
+          "acceptable_answers": [
+            "51"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "58 - 7 = 51. Subtract ones and tens without regrouping.",
+          "a": 58,
+          "b": 7,
+          "minuend": 58,
+          "subtrahend": 7,
+          "operation": "subtraction",
+          "value": 58,
+          "difference": 51,
+          "regrouping": false,
+          "ones_a": 8,
+          "ones_b": 7,
+          "tens_a": 5,
+          "tens_b": 0
+        },
+        {
+          "id": "G2M_OP_002_LVL2_Q7",
+          "question_id": "G2M_OP_002_LVL2_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Subtract 86 - 5. What is the difference?",
+          "answer": "81",
+          "correct_answer": "81",
+          "acceptable_answers": [
+            "81"
+          ],
+          "misconception_tag": "tens_ones_alignment_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "86 - 5 = 81. Subtract ones and tens without regrouping.",
+          "options": [
+            "80",
+            "81",
+            "82",
+            "91"
+          ],
+          "choices": [
+            "80",
+            "81",
+            "82",
+            "91"
+          ],
+          "a": 86,
+          "b": 5,
+          "minuend": 86,
+          "subtrahend": 5,
+          "operation": "subtraction",
+          "value": 86,
+          "difference": 81,
+          "regrouping": false,
+          "ones_a": 6,
+          "ones_b": 5,
+          "tens_a": 8,
+          "tens_b": 0
+        },
+        {
+          "id": "G2M_OP_002_LVL2_Q8",
+          "question_id": "G2M_OP_002_LVL2_Q8",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Subtract 44 - 3. What is the difference?",
+          "answer": "41",
+          "correct_answer": "41",
+          "acceptable_answers": [
+            "41"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "44 - 3 = 41. Subtract ones and tens without regrouping.",
+          "a": 44,
+          "b": 3,
+          "minuend": 44,
+          "subtrahend": 3,
+          "operation": "subtraction",
+          "value": 44,
+          "difference": 41,
+          "regrouping": false,
+          "ones_a": 4,
+          "ones_b": 3,
+          "tens_a": 4,
+          "tens_b": 0
+        },
+        {
+          "id": "G2M_OP_002_LVL2_Q9",
+          "question_id": "G2M_OP_002_LVL2_Q9",
+          "question_type": "short_response",
+          "visual_model": "subtraction_model",
+          "prompt": "Subtract 29 - 8. What is the difference?",
+          "answer": "21",
+          "correct_answer": "21",
+          "acceptable_answers": [
+            "21"
+          ],
+          "misconception_tag": "subtracts_smaller_from_larger_digit",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "29 - 8 = 21. Subtract ones and tens without regrouping.",
+          "a": 29,
+          "b": 8,
+          "minuend": 29,
+          "subtrahend": 8,
+          "operation": "subtraction",
+          "value": 29,
+          "difference": 21,
+          "regrouping": false,
+          "ones_a": 9,
+          "ones_b": 8,
+          "tens_a": 2,
+          "tens_b": 0
+        },
+        {
+          "id": "G2M_OP_002_LVL2_Q10",
+          "question_id": "G2M_OP_002_LVL2_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Subtract 63 - 1. What is the difference?",
+          "answer": "62",
+          "correct_answer": "62",
+          "acceptable_answers": [
+            "62"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "63 - 1 = 62. Subtract ones and tens without regrouping.",
+          "options": [
+            "61",
+            "62",
+            "63",
+            "72"
+          ],
+          "choices": [
+            "61",
+            "62",
+            "63",
+            "72"
+          ],
+          "a": 63,
+          "b": 1,
+          "minuend": 63,
+          "subtrahend": 1,
+          "operation": "subtraction",
+          "value": 63,
+          "difference": 62,
+          "regrouping": false,
+          "ones_a": 3,
+          "ones_b": 1,
+          "tens_a": 6,
+          "tens_b": 0
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_OP_002_LVL3",
+      "label": "Level 3: Subtract Without Regrouping",
+      "focus": "Subtract tens and ones without regrouping.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_OP_002_LVL3_Q1",
+          "question_id": "G2M_OP_002_LVL3_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Subtract 58 - 24. What is the difference?",
+          "answer": "34",
+          "correct_answer": "34",
+          "acceptable_answers": [
+            "34"
+          ],
+          "misconception_tag": "tens_ones_alignment_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "58 - 24 = 34. Subtract ones and tens without regrouping.",
+          "options": [
+            "33",
+            "34",
+            "35",
+            "44"
+          ],
+          "choices": [
+            "33",
+            "34",
+            "35",
+            "44"
+          ],
+          "a": 58,
+          "b": 24,
+          "minuend": 58,
+          "subtrahend": 24,
+          "operation": "subtraction",
+          "value": 58,
+          "difference": 34,
+          "regrouping": false,
+          "ones_a": 8,
+          "ones_b": 4,
+          "tens_a": 5,
+          "tens_b": 2
+        },
+        {
+          "id": "G2M_OP_002_LVL3_Q2",
+          "question_id": "G2M_OP_002_LVL3_Q2",
+          "question_type": "short_response",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Subtract 76 - 32. What is the difference?",
+          "answer": "44",
+          "correct_answer": "44",
+          "acceptable_answers": [
+            "44"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "76 - 32 = 44. Subtract ones and tens without regrouping.",
+          "a": 76,
+          "b": 32,
+          "minuend": 76,
+          "subtrahend": 32,
+          "operation": "subtraction",
+          "value": 76,
+          "difference": 44,
+          "regrouping": false,
+          "ones_a": 6,
+          "ones_b": 2,
+          "tens_a": 7,
+          "tens_b": 3
+        },
+        {
+          "id": "G2M_OP_002_LVL3_Q3",
+          "question_id": "G2M_OP_002_LVL3_Q3",
+          "question_type": "short_response",
+          "visual_model": "subtraction_model",
+          "prompt": "Subtract 49 - 17. What is the difference?",
+          "answer": "32",
+          "correct_answer": "32",
+          "acceptable_answers": [
+            "32"
+          ],
+          "misconception_tag": "subtracts_smaller_from_larger_digit",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "49 - 17 = 32. Subtract ones and tens without regrouping.",
+          "a": 49,
+          "b": 17,
+          "minuend": 49,
+          "subtrahend": 17,
+          "operation": "subtraction",
+          "value": 49,
+          "difference": 32,
+          "regrouping": false,
+          "ones_a": 9,
+          "ones_b": 7,
+          "tens_a": 4,
+          "tens_b": 1
+        },
+        {
+          "id": "G2M_OP_002_LVL3_Q4",
+          "question_id": "G2M_OP_002_LVL3_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Subtract 85 - 41. What is the difference?",
+          "answer": "44",
+          "correct_answer": "44",
+          "acceptable_answers": [
+            "44"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "85 - 41 = 44. Subtract ones and tens without regrouping.",
+          "options": [
+            "43",
+            "44",
+            "45",
+            "54"
+          ],
+          "choices": [
+            "43",
+            "44",
+            "45",
+            "54"
+          ],
+          "a": 85,
+          "b": 41,
+          "minuend": 85,
+          "subtrahend": 41,
+          "operation": "subtraction",
+          "value": 85,
+          "difference": 44,
+          "regrouping": false,
+          "ones_a": 5,
+          "ones_b": 1,
+          "tens_a": 8,
+          "tens_b": 4
+        },
+        {
+          "id": "G2M_OP_002_LVL3_Q5",
+          "question_id": "G2M_OP_002_LVL3_Q5",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Subtract 67 - 25. What is the difference?",
+          "answer": "42",
+          "correct_answer": "42",
+          "acceptable_answers": [
+            "42"
+          ],
+          "misconception_tag": "tens_ones_alignment_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "67 - 25 = 42. Subtract ones and tens without regrouping.",
+          "a": 67,
+          "b": 25,
+          "minuend": 67,
+          "subtrahend": 25,
+          "operation": "subtraction",
+          "value": 67,
+          "difference": 42,
+          "regrouping": false,
+          "ones_a": 7,
+          "ones_b": 5,
+          "tens_a": 6,
+          "tens_b": 2
+        },
+        {
+          "id": "G2M_OP_002_LVL3_Q6",
+          "question_id": "G2M_OP_002_LVL3_Q6",
+          "question_type": "short_response",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Subtract 94 - 53. What is the difference?",
+          "answer": "41",
+          "correct_answer": "41",
+          "acceptable_answers": [
+            "41"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "94 - 53 = 41. Subtract ones and tens without regrouping.",
+          "a": 94,
+          "b": 53,
+          "minuend": 94,
+          "subtrahend": 53,
+          "operation": "subtraction",
+          "value": 94,
+          "difference": 41,
+          "regrouping": false,
+          "ones_a": 4,
+          "ones_b": 3,
+          "tens_a": 9,
+          "tens_b": 5
+        },
+        {
+          "id": "G2M_OP_002_LVL3_Q7",
+          "question_id": "G2M_OP_002_LVL3_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "subtraction_model",
+          "prompt": "Subtract 38 - 16. What is the difference?",
+          "answer": "22",
+          "correct_answer": "22",
+          "acceptable_answers": [
+            "22"
+          ],
+          "misconception_tag": "subtracts_smaller_from_larger_digit",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "38 - 16 = 22. Subtract ones and tens without regrouping.",
+          "options": [
+            "21",
+            "22",
+            "23",
+            "32"
+          ],
+          "choices": [
+            "21",
+            "22",
+            "23",
+            "32"
+          ],
+          "a": 38,
+          "b": 16,
+          "minuend": 38,
+          "subtrahend": 16,
+          "operation": "subtraction",
+          "value": 38,
+          "difference": 22,
+          "regrouping": false,
+          "ones_a": 8,
+          "ones_b": 6,
+          "tens_a": 3,
+          "tens_b": 1
+        },
+        {
+          "id": "G2M_OP_002_LVL3_Q8",
+          "question_id": "G2M_OP_002_LVL3_Q8",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Subtract 79 - 34. What is the difference?",
+          "answer": "45",
+          "correct_answer": "45",
+          "acceptable_answers": [
+            "45"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "79 - 34 = 45. Subtract ones and tens without regrouping.",
+          "a": 79,
+          "b": 34,
+          "minuend": 79,
+          "subtrahend": 34,
+          "operation": "subtraction",
+          "value": 79,
+          "difference": 45,
+          "regrouping": false,
+          "ones_a": 9,
+          "ones_b": 4,
+          "tens_a": 7,
+          "tens_b": 3
+        },
+        {
+          "id": "G2M_OP_002_LVL3_Q9",
+          "question_id": "G2M_OP_002_LVL3_Q9",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Subtract 56 - 22. What is the difference?",
+          "answer": "34",
+          "correct_answer": "34",
+          "acceptable_answers": [
+            "34"
+          ],
+          "misconception_tag": "tens_ones_alignment_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "56 - 22 = 34. Subtract ones and tens without regrouping.",
+          "a": 56,
+          "b": 22,
+          "minuend": 56,
+          "subtrahend": 22,
+          "operation": "subtraction",
+          "value": 56,
+          "difference": 34,
+          "regrouping": false,
+          "ones_a": 6,
+          "ones_b": 2,
+          "tens_a": 5,
+          "tens_b": 2
+        },
+        {
+          "id": "G2M_OP_002_LVL3_Q10",
+          "question_id": "G2M_OP_002_LVL3_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Subtract 88 - 47. What is the difference?",
+          "answer": "41",
+          "correct_answer": "41",
+          "acceptable_answers": [
+            "41"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "88 - 47 = 41. Subtract ones and tens without regrouping.",
+          "options": [
+            "40",
+            "41",
+            "42",
+            "51"
+          ],
+          "choices": [
+            "40",
+            "41",
+            "42",
+            "51"
+          ],
+          "a": 88,
+          "b": 47,
+          "minuend": 88,
+          "subtrahend": 47,
+          "operation": "subtraction",
+          "value": 88,
+          "difference": 41,
+          "regrouping": false,
+          "ones_a": 8,
+          "ones_b": 7,
+          "tens_a": 8,
+          "tens_b": 4
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_OP_002_LVL4",
+      "label": "Level 4: Subtract With Regrouping",
+      "focus": "Decompose 1 ten into 10 ones before subtracting.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_OP_002_LVL4_Q1",
+          "question_id": "G2M_OP_002_LVL4_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Subtract 52 - 28. What is the difference?",
+          "answer": "24",
+          "correct_answer": "24",
+          "acceptable_answers": [
+            "24"
+          ],
+          "misconception_tag": "regrouping_confusion",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "52 - 28 = 24. Regroup 1 ten as 10 ones before subtracting ones.",
+          "options": [
+            "23",
+            "24",
+            "25",
+            "34"
+          ],
+          "choices": [
+            "23",
+            "24",
+            "25",
+            "34"
+          ],
+          "a": 52,
+          "b": 28,
+          "minuend": 52,
+          "subtrahend": 28,
+          "operation": "subtraction",
+          "value": 52,
+          "difference": 24,
+          "regrouping": true,
+          "ones_a": 2,
+          "ones_b": 8,
+          "tens_a": 5,
+          "tens_b": 2
+        },
+        {
+          "id": "G2M_OP_002_LVL4_Q2",
+          "question_id": "G2M_OP_002_LVL4_Q2",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Subtract 63 - 37. What is the difference?",
+          "answer": "26",
+          "correct_answer": "26",
+          "acceptable_answers": [
+            "26"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "63 - 37 = 26. Regroup 1 ten as 10 ones before subtracting ones.",
+          "a": 63,
+          "b": 37,
+          "minuend": 63,
+          "subtrahend": 37,
+          "operation": "subtraction",
+          "value": 63,
+          "difference": 26,
+          "regrouping": true,
+          "ones_a": 3,
+          "ones_b": 7,
+          "tens_a": 6,
+          "tens_b": 3
+        },
+        {
+          "id": "G2M_OP_002_LVL4_Q3",
+          "question_id": "G2M_OP_002_LVL4_Q3",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Subtract 71 - 46. What is the difference?",
+          "answer": "25",
+          "correct_answer": "25",
+          "acceptable_answers": [
+            "25"
+          ],
+          "misconception_tag": "regrouping_confusion",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "71 - 46 = 25. Regroup 1 ten as 10 ones before subtracting ones.",
+          "a": 71,
+          "b": 46,
+          "minuend": 71,
+          "subtrahend": 46,
+          "operation": "subtraction",
+          "value": 71,
+          "difference": 25,
+          "regrouping": true,
+          "ones_a": 1,
+          "ones_b": 6,
+          "tens_a": 7,
+          "tens_b": 4
+        },
+        {
+          "id": "G2M_OP_002_LVL4_Q4",
+          "question_id": "G2M_OP_002_LVL4_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "subtraction_model",
+          "prompt": "Subtract 84 - 59. What is the difference?",
+          "answer": "25",
+          "correct_answer": "25",
+          "acceptable_answers": [
+            "25"
+          ],
+          "misconception_tag": "subtracts_smaller_from_larger_digit",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "84 - 59 = 25. Regroup 1 ten as 10 ones before subtracting ones.",
+          "options": [
+            "24",
+            "25",
+            "26",
+            "35"
+          ],
+          "choices": [
+            "24",
+            "25",
+            "26",
+            "35"
+          ],
+          "a": 84,
+          "b": 59,
+          "minuend": 84,
+          "subtrahend": 59,
+          "operation": "subtraction",
+          "value": 84,
+          "difference": 25,
+          "regrouping": true,
+          "ones_a": 4,
+          "ones_b": 9,
+          "tens_a": 8,
+          "tens_b": 5
+        },
+        {
+          "id": "G2M_OP_002_LVL4_Q5",
+          "question_id": "G2M_OP_002_LVL4_Q5",
+          "question_type": "short_response",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Subtract 40 - 18. What is the difference?",
+          "answer": "22",
+          "correct_answer": "22",
+          "acceptable_answers": [
+            "22"
+          ],
+          "misconception_tag": "regrouping_confusion",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "40 - 18 = 22. Regroup 1 ten as 10 ones before subtracting ones.",
+          "a": 40,
+          "b": 18,
+          "minuend": 40,
+          "subtrahend": 18,
+          "operation": "subtraction",
+          "value": 40,
+          "difference": 22,
+          "regrouping": true,
+          "ones_a": 0,
+          "ones_b": 8,
+          "tens_a": 4,
+          "tens_b": 1
+        },
+        {
+          "id": "G2M_OP_002_LVL4_Q6",
+          "question_id": "G2M_OP_002_LVL4_Q6",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Subtract 92 - 67. What is the difference?",
+          "answer": "25",
+          "correct_answer": "25",
+          "acceptable_answers": [
+            "25"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "92 - 67 = 25. Regroup 1 ten as 10 ones before subtracting ones.",
+          "a": 92,
+          "b": 67,
+          "minuend": 92,
+          "subtrahend": 67,
+          "operation": "subtraction",
+          "value": 92,
+          "difference": 25,
+          "regrouping": true,
+          "ones_a": 2,
+          "ones_b": 7,
+          "tens_a": 9,
+          "tens_b": 6
+        },
+        {
+          "id": "G2M_OP_002_LVL4_Q7",
+          "question_id": "G2M_OP_002_LVL4_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Subtract 53 - 29. What is the difference?",
+          "answer": "24",
+          "correct_answer": "24",
+          "acceptable_answers": [
+            "24"
+          ],
+          "misconception_tag": "regrouping_confusion",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "53 - 29 = 24. Regroup 1 ten as 10 ones before subtracting ones.",
+          "options": [
+            "23",
+            "24",
+            "25",
+            "34"
+          ],
+          "choices": [
+            "23",
+            "24",
+            "25",
+            "34"
+          ],
+          "a": 53,
+          "b": 29,
+          "minuend": 53,
+          "subtrahend": 29,
+          "operation": "subtraction",
+          "value": 53,
+          "difference": 24,
+          "regrouping": true,
+          "ones_a": 3,
+          "ones_b": 9,
+          "tens_a": 5,
+          "tens_b": 2
+        },
+        {
+          "id": "G2M_OP_002_LVL4_Q8",
+          "question_id": "G2M_OP_002_LVL4_Q8",
+          "question_type": "short_response",
+          "visual_model": "subtraction_model",
+          "prompt": "Subtract 81 - 35. What is the difference?",
+          "answer": "46",
+          "correct_answer": "46",
+          "acceptable_answers": [
+            "46"
+          ],
+          "misconception_tag": "subtracts_smaller_from_larger_digit",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "81 - 35 = 46. Regroup 1 ten as 10 ones before subtracting ones.",
+          "a": 81,
+          "b": 35,
+          "minuend": 81,
+          "subtrahend": 35,
+          "operation": "subtraction",
+          "value": 81,
+          "difference": 46,
+          "regrouping": true,
+          "ones_a": 1,
+          "ones_b": 5,
+          "tens_a": 8,
+          "tens_b": 3
+        },
+        {
+          "id": "G2M_OP_002_LVL4_Q9",
+          "question_id": "G2M_OP_002_LVL4_Q9",
+          "question_type": "short_response",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Subtract 70 - 44. What is the difference?",
+          "answer": "26",
+          "correct_answer": "26",
+          "acceptable_answers": [
+            "26"
+          ],
+          "misconception_tag": "regrouping_confusion",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "70 - 44 = 26. Regroup 1 ten as 10 ones before subtracting ones.",
+          "a": 70,
+          "b": 44,
+          "minuend": 70,
+          "subtrahend": 44,
+          "operation": "subtraction",
+          "value": 70,
+          "difference": 26,
+          "regrouping": true,
+          "ones_a": 0,
+          "ones_b": 4,
+          "tens_a": 7,
+          "tens_b": 4
+        },
+        {
+          "id": "G2M_OP_002_LVL4_Q10",
+          "question_id": "G2M_OP_002_LVL4_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Subtract 61 - 26. What is the difference?",
+          "answer": "35",
+          "correct_answer": "35",
+          "acceptable_answers": [
+            "35"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "61 - 26 = 35. Regroup 1 ten as 10 ones before subtracting ones.",
+          "options": [
+            "34",
+            "35",
+            "36",
+            "45"
+          ],
+          "choices": [
+            "34",
+            "35",
+            "36",
+            "45"
+          ],
+          "a": 61,
+          "b": 26,
+          "minuend": 61,
+          "subtrahend": 26,
+          "operation": "subtraction",
+          "value": 61,
+          "difference": 35,
+          "regrouping": true,
+          "ones_a": 1,
+          "ones_b": 6,
+          "tens_a": 6,
+          "tens_b": 2
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_OP_002_MIXED",
+      "label": "Mixed",
+      "focus": "Subtract within 100 using any model or strategy.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_OP_002_MIXED_Q1",
+          "question_id": "G2M_OP_002_MIXED_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Subtract 80 - 30. What is the difference?",
+          "answer": "50",
+          "correct_answer": "50",
+          "acceptable_answers": [
+            "50"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "80 - 30 = 50. Subtract ones and tens without regrouping.",
+          "options": [
+            "49",
+            "50",
+            "51",
+            "60"
+          ],
+          "choices": [
+            "49",
+            "50",
+            "51",
+            "60"
+          ],
+          "a": 80,
+          "b": 30,
+          "minuend": 80,
+          "subtrahend": 30,
+          "operation": "subtraction",
+          "value": 80,
+          "difference": 50,
+          "regrouping": false,
+          "ones_a": 0,
+          "ones_b": 0,
+          "tens_a": 8,
+          "tens_b": 3
+        },
+        {
+          "id": "G2M_OP_002_MIXED_Q2",
+          "question_id": "G2M_OP_002_MIXED_Q2",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Subtract 70 - 20. What is the difference?",
+          "answer": "50",
+          "correct_answer": "50",
+          "acceptable_answers": [
+            "50"
+          ],
+          "misconception_tag": "tens_ones_alignment_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "70 - 20 = 50. Subtract ones and tens without regrouping.",
+          "a": 70,
+          "b": 20,
+          "minuend": 70,
+          "subtrahend": 20,
+          "operation": "subtraction",
+          "value": 70,
+          "difference": 50,
+          "regrouping": false,
+          "ones_a": 0,
+          "ones_b": 0,
+          "tens_a": 7,
+          "tens_b": 2
+        },
+        {
+          "id": "G2M_OP_002_MIXED_Q3",
+          "question_id": "G2M_OP_002_MIXED_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "subtraction_model",
+          "prompt": "Subtract 48 - 5. What is the difference?",
+          "answer": "43",
+          "correct_answer": "43",
+          "acceptable_answers": [
+            "43"
+          ],
+          "misconception_tag": "tens_ones_alignment_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "48 - 5 = 43. Subtract ones and tens without regrouping.",
+          "options": [
+            "42",
+            "43",
+            "44",
+            "53"
+          ],
+          "choices": [
+            "42",
+            "43",
+            "44",
+            "53"
+          ],
+          "a": 48,
+          "b": 5,
+          "minuend": 48,
+          "subtrahend": 5,
+          "operation": "subtraction",
+          "value": 48,
+          "difference": 43,
+          "regrouping": false,
+          "ones_a": 8,
+          "ones_b": 5,
+          "tens_a": 4,
+          "tens_b": 0
+        },
+        {
+          "id": "G2M_OP_002_MIXED_Q4",
+          "question_id": "G2M_OP_002_MIXED_Q4",
+          "question_type": "short_response",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Subtract 67 - 4. What is the difference?",
+          "answer": "63",
+          "correct_answer": "63",
+          "acceptable_answers": [
+            "63"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "67 - 4 = 63. Subtract ones and tens without regrouping.",
+          "a": 67,
+          "b": 4,
+          "minuend": 67,
+          "subtrahend": 4,
+          "operation": "subtraction",
+          "value": 67,
+          "difference": 63,
+          "regrouping": false,
+          "ones_a": 7,
+          "ones_b": 4,
+          "tens_a": 6,
+          "tens_b": 0
+        },
+        {
+          "id": "G2M_OP_002_MIXED_Q5",
+          "question_id": "G2M_OP_002_MIXED_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Subtract 58 - 24. What is the difference?",
+          "answer": "34",
+          "correct_answer": "34",
+          "acceptable_answers": [
+            "34"
+          ],
+          "misconception_tag": "tens_ones_alignment_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "58 - 24 = 34. Subtract ones and tens without regrouping.",
+          "options": [
+            "33",
+            "34",
+            "35",
+            "44"
+          ],
+          "choices": [
+            "33",
+            "34",
+            "35",
+            "44"
+          ],
+          "a": 58,
+          "b": 24,
+          "minuend": 58,
+          "subtrahend": 24,
+          "operation": "subtraction",
+          "value": 58,
+          "difference": 34,
+          "regrouping": false,
+          "ones_a": 8,
+          "ones_b": 4,
+          "tens_a": 5,
+          "tens_b": 2
+        },
+        {
+          "id": "G2M_OP_002_MIXED_Q6",
+          "question_id": "G2M_OP_002_MIXED_Q6",
+          "question_type": "short_response",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Subtract 76 - 32. What is the difference?",
+          "answer": "44",
+          "correct_answer": "44",
+          "acceptable_answers": [
+            "44"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "76 - 32 = 44. Subtract ones and tens without regrouping.",
+          "a": 76,
+          "b": 32,
+          "minuend": 76,
+          "subtrahend": 32,
+          "operation": "subtraction",
+          "value": 76,
+          "difference": 44,
+          "regrouping": false,
+          "ones_a": 6,
+          "ones_b": 2,
+          "tens_a": 7,
+          "tens_b": 3
+        },
+        {
+          "id": "G2M_OP_002_MIXED_Q7",
+          "question_id": "G2M_OP_002_MIXED_Q7",
+          "question_type": "short_response",
+          "visual_model": "subtraction_model",
+          "prompt": "Subtract 49 - 17. What is the difference?",
+          "answer": "32",
+          "correct_answer": "32",
+          "acceptable_answers": [
+            "32"
+          ],
+          "misconception_tag": "subtracts_smaller_from_larger_digit",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "49 - 17 = 32. Subtract ones and tens without regrouping.",
+          "a": 49,
+          "b": 17,
+          "minuend": 49,
+          "subtrahend": 17,
+          "operation": "subtraction",
+          "value": 49,
+          "difference": 32,
+          "regrouping": false,
+          "ones_a": 9,
+          "ones_b": 7,
+          "tens_a": 4,
+          "tens_b": 1
+        },
+        {
+          "id": "G2M_OP_002_MIXED_Q8",
+          "question_id": "G2M_OP_002_MIXED_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "base_ten_blocks",
+          "prompt": "Subtract 52 - 28. What is the difference?",
+          "answer": "24",
+          "correct_answer": "24",
+          "acceptable_answers": [
+            "24"
+          ],
+          "misconception_tag": "regrouping_confusion",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "52 - 28 = 24. Regroup 1 ten as 10 ones before subtracting ones.",
+          "options": [
+            "23",
+            "24",
+            "25",
+            "34"
+          ],
+          "choices": [
+            "23",
+            "24",
+            "25",
+            "34"
+          ],
+          "a": 52,
+          "b": 28,
+          "minuend": 52,
+          "subtrahend": 28,
+          "operation": "subtraction",
+          "value": 52,
+          "difference": 24,
+          "regrouping": true,
+          "ones_a": 2,
+          "ones_b": 8,
+          "tens_a": 5,
+          "tens_b": 2
+        },
+        {
+          "id": "G2M_OP_002_MIXED_Q9",
+          "question_id": "G2M_OP_002_MIXED_Q9",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Subtract 63 - 37. What is the difference?",
+          "answer": "26",
+          "correct_answer": "26",
+          "acceptable_answers": [
+            "26"
+          ],
+          "misconception_tag": "count_back_error",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "63 - 37 = 26. Regroup 1 ten as 10 ones before subtracting ones.",
+          "a": 63,
+          "b": 37,
+          "minuend": 63,
+          "subtrahend": 37,
+          "operation": "subtraction",
+          "value": 63,
+          "difference": 26,
+          "regrouping": true,
+          "ones_a": 3,
+          "ones_b": 7,
+          "tens_a": 6,
+          "tens_b": 3
+        },
+        {
+          "id": "G2M_OP_002_MIXED_Q10",
+          "question_id": "G2M_OP_002_MIXED_Q10",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Subtract 71 - 46. What is the difference?",
+          "answer": "25",
+          "correct_answer": "25",
+          "acceptable_answers": [
+            "25"
+          ],
+          "misconception_tag": "regrouping_confusion",
+          "hints": [
+            "Line up tens with tens and ones with ones.",
+            "Subtract the ones first. Regroup 1 ten as 10 ones if needed.",
+            "Then subtract the tens and write the difference."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "71 - 46 = 25. Regroup 1 ten as 10 ones before subtracting ones.",
+          "a": 71,
+          "b": 46,
+          "minuend": 71,
+          "subtrahend": 46,
+          "operation": "subtraction",
+          "value": 71,
+          "difference": 25,
+          "regrouping": true,
+          "ones_a": 1,
+          "ones_b": 6,
+          "tens_a": 7,
+          "tens_b": 4
+        }
+      ]
+    }
+  ]
+}

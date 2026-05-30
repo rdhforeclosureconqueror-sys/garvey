@@ -1,0 +1,2041 @@
+{
+  "skill_id": "G2M_OP_003",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_plan": "curriculum-framework/plans/grade2-math-completion-plan.v1.json"
+  },
+  "grade": 2,
+  "subject": "Math",
+  "domain": "Operations and Algebraic Thinking",
+  "skill": "Fluency With Addition and Subtraction Within 20",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Help the Fact Family Festival light up quick mental-math paths.",
+    "mini_lesson": "Build fluency within 20 by using make-10, doubles, near doubles, related facts, and missing-part strategies.",
+    "objective": "Fluently add and subtract within 20 using mental strategies.",
+    "key_vocabulary": [
+      "fluency",
+      "make 10",
+      "double",
+      "near double",
+      "related facts",
+      "missing addend"
+    ],
+    "concept_explanation": "Fluent math uses known facts to solve quickly and accurately without counting every object.",
+    "visual_model": "ten_frame",
+    "common_misconception": "A child may count all instead of using a strategy or may mix up the whole and the missing part.",
+    "real_world_connection": "Facts within 20 help with games, sharing snacks, and quick classroom math.",
+    "lesson_summary": "Choose a strategy, solve the fact, and use a related fact to check.",
+    "hints": [
+      "Look for a friendly fact such as make 10, doubles, or a related fact.",
+      "Use the known fact to solve the unknown number.",
+      "Check that the parts and whole make sense."
+    ]
+  },
+  "worked_examples": [
+    {
+      "text": "8 + 6 can be 8 + 2 + 4 = 14 by making 10."
+    },
+    {
+      "text": "7 + 8 is a near double: 7 + 7 + 1 = 15."
+    },
+    {
+      "text": "If 9 + 5 = 14, then 14 - 9 = 5 and 14 - 5 = 9."
+    }
+  ],
+  "hint_ladder": [
+    "Look for a friendly fact such as make 10, doubles, or a related fact.",
+    "Use the known fact to solve the unknown number.",
+    "Check that the parts and whole make sense."
+  ],
+  "misconception_bank": {
+    "make_ten_confusion": "Learner may split numbers incorrectly when making 10.",
+    "doubles_confusion": "Learner may mix up doubles and near doubles.",
+    "related_fact_confusion": "Learner may not connect addition and subtraction facts.",
+    "missing_part_confusion": "Learner may confuse the whole and a missing part."
+  },
+  "game_theme": {
+    "title": "Fluency With Addition and Subtraction Within 20",
+    "mission_intro": "Help the Fact Family Festival light up quick mental-math paths.",
+    "badge_name": "Fact Fluency Star"
+  },
+  "guided_practice": [
+    {
+      "id": "G2M_OP_003_LVL1_Q1",
+      "question_id": "G2M_OP_003_LVL1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "ten_frame",
+      "prompt": "Make 10: 8 + 6 = ?",
+      "answer": "14",
+      "correct_answer": "14",
+      "acceptable_answers": [
+        "14"
+      ],
+      "misconception_tag": "make_ten_confusion",
+      "hints": [
+        "Look for a friendly fact such as make 10, doubles, or a related fact.",
+        "Use the known fact to solve the unknown number.",
+        "Check that the parts and whole make sense."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "The answer is 14. Use the strategy to check the related facts.",
+      "options": [
+        "13",
+        "14",
+        "15",
+        "24"
+      ],
+      "choices": [
+        "13",
+        "14",
+        "15",
+        "24"
+      ],
+      "a": 8,
+      "b": 6,
+      "operation": "addition",
+      "ten_frame": [
+        8,
+        6
+      ],
+      "value": 14
+    },
+    {
+      "id": "G2M_OP_003_LVL1_Q2",
+      "question_id": "G2M_OP_003_LVL1_Q2",
+      "question_type": "short_response",
+      "visual_model": "ten_frame",
+      "prompt": "Make 10: 9 + 4 = ?",
+      "answer": "13",
+      "correct_answer": "13",
+      "acceptable_answers": [
+        "13"
+      ],
+      "misconception_tag": "make_ten_confusion",
+      "hints": [
+        "Look for a friendly fact such as make 10, doubles, or a related fact.",
+        "Use the known fact to solve the unknown number.",
+        "Check that the parts and whole make sense."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "The answer is 13. Use the strategy to check the related facts.",
+      "a": 9,
+      "b": 4,
+      "operation": "addition",
+      "ten_frame": [
+        9,
+        4
+      ],
+      "value": 13
+    },
+    {
+      "id": "G2M_OP_003_LVL1_Q3",
+      "question_id": "G2M_OP_003_LVL1_Q3",
+      "question_type": "short_response",
+      "visual_model": "number_bond",
+      "prompt": "Make 10: 7 + 5 = ?",
+      "answer": "12",
+      "correct_answer": "12",
+      "acceptable_answers": [
+        "12"
+      ],
+      "misconception_tag": "make_ten_confusion",
+      "hints": [
+        "Look for a friendly fact such as make 10, doubles, or a related fact.",
+        "Use the known fact to solve the unknown number.",
+        "Check that the parts and whole make sense."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "The answer is 12. Use the strategy to check the related facts.",
+      "parts": [
+        7,
+        5
+      ],
+      "whole": 12,
+      "value": 12
+    },
+    {
+      "id": "G2M_OP_003_LVL1_Q4",
+      "question_id": "G2M_OP_003_LVL1_Q4",
+      "question_type": "short_response",
+      "visual_model": "ten_frame",
+      "prompt": "10 + 3 = ?",
+      "answer": "13",
+      "correct_answer": "13",
+      "acceptable_answers": [
+        "13"
+      ],
+      "misconception_tag": "make_ten_confusion",
+      "hints": [
+        "Look for a friendly fact such as make 10, doubles, or a related fact.",
+        "Use the known fact to solve the unknown number.",
+        "Check that the parts and whole make sense."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "The answer is 13. Use the strategy to check the related facts.",
+      "a": 10,
+      "b": 3,
+      "value": 13
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G2M_OP_003_LVL4_Q1",
+      "question_id": "G2M_OP_003_LVL4_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "number_bond",
+      "prompt": "Missing addend: 8 + ? = 14",
+      "answer": "6",
+      "correct_answer": "6",
+      "acceptable_answers": [
+        "6"
+      ],
+      "misconception_tag": "missing_part_confusion",
+      "hints": [
+        "Look for a friendly fact such as make 10, doubles, or a related fact.",
+        "Use the known fact to solve the unknown number.",
+        "Check that the parts and whole make sense."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "The answer is 6. Use the strategy to check the related facts.",
+      "options": [
+        "5",
+        "6",
+        "7",
+        "16"
+      ],
+      "choices": [
+        "5",
+        "6",
+        "7",
+        "16"
+      ],
+      "parts": [
+        8,
+        null
+      ],
+      "whole": 14,
+      "value": 6
+    },
+    {
+      "id": "G2M_OP_003_LVL4_Q2",
+      "question_id": "G2M_OP_003_LVL4_Q2",
+      "question_type": "short_response",
+      "visual_model": "subtraction_model",
+      "prompt": "Missing part: 17 - ? = 9",
+      "answer": "8",
+      "correct_answer": "8",
+      "acceptable_answers": [
+        "8"
+      ],
+      "misconception_tag": "missing_part_confusion",
+      "hints": [
+        "Look for a friendly fact such as make 10, doubles, or a related fact.",
+        "Use the known fact to solve the unknown number.",
+        "Check that the parts and whole make sense."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "The answer is 8. Use the strategy to check the related facts.",
+      "a": 17,
+      "b": 8,
+      "value": 8
+    },
+    {
+      "id": "G2M_OP_003_LVL4_Q3",
+      "question_id": "G2M_OP_003_LVL4_Q3",
+      "question_type": "short_response",
+      "visual_model": "number_bond",
+      "prompt": "Missing addend: ? + 7 = 15",
+      "answer": "8",
+      "correct_answer": "8",
+      "acceptable_answers": [
+        "8"
+      ],
+      "misconception_tag": "missing_part_confusion",
+      "hints": [
+        "Look for a friendly fact such as make 10, doubles, or a related fact.",
+        "Use the known fact to solve the unknown number.",
+        "Check that the parts and whole make sense."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "The answer is 8. Use the strategy to check the related facts.",
+      "parts": [
+        null,
+        7
+      ],
+      "whole": 15,
+      "value": 8
+    },
+    {
+      "id": "G2M_OP_003_LVL4_Q4",
+      "question_id": "G2M_OP_003_LVL4_Q4",
+      "question_type": "short_response",
+      "visual_model": "subtraction_model",
+      "prompt": "Missing part: 13 - 5 = ?",
+      "answer": "8",
+      "correct_answer": "8",
+      "acceptable_answers": [
+        "8"
+      ],
+      "misconception_tag": "missing_part_confusion",
+      "hints": [
+        "Look for a friendly fact such as make 10, doubles, or a related fact.",
+        "Use the known fact to solve the unknown number.",
+        "Check that the parts and whole make sense."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "The answer is 8. Use the strategy to check the related facts.",
+      "a": 13,
+      "b": 5,
+      "value": 8
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G2M_OP_003_MIXED_Q1",
+      "question_id": "G2M_OP_003_MIXED_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "ten_frame",
+      "prompt": "Make 10: 8 + 6 = ?",
+      "answer": "14",
+      "correct_answer": "14",
+      "acceptable_answers": [
+        "14"
+      ],
+      "misconception_tag": "make_ten_confusion",
+      "hints": [
+        "Look for a friendly fact such as make 10, doubles, or a related fact.",
+        "Use the known fact to solve the unknown number.",
+        "Check that the parts and whole make sense."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "The answer is 14. Use the strategy to check the related facts.",
+      "options": [
+        "13",
+        "14",
+        "15",
+        "24"
+      ],
+      "choices": [
+        "13",
+        "14",
+        "15",
+        "24"
+      ],
+      "a": 8,
+      "b": 6,
+      "operation": "addition",
+      "ten_frame": [
+        8,
+        6
+      ],
+      "value": 14
+    },
+    {
+      "id": "G2M_OP_003_MIXED_Q2",
+      "question_id": "G2M_OP_003_MIXED_Q2",
+      "question_type": "short_response",
+      "visual_model": "ten_frame",
+      "prompt": "Make 10: 9 + 4 = ?",
+      "answer": "13",
+      "correct_answer": "13",
+      "acceptable_answers": [
+        "13"
+      ],
+      "misconception_tag": "make_ten_confusion",
+      "hints": [
+        "Look for a friendly fact such as make 10, doubles, or a related fact.",
+        "Use the known fact to solve the unknown number.",
+        "Check that the parts and whole make sense."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "The answer is 13. Use the strategy to check the related facts.",
+      "a": 9,
+      "b": 4,
+      "operation": "addition",
+      "ten_frame": [
+        9,
+        4
+      ],
+      "value": 13
+    },
+    {
+      "id": "G2M_OP_003_MIXED_Q3",
+      "question_id": "G2M_OP_003_MIXED_Q3",
+      "question_type": "short_response",
+      "visual_model": "number_bond",
+      "prompt": "Make 10: 7 + 5 = ?",
+      "answer": "12",
+      "correct_answer": "12",
+      "acceptable_answers": [
+        "12"
+      ],
+      "misconception_tag": "make_ten_confusion",
+      "hints": [
+        "Look for a friendly fact such as make 10, doubles, or a related fact.",
+        "Use the known fact to solve the unknown number.",
+        "Check that the parts and whole make sense."
+      ],
+      "feedback": {
+        "correct": "Great strategy work!",
+        "incorrect": "Use the model and try the place-value strategy again."
+      },
+      "explanation": "The answer is 12. Use the strategy to check the related facts.",
+      "parts": [
+        7,
+        5
+      ],
+      "whole": 12,
+      "value": 12
+    }
+  ],
+  "level_banks": [
+    {
+      "level_id": "G2M_OP_003_LVL1",
+      "label": "Level 1: Make 10",
+      "focus": "Use ten frames to make a ten first.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_OP_003_LVL1_Q1",
+          "question_id": "G2M_OP_003_LVL1_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "ten_frame",
+          "prompt": "Make 10: 8 + 6 = ?",
+          "answer": "14",
+          "correct_answer": "14",
+          "acceptable_answers": [
+            "14"
+          ],
+          "misconception_tag": "make_ten_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 14. Use the strategy to check the related facts.",
+          "options": [
+            "13",
+            "14",
+            "15",
+            "24"
+          ],
+          "choices": [
+            "13",
+            "14",
+            "15",
+            "24"
+          ],
+          "a": 8,
+          "b": 6,
+          "operation": "addition",
+          "ten_frame": [
+            8,
+            6
+          ],
+          "value": 14
+        },
+        {
+          "id": "G2M_OP_003_LVL1_Q2",
+          "question_id": "G2M_OP_003_LVL1_Q2",
+          "question_type": "short_response",
+          "visual_model": "ten_frame",
+          "prompt": "Make 10: 9 + 4 = ?",
+          "answer": "13",
+          "correct_answer": "13",
+          "acceptable_answers": [
+            "13"
+          ],
+          "misconception_tag": "make_ten_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 13. Use the strategy to check the related facts.",
+          "a": 9,
+          "b": 4,
+          "operation": "addition",
+          "ten_frame": [
+            9,
+            4
+          ],
+          "value": 13
+        },
+        {
+          "id": "G2M_OP_003_LVL1_Q3",
+          "question_id": "G2M_OP_003_LVL1_Q3",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "prompt": "Make 10: 7 + 5 = ?",
+          "answer": "12",
+          "correct_answer": "12",
+          "acceptable_answers": [
+            "12"
+          ],
+          "misconception_tag": "make_ten_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 12. Use the strategy to check the related facts.",
+          "parts": [
+            7,
+            5
+          ],
+          "whole": 12,
+          "value": 12
+        },
+        {
+          "id": "G2M_OP_003_LVL1_Q4",
+          "question_id": "G2M_OP_003_LVL1_Q4",
+          "question_type": "short_response",
+          "visual_model": "ten_frame",
+          "prompt": "10 + 3 = ?",
+          "answer": "13",
+          "correct_answer": "13",
+          "acceptable_answers": [
+            "13"
+          ],
+          "misconception_tag": "make_ten_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 13. Use the strategy to check the related facts.",
+          "a": 10,
+          "b": 3,
+          "value": 13
+        },
+        {
+          "id": "G2M_OP_003_LVL1_Q5",
+          "question_id": "G2M_OP_003_LVL1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "addition_model",
+          "prompt": "6 + 8 = ?",
+          "answer": "14",
+          "correct_answer": "14",
+          "acceptable_answers": [
+            "14"
+          ],
+          "misconception_tag": "make_ten_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 14. Use the strategy to check the related facts.",
+          "options": [
+            "13",
+            "14",
+            "15",
+            "24"
+          ],
+          "choices": [
+            "13",
+            "14",
+            "15",
+            "24"
+          ],
+          "a": 6,
+          "b": 8,
+          "value": 14
+        },
+        {
+          "id": "G2M_OP_003_LVL1_Q6",
+          "question_id": "G2M_OP_003_LVL1_Q6",
+          "question_type": "short_response",
+          "visual_model": "ten_frame",
+          "prompt": "9 + 7 = ?",
+          "answer": "16",
+          "correct_answer": "16",
+          "acceptable_answers": [
+            "16"
+          ],
+          "misconception_tag": "make_ten_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 16. Use the strategy to check the related facts.",
+          "a": 9,
+          "b": 7,
+          "value": 16
+        },
+        {
+          "id": "G2M_OP_003_LVL1_Q7",
+          "question_id": "G2M_OP_003_LVL1_Q7",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "prompt": "5 + 8 = ?",
+          "answer": "13",
+          "correct_answer": "13",
+          "acceptable_answers": [
+            "13"
+          ],
+          "misconception_tag": "make_ten_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 13. Use the strategy to check the related facts.",
+          "parts": [
+            5,
+            8
+          ],
+          "whole": 13,
+          "value": 13
+        },
+        {
+          "id": "G2M_OP_003_LVL1_Q8",
+          "question_id": "G2M_OP_003_LVL1_Q8",
+          "question_type": "short_response",
+          "visual_model": "ten_frame",
+          "prompt": "4 + 9 = ?",
+          "answer": "13",
+          "correct_answer": "13",
+          "acceptable_answers": [
+            "13"
+          ],
+          "misconception_tag": "make_ten_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 13. Use the strategy to check the related facts.",
+          "a": 4,
+          "b": 9,
+          "value": 13
+        },
+        {
+          "id": "G2M_OP_003_LVL1_Q9",
+          "question_id": "G2M_OP_003_LVL1_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "addition_model",
+          "prompt": "7 + 6 = ?",
+          "answer": "13",
+          "correct_answer": "13",
+          "acceptable_answers": [
+            "13"
+          ],
+          "misconception_tag": "make_ten_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 13. Use the strategy to check the related facts.",
+          "options": [
+            "12",
+            "13",
+            "14",
+            "23"
+          ],
+          "choices": [
+            "12",
+            "13",
+            "14",
+            "23"
+          ],
+          "a": 7,
+          "b": 6,
+          "value": 13
+        },
+        {
+          "id": "G2M_OP_003_LVL1_Q10",
+          "question_id": "G2M_OP_003_LVL1_Q10",
+          "question_type": "short_response",
+          "visual_model": "ten_frame",
+          "prompt": "8 + 5 = ?",
+          "answer": "13",
+          "correct_answer": "13",
+          "acceptable_answers": [
+            "13"
+          ],
+          "misconception_tag": "make_ten_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 13. Use the strategy to check the related facts.",
+          "a": 8,
+          "b": 5,
+          "value": 13
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_OP_003_LVL2",
+      "label": "Level 2: Doubles and Near Doubles",
+      "focus": "Use doubles facts and one-more facts.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_OP_003_LVL2_Q1",
+          "question_id": "G2M_OP_003_LVL2_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "addition_model",
+          "prompt": "Double: 6 + 6 = ?",
+          "answer": "12",
+          "correct_answer": "12",
+          "acceptable_answers": [
+            "12"
+          ],
+          "misconception_tag": "doubles_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 12. Use the strategy to check the related facts.",
+          "options": [
+            "11",
+            "12",
+            "13",
+            "22"
+          ],
+          "choices": [
+            "11",
+            "12",
+            "13",
+            "22"
+          ],
+          "a": 6,
+          "b": 6,
+          "value": 12
+        },
+        {
+          "id": "G2M_OP_003_LVL2_Q2",
+          "question_id": "G2M_OP_003_LVL2_Q2",
+          "question_type": "short_response",
+          "visual_model": "ten_frame",
+          "prompt": "Double: 8 + 8 = ?",
+          "answer": "16",
+          "correct_answer": "16",
+          "acceptable_answers": [
+            "16"
+          ],
+          "misconception_tag": "doubles_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 16. Use the strategy to check the related facts.",
+          "a": 8,
+          "b": 8,
+          "value": 16
+        },
+        {
+          "id": "G2M_OP_003_LVL2_Q3",
+          "question_id": "G2M_OP_003_LVL2_Q3",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "prompt": "Near double: 7 + 8 = ?",
+          "answer": "15",
+          "correct_answer": "15",
+          "acceptable_answers": [
+            "15"
+          ],
+          "misconception_tag": "doubles_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 15. Use the strategy to check the related facts.",
+          "parts": [
+            7,
+            8
+          ],
+          "whole": 15,
+          "value": 15
+        },
+        {
+          "id": "G2M_OP_003_LVL2_Q4",
+          "question_id": "G2M_OP_003_LVL2_Q4",
+          "question_type": "short_response",
+          "visual_model": "ten_frame",
+          "prompt": "Near double: 9 + 8 = ?",
+          "answer": "17",
+          "correct_answer": "17",
+          "acceptable_answers": [
+            "17"
+          ],
+          "misconception_tag": "doubles_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 17. Use the strategy to check the related facts.",
+          "a": 9,
+          "b": 8,
+          "value": 17
+        },
+        {
+          "id": "G2M_OP_003_LVL2_Q5",
+          "question_id": "G2M_OP_003_LVL2_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "addition_model",
+          "prompt": "Double: 5 + 5 = ?",
+          "answer": "10",
+          "correct_answer": "10",
+          "acceptable_answers": [
+            "10"
+          ],
+          "misconception_tag": "doubles_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 10. Use the strategy to check the related facts.",
+          "options": [
+            "9",
+            "10",
+            "11",
+            "20"
+          ],
+          "choices": [
+            "9",
+            "10",
+            "11",
+            "20"
+          ],
+          "a": 5,
+          "b": 5,
+          "value": 10
+        },
+        {
+          "id": "G2M_OP_003_LVL2_Q6",
+          "question_id": "G2M_OP_003_LVL2_Q6",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "prompt": "Near double: 6 + 7 = ?",
+          "answer": "13",
+          "correct_answer": "13",
+          "acceptable_answers": [
+            "13"
+          ],
+          "misconception_tag": "doubles_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 13. Use the strategy to check the related facts.",
+          "parts": [
+            6,
+            7
+          ],
+          "whole": 13,
+          "value": 13
+        },
+        {
+          "id": "G2M_OP_003_LVL2_Q7",
+          "question_id": "G2M_OP_003_LVL2_Q7",
+          "question_type": "short_response",
+          "visual_model": "ten_frame",
+          "prompt": "Double: 9 + 9 = ?",
+          "answer": "18",
+          "correct_answer": "18",
+          "acceptable_answers": [
+            "18"
+          ],
+          "misconception_tag": "doubles_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 18. Use the strategy to check the related facts.",
+          "a": 9,
+          "b": 9,
+          "value": 18
+        },
+        {
+          "id": "G2M_OP_003_LVL2_Q8",
+          "question_id": "G2M_OP_003_LVL2_Q8",
+          "question_type": "short_response",
+          "visual_model": "addition_model",
+          "prompt": "Near double: 4 + 5 = ?",
+          "answer": "9",
+          "correct_answer": "9",
+          "acceptable_answers": [
+            "9"
+          ],
+          "misconception_tag": "doubles_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 9. Use the strategy to check the related facts.",
+          "a": 4,
+          "b": 5,
+          "value": 9
+        },
+        {
+          "id": "G2M_OP_003_LVL2_Q9",
+          "question_id": "G2M_OP_003_LVL2_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "ten_frame",
+          "prompt": "Double: 7 + 7 = ?",
+          "answer": "14",
+          "correct_answer": "14",
+          "acceptable_answers": [
+            "14"
+          ],
+          "misconception_tag": "doubles_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 14. Use the strategy to check the related facts.",
+          "options": [
+            "13",
+            "14",
+            "15",
+            "24"
+          ],
+          "choices": [
+            "13",
+            "14",
+            "15",
+            "24"
+          ],
+          "a": 7,
+          "b": 7,
+          "value": 14
+        },
+        {
+          "id": "G2M_OP_003_LVL2_Q10",
+          "question_id": "G2M_OP_003_LVL2_Q10",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "prompt": "Near double: 8 + 9 = ?",
+          "answer": "17",
+          "correct_answer": "17",
+          "acceptable_answers": [
+            "17"
+          ],
+          "misconception_tag": "doubles_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 17. Use the strategy to check the related facts.",
+          "parts": [
+            8,
+            9
+          ],
+          "whole": 17,
+          "value": 17
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_OP_003_LVL3",
+      "label": "Level 3: Related Facts",
+      "focus": "Use fact families to connect addition and subtraction.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_OP_003_LVL3_Q1",
+          "question_id": "G2M_OP_003_LVL3_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "subtraction_model",
+          "prompt": "Related fact: 12 - 5 = ?",
+          "answer": "7",
+          "correct_answer": "7",
+          "acceptable_answers": [
+            "7"
+          ],
+          "misconception_tag": "related_fact_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 7. Use the strategy to check the related facts.",
+          "options": [
+            "6",
+            "7",
+            "8",
+            "17"
+          ],
+          "choices": [
+            "6",
+            "7",
+            "8",
+            "17"
+          ],
+          "a": 12,
+          "b": 5,
+          "operation": "subtraction",
+          "value": 7
+        },
+        {
+          "id": "G2M_OP_003_LVL3_Q2",
+          "question_id": "G2M_OP_003_LVL3_Q2",
+          "question_type": "short_response",
+          "visual_model": "addition_model",
+          "prompt": "Related fact: 9 + 6 = ?",
+          "answer": "15",
+          "correct_answer": "15",
+          "acceptable_answers": [
+            "15"
+          ],
+          "misconception_tag": "related_fact_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 15. Use the strategy to check the related facts.",
+          "a": 9,
+          "b": 6,
+          "value": 15
+        },
+        {
+          "id": "G2M_OP_003_LVL3_Q3",
+          "question_id": "G2M_OP_003_LVL3_Q3",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "prompt": "Fact family: 15 - 9 = ?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "related_fact_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 6. Use the strategy to check the related facts.",
+          "parts": [
+            9,
+            6
+          ],
+          "whole": 15,
+          "value": 6
+        },
+        {
+          "id": "G2M_OP_003_LVL3_Q4",
+          "question_id": "G2M_OP_003_LVL3_Q4",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "prompt": "If 8 + 7 = 15, then 15 - 8 = ?",
+          "answer": "7",
+          "correct_answer": "7",
+          "acceptable_answers": [
+            "7"
+          ],
+          "misconception_tag": "related_fact_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 7. Use the strategy to check the related facts.",
+          "parts": [
+            8,
+            7
+          ],
+          "whole": 15,
+          "value": 7
+        },
+        {
+          "id": "G2M_OP_003_LVL3_Q5",
+          "question_id": "G2M_OP_003_LVL3_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "subtraction_model",
+          "prompt": "Related fact: 14 - 6 = ?",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8"
+          ],
+          "misconception_tag": "related_fact_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 8. Use the strategy to check the related facts.",
+          "options": [
+            "7",
+            "8",
+            "9",
+            "18"
+          ],
+          "choices": [
+            "7",
+            "8",
+            "9",
+            "18"
+          ],
+          "a": 14,
+          "b": 6,
+          "value": 8
+        },
+        {
+          "id": "G2M_OP_003_LVL3_Q6",
+          "question_id": "G2M_OP_003_LVL3_Q6",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "prompt": "Fact family: 11 - 4 = ?",
+          "answer": "7",
+          "correct_answer": "7",
+          "acceptable_answers": [
+            "7"
+          ],
+          "misconception_tag": "related_fact_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 7. Use the strategy to check the related facts.",
+          "parts": [
+            4,
+            7
+          ],
+          "whole": 11,
+          "value": 7
+        },
+        {
+          "id": "G2M_OP_003_LVL3_Q7",
+          "question_id": "G2M_OP_003_LVL3_Q7",
+          "question_type": "short_response",
+          "visual_model": "addition_model",
+          "prompt": "Related fact: 6 + 8 = ?",
+          "answer": "14",
+          "correct_answer": "14",
+          "acceptable_answers": [
+            "14"
+          ],
+          "misconception_tag": "related_fact_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 14. Use the strategy to check the related facts.",
+          "a": 6,
+          "b": 8,
+          "value": 14
+        },
+        {
+          "id": "G2M_OP_003_LVL3_Q8",
+          "question_id": "G2M_OP_003_LVL3_Q8",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "prompt": "If 5 + 9 = 14, then 14 - 9 = ?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5"
+          ],
+          "misconception_tag": "related_fact_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 5. Use the strategy to check the related facts.",
+          "parts": [
+            5,
+            9
+          ],
+          "whole": 14,
+          "value": 5
+        },
+        {
+          "id": "G2M_OP_003_LVL3_Q9",
+          "question_id": "G2M_OP_003_LVL3_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "subtraction_model",
+          "prompt": "Related fact: 13 - 7 = ?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "related_fact_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 6. Use the strategy to check the related facts.",
+          "options": [
+            "5",
+            "6",
+            "7",
+            "16"
+          ],
+          "choices": [
+            "5",
+            "6",
+            "7",
+            "16"
+          ],
+          "a": 13,
+          "b": 7,
+          "value": 6
+        },
+        {
+          "id": "G2M_OP_003_LVL3_Q10",
+          "question_id": "G2M_OP_003_LVL3_Q10",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "prompt": "Fact family: 7 + 9 = ?",
+          "answer": "16",
+          "correct_answer": "16",
+          "acceptable_answers": [
+            "16"
+          ],
+          "misconception_tag": "related_fact_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 16. Use the strategy to check the related facts.",
+          "parts": [
+            7,
+            9
+          ],
+          "whole": 16,
+          "value": 16
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_OP_003_LVL4",
+      "label": "Level 4: Missing Addend / Missing Part",
+      "focus": "Find the missing part or addend.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_OP_003_LVL4_Q1",
+          "question_id": "G2M_OP_003_LVL4_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "prompt": "Missing addend: 8 + ? = 14",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 6. Use the strategy to check the related facts.",
+          "options": [
+            "5",
+            "6",
+            "7",
+            "16"
+          ],
+          "choices": [
+            "5",
+            "6",
+            "7",
+            "16"
+          ],
+          "parts": [
+            8,
+            null
+          ],
+          "whole": 14,
+          "value": 6
+        },
+        {
+          "id": "G2M_OP_003_LVL4_Q2",
+          "question_id": "G2M_OP_003_LVL4_Q2",
+          "question_type": "short_response",
+          "visual_model": "subtraction_model",
+          "prompt": "Missing part: 17 - ? = 9",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8"
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 8. Use the strategy to check the related facts.",
+          "a": 17,
+          "b": 8,
+          "value": 8
+        },
+        {
+          "id": "G2M_OP_003_LVL4_Q3",
+          "question_id": "G2M_OP_003_LVL4_Q3",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "prompt": "Missing addend: ? + 7 = 15",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8"
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 8. Use the strategy to check the related facts.",
+          "parts": [
+            null,
+            7
+          ],
+          "whole": 15,
+          "value": 8
+        },
+        {
+          "id": "G2M_OP_003_LVL4_Q4",
+          "question_id": "G2M_OP_003_LVL4_Q4",
+          "question_type": "short_response",
+          "visual_model": "subtraction_model",
+          "prompt": "Missing part: 13 - 5 = ?",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8"
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 8. Use the strategy to check the related facts.",
+          "a": 13,
+          "b": 5,
+          "value": 8
+        },
+        {
+          "id": "G2M_OP_003_LVL4_Q5",
+          "question_id": "G2M_OP_003_LVL4_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "ten_frame",
+          "prompt": "Missing addend: 9 + ? = 16",
+          "answer": "7",
+          "correct_answer": "7",
+          "acceptable_answers": [
+            "7"
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 7. Use the strategy to check the related facts.",
+          "options": [
+            "6",
+            "7",
+            "8",
+            "17"
+          ],
+          "choices": [
+            "6",
+            "7",
+            "8",
+            "17"
+          ],
+          "a": 9,
+          "b": 7,
+          "value": 7
+        },
+        {
+          "id": "G2M_OP_003_LVL4_Q6",
+          "question_id": "G2M_OP_003_LVL4_Q6",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "prompt": "Missing addend: ? + 6 = 12",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 6. Use the strategy to check the related facts.",
+          "parts": [
+            null,
+            6
+          ],
+          "whole": 12,
+          "value": 6
+        },
+        {
+          "id": "G2M_OP_003_LVL4_Q7",
+          "question_id": "G2M_OP_003_LVL4_Q7",
+          "question_type": "short_response",
+          "visual_model": "subtraction_model",
+          "prompt": "Missing part: 18 - ? = 10",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8"
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 8. Use the strategy to check the related facts.",
+          "a": 18,
+          "b": 8,
+          "value": 8
+        },
+        {
+          "id": "G2M_OP_003_LVL4_Q8",
+          "question_id": "G2M_OP_003_LVL4_Q8",
+          "question_type": "short_response",
+          "visual_model": "addition_model",
+          "prompt": "Missing addend: 5 + ? = 11",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 6. Use the strategy to check the related facts.",
+          "a": 5,
+          "b": 6,
+          "value": 6
+        },
+        {
+          "id": "G2M_OP_003_LVL4_Q9",
+          "question_id": "G2M_OP_003_LVL4_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "subtraction_model",
+          "prompt": "Missing part: 16 - 7 = ?",
+          "answer": "9",
+          "correct_answer": "9",
+          "acceptable_answers": [
+            "9"
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 9. Use the strategy to check the related facts.",
+          "options": [
+            "8",
+            "9",
+            "10",
+            "19"
+          ],
+          "choices": [
+            "8",
+            "9",
+            "10",
+            "19"
+          ],
+          "a": 16,
+          "b": 7,
+          "value": 9
+        },
+        {
+          "id": "G2M_OP_003_LVL4_Q10",
+          "question_id": "G2M_OP_003_LVL4_Q10",
+          "question_type": "short_response",
+          "visual_model": "ten_frame",
+          "prompt": "Missing addend: ? + 9 = 17",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8"
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 8. Use the strategy to check the related facts.",
+          "a": 8,
+          "b": 9,
+          "value": 8
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_OP_003_MIXED",
+      "label": "Mixed",
+      "focus": "Solve addition and subtraction facts within 20 using any mental strategy.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_OP_003_MIXED_Q1",
+          "question_id": "G2M_OP_003_MIXED_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "ten_frame",
+          "prompt": "Make 10: 8 + 6 = ?",
+          "answer": "14",
+          "correct_answer": "14",
+          "acceptable_answers": [
+            "14"
+          ],
+          "misconception_tag": "make_ten_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 14. Use the strategy to check the related facts.",
+          "options": [
+            "13",
+            "14",
+            "15",
+            "24"
+          ],
+          "choices": [
+            "13",
+            "14",
+            "15",
+            "24"
+          ],
+          "a": 8,
+          "b": 6,
+          "operation": "addition",
+          "ten_frame": [
+            8,
+            6
+          ],
+          "value": 14
+        },
+        {
+          "id": "G2M_OP_003_MIXED_Q2",
+          "question_id": "G2M_OP_003_MIXED_Q2",
+          "question_type": "short_response",
+          "visual_model": "ten_frame",
+          "prompt": "Make 10: 9 + 4 = ?",
+          "answer": "13",
+          "correct_answer": "13",
+          "acceptable_answers": [
+            "13"
+          ],
+          "misconception_tag": "make_ten_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 13. Use the strategy to check the related facts.",
+          "a": 9,
+          "b": 4,
+          "operation": "addition",
+          "ten_frame": [
+            9,
+            4
+          ],
+          "value": 13
+        },
+        {
+          "id": "G2M_OP_003_MIXED_Q3",
+          "question_id": "G2M_OP_003_MIXED_Q3",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "prompt": "Make 10: 7 + 5 = ?",
+          "answer": "12",
+          "correct_answer": "12",
+          "acceptable_answers": [
+            "12"
+          ],
+          "misconception_tag": "make_ten_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 12. Use the strategy to check the related facts.",
+          "parts": [
+            7,
+            5
+          ],
+          "whole": 12,
+          "value": 12
+        },
+        {
+          "id": "G2M_OP_003_MIXED_Q4",
+          "question_id": "G2M_OP_003_MIXED_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "addition_model",
+          "prompt": "Double: 6 + 6 = ?",
+          "answer": "12",
+          "correct_answer": "12",
+          "acceptable_answers": [
+            "12"
+          ],
+          "misconception_tag": "doubles_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 12. Use the strategy to check the related facts.",
+          "options": [
+            "11",
+            "12",
+            "13",
+            "22"
+          ],
+          "choices": [
+            "11",
+            "12",
+            "13",
+            "22"
+          ],
+          "a": 6,
+          "b": 6,
+          "value": 12
+        },
+        {
+          "id": "G2M_OP_003_MIXED_Q5",
+          "question_id": "G2M_OP_003_MIXED_Q5",
+          "question_type": "short_response",
+          "visual_model": "ten_frame",
+          "prompt": "Double: 8 + 8 = ?",
+          "answer": "16",
+          "correct_answer": "16",
+          "acceptable_answers": [
+            "16"
+          ],
+          "misconception_tag": "doubles_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 16. Use the strategy to check the related facts.",
+          "a": 8,
+          "b": 8,
+          "value": 16
+        },
+        {
+          "id": "G2M_OP_003_MIXED_Q6",
+          "question_id": "G2M_OP_003_MIXED_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "subtraction_model",
+          "prompt": "Related fact: 12 - 5 = ?",
+          "answer": "7",
+          "correct_answer": "7",
+          "acceptable_answers": [
+            "7"
+          ],
+          "misconception_tag": "related_fact_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 7. Use the strategy to check the related facts.",
+          "options": [
+            "6",
+            "7",
+            "8",
+            "17"
+          ],
+          "choices": [
+            "6",
+            "7",
+            "8",
+            "17"
+          ],
+          "a": 12,
+          "b": 5,
+          "operation": "subtraction",
+          "value": 7
+        },
+        {
+          "id": "G2M_OP_003_MIXED_Q7",
+          "question_id": "G2M_OP_003_MIXED_Q7",
+          "question_type": "short_response",
+          "visual_model": "addition_model",
+          "prompt": "Related fact: 9 + 6 = ?",
+          "answer": "15",
+          "correct_answer": "15",
+          "acceptable_answers": [
+            "15"
+          ],
+          "misconception_tag": "related_fact_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 15. Use the strategy to check the related facts.",
+          "a": 9,
+          "b": 6,
+          "value": 15
+        },
+        {
+          "id": "G2M_OP_003_MIXED_Q8",
+          "question_id": "G2M_OP_003_MIXED_Q8",
+          "question_type": "short_response",
+          "visual_model": "number_bond",
+          "prompt": "Fact family: 15 - 9 = ?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "related_fact_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 6. Use the strategy to check the related facts.",
+          "parts": [
+            9,
+            6
+          ],
+          "whole": 15,
+          "value": 6
+        },
+        {
+          "id": "G2M_OP_003_MIXED_Q9",
+          "question_id": "G2M_OP_003_MIXED_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "number_bond",
+          "prompt": "Missing addend: 8 + ? = 14",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 6. Use the strategy to check the related facts.",
+          "options": [
+            "5",
+            "6",
+            "7",
+            "16"
+          ],
+          "choices": [
+            "5",
+            "6",
+            "7",
+            "16"
+          ],
+          "parts": [
+            8,
+            null
+          ],
+          "whole": 14,
+          "value": 6
+        },
+        {
+          "id": "G2M_OP_003_MIXED_Q10",
+          "question_id": "G2M_OP_003_MIXED_Q10",
+          "question_type": "short_response",
+          "visual_model": "subtraction_model",
+          "prompt": "Missing part: 17 - ? = 9",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8"
+          ],
+          "misconception_tag": "missing_part_confusion",
+          "hints": [
+            "Look for a friendly fact such as make 10, doubles, or a related fact.",
+            "Use the known fact to solve the unknown number.",
+            "Check that the parts and whole make sense."
+          ],
+          "feedback": {
+            "correct": "Great strategy work!",
+            "incorrect": "Use the model and try the place-value strategy again."
+          },
+          "explanation": "The answer is 8. Use the strategy to check the related facts.",
+          "a": 17,
+          "b": 8,
+          "value": 8
+        }
+      ]
+    }
+  ]
+}
