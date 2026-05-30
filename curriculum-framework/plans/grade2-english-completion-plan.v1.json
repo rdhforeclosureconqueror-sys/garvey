@@ -1,0 +1,1021 @@
+{
+  "version": "v1",
+  "grade": "grade2",
+  "subject": "english",
+  "generated_from": "docs/grade2_english_completion_plan.md",
+  "product_contract": {
+    "guided_mission_steps": [
+      "Story",
+      "Lesson",
+      "Watch",
+      "Demo",
+      "Practice",
+      "Challenge",
+      "Checkpoint",
+      "Badge",
+      "Profile"
+    ],
+    "skill_practice_center": {
+      "focused_levels_required": 4,
+      "mixed_level_required": true,
+      "questions_per_level_min": 10,
+      "questions_per_level_max": 12
+    },
+    "manifest_exposure_required": true,
+    "legacy_placeholder_cards_allowed": false,
+    "one_off_games_allowed": false
+  },
+  "grade1_english_renderer_fit": {
+    "decision": "partial_support",
+    "supported_by_existing_grade1_english_renderers": [
+      "phonics_tiles",
+      "sound_boxes",
+      "word_builder",
+      "word_card",
+      "phrase_builder",
+      "sentence_card",
+      "sentence_highlight",
+      "short_passage",
+      "question_card",
+      "picture_story",
+      "story_sequence",
+      "event_cards",
+      "picture_order",
+      "writing_checklist",
+      "sentence_builder",
+      "detail_picker"
+    ],
+    "new_renderers_required_before_full_grade2_english_production": [
+      "syllable_break",
+      "word_parts",
+      "morpheme_tiles",
+      "evidence_highlight",
+      "story_map",
+      "main_idea_web",
+      "detail_cards",
+      "context_sentence",
+      "vocabulary_match",
+      "category_sort",
+      "opinion_reason_chart",
+      "paragraph_builder",
+      "fact_cards",
+      "topic_detail_chart"
+    ],
+    "summary": "Existing Grade 1 English renderers cover many phonics, fluency, basic comprehension, sequencing, and writing checklist needs. Grade 2 English adds morphology, syllable analysis, evidence highlighting, informational-text organization, vocabulary/category interactions, and paragraph-building composition models that require new renderers."
+  },
+  "schema_updates_needed": [
+    "Add or document explicit question_type values for syllable_break, word_part_identification, prefix_meaning, suffix_meaning, morpheme_builder, evidence_highlight, story_element_identification, retell_response, topic_identification, main_idea_choice, detail_match, synonym_antonym_choice, context_clue_choice, multiple_meaning_choice, vocabulary_match, category_sort, opinion_identification, reason_selection, closing_sentence_choice, topic_sentence_choice, fact_selection, linking_word_choice, paragraph_builder, and narrative_builder.",
+    "Add renderer registry support for the Grade 2 visual models listed in new_renderers_required_before_full_grade2_english_production.",
+    "Define passage/evidence metadata fields such as passage, evidence_span, evidence_spans, highlighted_span_ids, sentence, context_sentence, word_parts, morphemes, syllables, topic, details, facts, and writing_prompt.",
+    "Define validation modes per item: exact normalized answer, multiple choice, evidence-span selection, ordered sequence, category sort/match, sentence construction, and rubric-scored writing.",
+    "Ensure level_banks can be validated for 4 focused levels plus Mixed with 10-12 questions per bank for literacy packages."
+  ],
+  "writing_validation_needs": [
+    "Opinion writing: detect an opinion/claim, at least one relevant reason, topic alignment, and a closing sentence.",
+    "Informative writing: detect named topic, factual support from approved fact bank or passage, linking words where required, and closure.",
+    "Narrative writing: detect temporal/sequence words, ordered beginning-middle-end structure, event details, and closure.",
+    "All writing: normalize capitalization and punctuation for feedback without over-penalizing early writers; score with transparent rubric dimensions rather than exact string matching.",
+    "Route open responses to safe deterministic rubric checks first, with optional teacher-review or AI-review hooks only after privacy/safety policy is defined."
+  ],
+  "new_visual_renderers_required": [
+    "syllable_break",
+    "word_parts",
+    "morpheme_tiles",
+    "evidence_highlight",
+    "story_map",
+    "main_idea_web",
+    "detail_cards",
+    "context_sentence",
+    "vocabulary_match",
+    "category_sort",
+    "opinion_reason_chart",
+    "paragraph_builder",
+    "fact_cards",
+    "topic_detail_chart"
+  ],
+  "new_question_types_required": [
+    "category_sort",
+    "closing_sentence_choice",
+    "constructed_sentence",
+    "context_clue_choice",
+    "decode_word",
+    "detail_match",
+    "detail_picker",
+    "event_ordering",
+    "evidence_highlight",
+    "fact_selection",
+    "linking_word_choice",
+    "main_idea_choice",
+    "morpheme_builder",
+    "multiple_choice",
+    "multiple_meaning_choice",
+    "narrative_builder",
+    "opinion_identification",
+    "paragraph_builder",
+    "phrase_reading",
+    "picture_order",
+    "prefix_meaning",
+    "punctuation_reading",
+    "reason_selection",
+    "retell_response",
+    "rubric_scored_writing",
+    "sentence_builder",
+    "sentence_cloze",
+    "sentence_picture_match",
+    "sequence_select",
+    "short_response",
+    "sight_word_match",
+    "sound_box_blend",
+    "story_element_identification",
+    "suffix_meaning",
+    "syllable_break",
+    "synonym_antonym_choice",
+    "text_evidence_choice",
+    "topic_identification",
+    "topic_sentence_choice",
+    "vocabulary_match",
+    "wh_question",
+    "word_builder",
+    "word_part_identification"
+  ],
+  "skills": [
+    {
+      "work_id": "G2E-P0-001",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G2E_RF_001",
+      "grade": 2,
+      "subject": "English",
+      "domain": "Reading Foundations",
+      "skill_title": "Advanced Phonics and Word Analysis",
+      "focus": "decode long vowels, vowel teams, digraphs, blends, and multisyllable words",
+      "standards_gap_learning_purpose": "Extend Grade 1 phonics into more complex spelling patterns and early multisyllabic decoding.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry. Do not create one-off games or placeholder cards.",
+      "visual_models_needed": [
+        "phonics_tiles",
+        "sound_boxes",
+        "word_builder",
+        "syllable_break"
+      ],
+      "question_types_needed": [
+        "multiple_choice",
+        "word_builder",
+        "sound_box_blend",
+        "decode_word",
+        "syllable_break",
+        "short_response"
+      ],
+      "misconception_tags_needed": [
+        "blend_digraph_confusion",
+        "silent_e_confusion",
+        "vowel_team_confusion",
+        "syllable_break_error"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G2E_RF_001_LVL1",
+          "label": "Level 1: Consonant Blends and Digraphs",
+          "focus": "Practice consonant blends and digraphs for decode long vowels, vowel teams, digraphs, blends, and multisyllable words.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RF_001_LVL2",
+          "label": "Level 2: Long Vowels and Silent E",
+          "focus": "Practice long vowels and silent e for decode long vowels, vowel teams, digraphs, blends, and multisyllable words.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RF_001_LVL3",
+          "label": "Level 3: Vowel Teams",
+          "focus": "Practice vowel teams for decode long vowels, vowel teams, digraphs, blends, and multisyllable words.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RF_001_LVL4",
+          "label": "Level 4: Multisyllable Words",
+          "focus": "Practice multisyllable words for decode long vowels, vowel teams, digraphs, blends, and multisyllable words.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RF_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Advanced Phonics and Word Analysis targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage JSON validates against the updated schema/runtime contract.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Practice Center includes four focused levels plus Mixed with 10-12 questions each.",
+        "Visual models render with intentional Grade 2 English UI and no fallback placeholder text.",
+        "Skill appears through the Skill World manifest/hub path, not a hardcoded card."
+      ]
+    },
+    {
+      "work_id": "G2E-P0-002",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G2E_RF_002",
+      "grade": 2,
+      "subject": "English",
+      "domain": "Reading Foundations / Vocabulary",
+      "skill_title": "Prefixes, Suffixes, and Base Words",
+      "focus": "identify base words and common prefixes/suffixes",
+      "standards_gap_learning_purpose": "Help learners analyze meaningful word parts and use them to read and understand new words.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry. Do not create one-off games or placeholder cards.",
+      "visual_models_needed": [
+        "word_parts",
+        "morpheme_tiles",
+        "word_builder"
+      ],
+      "question_types_needed": [
+        "multiple_choice",
+        "word_part_identification",
+        "prefix_meaning",
+        "suffix_meaning",
+        "morpheme_builder",
+        "short_response"
+      ],
+      "misconception_tags_needed": [
+        "base_word_confusion",
+        "prefix_meaning_confusion",
+        "suffix_meaning_confusion",
+        "word_part_boundary_error"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G2E_RF_002_LVL1",
+          "label": "Level 1: Base Words",
+          "focus": "Practice base words for identify base words and common prefixes/suffixes.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RF_002_LVL2",
+          "label": "Level 2: Prefixes",
+          "focus": "Practice prefixes for identify base words and common prefixes/suffixes.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RF_002_LVL3",
+          "label": "Level 3: Suffixes",
+          "focus": "Practice suffixes for identify base words and common prefixes/suffixes.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RF_002_LVL4",
+          "label": "Level 4: Build and Decode New Words",
+          "focus": "Practice build and decode new words for identify base words and common prefixes/suffixes.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RF_002_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Prefixes, Suffixes, and Base Words targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage JSON validates against the updated schema/runtime contract.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Practice Center includes four focused levels plus Mixed with 10-12 questions each.",
+        "Visual models render with intentional Grade 2 English UI and no fallback placeholder text.",
+        "Skill appears through the Skill World manifest/hub path, not a hardcoded card."
+      ]
+    },
+    {
+      "work_id": "G2E-P0-003",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G2E_FL_001",
+      "grade": 2,
+      "subject": "English",
+      "domain": "Fluency",
+      "skill_title": "Grade 2 Sight Words and Fluency",
+      "focus": "read Grade 2 high-frequency words, phrases, and sentences fluently",
+      "standards_gap_learning_purpose": "Build automatic recognition, accurate phrase reading, and punctuation-aware sentence fluency.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry. Do not create one-off games or placeholder cards.",
+      "visual_models_needed": [
+        "word_card",
+        "phrase_builder",
+        "sentence_card",
+        "sentence_highlight"
+      ],
+      "question_types_needed": [
+        "sight_word_match",
+        "phrase_reading",
+        "sentence_cloze",
+        "punctuation_reading",
+        "sentence_picture_match",
+        "short_response"
+      ],
+      "misconception_tags_needed": [
+        "sight_word_automaticity_gap",
+        "phrase_chunking_error",
+        "skips_function_words",
+        "punctuation_ignored"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G2E_FL_001_LVL1",
+          "label": "Level 1: Grade 2 Sight Word Set A",
+          "focus": "Practice grade 2 sight word set a for read Grade 2 high-frequency words, phrases, and sentences fluently.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_FL_001_LVL2",
+          "label": "Level 2: Grade 2 Sight Word Set B",
+          "focus": "Practice grade 2 sight word set b for read Grade 2 high-frequency words, phrases, and sentences fluently.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_FL_001_LVL3",
+          "label": "Level 3: Phrase Fluency",
+          "focus": "Practice phrase fluency for read Grade 2 high-frequency words, phrases, and sentences fluently.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_FL_001_LVL4",
+          "label": "Level 4: Sentence Fluency",
+          "focus": "Practice sentence fluency for read Grade 2 high-frequency words, phrases, and sentences fluently.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_FL_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Grade 2 Sight Words and Fluency targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage JSON validates against the updated schema/runtime contract.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Practice Center includes four focused levels plus Mixed with 10-12 questions each.",
+        "Visual models render with intentional Grade 2 English UI and no fallback placeholder text.",
+        "Skill appears through the Skill World manifest/hub path, not a hardcoded card."
+      ]
+    },
+    {
+      "work_id": "G2E-P0-004",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G2E_RC_001",
+      "grade": 2,
+      "subject": "English",
+      "domain": "Reading Comprehension",
+      "skill_title": "Ask and Answer Questions About Text",
+      "focus": "answer who, what, where, when, why, and how questions using text evidence",
+      "standards_gap_learning_purpose": "Make comprehension answers accountable to details and evidence explicitly present in short text.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry. Do not create one-off games or placeholder cards.",
+      "visual_models_needed": [
+        "short_passage",
+        "question_card",
+        "evidence_highlight",
+        "picture_story"
+      ],
+      "question_types_needed": [
+        "wh_question",
+        "text_evidence_choice",
+        "evidence_highlight",
+        "multiple_choice",
+        "short_response"
+      ],
+      "misconception_tags_needed": [
+        "unsupported_answer",
+        "question_word_confusion",
+        "misses_text_evidence",
+        "detail_inference_confusion"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G2E_RC_001_LVL1",
+          "label": "Level 1: Who/What/Where",
+          "focus": "Practice who/what/where for answer who, what, where, when, why, and how questions using text evidence.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RC_001_LVL2",
+          "label": "Level 2: When/Why/How",
+          "focus": "Practice when/why/how for answer who, what, where, when, why, and how questions using text evidence.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RC_001_LVL3",
+          "label": "Level 3: Find Text Evidence",
+          "focus": "Practice find text evidence for answer who, what, where, when, why, and how questions using text evidence.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RC_001_LVL4",
+          "label": "Level 4: Mixed Questions",
+          "focus": "Practice mixed questions for answer who, what, where, when, why, and how questions using text evidence.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RC_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Ask and Answer Questions About Text targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage JSON validates against the updated schema/runtime contract.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Practice Center includes four focused levels plus Mixed with 10-12 questions each.",
+        "Visual models render with intentional Grade 2 English UI and no fallback placeholder text.",
+        "Skill appears through the Skill World manifest/hub path, not a hardcoded card."
+      ]
+    },
+    {
+      "work_id": "G2E-P0-005",
+      "priority": "P1",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G2E_RC_002",
+      "grade": 2,
+      "subject": "English",
+      "domain": "Reading Comprehension",
+      "skill_title": "Story Structure and Retelling",
+      "focus": "identify characters, setting, problem, solution, and sequence of events",
+      "standards_gap_learning_purpose": "Help learners organize narrative information into story elements and coherent retells.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry. Do not create one-off games or placeholder cards.",
+      "visual_models_needed": [
+        "story_map",
+        "story_sequence",
+        "event_cards",
+        "picture_order"
+      ],
+      "question_types_needed": [
+        "story_element_identification",
+        "event_ordering",
+        "picture_order",
+        "sequence_select",
+        "retell_response",
+        "short_response"
+      ],
+      "misconception_tags_needed": [
+        "character_setting_confusion",
+        "problem_solution_confusion",
+        "sequence_order_error",
+        "retell_detail_gap"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G2E_RC_002_LVL1",
+          "label": "Level 1: Characters and Setting",
+          "focus": "Practice characters and setting for identify characters, setting, problem, solution, and sequence of events.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RC_002_LVL2",
+          "label": "Level 2: Problem and Solution",
+          "focus": "Practice problem and solution for identify characters, setting, problem, solution, and sequence of events.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RC_002_LVL3",
+          "label": "Level 3: Beginning, Middle, End",
+          "focus": "Practice beginning, middle, end for identify characters, setting, problem, solution, and sequence of events.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RC_002_LVL4",
+          "label": "Level 4: Retell the Story",
+          "focus": "Practice retell the story for identify characters, setting, problem, solution, and sequence of events.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RC_002_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Story Structure and Retelling targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage JSON validates against the updated schema/runtime contract.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Practice Center includes four focused levels plus Mixed with 10-12 questions each.",
+        "Visual models render with intentional Grade 2 English UI and no fallback placeholder text.",
+        "Skill appears through the Skill World manifest/hub path, not a hardcoded card."
+      ]
+    },
+    {
+      "work_id": "G2E-P0-006",
+      "priority": "P1",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G2E_RC_003",
+      "grade": 2,
+      "subject": "English",
+      "domain": "Reading Comprehension",
+      "skill_title": "Main Idea and Key Details",
+      "focus": "identify the main idea and supporting details in informational text",
+      "standards_gap_learning_purpose": "Separate topic from main idea and train learners to connect details to the central idea.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry. Do not create one-off games or placeholder cards.",
+      "visual_models_needed": [
+        "short_passage",
+        "main_idea_web",
+        "detail_cards",
+        "evidence_highlight"
+      ],
+      "question_types_needed": [
+        "topic_identification",
+        "main_idea_choice",
+        "detail_picker",
+        "detail_match",
+        "text_evidence_choice",
+        "short_response"
+      ],
+      "misconception_tags_needed": [
+        "topic_main_idea_confusion",
+        "detail_selection_error",
+        "unsupported_detail",
+        "main_idea_too_broad"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G2E_RC_003_LVL1",
+          "label": "Level 1: Topic",
+          "focus": "Practice topic for identify the main idea and supporting details in informational text.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RC_003_LVL2",
+          "label": "Level 2: Main Idea",
+          "focus": "Practice main idea for identify the main idea and supporting details in informational text.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RC_003_LVL3",
+          "label": "Level 3: Key Details",
+          "focus": "Practice key details for identify the main idea and supporting details in informational text.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RC_003_LVL4",
+          "label": "Level 4: Match Details to Main Idea",
+          "focus": "Practice match details to main idea for identify the main idea and supporting details in informational text.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_RC_003_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Main Idea and Key Details targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage JSON validates against the updated schema/runtime contract.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Practice Center includes four focused levels plus Mixed with 10-12 questions each.",
+        "Visual models render with intentional Grade 2 English UI and no fallback placeholder text.",
+        "Skill appears through the Skill World manifest/hub path, not a hardcoded card."
+      ]
+    },
+    {
+      "work_id": "G2E-P0-007",
+      "priority": "P1",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G2E_VOC_001",
+      "grade": 2,
+      "subject": "English",
+      "domain": "Vocabulary",
+      "skill_title": "Vocabulary and Context Clues",
+      "focus": "use context, categories, synonyms, antonyms, and multiple-meaning words",
+      "standards_gap_learning_purpose": "Move vocabulary beyond isolated definitions into sentence context, semantic relationships, and categories.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry. Do not create one-off games or placeholder cards.",
+      "visual_models_needed": [
+        "word_card",
+        "context_sentence",
+        "vocabulary_match",
+        "category_sort"
+      ],
+      "question_types_needed": [
+        "synonym_antonym_choice",
+        "context_clue_choice",
+        "multiple_meaning_choice",
+        "vocabulary_match",
+        "category_sort",
+        "short_response"
+      ],
+      "misconception_tags_needed": [
+        "context_clue_ignored",
+        "synonym_antonym_confusion",
+        "multiple_meaning_confusion",
+        "category_attribute_error"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G2E_VOC_001_LVL1",
+          "label": "Level 1: Synonyms and Antonyms",
+          "focus": "Practice synonyms and antonyms for use context, categories, synonyms, antonyms, and multiple-meaning words.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_VOC_001_LVL2",
+          "label": "Level 2: Context Clues",
+          "focus": "Practice context clues for use context, categories, synonyms, antonyms, and multiple-meaning words.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_VOC_001_LVL3",
+          "label": "Level 3: Multiple-Meaning Words",
+          "focus": "Practice multiple-meaning words for use context, categories, synonyms, antonyms, and multiple-meaning words.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_VOC_001_LVL4",
+          "label": "Level 4: Categories and Attributes",
+          "focus": "Practice categories and attributes for use context, categories, synonyms, antonyms, and multiple-meaning words.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_VOC_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Vocabulary and Context Clues targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage JSON validates against the updated schema/runtime contract.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Practice Center includes four focused levels plus Mixed with 10-12 questions each.",
+        "Visual models render with intentional Grade 2 English UI and no fallback placeholder text.",
+        "Skill appears through the Skill World manifest/hub path, not a hardcoded card."
+      ]
+    },
+    {
+      "work_id": "G2E-P0-008",
+      "priority": "P1",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G2E_WR_001",
+      "grade": 2,
+      "subject": "English",
+      "domain": "Writing / Composition",
+      "skill_title": "Write Opinion Pieces",
+      "focus": "state an opinion, give reasons, and provide a closing",
+      "standards_gap_learning_purpose": "Scaffold a complete opinion paragraph with a clear claim, relevant reason, and closure.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry. Do not create one-off games or placeholder cards.",
+      "visual_models_needed": [
+        "writing_checklist",
+        "sentence_builder",
+        "opinion_reason_chart",
+        "paragraph_builder"
+      ],
+      "question_types_needed": [
+        "sentence_builder",
+        "opinion_identification",
+        "reason_selection",
+        "closing_sentence_choice",
+        "constructed_sentence",
+        "rubric_scored_writing"
+      ],
+      "misconception_tags_needed": [
+        "missing_opinion",
+        "weak_reason",
+        "missing_closing",
+        "off_topic_response"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G2E_WR_001_LVL1",
+          "label": "Level 1: State an Opinion",
+          "focus": "Practice state an opinion for state an opinion, give reasons, and provide a closing.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_WR_001_LVL2",
+          "label": "Level 2: Give a Reason",
+          "focus": "Practice give a reason for state an opinion, give reasons, and provide a closing.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_WR_001_LVL3",
+          "label": "Level 3: Add a Closing",
+          "focus": "Practice add a closing for state an opinion, give reasons, and provide a closing.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_WR_001_LVL4",
+          "label": "Level 4: Build an Opinion Paragraph",
+          "focus": "Practice build an opinion paragraph for state an opinion, give reasons, and provide a closing.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_WR_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Write Opinion Pieces targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage JSON validates against the updated schema/runtime contract.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Practice Center includes four focused levels plus Mixed with 10-12 questions each.",
+        "Visual models render with intentional Grade 2 English UI and no fallback placeholder text.",
+        "Skill appears through the Skill World manifest/hub path, not a hardcoded card."
+      ]
+    },
+    {
+      "work_id": "G2E-P0-009",
+      "priority": "P1",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G2E_WR_002",
+      "grade": 2,
+      "subject": "English",
+      "domain": "Writing / Composition",
+      "skill_title": "Write Informative/Explanatory Text",
+      "focus": "name a topic, supply facts, and provide closure",
+      "standards_gap_learning_purpose": "Guide learners to write focused informational text with topic, facts, linking words, and closure.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry. Do not create one-off games or placeholder cards.",
+      "visual_models_needed": [
+        "writing_checklist",
+        "fact_cards",
+        "paragraph_builder",
+        "topic_detail_chart"
+      ],
+      "question_types_needed": [
+        "topic_sentence_choice",
+        "fact_selection",
+        "linking_word_choice",
+        "constructed_sentence",
+        "paragraph_builder",
+        "rubric_scored_writing"
+      ],
+      "misconception_tags_needed": [
+        "missing_topic",
+        "unsupported_fact",
+        "missing_linking_word",
+        "missing_closure"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G2E_WR_002_LVL1",
+          "label": "Level 1: Name a Topic",
+          "focus": "Practice name a topic for name a topic, supply facts, and provide closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_WR_002_LVL2",
+          "label": "Level 2: Add Facts",
+          "focus": "Practice add facts for name a topic, supply facts, and provide closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_WR_002_LVL3",
+          "label": "Level 3: Use Linking Words",
+          "focus": "Practice use linking words for name a topic, supply facts, and provide closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_WR_002_LVL4",
+          "label": "Level 4: Build an Informative Paragraph",
+          "focus": "Practice build an informative paragraph for name a topic, supply facts, and provide closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_WR_002_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Write Informative/Explanatory Text targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage JSON validates against the updated schema/runtime contract.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Practice Center includes four focused levels plus Mixed with 10-12 questions each.",
+        "Visual models render with intentional Grade 2 English UI and no fallback placeholder text.",
+        "Skill appears through the Skill World manifest/hub path, not a hardcoded card."
+      ]
+    },
+    {
+      "work_id": "G2E-P0-010",
+      "priority": "P1",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G2E_WR_003",
+      "grade": 2,
+      "subject": "English",
+      "domain": "Writing / Composition",
+      "skill_title": "Narrative Writing With Sequence",
+      "focus": "recount an event with order words, details, and closure",
+      "standards_gap_learning_purpose": "Support narrative recounting with temporal order words, relevant event details, and a closing sentence.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry. Do not create one-off games or placeholder cards.",
+      "visual_models_needed": [
+        "story_sequence",
+        "event_cards",
+        "paragraph_builder",
+        "writing_checklist"
+      ],
+      "question_types_needed": [
+        "sequence_select",
+        "event_ordering",
+        "detail_picker",
+        "constructed_sentence",
+        "narrative_builder",
+        "rubric_scored_writing"
+      ],
+      "misconception_tags_needed": [
+        "sequence_word_missing",
+        "event_order_error",
+        "missing_details",
+        "missing_closure"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G2E_WR_003_LVL1",
+          "label": "Level 1: Sequence Words",
+          "focus": "Practice sequence words for recount an event with order words, details, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_WR_003_LVL2",
+          "label": "Level 2: Add Event Details",
+          "focus": "Practice add event details for recount an event with order words, details, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_WR_003_LVL3",
+          "label": "Level 3: Write Beginning/Middle/End",
+          "focus": "Practice write beginning/middle/end for recount an event with order words, details, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_WR_003_LVL4",
+          "label": "Level 4: Build a Narrative",
+          "focus": "Practice build a narrative for recount an event with order words, details, and closure.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G2E_WR_003_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave all Narrative Writing With Sequence targets.",
+          "question_count_min": 10,
+          "question_count_max": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage JSON validates against the updated schema/runtime contract.",
+        "Guided Mission includes Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Practice Center includes four focused levels plus Mixed with 10-12 questions each.",
+        "Visual models render with intentional Grade 2 English UI and no fallback placeholder text.",
+        "Skill appears through the Skill World manifest/hub path, not a hardcoded card."
+      ]
+    }
+  ],
+  "backlog": [
+    {
+      "id": "G2E-BL-001",
+      "priority": "P0",
+      "title": "Extend SkillPackage schema/runtime for Grade 2 English question types and metadata",
+      "depends_on": []
+    },
+    {
+      "id": "G2E-BL-002",
+      "priority": "P0",
+      "title": "Implement new Grade 2 English visual renderers",
+      "depends_on": [
+        "G2E-BL-001"
+      ]
+    },
+    {
+      "id": "G2E-BL-003",
+      "priority": "P0",
+      "title": "Implement writing validation/rubric helpers for opinion, informative, and narrative responses",
+      "depends_on": [
+        "G2E-BL-001"
+      ]
+    },
+    {
+      "id": "G2E-BL-004",
+      "priority": "P0",
+      "title": "Create first production package G2E_RF_001 and add manifest exposure",
+      "depends_on": [
+        "G2E-BL-001",
+        "G2E-BL-002"
+      ]
+    },
+    {
+      "id": "G2E-BL-005",
+      "priority": "P0",
+      "title": "Create remaining P0 reading-foundations/fluency/comprehension packages",
+      "depends_on": [
+        "G2E-BL-004"
+      ]
+    },
+    {
+      "id": "G2E-BL-006",
+      "priority": "P1",
+      "title": "Create vocabulary and writing production packages",
+      "depends_on": [
+        "G2E-BL-002",
+        "G2E-BL-003"
+      ]
+    },
+    {
+      "id": "G2E-BL-007",
+      "priority": "P1",
+      "title": "Run manifest, generator, Practice Center, schema, accessibility, and responsive QA for every package",
+      "depends_on": [
+        "G2E-BL-004",
+        "G2E-BL-005",
+        "G2E-BL-006"
+      ]
+    }
+  ]
+}
