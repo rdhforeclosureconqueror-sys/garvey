@@ -7,9 +7,12 @@ const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_O
 const grade1Packages=grade1SkillIds.map(load);
 const grade2SkillIds=['G2E_RF_001','G2E_RF_002','G2E_FL_001','G2E_VOC_001','G2E_RC_001','G2E_RC_002','G2E_RC_003','G2E_WR_001','G2E_WR_002','G2E_WR_003','G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
 const grade2Packages=grade2SkillIds.map(load);
-const grade3SkillIds=['G3M_MUL_001'];
+const grade3SkillIds=['G3M_MUL_001','G3M_DIV_001','G3M_FACT_001','G3M_WP_001'];
 const grade3Packages=grade3SkillIds.map(load);
 const g3MultiplicationFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_MUL_001');
+const g3DivisionFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_DIV_001');
+const g3FactFluency=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_FACT_001');
+const g3WordProblems=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_WP_001');
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
 const g2FluencyEnglish=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_FL_001');
@@ -933,5 +936,38 @@ assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_
 assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_model==='array_model')),/rows.*columns|columns.*rows/i,'array_model renderer supports rows/columns');
 assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_model==='repeated_addition')),/data-renderer="repeated_addition"/,'repeated_addition renderer output exists');
 assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_model==='multiplication_model')),/data-renderer="multiplication_model"/,'multiplication_model renderer output exists');
+
+
+const grade3OperationsPackages=[
+  {pkg:g3DivisionFoundations,id:'G3M_DIV_001',skill:'Division Foundations',labels:['Level 1: Equal Sharing','Level 2: Equal Groups','Level 3: Division Equations','Level 4: Multiplication and Division Relationship','Mixed'],visuals:['division_model','equal_groups','array_model','fact_family_model'],types:['multiple_choice','short_response','division_equation'],tags:['sharing_grouping_confusion','remainder_confusion','division_symbol_confusion','inverse_operation_confusion']},
+  {pkg:g3FactFluency,id:'G3M_FACT_001',skill:'Multiplication and Division Fluency',labels:['Level 1: 2s, 5s, and 10s','Level 2: 3s and 4s','Level 3: 6s, 7s, and 8s','Level 4: 9s and Mixed Facts','Mixed'],visuals:['multiplication_chart','fact_family_model','array_model','skip_counting'],types:['multiple_choice','short_response','multiplication_equation','division_equation'],tags:['fact_recall_gap','inverse_fact_confusion','skip_count_error','multiplication_division_mixup']},
+  {pkg:g3WordProblems,id:'G3M_WP_001',skill:'Two-Step Word Problems',labels:['Level 1: One-Step Review','Level 2: Two-Step Addition/Subtraction','Level 3: Two-Step Multiplication/Division','Level 4: Mixed Operation Problems','Mixed'],visuals:['word_problem_model','bar_model','equation_builder','operation_sort'],types:['multiple_choice','short_response','word_problem','equation_builder'],tags:['operation_selection_error','two_step_tracking_error','hidden_question_confusion','equation_setup_error']}
+];
+grade3OperationsPackages.forEach(({pkg,id,skill,labels,visuals,types,tags})=>{
+  const questions=pkg.level_banks.flatMap((level)=>level.questions);
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates in strict production mode`);
+  assert.equal(pkg.grade,3);
+  assert.equal(pkg.subject,'Math');
+  assert.equal(pkg.domain,'Operations and Algebraic Thinking');
+  assert.equal(pkg.skill,skill);
+  assert.equal(Array.isArray(pkg.level_banks),true,`${id} has level_banks`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+  labels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${id} includes ${label}`));
+  visuals.forEach((visual)=>assert.ok(Schema.VISUAL_MODELS.includes(visual),`schema accepts ${visual}`));
+  visuals.forEach((visual)=>assert.ok(questions.some((q)=>q.visual_model===visual),`${id} includes ${visual}`));
+  types.forEach((type)=>assert.ok(questions.some((q)=>q.question_type===type),`${id} includes ${type}`));
+  tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${id} includes misconception ${tag}`));
+  assert.ok(questions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),`${id} short-response items have acceptable_answers`);
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${id} mission renders ${label}`));
+  assert.match(missionHtml,/Continue to Skill Practice/,`${id} profile links to Skill Practice Center`);
+});
+assert.match(VisualRegistry.render(g3DivisionFoundations.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='division_model')),/data-renderer="division_model"/,'division_model output exists');
+assert.match(VisualRegistry.render(g3DivisionFoundations.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='fact_family_model')),/data-renderer="fact_family_model"/,'fact_family_model output exists');
+assert.match(VisualRegistry.render(g3FactFluency.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='multiplication_chart')),/data-renderer="multiplication_chart"/,'multiplication_chart output exists');
+assert.match(VisualRegistry.render(g3FactFluency.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='skip_counting')),/data-renderer="skip_counting"/,'skip_counting output exists');
+assert.match(VisualRegistry.render(g3WordProblems.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='operation_sort')),/data-renderer="operation_sort"/,'operation_sort output exists');
 
 console.log('skill-world-generator tests passed');

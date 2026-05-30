@@ -1,0 +1,3016 @@
+{
+  "skill_id": "G3M_FACT_001",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_docs": [
+      "docs/grade3_math_completion_plan.md",
+      "curriculum-framework/plans/grade3-math-completion-plan.v1.json"
+    ],
+    "source_plan": "curriculum-framework/plans/grade3-math-completion-plan.v1.json"
+  },
+  "grade": 3,
+  "subject": "Math",
+  "domain": "Operations and Algebraic Thinking",
+  "skill": "Multiplication and Division Fluency",
+  "mastery_threshold": 0.8,
+  "difficulty_range": "Grade 3 operations",
+  "lesson": {
+    "story_mission": "Join the Operations Trail team to fluently multiply and divide within 100 using strategies.",
+    "mini_lesson": "Fluently multiply and divide within 100 using strategies.",
+    "objective": "Fluently multiply and divide within 100 using strategies.",
+    "key_vocabulary": [
+      "factor",
+      "product",
+      "quotient",
+      "fact family",
+      "skip counting",
+      "multiplication chart"
+    ],
+    "concept_explanation": "Fluently multiply and divide within 100 using strategies. Use models, equations, and careful checking to explain each answer.",
+    "visual_model": "multiplication_chart",
+    "common_misconception": "Learners may choose an operation too quickly or miss how the model connects to the equation.",
+    "real_world_connection": "These skills help solve classroom supplies, games, snacks, teams, and sharing situations.",
+    "lesson_summary": "Read the situation, build the model, write the equation, solve, and check with an inverse or another strategy.",
+    "hints": [
+      "Read the problem and name what is known.",
+      "Use the model to connect numbers to an equation.",
+      "Check that the answer matches the question asked."
+    ]
+  },
+  "worked_examples": [
+    {
+      "visual_model": "skip_counting",
+      "prompt": "What is 2 \u00d7 2?",
+      "correct_answer": "4",
+      "factor_a": 2,
+      "factor_b": 2,
+      "product": 4,
+      "total": 4,
+      "groups": 2,
+      "items_per_group": 2,
+      "rows": 2,
+      "columns": 2,
+      "step": 2,
+      "sequence": [
+        2,
+        4
+      ],
+      "equation": "2 \u00d7 2 = 4",
+      "text": "What is 2 \u00d7 2?"
+    },
+    {
+      "visual_model": "array_model",
+      "prompt": "What is 2 \u00d7 3?",
+      "correct_answer": "6",
+      "factor_a": 2,
+      "factor_b": 3,
+      "product": 6,
+      "total": 6,
+      "groups": 2,
+      "items_per_group": 3,
+      "rows": 2,
+      "columns": 3,
+      "step": 2,
+      "sequence": [
+        2,
+        4,
+        6
+      ],
+      "equation": "2 \u00d7 3 = 6",
+      "text": "What is 2 \u00d7 3?"
+    },
+    {
+      "visual_model": "fact_family_model",
+      "prompt": "What is 2 \u00d7 4?",
+      "correct_answer": "8",
+      "factor_a": 2,
+      "factor_b": 4,
+      "product": 8,
+      "total": 8,
+      "groups": 2,
+      "items_per_group": 4,
+      "rows": 2,
+      "columns": 4,
+      "step": 2,
+      "sequence": [
+        2,
+        4,
+        6,
+        8
+      ],
+      "equation": "2 \u00d7 4 = 8",
+      "text": "What is 2 \u00d7 4?"
+    }
+  ],
+  "hint_ladder": [
+    "Read the problem and name what is known.",
+    "Use the model to connect numbers to an equation.",
+    "Check that the answer matches the question asked."
+  ],
+  "guided_practice": [
+    {
+      "id": "G3M_FACT_001_LVL1_Q1",
+      "question_id": "G3M_FACT_001_LVL1_Q1",
+      "question_type": "multiplication_equation",
+      "visual_model": "skip_counting",
+      "prompt": "What is 2 \u00d7 2?",
+      "answer": "4",
+      "correct_answer": "4",
+      "misconception_tag": "skip_count_error",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 4.",
+      "acceptable_answers": [
+        "4",
+        "4 objects",
+        "4 items"
+      ],
+      "factor": 2,
+      "factor_a": 2,
+      "factor_b": 2,
+      "product": 4,
+      "total": 4,
+      "groups": 2,
+      "items_per_group": 2,
+      "rows": 2,
+      "columns": 2,
+      "step": 2,
+      "count": 2,
+      "sequence": [
+        2,
+        4
+      ],
+      "equation": "2 \u00d7 2 = 4"
+    },
+    {
+      "id": "G3M_FACT_001_LVL1_Q2",
+      "question_id": "G3M_FACT_001_LVL1_Q2",
+      "question_type": "short_response",
+      "visual_model": "array_model",
+      "prompt": "What is 2 \u00d7 3?",
+      "answer": "6",
+      "correct_answer": "6",
+      "misconception_tag": "multiplication_division_mixup",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 6.",
+      "acceptable_answers": [
+        "6",
+        "6 objects",
+        "6 items"
+      ],
+      "factor": 2,
+      "factor_a": 2,
+      "factor_b": 3,
+      "product": 6,
+      "total": 6,
+      "groups": 2,
+      "items_per_group": 3,
+      "rows": 2,
+      "columns": 3,
+      "step": 2,
+      "count": 3,
+      "sequence": [
+        2,
+        4,
+        6
+      ],
+      "equation": "2 \u00d7 3 = 6"
+    },
+    {
+      "id": "G3M_FACT_001_LVL1_Q3",
+      "question_id": "G3M_FACT_001_LVL1_Q3",
+      "question_type": "multiplication_equation",
+      "visual_model": "fact_family_model",
+      "prompt": "What is 2 \u00d7 4?",
+      "answer": "8",
+      "correct_answer": "8",
+      "misconception_tag": "inverse_fact_confusion",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 8.",
+      "acceptable_answers": [
+        "8",
+        "8 objects",
+        "8 items"
+      ],
+      "factor": 2,
+      "factor_a": 2,
+      "factor_b": 4,
+      "product": 8,
+      "total": 8,
+      "groups": 2,
+      "items_per_group": 4,
+      "rows": 2,
+      "columns": 4,
+      "step": 2,
+      "count": 4,
+      "sequence": [
+        2,
+        4,
+        6,
+        8
+      ],
+      "equation": "2 \u00d7 4 = 8"
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G3M_FACT_001_LVL1_Q4",
+      "question_id": "G3M_FACT_001_LVL1_Q4",
+      "question_type": "division_equation",
+      "visual_model": "multiplication_chart",
+      "prompt": "What is 10 \u00f7 2?",
+      "answer": "5",
+      "correct_answer": "5",
+      "misconception_tag": "fact_recall_gap",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 5.",
+      "acceptable_answers": [
+        "5",
+        "5 objects",
+        "5 items"
+      ],
+      "factor": 2,
+      "factor_a": 2,
+      "factor_b": 5,
+      "product": 10,
+      "total": 10,
+      "groups": 2,
+      "items_per_group": 5,
+      "rows": 2,
+      "columns": 5,
+      "step": 2,
+      "count": 5,
+      "sequence": [
+        2,
+        4,
+        6,
+        8,
+        10
+      ],
+      "equation": "10 \u00f7 2 = 5"
+    },
+    {
+      "id": "G3M_FACT_001_LVL1_Q5",
+      "question_id": "G3M_FACT_001_LVL1_Q5",
+      "question_type": "multiplication_equation",
+      "visual_model": "skip_counting",
+      "prompt": "What is 2 \u00d7 6?",
+      "answer": "12",
+      "correct_answer": "12",
+      "misconception_tag": "skip_count_error",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 12.",
+      "acceptable_answers": [
+        "12",
+        "12 objects",
+        "12 items"
+      ],
+      "factor": 2,
+      "factor_a": 2,
+      "factor_b": 6,
+      "product": 12,
+      "total": 12,
+      "groups": 2,
+      "items_per_group": 6,
+      "rows": 2,
+      "columns": 6,
+      "step": 2,
+      "count": 6,
+      "sequence": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12
+      ],
+      "equation": "2 \u00d7 6 = 12"
+    },
+    {
+      "id": "G3M_FACT_001_LVL1_Q6",
+      "question_id": "G3M_FACT_001_LVL1_Q6",
+      "question_type": "short_response",
+      "visual_model": "array_model",
+      "prompt": "What is 2 \u00d7 7?",
+      "answer": "14",
+      "correct_answer": "14",
+      "misconception_tag": "multiplication_division_mixup",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 14.",
+      "acceptable_answers": [
+        "14",
+        "14 objects",
+        "14 items"
+      ],
+      "factor": 2,
+      "factor_a": 2,
+      "factor_b": 7,
+      "product": 14,
+      "total": 14,
+      "groups": 2,
+      "items_per_group": 7,
+      "rows": 2,
+      "columns": 7,
+      "step": 2,
+      "count": 7,
+      "sequence": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14
+      ],
+      "equation": "2 \u00d7 7 = 14"
+    },
+    {
+      "id": "G3M_FACT_001_LVL1_Q7",
+      "question_id": "G3M_FACT_001_LVL1_Q7",
+      "question_type": "multiplication_equation",
+      "visual_model": "fact_family_model",
+      "prompt": "What is 2 \u00d7 8?",
+      "answer": "16",
+      "correct_answer": "16",
+      "misconception_tag": "inverse_fact_confusion",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 16.",
+      "acceptable_answers": [
+        "16",
+        "16 objects",
+        "16 items"
+      ],
+      "factor": 2,
+      "factor_a": 2,
+      "factor_b": 8,
+      "product": 16,
+      "total": 16,
+      "groups": 2,
+      "items_per_group": 8,
+      "rows": 2,
+      "columns": 8,
+      "step": 2,
+      "count": 8,
+      "sequence": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16
+      ],
+      "equation": "2 \u00d7 8 = 16"
+    },
+    {
+      "id": "G3M_FACT_001_LVL1_Q8",
+      "question_id": "G3M_FACT_001_LVL1_Q8",
+      "question_type": "division_equation",
+      "visual_model": "multiplication_chart",
+      "prompt": "What is 18 \u00f7 2?",
+      "answer": "9",
+      "correct_answer": "9",
+      "misconception_tag": "fact_recall_gap",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 9.",
+      "acceptable_answers": [
+        "9",
+        "9 objects",
+        "9 items"
+      ],
+      "factor": 2,
+      "factor_a": 2,
+      "factor_b": 9,
+      "product": 18,
+      "total": 18,
+      "groups": 2,
+      "items_per_group": 9,
+      "rows": 2,
+      "columns": 9,
+      "step": 2,
+      "count": 9,
+      "sequence": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "equation": "18 \u00f7 2 = 9"
+    },
+    {
+      "id": "G3M_FACT_001_LVL1_Q9",
+      "question_id": "G3M_FACT_001_LVL1_Q9",
+      "question_type": "multiplication_equation",
+      "visual_model": "skip_counting",
+      "prompt": "What is 2 \u00d7 10?",
+      "answer": "20",
+      "correct_answer": "20",
+      "misconception_tag": "skip_count_error",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 20.",
+      "acceptable_answers": [
+        "20",
+        "20 objects",
+        "20 items"
+      ],
+      "factor": 2,
+      "factor_a": 2,
+      "factor_b": 10,
+      "product": 20,
+      "total": 20,
+      "groups": 2,
+      "items_per_group": 10,
+      "rows": 2,
+      "columns": 10,
+      "step": 2,
+      "count": 10,
+      "sequence": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20
+      ],
+      "equation": "2 \u00d7 10 = 20"
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G3M_FACT_001_MIXED_Q8",
+      "question_id": "G3M_FACT_001_MIXED_Q8",
+      "question_type": "short_response",
+      "visual_model": "multiplication_chart",
+      "prompt": "Solve: 7 \u00d7 9",
+      "answer": "63",
+      "correct_answer": "63",
+      "misconception_tag": "fact_recall_gap",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 63.",
+      "acceptable_answers": [
+        "63",
+        "63 objects",
+        "63 items"
+      ],
+      "factor": 7,
+      "factor_a": 7,
+      "factor_b": 9,
+      "product": 63,
+      "total": 63,
+      "groups": 7,
+      "items_per_group": 9,
+      "rows": 7,
+      "columns": 9,
+      "step": 7,
+      "count": 9,
+      "sequence": [
+        7,
+        14,
+        21,
+        28,
+        35,
+        42,
+        49,
+        56,
+        63
+      ],
+      "equation": "7 \u00d7 9 = 63"
+    },
+    {
+      "id": "G3M_FACT_001_MIXED_Q9",
+      "question_id": "G3M_FACT_001_MIXED_Q9",
+      "question_type": "division_equation",
+      "visual_model": "fact_family_model",
+      "prompt": "Solve: 80 \u00f7 10",
+      "answer": "8",
+      "correct_answer": "8",
+      "misconception_tag": "inverse_fact_confusion",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 8.",
+      "acceptable_answers": [
+        "8",
+        "8 objects",
+        "8 items"
+      ],
+      "factor": 10,
+      "factor_a": 10,
+      "factor_b": 8,
+      "product": 80,
+      "total": 80,
+      "groups": 10,
+      "items_per_group": 8,
+      "rows": 10,
+      "columns": 8,
+      "step": 10,
+      "count": 8,
+      "sequence": [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80
+      ],
+      "equation": "80 \u00f7 10 = 8"
+    },
+    {
+      "id": "G3M_FACT_001_MIXED_Q10",
+      "question_id": "G3M_FACT_001_MIXED_Q10",
+      "question_type": "short_response",
+      "visual_model": "array_model",
+      "prompt": "Solve: 9 \u00d7 9",
+      "answer": "81",
+      "correct_answer": "81",
+      "misconception_tag": "fact_recall_gap",
+      "hints": [
+        "Read the problem and name what is known.",
+        "Use the model to connect numbers to an equation.",
+        "Check that the answer matches the question asked."
+      ],
+      "feedback": {
+        "correct": "Nice operations thinking!",
+        "incorrect": "Use the model and check the equation before answering."
+      },
+      "explanation": "The correct answer is 81.",
+      "acceptable_answers": [
+        "81",
+        "81 objects",
+        "81 items"
+      ],
+      "factor": 9,
+      "factor_a": 9,
+      "factor_b": 9,
+      "product": 81,
+      "total": 81,
+      "groups": 9,
+      "items_per_group": 9,
+      "rows": 9,
+      "columns": 9,
+      "step": 9,
+      "count": 9,
+      "sequence": [
+        9,
+        18,
+        27,
+        36,
+        45,
+        54,
+        63,
+        72,
+        81
+      ],
+      "equation": "9 \u00d7 9 = 81"
+    }
+  ],
+  "misconception_bank": {
+    "fact_recall_gap": "Learner may not know a fact yet and needs a strategy.",
+    "inverse_fact_confusion": "Learner may not connect related multiplication and division facts.",
+    "skip_count_error": "Learner may skip too far or too few times.",
+    "multiplication_division_mixup": "Learner may choose multiplication when division is asked or reverse the operation."
+  },
+  "review_bank": [],
+  "game_theme": {
+    "title": "Multiplication and Division Fluency",
+    "mission_intro": "Complete the Operations Trail by proving you can fluently multiply and divide within 100 using strategies.",
+    "badge_name": "Fact Fluency Navigator"
+  },
+  "level_banks": [
+    {
+      "level_id": "G3M_FACT_001_LVL1",
+      "label": "Level 1: 2s, 5s, and 10s",
+      "focus": "build fluent facts for 2, 5, 10",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_FACT_001_LVL1_Q1",
+          "question_id": "G3M_FACT_001_LVL1_Q1",
+          "question_type": "multiplication_equation",
+          "visual_model": "skip_counting",
+          "prompt": "What is 2 \u00d7 2?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 4.",
+          "acceptable_answers": [
+            "4",
+            "4 objects",
+            "4 items"
+          ],
+          "factor": 2,
+          "factor_a": 2,
+          "factor_b": 2,
+          "product": 4,
+          "total": 4,
+          "groups": 2,
+          "items_per_group": 2,
+          "rows": 2,
+          "columns": 2,
+          "step": 2,
+          "count": 2,
+          "sequence": [
+            2,
+            4
+          ],
+          "equation": "2 \u00d7 2 = 4"
+        },
+        {
+          "id": "G3M_FACT_001_LVL1_Q2",
+          "question_id": "G3M_FACT_001_LVL1_Q2",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "What is 2 \u00d7 3?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "multiplication_division_mixup",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 6.",
+          "acceptable_answers": [
+            "6",
+            "6 objects",
+            "6 items"
+          ],
+          "factor": 2,
+          "factor_a": 2,
+          "factor_b": 3,
+          "product": 6,
+          "total": 6,
+          "groups": 2,
+          "items_per_group": 3,
+          "rows": 2,
+          "columns": 3,
+          "step": 2,
+          "count": 3,
+          "sequence": [
+            2,
+            4,
+            6
+          ],
+          "equation": "2 \u00d7 3 = 6"
+        },
+        {
+          "id": "G3M_FACT_001_LVL1_Q3",
+          "question_id": "G3M_FACT_001_LVL1_Q3",
+          "question_type": "multiplication_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "What is 2 \u00d7 4?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "inverse_fact_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 8.",
+          "acceptable_answers": [
+            "8",
+            "8 objects",
+            "8 items"
+          ],
+          "factor": 2,
+          "factor_a": 2,
+          "factor_b": 4,
+          "product": 8,
+          "total": 8,
+          "groups": 2,
+          "items_per_group": 4,
+          "rows": 2,
+          "columns": 4,
+          "step": 2,
+          "count": 4,
+          "sequence": [
+            2,
+            4,
+            6,
+            8
+          ],
+          "equation": "2 \u00d7 4 = 8"
+        },
+        {
+          "id": "G3M_FACT_001_LVL1_Q4",
+          "question_id": "G3M_FACT_001_LVL1_Q4",
+          "question_type": "division_equation",
+          "visual_model": "multiplication_chart",
+          "prompt": "What is 10 \u00f7 2?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "fact_recall_gap",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 5.",
+          "acceptable_answers": [
+            "5",
+            "5 objects",
+            "5 items"
+          ],
+          "factor": 2,
+          "factor_a": 2,
+          "factor_b": 5,
+          "product": 10,
+          "total": 10,
+          "groups": 2,
+          "items_per_group": 5,
+          "rows": 2,
+          "columns": 5,
+          "step": 2,
+          "count": 5,
+          "sequence": [
+            2,
+            4,
+            6,
+            8,
+            10
+          ],
+          "equation": "10 \u00f7 2 = 5"
+        },
+        {
+          "id": "G3M_FACT_001_LVL1_Q5",
+          "question_id": "G3M_FACT_001_LVL1_Q5",
+          "question_type": "multiplication_equation",
+          "visual_model": "skip_counting",
+          "prompt": "What is 2 \u00d7 6?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 12.",
+          "acceptable_answers": [
+            "12",
+            "12 objects",
+            "12 items"
+          ],
+          "factor": 2,
+          "factor_a": 2,
+          "factor_b": 6,
+          "product": 12,
+          "total": 12,
+          "groups": 2,
+          "items_per_group": 6,
+          "rows": 2,
+          "columns": 6,
+          "step": 2,
+          "count": 6,
+          "sequence": [
+            2,
+            4,
+            6,
+            8,
+            10,
+            12
+          ],
+          "equation": "2 \u00d7 6 = 12"
+        },
+        {
+          "id": "G3M_FACT_001_LVL1_Q6",
+          "question_id": "G3M_FACT_001_LVL1_Q6",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "What is 2 \u00d7 7?",
+          "answer": "14",
+          "correct_answer": "14",
+          "misconception_tag": "multiplication_division_mixup",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 14.",
+          "acceptable_answers": [
+            "14",
+            "14 objects",
+            "14 items"
+          ],
+          "factor": 2,
+          "factor_a": 2,
+          "factor_b": 7,
+          "product": 14,
+          "total": 14,
+          "groups": 2,
+          "items_per_group": 7,
+          "rows": 2,
+          "columns": 7,
+          "step": 2,
+          "count": 7,
+          "sequence": [
+            2,
+            4,
+            6,
+            8,
+            10,
+            12,
+            14
+          ],
+          "equation": "2 \u00d7 7 = 14"
+        },
+        {
+          "id": "G3M_FACT_001_LVL1_Q7",
+          "question_id": "G3M_FACT_001_LVL1_Q7",
+          "question_type": "multiplication_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "What is 2 \u00d7 8?",
+          "answer": "16",
+          "correct_answer": "16",
+          "misconception_tag": "inverse_fact_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 16.",
+          "acceptable_answers": [
+            "16",
+            "16 objects",
+            "16 items"
+          ],
+          "factor": 2,
+          "factor_a": 2,
+          "factor_b": 8,
+          "product": 16,
+          "total": 16,
+          "groups": 2,
+          "items_per_group": 8,
+          "rows": 2,
+          "columns": 8,
+          "step": 2,
+          "count": 8,
+          "sequence": [
+            2,
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16
+          ],
+          "equation": "2 \u00d7 8 = 16"
+        },
+        {
+          "id": "G3M_FACT_001_LVL1_Q8",
+          "question_id": "G3M_FACT_001_LVL1_Q8",
+          "question_type": "division_equation",
+          "visual_model": "multiplication_chart",
+          "prompt": "What is 18 \u00f7 2?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "fact_recall_gap",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 9.",
+          "acceptable_answers": [
+            "9",
+            "9 objects",
+            "9 items"
+          ],
+          "factor": 2,
+          "factor_a": 2,
+          "factor_b": 9,
+          "product": 18,
+          "total": 18,
+          "groups": 2,
+          "items_per_group": 9,
+          "rows": 2,
+          "columns": 9,
+          "step": 2,
+          "count": 9,
+          "sequence": [
+            2,
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18
+          ],
+          "equation": "18 \u00f7 2 = 9"
+        },
+        {
+          "id": "G3M_FACT_001_LVL1_Q9",
+          "question_id": "G3M_FACT_001_LVL1_Q9",
+          "question_type": "multiplication_equation",
+          "visual_model": "skip_counting",
+          "prompt": "What is 2 \u00d7 10?",
+          "answer": "20",
+          "correct_answer": "20",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 20.",
+          "acceptable_answers": [
+            "20",
+            "20 objects",
+            "20 items"
+          ],
+          "factor": 2,
+          "factor_a": 2,
+          "factor_b": 10,
+          "product": 20,
+          "total": 20,
+          "groups": 2,
+          "items_per_group": 10,
+          "rows": 2,
+          "columns": 10,
+          "step": 2,
+          "count": 10,
+          "sequence": [
+            2,
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20
+          ],
+          "equation": "2 \u00d7 10 = 20"
+        },
+        {
+          "id": "G3M_FACT_001_LVL1_Q10",
+          "question_id": "G3M_FACT_001_LVL1_Q10",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "What is 2 \u00d7 11?",
+          "answer": "22",
+          "correct_answer": "22",
+          "misconception_tag": "multiplication_division_mixup",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 22.",
+          "acceptable_answers": [
+            "22",
+            "22 objects",
+            "22 items"
+          ],
+          "factor": 2,
+          "factor_a": 2,
+          "factor_b": 11,
+          "product": 22,
+          "total": 22,
+          "groups": 2,
+          "items_per_group": 11,
+          "rows": 2,
+          "columns": 11,
+          "step": 2,
+          "count": 11,
+          "sequence": [
+            2,
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18,
+            20,
+            22
+          ],
+          "equation": "2 \u00d7 11 = 22"
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_FACT_001_LVL2",
+      "label": "Level 2: 3s and 4s",
+      "focus": "build fluent facts for 3, 4",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_FACT_001_LVL2_Q1",
+          "question_id": "G3M_FACT_001_LVL2_Q1",
+          "question_type": "multiplication_equation",
+          "visual_model": "skip_counting",
+          "prompt": "What is 3 \u00d7 2?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 6.",
+          "acceptable_answers": [
+            "6",
+            "6 objects",
+            "6 items"
+          ],
+          "factor": 3,
+          "factor_a": 3,
+          "factor_b": 2,
+          "product": 6,
+          "total": 6,
+          "groups": 3,
+          "items_per_group": 2,
+          "rows": 3,
+          "columns": 2,
+          "step": 3,
+          "count": 2,
+          "sequence": [
+            3,
+            6
+          ],
+          "equation": "3 \u00d7 2 = 6"
+        },
+        {
+          "id": "G3M_FACT_001_LVL2_Q2",
+          "question_id": "G3M_FACT_001_LVL2_Q2",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "What is 3 \u00d7 3?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "multiplication_division_mixup",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 9.",
+          "acceptable_answers": [
+            "9",
+            "9 objects",
+            "9 items"
+          ],
+          "factor": 3,
+          "factor_a": 3,
+          "factor_b": 3,
+          "product": 9,
+          "total": 9,
+          "groups": 3,
+          "items_per_group": 3,
+          "rows": 3,
+          "columns": 3,
+          "step": 3,
+          "count": 3,
+          "sequence": [
+            3,
+            6,
+            9
+          ],
+          "equation": "3 \u00d7 3 = 9"
+        },
+        {
+          "id": "G3M_FACT_001_LVL2_Q3",
+          "question_id": "G3M_FACT_001_LVL2_Q3",
+          "question_type": "multiplication_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "What is 3 \u00d7 4?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "inverse_fact_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 12.",
+          "acceptable_answers": [
+            "12",
+            "12 objects",
+            "12 items"
+          ],
+          "factor": 3,
+          "factor_a": 3,
+          "factor_b": 4,
+          "product": 12,
+          "total": 12,
+          "groups": 3,
+          "items_per_group": 4,
+          "rows": 3,
+          "columns": 4,
+          "step": 3,
+          "count": 4,
+          "sequence": [
+            3,
+            6,
+            9,
+            12
+          ],
+          "equation": "3 \u00d7 4 = 12"
+        },
+        {
+          "id": "G3M_FACT_001_LVL2_Q4",
+          "question_id": "G3M_FACT_001_LVL2_Q4",
+          "question_type": "division_equation",
+          "visual_model": "multiplication_chart",
+          "prompt": "What is 15 \u00f7 3?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "fact_recall_gap",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 5.",
+          "acceptable_answers": [
+            "5",
+            "5 objects",
+            "5 items"
+          ],
+          "factor": 3,
+          "factor_a": 3,
+          "factor_b": 5,
+          "product": 15,
+          "total": 15,
+          "groups": 3,
+          "items_per_group": 5,
+          "rows": 3,
+          "columns": 5,
+          "step": 3,
+          "count": 5,
+          "sequence": [
+            3,
+            6,
+            9,
+            12,
+            15
+          ],
+          "equation": "15 \u00f7 3 = 5"
+        },
+        {
+          "id": "G3M_FACT_001_LVL2_Q5",
+          "question_id": "G3M_FACT_001_LVL2_Q5",
+          "question_type": "multiplication_equation",
+          "visual_model": "skip_counting",
+          "prompt": "What is 3 \u00d7 6?",
+          "answer": "18",
+          "correct_answer": "18",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 18.",
+          "acceptable_answers": [
+            "18",
+            "18 objects",
+            "18 items"
+          ],
+          "factor": 3,
+          "factor_a": 3,
+          "factor_b": 6,
+          "product": 18,
+          "total": 18,
+          "groups": 3,
+          "items_per_group": 6,
+          "rows": 3,
+          "columns": 6,
+          "step": 3,
+          "count": 6,
+          "sequence": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18
+          ],
+          "equation": "3 \u00d7 6 = 18"
+        },
+        {
+          "id": "G3M_FACT_001_LVL2_Q6",
+          "question_id": "G3M_FACT_001_LVL2_Q6",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "What is 3 \u00d7 7?",
+          "answer": "21",
+          "correct_answer": "21",
+          "misconception_tag": "multiplication_division_mixup",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 21.",
+          "acceptable_answers": [
+            "21",
+            "21 objects",
+            "21 items"
+          ],
+          "factor": 3,
+          "factor_a": 3,
+          "factor_b": 7,
+          "product": 21,
+          "total": 21,
+          "groups": 3,
+          "items_per_group": 7,
+          "rows": 3,
+          "columns": 7,
+          "step": 3,
+          "count": 7,
+          "sequence": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21
+          ],
+          "equation": "3 \u00d7 7 = 21"
+        },
+        {
+          "id": "G3M_FACT_001_LVL2_Q7",
+          "question_id": "G3M_FACT_001_LVL2_Q7",
+          "question_type": "multiplication_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "What is 3 \u00d7 8?",
+          "answer": "24",
+          "correct_answer": "24",
+          "misconception_tag": "inverse_fact_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 24.",
+          "acceptable_answers": [
+            "24",
+            "24 objects",
+            "24 items"
+          ],
+          "factor": 3,
+          "factor_a": 3,
+          "factor_b": 8,
+          "product": 24,
+          "total": 24,
+          "groups": 3,
+          "items_per_group": 8,
+          "rows": 3,
+          "columns": 8,
+          "step": 3,
+          "count": 8,
+          "sequence": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "equation": "3 \u00d7 8 = 24"
+        },
+        {
+          "id": "G3M_FACT_001_LVL2_Q8",
+          "question_id": "G3M_FACT_001_LVL2_Q8",
+          "question_type": "division_equation",
+          "visual_model": "multiplication_chart",
+          "prompt": "What is 27 \u00f7 3?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "fact_recall_gap",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 9.",
+          "acceptable_answers": [
+            "9",
+            "9 objects",
+            "9 items"
+          ],
+          "factor": 3,
+          "factor_a": 3,
+          "factor_b": 9,
+          "product": 27,
+          "total": 27,
+          "groups": 3,
+          "items_per_group": 9,
+          "rows": 3,
+          "columns": 9,
+          "step": 3,
+          "count": 9,
+          "sequence": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24,
+            27
+          ],
+          "equation": "27 \u00f7 3 = 9"
+        },
+        {
+          "id": "G3M_FACT_001_LVL2_Q9",
+          "question_id": "G3M_FACT_001_LVL2_Q9",
+          "question_type": "multiplication_equation",
+          "visual_model": "skip_counting",
+          "prompt": "What is 3 \u00d7 10?",
+          "answer": "30",
+          "correct_answer": "30",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 30.",
+          "acceptable_answers": [
+            "30",
+            "30 objects",
+            "30 items"
+          ],
+          "factor": 3,
+          "factor_a": 3,
+          "factor_b": 10,
+          "product": 30,
+          "total": 30,
+          "groups": 3,
+          "items_per_group": 10,
+          "rows": 3,
+          "columns": 10,
+          "step": 3,
+          "count": 10,
+          "sequence": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24,
+            27,
+            30
+          ],
+          "equation": "3 \u00d7 10 = 30"
+        },
+        {
+          "id": "G3M_FACT_001_LVL2_Q10",
+          "question_id": "G3M_FACT_001_LVL2_Q10",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "What is 3 \u00d7 11?",
+          "answer": "33",
+          "correct_answer": "33",
+          "misconception_tag": "multiplication_division_mixup",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 33.",
+          "acceptable_answers": [
+            "33",
+            "33 objects",
+            "33 items"
+          ],
+          "factor": 3,
+          "factor_a": 3,
+          "factor_b": 11,
+          "product": 33,
+          "total": 33,
+          "groups": 3,
+          "items_per_group": 11,
+          "rows": 3,
+          "columns": 11,
+          "step": 3,
+          "count": 11,
+          "sequence": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24,
+            27,
+            30,
+            33
+          ],
+          "equation": "3 \u00d7 11 = 33"
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_FACT_001_LVL3",
+      "label": "Level 3: 6s, 7s, and 8s",
+      "focus": "build fluent facts for 6, 7, 8",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_FACT_001_LVL3_Q1",
+          "question_id": "G3M_FACT_001_LVL3_Q1",
+          "question_type": "multiplication_equation",
+          "visual_model": "skip_counting",
+          "prompt": "What is 6 \u00d7 2?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 12.",
+          "acceptable_answers": [
+            "12",
+            "12 objects",
+            "12 items"
+          ],
+          "factor": 6,
+          "factor_a": 6,
+          "factor_b": 2,
+          "product": 12,
+          "total": 12,
+          "groups": 6,
+          "items_per_group": 2,
+          "rows": 6,
+          "columns": 2,
+          "step": 6,
+          "count": 2,
+          "sequence": [
+            6,
+            12
+          ],
+          "equation": "6 \u00d7 2 = 12"
+        },
+        {
+          "id": "G3M_FACT_001_LVL3_Q2",
+          "question_id": "G3M_FACT_001_LVL3_Q2",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "What is 6 \u00d7 3?",
+          "answer": "18",
+          "correct_answer": "18",
+          "misconception_tag": "multiplication_division_mixup",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 18.",
+          "acceptable_answers": [
+            "18",
+            "18 objects",
+            "18 items"
+          ],
+          "factor": 6,
+          "factor_a": 6,
+          "factor_b": 3,
+          "product": 18,
+          "total": 18,
+          "groups": 6,
+          "items_per_group": 3,
+          "rows": 6,
+          "columns": 3,
+          "step": 6,
+          "count": 3,
+          "sequence": [
+            6,
+            12,
+            18
+          ],
+          "equation": "6 \u00d7 3 = 18"
+        },
+        {
+          "id": "G3M_FACT_001_LVL3_Q3",
+          "question_id": "G3M_FACT_001_LVL3_Q3",
+          "question_type": "multiplication_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "What is 6 \u00d7 4?",
+          "answer": "24",
+          "correct_answer": "24",
+          "misconception_tag": "inverse_fact_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 24.",
+          "acceptable_answers": [
+            "24",
+            "24 objects",
+            "24 items"
+          ],
+          "factor": 6,
+          "factor_a": 6,
+          "factor_b": 4,
+          "product": 24,
+          "total": 24,
+          "groups": 6,
+          "items_per_group": 4,
+          "rows": 6,
+          "columns": 4,
+          "step": 6,
+          "count": 4,
+          "sequence": [
+            6,
+            12,
+            18,
+            24
+          ],
+          "equation": "6 \u00d7 4 = 24"
+        },
+        {
+          "id": "G3M_FACT_001_LVL3_Q4",
+          "question_id": "G3M_FACT_001_LVL3_Q4",
+          "question_type": "division_equation",
+          "visual_model": "multiplication_chart",
+          "prompt": "What is 30 \u00f7 6?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "fact_recall_gap",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 5.",
+          "acceptable_answers": [
+            "5",
+            "5 objects",
+            "5 items"
+          ],
+          "factor": 6,
+          "factor_a": 6,
+          "factor_b": 5,
+          "product": 30,
+          "total": 30,
+          "groups": 6,
+          "items_per_group": 5,
+          "rows": 6,
+          "columns": 5,
+          "step": 6,
+          "count": 5,
+          "sequence": [
+            6,
+            12,
+            18,
+            24,
+            30
+          ],
+          "equation": "30 \u00f7 6 = 5"
+        },
+        {
+          "id": "G3M_FACT_001_LVL3_Q5",
+          "question_id": "G3M_FACT_001_LVL3_Q5",
+          "question_type": "multiplication_equation",
+          "visual_model": "skip_counting",
+          "prompt": "What is 6 \u00d7 6?",
+          "answer": "36",
+          "correct_answer": "36",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 36.",
+          "acceptable_answers": [
+            "36",
+            "36 objects",
+            "36 items"
+          ],
+          "factor": 6,
+          "factor_a": 6,
+          "factor_b": 6,
+          "product": 36,
+          "total": 36,
+          "groups": 6,
+          "items_per_group": 6,
+          "rows": 6,
+          "columns": 6,
+          "step": 6,
+          "count": 6,
+          "sequence": [
+            6,
+            12,
+            18,
+            24,
+            30,
+            36
+          ],
+          "equation": "6 \u00d7 6 = 36"
+        },
+        {
+          "id": "G3M_FACT_001_LVL3_Q6",
+          "question_id": "G3M_FACT_001_LVL3_Q6",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "What is 6 \u00d7 7?",
+          "answer": "42",
+          "correct_answer": "42",
+          "misconception_tag": "multiplication_division_mixup",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 42.",
+          "acceptable_answers": [
+            "42",
+            "42 objects",
+            "42 items"
+          ],
+          "factor": 6,
+          "factor_a": 6,
+          "factor_b": 7,
+          "product": 42,
+          "total": 42,
+          "groups": 6,
+          "items_per_group": 7,
+          "rows": 6,
+          "columns": 7,
+          "step": 6,
+          "count": 7,
+          "sequence": [
+            6,
+            12,
+            18,
+            24,
+            30,
+            36,
+            42
+          ],
+          "equation": "6 \u00d7 7 = 42"
+        },
+        {
+          "id": "G3M_FACT_001_LVL3_Q7",
+          "question_id": "G3M_FACT_001_LVL3_Q7",
+          "question_type": "multiplication_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "What is 6 \u00d7 8?",
+          "answer": "48",
+          "correct_answer": "48",
+          "misconception_tag": "inverse_fact_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 48.",
+          "acceptable_answers": [
+            "48",
+            "48 objects",
+            "48 items"
+          ],
+          "factor": 6,
+          "factor_a": 6,
+          "factor_b": 8,
+          "product": 48,
+          "total": 48,
+          "groups": 6,
+          "items_per_group": 8,
+          "rows": 6,
+          "columns": 8,
+          "step": 6,
+          "count": 8,
+          "sequence": [
+            6,
+            12,
+            18,
+            24,
+            30,
+            36,
+            42,
+            48
+          ],
+          "equation": "6 \u00d7 8 = 48"
+        },
+        {
+          "id": "G3M_FACT_001_LVL3_Q8",
+          "question_id": "G3M_FACT_001_LVL3_Q8",
+          "question_type": "division_equation",
+          "visual_model": "multiplication_chart",
+          "prompt": "What is 54 \u00f7 6?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "fact_recall_gap",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 9.",
+          "acceptable_answers": [
+            "9",
+            "9 objects",
+            "9 items"
+          ],
+          "factor": 6,
+          "factor_a": 6,
+          "factor_b": 9,
+          "product": 54,
+          "total": 54,
+          "groups": 6,
+          "items_per_group": 9,
+          "rows": 6,
+          "columns": 9,
+          "step": 6,
+          "count": 9,
+          "sequence": [
+            6,
+            12,
+            18,
+            24,
+            30,
+            36,
+            42,
+            48,
+            54
+          ],
+          "equation": "54 \u00f7 6 = 9"
+        },
+        {
+          "id": "G3M_FACT_001_LVL3_Q9",
+          "question_id": "G3M_FACT_001_LVL3_Q9",
+          "question_type": "multiplication_equation",
+          "visual_model": "skip_counting",
+          "prompt": "What is 6 \u00d7 10?",
+          "answer": "60",
+          "correct_answer": "60",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 60.",
+          "acceptable_answers": [
+            "60",
+            "60 objects",
+            "60 items"
+          ],
+          "factor": 6,
+          "factor_a": 6,
+          "factor_b": 10,
+          "product": 60,
+          "total": 60,
+          "groups": 6,
+          "items_per_group": 10,
+          "rows": 6,
+          "columns": 10,
+          "step": 6,
+          "count": 10,
+          "sequence": [
+            6,
+            12,
+            18,
+            24,
+            30,
+            36,
+            42,
+            48,
+            54,
+            60
+          ],
+          "equation": "6 \u00d7 10 = 60"
+        },
+        {
+          "id": "G3M_FACT_001_LVL3_Q10",
+          "question_id": "G3M_FACT_001_LVL3_Q10",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "What is 6 \u00d7 11?",
+          "answer": "66",
+          "correct_answer": "66",
+          "misconception_tag": "multiplication_division_mixup",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 66.",
+          "acceptable_answers": [
+            "66",
+            "66 objects",
+            "66 items"
+          ],
+          "factor": 6,
+          "factor_a": 6,
+          "factor_b": 11,
+          "product": 66,
+          "total": 66,
+          "groups": 6,
+          "items_per_group": 11,
+          "rows": 6,
+          "columns": 11,
+          "step": 6,
+          "count": 11,
+          "sequence": [
+            6,
+            12,
+            18,
+            24,
+            30,
+            36,
+            42,
+            48,
+            54,
+            60,
+            66
+          ],
+          "equation": "6 \u00d7 11 = 66"
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_FACT_001_LVL4",
+      "label": "Level 4: 9s and Mixed Facts",
+      "focus": "build fluent facts for 9, 3, 6, 8",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_FACT_001_LVL4_Q1",
+          "question_id": "G3M_FACT_001_LVL4_Q1",
+          "question_type": "multiplication_equation",
+          "visual_model": "skip_counting",
+          "prompt": "What is 9 \u00d7 2?",
+          "answer": "18",
+          "correct_answer": "18",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 18.",
+          "acceptable_answers": [
+            "18",
+            "18 objects",
+            "18 items"
+          ],
+          "factor": 9,
+          "factor_a": 9,
+          "factor_b": 2,
+          "product": 18,
+          "total": 18,
+          "groups": 9,
+          "items_per_group": 2,
+          "rows": 9,
+          "columns": 2,
+          "step": 9,
+          "count": 2,
+          "sequence": [
+            9,
+            18
+          ],
+          "equation": "9 \u00d7 2 = 18"
+        },
+        {
+          "id": "G3M_FACT_001_LVL4_Q2",
+          "question_id": "G3M_FACT_001_LVL4_Q2",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "What is 9 \u00d7 3?",
+          "answer": "27",
+          "correct_answer": "27",
+          "misconception_tag": "multiplication_division_mixup",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 27.",
+          "acceptable_answers": [
+            "27",
+            "27 objects",
+            "27 items"
+          ],
+          "factor": 9,
+          "factor_a": 9,
+          "factor_b": 3,
+          "product": 27,
+          "total": 27,
+          "groups": 9,
+          "items_per_group": 3,
+          "rows": 9,
+          "columns": 3,
+          "step": 9,
+          "count": 3,
+          "sequence": [
+            9,
+            18,
+            27
+          ],
+          "equation": "9 \u00d7 3 = 27"
+        },
+        {
+          "id": "G3M_FACT_001_LVL4_Q3",
+          "question_id": "G3M_FACT_001_LVL4_Q3",
+          "question_type": "multiplication_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "What is 9 \u00d7 4?",
+          "answer": "36",
+          "correct_answer": "36",
+          "misconception_tag": "inverse_fact_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 36.",
+          "acceptable_answers": [
+            "36",
+            "36 objects",
+            "36 items"
+          ],
+          "factor": 9,
+          "factor_a": 9,
+          "factor_b": 4,
+          "product": 36,
+          "total": 36,
+          "groups": 9,
+          "items_per_group": 4,
+          "rows": 9,
+          "columns": 4,
+          "step": 9,
+          "count": 4,
+          "sequence": [
+            9,
+            18,
+            27,
+            36
+          ],
+          "equation": "9 \u00d7 4 = 36"
+        },
+        {
+          "id": "G3M_FACT_001_LVL4_Q4",
+          "question_id": "G3M_FACT_001_LVL4_Q4",
+          "question_type": "division_equation",
+          "visual_model": "multiplication_chart",
+          "prompt": "What is 45 \u00f7 9?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "fact_recall_gap",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 5.",
+          "acceptable_answers": [
+            "5",
+            "5 objects",
+            "5 items"
+          ],
+          "factor": 9,
+          "factor_a": 9,
+          "factor_b": 5,
+          "product": 45,
+          "total": 45,
+          "groups": 9,
+          "items_per_group": 5,
+          "rows": 9,
+          "columns": 5,
+          "step": 9,
+          "count": 5,
+          "sequence": [
+            9,
+            18,
+            27,
+            36,
+            45
+          ],
+          "equation": "45 \u00f7 9 = 5"
+        },
+        {
+          "id": "G3M_FACT_001_LVL4_Q5",
+          "question_id": "G3M_FACT_001_LVL4_Q5",
+          "question_type": "multiplication_equation",
+          "visual_model": "skip_counting",
+          "prompt": "What is 9 \u00d7 6?",
+          "answer": "54",
+          "correct_answer": "54",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 54.",
+          "acceptable_answers": [
+            "54",
+            "54 objects",
+            "54 items"
+          ],
+          "factor": 9,
+          "factor_a": 9,
+          "factor_b": 6,
+          "product": 54,
+          "total": 54,
+          "groups": 9,
+          "items_per_group": 6,
+          "rows": 9,
+          "columns": 6,
+          "step": 9,
+          "count": 6,
+          "sequence": [
+            9,
+            18,
+            27,
+            36,
+            45,
+            54
+          ],
+          "equation": "9 \u00d7 6 = 54"
+        },
+        {
+          "id": "G3M_FACT_001_LVL4_Q6",
+          "question_id": "G3M_FACT_001_LVL4_Q6",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "What is 9 \u00d7 7?",
+          "answer": "63",
+          "correct_answer": "63",
+          "misconception_tag": "multiplication_division_mixup",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 63.",
+          "acceptable_answers": [
+            "63",
+            "63 objects",
+            "63 items"
+          ],
+          "factor": 9,
+          "factor_a": 9,
+          "factor_b": 7,
+          "product": 63,
+          "total": 63,
+          "groups": 9,
+          "items_per_group": 7,
+          "rows": 9,
+          "columns": 7,
+          "step": 9,
+          "count": 7,
+          "sequence": [
+            9,
+            18,
+            27,
+            36,
+            45,
+            54,
+            63
+          ],
+          "equation": "9 \u00d7 7 = 63"
+        },
+        {
+          "id": "G3M_FACT_001_LVL4_Q7",
+          "question_id": "G3M_FACT_001_LVL4_Q7",
+          "question_type": "multiplication_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "What is 9 \u00d7 8?",
+          "answer": "72",
+          "correct_answer": "72",
+          "misconception_tag": "inverse_fact_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 72.",
+          "acceptable_answers": [
+            "72",
+            "72 objects",
+            "72 items"
+          ],
+          "factor": 9,
+          "factor_a": 9,
+          "factor_b": 8,
+          "product": 72,
+          "total": 72,
+          "groups": 9,
+          "items_per_group": 8,
+          "rows": 9,
+          "columns": 8,
+          "step": 9,
+          "count": 8,
+          "sequence": [
+            9,
+            18,
+            27,
+            36,
+            45,
+            54,
+            63,
+            72
+          ],
+          "equation": "9 \u00d7 8 = 72"
+        },
+        {
+          "id": "G3M_FACT_001_LVL4_Q8",
+          "question_id": "G3M_FACT_001_LVL4_Q8",
+          "question_type": "division_equation",
+          "visual_model": "multiplication_chart",
+          "prompt": "What is 81 \u00f7 9?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "fact_recall_gap",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 9.",
+          "acceptable_answers": [
+            "9",
+            "9 objects",
+            "9 items"
+          ],
+          "factor": 9,
+          "factor_a": 9,
+          "factor_b": 9,
+          "product": 81,
+          "total": 81,
+          "groups": 9,
+          "items_per_group": 9,
+          "rows": 9,
+          "columns": 9,
+          "step": 9,
+          "count": 9,
+          "sequence": [
+            9,
+            18,
+            27,
+            36,
+            45,
+            54,
+            63,
+            72,
+            81
+          ],
+          "equation": "81 \u00f7 9 = 9"
+        },
+        {
+          "id": "G3M_FACT_001_LVL4_Q9",
+          "question_id": "G3M_FACT_001_LVL4_Q9",
+          "question_type": "multiplication_equation",
+          "visual_model": "skip_counting",
+          "prompt": "What is 9 \u00d7 10?",
+          "answer": "90",
+          "correct_answer": "90",
+          "misconception_tag": "skip_count_error",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 90.",
+          "acceptable_answers": [
+            "90",
+            "90 objects",
+            "90 items"
+          ],
+          "factor": 9,
+          "factor_a": 9,
+          "factor_b": 10,
+          "product": 90,
+          "total": 90,
+          "groups": 9,
+          "items_per_group": 10,
+          "rows": 9,
+          "columns": 10,
+          "step": 9,
+          "count": 10,
+          "sequence": [
+            9,
+            18,
+            27,
+            36,
+            45,
+            54,
+            63,
+            72,
+            81,
+            90
+          ],
+          "equation": "9 \u00d7 10 = 90"
+        },
+        {
+          "id": "G3M_FACT_001_LVL4_Q10",
+          "question_id": "G3M_FACT_001_LVL4_Q10",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "What is 9 \u00d7 11?",
+          "answer": "99",
+          "correct_answer": "99",
+          "misconception_tag": "multiplication_division_mixup",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 99.",
+          "acceptable_answers": [
+            "99",
+            "99 objects",
+            "99 items"
+          ],
+          "factor": 9,
+          "factor_a": 9,
+          "factor_b": 11,
+          "product": 99,
+          "total": 99,
+          "groups": 9,
+          "items_per_group": 11,
+          "rows": 9,
+          "columns": 11,
+          "step": 9,
+          "count": 11,
+          "sequence": [
+            9,
+            18,
+            27,
+            36,
+            45,
+            54,
+            63,
+            72,
+            81,
+            90,
+            99
+          ],
+          "equation": "9 \u00d7 11 = 99"
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_FACT_001_MIXED",
+      "label": "Mixed",
+      "focus": "mix multiplication and division facts within 100",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_FACT_001_MIXED_Q1",
+          "question_id": "G3M_FACT_001_MIXED_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "fact_family_model",
+          "prompt": "Solve: 2 \u00d7 9",
+          "answer": "18",
+          "correct_answer": "18",
+          "misconception_tag": "fact_recall_gap",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 18.",
+          "choices": [
+            "18",
+            "19",
+            "17"
+          ],
+          "factor": 2,
+          "factor_a": 2,
+          "factor_b": 9,
+          "product": 18,
+          "total": 18,
+          "groups": 2,
+          "items_per_group": 9,
+          "rows": 2,
+          "columns": 9,
+          "step": 2,
+          "count": 9,
+          "sequence": [
+            2,
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18
+          ],
+          "equation": "2 \u00d7 9 = 18"
+        },
+        {
+          "id": "G3M_FACT_001_MIXED_Q2",
+          "question_id": "G3M_FACT_001_MIXED_Q2",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "Solve: 5 \u00d7 7",
+          "answer": "35",
+          "correct_answer": "35",
+          "misconception_tag": "fact_recall_gap",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 35.",
+          "acceptable_answers": [
+            "35",
+            "35 objects",
+            "35 items"
+          ],
+          "factor": 5,
+          "factor_a": 5,
+          "factor_b": 7,
+          "product": 35,
+          "total": 35,
+          "groups": 5,
+          "items_per_group": 7,
+          "rows": 5,
+          "columns": 7,
+          "step": 5,
+          "count": 7,
+          "sequence": [
+            5,
+            10,
+            15,
+            20,
+            25,
+            30,
+            35
+          ],
+          "equation": "5 \u00d7 7 = 35"
+        },
+        {
+          "id": "G3M_FACT_001_MIXED_Q3",
+          "question_id": "G3M_FACT_001_MIXED_Q3",
+          "question_type": "division_equation",
+          "visual_model": "skip_counting",
+          "prompt": "Solve: 24 \u00f7 3",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "inverse_fact_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 8.",
+          "acceptable_answers": [
+            "8",
+            "8 objects",
+            "8 items"
+          ],
+          "factor": 3,
+          "factor_a": 3,
+          "factor_b": 8,
+          "product": 24,
+          "total": 24,
+          "groups": 3,
+          "items_per_group": 8,
+          "rows": 3,
+          "columns": 8,
+          "step": 3,
+          "count": 8,
+          "sequence": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "equation": "24 \u00f7 3 = 8"
+        },
+        {
+          "id": "G3M_FACT_001_MIXED_Q4",
+          "question_id": "G3M_FACT_001_MIXED_Q4",
+          "question_type": "short_response",
+          "visual_model": "multiplication_chart",
+          "prompt": "Solve: 4 \u00d7 6",
+          "answer": "24",
+          "correct_answer": "24",
+          "misconception_tag": "fact_recall_gap",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 24.",
+          "acceptable_answers": [
+            "24",
+            "24 objects",
+            "24 items"
+          ],
+          "factor": 4,
+          "factor_a": 4,
+          "factor_b": 6,
+          "product": 24,
+          "total": 24,
+          "groups": 4,
+          "items_per_group": 6,
+          "rows": 4,
+          "columns": 6,
+          "step": 4,
+          "count": 6,
+          "sequence": [
+            4,
+            8,
+            12,
+            16,
+            20,
+            24
+          ],
+          "equation": "4 \u00d7 6 = 24"
+        },
+        {
+          "id": "G3M_FACT_001_MIXED_Q5",
+          "question_id": "G3M_FACT_001_MIXED_Q5",
+          "question_type": "division_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "Solve: 42 \u00f7 6",
+          "answer": "7",
+          "correct_answer": "7",
+          "misconception_tag": "inverse_fact_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 7.",
+          "acceptable_answers": [
+            "7",
+            "7 objects",
+            "7 items"
+          ],
+          "factor": 6,
+          "factor_a": 6,
+          "factor_b": 7,
+          "product": 42,
+          "total": 42,
+          "groups": 6,
+          "items_per_group": 7,
+          "rows": 6,
+          "columns": 7,
+          "step": 6,
+          "count": 7,
+          "sequence": [
+            6,
+            12,
+            18,
+            24,
+            30,
+            36,
+            42
+          ],
+          "equation": "42 \u00f7 6 = 7"
+        },
+        {
+          "id": "G3M_FACT_001_MIXED_Q6",
+          "question_id": "G3M_FACT_001_MIXED_Q6",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "Solve: 8 \u00d7 8",
+          "answer": "64",
+          "correct_answer": "64",
+          "misconception_tag": "fact_recall_gap",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 64.",
+          "acceptable_answers": [
+            "64",
+            "64 objects",
+            "64 items"
+          ],
+          "factor": 8,
+          "factor_a": 8,
+          "factor_b": 8,
+          "product": 64,
+          "total": 64,
+          "groups": 8,
+          "items_per_group": 8,
+          "rows": 8,
+          "columns": 8,
+          "step": 8,
+          "count": 8,
+          "sequence": [
+            8,
+            16,
+            24,
+            32,
+            40,
+            48,
+            56,
+            64
+          ],
+          "equation": "8 \u00d7 8 = 64"
+        },
+        {
+          "id": "G3M_FACT_001_MIXED_Q7",
+          "question_id": "G3M_FACT_001_MIXED_Q7",
+          "question_type": "division_equation",
+          "visual_model": "skip_counting",
+          "prompt": "Solve: 54 \u00f7 9",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "inverse_fact_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 6.",
+          "acceptable_answers": [
+            "6",
+            "6 objects",
+            "6 items"
+          ],
+          "factor": 9,
+          "factor_a": 9,
+          "factor_b": 6,
+          "product": 54,
+          "total": 54,
+          "groups": 9,
+          "items_per_group": 6,
+          "rows": 9,
+          "columns": 6,
+          "step": 9,
+          "count": 6,
+          "sequence": [
+            9,
+            18,
+            27,
+            36,
+            45,
+            54
+          ],
+          "equation": "54 \u00f7 9 = 6"
+        },
+        {
+          "id": "G3M_FACT_001_MIXED_Q8",
+          "question_id": "G3M_FACT_001_MIXED_Q8",
+          "question_type": "short_response",
+          "visual_model": "multiplication_chart",
+          "prompt": "Solve: 7 \u00d7 9",
+          "answer": "63",
+          "correct_answer": "63",
+          "misconception_tag": "fact_recall_gap",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 63.",
+          "acceptable_answers": [
+            "63",
+            "63 objects",
+            "63 items"
+          ],
+          "factor": 7,
+          "factor_a": 7,
+          "factor_b": 9,
+          "product": 63,
+          "total": 63,
+          "groups": 7,
+          "items_per_group": 9,
+          "rows": 7,
+          "columns": 9,
+          "step": 7,
+          "count": 9,
+          "sequence": [
+            7,
+            14,
+            21,
+            28,
+            35,
+            42,
+            49,
+            56,
+            63
+          ],
+          "equation": "7 \u00d7 9 = 63"
+        },
+        {
+          "id": "G3M_FACT_001_MIXED_Q9",
+          "question_id": "G3M_FACT_001_MIXED_Q9",
+          "question_type": "division_equation",
+          "visual_model": "fact_family_model",
+          "prompt": "Solve: 80 \u00f7 10",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "inverse_fact_confusion",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 8.",
+          "acceptable_answers": [
+            "8",
+            "8 objects",
+            "8 items"
+          ],
+          "factor": 10,
+          "factor_a": 10,
+          "factor_b": 8,
+          "product": 80,
+          "total": 80,
+          "groups": 10,
+          "items_per_group": 8,
+          "rows": 10,
+          "columns": 8,
+          "step": 10,
+          "count": 8,
+          "sequence": [
+            10,
+            20,
+            30,
+            40,
+            50,
+            60,
+            70,
+            80
+          ],
+          "equation": "80 \u00f7 10 = 8"
+        },
+        {
+          "id": "G3M_FACT_001_MIXED_Q10",
+          "question_id": "G3M_FACT_001_MIXED_Q10",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "Solve: 9 \u00d7 9",
+          "answer": "81",
+          "correct_answer": "81",
+          "misconception_tag": "fact_recall_gap",
+          "hints": [
+            "Read the problem and name what is known.",
+            "Use the model to connect numbers to an equation.",
+            "Check that the answer matches the question asked."
+          ],
+          "feedback": {
+            "correct": "Nice operations thinking!",
+            "incorrect": "Use the model and check the equation before answering."
+          },
+          "explanation": "The correct answer is 81.",
+          "acceptable_answers": [
+            "81",
+            "81 objects",
+            "81 items"
+          ],
+          "factor": 9,
+          "factor_a": 9,
+          "factor_b": 9,
+          "product": 81,
+          "total": 81,
+          "groups": 9,
+          "items_per_group": 9,
+          "rows": 9,
+          "columns": 9,
+          "step": 9,
+          "count": 9,
+          "sequence": [
+            9,
+            18,
+            27,
+            36,
+            45,
+            54,
+            63,
+            72,
+            81
+          ],
+          "equation": "9 \u00d7 9 = 81"
+        }
+      ]
+    }
+  ]
+}
