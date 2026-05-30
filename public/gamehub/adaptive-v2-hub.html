@@ -25,8 +25,8 @@
       <p class="muted">Grade 1 lessons are active now. Grades 2–6 are staged as coming soon.</p>
     </section>
     <section class="panel">
-      <h2>Grade 1 Skill World Missions</h2>
-      <p class="muted">Generated SkillPackage missions load from the Skill World manifest.</p>
+      <h2>Grade 1 Math Skill World Missions</h2>
+      <p class="muted">Active Grade 1 Math SkillPackage missions load from the Skill World manifest.</p>
       <div id="skillWorldMissionGrid" class="grid"></div>
     </section>
     <section class="panel">
@@ -56,18 +56,6 @@
   <script>
     const grades=[1,2,3,4,5,6];
     const skillWorldManifestUrl='/gamehub/skill-world/content/manifest.json';
-    const grade1PlannedLessons=[
-      {id:'g1m_ns_001',subject:'Math',domain:'Number Sense',title:'Count and compare within 20'},
-      {id:'g1m_op_001',subject:'Math',domain:'Operations',title:'Add within 10'},
-      {id:'g1m_op_003',subject:'Math',domain:'Operations',title:'Subtract within 10'},
-      {id:'g1m_ns_004',subject:'Math',domain:'Place Value',title:'Place value: tens and ones'},
-      {id:'g1m_gm_001',subject:'Math',domain:'Geometry',title:'Shapes and attributes'},
-      {id:'g1m_gm_002',subject:'Math',domain:'Measurement',title:'Measurement and time basics'},
-      {id:'g1e_rf_001',subject:'Reading',domain:'Foundational Skills',title:'Letter sounds and blending'},
-      {id:'g1e_rf_005',subject:'Reading',domain:'Fluency',title:'Sight words and sentence reading'},
-      {id:'g1e_rc_001',subject:'Reading',domain:'Comprehension',title:'Answer who/what/where questions'},
-      {id:'g1e_lw_001',subject:'Writing',domain:'Composition',title:'Write a simple sentence'}
-    ];
     let grade1SkillWorldPackages=[];
     const gradeGrid=document.getElementById('gradeGrid');
     const gradeTitle=document.getElementById('gradeTitle');
@@ -107,7 +95,7 @@
             has_drill:Array.isArray(pkg.level_banks)&&pkg.level_banks.length>0
           };
         }));
-        return packages.filter((pkg)=>pkg.skill_id&&Number(pkg.grade)===1);
+        return packages.filter((pkg)=>pkg.skill_id&&Number(pkg.grade)===1&&pkg.subject==='Math'&&pkg.status==='active');
       }catch(err){
         console.error('Unable to load Skill World package manifest',err);
         return [];
@@ -131,16 +119,8 @@
       const drillLink=pkg.has_drill?` <a class="btn" href="${escapeHtml(skillWorldDrillHref(pkg.skill_id))}">Practice This Skill</a>`:'';
       return `<li data-skill-id="${escapeHtml(pkg.skill_id)}"><strong>${escapeHtml(pkg.title)}</strong><br><span class="muted">Grade ${escapeHtml(pkg.grade)} · ${escapeHtml(pkg.subject)} · ${escapeHtml(pkg.domain)} · ${escapeHtml(pkg.skill_id)}</span><br><a class="btn primary" href="${escapeHtml(pkg.route)}">Start Skill World</a>${drillLink}</li>`;
     }
-    function renderPlannedLesson(lesson){
-      return `<li data-skill-id="${escapeHtml(lesson.id)}"><strong>${escapeHtml(lesson.title)}</strong><br><span class="muted">${escapeHtml(lesson.subject)} · ${escapeHtml(lesson.domain)}</span><br><button class="btn" type="button" disabled aria-disabled="true">Coming Soon</button></li>`;
-    }
     function buildGrade1Lessons(){
-      const packagesById=new Map(grade1SkillWorldPackages.map((pkg)=>[pkg.skill_id.toLowerCase(),pkg]));
-      const generatedRows=grade1SkillWorldPackages.map(renderGeneratedMission);
-      const plannedRows=grade1PlannedLessons
-        .filter((lesson)=>!packagesById.has(lesson.id.toLowerCase()))
-        .map(renderPlannedLesson);
-      return [...generatedRows,...plannedRows].join('');
+      return grade1SkillWorldPackages.map(renderGeneratedMission).join('');
     }
     function renderSkillWorldMissionGrid(){
       skillWorldMissionGrid.innerHTML=grade1SkillWorldPackages.length
