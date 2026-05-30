@@ -337,3 +337,160 @@ button,input,select,textarea{font:inherit;max-width:100%}
   color: #92400e;
 }
 .phonics-tile.blend{border-color:#60a5fa;background:#eff6ff}.phonics-tile.digraph{border-color:#a78bfa;background:#f5f3ff}.phonics-tile.vowel-team{border-color:#fb923c;background:#fff7ed}.phonics-tile.silent-e{border-color:#94a3b8;background:#f8fafc;color:#64748b;position:relative}.phonics-tile.silent-e:after{content:"quiet";position:absolute;top:-12px;right:-8px;background:#64748b;color:#fff;border-radius:999px;padding:2px 6px;font-size:.62rem;font-weight:900}.sound-box.blend{border-style:dashed}.sound-box.digraph,.sound-box.vowel-team{box-shadow:inset 0 0 0 4px rgba(124,58,237,.12)}.sound-box.silent-e{background:#f8fafc;border-color:#94a3b8;color:#64748b}.word-builder-result,.phonics-target-word{font-size:clamp(1.1rem,4vw,1.8rem)}.syllable-break-visual{display:grid;justify-items:center;gap:12px}.syllable-word{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0;background:#fff;border:4px solid #38bdf8;border-radius:24px;padding:14px 18px}.syllable-chunk{display:inline-flex;align-items:center;font-size:clamp(1.5rem,7vw,3rem);font-weight:900;color:#1e3a8a}.syllable-divider{font-style:normal;color:#ef4444;margin:0 .35em;font-weight:900}
+
+/* Grade 3 fraction models: keep visuals concrete, partitioned, and mobile-safe. */
+.fraction-circle-visual,
+.fraction-bar-visual,
+.fraction-number-line-visual {
+  display: grid;
+  justify-items: center;
+  gap: .55rem;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.fraction-circle-label,
+.fraction-bar-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.25rem;
+  padding: .25rem .7rem;
+  border-radius: 999px;
+  background: #fff7ed;
+  border: 2px solid #fb923c;
+  color: #9a3412;
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+.fraction-circle-svg {
+  width: min(12.5rem, 72vw);
+  aspect-ratio: 1;
+  display: block;
+  filter: drop-shadow(0 8px 16px rgba(15,23,42,.14));
+}
+.fraction-circle-sector {
+  stroke: #0f172a;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+.fraction-circle-sector.filled { fill: #38bdf8; }
+.fraction-circle-sector.unfilled { fill: #fff7ed; }
+.fraction-circle-outline {
+  fill: none;
+  stroke: #0f172a;
+  stroke-width: 4;
+}
+.fraction-bar {
+  --parts: 2;
+  width: min(22rem, 100%);
+  display: grid;
+  grid-template-columns: repeat(var(--parts), minmax(0, 1fr));
+  border: 3px solid #0f172a;
+  border-radius: .8rem;
+  overflow: hidden;
+  background: #fff7ed;
+  box-shadow: 0 8px 16px rgba(15,23,42,.12);
+}
+.fraction-bar-cell {
+  min-height: 4.25rem;
+  border-right: 2px solid rgba(15,23,42,.55);
+  background: #fff7ed;
+}
+.fraction-bar-cell:last-child { border-right: 0; }
+.fraction-bar-cell.filled {
+  background: linear-gradient(180deg, #7dd3fc, #38bdf8);
+}
+.fraction-number-line {
+  position: relative;
+  width: min(24rem, 100%);
+  min-height: 6.25rem;
+  margin: .3rem auto .1rem;
+}
+.fraction-number-line::before {
+  content: "";
+  position: absolute;
+  left: .75rem;
+  right: .75rem;
+  top: 2.45rem;
+  height: .45rem;
+  border-radius: 999px;
+  background: #2563eb;
+}
+.fraction-line-tick {
+  position: absolute;
+  left: calc(.75rem + (100% - 1.5rem) * var(--pos) / 100);
+  top: 1.1rem;
+  transform: translateX(-50%);
+  display: grid;
+  justify-items: center;
+  gap: .2rem;
+  min-width: 2.3rem;
+  color: #0f172a;
+  font-weight: 900;
+}
+.fraction-line-tick::before {
+  content: "";
+  width: .28rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: #0f172a;
+}
+.fraction-line-tick b {
+  font-size: .82rem;
+  white-space: nowrap;
+}
+.fraction-line-tick.active::before {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: .45rem;
+  border: 3px solid #0f172a;
+  background: #facc15;
+  box-shadow: 0 0 0 5px rgba(250,204,21,.35);
+}
+.fraction-line-tick.active em {
+  padding: .12rem .4rem;
+  border-radius: 999px;
+  background: #fef3c7;
+  color: #92400e;
+  font-style: normal;
+  white-space: nowrap;
+}
+.partition-shape {
+  grid-template-columns: repeat(var(--parts, 2), minmax(0, 1fr));
+}
+.partition-piece.filled {
+  background: linear-gradient(180deg, #bfdbfe, #60a5fa);
+}
+.fraction-comparison-visual {
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+}
+.fraction-comparison-visual .compare-card {
+  min-width: 0;
+  width: 100%;
+}
+.fraction-comparison-visual .fraction-mini {
+  box-shadow: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+.fraction-comparison-visual .fraction-mini .fraction-bar {
+  width: min(11rem, 100%);
+}
+.fraction-comparison-visual .fraction-mini .fraction-bar-cell {
+  min-height: 2.8rem;
+}
+.fraction-comparison-visual .fraction-mini .sw-visual-caption {
+  font-size: .8rem;
+}
+@media (max-width: 520px) {
+  .fraction-comparison-visual {
+    grid-template-columns: 1fr;
+  }
+  .fraction-comparison-visual .compare-symbol {
+    transform: rotate(90deg);
+  }
+  .fraction-bar-cell { min-height: 3.4rem; }
+  .fraction-line-tick b { font-size: .7rem; }
+}
