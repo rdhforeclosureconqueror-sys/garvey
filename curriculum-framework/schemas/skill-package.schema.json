@@ -76,7 +76,7 @@
     },
     "level_banks": {
       "type": "array",
-      "minItems": 4,
+      "minItems": 5,
       "items": {
         "$ref": "#/$defs/level_bank"
       }
@@ -164,6 +164,8 @@
           "enum": [
             "multiple_choice",
             "short_response",
+            "word_building",
+            "syllable_break",
             "visual_objects",
             "number_sequence",
             "number_line",

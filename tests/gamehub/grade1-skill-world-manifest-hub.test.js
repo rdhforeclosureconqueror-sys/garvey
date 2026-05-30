@@ -16,7 +16,7 @@ const packageFiles = fs.readdirSync(contentDir)
 const requiredGrade1MathSkillIds = ['G1M_NS_001', 'G1M_NS_002', 'G1M_NS_003', 'G1M_PV_001', 'G1M_OP_001', 'G1M_OP_002', 'G1M_OP_003', 'G1M_GM_001', 'G1M_GM_002', 'G1M_DP_001', 'G1M_MD_TIME_001'];
 const requiredGrade1EnglishSkillIds = ['G1E_RF_001', 'G1E_RF_002', 'G1E_PH_001', 'G1E_PH_002', 'G1E_SW_001', 'G1E_FL_001', 'G1E_RC_001', 'G1E_RC_002', 'G1E_WR_001', 'G1E_WR_002'];
 const requiredGrade1SkillIds = [...requiredGrade1MathSkillIds, ...requiredGrade1EnglishSkillIds];
-const requiredGrade2SkillIds = ['G2M_NS_001', 'G2M_PV_001', 'G2M_NS_002', 'G2M_OP_001', 'G2M_OP_002', 'G2M_OP_003', 'G2M_WP_001', 'G2M_MD_001', 'G2M_MD_002', 'G2M_MD_003', 'G2M_GM_001'];
+const requiredGrade2SkillIds = ['G2E_RF_001', 'G2M_NS_001', 'G2M_PV_001', 'G2M_NS_002', 'G2M_OP_001', 'G2M_OP_002', 'G2M_OP_003', 'G2M_WP_001', 'G2M_MD_001', 'G2M_MD_002', 'G2M_MD_003', 'G2M_GM_001'];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -103,13 +103,17 @@ test('Grade 2 Skill World packages appear from manifest for the hub', () => {
   assert.deepEqual(grade2Packages.map((pkg) => pkg.skill_id).sort(), [...requiredGrade2SkillIds].sort());
   for (const g2 of grade2Packages) {
     assert.equal(g2.grade, 2);
-    assert.equal(g2.subject, 'Math');
+    assert.equal(['Math', 'English'].includes(g2.subject), true);
     assert.equal(Array.isArray(g2.level_banks), true);
     assert.equal(g2.level_banks.filter((level) => !/mixed/i.test(`${level.level_id} ${level.label}`)).length, 4);
     assert.equal(g2.level_banks.some((level) => /mixed/i.test(`${level.level_id} ${level.label}`)), true);
     assert.equal(g2.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
     assert.equal(`/skill-world/${encodeURIComponent(g2.skill_id)}/drill`, `/skill-world/${g2.skill_id}/drill`);
   }
+  assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2E_RF_001').subject, 'English');
+  assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2E_RF_001').domain, 'Reading Foundations');
+  assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2E_RF_001').skill, 'Advanced Phonics and Word Analysis');
+  assert.equal(`/skill-world/${encodeURIComponent('G2E_RF_001')}/drill`, '/skill-world/G2E_RF_001/drill');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_NS_001').domain, 'Number Sense / Base Ten');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_NS_001').skill, 'Count, Read, and Write Numbers to 1,000');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_NS_002').domain, 'Number and Operations in Base Ten');
@@ -127,6 +131,7 @@ test('Grade 2 Skill World packages appear from manifest for the hub', () => {
   assert.doesNotMatch(hub, /if\(g!==1\)/);
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);
+  assert.match(hub, /Grade \${escapeHtml\(pkg\.grade\)} · \${escapeHtml\(pkg\.subject\)} · \${escapeHtml\(pkg\.domain\)} · \${escapeHtml\(pkg\.skill_id\)}/);
 });
 
 test('Adaptive Grade 1 production hub hides legacy Math and English placeholder cards', () => {

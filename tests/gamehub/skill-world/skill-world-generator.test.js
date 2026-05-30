@@ -5,8 +5,9 @@ const root=path.join(__dirname,'..','..','..');
 const load=(id)=>JSON.parse(fs.readFileSync(path.join(root,`public/gamehub/skill-world/content/${id}.skill-package.v1.json`),'utf8'));
 const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_GM_001','G1M_GM_002','G1M_DP_001','G1M_MD_TIME_001','G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
 const grade1Packages=grade1SkillIds.map(load);
-const grade2SkillIds=['G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
+const grade2SkillIds=['G2E_RF_001','G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
 const grade2Packages=grade2SkillIds.map(load);
+const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2PlaceValue=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_PV_001');
 const g2CountReadWrite=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_NS_001');
 const g2Compare=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_NS_002');
@@ -19,6 +20,7 @@ const g2TimeMoney=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_MD_002');
 const g2DataGraphs=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_MD_003');
 const g2Geometry=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_GM_001');
 const byId=Object.fromEntries([...grade1Packages,...grade2Packages].map((pkg)=>[pkg.skill_id,pkg]));
+
 const dp=byId.G1M_DP_001;
 const op=byId.G1M_OP_003;
 const ns=byId.G1M_NS_002;
@@ -31,6 +33,42 @@ const Schema=require(path.join(root,'public/gamehub/skill-world/engine/skill-pac
 const VisualRegistry=require(path.join(root,'public/gamehub/skill-world/renderers/visual-model-registry.js'));
 
 global.localStorage={_m:new Map(),setItem(k,v){this._m.set(k,v)},getItem(k){return this._m.get(k)||null}};
+
+assert.ok(g2AdvancedPhonics,'G2E_RF_001 package loads');
+assert.equal(Schema.validateSkillPackage(g2AdvancedPhonics,{allowPlannedLevelBanks:false}).valid,true,'G2E_RF_001 validates in strict production mode');
+assert.equal(g2AdvancedPhonics.grade,2);
+assert.equal(g2AdvancedPhonics.subject,'English');
+assert.equal(g2AdvancedPhonics.domain,'Reading Foundations');
+assert.equal(g2AdvancedPhonics.skill,'Advanced Phonics and Word Analysis');
+assert.ok(Array.isArray(g2AdvancedPhonics.level_banks),'G2E_RF_001 has level_banks');
+assert.equal(g2AdvancedPhonics.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length,4,'G2E_RF_001 has four focused levels');
+assert.ok(g2AdvancedPhonics.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),'G2E_RF_001 has Mixed level');
+g2AdvancedPhonics.level_banks.forEach((level)=>{
+  assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`);
+  level.questions.forEach((question)=>{
+    if(question.question_type==='short_response'){
+      assert.ok(Array.isArray(question.acceptable_answers)&&question.acceptable_answers.length>0,`${question.question_id} acceptable_answers exist`);
+    }
+  });
+});
+const g2Visuals=new Set(g2AdvancedPhonics.level_banks.flatMap((level)=>level.questions.map((question)=>question.visual_model||question.support_type)));
+['syllable_break','phonics_tiles','sound_boxes','word_builder'].forEach((visual)=>assert.ok(g2Visuals.has(visual),`G2E_RF_001 includes ${visual}`));
+const g2Types=new Set(g2AdvancedPhonics.level_banks.flatMap((level)=>level.questions.map((question)=>question.question_type)));
+['multiple_choice','short_response','word_building','sound_match'].forEach((type)=>assert.ok(g2Types.has(type),`G2E_RF_001 includes ${type}`));
+['blend_digraph_confusion','silent_e_confusion','vowel_team_confusion','syllable_break_error'].forEach((tag)=>assert.ok(g2AdvancedPhonics.misconception_bank[tag],`G2E_RF_001 includes misconception ${tag}`));
+const g2AdvancedPhonicsMissionHtml=Renderer.renderSkillWorld(g2AdvancedPhonics,{failClosed:true}).html;
+['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(g2AdvancedPhonicsMissionHtml,new RegExp(label),`G2E_RF_001 mission renders ${label}`));
+assert.match(g2AdvancedPhonicsMissionHtml,/Continue to Skill Practice/,'G2E_RF_001 profile links to Skill Practice Center');
+const g2AdvancedPhonicsDrillHtml=Renderer.renderSkillWorld(g2AdvancedPhonics,{state:Renderer.createState(),mode:'drill',failClosed:true}).html;
+assert.match(g2AdvancedPhonicsDrillHtml,/Skill Practice Center/,'G2E_RF_001 practice route renders Skill Practice Center');
+assert.match(g2AdvancedPhonicsDrillHtml,/Level 1: Consonant Blends and Digraphs/,'G2E_RF_001 drill renders Level 1');
+assert.match(VisualRegistry.render({visual_model:'syllable_break',word:'sunset',syllables:['sun','set'],correct_answer:'sun-set'}),/data-renderer="syllable_break"/,'syllable_break renderer output exists');
+assert.match(VisualRegistry.render({visual_model:'phonics_tiles',word:'train',tiles:['tr','ai','n'],correct_answer:'train'}),/data-tile-kind="blend"[\s\S]*data-tile-kind="vowel-team"/,'phonics_tiles supports blends and vowel teams');
+assert.match(VisualRegistry.render({visual_model:'phonics_tiles',word:'ship',tiles:['sh','i','p'],correct_answer:'ship'}),/data-tile-kind="digraph"/,'phonics_tiles supports digraphs');
+assert.match(VisualRegistry.render({visual_model:'phonics_tiles',word:'cake',tiles:['c','a','k','e'],silent_e:true,correct_answer:'cake'}),/data-tile-kind="silent-e"/,'phonics_tiles supports silent e');
+assert.match(VisualRegistry.render({visual_model:'sound_boxes',word:'boat',sounds:['b','oa','t'],correct_answer:'boat'}),/data-renderer="sound_boxes"[\s\S]*data-sound-kind="vowel-team"/,'sound_boxes renderer output exists with grouped vowel team');
+assert.match(VisualRegistry.render({visual_model:'word_builder',word:'stone',tiles:['st','o','n','e'],missing_tile:'e',correct_answer:'stone'}),/data-renderer="word_builder"[\s\S]*Target word: stone/,'word_builder renderer output exists');
+
 
 function assertFullMission(pkg){
   const validation=Schema.validateSkillPackage(pkg);
