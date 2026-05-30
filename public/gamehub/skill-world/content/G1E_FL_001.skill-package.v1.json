@@ -1,0 +1,1792 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade1-english-completion-plan.v1.json",
+    "production_proof_package": true,
+    "created_at": "2026-05-30"
+  },
+  "skill_id": "G1E_FL_001",
+  "grade": 1,
+  "subject": "English",
+  "domain": "Fluency",
+  "skill": "Sentence Reading Fluency",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Help the Reading Ranger complete the Sentence Reading Fluency trail.",
+    "objective": "I can practice sentence reading fluency with careful listening, reading, or writing.",
+    "key_vocabulary": [
+      "sound",
+      "word",
+      "sentence",
+      "answer"
+    ],
+    "concept_explanation": "This mission teaches sentence reading fluency using child-friendly models and short practice steps. ",
+    "visual_model": "sentence_card",
+    "common_misconception": "Learners may answer from a first clue instead of checking the whole word, sentence, or story.",
+    "real_world_connection": "Readers and writers use this skill in books, signs, notes, and classroom talk.",
+    "lesson_summary": "Read or listen carefully, use the model, then choose or write the answer.",
+    "mini_lesson": "First study the model. Then say the sounds or words slowly. Last, check that your answer matches the prompt."
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: Use the sentence_card model, name the important part, then answer.",
+      "correct_answer": "The cat sat."
+    },
+    {
+      "text": "Demo: Try one with help before independent practice.",
+      "correct_answer": "I see a dog."
+    }
+  ],
+  "hint_ladder": [
+    "Say the word slowly.",
+    "Listen for the target sound or word part.",
+    "Check your answer with the model."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G1E_FL_001_LVL1_Q01",
+      "prompt": "Read: The cat sat.",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "The cat sat.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "skips_small_words",
+      "explanation": "The answer is The cat sat..",
+      "feedback": "Yes \u2014 The cat sat. fits.",
+      "sentence": "The cat sat.",
+      "choices": [
+        "The cat sat.",
+        "sat. cat The",
+        "the cat sat."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL1_Q02",
+      "prompt": "Read: I see a dog.",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "I see a dog.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "punctuation_ignored",
+      "explanation": "The answer is I see a dog..",
+      "feedback": "Yes \u2014 I see a dog. fits.",
+      "sentence": "I see a dog.",
+      "choices": [
+        "I see a dog.",
+        "dog. a see I",
+        "i see a dog."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL1_Q03",
+      "prompt": "Read: We can run.",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "We can run.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "sentence_meaning_mismatch",
+      "explanation": "The answer is We can run..",
+      "feedback": "Yes \u2014 We can run. fits.",
+      "sentence": "We can run.",
+      "choices": [
+        "We can run.",
+        "run. can We",
+        "we can run."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL1_Q04",
+      "prompt": "Read: The sun is up.",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "The sun is up.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "word_order_confusion",
+      "explanation": "The answer is The sun is up..",
+      "feedback": "Yes \u2014 The sun is up. fits.",
+      "sentence": "The sun is up.",
+      "choices": [
+        "The sun is up.",
+        "up. is sun The",
+        "the sun is up."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL1_Q05",
+      "prompt": "Read: Mom has a hat.",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "Mom has a hat.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "skips_small_words",
+      "explanation": "The answer is Mom has a hat..",
+      "feedback": "Yes \u2014 Mom has a hat. fits.",
+      "sentence": "Mom has a hat.",
+      "choices": [
+        "Mom has a hat.",
+        "hat. a has Mom",
+        "mom has a hat."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL1_Q06",
+      "prompt": "Read: Dad can hop.",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "Dad can hop.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "punctuation_ignored",
+      "explanation": "The answer is Dad can hop..",
+      "feedback": "Yes \u2014 Dad can hop. fits.",
+      "sentence": "Dad can hop.",
+      "choices": [
+        "Dad can hop.",
+        "hop. can Dad",
+        "dad can hop."
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G1E_FL_001_LVL1_Q07",
+      "prompt": "Read: The bug is red.",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "The bug is red.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "sentence_meaning_mismatch",
+      "explanation": "The answer is The bug is red..",
+      "feedback": "Yes \u2014 The bug is red. fits.",
+      "sentence": "The bug is red.",
+      "choices": [
+        "The bug is red.",
+        "red. is bug The",
+        "the bug is red."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL1_Q08",
+      "prompt": "Read: I like my book.",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "I like my book.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "word_order_confusion",
+      "explanation": "The answer is I like my book..",
+      "feedback": "Yes \u2014 I like my book. fits.",
+      "sentence": "I like my book.",
+      "choices": [
+        "I like my book.",
+        "book. my like I",
+        "i like my book."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL1_Q09",
+      "prompt": "Read: A fish can swim.",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "A fish can swim.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "skips_small_words",
+      "explanation": "The answer is A fish can swim..",
+      "feedback": "Yes \u2014 A fish can swim. fits.",
+      "sentence": "A fish can swim.",
+      "choices": [
+        "A fish can swim.",
+        "swim. can fish A",
+        "a fish can swim."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL1_Q10",
+      "prompt": "Read: The kid can jump.",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_card",
+      "support_type": "sentence_card",
+      "correct_answer": "The kid can jump.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "punctuation_ignored",
+      "explanation": "The answer is The kid can jump..",
+      "feedback": "Yes \u2014 The kid can jump. fits.",
+      "sentence": "The kid can jump.",
+      "choices": [
+        "The kid can jump.",
+        "jump. can kid The",
+        "the kid can jump."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL2_Q01",
+      "prompt": "Which picture matches: The cat sat.",
+      "question_type": "multiple_choice",
+      "visual_model": "picture_choice",
+      "support_type": "picture_choice",
+      "correct_answer": "The cat sat.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "sentence_meaning_mismatch",
+      "explanation": "The answer is The cat sat..",
+      "feedback": "Yes \u2014 The cat sat. fits.",
+      "sentence": "The cat sat.",
+      "picture": "The cat sat.",
+      "choices": [
+        "The cat sat.",
+        "A dog sleeps.",
+        "A fish runs."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL2_Q02",
+      "prompt": "Which picture matches: I see a dog.",
+      "question_type": "multiple_choice",
+      "visual_model": "picture_choice",
+      "support_type": "picture_choice",
+      "correct_answer": "I see a dog.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "sentence_meaning_mismatch",
+      "explanation": "The answer is I see a dog..",
+      "feedback": "Yes \u2014 I see a dog. fits.",
+      "sentence": "I see a dog.",
+      "picture": "I see a dog.",
+      "choices": [
+        "I see a dog.",
+        "A dog sleeps.",
+        "A fish runs."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL2_Q03",
+      "prompt": "Which picture matches: We can run.",
+      "question_type": "multiple_choice",
+      "visual_model": "picture_choice",
+      "support_type": "picture_choice",
+      "correct_answer": "We can run.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "sentence_meaning_mismatch",
+      "explanation": "The answer is We can run..",
+      "feedback": "Yes \u2014 We can run. fits.",
+      "sentence": "We can run.",
+      "picture": "We can run.",
+      "choices": [
+        "We can run.",
+        "A dog sleeps.",
+        "A fish runs."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL2_Q04",
+      "prompt": "Which picture matches: The sun is up.",
+      "question_type": "multiple_choice",
+      "visual_model": "picture_choice",
+      "support_type": "picture_choice",
+      "correct_answer": "The sun is up.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "sentence_meaning_mismatch",
+      "explanation": "The answer is The sun is up..",
+      "feedback": "Yes \u2014 The sun is up. fits.",
+      "sentence": "The sun is up.",
+      "picture": "The sun is up.",
+      "choices": [
+        "The sun is up.",
+        "A dog sleeps.",
+        "A fish runs."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL2_Q05",
+      "prompt": "Which picture matches: Mom has a hat.",
+      "question_type": "multiple_choice",
+      "visual_model": "picture_choice",
+      "support_type": "picture_choice",
+      "correct_answer": "Mom has a hat.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "sentence_meaning_mismatch",
+      "explanation": "The answer is Mom has a hat..",
+      "feedback": "Yes \u2014 Mom has a hat. fits.",
+      "sentence": "Mom has a hat.",
+      "picture": "Mom has a hat.",
+      "choices": [
+        "Mom has a hat.",
+        "A dog sleeps.",
+        "A fish runs."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL2_Q06",
+      "prompt": "Which picture matches: Dad can hop.",
+      "question_type": "multiple_choice",
+      "visual_model": "picture_choice",
+      "support_type": "picture_choice",
+      "correct_answer": "Dad can hop.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "sentence_meaning_mismatch",
+      "explanation": "The answer is Dad can hop..",
+      "feedback": "Yes \u2014 Dad can hop. fits.",
+      "sentence": "Dad can hop.",
+      "picture": "Dad can hop.",
+      "choices": [
+        "Dad can hop.",
+        "A dog sleeps.",
+        "A fish runs."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL2_Q07",
+      "prompt": "Which picture matches: The bug is red.",
+      "question_type": "multiple_choice",
+      "visual_model": "picture_choice",
+      "support_type": "picture_choice",
+      "correct_answer": "The bug is red.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "sentence_meaning_mismatch",
+      "explanation": "The answer is The bug is red..",
+      "feedback": "Yes \u2014 The bug is red. fits.",
+      "sentence": "The bug is red.",
+      "picture": "The bug is red.",
+      "choices": [
+        "The bug is red.",
+        "A dog sleeps.",
+        "A fish runs."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL2_Q08",
+      "prompt": "Which picture matches: I like my book.",
+      "question_type": "multiple_choice",
+      "visual_model": "picture_choice",
+      "support_type": "picture_choice",
+      "correct_answer": "I like my book.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "sentence_meaning_mismatch",
+      "explanation": "The answer is I like my book..",
+      "feedback": "Yes \u2014 I like my book. fits.",
+      "sentence": "I like my book.",
+      "picture": "I like my book.",
+      "choices": [
+        "I like my book.",
+        "A dog sleeps.",
+        "A fish runs."
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G1E_FL_001_LVL2_Q09",
+      "prompt": "Which picture matches: A fish can swim.",
+      "question_type": "multiple_choice",
+      "visual_model": "picture_choice",
+      "support_type": "picture_choice",
+      "correct_answer": "A fish can swim.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "sentence_meaning_mismatch",
+      "explanation": "The answer is A fish can swim..",
+      "feedback": "Yes \u2014 A fish can swim. fits.",
+      "sentence": "A fish can swim.",
+      "picture": "A fish can swim.",
+      "choices": [
+        "A fish can swim.",
+        "A dog sleeps.",
+        "A fish runs."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL2_Q10",
+      "prompt": "Which picture matches: The kid can jump.",
+      "question_type": "multiple_choice",
+      "visual_model": "picture_choice",
+      "support_type": "picture_choice",
+      "correct_answer": "The kid can jump.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "sentence_meaning_mismatch",
+      "explanation": "The answer is The kid can jump..",
+      "feedback": "Yes \u2014 The kid can jump. fits.",
+      "sentence": "The kid can jump.",
+      "picture": "The kid can jump.",
+      "choices": [
+        "The kid can jump.",
+        "A dog sleeps.",
+        "A fish runs."
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL3_Q01",
+      "prompt": "The cat ___ on the mat.",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "sat",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "word_order_confusion",
+      "explanation": "The answer is sat.",
+      "feedback": "Yes \u2014 sat fits.",
+      "sentence": "The cat sat on the mat.",
+      "choices": [
+        "sat",
+        "the",
+        "and"
+      ]
+    },
+    {
+      "question_id": "G1E_FL_001_LVL3_Q02",
+      "prompt": "I ___ a red ball.",
+      "question_type": "multiple_choice",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "see",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "word_order_confusion",
+      "explanation": "The answer is see.",
+      "feedback": "Yes \u2014 see fits.",
+      "sentence": "I see a red ball.",
+      "choices": [
+        "see",
+        "the",
+        "and"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "skips_small_words": "skips small words",
+    "punctuation_ignored": "punctuation ignored",
+    "sentence_meaning_mismatch": "sentence meaning mismatch",
+    "word_order_confusion": "word order confusion"
+  },
+  "review_bank": {
+    "skips_small_words": [
+      "Review skips small words with a teacher model."
+    ],
+    "punctuation_ignored": [
+      "Review punctuation ignored with a teacher model."
+    ],
+    "sentence_meaning_mismatch": [
+      "Review sentence meaning mismatch with a teacher model."
+    ],
+    "word_order_confusion": [
+      "Review word order confusion with a teacher model."
+    ]
+  },
+  "game_theme": {
+    "title": "Sentence Reading Fluency Quest",
+    "name": "Sentence Reading Fluency Quest",
+    "mission_intro": "Practice Sentence Reading Fluency and earn a badge.",
+    "badge_name": "Sentence Reading Fluency Badge"
+  },
+  "support_type": "sentence_card",
+  "feedback_fields": [
+    "correct",
+    "explanation",
+    "misconception_tag"
+  ],
+  "next_skill_id": "G1E_RC_001",
+  "remediation_skill_id": "G1E_FL_001_REVIEW",
+  "level_banks": [
+    {
+      "level_id": "G1E_FL_001_LVL1",
+      "label": "Level 1: Read Simple Sentences",
+      "focus": "Read simple sentences.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_FL_001_LVL1_Q01",
+          "prompt": "Read: The cat sat.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "The cat sat.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "skips_small_words",
+          "explanation": "The answer is The cat sat..",
+          "feedback": "Yes \u2014 The cat sat. fits.",
+          "sentence": "The cat sat.",
+          "choices": [
+            "The cat sat.",
+            "sat. cat The",
+            "the cat sat."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL1_Q02",
+          "prompt": "Read: I see a dog.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "I see a dog.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is I see a dog..",
+          "feedback": "Yes \u2014 I see a dog. fits.",
+          "sentence": "I see a dog.",
+          "choices": [
+            "I see a dog.",
+            "dog. a see I",
+            "i see a dog."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL1_Q03",
+          "prompt": "Read: We can run.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "We can run.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is We can run..",
+          "feedback": "Yes \u2014 We can run. fits.",
+          "sentence": "We can run.",
+          "choices": [
+            "We can run.",
+            "run. can We",
+            "we can run."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL1_Q04",
+          "prompt": "Read: The sun is up.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "The sun is up.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "word_order_confusion",
+          "explanation": "The answer is The sun is up..",
+          "feedback": "Yes \u2014 The sun is up. fits.",
+          "sentence": "The sun is up.",
+          "choices": [
+            "The sun is up.",
+            "up. is sun The",
+            "the sun is up."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL1_Q05",
+          "prompt": "Read: Mom has a hat.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "Mom has a hat.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "skips_small_words",
+          "explanation": "The answer is Mom has a hat..",
+          "feedback": "Yes \u2014 Mom has a hat. fits.",
+          "sentence": "Mom has a hat.",
+          "choices": [
+            "Mom has a hat.",
+            "hat. a has Mom",
+            "mom has a hat."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL1_Q06",
+          "prompt": "Read: Dad can hop.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "Dad can hop.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is Dad can hop..",
+          "feedback": "Yes \u2014 Dad can hop. fits.",
+          "sentence": "Dad can hop.",
+          "choices": [
+            "Dad can hop.",
+            "hop. can Dad",
+            "dad can hop."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL1_Q07",
+          "prompt": "Read: The bug is red.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "The bug is red.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is The bug is red..",
+          "feedback": "Yes \u2014 The bug is red. fits.",
+          "sentence": "The bug is red.",
+          "choices": [
+            "The bug is red.",
+            "red. is bug The",
+            "the bug is red."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL1_Q08",
+          "prompt": "Read: I like my book.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "I like my book.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "word_order_confusion",
+          "explanation": "The answer is I like my book..",
+          "feedback": "Yes \u2014 I like my book. fits.",
+          "sentence": "I like my book.",
+          "choices": [
+            "I like my book.",
+            "book. my like I",
+            "i like my book."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL1_Q09",
+          "prompt": "Read: A fish can swim.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "A fish can swim.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "skips_small_words",
+          "explanation": "The answer is A fish can swim..",
+          "feedback": "Yes \u2014 A fish can swim. fits.",
+          "sentence": "A fish can swim.",
+          "choices": [
+            "A fish can swim.",
+            "swim. can fish A",
+            "a fish can swim."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL1_Q10",
+          "prompt": "Read: The kid can jump.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "The kid can jump.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is The kid can jump..",
+          "feedback": "Yes \u2014 The kid can jump. fits.",
+          "sentence": "The kid can jump.",
+          "choices": [
+            "The kid can jump.",
+            "jump. can kid The",
+            "the kid can jump."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_FL_001_LVL2",
+      "label": "Level 2: Match Sentence to Picture",
+      "focus": "Match sentence meaning.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_FL_001_LVL2_Q01",
+          "prompt": "Which picture matches: The cat sat.",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "The cat sat.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is The cat sat..",
+          "feedback": "Yes \u2014 The cat sat. fits.",
+          "sentence": "The cat sat.",
+          "picture": "The cat sat.",
+          "choices": [
+            "The cat sat.",
+            "A dog sleeps.",
+            "A fish runs."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL2_Q02",
+          "prompt": "Which picture matches: I see a dog.",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "I see a dog.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is I see a dog..",
+          "feedback": "Yes \u2014 I see a dog. fits.",
+          "sentence": "I see a dog.",
+          "picture": "I see a dog.",
+          "choices": [
+            "I see a dog.",
+            "A dog sleeps.",
+            "A fish runs."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL2_Q03",
+          "prompt": "Which picture matches: We can run.",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "We can run.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is We can run..",
+          "feedback": "Yes \u2014 We can run. fits.",
+          "sentence": "We can run.",
+          "picture": "We can run.",
+          "choices": [
+            "We can run.",
+            "A dog sleeps.",
+            "A fish runs."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL2_Q04",
+          "prompt": "Which picture matches: The sun is up.",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "The sun is up.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is The sun is up..",
+          "feedback": "Yes \u2014 The sun is up. fits.",
+          "sentence": "The sun is up.",
+          "picture": "The sun is up.",
+          "choices": [
+            "The sun is up.",
+            "A dog sleeps.",
+            "A fish runs."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL2_Q05",
+          "prompt": "Which picture matches: Mom has a hat.",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "Mom has a hat.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is Mom has a hat..",
+          "feedback": "Yes \u2014 Mom has a hat. fits.",
+          "sentence": "Mom has a hat.",
+          "picture": "Mom has a hat.",
+          "choices": [
+            "Mom has a hat.",
+            "A dog sleeps.",
+            "A fish runs."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL2_Q06",
+          "prompt": "Which picture matches: Dad can hop.",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "Dad can hop.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is Dad can hop..",
+          "feedback": "Yes \u2014 Dad can hop. fits.",
+          "sentence": "Dad can hop.",
+          "picture": "Dad can hop.",
+          "choices": [
+            "Dad can hop.",
+            "A dog sleeps.",
+            "A fish runs."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL2_Q07",
+          "prompt": "Which picture matches: The bug is red.",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "The bug is red.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is The bug is red..",
+          "feedback": "Yes \u2014 The bug is red. fits.",
+          "sentence": "The bug is red.",
+          "picture": "The bug is red.",
+          "choices": [
+            "The bug is red.",
+            "A dog sleeps.",
+            "A fish runs."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL2_Q08",
+          "prompt": "Which picture matches: I like my book.",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "I like my book.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is I like my book..",
+          "feedback": "Yes \u2014 I like my book. fits.",
+          "sentence": "I like my book.",
+          "picture": "I like my book.",
+          "choices": [
+            "I like my book.",
+            "A dog sleeps.",
+            "A fish runs."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL2_Q09",
+          "prompt": "Which picture matches: A fish can swim.",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "A fish can swim.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is A fish can swim..",
+          "feedback": "Yes \u2014 A fish can swim. fits.",
+          "sentence": "A fish can swim.",
+          "picture": "A fish can swim.",
+          "choices": [
+            "A fish can swim.",
+            "A dog sleeps.",
+            "A fish runs."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL2_Q10",
+          "prompt": "Which picture matches: The kid can jump.",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "The kid can jump.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is The kid can jump..",
+          "feedback": "Yes \u2014 The kid can jump. fits.",
+          "sentence": "The kid can jump.",
+          "picture": "The kid can jump.",
+          "choices": [
+            "The kid can jump.",
+            "A dog sleeps.",
+            "A fish runs."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_FL_001_LVL3",
+      "label": "Level 3: Complete the Sentence",
+      "focus": "Complete sentences.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_FL_001_LVL3_Q01",
+          "prompt": "The cat ___ on the mat.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "sat",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "word_order_confusion",
+          "explanation": "The answer is sat.",
+          "feedback": "Yes \u2014 sat fits.",
+          "sentence": "The cat sat on the mat.",
+          "choices": [
+            "sat",
+            "the",
+            "and"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL3_Q02",
+          "prompt": "I ___ a red ball.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "see",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "word_order_confusion",
+          "explanation": "The answer is see.",
+          "feedback": "Yes \u2014 see fits.",
+          "sentence": "I see a red ball.",
+          "choices": [
+            "see",
+            "the",
+            "and"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL3_Q03",
+          "prompt": "We can ___ fast.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "run",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "word_order_confusion",
+          "explanation": "The answer is run.",
+          "feedback": "Yes \u2014 run fits.",
+          "sentence": "We can run fast.",
+          "choices": [
+            "run",
+            "the",
+            "and"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL3_Q04",
+          "prompt": "The sun is ___.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "up",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "word_order_confusion",
+          "explanation": "The answer is up.",
+          "feedback": "Yes \u2014 up fits.",
+          "sentence": "The sun is up.",
+          "choices": [
+            "up",
+            "the",
+            "and"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL3_Q05",
+          "prompt": "A fish can ___.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "swim",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "word_order_confusion",
+          "explanation": "The answer is swim.",
+          "feedback": "Yes \u2014 swim fits.",
+          "sentence": "A fish can swim.",
+          "choices": [
+            "swim",
+            "the",
+            "and"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL3_Q06",
+          "prompt": "The dog can ___.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "hop",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "word_order_confusion",
+          "explanation": "The answer is hop.",
+          "feedback": "Yes \u2014 hop fits.",
+          "sentence": "The dog can hop.",
+          "choices": [
+            "hop",
+            "the",
+            "and"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL3_Q07",
+          "prompt": "Mom has a ___.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "hat",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "word_order_confusion",
+          "explanation": "The answer is hat.",
+          "feedback": "Yes \u2014 hat fits.",
+          "sentence": "Mom has a hat.",
+          "choices": [
+            "hat",
+            "the",
+            "and"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL3_Q08",
+          "prompt": "The bug is ___.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "red",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "word_order_confusion",
+          "explanation": "The answer is red.",
+          "feedback": "Yes \u2014 red fits.",
+          "sentence": "The bug is red.",
+          "choices": [
+            "red",
+            "the",
+            "and"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL3_Q09",
+          "prompt": "I like my ___.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "book",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "word_order_confusion",
+          "explanation": "The answer is book.",
+          "feedback": "Yes \u2014 book fits.",
+          "sentence": "I like my book.",
+          "choices": [
+            "book",
+            "the",
+            "and"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL3_Q10",
+          "prompt": "The kid can ___.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "jump",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "word_order_confusion",
+          "explanation": "The answer is jump.",
+          "feedback": "Yes \u2014 jump fits.",
+          "sentence": "The kid can jump.",
+          "choices": [
+            "jump",
+            "the",
+            "and"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_FL_001_LVL4",
+      "label": "Level 4: Read with Punctuation",
+      "focus": "Use punctuation for fluency.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_FL_001_LVL4_Q01",
+          "prompt": "Which end mark helps you read: Stop",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "Stop.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL4_Q02",
+          "prompt": "Which end mark helps you read: Can we go",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "?",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is ?.",
+          "feedback": "Yes \u2014 ? fits.",
+          "sentence": "Can we go?",
+          "choices": [
+            "?",
+            ".",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL4_Q03",
+          "prompt": "Which end mark helps you read: Wow",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "!",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is !.",
+          "feedback": "Yes \u2014 ! fits.",
+          "sentence": "Wow!",
+          "choices": [
+            "!",
+            ".",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL4_Q04",
+          "prompt": "Which end mark helps you read: I see it",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "I see it.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL4_Q05",
+          "prompt": "Which end mark helps you read: Do you like it",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "?",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is ?.",
+          "feedback": "Yes \u2014 ? fits.",
+          "sentence": "Do you like it?",
+          "choices": [
+            "?",
+            ".",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL4_Q06",
+          "prompt": "Which end mark helps you read: Run",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "!",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is !.",
+          "feedback": "Yes \u2014 ! fits.",
+          "sentence": "Run!",
+          "choices": [
+            "!",
+            ".",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL4_Q07",
+          "prompt": "Which end mark helps you read: The dog sits",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "The dog sits.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL4_Q08",
+          "prompt": "Which end mark helps you read: Is it red",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "?",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is ?.",
+          "feedback": "Yes \u2014 ? fits.",
+          "sentence": "Is it red?",
+          "choices": [
+            "?",
+            ".",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL4_Q09",
+          "prompt": "Which end mark helps you read: Look",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "!",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is !.",
+          "feedback": "Yes \u2014 ! fits.",
+          "sentence": "Look!",
+          "choices": [
+            "!",
+            ".",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_LVL4_Q10",
+          "prompt": "Which end mark helps you read: We can read",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "We can read.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_FL_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed sentence fluency.",
+      "difficulty": 4,
+      "question_count_required": 12,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_FL_001_MIXED_FROM_LVL1_Q01",
+          "prompt": "Read: The cat sat.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "The cat sat.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "skips_small_words",
+          "explanation": "The answer is The cat sat..",
+          "feedback": "Yes \u2014 The cat sat. fits.",
+          "sentence": "The cat sat.",
+          "choices": [
+            "The cat sat.",
+            "sat. cat The",
+            "the cat sat."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_MIXED_FROM_LVL2_Q01",
+          "prompt": "Which picture matches: The cat sat.",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "The cat sat.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is The cat sat..",
+          "feedback": "Yes \u2014 The cat sat. fits.",
+          "sentence": "The cat sat.",
+          "picture": "The cat sat.",
+          "choices": [
+            "The cat sat.",
+            "A dog sleeps.",
+            "A fish runs."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_MIXED_FROM_LVL3_Q01",
+          "prompt": "The cat ___ on the mat.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "sat",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "word_order_confusion",
+          "explanation": "The answer is sat.",
+          "feedback": "Yes \u2014 sat fits.",
+          "sentence": "The cat sat on the mat.",
+          "choices": [
+            "sat",
+            "the",
+            "and"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_MIXED_FROM_LVL4_Q01",
+          "prompt": "Which end mark helps you read: Stop",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "Stop.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_MIXED_FROM_LVL1_Q02",
+          "prompt": "Read: I see a dog.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "I see a dog.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is I see a dog..",
+          "feedback": "Yes \u2014 I see a dog. fits.",
+          "sentence": "I see a dog.",
+          "choices": [
+            "I see a dog.",
+            "dog. a see I",
+            "i see a dog."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_MIXED_FROM_LVL2_Q02",
+          "prompt": "Which picture matches: I see a dog.",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "I see a dog.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is I see a dog..",
+          "feedback": "Yes \u2014 I see a dog. fits.",
+          "sentence": "I see a dog.",
+          "picture": "I see a dog.",
+          "choices": [
+            "I see a dog.",
+            "A dog sleeps.",
+            "A fish runs."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_MIXED_FROM_LVL3_Q02",
+          "prompt": "I ___ a red ball.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "see",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "word_order_confusion",
+          "explanation": "The answer is see.",
+          "feedback": "Yes \u2014 see fits.",
+          "sentence": "I see a red ball.",
+          "choices": [
+            "see",
+            "the",
+            "and"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_MIXED_FROM_LVL4_Q02",
+          "prompt": "Which end mark helps you read: Can we go",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "?",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is ?.",
+          "feedback": "Yes \u2014 ? fits.",
+          "sentence": "Can we go?",
+          "choices": [
+            "?",
+            ".",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_MIXED_FROM_LVL1_Q03",
+          "prompt": "Read: We can run.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "We can run.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is We can run..",
+          "feedback": "Yes \u2014 We can run. fits.",
+          "sentence": "We can run.",
+          "choices": [
+            "We can run.",
+            "run. can We",
+            "we can run."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_MIXED_FROM_LVL2_Q03",
+          "prompt": "Which picture matches: We can run.",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_choice",
+          "support_type": "picture_choice",
+          "correct_answer": "We can run.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_meaning_mismatch",
+          "explanation": "The answer is We can run..",
+          "feedback": "Yes \u2014 We can run. fits.",
+          "sentence": "We can run.",
+          "picture": "We can run.",
+          "choices": [
+            "We can run.",
+            "A dog sleeps.",
+            "A fish runs."
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_MIXED_FROM_LVL3_Q03",
+          "prompt": "We can ___ fast.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "run",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "word_order_confusion",
+          "explanation": "The answer is run.",
+          "feedback": "Yes \u2014 run fits.",
+          "sentence": "We can run fast.",
+          "choices": [
+            "run",
+            "the",
+            "and"
+          ]
+        },
+        {
+          "question_id": "G1E_FL_001_MIXED_FROM_LVL4_Q03",
+          "prompt": "Which end mark helps you read: Wow",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": "!",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The answer is !.",
+          "feedback": "Yes \u2014 ! fits.",
+          "sentence": "Wow!",
+          "choices": [
+            "!",
+            ".",
+            "!"
+          ]
+        }
+      ]
+    }
+  ]
+}

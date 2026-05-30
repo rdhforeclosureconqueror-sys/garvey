@@ -1,0 +1,2509 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade1-english-completion-plan.v1.json",
+    "production_proof_package": true,
+    "created_at": "2026-05-30"
+  },
+  "skill_id": "G1E_PH_001",
+  "grade": 1,
+  "subject": "English",
+  "domain": "Phonics",
+  "skill": "CVC Word Blending",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Help the Reading Ranger complete the CVC Word Blending trail.",
+    "objective": "I can practice cvc word blending with careful listening, reading, or writing.",
+    "key_vocabulary": [
+      "sound",
+      "word",
+      "sentence",
+      "answer"
+    ],
+    "concept_explanation": "This mission teaches cvc word blending using child-friendly models and short practice steps. ",
+    "visual_model": "phonics_tiles",
+    "common_misconception": "Learners may answer from a first clue instead of checking the whole word, sentence, or story.",
+    "real_world_connection": "Readers and writers use this skill in books, signs, notes, and classroom talk.",
+    "lesson_summary": "Read or listen carefully, use the model, then choose or write the answer.",
+    "mini_lesson": "First study the model. Then say the sounds or words slowly. Last, check that your answer matches the prompt."
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: Use the phonics_tiles model, name the important part, then answer.",
+      "correct_answer": "cat"
+    },
+    {
+      "text": "Demo: Try one with help before independent practice.",
+      "correct_answer": "map"
+    }
+  ],
+  "hint_ladder": [
+    "Say the word slowly.",
+    "Listen for the target sound or word part.",
+    "Check your answer with the model."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G1E_PH_001_LVL1_Q01",
+      "prompt": "Blend c-a-t. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "cat",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "blending_order_error",
+      "explanation": "The answer is cat.",
+      "feedback": "Yes \u2014 cat fits.",
+      "word": "cat",
+      "tiles": [
+        "c",
+        "a",
+        "t"
+      ],
+      "sounds": [
+        "c",
+        "a",
+        "t"
+      ],
+      "choices": [
+        "cat",
+        "ct",
+        "pit"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL1_Q02",
+      "prompt": "Blend m-a-p. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_boxes",
+      "support_type": "sound_boxes",
+      "correct_answer": "map",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "vowel_sound_confusion",
+      "explanation": "The answer is map.",
+      "feedback": "Yes \u2014 map fits.",
+      "word": "map",
+      "tiles": [
+        "m",
+        "a",
+        "p"
+      ],
+      "sounds": [
+        "m",
+        "a",
+        "p"
+      ],
+      "choices": [
+        "map",
+        "mp",
+        "pit"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL1_Q03",
+      "prompt": "Blend s-a-t. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_builder",
+      "support_type": "word_builder",
+      "correct_answer": "sat",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "final_sound_drop",
+      "explanation": "The answer is sat.",
+      "feedback": "Yes \u2014 sat fits.",
+      "word": "sat",
+      "tiles": [
+        "s",
+        "a",
+        "t"
+      ],
+      "sounds": [
+        "s",
+        "a",
+        "t"
+      ],
+      "choices": [
+        "sat",
+        "st",
+        "pit"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL1_Q04",
+      "prompt": "Blend f-a-n. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "fan",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "guessing_from_first_letter",
+      "explanation": "The answer is fan.",
+      "feedback": "Yes \u2014 fan fits.",
+      "word": "fan",
+      "tiles": [
+        "f",
+        "a",
+        "n"
+      ],
+      "sounds": [
+        "f",
+        "a",
+        "n"
+      ],
+      "choices": [
+        "fan",
+        "fn",
+        "pit"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL1_Q05",
+      "prompt": "Blend j-a-m. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_boxes",
+      "support_type": "sound_boxes",
+      "correct_answer": "jam",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "blending_order_error",
+      "explanation": "The answer is jam.",
+      "feedback": "Yes \u2014 jam fits.",
+      "word": "jam",
+      "tiles": [
+        "j",
+        "a",
+        "m"
+      ],
+      "sounds": [
+        "j",
+        "a",
+        "m"
+      ],
+      "choices": [
+        "jam",
+        "jm",
+        "pit"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL1_Q06",
+      "prompt": "Blend b-a-g. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_builder",
+      "support_type": "word_builder",
+      "correct_answer": "bag",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "vowel_sound_confusion",
+      "explanation": "The answer is bag.",
+      "feedback": "Yes \u2014 bag fits.",
+      "word": "bag",
+      "tiles": [
+        "b",
+        "a",
+        "g"
+      ],
+      "sounds": [
+        "b",
+        "a",
+        "g"
+      ],
+      "choices": [
+        "bag",
+        "bg",
+        "pit"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G1E_PH_001_LVL1_Q07",
+      "prompt": "Blend t-a-p. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "tap",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "final_sound_drop",
+      "explanation": "The answer is tap.",
+      "feedback": "Yes \u2014 tap fits.",
+      "word": "tap",
+      "tiles": [
+        "t",
+        "a",
+        "p"
+      ],
+      "sounds": [
+        "t",
+        "a",
+        "p"
+      ],
+      "choices": [
+        "tap",
+        "tp",
+        "pit"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL1_Q08",
+      "prompt": "Blend r-a-m. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_boxes",
+      "support_type": "sound_boxes",
+      "correct_answer": "ram",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "guessing_from_first_letter",
+      "explanation": "The answer is ram.",
+      "feedback": "Yes \u2014 ram fits.",
+      "word": "ram",
+      "tiles": [
+        "r",
+        "a",
+        "m"
+      ],
+      "sounds": [
+        "r",
+        "a",
+        "m"
+      ],
+      "choices": [
+        "ram",
+        "rm",
+        "pit"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL1_Q09",
+      "prompt": "Blend c-a-n. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_builder",
+      "support_type": "word_builder",
+      "correct_answer": "can",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "blending_order_error",
+      "explanation": "The answer is can.",
+      "feedback": "Yes \u2014 can fits.",
+      "word": "can",
+      "tiles": [
+        "c",
+        "a",
+        "n"
+      ],
+      "sounds": [
+        "c",
+        "a",
+        "n"
+      ],
+      "choices": [
+        "can",
+        "cn",
+        "pit"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL1_Q10",
+      "prompt": "Blend h-a-t. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "hat",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "vowel_sound_confusion",
+      "explanation": "The answer is hat.",
+      "feedback": "Yes \u2014 hat fits.",
+      "word": "hat",
+      "tiles": [
+        "h",
+        "a",
+        "t"
+      ],
+      "sounds": [
+        "h",
+        "a",
+        "t"
+      ],
+      "choices": [
+        "hat",
+        "ht",
+        "pit"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL2_Q01",
+      "prompt": "Blend p-i-g. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "pig",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "blending_order_error",
+      "explanation": "The answer is pig.",
+      "feedback": "Yes \u2014 pig fits.",
+      "word": "pig",
+      "tiles": [
+        "p",
+        "i",
+        "g"
+      ],
+      "sounds": [
+        "p",
+        "i",
+        "g"
+      ],
+      "choices": [
+        "pig",
+        "pg",
+        "pag"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL2_Q02",
+      "prompt": "Blend s-i-t. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_boxes",
+      "support_type": "sound_boxes",
+      "correct_answer": "sit",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "vowel_sound_confusion",
+      "explanation": "The answer is sit.",
+      "feedback": "Yes \u2014 sit fits.",
+      "word": "sit",
+      "tiles": [
+        "s",
+        "i",
+        "t"
+      ],
+      "sounds": [
+        "s",
+        "i",
+        "t"
+      ],
+      "choices": [
+        "sit",
+        "st",
+        "sat"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL2_Q03",
+      "prompt": "Blend p-i-n. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_builder",
+      "support_type": "word_builder",
+      "correct_answer": "pin",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "final_sound_drop",
+      "explanation": "The answer is pin.",
+      "feedback": "Yes \u2014 pin fits.",
+      "word": "pin",
+      "tiles": [
+        "p",
+        "i",
+        "n"
+      ],
+      "sounds": [
+        "p",
+        "i",
+        "n"
+      ],
+      "choices": [
+        "pin",
+        "pn",
+        "pan"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL2_Q04",
+      "prompt": "Blend f-i-n. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "fin",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "guessing_from_first_letter",
+      "explanation": "The answer is fin.",
+      "feedback": "Yes \u2014 fin fits.",
+      "word": "fin",
+      "tiles": [
+        "f",
+        "i",
+        "n"
+      ],
+      "sounds": [
+        "f",
+        "i",
+        "n"
+      ],
+      "choices": [
+        "fin",
+        "fn",
+        "fan"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL2_Q05",
+      "prompt": "Blend d-o-g. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_boxes",
+      "support_type": "sound_boxes",
+      "correct_answer": "dog",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "blending_order_error",
+      "explanation": "The answer is dog.",
+      "feedback": "Yes \u2014 dog fits.",
+      "word": "dog",
+      "tiles": [
+        "d",
+        "o",
+        "g"
+      ],
+      "sounds": [
+        "d",
+        "o",
+        "g"
+      ],
+      "choices": [
+        "dog",
+        "dg",
+        "dag"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL2_Q06",
+      "prompt": "Blend l-o-g. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_builder",
+      "support_type": "word_builder",
+      "correct_answer": "log",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "vowel_sound_confusion",
+      "explanation": "The answer is log.",
+      "feedback": "Yes \u2014 log fits.",
+      "word": "log",
+      "tiles": [
+        "l",
+        "o",
+        "g"
+      ],
+      "sounds": [
+        "l",
+        "o",
+        "g"
+      ],
+      "choices": [
+        "log",
+        "lg",
+        "lag"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL2_Q07",
+      "prompt": "Blend h-o-p. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "hop",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "final_sound_drop",
+      "explanation": "The answer is hop.",
+      "feedback": "Yes \u2014 hop fits.",
+      "word": "hop",
+      "tiles": [
+        "h",
+        "o",
+        "p"
+      ],
+      "sounds": [
+        "h",
+        "o",
+        "p"
+      ],
+      "choices": [
+        "hop",
+        "hp",
+        "hap"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL2_Q08",
+      "prompt": "Blend p-o-t. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_boxes",
+      "support_type": "sound_boxes",
+      "correct_answer": "pot",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "guessing_from_first_letter",
+      "explanation": "The answer is pot.",
+      "feedback": "Yes \u2014 pot fits.",
+      "word": "pot",
+      "tiles": [
+        "p",
+        "o",
+        "t"
+      ],
+      "sounds": [
+        "p",
+        "o",
+        "t"
+      ],
+      "choices": [
+        "pot",
+        "pt",
+        "pat"
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G1E_PH_001_LVL2_Q09",
+      "prompt": "Blend c-o-t. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_builder",
+      "support_type": "word_builder",
+      "correct_answer": "cot",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "blending_order_error",
+      "explanation": "The answer is cot.",
+      "feedback": "Yes \u2014 cot fits.",
+      "word": "cot",
+      "tiles": [
+        "c",
+        "o",
+        "t"
+      ],
+      "sounds": [
+        "c",
+        "o",
+        "t"
+      ],
+      "choices": [
+        "cot",
+        "ct",
+        "cat"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL2_Q10",
+      "prompt": "Blend f-o-x. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "fox",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "vowel_sound_confusion",
+      "explanation": "The answer is fox.",
+      "feedback": "Yes \u2014 fox fits.",
+      "word": "fox",
+      "tiles": [
+        "f",
+        "o",
+        "x"
+      ],
+      "sounds": [
+        "f",
+        "o",
+        "x"
+      ],
+      "choices": [
+        "fox",
+        "fx",
+        "fax"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL3_Q01",
+      "prompt": "Blend b-e-d. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "bed",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "blending_order_error",
+      "explanation": "The answer is bed.",
+      "feedback": "Yes \u2014 bed fits.",
+      "word": "bed",
+      "tiles": [
+        "b",
+        "e",
+        "d"
+      ],
+      "sounds": [
+        "b",
+        "e",
+        "d"
+      ],
+      "choices": [
+        "bed",
+        "bd",
+        "bad"
+      ]
+    },
+    {
+      "question_id": "G1E_PH_001_LVL3_Q02",
+      "prompt": "Blend h-e-n. What word?",
+      "question_type": "multiple_choice",
+      "visual_model": "sound_boxes",
+      "support_type": "sound_boxes",
+      "correct_answer": "hen",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "vowel_sound_confusion",
+      "explanation": "The answer is hen.",
+      "feedback": "Yes \u2014 hen fits.",
+      "word": "hen",
+      "tiles": [
+        "h",
+        "e",
+        "n"
+      ],
+      "sounds": [
+        "h",
+        "e",
+        "n"
+      ],
+      "choices": [
+        "hen",
+        "hn",
+        "han"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "blending_order_error": "blending order error",
+    "vowel_sound_confusion": "vowel sound confusion",
+    "final_sound_drop": "final sound drop",
+    "guessing_from_first_letter": "guessing from first letter"
+  },
+  "review_bank": {
+    "blending_order_error": [
+      "Review blending order error with a teacher model."
+    ],
+    "vowel_sound_confusion": [
+      "Review vowel sound confusion with a teacher model."
+    ],
+    "final_sound_drop": [
+      "Review final sound drop with a teacher model."
+    ],
+    "guessing_from_first_letter": [
+      "Review guessing from first letter with a teacher model."
+    ]
+  },
+  "game_theme": {
+    "title": "CVC Word Blending Quest",
+    "name": "CVC Word Blending Quest",
+    "mission_intro": "Practice CVC Word Blending and earn a badge.",
+    "badge_name": "CVC Word Blending Badge"
+  },
+  "support_type": "phonics_tiles",
+  "feedback_fields": [
+    "correct",
+    "explanation",
+    "misconception_tag"
+  ],
+  "next_skill_id": "G1E_PH_002",
+  "remediation_skill_id": "G1E_PH_001_REVIEW",
+  "level_banks": [
+    {
+      "level_id": "G1E_PH_001_LVL1",
+      "label": "Level 1: Short A CVC",
+      "focus": "Blend short a cvc words.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_PH_001_LVL1_Q01",
+          "prompt": "Blend c-a-t. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "cat",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is cat.",
+          "feedback": "Yes \u2014 cat fits.",
+          "word": "cat",
+          "tiles": [
+            "c",
+            "a",
+            "t"
+          ],
+          "sounds": [
+            "c",
+            "a",
+            "t"
+          ],
+          "choices": [
+            "cat",
+            "ct",
+            "pit"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL1_Q02",
+          "prompt": "Blend m-a-p. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "map",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is map.",
+          "feedback": "Yes \u2014 map fits.",
+          "word": "map",
+          "tiles": [
+            "m",
+            "a",
+            "p"
+          ],
+          "sounds": [
+            "m",
+            "a",
+            "p"
+          ],
+          "choices": [
+            "map",
+            "mp",
+            "pit"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL1_Q03",
+          "prompt": "Blend s-a-t. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "sat",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "final_sound_drop",
+          "explanation": "The answer is sat.",
+          "feedback": "Yes \u2014 sat fits.",
+          "word": "sat",
+          "tiles": [
+            "s",
+            "a",
+            "t"
+          ],
+          "sounds": [
+            "s",
+            "a",
+            "t"
+          ],
+          "choices": [
+            "sat",
+            "st",
+            "pit"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL1_Q04",
+          "prompt": "Blend f-a-n. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "fan",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "guessing_from_first_letter",
+          "explanation": "The answer is fan.",
+          "feedback": "Yes \u2014 fan fits.",
+          "word": "fan",
+          "tiles": [
+            "f",
+            "a",
+            "n"
+          ],
+          "sounds": [
+            "f",
+            "a",
+            "n"
+          ],
+          "choices": [
+            "fan",
+            "fn",
+            "pit"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL1_Q05",
+          "prompt": "Blend j-a-m. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "jam",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is jam.",
+          "feedback": "Yes \u2014 jam fits.",
+          "word": "jam",
+          "tiles": [
+            "j",
+            "a",
+            "m"
+          ],
+          "sounds": [
+            "j",
+            "a",
+            "m"
+          ],
+          "choices": [
+            "jam",
+            "jm",
+            "pit"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL1_Q06",
+          "prompt": "Blend b-a-g. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "bag",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is bag.",
+          "feedback": "Yes \u2014 bag fits.",
+          "word": "bag",
+          "tiles": [
+            "b",
+            "a",
+            "g"
+          ],
+          "sounds": [
+            "b",
+            "a",
+            "g"
+          ],
+          "choices": [
+            "bag",
+            "bg",
+            "pit"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL1_Q07",
+          "prompt": "Blend t-a-p. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "tap",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "final_sound_drop",
+          "explanation": "The answer is tap.",
+          "feedback": "Yes \u2014 tap fits.",
+          "word": "tap",
+          "tiles": [
+            "t",
+            "a",
+            "p"
+          ],
+          "sounds": [
+            "t",
+            "a",
+            "p"
+          ],
+          "choices": [
+            "tap",
+            "tp",
+            "pit"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL1_Q08",
+          "prompt": "Blend r-a-m. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "ram",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "guessing_from_first_letter",
+          "explanation": "The answer is ram.",
+          "feedback": "Yes \u2014 ram fits.",
+          "word": "ram",
+          "tiles": [
+            "r",
+            "a",
+            "m"
+          ],
+          "sounds": [
+            "r",
+            "a",
+            "m"
+          ],
+          "choices": [
+            "ram",
+            "rm",
+            "pit"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL1_Q09",
+          "prompt": "Blend c-a-n. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "can",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is can.",
+          "feedback": "Yes \u2014 can fits.",
+          "word": "can",
+          "tiles": [
+            "c",
+            "a",
+            "n"
+          ],
+          "sounds": [
+            "c",
+            "a",
+            "n"
+          ],
+          "choices": [
+            "can",
+            "cn",
+            "pit"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL1_Q10",
+          "prompt": "Blend h-a-t. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "hat",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is hat.",
+          "feedback": "Yes \u2014 hat fits.",
+          "word": "hat",
+          "tiles": [
+            "h",
+            "a",
+            "t"
+          ],
+          "sounds": [
+            "h",
+            "a",
+            "t"
+          ],
+          "choices": [
+            "hat",
+            "ht",
+            "pit"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_PH_001_LVL2",
+      "label": "Level 2: Short I/O CVC",
+      "focus": "Blend short i/o cvc words.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_PH_001_LVL2_Q01",
+          "prompt": "Blend p-i-g. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "pig",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is pig.",
+          "feedback": "Yes \u2014 pig fits.",
+          "word": "pig",
+          "tiles": [
+            "p",
+            "i",
+            "g"
+          ],
+          "sounds": [
+            "p",
+            "i",
+            "g"
+          ],
+          "choices": [
+            "pig",
+            "pg",
+            "pag"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL2_Q02",
+          "prompt": "Blend s-i-t. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "sit",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is sit.",
+          "feedback": "Yes \u2014 sit fits.",
+          "word": "sit",
+          "tiles": [
+            "s",
+            "i",
+            "t"
+          ],
+          "sounds": [
+            "s",
+            "i",
+            "t"
+          ],
+          "choices": [
+            "sit",
+            "st",
+            "sat"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL2_Q03",
+          "prompt": "Blend p-i-n. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "pin",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "final_sound_drop",
+          "explanation": "The answer is pin.",
+          "feedback": "Yes \u2014 pin fits.",
+          "word": "pin",
+          "tiles": [
+            "p",
+            "i",
+            "n"
+          ],
+          "sounds": [
+            "p",
+            "i",
+            "n"
+          ],
+          "choices": [
+            "pin",
+            "pn",
+            "pan"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL2_Q04",
+          "prompt": "Blend f-i-n. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "fin",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "guessing_from_first_letter",
+          "explanation": "The answer is fin.",
+          "feedback": "Yes \u2014 fin fits.",
+          "word": "fin",
+          "tiles": [
+            "f",
+            "i",
+            "n"
+          ],
+          "sounds": [
+            "f",
+            "i",
+            "n"
+          ],
+          "choices": [
+            "fin",
+            "fn",
+            "fan"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL2_Q05",
+          "prompt": "Blend d-o-g. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "dog",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is dog.",
+          "feedback": "Yes \u2014 dog fits.",
+          "word": "dog",
+          "tiles": [
+            "d",
+            "o",
+            "g"
+          ],
+          "sounds": [
+            "d",
+            "o",
+            "g"
+          ],
+          "choices": [
+            "dog",
+            "dg",
+            "dag"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL2_Q06",
+          "prompt": "Blend l-o-g. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "log",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is log.",
+          "feedback": "Yes \u2014 log fits.",
+          "word": "log",
+          "tiles": [
+            "l",
+            "o",
+            "g"
+          ],
+          "sounds": [
+            "l",
+            "o",
+            "g"
+          ],
+          "choices": [
+            "log",
+            "lg",
+            "lag"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL2_Q07",
+          "prompt": "Blend h-o-p. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "hop",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "final_sound_drop",
+          "explanation": "The answer is hop.",
+          "feedback": "Yes \u2014 hop fits.",
+          "word": "hop",
+          "tiles": [
+            "h",
+            "o",
+            "p"
+          ],
+          "sounds": [
+            "h",
+            "o",
+            "p"
+          ],
+          "choices": [
+            "hop",
+            "hp",
+            "hap"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL2_Q08",
+          "prompt": "Blend p-o-t. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "pot",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "guessing_from_first_letter",
+          "explanation": "The answer is pot.",
+          "feedback": "Yes \u2014 pot fits.",
+          "word": "pot",
+          "tiles": [
+            "p",
+            "o",
+            "t"
+          ],
+          "sounds": [
+            "p",
+            "o",
+            "t"
+          ],
+          "choices": [
+            "pot",
+            "pt",
+            "pat"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL2_Q09",
+          "prompt": "Blend c-o-t. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "cot",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is cot.",
+          "feedback": "Yes \u2014 cot fits.",
+          "word": "cot",
+          "tiles": [
+            "c",
+            "o",
+            "t"
+          ],
+          "sounds": [
+            "c",
+            "o",
+            "t"
+          ],
+          "choices": [
+            "cot",
+            "ct",
+            "cat"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL2_Q10",
+          "prompt": "Blend f-o-x. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "fox",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is fox.",
+          "feedback": "Yes \u2014 fox fits.",
+          "word": "fox",
+          "tiles": [
+            "f",
+            "o",
+            "x"
+          ],
+          "sounds": [
+            "f",
+            "o",
+            "x"
+          ],
+          "choices": [
+            "fox",
+            "fx",
+            "fax"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_PH_001_LVL3",
+      "label": "Level 3: Short E/U CVC",
+      "focus": "Blend short e/u cvc words.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_PH_001_LVL3_Q01",
+          "prompt": "Blend b-e-d. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "bed",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is bed.",
+          "feedback": "Yes \u2014 bed fits.",
+          "word": "bed",
+          "tiles": [
+            "b",
+            "e",
+            "d"
+          ],
+          "sounds": [
+            "b",
+            "e",
+            "d"
+          ],
+          "choices": [
+            "bed",
+            "bd",
+            "bad"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL3_Q02",
+          "prompt": "Blend h-e-n. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "hen",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is hen.",
+          "feedback": "Yes \u2014 hen fits.",
+          "word": "hen",
+          "tiles": [
+            "h",
+            "e",
+            "n"
+          ],
+          "sounds": [
+            "h",
+            "e",
+            "n"
+          ],
+          "choices": [
+            "hen",
+            "hn",
+            "han"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL3_Q03",
+          "prompt": "Blend j-e-t. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "jet",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "final_sound_drop",
+          "explanation": "The answer is jet.",
+          "feedback": "Yes \u2014 jet fits.",
+          "word": "jet",
+          "tiles": [
+            "j",
+            "e",
+            "t"
+          ],
+          "sounds": [
+            "j",
+            "e",
+            "t"
+          ],
+          "choices": [
+            "jet",
+            "jt",
+            "jat"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL3_Q04",
+          "prompt": "Blend p-e-t. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "pet",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "guessing_from_first_letter",
+          "explanation": "The answer is pet.",
+          "feedback": "Yes \u2014 pet fits.",
+          "word": "pet",
+          "tiles": [
+            "p",
+            "e",
+            "t"
+          ],
+          "sounds": [
+            "p",
+            "e",
+            "t"
+          ],
+          "choices": [
+            "pet",
+            "pt",
+            "pat"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL3_Q05",
+          "prompt": "Blend r-e-d. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "red",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is red.",
+          "feedback": "Yes \u2014 red fits.",
+          "word": "red",
+          "tiles": [
+            "r",
+            "e",
+            "d"
+          ],
+          "sounds": [
+            "r",
+            "e",
+            "d"
+          ],
+          "choices": [
+            "red",
+            "rd",
+            "rad"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL3_Q06",
+          "prompt": "Blend c-u-p. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "cup",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is cup.",
+          "feedback": "Yes \u2014 cup fits.",
+          "word": "cup",
+          "tiles": [
+            "c",
+            "u",
+            "p"
+          ],
+          "sounds": [
+            "c",
+            "u",
+            "p"
+          ],
+          "choices": [
+            "cup",
+            "cp",
+            "cap"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL3_Q07",
+          "prompt": "Blend s-u-n. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "sun",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "final_sound_drop",
+          "explanation": "The answer is sun.",
+          "feedback": "Yes \u2014 sun fits.",
+          "word": "sun",
+          "tiles": [
+            "s",
+            "u",
+            "n"
+          ],
+          "sounds": [
+            "s",
+            "u",
+            "n"
+          ],
+          "choices": [
+            "sun",
+            "sn",
+            "san"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL3_Q08",
+          "prompt": "Blend b-u-g. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "bug",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "guessing_from_first_letter",
+          "explanation": "The answer is bug.",
+          "feedback": "Yes \u2014 bug fits.",
+          "word": "bug",
+          "tiles": [
+            "b",
+            "u",
+            "g"
+          ],
+          "sounds": [
+            "b",
+            "u",
+            "g"
+          ],
+          "choices": [
+            "bug",
+            "bg",
+            "bag"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL3_Q09",
+          "prompt": "Blend t-u-b. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "tub",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is tub.",
+          "feedback": "Yes \u2014 tub fits.",
+          "word": "tub",
+          "tiles": [
+            "t",
+            "u",
+            "b"
+          ],
+          "sounds": [
+            "t",
+            "u",
+            "b"
+          ],
+          "choices": [
+            "tub",
+            "tb",
+            "tab"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL3_Q10",
+          "prompt": "Blend r-u-n. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "run",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is run.",
+          "feedback": "Yes \u2014 run fits.",
+          "word": "run",
+          "tiles": [
+            "r",
+            "u",
+            "n"
+          ],
+          "sounds": [
+            "r",
+            "u",
+            "n"
+          ],
+          "choices": [
+            "run",
+            "rn",
+            "ran"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_PH_001_LVL4",
+      "label": "Level 4: All CVC Blending",
+      "focus": "Blend mixed cvc blending words.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_PH_001_LVL4_Q01",
+          "prompt": "Blend c-a-t. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "cat",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is cat.",
+          "feedback": "Yes \u2014 cat fits.",
+          "word": "cat",
+          "tiles": [
+            "c",
+            "a",
+            "t"
+          ],
+          "sounds": [
+            "c",
+            "a",
+            "t"
+          ],
+          "choices": [
+            "cat",
+            "ct",
+            "pit"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL4_Q02",
+          "prompt": "Blend p-i-g. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "pig",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is pig.",
+          "feedback": "Yes \u2014 pig fits.",
+          "word": "pig",
+          "tiles": [
+            "p",
+            "i",
+            "g"
+          ],
+          "sounds": [
+            "p",
+            "i",
+            "g"
+          ],
+          "choices": [
+            "pig",
+            "pg",
+            "pag"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL4_Q03",
+          "prompt": "Blend b-e-d. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "bed",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "final_sound_drop",
+          "explanation": "The answer is bed.",
+          "feedback": "Yes \u2014 bed fits.",
+          "word": "bed",
+          "tiles": [
+            "b",
+            "e",
+            "d"
+          ],
+          "sounds": [
+            "b",
+            "e",
+            "d"
+          ],
+          "choices": [
+            "bed",
+            "bd",
+            "bad"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL4_Q04",
+          "prompt": "Blend d-o-g. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "dog",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "guessing_from_first_letter",
+          "explanation": "The answer is dog.",
+          "feedback": "Yes \u2014 dog fits.",
+          "word": "dog",
+          "tiles": [
+            "d",
+            "o",
+            "g"
+          ],
+          "sounds": [
+            "d",
+            "o",
+            "g"
+          ],
+          "choices": [
+            "dog",
+            "dg",
+            "dag"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL4_Q05",
+          "prompt": "Blend s-u-n. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "sun",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is sun.",
+          "feedback": "Yes \u2014 sun fits.",
+          "word": "sun",
+          "tiles": [
+            "s",
+            "u",
+            "n"
+          ],
+          "sounds": [
+            "s",
+            "u",
+            "n"
+          ],
+          "choices": [
+            "sun",
+            "sn",
+            "san"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL4_Q06",
+          "prompt": "Blend m-a-p. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "map",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is map.",
+          "feedback": "Yes \u2014 map fits.",
+          "word": "map",
+          "tiles": [
+            "m",
+            "a",
+            "p"
+          ],
+          "sounds": [
+            "m",
+            "a",
+            "p"
+          ],
+          "choices": [
+            "map",
+            "mp",
+            "pit"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL4_Q07",
+          "prompt": "Blend j-e-t. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "jet",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "final_sound_drop",
+          "explanation": "The answer is jet.",
+          "feedback": "Yes \u2014 jet fits.",
+          "word": "jet",
+          "tiles": [
+            "j",
+            "e",
+            "t"
+          ],
+          "sounds": [
+            "j",
+            "e",
+            "t"
+          ],
+          "choices": [
+            "jet",
+            "jt",
+            "jat"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL4_Q08",
+          "prompt": "Blend h-o-p. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "hop",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "guessing_from_first_letter",
+          "explanation": "The answer is hop.",
+          "feedback": "Yes \u2014 hop fits.",
+          "word": "hop",
+          "tiles": [
+            "h",
+            "o",
+            "p"
+          ],
+          "sounds": [
+            "h",
+            "o",
+            "p"
+          ],
+          "choices": [
+            "hop",
+            "hp",
+            "hap"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL4_Q09",
+          "prompt": "Blend c-u-p. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "cup",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is cup.",
+          "feedback": "Yes \u2014 cup fits.",
+          "word": "cup",
+          "tiles": [
+            "c",
+            "u",
+            "p"
+          ],
+          "sounds": [
+            "c",
+            "u",
+            "p"
+          ],
+          "choices": [
+            "cup",
+            "cp",
+            "cap"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_LVL4_Q10",
+          "prompt": "Blend f-i-n. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "fin",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is fin.",
+          "feedback": "Yes \u2014 fin fits.",
+          "word": "fin",
+          "tiles": [
+            "f",
+            "i",
+            "n"
+          ],
+          "sounds": [
+            "f",
+            "i",
+            "n"
+          ],
+          "choices": [
+            "fin",
+            "fn",
+            "fan"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_PH_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed CVC blending.",
+      "difficulty": 4,
+      "question_count_required": 12,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_PH_001_MIXED_Q01",
+          "prompt": "Blend c-a-t. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "cat",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is cat.",
+          "feedback": "Yes \u2014 cat fits.",
+          "word": "cat",
+          "tiles": [
+            "c",
+            "a",
+            "t"
+          ],
+          "sounds": [
+            "c",
+            "a",
+            "t"
+          ],
+          "choices": [
+            "cat",
+            "ct",
+            "pit"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_MIXED_FROM_LVL2_Q01",
+          "prompt": "Blend p-i-g. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "pig",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is pig.",
+          "feedback": "Yes \u2014 pig fits.",
+          "word": "pig",
+          "tiles": [
+            "p",
+            "i",
+            "g"
+          ],
+          "sounds": [
+            "p",
+            "i",
+            "g"
+          ],
+          "choices": [
+            "pig",
+            "pg",
+            "pag"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_MIXED_FROM_LVL3_Q01",
+          "prompt": "Blend b-e-d. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "bed",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is bed.",
+          "feedback": "Yes \u2014 bed fits.",
+          "word": "bed",
+          "tiles": [
+            "b",
+            "e",
+            "d"
+          ],
+          "sounds": [
+            "b",
+            "e",
+            "d"
+          ],
+          "choices": [
+            "bed",
+            "bd",
+            "bad"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_MIXED_FROM_LVL4_Q01",
+          "prompt": "Blend c-a-t. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "cat",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "blending_order_error",
+          "explanation": "The answer is cat.",
+          "feedback": "Yes \u2014 cat fits.",
+          "word": "cat",
+          "tiles": [
+            "c",
+            "a",
+            "t"
+          ],
+          "sounds": [
+            "c",
+            "a",
+            "t"
+          ],
+          "choices": [
+            "cat",
+            "ct",
+            "pit"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_MIXED_FROM_LVL1_Q02",
+          "prompt": "Blend m-a-p. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "map",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is map.",
+          "feedback": "Yes \u2014 map fits.",
+          "word": "map",
+          "tiles": [
+            "m",
+            "a",
+            "p"
+          ],
+          "sounds": [
+            "m",
+            "a",
+            "p"
+          ],
+          "choices": [
+            "map",
+            "mp",
+            "pit"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_MIXED_FROM_LVL2_Q02",
+          "prompt": "Blend s-i-t. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "sit",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is sit.",
+          "feedback": "Yes \u2014 sit fits.",
+          "word": "sit",
+          "tiles": [
+            "s",
+            "i",
+            "t"
+          ],
+          "sounds": [
+            "s",
+            "i",
+            "t"
+          ],
+          "choices": [
+            "sit",
+            "st",
+            "sat"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_MIXED_FROM_LVL3_Q02",
+          "prompt": "Blend h-e-n. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "hen",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is hen.",
+          "feedback": "Yes \u2014 hen fits.",
+          "word": "hen",
+          "tiles": [
+            "h",
+            "e",
+            "n"
+          ],
+          "sounds": [
+            "h",
+            "e",
+            "n"
+          ],
+          "choices": [
+            "hen",
+            "hn",
+            "han"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_MIXED_FROM_LVL4_Q02",
+          "prompt": "Blend p-i-g. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "sound_boxes",
+          "support_type": "sound_boxes",
+          "correct_answer": "pig",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vowel_sound_confusion",
+          "explanation": "The answer is pig.",
+          "feedback": "Yes \u2014 pig fits.",
+          "word": "pig",
+          "tiles": [
+            "p",
+            "i",
+            "g"
+          ],
+          "sounds": [
+            "p",
+            "i",
+            "g"
+          ],
+          "choices": [
+            "pig",
+            "pg",
+            "pag"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_MIXED_FROM_LVL1_Q03",
+          "prompt": "Blend s-a-t. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "sat",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "final_sound_drop",
+          "explanation": "The answer is sat.",
+          "feedback": "Yes \u2014 sat fits.",
+          "word": "sat",
+          "tiles": [
+            "s",
+            "a",
+            "t"
+          ],
+          "sounds": [
+            "s",
+            "a",
+            "t"
+          ],
+          "choices": [
+            "sat",
+            "st",
+            "pit"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_MIXED_FROM_LVL2_Q03",
+          "prompt": "Blend p-i-n. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "pin",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "final_sound_drop",
+          "explanation": "The answer is pin.",
+          "feedback": "Yes \u2014 pin fits.",
+          "word": "pin",
+          "tiles": [
+            "p",
+            "i",
+            "n"
+          ],
+          "sounds": [
+            "p",
+            "i",
+            "n"
+          ],
+          "choices": [
+            "pin",
+            "pn",
+            "pan"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_MIXED_FROM_LVL3_Q03",
+          "prompt": "Blend j-e-t. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "jet",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "final_sound_drop",
+          "explanation": "The answer is jet.",
+          "feedback": "Yes \u2014 jet fits.",
+          "word": "jet",
+          "tiles": [
+            "j",
+            "e",
+            "t"
+          ],
+          "sounds": [
+            "j",
+            "e",
+            "t"
+          ],
+          "choices": [
+            "jet",
+            "jt",
+            "jat"
+          ]
+        },
+        {
+          "question_id": "G1E_PH_001_MIXED_FROM_LVL4_Q03",
+          "prompt": "Blend b-e-d. What word?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "bed",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "final_sound_drop",
+          "explanation": "The answer is bed.",
+          "feedback": "Yes \u2014 bed fits.",
+          "word": "bed",
+          "tiles": [
+            "b",
+            "e",
+            "d"
+          ],
+          "sounds": [
+            "b",
+            "e",
+            "d"
+          ],
+          "choices": [
+            "bed",
+            "bd",
+            "bad"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2163 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade1-english-completion-plan.v1.json",
+    "production_proof_package": true,
+    "created_at": "2026-05-30"
+  },
+  "skill_id": "G1E_WR_002",
+  "grade": 1,
+  "subject": "English",
+  "domain": "Writing / Composition",
+  "skill": "Describe a Picture with a Sentence",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Help the Reading Ranger complete the Describe a Picture with a Sentence trail.",
+    "objective": "I can practice describe a picture with a sentence with careful listening, reading, or writing.",
+    "key_vocabulary": [
+      "sound",
+      "word",
+      "sentence",
+      "answer"
+    ],
+    "concept_explanation": "This mission teaches describe a picture with a sentence using child-friendly models and short practice steps. Describe the picture by naming it, telling an action, and adding a clear detail.",
+    "visual_model": "picture_prompt",
+    "common_misconception": "Learners may answer from a first clue instead of checking the whole word, sentence, or story.",
+    "real_world_connection": "Readers and writers use this skill in books, signs, notes, and classroom talk.",
+    "lesson_summary": "Read or listen carefully, use the model, then choose or write the answer.",
+    "mini_lesson": "First study the model. Then say the sounds or words slowly. Last, check that your answer matches the prompt."
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: Use the picture_prompt model, name the important part, then answer.",
+      "correct_answer": "cat"
+    },
+    {
+      "text": "Demo: Try one with help before independent practice.",
+      "correct_answer": "dog"
+    }
+  ],
+  "hint_ladder": [
+    "Say the word slowly.",
+    "Listen for the target sound or word part.",
+    "Check your answer with the model."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G1E_WR_002_LVL1_Q01",
+      "prompt": "Name the picture: cat",
+      "question_type": "short_response",
+      "visual_model": "picture_prompt",
+      "support_type": "picture_prompt",
+      "correct_answer": "cat",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "incomplete_description",
+      "explanation": "The answer is cat.",
+      "feedback": "Yes \u2014 cat fits.",
+      "picture": "cat",
+      "acceptable_answers": [
+        "cat",
+        "a cat",
+        "the cat"
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL1_Q02",
+      "prompt": "Name the picture: dog",
+      "question_type": "short_response",
+      "visual_model": "picture_prompt",
+      "support_type": "picture_prompt",
+      "correct_answer": "dog",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "incomplete_description",
+      "explanation": "The answer is dog.",
+      "feedback": "Yes \u2014 dog fits.",
+      "picture": "dog",
+      "acceptable_answers": [
+        "dog",
+        "a dog",
+        "the dog"
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL1_Q03",
+      "prompt": "Name the picture: bird",
+      "question_type": "short_response",
+      "visual_model": "picture_prompt",
+      "support_type": "picture_prompt",
+      "correct_answer": "bird",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "incomplete_description",
+      "explanation": "The answer is bird.",
+      "feedback": "Yes \u2014 bird fits.",
+      "picture": "bird",
+      "acceptable_answers": [
+        "bird",
+        "a bird",
+        "the bird"
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL1_Q04",
+      "prompt": "Name the picture: fish",
+      "question_type": "short_response",
+      "visual_model": "picture_prompt",
+      "support_type": "picture_prompt",
+      "correct_answer": "fish",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "incomplete_description",
+      "explanation": "The answer is fish.",
+      "feedback": "Yes \u2014 fish fits.",
+      "picture": "fish",
+      "acceptable_answers": [
+        "fish",
+        "a fish",
+        "the fish"
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL1_Q05",
+      "prompt": "Name the picture: kid",
+      "question_type": "short_response",
+      "visual_model": "picture_prompt",
+      "support_type": "picture_prompt",
+      "correct_answer": "kid",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "incomplete_description",
+      "explanation": "The answer is kid.",
+      "feedback": "Yes \u2014 kid fits.",
+      "picture": "kid",
+      "acceptable_answers": [
+        "kid",
+        "a kid",
+        "the kid"
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL1_Q06",
+      "prompt": "Name the picture: mom",
+      "question_type": "short_response",
+      "visual_model": "picture_prompt",
+      "support_type": "picture_prompt",
+      "correct_answer": "mom",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "incomplete_description",
+      "explanation": "The answer is mom.",
+      "feedback": "Yes \u2014 mom fits.",
+      "picture": "mom",
+      "acceptable_answers": [
+        "mom",
+        "a mom",
+        "the mom"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G1E_WR_002_LVL1_Q07",
+      "prompt": "Name the picture: dad",
+      "question_type": "short_response",
+      "visual_model": "picture_prompt",
+      "support_type": "picture_prompt",
+      "correct_answer": "dad",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "incomplete_description",
+      "explanation": "The answer is dad.",
+      "feedback": "Yes \u2014 dad fits.",
+      "picture": "dad",
+      "acceptable_answers": [
+        "dad",
+        "a dad",
+        "the dad"
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL1_Q08",
+      "prompt": "Name the picture: sun",
+      "question_type": "short_response",
+      "visual_model": "picture_prompt",
+      "support_type": "picture_prompt",
+      "correct_answer": "sun",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "incomplete_description",
+      "explanation": "The answer is sun.",
+      "feedback": "Yes \u2014 sun fits.",
+      "picture": "sun",
+      "acceptable_answers": [
+        "sun",
+        "a sun",
+        "the sun"
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL1_Q09",
+      "prompt": "Name the picture: ball",
+      "question_type": "short_response",
+      "visual_model": "picture_prompt",
+      "support_type": "picture_prompt",
+      "correct_answer": "ball",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "incomplete_description",
+      "explanation": "The answer is ball.",
+      "feedback": "Yes \u2014 ball fits.",
+      "picture": "ball",
+      "acceptable_answers": [
+        "ball",
+        "a ball",
+        "the ball"
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL1_Q10",
+      "prompt": "Name the picture: book",
+      "question_type": "short_response",
+      "visual_model": "picture_prompt",
+      "support_type": "picture_prompt",
+      "correct_answer": "book",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "incomplete_description",
+      "explanation": "The answer is book.",
+      "feedback": "Yes \u2014 book fits.",
+      "picture": "book",
+      "acceptable_answers": [
+        "book",
+        "a book",
+        "the book"
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL2_Q01",
+      "prompt": "Write a sentence with an action for the cat.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "The cat runs.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_action",
+      "explanation": "The answer is The cat runs..",
+      "feedback": "Yes \u2014 The cat runs. fits.",
+      "validation_checks": [
+        "capital",
+        "spacing",
+        "punctuation",
+        "action"
+      ],
+      "picture": "cat",
+      "sample_answer": "The cat runs.",
+      "acceptable_answers": [
+        "The cat runs.",
+        "the cat runs."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL2_Q02",
+      "prompt": "Write a sentence with an action for the dog.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "The dog sits.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_action",
+      "explanation": "The answer is The dog sits..",
+      "feedback": "Yes \u2014 The dog sits. fits.",
+      "validation_checks": [
+        "capital",
+        "spacing",
+        "punctuation",
+        "action"
+      ],
+      "picture": "dog",
+      "sample_answer": "The dog sits.",
+      "acceptable_answers": [
+        "The dog sits.",
+        "the dog sits."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL2_Q03",
+      "prompt": "Write a sentence with an action for the bird.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "The bird flies.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_action",
+      "explanation": "The answer is The bird flies..",
+      "feedback": "Yes \u2014 The bird flies. fits.",
+      "validation_checks": [
+        "capital",
+        "spacing",
+        "punctuation",
+        "action"
+      ],
+      "picture": "bird",
+      "sample_answer": "The bird flies.",
+      "acceptable_answers": [
+        "The bird flies.",
+        "the bird flies."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL2_Q04",
+      "prompt": "Write a sentence with an action for the fish.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "The fish swims.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_action",
+      "explanation": "The answer is The fish swims..",
+      "feedback": "Yes \u2014 The fish swims. fits.",
+      "validation_checks": [
+        "capital",
+        "spacing",
+        "punctuation",
+        "action"
+      ],
+      "picture": "fish",
+      "sample_answer": "The fish swims.",
+      "acceptable_answers": [
+        "The fish swims.",
+        "the fish swims."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL2_Q05",
+      "prompt": "Write a sentence with an action for the kid.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "The kid jumps.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_action",
+      "explanation": "The answer is The kid jumps..",
+      "feedback": "Yes \u2014 The kid jumps. fits.",
+      "validation_checks": [
+        "capital",
+        "spacing",
+        "punctuation",
+        "action"
+      ],
+      "picture": "kid",
+      "sample_answer": "The kid jumps.",
+      "acceptable_answers": [
+        "The kid jumps.",
+        "the kid jumps."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL2_Q06",
+      "prompt": "Write a sentence with an action for the mom.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "Mom cooks.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_action",
+      "explanation": "The answer is Mom cooks..",
+      "feedback": "Yes \u2014 Mom cooks. fits.",
+      "validation_checks": [
+        "capital",
+        "spacing",
+        "punctuation",
+        "action"
+      ],
+      "picture": "mom",
+      "sample_answer": "Mom cooks.",
+      "acceptable_answers": [
+        "Mom cooks.",
+        "mom cooks."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL2_Q07",
+      "prompt": "Write a sentence with an action for the dad.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "Dad reads.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_action",
+      "explanation": "The answer is Dad reads..",
+      "feedback": "Yes \u2014 Dad reads. fits.",
+      "validation_checks": [
+        "capital",
+        "spacing",
+        "punctuation",
+        "action"
+      ],
+      "picture": "dad",
+      "sample_answer": "Dad reads.",
+      "acceptable_answers": [
+        "Dad reads.",
+        "dad reads."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL2_Q08",
+      "prompt": "Write a sentence with an action for the sun.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "The sun shines.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_action",
+      "explanation": "The answer is The sun shines..",
+      "feedback": "Yes \u2014 The sun shines. fits.",
+      "validation_checks": [
+        "capital",
+        "spacing",
+        "punctuation",
+        "action"
+      ],
+      "picture": "sun",
+      "sample_answer": "The sun shines.",
+      "acceptable_answers": [
+        "The sun shines.",
+        "the sun shines."
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G1E_WR_002_LVL2_Q09",
+      "prompt": "Write a sentence with an action for the ball.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "The ball rolls.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_action",
+      "explanation": "The answer is The ball rolls..",
+      "feedback": "Yes \u2014 The ball rolls. fits.",
+      "validation_checks": [
+        "capital",
+        "spacing",
+        "punctuation",
+        "action"
+      ],
+      "picture": "ball",
+      "sample_answer": "The ball rolls.",
+      "acceptable_answers": [
+        "The ball rolls.",
+        "the ball rolls."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL2_Q10",
+      "prompt": "Write a sentence with an action for the book.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "The book opens.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_action",
+      "explanation": "The answer is The book opens..",
+      "feedback": "Yes \u2014 The book opens. fits.",
+      "validation_checks": [
+        "capital",
+        "spacing",
+        "punctuation",
+        "action"
+      ],
+      "picture": "book",
+      "sample_answer": "The book opens.",
+      "acceptable_answers": [
+        "The book opens.",
+        "the book opens."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL3_Q01",
+      "prompt": "Add a detail to describe the cat.",
+      "question_type": "short_response",
+      "visual_model": "detail_picker",
+      "support_type": "detail_picker",
+      "correct_answer": "The black cat runs.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "vague_detail",
+      "explanation": "The answer is The black cat runs..",
+      "feedback": "Yes \u2014 The black cat runs. fits.",
+      "validation_checks": [
+        "capital",
+        "spacing",
+        "punctuation",
+        "detail"
+      ],
+      "picture": "cat",
+      "details": [
+        "The",
+        "black",
+        "cat",
+        "runs."
+      ],
+      "sample_answer": "The black cat runs.",
+      "acceptable_answers": [
+        "The black cat runs.",
+        "the black cat runs."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_002_LVL3_Q02",
+      "prompt": "Add a detail to describe the dog.",
+      "question_type": "short_response",
+      "visual_model": "detail_picker",
+      "support_type": "detail_picker",
+      "correct_answer": "The happy dog sits.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "vague_detail",
+      "explanation": "The answer is The happy dog sits..",
+      "feedback": "Yes \u2014 The happy dog sits. fits.",
+      "validation_checks": [
+        "capital",
+        "spacing",
+        "punctuation",
+        "detail"
+      ],
+      "picture": "dog",
+      "details": [
+        "The",
+        "happy",
+        "dog",
+        "sits."
+      ],
+      "sample_answer": "The happy dog sits.",
+      "acceptable_answers": [
+        "The happy dog sits.",
+        "the happy dog sits."
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "incomplete_description": "incomplete description",
+    "missing_action": "missing action",
+    "vague_detail": "vague detail",
+    "sentence_fragment": "sentence fragment"
+  },
+  "review_bank": {
+    "incomplete_description": [
+      "Review incomplete description with a teacher model."
+    ],
+    "missing_action": [
+      "Review missing action with a teacher model."
+    ],
+    "vague_detail": [
+      "Review vague detail with a teacher model."
+    ],
+    "sentence_fragment": [
+      "Review sentence fragment with a teacher model."
+    ]
+  },
+  "game_theme": {
+    "title": "Describe a Picture with a Sentence Quest",
+    "name": "Describe a Picture with a Sentence Quest",
+    "mission_intro": "Practice Describe a Picture with a Sentence and earn a badge.",
+    "badge_name": "Describe a Picture with a Sentence Badge"
+  },
+  "support_type": "picture_prompt",
+  "feedback_fields": [
+    "correct",
+    "explanation",
+    "misconception_tag"
+  ],
+  "next_skill_id": "G1E_WR_002_REVIEW",
+  "remediation_skill_id": "G1E_WR_002_REVIEW",
+  "level_banks": [
+    {
+      "level_id": "G1E_WR_002_LVL1",
+      "label": "Level 1: Name the Picture",
+      "focus": "Name the picture.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_WR_002_LVL1_Q01",
+          "prompt": "Name the picture: cat",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "cat",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "incomplete_description",
+          "explanation": "The answer is cat.",
+          "feedback": "Yes \u2014 cat fits.",
+          "picture": "cat",
+          "acceptable_answers": [
+            "cat",
+            "a cat",
+            "the cat"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL1_Q02",
+          "prompt": "Name the picture: dog",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "dog",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "incomplete_description",
+          "explanation": "The answer is dog.",
+          "feedback": "Yes \u2014 dog fits.",
+          "picture": "dog",
+          "acceptable_answers": [
+            "dog",
+            "a dog",
+            "the dog"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL1_Q03",
+          "prompt": "Name the picture: bird",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "bird",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "incomplete_description",
+          "explanation": "The answer is bird.",
+          "feedback": "Yes \u2014 bird fits.",
+          "picture": "bird",
+          "acceptable_answers": [
+            "bird",
+            "a bird",
+            "the bird"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL1_Q04",
+          "prompt": "Name the picture: fish",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "fish",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "incomplete_description",
+          "explanation": "The answer is fish.",
+          "feedback": "Yes \u2014 fish fits.",
+          "picture": "fish",
+          "acceptable_answers": [
+            "fish",
+            "a fish",
+            "the fish"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL1_Q05",
+          "prompt": "Name the picture: kid",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "kid",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "incomplete_description",
+          "explanation": "The answer is kid.",
+          "feedback": "Yes \u2014 kid fits.",
+          "picture": "kid",
+          "acceptable_answers": [
+            "kid",
+            "a kid",
+            "the kid"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL1_Q06",
+          "prompt": "Name the picture: mom",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "mom",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "incomplete_description",
+          "explanation": "The answer is mom.",
+          "feedback": "Yes \u2014 mom fits.",
+          "picture": "mom",
+          "acceptable_answers": [
+            "mom",
+            "a mom",
+            "the mom"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL1_Q07",
+          "prompt": "Name the picture: dad",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "dad",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "incomplete_description",
+          "explanation": "The answer is dad.",
+          "feedback": "Yes \u2014 dad fits.",
+          "picture": "dad",
+          "acceptable_answers": [
+            "dad",
+            "a dad",
+            "the dad"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL1_Q08",
+          "prompt": "Name the picture: sun",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "sun",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "incomplete_description",
+          "explanation": "The answer is sun.",
+          "feedback": "Yes \u2014 sun fits.",
+          "picture": "sun",
+          "acceptable_answers": [
+            "sun",
+            "a sun",
+            "the sun"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL1_Q09",
+          "prompt": "Name the picture: ball",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "ball",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "incomplete_description",
+          "explanation": "The answer is ball.",
+          "feedback": "Yes \u2014 ball fits.",
+          "picture": "ball",
+          "acceptable_answers": [
+            "ball",
+            "a ball",
+            "the ball"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL1_Q10",
+          "prompt": "Name the picture: book",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "book",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "incomplete_description",
+          "explanation": "The answer is book.",
+          "feedback": "Yes \u2014 book fits.",
+          "picture": "book",
+          "acceptable_answers": [
+            "book",
+            "a book",
+            "the book"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_WR_002_LVL2",
+      "label": "Level 2: Add an Action",
+      "focus": "Add an action.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_WR_002_LVL2_Q01",
+          "prompt": "Write a sentence with an action for the cat.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The cat runs.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_action",
+          "explanation": "The answer is The cat runs..",
+          "feedback": "Yes \u2014 The cat runs. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "action"
+          ],
+          "picture": "cat",
+          "sample_answer": "The cat runs.",
+          "acceptable_answers": [
+            "The cat runs.",
+            "the cat runs."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL2_Q02",
+          "prompt": "Write a sentence with an action for the dog.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The dog sits.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_action",
+          "explanation": "The answer is The dog sits..",
+          "feedback": "Yes \u2014 The dog sits. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "action"
+          ],
+          "picture": "dog",
+          "sample_answer": "The dog sits.",
+          "acceptable_answers": [
+            "The dog sits.",
+            "the dog sits."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL2_Q03",
+          "prompt": "Write a sentence with an action for the bird.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The bird flies.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_action",
+          "explanation": "The answer is The bird flies..",
+          "feedback": "Yes \u2014 The bird flies. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "action"
+          ],
+          "picture": "bird",
+          "sample_answer": "The bird flies.",
+          "acceptable_answers": [
+            "The bird flies.",
+            "the bird flies."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL2_Q04",
+          "prompt": "Write a sentence with an action for the fish.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The fish swims.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_action",
+          "explanation": "The answer is The fish swims..",
+          "feedback": "Yes \u2014 The fish swims. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "action"
+          ],
+          "picture": "fish",
+          "sample_answer": "The fish swims.",
+          "acceptable_answers": [
+            "The fish swims.",
+            "the fish swims."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL2_Q05",
+          "prompt": "Write a sentence with an action for the kid.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The kid jumps.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_action",
+          "explanation": "The answer is The kid jumps..",
+          "feedback": "Yes \u2014 The kid jumps. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "action"
+          ],
+          "picture": "kid",
+          "sample_answer": "The kid jumps.",
+          "acceptable_answers": [
+            "The kid jumps.",
+            "the kid jumps."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL2_Q06",
+          "prompt": "Write a sentence with an action for the mom.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "Mom cooks.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_action",
+          "explanation": "The answer is Mom cooks..",
+          "feedback": "Yes \u2014 Mom cooks. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "action"
+          ],
+          "picture": "mom",
+          "sample_answer": "Mom cooks.",
+          "acceptable_answers": [
+            "Mom cooks.",
+            "mom cooks."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL2_Q07",
+          "prompt": "Write a sentence with an action for the dad.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "Dad reads.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_action",
+          "explanation": "The answer is Dad reads..",
+          "feedback": "Yes \u2014 Dad reads. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "action"
+          ],
+          "picture": "dad",
+          "sample_answer": "Dad reads.",
+          "acceptable_answers": [
+            "Dad reads.",
+            "dad reads."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL2_Q08",
+          "prompt": "Write a sentence with an action for the sun.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The sun shines.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_action",
+          "explanation": "The answer is The sun shines..",
+          "feedback": "Yes \u2014 The sun shines. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "action"
+          ],
+          "picture": "sun",
+          "sample_answer": "The sun shines.",
+          "acceptable_answers": [
+            "The sun shines.",
+            "the sun shines."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL2_Q09",
+          "prompt": "Write a sentence with an action for the ball.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The ball rolls.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_action",
+          "explanation": "The answer is The ball rolls..",
+          "feedback": "Yes \u2014 The ball rolls. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "action"
+          ],
+          "picture": "ball",
+          "sample_answer": "The ball rolls.",
+          "acceptable_answers": [
+            "The ball rolls.",
+            "the ball rolls."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL2_Q10",
+          "prompt": "Write a sentence with an action for the book.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The book opens.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_action",
+          "explanation": "The answer is The book opens..",
+          "feedback": "Yes \u2014 The book opens. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "action"
+          ],
+          "picture": "book",
+          "sample_answer": "The book opens.",
+          "acceptable_answers": [
+            "The book opens.",
+            "the book opens."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_WR_002_LVL3",
+      "label": "Level 3: Add a Detail",
+      "focus": "Add a detail.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_WR_002_LVL3_Q01",
+          "prompt": "Add a detail to describe the cat.",
+          "question_type": "short_response",
+          "visual_model": "detail_picker",
+          "support_type": "detail_picker",
+          "correct_answer": "The black cat runs.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vague_detail",
+          "explanation": "The answer is The black cat runs..",
+          "feedback": "Yes \u2014 The black cat runs. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "detail"
+          ],
+          "picture": "cat",
+          "details": [
+            "The",
+            "black",
+            "cat",
+            "runs."
+          ],
+          "sample_answer": "The black cat runs.",
+          "acceptable_answers": [
+            "The black cat runs.",
+            "the black cat runs."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL3_Q02",
+          "prompt": "Add a detail to describe the dog.",
+          "question_type": "short_response",
+          "visual_model": "detail_picker",
+          "support_type": "detail_picker",
+          "correct_answer": "The happy dog sits.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vague_detail",
+          "explanation": "The answer is The happy dog sits..",
+          "feedback": "Yes \u2014 The happy dog sits. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "detail"
+          ],
+          "picture": "dog",
+          "details": [
+            "The",
+            "happy",
+            "dog",
+            "sits."
+          ],
+          "sample_answer": "The happy dog sits.",
+          "acceptable_answers": [
+            "The happy dog sits.",
+            "the happy dog sits."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL3_Q03",
+          "prompt": "Add a detail to describe the bird.",
+          "question_type": "short_response",
+          "visual_model": "detail_picker",
+          "support_type": "detail_picker",
+          "correct_answer": "The little bird flies.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vague_detail",
+          "explanation": "The answer is The little bird flies..",
+          "feedback": "Yes \u2014 The little bird flies. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "detail"
+          ],
+          "picture": "bird",
+          "details": [
+            "The",
+            "little",
+            "bird",
+            "flies."
+          ],
+          "sample_answer": "The little bird flies.",
+          "acceptable_answers": [
+            "The little bird flies.",
+            "the little bird flies."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL3_Q04",
+          "prompt": "Add a detail to describe the fish.",
+          "question_type": "short_response",
+          "visual_model": "detail_picker",
+          "support_type": "detail_picker",
+          "correct_answer": "The orange fish swims.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vague_detail",
+          "explanation": "The answer is The orange fish swims..",
+          "feedback": "Yes \u2014 The orange fish swims. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "detail"
+          ],
+          "picture": "fish",
+          "details": [
+            "The",
+            "orange",
+            "fish",
+            "swims."
+          ],
+          "sample_answer": "The orange fish swims.",
+          "acceptable_answers": [
+            "The orange fish swims.",
+            "the orange fish swims."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL3_Q05",
+          "prompt": "Add a detail to describe the kid.",
+          "question_type": "short_response",
+          "visual_model": "detail_picker",
+          "support_type": "detail_picker",
+          "correct_answer": "The fast kid jumps.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vague_detail",
+          "explanation": "The answer is The fast kid jumps..",
+          "feedback": "Yes \u2014 The fast kid jumps. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "detail"
+          ],
+          "picture": "kid",
+          "details": [
+            "The",
+            "fast",
+            "kid",
+            "jumps."
+          ],
+          "sample_answer": "The fast kid jumps.",
+          "acceptable_answers": [
+            "The fast kid jumps.",
+            "the fast kid jumps."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL3_Q06",
+          "prompt": "Add a detail to describe the mom.",
+          "question_type": "short_response",
+          "visual_model": "detail_picker",
+          "support_type": "detail_picker",
+          "correct_answer": "Mom cooks soup.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vague_detail",
+          "explanation": "The answer is Mom cooks soup..",
+          "feedback": "Yes \u2014 Mom cooks soup. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "detail"
+          ],
+          "picture": "mom",
+          "details": [
+            "Mom",
+            "cooks",
+            "soup."
+          ],
+          "sample_answer": "Mom cooks soup.",
+          "acceptable_answers": [
+            "Mom cooks soup.",
+            "mom cooks soup."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL3_Q07",
+          "prompt": "Add a detail to describe the dad.",
+          "question_type": "short_response",
+          "visual_model": "detail_picker",
+          "support_type": "detail_picker",
+          "correct_answer": "Dad reads quietly.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vague_detail",
+          "explanation": "The answer is Dad reads quietly..",
+          "feedback": "Yes \u2014 Dad reads quietly. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "detail"
+          ],
+          "picture": "dad",
+          "details": [
+            "Dad",
+            "reads",
+            "quietly."
+          ],
+          "sample_answer": "Dad reads quietly.",
+          "acceptable_answers": [
+            "Dad reads quietly.",
+            "dad reads quietly."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL3_Q08",
+          "prompt": "Add a detail to describe the sun.",
+          "question_type": "short_response",
+          "visual_model": "detail_picker",
+          "support_type": "detail_picker",
+          "correct_answer": "The bright sun shines.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vague_detail",
+          "explanation": "The answer is The bright sun shines..",
+          "feedback": "Yes \u2014 The bright sun shines. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "detail"
+          ],
+          "picture": "sun",
+          "details": [
+            "The",
+            "bright",
+            "sun",
+            "shines."
+          ],
+          "sample_answer": "The bright sun shines.",
+          "acceptable_answers": [
+            "The bright sun shines.",
+            "the bright sun shines."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL3_Q09",
+          "prompt": "Add a detail to describe the ball.",
+          "question_type": "short_response",
+          "visual_model": "detail_picker",
+          "support_type": "detail_picker",
+          "correct_answer": "The red ball rolls.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vague_detail",
+          "explanation": "The answer is The red ball rolls..",
+          "feedback": "Yes \u2014 The red ball rolls. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "detail"
+          ],
+          "picture": "ball",
+          "details": [
+            "The",
+            "red",
+            "ball",
+            "rolls."
+          ],
+          "sample_answer": "The red ball rolls.",
+          "acceptable_answers": [
+            "The red ball rolls.",
+            "the red ball rolls."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL3_Q10",
+          "prompt": "Add a detail to describe the book.",
+          "question_type": "short_response",
+          "visual_model": "detail_picker",
+          "support_type": "detail_picker",
+          "correct_answer": "The big book opens.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vague_detail",
+          "explanation": "The answer is The big book opens..",
+          "feedback": "Yes \u2014 The big book opens. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "detail"
+          ],
+          "picture": "book",
+          "details": [
+            "The",
+            "big",
+            "book",
+            "opens."
+          ],
+          "sample_answer": "The big book opens.",
+          "acceptable_answers": [
+            "The big book opens.",
+            "the big book opens."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_WR_002_LVL4",
+      "label": "Level 4: Write a Full Sentence",
+      "focus": "Write full picture sentences.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_WR_002_LVL4_Q01",
+          "prompt": "Write a full sentence about the picture: cat.",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "The black cat runs.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "The answer is The black cat runs..",
+          "feedback": "Yes \u2014 The black cat runs. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "picture": "cat",
+          "sample_answer": "The black cat runs.",
+          "acceptable_answers": [
+            "The black cat runs.",
+            "the black cat runs."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL4_Q02",
+          "prompt": "Write a full sentence about the picture: dog.",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "The happy dog sits.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "The answer is The happy dog sits..",
+          "feedback": "Yes \u2014 The happy dog sits. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "picture": "dog",
+          "sample_answer": "The happy dog sits.",
+          "acceptable_answers": [
+            "The happy dog sits.",
+            "the happy dog sits."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL4_Q03",
+          "prompt": "Write a full sentence about the picture: bird.",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "The little bird flies.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "The answer is The little bird flies..",
+          "feedback": "Yes \u2014 The little bird flies. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "picture": "bird",
+          "sample_answer": "The little bird flies.",
+          "acceptable_answers": [
+            "The little bird flies.",
+            "the little bird flies."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL4_Q04",
+          "prompt": "Write a full sentence about the picture: fish.",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "The orange fish swims.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "The answer is The orange fish swims..",
+          "feedback": "Yes \u2014 The orange fish swims. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "picture": "fish",
+          "sample_answer": "The orange fish swims.",
+          "acceptable_answers": [
+            "The orange fish swims.",
+            "the orange fish swims."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL4_Q05",
+          "prompt": "Write a full sentence about the picture: kid.",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "The fast kid jumps.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "The answer is The fast kid jumps..",
+          "feedback": "Yes \u2014 The fast kid jumps. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "picture": "kid",
+          "sample_answer": "The fast kid jumps.",
+          "acceptable_answers": [
+            "The fast kid jumps.",
+            "the fast kid jumps."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL4_Q06",
+          "prompt": "Write a full sentence about the picture: mom.",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "Mom cooks soup.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "The answer is Mom cooks soup..",
+          "feedback": "Yes \u2014 Mom cooks soup. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "picture": "mom",
+          "sample_answer": "Mom cooks soup.",
+          "acceptable_answers": [
+            "Mom cooks soup.",
+            "mom cooks soup."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL4_Q07",
+          "prompt": "Write a full sentence about the picture: dad.",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "Dad reads quietly.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "The answer is Dad reads quietly..",
+          "feedback": "Yes \u2014 Dad reads quietly. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "picture": "dad",
+          "sample_answer": "Dad reads quietly.",
+          "acceptable_answers": [
+            "Dad reads quietly.",
+            "dad reads quietly."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL4_Q08",
+          "prompt": "Write a full sentence about the picture: sun.",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "The bright sun shines.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "The answer is The bright sun shines..",
+          "feedback": "Yes \u2014 The bright sun shines. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "picture": "sun",
+          "sample_answer": "The bright sun shines.",
+          "acceptable_answers": [
+            "The bright sun shines.",
+            "the bright sun shines."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL4_Q09",
+          "prompt": "Write a full sentence about the picture: ball.",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "The red ball rolls.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "The answer is The red ball rolls..",
+          "feedback": "Yes \u2014 The red ball rolls. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "picture": "ball",
+          "sample_answer": "The red ball rolls.",
+          "acceptable_answers": [
+            "The red ball rolls.",
+            "the red ball rolls."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_LVL4_Q10",
+          "prompt": "Write a full sentence about the picture: book.",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "The big book opens.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "The answer is The big book opens..",
+          "feedback": "Yes \u2014 The big book opens. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "picture": "book",
+          "sample_answer": "The big book opens.",
+          "acceptable_answers": [
+            "The big book opens.",
+            "the big book opens."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_WR_002_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed picture writing.",
+      "difficulty": 4,
+      "question_count_required": 12,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_WR_002_MIXED_FROM_LVL1_Q01",
+          "prompt": "Name the picture: cat",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "cat",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "incomplete_description",
+          "explanation": "The answer is cat.",
+          "feedback": "Yes \u2014 cat fits.",
+          "picture": "cat",
+          "acceptable_answers": [
+            "cat",
+            "a cat",
+            "the cat"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_MIXED_FROM_LVL2_Q01",
+          "prompt": "Write a sentence with an action for the cat.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The cat runs.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_action",
+          "explanation": "The answer is The cat runs..",
+          "feedback": "Yes \u2014 The cat runs. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "action"
+          ],
+          "picture": "cat",
+          "sample_answer": "The cat runs.",
+          "acceptable_answers": [
+            "The cat runs.",
+            "the cat runs."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_MIXED_FROM_LVL3_Q01",
+          "prompt": "Add a detail to describe the cat.",
+          "question_type": "short_response",
+          "visual_model": "detail_picker",
+          "support_type": "detail_picker",
+          "correct_answer": "The black cat runs.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vague_detail",
+          "explanation": "The answer is The black cat runs..",
+          "feedback": "Yes \u2014 The black cat runs. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "detail"
+          ],
+          "picture": "cat",
+          "details": [
+            "The",
+            "black",
+            "cat",
+            "runs."
+          ],
+          "sample_answer": "The black cat runs.",
+          "acceptable_answers": [
+            "The black cat runs.",
+            "the black cat runs."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_MIXED_FROM_LVL4_Q01",
+          "prompt": "Write a full sentence about the picture: cat.",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "The black cat runs.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "The answer is The black cat runs..",
+          "feedback": "Yes \u2014 The black cat runs. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "picture": "cat",
+          "sample_answer": "The black cat runs.",
+          "acceptable_answers": [
+            "The black cat runs.",
+            "the black cat runs."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_MIXED_FROM_LVL1_Q02",
+          "prompt": "Name the picture: dog",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "dog",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "incomplete_description",
+          "explanation": "The answer is dog.",
+          "feedback": "Yes \u2014 dog fits.",
+          "picture": "dog",
+          "acceptable_answers": [
+            "dog",
+            "a dog",
+            "the dog"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_MIXED_FROM_LVL2_Q02",
+          "prompt": "Write a sentence with an action for the dog.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The dog sits.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_action",
+          "explanation": "The answer is The dog sits..",
+          "feedback": "Yes \u2014 The dog sits. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "action"
+          ],
+          "picture": "dog",
+          "sample_answer": "The dog sits.",
+          "acceptable_answers": [
+            "The dog sits.",
+            "the dog sits."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_MIXED_FROM_LVL3_Q02",
+          "prompt": "Add a detail to describe the dog.",
+          "question_type": "short_response",
+          "visual_model": "detail_picker",
+          "support_type": "detail_picker",
+          "correct_answer": "The happy dog sits.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vague_detail",
+          "explanation": "The answer is The happy dog sits..",
+          "feedback": "Yes \u2014 The happy dog sits. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "detail"
+          ],
+          "picture": "dog",
+          "details": [
+            "The",
+            "happy",
+            "dog",
+            "sits."
+          ],
+          "sample_answer": "The happy dog sits.",
+          "acceptable_answers": [
+            "The happy dog sits.",
+            "the happy dog sits."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_MIXED_FROM_LVL4_Q02",
+          "prompt": "Write a full sentence about the picture: dog.",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "The happy dog sits.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "The answer is The happy dog sits..",
+          "feedback": "Yes \u2014 The happy dog sits. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "picture": "dog",
+          "sample_answer": "The happy dog sits.",
+          "acceptable_answers": [
+            "The happy dog sits.",
+            "the happy dog sits."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_MIXED_FROM_LVL1_Q03",
+          "prompt": "Name the picture: bird",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "bird",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "incomplete_description",
+          "explanation": "The answer is bird.",
+          "feedback": "Yes \u2014 bird fits.",
+          "picture": "bird",
+          "acceptable_answers": [
+            "bird",
+            "a bird",
+            "the bird"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_MIXED_FROM_LVL2_Q03",
+          "prompt": "Write a sentence with an action for the bird.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The bird flies.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_action",
+          "explanation": "The answer is The bird flies..",
+          "feedback": "Yes \u2014 The bird flies. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "action"
+          ],
+          "picture": "bird",
+          "sample_answer": "The bird flies.",
+          "acceptable_answers": [
+            "The bird flies.",
+            "the bird flies."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_MIXED_FROM_LVL3_Q03",
+          "prompt": "Add a detail to describe the bird.",
+          "question_type": "short_response",
+          "visual_model": "detail_picker",
+          "support_type": "detail_picker",
+          "correct_answer": "The little bird flies.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "vague_detail",
+          "explanation": "The answer is The little bird flies..",
+          "feedback": "Yes \u2014 The little bird flies. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "detail"
+          ],
+          "picture": "bird",
+          "details": [
+            "The",
+            "little",
+            "bird",
+            "flies."
+          ],
+          "sample_answer": "The little bird flies.",
+          "acceptable_answers": [
+            "The little bird flies.",
+            "the little bird flies."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_002_MIXED_FROM_LVL4_Q03",
+          "prompt": "Write a full sentence about the picture: bird.",
+          "question_type": "short_response",
+          "visual_model": "picture_prompt",
+          "support_type": "picture_prompt",
+          "correct_answer": "The little bird flies.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "sentence_fragment",
+          "explanation": "The answer is The little bird flies..",
+          "feedback": "Yes \u2014 The little bird flies. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "picture": "bird",
+          "sample_answer": "The little bird flies.",
+          "acceptable_answers": [
+            "The little bird flies.",
+            "the little bird flies."
+          ]
+        }
+      ]
+    }
+  ]
+}
