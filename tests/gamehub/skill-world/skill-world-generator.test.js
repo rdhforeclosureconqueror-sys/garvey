@@ -7,12 +7,15 @@ const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_O
 const grade1Packages=grade1SkillIds.map(load);
 const grade2SkillIds=['G2E_RF_001','G2E_RF_002','G2E_FL_001','G2E_VOC_001','G2E_RC_001','G2E_RC_002','G2E_RC_003','G2E_WR_001','G2E_WR_002','G2E_WR_003','G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
 const grade2Packages=grade2SkillIds.map(load);
-const grade3SkillIds=['G3M_MUL_001','G3M_DIV_001','G3M_FACT_001','G3M_WP_001'];
+const grade3SkillIds=['G3M_MUL_001','G3M_DIV_001','G3M_FACT_001','G3M_WP_001','G3M_PV_001','G3M_FR_001','G3M_FR_002'];
 const grade3Packages=grade3SkillIds.map(load);
 const g3MultiplicationFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_MUL_001');
 const g3DivisionFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_DIV_001');
 const g3FactFluency=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_FACT_001');
 const g3WordProblems=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_WP_001');
+const g3PlaceValueRounding=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_PV_001');
+const g3FractionFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_FR_001');
+const g3FractionComparisons=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_FR_002');
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
 const g2FluencyEnglish=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_FL_001');
@@ -969,5 +972,50 @@ assert.match(VisualRegistry.render(g3DivisionFoundations.level_banks.flatMap((le
 assert.match(VisualRegistry.render(g3FactFluency.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='multiplication_chart')),/data-renderer="multiplication_chart"/,'multiplication_chart output exists');
 assert.match(VisualRegistry.render(g3FactFluency.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='skip_counting')),/data-renderer="skip_counting"/,'skip_counting output exists');
 assert.match(VisualRegistry.render(g3WordProblems.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='operation_sort')),/data-renderer="operation_sort"/,'operation_sort output exists');
+
+
+const grade3BaseTenFractionPackages=[
+  {pkg:g3PlaceValueRounding,id:'G3M_PV_001',domain:'Number and Operations in Base Ten',skill:'Place Value and Rounding to 1,000',labels:['Level 1: Place Value to 1,000','Level 2: Round to Nearest 10','Level 3: Round to Nearest 100','Level 4: Add/Subtract Using Place Value','Mixed'],visuals:['place_value_chart','number_line','rounding_model','expanded_form'],types:['multiple_choice','short_response','number_line','rounding'],tags:['rounding_direction_error','midpoint_confusion','place_value_error','zero_placeholder_confusion']},
+  {pkg:g3FractionFoundations,id:'G3M_FR_001',domain:'Number and Operations—Fractions',skill:'Fraction Foundations',labels:['Level 1: Equal Parts','Level 2: Unit Fractions','Level 3: Fractions on a Number Line','Level 4: Whole Numbers as Fractions','Mixed'],visuals:['fraction_bar','fraction_circle','number_line','partition_shapes'],types:['multiple_choice','short_response','fraction_response'],tags:['unequal_parts_confusion','numerator_denominator_confusion','fraction_size_confusion','whole_as_fraction_confusion']},
+  {pkg:g3FractionComparisons,id:'G3M_FR_002',domain:'Number and Operations—Fractions',skill:'Equivalent Fractions and Comparing Fractions',labels:['Level 1: Equivalent Fractions','Level 2: Compare Same Denominator','Level 3: Compare Same Numerator','Level 4: Fraction Number Line Comparisons','Mixed'],visuals:['fraction_bar','fraction_circle','number_line','comparison'],types:['multiple_choice','short_response','fraction_response','comparison'],tags:['equivalent_fraction_confusion','denominator_size_confusion','numerator_focus_error','fraction_number_line_error']}
+];
+grade3BaseTenFractionPackages.forEach(({pkg,id,domain,skill,labels,visuals,types,tags})=>{
+  const questions=pkg.level_banks.flatMap((level)=>level.questions);
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates in strict production mode`);
+  assert.equal(pkg.grade,3);
+  assert.equal(pkg.subject,'Math');
+  assert.equal(pkg.domain,domain);
+  assert.equal(pkg.skill,skill);
+  assert.equal(Array.isArray(pkg.level_banks),true,`${id} has real level_banks`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+  labels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${id} includes ${label}`));
+  visuals.forEach((visual)=>assert.ok(Schema.VISUAL_MODELS.includes(visual),`schema accepts ${visual}`));
+  visuals.forEach((visual)=>assert.ok(questions.some((q)=>q.visual_model===visual),`${id} includes ${visual}`));
+  types.forEach((type)=>assert.ok(questions.some((q)=>q.question_type===type),`${id} includes ${type}`));
+  tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${id} includes misconception ${tag}`));
+  assert.ok(questions.filter((q)=>q.question_type!=='multiple_choice').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),`${id} non-multiple-choice items have acceptable_answers`);
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${id} mission renders ${label}`));
+  assert.match(missionHtml,/Continue to Skill Practice/,`${id} profile links to Skill Practice Center`);
+});
+const g3PvQuestions=g3PlaceValueRounding.level_banks.flatMap((level)=>level.questions);
+assert.ok(g3PvQuestions.some((q)=>/45/.test(q.prompt)&&String(q.correct_answer)==='50'),'G3M_PV_001 includes 45 rounds to 50 midpoint example');
+assert.ok(g3PvQuestions.some((q)=>/150/.test(q.prompt)&&String(q.correct_answer)==='200'),'G3M_PV_001 includes 150 rounds to 200 midpoint example');
+assert.ok(g3PvQuestions.filter((q)=>q.question_type!=='multiple_choice').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G3M_PV_001 has acceptable_answers for numeric responses');
+const g3FrQuestions=g3FractionFoundations.level_banks.flatMap((level)=>level.questions);
+['1/2','1/3','1/4','1/6','1/8'].forEach((frac)=>assert.ok(g3FrQuestions.some((q)=>q.correct_answer===frac),`G3M_FR_001 includes ${frac}`));
+assert.ok(g3FrQuestions.some((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.includes('one half')&&q.acceptable_answers.includes('one-half')),'G3M_FR_001 accepts one half variants');
+assert.ok(g3FrQuestions.some((q)=>q.prompt.includes('denominator 3')&&q.correct_answer==='3/3'),'G3M_FR_001 includes 1 = 3/3');
+const g3CmpQuestions=g3FractionComparisons.level_banks.flatMap((level)=>level.questions);
+assert.ok(g3CmpQuestions.some((q)=>/1\/2/.test(q.prompt)&&q.correct_answer==='2/4'),'G3M_FR_002 includes 1/2 = 2/4 equivalence');
+assert.ok(g3CmpQuestions.some((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.includes('<')),'G3M_FR_002 accepts comparison symbol responses');
+assert.match(VisualRegistry.render(g3PvQuestions.find((q)=>q.visual_model==='rounding_model')),/data-renderer="rounding_model"/,'rounding_model output exists');
+assert.match(VisualRegistry.render(g3FrQuestions.find((q)=>q.visual_model==='fraction_bar')),/data-renderer="fraction_bar"/,'fraction_bar output exists');
+assert.match(VisualRegistry.render(g3FrQuestions.find((q)=>q.visual_model==='fraction_circle')),/data-renderer="fraction_circle"/,'fraction_circle output exists');
+assert.match(VisualRegistry.render(g3CmpQuestions.find((q)=>q.visual_model==='fraction_bar')),/data-renderer="fraction_bar"/,'G3M_FR_002 fraction_bar output exists');
+assert.match(VisualRegistry.render(g3CmpQuestions.find((q)=>q.visual_model==='fraction_circle')),/data-renderer="fraction_circle"/,'G3M_FR_002 fraction_circle output exists');
+
 
 console.log('skill-world-generator tests passed');

@@ -1,0 +1,2118 @@
+{
+  "skill_id": "G3M_PV_001",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_docs": [
+      "docs/grade3_math_completion_plan.md",
+      "curriculum-framework/plans/grade3-math-completion-plan.v1.json"
+    ],
+    "source_plan": "curriculum-framework/plans/grade3-math-completion-plan.v1.json"
+  },
+  "grade": 3,
+  "subject": "Math",
+  "domain": "Number and Operations in Base Ten",
+  "skill": "Place Value and Rounding to 1,000",
+  "mastery_threshold": 0.8,
+  "difficulty_range": "Grade 3 foundation",
+  "lesson": {
+    "story_mission": "Join the Base-Ten Beacon team to decode numbers, round them to friendly landmarks, and solve place-value addition and subtraction clues.",
+    "mini_lesson": "Place value tells the value of each digit. To round, find the nearest ten or hundred by checking the midpoint.",
+    "objective": "Use place value to round whole numbers to the nearest 10 or 100 and add or subtract with place-value strategies.",
+    "key_vocabulary": [
+      "ones",
+      "tens",
+      "hundreds",
+      "thousands",
+      "expanded form",
+      "round",
+      "nearest ten",
+      "nearest hundred",
+      "midpoint"
+    ],
+    "concept_explanation": "A digit has a value based on its place. Rounding replaces a number with a nearby ten or hundred. If the number is at the midpoint or higher, round up.",
+    "common_misconception": "Learners may round the wrong direction, treat midpoint numbers as rounding down, misread a digit place, or ignore zero placeholders.",
+    "real_world_connection": "Rounding helps estimate distances, supplies, scores, and totals quickly.",
+    "lesson_summary": "Read each place, use expanded form, compare to the midpoint, and round to the requested place.",
+    "visual_model": "place_value_chart"
+  },
+  "worked_examples": [
+    {
+      "id": "G3M_PV_001_LVL1_Q1",
+      "question_id": "G3M_PV_001_LVL1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "In 246, what digit is in the hundreds place?",
+      "answer": "2",
+      "correct_answer": "2",
+      "misconception_tag": "place_value_error",
+      "hints": [
+        "Look at the place named in the question.",
+        "Use the digit to the right to decide if rounding is needed.",
+        "Check that your answer matches the requested place."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 2.",
+      "value": 246,
+      "hundreds": "2",
+      "tens": "4",
+      "ones": "6",
+      "choices": [
+        "2",
+        "12",
+        "0"
+      ]
+    },
+    {
+      "id": "G3M_PV_001_LVL2_Q2",
+      "question_id": "G3M_PV_001_LVL2_Q2",
+      "question_type": "short_response",
+      "visual_model": "number_line",
+      "prompt": "Round 45 to the nearest 10.",
+      "answer": "50",
+      "correct_answer": "50",
+      "misconception_tag": "midpoint_confusion",
+      "hints": [
+        "Look at the place named in the question.",
+        "Use the digit to the right to decide if rounding is needed.",
+        "Check that your answer matches the requested place."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 50.",
+      "value": 45,
+      "round_to": 10,
+      "rounded": 50,
+      "min": 40,
+      "max": 50,
+      "acceptable_answers": [
+        "50",
+        "50",
+        "50"
+      ]
+    },
+    {
+      "id": "G3M_PV_001_LVL3_Q3",
+      "question_id": "G3M_PV_001_LVL3_Q3",
+      "question_type": "multiple_choice",
+      "visual_model": "rounding_model",
+      "prompt": "Round 150 to the nearest 100.",
+      "answer": "200",
+      "correct_answer": "200",
+      "misconception_tag": "midpoint_confusion",
+      "hints": [
+        "Look at the place named in the question.",
+        "Use the digit to the right to decide if rounding is needed.",
+        "Check that your answer matches the requested place."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 200.",
+      "value": 150,
+      "round_to": 100,
+      "rounded": 200,
+      "min": 100,
+      "max": 200,
+      "acceptable_answers": [
+        "200",
+        "200",
+        "200"
+      ],
+      "choices": [
+        "200",
+        "210",
+        "190"
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "Look at the place named in the question.",
+    "Use the digit to the right to decide if rounding is needed.",
+    "Check that your answer matches the requested place."
+  ],
+  "guided_practice": [
+    {
+      "id": "G3M_PV_001_LVL1_Q1",
+      "question_id": "G3M_PV_001_LVL1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "In 246, what digit is in the hundreds place?",
+      "answer": "2",
+      "correct_answer": "2",
+      "misconception_tag": "place_value_error",
+      "hints": [
+        "Look at the place named in the question.",
+        "Use the digit to the right to decide if rounding is needed.",
+        "Check that your answer matches the requested place."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 2.",
+      "value": 246,
+      "hundreds": "2",
+      "tens": "4",
+      "ones": "6",
+      "choices": [
+        "2",
+        "12",
+        "0"
+      ]
+    },
+    {
+      "id": "G3M_PV_001_LVL2_Q1",
+      "question_id": "G3M_PV_001_LVL2_Q1",
+      "question_type": "rounding",
+      "visual_model": "rounding_model",
+      "prompt": "Round 42 to the nearest 10.",
+      "answer": "40",
+      "correct_answer": "40",
+      "misconception_tag": "rounding_direction_error",
+      "hints": [
+        "Look at the place named in the question.",
+        "Use the digit to the right to decide if rounding is needed.",
+        "Check that your answer matches the requested place."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 40.",
+      "value": 42,
+      "round_to": 10,
+      "rounded": 40,
+      "min": 40,
+      "max": 50,
+      "acceptable_answers": [
+        "40",
+        "40",
+        "40"
+      ]
+    },
+    {
+      "id": "G3M_PV_001_LVL3_Q1",
+      "question_id": "G3M_PV_001_LVL3_Q1",
+      "question_type": "rounding",
+      "visual_model": "rounding_model",
+      "prompt": "Round 126 to the nearest 100.",
+      "answer": "100",
+      "correct_answer": "100",
+      "misconception_tag": "rounding_direction_error",
+      "hints": [
+        "Look at the place named in the question.",
+        "Use the digit to the right to decide if rounding is needed.",
+        "Check that your answer matches the requested place."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 100.",
+      "value": 126,
+      "round_to": 100,
+      "rounded": 100,
+      "min": 100,
+      "max": 200,
+      "acceptable_answers": [
+        "100",
+        "100",
+        "100"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G3M_PV_001_LVL1_Q1",
+      "question_id": "G3M_PV_001_LVL1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "place_value_chart",
+      "prompt": "In 246, what digit is in the hundreds place?",
+      "answer": "2",
+      "correct_answer": "2",
+      "misconception_tag": "place_value_error",
+      "hints": [
+        "Look at the place named in the question.",
+        "Use the digit to the right to decide if rounding is needed.",
+        "Check that your answer matches the requested place."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 2.",
+      "value": 246,
+      "hundreds": "2",
+      "tens": "4",
+      "ones": "6",
+      "choices": [
+        "2",
+        "12",
+        "0"
+      ]
+    },
+    {
+      "id": "G3M_PV_001_LVL1_Q2",
+      "question_id": "G3M_PV_001_LVL1_Q2",
+      "question_type": "short_response",
+      "visual_model": "expanded_form",
+      "prompt": "In 508, what digit is in the tens place?",
+      "answer": "0",
+      "correct_answer": "0",
+      "misconception_tag": "zero_placeholder_confusion",
+      "hints": [
+        "Look at the place named in the question.",
+        "Use the digit to the right to decide if rounding is needed.",
+        "Check that your answer matches the requested place."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 0.",
+      "value": 508,
+      "hundreds": "5",
+      "tens": "0",
+      "ones": "8",
+      "acceptable_answers": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "id": "G3M_PV_001_LVL1_Q3",
+      "question_id": "G3M_PV_001_LVL1_Q3",
+      "question_type": "short_response",
+      "visual_model": "place_value_chart",
+      "prompt": "In 731, what digit is in the ones place?",
+      "answer": "1",
+      "correct_answer": "1",
+      "misconception_tag": "place_value_error",
+      "hints": [
+        "Look at the place named in the question.",
+        "Use the digit to the right to decide if rounding is needed.",
+        "Check that your answer matches the requested place."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 1.",
+      "value": 731,
+      "hundreds": "7",
+      "tens": "3",
+      "ones": "1",
+      "acceptable_answers": [
+        "1",
+        "1",
+        "1"
+      ]
+    },
+    {
+      "id": "G3M_PV_001_LVL2_Q1",
+      "question_id": "G3M_PV_001_LVL2_Q1",
+      "question_type": "rounding",
+      "visual_model": "rounding_model",
+      "prompt": "Round 42 to the nearest 10.",
+      "answer": "40",
+      "correct_answer": "40",
+      "misconception_tag": "rounding_direction_error",
+      "hints": [
+        "Look at the place named in the question.",
+        "Use the digit to the right to decide if rounding is needed.",
+        "Check that your answer matches the requested place."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 40.",
+      "value": 42,
+      "round_to": 10,
+      "rounded": 40,
+      "min": 40,
+      "max": 50,
+      "acceptable_answers": [
+        "40",
+        "40",
+        "40"
+      ]
+    },
+    {
+      "id": "G3M_PV_001_LVL2_Q2",
+      "question_id": "G3M_PV_001_LVL2_Q2",
+      "question_type": "short_response",
+      "visual_model": "number_line",
+      "prompt": "Round 45 to the nearest 10.",
+      "answer": "50",
+      "correct_answer": "50",
+      "misconception_tag": "midpoint_confusion",
+      "hints": [
+        "Look at the place named in the question.",
+        "Use the digit to the right to decide if rounding is needed.",
+        "Check that your answer matches the requested place."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 50.",
+      "value": 45,
+      "round_to": 10,
+      "rounded": 50,
+      "min": 40,
+      "max": 50,
+      "acceptable_answers": [
+        "50",
+        "50",
+        "50"
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G3M_PV_001_LVL3_Q3",
+      "question_id": "G3M_PV_001_LVL3_Q3",
+      "question_type": "multiple_choice",
+      "visual_model": "rounding_model",
+      "prompt": "Round 150 to the nearest 100.",
+      "answer": "200",
+      "correct_answer": "200",
+      "misconception_tag": "midpoint_confusion",
+      "hints": [
+        "Look at the place named in the question.",
+        "Use the digit to the right to decide if rounding is needed.",
+        "Check that your answer matches the requested place."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 200.",
+      "value": 150,
+      "round_to": 100,
+      "rounded": 200,
+      "min": 100,
+      "max": 200,
+      "acceptable_answers": [
+        "200",
+        "200",
+        "200"
+      ],
+      "choices": [
+        "200",
+        "210",
+        "190"
+      ]
+    },
+    {
+      "id": "G3M_PV_001_LVL4_Q1",
+      "question_id": "G3M_PV_001_LVL4_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "expanded_form",
+      "prompt": "Use place value: 240 + 130 = ?",
+      "answer": "370",
+      "correct_answer": "370",
+      "misconception_tag": "place_value_error",
+      "hints": [
+        "Look at the place named in the question.",
+        "Use the digit to the right to decide if rounding is needed.",
+        "Check that your answer matches the requested place."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 370.",
+      "value": 240,
+      "a": 240,
+      "b": 130,
+      "operation": "addition",
+      "acceptable_answers": [
+        "370",
+        "370",
+        "370"
+      ],
+      "choices": [
+        "370",
+        "380",
+        "360"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "rounding_direction_error": "rounding direction error",
+    "midpoint_confusion": "midpoint confusion",
+    "place_value_error": "place value error",
+    "zero_placeholder_confusion": "zero placeholder confusion"
+  },
+  "review_bank": [
+    {
+      "id": "G3M_PV_001_LVL1_Q2",
+      "question_id": "G3M_PV_001_LVL1_Q2",
+      "question_type": "short_response",
+      "visual_model": "expanded_form",
+      "prompt": "In 508, what digit is in the tens place?",
+      "answer": "0",
+      "correct_answer": "0",
+      "misconception_tag": "zero_placeholder_confusion",
+      "hints": [
+        "Look at the place named in the question.",
+        "Use the digit to the right to decide if rounding is needed.",
+        "Check that your answer matches the requested place."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 0.",
+      "value": 508,
+      "hundreds": "5",
+      "tens": "0",
+      "ones": "8",
+      "acceptable_answers": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "id": "G3M_PV_001_LVL2_Q2",
+      "question_id": "G3M_PV_001_LVL2_Q2",
+      "question_type": "short_response",
+      "visual_model": "number_line",
+      "prompt": "Round 45 to the nearest 10.",
+      "answer": "50",
+      "correct_answer": "50",
+      "misconception_tag": "midpoint_confusion",
+      "hints": [
+        "Look at the place named in the question.",
+        "Use the digit to the right to decide if rounding is needed.",
+        "Check that your answer matches the requested place."
+      ],
+      "feedback": {
+        "correct": "Great Grade 3 math thinking!",
+        "incorrect": "Use the model, then try again."
+      },
+      "explanation": "The correct answer is 50.",
+      "value": 45,
+      "round_to": 10,
+      "rounded": 50,
+      "min": 40,
+      "max": 50,
+      "acceptable_answers": [
+        "50",
+        "50",
+        "50"
+      ]
+    }
+  ],
+  "game_theme": {
+    "title": "Base-Ten Beacon",
+    "name": "Base-Ten Beacon",
+    "mission_intro": "Light the beacon by naming digit values and rounding numbers to nearby landmarks.",
+    "badge_name": "Rounding Ranger"
+  },
+  "next_skill_id": null,
+  "remediation_skill_id": null,
+  "level_banks": [
+    {
+      "level_id": "G3M_PV_001_L1",
+      "label": "Level 1: Place Value to 1,000",
+      "focus": "Identify ones, tens, hundreds, and 1,000 using charts and expanded form.",
+      "difficulty": "Grade 3 foundation",
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_PV_001_LVL1_Q1",
+          "question_id": "G3M_PV_001_LVL1_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "In 246, what digit is in the hundreds place?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "place_value_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 2.",
+          "value": 246,
+          "hundreds": "2",
+          "tens": "4",
+          "ones": "6",
+          "choices": [
+            "2",
+            "12",
+            "0"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL1_Q2",
+          "question_id": "G3M_PV_001_LVL1_Q2",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "In 508, what digit is in the tens place?",
+          "answer": "0",
+          "correct_answer": "0",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 0.",
+          "value": 508,
+          "hundreds": "5",
+          "tens": "0",
+          "ones": "8",
+          "acceptable_answers": [
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL1_Q3",
+          "question_id": "G3M_PV_001_LVL1_Q3",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "In 731, what digit is in the ones place?",
+          "answer": "1",
+          "correct_answer": "1",
+          "misconception_tag": "place_value_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 1.",
+          "value": 731,
+          "hundreds": "7",
+          "tens": "3",
+          "ones": "1",
+          "acceptable_answers": [
+            "1",
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL1_Q4",
+          "question_id": "G3M_PV_001_LVL1_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "expanded_form",
+          "prompt": "In 990, what digit is in the hundreds place?",
+          "answer": "9",
+          "correct_answer": "9",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 9.",
+          "value": 990,
+          "hundreds": "9",
+          "tens": "9",
+          "ones": "0",
+          "choices": [
+            "9",
+            "19",
+            "0"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL1_Q5",
+          "question_id": "G3M_PV_001_LVL1_Q5",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "In 1000, what digit is in the tens place?",
+          "answer": "0",
+          "correct_answer": "0",
+          "misconception_tag": "place_value_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 0.",
+          "value": 1000,
+          "hundreds": "10",
+          "tens": "0",
+          "ones": "0",
+          "acceptable_answers": [
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL1_Q6",
+          "question_id": "G3M_PV_001_LVL1_Q6",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "In 405, what digit is in the ones place?",
+          "answer": "5",
+          "correct_answer": "5",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 5.",
+          "value": 405,
+          "hundreds": "4",
+          "tens": "0",
+          "ones": "5",
+          "acceptable_answers": [
+            "5",
+            "5",
+            "5"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL1_Q7",
+          "question_id": "G3M_PV_001_LVL1_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "In 680, what digit is in the hundreds place?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "place_value_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 6.",
+          "value": 680,
+          "hundreds": "6",
+          "tens": "8",
+          "ones": "0",
+          "choices": [
+            "6",
+            "16",
+            "0"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL1_Q8",
+          "question_id": "G3M_PV_001_LVL1_Q8",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "In 319, what digit is in the tens place?",
+          "answer": "1",
+          "correct_answer": "1",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 1.",
+          "value": 319,
+          "hundreds": "3",
+          "tens": "1",
+          "ones": "9",
+          "acceptable_answers": [
+            "1",
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL1_Q9",
+          "question_id": "G3M_PV_001_LVL1_Q9",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "In 72, what digit is in the ones place?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "place_value_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 2.",
+          "value": 72,
+          "hundreds": "0",
+          "tens": "7",
+          "ones": "2",
+          "acceptable_answers": [
+            "2",
+            "2",
+            "2"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL1_Q10",
+          "question_id": "G3M_PV_001_LVL1_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "expanded_form",
+          "prompt": "In 804, what digit is in the hundreds place?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 8.",
+          "value": 804,
+          "hundreds": "8",
+          "tens": "0",
+          "ones": "4",
+          "choices": [
+            "8",
+            "18",
+            "0"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_PV_001_L2",
+      "label": "Level 2: Round to Nearest 10",
+      "focus": "Round whole numbers to the nearest ten.",
+      "difficulty": "Grade 3 foundation",
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_PV_001_LVL2_Q1",
+          "question_id": "G3M_PV_001_LVL2_Q1",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 42 to the nearest 10.",
+          "answer": "40",
+          "correct_answer": "40",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 40.",
+          "value": 42,
+          "round_to": 10,
+          "rounded": 40,
+          "min": 40,
+          "max": 50,
+          "acceptable_answers": [
+            "40",
+            "40",
+            "40"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL2_Q2",
+          "question_id": "G3M_PV_001_LVL2_Q2",
+          "question_type": "number_line",
+          "visual_model": "number_line",
+          "prompt": "Round 45 to the nearest 10.",
+          "answer": "50",
+          "correct_answer": "50",
+          "misconception_tag": "midpoint_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 50.",
+          "value": 45,
+          "round_to": 10,
+          "rounded": 50,
+          "min": 40,
+          "max": 50,
+          "acceptable_answers": [
+            "50",
+            "50",
+            "50"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL2_Q3",
+          "question_id": "G3M_PV_001_LVL2_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "rounding_model",
+          "prompt": "Round 64 to the nearest 10.",
+          "answer": "60",
+          "correct_answer": "60",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 60.",
+          "value": 64,
+          "round_to": 10,
+          "rounded": 60,
+          "min": 60,
+          "max": 70,
+          "acceptable_answers": [
+            "60",
+            "60",
+            "60"
+          ],
+          "choices": [
+            "60",
+            "70",
+            "50"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL2_Q4",
+          "question_id": "G3M_PV_001_LVL2_Q4",
+          "question_type": "rounding",
+          "visual_model": "number_line",
+          "prompt": "Round 68 to the nearest 10.",
+          "answer": "70",
+          "correct_answer": "70",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 70.",
+          "value": 68,
+          "round_to": 10,
+          "rounded": 70,
+          "min": 60,
+          "max": 70,
+          "acceptable_answers": [
+            "70",
+            "70",
+            "70"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL2_Q5",
+          "question_id": "G3M_PV_001_LVL2_Q5",
+          "question_type": "short_response",
+          "visual_model": "rounding_model",
+          "prompt": "Round 123 to the nearest 10.",
+          "answer": "120",
+          "correct_answer": "120",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 120.",
+          "value": 123,
+          "round_to": 10,
+          "rounded": 120,
+          "min": 120,
+          "max": 130,
+          "acceptable_answers": [
+            "120",
+            "120",
+            "120"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL2_Q6",
+          "question_id": "G3M_PV_001_LVL2_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Round 157 to the nearest 10.",
+          "answer": "160",
+          "correct_answer": "160",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 160.",
+          "value": 157,
+          "round_to": 10,
+          "rounded": 160,
+          "min": 150,
+          "max": 160,
+          "acceptable_answers": [
+            "160",
+            "160",
+            "160"
+          ],
+          "choices": [
+            "160",
+            "170",
+            "150"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL2_Q7",
+          "question_id": "G3M_PV_001_LVL2_Q7",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 281 to the nearest 10.",
+          "answer": "280",
+          "correct_answer": "280",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 280.",
+          "value": 281,
+          "round_to": 10,
+          "rounded": 280,
+          "min": 280,
+          "max": 290,
+          "acceptable_answers": [
+            "280",
+            "280",
+            "280"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL2_Q8",
+          "question_id": "G3M_PV_001_LVL2_Q8",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Round 395 to the nearest 10.",
+          "answer": "400",
+          "correct_answer": "400",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 400.",
+          "value": 395,
+          "round_to": 10,
+          "rounded": 400,
+          "min": 390,
+          "max": 400,
+          "acceptable_answers": [
+            "400",
+            "400",
+            "400"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL2_Q9",
+          "question_id": "G3M_PV_001_LVL2_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "rounding_model",
+          "prompt": "Round 806 to the nearest 10.",
+          "answer": "810",
+          "correct_answer": "810",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 810.",
+          "value": 806,
+          "round_to": 10,
+          "rounded": 810,
+          "min": 800,
+          "max": 810,
+          "acceptable_answers": [
+            "810",
+            "810",
+            "810"
+          ],
+          "choices": [
+            "810",
+            "820",
+            "800"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL2_Q10",
+          "question_id": "G3M_PV_001_LVL2_Q10",
+          "question_type": "rounding",
+          "visual_model": "number_line",
+          "prompt": "Round 999 to the nearest 10.",
+          "answer": "1000",
+          "correct_answer": "1000",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 1000.",
+          "value": 999,
+          "round_to": 10,
+          "rounded": 1000,
+          "min": 990,
+          "max": 1000,
+          "acceptable_answers": [
+            "1000",
+            "1000",
+            "1000"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_PV_001_L3",
+      "label": "Level 3: Round to Nearest 100",
+      "focus": "Round whole numbers to the nearest hundred.",
+      "difficulty": "Grade 3 foundation",
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_PV_001_LVL3_Q1",
+          "question_id": "G3M_PV_001_LVL3_Q1",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 126 to the nearest 100.",
+          "answer": "100",
+          "correct_answer": "100",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 100.",
+          "value": 126,
+          "round_to": 100,
+          "rounded": 100,
+          "min": 100,
+          "max": 200,
+          "acceptable_answers": [
+            "100",
+            "100",
+            "100"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL3_Q2",
+          "question_id": "G3M_PV_001_LVL3_Q2",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Round 149 to the nearest 100.",
+          "answer": "100",
+          "correct_answer": "100",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 100.",
+          "value": 149,
+          "round_to": 100,
+          "rounded": 100,
+          "min": 100,
+          "max": 200,
+          "acceptable_answers": [
+            "100",
+            "100",
+            "100"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL3_Q3",
+          "question_id": "G3M_PV_001_LVL3_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "rounding_model",
+          "prompt": "Round 150 to the nearest 100.",
+          "answer": "200",
+          "correct_answer": "200",
+          "misconception_tag": "midpoint_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 200.",
+          "value": 150,
+          "round_to": 100,
+          "rounded": 200,
+          "min": 100,
+          "max": 200,
+          "acceptable_answers": [
+            "200",
+            "200",
+            "200"
+          ],
+          "choices": [
+            "200",
+            "210",
+            "190"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL3_Q4",
+          "question_id": "G3M_PV_001_LVL3_Q4",
+          "question_type": "rounding",
+          "visual_model": "number_line",
+          "prompt": "Round 261 to the nearest 100.",
+          "answer": "300",
+          "correct_answer": "300",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 300.",
+          "value": 261,
+          "round_to": 100,
+          "rounded": 300,
+          "min": 200,
+          "max": 300,
+          "acceptable_answers": [
+            "300",
+            "300",
+            "300"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL3_Q5",
+          "question_id": "G3M_PV_001_LVL3_Q5",
+          "question_type": "short_response",
+          "visual_model": "rounding_model",
+          "prompt": "Round 350 to the nearest 100.",
+          "answer": "400",
+          "correct_answer": "400",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 400.",
+          "value": 350,
+          "round_to": 100,
+          "rounded": 400,
+          "min": 300,
+          "max": 400,
+          "acceptable_answers": [
+            "400",
+            "400",
+            "400"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL3_Q6",
+          "question_id": "G3M_PV_001_LVL3_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "Round 449 to the nearest 100.",
+          "answer": "400",
+          "correct_answer": "400",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 400.",
+          "value": 449,
+          "round_to": 100,
+          "rounded": 400,
+          "min": 400,
+          "max": 500,
+          "acceptable_answers": [
+            "400",
+            "400",
+            "400"
+          ],
+          "choices": [
+            "400",
+            "410",
+            "390"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL3_Q7",
+          "question_id": "G3M_PV_001_LVL3_Q7",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 550 to the nearest 100.",
+          "answer": "600",
+          "correct_answer": "600",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 600.",
+          "value": 550,
+          "round_to": 100,
+          "rounded": 600,
+          "min": 500,
+          "max": 600,
+          "acceptable_answers": [
+            "600",
+            "600",
+            "600"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL3_Q8",
+          "question_id": "G3M_PV_001_LVL3_Q8",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Round 682 to the nearest 100.",
+          "answer": "700",
+          "correct_answer": "700",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 700.",
+          "value": 682,
+          "round_to": 100,
+          "rounded": 700,
+          "min": 600,
+          "max": 700,
+          "acceptable_answers": [
+            "700",
+            "700",
+            "700"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL3_Q9",
+          "question_id": "G3M_PV_001_LVL3_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "rounding_model",
+          "prompt": "Round 749 to the nearest 100.",
+          "answer": "700",
+          "correct_answer": "700",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 700.",
+          "value": 749,
+          "round_to": 100,
+          "rounded": 700,
+          "min": 700,
+          "max": 800,
+          "acceptable_answers": [
+            "700",
+            "700",
+            "700"
+          ],
+          "choices": [
+            "700",
+            "710",
+            "690"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL3_Q10",
+          "question_id": "G3M_PV_001_LVL3_Q10",
+          "question_type": "rounding",
+          "visual_model": "number_line",
+          "prompt": "Round 950 to the nearest 100.",
+          "answer": "1000",
+          "correct_answer": "1000",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 1000.",
+          "value": 950,
+          "round_to": 100,
+          "rounded": 1000,
+          "min": 900,
+          "max": 1000,
+          "acceptable_answers": [
+            "1000",
+            "1000",
+            "1000"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_PV_001_L4",
+      "label": "Level 4: Add/Subtract Using Place Value",
+      "focus": "Use place-value strategies for addition and subtraction.",
+      "difficulty": "Grade 3 foundation",
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_PV_001_LVL4_Q1",
+          "question_id": "G3M_PV_001_LVL4_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "expanded_form",
+          "prompt": "Use place value: 240 + 130 = ?",
+          "answer": "370",
+          "correct_answer": "370",
+          "misconception_tag": "place_value_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 370.",
+          "value": 240,
+          "a": 240,
+          "b": 130,
+          "operation": "addition",
+          "acceptable_answers": [
+            "370",
+            "370",
+            "370"
+          ],
+          "choices": [
+            "370",
+            "380",
+            "360"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL4_Q2",
+          "question_id": "G3M_PV_001_LVL4_Q2",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Use place value: 500 + 70 = ?",
+          "answer": "570",
+          "correct_answer": "570",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 570.",
+          "value": 500,
+          "a": 500,
+          "b": 70,
+          "operation": "addition",
+          "acceptable_answers": [
+            "570",
+            "570",
+            "570"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL4_Q3",
+          "question_id": "G3M_PV_001_LVL4_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Use place value: 680 - 200 = ?",
+          "answer": "480",
+          "correct_answer": "480",
+          "misconception_tag": "place_value_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 480.",
+          "value": 680,
+          "a": 680,
+          "b": 200,
+          "operation": "subtraction",
+          "acceptable_answers": [
+            "480",
+            "480",
+            "480"
+          ],
+          "choices": [
+            "480",
+            "490",
+            "470"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL4_Q4",
+          "question_id": "G3M_PV_001_LVL4_Q4",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "Use place value: 950 - 40 = ?",
+          "answer": "910",
+          "correct_answer": "910",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 910.",
+          "value": 950,
+          "a": 950,
+          "b": 40,
+          "operation": "subtraction",
+          "acceptable_answers": [
+            "910",
+            "910",
+            "910"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL4_Q5",
+          "question_id": "G3M_PV_001_LVL4_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Use place value: 321 + 40 = ?",
+          "answer": "361",
+          "correct_answer": "361",
+          "misconception_tag": "place_value_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 361.",
+          "value": 321,
+          "a": 321,
+          "b": 40,
+          "operation": "addition",
+          "acceptable_answers": [
+            "361",
+            "361",
+            "361"
+          ],
+          "choices": [
+            "361",
+            "371",
+            "351"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL4_Q6",
+          "question_id": "G3M_PV_001_LVL4_Q6",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Use place value: 706 - 80 = ?",
+          "answer": "626",
+          "correct_answer": "626",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 626.",
+          "value": 706,
+          "a": 706,
+          "b": 80,
+          "operation": "subtraction",
+          "acceptable_answers": [
+            "626",
+            "626",
+            "626"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL4_Q7",
+          "question_id": "G3M_PV_001_LVL4_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "expanded_form",
+          "prompt": "Use place value: 150 + 150 = ?",
+          "answer": "300",
+          "correct_answer": "300",
+          "misconception_tag": "place_value_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 300.",
+          "value": 150,
+          "a": 150,
+          "b": 150,
+          "operation": "addition",
+          "acceptable_answers": [
+            "300",
+            "300",
+            "300"
+          ],
+          "choices": [
+            "300",
+            "310",
+            "290"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL4_Q8",
+          "question_id": "G3M_PV_001_LVL4_Q8",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Use place value: 800 - 300 = ?",
+          "answer": "500",
+          "correct_answer": "500",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 500.",
+          "value": 800,
+          "a": 800,
+          "b": 300,
+          "operation": "subtraction",
+          "acceptable_answers": [
+            "500",
+            "500",
+            "500"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL4_Q9",
+          "question_id": "G3M_PV_001_LVL4_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "place_value_chart",
+          "prompt": "Use place value: 432 + 120 = ?",
+          "answer": "552",
+          "correct_answer": "552",
+          "misconception_tag": "place_value_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 552.",
+          "value": 432,
+          "a": 432,
+          "b": 120,
+          "operation": "addition",
+          "acceptable_answers": [
+            "552",
+            "552",
+            "552"
+          ],
+          "choices": [
+            "552",
+            "562",
+            "542"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_LVL4_Q10",
+          "question_id": "G3M_PV_001_LVL4_Q10",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "Use place value: 999 - 100 = ?",
+          "answer": "899",
+          "correct_answer": "899",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 899.",
+          "value": 999,
+          "a": 999,
+          "b": 100,
+          "operation": "subtraction",
+          "acceptable_answers": [
+            "899",
+            "899",
+            "899"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_PV_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed review",
+      "difficulty": "Grade 3 foundation",
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_PV_001_MIXED_Q1",
+          "question_id": "G3M_PV_001_MIXED_Q1",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "In 508, what digit is in the tens place?",
+          "answer": "0",
+          "correct_answer": "0",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 0.",
+          "value": 508,
+          "hundreds": "5",
+          "tens": "0",
+          "ones": "8",
+          "acceptable_answers": [
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_MIXED_Q2",
+          "question_id": "G3M_PV_001_MIXED_Q2",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Round 45 to the nearest 10.",
+          "answer": "50",
+          "correct_answer": "50",
+          "misconception_tag": "midpoint_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 50.",
+          "value": 45,
+          "round_to": 10,
+          "rounded": 50,
+          "min": 40,
+          "max": 50,
+          "acceptable_answers": [
+            "50",
+            "50",
+            "50"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_MIXED_Q3",
+          "question_id": "G3M_PV_001_MIXED_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "rounding_model",
+          "prompt": "Round 150 to the nearest 100.",
+          "answer": "200",
+          "correct_answer": "200",
+          "misconception_tag": "midpoint_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 200.",
+          "value": 150,
+          "round_to": 100,
+          "rounded": 200,
+          "min": 100,
+          "max": 200,
+          "acceptable_answers": [
+            "200",
+            "200",
+            "200"
+          ],
+          "choices": [
+            "200",
+            "210",
+            "190"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_MIXED_Q4",
+          "question_id": "G3M_PV_001_MIXED_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "expanded_form",
+          "prompt": "Use place value: 240 + 130 = ?",
+          "answer": "370",
+          "correct_answer": "370",
+          "misconception_tag": "place_value_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 370.",
+          "value": 240,
+          "a": 240,
+          "b": 130,
+          "operation": "addition",
+          "acceptable_answers": [
+            "370",
+            "370",
+            "370"
+          ],
+          "choices": [
+            "370",
+            "380",
+            "360"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_MIXED_Q5",
+          "question_id": "G3M_PV_001_MIXED_Q5",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "In 1000, what digit is in the tens place?",
+          "answer": "0",
+          "correct_answer": "0",
+          "misconception_tag": "place_value_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 0.",
+          "value": 1000,
+          "hundreds": "10",
+          "tens": "0",
+          "ones": "0",
+          "acceptable_answers": [
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_MIXED_Q6",
+          "question_id": "G3M_PV_001_MIXED_Q6",
+          "question_type": "short_response",
+          "visual_model": "rounding_model",
+          "prompt": "Round 123 to the nearest 10.",
+          "answer": "120",
+          "correct_answer": "120",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 120.",
+          "value": 123,
+          "round_to": 10,
+          "rounded": 120,
+          "min": 120,
+          "max": 130,
+          "acceptable_answers": [
+            "120",
+            "120",
+            "120"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_MIXED_Q7",
+          "question_id": "G3M_PV_001_MIXED_Q7",
+          "question_type": "rounding",
+          "visual_model": "rounding_model",
+          "prompt": "Round 550 to the nearest 100.",
+          "answer": "600",
+          "correct_answer": "600",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 600.",
+          "value": 550,
+          "round_to": 100,
+          "rounded": 600,
+          "min": 500,
+          "max": 600,
+          "acceptable_answers": [
+            "600",
+            "600",
+            "600"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_MIXED_Q8",
+          "question_id": "G3M_PV_001_MIXED_Q8",
+          "question_type": "short_response",
+          "visual_model": "place_value_chart",
+          "prompt": "Use place value: 706 - 80 = ?",
+          "answer": "626",
+          "correct_answer": "626",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 626.",
+          "value": 706,
+          "a": 706,
+          "b": 80,
+          "operation": "subtraction",
+          "acceptable_answers": [
+            "626",
+            "626",
+            "626"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_MIXED_Q9",
+          "question_id": "G3M_PV_001_MIXED_Q9",
+          "question_type": "short_response",
+          "visual_model": "expanded_form",
+          "prompt": "In 319, what digit is in the tens place?",
+          "answer": "1",
+          "correct_answer": "1",
+          "misconception_tag": "zero_placeholder_confusion",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 1.",
+          "value": 319,
+          "hundreds": "3",
+          "tens": "1",
+          "ones": "9",
+          "acceptable_answers": [
+            "1",
+            "1",
+            "1"
+          ]
+        },
+        {
+          "id": "G3M_PV_001_MIXED_Q10",
+          "question_id": "G3M_PV_001_MIXED_Q10",
+          "question_type": "rounding",
+          "visual_model": "number_line",
+          "prompt": "Round 999 to the nearest 10.",
+          "answer": "1000",
+          "correct_answer": "1000",
+          "misconception_tag": "rounding_direction_error",
+          "hints": [
+            "Look at the place named in the question.",
+            "Use the digit to the right to decide if rounding is needed.",
+            "Check that your answer matches the requested place."
+          ],
+          "feedback": {
+            "correct": "Great Grade 3 math thinking!",
+            "incorrect": "Use the model, then try again."
+          },
+          "explanation": "The correct answer is 1000.",
+          "value": 999,
+          "round_to": 10,
+          "rounded": 1000,
+          "min": 990,
+          "max": 1000,
+          "acceptable_answers": [
+            "1000",
+            "1000",
+            "1000"
+          ]
+        }
+      ]
+    }
+  ]
+}

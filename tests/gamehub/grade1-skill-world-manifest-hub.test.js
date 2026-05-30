@@ -175,7 +175,10 @@ test('Grade 3 Skill World packages appear from manifest for the hub', () => {
     ['G3M_MUL_001', 'Multiplication Foundations'],
     ['G3M_DIV_001', 'Division Foundations'],
     ['G3M_FACT_001', 'Multiplication and Division Fluency'],
-    ['G3M_WP_001', 'Two-Step Word Problems']
+    ['G3M_WP_001', 'Two-Step Word Problems'],
+    ['G3M_PV_001', 'Place Value and Rounding to 1,000'],
+    ['G3M_FR_001', 'Fraction Foundations'],
+    ['G3M_FR_002', 'Equivalent Fractions and Comparing Fractions']
   ]);
   for (const skillId of expectedGrade3.keys()) {
     assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
@@ -186,7 +189,8 @@ test('Grade 3 Skill World packages appear from manifest for the hub', () => {
     assert.ok(g3, `${skillId} package loads from manifest`);
     assert.equal(g3.grade, 3);
     assert.equal(g3.subject, 'Math');
-    assert.equal(g3.domain, 'Operations and Algebraic Thinking');
+    const expectedDomain = skillId === 'G3M_PV_001' ? 'Number and Operations in Base Ten' : (skillId.startsWith('G3M_FR_') ? 'Number and Operations—Fractions' : 'Operations and Algebraic Thinking');
+    assert.equal(g3.domain, expectedDomain);
     assert.equal(g3.skill, skill);
     assert.equal(Array.isArray(g3.level_banks), true);
     assert.equal(g3.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
