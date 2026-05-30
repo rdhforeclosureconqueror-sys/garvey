@@ -1,0 +1,1076 @@
+{
+  "version": "v1",
+  "grade": "grade2",
+  "subject": "math",
+  "generated_from": "docs/grade2_math_completion_plan.md",
+  "production_standard": {
+    "skill_package_json": true,
+    "skill_world_generator": true,
+    "guided_mission_sequence": [
+      "Story",
+      "Lesson",
+      "Watch",
+      "Demo",
+      "Practice",
+      "Challenge",
+      "Checkpoint",
+      "Badge",
+      "Profile"
+    ],
+    "skill_practice_center": {
+      "minimum_levels": [
+        "Level 1",
+        "Level 2",
+        "Level 3",
+        "Level 4",
+        "Mixed"
+      ],
+      "questions_per_level": "10-12"
+    },
+    "manifest_hub_exposure": "All packages must appear through manifest/graph-driven discovery, not hardcoded placeholders."
+  },
+  "renderer_assessment": {
+    "supported_by_grade1_baseline": [
+      {
+        "model": "number_sequence",
+        "status": "supported"
+      },
+      {
+        "model": "number_line",
+        "status": "supported"
+      },
+      {
+        "model": "comparison",
+        "status": "supported"
+      },
+      {
+        "model": "base_ten_blocks",
+        "status": "supported_for_grade1_tens_ones"
+      },
+      {
+        "model": "place_value_chart",
+        "status": "partial",
+        "notes": "Currently aliases base_ten_blocks; Grade 2 needs explicit hundreds/tens/ones rendering."
+      },
+      {
+        "model": "addition_model",
+        "status": "supported"
+      },
+      {
+        "model": "subtraction_model",
+        "status": "supported"
+      },
+      {
+        "model": "number_bond",
+        "status": "supported"
+      },
+      {
+        "model": "shape_identification",
+        "status": "supported"
+      },
+      {
+        "model": "measurement_comparison",
+        "status": "supported"
+      },
+      {
+        "model": "analog_clock",
+        "status": "supported"
+      },
+      {
+        "model": "digital_time",
+        "status": "supported"
+      },
+      {
+        "model": "visual_objects",
+        "status": "supported"
+      }
+    ],
+    "new_or_extended_renderers_needed": [
+      {
+        "model": "place_value_chart",
+        "need": "extend to explicit hundreds/tens/ones chart"
+      },
+      {
+        "model": "expanded_form",
+        "need": "new renderer"
+      },
+      {
+        "model": "ten_frame",
+        "need": "new renderer"
+      },
+      {
+        "model": "word_problem_model",
+        "need": "new renderer"
+      },
+      {
+        "model": "bar_model",
+        "need": "new renderer"
+      },
+      {
+        "model": "equation_builder",
+        "need": "new renderer"
+      },
+      {
+        "model": "ruler",
+        "need": "new renderer"
+      },
+      {
+        "model": "coin_model",
+        "need": "new renderer"
+      },
+      {
+        "model": "money_counting",
+        "need": "new renderer"
+      },
+      {
+        "model": "picture_graph",
+        "need": "new renderer"
+      },
+      {
+        "model": "bar_graph",
+        "need": "new renderer"
+      },
+      {
+        "model": "line_plot",
+        "need": "new renderer"
+      },
+      {
+        "model": "data_table",
+        "need": "new renderer"
+      },
+      {
+        "model": "partition_shapes",
+        "need": "new renderer"
+      },
+      {
+        "model": "array_model",
+        "need": "new renderer"
+      }
+    ]
+  },
+  "schema_updates_needed": [
+    "Add Grade 2 visual_model enum values for expanded_form, ten_frame, word_problem_model, bar_model, equation_builder, ruler, coin_model, money_counting, picture_graph, bar_graph, line_plot, data_table, partition_shapes, and array_model.",
+    "Extend place_value_chart/base_ten_blocks metadata to support hundreds, tens, ones and regrouping/trading states.",
+    "Add or document question_type enum values for sequence_build, drag_and_drop, equation_entry, model_interpretation, missing_number, fact_family_match, constructed_equation, two_step_response, measurement_reading, money_counting, data_interpretation, graph_reading, visual_selection, and array_counting; alternatively map each to existing supported types with interaction metadata.",
+    "Require Skill Practice Center level_banks in production validation: at least 4 focused levels plus Mixed, each with 10-12 questions.",
+    "Require guided mission metadata or deterministic generator mappings for Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile."
+  ],
+  "writing_short_response_needs": [
+    "Numeric acceptable_answers must normalize commas, words, and equivalent forms where appropriate, e.g. 1000 and 1,000.",
+    "Expanded-form answers need equivalent-expression normalization, e.g. 300+40+5, 300 + 40 + 5, and 3 hundreds 4 tens 5 ones.",
+    "Comparison answers must accept symbol and word equivalents, e.g. > and greater than.",
+    "Time answers must normalize 2:05, 2:05 p.m., and five minutes after two when context permits.",
+    "Money answers must normalize cents, dollar notation, and coin-count expressions within the prompt constraints.",
+    "Word-problem responses must support final answer plus equation/strategy fields; two-step items need intermediate-answer validation.",
+    "Measurement answers must preserve unit requirements and reject correct numbers with incorrect units unless the prompt explicitly asks for number only."
+  ],
+  "skills": [
+    {
+      "skill_id": "G2M_NS_001",
+      "title": "Count, Read, and Write Numbers to 1,000",
+      "domain": "Number Sense / Base Ten",
+      "focus": "count within 1,000, skip-count by 5s, 10s, and 100s",
+      "level_banks": [
+        "Count Within 1,000",
+        "Read and Write Numbers",
+        "Skip Count by 5s and 10s",
+        "Skip Count by 100s",
+        "Mixed"
+      ],
+      "visual_models": [
+        "number_line",
+        "number_sequence",
+        "place_value_chart"
+      ],
+      "misconception_tags": [
+        "sequence_gap_error",
+        "hundreds_transition_error",
+        "skip_count_error",
+        "numeral_word_mismatch"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "number_sequence",
+        "sequence_build"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G2M_PV_001",
+      "title": "Place Value to Hundreds",
+      "domain": "Number and Operations in Base Ten",
+      "focus": "understand hundreds, tens, and ones",
+      "level_banks": [
+        "Hundreds, Tens, Ones",
+        "Expanded Form",
+        "Standard / Word / Expanded Match",
+        "100 as Ten Tens",
+        "Mixed"
+      ],
+      "visual_models": [
+        "base_ten_blocks",
+        "place_value_chart",
+        "expanded_form"
+      ],
+      "misconception_tags": [
+        "hundreds_place_confusion",
+        "digit_value_confusion",
+        "expanded_form_error",
+        "zero_placeholder_confusion"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "matching",
+        "drag_and_drop"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G2M_NS_002",
+      "title": "Compare Three-Digit Numbers",
+      "domain": "Number and Operations in Base Ten",
+      "focus": "compare numbers using hundreds, tens, and ones",
+      "level_banks": [
+        "Compare Hundreds",
+        "Compare Tens",
+        "Compare Ones",
+        "Use >, <, =",
+        "Mixed"
+      ],
+      "visual_models": [
+        "comparison",
+        "place_value_chart",
+        "number_line"
+      ],
+      "misconception_tags": [
+        "compares_left_to_right_incorrectly",
+        "symbol_reversal",
+        "place_value_compare_error",
+        "equal_confusion"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "comparison",
+        "true_false"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G2M_OP_001",
+      "title": "Add Within 100",
+      "domain": "Operations / Base Ten",
+      "focus": "add two-digit numbers using place value, drawings, and strategies",
+      "level_banks": [
+        "Add Tens",
+        "Add Ones",
+        "Add Two-Digit Numbers Without Regrouping",
+        "Add Two-Digit Numbers With Regrouping",
+        "Mixed"
+      ],
+      "visual_models": [
+        "addition_model",
+        "base_ten_blocks",
+        "number_line",
+        "place_value_chart"
+      ],
+      "misconception_tags": [
+        "regrouping_confusion",
+        "ones_tens_alignment_error",
+        "count_all_overuse",
+        "place_value_addition_error"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "equation_entry",
+        "model_interpretation"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G2M_OP_002",
+      "title": "Subtract Within 100",
+      "domain": "Operations / Base Ten",
+      "focus": "subtract two-digit numbers using drawings and place value",
+      "level_banks": [
+        "Subtract Tens",
+        "Subtract Ones",
+        "Subtract Without Regrouping",
+        "Subtract With Regrouping",
+        "Mixed"
+      ],
+      "visual_models": [
+        "subtraction_model",
+        "base_ten_blocks",
+        "number_line",
+        "place_value_chart"
+      ],
+      "misconception_tags": [
+        "regrouping_confusion",
+        "subtracts_smaller_from_larger_digit",
+        "tens_ones_alignment_error",
+        "count_back_error"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "equation_entry",
+        "model_interpretation"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G2M_OP_003",
+      "title": "Fluency With Addition and Subtraction Within 20",
+      "domain": "Operations and Algebraic Thinking",
+      "focus": "fluently add and subtract within 20 using mental strategies",
+      "level_banks": [
+        "Make 10",
+        "Doubles and Near Doubles",
+        "Related Facts",
+        "Missing Addend / Missing Part",
+        "Mixed"
+      ],
+      "visual_models": [
+        "number_bond",
+        "ten_frame",
+        "addition_model",
+        "subtraction_model"
+      ],
+      "misconception_tags": [
+        "make_ten_confusion",
+        "doubles_confusion",
+        "related_fact_confusion",
+        "missing_part_confusion"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "missing_number",
+        "fact_family_match"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G2M_WP_001",
+      "title": "Addition and Subtraction Word Problems",
+      "domain": "Operations and Algebraic Thinking",
+      "focus": "solve one-step and two-step word problems within 100",
+      "level_banks": [
+        "Add To / Put Together",
+        "Take From / Take Apart",
+        "Compare Problems",
+        "Two-Step Problems",
+        "Mixed"
+      ],
+      "visual_models": [
+        "word_problem_model",
+        "bar_model",
+        "number_line",
+        "equation_builder"
+      ],
+      "misconception_tags": [
+        "operation_selection_error",
+        "missing_unknown_confusion",
+        "compare_problem_confusion",
+        "two_step_tracking_error"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "constructed_equation",
+        "two_step_response"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G2M_MD_001",
+      "title": "Measure Length",
+      "domain": "Measurement and Data",
+      "focus": "measure and estimate lengths using standard units",
+      "level_banks": [
+        "Measure with Inches",
+        "Measure with Centimeters",
+        "Estimate Length",
+        "Compare Lengths",
+        "Mixed"
+      ],
+      "visual_models": [
+        "ruler",
+        "measurement_comparison",
+        "number_line"
+      ],
+      "misconception_tags": [
+        "starts_not_at_zero",
+        "unit_confusion",
+        "estimate_error",
+        "length_difference_confusion"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "measurement_reading",
+        "comparison"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G2M_MD_002",
+      "title": "Time and Money",
+      "domain": "Measurement and Data",
+      "focus": "tell time to five minutes and solve money problems",
+      "level_banks": [
+        "Time to 5 Minutes",
+        "A.M. and P.M. / Time Context",
+        "Coin Values",
+        "Count Coins",
+        "Mixed"
+      ],
+      "visual_models": [
+        "analog_clock",
+        "digital_time",
+        "coin_model",
+        "money_counting"
+      ],
+      "misconception_tags": [
+        "minute_hand_confusion",
+        "hour_hand_between_numbers",
+        "coin_value_confusion",
+        "coin_counting_skip_error"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "time_matching",
+        "money_counting"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G2M_MD_003",
+      "title": "Data, Graphs, and Line Plots",
+      "domain": "Measurement and Data",
+      "focus": "represent and interpret data using picture graphs, bar graphs, and line plots",
+      "level_banks": [
+        "Picture Graphs",
+        "Bar Graphs",
+        "Ask and Answer Data Questions",
+        "Line Plots",
+        "Mixed"
+      ],
+      "visual_models": [
+        "picture_graph",
+        "bar_graph",
+        "line_plot",
+        "data_table"
+      ],
+      "misconception_tags": [
+        "graph_scale_confusion",
+        "category_count_error",
+        "more_less_data_confusion",
+        "line_plot_mark_error"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "data_interpretation",
+        "graph_reading"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    },
+    {
+      "skill_id": "G2M_GM_001",
+      "title": "Shapes, Arrays, and Partitioning",
+      "domain": "Geometry",
+      "focus": "recognize shapes, partition rectangles/circles, and use arrays",
+      "level_banks": [
+        "2D and 3D Shapes",
+        "Attributes of Shapes",
+        "Partition into Equal Shares",
+        "Arrays and Repeated Rows/Columns",
+        "Mixed"
+      ],
+      "visual_models": [
+        "shape_identification",
+        "partition_shapes",
+        "array_model",
+        "visual_objects"
+      ],
+      "misconception_tags": [
+        "defining_attribute_confusion",
+        "unequal_partition_error",
+        "rows_columns_confusion",
+        "shape_label_confusion"
+      ],
+      "question_types": [
+        "multiple_choice",
+        "short_response",
+        "visual_selection",
+        "array_counting"
+      ],
+      "production_requirements": {
+        "guided_mission": [
+          "Story",
+          "Lesson",
+          "Watch",
+          "Demo",
+          "Practice",
+          "Challenge",
+          "Checkpoint",
+          "Badge",
+          "Profile"
+        ],
+        "skill_practice_center": {
+          "focused_levels_required": 4,
+          "mixed_level_required": true,
+          "questions_per_level": "10-12"
+        },
+        "manifest_exposure": "Package must be discoverable from manifest/graph/hub metadata; no hardcoded placeholder card."
+      }
+    }
+  ],
+  "backlog": [
+    {
+      "work_id": "G2M-INF-001",
+      "priority": "P0",
+      "type": "SCHEMA_UPDATE",
+      "title": "Extend SkillPackage schema for Grade 2 Math production metadata",
+      "owner": "platform/schema",
+      "depends_on": [],
+      "acceptance_criteria": [
+        "Schema enumerates or maps every Grade 2 visual_model and question_type used by the production skill set.",
+        "Strict validation rejects packages without 4 focused level_banks plus Mixed, with 10-12 questions per level.",
+        "Guided Mission generation has source fields for Story through Profile."
+      ]
+    },
+    {
+      "work_id": "G2M-INF-002",
+      "priority": "P0",
+      "type": "RENDERER_UPDATE",
+      "title": "Add or extend Grade 2 Math visual renderers",
+      "owner": "skill-world/renderers",
+      "depends_on": [
+        "G2M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "Renderer registry covers all Grade 2 visual models without fallback placeholder output.",
+        "place_value_chart explicitly renders hundreds/tens/ones and 100 as ten tens.",
+        "Renderer tests cover at least one canonical item per visual model."
+      ]
+    },
+    {
+      "work_id": "G2M-INF-003",
+      "priority": "P0",
+      "type": "PRACTICE_CENTER_GENERATOR",
+      "title": "Guarantee Skill Practice Center generation from level_banks",
+      "owner": "skill-world/generator",
+      "depends_on": [
+        "G2M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "Each package exposes at least 5 practice levels: Level 1-4 plus Mixed.",
+        "Each practice level renders 10-12 questions and reports mastery state.",
+        "No practice center cards are hardcoded outside manifest/package data."
+      ]
+    },
+    {
+      "work_id": "G2M-INF-004",
+      "priority": "P0",
+      "type": "MANIFEST_HUB_EXPOSURE",
+      "title": "Wire Grade 2 Math packages through manifest/graph/hub discovery",
+      "owner": "gamehub/content",
+      "depends_on": [
+        "G2M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "All production packages appear via manifest or grade/subject graph discovery.",
+        "No Grade 2 Math hub cards point to placeholder or one-off game routes.",
+        "Automated manifest audit confirms all listed skill_ids resolve to package JSON."
+      ]
+    },
+    {
+      "work_id": "G2M-INF-005",
+      "priority": "P1",
+      "type": "ANSWER_NORMALIZATION",
+      "title": "Add Grade 2 acceptable-answer normalization rules",
+      "owner": "adaptive-runtime",
+      "depends_on": [
+        "G2M-INF-001"
+      ],
+      "acceptance_criteria": [
+        "Short responses support number words, comma-separated numerals, symbols, units, time, money, and expanded-form equivalents.",
+        "Two-step word problems can validate final answer and optional intermediate/equation fields.",
+        "Normalization tests include representative items from every skill."
+      ]
+    },
+    {
+      "work_id": "G2M-PKG-001",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL_PACKAGE",
+      "skill_id": "G2M_NS_001",
+      "title": "Create G2M_NS_001 \u2014 Count, Read, and Write Numbers to 1,000",
+      "owner": "content/curriculum",
+      "depends_on": [
+        "G2M-INF-001",
+        "G2M-INF-002",
+        "G2M-INF-003",
+        "G2M-INF-004"
+      ],
+      "deliverables": [
+        "SkillPackage JSON with Guided Mission source content",
+        "Skill Practice Center level_banks with 4 focused levels plus Mixed",
+        "misconception_bank entries for all listed misconception tags",
+        "manifest/graph entry for hub discovery"
+      ],
+      "acceptance_criteria": [
+        "G2M_NS_001 validates as a production SkillPackage.",
+        "Guided Mission flow generates Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Each focused level and Mixed level includes 10-12 non-placeholder questions.",
+        "Package renders through Skill World generator and appears from manifest-driven hub discovery."
+      ]
+    },
+    {
+      "work_id": "G2M-PKG-002",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL_PACKAGE",
+      "skill_id": "G2M_PV_001",
+      "title": "Create G2M_PV_001 \u2014 Place Value to Hundreds",
+      "owner": "content/curriculum",
+      "depends_on": [
+        "G2M-INF-001",
+        "G2M-INF-002",
+        "G2M-INF-003",
+        "G2M-INF-004"
+      ],
+      "deliverables": [
+        "SkillPackage JSON with Guided Mission source content",
+        "Skill Practice Center level_banks with 4 focused levels plus Mixed",
+        "misconception_bank entries for all listed misconception tags",
+        "manifest/graph entry for hub discovery"
+      ],
+      "acceptance_criteria": [
+        "G2M_PV_001 validates as a production SkillPackage.",
+        "Guided Mission flow generates Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Each focused level and Mixed level includes 10-12 non-placeholder questions.",
+        "Package renders through Skill World generator and appears from manifest-driven hub discovery."
+      ]
+    },
+    {
+      "work_id": "G2M-PKG-003",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL_PACKAGE",
+      "skill_id": "G2M_NS_002",
+      "title": "Create G2M_NS_002 \u2014 Compare Three-Digit Numbers",
+      "owner": "content/curriculum",
+      "depends_on": [
+        "G2M-INF-001",
+        "G2M-INF-002",
+        "G2M-INF-003",
+        "G2M-INF-004"
+      ],
+      "deliverables": [
+        "SkillPackage JSON with Guided Mission source content",
+        "Skill Practice Center level_banks with 4 focused levels plus Mixed",
+        "misconception_bank entries for all listed misconception tags",
+        "manifest/graph entry for hub discovery"
+      ],
+      "acceptance_criteria": [
+        "G2M_NS_002 validates as a production SkillPackage.",
+        "Guided Mission flow generates Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Each focused level and Mixed level includes 10-12 non-placeholder questions.",
+        "Package renders through Skill World generator and appears from manifest-driven hub discovery."
+      ]
+    },
+    {
+      "work_id": "G2M-PKG-004",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL_PACKAGE",
+      "skill_id": "G2M_OP_001",
+      "title": "Create G2M_OP_001 \u2014 Add Within 100",
+      "owner": "content/curriculum",
+      "depends_on": [
+        "G2M-INF-001",
+        "G2M-INF-002",
+        "G2M-INF-003",
+        "G2M-INF-004"
+      ],
+      "deliverables": [
+        "SkillPackage JSON with Guided Mission source content",
+        "Skill Practice Center level_banks with 4 focused levels plus Mixed",
+        "misconception_bank entries for all listed misconception tags",
+        "manifest/graph entry for hub discovery"
+      ],
+      "acceptance_criteria": [
+        "G2M_OP_001 validates as a production SkillPackage.",
+        "Guided Mission flow generates Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Each focused level and Mixed level includes 10-12 non-placeholder questions.",
+        "Package renders through Skill World generator and appears from manifest-driven hub discovery."
+      ]
+    },
+    {
+      "work_id": "G2M-PKG-005",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL_PACKAGE",
+      "skill_id": "G2M_OP_002",
+      "title": "Create G2M_OP_002 \u2014 Subtract Within 100",
+      "owner": "content/curriculum",
+      "depends_on": [
+        "G2M-INF-001",
+        "G2M-INF-002",
+        "G2M-INF-003",
+        "G2M-INF-004"
+      ],
+      "deliverables": [
+        "SkillPackage JSON with Guided Mission source content",
+        "Skill Practice Center level_banks with 4 focused levels plus Mixed",
+        "misconception_bank entries for all listed misconception tags",
+        "manifest/graph entry for hub discovery"
+      ],
+      "acceptance_criteria": [
+        "G2M_OP_002 validates as a production SkillPackage.",
+        "Guided Mission flow generates Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Each focused level and Mixed level includes 10-12 non-placeholder questions.",
+        "Package renders through Skill World generator and appears from manifest-driven hub discovery."
+      ]
+    },
+    {
+      "work_id": "G2M-PKG-006",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL_PACKAGE",
+      "skill_id": "G2M_OP_003",
+      "title": "Create G2M_OP_003 \u2014 Fluency With Addition and Subtraction Within 20",
+      "owner": "content/curriculum",
+      "depends_on": [
+        "G2M-INF-001",
+        "G2M-INF-002",
+        "G2M-INF-003",
+        "G2M-INF-004"
+      ],
+      "deliverables": [
+        "SkillPackage JSON with Guided Mission source content",
+        "Skill Practice Center level_banks with 4 focused levels plus Mixed",
+        "misconception_bank entries for all listed misconception tags",
+        "manifest/graph entry for hub discovery"
+      ],
+      "acceptance_criteria": [
+        "G2M_OP_003 validates as a production SkillPackage.",
+        "Guided Mission flow generates Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Each focused level and Mixed level includes 10-12 non-placeholder questions.",
+        "Package renders through Skill World generator and appears from manifest-driven hub discovery."
+      ]
+    },
+    {
+      "work_id": "G2M-PKG-007",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL_PACKAGE",
+      "skill_id": "G2M_WP_001",
+      "title": "Create G2M_WP_001 \u2014 Addition and Subtraction Word Problems",
+      "owner": "content/curriculum",
+      "depends_on": [
+        "G2M-INF-001",
+        "G2M-INF-002",
+        "G2M-INF-003",
+        "G2M-INF-004"
+      ],
+      "deliverables": [
+        "SkillPackage JSON with Guided Mission source content",
+        "Skill Practice Center level_banks with 4 focused levels plus Mixed",
+        "misconception_bank entries for all listed misconception tags",
+        "manifest/graph entry for hub discovery"
+      ],
+      "acceptance_criteria": [
+        "G2M_WP_001 validates as a production SkillPackage.",
+        "Guided Mission flow generates Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Each focused level and Mixed level includes 10-12 non-placeholder questions.",
+        "Package renders through Skill World generator and appears from manifest-driven hub discovery."
+      ]
+    },
+    {
+      "work_id": "G2M-PKG-008",
+      "priority": "P1",
+      "type": "CREATE_PRODUCTION_SKILL_PACKAGE",
+      "skill_id": "G2M_MD_001",
+      "title": "Create G2M_MD_001 \u2014 Measure Length",
+      "owner": "content/curriculum",
+      "depends_on": [
+        "G2M-INF-001",
+        "G2M-INF-002",
+        "G2M-INF-003",
+        "G2M-INF-004"
+      ],
+      "deliverables": [
+        "SkillPackage JSON with Guided Mission source content",
+        "Skill Practice Center level_banks with 4 focused levels plus Mixed",
+        "misconception_bank entries for all listed misconception tags",
+        "manifest/graph entry for hub discovery"
+      ],
+      "acceptance_criteria": [
+        "G2M_MD_001 validates as a production SkillPackage.",
+        "Guided Mission flow generates Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Each focused level and Mixed level includes 10-12 non-placeholder questions.",
+        "Package renders through Skill World generator and appears from manifest-driven hub discovery."
+      ]
+    },
+    {
+      "work_id": "G2M-PKG-009",
+      "priority": "P1",
+      "type": "CREATE_PRODUCTION_SKILL_PACKAGE",
+      "skill_id": "G2M_MD_002",
+      "title": "Create G2M_MD_002 \u2014 Time and Money",
+      "owner": "content/curriculum",
+      "depends_on": [
+        "G2M-INF-001",
+        "G2M-INF-002",
+        "G2M-INF-003",
+        "G2M-INF-004"
+      ],
+      "deliverables": [
+        "SkillPackage JSON with Guided Mission source content",
+        "Skill Practice Center level_banks with 4 focused levels plus Mixed",
+        "misconception_bank entries for all listed misconception tags",
+        "manifest/graph entry for hub discovery"
+      ],
+      "acceptance_criteria": [
+        "G2M_MD_002 validates as a production SkillPackage.",
+        "Guided Mission flow generates Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Each focused level and Mixed level includes 10-12 non-placeholder questions.",
+        "Package renders through Skill World generator and appears from manifest-driven hub discovery."
+      ]
+    },
+    {
+      "work_id": "G2M-PKG-010",
+      "priority": "P1",
+      "type": "CREATE_PRODUCTION_SKILL_PACKAGE",
+      "skill_id": "G2M_MD_003",
+      "title": "Create G2M_MD_003 \u2014 Data, Graphs, and Line Plots",
+      "owner": "content/curriculum",
+      "depends_on": [
+        "G2M-INF-001",
+        "G2M-INF-002",
+        "G2M-INF-003",
+        "G2M-INF-004"
+      ],
+      "deliverables": [
+        "SkillPackage JSON with Guided Mission source content",
+        "Skill Practice Center level_banks with 4 focused levels plus Mixed",
+        "misconception_bank entries for all listed misconception tags",
+        "manifest/graph entry for hub discovery"
+      ],
+      "acceptance_criteria": [
+        "G2M_MD_003 validates as a production SkillPackage.",
+        "Guided Mission flow generates Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Each focused level and Mixed level includes 10-12 non-placeholder questions.",
+        "Package renders through Skill World generator and appears from manifest-driven hub discovery."
+      ]
+    },
+    {
+      "work_id": "G2M-PKG-011",
+      "priority": "P1",
+      "type": "CREATE_PRODUCTION_SKILL_PACKAGE",
+      "skill_id": "G2M_GM_001",
+      "title": "Create G2M_GM_001 \u2014 Shapes, Arrays, and Partitioning",
+      "owner": "content/curriculum",
+      "depends_on": [
+        "G2M-INF-001",
+        "G2M-INF-002",
+        "G2M-INF-003",
+        "G2M-INF-004"
+      ],
+      "deliverables": [
+        "SkillPackage JSON with Guided Mission source content",
+        "Skill Practice Center level_banks with 4 focused levels plus Mixed",
+        "misconception_bank entries for all listed misconception tags",
+        "manifest/graph entry for hub discovery"
+      ],
+      "acceptance_criteria": [
+        "G2M_GM_001 validates as a production SkillPackage.",
+        "Guided Mission flow generates Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile.",
+        "Each focused level and Mixed level includes 10-12 non-placeholder questions.",
+        "Package renders through Skill World generator and appears from manifest-driven hub discovery."
+      ]
+    }
+  ]
+}
