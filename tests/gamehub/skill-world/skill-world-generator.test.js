@@ -5,7 +5,7 @@ const root=path.join(__dirname,'..','..','..');
 const load=(id)=>JSON.parse(fs.readFileSync(path.join(root,`public/gamehub/skill-world/content/${id}.skill-package.v1.json`),'utf8'));
 const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_GM_001','G1M_GM_002','G1M_DP_001','G1M_MD_TIME_001','G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
 const grade1Packages=grade1SkillIds.map(load);
-const grade2SkillIds=['G2E_RF_001','G2E_RF_002','G2E_FL_001','G2E_VOC_001','G2E_RC_001','G2E_RC_002','G2E_RC_003','G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
+const grade2SkillIds=['G2E_RF_001','G2E_RF_002','G2E_FL_001','G2E_VOC_001','G2E_RC_001','G2E_RC_002','G2E_RC_003','G2E_WR_001','G2E_WR_002','G2E_WR_003','G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
 const grade2Packages=grade2SkillIds.map(load);
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
@@ -14,6 +14,9 @@ const g2Vocabulary=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_VOC_001');
 const g2AskAnswer=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RC_001');
 const g2StoryStructure=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RC_002');
 const g2MainIdea=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RC_003');
+const g2OpinionWriting=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_WR_001');
+const g2InformativeWriting=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_WR_002');
+const g2NarrativeWriting=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_WR_003');
 const g2PlaceValue=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_PV_001');
 const g2CountReadWrite=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_NS_001');
 const g2Compare=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_NS_002');
@@ -90,8 +93,11 @@ function assertGrade2EnglishPackage(pkg,expected){
   pkg.level_banks.forEach((level)=>{
     assert.ok(level.questions.length>=10&&level.questions.length<=12,`${expected.id} ${level.level_id} has 10–12 questions`);
     level.questions.forEach((question)=>{
-      if(question.question_type==='short_response'){
+      if(['short_response','writing_response','sentence_completion','sequencing'].includes(question.question_type)){
         assert.ok(Array.isArray(question.acceptable_answers)&&question.acceptable_answers.length>0,`${question.question_id} acceptable_answers exist`);
+      }
+      if(question.question_type==='writing_response'){
+        assert.ok(Array.isArray(question.validation_checks)&&question.validation_checks.length>0,`${question.question_id} writing validation checks exist`);
       }
     });
   });
@@ -187,6 +193,53 @@ assert.ok(g2MainIdeaQuestions.some((q)=>/match/i.test(q.prompt)),'G2E_RC_003 inc
 assert.ok(g2MainIdeaQuestions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G2E_RC_003 short responses include acceptable_answers');
 assert.match(VisualRegistry.render(g2MainIdeaQuestions.find((q)=>q.visual_model==='main_idea_web')),/data-renderer="main_idea_web"/,'main_idea_web renderer output exists');
 assert.match(VisualRegistry.render(g2MainIdeaQuestions.find((q)=>q.visual_model==='detail_cards')),/data-renderer="detail_cards"/,'detail_cards renderer output exists');
+
+
+assertGrade2EnglishPackage(g2OpinionWriting,{
+  id:'G2E_WR_001',domain:'Writing / Composition',skill:'Write Opinion Pieces',
+  levelLabels:['Level 1: State an Opinion','Level 2: Give a Reason','Level 3: Add a Closing','Level 4: Build an Opinion Paragraph','Mixed'],
+  visuals:['writing_checklist','sentence_builder','opinion_reason_chart','paragraph_builder'],types:['multiple_choice','short_response','writing_response','sentence_completion'],
+  tags:['missing_opinion','weak_reason','missing_closing','off_topic_response']
+});
+const g2OpinionQuestions=g2OpinionWriting.level_banks.flatMap((level)=>level.questions);
+assert.ok(g2OpinionQuestions.some((q)=>/opinion/i.test(q.prompt)),'G2E_WR_001 identifies an opinion');
+assert.ok(g2OpinionQuestions.some((q)=>/reason/i.test(q.prompt)),'G2E_WR_001 chooses or writes a reason');
+assert.ok(g2OpinionQuestions.some((q)=>/closing/i.test(q.prompt)),'G2E_WR_001 chooses or writes a closing');
+assert.ok(g2OpinionQuestions.some((q)=>/paragraph/i.test(q.prompt)&&q.question_type==='writing_response'),'G2E_WR_001 builds an opinion paragraph');
+assert.ok(g2OpinionQuestions.filter((q)=>q.question_type==='writing_response').every((q)=>q.validation_checks.includes('opinion_present')&&q.validation_checks.includes('reason_present')&&q.validation_checks.includes('closing_present')),'G2E_WR_001 writing validation checks exist');
+assert.match(VisualRegistry.render(g2OpinionQuestions.find((q)=>q.visual_model==='opinion_reason_chart')),/data-renderer="opinion_reason_chart"/,'opinion_reason_chart output exists');
+assert.match(VisualRegistry.render(g2OpinionQuestions.find((q)=>q.visual_model==='paragraph_builder')),/data-renderer="paragraph_builder"/,'paragraph_builder output exists');
+assert.equal(Renderer.evaluateAnswer(g2OpinionQuestions.find((q)=>q.question_type==='writing_response'),'I think recess is best because kids can play. That is why recess is good.'),true,'opinion validation accepts child-friendly sample');
+
+assertGrade2EnglishPackage(g2InformativeWriting,{
+  id:'G2E_WR_002',domain:'Writing / Composition',skill:'Write Informative/Explanatory Text',
+  levelLabels:['Level 1: Name a Topic','Level 2: Add Facts','Level 3: Use Linking Words','Level 4: Build an Informative Paragraph','Mixed'],
+  visuals:['writing_checklist','fact_cards','paragraph_builder','topic_detail_chart'],types:['multiple_choice','short_response','writing_response','sentence_completion'],
+  tags:['missing_topic','unsupported_fact','missing_linking_word','missing_closure']
+});
+const g2InformativeQuestions=g2InformativeWriting.level_banks.flatMap((level)=>level.questions);
+assert.ok(g2InformativeQuestions.some((q)=>/topic/i.test(q.prompt)),'G2E_WR_002 names a topic');
+assert.ok(g2InformativeQuestions.some((q)=>/fact/i.test(q.prompt)),'G2E_WR_002 identifies facts');
+assert.ok(g2InformativeQuestions.some((q)=>/linking word/i.test(q.prompt)),'G2E_WR_002 uses linking words');
+assert.ok(g2InformativeQuestions.some((q)=>/paragraph/i.test(q.prompt)&&q.question_type==='writing_response'),'G2E_WR_002 builds an informative paragraph');
+assert.ok(g2InformativeQuestions.filter((q)=>q.question_type==='writing_response').every((q)=>q.validation_checks.includes('topic_present')&&q.validation_checks.includes('fact_present')&&q.validation_checks.includes('linking_word_present')),'G2E_WR_002 writing validation checks exist');
+assert.match(VisualRegistry.render(g2InformativeQuestions.find((q)=>q.visual_model==='fact_cards')),/data-renderer="fact_cards"/,'fact_cards output exists');
+assert.match(VisualRegistry.render(g2InformativeQuestions.find((q)=>q.visual_model==='topic_detail_chart')),/data-renderer="topic_detail_chart"/,'topic_detail_chart output exists');
+assert.equal(Renderer.evaluateAnswer(g2InformativeQuestions.find((q)=>q.question_type==='writing_response'),'Butterflies are my topic. First, butterflies have wings. Also, butterflies drink nectar. Now you know about butterflies.'),true,'informative validation accepts child-friendly sample');
+
+assertGrade2EnglishPackage(g2NarrativeWriting,{
+  id:'G2E_WR_003',domain:'Writing / Composition',skill:'Narrative Writing With Sequence',
+  levelLabels:['Level 1: Sequence Words','Level 2: Add Event Details','Level 3: Write Beginning / Middle / End','Level 4: Build a Narrative','Mixed'],
+  visuals:['story_sequence','event_cards','paragraph_builder','writing_checklist'],types:['multiple_choice','short_response','writing_response','sequencing'],
+  tags:['sequence_word_missing','event_order_error','missing_details','missing_closure']
+});
+const g2NarrativeQuestions=g2NarrativeWriting.level_banks.flatMap((level)=>level.questions);
+assert.ok(g2NarrativeQuestions.some((q)=>/sequence word/i.test(q.prompt)),'G2E_WR_003 chooses sequence words');
+assert.ok(g2NarrativeQuestions.some((q)=>/event detail/i.test(q.prompt)),'G2E_WR_003 identifies event details');
+assert.ok(g2NarrativeQuestions.some((q)=>/beginning, middle, and end/i.test(q.prompt)),'G2E_WR_003 orders beginning/middle/end');
+assert.ok(g2NarrativeQuestions.some((q)=>/narrative/i.test(q.prompt)&&q.question_type==='writing_response'),'G2E_WR_003 builds a narrative');
+assert.ok(g2NarrativeQuestions.filter((q)=>q.question_type==='writing_response').every((q)=>q.validation_checks.includes('sequence_word_present')&&q.validation_checks.includes('detail_present')&&q.validation_checks.includes('closing_present')),'G2E_WR_003 writing validation checks exist');
+assert.equal(Renderer.evaluateAnswer(g2NarrativeQuestions.find((q)=>q.question_type==='writing_response'),'First, I filled a cup with soil. Then, I tucked seeds under the soil. Finally, I watered the cup. It was a day to remember.'),true,'narrative validation accepts child-friendly sample');
 
 
 function assertFullMission(pkg){

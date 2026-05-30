@@ -16,7 +16,7 @@ const packageFiles = fs.readdirSync(contentDir)
 const requiredGrade1MathSkillIds = ['G1M_NS_001', 'G1M_NS_002', 'G1M_NS_003', 'G1M_PV_001', 'G1M_OP_001', 'G1M_OP_002', 'G1M_OP_003', 'G1M_GM_001', 'G1M_GM_002', 'G1M_DP_001', 'G1M_MD_TIME_001'];
 const requiredGrade1EnglishSkillIds = ['G1E_RF_001', 'G1E_RF_002', 'G1E_PH_001', 'G1E_PH_002', 'G1E_SW_001', 'G1E_FL_001', 'G1E_RC_001', 'G1E_RC_002', 'G1E_WR_001', 'G1E_WR_002'];
 const requiredGrade1SkillIds = [...requiredGrade1MathSkillIds, ...requiredGrade1EnglishSkillIds];
-const requiredGrade2SkillIds = ['G2E_RF_001', 'G2E_RF_002', 'G2E_FL_001', 'G2E_VOC_001', 'G2E_RC_001', 'G2E_RC_002', 'G2E_RC_003', 'G2M_NS_001', 'G2M_PV_001', 'G2M_NS_002', 'G2M_OP_001', 'G2M_OP_002', 'G2M_OP_003', 'G2M_WP_001', 'G2M_MD_001', 'G2M_MD_002', 'G2M_MD_003', 'G2M_GM_001'];
+const requiredGrade2SkillIds = ['G2E_RF_001', 'G2E_RF_002', 'G2E_FL_001', 'G2E_VOC_001', 'G2E_RC_001', 'G2E_RC_002', 'G2E_RC_003', 'G2E_WR_001', 'G2E_WR_002', 'G2E_WR_003', 'G2M_NS_001', 'G2M_PV_001', 'G2M_NS_002', 'G2M_OP_001', 'G2M_OP_002', 'G2M_OP_003', 'G2M_WP_001', 'G2M_MD_001', 'G2M_MD_002', 'G2M_MD_003', 'G2M_GM_001'];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -119,6 +119,9 @@ test('Grade 2 Skill World packages appear from manifest for the hub', () => {
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2E_RC_001').skill, 'Ask and Answer Questions About Text');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2E_RC_002').skill, 'Story Structure and Retelling');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2E_RC_003').skill, 'Main Idea and Key Details');
+  assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2E_WR_001').skill, 'Write Opinion Pieces');
+  assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2E_WR_002').skill, 'Write Informative/Explanatory Text');
+  assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2E_WR_003').skill, 'Narrative Writing With Sequence');
   assert.equal(`/skill-world/${encodeURIComponent('G2E_RF_001')}/drill`, '/skill-world/G2E_RF_001/drill');
   assert.equal(`/skill-world/${encodeURIComponent('G2E_RF_002')}/drill`, '/skill-world/G2E_RF_002/drill');
   assert.equal(`/skill-world/${encodeURIComponent('G2E_FL_001')}/drill`, '/skill-world/G2E_FL_001/drill');
@@ -126,6 +129,9 @@ test('Grade 2 Skill World packages appear from manifest for the hub', () => {
   assert.equal(`/skill-world/${encodeURIComponent('G2E_RC_001')}/drill`, '/skill-world/G2E_RC_001/drill');
   assert.equal(`/skill-world/${encodeURIComponent('G2E_RC_002')}/drill`, '/skill-world/G2E_RC_002/drill');
   assert.equal(`/skill-world/${encodeURIComponent('G2E_RC_003')}/drill`, '/skill-world/G2E_RC_003/drill');
+  assert.equal(`/skill-world/${encodeURIComponent('G2E_WR_001')}/drill`, '/skill-world/G2E_WR_001/drill');
+  assert.equal(`/skill-world/${encodeURIComponent('G2E_WR_002')}/drill`, '/skill-world/G2E_WR_002/drill');
+  assert.equal(`/skill-world/${encodeURIComponent('G2E_WR_003')}/drill`, '/skill-world/G2E_WR_003/drill');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_NS_001').domain, 'Number Sense / Base Ten');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_NS_001').skill, 'Count, Read, and Write Numbers to 1,000');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_NS_002').domain, 'Number and Operations in Base Ten');
