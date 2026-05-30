@@ -8,8 +8,9 @@ const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_O
 const grade1Packages=grade1SkillIds.map(load);
 const grade2SkillIds=['G2E_RF_001','G2E_RF_002','G2E_FL_001','G2E_VOC_001','G2E_RC_001','G2E_RC_002','G2E_RC_003','G2E_WR_001','G2E_WR_002','G2E_WR_003','G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
 const grade2Packages=grade2SkillIds.map(load);
-const grade3SkillIds=['G3M_MUL_001','G3M_DIV_001','G3M_FACT_001','G3M_WP_001','G3M_PV_001','G3M_FR_001','G3M_FR_002','G3M_MD_001','G3M_GM_001','G3M_GM_002'];
+const grade3SkillIds=['G3E_RF_001','G3M_MUL_001','G3M_DIV_001','G3M_FACT_001','G3M_WP_001','G3M_PV_001','G3M_FR_001','G3M_FR_002','G3M_MD_001','G3M_GM_001','G3M_GM_002'];
 const grade3Packages=grade3SkillIds.map(load);
+const g3AdvancedPhonics=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_RF_001');
 const g3MultiplicationFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_MUL_001');
 const g3DivisionFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_DIV_001');
 const g3FactFluency=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_FACT_001');
@@ -131,6 +132,34 @@ assert.match(VisualRegistry.render({visual_model:'phonics_tiles',word:'cake',til
 assert.match(VisualRegistry.render({visual_model:'sound_boxes',word:'boat',sounds:['b','oa','t'],correct_answer:'boat'}),/data-renderer="sound_boxes"[\s\S]*data-sound-kind="vowel-team"/,'sound_boxes renderer output exists with grouped vowel team');
 assert.match(VisualRegistry.render({visual_model:'word_builder',word:'stone',tiles:['st','o','n','e'],missing_tile:'e',correct_answer:'stone'}),/data-renderer="word_builder"[\s\S]*Target word: stone/,'word_builder renderer output exists');
 
+
+
+assert.ok(g3AdvancedPhonics,'G3E_RF_001 package loads');
+assert.equal(Schema.validateSkillPackage(g3AdvancedPhonics,{allowPlannedLevelBanks:false}).valid,true,'G3E_RF_001 validates in strict production mode');
+assert.equal(g3AdvancedPhonics.grade,3);
+assert.equal(g3AdvancedPhonics.subject,'English');
+assert.equal(g3AdvancedPhonics.domain,'Reading Foundations');
+assert.equal(g3AdvancedPhonics.skill,'Multisyllable Word Reading and Advanced Phonics');
+assert.equal(Array.isArray(g3AdvancedPhonics.level_banks),true,'G3E_RF_001 has real level_banks');
+assert.equal(g3AdvancedPhonics.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,'G3E_RF_001 has four focused levels');
+assert.equal(g3AdvancedPhonics.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,'G3E_RF_001 has Mixed level');
+g3AdvancedPhonics.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+['Level 1: Syllable Types','Level 2: R-Controlled Vowels','Level 3: Prefixes and Suffixes','Level 4: Multisyllable Decoding','Mixed'].forEach((label)=>assert.ok(g3AdvancedPhonics.level_banks.some((level)=>level.label===label),`G3E_RF_001 includes ${label}`));
+const g3EQuestions=g3AdvancedPhonics.level_banks.flatMap((level)=>level.questions);
+['syllable_break','phonics_tiles','word_parts','morpheme_tiles'].forEach((visual)=>assert.ok(g3EQuestions.some((q)=>q.visual_model===visual),`G3E_RF_001 includes ${visual}`));
+['multiple_choice','short_response','word_building'].forEach((type)=>assert.ok(g3EQuestions.some((q)=>q.question_type===type),`G3E_RF_001 includes ${type}`));
+['syllable_break_error','r_controlled_vowel_confusion','affix_meaning_confusion','multisyllable_guessing'].forEach((tag)=>assert.ok(g3AdvancedPhonics.misconception_bank[tag],`G3E_RF_001 includes misconception ${tag}`));
+assert.ok(g3EQuestions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G3E_RF_001 acceptable_answers exist for short-response items');
+const g3AdvancedPhonicsMissionHtml=Renderer.renderSkillWorld(g3AdvancedPhonics,{failClosed:true}).html;
+['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(g3AdvancedPhonicsMissionHtml,new RegExp(label),`G3E_RF_001 mission renders ${label}`));
+assert.match(g3AdvancedPhonicsMissionHtml,/Continue to Skill Practice/,'G3E_RF_001 profile links to Skill Practice Center');
+const g3AdvancedPhonicsDrillHtml=Renderer.renderSkillWorld(g3AdvancedPhonics,{state:Renderer.createState(),mode:'drill',failClosed:true}).html;
+assert.match(g3AdvancedPhonicsDrillHtml,/Skill Practice Center/,'G3E_RF_001 practice route renders Skill Practice Center');
+assert.match(g3AdvancedPhonicsDrillHtml,/Level 1: Syllable Types/,'G3E_RF_001 drill renders Level 1');
+assert.match(VisualRegistry.render(g3EQuestions.find((q)=>q.visual_model==='syllable_break')),/data-renderer="syllable_break"/,'G3E_RF_001 syllable_break renderer output exists');
+assert.match(VisualRegistry.render(g3EQuestions.find((q)=>q.visual_model==='phonics_tiles')),/data-renderer="phonics_tiles"/,'G3E_RF_001 phonics_tiles renderer output exists');
+assert.match(VisualRegistry.render(g3EQuestions.find((q)=>q.visual_model==='word_parts')),/data-renderer="word_parts"/,'G3E_RF_001 word_parts renderer output exists');
+assert.match(VisualRegistry.render(g3EQuestions.find((q)=>q.visual_model==='morpheme_tiles')),/data-renderer="morpheme_tiles"/,'G3E_RF_001 morpheme_tiles renderer output exists');
 
 function assertGrade2EnglishPackage(pkg,expected){
   assert.ok(pkg,`${expected.id} package loads`);

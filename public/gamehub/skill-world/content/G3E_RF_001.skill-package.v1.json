@@ -1,0 +1,2651 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade3-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade3_english_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-05-30"
+  },
+  "skill_id": "G3E_RF_001",
+  "grade": 3,
+  "subject": "English",
+  "domain": "Reading Foundations",
+  "skill": "Multisyllable Word Reading and Advanced Phonics",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Join the Word Rangers in the Echo Library. Each locked shelf opens when you read a longer word by chunks instead of guessing.",
+    "objective": "I can decode multisyllable words with open and closed syllables, vowel teams, r-controlled vowels, prefixes, and suffixes.",
+    "key_vocabulary": [
+      "open syllable",
+      "closed syllable",
+      "r-controlled vowel",
+      "prefix",
+      "suffix",
+      "morpheme",
+      "multisyllable word"
+    ],
+    "concept_explanation": "Longer words become easier when readers slow down and find chunks. An open syllable ends with a vowel that often says its long sound, a closed syllable has a vowel closed in by a consonant, r-controlled vowels like ar, er, ir, or, and ur stay together, and prefixes or suffixes add meaning to a base word.",
+    "visual_model": "syllable_break",
+    "common_misconception": "Readers may guess from the first few letters, split a vowel-r team, or miss the meaning of a prefix or suffix.",
+    "real_world_connection": "These strategies help readers solve new words in chapter books, science articles, directions, and classroom projects.",
+    "lesson_summary": "Find the word parts, mark the vowel pattern, read each chunk, blend the chunks, and check the meaning.",
+    "mini_lesson": "First look for prefixes and suffixes. Next mark vowel patterns and syllables. Then read each chunk and blend the whole word."
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: robot splits ro | bot. The first syllable is open, so ro says a long o sound.",
+      "correct_answer": "ro-bot",
+      "visual_model": "syllable_break",
+      "word": "robot",
+      "syllables": [
+        "ro",
+        "bot"
+      ],
+      "syllable_types": [
+        "open",
+        "closed"
+      ]
+    },
+    {
+      "text": "Demo: In farm, ar stays together because the r changes the vowel sound.",
+      "correct_answer": "ar",
+      "visual_model": "phonics_tiles",
+      "word": "farm",
+      "tiles": [
+        "f",
+        "ar",
+        "m"
+      ],
+      "tile_types": [
+        "letter",
+        "r-controlled",
+        "letter"
+      ]
+    },
+    {
+      "text": "Demo: reread has re- plus read. The prefix re- means again, so reread means read again.",
+      "correct_answer": "reread",
+      "visual_model": "word_parts",
+      "word": "reread",
+      "word_parts": [
+        "re-",
+        "read"
+      ],
+      "part_meanings": [
+        "again",
+        "read"
+      ]
+    },
+    {
+      "text": "Practice: hopeful is built from hope plus -ful. The suffix -ful means full of.",
+      "correct_answer": "hopeful",
+      "visual_model": "morpheme_tiles",
+      "word": "hopeful",
+      "morphemes": [
+        "hope",
+        "-ful"
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "Look for the word parts before you guess.",
+    "Mark the vowel pattern or meaningful part.",
+    "Read each chunk, then blend and check that it makes sense."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G3E_RF_001_LVL1_Q01",
+      "prompt": "Which syllable break shows an open syllable first in robot?",
+      "question_type": "multiple_choice",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "ro-bot",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "syllable_break_error",
+      "explanation": "The answer is ro-bot. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 ro-bot is the decoding clue that fits.",
+      "choices": [
+        "ro-bot",
+        "rob-ot",
+        "robot"
+      ],
+      "word": "robot",
+      "syllables": [
+        "ro",
+        "bot"
+      ],
+      "syllable_count": 2,
+      "clap_prompt": "Read robot one chunk at a time: ro | bot.",
+      "syllable_types": [
+        "open",
+        "closed"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL1_Q02",
+      "prompt": "Break picnic into two closed syllables.",
+      "question_type": "short_response",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "pic-nic",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "syllable_break_error",
+      "explanation": "The answer is pic-nic. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 pic-nic is the decoding clue that fits.",
+      "acceptable_answers": [
+        "pic-nic",
+        "pic nic",
+        "pic|nic"
+      ],
+      "word": "picnic",
+      "syllables": [
+        "pic",
+        "nic"
+      ],
+      "syllable_count": 2,
+      "clap_prompt": "Read picnic one chunk at a time: pic | nic."
+    },
+    {
+      "question_id": "G3E_RF_001_LVL1_Q03",
+      "prompt": "In tiger, which first syllable is open and says its long vowel sound?",
+      "question_type": "multiple_choice",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "ti",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "syllable_break_error",
+      "explanation": "The answer is ti. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 ti is the decoding clue that fits.",
+      "choices": [
+        "ti",
+        "tig",
+        "ger"
+      ],
+      "word": "tiger",
+      "syllables": [
+        "ti",
+        "ger"
+      ],
+      "syllable_count": 2,
+      "clap_prompt": "Read tiger one chunk at a time: ti | ger.",
+      "syllable_types": [
+        "open",
+        "r-controlled"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL1_Q04",
+      "prompt": "Build the word from the syllables ba + sic.",
+      "question_type": "word_building",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "basic",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "syllable_break_error",
+      "explanation": "The answer is basic. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 basic is the decoding clue that fits.",
+      "choices": [
+        "basic"
+      ],
+      "acceptable_answers": [
+        "basic"
+      ],
+      "word": "basic",
+      "tiles": [
+        "ba",
+        "sic"
+      ],
+      "syllables": [
+        "ba",
+        "sic"
+      ],
+      "syllable_count": 2,
+      "clap_prompt": "Read basic one chunk at a time: ba | sic."
+    },
+    {
+      "question_id": "G3E_RF_001_LVL1_Q05",
+      "prompt": "Which syllable in basket is closed?",
+      "question_type": "multiple_choice",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "bas",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "syllable_break_error",
+      "explanation": "The answer is bas. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 bas is the decoding clue that fits.",
+      "choices": [
+        "ba",
+        "bas",
+        "ket"
+      ],
+      "word": "basket",
+      "syllables": [
+        "bas",
+        "ket"
+      ],
+      "syllable_count": 2,
+      "clap_prompt": "Read basket one chunk at a time: bas | ket.",
+      "syllable_types": [
+        "closed",
+        "closed"
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G3E_RF_001_LVL1_Q10",
+      "prompt": "Write the syllable break for pilot.",
+      "question_type": "short_response",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "pi-lot",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "syllable_break_error",
+      "explanation": "The answer is pi-lot. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 pi-lot is the decoding clue that fits.",
+      "acceptable_answers": [
+        "pi-lot",
+        "pi lot",
+        "pi|lot"
+      ],
+      "word": "pilot",
+      "syllables": [
+        "pi",
+        "lot"
+      ],
+      "syllable_count": 2,
+      "clap_prompt": "Read pilot one chunk at a time: pi | lot."
+    },
+    {
+      "question_id": "G3E_RF_001_LVL2_Q10",
+      "prompt": "Write the r-controlled vowel in burn.",
+      "question_type": "short_response",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "ur",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "r_controlled_vowel_confusion",
+      "explanation": "The answer is ur. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 ur is the decoding clue that fits.",
+      "acceptable_answers": [
+        "ur"
+      ],
+      "word": "burn",
+      "tiles": [
+        "b",
+        "ur",
+        "n"
+      ],
+      "tile_types": [
+        "letter",
+        "r-controlled",
+        "letter"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL3_Q10",
+      "prompt": "Write the base word in helpful.",
+      "question_type": "short_response",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "help",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "affix_meaning_confusion",
+      "explanation": "The answer is help. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 help is the decoding clue that fits.",
+      "acceptable_answers": [
+        "help"
+      ],
+      "word": "helpful",
+      "word_parts": [
+        "help",
+        "-ful"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL4_Q10",
+      "prompt": "Which word part helps you read fearless?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "-less",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "multisyllable_guessing",
+      "explanation": "The answer is -less. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 -less is the decoding clue that fits.",
+      "choices": [
+        "-less",
+        "fearl",
+        "ee"
+      ],
+      "word": "fearless",
+      "word_parts": [
+        "fear",
+        "-less"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_MIXED_Q12",
+      "prompt": "Mixed: Which break helps read sunflower?",
+      "question_type": "multiple_choice",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "sun-flow-er",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "multisyllable_guessing",
+      "explanation": "The answer is sun-flow-er. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 sun-flow-er is the decoding clue that fits.",
+      "choices": [
+        "sun-flow-er",
+        "sunfl-ower",
+        "sunflower"
+      ],
+      "word": "sunflower",
+      "syllables": [
+        "sun",
+        "flow",
+        "er"
+      ],
+      "syllable_count": 3,
+      "clap_prompt": "Read sunflower one chunk at a time: sun | flow | er."
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G3E_RF_001_LVL1_Q06",
+      "prompt": "Write the syllable break for music.",
+      "question_type": "short_response",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "mu-sic",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "syllable_break_error",
+      "explanation": "The answer is mu-sic. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 mu-sic is the decoding clue that fits.",
+      "acceptable_answers": [
+        "mu-sic",
+        "mu sic",
+        "mu|sic"
+      ],
+      "word": "music",
+      "syllables": [
+        "mu",
+        "sic"
+      ],
+      "syllable_count": 2,
+      "clap_prompt": "Read music one chunk at a time: mu | sic."
+    },
+    {
+      "question_id": "G3E_RF_001_LVL1_Q07",
+      "prompt": "Which word has an open first syllable?",
+      "question_type": "multiple_choice",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "paper",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "syllable_break_error",
+      "explanation": "The answer is paper. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 paper is the decoding clue that fits.",
+      "choices": [
+        "paper",
+        "rabbit",
+        "basket"
+      ],
+      "word": "paper",
+      "syllables": [
+        "pa",
+        "per"
+      ],
+      "syllable_count": 2,
+      "clap_prompt": "Read paper one chunk at a time: pa | per.",
+      "syllable_types": [
+        "open",
+        "r-controlled"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL1_Q08",
+      "prompt": "Build cabin from two closed syllables: cab + in.",
+      "question_type": "word_building",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "cabin",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "syllable_break_error",
+      "explanation": "The answer is cabin. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 cabin is the decoding clue that fits.",
+      "choices": [
+        "cabin"
+      ],
+      "acceptable_answers": [
+        "cabin"
+      ],
+      "word": "cabin",
+      "tiles": [
+        "cab",
+        "in"
+      ],
+      "syllables": [
+        "cab",
+        "in"
+      ],
+      "syllable_count": 2,
+      "clap_prompt": "Read cabin one chunk at a time: cab | in."
+    },
+    {
+      "question_id": "G3E_RF_001_LVL1_Q09",
+      "prompt": "Which break helps you read sunset accurately?",
+      "question_type": "multiple_choice",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "sun-set",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "syllable_break_error",
+      "explanation": "The answer is sun-set. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 sun-set is the decoding clue that fits.",
+      "choices": [
+        "su-nset",
+        "sun-set",
+        "suns-et"
+      ],
+      "word": "sunset",
+      "syllables": [
+        "sun",
+        "set"
+      ],
+      "syllable_count": 2,
+      "clap_prompt": "Read sunset one chunk at a time: sun | set."
+    },
+    {
+      "question_id": "G3E_RF_001_LVL1_Q10",
+      "prompt": "Write the syllable break for pilot.",
+      "question_type": "short_response",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "pi-lot",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "syllable_break_error",
+      "explanation": "The answer is pi-lot. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 pi-lot is the decoding clue that fits.",
+      "acceptable_answers": [
+        "pi-lot",
+        "pi lot",
+        "pi|lot"
+      ],
+      "word": "pilot",
+      "syllables": [
+        "pi",
+        "lot"
+      ],
+      "syllable_count": 2,
+      "clap_prompt": "Read pilot one chunk at a time: pi | lot."
+    },
+    {
+      "question_id": "G3E_RF_001_LVL2_Q01",
+      "prompt": "Which r-controlled vowel is in farm?",
+      "question_type": "multiple_choice",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "ar",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "r_controlled_vowel_confusion",
+      "explanation": "The answer is ar. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 ar is the decoding clue that fits.",
+      "choices": [
+        "ar",
+        "a",
+        "am"
+      ],
+      "word": "farm",
+      "tiles": [
+        "f",
+        "ar",
+        "m"
+      ],
+      "tile_types": [
+        "letter",
+        "r-controlled",
+        "letter"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL2_Q02",
+      "prompt": "Write the r-controlled vowel in her.",
+      "question_type": "short_response",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "er",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "r_controlled_vowel_confusion",
+      "explanation": "The answer is er. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 er is the decoding clue that fits.",
+      "acceptable_answers": [
+        "er"
+      ],
+      "word": "her",
+      "tiles": [
+        "h",
+        "er"
+      ],
+      "tile_types": [
+        "letter",
+        "r-controlled"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL2_Q03",
+      "prompt": "Which r-controlled vowel is in bird?",
+      "question_type": "multiple_choice",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "ir",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "r_controlled_vowel_confusion",
+      "explanation": "The answer is ir. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 ir is the decoding clue that fits.",
+      "choices": [
+        "ir",
+        "i",
+        "rd"
+      ],
+      "word": "bird",
+      "tiles": [
+        "b",
+        "ir",
+        "d"
+      ],
+      "tile_types": [
+        "letter",
+        "r-controlled",
+        "letter"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL2_Q04",
+      "prompt": "Build the word storm from st + or + m.",
+      "question_type": "word_building",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "storm",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "r_controlled_vowel_confusion",
+      "explanation": "The answer is storm. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 storm is the decoding clue that fits.",
+      "choices": [
+        "storm"
+      ],
+      "acceptable_answers": [
+        "storm"
+      ],
+      "word": "storm",
+      "tiles": [
+        "st",
+        "or",
+        "m"
+      ],
+      "tile_types": [
+        "blend",
+        "r-controlled",
+        "letter"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL2_Q05",
+      "prompt": "Which word has the ur r-controlled vowel?",
+      "question_type": "multiple_choice",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "turn",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "r_controlled_vowel_confusion",
+      "explanation": "The answer is turn. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 turn is the decoding clue that fits.",
+      "choices": [
+        "turn",
+        "torn",
+        "term"
+      ],
+      "word": "turn",
+      "tiles": [
+        "t",
+        "ur",
+        "n"
+      ],
+      "tile_types": [
+        "letter",
+        "r-controlled",
+        "letter"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL2_Q06",
+      "prompt": "Write the r-controlled vowel in corner.",
+      "question_type": "short_response",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "or",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "r_controlled_vowel_confusion",
+      "explanation": "The answer is or. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 or is the decoding clue that fits.",
+      "acceptable_answers": [
+        "or"
+      ],
+      "word": "corner",
+      "tiles": [
+        "c",
+        "or",
+        "n",
+        "er"
+      ],
+      "tile_types": [
+        "letter",
+        "r-controlled",
+        "letter",
+        "r-controlled"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL2_Q07",
+      "prompt": "Which tile should stay together when reading garden?",
+      "question_type": "multiple_choice",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "ar",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "r_controlled_vowel_confusion",
+      "explanation": "The answer is ar. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 ar is the decoding clue that fits.",
+      "choices": [
+        "ar",
+        "a r",
+        "gar"
+      ],
+      "word": "garden",
+      "tiles": [
+        "g",
+        "ar",
+        "den"
+      ],
+      "tile_types": [
+        "letter",
+        "r-controlled",
+        "letter"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "syllable_break_error": "Learner may split a word at an unhelpful place or miss whether the syllable is open or closed.",
+    "r_controlled_vowel_confusion": "Learner may separate the vowel from r or read ar, er, ir, or, ur as a plain short vowel.",
+    "affix_meaning_confusion": "Learner may read a prefix or suffix as random letters instead of a meaningful word part.",
+    "multisyllable_guessing": "Learner may guess from the first letters instead of decoding each syllable or morpheme."
+  },
+  "review_bank": [
+    {
+      "question_id": "G3E_RF_001_LVL2_Q08",
+      "prompt": "Build the word perfect from per + fect.",
+      "question_type": "word_building",
+      "visual_model": "syllable_break",
+      "support_type": "syllable_break",
+      "correct_answer": "perfect",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "r_controlled_vowel_confusion",
+      "explanation": "The answer is perfect. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 perfect is the decoding clue that fits.",
+      "choices": [
+        "perfect"
+      ],
+      "acceptable_answers": [
+        "perfect"
+      ],
+      "word": "perfect",
+      "tiles": [
+        "per",
+        "fect"
+      ],
+      "syllables": [
+        "per",
+        "fect"
+      ],
+      "syllable_count": 2,
+      "clap_prompt": "Read perfect one chunk at a time: per | fect.",
+      "syllable_types": [
+        "r-controlled",
+        "closed"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL2_Q09",
+      "prompt": "Which r-controlled vowel is in shirt?",
+      "question_type": "multiple_choice",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "ir",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "r_controlled_vowel_confusion",
+      "explanation": "The answer is ir. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 ir is the decoding clue that fits.",
+      "choices": [
+        "ir",
+        "sh",
+        "i"
+      ],
+      "word": "shirt",
+      "tiles": [
+        "sh",
+        "ir",
+        "t"
+      ],
+      "tile_types": [
+        "digraph",
+        "r-controlled",
+        "letter"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL2_Q10",
+      "prompt": "Write the r-controlled vowel in burn.",
+      "question_type": "short_response",
+      "visual_model": "phonics_tiles",
+      "support_type": "phonics_tiles",
+      "correct_answer": "ur",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "r_controlled_vowel_confusion",
+      "explanation": "The answer is ur. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 ur is the decoding clue that fits.",
+      "acceptable_answers": [
+        "ur"
+      ],
+      "word": "burn",
+      "tiles": [
+        "b",
+        "ur",
+        "n"
+      ],
+      "tile_types": [
+        "letter",
+        "r-controlled",
+        "letter"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL3_Q01",
+      "prompt": "What does the prefix re- mean in reread?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "again",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "affix_meaning_confusion",
+      "explanation": "The answer is again. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 again is the decoding clue that fits.",
+      "choices": [
+        "again",
+        "not",
+        "before"
+      ],
+      "word": "reread",
+      "word_parts": [
+        "re-",
+        "read"
+      ],
+      "part_roles": [
+        "prefix",
+        "base word"
+      ],
+      "part_meanings": [
+        "again",
+        "to read"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL3_Q02",
+      "prompt": "Write the prefix in unhappy.",
+      "question_type": "short_response",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "un-",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "affix_meaning_confusion",
+      "explanation": "The answer is un-. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 un- is the decoding clue that fits.",
+      "acceptable_answers": [
+        "un-",
+        "un"
+      ],
+      "word": "unhappy",
+      "word_parts": [
+        "un-",
+        "happy"
+      ],
+      "part_roles": [
+        "prefix",
+        "base word"
+      ],
+      "part_meanings": [
+        "not",
+        "happy"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL3_Q03",
+      "prompt": "What does the prefix pre- mean in preview?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "before",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "affix_meaning_confusion",
+      "explanation": "The answer is before. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 before is the decoding clue that fits.",
+      "choices": [
+        "before",
+        "full of",
+        "without"
+      ],
+      "word": "preview",
+      "word_parts": [
+        "pre-",
+        "view"
+      ],
+      "part_roles": [
+        "prefix",
+        "base word"
+      ],
+      "part_meanings": [
+        "before",
+        "look"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL3_Q04",
+      "prompt": "Build a word that means full of hope: hope + -ful.",
+      "question_type": "word_building",
+      "visual_model": "morpheme_tiles",
+      "support_type": "morpheme_tiles",
+      "correct_answer": "hopeful",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "affix_meaning_confusion",
+      "explanation": "The answer is hopeful. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 hopeful is the decoding clue that fits.",
+      "choices": [
+        "hopeful"
+      ],
+      "acceptable_answers": [
+        "hopeful"
+      ],
+      "word": "hopeful",
+      "morphemes": [
+        "hope",
+        "-ful"
+      ]
+    },
+    {
+      "question_id": "G3E_RF_001_LVL3_Q05",
+      "prompt": "Which suffix means without in careless?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "-less",
+      "hints": [
+        "Look for the word parts before you guess.",
+        "Mark the vowel pattern or meaningful part.",
+        "Read each chunk, then blend and check that it makes sense."
+      ],
+      "misconception_tag": "affix_meaning_confusion",
+      "explanation": "The answer is -less. Read the helpful chunks first, then blend the whole word.",
+      "feedback": "Yes \u2014 -less is the decoding clue that fits.",
+      "choices": [
+        "-less",
+        "care",
+        "re-"
+      ],
+      "word": "careless",
+      "word_parts": [
+        "care",
+        "-less"
+      ],
+      "part_roles": [
+        "base word",
+        "suffix"
+      ],
+      "part_meanings": [
+        "care",
+        "without"
+      ]
+    }
+  ],
+  "game_theme": {
+    "theme_name": "Echo Library Word Rangers",
+    "mission_intro": "Unlock each library shelf by breaking big words into readable, meaningful chunks.",
+    "badge_name": "Multisyllable Word Ranger",
+    "reward_icon": "\ud83d\udcda",
+    "world": "Reading Foundations"
+  },
+  "next_skill_id": "G3E_FL_001",
+  "remediation_skill_id": "G2E_RF_001",
+  "level_banks": [
+    {
+      "level_id": "G3E_RF_001_LVL1",
+      "label": "Level 1: Syllable Types",
+      "focus": "identify open and closed syllables to read longer words",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RF_001_LVL1_Q01",
+          "prompt": "Which syllable break shows an open syllable first in robot?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "ro-bot",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "syllable_break_error",
+          "explanation": "The answer is ro-bot. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 ro-bot is the decoding clue that fits.",
+          "choices": [
+            "ro-bot",
+            "rob-ot",
+            "robot"
+          ],
+          "word": "robot",
+          "syllables": [
+            "ro",
+            "bot"
+          ],
+          "syllable_count": 2,
+          "clap_prompt": "Read robot one chunk at a time: ro | bot.",
+          "syllable_types": [
+            "open",
+            "closed"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL1_Q02",
+          "prompt": "Break picnic into two closed syllables.",
+          "question_type": "short_response",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "pic-nic",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "syllable_break_error",
+          "explanation": "The answer is pic-nic. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 pic-nic is the decoding clue that fits.",
+          "acceptable_answers": [
+            "pic-nic",
+            "pic nic",
+            "pic|nic"
+          ],
+          "word": "picnic",
+          "syllables": [
+            "pic",
+            "nic"
+          ],
+          "syllable_count": 2,
+          "clap_prompt": "Read picnic one chunk at a time: pic | nic."
+        },
+        {
+          "question_id": "G3E_RF_001_LVL1_Q03",
+          "prompt": "In tiger, which first syllable is open and says its long vowel sound?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "ti",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "syllable_break_error",
+          "explanation": "The answer is ti. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 ti is the decoding clue that fits.",
+          "choices": [
+            "ti",
+            "tig",
+            "ger"
+          ],
+          "word": "tiger",
+          "syllables": [
+            "ti",
+            "ger"
+          ],
+          "syllable_count": 2,
+          "clap_prompt": "Read tiger one chunk at a time: ti | ger.",
+          "syllable_types": [
+            "open",
+            "r-controlled"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL1_Q04",
+          "prompt": "Build the word from the syllables ba + sic.",
+          "question_type": "word_building",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "basic",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "syllable_break_error",
+          "explanation": "The answer is basic. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 basic is the decoding clue that fits.",
+          "choices": [
+            "basic"
+          ],
+          "acceptable_answers": [
+            "basic"
+          ],
+          "word": "basic",
+          "tiles": [
+            "ba",
+            "sic"
+          ],
+          "syllables": [
+            "ba",
+            "sic"
+          ],
+          "syllable_count": 2,
+          "clap_prompt": "Read basic one chunk at a time: ba | sic."
+        },
+        {
+          "question_id": "G3E_RF_001_LVL1_Q05",
+          "prompt": "Which syllable in basket is closed?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "bas",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "syllable_break_error",
+          "explanation": "The answer is bas. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 bas is the decoding clue that fits.",
+          "choices": [
+            "ba",
+            "bas",
+            "ket"
+          ],
+          "word": "basket",
+          "syllables": [
+            "bas",
+            "ket"
+          ],
+          "syllable_count": 2,
+          "clap_prompt": "Read basket one chunk at a time: bas | ket.",
+          "syllable_types": [
+            "closed",
+            "closed"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL1_Q06",
+          "prompt": "Write the syllable break for music.",
+          "question_type": "short_response",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "mu-sic",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "syllable_break_error",
+          "explanation": "The answer is mu-sic. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 mu-sic is the decoding clue that fits.",
+          "acceptable_answers": [
+            "mu-sic",
+            "mu sic",
+            "mu|sic"
+          ],
+          "word": "music",
+          "syllables": [
+            "mu",
+            "sic"
+          ],
+          "syllable_count": 2,
+          "clap_prompt": "Read music one chunk at a time: mu | sic."
+        },
+        {
+          "question_id": "G3E_RF_001_LVL1_Q07",
+          "prompt": "Which word has an open first syllable?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "paper",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "syllable_break_error",
+          "explanation": "The answer is paper. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 paper is the decoding clue that fits.",
+          "choices": [
+            "paper",
+            "rabbit",
+            "basket"
+          ],
+          "word": "paper",
+          "syllables": [
+            "pa",
+            "per"
+          ],
+          "syllable_count": 2,
+          "clap_prompt": "Read paper one chunk at a time: pa | per.",
+          "syllable_types": [
+            "open",
+            "r-controlled"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL1_Q08",
+          "prompt": "Build cabin from two closed syllables: cab + in.",
+          "question_type": "word_building",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "cabin",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "syllable_break_error",
+          "explanation": "The answer is cabin. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 cabin is the decoding clue that fits.",
+          "choices": [
+            "cabin"
+          ],
+          "acceptable_answers": [
+            "cabin"
+          ],
+          "word": "cabin",
+          "tiles": [
+            "cab",
+            "in"
+          ],
+          "syllables": [
+            "cab",
+            "in"
+          ],
+          "syllable_count": 2,
+          "clap_prompt": "Read cabin one chunk at a time: cab | in."
+        },
+        {
+          "question_id": "G3E_RF_001_LVL1_Q09",
+          "prompt": "Which break helps you read sunset accurately?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "sun-set",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "syllable_break_error",
+          "explanation": "The answer is sun-set. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 sun-set is the decoding clue that fits.",
+          "choices": [
+            "su-nset",
+            "sun-set",
+            "suns-et"
+          ],
+          "word": "sunset",
+          "syllables": [
+            "sun",
+            "set"
+          ],
+          "syllable_count": 2,
+          "clap_prompt": "Read sunset one chunk at a time: sun | set."
+        },
+        {
+          "question_id": "G3E_RF_001_LVL1_Q10",
+          "prompt": "Write the syllable break for pilot.",
+          "question_type": "short_response",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "pi-lot",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "syllable_break_error",
+          "explanation": "The answer is pi-lot. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 pi-lot is the decoding clue that fits.",
+          "acceptable_answers": [
+            "pi-lot",
+            "pi lot",
+            "pi|lot"
+          ],
+          "word": "pilot",
+          "syllables": [
+            "pi",
+            "lot"
+          ],
+          "syllable_count": 2,
+          "clap_prompt": "Read pilot one chunk at a time: pi | lot."
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RF_001_LVL2",
+      "label": "Level 2: R-Controlled Vowels",
+      "focus": "read ar, er, ir, or, and ur patterns inside words",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RF_001_LVL2_Q01",
+          "prompt": "Which r-controlled vowel is in farm?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "ar",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "r_controlled_vowel_confusion",
+          "explanation": "The answer is ar. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 ar is the decoding clue that fits.",
+          "choices": [
+            "ar",
+            "a",
+            "am"
+          ],
+          "word": "farm",
+          "tiles": [
+            "f",
+            "ar",
+            "m"
+          ],
+          "tile_types": [
+            "letter",
+            "r-controlled",
+            "letter"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL2_Q02",
+          "prompt": "Write the r-controlled vowel in her.",
+          "question_type": "short_response",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "er",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "r_controlled_vowel_confusion",
+          "explanation": "The answer is er. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 er is the decoding clue that fits.",
+          "acceptable_answers": [
+            "er"
+          ],
+          "word": "her",
+          "tiles": [
+            "h",
+            "er"
+          ],
+          "tile_types": [
+            "letter",
+            "r-controlled"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL2_Q03",
+          "prompt": "Which r-controlled vowel is in bird?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "ir",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "r_controlled_vowel_confusion",
+          "explanation": "The answer is ir. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 ir is the decoding clue that fits.",
+          "choices": [
+            "ir",
+            "i",
+            "rd"
+          ],
+          "word": "bird",
+          "tiles": [
+            "b",
+            "ir",
+            "d"
+          ],
+          "tile_types": [
+            "letter",
+            "r-controlled",
+            "letter"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL2_Q04",
+          "prompt": "Build the word storm from st + or + m.",
+          "question_type": "word_building",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "storm",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "r_controlled_vowel_confusion",
+          "explanation": "The answer is storm. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 storm is the decoding clue that fits.",
+          "choices": [
+            "storm"
+          ],
+          "acceptable_answers": [
+            "storm"
+          ],
+          "word": "storm",
+          "tiles": [
+            "st",
+            "or",
+            "m"
+          ],
+          "tile_types": [
+            "blend",
+            "r-controlled",
+            "letter"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL2_Q05",
+          "prompt": "Which word has the ur r-controlled vowel?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "turn",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "r_controlled_vowel_confusion",
+          "explanation": "The answer is turn. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 turn is the decoding clue that fits.",
+          "choices": [
+            "turn",
+            "torn",
+            "term"
+          ],
+          "word": "turn",
+          "tiles": [
+            "t",
+            "ur",
+            "n"
+          ],
+          "tile_types": [
+            "letter",
+            "r-controlled",
+            "letter"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL2_Q06",
+          "prompt": "Write the r-controlled vowel in corner.",
+          "question_type": "short_response",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "or",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "r_controlled_vowel_confusion",
+          "explanation": "The answer is or. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 or is the decoding clue that fits.",
+          "acceptable_answers": [
+            "or"
+          ],
+          "word": "corner",
+          "tiles": [
+            "c",
+            "or",
+            "n",
+            "er"
+          ],
+          "tile_types": [
+            "letter",
+            "r-controlled",
+            "letter",
+            "r-controlled"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL2_Q07",
+          "prompt": "Which tile should stay together when reading garden?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "ar",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "r_controlled_vowel_confusion",
+          "explanation": "The answer is ar. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 ar is the decoding clue that fits.",
+          "choices": [
+            "ar",
+            "a r",
+            "gar"
+          ],
+          "word": "garden",
+          "tiles": [
+            "g",
+            "ar",
+            "den"
+          ],
+          "tile_types": [
+            "letter",
+            "r-controlled",
+            "letter"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL2_Q08",
+          "prompt": "Build the word perfect from per + fect.",
+          "question_type": "word_building",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "perfect",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "r_controlled_vowel_confusion",
+          "explanation": "The answer is perfect. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 perfect is the decoding clue that fits.",
+          "choices": [
+            "perfect"
+          ],
+          "acceptable_answers": [
+            "perfect"
+          ],
+          "word": "perfect",
+          "tiles": [
+            "per",
+            "fect"
+          ],
+          "syllables": [
+            "per",
+            "fect"
+          ],
+          "syllable_count": 2,
+          "clap_prompt": "Read perfect one chunk at a time: per | fect.",
+          "syllable_types": [
+            "r-controlled",
+            "closed"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL2_Q09",
+          "prompt": "Which r-controlled vowel is in shirt?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "ir",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "r_controlled_vowel_confusion",
+          "explanation": "The answer is ir. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 ir is the decoding clue that fits.",
+          "choices": [
+            "ir",
+            "sh",
+            "i"
+          ],
+          "word": "shirt",
+          "tiles": [
+            "sh",
+            "ir",
+            "t"
+          ],
+          "tile_types": [
+            "digraph",
+            "r-controlled",
+            "letter"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL2_Q10",
+          "prompt": "Write the r-controlled vowel in burn.",
+          "question_type": "short_response",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "ur",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "r_controlled_vowel_confusion",
+          "explanation": "The answer is ur. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 ur is the decoding clue that fits.",
+          "acceptable_answers": [
+            "ur"
+          ],
+          "word": "burn",
+          "tiles": [
+            "b",
+            "ur",
+            "n"
+          ],
+          "tile_types": [
+            "letter",
+            "r-controlled",
+            "letter"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RF_001_LVL3",
+      "label": "Level 3: Prefixes and Suffixes",
+      "focus": "use prefixes and suffixes to read and understand words",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RF_001_LVL3_Q01",
+          "prompt": "What does the prefix re- mean in reread?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "again",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is again. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 again is the decoding clue that fits.",
+          "choices": [
+            "again",
+            "not",
+            "before"
+          ],
+          "word": "reread",
+          "word_parts": [
+            "re-",
+            "read"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word"
+          ],
+          "part_meanings": [
+            "again",
+            "to read"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL3_Q02",
+          "prompt": "Write the prefix in unhappy.",
+          "question_type": "short_response",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "un-",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is un-. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 un- is the decoding clue that fits.",
+          "acceptable_answers": [
+            "un-",
+            "un"
+          ],
+          "word": "unhappy",
+          "word_parts": [
+            "un-",
+            "happy"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word"
+          ],
+          "part_meanings": [
+            "not",
+            "happy"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL3_Q03",
+          "prompt": "What does the prefix pre- mean in preview?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "before",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is before. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 before is the decoding clue that fits.",
+          "choices": [
+            "before",
+            "full of",
+            "without"
+          ],
+          "word": "preview",
+          "word_parts": [
+            "pre-",
+            "view"
+          ],
+          "part_roles": [
+            "prefix",
+            "base word"
+          ],
+          "part_meanings": [
+            "before",
+            "look"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL3_Q04",
+          "prompt": "Build a word that means full of hope: hope + -ful.",
+          "question_type": "word_building",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "hopeful",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is hopeful. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 hopeful is the decoding clue that fits.",
+          "choices": [
+            "hopeful"
+          ],
+          "acceptable_answers": [
+            "hopeful"
+          ],
+          "word": "hopeful",
+          "morphemes": [
+            "hope",
+            "-ful"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL3_Q05",
+          "prompt": "Which suffix means without in careless?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "-less",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is -less. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 -less is the decoding clue that fits.",
+          "choices": [
+            "-less",
+            "care",
+            "re-"
+          ],
+          "word": "careless",
+          "word_parts": [
+            "care",
+            "-less"
+          ],
+          "part_roles": [
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "care",
+            "without"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL3_Q06",
+          "prompt": "Write the suffix in teacher.",
+          "question_type": "short_response",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "-er",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is -er. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 -er is the decoding clue that fits.",
+          "acceptable_answers": [
+            "-er",
+            "er"
+          ],
+          "word": "teacher",
+          "word_parts": [
+            "teach",
+            "-er"
+          ],
+          "part_roles": [
+            "base word",
+            "suffix"
+          ],
+          "part_meanings": [
+            "teach",
+            "one who"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL3_Q07",
+          "prompt": "Which word means not fair?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "unfair",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is unfair. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 unfair is the decoding clue that fits.",
+          "choices": [
+            "unfair",
+            "refair",
+            "fairful"
+          ],
+          "word": "unfair",
+          "morphemes": [
+            "un-",
+            "fair"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL3_Q08",
+          "prompt": "Build the word preheat from pre- + heat.",
+          "question_type": "word_building",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "preheat",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is preheat. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 preheat is the decoding clue that fits.",
+          "choices": [
+            "preheat"
+          ],
+          "acceptable_answers": [
+            "preheat"
+          ],
+          "word": "preheat",
+          "morphemes": [
+            "pre-",
+            "heat"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL3_Q09",
+          "prompt": "In replaying, which part is the prefix?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "re-",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is re-. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 re- is the decoding clue that fits.",
+          "choices": [
+            "re-",
+            "play",
+            "-ing"
+          ],
+          "word": "replaying",
+          "word_parts": [
+            "re-",
+            "play",
+            "-ing"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL3_Q10",
+          "prompt": "Write the base word in helpful.",
+          "question_type": "short_response",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "help",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is help. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 help is the decoding clue that fits.",
+          "acceptable_answers": [
+            "help"
+          ],
+          "word": "helpful",
+          "word_parts": [
+            "help",
+            "-ful"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RF_001_LVL4",
+      "label": "Level 4: Multisyllable Decoding",
+      "focus": "decode multisyllable words by syllables, vowel patterns, and word parts",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RF_001_LVL4_Q01",
+          "prompt": "Which break helps decode fantastic?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "fan-tas-tic",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is fan-tas-tic. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 fan-tas-tic is the decoding clue that fits.",
+          "choices": [
+            "fan-tas-tic",
+            "fant-astic",
+            "fanta-stic"
+          ],
+          "word": "fantastic",
+          "syllables": [
+            "fan",
+            "tas",
+            "tic"
+          ],
+          "syllable_count": 3,
+          "clap_prompt": "Read fantastic one chunk at a time: fan | tas | tic."
+        },
+        {
+          "question_id": "G3E_RF_001_LVL4_Q02",
+          "prompt": "Break computer into syllables.",
+          "question_type": "short_response",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "com-pu-ter",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is com-pu-ter. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 com-pu-ter is the decoding clue that fits.",
+          "acceptable_answers": [
+            "com-pu-ter",
+            "com pu ter",
+            "com|pu|ter"
+          ],
+          "word": "computer",
+          "syllables": [
+            "com",
+            "pu",
+            "ter"
+          ],
+          "syllable_count": 3,
+          "clap_prompt": "Read computer one chunk at a time: com | pu | ter."
+        },
+        {
+          "question_id": "G3E_RF_001_LVL4_Q03",
+          "prompt": "Build playground from play + ground.",
+          "question_type": "word_building",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "playground",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is playground. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 playground is the decoding clue that fits.",
+          "choices": [
+            "playground"
+          ],
+          "acceptable_answers": [
+            "playground"
+          ],
+          "word": "playground",
+          "morphemes": [
+            "play",
+            "ground"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL4_Q04",
+          "prompt": "Which first chunk should you read in remarkable?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "re-",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is re-. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 re- is the decoding clue that fits.",
+          "choices": [
+            "re-",
+            "rem",
+            "mark"
+          ],
+          "word": "remarkable",
+          "word_parts": [
+            "re-",
+            "mark",
+            "-able"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL4_Q05",
+          "prompt": "Write the syllable break for important.",
+          "question_type": "short_response",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "im-por-tant",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is im-por-tant. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 im-por-tant is the decoding clue that fits.",
+          "acceptable_answers": [
+            "im-por-tant",
+            "im por tant",
+            "im|por|tant"
+          ],
+          "word": "important",
+          "syllables": [
+            "im",
+            "por",
+            "tant"
+          ],
+          "syllable_count": 3,
+          "clap_prompt": "Read important one chunk at a time: im | por | tant."
+        },
+        {
+          "question_id": "G3E_RF_001_LVL4_Q06",
+          "prompt": "Which r-controlled syllable is in purple?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "pur",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is pur. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 pur is the decoding clue that fits.",
+          "choices": [
+            "pur",
+            "ple",
+            "pu"
+          ],
+          "word": "purple",
+          "syllables": [
+            "pur",
+            "ple"
+          ],
+          "syllable_count": 2,
+          "clap_prompt": "Read purple one chunk at a time: pur | ple."
+        },
+        {
+          "question_id": "G3E_RF_001_LVL4_Q07",
+          "prompt": "Build the word uncover from un- + cov + er.",
+          "question_type": "word_building",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "uncover",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is uncover. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 uncover is the decoding clue that fits.",
+          "choices": [
+            "uncover"
+          ],
+          "acceptable_answers": [
+            "uncover"
+          ],
+          "word": "uncover",
+          "tiles": [
+            "un-",
+            "cov",
+            "er"
+          ],
+          "morphemes": [
+            "un-",
+            "cover"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL4_Q08",
+          "prompt": "Which break helps you read newspaper?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "news-pa-per",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is news-pa-per. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 news-pa-per is the decoding clue that fits.",
+          "choices": [
+            "new-spa-per",
+            "news-pa-per",
+            "newspaper"
+          ],
+          "word": "newspaper",
+          "syllables": [
+            "news",
+            "pa",
+            "per"
+          ],
+          "syllable_count": 3,
+          "clap_prompt": "Read newspaper one chunk at a time: news | pa | per."
+        },
+        {
+          "question_id": "G3E_RF_001_LVL4_Q09",
+          "prompt": "Write the vowel team in explain.",
+          "question_type": "short_response",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "ai",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is ai. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 ai is the decoding clue that fits.",
+          "acceptable_answers": [
+            "ai"
+          ],
+          "word": "explain",
+          "tiles": [
+            "ex",
+            "pl",
+            "ai",
+            "n"
+          ],
+          "tile_types": [
+            "closed",
+            "blend",
+            "vowel-team",
+            "letter"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_LVL4_Q10",
+          "prompt": "Which word part helps you read fearless?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "-less",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is -less. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 -less is the decoding clue that fits.",
+          "choices": [
+            "-less",
+            "fearl",
+            "ee"
+          ],
+          "word": "fearless",
+          "word_parts": [
+            "fear",
+            "-less"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RF_001_MIXED",
+      "label": "Mixed",
+      "focus": "interleave syllable types, r-controlled vowels, affixes, and multisyllable decoding",
+      "difficulty": 3,
+      "question_count_required": 12,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RF_001_MIXED_Q01",
+          "prompt": "Mixed: Which break shows two syllables in paper?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "pa-per",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "syllable_break_error",
+          "explanation": "The answer is pa-per. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 pa-per is the decoding clue that fits.",
+          "choices": [
+            "pa-per",
+            "pap-er",
+            "paper"
+          ],
+          "word": "paper",
+          "syllables": [
+            "pa",
+            "per"
+          ],
+          "syllable_count": 2,
+          "clap_prompt": "Read paper one chunk at a time: pa | per."
+        },
+        {
+          "question_id": "G3E_RF_001_MIXED_Q02",
+          "prompt": "Mixed: Write the r-controlled vowel in star.",
+          "question_type": "short_response",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "ar",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "r_controlled_vowel_confusion",
+          "explanation": "The answer is ar. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 ar is the decoding clue that fits.",
+          "acceptable_answers": [
+            "ar"
+          ],
+          "word": "star",
+          "tiles": [
+            "st",
+            "ar"
+          ],
+          "tile_types": [
+            "blend",
+            "r-controlled"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_MIXED_Q03",
+          "prompt": "Mixed: What does un- mean in unclear?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "not",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is not. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 not is the decoding clue that fits.",
+          "choices": [
+            "again",
+            "not",
+            "full of"
+          ],
+          "word": "unclear",
+          "word_parts": [
+            "un-",
+            "clear"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_MIXED_Q04",
+          "prompt": "Mixed: Build reread from re- + read.",
+          "question_type": "word_building",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "reread",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is reread. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 reread is the decoding clue that fits.",
+          "choices": [
+            "reread"
+          ],
+          "acceptable_answers": [
+            "reread"
+          ],
+          "word": "reread",
+          "morphemes": [
+            "re-",
+            "read"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_MIXED_Q05",
+          "prompt": "Mixed: Which break helps decode afternoon?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "af-ter-noon",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is af-ter-noon. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 af-ter-noon is the decoding clue that fits.",
+          "choices": [
+            "af-ter-noon",
+            "after-no-on",
+            "aft-ernoon"
+          ],
+          "word": "afternoon",
+          "syllables": [
+            "af",
+            "ter",
+            "noon"
+          ],
+          "syllable_count": 3,
+          "clap_prompt": "Read afternoon one chunk at a time: af | ter | noon."
+        },
+        {
+          "question_id": "G3E_RF_001_MIXED_Q06",
+          "prompt": "Mixed: Write the suffix in fearless.",
+          "question_type": "short_response",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "-less",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is -less. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 -less is the decoding clue that fits.",
+          "acceptable_answers": [
+            "-less",
+            "less"
+          ],
+          "word": "fearless",
+          "word_parts": [
+            "fear",
+            "-less"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_MIXED_Q07",
+          "prompt": "Mixed: Which r-controlled vowel is in nurse?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "ur",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "r_controlled_vowel_confusion",
+          "explanation": "The answer is ur. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 ur is the decoding clue that fits.",
+          "choices": [
+            "ur",
+            "or",
+            "er"
+          ],
+          "word": "nurse",
+          "tiles": [
+            "n",
+            "ur",
+            "se"
+          ],
+          "tile_types": [
+            "letter",
+            "r-controlled",
+            "letter"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_MIXED_Q08",
+          "prompt": "Mixed: Build pretest from pre- + test.",
+          "question_type": "word_building",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "pretest",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is pretest. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 pretest is the decoding clue that fits.",
+          "choices": [
+            "pretest"
+          ],
+          "acceptable_answers": [
+            "pretest"
+          ],
+          "word": "pretest",
+          "morphemes": [
+            "pre-",
+            "test"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_MIXED_Q09",
+          "prompt": "Mixed: Break recorder into syllables.",
+          "question_type": "short_response",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "re-cord-er",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is re-cord-er. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 re-cord-er is the decoding clue that fits.",
+          "acceptable_answers": [
+            "re-cord-er",
+            "re cord er",
+            "re|cord|er"
+          ],
+          "word": "recorder",
+          "syllables": [
+            "re",
+            "cord",
+            "er"
+          ],
+          "syllable_count": 3,
+          "clap_prompt": "Read recorder one chunk at a time: re | cord | er."
+        },
+        {
+          "question_id": "G3E_RF_001_MIXED_Q10",
+          "prompt": "Mixed: Which tile is the vowel team in boating?",
+          "question_type": "multiple_choice",
+          "visual_model": "phonics_tiles",
+          "support_type": "phonics_tiles",
+          "correct_answer": "oa",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is oa. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 oa is the decoding clue that fits.",
+          "choices": [
+            "oa",
+            "bo",
+            "ing"
+          ],
+          "word": "boating",
+          "tiles": [
+            "b",
+            "oa",
+            "t",
+            "ing"
+          ],
+          "tile_types": [
+            "letter",
+            "vowel-team",
+            "letter",
+            "suffix"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_MIXED_Q11",
+          "prompt": "Mixed: Write the prefix in preview.",
+          "question_type": "short_response",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "pre-",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "affix_meaning_confusion",
+          "explanation": "The answer is pre-. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 pre- is the decoding clue that fits.",
+          "acceptable_answers": [
+            "pre-",
+            "pre"
+          ],
+          "word": "preview",
+          "word_parts": [
+            "pre-",
+            "view"
+          ]
+        },
+        {
+          "question_id": "G3E_RF_001_MIXED_Q12",
+          "prompt": "Mixed: Which break helps read sunflower?",
+          "question_type": "multiple_choice",
+          "visual_model": "syllable_break",
+          "support_type": "syllable_break",
+          "correct_answer": "sun-flow-er",
+          "hints": [
+            "Look for the word parts before you guess.",
+            "Mark the vowel pattern or meaningful part.",
+            "Read each chunk, then blend and check that it makes sense."
+          ],
+          "misconception_tag": "multisyllable_guessing",
+          "explanation": "The answer is sun-flow-er. Read the helpful chunks first, then blend the whole word.",
+          "feedback": "Yes \u2014 sun-flow-er is the decoding clue that fits.",
+          "choices": [
+            "sun-flow-er",
+            "sunfl-ower",
+            "sunflower"
+          ],
+          "word": "sunflower",
+          "syllables": [
+            "sun",
+            "flow",
+            "er"
+          ],
+          "syllable_count": 3,
+          "clap_prompt": "Read sunflower one chunk at a time: sun | flow | er."
+        }
+      ]
+    }
+  ]
+}
