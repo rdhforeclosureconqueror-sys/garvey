@@ -56,7 +56,7 @@
   <script>
     const grades=[1,2,3,4,5,6];
     const skillWorldManifestUrl='/gamehub/skill-world/content/manifest.json';
-    let grade1SkillWorldPackages=[];
+    let skillWorldPackages=[];
     const gradeGrid=document.getElementById('gradeGrid');
     const gradeTitle=document.getElementById('gradeTitle');
     const gradeContent=document.getElementById('gradeContent');
@@ -95,7 +95,7 @@
             has_drill:Array.isArray(pkg.level_banks)&&pkg.level_banks.length>0
           };
         }));
-        return packages.filter((pkg)=>pkg.skill_id&&Number(pkg.grade)===1&&pkg.status==='active');
+        return packages.filter((pkg)=>pkg.skill_id&&pkg.status==='active');
       }catch(err){
         console.error('Unable to load Skill World package manifest',err);
         return [];
@@ -119,19 +119,18 @@
       const drillLink=pkg.has_drill?` <a class="btn" href="${escapeHtml(skillWorldDrillHref(pkg.skill_id))}">Practice This Skill</a>`:'';
       return `<li data-skill-id="${escapeHtml(pkg.skill_id)}"><strong>${escapeHtml(pkg.title)}</strong><br><span class="muted">Grade ${escapeHtml(pkg.grade)} · ${escapeHtml(pkg.subject)} · ${escapeHtml(pkg.domain)} · ${escapeHtml(pkg.skill_id)}</span><br><a class="btn primary" href="${escapeHtml(pkg.route)}">Start Skill World</a>${drillLink}</li>`;
     }
-    function buildGrade1Lessons(){
-      return grade1SkillWorldPackages.map(renderGeneratedMission).join('');
+    function buildGradeLessons(grade){
+      return skillWorldPackages.filter((pkg)=>Number(pkg.grade)===Number(grade)).map(renderGeneratedMission).join('');
     }
     function renderSkillWorldMissionGrid(){
-      skillWorldMissionGrid.innerHTML=grade1SkillWorldPackages.length
-        ? grade1SkillWorldPackages.map(renderMissionButton).join('')
+      skillWorldMissionGrid.innerHTML=skillWorldPackages.length
+        ? skillWorldPackages.map(renderMissionButton).join('')
         : '<p class="muted">Generated Skill World missions are loading.</p>';
     }
     function renderGrade(g){
       gradeTitle.textContent=`Grade ${g} lesson hub`;
-      if(g!==1){ gradeContent.innerHTML='<p>Coming soon. Grade content is being wired for this grade.</p>'; return; }
-      const rows=buildGrade1Lessons();
-      gradeContent.innerHTML=`<ul class="lesson-list">${rows||'<li class="muted">Generated Skill World missions are loading.</li>'}</ul>`;
+      const rows=buildGradeLessons(g);
+      gradeContent.innerHTML=`<ul class="lesson-list">${rows||'<li class="muted">Generated Skill World missions are loading for this grade.</li>'}</ul>`;
     }
     gradeGrid.innerHTML=grades.map((g)=>`<button class="btn" data-grade="${g}">Grade ${g}</button>`).join('');
     gradeGrid.querySelectorAll('[data-grade]').forEach((btn)=>btn.addEventListener('click',()=>renderGrade(Number(btn.dataset.grade))));
@@ -140,7 +139,7 @@
     renderSkillWorldMissionGrid();
     renderGrade(1);
     loadSkillWorldPackages().then((packages)=>{
-      grade1SkillWorldPackages=packages;
+      skillWorldPackages=packages;
       renderSkillWorldMissionGrid();
       renderGrade(1);
     });
