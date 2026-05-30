@@ -1,0 +1,2228 @@
+{
+  "skill_id": "G2M_MD_001",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_plan": "curriculum-framework/plans/grade2-math-completion-plan.v1.json"
+  },
+  "grade": 2,
+  "subject": "Math",
+  "domain": "Measurement and Data",
+  "skill": "Measure Length",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    5
+  ],
+  "lesson": {
+    "story_mission": "Help the Measurement Makers label classroom objects with accurate lengths.",
+    "mini_lesson": "Measure length by lining up one end at zero, reading the endpoint, and naming the unit. Estimate when an exact ruler is not needed.",
+    "objective": "Measure and estimate lengths using inches and centimeters, then compare length differences.",
+    "key_vocabulary": [
+      "inch",
+      "centimeter",
+      "ruler",
+      "estimate",
+      "longer",
+      "difference"
+    ],
+    "concept_explanation": "A length is the distance from one end of an object to the other. The unit tells what size marks you counted.",
+    "visual_model": "ruler",
+    "common_misconception": "Learners may start at the edge of the ruler instead of zero or mix inches and centimeters.",
+    "real_world_connection": "Measuring helps choose materials for crafts, classroom objects, and building projects.",
+    "lesson_summary": "Start at zero, count same-size units, record the unit, and subtract to compare lengths.",
+    "hints": [
+      "Line up the object at 0.",
+      "Use the unit named in the question.",
+      "For differences, subtract the shorter length from the longer length."
+    ]
+  },
+  "worked_examples": [
+    {
+      "text": "A pencil from 0 to 5 inches is 5 inches long."
+    },
+    {
+      "text": "A string from 3 cm to 10 cm is 7 cm long because 10 - 3 = 7."
+    },
+    {
+      "text": "If one ribbon is 9 inches and another is 5 inches, the difference is 4 inches."
+    }
+  ],
+  "hint_ladder": [
+    "Line up the object at 0.",
+    "Use the unit named in the question.",
+    "For differences, subtract the shorter length from the longer length."
+  ],
+  "misconception_bank": {
+    "starts_not_at_zero": "Learner may count from the ruler edge or first mark instead of zero.",
+    "unit_confusion": "Learner may give inches when the ruler is centimeters, or centimeters when it is inches.",
+    "estimate_error": "Learner may choose an unreasonable length for a familiar object.",
+    "length_difference_confusion": "Learner may report one object length instead of subtracting to find the difference."
+  },
+  "game_theme": {
+    "title": "Measure Length",
+    "mission_intro": "Help the Measurement Makers label classroom objects with accurate lengths.",
+    "badge_name": "Length Leader"
+  },
+  "guided_practice": [
+    {
+      "id": "G2M_MD_001_LVL1_Q1",
+      "question_id": "G2M_MD_001_LVL1_Q1",
+      "question_type": "short_response",
+      "visual_model": "ruler",
+      "prompt": "A pencil starts at 0 and ends at 5 inches. How long is the pencil?",
+      "answer": "5",
+      "correct_answer": "5",
+      "acceptable_answers": [
+        "5",
+        "5 inches",
+        "5 in"
+      ],
+      "misconception_tag": "unit_confusion",
+      "hints": [
+        "Line up the object at 0.",
+        "Use the unit named in the question.",
+        "For differences, subtract the shorter length from the longer length."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The pencil is 5 inches.",
+      "unit": "inches",
+      "units": "inches",
+      "length": 5,
+      "object": "pencil"
+    },
+    {
+      "id": "G2M_MD_001_LVL1_Q2",
+      "question_id": "G2M_MD_001_LVL1_Q2",
+      "question_type": "short_response",
+      "visual_model": "ruler",
+      "prompt": "A crayon is lined up from 0 to 4 inches. How long is it?",
+      "answer": "4",
+      "correct_answer": "4",
+      "acceptable_answers": [
+        "4",
+        "4 inches",
+        "4 in"
+      ],
+      "misconception_tag": "unit_confusion",
+      "hints": [
+        "Line up the object at 0.",
+        "Use the unit named in the question.",
+        "For differences, subtract the shorter length from the longer length."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The crayon is 4 inches.",
+      "unit": "inches",
+      "units": "inches",
+      "length": 4,
+      "object": "crayon"
+    },
+    {
+      "id": "G2M_MD_001_LVL1_Q3",
+      "question_id": "G2M_MD_001_LVL1_Q3",
+      "question_type": "multiple_choice",
+      "visual_model": "ruler",
+      "prompt": "A ribbon begins at 0 and ends at 9 inches. What is its length?",
+      "answer": "9",
+      "correct_answer": "9",
+      "acceptable_answers": [
+        "9",
+        "9 inches",
+        "9 in"
+      ],
+      "misconception_tag": "unit_confusion",
+      "hints": [
+        "Line up the object at 0.",
+        "Use the unit named in the question.",
+        "For differences, subtract the shorter length from the longer length."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The ribbon is 9 inches.",
+      "options": [
+        "8",
+        "9",
+        "10",
+        "19"
+      ],
+      "choices": [
+        "8",
+        "9",
+        "10",
+        "19"
+      ],
+      "unit": "inches",
+      "units": "inches",
+      "length": 9,
+      "object": "ribbon"
+    },
+    {
+      "id": "G2M_MD_001_LVL1_Q4",
+      "question_id": "G2M_MD_001_LVL1_Q4",
+      "question_type": "short_response",
+      "visual_model": "ruler",
+      "prompt": "A marker measures 6 inches on the ruler. How long is the marker?",
+      "answer": "6",
+      "correct_answer": "6",
+      "acceptable_answers": [
+        "6",
+        "6 inches",
+        "6 in"
+      ],
+      "misconception_tag": "unit_confusion",
+      "hints": [
+        "Line up the object at 0.",
+        "Use the unit named in the question.",
+        "For differences, subtract the shorter length from the longer length."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The marker is 6 inches.",
+      "unit": "inches",
+      "units": "inches",
+      "length": 6,
+      "object": "marker"
+    },
+    {
+      "id": "G2M_MD_001_LVL1_Q5",
+      "question_id": "G2M_MD_001_LVL1_Q5",
+      "question_type": "short_response",
+      "visual_model": "ruler",
+      "prompt": "A toy car goes from 0 to 7 inches. How long is it?",
+      "answer": "7",
+      "correct_answer": "7",
+      "acceptable_answers": [
+        "7",
+        "7 inches",
+        "7 in"
+      ],
+      "misconception_tag": "unit_confusion",
+      "hints": [
+        "Line up the object at 0.",
+        "Use the unit named in the question.",
+        "For differences, subtract the shorter length from the longer length."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The toy car is 7 inches.",
+      "unit": "inches",
+      "units": "inches",
+      "length": 7,
+      "object": "toy car"
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G2M_MD_001_LVL4_Q1",
+      "question_id": "G2M_MD_001_LVL4_Q1",
+      "question_type": "short_response",
+      "visual_model": "measurement_comparison",
+      "prompt": "A red ribbon is 9 inches. A blue ribbon is 5 inches. How many inches longer is the red ribbon?",
+      "answer": "4",
+      "correct_answer": "4",
+      "acceptable_answers": [
+        "4",
+        "4 inches",
+        "4 in"
+      ],
+      "misconception_tag": "length_difference_confusion",
+      "hints": [
+        "Line up the object at 0.",
+        "Use the unit named in the question.",
+        "For differences, subtract the shorter length from the longer length."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Find the difference by subtracting the shorter length from the longer length: 4 inches.",
+      "unit": "inches"
+    },
+    {
+      "id": "G2M_MD_001_LVL4_Q2",
+      "question_id": "G2M_MD_001_LVL4_Q2",
+      "question_type": "short_response",
+      "visual_model": "number_line",
+      "prompt": "A pencil is 14 cm. An eraser is 6 cm. What is the difference?",
+      "answer": "8",
+      "correct_answer": "8",
+      "acceptable_answers": [
+        "8",
+        "8 centimeters",
+        "8 cm"
+      ],
+      "misconception_tag": "length_difference_confusion",
+      "hints": [
+        "Line up the object at 0.",
+        "Use the unit named in the question.",
+        "For differences, subtract the shorter length from the longer length."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Find the difference by subtracting the shorter length from the longer length: 8 centimeters.",
+      "unit": "centimeters"
+    },
+    {
+      "id": "G2M_MD_001_LVL4_Q3",
+      "question_id": "G2M_MD_001_LVL4_Q3",
+      "question_type": "multiple_choice",
+      "visual_model": "measurement_comparison",
+      "prompt": "A string is 12 inches and a strip is 7 inches. How many inches shorter is the strip?",
+      "answer": "5",
+      "correct_answer": "5",
+      "acceptable_answers": [
+        "5",
+        "5 inches",
+        "5 in"
+      ],
+      "misconception_tag": "length_difference_confusion",
+      "hints": [
+        "Line up the object at 0.",
+        "Use the unit named in the question.",
+        "For differences, subtract the shorter length from the longer length."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Find the difference by subtracting the shorter length from the longer length: 5 inches.",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "15"
+      ],
+      "choices": [
+        "4",
+        "5",
+        "6",
+        "15"
+      ],
+      "unit": "inches"
+    },
+    {
+      "id": "G2M_MD_001_LVL4_Q4",
+      "question_id": "G2M_MD_001_LVL4_Q4",
+      "question_type": "short_response",
+      "visual_model": "number_line",
+      "prompt": "A leaf is 8 cm and a twig is 11 cm. How many centimeters longer is the twig?",
+      "answer": "3",
+      "correct_answer": "3",
+      "acceptable_answers": [
+        "3",
+        "3 centimeters",
+        "3 cm"
+      ],
+      "misconception_tag": "length_difference_confusion",
+      "hints": [
+        "Line up the object at 0.",
+        "Use the unit named in the question.",
+        "For differences, subtract the shorter length from the longer length."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Find the difference by subtracting the shorter length from the longer length: 3 centimeters.",
+      "unit": "centimeters"
+    },
+    {
+      "id": "G2M_MD_001_LVL4_Q5",
+      "question_id": "G2M_MD_001_LVL4_Q5",
+      "question_type": "short_response",
+      "visual_model": "measurement_comparison",
+      "prompt": "A book is 10 inches tall. A notebook is 8 inches tall. What is the difference?",
+      "answer": "2",
+      "correct_answer": "2",
+      "acceptable_answers": [
+        "2",
+        "2 inches",
+        "2 in"
+      ],
+      "misconception_tag": "length_difference_confusion",
+      "hints": [
+        "Line up the object at 0.",
+        "Use the unit named in the question.",
+        "For differences, subtract the shorter length from the longer length."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Find the difference by subtracting the shorter length from the longer length: 2 inches.",
+      "unit": "inches"
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G2M_MD_001_MIXED_Q1",
+      "question_id": "G2M_MD_001_MIXED_Q1",
+      "question_type": "short_response",
+      "visual_model": "ruler",
+      "prompt": "A pencil starts at 0 and ends at 5 inches. How long is the pencil?",
+      "answer": "5",
+      "correct_answer": "5",
+      "acceptable_answers": [
+        "5",
+        "5 inches",
+        "5 in"
+      ],
+      "misconception_tag": "unit_confusion",
+      "hints": [
+        "Line up the object at 0.",
+        "Use the unit named in the question.",
+        "For differences, subtract the shorter length from the longer length."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The pencil is 5 inches.",
+      "unit": "inches",
+      "units": "inches",
+      "length": 5,
+      "object": "pencil"
+    },
+    {
+      "id": "G2M_MD_001_MIXED_Q2",
+      "question_id": "G2M_MD_001_MIXED_Q2",
+      "question_type": "short_response",
+      "visual_model": "ruler",
+      "prompt": "A crayon is lined up from 0 to 4 inches. How long is it?",
+      "answer": "4",
+      "correct_answer": "4",
+      "acceptable_answers": [
+        "4",
+        "4 inches",
+        "4 in"
+      ],
+      "misconception_tag": "unit_confusion",
+      "hints": [
+        "Line up the object at 0.",
+        "Use the unit named in the question.",
+        "For differences, subtract the shorter length from the longer length."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The crayon is 4 inches.",
+      "unit": "inches",
+      "units": "inches",
+      "length": 4,
+      "object": "crayon"
+    },
+    {
+      "id": "G2M_MD_001_MIXED_Q3",
+      "question_id": "G2M_MD_001_MIXED_Q3",
+      "question_type": "short_response",
+      "visual_model": "ruler",
+      "prompt": "A glue stick starts at 0 and ends at 8 centimeters. How long is it?",
+      "answer": "8",
+      "correct_answer": "8",
+      "acceptable_answers": [
+        "8",
+        "8 centimeters",
+        "8 cm"
+      ],
+      "misconception_tag": "unit_confusion",
+      "hints": [
+        "Line up the object at 0.",
+        "Use the unit named in the question.",
+        "For differences, subtract the shorter length from the longer length."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The glue stick is 8 centimeters because the endpoints are 8 cm apart.",
+      "unit": "centimeters",
+      "units": "centimeters",
+      "length": 8,
+      "object": "glue stick"
+    },
+    {
+      "id": "G2M_MD_001_MIXED_Q4",
+      "question_id": "G2M_MD_001_MIXED_Q4",
+      "question_type": "short_response",
+      "visual_model": "ruler",
+      "prompt": "An eraser is 5 centimeters long. What length should you record?",
+      "answer": "5",
+      "correct_answer": "5",
+      "acceptable_answers": [
+        "5",
+        "5 centimeters",
+        "5 cm"
+      ],
+      "misconception_tag": "unit_confusion",
+      "hints": [
+        "Line up the object at 0.",
+        "Use the unit named in the question.",
+        "For differences, subtract the shorter length from the longer length."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The eraser is 5 centimeters because the endpoints are 5 cm apart.",
+      "unit": "centimeters",
+      "units": "centimeters",
+      "length": 5,
+      "object": "eraser"
+    },
+    {
+      "id": "G2M_MD_001_MIXED_Q5",
+      "question_id": "G2M_MD_001_MIXED_Q5",
+      "question_type": "multiple_choice",
+      "visual_model": "visual_objects",
+      "prompt": "Which is the best estimate for the length of a new pencil?",
+      "answer": "7 inches",
+      "correct_answer": "7 inches",
+      "acceptable_answers": [
+        "7",
+        "7 inches",
+        "7 in"
+      ],
+      "misconception_tag": "estimate_error",
+      "hints": [
+        "Line up the object at 0.",
+        "Use the unit named in the question.",
+        "For differences, subtract the shorter length from the longer length."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "A reasonable estimate is 7 inches.",
+      "options": [
+        "7 inches",
+        "7 cm",
+        "70 inches",
+        "1 inch"
+      ],
+      "choices": [
+        "7 inches",
+        "7 cm",
+        "70 inches",
+        "1 inch"
+      ],
+      "unit": "inches",
+      "object": "pencil"
+    }
+  ],
+  "level_banks": [
+    {
+      "level_id": "G2M_MD_001_LVL1",
+      "label": "Level 1: Measure with Inches",
+      "focus": "Measure objects with inch rulers",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_MD_001_LVL1_Q1",
+          "question_id": "G2M_MD_001_LVL1_Q1",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A pencil starts at 0 and ends at 5 inches. How long is the pencil?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5",
+            "5 inches",
+            "5 in"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The pencil is 5 inches.",
+          "unit": "inches",
+          "units": "inches",
+          "length": 5,
+          "object": "pencil"
+        },
+        {
+          "id": "G2M_MD_001_LVL1_Q2",
+          "question_id": "G2M_MD_001_LVL1_Q2",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A crayon is lined up from 0 to 4 inches. How long is it?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4",
+            "4 inches",
+            "4 in"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The crayon is 4 inches.",
+          "unit": "inches",
+          "units": "inches",
+          "length": 4,
+          "object": "crayon"
+        },
+        {
+          "id": "G2M_MD_001_LVL1_Q3",
+          "question_id": "G2M_MD_001_LVL1_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "ruler",
+          "prompt": "A ribbon begins at 0 and ends at 9 inches. What is its length?",
+          "answer": "9",
+          "correct_answer": "9",
+          "acceptable_answers": [
+            "9",
+            "9 inches",
+            "9 in"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The ribbon is 9 inches.",
+          "options": [
+            "8",
+            "9",
+            "10",
+            "19"
+          ],
+          "choices": [
+            "8",
+            "9",
+            "10",
+            "19"
+          ],
+          "unit": "inches",
+          "units": "inches",
+          "length": 9,
+          "object": "ribbon"
+        },
+        {
+          "id": "G2M_MD_001_LVL1_Q4",
+          "question_id": "G2M_MD_001_LVL1_Q4",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A marker measures 6 inches on the ruler. How long is the marker?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6",
+            "6 inches",
+            "6 in"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The marker is 6 inches.",
+          "unit": "inches",
+          "units": "inches",
+          "length": 6,
+          "object": "marker"
+        },
+        {
+          "id": "G2M_MD_001_LVL1_Q5",
+          "question_id": "G2M_MD_001_LVL1_Q5",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A toy car goes from 0 to 7 inches. How long is it?",
+          "answer": "7",
+          "correct_answer": "7",
+          "acceptable_answers": [
+            "7",
+            "7 inches",
+            "7 in"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The toy car is 7 inches.",
+          "unit": "inches",
+          "units": "inches",
+          "length": 7,
+          "object": "toy car"
+        },
+        {
+          "id": "G2M_MD_001_LVL1_Q6",
+          "question_id": "G2M_MD_001_LVL1_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "ruler",
+          "prompt": "A card starts at 2 inches and ends at 8 inches. What is its length?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6",
+            "6 inches",
+            "6 in"
+          ],
+          "misconception_tag": "starts_not_at_zero",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The card is 6 inches.",
+          "options": [
+            "5",
+            "6",
+            "7",
+            "16"
+          ],
+          "choices": [
+            "5",
+            "6",
+            "7",
+            "16"
+          ],
+          "unit": "inches",
+          "units": "inches",
+          "length": 6,
+          "object": "card"
+        },
+        {
+          "id": "G2M_MD_001_LVL1_Q7",
+          "question_id": "G2M_MD_001_LVL1_Q7",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A spoon starts at 1 inch and ends at 6 inches. What is its length?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5",
+            "5 inches",
+            "5 in"
+          ],
+          "misconception_tag": "starts_not_at_zero",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The spoon is 5 inches.",
+          "unit": "inches",
+          "units": "inches",
+          "length": 5,
+          "object": "spoon"
+        },
+        {
+          "id": "G2M_MD_001_LVL1_Q8",
+          "question_id": "G2M_MD_001_LVL1_Q8",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A book is 10 inches long. What length should you record?",
+          "answer": "10",
+          "correct_answer": "10",
+          "acceptable_answers": [
+            "10",
+            "10 inches",
+            "10 in"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The book is 10 inches.",
+          "unit": "inches",
+          "units": "inches",
+          "length": 10,
+          "object": "book"
+        },
+        {
+          "id": "G2M_MD_001_LVL1_Q9",
+          "question_id": "G2M_MD_001_LVL1_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "ruler",
+          "prompt": "A leaf starts at 0 and ends at 3 inches. How long is it?",
+          "answer": "3",
+          "correct_answer": "3",
+          "acceptable_answers": [
+            "3",
+            "3 inches",
+            "3 in"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The leaf is 3 inches.",
+          "options": [
+            "2",
+            "3",
+            "4",
+            "13"
+          ],
+          "choices": [
+            "2",
+            "3",
+            "4",
+            "13"
+          ],
+          "unit": "inches",
+          "units": "inches",
+          "length": 3,
+          "object": "leaf"
+        },
+        {
+          "id": "G2M_MD_001_LVL1_Q10",
+          "question_id": "G2M_MD_001_LVL1_Q10",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A paper strip measures 8 inches. How long is it?",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8",
+            "8 inches",
+            "8 in"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The paper strip is 8 inches.",
+          "unit": "inches",
+          "units": "inches",
+          "length": 8,
+          "object": "paper strip"
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_MD_001_LVL2",
+      "label": "Level 2: Measure with Centimeters",
+      "focus": "Measure objects with centimeter rulers",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_MD_001_LVL2_Q1",
+          "question_id": "G2M_MD_001_LVL2_Q1",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A glue stick starts at 0 and ends at 8 centimeters. How long is it?",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8",
+            "8 centimeters",
+            "8 cm"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The glue stick is 8 centimeters because the endpoints are 8 cm apart.",
+          "unit": "centimeters",
+          "units": "centimeters",
+          "length": 8,
+          "object": "glue stick"
+        },
+        {
+          "id": "G2M_MD_001_LVL2_Q2",
+          "question_id": "G2M_MD_001_LVL2_Q2",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "An eraser is 5 centimeters long. What length should you record?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5",
+            "5 centimeters",
+            "5 cm"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The eraser is 5 centimeters because the endpoints are 5 cm apart.",
+          "unit": "centimeters",
+          "units": "centimeters",
+          "length": 5,
+          "object": "eraser"
+        },
+        {
+          "id": "G2M_MD_001_LVL2_Q3",
+          "question_id": "G2M_MD_001_LVL2_Q3",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A craft stick measures 12 centimeters. How long is it?",
+          "answer": "12",
+          "correct_answer": "12",
+          "acceptable_answers": [
+            "12",
+            "12 centimeters",
+            "12 cm"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The craft stick is 12 centimeters because the endpoints are 12 cm apart.",
+          "unit": "centimeters",
+          "units": "centimeters",
+          "length": 12,
+          "object": "craft stick"
+        },
+        {
+          "id": "G2M_MD_001_LVL2_Q4",
+          "question_id": "G2M_MD_001_LVL2_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "ruler",
+          "prompt": "A shell starts at 0 and ends at 4 centimeters. How long is it?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4",
+            "4 centimeters",
+            "4 cm"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The shell is 4 centimeters because the endpoints are 4 cm apart.",
+          "options": [
+            "3",
+            "4",
+            "5",
+            "14"
+          ],
+          "choices": [
+            "3",
+            "4",
+            "5",
+            "14"
+          ],
+          "unit": "centimeters",
+          "units": "centimeters",
+          "length": 4,
+          "object": "shell"
+        },
+        {
+          "id": "G2M_MD_001_LVL2_Q5",
+          "question_id": "G2M_MD_001_LVL2_Q5",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A straw is 14 centimeters long. What is its length?",
+          "answer": "14",
+          "correct_answer": "14",
+          "acceptable_answers": [
+            "14",
+            "14 centimeters",
+            "14 cm"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The straw is 14 centimeters because the endpoints are 14 cm apart.",
+          "unit": "centimeters",
+          "units": "centimeters",
+          "length": 14,
+          "object": "straw"
+        },
+        {
+          "id": "G2M_MD_001_LVL2_Q6",
+          "question_id": "G2M_MD_001_LVL2_Q6",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A string starts at 3 cm and ends at 10 cm. What is its length?",
+          "answer": "7",
+          "correct_answer": "7",
+          "acceptable_answers": [
+            "7",
+            "7 centimeters",
+            "7 cm"
+          ],
+          "misconception_tag": "starts_not_at_zero",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The string is 7 centimeters because the endpoints are 7 cm apart.",
+          "unit": "centimeters",
+          "units": "centimeters",
+          "length": 7,
+          "object": "string"
+        },
+        {
+          "id": "G2M_MD_001_LVL2_Q7",
+          "question_id": "G2M_MD_001_LVL2_Q7",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A key starts at 1 cm and ends at 6 cm. What is its length?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5",
+            "5 centimeters",
+            "5 cm"
+          ],
+          "misconception_tag": "starts_not_at_zero",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The key is 5 centimeters because the endpoints are 5 cm apart.",
+          "unit": "centimeters",
+          "units": "centimeters",
+          "length": 5,
+          "object": "key"
+        },
+        {
+          "id": "G2M_MD_001_LVL2_Q8",
+          "question_id": "G2M_MD_001_LVL2_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "ruler",
+          "prompt": "A paintbrush measures 11 centimeters. How long is it?",
+          "answer": "11",
+          "correct_answer": "11",
+          "acceptable_answers": [
+            "11",
+            "11 centimeters",
+            "11 cm"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The paintbrush is 11 centimeters because the endpoints are 11 cm apart.",
+          "options": [
+            "10",
+            "11",
+            "12",
+            "21"
+          ],
+          "choices": [
+            "10",
+            "11",
+            "12",
+            "21"
+          ],
+          "unit": "centimeters",
+          "units": "centimeters",
+          "length": 11,
+          "object": "paintbrush"
+        },
+        {
+          "id": "G2M_MD_001_LVL2_Q9",
+          "question_id": "G2M_MD_001_LVL2_Q9",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A block is 6 centimeters long. What length should you record?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6",
+            "6 centimeters",
+            "6 cm"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The block is 6 centimeters because the endpoints are 6 cm apart.",
+          "unit": "centimeters",
+          "units": "centimeters",
+          "length": 6,
+          "object": "block"
+        },
+        {
+          "id": "G2M_MD_001_LVL2_Q10",
+          "question_id": "G2M_MD_001_LVL2_Q10",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A feather starts at 0 and ends at 9 centimeters. How long is it?",
+          "answer": "9",
+          "correct_answer": "9",
+          "acceptable_answers": [
+            "9",
+            "9 centimeters",
+            "9 cm"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The feather is 9 centimeters because the endpoints are 9 cm apart.",
+          "unit": "centimeters",
+          "units": "centimeters",
+          "length": 9,
+          "object": "feather"
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_MD_001_LVL3",
+      "label": "Level 3: Estimate Length",
+      "focus": "Estimate lengths using inches and centimeters",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_MD_001_LVL3_Q1",
+          "question_id": "G2M_MD_001_LVL3_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "visual_objects",
+          "prompt": "Which is the best estimate for the length of a new pencil?",
+          "answer": "7 inches",
+          "correct_answer": "7 inches",
+          "acceptable_answers": [
+            "7",
+            "7 inches",
+            "7 in"
+          ],
+          "misconception_tag": "estimate_error",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A reasonable estimate is 7 inches.",
+          "options": [
+            "7 inches",
+            "7 cm",
+            "70 inches",
+            "1 inch"
+          ],
+          "choices": [
+            "7 inches",
+            "7 cm",
+            "70 inches",
+            "1 inch"
+          ],
+          "unit": "inches",
+          "object": "pencil"
+        },
+        {
+          "id": "G2M_MD_001_LVL3_Q2",
+          "question_id": "G2M_MD_001_LVL3_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "visual_objects",
+          "prompt": "Which is the best estimate for the width of a paper clip?",
+          "answer": "3 centimeters",
+          "correct_answer": "3 centimeters",
+          "acceptable_answers": [
+            "3",
+            "3 centimeters",
+            "3 cm"
+          ],
+          "misconception_tag": "estimate_error",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A reasonable estimate is 3 centimeters.",
+          "options": [
+            "3 cm",
+            "3 centimeters",
+            "3 inches",
+            "30 inches"
+          ],
+          "choices": [
+            "3 cm",
+            "3 centimeters",
+            "3 inches",
+            "30 inches"
+          ],
+          "unit": "centimeters",
+          "object": "paper clip"
+        },
+        {
+          "id": "G2M_MD_001_LVL3_Q3",
+          "question_id": "G2M_MD_001_LVL3_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "visual_objects",
+          "prompt": "A classroom door is about how many inches wide?",
+          "answer": "36 inches",
+          "correct_answer": "36 inches",
+          "acceptable_answers": [
+            "36",
+            "36 inches",
+            "36 in"
+          ],
+          "misconception_tag": "estimate_error",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A reasonable estimate is 36 inches.",
+          "options": [
+            "36 inches",
+            "3 inches",
+            "6 cm",
+            "300 inches"
+          ],
+          "choices": [
+            "36 inches",
+            "3 inches",
+            "6 cm",
+            "300 inches"
+          ],
+          "unit": "inches",
+          "object": "door"
+        },
+        {
+          "id": "G2M_MD_001_LVL3_Q4",
+          "question_id": "G2M_MD_001_LVL3_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "visual_objects",
+          "prompt": "A small eraser is about how long?",
+          "answer": "4 centimeters",
+          "correct_answer": "4 centimeters",
+          "acceptable_answers": [
+            "4",
+            "4 centimeters",
+            "4 cm"
+          ],
+          "misconception_tag": "estimate_error",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A reasonable estimate is 4 centimeters.",
+          "options": [
+            "4 cm",
+            "4 centimeters",
+            "4 inches",
+            "40 inches"
+          ],
+          "choices": [
+            "4 cm",
+            "4 centimeters",
+            "4 inches",
+            "40 inches"
+          ],
+          "unit": "centimeters",
+          "object": "eraser"
+        },
+        {
+          "id": "G2M_MD_001_LVL3_Q5",
+          "question_id": "G2M_MD_001_LVL3_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "visual_objects",
+          "prompt": "A desk is about how many centimeters long?",
+          "answer": "100 centimeters",
+          "correct_answer": "100 centimeters",
+          "acceptable_answers": [
+            "100",
+            "100 centimeters",
+            "100 cm"
+          ],
+          "misconception_tag": "estimate_error",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A reasonable estimate is 100 centimeters.",
+          "options": [
+            "100 cm",
+            "100 centimeters",
+            "1 cm",
+            "100 inches"
+          ],
+          "choices": [
+            "100 cm",
+            "100 centimeters",
+            "1 cm",
+            "100 inches"
+          ],
+          "unit": "centimeters",
+          "object": "desk"
+        },
+        {
+          "id": "G2M_MD_001_LVL3_Q6",
+          "question_id": "G2M_MD_001_LVL3_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "visual_objects",
+          "prompt": "A crayon is about how many inches long?",
+          "answer": "4 inches",
+          "correct_answer": "4 inches",
+          "acceptable_answers": [
+            "4",
+            "4 inches",
+            "4 in"
+          ],
+          "misconception_tag": "estimate_error",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A reasonable estimate is 4 inches.",
+          "options": [
+            "4 inches",
+            "40 inches",
+            "4 cm",
+            "1 inch"
+          ],
+          "choices": [
+            "4 inches",
+            "40 inches",
+            "4 cm",
+            "1 inch"
+          ],
+          "unit": "inches",
+          "object": "crayon"
+        },
+        {
+          "id": "G2M_MD_001_LVL3_Q7",
+          "question_id": "G2M_MD_001_LVL3_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "visual_objects",
+          "prompt": "A fingernail is about how many centimeters wide?",
+          "answer": "1 centimeters",
+          "correct_answer": "1 centimeters",
+          "acceptable_answers": [
+            "1",
+            "1 centimeters",
+            "1 cm"
+          ],
+          "misconception_tag": "estimate_error",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A reasonable estimate is 1 centimeters.",
+          "options": [
+            "1 cm",
+            "1 centimeters",
+            "1 inch",
+            "10 inches"
+          ],
+          "choices": [
+            "1 cm",
+            "1 centimeters",
+            "1 inch",
+            "10 inches"
+          ],
+          "unit": "centimeters",
+          "object": "fingernail"
+        },
+        {
+          "id": "G2M_MD_001_LVL3_Q8",
+          "question_id": "G2M_MD_001_LVL3_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "visual_objects",
+          "prompt": "A book is about how many inches tall?",
+          "answer": "11 inches",
+          "correct_answer": "11 inches",
+          "acceptable_answers": [
+            "11",
+            "11 inches",
+            "11 in"
+          ],
+          "misconception_tag": "estimate_error",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A reasonable estimate is 11 inches.",
+          "options": [
+            "11 inches",
+            "1 inch",
+            "110 inches",
+            "11 cm"
+          ],
+          "choices": [
+            "11 inches",
+            "1 inch",
+            "110 inches",
+            "11 cm"
+          ],
+          "unit": "inches",
+          "object": "book"
+        },
+        {
+          "id": "G2M_MD_001_LVL3_Q9",
+          "question_id": "G2M_MD_001_LVL3_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "visual_objects",
+          "prompt": "A marker is about how many centimeters long?",
+          "answer": "13 centimeters",
+          "correct_answer": "13 centimeters",
+          "acceptable_answers": [
+            "13",
+            "13 centimeters",
+            "13 cm"
+          ],
+          "misconception_tag": "estimate_error",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A reasonable estimate is 13 centimeters.",
+          "options": [
+            "13 cm",
+            "13 centimeters",
+            "13 inches",
+            "130 cm"
+          ],
+          "choices": [
+            "13 cm",
+            "13 centimeters",
+            "13 inches",
+            "130 cm"
+          ],
+          "unit": "centimeters",
+          "object": "marker"
+        },
+        {
+          "id": "G2M_MD_001_LVL3_Q10",
+          "question_id": "G2M_MD_001_LVL3_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "visual_objects",
+          "prompt": "A paper strip on a desk is about 6 inches. Which estimate is reasonable?",
+          "answer": "6 inches",
+          "correct_answer": "6 inches",
+          "acceptable_answers": [
+            "6",
+            "6 inches",
+            "6 in"
+          ],
+          "misconception_tag": "estimate_error",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A reasonable estimate is 6 inches.",
+          "options": [
+            "6 inches",
+            "60 inches",
+            "6 cm",
+            "600 inches"
+          ],
+          "choices": [
+            "6 inches",
+            "60 inches",
+            "6 cm",
+            "600 inches"
+          ],
+          "unit": "inches",
+          "object": "paper strip"
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_MD_001_LVL4",
+      "label": "Level 4: Compare Lengths",
+      "focus": "Compare lengths and find length differences",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_MD_001_LVL4_Q1",
+          "question_id": "G2M_MD_001_LVL4_Q1",
+          "question_type": "short_response",
+          "visual_model": "measurement_comparison",
+          "prompt": "A red ribbon is 9 inches. A blue ribbon is 5 inches. How many inches longer is the red ribbon?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4",
+            "4 inches",
+            "4 in"
+          ],
+          "misconception_tag": "length_difference_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Find the difference by subtracting the shorter length from the longer length: 4 inches.",
+          "unit": "inches"
+        },
+        {
+          "id": "G2M_MD_001_LVL4_Q2",
+          "question_id": "G2M_MD_001_LVL4_Q2",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "A pencil is 14 cm. An eraser is 6 cm. What is the difference?",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8",
+            "8 centimeters",
+            "8 cm"
+          ],
+          "misconception_tag": "length_difference_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Find the difference by subtracting the shorter length from the longer length: 8 centimeters.",
+          "unit": "centimeters"
+        },
+        {
+          "id": "G2M_MD_001_LVL4_Q3",
+          "question_id": "G2M_MD_001_LVL4_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "measurement_comparison",
+          "prompt": "A string is 12 inches and a strip is 7 inches. How many inches shorter is the strip?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5",
+            "5 inches",
+            "5 in"
+          ],
+          "misconception_tag": "length_difference_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Find the difference by subtracting the shorter length from the longer length: 5 inches.",
+          "options": [
+            "4",
+            "5",
+            "6",
+            "15"
+          ],
+          "choices": [
+            "4",
+            "5",
+            "6",
+            "15"
+          ],
+          "unit": "inches"
+        },
+        {
+          "id": "G2M_MD_001_LVL4_Q4",
+          "question_id": "G2M_MD_001_LVL4_Q4",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "A leaf is 8 cm and a twig is 11 cm. How many centimeters longer is the twig?",
+          "answer": "3",
+          "correct_answer": "3",
+          "acceptable_answers": [
+            "3",
+            "3 centimeters",
+            "3 cm"
+          ],
+          "misconception_tag": "length_difference_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Find the difference by subtracting the shorter length from the longer length: 3 centimeters.",
+          "unit": "centimeters"
+        },
+        {
+          "id": "G2M_MD_001_LVL4_Q5",
+          "question_id": "G2M_MD_001_LVL4_Q5",
+          "question_type": "short_response",
+          "visual_model": "measurement_comparison",
+          "prompt": "A book is 10 inches tall. A notebook is 8 inches tall. What is the difference?",
+          "answer": "2",
+          "correct_answer": "2",
+          "acceptable_answers": [
+            "2",
+            "2 inches",
+            "2 in"
+          ],
+          "misconception_tag": "length_difference_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Find the difference by subtracting the shorter length from the longer length: 2 inches.",
+          "unit": "inches"
+        },
+        {
+          "id": "G2M_MD_001_LVL4_Q6",
+          "question_id": "G2M_MD_001_LVL4_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "number_line",
+          "prompt": "A marker is 13 cm. A crayon is 9 cm. How many centimeters longer is the marker?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4",
+            "4 centimeters",
+            "4 cm"
+          ],
+          "misconception_tag": "length_difference_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Find the difference by subtracting the shorter length from the longer length: 4 centimeters.",
+          "options": [
+            "3",
+            "4",
+            "5",
+            "14"
+          ],
+          "choices": [
+            "3",
+            "4",
+            "5",
+            "14"
+          ],
+          "unit": "centimeters"
+        },
+        {
+          "id": "G2M_MD_001_LVL4_Q7",
+          "question_id": "G2M_MD_001_LVL4_Q7",
+          "question_type": "short_response",
+          "visual_model": "measurement_comparison",
+          "prompt": "A toy train is 15 inches. A toy car is 6 inches. How much longer is the train?",
+          "answer": "9",
+          "correct_answer": "9",
+          "acceptable_answers": [
+            "9",
+            "9 inches",
+            "9 in"
+          ],
+          "misconception_tag": "length_difference_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Find the difference by subtracting the shorter length from the longer length: 9 inches.",
+          "unit": "inches"
+        },
+        {
+          "id": "G2M_MD_001_LVL4_Q8",
+          "question_id": "G2M_MD_001_LVL4_Q8",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "A ribbon is 18 cm. Another ribbon is 12 cm. What is the length difference?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6",
+            "6 centimeters",
+            "6 cm"
+          ],
+          "misconception_tag": "length_difference_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Find the difference by subtracting the shorter length from the longer length: 6 centimeters.",
+          "unit": "centimeters"
+        },
+        {
+          "id": "G2M_MD_001_LVL4_Q9",
+          "question_id": "G2M_MD_001_LVL4_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "measurement_comparison",
+          "prompt": "A card is 7 inches. An envelope is 9 inches. How many inches shorter is the card?",
+          "answer": "2",
+          "correct_answer": "2",
+          "acceptable_answers": [
+            "2",
+            "2 inches",
+            "2 in"
+          ],
+          "misconception_tag": "length_difference_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Find the difference by subtracting the shorter length from the longer length: 2 inches.",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "12"
+          ],
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "12"
+          ],
+          "unit": "inches"
+        },
+        {
+          "id": "G2M_MD_001_LVL4_Q10",
+          "question_id": "G2M_MD_001_LVL4_Q10",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "A shell is 5 cm. A feather is 10 cm. How many centimeters longer is the feather?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5",
+            "5 centimeters",
+            "5 cm"
+          ],
+          "misconception_tag": "length_difference_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Find the difference by subtracting the shorter length from the longer length: 5 centimeters.",
+          "unit": "centimeters"
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_MD_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed measuring, estimating, and comparing lengths",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_MD_001_MIXED_Q1",
+          "question_id": "G2M_MD_001_MIXED_Q1",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A pencil starts at 0 and ends at 5 inches. How long is the pencil?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5",
+            "5 inches",
+            "5 in"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The pencil is 5 inches.",
+          "unit": "inches",
+          "units": "inches",
+          "length": 5,
+          "object": "pencil"
+        },
+        {
+          "id": "G2M_MD_001_MIXED_Q2",
+          "question_id": "G2M_MD_001_MIXED_Q2",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A crayon is lined up from 0 to 4 inches. How long is it?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4",
+            "4 inches",
+            "4 in"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The crayon is 4 inches.",
+          "unit": "inches",
+          "units": "inches",
+          "length": 4,
+          "object": "crayon"
+        },
+        {
+          "id": "G2M_MD_001_MIXED_Q3",
+          "question_id": "G2M_MD_001_MIXED_Q3",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "A glue stick starts at 0 and ends at 8 centimeters. How long is it?",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8",
+            "8 centimeters",
+            "8 cm"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The glue stick is 8 centimeters because the endpoints are 8 cm apart.",
+          "unit": "centimeters",
+          "units": "centimeters",
+          "length": 8,
+          "object": "glue stick"
+        },
+        {
+          "id": "G2M_MD_001_MIXED_Q4",
+          "question_id": "G2M_MD_001_MIXED_Q4",
+          "question_type": "short_response",
+          "visual_model": "ruler",
+          "prompt": "An eraser is 5 centimeters long. What length should you record?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5",
+            "5 centimeters",
+            "5 cm"
+          ],
+          "misconception_tag": "unit_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The eraser is 5 centimeters because the endpoints are 5 cm apart.",
+          "unit": "centimeters",
+          "units": "centimeters",
+          "length": 5,
+          "object": "eraser"
+        },
+        {
+          "id": "G2M_MD_001_MIXED_Q5",
+          "question_id": "G2M_MD_001_MIXED_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "visual_objects",
+          "prompt": "Which is the best estimate for the length of a new pencil?",
+          "answer": "7 inches",
+          "correct_answer": "7 inches",
+          "acceptable_answers": [
+            "7",
+            "7 inches",
+            "7 in"
+          ],
+          "misconception_tag": "estimate_error",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A reasonable estimate is 7 inches.",
+          "options": [
+            "7 inches",
+            "7 cm",
+            "70 inches",
+            "1 inch"
+          ],
+          "choices": [
+            "7 inches",
+            "7 cm",
+            "70 inches",
+            "1 inch"
+          ],
+          "unit": "inches",
+          "object": "pencil"
+        },
+        {
+          "id": "G2M_MD_001_MIXED_Q6",
+          "question_id": "G2M_MD_001_MIXED_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "visual_objects",
+          "prompt": "Which is the best estimate for the width of a paper clip?",
+          "answer": "3 centimeters",
+          "correct_answer": "3 centimeters",
+          "acceptable_answers": [
+            "3",
+            "3 centimeters",
+            "3 cm"
+          ],
+          "misconception_tag": "estimate_error",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A reasonable estimate is 3 centimeters.",
+          "options": [
+            "3 cm",
+            "3 centimeters",
+            "3 inches",
+            "30 inches"
+          ],
+          "choices": [
+            "3 cm",
+            "3 centimeters",
+            "3 inches",
+            "30 inches"
+          ],
+          "unit": "centimeters",
+          "object": "paper clip"
+        },
+        {
+          "id": "G2M_MD_001_MIXED_Q7",
+          "question_id": "G2M_MD_001_MIXED_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "visual_objects",
+          "prompt": "A classroom door is about how many inches wide?",
+          "answer": "36 inches",
+          "correct_answer": "36 inches",
+          "acceptable_answers": [
+            "36",
+            "36 inches",
+            "36 in"
+          ],
+          "misconception_tag": "estimate_error",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A reasonable estimate is 36 inches.",
+          "options": [
+            "36 inches",
+            "3 inches",
+            "6 cm",
+            "300 inches"
+          ],
+          "choices": [
+            "36 inches",
+            "3 inches",
+            "6 cm",
+            "300 inches"
+          ],
+          "unit": "inches",
+          "object": "door"
+        },
+        {
+          "id": "G2M_MD_001_MIXED_Q8",
+          "question_id": "G2M_MD_001_MIXED_Q8",
+          "question_type": "short_response",
+          "visual_model": "measurement_comparison",
+          "prompt": "A red ribbon is 9 inches. A blue ribbon is 5 inches. How many inches longer is the red ribbon?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4",
+            "4 inches",
+            "4 in"
+          ],
+          "misconception_tag": "length_difference_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Find the difference by subtracting the shorter length from the longer length: 4 inches.",
+          "unit": "inches"
+        },
+        {
+          "id": "G2M_MD_001_MIXED_Q9",
+          "question_id": "G2M_MD_001_MIXED_Q9",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "A pencil is 14 cm. An eraser is 6 cm. What is the difference?",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8",
+            "8 centimeters",
+            "8 cm"
+          ],
+          "misconception_tag": "length_difference_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Find the difference by subtracting the shorter length from the longer length: 8 centimeters.",
+          "unit": "centimeters"
+        },
+        {
+          "id": "G2M_MD_001_MIXED_Q10",
+          "question_id": "G2M_MD_001_MIXED_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "measurement_comparison",
+          "prompt": "A string is 12 inches and a strip is 7 inches. How many inches shorter is the strip?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5",
+            "5 inches",
+            "5 in"
+          ],
+          "misconception_tag": "length_difference_confusion",
+          "hints": [
+            "Line up the object at 0.",
+            "Use the unit named in the question.",
+            "For differences, subtract the shorter length from the longer length."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Find the difference by subtracting the shorter length from the longer length: 5 inches.",
+          "options": [
+            "4",
+            "5",
+            "6",
+            "15"
+          ],
+          "choices": [
+            "4",
+            "5",
+            "6",
+            "15"
+          ],
+          "unit": "inches"
+        }
+      ]
+    }
+  ]
+}
