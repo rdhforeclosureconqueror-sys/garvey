@@ -1,0 +1,2630 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade2-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade2_english_completion_plan.md",
+    "alignment_checkpoint": "docs/curriculum_alignment_checkpoint_grade1_grade2.md",
+    "production_proof_package": true,
+    "created_at": "2026-05-30"
+  },
+  "skill_id": "G2E_RF_002",
+  "grade": 2,
+  "subject": "English",
+  "domain": "Reading Foundations / Vocabulary",
+  "skill": "Prefixes, Suffixes, and Base Words",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Help the Word Workshop crew fix signs by snapping prefixes, suffixes, and base words into place.",
+    "objective": "I can identify base words and use common prefixes and suffixes to read and understand new words.",
+    "key_vocabulary": [
+      "base word",
+      "prefix",
+      "suffix",
+      "meaning",
+      "word part"
+    ],
+    "concept_explanation": "A base word carries the main meaning. A prefix goes before a base word and a suffix goes after it. Word parts can change how a word is read and what it means.",
+    "visual_model": "word_parts",
+    "common_misconception": "Readers may grab too much of the word as the base word or attach a prefix or suffix to the wrong side.",
+    "real_world_connection": "Word-part clues help readers understand classroom directions, story words, and science words.",
+    "lesson_summary": "Find the base word, name the prefix or suffix, then blend the parts and check the meaning.",
+    "mini_lesson": "Read the base word first. Add the prefix or suffix. Then explain how the new part changes the meaning."
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: In replay, re- means again and play is the base word.",
+      "correct_answer": "play",
+      "visual_model": "word_parts",
+      "word": "replay",
+      "word_parts": [
+        "re-",
+        "play"
+      ],
+      "base_word": "play",
+      "prefix": "re-"
+    },
+    {
+      "text": "Demo: In helpful, help is the base word and -ful means full of.",
+      "correct_answer": "helpful",
+      "visual_model": "morpheme_tiles",
+      "word": "helpful",
+      "morphemes": [
+        "help",
+        "-ful"
+      ],
+      "base_word": "help",
+      "suffix": "-ful"
+    },
+    {
+      "text": "Demo: Build un + safe to make unsafe, which means not safe.",
+      "correct_answer": "unsafe",
+      "visual_model": "word_builder",
+      "word": "unsafe",
+      "tiles": [
+        "un-",
+        "safe"
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "Cover the prefix or suffix and read the base word first.",
+    "Ask what the prefix or suffix does to the meaning.",
+    "Check the word-part boundary before you build the whole word."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G2E_RF_002_LVL1_Q01",
+      "prompt": "What is the base word in unhappy?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "happy",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "base_word_confusion",
+      "explanation": "happy is correct because the word parts show the meaning of unhappy.",
+      "feedback": "Yes — happy fits the word parts.",
+      "choices": [
+        "happy",
+        "unhappy",
+        "un"
+      ],
+      "word": "unhappy",
+      "base_word": "happy",
+      "word_parts": [
+        "un",
+        "happy"
+      ],
+      "morphemes": [
+        "un",
+        "happy"
+      ]
+    },
+    {
+      "question_id": "G2E_RF_002_LVL1_Q02",
+      "prompt": "What is the base word in replay?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "play",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "base_word_confusion",
+      "explanation": "play is correct because the word parts show the meaning of replay.",
+      "feedback": "Yes — play fits the word parts.",
+      "choices": [
+        "play",
+        "replay",
+        "re"
+      ],
+      "word": "replay",
+      "base_word": "play",
+      "word_parts": [
+        "re",
+        "play"
+      ],
+      "morphemes": [
+        "re",
+        "play"
+      ]
+    },
+    {
+      "question_id": "G2E_RF_002_LVL1_Q03",
+      "prompt": "What is the base word in preheat?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "heat",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "base_word_confusion",
+      "explanation": "heat is correct because the word parts show the meaning of preheat.",
+      "feedback": "Yes — heat fits the word parts.",
+      "choices": [
+        "heat",
+        "preheat",
+        "pre"
+      ],
+      "word": "preheat",
+      "base_word": "heat",
+      "word_parts": [
+        "pre",
+        "heat"
+      ],
+      "morphemes": [
+        "pre",
+        "heat"
+      ]
+    },
+    {
+      "question_id": "G2E_RF_002_LVL1_Q04",
+      "prompt": "What is the base word in jumping?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "jump",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "base_word_confusion",
+      "explanation": "jump is correct because the word parts show the meaning of jumping.",
+      "feedback": "Yes — jump fits the word parts.",
+      "choices": [
+        "jump",
+        "jumping",
+        "ing"
+      ],
+      "word": "jumping",
+      "base_word": "jump",
+      "word_parts": [
+        "jump",
+        "ing"
+      ],
+      "morphemes": [
+        "jump",
+        "ing"
+      ]
+    },
+    {
+      "question_id": "G2E_RF_002_LVL1_Q05",
+      "prompt": "What is the base word in helpful?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "help",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "base_word_confusion",
+      "explanation": "help is correct because the word parts show the meaning of helpful.",
+      "feedback": "Yes — help fits the word parts.",
+      "choices": [
+        "help",
+        "helpful",
+        "ful"
+      ],
+      "word": "helpful",
+      "base_word": "help",
+      "word_parts": [
+        "help",
+        "ful"
+      ],
+      "morphemes": [
+        "help",
+        "ful"
+      ]
+    },
+    {
+      "question_id": "G2E_RF_002_LVL1_Q06",
+      "prompt": "What is the base word in careless?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "care",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "base_word_confusion",
+      "explanation": "care is correct because the word parts show the meaning of careless.",
+      "feedback": "Yes — care fits the word parts.",
+      "choices": [
+        "care",
+        "careless",
+        "less"
+      ],
+      "word": "careless",
+      "base_word": "care",
+      "word_parts": [
+        "care",
+        "less"
+      ],
+      "morphemes": [
+        "care",
+        "less"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G2E_RF_002_LVL1_Q07",
+      "prompt": "What is the base word in walked?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "walk",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "base_word_confusion",
+      "explanation": "walk is correct because the word parts show the meaning of walked.",
+      "feedback": "Yes — walk fits the word parts.",
+      "choices": [
+        "walk",
+        "walked",
+        "ed"
+      ],
+      "word": "walked",
+      "base_word": "walk",
+      "word_parts": [
+        "walk",
+        "ed"
+      ],
+      "morphemes": [
+        "walk",
+        "ed"
+      ]
+    },
+    {
+      "question_id": "G2E_RF_002_LVL1_Q08",
+      "prompt": "What is the base word in dogs?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "dog",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "base_word_confusion",
+      "explanation": "dog is correct because the word parts show the meaning of dogs.",
+      "feedback": "Yes — dog fits the word parts.",
+      "choices": [
+        "dog",
+        "dogs",
+        "s"
+      ],
+      "word": "dogs",
+      "base_word": "dog",
+      "word_parts": [
+        "dog",
+        "s"
+      ],
+      "morphemes": [
+        "dog",
+        "s"
+      ]
+    },
+    {
+      "question_id": "G2E_RF_002_LVL1_Q09",
+      "prompt": "What is the base word in redo?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "do",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "base_word_confusion",
+      "explanation": "do is correct because the word parts show the meaning of redo.",
+      "feedback": "Yes — do fits the word parts.",
+      "choices": [
+        "do",
+        "redo",
+        "re"
+      ],
+      "word": "redo",
+      "base_word": "do",
+      "word_parts": [
+        "re",
+        "do"
+      ],
+      "morphemes": [
+        "re",
+        "do"
+      ]
+    },
+    {
+      "question_id": "G2E_RF_002_LVL1_Q10",
+      "prompt": "What is the base word in hopeful?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "hope",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "base_word_confusion",
+      "explanation": "hope is correct because the word parts show the meaning of hopeful.",
+      "feedback": "Yes — hope fits the word parts.",
+      "choices": [
+        "hope",
+        "hopeful",
+        "ful"
+      ],
+      "word": "hopeful",
+      "base_word": "hope",
+      "word_parts": [
+        "hope",
+        "ful"
+      ],
+      "morphemes": [
+        "hope",
+        "ful"
+      ]
+    },
+    {
+      "question_id": "G2E_RF_002_LVL2_Q01",
+      "prompt": "In reread, what does the prefix re- mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "again",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "prefix_meaning_confusion",
+      "explanation": "again is correct because the word parts show the meaning of reread.",
+      "feedback": "Yes — again fits the word parts.",
+      "choices": [
+        "again",
+        "full of",
+        "without",
+        "happened already"
+      ],
+      "word": "reread",
+      "base_word": "read",
+      "prefix": "re-",
+      "word_parts": [
+        "re-",
+        "read"
+      ],
+      "morphemes": [
+        "re-",
+        "read"
+      ],
+      "meaning": "again"
+    },
+    {
+      "question_id": "G2E_RF_002_LVL2_Q02",
+      "prompt": "In unkind, what does the prefix un- mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "morpheme_tiles",
+      "support_type": "morpheme_tiles",
+      "correct_answer": "not",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "prefix_meaning_confusion",
+      "explanation": "not is correct because the word parts show the meaning of unkind.",
+      "feedback": "Yes — not fits the word parts.",
+      "choices": [
+        "not",
+        "full of",
+        "without",
+        "happened already"
+      ],
+      "word": "unkind",
+      "base_word": "kind",
+      "prefix": "un-",
+      "word_parts": [
+        "un-",
+        "kind"
+      ],
+      "morphemes": [
+        "un-",
+        "kind"
+      ],
+      "meaning": "not"
+    },
+    {
+      "question_id": "G2E_RF_002_LVL2_Q03",
+      "prompt": "In preview, what does the prefix pre- mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "before",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "prefix_meaning_confusion",
+      "explanation": "before is correct because the word parts show the meaning of preview.",
+      "feedback": "Yes — before fits the word parts.",
+      "choices": [
+        "before",
+        "full of",
+        "without",
+        "happened already"
+      ],
+      "word": "preview",
+      "base_word": "view",
+      "prefix": "pre-",
+      "word_parts": [
+        "pre-",
+        "view"
+      ],
+      "morphemes": [
+        "pre-",
+        "view"
+      ],
+      "meaning": "before"
+    },
+    {
+      "question_id": "G2E_RF_002_LVL2_Q04",
+      "prompt": "In redo, what does the prefix re- mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "morpheme_tiles",
+      "support_type": "morpheme_tiles",
+      "correct_answer": "again",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "prefix_meaning_confusion",
+      "explanation": "again is correct because the word parts show the meaning of redo.",
+      "feedback": "Yes — again fits the word parts.",
+      "choices": [
+        "again",
+        "full of",
+        "without",
+        "happened already"
+      ],
+      "word": "redo",
+      "base_word": "do",
+      "prefix": "re-",
+      "word_parts": [
+        "re-",
+        "do"
+      ],
+      "morphemes": [
+        "re-",
+        "do"
+      ],
+      "meaning": "again"
+    },
+    {
+      "question_id": "G2E_RF_002_LVL2_Q05",
+      "prompt": "In unsafe, what does the prefix un- mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "not",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "prefix_meaning_confusion",
+      "explanation": "not is correct because the word parts show the meaning of unsafe.",
+      "feedback": "Yes — not fits the word parts.",
+      "choices": [
+        "not",
+        "full of",
+        "without",
+        "happened already"
+      ],
+      "word": "unsafe",
+      "base_word": "safe",
+      "prefix": "un-",
+      "word_parts": [
+        "un-",
+        "safe"
+      ],
+      "morphemes": [
+        "un-",
+        "safe"
+      ],
+      "meaning": "not"
+    },
+    {
+      "question_id": "G2E_RF_002_LVL2_Q06",
+      "prompt": "In prepay, what does the prefix pre- mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "morpheme_tiles",
+      "support_type": "morpheme_tiles",
+      "correct_answer": "before",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "prefix_meaning_confusion",
+      "explanation": "before is correct because the word parts show the meaning of prepay.",
+      "feedback": "Yes — before fits the word parts.",
+      "choices": [
+        "before",
+        "full of",
+        "without",
+        "happened already"
+      ],
+      "word": "prepay",
+      "base_word": "pay",
+      "prefix": "pre-",
+      "word_parts": [
+        "pre-",
+        "pay"
+      ],
+      "morphemes": [
+        "pre-",
+        "pay"
+      ],
+      "meaning": "before"
+    },
+    {
+      "question_id": "G2E_RF_002_LVL2_Q07",
+      "prompt": "In rebuild, what does the prefix re- mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "again",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "prefix_meaning_confusion",
+      "explanation": "again is correct because the word parts show the meaning of rebuild.",
+      "feedback": "Yes — again fits the word parts.",
+      "choices": [
+        "again",
+        "full of",
+        "without",
+        "happened already"
+      ],
+      "word": "rebuild",
+      "base_word": "build",
+      "prefix": "re-",
+      "word_parts": [
+        "re-",
+        "build"
+      ],
+      "morphemes": [
+        "re-",
+        "build"
+      ],
+      "meaning": "again"
+    },
+    {
+      "question_id": "G2E_RF_002_LVL2_Q08",
+      "prompt": "In unfair, what does the prefix un- mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "morpheme_tiles",
+      "support_type": "morpheme_tiles",
+      "correct_answer": "not",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "prefix_meaning_confusion",
+      "explanation": "not is correct because the word parts show the meaning of unfair.",
+      "feedback": "Yes — not fits the word parts.",
+      "choices": [
+        "not",
+        "full of",
+        "without",
+        "happened already"
+      ],
+      "word": "unfair",
+      "base_word": "fair",
+      "prefix": "un-",
+      "word_parts": [
+        "un-",
+        "fair"
+      ],
+      "morphemes": [
+        "un-",
+        "fair"
+      ],
+      "meaning": "not"
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G2E_RF_002_LVL2_Q09",
+      "prompt": "In preheat, what does the prefix pre- mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "before",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "prefix_meaning_confusion",
+      "explanation": "before is correct because the word parts show the meaning of preheat.",
+      "feedback": "Yes — before fits the word parts.",
+      "choices": [
+        "before",
+        "full of",
+        "without",
+        "happened already"
+      ],
+      "word": "preheat",
+      "base_word": "heat",
+      "prefix": "pre-",
+      "word_parts": [
+        "pre-",
+        "heat"
+      ],
+      "morphemes": [
+        "pre-",
+        "heat"
+      ],
+      "meaning": "before"
+    },
+    {
+      "question_id": "G2E_RF_002_LVL2_Q10",
+      "prompt": "In replay, what does the prefix re- mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "morpheme_tiles",
+      "support_type": "morpheme_tiles",
+      "correct_answer": "again",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "prefix_meaning_confusion",
+      "explanation": "again is correct because the word parts show the meaning of replay.",
+      "feedback": "Yes — again fits the word parts.",
+      "choices": [
+        "again",
+        "full of",
+        "without",
+        "happened already"
+      ],
+      "word": "replay",
+      "base_word": "play",
+      "prefix": "re-",
+      "word_parts": [
+        "re-",
+        "play"
+      ],
+      "morphemes": [
+        "re-",
+        "play"
+      ],
+      "meaning": "again"
+    },
+    {
+      "question_id": "G2E_RF_002_LVL3_Q01",
+      "prompt": "In cats, what does the suffix -s mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "more than one",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "suffix_meaning_confusion",
+      "explanation": "more than one is correct because the word parts show the meaning of cats.",
+      "feedback": "Yes — more than one fits the word parts.",
+      "choices": [
+        "more than one",
+        "again",
+        "not",
+        "before"
+      ],
+      "word": "cats",
+      "base_word": "cat",
+      "suffix": "-s",
+      "word_parts": [
+        "cat",
+        "-s"
+      ],
+      "morphemes": [
+        "cat",
+        "-s"
+      ],
+      "meaning": "more than one"
+    },
+    {
+      "question_id": "G2E_RF_002_LVL3_Q02",
+      "prompt": "In jumped, what does the suffix -ed mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "morpheme_tiles",
+      "support_type": "morpheme_tiles",
+      "correct_answer": "happened in the past",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "suffix_meaning_confusion",
+      "explanation": "happened in the past is correct because the word parts show the meaning of jumped.",
+      "feedback": "Yes — happened in the past fits the word parts.",
+      "choices": [
+        "happened in the past",
+        "again",
+        "not",
+        "before"
+      ],
+      "word": "jumped",
+      "base_word": "jump",
+      "suffix": "-ed",
+      "word_parts": [
+        "jump",
+        "-ed"
+      ],
+      "morphemes": [
+        "jump",
+        "-ed"
+      ],
+      "meaning": "happened in the past"
+    },
+    {
+      "question_id": "G2E_RF_002_LVL3_Q03",
+      "prompt": "In reading, what does the suffix -ing mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_parts",
+      "support_type": "word_parts",
+      "correct_answer": "happening now",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "suffix_meaning_confusion",
+      "explanation": "happening now is correct because the word parts show the meaning of reading.",
+      "feedback": "Yes — happening now fits the word parts.",
+      "choices": [
+        "happening now",
+        "again",
+        "not",
+        "before"
+      ],
+      "word": "reading",
+      "base_word": "read",
+      "suffix": "-ing",
+      "word_parts": [
+        "read",
+        "-ing"
+      ],
+      "morphemes": [
+        "read",
+        "-ing"
+      ],
+      "meaning": "happening now"
+    },
+    {
+      "question_id": "G2E_RF_002_LVL3_Q04",
+      "prompt": "In hopeful, what does the suffix -ful mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "morpheme_tiles",
+      "support_type": "morpheme_tiles",
+      "correct_answer": "full of",
+      "hints": [
+        "Cover the prefix or suffix and read the base word first.",
+        "Ask what the prefix or suffix does to the meaning.",
+        "Check the word-part boundary before you build the whole word."
+      ],
+      "misconception_tag": "suffix_meaning_confusion",
+      "explanation": "full of is correct because the word parts show the meaning of hopeful.",
+      "feedback": "Yes — full of fits the word parts.",
+      "choices": [
+        "full of",
+        "again",
+        "not",
+        "before"
+      ],
+      "word": "hopeful",
+      "base_word": "hope",
+      "suffix": "-ful",
+      "word_parts": [
+        "hope",
+        "-ful"
+      ],
+      "morphemes": [
+        "hope",
+        "-ful"
+      ],
+      "meaning": "full of"
+    }
+  ],
+  "misconception_bank": {
+    "base_word_confusion": "Learner treats the whole changed word as the base word.",
+    "prefix_meaning_confusion": "Learner does not connect re-, un-, or pre- to meaning.",
+    "suffix_meaning_confusion": "Learner does not connect -s, -ed, -ing, -ful, or -less to meaning.",
+    "word_part_boundary_error": "Learner splits the word at the wrong word-part boundary."
+  },
+  "game_theme": {
+    "theme_name": "Morpheme Workshop",
+    "mission_intro": "Collect base words, prefixes, and suffixes to build new words in the Word Workshop.",
+    "badge_name": "Word Parts Builder",
+    "reward_icon": "🧩",
+    "world": "Reading Foundations / Vocabulary"
+  },
+  "next_skill_id": "G2E_FL_001",
+  "remediation_skill_id": "G2E_RF_001",
+  "level_banks": [
+    {
+      "level_id": "G2E_RF_002_LVL1",
+      "label": "Level 1: Base Words",
+      "focus": "identify base words inside words with prefixes and suffixes",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RF_002_LVL1_Q01",
+          "prompt": "What is the base word in unhappy?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "happy",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "base_word_confusion",
+          "explanation": "happy is correct because the word parts show the meaning of unhappy.",
+          "feedback": "Yes — happy fits the word parts.",
+          "choices": [
+            "happy",
+            "unhappy",
+            "un"
+          ],
+          "word": "unhappy",
+          "base_word": "happy",
+          "word_parts": [
+            "un",
+            "happy"
+          ],
+          "morphemes": [
+            "un",
+            "happy"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL1_Q02",
+          "prompt": "What is the base word in replay?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "play",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "base_word_confusion",
+          "explanation": "play is correct because the word parts show the meaning of replay.",
+          "feedback": "Yes — play fits the word parts.",
+          "choices": [
+            "play",
+            "replay",
+            "re"
+          ],
+          "word": "replay",
+          "base_word": "play",
+          "word_parts": [
+            "re",
+            "play"
+          ],
+          "morphemes": [
+            "re",
+            "play"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL1_Q03",
+          "prompt": "What is the base word in preheat?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "heat",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "base_word_confusion",
+          "explanation": "heat is correct because the word parts show the meaning of preheat.",
+          "feedback": "Yes — heat fits the word parts.",
+          "choices": [
+            "heat",
+            "preheat",
+            "pre"
+          ],
+          "word": "preheat",
+          "base_word": "heat",
+          "word_parts": [
+            "pre",
+            "heat"
+          ],
+          "morphemes": [
+            "pre",
+            "heat"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL1_Q04",
+          "prompt": "What is the base word in jumping?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "jump",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "base_word_confusion",
+          "explanation": "jump is correct because the word parts show the meaning of jumping.",
+          "feedback": "Yes — jump fits the word parts.",
+          "choices": [
+            "jump",
+            "jumping",
+            "ing"
+          ],
+          "word": "jumping",
+          "base_word": "jump",
+          "word_parts": [
+            "jump",
+            "ing"
+          ],
+          "morphemes": [
+            "jump",
+            "ing"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL1_Q05",
+          "prompt": "What is the base word in helpful?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "help",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "base_word_confusion",
+          "explanation": "help is correct because the word parts show the meaning of helpful.",
+          "feedback": "Yes — help fits the word parts.",
+          "choices": [
+            "help",
+            "helpful",
+            "ful"
+          ],
+          "word": "helpful",
+          "base_word": "help",
+          "word_parts": [
+            "help",
+            "ful"
+          ],
+          "morphemes": [
+            "help",
+            "ful"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL1_Q06",
+          "prompt": "What is the base word in careless?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "care",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "base_word_confusion",
+          "explanation": "care is correct because the word parts show the meaning of careless.",
+          "feedback": "Yes — care fits the word parts.",
+          "choices": [
+            "care",
+            "careless",
+            "less"
+          ],
+          "word": "careless",
+          "base_word": "care",
+          "word_parts": [
+            "care",
+            "less"
+          ],
+          "morphemes": [
+            "care",
+            "less"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL1_Q07",
+          "prompt": "What is the base word in walked?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "walk",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "base_word_confusion",
+          "explanation": "walk is correct because the word parts show the meaning of walked.",
+          "feedback": "Yes — walk fits the word parts.",
+          "choices": [
+            "walk",
+            "walked",
+            "ed"
+          ],
+          "word": "walked",
+          "base_word": "walk",
+          "word_parts": [
+            "walk",
+            "ed"
+          ],
+          "morphemes": [
+            "walk",
+            "ed"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL1_Q08",
+          "prompt": "What is the base word in dogs?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "dog",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "base_word_confusion",
+          "explanation": "dog is correct because the word parts show the meaning of dogs.",
+          "feedback": "Yes — dog fits the word parts.",
+          "choices": [
+            "dog",
+            "dogs",
+            "s"
+          ],
+          "word": "dogs",
+          "base_word": "dog",
+          "word_parts": [
+            "dog",
+            "s"
+          ],
+          "morphemes": [
+            "dog",
+            "s"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL1_Q09",
+          "prompt": "What is the base word in redo?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "do",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "base_word_confusion",
+          "explanation": "do is correct because the word parts show the meaning of redo.",
+          "feedback": "Yes — do fits the word parts.",
+          "choices": [
+            "do",
+            "redo",
+            "re"
+          ],
+          "word": "redo",
+          "base_word": "do",
+          "word_parts": [
+            "re",
+            "do"
+          ],
+          "morphemes": [
+            "re",
+            "do"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL1_Q10",
+          "prompt": "What is the base word in hopeful?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "hope",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "base_word_confusion",
+          "explanation": "hope is correct because the word parts show the meaning of hopeful.",
+          "feedback": "Yes — hope fits the word parts.",
+          "choices": [
+            "hope",
+            "hopeful",
+            "ful"
+          ],
+          "word": "hopeful",
+          "base_word": "hope",
+          "word_parts": [
+            "hope",
+            "ful"
+          ],
+          "morphemes": [
+            "hope",
+            "ful"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RF_002_LVL2",
+      "label": "Level 2: Prefixes",
+      "focus": "connect re-, un-, and pre- to their meanings",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RF_002_LVL2_Q01",
+          "prompt": "In reread, what does the prefix re- mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "again",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "prefix_meaning_confusion",
+          "explanation": "again is correct because the word parts show the meaning of reread.",
+          "feedback": "Yes — again fits the word parts.",
+          "choices": [
+            "again",
+            "full of",
+            "without",
+            "happened already"
+          ],
+          "word": "reread",
+          "base_word": "read",
+          "prefix": "re-",
+          "word_parts": [
+            "re-",
+            "read"
+          ],
+          "morphemes": [
+            "re-",
+            "read"
+          ],
+          "meaning": "again"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL2_Q02",
+          "prompt": "In unkind, what does the prefix un- mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "not",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "prefix_meaning_confusion",
+          "explanation": "not is correct because the word parts show the meaning of unkind.",
+          "feedback": "Yes — not fits the word parts.",
+          "choices": [
+            "not",
+            "full of",
+            "without",
+            "happened already"
+          ],
+          "word": "unkind",
+          "base_word": "kind",
+          "prefix": "un-",
+          "word_parts": [
+            "un-",
+            "kind"
+          ],
+          "morphemes": [
+            "un-",
+            "kind"
+          ],
+          "meaning": "not"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL2_Q03",
+          "prompt": "In preview, what does the prefix pre- mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "before",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "prefix_meaning_confusion",
+          "explanation": "before is correct because the word parts show the meaning of preview.",
+          "feedback": "Yes — before fits the word parts.",
+          "choices": [
+            "before",
+            "full of",
+            "without",
+            "happened already"
+          ],
+          "word": "preview",
+          "base_word": "view",
+          "prefix": "pre-",
+          "word_parts": [
+            "pre-",
+            "view"
+          ],
+          "morphemes": [
+            "pre-",
+            "view"
+          ],
+          "meaning": "before"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL2_Q04",
+          "prompt": "In redo, what does the prefix re- mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "again",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "prefix_meaning_confusion",
+          "explanation": "again is correct because the word parts show the meaning of redo.",
+          "feedback": "Yes — again fits the word parts.",
+          "choices": [
+            "again",
+            "full of",
+            "without",
+            "happened already"
+          ],
+          "word": "redo",
+          "base_word": "do",
+          "prefix": "re-",
+          "word_parts": [
+            "re-",
+            "do"
+          ],
+          "morphemes": [
+            "re-",
+            "do"
+          ],
+          "meaning": "again"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL2_Q05",
+          "prompt": "In unsafe, what does the prefix un- mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "not",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "prefix_meaning_confusion",
+          "explanation": "not is correct because the word parts show the meaning of unsafe.",
+          "feedback": "Yes — not fits the word parts.",
+          "choices": [
+            "not",
+            "full of",
+            "without",
+            "happened already"
+          ],
+          "word": "unsafe",
+          "base_word": "safe",
+          "prefix": "un-",
+          "word_parts": [
+            "un-",
+            "safe"
+          ],
+          "morphemes": [
+            "un-",
+            "safe"
+          ],
+          "meaning": "not"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL2_Q06",
+          "prompt": "In prepay, what does the prefix pre- mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "before",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "prefix_meaning_confusion",
+          "explanation": "before is correct because the word parts show the meaning of prepay.",
+          "feedback": "Yes — before fits the word parts.",
+          "choices": [
+            "before",
+            "full of",
+            "without",
+            "happened already"
+          ],
+          "word": "prepay",
+          "base_word": "pay",
+          "prefix": "pre-",
+          "word_parts": [
+            "pre-",
+            "pay"
+          ],
+          "morphemes": [
+            "pre-",
+            "pay"
+          ],
+          "meaning": "before"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL2_Q07",
+          "prompt": "In rebuild, what does the prefix re- mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "again",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "prefix_meaning_confusion",
+          "explanation": "again is correct because the word parts show the meaning of rebuild.",
+          "feedback": "Yes — again fits the word parts.",
+          "choices": [
+            "again",
+            "full of",
+            "without",
+            "happened already"
+          ],
+          "word": "rebuild",
+          "base_word": "build",
+          "prefix": "re-",
+          "word_parts": [
+            "re-",
+            "build"
+          ],
+          "morphemes": [
+            "re-",
+            "build"
+          ],
+          "meaning": "again"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL2_Q08",
+          "prompt": "In unfair, what does the prefix un- mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "not",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "prefix_meaning_confusion",
+          "explanation": "not is correct because the word parts show the meaning of unfair.",
+          "feedback": "Yes — not fits the word parts.",
+          "choices": [
+            "not",
+            "full of",
+            "without",
+            "happened already"
+          ],
+          "word": "unfair",
+          "base_word": "fair",
+          "prefix": "un-",
+          "word_parts": [
+            "un-",
+            "fair"
+          ],
+          "morphemes": [
+            "un-",
+            "fair"
+          ],
+          "meaning": "not"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL2_Q09",
+          "prompt": "In preheat, what does the prefix pre- mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "before",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "prefix_meaning_confusion",
+          "explanation": "before is correct because the word parts show the meaning of preheat.",
+          "feedback": "Yes — before fits the word parts.",
+          "choices": [
+            "before",
+            "full of",
+            "without",
+            "happened already"
+          ],
+          "word": "preheat",
+          "base_word": "heat",
+          "prefix": "pre-",
+          "word_parts": [
+            "pre-",
+            "heat"
+          ],
+          "morphemes": [
+            "pre-",
+            "heat"
+          ],
+          "meaning": "before"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL2_Q10",
+          "prompt": "In replay, what does the prefix re- mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "again",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "prefix_meaning_confusion",
+          "explanation": "again is correct because the word parts show the meaning of replay.",
+          "feedback": "Yes — again fits the word parts.",
+          "choices": [
+            "again",
+            "full of",
+            "without",
+            "happened already"
+          ],
+          "word": "replay",
+          "base_word": "play",
+          "prefix": "re-",
+          "word_parts": [
+            "re-",
+            "play"
+          ],
+          "morphemes": [
+            "re-",
+            "play"
+          ],
+          "meaning": "again"
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RF_002_LVL3",
+      "label": "Level 3: Suffixes",
+      "focus": "connect -s, -ed, -ing, -ful, and -less to their meanings",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RF_002_LVL3_Q01",
+          "prompt": "In cats, what does the suffix -s mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "more than one",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "suffix_meaning_confusion",
+          "explanation": "more than one is correct because the word parts show the meaning of cats.",
+          "feedback": "Yes — more than one fits the word parts.",
+          "choices": [
+            "more than one",
+            "again",
+            "not",
+            "before"
+          ],
+          "word": "cats",
+          "base_word": "cat",
+          "suffix": "-s",
+          "word_parts": [
+            "cat",
+            "-s"
+          ],
+          "morphemes": [
+            "cat",
+            "-s"
+          ],
+          "meaning": "more than one"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL3_Q02",
+          "prompt": "In jumped, what does the suffix -ed mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "happened in the past",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "suffix_meaning_confusion",
+          "explanation": "happened in the past is correct because the word parts show the meaning of jumped.",
+          "feedback": "Yes — happened in the past fits the word parts.",
+          "choices": [
+            "happened in the past",
+            "again",
+            "not",
+            "before"
+          ],
+          "word": "jumped",
+          "base_word": "jump",
+          "suffix": "-ed",
+          "word_parts": [
+            "jump",
+            "-ed"
+          ],
+          "morphemes": [
+            "jump",
+            "-ed"
+          ],
+          "meaning": "happened in the past"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL3_Q03",
+          "prompt": "In reading, what does the suffix -ing mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "happening now",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "suffix_meaning_confusion",
+          "explanation": "happening now is correct because the word parts show the meaning of reading.",
+          "feedback": "Yes — happening now fits the word parts.",
+          "choices": [
+            "happening now",
+            "again",
+            "not",
+            "before"
+          ],
+          "word": "reading",
+          "base_word": "read",
+          "suffix": "-ing",
+          "word_parts": [
+            "read",
+            "-ing"
+          ],
+          "morphemes": [
+            "read",
+            "-ing"
+          ],
+          "meaning": "happening now"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL3_Q04",
+          "prompt": "In hopeful, what does the suffix -ful mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "full of",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "suffix_meaning_confusion",
+          "explanation": "full of is correct because the word parts show the meaning of hopeful.",
+          "feedback": "Yes — full of fits the word parts.",
+          "choices": [
+            "full of",
+            "again",
+            "not",
+            "before"
+          ],
+          "word": "hopeful",
+          "base_word": "hope",
+          "suffix": "-ful",
+          "word_parts": [
+            "hope",
+            "-ful"
+          ],
+          "morphemes": [
+            "hope",
+            "-ful"
+          ],
+          "meaning": "full of"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL3_Q05",
+          "prompt": "In fearless, what does the suffix -less mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "without",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "suffix_meaning_confusion",
+          "explanation": "without is correct because the word parts show the meaning of fearless.",
+          "feedback": "Yes — without fits the word parts.",
+          "choices": [
+            "without",
+            "again",
+            "not",
+            "before"
+          ],
+          "word": "fearless",
+          "base_word": "fear",
+          "suffix": "-less",
+          "word_parts": [
+            "fear",
+            "-less"
+          ],
+          "morphemes": [
+            "fear",
+            "-less"
+          ],
+          "meaning": "without"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL3_Q06",
+          "prompt": "In books, what does the suffix -s mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "more than one",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "suffix_meaning_confusion",
+          "explanation": "more than one is correct because the word parts show the meaning of books.",
+          "feedback": "Yes — more than one fits the word parts.",
+          "choices": [
+            "more than one",
+            "again",
+            "not",
+            "before"
+          ],
+          "word": "books",
+          "base_word": "book",
+          "suffix": "-s",
+          "word_parts": [
+            "book",
+            "-s"
+          ],
+          "morphemes": [
+            "book",
+            "-s"
+          ],
+          "meaning": "more than one"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL3_Q07",
+          "prompt": "In painted, what does the suffix -ed mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "happened in the past",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "suffix_meaning_confusion",
+          "explanation": "happened in the past is correct because the word parts show the meaning of painted.",
+          "feedback": "Yes — happened in the past fits the word parts.",
+          "choices": [
+            "happened in the past",
+            "again",
+            "not",
+            "before"
+          ],
+          "word": "painted",
+          "base_word": "paint",
+          "suffix": "-ed",
+          "word_parts": [
+            "paint",
+            "-ed"
+          ],
+          "morphemes": [
+            "paint",
+            "-ed"
+          ],
+          "meaning": "happened in the past"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL3_Q08",
+          "prompt": "In helping, what does the suffix -ing mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "happening now",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "suffix_meaning_confusion",
+          "explanation": "happening now is correct because the word parts show the meaning of helping.",
+          "feedback": "Yes — happening now fits the word parts.",
+          "choices": [
+            "happening now",
+            "again",
+            "not",
+            "before"
+          ],
+          "word": "helping",
+          "base_word": "help",
+          "suffix": "-ing",
+          "word_parts": [
+            "help",
+            "-ing"
+          ],
+          "morphemes": [
+            "help",
+            "-ing"
+          ],
+          "meaning": "happening now"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL3_Q09",
+          "prompt": "In thankful, what does the suffix -ful mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "full of",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "suffix_meaning_confusion",
+          "explanation": "full of is correct because the word parts show the meaning of thankful.",
+          "feedback": "Yes — full of fits the word parts.",
+          "choices": [
+            "full of",
+            "again",
+            "not",
+            "before"
+          ],
+          "word": "thankful",
+          "base_word": "thank",
+          "suffix": "-ful",
+          "word_parts": [
+            "thank",
+            "-ful"
+          ],
+          "morphemes": [
+            "thank",
+            "-ful"
+          ],
+          "meaning": "full of"
+        },
+        {
+          "question_id": "G2E_RF_002_LVL3_Q10",
+          "prompt": "In careless, what does the suffix -less mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "without",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "suffix_meaning_confusion",
+          "explanation": "without is correct because the word parts show the meaning of careless.",
+          "feedback": "Yes — without fits the word parts.",
+          "choices": [
+            "without",
+            "again",
+            "not",
+            "before"
+          ],
+          "word": "careless",
+          "base_word": "care",
+          "suffix": "-less",
+          "word_parts": [
+            "care",
+            "-less"
+          ],
+          "morphemes": [
+            "care",
+            "-less"
+          ],
+          "meaning": "without"
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RF_002_LVL4",
+      "label": "Level 4: Build and Decode New Words",
+      "focus": "build and decode words from base words, prefixes, and suffixes",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RF_002_LVL4_Q01",
+          "prompt": "Build the word from re- + play.",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "replay",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "word_part_boundary_error",
+          "explanation": "replay is correct because the word parts show the meaning of replay.",
+          "feedback": "Yes — replay fits the word parts.",
+          "choices": [
+            "replay",
+            "play",
+            "re"
+          ],
+          "word": "replay",
+          "base_word": "play",
+          "prefix": "re-",
+          "word_parts": [
+            "re-",
+            "play"
+          ],
+          "morphemes": [
+            "re-",
+            "play"
+          ],
+          "acceptable_answers": [
+            "replay",
+            "replay",
+            "replay"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL4_Q02",
+          "prompt": "Build the word from un- + kind.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "unkind",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "word_part_boundary_error",
+          "explanation": "unkind is correct because the word parts show the meaning of unkind.",
+          "feedback": "Yes — unkind fits the word parts.",
+          "choices": [
+            "unkind",
+            "kind",
+            "un"
+          ],
+          "word": "unkind",
+          "base_word": "kind",
+          "prefix": "un-",
+          "word_parts": [
+            "un-",
+            "kind"
+          ],
+          "morphemes": [
+            "un-",
+            "kind"
+          ],
+          "tiles": [
+            "un-",
+            "kind"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL4_Q03",
+          "prompt": "Build the word from pre- + heat.",
+          "question_type": "word_building",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "preheat",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "word_part_boundary_error",
+          "explanation": "preheat is correct because the word parts show the meaning of preheat.",
+          "feedback": "Yes — preheat fits the word parts.",
+          "choices": [
+            "preheat",
+            "heat",
+            "pre"
+          ],
+          "word": "preheat",
+          "base_word": "heat",
+          "prefix": "pre-",
+          "word_parts": [
+            "pre-",
+            "heat"
+          ],
+          "morphemes": [
+            "pre-",
+            "heat"
+          ],
+          "tiles": [
+            "pre-",
+            "heat"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL4_Q04",
+          "prompt": "Build the word from jump + -ed.",
+          "question_type": "short_response",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "jumped",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "word_part_boundary_error",
+          "explanation": "jumped is correct because the word parts show the meaning of jumped.",
+          "feedback": "Yes — jumped fits the word parts.",
+          "choices": [
+            "jumped",
+            "jump",
+            "ed"
+          ],
+          "word": "jumped",
+          "base_word": "jump",
+          "suffix": "-ed",
+          "word_parts": [
+            "jump",
+            "-ed"
+          ],
+          "morphemes": [
+            "jump",
+            "-ed"
+          ],
+          "acceptable_answers": [
+            "jumped",
+            "jumped",
+            "jumped"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL4_Q05",
+          "prompt": "Build the word from read + -ing.",
+          "question_type": "word_building",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "reading",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "word_part_boundary_error",
+          "explanation": "reading is correct because the word parts show the meaning of reading.",
+          "feedback": "Yes — reading fits the word parts.",
+          "choices": [
+            "reading",
+            "read",
+            "ing"
+          ],
+          "word": "reading",
+          "base_word": "read",
+          "suffix": "-ing",
+          "word_parts": [
+            "read",
+            "-ing"
+          ],
+          "morphemes": [
+            "read",
+            "-ing"
+          ],
+          "tiles": [
+            "read",
+            "-ing"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL4_Q06",
+          "prompt": "Build the word from help + -ful.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "helpful",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "word_part_boundary_error",
+          "explanation": "helpful is correct because the word parts show the meaning of helpful.",
+          "feedback": "Yes — helpful fits the word parts.",
+          "choices": [
+            "helpful",
+            "help",
+            "ful"
+          ],
+          "word": "helpful",
+          "base_word": "help",
+          "suffix": "-ful",
+          "word_parts": [
+            "help",
+            "-ful"
+          ],
+          "morphemes": [
+            "help",
+            "-ful"
+          ],
+          "tiles": [
+            "help",
+            "-ful"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL4_Q07",
+          "prompt": "Build the word from care + -less.",
+          "question_type": "short_response",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "careless",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "word_part_boundary_error",
+          "explanation": "careless is correct because the word parts show the meaning of careless.",
+          "feedback": "Yes — careless fits the word parts.",
+          "choices": [
+            "careless",
+            "care",
+            "less"
+          ],
+          "word": "careless",
+          "base_word": "care",
+          "suffix": "-less",
+          "word_parts": [
+            "care",
+            "-less"
+          ],
+          "morphemes": [
+            "care",
+            "-less"
+          ],
+          "acceptable_answers": [
+            "careless",
+            "careless",
+            "careless"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL4_Q08",
+          "prompt": "Build the word from re- + build.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "rebuild",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "word_part_boundary_error",
+          "explanation": "rebuild is correct because the word parts show the meaning of rebuild.",
+          "feedback": "Yes — rebuild fits the word parts.",
+          "choices": [
+            "rebuild",
+            "build",
+            "re"
+          ],
+          "word": "rebuild",
+          "base_word": "build",
+          "prefix": "re-",
+          "word_parts": [
+            "re-",
+            "build"
+          ],
+          "morphemes": [
+            "re-",
+            "build"
+          ],
+          "tiles": [
+            "re-",
+            "build"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL4_Q09",
+          "prompt": "Build the word from un- + safe.",
+          "question_type": "word_building",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "unsafe",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "word_part_boundary_error",
+          "explanation": "unsafe is correct because the word parts show the meaning of unsafe.",
+          "feedback": "Yes — unsafe fits the word parts.",
+          "choices": [
+            "unsafe",
+            "safe",
+            "un"
+          ],
+          "word": "unsafe",
+          "base_word": "safe",
+          "prefix": "un-",
+          "word_parts": [
+            "un-",
+            "safe"
+          ],
+          "morphemes": [
+            "un-",
+            "safe"
+          ],
+          "tiles": [
+            "un-",
+            "safe"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_LVL4_Q10",
+          "prompt": "Build the word from book + -s.",
+          "question_type": "short_response",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "books",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "word_part_boundary_error",
+          "explanation": "books is correct because the word parts show the meaning of books.",
+          "feedback": "Yes — books fits the word parts.",
+          "choices": [
+            "books",
+            "book",
+            "s"
+          ],
+          "word": "books",
+          "base_word": "book",
+          "suffix": "-s",
+          "word_parts": [
+            "book",
+            "-s"
+          ],
+          "morphemes": [
+            "book",
+            "-s"
+          ],
+          "acceptable_answers": [
+            "books",
+            "books",
+            "books"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RF_002_MIXED",
+      "label": "Mixed",
+      "focus": "Interleave all Prefixes, Suffixes, and Base Words targets.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RF_002_MIXED_Q01",
+          "prompt": "What is the base word in unhappy?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "happy",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "base_word_confusion",
+          "explanation": "happy is correct because the word parts show the meaning of unhappy.",
+          "feedback": "Yes — happy fits the word parts.",
+          "choices": [
+            "happy",
+            "unhappy",
+            "un"
+          ],
+          "word": "unhappy",
+          "base_word": "happy",
+          "word_parts": [
+            "un",
+            "happy"
+          ],
+          "morphemes": [
+            "un",
+            "happy"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_MIXED_Q02",
+          "prompt": "In unkind, what does the prefix un- mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "not",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "prefix_meaning_confusion",
+          "explanation": "not is correct because the word parts show the meaning of unkind.",
+          "feedback": "Yes — not fits the word parts.",
+          "choices": [
+            "not",
+            "full of",
+            "without",
+            "happened already"
+          ],
+          "word": "unkind",
+          "base_word": "kind",
+          "prefix": "un-",
+          "word_parts": [
+            "un-",
+            "kind"
+          ],
+          "morphemes": [
+            "un-",
+            "kind"
+          ],
+          "meaning": "not"
+        },
+        {
+          "question_id": "G2E_RF_002_MIXED_Q03",
+          "prompt": "In reading, what does the suffix -ing mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "happening now",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "suffix_meaning_confusion",
+          "explanation": "happening now is correct because the word parts show the meaning of reading.",
+          "feedback": "Yes — happening now fits the word parts.",
+          "choices": [
+            "happening now",
+            "again",
+            "not",
+            "before"
+          ],
+          "word": "reading",
+          "base_word": "read",
+          "suffix": "-ing",
+          "word_parts": [
+            "read",
+            "-ing"
+          ],
+          "morphemes": [
+            "read",
+            "-ing"
+          ],
+          "meaning": "happening now"
+        },
+        {
+          "question_id": "G2E_RF_002_MIXED_Q04",
+          "prompt": "Build the word from jump + -ed.",
+          "question_type": "short_response",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "jumped",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "word_part_boundary_error",
+          "explanation": "jumped is correct because the word parts show the meaning of jumped.",
+          "feedback": "Yes — jumped fits the word parts.",
+          "choices": [
+            "jumped",
+            "jump",
+            "ed"
+          ],
+          "word": "jumped",
+          "base_word": "jump",
+          "suffix": "-ed",
+          "word_parts": [
+            "jump",
+            "-ed"
+          ],
+          "morphemes": [
+            "jump",
+            "-ed"
+          ],
+          "acceptable_answers": [
+            "jumped",
+            "jumped",
+            "jumped"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_MIXED_Q05",
+          "prompt": "What is the base word in helpful?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "help",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "base_word_confusion",
+          "explanation": "help is correct because the word parts show the meaning of helpful.",
+          "feedback": "Yes — help fits the word parts.",
+          "choices": [
+            "help",
+            "helpful",
+            "ful"
+          ],
+          "word": "helpful",
+          "base_word": "help",
+          "word_parts": [
+            "help",
+            "ful"
+          ],
+          "morphemes": [
+            "help",
+            "ful"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_MIXED_Q06",
+          "prompt": "In prepay, what does the prefix pre- mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "morpheme_tiles",
+          "support_type": "morpheme_tiles",
+          "correct_answer": "before",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "prefix_meaning_confusion",
+          "explanation": "before is correct because the word parts show the meaning of prepay.",
+          "feedback": "Yes — before fits the word parts.",
+          "choices": [
+            "before",
+            "full of",
+            "without",
+            "happened already"
+          ],
+          "word": "prepay",
+          "base_word": "pay",
+          "prefix": "pre-",
+          "word_parts": [
+            "pre-",
+            "pay"
+          ],
+          "morphemes": [
+            "pre-",
+            "pay"
+          ],
+          "meaning": "before"
+        },
+        {
+          "question_id": "G2E_RF_002_MIXED_Q07",
+          "prompt": "In painted, what does the suffix -ed mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "happened in the past",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "suffix_meaning_confusion",
+          "explanation": "happened in the past is correct because the word parts show the meaning of painted.",
+          "feedback": "Yes — happened in the past fits the word parts.",
+          "choices": [
+            "happened in the past",
+            "again",
+            "not",
+            "before"
+          ],
+          "word": "painted",
+          "base_word": "paint",
+          "suffix": "-ed",
+          "word_parts": [
+            "paint",
+            "-ed"
+          ],
+          "morphemes": [
+            "paint",
+            "-ed"
+          ],
+          "meaning": "happened in the past"
+        },
+        {
+          "question_id": "G2E_RF_002_MIXED_Q08",
+          "prompt": "Build the word from re- + build.",
+          "question_type": "word_building",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "rebuild",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "word_part_boundary_error",
+          "explanation": "rebuild is correct because the word parts show the meaning of rebuild.",
+          "feedback": "Yes — rebuild fits the word parts.",
+          "choices": [
+            "rebuild",
+            "build",
+            "re"
+          ],
+          "word": "rebuild",
+          "base_word": "build",
+          "prefix": "re-",
+          "word_parts": [
+            "re-",
+            "build"
+          ],
+          "morphemes": [
+            "re-",
+            "build"
+          ],
+          "tiles": [
+            "re-",
+            "build"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_MIXED_Q09",
+          "prompt": "What is the base word in redo?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_parts",
+          "support_type": "word_parts",
+          "correct_answer": "do",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "base_word_confusion",
+          "explanation": "do is correct because the word parts show the meaning of redo.",
+          "feedback": "Yes — do fits the word parts.",
+          "choices": [
+            "do",
+            "redo",
+            "re"
+          ],
+          "word": "redo",
+          "base_word": "do",
+          "word_parts": [
+            "re",
+            "do"
+          ],
+          "morphemes": [
+            "re",
+            "do"
+          ]
+        },
+        {
+          "question_id": "G2E_RF_002_MIXED_Q10",
+          "prompt": "Build the word from book + -s.",
+          "question_type": "short_response",
+          "visual_model": "word_builder",
+          "support_type": "word_builder",
+          "correct_answer": "books",
+          "hints": [
+            "Cover the prefix or suffix and read the base word first.",
+            "Ask what the prefix or suffix does to the meaning.",
+            "Check the word-part boundary before you build the whole word."
+          ],
+          "misconception_tag": "word_part_boundary_error",
+          "explanation": "books is correct because the word parts show the meaning of books.",
+          "feedback": "Yes — books fits the word parts.",
+          "choices": [
+            "books",
+            "book",
+            "s"
+          ],
+          "word": "books",
+          "base_word": "book",
+          "suffix": "-s",
+          "word_parts": [
+            "book",
+            "-s"
+          ],
+          "morphemes": [
+            "book",
+            "-s"
+          ],
+          "acceptable_answers": [
+            "books",
+            "books",
+            "books"
+          ]
+        }
+      ]
+    }
+  ]
+}

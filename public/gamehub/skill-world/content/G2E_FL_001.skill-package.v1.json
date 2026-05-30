@@ -1,0 +1,1899 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade2-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade2_english_completion_plan.md",
+    "alignment_checkpoint": "docs/curriculum_alignment_checkpoint_grade1_grade2.md",
+    "production_proof_package": true,
+    "created_at": "2026-05-30"
+  },
+  "skill_id": "G2E_FL_001",
+  "grade": 2,
+  "subject": "English",
+  "domain": "Fluency",
+  "skill": "Grade 2 Sight Words and Fluency",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Join the Fluency Theater and help the cast read every word, phrase, and sentence clearly.",
+    "objective": "I can read Grade 2 high-frequency words, phrases, and sentences accurately and smoothly.",
+    "key_vocabulary": [
+      "sight word",
+      "phrase",
+      "sentence",
+      "punctuation",
+      "fluency"
+    ],
+    "concept_explanation": "Fluent readers recognize many words quickly, group words into phrases, and use punctuation to guide their voice.",
+    "visual_model": "word_card",
+    "common_misconception": "Readers may skip small words, pause after every word, or ignore punctuation at the end of a sentence.",
+    "real_world_connection": "Fluency helps with reading directions, stories, poems, and classroom messages.",
+    "lesson_summary": "Read each word accurately, group words in phrases, and stop or change voice for punctuation.",
+    "mini_lesson": "First read the word card. Then read a phrase smoothly. Last, read the whole sentence and check the end mark."
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: The word because should be recognized quickly without sounding out every letter.",
+      "correct_answer": "because",
+      "visual_model": "word_card",
+      "word": "because"
+    },
+    {
+      "text": "Demo: Read around the tree as one smooth phrase, not three choppy words.",
+      "correct_answer": "around the tree",
+      "visual_model": "phrase_builder",
+      "phrase": "around the tree"
+    },
+    {
+      "text": "Demo: A question mark in Can you help me? tells the reader to use a question voice.",
+      "correct_answer": "?",
+      "visual_model": "sentence_highlight",
+      "sentence": "Can you help me?",
+      "target_word": "?"
+    }
+  ],
+  "hint_ladder": [
+    "Look at every word, including small function words.",
+    "Read the words together in a smooth phrase.",
+    "Let punctuation tell your voice when to stop or ask."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G2E_FL_001_LVL1_Q01",
+      "prompt": "Which word says because?",
+      "question_type": "short_response",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "because",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "because is correct for this fluency item.",
+      "feedback": "Yes — read because smoothly.",
+      "choices": [
+        "because",
+        "esuaceb",
+        "before"
+      ],
+      "word": "because",
+      "acceptable_answers": [
+        "because",
+        "because",
+        "because"
+      ]
+    },
+    {
+      "question_id": "G2E_FL_001_LVL1_Q02",
+      "prompt": "Which word says before?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "before",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "before is correct for this fluency item.",
+      "feedback": "Yes — read before smoothly.",
+      "choices": [
+        "before",
+        "erofeb",
+        "been"
+      ],
+      "word": "before"
+    },
+    {
+      "question_id": "G2E_FL_001_LVL1_Q03",
+      "prompt": "Which word says been?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "been",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "been is correct for this fluency item.",
+      "feedback": "Yes — read been smoothly.",
+      "choices": [
+        "been",
+        "neeb",
+        "does"
+      ],
+      "word": "been"
+    },
+    {
+      "question_id": "G2E_FL_001_LVL1_Q04",
+      "prompt": "Which word says does?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "does",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "does is correct for this fluency item.",
+      "feedback": "Yes — read does smoothly.",
+      "choices": [
+        "does",
+        "seod",
+        "found"
+      ],
+      "word": "does"
+    },
+    {
+      "question_id": "G2E_FL_001_LVL1_Q05",
+      "prompt": "Which word says found?",
+      "question_type": "short_response",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "found",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "found is correct for this fluency item.",
+      "feedback": "Yes — read found smoothly.",
+      "choices": [
+        "found",
+        "dnuof",
+        "around"
+      ],
+      "word": "found",
+      "acceptable_answers": [
+        "found",
+        "found",
+        "found"
+      ]
+    },
+    {
+      "question_id": "G2E_FL_001_LVL1_Q06",
+      "prompt": "Which word says around?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "around",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "around is correct for this fluency item.",
+      "feedback": "Yes — read around smoothly.",
+      "choices": [
+        "around",
+        "dnuora",
+        "right"
+      ],
+      "word": "around"
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G2E_FL_001_LVL1_Q07",
+      "prompt": "Which word says right?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "right",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "right is correct for this fluency item.",
+      "feedback": "Yes — read right smoothly.",
+      "choices": [
+        "right",
+        "thgir",
+        "wash"
+      ],
+      "word": "right"
+    },
+    {
+      "question_id": "G2E_FL_001_LVL1_Q08",
+      "prompt": "Which word says wash?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "wash",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "wash is correct for this fluency item.",
+      "feedback": "Yes — read wash smoothly.",
+      "choices": [
+        "wash",
+        "hsaw",
+        "green"
+      ],
+      "word": "wash"
+    },
+    {
+      "question_id": "G2E_FL_001_LVL1_Q09",
+      "prompt": "Which word says green?",
+      "question_type": "short_response",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "green",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "green is correct for this fluency item.",
+      "feedback": "Yes — read green smoothly.",
+      "choices": [
+        "green",
+        "neerg",
+        "sleep"
+      ],
+      "word": "green",
+      "acceptable_answers": [
+        "green",
+        "green",
+        "green"
+      ]
+    },
+    {
+      "question_id": "G2E_FL_001_LVL1_Q10",
+      "prompt": "Which word says sleep?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "sleep",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "sleep is correct for this fluency item.",
+      "feedback": "Yes — read sleep smoothly.",
+      "choices": [
+        "sleep",
+        "peels",
+        "because"
+      ],
+      "word": "sleep"
+    },
+    {
+      "question_id": "G2E_FL_001_LVL2_Q01",
+      "prompt": "Read the word card. Which choice matches their?",
+      "question_type": "short_response",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "their",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "their is correct for this fluency item.",
+      "feedback": "Yes — read their smoothly.",
+      "choices": [
+        "their",
+        "write",
+        "many"
+      ],
+      "word": "their",
+      "acceptable_answers": [
+        "their",
+        "their",
+        "their"
+      ]
+    },
+    {
+      "question_id": "G2E_FL_001_LVL2_Q02",
+      "prompt": "Read the word card. Which choice matches would?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "would",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "would is correct for this fluency item.",
+      "feedback": "Yes — read would smoothly.",
+      "choices": [
+        "would",
+        "many",
+        "those"
+      ],
+      "word": "would"
+    },
+    {
+      "question_id": "G2E_FL_001_LVL2_Q03",
+      "prompt": "Read the word card. Which choice matches write?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "write",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "write is correct for this fluency item.",
+      "feedback": "Yes — read write smoothly.",
+      "choices": [
+        "write",
+        "those",
+        "always"
+      ],
+      "word": "write"
+    },
+    {
+      "question_id": "G2E_FL_001_LVL2_Q04",
+      "prompt": "Read the word card. Which choice matches many?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "many",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "many is correct for this fluency item.",
+      "feedback": "Yes — read many smoothly.",
+      "choices": [
+        "many",
+        "always",
+        "both"
+      ],
+      "word": "many"
+    },
+    {
+      "question_id": "G2E_FL_001_LVL2_Q05",
+      "prompt": "Read the word card. Which choice matches those?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "those",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "those is correct for this fluency item.",
+      "feedback": "Yes — read those smoothly.",
+      "choices": [
+        "those",
+        "both",
+        "cold"
+      ],
+      "word": "those"
+    },
+    {
+      "question_id": "G2E_FL_001_LVL2_Q06",
+      "prompt": "Read the word card. Which choice matches always?",
+      "question_type": "short_response",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "always",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "always is correct for this fluency item.",
+      "feedback": "Yes — read always smoothly.",
+      "choices": [
+        "always",
+        "cold",
+        "fast"
+      ],
+      "word": "always",
+      "acceptable_answers": [
+        "always",
+        "always",
+        "always"
+      ]
+    },
+    {
+      "question_id": "G2E_FL_001_LVL2_Q07",
+      "prompt": "Read the word card. Which choice matches both?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "both",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "both is correct for this fluency item.",
+      "feedback": "Yes — read both smoothly.",
+      "choices": [
+        "both",
+        "fast",
+        "pull"
+      ],
+      "word": "both"
+    },
+    {
+      "question_id": "G2E_FL_001_LVL2_Q08",
+      "prompt": "Read the word card. Which choice matches cold?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "cold",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "cold is correct for this fluency item.",
+      "feedback": "Yes — read cold smoothly.",
+      "choices": [
+        "cold",
+        "pull",
+        "their"
+      ],
+      "word": "cold"
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G2E_FL_001_LVL2_Q09",
+      "prompt": "Read the word card. Which choice matches fast?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "fast",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "fast is correct for this fluency item.",
+      "feedback": "Yes — read fast smoothly.",
+      "choices": [
+        "fast",
+        "their",
+        "would"
+      ],
+      "word": "fast"
+    },
+    {
+      "question_id": "G2E_FL_001_LVL2_Q10",
+      "prompt": "Read the word card. Which choice matches pull?",
+      "question_type": "multiple_choice",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "pull",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "sight_word_automaticity_gap",
+      "explanation": "pull is correct for this fluency item.",
+      "feedback": "Yes — read pull smoothly.",
+      "choices": [
+        "pull",
+        "would",
+        "write"
+      ],
+      "word": "pull"
+    },
+    {
+      "question_id": "G2E_FL_001_LVL3_Q01",
+      "prompt": "Read this phrase smoothly: around the tree. Which phrase matches?",
+      "question_type": "multiple_choice",
+      "visual_model": "phrase_builder",
+      "support_type": "phrase_builder",
+      "correct_answer": "around the tree",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "skips_function_words",
+      "explanation": "around the tree is correct for this fluency item.",
+      "feedback": "Yes — read around the tree smoothly.",
+      "choices": [
+        "around the tree",
+        "tree the around",
+        "the and of"
+      ],
+      "phrase": "around the tree"
+    },
+    {
+      "question_id": "G2E_FL_001_LVL3_Q02",
+      "prompt": "Read this phrase smoothly: before we go. Which phrase matches?",
+      "question_type": "short_response",
+      "visual_model": "phrase_builder",
+      "support_type": "phrase_builder",
+      "correct_answer": "before we go",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "phrase_chunking_error",
+      "explanation": "before we go is correct for this fluency item.",
+      "feedback": "Yes — read before we go smoothly.",
+      "choices": [
+        "before we go",
+        "go we before",
+        "the and of"
+      ],
+      "phrase": "before we go",
+      "acceptable_answers": [
+        "before we go",
+        "before we go",
+        "before we go"
+      ]
+    },
+    {
+      "question_id": "G2E_FL_001_LVL3_Q03",
+      "prompt": "Read this phrase smoothly: their green boat. Which phrase matches?",
+      "question_type": "multiple_choice",
+      "visual_model": "phrase_builder",
+      "support_type": "phrase_builder",
+      "correct_answer": "their green boat",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "phrase_chunking_error",
+      "explanation": "their green boat is correct for this fluency item.",
+      "feedback": "Yes — read their green boat smoothly.",
+      "choices": [
+        "their green boat",
+        "boat green their",
+        "the and of"
+      ],
+      "phrase": "their green boat"
+    },
+    {
+      "question_id": "G2E_FL_001_LVL3_Q04",
+      "prompt": "Read this phrase smoothly: would you help. Which phrase matches?",
+      "question_type": "multiple_choice",
+      "visual_model": "phrase_builder",
+      "support_type": "phrase_builder",
+      "correct_answer": "would you help",
+      "hints": [
+        "Look at every word, including small function words.",
+        "Read the words together in a smooth phrase.",
+        "Let punctuation tell your voice when to stop or ask."
+      ],
+      "misconception_tag": "skips_function_words",
+      "explanation": "would you help is correct for this fluency item.",
+      "feedback": "Yes — read would you help smoothly.",
+      "choices": [
+        "would you help",
+        "help you would",
+        "the and of"
+      ],
+      "phrase": "would you help"
+    }
+  ],
+  "misconception_bank": {
+    "sight_word_automaticity_gap": "Learner needs repeated exposure before the word is automatic.",
+    "phrase_chunking_error": "Learner reads word by word instead of in a meaningful phrase.",
+    "skips_function_words": "Learner skips small words that carry sentence meaning.",
+    "punctuation_ignored": "Learner reads through punctuation without changing pace or stopping."
+  },
+  "game_theme": {
+    "theme_name": "Fluency Theater",
+    "mission_intro": "Practice word cards, phrase lights, and sentence signs before showtime.",
+    "badge_name": "Fluent Reader Performer",
+    "reward_icon": "🎭",
+    "world": "Fluency"
+  },
+  "next_skill_id": "G2E_RC_001",
+  "remediation_skill_id": "G1E_FL_001",
+  "level_banks": [
+    {
+      "level_id": "G2E_FL_001_LVL1",
+      "label": "Level 1: Grade 2 Sight Word Set A",
+      "focus": "recognize Grade 2 high-frequency words quickly and accurately",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_FL_001_LVL1_Q01",
+          "prompt": "Which word says because?",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "because",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "because is correct for this fluency item.",
+          "feedback": "Yes — read because smoothly.",
+          "choices": [
+            "because",
+            "esuaceb",
+            "before"
+          ],
+          "word": "because",
+          "acceptable_answers": [
+            "because",
+            "because",
+            "because"
+          ]
+        },
+        {
+          "question_id": "G2E_FL_001_LVL1_Q02",
+          "prompt": "Which word says before?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "before",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "before is correct for this fluency item.",
+          "feedback": "Yes — read before smoothly.",
+          "choices": [
+            "before",
+            "erofeb",
+            "been"
+          ],
+          "word": "before"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL1_Q03",
+          "prompt": "Which word says been?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "been",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "been is correct for this fluency item.",
+          "feedback": "Yes — read been smoothly.",
+          "choices": [
+            "been",
+            "neeb",
+            "does"
+          ],
+          "word": "been"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL1_Q04",
+          "prompt": "Which word says does?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "does",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "does is correct for this fluency item.",
+          "feedback": "Yes — read does smoothly.",
+          "choices": [
+            "does",
+            "seod",
+            "found"
+          ],
+          "word": "does"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL1_Q05",
+          "prompt": "Which word says found?",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "found",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "found is correct for this fluency item.",
+          "feedback": "Yes — read found smoothly.",
+          "choices": [
+            "found",
+            "dnuof",
+            "around"
+          ],
+          "word": "found",
+          "acceptable_answers": [
+            "found",
+            "found",
+            "found"
+          ]
+        },
+        {
+          "question_id": "G2E_FL_001_LVL1_Q06",
+          "prompt": "Which word says around?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "around",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "around is correct for this fluency item.",
+          "feedback": "Yes — read around smoothly.",
+          "choices": [
+            "around",
+            "dnuora",
+            "right"
+          ],
+          "word": "around"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL1_Q07",
+          "prompt": "Which word says right?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "right",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "right is correct for this fluency item.",
+          "feedback": "Yes — read right smoothly.",
+          "choices": [
+            "right",
+            "thgir",
+            "wash"
+          ],
+          "word": "right"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL1_Q08",
+          "prompt": "Which word says wash?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "wash",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "wash is correct for this fluency item.",
+          "feedback": "Yes — read wash smoothly.",
+          "choices": [
+            "wash",
+            "hsaw",
+            "green"
+          ],
+          "word": "wash"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL1_Q09",
+          "prompt": "Which word says green?",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "green",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "green is correct for this fluency item.",
+          "feedback": "Yes — read green smoothly.",
+          "choices": [
+            "green",
+            "neerg",
+            "sleep"
+          ],
+          "word": "green",
+          "acceptable_answers": [
+            "green",
+            "green",
+            "green"
+          ]
+        },
+        {
+          "question_id": "G2E_FL_001_LVL1_Q10",
+          "prompt": "Which word says sleep?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "sleep",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "sleep is correct for this fluency item.",
+          "feedback": "Yes — read sleep smoothly.",
+          "choices": [
+            "sleep",
+            "peels",
+            "because"
+          ],
+          "word": "sleep"
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_FL_001_LVL2",
+      "label": "Level 2: Grade 2 Sight Word Set B",
+      "focus": "recognize a second set of Grade 2 high-frequency words",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_FL_001_LVL2_Q01",
+          "prompt": "Read the word card. Which choice matches their?",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "their",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "their is correct for this fluency item.",
+          "feedback": "Yes — read their smoothly.",
+          "choices": [
+            "their",
+            "write",
+            "many"
+          ],
+          "word": "their",
+          "acceptable_answers": [
+            "their",
+            "their",
+            "their"
+          ]
+        },
+        {
+          "question_id": "G2E_FL_001_LVL2_Q02",
+          "prompt": "Read the word card. Which choice matches would?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "would",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "would is correct for this fluency item.",
+          "feedback": "Yes — read would smoothly.",
+          "choices": [
+            "would",
+            "many",
+            "those"
+          ],
+          "word": "would"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL2_Q03",
+          "prompt": "Read the word card. Which choice matches write?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "write",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "write is correct for this fluency item.",
+          "feedback": "Yes — read write smoothly.",
+          "choices": [
+            "write",
+            "those",
+            "always"
+          ],
+          "word": "write"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL2_Q04",
+          "prompt": "Read the word card. Which choice matches many?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "many",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "many is correct for this fluency item.",
+          "feedback": "Yes — read many smoothly.",
+          "choices": [
+            "many",
+            "always",
+            "both"
+          ],
+          "word": "many"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL2_Q05",
+          "prompt": "Read the word card. Which choice matches those?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "those",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "those is correct for this fluency item.",
+          "feedback": "Yes — read those smoothly.",
+          "choices": [
+            "those",
+            "both",
+            "cold"
+          ],
+          "word": "those"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL2_Q06",
+          "prompt": "Read the word card. Which choice matches always?",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "always",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "always is correct for this fluency item.",
+          "feedback": "Yes — read always smoothly.",
+          "choices": [
+            "always",
+            "cold",
+            "fast"
+          ],
+          "word": "always",
+          "acceptable_answers": [
+            "always",
+            "always",
+            "always"
+          ]
+        },
+        {
+          "question_id": "G2E_FL_001_LVL2_Q07",
+          "prompt": "Read the word card. Which choice matches both?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "both",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "both is correct for this fluency item.",
+          "feedback": "Yes — read both smoothly.",
+          "choices": [
+            "both",
+            "fast",
+            "pull"
+          ],
+          "word": "both"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL2_Q08",
+          "prompt": "Read the word card. Which choice matches cold?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "cold",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "cold is correct for this fluency item.",
+          "feedback": "Yes — read cold smoothly.",
+          "choices": [
+            "cold",
+            "pull",
+            "their"
+          ],
+          "word": "cold"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL2_Q09",
+          "prompt": "Read the word card. Which choice matches fast?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "fast",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "fast is correct for this fluency item.",
+          "feedback": "Yes — read fast smoothly.",
+          "choices": [
+            "fast",
+            "their",
+            "would"
+          ],
+          "word": "fast"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL2_Q10",
+          "prompt": "Read the word card. Which choice matches pull?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "pull",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "pull is correct for this fluency item.",
+          "feedback": "Yes — read pull smoothly.",
+          "choices": [
+            "pull",
+            "would",
+            "write"
+          ],
+          "word": "pull"
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_FL_001_LVL3",
+      "label": "Level 3: Phrase Fluency",
+      "focus": "read short phrases smoothly without skipping small words",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_FL_001_LVL3_Q01",
+          "prompt": "Read this phrase smoothly: around the tree. Which phrase matches?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "around the tree",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "skips_function_words",
+          "explanation": "around the tree is correct for this fluency item.",
+          "feedback": "Yes — read around the tree smoothly.",
+          "choices": [
+            "around the tree",
+            "tree the around",
+            "the and of"
+          ],
+          "phrase": "around the tree"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL3_Q02",
+          "prompt": "Read this phrase smoothly: before we go. Which phrase matches?",
+          "question_type": "short_response",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "before we go",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "before we go is correct for this fluency item.",
+          "feedback": "Yes — read before we go smoothly.",
+          "choices": [
+            "before we go",
+            "go we before",
+            "the and of"
+          ],
+          "phrase": "before we go",
+          "acceptable_answers": [
+            "before we go",
+            "before we go",
+            "before we go"
+          ]
+        },
+        {
+          "question_id": "G2E_FL_001_LVL3_Q03",
+          "prompt": "Read this phrase smoothly: their green boat. Which phrase matches?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "their green boat",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "their green boat is correct for this fluency item.",
+          "feedback": "Yes — read their green boat smoothly.",
+          "choices": [
+            "their green boat",
+            "boat green their",
+            "the and of"
+          ],
+          "phrase": "their green boat"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL3_Q04",
+          "prompt": "Read this phrase smoothly: would you help. Which phrase matches?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "would you help",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "skips_function_words",
+          "explanation": "would you help is correct for this fluency item.",
+          "feedback": "Yes — read would you help smoothly.",
+          "choices": [
+            "would you help",
+            "help you would",
+            "the and of"
+          ],
+          "phrase": "would you help"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL3_Q05",
+          "prompt": "Read this phrase smoothly: many small shells. Which phrase matches?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "many small shells",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "many small shells is correct for this fluency item.",
+          "feedback": "Yes — read many small shells smoothly.",
+          "choices": [
+            "many small shells",
+            "shells small many",
+            "the and of"
+          ],
+          "phrase": "many small shells"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL3_Q06",
+          "prompt": "Read this phrase smoothly: both of us. Which phrase matches?",
+          "question_type": "short_response",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "both of us",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "both of us is correct for this fluency item.",
+          "feedback": "Yes — read both of us smoothly.",
+          "choices": [
+            "both of us",
+            "us of both",
+            "the and of"
+          ],
+          "phrase": "both of us",
+          "acceptable_answers": [
+            "both of us",
+            "both of us",
+            "both of us"
+          ]
+        },
+        {
+          "question_id": "G2E_FL_001_LVL3_Q07",
+          "prompt": "Read this phrase smoothly: write your name. Which phrase matches?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "write your name",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "skips_function_words",
+          "explanation": "write your name is correct for this fluency item.",
+          "feedback": "Yes — read write your name smoothly.",
+          "choices": [
+            "write your name",
+            "name your write",
+            "the and of"
+          ],
+          "phrase": "write your name"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL3_Q08",
+          "prompt": "Read this phrase smoothly: found a cold drink. Which phrase matches?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "found a cold drink",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "found a cold drink is correct for this fluency item.",
+          "feedback": "Yes — read found a cold drink smoothly.",
+          "choices": [
+            "found a cold drink",
+            "drink cold a found",
+            "the and of"
+          ],
+          "phrase": "found a cold drink"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL3_Q09",
+          "prompt": "Read this phrase smoothly: always read carefully. Which phrase matches?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "always read carefully",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "always read carefully is correct for this fluency item.",
+          "feedback": "Yes — read always read carefully smoothly.",
+          "choices": [
+            "always read carefully",
+            "carefully read always",
+            "the and of"
+          ],
+          "phrase": "always read carefully"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL3_Q10",
+          "prompt": "Read this phrase smoothly: pull the wagon. Which phrase matches?",
+          "question_type": "short_response",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "pull the wagon",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "skips_function_words",
+          "explanation": "pull the wagon is correct for this fluency item.",
+          "feedback": "Yes — read pull the wagon smoothly.",
+          "choices": [
+            "pull the wagon",
+            "wagon the pull",
+            "the and of"
+          ],
+          "phrase": "pull the wagon",
+          "acceptable_answers": [
+            "pull the wagon",
+            "pull the wagon",
+            "pull the wagon"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_FL_001_LVL4",
+      "label": "Level 4: Sentence Fluency",
+      "focus": "read simple sentences accurately and attend to punctuation",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_FL_001_LVL4_Q01",
+          "prompt": "Read the sentence and notice the punctuation: The dog found a bone.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "The dog found a bone.",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "The dog found a bone. is correct for this fluency item.",
+          "feedback": "Yes — read The dog found a bone. smoothly.",
+          "choices": [
+            "The dog found a bone.",
+            "The dog found a bone.",
+            "the dog found a bone."
+          ],
+          "sentence": "The dog found a bone.",
+          "target_word": ".",
+          "acceptable_answers": [
+            "The dog found a bone.",
+            "the dog found a bone.",
+            "The dog found a bone"
+          ]
+        },
+        {
+          "question_id": "G2E_FL_001_LVL4_Q02",
+          "prompt": "Read the sentence and notice the punctuation: Can you help me?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "?",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "? is correct for this fluency item.",
+          "feedback": "Yes — read ? smoothly.",
+          "choices": [
+            "?",
+            ".",
+            "?",
+            "!"
+          ],
+          "sentence": "Can you help me?",
+          "target_word": "?"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL4_Q03",
+          "prompt": "Read the sentence and notice the punctuation: We will go before lunch.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": ".",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": ". is correct for this fluency item.",
+          "feedback": "Yes — read . smoothly.",
+          "choices": [
+            ".",
+            ".",
+            "?",
+            "!"
+          ],
+          "sentence": "We will go before lunch.",
+          "target_word": "."
+        },
+        {
+          "question_id": "G2E_FL_001_LVL4_Q04",
+          "prompt": "Read the sentence and notice the punctuation: Look at those bright stars!",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "Look at those bright stars!",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "Look at those bright stars! is correct for this fluency item.",
+          "feedback": "Yes — read Look at those bright stars! smoothly.",
+          "choices": [
+            "Look at those bright stars!",
+            "Look at those bright stars.",
+            "look at those bright stars!"
+          ],
+          "sentence": "Look at those bright stars!",
+          "target_word": "!",
+          "acceptable_answers": [
+            "Look at those bright stars!",
+            "look at those bright stars!",
+            "Look at those bright stars"
+          ]
+        },
+        {
+          "question_id": "G2E_FL_001_LVL4_Q05",
+          "prompt": "Read the sentence and notice the punctuation: Their boat is green.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": ".",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": ". is correct for this fluency item.",
+          "feedback": "Yes — read . smoothly.",
+          "choices": [
+            ".",
+            ".",
+            "?",
+            "!"
+          ],
+          "sentence": "Their boat is green.",
+          "target_word": "."
+        },
+        {
+          "question_id": "G2E_FL_001_LVL4_Q06",
+          "prompt": "Read the sentence and notice the punctuation: Would you read this page?",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "?",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "? is correct for this fluency item.",
+          "feedback": "Yes — read ? smoothly.",
+          "choices": [
+            "?",
+            ".",
+            "?",
+            "!"
+          ],
+          "sentence": "Would you read this page?",
+          "target_word": "?"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL4_Q07",
+          "prompt": "Read the sentence and notice the punctuation: I always wash my hands.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": "I always wash my hands.",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "I always wash my hands. is correct for this fluency item.",
+          "feedback": "Yes — read I always wash my hands. smoothly.",
+          "choices": [
+            "I always wash my hands.",
+            "I always wash my hands.",
+            "i always wash my hands."
+          ],
+          "sentence": "I always wash my hands.",
+          "target_word": ".",
+          "acceptable_answers": [
+            "I always wash my hands.",
+            "i always wash my hands.",
+            "I always wash my hands"
+          ]
+        },
+        {
+          "question_id": "G2E_FL_001_LVL4_Q08",
+          "prompt": "Read the sentence and notice the punctuation: Both friends ran fast!",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "!",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "! is correct for this fluency item.",
+          "feedback": "Yes — read ! smoothly.",
+          "choices": [
+            "!",
+            ".",
+            "?",
+            "!"
+          ],
+          "sentence": "Both friends ran fast!",
+          "target_word": "!"
+        },
+        {
+          "question_id": "G2E_FL_001_LVL4_Q09",
+          "prompt": "Read the sentence and notice the punctuation: Write your name here.",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_highlight",
+          "support_type": "sentence_highlight",
+          "correct_answer": ".",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": ". is correct for this fluency item.",
+          "feedback": "Yes — read . smoothly.",
+          "choices": [
+            ".",
+            ".",
+            "?",
+            "!"
+          ],
+          "sentence": "Write your name here.",
+          "target_word": "."
+        },
+        {
+          "question_id": "G2E_FL_001_LVL4_Q10",
+          "prompt": "Read the sentence and notice the punctuation: Pull the red wagon.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "Pull the red wagon.",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "Pull the red wagon. is correct for this fluency item.",
+          "feedback": "Yes — read Pull the red wagon. smoothly.",
+          "choices": [
+            "Pull the red wagon.",
+            "Pull the red wagon.",
+            "pull the red wagon."
+          ],
+          "sentence": "Pull the red wagon.",
+          "target_word": ".",
+          "acceptable_answers": [
+            "Pull the red wagon.",
+            "pull the red wagon.",
+            "Pull the red wagon"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_FL_001_MIXED",
+      "label": "Mixed",
+      "focus": "Interleave all Grade 2 Sight Words and Fluency targets.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_FL_001_MIXED_Q01",
+          "prompt": "Which word says because?",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "because",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "because is correct for this fluency item.",
+          "feedback": "Yes — read because smoothly.",
+          "choices": [
+            "because",
+            "esuaceb",
+            "before"
+          ],
+          "word": "because",
+          "acceptable_answers": [
+            "because",
+            "because",
+            "because"
+          ]
+        },
+        {
+          "question_id": "G2E_FL_001_MIXED_Q02",
+          "prompt": "Read the word card. Which choice matches would?",
+          "question_type": "multiple_choice",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "would",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "would is correct for this fluency item.",
+          "feedback": "Yes — read would smoothly.",
+          "choices": [
+            "would",
+            "many",
+            "those"
+          ],
+          "word": "would"
+        },
+        {
+          "question_id": "G2E_FL_001_MIXED_Q03",
+          "prompt": "Read this phrase smoothly: their green boat. Which phrase matches?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "their green boat",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "their green boat is correct for this fluency item.",
+          "feedback": "Yes — read their green boat smoothly.",
+          "choices": [
+            "their green boat",
+            "boat green their",
+            "the and of"
+          ],
+          "phrase": "their green boat"
+        },
+        {
+          "question_id": "G2E_FL_001_MIXED_Q04",
+          "prompt": "Read the sentence and notice the punctuation: Look at those bright stars!",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "Look at those bright stars!",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "Look at those bright stars! is correct for this fluency item.",
+          "feedback": "Yes — read Look at those bright stars! smoothly.",
+          "choices": [
+            "Look at those bright stars!",
+            "Look at those bright stars.",
+            "look at those bright stars!"
+          ],
+          "sentence": "Look at those bright stars!",
+          "target_word": "!",
+          "acceptable_answers": [
+            "Look at those bright stars!",
+            "look at those bright stars!",
+            "Look at those bright stars"
+          ]
+        },
+        {
+          "question_id": "G2E_FL_001_MIXED_Q05",
+          "prompt": "Which word says found?",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "found",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "found is correct for this fluency item.",
+          "feedback": "Yes — read found smoothly.",
+          "choices": [
+            "found",
+            "dnuof",
+            "around"
+          ],
+          "word": "found",
+          "acceptable_answers": [
+            "found",
+            "found",
+            "found"
+          ]
+        },
+        {
+          "question_id": "G2E_FL_001_MIXED_Q06",
+          "prompt": "Read the word card. Which choice matches always?",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "always",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "sight_word_automaticity_gap",
+          "explanation": "always is correct for this fluency item.",
+          "feedback": "Yes — read always smoothly.",
+          "choices": [
+            "always",
+            "cold",
+            "fast"
+          ],
+          "word": "always",
+          "acceptable_answers": [
+            "always",
+            "always",
+            "always"
+          ]
+        },
+        {
+          "question_id": "G2E_FL_001_MIXED_Q07",
+          "prompt": "Read this phrase smoothly: write your name. Which phrase matches?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "write your name",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "skips_function_words",
+          "explanation": "write your name is correct for this fluency item.",
+          "feedback": "Yes — read write your name smoothly.",
+          "choices": [
+            "write your name",
+            "name your write",
+            "the and of"
+          ],
+          "phrase": "write your name"
+        },
+        {
+          "question_id": "G2E_FL_001_MIXED_Q08",
+          "prompt": "Read the sentence and notice the punctuation: Both friends ran fast!",
+          "question_type": "multiple_choice",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "!",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "! is correct for this fluency item.",
+          "feedback": "Yes — read ! smoothly.",
+          "choices": [
+            "!",
+            ".",
+            "?",
+            "!"
+          ],
+          "sentence": "Both friends ran fast!",
+          "target_word": "!"
+        },
+        {
+          "question_id": "G2E_FL_001_MIXED_Q09",
+          "prompt": "Read this phrase smoothly: always read carefully. Which phrase matches?",
+          "question_type": "multiple_choice",
+          "visual_model": "phrase_builder",
+          "support_type": "phrase_builder",
+          "correct_answer": "always read carefully",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "phrase_chunking_error",
+          "explanation": "always read carefully is correct for this fluency item.",
+          "feedback": "Yes — read always read carefully smoothly.",
+          "choices": [
+            "always read carefully",
+            "carefully read always",
+            "the and of"
+          ],
+          "phrase": "always read carefully"
+        },
+        {
+          "question_id": "G2E_FL_001_MIXED_Q10",
+          "prompt": "Read the sentence and notice the punctuation: Pull the red wagon.",
+          "question_type": "sentence_completion",
+          "visual_model": "sentence_card",
+          "support_type": "sentence_card",
+          "correct_answer": "Pull the red wagon.",
+          "hints": [
+            "Look at every word, including small function words.",
+            "Read the words together in a smooth phrase.",
+            "Let punctuation tell your voice when to stop or ask."
+          ],
+          "misconception_tag": "punctuation_ignored",
+          "explanation": "Pull the red wagon. is correct for this fluency item.",
+          "feedback": "Yes — read Pull the red wagon. smoothly.",
+          "choices": [
+            "Pull the red wagon.",
+            "Pull the red wagon.",
+            "pull the red wagon."
+          ],
+          "sentence": "Pull the red wagon.",
+          "target_word": ".",
+          "acceptable_answers": [
+            "Pull the red wagon.",
+            "pull the red wagon.",
+            "Pull the red wagon"
+          ]
+        }
+      ]
+    }
+  ]
+}

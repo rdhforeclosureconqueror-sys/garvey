@@ -1,0 +1,2154 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade2-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade2_english_completion_plan.md",
+    "alignment_checkpoint": "docs/curriculum_alignment_checkpoint_grade1_grade2.md",
+    "production_proof_package": true,
+    "created_at": "2026-05-30"
+  },
+  "skill_id": "G2E_VOC_001",
+  "grade": 2,
+  "subject": "English",
+  "domain": "Vocabulary",
+  "skill": "Vocabulary and Context Clues",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Enter the Vocabulary Clue Lab and use sentence clues, word matches, and category shelves to solve word mysteries.",
+    "objective": "I can use context, synonyms, antonyms, multiple meanings, and categories to understand words.",
+    "key_vocabulary": [
+      "context clue",
+      "synonym",
+      "antonym",
+      "multiple meaning",
+      "category"
+    ],
+    "concept_explanation": "Words can be understood by reading nearby clues, comparing meanings, noticing opposites, and grouping words that share attributes.",
+    "visual_model": "context_sentence",
+    "common_misconception": "Readers may choose a known meaning without checking context or may confuse synonyms with antonyms.",
+    "real_world_connection": "Vocabulary clues help readers understand stories, informational texts, signs, and conversations.",
+    "lesson_summary": "Read the context, compare word meanings, choose the meaning that fits, and sort words by shared attributes.",
+    "mini_lesson": "First read the sentence or word set. Then ask what clue, relationship, or category fits best. Last, check that the answer makes sense."
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: In The kitten was tiny, so it fit in my hand, tiny means very small.",
+      "correct_answer": "very small",
+      "visual_model": "context_sentence",
+      "sentence": "The kitten was tiny, so it fit in my hand.",
+      "word": "tiny"
+    },
+    {
+      "text": "Demo: quick and fast are synonyms because they mean nearly the same thing.",
+      "correct_answer": "fast",
+      "visual_model": "vocabulary_match",
+      "pairs": [
+        {
+          "left": "quick",
+          "right": "fast",
+          "relation": "synonym"
+        }
+      ]
+    },
+    {
+      "text": "Demo: apple, banana, and peach belong in the fruit category.",
+      "correct_answer": "fruit",
+      "visual_model": "category_sort",
+      "categories": [
+        "fruit"
+      ],
+      "items": [
+        "apple",
+        "banana",
+        "peach"
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "Read the whole sentence before choosing a word meaning.",
+    "Decide whether the words mean the same, opposite, or belong in a group.",
+    "For multiple-meaning words, choose the meaning that fits the sentence."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G2E_VOC_001_LVL1_Q01",
+      "prompt": "Choose the synonym for quick.",
+      "question_type": "short_response",
+      "visual_model": "word_card",
+      "support_type": "word_card",
+      "correct_answer": "fast",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "synonym_antonym_confusion",
+      "explanation": "fast is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 fast fits.",
+      "choices": [
+        "fast",
+        "quick",
+        "slow"
+      ],
+      "word": "quick",
+      "pairs": [
+        {
+          "left": "quick",
+          "right": "fast",
+          "relation": "synonym"
+        }
+      ],
+      "acceptable_answers": [
+        "fast",
+        "fast",
+        "fast"
+      ]
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL1_Q02",
+      "prompt": "Choose the antonym for big.",
+      "question_type": "vocabulary_match",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "correct_answer": "small",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "synonym_antonym_confusion",
+      "explanation": "small is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 small fits.",
+      "choices": [
+        "small",
+        "big",
+        "bright"
+      ],
+      "word": "big",
+      "pairs": [
+        {
+          "left": "big",
+          "right": "small",
+          "relation": "antonym"
+        }
+      ]
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL1_Q03",
+      "prompt": "Choose the synonym for happy.",
+      "question_type": "multiple_choice",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "correct_answer": "glad",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "synonym_antonym_confusion",
+      "explanation": "glad is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 glad fits.",
+      "choices": [
+        "glad",
+        "happy",
+        "slow"
+      ],
+      "word": "happy",
+      "pairs": [
+        {
+          "left": "happy",
+          "right": "glad",
+          "relation": "synonym"
+        }
+      ]
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL1_Q04",
+      "prompt": "Choose the antonym for hot.",
+      "question_type": "multiple_choice",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "correct_answer": "cold",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "synonym_antonym_confusion",
+      "explanation": "cold is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 cold fits.",
+      "choices": [
+        "cold",
+        "hot",
+        "bright"
+      ],
+      "word": "hot",
+      "pairs": [
+        {
+          "left": "hot",
+          "right": "cold",
+          "relation": "antonym"
+        }
+      ]
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL1_Q05",
+      "prompt": "Choose the synonym for begin.",
+      "question_type": "multiple_choice",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "correct_answer": "start",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "synonym_antonym_confusion",
+      "explanation": "start is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 start fits.",
+      "choices": [
+        "start",
+        "begin",
+        "slow"
+      ],
+      "word": "begin",
+      "pairs": [
+        {
+          "left": "begin",
+          "right": "start",
+          "relation": "synonym"
+        }
+      ]
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL1_Q06",
+      "prompt": "Choose the antonym for quiet.",
+      "question_type": "short_response",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "correct_answer": "loud",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "synonym_antonym_confusion",
+      "explanation": "loud is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 loud fits.",
+      "choices": [
+        "loud",
+        "quiet",
+        "bright"
+      ],
+      "word": "quiet",
+      "pairs": [
+        {
+          "left": "quiet",
+          "right": "loud",
+          "relation": "antonym"
+        }
+      ],
+      "acceptable_answers": [
+        "loud",
+        "loud",
+        "loud"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G2E_VOC_001_LVL1_Q07",
+      "prompt": "Choose the synonym for under.",
+      "question_type": "multiple_choice",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "correct_answer": "below",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "synonym_antonym_confusion",
+      "explanation": "below is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 below fits.",
+      "choices": [
+        "below",
+        "under",
+        "slow"
+      ],
+      "word": "under",
+      "pairs": [
+        {
+          "left": "under",
+          "right": "below",
+          "relation": "synonym"
+        }
+      ]
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL1_Q08",
+      "prompt": "Choose the antonym for empty.",
+      "question_type": "multiple_choice",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "correct_answer": "full",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "synonym_antonym_confusion",
+      "explanation": "full is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 full fits.",
+      "choices": [
+        "full",
+        "empty",
+        "bright"
+      ],
+      "word": "empty",
+      "pairs": [
+        {
+          "left": "empty",
+          "right": "full",
+          "relation": "antonym"
+        }
+      ]
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL1_Q09",
+      "prompt": "Choose the synonym for close.",
+      "question_type": "multiple_choice",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "correct_answer": "near",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "synonym_antonym_confusion",
+      "explanation": "near is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 near fits.",
+      "choices": [
+        "near",
+        "close",
+        "slow"
+      ],
+      "word": "close",
+      "pairs": [
+        {
+          "left": "close",
+          "right": "near",
+          "relation": "synonym"
+        }
+      ]
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL1_Q10",
+      "prompt": "Choose the antonym for early.",
+      "question_type": "multiple_choice",
+      "visual_model": "vocabulary_match",
+      "support_type": "vocabulary_match",
+      "correct_answer": "late",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "synonym_antonym_confusion",
+      "explanation": "late is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 late fits.",
+      "choices": [
+        "late",
+        "early",
+        "bright"
+      ],
+      "word": "early",
+      "pairs": [
+        {
+          "left": "early",
+          "right": "late",
+          "relation": "antonym"
+        }
+      ]
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL2_Q01",
+      "prompt": "Use context clues: The kitten was tiny, so it fit in my hand. What does tiny mean?",
+      "question_type": "short_response",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "very small",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "very small is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 very small fits.",
+      "choices": [
+        "very small",
+        "very loud",
+        "hard to find"
+      ],
+      "word": "tiny",
+      "sentence": "The kitten was tiny, so it fit in my hand.",
+      "acceptable_answers": [
+        "very small",
+        "very small",
+        "very small"
+      ]
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL2_Q02",
+      "prompt": "Use context clues: Dad was exhausted after the long hike. What does exhausted mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "very tired",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "very tired is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 very tired fits.",
+      "choices": [
+        "very tired",
+        "very loud",
+        "hard to find"
+      ],
+      "word": "exhausted",
+      "sentence": "Dad was exhausted after the long hike."
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL2_Q03",
+      "prompt": "Use context clues: The soup was steaming, so I waited. What does steaming mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "very hot",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "very hot is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 very hot fits.",
+      "choices": [
+        "very hot",
+        "very loud",
+        "hard to find"
+      ],
+      "word": "steaming",
+      "sentence": "The soup was steaming, so I waited."
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL2_Q04",
+      "prompt": "Use context clues: Mia whispered because the baby was asleep. What does whispered mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "spoke quietly",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "spoke quietly is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 spoke quietly fits.",
+      "choices": [
+        "spoke quietly",
+        "very loud",
+        "hard to find"
+      ],
+      "word": "whispered",
+      "sentence": "Mia whispered because the baby was asleep."
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL2_Q05",
+      "prompt": "Use context clues: The lost puppy looked afraid and shook. What does afraid mean?",
+      "question_type": "short_response",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "scared",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "scared is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 scared fits.",
+      "choices": [
+        "scared",
+        "very loud",
+        "hard to find"
+      ],
+      "word": "afraid",
+      "sentence": "The lost puppy looked afraid and shook.",
+      "acceptable_answers": [
+        "scared",
+        "scared",
+        "scared"
+      ]
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL2_Q06",
+      "prompt": "Use context clues: We hurried so we would not be late. What does hurried mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "moved quickly",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "moved quickly is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 moved quickly fits.",
+      "choices": [
+        "moved quickly",
+        "very loud",
+        "hard to find"
+      ],
+      "word": "hurried",
+      "sentence": "We hurried so we would not be late."
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL2_Q07",
+      "prompt": "Use context clues: The glass was fragile, so we carried it carefully. What does fragile mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "easy to break",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "easy to break is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 easy to break fits.",
+      "choices": [
+        "easy to break",
+        "very loud",
+        "hard to find"
+      ],
+      "word": "fragile",
+      "sentence": "The glass was fragile, so we carried it carefully."
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL2_Q08",
+      "prompt": "Use context clues: The path was narrow, and only one bike fit. What does narrow mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "not wide",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "not wide is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 not wide fits.",
+      "choices": [
+        "not wide",
+        "very loud",
+        "hard to find"
+      ],
+      "word": "narrow",
+      "sentence": "The path was narrow, and only one bike fit."
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G2E_VOC_001_LVL2_Q09",
+      "prompt": "Use context clues: The joke was amusing, and we laughed. What does amusing mean?",
+      "question_type": "short_response",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "funny",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "funny is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 funny fits.",
+      "choices": [
+        "funny",
+        "very loud",
+        "hard to find"
+      ],
+      "word": "amusing",
+      "sentence": "The joke was amusing, and we laughed.",
+      "acceptable_answers": [
+        "funny",
+        "funny",
+        "funny"
+      ]
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL2_Q10",
+      "prompt": "Use context clues: The room was silent; no one made a sound. What does silent mean?",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "quiet",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "context_clue_ignored",
+      "explanation": "quiet is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 quiet fits.",
+      "choices": [
+        "quiet",
+        "very loud",
+        "hard to find"
+      ],
+      "word": "silent",
+      "sentence": "The room was silent; no one made a sound."
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL3_Q01",
+      "prompt": "Choose the meaning of bat in this sentence: The bat flew out of the cave.",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "animal",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "multiple_meaning_confusion",
+      "explanation": "animal is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 animal fits.",
+      "choices": [
+        "animal",
+        "animal",
+        "not real"
+      ],
+      "word": "bat",
+      "sentence": "The bat flew out of the cave."
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL3_Q02",
+      "prompt": "Choose the meaning of bat in this sentence: She swung the bat at the ball.",
+      "question_type": "short_response",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "sports stick",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "multiple_meaning_confusion",
+      "explanation": "sports stick is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 sports stick fits.",
+      "choices": [
+        "sports stick",
+        "place to play",
+        "not real"
+      ],
+      "word": "bat",
+      "sentence": "She swung the bat at the ball.",
+      "acceptable_answers": [
+        "sports stick",
+        "sports stick",
+        "sports stick"
+      ]
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL3_Q03",
+      "prompt": "Choose the meaning of park in this sentence: I can park my bike by the gate.",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "put a vehicle in a place",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "multiple_meaning_confusion",
+      "explanation": "put a vehicle in a place is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 put a vehicle in a place fits.",
+      "choices": [
+        "put a vehicle in a place",
+        "animal",
+        "not real"
+      ],
+      "word": "park",
+      "sentence": "I can park my bike by the gate."
+    },
+    {
+      "question_id": "G2E_VOC_001_LVL3_Q04",
+      "prompt": "Choose the meaning of park in this sentence: We played at the park after school.",
+      "question_type": "multiple_choice",
+      "visual_model": "context_sentence",
+      "support_type": "context_sentence",
+      "correct_answer": "place to play",
+      "hints": [
+        "Read the whole sentence before choosing a word meaning.",
+        "Decide whether the words mean the same, opposite, or belong in a group.",
+        "For multiple-meaning words, choose the meaning that fits the sentence."
+      ],
+      "misconception_tag": "multiple_meaning_confusion",
+      "explanation": "place to play is correct because the context and word relationship fit.",
+      "feedback": "Yes \u2014 place to play fits.",
+      "choices": [
+        "place to play",
+        "place to play",
+        "not real"
+      ],
+      "word": "park",
+      "sentence": "We played at the park after school."
+    }
+  ],
+  "misconception_bank": {
+    "context_clue_ignored": "Learner chooses a meaning without using the sentence clues.",
+    "synonym_antonym_confusion": "Learner mixes up same-meaning and opposite-meaning relationships.",
+    "multiple_meaning_confusion": "Learner uses a familiar meaning that does not fit the sentence.",
+    "category_attribute_error": "Learner sorts by a surface feature instead of the shared category or attribute."
+  },
+  "game_theme": {
+    "theme_name": "Vocabulary Clue Lab",
+    "mission_intro": "Use sentence clues and word relationships to unlock the Vocabulary Clue Lab.",
+    "badge_name": "Context Clue Scientist",
+    "reward_icon": "\ud83d\udd2c",
+    "world": "Vocabulary"
+  },
+  "next_skill_id": "G2E_WR_001",
+  "remediation_skill_id": "G1E_RC_001",
+  "level_banks": [
+    {
+      "level_id": "G2E_VOC_001_LVL1",
+      "label": "Level 1: Synonyms and Antonyms",
+      "focus": "use synonyms and antonyms to explain word relationships",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_VOC_001_LVL1_Q01",
+          "prompt": "Choose the synonym for quick.",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "fast",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "fast is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 fast fits.",
+          "choices": [
+            "fast",
+            "quick",
+            "slow"
+          ],
+          "word": "quick",
+          "pairs": [
+            {
+              "left": "quick",
+              "right": "fast",
+              "relation": "synonym"
+            }
+          ],
+          "acceptable_answers": [
+            "fast",
+            "fast",
+            "fast"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL1_Q02",
+          "prompt": "Choose the antonym for big.",
+          "question_type": "vocabulary_match",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "small",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "small is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 small fits.",
+          "choices": [
+            "small",
+            "big",
+            "bright"
+          ],
+          "word": "big",
+          "pairs": [
+            {
+              "left": "big",
+              "right": "small",
+              "relation": "antonym"
+            }
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL1_Q03",
+          "prompt": "Choose the synonym for happy.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "glad",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "glad is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 glad fits.",
+          "choices": [
+            "glad",
+            "happy",
+            "slow"
+          ],
+          "word": "happy",
+          "pairs": [
+            {
+              "left": "happy",
+              "right": "glad",
+              "relation": "synonym"
+            }
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL1_Q04",
+          "prompt": "Choose the antonym for hot.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "cold",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "cold is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 cold fits.",
+          "choices": [
+            "cold",
+            "hot",
+            "bright"
+          ],
+          "word": "hot",
+          "pairs": [
+            {
+              "left": "hot",
+              "right": "cold",
+              "relation": "antonym"
+            }
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL1_Q05",
+          "prompt": "Choose the synonym for begin.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "start",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "start is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 start fits.",
+          "choices": [
+            "start",
+            "begin",
+            "slow"
+          ],
+          "word": "begin",
+          "pairs": [
+            {
+              "left": "begin",
+              "right": "start",
+              "relation": "synonym"
+            }
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL1_Q06",
+          "prompt": "Choose the antonym for quiet.",
+          "question_type": "short_response",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "loud",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "loud is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 loud fits.",
+          "choices": [
+            "loud",
+            "quiet",
+            "bright"
+          ],
+          "word": "quiet",
+          "pairs": [
+            {
+              "left": "quiet",
+              "right": "loud",
+              "relation": "antonym"
+            }
+          ],
+          "acceptable_answers": [
+            "loud",
+            "loud",
+            "loud"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL1_Q07",
+          "prompt": "Choose the synonym for under.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "below",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "below is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 below fits.",
+          "choices": [
+            "below",
+            "under",
+            "slow"
+          ],
+          "word": "under",
+          "pairs": [
+            {
+              "left": "under",
+              "right": "below",
+              "relation": "synonym"
+            }
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL1_Q08",
+          "prompt": "Choose the antonym for empty.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "full",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "full is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 full fits.",
+          "choices": [
+            "full",
+            "empty",
+            "bright"
+          ],
+          "word": "empty",
+          "pairs": [
+            {
+              "left": "empty",
+              "right": "full",
+              "relation": "antonym"
+            }
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL1_Q09",
+          "prompt": "Choose the synonym for close.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "near",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "near is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 near fits.",
+          "choices": [
+            "near",
+            "close",
+            "slow"
+          ],
+          "word": "close",
+          "pairs": [
+            {
+              "left": "close",
+              "right": "near",
+              "relation": "synonym"
+            }
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL1_Q10",
+          "prompt": "Choose the antonym for early.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "late",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "late is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 late fits.",
+          "choices": [
+            "late",
+            "early",
+            "bright"
+          ],
+          "word": "early",
+          "pairs": [
+            {
+              "left": "early",
+              "right": "late",
+              "relation": "antonym"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_VOC_001_LVL2",
+      "label": "Level 2: Context Clues",
+      "focus": "use sentence clues to infer word meaning",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_VOC_001_LVL2_Q01",
+          "prompt": "Use context clues: The kitten was tiny, so it fit in my hand. What does tiny mean?",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "very small",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "very small is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 very small fits.",
+          "choices": [
+            "very small",
+            "very loud",
+            "hard to find"
+          ],
+          "word": "tiny",
+          "sentence": "The kitten was tiny, so it fit in my hand.",
+          "acceptable_answers": [
+            "very small",
+            "very small",
+            "very small"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL2_Q02",
+          "prompt": "Use context clues: Dad was exhausted after the long hike. What does exhausted mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "very tired",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "very tired is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 very tired fits.",
+          "choices": [
+            "very tired",
+            "very loud",
+            "hard to find"
+          ],
+          "word": "exhausted",
+          "sentence": "Dad was exhausted after the long hike."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL2_Q03",
+          "prompt": "Use context clues: The soup was steaming, so I waited. What does steaming mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "very hot",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "very hot is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 very hot fits.",
+          "choices": [
+            "very hot",
+            "very loud",
+            "hard to find"
+          ],
+          "word": "steaming",
+          "sentence": "The soup was steaming, so I waited."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL2_Q04",
+          "prompt": "Use context clues: Mia whispered because the baby was asleep. What does whispered mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "spoke quietly",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "spoke quietly is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 spoke quietly fits.",
+          "choices": [
+            "spoke quietly",
+            "very loud",
+            "hard to find"
+          ],
+          "word": "whispered",
+          "sentence": "Mia whispered because the baby was asleep."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL2_Q05",
+          "prompt": "Use context clues: The lost puppy looked afraid and shook. What does afraid mean?",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "scared",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "scared is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 scared fits.",
+          "choices": [
+            "scared",
+            "very loud",
+            "hard to find"
+          ],
+          "word": "afraid",
+          "sentence": "The lost puppy looked afraid and shook.",
+          "acceptable_answers": [
+            "scared",
+            "scared",
+            "scared"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL2_Q06",
+          "prompt": "Use context clues: We hurried so we would not be late. What does hurried mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "moved quickly",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "moved quickly is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 moved quickly fits.",
+          "choices": [
+            "moved quickly",
+            "very loud",
+            "hard to find"
+          ],
+          "word": "hurried",
+          "sentence": "We hurried so we would not be late."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL2_Q07",
+          "prompt": "Use context clues: The glass was fragile, so we carried it carefully. What does fragile mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "easy to break",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "easy to break is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 easy to break fits.",
+          "choices": [
+            "easy to break",
+            "very loud",
+            "hard to find"
+          ],
+          "word": "fragile",
+          "sentence": "The glass was fragile, so we carried it carefully."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL2_Q08",
+          "prompt": "Use context clues: The path was narrow, and only one bike fit. What does narrow mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "not wide",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "not wide is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 not wide fits.",
+          "choices": [
+            "not wide",
+            "very loud",
+            "hard to find"
+          ],
+          "word": "narrow",
+          "sentence": "The path was narrow, and only one bike fit."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL2_Q09",
+          "prompt": "Use context clues: The joke was amusing, and we laughed. What does amusing mean?",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "funny",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "funny is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 funny fits.",
+          "choices": [
+            "funny",
+            "very loud",
+            "hard to find"
+          ],
+          "word": "amusing",
+          "sentence": "The joke was amusing, and we laughed.",
+          "acceptable_answers": [
+            "funny",
+            "funny",
+            "funny"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL2_Q10",
+          "prompt": "Use context clues: The room was silent; no one made a sound. What does silent mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "quiet",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "quiet is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 quiet fits.",
+          "choices": [
+            "quiet",
+            "very loud",
+            "hard to find"
+          ],
+          "word": "silent",
+          "sentence": "The room was silent; no one made a sound."
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_VOC_001_LVL3",
+      "label": "Level 3: Multiple-Meaning Words",
+      "focus": "choose the meaning that fits the sentence context",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_VOC_001_LVL3_Q01",
+          "prompt": "Choose the meaning of bat in this sentence: The bat flew out of the cave.",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "animal",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "animal is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 animal fits.",
+          "choices": [
+            "animal",
+            "animal",
+            "not real"
+          ],
+          "word": "bat",
+          "sentence": "The bat flew out of the cave."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL3_Q02",
+          "prompt": "Choose the meaning of bat in this sentence: She swung the bat at the ball.",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "sports stick",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "sports stick is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 sports stick fits.",
+          "choices": [
+            "sports stick",
+            "place to play",
+            "not real"
+          ],
+          "word": "bat",
+          "sentence": "She swung the bat at the ball.",
+          "acceptable_answers": [
+            "sports stick",
+            "sports stick",
+            "sports stick"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL3_Q03",
+          "prompt": "Choose the meaning of park in this sentence: I can park my bike by the gate.",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "put a vehicle in a place",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "put a vehicle in a place is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 put a vehicle in a place fits.",
+          "choices": [
+            "put a vehicle in a place",
+            "animal",
+            "not real"
+          ],
+          "word": "park",
+          "sentence": "I can park my bike by the gate."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL3_Q04",
+          "prompt": "Choose the meaning of park in this sentence: We played at the park after school.",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "place to play",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "place to play is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 place to play fits.",
+          "choices": [
+            "place to play",
+            "place to play",
+            "not real"
+          ],
+          "word": "park",
+          "sentence": "We played at the park after school."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL3_Q05",
+          "prompt": "Choose the meaning of wave in this sentence: The duck will wave its wing.",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "move back and forth",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "move back and forth is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 move back and forth fits.",
+          "choices": [
+            "move back and forth",
+            "animal",
+            "not real"
+          ],
+          "word": "wave",
+          "sentence": "The duck will wave its wing."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL3_Q06",
+          "prompt": "Choose the meaning of wave in this sentence: A big wave splashed the sand.",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "moving water",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "moving water is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 moving water fits.",
+          "choices": [
+            "moving water",
+            "place to play",
+            "not real"
+          ],
+          "word": "wave",
+          "sentence": "A big wave splashed the sand."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL3_Q07",
+          "prompt": "Choose the meaning of light in this sentence: Please light the candle.",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "make it burn",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "make it burn is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 make it burn fits.",
+          "choices": [
+            "make it burn",
+            "animal",
+            "not real"
+          ],
+          "word": "light",
+          "sentence": "Please light the candle.",
+          "acceptable_answers": [
+            "make it burn",
+            "make it burn",
+            "make it burn"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL3_Q08",
+          "prompt": "Choose the meaning of light in this sentence: The box is light enough to carry.",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "not heavy",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "not heavy is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 not heavy fits.",
+          "choices": [
+            "not heavy",
+            "place to play",
+            "not real"
+          ],
+          "word": "light",
+          "sentence": "The box is light enough to carry."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL3_Q09",
+          "prompt": "Choose the meaning of seal in this sentence: The seal clapped at the show.",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "sea animal",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "sea animal is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 sea animal fits.",
+          "choices": [
+            "sea animal",
+            "animal",
+            "not real"
+          ],
+          "word": "seal",
+          "sentence": "The seal clapped at the show."
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL3_Q10",
+          "prompt": "Choose the meaning of seal in this sentence: Seal the envelope before mailing it.",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "close tightly",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "close tightly is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 close tightly fits.",
+          "choices": [
+            "close tightly",
+            "place to play",
+            "not real"
+          ],
+          "word": "seal",
+          "sentence": "Seal the envelope before mailing it."
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_VOC_001_LVL4",
+      "label": "Level 4: Categories and Attributes",
+      "focus": "sort words by category and shared attributes",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_VOC_001_LVL4_Q01",
+          "prompt": "Sort these words into a category: apple, banana, peach.",
+          "question_type": "category_sort",
+          "visual_model": "category_sort",
+          "support_type": "category_sort",
+          "correct_answer": "fruit",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "category_attribute_error",
+          "explanation": "fruit is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 fruit fits.",
+          "choices": [
+            "fruit",
+            "feelings",
+            "weather"
+          ],
+          "categories": [
+            "fruit",
+            "other"
+          ],
+          "items": [
+            "apple",
+            "banana",
+            "peach"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL4_Q02",
+          "prompt": "Sort these words into a category: carrot, corn, peas.",
+          "question_type": "multiple_choice",
+          "visual_model": "category_sort",
+          "support_type": "category_sort",
+          "correct_answer": "vegetables",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "category_attribute_error",
+          "explanation": "vegetables is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 vegetables fits.",
+          "choices": [
+            "vegetables",
+            "feelings",
+            "weather"
+          ],
+          "categories": [
+            "vegetables",
+            "other"
+          ],
+          "items": [
+            "carrot",
+            "corn",
+            "peas"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL4_Q03",
+          "prompt": "Sort these words into a category: robin, eagle, duck.",
+          "question_type": "multiple_choice",
+          "visual_model": "category_sort",
+          "support_type": "category_sort",
+          "correct_answer": "birds",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "category_attribute_error",
+          "explanation": "birds is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 birds fits.",
+          "choices": [
+            "birds",
+            "feelings",
+            "weather"
+          ],
+          "categories": [
+            "birds",
+            "other"
+          ],
+          "items": [
+            "robin",
+            "eagle",
+            "duck"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL4_Q04",
+          "prompt": "Sort these words into a category: shirt, pants, coat.",
+          "question_type": "category_sort",
+          "visual_model": "category_sort",
+          "support_type": "category_sort",
+          "correct_answer": "clothing",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "category_attribute_error",
+          "explanation": "clothing is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 clothing fits.",
+          "choices": [
+            "clothing",
+            "feelings",
+            "weather"
+          ],
+          "categories": [
+            "clothing",
+            "other"
+          ],
+          "items": [
+            "shirt",
+            "pants",
+            "coat"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL4_Q05",
+          "prompt": "Sort these words into a category: bus, train, bike.",
+          "question_type": "multiple_choice",
+          "visual_model": "category_sort",
+          "support_type": "category_sort",
+          "correct_answer": "transportation",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "category_attribute_error",
+          "explanation": "transportation is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 transportation fits.",
+          "choices": [
+            "transportation",
+            "feelings",
+            "weather"
+          ],
+          "categories": [
+            "transportation",
+            "other"
+          ],
+          "items": [
+            "bus",
+            "train",
+            "bike"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL4_Q06",
+          "prompt": "Sort these words into a category: red, blue, green.",
+          "question_type": "multiple_choice",
+          "visual_model": "category_sort",
+          "support_type": "category_sort",
+          "correct_answer": "colors",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "category_attribute_error",
+          "explanation": "colors is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 colors fits.",
+          "choices": [
+            "colors",
+            "feelings",
+            "weather"
+          ],
+          "categories": [
+            "colors",
+            "other"
+          ],
+          "items": [
+            "red",
+            "blue",
+            "green"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL4_Q07",
+          "prompt": "Sort these words into a category: oak, pine, maple.",
+          "question_type": "category_sort",
+          "visual_model": "category_sort",
+          "support_type": "category_sort",
+          "correct_answer": "trees",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "category_attribute_error",
+          "explanation": "trees is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 trees fits.",
+          "choices": [
+            "trees",
+            "feelings",
+            "weather"
+          ],
+          "categories": [
+            "trees",
+            "other"
+          ],
+          "items": [
+            "oak",
+            "pine",
+            "maple"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL4_Q08",
+          "prompt": "Sort these words into a category: drum, flute, piano.",
+          "question_type": "multiple_choice",
+          "visual_model": "category_sort",
+          "support_type": "category_sort",
+          "correct_answer": "instruments",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "category_attribute_error",
+          "explanation": "instruments is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 instruments fits.",
+          "choices": [
+            "instruments",
+            "feelings",
+            "weather"
+          ],
+          "categories": [
+            "instruments",
+            "other"
+          ],
+          "items": [
+            "drum",
+            "flute",
+            "piano"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL4_Q09",
+          "prompt": "Sort these words into a category: circle, square, triangle.",
+          "question_type": "multiple_choice",
+          "visual_model": "category_sort",
+          "support_type": "category_sort",
+          "correct_answer": "shapes",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "category_attribute_error",
+          "explanation": "shapes is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 shapes fits.",
+          "choices": [
+            "shapes",
+            "feelings",
+            "weather"
+          ],
+          "categories": [
+            "shapes",
+            "other"
+          ],
+          "items": [
+            "circle",
+            "square",
+            "triangle"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_LVL4_Q10",
+          "prompt": "Sort these words into a category: soccer, tennis, baseball.",
+          "question_type": "category_sort",
+          "visual_model": "category_sort",
+          "support_type": "category_sort",
+          "correct_answer": "sports",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "category_attribute_error",
+          "explanation": "sports is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 sports fits.",
+          "choices": [
+            "sports",
+            "feelings",
+            "weather"
+          ],
+          "categories": [
+            "sports",
+            "other"
+          ],
+          "items": [
+            "soccer",
+            "tennis",
+            "baseball"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_VOC_001_MIXED",
+      "label": "Mixed",
+      "focus": "Interleave all Vocabulary and Context Clues targets.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_VOC_001_MIXED_Q01",
+          "prompt": "Choose the synonym for quick.",
+          "question_type": "short_response",
+          "visual_model": "word_card",
+          "support_type": "word_card",
+          "correct_answer": "fast",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "fast is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 fast fits.",
+          "choices": [
+            "fast",
+            "quick",
+            "slow"
+          ],
+          "word": "quick",
+          "pairs": [
+            {
+              "left": "quick",
+              "right": "fast",
+              "relation": "synonym"
+            }
+          ],
+          "acceptable_answers": [
+            "fast",
+            "fast",
+            "fast"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_MIXED_Q02",
+          "prompt": "Use context clues: Dad was exhausted after the long hike. What does exhausted mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "very tired",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "very tired is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 very tired fits.",
+          "choices": [
+            "very tired",
+            "very loud",
+            "hard to find"
+          ],
+          "word": "exhausted",
+          "sentence": "Dad was exhausted after the long hike."
+        },
+        {
+          "question_id": "G2E_VOC_001_MIXED_Q03",
+          "prompt": "Choose the meaning of park in this sentence: I can park my bike by the gate.",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "put a vehicle in a place",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "put a vehicle in a place is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 put a vehicle in a place fits.",
+          "choices": [
+            "put a vehicle in a place",
+            "animal",
+            "not real"
+          ],
+          "word": "park",
+          "sentence": "I can park my bike by the gate."
+        },
+        {
+          "question_id": "G2E_VOC_001_MIXED_Q04",
+          "prompt": "Sort these words into a category: shirt, pants, coat.",
+          "question_type": "category_sort",
+          "visual_model": "category_sort",
+          "support_type": "category_sort",
+          "correct_answer": "clothing",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "category_attribute_error",
+          "explanation": "clothing is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 clothing fits.",
+          "choices": [
+            "clothing",
+            "feelings",
+            "weather"
+          ],
+          "categories": [
+            "clothing",
+            "other"
+          ],
+          "items": [
+            "shirt",
+            "pants",
+            "coat"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_MIXED_Q05",
+          "prompt": "Choose the synonym for begin.",
+          "question_type": "multiple_choice",
+          "visual_model": "vocabulary_match",
+          "support_type": "vocabulary_match",
+          "correct_answer": "start",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "synonym_antonym_confusion",
+          "explanation": "start is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 start fits.",
+          "choices": [
+            "start",
+            "begin",
+            "slow"
+          ],
+          "word": "begin",
+          "pairs": [
+            {
+              "left": "begin",
+              "right": "start",
+              "relation": "synonym"
+            }
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_MIXED_Q06",
+          "prompt": "Use context clues: We hurried so we would not be late. What does hurried mean?",
+          "question_type": "multiple_choice",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "moved quickly",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "moved quickly is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 moved quickly fits.",
+          "choices": [
+            "moved quickly",
+            "very loud",
+            "hard to find"
+          ],
+          "word": "hurried",
+          "sentence": "We hurried so we would not be late."
+        },
+        {
+          "question_id": "G2E_VOC_001_MIXED_Q07",
+          "prompt": "Choose the meaning of light in this sentence: Please light the candle.",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "make it burn",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "multiple_meaning_confusion",
+          "explanation": "make it burn is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 make it burn fits.",
+          "choices": [
+            "make it burn",
+            "animal",
+            "not real"
+          ],
+          "word": "light",
+          "sentence": "Please light the candle.",
+          "acceptable_answers": [
+            "make it burn",
+            "make it burn",
+            "make it burn"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_MIXED_Q08",
+          "prompt": "Sort these words into a category: drum, flute, piano.",
+          "question_type": "multiple_choice",
+          "visual_model": "category_sort",
+          "support_type": "category_sort",
+          "correct_answer": "instruments",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "category_attribute_error",
+          "explanation": "instruments is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 instruments fits.",
+          "choices": [
+            "instruments",
+            "feelings",
+            "weather"
+          ],
+          "categories": [
+            "instruments",
+            "other"
+          ],
+          "items": [
+            "drum",
+            "flute",
+            "piano"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_MIXED_Q09",
+          "prompt": "Use context clues: The joke was amusing, and we laughed. What does amusing mean?",
+          "question_type": "short_response",
+          "visual_model": "context_sentence",
+          "support_type": "context_sentence",
+          "correct_answer": "funny",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "context_clue_ignored",
+          "explanation": "funny is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 funny fits.",
+          "choices": [
+            "funny",
+            "very loud",
+            "hard to find"
+          ],
+          "word": "amusing",
+          "sentence": "The joke was amusing, and we laughed.",
+          "acceptable_answers": [
+            "funny",
+            "funny",
+            "funny"
+          ]
+        },
+        {
+          "question_id": "G2E_VOC_001_MIXED_Q10",
+          "prompt": "Sort these words into a category: soccer, tennis, baseball.",
+          "question_type": "category_sort",
+          "visual_model": "category_sort",
+          "support_type": "category_sort",
+          "correct_answer": "sports",
+          "hints": [
+            "Read the whole sentence before choosing a word meaning.",
+            "Decide whether the words mean the same, opposite, or belong in a group.",
+            "For multiple-meaning words, choose the meaning that fits the sentence."
+          ],
+          "misconception_tag": "category_attribute_error",
+          "explanation": "sports is correct because the context and word relationship fit.",
+          "feedback": "Yes \u2014 sports fits.",
+          "choices": [
+            "sports",
+            "feelings",
+            "weather"
+          ],
+          "categories": [
+            "sports",
+            "other"
+          ],
+          "items": [
+            "soccer",
+            "tennis",
+            "baseball"
+          ]
+        }
+      ]
+    }
+  ]
+}
