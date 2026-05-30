@@ -5,12 +5,15 @@ const root=path.join(__dirname,'..','..','..');
 const load=(id)=>JSON.parse(fs.readFileSync(path.join(root,`public/gamehub/skill-world/content/${id}.skill-package.v1.json`),'utf8'));
 const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_GM_001','G1M_GM_002','G1M_DP_001','G1M_MD_TIME_001','G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
 const grade1Packages=grade1SkillIds.map(load);
-const grade2SkillIds=['G2E_RF_001','G2E_RF_002','G2E_FL_001','G2E_VOC_001','G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
+const grade2SkillIds=['G2E_RF_001','G2E_RF_002','G2E_FL_001','G2E_VOC_001','G2E_RC_001','G2E_RC_002','G2E_RC_003','G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
 const grade2Packages=grade2SkillIds.map(load);
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
 const g2FluencyEnglish=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_FL_001');
 const g2Vocabulary=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_VOC_001');
+const g2AskAnswer=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RC_001');
+const g2StoryStructure=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RC_002');
+const g2MainIdea=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RC_003');
 const g2PlaceValue=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_PV_001');
 const g2CountReadWrite=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_NS_001');
 const g2Compare=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_NS_002');
@@ -44,8 +47,8 @@ assert.equal(g2AdvancedPhonics.subject,'English');
 assert.equal(g2AdvancedPhonics.domain,'Reading Foundations');
 assert.equal(g2AdvancedPhonics.skill,'Advanced Phonics and Word Analysis');
 assert.ok(Array.isArray(g2AdvancedPhonics.level_banks),'G2E_RF_001 has level_banks');
-assert.equal(g2AdvancedPhonics.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length,4,'G2E_RF_001 has four focused levels');
-assert.ok(g2AdvancedPhonics.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),'G2E_RF_001 has Mixed level');
+assert.equal(g2AdvancedPhonics.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,'G2E_RF_001 has four focused levels');
+assert.ok(g2AdvancedPhonics.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),'G2E_RF_001 has Mixed level');
 g2AdvancedPhonics.level_banks.forEach((level)=>{
   assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`);
   level.questions.forEach((question)=>{
@@ -81,8 +84,8 @@ function assertGrade2EnglishPackage(pkg,expected){
   assert.equal(pkg.subject,'English',`${expected.id} subject`);
   assert.equal(pkg.domain,expected.domain,`${expected.id} domain`);
   assert.equal(pkg.skill,expected.skill,`${expected.id} skill`);
-  assert.equal(pkg.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length,4,`${expected.id} has four focused levels`);
-  assert.ok(pkg.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),`${expected.id} has Mixed level`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${expected.id} has four focused levels`);
+  assert.ok(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),`${expected.id} has Mixed level`);
   expected.levelLabels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${expected.id} includes ${label}`));
   pkg.level_banks.forEach((level)=>{
     assert.ok(level.questions.length>=10&&level.questions.length<=12,`${expected.id} ${level.level_id} has 10–12 questions`);
@@ -142,6 +145,48 @@ assert.ok(g2VocabularyQuestions.some((q)=>q.visual_model==='category_sort'),'G2E
 assert.match(VisualRegistry.render(g2VocabularyQuestions.find((q)=>q.visual_model==='context_sentence')),/data-renderer="context_sentence"/,'context_sentence renderer output exists');
 assert.match(VisualRegistry.render(g2VocabularyQuestions.find((q)=>q.visual_model==='vocabulary_match')),/data-renderer="vocabulary_match"/,'vocabulary_match renderer output exists');
 assert.match(VisualRegistry.render(g2VocabularyQuestions.find((q)=>q.visual_model==='category_sort')),/data-renderer="category_sort"/,'category_sort renderer output exists');
+
+
+assertGrade2EnglishPackage(g2AskAnswer,{
+  id:'G2E_RC_001',domain:'Reading Comprehension',skill:'Ask and Answer Questions About Text',
+  levelLabels:['Level 1: Who / What / Where','Level 2: When / Why / How','Level 3: Find Text Evidence','Level 4: Mixed Questions','Mixed'],
+  visuals:['short_passage','question_card','evidence_highlight','picture_story'],types:['multiple_choice','short_response','text_evidence'],
+  tags:['unsupported_answer','question_word_confusion','misses_text_evidence','detail_inference_confusion']
+});
+const g2AskAnswerQuestions=g2AskAnswer.level_banks.flatMap((level)=>level.questions);
+assert.ok(g2AskAnswerQuestions.some((q)=>/who|what|where/i.test(q.prompt)),'G2E_RC_001 includes who/what/where questions');
+assert.ok(g2AskAnswerQuestions.some((q)=>/when|why|how/i.test(q.prompt)),'G2E_RC_001 includes when/why/how questions');
+assert.ok(g2AskAnswerQuestions.some((q)=>q.question_type==='text_evidence'||q.visual_model==='evidence_highlight'),'G2E_RC_001 includes text evidence questions');
+assert.ok(g2AskAnswerQuestions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G2E_RC_001 short responses include acceptable_answers');
+assert.match(VisualRegistry.render(g2AskAnswerQuestions.find((q)=>q.visual_model==='evidence_highlight')),/data-renderer="evidence_highlight"/,'evidence_highlight renderer output exists');
+
+assertGrade2EnglishPackage(g2StoryStructure,{
+  id:'G2E_RC_002',domain:'Reading Comprehension',skill:'Story Structure and Retelling',
+  levelLabels:['Level 1: Characters and Setting','Level 2: Problem and Solution','Level 3: Beginning, Middle, End','Level 4: Retell the Story','Mixed'],
+  visuals:['story_map','story_sequence','event_cards','picture_order'],types:['multiple_choice','short_response','sequencing'],
+  tags:['character_setting_confusion','problem_solution_confusion','sequence_order_error','retell_detail_gap']
+});
+const g2StoryStructureQuestions=g2StoryStructure.level_banks.flatMap((level)=>level.questions);
+assert.ok(g2StoryStructureQuestions.some((q)=>/characters|setting/i.test(q.prompt)),'G2E_RC_002 includes character and setting identification');
+assert.ok(g2StoryStructureQuestions.some((q)=>/problem|solution/i.test(q.prompt)),'G2E_RC_002 includes problem/solution questions');
+assert.ok(g2StoryStructureQuestions.some((q)=>q.question_type==='sequencing'),'G2E_RC_002 includes beginning/middle/end sequencing');
+assert.ok(g2StoryStructureQuestions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G2E_RC_002 short responses include acceptable_answers');
+assert.match(VisualRegistry.render(g2StoryStructureQuestions.find((q)=>q.visual_model==='story_map')),/data-renderer="story_map"/,'story_map renderer output exists');
+
+assertGrade2EnglishPackage(g2MainIdea,{
+  id:'G2E_RC_003',domain:'Reading Comprehension',skill:'Main Idea and Key Details',
+  levelLabels:['Level 1: Topic','Level 2: Main Idea','Level 3: Key Details','Level 4: Match Details to Main Idea','Mixed'],
+  visuals:['short_passage','main_idea_web','detail_cards','evidence_highlight'],types:['multiple_choice','short_response','text_evidence'],
+  tags:['topic_main_idea_confusion','detail_selection_error','unsupported_detail','main_idea_too_broad']
+});
+const g2MainIdeaQuestions=g2MainIdea.level_banks.flatMap((level)=>level.questions);
+assert.ok(g2MainIdeaQuestions.some((q)=>/topic/i.test(q.prompt)),'G2E_RC_003 includes topic questions');
+assert.ok(g2MainIdeaQuestions.some((q)=>/main idea/i.test(q.prompt)),'G2E_RC_003 includes main idea questions');
+assert.ok(g2MainIdeaQuestions.some((q)=>/detail/i.test(q.prompt)),'G2E_RC_003 includes supporting detail questions');
+assert.ok(g2MainIdeaQuestions.some((q)=>/match/i.test(q.prompt)),'G2E_RC_003 includes detail-to-main-idea matching');
+assert.ok(g2MainIdeaQuestions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G2E_RC_003 short responses include acceptable_answers');
+assert.match(VisualRegistry.render(g2MainIdeaQuestions.find((q)=>q.visual_model==='main_idea_web')),/data-renderer="main_idea_web"/,'main_idea_web renderer output exists');
+assert.match(VisualRegistry.render(g2MainIdeaQuestions.find((q)=>q.visual_model==='detail_cards')),/data-renderer="detail_cards"/,'detail_cards renderer output exists');
 
 
 function assertFullMission(pkg){
@@ -276,8 +321,8 @@ plannedLevelBanks.level_banks_status='planned';
 assert.equal(Schema.validateSkillPackage(plannedLevelBanks).valid,true,'planned transitional packages are allowed by default tests');
 assert.equal(Schema.validateSkillPackage(plannedLevelBanks,{allowPlannedLevelBanks:false}).valid,false,'strict production validation rejects planned status');
 assert.ok(Array.isArray(pv.level_banks),'G1M_PV_001 proves required level_banks');
-assert.ok(pv.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length>=3,'at least three focused levels');
-assert.ok(pv.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),'Mixed level exists');
+assert.ok(pv.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length>=3,'at least three focused levels');
+assert.ok(pv.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),'Mixed level exists');
 pv.level_banks.forEach((level)=>{
   assert.ok(level.focus);
   assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} should have 10–12 questions`);
@@ -287,8 +332,8 @@ pv.level_banks.forEach((level)=>{
 grade1Packages.forEach((pkg)=>{
   assert.ok(Array.isArray(pkg.level_banks),`${pkg.skill_id} has real level_banks`);
   assert.equal(pkg.level_banks_status,undefined,`${pkg.skill_id} does not keep planned level_banks_status`);
-  assert.ok(pkg.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length>=4,`${pkg.skill_id} has at least 4 focused levels`);
-  assert.ok(pkg.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),`${pkg.skill_id} has Mixed level`);
+  assert.ok(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length>=4,`${pkg.skill_id} has at least 4 focused levels`);
+  assert.ok(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),`${pkg.skill_id} has Mixed level`);
   pkg.level_banks.forEach((level)=>{
     assert.ok(level.level_id&&level.label&&level.focus&&level.difficulty&&level.question_count_required&&level.mastery_threshold,`${pkg.skill_id} ${level.level_id} has required level fields`);
     assert.ok(level.questions.length>=10&&level.questions.length<=12,`${pkg.skill_id} ${level.level_id} has 10–12 questions`);
@@ -494,7 +539,7 @@ assert.equal(englishLetters.skill,'Letter Recognition and Sounds');
 assert.equal(englishLetters.subject,'English');
 assert.equal(englishLetters.domain,'Reading Foundations');
 assert.deepEqual(englishLetters.level_banks.map((level)=>level.level_id),['G1E_RF_001_LVL1','G1E_RF_001_LVL2','G1E_RF_001_LVL3','G1E_RF_001_LVL4','G1E_RF_001_MIXED']);
-assert.equal(englishLetters.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length,4,'G1E_RF_001 has four focused levels');
+assert.equal(englishLetters.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,'G1E_RF_001 has four focused levels');
 englishLetters.level_banks.forEach((level)=>{
   assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`);
 });
@@ -533,7 +578,7 @@ englishProductionIds.forEach((id)=>{
   assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates as production package`);
   assert.equal(pkg.subject,'English');
   assert.equal(pkg.level_banks.length,5,`${id} has four focused levels plus Mixed`);
-  assert.ok(pkg.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),`${id} has Mixed level`);
+  assert.ok(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),`${id} has Mixed level`);
   pkg.level_banks.forEach((level)=>{
     assert.ok(level.questions.length>=10&&level.questions.length<=12,`${id} ${level.level_id} has 10-12 questions`);
     level.questions.forEach((q)=>{
@@ -559,7 +604,7 @@ assert.equal(g2PlaceValue.subject,'Math');
 assert.equal(g2PlaceValue.domain,'Number and Operations in Base Ten');
 assert.equal(g2PlaceValue.skill,'Place Value to Hundreds');
 assert.deepEqual(g2PlaceValue.level_banks.map((level)=>level.level_id),['G2M_PV_001_LVL1','G2M_PV_001_LVL2','G2M_PV_001_LVL3','G2M_PV_001_LVL4','G2M_PV_001_MIXED']);
-assert.equal(g2PlaceValue.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length,4,'G2M_PV_001 has four focused levels');
+assert.equal(g2PlaceValue.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,'G2M_PV_001 has four focused levels');
 assert.equal(g2PlaceValue.level_banks.find((level)=>level.level_id==='G2M_PV_001_MIXED').questions.length,12,'G2M_PV_001 Mixed has 12 questions');
 g2PlaceValue.level_banks.forEach((level)=>{
   assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`);
@@ -611,8 +656,8 @@ grade2ProductionIds.forEach((id)=>{
   assert.equal(pkg.grade,2,`${id} is Grade 2`);
   assert.equal(pkg.subject,'Math',`${id} is Math`);
   assert.ok(Array.isArray(pkg.level_banks),`${id} has real level_banks`);
-  assert.equal(pkg.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length,4,`${id} has four focused levels`);
-  assert.ok(pkg.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),`${id} has Mixed level`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
+  assert.ok(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),`${id} has Mixed level`);
   pkg.level_banks.forEach((level)=>{
     assert.ok(level.questions.length>=10&&level.questions.length<=12,`${id} ${level.level_id} has 10-12 questions`);
     level.questions.forEach((question)=>{
@@ -675,8 +720,8 @@ function assertG2OperationsPackage(pkg,labels,tags){
     assert.ok(pkg.misconception_bank[tag],`${pkg.skill_id} misconception bank includes ${tag}`);
     assert.ok(pkg.level_banks.flatMap((level)=>level.questions).some((q)=>q.misconception_tag===tag),`${pkg.skill_id} level banks cover ${tag}`);
   });
-  assert.equal(pkg.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length,4,`${pkg.skill_id} has four focused levels`);
-  assert.ok(pkg.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),`${pkg.skill_id} has Mixed level`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${pkg.skill_id} has four focused levels`);
+  assert.ok(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),`${pkg.skill_id} has Mixed level`);
   pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${pkg.skill_id} ${level.level_id} has 10-12 questions`));
   assert.ok(pkg.level_banks.flatMap((level)=>level.questions).filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length),`${pkg.skill_id} short-response numeric items have acceptable_answers`);
   const html=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
@@ -748,7 +793,7 @@ assert.match(clockVisual,/minute-hand/);
   assert.ok(pkg,`${id} package exists`);
   assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates as production package`);
   assert.equal(pkg.level_banks.length,5,`${id} has four focused levels plus Mixed`);
-  assert.ok(pkg.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),`${id} has Mixed level`);
+  assert.ok(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),`${id} has Mixed level`);
   pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${id} ${level.level_id} has 10-12 questions`));
 });
 

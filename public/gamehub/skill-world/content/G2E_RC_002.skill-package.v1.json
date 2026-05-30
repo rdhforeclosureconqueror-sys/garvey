@@ -1,0 +1,2168 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "generated_at": "2026-05-30",
+    "source": "Grade 2 English reading comprehension batch"
+  },
+  "skill_id": "G2E_RC_002",
+  "grade": 2,
+  "subject": "English",
+  "domain": "Reading Comprehension",
+  "skill": "Story Structure and Retelling",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Help the Story Builder crew map each story so every retell has the right parts in order.",
+    "objective": "I can identify characters, setting, problem, solution, and sequence of events.",
+    "key_vocabulary": [
+      "character",
+      "setting",
+      "problem",
+      "solution",
+      "beginning",
+      "middle",
+      "end",
+      "retell"
+    ],
+    "concept_explanation": "Stories have characters in a setting. Many stories include a problem and solution, and events happen in an order that helps readers retell the story.",
+    "visual_model": "story_map",
+    "common_misconception": "Readers may mix up where a story happens with who is in the story, or tell events out of order.",
+    "real_world_connection": "Story maps help readers talk about books, movies, and events from their own day.",
+    "lesson_summary": "Name the characters and setting, find the problem and solution, then retell the beginning, middle, and end.",
+    "mini_lesson": "A good retell includes the most important story elements in the order they happened."
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: A story map keeps characters, setting, problem, and solution in separate boxes.",
+      "correct_answer": "They used a map and put the sign back up.",
+      "visual_model": "story_map",
+      "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+      "story_elements": {
+        "characters": "Max and Ana",
+        "setting": "the nature trail",
+        "problem": "the sign had fallen down",
+        "solution": "They used a map and put the sign back up."
+      }
+    },
+    {
+      "text": "Demo: Retell the events in the same order they happened.",
+      "correct_answer": "Max wanted to find the nature trail. -> The sign had fallen down. -> Max and Ana followed the blue path. -> They reached the pond and fixed the sign.",
+      "visual_model": "story_sequence",
+      "events": [
+        "Max wanted to find the nature trail.",
+        "The sign had fallen down.",
+        "Max and Ana followed the blue path.",
+        "They reached the pond and fixed the sign."
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "Name the story elements first.",
+    "Ask what happened at the beginning, middle, and end.",
+    "Retell only details that are in the story."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G2E_RC_002_LVL1_Q01",
+      "prompt": "Who are the characters?",
+      "question_type": "multiple_choice",
+      "visual_model": "story_map",
+      "support_type": "story_map",
+      "correct_answer": "Max and Ana",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "character_setting_confusion",
+      "explanation": "Max and Ana is supported by the text.",
+      "feedback": "Yes — Max and Ana fits.",
+      "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+      "story_elements": {
+        "characters": "Max and Ana",
+        "setting": "the nature trail",
+        "problem": "the sign had fallen down",
+        "solution": "They used a map and put the sign back up."
+      },
+      "choices": [
+        "Max and Ana",
+        "the nature trail",
+        "the sign had fallen down",
+        "They used a map and put the sign back up."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_002_LVL1_Q02",
+      "prompt": "What is the setting?",
+      "question_type": "multiple_choice",
+      "visual_model": "story_map",
+      "support_type": "story_map",
+      "correct_answer": "music class",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "character_setting_confusion",
+      "explanation": "music class is supported by the text.",
+      "feedback": "Yes — music class fits.",
+      "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+      "story_elements": {
+        "characters": "Bella and Mr. Ross",
+        "setting": "music class",
+        "problem": "one drum strap snapped",
+        "solution": "Bella tied on a ribbon from the art bin."
+      },
+      "choices": [
+        "music class",
+        "Bella and Mr. Ross",
+        "one drum strap snapped",
+        "Bella tied on a ribbon from the art bin."
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G2E_RC_002_LVL2_Q01",
+      "prompt": "What is the problem in the story?",
+      "question_type": "short_response",
+      "visual_model": "story_map",
+      "support_type": "story_map",
+      "correct_answer": "the sign had fallen down",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "problem_solution_confusion",
+      "explanation": "the sign had fallen down is supported by the text.",
+      "feedback": "Yes — the sign had fallen down fits.",
+      "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+      "story_elements": {
+        "characters": "Max and Ana",
+        "setting": "the nature trail",
+        "problem": "the sign had fallen down",
+        "solution": "They used a map and put the sign back up."
+      },
+      "choices": [
+        "the sign had fallen down",
+        "They used a map and put the sign back up.",
+        "the nature trail",
+        "a new character"
+      ],
+      "acceptable_answers": [
+        "the sign had fallen down",
+        "the sign had fallen down.",
+        "sign had fallen down"
+      ]
+    },
+    {
+      "question_id": "G2E_RC_002_LVL2_Q02",
+      "prompt": "What is the solution in the story?",
+      "question_type": "multiple_choice",
+      "visual_model": "story_map",
+      "support_type": "story_map",
+      "correct_answer": "Bella tied on a ribbon from the art bin.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "problem_solution_confusion",
+      "explanation": "Bella tied on a ribbon from the art bin. is supported by the text.",
+      "feedback": "Yes — Bella tied on a ribbon from the art bin. fits.",
+      "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+      "story_elements": {
+        "characters": "Bella and Mr. Ross",
+        "setting": "music class",
+        "problem": "one drum strap snapped",
+        "solution": "Bella tied on a ribbon from the art bin."
+      },
+      "choices": [
+        "Bella tied on a ribbon from the art bin.",
+        "one drum strap snapped",
+        "music class",
+        "a new character"
+      ],
+      "acceptable_answers": [
+        "Bella tied on a ribbon from the art bin.",
+        "Bella tied on a ribbon from the art bin..",
+        "Bella tied on a ribbon from the art bin."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_002_LVL2_Q03",
+      "prompt": "What is the problem in the story?",
+      "question_type": "multiple_choice",
+      "visual_model": "story_map",
+      "support_type": "story_map",
+      "correct_answer": "ants marched toward the grapes",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "problem_solution_confusion",
+      "explanation": "ants marched toward the grapes is supported by the text.",
+      "feedback": "Yes — ants marched toward the grapes fits.",
+      "passage": "Jade and Leo set lunch on a park blanket. Ants marched toward the grapes, so Jade moved the food to a table. Leo brushed crumbs into a bag, and the ants went back to the grass.",
+      "story_elements": {
+        "characters": "Jade and Leo",
+        "setting": "the park",
+        "problem": "ants marched toward the grapes",
+        "solution": "They moved the food and cleaned crumbs."
+      },
+      "choices": [
+        "ants marched toward the grapes",
+        "They moved the food and cleaned crumbs.",
+        "the park",
+        "a new character"
+      ],
+      "acceptable_answers": [
+        "ants marched toward the grapes",
+        "ants marched toward the grapes.",
+        "ants marched toward the grapes"
+      ]
+    },
+    {
+      "question_id": "G2E_RC_002_LVL2_Q04",
+      "prompt": "What is the solution in the story?",
+      "question_type": "multiple_choice",
+      "visual_model": "story_map",
+      "support_type": "story_map",
+      "correct_answer": "Tess used tape and a smaller box.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "problem_solution_confusion",
+      "explanation": "Tess used tape and a smaller box. is supported by the text.",
+      "feedback": "Yes — Tess used tape and a smaller box. fits.",
+      "passage": "Tess built a cardboard robot for the class parade. The robot head was too heavy and tipped over. Tess added tape and a smaller box, so the robot stayed upright.",
+      "story_elements": {
+        "characters": "Tess",
+        "setting": "class parade",
+        "problem": "the robot head was too heavy",
+        "solution": "Tess used tape and a smaller box."
+      },
+      "choices": [
+        "Tess used tape and a smaller box.",
+        "the robot head was too heavy",
+        "class parade",
+        "a new character"
+      ],
+      "acceptable_answers": [
+        "Tess used tape and a smaller box.",
+        "Tess used tape and a smaller box..",
+        "Tess used tape and a smaller box."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_002_LVL2_Q05",
+      "prompt": "What is the problem in the story?",
+      "question_type": "short_response",
+      "visual_model": "story_map",
+      "support_type": "story_map",
+      "correct_answer": "kids were running close to a nest",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "problem_solution_confusion",
+      "explanation": "kids were running close to a nest is supported by the text.",
+      "feedback": "Yes — kids were running close to a nest fits.",
+      "passage": "Sam saw a nest on the low branch near the playground. Kids were running close to it, so Sam told the teacher. The class moved the game away and watched the birds quietly.",
+      "story_elements": {
+        "characters": "Sam and the class",
+        "setting": "near the playground",
+        "problem": "kids were running close to a nest",
+        "solution": "The class moved the game away."
+      },
+      "choices": [
+        "kids were running close to a nest",
+        "The class moved the game away.",
+        "near the playground",
+        "a new character"
+      ],
+      "acceptable_answers": [
+        "kids were running close to a nest",
+        "kids were running close to a nest.",
+        "kids were running close to a nest"
+      ]
+    },
+    {
+      "question_id": "G2E_RC_002_LVL2_Q06",
+      "prompt": "What is the solution in the story?",
+      "question_type": "multiple_choice",
+      "visual_model": "story_map",
+      "support_type": "story_map",
+      "correct_answer": "They used a map and put the sign back up.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "problem_solution_confusion",
+      "explanation": "They used a map and put the sign back up. is supported by the text.",
+      "feedback": "Yes — They used a map and put the sign back up. fits.",
+      "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+      "story_elements": {
+        "characters": "Max and Ana",
+        "setting": "the nature trail",
+        "problem": "the sign had fallen down",
+        "solution": "They used a map and put the sign back up."
+      },
+      "choices": [
+        "They used a map and put the sign back up.",
+        "the sign had fallen down",
+        "the nature trail",
+        "a new character"
+      ],
+      "acceptable_answers": [
+        "They used a map and put the sign back up.",
+        "They used a map and put the sign back up..",
+        "They used a map and put the sign back up."
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G2E_RC_002_MIXED_Q01",
+      "prompt": "Who are the characters?",
+      "question_type": "multiple_choice",
+      "visual_model": "story_map",
+      "support_type": "story_map",
+      "correct_answer": "Max and Ana",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "character_setting_confusion",
+      "explanation": "Max and Ana is supported by the text.",
+      "feedback": "Yes — Max and Ana fits.",
+      "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+      "story_elements": {
+        "characters": "Max and Ana",
+        "setting": "the nature trail",
+        "problem": "the sign had fallen down",
+        "solution": "They used a map and put the sign back up."
+      },
+      "choices": [
+        "Max and Ana",
+        "the nature trail",
+        "the sign had fallen down",
+        "They used a map and put the sign back up."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_002_MIXED_Q02",
+      "prompt": "What is the setting?",
+      "question_type": "multiple_choice",
+      "visual_model": "story_map",
+      "support_type": "story_map",
+      "correct_answer": "music class",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "character_setting_confusion",
+      "explanation": "music class is supported by the text.",
+      "feedback": "Yes — music class fits.",
+      "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+      "story_elements": {
+        "characters": "Bella and Mr. Ross",
+        "setting": "music class",
+        "problem": "one drum strap snapped",
+        "solution": "Bella tied on a ribbon from the art bin."
+      },
+      "choices": [
+        "music class",
+        "Bella and Mr. Ross",
+        "one drum strap snapped",
+        "Bella tied on a ribbon from the art bin."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_002_MIXED_Q03",
+      "prompt": "What is the problem in the story?",
+      "question_type": "short_response",
+      "visual_model": "story_map",
+      "support_type": "story_map",
+      "correct_answer": "the sign had fallen down",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "problem_solution_confusion",
+      "explanation": "the sign had fallen down is supported by the text.",
+      "feedback": "Yes — the sign had fallen down fits.",
+      "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+      "story_elements": {
+        "characters": "Max and Ana",
+        "setting": "the nature trail",
+        "problem": "the sign had fallen down",
+        "solution": "They used a map and put the sign back up."
+      },
+      "choices": [
+        "the sign had fallen down",
+        "They used a map and put the sign back up.",
+        "the nature trail",
+        "a new character"
+      ],
+      "acceptable_answers": [
+        "the sign had fallen down",
+        "the sign had fallen down.",
+        "sign had fallen down"
+      ]
+    },
+    {
+      "question_id": "G2E_RC_002_MIXED_Q04",
+      "prompt": "What is the solution in the story?",
+      "question_type": "multiple_choice",
+      "visual_model": "story_map",
+      "support_type": "story_map",
+      "correct_answer": "Bella tied on a ribbon from the art bin.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "problem_solution_confusion",
+      "explanation": "Bella tied on a ribbon from the art bin. is supported by the text.",
+      "feedback": "Yes — Bella tied on a ribbon from the art bin. fits.",
+      "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+      "story_elements": {
+        "characters": "Bella and Mr. Ross",
+        "setting": "music class",
+        "problem": "one drum strap snapped",
+        "solution": "Bella tied on a ribbon from the art bin."
+      },
+      "choices": [
+        "Bella tied on a ribbon from the art bin.",
+        "one drum strap snapped",
+        "music class",
+        "a new character"
+      ],
+      "acceptable_answers": [
+        "Bella tied on a ribbon from the art bin.",
+        "Bella tied on a ribbon from the art bin..",
+        "Bella tied on a ribbon from the art bin."
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "character_setting_confusion": "The answer confuses who is in the story with where it happens.",
+    "problem_solution_confusion": "The answer swaps the problem and solution.",
+    "sequence_order_error": "The events are not in story order.",
+    "retell_detail_gap": "The retell leaves out an important story part."
+  },
+  "game_theme": {
+    "theme_name": "Story Builder Studio",
+    "mission_intro": "Build story maps and retell each story from beginning to end.",
+    "badge_name": "Story Structure Builder",
+    "reward_icon": "🗺️",
+    "world": "Reading Comprehension"
+  },
+  "next_skill_id": null,
+  "remediation_skill_id": null,
+  "level_banks": [
+    {
+      "level_id": "G2E_RC_002_LVL1",
+      "label": "Level 1: Characters and Setting",
+      "focus": "Identify who is in the story and where/when it happens.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RC_002_LVL1_Q01",
+          "prompt": "Who are the characters?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Max and Ana",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "character_setting_confusion",
+          "explanation": "Max and Ana is supported by the text.",
+          "feedback": "Yes — Max and Ana fits.",
+          "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+          "story_elements": {
+            "characters": "Max and Ana",
+            "setting": "the nature trail",
+            "problem": "the sign had fallen down",
+            "solution": "They used a map and put the sign back up."
+          },
+          "choices": [
+            "Max and Ana",
+            "the nature trail",
+            "the sign had fallen down",
+            "They used a map and put the sign back up."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL1_Q02",
+          "prompt": "What is the setting?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "music class",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "character_setting_confusion",
+          "explanation": "music class is supported by the text.",
+          "feedback": "Yes — music class fits.",
+          "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+          "story_elements": {
+            "characters": "Bella and Mr. Ross",
+            "setting": "music class",
+            "problem": "one drum strap snapped",
+            "solution": "Bella tied on a ribbon from the art bin."
+          },
+          "choices": [
+            "music class",
+            "Bella and Mr. Ross",
+            "one drum strap snapped",
+            "Bella tied on a ribbon from the art bin."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL1_Q03",
+          "prompt": "Who are the characters?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Jade and Leo",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "character_setting_confusion",
+          "explanation": "Jade and Leo is supported by the text.",
+          "feedback": "Yes — Jade and Leo fits.",
+          "passage": "Jade and Leo set lunch on a park blanket. Ants marched toward the grapes, so Jade moved the food to a table. Leo brushed crumbs into a bag, and the ants went back to the grass.",
+          "story_elements": {
+            "characters": "Jade and Leo",
+            "setting": "the park",
+            "problem": "ants marched toward the grapes",
+            "solution": "They moved the food and cleaned crumbs."
+          },
+          "choices": [
+            "Jade and Leo",
+            "the park",
+            "ants marched toward the grapes",
+            "They moved the food and cleaned crumbs."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL1_Q04",
+          "prompt": "What is the setting?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "class parade",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "character_setting_confusion",
+          "explanation": "class parade is supported by the text.",
+          "feedback": "Yes — class parade fits.",
+          "passage": "Tess built a cardboard robot for the class parade. The robot head was too heavy and tipped over. Tess added tape and a smaller box, so the robot stayed upright.",
+          "story_elements": {
+            "characters": "Tess",
+            "setting": "class parade",
+            "problem": "the robot head was too heavy",
+            "solution": "Tess used tape and a smaller box."
+          },
+          "choices": [
+            "class parade",
+            "Tess",
+            "the robot head was too heavy",
+            "Tess used tape and a smaller box."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL1_Q05",
+          "prompt": "Who are the characters?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Sam and the class",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "character_setting_confusion",
+          "explanation": "Sam and the class is supported by the text.",
+          "feedback": "Yes — Sam and the class fits.",
+          "passage": "Sam saw a nest on the low branch near the playground. Kids were running close to it, so Sam told the teacher. The class moved the game away and watched the birds quietly.",
+          "story_elements": {
+            "characters": "Sam and the class",
+            "setting": "near the playground",
+            "problem": "kids were running close to a nest",
+            "solution": "The class moved the game away."
+          },
+          "choices": [
+            "Sam and the class",
+            "near the playground",
+            "kids were running close to a nest",
+            "The class moved the game away."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL1_Q06",
+          "prompt": "What is the setting?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "the nature trail",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "character_setting_confusion",
+          "explanation": "the nature trail is supported by the text.",
+          "feedback": "Yes — the nature trail fits.",
+          "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+          "story_elements": {
+            "characters": "Max and Ana",
+            "setting": "the nature trail",
+            "problem": "the sign had fallen down",
+            "solution": "They used a map and put the sign back up."
+          },
+          "choices": [
+            "the nature trail",
+            "Max and Ana",
+            "the sign had fallen down",
+            "They used a map and put the sign back up."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL1_Q07",
+          "prompt": "Who are the characters?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Bella and Mr. Ross",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "character_setting_confusion",
+          "explanation": "Bella and Mr. Ross is supported by the text.",
+          "feedback": "Yes — Bella and Mr. Ross fits.",
+          "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+          "story_elements": {
+            "characters": "Bella and Mr. Ross",
+            "setting": "music class",
+            "problem": "one drum strap snapped",
+            "solution": "Bella tied on a ribbon from the art bin."
+          },
+          "choices": [
+            "Bella and Mr. Ross",
+            "music class",
+            "one drum strap snapped",
+            "Bella tied on a ribbon from the art bin."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL1_Q08",
+          "prompt": "What is the setting?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "the park",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "character_setting_confusion",
+          "explanation": "the park is supported by the text.",
+          "feedback": "Yes — the park fits.",
+          "passage": "Jade and Leo set lunch on a park blanket. Ants marched toward the grapes, so Jade moved the food to a table. Leo brushed crumbs into a bag, and the ants went back to the grass.",
+          "story_elements": {
+            "characters": "Jade and Leo",
+            "setting": "the park",
+            "problem": "ants marched toward the grapes",
+            "solution": "They moved the food and cleaned crumbs."
+          },
+          "choices": [
+            "the park",
+            "Jade and Leo",
+            "ants marched toward the grapes",
+            "They moved the food and cleaned crumbs."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL1_Q09",
+          "prompt": "Who are the characters?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Tess",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "character_setting_confusion",
+          "explanation": "Tess is supported by the text.",
+          "feedback": "Yes — Tess fits.",
+          "passage": "Tess built a cardboard robot for the class parade. The robot head was too heavy and tipped over. Tess added tape and a smaller box, so the robot stayed upright.",
+          "story_elements": {
+            "characters": "Tess",
+            "setting": "class parade",
+            "problem": "the robot head was too heavy",
+            "solution": "Tess used tape and a smaller box."
+          },
+          "choices": [
+            "Tess",
+            "class parade",
+            "the robot head was too heavy",
+            "Tess used tape and a smaller box."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL1_Q10",
+          "prompt": "What is the setting?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "near the playground",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "character_setting_confusion",
+          "explanation": "near the playground is supported by the text.",
+          "feedback": "Yes — near the playground fits.",
+          "passage": "Sam saw a nest on the low branch near the playground. Kids were running close to it, so Sam told the teacher. The class moved the game away and watched the birds quietly.",
+          "story_elements": {
+            "characters": "Sam and the class",
+            "setting": "near the playground",
+            "problem": "kids were running close to a nest",
+            "solution": "The class moved the game away."
+          },
+          "choices": [
+            "near the playground",
+            "Sam and the class",
+            "kids were running close to a nest",
+            "The class moved the game away."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RC_002_LVL2",
+      "label": "Level 2: Problem and Solution",
+      "focus": "Identify what goes wrong and how it is fixed.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RC_002_LVL2_Q01",
+          "prompt": "What is the problem in the story?",
+          "question_type": "short_response",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "the sign had fallen down",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "the sign had fallen down is supported by the text.",
+          "feedback": "Yes — the sign had fallen down fits.",
+          "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+          "story_elements": {
+            "characters": "Max and Ana",
+            "setting": "the nature trail",
+            "problem": "the sign had fallen down",
+            "solution": "They used a map and put the sign back up."
+          },
+          "choices": [
+            "the sign had fallen down",
+            "They used a map and put the sign back up.",
+            "the nature trail",
+            "a new character"
+          ],
+          "acceptable_answers": [
+            "the sign had fallen down",
+            "the sign had fallen down.",
+            "sign had fallen down"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL2_Q02",
+          "prompt": "What is the solution in the story?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Bella tied on a ribbon from the art bin.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "Bella tied on a ribbon from the art bin. is supported by the text.",
+          "feedback": "Yes — Bella tied on a ribbon from the art bin. fits.",
+          "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+          "story_elements": {
+            "characters": "Bella and Mr. Ross",
+            "setting": "music class",
+            "problem": "one drum strap snapped",
+            "solution": "Bella tied on a ribbon from the art bin."
+          },
+          "choices": [
+            "Bella tied on a ribbon from the art bin.",
+            "one drum strap snapped",
+            "music class",
+            "a new character"
+          ],
+          "acceptable_answers": [
+            "Bella tied on a ribbon from the art bin.",
+            "Bella tied on a ribbon from the art bin..",
+            "Bella tied on a ribbon from the art bin."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL2_Q03",
+          "prompt": "What is the problem in the story?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "ants marched toward the grapes",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "ants marched toward the grapes is supported by the text.",
+          "feedback": "Yes — ants marched toward the grapes fits.",
+          "passage": "Jade and Leo set lunch on a park blanket. Ants marched toward the grapes, so Jade moved the food to a table. Leo brushed crumbs into a bag, and the ants went back to the grass.",
+          "story_elements": {
+            "characters": "Jade and Leo",
+            "setting": "the park",
+            "problem": "ants marched toward the grapes",
+            "solution": "They moved the food and cleaned crumbs."
+          },
+          "choices": [
+            "ants marched toward the grapes",
+            "They moved the food and cleaned crumbs.",
+            "the park",
+            "a new character"
+          ],
+          "acceptable_answers": [
+            "ants marched toward the grapes",
+            "ants marched toward the grapes.",
+            "ants marched toward the grapes"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL2_Q04",
+          "prompt": "What is the solution in the story?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Tess used tape and a smaller box.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "Tess used tape and a smaller box. is supported by the text.",
+          "feedback": "Yes — Tess used tape and a smaller box. fits.",
+          "passage": "Tess built a cardboard robot for the class parade. The robot head was too heavy and tipped over. Tess added tape and a smaller box, so the robot stayed upright.",
+          "story_elements": {
+            "characters": "Tess",
+            "setting": "class parade",
+            "problem": "the robot head was too heavy",
+            "solution": "Tess used tape and a smaller box."
+          },
+          "choices": [
+            "Tess used tape and a smaller box.",
+            "the robot head was too heavy",
+            "class parade",
+            "a new character"
+          ],
+          "acceptable_answers": [
+            "Tess used tape and a smaller box.",
+            "Tess used tape and a smaller box..",
+            "Tess used tape and a smaller box."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL2_Q05",
+          "prompt": "What is the problem in the story?",
+          "question_type": "short_response",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "kids were running close to a nest",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "kids were running close to a nest is supported by the text.",
+          "feedback": "Yes — kids were running close to a nest fits.",
+          "passage": "Sam saw a nest on the low branch near the playground. Kids were running close to it, so Sam told the teacher. The class moved the game away and watched the birds quietly.",
+          "story_elements": {
+            "characters": "Sam and the class",
+            "setting": "near the playground",
+            "problem": "kids were running close to a nest",
+            "solution": "The class moved the game away."
+          },
+          "choices": [
+            "kids were running close to a nest",
+            "The class moved the game away.",
+            "near the playground",
+            "a new character"
+          ],
+          "acceptable_answers": [
+            "kids were running close to a nest",
+            "kids were running close to a nest.",
+            "kids were running close to a nest"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL2_Q06",
+          "prompt": "What is the solution in the story?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "They used a map and put the sign back up.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "They used a map and put the sign back up. is supported by the text.",
+          "feedback": "Yes — They used a map and put the sign back up. fits.",
+          "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+          "story_elements": {
+            "characters": "Max and Ana",
+            "setting": "the nature trail",
+            "problem": "the sign had fallen down",
+            "solution": "They used a map and put the sign back up."
+          },
+          "choices": [
+            "They used a map and put the sign back up.",
+            "the sign had fallen down",
+            "the nature trail",
+            "a new character"
+          ],
+          "acceptable_answers": [
+            "They used a map and put the sign back up.",
+            "They used a map and put the sign back up..",
+            "They used a map and put the sign back up."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL2_Q07",
+          "prompt": "What is the problem in the story?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "one drum strap snapped",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "one drum strap snapped is supported by the text.",
+          "feedback": "Yes — one drum strap snapped fits.",
+          "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+          "story_elements": {
+            "characters": "Bella and Mr. Ross",
+            "setting": "music class",
+            "problem": "one drum strap snapped",
+            "solution": "Bella tied on a ribbon from the art bin."
+          },
+          "choices": [
+            "one drum strap snapped",
+            "Bella tied on a ribbon from the art bin.",
+            "music class",
+            "a new character"
+          ],
+          "acceptable_answers": [
+            "one drum strap snapped",
+            "one drum strap snapped.",
+            "one drum strap snapped"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL2_Q08",
+          "prompt": "What is the solution in the story?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "They moved the food and cleaned crumbs.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "They moved the food and cleaned crumbs. is supported by the text.",
+          "feedback": "Yes — They moved the food and cleaned crumbs. fits.",
+          "passage": "Jade and Leo set lunch on a park blanket. Ants marched toward the grapes, so Jade moved the food to a table. Leo brushed crumbs into a bag, and the ants went back to the grass.",
+          "story_elements": {
+            "characters": "Jade and Leo",
+            "setting": "the park",
+            "problem": "ants marched toward the grapes",
+            "solution": "They moved the food and cleaned crumbs."
+          },
+          "choices": [
+            "They moved the food and cleaned crumbs.",
+            "ants marched toward the grapes",
+            "the park",
+            "a new character"
+          ],
+          "acceptable_answers": [
+            "They moved the food and cleaned crumbs.",
+            "They moved the food and cleaned crumbs..",
+            "They moved the food and cleaned crumbs."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL2_Q09",
+          "prompt": "What is the problem in the story?",
+          "question_type": "short_response",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "the robot head was too heavy",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "the robot head was too heavy is supported by the text.",
+          "feedback": "Yes — the robot head was too heavy fits.",
+          "passage": "Tess built a cardboard robot for the class parade. The robot head was too heavy and tipped over. Tess added tape and a smaller box, so the robot stayed upright.",
+          "story_elements": {
+            "characters": "Tess",
+            "setting": "class parade",
+            "problem": "the robot head was too heavy",
+            "solution": "Tess used tape and a smaller box."
+          },
+          "choices": [
+            "the robot head was too heavy",
+            "Tess used tape and a smaller box.",
+            "class parade",
+            "a new character"
+          ],
+          "acceptable_answers": [
+            "the robot head was too heavy",
+            "the robot head was too heavy.",
+            "robot head was too heavy"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL2_Q10",
+          "prompt": "What is the solution in the story?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "The class moved the game away.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "The class moved the game away. is supported by the text.",
+          "feedback": "Yes — The class moved the game away. fits.",
+          "passage": "Sam saw a nest on the low branch near the playground. Kids were running close to it, so Sam told the teacher. The class moved the game away and watched the birds quietly.",
+          "story_elements": {
+            "characters": "Sam and the class",
+            "setting": "near the playground",
+            "problem": "kids were running close to a nest",
+            "solution": "The class moved the game away."
+          },
+          "choices": [
+            "The class moved the game away.",
+            "kids were running close to a nest",
+            "near the playground",
+            "a new character"
+          ],
+          "acceptable_answers": [
+            "The class moved the game away.",
+            "The class moved the game away..",
+            "The class moved the game away."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RC_002_LVL3",
+      "label": "Level 3: Beginning, Middle, End",
+      "focus": "Put story events in order.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RC_002_LVL3_Q01",
+          "prompt": "Put the story events in beginning, middle, and end order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "Max wanted to find the nature trail. -> The sign had fallen down. -> Max and Ana followed the blue path. -> They reached the pond and fixed the sign.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The correct order follows what happened first, next, then last.",
+          "feedback": "Yes — Max wanted to find the nature trail. -> The sign had fallen down. -> Max and Ana followed the blue path. -> They reached the pond and fixed the sign. fits.",
+          "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+          "events": [
+            "Max wanted to find the nature trail.",
+            "The sign had fallen down.",
+            "Max and Ana followed the blue path.",
+            "They reached the pond and fixed the sign."
+          ],
+          "choices": [
+            "Max wanted to find the nature trail.",
+            "The sign had fallen down.",
+            "Max and Ana followed the blue path.",
+            "They reached the pond and fixed the sign."
+          ],
+          "acceptable_answers": [
+            "Max wanted to find the nature trail. -> The sign had fallen down. -> Max and Ana followed the blue path. -> They reached the pond and fixed the sign.",
+            "1,2,3,4",
+            "Max wanted to find the nature trail.|The sign had fallen down.|Max and Ana followed the blue path.|They reached the pond and fixed the sign."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL3_Q02",
+          "prompt": "Put the story events in beginning, middle, and end order.",
+          "question_type": "sequencing",
+          "visual_model": "picture_order",
+          "support_type": "picture_order",
+          "correct_answer": "Bella brought her drum to music class. -> A strap snapped. -> Mr. Ross found a ribbon. -> Bella fixed the drum and played.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The correct order follows what happened first, next, then last.",
+          "feedback": "Yes — Bella brought her drum to music class. -> A strap snapped. -> Mr. Ross found a ribbon. -> Bella fixed the drum and played. fits.",
+          "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+          "events": [
+            "Bella brought her drum to music class.",
+            "A strap snapped.",
+            "Mr. Ross found a ribbon.",
+            "Bella fixed the drum and played."
+          ],
+          "choices": [
+            "Bella brought her drum to music class.",
+            "A strap snapped.",
+            "Mr. Ross found a ribbon.",
+            "Bella fixed the drum and played."
+          ],
+          "acceptable_answers": [
+            "Bella brought her drum to music class. -> A strap snapped. -> Mr. Ross found a ribbon. -> Bella fixed the drum and played.",
+            "1,2,3,4",
+            "Bella brought her drum to music class.|A strap snapped.|Mr. Ross found a ribbon.|Bella fixed the drum and played."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL3_Q03",
+          "prompt": "Put the story events in beginning, middle, and end order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "Jade and Leo set lunch on a blanket. -> Ants marched toward the grapes. -> Jade moved the food to a table. -> Leo cleaned crumbs and the ants left.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The correct order follows what happened first, next, then last.",
+          "feedback": "Yes — Jade and Leo set lunch on a blanket. -> Ants marched toward the grapes. -> Jade moved the food to a table. -> Leo cleaned crumbs and the ants left. fits.",
+          "passage": "Jade and Leo set lunch on a park blanket. Ants marched toward the grapes, so Jade moved the food to a table. Leo brushed crumbs into a bag, and the ants went back to the grass.",
+          "events": [
+            "Jade and Leo set lunch on a blanket.",
+            "Ants marched toward the grapes.",
+            "Jade moved the food to a table.",
+            "Leo cleaned crumbs and the ants left."
+          ],
+          "choices": [
+            "Jade and Leo set lunch on a blanket.",
+            "Ants marched toward the grapes.",
+            "Jade moved the food to a table.",
+            "Leo cleaned crumbs and the ants left."
+          ],
+          "acceptable_answers": [
+            "Jade and Leo set lunch on a blanket. -> Ants marched toward the grapes. -> Jade moved the food to a table. -> Leo cleaned crumbs and the ants left.",
+            "1,2,3,4",
+            "Jade and Leo set lunch on a blanket.|Ants marched toward the grapes.|Jade moved the food to a table.|Leo cleaned crumbs and the ants left."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL3_Q04",
+          "prompt": "Put the story events in beginning, middle, and end order.",
+          "question_type": "sequencing",
+          "visual_model": "picture_order",
+          "support_type": "picture_order",
+          "correct_answer": "Tess built a cardboard robot. -> The head tipped over. -> Tess added tape and a smaller box. -> The robot stayed upright.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The correct order follows what happened first, next, then last.",
+          "feedback": "Yes — Tess built a cardboard robot. -> The head tipped over. -> Tess added tape and a smaller box. -> The robot stayed upright. fits.",
+          "passage": "Tess built a cardboard robot for the class parade. The robot head was too heavy and tipped over. Tess added tape and a smaller box, so the robot stayed upright.",
+          "events": [
+            "Tess built a cardboard robot.",
+            "The head tipped over.",
+            "Tess added tape and a smaller box.",
+            "The robot stayed upright."
+          ],
+          "choices": [
+            "Tess built a cardboard robot.",
+            "The head tipped over.",
+            "Tess added tape and a smaller box.",
+            "The robot stayed upright."
+          ],
+          "acceptable_answers": [
+            "Tess built a cardboard robot. -> The head tipped over. -> Tess added tape and a smaller box. -> The robot stayed upright.",
+            "1,2,3,4",
+            "Tess built a cardboard robot.|The head tipped over.|Tess added tape and a smaller box.|The robot stayed upright."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL3_Q05",
+          "prompt": "Put the story events in beginning, middle, and end order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "Sam saw a nest. -> Kids ran close to it. -> Sam told the teacher. -> The class moved the game and watched quietly.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The correct order follows what happened first, next, then last.",
+          "feedback": "Yes — Sam saw a nest. -> Kids ran close to it. -> Sam told the teacher. -> The class moved the game and watched quietly. fits.",
+          "passage": "Sam saw a nest on the low branch near the playground. Kids were running close to it, so Sam told the teacher. The class moved the game away and watched the birds quietly.",
+          "events": [
+            "Sam saw a nest.",
+            "Kids ran close to it.",
+            "Sam told the teacher.",
+            "The class moved the game and watched quietly."
+          ],
+          "choices": [
+            "Sam saw a nest.",
+            "Kids ran close to it.",
+            "Sam told the teacher.",
+            "The class moved the game and watched quietly."
+          ],
+          "acceptable_answers": [
+            "Sam saw a nest. -> Kids ran close to it. -> Sam told the teacher. -> The class moved the game and watched quietly.",
+            "1,2,3,4",
+            "Sam saw a nest.|Kids ran close to it.|Sam told the teacher.|The class moved the game and watched quietly."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL3_Q06",
+          "prompt": "Put the story events in beginning, middle, and end order.",
+          "question_type": "sequencing",
+          "visual_model": "picture_order",
+          "support_type": "picture_order",
+          "correct_answer": "Max wanted to find the nature trail. -> The sign had fallen down. -> Max and Ana followed the blue path. -> They reached the pond and fixed the sign.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The correct order follows what happened first, next, then last.",
+          "feedback": "Yes — Max wanted to find the nature trail. -> The sign had fallen down. -> Max and Ana followed the blue path. -> They reached the pond and fixed the sign. fits.",
+          "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+          "events": [
+            "Max wanted to find the nature trail.",
+            "The sign had fallen down.",
+            "Max and Ana followed the blue path.",
+            "They reached the pond and fixed the sign."
+          ],
+          "choices": [
+            "Max wanted to find the nature trail.",
+            "The sign had fallen down.",
+            "Max and Ana followed the blue path.",
+            "They reached the pond and fixed the sign."
+          ],
+          "acceptable_answers": [
+            "Max wanted to find the nature trail. -> The sign had fallen down. -> Max and Ana followed the blue path. -> They reached the pond and fixed the sign.",
+            "1,2,3,4",
+            "Max wanted to find the nature trail.|The sign had fallen down.|Max and Ana followed the blue path.|They reached the pond and fixed the sign."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL3_Q07",
+          "prompt": "Put the story events in beginning, middle, and end order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "Bella brought her drum to music class. -> A strap snapped. -> Mr. Ross found a ribbon. -> Bella fixed the drum and played.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The correct order follows what happened first, next, then last.",
+          "feedback": "Yes — Bella brought her drum to music class. -> A strap snapped. -> Mr. Ross found a ribbon. -> Bella fixed the drum and played. fits.",
+          "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+          "events": [
+            "Bella brought her drum to music class.",
+            "A strap snapped.",
+            "Mr. Ross found a ribbon.",
+            "Bella fixed the drum and played."
+          ],
+          "choices": [
+            "Bella brought her drum to music class.",
+            "A strap snapped.",
+            "Mr. Ross found a ribbon.",
+            "Bella fixed the drum and played."
+          ],
+          "acceptable_answers": [
+            "Bella brought her drum to music class. -> A strap snapped. -> Mr. Ross found a ribbon. -> Bella fixed the drum and played.",
+            "1,2,3,4",
+            "Bella brought her drum to music class.|A strap snapped.|Mr. Ross found a ribbon.|Bella fixed the drum and played."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL3_Q08",
+          "prompt": "Put the story events in beginning, middle, and end order.",
+          "question_type": "sequencing",
+          "visual_model": "picture_order",
+          "support_type": "picture_order",
+          "correct_answer": "Jade and Leo set lunch on a blanket. -> Ants marched toward the grapes. -> Jade moved the food to a table. -> Leo cleaned crumbs and the ants left.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The correct order follows what happened first, next, then last.",
+          "feedback": "Yes — Jade and Leo set lunch on a blanket. -> Ants marched toward the grapes. -> Jade moved the food to a table. -> Leo cleaned crumbs and the ants left. fits.",
+          "passage": "Jade and Leo set lunch on a park blanket. Ants marched toward the grapes, so Jade moved the food to a table. Leo brushed crumbs into a bag, and the ants went back to the grass.",
+          "events": [
+            "Jade and Leo set lunch on a blanket.",
+            "Ants marched toward the grapes.",
+            "Jade moved the food to a table.",
+            "Leo cleaned crumbs and the ants left."
+          ],
+          "choices": [
+            "Jade and Leo set lunch on a blanket.",
+            "Ants marched toward the grapes.",
+            "Jade moved the food to a table.",
+            "Leo cleaned crumbs and the ants left."
+          ],
+          "acceptable_answers": [
+            "Jade and Leo set lunch on a blanket. -> Ants marched toward the grapes. -> Jade moved the food to a table. -> Leo cleaned crumbs and the ants left.",
+            "1,2,3,4",
+            "Jade and Leo set lunch on a blanket.|Ants marched toward the grapes.|Jade moved the food to a table.|Leo cleaned crumbs and the ants left."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL3_Q09",
+          "prompt": "Put the story events in beginning, middle, and end order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "Tess built a cardboard robot. -> The head tipped over. -> Tess added tape and a smaller box. -> The robot stayed upright.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The correct order follows what happened first, next, then last.",
+          "feedback": "Yes — Tess built a cardboard robot. -> The head tipped over. -> Tess added tape and a smaller box. -> The robot stayed upright. fits.",
+          "passage": "Tess built a cardboard robot for the class parade. The robot head was too heavy and tipped over. Tess added tape and a smaller box, so the robot stayed upright.",
+          "events": [
+            "Tess built a cardboard robot.",
+            "The head tipped over.",
+            "Tess added tape and a smaller box.",
+            "The robot stayed upright."
+          ],
+          "choices": [
+            "Tess built a cardboard robot.",
+            "The head tipped over.",
+            "Tess added tape and a smaller box.",
+            "The robot stayed upright."
+          ],
+          "acceptable_answers": [
+            "Tess built a cardboard robot. -> The head tipped over. -> Tess added tape and a smaller box. -> The robot stayed upright.",
+            "1,2,3,4",
+            "Tess built a cardboard robot.|The head tipped over.|Tess added tape and a smaller box.|The robot stayed upright."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL3_Q10",
+          "prompt": "Put the story events in beginning, middle, and end order.",
+          "question_type": "sequencing",
+          "visual_model": "picture_order",
+          "support_type": "picture_order",
+          "correct_answer": "Sam saw a nest. -> Kids ran close to it. -> Sam told the teacher. -> The class moved the game and watched quietly.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The correct order follows what happened first, next, then last.",
+          "feedback": "Yes — Sam saw a nest. -> Kids ran close to it. -> Sam told the teacher. -> The class moved the game and watched quietly. fits.",
+          "passage": "Sam saw a nest on the low branch near the playground. Kids were running close to it, so Sam told the teacher. The class moved the game away and watched the birds quietly.",
+          "events": [
+            "Sam saw a nest.",
+            "Kids ran close to it.",
+            "Sam told the teacher.",
+            "The class moved the game and watched quietly."
+          ],
+          "choices": [
+            "Sam saw a nest.",
+            "Kids ran close to it.",
+            "Sam told the teacher.",
+            "The class moved the game and watched quietly."
+          ],
+          "acceptable_answers": [
+            "Sam saw a nest. -> Kids ran close to it. -> Sam told the teacher. -> The class moved the game and watched quietly.",
+            "1,2,3,4",
+            "Sam saw a nest.|Kids ran close to it.|Sam told the teacher.|The class moved the game and watched quietly."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RC_002_LVL4",
+      "label": "Level 4: Retell the Story",
+      "focus": "Choose or write a complete retell.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RC_002_LVL4_Q01",
+          "prompt": "Which retell includes the important story parts in order?",
+          "question_type": "short_response",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "Max and Ana used a map to find the trail and fix the fallen sign.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "retell_detail_gap",
+          "explanation": "Max and Ana used a map to find the trail and fix the fallen sign. is supported by the text.",
+          "feedback": "Yes — Max and Ana used a map to find the trail and fix the fallen sign. fits.",
+          "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+          "events": [
+            "Max wanted to find the nature trail.",
+            "The sign had fallen down.",
+            "Max and Ana followed the blue path.",
+            "They reached the pond and fixed the sign."
+          ],
+          "choices": [
+            "Max and Ana used a map to find the trail and fix the fallen sign.",
+            "The story is only about the nature trail.",
+            "the sign had fallen down",
+            "The ending happened before the beginning."
+          ],
+          "acceptable_answers": [
+            "Max and Ana used a map to find the trail and fix the fallen sign.",
+            "Max and Ana used a map to find the trail and fix the fallen sign..",
+            "max and ana used a map to find the trail and fix the fallen sign."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL4_Q02",
+          "prompt": "Which retell includes the important story parts in order?",
+          "question_type": "multiple_choice",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "Bella fixed her broken drum strap with a ribbon and joined music class.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "retell_detail_gap",
+          "explanation": "Bella fixed her broken drum strap with a ribbon and joined music class. is supported by the text.",
+          "feedback": "Yes — Bella fixed her broken drum strap with a ribbon and joined music class. fits.",
+          "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+          "events": [
+            "Bella brought her drum to music class.",
+            "A strap snapped.",
+            "Mr. Ross found a ribbon.",
+            "Bella fixed the drum and played."
+          ],
+          "choices": [
+            "Bella fixed her broken drum strap with a ribbon and joined music class.",
+            "The story is only about music class.",
+            "one drum strap snapped",
+            "The ending happened before the beginning."
+          ],
+          "acceptable_answers": [
+            "Bella fixed her broken drum strap with a ribbon and joined music class.",
+            "Bella fixed her broken drum strap with a ribbon and joined music class..",
+            "bella fixed her broken drum strap with a ribbon and joined music class."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL4_Q03",
+          "prompt": "Which retell includes the important story parts in order?",
+          "question_type": "multiple_choice",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "retell_detail_gap",
+          "explanation": "At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs. is supported by the text.",
+          "feedback": "Yes — At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs. fits.",
+          "passage": "Jade and Leo set lunch on a park blanket. Ants marched toward the grapes, so Jade moved the food to a table. Leo brushed crumbs into a bag, and the ants went back to the grass.",
+          "events": [
+            "Jade and Leo set lunch on a blanket.",
+            "Ants marched toward the grapes.",
+            "Jade moved the food to a table.",
+            "Leo cleaned crumbs and the ants left."
+          ],
+          "choices": [
+            "At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs.",
+            "The story is only about the park.",
+            "ants marched toward the grapes",
+            "The ending happened before the beginning."
+          ],
+          "acceptable_answers": [
+            "At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs.",
+            "At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs..",
+            "at the park, jade and leo solved the ant problem by moving food and cleaning crumbs."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL4_Q04",
+          "prompt": "Which retell includes the important story parts in order?",
+          "question_type": "short_response",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "Tess changed her robot so its heavy head would stay upright for the parade.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "retell_detail_gap",
+          "explanation": "Tess changed her robot so its heavy head would stay upright for the parade. is supported by the text.",
+          "feedback": "Yes — Tess changed her robot so its heavy head would stay upright for the parade. fits.",
+          "passage": "Tess built a cardboard robot for the class parade. The robot head was too heavy and tipped over. Tess added tape and a smaller box, so the robot stayed upright.",
+          "events": [
+            "Tess built a cardboard robot.",
+            "The head tipped over.",
+            "Tess added tape and a smaller box.",
+            "The robot stayed upright."
+          ],
+          "choices": [
+            "Tess changed her robot so its heavy head would stay upright for the parade.",
+            "The story is only about class parade.",
+            "the robot head was too heavy",
+            "The ending happened before the beginning."
+          ],
+          "acceptable_answers": [
+            "Tess changed her robot so its heavy head would stay upright for the parade.",
+            "Tess changed her robot so its heavy head would stay upright for the parade..",
+            "tess changed her robot so its heavy head would stay upright for the parade."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL4_Q05",
+          "prompt": "Which retell includes the important story parts in order?",
+          "question_type": "multiple_choice",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "Sam helped protect a nest by telling the teacher and moving the game away.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "retell_detail_gap",
+          "explanation": "Sam helped protect a nest by telling the teacher and moving the game away. is supported by the text.",
+          "feedback": "Yes — Sam helped protect a nest by telling the teacher and moving the game away. fits.",
+          "passage": "Sam saw a nest on the low branch near the playground. Kids were running close to it, so Sam told the teacher. The class moved the game away and watched the birds quietly.",
+          "events": [
+            "Sam saw a nest.",
+            "Kids ran close to it.",
+            "Sam told the teacher.",
+            "The class moved the game and watched quietly."
+          ],
+          "choices": [
+            "Sam helped protect a nest by telling the teacher and moving the game away.",
+            "The story is only about near the playground.",
+            "kids were running close to a nest",
+            "The ending happened before the beginning."
+          ],
+          "acceptable_answers": [
+            "Sam helped protect a nest by telling the teacher and moving the game away.",
+            "Sam helped protect a nest by telling the teacher and moving the game away..",
+            "sam helped protect a nest by telling the teacher and moving the game away."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL4_Q06",
+          "prompt": "Which retell includes the important story parts in order?",
+          "question_type": "multiple_choice",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "Max and Ana used a map to find the trail and fix the fallen sign.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "retell_detail_gap",
+          "explanation": "Max and Ana used a map to find the trail and fix the fallen sign. is supported by the text.",
+          "feedback": "Yes — Max and Ana used a map to find the trail and fix the fallen sign. fits.",
+          "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+          "events": [
+            "Max wanted to find the nature trail.",
+            "The sign had fallen down.",
+            "Max and Ana followed the blue path.",
+            "They reached the pond and fixed the sign."
+          ],
+          "choices": [
+            "Max and Ana used a map to find the trail and fix the fallen sign.",
+            "The story is only about the nature trail.",
+            "the sign had fallen down",
+            "The ending happened before the beginning."
+          ],
+          "acceptable_answers": [
+            "Max and Ana used a map to find the trail and fix the fallen sign.",
+            "Max and Ana used a map to find the trail and fix the fallen sign..",
+            "max and ana used a map to find the trail and fix the fallen sign."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL4_Q07",
+          "prompt": "Which retell includes the important story parts in order?",
+          "question_type": "short_response",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "Bella fixed her broken drum strap with a ribbon and joined music class.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "retell_detail_gap",
+          "explanation": "Bella fixed her broken drum strap with a ribbon and joined music class. is supported by the text.",
+          "feedback": "Yes — Bella fixed her broken drum strap with a ribbon and joined music class. fits.",
+          "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+          "events": [
+            "Bella brought her drum to music class.",
+            "A strap snapped.",
+            "Mr. Ross found a ribbon.",
+            "Bella fixed the drum and played."
+          ],
+          "choices": [
+            "Bella fixed her broken drum strap with a ribbon and joined music class.",
+            "The story is only about music class.",
+            "one drum strap snapped",
+            "The ending happened before the beginning."
+          ],
+          "acceptable_answers": [
+            "Bella fixed her broken drum strap with a ribbon and joined music class.",
+            "Bella fixed her broken drum strap with a ribbon and joined music class..",
+            "bella fixed her broken drum strap with a ribbon and joined music class."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL4_Q08",
+          "prompt": "Which retell includes the important story parts in order?",
+          "question_type": "multiple_choice",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "retell_detail_gap",
+          "explanation": "At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs. is supported by the text.",
+          "feedback": "Yes — At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs. fits.",
+          "passage": "Jade and Leo set lunch on a park blanket. Ants marched toward the grapes, so Jade moved the food to a table. Leo brushed crumbs into a bag, and the ants went back to the grass.",
+          "events": [
+            "Jade and Leo set lunch on a blanket.",
+            "Ants marched toward the grapes.",
+            "Jade moved the food to a table.",
+            "Leo cleaned crumbs and the ants left."
+          ],
+          "choices": [
+            "At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs.",
+            "The story is only about the park.",
+            "ants marched toward the grapes",
+            "The ending happened before the beginning."
+          ],
+          "acceptable_answers": [
+            "At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs.",
+            "At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs..",
+            "at the park, jade and leo solved the ant problem by moving food and cleaning crumbs."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL4_Q09",
+          "prompt": "Which retell includes the important story parts in order?",
+          "question_type": "multiple_choice",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "Tess changed her robot so its heavy head would stay upright for the parade.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "retell_detail_gap",
+          "explanation": "Tess changed her robot so its heavy head would stay upright for the parade. is supported by the text.",
+          "feedback": "Yes — Tess changed her robot so its heavy head would stay upright for the parade. fits.",
+          "passage": "Tess built a cardboard robot for the class parade. The robot head was too heavy and tipped over. Tess added tape and a smaller box, so the robot stayed upright.",
+          "events": [
+            "Tess built a cardboard robot.",
+            "The head tipped over.",
+            "Tess added tape and a smaller box.",
+            "The robot stayed upright."
+          ],
+          "choices": [
+            "Tess changed her robot so its heavy head would stay upright for the parade.",
+            "The story is only about class parade.",
+            "the robot head was too heavy",
+            "The ending happened before the beginning."
+          ],
+          "acceptable_answers": [
+            "Tess changed her robot so its heavy head would stay upright for the parade.",
+            "Tess changed her robot so its heavy head would stay upright for the parade..",
+            "tess changed her robot so its heavy head would stay upright for the parade."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_LVL4_Q10",
+          "prompt": "Which retell includes the important story parts in order?",
+          "question_type": "short_response",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "Sam helped protect a nest by telling the teacher and moving the game away.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "retell_detail_gap",
+          "explanation": "Sam helped protect a nest by telling the teacher and moving the game away. is supported by the text.",
+          "feedback": "Yes — Sam helped protect a nest by telling the teacher and moving the game away. fits.",
+          "passage": "Sam saw a nest on the low branch near the playground. Kids were running close to it, so Sam told the teacher. The class moved the game away and watched the birds quietly.",
+          "events": [
+            "Sam saw a nest.",
+            "Kids ran close to it.",
+            "Sam told the teacher.",
+            "The class moved the game and watched quietly."
+          ],
+          "choices": [
+            "Sam helped protect a nest by telling the teacher and moving the game away.",
+            "The story is only about near the playground.",
+            "kids were running close to a nest",
+            "The ending happened before the beginning."
+          ],
+          "acceptable_answers": [
+            "Sam helped protect a nest by telling the teacher and moving the game away.",
+            "Sam helped protect a nest by telling the teacher and moving the game away..",
+            "sam helped protect a nest by telling the teacher and moving the game away."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RC_002_MIXED",
+      "label": "Mixed",
+      "focus": "Interleave story elements, sequence, and retelling.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RC_002_MIXED_Q01",
+          "prompt": "Who are the characters?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Max and Ana",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "character_setting_confusion",
+          "explanation": "Max and Ana is supported by the text.",
+          "feedback": "Yes — Max and Ana fits.",
+          "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+          "story_elements": {
+            "characters": "Max and Ana",
+            "setting": "the nature trail",
+            "problem": "the sign had fallen down",
+            "solution": "They used a map and put the sign back up."
+          },
+          "choices": [
+            "Max and Ana",
+            "the nature trail",
+            "the sign had fallen down",
+            "They used a map and put the sign back up."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_MIXED_Q02",
+          "prompt": "What is the setting?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "music class",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "character_setting_confusion",
+          "explanation": "music class is supported by the text.",
+          "feedback": "Yes — music class fits.",
+          "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+          "story_elements": {
+            "characters": "Bella and Mr. Ross",
+            "setting": "music class",
+            "problem": "one drum strap snapped",
+            "solution": "Bella tied on a ribbon from the art bin."
+          },
+          "choices": [
+            "music class",
+            "Bella and Mr. Ross",
+            "one drum strap snapped",
+            "Bella tied on a ribbon from the art bin."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_MIXED_Q03",
+          "prompt": "What is the problem in the story?",
+          "question_type": "short_response",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "the sign had fallen down",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "the sign had fallen down is supported by the text.",
+          "feedback": "Yes — the sign had fallen down fits.",
+          "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+          "story_elements": {
+            "characters": "Max and Ana",
+            "setting": "the nature trail",
+            "problem": "the sign had fallen down",
+            "solution": "They used a map and put the sign back up."
+          },
+          "choices": [
+            "the sign had fallen down",
+            "They used a map and put the sign back up.",
+            "the nature trail",
+            "a new character"
+          ],
+          "acceptable_answers": [
+            "the sign had fallen down",
+            "the sign had fallen down.",
+            "sign had fallen down"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_MIXED_Q04",
+          "prompt": "What is the solution in the story?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Bella tied on a ribbon from the art bin.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "Bella tied on a ribbon from the art bin. is supported by the text.",
+          "feedback": "Yes — Bella tied on a ribbon from the art bin. fits.",
+          "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+          "story_elements": {
+            "characters": "Bella and Mr. Ross",
+            "setting": "music class",
+            "problem": "one drum strap snapped",
+            "solution": "Bella tied on a ribbon from the art bin."
+          },
+          "choices": [
+            "Bella tied on a ribbon from the art bin.",
+            "one drum strap snapped",
+            "music class",
+            "a new character"
+          ],
+          "acceptable_answers": [
+            "Bella tied on a ribbon from the art bin.",
+            "Bella tied on a ribbon from the art bin..",
+            "Bella tied on a ribbon from the art bin."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_MIXED_Q05",
+          "prompt": "Put the story events in beginning, middle, and end order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "Max wanted to find the nature trail. -> The sign had fallen down. -> Max and Ana followed the blue path. -> They reached the pond and fixed the sign.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The correct order follows what happened first, next, then last.",
+          "feedback": "Yes — Max wanted to find the nature trail. -> The sign had fallen down. -> Max and Ana followed the blue path. -> They reached the pond and fixed the sign. fits.",
+          "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+          "events": [
+            "Max wanted to find the nature trail.",
+            "The sign had fallen down.",
+            "Max and Ana followed the blue path.",
+            "They reached the pond and fixed the sign."
+          ],
+          "choices": [
+            "Max wanted to find the nature trail.",
+            "The sign had fallen down.",
+            "Max and Ana followed the blue path.",
+            "They reached the pond and fixed the sign."
+          ],
+          "acceptable_answers": [
+            "Max wanted to find the nature trail. -> The sign had fallen down. -> Max and Ana followed the blue path. -> They reached the pond and fixed the sign.",
+            "1,2,3,4",
+            "Max wanted to find the nature trail.|The sign had fallen down.|Max and Ana followed the blue path.|They reached the pond and fixed the sign."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_MIXED_Q06",
+          "prompt": "Put the story events in beginning, middle, and end order.",
+          "question_type": "sequencing",
+          "visual_model": "picture_order",
+          "support_type": "picture_order",
+          "correct_answer": "Bella brought her drum to music class. -> A strap snapped. -> Mr. Ross found a ribbon. -> Bella fixed the drum and played.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The correct order follows what happened first, next, then last.",
+          "feedback": "Yes — Bella brought her drum to music class. -> A strap snapped. -> Mr. Ross found a ribbon. -> Bella fixed the drum and played. fits.",
+          "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+          "events": [
+            "Bella brought her drum to music class.",
+            "A strap snapped.",
+            "Mr. Ross found a ribbon.",
+            "Bella fixed the drum and played."
+          ],
+          "choices": [
+            "Bella brought her drum to music class.",
+            "A strap snapped.",
+            "Mr. Ross found a ribbon.",
+            "Bella fixed the drum and played."
+          ],
+          "acceptable_answers": [
+            "Bella brought her drum to music class. -> A strap snapped. -> Mr. Ross found a ribbon. -> Bella fixed the drum and played.",
+            "1,2,3,4",
+            "Bella brought her drum to music class.|A strap snapped.|Mr. Ross found a ribbon.|Bella fixed the drum and played."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_MIXED_Q07",
+          "prompt": "Put the story events in beginning, middle, and end order.",
+          "question_type": "sequencing",
+          "visual_model": "story_sequence",
+          "support_type": "story_sequence",
+          "correct_answer": "Jade and Leo set lunch on a blanket. -> Ants marched toward the grapes. -> Jade moved the food to a table. -> Leo cleaned crumbs and the ants left.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The correct order follows what happened first, next, then last.",
+          "feedback": "Yes — Jade and Leo set lunch on a blanket. -> Ants marched toward the grapes. -> Jade moved the food to a table. -> Leo cleaned crumbs and the ants left. fits.",
+          "passage": "Jade and Leo set lunch on a park blanket. Ants marched toward the grapes, so Jade moved the food to a table. Leo brushed crumbs into a bag, and the ants went back to the grass.",
+          "events": [
+            "Jade and Leo set lunch on a blanket.",
+            "Ants marched toward the grapes.",
+            "Jade moved the food to a table.",
+            "Leo cleaned crumbs and the ants left."
+          ],
+          "choices": [
+            "Jade and Leo set lunch on a blanket.",
+            "Ants marched toward the grapes.",
+            "Jade moved the food to a table.",
+            "Leo cleaned crumbs and the ants left."
+          ],
+          "acceptable_answers": [
+            "Jade and Leo set lunch on a blanket. -> Ants marched toward the grapes. -> Jade moved the food to a table. -> Leo cleaned crumbs and the ants left.",
+            "1,2,3,4",
+            "Jade and Leo set lunch on a blanket.|Ants marched toward the grapes.|Jade moved the food to a table.|Leo cleaned crumbs and the ants left."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_MIXED_Q08",
+          "prompt": "Which retell includes the important story parts in order?",
+          "question_type": "short_response",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "Max and Ana used a map to find the trail and fix the fallen sign.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "retell_detail_gap",
+          "explanation": "Max and Ana used a map to find the trail and fix the fallen sign. is supported by the text.",
+          "feedback": "Yes — Max and Ana used a map to find the trail and fix the fallen sign. fits.",
+          "passage": "Max wanted to find the nature trail, but the sign had fallen down. He looked at a map with Ana, and they followed the blue path. At the end, they reached the pond and put the sign back up.",
+          "events": [
+            "Max wanted to find the nature trail.",
+            "The sign had fallen down.",
+            "Max and Ana followed the blue path.",
+            "They reached the pond and fixed the sign."
+          ],
+          "choices": [
+            "Max and Ana used a map to find the trail and fix the fallen sign.",
+            "The story is only about the nature trail.",
+            "the sign had fallen down",
+            "The ending happened before the beginning."
+          ],
+          "acceptable_answers": [
+            "Max and Ana used a map to find the trail and fix the fallen sign.",
+            "Max and Ana used a map to find the trail and fix the fallen sign..",
+            "max and ana used a map to find the trail and fix the fallen sign."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_MIXED_Q09",
+          "prompt": "Which retell includes the important story parts in order?",
+          "question_type": "multiple_choice",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "Bella fixed her broken drum strap with a ribbon and joined music class.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "retell_detail_gap",
+          "explanation": "Bella fixed her broken drum strap with a ribbon and joined music class. is supported by the text.",
+          "feedback": "Yes — Bella fixed her broken drum strap with a ribbon and joined music class. fits.",
+          "passage": "Bella brought her drum to music class, but one strap snapped. Mr. Ross found a ribbon in the art bin. Bella tied the ribbon on the drum and played with the class.",
+          "events": [
+            "Bella brought her drum to music class.",
+            "A strap snapped.",
+            "Mr. Ross found a ribbon.",
+            "Bella fixed the drum and played."
+          ],
+          "choices": [
+            "Bella fixed her broken drum strap with a ribbon and joined music class.",
+            "The story is only about music class.",
+            "one drum strap snapped",
+            "The ending happened before the beginning."
+          ],
+          "acceptable_answers": [
+            "Bella fixed her broken drum strap with a ribbon and joined music class.",
+            "Bella fixed her broken drum strap with a ribbon and joined music class..",
+            "bella fixed her broken drum strap with a ribbon and joined music class."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_002_MIXED_Q10",
+          "prompt": "Which retell includes the important story parts in order?",
+          "question_type": "multiple_choice",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "retell_detail_gap",
+          "explanation": "At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs. is supported by the text.",
+          "feedback": "Yes — At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs. fits.",
+          "passage": "Jade and Leo set lunch on a park blanket. Ants marched toward the grapes, so Jade moved the food to a table. Leo brushed crumbs into a bag, and the ants went back to the grass.",
+          "events": [
+            "Jade and Leo set lunch on a blanket.",
+            "Ants marched toward the grapes.",
+            "Jade moved the food to a table.",
+            "Leo cleaned crumbs and the ants left."
+          ],
+          "choices": [
+            "At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs.",
+            "The story is only about the park.",
+            "ants marched toward the grapes",
+            "The ending happened before the beginning."
+          ],
+          "acceptable_answers": [
+            "At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs.",
+            "At the park, Jade and Leo solved the ant problem by moving food and cleaning crumbs..",
+            "at the park, jade and leo solved the ant problem by moving food and cleaning crumbs."
+          ]
+        }
+      ]
+    }
+  ]
+}
