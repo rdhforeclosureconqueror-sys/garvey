@@ -16,7 +16,7 @@ const packageFiles = fs.readdirSync(contentDir)
 const requiredGrade1MathSkillIds = ['G1M_NS_001', 'G1M_NS_002', 'G1M_NS_003', 'G1M_PV_001', 'G1M_OP_001', 'G1M_OP_002', 'G1M_OP_003', 'G1M_GM_001', 'G1M_GM_002', 'G1M_DP_001', 'G1M_MD_TIME_001'];
 const requiredGrade1EnglishSkillIds = ['G1E_RF_001', 'G1E_RF_002', 'G1E_PH_001', 'G1E_PH_002', 'G1E_SW_001', 'G1E_FL_001', 'G1E_RC_001', 'G1E_RC_002', 'G1E_WR_001', 'G1E_WR_002'];
 const requiredGrade1SkillIds = [...requiredGrade1MathSkillIds, ...requiredGrade1EnglishSkillIds];
-const requiredGrade2SkillIds = ['G2E_RF_001', 'G2E_RF_002', 'G2E_FL_001', 'G2E_VOC_001', 'G2M_NS_001', 'G2M_PV_001', 'G2M_NS_002', 'G2M_OP_001', 'G2M_OP_002', 'G2M_OP_003', 'G2M_WP_001', 'G2M_MD_001', 'G2M_MD_002', 'G2M_MD_003', 'G2M_GM_001'];
+const requiredGrade2SkillIds = ['G2E_RF_001', 'G2E_RF_002', 'G2E_FL_001', 'G2E_VOC_001', 'G2E_RC_001', 'G2E_RC_002', 'G2E_RC_003', 'G2M_NS_001', 'G2M_PV_001', 'G2M_NS_002', 'G2M_OP_001', 'G2M_OP_002', 'G2M_OP_003', 'G2M_WP_001', 'G2M_MD_001', 'G2M_MD_002', 'G2M_MD_003', 'G2M_GM_001'];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -57,7 +57,7 @@ test('Active Grade 1 packages expose real level banks for hub Practice This Skil
     assert.equal(pkg.level_banks_status, undefined);
     assert.equal(Array.isArray(pkg.level_banks), true);
     assert.equal(pkg.level_banks.length >= 5, true);
-    assert.equal(pkg.level_banks.some((level) => /mixed/i.test(`${level.level_id} ${level.label}`)), true);
+    assert.equal(pkg.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
     assert.equal(pkg.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
   }
 });
@@ -88,8 +88,8 @@ test('All Grade 1 English Skill World packages appear from manifest for the hub'
     assert.equal(english.grade, 1);
     assert.equal(english.subject, 'English');
     assert.equal(Array.isArray(english.level_banks), true);
-    assert.equal(english.level_banks.filter((level) => !/mixed/i.test(`${level.level_id} ${level.label}`)).length, 4);
-    assert.equal(english.level_banks.some((level) => /mixed/i.test(`${level.level_id} ${level.label}`)), true);
+    assert.equal(english.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+    assert.equal(english.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
     assert.equal(`/skill-world/${encodeURIComponent(english.skill_id)}/drill`, `/skill-world/${english.skill_id}/drill`);
   }
   assert.match(hub, /title:pkg\.skill/);
@@ -105,8 +105,8 @@ test('Grade 2 Skill World packages appear from manifest for the hub', () => {
     assert.equal(g2.grade, 2);
     assert.equal(['Math', 'English'].includes(g2.subject), true);
     assert.equal(Array.isArray(g2.level_banks), true);
-    assert.equal(g2.level_banks.filter((level) => !/mixed/i.test(`${level.level_id} ${level.label}`)).length, 4);
-    assert.equal(g2.level_banks.some((level) => /mixed/i.test(`${level.level_id} ${level.label}`)), true);
+    assert.equal(g2.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+    assert.equal(g2.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
     assert.equal(g2.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
     assert.equal(`/skill-world/${encodeURIComponent(g2.skill_id)}/drill`, `/skill-world/${g2.skill_id}/drill`);
   }
@@ -116,10 +116,16 @@ test('Grade 2 Skill World packages appear from manifest for the hub', () => {
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2E_RF_002').skill, 'Prefixes, Suffixes, and Base Words');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2E_FL_001').skill, 'Grade 2 Sight Words and Fluency');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2E_VOC_001').skill, 'Vocabulary and Context Clues');
+  assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2E_RC_001').skill, 'Ask and Answer Questions About Text');
+  assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2E_RC_002').skill, 'Story Structure and Retelling');
+  assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2E_RC_003').skill, 'Main Idea and Key Details');
   assert.equal(`/skill-world/${encodeURIComponent('G2E_RF_001')}/drill`, '/skill-world/G2E_RF_001/drill');
   assert.equal(`/skill-world/${encodeURIComponent('G2E_RF_002')}/drill`, '/skill-world/G2E_RF_002/drill');
   assert.equal(`/skill-world/${encodeURIComponent('G2E_FL_001')}/drill`, '/skill-world/G2E_FL_001/drill');
   assert.equal(`/skill-world/${encodeURIComponent('G2E_VOC_001')}/drill`, '/skill-world/G2E_VOC_001/drill');
+  assert.equal(`/skill-world/${encodeURIComponent('G2E_RC_001')}/drill`, '/skill-world/G2E_RC_001/drill');
+  assert.equal(`/skill-world/${encodeURIComponent('G2E_RC_002')}/drill`, '/skill-world/G2E_RC_002/drill');
+  assert.equal(`/skill-world/${encodeURIComponent('G2E_RC_003')}/drill`, '/skill-world/G2E_RC_003/drill');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_NS_001').domain, 'Number Sense / Base Ten');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_NS_001').skill, 'Count, Read, and Write Numbers to 1,000');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_NS_002').domain, 'Number and Operations in Base Ten');

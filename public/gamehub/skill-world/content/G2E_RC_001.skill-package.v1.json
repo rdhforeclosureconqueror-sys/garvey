@@ -1,0 +1,1921 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "generated_at": "2026-05-30",
+    "source": "Grade 2 English reading comprehension batch"
+  },
+  "skill_id": "G2E_RC_001",
+  "grade": 2,
+  "subject": "English",
+  "domain": "Reading Comprehension",
+  "skill": "Ask and Answer Questions About Text",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Join the Evidence Explorers and answer questions only when the passage proves your answer.",
+    "objective": "I can answer who, what, where, when, why, and how questions using text evidence.",
+    "key_vocabulary": [
+      "who",
+      "what",
+      "where",
+      "when",
+      "why",
+      "how",
+      "text evidence"
+    ],
+    "concept_explanation": "Question words tell readers what kind of answer to find. Strong readers return to the passage and use details as evidence.",
+    "visual_model": "evidence_highlight",
+    "common_misconception": "Readers may answer from memory or a picture instead of checking the words in the passage.",
+    "real_world_connection": "Using evidence helps readers explain answers in class discussions, book talks, and research.",
+    "lesson_summary": "Read the question word, reread the passage, find evidence, then answer in your own words.",
+    "mini_lesson": "Ask what the question word is looking for, then prove the answer with a sentence from the text."
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: The question asks who, so reread to find the person named in the passage.",
+      "correct_answer": "Nina",
+      "visual_model": "evidence_highlight",
+      "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+      "evidence_span": "Nina carried a tray of bean seedlings to the school garden on Friday morning."
+    },
+    {
+      "text": "Demo: The sentence with because often helps answer why.",
+      "correct_answer": "because the spot was sunny",
+      "visual_model": "short_passage",
+      "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out."
+    }
+  ],
+  "hint_ladder": [
+    "Read the question word first.",
+    "Go back to the passage and find the sentence that answers it.",
+    "Use words from the text as evidence."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G2E_RC_001_LVL1_Q01",
+      "prompt": "Who carried or found something in the passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "Nina",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "question_word_confusion",
+      "explanation": "Nina is supported by the text.",
+      "feedback": "Yes — Nina fits.",
+      "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+      "story": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+      "scene": "Nina and the Seedlings",
+      "choices": [
+        "Nina",
+        "Friday morning",
+        "because the spot was sunny",
+        "not in the story"
+      ]
+    },
+    {
+      "question_id": "G2E_RC_001_LVL1_Q02",
+      "prompt": "What happened in the passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "question_card",
+      "support_type": "question_card",
+      "correct_answer": "He found a red scarf.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "unsupported_answer",
+      "explanation": "He found a red scarf. is supported by the text.",
+      "feedback": "Yes — He found a red scarf. fits.",
+      "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+      "story": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+      "scene": "The Lost Scarf",
+      "choices": [
+        "He found a red scarf.",
+        "after lunch",
+        "because it had a name tag",
+        "not in the story"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G2E_RC_001_LVL2_Q01",
+      "prompt": "When did it happen?",
+      "question_type": "short_response",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "Friday morning",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "question_word_confusion",
+      "explanation": "Friday morning is supported by the text.",
+      "feedback": "Yes — Friday morning fits.",
+      "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+      "choices": [
+        "Friday morning",
+        "Nina",
+        "the school garden",
+        "not enough evidence"
+      ],
+      "acceptable_answers": [
+        "Friday morning",
+        "Friday morning",
+        "Friday morning."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_001_LVL2_Q02",
+      "prompt": "Why did it happen?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "because it had a name tag",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "detail_inference_confusion",
+      "explanation": "because it had a name tag is supported by the text.",
+      "feedback": "Yes — because it had a name tag fits.",
+      "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+      "choices": [
+        "because it had a name tag",
+        "Omar",
+        "under the library table",
+        "not enough evidence"
+      ],
+      "acceptable_answers": [
+        "because it had a name tag",
+        "it had a name tag",
+        "because it had a name tag."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_001_LVL2_Q03",
+      "prompt": "How did the character solve or do it?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "They made the base wider.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "unsupported_answer",
+      "explanation": "They made the base wider. is supported by the text.",
+      "feedback": "Yes — They made the base wider. fits.",
+      "passage": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+      "choices": [
+        "They made the base wider.",
+        "Maya and Ben",
+        "Room 2",
+        "not enough evidence"
+      ],
+      "acceptable_answers": [
+        "They made the base wider.",
+        "They made the base wider.",
+        "They made the base wider.."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_001_LVL2_Q04",
+      "prompt": "When did it happen?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "Saturday",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "question_word_confusion",
+      "explanation": "Saturday is supported by the text.",
+      "feedback": "Yes — Saturday fits.",
+      "passage": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+      "choices": [
+        "Saturday",
+        "Dad",
+        "home/on the rug",
+        "not enough evidence"
+      ],
+      "acceptable_answers": [
+        "Saturday",
+        "Saturday",
+        "Saturday."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_001_LVL2_Q05",
+      "prompt": "Why did it happen?",
+      "question_type": "short_response",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "to thank her for helping everyone feel better",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "detail_inference_confusion",
+      "explanation": "to thank her for helping everyone feel better is supported by the text.",
+      "feedback": "Yes — to thank her for helping everyone feel better fits.",
+      "passage": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+      "choices": [
+        "to thank her for helping everyone feel better",
+        "The students",
+        "art class",
+        "not enough evidence"
+      ],
+      "acceptable_answers": [
+        "to thank her for helping everyone feel better",
+        "to thank her for helping everyone feel better",
+        "to thank her for helping everyone feel better."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_001_LVL2_Q06",
+      "prompt": "How did the character solve or do it?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "She watered each plant.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "unsupported_answer",
+      "explanation": "She watered each plant. is supported by the text.",
+      "feedback": "Yes — She watered each plant. fits.",
+      "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+      "choices": [
+        "She watered each plant.",
+        "Nina",
+        "the school garden",
+        "not enough evidence"
+      ],
+      "acceptable_answers": [
+        "She watered each plant.",
+        "She watered each plant.",
+        "She watered each plant.."
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G2E_RC_001_MIXED_Q01",
+      "prompt": "Who carried or found something in the passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "Nina",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "question_word_confusion",
+      "explanation": "Nina is supported by the text.",
+      "feedback": "Yes — Nina fits.",
+      "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+      "story": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+      "scene": "Nina and the Seedlings",
+      "choices": [
+        "Nina",
+        "Friday morning",
+        "because the spot was sunny",
+        "not in the story"
+      ]
+    },
+    {
+      "question_id": "G2E_RC_001_MIXED_Q02",
+      "prompt": "What happened in the passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "question_card",
+      "support_type": "question_card",
+      "correct_answer": "He found a red scarf.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "unsupported_answer",
+      "explanation": "He found a red scarf. is supported by the text.",
+      "feedback": "Yes — He found a red scarf. fits.",
+      "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+      "story": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+      "scene": "The Lost Scarf",
+      "choices": [
+        "He found a red scarf.",
+        "after lunch",
+        "because it had a name tag",
+        "not in the story"
+      ]
+    },
+    {
+      "question_id": "G2E_RC_001_MIXED_Q03",
+      "prompt": "When did it happen?",
+      "question_type": "short_response",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "Friday morning",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "question_word_confusion",
+      "explanation": "Friday morning is supported by the text.",
+      "feedback": "Yes — Friday morning fits.",
+      "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+      "choices": [
+        "Friday morning",
+        "Nina",
+        "the school garden",
+        "not enough evidence"
+      ],
+      "acceptable_answers": [
+        "Friday morning",
+        "Friday morning",
+        "Friday morning."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_001_MIXED_Q04",
+      "prompt": "Why did it happen?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "because it had a name tag",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "detail_inference_confusion",
+      "explanation": "because it had a name tag is supported by the text.",
+      "feedback": "Yes — because it had a name tag fits.",
+      "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+      "choices": [
+        "because it had a name tag",
+        "Omar",
+        "under the library table",
+        "not enough evidence"
+      ],
+      "acceptable_answers": [
+        "because it had a name tag",
+        "it had a name tag",
+        "because it had a name tag."
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "unsupported_answer": "The answer is not supported by the passage.",
+    "question_word_confusion": "The answer matches the wrong question word.",
+    "misses_text_evidence": "The answer is reasonable but does not cite or use evidence.",
+    "detail_inference_confusion": "The answer confuses stated details with an inference."
+  },
+  "game_theme": {
+    "theme_name": "Evidence Explorer Trail",
+    "mission_intro": "Use passage clues to answer who, what, where, when, why, and how questions.",
+    "badge_name": "Text Evidence Explorer",
+    "reward_icon": "🔎",
+    "world": "Reading Comprehension"
+  },
+  "next_skill_id": null,
+  "remediation_skill_id": null,
+  "level_banks": [
+    {
+      "level_id": "G2E_RC_001_LVL1",
+      "label": "Level 1: Who / What / Where",
+      "focus": "Answer who, what, and where questions from short texts.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RC_001_LVL1_Q01",
+          "prompt": "Who carried or found something in the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Nina",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "Nina is supported by the text.",
+          "feedback": "Yes — Nina fits.",
+          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "story": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "scene": "Nina and the Seedlings",
+          "choices": [
+            "Nina",
+            "Friday morning",
+            "because the spot was sunny",
+            "not in the story"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL1_Q02",
+          "prompt": "What happened in the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "He found a red scarf.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "He found a red scarf. is supported by the text.",
+          "feedback": "Yes — He found a red scarf. fits.",
+          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+          "story": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+          "scene": "The Lost Scarf",
+          "choices": [
+            "He found a red scarf.",
+            "after lunch",
+            "because it had a name tag",
+            "not in the story"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL1_Q03",
+          "prompt": "Where did the event happen?",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_story",
+          "support_type": "picture_story",
+          "correct_answer": "Room 2",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "Room 2 is supported by the text.",
+          "feedback": "Yes — Room 2 fits.",
+          "passage": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+          "story": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+          "scene": "Rainy Recess",
+          "choices": [
+            "Room 2",
+            "during recess",
+            "because rain tapped on the windows",
+            "not in the story"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL1_Q04",
+          "prompt": "Who carried or found something in the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Dad",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "Dad is supported by the text.",
+          "feedback": "Yes — Dad fits.",
+          "passage": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+          "story": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+          "scene": "The New Puppy",
+          "choices": [
+            "Dad",
+            "Saturday",
+            "because he had black spots",
+            "not in the story"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL1_Q05",
+          "prompt": "What happened in the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "They made a thank-you card.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "They made a thank-you card. is supported by the text.",
+          "feedback": "Yes — They made a thank-you card. fits.",
+          "passage": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+          "story": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+          "scene": "A Class Card",
+          "choices": [
+            "They made a thank-you card.",
+            "during art class",
+            "to thank her for helping everyone feel better",
+            "not in the story"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL1_Q06",
+          "prompt": "Where did the event happen?",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_story",
+          "support_type": "picture_story",
+          "correct_answer": "the school garden",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "the school garden is supported by the text.",
+          "feedback": "Yes — the school garden fits.",
+          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "story": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "scene": "Nina and the Seedlings",
+          "choices": [
+            "the school garden",
+            "Friday morning",
+            "because the spot was sunny",
+            "not in the story"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL1_Q07",
+          "prompt": "Who carried or found something in the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Omar",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "Omar is supported by the text.",
+          "feedback": "Yes — Omar fits.",
+          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+          "story": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+          "scene": "The Lost Scarf",
+          "choices": [
+            "Omar",
+            "after lunch",
+            "because it had a name tag",
+            "not in the story"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL1_Q08",
+          "prompt": "What happened in the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "They built a tall block tower.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "They built a tall block tower. is supported by the text.",
+          "feedback": "Yes — They built a tall block tower. fits.",
+          "passage": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+          "story": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+          "scene": "Rainy Recess",
+          "choices": [
+            "They built a tall block tower.",
+            "during recess",
+            "because rain tapped on the windows",
+            "not in the story"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL1_Q09",
+          "prompt": "Where did the event happen?",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_story",
+          "support_type": "picture_story",
+          "correct_answer": "home/on the rug",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "home/on the rug is supported by the text.",
+          "feedback": "Yes — home/on the rug fits.",
+          "passage": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+          "story": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+          "scene": "The New Puppy",
+          "choices": [
+            "home/on the rug",
+            "Saturday",
+            "because he had black spots",
+            "not in the story"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL1_Q10",
+          "prompt": "Who carried or found something in the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "The students",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "The students is supported by the text.",
+          "feedback": "Yes — The students fits.",
+          "passage": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+          "story": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+          "scene": "A Class Card",
+          "choices": [
+            "The students",
+            "during art class",
+            "to thank her for helping everyone feel better",
+            "not in the story"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RC_001_LVL2",
+      "label": "Level 2: When / Why / How",
+      "focus": "Answer when, why, and how questions from short texts.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RC_001_LVL2_Q01",
+          "prompt": "When did it happen?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Friday morning",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "Friday morning is supported by the text.",
+          "feedback": "Yes — Friday morning fits.",
+          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "choices": [
+            "Friday morning",
+            "Nina",
+            "the school garden",
+            "not enough evidence"
+          ],
+          "acceptable_answers": [
+            "Friday morning",
+            "Friday morning",
+            "Friday morning."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL2_Q02",
+          "prompt": "Why did it happen?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "because it had a name tag",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_inference_confusion",
+          "explanation": "because it had a name tag is supported by the text.",
+          "feedback": "Yes — because it had a name tag fits.",
+          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+          "choices": [
+            "because it had a name tag",
+            "Omar",
+            "under the library table",
+            "not enough evidence"
+          ],
+          "acceptable_answers": [
+            "because it had a name tag",
+            "it had a name tag",
+            "because it had a name tag."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL2_Q03",
+          "prompt": "How did the character solve or do it?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "They made the base wider.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "They made the base wider. is supported by the text.",
+          "feedback": "Yes — They made the base wider. fits.",
+          "passage": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+          "choices": [
+            "They made the base wider.",
+            "Maya and Ben",
+            "Room 2",
+            "not enough evidence"
+          ],
+          "acceptable_answers": [
+            "They made the base wider.",
+            "They made the base wider.",
+            "They made the base wider.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL2_Q04",
+          "prompt": "When did it happen?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Saturday",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "Saturday is supported by the text.",
+          "feedback": "Yes — Saturday fits.",
+          "passage": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+          "choices": [
+            "Saturday",
+            "Dad",
+            "home/on the rug",
+            "not enough evidence"
+          ],
+          "acceptable_answers": [
+            "Saturday",
+            "Saturday",
+            "Saturday."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL2_Q05",
+          "prompt": "Why did it happen?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "to thank her for helping everyone feel better",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_inference_confusion",
+          "explanation": "to thank her for helping everyone feel better is supported by the text.",
+          "feedback": "Yes — to thank her for helping everyone feel better fits.",
+          "passage": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+          "choices": [
+            "to thank her for helping everyone feel better",
+            "The students",
+            "art class",
+            "not enough evidence"
+          ],
+          "acceptable_answers": [
+            "to thank her for helping everyone feel better",
+            "to thank her for helping everyone feel better",
+            "to thank her for helping everyone feel better."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL2_Q06",
+          "prompt": "How did the character solve or do it?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "She watered each plant.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "She watered each plant. is supported by the text.",
+          "feedback": "Yes — She watered each plant. fits.",
+          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "choices": [
+            "She watered each plant.",
+            "Nina",
+            "the school garden",
+            "not enough evidence"
+          ],
+          "acceptable_answers": [
+            "She watered each plant.",
+            "She watered each plant.",
+            "She watered each plant.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL2_Q07",
+          "prompt": "When did it happen?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "after lunch",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "after lunch is supported by the text.",
+          "feedback": "Yes — after lunch fits.",
+          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+          "choices": [
+            "after lunch",
+            "Omar",
+            "under the library table",
+            "not enough evidence"
+          ],
+          "acceptable_answers": [
+            "after lunch",
+            "after lunch",
+            "after lunch."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL2_Q08",
+          "prompt": "Why did it happen?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "because rain tapped on the windows",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_inference_confusion",
+          "explanation": "because rain tapped on the windows is supported by the text.",
+          "feedback": "Yes — because rain tapped on the windows fits.",
+          "passage": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+          "choices": [
+            "because rain tapped on the windows",
+            "Maya and Ben",
+            "Room 2",
+            "not enough evidence"
+          ],
+          "acceptable_answers": [
+            "because rain tapped on the windows",
+            "rain tapped on the windows",
+            "because rain tapped on the windows."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL2_Q09",
+          "prompt": "How did the character solve or do it?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Pepper wagged his tail and curled up.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "Pepper wagged his tail and curled up. is supported by the text.",
+          "feedback": "Yes — Pepper wagged his tail and curled up. fits.",
+          "passage": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+          "choices": [
+            "Pepper wagged his tail and curled up.",
+            "Dad",
+            "home/on the rug",
+            "not enough evidence"
+          ],
+          "acceptable_answers": [
+            "Pepper wagged his tail and curled up.",
+            "Pepper wagged his tail and curled up.",
+            "Pepper wagged his tail and curled up.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL2_Q10",
+          "prompt": "When did it happen?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "during art class",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "during art class is supported by the text.",
+          "feedback": "Yes — during art class fits.",
+          "passage": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+          "choices": [
+            "during art class",
+            "The students",
+            "art class",
+            "not enough evidence"
+          ],
+          "acceptable_answers": [
+            "during art class",
+            "during art class",
+            "during art class."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RC_001_LVL3",
+      "label": "Level 3: Find Text Evidence",
+      "focus": "Choose the sentence that proves an answer.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RC_001_LVL3_Q01",
+          "prompt": "Which sentence from the text best proves the answer?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Her class planted them beside the fence because the spot was sunny.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "Her class planted them beside the fence because the spot was sunny. is supported by the text.",
+          "feedback": "Yes — Her class planted them beside the fence because the spot was sunny. fits.",
+          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "evidence_span": "Her class planted them beside the fence because the spot was sunny.",
+          "evidence_spans": [
+            "Her class planted them beside the fence because the spot was sunny."
+          ],
+          "choices": [
+            "Her class planted them beside the fence because the spot was sunny.",
+            "This choice is not in the passage.",
+            "The picture gives a clue.",
+            "A reader might guess this."
+          ],
+          "acceptable_answers": [
+            "Her class planted them beside the fence because the spot was sunny.",
+            "her class planted them beside the fence because the spot was sunny.",
+            "Her class planted them beside the fence because the spot was sunny.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL3_Q02",
+          "prompt": "Which sentence from the text best proves the answer?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Bees also move pollen from flower to flower, which helps many plants grow.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "Bees also move pollen from flower to flower, which helps many plants grow. is supported by the text.",
+          "feedback": "Yes — Bees also move pollen from flower to flower, which helps many plants grow. fits.",
+          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+          "evidence_span": "Bees also move pollen from flower to flower, which helps many plants grow.",
+          "evidence_spans": [
+            "Bees also move pollen from flower to flower, which helps many plants grow."
+          ],
+          "choices": [
+            "Bees also move pollen from flower to flower, which helps many plants grow.",
+            "This choice is not in the passage.",
+            "The picture gives a clue.",
+            "A reader might guess this."
+          ],
+          "acceptable_answers": [
+            "Bees also move pollen from flower to flower, which helps many plants grow.",
+            "bees also move pollen from flower to flower, which helps many plants grow.",
+            "Bees also move pollen from flower to flower, which helps many plants grow.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL3_Q03",
+          "prompt": "Which sentence from the text best proves the answer?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "He gave it to Ms. Lee because it had a name tag.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "He gave it to Ms. Lee because it had a name tag. is supported by the text.",
+          "feedback": "Yes — He gave it to Ms. Lee because it had a name tag. fits.",
+          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+          "evidence_span": "He gave it to Ms. Lee because it had a name tag.",
+          "evidence_spans": [
+            "He gave it to Ms. Lee because it had a name tag."
+          ],
+          "choices": [
+            "He gave it to Ms. Lee because it had a name tag.",
+            "This choice is not in the passage.",
+            "The picture gives a clue.",
+            "A reader might guess this."
+          ],
+          "acceptable_answers": [
+            "He gave it to Ms. Lee because it had a name tag.",
+            "he gave it to ms. lee because it had a name tag.",
+            "He gave it to Ms. Lee because it had a name tag.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL3_Q04",
+          "prompt": "Which sentence from the text best proves the answer?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Firefighters train to keep people safe.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "Firefighters train to keep people safe. is supported by the text.",
+          "feedback": "Yes — Firefighters train to keep people safe. fits.",
+          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+          "evidence_span": "Firefighters train to keep people safe.",
+          "evidence_spans": [
+            "Firefighters train to keep people safe."
+          ],
+          "choices": [
+            "Firefighters train to keep people safe.",
+            "This choice is not in the passage.",
+            "The picture gives a clue.",
+            "A reader might guess this."
+          ],
+          "acceptable_answers": [
+            "Firefighters train to keep people safe.",
+            "firefighters train to keep people safe.",
+            "Firefighters train to keep people safe.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL3_Q05",
+          "prompt": "Which sentence from the text best proves the answer?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "The tower fell once, so they made the base wider.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The tower fell once, so they made the base wider. is supported by the text.",
+          "feedback": "Yes — The tower fell once, so they made the base wider. fits.",
+          "passage": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+          "evidence_span": "The tower fell once, so they made the base wider.",
+          "evidence_spans": [
+            "The tower fell once, so they made the base wider."
+          ],
+          "choices": [
+            "The tower fell once, so they made the base wider.",
+            "This choice is not in the passage.",
+            "The picture gives a clue.",
+            "A reader might guess this."
+          ],
+          "acceptable_answers": [
+            "The tower fell once, so they made the base wider.",
+            "the tower fell once, so they made the base wider.",
+            "The tower fell once, so they made the base wider.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL3_Q06",
+          "prompt": "Which sentence from the text best proves the answer?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "A thick layer of feathers helps penguins stay warm.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "A thick layer of feathers helps penguins stay warm. is supported by the text.",
+          "feedback": "Yes — A thick layer of feathers helps penguins stay warm. fits.",
+          "passage": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
+          "evidence_span": "A thick layer of feathers helps penguins stay warm.",
+          "evidence_spans": [
+            "A thick layer of feathers helps penguins stay warm."
+          ],
+          "choices": [
+            "A thick layer of feathers helps penguins stay warm.",
+            "This choice is not in the passage.",
+            "The picture gives a clue.",
+            "A reader might guess this."
+          ],
+          "acceptable_answers": [
+            "A thick layer of feathers helps penguins stay warm.",
+            "a thick layer of feathers helps penguins stay warm.",
+            "A thick layer of feathers helps penguins stay warm.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL3_Q07",
+          "prompt": "Which sentence from the text best proves the answer?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Lila named the puppy Pepper because he had black spots.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "Lila named the puppy Pepper because he had black spots. is supported by the text.",
+          "feedback": "Yes — Lila named the puppy Pepper because he had black spots. fits.",
+          "passage": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+          "evidence_span": "Lila named the puppy Pepper because he had black spots.",
+          "evidence_spans": [
+            "Lila named the puppy Pepper because he had black spots."
+          ],
+          "choices": [
+            "Lila named the puppy Pepper because he had black spots.",
+            "This choice is not in the passage.",
+            "The picture gives a clue.",
+            "A reader might guess this."
+          ],
+          "acceptable_answers": [
+            "Lila named the puppy Pepper because he had black spots.",
+            "lila named the puppy pepper because he had black spots.",
+            "Lila named the puppy Pepper because he had black spots.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL3_Q08",
+          "prompt": "Which sentence from the text best proves the answer?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Libraries are places where people read, learn, and borrow books.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "Libraries are places where people read, learn, and borrow books. is supported by the text.",
+          "feedback": "Yes — Libraries are places where people read, learn, and borrow books. fits.",
+          "passage": "Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children.",
+          "evidence_span": "Libraries are places where people read, learn, and borrow books.",
+          "evidence_spans": [
+            "Libraries are places where people read, learn, and borrow books."
+          ],
+          "choices": [
+            "Libraries are places where people read, learn, and borrow books.",
+            "This choice is not in the passage.",
+            "The picture gives a clue.",
+            "A reader might guess this."
+          ],
+          "acceptable_answers": [
+            "Libraries are places where people read, learn, and borrow books.",
+            "libraries are places where people read, learn, and borrow books.",
+            "Libraries are places where people read, learn, and borrow books.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL3_Q09",
+          "prompt": "Which sentence from the text best proves the answer?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "They wanted to thank her for helping everyone feel better.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "They wanted to thank her for helping everyone feel better. is supported by the text.",
+          "feedback": "Yes — They wanted to thank her for helping everyone feel better. fits.",
+          "passage": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+          "evidence_span": "They wanted to thank her for helping everyone feel better.",
+          "evidence_spans": [
+            "They wanted to thank her for helping everyone feel better."
+          ],
+          "choices": [
+            "They wanted to thank her for helping everyone feel better.",
+            "This choice is not in the passage.",
+            "The picture gives a clue.",
+            "A reader might guess this."
+          ],
+          "acceptable_answers": [
+            "They wanted to thank her for helping everyone feel better.",
+            "they wanted to thank her for helping everyone feel better.",
+            "They wanted to thank her for helping everyone feel better.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL3_Q10",
+          "prompt": "Which sentence from the text best proves the answer?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Seeds can travel to new places in several ways.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "Seeds can travel to new places in several ways. is supported by the text.",
+          "feedback": "Yes — Seeds can travel to new places in several ways. fits.",
+          "passage": "Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot.",
+          "evidence_span": "Seeds can travel to new places in several ways.",
+          "evidence_spans": [
+            "Seeds can travel to new places in several ways."
+          ],
+          "choices": [
+            "Seeds can travel to new places in several ways.",
+            "This choice is not in the passage.",
+            "The picture gives a clue.",
+            "A reader might guess this."
+          ],
+          "acceptable_answers": [
+            "Seeds can travel to new places in several ways.",
+            "seeds can travel to new places in several ways.",
+            "Seeds can travel to new places in several ways.."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RC_001_LVL4",
+      "label": "Level 4: Mixed Questions",
+      "focus": "Use all question words with evidence.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RC_001_LVL4_Q01",
+          "prompt": "Who or what is the passage about?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Nina",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "Nina is supported by the text.",
+          "feedback": "Yes — Nina fits.",
+          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "evidence_span": "Her class planted them beside the fence because the spot was sunny.",
+          "evidence_spans": [
+            "Her class planted them beside the fence because the spot was sunny."
+          ],
+          "choices": [
+            "Nina",
+            "not stated",
+            "a different passage detail",
+            "a guess"
+          ],
+          "acceptable_answers": [
+            "Nina",
+            "Nina.",
+            "nina"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL4_Q02",
+          "prompt": "What is one important detail?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "firefighters",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "firefighters is supported by the text.",
+          "feedback": "Yes — firefighters fits.",
+          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+          "evidence_span": "Firefighters train to keep people safe.",
+          "evidence_spans": [
+            "Firefighters train to keep people safe."
+          ],
+          "choices": [
+            "firefighters",
+            "not stated",
+            "a different passage detail",
+            "a guess"
+          ],
+          "acceptable_answers": [
+            "firefighters",
+            "firefighters.",
+            "firefighters"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL4_Q03",
+          "prompt": "Where or when does the passage give a setting or time?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Maya and Ben",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "Maya and Ben is supported by the text.",
+          "feedback": "Yes — Maya and Ben fits.",
+          "passage": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+          "evidence_span": "The tower fell once, so they made the base wider.",
+          "evidence_spans": [
+            "The tower fell once, so they made the base wider."
+          ],
+          "choices": [
+            "Maya and Ben",
+            "not stated",
+            "a different passage detail",
+            "a guess"
+          ],
+          "acceptable_answers": [
+            "Maya and Ben",
+            "Maya and Ben.",
+            "maya and ben"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL4_Q04",
+          "prompt": "Why or how does something happen?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Libraries are places where people read, learn, and borrow books.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_inference_confusion",
+          "explanation": "Libraries are places where people read, learn, and borrow books. is supported by the text.",
+          "feedback": "Yes — Libraries are places where people read, learn, and borrow books. fits.",
+          "passage": "Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children.",
+          "evidence_span": "Libraries are places where people read, learn, and borrow books.",
+          "evidence_spans": [
+            "Libraries are places where people read, learn, and borrow books."
+          ],
+          "choices": [
+            "Libraries are places where people read, learn, and borrow books.",
+            "not stated",
+            "a different passage detail",
+            "a guess"
+          ],
+          "acceptable_answers": [
+            "libraries",
+            "libraries.",
+            "libraries"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL4_Q05",
+          "prompt": "Who or what is the passage about?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "The students",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The students is supported by the text.",
+          "feedback": "Yes — The students fits.",
+          "passage": "The students made a thank-you card for Nurse Patel in art class. They drew flowers around the edge and signed their names. They wanted to thank her for helping everyone feel better.",
+          "evidence_span": "They wanted to thank her for helping everyone feel better.",
+          "evidence_spans": [
+            "They wanted to thank her for helping everyone feel better."
+          ],
+          "choices": [
+            "The students",
+            "not stated",
+            "a different passage detail",
+            "a guess"
+          ],
+          "acceptable_answers": [
+            "The students",
+            "The students.",
+            "the students"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL4_Q06",
+          "prompt": "What is one important detail?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "honeybees",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "honeybees is supported by the text.",
+          "feedback": "Yes — honeybees fits.",
+          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+          "evidence_span": "Bees also move pollen from flower to flower, which helps many plants grow.",
+          "evidence_spans": [
+            "Bees also move pollen from flower to flower, which helps many plants grow."
+          ],
+          "choices": [
+            "honeybees",
+            "not stated",
+            "a different passage detail",
+            "a guess"
+          ],
+          "acceptable_answers": [
+            "honeybees",
+            "honeybees.",
+            "honeybees"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL4_Q07",
+          "prompt": "Where or when does the passage give a setting or time?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "He gave it to Ms. Lee because it had a name tag.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "He gave it to Ms. Lee because it had a name tag. is supported by the text.",
+          "feedback": "Yes — He gave it to Ms. Lee because it had a name tag. fits.",
+          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+          "evidence_span": "He gave it to Ms. Lee because it had a name tag.",
+          "evidence_spans": [
+            "He gave it to Ms. Lee because it had a name tag."
+          ],
+          "choices": [
+            "He gave it to Ms. Lee because it had a name tag.",
+            "not stated",
+            "a different passage detail",
+            "a guess"
+          ],
+          "acceptable_answers": [
+            "Omar",
+            "Omar.",
+            "omar"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL4_Q08",
+          "prompt": "Why or how does something happen?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "penguins",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_inference_confusion",
+          "explanation": "penguins is supported by the text.",
+          "feedback": "Yes — penguins fits.",
+          "passage": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
+          "evidence_span": "A thick layer of feathers helps penguins stay warm.",
+          "evidence_spans": [
+            "A thick layer of feathers helps penguins stay warm."
+          ],
+          "choices": [
+            "penguins",
+            "not stated",
+            "a different passage detail",
+            "a guess"
+          ],
+          "acceptable_answers": [
+            "penguins",
+            "penguins.",
+            "penguins"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL4_Q09",
+          "prompt": "Who or what is the passage about?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Dad",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "Dad is supported by the text.",
+          "feedback": "Yes — Dad fits.",
+          "passage": "Dad brought a small puppy home on Saturday. Lila named the puppy Pepper because he had black spots. Pepper wagged his tail and curled up beside Lila on the rug.",
+          "evidence_span": "Lila named the puppy Pepper because he had black spots.",
+          "evidence_spans": [
+            "Lila named the puppy Pepper because he had black spots."
+          ],
+          "choices": [
+            "Dad",
+            "not stated",
+            "a different passage detail",
+            "a guess"
+          ],
+          "acceptable_answers": [
+            "Dad",
+            "Dad.",
+            "dad"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_LVL4_Q10",
+          "prompt": "What is one important detail?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Seeds can travel to new places in several ways.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "Seeds can travel to new places in several ways. is supported by the text.",
+          "feedback": "Yes — Seeds can travel to new places in several ways. fits.",
+          "passage": "Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot.",
+          "evidence_span": "Seeds can travel to new places in several ways.",
+          "evidence_spans": [
+            "Seeds can travel to new places in several ways."
+          ],
+          "choices": [
+            "Seeds can travel to new places in several ways.",
+            "not stated",
+            "a different passage detail",
+            "a guess"
+          ],
+          "acceptable_answers": [
+            "seeds traveling",
+            "seeds traveling.",
+            "seeds traveling"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RC_001_MIXED",
+      "label": "Mixed",
+      "focus": "Interleave all question words and evidence checks.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RC_001_MIXED_Q01",
+          "prompt": "Who carried or found something in the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Nina",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "Nina is supported by the text.",
+          "feedback": "Yes — Nina fits.",
+          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "story": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "scene": "Nina and the Seedlings",
+          "choices": [
+            "Nina",
+            "Friday morning",
+            "because the spot was sunny",
+            "not in the story"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_MIXED_Q02",
+          "prompt": "What happened in the passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "He found a red scarf.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "He found a red scarf. is supported by the text.",
+          "feedback": "Yes — He found a red scarf. fits.",
+          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+          "story": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+          "scene": "The Lost Scarf",
+          "choices": [
+            "He found a red scarf.",
+            "after lunch",
+            "because it had a name tag",
+            "not in the story"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_MIXED_Q03",
+          "prompt": "When did it happen?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Friday morning",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "Friday morning is supported by the text.",
+          "feedback": "Yes — Friday morning fits.",
+          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "choices": [
+            "Friday morning",
+            "Nina",
+            "the school garden",
+            "not enough evidence"
+          ],
+          "acceptable_answers": [
+            "Friday morning",
+            "Friday morning",
+            "Friday morning."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_MIXED_Q04",
+          "prompt": "Why did it happen?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "because it had a name tag",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_inference_confusion",
+          "explanation": "because it had a name tag is supported by the text.",
+          "feedback": "Yes — because it had a name tag fits.",
+          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+          "choices": [
+            "because it had a name tag",
+            "Omar",
+            "under the library table",
+            "not enough evidence"
+          ],
+          "acceptable_answers": [
+            "because it had a name tag",
+            "it had a name tag",
+            "because it had a name tag."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_MIXED_Q05",
+          "prompt": "Which sentence from the text best proves the answer?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Her class planted them beside the fence because the spot was sunny.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "Her class planted them beside the fence because the spot was sunny. is supported by the text.",
+          "feedback": "Yes — Her class planted them beside the fence because the spot was sunny. fits.",
+          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "evidence_span": "Her class planted them beside the fence because the spot was sunny.",
+          "evidence_spans": [
+            "Her class planted them beside the fence because the spot was sunny."
+          ],
+          "choices": [
+            "Her class planted them beside the fence because the spot was sunny.",
+            "This choice is not in the passage.",
+            "The picture gives a clue.",
+            "A reader might guess this."
+          ],
+          "acceptable_answers": [
+            "Her class planted them beside the fence because the spot was sunny.",
+            "her class planted them beside the fence because the spot was sunny.",
+            "Her class planted them beside the fence because the spot was sunny.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_MIXED_Q06",
+          "prompt": "Which sentence from the text best proves the answer?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Bees also move pollen from flower to flower, which helps many plants grow.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "Bees also move pollen from flower to flower, which helps many plants grow. is supported by the text.",
+          "feedback": "Yes — Bees also move pollen from flower to flower, which helps many plants grow. fits.",
+          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+          "evidence_span": "Bees also move pollen from flower to flower, which helps many plants grow.",
+          "evidence_spans": [
+            "Bees also move pollen from flower to flower, which helps many plants grow."
+          ],
+          "choices": [
+            "Bees also move pollen from flower to flower, which helps many plants grow.",
+            "This choice is not in the passage.",
+            "The picture gives a clue.",
+            "A reader might guess this."
+          ],
+          "acceptable_answers": [
+            "Bees also move pollen from flower to flower, which helps many plants grow.",
+            "bees also move pollen from flower to flower, which helps many plants grow.",
+            "Bees also move pollen from flower to flower, which helps many plants grow.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_MIXED_Q07",
+          "prompt": "Which sentence from the text best proves the answer?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "He gave it to Ms. Lee because it had a name tag.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "He gave it to Ms. Lee because it had a name tag. is supported by the text.",
+          "feedback": "Yes — He gave it to Ms. Lee because it had a name tag. fits.",
+          "passage": "Omar found a red scarf under the library table after lunch. He gave it to Ms. Lee because it had a name tag. Ms. Lee thanked Omar and put the scarf in the lost-and-found box.",
+          "evidence_span": "He gave it to Ms. Lee because it had a name tag.",
+          "evidence_spans": [
+            "He gave it to Ms. Lee because it had a name tag."
+          ],
+          "choices": [
+            "He gave it to Ms. Lee because it had a name tag.",
+            "This choice is not in the passage.",
+            "The picture gives a clue.",
+            "A reader might guess this."
+          ],
+          "acceptable_answers": [
+            "He gave it to Ms. Lee because it had a name tag.",
+            "he gave it to ms. lee because it had a name tag.",
+            "He gave it to Ms. Lee because it had a name tag.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_MIXED_Q08",
+          "prompt": "Who or what is the passage about?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Nina",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "Nina is supported by the text.",
+          "feedback": "Yes — Nina fits.",
+          "passage": "Nina carried a tray of bean seedlings to the school garden on Friday morning. Her class planted them beside the fence because the spot was sunny. Nina watered each plant so the roots would not dry out.",
+          "evidence_span": "Her class planted them beside the fence because the spot was sunny.",
+          "evidence_spans": [
+            "Her class planted them beside the fence because the spot was sunny."
+          ],
+          "choices": [
+            "Nina",
+            "not stated",
+            "a different passage detail",
+            "a guess"
+          ],
+          "acceptable_answers": [
+            "Nina",
+            "Nina.",
+            "nina"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_MIXED_Q09",
+          "prompt": "What is one important detail?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "firefighters",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "question_word_confusion",
+          "explanation": "firefighters is supported by the text.",
+          "feedback": "Yes — firefighters fits.",
+          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+          "evidence_span": "Firefighters train to keep people safe.",
+          "evidence_spans": [
+            "Firefighters train to keep people safe."
+          ],
+          "choices": [
+            "firefighters",
+            "not stated",
+            "a different passage detail",
+            "a guess"
+          ],
+          "acceptable_answers": [
+            "firefighters",
+            "firefighters.",
+            "firefighters"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_001_MIXED_Q10",
+          "prompt": "Where or when does the passage give a setting or time?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Maya and Ben",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "Maya and Ben is supported by the text.",
+          "feedback": "Yes — Maya and Ben fits.",
+          "passage": "Maya and Ben stayed inside during recess when rain tapped on the windows. They built a tall block tower in Room 2. The tower fell once, so they made the base wider.",
+          "evidence_span": "The tower fell once, so they made the base wider.",
+          "evidence_spans": [
+            "The tower fell once, so they made the base wider."
+          ],
+          "choices": [
+            "Maya and Ben",
+            "not stated",
+            "a different passage detail",
+            "a guess"
+          ],
+          "acceptable_answers": [
+            "Maya and Ben",
+            "Maya and Ben.",
+            "maya and ben"
+          ]
+        }
+      ]
+    }
+  ]
+}

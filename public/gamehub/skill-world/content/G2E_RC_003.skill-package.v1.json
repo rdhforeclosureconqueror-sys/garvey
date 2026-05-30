@@ -1,0 +1,2092 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "generated_at": "2026-05-30",
+    "source": "Grade 2 English reading comprehension batch"
+  },
+  "skill_id": "G2E_RC_003",
+  "grade": 2,
+  "subject": "English",
+  "domain": "Reading Comprehension",
+  "skill": "Main Idea and Key Details",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Visit the Main Idea Observatory and connect details to what each informational text mostly teaches.",
+    "objective": "I can identify the topic, main idea, and key details in informational text.",
+    "key_vocabulary": [
+      "topic",
+      "main idea",
+      "key detail",
+      "support",
+      "informational text"
+    ],
+    "concept_explanation": "The topic names what a text is about. The main idea tells the most important thought about the topic. Key details support the main idea.",
+    "visual_model": "main_idea_web",
+    "common_misconception": "Readers may choose a broad topic or one small detail instead of the whole main idea.",
+    "real_world_connection": "Main idea and details help readers learn from science, social studies, directions, and news articles.",
+    "lesson_summary": "Find the topic, state the main idea, and choose details that support it.",
+    "mini_lesson": "A main idea should fit the whole passage, and every key detail should connect back to it."
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: The topic is honeybees, but the main idea says what the passage mostly teaches about honeybees.",
+      "correct_answer": "Honeybees help plants and make honey.",
+      "visual_model": "main_idea_web",
+      "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+      "topic": "honeybees",
+      "main_idea": "Honeybees help plants and make honey.",
+      "details": [
+        "They move pollen from flower to flower.",
+        "Bees also move pollen from flower to flower, which helps many plants grow."
+      ]
+    },
+    {
+      "text": "Demo: A key detail must support the main idea.",
+      "correct_answer": "They move pollen from flower to flower.",
+      "visual_model": "detail_cards",
+      "details": [
+        "They move pollen from flower to flower.",
+        "Bees also move pollen from flower to flower, which helps many plants grow."
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "Find the topic first.",
+    "Ask what the whole passage mostly teaches.",
+    "Choose details that support the main idea."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G2E_RC_003_LVL1_Q01",
+      "prompt": "What is the topic of this passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "honeybees",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "topic_main_idea_confusion",
+      "explanation": "honeybees is supported by the text.",
+      "feedback": "Yes — honeybees fits.",
+      "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+      "choices": [
+        "honeybees",
+        "Honeybees help plants and make honey.",
+        "They move pollen from flower to flower.",
+        "one tiny example"
+      ]
+    },
+    {
+      "question_id": "G2E_RC_003_LVL1_Q02",
+      "prompt": "What is the topic of this passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "firefighters",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "topic_main_idea_confusion",
+      "explanation": "firefighters is supported by the text.",
+      "feedback": "Yes — firefighters fits.",
+      "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+      "choices": [
+        "firefighters",
+        "Firefighters work and train to keep people safe.",
+        "They teach families how to plan safe ways out of a home.",
+        "one tiny example"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G2E_RC_003_LVL2_Q01",
+      "prompt": "What is the main idea of this passage?",
+      "question_type": "short_response",
+      "visual_model": "main_idea_web",
+      "support_type": "main_idea_web",
+      "correct_answer": "Honeybees help plants and make honey.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "topic_main_idea_confusion",
+      "explanation": "Honeybees help plants and make honey. is supported by the text.",
+      "feedback": "Yes — Honeybees help plants and make honey. fits.",
+      "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+      "topic": "honeybees",
+      "main_idea": "Honeybees help plants and make honey.",
+      "details": [
+        "They move pollen from flower to flower.",
+        "Bees also move pollen from flower to flower, which helps many plants grow."
+      ],
+      "choices": [
+        "Honeybees help plants and make honey.",
+        "honeybees",
+        "They move pollen from flower to flower.",
+        "Everything in the world is connected."
+      ],
+      "acceptable_answers": [
+        "Honeybees help plants and make honey.",
+        "Honeybees help plants and make honey..",
+        "honeybees help plants and make honey."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_003_LVL2_Q02",
+      "prompt": "What is the main idea of this passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "main_idea_web",
+      "support_type": "main_idea_web",
+      "correct_answer": "Firefighters work and train to keep people safe.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "main_idea_too_broad",
+      "explanation": "Firefighters work and train to keep people safe. is supported by the text.",
+      "feedback": "Yes — Firefighters work and train to keep people safe. fits.",
+      "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+      "topic": "firefighters",
+      "main_idea": "Firefighters work and train to keep people safe.",
+      "details": [
+        "They teach families how to plan safe ways out of a home.",
+        "Firefighters train to keep people safe."
+      ],
+      "choices": [
+        "Firefighters work and train to keep people safe.",
+        "firefighters",
+        "They teach families how to plan safe ways out of a home.",
+        "Everything in the world is connected."
+      ],
+      "acceptable_answers": [
+        "Firefighters work and train to keep people safe.",
+        "Firefighters work and train to keep people safe..",
+        "firefighters work and train to keep people safe."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_003_LVL2_Q03",
+      "prompt": "What is the main idea of this passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "main_idea_web",
+      "support_type": "main_idea_web",
+      "correct_answer": "Penguins have body parts that help them live and swim in cold water.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "topic_main_idea_confusion",
+      "explanation": "Penguins have body parts that help them live and swim in cold water. is supported by the text.",
+      "feedback": "Yes — Penguins have body parts that help them live and swim in cold water. fits.",
+      "passage": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
+      "topic": "penguins",
+      "main_idea": "Penguins have body parts that help them live and swim in cold water.",
+      "details": [
+        "Their wings work like flippers for swimming.",
+        "A thick layer of feathers helps penguins stay warm."
+      ],
+      "choices": [
+        "Penguins have body parts that help them live and swim in cold water.",
+        "penguins",
+        "Their wings work like flippers for swimming.",
+        "Everything in the world is connected."
+      ],
+      "acceptable_answers": [
+        "Penguins have body parts that help them live and swim in cold water.",
+        "Penguins have body parts that help them live and swim in cold water..",
+        "penguins have body parts that help them live and swim in cold water."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_003_LVL2_Q04",
+      "prompt": "What is the main idea of this passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "main_idea_web",
+      "support_type": "main_idea_web",
+      "correct_answer": "Libraries help people read and learn in many ways.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "main_idea_too_broad",
+      "explanation": "Libraries help people read and learn in many ways. is supported by the text.",
+      "feedback": "Yes — Libraries help people read and learn in many ways. fits.",
+      "passage": "Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children.",
+      "topic": "libraries",
+      "main_idea": "Libraries help people read and learn in many ways.",
+      "details": [
+        "A library card lets readers take books home.",
+        "Libraries are places where people read, learn, and borrow books."
+      ],
+      "choices": [
+        "Libraries help people read and learn in many ways.",
+        "libraries",
+        "A library card lets readers take books home.",
+        "Everything in the world is connected."
+      ],
+      "acceptable_answers": [
+        "Libraries help people read and learn in many ways.",
+        "Libraries help people read and learn in many ways..",
+        "libraries help people read and learn in many ways."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_003_LVL2_Q05",
+      "prompt": "What is the main idea of this passage?",
+      "question_type": "short_response",
+      "visual_model": "main_idea_web",
+      "support_type": "main_idea_web",
+      "correct_answer": "Seeds move to new places in different ways.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "topic_main_idea_confusion",
+      "explanation": "Seeds move to new places in different ways. is supported by the text.",
+      "feedback": "Yes — Seeds move to new places in different ways. fits.",
+      "passage": "Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot.",
+      "topic": "seeds traveling",
+      "main_idea": "Seeds move to new places in different ways.",
+      "details": [
+        "Some seeds float on the wind.",
+        "Seeds can travel to new places in several ways."
+      ],
+      "choices": [
+        "Seeds move to new places in different ways.",
+        "seeds traveling",
+        "Some seeds float on the wind.",
+        "Everything in the world is connected."
+      ],
+      "acceptable_answers": [
+        "Seeds move to new places in different ways.",
+        "Seeds move to new places in different ways..",
+        "seeds move to new places in different ways."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_003_LVL2_Q06",
+      "prompt": "What is the main idea of this passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "main_idea_web",
+      "support_type": "main_idea_web",
+      "correct_answer": "Honeybees help plants and make honey.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "main_idea_too_broad",
+      "explanation": "Honeybees help plants and make honey. is supported by the text.",
+      "feedback": "Yes — Honeybees help plants and make honey. fits.",
+      "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+      "topic": "honeybees",
+      "main_idea": "Honeybees help plants and make honey.",
+      "details": [
+        "They move pollen from flower to flower.",
+        "Bees also move pollen from flower to flower, which helps many plants grow."
+      ],
+      "choices": [
+        "Honeybees help plants and make honey.",
+        "honeybees",
+        "They move pollen from flower to flower.",
+        "Everything in the world is connected."
+      ],
+      "acceptable_answers": [
+        "Honeybees help plants and make honey.",
+        "Honeybees help plants and make honey..",
+        "honeybees help plants and make honey."
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G2E_RC_003_MIXED_Q01",
+      "prompt": "What is the topic of this passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "honeybees",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "topic_main_idea_confusion",
+      "explanation": "honeybees is supported by the text.",
+      "feedback": "Yes — honeybees fits.",
+      "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+      "choices": [
+        "honeybees",
+        "Honeybees help plants and make honey.",
+        "They move pollen from flower to flower.",
+        "one tiny example"
+      ]
+    },
+    {
+      "question_id": "G2E_RC_003_MIXED_Q02",
+      "prompt": "What is the topic of this passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "firefighters",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "topic_main_idea_confusion",
+      "explanation": "firefighters is supported by the text.",
+      "feedback": "Yes — firefighters fits.",
+      "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+      "choices": [
+        "firefighters",
+        "Firefighters work and train to keep people safe.",
+        "They teach families how to plan safe ways out of a home.",
+        "one tiny example"
+      ]
+    },
+    {
+      "question_id": "G2E_RC_003_MIXED_Q03",
+      "prompt": "What is the main idea of this passage?",
+      "question_type": "short_response",
+      "visual_model": "main_idea_web",
+      "support_type": "main_idea_web",
+      "correct_answer": "Honeybees help plants and make honey.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "topic_main_idea_confusion",
+      "explanation": "Honeybees help plants and make honey. is supported by the text.",
+      "feedback": "Yes — Honeybees help plants and make honey. fits.",
+      "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+      "topic": "honeybees",
+      "main_idea": "Honeybees help plants and make honey.",
+      "details": [
+        "They move pollen from flower to flower.",
+        "Bees also move pollen from flower to flower, which helps many plants grow."
+      ],
+      "choices": [
+        "Honeybees help plants and make honey.",
+        "honeybees",
+        "They move pollen from flower to flower.",
+        "Everything in the world is connected."
+      ],
+      "acceptable_answers": [
+        "Honeybees help plants and make honey.",
+        "Honeybees help plants and make honey..",
+        "honeybees help plants and make honey."
+      ]
+    },
+    {
+      "question_id": "G2E_RC_003_MIXED_Q04",
+      "prompt": "What is the main idea of this passage?",
+      "question_type": "multiple_choice",
+      "visual_model": "main_idea_web",
+      "support_type": "main_idea_web",
+      "correct_answer": "Firefighters work and train to keep people safe.",
+      "hints": [
+        "Read the question word first.",
+        "Go back to the passage and find the sentence that answers it.",
+        "Use words from the text as evidence."
+      ],
+      "misconception_tag": "main_idea_too_broad",
+      "explanation": "Firefighters work and train to keep people safe. is supported by the text.",
+      "feedback": "Yes — Firefighters work and train to keep people safe. fits.",
+      "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+      "topic": "firefighters",
+      "main_idea": "Firefighters work and train to keep people safe.",
+      "details": [
+        "They teach families how to plan safe ways out of a home.",
+        "Firefighters train to keep people safe."
+      ],
+      "choices": [
+        "Firefighters work and train to keep people safe.",
+        "firefighters",
+        "They teach families how to plan safe ways out of a home.",
+        "Everything in the world is connected."
+      ],
+      "acceptable_answers": [
+        "Firefighters work and train to keep people safe.",
+        "Firefighters work and train to keep people safe..",
+        "firefighters work and train to keep people safe."
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "topic_main_idea_confusion": "The answer gives only a topic instead of a main idea.",
+    "detail_selection_error": "The answer picks a detail that does not support the main idea.",
+    "unsupported_detail": "The answer is not stated or supported in the passage.",
+    "main_idea_too_broad": "The answer is too broad to match this passage."
+  },
+  "game_theme": {
+    "theme_name": "Main Idea Observatory",
+    "mission_intro": "Find topics, main ideas, and details that orbit the same informational text.",
+    "badge_name": "Main Idea Mapper",
+    "reward_icon": "💡",
+    "world": "Reading Comprehension"
+  },
+  "next_skill_id": null,
+  "remediation_skill_id": null,
+  "level_banks": [
+    {
+      "level_id": "G2E_RC_003_LVL1",
+      "label": "Level 1: Topic",
+      "focus": "Identify the topic of informational passages.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RC_003_LVL1_Q01",
+          "prompt": "What is the topic of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "honeybees",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "honeybees is supported by the text.",
+          "feedback": "Yes — honeybees fits.",
+          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+          "choices": [
+            "honeybees",
+            "Honeybees help plants and make honey.",
+            "They move pollen from flower to flower.",
+            "one tiny example"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL1_Q02",
+          "prompt": "What is the topic of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "firefighters",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "firefighters is supported by the text.",
+          "feedback": "Yes — firefighters fits.",
+          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+          "choices": [
+            "firefighters",
+            "Firefighters work and train to keep people safe.",
+            "They teach families how to plan safe ways out of a home.",
+            "one tiny example"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL1_Q03",
+          "prompt": "What is the topic of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "penguins",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "penguins is supported by the text.",
+          "feedback": "Yes — penguins fits.",
+          "passage": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
+          "choices": [
+            "penguins",
+            "Penguins have body parts that help them live and swim in cold water.",
+            "Their wings work like flippers for swimming.",
+            "one tiny example"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL1_Q04",
+          "prompt": "What is the topic of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "libraries",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "libraries is supported by the text.",
+          "feedback": "Yes — libraries fits.",
+          "passage": "Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children.",
+          "choices": [
+            "libraries",
+            "Libraries help people read and learn in many ways.",
+            "A library card lets readers take books home.",
+            "one tiny example"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL1_Q05",
+          "prompt": "What is the topic of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "seeds traveling",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "seeds traveling is supported by the text.",
+          "feedback": "Yes — seeds traveling fits.",
+          "passage": "Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot.",
+          "choices": [
+            "seeds traveling",
+            "Seeds move to new places in different ways.",
+            "Some seeds float on the wind.",
+            "one tiny example"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL1_Q06",
+          "prompt": "What is the topic of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "honeybees",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "honeybees is supported by the text.",
+          "feedback": "Yes — honeybees fits.",
+          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+          "choices": [
+            "honeybees",
+            "Honeybees help plants and make honey.",
+            "They move pollen from flower to flower.",
+            "one tiny example"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL1_Q07",
+          "prompt": "What is the topic of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "firefighters",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "firefighters is supported by the text.",
+          "feedback": "Yes — firefighters fits.",
+          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+          "choices": [
+            "firefighters",
+            "Firefighters work and train to keep people safe.",
+            "They teach families how to plan safe ways out of a home.",
+            "one tiny example"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL1_Q08",
+          "prompt": "What is the topic of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "penguins",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "penguins is supported by the text.",
+          "feedback": "Yes — penguins fits.",
+          "passage": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
+          "choices": [
+            "penguins",
+            "Penguins have body parts that help them live and swim in cold water.",
+            "Their wings work like flippers for swimming.",
+            "one tiny example"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL1_Q09",
+          "prompt": "What is the topic of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "libraries",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "libraries is supported by the text.",
+          "feedback": "Yes — libraries fits.",
+          "passage": "Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children.",
+          "choices": [
+            "libraries",
+            "Libraries help people read and learn in many ways.",
+            "A library card lets readers take books home.",
+            "one tiny example"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL1_Q10",
+          "prompt": "What is the topic of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "seeds traveling",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "seeds traveling is supported by the text.",
+          "feedback": "Yes — seeds traveling fits.",
+          "passage": "Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot.",
+          "choices": [
+            "seeds traveling",
+            "Seeds move to new places in different ways.",
+            "Some seeds float on the wind.",
+            "one tiny example"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RC_003_LVL2",
+      "label": "Level 2: Main Idea",
+      "focus": "Identify the main idea of informational passages.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RC_003_LVL2_Q01",
+          "prompt": "What is the main idea of this passage?",
+          "question_type": "short_response",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Honeybees help plants and make honey.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "Honeybees help plants and make honey. is supported by the text.",
+          "feedback": "Yes — Honeybees help plants and make honey. fits.",
+          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+          "topic": "honeybees",
+          "main_idea": "Honeybees help plants and make honey.",
+          "details": [
+            "They move pollen from flower to flower.",
+            "Bees also move pollen from flower to flower, which helps many plants grow."
+          ],
+          "choices": [
+            "Honeybees help plants and make honey.",
+            "honeybees",
+            "They move pollen from flower to flower.",
+            "Everything in the world is connected."
+          ],
+          "acceptable_answers": [
+            "Honeybees help plants and make honey.",
+            "Honeybees help plants and make honey..",
+            "honeybees help plants and make honey."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL2_Q02",
+          "prompt": "What is the main idea of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Firefighters work and train to keep people safe.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "main_idea_too_broad",
+          "explanation": "Firefighters work and train to keep people safe. is supported by the text.",
+          "feedback": "Yes — Firefighters work and train to keep people safe. fits.",
+          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+          "topic": "firefighters",
+          "main_idea": "Firefighters work and train to keep people safe.",
+          "details": [
+            "They teach families how to plan safe ways out of a home.",
+            "Firefighters train to keep people safe."
+          ],
+          "choices": [
+            "Firefighters work and train to keep people safe.",
+            "firefighters",
+            "They teach families how to plan safe ways out of a home.",
+            "Everything in the world is connected."
+          ],
+          "acceptable_answers": [
+            "Firefighters work and train to keep people safe.",
+            "Firefighters work and train to keep people safe..",
+            "firefighters work and train to keep people safe."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL2_Q03",
+          "prompt": "What is the main idea of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Penguins have body parts that help them live and swim in cold water.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "Penguins have body parts that help them live and swim in cold water. is supported by the text.",
+          "feedback": "Yes — Penguins have body parts that help them live and swim in cold water. fits.",
+          "passage": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
+          "topic": "penguins",
+          "main_idea": "Penguins have body parts that help them live and swim in cold water.",
+          "details": [
+            "Their wings work like flippers for swimming.",
+            "A thick layer of feathers helps penguins stay warm."
+          ],
+          "choices": [
+            "Penguins have body parts that help them live and swim in cold water.",
+            "penguins",
+            "Their wings work like flippers for swimming.",
+            "Everything in the world is connected."
+          ],
+          "acceptable_answers": [
+            "Penguins have body parts that help them live and swim in cold water.",
+            "Penguins have body parts that help them live and swim in cold water..",
+            "penguins have body parts that help them live and swim in cold water."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL2_Q04",
+          "prompt": "What is the main idea of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Libraries help people read and learn in many ways.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "main_idea_too_broad",
+          "explanation": "Libraries help people read and learn in many ways. is supported by the text.",
+          "feedback": "Yes — Libraries help people read and learn in many ways. fits.",
+          "passage": "Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children.",
+          "topic": "libraries",
+          "main_idea": "Libraries help people read and learn in many ways.",
+          "details": [
+            "A library card lets readers take books home.",
+            "Libraries are places where people read, learn, and borrow books."
+          ],
+          "choices": [
+            "Libraries help people read and learn in many ways.",
+            "libraries",
+            "A library card lets readers take books home.",
+            "Everything in the world is connected."
+          ],
+          "acceptable_answers": [
+            "Libraries help people read and learn in many ways.",
+            "Libraries help people read and learn in many ways..",
+            "libraries help people read and learn in many ways."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL2_Q05",
+          "prompt": "What is the main idea of this passage?",
+          "question_type": "short_response",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Seeds move to new places in different ways.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "Seeds move to new places in different ways. is supported by the text.",
+          "feedback": "Yes — Seeds move to new places in different ways. fits.",
+          "passage": "Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot.",
+          "topic": "seeds traveling",
+          "main_idea": "Seeds move to new places in different ways.",
+          "details": [
+            "Some seeds float on the wind.",
+            "Seeds can travel to new places in several ways."
+          ],
+          "choices": [
+            "Seeds move to new places in different ways.",
+            "seeds traveling",
+            "Some seeds float on the wind.",
+            "Everything in the world is connected."
+          ],
+          "acceptable_answers": [
+            "Seeds move to new places in different ways.",
+            "Seeds move to new places in different ways..",
+            "seeds move to new places in different ways."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL2_Q06",
+          "prompt": "What is the main idea of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Honeybees help plants and make honey.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "main_idea_too_broad",
+          "explanation": "Honeybees help plants and make honey. is supported by the text.",
+          "feedback": "Yes — Honeybees help plants and make honey. fits.",
+          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+          "topic": "honeybees",
+          "main_idea": "Honeybees help plants and make honey.",
+          "details": [
+            "They move pollen from flower to flower.",
+            "Bees also move pollen from flower to flower, which helps many plants grow."
+          ],
+          "choices": [
+            "Honeybees help plants and make honey.",
+            "honeybees",
+            "They move pollen from flower to flower.",
+            "Everything in the world is connected."
+          ],
+          "acceptable_answers": [
+            "Honeybees help plants and make honey.",
+            "Honeybees help plants and make honey..",
+            "honeybees help plants and make honey."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL2_Q07",
+          "prompt": "What is the main idea of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Firefighters work and train to keep people safe.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "Firefighters work and train to keep people safe. is supported by the text.",
+          "feedback": "Yes — Firefighters work and train to keep people safe. fits.",
+          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+          "topic": "firefighters",
+          "main_idea": "Firefighters work and train to keep people safe.",
+          "details": [
+            "They teach families how to plan safe ways out of a home.",
+            "Firefighters train to keep people safe."
+          ],
+          "choices": [
+            "Firefighters work and train to keep people safe.",
+            "firefighters",
+            "They teach families how to plan safe ways out of a home.",
+            "Everything in the world is connected."
+          ],
+          "acceptable_answers": [
+            "Firefighters work and train to keep people safe.",
+            "Firefighters work and train to keep people safe..",
+            "firefighters work and train to keep people safe."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL2_Q08",
+          "prompt": "What is the main idea of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Penguins have body parts that help them live and swim in cold water.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "main_idea_too_broad",
+          "explanation": "Penguins have body parts that help them live and swim in cold water. is supported by the text.",
+          "feedback": "Yes — Penguins have body parts that help them live and swim in cold water. fits.",
+          "passage": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
+          "topic": "penguins",
+          "main_idea": "Penguins have body parts that help them live and swim in cold water.",
+          "details": [
+            "Their wings work like flippers for swimming.",
+            "A thick layer of feathers helps penguins stay warm."
+          ],
+          "choices": [
+            "Penguins have body parts that help them live and swim in cold water.",
+            "penguins",
+            "Their wings work like flippers for swimming.",
+            "Everything in the world is connected."
+          ],
+          "acceptable_answers": [
+            "Penguins have body parts that help them live and swim in cold water.",
+            "Penguins have body parts that help them live and swim in cold water..",
+            "penguins have body parts that help them live and swim in cold water."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL2_Q09",
+          "prompt": "What is the main idea of this passage?",
+          "question_type": "short_response",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Libraries help people read and learn in many ways.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "Libraries help people read and learn in many ways. is supported by the text.",
+          "feedback": "Yes — Libraries help people read and learn in many ways. fits.",
+          "passage": "Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children.",
+          "topic": "libraries",
+          "main_idea": "Libraries help people read and learn in many ways.",
+          "details": [
+            "A library card lets readers take books home.",
+            "Libraries are places where people read, learn, and borrow books."
+          ],
+          "choices": [
+            "Libraries help people read and learn in many ways.",
+            "libraries",
+            "A library card lets readers take books home.",
+            "Everything in the world is connected."
+          ],
+          "acceptable_answers": [
+            "Libraries help people read and learn in many ways.",
+            "Libraries help people read and learn in many ways..",
+            "libraries help people read and learn in many ways."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL2_Q10",
+          "prompt": "What is the main idea of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Seeds move to new places in different ways.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "main_idea_too_broad",
+          "explanation": "Seeds move to new places in different ways. is supported by the text.",
+          "feedback": "Yes — Seeds move to new places in different ways. fits.",
+          "passage": "Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot.",
+          "topic": "seeds traveling",
+          "main_idea": "Seeds move to new places in different ways.",
+          "details": [
+            "Some seeds float on the wind.",
+            "Seeds can travel to new places in several ways."
+          ],
+          "choices": [
+            "Seeds move to new places in different ways.",
+            "seeds traveling",
+            "Some seeds float on the wind.",
+            "Everything in the world is connected."
+          ],
+          "acceptable_answers": [
+            "Seeds move to new places in different ways.",
+            "Seeds move to new places in different ways..",
+            "seeds move to new places in different ways."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RC_003_LVL3",
+      "label": "Level 3: Key Details",
+      "focus": "Choose details that support the main idea.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RC_003_LVL3_Q01",
+          "prompt": "Which detail supports the main idea?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Bees also move pollen from flower to flower, which helps many plants grow.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "Bees also move pollen from flower to flower, which helps many plants grow. is supported by the text.",
+          "feedback": "Yes — Bees also move pollen from flower to flower, which helps many plants grow. fits.",
+          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+          "topic": "honeybees",
+          "main_idea": "Honeybees help plants and make honey.",
+          "details": [
+            "They move pollen from flower to flower.",
+            "Bees also move pollen from flower to flower, which helps many plants grow.",
+            "A detail from a different topic"
+          ],
+          "evidence_span": "Bees also move pollen from flower to flower, which helps many plants grow.",
+          "evidence_spans": [
+            "Bees also move pollen from flower to flower, which helps many plants grow."
+          ],
+          "choices": [
+            "Bees also move pollen from flower to flower, which helps many plants grow.",
+            "This is not in the passage.",
+            "A fun opinion about the topic.",
+            "A detail from another text."
+          ],
+          "acceptable_answers": [
+            "Bees also move pollen from flower to flower, which helps many plants grow.",
+            "bees also move pollen from flower to flower, which helps many plants grow.",
+            "Bees also move pollen from flower to flower, which helps many plants grow.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL3_Q02",
+          "prompt": "Which detail supports the main idea?",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "They teach families how to plan safe ways out of a home.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "They teach families how to plan safe ways out of a home. is supported by the text.",
+          "feedback": "Yes — They teach families how to plan safe ways out of a home. fits.",
+          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+          "topic": "firefighters",
+          "main_idea": "Firefighters work and train to keep people safe.",
+          "details": [
+            "They teach families how to plan safe ways out of a home.",
+            "Firefighters train to keep people safe.",
+            "A detail from a different topic"
+          ],
+          "evidence_span": "Firefighters train to keep people safe.",
+          "evidence_spans": [
+            "Firefighters train to keep people safe."
+          ],
+          "choices": [
+            "They teach families how to plan safe ways out of a home.",
+            "This is not in the passage.",
+            "A fun opinion about the topic.",
+            "A detail from another text."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL3_Q03",
+          "prompt": "Which detail supports the main idea?",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "Their wings work like flippers for swimming.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "Their wings work like flippers for swimming. is supported by the text.",
+          "feedback": "Yes — Their wings work like flippers for swimming. fits.",
+          "passage": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
+          "topic": "penguins",
+          "main_idea": "Penguins have body parts that help them live and swim in cold water.",
+          "details": [
+            "Their wings work like flippers for swimming.",
+            "A thick layer of feathers helps penguins stay warm.",
+            "A detail from a different topic"
+          ],
+          "evidence_span": "A thick layer of feathers helps penguins stay warm.",
+          "evidence_spans": [
+            "A thick layer of feathers helps penguins stay warm."
+          ],
+          "choices": [
+            "Their wings work like flippers for swimming.",
+            "This is not in the passage.",
+            "A fun opinion about the topic.",
+            "A detail from another text."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL3_Q04",
+          "prompt": "Which detail supports the main idea?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Libraries are places where people read, learn, and borrow books.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "Libraries are places where people read, learn, and borrow books. is supported by the text.",
+          "feedback": "Yes — Libraries are places where people read, learn, and borrow books. fits.",
+          "passage": "Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children.",
+          "topic": "libraries",
+          "main_idea": "Libraries help people read and learn in many ways.",
+          "details": [
+            "A library card lets readers take books home.",
+            "Libraries are places where people read, learn, and borrow books.",
+            "A detail from a different topic"
+          ],
+          "evidence_span": "Libraries are places where people read, learn, and borrow books.",
+          "evidence_spans": [
+            "Libraries are places where people read, learn, and borrow books."
+          ],
+          "choices": [
+            "Libraries are places where people read, learn, and borrow books.",
+            "This is not in the passage.",
+            "A fun opinion about the topic.",
+            "A detail from another text."
+          ],
+          "acceptable_answers": [
+            "Libraries are places where people read, learn, and borrow books.",
+            "libraries are places where people read, learn, and borrow books.",
+            "Libraries are places where people read, learn, and borrow books.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL3_Q05",
+          "prompt": "Which detail supports the main idea?",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "Some seeds float on the wind.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "Some seeds float on the wind. is supported by the text.",
+          "feedback": "Yes — Some seeds float on the wind. fits.",
+          "passage": "Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot.",
+          "topic": "seeds traveling",
+          "main_idea": "Seeds move to new places in different ways.",
+          "details": [
+            "Some seeds float on the wind.",
+            "Seeds can travel to new places in several ways.",
+            "A detail from a different topic"
+          ],
+          "evidence_span": "Seeds can travel to new places in several ways.",
+          "evidence_spans": [
+            "Seeds can travel to new places in several ways."
+          ],
+          "choices": [
+            "Some seeds float on the wind.",
+            "This is not in the passage.",
+            "A fun opinion about the topic.",
+            "A detail from another text."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL3_Q06",
+          "prompt": "Which detail supports the main idea?",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "They move pollen from flower to flower.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "They move pollen from flower to flower. is supported by the text.",
+          "feedback": "Yes — They move pollen from flower to flower. fits.",
+          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+          "topic": "honeybees",
+          "main_idea": "Honeybees help plants and make honey.",
+          "details": [
+            "They move pollen from flower to flower.",
+            "Bees also move pollen from flower to flower, which helps many plants grow.",
+            "A detail from a different topic"
+          ],
+          "evidence_span": "Bees also move pollen from flower to flower, which helps many plants grow.",
+          "evidence_spans": [
+            "Bees also move pollen from flower to flower, which helps many plants grow."
+          ],
+          "choices": [
+            "They move pollen from flower to flower.",
+            "This is not in the passage.",
+            "A fun opinion about the topic.",
+            "A detail from another text."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL3_Q07",
+          "prompt": "Which detail supports the main idea?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Firefighters train to keep people safe.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "Firefighters train to keep people safe. is supported by the text.",
+          "feedback": "Yes — Firefighters train to keep people safe. fits.",
+          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+          "topic": "firefighters",
+          "main_idea": "Firefighters work and train to keep people safe.",
+          "details": [
+            "They teach families how to plan safe ways out of a home.",
+            "Firefighters train to keep people safe.",
+            "A detail from a different topic"
+          ],
+          "evidence_span": "Firefighters train to keep people safe.",
+          "evidence_spans": [
+            "Firefighters train to keep people safe."
+          ],
+          "choices": [
+            "Firefighters train to keep people safe.",
+            "This is not in the passage.",
+            "A fun opinion about the topic.",
+            "A detail from another text."
+          ],
+          "acceptable_answers": [
+            "Firefighters train to keep people safe.",
+            "firefighters train to keep people safe.",
+            "Firefighters train to keep people safe.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL3_Q08",
+          "prompt": "Which detail supports the main idea?",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "Their wings work like flippers for swimming.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "Their wings work like flippers for swimming. is supported by the text.",
+          "feedback": "Yes — Their wings work like flippers for swimming. fits.",
+          "passage": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
+          "topic": "penguins",
+          "main_idea": "Penguins have body parts that help them live and swim in cold water.",
+          "details": [
+            "Their wings work like flippers for swimming.",
+            "A thick layer of feathers helps penguins stay warm.",
+            "A detail from a different topic"
+          ],
+          "evidence_span": "A thick layer of feathers helps penguins stay warm.",
+          "evidence_spans": [
+            "A thick layer of feathers helps penguins stay warm."
+          ],
+          "choices": [
+            "Their wings work like flippers for swimming.",
+            "This is not in the passage.",
+            "A fun opinion about the topic.",
+            "A detail from another text."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL3_Q09",
+          "prompt": "Which detail supports the main idea?",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "A library card lets readers take books home.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "A library card lets readers take books home. is supported by the text.",
+          "feedback": "Yes — A library card lets readers take books home. fits.",
+          "passage": "Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children.",
+          "topic": "libraries",
+          "main_idea": "Libraries help people read and learn in many ways.",
+          "details": [
+            "A library card lets readers take books home.",
+            "Libraries are places where people read, learn, and borrow books.",
+            "A detail from a different topic"
+          ],
+          "evidence_span": "Libraries are places where people read, learn, and borrow books.",
+          "evidence_spans": [
+            "Libraries are places where people read, learn, and borrow books."
+          ],
+          "choices": [
+            "A library card lets readers take books home.",
+            "This is not in the passage.",
+            "A fun opinion about the topic.",
+            "A detail from another text."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL3_Q10",
+          "prompt": "Which detail supports the main idea?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Seeds can travel to new places in several ways.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "Seeds can travel to new places in several ways. is supported by the text.",
+          "feedback": "Yes — Seeds can travel to new places in several ways. fits.",
+          "passage": "Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot.",
+          "topic": "seeds traveling",
+          "main_idea": "Seeds move to new places in different ways.",
+          "details": [
+            "Some seeds float on the wind.",
+            "Seeds can travel to new places in several ways.",
+            "A detail from a different topic"
+          ],
+          "evidence_span": "Seeds can travel to new places in several ways.",
+          "evidence_spans": [
+            "Seeds can travel to new places in several ways."
+          ],
+          "choices": [
+            "Seeds can travel to new places in several ways.",
+            "This is not in the passage.",
+            "A fun opinion about the topic.",
+            "A detail from another text."
+          ],
+          "acceptable_answers": [
+            "Seeds can travel to new places in several ways.",
+            "seeds can travel to new places in several ways.",
+            "Seeds can travel to new places in several ways.."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RC_003_LVL4",
+      "label": "Level 4: Match Details to Main Idea",
+      "focus": "Match supporting details to the correct main idea.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RC_003_LVL4_Q01",
+          "prompt": "Match the detail to the main idea it supports.",
+          "question_type": "short_response",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "They move pollen from flower to flower. -> Honeybees help plants and make honey.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "They move pollen from flower to flower. -> Honeybees help plants and make honey. is supported by the text.",
+          "feedback": "Yes — They move pollen from flower to flower. -> Honeybees help plants and make honey. fits.",
+          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+          "topic": "honeybees",
+          "main_idea": "Honeybees help plants and make honey.",
+          "details": [
+            "They move pollen from flower to flower.",
+            "Bees also move pollen from flower to flower, which helps many plants grow."
+          ],
+          "choices": [
+            "They move pollen from flower to flower. -> Honeybees help plants and make honey.",
+            "They move pollen from flower to flower. -> an unrelated main idea",
+            "honeybees -> They move pollen from flower to flower.",
+            "unsupported detail -> main idea"
+          ],
+          "acceptable_answers": [
+            "They move pollen from flower to flower. -> Honeybees help plants and make honey.",
+            "They move pollen from flower to flower.",
+            "They move pollen from flower to flower. supports Honeybees help plants and make honey.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL4_Q02",
+          "prompt": "Match the detail to the main idea it supports.",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "They teach families how to plan safe ways out of a home. -> Firefighters work and train to keep people safe.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "They teach families how to plan safe ways out of a home. -> Firefighters work and train to keep people safe. is supported by the text.",
+          "feedback": "Yes — They teach families how to plan safe ways out of a home. -> Firefighters work and train to keep people safe. fits.",
+          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+          "topic": "firefighters",
+          "main_idea": "Firefighters work and train to keep people safe.",
+          "details": [
+            "They teach families how to plan safe ways out of a home.",
+            "Firefighters train to keep people safe."
+          ],
+          "choices": [
+            "They teach families how to plan safe ways out of a home. -> Firefighters work and train to keep people safe.",
+            "They teach families how to plan safe ways out of a home. -> an unrelated main idea",
+            "firefighters -> They teach families how to plan safe ways out of a home.",
+            "unsupported detail -> main idea"
+          ],
+          "acceptable_answers": [
+            "They teach families how to plan safe ways out of a home. -> Firefighters work and train to keep people safe.",
+            "They teach families how to plan safe ways out of a home.",
+            "They teach families how to plan safe ways out of a home. supports Firefighters work and train to keep people safe.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL4_Q03",
+          "prompt": "Match the detail to the main idea it supports.",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "Their wings work like flippers for swimming. -> Penguins have body parts that help them live and swim in cold water.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "Their wings work like flippers for swimming. -> Penguins have body parts that help them live and swim in cold water. is supported by the text.",
+          "feedback": "Yes — Their wings work like flippers for swimming. -> Penguins have body parts that help them live and swim in cold water. fits.",
+          "passage": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
+          "topic": "penguins",
+          "main_idea": "Penguins have body parts that help them live and swim in cold water.",
+          "details": [
+            "Their wings work like flippers for swimming.",
+            "A thick layer of feathers helps penguins stay warm."
+          ],
+          "choices": [
+            "Their wings work like flippers for swimming. -> Penguins have body parts that help them live and swim in cold water.",
+            "Their wings work like flippers for swimming. -> an unrelated main idea",
+            "penguins -> Their wings work like flippers for swimming.",
+            "unsupported detail -> main idea"
+          ],
+          "acceptable_answers": [
+            "Their wings work like flippers for swimming. -> Penguins have body parts that help them live and swim in cold water.",
+            "Their wings work like flippers for swimming.",
+            "Their wings work like flippers for swimming. supports Penguins have body parts that help them live and swim in cold water.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL4_Q04",
+          "prompt": "Match the detail to the main idea it supports.",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "A library card lets readers take books home. -> Libraries help people read and learn in many ways.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "A library card lets readers take books home. -> Libraries help people read and learn in many ways. is supported by the text.",
+          "feedback": "Yes — A library card lets readers take books home. -> Libraries help people read and learn in many ways. fits.",
+          "passage": "Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children.",
+          "topic": "libraries",
+          "main_idea": "Libraries help people read and learn in many ways.",
+          "details": [
+            "A library card lets readers take books home.",
+            "Libraries are places where people read, learn, and borrow books."
+          ],
+          "choices": [
+            "A library card lets readers take books home. -> Libraries help people read and learn in many ways.",
+            "A library card lets readers take books home. -> an unrelated main idea",
+            "libraries -> A library card lets readers take books home.",
+            "unsupported detail -> main idea"
+          ],
+          "acceptable_answers": [
+            "A library card lets readers take books home. -> Libraries help people read and learn in many ways.",
+            "A library card lets readers take books home.",
+            "A library card lets readers take books home. supports Libraries help people read and learn in many ways.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL4_Q05",
+          "prompt": "Match the detail to the main idea it supports.",
+          "question_type": "short_response",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "Some seeds float on the wind. -> Seeds move to new places in different ways.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "Some seeds float on the wind. -> Seeds move to new places in different ways. is supported by the text.",
+          "feedback": "Yes — Some seeds float on the wind. -> Seeds move to new places in different ways. fits.",
+          "passage": "Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot.",
+          "topic": "seeds traveling",
+          "main_idea": "Seeds move to new places in different ways.",
+          "details": [
+            "Some seeds float on the wind.",
+            "Seeds can travel to new places in several ways."
+          ],
+          "choices": [
+            "Some seeds float on the wind. -> Seeds move to new places in different ways.",
+            "Some seeds float on the wind. -> an unrelated main idea",
+            "seeds traveling -> Some seeds float on the wind.",
+            "unsupported detail -> main idea"
+          ],
+          "acceptable_answers": [
+            "Some seeds float on the wind. -> Seeds move to new places in different ways.",
+            "Some seeds float on the wind.",
+            "Some seeds float on the wind. supports Seeds move to new places in different ways.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL4_Q06",
+          "prompt": "Match the detail to the main idea it supports.",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "They move pollen from flower to flower. -> Honeybees help plants and make honey.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "They move pollen from flower to flower. -> Honeybees help plants and make honey. is supported by the text.",
+          "feedback": "Yes — They move pollen from flower to flower. -> Honeybees help plants and make honey. fits.",
+          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+          "topic": "honeybees",
+          "main_idea": "Honeybees help plants and make honey.",
+          "details": [
+            "They move pollen from flower to flower.",
+            "Bees also move pollen from flower to flower, which helps many plants grow."
+          ],
+          "choices": [
+            "They move pollen from flower to flower. -> Honeybees help plants and make honey.",
+            "They move pollen from flower to flower. -> an unrelated main idea",
+            "honeybees -> They move pollen from flower to flower.",
+            "unsupported detail -> main idea"
+          ],
+          "acceptable_answers": [
+            "They move pollen from flower to flower. -> Honeybees help plants and make honey.",
+            "They move pollen from flower to flower.",
+            "They move pollen from flower to flower. supports Honeybees help plants and make honey.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL4_Q07",
+          "prompt": "Match the detail to the main idea it supports.",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "They teach families how to plan safe ways out of a home. -> Firefighters work and train to keep people safe.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "They teach families how to plan safe ways out of a home. -> Firefighters work and train to keep people safe. is supported by the text.",
+          "feedback": "Yes — They teach families how to plan safe ways out of a home. -> Firefighters work and train to keep people safe. fits.",
+          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+          "topic": "firefighters",
+          "main_idea": "Firefighters work and train to keep people safe.",
+          "details": [
+            "They teach families how to plan safe ways out of a home.",
+            "Firefighters train to keep people safe."
+          ],
+          "choices": [
+            "They teach families how to plan safe ways out of a home. -> Firefighters work and train to keep people safe.",
+            "They teach families how to plan safe ways out of a home. -> an unrelated main idea",
+            "firefighters -> They teach families how to plan safe ways out of a home.",
+            "unsupported detail -> main idea"
+          ],
+          "acceptable_answers": [
+            "They teach families how to plan safe ways out of a home. -> Firefighters work and train to keep people safe.",
+            "They teach families how to plan safe ways out of a home.",
+            "They teach families how to plan safe ways out of a home. supports Firefighters work and train to keep people safe.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL4_Q08",
+          "prompt": "Match the detail to the main idea it supports.",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "Their wings work like flippers for swimming. -> Penguins have body parts that help them live and swim in cold water.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "Their wings work like flippers for swimming. -> Penguins have body parts that help them live and swim in cold water. is supported by the text.",
+          "feedback": "Yes — Their wings work like flippers for swimming. -> Penguins have body parts that help them live and swim in cold water. fits.",
+          "passage": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
+          "topic": "penguins",
+          "main_idea": "Penguins have body parts that help them live and swim in cold water.",
+          "details": [
+            "Their wings work like flippers for swimming.",
+            "A thick layer of feathers helps penguins stay warm."
+          ],
+          "choices": [
+            "Their wings work like flippers for swimming. -> Penguins have body parts that help them live and swim in cold water.",
+            "Their wings work like flippers for swimming. -> an unrelated main idea",
+            "penguins -> Their wings work like flippers for swimming.",
+            "unsupported detail -> main idea"
+          ],
+          "acceptable_answers": [
+            "Their wings work like flippers for swimming. -> Penguins have body parts that help them live and swim in cold water.",
+            "Their wings work like flippers for swimming.",
+            "Their wings work like flippers for swimming. supports Penguins have body parts that help them live and swim in cold water.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL4_Q09",
+          "prompt": "Match the detail to the main idea it supports.",
+          "question_type": "short_response",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "A library card lets readers take books home. -> Libraries help people read and learn in many ways.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "A library card lets readers take books home. -> Libraries help people read and learn in many ways. is supported by the text.",
+          "feedback": "Yes — A library card lets readers take books home. -> Libraries help people read and learn in many ways. fits.",
+          "passage": "Libraries are places where people read, learn, and borrow books. A library card lets readers take books home and bring them back later. Many libraries also have story time for children.",
+          "topic": "libraries",
+          "main_idea": "Libraries help people read and learn in many ways.",
+          "details": [
+            "A library card lets readers take books home.",
+            "Libraries are places where people read, learn, and borrow books."
+          ],
+          "choices": [
+            "A library card lets readers take books home. -> Libraries help people read and learn in many ways.",
+            "A library card lets readers take books home. -> an unrelated main idea",
+            "libraries -> A library card lets readers take books home.",
+            "unsupported detail -> main idea"
+          ],
+          "acceptable_answers": [
+            "A library card lets readers take books home. -> Libraries help people read and learn in many ways.",
+            "A library card lets readers take books home.",
+            "A library card lets readers take books home. supports Libraries help people read and learn in many ways.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_LVL4_Q10",
+          "prompt": "Match the detail to the main idea it supports.",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "Some seeds float on the wind. -> Seeds move to new places in different ways.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "Some seeds float on the wind. -> Seeds move to new places in different ways. is supported by the text.",
+          "feedback": "Yes — Some seeds float on the wind. -> Seeds move to new places in different ways. fits.",
+          "passage": "Seeds can travel to new places in several ways. Some seeds float on the wind like tiny umbrellas. Other seeds stick to animal fur and fall off later in a new spot.",
+          "topic": "seeds traveling",
+          "main_idea": "Seeds move to new places in different ways.",
+          "details": [
+            "Some seeds float on the wind.",
+            "Seeds can travel to new places in several ways."
+          ],
+          "choices": [
+            "Some seeds float on the wind. -> Seeds move to new places in different ways.",
+            "Some seeds float on the wind. -> an unrelated main idea",
+            "seeds traveling -> Some seeds float on the wind.",
+            "unsupported detail -> main idea"
+          ],
+          "acceptable_answers": [
+            "Some seeds float on the wind. -> Seeds move to new places in different ways.",
+            "Some seeds float on the wind.",
+            "Some seeds float on the wind. supports Seeds move to new places in different ways.."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2E_RC_003_MIXED",
+      "label": "Mixed",
+      "focus": "Interleave topic, main idea, and detail work.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G2E_RC_003_MIXED_Q01",
+          "prompt": "What is the topic of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "honeybees",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "honeybees is supported by the text.",
+          "feedback": "Yes — honeybees fits.",
+          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+          "choices": [
+            "honeybees",
+            "Honeybees help plants and make honey.",
+            "They move pollen from flower to flower.",
+            "one tiny example"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_MIXED_Q02",
+          "prompt": "What is the topic of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "firefighters",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "firefighters is supported by the text.",
+          "feedback": "Yes — firefighters fits.",
+          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+          "choices": [
+            "firefighters",
+            "Firefighters work and train to keep people safe.",
+            "They teach families how to plan safe ways out of a home.",
+            "one tiny example"
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_MIXED_Q03",
+          "prompt": "What is the main idea of this passage?",
+          "question_type": "short_response",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Honeybees help plants and make honey.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "Honeybees help plants and make honey. is supported by the text.",
+          "feedback": "Yes — Honeybees help plants and make honey. fits.",
+          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+          "topic": "honeybees",
+          "main_idea": "Honeybees help plants and make honey.",
+          "details": [
+            "They move pollen from flower to flower.",
+            "Bees also move pollen from flower to flower, which helps many plants grow."
+          ],
+          "choices": [
+            "Honeybees help plants and make honey.",
+            "honeybees",
+            "They move pollen from flower to flower.",
+            "Everything in the world is connected."
+          ],
+          "acceptable_answers": [
+            "Honeybees help plants and make honey.",
+            "Honeybees help plants and make honey..",
+            "honeybees help plants and make honey."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_MIXED_Q04",
+          "prompt": "What is the main idea of this passage?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Firefighters work and train to keep people safe.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "main_idea_too_broad",
+          "explanation": "Firefighters work and train to keep people safe. is supported by the text.",
+          "feedback": "Yes — Firefighters work and train to keep people safe. fits.",
+          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+          "topic": "firefighters",
+          "main_idea": "Firefighters work and train to keep people safe.",
+          "details": [
+            "They teach families how to plan safe ways out of a home.",
+            "Firefighters train to keep people safe."
+          ],
+          "choices": [
+            "Firefighters work and train to keep people safe.",
+            "firefighters",
+            "They teach families how to plan safe ways out of a home.",
+            "Everything in the world is connected."
+          ],
+          "acceptable_answers": [
+            "Firefighters work and train to keep people safe.",
+            "Firefighters work and train to keep people safe..",
+            "firefighters work and train to keep people safe."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_MIXED_Q05",
+          "prompt": "Which detail supports the main idea?",
+          "question_type": "text_evidence",
+          "visual_model": "evidence_highlight",
+          "support_type": "evidence_highlight",
+          "correct_answer": "Bees also move pollen from flower to flower, which helps many plants grow.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "Bees also move pollen from flower to flower, which helps many plants grow. is supported by the text.",
+          "feedback": "Yes — Bees also move pollen from flower to flower, which helps many plants grow. fits.",
+          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+          "topic": "honeybees",
+          "main_idea": "Honeybees help plants and make honey.",
+          "details": [
+            "They move pollen from flower to flower.",
+            "Bees also move pollen from flower to flower, which helps many plants grow.",
+            "A detail from a different topic"
+          ],
+          "evidence_span": "Bees also move pollen from flower to flower, which helps many plants grow.",
+          "evidence_spans": [
+            "Bees also move pollen from flower to flower, which helps many plants grow."
+          ],
+          "choices": [
+            "Bees also move pollen from flower to flower, which helps many plants grow.",
+            "This is not in the passage.",
+            "A fun opinion about the topic.",
+            "A detail from another text."
+          ],
+          "acceptable_answers": [
+            "Bees also move pollen from flower to flower, which helps many plants grow.",
+            "bees also move pollen from flower to flower, which helps many plants grow.",
+            "Bees also move pollen from flower to flower, which helps many plants grow.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_MIXED_Q06",
+          "prompt": "Which detail supports the main idea?",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "They teach families how to plan safe ways out of a home.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "They teach families how to plan safe ways out of a home. is supported by the text.",
+          "feedback": "Yes — They teach families how to plan safe ways out of a home. fits.",
+          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+          "topic": "firefighters",
+          "main_idea": "Firefighters work and train to keep people safe.",
+          "details": [
+            "They teach families how to plan safe ways out of a home.",
+            "Firefighters train to keep people safe.",
+            "A detail from a different topic"
+          ],
+          "evidence_span": "Firefighters train to keep people safe.",
+          "evidence_spans": [
+            "Firefighters train to keep people safe."
+          ],
+          "choices": [
+            "They teach families how to plan safe ways out of a home.",
+            "This is not in the passage.",
+            "A fun opinion about the topic.",
+            "A detail from another text."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_MIXED_Q07",
+          "prompt": "Which detail supports the main idea?",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "Their wings work like flippers for swimming.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "Their wings work like flippers for swimming. is supported by the text.",
+          "feedback": "Yes — Their wings work like flippers for swimming. fits.",
+          "passage": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
+          "topic": "penguins",
+          "main_idea": "Penguins have body parts that help them live and swim in cold water.",
+          "details": [
+            "Their wings work like flippers for swimming.",
+            "A thick layer of feathers helps penguins stay warm.",
+            "A detail from a different topic"
+          ],
+          "evidence_span": "A thick layer of feathers helps penguins stay warm.",
+          "evidence_spans": [
+            "A thick layer of feathers helps penguins stay warm."
+          ],
+          "choices": [
+            "Their wings work like flippers for swimming.",
+            "This is not in the passage.",
+            "A fun opinion about the topic.",
+            "A detail from another text."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_MIXED_Q08",
+          "prompt": "Match the detail to the main idea it supports.",
+          "question_type": "short_response",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "They move pollen from flower to flower. -> Honeybees help plants and make honey.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "They move pollen from flower to flower. -> Honeybees help plants and make honey. is supported by the text.",
+          "feedback": "Yes — They move pollen from flower to flower. -> Honeybees help plants and make honey. fits.",
+          "passage": "Honeybees visit flowers to collect nectar. They carry nectar back to the hive and make honey. Bees also move pollen from flower to flower, which helps many plants grow.",
+          "topic": "honeybees",
+          "main_idea": "Honeybees help plants and make honey.",
+          "details": [
+            "They move pollen from flower to flower.",
+            "Bees also move pollen from flower to flower, which helps many plants grow."
+          ],
+          "choices": [
+            "They move pollen from flower to flower. -> Honeybees help plants and make honey.",
+            "They move pollen from flower to flower. -> an unrelated main idea",
+            "honeybees -> They move pollen from flower to flower.",
+            "unsupported detail -> main idea"
+          ],
+          "acceptable_answers": [
+            "They move pollen from flower to flower. -> Honeybees help plants and make honey.",
+            "They move pollen from flower to flower.",
+            "They move pollen from flower to flower. supports Honeybees help plants and make honey.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_MIXED_Q09",
+          "prompt": "Match the detail to the main idea it supports.",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "They teach families how to plan safe ways out of a home. -> Firefighters work and train to keep people safe.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "They teach families how to plan safe ways out of a home. -> Firefighters work and train to keep people safe. is supported by the text.",
+          "feedback": "Yes — They teach families how to plan safe ways out of a home. -> Firefighters work and train to keep people safe. fits.",
+          "passage": "Firefighters train to keep people safe. They wear heavy coats, helmets, and boots to protect their bodies. Firefighters also teach families how to plan safe ways out of a home.",
+          "topic": "firefighters",
+          "main_idea": "Firefighters work and train to keep people safe.",
+          "details": [
+            "They teach families how to plan safe ways out of a home.",
+            "Firefighters train to keep people safe."
+          ],
+          "choices": [
+            "They teach families how to plan safe ways out of a home. -> Firefighters work and train to keep people safe.",
+            "They teach families how to plan safe ways out of a home. -> an unrelated main idea",
+            "firefighters -> They teach families how to plan safe ways out of a home.",
+            "unsupported detail -> main idea"
+          ],
+          "acceptable_answers": [
+            "They teach families how to plan safe ways out of a home. -> Firefighters work and train to keep people safe.",
+            "They teach families how to plan safe ways out of a home.",
+            "They teach families how to plan safe ways out of a home. supports Firefighters work and train to keep people safe.."
+          ]
+        },
+        {
+          "question_id": "G2E_RC_003_MIXED_Q10",
+          "prompt": "Match the detail to the main idea it supports.",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "Their wings work like flippers for swimming. -> Penguins have body parts that help them live and swim in cold water.",
+          "hints": [
+            "Read the question word first.",
+            "Go back to the passage and find the sentence that answers it.",
+            "Use words from the text as evidence."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "Their wings work like flippers for swimming. -> Penguins have body parts that help them live and swim in cold water. is supported by the text.",
+          "feedback": "Yes — Their wings work like flippers for swimming. -> Penguins have body parts that help them live and swim in cold water. fits.",
+          "passage": "Penguins are birds that spend much time in cold ocean water. Their wings work like flippers for swimming. A thick layer of feathers helps penguins stay warm.",
+          "topic": "penguins",
+          "main_idea": "Penguins have body parts that help them live and swim in cold water.",
+          "details": [
+            "Their wings work like flippers for swimming.",
+            "A thick layer of feathers helps penguins stay warm."
+          ],
+          "choices": [
+            "Their wings work like flippers for swimming. -> Penguins have body parts that help them live and swim in cold water.",
+            "Their wings work like flippers for swimming. -> an unrelated main idea",
+            "penguins -> Their wings work like flippers for swimming.",
+            "unsupported detail -> main idea"
+          ],
+          "acceptable_answers": [
+            "Their wings work like flippers for swimming. -> Penguins have body parts that help them live and swim in cold water.",
+            "Their wings work like flippers for swimming.",
+            "Their wings work like flippers for swimming. supports Penguins have body parts that help them live and swim in cold water.."
+          ]
+        }
+      ]
+    }
+  ]
+}
