@@ -1,0 +1,2101 @@
+{
+  "skill_id": "G3M_GM_001",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_docs": [
+      "docs/grade3_math_completion_plan.md",
+      "curriculum-framework/plans/grade3-math-completion-plan.v1.json"
+    ],
+    "source_plan": "curriculum-framework/plans/grade3-math-completion-plan.v1.json"
+  },
+  "grade": 3,
+  "subject": "Math",
+  "domain": "Measurement and Geometry",
+  "skill": "Area and Perimeter",
+  "mastery_threshold": 0.8,
+  "difficulty_range": "Grade 3 measurement and geometry",
+  "lesson": {
+    "story_mission": "Join the Skill World design crew to use find area in square units and perimeter as distance around in real classroom missions.",
+    "mini_lesson": "Find area in square units and perimeter as distance around.",
+    "objective": "Find area in square units and perimeter as distance around.",
+    "key_vocabulary": [
+      "area",
+      "square unit",
+      "perimeter",
+      "side length",
+      "rectangle",
+      "grid",
+      "units"
+    ],
+    "concept_explanation": "Use models and precise math language to find area in square units and perimeter as distance around. Explain the strategy and include units when the answer needs them.",
+    "visual_model": "area_model",
+    "common_misconception": "Learners may use square units for perimeter or linear units for area.",
+    "real_world_connection": "These skills help with schedules, materials, maps, art projects, and data from everyday activities.",
+    "lesson_summary": "Read the task, choose the model, solve carefully, and check that the answer matches the question.",
+    "hints": [
+      "Read what the question asks.",
+      "Use the visual model to organize the information.",
+      "Check that your answer includes the right unit or name."
+    ]
+  },
+  "worked_examples": [
+    {
+      "id": "G3M_GM_001_LVL1_Q1",
+      "question_id": "G3M_GM_001_LVL1_Q1",
+      "question_type": "short_response",
+      "visual_model": "grid_model",
+      "prompt": "Count the square units in a grid with 2 rows and 3 columns. What is the area?",
+      "answer": "6 square units",
+      "correct_answer": "6 square units",
+      "misconception_tag": "square_unit_count_error",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 6 square units.",
+      "acceptable_answers": [
+        "6",
+        "6 square units",
+        "6 sq units",
+        "6 unit squares"
+      ],
+      "rows": 2,
+      "columns": 3,
+      "area": 6,
+      "filled_units": 6
+    },
+    {
+      "id": "G3M_GM_001_LVL1_Q2",
+      "question_id": "G3M_GM_001_LVL1_Q2",
+      "question_type": "multiple_choice",
+      "visual_model": "grid_model",
+      "prompt": "Count the square units in a grid with 3 rows and 3 columns. What is the area?",
+      "answer": "9 square units",
+      "correct_answer": "9 square units",
+      "misconception_tag": "square_unit_count_error",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 9 square units.",
+      "acceptable_answers": [
+        "9",
+        "9 square units",
+        "9 sq units",
+        "9 unit squares"
+      ],
+      "choices": [
+        "9 square units",
+        "12 square units",
+        "6 square units"
+      ],
+      "rows": 3,
+      "columns": 3,
+      "area": 9,
+      "filled_units": 9
+    },
+    {
+      "id": "G3M_GM_001_LVL1_Q3",
+      "question_id": "G3M_GM_001_LVL1_Q3",
+      "question_type": "area_response",
+      "visual_model": "grid_model",
+      "prompt": "Count the square units in a grid with 2 rows and 5 columns. What is the area?",
+      "answer": "10 square units",
+      "correct_answer": "10 square units",
+      "misconception_tag": "square_unit_count_error",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 10 square units.",
+      "acceptable_answers": [
+        "10",
+        "10 square units",
+        "10 sq units",
+        "10 unit squares"
+      ],
+      "rows": 2,
+      "columns": 5,
+      "area": 10,
+      "filled_units": 10
+    }
+  ],
+  "hint_ladder": [
+    "Read what the question asks.",
+    "Use the visual model to organize the information.",
+    "Check that your answer includes the right unit or name."
+  ],
+  "guided_practice": [
+    {
+      "id": "G3M_GM_001_LVL1_Q1",
+      "question_id": "G3M_GM_001_LVL1_Q1",
+      "question_type": "short_response",
+      "visual_model": "grid_model",
+      "prompt": "Count the square units in a grid with 2 rows and 3 columns. What is the area?",
+      "answer": "6 square units",
+      "correct_answer": "6 square units",
+      "misconception_tag": "square_unit_count_error",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 6 square units.",
+      "acceptable_answers": [
+        "6",
+        "6 square units",
+        "6 sq units",
+        "6 unit squares"
+      ],
+      "rows": 2,
+      "columns": 3,
+      "area": 6,
+      "filled_units": 6
+    },
+    {
+      "id": "G3M_GM_001_LVL1_Q2",
+      "question_id": "G3M_GM_001_LVL1_Q2",
+      "question_type": "multiple_choice",
+      "visual_model": "grid_model",
+      "prompt": "Count the square units in a grid with 3 rows and 3 columns. What is the area?",
+      "answer": "9 square units",
+      "correct_answer": "9 square units",
+      "misconception_tag": "square_unit_count_error",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 9 square units.",
+      "acceptable_answers": [
+        "9",
+        "9 square units",
+        "9 sq units",
+        "9 unit squares"
+      ],
+      "choices": [
+        "9 square units",
+        "12 square units",
+        "6 square units"
+      ],
+      "rows": 3,
+      "columns": 3,
+      "area": 9,
+      "filled_units": 9
+    },
+    {
+      "id": "G3M_GM_001_LVL1_Q3",
+      "question_id": "G3M_GM_001_LVL1_Q3",
+      "question_type": "area_response",
+      "visual_model": "grid_model",
+      "prompt": "Count the square units in a grid with 2 rows and 5 columns. What is the area?",
+      "answer": "10 square units",
+      "correct_answer": "10 square units",
+      "misconception_tag": "square_unit_count_error",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 10 square units.",
+      "acceptable_answers": [
+        "10",
+        "10 square units",
+        "10 sq units",
+        "10 unit squares"
+      ],
+      "rows": 2,
+      "columns": 5,
+      "area": 10,
+      "filled_units": 10
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G3M_GM_001_LVL1_Q4",
+      "question_id": "G3M_GM_001_LVL1_Q4",
+      "question_type": "short_response",
+      "visual_model": "grid_model",
+      "prompt": "Count the square units in a grid with 4 rows and 4 columns. What is the area?",
+      "answer": "16 square units",
+      "correct_answer": "16 square units",
+      "misconception_tag": "square_unit_count_error",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 16 square units.",
+      "acceptable_answers": [
+        "16",
+        "16 square units",
+        "16 sq units",
+        "16 unit squares"
+      ],
+      "rows": 4,
+      "columns": 4,
+      "area": 16,
+      "filled_units": 16
+    },
+    {
+      "id": "G3M_GM_001_LVL1_Q5",
+      "question_id": "G3M_GM_001_LVL1_Q5",
+      "question_type": "multiple_choice",
+      "visual_model": "grid_model",
+      "prompt": "Count the square units in a grid with 3 rows and 5 columns. What is the area?",
+      "answer": "15 square units",
+      "correct_answer": "15 square units",
+      "misconception_tag": "square_unit_count_error",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 15 square units.",
+      "acceptable_answers": [
+        "15",
+        "15 square units",
+        "15 sq units",
+        "15 unit squares"
+      ],
+      "choices": [
+        "15 square units",
+        "18 square units",
+        "10 square units"
+      ],
+      "rows": 3,
+      "columns": 5,
+      "area": 15,
+      "filled_units": 15
+    },
+    {
+      "id": "G3M_GM_001_LVL1_Q6",
+      "question_id": "G3M_GM_001_LVL1_Q6",
+      "question_type": "area_response",
+      "visual_model": "grid_model",
+      "prompt": "Count the square units in a grid with 4 rows and 6 columns. What is the area?",
+      "answer": "24 square units",
+      "correct_answer": "24 square units",
+      "misconception_tag": "square_unit_count_error",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 24 square units.",
+      "acceptable_answers": [
+        "24",
+        "24 square units",
+        "24 sq units",
+        "24 unit squares"
+      ],
+      "rows": 4,
+      "columns": 6,
+      "area": 24,
+      "filled_units": 24
+    },
+    {
+      "id": "G3M_GM_001_LVL1_Q7",
+      "question_id": "G3M_GM_001_LVL1_Q7",
+      "question_type": "short_response",
+      "visual_model": "grid_model",
+      "prompt": "Count the square units in a grid with 5 rows and 5 columns. What is the area?",
+      "answer": "25 square units",
+      "correct_answer": "25 square units",
+      "misconception_tag": "square_unit_count_error",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 25 square units.",
+      "acceptable_answers": [
+        "25",
+        "25 square units",
+        "25 sq units",
+        "25 unit squares"
+      ],
+      "rows": 5,
+      "columns": 5,
+      "area": 25,
+      "filled_units": 25
+    },
+    {
+      "id": "G3M_GM_001_LVL1_Q8",
+      "question_id": "G3M_GM_001_LVL1_Q8",
+      "question_type": "multiple_choice",
+      "visual_model": "grid_model",
+      "prompt": "Count the square units in a grid with 3 rows and 7 columns. What is the area?",
+      "answer": "21 square units",
+      "correct_answer": "21 square units",
+      "misconception_tag": "square_unit_count_error",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 21 square units.",
+      "acceptable_answers": [
+        "21",
+        "21 square units",
+        "21 sq units",
+        "21 unit squares"
+      ],
+      "choices": [
+        "21 square units",
+        "24 square units",
+        "14 square units"
+      ],
+      "rows": 3,
+      "columns": 7,
+      "area": 21,
+      "filled_units": 21
+    },
+    {
+      "id": "G3M_GM_001_LVL1_Q9",
+      "question_id": "G3M_GM_001_LVL1_Q9",
+      "question_type": "area_response",
+      "visual_model": "grid_model",
+      "prompt": "Count the square units in a grid with 6 rows and 6 columns. What is the area?",
+      "answer": "36 square units",
+      "correct_answer": "36 square units",
+      "misconception_tag": "square_unit_count_error",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 36 square units.",
+      "acceptable_answers": [
+        "36",
+        "36 square units",
+        "36 sq units",
+        "36 unit squares"
+      ],
+      "rows": 6,
+      "columns": 6,
+      "area": 36,
+      "filled_units": 36
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G3M_GM_001_LVL1_Q10",
+      "question_id": "G3M_GM_001_LVL1_Q10",
+      "question_type": "short_response",
+      "visual_model": "grid_model",
+      "prompt": "Count the square units in a grid with 4 rows and 8 columns. What is the area?",
+      "answer": "32 square units",
+      "correct_answer": "32 square units",
+      "misconception_tag": "square_unit_count_error",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 32 square units.",
+      "acceptable_answers": [
+        "32",
+        "32 square units",
+        "32 sq units",
+        "32 unit squares"
+      ],
+      "rows": 4,
+      "columns": 8,
+      "area": 32,
+      "filled_units": 32
+    },
+    {
+      "id": "G3M_GM_001_LVL2_Q1",
+      "question_id": "G3M_GM_001_LVL2_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "area_model",
+      "prompt": "A rectangle is 3 units by 4 units. What is its area?",
+      "answer": "12 square units",
+      "correct_answer": "12 square units",
+      "misconception_tag": "formula_misuse",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 12 square units.",
+      "acceptable_answers": [
+        "12",
+        "12 square units",
+        "12 sq units"
+      ],
+      "choices": [
+        "12 square units",
+        "14 units",
+        "7 square units"
+      ],
+      "rows": 3,
+      "columns": 4,
+      "area": 12
+    },
+    {
+      "id": "G3M_GM_001_LVL2_Q2",
+      "question_id": "G3M_GM_001_LVL2_Q2",
+      "question_type": "short_response",
+      "visual_model": "area_model",
+      "prompt": "A rectangle is 5 units by 6 units. What is its area?",
+      "answer": "30 square units",
+      "correct_answer": "30 square units",
+      "misconception_tag": "formula_misuse",
+      "hints": [
+        "Read what the question asks.",
+        "Use the visual model to organize the information.",
+        "Check that your answer includes the right unit or name."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the model and check the question again."
+      },
+      "explanation": "The correct answer is 30 square units.",
+      "acceptable_answers": [
+        "30",
+        "30 square units",
+        "30 sq units"
+      ],
+      "rows": 5,
+      "columns": 6,
+      "area": 30
+    }
+  ],
+  "misconception_bank": {
+    "area_perimeter_confusion": "Learners may use square units for perimeter or linear units for area.",
+    "square_unit_count_error": "Learners may skip or double-count squares in an array.",
+    "side_length_addition_error": "Learners may forget one side when adding around a figure.",
+    "formula_misuse": "Learners may multiply when they need to add, or add when they need to multiply."
+  },
+  "review_bank": [],
+  "game_theme": {
+    "title": "Skill World: Area and Perimeter",
+    "mission_intro": "Build confidence with area and perimeter through a guided mission and focused practice levels.",
+    "badge_name": "Area and Perimeter Badge"
+  },
+  "level_banks": [
+    {
+      "level_id": "G3M_GM_001_LVL1",
+      "label": "Level 1: Count Square Units",
+      "focus": "count square units",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_GM_001_LVL1_Q1",
+          "question_id": "G3M_GM_001_LVL1_Q1",
+          "question_type": "short_response",
+          "visual_model": "grid_model",
+          "prompt": "Count the square units in a grid with 2 rows and 3 columns. What is the area?",
+          "answer": "6 square units",
+          "correct_answer": "6 square units",
+          "misconception_tag": "square_unit_count_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 6 square units.",
+          "acceptable_answers": [
+            "6",
+            "6 square units",
+            "6 sq units",
+            "6 unit squares"
+          ],
+          "rows": 2,
+          "columns": 3,
+          "area": 6,
+          "filled_units": 6
+        },
+        {
+          "id": "G3M_GM_001_LVL1_Q2",
+          "question_id": "G3M_GM_001_LVL1_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "grid_model",
+          "prompt": "Count the square units in a grid with 3 rows and 3 columns. What is the area?",
+          "answer": "9 square units",
+          "correct_answer": "9 square units",
+          "misconception_tag": "square_unit_count_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 9 square units.",
+          "acceptable_answers": [
+            "9",
+            "9 square units",
+            "9 sq units",
+            "9 unit squares"
+          ],
+          "choices": [
+            "9 square units",
+            "12 square units",
+            "6 square units"
+          ],
+          "rows": 3,
+          "columns": 3,
+          "area": 9,
+          "filled_units": 9
+        },
+        {
+          "id": "G3M_GM_001_LVL1_Q3",
+          "question_id": "G3M_GM_001_LVL1_Q3",
+          "question_type": "area_response",
+          "visual_model": "grid_model",
+          "prompt": "Count the square units in a grid with 2 rows and 5 columns. What is the area?",
+          "answer": "10 square units",
+          "correct_answer": "10 square units",
+          "misconception_tag": "square_unit_count_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 10 square units.",
+          "acceptable_answers": [
+            "10",
+            "10 square units",
+            "10 sq units",
+            "10 unit squares"
+          ],
+          "rows": 2,
+          "columns": 5,
+          "area": 10,
+          "filled_units": 10
+        },
+        {
+          "id": "G3M_GM_001_LVL1_Q4",
+          "question_id": "G3M_GM_001_LVL1_Q4",
+          "question_type": "short_response",
+          "visual_model": "grid_model",
+          "prompt": "Count the square units in a grid with 4 rows and 4 columns. What is the area?",
+          "answer": "16 square units",
+          "correct_answer": "16 square units",
+          "misconception_tag": "square_unit_count_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 16 square units.",
+          "acceptable_answers": [
+            "16",
+            "16 square units",
+            "16 sq units",
+            "16 unit squares"
+          ],
+          "rows": 4,
+          "columns": 4,
+          "area": 16,
+          "filled_units": 16
+        },
+        {
+          "id": "G3M_GM_001_LVL1_Q5",
+          "question_id": "G3M_GM_001_LVL1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "grid_model",
+          "prompt": "Count the square units in a grid with 3 rows and 5 columns. What is the area?",
+          "answer": "15 square units",
+          "correct_answer": "15 square units",
+          "misconception_tag": "square_unit_count_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 15 square units.",
+          "acceptable_answers": [
+            "15",
+            "15 square units",
+            "15 sq units",
+            "15 unit squares"
+          ],
+          "choices": [
+            "15 square units",
+            "18 square units",
+            "10 square units"
+          ],
+          "rows": 3,
+          "columns": 5,
+          "area": 15,
+          "filled_units": 15
+        },
+        {
+          "id": "G3M_GM_001_LVL1_Q6",
+          "question_id": "G3M_GM_001_LVL1_Q6",
+          "question_type": "area_response",
+          "visual_model": "grid_model",
+          "prompt": "Count the square units in a grid with 4 rows and 6 columns. What is the area?",
+          "answer": "24 square units",
+          "correct_answer": "24 square units",
+          "misconception_tag": "square_unit_count_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 24 square units.",
+          "acceptable_answers": [
+            "24",
+            "24 square units",
+            "24 sq units",
+            "24 unit squares"
+          ],
+          "rows": 4,
+          "columns": 6,
+          "area": 24,
+          "filled_units": 24
+        },
+        {
+          "id": "G3M_GM_001_LVL1_Q7",
+          "question_id": "G3M_GM_001_LVL1_Q7",
+          "question_type": "short_response",
+          "visual_model": "grid_model",
+          "prompt": "Count the square units in a grid with 5 rows and 5 columns. What is the area?",
+          "answer": "25 square units",
+          "correct_answer": "25 square units",
+          "misconception_tag": "square_unit_count_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 25 square units.",
+          "acceptable_answers": [
+            "25",
+            "25 square units",
+            "25 sq units",
+            "25 unit squares"
+          ],
+          "rows": 5,
+          "columns": 5,
+          "area": 25,
+          "filled_units": 25
+        },
+        {
+          "id": "G3M_GM_001_LVL1_Q8",
+          "question_id": "G3M_GM_001_LVL1_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "grid_model",
+          "prompt": "Count the square units in a grid with 3 rows and 7 columns. What is the area?",
+          "answer": "21 square units",
+          "correct_answer": "21 square units",
+          "misconception_tag": "square_unit_count_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 21 square units.",
+          "acceptable_answers": [
+            "21",
+            "21 square units",
+            "21 sq units",
+            "21 unit squares"
+          ],
+          "choices": [
+            "21 square units",
+            "24 square units",
+            "14 square units"
+          ],
+          "rows": 3,
+          "columns": 7,
+          "area": 21,
+          "filled_units": 21
+        },
+        {
+          "id": "G3M_GM_001_LVL1_Q9",
+          "question_id": "G3M_GM_001_LVL1_Q9",
+          "question_type": "area_response",
+          "visual_model": "grid_model",
+          "prompt": "Count the square units in a grid with 6 rows and 6 columns. What is the area?",
+          "answer": "36 square units",
+          "correct_answer": "36 square units",
+          "misconception_tag": "square_unit_count_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 36 square units.",
+          "acceptable_answers": [
+            "36",
+            "36 square units",
+            "36 sq units",
+            "36 unit squares"
+          ],
+          "rows": 6,
+          "columns": 6,
+          "area": 36,
+          "filled_units": 36
+        },
+        {
+          "id": "G3M_GM_001_LVL1_Q10",
+          "question_id": "G3M_GM_001_LVL1_Q10",
+          "question_type": "short_response",
+          "visual_model": "grid_model",
+          "prompt": "Count the square units in a grid with 4 rows and 8 columns. What is the area?",
+          "answer": "32 square units",
+          "correct_answer": "32 square units",
+          "misconception_tag": "square_unit_count_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 32 square units.",
+          "acceptable_answers": [
+            "32",
+            "32 square units",
+            "32 sq units",
+            "32 unit squares"
+          ],
+          "rows": 4,
+          "columns": 8,
+          "area": 32,
+          "filled_units": 32
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_GM_001_LVL2",
+      "label": "Level 2: Area of Rectangles",
+      "focus": "find area of rectangles",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_GM_001_LVL2_Q1",
+          "question_id": "G3M_GM_001_LVL2_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "prompt": "A rectangle is 3 units by 4 units. What is its area?",
+          "answer": "12 square units",
+          "correct_answer": "12 square units",
+          "misconception_tag": "formula_misuse",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 12 square units.",
+          "acceptable_answers": [
+            "12",
+            "12 square units",
+            "12 sq units"
+          ],
+          "choices": [
+            "12 square units",
+            "14 units",
+            "7 square units"
+          ],
+          "rows": 3,
+          "columns": 4,
+          "area": 12
+        },
+        {
+          "id": "G3M_GM_001_LVL2_Q2",
+          "question_id": "G3M_GM_001_LVL2_Q2",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "A rectangle is 5 units by 6 units. What is its area?",
+          "answer": "30 square units",
+          "correct_answer": "30 square units",
+          "misconception_tag": "formula_misuse",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 30 square units.",
+          "acceptable_answers": [
+            "30",
+            "30 square units",
+            "30 sq units"
+          ],
+          "rows": 5,
+          "columns": 6,
+          "area": 30
+        },
+        {
+          "id": "G3M_GM_001_LVL2_Q3",
+          "question_id": "G3M_GM_001_LVL2_Q3",
+          "question_type": "area_response",
+          "visual_model": "area_model",
+          "prompt": "A rectangle is 2 units by 9 units. What is its area?",
+          "answer": "18 square units",
+          "correct_answer": "18 square units",
+          "misconception_tag": "formula_misuse",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 18 square units.",
+          "acceptable_answers": [
+            "18",
+            "18 square units",
+            "18 sq units"
+          ],
+          "rows": 2,
+          "columns": 9,
+          "area": 18
+        },
+        {
+          "id": "G3M_GM_001_LVL2_Q4",
+          "question_id": "G3M_GM_001_LVL2_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "prompt": "A rectangle is 7 units by 3 units. What is its area?",
+          "answer": "21 square units",
+          "correct_answer": "21 square units",
+          "misconception_tag": "formula_misuse",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 21 square units.",
+          "acceptable_answers": [
+            "21",
+            "21 square units",
+            "21 sq units"
+          ],
+          "choices": [
+            "21 square units",
+            "20 units",
+            "10 square units"
+          ],
+          "rows": 7,
+          "columns": 3,
+          "area": 21
+        },
+        {
+          "id": "G3M_GM_001_LVL2_Q5",
+          "question_id": "G3M_GM_001_LVL2_Q5",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "A rectangle is 4 units by 5 units. What is its area?",
+          "answer": "20 square units",
+          "correct_answer": "20 square units",
+          "misconception_tag": "formula_misuse",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 20 square units.",
+          "acceptable_answers": [
+            "20",
+            "20 square units",
+            "20 sq units"
+          ],
+          "rows": 4,
+          "columns": 5,
+          "area": 20
+        },
+        {
+          "id": "G3M_GM_001_LVL2_Q6",
+          "question_id": "G3M_GM_001_LVL2_Q6",
+          "question_type": "area_response",
+          "visual_model": "area_model",
+          "prompt": "A rectangle is 6 units by 8 units. What is its area?",
+          "answer": "48 square units",
+          "correct_answer": "48 square units",
+          "misconception_tag": "formula_misuse",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 48 square units.",
+          "acceptable_answers": [
+            "48",
+            "48 square units",
+            "48 sq units"
+          ],
+          "rows": 6,
+          "columns": 8,
+          "area": 48
+        },
+        {
+          "id": "G3M_GM_001_LVL2_Q7",
+          "question_id": "G3M_GM_001_LVL2_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "prompt": "A rectangle is 9 units by 3 units. What is its area?",
+          "answer": "27 square units",
+          "correct_answer": "27 square units",
+          "misconception_tag": "formula_misuse",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 27 square units.",
+          "acceptable_answers": [
+            "27",
+            "27 square units",
+            "27 sq units"
+          ],
+          "choices": [
+            "27 square units",
+            "24 units",
+            "12 square units"
+          ],
+          "rows": 9,
+          "columns": 3,
+          "area": 27
+        },
+        {
+          "id": "G3M_GM_001_LVL2_Q8",
+          "question_id": "G3M_GM_001_LVL2_Q8",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "A rectangle is 7 units by 7 units. What is its area?",
+          "answer": "49 square units",
+          "correct_answer": "49 square units",
+          "misconception_tag": "formula_misuse",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 49 square units.",
+          "acceptable_answers": [
+            "49",
+            "49 square units",
+            "49 sq units"
+          ],
+          "rows": 7,
+          "columns": 7,
+          "area": 49
+        },
+        {
+          "id": "G3M_GM_001_LVL2_Q9",
+          "question_id": "G3M_GM_001_LVL2_Q9",
+          "question_type": "area_response",
+          "visual_model": "area_model",
+          "prompt": "A rectangle is 8 units by 4 units. What is its area?",
+          "answer": "32 square units",
+          "correct_answer": "32 square units",
+          "misconception_tag": "formula_misuse",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 32 square units.",
+          "acceptable_answers": [
+            "32",
+            "32 square units",
+            "32 sq units"
+          ],
+          "rows": 8,
+          "columns": 4,
+          "area": 32
+        },
+        {
+          "id": "G3M_GM_001_LVL2_Q10",
+          "question_id": "G3M_GM_001_LVL2_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "prompt": "A rectangle is 5 units by 9 units. What is its area?",
+          "answer": "45 square units",
+          "correct_answer": "45 square units",
+          "misconception_tag": "formula_misuse",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 45 square units.",
+          "acceptable_answers": [
+            "45",
+            "45 square units",
+            "45 sq units"
+          ],
+          "choices": [
+            "45 square units",
+            "28 units",
+            "14 square units"
+          ],
+          "rows": 5,
+          "columns": 9,
+          "area": 45
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_GM_001_LVL3",
+      "label": "Level 3: Perimeter",
+      "focus": "find perimeter from side lengths",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_GM_001_LVL3_Q1",
+          "question_id": "G3M_GM_001_LVL3_Q1",
+          "question_type": "short_response",
+          "visual_model": "perimeter_path",
+          "prompt": "A rectangle has side lengths 5, 2, 5, and 2 units. What is the perimeter?",
+          "answer": "14 units",
+          "correct_answer": "14 units",
+          "misconception_tag": "side_length_addition_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 14 units.",
+          "acceptable_answers": [
+            "14",
+            "14 units",
+            "14 unit"
+          ],
+          "length": 5,
+          "width": 2,
+          "perimeter": 14
+        },
+        {
+          "id": "G3M_GM_001_LVL3_Q2",
+          "question_id": "G3M_GM_001_LVL3_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "perimeter_path",
+          "prompt": "A rectangle has side lengths 6, 3, 6, and 3 units. What is the perimeter?",
+          "answer": "18 units",
+          "correct_answer": "18 units",
+          "misconception_tag": "side_length_addition_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 18 units.",
+          "acceptable_answers": [
+            "18",
+            "18 units",
+            "18 unit"
+          ],
+          "choices": [
+            "18 units",
+            "18 square units",
+            "9 units"
+          ],
+          "length": 6,
+          "width": 3,
+          "perimeter": 18
+        },
+        {
+          "id": "G3M_GM_001_LVL3_Q3",
+          "question_id": "G3M_GM_001_LVL3_Q3",
+          "question_type": "perimeter_response",
+          "visual_model": "perimeter_path",
+          "prompt": "A rectangle has side lengths 8, 4, 8, and 4 units. What is the perimeter?",
+          "answer": "24 units",
+          "correct_answer": "24 units",
+          "misconception_tag": "side_length_addition_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 24 units.",
+          "acceptable_answers": [
+            "24",
+            "24 units",
+            "24 unit"
+          ],
+          "length": 8,
+          "width": 4,
+          "perimeter": 24
+        },
+        {
+          "id": "G3M_GM_001_LVL3_Q4",
+          "question_id": "G3M_GM_001_LVL3_Q4",
+          "question_type": "short_response",
+          "visual_model": "perimeter_path",
+          "prompt": "A rectangle has side lengths 7, 5, 7, and 5 units. What is the perimeter?",
+          "answer": "24 units",
+          "correct_answer": "24 units",
+          "misconception_tag": "side_length_addition_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 24 units.",
+          "acceptable_answers": [
+            "24",
+            "24 units",
+            "24 unit"
+          ],
+          "length": 7,
+          "width": 5,
+          "perimeter": 24
+        },
+        {
+          "id": "G3M_GM_001_LVL3_Q5",
+          "question_id": "G3M_GM_001_LVL3_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "perimeter_path",
+          "prompt": "A rectangle has side lengths 9, 2, 9, and 2 units. What is the perimeter?",
+          "answer": "22 units",
+          "correct_answer": "22 units",
+          "misconception_tag": "side_length_addition_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 22 units.",
+          "acceptable_answers": [
+            "22",
+            "22 units",
+            "22 unit"
+          ],
+          "choices": [
+            "22 units",
+            "18 square units",
+            "11 units"
+          ],
+          "length": 9,
+          "width": 2,
+          "perimeter": 22
+        },
+        {
+          "id": "G3M_GM_001_LVL3_Q6",
+          "question_id": "G3M_GM_001_LVL3_Q6",
+          "question_type": "perimeter_response",
+          "visual_model": "perimeter_path",
+          "prompt": "A rectangle has side lengths 10, 4, 10, and 4 units. What is the perimeter?",
+          "answer": "28 units",
+          "correct_answer": "28 units",
+          "misconception_tag": "side_length_addition_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 28 units.",
+          "acceptable_answers": [
+            "28",
+            "28 units",
+            "28 unit"
+          ],
+          "length": 10,
+          "width": 4,
+          "perimeter": 28
+        },
+        {
+          "id": "G3M_GM_001_LVL3_Q7",
+          "question_id": "G3M_GM_001_LVL3_Q7",
+          "question_type": "short_response",
+          "visual_model": "perimeter_path",
+          "prompt": "A rectangle has side lengths 6, 6, 6, and 6 units. What is the perimeter?",
+          "answer": "24 units",
+          "correct_answer": "24 units",
+          "misconception_tag": "side_length_addition_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 24 units.",
+          "acceptable_answers": [
+            "24",
+            "24 units",
+            "24 unit"
+          ],
+          "length": 6,
+          "width": 6,
+          "perimeter": 24
+        },
+        {
+          "id": "G3M_GM_001_LVL3_Q8",
+          "question_id": "G3M_GM_001_LVL3_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "perimeter_path",
+          "prompt": "A rectangle has side lengths 11, 3, 11, and 3 units. What is the perimeter?",
+          "answer": "28 units",
+          "correct_answer": "28 units",
+          "misconception_tag": "side_length_addition_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 28 units.",
+          "acceptable_answers": [
+            "28",
+            "28 units",
+            "28 unit"
+          ],
+          "choices": [
+            "28 units",
+            "33 square units",
+            "14 units"
+          ],
+          "length": 11,
+          "width": 3,
+          "perimeter": 28
+        },
+        {
+          "id": "G3M_GM_001_LVL3_Q9",
+          "question_id": "G3M_GM_001_LVL3_Q9",
+          "question_type": "perimeter_response",
+          "visual_model": "perimeter_path",
+          "prompt": "A rectangle has side lengths 12, 5, 12, and 5 units. What is the perimeter?",
+          "answer": "34 units",
+          "correct_answer": "34 units",
+          "misconception_tag": "side_length_addition_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 34 units.",
+          "acceptable_answers": [
+            "34",
+            "34 units",
+            "34 unit"
+          ],
+          "length": 12,
+          "width": 5,
+          "perimeter": 34
+        },
+        {
+          "id": "G3M_GM_001_LVL3_Q10",
+          "question_id": "G3M_GM_001_LVL3_Q10",
+          "question_type": "short_response",
+          "visual_model": "perimeter_path",
+          "prompt": "A rectangle has side lengths 8, 7, 8, and 7 units. What is the perimeter?",
+          "answer": "30 units",
+          "correct_answer": "30 units",
+          "misconception_tag": "side_length_addition_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 30 units.",
+          "acceptable_answers": [
+            "30",
+            "30 units",
+            "30 unit"
+          ],
+          "length": 8,
+          "width": 7,
+          "perimeter": 30
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_GM_001_LVL4",
+      "label": "Level 4: Area vs Perimeter",
+      "focus": "distinguish area vs perimeter",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_GM_001_LVL4_Q1",
+          "question_id": "G3M_GM_001_LVL4_Q1",
+          "question_type": "area_response",
+          "visual_model": "rectangle_model",
+          "prompt": "For a 4 by 3 rectangle, find the perimeter.",
+          "answer": "14 units",
+          "correct_answer": "14 units",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 14 units.",
+          "acceptable_answers": [
+            "14",
+            "14 units"
+          ],
+          "length": 4,
+          "width": 3,
+          "area": 12,
+          "perimeter": 14
+        },
+        {
+          "id": "G3M_GM_001_LVL4_Q2",
+          "question_id": "G3M_GM_001_LVL4_Q2",
+          "question_type": "perimeter_response",
+          "visual_model": "rectangle_model",
+          "prompt": "For a 5 by 5 rectangle, find the area.",
+          "answer": "25 square units",
+          "correct_answer": "25 square units",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 25 square units.",
+          "acceptable_answers": [
+            "25",
+            "25 square units",
+            "25 sq units"
+          ],
+          "length": 5,
+          "width": 5,
+          "area": 25,
+          "perimeter": 20
+        },
+        {
+          "id": "G3M_GM_001_LVL4_Q3",
+          "question_id": "G3M_GM_001_LVL4_Q3",
+          "question_type": "short_response",
+          "visual_model": "rectangle_model",
+          "prompt": "For a 6 by 2 rectangle, find the perimeter.",
+          "answer": "16 units",
+          "correct_answer": "16 units",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 16 units.",
+          "acceptable_answers": [
+            "16",
+            "16 units"
+          ],
+          "length": 6,
+          "width": 2,
+          "area": 12,
+          "perimeter": 16
+        },
+        {
+          "id": "G3M_GM_001_LVL4_Q4",
+          "question_id": "G3M_GM_001_LVL4_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "rectangle_model",
+          "prompt": "For a 7 by 4 rectangle, find the area.",
+          "answer": "28 square units",
+          "correct_answer": "28 square units",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 28 square units.",
+          "acceptable_answers": [
+            "28",
+            "28 square units",
+            "28 sq units"
+          ],
+          "choices": [
+            "28 square units",
+            "22 units",
+            "11"
+          ],
+          "length": 7,
+          "width": 4,
+          "area": 28,
+          "perimeter": 22
+        },
+        {
+          "id": "G3M_GM_001_LVL4_Q5",
+          "question_id": "G3M_GM_001_LVL4_Q5",
+          "question_type": "area_response",
+          "visual_model": "rectangle_model",
+          "prompt": "For a 8 by 3 rectangle, find the perimeter.",
+          "answer": "22 units",
+          "correct_answer": "22 units",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 22 units.",
+          "acceptable_answers": [
+            "22",
+            "22 units"
+          ],
+          "length": 8,
+          "width": 3,
+          "area": 24,
+          "perimeter": 22
+        },
+        {
+          "id": "G3M_GM_001_LVL4_Q6",
+          "question_id": "G3M_GM_001_LVL4_Q6",
+          "question_type": "perimeter_response",
+          "visual_model": "rectangle_model",
+          "prompt": "For a 9 by 5 rectangle, find the area.",
+          "answer": "45 square units",
+          "correct_answer": "45 square units",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 45 square units.",
+          "acceptable_answers": [
+            "45",
+            "45 square units",
+            "45 sq units"
+          ],
+          "length": 9,
+          "width": 5,
+          "area": 45,
+          "perimeter": 28
+        },
+        {
+          "id": "G3M_GM_001_LVL4_Q7",
+          "question_id": "G3M_GM_001_LVL4_Q7",
+          "question_type": "short_response",
+          "visual_model": "rectangle_model",
+          "prompt": "For a 10 by 2 rectangle, find the perimeter.",
+          "answer": "24 units",
+          "correct_answer": "24 units",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 24 units.",
+          "acceptable_answers": [
+            "24",
+            "24 units"
+          ],
+          "length": 10,
+          "width": 2,
+          "area": 20,
+          "perimeter": 24
+        },
+        {
+          "id": "G3M_GM_001_LVL4_Q8",
+          "question_id": "G3M_GM_001_LVL4_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "rectangle_model",
+          "prompt": "For a 6 by 6 rectangle, find the area.",
+          "answer": "36 square units",
+          "correct_answer": "36 square units",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 36 square units.",
+          "acceptable_answers": [
+            "36",
+            "36 square units",
+            "36 sq units"
+          ],
+          "choices": [
+            "36 square units",
+            "24 units",
+            "12"
+          ],
+          "length": 6,
+          "width": 6,
+          "area": 36,
+          "perimeter": 24
+        },
+        {
+          "id": "G3M_GM_001_LVL4_Q9",
+          "question_id": "G3M_GM_001_LVL4_Q9",
+          "question_type": "area_response",
+          "visual_model": "rectangle_model",
+          "prompt": "For a 11 by 4 rectangle, find the perimeter.",
+          "answer": "30 units",
+          "correct_answer": "30 units",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 30 units.",
+          "acceptable_answers": [
+            "30",
+            "30 units"
+          ],
+          "length": 11,
+          "width": 4,
+          "area": 44,
+          "perimeter": 30
+        },
+        {
+          "id": "G3M_GM_001_LVL4_Q10",
+          "question_id": "G3M_GM_001_LVL4_Q10",
+          "question_type": "perimeter_response",
+          "visual_model": "rectangle_model",
+          "prompt": "For a 12 by 3 rectangle, find the area.",
+          "answer": "36 square units",
+          "correct_answer": "36 square units",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 36 square units.",
+          "acceptable_answers": [
+            "36",
+            "36 square units",
+            "36 sq units"
+          ],
+          "length": 12,
+          "width": 3,
+          "area": 36,
+          "perimeter": 30
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_GM_001_MIXED",
+      "label": "Mixed",
+      "focus": "mixed area and perimeter review",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_GM_001_MIXED_Q1",
+          "question_id": "G3M_GM_001_MIXED_Q1",
+          "question_type": "short_response",
+          "visual_model": "grid_model",
+          "prompt": "Count the square units in a grid with 2 rows and 3 columns. What is the area?",
+          "answer": "6 square units",
+          "correct_answer": "6 square units",
+          "misconception_tag": "square_unit_count_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 6 square units.",
+          "acceptable_answers": [
+            "6",
+            "6 square units",
+            "6 sq units",
+            "6 unit squares"
+          ],
+          "rows": 2,
+          "columns": 3,
+          "area": 6,
+          "filled_units": 6
+        },
+        {
+          "id": "G3M_GM_001_MIXED_Q2",
+          "question_id": "G3M_GM_001_MIXED_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "grid_model",
+          "prompt": "Count the square units in a grid with 3 rows and 3 columns. What is the area?",
+          "answer": "9 square units",
+          "correct_answer": "9 square units",
+          "misconception_tag": "square_unit_count_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 9 square units.",
+          "acceptable_answers": [
+            "9",
+            "9 square units",
+            "9 sq units",
+            "9 unit squares"
+          ],
+          "choices": [
+            "9 square units",
+            "12 square units",
+            "6 square units"
+          ],
+          "rows": 3,
+          "columns": 3,
+          "area": 9,
+          "filled_units": 9
+        },
+        {
+          "id": "G3M_GM_001_MIXED_Q3",
+          "question_id": "G3M_GM_001_MIXED_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "area_model",
+          "prompt": "A rectangle is 3 units by 4 units. What is its area?",
+          "answer": "12 square units",
+          "correct_answer": "12 square units",
+          "misconception_tag": "formula_misuse",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 12 square units.",
+          "acceptable_answers": [
+            "12",
+            "12 square units",
+            "12 sq units"
+          ],
+          "choices": [
+            "12 square units",
+            "14 units",
+            "7 square units"
+          ],
+          "rows": 3,
+          "columns": 4,
+          "area": 12
+        },
+        {
+          "id": "G3M_GM_001_MIXED_Q4",
+          "question_id": "G3M_GM_001_MIXED_Q4",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "A rectangle is 5 units by 6 units. What is its area?",
+          "answer": "30 square units",
+          "correct_answer": "30 square units",
+          "misconception_tag": "formula_misuse",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 30 square units.",
+          "acceptable_answers": [
+            "30",
+            "30 square units",
+            "30 sq units"
+          ],
+          "rows": 5,
+          "columns": 6,
+          "area": 30
+        },
+        {
+          "id": "G3M_GM_001_MIXED_Q5",
+          "question_id": "G3M_GM_001_MIXED_Q5",
+          "question_type": "short_response",
+          "visual_model": "perimeter_path",
+          "prompt": "A rectangle has side lengths 5, 2, 5, and 2 units. What is the perimeter?",
+          "answer": "14 units",
+          "correct_answer": "14 units",
+          "misconception_tag": "side_length_addition_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 14 units.",
+          "acceptable_answers": [
+            "14",
+            "14 units",
+            "14 unit"
+          ],
+          "length": 5,
+          "width": 2,
+          "perimeter": 14
+        },
+        {
+          "id": "G3M_GM_001_MIXED_Q6",
+          "question_id": "G3M_GM_001_MIXED_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "perimeter_path",
+          "prompt": "A rectangle has side lengths 6, 3, 6, and 3 units. What is the perimeter?",
+          "answer": "18 units",
+          "correct_answer": "18 units",
+          "misconception_tag": "side_length_addition_error",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 18 units.",
+          "acceptable_answers": [
+            "18",
+            "18 units",
+            "18 unit"
+          ],
+          "choices": [
+            "18 units",
+            "18 square units",
+            "9 units"
+          ],
+          "length": 6,
+          "width": 3,
+          "perimeter": 18
+        },
+        {
+          "id": "G3M_GM_001_MIXED_Q7",
+          "question_id": "G3M_GM_001_MIXED_Q7",
+          "question_type": "area_response",
+          "visual_model": "rectangle_model",
+          "prompt": "For a 4 by 3 rectangle, find the perimeter.",
+          "answer": "14 units",
+          "correct_answer": "14 units",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 14 units.",
+          "acceptable_answers": [
+            "14",
+            "14 units"
+          ],
+          "length": 4,
+          "width": 3,
+          "area": 12,
+          "perimeter": 14
+        },
+        {
+          "id": "G3M_GM_001_MIXED_Q8",
+          "question_id": "G3M_GM_001_MIXED_Q8",
+          "question_type": "perimeter_response",
+          "visual_model": "rectangle_model",
+          "prompt": "For a 5 by 5 rectangle, find the area.",
+          "answer": "25 square units",
+          "correct_answer": "25 square units",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 25 square units.",
+          "acceptable_answers": [
+            "25",
+            "25 square units",
+            "25 sq units"
+          ],
+          "length": 5,
+          "width": 5,
+          "area": 25,
+          "perimeter": 20
+        },
+        {
+          "id": "G3M_GM_001_MIXED_Q9",
+          "question_id": "G3M_GM_001_MIXED_Q9",
+          "question_type": "short_response",
+          "visual_model": "rectangle_model",
+          "prompt": "For a 6 by 2 rectangle, find the perimeter.",
+          "answer": "16 units",
+          "correct_answer": "16 units",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 16 units.",
+          "acceptable_answers": [
+            "16",
+            "16 units"
+          ],
+          "length": 6,
+          "width": 2,
+          "area": 12,
+          "perimeter": 16
+        },
+        {
+          "id": "G3M_GM_001_MIXED_Q10",
+          "question_id": "G3M_GM_001_MIXED_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "rectangle_model",
+          "prompt": "For a 7 by 4 rectangle, find the area.",
+          "answer": "28 square units",
+          "correct_answer": "28 square units",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read what the question asks.",
+            "Use the visual model to organize the information.",
+            "Check that your answer includes the right unit or name."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the model and check the question again."
+          },
+          "explanation": "The correct answer is 28 square units.",
+          "acceptable_answers": [
+            "28",
+            "28 square units",
+            "28 sq units"
+          ],
+          "choices": [
+            "28 square units",
+            "22 units",
+            "11"
+          ],
+          "length": 7,
+          "width": 4,
+          "area": 28,
+          "perimeter": 22
+        }
+      ]
+    }
+  ]
+}

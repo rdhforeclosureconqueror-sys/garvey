@@ -172,22 +172,25 @@ test('Adaptive Grade 1 hub routes generated missions to /skill-world/:skillId', 
 
 test('Grade 3 Skill World packages appear from manifest for the hub', () => {
   const expectedGrade3 = new Map([
-    ['G3M_MUL_001', 'Multiplication Foundations'],
-    ['G3M_DIV_001', 'Division Foundations'],
-    ['G3M_FACT_001', 'Multiplication and Division Fluency'],
-    ['G3M_WP_001', 'Two-Step Word Problems']
+    ['G3M_MUL_001', { skill: 'Multiplication Foundations', domain: 'Operations and Algebraic Thinking' }],
+    ['G3M_DIV_001', { skill: 'Division Foundations', domain: 'Operations and Algebraic Thinking' }],
+    ['G3M_FACT_001', { skill: 'Multiplication and Division Fluency', domain: 'Operations and Algebraic Thinking' }],
+    ['G3M_WP_001', { skill: 'Two-Step Word Problems', domain: 'Operations and Algebraic Thinking' }],
+    ['G3M_MD_001', { skill: 'Time, Measurement, and Data', domain: 'Measurement and Data' }],
+    ['G3M_GM_001', { skill: 'Area and Perimeter', domain: 'Measurement and Geometry' }],
+    ['G3M_GM_002', { skill: 'Shapes, Attributes, and Partitioning', domain: 'Geometry' }]
   ]);
   for (const skillId of expectedGrade3.keys()) {
     assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);
   }
   const packages = manifest.packages.map(readPackage);
-  for (const [skillId, skill] of expectedGrade3.entries()) {
+  for (const [skillId, expected] of expectedGrade3.entries()) {
     const g3 = packages.find((pkg) => pkg.skill_id === skillId);
     assert.ok(g3, `${skillId} package loads from manifest`);
     assert.equal(g3.grade, 3);
     assert.equal(g3.subject, 'Math');
-    assert.equal(g3.domain, 'Operations and Algebraic Thinking');
-    assert.equal(g3.skill, skill);
+    assert.equal(g3.domain, expected.domain);
+    assert.equal(g3.skill, expected.skill);
     assert.equal(Array.isArray(g3.level_banks), true);
     assert.equal(g3.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
     assert.equal(g3.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
