@@ -1,0 +1,840 @@
+{
+  "version": "v1",
+  "grade": "grade1",
+  "subject": "english",
+  "generated_from": "docs/grade1_english_completion_plan.md",
+  "product_contract": {
+    "guided_mission_steps": [
+      "Story",
+      "Lesson",
+      "Watch",
+      "Demo",
+      "Practice",
+      "Challenge",
+      "Checkpoint",
+      "Badge",
+      "Profile"
+    ],
+    "skill_practice_center": {
+      "focused_levels_required": 4,
+      "mixed_level_required": true,
+      "questions_per_level_min": 10,
+      "questions_per_level_max": 12
+    },
+    "manifest_exposure_required": true,
+    "legacy_placeholder_cards_allowed": false,
+    "one_off_games_allowed": false
+  },
+  "schema_fit_assessment": {
+    "existing_math_schema_supports_english_as_is": "partial",
+    "summary": "Top-level SkillPackage structure is subject-neutral, but production English needs schema question-type extensions, English visual renderers, and writing response/rubric validation before package creation."
+  },
+  "new_visual_renderers_required": [
+    "letter_card",
+    "sound_match",
+    "visual_objects",
+    "picture_choice",
+    "word_sound_map",
+    "phonics_tiles",
+    "sound_boxes",
+    "word_builder",
+    "word_family_sort",
+    "rhyme_match",
+    "word_card",
+    "sentence_highlight",
+    "phrase_builder",
+    "sentence_card",
+    "sentence_builder",
+    "short_passage",
+    "picture_story",
+    "question_card",
+    "story_sequence",
+    "picture_order",
+    "event_cards",
+    "writing_checklist",
+    "punctuation_marker",
+    "picture_prompt",
+    "detail_picker"
+  ],
+  "new_question_types_required": [
+    "letter_identification",
+    "sound_match",
+    "picture_choice",
+    "short_response",
+    "sound_position",
+    "same_different_sound",
+    "word_builder",
+    "sound_box_blend",
+    "decode_word",
+    "word_family_sort",
+    "rhyme_match",
+    "sight_word_match",
+    "sentence_cloze",
+    "phrase_reading",
+    "sentence_picture_match",
+    "punctuation_reading",
+    "text_evidence_choice",
+    "wh_question",
+    "event_ordering",
+    "picture_order",
+    "sequence_select",
+    "sentence_builder",
+    "capitalization_fix",
+    "spacing_fix",
+    "punctuation_choice",
+    "constructed_sentence",
+    "picture_prompt_response",
+    "detail_picker",
+    "rubric_scored_writing"
+  ],
+  "writing_response_changes_required": [
+    "case_insensitive_matching",
+    "punctuation_tolerant_matching",
+    "acceptable_spelling_variants",
+    "sentence_boundary_checks",
+    "capitalization_spacing_punctuation_checks",
+    "rubric_scored_constructed_response"
+  ],
+  "work_items": [
+    {
+      "work_id": "G1E-P0-001",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G1E_RF_001",
+      "grade": 1,
+      "subject": "English",
+      "domain": "Reading Foundations",
+      "skill_title": "Letter Recognition and Sounds",
+      "standards_gap_learning_purpose": "Build print-concept readiness by identifying uppercase and lowercase letters and connecting common graphemes to common letter sounds.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry.",
+      "visual_models_needed": [
+        "letter_card",
+        "sound_match",
+        "visual_objects"
+      ],
+      "question_types_needed": [
+        "multiple_choice",
+        "letter_identification",
+        "sound_match",
+        "picture_choice",
+        "short_response"
+      ],
+      "misconception_tags_needed": [
+        "letter_name_confusion",
+        "uppercase_lowercase_confusion",
+        "sound_symbol_confusion",
+        "visually_similar_letter_confusion"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G1E_RF_001_LVL1",
+          "label": "Level 1: Uppercase Letters",
+          "focus": "Identify named uppercase letters from letter cards.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RF_001_LVL2",
+          "label": "Level 2: Lowercase Letters",
+          "focus": "Identify named lowercase letters from letter cards.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RF_001_LVL3",
+          "label": "Level 3: Letter Sounds",
+          "focus": "Choose or say the common sound for a target letter.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RF_001_LVL4",
+          "label": "Level 4: Match Letter to Sound",
+          "focus": "Match printed letters to a spoken/common sound cue.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RF_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave uppercase, lowercase, sound, and match tasks.",
+          "question_count_required": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage includes required top-level metadata, lesson fields, worked examples, hint ladder, guided practice, adaptive question bank, checkpoint, misconception bank, review bank, game theme, next/remediation skill IDs, and level banks.",
+        "Guided Mission renders Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile without placeholder copy.",
+        "Skill Practice Center includes four focused levels plus Mixed; each level contains 10\u201312 production questions aligned to its focus.",
+        "Every question includes a supported question type, prompt, answer or rubric data, visual model where useful, hints/feedback, and misconception tag.",
+        "Package is added to the Skill World manifest/hub source so learners discover it through manifest data rather than hardcoded placeholders."
+      ]
+    },
+    {
+      "work_id": "G1E-P0-002",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G1E_RF_002",
+      "grade": 1,
+      "subject": "English",
+      "domain": "Reading Foundations",
+      "skill_title": "Phonemic Awareness: Beginning, Middle, Ending Sounds",
+      "standards_gap_learning_purpose": "Develop oral sound awareness by hearing and identifying sound positions in spoken CVC and familiar one-syllable words.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry.",
+      "visual_models_needed": [
+        "sound_match",
+        "picture_choice",
+        "word_sound_map"
+      ],
+      "question_types_needed": [
+        "multiple_choice",
+        "picture_choice",
+        "sound_position",
+        "same_different_sound",
+        "short_response"
+      ],
+      "misconception_tags_needed": [
+        "beginning_sound_confusion",
+        "ending_sound_confusion",
+        "middle_sound_confusion",
+        "sound_position_confusion"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G1E_RF_002_LVL1",
+          "label": "Level 1: Beginning Sounds",
+          "focus": "Identify the first sound in spoken/pictured words.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RF_002_LVL2",
+          "label": "Level 2: Ending Sounds",
+          "focus": "Identify the final sound in spoken/pictured words.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RF_002_LVL3",
+          "label": "Level 3: Middle Vowel Sounds",
+          "focus": "Identify the medial short vowel sound in simple words.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RF_002_LVL4",
+          "label": "Level 4: Same/Different Sounds",
+          "focus": "Compare words for same or different beginning, middle, or ending sounds.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RF_002_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave beginning, middle, ending, and compare-sound tasks.",
+          "question_count_required": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage includes required top-level metadata, lesson fields, worked examples, hint ladder, guided practice, adaptive question bank, checkpoint, misconception bank, review bank, game theme, next/remediation skill IDs, and level banks.",
+        "Guided Mission renders Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile without placeholder copy.",
+        "Skill Practice Center includes four focused levels plus Mixed; each level contains 10\u201312 production questions aligned to its focus.",
+        "Every question includes a supported question type, prompt, answer or rubric data, visual model where useful, hints/feedback, and misconception tag.",
+        "Package is added to the Skill World manifest/hub source so learners discover it through manifest data rather than hardcoded placeholders."
+      ]
+    },
+    {
+      "work_id": "G1E-P0-003",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G1E_PH_001",
+      "grade": 1,
+      "subject": "English",
+      "domain": "Phonics",
+      "skill_title": "CVC Word Blending",
+      "standards_gap_learning_purpose": "Connect phonemic awareness to decoding by blending consonant-vowel-consonant words with short vowel patterns.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry.",
+      "visual_models_needed": [
+        "phonics_tiles",
+        "sound_boxes",
+        "word_builder"
+      ],
+      "question_types_needed": [
+        "multiple_choice",
+        "word_builder",
+        "sound_box_blend",
+        "decode_word",
+        "short_response"
+      ],
+      "misconception_tags_needed": [
+        "blending_order_error",
+        "vowel_sound_confusion",
+        "final_sound_drop",
+        "guessing_from_first_letter"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G1E_PH_001_LVL1",
+          "label": "Level 1: Short A CVC",
+          "focus": "Blend and read short-a CVC words.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_PH_001_LVL2",
+          "label": "Level 2: Short I/O CVC",
+          "focus": "Blend and read short-i and short-o CVC words.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_PH_001_LVL3",
+          "label": "Level 3: Short E/U CVC",
+          "focus": "Blend and read short-e and short-u CVC words.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_PH_001_LVL4",
+          "label": "Level 4: Mixed CVC Blending",
+          "focus": "Blend across all five short vowels.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_PH_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave decoding, picture match, and word-building CVC tasks.",
+          "question_count_required": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage includes required top-level metadata, lesson fields, worked examples, hint ladder, guided practice, adaptive question bank, checkpoint, misconception bank, review bank, game theme, next/remediation skill IDs, and level banks.",
+        "Guided Mission renders Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile without placeholder copy.",
+        "Skill Practice Center includes four focused levels plus Mixed; each level contains 10\u201312 production questions aligned to its focus.",
+        "Every question includes a supported question type, prompt, answer or rubric data, visual model where useful, hints/feedback, and misconception tag.",
+        "Package is added to the Skill World manifest/hub source so learners discover it through manifest data rather than hardcoded placeholders."
+      ]
+    },
+    {
+      "work_id": "G1E-P0-004",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G1E_PH_002",
+      "grade": 1,
+      "subject": "English",
+      "domain": "Phonics",
+      "skill_title": "Short Vowel Word Families",
+      "standards_gap_learning_purpose": "Strengthen onset-rime decoding and spelling transfer by reading and building common short-vowel word families.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry.",
+      "visual_models_needed": [
+        "word_family_sort",
+        "phonics_tiles",
+        "rhyme_match"
+      ],
+      "question_types_needed": [
+        "multiple_choice",
+        "word_family_sort",
+        "rhyme_match",
+        "word_builder",
+        "short_response"
+      ],
+      "misconception_tags_needed": [
+        "rime_confusion",
+        "vowel_family_confusion",
+        "onset_rime_blend_error",
+        "word_family_overgeneralization"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G1E_PH_002_LVL1",
+          "label": "Level 1: -at / -an Families",
+          "focus": "Read, sort, and build -at and -an family words.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_PH_002_LVL2",
+          "label": "Level 2: -it / -ig Families",
+          "focus": "Read, sort, and build -it and -ig family words.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_PH_002_LVL3",
+          "label": "Level 3: -op / -ot Families",
+          "focus": "Read, sort, and build -op and -ot family words.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_PH_002_LVL4",
+          "label": "Level 4: Mixed Word Families",
+          "focus": "Compare and decode across taught word families.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_PH_002_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave sort, rhyme, build, and read tasks.",
+          "question_count_required": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage includes required top-level metadata, lesson fields, worked examples, hint ladder, guided practice, adaptive question bank, checkpoint, misconception bank, review bank, game theme, next/remediation skill IDs, and level banks.",
+        "Guided Mission renders Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile without placeholder copy.",
+        "Skill Practice Center includes four focused levels plus Mixed; each level contains 10\u201312 production questions aligned to its focus.",
+        "Every question includes a supported question type, prompt, answer or rubric data, visual model where useful, hints/feedback, and misconception tag.",
+        "Package is added to the Skill World manifest/hub source so learners discover it through manifest data rather than hardcoded placeholders."
+      ]
+    },
+    {
+      "work_id": "G1E-P0-005",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G1E_SW_001",
+      "grade": 1,
+      "subject": "English",
+      "domain": "Fluency",
+      "skill_title": "Sight Words and High-Frequency Words",
+      "standards_gap_learning_purpose": "Build automatic recognition of common Grade 1 words, especially irregular/function words needed for sentence fluency.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry.",
+      "visual_models_needed": [
+        "word_card",
+        "sentence_highlight",
+        "phrase_builder"
+      ],
+      "question_types_needed": [
+        "multiple_choice",
+        "sight_word_match",
+        "sentence_cloze",
+        "phrase_reading",
+        "short_response"
+      ],
+      "misconception_tags_needed": [
+        "sight_word_reversal",
+        "guesses_by_shape",
+        "function_word_confusion",
+        "word_automaticity_gap"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G1E_SW_001_LVL1",
+          "label": "Level 1: Set A Sight Words",
+          "focus": "Recognize first high-frequency word set in isolation.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_SW_001_LVL2",
+          "label": "Level 2: Set B Sight Words",
+          "focus": "Recognize second high-frequency word set in isolation.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_SW_001_LVL3",
+          "label": "Level 3: Match Word to Sentence",
+          "focus": "Choose the sight word that completes a sentence.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_SW_001_LVL4",
+          "label": "Level 4: Read Phrase Fluently",
+          "focus": "Read short phrases containing taught sight words.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_SW_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave word recognition, sentence cloze, and phrase tasks.",
+          "question_count_required": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage includes required top-level metadata, lesson fields, worked examples, hint ladder, guided practice, adaptive question bank, checkpoint, misconception bank, review bank, game theme, next/remediation skill IDs, and level banks.",
+        "Guided Mission renders Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile without placeholder copy.",
+        "Skill Practice Center includes four focused levels plus Mixed; each level contains 10\u201312 production questions aligned to its focus.",
+        "Every question includes a supported question type, prompt, answer or rubric data, visual model where useful, hints/feedback, and misconception tag.",
+        "Package is added to the Skill World manifest/hub source so learners discover it through manifest data rather than hardcoded placeholders."
+      ]
+    },
+    {
+      "work_id": "G1E-P0-006",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G1E_FL_001",
+      "grade": 1,
+      "subject": "English",
+      "domain": "Fluency",
+      "skill_title": "Sentence Reading Fluency",
+      "standards_gap_learning_purpose": "Support accurate, meaningful reading of simple sentences with attention to word order, small words, and punctuation.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry.",
+      "visual_models_needed": [
+        "sentence_card",
+        "picture_choice",
+        "sentence_builder"
+      ],
+      "question_types_needed": [
+        "multiple_choice",
+        "sentence_picture_match",
+        "sentence_cloze",
+        "punctuation_reading",
+        "short_response"
+      ],
+      "misconception_tags_needed": [
+        "skips_small_words",
+        "punctuation_ignored",
+        "sentence_meaning_mismatch",
+        "word_order_confusion"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G1E_FL_001_LVL1",
+          "label": "Level 1: Read Simple Sentences",
+          "focus": "Read decodable/simple sentences accurately.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_FL_001_LVL2",
+          "label": "Level 2: Match Sentence to Picture",
+          "focus": "Match sentence meaning to a picture.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_FL_001_LVL3",
+          "label": "Level 3: Complete the Sentence",
+          "focus": "Choose a missing word that makes sense.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_FL_001_LVL4",
+          "label": "Level 4: Read with Punctuation",
+          "focus": "Use period, question mark, and exclamation mark cues.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_FL_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave read, match, complete, and punctuation tasks.",
+          "question_count_required": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage includes required top-level metadata, lesson fields, worked examples, hint ladder, guided practice, adaptive question bank, checkpoint, misconception bank, review bank, game theme, next/remediation skill IDs, and level banks.",
+        "Guided Mission renders Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile without placeholder copy.",
+        "Skill Practice Center includes four focused levels plus Mixed; each level contains 10\u201312 production questions aligned to its focus.",
+        "Every question includes a supported question type, prompt, answer or rubric data, visual model where useful, hints/feedback, and misconception tag.",
+        "Package is added to the Skill World manifest/hub source so learners discover it through manifest data rather than hardcoded placeholders."
+      ]
+    },
+    {
+      "work_id": "G1E-P0-007",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G1E_RC_001",
+      "grade": 1,
+      "subject": "English",
+      "domain": "Reading Comprehension",
+      "skill_title": "Answer Who, What, Where Questions",
+      "standards_gap_learning_purpose": "Develop basic literal comprehension by locating people/characters, actions/things, and places in a short text or picture story.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry.",
+      "visual_models_needed": [
+        "short_passage",
+        "picture_story",
+        "question_card"
+      ],
+      "question_types_needed": [
+        "multiple_choice",
+        "text_evidence_choice",
+        "picture_choice",
+        "short_response",
+        "wh_question"
+      ],
+      "misconception_tags_needed": [
+        "who_what_confusion",
+        "where_detail_confusion",
+        "unsupported_answer",
+        "misses_text_evidence"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G1E_RC_001_LVL1",
+          "label": "Level 1: Who Questions",
+          "focus": "Answer who questions from pictures and short texts.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RC_001_LVL2",
+          "label": "Level 2: What Questions",
+          "focus": "Answer what happened/what is it questions.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RC_001_LVL3",
+          "label": "Level 3: Where Questions",
+          "focus": "Answer where questions from explicit details.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RC_001_LVL4",
+          "label": "Level 4: Mixed Detail Questions",
+          "focus": "Distinguish who, what, and where questions.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RC_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave picture-story and short-passage detail questions.",
+          "question_count_required": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage includes required top-level metadata, lesson fields, worked examples, hint ladder, guided practice, adaptive question bank, checkpoint, misconception bank, review bank, game theme, next/remediation skill IDs, and level banks.",
+        "Guided Mission renders Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile without placeholder copy.",
+        "Skill Practice Center includes four focused levels plus Mixed; each level contains 10\u201312 production questions aligned to its focus.",
+        "Every question includes a supported question type, prompt, answer or rubric data, visual model where useful, hints/feedback, and misconception tag.",
+        "Package is added to the Skill World manifest/hub source so learners discover it through manifest data rather than hardcoded placeholders."
+      ]
+    },
+    {
+      "work_id": "G1E-P0-008",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G1E_RC_002",
+      "grade": 1,
+      "subject": "English",
+      "domain": "Reading Comprehension",
+      "skill_title": "Story Sequence: Beginning, Middle, End",
+      "standards_gap_learning_purpose": "Build retell and narrative structure by identifying and ordering beginning, middle, and ending events.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry.",
+      "visual_models_needed": [
+        "story_sequence",
+        "picture_order",
+        "event_cards"
+      ],
+      "question_types_needed": [
+        "multiple_choice",
+        "event_ordering",
+        "picture_order",
+        "sequence_select",
+        "short_response"
+      ],
+      "misconception_tags_needed": [
+        "sequence_order_error",
+        "beginning_end_confusion",
+        "missing_middle_event",
+        "retell_detail_gap"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G1E_RC_002_LVL1",
+          "label": "Level 1: Beginning",
+          "focus": "Identify what happens first.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RC_002_LVL2",
+          "label": "Level 2: Middle",
+          "focus": "Identify the middle/main event after the beginning.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RC_002_LVL3",
+          "label": "Level 3: End",
+          "focus": "Identify how the story ends.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RC_002_LVL4",
+          "label": "Level 4: Put Events in Order",
+          "focus": "Order three story events.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_RC_002_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave B/M/E identification and event-ordering tasks.",
+          "question_count_required": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage includes required top-level metadata, lesson fields, worked examples, hint ladder, guided practice, adaptive question bank, checkpoint, misconception bank, review bank, game theme, next/remediation skill IDs, and level banks.",
+        "Guided Mission renders Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile without placeholder copy.",
+        "Skill Practice Center includes four focused levels plus Mixed; each level contains 10\u201312 production questions aligned to its focus.",
+        "Every question includes a supported question type, prompt, answer or rubric data, visual model where useful, hints/feedback, and misconception tag.",
+        "Package is added to the Skill World manifest/hub source so learners discover it through manifest data rather than hardcoded placeholders."
+      ]
+    },
+    {
+      "work_id": "G1E-P0-009",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G1E_WR_001",
+      "grade": 1,
+      "subject": "English",
+      "domain": "Writing / Composition",
+      "skill_title": "Write a Simple Sentence",
+      "standards_gap_learning_purpose": "Produce complete simple sentences with capitalization, word spacing, and end punctuation.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry.",
+      "visual_models_needed": [
+        "sentence_builder",
+        "writing_checklist",
+        "punctuation_marker"
+      ],
+      "question_types_needed": [
+        "sentence_builder",
+        "capitalization_fix",
+        "spacing_fix",
+        "punctuation_choice",
+        "constructed_sentence"
+      ],
+      "misconception_tags_needed": [
+        "missing_capital",
+        "missing_spacing",
+        "missing_punctuation",
+        "fragment_response"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G1E_WR_001_LVL1",
+          "label": "Level 1: Capital Letters",
+          "focus": "Identify and fix sentence-start capitals.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_WR_001_LVL2",
+          "label": "Level 2: Word Spacing",
+          "focus": "Identify and fix spacing between words.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_WR_001_LVL3",
+          "label": "Level 3: End Punctuation",
+          "focus": "Choose or add correct end punctuation.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_WR_001_LVL4",
+          "label": "Level 4: Complete Sentence",
+          "focus": "Build or write a complete sentence.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_WR_001_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave capitalization, spacing, punctuation, and complete-sentence tasks.",
+          "question_count_required": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage includes required top-level metadata, lesson fields, worked examples, hint ladder, guided practice, adaptive question bank, checkpoint, misconception bank, review bank, game theme, next/remediation skill IDs, and level banks.",
+        "Guided Mission renders Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile without placeholder copy.",
+        "Skill Practice Center includes four focused levels plus Mixed; each level contains 10\u201312 production questions aligned to its focus.",
+        "Every question includes a supported question type, prompt, answer or rubric data, visual model where useful, hints/feedback, and misconception tag.",
+        "Package is added to the Skill World manifest/hub source so learners discover it through manifest data rather than hardcoded placeholders."
+      ]
+    },
+    {
+      "work_id": "G1E-P0-010",
+      "priority": "P0",
+      "type": "CREATE_PRODUCTION_SKILL",
+      "skill_id": "G1E_WR_002",
+      "grade": 1,
+      "subject": "English",
+      "domain": "Writing / Composition",
+      "skill_title": "Describe a Picture with a Sentence",
+      "standards_gap_learning_purpose": "Generate a meaningful sentence about a picture by naming the subject, adding an action, and including a concrete detail.",
+      "recommended_action": "Create a production SkillPackage JSON with full Guided Mission, Skill Practice Center level banks, misconception bank, review bank, and manifest entry.",
+      "visual_models_needed": [
+        "picture_prompt",
+        "sentence_builder",
+        "detail_picker"
+      ],
+      "question_types_needed": [
+        "picture_prompt_response",
+        "detail_picker",
+        "sentence_builder",
+        "constructed_sentence",
+        "rubric_scored_writing"
+      ],
+      "misconception_tags_needed": [
+        "incomplete_description",
+        "missing_action",
+        "vague_detail",
+        "sentence_fragment"
+      ],
+      "level_banks_design": [
+        {
+          "level_id": "G1E_WR_002_LVL1",
+          "label": "Level 1: Name the Picture",
+          "focus": "Name the main person, animal, object, or place.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_WR_002_LVL2",
+          "label": "Level 2: Add an Action",
+          "focus": "Add what the subject is doing.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_WR_002_LVL3",
+          "label": "Level 3: Add a Detail",
+          "focus": "Add color, place, size, feeling, or other observable detail.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_WR_002_LVL4",
+          "label": "Level 4: Write a Full Sentence",
+          "focus": "Write a full sentence about the picture.",
+          "question_count_required": 10,
+          "mastery_threshold": 80
+        },
+        {
+          "level_id": "G1E_WR_002_MIXED",
+          "label": "Mixed",
+          "focus": "Interleave naming, action, detail, and full-sentence writing tasks.",
+          "question_count_required": 12,
+          "mastery_threshold": 80
+        }
+      ],
+      "acceptance_criteria": [
+        "SkillPackage includes required top-level metadata, lesson fields, worked examples, hint ladder, guided practice, adaptive question bank, checkpoint, misconception bank, review bank, game theme, next/remediation skill IDs, and level banks.",
+        "Guided Mission renders Story, Lesson, Watch, Demo, Practice, Challenge, Checkpoint, Badge, and Profile without placeholder copy.",
+        "Skill Practice Center includes four focused levels plus Mixed; each level contains 10\u201312 production questions aligned to its focus.",
+        "Every question includes a supported question type, prompt, answer or rubric data, visual model where useful, hints/feedback, and misconception tag.",
+        "Package is added to the Skill World manifest/hub source so learners discover it through manifest data rather than hardcoded placeholders."
+      ]
+    }
+  ]
+}
