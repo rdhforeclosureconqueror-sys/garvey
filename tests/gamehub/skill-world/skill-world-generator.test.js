@@ -5,9 +5,12 @@ const root=path.join(__dirname,'..','..','..');
 const load=(id)=>JSON.parse(fs.readFileSync(path.join(root,`public/gamehub/skill-world/content/${id}.skill-package.v1.json`),'utf8'));
 const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_GM_001','G1M_GM_002','G1M_DP_001','G1M_MD_TIME_001','G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
 const grade1Packages=grade1SkillIds.map(load);
-const grade2SkillIds=['G2E_RF_001','G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
+const grade2SkillIds=['G2E_RF_001','G2E_RF_002','G2E_FL_001','G2E_VOC_001','G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
 const grade2Packages=grade2SkillIds.map(load);
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
+const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
+const g2FluencyEnglish=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_FL_001');
+const g2Vocabulary=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_VOC_001');
 const g2PlaceValue=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_PV_001');
 const g2CountReadWrite=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_NS_001');
 const g2Compare=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_NS_002');
@@ -68,6 +71,77 @@ assert.match(VisualRegistry.render({visual_model:'phonics_tiles',word:'ship',til
 assert.match(VisualRegistry.render({visual_model:'phonics_tiles',word:'cake',tiles:['c','a','k','e'],silent_e:true,correct_answer:'cake'}),/data-tile-kind="silent-e"/,'phonics_tiles supports silent e');
 assert.match(VisualRegistry.render({visual_model:'sound_boxes',word:'boat',sounds:['b','oa','t'],correct_answer:'boat'}),/data-renderer="sound_boxes"[\s\S]*data-sound-kind="vowel-team"/,'sound_boxes renderer output exists with grouped vowel team');
 assert.match(VisualRegistry.render({visual_model:'word_builder',word:'stone',tiles:['st','o','n','e'],missing_tile:'e',correct_answer:'stone'}),/data-renderer="word_builder"[\s\S]*Target word: stone/,'word_builder renderer output exists');
+
+
+function assertGrade2EnglishPackage(pkg,expected){
+  assert.ok(pkg,`${expected.id} package loads`);
+  const result=Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false});
+  assert.equal(result.valid,true,`${expected.id} validates in strict production mode: ${result.errors.join('; ')}`);
+  assert.equal(pkg.grade,2,`${expected.id} grade`);
+  assert.equal(pkg.subject,'English',`${expected.id} subject`);
+  assert.equal(pkg.domain,expected.domain,`${expected.id} domain`);
+  assert.equal(pkg.skill,expected.skill,`${expected.id} skill`);
+  assert.equal(pkg.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length,4,`${expected.id} has four focused levels`);
+  assert.ok(pkg.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),`${expected.id} has Mixed level`);
+  expected.levelLabels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${expected.id} includes ${label}`));
+  pkg.level_banks.forEach((level)=>{
+    assert.ok(level.questions.length>=10&&level.questions.length<=12,`${expected.id} ${level.level_id} has 10–12 questions`);
+    level.questions.forEach((question)=>{
+      if(question.question_type==='short_response'){
+        assert.ok(Array.isArray(question.acceptable_answers)&&question.acceptable_answers.length>0,`${question.question_id} acceptable_answers exist`);
+      }
+    });
+  });
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${expected.id} mission renders ${label}`));
+  const drillHtml=Renderer.renderSkillWorld(pkg,{state:Renderer.createState(),mode:'drill',failClosed:true}).html;
+  assert.match(drillHtml,/Skill Practice Center/,`${expected.id} practice route renders Skill Practice Center`);
+  assert.ok(drillHtml.includes(expected.levelLabels[0]),`${expected.id} drill renders first level`);
+  const visuals=new Set(pkg.level_banks.flatMap((level)=>level.questions.map((question)=>question.visual_model||question.support_type)));
+  expected.visuals.forEach((visual)=>assert.ok(visuals.has(visual),`${expected.id} includes ${visual}`));
+  const types=new Set(pkg.level_banks.flatMap((level)=>level.questions.map((question)=>question.question_type)));
+  expected.types.forEach((type)=>assert.ok(types.has(type),`${expected.id} includes ${type}`));
+  expected.tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${expected.id} includes misconception ${tag}`));
+}
+
+assertGrade2EnglishPackage(g2WordParts,{
+  id:'G2E_RF_002',domain:'Reading Foundations / Vocabulary',skill:'Prefixes, Suffixes, and Base Words',
+  levelLabels:['Level 1: Base Words','Level 2: Prefixes','Level 3: Suffixes','Level 4: Build and Decode New Words','Mixed'],
+  visuals:['word_parts','morpheme_tiles','word_builder'],types:['multiple_choice','short_response','word_building'],
+  tags:['base_word_confusion','prefix_meaning_confusion','suffix_meaning_confusion','word_part_boundary_error']
+});
+const g2WordPartsQuestions=g2WordParts.level_banks.flatMap((level)=>level.questions);
+assert.ok(g2WordPartsQuestions.some((q)=>q.base_word),'G2E_RF_002 includes base word identification');
+['re-','un-','pre-'].forEach((prefix)=>assert.ok(g2WordPartsQuestions.some((q)=>q.prefix===prefix),`G2E_RF_002 includes ${prefix}`));
+['-s','-ed','-ing','-ful','-less'].forEach((suffix)=>assert.ok(g2WordPartsQuestions.some((q)=>q.suffix===suffix),`G2E_RF_002 includes ${suffix}`));
+assert.match(VisualRegistry.render(g2WordPartsQuestions.find((q)=>q.visual_model==='word_parts')),/data-renderer="word_parts"/,'word_parts renderer output exists');
+assert.match(VisualRegistry.render(g2WordPartsQuestions.find((q)=>q.visual_model==='morpheme_tiles')),/data-renderer="morpheme_tiles"/,'morpheme_tiles renderer output exists');
+
+assertGrade2EnglishPackage(g2FluencyEnglish,{
+  id:'G2E_FL_001',domain:'Fluency',skill:'Grade 2 Sight Words and Fluency',
+  levelLabels:['Level 1: Grade 2 Sight Word Set A','Level 2: Grade 2 Sight Word Set B','Level 3: Phrase Fluency','Level 4: Sentence Fluency','Mixed'],
+  visuals:['word_card','phrase_builder','sentence_card','sentence_highlight'],types:['multiple_choice','short_response','sentence_completion'],
+  tags:['sight_word_automaticity_gap','phrase_chunking_error','skips_function_words','punctuation_ignored']
+});
+const g2FluencyEnglishQuestions=g2FluencyEnglish.level_banks.flatMap((level)=>level.questions);
+assert.ok(g2FluencyEnglishQuestions.some((q)=>q.visual_model==='phrase_builder'),'G2E_FL_001 includes phrase reading');
+assert.ok(g2FluencyEnglishQuestions.some((q)=>q.visual_model==='sentence_highlight'||q.visual_model==='sentence_card'),'G2E_FL_001 includes sentence fluency');
+assert.ok(g2FluencyEnglishQuestions.some((q)=>q.misconception_tag==='punctuation_ignored'),'G2E_FL_001 includes punctuation attention');
+
+assertGrade2EnglishPackage(g2Vocabulary,{
+  id:'G2E_VOC_001',domain:'Vocabulary',skill:'Vocabulary and Context Clues',
+  levelLabels:['Level 1: Synonyms and Antonyms','Level 2: Context Clues','Level 3: Multiple-Meaning Words','Level 4: Categories and Attributes','Mixed'],
+  visuals:['word_card','context_sentence','vocabulary_match','category_sort'],types:['multiple_choice','short_response','vocabulary_match','category_sort'],
+  tags:['context_clue_ignored','synonym_antonym_confusion','multiple_meaning_confusion','category_attribute_error']
+});
+const g2VocabularyQuestions=g2Vocabulary.level_banks.flatMap((level)=>level.questions);
+assert.ok(g2VocabularyQuestions.some((q)=>q.visual_model==='vocabulary_match'),'G2E_VOC_001 includes synonym/antonym pairs');
+assert.ok(g2VocabularyQuestions.some((q)=>q.visual_model==='context_sentence'&&q.misconception_tag==='context_clue_ignored'),'G2E_VOC_001 includes context-clue sentence questions');
+assert.ok(g2VocabularyQuestions.some((q)=>q.misconception_tag==='multiple_meaning_confusion'),'G2E_VOC_001 includes multiple-meaning words');
+assert.ok(g2VocabularyQuestions.some((q)=>q.visual_model==='category_sort'),'G2E_VOC_001 includes category sorting');
+assert.match(VisualRegistry.render(g2VocabularyQuestions.find((q)=>q.visual_model==='context_sentence')),/data-renderer="context_sentence"/,'context_sentence renderer output exists');
+assert.match(VisualRegistry.render(g2VocabularyQuestions.find((q)=>q.visual_model==='vocabulary_match')),/data-renderer="vocabulary_match"/,'vocabulary_match renderer output exists');
+assert.match(VisualRegistry.render(g2VocabularyQuestions.find((q)=>q.visual_model==='category_sort')),/data-renderer="category_sort"/,'category_sort renderer output exists');
 
 
 function assertFullMission(pkg){
