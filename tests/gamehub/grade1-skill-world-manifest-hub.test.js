@@ -14,6 +14,8 @@ const packageFiles = fs.readdirSync(contentDir)
   .filter((file) => file.endsWith('.skill-package.v1.json'))
   .sort();
 const requiredGrade1MathSkillIds = ['G1M_NS_001', 'G1M_NS_002', 'G1M_NS_003', 'G1M_PV_001', 'G1M_OP_001', 'G1M_OP_002', 'G1M_OP_003', 'G1M_GM_001', 'G1M_GM_002', 'G1M_DP_001', 'G1M_MD_TIME_001'];
+const requiredGrade1EnglishSkillIds = ['G1E_RF_001'];
+const requiredGrade1SkillIds = [...requiredGrade1MathSkillIds, ...requiredGrade1EnglishSkillIds];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -34,8 +36,8 @@ test('Grade 1 generated Skill World missions expose required hub fields', () => 
   const packages = manifest.packages.map(readPackage);
   const packageIds = packages.map((pkg) => pkg.skill_id).sort();
 
-  assert.deepEqual(packageIds, [...requiredGrade1MathSkillIds].sort());
-  assert.equal(packages.length, 11);
+  assert.deepEqual(packageIds, [...requiredGrade1SkillIds].sort());
+  assert.equal(packages.length, 12);
   for (const pkg of packages) {
     assert.equal(pkg.grade, 1);
     assert.equal(Boolean(pkg.subject), true);
@@ -44,7 +46,6 @@ test('Grade 1 generated Skill World missions expose required hub fields', () => 
     assert.equal(`/skill-world/${pkg.skill_id}`, `/skill-world/${encodeURIComponent(pkg.skill_id)}`);
   }
 });
-
 
 test('Active Grade 1 packages expose real level banks for hub Practice This Skill buttons', () => {
   const packages = manifest.packages.map(readPackage).filter((pkg) => requiredGrade1MathSkillIds.includes(pkg.skill_id));
@@ -59,7 +60,7 @@ test('Active Grade 1 packages expose real level banks for hub Practice This Skil
   }
 });
 
-test('Adaptive Grade 1 hub loads package manifest and renders only active Grade 1 Math Skill World buttons', () => {
+test('Adaptive Grade 1 hub loads package manifest and renders active Grade 1 Skill World buttons', () => {
   assert.match(hub, /skillWorldManifestUrl='\/gamehub\/skill-world\/content\/manifest\.json'/);
   assert.match(hub, /async function loadSkillWorldPackages\(\)/);
   assert.match(hub, /fetch\(`\/gamehub\/skill-world\/content\/\$\{file\}`\)/);
@@ -69,12 +70,29 @@ test('Adaptive Grade 1 hub loads package manifest and renders only active Grade 
   assert.match(hub, /domain:pkg\.domain/);
   assert.match(hub, /title:pkg\.skill/);
   assert.match(hub, /route:skillWorldHref\(pkg\.skill_id\)/);
-  assert.match(hub, /packages\.filter\(\(pkg\)=>pkg\.skill_id&&Number\(pkg\.grade\)===1&&pkg\.subject==='Math'&&pkg\.status==='active'\)/);
+  assert.match(hub, /packages\.filter\(\(pkg\)=>pkg\.skill_id&&Number\(pkg\.grade\)===1&&pkg\.status==='active'\)/);
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /has_drill:Array\.isArray\(pkg\.level_banks\)&&pkg\.level_banks\.length>0/);
   assert.match(hub, /Practice This Skill/);
   assert.doesNotMatch(hub, /const grade1PlannedLessons=/);
   assert.doesNotMatch(hub, /function renderPlannedLesson/);
+});
+
+test('Grade 1 English Skill World package appears from manifest for the hub', () => {
+  const packages = manifest.packages.map(readPackage);
+  const english = packages.find((pkg) => pkg.skill_id === 'G1E_RF_001');
+  assert.ok(english, 'manifest includes G1E_RF_001');
+  assert.equal(english.skill, 'Letter Recognition and Sounds');
+  assert.equal(english.grade, 1);
+  assert.equal(english.subject, 'English');
+  assert.equal(english.domain, 'Reading Foundations');
+  assert.equal(Array.isArray(english.level_banks), true);
+  assert.equal(english.level_banks.filter((level) => !/mixed/i.test(`${level.level_id} ${level.label}`)).length, 4);
+  assert.equal(english.level_banks.some((level) => /mixed/i.test(`${level.level_id} ${level.label}`)), true);
+  assert.match(hub, /title:pkg\.skill/);
+  assert.match(hub, /Grade \$\{escapeHtml\(pkg\.grade\)\} · \$\{escapeHtml\(pkg\.subject\)\} · \$\{escapeHtml\(pkg\.domain\)\} · \$\{escapeHtml\(pkg\.skill_id\)\}/);
+  assert.match(hub, /Practice This Skill/);
+  assert.equal(`/skill-world/${encodeURIComponent(english.skill_id)}/drill`, '/skill-world/G1E_RF_001/drill');
 });
 
 test('Adaptive Grade 1 production hub hides legacy Math and English placeholder cards', () => {
