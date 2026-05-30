@@ -1,0 +1,2510 @@
+{
+  "skill_id": "G2M_WP_001",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_plan": "curriculum-framework/plans/grade2-math-completion-plan.v1.json"
+  },
+  "grade": 2,
+  "subject": "Math",
+  "domain": "Operations and Algebraic Thinking",
+  "skill": "Addition and Subtraction Word Problems",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    5
+  ],
+  "lesson": {
+    "story_mission": "Help the Story Solver Crew match math equations to everyday problems.",
+    "mini_lesson": "Word problems tell a short story with known numbers and an unknown. Decide whether to add, subtract, compare, or do two steps.",
+    "objective": "Solve one-step and two-step addition and subtraction word problems within 100.",
+    "key_vocabulary": [
+      "add to",
+      "take from",
+      "compare",
+      "unknown",
+      "equation",
+      "two-step"
+    ],
+    "concept_explanation": "Use the words and model to decide the operation. Unknowns can be the result, a part, or the starting amount.",
+    "visual_model": "word_problem_model",
+    "common_misconception": "Learners may choose an operation from one keyword instead of reading the whole story.",
+    "real_world_connection": "Word problems help solve questions about supplies, scores, collections, and lengths.",
+    "lesson_summary": "Read, model, write an equation, solve, and check the answer against the story.",
+    "hints": [
+      "Read the story and find what is asked.",
+      "Choose add, subtract, or compare.",
+      "Write an equation and solve the unknown."
+    ]
+  },
+  "worked_examples": [
+    {
+      "text": "Mia has 24 shells and gets 18 more, so 24 + 18 = 42."
+    },
+    {
+      "text": "A jar had 65 marbles and 19 rolled out, so 65 - 19 = 46."
+    },
+    {
+      "text": "For two steps, solve the first action before the second action."
+    }
+  ],
+  "hint_ladder": [
+    "Read the story and find what is asked.",
+    "Choose add, subtract, or compare.",
+    "Write an equation and solve the unknown."
+  ],
+  "misconception_bank": {
+    "operation_selection_error": "Learner may add when the story calls for subtraction, or subtract when the story calls for adding.",
+    "missing_unknown_confusion": "Learner may not notice whether the unknown is the start, change, or result.",
+    "compare_problem_confusion": "Learner may add both compared amounts instead of finding the difference.",
+    "two_step_tracking_error": "Learner may answer after only one step or lose the intermediate result."
+  },
+  "game_theme": {
+    "title": "Addition and Subtraction Word Problems",
+    "mission_intro": "Help the Story Solver Crew match math equations to everyday problems.",
+    "badge_name": "Word Problem Navigator"
+  },
+  "guided_practice": [
+    {
+      "id": "G2M_WP_001_LVL1_Q1",
+      "question_id": "G2M_WP_001_LVL1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "bar_model",
+      "prompt": "Mia has 24 shells. Leo gives her 18 more. How many shells does Mia have now?",
+      "answer": "42",
+      "correct_answer": "42",
+      "acceptable_answers": [
+        "42"
+      ],
+      "misconception_tag": "operation_selection_error",
+      "hints": [
+        "Read the story and find what is asked.",
+        "Choose add, subtract, or compare.",
+        "Write an equation and solve the unknown."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "24 + 18 = 42. Add to put together or find the missing addend.",
+      "options": [
+        "41",
+        "42",
+        "43",
+        "52"
+      ],
+      "choices": [
+        "41",
+        "42",
+        "43",
+        "52"
+      ],
+      "equation": "24 + 18 = ?",
+      "a": 24,
+      "b": 18,
+      "operation": "addition",
+      "knowns": [
+        24,
+        18
+      ]
+    },
+    {
+      "id": "G2M_WP_001_LVL1_Q2",
+      "question_id": "G2M_WP_001_LVL1_Q2",
+      "question_type": "short_response",
+      "visual_model": "equation_builder",
+      "prompt": "There are 36 red apples and 27 green apples. How many apples are there altogether?",
+      "answer": "63",
+      "correct_answer": "63",
+      "acceptable_answers": [
+        "63"
+      ],
+      "misconception_tag": "operation_selection_error",
+      "hints": [
+        "Read the story and find what is asked.",
+        "Choose add, subtract, or compare.",
+        "Write an equation and solve the unknown."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "36 + 27 = 63. Add to put together or find the missing addend.",
+      "equation": "36 + 27 = ?",
+      "a": 36,
+      "b": 27,
+      "operation": "addition",
+      "knowns": [
+        36,
+        27
+      ]
+    },
+    {
+      "id": "G2M_WP_001_LVL1_Q3",
+      "question_id": "G2M_WP_001_LVL1_Q3",
+      "question_type": "short_response",
+      "visual_model": "word_problem_model",
+      "prompt": "A class reads 29 books in March and 31 in April. How many books did they read in all?",
+      "answer": "60",
+      "correct_answer": "60",
+      "acceptable_answers": [
+        "60"
+      ],
+      "misconception_tag": "operation_selection_error",
+      "hints": [
+        "Read the story and find what is asked.",
+        "Choose add, subtract, or compare.",
+        "Write an equation and solve the unknown."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "29 + 31 = 60. Add to put together or find the missing addend.",
+      "equation": "29 + 31 = ?",
+      "a": 29,
+      "b": 31,
+      "operation": "addition",
+      "knowns": [
+        29,
+        31
+      ]
+    },
+    {
+      "id": "G2M_WP_001_LVL1_Q4",
+      "question_id": "G2M_WP_001_LVL1_Q4",
+      "question_type": "multiple_choice",
+      "visual_model": "bar_model",
+      "prompt": "There were 45 birds in a tree. 16 more landed. How many birds are in the tree now?",
+      "answer": "61",
+      "correct_answer": "61",
+      "acceptable_answers": [
+        "61"
+      ],
+      "misconception_tag": "operation_selection_error",
+      "hints": [
+        "Read the story and find what is asked.",
+        "Choose add, subtract, or compare.",
+        "Write an equation and solve the unknown."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "45 + 16 = 61. Add to put together or find the missing addend.",
+      "options": [
+        "60",
+        "61",
+        "62",
+        "71"
+      ],
+      "choices": [
+        "60",
+        "61",
+        "62",
+        "71"
+      ],
+      "equation": "45 + 16 = ?",
+      "a": 45,
+      "b": 16,
+      "operation": "addition",
+      "knowns": [
+        45,
+        16
+      ]
+    },
+    {
+      "id": "G2M_WP_001_LVL1_Q5",
+      "question_id": "G2M_WP_001_LVL1_Q5",
+      "question_type": "short_response",
+      "visual_model": "equation_builder",
+      "prompt": "Sam packed 38 crayons and 22 markers. How many art tools did Sam pack?",
+      "answer": "60",
+      "correct_answer": "60",
+      "acceptable_answers": [
+        "60"
+      ],
+      "misconception_tag": "operation_selection_error",
+      "hints": [
+        "Read the story and find what is asked.",
+        "Choose add, subtract, or compare.",
+        "Write an equation and solve the unknown."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "38 + 22 = 60. Add to put together or find the missing addend.",
+      "equation": "38 + 22 = ?",
+      "a": 38,
+      "b": 22,
+      "operation": "addition",
+      "knowns": [
+        38,
+        22
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G2M_WP_001_LVL4_Q1",
+      "question_id": "G2M_WP_001_LVL4_Q1",
+      "question_type": "short_response",
+      "visual_model": "word_problem_model",
+      "prompt": "A class collected 24 cans Monday and 31 cans Tuesday. They recycled 18 cans. How many cans are left?",
+      "answer": "37",
+      "correct_answer": "37",
+      "acceptable_answers": [
+        "37"
+      ],
+      "misconception_tag": "two_step_tracking_error",
+      "hints": [
+        "Read the story and find what is asked.",
+        "Choose add, subtract, or compare.",
+        "Write an equation and solve the unknown."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Solve one step, then use that result for the next step: 24 + 31 - 18 = 37.",
+      "equation": "24 + 31 - 18 = ?",
+      "a": 24,
+      "b": 31,
+      "c": 18,
+      "knowns": [
+        24,
+        31,
+        18
+      ],
+      "operation": "two_step"
+    },
+    {
+      "id": "G2M_WP_001_LVL4_Q2",
+      "question_id": "G2M_WP_001_LVL4_Q2",
+      "question_type": "multiple_choice",
+      "visual_model": "bar_model",
+      "prompt": "Ben had 70 stickers. He gave 25 away and then got 14 more. How many stickers now?",
+      "answer": "59",
+      "correct_answer": "59",
+      "acceptable_answers": [
+        "59"
+      ],
+      "misconception_tag": "two_step_tracking_error",
+      "hints": [
+        "Read the story and find what is asked.",
+        "Choose add, subtract, or compare.",
+        "Write an equation and solve the unknown."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Solve one step, then use that result for the next step: 70 - 25 + 14 = 59.",
+      "options": [
+        "58",
+        "59",
+        "60",
+        "69"
+      ],
+      "choices": [
+        "58",
+        "59",
+        "60",
+        "69"
+      ],
+      "equation": "70 - 25 + 14 = ?",
+      "a": 70,
+      "b": 25,
+      "c": 14,
+      "knowns": [
+        70,
+        25,
+        14
+      ],
+      "operation": "two_step"
+    },
+    {
+      "id": "G2M_WP_001_LVL4_Q3",
+      "question_id": "G2M_WP_001_LVL4_Q3",
+      "question_type": "short_response",
+      "visual_model": "equation_builder",
+      "prompt": "There are 19 red, 22 blue, and 17 green balloons. How many balloons are there in all?",
+      "answer": "58",
+      "correct_answer": "58",
+      "acceptable_answers": [
+        "58"
+      ],
+      "misconception_tag": "two_step_tracking_error",
+      "hints": [
+        "Read the story and find what is asked.",
+        "Choose add, subtract, or compare.",
+        "Write an equation and solve the unknown."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Solve one step, then use that result for the next step: 19 + 22 + 17 = 58.",
+      "equation": "19 + 22 + 17 = ?",
+      "a": 19,
+      "b": 22,
+      "c": 17,
+      "knowns": [
+        19,
+        22,
+        17
+      ],
+      "operation": "two_step"
+    },
+    {
+      "id": "G2M_WP_001_LVL4_Q4",
+      "question_id": "G2M_WP_001_LVL4_Q4",
+      "question_type": "multiple_choice",
+      "visual_model": "word_problem_model",
+      "prompt": "A bus had 64 riders. 18 got off and 23 got on. How many riders are on the bus?",
+      "answer": "69",
+      "correct_answer": "69",
+      "acceptable_answers": [
+        "69"
+      ],
+      "misconception_tag": "two_step_tracking_error",
+      "hints": [
+        "Read the story and find what is asked.",
+        "Choose add, subtract, or compare.",
+        "Write an equation and solve the unknown."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Solve one step, then use that result for the next step: 64 - 18 + 23 = 69.",
+      "options": [
+        "68",
+        "69",
+        "70",
+        "79"
+      ],
+      "choices": [
+        "68",
+        "69",
+        "70",
+        "79"
+      ],
+      "equation": "64 - 18 + 23 = ?",
+      "a": 64,
+      "b": 18,
+      "c": 23,
+      "knowns": [
+        64,
+        18,
+        23
+      ],
+      "operation": "two_step"
+    },
+    {
+      "id": "G2M_WP_001_LVL4_Q5",
+      "question_id": "G2M_WP_001_LVL4_Q5",
+      "question_type": "short_response",
+      "visual_model": "bar_model",
+      "prompt": "Lily read 28 pages Saturday and 26 Sunday. Her book has 90 pages. How many pages are left?",
+      "answer": "36",
+      "correct_answer": "36",
+      "acceptable_answers": [
+        "36"
+      ],
+      "misconception_tag": "two_step_tracking_error",
+      "hints": [
+        "Read the story and find what is asked.",
+        "Choose add, subtract, or compare.",
+        "Write an equation and solve the unknown."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Solve one step, then use that result for the next step: 90 - (28 + 26) = 36.",
+      "equation": "90 - (28 + 26) = ?",
+      "a": 90,
+      "b": 28,
+      "c": 26,
+      "knowns": [
+        90,
+        28,
+        26
+      ],
+      "operation": "two_step"
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G2M_WP_001_MIXED_Q1",
+      "question_id": "G2M_WP_001_MIXED_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "bar_model",
+      "prompt": "Mia has 24 shells. Leo gives her 18 more. How many shells does Mia have now?",
+      "answer": "42",
+      "correct_answer": "42",
+      "acceptable_answers": [
+        "42"
+      ],
+      "misconception_tag": "operation_selection_error",
+      "hints": [
+        "Read the story and find what is asked.",
+        "Choose add, subtract, or compare.",
+        "Write an equation and solve the unknown."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "24 + 18 = 42. Add to put together or find the missing addend.",
+      "options": [
+        "41",
+        "42",
+        "43",
+        "52"
+      ],
+      "choices": [
+        "41",
+        "42",
+        "43",
+        "52"
+      ],
+      "equation": "24 + 18 = ?",
+      "a": 24,
+      "b": 18,
+      "operation": "addition",
+      "knowns": [
+        24,
+        18
+      ]
+    },
+    {
+      "id": "G2M_WP_001_MIXED_Q2",
+      "question_id": "G2M_WP_001_MIXED_Q2",
+      "question_type": "short_response",
+      "visual_model": "equation_builder",
+      "prompt": "There are 36 red apples and 27 green apples. How many apples are there altogether?",
+      "answer": "63",
+      "correct_answer": "63",
+      "acceptable_answers": [
+        "63"
+      ],
+      "misconception_tag": "operation_selection_error",
+      "hints": [
+        "Read the story and find what is asked.",
+        "Choose add, subtract, or compare.",
+        "Write an equation and solve the unknown."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "36 + 27 = 63. Add to put together or find the missing addend.",
+      "equation": "36 + 27 = ?",
+      "a": 36,
+      "b": 27,
+      "operation": "addition",
+      "knowns": [
+        36,
+        27
+      ]
+    },
+    {
+      "id": "G2M_WP_001_MIXED_Q3",
+      "question_id": "G2M_WP_001_MIXED_Q3",
+      "question_type": "short_response",
+      "visual_model": "bar_model",
+      "prompt": "There were 72 stickers. Ana used 28. How many stickers are left?",
+      "answer": "44",
+      "correct_answer": "44",
+      "acceptable_answers": [
+        "44"
+      ],
+      "misconception_tag": "operation_selection_error",
+      "hints": [
+        "Read the story and find what is asked.",
+        "Choose add, subtract, or compare.",
+        "Write an equation and solve the unknown."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Subtract to take apart or find the missing part: 72 - 28 = 44.",
+      "equation": "72 - 28 = ?",
+      "a": 72,
+      "b": 28,
+      "operation": "subtraction",
+      "knowns": [
+        72,
+        28
+      ]
+    },
+    {
+      "id": "G2M_WP_001_MIXED_Q4",
+      "question_id": "G2M_WP_001_MIXED_Q4",
+      "question_type": "short_response",
+      "visual_model": "equation_builder",
+      "prompt": "A jar had 65 marbles. 19 rolled out. How many marbles stayed in the jar?",
+      "answer": "46",
+      "correct_answer": "46",
+      "acceptable_answers": [
+        "46"
+      ],
+      "misconception_tag": "operation_selection_error",
+      "hints": [
+        "Read the story and find what is asked.",
+        "Choose add, subtract, or compare.",
+        "Write an equation and solve the unknown."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Subtract to take apart or find the missing part: 65 - 19 = 46.",
+      "equation": "65 - 19 = ?",
+      "a": 65,
+      "b": 19,
+      "operation": "subtraction",
+      "knowns": [
+        65,
+        19
+      ]
+    },
+    {
+      "id": "G2M_WP_001_MIXED_Q5",
+      "question_id": "G2M_WP_001_MIXED_Q5",
+      "question_type": "short_response",
+      "visual_model": "word_problem_model",
+      "prompt": "Ravi has 46 stamps. Kim has 29 stamps. How many more stamps does Ravi have than Kim?",
+      "answer": "17",
+      "correct_answer": "17",
+      "acceptable_answers": [
+        "17"
+      ],
+      "misconception_tag": "compare_problem_confusion",
+      "hints": [
+        "Read the story and find what is asked.",
+        "Choose add, subtract, or compare.",
+        "Write an equation and solve the unknown."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Compare by subtracting the smaller amount from the larger amount: 46 - 29 = 17.",
+      "equation": "46 - 29 = ?",
+      "a": 46,
+      "b": 29,
+      "operation": "compare",
+      "knowns": [
+        46,
+        29
+      ],
+      "parts": [
+        29,
+        17
+      ],
+      "total": 46
+    }
+  ],
+  "level_banks": [
+    {
+      "level_id": "G2M_WP_001_LVL1",
+      "label": "Level 1: Add To / Put Together",
+      "focus": "One-step addition word problems within 100",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_WP_001_LVL1_Q1",
+          "question_id": "G2M_WP_001_LVL1_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_model",
+          "prompt": "Mia has 24 shells. Leo gives her 18 more. How many shells does Mia have now?",
+          "answer": "42",
+          "correct_answer": "42",
+          "acceptable_answers": [
+            "42"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "24 + 18 = 42. Add to put together or find the missing addend.",
+          "options": [
+            "41",
+            "42",
+            "43",
+            "52"
+          ],
+          "choices": [
+            "41",
+            "42",
+            "43",
+            "52"
+          ],
+          "equation": "24 + 18 = ?",
+          "a": 24,
+          "b": 18,
+          "operation": "addition",
+          "knowns": [
+            24,
+            18
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL1_Q2",
+          "question_id": "G2M_WP_001_LVL1_Q2",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "There are 36 red apples and 27 green apples. How many apples are there altogether?",
+          "answer": "63",
+          "correct_answer": "63",
+          "acceptable_answers": [
+            "63"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "36 + 27 = 63. Add to put together or find the missing addend.",
+          "equation": "36 + 27 = ?",
+          "a": 36,
+          "b": 27,
+          "operation": "addition",
+          "knowns": [
+            36,
+            27
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL1_Q3",
+          "question_id": "G2M_WP_001_LVL1_Q3",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "A class reads 29 books in March and 31 in April. How many books did they read in all?",
+          "answer": "60",
+          "correct_answer": "60",
+          "acceptable_answers": [
+            "60"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "29 + 31 = 60. Add to put together or find the missing addend.",
+          "equation": "29 + 31 = ?",
+          "a": 29,
+          "b": 31,
+          "operation": "addition",
+          "knowns": [
+            29,
+            31
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL1_Q4",
+          "question_id": "G2M_WP_001_LVL1_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_model",
+          "prompt": "There were 45 birds in a tree. 16 more landed. How many birds are in the tree now?",
+          "answer": "61",
+          "correct_answer": "61",
+          "acceptable_answers": [
+            "61"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "45 + 16 = 61. Add to put together or find the missing addend.",
+          "options": [
+            "60",
+            "61",
+            "62",
+            "71"
+          ],
+          "choices": [
+            "60",
+            "61",
+            "62",
+            "71"
+          ],
+          "equation": "45 + 16 = ?",
+          "a": 45,
+          "b": 16,
+          "operation": "addition",
+          "knowns": [
+            45,
+            16
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL1_Q5",
+          "question_id": "G2M_WP_001_LVL1_Q5",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "Sam packed 38 crayons and 22 markers. How many art tools did Sam pack?",
+          "answer": "60",
+          "correct_answer": "60",
+          "acceptable_answers": [
+            "60"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "38 + 22 = 60. Add to put together or find the missing addend.",
+          "equation": "38 + 22 = ?",
+          "a": 38,
+          "b": 22,
+          "operation": "addition",
+          "knowns": [
+            38,
+            22
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL1_Q6",
+          "question_id": "G2M_WP_001_LVL1_Q6",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Nora found 17 rocks. Then she found some more. Now she has 49 rocks. How many more rocks did she find?",
+          "answer": "32",
+          "correct_answer": "32",
+          "acceptable_answers": [
+            "32"
+          ],
+          "misconception_tag": "missing_unknown_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "17 + 32 = 49. Add to put together or find the missing addend.",
+          "equation": "17 + ? = 49",
+          "a": 17,
+          "b": 32,
+          "operation": "addition",
+          "knowns": [
+            17,
+            32
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL1_Q7",
+          "question_id": "G2M_WP_001_LVL1_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_model",
+          "prompt": "A shelf has some picture books. 25 chapter books are added. Now there are 64 books. How many picture books were on the shelf?",
+          "answer": "39",
+          "correct_answer": "39",
+          "acceptable_answers": [
+            "39"
+          ],
+          "misconception_tag": "missing_unknown_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "39 + 25 = 64. Add to put together or find the missing addend.",
+          "options": [
+            "38",
+            "39",
+            "40",
+            "49"
+          ],
+          "choices": [
+            "38",
+            "39",
+            "40",
+            "49"
+          ],
+          "equation": "? + 25 = 64",
+          "a": 39,
+          "b": 25,
+          "operation": "addition",
+          "knowns": [
+            39,
+            25
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL1_Q8",
+          "question_id": "G2M_WP_001_LVL1_Q8",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "There are 28 kids on one bus and 34 on another bus. How many kids are on both buses?",
+          "answer": "62",
+          "correct_answer": "62",
+          "acceptable_answers": [
+            "62"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "28 + 34 = 62. Add to put together or find the missing addend.",
+          "equation": "28 + 34 = ?",
+          "a": 28,
+          "b": 34,
+          "operation": "addition",
+          "knowns": [
+            28,
+            34
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL1_Q9",
+          "question_id": "G2M_WP_001_LVL1_Q9",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "The garden has 19 tulips and 46 daisies. How many flowers are there?",
+          "answer": "65",
+          "correct_answer": "65",
+          "acceptable_answers": [
+            "65"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "19 + 46 = 65. Add to put together or find the missing addend.",
+          "equation": "19 + 46 = ?",
+          "a": 19,
+          "b": 46,
+          "operation": "addition",
+          "knowns": [
+            19,
+            46
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL1_Q10",
+          "question_id": "G2M_WP_001_LVL1_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_model",
+          "prompt": "A team scored 37 points, then scored 28 more. What was the total score?",
+          "answer": "65",
+          "correct_answer": "65",
+          "acceptable_answers": [
+            "65"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "37 + 28 = 65. Add to put together or find the missing addend.",
+          "options": [
+            "64",
+            "65",
+            "66",
+            "75"
+          ],
+          "choices": [
+            "64",
+            "65",
+            "66",
+            "75"
+          ],
+          "equation": "37 + 28 = ?",
+          "a": 37,
+          "b": 28,
+          "operation": "addition",
+          "knowns": [
+            37,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_WP_001_LVL2",
+      "label": "Level 2: Take From / Take Apart",
+      "focus": "One-step subtraction word problems within 100",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_WP_001_LVL2_Q1",
+          "question_id": "G2M_WP_001_LVL2_Q1",
+          "question_type": "short_response",
+          "visual_model": "bar_model",
+          "prompt": "There were 72 stickers. Ana used 28. How many stickers are left?",
+          "answer": "44",
+          "correct_answer": "44",
+          "acceptable_answers": [
+            "44"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Subtract to take apart or find the missing part: 72 - 28 = 44.",
+          "equation": "72 - 28 = ?",
+          "a": 72,
+          "b": 28,
+          "operation": "subtraction",
+          "knowns": [
+            72,
+            28
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL2_Q2",
+          "question_id": "G2M_WP_001_LVL2_Q2",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "A jar had 65 marbles. 19 rolled out. How many marbles stayed in the jar?",
+          "answer": "46",
+          "correct_answer": "46",
+          "acceptable_answers": [
+            "46"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Subtract to take apart or find the missing part: 65 - 19 = 46.",
+          "equation": "65 - 19 = ?",
+          "a": 65,
+          "b": 19,
+          "operation": "subtraction",
+          "knowns": [
+            65,
+            19
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL2_Q3",
+          "question_id": "G2M_WP_001_LVL2_Q3",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Coach had 90 cones and put away 34. How many cones are still out?",
+          "answer": "56",
+          "correct_answer": "56",
+          "acceptable_answers": [
+            "56"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Subtract to take apart or find the missing part: 90 - 34 = 56.",
+          "equation": "90 - 34 = ?",
+          "a": 90,
+          "b": 34,
+          "operation": "subtraction",
+          "knowns": [
+            90,
+            34
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL2_Q4",
+          "question_id": "G2M_WP_001_LVL2_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_model",
+          "prompt": "There are 58 tickets. 27 are blue. How many are not blue?",
+          "answer": "31",
+          "correct_answer": "31",
+          "acceptable_answers": [
+            "31"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Subtract to take apart or find the missing part: 58 - 27 = 31.",
+          "options": [
+            "30",
+            "31",
+            "32",
+            "41"
+          ],
+          "choices": [
+            "30",
+            "31",
+            "32",
+            "41"
+          ],
+          "equation": "58 - 27 = ?",
+          "a": 58,
+          "b": 27,
+          "operation": "subtraction",
+          "knowns": [
+            58,
+            27
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL2_Q5",
+          "question_id": "G2M_WP_001_LVL2_Q5",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "Lena baked 48 muffins. Her class ate 21. How many muffins remain?",
+          "answer": "27",
+          "correct_answer": "27",
+          "acceptable_answers": [
+            "27"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Subtract to take apart or find the missing part: 48 - 21 = 27.",
+          "equation": "48 - 21 = ?",
+          "a": 48,
+          "b": 21,
+          "operation": "subtraction",
+          "knowns": [
+            48,
+            21
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL2_Q6",
+          "question_id": "G2M_WP_001_LVL2_Q6",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "A box had 83 beads. Some were used. Now 57 beads are left. How many beads were used?",
+          "answer": "26",
+          "correct_answer": "26",
+          "acceptable_answers": [
+            "26"
+          ],
+          "misconception_tag": "missing_unknown_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Subtract to take apart or find the missing part: 83 - 26 = 57.",
+          "equation": "83 - ? = 57",
+          "a": 83,
+          "b": 26,
+          "operation": "subtraction",
+          "knowns": [
+            83,
+            26
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL2_Q7",
+          "question_id": "G2M_WP_001_LVL2_Q7",
+          "question_type": "short_response",
+          "visual_model": "bar_model",
+          "prompt": "There were some pencils. 18 broke, and 42 pencils are left. How many pencils were there at first?",
+          "answer": "60",
+          "correct_answer": "60",
+          "acceptable_answers": [
+            "60"
+          ],
+          "misconception_tag": "missing_unknown_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Subtract to take apart or find the missing part: 60 - 18 = 42.",
+          "equation": "? - 18 = 42",
+          "a": 60,
+          "b": 18,
+          "operation": "subtraction",
+          "knowns": [
+            60,
+            18
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL2_Q8",
+          "question_id": "G2M_WP_001_LVL2_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "equation_builder",
+          "prompt": "A library had 76 books on a cart. 39 were shelved. How many books are left?",
+          "answer": "37",
+          "correct_answer": "37",
+          "acceptable_answers": [
+            "37"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Subtract to take apart or find the missing part: 76 - 39 = 37.",
+          "options": [
+            "36",
+            "37",
+            "38",
+            "47"
+          ],
+          "choices": [
+            "36",
+            "37",
+            "38",
+            "47"
+          ],
+          "equation": "76 - 39 = ?",
+          "a": 76,
+          "b": 39,
+          "operation": "subtraction",
+          "knowns": [
+            76,
+            39
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL2_Q9",
+          "question_id": "G2M_WP_001_LVL2_Q9",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Jay had 54 cards and gave away 16. How many cards does Jay have now?",
+          "answer": "38",
+          "correct_answer": "38",
+          "acceptable_answers": [
+            "38"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Subtract to take apart or find the missing part: 54 - 16 = 38.",
+          "equation": "54 - 16 = ?",
+          "a": 54,
+          "b": 16,
+          "operation": "subtraction",
+          "knowns": [
+            54,
+            16
+          ]
+        },
+        {
+          "id": "G2M_WP_001_LVL2_Q10",
+          "question_id": "G2M_WP_001_LVL2_Q10",
+          "question_type": "short_response",
+          "visual_model": "bar_model",
+          "prompt": "A tank had 69 fish. 24 fish moved to another tank. How many fish stayed?",
+          "answer": "45",
+          "correct_answer": "45",
+          "acceptable_answers": [
+            "45"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Subtract to take apart or find the missing part: 69 - 24 = 45.",
+          "equation": "69 - 24 = ?",
+          "a": 69,
+          "b": 24,
+          "operation": "subtraction",
+          "knowns": [
+            69,
+            24
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_WP_001_LVL3",
+      "label": "Level 3: Compare Problems",
+      "focus": "Compare word problems with more, fewer, and difference language",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_WP_001_LVL3_Q1",
+          "question_id": "G2M_WP_001_LVL3_Q1",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Ravi has 46 stamps. Kim has 29 stamps. How many more stamps does Ravi have than Kim?",
+          "answer": "17",
+          "correct_answer": "17",
+          "acceptable_answers": [
+            "17"
+          ],
+          "misconception_tag": "compare_problem_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Compare by subtracting the smaller amount from the larger amount: 46 - 29 = 17.",
+          "equation": "46 - 29 = ?",
+          "a": 46,
+          "b": 29,
+          "operation": "compare",
+          "knowns": [
+            46,
+            29
+          ],
+          "parts": [
+            29,
+            17
+          ],
+          "total": 46
+        },
+        {
+          "id": "G2M_WP_001_LVL3_Q2",
+          "question_id": "G2M_WP_001_LVL3_Q2",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "The blue ribbon is 68 cm. The red ribbon is 52 cm. How many centimeters longer is the blue ribbon?",
+          "answer": "16",
+          "correct_answer": "16",
+          "acceptable_answers": [
+            "16"
+          ],
+          "misconception_tag": "compare_problem_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Compare by subtracting the smaller amount from the larger amount: 68 - 52 = 16.",
+          "equation": "68 - 52 = ?",
+          "a": 68,
+          "b": 52,
+          "operation": "compare",
+          "knowns": [
+            68,
+            52
+          ],
+          "parts": [
+            52,
+            16
+          ],
+          "total": 68
+        },
+        {
+          "id": "G2M_WP_001_LVL3_Q3",
+          "question_id": "G2M_WP_001_LVL3_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_model",
+          "prompt": "A team has 37 soccer balls and 58 basketballs. How many fewer soccer balls are there?",
+          "answer": "21",
+          "correct_answer": "21",
+          "acceptable_answers": [
+            "21"
+          ],
+          "misconception_tag": "compare_problem_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Compare by subtracting the smaller amount from the larger amount: 58 - 37 = 21.",
+          "options": [
+            "20",
+            "21",
+            "22",
+            "31"
+          ],
+          "choices": [
+            "20",
+            "21",
+            "22",
+            "31"
+          ],
+          "equation": "58 - 37 = ?",
+          "a": 58,
+          "b": 37,
+          "operation": "compare",
+          "knowns": [
+            58,
+            37
+          ],
+          "parts": [
+            37,
+            21
+          ],
+          "total": 58
+        },
+        {
+          "id": "G2M_WP_001_LVL3_Q4",
+          "question_id": "G2M_WP_001_LVL3_Q4",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "There are 74 oak trees and 49 pine trees. How many more oak trees are there?",
+          "answer": "25",
+          "correct_answer": "25",
+          "acceptable_answers": [
+            "25"
+          ],
+          "misconception_tag": "compare_problem_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Compare by subtracting the smaller amount from the larger amount: 74 - 49 = 25.",
+          "equation": "74 - 49 = ?",
+          "a": 74,
+          "b": 49,
+          "operation": "compare",
+          "knowns": [
+            74,
+            49
+          ],
+          "parts": [
+            49,
+            25
+          ],
+          "total": 74
+        },
+        {
+          "id": "G2M_WP_001_LVL3_Q5",
+          "question_id": "G2M_WP_001_LVL3_Q5",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "Maya saved 63 cents. Noah saved 41 cents. How many more cents did Maya save?",
+          "answer": "22",
+          "correct_answer": "22",
+          "acceptable_answers": [
+            "22"
+          ],
+          "misconception_tag": "compare_problem_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Compare by subtracting the smaller amount from the larger amount: 63 - 41 = 22.",
+          "equation": "63 - 41 = ?",
+          "a": 63,
+          "b": 41,
+          "operation": "compare",
+          "knowns": [
+            63,
+            41
+          ],
+          "parts": [
+            41,
+            22
+          ],
+          "total": 63
+        },
+        {
+          "id": "G2M_WP_001_LVL3_Q6",
+          "question_id": "G2M_WP_001_LVL3_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_model",
+          "prompt": "A chart shows 32 cats and 45 dogs. How many fewer cats than dogs?",
+          "answer": "13",
+          "correct_answer": "13",
+          "acceptable_answers": [
+            "13"
+          ],
+          "misconception_tag": "compare_problem_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Compare by subtracting the smaller amount from the larger amount: 45 - 32 = 13.",
+          "options": [
+            "12",
+            "13",
+            "14",
+            "23"
+          ],
+          "choices": [
+            "12",
+            "13",
+            "14",
+            "23"
+          ],
+          "equation": "45 - 32 = ?",
+          "a": 45,
+          "b": 32,
+          "operation": "compare",
+          "knowns": [
+            45,
+            32
+          ],
+          "parts": [
+            32,
+            13
+          ],
+          "total": 45
+        },
+        {
+          "id": "G2M_WP_001_LVL3_Q7",
+          "question_id": "G2M_WP_001_LVL3_Q7",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "The morning class has 28 students. The afternoon class has 35 students. How many more are in the afternoon class?",
+          "answer": "7",
+          "correct_answer": "7",
+          "acceptable_answers": [
+            "7"
+          ],
+          "misconception_tag": "compare_problem_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Compare by subtracting the smaller amount from the larger amount: 35 - 28 = 7.",
+          "equation": "35 - 28 = ?",
+          "a": 35,
+          "b": 28,
+          "operation": "compare",
+          "knowns": [
+            35,
+            28
+          ],
+          "parts": [
+            28,
+            7
+          ],
+          "total": 35
+        },
+        {
+          "id": "G2M_WP_001_LVL3_Q8",
+          "question_id": "G2M_WP_001_LVL3_Q8",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "A plant is 59 cm tall. Another plant is 46 cm tall. What is the difference in height?",
+          "answer": "13",
+          "correct_answer": "13",
+          "acceptable_answers": [
+            "13"
+          ],
+          "misconception_tag": "compare_problem_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Compare by subtracting the smaller amount from the larger amount: 59 - 46 = 13.",
+          "equation": "59 - 46 = ?",
+          "a": 59,
+          "b": 46,
+          "operation": "compare",
+          "knowns": [
+            59,
+            46
+          ],
+          "parts": [
+            46,
+            13
+          ],
+          "total": 59
+        },
+        {
+          "id": "G2M_WP_001_LVL3_Q9",
+          "question_id": "G2M_WP_001_LVL3_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_model",
+          "prompt": "There are 86 fiction books and 57 nonfiction books. How many more fiction books?",
+          "answer": "29",
+          "correct_answer": "29",
+          "acceptable_answers": [
+            "29"
+          ],
+          "misconception_tag": "compare_problem_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Compare by subtracting the smaller amount from the larger amount: 86 - 57 = 29.",
+          "options": [
+            "28",
+            "29",
+            "30",
+            "39"
+          ],
+          "choices": [
+            "28",
+            "29",
+            "30",
+            "39"
+          ],
+          "equation": "86 - 57 = ?",
+          "a": 86,
+          "b": 57,
+          "operation": "compare",
+          "knowns": [
+            86,
+            57
+          ],
+          "parts": [
+            57,
+            29
+          ],
+          "total": 86
+        },
+        {
+          "id": "G2M_WP_001_LVL3_Q10",
+          "question_id": "G2M_WP_001_LVL3_Q10",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Ella made 40 bracelets. Zoe made 24 bracelets. How many fewer did Zoe make?",
+          "answer": "16",
+          "correct_answer": "16",
+          "acceptable_answers": [
+            "16"
+          ],
+          "misconception_tag": "compare_problem_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Compare by subtracting the smaller amount from the larger amount: 40 - 24 = 16.",
+          "equation": "40 - 24 = ?",
+          "a": 40,
+          "b": 24,
+          "operation": "compare",
+          "knowns": [
+            40,
+            24
+          ],
+          "parts": [
+            24,
+            16
+          ],
+          "total": 40
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_WP_001_LVL4",
+      "label": "Level 4: Two-Step Problems",
+      "focus": "Two-step addition and subtraction word problems within 100",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_WP_001_LVL4_Q1",
+          "question_id": "G2M_WP_001_LVL4_Q1",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "A class collected 24 cans Monday and 31 cans Tuesday. They recycled 18 cans. How many cans are left?",
+          "answer": "37",
+          "correct_answer": "37",
+          "acceptable_answers": [
+            "37"
+          ],
+          "misconception_tag": "two_step_tracking_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Solve one step, then use that result for the next step: 24 + 31 - 18 = 37.",
+          "equation": "24 + 31 - 18 = ?",
+          "a": 24,
+          "b": 31,
+          "c": 18,
+          "knowns": [
+            24,
+            31,
+            18
+          ],
+          "operation": "two_step"
+        },
+        {
+          "id": "G2M_WP_001_LVL4_Q2",
+          "question_id": "G2M_WP_001_LVL4_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_model",
+          "prompt": "Ben had 70 stickers. He gave 25 away and then got 14 more. How many stickers now?",
+          "answer": "59",
+          "correct_answer": "59",
+          "acceptable_answers": [
+            "59"
+          ],
+          "misconception_tag": "two_step_tracking_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Solve one step, then use that result for the next step: 70 - 25 + 14 = 59.",
+          "options": [
+            "58",
+            "59",
+            "60",
+            "69"
+          ],
+          "choices": [
+            "58",
+            "59",
+            "60",
+            "69"
+          ],
+          "equation": "70 - 25 + 14 = ?",
+          "a": 70,
+          "b": 25,
+          "c": 14,
+          "knowns": [
+            70,
+            25,
+            14
+          ],
+          "operation": "two_step"
+        },
+        {
+          "id": "G2M_WP_001_LVL4_Q3",
+          "question_id": "G2M_WP_001_LVL4_Q3",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "There are 19 red, 22 blue, and 17 green balloons. How many balloons are there in all?",
+          "answer": "58",
+          "correct_answer": "58",
+          "acceptable_answers": [
+            "58"
+          ],
+          "misconception_tag": "two_step_tracking_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Solve one step, then use that result for the next step: 19 + 22 + 17 = 58.",
+          "equation": "19 + 22 + 17 = ?",
+          "a": 19,
+          "b": 22,
+          "c": 17,
+          "knowns": [
+            19,
+            22,
+            17
+          ],
+          "operation": "two_step"
+        },
+        {
+          "id": "G2M_WP_001_LVL4_Q4",
+          "question_id": "G2M_WP_001_LVL4_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "word_problem_model",
+          "prompt": "A bus had 64 riders. 18 got off and 23 got on. How many riders are on the bus?",
+          "answer": "69",
+          "correct_answer": "69",
+          "acceptable_answers": [
+            "69"
+          ],
+          "misconception_tag": "two_step_tracking_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Solve one step, then use that result for the next step: 64 - 18 + 23 = 69.",
+          "options": [
+            "68",
+            "69",
+            "70",
+            "79"
+          ],
+          "choices": [
+            "68",
+            "69",
+            "70",
+            "79"
+          ],
+          "equation": "64 - 18 + 23 = ?",
+          "a": 64,
+          "b": 18,
+          "c": 23,
+          "knowns": [
+            64,
+            18,
+            23
+          ],
+          "operation": "two_step"
+        },
+        {
+          "id": "G2M_WP_001_LVL4_Q5",
+          "question_id": "G2M_WP_001_LVL4_Q5",
+          "question_type": "short_response",
+          "visual_model": "bar_model",
+          "prompt": "Lily read 28 pages Saturday and 26 Sunday. Her book has 90 pages. How many pages are left?",
+          "answer": "36",
+          "correct_answer": "36",
+          "acceptable_answers": [
+            "36"
+          ],
+          "misconception_tag": "two_step_tracking_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Solve one step, then use that result for the next step: 90 - (28 + 26) = 36.",
+          "equation": "90 - (28 + 26) = ?",
+          "a": 90,
+          "b": 28,
+          "c": 26,
+          "knowns": [
+            90,
+            28,
+            26
+          ],
+          "operation": "two_step"
+        },
+        {
+          "id": "G2M_WP_001_LVL4_Q6",
+          "question_id": "G2M_WP_001_LVL4_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "equation_builder",
+          "prompt": "A store had 82 pencils. It sold 37 and then sold 18 more. How many pencils remain?",
+          "answer": "27",
+          "correct_answer": "27",
+          "acceptable_answers": [
+            "27"
+          ],
+          "misconception_tag": "two_step_tracking_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Solve one step, then use that result for the next step: 82 - 37 - 18 = 27.",
+          "options": [
+            "26",
+            "27",
+            "28",
+            "37"
+          ],
+          "choices": [
+            "26",
+            "27",
+            "28",
+            "37"
+          ],
+          "equation": "82 - 37 - 18 = ?",
+          "a": 82,
+          "b": 37,
+          "c": 18,
+          "knowns": [
+            82,
+            37,
+            18
+          ],
+          "operation": "two_step"
+        },
+        {
+          "id": "G2M_WP_001_LVL4_Q7",
+          "question_id": "G2M_WP_001_LVL4_Q7",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "A team scored 16, 24, and 19 points. What was the total score?",
+          "answer": "59",
+          "correct_answer": "59",
+          "acceptable_answers": [
+            "59"
+          ],
+          "misconception_tag": "two_step_tracking_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Solve one step, then use that result for the next step: 16 + 24 + 19 = 59.",
+          "equation": "16 + 24 + 19 = ?",
+          "a": 16,
+          "b": 24,
+          "c": 19,
+          "knowns": [
+            16,
+            24,
+            19
+          ],
+          "operation": "two_step"
+        },
+        {
+          "id": "G2M_WP_001_LVL4_Q8",
+          "question_id": "G2M_WP_001_LVL4_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_model",
+          "prompt": "A garden had 45 flowers. Kids planted 28 more, then picked 16. How many flowers are in the garden?",
+          "answer": "57",
+          "correct_answer": "57",
+          "acceptable_answers": [
+            "57"
+          ],
+          "misconception_tag": "two_step_tracking_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Solve one step, then use that result for the next step: 45 + 28 - 16 = 57.",
+          "options": [
+            "56",
+            "57",
+            "58",
+            "67"
+          ],
+          "choices": [
+            "56",
+            "57",
+            "58",
+            "67"
+          ],
+          "equation": "45 + 28 - 16 = ?",
+          "a": 45,
+          "b": 28,
+          "c": 16,
+          "knowns": [
+            45,
+            28,
+            16
+          ],
+          "operation": "two_step"
+        },
+        {
+          "id": "G2M_WP_001_LVL4_Q9",
+          "question_id": "G2M_WP_001_LVL4_Q9",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "There were 30 chairs in a room. 24 more chairs came in. 19 chairs were moved out. How many chairs remain?",
+          "answer": "35",
+          "correct_answer": "35",
+          "acceptable_answers": [
+            "35"
+          ],
+          "misconception_tag": "two_step_tracking_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Solve one step, then use that result for the next step: 30 + 24 - 19 = 35.",
+          "equation": "30 + 24 - 19 = ?",
+          "a": 30,
+          "b": 24,
+          "c": 19,
+          "knowns": [
+            30,
+            24,
+            19
+          ],
+          "operation": "two_step"
+        },
+        {
+          "id": "G2M_WP_001_LVL4_Q10",
+          "question_id": "G2M_WP_001_LVL4_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "word_problem_model",
+          "prompt": "A jar held 75 buttons. 29 were blue and 18 were red. How many buttons were another color?",
+          "answer": "28",
+          "correct_answer": "28",
+          "acceptable_answers": [
+            "28"
+          ],
+          "misconception_tag": "two_step_tracking_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Solve one step, then use that result for the next step: 75 - 29 - 18 = 28.",
+          "options": [
+            "27",
+            "28",
+            "29",
+            "38"
+          ],
+          "choices": [
+            "27",
+            "28",
+            "29",
+            "38"
+          ],
+          "equation": "75 - 29 - 18 = ?",
+          "a": 75,
+          "b": 29,
+          "c": 18,
+          "knowns": [
+            75,
+            29,
+            18
+          ],
+          "operation": "two_step"
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_WP_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed addition, subtraction, compare, and two-step word problems",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_WP_001_MIXED_Q1",
+          "question_id": "G2M_WP_001_MIXED_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_model",
+          "prompt": "Mia has 24 shells. Leo gives her 18 more. How many shells does Mia have now?",
+          "answer": "42",
+          "correct_answer": "42",
+          "acceptable_answers": [
+            "42"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "24 + 18 = 42. Add to put together or find the missing addend.",
+          "options": [
+            "41",
+            "42",
+            "43",
+            "52"
+          ],
+          "choices": [
+            "41",
+            "42",
+            "43",
+            "52"
+          ],
+          "equation": "24 + 18 = ?",
+          "a": 24,
+          "b": 18,
+          "operation": "addition",
+          "knowns": [
+            24,
+            18
+          ]
+        },
+        {
+          "id": "G2M_WP_001_MIXED_Q2",
+          "question_id": "G2M_WP_001_MIXED_Q2",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "There are 36 red apples and 27 green apples. How many apples are there altogether?",
+          "answer": "63",
+          "correct_answer": "63",
+          "acceptable_answers": [
+            "63"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "36 + 27 = 63. Add to put together or find the missing addend.",
+          "equation": "36 + 27 = ?",
+          "a": 36,
+          "b": 27,
+          "operation": "addition",
+          "knowns": [
+            36,
+            27
+          ]
+        },
+        {
+          "id": "G2M_WP_001_MIXED_Q3",
+          "question_id": "G2M_WP_001_MIXED_Q3",
+          "question_type": "short_response",
+          "visual_model": "bar_model",
+          "prompt": "There were 72 stickers. Ana used 28. How many stickers are left?",
+          "answer": "44",
+          "correct_answer": "44",
+          "acceptable_answers": [
+            "44"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Subtract to take apart or find the missing part: 72 - 28 = 44.",
+          "equation": "72 - 28 = ?",
+          "a": 72,
+          "b": 28,
+          "operation": "subtraction",
+          "knowns": [
+            72,
+            28
+          ]
+        },
+        {
+          "id": "G2M_WP_001_MIXED_Q4",
+          "question_id": "G2M_WP_001_MIXED_Q4",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "A jar had 65 marbles. 19 rolled out. How many marbles stayed in the jar?",
+          "answer": "46",
+          "correct_answer": "46",
+          "acceptable_answers": [
+            "46"
+          ],
+          "misconception_tag": "operation_selection_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Subtract to take apart or find the missing part: 65 - 19 = 46.",
+          "equation": "65 - 19 = ?",
+          "a": 65,
+          "b": 19,
+          "operation": "subtraction",
+          "knowns": [
+            65,
+            19
+          ]
+        },
+        {
+          "id": "G2M_WP_001_MIXED_Q5",
+          "question_id": "G2M_WP_001_MIXED_Q5",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Ravi has 46 stamps. Kim has 29 stamps. How many more stamps does Ravi have than Kim?",
+          "answer": "17",
+          "correct_answer": "17",
+          "acceptable_answers": [
+            "17"
+          ],
+          "misconception_tag": "compare_problem_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Compare by subtracting the smaller amount from the larger amount: 46 - 29 = 17.",
+          "equation": "46 - 29 = ?",
+          "a": 46,
+          "b": 29,
+          "operation": "compare",
+          "knowns": [
+            46,
+            29
+          ],
+          "parts": [
+            29,
+            17
+          ],
+          "total": 46
+        },
+        {
+          "id": "G2M_WP_001_MIXED_Q6",
+          "question_id": "G2M_WP_001_MIXED_Q6",
+          "question_type": "short_response",
+          "visual_model": "number_line",
+          "prompt": "The blue ribbon is 68 cm. The red ribbon is 52 cm. How many centimeters longer is the blue ribbon?",
+          "answer": "16",
+          "correct_answer": "16",
+          "acceptable_answers": [
+            "16"
+          ],
+          "misconception_tag": "compare_problem_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Compare by subtracting the smaller amount from the larger amount: 68 - 52 = 16.",
+          "equation": "68 - 52 = ?",
+          "a": 68,
+          "b": 52,
+          "operation": "compare",
+          "knowns": [
+            68,
+            52
+          ],
+          "parts": [
+            52,
+            16
+          ],
+          "total": 68
+        },
+        {
+          "id": "G2M_WP_001_MIXED_Q7",
+          "question_id": "G2M_WP_001_MIXED_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_model",
+          "prompt": "A team has 37 soccer balls and 58 basketballs. How many fewer soccer balls are there?",
+          "answer": "21",
+          "correct_answer": "21",
+          "acceptable_answers": [
+            "21"
+          ],
+          "misconception_tag": "compare_problem_confusion",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Compare by subtracting the smaller amount from the larger amount: 58 - 37 = 21.",
+          "options": [
+            "20",
+            "21",
+            "22",
+            "31"
+          ],
+          "choices": [
+            "20",
+            "21",
+            "22",
+            "31"
+          ],
+          "equation": "58 - 37 = ?",
+          "a": 58,
+          "b": 37,
+          "operation": "compare",
+          "knowns": [
+            58,
+            37
+          ],
+          "parts": [
+            37,
+            21
+          ],
+          "total": 58
+        },
+        {
+          "id": "G2M_WP_001_MIXED_Q8",
+          "question_id": "G2M_WP_001_MIXED_Q8",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "A class collected 24 cans Monday and 31 cans Tuesday. They recycled 18 cans. How many cans are left?",
+          "answer": "37",
+          "correct_answer": "37",
+          "acceptable_answers": [
+            "37"
+          ],
+          "misconception_tag": "two_step_tracking_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Solve one step, then use that result for the next step: 24 + 31 - 18 = 37.",
+          "equation": "24 + 31 - 18 = ?",
+          "a": 24,
+          "b": 31,
+          "c": 18,
+          "knowns": [
+            24,
+            31,
+            18
+          ],
+          "operation": "two_step"
+        },
+        {
+          "id": "G2M_WP_001_MIXED_Q9",
+          "question_id": "G2M_WP_001_MIXED_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_model",
+          "prompt": "Ben had 70 stickers. He gave 25 away and then got 14 more. How many stickers now?",
+          "answer": "59",
+          "correct_answer": "59",
+          "acceptable_answers": [
+            "59"
+          ],
+          "misconception_tag": "two_step_tracking_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Solve one step, then use that result for the next step: 70 - 25 + 14 = 59.",
+          "options": [
+            "58",
+            "59",
+            "60",
+            "69"
+          ],
+          "choices": [
+            "58",
+            "59",
+            "60",
+            "69"
+          ],
+          "equation": "70 - 25 + 14 = ?",
+          "a": 70,
+          "b": 25,
+          "c": 14,
+          "knowns": [
+            70,
+            25,
+            14
+          ],
+          "operation": "two_step"
+        },
+        {
+          "id": "G2M_WP_001_MIXED_Q10",
+          "question_id": "G2M_WP_001_MIXED_Q10",
+          "question_type": "short_response",
+          "visual_model": "equation_builder",
+          "prompt": "There are 19 red, 22 blue, and 17 green balloons. How many balloons are there in all?",
+          "answer": "58",
+          "correct_answer": "58",
+          "acceptable_answers": [
+            "58"
+          ],
+          "misconception_tag": "two_step_tracking_error",
+          "hints": [
+            "Read the story and find what is asked.",
+            "Choose add, subtract, or compare.",
+            "Write an equation and solve the unknown."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Solve one step, then use that result for the next step: 19 + 22 + 17 = 58.",
+          "equation": "19 + 22 + 17 = ?",
+          "a": 19,
+          "b": 22,
+          "c": 17,
+          "knowns": [
+            19,
+            22,
+            17
+          ],
+          "operation": "two_step"
+        }
+      ]
+    }
+  ]
+}

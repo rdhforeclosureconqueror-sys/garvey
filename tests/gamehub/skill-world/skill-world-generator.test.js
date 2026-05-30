@@ -5,7 +5,7 @@ const root=path.join(__dirname,'..','..','..');
 const load=(id)=>JSON.parse(fs.readFileSync(path.join(root,`public/gamehub/skill-world/content/${id}.skill-package.v1.json`),'utf8'));
 const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_GM_001','G1M_GM_002','G1M_DP_001','G1M_MD_TIME_001','G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
 const grade1Packages=grade1SkillIds.map(load);
-const grade2SkillIds=['G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003'];
+const grade2SkillIds=['G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002'];
 const grade2Packages=grade2SkillIds.map(load);
 const g2PlaceValue=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_PV_001');
 const g2CountReadWrite=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_NS_001');
@@ -13,6 +13,9 @@ const g2Compare=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_NS_002');
 const g2AddWithin100=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_OP_001');
 const g2SubtractWithin100=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_OP_002');
 const g2FluencyWithin20=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_OP_003');
+const g2WordProblems=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_WP_001');
+const g2MeasureLength=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_MD_001');
+const g2TimeMoney=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_MD_002');
 const byId=Object.fromEntries([...grade1Packages,...grade2Packages].map((pkg)=>[pkg.skill_id,pkg]));
 const dp=byId.G1M_DP_001;
 const op=byId.G1M_OP_003;
@@ -487,7 +490,7 @@ assert.match(g2DrillHtml,/class="level-card-meta"/,'G2M_PV_001 drill keeps compa
 assert.ok(Renderer.evaluateAnswer(g2Questions.find((q)=>q.question_type==='short_response'&&q.correct_answer==='300 + 40 + 2'),'300 + 40 + 2.'),'G2M_PV_001 short_response accepts acceptable answer');
 
 
-const grade2ProductionIds=['G2M_NS_001','G2M_PV_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003'];
+const grade2ProductionIds=['G2M_NS_001','G2M_PV_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002'];
 grade2ProductionIds.forEach((id)=>{
   const pkg=byId[id];
   assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates as production package`);
@@ -626,3 +629,44 @@ assert.match(clockVisual,/hour-hand/);
 assert.match(clockVisual,/minute-hand/);
 
 console.log('skill-world-generator tests passed');
+
+
+['G2M_WP_001','G2M_MD_001','G2M_MD_002'].forEach((id)=>{
+  const pkg=byId[id];
+  assert.ok(pkg,`${id} package exists`);
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates as production package`);
+  assert.equal(pkg.level_banks.length,5,`${id} has four focused levels plus Mixed`);
+  assert.ok(pkg.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${id} ${level.level_id} has 10-12 questions`));
+});
+
+const g2WordProblemQuestions=g2WordProblems.level_banks.flatMap((level)=>level.questions);
+assert.ok(g2WordProblemQuestions.some((q)=>q.operation==='addition'),'G2M_WP_001 includes one-step addition word problems');
+assert.ok(g2WordProblemQuestions.some((q)=>q.operation==='subtraction'),'G2M_WP_001 includes one-step subtraction word problems');
+assert.ok(g2WordProblemQuestions.some((q)=>q.operation==='compare'),'G2M_WP_001 includes compare word problems');
+assert.ok(g2WordProblemQuestions.some((q)=>q.operation==='two_step'),'G2M_WP_001 includes two-step word problems');
+assert.ok(g2WordProblemQuestions.some((q)=>/\? \+|\? -|- \?/.test(q.equation||'')),'G2M_WP_001 includes unknowns in different positions');
+assert.match(VisualRegistry.render(g2WordProblemQuestions.find((q)=>q.visual_model==='word_problem_model')),/data-renderer="word_problem_model"/,'word_problem_model output exists');
+assert.match(VisualRegistry.render(g2WordProblemQuestions.find((q)=>q.visual_model==='bar_model')),/data-renderer="bar_model"/,'bar_model output exists');
+assert.match(VisualRegistry.render(g2WordProblemQuestions.find((q)=>q.visual_model==='equation_builder')),/data-renderer="equation_builder"/,'equation_builder output exists');
+assert.ok(g2WordProblemQuestions.every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G2M_WP_001 has acceptable_answers for numeric responses');
+
+const g2MeasureQuestions=g2MeasureLength.level_banks.flatMap((level)=>level.questions);
+assert.ok(g2MeasureQuestions.some((q)=>q.unit==='inches'&&q.visual_model==='ruler'),'G2M_MD_001 includes measuring objects with inch rulers');
+assert.ok(g2MeasureQuestions.some((q)=>q.unit==='centimeters'&&q.visual_model==='ruler'),'G2M_MD_001 includes measuring objects with centimeter rulers');
+assert.ok(g2MeasureQuestions.some((q)=>q.misconception_tag==='estimate_error'),'G2M_MD_001 includes estimates');
+assert.ok(g2MeasureQuestions.some((q)=>q.misconception_tag==='length_difference_confusion'),'G2M_MD_001 includes length comparison and difference problems');
+assert.match(VisualRegistry.render(g2MeasureQuestions.find((q)=>q.visual_model==='ruler')),/data-renderer="ruler"/,'ruler output exists');
+assert.ok(g2MeasureQuestions.some((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.includes('5 inches')&&q.acceptable_answers.includes('5 in')&&q.acceptable_answers.includes('5')),'G2M_MD_001 accepts unit answer variants');
+
+const g2TimeMoneyQuestions=g2TimeMoney.level_banks.flatMap((level)=>level.questions);
+assert.ok(g2TimeMoneyQuestions.some((q)=>q.visual_model==='analog_clock'&&Number(q.minute)%5===0),'G2M_MD_002 includes analog clocks to five-minute intervals');
+assert.ok(g2TimeMoneyQuestions.some((q)=>q.visual_model==='digital_time'),'G2M_MD_002 includes digital time matching');
+assert.ok(g2TimeMoneyQuestions.some((q)=>/a\.m\.|p\.m\./.test(q.correct_answer)),'G2M_MD_002 includes a.m./p.m. context questions');
+['penny','nickel','dime','quarter'].forEach((coin)=>assert.ok(g2TimeMoneyQuestions.some((q)=>q.coin===coin),`G2M_MD_002 includes ${coin} values`));
+assert.ok(g2TimeMoneyQuestions.some((q)=>q.visual_model==='money_counting'&&q.coins.length>1),'G2M_MD_002 includes counting mixed coins');
+assert.match(VisualRegistry.render(g2TimeMoneyQuestions.find((q)=>q.visual_model==='coin_model')),/data-renderer="coin_model"/,'coin_model output exists');
+assert.match(VisualRegistry.render(g2TimeMoneyQuestions.find((q)=>q.visual_model==='money_counting')),/data-renderer="money_counting"/,'money_counting output exists');
+assert.ok(g2TimeMoneyQuestions.some((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.includes('3:05')&&q.acceptable_answers.includes('3 05')),'G2M_MD_002 accepts time variants like 3:05 and 3 05');
+assert.ok(g2TimeMoneyQuestions.some((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.includes('3:05 p.m.')),'G2M_MD_002 accepts p.m. time variants');
+assert.ok(g2TimeMoneyQuestions.some((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.includes('25 cents')&&q.acceptable_answers.includes('$0.25')&&q.acceptable_answers.includes('quarter')),'G2M_MD_002 accepts money variants');

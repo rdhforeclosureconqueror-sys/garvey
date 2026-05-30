@@ -1,0 +1,2114 @@
+{
+  "skill_id": "G2M_MD_002",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_plan": "curriculum-framework/plans/grade2-math-completion-plan.v1.json"
+  },
+  "grade": 2,
+  "subject": "Math",
+  "domain": "Measurement and Data",
+  "skill": "Time and Money",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    5
+  ],
+  "lesson": {
+    "story_mission": "Help the Clock and Coin Crew open the market on time and price each item.",
+    "mini_lesson": "Tell time by reading the hour hand and minute hand. Count coins by using each coin value.",
+    "objective": "Tell time to five minutes and solve money/counting coin problems.",
+    "key_vocabulary": [
+      "analog clock",
+      "digital time",
+      "a.m.",
+      "p.m.",
+      "penny",
+      "nickel",
+      "dime",
+      "quarter"
+    ],
+    "concept_explanation": "On a clock, the short hand names the hour and the long hand counts minutes by fives. Coin totals come from adding each coin value.",
+    "visual_model": "analog_clock",
+    "common_misconception": "Learners may confuse the minute hand with the hour hand or count each coin as one.",
+    "real_world_connection": "Time and money help plan school days, practices, shopping, and saving.",
+    "lesson_summary": "Read the hands or digital time, use context for a.m./p.m., name coin values, and add coins carefully.",
+    "hints": [
+      "Look at the hour hand first.",
+      "Count minutes by fives around the clock.",
+      "For coins, count from the largest values to the smallest."
+    ]
+  },
+  "worked_examples": [
+    {
+      "text": "A clock with the hour hand near 3 and minute hand on 1 shows 3:05."
+    },
+    {
+      "text": "A movie at 3:05 in the afternoon is 3:05 p.m."
+    },
+    {
+      "text": "A quarter and a dime and a penny total 36 cents."
+    }
+  ],
+  "hint_ladder": [
+    "Look at the hour hand first.",
+    "Count minutes by fives around the clock.",
+    "For coins, count from the largest values to the smallest."
+  ],
+  "misconception_bank": {
+    "minute_hand_confusion": "Learner may read the minute hand as the hour or count minutes incorrectly.",
+    "hour_hand_between_numbers": "Learner may not account for the hour hand moving between numbers as minutes pass.",
+    "coin_value_confusion": "Learner may forget penny, nickel, dime, or quarter values.",
+    "coin_counting_skip_error": "Learner may skip-count coins in the wrong order or count each coin as one."
+  },
+  "game_theme": {
+    "title": "Time and Money",
+    "mission_intro": "Help the Clock and Coin Crew open the market on time and price each item.",
+    "badge_name": "Time and Money Captain"
+  },
+  "guided_practice": [
+    {
+      "id": "G2M_MD_002_LVL1_Q1",
+      "question_id": "G2M_MD_002_LVL1_Q1",
+      "question_type": "short_response",
+      "visual_model": "analog_clock",
+      "prompt": "What time is shown on the analog clock?",
+      "answer": "3:05",
+      "correct_answer": "3:05",
+      "acceptable_answers": [
+        "3:05",
+        "3 05"
+      ],
+      "misconception_tag": "minute_hand_confusion",
+      "hints": [
+        "Look at the hour hand first.",
+        "Count minutes by fives around the clock.",
+        "For coins, count from the largest values to the smallest."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The hour hand is near 3 and the minute hand shows 5 minutes, so the time is 3:05.",
+      "hour": 3,
+      "minute": 5
+    },
+    {
+      "id": "G2M_MD_002_LVL1_Q2",
+      "question_id": "G2M_MD_002_LVL1_Q2",
+      "question_type": "short_response",
+      "visual_model": "analog_clock",
+      "prompt": "What time is shown on the analog clock?",
+      "answer": "7:20",
+      "correct_answer": "7:20",
+      "acceptable_answers": [
+        "7:20",
+        "7 20"
+      ],
+      "misconception_tag": "minute_hand_confusion",
+      "hints": [
+        "Look at the hour hand first.",
+        "Count minutes by fives around the clock.",
+        "For coins, count from the largest values to the smallest."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The hour hand is near 7 and the minute hand shows 20 minutes, so the time is 7:20.",
+      "hour": 7,
+      "minute": 20
+    },
+    {
+      "id": "G2M_MD_002_LVL1_Q3",
+      "question_id": "G2M_MD_002_LVL1_Q3",
+      "question_type": "short_response",
+      "visual_model": "analog_clock",
+      "prompt": "What time is shown on the analog clock?",
+      "answer": "10:45",
+      "correct_answer": "10:45",
+      "acceptable_answers": [
+        "10:45",
+        "10 45"
+      ],
+      "misconception_tag": "minute_hand_confusion",
+      "hints": [
+        "Look at the hour hand first.",
+        "Count minutes by fives around the clock.",
+        "For coins, count from the largest values to the smallest."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The hour hand is near 10 and the minute hand shows 45 minutes, so the time is 10:45.",
+      "hour": 10,
+      "minute": 45
+    },
+    {
+      "id": "G2M_MD_002_LVL1_Q4",
+      "question_id": "G2M_MD_002_LVL1_Q4",
+      "question_type": "short_response",
+      "visual_model": "analog_clock",
+      "prompt": "What time is shown on the analog clock?",
+      "answer": "1:30",
+      "correct_answer": "1:30",
+      "acceptable_answers": [
+        "1:30",
+        "1 30"
+      ],
+      "misconception_tag": "minute_hand_confusion",
+      "hints": [
+        "Look at the hour hand first.",
+        "Count minutes by fives around the clock.",
+        "For coins, count from the largest values to the smallest."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The hour hand is near 1 and the minute hand shows 30 minutes, so the time is 1:30.",
+      "hour": 1,
+      "minute": 30
+    },
+    {
+      "id": "G2M_MD_002_LVL1_Q5",
+      "question_id": "G2M_MD_002_LVL1_Q5",
+      "question_type": "short_response",
+      "visual_model": "analog_clock",
+      "prompt": "What time is shown on the analog clock?",
+      "answer": "6:15",
+      "correct_answer": "6:15",
+      "acceptable_answers": [
+        "6:15",
+        "6 15"
+      ],
+      "misconception_tag": "minute_hand_confusion",
+      "hints": [
+        "Look at the hour hand first.",
+        "Count minutes by fives around the clock.",
+        "For coins, count from the largest values to the smallest."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The hour hand is near 6 and the minute hand shows 15 minutes, so the time is 6:15.",
+      "hour": 6,
+      "minute": 15
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G2M_MD_002_LVL4_Q1",
+      "question_id": "G2M_MD_002_LVL4_Q1",
+      "question_type": "short_response",
+      "visual_model": "money_counting",
+      "prompt": "Count the coins: quarter, dime, penny. How much money is there?",
+      "answer": "36",
+      "correct_answer": "36",
+      "acceptable_answers": [
+        "36",
+        "36 cents",
+        "36\u00a2",
+        "$0.36"
+      ],
+      "misconception_tag": "coin_counting_skip_error",
+      "hints": [
+        "Look at the hour hand first.",
+        "Count minutes by fives around the clock.",
+        "For coins, count from the largest values to the smallest."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Count the coins to get 36 cents.",
+      "coins": [
+        "quarter",
+        "dime",
+        "penny"
+      ],
+      "total_cents": 36
+    },
+    {
+      "id": "G2M_MD_002_LVL4_Q2",
+      "question_id": "G2M_MD_002_LVL4_Q2",
+      "question_type": "short_response",
+      "visual_model": "money_counting",
+      "prompt": "Count the coins: dime, dime, nickel. How much money is there?",
+      "answer": "25",
+      "correct_answer": "25",
+      "acceptable_answers": [
+        "25",
+        "25 cents",
+        "25\u00a2",
+        "$0.25"
+      ],
+      "misconception_tag": "coin_counting_skip_error",
+      "hints": [
+        "Look at the hour hand first.",
+        "Count minutes by fives around the clock.",
+        "For coins, count from the largest values to the smallest."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Count the coins to get 25 cents.",
+      "coins": [
+        "dime",
+        "dime",
+        "nickel"
+      ],
+      "total_cents": 25
+    },
+    {
+      "id": "G2M_MD_002_LVL4_Q3",
+      "question_id": "G2M_MD_002_LVL4_Q3",
+      "question_type": "short_response",
+      "visual_model": "money_counting",
+      "prompt": "Count the coins: quarter, nickel, penny, penny. How much money is there?",
+      "answer": "32",
+      "correct_answer": "32",
+      "acceptable_answers": [
+        "32",
+        "32 cents",
+        "32\u00a2",
+        "$0.32"
+      ],
+      "misconception_tag": "coin_counting_skip_error",
+      "hints": [
+        "Look at the hour hand first.",
+        "Count minutes by fives around the clock.",
+        "For coins, count from the largest values to the smallest."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Count the coins to get 32 cents.",
+      "coins": [
+        "quarter",
+        "nickel",
+        "penny",
+        "penny"
+      ],
+      "total_cents": 32
+    },
+    {
+      "id": "G2M_MD_002_LVL4_Q4",
+      "question_id": "G2M_MD_002_LVL4_Q4",
+      "question_type": "short_response",
+      "visual_model": "money_counting",
+      "prompt": "Count the coins: dime, nickel, penny. How much money is there?",
+      "answer": "16",
+      "correct_answer": "16",
+      "acceptable_answers": [
+        "16",
+        "16 cents",
+        "16\u00a2",
+        "$0.16"
+      ],
+      "misconception_tag": "coin_counting_skip_error",
+      "hints": [
+        "Look at the hour hand first.",
+        "Count minutes by fives around the clock.",
+        "For coins, count from the largest values to the smallest."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Count the coins to get 16 cents.",
+      "coins": [
+        "dime",
+        "nickel",
+        "penny"
+      ],
+      "total_cents": 16
+    },
+    {
+      "id": "G2M_MD_002_LVL4_Q5",
+      "question_id": "G2M_MD_002_LVL4_Q5",
+      "question_type": "short_response",
+      "visual_model": "money_counting",
+      "prompt": "Count the coins: quarter, quarter, dime. How much money is there?",
+      "answer": "60",
+      "correct_answer": "60",
+      "acceptable_answers": [
+        "60",
+        "60 cents",
+        "60\u00a2",
+        "$0.60"
+      ],
+      "misconception_tag": "coin_counting_skip_error",
+      "hints": [
+        "Look at the hour hand first.",
+        "Count minutes by fives around the clock.",
+        "For coins, count from the largest values to the smallest."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Count the coins to get 60 cents.",
+      "coins": [
+        "quarter",
+        "quarter",
+        "dime"
+      ],
+      "total_cents": 60
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G2M_MD_002_MIXED_Q1",
+      "question_id": "G2M_MD_002_MIXED_Q1",
+      "question_type": "short_response",
+      "visual_model": "analog_clock",
+      "prompt": "What time is shown on the analog clock?",
+      "answer": "3:05",
+      "correct_answer": "3:05",
+      "acceptable_answers": [
+        "3:05",
+        "3 05"
+      ],
+      "misconception_tag": "minute_hand_confusion",
+      "hints": [
+        "Look at the hour hand first.",
+        "Count minutes by fives around the clock.",
+        "For coins, count from the largest values to the smallest."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The hour hand is near 3 and the minute hand shows 5 minutes, so the time is 3:05.",
+      "hour": 3,
+      "minute": 5
+    },
+    {
+      "id": "G2M_MD_002_MIXED_Q2",
+      "question_id": "G2M_MD_002_MIXED_Q2",
+      "question_type": "short_response",
+      "visual_model": "analog_clock",
+      "prompt": "What time is shown on the analog clock?",
+      "answer": "7:20",
+      "correct_answer": "7:20",
+      "acceptable_answers": [
+        "7:20",
+        "7 20"
+      ],
+      "misconception_tag": "minute_hand_confusion",
+      "hints": [
+        "Look at the hour hand first.",
+        "Count minutes by fives around the clock.",
+        "For coins, count from the largest values to the smallest."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The hour hand is near 7 and the minute hand shows 20 minutes, so the time is 7:20.",
+      "hour": 7,
+      "minute": 20
+    },
+    {
+      "id": "G2M_MD_002_MIXED_Q3",
+      "question_id": "G2M_MD_002_MIXED_Q3",
+      "question_type": "short_response",
+      "visual_model": "digital_time",
+      "prompt": "School starts at 8:05 in the morning. Write the time with a.m. or p.m.",
+      "answer": "8:05 a.m.",
+      "correct_answer": "8:05 a.m.",
+      "acceptable_answers": [
+        "8:05",
+        "8 05",
+        "8:05 a.m.",
+        "8:05a.m.",
+        "8 05 a.m.",
+        "8:05 a.m."
+      ],
+      "misconception_tag": "hour_hand_between_numbers",
+      "hints": [
+        "Look at the hour hand first.",
+        "Count minutes by fives around the clock.",
+        "For coins, count from the largest values to the smallest."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The context tells whether the time is a.m.; the time is 8:05 a.m..",
+      "hour": 8,
+      "minute": 5
+    },
+    {
+      "id": "G2M_MD_002_MIXED_Q4",
+      "question_id": "G2M_MD_002_MIXED_Q4",
+      "question_type": "short_response",
+      "visual_model": "analog_clock",
+      "prompt": "Dinner is at 6:30 in the evening. Write the time with a.m. or p.m.",
+      "answer": "6:30 p.m.",
+      "correct_answer": "6:30 p.m.",
+      "acceptable_answers": [
+        "6:30",
+        "6 30",
+        "6:30 p.m.",
+        "6:30p.m.",
+        "6 30 p.m.",
+        "6:30 p.m."
+      ],
+      "misconception_tag": "hour_hand_between_numbers",
+      "hints": [
+        "Look at the hour hand first.",
+        "Count minutes by fives around the clock.",
+        "For coins, count from the largest values to the smallest."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The context tells whether the time is p.m.; the time is 6:30 p.m..",
+      "hour": 6,
+      "minute": 30
+    },
+    {
+      "id": "G2M_MD_002_MIXED_Q5",
+      "question_id": "G2M_MD_002_MIXED_Q5",
+      "question_type": "short_response",
+      "visual_model": "digital_time",
+      "prompt": "Recess is at 10:15 in the morning. Write the time.",
+      "answer": "10:15 a.m.",
+      "correct_answer": "10:15 a.m.",
+      "acceptable_answers": [
+        "10:15",
+        "10 15",
+        "10:15 a.m.",
+        "10:15a.m.",
+        "10 15 a.m.",
+        "10:15 a.m."
+      ],
+      "misconception_tag": "hour_hand_between_numbers",
+      "hints": [
+        "Look at the hour hand first.",
+        "Count minutes by fives around the clock.",
+        "For coins, count from the largest values to the smallest."
+      ],
+      "feedback": {
+        "correct": "Nice strategy!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The context tells whether the time is a.m.; the time is 10:15 a.m..",
+      "hour": 10,
+      "minute": 15
+    }
+  ],
+  "level_banks": [
+    {
+      "level_id": "G2M_MD_002_LVL1",
+      "label": "Level 1: Time to 5 Minutes",
+      "focus": "Tell analog clock times to five-minute intervals",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_MD_002_LVL1_Q1",
+          "question_id": "G2M_MD_002_LVL1_Q1",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "What time is shown on the analog clock?",
+          "answer": "3:05",
+          "correct_answer": "3:05",
+          "acceptable_answers": [
+            "3:05",
+            "3 05"
+          ],
+          "misconception_tag": "minute_hand_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The hour hand is near 3 and the minute hand shows 5 minutes, so the time is 3:05.",
+          "hour": 3,
+          "minute": 5
+        },
+        {
+          "id": "G2M_MD_002_LVL1_Q2",
+          "question_id": "G2M_MD_002_LVL1_Q2",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "What time is shown on the analog clock?",
+          "answer": "7:20",
+          "correct_answer": "7:20",
+          "acceptable_answers": [
+            "7:20",
+            "7 20"
+          ],
+          "misconception_tag": "minute_hand_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The hour hand is near 7 and the minute hand shows 20 minutes, so the time is 7:20.",
+          "hour": 7,
+          "minute": 20
+        },
+        {
+          "id": "G2M_MD_002_LVL1_Q3",
+          "question_id": "G2M_MD_002_LVL1_Q3",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "What time is shown on the analog clock?",
+          "answer": "10:45",
+          "correct_answer": "10:45",
+          "acceptable_answers": [
+            "10:45",
+            "10 45"
+          ],
+          "misconception_tag": "minute_hand_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The hour hand is near 10 and the minute hand shows 45 minutes, so the time is 10:45.",
+          "hour": 10,
+          "minute": 45
+        },
+        {
+          "id": "G2M_MD_002_LVL1_Q4",
+          "question_id": "G2M_MD_002_LVL1_Q4",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "What time is shown on the analog clock?",
+          "answer": "1:30",
+          "correct_answer": "1:30",
+          "acceptable_answers": [
+            "1:30",
+            "1 30"
+          ],
+          "misconception_tag": "minute_hand_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The hour hand is near 1 and the minute hand shows 30 minutes, so the time is 1:30.",
+          "hour": 1,
+          "minute": 30
+        },
+        {
+          "id": "G2M_MD_002_LVL1_Q5",
+          "question_id": "G2M_MD_002_LVL1_Q5",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "What time is shown on the analog clock?",
+          "answer": "6:15",
+          "correct_answer": "6:15",
+          "acceptable_answers": [
+            "6:15",
+            "6 15"
+          ],
+          "misconception_tag": "minute_hand_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The hour hand is near 6 and the minute hand shows 15 minutes, so the time is 6:15.",
+          "hour": 6,
+          "minute": 15
+        },
+        {
+          "id": "G2M_MD_002_LVL1_Q6",
+          "question_id": "G2M_MD_002_LVL1_Q6",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "What time is shown on the analog clock?",
+          "answer": "8:55",
+          "correct_answer": "8:55",
+          "acceptable_answers": [
+            "8:55",
+            "8 55"
+          ],
+          "misconception_tag": "minute_hand_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The hour hand is near 8 and the minute hand shows 55 minutes, so the time is 8:55.",
+          "hour": 8,
+          "minute": 55
+        },
+        {
+          "id": "G2M_MD_002_LVL1_Q7",
+          "question_id": "G2M_MD_002_LVL1_Q7",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "What time is shown on the analog clock?",
+          "answer": "12:10",
+          "correct_answer": "12:10",
+          "acceptable_answers": [
+            "12:10",
+            "12 10"
+          ],
+          "misconception_tag": "minute_hand_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The hour hand is near 12 and the minute hand shows 10 minutes, so the time is 12:10.",
+          "hour": 12,
+          "minute": 10
+        },
+        {
+          "id": "G2M_MD_002_LVL1_Q8",
+          "question_id": "G2M_MD_002_LVL1_Q8",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "What time is shown on the analog clock?",
+          "answer": "4:40",
+          "correct_answer": "4:40",
+          "acceptable_answers": [
+            "4:40",
+            "4 40"
+          ],
+          "misconception_tag": "minute_hand_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The hour hand is near 4 and the minute hand shows 40 minutes, so the time is 4:40.",
+          "hour": 4,
+          "minute": 40
+        },
+        {
+          "id": "G2M_MD_002_LVL1_Q9",
+          "question_id": "G2M_MD_002_LVL1_Q9",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "What time is shown on the analog clock?",
+          "answer": "9:25",
+          "correct_answer": "9:25",
+          "acceptable_answers": [
+            "9:25",
+            "9 25"
+          ],
+          "misconception_tag": "minute_hand_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The hour hand is near 9 and the minute hand shows 25 minutes, so the time is 9:25.",
+          "hour": 9,
+          "minute": 25
+        },
+        {
+          "id": "G2M_MD_002_LVL1_Q10",
+          "question_id": "G2M_MD_002_LVL1_Q10",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "What time is shown on the analog clock?",
+          "answer": "2:35",
+          "correct_answer": "2:35",
+          "acceptable_answers": [
+            "2:35",
+            "2 35"
+          ],
+          "misconception_tag": "minute_hand_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The hour hand is near 2 and the minute hand shows 35 minutes, so the time is 2:35.",
+          "hour": 2,
+          "minute": 35
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_MD_002_LVL2",
+      "label": "Level 2: A.M. and P.M. / Time Context",
+      "focus": "Match digital times to daily a.m./p.m. contexts",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_MD_002_LVL2_Q1",
+          "question_id": "G2M_MD_002_LVL2_Q1",
+          "question_type": "short_response",
+          "visual_model": "digital_time",
+          "prompt": "School starts at 8:05 in the morning. Write the time with a.m. or p.m.",
+          "answer": "8:05 a.m.",
+          "correct_answer": "8:05 a.m.",
+          "acceptable_answers": [
+            "8:05",
+            "8 05",
+            "8:05 a.m.",
+            "8:05a.m.",
+            "8 05 a.m.",
+            "8:05 a.m."
+          ],
+          "misconception_tag": "hour_hand_between_numbers",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The context tells whether the time is a.m.; the time is 8:05 a.m..",
+          "hour": 8,
+          "minute": 5
+        },
+        {
+          "id": "G2M_MD_002_LVL2_Q2",
+          "question_id": "G2M_MD_002_LVL2_Q2",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "Dinner is at 6:30 in the evening. Write the time with a.m. or p.m.",
+          "answer": "6:30 p.m.",
+          "correct_answer": "6:30 p.m.",
+          "acceptable_answers": [
+            "6:30",
+            "6 30",
+            "6:30 p.m.",
+            "6:30p.m.",
+            "6 30 p.m.",
+            "6:30 p.m."
+          ],
+          "misconception_tag": "hour_hand_between_numbers",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The context tells whether the time is p.m.; the time is 6:30 p.m..",
+          "hour": 6,
+          "minute": 30
+        },
+        {
+          "id": "G2M_MD_002_LVL2_Q3",
+          "question_id": "G2M_MD_002_LVL2_Q3",
+          "question_type": "short_response",
+          "visual_model": "digital_time",
+          "prompt": "Recess is at 10:15 in the morning. Write the time.",
+          "answer": "10:15 a.m.",
+          "correct_answer": "10:15 a.m.",
+          "acceptable_answers": [
+            "10:15",
+            "10 15",
+            "10:15 a.m.",
+            "10:15a.m.",
+            "10 15 a.m.",
+            "10:15 a.m."
+          ],
+          "misconception_tag": "hour_hand_between_numbers",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The context tells whether the time is a.m.; the time is 10:15 a.m..",
+          "hour": 10,
+          "minute": 15
+        },
+        {
+          "id": "G2M_MD_002_LVL2_Q4",
+          "question_id": "G2M_MD_002_LVL2_Q4",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "Bedtime is at 8:45 at night. Write the time.",
+          "answer": "8:45 p.m.",
+          "correct_answer": "8:45 p.m.",
+          "acceptable_answers": [
+            "8:45",
+            "8 45",
+            "8:45 p.m.",
+            "8:45p.m.",
+            "8 45 p.m.",
+            "8:45 p.m."
+          ],
+          "misconception_tag": "hour_hand_between_numbers",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The context tells whether the time is p.m.; the time is 8:45 p.m..",
+          "hour": 8,
+          "minute": 45
+        },
+        {
+          "id": "G2M_MD_002_LVL2_Q5",
+          "question_id": "G2M_MD_002_LVL2_Q5",
+          "question_type": "short_response",
+          "visual_model": "digital_time",
+          "prompt": "Lunch is at 12:00 in the afternoon. Write the time.",
+          "answer": "12:00 p.m.",
+          "correct_answer": "12:00 p.m.",
+          "acceptable_answers": [
+            "12:00",
+            "12 00",
+            "12:00 p.m.",
+            "12:00p.m.",
+            "12 00 p.m.",
+            "12:00 p.m."
+          ],
+          "misconception_tag": "hour_hand_between_numbers",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The context tells whether the time is p.m.; the time is 12:00 p.m..",
+          "hour": 12,
+          "minute": 0
+        },
+        {
+          "id": "G2M_MD_002_LVL2_Q6",
+          "question_id": "G2M_MD_002_LVL2_Q6",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "Breakfast is at 7:25 in the morning. Write the time.",
+          "answer": "7:25 a.m.",
+          "correct_answer": "7:25 a.m.",
+          "acceptable_answers": [
+            "7:25",
+            "7 25",
+            "7:25 a.m.",
+            "7:25a.m.",
+            "7 25 a.m.",
+            "7:25 a.m."
+          ],
+          "misconception_tag": "hour_hand_between_numbers",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The context tells whether the time is a.m.; the time is 7:25 a.m..",
+          "hour": 7,
+          "minute": 25
+        },
+        {
+          "id": "G2M_MD_002_LVL2_Q7",
+          "question_id": "G2M_MD_002_LVL2_Q7",
+          "question_type": "short_response",
+          "visual_model": "digital_time",
+          "prompt": "A movie starts at 3:05 in the afternoon. Write the time.",
+          "answer": "3:05 p.m.",
+          "correct_answer": "3:05 p.m.",
+          "acceptable_answers": [
+            "3:05",
+            "3 05",
+            "3:05 p.m.",
+            "3:05p.m.",
+            "3 05 p.m.",
+            "3:05 p.m."
+          ],
+          "misconception_tag": "hour_hand_between_numbers",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The context tells whether the time is p.m.; the time is 3:05 p.m..",
+          "hour": 3,
+          "minute": 5
+        },
+        {
+          "id": "G2M_MD_002_LVL2_Q8",
+          "question_id": "G2M_MD_002_LVL2_Q8",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "The bus comes at 2:40 after lunch. Write the time.",
+          "answer": "2:40 p.m.",
+          "correct_answer": "2:40 p.m.",
+          "acceptable_answers": [
+            "2:40",
+            "2 40",
+            "2:40 p.m.",
+            "2:40p.m.",
+            "2 40 p.m.",
+            "2:40 p.m."
+          ],
+          "misconception_tag": "hour_hand_between_numbers",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The context tells whether the time is p.m.; the time is 2:40 p.m..",
+          "hour": 2,
+          "minute": 40
+        },
+        {
+          "id": "G2M_MD_002_LVL2_Q9",
+          "question_id": "G2M_MD_002_LVL2_Q9",
+          "question_type": "short_response",
+          "visual_model": "digital_time",
+          "prompt": "Morning announcements are at 9:00. Write the time.",
+          "answer": "9:00 a.m.",
+          "correct_answer": "9:00 a.m.",
+          "acceptable_answers": [
+            "9:00",
+            "9 00",
+            "9:00 a.m.",
+            "9:00a.m.",
+            "9 00 a.m.",
+            "9:00 a.m."
+          ],
+          "misconception_tag": "hour_hand_between_numbers",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The context tells whether the time is a.m.; the time is 9:00 a.m..",
+          "hour": 9,
+          "minute": 0
+        },
+        {
+          "id": "G2M_MD_002_LVL2_Q10",
+          "question_id": "G2M_MD_002_LVL2_Q10",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "Soccer practice is at 5:50 after school. Write the time.",
+          "answer": "5:50 p.m.",
+          "correct_answer": "5:50 p.m.",
+          "acceptable_answers": [
+            "5:50",
+            "5 50",
+            "5:50 p.m.",
+            "5:50p.m.",
+            "5 50 p.m.",
+            "5:50 p.m."
+          ],
+          "misconception_tag": "hour_hand_between_numbers",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The context tells whether the time is p.m.; the time is 5:50 p.m..",
+          "hour": 5,
+          "minute": 50
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_MD_002_LVL3",
+      "label": "Level 3: Coin Values",
+      "focus": "Name penny, nickel, dime, and quarter values",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_MD_002_LVL3_Q1",
+          "question_id": "G2M_MD_002_LVL3_Q1",
+          "question_type": "short_response",
+          "visual_model": "coin_model",
+          "prompt": "How much is a penny worth?",
+          "answer": "1",
+          "correct_answer": "1",
+          "acceptable_answers": [
+            "1",
+            "1 cents",
+            "1\u00a2",
+            "$0.01",
+            "penny"
+          ],
+          "misconception_tag": "coin_value_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A penny is worth 1 cent.",
+          "coin": "penny",
+          "coins": [
+            "penny"
+          ],
+          "options": null
+        },
+        {
+          "id": "G2M_MD_002_LVL3_Q2",
+          "question_id": "G2M_MD_002_LVL3_Q2",
+          "question_type": "short_response",
+          "visual_model": "coin_model",
+          "prompt": "How much is a nickel worth?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5",
+            "5 cents",
+            "5\u00a2",
+            "$0.05",
+            "nickel"
+          ],
+          "misconception_tag": "coin_value_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A nickel is worth 5 cents.",
+          "coin": "nickel",
+          "coins": [
+            "nickel"
+          ],
+          "options": null
+        },
+        {
+          "id": "G2M_MD_002_LVL3_Q3",
+          "question_id": "G2M_MD_002_LVL3_Q3",
+          "question_type": "short_response",
+          "visual_model": "coin_model",
+          "prompt": "How much is a dime worth?",
+          "answer": "10",
+          "correct_answer": "10",
+          "acceptable_answers": [
+            "10",
+            "10 cents",
+            "10\u00a2",
+            "$0.10",
+            "dime"
+          ],
+          "misconception_tag": "coin_value_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A dime is worth 10 cents.",
+          "coin": "dime",
+          "coins": [
+            "dime"
+          ],
+          "options": null
+        },
+        {
+          "id": "G2M_MD_002_LVL3_Q4",
+          "question_id": "G2M_MD_002_LVL3_Q4",
+          "question_type": "short_response",
+          "visual_model": "coin_model",
+          "prompt": "How much is a quarter worth?",
+          "answer": "25",
+          "correct_answer": "25",
+          "acceptable_answers": [
+            "25",
+            "25 cents",
+            "25\u00a2",
+            "$0.25",
+            "quarter"
+          ],
+          "misconception_tag": "coin_value_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A quarter is worth 25 cents.",
+          "coin": "quarter",
+          "coins": [
+            "quarter"
+          ],
+          "options": null
+        },
+        {
+          "id": "G2M_MD_002_LVL3_Q5",
+          "question_id": "G2M_MD_002_LVL3_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "coin_model",
+          "prompt": "Which coin is worth 25 cents?",
+          "answer": "quarter",
+          "correct_answer": "quarter",
+          "acceptable_answers": [
+            "25",
+            "25 cents",
+            "25\u00a2",
+            "$0.25",
+            "quarter"
+          ],
+          "misconception_tag": "coin_value_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A quarter is worth 25 cents.",
+          "options": [
+            "25 cents",
+            "25",
+            "$0.25",
+            "100 cents"
+          ],
+          "choices": [
+            "25 cents",
+            "25",
+            "$0.25",
+            "100 cents"
+          ],
+          "coin": "quarter",
+          "coins": [
+            "quarter"
+          ]
+        },
+        {
+          "id": "G2M_MD_002_LVL3_Q6",
+          "question_id": "G2M_MD_002_LVL3_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "coin_model",
+          "prompt": "Which coin is worth 10 cents?",
+          "answer": "dime",
+          "correct_answer": "dime",
+          "acceptable_answers": [
+            "10",
+            "10 cents",
+            "10\u00a2",
+            "$0.10",
+            "dime"
+          ],
+          "misconception_tag": "coin_value_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A dime is worth 10 cents.",
+          "options": [
+            "10 cents",
+            "10",
+            "$0.10",
+            "100 cents"
+          ],
+          "choices": [
+            "10 cents",
+            "10",
+            "$0.10",
+            "100 cents"
+          ],
+          "coin": "dime",
+          "coins": [
+            "dime"
+          ]
+        },
+        {
+          "id": "G2M_MD_002_LVL3_Q7",
+          "question_id": "G2M_MD_002_LVL3_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "coin_model",
+          "prompt": "Which coin is worth 5 cents?",
+          "answer": "nickel",
+          "correct_answer": "nickel",
+          "acceptable_answers": [
+            "5",
+            "5 cents",
+            "5\u00a2",
+            "$0.05",
+            "nickel"
+          ],
+          "misconception_tag": "coin_value_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A nickel is worth 5 cents.",
+          "options": [
+            "5 cents",
+            "5",
+            "$0.05",
+            "100 cents"
+          ],
+          "choices": [
+            "5 cents",
+            "5",
+            "$0.05",
+            "100 cents"
+          ],
+          "coin": "nickel",
+          "coins": [
+            "nickel"
+          ]
+        },
+        {
+          "id": "G2M_MD_002_LVL3_Q8",
+          "question_id": "G2M_MD_002_LVL3_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "coin_model",
+          "prompt": "Which coin is worth 1 cent?",
+          "answer": "penny",
+          "correct_answer": "penny",
+          "acceptable_answers": [
+            "1",
+            "1 cents",
+            "1\u00a2",
+            "$0.01",
+            "penny"
+          ],
+          "misconception_tag": "coin_value_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A penny is worth 1 cent.",
+          "options": [
+            "1 cents",
+            "1",
+            "$0.01",
+            "100 cents"
+          ],
+          "choices": [
+            "1 cents",
+            "1",
+            "$0.01",
+            "100 cents"
+          ],
+          "coin": "penny",
+          "coins": [
+            "penny"
+          ]
+        },
+        {
+          "id": "G2M_MD_002_LVL3_Q9",
+          "question_id": "G2M_MD_002_LVL3_Q9",
+          "question_type": "short_response",
+          "visual_model": "coin_model",
+          "prompt": "A quarter has what value?",
+          "answer": "25",
+          "correct_answer": "25",
+          "acceptable_answers": [
+            "25",
+            "25 cents",
+            "25\u00a2",
+            "$0.25",
+            "quarter"
+          ],
+          "misconception_tag": "coin_value_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A quarter is worth 25 cents.",
+          "coin": "quarter",
+          "coins": [
+            "quarter"
+          ],
+          "options": null
+        },
+        {
+          "id": "G2M_MD_002_LVL3_Q10",
+          "question_id": "G2M_MD_002_LVL3_Q10",
+          "question_type": "short_response",
+          "visual_model": "coin_model",
+          "prompt": "A dime has what value?",
+          "answer": "10",
+          "correct_answer": "10",
+          "acceptable_answers": [
+            "10",
+            "10 cents",
+            "10\u00a2",
+            "$0.10",
+            "dime"
+          ],
+          "misconception_tag": "coin_value_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A dime is worth 10 cents.",
+          "coin": "dime",
+          "coins": [
+            "dime"
+          ],
+          "options": null
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_MD_002_LVL4",
+      "label": "Level 4: Count Coins",
+      "focus": "Count mixed sets of coins",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_MD_002_LVL4_Q1",
+          "question_id": "G2M_MD_002_LVL4_Q1",
+          "question_type": "short_response",
+          "visual_model": "money_counting",
+          "prompt": "Count the coins: quarter, dime, penny. How much money is there?",
+          "answer": "36",
+          "correct_answer": "36",
+          "acceptable_answers": [
+            "36",
+            "36 cents",
+            "36\u00a2",
+            "$0.36"
+          ],
+          "misconception_tag": "coin_counting_skip_error",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Count the coins to get 36 cents.",
+          "coins": [
+            "quarter",
+            "dime",
+            "penny"
+          ],
+          "total_cents": 36
+        },
+        {
+          "id": "G2M_MD_002_LVL4_Q2",
+          "question_id": "G2M_MD_002_LVL4_Q2",
+          "question_type": "short_response",
+          "visual_model": "money_counting",
+          "prompt": "Count the coins: dime, dime, nickel. How much money is there?",
+          "answer": "25",
+          "correct_answer": "25",
+          "acceptable_answers": [
+            "25",
+            "25 cents",
+            "25\u00a2",
+            "$0.25"
+          ],
+          "misconception_tag": "coin_counting_skip_error",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Count the coins to get 25 cents.",
+          "coins": [
+            "dime",
+            "dime",
+            "nickel"
+          ],
+          "total_cents": 25
+        },
+        {
+          "id": "G2M_MD_002_LVL4_Q3",
+          "question_id": "G2M_MD_002_LVL4_Q3",
+          "question_type": "short_response",
+          "visual_model": "money_counting",
+          "prompt": "Count the coins: quarter, nickel, penny, penny. How much money is there?",
+          "answer": "32",
+          "correct_answer": "32",
+          "acceptable_answers": [
+            "32",
+            "32 cents",
+            "32\u00a2",
+            "$0.32"
+          ],
+          "misconception_tag": "coin_counting_skip_error",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Count the coins to get 32 cents.",
+          "coins": [
+            "quarter",
+            "nickel",
+            "penny",
+            "penny"
+          ],
+          "total_cents": 32
+        },
+        {
+          "id": "G2M_MD_002_LVL4_Q4",
+          "question_id": "G2M_MD_002_LVL4_Q4",
+          "question_type": "short_response",
+          "visual_model": "money_counting",
+          "prompt": "Count the coins: dime, nickel, penny. How much money is there?",
+          "answer": "16",
+          "correct_answer": "16",
+          "acceptable_answers": [
+            "16",
+            "16 cents",
+            "16\u00a2",
+            "$0.16"
+          ],
+          "misconception_tag": "coin_counting_skip_error",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Count the coins to get 16 cents.",
+          "coins": [
+            "dime",
+            "nickel",
+            "penny"
+          ],
+          "total_cents": 16
+        },
+        {
+          "id": "G2M_MD_002_LVL4_Q5",
+          "question_id": "G2M_MD_002_LVL4_Q5",
+          "question_type": "short_response",
+          "visual_model": "money_counting",
+          "prompt": "Count the coins: quarter, quarter, dime. How much money is there?",
+          "answer": "60",
+          "correct_answer": "60",
+          "acceptable_answers": [
+            "60",
+            "60 cents",
+            "60\u00a2",
+            "$0.60"
+          ],
+          "misconception_tag": "coin_counting_skip_error",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Count the coins to get 60 cents.",
+          "coins": [
+            "quarter",
+            "quarter",
+            "dime"
+          ],
+          "total_cents": 60
+        },
+        {
+          "id": "G2M_MD_002_LVL4_Q6",
+          "question_id": "G2M_MD_002_LVL4_Q6",
+          "question_type": "short_response",
+          "visual_model": "money_counting",
+          "prompt": "Count the coins: nickel, nickel, penny, penny, penny. How much money is there?",
+          "answer": "13",
+          "correct_answer": "13",
+          "acceptable_answers": [
+            "13",
+            "13 cents",
+            "13\u00a2",
+            "$0.13"
+          ],
+          "misconception_tag": "coin_counting_skip_error",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Count the coins to get 13 cents.",
+          "coins": [
+            "nickel",
+            "nickel",
+            "penny",
+            "penny",
+            "penny"
+          ],
+          "total_cents": 13
+        },
+        {
+          "id": "G2M_MD_002_LVL4_Q7",
+          "question_id": "G2M_MD_002_LVL4_Q7",
+          "question_type": "short_response",
+          "visual_model": "money_counting",
+          "prompt": "Count the coins: quarter, dime, dime, nickel. How much money is there?",
+          "answer": "50",
+          "correct_answer": "50",
+          "acceptable_answers": [
+            "50",
+            "50 cents",
+            "50\u00a2",
+            "$0.50"
+          ],
+          "misconception_tag": "coin_counting_skip_error",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Count the coins to get 50 cents.",
+          "coins": [
+            "quarter",
+            "dime",
+            "dime",
+            "nickel"
+          ],
+          "total_cents": 50
+        },
+        {
+          "id": "G2M_MD_002_LVL4_Q8",
+          "question_id": "G2M_MD_002_LVL4_Q8",
+          "question_type": "short_response",
+          "visual_model": "money_counting",
+          "prompt": "Count the coins: quarter, penny, penny, penny. How much money is there?",
+          "answer": "28",
+          "correct_answer": "28",
+          "acceptable_answers": [
+            "28",
+            "28 cents",
+            "28\u00a2",
+            "$0.28"
+          ],
+          "misconception_tag": "coin_counting_skip_error",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Count the coins to get 28 cents.",
+          "coins": [
+            "quarter",
+            "penny",
+            "penny",
+            "penny"
+          ],
+          "total_cents": 28
+        },
+        {
+          "id": "G2M_MD_002_LVL4_Q9",
+          "question_id": "G2M_MD_002_LVL4_Q9",
+          "question_type": "short_response",
+          "visual_model": "money_counting",
+          "prompt": "Count the coins: dime, dime, dime, penny. How much money is there?",
+          "answer": "31",
+          "correct_answer": "31",
+          "acceptable_answers": [
+            "31",
+            "31 cents",
+            "31\u00a2",
+            "$0.31"
+          ],
+          "misconception_tag": "coin_counting_skip_error",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Count the coins to get 31 cents.",
+          "coins": [
+            "dime",
+            "dime",
+            "dime",
+            "penny"
+          ],
+          "total_cents": 31
+        },
+        {
+          "id": "G2M_MD_002_LVL4_Q10",
+          "question_id": "G2M_MD_002_LVL4_Q10",
+          "question_type": "short_response",
+          "visual_model": "money_counting",
+          "prompt": "Count the coins: quarter, nickel, nickel, dime. How much money is there?",
+          "answer": "45",
+          "correct_answer": "45",
+          "acceptable_answers": [
+            "45",
+            "45 cents",
+            "45\u00a2",
+            "$0.45"
+          ],
+          "misconception_tag": "coin_counting_skip_error",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Count the coins to get 45 cents.",
+          "coins": [
+            "quarter",
+            "nickel",
+            "nickel",
+            "dime"
+          ],
+          "total_cents": 45
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_MD_002_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed time, context, coin value, and money-counting questions",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_MD_002_MIXED_Q1",
+          "question_id": "G2M_MD_002_MIXED_Q1",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "What time is shown on the analog clock?",
+          "answer": "3:05",
+          "correct_answer": "3:05",
+          "acceptable_answers": [
+            "3:05",
+            "3 05"
+          ],
+          "misconception_tag": "minute_hand_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The hour hand is near 3 and the minute hand shows 5 minutes, so the time is 3:05.",
+          "hour": 3,
+          "minute": 5
+        },
+        {
+          "id": "G2M_MD_002_MIXED_Q2",
+          "question_id": "G2M_MD_002_MIXED_Q2",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "What time is shown on the analog clock?",
+          "answer": "7:20",
+          "correct_answer": "7:20",
+          "acceptable_answers": [
+            "7:20",
+            "7 20"
+          ],
+          "misconception_tag": "minute_hand_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The hour hand is near 7 and the minute hand shows 20 minutes, so the time is 7:20.",
+          "hour": 7,
+          "minute": 20
+        },
+        {
+          "id": "G2M_MD_002_MIXED_Q3",
+          "question_id": "G2M_MD_002_MIXED_Q3",
+          "question_type": "short_response",
+          "visual_model": "digital_time",
+          "prompt": "School starts at 8:05 in the morning. Write the time with a.m. or p.m.",
+          "answer": "8:05 a.m.",
+          "correct_answer": "8:05 a.m.",
+          "acceptable_answers": [
+            "8:05",
+            "8 05",
+            "8:05 a.m.",
+            "8:05a.m.",
+            "8 05 a.m.",
+            "8:05 a.m."
+          ],
+          "misconception_tag": "hour_hand_between_numbers",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The context tells whether the time is a.m.; the time is 8:05 a.m..",
+          "hour": 8,
+          "minute": 5
+        },
+        {
+          "id": "G2M_MD_002_MIXED_Q4",
+          "question_id": "G2M_MD_002_MIXED_Q4",
+          "question_type": "short_response",
+          "visual_model": "analog_clock",
+          "prompt": "Dinner is at 6:30 in the evening. Write the time with a.m. or p.m.",
+          "answer": "6:30 p.m.",
+          "correct_answer": "6:30 p.m.",
+          "acceptable_answers": [
+            "6:30",
+            "6 30",
+            "6:30 p.m.",
+            "6:30p.m.",
+            "6 30 p.m.",
+            "6:30 p.m."
+          ],
+          "misconception_tag": "hour_hand_between_numbers",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The context tells whether the time is p.m.; the time is 6:30 p.m..",
+          "hour": 6,
+          "minute": 30
+        },
+        {
+          "id": "G2M_MD_002_MIXED_Q5",
+          "question_id": "G2M_MD_002_MIXED_Q5",
+          "question_type": "short_response",
+          "visual_model": "digital_time",
+          "prompt": "Recess is at 10:15 in the morning. Write the time.",
+          "answer": "10:15 a.m.",
+          "correct_answer": "10:15 a.m.",
+          "acceptable_answers": [
+            "10:15",
+            "10 15",
+            "10:15 a.m.",
+            "10:15a.m.",
+            "10 15 a.m.",
+            "10:15 a.m."
+          ],
+          "misconception_tag": "hour_hand_between_numbers",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The context tells whether the time is a.m.; the time is 10:15 a.m..",
+          "hour": 10,
+          "minute": 15
+        },
+        {
+          "id": "G2M_MD_002_MIXED_Q6",
+          "question_id": "G2M_MD_002_MIXED_Q6",
+          "question_type": "short_response",
+          "visual_model": "coin_model",
+          "prompt": "How much is a penny worth?",
+          "answer": "1",
+          "correct_answer": "1",
+          "acceptable_answers": [
+            "1",
+            "1 cents",
+            "1\u00a2",
+            "$0.01",
+            "penny"
+          ],
+          "misconception_tag": "coin_value_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A penny is worth 1 cent.",
+          "coin": "penny",
+          "coins": [
+            "penny"
+          ],
+          "options": null
+        },
+        {
+          "id": "G2M_MD_002_MIXED_Q7",
+          "question_id": "G2M_MD_002_MIXED_Q7",
+          "question_type": "short_response",
+          "visual_model": "coin_model",
+          "prompt": "How much is a nickel worth?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5",
+            "5 cents",
+            "5\u00a2",
+            "$0.05",
+            "nickel"
+          ],
+          "misconception_tag": "coin_value_confusion",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "A nickel is worth 5 cents.",
+          "coin": "nickel",
+          "coins": [
+            "nickel"
+          ],
+          "options": null
+        },
+        {
+          "id": "G2M_MD_002_MIXED_Q8",
+          "question_id": "G2M_MD_002_MIXED_Q8",
+          "question_type": "short_response",
+          "visual_model": "money_counting",
+          "prompt": "Count the coins: quarter, dime, penny. How much money is there?",
+          "answer": "36",
+          "correct_answer": "36",
+          "acceptable_answers": [
+            "36",
+            "36 cents",
+            "36\u00a2",
+            "$0.36"
+          ],
+          "misconception_tag": "coin_counting_skip_error",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Count the coins to get 36 cents.",
+          "coins": [
+            "quarter",
+            "dime",
+            "penny"
+          ],
+          "total_cents": 36
+        },
+        {
+          "id": "G2M_MD_002_MIXED_Q9",
+          "question_id": "G2M_MD_002_MIXED_Q9",
+          "question_type": "short_response",
+          "visual_model": "money_counting",
+          "prompt": "Count the coins: dime, dime, nickel. How much money is there?",
+          "answer": "25",
+          "correct_answer": "25",
+          "acceptable_answers": [
+            "25",
+            "25 cents",
+            "25\u00a2",
+            "$0.25"
+          ],
+          "misconception_tag": "coin_counting_skip_error",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Count the coins to get 25 cents.",
+          "coins": [
+            "dime",
+            "dime",
+            "nickel"
+          ],
+          "total_cents": 25
+        },
+        {
+          "id": "G2M_MD_002_MIXED_Q10",
+          "question_id": "G2M_MD_002_MIXED_Q10",
+          "question_type": "short_response",
+          "visual_model": "money_counting",
+          "prompt": "Count the coins: quarter, nickel, penny, penny. How much money is there?",
+          "answer": "32",
+          "correct_answer": "32",
+          "acceptable_answers": [
+            "32",
+            "32 cents",
+            "32\u00a2",
+            "$0.32"
+          ],
+          "misconception_tag": "coin_counting_skip_error",
+          "hints": [
+            "Look at the hour hand first.",
+            "Count minutes by fives around the clock.",
+            "For coins, count from the largest values to the smallest."
+          ],
+          "feedback": {
+            "correct": "Nice strategy!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Count the coins to get 32 cents.",
+          "coins": [
+            "quarter",
+            "nickel",
+            "penny",
+            "penny"
+          ],
+          "total_cents": 32
+        }
+      ]
+    }
+  ]
+}
