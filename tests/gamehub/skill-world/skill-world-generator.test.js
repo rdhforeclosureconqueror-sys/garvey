@@ -3,7 +3,7 @@ const fs=require('fs');
 const path=require('path');
 const root=path.join(__dirname,'..','..','..');
 const load=(id)=>JSON.parse(fs.readFileSync(path.join(root,`public/gamehub/skill-world/content/${id}.skill-package.v1.json`),'utf8'));
-const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_GM_001','G1M_GM_002','G1M_DP_001','G1M_MD_TIME_001','G1E_RF_001'];
+const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_GM_001','G1M_GM_002','G1M_DP_001','G1M_MD_TIME_001','G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
 const grade1Packages=grade1SkillIds.map(load);
 const byId=Object.fromEntries(grade1Packages.map((pkg)=>[pkg.skill_id,pkg]));
 const dp=byId.G1M_DP_001;
@@ -380,6 +380,38 @@ const englishMissionHtml=Renderer.renderSkillWorld(englishLetters,{failClosed:tr
 ['Story','Mini Lesson','Worked Example / Watch','Guided Demo','Practice zone','Challenge zone','Checkpoint zone','Badge','Growth/Profile screen'].forEach((label)=>assert.match(englishMissionHtml,new RegExp(label.replace(/[.*+?^${}()|[\\]\\]/g,'\\$&')),`G1E_RF_001 mission missing ${label}`));
 assert.match(Renderer.renderSkillWorld(englishLetters,{mode:'drill',failClosed:true}).html,/Skill Practice Center/,'G1E_RF_001 Skill Practice Center renders');
 assert.ok(Renderer.evaluateAnswer(englishQuestions.find((q)=>q.question_type==='short_response'&&q.correct_answer==='a'),'A'),'G1E_RF_001 short_response accepts case-insensitive acceptable answer');
+
+
+const englishProductionIds=['G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
+const requiredEnglishRenderers=['word_sound_map','word_builder','word_family_sort','rhyme_match','sentence_highlight','phrase_builder','sentence_builder','short_passage','picture_story','question_card','story_sequence','picture_order','event_cards','writing_checklist','punctuation_marker','picture_prompt','detail_picker'];
+requiredEnglishRenderers.forEach((renderer)=>{
+  assert.ok(Schema.VISUAL_MODELS.includes(renderer),`schema includes ${renderer}`);
+  assert.ok(VisualRegistry.hasRenderer(renderer),`renderer registry supports ${renderer}`);
+  assert.match(VisualRegistry.render({visual_model:renderer,prompt:'Test prompt',correct_answer:'cat',word:'cat',sentence:'The cat runs.',passage:'Mia sees a cat.',events:['first','next','last'],choices:['cat','bat','dog'],validation_checks:['capital','spacing','punctuation']}),new RegExp(`data-renderer="${renderer}"`),`${renderer} outputs meaningful visual markup`);
+});
+englishProductionIds.forEach((id)=>{
+  const pkg=byId[id];
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates as production package`);
+  assert.equal(pkg.subject,'English');
+  assert.equal(pkg.level_banks.length,5,`${id} has four focused levels plus Mixed`);
+  assert.ok(pkg.level_banks.some((level)=>/mixed/i.test(`${level.level_id} ${level.label}`)),`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>{
+    assert.ok(level.questions.length>=10&&level.questions.length<=12,`${id} ${level.level_id} has 10-12 questions`);
+    level.questions.forEach((q)=>{
+      assert.ok(q.question_id&&q.prompt&&q.question_type&&(q.support_type||q.visual_model)&&q.correct_answer!==undefined&&q.hints&&q.misconception_tag&&(q.feedback||q.explanation),`${q.question_id} has required question fields`);
+      assert.notEqual(VisualRegistry.render(q),'<div></div>',`${q.question_id} renders visual markup`);
+      assert.match(VisualRegistry.render(q),/data-renderer="[^"]+"/,`${q.question_id} has visual renderer data attribute`);
+      if(q.question_type==='short_response')assert.ok(Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0,`${q.question_id} short response has acceptable_answers`);
+    });
+  });
+});
+const writingQuestions=[...byId.G1E_WR_001.level_banks.flatMap((level)=>level.questions),...byId.G1E_WR_002.level_banks.flatMap((level)=>level.questions)].filter((q)=>q.question_type==='short_response');
+assert.ok(writingQuestions.some((q)=>Array.isArray(q.validation_checks)&&q.validation_checks.includes('capital')),'writing validation includes capital check');
+assert.ok(writingQuestions.some((q)=>Array.isArray(q.validation_checks)&&q.validation_checks.includes('spacing')),'writing validation includes spacing check');
+assert.ok(writingQuestions.some((q)=>Array.isArray(q.validation_checks)&&q.validation_checks.includes('punctuation')),'writing validation includes punctuation check');
+assert.ok(writingQuestions.some((q)=>Array.isArray(q.validation_checks)&&q.validation_checks.includes('complete_sentence')),'writing validation includes complete sentence check');
+assert.equal(Renderer.evaluateAnswer({question_type:'short_response',validation_checks:['capital','spacing','punctuation','complete_sentence'],correct_answer:'The cat runs.',acceptable_answers:['The cat runs.']},'The dog jumps.'),true,'writing validation accepts child-friendly complete sentences');
+assert.equal(Renderer.evaluateAnswer({question_type:'short_response',validation_checks:['capital','spacing','punctuation','complete_sentence'],correct_answer:'The cat runs.',acceptable_answers:['The cat runs.']},'the dog jumps'),false,'writing validation catches missing capital and punctuation');
 
 const dpPattern=VisualRegistry.render(dp.checkpoint[0]);
 assert.match(dpPattern,/pattern-visual/);

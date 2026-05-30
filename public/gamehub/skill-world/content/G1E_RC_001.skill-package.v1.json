@@ -1,0 +1,1769 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade1-english-completion-plan.v1.json",
+    "production_proof_package": true,
+    "created_at": "2026-05-30"
+  },
+  "skill_id": "G1E_RC_001",
+  "grade": 1,
+  "subject": "English",
+  "domain": "Reading Comprehension",
+  "skill": "Answer Who, What, Where Questions",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Help the Reading Ranger complete the Answer Who, What, Where Questions trail.",
+    "objective": "I can practice answer who, what, where questions with careful listening, reading, or writing.",
+    "key_vocabulary": [
+      "sound",
+      "word",
+      "sentence",
+      "answer"
+    ],
+    "concept_explanation": "This mission teaches answer who, what, where questions using child-friendly models and short practice steps. ",
+    "visual_model": "short_passage",
+    "common_misconception": "Learners may answer from a first clue instead of checking the whole word, sentence, or story.",
+    "real_world_connection": "Readers and writers use this skill in books, signs, notes, and classroom talk.",
+    "lesson_summary": "Read or listen carefully, use the model, then choose or write the answer.",
+    "mini_lesson": "First study the model. Then say the sounds or words slowly. Last, check that your answer matches the prompt."
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: Use the short_passage model, name the important part, then answer.",
+      "correct_answer": "Mia"
+    },
+    {
+      "text": "Demo: Try one with help before independent practice.",
+      "correct_answer": "Tom"
+    }
+  ],
+  "hint_ladder": [
+    "Say the word slowly.",
+    "Listen for the target sound or word part.",
+    "Check your answer with the model."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G1E_RC_001_LVL1_Q01",
+      "prompt": "Mia feeds a cat in the yard. Who?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "Mia",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is Mia.",
+      "feedback": "Yes \u2014 Mia fits.",
+      "passage": "Mia feeds a cat in the yard.",
+      "choices": [
+        "Mia",
+        "feeds a cat",
+        "yard"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL1_Q02",
+      "prompt": "Tom rides a bike at the park. Who?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "Tom",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is Tom.",
+      "feedback": "Yes \u2014 Tom fits.",
+      "passage": "Tom rides a bike at the park.",
+      "choices": [
+        "Tom",
+        "rides a bike",
+        "park"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL1_Q03",
+      "prompt": "Ana reads a book in bed. Who?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "Ana",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is Ana.",
+      "feedback": "Yes \u2014 Ana fits.",
+      "passage": "Ana reads a book in bed.",
+      "choices": [
+        "Ana",
+        "reads a book",
+        "bed"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL1_Q04",
+      "prompt": "Leo kicks a ball at school. Who?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "Leo",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is Leo.",
+      "feedback": "Yes \u2014 Leo fits.",
+      "passage": "Leo kicks a ball at school.",
+      "choices": [
+        "Leo",
+        "kicks a ball",
+        "school"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL1_Q05",
+      "prompt": "Kim sees a bird in a tree. Who?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "Kim",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is Kim.",
+      "feedback": "Yes \u2014 Kim fits.",
+      "passage": "Kim sees a bird in a tree.",
+      "choices": [
+        "Kim",
+        "sees a bird",
+        "tree"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL1_Q06",
+      "prompt": "Ben eats lunch in the kitchen. Who?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "Ben",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is Ben.",
+      "feedback": "Yes \u2014 Ben fits.",
+      "passage": "Ben eats lunch in the kitchen.",
+      "choices": [
+        "Ben",
+        "eats lunch",
+        "kitchen"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G1E_RC_001_LVL1_Q07",
+      "prompt": "Sara paints a star at the table. Who?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "Sara",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is Sara.",
+      "feedback": "Yes \u2014 Sara fits.",
+      "passage": "Sara paints a star at the table.",
+      "choices": [
+        "Sara",
+        "paints a star",
+        "table"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL1_Q08",
+      "prompt": "Jay finds a shell at the beach. Who?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "Jay",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is Jay.",
+      "feedback": "Yes \u2014 Jay fits.",
+      "passage": "Jay finds a shell at the beach.",
+      "choices": [
+        "Jay",
+        "finds a shell",
+        "beach"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL1_Q09",
+      "prompt": "Nia plants a seed in the garden. Who?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "Nia",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is Nia.",
+      "feedback": "Yes \u2014 Nia fits.",
+      "passage": "Nia plants a seed in the garden.",
+      "choices": [
+        "Nia",
+        "plants a seed",
+        "garden"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL1_Q10",
+      "prompt": "Omar pets a dog on the porch. Who?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "Omar",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is Omar.",
+      "feedback": "Yes \u2014 Omar fits.",
+      "passage": "Omar pets a dog on the porch.",
+      "choices": [
+        "Omar",
+        "pets a dog",
+        "porch"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL2_Q01",
+      "prompt": "Mia feeds a cat in the yard. What?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "feeds a cat",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is feeds a cat.",
+      "feedback": "Yes \u2014 feeds a cat fits.",
+      "passage": "Mia feeds a cat in the yard.",
+      "choices": [
+        "feeds a cat",
+        "Mia",
+        "yard"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL2_Q02",
+      "prompt": "Tom rides a bike at the park. What?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "rides a bike",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is rides a bike.",
+      "feedback": "Yes \u2014 rides a bike fits.",
+      "passage": "Tom rides a bike at the park.",
+      "choices": [
+        "rides a bike",
+        "Tom",
+        "park"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL2_Q03",
+      "prompt": "Ana reads a book in bed. What?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "reads a book",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is reads a book.",
+      "feedback": "Yes \u2014 reads a book fits.",
+      "passage": "Ana reads a book in bed.",
+      "choices": [
+        "reads a book",
+        "Ana",
+        "bed"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL2_Q04",
+      "prompt": "Leo kicks a ball at school. What?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "kicks a ball",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is kicks a ball.",
+      "feedback": "Yes \u2014 kicks a ball fits.",
+      "passage": "Leo kicks a ball at school.",
+      "choices": [
+        "kicks a ball",
+        "Leo",
+        "school"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL2_Q05",
+      "prompt": "Kim sees a bird in a tree. What?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "sees a bird",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is sees a bird.",
+      "feedback": "Yes \u2014 sees a bird fits.",
+      "passage": "Kim sees a bird in a tree.",
+      "choices": [
+        "sees a bird",
+        "Kim",
+        "tree"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL2_Q06",
+      "prompt": "Ben eats lunch in the kitchen. What?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "eats lunch",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is eats lunch.",
+      "feedback": "Yes \u2014 eats lunch fits.",
+      "passage": "Ben eats lunch in the kitchen.",
+      "choices": [
+        "eats lunch",
+        "Ben",
+        "kitchen"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL2_Q07",
+      "prompt": "Sara paints a star at the table. What?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "paints a star",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is paints a star.",
+      "feedback": "Yes \u2014 paints a star fits.",
+      "passage": "Sara paints a star at the table.",
+      "choices": [
+        "paints a star",
+        "Sara",
+        "table"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL2_Q08",
+      "prompt": "Jay finds a shell at the beach. What?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "finds a shell",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is finds a shell.",
+      "feedback": "Yes \u2014 finds a shell fits.",
+      "passage": "Jay finds a shell at the beach.",
+      "choices": [
+        "finds a shell",
+        "Jay",
+        "beach"
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G1E_RC_001_LVL2_Q09",
+      "prompt": "Nia plants a seed in the garden. What?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "plants a seed",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is plants a seed.",
+      "feedback": "Yes \u2014 plants a seed fits.",
+      "passage": "Nia plants a seed in the garden.",
+      "choices": [
+        "plants a seed",
+        "Nia",
+        "garden"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL2_Q10",
+      "prompt": "Omar pets a dog on the porch. What?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "pets a dog",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "who_what_confusion",
+      "explanation": "The answer is pets a dog.",
+      "feedback": "Yes \u2014 pets a dog fits.",
+      "passage": "Omar pets a dog on the porch.",
+      "choices": [
+        "pets a dog",
+        "Omar",
+        "porch"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL3_Q01",
+      "prompt": "Mia feeds a cat in the yard. Where?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "yard",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "where_detail_confusion",
+      "explanation": "The answer is yard.",
+      "feedback": "Yes \u2014 yard fits.",
+      "passage": "Mia feeds a cat in the yard.",
+      "choices": [
+        "yard",
+        "Mia",
+        "yard"
+      ]
+    },
+    {
+      "question_id": "G1E_RC_001_LVL3_Q02",
+      "prompt": "Tom rides a bike at the park. Where?",
+      "question_type": "multiple_choice",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "park",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "where_detail_confusion",
+      "explanation": "The answer is park.",
+      "feedback": "Yes \u2014 park fits.",
+      "passage": "Tom rides a bike at the park.",
+      "choices": [
+        "park",
+        "Tom",
+        "park"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "who_what_confusion": "who what confusion",
+    "where_detail_confusion": "where detail confusion",
+    "unsupported_answer": "unsupported answer",
+    "misses_text_evidence": "misses text evidence"
+  },
+  "review_bank": {
+    "who_what_confusion": [
+      "Review who what confusion with a teacher model."
+    ],
+    "where_detail_confusion": [
+      "Review where detail confusion with a teacher model."
+    ],
+    "unsupported_answer": [
+      "Review unsupported answer with a teacher model."
+    ],
+    "misses_text_evidence": [
+      "Review misses text evidence with a teacher model."
+    ]
+  },
+  "game_theme": {
+    "title": "Answer Who, What, Where Questions Quest",
+    "name": "Answer Who, What, Where Questions Quest",
+    "mission_intro": "Practice Answer Who, What, Where Questions and earn a badge.",
+    "badge_name": "Answer Who, What, Where Questions Badge"
+  },
+  "support_type": "short_passage",
+  "feedback_fields": [
+    "correct",
+    "explanation",
+    "misconception_tag"
+  ],
+  "next_skill_id": "G1E_RC_002",
+  "remediation_skill_id": "G1E_RC_001_REVIEW",
+  "level_banks": [
+    {
+      "level_id": "G1E_RC_001_LVL1",
+      "label": "Level 1: Who Questions",
+      "focus": "Answer who questions.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_RC_001_LVL1_Q01",
+          "prompt": "Mia feeds a cat in the yard. Who?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Mia",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is Mia.",
+          "feedback": "Yes \u2014 Mia fits.",
+          "passage": "Mia feeds a cat in the yard.",
+          "choices": [
+            "Mia",
+            "feeds a cat",
+            "yard"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL1_Q02",
+          "prompt": "Tom rides a bike at the park. Who?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Tom",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is Tom.",
+          "feedback": "Yes \u2014 Tom fits.",
+          "passage": "Tom rides a bike at the park.",
+          "choices": [
+            "Tom",
+            "rides a bike",
+            "park"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL1_Q03",
+          "prompt": "Ana reads a book in bed. Who?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Ana",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is Ana.",
+          "feedback": "Yes \u2014 Ana fits.",
+          "passage": "Ana reads a book in bed.",
+          "choices": [
+            "Ana",
+            "reads a book",
+            "bed"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL1_Q04",
+          "prompt": "Leo kicks a ball at school. Who?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Leo",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is Leo.",
+          "feedback": "Yes \u2014 Leo fits.",
+          "passage": "Leo kicks a ball at school.",
+          "choices": [
+            "Leo",
+            "kicks a ball",
+            "school"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL1_Q05",
+          "prompt": "Kim sees a bird in a tree. Who?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Kim",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is Kim.",
+          "feedback": "Yes \u2014 Kim fits.",
+          "passage": "Kim sees a bird in a tree.",
+          "choices": [
+            "Kim",
+            "sees a bird",
+            "tree"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL1_Q06",
+          "prompt": "Ben eats lunch in the kitchen. Who?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Ben",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is Ben.",
+          "feedback": "Yes \u2014 Ben fits.",
+          "passage": "Ben eats lunch in the kitchen.",
+          "choices": [
+            "Ben",
+            "eats lunch",
+            "kitchen"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL1_Q07",
+          "prompt": "Sara paints a star at the table. Who?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Sara",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is Sara.",
+          "feedback": "Yes \u2014 Sara fits.",
+          "passage": "Sara paints a star at the table.",
+          "choices": [
+            "Sara",
+            "paints a star",
+            "table"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL1_Q08",
+          "prompt": "Jay finds a shell at the beach. Who?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Jay",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is Jay.",
+          "feedback": "Yes \u2014 Jay fits.",
+          "passage": "Jay finds a shell at the beach.",
+          "choices": [
+            "Jay",
+            "finds a shell",
+            "beach"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL1_Q09",
+          "prompt": "Nia plants a seed in the garden. Who?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Nia",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is Nia.",
+          "feedback": "Yes \u2014 Nia fits.",
+          "passage": "Nia plants a seed in the garden.",
+          "choices": [
+            "Nia",
+            "plants a seed",
+            "garden"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL1_Q10",
+          "prompt": "Omar pets a dog on the porch. Who?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Omar",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is Omar.",
+          "feedback": "Yes \u2014 Omar fits.",
+          "passage": "Omar pets a dog on the porch.",
+          "choices": [
+            "Omar",
+            "pets a dog",
+            "porch"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_RC_001_LVL2",
+      "label": "Level 2: What Questions",
+      "focus": "Answer what questions.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_RC_001_LVL2_Q01",
+          "prompt": "Mia feeds a cat in the yard. What?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "feeds a cat",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is feeds a cat.",
+          "feedback": "Yes \u2014 feeds a cat fits.",
+          "passage": "Mia feeds a cat in the yard.",
+          "choices": [
+            "feeds a cat",
+            "Mia",
+            "yard"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL2_Q02",
+          "prompt": "Tom rides a bike at the park. What?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "rides a bike",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is rides a bike.",
+          "feedback": "Yes \u2014 rides a bike fits.",
+          "passage": "Tom rides a bike at the park.",
+          "choices": [
+            "rides a bike",
+            "Tom",
+            "park"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL2_Q03",
+          "prompt": "Ana reads a book in bed. What?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "reads a book",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is reads a book.",
+          "feedback": "Yes \u2014 reads a book fits.",
+          "passage": "Ana reads a book in bed.",
+          "choices": [
+            "reads a book",
+            "Ana",
+            "bed"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL2_Q04",
+          "prompt": "Leo kicks a ball at school. What?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "kicks a ball",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is kicks a ball.",
+          "feedback": "Yes \u2014 kicks a ball fits.",
+          "passage": "Leo kicks a ball at school.",
+          "choices": [
+            "kicks a ball",
+            "Leo",
+            "school"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL2_Q05",
+          "prompt": "Kim sees a bird in a tree. What?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "sees a bird",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is sees a bird.",
+          "feedback": "Yes \u2014 sees a bird fits.",
+          "passage": "Kim sees a bird in a tree.",
+          "choices": [
+            "sees a bird",
+            "Kim",
+            "tree"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL2_Q06",
+          "prompt": "Ben eats lunch in the kitchen. What?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "eats lunch",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is eats lunch.",
+          "feedback": "Yes \u2014 eats lunch fits.",
+          "passage": "Ben eats lunch in the kitchen.",
+          "choices": [
+            "eats lunch",
+            "Ben",
+            "kitchen"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL2_Q07",
+          "prompt": "Sara paints a star at the table. What?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "paints a star",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is paints a star.",
+          "feedback": "Yes \u2014 paints a star fits.",
+          "passage": "Sara paints a star at the table.",
+          "choices": [
+            "paints a star",
+            "Sara",
+            "table"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL2_Q08",
+          "prompt": "Jay finds a shell at the beach. What?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "finds a shell",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is finds a shell.",
+          "feedback": "Yes \u2014 finds a shell fits.",
+          "passage": "Jay finds a shell at the beach.",
+          "choices": [
+            "finds a shell",
+            "Jay",
+            "beach"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL2_Q09",
+          "prompt": "Nia plants a seed in the garden. What?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "plants a seed",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is plants a seed.",
+          "feedback": "Yes \u2014 plants a seed fits.",
+          "passage": "Nia plants a seed in the garden.",
+          "choices": [
+            "plants a seed",
+            "Nia",
+            "garden"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL2_Q10",
+          "prompt": "Omar pets a dog on the porch. What?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "pets a dog",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is pets a dog.",
+          "feedback": "Yes \u2014 pets a dog fits.",
+          "passage": "Omar pets a dog on the porch.",
+          "choices": [
+            "pets a dog",
+            "Omar",
+            "porch"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_RC_001_LVL3",
+      "label": "Level 3: Where Questions",
+      "focus": "Answer where questions.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_RC_001_LVL3_Q01",
+          "prompt": "Mia feeds a cat in the yard. Where?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "yard",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "where_detail_confusion",
+          "explanation": "The answer is yard.",
+          "feedback": "Yes \u2014 yard fits.",
+          "passage": "Mia feeds a cat in the yard.",
+          "choices": [
+            "yard",
+            "Mia",
+            "yard"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL3_Q02",
+          "prompt": "Tom rides a bike at the park. Where?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "park",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "where_detail_confusion",
+          "explanation": "The answer is park.",
+          "feedback": "Yes \u2014 park fits.",
+          "passage": "Tom rides a bike at the park.",
+          "choices": [
+            "park",
+            "Tom",
+            "park"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL3_Q03",
+          "prompt": "Ana reads a book in bed. Where?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "bed",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "where_detail_confusion",
+          "explanation": "The answer is bed.",
+          "feedback": "Yes \u2014 bed fits.",
+          "passage": "Ana reads a book in bed.",
+          "choices": [
+            "bed",
+            "Ana",
+            "bed"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL3_Q04",
+          "prompt": "Leo kicks a ball at school. Where?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "school",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "where_detail_confusion",
+          "explanation": "The answer is school.",
+          "feedback": "Yes \u2014 school fits.",
+          "passage": "Leo kicks a ball at school.",
+          "choices": [
+            "school",
+            "Leo",
+            "school"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL3_Q05",
+          "prompt": "Kim sees a bird in a tree. Where?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "tree",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "where_detail_confusion",
+          "explanation": "The answer is tree.",
+          "feedback": "Yes \u2014 tree fits.",
+          "passage": "Kim sees a bird in a tree.",
+          "choices": [
+            "tree",
+            "Kim",
+            "tree"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL3_Q06",
+          "prompt": "Ben eats lunch in the kitchen. Where?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "kitchen",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "where_detail_confusion",
+          "explanation": "The answer is kitchen.",
+          "feedback": "Yes \u2014 kitchen fits.",
+          "passage": "Ben eats lunch in the kitchen.",
+          "choices": [
+            "kitchen",
+            "Ben",
+            "kitchen"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL3_Q07",
+          "prompt": "Sara paints a star at the table. Where?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "table",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "where_detail_confusion",
+          "explanation": "The answer is table.",
+          "feedback": "Yes \u2014 table fits.",
+          "passage": "Sara paints a star at the table.",
+          "choices": [
+            "table",
+            "Sara",
+            "table"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL3_Q08",
+          "prompt": "Jay finds a shell at the beach. Where?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "beach",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "where_detail_confusion",
+          "explanation": "The answer is beach.",
+          "feedback": "Yes \u2014 beach fits.",
+          "passage": "Jay finds a shell at the beach.",
+          "choices": [
+            "beach",
+            "Jay",
+            "beach"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL3_Q09",
+          "prompt": "Nia plants a seed in the garden. Where?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "garden",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "where_detail_confusion",
+          "explanation": "The answer is garden.",
+          "feedback": "Yes \u2014 garden fits.",
+          "passage": "Nia plants a seed in the garden.",
+          "choices": [
+            "garden",
+            "Nia",
+            "garden"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL3_Q10",
+          "prompt": "Omar pets a dog on the porch. Where?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "porch",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "where_detail_confusion",
+          "explanation": "The answer is porch.",
+          "feedback": "Yes \u2014 porch fits.",
+          "passage": "Omar pets a dog on the porch.",
+          "choices": [
+            "porch",
+            "Omar",
+            "porch"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_RC_001_LVL4",
+      "label": "Level 4: All Detail Questions",
+      "focus": "Answer mixed detail questions.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_RC_001_LVL4_Q01",
+          "prompt": "Read: Mia feeds a cat in the yard. Answer the detail question.",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "Mia",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is Mia.",
+          "feedback": "Yes \u2014 Mia fits.",
+          "passage": "Mia feeds a cat in the yard.",
+          "choices": [
+            "Mia",
+            "Mia",
+            "yard"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL4_Q02",
+          "prompt": "Read: Tom rides a bike at the park. Answer the detail question.",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "rides a bike",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is rides a bike.",
+          "feedback": "Yes \u2014 rides a bike fits.",
+          "passage": "Tom rides a bike at the park.",
+          "choices": [
+            "rides a bike",
+            "Tom",
+            "park"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL4_Q03",
+          "prompt": "Read: Ana reads a book in bed. Answer the detail question.",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "bed",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is bed.",
+          "feedback": "Yes \u2014 bed fits.",
+          "passage": "Ana reads a book in bed.",
+          "choices": [
+            "bed",
+            "Ana",
+            "bed"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL4_Q04",
+          "prompt": "Read: Leo kicks a ball at school. Answer the detail question.",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "Leo",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "where_detail_confusion",
+          "explanation": "The answer is Leo.",
+          "feedback": "Yes \u2014 Leo fits.",
+          "passage": "Leo kicks a ball at school.",
+          "choices": [
+            "Leo",
+            "Leo",
+            "school"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL4_Q05",
+          "prompt": "Read: Kim sees a bird in a tree. Answer the detail question.",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "sees a bird",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is sees a bird.",
+          "feedback": "Yes \u2014 sees a bird fits.",
+          "passage": "Kim sees a bird in a tree.",
+          "choices": [
+            "sees a bird",
+            "Kim",
+            "tree"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL4_Q06",
+          "prompt": "Read: Ben eats lunch in the kitchen. Answer the detail question.",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "kitchen",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is kitchen.",
+          "feedback": "Yes \u2014 kitchen fits.",
+          "passage": "Ben eats lunch in the kitchen.",
+          "choices": [
+            "kitchen",
+            "Ben",
+            "kitchen"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL4_Q07",
+          "prompt": "Read: Sara paints a star at the table. Answer the detail question.",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "Sara",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is Sara.",
+          "feedback": "Yes \u2014 Sara fits.",
+          "passage": "Sara paints a star at the table.",
+          "choices": [
+            "Sara",
+            "Sara",
+            "table"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL4_Q08",
+          "prompt": "Read: Jay finds a shell at the beach. Answer the detail question.",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "finds a shell",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "where_detail_confusion",
+          "explanation": "The answer is finds a shell.",
+          "feedback": "Yes \u2014 finds a shell fits.",
+          "passage": "Jay finds a shell at the beach.",
+          "choices": [
+            "finds a shell",
+            "Jay",
+            "beach"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL4_Q09",
+          "prompt": "Read: Nia plants a seed in the garden. Answer the detail question.",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "garden",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is garden.",
+          "feedback": "Yes \u2014 garden fits.",
+          "passage": "Nia plants a seed in the garden.",
+          "choices": [
+            "garden",
+            "Nia",
+            "garden"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_LVL4_Q10",
+          "prompt": "Read: Omar pets a dog on the porch. Answer the detail question.",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "Omar",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is Omar.",
+          "feedback": "Yes \u2014 Omar fits.",
+          "passage": "Omar pets a dog on the porch.",
+          "choices": [
+            "Omar",
+            "Omar",
+            "porch"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_RC_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed who/what/where details.",
+      "difficulty": 4,
+      "question_count_required": 12,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_RC_001_MIXED_FROM_LVL1_Q01",
+          "prompt": "Mia feeds a cat in the yard. Who?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Mia",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is Mia.",
+          "feedback": "Yes \u2014 Mia fits.",
+          "passage": "Mia feeds a cat in the yard.",
+          "choices": [
+            "Mia",
+            "feeds a cat",
+            "yard"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_MIXED_FROM_LVL2_Q01",
+          "prompt": "Mia feeds a cat in the yard. What?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "feeds a cat",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is feeds a cat.",
+          "feedback": "Yes \u2014 feeds a cat fits.",
+          "passage": "Mia feeds a cat in the yard.",
+          "choices": [
+            "feeds a cat",
+            "Mia",
+            "yard"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_MIXED_FROM_LVL3_Q01",
+          "prompt": "Mia feeds a cat in the yard. Where?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "yard",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "where_detail_confusion",
+          "explanation": "The answer is yard.",
+          "feedback": "Yes \u2014 yard fits.",
+          "passage": "Mia feeds a cat in the yard.",
+          "choices": [
+            "yard",
+            "Mia",
+            "yard"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_MIXED_FROM_LVL4_Q01",
+          "prompt": "Read: Mia feeds a cat in the yard. Answer the detail question.",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "Mia",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "unsupported_answer",
+          "explanation": "The answer is Mia.",
+          "feedback": "Yes \u2014 Mia fits.",
+          "passage": "Mia feeds a cat in the yard.",
+          "choices": [
+            "Mia",
+            "Mia",
+            "yard"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_MIXED_FROM_LVL1_Q02",
+          "prompt": "Tom rides a bike at the park. Who?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Tom",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is Tom.",
+          "feedback": "Yes \u2014 Tom fits.",
+          "passage": "Tom rides a bike at the park.",
+          "choices": [
+            "Tom",
+            "rides a bike",
+            "park"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_MIXED_FROM_LVL2_Q02",
+          "prompt": "Tom rides a bike at the park. What?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "rides a bike",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is rides a bike.",
+          "feedback": "Yes \u2014 rides a bike fits.",
+          "passage": "Tom rides a bike at the park.",
+          "choices": [
+            "rides a bike",
+            "Tom",
+            "park"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_MIXED_FROM_LVL3_Q02",
+          "prompt": "Tom rides a bike at the park. Where?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "park",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "where_detail_confusion",
+          "explanation": "The answer is park.",
+          "feedback": "Yes \u2014 park fits.",
+          "passage": "Tom rides a bike at the park.",
+          "choices": [
+            "park",
+            "Tom",
+            "park"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_MIXED_FROM_LVL4_Q02",
+          "prompt": "Read: Tom rides a bike at the park. Answer the detail question.",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "rides a bike",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "misses_text_evidence",
+          "explanation": "The answer is rides a bike.",
+          "feedback": "Yes \u2014 rides a bike fits.",
+          "passage": "Tom rides a bike at the park.",
+          "choices": [
+            "rides a bike",
+            "Tom",
+            "park"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_MIXED_FROM_LVL1_Q03",
+          "prompt": "Ana reads a book in bed. Who?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "Ana",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is Ana.",
+          "feedback": "Yes \u2014 Ana fits.",
+          "passage": "Ana reads a book in bed.",
+          "choices": [
+            "Ana",
+            "reads a book",
+            "bed"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_MIXED_FROM_LVL2_Q03",
+          "prompt": "Ana reads a book in bed. What?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "reads a book",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is reads a book.",
+          "feedback": "Yes \u2014 reads a book fits.",
+          "passage": "Ana reads a book in bed.",
+          "choices": [
+            "reads a book",
+            "Ana",
+            "bed"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_MIXED_FROM_LVL3_Q03",
+          "prompt": "Ana reads a book in bed. Where?",
+          "question_type": "multiple_choice",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "bed",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "where_detail_confusion",
+          "explanation": "The answer is bed.",
+          "feedback": "Yes \u2014 bed fits.",
+          "passage": "Ana reads a book in bed.",
+          "choices": [
+            "bed",
+            "Ana",
+            "bed"
+          ]
+        },
+        {
+          "question_id": "G1E_RC_001_MIXED_FROM_LVL4_Q03",
+          "prompt": "Read: Ana reads a book in bed. Answer the detail question.",
+          "question_type": "multiple_choice",
+          "visual_model": "question_card",
+          "support_type": "question_card",
+          "correct_answer": "bed",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "who_what_confusion",
+          "explanation": "The answer is bed.",
+          "feedback": "Yes \u2014 bed fits.",
+          "passage": "Ana reads a book in bed.",
+          "choices": [
+            "bed",
+            "Ana",
+            "bed"
+          ]
+        }
+      ]
+    }
+  ]
+}

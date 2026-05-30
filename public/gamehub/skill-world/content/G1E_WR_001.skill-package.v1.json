@@ -1,0 +1,1880 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade1-english-completion-plan.v1.json",
+    "production_proof_package": true,
+    "created_at": "2026-05-30"
+  },
+  "skill_id": "G1E_WR_001",
+  "grade": 1,
+  "subject": "English",
+  "domain": "Writing / Composition",
+  "skill": "Write a Simple Sentence",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Help the Reading Ranger complete the Write a Simple Sentence trail.",
+    "objective": "I can practice write a simple sentence with careful listening, reading, or writing.",
+    "key_vocabulary": [
+      "sound",
+      "word",
+      "sentence",
+      "answer"
+    ],
+    "concept_explanation": "This mission teaches write a simple sentence using child-friendly models and short practice steps. A complete sentence has a capital letter, spaces, an action or idea, and an end mark.",
+    "visual_model": "sentence_builder",
+    "common_misconception": "Learners may answer from a first clue instead of checking the whole word, sentence, or story.",
+    "real_world_connection": "Readers and writers use this skill in books, signs, notes, and classroom talk.",
+    "lesson_summary": "Read or listen carefully, use the model, then choose or write the answer.",
+    "mini_lesson": "First study the model. Then say the sounds or words slowly. Last, check that your answer matches the prompt."
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: Use the sentence_builder model, name the important part, then answer.",
+      "correct_answer": "The cat runs."
+    },
+    {
+      "text": "Demo: Try one with help before independent practice.",
+      "correct_answer": "I see a dog."
+    }
+  ],
+  "hint_ladder": [
+    "Say the word slowly.",
+    "Listen for the target sound or word part.",
+    "Check your answer with the model."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G1E_WR_001_LVL1_Q01",
+      "prompt": "Fix the capital letter: the cat runs.",
+      "question_type": "short_response",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "The cat runs.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_capital",
+      "explanation": "The answer is The cat runs..",
+      "feedback": "Yes \u2014 The cat runs. fits.",
+      "validation_checks": [
+        "capital"
+      ],
+      "sample_answer": "The cat runs.",
+      "acceptable_answers": [
+        "The cat runs."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL1_Q02",
+      "prompt": "Fix the capital letter: i see a dog.",
+      "question_type": "short_response",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "I see a dog.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_capital",
+      "explanation": "The answer is I see a dog..",
+      "feedback": "Yes \u2014 I see a dog. fits.",
+      "validation_checks": [
+        "capital"
+      ],
+      "sample_answer": "I see a dog.",
+      "acceptable_answers": [
+        "I see a dog."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL1_Q03",
+      "prompt": "Fix the capital letter: we can play.",
+      "question_type": "short_response",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "We can play.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_capital",
+      "explanation": "The answer is We can play..",
+      "feedback": "Yes \u2014 We can play. fits.",
+      "validation_checks": [
+        "capital"
+      ],
+      "sample_answer": "We can play.",
+      "acceptable_answers": [
+        "We can play."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL1_Q04",
+      "prompt": "Fix the capital letter: mom has a hat.",
+      "question_type": "short_response",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "Mom has a hat.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_capital",
+      "explanation": "The answer is Mom has a hat..",
+      "feedback": "Yes \u2014 Mom has a hat. fits.",
+      "validation_checks": [
+        "capital"
+      ],
+      "sample_answer": "Mom has a hat.",
+      "acceptable_answers": [
+        "Mom has a hat."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL1_Q05",
+      "prompt": "Fix the capital letter: the sun is hot.",
+      "question_type": "short_response",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "The sun is hot.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_capital",
+      "explanation": "The answer is The sun is hot..",
+      "feedback": "Yes \u2014 The sun is hot. fits.",
+      "validation_checks": [
+        "capital"
+      ],
+      "sample_answer": "The sun is hot.",
+      "acceptable_answers": [
+        "The sun is hot."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL1_Q06",
+      "prompt": "Fix the capital letter: a fish can swim.",
+      "question_type": "short_response",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "A fish can swim.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_capital",
+      "explanation": "The answer is A fish can swim..",
+      "feedback": "Yes \u2014 A fish can swim. fits.",
+      "validation_checks": [
+        "capital"
+      ],
+      "sample_answer": "A fish can swim.",
+      "acceptable_answers": [
+        "A fish can swim."
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G1E_WR_001_LVL1_Q07",
+      "prompt": "Fix the capital letter: sam likes books.",
+      "question_type": "short_response",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "Sam likes books.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_capital",
+      "explanation": "The answer is Sam likes books..",
+      "feedback": "Yes \u2014 Sam likes books. fits.",
+      "validation_checks": [
+        "capital"
+      ],
+      "sample_answer": "Sam likes books.",
+      "acceptable_answers": [
+        "Sam likes books."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL1_Q08",
+      "prompt": "Fix the capital letter: the bird sings.",
+      "question_type": "short_response",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "The bird sings.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_capital",
+      "explanation": "The answer is The bird sings..",
+      "feedback": "Yes \u2014 The bird sings. fits.",
+      "validation_checks": [
+        "capital"
+      ],
+      "sample_answer": "The bird sings.",
+      "acceptable_answers": [
+        "The bird sings."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL1_Q09",
+      "prompt": "Fix the capital letter: my ball is red.",
+      "question_type": "short_response",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "My ball is red.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_capital",
+      "explanation": "The answer is My ball is red..",
+      "feedback": "Yes \u2014 My ball is red. fits.",
+      "validation_checks": [
+        "capital"
+      ],
+      "sample_answer": "My ball is red.",
+      "acceptable_answers": [
+        "My ball is red."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL1_Q10",
+      "prompt": "Fix the capital letter: dad can cook.",
+      "question_type": "short_response",
+      "visual_model": "writing_checklist",
+      "support_type": "writing_checklist",
+      "correct_answer": "Dad can cook.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_capital",
+      "explanation": "The answer is Dad can cook..",
+      "feedback": "Yes \u2014 Dad can cook. fits.",
+      "validation_checks": [
+        "capital"
+      ],
+      "sample_answer": "Dad can cook.",
+      "acceptable_answers": [
+        "Dad can cook."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL2_Q01",
+      "prompt": "Add spaces: Thecat runs.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "The cat runs.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_spacing",
+      "explanation": "The answer is The cat runs..",
+      "feedback": "Yes \u2014 The cat runs. fits.",
+      "validation_checks": [
+        "spacing"
+      ],
+      "sample_answer": "The cat runs.",
+      "acceptable_answers": [
+        "The cat runs."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL2_Q02",
+      "prompt": "Add spaces: Isee a dog.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "I see a dog.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_spacing",
+      "explanation": "The answer is I see a dog..",
+      "feedback": "Yes \u2014 I see a dog. fits.",
+      "validation_checks": [
+        "spacing"
+      ],
+      "sample_answer": "I see a dog.",
+      "acceptable_answers": [
+        "I see a dog."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL2_Q03",
+      "prompt": "Add spaces: Wecan play.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "We can play.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_spacing",
+      "explanation": "The answer is We can play..",
+      "feedback": "Yes \u2014 We can play. fits.",
+      "validation_checks": [
+        "spacing"
+      ],
+      "sample_answer": "We can play.",
+      "acceptable_answers": [
+        "We can play."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL2_Q04",
+      "prompt": "Add spaces: Momhas a hat.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "Mom has a hat.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_spacing",
+      "explanation": "The answer is Mom has a hat..",
+      "feedback": "Yes \u2014 Mom has a hat. fits.",
+      "validation_checks": [
+        "spacing"
+      ],
+      "sample_answer": "Mom has a hat.",
+      "acceptable_answers": [
+        "Mom has a hat."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL2_Q05",
+      "prompt": "Add spaces: Thesun is hot.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "The sun is hot.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_spacing",
+      "explanation": "The answer is The sun is hot..",
+      "feedback": "Yes \u2014 The sun is hot. fits.",
+      "validation_checks": [
+        "spacing"
+      ],
+      "sample_answer": "The sun is hot.",
+      "acceptable_answers": [
+        "The sun is hot."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL2_Q06",
+      "prompt": "Add spaces: Afish can swim.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "A fish can swim.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_spacing",
+      "explanation": "The answer is A fish can swim..",
+      "feedback": "Yes \u2014 A fish can swim. fits.",
+      "validation_checks": [
+        "spacing"
+      ],
+      "sample_answer": "A fish can swim.",
+      "acceptable_answers": [
+        "A fish can swim."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL2_Q07",
+      "prompt": "Add spaces: Samlikes books.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "Sam likes books.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_spacing",
+      "explanation": "The answer is Sam likes books..",
+      "feedback": "Yes \u2014 Sam likes books. fits.",
+      "validation_checks": [
+        "spacing"
+      ],
+      "sample_answer": "Sam likes books.",
+      "acceptable_answers": [
+        "Sam likes books."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL2_Q08",
+      "prompt": "Add spaces: Thebird sings.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "The bird sings.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_spacing",
+      "explanation": "The answer is The bird sings..",
+      "feedback": "Yes \u2014 The bird sings. fits.",
+      "validation_checks": [
+        "spacing"
+      ],
+      "sample_answer": "The bird sings.",
+      "acceptable_answers": [
+        "The bird sings."
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G1E_WR_001_LVL2_Q09",
+      "prompt": "Add spaces: Myball is red.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "My ball is red.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_spacing",
+      "explanation": "The answer is My ball is red..",
+      "feedback": "Yes \u2014 My ball is red. fits.",
+      "validation_checks": [
+        "spacing"
+      ],
+      "sample_answer": "My ball is red.",
+      "acceptable_answers": [
+        "My ball is red."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL2_Q10",
+      "prompt": "Add spaces: Dadcan cook.",
+      "question_type": "short_response",
+      "visual_model": "sentence_builder",
+      "support_type": "sentence_builder",
+      "correct_answer": "Dad can cook.",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_spacing",
+      "explanation": "The answer is Dad can cook..",
+      "feedback": "Yes \u2014 Dad can cook. fits.",
+      "validation_checks": [
+        "spacing"
+      ],
+      "sample_answer": "Dad can cook.",
+      "acceptable_answers": [
+        "Dad can cook."
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL3_Q01",
+      "prompt": "Choose the end mark for: The cat runs",
+      "question_type": "multiple_choice",
+      "visual_model": "punctuation_marker",
+      "support_type": "punctuation_marker",
+      "correct_answer": ".",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_punctuation",
+      "explanation": "The answer is ..",
+      "feedback": "Yes \u2014 . fits.",
+      "sentence": "The cat runs.",
+      "choices": [
+        ".",
+        "?",
+        "!"
+      ]
+    },
+    {
+      "question_id": "G1E_WR_001_LVL3_Q02",
+      "prompt": "Choose the end mark for: I see a dog",
+      "question_type": "multiple_choice",
+      "visual_model": "punctuation_marker",
+      "support_type": "punctuation_marker",
+      "correct_answer": ".",
+      "hints": [
+        "Say the word slowly.",
+        "Listen for the target sound or word part.",
+        "Check your answer with the model."
+      ],
+      "misconception_tag": "missing_punctuation",
+      "explanation": "The answer is ..",
+      "feedback": "Yes \u2014 . fits.",
+      "sentence": "I see a dog.",
+      "choices": [
+        ".",
+        "?",
+        "!"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "missing_capital": "missing capital",
+    "missing_spacing": "missing spacing",
+    "missing_punctuation": "missing punctuation",
+    "fragment_response": "fragment response"
+  },
+  "review_bank": {
+    "missing_capital": [
+      "Review missing capital with a teacher model."
+    ],
+    "missing_spacing": [
+      "Review missing spacing with a teacher model."
+    ],
+    "missing_punctuation": [
+      "Review missing punctuation with a teacher model."
+    ],
+    "fragment_response": [
+      "Review fragment response with a teacher model."
+    ]
+  },
+  "game_theme": {
+    "title": "Write a Simple Sentence Quest",
+    "name": "Write a Simple Sentence Quest",
+    "mission_intro": "Practice Write a Simple Sentence and earn a badge.",
+    "badge_name": "Write a Simple Sentence Badge"
+  },
+  "support_type": "sentence_builder",
+  "feedback_fields": [
+    "correct",
+    "explanation",
+    "misconception_tag"
+  ],
+  "next_skill_id": "G1E_WR_002",
+  "remediation_skill_id": "G1E_WR_001_REVIEW",
+  "level_banks": [
+    {
+      "level_id": "G1E_WR_001_LVL1",
+      "label": "Level 1: Capital Letters",
+      "focus": "Start sentences with capitals.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_WR_001_LVL1_Q01",
+          "prompt": "Fix the capital letter: the cat runs.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "The cat runs.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_capital",
+          "explanation": "The answer is The cat runs..",
+          "feedback": "Yes \u2014 The cat runs. fits.",
+          "validation_checks": [
+            "capital"
+          ],
+          "sample_answer": "The cat runs.",
+          "acceptable_answers": [
+            "The cat runs."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL1_Q02",
+          "prompt": "Fix the capital letter: i see a dog.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "I see a dog.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_capital",
+          "explanation": "The answer is I see a dog..",
+          "feedback": "Yes \u2014 I see a dog. fits.",
+          "validation_checks": [
+            "capital"
+          ],
+          "sample_answer": "I see a dog.",
+          "acceptable_answers": [
+            "I see a dog."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL1_Q03",
+          "prompt": "Fix the capital letter: we can play.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "We can play.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_capital",
+          "explanation": "The answer is We can play..",
+          "feedback": "Yes \u2014 We can play. fits.",
+          "validation_checks": [
+            "capital"
+          ],
+          "sample_answer": "We can play.",
+          "acceptable_answers": [
+            "We can play."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL1_Q04",
+          "prompt": "Fix the capital letter: mom has a hat.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "Mom has a hat.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_capital",
+          "explanation": "The answer is Mom has a hat..",
+          "feedback": "Yes \u2014 Mom has a hat. fits.",
+          "validation_checks": [
+            "capital"
+          ],
+          "sample_answer": "Mom has a hat.",
+          "acceptable_answers": [
+            "Mom has a hat."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL1_Q05",
+          "prompt": "Fix the capital letter: the sun is hot.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "The sun is hot.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_capital",
+          "explanation": "The answer is The sun is hot..",
+          "feedback": "Yes \u2014 The sun is hot. fits.",
+          "validation_checks": [
+            "capital"
+          ],
+          "sample_answer": "The sun is hot.",
+          "acceptable_answers": [
+            "The sun is hot."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL1_Q06",
+          "prompt": "Fix the capital letter: a fish can swim.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "A fish can swim.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_capital",
+          "explanation": "The answer is A fish can swim..",
+          "feedback": "Yes \u2014 A fish can swim. fits.",
+          "validation_checks": [
+            "capital"
+          ],
+          "sample_answer": "A fish can swim.",
+          "acceptable_answers": [
+            "A fish can swim."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL1_Q07",
+          "prompt": "Fix the capital letter: sam likes books.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "Sam likes books.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_capital",
+          "explanation": "The answer is Sam likes books..",
+          "feedback": "Yes \u2014 Sam likes books. fits.",
+          "validation_checks": [
+            "capital"
+          ],
+          "sample_answer": "Sam likes books.",
+          "acceptable_answers": [
+            "Sam likes books."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL1_Q08",
+          "prompt": "Fix the capital letter: the bird sings.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "The bird sings.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_capital",
+          "explanation": "The answer is The bird sings..",
+          "feedback": "Yes \u2014 The bird sings. fits.",
+          "validation_checks": [
+            "capital"
+          ],
+          "sample_answer": "The bird sings.",
+          "acceptable_answers": [
+            "The bird sings."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL1_Q09",
+          "prompt": "Fix the capital letter: my ball is red.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "My ball is red.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_capital",
+          "explanation": "The answer is My ball is red..",
+          "feedback": "Yes \u2014 My ball is red. fits.",
+          "validation_checks": [
+            "capital"
+          ],
+          "sample_answer": "My ball is red.",
+          "acceptable_answers": [
+            "My ball is red."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL1_Q10",
+          "prompt": "Fix the capital letter: dad can cook.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "Dad can cook.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_capital",
+          "explanation": "The answer is Dad can cook..",
+          "feedback": "Yes \u2014 Dad can cook. fits.",
+          "validation_checks": [
+            "capital"
+          ],
+          "sample_answer": "Dad can cook.",
+          "acceptable_answers": [
+            "Dad can cook."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_WR_001_LVL2",
+      "label": "Level 2: Word Spacing",
+      "focus": "Use spaces between words.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_WR_001_LVL2_Q01",
+          "prompt": "Add spaces: Thecat runs.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The cat runs.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_spacing",
+          "explanation": "The answer is The cat runs..",
+          "feedback": "Yes \u2014 The cat runs. fits.",
+          "validation_checks": [
+            "spacing"
+          ],
+          "sample_answer": "The cat runs.",
+          "acceptable_answers": [
+            "The cat runs."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL2_Q02",
+          "prompt": "Add spaces: Isee a dog.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "I see a dog.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_spacing",
+          "explanation": "The answer is I see a dog..",
+          "feedback": "Yes \u2014 I see a dog. fits.",
+          "validation_checks": [
+            "spacing"
+          ],
+          "sample_answer": "I see a dog.",
+          "acceptable_answers": [
+            "I see a dog."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL2_Q03",
+          "prompt": "Add spaces: Wecan play.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "We can play.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_spacing",
+          "explanation": "The answer is We can play..",
+          "feedback": "Yes \u2014 We can play. fits.",
+          "validation_checks": [
+            "spacing"
+          ],
+          "sample_answer": "We can play.",
+          "acceptable_answers": [
+            "We can play."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL2_Q04",
+          "prompt": "Add spaces: Momhas a hat.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "Mom has a hat.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_spacing",
+          "explanation": "The answer is Mom has a hat..",
+          "feedback": "Yes \u2014 Mom has a hat. fits.",
+          "validation_checks": [
+            "spacing"
+          ],
+          "sample_answer": "Mom has a hat.",
+          "acceptable_answers": [
+            "Mom has a hat."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL2_Q05",
+          "prompt": "Add spaces: Thesun is hot.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The sun is hot.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_spacing",
+          "explanation": "The answer is The sun is hot..",
+          "feedback": "Yes \u2014 The sun is hot. fits.",
+          "validation_checks": [
+            "spacing"
+          ],
+          "sample_answer": "The sun is hot.",
+          "acceptable_answers": [
+            "The sun is hot."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL2_Q06",
+          "prompt": "Add spaces: Afish can swim.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "A fish can swim.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_spacing",
+          "explanation": "The answer is A fish can swim..",
+          "feedback": "Yes \u2014 A fish can swim. fits.",
+          "validation_checks": [
+            "spacing"
+          ],
+          "sample_answer": "A fish can swim.",
+          "acceptable_answers": [
+            "A fish can swim."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL2_Q07",
+          "prompt": "Add spaces: Samlikes books.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "Sam likes books.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_spacing",
+          "explanation": "The answer is Sam likes books..",
+          "feedback": "Yes \u2014 Sam likes books. fits.",
+          "validation_checks": [
+            "spacing"
+          ],
+          "sample_answer": "Sam likes books.",
+          "acceptable_answers": [
+            "Sam likes books."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL2_Q08",
+          "prompt": "Add spaces: Thebird sings.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The bird sings.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_spacing",
+          "explanation": "The answer is The bird sings..",
+          "feedback": "Yes \u2014 The bird sings. fits.",
+          "validation_checks": [
+            "spacing"
+          ],
+          "sample_answer": "The bird sings.",
+          "acceptable_answers": [
+            "The bird sings."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL2_Q09",
+          "prompt": "Add spaces: Myball is red.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "My ball is red.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_spacing",
+          "explanation": "The answer is My ball is red..",
+          "feedback": "Yes \u2014 My ball is red. fits.",
+          "validation_checks": [
+            "spacing"
+          ],
+          "sample_answer": "My ball is red.",
+          "acceptable_answers": [
+            "My ball is red."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL2_Q10",
+          "prompt": "Add spaces: Dadcan cook.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "Dad can cook.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_spacing",
+          "explanation": "The answer is Dad can cook..",
+          "feedback": "Yes \u2014 Dad can cook. fits.",
+          "validation_checks": [
+            "spacing"
+          ],
+          "sample_answer": "Dad can cook.",
+          "acceptable_answers": [
+            "Dad can cook."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_WR_001_LVL3",
+      "label": "Level 3: End Punctuation",
+      "focus": "End sentences with punctuation.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_WR_001_LVL3_Q01",
+          "prompt": "Choose the end mark for: The cat runs",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_punctuation",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "The cat runs.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL3_Q02",
+          "prompt": "Choose the end mark for: I see a dog",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_punctuation",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "I see a dog.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL3_Q03",
+          "prompt": "Choose the end mark for: We can play",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_punctuation",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "We can play.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL3_Q04",
+          "prompt": "Choose the end mark for: Mom has a hat",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_punctuation",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "Mom has a hat.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL3_Q05",
+          "prompt": "Choose the end mark for: The sun is hot",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_punctuation",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "The sun is hot.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL3_Q06",
+          "prompt": "Choose the end mark for: A fish can swim",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_punctuation",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "A fish can swim.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL3_Q07",
+          "prompt": "Choose the end mark for: Sam likes books",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_punctuation",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "Sam likes books.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL3_Q08",
+          "prompt": "Choose the end mark for: The bird sings",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_punctuation",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "The bird sings.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL3_Q09",
+          "prompt": "Choose the end mark for: My ball is red",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_punctuation",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "My ball is red.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL3_Q10",
+          "prompt": "Choose the end mark for: Dad can cook",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_punctuation",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "Dad can cook.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_WR_001_LVL4",
+      "label": "Level 4: Complete Sentence",
+      "focus": "Write complete sentences.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_WR_001_LVL4_Q01",
+          "prompt": "Write a complete sentence about: cat",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The cat runs.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "fragment_response",
+          "explanation": "The answer is The cat runs..",
+          "feedback": "Yes \u2014 The cat runs. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sample_answer": "The cat runs.",
+          "acceptable_answers": [
+            "The cat runs.",
+            "the cat runs."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL4_Q02",
+          "prompt": "Write a complete sentence about: dog",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "I see a dog.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "fragment_response",
+          "explanation": "The answer is I see a dog..",
+          "feedback": "Yes \u2014 I see a dog. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sample_answer": "I see a dog.",
+          "acceptable_answers": [
+            "I see a dog.",
+            "i see a dog."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL4_Q03",
+          "prompt": "Write a complete sentence about: sun",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "We can play.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "fragment_response",
+          "explanation": "The answer is We can play..",
+          "feedback": "Yes \u2014 We can play. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sample_answer": "We can play.",
+          "acceptable_answers": [
+            "We can play.",
+            "we can play."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL4_Q04",
+          "prompt": "Write a complete sentence about: fish",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "Mom has a hat.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "fragment_response",
+          "explanation": "The answer is Mom has a hat..",
+          "feedback": "Yes \u2014 Mom has a hat. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sample_answer": "Mom has a hat.",
+          "acceptable_answers": [
+            "Mom has a hat.",
+            "mom has a hat."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL4_Q05",
+          "prompt": "Write a complete sentence about: bird",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The sun is hot.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "fragment_response",
+          "explanation": "The answer is The sun is hot..",
+          "feedback": "Yes \u2014 The sun is hot. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sample_answer": "The sun is hot.",
+          "acceptable_answers": [
+            "The sun is hot.",
+            "the sun is hot."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL4_Q06",
+          "prompt": "Write a complete sentence about: ball",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "A fish can swim.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "fragment_response",
+          "explanation": "The answer is A fish can swim..",
+          "feedback": "Yes \u2014 A fish can swim. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sample_answer": "A fish can swim.",
+          "acceptable_answers": [
+            "A fish can swim.",
+            "a fish can swim."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL4_Q07",
+          "prompt": "Write a complete sentence about: book",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "Sam likes books.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "fragment_response",
+          "explanation": "The answer is Sam likes books..",
+          "feedback": "Yes \u2014 Sam likes books. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sample_answer": "Sam likes books.",
+          "acceptable_answers": [
+            "Sam likes books.",
+            "sam likes books."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL4_Q08",
+          "prompt": "Write a complete sentence about: mom",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The bird sings.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "fragment_response",
+          "explanation": "The answer is The bird sings..",
+          "feedback": "Yes \u2014 The bird sings. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sample_answer": "The bird sings.",
+          "acceptable_answers": [
+            "The bird sings.",
+            "the bird sings."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL4_Q09",
+          "prompt": "Write a complete sentence about: dad",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "My ball is red.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "fragment_response",
+          "explanation": "The answer is My ball is red..",
+          "feedback": "Yes \u2014 My ball is red. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sample_answer": "My ball is red.",
+          "acceptable_answers": [
+            "My ball is red.",
+            "my ball is red."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_LVL4_Q10",
+          "prompt": "Write a complete sentence about: kid",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "Dad can cook.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "fragment_response",
+          "explanation": "The answer is Dad can cook..",
+          "feedback": "Yes \u2014 Dad can cook. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sample_answer": "Dad can cook.",
+          "acceptable_answers": [
+            "Dad can cook.",
+            "dad can cook."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G1E_WR_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed sentence writing.",
+      "difficulty": 4,
+      "question_count_required": 12,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G1E_WR_001_MIXED_FROM_LVL1_Q01",
+          "prompt": "Fix the capital letter: the cat runs.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "The cat runs.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_capital",
+          "explanation": "The answer is The cat runs..",
+          "feedback": "Yes \u2014 The cat runs. fits.",
+          "validation_checks": [
+            "capital"
+          ],
+          "sample_answer": "The cat runs.",
+          "acceptable_answers": [
+            "The cat runs."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_MIXED_FROM_LVL2_Q01",
+          "prompt": "Add spaces: Thecat runs.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The cat runs.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_spacing",
+          "explanation": "The answer is The cat runs..",
+          "feedback": "Yes \u2014 The cat runs. fits.",
+          "validation_checks": [
+            "spacing"
+          ],
+          "sample_answer": "The cat runs.",
+          "acceptable_answers": [
+            "The cat runs."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_MIXED_FROM_LVL3_Q01",
+          "prompt": "Choose the end mark for: The cat runs",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_punctuation",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "The cat runs.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_MIXED_FROM_LVL4_Q01",
+          "prompt": "Write a complete sentence about: cat",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "The cat runs.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "fragment_response",
+          "explanation": "The answer is The cat runs..",
+          "feedback": "Yes \u2014 The cat runs. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sample_answer": "The cat runs.",
+          "acceptable_answers": [
+            "The cat runs.",
+            "the cat runs."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_MIXED_FROM_LVL1_Q02",
+          "prompt": "Fix the capital letter: i see a dog.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "I see a dog.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_capital",
+          "explanation": "The answer is I see a dog..",
+          "feedback": "Yes \u2014 I see a dog. fits.",
+          "validation_checks": [
+            "capital"
+          ],
+          "sample_answer": "I see a dog.",
+          "acceptable_answers": [
+            "I see a dog."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_MIXED_FROM_LVL2_Q02",
+          "prompt": "Add spaces: Isee a dog.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "I see a dog.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_spacing",
+          "explanation": "The answer is I see a dog..",
+          "feedback": "Yes \u2014 I see a dog. fits.",
+          "validation_checks": [
+            "spacing"
+          ],
+          "sample_answer": "I see a dog.",
+          "acceptable_answers": [
+            "I see a dog."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_MIXED_FROM_LVL3_Q02",
+          "prompt": "Choose the end mark for: I see a dog",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_punctuation",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "I see a dog.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_MIXED_FROM_LVL4_Q02",
+          "prompt": "Write a complete sentence about: dog",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "I see a dog.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "fragment_response",
+          "explanation": "The answer is I see a dog..",
+          "feedback": "Yes \u2014 I see a dog. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sample_answer": "I see a dog.",
+          "acceptable_answers": [
+            "I see a dog.",
+            "i see a dog."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_MIXED_FROM_LVL1_Q03",
+          "prompt": "Fix the capital letter: we can play.",
+          "question_type": "short_response",
+          "visual_model": "writing_checklist",
+          "support_type": "writing_checklist",
+          "correct_answer": "We can play.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_capital",
+          "explanation": "The answer is We can play..",
+          "feedback": "Yes \u2014 We can play. fits.",
+          "validation_checks": [
+            "capital"
+          ],
+          "sample_answer": "We can play.",
+          "acceptable_answers": [
+            "We can play."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_MIXED_FROM_LVL2_Q03",
+          "prompt": "Add spaces: Wecan play.",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "We can play.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_spacing",
+          "explanation": "The answer is We can play..",
+          "feedback": "Yes \u2014 We can play. fits.",
+          "validation_checks": [
+            "spacing"
+          ],
+          "sample_answer": "We can play.",
+          "acceptable_answers": [
+            "We can play."
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_MIXED_FROM_LVL3_Q03",
+          "prompt": "Choose the end mark for: We can play",
+          "question_type": "multiple_choice",
+          "visual_model": "punctuation_marker",
+          "support_type": "punctuation_marker",
+          "correct_answer": ".",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "missing_punctuation",
+          "explanation": "The answer is ..",
+          "feedback": "Yes \u2014 . fits.",
+          "sentence": "We can play.",
+          "choices": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "question_id": "G1E_WR_001_MIXED_FROM_LVL4_Q03",
+          "prompt": "Write a complete sentence about: sun",
+          "question_type": "short_response",
+          "visual_model": "sentence_builder",
+          "support_type": "sentence_builder",
+          "correct_answer": "We can play.",
+          "hints": [
+            "Say the word slowly.",
+            "Listen for the target sound or word part.",
+            "Check your answer with the model."
+          ],
+          "misconception_tag": "fragment_response",
+          "explanation": "The answer is We can play..",
+          "feedback": "Yes \u2014 We can play. fits.",
+          "validation_checks": [
+            "capital",
+            "spacing",
+            "punctuation",
+            "complete_sentence"
+          ],
+          "sample_answer": "We can play.",
+          "acceptable_answers": [
+            "We can play.",
+            "we can play."
+          ]
+        }
+      ]
+    }
+  ]
+}
