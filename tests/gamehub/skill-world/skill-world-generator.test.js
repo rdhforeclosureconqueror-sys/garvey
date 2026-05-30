@@ -7,6 +7,9 @@ const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_O
 const grade1Packages=grade1SkillIds.map(load);
 const grade2SkillIds=['G2E_RF_001','G2E_RF_002','G2E_FL_001','G2E_VOC_001','G2E_RC_001','G2E_RC_002','G2E_RC_003','G2E_WR_001','G2E_WR_002','G2E_WR_003','G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
 const grade2Packages=grade2SkillIds.map(load);
+const grade3SkillIds=['G3M_MUL_001'];
+const grade3Packages=grade3SkillIds.map(load);
+const g3MultiplicationFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_MUL_001');
 const g2AdvancedPhonics=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_001');
 const g2WordParts=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_RF_002');
 const g2FluencyEnglish=grade2Packages.find((pkg)=>pkg.skill_id==='G2E_FL_001');
@@ -28,7 +31,7 @@ const g2MeasureLength=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_MD_001');
 const g2TimeMoney=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_MD_002');
 const g2DataGraphs=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_MD_003');
 const g2Geometry=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_GM_001');
-const byId=Object.fromEntries([...grade1Packages,...grade2Packages].map((pkg)=>[pkg.skill_id,pkg]));
+const byId=Object.fromEntries([...grade1Packages,...grade2Packages,...grade3Packages].map((pkg)=>[pkg.skill_id,pkg]));
 
 const dp=byId.G1M_DP_001;
 const op=byId.G1M_OP_003;
@@ -905,5 +908,30 @@ assert.ok(g2GeometryQuestions.some((q)=>q.visual_model==='array_model'&&/rows|co
 assert.ok(g2GeometryQuestions.filter((q)=>q.question_type!=='multiple_choice').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G2M_GM_001 has acceptable_answers for short-response items');
 assert.match(VisualRegistry.render(g2GeometryQuestions.find((q)=>q.visual_model==='partition_shapes')),/data-renderer="partition_shapes"/,'partition_shapes output exists');
 assert.match(VisualRegistry.render(g2GeometryQuestions.find((q)=>q.visual_model==='array_model')),/data-renderer="array_model"/,'array_model output exists');
+
+
+const g3MultiplicationQuestions=g3MultiplicationFoundations.level_banks.flatMap((level)=>level.questions);
+assert.equal(Schema.validateSkillPackage(g3MultiplicationFoundations,{allowPlannedLevelBanks:false}).valid,true,'G3M_MUL_001 validates in strict production mode');
+assert.equal(g3MultiplicationFoundations.grade,3);
+assert.equal(g3MultiplicationFoundations.subject,'Math');
+assert.equal(g3MultiplicationFoundations.domain,'Operations and Algebraic Thinking');
+assert.equal(g3MultiplicationFoundations.skill,'Multiplication Foundations');
+assert.equal(Array.isArray(g3MultiplicationFoundations.level_banks),true,'G3M_MUL_001 has level_banks');
+assert.equal(g3MultiplicationFoundations.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,'G3M_MUL_001 has four focused levels');
+assert.equal(g3MultiplicationFoundations.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,'G3M_MUL_001 has Mixed level');
+g3MultiplicationFoundations.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+['Level 1: Equal Groups','Level 2: Arrays','Level 3: Repeated Addition','Level 4: Multiplication Equations','Mixed'].forEach((label)=>assert.ok(g3MultiplicationFoundations.level_banks.some((level)=>level.label===label),`G3M_MUL_001 includes ${label}`));
+['equal_groups','array_model','repeated_addition','multiplication_model','visual_objects'].forEach((visual)=>assert.ok(Schema.VISUAL_MODELS.includes(visual),`schema accepts ${visual}`));
+['equal_groups','array_model','repeated_addition','multiplication_model','visual_objects'].forEach((visual)=>assert.ok(g3MultiplicationQuestions.some((q)=>q.visual_model===visual),`G3M_MUL_001 includes ${visual}`));
+['multiple_choice','short_response','multiplication_equation'].forEach((type)=>assert.ok(g3MultiplicationQuestions.some((q)=>q.question_type===type),`G3M_MUL_001 includes ${type}`));
+['equal_groups_confusion','array_rows_columns_confusion','repeated_addition_confusion','multiplication_symbol_confusion'].forEach((tag)=>assert.ok(g3MultiplicationFoundations.misconception_bank[tag],`G3M_MUL_001 includes misconception ${tag}`));
+assert.ok(g3MultiplicationQuestions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G3M_MUL_001 short_response items have acceptable_answers');
+const g3MissionHtml=Renderer.renderSkillWorld(g3MultiplicationFoundations,{failClosed:true}).html;
+['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(g3MissionHtml,new RegExp(label),`G3M_MUL_001 mission renders ${label}`));
+assert.match(g3MissionHtml,/Continue to Skill Practice/,'G3M_MUL_001 profile links to Skill Practice Center');
+assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_model==='equal_groups')),/data-renderer="equal_groups"/,'equal_groups renderer output exists');
+assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_model==='array_model')),/rows.*columns|columns.*rows/i,'array_model renderer supports rows/columns');
+assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_model==='repeated_addition')),/data-renderer="repeated_addition"/,'repeated_addition renderer output exists');
+assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_model==='multiplication_model')),/data-renderer="multiplication_model"/,'multiplication_model renderer output exists');
 
 console.log('skill-world-generator tests passed');

@@ -168,3 +168,25 @@ test('Adaptive Grade 1 hub routes generated missions to /skill-world/:skillId', 
   assert.doesNotMatch(hub, /G1M_OP_003[^\n]*Start Skill World/);
   assert.doesNotMatch(hub, /G1M_DP_001[^\n]*Start Skill World/);
 });
+
+
+test('Grade 3 Skill World package appears from manifest for the hub', () => {
+  assert.ok(manifest.packages.includes('G3M_MUL_001.skill-package.v1.json'),'manifest includes G3M_MUL_001');
+  const packages = manifest.packages.map(readPackage);
+  const g3 = packages.find((pkg) => pkg.skill_id === 'G3M_MUL_001');
+  assert.ok(g3,'G3M_MUL_001 package loads from manifest');
+  assert.equal(g3.grade, 3);
+  assert.equal(g3.subject, 'Math');
+  assert.equal(g3.domain, 'Operations and Algebraic Thinking');
+  assert.equal(g3.skill, 'Multiplication Foundations');
+  assert.equal(Array.isArray(g3.level_banks), true);
+  assert.equal(g3.level_banks.filter((level) => !/(^|_)mixed$/i.test(level.level_id) && !/^mixed$/i.test(level.label)).length, 4);
+  assert.equal(g3.level_banks.some((level) => /(^|_)mixed$/i.test(level.level_id) || /^mixed$/i.test(level.label)), true);
+  assert.equal(g3.level_banks.every((level) => level.questions.length >= 10 && level.questions.length <= 12), true);
+  assert.equal(`/skill-world/${encodeURIComponent(g3.skill_id)}/drill`, '/skill-world/G3M_MUL_001/drill');
+  assert.match(hub, /function buildGradeLessons\(grade\)/);
+  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
+  assert.match(hub, /Grade \$\{escapeHtml\(pkg\.grade\)\} · \$\{escapeHtml\(pkg\.subject\)\} · \$\{escapeHtml\(pkg\.domain\)\} · \$\{escapeHtml\(pkg\.skill_id\)\}/);
+  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Practice This Skill/);
+});
