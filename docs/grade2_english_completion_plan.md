@@ -253,7 +253,7 @@ Every Grade 2 English production SkillPackage must meet the same production stan
   - Level 4: Build an Opinion Paragraph: 10–12 questions; mastery threshold 80%; Practice build an opinion paragraph for state an opinion, give reasons, and provide a closing.
   - Mixed: 10–12 questions; mastery threshold 80%; Interleave all Write Opinion Pieces targets.
 - **Visual models**: `writing_checklist`, `sentence_builder`, `opinion_reason_chart`, `paragraph_builder`
-- **Question types**: `sentence_builder`, `opinion_identification`, `reason_selection`, `closing_sentence_choice`, `constructed_sentence`, `rubric_scored_writing`
+- **Question types**: `multiple_choice`, `short_response`, `writing_response`, `sentence_completion`
 - **Misconception tags**: `missing_opinion`, `weak_reason`, `missing_closing`, `off_topic_response`
 - **Package acceptance**: production SkillPackage validates, renders without fallback placeholders, appears through manifest-driven Grade 2 English hub exposure, and includes all required Practice Center levels.
 
@@ -270,7 +270,7 @@ Every Grade 2 English production SkillPackage must meet the same production stan
   - Level 4: Build an Informative Paragraph: 10–12 questions; mastery threshold 80%; Practice build an informative paragraph for name a topic, supply facts, and provide closure.
   - Mixed: 10–12 questions; mastery threshold 80%; Interleave all Write Informative/Explanatory Text targets.
 - **Visual models**: `writing_checklist`, `fact_cards`, `paragraph_builder`, `topic_detail_chart`
-- **Question types**: `topic_sentence_choice`, `fact_selection`, `linking_word_choice`, `constructed_sentence`, `paragraph_builder`, `rubric_scored_writing`
+- **Question types**: `multiple_choice`, `short_response`, `writing_response`, `sentence_completion`
 - **Misconception tags**: `missing_topic`, `unsupported_fact`, `missing_linking_word`, `missing_closure`
 - **Package acceptance**: production SkillPackage validates, renders without fallback placeholders, appears through manifest-driven Grade 2 English hub exposure, and includes all required Practice Center levels.
 
@@ -287,9 +287,16 @@ Every Grade 2 English production SkillPackage must meet the same production stan
   - Level 4: Build a Narrative: 10–12 questions; mastery threshold 80%; Practice build a narrative for recount an event with order words, details, and closure.
   - Mixed: 10–12 questions; mastery threshold 80%; Interleave all Narrative Writing With Sequence targets.
 - **Visual models**: `story_sequence`, `event_cards`, `paragraph_builder`, `writing_checklist`
-- **Question types**: `sequence_select`, `event_ordering`, `detail_picker`, `constructed_sentence`, `narrative_builder`, `rubric_scored_writing`
+- **Question types**: `multiple_choice`, `short_response`, `writing_response`, `sequencing`
 - **Misconception tags**: `sequence_word_missing`, `event_order_error`, `missing_details`, `missing_closure`
 - **Package acceptance**: production SkillPackage validates, renders without fallback placeholders, appears through manifest-driven Grade 2 English hub exposure, and includes all required Practice Center levels.
+
+## Writing Batch Completion Proof — 2026-05-30
+- `G2E_WR_001`, `G2E_WR_002`, and `G2E_WR_003` are implemented as production SkillPackage JSON files under `public/gamehub/skill-world/content/`.
+- Each writing package includes the full Guided Mission sequence and Skill Practice Center level banks with four focused levels plus Mixed, 10 questions per level.
+- Renderer support now covers `opinion_reason_chart`, `paragraph_builder`, `fact_cards`, and `topic_detail_chart`, while reusing `writing_checklist`, `sentence_builder`, `story_sequence`, and `event_cards`.
+- Writing validation uses child-friendly rule checks and acceptable sample answers for opinion, reason, closing, topic, fact, linking word, sequence word, detail, sentence completeness, capitalization, spacing, and punctuation.
+- All three packages are listed in the Skill World manifest for Grade 2 hub exposure with Start Skill World and Practice This Skill routes.
 
 ## Contractor-Ready Implementation Backlog
 - **G2E-BL-001 (P0)**: Extend SkillPackage schema/runtime for Grade 2 English question types and metadata. Dependencies: none.
