@@ -16,7 +16,7 @@ const packageFiles = fs.readdirSync(contentDir)
 const requiredGrade1MathSkillIds = ['G1M_NS_001', 'G1M_NS_002', 'G1M_NS_003', 'G1M_PV_001', 'G1M_OP_001', 'G1M_OP_002', 'G1M_OP_003', 'G1M_GM_001', 'G1M_GM_002', 'G1M_DP_001', 'G1M_MD_TIME_001'];
 const requiredGrade1EnglishSkillIds = ['G1E_RF_001', 'G1E_RF_002', 'G1E_PH_001', 'G1E_PH_002', 'G1E_SW_001', 'G1E_FL_001', 'G1E_RC_001', 'G1E_RC_002', 'G1E_WR_001', 'G1E_WR_002'];
 const requiredGrade1SkillIds = [...requiredGrade1MathSkillIds, ...requiredGrade1EnglishSkillIds];
-const requiredGrade2SkillIds = ['G2M_NS_001', 'G2M_PV_001', 'G2M_NS_002', 'G2M_OP_001', 'G2M_OP_002', 'G2M_OP_003', 'G2M_WP_001', 'G2M_MD_001', 'G2M_MD_002'];
+const requiredGrade2SkillIds = ['G2M_NS_001', 'G2M_PV_001', 'G2M_NS_002', 'G2M_OP_001', 'G2M_OP_002', 'G2M_OP_003', 'G2M_WP_001', 'G2M_MD_001', 'G2M_MD_002', 'G2M_MD_003', 'G2M_GM_001'];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -120,6 +120,8 @@ test('Grade 2 Skill World packages appear from manifest for the hub', () => {
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_WP_001').skill, 'Addition and Subtraction Word Problems');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_MD_001').skill, 'Measure Length');
   assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_MD_002').skill, 'Time and Money');
+  assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_MD_003').skill, 'Data, Graphs, and Line Plots');
+  assert.equal(grade2Packages.find((pkg) => pkg.skill_id === 'G2M_GM_001').skill, 'Shapes, Arrays, and Partitioning');
   assert.match(hub, /function buildGradeLessons\(grade\)/);
   assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
   assert.doesNotMatch(hub, /if\(g!==1\)/);
