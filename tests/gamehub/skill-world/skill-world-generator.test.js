@@ -5,7 +5,7 @@ const root=path.join(__dirname,'..','..','..');
 const load=(id)=>JSON.parse(fs.readFileSync(path.join(root,`public/gamehub/skill-world/content/${id}.skill-package.v1.json`),'utf8'));
 const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_GM_001','G1M_GM_002','G1M_DP_001','G1M_MD_TIME_001','G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
 const grade1Packages=grade1SkillIds.map(load);
-const grade2SkillIds=['G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002'];
+const grade2SkillIds=['G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
 const grade2Packages=grade2SkillIds.map(load);
 const g2PlaceValue=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_PV_001');
 const g2CountReadWrite=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_NS_001');
@@ -16,6 +16,8 @@ const g2FluencyWithin20=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_OP_003');
 const g2WordProblems=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_WP_001');
 const g2MeasureLength=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_MD_001');
 const g2TimeMoney=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_MD_002');
+const g2DataGraphs=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_MD_003');
+const g2Geometry=grade2Packages.find((pkg)=>pkg.skill_id==='G2M_GM_001');
 const byId=Object.fromEntries([...grade1Packages,...grade2Packages].map((pkg)=>[pkg.skill_id,pkg]));
 const dp=byId.G1M_DP_001;
 const op=byId.G1M_OP_003;
@@ -490,7 +492,7 @@ assert.match(g2DrillHtml,/class="level-card-meta"/,'G2M_PV_001 drill keeps compa
 assert.ok(Renderer.evaluateAnswer(g2Questions.find((q)=>q.question_type==='short_response'&&q.correct_answer==='300 + 40 + 2'),'300 + 40 + 2.'),'G2M_PV_001 short_response accepts acceptable answer');
 
 
-const grade2ProductionIds=['G2M_NS_001','G2M_PV_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002'];
+const grade2ProductionIds=['G2M_NS_001','G2M_PV_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
 grade2ProductionIds.forEach((id)=>{
   const pkg=byId[id];
   assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates as production package`);
@@ -628,10 +630,8 @@ assert.match(clockVisual,/clock-number n12/);
 assert.match(clockVisual,/hour-hand/);
 assert.match(clockVisual,/minute-hand/);
 
-console.log('skill-world-generator tests passed');
 
-
-['G2M_WP_001','G2M_MD_001','G2M_MD_002'].forEach((id)=>{
+['G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'].forEach((id)=>{
   const pkg=byId[id];
   assert.ok(pkg,`${id} package exists`);
   assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates as production package`);
@@ -670,3 +670,30 @@ assert.match(VisualRegistry.render(g2TimeMoneyQuestions.find((q)=>q.visual_model
 assert.ok(g2TimeMoneyQuestions.some((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.includes('3:05')&&q.acceptable_answers.includes('3 05')),'G2M_MD_002 accepts time variants like 3:05 and 3 05');
 assert.ok(g2TimeMoneyQuestions.some((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.includes('3:05 p.m.')),'G2M_MD_002 accepts p.m. time variants');
 assert.ok(g2TimeMoneyQuestions.some((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.includes('25 cents')&&q.acceptable_answers.includes('$0.25')&&q.acceptable_answers.includes('quarter')),'G2M_MD_002 accepts money variants');
+
+
+const g2DataQuestions=g2DataGraphs.level_banks.flatMap((level)=>level.questions);
+assert.ok(g2DataQuestions.some((q)=>q.visual_model==='picture_graph'),'G2M_MD_003 includes picture graphs');
+assert.ok(g2DataQuestions.some((q)=>q.visual_model==='bar_graph'),'G2M_MD_003 includes bar graphs');
+assert.ok(g2DataQuestions.some((q)=>q.visual_model==='line_plot'),'G2M_MD_003 includes line plots');
+assert.ok(g2DataQuestions.some((q)=>q.visual_model==='data_table'),'G2M_MD_003 includes data tables');
+assert.ok(g2DataQuestions.some((q)=>/more|fewer/i.test(q.prompt)&&q.misconception_tag==='more_less_data_confusion'),'G2M_MD_003 includes how many more/less questions');
+assert.ok(g2DataQuestions.filter((q)=>q.question_type!=='multiple_choice').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G2M_MD_003 has acceptable_answers for numeric responses');
+assert.match(VisualRegistry.render(g2DataQuestions.find((q)=>q.visual_model==='picture_graph')),/data-renderer="picture_graph"/,'picture_graph output exists');
+assert.match(VisualRegistry.render(g2DataQuestions.find((q)=>q.visual_model==='bar_graph')),/data-renderer="bar_graph"/,'bar_graph output exists');
+assert.match(VisualRegistry.render(g2DataQuestions.find((q)=>q.visual_model==='line_plot')),/data-renderer="line_plot"/,'line_plot output exists');
+assert.match(VisualRegistry.render(g2DataQuestions.find((q)=>q.visual_model==='data_table')),/data-renderer="data_table"/,'data_table output exists');
+
+const g2GeometryQuestions=g2Geometry.level_banks.flatMap((level)=>level.questions);
+assert.ok(g2GeometryQuestions.some((q)=>q.visual_model==='shape_identification'&&/2D|3 sides|4 equal sides|round/i.test(q.prompt)),'G2M_GM_001 includes 2D shapes');
+assert.ok(g2GeometryQuestions.some((q)=>q.visual_model==='shape_identification'&&/3D|faces|cube|sphere|cylinder|cone/i.test(q.prompt)),'G2M_GM_001 includes 3D shapes');
+assert.ok(g2GeometryQuestions.some((q)=>/sides|corners|faces/i.test(q.prompt)),'G2M_GM_001 includes sides, corners, and faces');
+assert.ok(g2GeometryQuestions.some((q)=>q.visual_model==='partition_shapes'&&/halves/i.test(q.prompt+q.correct_answer)),'G2M_GM_001 includes halves');
+assert.ok(g2GeometryQuestions.some((q)=>q.visual_model==='partition_shapes'&&/thirds/i.test(q.prompt+q.correct_answer)),'G2M_GM_001 includes thirds');
+assert.ok(g2GeometryQuestions.some((q)=>q.visual_model==='partition_shapes'&&/fourths/i.test(q.prompt+q.correct_answer)),'G2M_GM_001 includes fourths');
+assert.ok(g2GeometryQuestions.some((q)=>q.visual_model==='array_model'&&/rows|columns/i.test(q.prompt)),'G2M_GM_001 includes arrays as rows and columns');
+assert.ok(g2GeometryQuestions.filter((q)=>q.question_type!=='multiple_choice').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G2M_GM_001 has acceptable_answers for short-response items');
+assert.match(VisualRegistry.render(g2GeometryQuestions.find((q)=>q.visual_model==='partition_shapes')),/data-renderer="partition_shapes"/,'partition_shapes output exists');
+assert.match(VisualRegistry.render(g2GeometryQuestions.find((q)=>q.visual_model==='array_model')),/data-renderer="array_model"/,'array_model output exists');
+
+console.log('skill-world-generator tests passed');

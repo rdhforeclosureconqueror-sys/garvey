@@ -1,0 +1,1706 @@
+{
+  "skill_id": "G2M_GM_001",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_plan": "curriculum-framework/plans/grade2-math-completion-plan.v1.json"
+  },
+  "grade": 2,
+  "subject": "Math",
+  "domain": "Geometry",
+  "skill": "Shapes, Arrays, and Partitioning",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    5
+  ],
+  "lesson": {
+    "story_mission": "Help the Shape Studio build fair designs for a classroom mural.",
+    "mini_lesson": "Shapes have defining attributes, equal shares must be the same size, and arrays show equal rows and columns.",
+    "objective": "Recognize 2D and 3D shapes, describe attributes, partition shapes into equal shares, and understand arrays.",
+    "key_vocabulary": [
+      "sides",
+      "corners",
+      "faces",
+      "halves",
+      "thirds",
+      "fourths",
+      "rows",
+      "columns"
+    ],
+    "concept_explanation": "A shape name comes from attributes such as sides, corners, or faces. Partitions create equal shares. Arrays organize objects in equal rows and columns.",
+    "visual_model": "shape_identification",
+    "common_misconception": "Learners may use color or size instead of defining attributes, confuse rows with columns, or call unequal parts equal shares.",
+    "real_world_connection": "Geometry helps describe boxes, tiles, windows, snacks, and organized groups of objects.",
+    "lesson_summary": "Name shapes by attributes, check equal shares, and multiply repeated rows or columns by repeated addition.",
+    "hints": [
+      "Look for defining attributes.",
+      "Check that shares are equal sizes.",
+      "For arrays, count rows and columns."
+    ]
+  },
+  "worked_examples": [
+    {
+      "text": "A triangle has 3 sides and 3 corners no matter which way it is turned."
+    },
+    {
+      "text": "A rectangle split into 4 equal parts is partitioned into fourths."
+    },
+    {
+      "text": "An array with 3 rows and 4 columns has 12 objects because 4 + 4 + 4 = 12."
+    }
+  ],
+  "hint_ladder": [
+    "Look for defining attributes.",
+    "Check that shares are equal sizes.",
+    "For arrays, count rows and columns."
+  ],
+  "misconception_bank": {
+    "defining_attribute_confusion": "Learner may focus on color, size, or orientation instead of sides, corners, or faces.",
+    "unequal_partition_error": "Learner may count parts without checking equal sizes.",
+    "rows_columns_confusion": "Learner may swap rows and columns or count only one row.",
+    "shape_label_confusion": "Learner may use the wrong 2D or 3D shape name."
+  },
+  "game_theme": {
+    "title": "Shapes, Arrays, and Partitioning",
+    "mission_intro": "Help the Shape Studio build fair designs for a classroom mural.",
+    "badge_name": "Shape Studio Builder"
+  },
+  "guided_practice": [
+    {
+      "id": "G2M_GM_001_LVL1_Q1",
+      "question_id": "G2M_GM_001_LVL1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "shape_identification",
+      "prompt": "Which 2D shape has 3 sides?",
+      "answer": "triangle",
+      "correct_answer": "triangle",
+      "misconception_tag": "shape_label_confusion",
+      "hints": [
+        "Look for defining attributes.",
+        "Check that shares are equal sizes.",
+        "For arrays, count rows and columns."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is triangle.",
+      "choices": [
+        "triangle",
+        "circle",
+        "square"
+      ],
+      "shape": "triangle"
+    },
+    {
+      "id": "G2M_GM_001_LVL1_Q2",
+      "question_id": "G2M_GM_001_LVL1_Q2",
+      "question_type": "multiple_choice",
+      "visual_model": "shape_identification",
+      "prompt": "Which 2D shape has 4 equal sides and 4 corners?",
+      "answer": "square",
+      "correct_answer": "square",
+      "misconception_tag": "defining_attribute_confusion",
+      "hints": [
+        "Look for defining attributes.",
+        "Check that shares are equal sizes.",
+        "For arrays, count rows and columns."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is square.",
+      "choices": [
+        "square",
+        "triangle",
+        "circle"
+      ],
+      "shape": "square"
+    },
+    {
+      "id": "G2M_GM_001_LVL1_Q3",
+      "question_id": "G2M_GM_001_LVL1_Q3",
+      "question_type": "multiple_choice",
+      "visual_model": "shape_identification",
+      "prompt": "Which shape is round with no sides or corners?",
+      "answer": "circle",
+      "correct_answer": "circle",
+      "misconception_tag": "shape_label_confusion",
+      "hints": [
+        "Look for defining attributes.",
+        "Check that shares are equal sizes.",
+        "For arrays, count rows and columns."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is circle.",
+      "choices": [
+        "circle",
+        "rectangle",
+        "cube"
+      ],
+      "shape": "circle"
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G2M_GM_001_LVL2_Q1",
+      "question_id": "G2M_GM_001_LVL2_Q1",
+      "question_type": "short_response",
+      "visual_model": "shape_identification",
+      "prompt": "How many sides does a hexagon have?",
+      "answer": "6",
+      "correct_answer": "6",
+      "acceptable_answers": [
+        "6"
+      ],
+      "misconception_tag": "defining_attribute_confusion",
+      "hints": [
+        "Look for defining attributes.",
+        "Check that shares are equal sizes.",
+        "For arrays, count rows and columns."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is 6.",
+      "shape": "hexagon"
+    },
+    {
+      "id": "G2M_GM_001_LVL2_Q2",
+      "question_id": "G2M_GM_001_LVL2_Q2",
+      "question_type": "short_response",
+      "visual_model": "shape_identification",
+      "prompt": "How many corners does a pentagon have?",
+      "answer": "5",
+      "correct_answer": "5",
+      "acceptable_answers": [
+        "5"
+      ],
+      "misconception_tag": "defining_attribute_confusion",
+      "hints": [
+        "Look for defining attributes.",
+        "Check that shares are equal sizes.",
+        "For arrays, count rows and columns."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is 5.",
+      "shape": "pentagon"
+    },
+    {
+      "id": "G2M_GM_001_LVL3_Q1",
+      "question_id": "G2M_GM_001_LVL3_Q1",
+      "question_type": "short_response",
+      "visual_model": "partition_shapes",
+      "prompt": "A rectangle is split into 2 equal shares. What are the shares called?",
+      "answer": "halves",
+      "correct_answer": "halves",
+      "acceptable_answers": [
+        "halves",
+        "half"
+      ],
+      "misconception_tag": "unequal_partition_error",
+      "hints": [
+        "Look for defining attributes.",
+        "Check that shares are equal sizes.",
+        "For arrays, count rows and columns."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is halves.",
+      "shape": "rectangle",
+      "shares": 2,
+      "equal": true
+    },
+    {
+      "id": "G2M_GM_001_LVL3_Q2",
+      "question_id": "G2M_GM_001_LVL3_Q2",
+      "question_type": "short_response",
+      "visual_model": "partition_shapes",
+      "prompt": "A circle is split into 3 equal shares. What are the shares called?",
+      "answer": "thirds",
+      "correct_answer": "thirds",
+      "acceptable_answers": [
+        "thirds",
+        "thirds"
+      ],
+      "misconception_tag": "unequal_partition_error",
+      "hints": [
+        "Look for defining attributes.",
+        "Check that shares are equal sizes.",
+        "For arrays, count rows and columns."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is thirds.",
+      "shape": "circle",
+      "shares": 3,
+      "equal": true
+    },
+    {
+      "id": "G2M_GM_001_LVL4_Q1",
+      "question_id": "G2M_GM_001_LVL4_Q1",
+      "question_type": "array_counting",
+      "visual_model": "array_model",
+      "prompt": "An array has 2 rows and 3 columns. How many objects are there?",
+      "answer": "6",
+      "correct_answer": "6",
+      "acceptable_answers": [
+        "6"
+      ],
+      "misconception_tag": "rows_columns_confusion",
+      "hints": [
+        "Look for defining attributes.",
+        "Check that shares are equal sizes.",
+        "For arrays, count rows and columns."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "2 rows of 3 equals 6.",
+      "rows": 2,
+      "columns": 3
+    },
+    {
+      "id": "G2M_GM_001_LVL4_Q2",
+      "question_id": "G2M_GM_001_LVL4_Q2",
+      "question_type": "array_counting",
+      "visual_model": "array_model",
+      "prompt": "An array has 3 rows and 4 columns. How many objects are there?",
+      "answer": "12",
+      "correct_answer": "12",
+      "acceptable_answers": [
+        "12"
+      ],
+      "misconception_tag": "rows_columns_confusion",
+      "hints": [
+        "Look for defining attributes.",
+        "Check that shares are equal sizes.",
+        "For arrays, count rows and columns."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "3 rows of 4 equals 12.",
+      "rows": 3,
+      "columns": 4
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G2M_GM_001_MIXED_Q1",
+      "question_id": "G2M_GM_001_MIXED_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "shape_identification",
+      "prompt": "Which 2D shape has 3 sides?",
+      "answer": "triangle",
+      "correct_answer": "triangle",
+      "misconception_tag": "shape_label_confusion",
+      "hints": [
+        "Look for defining attributes.",
+        "Check that shares are equal sizes.",
+        "For arrays, count rows and columns."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is triangle.",
+      "choices": [
+        "triangle",
+        "circle",
+        "square"
+      ],
+      "shape": "triangle"
+    },
+    {
+      "id": "G2M_GM_001_MIXED_Q2",
+      "question_id": "G2M_GM_001_MIXED_Q2",
+      "question_type": "multiple_choice",
+      "visual_model": "shape_identification",
+      "prompt": "Which 3D shape has 6 square faces?",
+      "answer": "cube",
+      "correct_answer": "cube",
+      "misconception_tag": "shape_label_confusion",
+      "hints": [
+        "Look for defining attributes.",
+        "Check that shares are equal sizes.",
+        "For arrays, count rows and columns."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is cube.",
+      "choices": [
+        "cube",
+        "sphere",
+        "cone"
+      ],
+      "shape": "cube"
+    },
+    {
+      "id": "G2M_GM_001_MIXED_Q3",
+      "question_id": "G2M_GM_001_MIXED_Q3",
+      "question_type": "short_response",
+      "visual_model": "shape_identification",
+      "prompt": "How many sides does a hexagon have?",
+      "answer": "6",
+      "correct_answer": "6",
+      "acceptable_answers": [
+        "6"
+      ],
+      "misconception_tag": "defining_attribute_confusion",
+      "hints": [
+        "Look for defining attributes.",
+        "Check that shares are equal sizes.",
+        "For arrays, count rows and columns."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is 6.",
+      "shape": "hexagon"
+    }
+  ],
+  "level_banks": [
+    {
+      "level_id": "G2M_GM_001_LVL1",
+      "label": "Level 1: 2D and 3D Shapes",
+      "focus": "Recognize common 2D and 3D shapes.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_GM_001_LVL1_Q1",
+          "question_id": "G2M_GM_001_LVL1_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "shape_identification",
+          "prompt": "Which 2D shape has 3 sides?",
+          "answer": "triangle",
+          "correct_answer": "triangle",
+          "misconception_tag": "shape_label_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is triangle.",
+          "choices": [
+            "triangle",
+            "circle",
+            "square"
+          ],
+          "shape": "triangle"
+        },
+        {
+          "id": "G2M_GM_001_LVL1_Q2",
+          "question_id": "G2M_GM_001_LVL1_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "shape_identification",
+          "prompt": "Which 2D shape has 4 equal sides and 4 corners?",
+          "answer": "square",
+          "correct_answer": "square",
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is square.",
+          "choices": [
+            "square",
+            "triangle",
+            "circle"
+          ],
+          "shape": "square"
+        },
+        {
+          "id": "G2M_GM_001_LVL1_Q3",
+          "question_id": "G2M_GM_001_LVL1_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "shape_identification",
+          "prompt": "Which shape is round with no sides or corners?",
+          "answer": "circle",
+          "correct_answer": "circle",
+          "misconception_tag": "shape_label_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is circle.",
+          "choices": [
+            "circle",
+            "rectangle",
+            "cube"
+          ],
+          "shape": "circle"
+        },
+        {
+          "id": "G2M_GM_001_LVL1_Q4",
+          "question_id": "G2M_GM_001_LVL1_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "shape_identification",
+          "prompt": "Which 3D shape has 6 square faces?",
+          "answer": "cube",
+          "correct_answer": "cube",
+          "misconception_tag": "shape_label_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is cube.",
+          "choices": [
+            "cube",
+            "sphere",
+            "cone"
+          ],
+          "shape": "cube"
+        },
+        {
+          "id": "G2M_GM_001_LVL1_Q5",
+          "question_id": "G2M_GM_001_LVL1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "shape_identification",
+          "prompt": "Which 3D shape is round like a ball?",
+          "answer": "sphere",
+          "correct_answer": "sphere",
+          "misconception_tag": "shape_label_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is sphere.",
+          "choices": [
+            "sphere",
+            "cylinder",
+            "rectangular prism"
+          ],
+          "shape": "sphere"
+        },
+        {
+          "id": "G2M_GM_001_LVL1_Q6",
+          "question_id": "G2M_GM_001_LVL1_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "shape_identification",
+          "prompt": "Which 3D shape has two flat circular faces?",
+          "answer": "cylinder",
+          "correct_answer": "cylinder",
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is cylinder.",
+          "choices": [
+            "cylinder",
+            "cube",
+            "pyramid"
+          ],
+          "shape": "cylinder"
+        },
+        {
+          "id": "G2M_GM_001_LVL1_Q7",
+          "question_id": "G2M_GM_001_LVL1_Q7",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "How many corners does a rectangle have?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4"
+          ],
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 4.",
+          "shape": "rectangle"
+        },
+        {
+          "id": "G2M_GM_001_LVL1_Q8",
+          "question_id": "G2M_GM_001_LVL1_Q8",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "How many sides does a triangle have?",
+          "answer": "3",
+          "correct_answer": "3",
+          "acceptable_answers": [
+            "3"
+          ],
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 3.",
+          "shape": "triangle"
+        },
+        {
+          "id": "G2M_GM_001_LVL1_Q9",
+          "question_id": "G2M_GM_001_LVL1_Q9",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "How many faces does a cube have?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 6.",
+          "shape": "cube"
+        },
+        {
+          "id": "G2M_GM_001_LVL1_Q10",
+          "question_id": "G2M_GM_001_LVL1_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "shape_identification",
+          "prompt": "Which 3D shape can have a point and a circular face?",
+          "answer": "cone",
+          "correct_answer": "cone",
+          "misconception_tag": "shape_label_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is cone.",
+          "choices": [
+            "cone",
+            "sphere",
+            "cube"
+          ],
+          "shape": "cone"
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_GM_001_LVL2",
+      "label": "Level 2: Attributes of Shapes",
+      "focus": "Describe sides, corners, and faces where appropriate.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_GM_001_LVL2_Q1",
+          "question_id": "G2M_GM_001_LVL2_Q1",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "How many sides does a hexagon have?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 6.",
+          "shape": "hexagon"
+        },
+        {
+          "id": "G2M_GM_001_LVL2_Q2",
+          "question_id": "G2M_GM_001_LVL2_Q2",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "How many corners does a pentagon have?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5"
+          ],
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 5.",
+          "shape": "pentagon"
+        },
+        {
+          "id": "G2M_GM_001_LVL2_Q3",
+          "question_id": "G2M_GM_001_LVL2_Q3",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "How many sides does a quadrilateral have?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4"
+          ],
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 4.",
+          "shape": "rectangle"
+        },
+        {
+          "id": "G2M_GM_001_LVL2_Q4",
+          "question_id": "G2M_GM_001_LVL2_Q4",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "A cube has how many faces?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 6.",
+          "shape": "cube"
+        },
+        {
+          "id": "G2M_GM_001_LVL2_Q5",
+          "question_id": "G2M_GM_001_LVL2_Q5",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "Which attribute defines a triangle?",
+          "answer": "3 sides",
+          "correct_answer": "3 sides",
+          "acceptable_answers": [
+            "3 sides",
+            "three sides",
+            "3"
+          ],
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 3 sides.",
+          "shape": "triangle"
+        },
+        {
+          "id": "G2M_GM_001_LVL2_Q6",
+          "question_id": "G2M_GM_001_LVL2_Q6",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "Which attribute defines a circle?",
+          "answer": "no corners",
+          "correct_answer": "no corners",
+          "acceptable_answers": [
+            "no corners",
+            "0 corners",
+            "zero corners",
+            "round"
+          ],
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is no corners.",
+          "shape": "circle"
+        },
+        {
+          "id": "G2M_GM_001_LVL2_Q7",
+          "question_id": "G2M_GM_001_LVL2_Q7",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "How many corners does a square have?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4"
+          ],
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 4.",
+          "shape": "square"
+        },
+        {
+          "id": "G2M_GM_001_LVL2_Q8",
+          "question_id": "G2M_GM_001_LVL2_Q8",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "A rectangular prism has how many rectangular faces?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 6.",
+          "shape": "rectangular prism"
+        },
+        {
+          "id": "G2M_GM_001_LVL2_Q9",
+          "question_id": "G2M_GM_001_LVL2_Q9",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "Which is a defining attribute: color or number of sides?",
+          "answer": "number of sides",
+          "correct_answer": "number of sides",
+          "acceptable_answers": [
+            "number of sides",
+            "sides"
+          ],
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is number of sides.",
+          "shape": "triangle"
+        },
+        {
+          "id": "G2M_GM_001_LVL2_Q10",
+          "question_id": "G2M_GM_001_LVL2_Q10",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "How many sides does an octagon have?",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8"
+          ],
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 8.",
+          "shape": "octagon"
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_GM_001_LVL3",
+      "label": "Level 3: Partition into Equal Shares",
+      "focus": "Name halves, thirds, and fourths and identify equal shares.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_GM_001_LVL3_Q1",
+          "question_id": "G2M_GM_001_LVL3_Q1",
+          "question_type": "short_response",
+          "visual_model": "partition_shapes",
+          "prompt": "A rectangle is split into 2 equal shares. What are the shares called?",
+          "answer": "halves",
+          "correct_answer": "halves",
+          "acceptable_answers": [
+            "halves",
+            "half"
+          ],
+          "misconception_tag": "unequal_partition_error",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is halves.",
+          "shape": "rectangle",
+          "shares": 2,
+          "equal": true
+        },
+        {
+          "id": "G2M_GM_001_LVL3_Q2",
+          "question_id": "G2M_GM_001_LVL3_Q2",
+          "question_type": "short_response",
+          "visual_model": "partition_shapes",
+          "prompt": "A circle is split into 3 equal shares. What are the shares called?",
+          "answer": "thirds",
+          "correct_answer": "thirds",
+          "acceptable_answers": [
+            "thirds",
+            "thirds"
+          ],
+          "misconception_tag": "unequal_partition_error",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is thirds.",
+          "shape": "circle",
+          "shares": 3,
+          "equal": true
+        },
+        {
+          "id": "G2M_GM_001_LVL3_Q3",
+          "question_id": "G2M_GM_001_LVL3_Q3",
+          "question_type": "short_response",
+          "visual_model": "partition_shapes",
+          "prompt": "A rectangle is split into 4 equal shares. What are the shares called?",
+          "answer": "fourths",
+          "correct_answer": "fourths",
+          "acceptable_answers": [
+            "fourths",
+            "quarters"
+          ],
+          "misconception_tag": "unequal_partition_error",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is fourths.",
+          "shape": "rectangle",
+          "shares": 4,
+          "equal": true
+        },
+        {
+          "id": "G2M_GM_001_LVL3_Q4",
+          "question_id": "G2M_GM_001_LVL3_Q4",
+          "question_type": "short_response",
+          "visual_model": "partition_shapes",
+          "prompt": "How many equal shares are in thirds?",
+          "answer": "3",
+          "correct_answer": "3",
+          "acceptable_answers": [
+            "3"
+          ],
+          "misconception_tag": "unequal_partition_error",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 3.",
+          "shape": "circle",
+          "shares": 3,
+          "equal": true
+        },
+        {
+          "id": "G2M_GM_001_LVL3_Q5",
+          "question_id": "G2M_GM_001_LVL3_Q5",
+          "question_type": "short_response",
+          "visual_model": "partition_shapes",
+          "prompt": "How many equal shares are in fourths?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4"
+          ],
+          "misconception_tag": "unequal_partition_error",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 4.",
+          "shape": "rectangle",
+          "shares": 4,
+          "equal": true
+        },
+        {
+          "id": "G2M_GM_001_LVL3_Q6",
+          "question_id": "G2M_GM_001_LVL3_Q6",
+          "question_type": "short_response",
+          "visual_model": "partition_shapes",
+          "prompt": "How many equal shares are in halves?",
+          "answer": "2",
+          "correct_answer": "2",
+          "acceptable_answers": [
+            "2"
+          ],
+          "misconception_tag": "unequal_partition_error",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 2.",
+          "shape": "circle",
+          "shares": 2,
+          "equal": true
+        },
+        {
+          "id": "G2M_GM_001_LVL3_Q7",
+          "question_id": "G2M_GM_001_LVL3_Q7",
+          "question_type": "short_response",
+          "visual_model": "partition_shapes",
+          "prompt": "Are 3 parts thirds if one part is much larger?",
+          "answer": "no",
+          "correct_answer": "no",
+          "acceptable_answers": [
+            "no",
+            "thirds"
+          ],
+          "misconception_tag": "unequal_partition_error",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is no.",
+          "shape": "rectangle",
+          "shares": 3,
+          "equal": false
+        },
+        {
+          "id": "G2M_GM_001_LVL3_Q8",
+          "question_id": "G2M_GM_001_LVL3_Q8",
+          "question_type": "short_response",
+          "visual_model": "partition_shapes",
+          "prompt": "A circle cut into 4 equal parts names what share?",
+          "answer": "fourths",
+          "correct_answer": "fourths",
+          "acceptable_answers": [
+            "fourths",
+            "quarters"
+          ],
+          "misconception_tag": "unequal_partition_error",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is fourths.",
+          "shape": "circle",
+          "shares": 4,
+          "equal": true
+        },
+        {
+          "id": "G2M_GM_001_LVL3_Q9",
+          "question_id": "G2M_GM_001_LVL3_Q9",
+          "question_type": "short_response",
+          "visual_model": "partition_shapes",
+          "prompt": "A sandwich cut into 2 equal parts names what share?",
+          "answer": "halves",
+          "correct_answer": "halves",
+          "acceptable_answers": [
+            "halves",
+            "half"
+          ],
+          "misconception_tag": "unequal_partition_error",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is halves.",
+          "shape": "rectangle",
+          "shares": 2,
+          "equal": true
+        },
+        {
+          "id": "G2M_GM_001_LVL3_Q10",
+          "question_id": "G2M_GM_001_LVL3_Q10",
+          "question_type": "short_response",
+          "visual_model": "partition_shapes",
+          "prompt": "A rectangle has 4 same-size parts. How many fourths make the whole?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4"
+          ],
+          "misconception_tag": "unequal_partition_error",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 4.",
+          "shape": "rectangle",
+          "shares": 4,
+          "equal": true
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_GM_001_LVL4",
+      "label": "Level 4: Arrays and Repeated Rows/Columns",
+      "focus": "Use rows and columns to count arrays.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_GM_001_LVL4_Q1",
+          "question_id": "G2M_GM_001_LVL4_Q1",
+          "question_type": "array_counting",
+          "visual_model": "array_model",
+          "prompt": "An array has 2 rows and 3 columns. How many objects are there?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "rows_columns_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "2 rows of 3 equals 6.",
+          "rows": 2,
+          "columns": 3
+        },
+        {
+          "id": "G2M_GM_001_LVL4_Q2",
+          "question_id": "G2M_GM_001_LVL4_Q2",
+          "question_type": "array_counting",
+          "visual_model": "array_model",
+          "prompt": "An array has 3 rows and 4 columns. How many objects are there?",
+          "answer": "12",
+          "correct_answer": "12",
+          "acceptable_answers": [
+            "12"
+          ],
+          "misconception_tag": "rows_columns_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "3 rows of 4 equals 12.",
+          "rows": 3,
+          "columns": 4
+        },
+        {
+          "id": "G2M_GM_001_LVL4_Q3",
+          "question_id": "G2M_GM_001_LVL4_Q3",
+          "question_type": "array_counting",
+          "visual_model": "array_model",
+          "prompt": "An array has 4 rows and 5 columns. How many objects are there?",
+          "answer": "20",
+          "correct_answer": "20",
+          "acceptable_answers": [
+            "20"
+          ],
+          "misconception_tag": "rows_columns_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "4 rows of 5 equals 20.",
+          "rows": 4,
+          "columns": 5
+        },
+        {
+          "id": "G2M_GM_001_LVL4_Q4",
+          "question_id": "G2M_GM_001_LVL4_Q4",
+          "question_type": "array_counting",
+          "visual_model": "array_model",
+          "prompt": "An array has 2 rows and 5 columns. How many objects are there?",
+          "answer": "10",
+          "correct_answer": "10",
+          "acceptable_answers": [
+            "10"
+          ],
+          "misconception_tag": "rows_columns_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "2 rows of 5 equals 10.",
+          "rows": 2,
+          "columns": 5
+        },
+        {
+          "id": "G2M_GM_001_LVL4_Q5",
+          "question_id": "G2M_GM_001_LVL4_Q5",
+          "question_type": "array_counting",
+          "visual_model": "array_model",
+          "prompt": "An array has 5 rows and 2 columns. How many objects are there?",
+          "answer": "10",
+          "correct_answer": "10",
+          "acceptable_answers": [
+            "10"
+          ],
+          "misconception_tag": "rows_columns_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "5 rows of 2 equals 10.",
+          "rows": 5,
+          "columns": 2
+        },
+        {
+          "id": "G2M_GM_001_LVL4_Q6",
+          "question_id": "G2M_GM_001_LVL4_Q6",
+          "question_type": "array_counting",
+          "visual_model": "array_model",
+          "prompt": "An array has 3 rows and 3 columns. How many objects are there?",
+          "answer": "9",
+          "correct_answer": "9",
+          "acceptable_answers": [
+            "9"
+          ],
+          "misconception_tag": "rows_columns_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "3 rows of 3 equals 9.",
+          "rows": 3,
+          "columns": 3
+        },
+        {
+          "id": "G2M_GM_001_LVL4_Q7",
+          "question_id": "G2M_GM_001_LVL4_Q7",
+          "question_type": "array_counting",
+          "visual_model": "array_model",
+          "prompt": "An array has 4 rows and 4 columns. How many objects are there?",
+          "answer": "16",
+          "correct_answer": "16",
+          "acceptable_answers": [
+            "16"
+          ],
+          "misconception_tag": "rows_columns_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "4 rows of 4 equals 16.",
+          "rows": 4,
+          "columns": 4
+        },
+        {
+          "id": "G2M_GM_001_LVL4_Q8",
+          "question_id": "G2M_GM_001_LVL4_Q8",
+          "question_type": "array_counting",
+          "visual_model": "array_model",
+          "prompt": "An array has 2 rows and 6 columns. How many objects are there?",
+          "answer": "12",
+          "correct_answer": "12",
+          "acceptable_answers": [
+            "12"
+          ],
+          "misconception_tag": "rows_columns_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "2 rows of 6 equals 12.",
+          "rows": 2,
+          "columns": 6
+        },
+        {
+          "id": "G2M_GM_001_LVL4_Q9",
+          "question_id": "G2M_GM_001_LVL4_Q9",
+          "question_type": "array_counting",
+          "visual_model": "array_model",
+          "prompt": "An array has 5 rows and 3 columns. How many objects are there?",
+          "answer": "15",
+          "correct_answer": "15",
+          "acceptable_answers": [
+            "15"
+          ],
+          "misconception_tag": "rows_columns_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "5 rows of 3 equals 15.",
+          "rows": 5,
+          "columns": 3
+        },
+        {
+          "id": "G2M_GM_001_LVL4_Q10",
+          "question_id": "G2M_GM_001_LVL4_Q10",
+          "question_type": "array_counting",
+          "visual_model": "array_model",
+          "prompt": "An array has 3 rows and 6 columns. How many objects are there?",
+          "answer": "18",
+          "correct_answer": "18",
+          "acceptable_answers": [
+            "18"
+          ],
+          "misconception_tag": "rows_columns_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "3 rows of 6 equals 18.",
+          "rows": 3,
+          "columns": 6
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_GM_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mix shapes, attributes, equal shares, and arrays.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_GM_001_MIXED_Q1",
+          "question_id": "G2M_GM_001_MIXED_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "shape_identification",
+          "prompt": "Which 2D shape has 3 sides?",
+          "answer": "triangle",
+          "correct_answer": "triangle",
+          "misconception_tag": "shape_label_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is triangle.",
+          "choices": [
+            "triangle",
+            "circle",
+            "square"
+          ],
+          "shape": "triangle"
+        },
+        {
+          "id": "G2M_GM_001_MIXED_Q2",
+          "question_id": "G2M_GM_001_MIXED_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "shape_identification",
+          "prompt": "Which 3D shape has 6 square faces?",
+          "answer": "cube",
+          "correct_answer": "cube",
+          "misconception_tag": "shape_label_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is cube.",
+          "choices": [
+            "cube",
+            "sphere",
+            "cone"
+          ],
+          "shape": "cube"
+        },
+        {
+          "id": "G2M_GM_001_MIXED_Q3",
+          "question_id": "G2M_GM_001_MIXED_Q3",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "How many sides does a hexagon have?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 6.",
+          "shape": "hexagon"
+        },
+        {
+          "id": "G2M_GM_001_MIXED_Q4",
+          "question_id": "G2M_GM_001_MIXED_Q4",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "Which is a defining attribute: color or number of sides?",
+          "answer": "number of sides",
+          "correct_answer": "number of sides",
+          "acceptable_answers": [
+            "number of sides",
+            "sides"
+          ],
+          "misconception_tag": "defining_attribute_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is number of sides.",
+          "shape": "triangle"
+        },
+        {
+          "id": "G2M_GM_001_MIXED_Q5",
+          "question_id": "G2M_GM_001_MIXED_Q5",
+          "question_type": "short_response",
+          "visual_model": "partition_shapes",
+          "prompt": "A rectangle is split into 2 equal shares. What are the shares called?",
+          "answer": "halves",
+          "correct_answer": "halves",
+          "acceptable_answers": [
+            "halves",
+            "half"
+          ],
+          "misconception_tag": "unequal_partition_error",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is halves.",
+          "shape": "rectangle",
+          "shares": 2,
+          "equal": true
+        },
+        {
+          "id": "G2M_GM_001_MIXED_Q6",
+          "question_id": "G2M_GM_001_MIXED_Q6",
+          "question_type": "short_response",
+          "visual_model": "partition_shapes",
+          "prompt": "A rectangle is split into 4 equal shares. What are the shares called?",
+          "answer": "fourths",
+          "correct_answer": "fourths",
+          "acceptable_answers": [
+            "fourths",
+            "quarters"
+          ],
+          "misconception_tag": "unequal_partition_error",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is fourths.",
+          "shape": "rectangle",
+          "shares": 4,
+          "equal": true
+        },
+        {
+          "id": "G2M_GM_001_MIXED_Q7",
+          "question_id": "G2M_GM_001_MIXED_Q7",
+          "question_type": "short_response",
+          "visual_model": "partition_shapes",
+          "prompt": "Are 3 parts thirds if one part is much larger?",
+          "answer": "no",
+          "correct_answer": "no",
+          "acceptable_answers": [
+            "no",
+            "thirds"
+          ],
+          "misconception_tag": "unequal_partition_error",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is no.",
+          "shape": "rectangle",
+          "shares": 3,
+          "equal": false
+        },
+        {
+          "id": "G2M_GM_001_MIXED_Q8",
+          "question_id": "G2M_GM_001_MIXED_Q8",
+          "question_type": "array_counting",
+          "visual_model": "array_model",
+          "prompt": "An array has 3 rows and 4 columns. How many objects are there?",
+          "answer": "12",
+          "correct_answer": "12",
+          "acceptable_answers": [
+            "12"
+          ],
+          "misconception_tag": "rows_columns_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "3 rows of 4 equals 12.",
+          "rows": 3,
+          "columns": 4
+        },
+        {
+          "id": "G2M_GM_001_MIXED_Q9",
+          "question_id": "G2M_GM_001_MIXED_Q9",
+          "question_type": "array_counting",
+          "visual_model": "array_model",
+          "prompt": "An array has 3 rows and 3 columns. How many objects are there?",
+          "answer": "9",
+          "correct_answer": "9",
+          "acceptable_answers": [
+            "9"
+          ],
+          "misconception_tag": "rows_columns_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "3 rows of 3 equals 9.",
+          "rows": 3,
+          "columns": 3
+        },
+        {
+          "id": "G2M_GM_001_MIXED_Q10",
+          "question_id": "G2M_GM_001_MIXED_Q10",
+          "question_type": "array_counting",
+          "visual_model": "array_model",
+          "prompt": "An array has 3 rows and 6 columns. How many objects are there?",
+          "answer": "18",
+          "correct_answer": "18",
+          "acceptable_answers": [
+            "18"
+          ],
+          "misconception_tag": "rows_columns_confusion",
+          "hints": [
+            "Look for defining attributes.",
+            "Check that shares are equal sizes.",
+            "For arrays, count rows and columns."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "3 rows of 6 equals 18.",
+          "rows": 3,
+          "columns": 6
+        }
+      ]
+    }
+  ]
+}

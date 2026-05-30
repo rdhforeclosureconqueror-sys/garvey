@@ -1,0 +1,2089 @@
+{
+  "skill_id": "G2M_MD_003",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_plan": "curriculum-framework/plans/grade2-math-completion-plan.v1.json"
+  },
+  "grade": 2,
+  "subject": "Math",
+  "domain": "Measurement and Data",
+  "skill": "Data, Graphs, and Line Plots",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    1,
+    5
+  ],
+  "lesson": {
+    "story_mission": "Help the Data Detectives organize class survey results for the school fair.",
+    "mini_lesson": "Graphs and tables organize counts so you can compare categories and answer questions.",
+    "objective": "Represent and interpret data using picture graphs, bar graphs, line plots, and data tables.",
+    "key_vocabulary": [
+      "picture graph",
+      "bar graph",
+      "line plot",
+      "data table",
+      "category",
+      "scale"
+    ],
+    "concept_explanation": "Picture graphs use symbols, bar graphs use bars, line plots use X marks, and data tables list counts. Use labels, keys, and scales before answering.",
+    "visual_model": "picture_graph",
+    "common_misconception": "Learners may count one symbol as one even when the graph key uses a different scale, or compare the wrong categories.",
+    "real_world_connection": "Students use graphs to summarize favorite snacks, books, sports, and measurements.",
+    "lesson_summary": "Read the labels, use the key or scale, find the category count, and subtract to compare how many more or less.",
+    "hints": [
+      "Read the title and labels first.",
+      "Use the key or scale before counting.",
+      "For more or less, subtract the smaller count from the larger count."
+    ]
+  },
+  "worked_examples": [
+    {
+      "text": "If a picture graph key says ⭐ = 2 votes, then 4 stars show 8 votes."
+    },
+    {
+      "text": "If apples have 9 votes and grapes have 5 votes, apples have 4 more votes because 9 - 5 = 4."
+    },
+    {
+      "text": "On a line plot, each X over a number means one measurement with that value."
+    }
+  ],
+  "hint_ladder": [
+    "Read the title and labels first.",
+    "Use the key or scale before counting.",
+    "For more or less, subtract the smaller count from the larger count."
+  ],
+  "misconception_bank": {
+    "graph_scale_confusion": "Learner may ignore the graph key or bar scale.",
+    "category_count_error": "Learner may count the wrong category.",
+    "more_less_data_confusion": "Learner may add instead of subtract for more/less questions.",
+    "line_plot_mark_error": "Learner may place or count X marks at the wrong number."
+  },
+  "game_theme": {
+    "title": "Data, Graphs, and Line Plots",
+    "mission_intro": "Help the Data Detectives organize class survey results for the school fair.",
+    "badge_name": "Data Detective"
+  },
+  "guided_practice": [
+    {
+      "id": "G2M_MD_003_LVL1_Q1",
+      "question_id": "G2M_MD_003_LVL1_Q1",
+      "question_type": "graph_reading",
+      "visual_model": "picture_graph",
+      "prompt": "How many students chose cats?",
+      "answer": "6",
+      "correct_answer": "6",
+      "acceptable_answers": [
+        "6"
+      ],
+      "misconception_tag": "category_count_error",
+      "hints": [
+        "Read the title and labels first.",
+        "Use the key or scale before counting.",
+        "For more or less, subtract the smaller count from the larger count."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Use the picture graph key and count to get 6.",
+      "data": {
+        "Cats": 6,
+        "Dogs": 4,
+        "Fish": 3
+      },
+      "scale": 1,
+      "graph_title": "Class Choices"
+    },
+    {
+      "id": "G2M_MD_003_LVL1_Q2",
+      "question_id": "G2M_MD_003_LVL1_Q2",
+      "question_type": "graph_reading",
+      "visual_model": "picture_graph",
+      "prompt": "How many students chose dogs?",
+      "answer": "4",
+      "correct_answer": "4",
+      "acceptable_answers": [
+        "4"
+      ],
+      "misconception_tag": "category_count_error",
+      "hints": [
+        "Read the title and labels first.",
+        "Use the key or scale before counting.",
+        "For more or less, subtract the smaller count from the larger count."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Use the picture graph key and count to get 4.",
+      "data": {
+        "Cats": 6,
+        "Dogs": 4,
+        "Fish": 3
+      },
+      "scale": 1,
+      "graph_title": "Class Choices"
+    },
+    {
+      "id": "G2M_MD_003_LVL1_Q3",
+      "question_id": "G2M_MD_003_LVL1_Q3",
+      "question_type": "graph_reading",
+      "visual_model": "picture_graph",
+      "prompt": "How many more chose cats than fish?",
+      "answer": "3",
+      "correct_answer": "3",
+      "acceptable_answers": [
+        "3"
+      ],
+      "misconception_tag": "more_less_data_confusion",
+      "hints": [
+        "Read the title and labels first.",
+        "Use the key or scale before counting.",
+        "For more or less, subtract the smaller count from the larger count."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Use the picture graph key and count to get 3.",
+      "data": {
+        "Cats": 6,
+        "Dogs": 4,
+        "Fish": 3
+      },
+      "scale": 1,
+      "graph_title": "Class Choices"
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G2M_MD_003_LVL2_Q1",
+      "question_id": "G2M_MD_003_LVL2_Q1",
+      "question_type": "data_interpretation",
+      "visual_model": "bar_graph",
+      "prompt": "How many books did Room 1 read?",
+      "answer": "7",
+      "correct_answer": "7",
+      "acceptable_answers": [
+        "7"
+      ],
+      "misconception_tag": "category_count_error",
+      "hints": [
+        "Read the title and labels first.",
+        "Use the key or scale before counting.",
+        "For more or less, subtract the smaller count from the larger count."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is 7.",
+      "data": {
+        "Room1": 7,
+        "Room2": 9,
+        "Room3": 5
+      },
+      "graph_title": "Bar Graph"
+    },
+    {
+      "id": "G2M_MD_003_LVL2_Q2",
+      "question_id": "G2M_MD_003_LVL2_Q2",
+      "question_type": "data_interpretation",
+      "visual_model": "bar_graph",
+      "prompt": "How many books did Room 2 read?",
+      "answer": "9",
+      "correct_answer": "9",
+      "acceptable_answers": [
+        "9"
+      ],
+      "misconception_tag": "category_count_error",
+      "hints": [
+        "Read the title and labels first.",
+        "Use the key or scale before counting.",
+        "For more or less, subtract the smaller count from the larger count."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is 9.",
+      "data": {
+        "Room1": 7,
+        "Room2": 9,
+        "Room3": 5
+      },
+      "graph_title": "Bar Graph"
+    },
+    {
+      "id": "G2M_MD_003_LVL3_Q1",
+      "question_id": "G2M_MD_003_LVL3_Q1",
+      "question_type": "data_interpretation",
+      "visual_model": "data_table",
+      "prompt": "Use the table. How many students picked carrots?",
+      "answer": "5",
+      "correct_answer": "5",
+      "acceptable_answers": [
+        "5"
+      ],
+      "misconception_tag": "category_count_error",
+      "hints": [
+        "Read the title and labels first.",
+        "Use the key or scale before counting.",
+        "For more or less, subtract the smaller count from the larger count."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is 5.",
+      "data": {
+        "Carrots": 5,
+        "Peas": 3,
+        "Corn": 8
+      },
+      "graph_title": "Data Table"
+    },
+    {
+      "id": "G2M_MD_003_LVL3_Q2",
+      "question_id": "G2M_MD_003_LVL3_Q2",
+      "question_type": "data_interpretation",
+      "visual_model": "data_table",
+      "prompt": "Use the table. How many more picked corn than peas?",
+      "answer": "5",
+      "correct_answer": "5",
+      "acceptable_answers": [
+        "5"
+      ],
+      "misconception_tag": "more_less_data_confusion",
+      "hints": [
+        "Read the title and labels first.",
+        "Use the key or scale before counting.",
+        "For more or less, subtract the smaller count from the larger count."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is 5.",
+      "data": {
+        "Carrots": 5,
+        "Peas": 3,
+        "Corn": 8
+      },
+      "graph_title": "Data Table"
+    },
+    {
+      "id": "G2M_MD_003_LVL4_Q1",
+      "question_id": "G2M_MD_003_LVL4_Q1",
+      "question_type": "graph_reading",
+      "visual_model": "line_plot",
+      "prompt": "How many X marks are above 4?",
+      "answer": "3",
+      "correct_answer": "3",
+      "acceptable_answers": [
+        "3"
+      ],
+      "misconception_tag": "line_plot_mark_error",
+      "hints": [
+        "Read the title and labels first.",
+        "Use the key or scale before counting.",
+        "For more or less, subtract the smaller count from the larger count."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is 3.",
+      "values": [
+        2,
+        3,
+        3,
+        4,
+        4,
+        4,
+        5,
+        6,
+        6,
+        7
+      ],
+      "min": 2,
+      "max": 7,
+      "graph_title": "Leaf Lengths"
+    },
+    {
+      "id": "G2M_MD_003_LVL4_Q2",
+      "question_id": "G2M_MD_003_LVL4_Q2",
+      "question_type": "graph_reading",
+      "visual_model": "line_plot",
+      "prompt": "How many measurements are 6?",
+      "answer": "2",
+      "correct_answer": "2",
+      "acceptable_answers": [
+        "2"
+      ],
+      "misconception_tag": "line_plot_mark_error",
+      "hints": [
+        "Read the title and labels first.",
+        "Use the key or scale before counting.",
+        "For more or less, subtract the smaller count from the larger count."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is 2.",
+      "values": [
+        2,
+        3,
+        3,
+        4,
+        4,
+        4,
+        5,
+        6,
+        6,
+        7
+      ],
+      "min": 2,
+      "max": 7,
+      "graph_title": "Leaf Lengths"
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G2M_MD_003_MIXED_Q1",
+      "question_id": "G2M_MD_003_MIXED_Q1",
+      "question_type": "graph_reading",
+      "visual_model": "picture_graph",
+      "prompt": "How many more chose cats than fish?",
+      "answer": "3",
+      "correct_answer": "3",
+      "acceptable_answers": [
+        "3"
+      ],
+      "misconception_tag": "more_less_data_confusion",
+      "hints": [
+        "Read the title and labels first.",
+        "Use the key or scale before counting.",
+        "For more or less, subtract the smaller count from the larger count."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "Use the picture graph key and count to get 3.",
+      "data": {
+        "Cats": 6,
+        "Dogs": 4,
+        "Fish": 3
+      },
+      "scale": 1,
+      "graph_title": "Class Choices"
+    },
+    {
+      "id": "G2M_MD_003_MIXED_Q2",
+      "question_id": "G2M_MD_003_MIXED_Q2",
+      "question_type": "data_interpretation",
+      "visual_model": "bar_graph",
+      "prompt": "How many books did Room 1 read?",
+      "answer": "7",
+      "correct_answer": "7",
+      "acceptable_answers": [
+        "7"
+      ],
+      "misconception_tag": "category_count_error",
+      "hints": [
+        "Read the title and labels first.",
+        "Use the key or scale before counting.",
+        "For more or less, subtract the smaller count from the larger count."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is 7.",
+      "data": {
+        "Room1": 7,
+        "Room2": 9,
+        "Room3": 5
+      },
+      "graph_title": "Bar Graph"
+    },
+    {
+      "id": "G2M_MD_003_MIXED_Q3",
+      "question_id": "G2M_MD_003_MIXED_Q3",
+      "question_type": "data_interpretation",
+      "visual_model": "data_table",
+      "prompt": "Use the table. How many more picked corn than peas?",
+      "answer": "5",
+      "correct_answer": "5",
+      "acceptable_answers": [
+        "5"
+      ],
+      "misconception_tag": "more_less_data_confusion",
+      "hints": [
+        "Read the title and labels first.",
+        "Use the key or scale before counting.",
+        "For more or less, subtract the smaller count from the larger count."
+      ],
+      "feedback": {
+        "correct": "Great math thinking!",
+        "incorrect": "Use the visual model and try again."
+      },
+      "explanation": "The correct answer is 5.",
+      "data": {
+        "Carrots": 5,
+        "Peas": 3,
+        "Corn": 8
+      },
+      "graph_title": "Data Table"
+    }
+  ],
+  "level_banks": [
+    {
+      "level_id": "G2M_MD_003_LVL1",
+      "label": "Level 1: Picture Graphs",
+      "focus": "Read picture graphs and use picture keys.",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_MD_003_LVL1_Q1",
+          "question_id": "G2M_MD_003_LVL1_Q1",
+          "question_type": "graph_reading",
+          "visual_model": "picture_graph",
+          "prompt": "How many students chose cats?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Use the picture graph key and count to get 6.",
+          "data": {
+            "Cats": 6,
+            "Dogs": 4,
+            "Fish": 3
+          },
+          "scale": 1,
+          "graph_title": "Class Choices"
+        },
+        {
+          "id": "G2M_MD_003_LVL1_Q2",
+          "question_id": "G2M_MD_003_LVL1_Q2",
+          "question_type": "graph_reading",
+          "visual_model": "picture_graph",
+          "prompt": "How many students chose dogs?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4"
+          ],
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Use the picture graph key and count to get 4.",
+          "data": {
+            "Cats": 6,
+            "Dogs": 4,
+            "Fish": 3
+          },
+          "scale": 1,
+          "graph_title": "Class Choices"
+        },
+        {
+          "id": "G2M_MD_003_LVL1_Q3",
+          "question_id": "G2M_MD_003_LVL1_Q3",
+          "question_type": "graph_reading",
+          "visual_model": "picture_graph",
+          "prompt": "How many more chose cats than fish?",
+          "answer": "3",
+          "correct_answer": "3",
+          "acceptable_answers": [
+            "3"
+          ],
+          "misconception_tag": "more_less_data_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Use the picture graph key and count to get 3.",
+          "data": {
+            "Cats": 6,
+            "Dogs": 4,
+            "Fish": 3
+          },
+          "scale": 1,
+          "graph_title": "Class Choices"
+        },
+        {
+          "id": "G2M_MD_003_LVL1_Q4",
+          "question_id": "G2M_MD_003_LVL1_Q4",
+          "question_type": "graph_reading",
+          "visual_model": "picture_graph",
+          "prompt": "A key says each star equals 2 votes. How many votes do 5 stars show?",
+          "answer": "10",
+          "correct_answer": "10",
+          "acceptable_answers": [
+            "10"
+          ],
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Use the picture graph key and count to get 10.",
+          "data": {
+            "Soccer": 10,
+            "Art": 6,
+            "Music": 4
+          },
+          "scale": 2,
+          "graph_title": "Class Choices"
+        },
+        {
+          "id": "G2M_MD_003_LVL1_Q5",
+          "question_id": "G2M_MD_003_LVL1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_graph",
+          "prompt": "Which activity has 6 votes?",
+          "answer": "Art",
+          "correct_answer": "Art",
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The picture graph shows Art for that category.",
+          "choices": [
+            "Soccer",
+            "Art",
+            "Music"
+          ],
+          "data": {
+            "Soccer": 10,
+            "Art": 6,
+            "Music": 4
+          },
+          "scale": 1,
+          "graph_title": "Class Choices"
+        },
+        {
+          "id": "G2M_MD_003_LVL1_Q6",
+          "question_id": "G2M_MD_003_LVL1_Q6",
+          "question_type": "graph_reading",
+          "visual_model": "picture_graph",
+          "prompt": "How many fewer chose music than soccer?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "more_less_data_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Use the picture graph key and count to get 6.",
+          "data": {
+            "Soccer": 10,
+            "Art": 6,
+            "Music": 4
+          },
+          "scale": 2,
+          "graph_title": "Class Choices"
+        },
+        {
+          "id": "G2M_MD_003_LVL1_Q7",
+          "question_id": "G2M_MD_003_LVL1_Q7",
+          "question_type": "graph_reading",
+          "visual_model": "picture_graph",
+          "prompt": "How many students chose apples?",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8"
+          ],
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Use the picture graph key and count to get 8.",
+          "data": {
+            "Apples": 8,
+            "Bananas": 5,
+            "Oranges": 7
+          },
+          "scale": 1,
+          "graph_title": "Class Choices"
+        },
+        {
+          "id": "G2M_MD_003_LVL1_Q8",
+          "question_id": "G2M_MD_003_LVL1_Q8",
+          "question_type": "graph_reading",
+          "visual_model": "picture_graph",
+          "prompt": "How many more chose apples than bananas?",
+          "answer": "3",
+          "correct_answer": "3",
+          "acceptable_answers": [
+            "3"
+          ],
+          "misconception_tag": "more_less_data_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Use the picture graph key and count to get 3.",
+          "data": {
+            "Apples": 8,
+            "Bananas": 5,
+            "Oranges": 7
+          },
+          "scale": 1,
+          "graph_title": "Class Choices"
+        },
+        {
+          "id": "G2M_MD_003_LVL1_Q9",
+          "question_id": "G2M_MD_003_LVL1_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_graph",
+          "prompt": "Which fruit has 7 votes?",
+          "answer": "Oranges",
+          "correct_answer": "Oranges",
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The picture graph shows Oranges for that category.",
+          "choices": [
+            "Apples",
+            "Bananas",
+            "Oranges"
+          ],
+          "data": {
+            "Apples": 8,
+            "Bananas": 5,
+            "Oranges": 7
+          },
+          "scale": 1,
+          "graph_title": "Class Choices"
+        },
+        {
+          "id": "G2M_MD_003_LVL1_Q10",
+          "question_id": "G2M_MD_003_LVL1_Q10",
+          "question_type": "graph_reading",
+          "visual_model": "picture_graph",
+          "prompt": "How many total votes are shown for apples and oranges?",
+          "answer": "15",
+          "correct_answer": "15",
+          "acceptable_answers": [
+            "15"
+          ],
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Use the picture graph key and count to get 15.",
+          "data": {
+            "Apples": 8,
+            "Bananas": 5,
+            "Oranges": 7
+          },
+          "scale": 1,
+          "graph_title": "Class Choices"
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_MD_003_LVL2",
+      "label": "Level 2: Bar Graphs",
+      "focus": "Read bar graphs and compare counts.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_MD_003_LVL2_Q1",
+          "question_id": "G2M_MD_003_LVL2_Q1",
+          "question_type": "data_interpretation",
+          "visual_model": "bar_graph",
+          "prompt": "How many books did Room 1 read?",
+          "answer": "7",
+          "correct_answer": "7",
+          "acceptable_answers": [
+            "7"
+          ],
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 7.",
+          "data": {
+            "Room1": 7,
+            "Room2": 9,
+            "Room3": 5
+          },
+          "graph_title": "Bar Graph"
+        },
+        {
+          "id": "G2M_MD_003_LVL2_Q2",
+          "question_id": "G2M_MD_003_LVL2_Q2",
+          "question_type": "data_interpretation",
+          "visual_model": "bar_graph",
+          "prompt": "How many books did Room 2 read?",
+          "answer": "9",
+          "correct_answer": "9",
+          "acceptable_answers": [
+            "9"
+          ],
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 9.",
+          "data": {
+            "Room1": 7,
+            "Room2": 9,
+            "Room3": 5
+          },
+          "graph_title": "Bar Graph"
+        },
+        {
+          "id": "G2M_MD_003_LVL2_Q3",
+          "question_id": "G2M_MD_003_LVL2_Q3",
+          "question_type": "data_interpretation",
+          "visual_model": "bar_graph",
+          "prompt": "How many more books did Room 2 read than Room 3?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4"
+          ],
+          "misconception_tag": "more_less_data_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 4.",
+          "data": {
+            "Room1": 7,
+            "Room2": 9,
+            "Room3": 5
+          },
+          "graph_title": "Bar Graph"
+        },
+        {
+          "id": "G2M_MD_003_LVL2_Q4",
+          "question_id": "G2M_MD_003_LVL2_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_graph",
+          "prompt": "Which room read 5 books?",
+          "answer": "Room3",
+          "correct_answer": "Room3",
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is Room3.",
+          "choices": [
+            "Room1",
+            "Room2",
+            "Room3"
+          ],
+          "data": {
+            "Room1": 7,
+            "Room2": 9,
+            "Room3": 5
+          },
+          "graph_title": "Bar Graph"
+        },
+        {
+          "id": "G2M_MD_003_LVL2_Q5",
+          "question_id": "G2M_MD_003_LVL2_Q5",
+          "question_type": "data_interpretation",
+          "visual_model": "bar_graph",
+          "prompt": "How many votes did jump rope get?",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8"
+          ],
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 8.",
+          "data": {
+            "Tag": 6,
+            "Jump Rope": 8,
+            "Hopscotch": 4
+          },
+          "graph_title": "Bar Graph"
+        },
+        {
+          "id": "G2M_MD_003_LVL2_Q6",
+          "question_id": "G2M_MD_003_LVL2_Q6",
+          "question_type": "data_interpretation",
+          "visual_model": "bar_graph",
+          "prompt": "How many fewer votes did hopscotch get than jump rope?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4"
+          ],
+          "misconception_tag": "more_less_data_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 4.",
+          "data": {
+            "Tag": 6,
+            "Jump Rope": 8,
+            "Hopscotch": 4
+          },
+          "graph_title": "Bar Graph"
+        },
+        {
+          "id": "G2M_MD_003_LVL2_Q7",
+          "question_id": "G2M_MD_003_LVL2_Q7",
+          "question_type": "data_interpretation",
+          "visual_model": "bar_graph",
+          "prompt": "If the bar scale counts by 2s, what count is shown by a bar ending at 12?",
+          "answer": "12",
+          "correct_answer": "12",
+          "acceptable_answers": [
+            "12"
+          ],
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 12.",
+          "data": {
+            "Red": 12,
+            "Blue": 6,
+            "Green": 10
+          },
+          "graph_title": "Bar Graph"
+        },
+        {
+          "id": "G2M_MD_003_LVL2_Q8",
+          "question_id": "G2M_MD_003_LVL2_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "bar_graph",
+          "prompt": "Which color has the greatest count?",
+          "answer": "Red",
+          "correct_answer": "Red",
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is Red.",
+          "choices": [
+            "Red",
+            "Blue",
+            "Green"
+          ],
+          "data": {
+            "Red": 12,
+            "Blue": 6,
+            "Green": 10
+          },
+          "graph_title": "Bar Graph"
+        },
+        {
+          "id": "G2M_MD_003_LVL2_Q9",
+          "question_id": "G2M_MD_003_LVL2_Q9",
+          "question_type": "data_interpretation",
+          "visual_model": "bar_graph",
+          "prompt": "How many more chose green than blue?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4"
+          ],
+          "misconception_tag": "more_less_data_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 4.",
+          "data": {
+            "Red": 12,
+            "Blue": 6,
+            "Green": 10
+          },
+          "graph_title": "Bar Graph"
+        },
+        {
+          "id": "G2M_MD_003_LVL2_Q10",
+          "question_id": "G2M_MD_003_LVL2_Q10",
+          "question_type": "data_interpretation",
+          "visual_model": "bar_graph",
+          "prompt": "How many students chose tag and hopscotch altogether?",
+          "answer": "10",
+          "correct_answer": "10",
+          "acceptable_answers": [
+            "10"
+          ],
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 10.",
+          "data": {
+            "Tag": 6,
+            "Jump Rope": 8,
+            "Hopscotch": 4
+          },
+          "graph_title": "Bar Graph"
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_MD_003_LVL3",
+      "label": "Level 3: Ask and Answer Data Questions",
+      "focus": "Use tables and graphs to answer data questions.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_MD_003_LVL3_Q1",
+          "question_id": "G2M_MD_003_LVL3_Q1",
+          "question_type": "data_interpretation",
+          "visual_model": "data_table",
+          "prompt": "Use the table. How many students picked carrots?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5"
+          ],
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 5.",
+          "data": {
+            "Carrots": 5,
+            "Peas": 3,
+            "Corn": 8
+          },
+          "graph_title": "Data Table"
+        },
+        {
+          "id": "G2M_MD_003_LVL3_Q2",
+          "question_id": "G2M_MD_003_LVL3_Q2",
+          "question_type": "data_interpretation",
+          "visual_model": "data_table",
+          "prompt": "Use the table. How many more picked corn than peas?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5"
+          ],
+          "misconception_tag": "more_less_data_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 5.",
+          "data": {
+            "Carrots": 5,
+            "Peas": 3,
+            "Corn": 8
+          },
+          "graph_title": "Data Table"
+        },
+        {
+          "id": "G2M_MD_003_LVL3_Q3",
+          "question_id": "G2M_MD_003_LVL3_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "data_table",
+          "prompt": "Which vegetable had exactly 5 votes?",
+          "answer": "Carrots",
+          "correct_answer": "Carrots",
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is Carrots.",
+          "choices": [
+            "Carrots",
+            "Peas",
+            "Corn"
+          ],
+          "data": {
+            "Carrots": 5,
+            "Peas": 3,
+            "Corn": 8
+          },
+          "graph_title": "Data Table"
+        },
+        {
+          "id": "G2M_MD_003_LVL3_Q4",
+          "question_id": "G2M_MD_003_LVL3_Q4",
+          "question_type": "data_interpretation",
+          "visual_model": "data_table",
+          "prompt": "How many votes are in the table altogether?",
+          "answer": "16",
+          "correct_answer": "16",
+          "acceptable_answers": [
+            "16"
+          ],
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 16.",
+          "data": {
+            "Carrots": 5,
+            "Peas": 3,
+            "Corn": 8
+          },
+          "graph_title": "Data Table"
+        },
+        {
+          "id": "G2M_MD_003_LVL3_Q5",
+          "question_id": "G2M_MD_003_LVL3_Q5",
+          "question_type": "data_interpretation",
+          "visual_model": "data_table",
+          "prompt": "Use the table. How many students chose mystery books?",
+          "answer": "9",
+          "correct_answer": "9",
+          "acceptable_answers": [
+            "9"
+          ],
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 9.",
+          "data": {
+            "Mystery": 9,
+            "Animal": 6,
+            "Space": 4
+          },
+          "graph_title": "Data Table"
+        },
+        {
+          "id": "G2M_MD_003_LVL3_Q6",
+          "question_id": "G2M_MD_003_LVL3_Q6",
+          "question_type": "data_interpretation",
+          "visual_model": "data_table",
+          "prompt": "How many fewer chose space books than mystery books?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5"
+          ],
+          "misconception_tag": "more_less_data_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 5.",
+          "data": {
+            "Mystery": 9,
+            "Animal": 6,
+            "Space": 4
+          },
+          "graph_title": "Data Table"
+        },
+        {
+          "id": "G2M_MD_003_LVL3_Q7",
+          "question_id": "G2M_MD_003_LVL3_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "data_table",
+          "prompt": "Which book type has 6 votes?",
+          "answer": "Animal",
+          "correct_answer": "Animal",
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is Animal.",
+          "choices": [
+            "Mystery",
+            "Animal",
+            "Space"
+          ],
+          "data": {
+            "Mystery": 9,
+            "Animal": 6,
+            "Space": 4
+          },
+          "graph_title": "Data Table"
+        },
+        {
+          "id": "G2M_MD_003_LVL3_Q8",
+          "question_id": "G2M_MD_003_LVL3_Q8",
+          "question_type": "data_interpretation",
+          "visual_model": "data_table",
+          "prompt": "How many students chose animal and space books together?",
+          "answer": "10",
+          "correct_answer": "10",
+          "acceptable_answers": [
+            "10"
+          ],
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 10.",
+          "data": {
+            "Mystery": 9,
+            "Animal": 6,
+            "Space": 4
+          },
+          "graph_title": "Data Table"
+        },
+        {
+          "id": "G2M_MD_003_LVL3_Q9",
+          "question_id": "G2M_MD_003_LVL3_Q9",
+          "question_type": "data_interpretation",
+          "visual_model": "data_table",
+          "prompt": "A graph key says each picture equals 2. Which count would need 4 pictures?",
+          "answer": "8",
+          "correct_answer": "8",
+          "acceptable_answers": [
+            "8"
+          ],
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 8.",
+          "data": {
+            "A": 8,
+            "B": 6,
+            "C": 4
+          },
+          "graph_title": "Data Table"
+        },
+        {
+          "id": "G2M_MD_003_LVL3_Q10",
+          "question_id": "G2M_MD_003_LVL3_Q10",
+          "question_type": "data_interpretation",
+          "visual_model": "data_table",
+          "prompt": "How many more is 8 than 6?",
+          "answer": "2",
+          "correct_answer": "2",
+          "acceptable_answers": [
+            "2"
+          ],
+          "misconception_tag": "more_less_data_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 2.",
+          "data": {
+            "A": 8,
+            "B": 6,
+            "C": 4
+          },
+          "graph_title": "Data Table"
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_MD_003_LVL4",
+      "label": "Level 4: Line Plots",
+      "focus": "Interpret X marks on line plots.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_MD_003_LVL4_Q1",
+          "question_id": "G2M_MD_003_LVL4_Q1",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "How many X marks are above 4?",
+          "answer": "3",
+          "correct_answer": "3",
+          "acceptable_answers": [
+            "3"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 3.",
+          "values": [
+            2,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            6,
+            6,
+            7
+          ],
+          "min": 2,
+          "max": 7,
+          "graph_title": "Leaf Lengths"
+        },
+        {
+          "id": "G2M_MD_003_LVL4_Q2",
+          "question_id": "G2M_MD_003_LVL4_Q2",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "How many measurements are 6?",
+          "answer": "2",
+          "correct_answer": "2",
+          "acceptable_answers": [
+            "2"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 2.",
+          "values": [
+            2,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            6,
+            6,
+            7
+          ],
+          "min": 2,
+          "max": 7,
+          "graph_title": "Leaf Lengths"
+        },
+        {
+          "id": "G2M_MD_003_LVL4_Q3",
+          "question_id": "G2M_MD_003_LVL4_Q3",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "How many measurements are shown altogether?",
+          "answer": "10",
+          "correct_answer": "10",
+          "acceptable_answers": [
+            "10"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 10.",
+          "values": [
+            2,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            6,
+            6,
+            7
+          ],
+          "min": 2,
+          "max": 7,
+          "graph_title": "Leaf Lengths"
+        },
+        {
+          "id": "G2M_MD_003_LVL4_Q4",
+          "question_id": "G2M_MD_003_LVL4_Q4",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "Which length has the most X marks?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 4.",
+          "values": [
+            2,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            6,
+            6,
+            7
+          ],
+          "min": 2,
+          "max": 7,
+          "graph_title": "Leaf Lengths"
+        },
+        {
+          "id": "G2M_MD_003_LVL4_Q5",
+          "question_id": "G2M_MD_003_LVL4_Q5",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "How many more measurements are 4 than 2?",
+          "answer": "2",
+          "correct_answer": "2",
+          "acceptable_answers": [
+            "2"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 2.",
+          "values": [
+            2,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            6,
+            6,
+            7
+          ],
+          "min": 2,
+          "max": 7,
+          "graph_title": "Leaf Lengths"
+        },
+        {
+          "id": "G2M_MD_003_LVL4_Q6",
+          "question_id": "G2M_MD_003_LVL4_Q6",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "How many X marks should be over 3?",
+          "answer": "2",
+          "correct_answer": "2",
+          "acceptable_answers": [
+            "2"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 2.",
+          "values": [
+            2,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            6,
+            6,
+            7
+          ],
+          "min": 2,
+          "max": 7,
+          "graph_title": "Leaf Lengths"
+        },
+        {
+          "id": "G2M_MD_003_LVL4_Q7",
+          "question_id": "G2M_MD_003_LVL4_Q7",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "How many measurements are less than 5?",
+          "answer": "6",
+          "correct_answer": "6",
+          "acceptable_answers": [
+            "6"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 6.",
+          "values": [
+            2,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            6,
+            6,
+            7
+          ],
+          "min": 2,
+          "max": 7,
+          "graph_title": "Leaf Lengths"
+        },
+        {
+          "id": "G2M_MD_003_LVL4_Q8",
+          "question_id": "G2M_MD_003_LVL4_Q8",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "How many measurements are greater than 5?",
+          "answer": "3",
+          "correct_answer": "3",
+          "acceptable_answers": [
+            "3"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 3.",
+          "values": [
+            2,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            6,
+            6,
+            7
+          ],
+          "min": 2,
+          "max": 7,
+          "graph_title": "Leaf Lengths"
+        },
+        {
+          "id": "G2M_MD_003_LVL4_Q9",
+          "question_id": "G2M_MD_003_LVL4_Q9",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "What is the smallest measurement on the line plot?",
+          "answer": "2",
+          "correct_answer": "2",
+          "acceptable_answers": [
+            "2"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 2.",
+          "values": [
+            2,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            6,
+            6,
+            7
+          ],
+          "min": 2,
+          "max": 7,
+          "graph_title": "Leaf Lengths"
+        },
+        {
+          "id": "G2M_MD_003_LVL4_Q10",
+          "question_id": "G2M_MD_003_LVL4_Q10",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "What is the largest measurement on the line plot?",
+          "answer": "7",
+          "correct_answer": "7",
+          "acceptable_answers": [
+            "7"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 7.",
+          "values": [
+            2,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            6,
+            6,
+            7
+          ],
+          "min": 2,
+          "max": 7,
+          "graph_title": "Leaf Lengths"
+        }
+      ]
+    },
+    {
+      "level_id": "G2M_MD_003_MIXED",
+      "label": "Mixed",
+      "focus": "Mix picture graphs, bar graphs, data tables, and line plots.",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "id": "G2M_MD_003_MIXED_Q1",
+          "question_id": "G2M_MD_003_MIXED_Q1",
+          "question_type": "graph_reading",
+          "visual_model": "picture_graph",
+          "prompt": "How many more chose cats than fish?",
+          "answer": "3",
+          "correct_answer": "3",
+          "acceptable_answers": [
+            "3"
+          ],
+          "misconception_tag": "more_less_data_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Use the picture graph key and count to get 3.",
+          "data": {
+            "Cats": 6,
+            "Dogs": 4,
+            "Fish": 3
+          },
+          "scale": 1,
+          "graph_title": "Class Choices"
+        },
+        {
+          "id": "G2M_MD_003_MIXED_Q2",
+          "question_id": "G2M_MD_003_MIXED_Q2",
+          "question_type": "data_interpretation",
+          "visual_model": "bar_graph",
+          "prompt": "How many books did Room 1 read?",
+          "answer": "7",
+          "correct_answer": "7",
+          "acceptable_answers": [
+            "7"
+          ],
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 7.",
+          "data": {
+            "Room1": 7,
+            "Room2": 9,
+            "Room3": 5
+          },
+          "graph_title": "Bar Graph"
+        },
+        {
+          "id": "G2M_MD_003_MIXED_Q3",
+          "question_id": "G2M_MD_003_MIXED_Q3",
+          "question_type": "data_interpretation",
+          "visual_model": "data_table",
+          "prompt": "Use the table. How many more picked corn than peas?",
+          "answer": "5",
+          "correct_answer": "5",
+          "acceptable_answers": [
+            "5"
+          ],
+          "misconception_tag": "more_less_data_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 5.",
+          "data": {
+            "Carrots": 5,
+            "Peas": 3,
+            "Corn": 8
+          },
+          "graph_title": "Data Table"
+        },
+        {
+          "id": "G2M_MD_003_MIXED_Q4",
+          "question_id": "G2M_MD_003_MIXED_Q4",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "How many X marks are above 4?",
+          "answer": "3",
+          "correct_answer": "3",
+          "acceptable_answers": [
+            "3"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 3.",
+          "values": [
+            2,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            6,
+            6,
+            7
+          ],
+          "min": 2,
+          "max": 7,
+          "graph_title": "Leaf Lengths"
+        },
+        {
+          "id": "G2M_MD_003_MIXED_Q5",
+          "question_id": "G2M_MD_003_MIXED_Q5",
+          "question_type": "graph_reading",
+          "visual_model": "picture_graph",
+          "prompt": "A key says each star equals 2 votes. How many votes do 5 stars show?",
+          "answer": "10",
+          "correct_answer": "10",
+          "acceptable_answers": [
+            "10"
+          ],
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "Use the picture graph key and count to get 10.",
+          "data": {
+            "Soccer": 10,
+            "Art": 6,
+            "Music": 4
+          },
+          "scale": 2,
+          "graph_title": "Class Choices"
+        },
+        {
+          "id": "G2M_MD_003_MIXED_Q6",
+          "question_id": "G2M_MD_003_MIXED_Q6",
+          "question_type": "data_interpretation",
+          "visual_model": "bar_graph",
+          "prompt": "How many more chose green than blue?",
+          "answer": "4",
+          "correct_answer": "4",
+          "acceptable_answers": [
+            "4"
+          ],
+          "misconception_tag": "more_less_data_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 4.",
+          "data": {
+            "Red": 12,
+            "Blue": 6,
+            "Green": 10
+          },
+          "graph_title": "Bar Graph"
+        },
+        {
+          "id": "G2M_MD_003_MIXED_Q7",
+          "question_id": "G2M_MD_003_MIXED_Q7",
+          "question_type": "data_interpretation",
+          "visual_model": "data_table",
+          "prompt": "How many votes are in the table altogether?",
+          "answer": "16",
+          "correct_answer": "16",
+          "acceptable_answers": [
+            "16"
+          ],
+          "misconception_tag": "graph_scale_confusion",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 16.",
+          "data": {
+            "Carrots": 5,
+            "Peas": 3,
+            "Corn": 8
+          },
+          "graph_title": "Data Table"
+        },
+        {
+          "id": "G2M_MD_003_MIXED_Q8",
+          "question_id": "G2M_MD_003_MIXED_Q8",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "How many measurements are shown altogether?",
+          "answer": "10",
+          "correct_answer": "10",
+          "acceptable_answers": [
+            "10"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 10.",
+          "values": [
+            2,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            6,
+            6,
+            7
+          ],
+          "min": 2,
+          "max": 7,
+          "graph_title": "Leaf Lengths"
+        },
+        {
+          "id": "G2M_MD_003_MIXED_Q9",
+          "question_id": "G2M_MD_003_MIXED_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "picture_graph",
+          "prompt": "Which fruit has 7 votes?",
+          "answer": "Oranges",
+          "correct_answer": "Oranges",
+          "misconception_tag": "category_count_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The picture graph shows Oranges for that category.",
+          "choices": [
+            "Apples",
+            "Bananas",
+            "Oranges"
+          ],
+          "data": {
+            "Apples": 8,
+            "Bananas": 5,
+            "Oranges": 7
+          },
+          "scale": 1,
+          "graph_title": "Class Choices"
+        },
+        {
+          "id": "G2M_MD_003_MIXED_Q10",
+          "question_id": "G2M_MD_003_MIXED_Q10",
+          "question_type": "graph_reading",
+          "visual_model": "line_plot",
+          "prompt": "What is the largest measurement on the line plot?",
+          "answer": "7",
+          "correct_answer": "7",
+          "acceptable_answers": [
+            "7"
+          ],
+          "misconception_tag": "line_plot_mark_error",
+          "hints": [
+            "Read the title and labels first.",
+            "Use the key or scale before counting.",
+            "For more or less, subtract the smaller count from the larger count."
+          ],
+          "feedback": {
+            "correct": "Great math thinking!",
+            "incorrect": "Use the visual model and try again."
+          },
+          "explanation": "The correct answer is 7.",
+          "values": [
+            2,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            6,
+            6,
+            7
+          ],
+          "min": 2,
+          "max": 7,
+          "graph_title": "Leaf Lengths"
+        }
+      ]
+    }
+  ]
+}
