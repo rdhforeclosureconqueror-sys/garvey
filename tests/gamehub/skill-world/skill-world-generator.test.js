@@ -5,7 +5,8 @@ const root=path.join(__dirname,'..','..','..');
 const load=(id)=>JSON.parse(fs.readFileSync(path.join(root,`public/gamehub/skill-world/content/${id}.skill-package.v1.json`),'utf8'));
 const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_GM_001','G1M_GM_002','G1M_DP_001','G1M_MD_TIME_001','G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
 const grade1Packages=grade1SkillIds.map(load);
-const byId=Object.fromEntries(grade1Packages.map((pkg)=>[pkg.skill_id,pkg]));
+const g2PlaceValue=load('G2M_PV_001');
+const byId=Object.fromEntries([...grade1Packages,g2PlaceValue].map((pkg)=>[pkg.skill_id,pkg]));
 const dp=byId.G1M_DP_001;
 const op=byId.G1M_OP_003;
 const ns=byId.G1M_NS_002;
@@ -36,6 +37,7 @@ function assertFullMission(pkg){
 }
 
 grade1Packages.forEach(assertFullMission);
+assertFullMission(g2PlaceValue);
 
 function classContains(html, screenClass, expected){
   const re=new RegExp(`<section class="([^"]*\\b${screenClass}\\b[^"]*)"`);
@@ -412,6 +414,54 @@ assert.ok(writingQuestions.some((q)=>Array.isArray(q.validation_checks)&&q.valid
 assert.ok(writingQuestions.some((q)=>Array.isArray(q.validation_checks)&&q.validation_checks.includes('complete_sentence')),'writing validation includes complete sentence check');
 assert.equal(Renderer.evaluateAnswer({question_type:'short_response',validation_checks:['capital','spacing','punctuation','complete_sentence'],correct_answer:'The cat runs.',acceptable_answers:['The cat runs.']},'The dog jumps.'),true,'writing validation accepts child-friendly complete sentences');
 assert.equal(Renderer.evaluateAnswer({question_type:'short_response',validation_checks:['capital','spacing','punctuation','complete_sentence'],correct_answer:'The cat runs.',acceptable_answers:['The cat runs.']},'the dog jumps'),false,'writing validation catches missing capital and punctuation');
+
+
+assert.equal(Schema.validateSkillPackage(g2PlaceValue,{allowPlannedLevelBanks:false}).valid,true,'G2M_PV_001 schema validates as production package');
+assert.equal(g2PlaceValue.grade,2);
+assert.equal(g2PlaceValue.subject,'Math');
+assert.equal(g2PlaceValue.domain,'Number and Operations in Base Ten');
+assert.equal(g2PlaceValue.skill,'Place Value to Hundreds');
+assert.deepEqual(g2PlaceValue.level_banks.map((level)=>level.level_id),['G2M_PV_001_LVL1','G2M_PV_001_LVL2','G2M_PV_001_LVL3','G2M_PV_001_LVL4','G2M_PV_001_MIXED']);
+assert.equal(g2PlaceValue.level_banks.filter((level)=>!/mixed/i.test(`${level.level_id} ${level.label}`)).length,4,'G2M_PV_001 has four focused levels');
+assert.equal(g2PlaceValue.level_banks.find((level)=>level.level_id==='G2M_PV_001_MIXED').questions.length,12,'G2M_PV_001 Mixed has 12 questions');
+g2PlaceValue.level_banks.forEach((level)=>{
+  assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`);
+  level.questions.forEach((question)=>{
+    assert.ok(question.question_id&&question.prompt&&question.question_type&&(question.support_type||question.visual_model)&&question.correct_answer!==undefined&&question.hints&&question.misconception_tag&&(question.feedback||question.explanation),`${question.question_id} has required production fields`);
+    if(question.question_type==='short_response')assert.ok(Array.isArray(question.acceptable_answers)&&question.acceptable_answers.length>0,`${question.question_id} short_response has acceptable_answers`);
+  });
+});
+['hundreds_place_confusion','digit_value_confusion','expanded_form_error','zero_placeholder_confusion','ten_tens_confusion'].forEach((tag)=>{
+  assert.ok(g2PlaceValue.misconception_bank[tag],`G2M_PV_001 misconception bank includes ${tag}`);
+  assert.ok(g2PlaceValue.level_banks.flatMap((level)=>level.questions).some((q)=>q.misconception_tag===tag),`G2M_PV_001 level banks cover ${tag}`);
+});
+assert.ok(Schema.VISUAL_MODELS.includes('place_value_chart'));
+assert.ok(Schema.VISUAL_MODELS.includes('expanded_form'));
+assert.ok(Schema.VISUAL_MODELS.includes('base_ten_blocks'));
+assert.ok(VisualRegistry.hasRenderer('place_value_chart'));
+assert.ok(VisualRegistry.hasRenderer('expanded_form'));
+assert.ok(VisualRegistry.hasRenderer('base_ten_blocks'));
+const g2Questions=[...g2PlaceValue.guided_practice,...g2PlaceValue.adaptive_question_bank,...g2PlaceValue.checkpoint,...g2PlaceValue.level_banks.flatMap((level)=>level.questions)];
+assert.ok(g2Questions.some((q)=>q.visual_model==='visual_objects'),'G2M_PV_001 uses visual_objects support');
+const g2Chart=VisualRegistry.render(g2Questions.find((q)=>q.visual_model==='place_value_chart'));
+assert.match(g2Chart,/place-value-chart-visual/,'place_value_chart renderer output exists');
+assert.match(g2Chart,/Hundreds/,'place_value_chart shows Hundreds');
+assert.match(g2Chart,/Tens/,'place_value_chart shows Tens');
+assert.match(g2Chart,/Ones/,'place_value_chart shows Ones');
+const g2Expanded=VisualRegistry.render(g2Questions.find((q)=>q.visual_model==='expanded_form'&&Number(q.value)===342));
+assert.match(g2Expanded,/expanded-form-visual/,'expanded_form renderer output exists');
+assert.match(g2Expanded,/342/,'expanded_form shows standard number');
+assert.match(g2Expanded,/300/,'expanded_form shows hundreds value');
+assert.match(g2Expanded,/40/,'expanded_form shows tens value');
+assert.match(g2Expanded,/2/,'expanded_form shows ones value');
+const g2BaseTen=VisualRegistry.render(g2Questions.find((q)=>q.visual_model==='base_ten_blocks'&&Number(q.value)>=300));
+assert.match(g2BaseTen,/base-ten-visual/,'base_ten_blocks renderer output exists');
+assert.match(g2BaseTen,/Hundreds flats/,'base_ten_blocks supports hundreds flats');
+assert.match(g2BaseTen,/hundred-flat/,'base_ten_blocks renders hundred-flat elements');
+const g2MissionHtml=Renderer.renderSkillWorld(g2PlaceValue,{failClosed:true}).html;
+['Story','Mini Lesson','Worked Example / Watch','Guided Demo','Practice zone','Challenge zone','Checkpoint zone','Badge','Growth/Profile screen'].forEach((label)=>assert.match(g2MissionHtml,new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')),`G2M_PV_001 mission missing ${label}`));
+assert.match(Renderer.renderSkillWorld(g2PlaceValue,{mode:'drill',failClosed:true}).html,/Skill Practice Center/,'G2M_PV_001 Skill Practice Center renders');
+assert.ok(Renderer.evaluateAnswer(g2Questions.find((q)=>q.question_type==='short_response'&&q.correct_answer==='300 + 40 + 2'),'300 + 40 + 2.'),'G2M_PV_001 short_response accepts acceptable answer');
 
 const dpPattern=VisualRegistry.render(dp.checkpoint[0]);
 assert.match(dpPattern,/pattern-visual/);

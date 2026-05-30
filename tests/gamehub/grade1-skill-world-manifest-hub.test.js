@@ -16,6 +16,7 @@ const packageFiles = fs.readdirSync(contentDir)
 const requiredGrade1MathSkillIds = ['G1M_NS_001', 'G1M_NS_002', 'G1M_NS_003', 'G1M_PV_001', 'G1M_OP_001', 'G1M_OP_002', 'G1M_OP_003', 'G1M_GM_001', 'G1M_GM_002', 'G1M_DP_001', 'G1M_MD_TIME_001'];
 const requiredGrade1EnglishSkillIds = ['G1E_RF_001', 'G1E_RF_002', 'G1E_PH_001', 'G1E_PH_002', 'G1E_SW_001', 'G1E_FL_001', 'G1E_RC_001', 'G1E_RC_002', 'G1E_WR_001', 'G1E_WR_002'];
 const requiredGrade1SkillIds = [...requiredGrade1MathSkillIds, ...requiredGrade1EnglishSkillIds];
+const requiredGrade2SkillIds = ['G2M_PV_001'];
 const legacyPlaceholderTitles = [
   'Place value: tens and ones',
   'Letter sounds and blending',
@@ -34,11 +35,12 @@ test('Skill World manifest includes every generated package file', () => {
 
 test('Grade 1 generated Skill World missions expose required hub fields', () => {
   const packages = manifest.packages.map(readPackage);
-  const packageIds = packages.map((pkg) => pkg.skill_id).sort();
+  const grade1Packages = packages.filter((pkg) => Number(pkg.grade) === 1);
+  const packageIds = grade1Packages.map((pkg) => pkg.skill_id).sort();
 
   assert.deepEqual(packageIds, [...requiredGrade1SkillIds].sort());
-  assert.equal(packages.length, 21);
-  for (const pkg of packages) {
+  assert.equal(grade1Packages.length, 21);
+  for (const pkg of grade1Packages) {
     assert.equal(pkg.grade, 1);
     assert.equal(Boolean(pkg.subject), true);
     assert.equal(Boolean(pkg.domain), true);
@@ -70,7 +72,7 @@ test('Adaptive Grade 1 hub loads package manifest and renders active Grade 1 Ski
   assert.match(hub, /domain:pkg\.domain/);
   assert.match(hub, /title:pkg\.skill/);
   assert.match(hub, /route:skillWorldHref\(pkg\.skill_id\)/);
-  assert.match(hub, /packages\.filter\(\(pkg\)=>pkg\.skill_id&&Number\(pkg\.grade\)===1&&pkg\.status==='active'\)/);
+  assert.match(hub, /packages\.filter\(\(pkg\)=>pkg\.skill_id&&pkg\.status==='active'\)/);
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /has_drill:Array\.isArray\(pkg\.level_banks\)&&pkg\.level_banks\.length>0/);
   assert.match(hub, /Practice This Skill/);
@@ -92,6 +94,24 @@ test('All Grade 1 English Skill World packages appear from manifest for the hub'
   }
   assert.match(hub, /title:pkg\.skill/);
   assert.match(hub, /Grade \${escapeHtml\(pkg\.grade\)} · \${escapeHtml\(pkg\.subject\)} · \${escapeHtml\(pkg\.domain\)} · \${escapeHtml\(pkg\.skill_id\)}/);
+  assert.match(hub, /Practice This Skill/);
+});
+
+test('Grade 2 Skill World package appears from manifest for the hub', () => {
+  const packages = manifest.packages.map(readPackage);
+  const g2 = packages.find((pkg) => pkg.skill_id === 'G2M_PV_001');
+  assert.ok(g2);
+  assert.equal(g2.grade, 2);
+  assert.equal(g2.subject, 'Math');
+  assert.equal(g2.domain, 'Number and Operations in Base Ten');
+  assert.equal(g2.skill, 'Place Value to Hundreds');
+  assert.equal(Array.isArray(g2.level_banks), true);
+  assert.equal(g2.level_banks.filter((level) => !/mixed/i.test(`${level.level_id} ${level.label}`)).length, 4);
+  assert.equal(g2.level_banks.some((level) => /mixed/i.test(`${level.level_id} ${level.label}`)), true);
+  assert.equal(`/skill-world/${encodeURIComponent(g2.skill_id)}/drill`, '/skill-world/G2M_PV_001/drill');
+  assert.match(hub, /function buildGradeLessons\(grade\)/);
+  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
+  assert.doesNotMatch(hub, /if\(g!==1\)/);
   assert.match(hub, /Practice This Skill/);
 });
 
