@@ -1,0 +1,2065 @@
+{
+  "skill_id": "G3M_MUL_001",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production_proof",
+    "source_docs": [
+      "docs/grade3_math_completion_plan.md",
+      "curriculum-framework/plans/grade3-math-completion-plan.v1.json"
+    ],
+    "source_plan": "curriculum-framework/plans/grade3-math-completion-plan.v1.json"
+  },
+  "grade": 3,
+  "subject": "Math",
+  "domain": "Operations and Algebraic Thinking",
+  "skill": "Multiplication Foundations",
+  "mastery_threshold": 0.8,
+  "difficulty_range": "Grade 3 foundation",
+  "lesson": {
+    "story_mission": "Help the Multiplication Garden crew organize seeds into equal groups, neat arrays, repeated-addition notes, and multiplication equations.",
+    "mini_lesson": "Multiplication describes equal groups. You can show the same idea with groups, arrays, repeated addition, and an equation with the \u00d7 symbol.",
+    "objective": "Understand multiplication as equal groups, arrays, repeated addition, and multiplication equations.",
+    "key_vocabulary": [
+      "equal groups",
+      "array",
+      "rows",
+      "columns",
+      "repeated addition",
+      "factor",
+      "product",
+      "multiplication equation"
+    ],
+    "concept_explanation": "When every group has the same number of objects, multiplication can tell the total quickly. Rows and columns in an array, repeated addends, and equations such as 3 \u00d7 4 = 12 all describe the same total.",
+    "visual_model": "equal_groups",
+    "common_misconception": "Learners may count unequal groups as multiplication, swap rows and columns without checking the model, add only two numbers, or read the \u00d7 symbol as addition.",
+    "real_world_connection": "Multiplication helps organize classroom supplies, garden trays, teams, snacks, and other real equal-group situations.",
+    "lesson_summary": "Check that the groups are equal, name rows and columns, match repeated addition, then write factors and the product in a multiplication equation.",
+    "hints": [
+      "Find the equal groups or rows first.",
+      "Count how many are in each group or row.",
+      "Connect the model to repeated addition and a multiplication equation."
+    ]
+  },
+  "worked_examples": [
+    {
+      "text": "There are 3 equal groups with 4 seeds in each group. Count 4 + 4 + 4 = 12, so 3 \u00d7 4 = 12.",
+      "visual_model": "equal_groups",
+      "groups": 3,
+      "items_per_group": 4,
+      "correct_answer": "12"
+    },
+    {
+      "text": "An array with 2 rows and 5 columns has 10 counters. The equation is 2 \u00d7 5 = 10.",
+      "visual_model": "array_model",
+      "rows": 2,
+      "columns": 5,
+      "correct_answer": "10"
+    },
+    {
+      "text": "The repeated addition 6 + 6 + 6 + 6 has 4 addends of 6, so it matches 4 \u00d7 6 = 24.",
+      "visual_model": "repeated_addition",
+      "groups": 4,
+      "addend": 6,
+      "correct_answer": "24"
+    }
+  ],
+  "hint_ladder": [
+    "Find the equal groups or rows first.",
+    "Count how many are in each group or row.",
+    "Connect the model to repeated addition and a multiplication equation."
+  ],
+  "guided_practice": [
+    {
+      "id": "G3M_MUL_001_LVL1_Q1",
+      "question_id": "G3M_MUL_001_LVL1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "equal_groups",
+      "prompt": "There are 3 equal groups with 4 stars in each group. How many stars are there altogether?",
+      "answer": "12",
+      "correct_answer": "12",
+      "misconception_tag": "equal_groups_confusion",
+      "hints": [
+        "Find the equal groups or rows first.",
+        "Count how many are in each group or row.",
+        "Connect the model to repeated addition and a multiplication equation."
+      ],
+      "feedback": {
+        "correct": "Great multiplication thinking!",
+        "incorrect": "Look back at the groups, rows, or equation and try again."
+      },
+      "explanation": "The correct answer is 12.",
+      "choices": [
+        "12",
+        "16",
+        "11"
+      ],
+      "groups": 3,
+      "items_per_group": 4,
+      "object": "stars",
+      "show_total": true
+    },
+    {
+      "id": "G3M_MUL_001_LVL1_Q2",
+      "question_id": "G3M_MUL_001_LVL1_Q2",
+      "question_type": "short_response",
+      "visual_model": "equal_groups",
+      "prompt": "Count the equal groups: 4 groups of 2. What is the total number of objects?",
+      "answer": "8",
+      "correct_answer": "8",
+      "misconception_tag": "equal_groups_confusion",
+      "hints": [
+        "Find the equal groups or rows first.",
+        "Count how many are in each group or row.",
+        "Connect the model to repeated addition and a multiplication equation."
+      ],
+      "feedback": {
+        "correct": "Great multiplication thinking!",
+        "incorrect": "Look back at the groups, rows, or equation and try again."
+      },
+      "explanation": "The correct answer is 8.",
+      "acceptable_answers": [
+        "8",
+        "8 objects",
+        "8 counters"
+      ],
+      "groups": 4,
+      "items_per_group": 2,
+      "object": "counters",
+      "show_total": true
+    },
+    {
+      "id": "G3M_MUL_001_LVL2_Q1",
+      "question_id": "G3M_MUL_001_LVL2_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "array_model",
+      "prompt": "An array has 2 rows and 6 columns. Which multiplication equation matches?",
+      "answer": "2 \u00d7 6 = 12",
+      "correct_answer": "2 \u00d7 6 = 12",
+      "misconception_tag": "array_rows_columns_confusion",
+      "hints": [
+        "Find the equal groups or rows first.",
+        "Count how many are in each group or row.",
+        "Connect the model to repeated addition and a multiplication equation."
+      ],
+      "feedback": {
+        "correct": "Great multiplication thinking!",
+        "incorrect": "Look back at the groups, rows, or equation and try again."
+      },
+      "explanation": "The correct answer is 2 \u00d7 6 = 12.",
+      "choices": [
+        "2 \u00d7 6 = 12",
+        "2 + 6 = 8",
+        "6 \u00d7 2 = 13"
+      ],
+      "rows": 2,
+      "columns": 6,
+      "equation": "2 \u00d7 6 = 12",
+      "show_total": true
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G3M_MUL_001_LVL3_Q1",
+      "question_id": "G3M_MUL_001_LVL3_Q1",
+      "question_type": "short_response",
+      "visual_model": "repeated_addition",
+      "prompt": "Solve the repeated addition: 4 + 4 + 4. What is the total?",
+      "answer": "12",
+      "correct_answer": "12",
+      "misconception_tag": "repeated_addition_confusion",
+      "hints": [
+        "Find the equal groups or rows first.",
+        "Count how many are in each group or row.",
+        "Connect the model to repeated addition and a multiplication equation."
+      ],
+      "feedback": {
+        "correct": "Great multiplication thinking!",
+        "incorrect": "Look back at the groups, rows, or equation and try again."
+      },
+      "explanation": "The correct answer is 12.",
+      "acceptable_answers": [
+        "12",
+        "12 total"
+      ],
+      "groups": 3,
+      "addend": 4,
+      "repeated_addition": "4 + 4 + 4 = 12",
+      "equation": "3 \u00d7 4 = 12"
+    },
+    {
+      "id": "G3M_MUL_001_LVL3_Q2",
+      "question_id": "G3M_MUL_001_LVL3_Q2",
+      "question_type": "multiple_choice",
+      "visual_model": "repeated_addition",
+      "prompt": "Which multiplication equation matches 5 + 5 + 5 + 5?",
+      "answer": "4 \u00d7 5 = 20",
+      "correct_answer": "4 \u00d7 5 = 20",
+      "misconception_tag": "repeated_addition_confusion",
+      "hints": [
+        "Find the equal groups or rows first.",
+        "Count how many are in each group or row.",
+        "Connect the model to repeated addition and a multiplication equation."
+      ],
+      "feedback": {
+        "correct": "Great multiplication thinking!",
+        "incorrect": "Look back at the groups, rows, or equation and try again."
+      },
+      "explanation": "The correct answer is 4 \u00d7 5 = 20.",
+      "choices": [
+        "4 \u00d7 5 = 20",
+        "4 + 5 = 9",
+        "5 \u00d7 4 = 22"
+      ],
+      "groups": 4,
+      "addend": 5,
+      "repeated_addition": "5 + 5 + 5 + 5 = 20",
+      "equation": "4 \u00d7 5 = 20"
+    },
+    {
+      "id": "G3M_MUL_001_LVL4_Q1",
+      "question_id": "G3M_MUL_001_LVL4_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "multiplication_model",
+      "prompt": "What product completes 2 \u00d7 4 = ?",
+      "answer": "8",
+      "correct_answer": "8",
+      "misconception_tag": "multiplication_symbol_confusion",
+      "hints": [
+        "Find the equal groups or rows first.",
+        "Count how many are in each group or row.",
+        "Connect the model to repeated addition and a multiplication equation."
+      ],
+      "feedback": {
+        "correct": "Great multiplication thinking!",
+        "incorrect": "Look back at the groups, rows, or equation and try again."
+      },
+      "explanation": "The correct answer is 8.",
+      "choices": [
+        "8",
+        "6",
+        "12"
+      ],
+      "factor_a": 2,
+      "factor_b": 4,
+      "product": 8,
+      "equation": "2 \u00d7 4 = 8"
+    },
+    {
+      "id": "G3M_MUL_001_LVL4_Q2",
+      "question_id": "G3M_MUL_001_LVL4_Q2",
+      "question_type": "multiplication_equation",
+      "visual_model": "multiplication_model",
+      "prompt": "Write the multiplication equation for 3 groups of 3.",
+      "answer": "3 \u00d7 3 = 9",
+      "correct_answer": "3 \u00d7 3 = 9",
+      "misconception_tag": "multiplication_symbol_confusion",
+      "hints": [
+        "Find the equal groups or rows first.",
+        "Count how many are in each group or row.",
+        "Connect the model to repeated addition and a multiplication equation."
+      ],
+      "feedback": {
+        "correct": "Great multiplication thinking!",
+        "incorrect": "Look back at the groups, rows, or equation and try again."
+      },
+      "explanation": "The correct answer is 3 \u00d7 3 = 9.",
+      "acceptable_answers": [
+        "3 \u00d7 3 = 9",
+        "3x3=9",
+        "3 * 3 = 9",
+        "3 groups of 3 = 9"
+      ],
+      "factor_a": 3,
+      "factor_b": 3,
+      "product": 9,
+      "equation": "3 \u00d7 3 = 9"
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G3M_MUL_001_MIXED_Q1",
+      "question_id": "G3M_MUL_001_MIXED_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "equal_groups",
+      "prompt": "There are 4 groups with 3 cubes in each group. What is the total?",
+      "answer": "12",
+      "correct_answer": "12",
+      "misconception_tag": "equal_groups_confusion",
+      "hints": [
+        "Find the equal groups or rows first.",
+        "Count how many are in each group or row.",
+        "Connect the model to repeated addition and a multiplication equation."
+      ],
+      "feedback": {
+        "correct": "Great multiplication thinking!",
+        "incorrect": "Look back at the groups, rows, or equation and try again."
+      },
+      "explanation": "The correct answer is 12.",
+      "choices": [
+        "12",
+        "7",
+        "16"
+      ],
+      "groups": 4,
+      "items_per_group": 3,
+      "object": "cubes",
+      "show_total": true
+    },
+    {
+      "id": "G3M_MUL_001_MIXED_Q2",
+      "question_id": "G3M_MUL_001_MIXED_Q2",
+      "question_type": "short_response",
+      "visual_model": "array_model",
+      "prompt": "How many counters are in 3 rows and 6 columns?",
+      "answer": "18",
+      "correct_answer": "18",
+      "misconception_tag": "array_rows_columns_confusion",
+      "hints": [
+        "Find the equal groups or rows first.",
+        "Count how many are in each group or row.",
+        "Connect the model to repeated addition and a multiplication equation."
+      ],
+      "feedback": {
+        "correct": "Great multiplication thinking!",
+        "incorrect": "Look back at the groups, rows, or equation and try again."
+      },
+      "explanation": "The correct answer is 18.",
+      "acceptable_answers": [
+        "18",
+        "18 counters"
+      ],
+      "rows": 3,
+      "columns": 6,
+      "equation": "3 \u00d7 6 = 18"
+    },
+    {
+      "id": "G3M_MUL_001_MIXED_Q3",
+      "question_id": "G3M_MUL_001_MIXED_Q3",
+      "question_type": "short_response",
+      "visual_model": "repeated_addition",
+      "prompt": "Solve 5 + 5 + 5 + 5.",
+      "answer": "20",
+      "correct_answer": "20",
+      "misconception_tag": "repeated_addition_confusion",
+      "hints": [
+        "Find the equal groups or rows first.",
+        "Count how many are in each group or row.",
+        "Connect the model to repeated addition and a multiplication equation."
+      ],
+      "feedback": {
+        "correct": "Great multiplication thinking!",
+        "incorrect": "Look back at the groups, rows, or equation and try again."
+      },
+      "explanation": "The correct answer is 20.",
+      "acceptable_answers": [
+        "20",
+        "20 total"
+      ],
+      "groups": 4,
+      "addend": 5,
+      "repeated_addition": "5 + 5 + 5 + 5 = 20",
+      "equation": "4 \u00d7 5 = 20"
+    },
+    {
+      "id": "G3M_MUL_001_MIXED_Q4",
+      "question_id": "G3M_MUL_001_MIXED_Q4",
+      "question_type": "multiplication_equation",
+      "visual_model": "multiplication_model",
+      "prompt": "Write the equation for 6 groups of 2.",
+      "answer": "6 \u00d7 2 = 12",
+      "correct_answer": "6 \u00d7 2 = 12",
+      "misconception_tag": "multiplication_symbol_confusion",
+      "hints": [
+        "Find the equal groups or rows first.",
+        "Count how many are in each group or row.",
+        "Connect the model to repeated addition and a multiplication equation."
+      ],
+      "feedback": {
+        "correct": "Great multiplication thinking!",
+        "incorrect": "Look back at the groups, rows, or equation and try again."
+      },
+      "explanation": "The correct answer is 6 \u00d7 2 = 12.",
+      "acceptable_answers": [
+        "6 \u00d7 2 = 12",
+        "6x2=12",
+        "6 * 2 = 12"
+      ],
+      "factor_a": 6,
+      "factor_b": 2,
+      "product": 12,
+      "equation": "6 \u00d7 2 = 12"
+    }
+  ],
+  "misconception_bank": {
+    "equal_groups_confusion": "Learner may count objects without confirming each group has the same amount.",
+    "array_rows_columns_confusion": "Learner may swap rows and columns or count only one row or one column.",
+    "repeated_addition_confusion": "Learner may add different addends or use the number of addends as the total.",
+    "multiplication_symbol_confusion": "Learner may confuse the \u00d7 symbol with addition or omit the product."
+  },
+  "review_bank": [
+    {
+      "id": "G3M_MUL_001_MIXED_Q1",
+      "question_id": "G3M_MUL_001_MIXED_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "equal_groups",
+      "prompt": "There are 4 groups with 3 cubes in each group. What is the total?",
+      "answer": "12",
+      "correct_answer": "12",
+      "misconception_tag": "equal_groups_confusion",
+      "hints": [
+        "Find the equal groups or rows first.",
+        "Count how many are in each group or row.",
+        "Connect the model to repeated addition and a multiplication equation."
+      ],
+      "feedback": {
+        "correct": "Great multiplication thinking!",
+        "incorrect": "Look back at the groups, rows, or equation and try again."
+      },
+      "explanation": "The correct answer is 12.",
+      "choices": [
+        "12",
+        "7",
+        "16"
+      ],
+      "groups": 4,
+      "items_per_group": 3,
+      "object": "cubes",
+      "show_total": true
+    },
+    {
+      "id": "G3M_MUL_001_MIXED_Q2",
+      "question_id": "G3M_MUL_001_MIXED_Q2",
+      "question_type": "short_response",
+      "visual_model": "array_model",
+      "prompt": "How many counters are in 3 rows and 6 columns?",
+      "answer": "18",
+      "correct_answer": "18",
+      "misconception_tag": "array_rows_columns_confusion",
+      "hints": [
+        "Find the equal groups or rows first.",
+        "Count how many are in each group or row.",
+        "Connect the model to repeated addition and a multiplication equation."
+      ],
+      "feedback": {
+        "correct": "Great multiplication thinking!",
+        "incorrect": "Look back at the groups, rows, or equation and try again."
+      },
+      "explanation": "The correct answer is 18.",
+      "acceptable_answers": [
+        "18",
+        "18 counters"
+      ],
+      "rows": 3,
+      "columns": 6,
+      "equation": "3 \u00d7 6 = 18"
+    },
+    {
+      "id": "G3M_MUL_001_MIXED_Q3",
+      "question_id": "G3M_MUL_001_MIXED_Q3",
+      "question_type": "short_response",
+      "visual_model": "repeated_addition",
+      "prompt": "Solve 5 + 5 + 5 + 5.",
+      "answer": "20",
+      "correct_answer": "20",
+      "misconception_tag": "repeated_addition_confusion",
+      "hints": [
+        "Find the equal groups or rows first.",
+        "Count how many are in each group or row.",
+        "Connect the model to repeated addition and a multiplication equation."
+      ],
+      "feedback": {
+        "correct": "Great multiplication thinking!",
+        "incorrect": "Look back at the groups, rows, or equation and try again."
+      },
+      "explanation": "The correct answer is 20.",
+      "acceptable_answers": [
+        "20",
+        "20 total"
+      ],
+      "groups": 4,
+      "addend": 5,
+      "repeated_addition": "5 + 5 + 5 + 5 = 20",
+      "equation": "4 \u00d7 5 = 20"
+    },
+    {
+      "id": "G3M_MUL_001_MIXED_Q12",
+      "question_id": "G3M_MUL_001_MIXED_Q12",
+      "question_type": "short_response",
+      "visual_model": "visual_objects",
+      "prompt": "Count the visual objects. This total can be arranged as 3 equal groups of 4. What is the total?",
+      "answer": "12",
+      "correct_answer": "12",
+      "misconception_tag": "equal_groups_confusion",
+      "hints": [
+        "Find the equal groups or rows first.",
+        "Count how many are in each group or row.",
+        "Connect the model to repeated addition and a multiplication equation."
+      ],
+      "feedback": {
+        "correct": "Great multiplication thinking!",
+        "incorrect": "Look back at the groups, rows, or equation and try again."
+      },
+      "explanation": "The correct answer is 27.",
+      "acceptable_answers": [
+        "12",
+        "12 objects"
+      ],
+      "groups": 3,
+      "items_per_group": 4,
+      "object": "counters",
+      "object_count": 12,
+      "objects": null
+    }
+  ],
+  "game_theme": {
+    "title": "Multiplication Foundations",
+    "mission_intro": "Organize the Multiplication Garden by proving every equal group, array, repeated addition sentence, and multiplication equation.",
+    "badge_name": "Multiplication Garden Builder"
+  },
+  "next_skill_id": "G3M_MUL_002",
+  "remediation_skill_id": "G2M_GM_001",
+  "level_banks": [
+    {
+      "level_id": "G3M_MUL_001_LVL1",
+      "label": "Level 1: Equal Groups",
+      "focus": "identify equal groups and total objects",
+      "difficulty": 1,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_MUL_001_LVL1_Q1",
+          "question_id": "G3M_MUL_001_LVL1_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "equal_groups",
+          "prompt": "There are 3 equal groups with 4 stars in each group. How many stars are there altogether?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "equal_groups_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 12.",
+          "choices": [
+            "12",
+            "16",
+            "11"
+          ],
+          "groups": 3,
+          "items_per_group": 4,
+          "object": "stars",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL1_Q2",
+          "question_id": "G3M_MUL_001_LVL1_Q2",
+          "question_type": "short_response",
+          "visual_model": "equal_groups",
+          "prompt": "Count the equal groups: 4 groups of 2. What is the total number of objects?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "equal_groups_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 8.",
+          "acceptable_answers": [
+            "8",
+            "8 objects",
+            "8 counters"
+          ],
+          "groups": 4,
+          "items_per_group": 2,
+          "object": "counters",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL1_Q3",
+          "question_id": "G3M_MUL_001_LVL1_Q3",
+          "question_type": "short_response",
+          "visual_model": "equal_groups",
+          "prompt": "Count the equal groups: 2 groups of 5. What is the total number of objects?",
+          "answer": "10",
+          "correct_answer": "10",
+          "misconception_tag": "equal_groups_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 10.",
+          "acceptable_answers": [
+            "10",
+            "10 objects",
+            "10 counters"
+          ],
+          "groups": 2,
+          "items_per_group": 5,
+          "object": "counters",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL1_Q4",
+          "question_id": "G3M_MUL_001_LVL1_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "equal_groups",
+          "prompt": "There are 5 equal groups with 3 stars in each group. How many stars are there altogether?",
+          "answer": "15",
+          "correct_answer": "15",
+          "misconception_tag": "equal_groups_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 15.",
+          "choices": [
+            "15",
+            "18",
+            "14"
+          ],
+          "groups": 5,
+          "items_per_group": 3,
+          "object": "stars",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL1_Q5",
+          "question_id": "G3M_MUL_001_LVL1_Q5",
+          "question_type": "short_response",
+          "visual_model": "equal_groups",
+          "prompt": "Count the equal groups: 3 groups of 6. What is the total number of objects?",
+          "answer": "18",
+          "correct_answer": "18",
+          "misconception_tag": "equal_groups_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 18.",
+          "acceptable_answers": [
+            "18",
+            "18 objects",
+            "18 counters"
+          ],
+          "groups": 3,
+          "items_per_group": 6,
+          "object": "counters",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL1_Q6",
+          "question_id": "G3M_MUL_001_LVL1_Q6",
+          "question_type": "short_response",
+          "visual_model": "equal_groups",
+          "prompt": "Count the equal groups: 6 groups of 2. What is the total number of objects?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "equal_groups_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 12.",
+          "acceptable_answers": [
+            "12",
+            "12 objects",
+            "12 counters"
+          ],
+          "groups": 6,
+          "items_per_group": 2,
+          "object": "counters",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL1_Q7",
+          "question_id": "G3M_MUL_001_LVL1_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "equal_groups",
+          "prompt": "There are 4 equal groups with 5 stars in each group. How many stars are there altogether?",
+          "answer": "20",
+          "correct_answer": "20",
+          "misconception_tag": "equal_groups_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 20.",
+          "choices": [
+            "20",
+            "25",
+            "19"
+          ],
+          "groups": 4,
+          "items_per_group": 5,
+          "object": "stars",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL1_Q8",
+          "question_id": "G3M_MUL_001_LVL1_Q8",
+          "question_type": "short_response",
+          "visual_model": "equal_groups",
+          "prompt": "Count the equal groups: 2 groups of 7. What is the total number of objects?",
+          "answer": "14",
+          "correct_answer": "14",
+          "misconception_tag": "equal_groups_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 14.",
+          "acceptable_answers": [
+            "14",
+            "14 objects",
+            "14 counters"
+          ],
+          "groups": 2,
+          "items_per_group": 7,
+          "object": "counters",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL1_Q9",
+          "question_id": "G3M_MUL_001_LVL1_Q9",
+          "question_type": "short_response",
+          "visual_model": "equal_groups",
+          "prompt": "Count the equal groups: 5 groups of 4. What is the total number of objects?",
+          "answer": "20",
+          "correct_answer": "20",
+          "misconception_tag": "equal_groups_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 20.",
+          "acceptable_answers": [
+            "20",
+            "20 objects",
+            "20 counters"
+          ],
+          "groups": 5,
+          "items_per_group": 4,
+          "object": "counters",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL1_Q10",
+          "question_id": "G3M_MUL_001_LVL1_Q10",
+          "question_type": "short_response",
+          "visual_model": "equal_groups",
+          "prompt": "Count the equal groups: 3 groups of 8. What is the total number of objects?",
+          "answer": "24",
+          "correct_answer": "24",
+          "misconception_tag": "equal_groups_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 24.",
+          "acceptable_answers": [
+            "24",
+            "24 objects",
+            "24 counters"
+          ],
+          "groups": 3,
+          "items_per_group": 8,
+          "object": "counters",
+          "show_total": true
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_MUL_001_LVL2",
+      "label": "Level 2: Arrays",
+      "focus": "connect rows and columns to multiplication",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_MUL_001_LVL2_Q1",
+          "question_id": "G3M_MUL_001_LVL2_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "array_model",
+          "prompt": "An array has 2 rows and 6 columns. Which multiplication equation matches?",
+          "answer": "2 \u00d7 6 = 12",
+          "correct_answer": "2 \u00d7 6 = 12",
+          "misconception_tag": "array_rows_columns_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 2 \u00d7 6 = 12.",
+          "choices": [
+            "2 \u00d7 6 = 12",
+            "2 + 6 = 8",
+            "6 \u00d7 2 = 13"
+          ],
+          "rows": 2,
+          "columns": 6,
+          "equation": "2 \u00d7 6 = 12",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL2_Q2",
+          "question_id": "G3M_MUL_001_LVL2_Q2",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "How many objects are in an array with 3 rows and 4 columns?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "array_rows_columns_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 12.",
+          "acceptable_answers": [
+            "12",
+            "12 objects"
+          ],
+          "rows": 3,
+          "columns": 4,
+          "equation": "3 \u00d7 4 = 12",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL2_Q3",
+          "question_id": "G3M_MUL_001_LVL2_Q3",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "How many objects are in an array with 4 rows and 3 columns?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "array_rows_columns_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 12.",
+          "acceptable_answers": [
+            "12",
+            "12 objects"
+          ],
+          "rows": 4,
+          "columns": 3,
+          "equation": "4 \u00d7 3 = 12",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL2_Q4",
+          "question_id": "G3M_MUL_001_LVL2_Q4",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "How many objects are in an array with 5 rows and 2 columns?",
+          "answer": "10",
+          "correct_answer": "10",
+          "misconception_tag": "array_rows_columns_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 10.",
+          "acceptable_answers": [
+            "10",
+            "10 objects"
+          ],
+          "rows": 5,
+          "columns": 2,
+          "equation": "5 \u00d7 2 = 10",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL2_Q5",
+          "question_id": "G3M_MUL_001_LVL2_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "array_model",
+          "prompt": "An array has 3 rows and 5 columns. Which multiplication equation matches?",
+          "answer": "3 \u00d7 5 = 15",
+          "correct_answer": "3 \u00d7 5 = 15",
+          "misconception_tag": "array_rows_columns_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 3 \u00d7 5 = 15.",
+          "choices": [
+            "3 \u00d7 5 = 15",
+            "3 + 5 = 8",
+            "5 \u00d7 3 = 16"
+          ],
+          "rows": 3,
+          "columns": 5,
+          "equation": "3 \u00d7 5 = 15",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL2_Q6",
+          "question_id": "G3M_MUL_001_LVL2_Q6",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "How many objects are in an array with 6 rows and 3 columns?",
+          "answer": "18",
+          "correct_answer": "18",
+          "misconception_tag": "array_rows_columns_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 18.",
+          "acceptable_answers": [
+            "18",
+            "18 objects"
+          ],
+          "rows": 6,
+          "columns": 3,
+          "equation": "6 \u00d7 3 = 18",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL2_Q7",
+          "question_id": "G3M_MUL_001_LVL2_Q7",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "How many objects are in an array with 4 rows and 4 columns?",
+          "answer": "16",
+          "correct_answer": "16",
+          "misconception_tag": "array_rows_columns_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 16.",
+          "acceptable_answers": [
+            "16",
+            "16 objects"
+          ],
+          "rows": 4,
+          "columns": 4,
+          "equation": "4 \u00d7 4 = 16",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL2_Q8",
+          "question_id": "G3M_MUL_001_LVL2_Q8",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "How many objects are in an array with 2 rows and 8 columns?",
+          "answer": "16",
+          "correct_answer": "16",
+          "misconception_tag": "array_rows_columns_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 16.",
+          "acceptable_answers": [
+            "16",
+            "16 objects"
+          ],
+          "rows": 2,
+          "columns": 8,
+          "equation": "2 \u00d7 8 = 16",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL2_Q9",
+          "question_id": "G3M_MUL_001_LVL2_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "array_model",
+          "prompt": "An array has 5 rows and 5 columns. Which multiplication equation matches?",
+          "answer": "5 \u00d7 5 = 25",
+          "correct_answer": "5 \u00d7 5 = 25",
+          "misconception_tag": "array_rows_columns_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 5 \u00d7 5 = 25.",
+          "choices": [
+            "5 \u00d7 5 = 25",
+            "5 + 5 = 10",
+            "5 \u00d7 5 = 26"
+          ],
+          "rows": 5,
+          "columns": 5,
+          "equation": "5 \u00d7 5 = 25",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_LVL2_Q10",
+          "question_id": "G3M_MUL_001_LVL2_Q10",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "How many objects are in an array with 3 rows and 7 columns?",
+          "answer": "21",
+          "correct_answer": "21",
+          "misconception_tag": "array_rows_columns_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 21.",
+          "acceptable_answers": [
+            "21",
+            "21 objects"
+          ],
+          "rows": 3,
+          "columns": 7,
+          "equation": "3 \u00d7 7 = 21",
+          "show_total": true
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_MUL_001_LVL3",
+      "label": "Level 3: Repeated Addition",
+      "focus": "connect repeated addition to multiplication",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_MUL_001_LVL3_Q1",
+          "question_id": "G3M_MUL_001_LVL3_Q1",
+          "question_type": "short_response",
+          "visual_model": "repeated_addition",
+          "prompt": "Solve the repeated addition: 4 + 4 + 4. What is the total?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "repeated_addition_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 12.",
+          "acceptable_answers": [
+            "12",
+            "12 total"
+          ],
+          "groups": 3,
+          "addend": 4,
+          "repeated_addition": "4 + 4 + 4 = 12",
+          "equation": "3 \u00d7 4 = 12"
+        },
+        {
+          "id": "G3M_MUL_001_LVL3_Q2",
+          "question_id": "G3M_MUL_001_LVL3_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "repeated_addition",
+          "prompt": "Which multiplication equation matches 5 + 5 + 5 + 5?",
+          "answer": "4 \u00d7 5 = 20",
+          "correct_answer": "4 \u00d7 5 = 20",
+          "misconception_tag": "repeated_addition_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 4 \u00d7 5 = 20.",
+          "choices": [
+            "4 \u00d7 5 = 20",
+            "4 + 5 = 9",
+            "5 \u00d7 4 = 22"
+          ],
+          "groups": 4,
+          "addend": 5,
+          "repeated_addition": "5 + 5 + 5 + 5 = 20",
+          "equation": "4 \u00d7 5 = 20"
+        },
+        {
+          "id": "G3M_MUL_001_LVL3_Q3",
+          "question_id": "G3M_MUL_001_LVL3_Q3",
+          "question_type": "short_response",
+          "visual_model": "repeated_addition",
+          "prompt": "Solve the repeated addition: 2 + 2 + 2 + 2 + 2. What is the total?",
+          "answer": "10",
+          "correct_answer": "10",
+          "misconception_tag": "repeated_addition_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 10.",
+          "acceptable_answers": [
+            "10",
+            "10 total"
+          ],
+          "groups": 5,
+          "addend": 2,
+          "repeated_addition": "2 + 2 + 2 + 2 + 2 = 10",
+          "equation": "5 \u00d7 2 = 10"
+        },
+        {
+          "id": "G3M_MUL_001_LVL3_Q4",
+          "question_id": "G3M_MUL_001_LVL3_Q4",
+          "question_type": "short_response",
+          "visual_model": "repeated_addition",
+          "prompt": "Solve the repeated addition: 6 + 6 + 6. What is the total?",
+          "answer": "18",
+          "correct_answer": "18",
+          "misconception_tag": "repeated_addition_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 18.",
+          "acceptable_answers": [
+            "18",
+            "18 total"
+          ],
+          "groups": 3,
+          "addend": 6,
+          "repeated_addition": "6 + 6 + 6 = 18",
+          "equation": "3 \u00d7 6 = 18"
+        },
+        {
+          "id": "G3M_MUL_001_LVL3_Q5",
+          "question_id": "G3M_MUL_001_LVL3_Q5",
+          "question_type": "short_response",
+          "visual_model": "repeated_addition",
+          "prompt": "Solve the repeated addition: 3 + 3 + 3 + 3 + 3 + 3. What is the total?",
+          "answer": "18",
+          "correct_answer": "18",
+          "misconception_tag": "repeated_addition_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 18.",
+          "acceptable_answers": [
+            "18",
+            "18 total"
+          ],
+          "groups": 6,
+          "addend": 3,
+          "repeated_addition": "3 + 3 + 3 + 3 + 3 + 3 = 18",
+          "equation": "6 \u00d7 3 = 18"
+        },
+        {
+          "id": "G3M_MUL_001_LVL3_Q6",
+          "question_id": "G3M_MUL_001_LVL3_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "repeated_addition",
+          "prompt": "Which multiplication equation matches 7 + 7 + 7 + 7?",
+          "answer": "4 \u00d7 7 = 28",
+          "correct_answer": "4 \u00d7 7 = 28",
+          "misconception_tag": "repeated_addition_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 4 \u00d7 7 = 28.",
+          "choices": [
+            "4 \u00d7 7 = 28",
+            "4 + 7 = 11",
+            "7 \u00d7 4 = 30"
+          ],
+          "groups": 4,
+          "addend": 7,
+          "repeated_addition": "7 + 7 + 7 + 7 = 28",
+          "equation": "4 \u00d7 7 = 28"
+        },
+        {
+          "id": "G3M_MUL_001_LVL3_Q7",
+          "question_id": "G3M_MUL_001_LVL3_Q7",
+          "question_type": "short_response",
+          "visual_model": "repeated_addition",
+          "prompt": "Solve the repeated addition: 9 + 9. What is the total?",
+          "answer": "18",
+          "correct_answer": "18",
+          "misconception_tag": "repeated_addition_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 18.",
+          "acceptable_answers": [
+            "18",
+            "18 total"
+          ],
+          "groups": 2,
+          "addend": 9,
+          "repeated_addition": "9 + 9 = 18",
+          "equation": "2 \u00d7 9 = 18"
+        },
+        {
+          "id": "G3M_MUL_001_LVL3_Q8",
+          "question_id": "G3M_MUL_001_LVL3_Q8",
+          "question_type": "short_response",
+          "visual_model": "repeated_addition",
+          "prompt": "Solve the repeated addition: 4 + 4 + 4 + 4 + 4. What is the total?",
+          "answer": "20",
+          "correct_answer": "20",
+          "misconception_tag": "repeated_addition_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 20.",
+          "acceptable_answers": [
+            "20",
+            "20 total"
+          ],
+          "groups": 5,
+          "addend": 4,
+          "repeated_addition": "4 + 4 + 4 + 4 + 4 = 20",
+          "equation": "5 \u00d7 4 = 20"
+        },
+        {
+          "id": "G3M_MUL_001_LVL3_Q9",
+          "question_id": "G3M_MUL_001_LVL3_Q9",
+          "question_type": "short_response",
+          "visual_model": "repeated_addition",
+          "prompt": "Solve the repeated addition: 8 + 8 + 8. What is the total?",
+          "answer": "24",
+          "correct_answer": "24",
+          "misconception_tag": "repeated_addition_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 24.",
+          "acceptable_answers": [
+            "24",
+            "24 total"
+          ],
+          "groups": 3,
+          "addend": 8,
+          "repeated_addition": "8 + 8 + 8 = 24",
+          "equation": "3 \u00d7 8 = 24"
+        },
+        {
+          "id": "G3M_MUL_001_LVL3_Q10",
+          "question_id": "G3M_MUL_001_LVL3_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "repeated_addition",
+          "prompt": "Which multiplication equation matches 2 + 2 + 2 + 2 + 2 + 2?",
+          "answer": "6 \u00d7 2 = 12",
+          "correct_answer": "6 \u00d7 2 = 12",
+          "misconception_tag": "repeated_addition_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 6 \u00d7 2 = 12.",
+          "choices": [
+            "6 \u00d7 2 = 12",
+            "6 + 2 = 8",
+            "2 \u00d7 6 = 14"
+          ],
+          "groups": 6,
+          "addend": 2,
+          "repeated_addition": "2 + 2 + 2 + 2 + 2 + 2 = 12",
+          "equation": "6 \u00d7 2 = 12"
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_MUL_001_LVL4",
+      "label": "Level 4: Multiplication Equations",
+      "focus": "write and solve multiplication equations",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_MUL_001_LVL4_Q1",
+          "question_id": "G3M_MUL_001_LVL4_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "multiplication_model",
+          "prompt": "What product completes 2 \u00d7 4 = ?",
+          "answer": "8",
+          "correct_answer": "8",
+          "misconception_tag": "multiplication_symbol_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 8.",
+          "choices": [
+            "8",
+            "6",
+            "12"
+          ],
+          "factor_a": 2,
+          "factor_b": 4,
+          "product": 8,
+          "equation": "2 \u00d7 4 = 8"
+        },
+        {
+          "id": "G3M_MUL_001_LVL4_Q2",
+          "question_id": "G3M_MUL_001_LVL4_Q2",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Write the multiplication equation for 3 groups of 3.",
+          "answer": "3 \u00d7 3 = 9",
+          "correct_answer": "3 \u00d7 3 = 9",
+          "misconception_tag": "multiplication_symbol_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 3 \u00d7 3 = 9.",
+          "acceptable_answers": [
+            "3 \u00d7 3 = 9",
+            "3x3=9",
+            "3 * 3 = 9",
+            "3 groups of 3 = 9"
+          ],
+          "factor_a": 3,
+          "factor_b": 3,
+          "product": 9,
+          "equation": "3 \u00d7 3 = 9"
+        },
+        {
+          "id": "G3M_MUL_001_LVL4_Q3",
+          "question_id": "G3M_MUL_001_LVL4_Q3",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Write the multiplication equation for 4 groups of 6.",
+          "answer": "4 \u00d7 6 = 24",
+          "correct_answer": "4 \u00d7 6 = 24",
+          "misconception_tag": "multiplication_symbol_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 4 \u00d7 6 = 24.",
+          "acceptable_answers": [
+            "4 \u00d7 6 = 24",
+            "4x6=24",
+            "4 * 6 = 24",
+            "4 groups of 6 = 24"
+          ],
+          "factor_a": 4,
+          "factor_b": 6,
+          "product": 24,
+          "equation": "4 \u00d7 6 = 24"
+        },
+        {
+          "id": "G3M_MUL_001_LVL4_Q4",
+          "question_id": "G3M_MUL_001_LVL4_Q4",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Write the multiplication equation for 5 groups of 2.",
+          "answer": "5 \u00d7 2 = 10",
+          "correct_answer": "5 \u00d7 2 = 10",
+          "misconception_tag": "multiplication_symbol_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 5 \u00d7 2 = 10.",
+          "acceptable_answers": [
+            "5 \u00d7 2 = 10",
+            "5x2=10",
+            "5 * 2 = 10",
+            "5 groups of 2 = 10"
+          ],
+          "factor_a": 5,
+          "factor_b": 2,
+          "product": 10,
+          "equation": "5 \u00d7 2 = 10"
+        },
+        {
+          "id": "G3M_MUL_001_LVL4_Q5",
+          "question_id": "G3M_MUL_001_LVL4_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "multiplication_model",
+          "prompt": "What product completes 6 \u00d7 4 = ?",
+          "answer": "24",
+          "correct_answer": "24",
+          "misconception_tag": "multiplication_symbol_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 24.",
+          "choices": [
+            "24",
+            "10",
+            "28"
+          ],
+          "factor_a": 6,
+          "factor_b": 4,
+          "product": 24,
+          "equation": "6 \u00d7 4 = 24"
+        },
+        {
+          "id": "G3M_MUL_001_LVL4_Q6",
+          "question_id": "G3M_MUL_001_LVL4_Q6",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Write the multiplication equation for 7 groups of 3.",
+          "answer": "7 \u00d7 3 = 21",
+          "correct_answer": "7 \u00d7 3 = 21",
+          "misconception_tag": "multiplication_symbol_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 7 \u00d7 3 = 21.",
+          "acceptable_answers": [
+            "7 \u00d7 3 = 21",
+            "7x3=21",
+            "7 * 3 = 21",
+            "7 groups of 3 = 21"
+          ],
+          "factor_a": 7,
+          "factor_b": 3,
+          "product": 21,
+          "equation": "7 \u00d7 3 = 21"
+        },
+        {
+          "id": "G3M_MUL_001_LVL4_Q7",
+          "question_id": "G3M_MUL_001_LVL4_Q7",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Write the multiplication equation for 8 groups of 2.",
+          "answer": "8 \u00d7 2 = 16",
+          "correct_answer": "8 \u00d7 2 = 16",
+          "misconception_tag": "multiplication_symbol_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 8 \u00d7 2 = 16.",
+          "acceptable_answers": [
+            "8 \u00d7 2 = 16",
+            "8x2=16",
+            "8 * 2 = 16",
+            "8 groups of 2 = 16"
+          ],
+          "factor_a": 8,
+          "factor_b": 2,
+          "product": 16,
+          "equation": "8 \u00d7 2 = 16"
+        },
+        {
+          "id": "G3M_MUL_001_LVL4_Q8",
+          "question_id": "G3M_MUL_001_LVL4_Q8",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Write the multiplication equation for 5 groups of 5.",
+          "answer": "5 \u00d7 5 = 25",
+          "correct_answer": "5 \u00d7 5 = 25",
+          "misconception_tag": "multiplication_symbol_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 5 \u00d7 5 = 25.",
+          "acceptable_answers": [
+            "5 \u00d7 5 = 25",
+            "5x5=25",
+            "5 * 5 = 25",
+            "5 groups of 5 = 25"
+          ],
+          "factor_a": 5,
+          "factor_b": 5,
+          "product": 25,
+          "equation": "5 \u00d7 5 = 25"
+        },
+        {
+          "id": "G3M_MUL_001_LVL4_Q9",
+          "question_id": "G3M_MUL_001_LVL4_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "multiplication_model",
+          "prompt": "What product completes 3 \u00d7 9 = ?",
+          "answer": "27",
+          "correct_answer": "27",
+          "misconception_tag": "multiplication_symbol_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 27.",
+          "choices": [
+            "27",
+            "12",
+            "36"
+          ],
+          "factor_a": 3,
+          "factor_b": 9,
+          "product": 27,
+          "equation": "3 \u00d7 9 = 27"
+        },
+        {
+          "id": "G3M_MUL_001_LVL4_Q10",
+          "question_id": "G3M_MUL_001_LVL4_Q10",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Write the multiplication equation for 4 groups of 8.",
+          "answer": "4 \u00d7 8 = 32",
+          "correct_answer": "4 \u00d7 8 = 32",
+          "misconception_tag": "multiplication_symbol_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 4 \u00d7 8 = 32.",
+          "acceptable_answers": [
+            "4 \u00d7 8 = 32",
+            "4x8=32",
+            "4 * 8 = 32",
+            "4 groups of 8 = 32"
+          ],
+          "factor_a": 4,
+          "factor_b": 8,
+          "product": 32,
+          "equation": "4 \u00d7 8 = 32"
+        }
+      ]
+    },
+    {
+      "level_id": "G3M_MUL_001_MIXED",
+      "label": "Mixed",
+      "focus": "mixed multiplication foundations",
+      "difficulty": "mixed",
+      "question_count_required": 12,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G3M_MUL_001_MIXED_Q1",
+          "question_id": "G3M_MUL_001_MIXED_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "equal_groups",
+          "prompt": "There are 4 groups with 3 cubes in each group. What is the total?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "equal_groups_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 12.",
+          "choices": [
+            "12",
+            "7",
+            "16"
+          ],
+          "groups": 4,
+          "items_per_group": 3,
+          "object": "cubes",
+          "show_total": true
+        },
+        {
+          "id": "G3M_MUL_001_MIXED_Q2",
+          "question_id": "G3M_MUL_001_MIXED_Q2",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "How many counters are in 3 rows and 6 columns?",
+          "answer": "18",
+          "correct_answer": "18",
+          "misconception_tag": "array_rows_columns_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 18.",
+          "acceptable_answers": [
+            "18",
+            "18 counters"
+          ],
+          "rows": 3,
+          "columns": 6,
+          "equation": "3 \u00d7 6 = 18"
+        },
+        {
+          "id": "G3M_MUL_001_MIXED_Q3",
+          "question_id": "G3M_MUL_001_MIXED_Q3",
+          "question_type": "short_response",
+          "visual_model": "repeated_addition",
+          "prompt": "Solve 5 + 5 + 5 + 5.",
+          "answer": "20",
+          "correct_answer": "20",
+          "misconception_tag": "repeated_addition_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 20.",
+          "acceptable_answers": [
+            "20",
+            "20 total"
+          ],
+          "groups": 4,
+          "addend": 5,
+          "repeated_addition": "5 + 5 + 5 + 5 = 20",
+          "equation": "4 \u00d7 5 = 20"
+        },
+        {
+          "id": "G3M_MUL_001_MIXED_Q4",
+          "question_id": "G3M_MUL_001_MIXED_Q4",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Write the equation for 6 groups of 2.",
+          "answer": "6 \u00d7 2 = 12",
+          "correct_answer": "6 \u00d7 2 = 12",
+          "misconception_tag": "multiplication_symbol_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 6 \u00d7 2 = 12.",
+          "acceptable_answers": [
+            "6 \u00d7 2 = 12",
+            "6x2=12",
+            "6 * 2 = 12"
+          ],
+          "factor_a": 6,
+          "factor_b": 2,
+          "product": 12,
+          "equation": "6 \u00d7 2 = 12"
+        },
+        {
+          "id": "G3M_MUL_001_MIXED_Q5",
+          "question_id": "G3M_MUL_001_MIXED_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "array_model",
+          "prompt": "An array has 4 rows and 5 columns. Which equation matches?",
+          "answer": "4 \u00d7 5 = 20",
+          "correct_answer": "4 \u00d7 5 = 20",
+          "misconception_tag": "array_rows_columns_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 4 \u00d7 5 = 20.",
+          "choices": [
+            "4 \u00d7 5 = 20",
+            "4 + 5 = 9",
+            "5 \u00d7 4 = 21"
+          ],
+          "rows": 4,
+          "columns": 5,
+          "equation": "4 \u00d7 5 = 20"
+        },
+        {
+          "id": "G3M_MUL_001_MIXED_Q6",
+          "question_id": "G3M_MUL_001_MIXED_Q6",
+          "question_type": "short_response",
+          "visual_model": "equal_groups",
+          "prompt": "There are 7 equal groups with 2 objects each. How many objects?",
+          "answer": "14",
+          "correct_answer": "14",
+          "misconception_tag": "equal_groups_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 14.",
+          "acceptable_answers": [
+            "14",
+            "14 objects"
+          ],
+          "groups": 7,
+          "items_per_group": 2,
+          "object": "stars"
+        },
+        {
+          "id": "G3M_MUL_001_MIXED_Q7",
+          "question_id": "G3M_MUL_001_MIXED_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "repeated_addition",
+          "prompt": "Which equation matches 3 + 3 + 3 + 3 + 3?",
+          "answer": "5 \u00d7 3 = 15",
+          "correct_answer": "5 \u00d7 3 = 15",
+          "misconception_tag": "repeated_addition_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 5 \u00d7 3 = 15.",
+          "choices": [
+            "5 \u00d7 3 = 15",
+            "5 + 3 = 8",
+            "3 \u00d7 5 = 18"
+          ],
+          "groups": 5,
+          "addend": 3,
+          "repeated_addition": "3 + 3 + 3 + 3 + 3 = 15",
+          "equation": "5 \u00d7 3 = 15"
+        },
+        {
+          "id": "G3M_MUL_001_MIXED_Q8",
+          "question_id": "G3M_MUL_001_MIXED_Q8",
+          "question_type": "multiplication_equation",
+          "visual_model": "multiplication_model",
+          "prompt": "Write an equation for 3 rows of 8.",
+          "answer": "3 \u00d7 8 = 24",
+          "correct_answer": "3 \u00d7 8 = 24",
+          "misconception_tag": "multiplication_symbol_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 3 \u00d7 8 = 24.",
+          "acceptable_answers": [
+            "3 \u00d7 8 = 24",
+            "3x8=24",
+            "3 * 8 = 24"
+          ],
+          "factor_a": 3,
+          "factor_b": 8,
+          "product": 24,
+          "equation": "3 \u00d7 8 = 24"
+        },
+        {
+          "id": "G3M_MUL_001_MIXED_Q9",
+          "question_id": "G3M_MUL_001_MIXED_Q9",
+          "question_type": "short_response",
+          "visual_model": "array_model",
+          "prompt": "How many objects are in 2 rows and 9 columns?",
+          "answer": "18",
+          "correct_answer": "18",
+          "misconception_tag": "array_rows_columns_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 18.",
+          "acceptable_answers": [
+            "18",
+            "18 objects"
+          ],
+          "rows": 2,
+          "columns": 9,
+          "equation": "2 \u00d7 9 = 18"
+        },
+        {
+          "id": "G3M_MUL_001_MIXED_Q10",
+          "question_id": "G3M_MUL_001_MIXED_Q10",
+          "question_type": "short_response",
+          "visual_model": "repeated_addition",
+          "prompt": "What total does 4 + 4 + 4 show?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "repeated_addition_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 12.",
+          "acceptable_answers": [
+            "12",
+            "12 total"
+          ],
+          "groups": 3,
+          "addend": 4,
+          "repeated_addition": "4 + 4 + 4 = 12",
+          "equation": "3 \u00d7 4 = 12"
+        },
+        {
+          "id": "G3M_MUL_001_MIXED_Q11",
+          "question_id": "G3M_MUL_001_MIXED_Q11",
+          "question_type": "multiple_choice",
+          "visual_model": "multiplication_model",
+          "prompt": "What is the product in 5 \u00d7 6 = 30?",
+          "answer": "30",
+          "correct_answer": "30",
+          "misconception_tag": "multiplication_symbol_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 30.",
+          "choices": [
+            "30",
+            "11",
+            "56"
+          ],
+          "factor_a": 5,
+          "factor_b": 6,
+          "product": 30,
+          "equation": "5 \u00d7 6 = 30"
+        },
+        {
+          "id": "G3M_MUL_001_MIXED_Q12",
+          "question_id": "G3M_MUL_001_MIXED_Q12",
+          "question_type": "short_response",
+          "visual_model": "visual_objects",
+          "prompt": "Count the visual objects. This total can be arranged as 3 equal groups of 4. What is the total?",
+          "answer": "12",
+          "correct_answer": "12",
+          "misconception_tag": "equal_groups_confusion",
+          "hints": [
+            "Find the equal groups or rows first.",
+            "Count how many are in each group or row.",
+            "Connect the model to repeated addition and a multiplication equation."
+          ],
+          "feedback": {
+            "correct": "Great multiplication thinking!",
+            "incorrect": "Look back at the groups, rows, or equation and try again."
+          },
+          "explanation": "The correct answer is 27.",
+          "acceptable_answers": [
+            "12",
+            "12 objects"
+          ],
+          "groups": 3,
+          "items_per_group": 4,
+          "object": "counters",
+          "object_count": 12,
+          "objects": null
+        }
+      ]
+    }
+  ]
+}
