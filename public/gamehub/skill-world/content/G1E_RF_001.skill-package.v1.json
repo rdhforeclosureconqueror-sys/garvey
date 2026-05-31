@@ -30,16 +30,42 @@
     "common_misconception": "A letter name is not always the same as the sound it makes, and uppercase and lowercase partners can look different.",
     "real_world_connection": "We use letters and beginning sounds when reading signs, names, labels, and books.",
     "lesson_summary": "Look at the letter shape, name the letter, then say or choose its common sound.",
-    "mini_lesson": "First look at the letter card. Decide if it is uppercase or lowercase. Then connect the printed letter to a common sound, like M says /m/ in moon."
+    "mini_lesson": "First look at the letter card. Decide if it is uppercase or lowercase. Then connect the printed letter to a common sound, like M says /m/ in moon.",
+    "audio": {
+      "text": "Listen, then say it with me.",
+      "label": "Listen",
+      "type": "instruction",
+      "repeat_count": 1,
+      "student_prompt": "Your turn: say it aloud."
+    },
+    "repeat_after_me": true
   },
   "worked_examples": [
     {
       "text": "Watch: The card shows M / m. M is the uppercase letter. Moon begins with /m/, so M matches /m/.",
-      "correct_answer": "/m/"
+      "correct_answer": "/m/",
+      "audio": {
+        "text": "mmm",
+        "label": "Hear the sound",
+        "type": "phoneme",
+        "repeat_count": 2,
+        "student_prompt": "Now say /m/."
+      },
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "text": "Demo: The picture is sun. Sun begins with /s/. The letter S makes /s/, so choose S.",
-      "correct_answer": "S"
+      "correct_answer": "S",
+      "audio": {
+        "text": "S",
+        "label": "Hear the word S",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read S."
+      },
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "hint_ladder": [
@@ -70,7 +96,17 @@
       "feedback": "Nice work: M matches.",
       "letter": "M",
       "paired_form": "M / m",
-      "letter_label": "uppercase"
+      "letter_label": "uppercase",
+      "audio": {
+        "text": "M",
+        "label": "Hear the letter M",
+        "type": "letter_sound",
+        "repeat_count": 1,
+        "student_prompt": "Now say M."
+      },
+      "speakable_text": "M",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_GP2",
@@ -94,7 +130,17 @@
       "feedback": "Nice work: t matches.",
       "letter": "t",
       "paired_form": "T / t",
-      "letter_label": "lowercase"
+      "letter_label": "lowercase",
+      "audio": {
+        "text": "t",
+        "label": "Hear the letter T",
+        "type": "letter_sound",
+        "repeat_count": 1,
+        "student_prompt": "Now say T."
+      },
+      "speakable_text": "t",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_GP3",
@@ -120,7 +166,17 @@
       "target_letter": "S",
       "sound": "/s/",
       "word": "sun",
-      "picture": "sun"
+      "picture": "sun",
+      "audio": {
+        "text": "sun",
+        "label": "Hear the word sun",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read sun."
+      },
+      "speakable_text": "sun",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_GP4",
@@ -146,7 +202,17 @@
       "target_letter": "B",
       "sound": "/b/",
       "word": "ball",
-      "picture": "ball"
+      "picture": "ball",
+      "audio": {
+        "text": "ball",
+        "label": "Hear the word ball",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read ball."
+      },
+      "speakable_text": "ball",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_GP5",
@@ -169,7 +235,17 @@
       "feedback": "Yes: a matches.",
       "letter": "A",
       "paired_form": "A / a",
-      "letter_label": "uppercase"
+      "letter_label": "uppercase",
+      "audio": {
+        "text": "A",
+        "label": "Hear the letter A",
+        "type": "letter_sound",
+        "repeat_count": 1,
+        "student_prompt": "Now say A."
+      },
+      "speakable_text": "A",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_GP6",
@@ -195,7 +271,17 @@
       "target_letter": "D",
       "sound": "/d/",
       "word": "dog",
-      "picture": "dog"
+      "picture": "dog",
+      "audio": {
+        "text": "dog",
+        "label": "Hear the word dog",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read dog."
+      },
+      "speakable_text": "dog",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "adaptive_question_bank": [
@@ -223,7 +309,17 @@
       "target_letter": "M",
       "sound": "/m/",
       "word": "moon",
-      "picture": "moon"
+      "picture": "moon",
+      "audio": {
+        "text": "moon",
+        "label": "Hear the word moon",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read moon."
+      },
+      "speakable_text": "moon",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_AQ2",
@@ -249,7 +345,17 @@
       "target_letter": "S",
       "sound": "/s/",
       "word": "sun",
-      "picture": "sun"
+      "picture": "sun",
+      "audio": {
+        "text": "sun",
+        "label": "Hear the word sun",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read sun."
+      },
+      "speakable_text": "sun",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_AQ3",
@@ -275,7 +381,17 @@
       "target_letter": "T",
       "sound": "/t/",
       "word": "turtle",
-      "picture": "turtle"
+      "picture": "turtle",
+      "audio": {
+        "text": "turtle",
+        "label": "Hear the word turtle",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read turtle."
+      },
+      "speakable_text": "turtle",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_AQ4",
@@ -301,7 +417,17 @@
       "target_letter": "B",
       "sound": "/b/",
       "word": "ball",
-      "picture": "ball"
+      "picture": "ball",
+      "audio": {
+        "text": "ball",
+        "label": "Hear the word ball",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read ball."
+      },
+      "speakable_text": "ball",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_AQ5",
@@ -327,7 +453,17 @@
       "target_letter": "A",
       "sound": "/a/",
       "word": "apple",
-      "picture": "apple"
+      "picture": "apple",
+      "audio": {
+        "text": "apple",
+        "label": "Hear the word apple",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read apple."
+      },
+      "speakable_text": "apple",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_AQ6",
@@ -353,7 +489,17 @@
       "target_letter": "D",
       "sound": "/d/",
       "word": "dog",
-      "picture": "dog"
+      "picture": "dog",
+      "audio": {
+        "text": "dog",
+        "label": "Hear the word dog",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read dog."
+      },
+      "speakable_text": "dog",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_AQ7",
@@ -379,7 +525,17 @@
       "target_letter": "F",
       "sound": "/f/",
       "word": "fish",
-      "picture": "fish"
+      "picture": "fish",
+      "audio": {
+        "text": "fish",
+        "label": "Hear the word fish",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read fish."
+      },
+      "speakable_text": "fish",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_AQ8",
@@ -405,7 +561,17 @@
       "target_letter": "L",
       "sound": "/l/",
       "word": "leaf",
-      "picture": "leaf"
+      "picture": "leaf",
+      "audio": {
+        "text": "leaf",
+        "label": "Hear the word leaf",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read leaf."
+      },
+      "speakable_text": "leaf",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_AQ9",
@@ -431,7 +597,17 @@
       "target_letter": "N",
       "sound": "/n/",
       "word": "nest",
-      "picture": "nest"
+      "picture": "nest",
+      "audio": {
+        "text": "nest",
+        "label": "Hear the word nest",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read nest."
+      },
+      "speakable_text": "nest",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_AQ10",
@@ -457,7 +633,17 @@
       "target_letter": "P",
       "sound": "/p/",
       "word": "pig",
-      "picture": "pig"
+      "picture": "pig",
+      "audio": {
+        "text": "pig",
+        "label": "Hear the word pig",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read pig."
+      },
+      "speakable_text": "pig",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_AQ11",
@@ -484,7 +670,17 @@
         "sun",
         "dog"
       ],
-      "target_sound": "/m/"
+      "target_sound": "/m/",
+      "audio": {
+        "text": "moon",
+        "label": "Hear the word",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now say it aloud."
+      },
+      "speakable_text": "moon",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_AQ12",
@@ -509,7 +705,17 @@
       "target_letter": "H",
       "sound": "/h/",
       "word": "hat",
-      "picture": "hat"
+      "picture": "hat",
+      "audio": {
+        "text": "hat",
+        "label": "Hear the word hat",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read hat."
+      },
+      "speakable_text": "hat",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "checkpoint": [
@@ -535,7 +741,17 @@
       "feedback": "Nice work: S matches.",
       "letter": "S",
       "paired_form": "S / s",
-      "letter_label": "uppercase"
+      "letter_label": "uppercase",
+      "audio": {
+        "text": "S",
+        "label": "Hear the letter S",
+        "type": "letter_sound",
+        "repeat_count": 1,
+        "student_prompt": "Now say S."
+      },
+      "speakable_text": "S",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_CP2",
@@ -559,7 +775,17 @@
       "feedback": "Nice work: m matches.",
       "letter": "m",
       "paired_form": "M / m",
-      "letter_label": "lowercase"
+      "letter_label": "lowercase",
+      "audio": {
+        "text": "m",
+        "label": "Hear the letter M",
+        "type": "letter_sound",
+        "repeat_count": 1,
+        "student_prompt": "Now say M."
+      },
+      "speakable_text": "m",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_CP3",
@@ -585,7 +811,17 @@
       "target_letter": "T",
       "sound": "/t/",
       "word": "turtle",
-      "picture": "turtle"
+      "picture": "turtle",
+      "audio": {
+        "text": "turtle",
+        "label": "Hear the word turtle",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read turtle."
+      },
+      "speakable_text": "turtle",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_001_CP4",
@@ -611,7 +847,17 @@
       "target_letter": "F",
       "sound": "/f/",
       "word": "fish",
-      "picture": "fish"
+      "picture": "fish",
+      "audio": {
+        "text": "fish",
+        "label": "Hear the word fish",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read fish."
+      },
+      "speakable_text": "fish",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "misconception_bank": {
@@ -679,7 +925,17 @@
           "feedback": "Nice work: A matches.",
           "letter": "A",
           "paired_form": "A / a",
-          "letter_label": "uppercase"
+          "letter_label": "uppercase",
+          "audio": {
+            "text": "A",
+            "label": "Hear the letter A",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say A."
+          },
+          "speakable_text": "A",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL1_Q02",
@@ -703,7 +959,17 @@
           "feedback": "Nice work: B matches.",
           "letter": "B",
           "paired_form": "B / b",
-          "letter_label": "uppercase"
+          "letter_label": "uppercase",
+          "audio": {
+            "text": "B",
+            "label": "Hear the letter B",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say B."
+          },
+          "speakable_text": "B",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL1_Q03",
@@ -727,7 +993,17 @@
           "feedback": "Nice work: C matches.",
           "letter": "C",
           "paired_form": "C / c",
-          "letter_label": "uppercase"
+          "letter_label": "uppercase",
+          "audio": {
+            "text": "C",
+            "label": "Hear the letter C",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say C."
+          },
+          "speakable_text": "C",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL1_Q04",
@@ -751,7 +1027,17 @@
           "feedback": "Nice work: D matches.",
           "letter": "D",
           "paired_form": "D / d",
-          "letter_label": "uppercase"
+          "letter_label": "uppercase",
+          "audio": {
+            "text": "D",
+            "label": "Hear the letter D",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say D."
+          },
+          "speakable_text": "D",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL1_Q05",
@@ -775,7 +1061,17 @@
           "feedback": "Nice work: F matches.",
           "letter": "F",
           "paired_form": "F / f",
-          "letter_label": "uppercase"
+          "letter_label": "uppercase",
+          "audio": {
+            "text": "F",
+            "label": "Hear the letter F",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say F."
+          },
+          "speakable_text": "F",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL1_Q06",
@@ -799,7 +1095,17 @@
           "feedback": "Nice work: H matches.",
           "letter": "H",
           "paired_form": "H / h",
-          "letter_label": "uppercase"
+          "letter_label": "uppercase",
+          "audio": {
+            "text": "H",
+            "label": "Hear the letter H",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say H."
+          },
+          "speakable_text": "H",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL1_Q07",
@@ -823,7 +1129,17 @@
           "feedback": "Nice work: L matches.",
           "letter": "L",
           "paired_form": "L / l",
-          "letter_label": "uppercase"
+          "letter_label": "uppercase",
+          "audio": {
+            "text": "L",
+            "label": "Hear the letter L",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say L."
+          },
+          "speakable_text": "L",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL1_Q08",
@@ -847,7 +1163,17 @@
           "feedback": "Nice work: M matches.",
           "letter": "M",
           "paired_form": "M / m",
-          "letter_label": "uppercase"
+          "letter_label": "uppercase",
+          "audio": {
+            "text": "M",
+            "label": "Hear the letter M",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say M."
+          },
+          "speakable_text": "M",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL1_Q09",
@@ -871,7 +1197,17 @@
           "feedback": "Nice work: S matches.",
           "letter": "S",
           "paired_form": "S / s",
-          "letter_label": "uppercase"
+          "letter_label": "uppercase",
+          "audio": {
+            "text": "S",
+            "label": "Hear the letter S",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say S."
+          },
+          "speakable_text": "S",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL1_Q10",
@@ -895,7 +1231,17 @@
           "feedback": "Nice work: T matches.",
           "letter": "T",
           "paired_form": "T / t",
-          "letter_label": "uppercase"
+          "letter_label": "uppercase",
+          "audio": {
+            "text": "T",
+            "label": "Hear the letter T",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say T."
+          },
+          "speakable_text": "T",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -929,7 +1275,17 @@
           "feedback": "Nice work: a matches.",
           "letter": "a",
           "paired_form": "A / a",
-          "letter_label": "lowercase"
+          "letter_label": "lowercase",
+          "audio": {
+            "text": "a",
+            "label": "Hear the letter A",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say A."
+          },
+          "speakable_text": "a",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL2_Q02",
@@ -953,7 +1309,17 @@
           "feedback": "Nice work: b matches.",
           "letter": "b",
           "paired_form": "B / b",
-          "letter_label": "lowercase"
+          "letter_label": "lowercase",
+          "audio": {
+            "text": "b",
+            "label": "Hear the letter B",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say B."
+          },
+          "speakable_text": "b",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL2_Q03",
@@ -977,7 +1343,17 @@
           "feedback": "Nice work: c matches.",
           "letter": "c",
           "paired_form": "C / c",
-          "letter_label": "lowercase"
+          "letter_label": "lowercase",
+          "audio": {
+            "text": "c",
+            "label": "Hear the letter C",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say C."
+          },
+          "speakable_text": "c",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL2_Q04",
@@ -1001,7 +1377,17 @@
           "feedback": "Nice work: d matches.",
           "letter": "d",
           "paired_form": "D / d",
-          "letter_label": "lowercase"
+          "letter_label": "lowercase",
+          "audio": {
+            "text": "d",
+            "label": "Hear the letter D",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say D."
+          },
+          "speakable_text": "d",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL2_Q05",
@@ -1025,7 +1411,17 @@
           "feedback": "Nice work: f matches.",
           "letter": "f",
           "paired_form": "F / f",
-          "letter_label": "lowercase"
+          "letter_label": "lowercase",
+          "audio": {
+            "text": "f",
+            "label": "Hear the letter F",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say F."
+          },
+          "speakable_text": "f",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL2_Q06",
@@ -1049,7 +1445,17 @@
           "feedback": "Nice work: h matches.",
           "letter": "h",
           "paired_form": "H / h",
-          "letter_label": "lowercase"
+          "letter_label": "lowercase",
+          "audio": {
+            "text": "h",
+            "label": "Hear the letter H",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say H."
+          },
+          "speakable_text": "h",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL2_Q07",
@@ -1073,7 +1479,17 @@
           "feedback": "Nice work: l matches.",
           "letter": "l",
           "paired_form": "L / l",
-          "letter_label": "lowercase"
+          "letter_label": "lowercase",
+          "audio": {
+            "text": "l",
+            "label": "Hear the letter L",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say L."
+          },
+          "speakable_text": "l",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL2_Q08",
@@ -1097,7 +1513,17 @@
           "feedback": "Nice work: m matches.",
           "letter": "m",
           "paired_form": "M / m",
-          "letter_label": "lowercase"
+          "letter_label": "lowercase",
+          "audio": {
+            "text": "m",
+            "label": "Hear the letter M",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say M."
+          },
+          "speakable_text": "m",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL2_Q09",
@@ -1121,7 +1547,17 @@
           "feedback": "Nice work: s matches.",
           "letter": "s",
           "paired_form": "S / s",
-          "letter_label": "lowercase"
+          "letter_label": "lowercase",
+          "audio": {
+            "text": "s",
+            "label": "Hear the letter S",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say S."
+          },
+          "speakable_text": "s",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL2_Q10",
@@ -1145,7 +1581,17 @@
           "feedback": "Nice work: t matches.",
           "letter": "t",
           "paired_form": "T / t",
-          "letter_label": "lowercase"
+          "letter_label": "lowercase",
+          "audio": {
+            "text": "t",
+            "label": "Hear the letter T",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say T."
+          },
+          "speakable_text": "t",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -1181,7 +1627,17 @@
           "target_letter": "M",
           "sound": "/m/",
           "word": "moon",
-          "picture": "moon"
+          "picture": "moon",
+          "audio": {
+            "text": "moon",
+            "label": "Hear the word moon",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read moon."
+          },
+          "speakable_text": "moon",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL3_Q02",
@@ -1207,7 +1663,17 @@
           "target_letter": "S",
           "sound": "/s/",
           "word": "sun",
-          "picture": "sun"
+          "picture": "sun",
+          "audio": {
+            "text": "sun",
+            "label": "Hear the word sun",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read sun."
+          },
+          "speakable_text": "sun",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL3_Q03",
@@ -1233,7 +1699,17 @@
           "target_letter": "T",
           "sound": "/t/",
           "word": "turtle",
-          "picture": "turtle"
+          "picture": "turtle",
+          "audio": {
+            "text": "turtle",
+            "label": "Hear the word turtle",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read turtle."
+          },
+          "speakable_text": "turtle",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL3_Q04",
@@ -1259,7 +1735,17 @@
           "target_letter": "B",
           "sound": "/b/",
           "word": "ball",
-          "picture": "ball"
+          "picture": "ball",
+          "audio": {
+            "text": "ball",
+            "label": "Hear the word ball",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read ball."
+          },
+          "speakable_text": "ball",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL3_Q05",
@@ -1285,7 +1771,17 @@
           "target_letter": "A",
           "sound": "/a/",
           "word": "apple",
-          "picture": "apple"
+          "picture": "apple",
+          "audio": {
+            "text": "apple",
+            "label": "Hear the word apple",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read apple."
+          },
+          "speakable_text": "apple",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL3_Q06",
@@ -1311,7 +1807,17 @@
           "target_letter": "D",
           "sound": "/d/",
           "word": "dog",
-          "picture": "dog"
+          "picture": "dog",
+          "audio": {
+            "text": "dog",
+            "label": "Hear the word dog",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read dog."
+          },
+          "speakable_text": "dog",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL3_Q07",
@@ -1337,7 +1843,17 @@
           "target_letter": "F",
           "sound": "/f/",
           "word": "fish",
-          "picture": "fish"
+          "picture": "fish",
+          "audio": {
+            "text": "fish",
+            "label": "Hear the word fish",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read fish."
+          },
+          "speakable_text": "fish",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL3_Q08",
@@ -1363,7 +1879,17 @@
           "target_letter": "L",
           "sound": "/l/",
           "word": "leaf",
-          "picture": "leaf"
+          "picture": "leaf",
+          "audio": {
+            "text": "leaf",
+            "label": "Hear the word leaf",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read leaf."
+          },
+          "speakable_text": "leaf",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL3_Q09",
@@ -1389,7 +1915,17 @@
           "target_letter": "N",
           "sound": "/n/",
           "word": "nest",
-          "picture": "nest"
+          "picture": "nest",
+          "audio": {
+            "text": "nest",
+            "label": "Hear the word nest",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read nest."
+          },
+          "speakable_text": "nest",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL3_Q10",
@@ -1415,7 +1951,17 @@
           "target_letter": "P",
           "sound": "/p/",
           "word": "pig",
-          "picture": "pig"
+          "picture": "pig",
+          "audio": {
+            "text": "pig",
+            "label": "Hear the word pig",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read pig."
+          },
+          "speakable_text": "pig",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -1451,7 +1997,17 @@
           "target_letter": "M",
           "sound": "/m/",
           "word": "moon",
-          "picture": "moon"
+          "picture": "moon",
+          "audio": {
+            "text": "moon",
+            "label": "Hear the word moon",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read moon."
+          },
+          "speakable_text": "moon",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL4_Q02",
@@ -1477,7 +2033,17 @@
           "target_letter": "S",
           "sound": "/s/",
           "word": "sun",
-          "picture": "sun"
+          "picture": "sun",
+          "audio": {
+            "text": "sun",
+            "label": "Hear the word sun",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read sun."
+          },
+          "speakable_text": "sun",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL4_Q03",
@@ -1503,7 +2069,17 @@
           "target_letter": "T",
           "sound": "/t/",
           "word": "turtle",
-          "picture": "turtle"
+          "picture": "turtle",
+          "audio": {
+            "text": "turtle",
+            "label": "Hear the word turtle",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read turtle."
+          },
+          "speakable_text": "turtle",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL4_Q04",
@@ -1529,7 +2105,17 @@
           "target_letter": "B",
           "sound": "/b/",
           "word": "ball",
-          "picture": "ball"
+          "picture": "ball",
+          "audio": {
+            "text": "ball",
+            "label": "Hear the word ball",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read ball."
+          },
+          "speakable_text": "ball",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL4_Q05",
@@ -1555,7 +2141,17 @@
           "target_letter": "A",
           "sound": "/a/",
           "word": "apple",
-          "picture": "apple"
+          "picture": "apple",
+          "audio": {
+            "text": "apple",
+            "label": "Hear the word apple",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read apple."
+          },
+          "speakable_text": "apple",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL4_Q06",
@@ -1581,7 +2177,17 @@
           "target_letter": "D",
           "sound": "/d/",
           "word": "dog",
-          "picture": "dog"
+          "picture": "dog",
+          "audio": {
+            "text": "dog",
+            "label": "Hear the word dog",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read dog."
+          },
+          "speakable_text": "dog",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL4_Q07",
@@ -1607,7 +2213,17 @@
           "target_letter": "F",
           "sound": "/f/",
           "word": "fish",
-          "picture": "fish"
+          "picture": "fish",
+          "audio": {
+            "text": "fish",
+            "label": "Hear the word fish",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read fish."
+          },
+          "speakable_text": "fish",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL4_Q08",
@@ -1633,7 +2249,17 @@
           "target_letter": "L",
           "sound": "/l/",
           "word": "leaf",
-          "picture": "leaf"
+          "picture": "leaf",
+          "audio": {
+            "text": "leaf",
+            "label": "Hear the word leaf",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read leaf."
+          },
+          "speakable_text": "leaf",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL4_Q09",
@@ -1658,7 +2284,17 @@
           "target_letter": "N",
           "sound": "/n/",
           "word": "nest",
-          "picture": "nest"
+          "picture": "nest",
+          "audio": {
+            "text": "nest",
+            "label": "Hear the word nest",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read nest."
+          },
+          "speakable_text": "nest",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_LVL4_Q10",
@@ -1684,7 +2320,17 @@
           "target_letter": "P",
           "sound": "/p/",
           "word": "pig",
-          "picture": "pig"
+          "picture": "pig",
+          "audio": {
+            "text": "pig",
+            "label": "Hear the word pig",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read pig."
+          },
+          "speakable_text": "pig",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -1718,7 +2364,17 @@
           "feedback": "Nice work: A matches.",
           "letter": "A",
           "paired_form": "A / a",
-          "letter_label": "uppercase"
+          "letter_label": "uppercase",
+          "audio": {
+            "text": "A",
+            "label": "Hear the letter A",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say A."
+          },
+          "speakable_text": "A",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_MIXED_Q02",
@@ -1742,7 +2398,17 @@
           "feedback": "Nice work: b matches.",
           "letter": "b",
           "paired_form": "B / b",
-          "letter_label": "lowercase"
+          "letter_label": "lowercase",
+          "audio": {
+            "text": "b",
+            "label": "Hear the letter B",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say B."
+          },
+          "speakable_text": "b",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_MIXED_Q03",
@@ -1768,7 +2434,17 @@
           "target_letter": "M",
           "sound": "/m/",
           "word": "moon",
-          "picture": "moon"
+          "picture": "moon",
+          "audio": {
+            "text": "moon",
+            "label": "Hear the word moon",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read moon."
+          },
+          "speakable_text": "moon",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_MIXED_Q04",
@@ -1794,7 +2470,17 @@
           "target_letter": "S",
           "sound": "/s/",
           "word": "sun",
-          "picture": "sun"
+          "picture": "sun",
+          "audio": {
+            "text": "sun",
+            "label": "Hear the word sun",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read sun."
+          },
+          "speakable_text": "sun",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_MIXED_Q05",
@@ -1818,7 +2504,17 @@
           "feedback": "Nice work: F matches.",
           "letter": "F",
           "paired_form": "F / f",
-          "letter_label": "uppercase"
+          "letter_label": "uppercase",
+          "audio": {
+            "text": "F",
+            "label": "Hear the letter F",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say F."
+          },
+          "speakable_text": "F",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_MIXED_Q06",
@@ -1842,7 +2538,17 @@
           "feedback": "Nice work: h matches.",
           "letter": "h",
           "paired_form": "H / h",
-          "letter_label": "lowercase"
+          "letter_label": "lowercase",
+          "audio": {
+            "text": "h",
+            "label": "Hear the letter H",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say H."
+          },
+          "speakable_text": "h",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_MIXED_Q07",
@@ -1868,7 +2574,17 @@
           "target_letter": "A",
           "sound": "/a/",
           "word": "apple",
-          "picture": "apple"
+          "picture": "apple",
+          "audio": {
+            "text": "apple",
+            "label": "Hear the word apple",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read apple."
+          },
+          "speakable_text": "apple",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_MIXED_Q08",
@@ -1894,7 +2610,17 @@
           "target_letter": "D",
           "sound": "/d/",
           "word": "dog",
-          "picture": "dog"
+          "picture": "dog",
+          "audio": {
+            "text": "dog",
+            "label": "Hear the word dog",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read dog."
+          },
+          "speakable_text": "dog",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_MIXED_Q09",
@@ -1918,7 +2644,17 @@
           "feedback": "Nice work: T matches.",
           "letter": "T",
           "paired_form": "T / t",
-          "letter_label": "uppercase"
+          "letter_label": "uppercase",
+          "audio": {
+            "text": "T",
+            "label": "Hear the letter T",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say T."
+          },
+          "speakable_text": "T",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_MIXED_Q10",
@@ -1942,7 +2678,17 @@
           "feedback": "Nice work: s matches.",
           "letter": "s",
           "paired_form": "S / s",
-          "letter_label": "lowercase"
+          "letter_label": "lowercase",
+          "audio": {
+            "text": "s",
+            "label": "Hear the letter S",
+            "type": "letter_sound",
+            "repeat_count": 1,
+            "student_prompt": "Now say S."
+          },
+          "speakable_text": "s",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_MIXED_Q11",
@@ -1968,7 +2714,17 @@
           "target_letter": "P",
           "sound": "/p/",
           "word": "pig",
-          "picture": "pig"
+          "picture": "pig",
+          "audio": {
+            "text": "pig",
+            "label": "Hear the word pig",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read pig."
+          },
+          "speakable_text": "pig",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_001_MIXED_Q12",
@@ -1993,7 +2749,17 @@
           "target_letter": "N",
           "sound": "/n/",
           "word": "nest",
-          "picture": "nest"
+          "picture": "nest",
+          "audio": {
+            "text": "nest",
+            "label": "Hear the word nest",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read nest."
+          },
+          "speakable_text": "nest",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     }

@@ -29,16 +29,42 @@
     "common_misconception": "Learners may answer from a first clue instead of checking the whole word, sentence, or story.",
     "real_world_connection": "Readers and writers use this skill in books, signs, notes, and classroom talk.",
     "lesson_summary": "Read or listen carefully, use the model, then choose or write the answer.",
-    "mini_lesson": "First study the model. Then say the sounds or words slowly. Last, check that your answer matches the prompt."
+    "mini_lesson": "First study the model. Then say the sounds or words slowly. Last, check that your answer matches the prompt.",
+    "audio": {
+      "text": "Listen, then say it with me.",
+      "label": "Listen",
+      "type": "instruction",
+      "repeat_count": 1,
+      "student_prompt": "Your turn: say it aloud."
+    },
+    "repeat_after_me": true
   },
   "worked_examples": [
     {
       "text": "Watch: Use the sentence_card model, name the important part, then answer.",
-      "correct_answer": "The cat sat."
+      "correct_answer": "The cat sat.",
+      "audio": {
+        "text": "The cat sat.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "text": "Demo: Try one with help before independent practice.",
-      "correct_answer": "I see a dog."
+      "correct_answer": "I see a dog.",
+      "audio": {
+        "text": "I see a dog.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "hint_ladder": [
@@ -67,7 +93,17 @@
         "The cat sat.",
         "sat. cat The",
         "the cat sat."
-      ]
+      ],
+      "audio": {
+        "text": "The cat sat.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "The cat sat.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL1_Q02",
@@ -89,7 +125,17 @@
         "I see a dog.",
         "dog. a see I",
         "i see a dog."
-      ]
+      ],
+      "audio": {
+        "text": "I see a dog.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "I see a dog.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL1_Q03",
@@ -111,7 +157,17 @@
         "We can run.",
         "run. can We",
         "we can run."
-      ]
+      ],
+      "audio": {
+        "text": "We can run.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "We can run.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL1_Q04",
@@ -133,7 +189,17 @@
         "The sun is up.",
         "up. is sun The",
         "the sun is up."
-      ]
+      ],
+      "audio": {
+        "text": "The sun is up.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "The sun is up.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL1_Q05",
@@ -155,7 +221,17 @@
         "Mom has a hat.",
         "hat. a has Mom",
         "mom has a hat."
-      ]
+      ],
+      "audio": {
+        "text": "Mom has a hat.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "Mom has a hat.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL1_Q06",
@@ -177,7 +253,17 @@
         "Dad can hop.",
         "hop. can Dad",
         "dad can hop."
-      ]
+      ],
+      "audio": {
+        "text": "Dad can hop.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "Dad can hop.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "adaptive_question_bank": [
@@ -201,7 +287,17 @@
         "The bug is red.",
         "red. is bug The",
         "the bug is red."
-      ]
+      ],
+      "audio": {
+        "text": "The bug is red.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "The bug is red.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL1_Q08",
@@ -223,7 +319,17 @@
         "I like my book.",
         "book. my like I",
         "i like my book."
-      ]
+      ],
+      "audio": {
+        "text": "I like my book.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "I like my book.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL1_Q09",
@@ -245,7 +351,17 @@
         "A fish can swim.",
         "swim. can fish A",
         "a fish can swim."
-      ]
+      ],
+      "audio": {
+        "text": "A fish can swim.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "A fish can swim.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL1_Q10",
@@ -267,7 +383,17 @@
         "The kid can jump.",
         "jump. can kid The",
         "the kid can jump."
-      ]
+      ],
+      "audio": {
+        "text": "The kid can jump.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "The kid can jump.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL2_Q01",
@@ -290,7 +416,17 @@
         "The cat sat.",
         "A dog sleeps.",
         "A fish runs."
-      ]
+      ],
+      "audio": {
+        "text": "The cat sat.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "The cat sat.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL2_Q02",
@@ -313,7 +449,17 @@
         "I see a dog.",
         "A dog sleeps.",
         "A fish runs."
-      ]
+      ],
+      "audio": {
+        "text": "I see a dog.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "I see a dog.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL2_Q03",
@@ -336,7 +482,17 @@
         "We can run.",
         "A dog sleeps.",
         "A fish runs."
-      ]
+      ],
+      "audio": {
+        "text": "We can run.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "We can run.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL2_Q04",
@@ -359,7 +515,17 @@
         "The sun is up.",
         "A dog sleeps.",
         "A fish runs."
-      ]
+      ],
+      "audio": {
+        "text": "The sun is up.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "The sun is up.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL2_Q05",
@@ -382,7 +548,17 @@
         "Mom has a hat.",
         "A dog sleeps.",
         "A fish runs."
-      ]
+      ],
+      "audio": {
+        "text": "Mom has a hat.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "Mom has a hat.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL2_Q06",
@@ -405,7 +581,17 @@
         "Dad can hop.",
         "A dog sleeps.",
         "A fish runs."
-      ]
+      ],
+      "audio": {
+        "text": "Dad can hop.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "Dad can hop.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL2_Q07",
@@ -428,7 +614,17 @@
         "The bug is red.",
         "A dog sleeps.",
         "A fish runs."
-      ]
+      ],
+      "audio": {
+        "text": "The bug is red.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "The bug is red.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL2_Q08",
@@ -451,7 +647,17 @@
         "I like my book.",
         "A dog sleeps.",
         "A fish runs."
-      ]
+      ],
+      "audio": {
+        "text": "I like my book.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "I like my book.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "checkpoint": [
@@ -476,7 +682,17 @@
         "A fish can swim.",
         "A dog sleeps.",
         "A fish runs."
-      ]
+      ],
+      "audio": {
+        "text": "A fish can swim.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "A fish can swim.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL2_Q10",
@@ -499,7 +715,17 @@
         "The kid can jump.",
         "A dog sleeps.",
         "A fish runs."
-      ]
+      ],
+      "audio": {
+        "text": "The kid can jump.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "The kid can jump.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL3_Q01",
@@ -521,7 +747,17 @@
         "sat",
         "the",
         "and"
-      ]
+      ],
+      "audio": {
+        "text": "The cat sat on the mat.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "The cat sat on the mat.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_FL_001_LVL3_Q02",
@@ -543,7 +779,17 @@
         "see",
         "the",
         "and"
-      ]
+      ],
+      "audio": {
+        "text": "I see a red ball.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "I see a red ball.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "misconception_bank": {
@@ -609,7 +855,17 @@
             "The cat sat.",
             "sat. cat The",
             "the cat sat."
-          ]
+          ],
+          "audio": {
+            "text": "The cat sat.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The cat sat.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL1_Q02",
@@ -631,7 +887,17 @@
             "I see a dog.",
             "dog. a see I",
             "i see a dog."
-          ]
+          ],
+          "audio": {
+            "text": "I see a dog.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "I see a dog.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL1_Q03",
@@ -653,7 +919,17 @@
             "We can run.",
             "run. can We",
             "we can run."
-          ]
+          ],
+          "audio": {
+            "text": "We can run.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "We can run.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL1_Q04",
@@ -675,7 +951,17 @@
             "The sun is up.",
             "up. is sun The",
             "the sun is up."
-          ]
+          ],
+          "audio": {
+            "text": "The sun is up.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The sun is up.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL1_Q05",
@@ -697,7 +983,17 @@
             "Mom has a hat.",
             "hat. a has Mom",
             "mom has a hat."
-          ]
+          ],
+          "audio": {
+            "text": "Mom has a hat.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "Mom has a hat.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL1_Q06",
@@ -719,7 +1015,17 @@
             "Dad can hop.",
             "hop. can Dad",
             "dad can hop."
-          ]
+          ],
+          "audio": {
+            "text": "Dad can hop.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "Dad can hop.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL1_Q07",
@@ -741,7 +1047,17 @@
             "The bug is red.",
             "red. is bug The",
             "the bug is red."
-          ]
+          ],
+          "audio": {
+            "text": "The bug is red.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The bug is red.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL1_Q08",
@@ -763,7 +1079,17 @@
             "I like my book.",
             "book. my like I",
             "i like my book."
-          ]
+          ],
+          "audio": {
+            "text": "I like my book.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "I like my book.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL1_Q09",
@@ -785,7 +1111,17 @@
             "A fish can swim.",
             "swim. can fish A",
             "a fish can swim."
-          ]
+          ],
+          "audio": {
+            "text": "A fish can swim.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "A fish can swim.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL1_Q10",
@@ -807,7 +1143,17 @@
             "The kid can jump.",
             "jump. can kid The",
             "the kid can jump."
-          ]
+          ],
+          "audio": {
+            "text": "The kid can jump.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The kid can jump.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -840,7 +1186,17 @@
             "The cat sat.",
             "A dog sleeps.",
             "A fish runs."
-          ]
+          ],
+          "audio": {
+            "text": "The cat sat.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The cat sat.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL2_Q02",
@@ -863,7 +1219,17 @@
             "I see a dog.",
             "A dog sleeps.",
             "A fish runs."
-          ]
+          ],
+          "audio": {
+            "text": "I see a dog.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "I see a dog.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL2_Q03",
@@ -886,7 +1252,17 @@
             "We can run.",
             "A dog sleeps.",
             "A fish runs."
-          ]
+          ],
+          "audio": {
+            "text": "We can run.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "We can run.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL2_Q04",
@@ -909,7 +1285,17 @@
             "The sun is up.",
             "A dog sleeps.",
             "A fish runs."
-          ]
+          ],
+          "audio": {
+            "text": "The sun is up.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The sun is up.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL2_Q05",
@@ -932,7 +1318,17 @@
             "Mom has a hat.",
             "A dog sleeps.",
             "A fish runs."
-          ]
+          ],
+          "audio": {
+            "text": "Mom has a hat.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "Mom has a hat.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL2_Q06",
@@ -955,7 +1351,17 @@
             "Dad can hop.",
             "A dog sleeps.",
             "A fish runs."
-          ]
+          ],
+          "audio": {
+            "text": "Dad can hop.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "Dad can hop.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL2_Q07",
@@ -978,7 +1384,17 @@
             "The bug is red.",
             "A dog sleeps.",
             "A fish runs."
-          ]
+          ],
+          "audio": {
+            "text": "The bug is red.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The bug is red.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL2_Q08",
@@ -1001,7 +1417,17 @@
             "I like my book.",
             "A dog sleeps.",
             "A fish runs."
-          ]
+          ],
+          "audio": {
+            "text": "I like my book.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "I like my book.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL2_Q09",
@@ -1024,7 +1450,17 @@
             "A fish can swim.",
             "A dog sleeps.",
             "A fish runs."
-          ]
+          ],
+          "audio": {
+            "text": "A fish can swim.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "A fish can swim.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL2_Q10",
@@ -1047,7 +1483,17 @@
             "The kid can jump.",
             "A dog sleeps.",
             "A fish runs."
-          ]
+          ],
+          "audio": {
+            "text": "The kid can jump.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The kid can jump.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -1079,7 +1525,17 @@
             "sat",
             "the",
             "and"
-          ]
+          ],
+          "audio": {
+            "text": "The cat sat on the mat.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The cat sat on the mat.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL3_Q02",
@@ -1101,7 +1557,17 @@
             "see",
             "the",
             "and"
-          ]
+          ],
+          "audio": {
+            "text": "I see a red ball.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "I see a red ball.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL3_Q03",
@@ -1123,7 +1589,17 @@
             "run",
             "the",
             "and"
-          ]
+          ],
+          "audio": {
+            "text": "We can run fast.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "We can run fast.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL3_Q04",
@@ -1145,7 +1621,17 @@
             "up",
             "the",
             "and"
-          ]
+          ],
+          "audio": {
+            "text": "The sun is up.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The sun is up.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL3_Q05",
@@ -1167,7 +1653,17 @@
             "swim",
             "the",
             "and"
-          ]
+          ],
+          "audio": {
+            "text": "A fish can swim.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "A fish can swim.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL3_Q06",
@@ -1189,7 +1685,17 @@
             "hop",
             "the",
             "and"
-          ]
+          ],
+          "audio": {
+            "text": "The dog can hop.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The dog can hop.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL3_Q07",
@@ -1211,7 +1717,17 @@
             "hat",
             "the",
             "and"
-          ]
+          ],
+          "audio": {
+            "text": "Mom has a hat.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "Mom has a hat.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL3_Q08",
@@ -1233,7 +1749,17 @@
             "red",
             "the",
             "and"
-          ]
+          ],
+          "audio": {
+            "text": "The bug is red.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The bug is red.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL3_Q09",
@@ -1255,7 +1781,17 @@
             "book",
             "the",
             "and"
-          ]
+          ],
+          "audio": {
+            "text": "I like my book.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "I like my book.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL3_Q10",
@@ -1277,7 +1813,17 @@
             "jump",
             "the",
             "and"
-          ]
+          ],
+          "audio": {
+            "text": "The kid can jump.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The kid can jump.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -1309,7 +1855,17 @@
             ".",
             "?",
             "!"
-          ]
+          ],
+          "audio": {
+            "text": "Stop.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "Stop.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL4_Q02",
@@ -1331,7 +1887,17 @@
             "?",
             ".",
             "!"
-          ]
+          ],
+          "audio": {
+            "text": "Can we go?",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "Can we go?",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL4_Q03",
@@ -1353,7 +1919,17 @@
             "!",
             ".",
             "!"
-          ]
+          ],
+          "audio": {
+            "text": "Wow!",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "Wow!",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL4_Q04",
@@ -1375,7 +1951,17 @@
             ".",
             "?",
             "!"
-          ]
+          ],
+          "audio": {
+            "text": "I see it.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "I see it.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL4_Q05",
@@ -1397,7 +1983,17 @@
             "?",
             ".",
             "!"
-          ]
+          ],
+          "audio": {
+            "text": "Do you like it?",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "Do you like it?",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL4_Q06",
@@ -1419,7 +2015,17 @@
             "!",
             ".",
             "!"
-          ]
+          ],
+          "audio": {
+            "text": "Run!",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "Run!",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL4_Q07",
@@ -1441,7 +2047,17 @@
             ".",
             "?",
             "!"
-          ]
+          ],
+          "audio": {
+            "text": "The dog sits.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The dog sits.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL4_Q08",
@@ -1463,7 +2079,17 @@
             "?",
             ".",
             "!"
-          ]
+          ],
+          "audio": {
+            "text": "Is it red?",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "Is it red?",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL4_Q09",
@@ -1485,7 +2111,17 @@
             "!",
             ".",
             "!"
-          ]
+          ],
+          "audio": {
+            "text": "Look!",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "Look!",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_LVL4_Q10",
@@ -1507,7 +2143,17 @@
             ".",
             "?",
             "!"
-          ]
+          ],
+          "audio": {
+            "text": "We can read.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "We can read.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -1539,7 +2185,17 @@
             "The cat sat.",
             "sat. cat The",
             "the cat sat."
-          ]
+          ],
+          "audio": {
+            "text": "The cat sat.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The cat sat.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_MIXED_FROM_LVL2_Q01",
@@ -1562,7 +2218,17 @@
             "The cat sat.",
             "A dog sleeps.",
             "A fish runs."
-          ]
+          ],
+          "audio": {
+            "text": "The cat sat.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The cat sat.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_MIXED_FROM_LVL3_Q01",
@@ -1584,7 +2250,17 @@
             "sat",
             "the",
             "and"
-          ]
+          ],
+          "audio": {
+            "text": "The cat sat on the mat.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The cat sat on the mat.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_MIXED_FROM_LVL4_Q01",
@@ -1606,7 +2282,17 @@
             ".",
             "?",
             "!"
-          ]
+          ],
+          "audio": {
+            "text": "Stop.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "Stop.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_MIXED_FROM_LVL1_Q02",
@@ -1628,7 +2314,17 @@
             "I see a dog.",
             "dog. a see I",
             "i see a dog."
-          ]
+          ],
+          "audio": {
+            "text": "I see a dog.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "I see a dog.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_MIXED_FROM_LVL2_Q02",
@@ -1651,7 +2347,17 @@
             "I see a dog.",
             "A dog sleeps.",
             "A fish runs."
-          ]
+          ],
+          "audio": {
+            "text": "I see a dog.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "I see a dog.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_MIXED_FROM_LVL3_Q02",
@@ -1673,7 +2379,17 @@
             "see",
             "the",
             "and"
-          ]
+          ],
+          "audio": {
+            "text": "I see a red ball.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "I see a red ball.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_MIXED_FROM_LVL4_Q02",
@@ -1695,7 +2411,17 @@
             "?",
             ".",
             "!"
-          ]
+          ],
+          "audio": {
+            "text": "Can we go?",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "Can we go?",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_MIXED_FROM_LVL1_Q03",
@@ -1717,7 +2443,17 @@
             "We can run.",
             "run. can We",
             "we can run."
-          ]
+          ],
+          "audio": {
+            "text": "We can run.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "We can run.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_MIXED_FROM_LVL2_Q03",
@@ -1740,7 +2476,17 @@
             "We can run.",
             "A dog sleeps.",
             "A fish runs."
-          ]
+          ],
+          "audio": {
+            "text": "We can run.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "We can run.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_MIXED_FROM_LVL3_Q03",
@@ -1762,7 +2508,17 @@
             "run",
             "the",
             "and"
-          ]
+          ],
+          "audio": {
+            "text": "We can run fast.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "We can run fast.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_FL_001_MIXED_FROM_LVL4_Q03",
@@ -1784,7 +2540,17 @@
             "!",
             ".",
             "!"
-          ]
+          ],
+          "audio": {
+            "text": "Wow!",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "Wow!",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     }

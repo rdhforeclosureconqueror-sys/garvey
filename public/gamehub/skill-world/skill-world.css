@@ -170,6 +170,13 @@ button,input,select,textarea{font:inherit;max-width:100%}
   white-space:normal;
 }
 .answer-button:hover,.primary:hover,.continue-button:hover,.hint-button:hover{transform:translateY(-2px)}
+.audio-support{display:grid;gap:8px;background:#eef7ff;border:2px solid #93c5fd;border-radius:22px;padding:12px;margin:0 0 12px;text-align:left}
+.listen-button{border:0;border-radius:20px;background:linear-gradient(180deg,#c4b5fd,#8b5cf6);color:#fff;font-size:1.05rem;font-weight:900;padding:13px 16px;box-shadow:0 8px 0 #6d28d9;cursor:pointer;min-height:50px}
+.listen-button:hover{transform:translateY(-2px)}
+.repeat-after-me-cue{font-weight:900;color:#4c1d95}
+.student-audio-prompt{margin:0;color:#1e3a8a;font-weight:900}
+.audio-unavailable-message{margin:0;color:#991b1b;font-weight:800}
+.audio-unavailable-message.is-hidden{display:none}
 .answer-input{width:100%;border:3px solid #83c8ff;border-radius:18px;font-size:1.2rem;padding:14px;min-width:0;background:#fff}
 .hint-box{display:flex;gap:10px;align-items:center;background:#fff7db;border:2px solid #ffcf4a;border-radius:22px;padding:12px;margin:0}
 .feedback-area{min-height:44px;border:2px solid #cfe4ff;border-radius:18px;background:#eef7ff;padding:12px;font-weight:900}
