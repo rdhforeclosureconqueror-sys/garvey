@@ -29,16 +29,42 @@
     "common_misconception": "Learners may answer from a first clue instead of checking the whole word, sentence, or story.",
     "real_world_connection": "Readers and writers use this skill in books, signs, notes, and classroom talk.",
     "lesson_summary": "Read or listen carefully, use the model, then choose or write the answer.",
-    "mini_lesson": "First study the model. Then say the sounds or words slowly. Last, check that your answer matches the prompt."
+    "mini_lesson": "First study the model. Then say the sounds or words slowly. Last, check that your answer matches the prompt.",
+    "audio": {
+      "text": "Listen, then say it with me.",
+      "label": "Listen",
+      "type": "instruction",
+      "repeat_count": 1,
+      "student_prompt": "Your turn: say it aloud."
+    },
+    "repeat_after_me": true
   },
   "worked_examples": [
     {
       "text": "Watch: Use the word_card model, name the important part, then answer.",
-      "correct_answer": "the"
+      "correct_answer": "the",
+      "audio": {
+        "text": "the",
+        "label": "Hear the word the",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read the."
+      },
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "text": "Demo: Try one with help before independent practice.",
-      "correct_answer": "and"
+      "correct_answer": "and",
+      "audio": {
+        "text": "and",
+        "label": "Hear the word and",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read and."
+      },
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "hint_ladder": [
@@ -67,7 +93,17 @@
         "the",
         "eht",
         "and"
-      ]
+      ],
+      "audio": {
+        "text": "the",
+        "label": "Hear the word the",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read the."
+      },
+      "speakable_text": "the",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL1_Q02",
@@ -89,7 +125,17 @@
         "and",
         "dna",
         "I"
-      ]
+      ],
+      "audio": {
+        "text": "and",
+        "label": "Hear the word and",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read and."
+      },
+      "speakable_text": "and",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL1_Q03",
@@ -111,7 +157,17 @@
         "I",
         "I",
         "a"
-      ]
+      ],
+      "audio": {
+        "text": "I",
+        "label": "Hear the word I",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read I."
+      },
+      "speakable_text": "I",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL1_Q04",
@@ -133,7 +189,17 @@
         "a",
         "a",
         "to"
-      ]
+      ],
+      "audio": {
+        "text": "a",
+        "label": "Hear the word a",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read a."
+      },
+      "speakable_text": "a",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL1_Q05",
@@ -155,7 +221,17 @@
         "to",
         "ot",
         "is"
-      ]
+      ],
+      "audio": {
+        "text": "to",
+        "label": "Hear the word to",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read to."
+      },
+      "speakable_text": "to",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL1_Q06",
@@ -177,7 +253,17 @@
         "is",
         "si",
         "in"
-      ]
+      ],
+      "audio": {
+        "text": "is",
+        "label": "Hear the word is",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read is."
+      },
+      "speakable_text": "is",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "adaptive_question_bank": [
@@ -201,7 +287,17 @@
         "in",
         "ni",
         "you"
-      ]
+      ],
+      "audio": {
+        "text": "in",
+        "label": "Hear the word in",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read in."
+      },
+      "speakable_text": "in",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL1_Q08",
@@ -223,7 +319,17 @@
         "you",
         "uoy",
         "it"
-      ]
+      ],
+      "audio": {
+        "text": "you",
+        "label": "Hear the word you",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read you."
+      },
+      "speakable_text": "you",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL1_Q09",
@@ -245,7 +351,17 @@
         "it",
         "ti",
         "of"
-      ]
+      ],
+      "audio": {
+        "text": "it",
+        "label": "Hear the word it",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read it."
+      },
+      "speakable_text": "it",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL1_Q10",
@@ -267,7 +383,17 @@
         "of",
         "fo",
         "the"
-      ]
+      ],
+      "audio": {
+        "text": "of",
+        "label": "Hear the word of",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read of."
+      },
+      "speakable_text": "of",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL2_Q01",
@@ -289,7 +415,17 @@
         "he",
         "eh",
         "was"
-      ]
+      ],
+      "audio": {
+        "text": "he",
+        "label": "Hear the word he",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read he."
+      },
+      "speakable_text": "he",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL2_Q02",
@@ -311,7 +447,17 @@
         "was",
         "saw",
         "for"
-      ]
+      ],
+      "audio": {
+        "text": "was",
+        "label": "Hear the word was",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read was."
+      },
+      "speakable_text": "was",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL2_Q03",
@@ -333,7 +479,17 @@
         "for",
         "rof",
         "on"
-      ]
+      ],
+      "audio": {
+        "text": "for",
+        "label": "Hear the word for",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read for."
+      },
+      "speakable_text": "for",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL2_Q04",
@@ -355,7 +511,17 @@
         "on",
         "no",
         "are"
-      ]
+      ],
+      "audio": {
+        "text": "on",
+        "label": "Hear the word on",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read on."
+      },
+      "speakable_text": "on",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL2_Q05",
@@ -377,7 +543,17 @@
         "are",
         "era",
         "as"
-      ]
+      ],
+      "audio": {
+        "text": "are",
+        "label": "Hear the word are",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read are."
+      },
+      "speakable_text": "are",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL2_Q06",
@@ -399,7 +575,17 @@
         "as",
         "sa",
         "with"
-      ]
+      ],
+      "audio": {
+        "text": "as",
+        "label": "Hear the word as",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read as."
+      },
+      "speakable_text": "as",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL2_Q07",
@@ -421,7 +607,17 @@
         "with",
         "htiw",
         "his"
-      ]
+      ],
+      "audio": {
+        "text": "with",
+        "label": "Hear the word with",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read with."
+      },
+      "speakable_text": "with",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL2_Q08",
@@ -443,7 +639,17 @@
         "his",
         "sih",
         "they"
-      ]
+      ],
+      "audio": {
+        "text": "his",
+        "label": "Hear the word his",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read his."
+      },
+      "speakable_text": "his",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "checkpoint": [
@@ -467,7 +673,17 @@
         "they",
         "yeht",
         "at"
-      ]
+      ],
+      "audio": {
+        "text": "they",
+        "label": "Hear the word they",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read they."
+      },
+      "speakable_text": "they",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL2_Q10",
@@ -489,7 +705,17 @@
         "at",
         "ta",
         "he"
-      ]
+      ],
+      "audio": {
+        "text": "at",
+        "label": "Hear the word at",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read at."
+      },
+      "speakable_text": "at",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL3_Q01",
@@ -512,7 +738,17 @@
         "the",
         "the",
         "he"
-      ]
+      ],
+      "audio": {
+        "text": "I see the cat.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "I see the cat.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_SW_001_LVL3_Q02",
@@ -535,7 +771,17 @@
         "you",
         "and",
         "was"
-      ]
+      ],
+      "audio": {
+        "text": "You can go.",
+        "label": "Hear the sentence",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Now read it aloud."
+      },
+      "speakable_text": "You can go.",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "misconception_bank": {
@@ -601,7 +847,17 @@
             "the",
             "eht",
             "and"
-          ]
+          ],
+          "audio": {
+            "text": "the",
+            "label": "Hear the word the",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read the."
+          },
+          "speakable_text": "the",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL1_Q02",
@@ -623,7 +879,17 @@
             "and",
             "dna",
             "I"
-          ]
+          ],
+          "audio": {
+            "text": "and",
+            "label": "Hear the word and",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read and."
+          },
+          "speakable_text": "and",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL1_Q03",
@@ -645,7 +911,17 @@
             "I",
             "I",
             "a"
-          ]
+          ],
+          "audio": {
+            "text": "I",
+            "label": "Hear the word I",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read I."
+          },
+          "speakable_text": "I",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL1_Q04",
@@ -667,7 +943,17 @@
             "a",
             "a",
             "to"
-          ]
+          ],
+          "audio": {
+            "text": "a",
+            "label": "Hear the word a",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read a."
+          },
+          "speakable_text": "a",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL1_Q05",
@@ -689,7 +975,17 @@
             "to",
             "ot",
             "is"
-          ]
+          ],
+          "audio": {
+            "text": "to",
+            "label": "Hear the word to",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read to."
+          },
+          "speakable_text": "to",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL1_Q06",
@@ -711,7 +1007,17 @@
             "is",
             "si",
             "in"
-          ]
+          ],
+          "audio": {
+            "text": "is",
+            "label": "Hear the word is",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read is."
+          },
+          "speakable_text": "is",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL1_Q07",
@@ -733,7 +1039,17 @@
             "in",
             "ni",
             "you"
-          ]
+          ],
+          "audio": {
+            "text": "in",
+            "label": "Hear the word in",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read in."
+          },
+          "speakable_text": "in",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL1_Q08",
@@ -755,7 +1071,17 @@
             "you",
             "uoy",
             "it"
-          ]
+          ],
+          "audio": {
+            "text": "you",
+            "label": "Hear the word you",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read you."
+          },
+          "speakable_text": "you",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL1_Q09",
@@ -777,7 +1103,17 @@
             "it",
             "ti",
             "of"
-          ]
+          ],
+          "audio": {
+            "text": "it",
+            "label": "Hear the word it",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read it."
+          },
+          "speakable_text": "it",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL1_Q10",
@@ -799,7 +1135,17 @@
             "of",
             "fo",
             "the"
-          ]
+          ],
+          "audio": {
+            "text": "of",
+            "label": "Hear the word of",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read of."
+          },
+          "speakable_text": "of",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -831,7 +1177,17 @@
             "he",
             "eh",
             "was"
-          ]
+          ],
+          "audio": {
+            "text": "he",
+            "label": "Hear the word he",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read he."
+          },
+          "speakable_text": "he",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL2_Q02",
@@ -853,7 +1209,17 @@
             "was",
             "saw",
             "for"
-          ]
+          ],
+          "audio": {
+            "text": "was",
+            "label": "Hear the word was",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read was."
+          },
+          "speakable_text": "was",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL2_Q03",
@@ -875,7 +1241,17 @@
             "for",
             "rof",
             "on"
-          ]
+          ],
+          "audio": {
+            "text": "for",
+            "label": "Hear the word for",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read for."
+          },
+          "speakable_text": "for",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL2_Q04",
@@ -897,7 +1273,17 @@
             "on",
             "no",
             "are"
-          ]
+          ],
+          "audio": {
+            "text": "on",
+            "label": "Hear the word on",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read on."
+          },
+          "speakable_text": "on",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL2_Q05",
@@ -919,7 +1305,17 @@
             "are",
             "era",
             "as"
-          ]
+          ],
+          "audio": {
+            "text": "are",
+            "label": "Hear the word are",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read are."
+          },
+          "speakable_text": "are",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL2_Q06",
@@ -941,7 +1337,17 @@
             "as",
             "sa",
             "with"
-          ]
+          ],
+          "audio": {
+            "text": "as",
+            "label": "Hear the word as",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read as."
+          },
+          "speakable_text": "as",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL2_Q07",
@@ -963,7 +1369,17 @@
             "with",
             "htiw",
             "his"
-          ]
+          ],
+          "audio": {
+            "text": "with",
+            "label": "Hear the word with",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read with."
+          },
+          "speakable_text": "with",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL2_Q08",
@@ -985,7 +1401,17 @@
             "his",
             "sih",
             "they"
-          ]
+          ],
+          "audio": {
+            "text": "his",
+            "label": "Hear the word his",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read his."
+          },
+          "speakable_text": "his",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL2_Q09",
@@ -1007,7 +1433,17 @@
             "they",
             "yeht",
             "at"
-          ]
+          ],
+          "audio": {
+            "text": "they",
+            "label": "Hear the word they",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read they."
+          },
+          "speakable_text": "they",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL2_Q10",
@@ -1029,7 +1465,17 @@
             "at",
             "ta",
             "he"
-          ]
+          ],
+          "audio": {
+            "text": "at",
+            "label": "Hear the word at",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read at."
+          },
+          "speakable_text": "at",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -1062,7 +1508,17 @@
             "the",
             "the",
             "he"
-          ]
+          ],
+          "audio": {
+            "text": "I see the cat.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "I see the cat.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL3_Q02",
@@ -1085,7 +1541,17 @@
             "you",
             "and",
             "was"
-          ]
+          ],
+          "audio": {
+            "text": "You can go.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "You can go.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL3_Q03",
@@ -1108,7 +1574,17 @@
             "he",
             "I",
             "for"
-          ]
+          ],
+          "audio": {
+            "text": "He is big.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "He is big.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL3_Q04",
@@ -1131,7 +1607,17 @@
             "they",
             "a",
             "on"
-          ]
+          ],
+          "audio": {
+            "text": "They are here.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "They are here.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL3_Q05",
@@ -1154,7 +1640,17 @@
             "on",
             "to",
             "are"
-          ]
+          ],
+          "audio": {
+            "text": "It is on the box.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "It is on the box.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL3_Q06",
@@ -1177,7 +1673,17 @@
             "to",
             "is",
             "as"
-          ]
+          ],
+          "audio": {
+            "text": "We go to school.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "We go to school.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL3_Q07",
@@ -1200,7 +1706,17 @@
             "was",
             "in",
             "with"
-          ]
+          ],
+          "audio": {
+            "text": "She was at home.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "She was at home.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL3_Q08",
@@ -1223,7 +1739,17 @@
             "with",
             "you",
             "his"
-          ]
+          ],
+          "audio": {
+            "text": "The dog is with me.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "The dog is with me.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL3_Q09",
@@ -1246,7 +1772,17 @@
             "and",
             "it",
             "they"
-          ]
+          ],
+          "audio": {
+            "text": "I can run and jump.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "I can run and jump.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL3_Q10",
@@ -1269,7 +1805,17 @@
             "his",
             "of",
             "at"
-          ]
+          ],
+          "audio": {
+            "text": "His hat is red.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "His hat is red.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -1301,7 +1847,17 @@
             "in the sun",
             "in",
             "sun"
-          ]
+          ],
+          "audio": {
+            "text": "in the sun",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now say it aloud."
+          },
+          "speakable_text": "in the sun",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL4_Q02",
@@ -1323,7 +1879,17 @@
             "to the park",
             "to",
             "park"
-          ]
+          ],
+          "audio": {
+            "text": "to the park",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now say it aloud."
+          },
+          "speakable_text": "to the park",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL4_Q03",
@@ -1345,7 +1911,17 @@
             "you and I",
             "you",
             "I"
-          ]
+          ],
+          "audio": {
+            "text": "you and I",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now say it aloud."
+          },
+          "speakable_text": "you and I",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL4_Q04",
@@ -1367,7 +1943,17 @@
             "he was here",
             "he",
             "here"
-          ]
+          ],
+          "audio": {
+            "text": "he was here",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now say it aloud."
+          },
+          "speakable_text": "he was here",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL4_Q05",
@@ -1389,7 +1975,17 @@
             "they are with me",
             "they",
             "me"
-          ]
+          ],
+          "audio": {
+            "text": "they are with me",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now say it aloud."
+          },
+          "speakable_text": "they are with me",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL4_Q06",
@@ -1411,7 +2007,17 @@
             "on the mat",
             "on",
             "mat"
-          ]
+          ],
+          "audio": {
+            "text": "on the mat",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now say it aloud."
+          },
+          "speakable_text": "on the mat",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL4_Q07",
@@ -1433,7 +2039,17 @@
             "for his dog",
             "for",
             "dog"
-          ]
+          ],
+          "audio": {
+            "text": "for his dog",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now say it aloud."
+          },
+          "speakable_text": "for his dog",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL4_Q08",
@@ -1455,7 +2071,17 @@
             "as big as me",
             "as",
             "me"
-          ]
+          ],
+          "audio": {
+            "text": "as big as me",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now say it aloud."
+          },
+          "speakable_text": "as big as me",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL4_Q09",
@@ -1477,7 +2103,17 @@
             "it is red",
             "it",
             "red"
-          ]
+          ],
+          "audio": {
+            "text": "it is red",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now say it aloud."
+          },
+          "speakable_text": "it is red",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_LVL4_Q10",
@@ -1499,7 +2135,17 @@
             "at the top",
             "at",
             "top"
-          ]
+          ],
+          "audio": {
+            "text": "at the top",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now say it aloud."
+          },
+          "speakable_text": "at the top",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -1531,7 +2177,17 @@
             "the",
             "eht",
             "and"
-          ]
+          ],
+          "audio": {
+            "text": "the",
+            "label": "Hear the word the",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read the."
+          },
+          "speakable_text": "the",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_MIXED_FROM_LVL2_Q01",
@@ -1553,7 +2209,17 @@
             "he",
             "eh",
             "was"
-          ]
+          ],
+          "audio": {
+            "text": "he",
+            "label": "Hear the word he",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read he."
+          },
+          "speakable_text": "he",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_MIXED_FROM_LVL3_Q01",
@@ -1576,7 +2242,17 @@
             "the",
             "the",
             "he"
-          ]
+          ],
+          "audio": {
+            "text": "I see the cat.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "I see the cat.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_MIXED_FROM_LVL4_Q01",
@@ -1598,7 +2274,17 @@
             "in the sun",
             "in",
             "sun"
-          ]
+          ],
+          "audio": {
+            "text": "in the sun",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now say it aloud."
+          },
+          "speakable_text": "in the sun",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_MIXED_FROM_LVL1_Q02",
@@ -1620,7 +2306,17 @@
             "and",
             "dna",
             "I"
-          ]
+          ],
+          "audio": {
+            "text": "and",
+            "label": "Hear the word and",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read and."
+          },
+          "speakable_text": "and",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_MIXED_FROM_LVL2_Q02",
@@ -1642,7 +2338,17 @@
             "was",
             "saw",
             "for"
-          ]
+          ],
+          "audio": {
+            "text": "was",
+            "label": "Hear the word was",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read was."
+          },
+          "speakable_text": "was",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_MIXED_FROM_LVL3_Q02",
@@ -1665,7 +2371,17 @@
             "you",
             "and",
             "was"
-          ]
+          ],
+          "audio": {
+            "text": "You can go.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "You can go.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_MIXED_FROM_LVL4_Q02",
@@ -1687,7 +2403,17 @@
             "to the park",
             "to",
             "park"
-          ]
+          ],
+          "audio": {
+            "text": "to the park",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now say it aloud."
+          },
+          "speakable_text": "to the park",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_MIXED_FROM_LVL1_Q03",
@@ -1709,7 +2435,17 @@
             "I",
             "I",
             "a"
-          ]
+          ],
+          "audio": {
+            "text": "I",
+            "label": "Hear the word I",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read I."
+          },
+          "speakable_text": "I",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_MIXED_FROM_LVL2_Q03",
@@ -1731,7 +2467,17 @@
             "for",
             "rof",
             "on"
-          ]
+          ],
+          "audio": {
+            "text": "for",
+            "label": "Hear the word for",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read for."
+          },
+          "speakable_text": "for",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_MIXED_FROM_LVL3_Q03",
@@ -1754,7 +2500,17 @@
             "he",
             "I",
             "for"
-          ]
+          ],
+          "audio": {
+            "text": "He is big.",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now read it aloud."
+          },
+          "speakable_text": "He is big.",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_SW_001_MIXED_FROM_LVL4_Q03",
@@ -1776,7 +2532,17 @@
             "you and I",
             "you",
             "I"
-          ]
+          ],
+          "audio": {
+            "text": "you and I",
+            "label": "Hear the sentence",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Now say it aloud."
+          },
+          "speakable_text": "you and I",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     }

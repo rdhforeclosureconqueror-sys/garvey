@@ -29,16 +29,42 @@
     "common_misconception": "Learners may answer from a first clue instead of checking the whole word, sentence, or story.",
     "real_world_connection": "Readers and writers use this skill in books, signs, notes, and classroom talk.",
     "lesson_summary": "Read or listen carefully, use the model, then choose or write the answer.",
-    "mini_lesson": "First study the model. Then say the sounds or words slowly. Last, check that your answer matches the prompt."
+    "mini_lesson": "First study the model. Then say the sounds or words slowly. Last, check that your answer matches the prompt.",
+    "audio": {
+      "text": "Listen, then say it with me.",
+      "label": "Listen",
+      "type": "instruction",
+      "repeat_count": 1,
+      "student_prompt": "Your turn: say it aloud."
+    },
+    "repeat_after_me": true
   },
   "worked_examples": [
     {
       "text": "Watch: Use the sound_match model, name the important part, then answer.",
-      "correct_answer": "/s/"
+      "correct_answer": "/s/",
+      "audio": {
+        "text": "sss",
+        "label": "Hear the sound",
+        "type": "phoneme",
+        "repeat_count": 2,
+        "student_prompt": "Now say /s/."
+      },
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "text": "Demo: Try one with help before independent practice.",
-      "correct_answer": "/m/"
+      "correct_answer": "/m/",
+      "audio": {
+        "text": "mmm",
+        "label": "Hear the sound",
+        "type": "phoneme",
+        "repeat_count": 2,
+        "student_prompt": "Now say /m/."
+      },
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "hint_ladder": [
@@ -69,7 +95,17 @@
         "/s/",
         "/u/",
         "/n/"
-      ]
+      ],
+      "audio": {
+        "text": "sun",
+        "label": "Hear the word sun",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read sun."
+      },
+      "speakable_text": "sun",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL1_Q02",
@@ -93,7 +129,17 @@
         "/m/",
         "/a/",
         "/p/"
-      ]
+      ],
+      "audio": {
+        "text": "map",
+        "label": "Hear the word map",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read map."
+      },
+      "speakable_text": "map",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL1_Q03",
@@ -117,7 +163,17 @@
         "/d/",
         "/o/",
         "/g/"
-      ]
+      ],
+      "audio": {
+        "text": "dog",
+        "label": "Hear the word dog",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read dog."
+      },
+      "speakable_text": "dog",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL1_Q04",
@@ -141,7 +197,17 @@
         "/f/",
         "/i/",
         "/sh/"
-      ]
+      ],
+      "audio": {
+        "text": "fish",
+        "label": "Hear the word fish",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read fish."
+      },
+      "speakable_text": "fish",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL1_Q05",
@@ -165,7 +231,17 @@
         "/h/",
         "/a/",
         "/t/"
-      ]
+      ],
+      "audio": {
+        "text": "hat",
+        "label": "Hear the word hat",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read hat."
+      },
+      "speakable_text": "hat",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL1_Q06",
@@ -189,7 +265,17 @@
         "/b/",
         "/e/",
         "/d/"
-      ]
+      ],
+      "audio": {
+        "text": "bed",
+        "label": "Hear the word bed",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read bed."
+      },
+      "speakable_text": "bed",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "adaptive_question_bank": [
@@ -215,7 +301,17 @@
         "/c/",
         "/u/",
         "/p/"
-      ]
+      ],
+      "audio": {
+        "text": "cup",
+        "label": "Hear the word cup",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read cup."
+      },
+      "speakable_text": "cup",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL1_Q08",
@@ -239,7 +335,17 @@
         "/p/",
         "/i/",
         "/g/"
-      ]
+      ],
+      "audio": {
+        "text": "pig",
+        "label": "Hear the word pig",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read pig."
+      },
+      "speakable_text": "pig",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL1_Q09",
@@ -263,7 +369,17 @@
         "/l/",
         "/o/",
         "/g/"
-      ]
+      ],
+      "audio": {
+        "text": "log",
+        "label": "Hear the word log",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read log."
+      },
+      "speakable_text": "log",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL1_Q10",
@@ -287,7 +403,17 @@
         "/t/",
         "/e/",
         "/n/"
-      ]
+      ],
+      "audio": {
+        "text": "ten",
+        "label": "Hear the word ten",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read ten."
+      },
+      "speakable_text": "ten",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL2_Q01",
@@ -310,7 +436,17 @@
         "/n/",
         "/s/",
         "/u/"
-      ]
+      ],
+      "audio": {
+        "text": "sun",
+        "label": "Hear the word sun",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read sun."
+      },
+      "speakable_text": "sun",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL2_Q02",
@@ -333,7 +469,17 @@
         "/p/",
         "/m/",
         "/a/"
-      ]
+      ],
+      "audio": {
+        "text": "map",
+        "label": "Hear the word map",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read map."
+      },
+      "speakable_text": "map",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL2_Q03",
@@ -356,7 +502,17 @@
         "/g/",
         "/d/",
         "/o/"
-      ]
+      ],
+      "audio": {
+        "text": "dog",
+        "label": "Hear the word dog",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read dog."
+      },
+      "speakable_text": "dog",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL2_Q04",
@@ -379,7 +535,17 @@
         "/sh/",
         "/f/",
         "/i/"
-      ]
+      ],
+      "audio": {
+        "text": "fish",
+        "label": "Hear the word fish",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read fish."
+      },
+      "speakable_text": "fish",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL2_Q05",
@@ -402,7 +568,17 @@
         "/t/",
         "/h/",
         "/a/"
-      ]
+      ],
+      "audio": {
+        "text": "hat",
+        "label": "Hear the word hat",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read hat."
+      },
+      "speakable_text": "hat",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL2_Q06",
@@ -425,7 +601,17 @@
         "/d/",
         "/b/",
         "/e/"
-      ]
+      ],
+      "audio": {
+        "text": "bed",
+        "label": "Hear the word bed",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read bed."
+      },
+      "speakable_text": "bed",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL2_Q07",
@@ -448,7 +634,17 @@
         "/p/",
         "/c/",
         "/u/"
-      ]
+      ],
+      "audio": {
+        "text": "cup",
+        "label": "Hear the word cup",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read cup."
+      },
+      "speakable_text": "cup",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL2_Q08",
@@ -471,7 +667,17 @@
         "/g/",
         "/p/",
         "/i/"
-      ]
+      ],
+      "audio": {
+        "text": "pig",
+        "label": "Hear the word pig",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read pig."
+      },
+      "speakable_text": "pig",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "checkpoint": [
@@ -496,7 +702,17 @@
         "/g/",
         "/l/",
         "/o/"
-      ]
+      ],
+      "audio": {
+        "text": "log",
+        "label": "Hear the word log",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read log."
+      },
+      "speakable_text": "log",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL2_Q10",
@@ -519,7 +735,17 @@
         "/n/",
         "/t/",
         "/e/"
-      ]
+      ],
+      "audio": {
+        "text": "ten",
+        "label": "Hear the word ten",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read ten."
+      },
+      "speakable_text": "ten",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL3_Q01",
@@ -542,7 +768,17 @@
         "/u/",
         "/s/",
         "/n/"
-      ]
+      ],
+      "audio": {
+        "text": "sun",
+        "label": "Hear the word sun",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read sun."
+      },
+      "speakable_text": "sun",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     },
     {
       "question_id": "G1E_RF_002_LVL3_Q02",
@@ -565,7 +801,17 @@
         "/a/",
         "/m/",
         "/p/"
-      ]
+      ],
+      "audio": {
+        "text": "map",
+        "label": "Hear the word map",
+        "type": "word",
+        "repeat_count": 1,
+        "student_prompt": "Now read map."
+      },
+      "speakable_text": "map",
+      "repeat_after_me": true,
+      "pronunciation_check": "none"
     }
   ],
   "misconception_bank": {
@@ -633,7 +879,17 @@
             "/s/",
             "/u/",
             "/n/"
-          ]
+          ],
+          "audio": {
+            "text": "sun",
+            "label": "Hear the word sun",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read sun."
+          },
+          "speakable_text": "sun",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL1_Q02",
@@ -657,7 +913,17 @@
             "/m/",
             "/a/",
             "/p/"
-          ]
+          ],
+          "audio": {
+            "text": "map",
+            "label": "Hear the word map",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read map."
+          },
+          "speakable_text": "map",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL1_Q03",
@@ -681,7 +947,17 @@
             "/d/",
             "/o/",
             "/g/"
-          ]
+          ],
+          "audio": {
+            "text": "dog",
+            "label": "Hear the word dog",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read dog."
+          },
+          "speakable_text": "dog",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL1_Q04",
@@ -705,7 +981,17 @@
             "/f/",
             "/i/",
             "/sh/"
-          ]
+          ],
+          "audio": {
+            "text": "fish",
+            "label": "Hear the word fish",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read fish."
+          },
+          "speakable_text": "fish",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL1_Q05",
@@ -729,7 +1015,17 @@
             "/h/",
             "/a/",
             "/t/"
-          ]
+          ],
+          "audio": {
+            "text": "hat",
+            "label": "Hear the word hat",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read hat."
+          },
+          "speakable_text": "hat",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL1_Q06",
@@ -753,7 +1049,17 @@
             "/b/",
             "/e/",
             "/d/"
-          ]
+          ],
+          "audio": {
+            "text": "bed",
+            "label": "Hear the word bed",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read bed."
+          },
+          "speakable_text": "bed",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL1_Q07",
@@ -777,7 +1083,17 @@
             "/c/",
             "/u/",
             "/p/"
-          ]
+          ],
+          "audio": {
+            "text": "cup",
+            "label": "Hear the word cup",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read cup."
+          },
+          "speakable_text": "cup",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL1_Q08",
@@ -801,7 +1117,17 @@
             "/p/",
             "/i/",
             "/g/"
-          ]
+          ],
+          "audio": {
+            "text": "pig",
+            "label": "Hear the word pig",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read pig."
+          },
+          "speakable_text": "pig",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL1_Q09",
@@ -825,7 +1151,17 @@
             "/l/",
             "/o/",
             "/g/"
-          ]
+          ],
+          "audio": {
+            "text": "log",
+            "label": "Hear the word log",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read log."
+          },
+          "speakable_text": "log",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL1_Q10",
@@ -849,7 +1185,17 @@
             "/t/",
             "/e/",
             "/n/"
-          ]
+          ],
+          "audio": {
+            "text": "ten",
+            "label": "Hear the word ten",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read ten."
+          },
+          "speakable_text": "ten",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -882,7 +1228,17 @@
             "/n/",
             "/s/",
             "/u/"
-          ]
+          ],
+          "audio": {
+            "text": "sun",
+            "label": "Hear the word sun",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read sun."
+          },
+          "speakable_text": "sun",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL2_Q02",
@@ -905,7 +1261,17 @@
             "/p/",
             "/m/",
             "/a/"
-          ]
+          ],
+          "audio": {
+            "text": "map",
+            "label": "Hear the word map",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read map."
+          },
+          "speakable_text": "map",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL2_Q03",
@@ -928,7 +1294,17 @@
             "/g/",
             "/d/",
             "/o/"
-          ]
+          ],
+          "audio": {
+            "text": "dog",
+            "label": "Hear the word dog",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read dog."
+          },
+          "speakable_text": "dog",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL2_Q04",
@@ -951,7 +1327,17 @@
             "/sh/",
             "/f/",
             "/i/"
-          ]
+          ],
+          "audio": {
+            "text": "fish",
+            "label": "Hear the word fish",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read fish."
+          },
+          "speakable_text": "fish",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL2_Q05",
@@ -974,7 +1360,17 @@
             "/t/",
             "/h/",
             "/a/"
-          ]
+          ],
+          "audio": {
+            "text": "hat",
+            "label": "Hear the word hat",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read hat."
+          },
+          "speakable_text": "hat",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL2_Q06",
@@ -997,7 +1393,17 @@
             "/d/",
             "/b/",
             "/e/"
-          ]
+          ],
+          "audio": {
+            "text": "bed",
+            "label": "Hear the word bed",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read bed."
+          },
+          "speakable_text": "bed",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL2_Q07",
@@ -1020,7 +1426,17 @@
             "/p/",
             "/c/",
             "/u/"
-          ]
+          ],
+          "audio": {
+            "text": "cup",
+            "label": "Hear the word cup",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read cup."
+          },
+          "speakable_text": "cup",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL2_Q08",
@@ -1043,7 +1459,17 @@
             "/g/",
             "/p/",
             "/i/"
-          ]
+          ],
+          "audio": {
+            "text": "pig",
+            "label": "Hear the word pig",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read pig."
+          },
+          "speakable_text": "pig",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL2_Q09",
@@ -1066,7 +1492,17 @@
             "/g/",
             "/l/",
             "/o/"
-          ]
+          ],
+          "audio": {
+            "text": "log",
+            "label": "Hear the word log",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read log."
+          },
+          "speakable_text": "log",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL2_Q10",
@@ -1089,7 +1525,17 @@
             "/n/",
             "/t/",
             "/e/"
-          ]
+          ],
+          "audio": {
+            "text": "ten",
+            "label": "Hear the word ten",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read ten."
+          },
+          "speakable_text": "ten",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -1122,7 +1568,17 @@
             "/u/",
             "/s/",
             "/n/"
-          ]
+          ],
+          "audio": {
+            "text": "sun",
+            "label": "Hear the word sun",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read sun."
+          },
+          "speakable_text": "sun",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL3_Q02",
@@ -1145,7 +1601,17 @@
             "/a/",
             "/m/",
             "/p/"
-          ]
+          ],
+          "audio": {
+            "text": "map",
+            "label": "Hear the word map",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read map."
+          },
+          "speakable_text": "map",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL3_Q03",
@@ -1168,7 +1634,17 @@
             "/o/",
             "/d/",
             "/g/"
-          ]
+          ],
+          "audio": {
+            "text": "dog",
+            "label": "Hear the word dog",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read dog."
+          },
+          "speakable_text": "dog",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL3_Q04",
@@ -1191,7 +1667,17 @@
             "/i/",
             "/f/",
             "/sh/"
-          ]
+          ],
+          "audio": {
+            "text": "fish",
+            "label": "Hear the word fish",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read fish."
+          },
+          "speakable_text": "fish",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL3_Q05",
@@ -1214,7 +1700,17 @@
             "/a/",
             "/h/",
             "/t/"
-          ]
+          ],
+          "audio": {
+            "text": "hat",
+            "label": "Hear the word hat",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read hat."
+          },
+          "speakable_text": "hat",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL3_Q06",
@@ -1237,7 +1733,17 @@
             "/e/",
             "/b/",
             "/d/"
-          ]
+          ],
+          "audio": {
+            "text": "bed",
+            "label": "Hear the word bed",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read bed."
+          },
+          "speakable_text": "bed",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL3_Q07",
@@ -1260,7 +1766,17 @@
             "/u/",
             "/c/",
             "/p/"
-          ]
+          ],
+          "audio": {
+            "text": "cup",
+            "label": "Hear the word cup",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read cup."
+          },
+          "speakable_text": "cup",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL3_Q08",
@@ -1283,7 +1799,17 @@
             "/i/",
             "/p/",
             "/g/"
-          ]
+          ],
+          "audio": {
+            "text": "pig",
+            "label": "Hear the word pig",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read pig."
+          },
+          "speakable_text": "pig",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL3_Q09",
@@ -1306,7 +1832,17 @@
             "/o/",
             "/l/",
             "/g/"
-          ]
+          ],
+          "audio": {
+            "text": "log",
+            "label": "Hear the word log",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read log."
+          },
+          "speakable_text": "log",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL3_Q10",
@@ -1329,7 +1865,17 @@
             "/e/",
             "/t/",
             "/n/"
-          ]
+          ],
+          "audio": {
+            "text": "ten",
+            "label": "Hear the word ten",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read ten."
+          },
+          "speakable_text": "ten",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -1361,7 +1907,17 @@
           "choices": [
             "same",
             "different"
-          ]
+          ],
+          "audio": {
+            "text": "sun / sit",
+            "label": "Hear the word sun / sit",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read sun / sit."
+          },
+          "speakable_text": "sun / sit",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL4_Q02",
@@ -1383,7 +1939,17 @@
           "choices": [
             "same",
             "different"
-          ]
+          ],
+          "audio": {
+            "text": "map / dog",
+            "label": "Hear the word map / dog",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read map / dog."
+          },
+          "speakable_text": "map / dog",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL4_Q03",
@@ -1405,7 +1971,17 @@
           "choices": [
             "same",
             "different"
-          ]
+          ],
+          "audio": {
+            "text": "hat / cat",
+            "label": "Hear the word hat / cat",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read hat / cat."
+          },
+          "speakable_text": "hat / cat",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL4_Q04",
@@ -1427,7 +2003,17 @@
           "choices": [
             "same",
             "different"
-          ]
+          ],
+          "audio": {
+            "text": "pig / cup",
+            "label": "Hear the word pig / cup",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read pig / cup."
+          },
+          "speakable_text": "pig / cup",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL4_Q05",
@@ -1449,7 +2035,17 @@
           "choices": [
             "same",
             "different"
-          ]
+          ],
+          "audio": {
+            "text": "bed / ten",
+            "label": "Hear the word bed / ten",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read bed / ten."
+          },
+          "speakable_text": "bed / ten",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL4_Q06",
@@ -1471,7 +2067,17 @@
           "choices": [
             "same",
             "different"
-          ]
+          ],
+          "audio": {
+            "text": "log / fish",
+            "label": "Hear the word log / fish",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read log / fish."
+          },
+          "speakable_text": "log / fish",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL4_Q07",
@@ -1493,7 +2099,17 @@
           "choices": [
             "same",
             "different"
-          ]
+          ],
+          "audio": {
+            "text": "cup / cap",
+            "label": "Hear the word cup / cap",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read cup / cap."
+          },
+          "speakable_text": "cup / cap",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL4_Q08",
@@ -1515,7 +2131,17 @@
           "choices": [
             "same",
             "different"
-          ]
+          ],
+          "audio": {
+            "text": "dog / log",
+            "label": "Hear the word dog / log",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read dog / log."
+          },
+          "speakable_text": "dog / log",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL4_Q09",
@@ -1537,7 +2163,17 @@
           "choices": [
             "same",
             "different"
-          ]
+          ],
+          "audio": {
+            "text": "fish / hat",
+            "label": "Hear the word fish / hat",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read fish / hat."
+          },
+          "speakable_text": "fish / hat",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_LVL4_Q10",
@@ -1559,7 +2195,17 @@
           "choices": [
             "same",
             "different"
-          ]
+          ],
+          "audio": {
+            "text": "map / bed",
+            "label": "Hear the word map / bed",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read map / bed."
+          },
+          "speakable_text": "map / bed",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     },
@@ -1593,7 +2239,17 @@
             "/s/",
             "/u/",
             "/n/"
-          ]
+          ],
+          "audio": {
+            "text": "sun",
+            "label": "Hear the word sun",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read sun."
+          },
+          "speakable_text": "sun",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_MIXED_FROM_LVL2_Q01",
@@ -1616,7 +2272,17 @@
             "/n/",
             "/s/",
             "/u/"
-          ]
+          ],
+          "audio": {
+            "text": "sun",
+            "label": "Hear the word sun",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read sun."
+          },
+          "speakable_text": "sun",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_MIXED_FROM_LVL3_Q01",
@@ -1639,7 +2305,17 @@
             "/u/",
             "/s/",
             "/n/"
-          ]
+          ],
+          "audio": {
+            "text": "sun",
+            "label": "Hear the word sun",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read sun."
+          },
+          "speakable_text": "sun",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_MIXED_FROM_LVL4_Q01",
@@ -1661,7 +2337,17 @@
           "choices": [
             "same",
             "different"
-          ]
+          ],
+          "audio": {
+            "text": "sun / sit",
+            "label": "Hear the word sun / sit",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read sun / sit."
+          },
+          "speakable_text": "sun / sit",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_MIXED_FROM_LVL1_Q02",
@@ -1685,7 +2371,17 @@
             "/m/",
             "/a/",
             "/p/"
-          ]
+          ],
+          "audio": {
+            "text": "map",
+            "label": "Hear the word map",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read map."
+          },
+          "speakable_text": "map",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_MIXED_FROM_LVL2_Q02",
@@ -1708,7 +2404,17 @@
             "/p/",
             "/m/",
             "/a/"
-          ]
+          ],
+          "audio": {
+            "text": "map",
+            "label": "Hear the word map",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read map."
+          },
+          "speakable_text": "map",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_MIXED_FROM_LVL3_Q02",
@@ -1731,7 +2437,17 @@
             "/a/",
             "/m/",
             "/p/"
-          ]
+          ],
+          "audio": {
+            "text": "map",
+            "label": "Hear the word map",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read map."
+          },
+          "speakable_text": "map",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_MIXED_FROM_LVL4_Q02",
@@ -1753,7 +2469,17 @@
           "choices": [
             "same",
             "different"
-          ]
+          ],
+          "audio": {
+            "text": "map / dog",
+            "label": "Hear the word map / dog",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read map / dog."
+          },
+          "speakable_text": "map / dog",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_MIXED_FROM_LVL1_Q03",
@@ -1777,7 +2503,17 @@
             "/d/",
             "/o/",
             "/g/"
-          ]
+          ],
+          "audio": {
+            "text": "dog",
+            "label": "Hear the word dog",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read dog."
+          },
+          "speakable_text": "dog",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_MIXED_FROM_LVL2_Q03",
@@ -1800,7 +2536,17 @@
             "/g/",
             "/d/",
             "/o/"
-          ]
+          ],
+          "audio": {
+            "text": "dog",
+            "label": "Hear the word dog",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read dog."
+          },
+          "speakable_text": "dog",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_MIXED_FROM_LVL3_Q03",
@@ -1823,7 +2569,17 @@
             "/o/",
             "/d/",
             "/g/"
-          ]
+          ],
+          "audio": {
+            "text": "dog",
+            "label": "Hear the word dog",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read dog."
+          },
+          "speakable_text": "dog",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         },
         {
           "question_id": "G1E_RF_002_MIXED_FROM_LVL4_Q03",
@@ -1845,7 +2601,17 @@
           "choices": [
             "same",
             "different"
-          ]
+          ],
+          "audio": {
+            "text": "hat / cat",
+            "label": "Hear the word hat / cat",
+            "type": "word",
+            "repeat_count": 1,
+            "student_prompt": "Now read hat / cat."
+          },
+          "speakable_text": "hat / cat",
+          "repeat_after_me": true,
+          "pronunciation_check": "none"
         }
       ]
     }

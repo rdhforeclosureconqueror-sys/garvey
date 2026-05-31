@@ -701,6 +701,32 @@ assert.match(Renderer.renderSkillWorld(englishLetters,{mode:'drill',failClosed:t
 assert.ok(Renderer.evaluateAnswer(englishQuestions.find((q)=>q.question_type==='short_response'&&q.correct_answer==='a'),'A'),'G1E_RF_001 short_response accepts case-insensitive acceptable answer');
 
 
+assert.ok(Schema.AUDIO_TYPES.includes('phoneme'),'schema exposes reusable English audio types');
+const audioSchemaPackage=JSON.parse(JSON.stringify(englishLetters));
+audioSchemaPackage.guided_practice[0].audio={text:'mmm',label:'Hear the M sound',type:'phoneme',repeat_count:2,student_prompt:'Now say /m/.'};
+audioSchemaPackage.guided_practice[0].recordable=true;
+audioSchemaPackage.guided_practice[0].playback_enabled=true;
+audioSchemaPackage.guided_practice[0].pronunciation_check='manual_playback';
+assert.equal(Schema.validateSkillPackage(audioSchemaPackage,{allowPlannedLevelBanks:false}).valid,true,'schema accepts reusable audio and future recording fields');
+const audioQuestion={...englishQuestions.find((q)=>q.audio),prompt:'Listen test'};
+assert.match(Renderer.renderQuestionCard(audioQuestion,'practice',Renderer.createState()),/audio-listen-button/, 'renderer shows Listen button when audio exists');
+assert.doesNotMatch(Renderer.renderQuestionCard({...audioQuestion,audio:null,speakable_text:''},'practice',Renderer.createState()),/audio-listen-button/, 'renderer hides Listen button when audio is absent');
+assert.match(Renderer.renderQuestionCard({...audioQuestion,audio:{text:'map',label:'Hear the word map',type:'word',repeat_count:1,student_prompt:'Now read map.'}},'practice',Renderer.createState()),/Now read map\./,'repeat-after-me prompt renders when student_prompt exists');
+const mathPackages=[...grade1Packages,...grade2Packages,...grade3Packages].filter((pkg)=>pkg.subject==='Math');
+assert.ok(mathPackages.every((pkg)=>Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid),'Math packages still validate without requiring audio');
+assert.ok(mathPackages.every((pkg)=>![...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])].some((q)=>q.audio||q.audio_text||q.speakable_text)),'Math packages do not require audio fields');
+assert.match(Renderer.renderSkillWorld(mathPackages[0],{failClosed:true}).html,/Skill World:/,'Skill World still renders Math packages');
+assert.match(Renderer.renderSkillWorld(englishLetters,{failClosed:true}).html,/Skill World:/,'Skill World still renders English packages');
+
+['G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001'].forEach((id)=>{
+  const pkg=byId[id];
+  const audioItems=[pkg.lesson,...(pkg.worked_examples||[]),...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])].filter(Boolean);
+  assert.ok(audioItems.some((item)=>item.audio?.text||item.speakable_text),`${id} includes audio/speakable support`);
+  assert.ok([...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])].some((q)=>q.audio?.type==='phoneme'||q.audio?.type==='letter_sound'||q.audio?.type==='word'||q.audio?.type==='sentence'),`${id} includes sound, word, or fluency audio items`);
+  assert.ok(audioItems.some((item)=>item.audio?.student_prompt),`${id} includes repeat-after-me prompts`);
+});
+
+
 const englishProductionIds=['G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
 const requiredEnglishRenderers=['word_sound_map','word_builder','word_family_sort','rhyme_match','sentence_highlight','phrase_builder','sentence_builder','short_passage','picture_story','question_card','story_sequence','picture_order','event_cards','writing_checklist','punctuation_marker','picture_prompt','detail_picker'];
 requiredEnglishRenderers.forEach((renderer)=>{
