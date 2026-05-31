@@ -63,6 +63,17 @@ test('Active Grade 1 packages expose real level banks for hub Practice This Skil
   }
 });
 
+test('Active Grade 1 Skill Practice Center questions expose read-aloud narration', () => {
+  const packages = manifest.packages.map(readPackage).filter((pkg) => requiredGrade1SkillIds.includes(pkg.skill_id));
+
+  assert.deepEqual(packages.map((pkg) => pkg.skill_id).sort(), [...requiredGrade1SkillIds].sort());
+  for (const pkg of packages) {
+    const questions = pkg.level_banks.flatMap((level) => level.questions);
+    assert.equal(questions.length > 0, true, `${pkg.skill_id} has Skill Practice Center questions`);
+    assert.equal(questions.every((question) => question.question_audio?.text || question.read_aloud_text), true, `${pkg.skill_id} questions have question narration`);
+  }
+});
+
 test('Adaptive Grade 1 hub loads package manifest and renders active Grade 1 Skill World buttons', () => {
   assert.match(hub, /skillWorldManifestUrl='\/gamehub\/skill-world\/content\/manifest\.json'/);
   assert.match(hub, /async function loadSkillWorldPackages\(\)/);
