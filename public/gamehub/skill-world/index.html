@@ -22,7 +22,7 @@
  function speakAudio(button){const text=button.dataset.audioText||''; const repeat=Math.max(1,Number(button.dataset.audioRepeat||1)||1); if(!text)return; if(!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined'){showAudioUnavailable(button); return;} const support=button.closest('.audio-support'); support?.querySelector('.audio-unavailable-message')?.classList.add('is-hidden'); window.speechSynthesis.cancel(); const prompt=button.dataset.studentPrompt||''; let spoken=0; const speakNext=()=>{if(spoken>=repeat){const promptEl=support?.querySelector('.student-audio-prompt'); if(promptEl&&prompt)promptEl.textContent=prompt; return;} spoken+=1; const utterance=new SpeechSynthesisUtterance(text); utterance.lang='en-US'; utterance.rate=0.82; utterance.onend=speakNext; utterance.onerror=()=>showAudioUnavailable(button); window.speechSynthesis.speak(utterance);}; speakNext(); }
  render();
  app.addEventListener('click',(e)=>{
-   const listen=e.target.closest('.audio-listen-button');
+   const listen=e.target.closest('.audio-listen-button,.question-read-button');
    if(listen){speakAudio(listen); return;}
    const step=e.target.closest('.mission-step');
    if(step){const requested=Number(step.dataset.stepIndex); if(requested<=state.stepIndex){state.mode='mission'; state.stepIndex=requested; render();} return;}
