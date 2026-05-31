@@ -95,6 +95,29 @@ test('Grade 1 Math guided missions expose tutor-quality page narration from mani
   assert.match(packages.find((pkg) => pkg.skill_id === 'G1M_DP_001').page_audio.watch.text, /sorting[\s\S]*color[\s\S]*red ball[\s\S]*red cube[\s\S]*model/i);
 });
 
+
+test('Grade 1 English guided missions expose tutor-quality page narration from manifest packages', () => {
+  const packages = manifest.packages.map(readPackage).filter((pkg) => requiredGrade1EnglishSkillIds.includes(pkg.skill_id));
+  const screens = ['story', 'lesson', 'watch', 'demo', 'practice', 'challenge', 'checkpoint', 'badge', 'profile'];
+  const weakPageNarrationPattern = /^(This is (the )?(lesson|challenge|checkpoint|practice zone|guided demo)|Watch this example\. The model shows one way to think|Great work\. This badge celebrates)/i;
+
+  assert.deepEqual(packages.map((pkg) => pkg.skill_id).sort(), [...requiredGrade1EnglishSkillIds].sort());
+  for (const pkg of packages) {
+    for (const screen of screens) {
+      const narration = pkg.page_audio?.[screen]?.text || '';
+      assert.equal(pkg.page_audio?.[screen]?.label, 'Read This Page', `${pkg.skill_id} ${screen} uses Read This Page label`);
+      assert.equal(narration.split(/[.!?]+/).filter((sentence) => sentence.trim()).length >= 3, true, `${pkg.skill_id} ${screen} narration teaches the page`);
+      assert.equal(narration.length >= 140, true, `${pkg.skill_id} ${screen} narration is not placeholder text`);
+      assert.doesNotMatch(narration, weakPageNarrationPattern, `${pkg.skill_id} ${screen} narration avoids weak placeholder text`);
+      assert.match(narration, /(read|listen|sound|word|sentence|story|picture|write|skill)/i, `${pkg.skill_id} ${screen} narration describes the English skill`);
+      assert.match(narration, /(Press Start Mission|Press Next|Choose your answer|Use the hint|Answer carefully|go back to the hub)/i, `${pkg.skill_id} ${screen} narration includes a next action`);
+    }
+    for (const screen of ['practice', 'challenge', 'checkpoint']) {
+      assert.match(pkg.page_audio[screen].text, /Read Question/, `${pkg.skill_id} ${screen} narration preserves Read Question guidance`);
+    }
+  }
+});
+
 test('Adaptive Grade 1 hub loads package manifest and renders active Grade 1 Skill World buttons', () => {
   assert.match(hub, /skillWorldManifestUrl='\/gamehub\/skill-world\/content\/manifest\.json'/);
   assert.match(hub, /async function loadSkillWorldPackages\(\)/);
