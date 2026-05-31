@@ -109,7 +109,14 @@ assert.match(englishDrillCenterHtml,/Skill Practice Center/,'English drill cente
 Renderer.selectLevel(englishDrillState,0);
 const englishDrillQuestionHtml=Renderer.renderSkillWorld(englishLetters,{state:englishDrillState,mode:'drill',failClosed:true}).html;
 assert.match(englishDrillQuestionHtml,/Read Question[\s\S]*Hear the letter A/,'drill questions can render Read Question and Listen');
-['G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001'].forEach((id)=>{const pkg=load(id); const questions=[...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])]; assert.ok(questions.length>0,`${id} has targeted English questions`); assert.ok(questions.every((q)=>q.question_audio?.text||q.read_aloud_text),`${id} targeted questions include question narration`);});
+const grade1SkillPracticeReadAloudIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_PV_001','G1M_GM_001','G1M_GM_002','G1M_MD_TIME_001','G1M_DP_001','G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
+grade1SkillPracticeReadAloudIds.forEach((id)=>{const pkg=load(id); const levelQuestions=(pkg.level_banks||[]).flatMap((level)=>level.questions||[]); assert.ok(levelQuestions.length>0,`${id} has Skill Practice Center level bank questions`); assert.ok(levelQuestions.every((q)=>q.question_audio?.text||q.read_aloud_text),`${id} Skill Practice Center questions include question narration`);});
+grade1SkillPracticeReadAloudIds.forEach((id)=>{const pkg=load(id); const state=Renderer.createState(); state.mode='drill'; Renderer.selectLevel(state,0); const html=Renderer.renderSkillWorld(pkg,{state,mode:'drill',failClosed:true}).html; assert.match(html,/Skill Practice Center/,`/skill-world/${id}/drill renders Skill Practice Center`); assert.match(html,/question-read-button[\s\S]*Read Question/,`${id} drill questions render Read Question controls`);});
+const grade1MathSkillPracticeIds=grade1SkillPracticeReadAloudIds.filter((id)=>load(id).subject==='Math');
+const grade1EnglishSkillPracticeIds=grade1SkillPracticeReadAloudIds.filter((id)=>load(id).subject==='English');
+assert.equal(grade1MathSkillPracticeIds.length,11,'all eleven Grade 1 Math Skill Practice packages are covered');
+assert.equal(grade1EnglishSkillPracticeIds.length,10,'all ten Grade 1 English Skill Practice packages are covered');
+assert.ok([...grade2Packages,...grade3Packages].some((pkg)=>(pkg.level_banks||[]).flatMap((level)=>level.questions||[]).some((q)=>!(q.question_audio?.text||q.read_aloud_text))),'Grade 2 and Grade 3 packages are not required to have question narration yet');
 
 const requiredSkillWorldRoutes=['G1M_NS_001','G1E_RF_001','G2M_PV_001','G2E_RF_001','G3M_MUL_001','G3M_FR_001','G3M_MD_001'];
 requiredSkillWorldRoutes.forEach((id)=>{
@@ -762,7 +769,13 @@ assert.ok(mathPackages.every((pkg)=>Schema.validateSkillPackage(pkg,{allowPlanne
 assert.ok(mathPackages.every((pkg)=>![...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])].some((q)=>q.audio||q.audio_text||q.speakable_text)),'Math packages do not require audio fields');
 const mathSkillWorldHtml=Renderer.renderSkillWorld(mathPackages[0],{failClosed:true}).html;
 assert.match(mathSkillWorldHtml,/Skill World:/,'Skill World still renders Math packages');
-assert.doesNotMatch(mathSkillWorldHtml,/audio-unavailable-message|data-audio-fallback|question-read-button|audio-listen-button/,'Math packages render without audio/fallback pollution');
+assert.doesNotMatch(mathSkillWorldHtml,/audio-listen-button/,'Math mission routes do not add phonics-style Listen buttons');
+const mathSkillPracticeState=Renderer.createState();
+mathSkillPracticeState.mode='drill';
+Renderer.selectLevel(mathSkillPracticeState,0);
+const mathSkillPracticeHtml=Renderer.renderSkillWorld(byId.G1M_NS_001,{state:mathSkillPracticeState,mode:'drill',failClosed:true}).html;
+assert.match(mathSkillPracticeHtml,/question-read-button[\s\S]*Read Question/,'Grade 1 Math Skill Practice questions render Read Question controls');
+assert.doesNotMatch(mathSkillPracticeHtml,/audio-listen-button/,'Grade 1 Math Skill Practice questions do not require phoneme or word Listen buttons');
 assert.match(Renderer.renderSkillWorld(englishLetters,{failClosed:true}).html,/Skill World:/,'Skill World still renders English packages');
 
 ['G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001'].forEach((id)=>{
