@@ -85,6 +85,32 @@ assert.ok(skillWorldIndex.indexOf('skill-package-schema.js')>-1,'Skill World ind
 assert.ok(skillWorldIndex.indexOf('skill-world-renderer.js')>-1,'Skill World index includes skill-world-renderer.js');
 assert.ok(skillWorldIndex.indexOf('skill-package-schema.js')<skillWorldIndex.indexOf('skill-world-renderer.js'),'generated HTML loads skill-package-schema.js before skill-world-renderer.js');
 
+assert.equal(Schema.validateSkillPackage({...englishLetters,guided_practice:[{...englishLetters.guided_practice[0],question_audio:{text:'Which card shows uppercase letter M?',label:'Read Question',type:'question',repeat_count:1}}]},{allowPlannedLevelBanks:false}).valid,true,'schema accepts question_audio on questions');
+assert.equal(Renderer.normalizeQuestionNarrationText('Which card shows uppercase S?'),'Which card shows uppercase letter S?','question narration normalizes uppercase letter phrasing');
+assert.equal(Renderer.normalizeQuestionNarrationText('Which card shows lowercase m?'),'Which card shows lowercase letter m?','question narration normalizes lowercase letter phrasing');
+assert.equal(Renderer.normalizeQuestionNarrationText('Point to /m/ in a CVC word.'),'Point to the mmm sound in a C V C word.','question narration normalizes phonics notation');
+const explicitQuestionAudioHtml=Renderer.renderQuestionCard({...englishLetters.guided_practice[0],question_audio:{text:'Which card shows uppercase letter M?',label:'Read Question',type:'question',repeat_count:2}},'practice',Renderer.createState(),englishLetters);
+assert.match(explicitQuestionAudioHtml,/Read Question/,'renderer shows Read Question when question_audio exists');
+assert.match(explicitQuestionAudioHtml,/data-audio-text="Which card shows uppercase letter M\?"/,'Read Question uses explicit question_audio text');
+assert.match(explicitQuestionAudioHtml,/data-audio-repeat="2"/,'Read Question uses question_audio repeat_count');
+assert.match(explicitQuestionAudioHtml,/Hear the letter M/,'existing Listen button remains for answer audio');
+const readAloudHtml=Renderer.renderQuestionCard({...englishLetters.guided_practice[0],question_audio:undefined,read_aloud_text:'Which card shows uppercase letter M?'},'practice',Renderer.createState());
+assert.match(readAloudHtml,/Read Question/,'renderer shows Read Question when read_aloud_text exists');
+const mathQuestionHtml=Renderer.renderQuestionCard(dp.guided_practice[0],'practice',Renderer.createState(),dp);
+assert.doesNotMatch(mathQuestionHtml,/Read Question/,'Read Question does not appear for Math unless question_audio is present');
+const mathExplicitQuestionHtml=Renderer.renderQuestionCard({...dp.guided_practice[0],question_audio:{text:'Read this math question.',label:'Read Question',type:'question',repeat_count:1}},'practice',Renderer.createState(),dp);
+assert.match(mathExplicitQuestionHtml,/Read Question/,'Math can render Read Question when question_audio is explicitly present');
+const englishQuestionAudioMissionHtml=Renderer.renderSkillWorld(englishLetters,{failClosed:true}).html;
+assert.match(englishQuestionAudioMissionHtml,/Read Question[\s\S]*Hear the letter M/,'mission questions can show Read Question and Listen');
+const englishDrillState=Renderer.createState();
+englishDrillState.mode='drill';
+const englishDrillCenterHtml=Renderer.renderSkillWorld(englishLetters,{state:englishDrillState,mode:'drill',failClosed:true}).html;
+assert.match(englishDrillCenterHtml,/Skill Practice Center/,'English drill center still renders');
+Renderer.selectLevel(englishDrillState,0);
+const englishDrillQuestionHtml=Renderer.renderSkillWorld(englishLetters,{state:englishDrillState,mode:'drill',failClosed:true}).html;
+assert.match(englishDrillQuestionHtml,/Read Question[\s\S]*Hear the letter A/,'drill questions can render Read Question and Listen');
+['G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001'].forEach((id)=>{const pkg=load(id); const questions=[...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])]; assert.ok(questions.length>0,`${id} has targeted English questions`); assert.ok(questions.every((q)=>q.question_audio?.text||q.read_aloud_text),`${id} targeted questions include question narration`);});
+
 const requiredSkillWorldRoutes=['G1M_NS_001','G1E_RF_001','G2M_PV_001','G2E_RF_001','G3M_MUL_001','G3M_FR_001','G3M_MD_001'];
 requiredSkillWorldRoutes.forEach((id)=>{
   const html=Renderer.renderSkillWorld(load(id),{failClosed:true}).html;
