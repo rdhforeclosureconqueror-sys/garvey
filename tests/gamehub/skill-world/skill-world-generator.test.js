@@ -123,6 +123,7 @@ assert.equal(JSON.stringify(stateBeforePageAudio),stateAfterPageAudio,'page narr
 assert.match(skillWorldIndex,/\.page-read-button/,'Skill World runtime routes Read This Page through existing speech runtime');
 assert.match(skillWorldIndex,/fetch\('\/api\/skill-world\/audio'/,'Skill World runtime calls backend generated-audio route before browser speech when no audio_url exists');
 assert.match(skillWorldIndex,/if\(!prefersBrowser\)[\s\S]*fetchGeneratedAudio\(button\)[\s\S]*speakWithBrowserSpeech\(button\)/,'Skill World runtime falls back to browser speech when backend audio fails');
+assert.match(skillWorldIndex,/if\(!response\.ok\)return '';/,'generated audio fetch failures return no URL so browser speech fallback remains intact');
 assert.match(skillWorldIndex,/\.audio-listen-button,\.question-read-button,\.page-read-button/,'existing Read This Page, Read Question, and Listen controls still share the audio click runtime');
 
 const mathExplicitQuestionHtml=Renderer.renderQuestionCard({...dp.guided_practice[0],question_audio:{text:'Read this math question.',label:'Read Question',type:'question',repeat_count:1}},'practice',Renderer.createState(),dp);

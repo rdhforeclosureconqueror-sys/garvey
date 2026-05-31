@@ -81,11 +81,26 @@ function createSkillWorldAudioRouter(options = {}) {
       if (err?.code !== "ENOENT") throw err;
     }
 
+    const headers = { "content-type": "application/json" };
+    const ttsToken = String(process.env.SKILL_WORLD_TTS_TOKEN || "").trim();
+    if (ttsToken) {
+      headers["x-internal-token"] = ttsToken;
+    }
+
     const upstreamResponse = await fetchImpl(ttsUrl, {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers,
       body: JSON.stringify({ text, voice, format, speed, pitch }),
     });
+
+    if (upstreamResponse?.status === 401) {
+      return res.status(401).json({
+        ok: false,
+        error: "tts_upstream_auth_failed",
+        status: 401,
+        fallback: "browser_speech",
+      });
+    }
 
     if (!upstreamResponse?.ok) {
       return res.status(502).json({ ok: false, error: "tts_upstream_failed", status: upstreamResponse?.status || 0 });
