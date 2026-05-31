@@ -69,6 +69,7 @@ const { createYouthDevelopmentRouter } = require("./youthDevelopmentRoutes");
 const { createYouthDevelopmentIntakeRouter } = require("./youthDevelopmentIntakeRoutes");
 const { createYouthDevelopmentTdeRouter } = require("./youthDevelopmentTdeRoutes");
 const { createAssessmentVoiceRouter } = require("./assessmentVoiceRoutes");
+const { createSkillWorldAudioRouter } = require("./skillWorldAudioRoutes");
 const { createTdePersistenceRepository } = require("../youth-development/tde/persistenceRepository");
 const { createVoiceService } = require("../youth-development/tde/voiceService");
 const { selectLatestYouthSubmission } = require("./youthLatestSelection");
@@ -292,6 +293,7 @@ app.get("/skill-world/:skillId", (req, res) => {
   return res.sendFile(path.join(__dirname, "..", "public", "gamehub", "skill-world", "index.html"));
 });
 
+app.use("/generated-audio/skill-world", express.static(path.join(__dirname, "..", "public", "generated-audio", "skill-world")));
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use('/dashboardnew', express.static(path.join(__dirname, '..', 'dashboardnew')));
 app.use(createGatesRouter());
@@ -2166,6 +2168,7 @@ app.use("/api/stability", routingRoutes({ pool, ensureTenant }));
 app.use("/api/evolution", evolutionRoutes({ pool, ensureTenant }));
 app.use("/api/archetype-engines", createArchetypeEnginesRouter({ pool }));
 app.use("/api/assessment/voice", createAssessmentVoiceRouter());
+app.use("/api/skill-world", createSkillWorldAudioRouter());
 
 async function persistYouthAssessmentForAccount({
   accountCtx,
