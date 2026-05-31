@@ -39,7 +39,13 @@
         "red ball and blue ball"
       ],
       "correct_answer": "red ball and red cube",
-      "misconception_tag": "sort_attribute_mismatch"
+      "misconception_tag": "sort_attribute_mismatch",
+      "question_audio": {
+        "text": "Sort by color: which two are red?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     }
   ],
   "checkpoint": [
@@ -58,7 +64,13 @@
       "acceptable_answers": [
         "Circle"
       ],
-      "misconception_tag": "pattern_repeat_missed"
+      "misconception_tag": "pattern_repeat_missed",
+      "question_audio": {
+        "text": "Complete: circle, square, circle, square, ?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     }
   ],
   "adaptive_question_bank": [
@@ -78,7 +90,13 @@
         "cat and 3"
       ],
       "correct_answer": "cat and dog",
-      "misconception_tag": "sort_attribute_mismatch"
+      "misconception_tag": "sort_attribute_mismatch",
+      "question_audio": {
+        "text": "Pick the animals.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "aq2",
@@ -92,7 +110,13 @@
         "2"
       ],
       "correct_answer": "1",
-      "misconception_tag": "pattern_repeat_missed"
+      "misconception_tag": "pattern_repeat_missed",
+      "question_audio": {
+        "text": "1,2,1,2,?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     }
   ],
   "misconception_bank": {
@@ -2053,5 +2077,61 @@
         }
       ]
     }
-  ]
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Listen to the mission. This is Data Detectives. We will practice sorting categories and pattern recognition. Press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "lesson": {
+      "text": "This is the lesson. Look at the words and the model. Press Next when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "watch": {
+      "text": "Watch this example. The model shows one way to think. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "demo": {
+      "text": "This is a guided demo. Follow the model, then get ready to try one yourself. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "practice": {
+      "text": "This is the practice zone. Use the model, then choose your answer. Press Read Question if you want the question read aloud.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "challenge": {
+      "text": "This is the challenge zone. Try the challenge. You can use a hint if you need one.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "checkpoint": {
+      "text": "This is the checkpoint. Use what you learned, then answer the question. Press Read Question if you want help reading it.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "badge": {
+      "text": "Great work. This badge celebrates your mission practice. Press Save Growth Data when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "profile": {
+      "text": "This is your growth profile. It shows your stars, accuracy, hints, and what to practice next.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    }
+  }
 }

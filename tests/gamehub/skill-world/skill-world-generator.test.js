@@ -96,8 +96,24 @@ assert.match(explicitQuestionAudioHtml,/data-audio-repeat="2"/,'Read Question us
 assert.match(explicitQuestionAudioHtml,/Hear the letter M/,'existing Listen button remains for answer audio');
 const readAloudHtml=Renderer.renderQuestionCard({...englishLetters.guided_practice[0],question_audio:undefined,read_aloud_text:'Which card shows uppercase letter M?'},'practice',Renderer.createState());
 assert.match(readAloudHtml,/Read Question/,'renderer shows Read Question when read_aloud_text exists');
-const mathQuestionHtml=Renderer.renderQuestionCard(dp.guided_practice[0],'practice',Renderer.createState(),dp);
+const mathQuestionWithoutAudio={...dp.guided_practice[0],question_audio:undefined,read_aloud_text:undefined,question_audio_text:undefined};
+const mathQuestionHtml=Renderer.renderQuestionCard(mathQuestionWithoutAudio,'practice',Renderer.createState(),dp);
 assert.doesNotMatch(mathQuestionHtml,/Read Question/,'Read Question does not appear for Math unless question_audio is present');
+
+const pageAudioSchemaPackage={...dp,skill_id:'TEST_PAGE_AUDIO_SCHEMA',page_audio:{story:{text:'Read the story page.',label:'Read This Page',type:'page',repeat_count:1}},lesson:{...dp.lesson,read_page_text:'Read this lesson page.'}};
+assert.equal(Schema.validateSkillPackage(pageAudioSchemaPackage,{allowPlannedLevelBanks:false}).valid,true,'schema accepts page_audio and read_page_text on mission screens');
+const pageAudioHtml=Renderer.renderPageNarration({page_audio:{text:'This page explains itself.',label:'Read This Page',type:'page',repeat_count:1}},dp,'practice');
+assert.match(pageAudioHtml,/page-read-button[\s\S]*Read This Page/,'renderer shows Read This Page when page narration exists');
+assert.equal(Renderer.renderPageNarration({},{...dp,page_audio:undefined},'practice'),'','renderer does not show Read This Page when page narration is absent');
+const mathMissionHtmlWithPageAudio=Renderer.renderSkillWorld(dp,{failClosed:true}).html;
+assert.match(mathMissionHtmlWithPageAudio,/page-read-button[\s\S]*Read This Page/,'Grade 1 Math guided mission screens render Read This Page controls');
+assert.match(mathMissionHtmlWithPageAudio,/page-read-button[\s\S]*Read This Page[\s\S]*question-read-button[\s\S]*Read Question/,'Practice, Challenge, or Checkpoint can show Read This Page and Read Question together');
+const stateBeforePageAudio=Renderer.createState();
+const stateAfterPageAudio=JSON.stringify(stateBeforePageAudio);
+Renderer.renderPageNarration({read_page_text:'Read this page only.'},dp,'practice');
+assert.equal(JSON.stringify(stateBeforePageAudio),stateAfterPageAudio,'page narration rendering does not count as a hint or answer attempt');
+assert.match(skillWorldIndex,/\.page-read-button/,'Skill World runtime routes Read This Page through existing speech runtime');
+
 const mathExplicitQuestionHtml=Renderer.renderQuestionCard({...dp.guided_practice[0],question_audio:{text:'Read this math question.',label:'Read Question',type:'question',repeat_count:1}},'practice',Renderer.createState(),dp);
 assert.match(mathExplicitQuestionHtml,/Read Question/,'Math can render Read Question when question_audio is explicitly present');
 const englishQuestionAudioMissionHtml=Renderer.renderSkillWorld(englishLetters,{failClosed:true}).html;
@@ -112,8 +128,15 @@ assert.match(englishDrillQuestionHtml,/Read Question[\s\S]*Hear the letter A/,'d
 const grade1SkillPracticeReadAloudIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_PV_001','G1M_GM_001','G1M_GM_002','G1M_MD_TIME_001','G1M_DP_001','G1E_RF_001','G1E_RF_002','G1E_PH_001','G1E_PH_002','G1E_SW_001','G1E_FL_001','G1E_RC_001','G1E_RC_002','G1E_WR_001','G1E_WR_002'];
 grade1SkillPracticeReadAloudIds.forEach((id)=>{const pkg=load(id); const levelQuestions=(pkg.level_banks||[]).flatMap((level)=>level.questions||[]); assert.ok(levelQuestions.length>0,`${id} has Skill Practice Center level bank questions`); assert.ok(levelQuestions.every((q)=>q.question_audio?.text||q.read_aloud_text),`${id} Skill Practice Center questions include question narration`);});
 grade1SkillPracticeReadAloudIds.forEach((id)=>{const pkg=load(id); const state=Renderer.createState(); state.mode='drill'; Renderer.selectLevel(state,0); const html=Renderer.renderSkillWorld(pkg,{state,mode:'drill',failClosed:true}).html; assert.match(html,/Skill Practice Center/,`/skill-world/${id}/drill renders Skill Practice Center`); assert.match(html,/question-read-button[\s\S]*Read Question/,`${id} drill questions render Read Question controls`);});
+
 const grade1MathSkillPracticeIds=grade1SkillPracticeReadAloudIds.filter((id)=>load(id).subject==='Math');
 const grade1EnglishSkillPracticeIds=grade1SkillPracticeReadAloudIds.filter((id)=>load(id).subject==='English');
+const grade1MathGuidedPageAudioIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_OP_001','G1M_OP_002','G1M_OP_003','G1M_PV_001','G1M_GM_001','G1M_GM_002','G1M_MD_TIME_001','G1M_DP_001'];
+const requiredGuidedPageAudioScreens=['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile'];
+grade1MathGuidedPageAudioIds.forEach((id)=>{const pkg=load(id); assert.equal(pkg.grade,1,`${id} is Grade 1`); assert.equal(pkg.subject,'Math',`${id} is Math`); requiredGuidedPageAudioScreens.forEach((screen)=>{assert.ok(pkg.page_audio?.[screen]?.text,`${id} includes page narration for ${screen}`); assert.equal(pkg.page_audio[screen].label,'Read This Page',`${id} ${screen} page narration uses Read This Page label`);}); const html=Renderer.renderSkillWorld(pkg,{failClosed:true}).html; assert.match(html,/page-read-button[\s\S]*Read This Page/,`${id} renders guided page narration`); assert.match(html,/question-read-button[\s\S]*Read Question/,`${id} mission questions retain Read Question controls`);});
+[...grade2Packages,...grade3Packages].forEach((pkg)=>assert.ok(!pkg.page_audio||pkg.grade===1,`${pkg.skill_id} is not required to add guided page narration yet`));
+grade1EnglishSkillPracticeIds.forEach((id)=>assert.ok(!load(id).page_audio,`${id} English package is not required to add guided page narration in this PR`));
+
 assert.equal(grade1MathSkillPracticeIds.length,11,'all eleven Grade 1 Math Skill Practice packages are covered');
 assert.equal(grade1EnglishSkillPracticeIds.length,10,'all ten Grade 1 English Skill Practice packages are covered');
 assert.ok([...grade2Packages,...grade3Packages].some((pkg)=>(pkg.level_banks||[]).flatMap((level)=>level.questions||[]).some((q)=>!(q.question_audio?.text||q.read_aloud_text))),'Grade 2 and Grade 3 packages are not required to have question narration yet');
