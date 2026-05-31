@@ -36,7 +36,13 @@
       "acceptable_answers": [
         "03"
       ],
-      "misconception_tag": "bond_missing_part"
+      "misconception_tag": "bond_missing_part",
+      "question_audio": {
+        "text": "10 = 7 + ?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     }
   ],
   "adaptive_question_bank": [
@@ -51,7 +57,13 @@
         "5 and 2"
       ],
       "correct_answer": "6 and 4",
-      "misconception_tag": "bond_pair_error"
+      "misconception_tag": "bond_pair_error",
+      "question_audio": {
+        "text": "Which pair makes 10?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     }
   ],
   "checkpoint": [
@@ -63,7 +75,13 @@
       "a": 5,
       "b": 5,
       "correct_answer": "10",
-      "misconception_tag": "fact_fluency_slow"
+      "misconception_tag": "fact_fluency_slow",
+      "question_audio": {
+        "text": "5 + 5 = ?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     }
   ],
   "misconception_bank": {
@@ -1669,5 +1687,61 @@
         }
       ]
     }
-  ]
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Listen to the mission. This is Bond Bridge. We will practice fact fluency and number bonds within 10. Press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "lesson": {
+      "text": "This is the lesson. Look at the words and the model. Press Next when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "watch": {
+      "text": "Watch this example. The model shows one way to think. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "demo": {
+      "text": "This is a guided demo. Follow the model, then get ready to try one yourself. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "practice": {
+      "text": "This is the practice zone. Use the model, then choose your answer. Press Read Question if you want the question read aloud.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "challenge": {
+      "text": "This is the challenge zone. Try the challenge. You can use a hint if you need one.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "checkpoint": {
+      "text": "This is the checkpoint. Use what you learned, then answer the question. Press Read Question if you want help reading it.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "badge": {
+      "text": "Great work. This badge celebrates your mission practice. Press Save Growth Data when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "profile": {
+      "text": "This is your growth profile. It shows your stars, accuracy, hints, and what to practice next.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    }
+  }
 }

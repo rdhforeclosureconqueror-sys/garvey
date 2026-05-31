@@ -24,7 +24,7 @@
   "hint_ladder": [
     "Say the numbers aloud one by one.",
     "Check whether you are adding 1 or subtracting 1.",
-    "Watch the tens digit at decade transitions like 99→100 and 109→110."
+    "Watch the tens digit at decade transitions like 99\u2192100 and 109\u2192110."
   ],
   "guided_practice": [
     {
@@ -33,7 +33,13 @@
       "visual_model": "number_line_0_120",
       "prompt": "Count forward: 18, 19, __, 21",
       "correct_answer": "20",
-      "misconception_tag": "digit_reversal"
+      "misconception_tag": "digit_reversal",
+      "question_audio": {
+        "text": "Count forward: 18, 19, __, 21",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_GP2",
@@ -41,7 +47,13 @@
       "visual_model": "number_line_0_120",
       "prompt": "Count backward: 43, 42, __, 40",
       "correct_answer": "41",
-      "misconception_tag": "backward_count_drop"
+      "misconception_tag": "backward_count_drop",
+      "question_audio": {
+        "text": "Count backward: 43, 42, __, 40",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_GP3",
@@ -52,7 +64,13 @@
       "acceptable_answers": [
         "98 99 100"
       ],
-      "misconception_tag": "decade_transition_skip"
+      "misconception_tag": "decade_transition_skip",
+      "question_audio": {
+        "text": "Build the next three numbers after 97.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_GP4",
@@ -65,7 +83,13 @@
         "100"
       ],
       "correct_answer": "110",
-      "misconception_tag": "decade_transition_skip"
+      "misconception_tag": "decade_transition_skip",
+      "question_audio": {
+        "text": "Which number comes right after 109?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_GP5",
@@ -73,7 +97,13 @@
       "visual_model": "number_line_0_120",
       "prompt": "Fill in the missing number: 100, __, 102",
       "correct_answer": "101",
-      "misconception_tag": "digit_reversal"
+      "misconception_tag": "digit_reversal",
+      "question_audio": {
+        "text": "Fill in the missing number: 100, __, 102",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_GP6",
@@ -86,7 +116,13 @@
         "120, 110, 100"
       ],
       "correct_answer": "120, 119, 118",
-      "misconception_tag": "backward_count_drop"
+      "misconception_tag": "backward_count_drop",
+      "question_audio": {
+        "text": "Pick the correct backward sequence.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     }
   ],
   "adaptive_question_bank": [
@@ -96,7 +132,13 @@
       "visual_model": "number_line_0_120",
       "prompt": "What number comes after 58?",
       "correct_answer": "59",
-      "misconception_tag": "digit_reversal"
+      "misconception_tag": "digit_reversal",
+      "question_audio": {
+        "text": "What number comes after 58?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_AQ2",
@@ -104,7 +146,13 @@
       "visual_model": "number_line_0_120",
       "prompt": "What number comes before 70?",
       "correct_answer": "69",
-      "misconception_tag": "backward_count_drop"
+      "misconception_tag": "backward_count_drop",
+      "question_audio": {
+        "text": "What number comes before 70?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_AQ3",
@@ -117,7 +165,13 @@
         "91"
       ],
       "correct_answer": "89",
-      "misconception_tag": "digit_reversal"
+      "misconception_tag": "digit_reversal",
+      "question_audio": {
+        "text": "Choose the number between 88 and 90.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_AQ4",
@@ -128,7 +182,13 @@
       "acceptable_answers": [
         "99 100 101"
       ],
-      "misconception_tag": "decade_transition_skip"
+      "misconception_tag": "decade_transition_skip",
+      "question_audio": {
+        "text": "Write the next three numbers: 98, __, __, __",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_AQ5",
@@ -136,7 +196,13 @@
       "visual_model": "number_line_0_120",
       "prompt": "Count backward one step from 100.",
       "correct_answer": "99",
-      "misconception_tag": "decade_transition_skip"
+      "misconception_tag": "decade_transition_skip",
+      "question_audio": {
+        "text": "Count backward one step from 100.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_AQ6",
@@ -149,7 +215,13 @@
         "106, 105, 104"
       ],
       "correct_answer": "106, 107, 108",
-      "misconception_tag": "digit_reversal"
+      "misconception_tag": "digit_reversal",
+      "question_audio": {
+        "text": "Which sequence counts by ones correctly?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_AQ7",
@@ -157,7 +229,13 @@
       "visual_model": "number_line_0_120",
       "prompt": "What number comes after 119?",
       "correct_answer": "120",
-      "misconception_tag": "decade_transition_skip"
+      "misconception_tag": "decade_transition_skip",
+      "question_audio": {
+        "text": "What number comes after 119?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_AQ8",
@@ -165,7 +243,13 @@
       "visual_model": "number_line_0_120",
       "prompt": "What number comes before 111?",
       "correct_answer": "110",
-      "misconception_tag": "backward_count_drop"
+      "misconception_tag": "backward_count_drop",
+      "question_audio": {
+        "text": "What number comes before 111?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_AQ9",
@@ -178,7 +262,13 @@
         "119"
       ],
       "correct_answer": "110",
-      "misconception_tag": "decade_transition_skip"
+      "misconception_tag": "decade_transition_skip",
+      "question_audio": {
+        "text": "Find the missing number: 109, __, 111",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_AQ10",
@@ -189,7 +279,13 @@
       "acceptable_answers": [
         "31 30 29"
       ],
-      "misconception_tag": "backward_count_drop"
+      "misconception_tag": "backward_count_drop",
+      "question_audio": {
+        "text": "Count backward from 32 for three numbers.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_AQ11",
@@ -197,7 +293,13 @@
       "visual_model": "number_line_0_120",
       "prompt": "Fill in: 39, 40, __",
       "correct_answer": "41",
-      "misconception_tag": "digit_reversal"
+      "misconception_tag": "digit_reversal",
+      "question_audio": {
+        "text": "Fill in: 39, 40, __",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_AQ12",
@@ -210,7 +312,13 @@
         "109"
       ],
       "correct_answer": "100",
-      "misconception_tag": "decade_transition_skip"
+      "misconception_tag": "decade_transition_skip",
+      "question_audio": {
+        "text": "Which is correct after 99?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     }
   ],
   "checkpoint": [
@@ -220,7 +328,13 @@
       "visual_model": "number_line_0_120",
       "prompt": "Write the next number: 99, __",
       "correct_answer": "100",
-      "misconception_tag": "decade_transition_skip"
+      "misconception_tag": "decade_transition_skip",
+      "question_audio": {
+        "text": "Write the next number: 99, __",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_CP2",
@@ -228,7 +342,13 @@
       "visual_model": "number_line_0_120",
       "prompt": "Write the next number: 109, __",
       "correct_answer": "110",
-      "misconception_tag": "decade_transition_skip"
+      "misconception_tag": "decade_transition_skip",
+      "question_audio": {
+        "text": "Write the next number: 109, __",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_CP3",
@@ -241,7 +361,13 @@
         "90"
       ],
       "correct_answer": "99",
-      "misconception_tag": "backward_count_drop"
+      "misconception_tag": "backward_count_drop",
+      "question_audio": {
+        "text": "What comes before 100?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     },
     {
       "question_id": "G1M_NS_002_CP4",
@@ -249,7 +375,13 @@
       "visual_model": "number_line_0_120",
       "prompt": "Complete: 117, 118, __, 120",
       "correct_answer": "119",
-      "misconception_tag": "digit_reversal"
+      "misconception_tag": "digit_reversal",
+      "question_audio": {
+        "text": "Complete: 117, 118, __, 120",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1
+      }
     }
   ],
   "misconception_bank": {
@@ -259,7 +391,7 @@
   },
   "review_bank": [
     {
-      "prompt": "Practice crossing 99→100 and 109→110 on a number line."
+      "prompt": "Practice crossing 99\u2192100 and 109\u2192110 on a number line."
     }
   ],
   "game_theme": {
@@ -872,7 +1004,7 @@
     {
       "level_id": "G1M_NS_002_LVL3",
       "label": "Level 3: Decade Transitions",
-      "focus": "crossing 19→20, 29→30, 99→100, 109→110",
+      "focus": "crossing 19\u219220, 29\u219230, 99\u2192100, 109\u2192110",
       "difficulty": 3,
       "question_count_required": 10,
       "mastery_threshold": 80,
@@ -1787,5 +1919,61 @@
         }
       ]
     }
-  ]
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Listen to the mission. This is Skyline Counter Quest. We will practice count forward and backward within 120. Press Start Mission when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "lesson": {
+      "text": "This is the lesson. Look at the words and the model. Press Next when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "watch": {
+      "text": "Watch this example. The model shows one way to think. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "demo": {
+      "text": "This is a guided demo. Follow the model, then get ready to try one yourself. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "practice": {
+      "text": "This is the practice zone. Use the model, then choose your answer. Press Read Question if you want the question read aloud.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "challenge": {
+      "text": "This is the challenge zone. Try the challenge. You can use a hint if you need one.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "checkpoint": {
+      "text": "This is the checkpoint. Use what you learned, then answer the question. Press Read Question if you want help reading it.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "badge": {
+      "text": "Great work. This badge celebrates your mission practice. Press Save Growth Data when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    },
+    "profile": {
+      "text": "This is your growth profile. It shows your stars, accuracy, hints, and what to practice next.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1
+    }
+  }
 }

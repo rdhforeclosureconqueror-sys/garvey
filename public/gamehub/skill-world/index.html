@@ -24,7 +24,7 @@
  function speakAudio(button){const text=button.dataset.audioText||''; const repeat=Math.max(1,Number(button.dataset.audioRepeat||1)||1); if(!text)return; hideAudioUnavailable(button); const canSpeak=typeof window!=='undefined'&&'speechSynthesis' in window&&typeof window.SpeechSynthesisUtterance!=='undefined'; if(!canSpeak){showAudioUnavailable(button); return;} const support=button.closest('.audio-support'); const prompt=button.dataset.studentPrompt||''; let failed=false; const failOnce=()=>{if(!failed){failed=true; showAudioUnavailable(button);}}; try{window.speechSynthesis.cancel(); for(let i=0;i<repeat;i+=1){const utterance=new window.SpeechSynthesisUtterance(text); utterance.lang='en-US'; utterance.rate=0.82; utterance.pitch=1; utterance.volume=1; utterance.onerror=failOnce; if(i===repeat-1){utterance.onend=()=>{const promptEl=support?.querySelector('.student-audio-prompt'); if(promptEl&&prompt)promptEl.textContent=prompt;};} window.speechSynthesis.speak(utterance);}}catch(err){failOnce();} }
  render();
  app.addEventListener('click',(e)=>{
-   const listen=e.target.closest('.audio-listen-button,.question-read-button');
+   const listen=e.target.closest('.audio-listen-button,.question-read-button,.page-read-button');
    if(listen){speakAudio(listen); return;}
    const step=e.target.closest('.mission-step');
    if(step){const requested=Number(step.dataset.stepIndex); if(requested<=state.stepIndex){state.mode='mission'; state.stepIndex=requested; render();} return;}
