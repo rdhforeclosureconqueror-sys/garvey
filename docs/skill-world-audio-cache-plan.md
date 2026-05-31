@@ -124,3 +124,28 @@ Skill World packages may include optional cached-audio metadata on `audio`, `pag
 ```
 
 The fields are optional. Packages render without generated audio, and the runtime falls back to browser speech if a saved audio file is missing or fails to play.
+
+## Confirmed aivoice Render auth setup
+
+Skill World cached audio generation now calls the production aivoice endpoint with an internal shared-secret header when Garvey has a token configured.
+
+Production upstream call:
+
+```http
+POST https://aivoice-wmrv.onrender.com/speak
+Content-Type: application/json
+x-internal-token: <SKILL_WORLD_TTS_TOKEN>
+```
+
+Exact Render environment setup:
+
+```text
+aivoice:
+INTERNAL_VOICE_TOKEN=<shared secret>
+
+Garvey:
+SKILL_WORLD_TTS_TOKEN=<same shared secret>
+SKILL_WORLD_TTS_URL=https://aivoice-wmrv.onrender.com/speak
+```
+
+Garvey must not expose or log `SKILL_WORLD_TTS_TOKEN`. If the upstream service rejects the token with `401`, Garvey returns `tts_upstream_auth_failed` with `fallback: "browser_speech"` so the browser speech fallback can keep the learning flow available.

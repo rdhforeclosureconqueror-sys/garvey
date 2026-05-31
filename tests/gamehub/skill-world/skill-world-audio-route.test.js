@@ -31,11 +31,14 @@ async function postJson(baseUrl, payload) {
 }
 
 (async () => {
+  const originalToken = process.env.SKILL_WORLD_TTS_TOKEN;
+  delete process.env.SKILL_WORLD_TTS_TOKEN;
+
   const cacheDir = await fs.mkdtemp(path.join(os.tmpdir(), 'skill-world-audio-'));
   const upstreamAudio = Buffer.from([0x49, 0x44, 0x33, 0x04, 0x00, 0xaa]);
   const calls = [];
   const fetchImpl = async (url, options) => {
-    calls.push({ url, body: JSON.parse(options.body) });
+    calls.push({ url, headers: { ...(options.headers || {}) }, body: JSON.parse(options.body) });
     return new Response(upstreamAudio, { status: 200, headers: { 'content-type': 'audio/mpeg' } });
   };
 
@@ -63,6 +66,8 @@ async function postJson(baseUrl, payload) {
     assert.match(first.body.audio_url, /^\/generated-audio\/skill-world\/[a-f0-9]{32}\.mp3$/, 'returned audio_url points to generated audio path');
     assert.equal(calls.length, 1, 'first cache miss hits upstream once');
     assert.equal(calls[0].url, 'https://voice.example.test/speak');
+    assert.equal(calls[0].headers['content-type'], 'application/json', 'upstream request keeps JSON content type');
+    assert.equal(Object.prototype.hasOwnProperty.call(calls[0].headers, 'x-internal-token'), false, 'token header is omitted when SKILL_WORLD_TTS_TOKEN is absent');
     assert.deepEqual(calls[0].body, { text: request.text, voice: request.voice, format: request.format, speed: request.speed, pitch: request.pitch });
 
     const expectedHash = createSkillWorldAudioHash(request);
@@ -81,5 +86,59 @@ async function postJson(baseUrl, payload) {
   } finally {
     await new Promise((resolve) => server.close(resolve));
     await fs.rm(cacheDir, { recursive: true, force: true });
+  }
+
+  const tokenCacheDir = await fs.mkdtemp(path.join(os.tmpdir(), 'skill-world-audio-token-'));
+  const tokenCalls = [];
+  const secretToken = 'shared-secret-for-test';
+  process.env.SKILL_WORLD_TTS_TOKEN = secretToken;
+  const originalConsole = {
+    log: console.log,
+    info: console.info,
+    warn: console.warn,
+    error: console.error,
+  };
+  const consoleMessages = [];
+  for (const method of Object.keys(originalConsole)) {
+    console[method] = (...args) => { consoleMessages.push(args.map(String).join(' ')); };
+  }
+  const tokenFetchImpl = async (url, options) => {
+    tokenCalls.push({ url, headers: { ...(options.headers || {}) }, body: JSON.parse(options.body) });
+    return new Response(upstreamAudio, { status: 200, headers: { 'content-type': 'audio/mpeg' } });
+  };
+  const tokenServer = await createTestServer(tokenFetchImpl, tokenCacheDir);
+  try {
+    const tokenResult = await postJson(tokenServer.baseUrl, { text: 'Token protected voice request', format: 'mp3' });
+    assert.equal(tokenResult.response.status, 200);
+    assert.equal(tokenCalls.length, 1, 'token scenario hits upstream');
+    assert.equal(tokenCalls[0].headers['content-type'], 'application/json', 'token scenario keeps JSON content type');
+    assert.equal(tokenCalls[0].headers['x-internal-token'], secretToken, 'token header is sent when SKILL_WORLD_TTS_TOKEN is set');
+    assert.equal(consoleMessages.some((message) => message.includes(secretToken)), false, 'token value is not logged');
+  } finally {
+    for (const [method, original] of Object.entries(originalConsole)) console[method] = original;
+    await new Promise((resolve) => tokenServer.server.close(resolve));
+    await fs.rm(tokenCacheDir, { recursive: true, force: true });
+  }
+
+  const authCacheDir = await fs.mkdtemp(path.join(os.tmpdir(), 'skill-world-audio-auth-'));
+  process.env.SKILL_WORLD_TTS_TOKEN = secretToken;
+  const authServer = await createTestServer(async () => new Response('unauthorized', { status: 401 }), authCacheDir);
+  try {
+    const authResult = await postJson(authServer.baseUrl, { text: 'Auth failure should fall back', format: 'mp3' });
+    assert.equal(authResult.response.status, 401);
+    assert.deepEqual(authResult.body, {
+      ok: false,
+      error: 'tts_upstream_auth_failed',
+      status: 401,
+      fallback: 'browser_speech',
+    }, 'upstream 401 maps to the Skill World auth-failure fallback contract');
+  } finally {
+    await new Promise((resolve) => authServer.server.close(resolve));
+    await fs.rm(authCacheDir, { recursive: true, force: true });
+    if (originalToken === undefined) {
+      delete process.env.SKILL_WORLD_TTS_TOKEN;
+    } else {
+      process.env.SKILL_WORLD_TTS_TOKEN = originalToken;
+    }
   }
 })();
