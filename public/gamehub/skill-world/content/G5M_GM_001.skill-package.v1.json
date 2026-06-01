@@ -1,0 +1,2802 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "status": "active"
+  },
+  "skill_id": "G5M_GM_001",
+  "grade": 5,
+  "subject": "Math",
+  "domain": "Geometry",
+  "skill": "Coordinate Plane and Graphing",
+  "difficulty_range": [
+    3,
+    5
+  ],
+  "mastery_threshold": 0.8,
+  "badgeName": "Coordinate Plane and Graphing Badge",
+  "game_theme": {
+    "title": "Coordinate Plane and Graphing",
+    "mission_intro": "Use graph first-quadrant points and interpret coordinate relationships to solve real Grade 5 math missions.",
+    "badge_name": "Coordinate Plane and Graphing Badge"
+  },
+  "lesson": {
+    "objective": "graph first-quadrant points and interpret coordinate relationships",
+    "key_vocabulary": [
+      "origin",
+      "x-axis",
+      "y-axis",
+      "ordered pairs",
+      "coordinates"
+    ],
+    "concept_explanation": "graph first-quadrant points and interpret coordinate relationships means reading the situation, matching it to a visual model, and using precise Grade 5 math language before answering.",
+    "visual_model": "coordinate_plane",
+    "common_misconception": "A common mistake is focusing on one number or one visible feature without checking the labels, units, axes, or attributes that give the problem meaning.",
+    "real_world_connection": "Students, scientists, designers, builders, and data readers use these skills to describe and solve real problems clearly.",
+    "lesson_summary": "Use the model, name the important labels, and answer with accurate origin, x-axis, y-axis, ordered pairs, coordinates, patterns, graph relationships.",
+    "page_audio": {
+      "text": "This mini lesson introduces graph first-quadrant points and interpret coordinate relationships. The visual model is part of the thinking, not decoration. Say the important labels aloud, then solve with the correct math language.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "worked_examples": [
+    {
+      "title": "Plot an ordered pair",
+      "text": "For (4, 3), start at the origin, move 4 units on the x-axis, then 3 units up on the y-axis.",
+      "visual_model": "coordinate_plane",
+      "x": 4,
+      "y": 3,
+      "max_x": 6,
+      "max_y": 6,
+      "correct_answer": "(4, 3)",
+      "page_audio": {
+        "text": "An ordered pair is written x comma y. The x-coordinate tells how far to move right from the origin. The y-coordinate tells how far to move up.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    },
+    {
+      "title": "Read a graph pattern",
+      "text": "A table and graph can show the same rule. If y is two times x, the point for x equals 3 is (3, 6).",
+      "visual_model": "graph_interpretation",
+      "rule": "multiply x by 2",
+      "pattern_rows": [
+        {
+          "input": 1,
+          "output": 2
+        },
+        {
+          "input": 2,
+          "output": 4
+        },
+        {
+          "input": 3,
+          "output": 6
+        }
+      ],
+      "points": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "x": 3,
+      "y": 6,
+      "correct_answer": "6",
+      "page_audio": {
+        "text": "A graph pattern connects table rows to plotted points. Each input becomes the x-coordinate. Each output becomes the y-coordinate.",
+        "label": "Read This Page",
+        "type": "page",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Read the question carefully and name the math idea.",
+    "Use the visual model to check each part before answering.",
+    "Explain why the answer matches the units, graph, or attributes."
+  ],
+  "guided_practice": [
+    {
+      "id": "G5M_GM_001_LVL1_Q1",
+      "question_type": "coordinate_response",
+      "visual_model": "coordinate_plane",
+      "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
+      "correct_answer": "(2, 3)",
+      "answer": "(2, 3)",
+      "misconception_tag": "coordinate_order_reversal",
+      "x": 2,
+      "y": 3,
+      "max_x": 8,
+      "max_y": 8,
+      "point_label": "P",
+      "question_id": "G5M_GM_001_LVL1_Q1",
+      "hints": [
+        "Read the question carefully and name the math idea.",
+        "Use the visual model to check each part before answering.",
+        "Explain why the answer matches the units, graph, or attributes."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+      },
+      "explanation": "The answer is (2, 3).",
+      "read_aloud_text": "What ordered pair names the plotted point with x = 2 and y = 3?",
+      "question_audio": {
+        "text": "What ordered pair names the plotted point with x = 2 and y = 3?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "(2, 3)",
+        "(2, 3)",
+        "(2, 3)."
+      ]
+    },
+    {
+      "id": "G5M_GM_001_LVL2_Q1",
+      "question_type": "coordinate_response",
+      "visual_model": "ordered_pair_plot",
+      "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
+      "correct_answer": "(2, 3)",
+      "answer": "(2, 3)",
+      "misconception_tag": "coordinate_order_reversal",
+      "x": 2,
+      "y": 3,
+      "max_x": 8,
+      "max_y": 8,
+      "point_label": "P",
+      "question_id": "G5M_GM_001_LVL2_Q1",
+      "hints": [
+        "Read the question carefully and name the math idea.",
+        "Use the visual model to check each part before answering.",
+        "Explain why the answer matches the units, graph, or attributes."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+      },
+      "explanation": "The answer is (2, 3).",
+      "read_aloud_text": "What ordered pair names the plotted point with x = 2 and y = 3?",
+      "question_audio": {
+        "text": "What ordered pair names the plotted point with x = 2 and y = 3?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "(2, 3)",
+        "(2, 3)",
+        "(2, 3)."
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G5M_GM_001_LVL4_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "graph_interpretation",
+      "prompt": "The table and graph follow the rule add 2 to x. What is y when x = 1?",
+      "correct_answer": "3",
+      "answer": "3",
+      "choices": [
+        "3",
+        "1",
+        "4",
+        "2"
+      ],
+      "misconception_tag": "graph_pattern_error",
+      "rule": "add 2 to x",
+      "pattern_rows": [
+        {
+          "input": 0,
+          "output": 2
+        },
+        {
+          "input": 1,
+          "output": 3
+        },
+        {
+          "input": 2,
+          "output": 5
+        }
+      ],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "x": 1,
+      "y": 3,
+      "max_x": 8,
+      "max_y": 10,
+      "question_id": "G5M_GM_001_LVL4_Q1",
+      "hints": [
+        "Read the question carefully and name the math idea.",
+        "Use the visual model to check each part before answering.",
+        "Explain why the answer matches the units, graph, or attributes."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+      },
+      "explanation": "The answer is 3.",
+      "read_aloud_text": "The table and graph follow the rule add 2 to x. What is y when x = 1?",
+      "question_audio": {
+        "text": "The table and graph follow the rule add 2 to x. What is y when x = 1?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      }
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G5M_GM_001_LVL3_Q1",
+      "question_type": "coordinate_response",
+      "visual_model": "coordinate_plane",
+      "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
+      "correct_answer": "(2, 3)",
+      "answer": "(2, 3)",
+      "misconception_tag": "coordinate_order_reversal",
+      "x": 2,
+      "y": 3,
+      "max_x": 8,
+      "max_y": 8,
+      "point_label": "P",
+      "question_id": "G5M_GM_001_LVL3_Q1",
+      "hints": [
+        "Read the question carefully and name the math idea.",
+        "Use the visual model to check each part before answering.",
+        "Explain why the answer matches the units, graph, or attributes."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+      },
+      "explanation": "The answer is (2, 3).",
+      "read_aloud_text": "What ordered pair names the plotted point with x = 2 and y = 3?",
+      "question_audio": {
+        "text": "What ordered pair names the plotted point with x = 2 and y = 3?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "(2, 3)",
+        "(2, 3)",
+        "(2, 3)."
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "coordinate_order_reversal": "Watch for coordinate order reversal.",
+    "axis_confusion": "Watch for axis confusion.",
+    "origin_confusion": "Watch for origin confusion.",
+    "graph_pattern_error": "Watch for graph pattern error."
+  },
+  "level_banks": [
+    {
+      "level_id": "G5M_GM_001_LVL1",
+      "label": "Level 1: Coordinate Plane Basics",
+      "focus": "Identify origin and axes.",
+      "description": "Level 1: Coordinate Plane Basics",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_GM_001_LVL1_Q1",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
+          "correct_answer": "(2, 3)",
+          "answer": "(2, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 2,
+          "y": 3,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL1_Q1",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (2, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 2 and y = 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 2 and y = 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(2, 3)",
+            "(2, 3)",
+            "(2, 3)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL1_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 4 and y = 1?",
+          "correct_answer": "(4, 1)",
+          "answer": "(4, 1)",
+          "choices": [
+            "(4, 1)",
+            "(1, 4)",
+            "(4, 0)",
+            "(0, 1)"
+          ],
+          "misconception_tag": "axis_confusion",
+          "x": 4,
+          "y": 1,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL1_Q2",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (4, 1).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 4 and y = 1?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 4 and y = 1?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_LVL1_Q3",
+          "question_type": "short_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 0 and y = 5?",
+          "correct_answer": "(0, 5)",
+          "answer": "(0, 5)",
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 0,
+          "y": 5,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL1_Q3",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (0, 5).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 0 and y = 5?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 0 and y = 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(0, 5)",
+            "(0, 5)",
+            "(0, 5)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL1_Q4",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 5 and y = 0?",
+          "correct_answer": "(5, 0)",
+          "answer": "(5, 0)",
+          "misconception_tag": "axis_confusion",
+          "x": 5,
+          "y": 0,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL1_Q4",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (5, 0).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 5 and y = 0?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 5 and y = 0?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(5, 0)",
+            "(5, 0)",
+            "(5, 0)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 3 and y = 4?",
+          "correct_answer": "(3, 4)",
+          "answer": "(3, 4)",
+          "choices": [
+            "(3, 4)",
+            "(4, 3)",
+            "(3, 0)",
+            "(0, 4)"
+          ],
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 3,
+          "y": 4,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL1_Q5",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (3, 4).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 3 and y = 4?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 3 and y = 4?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_LVL1_Q6",
+          "question_type": "short_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 6 and y = 2?",
+          "correct_answer": "(6, 2)",
+          "answer": "(6, 2)",
+          "misconception_tag": "axis_confusion",
+          "x": 6,
+          "y": 2,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL1_Q6",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (6, 2).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 6 and y = 2?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 6 and y = 2?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(6, 2)",
+            "(6, 2)",
+            "(6, 2)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL1_Q7",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 1 and y = 6?",
+          "correct_answer": "(1, 6)",
+          "answer": "(1, 6)",
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 1,
+          "y": 6,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL1_Q7",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (1, 6).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 1 and y = 6?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 1 and y = 6?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(1, 6)",
+            "(1, 6)",
+            "(1, 6)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL1_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 5 and y = 5?",
+          "correct_answer": "(5, 5)",
+          "answer": "(5, 5)",
+          "choices": [
+            "(5, 5)",
+            "(5, 5)",
+            "(5, 0)",
+            "(0, 5)"
+          ],
+          "misconception_tag": "axis_confusion",
+          "x": 5,
+          "y": 5,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL1_Q8",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (5, 5).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 5 and y = 5?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 5 and y = 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_LVL1_Q9",
+          "question_type": "short_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 7 and y = 3?",
+          "correct_answer": "(7, 3)",
+          "answer": "(7, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 7,
+          "y": 3,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL1_Q9",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (7, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 7 and y = 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 7 and y = 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(7, 3)",
+            "(7, 3)",
+            "(7, 3)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL1_Q10",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 2 and y = 6?",
+          "correct_answer": "(2, 6)",
+          "answer": "(2, 6)",
+          "misconception_tag": "axis_confusion",
+          "x": 2,
+          "y": 6,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL1_Q10",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (2, 6).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 2 and y = 6?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 2 and y = 6?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(2, 6)",
+            "(2, 6)",
+            "(2, 6)."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_GM_001_LVL2",
+      "label": "Level 2: Ordered Pairs",
+      "focus": "Read ordered pairs x before y.",
+      "description": "Level 2: Ordered Pairs",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_GM_001_LVL2_Q1",
+          "question_type": "coordinate_response",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
+          "correct_answer": "(2, 3)",
+          "answer": "(2, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 2,
+          "y": 3,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL2_Q1",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (2, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 2 and y = 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 2 and y = 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(2, 3)",
+            "(2, 3)",
+            "(2, 3)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL2_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 4 and y = 1?",
+          "correct_answer": "(4, 1)",
+          "answer": "(4, 1)",
+          "choices": [
+            "(4, 1)",
+            "(1, 4)",
+            "(4, 0)",
+            "(0, 1)"
+          ],
+          "misconception_tag": "axis_confusion",
+          "x": 4,
+          "y": 1,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL2_Q2",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (4, 1).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 4 and y = 1?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 4 and y = 1?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_LVL2_Q3",
+          "question_type": "short_response",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 0 and y = 5?",
+          "correct_answer": "(0, 5)",
+          "answer": "(0, 5)",
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 0,
+          "y": 5,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL2_Q3",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (0, 5).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 0 and y = 5?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 0 and y = 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(0, 5)",
+            "(0, 5)",
+            "(0, 5)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL2_Q4",
+          "question_type": "coordinate_response",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 5 and y = 0?",
+          "correct_answer": "(5, 0)",
+          "answer": "(5, 0)",
+          "misconception_tag": "axis_confusion",
+          "x": 5,
+          "y": 0,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL2_Q4",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (5, 0).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 5 and y = 0?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 5 and y = 0?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(5, 0)",
+            "(5, 0)",
+            "(5, 0)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL2_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 3 and y = 4?",
+          "correct_answer": "(3, 4)",
+          "answer": "(3, 4)",
+          "choices": [
+            "(3, 4)",
+            "(4, 3)",
+            "(3, 0)",
+            "(0, 4)"
+          ],
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 3,
+          "y": 4,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL2_Q5",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (3, 4).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 3 and y = 4?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 3 and y = 4?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_LVL2_Q6",
+          "question_type": "short_response",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 6 and y = 2?",
+          "correct_answer": "(6, 2)",
+          "answer": "(6, 2)",
+          "misconception_tag": "axis_confusion",
+          "x": 6,
+          "y": 2,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL2_Q6",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (6, 2).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 6 and y = 2?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 6 and y = 2?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(6, 2)",
+            "(6, 2)",
+            "(6, 2)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL2_Q7",
+          "question_type": "coordinate_response",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 1 and y = 6?",
+          "correct_answer": "(1, 6)",
+          "answer": "(1, 6)",
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 1,
+          "y": 6,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL2_Q7",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (1, 6).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 1 and y = 6?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 1 and y = 6?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(1, 6)",
+            "(1, 6)",
+            "(1, 6)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL2_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 5 and y = 5?",
+          "correct_answer": "(5, 5)",
+          "answer": "(5, 5)",
+          "choices": [
+            "(5, 5)",
+            "(5, 5)",
+            "(5, 0)",
+            "(0, 5)"
+          ],
+          "misconception_tag": "axis_confusion",
+          "x": 5,
+          "y": 5,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL2_Q8",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (5, 5).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 5 and y = 5?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 5 and y = 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_LVL2_Q9",
+          "question_type": "short_response",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 7 and y = 3?",
+          "correct_answer": "(7, 3)",
+          "answer": "(7, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 7,
+          "y": 3,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL2_Q9",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (7, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 7 and y = 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 7 and y = 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(7, 3)",
+            "(7, 3)",
+            "(7, 3)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL2_Q10",
+          "question_type": "coordinate_response",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 2 and y = 6?",
+          "correct_answer": "(2, 6)",
+          "answer": "(2, 6)",
+          "misconception_tag": "axis_confusion",
+          "x": 2,
+          "y": 6,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL2_Q10",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (2, 6).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 2 and y = 6?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 2 and y = 6?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(2, 6)",
+            "(2, 6)",
+            "(2, 6)."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_GM_001_LVL3",
+      "label": "Level 3: Graph Points",
+      "focus": "Graph points on a first quadrant grid.",
+      "description": "Level 3: Graph Points",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_GM_001_LVL3_Q1",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
+          "correct_answer": "(2, 3)",
+          "answer": "(2, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 2,
+          "y": 3,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL3_Q1",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (2, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 2 and y = 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 2 and y = 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(2, 3)",
+            "(2, 3)",
+            "(2, 3)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL3_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 4 and y = 1?",
+          "correct_answer": "(4, 1)",
+          "answer": "(4, 1)",
+          "choices": [
+            "(4, 1)",
+            "(1, 4)",
+            "(4, 0)",
+            "(0, 1)"
+          ],
+          "misconception_tag": "axis_confusion",
+          "x": 4,
+          "y": 1,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL3_Q2",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (4, 1).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 4 and y = 1?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 4 and y = 1?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_LVL3_Q3",
+          "question_type": "short_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 0 and y = 5?",
+          "correct_answer": "(0, 5)",
+          "answer": "(0, 5)",
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 0,
+          "y": 5,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL3_Q3",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (0, 5).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 0 and y = 5?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 0 and y = 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(0, 5)",
+            "(0, 5)",
+            "(0, 5)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL3_Q4",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 5 and y = 0?",
+          "correct_answer": "(5, 0)",
+          "answer": "(5, 0)",
+          "misconception_tag": "axis_confusion",
+          "x": 5,
+          "y": 0,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL3_Q4",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (5, 0).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 5 and y = 0?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 5 and y = 0?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(5, 0)",
+            "(5, 0)",
+            "(5, 0)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL3_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 3 and y = 4?",
+          "correct_answer": "(3, 4)",
+          "answer": "(3, 4)",
+          "choices": [
+            "(3, 4)",
+            "(4, 3)",
+            "(3, 0)",
+            "(0, 4)"
+          ],
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 3,
+          "y": 4,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL3_Q5",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (3, 4).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 3 and y = 4?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 3 and y = 4?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_LVL3_Q6",
+          "question_type": "short_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 6 and y = 2?",
+          "correct_answer": "(6, 2)",
+          "answer": "(6, 2)",
+          "misconception_tag": "axis_confusion",
+          "x": 6,
+          "y": 2,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL3_Q6",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (6, 2).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 6 and y = 2?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 6 and y = 2?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(6, 2)",
+            "(6, 2)",
+            "(6, 2)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL3_Q7",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 1 and y = 6?",
+          "correct_answer": "(1, 6)",
+          "answer": "(1, 6)",
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 1,
+          "y": 6,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL3_Q7",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (1, 6).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 1 and y = 6?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 1 and y = 6?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(1, 6)",
+            "(1, 6)",
+            "(1, 6)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL3_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 5 and y = 5?",
+          "correct_answer": "(5, 5)",
+          "answer": "(5, 5)",
+          "choices": [
+            "(5, 5)",
+            "(5, 5)",
+            "(5, 0)",
+            "(0, 5)"
+          ],
+          "misconception_tag": "axis_confusion",
+          "x": 5,
+          "y": 5,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL3_Q8",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (5, 5).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 5 and y = 5?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 5 and y = 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_LVL3_Q9",
+          "question_type": "short_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 7 and y = 3?",
+          "correct_answer": "(7, 3)",
+          "answer": "(7, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 7,
+          "y": 3,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL3_Q9",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (7, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 7 and y = 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 7 and y = 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(7, 3)",
+            "(7, 3)",
+            "(7, 3)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL3_Q10",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 2 and y = 6?",
+          "correct_answer": "(2, 6)",
+          "answer": "(2, 6)",
+          "misconception_tag": "axis_confusion",
+          "x": 2,
+          "y": 6,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_LVL3_Q10",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (2, 6).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 2 and y = 6?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 2 and y = 6?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(2, 6)",
+            "(2, 6)",
+            "(2, 6)."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_GM_001_LVL4",
+      "label": "Level 4: Interpret Coordinate Patterns",
+      "focus": "Connect tables, rules, and graphs.",
+      "description": "Level 4: Interpret Coordinate Patterns",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_GM_001_LVL4_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "graph_interpretation",
+          "prompt": "The table and graph follow the rule add 2 to x. What is y when x = 1?",
+          "correct_answer": "3",
+          "answer": "3",
+          "choices": [
+            "3",
+            "1",
+            "4",
+            "2"
+          ],
+          "misconception_tag": "graph_pattern_error",
+          "rule": "add 2 to x",
+          "pattern_rows": [
+            {
+              "input": 0,
+              "output": 2
+            },
+            {
+              "input": 1,
+              "output": 3
+            },
+            {
+              "input": 2,
+              "output": 5
+            }
+          ],
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              5
+            ]
+          ],
+          "x": 1,
+          "y": 3,
+          "max_x": 8,
+          "max_y": 10,
+          "question_id": "G5M_GM_001_LVL4_Q1",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "The table and graph follow the rule add 2 to x. What is y when x = 1?",
+          "question_audio": {
+            "text": "The table and graph follow the rule add 2 to x. What is y when x = 1?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_LVL4_Q2",
+          "question_type": "short_response",
+          "visual_model": "graph_interpretation",
+          "prompt": "The table and graph follow the rule multiply x by 2. What is y when x = 2?",
+          "correct_answer": "4",
+          "answer": "4",
+          "misconception_tag": "graph_pattern_error",
+          "rule": "multiply x by 2",
+          "pattern_rows": [
+            {
+              "input": 0,
+              "output": 0
+            },
+            {
+              "input": 2,
+              "output": 4
+            },
+            {
+              "input": 3,
+              "output": 6
+            }
+          ],
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              3,
+              6
+            ]
+          ],
+          "x": 2,
+          "y": 4,
+          "max_x": 8,
+          "max_y": 10,
+          "question_id": "G5M_GM_001_LVL4_Q2",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "The table and graph follow the rule multiply x by 2. What is y when x = 2?",
+          "question_audio": {
+            "text": "The table and graph follow the rule multiply x by 2. What is y when x = 2?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "4",
+            "4",
+            "4."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL4_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "graph_interpretation",
+          "prompt": "The table and graph follow the rule add 1 to x. What is y when x = 3?",
+          "correct_answer": "4",
+          "answer": "4",
+          "choices": [
+            "4",
+            "3",
+            "5",
+            "3"
+          ],
+          "misconception_tag": "graph_pattern_error",
+          "rule": "add 1 to x",
+          "pattern_rows": [
+            {
+              "input": 0,
+              "output": 1
+            },
+            {
+              "input": 3,
+              "output": 4
+            },
+            {
+              "input": 4,
+              "output": 5
+            }
+          ],
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              5
+            ]
+          ],
+          "x": 3,
+          "y": 4,
+          "max_x": 8,
+          "max_y": 10,
+          "question_id": "G5M_GM_001_LVL4_Q3",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "The table and graph follow the rule add 1 to x. What is y when x = 3?",
+          "question_audio": {
+            "text": "The table and graph follow the rule add 1 to x. What is y when x = 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_LVL4_Q4",
+          "question_type": "short_response",
+          "visual_model": "graph_interpretation",
+          "prompt": "The table and graph follow the rule multiply x by 3. What is y when x = 1?",
+          "correct_answer": "3",
+          "answer": "3",
+          "misconception_tag": "graph_pattern_error",
+          "rule": "multiply x by 3",
+          "pattern_rows": [
+            {
+              "input": 0,
+              "output": 0
+            },
+            {
+              "input": 1,
+              "output": 3
+            },
+            {
+              "input": 2,
+              "output": 6
+            }
+          ],
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              6
+            ]
+          ],
+          "x": 1,
+          "y": 3,
+          "max_x": 8,
+          "max_y": 10,
+          "question_id": "G5M_GM_001_LVL4_Q4",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "The table and graph follow the rule multiply x by 3. What is y when x = 1?",
+          "question_audio": {
+            "text": "The table and graph follow the rule multiply x by 3. What is y when x = 1?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3",
+            "3",
+            "3."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL4_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "graph_interpretation",
+          "prompt": "The table and graph follow the rule add 4 to x. What is y when x = 2?",
+          "correct_answer": "6",
+          "answer": "6",
+          "choices": [
+            "6",
+            "2",
+            "7",
+            "5"
+          ],
+          "misconception_tag": "graph_pattern_error",
+          "rule": "add 4 to x",
+          "pattern_rows": [
+            {
+              "input": 0,
+              "output": 4
+            },
+            {
+              "input": 2,
+              "output": 6
+            },
+            {
+              "input": 3,
+              "output": 7
+            }
+          ],
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              3,
+              7
+            ]
+          ],
+          "x": 2,
+          "y": 6,
+          "max_x": 8,
+          "max_y": 10,
+          "question_id": "G5M_GM_001_LVL4_Q5",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "The table and graph follow the rule add 4 to x. What is y when x = 2?",
+          "question_audio": {
+            "text": "The table and graph follow the rule add 4 to x. What is y when x = 2?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_LVL4_Q6",
+          "question_type": "short_response",
+          "visual_model": "graph_interpretation",
+          "prompt": "The table and graph follow the rule x plus 5. What is y when x = 1?",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "graph_pattern_error",
+          "rule": "x plus 5",
+          "pattern_rows": [
+            {
+              "input": 0,
+              "output": 5
+            },
+            {
+              "input": 1,
+              "output": 6
+            },
+            {
+              "input": 2,
+              "output": 7
+            }
+          ],
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              2,
+              7
+            ]
+          ],
+          "x": 1,
+          "y": 6,
+          "max_x": 8,
+          "max_y": 10,
+          "question_id": "G5M_GM_001_LVL4_Q6",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "The table and graph follow the rule x plus 5. What is y when x = 1?",
+          "question_audio": {
+            "text": "The table and graph follow the rule x plus 5. What is y when x = 1?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "6",
+            "6",
+            "6."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL4_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "graph_interpretation",
+          "prompt": "The table and graph follow the rule two more than x. What is y when x = 4?",
+          "correct_answer": "6",
+          "answer": "6",
+          "choices": [
+            "6",
+            "4",
+            "7",
+            "5"
+          ],
+          "misconception_tag": "graph_pattern_error",
+          "rule": "two more than x",
+          "pattern_rows": [
+            {
+              "input": 0,
+              "output": 1
+            },
+            {
+              "input": 4,
+              "output": 6
+            },
+            {
+              "input": 5,
+              "output": 7
+            }
+          ],
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              5,
+              7
+            ]
+          ],
+          "x": 4,
+          "y": 6,
+          "max_x": 8,
+          "max_y": 10,
+          "question_id": "G5M_GM_001_LVL4_Q7",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "The table and graph follow the rule two more than x. What is y when x = 4?",
+          "question_audio": {
+            "text": "The table and graph follow the rule two more than x. What is y when x = 4?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_LVL4_Q8",
+          "question_type": "short_response",
+          "visual_model": "graph_interpretation",
+          "prompt": "The table and graph follow the rule three times x. What is y when x = 2?",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "graph_pattern_error",
+          "rule": "three times x",
+          "pattern_rows": [
+            {
+              "input": 0,
+              "output": 0
+            },
+            {
+              "input": 2,
+              "output": 6
+            },
+            {
+              "input": 3,
+              "output": 7
+            }
+          ],
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              3,
+              7
+            ]
+          ],
+          "x": 2,
+          "y": 6,
+          "max_x": 8,
+          "max_y": 10,
+          "question_id": "G5M_GM_001_LVL4_Q8",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "The table and graph follow the rule three times x. What is y when x = 2?",
+          "question_audio": {
+            "text": "The table and graph follow the rule three times x. What is y when x = 2?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "6",
+            "6",
+            "6."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_LVL4_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "graph_interpretation",
+          "prompt": "The table and graph follow the rule one less than x. What is y when x = 5?",
+          "correct_answer": "4",
+          "answer": "4",
+          "choices": [
+            "4",
+            "5",
+            "5",
+            "3"
+          ],
+          "misconception_tag": "graph_pattern_error",
+          "rule": "one less than x",
+          "pattern_rows": [
+            {
+              "input": 0,
+              "output": 1
+            },
+            {
+              "input": 5,
+              "output": 4
+            },
+            {
+              "input": 6,
+              "output": 5
+            }
+          ],
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              5,
+              4
+            ],
+            [
+              6,
+              5
+            ]
+          ],
+          "x": 5,
+          "y": 4,
+          "max_x": 8,
+          "max_y": 10,
+          "question_id": "G5M_GM_001_LVL4_Q9",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "The table and graph follow the rule one less than x. What is y when x = 5?",
+          "question_audio": {
+            "text": "The table and graph follow the rule one less than x. What is y when x = 5?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_LVL4_Q10",
+          "question_type": "short_response",
+          "visual_model": "graph_interpretation",
+          "prompt": "The table and graph follow the rule double x then add 1. What is y when x = 2?",
+          "correct_answer": "5",
+          "answer": "5",
+          "misconception_tag": "graph_pattern_error",
+          "rule": "double x then add 1",
+          "pattern_rows": [
+            {
+              "input": 0,
+              "output": 0
+            },
+            {
+              "input": 2,
+              "output": 5
+            },
+            {
+              "input": 3,
+              "output": 7
+            }
+          ],
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              3,
+              7
+            ]
+          ],
+          "x": 2,
+          "y": 5,
+          "max_x": 8,
+          "max_y": 10,
+          "question_id": "G5M_GM_001_LVL4_Q10",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 5.",
+          "read_aloud_text": "The table and graph follow the rule double x then add 1. What is y when x = 2?",
+          "question_audio": {
+            "text": "The table and graph follow the rule double x then add 1. What is y when x = 2?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "5",
+            "5",
+            "5."
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G5M_GM_001_MIXED",
+      "label": "Mixed",
+      "focus": "Mixed coordinate plane review.",
+      "description": "Mixed",
+      "difficulty": 5,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G5M_GM_001_MIXED_Q1",
+          "question_type": "coordinate_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 2 and y = 3?",
+          "correct_answer": "(2, 3)",
+          "answer": "(2, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 2,
+          "y": 3,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_MIXED_Q1",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (2, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 2 and y = 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 2 and y = 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(2, 3)",
+            "(2, 3)",
+            "(2, 3)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_MIXED_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 4 and y = 1?",
+          "correct_answer": "(4, 1)",
+          "answer": "(4, 1)",
+          "choices": [
+            "(4, 1)",
+            "(1, 4)",
+            "(4, 0)",
+            "(0, 1)"
+          ],
+          "misconception_tag": "axis_confusion",
+          "x": 4,
+          "y": 1,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_MIXED_Q2",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (4, 1).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 4 and y = 1?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 4 and y = 1?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_MIXED_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "graph_interpretation",
+          "prompt": "The table and graph follow the rule add 1 to x. What is y when x = 3?",
+          "correct_answer": "4",
+          "answer": "4",
+          "choices": [
+            "4",
+            "3",
+            "5",
+            "3"
+          ],
+          "misconception_tag": "graph_pattern_error",
+          "rule": "add 1 to x",
+          "pattern_rows": [
+            {
+              "input": 0,
+              "output": 1
+            },
+            {
+              "input": 3,
+              "output": 4
+            },
+            {
+              "input": 4,
+              "output": 5
+            }
+          ],
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              5
+            ]
+          ],
+          "x": 3,
+          "y": 4,
+          "max_x": 8,
+          "max_y": 10,
+          "question_id": "G5M_GM_001_MIXED_Q3",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "The table and graph follow the rule add 1 to x. What is y when x = 3?",
+          "question_audio": {
+            "text": "The table and graph follow the rule add 1 to x. What is y when x = 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_MIXED_Q4",
+          "question_type": "coordinate_response",
+          "visual_model": "pattern_table",
+          "prompt": "What ordered pair names the plotted point with x = 5 and y = 0?",
+          "correct_answer": "(5, 0)",
+          "answer": "(5, 0)",
+          "misconception_tag": "axis_confusion",
+          "x": 5,
+          "y": 0,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_MIXED_Q4",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (5, 0).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 5 and y = 0?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 5 and y = 0?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(5, 0)",
+            "(5, 0)",
+            "(5, 0)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_MIXED_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 3 and y = 4?",
+          "correct_answer": "(3, 4)",
+          "answer": "(3, 4)",
+          "choices": [
+            "(3, 4)",
+            "(4, 3)",
+            "(3, 0)",
+            "(0, 4)"
+          ],
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 3,
+          "y": 4,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_MIXED_Q5",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (3, 4).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 3 and y = 4?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 3 and y = 4?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          }
+        },
+        {
+          "id": "G5M_GM_001_MIXED_Q6",
+          "question_type": "short_response",
+          "visual_model": "graph_interpretation",
+          "prompt": "The table and graph follow the rule x plus 5. What is y when x = 1?",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "graph_pattern_error",
+          "rule": "x plus 5",
+          "pattern_rows": [
+            {
+              "input": 0,
+              "output": 5
+            },
+            {
+              "input": 1,
+              "output": 6
+            },
+            {
+              "input": 2,
+              "output": 7
+            }
+          ],
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              2,
+              7
+            ]
+          ],
+          "x": 1,
+          "y": 6,
+          "max_x": 8,
+          "max_y": 10,
+          "question_id": "G5M_GM_001_MIXED_Q6",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "The table and graph follow the rule x plus 5. What is y when x = 1?",
+          "question_audio": {
+            "text": "The table and graph follow the rule x plus 5. What is y when x = 1?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "6",
+            "6",
+            "6."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_MIXED_Q7",
+          "question_type": "coordinate_response",
+          "visual_model": "ordered_pair_plot",
+          "prompt": "What ordered pair names the plotted point with x = 1 and y = 6?",
+          "correct_answer": "(1, 6)",
+          "answer": "(1, 6)",
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 1,
+          "y": 6,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_MIXED_Q7",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (1, 6).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 1 and y = 6?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 1 and y = 6?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(1, 6)",
+            "(1, 6)",
+            "(1, 6)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_MIXED_Q8",
+          "question_type": "short_response",
+          "visual_model": "graph_interpretation",
+          "prompt": "The table and graph follow the rule three times x. What is y when x = 2?",
+          "correct_answer": "6",
+          "answer": "6",
+          "misconception_tag": "graph_pattern_error",
+          "rule": "three times x",
+          "pattern_rows": [
+            {
+              "input": 0,
+              "output": 0
+            },
+            {
+              "input": 2,
+              "output": 6
+            },
+            {
+              "input": 3,
+              "output": 7
+            }
+          ],
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              3,
+              7
+            ]
+          ],
+          "x": 2,
+          "y": 6,
+          "max_x": 8,
+          "max_y": 10,
+          "question_id": "G5M_GM_001_MIXED_Q8",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "The table and graph follow the rule three times x. What is y when x = 2?",
+          "question_audio": {
+            "text": "The table and graph follow the rule three times x. What is y when x = 2?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "6",
+            "6",
+            "6."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_MIXED_Q9",
+          "question_type": "short_response",
+          "visual_model": "coordinate_plane",
+          "prompt": "What ordered pair names the plotted point with x = 7 and y = 3?",
+          "correct_answer": "(7, 3)",
+          "answer": "(7, 3)",
+          "misconception_tag": "coordinate_order_reversal",
+          "x": 7,
+          "y": 3,
+          "max_x": 8,
+          "max_y": 8,
+          "point_label": "P",
+          "question_id": "G5M_GM_001_MIXED_Q9",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is (7, 3).",
+          "read_aloud_text": "What ordered pair names the plotted point with x = 7 and y = 3?",
+          "question_audio": {
+            "text": "What ordered pair names the plotted point with x = 7 and y = 3?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "(7, 3)",
+            "(7, 3)",
+            "(7, 3)."
+          ]
+        },
+        {
+          "id": "G5M_GM_001_MIXED_Q10",
+          "question_type": "short_response",
+          "visual_model": "graph_interpretation",
+          "prompt": "The table and graph follow the rule double x then add 1. What is y when x = 2?",
+          "correct_answer": "5",
+          "answer": "5",
+          "misconception_tag": "graph_pattern_error",
+          "rule": "double x then add 1",
+          "pattern_rows": [
+            {
+              "input": 0,
+              "output": 0
+            },
+            {
+              "input": 2,
+              "output": 5
+            },
+            {
+              "input": 3,
+              "output": 7
+            }
+          ],
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              3,
+              7
+            ]
+          ],
+          "x": 2,
+          "y": 5,
+          "max_x": 8,
+          "max_y": 10,
+          "question_id": "G5M_GM_001_MIXED_Q10",
+          "hints": [
+            "Read the question carefully and name the math idea.",
+            "Use the visual model to check each part before answering.",
+            "Explain why the answer matches the units, graph, or attributes."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Check the model, the labels, and the meaning of the question."
+          },
+          "explanation": "The answer is 5.",
+          "read_aloud_text": "The table and graph follow the rule double x then add 1. What is y when x = 2?",
+          "question_audio": {
+            "text": "The table and graph follow the rule double x then add 1. What is y when x = 2?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "5",
+            "5",
+            "5."
+          ]
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Welcome to Coordinate Plane and Graphing. In this mission, you will use graph first-quadrant points and interpret coordinate relationships to solve problems that feel like real classroom and world tasks. Watch how the labels, units, and visual model tell you what to do next.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "This lesson teaches graph first-quadrant points and interpret coordinate relationships. Read the model before calculating, because the model shows what each number or attribute means. Use precise math language: origin, x-axis, y-axis, ordered pairs, coordinates, patterns, graph relationships.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "On the Watch page, slow down and follow one complete example. First name what the question asks, then connect each label in the visual to the operation or property. Finally, say the answer in a complete math sentence.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "On the Demo page, build the reasoning with support. Notice where common mistakes happen, such as reversing coordinates, converting the wrong direction, or using only one shape attribute. The model is here to help you catch the mistake early.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "This Practice page lets you try the skill yourself. Tap Read Question before you answer so the measurement, coordinate, or geometry words are spoken clearly. Then use the visual and choose or type the answer carefully.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "This Challenge page may combine ideas or ask for a deeper explanation. Tap Read Question, study the visual, and decide which information matters most. If the answer has a unit, coordinate, or shape category, include it.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "This Checkpoint page checks what you can do independently. Tap Read Question, solve without rushing, and compare your answer to the model. Your response should show that you understand the graph first-quadrant points and interpret coordinate relationships.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "You reached the badge page for Coordinate Plane and Graphing. Think about the model that helped most and the misconception you avoided. This badge celebrates careful reasoning, not just a quick answer.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "The profile page saves your growth for Coordinate Plane and Graphing. Review your strengths, then continue to the Skill Practice Center for focused levels or Mixed review. Choose Practice This Skill when you want more questions with Read Question support.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}

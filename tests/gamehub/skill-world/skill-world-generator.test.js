@@ -1794,3 +1794,73 @@ assert.match(fractionDivisionHtml,/quotient-share|unit-fraction pieces/,'fractio
   assert.ok(g5Manifest.packages.includes(`${id}.skill-package.v1.json`),`manifest includes ${id}`);
   assert.equal(`/skill-world/${encodeURIComponent(id)}/drill`,`/skill-world/${id}/drill`,`Practice This Skill route exists for ${id}`);
 });
+
+const grade5MeasurementGeometryPackages=[
+  {id:'G5M_MD_001',domain:'Measurement and Data',skill:'Measurement Conversion, Volume, and Data',labels:['Level 1: Measurement Conversions','Level 2: Volume as Unit Cubes','Level 3: Volume Formulas','Level 4: Line Plots With Fractions','Mixed'],visuals:['measurement_conversion_table','volume_model','rectangular_prism_model','line_plot'],types:['multiple_choice','short_response','measurement','data_interpretation','volume_response'],tags:['unit_conversion_direction_error','volume_area_confusion','cube_unit_count_error','line_plot_fraction_error'],pkg:load('G5M_MD_001')},
+  {id:'G5M_GM_001',domain:'Geometry',skill:'Coordinate Plane and Graphing',labels:['Level 1: Coordinate Plane Basics','Level 2: Ordered Pairs','Level 3: Graph Points','Level 4: Interpret Coordinate Patterns','Mixed'],visuals:['coordinate_plane','ordered_pair_plot','pattern_table','graph_interpretation'],types:['multiple_choice','short_response','coordinate_response'],tags:['coordinate_order_reversal','axis_confusion','origin_confusion','graph_pattern_error'],pkg:load('G5M_GM_001')},
+  {id:'G5M_GM_002',domain:'Geometry',skill:'Classify Two-Dimensional Figures',labels:['Level 1: Polygons and Attributes','Level 2: Triangles','Level 3: Quadrilaterals','Level 4: Hierarchies of Shapes','Mixed'],visuals:['shape_identification','attribute_sort','hierarchy_diagram','geometry_card_sort'],types:['multiple_choice','short_response','sorting','geometry_response'],tags:['attribute_overgeneralization','triangle_classification_error','quadrilateral_hierarchy_confusion','shape_property_confusion'],pkg:load('G5M_GM_002')}
+];
+
+grade5MeasurementGeometryPackages.forEach(({id,domain,skill,labels,visuals,types,tags,pkg})=>{
+  const allQuestions=[...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])];
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,`${id} validates in strict production mode`);
+  assert.equal(pkg.grade,5,`${id} is Grade 5`);
+  assert.equal(pkg.subject,'Math',`${id} is Math`);
+  assert.equal(pkg.domain,domain,`${id} domain matches plan`);
+  assert.equal(pkg.skill,skill,`${id} title matches plan`);
+  assert.deepEqual(Renderer.stepLabels(pkg),['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],`${id} full Skill World flow exists`);
+  assert.equal(Array.isArray(pkg.level_banks),true,`${id} has real level_banks`);
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,`${id} has four focused levels`);
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,`${id} has Mixed level`);
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+  labels.forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`${id} includes ${label}`));
+  visuals.forEach((visual)=>assert.ok(Schema.VISUAL_MODELS.includes(visual),`schema accepts ${visual}`));
+  visuals.forEach((visual)=>assert.ok(allQuestions.some((q)=>q.visual_model===visual),`${id} includes ${visual}`));
+  types.forEach((type)=>assert.ok(Schema.QUESTION_TYPES.includes(type),`schema accepts ${type}`));
+  types.forEach((type)=>assert.ok(allQuestions.some((q)=>q.question_type===type),`${id} includes ${type}`));
+  tags.forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`${id} includes misconception ${tag}`));
+  assert.ok(allQuestions.filter((q)=>q.question_type==='short_response'||q.question_type==='geometry_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),`${id} constructed-response items have acceptable_answers`);
+  for (const screen of ['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile']) {
+    assert.equal(pkg.page_audio?.[screen]?.label,'Read This Page',`${id} ${screen} has Read This Page narration`);
+    assert.ok((pkg.page_audio?.[screen]?.text||'').split(/[.!?]+/).filter((sentence)=>sentence.trim()).length>=3,`${id} ${screen} narration teaches the page`);
+  }
+  ['practice','challenge','checkpoint'].forEach((screen)=>assert.match(pkg.page_audio[screen].text,/Read Question/,`${id} ${screen} references Read Question`));
+  [...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[])].forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} mission question has Read Question narration`));
+  pkg.level_banks.flatMap((level)=>level.questions).forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} Skill Practice question has Read Question narration`));
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`${id} full mission flow renders ${label}`));
+  assert.match(missionHtml,/Continue to Skill Practice/,`${id} profile links to Skill Practice Center`);
+  const drillState=Renderer.createState(); drillState.mode='drill';
+  assert.match(Renderer.renderSkillWorld(pkg,{state:drillState,mode:'drill',failClosed:true}).html,/Skill Practice Center/,`${id} Practice This Skill route renders Skill Practice Center`);
+});
+
+['volume_model','rectangular_prism_model','graph_interpretation','hierarchy_diagram','geometry_card_sort'].forEach((visual)=>{
+  const question=grade5MeasurementGeometryPackages.flatMap(({pkg})=>pkg.level_banks.flatMap((level)=>level.questions)).find((q)=>q.visual_model===visual);
+  assert.ok(question,`Grade 5 measurement/geometry batch includes ${visual}`);
+  const html=VisualRegistry.render(question);
+  assert.match(html,new RegExp(`data-renderer="${visual}"`),`${visual} renderer output exists`);
+  assert.doesNotMatch(html.trim(),/^[A-Za-z_ ]+$/ ,`${visual} does not render placeholder text only`);
+});
+const volumeHtml=VisualRegistry.render(grade5MeasurementGeometryPackages[0].pkg.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='volume_model'));
+assert.match(volumeHtml,/unit-cube/,'volume_model shows unit cubes');
+const prismHtml=VisualRegistry.render(grade5MeasurementGeometryPackages[0].pkg.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='rectangular_prism_model'));
+assert.match(prismHtml,/length/,'rectangular_prism_model labels length');
+assert.match(prismHtml,/width/,'rectangular_prism_model labels width');
+assert.match(prismHtml,/height/,'rectangular_prism_model labels height');
+const linePlotFractionHtml=VisualRegistry.render(grade5MeasurementGeometryPackages[0].pkg.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='line_plot'));
+assert.match(linePlotFractionHtml,/data-renderer="line_plot"/,'line_plot renderer output exists');
+assert.match(linePlotFractionHtml,/1\/2|1 1\/4|line-plot-marks/,'line_plot renders fractional data visually');
+const coordinateHtml=VisualRegistry.render(grade5MeasurementGeometryPackages[1].pkg.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='coordinate_plane'));
+assert.match(coordinateHtml,/coordinate-plane-grid/,'coordinate_plane renders a grid');
+assert.match(coordinateHtml,/x-axis-name/,'coordinate_plane renders x-axis label');
+assert.match(coordinateHtml,/y-axis-name/,'coordinate_plane renders y-axis label');
+assert.match(coordinateHtml,/coordinate-point/,'coordinate_plane renders plotted points');
+const graphHtml=VisualRegistry.render(grade5MeasurementGeometryPackages[1].pkg.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='graph_interpretation'));
+assert.match(graphHtml,/graph-canvas/,'graph_interpretation shows an actual graph');
+assert.match(graphHtml,/sw-pattern-table/,'graph_interpretation shows table relationship');
+const hierarchyHtml=VisualRegistry.render(grade5MeasurementGeometryPackages[2].pkg.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='hierarchy_diagram'));
+assert.match(hierarchyHtml,/hierarchy-node/,'hierarchy_diagram shows nested shape categories');
+const cardSortHtml=VisualRegistry.render(grade5MeasurementGeometryPackages[2].pkg.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='geometry_card_sort'));
+assert.match(cardSortHtml,/geometry-sort-card/,'geometry_card_sort shows visual classification cards');
+const manifestForGrade5Final=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill-world/content/manifest.json'),'utf8'));
+['G5M_MD_001.skill-package.v1.json','G5M_GM_001.skill-package.v1.json','G5M_GM_002.skill-package.v1.json'].forEach((file)=>assert.ok(manifestForGrade5Final.packages.includes(file),`manifest includes ${file}`));
