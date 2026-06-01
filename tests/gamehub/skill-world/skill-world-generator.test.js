@@ -1864,3 +1864,51 @@ const cardSortHtml=VisualRegistry.render(grade5MeasurementGeometryPackages[2].pk
 assert.match(cardSortHtml,/geometry-sort-card/,'geometry_card_sort shows visual classification cards');
 const manifestForGrade5Final=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill-world/content/manifest.json'),'utf8'));
 ['G5M_MD_001.skill-package.v1.json','G5M_GM_001.skill-package.v1.json','G5M_GM_002.skill-package.v1.json'].forEach((file)=>assert.ok(manifestForGrade5Final.packages.includes(file),`manifest includes ${file}`));
+
+const grade6RatiosRates=load('G6M_RP_001');
+{
+  const id='G6M_RP_001';
+  const pkg=grade6RatiosRates;
+  const allQuestions=[...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[]),...(pkg.level_banks||[]).flatMap((level)=>level.questions||[])];
+  assert.equal(Schema.validateSkillPackage(pkg,{allowPlannedLevelBanks:false}).valid,true,'G6M_RP_001 validates in strict production mode');
+  assert.equal(pkg.grade,6,'G6M_RP_001 is Grade 6');
+  assert.equal(pkg.subject,'Math','G6M_RP_001 is Math');
+  assert.equal(pkg.domain,'Ratios and Proportional Relationships','G6M_RP_001 domain matches plan');
+  assert.equal(pkg.skill,'Ratios and Unit Rates','G6M_RP_001 title matches plan');
+  assert.deepEqual(Renderer.renderSkillWorld(pkg,{failClosed:true}).steps,['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'],'G6M_RP_001 mission renders full Skill World flow');
+  assert.equal(Array.isArray(pkg.level_banks),true,'G6M_RP_001 has real level_banks');
+  assert.equal(pkg.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length,4,'G6M_RP_001 has at least four focused levels');
+  assert.equal(pkg.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,'G6M_RP_001 has Mixed level');
+  pkg.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+  ['Level 1: Ratio Language','Level 2: Equivalent Ratios','Level 3: Ratio Tables','Level 4: Unit Rates','Mixed'].forEach((label)=>assert.ok(pkg.level_banks.some((level)=>level.label===label),`G6M_RP_001 includes ${label}`));
+  ['ratio_table','double_number_line','tape_diagram','unit_rate_card'].forEach((visual)=>assert.ok(Schema.VISUAL_MODELS.includes(visual),`schema accepts ${visual}`));
+  ['ratio_table','double_number_line','tape_diagram','unit_rate_card'].forEach((visual)=>assert.ok(allQuestions.some((q)=>q.visual_model===visual),`G6M_RP_001 includes ${visual}`));
+  ['multiple_choice','short_response','ratio_response','rate_response'].forEach((type)=>assert.ok(Schema.QUESTION_TYPES.includes(type),`schema accepts ${type}`));
+  ['multiple_choice','short_response','ratio_response','rate_response'].forEach((type)=>assert.ok(allQuestions.some((q)=>q.question_type===type),`G6M_RP_001 includes ${type}`));
+  ['ratio_order_reversal','part_part_whole_confusion','equivalent_ratio_error','unit_rate_confusion'].forEach((tag)=>assert.ok(pkg.misconception_bank[tag],`G6M_RP_001 includes misconception ${tag}`));
+  assert.ok(allQuestions.filter((q)=>['short_response','ratio_response','rate_response'].includes(q.question_type)).every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G6M_RP_001 ratio/rate constructed-response items have acceptable_answers');
+  for (const screen of ['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile']) {
+    assert.equal(pkg.page_audio?.[screen]?.label,'Read This Page',`G6M_RP_001 ${screen} has Read This Page narration`);
+    assert.ok((pkg.page_audio?.[screen]?.text||'').split(/[.!?]+/).filter((sentence)=>sentence.trim()).length>=3,`G6M_RP_001 ${screen} narration teaches the page`);
+  }
+  ['practice','challenge','checkpoint'].forEach((screen)=>assert.match(pkg.page_audio[screen].text,/Read Question/,`G6M_RP_001 ${screen} references Read Question`));
+  [...(pkg.guided_practice||[]),...(pkg.adaptive_question_bank||[]),...(pkg.checkpoint||[])].forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} mission question has Read Question narration`));
+  pkg.level_banks.flatMap((level)=>level.questions).forEach((q)=>assert.equal(q.question_audio?.label,'Read Question',`${q.question_id} Skill Practice question has Read Question narration`));
+  const missionHtml=Renderer.renderSkillWorld(pkg,{failClosed:true}).html;
+  ['Story','Mini Lesson','Worked Example / Watch','Guided Demo','Practice zone','Challenge zone','Checkpoint zone','Badge','Growth/Profile screen'].forEach((label)=>assert.match(missionHtml,new RegExp(label),`G6M_RP_001 full mission flow renders ${label}`));
+  assert.match(missionHtml,/Continue to Skill Practice/,'G6M_RP_001 profile links to Skill Practice Center');
+  const drillState=Renderer.createState(); drillState.mode='drill';
+  assert.match(Renderer.renderSkillWorld(pkg,{state:drillState,mode:'drill',failClosed:true}).html,/Skill Practice Center/,'G6M_RP_001 Practice This Skill route renders Skill Practice Center');
+  ['ratio_table','double_number_line','tape_diagram','unit_rate_card'].forEach((visual)=>{
+    const question=allQuestions.find((q)=>q.visual_model===visual);
+    const html=VisualRegistry.render(question);
+    assert.match(html,new RegExp(`data-renderer="${visual}"`),`${visual} renderer output exists`);
+    assert.doesNotMatch(html,/placeholder|coming soon/i,`${visual} renderer is not placeholder-only`);
+  });
+  assert.match(VisualRegistry.render(allQuestions.find((q)=>q.visual_model==='ratio_table')),/sw-ratio-table/,'ratio_table shows a real table');
+  assert.match(VisualRegistry.render(allQuestions.find((q)=>q.visual_model==='double_number_line')),/double-number-tick/,'double_number_line shows paired scales');
+  assert.match(VisualRegistry.render(allQuestions.find((q)=>q.visual_model==='tape_diagram')),/tape-part/,'tape_diagram shows related parts');
+  assert.match(VisualRegistry.render(allQuestions.find((q)=>q.visual_model==='unit_rate_card')),/per <strong>1<\/strong>/,'unit_rate_card shows per 1 clearly');
+  const manifestForGrade6=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill-world/content/manifest.json'),'utf8'));
+  assert.ok(manifestForGrade6.packages.includes('G6M_RP_001.skill-package.v1.json'),'manifest includes G6M_RP_001');
+}

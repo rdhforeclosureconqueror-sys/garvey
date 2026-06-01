@@ -495,3 +495,19 @@ test('Final Grade 5 measurement/data and geometry Skill World packages appear fr
   assert.match(hub, /Start Skill World/);
   assert.match(hub, /Practice This Skill/);
 });
+
+test('Grade 6 Math ratios and unit rates package appears from manifest for the hub', () => {
+  assert.ok(manifest.packages.includes('G6M_RP_001.skill-package.v1.json'), 'manifest includes G6M_RP_001');
+  const pkg = readPackage('G6M_RP_001.skill-package.v1.json');
+  assert.equal(pkg.skill, 'Ratios and Unit Rates');
+  assert.equal(pkg.grade, 6);
+  assert.equal(pkg.subject, 'Math');
+  assert.equal(pkg.domain, 'Ratios and Proportional Relationships');
+  assert.equal(Array.isArray(pkg.level_banks), true);
+  assert.equal(pkg.level_banks.length >= 5, true);
+  assert.match(hub, /skillWorldPackages\.filter\(\(pkg\)=>Number\(pkg\.grade\)===Number\(grade\)\)\.map\(renderGeneratedMission\)/);
+  assert.match(hub, /Start Skill World/);
+  assert.match(hub, /Practice This Skill/);
+  assert.match(hub, /Grade \$\{escapeHtml\(pkg\.grade\)\} · \$\{escapeHtml\(pkg\.subject\)\} · \$\{escapeHtml\(pkg\.domain\)\} · \$\{escapeHtml\(pkg\.skill_id\)\}/);
+  assert.equal(`/skill-world/${encodeURIComponent('G6M_RP_001')}/drill`, '/skill-world/G6M_RP_001/drill');
+});
