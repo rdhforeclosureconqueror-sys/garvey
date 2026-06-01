@@ -1,0 +1,3081 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade3-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade3_english_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-01"
+  },
+  "skill_id": "G3E_RC_003",
+  "grade": 3,
+  "subject": "English",
+  "domain": "Reading Informational Text",
+  "skill": "Main Idea, Key Details, and Text Features",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Join the Info Investigators to find main ideas, details, text features, and idea connections.",
+    "objective": "I can determine the main idea, choose supporting details, use text features, and explain how ideas connect.",
+    "key_vocabulary": [
+      "topic",
+      "main idea",
+      "key detail",
+      "text feature",
+      "caption",
+      "heading",
+      "diagram"
+    ],
+    "concept_explanation": "Informational readers first name the topic, then state the main idea as a complete sentence. Key details must support that idea, and text features such as headings, captions, diagrams, and maps help readers locate or understand information.",
+    "visual_model": "main_idea_web",
+    "common_misconception": "Readers may confuse a one-word topic with a complete main idea or choose details that are not supported.",
+    "real_world_connection": "Main idea and text features help readers learn from science articles, directions, websites, and textbooks.",
+    "lesson_summary": "Find the topic, state the main idea, match key details, use text features, and connect related ideas.",
+    "mini_lesson": "Look at the title and first sentence for the topic. Combine important details to state the main idea. Then use headings, captions, diagrams, and maps to understand how ideas fit together.",
+    "audio": {
+      "text": "topic, main idea, key detail, text feature, caption, heading, diagram",
+      "label": "Listen",
+      "type": "sentence",
+      "repeat_count": 1,
+      "student_prompt": "Listen, then read it yourself."
+    }
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: The weather station passage is about a class weather station. The main idea is that it helps students collect and compare weather data.",
+      "correct_answer": "A weather station helps students collect and compare weather data.",
+      "visual_model": "main_idea_web",
+      "passage": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+      "topic": "class weather station",
+      "main_idea": "A weather station helps students collect and compare weather data.",
+      "details": [
+        "thermometer shows temperature",
+        "rain gauge measures rainfall",
+        "wind sock shows wind direction"
+      ],
+      "audio": {
+        "text": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "text": "Demo: A diagram would show the parts of the weather station. The feature is useful because it helps readers see what each tool does.",
+      "correct_answer": "diagram",
+      "visual_model": "text_feature_map",
+      "text_feature_type": "diagram",
+      "feature_purpose": "shows the parts of a weather station",
+      "title": "Building a Class Weather Station",
+      "audio": {
+        "text": "A diagram shows the parts of a weather station.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Name the topic first.",
+    "Choose details that support the whole passage.",
+    "Use text features to learn where information is and what it means."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G3E_RC_003_LVL1_Q01",
+      "passage_title": "Building a Class Weather Station",
+      "passage": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+      "topic": "class weather station",
+      "main_idea": "A weather station helps students collect and compare weather data.",
+      "details": [
+        "thermometer shows temperature",
+        "rain gauge measures rainfall",
+        "wind sock shows wind direction"
+      ],
+      "prompt": "What is the topic of \u201cBuilding a Class Weather Station\u201d?",
+      "question": "What is the topic of \u201cBuilding a Class Weather Station\u201d?",
+      "question_type": "short_response",
+      "visual_model": "main_idea_web",
+      "support_type": "main_idea_web",
+      "correct_answer": "class weather station",
+      "answer": "class weather station",
+      "hints": [
+        "Reread the title and first sentence.",
+        "Ask which details support the idea.",
+        "Check that the answer is stated or supported by the text."
+      ],
+      "misconception_tag": "topic_main_idea_confusion",
+      "explanation": "The text supports class weather station.",
+      "feedback": "Yes \u2014 class weather station is supported by the passage.",
+      "question_audio": {
+        "text": "What is the topic of \u201cBuilding a Class Weather Station\u201d?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "acceptable_answers": [
+        "class weather station",
+        "class weather station"
+      ]
+    },
+    {
+      "question_id": "G3E_RC_003_LVL1_Q02",
+      "passage_title": "Why Bees Matter",
+      "passage": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+      "topic": "bees",
+      "main_idea": "Bees are important because they help plants and farms grow.",
+      "details": [
+        "move pollen",
+        "farmers depend on bees",
+        "planting flowers helps bees"
+      ],
+      "prompt": "What is the main idea of \u201cWhy Bees Matter\u201d?",
+      "question": "What is the main idea of \u201cWhy Bees Matter\u201d?",
+      "question_type": "multiple_choice",
+      "visual_model": "main_idea_web",
+      "support_type": "main_idea_web",
+      "correct_answer": "Bees are important because they help plants and farms grow.",
+      "answer": "Bees are important because they help plants and farms grow.",
+      "hints": [
+        "Reread the title and first sentence.",
+        "Ask which details support the idea.",
+        "Check that the answer is stated or supported by the text."
+      ],
+      "misconception_tag": "topic_main_idea_confusion",
+      "explanation": "The text supports Bees are important because they help plants and farms grow..",
+      "feedback": "Yes \u2014 Bees are important because they help plants and farms grow. is supported by the passage.",
+      "question_audio": {
+        "text": "What is the main idea of \u201cWhy Bees Matter\u201d? Choices: Bees are important because they help plants and farms grow., bees, a tiny detail only",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "Bees are important because they help plants and farms grow.",
+        "bees",
+        "a tiny detail only"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G3E_RC_003_LVL3_Q01",
+      "passage_title": "Building a Class Weather Station",
+      "passage": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+      "topic": "class weather station",
+      "main_idea": "A weather station helps students collect and compare weather data.",
+      "details": [
+        "thermometer shows temperature",
+        "rain gauge measures rainfall",
+        "wind sock shows wind direction"
+      ],
+      "prompt": "Which text feature would best help a reader with \u201cBuilding a Class Weather Station\u201d?",
+      "question": "Which text feature would best help a reader with \u201cBuilding a Class Weather Station\u201d?",
+      "question_type": "short_response",
+      "visual_model": "text_feature_map",
+      "support_type": "text_feature_map",
+      "correct_answer": "diagram",
+      "answer": "diagram",
+      "hints": [
+        "Reread the title and first sentence.",
+        "Ask which details support the idea.",
+        "Check that the answer is stated or supported by the text."
+      ],
+      "misconception_tag": "text_feature_confusion",
+      "explanation": "The text supports diagram.",
+      "feedback": "Yes \u2014 diagram is supported by the passage.",
+      "question_audio": {
+        "text": "Which text feature would best help a reader with \u201cBuilding a Class Weather Station\u201d?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "acceptable_answers": [
+        "diagram",
+        "diagram"
+      ],
+      "text_feature_type": "diagram",
+      "feature_purpose": "shows the parts of a weather station",
+      "title": "Building a Class Weather Station"
+    },
+    {
+      "question_id": "G3E_RC_003_LVL3_Q02",
+      "passage_title": "Why Bees Matter",
+      "passage": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+      "topic": "bees",
+      "main_idea": "Bees are important because they help plants and farms grow.",
+      "details": [
+        "move pollen",
+        "farmers depend on bees",
+        "planting flowers helps bees"
+      ],
+      "prompt": "What is the purpose of the caption in \u201cWhy Bees Matter\u201d?",
+      "question": "What is the purpose of the caption in \u201cWhy Bees Matter\u201d?",
+      "question_type": "multiple_choice",
+      "visual_model": "text_feature_map",
+      "support_type": "text_feature_map",
+      "correct_answer": "explains what bees are doing in a photo",
+      "answer": "explains what bees are doing in a photo",
+      "hints": [
+        "Reread the title and first sentence.",
+        "Ask which details support the idea.",
+        "Check that the answer is stated or supported by the text."
+      ],
+      "misconception_tag": "text_feature_confusion",
+      "explanation": "The text supports explains what bees are doing in a photo.",
+      "feedback": "Yes \u2014 explains what bees are doing in a photo is supported by the passage.",
+      "question_audio": {
+        "text": "What is the purpose of the caption in \u201cWhy Bees Matter\u201d? Choices: explains what bees are doing in a photo, to hide information, to tell a character trait",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "explains what bees are doing in a photo",
+        "to hide information",
+        "to tell a character trait"
+      ],
+      "text_feature_type": "caption",
+      "feature_purpose": "explains what bees are doing in a photo",
+      "title": "Why Bees Matter"
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G3E_RC_003_LVL4_Q02",
+      "passage_title": "Why Bees Matter",
+      "passage": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+      "topic": "bees",
+      "main_idea": "Bees are important because they help plants and farms grow.",
+      "details": [
+        "move pollen",
+        "farmers depend on bees",
+        "planting flowers helps bees"
+      ],
+      "prompt": "Which evidence shows how ideas are connected in \u201cWhy Bees Matter\u201d?",
+      "question": "Which evidence shows how ideas are connected in \u201cWhy Bees Matter\u201d?",
+      "question_type": "text_evidence",
+      "visual_model": "short_passage",
+      "support_type": "short_passage",
+      "correct_answer": "move pollen",
+      "answer": "move pollen",
+      "hints": [
+        "Reread the title and first sentence.",
+        "Ask which details support the idea.",
+        "Check that the answer is stated or supported by the text."
+      ],
+      "misconception_tag": "unsupported_detail",
+      "explanation": "The text supports move pollen.",
+      "feedback": "Yes \u2014 move pollen is supported by the passage.",
+      "question_audio": {
+        "text": "Which evidence shows how ideas are connected in \u201cWhy Bees Matter\u201d? Choices: move pollen, No detail supports it., Only the title matters.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "move pollen",
+        "No detail supports it.",
+        "Only the title matters."
+      ],
+      "acceptable_answers": [
+        "move pollen",
+        "move pollen"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "topic_main_idea_confusion": "A reader names a topic word instead of a complete main idea.",
+    "detail_selection_error": "A reader picks an interesting fact that does not support the main idea.",
+    "text_feature_confusion": "A reader names a feature but misses its purpose.",
+    "unsupported_detail": "A reader chooses a detail that is not stated or supported by the text."
+  },
+  "review_bank": [
+    {
+      "question_id": "G3E_RC_003_LVL5_Q01",
+      "passage_title": "Building a Class Weather Station",
+      "passage": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+      "topic": "class weather station",
+      "main_idea": "A weather station helps students collect and compare weather data.",
+      "details": [
+        "thermometer shows temperature",
+        "rain gauge measures rainfall",
+        "wind sock shows wind direction"
+      ],
+      "prompt": "What is the main idea of \u201cBuilding a Class Weather Station\u201d?",
+      "question": "What is the main idea of \u201cBuilding a Class Weather Station\u201d?",
+      "question_type": "multiple_choice",
+      "visual_model": "main_idea_web",
+      "support_type": "main_idea_web",
+      "correct_answer": "A weather station helps students collect and compare weather data.",
+      "answer": "A weather station helps students collect and compare weather data.",
+      "hints": [
+        "Reread the title and first sentence.",
+        "Ask which details support the idea.",
+        "Check that the answer is stated or supported by the text."
+      ],
+      "misconception_tag": "topic_main_idea_confusion",
+      "explanation": "The text supports A weather station helps students collect and compare weather data..",
+      "feedback": "Yes \u2014 A weather station helps students collect and compare weather data. is supported by the passage.",
+      "question_audio": {
+        "text": "What is the main idea of \u201cBuilding a Class Weather Station\u201d? Choices: A weather station helps students collect and compare weather data., an unsupported idea, a story theme",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "A weather station helps students collect and compare weather data.",
+        "an unsupported idea",
+        "a story theme"
+      ],
+      "text_feature_type": "diagram",
+      "feature_purpose": "shows the parts of a weather station",
+      "title": "Building a Class Weather Station",
+      "detail_cards": [
+        "thermometer shows temperature",
+        "rain gauge measures rainfall",
+        "wind sock shows wind direction"
+      ]
+    },
+    {
+      "question_id": "G3E_RC_003_LVL5_Q02",
+      "passage_title": "Why Bees Matter",
+      "passage": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+      "topic": "bees",
+      "main_idea": "Bees are important because they help plants and farms grow.",
+      "details": [
+        "move pollen",
+        "farmers depend on bees",
+        "planting flowers helps bees"
+      ],
+      "prompt": "Choose a key detail from \u201cWhy Bees Matter\u201d.",
+      "question": "Choose a key detail from \u201cWhy Bees Matter\u201d.",
+      "question_type": "detail_match",
+      "visual_model": "detail_cards",
+      "support_type": "detail_cards",
+      "correct_answer": "farmers depend on bees",
+      "answer": "farmers depend on bees",
+      "hints": [
+        "Reread the title and first sentence.",
+        "Ask which details support the idea.",
+        "Check that the answer is stated or supported by the text."
+      ],
+      "misconception_tag": "detail_selection_error",
+      "explanation": "The text supports farmers depend on bees.",
+      "feedback": "Yes \u2014 farmers depend on bees is supported by the passage.",
+      "question_audio": {
+        "text": "Choose a key detail from \u201cWhy Bees Matter\u201d. Choices: farmers depend on bees, an unsupported idea, a story theme",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "farmers depend on bees",
+        "an unsupported idea",
+        "a story theme"
+      ],
+      "acceptable_answers": [
+        "farmers depend on bees",
+        "farmers depend on bees"
+      ],
+      "text_feature_type": "caption",
+      "feature_purpose": "explains what bees are doing in a photo",
+      "title": "Why Bees Matter",
+      "detail_cards": [
+        "move pollen",
+        "farmers depend on bees",
+        "planting flowers helps bees"
+      ]
+    }
+  ],
+  "game_theme": {
+    "title": "Main Idea, Key Details, and Text Features",
+    "mission_intro": "Join the Info Investigators to read informational text and prove the most important ideas.",
+    "badge_name": "Info Investigator Badge",
+    "world": "Grade 3 English Studio"
+  },
+  "next_skill_id": "G3E_WR_001",
+  "remediation_skill_id": "G3E_RC_001",
+  "level_banks": [
+    {
+      "level_id": "G3E_RC_003_LVL1",
+      "label": "Level 1: Topic and Main Idea",
+      "focus": "Tell the topic and state a complete main idea.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RC_003_LVL1_Q01",
+          "passage_title": "Building a Class Weather Station",
+          "passage": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+          "topic": "class weather station",
+          "main_idea": "A weather station helps students collect and compare weather data.",
+          "details": [
+            "thermometer shows temperature",
+            "rain gauge measures rainfall",
+            "wind sock shows wind direction"
+          ],
+          "prompt": "What is the topic of \u201cBuilding a Class Weather Station\u201d?",
+          "question": "What is the topic of \u201cBuilding a Class Weather Station\u201d?",
+          "question_type": "short_response",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "class weather station",
+          "answer": "class weather station",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "The text supports class weather station.",
+          "feedback": "Yes \u2014 class weather station is supported by the passage.",
+          "question_audio": {
+            "text": "What is the topic of \u201cBuilding a Class Weather Station\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "class weather station",
+            "class weather station"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL1_Q02",
+          "passage_title": "Why Bees Matter",
+          "passage": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+          "topic": "bees",
+          "main_idea": "Bees are important because they help plants and farms grow.",
+          "details": [
+            "move pollen",
+            "farmers depend on bees",
+            "planting flowers helps bees"
+          ],
+          "prompt": "What is the main idea of \u201cWhy Bees Matter\u201d?",
+          "question": "What is the main idea of \u201cWhy Bees Matter\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Bees are important because they help plants and farms grow.",
+          "answer": "Bees are important because they help plants and farms grow.",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "The text supports Bees are important because they help plants and farms grow..",
+          "feedback": "Yes \u2014 Bees are important because they help plants and farms grow. is supported by the passage.",
+          "question_audio": {
+            "text": "What is the main idea of \u201cWhy Bees Matter\u201d? Choices: Bees are important because they help plants and farms grow., bees, a tiny detail only",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Bees are important because they help plants and farms grow.",
+            "bees",
+            "a tiny detail only"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL1_Q03",
+          "passage_title": "Saving Water at School",
+          "passage": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+          "topic": "saving water",
+          "main_idea": "Students and schools can take simple steps to save water.",
+          "details": [
+            "turn faucets off",
+            "report leaks",
+            "use rain barrels"
+          ],
+          "prompt": "What is the topic of \u201cSaving Water at School\u201d?",
+          "question": "What is the topic of \u201cSaving Water at School\u201d?",
+          "question_type": "short_response",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "saving water",
+          "answer": "saving water",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "The text supports saving water.",
+          "feedback": "Yes \u2014 saving water is supported by the passage.",
+          "question_audio": {
+            "text": "What is the topic of \u201cSaving Water at School\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "saving water",
+            "saving water"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL1_Q04",
+          "passage_title": "How a Seed Travels",
+          "passage": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+          "topic": "seed travel",
+          "main_idea": "Seeds move in different ways so new plants can grow in good places.",
+          "details": [
+            "float on water",
+            "stick to animal fur",
+            "carried by wind"
+          ],
+          "prompt": "What is the main idea of \u201cHow a Seed Travels\u201d?",
+          "question": "What is the main idea of \u201cHow a Seed Travels\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Seeds move in different ways so new plants can grow in good places.",
+          "answer": "Seeds move in different ways so new plants can grow in good places.",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "The text supports Seeds move in different ways so new plants can grow in good places..",
+          "feedback": "Yes \u2014 Seeds move in different ways so new plants can grow in good places. is supported by the passage.",
+          "question_audio": {
+            "text": "What is the main idea of \u201cHow a Seed Travels\u201d? Choices: Seeds move in different ways so new plants can grow in good places., seed travel, a tiny detail only",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Seeds move in different ways so new plants can grow in good places.",
+            "seed travel",
+            "a tiny detail only"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL1_Q05",
+          "passage_title": "The Job of a Map Key",
+          "passage": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+          "topic": "map key",
+          "main_idea": "A map key helps readers understand map symbols.",
+          "details": [
+            "blue line may stand for a river",
+            "star may mark a capital city",
+            "understand without guessing"
+          ],
+          "prompt": "What is the topic of \u201cThe Job of a Map Key\u201d?",
+          "question": "What is the topic of \u201cThe Job of a Map Key\u201d?",
+          "question_type": "short_response",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "map key",
+          "answer": "map key",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "The text supports map key.",
+          "feedback": "Yes \u2014 map key is supported by the passage.",
+          "question_audio": {
+            "text": "What is the topic of \u201cThe Job of a Map Key\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "map key",
+            "map key"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL1_Q06",
+          "passage_title": "Building a Class Weather Station",
+          "passage": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+          "topic": "class weather station",
+          "main_idea": "A weather station helps students collect and compare weather data.",
+          "details": [
+            "thermometer shows temperature",
+            "rain gauge measures rainfall",
+            "wind sock shows wind direction"
+          ],
+          "prompt": "What is the main idea of \u201cBuilding a Class Weather Station\u201d?",
+          "question": "What is the main idea of \u201cBuilding a Class Weather Station\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "A weather station helps students collect and compare weather data.",
+          "answer": "A weather station helps students collect and compare weather data.",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "The text supports A weather station helps students collect and compare weather data..",
+          "feedback": "Yes \u2014 A weather station helps students collect and compare weather data. is supported by the passage.",
+          "question_audio": {
+            "text": "What is the main idea of \u201cBuilding a Class Weather Station\u201d? Choices: A weather station helps students collect and compare weather data., class weather station, a tiny detail only",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "A weather station helps students collect and compare weather data.",
+            "class weather station",
+            "a tiny detail only"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL1_Q07",
+          "passage_title": "Why Bees Matter",
+          "passage": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+          "topic": "bees",
+          "main_idea": "Bees are important because they help plants and farms grow.",
+          "details": [
+            "move pollen",
+            "farmers depend on bees",
+            "planting flowers helps bees"
+          ],
+          "prompt": "What is the topic of \u201cWhy Bees Matter\u201d?",
+          "question": "What is the topic of \u201cWhy Bees Matter\u201d?",
+          "question_type": "short_response",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "bees",
+          "answer": "bees",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "The text supports bees.",
+          "feedback": "Yes \u2014 bees is supported by the passage.",
+          "question_audio": {
+            "text": "What is the topic of \u201cWhy Bees Matter\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "bees",
+            "bees"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL1_Q08",
+          "passage_title": "Saving Water at School",
+          "passage": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+          "topic": "saving water",
+          "main_idea": "Students and schools can take simple steps to save water.",
+          "details": [
+            "turn faucets off",
+            "report leaks",
+            "use rain barrels"
+          ],
+          "prompt": "What is the main idea of \u201cSaving Water at School\u201d?",
+          "question": "What is the main idea of \u201cSaving Water at School\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Students and schools can take simple steps to save water.",
+          "answer": "Students and schools can take simple steps to save water.",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "The text supports Students and schools can take simple steps to save water..",
+          "feedback": "Yes \u2014 Students and schools can take simple steps to save water. is supported by the passage.",
+          "question_audio": {
+            "text": "What is the main idea of \u201cSaving Water at School\u201d? Choices: Students and schools can take simple steps to save water., saving water, a tiny detail only",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Students and schools can take simple steps to save water.",
+            "saving water",
+            "a tiny detail only"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL1_Q09",
+          "passage_title": "How a Seed Travels",
+          "passage": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+          "topic": "seed travel",
+          "main_idea": "Seeds move in different ways so new plants can grow in good places.",
+          "details": [
+            "float on water",
+            "stick to animal fur",
+            "carried by wind"
+          ],
+          "prompt": "What is the topic of \u201cHow a Seed Travels\u201d?",
+          "question": "What is the topic of \u201cHow a Seed Travels\u201d?",
+          "question_type": "short_response",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "seed travel",
+          "answer": "seed travel",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "The text supports seed travel.",
+          "feedback": "Yes \u2014 seed travel is supported by the passage.",
+          "question_audio": {
+            "text": "What is the topic of \u201cHow a Seed Travels\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "seed travel",
+            "seed travel"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL1_Q10",
+          "passage_title": "The Job of a Map Key",
+          "passage": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+          "topic": "map key",
+          "main_idea": "A map key helps readers understand map symbols.",
+          "details": [
+            "blue line may stand for a river",
+            "star may mark a capital city",
+            "understand without guessing"
+          ],
+          "prompt": "What is the main idea of \u201cThe Job of a Map Key\u201d?",
+          "question": "What is the main idea of \u201cThe Job of a Map Key\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "A map key helps readers understand map symbols.",
+          "answer": "A map key helps readers understand map symbols.",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "The text supports A map key helps readers understand map symbols..",
+          "feedback": "Yes \u2014 A map key helps readers understand map symbols. is supported by the passage.",
+          "question_audio": {
+            "text": "What is the main idea of \u201cThe Job of a Map Key\u201d? Choices: A map key helps readers understand map symbols., map key, a tiny detail only",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "A map key helps readers understand map symbols.",
+            "map key",
+            "a tiny detail only"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RC_003_LVL2",
+      "label": "Level 2: Key Details",
+      "focus": "Choose details that support the main idea.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RC_003_LVL2_Q01",
+          "passage_title": "Building a Class Weather Station",
+          "passage": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+          "topic": "class weather station",
+          "main_idea": "A weather station helps students collect and compare weather data.",
+          "details": [
+            "thermometer shows temperature",
+            "rain gauge measures rainfall",
+            "wind sock shows wind direction"
+          ],
+          "prompt": "Which key detail belongs with \u201cBuilding a Class Weather Station\u201d?",
+          "question": "Which key detail belongs with \u201cBuilding a Class Weather Station\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "thermometer shows temperature",
+          "answer": "thermometer shows temperature",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "The text supports thermometer shows temperature.",
+          "feedback": "Yes \u2014 thermometer shows temperature is supported by the passage.",
+          "question_audio": {
+            "text": "Which key detail belongs with \u201cBuilding a Class Weather Station\u201d? Choices: thermometer shows temperature, The text says the opposite., A detail from a story",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "thermometer shows temperature",
+            "The text says the opposite.",
+            "A detail from a story"
+          ],
+          "detail_cards": [
+            "thermometer shows temperature",
+            "rain gauge measures rainfall",
+            "wind sock shows wind direction"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL2_Q02",
+          "passage_title": "Why Bees Matter",
+          "passage": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+          "topic": "bees",
+          "main_idea": "Bees are important because they help plants and farms grow.",
+          "details": [
+            "move pollen",
+            "farmers depend on bees",
+            "planting flowers helps bees"
+          ],
+          "prompt": "Which detail supports the main idea: Bees are important because they help plants and farms grow.",
+          "question": "Which detail supports the main idea: Bees are important because they help plants and farms grow.",
+          "question_type": "detail_match",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "farmers depend on bees",
+          "answer": "farmers depend on bees",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "The text supports farmers depend on bees.",
+          "feedback": "Yes \u2014 farmers depend on bees is supported by the passage.",
+          "question_audio": {
+            "text": "Which detail supports the main idea: Bees are important because they help plants and farms grow. Choices: farmers depend on bees, The text says the opposite., A detail from a story",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "farmers depend on bees",
+            "The text says the opposite.",
+            "A detail from a story"
+          ],
+          "acceptable_answers": [
+            "farmers depend on bees",
+            "farmers depend on bees"
+          ],
+          "detail_cards": [
+            "move pollen",
+            "farmers depend on bees",
+            "planting flowers helps bees"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL2_Q03",
+          "passage_title": "Saving Water at School",
+          "passage": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+          "topic": "saving water",
+          "main_idea": "Students and schools can take simple steps to save water.",
+          "details": [
+            "turn faucets off",
+            "report leaks",
+            "use rain barrels"
+          ],
+          "prompt": "Which key detail belongs with \u201cSaving Water at School\u201d?",
+          "question": "Which key detail belongs with \u201cSaving Water at School\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "use rain barrels",
+          "answer": "use rain barrels",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "The text supports use rain barrels.",
+          "feedback": "Yes \u2014 use rain barrels is supported by the passage.",
+          "question_audio": {
+            "text": "Which key detail belongs with \u201cSaving Water at School\u201d? Choices: use rain barrels, The text says the opposite., A detail from a story",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "use rain barrels",
+            "The text says the opposite.",
+            "A detail from a story"
+          ],
+          "detail_cards": [
+            "turn faucets off",
+            "report leaks",
+            "use rain barrels"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL2_Q04",
+          "passage_title": "How a Seed Travels",
+          "passage": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+          "topic": "seed travel",
+          "main_idea": "Seeds move in different ways so new plants can grow in good places.",
+          "details": [
+            "float on water",
+            "stick to animal fur",
+            "carried by wind"
+          ],
+          "prompt": "Which detail supports the main idea: Seeds move in different ways so new plants can grow in good places.",
+          "question": "Which detail supports the main idea: Seeds move in different ways so new plants can grow in good places.",
+          "question_type": "detail_match",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "float on water",
+          "answer": "float on water",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "The text supports float on water.",
+          "feedback": "Yes \u2014 float on water is supported by the passage.",
+          "question_audio": {
+            "text": "Which detail supports the main idea: Seeds move in different ways so new plants can grow in good places. Choices: float on water, The text says the opposite., A detail from a story",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "float on water",
+            "The text says the opposite.",
+            "A detail from a story"
+          ],
+          "acceptable_answers": [
+            "float on water",
+            "float on water"
+          ],
+          "detail_cards": [
+            "float on water",
+            "stick to animal fur",
+            "carried by wind"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL2_Q05",
+          "passage_title": "The Job of a Map Key",
+          "passage": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+          "topic": "map key",
+          "main_idea": "A map key helps readers understand map symbols.",
+          "details": [
+            "blue line may stand for a river",
+            "star may mark a capital city",
+            "understand without guessing"
+          ],
+          "prompt": "Which key detail belongs with \u201cThe Job of a Map Key\u201d?",
+          "question": "Which key detail belongs with \u201cThe Job of a Map Key\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "star may mark a capital city",
+          "answer": "star may mark a capital city",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "The text supports star may mark a capital city.",
+          "feedback": "Yes \u2014 star may mark a capital city is supported by the passage.",
+          "question_audio": {
+            "text": "Which key detail belongs with \u201cThe Job of a Map Key\u201d? Choices: star may mark a capital city, The text says the opposite., A detail from a story",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "star may mark a capital city",
+            "The text says the opposite.",
+            "A detail from a story"
+          ],
+          "detail_cards": [
+            "blue line may stand for a river",
+            "star may mark a capital city",
+            "understand without guessing"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL2_Q06",
+          "passage_title": "Building a Class Weather Station",
+          "passage": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+          "topic": "class weather station",
+          "main_idea": "A weather station helps students collect and compare weather data.",
+          "details": [
+            "thermometer shows temperature",
+            "rain gauge measures rainfall",
+            "wind sock shows wind direction"
+          ],
+          "prompt": "Which detail supports the main idea: A weather station helps students collect and compare weather data.",
+          "question": "Which detail supports the main idea: A weather station helps students collect and compare weather data.",
+          "question_type": "detail_match",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "wind sock shows wind direction",
+          "answer": "wind sock shows wind direction",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "The text supports wind sock shows wind direction.",
+          "feedback": "Yes \u2014 wind sock shows wind direction is supported by the passage.",
+          "question_audio": {
+            "text": "Which detail supports the main idea: A weather station helps students collect and compare weather data. Choices: wind sock shows wind direction, The text says the opposite., A detail from a story",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "wind sock shows wind direction",
+            "The text says the opposite.",
+            "A detail from a story"
+          ],
+          "acceptable_answers": [
+            "wind sock shows wind direction",
+            "wind sock shows wind direction"
+          ],
+          "detail_cards": [
+            "thermometer shows temperature",
+            "rain gauge measures rainfall",
+            "wind sock shows wind direction"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL2_Q07",
+          "passage_title": "Why Bees Matter",
+          "passage": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+          "topic": "bees",
+          "main_idea": "Bees are important because they help plants and farms grow.",
+          "details": [
+            "move pollen",
+            "farmers depend on bees",
+            "planting flowers helps bees"
+          ],
+          "prompt": "Which key detail belongs with \u201cWhy Bees Matter\u201d?",
+          "question": "Which key detail belongs with \u201cWhy Bees Matter\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "move pollen",
+          "answer": "move pollen",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "The text supports move pollen.",
+          "feedback": "Yes \u2014 move pollen is supported by the passage.",
+          "question_audio": {
+            "text": "Which key detail belongs with \u201cWhy Bees Matter\u201d? Choices: move pollen, The text says the opposite., A detail from a story",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "move pollen",
+            "The text says the opposite.",
+            "A detail from a story"
+          ],
+          "detail_cards": [
+            "move pollen",
+            "farmers depend on bees",
+            "planting flowers helps bees"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL2_Q08",
+          "passage_title": "Saving Water at School",
+          "passage": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+          "topic": "saving water",
+          "main_idea": "Students and schools can take simple steps to save water.",
+          "details": [
+            "turn faucets off",
+            "report leaks",
+            "use rain barrels"
+          ],
+          "prompt": "Which detail supports the main idea: Students and schools can take simple steps to save water.",
+          "question": "Which detail supports the main idea: Students and schools can take simple steps to save water.",
+          "question_type": "detail_match",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "report leaks",
+          "answer": "report leaks",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "The text supports report leaks.",
+          "feedback": "Yes \u2014 report leaks is supported by the passage.",
+          "question_audio": {
+            "text": "Which detail supports the main idea: Students and schools can take simple steps to save water. Choices: report leaks, The text says the opposite., A detail from a story",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "report leaks",
+            "The text says the opposite.",
+            "A detail from a story"
+          ],
+          "acceptable_answers": [
+            "report leaks",
+            "report leaks"
+          ],
+          "detail_cards": [
+            "turn faucets off",
+            "report leaks",
+            "use rain barrels"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL2_Q09",
+          "passage_title": "How a Seed Travels",
+          "passage": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+          "topic": "seed travel",
+          "main_idea": "Seeds move in different ways so new plants can grow in good places.",
+          "details": [
+            "float on water",
+            "stick to animal fur",
+            "carried by wind"
+          ],
+          "prompt": "Which key detail belongs with \u201cHow a Seed Travels\u201d?",
+          "question": "Which key detail belongs with \u201cHow a Seed Travels\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "carried by wind",
+          "answer": "carried by wind",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "The text supports carried by wind.",
+          "feedback": "Yes \u2014 carried by wind is supported by the passage.",
+          "question_audio": {
+            "text": "Which key detail belongs with \u201cHow a Seed Travels\u201d? Choices: carried by wind, The text says the opposite., A detail from a story",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "carried by wind",
+            "The text says the opposite.",
+            "A detail from a story"
+          ],
+          "detail_cards": [
+            "float on water",
+            "stick to animal fur",
+            "carried by wind"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL2_Q10",
+          "passage_title": "The Job of a Map Key",
+          "passage": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+          "topic": "map key",
+          "main_idea": "A map key helps readers understand map symbols.",
+          "details": [
+            "blue line may stand for a river",
+            "star may mark a capital city",
+            "understand without guessing"
+          ],
+          "prompt": "Which detail supports the main idea: A map key helps readers understand map symbols.",
+          "question": "Which detail supports the main idea: A map key helps readers understand map symbols.",
+          "question_type": "detail_match",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "blue line may stand for a river",
+          "answer": "blue line may stand for a river",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "The text supports blue line may stand for a river.",
+          "feedback": "Yes \u2014 blue line may stand for a river is supported by the passage.",
+          "question_audio": {
+            "text": "Which detail supports the main idea: A map key helps readers understand map symbols. Choices: blue line may stand for a river, The text says the opposite., A detail from a story",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "blue line may stand for a river",
+            "The text says the opposite.",
+            "A detail from a story"
+          ],
+          "acceptable_answers": [
+            "blue line may stand for a river",
+            "blue line may stand for a river"
+          ],
+          "detail_cards": [
+            "blue line may stand for a river",
+            "star may mark a capital city",
+            "understand without guessing"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RC_003_LVL3",
+      "label": "Level 3: Text Features",
+      "focus": "Identify text features and explain their purposes.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RC_003_LVL3_Q01",
+          "passage_title": "Building a Class Weather Station",
+          "passage": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+          "topic": "class weather station",
+          "main_idea": "A weather station helps students collect and compare weather data.",
+          "details": [
+            "thermometer shows temperature",
+            "rain gauge measures rainfall",
+            "wind sock shows wind direction"
+          ],
+          "prompt": "Which text feature would best help a reader with \u201cBuilding a Class Weather Station\u201d?",
+          "question": "Which text feature would best help a reader with \u201cBuilding a Class Weather Station\u201d?",
+          "question_type": "short_response",
+          "visual_model": "text_feature_map",
+          "support_type": "text_feature_map",
+          "correct_answer": "diagram",
+          "answer": "diagram",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "text_feature_confusion",
+          "explanation": "The text supports diagram.",
+          "feedback": "Yes \u2014 diagram is supported by the passage.",
+          "question_audio": {
+            "text": "Which text feature would best help a reader with \u201cBuilding a Class Weather Station\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "diagram",
+            "diagram"
+          ],
+          "text_feature_type": "diagram",
+          "feature_purpose": "shows the parts of a weather station",
+          "title": "Building a Class Weather Station"
+        },
+        {
+          "question_id": "G3E_RC_003_LVL3_Q02",
+          "passage_title": "Why Bees Matter",
+          "passage": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+          "topic": "bees",
+          "main_idea": "Bees are important because they help plants and farms grow.",
+          "details": [
+            "move pollen",
+            "farmers depend on bees",
+            "planting flowers helps bees"
+          ],
+          "prompt": "What is the purpose of the caption in \u201cWhy Bees Matter\u201d?",
+          "question": "What is the purpose of the caption in \u201cWhy Bees Matter\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "text_feature_map",
+          "support_type": "text_feature_map",
+          "correct_answer": "explains what bees are doing in a photo",
+          "answer": "explains what bees are doing in a photo",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "text_feature_confusion",
+          "explanation": "The text supports explains what bees are doing in a photo.",
+          "feedback": "Yes \u2014 explains what bees are doing in a photo is supported by the passage.",
+          "question_audio": {
+            "text": "What is the purpose of the caption in \u201cWhy Bees Matter\u201d? Choices: explains what bees are doing in a photo, to hide information, to tell a character trait",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "explains what bees are doing in a photo",
+            "to hide information",
+            "to tell a character trait"
+          ],
+          "text_feature_type": "caption",
+          "feature_purpose": "explains what bees are doing in a photo",
+          "title": "Why Bees Matter"
+        },
+        {
+          "question_id": "G3E_RC_003_LVL3_Q03",
+          "passage_title": "Saving Water at School",
+          "passage": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+          "topic": "saving water",
+          "main_idea": "Students and schools can take simple steps to save water.",
+          "details": [
+            "turn faucets off",
+            "report leaks",
+            "use rain barrels"
+          ],
+          "prompt": "Which text feature would best help a reader with \u201cSaving Water at School\u201d?",
+          "question": "Which text feature would best help a reader with \u201cSaving Water at School\u201d?",
+          "question_type": "short_response",
+          "visual_model": "text_feature_map",
+          "support_type": "text_feature_map",
+          "correct_answer": "heading",
+          "answer": "heading",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "text_feature_confusion",
+          "explanation": "The text supports heading.",
+          "feedback": "Yes \u2014 heading is supported by the passage.",
+          "question_audio": {
+            "text": "Which text feature would best help a reader with \u201cSaving Water at School\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "heading",
+            "heading"
+          ],
+          "text_feature_type": "heading",
+          "feature_purpose": "names a section about ways to save water",
+          "title": "Saving Water at School"
+        },
+        {
+          "question_id": "G3E_RC_003_LVL3_Q04",
+          "passage_title": "How a Seed Travels",
+          "passage": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+          "topic": "seed travel",
+          "main_idea": "Seeds move in different ways so new plants can grow in good places.",
+          "details": [
+            "float on water",
+            "stick to animal fur",
+            "carried by wind"
+          ],
+          "prompt": "What is the purpose of the map in \u201cHow a Seed Travels\u201d?",
+          "question": "What is the purpose of the map in \u201cHow a Seed Travels\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "text_feature_map",
+          "support_type": "text_feature_map",
+          "correct_answer": "shows where seeds travel",
+          "answer": "shows where seeds travel",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "text_feature_confusion",
+          "explanation": "The text supports shows where seeds travel.",
+          "feedback": "Yes \u2014 shows where seeds travel is supported by the passage.",
+          "question_audio": {
+            "text": "What is the purpose of the map in \u201cHow a Seed Travels\u201d? Choices: shows where seeds travel, to hide information, to tell a character trait",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "shows where seeds travel",
+            "to hide information",
+            "to tell a character trait"
+          ],
+          "text_feature_type": "map",
+          "feature_purpose": "shows where seeds travel",
+          "title": "How a Seed Travels"
+        },
+        {
+          "question_id": "G3E_RC_003_LVL3_Q05",
+          "passage_title": "The Job of a Map Key",
+          "passage": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+          "topic": "map key",
+          "main_idea": "A map key helps readers understand map symbols.",
+          "details": [
+            "blue line may stand for a river",
+            "star may mark a capital city",
+            "understand without guessing"
+          ],
+          "prompt": "Which text feature would best help a reader with \u201cThe Job of a Map Key\u201d?",
+          "question": "Which text feature would best help a reader with \u201cThe Job of a Map Key\u201d?",
+          "question_type": "short_response",
+          "visual_model": "text_feature_map",
+          "support_type": "text_feature_map",
+          "correct_answer": "map key",
+          "answer": "map key",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "text_feature_confusion",
+          "explanation": "The text supports map key.",
+          "feedback": "Yes \u2014 map key is supported by the passage.",
+          "question_audio": {
+            "text": "Which text feature would best help a reader with \u201cThe Job of a Map Key\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "map key",
+            "map key"
+          ],
+          "text_feature_type": "map key",
+          "feature_purpose": "explains what symbols mean",
+          "title": "The Job of a Map Key"
+        },
+        {
+          "question_id": "G3E_RC_003_LVL3_Q06",
+          "passage_title": "Building a Class Weather Station",
+          "passage": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+          "topic": "class weather station",
+          "main_idea": "A weather station helps students collect and compare weather data.",
+          "details": [
+            "thermometer shows temperature",
+            "rain gauge measures rainfall",
+            "wind sock shows wind direction"
+          ],
+          "prompt": "What is the purpose of the diagram in \u201cBuilding a Class Weather Station\u201d?",
+          "question": "What is the purpose of the diagram in \u201cBuilding a Class Weather Station\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "text_feature_map",
+          "support_type": "text_feature_map",
+          "correct_answer": "shows the parts of a weather station",
+          "answer": "shows the parts of a weather station",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "text_feature_confusion",
+          "explanation": "The text supports shows the parts of a weather station.",
+          "feedback": "Yes \u2014 shows the parts of a weather station is supported by the passage.",
+          "question_audio": {
+            "text": "What is the purpose of the diagram in \u201cBuilding a Class Weather Station\u201d? Choices: shows the parts of a weather station, to hide information, to tell a character trait",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "shows the parts of a weather station",
+            "to hide information",
+            "to tell a character trait"
+          ],
+          "text_feature_type": "diagram",
+          "feature_purpose": "shows the parts of a weather station",
+          "title": "Building a Class Weather Station"
+        },
+        {
+          "question_id": "G3E_RC_003_LVL3_Q07",
+          "passage_title": "Why Bees Matter",
+          "passage": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+          "topic": "bees",
+          "main_idea": "Bees are important because they help plants and farms grow.",
+          "details": [
+            "move pollen",
+            "farmers depend on bees",
+            "planting flowers helps bees"
+          ],
+          "prompt": "Which text feature would best help a reader with \u201cWhy Bees Matter\u201d?",
+          "question": "Which text feature would best help a reader with \u201cWhy Bees Matter\u201d?",
+          "question_type": "short_response",
+          "visual_model": "text_feature_map",
+          "support_type": "text_feature_map",
+          "correct_answer": "caption",
+          "answer": "caption",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "text_feature_confusion",
+          "explanation": "The text supports caption.",
+          "feedback": "Yes \u2014 caption is supported by the passage.",
+          "question_audio": {
+            "text": "Which text feature would best help a reader with \u201cWhy Bees Matter\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "caption",
+            "caption"
+          ],
+          "text_feature_type": "caption",
+          "feature_purpose": "explains what bees are doing in a photo",
+          "title": "Why Bees Matter"
+        },
+        {
+          "question_id": "G3E_RC_003_LVL3_Q08",
+          "passage_title": "Saving Water at School",
+          "passage": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+          "topic": "saving water",
+          "main_idea": "Students and schools can take simple steps to save water.",
+          "details": [
+            "turn faucets off",
+            "report leaks",
+            "use rain barrels"
+          ],
+          "prompt": "What is the purpose of the heading in \u201cSaving Water at School\u201d?",
+          "question": "What is the purpose of the heading in \u201cSaving Water at School\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "text_feature_map",
+          "support_type": "text_feature_map",
+          "correct_answer": "names a section about ways to save water",
+          "answer": "names a section about ways to save water",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "text_feature_confusion",
+          "explanation": "The text supports names a section about ways to save water.",
+          "feedback": "Yes \u2014 names a section about ways to save water is supported by the passage.",
+          "question_audio": {
+            "text": "What is the purpose of the heading in \u201cSaving Water at School\u201d? Choices: names a section about ways to save water, to hide information, to tell a character trait",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "names a section about ways to save water",
+            "to hide information",
+            "to tell a character trait"
+          ],
+          "text_feature_type": "heading",
+          "feature_purpose": "names a section about ways to save water",
+          "title": "Saving Water at School"
+        },
+        {
+          "question_id": "G3E_RC_003_LVL3_Q09",
+          "passage_title": "How a Seed Travels",
+          "passage": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+          "topic": "seed travel",
+          "main_idea": "Seeds move in different ways so new plants can grow in good places.",
+          "details": [
+            "float on water",
+            "stick to animal fur",
+            "carried by wind"
+          ],
+          "prompt": "Which text feature would best help a reader with \u201cHow a Seed Travels\u201d?",
+          "question": "Which text feature would best help a reader with \u201cHow a Seed Travels\u201d?",
+          "question_type": "short_response",
+          "visual_model": "text_feature_map",
+          "support_type": "text_feature_map",
+          "correct_answer": "map",
+          "answer": "map",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "text_feature_confusion",
+          "explanation": "The text supports map.",
+          "feedback": "Yes \u2014 map is supported by the passage.",
+          "question_audio": {
+            "text": "Which text feature would best help a reader with \u201cHow a Seed Travels\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "map",
+            "map"
+          ],
+          "text_feature_type": "map",
+          "feature_purpose": "shows where seeds travel",
+          "title": "How a Seed Travels"
+        },
+        {
+          "question_id": "G3E_RC_003_LVL3_Q10",
+          "passage_title": "The Job of a Map Key",
+          "passage": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+          "topic": "map key",
+          "main_idea": "A map key helps readers understand map symbols.",
+          "details": [
+            "blue line may stand for a river",
+            "star may mark a capital city",
+            "understand without guessing"
+          ],
+          "prompt": "What is the purpose of the map key in \u201cThe Job of a Map Key\u201d?",
+          "question": "What is the purpose of the map key in \u201cThe Job of a Map Key\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "text_feature_map",
+          "support_type": "text_feature_map",
+          "correct_answer": "explains what symbols mean",
+          "answer": "explains what symbols mean",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "text_feature_confusion",
+          "explanation": "The text supports explains what symbols mean.",
+          "feedback": "Yes \u2014 explains what symbols mean is supported by the passage.",
+          "question_audio": {
+            "text": "What is the purpose of the map key in \u201cThe Job of a Map Key\u201d? Choices: explains what symbols mean, to hide information, to tell a character trait",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "explains what symbols mean",
+            "to hide information",
+            "to tell a character trait"
+          ],
+          "text_feature_type": "map key",
+          "feature_purpose": "explains what symbols mean",
+          "title": "The Job of a Map Key"
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RC_003_LVL4",
+      "label": "Level 4: Connect Ideas",
+      "focus": "Explain relationships between ideas in informational text.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RC_003_LVL4_Q01",
+          "passage_title": "Building a Class Weather Station",
+          "passage": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+          "topic": "class weather station",
+          "main_idea": "A weather station helps students collect and compare weather data.",
+          "details": [
+            "thermometer shows temperature",
+            "rain gauge measures rainfall",
+            "wind sock shows wind direction"
+          ],
+          "prompt": "How are the details connected to the main idea in \u201cBuilding a Class Weather Station\u201d?",
+          "question": "How are the details connected to the main idea in \u201cBuilding a Class Weather Station\u201d?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "They all explain the main idea.",
+          "answer": "They all explain the main idea.",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "The text supports They all explain the main idea..",
+          "feedback": "Yes \u2014 They all explain the main idea. is supported by the passage.",
+          "question_audio": {
+            "text": "How are the details connected to the main idea in \u201cBuilding a Class Weather Station\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "They all explain the main idea.",
+            "they all explain the main idea."
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL4_Q02",
+          "passage_title": "Why Bees Matter",
+          "passage": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+          "topic": "bees",
+          "main_idea": "Bees are important because they help plants and farms grow.",
+          "details": [
+            "move pollen",
+            "farmers depend on bees",
+            "planting flowers helps bees"
+          ],
+          "prompt": "Which evidence shows how ideas are connected in \u201cWhy Bees Matter\u201d?",
+          "question": "Which evidence shows how ideas are connected in \u201cWhy Bees Matter\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "move pollen",
+          "answer": "move pollen",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "The text supports move pollen.",
+          "feedback": "Yes \u2014 move pollen is supported by the passage.",
+          "question_audio": {
+            "text": "Which evidence shows how ideas are connected in \u201cWhy Bees Matter\u201d? Choices: move pollen, No detail supports it., Only the title matters.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "move pollen",
+            "No detail supports it.",
+            "Only the title matters."
+          ],
+          "acceptable_answers": [
+            "move pollen",
+            "move pollen"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL4_Q03",
+          "passage_title": "Saving Water at School",
+          "passage": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+          "topic": "saving water",
+          "main_idea": "Students and schools can take simple steps to save water.",
+          "details": [
+            "turn faucets off",
+            "report leaks",
+            "use rain barrels"
+          ],
+          "prompt": "How are the details connected to the main idea in \u201cSaving Water at School\u201d?",
+          "question": "How are the details connected to the main idea in \u201cSaving Water at School\u201d?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "They all explain the main idea.",
+          "answer": "They all explain the main idea.",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "The text supports They all explain the main idea..",
+          "feedback": "Yes \u2014 They all explain the main idea. is supported by the passage.",
+          "question_audio": {
+            "text": "How are the details connected to the main idea in \u201cSaving Water at School\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "They all explain the main idea.",
+            "they all explain the main idea."
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL4_Q04",
+          "passage_title": "How a Seed Travels",
+          "passage": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+          "topic": "seed travel",
+          "main_idea": "Seeds move in different ways so new plants can grow in good places.",
+          "details": [
+            "float on water",
+            "stick to animal fur",
+            "carried by wind"
+          ],
+          "prompt": "Which evidence shows how ideas are connected in \u201cHow a Seed Travels\u201d?",
+          "question": "Which evidence shows how ideas are connected in \u201cHow a Seed Travels\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "float on water",
+          "answer": "float on water",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "The text supports float on water.",
+          "feedback": "Yes \u2014 float on water is supported by the passage.",
+          "question_audio": {
+            "text": "Which evidence shows how ideas are connected in \u201cHow a Seed Travels\u201d? Choices: float on water, No detail supports it., Only the title matters.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "float on water",
+            "No detail supports it.",
+            "Only the title matters."
+          ],
+          "acceptable_answers": [
+            "float on water",
+            "float on water"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL4_Q05",
+          "passage_title": "The Job of a Map Key",
+          "passage": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+          "topic": "map key",
+          "main_idea": "A map key helps readers understand map symbols.",
+          "details": [
+            "blue line may stand for a river",
+            "star may mark a capital city",
+            "understand without guessing"
+          ],
+          "prompt": "How are the details connected to the main idea in \u201cThe Job of a Map Key\u201d?",
+          "question": "How are the details connected to the main idea in \u201cThe Job of a Map Key\u201d?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "They all explain the main idea.",
+          "answer": "They all explain the main idea.",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "The text supports They all explain the main idea..",
+          "feedback": "Yes \u2014 They all explain the main idea. is supported by the passage.",
+          "question_audio": {
+            "text": "How are the details connected to the main idea in \u201cThe Job of a Map Key\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "They all explain the main idea.",
+            "they all explain the main idea."
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL4_Q06",
+          "passage_title": "Building a Class Weather Station",
+          "passage": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+          "topic": "class weather station",
+          "main_idea": "A weather station helps students collect and compare weather data.",
+          "details": [
+            "thermometer shows temperature",
+            "rain gauge measures rainfall",
+            "wind sock shows wind direction"
+          ],
+          "prompt": "Which evidence shows how ideas are connected in \u201cBuilding a Class Weather Station\u201d?",
+          "question": "Which evidence shows how ideas are connected in \u201cBuilding a Class Weather Station\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "thermometer shows temperature",
+          "answer": "thermometer shows temperature",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "The text supports thermometer shows temperature.",
+          "feedback": "Yes \u2014 thermometer shows temperature is supported by the passage.",
+          "question_audio": {
+            "text": "Which evidence shows how ideas are connected in \u201cBuilding a Class Weather Station\u201d? Choices: thermometer shows temperature, No detail supports it., Only the title matters.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "thermometer shows temperature",
+            "No detail supports it.",
+            "Only the title matters."
+          ],
+          "acceptable_answers": [
+            "thermometer shows temperature",
+            "thermometer shows temperature"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL4_Q07",
+          "passage_title": "Why Bees Matter",
+          "passage": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+          "topic": "bees",
+          "main_idea": "Bees are important because they help plants and farms grow.",
+          "details": [
+            "move pollen",
+            "farmers depend on bees",
+            "planting flowers helps bees"
+          ],
+          "prompt": "How are the details connected to the main idea in \u201cWhy Bees Matter\u201d?",
+          "question": "How are the details connected to the main idea in \u201cWhy Bees Matter\u201d?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "They all explain the main idea.",
+          "answer": "They all explain the main idea.",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "The text supports They all explain the main idea..",
+          "feedback": "Yes \u2014 They all explain the main idea. is supported by the passage.",
+          "question_audio": {
+            "text": "How are the details connected to the main idea in \u201cWhy Bees Matter\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "They all explain the main idea.",
+            "they all explain the main idea."
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL4_Q08",
+          "passage_title": "Saving Water at School",
+          "passage": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+          "topic": "saving water",
+          "main_idea": "Students and schools can take simple steps to save water.",
+          "details": [
+            "turn faucets off",
+            "report leaks",
+            "use rain barrels"
+          ],
+          "prompt": "Which evidence shows how ideas are connected in \u201cSaving Water at School\u201d?",
+          "question": "Which evidence shows how ideas are connected in \u201cSaving Water at School\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "turn faucets off",
+          "answer": "turn faucets off",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "The text supports turn faucets off.",
+          "feedback": "Yes \u2014 turn faucets off is supported by the passage.",
+          "question_audio": {
+            "text": "Which evidence shows how ideas are connected in \u201cSaving Water at School\u201d? Choices: turn faucets off, No detail supports it., Only the title matters.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "turn faucets off",
+            "No detail supports it.",
+            "Only the title matters."
+          ],
+          "acceptable_answers": [
+            "turn faucets off",
+            "turn faucets off"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL4_Q09",
+          "passage_title": "How a Seed Travels",
+          "passage": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+          "topic": "seed travel",
+          "main_idea": "Seeds move in different ways so new plants can grow in good places.",
+          "details": [
+            "float on water",
+            "stick to animal fur",
+            "carried by wind"
+          ],
+          "prompt": "How are the details connected to the main idea in \u201cHow a Seed Travels\u201d?",
+          "question": "How are the details connected to the main idea in \u201cHow a Seed Travels\u201d?",
+          "question_type": "short_response",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "They all explain the main idea.",
+          "answer": "They all explain the main idea.",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "The text supports They all explain the main idea..",
+          "feedback": "Yes \u2014 They all explain the main idea. is supported by the passage.",
+          "question_audio": {
+            "text": "How are the details connected to the main idea in \u201cHow a Seed Travels\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "They all explain the main idea.",
+            "they all explain the main idea."
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL4_Q10",
+          "passage_title": "The Job of a Map Key",
+          "passage": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+          "topic": "map key",
+          "main_idea": "A map key helps readers understand map symbols.",
+          "details": [
+            "blue line may stand for a river",
+            "star may mark a capital city",
+            "understand without guessing"
+          ],
+          "prompt": "Which evidence shows how ideas are connected in \u201cThe Job of a Map Key\u201d?",
+          "question": "Which evidence shows how ideas are connected in \u201cThe Job of a Map Key\u201d?",
+          "question_type": "text_evidence",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "blue line may stand for a river",
+          "answer": "blue line may stand for a river",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "The text supports blue line may stand for a river.",
+          "feedback": "Yes \u2014 blue line may stand for a river is supported by the passage.",
+          "question_audio": {
+            "text": "Which evidence shows how ideas are connected in \u201cThe Job of a Map Key\u201d? Choices: blue line may stand for a river, No detail supports it., Only the title matters.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "blue line may stand for a river",
+            "No detail supports it.",
+            "Only the title matters."
+          ],
+          "acceptable_answers": [
+            "blue line may stand for a river",
+            "blue line may stand for a river"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RC_003_MIXED",
+      "label": "Mixed",
+      "focus": "Interleave main idea, details, features, and idea relationships.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RC_003_LVL5_Q01",
+          "passage_title": "Building a Class Weather Station",
+          "passage": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+          "topic": "class weather station",
+          "main_idea": "A weather station helps students collect and compare weather data.",
+          "details": [
+            "thermometer shows temperature",
+            "rain gauge measures rainfall",
+            "wind sock shows wind direction"
+          ],
+          "prompt": "What is the main idea of \u201cBuilding a Class Weather Station\u201d?",
+          "question": "What is the main idea of \u201cBuilding a Class Weather Station\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "A weather station helps students collect and compare weather data.",
+          "answer": "A weather station helps students collect and compare weather data.",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "The text supports A weather station helps students collect and compare weather data..",
+          "feedback": "Yes \u2014 A weather station helps students collect and compare weather data. is supported by the passage.",
+          "question_audio": {
+            "text": "What is the main idea of \u201cBuilding a Class Weather Station\u201d? Choices: A weather station helps students collect and compare weather data., an unsupported idea, a story theme",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "A weather station helps students collect and compare weather data.",
+            "an unsupported idea",
+            "a story theme"
+          ],
+          "text_feature_type": "diagram",
+          "feature_purpose": "shows the parts of a weather station",
+          "title": "Building a Class Weather Station",
+          "detail_cards": [
+            "thermometer shows temperature",
+            "rain gauge measures rainfall",
+            "wind sock shows wind direction"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL5_Q02",
+          "passage_title": "Why Bees Matter",
+          "passage": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+          "topic": "bees",
+          "main_idea": "Bees are important because they help plants and farms grow.",
+          "details": [
+            "move pollen",
+            "farmers depend on bees",
+            "planting flowers helps bees"
+          ],
+          "prompt": "Choose a key detail from \u201cWhy Bees Matter\u201d.",
+          "question": "Choose a key detail from \u201cWhy Bees Matter\u201d.",
+          "question_type": "detail_match",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "farmers depend on bees",
+          "answer": "farmers depend on bees",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "The text supports farmers depend on bees.",
+          "feedback": "Yes \u2014 farmers depend on bees is supported by the passage.",
+          "question_audio": {
+            "text": "Choose a key detail from \u201cWhy Bees Matter\u201d. Choices: farmers depend on bees, an unsupported idea, a story theme",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "farmers depend on bees",
+            "an unsupported idea",
+            "a story theme"
+          ],
+          "acceptable_answers": [
+            "farmers depend on bees",
+            "farmers depend on bees"
+          ],
+          "text_feature_type": "caption",
+          "feature_purpose": "explains what bees are doing in a photo",
+          "title": "Why Bees Matter",
+          "detail_cards": [
+            "move pollen",
+            "farmers depend on bees",
+            "planting flowers helps bees"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL5_Q03",
+          "passage_title": "Saving Water at School",
+          "passage": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+          "topic": "saving water",
+          "main_idea": "Students and schools can take simple steps to save water.",
+          "details": [
+            "turn faucets off",
+            "report leaks",
+            "use rain barrels"
+          ],
+          "prompt": "What does the heading help readers do?",
+          "question": "What does the heading help readers do?",
+          "question_type": "multiple_choice",
+          "visual_model": "text_feature_map",
+          "support_type": "text_feature_map",
+          "correct_answer": "names a section about ways to save water",
+          "answer": "names a section about ways to save water",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "text_feature_confusion",
+          "explanation": "The text supports names a section about ways to save water.",
+          "feedback": "Yes \u2014 names a section about ways to save water is supported by the passage.",
+          "question_audio": {
+            "text": "What does the heading help readers do? Choices: names a section about ways to save water, an unsupported idea, a story theme",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "names a section about ways to save water",
+            "an unsupported idea",
+            "a story theme"
+          ],
+          "text_feature_type": "heading",
+          "feature_purpose": "names a section about ways to save water",
+          "title": "Saving Water at School",
+          "detail_cards": [
+            "turn faucets off",
+            "report leaks",
+            "use rain barrels"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL5_Q04",
+          "passage_title": "How a Seed Travels",
+          "passage": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+          "topic": "seed travel",
+          "main_idea": "Seeds move in different ways so new plants can grow in good places.",
+          "details": [
+            "float on water",
+            "stick to animal fur",
+            "carried by wind"
+          ],
+          "prompt": "Which text evidence supports the main idea?",
+          "question": "Which text evidence supports the main idea?",
+          "question_type": "text_evidence",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "carried by wind",
+          "answer": "carried by wind",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "The text supports carried by wind.",
+          "feedback": "Yes \u2014 carried by wind is supported by the passage.",
+          "question_audio": {
+            "text": "Which text evidence supports the main idea? Choices: carried by wind, an unsupported idea, a story theme",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "carried by wind",
+            "an unsupported idea",
+            "a story theme"
+          ],
+          "acceptable_answers": [
+            "carried by wind",
+            "carried by wind"
+          ],
+          "text_feature_type": "map",
+          "feature_purpose": "shows where seeds travel",
+          "title": "How a Seed Travels",
+          "detail_cards": [
+            "float on water",
+            "stick to animal fur",
+            "carried by wind"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL5_Q05",
+          "passage_title": "The Job of a Map Key",
+          "passage": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+          "topic": "map key",
+          "main_idea": "A map key helps readers understand map symbols.",
+          "details": [
+            "blue line may stand for a river",
+            "star may mark a capital city",
+            "understand without guessing"
+          ],
+          "prompt": "What is the main idea of \u201cThe Job of a Map Key\u201d?",
+          "question": "What is the main idea of \u201cThe Job of a Map Key\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "A map key helps readers understand map symbols.",
+          "answer": "A map key helps readers understand map symbols.",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "The text supports A map key helps readers understand map symbols..",
+          "feedback": "Yes \u2014 A map key helps readers understand map symbols. is supported by the passage.",
+          "question_audio": {
+            "text": "What is the main idea of \u201cThe Job of a Map Key\u201d? Choices: A map key helps readers understand map symbols., an unsupported idea, a story theme",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "A map key helps readers understand map symbols.",
+            "an unsupported idea",
+            "a story theme"
+          ],
+          "text_feature_type": "map key",
+          "feature_purpose": "explains what symbols mean",
+          "title": "The Job of a Map Key",
+          "detail_cards": [
+            "blue line may stand for a river",
+            "star may mark a capital city",
+            "understand without guessing"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL5_Q06",
+          "passage_title": "Building a Class Weather Station",
+          "passage": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+          "topic": "class weather station",
+          "main_idea": "A weather station helps students collect and compare weather data.",
+          "details": [
+            "thermometer shows temperature",
+            "rain gauge measures rainfall",
+            "wind sock shows wind direction"
+          ],
+          "prompt": "Choose a key detail from \u201cBuilding a Class Weather Station\u201d.",
+          "question": "Choose a key detail from \u201cBuilding a Class Weather Station\u201d.",
+          "question_type": "detail_match",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "rain gauge measures rainfall",
+          "answer": "rain gauge measures rainfall",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "The text supports rain gauge measures rainfall.",
+          "feedback": "Yes \u2014 rain gauge measures rainfall is supported by the passage.",
+          "question_audio": {
+            "text": "Choose a key detail from \u201cBuilding a Class Weather Station\u201d. Choices: rain gauge measures rainfall, an unsupported idea, a story theme",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A class weather station helps students collect daily weather data. A thermometer shows temperature, a rain gauge measures rainfall, and a wind sock shows wind direction. Students compare the data to notice weather patterns each week.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "rain gauge measures rainfall",
+            "an unsupported idea",
+            "a story theme"
+          ],
+          "acceptable_answers": [
+            "rain gauge measures rainfall",
+            "rain gauge measures rainfall"
+          ],
+          "text_feature_type": "diagram",
+          "feature_purpose": "shows the parts of a weather station",
+          "title": "Building a Class Weather Station",
+          "detail_cards": [
+            "thermometer shows temperature",
+            "rain gauge measures rainfall",
+            "wind sock shows wind direction"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL5_Q07",
+          "passage_title": "Why Bees Matter",
+          "passage": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+          "topic": "bees",
+          "main_idea": "Bees are important because they help plants and farms grow.",
+          "details": [
+            "move pollen",
+            "farmers depend on bees",
+            "planting flowers helps bees"
+          ],
+          "prompt": "What does the caption help readers do?",
+          "question": "What does the caption help readers do?",
+          "question_type": "multiple_choice",
+          "visual_model": "text_feature_map",
+          "support_type": "text_feature_map",
+          "correct_answer": "explains what bees are doing in a photo",
+          "answer": "explains what bees are doing in a photo",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "text_feature_confusion",
+          "explanation": "The text supports explains what bees are doing in a photo.",
+          "feedback": "Yes \u2014 explains what bees are doing in a photo is supported by the passage.",
+          "question_audio": {
+            "text": "What does the caption help readers do? Choices: explains what bees are doing in a photo, an unsupported idea, a story theme",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Bees help many plants grow by moving pollen from flower to flower. Farmers depend on bees for fruits such as apples and berries. People can help bees by planting flowers and avoiding sprays that hurt insects.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "explains what bees are doing in a photo",
+            "an unsupported idea",
+            "a story theme"
+          ],
+          "text_feature_type": "caption",
+          "feature_purpose": "explains what bees are doing in a photo",
+          "title": "Why Bees Matter",
+          "detail_cards": [
+            "move pollen",
+            "farmers depend on bees",
+            "planting flowers helps bees"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL5_Q08",
+          "passage_title": "Saving Water at School",
+          "passage": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+          "topic": "saving water",
+          "main_idea": "Students and schools can take simple steps to save water.",
+          "details": [
+            "turn faucets off",
+            "report leaks",
+            "use rain barrels"
+          ],
+          "prompt": "Which text evidence supports the main idea?",
+          "question": "Which text evidence supports the main idea?",
+          "question_type": "text_evidence",
+          "visual_model": "short_passage",
+          "support_type": "short_passage",
+          "correct_answer": "use rain barrels",
+          "answer": "use rain barrels",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "unsupported_detail",
+          "explanation": "The text supports use rain barrels.",
+          "feedback": "Yes \u2014 use rain barrels is supported by the passage.",
+          "question_audio": {
+            "text": "Which text evidence supports the main idea? Choices: use rain barrels, an unsupported idea, a story theme",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Schools can save water in simple ways. Students can turn faucets off tightly, report leaks, and use rain barrels for gardens. These small actions keep clean water from being wasted.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "use rain barrels",
+            "an unsupported idea",
+            "a story theme"
+          ],
+          "acceptable_answers": [
+            "use rain barrels",
+            "use rain barrels"
+          ],
+          "text_feature_type": "heading",
+          "feature_purpose": "names a section about ways to save water",
+          "title": "Saving Water at School",
+          "detail_cards": [
+            "turn faucets off",
+            "report leaks",
+            "use rain barrels"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL5_Q09",
+          "passage_title": "How a Seed Travels",
+          "passage": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+          "topic": "seed travel",
+          "main_idea": "Seeds move in different ways so new plants can grow in good places.",
+          "details": [
+            "float on water",
+            "stick to animal fur",
+            "carried by wind"
+          ],
+          "prompt": "What is the main idea of \u201cHow a Seed Travels\u201d?",
+          "question": "What is the main idea of \u201cHow a Seed Travels\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "main_idea_web",
+          "support_type": "main_idea_web",
+          "correct_answer": "Seeds move in different ways so new plants can grow in good places.",
+          "answer": "Seeds move in different ways so new plants can grow in good places.",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "topic_main_idea_confusion",
+          "explanation": "The text supports Seeds move in different ways so new plants can grow in good places..",
+          "feedback": "Yes \u2014 Seeds move in different ways so new plants can grow in good places. is supported by the passage.",
+          "question_audio": {
+            "text": "What is the main idea of \u201cHow a Seed Travels\u201d? Choices: Seeds move in different ways so new plants can grow in good places., an unsupported idea, a story theme",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Seeds travel away from parent plants in several ways. Some float on water, some stick to animal fur, and some are carried by wind. Traveling helps seeds find space, sunlight, and soil.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Seeds move in different ways so new plants can grow in good places.",
+            "an unsupported idea",
+            "a story theme"
+          ],
+          "text_feature_type": "map",
+          "feature_purpose": "shows where seeds travel",
+          "title": "How a Seed Travels",
+          "detail_cards": [
+            "float on water",
+            "stick to animal fur",
+            "carried by wind"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_003_LVL5_Q10",
+          "passage_title": "The Job of a Map Key",
+          "passage": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+          "topic": "map key",
+          "main_idea": "A map key helps readers understand map symbols.",
+          "details": [
+            "blue line may stand for a river",
+            "star may mark a capital city",
+            "understand without guessing"
+          ],
+          "prompt": "Choose a key detail from \u201cThe Job of a Map Key\u201d.",
+          "question": "Choose a key detail from \u201cThe Job of a Map Key\u201d.",
+          "question_type": "detail_match",
+          "visual_model": "detail_cards",
+          "support_type": "detail_cards",
+          "correct_answer": "star may mark a capital city",
+          "answer": "star may mark a capital city",
+          "hints": [
+            "Reread the title and first sentence.",
+            "Ask which details support the idea.",
+            "Check that the answer is stated or supported by the text."
+          ],
+          "misconception_tag": "detail_selection_error",
+          "explanation": "The text supports star may mark a capital city.",
+          "feedback": "Yes \u2014 star may mark a capital city is supported by the passage.",
+          "question_audio": {
+            "text": "Choose a key detail from \u201cThe Job of a Map Key\u201d. Choices: star may mark a capital city, an unsupported idea, a story theme",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "A map key explains the symbols on a map. A blue line may stand for a river, and a star may mark a capital city. Readers use the key to understand the map without guessing.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "star may mark a capital city",
+            "an unsupported idea",
+            "a story theme"
+          ],
+          "acceptable_answers": [
+            "star may mark a capital city",
+            "star may mark a capital city"
+          ],
+          "text_feature_type": "map key",
+          "feature_purpose": "explains what symbols mean",
+          "title": "The Job of a Map Key",
+          "detail_cards": [
+            "blue line may stand for a river",
+            "star may mark a capital city",
+            "understand without guessing"
+          ]
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Read this page to enter the Main Idea, Key Details, and Text Features mission. Think about how careful readers notice the author\u2019s clues before they answer. Press Start Mission when you are ready to read, listen, and build the skill step by step.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "Read this page to learn the strategy for topic, main idea, key details, text features, and idea relationships. Look at the model words and connect each vocabulary word to the reading job. Press Next to continue after you can explain the strategy in your own words.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Read this page while the worked example shows the prompt and model. Step one, read the text carefully. Step two, find the clue that answers the question. Step three, choose the answer and check why the final answer is supported. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "Read this page to try the demo with support. Use the visual model to organize the reading clues before answering. Press Next to continue when you can tell why the answer fits the text.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Read this page before practice. Listen to the passage when the Listen button helps, then press Read Question so the question is clear. Choose your answer when you are ready, and use the hint if you need help.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "Read this page before the challenge. This question asks you to use the same strategy with less help. Press Read Question, reread the important part of the text, and answer carefully, then continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "Read this page for the checkpoint. Show what you know by reading the text, pressing Read Question, and checking your evidence before you answer. Answer carefully, then continue to see your results.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "Read this page to celebrate your progress. The badge means you practiced reading closely and explaining your thinking. Press Next to see your profile and think about where you can use this skill next.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Read this page to review your learner profile. Look at the skill, the badge, and the next practice option. Continue to Skill Practice or go back to the hub when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}

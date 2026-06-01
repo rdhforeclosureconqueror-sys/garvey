@@ -8,12 +8,14 @@ const grade1SkillIds=['G1M_NS_001','G1M_NS_002','G1M_NS_003','G1M_PV_001','G1M_O
 const grade1Packages=grade1SkillIds.map(load);
 const grade2SkillIds=['G2E_RF_001','G2E_RF_002','G2E_FL_001','G2E_VOC_001','G2E_RC_001','G2E_RC_002','G2E_RC_003','G2E_WR_001','G2E_WR_002','G2E_WR_003','G2M_PV_001','G2M_NS_001','G2M_NS_002','G2M_OP_001','G2M_OP_002','G2M_OP_003','G2M_WP_001','G2M_MD_001','G2M_MD_002','G2M_MD_003','G2M_GM_001'];
 const grade2Packages=grade2SkillIds.map(load);
-const grade3SkillIds=['G3E_RF_001','G3E_FL_001','G3E_VOC_001','G3E_RC_001','G3M_MUL_001','G3M_DIV_001','G3M_FACT_001','G3M_WP_001','G3M_PV_001','G3M_FR_001','G3M_FR_002','G3M_MD_001','G3M_GM_001','G3M_GM_002'];
+const grade3SkillIds=['G3E_RF_001','G3E_FL_001','G3E_VOC_001','G3E_RC_001','G3E_RC_002','G3E_RC_003','G3M_MUL_001','G3M_DIV_001','G3M_FACT_001','G3M_WP_001','G3M_PV_001','G3M_FR_001','G3M_FR_002','G3M_MD_001','G3M_GM_001','G3M_GM_002'];
 const grade3Packages=grade3SkillIds.map(load);
 const g3AdvancedPhonics=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_RF_001');
 const g3Fluency=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_FL_001');
 const g3Vocabulary=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_VOC_001');
 const g3TextEvidence=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_RC_001');
+const g3StoryElements=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_RC_002');
+const g3MainIdeaFeatures=grade3Packages.find((pkg)=>pkg.skill_id==='G3E_RC_003');
 const g3MultiplicationFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_MUL_001');
 const g3DivisionFoundations=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_DIV_001');
 const g3FactFluency=grade3Packages.find((pkg)=>pkg.skill_id==='G3M_FACT_001');
@@ -1178,7 +1180,9 @@ assert.match(VisualRegistry.render(g3MultiplicationQuestions.find((q)=>q.visual_
 const grade3EnglishLiteracyPackages=[
   {pkg:g3Fluency,id:'G3E_FL_001',domain:'Fluency',skill:'Reading Fluency and Expression',labels:['Level 1: Accuracy','Level 2: Phrasing','Level 3: Punctuation and Expression','Level 4: Repeated Reading','Mixed'],visuals:['sentence_card','sentence_highlight','phrase_builder','fluency_meter'],types:['multiple_choice','short_response','sentence_completion'],tags:['skips_words','punctuation_ignored','phrase_chunking_error','expression_flat_reading'],listenNeeded:true},
   {pkg:g3Vocabulary,id:'G3E_VOC_001',domain:'Vocabulary / Language',skill:'Vocabulary, Context Clues, and Word Relationships',labels:['Level 1: Context Clues','Level 2: Synonyms and Antonyms','Level 3: Shades of Meaning','Level 4: Multiple-Meaning Words','Mixed'],visuals:['context_sentence','vocabulary_match','word_card','word_scale'],types:['multiple_choice','short_response','vocabulary_match'],tags:['context_clue_ignored','synonym_antonym_confusion','shade_of_meaning_confusion','multiple_meaning_confusion'],listenNeeded:true},
-  {pkg:g3TextEvidence,id:'G3E_RC_001',domain:'Reading Comprehension',skill:'Ask and Answer Questions With Text Evidence',labels:['Level 1: Literal Questions','Level 2: Inferential Questions','Level 3: Find Text Evidence','Level 4: Explain Your Answer','Mixed'],visuals:['short_passage','question_card','evidence_highlight','text_evidence_builder'],types:['multiple_choice','short_response','text_evidence'],tags:['unsupported_answer','inference_without_evidence','misses_text_evidence','question_word_confusion'],listenNeeded:true}
+  {pkg:g3TextEvidence,id:'G3E_RC_001',domain:'Reading Comprehension',skill:'Ask and Answer Questions With Text Evidence',labels:['Level 1: Literal Questions','Level 2: Inferential Questions','Level 3: Find Text Evidence','Level 4: Explain Your Answer','Mixed'],visuals:['short_passage','question_card','evidence_highlight','text_evidence_builder'],types:['multiple_choice','short_response','text_evidence'],tags:['unsupported_answer','inference_without_evidence','misses_text_evidence','question_word_confusion'],listenNeeded:true},
+  {pkg:g3StoryElements,id:'G3E_RC_002',domain:'Reading Literature',skill:'Story Elements, Theme, and Character Response',labels:['Level 1: Characters and Setting','Level 2: Plot and Problem/Solution','Level 3: Character Traits and Response','Level 4: Theme / Lesson','Mixed'],visuals:['story_map','character_trait_chart','event_cards','theme_tracker'],types:['multiple_choice','short_response','sequencing','text_evidence'],tags:['character_trait_confusion','problem_solution_confusion','theme_detail_confusion','sequence_order_error'],listenNeeded:true},
+  {pkg:g3MainIdeaFeatures,id:'G3E_RC_003',domain:'Reading Informational Text',skill:'Main Idea, Key Details, and Text Features',labels:['Level 1: Topic and Main Idea','Level 2: Key Details','Level 3: Text Features','Level 4: Connect Ideas','Mixed'],visuals:['short_passage','main_idea_web','detail_cards','text_feature_map'],types:['multiple_choice','short_response','text_evidence','detail_match'],tags:['topic_main_idea_confusion','detail_selection_error','text_feature_confusion','unsupported_detail'],listenNeeded:true}
 ];
 grade3EnglishLiteracyPackages.forEach(({pkg,id,domain,skill,labels,visuals,types,tags})=>{
   assert.ok(pkg,`${id} package loads`);
@@ -1213,6 +1217,9 @@ grade3EnglishLiteracyPackages.forEach(({pkg,id,domain,skill,labels,visuals,types
 assert.match(VisualRegistry.render(g3Fluency.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='fluency_meter')),/data-renderer="fluency_meter"/,'fluency_meter renderer output exists');
 assert.match(VisualRegistry.render(g3Vocabulary.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='word_scale')),/data-renderer="word_scale"/,'word_scale renderer output exists');
 assert.match(VisualRegistry.render(g3TextEvidence.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='text_evidence_builder')),/data-renderer="text_evidence_builder"/,'text_evidence_builder renderer output exists');
+assert.match(VisualRegistry.render(g3StoryElements.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='character_trait_chart')),/data-renderer="character_trait_chart"/,'character_trait_chart renderer output exists');
+assert.match(VisualRegistry.render(g3StoryElements.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='theme_tracker')),/data-renderer="theme_tracker"/,'theme_tracker renderer output exists');
+assert.match(VisualRegistry.render(g3MainIdeaFeatures.level_banks.flatMap((level)=>level.questions).find((q)=>q.visual_model==='text_feature_map')),/data-renderer="text_feature_map"/,'text_feature_map renderer output exists');
 
 const grade3OperationsPackages=[
   {pkg:g3DivisionFoundations,id:'G3M_DIV_001',skill:'Division Foundations',labels:['Level 1: Equal Sharing','Level 2: Equal Groups','Level 3: Division Equations','Level 4: Multiplication and Division Relationship','Mixed'],visuals:['division_model','equal_groups','array_model','fact_family_model'],types:['multiple_choice','short_response','division_equation'],tags:['sharing_grouping_confusion','remainder_confusion','division_symbol_confusion','inverse_operation_confusion']},

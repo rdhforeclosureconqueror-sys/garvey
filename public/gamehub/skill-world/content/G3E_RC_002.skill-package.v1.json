@@ -1,0 +1,2915 @@
+{
+  "metadata": {
+    "schema_version": "skill-package.v1",
+    "source_plan": "curriculum-framework/plans/grade3-english-completion-plan.v1.json",
+    "completion_plan": "docs/grade3_english_completion_plan.md",
+    "production_proof_package": true,
+    "created_at": "2026-06-01"
+  },
+  "skill_id": "G3E_RC_002",
+  "grade": 3,
+  "subject": "English",
+  "domain": "Reading Literature",
+  "skill": "Story Elements, Theme, and Character Response",
+  "mastery_threshold": 80,
+  "difficulty_range": [
+    2,
+    4
+  ],
+  "lesson": {
+    "story_mission": "Join the Story Rangers to map characters, settings, plot problems, solutions, traits, and themes.",
+    "objective": "I can identify story elements, explain character responses, and find a theme using evidence.",
+    "key_vocabulary": [
+      "character",
+      "setting",
+      "plot",
+      "problem",
+      "solution",
+      "trait",
+      "theme"
+    ],
+    "concept_explanation": "Readers understand literature by noticing who is in the story, where it happens, what problem appears, how characters respond, and what lesson the events teach. A theme is bigger than one detail because it tells what readers can learn from the whole story.",
+    "visual_model": "story_map",
+    "common_misconception": "Readers may choose a small detail as the theme or confuse a feeling with a trait.",
+    "real_world_connection": "Story elements help readers discuss books, recommend stories, and explain why characters make choices.",
+    "lesson_summary": "Map the story, track the problem and solution, study character actions, and use evidence to name the theme.",
+    "mini_lesson": "First find the characters and setting. Next sequence the problem and solution. Then connect actions to traits and use the ending to infer the theme.",
+    "audio": {
+      "text": "character, setting, plot, problem, solution, trait, theme",
+      "label": "Listen",
+      "type": "sentence",
+      "repeat_count": 1,
+      "student_prompt": "Listen, then read it yourself."
+    }
+  },
+  "worked_examples": [
+    {
+      "text": "Watch: Lena is the character, the windy hill is the setting, and the tangled string is the problem. The model shows how the solution and theme grow from the events.",
+      "correct_answer": "Lena keeps trying and shares success.",
+      "visual_model": "story_map",
+      "passage": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+      "character": "Lena",
+      "setting": "windy hill",
+      "events": [
+        "The kite string tangled",
+        "Lena tried again and helped her brother"
+      ],
+      "audio": {
+        "text": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    },
+    {
+      "text": "Demo: Lena is patient because she takes a slow breath and tries again. That evidence supports the trait better than a feeling like happy.",
+      "correct_answer": "patient",
+      "visual_model": "character_trait_chart",
+      "character": "Lena",
+      "trait": "patient",
+      "action_evidence": [
+        "took a slow breath and tried again"
+      ],
+      "audio": {
+        "text": "Lena took a slow breath and tried again.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      }
+    }
+  ],
+  "hint_ladder": [
+    "Reread the beginning for characters and setting.",
+    "Track the problem before the solution.",
+    "Use actions and the ending to infer traits and theme."
+  ],
+  "guided_practice": [
+    {
+      "question_id": "G3E_RC_002_LVL1_Q01",
+      "passage_title": "Lena and the Kite",
+      "passage": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+      "prompt": "What is the setting of \u201cLena and the Kite\u201d?",
+      "question": "What is the setting of \u201cLena and the Kite\u201d?",
+      "question_type": "short_response",
+      "visual_model": "story_map",
+      "support_type": "story_map",
+      "correct_answer": "windy hill",
+      "answer": "windy hill",
+      "hints": [
+        "Reread the story clue.",
+        "Match the answer to what the character does.",
+        "Check that your answer fits the whole story."
+      ],
+      "misconception_tag": "sequence_order_error",
+      "explanation": "The story clue supports windy hill.",
+      "feedback": "Yes \u2014 windy hill fits the story evidence.",
+      "question_audio": {
+        "text": "What is the setting of \u201cLena and the Kite\u201d?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "acceptable_answers": [
+        "windy hill",
+        "windy hill"
+      ],
+      "character": "Lena",
+      "setting": "windy hill",
+      "events": [
+        "The kite string tangled",
+        "Lena tried again and helped her brother"
+      ]
+    },
+    {
+      "question_id": "G3E_RC_002_LVL1_Q02",
+      "passage_title": "Marco\u2019s Missing Drum",
+      "passage": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+      "prompt": "In \u201cMarco\u2019s Missing Drum,\u201d who is the main character?",
+      "question": "In \u201cMarco\u2019s Missing Drum,\u201d who is the main character?",
+      "question_type": "multiple_choice",
+      "visual_model": "story_map",
+      "support_type": "story_map",
+      "correct_answer": "Marco",
+      "answer": "Marco",
+      "hints": [
+        "Reread the story clue.",
+        "Match the answer to what the character does.",
+        "Check that your answer fits the whole story."
+      ],
+      "misconception_tag": "character_trait_confusion",
+      "explanation": "The story clue supports Marco.",
+      "feedback": "Yes \u2014 Marco fits the story evidence.",
+      "question_audio": {
+        "text": "In \u201cMarco\u2019s Missing Drum,\u201d who is the main character? Choices: Marco, the principal, a dragon",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "Marco",
+        "the principal",
+        "a dragon"
+      ],
+      "character": "Marco",
+      "setting": "school/music room",
+      "events": [
+        "Marco could not find his drum",
+        "He searched and remembered the bench"
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "question_id": "G3E_RC_002_LVL3_Q01",
+      "passage_title": "Lena and the Kite",
+      "passage": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+      "prompt": "Which trait best describes Lena?",
+      "question": "Which trait best describes Lena?",
+      "question_type": "multiple_choice",
+      "visual_model": "character_trait_chart",
+      "support_type": "character_trait_chart",
+      "correct_answer": "patient",
+      "answer": "patient",
+      "hints": [
+        "Reread the story clue.",
+        "Match the answer to what the character does.",
+        "Check that your answer fits the whole story."
+      ],
+      "misconception_tag": "character_trait_confusion",
+      "explanation": "The story clue supports patient.",
+      "feedback": "Yes \u2014 patient fits the story evidence.",
+      "question_audio": {
+        "text": "Which trait best describes Lena? Choices: patient, careless, boastful",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "patient",
+        "careless",
+        "boastful"
+      ],
+      "character": "Lena",
+      "trait": "patient",
+      "action_evidence": [
+        "took a slow breath and tried again"
+      ]
+    },
+    {
+      "question_id": "G3E_RC_002_LVL3_Q02",
+      "passage_title": "Marco\u2019s Missing Drum",
+      "passage": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+      "prompt": "Which evidence shows that Marco is responsible?",
+      "question": "Which evidence shows that Marco is responsible?",
+      "question_type": "text_evidence",
+      "visual_model": "character_trait_chart",
+      "support_type": "character_trait_chart",
+      "correct_answer": "searched the music room and asked classmates",
+      "answer": "searched the music room and asked classmates",
+      "hints": [
+        "Reread the story clue.",
+        "Match the answer to what the character does.",
+        "Check that your answer fits the whole story."
+      ],
+      "misconception_tag": "character_trait_confusion",
+      "explanation": "The story clue supports searched the music room and asked classmates.",
+      "feedback": "Yes \u2014 searched the music room and asked classmates fits the story evidence.",
+      "question_audio": {
+        "text": "Which evidence shows that Marco is responsible? Choices: searched the music room and asked classmates, ignored everyone, forgot the problem",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "searched the music room and asked classmates",
+        "ignored everyone",
+        "forgot the problem"
+      ],
+      "acceptable_answers": [
+        "searched the music room and asked classmates",
+        "searched the music room and asked classmates"
+      ],
+      "character": "Marco",
+      "trait": "responsible",
+      "action_evidence": [
+        "searched the music room and asked classmates"
+      ]
+    }
+  ],
+  "checkpoint": [
+    {
+      "question_id": "G3E_RC_002_LVL4_Q02",
+      "passage_title": "Marco\u2019s Missing Drum",
+      "passage": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+      "prompt": "What lesson does \u201cMarco\u2019s Missing Drum\u201d teach?",
+      "question": "What lesson does \u201cMarco\u2019s Missing Drum\u201d teach?",
+      "question_type": "short_response",
+      "visual_model": "theme_tracker",
+      "support_type": "theme_tracker",
+      "correct_answer": "Stay calm and solve problems step by step.",
+      "answer": "Stay calm and solve problems step by step.",
+      "hints": [
+        "Reread the story clue.",
+        "Match the answer to what the character does.",
+        "Check that your answer fits the whole story."
+      ],
+      "misconception_tag": "theme_detail_confusion",
+      "explanation": "The story clue supports Stay calm and solve problems step by step..",
+      "feedback": "Yes \u2014 Stay calm and solve problems step by step. fits the story evidence.",
+      "question_audio": {
+        "text": "What lesson does \u201cMarco\u2019s Missing Drum\u201d teach?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "acceptable_answers": [
+        "Stay calm and solve problems step by step.",
+        "stay calm and solve problems step by step."
+      ],
+      "theme": "Stay calm and solve problems step by step.",
+      "theme_clues": [
+        "Marco could not find his drum",
+        "He searched and remembered the bench",
+        "searched the music room and asked classmates"
+      ]
+    }
+  ],
+  "misconception_bank": {
+    "character_trait_confusion": "A reader names a feeling or one action instead of a stable character trait.",
+    "problem_solution_confusion": "A reader mixes up what went wrong with how the character fixed it.",
+    "theme_detail_confusion": "A reader chooses one detail instead of the bigger lesson.",
+    "sequence_order_error": "A reader retells events out of order."
+  },
+  "review_bank": [
+    {
+      "question_id": "G3E_RC_002_LVL5_Q01",
+      "passage_title": "Lena and the Kite",
+      "passage": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+      "prompt": "Who is the main character in \u201cLena and the Kite\u201d?",
+      "question": "Who is the main character in \u201cLena and the Kite\u201d?",
+      "question_type": "multiple_choice",
+      "visual_model": "story_map",
+      "support_type": "story_map",
+      "correct_answer": "Lena",
+      "answer": "Lena",
+      "hints": [
+        "Reread the story clue.",
+        "Match the answer to what the character does.",
+        "Check that your answer fits the whole story."
+      ],
+      "misconception_tag": "character_trait_confusion",
+      "explanation": "The story clue supports Lena.",
+      "feedback": "Yes \u2014 Lena fits the story evidence.",
+      "question_audio": {
+        "text": "Who is the main character in \u201cLena and the Kite\u201d? Choices: Lena, a detail from another story, the title only",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "choices": [
+        "Lena",
+        "a detail from another story",
+        "the title only"
+      ],
+      "character": "Lena",
+      "trait": "patient",
+      "action_evidence": [
+        "took a slow breath and tried again"
+      ],
+      "theme": "Keep trying and share success.",
+      "theme_clues": [
+        "The kite string tangled",
+        "Lena tried again and helped her brother"
+      ],
+      "events": [
+        "The kite string tangled",
+        "Lena tried again and helped her brother"
+      ]
+    },
+    {
+      "question_id": "G3E_RC_002_LVL5_Q02",
+      "passage_title": "Marco\u2019s Missing Drum",
+      "passage": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+      "prompt": "Which event solves the problem in \u201cMarco\u2019s Missing Drum\u201d?",
+      "question": "Which event solves the problem in \u201cMarco\u2019s Missing Drum\u201d?",
+      "question_type": "sequencing",
+      "visual_model": "event_cards",
+      "support_type": "event_cards",
+      "correct_answer": "He searched and remembered the bench",
+      "answer": "He searched and remembered the bench",
+      "hints": [
+        "Reread the story clue.",
+        "Match the answer to what the character does.",
+        "Check that your answer fits the whole story."
+      ],
+      "misconception_tag": "problem_solution_confusion",
+      "explanation": "The story clue supports He searched and remembered the bench.",
+      "feedback": "Yes \u2014 He searched and remembered the bench fits the story evidence.",
+      "question_audio": {
+        "text": "Which event solves the problem in \u201cMarco\u2019s Missing Drum\u201d?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "playback_preference": "cached_audio_first"
+      },
+      "audio": {
+        "text": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+        "label": "Listen",
+        "type": "sentence",
+        "repeat_count": 1,
+        "student_prompt": "Listen, then read it yourself."
+      },
+      "acceptable_answers": [
+        "He searched and remembered the bench",
+        "he searched and remembered the bench"
+      ],
+      "character": "Marco",
+      "trait": "responsible",
+      "action_evidence": [
+        "searched the music room and asked classmates"
+      ],
+      "theme": "Stay calm and solve problems step by step.",
+      "theme_clues": [
+        "Marco could not find his drum",
+        "He searched and remembered the bench"
+      ],
+      "events": [
+        "Marco could not find his drum",
+        "He searched and remembered the bench"
+      ]
+    }
+  ],
+  "game_theme": {
+    "title": "Story Elements, Theme, and Character Response",
+    "mission_intro": "Join the Story Rangers to map story clues and explain what characters teach us.",
+    "badge_name": "Story Ranger Badge",
+    "world": "Grade 3 English Studio"
+  },
+  "next_skill_id": "G3E_RC_003",
+  "remediation_skill_id": "G3E_RC_001",
+  "level_banks": [
+    {
+      "level_id": "G3E_RC_002_LVL1",
+      "label": "Level 1: Characters and Setting",
+      "focus": "Identify who is in the story and where or when it happens.",
+      "difficulty": 2,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RC_002_LVL1_Q01",
+          "passage_title": "Lena and the Kite",
+          "passage": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+          "prompt": "What is the setting of \u201cLena and the Kite\u201d?",
+          "question": "What is the setting of \u201cLena and the Kite\u201d?",
+          "question_type": "short_response",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "windy hill",
+          "answer": "windy hill",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The story clue supports windy hill.",
+          "feedback": "Yes \u2014 windy hill fits the story evidence.",
+          "question_audio": {
+            "text": "What is the setting of \u201cLena and the Kite\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "windy hill",
+            "windy hill"
+          ],
+          "character": "Lena",
+          "setting": "windy hill",
+          "events": [
+            "The kite string tangled",
+            "Lena tried again and helped her brother"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL1_Q02",
+          "passage_title": "Marco\u2019s Missing Drum",
+          "passage": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+          "prompt": "In \u201cMarco\u2019s Missing Drum,\u201d who is the main character?",
+          "question": "In \u201cMarco\u2019s Missing Drum,\u201d who is the main character?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Marco",
+          "answer": "Marco",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports Marco.",
+          "feedback": "Yes \u2014 Marco fits the story evidence.",
+          "question_audio": {
+            "text": "In \u201cMarco\u2019s Missing Drum,\u201d who is the main character? Choices: Marco, the principal, a dragon",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Marco",
+            "the principal",
+            "a dragon"
+          ],
+          "character": "Marco",
+          "setting": "school/music room",
+          "events": [
+            "Marco could not find his drum",
+            "He searched and remembered the bench"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL1_Q03",
+          "passage_title": "The Garden Gate",
+          "passage": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+          "prompt": "What is the setting of \u201cThe Garden Gate\u201d?",
+          "question": "What is the setting of \u201cThe Garden Gate\u201d?",
+          "question_type": "short_response",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "school garden",
+          "answer": "school garden",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The story clue supports school garden.",
+          "feedback": "Yes \u2014 school garden fits the story evidence.",
+          "question_audio": {
+            "text": "What is the setting of \u201cThe Garden Gate\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "school garden",
+            "school garden"
+          ],
+          "character": "Priya",
+          "setting": "school garden",
+          "events": [
+            "Rain bent the bean plants",
+            "Priya and Omar built a stick gate"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL1_Q04",
+          "passage_title": "Jamal\u2019s Library Card",
+          "passage": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+          "prompt": "In \u201cJamal\u2019s Library Card,\u201d who is the main character?",
+          "question": "In \u201cJamal\u2019s Library Card,\u201d who is the main character?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Jamal",
+          "answer": "Jamal",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports Jamal.",
+          "feedback": "Yes \u2014 Jamal fits the story evidence.",
+          "question_audio": {
+            "text": "In \u201cJamal\u2019s Library Card,\u201d who is the main character? Choices: Jamal, the principal, a dragon",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Jamal",
+            "the principal",
+            "a dragon"
+          ],
+          "character": "Jamal",
+          "setting": "library",
+          "events": [
+            "Mia got the mystery book first",
+            "Jamal chose another book and learned about comets"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL1_Q05",
+          "passage_title": "The Quiet Goal",
+          "passage": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+          "prompt": "What is the setting of \u201cThe Quiet Goal\u201d?",
+          "question": "What is the setting of \u201cThe Quiet Goal\u201d?",
+          "question_type": "short_response",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "recess soccer field",
+          "answer": "recess soccer field",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The story clue supports recess soccer field.",
+          "feedback": "Yes \u2014 recess soccer field fits the story evidence.",
+          "question_audio": {
+            "text": "What is the setting of \u201cThe Quiet Goal\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "recess soccer field",
+            "recess soccer field"
+          ],
+          "character": "Nora",
+          "setting": "recess soccer field",
+          "events": [
+            "Nora missed two shots",
+            "She practiced and passed to Eli"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL1_Q06",
+          "passage_title": "Lena and the Kite",
+          "passage": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+          "prompt": "In \u201cLena and the Kite,\u201d who is the main character?",
+          "question": "In \u201cLena and the Kite,\u201d who is the main character?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Lena",
+          "answer": "Lena",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports Lena.",
+          "feedback": "Yes \u2014 Lena fits the story evidence.",
+          "question_audio": {
+            "text": "In \u201cLena and the Kite,\u201d who is the main character? Choices: Lena, the principal, a dragon",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Lena",
+            "the principal",
+            "a dragon"
+          ],
+          "character": "Lena",
+          "setting": "windy hill",
+          "events": [
+            "The kite string tangled",
+            "Lena tried again and helped her brother"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL1_Q07",
+          "passage_title": "Marco\u2019s Missing Drum",
+          "passage": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+          "prompt": "What is the setting of \u201cMarco\u2019s Missing Drum\u201d?",
+          "question": "What is the setting of \u201cMarco\u2019s Missing Drum\u201d?",
+          "question_type": "short_response",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "school/music room",
+          "answer": "school/music room",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The story clue supports school/music room.",
+          "feedback": "Yes \u2014 school/music room fits the story evidence.",
+          "question_audio": {
+            "text": "What is the setting of \u201cMarco\u2019s Missing Drum\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "school/music room",
+            "school/music room"
+          ],
+          "character": "Marco",
+          "setting": "school/music room",
+          "events": [
+            "Marco could not find his drum",
+            "He searched and remembered the bench"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL1_Q08",
+          "passage_title": "The Garden Gate",
+          "passage": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+          "prompt": "In \u201cThe Garden Gate,\u201d who is the main character?",
+          "question": "In \u201cThe Garden Gate,\u201d who is the main character?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Priya",
+          "answer": "Priya",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports Priya.",
+          "feedback": "Yes \u2014 Priya fits the story evidence.",
+          "question_audio": {
+            "text": "In \u201cThe Garden Gate,\u201d who is the main character? Choices: Priya, the principal, a dragon",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Priya",
+            "the principal",
+            "a dragon"
+          ],
+          "character": "Priya",
+          "setting": "school garden",
+          "events": [
+            "Rain bent the bean plants",
+            "Priya and Omar built a stick gate"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL1_Q09",
+          "passage_title": "Jamal\u2019s Library Card",
+          "passage": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+          "prompt": "What is the setting of \u201cJamal\u2019s Library Card\u201d?",
+          "question": "What is the setting of \u201cJamal\u2019s Library Card\u201d?",
+          "question_type": "short_response",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "library",
+          "answer": "library",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The story clue supports library.",
+          "feedback": "Yes \u2014 library fits the story evidence.",
+          "question_audio": {
+            "text": "What is the setting of \u201cJamal\u2019s Library Card\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "library",
+            "library"
+          ],
+          "character": "Jamal",
+          "setting": "library",
+          "events": [
+            "Mia got the mystery book first",
+            "Jamal chose another book and learned about comets"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL1_Q10",
+          "passage_title": "The Quiet Goal",
+          "passage": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+          "prompt": "In \u201cThe Quiet Goal,\u201d who is the main character?",
+          "question": "In \u201cThe Quiet Goal,\u201d who is the main character?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Nora",
+          "answer": "Nora",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports Nora.",
+          "feedback": "Yes \u2014 Nora fits the story evidence.",
+          "question_audio": {
+            "text": "In \u201cThe Quiet Goal,\u201d who is the main character? Choices: Nora, the principal, a dragon",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Nora",
+            "the principal",
+            "a dragon"
+          ],
+          "character": "Nora",
+          "setting": "recess soccer field",
+          "events": [
+            "Nora missed two shots",
+            "She practiced and passed to Eli"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RC_002_LVL2",
+      "label": "Level 2: Plot and Problem/Solution",
+      "focus": "Track events, problems, and solutions in order.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RC_002_LVL2_Q01",
+          "passage_title": "Lena and the Kite",
+          "passage": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+          "prompt": "Put the story events from \u201cLena and the Kite\u201d in order.",
+          "question": "Put the story events from \u201cLena and the Kite\u201d in order.",
+          "question_type": "sequencing",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "problem then solution",
+          "answer": "problem then solution",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The story clue supports problem then solution.",
+          "feedback": "Yes \u2014 problem then solution fits the story evidence.",
+          "question_audio": {
+            "text": "Put the story events from \u201cLena and the Kite\u201d in order.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "problem then solution",
+            "problem then solution"
+          ],
+          "events": [
+            "The kite string tangled",
+            "Lena tried again and helped her brother",
+            "The character learns something"
+          ],
+          "sequence": [
+            "The kite string tangled",
+            "Lena tried again and helped her brother"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL2_Q02",
+          "passage_title": "Marco\u2019s Missing Drum",
+          "passage": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+          "prompt": "Which event happens after this problem: Marco could not find his drum?",
+          "question": "Which event happens after this problem: Marco could not find his drum?",
+          "question_type": "multiple_choice",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "He searched and remembered the bench",
+          "answer": "He searched and remembered the bench",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "The story clue supports He searched and remembered the bench.",
+          "feedback": "Yes \u2014 He searched and remembered the bench fits the story evidence.",
+          "question_audio": {
+            "text": "Which event happens after this problem: Marco could not find his drum? Choices: He searched and remembered the bench, The character moves to Mars, The story starts over",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "He searched and remembered the bench",
+            "The character moves to Mars",
+            "The story starts over"
+          ],
+          "events": [
+            "Marco could not find his drum",
+            "He searched and remembered the bench",
+            "The character learns something"
+          ],
+          "sequence": [
+            "Marco could not find his drum",
+            "He searched and remembered the bench"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL2_Q03",
+          "passage_title": "The Garden Gate",
+          "passage": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+          "prompt": "Put the story events from \u201cThe Garden Gate\u201d in order.",
+          "question": "Put the story events from \u201cThe Garden Gate\u201d in order.",
+          "question_type": "sequencing",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "problem then solution",
+          "answer": "problem then solution",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The story clue supports problem then solution.",
+          "feedback": "Yes \u2014 problem then solution fits the story evidence.",
+          "question_audio": {
+            "text": "Put the story events from \u201cThe Garden Gate\u201d in order.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "problem then solution",
+            "problem then solution"
+          ],
+          "events": [
+            "Rain bent the bean plants",
+            "Priya and Omar built a stick gate",
+            "The character learns something"
+          ],
+          "sequence": [
+            "Rain bent the bean plants",
+            "Priya and Omar built a stick gate"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL2_Q04",
+          "passage_title": "Jamal\u2019s Library Card",
+          "passage": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+          "prompt": "Which event happens after this problem: Mia got the mystery book first?",
+          "question": "Which event happens after this problem: Mia got the mystery book first?",
+          "question_type": "multiple_choice",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "Jamal chose another book and learned about comets",
+          "answer": "Jamal chose another book and learned about comets",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "The story clue supports Jamal chose another book and learned about comets.",
+          "feedback": "Yes \u2014 Jamal chose another book and learned about comets fits the story evidence.",
+          "question_audio": {
+            "text": "Which event happens after this problem: Mia got the mystery book first? Choices: Jamal chose another book and learned about comets, The character moves to Mars, The story starts over",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Jamal chose another book and learned about comets",
+            "The character moves to Mars",
+            "The story starts over"
+          ],
+          "events": [
+            "Mia got the mystery book first",
+            "Jamal chose another book and learned about comets",
+            "The character learns something"
+          ],
+          "sequence": [
+            "Mia got the mystery book first",
+            "Jamal chose another book and learned about comets"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL2_Q05",
+          "passage_title": "The Quiet Goal",
+          "passage": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+          "prompt": "Put the story events from \u201cThe Quiet Goal\u201d in order.",
+          "question": "Put the story events from \u201cThe Quiet Goal\u201d in order.",
+          "question_type": "sequencing",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "problem then solution",
+          "answer": "problem then solution",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The story clue supports problem then solution.",
+          "feedback": "Yes \u2014 problem then solution fits the story evidence.",
+          "question_audio": {
+            "text": "Put the story events from \u201cThe Quiet Goal\u201d in order.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "problem then solution",
+            "problem then solution"
+          ],
+          "events": [
+            "Nora missed two shots",
+            "She practiced and passed to Eli",
+            "The character learns something"
+          ],
+          "sequence": [
+            "Nora missed two shots",
+            "She practiced and passed to Eli"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL2_Q06",
+          "passage_title": "Lena and the Kite",
+          "passage": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+          "prompt": "Which event happens after this problem: The kite string tangled?",
+          "question": "Which event happens after this problem: The kite string tangled?",
+          "question_type": "multiple_choice",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "Lena tried again and helped her brother",
+          "answer": "Lena tried again and helped her brother",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "The story clue supports Lena tried again and helped her brother.",
+          "feedback": "Yes \u2014 Lena tried again and helped her brother fits the story evidence.",
+          "question_audio": {
+            "text": "Which event happens after this problem: The kite string tangled? Choices: Lena tried again and helped her brother, The character moves to Mars, The story starts over",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Lena tried again and helped her brother",
+            "The character moves to Mars",
+            "The story starts over"
+          ],
+          "events": [
+            "The kite string tangled",
+            "Lena tried again and helped her brother",
+            "The character learns something"
+          ],
+          "sequence": [
+            "The kite string tangled",
+            "Lena tried again and helped her brother"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL2_Q07",
+          "passage_title": "Marco\u2019s Missing Drum",
+          "passage": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+          "prompt": "Put the story events from \u201cMarco\u2019s Missing Drum\u201d in order.",
+          "question": "Put the story events from \u201cMarco\u2019s Missing Drum\u201d in order.",
+          "question_type": "sequencing",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "problem then solution",
+          "answer": "problem then solution",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The story clue supports problem then solution.",
+          "feedback": "Yes \u2014 problem then solution fits the story evidence.",
+          "question_audio": {
+            "text": "Put the story events from \u201cMarco\u2019s Missing Drum\u201d in order.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "problem then solution",
+            "problem then solution"
+          ],
+          "events": [
+            "Marco could not find his drum",
+            "He searched and remembered the bench",
+            "The character learns something"
+          ],
+          "sequence": [
+            "Marco could not find his drum",
+            "He searched and remembered the bench"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL2_Q08",
+          "passage_title": "The Garden Gate",
+          "passage": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+          "prompt": "Which event happens after this problem: Rain bent the bean plants?",
+          "question": "Which event happens after this problem: Rain bent the bean plants?",
+          "question_type": "multiple_choice",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "Priya and Omar built a stick gate",
+          "answer": "Priya and Omar built a stick gate",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "The story clue supports Priya and Omar built a stick gate.",
+          "feedback": "Yes \u2014 Priya and Omar built a stick gate fits the story evidence.",
+          "question_audio": {
+            "text": "Which event happens after this problem: Rain bent the bean plants? Choices: Priya and Omar built a stick gate, The character moves to Mars, The story starts over",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Priya and Omar built a stick gate",
+            "The character moves to Mars",
+            "The story starts over"
+          ],
+          "events": [
+            "Rain bent the bean plants",
+            "Priya and Omar built a stick gate",
+            "The character learns something"
+          ],
+          "sequence": [
+            "Rain bent the bean plants",
+            "Priya and Omar built a stick gate"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL2_Q09",
+          "passage_title": "Jamal\u2019s Library Card",
+          "passage": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+          "prompt": "Put the story events from \u201cJamal\u2019s Library Card\u201d in order.",
+          "question": "Put the story events from \u201cJamal\u2019s Library Card\u201d in order.",
+          "question_type": "sequencing",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "problem then solution",
+          "answer": "problem then solution",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The story clue supports problem then solution.",
+          "feedback": "Yes \u2014 problem then solution fits the story evidence.",
+          "question_audio": {
+            "text": "Put the story events from \u201cJamal\u2019s Library Card\u201d in order.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "problem then solution",
+            "problem then solution"
+          ],
+          "events": [
+            "Mia got the mystery book first",
+            "Jamal chose another book and learned about comets",
+            "The character learns something"
+          ],
+          "sequence": [
+            "Mia got the mystery book first",
+            "Jamal chose another book and learned about comets"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL2_Q10",
+          "passage_title": "The Quiet Goal",
+          "passage": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+          "prompt": "Which event happens after this problem: Nora missed two shots?",
+          "question": "Which event happens after this problem: Nora missed two shots?",
+          "question_type": "multiple_choice",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "She practiced and passed to Eli",
+          "answer": "She practiced and passed to Eli",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "The story clue supports She practiced and passed to Eli.",
+          "feedback": "Yes \u2014 She practiced and passed to Eli fits the story evidence.",
+          "question_audio": {
+            "text": "Which event happens after this problem: Nora missed two shots? Choices: She practiced and passed to Eli, The character moves to Mars, The story starts over",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "She practiced and passed to Eli",
+            "The character moves to Mars",
+            "The story starts over"
+          ],
+          "events": [
+            "Nora missed two shots",
+            "She practiced and passed to Eli",
+            "The character learns something"
+          ],
+          "sequence": [
+            "Nora missed two shots",
+            "She practiced and passed to Eli"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RC_002_LVL3",
+      "label": "Level 3: Character Traits and Response",
+      "focus": "Use actions and words to describe traits and responses.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RC_002_LVL3_Q01",
+          "passage_title": "Lena and the Kite",
+          "passage": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+          "prompt": "Which trait best describes Lena?",
+          "question": "Which trait best describes Lena?",
+          "question_type": "multiple_choice",
+          "visual_model": "character_trait_chart",
+          "support_type": "character_trait_chart",
+          "correct_answer": "patient",
+          "answer": "patient",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports patient.",
+          "feedback": "Yes \u2014 patient fits the story evidence.",
+          "question_audio": {
+            "text": "Which trait best describes Lena? Choices: patient, careless, boastful",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "patient",
+            "careless",
+            "boastful"
+          ],
+          "character": "Lena",
+          "trait": "patient",
+          "action_evidence": [
+            "took a slow breath and tried again"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL3_Q02",
+          "passage_title": "Marco\u2019s Missing Drum",
+          "passage": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+          "prompt": "Which evidence shows that Marco is responsible?",
+          "question": "Which evidence shows that Marco is responsible?",
+          "question_type": "text_evidence",
+          "visual_model": "character_trait_chart",
+          "support_type": "character_trait_chart",
+          "correct_answer": "searched the music room and asked classmates",
+          "answer": "searched the music room and asked classmates",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports searched the music room and asked classmates.",
+          "feedback": "Yes \u2014 searched the music room and asked classmates fits the story evidence.",
+          "question_audio": {
+            "text": "Which evidence shows that Marco is responsible? Choices: searched the music room and asked classmates, ignored everyone, forgot the problem",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "searched the music room and asked classmates",
+            "ignored everyone",
+            "forgot the problem"
+          ],
+          "acceptable_answers": [
+            "searched the music room and asked classmates",
+            "searched the music room and asked classmates"
+          ],
+          "character": "Marco",
+          "trait": "responsible",
+          "action_evidence": [
+            "searched the music room and asked classmates"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL3_Q03",
+          "passage_title": "The Garden Gate",
+          "passage": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+          "prompt": "Which trait best describes Priya?",
+          "question": "Which trait best describes Priya?",
+          "question_type": "multiple_choice",
+          "visual_model": "character_trait_chart",
+          "support_type": "character_trait_chart",
+          "correct_answer": "helpful",
+          "answer": "helpful",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports helpful.",
+          "feedback": "Yes \u2014 helpful fits the story evidence.",
+          "question_audio": {
+            "text": "Which trait best describes Priya? Choices: helpful, careless, boastful",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "helpful",
+            "careless",
+            "boastful"
+          ],
+          "character": "Priya",
+          "trait": "helpful",
+          "action_evidence": [
+            "built a small stick gate"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL3_Q04",
+          "passage_title": "Jamal\u2019s Library Card",
+          "passage": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+          "prompt": "Which evidence shows that Jamal is flexible?",
+          "question": "Which evidence shows that Jamal is flexible?",
+          "question_type": "text_evidence",
+          "visual_model": "character_trait_chart",
+          "support_type": "character_trait_chart",
+          "correct_answer": "chose a science book",
+          "answer": "chose a science book",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports chose a science book.",
+          "feedback": "Yes \u2014 chose a science book fits the story evidence.",
+          "question_audio": {
+            "text": "Which evidence shows that Jamal is flexible? Choices: chose a science book, ignored everyone, forgot the problem",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "chose a science book",
+            "ignored everyone",
+            "forgot the problem"
+          ],
+          "acceptable_answers": [
+            "chose a science book",
+            "chose a science book"
+          ],
+          "character": "Jamal",
+          "trait": "flexible",
+          "action_evidence": [
+            "chose a science book"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL3_Q05",
+          "passage_title": "The Quiet Goal",
+          "passage": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+          "prompt": "Which trait best describes Nora?",
+          "question": "Which trait best describes Nora?",
+          "question_type": "multiple_choice",
+          "visual_model": "character_trait_chart",
+          "support_type": "character_trait_chart",
+          "correct_answer": "determined",
+          "answer": "determined",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports determined.",
+          "feedback": "Yes \u2014 determined fits the story evidence.",
+          "question_audio": {
+            "text": "Which trait best describes Nora? Choices: determined, careless, boastful",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "determined",
+            "careless",
+            "boastful"
+          ],
+          "character": "Nora",
+          "trait": "determined",
+          "action_evidence": [
+            "practiced aiming at the corner"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL3_Q06",
+          "passage_title": "Lena and the Kite",
+          "passage": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+          "prompt": "Which evidence shows that Lena is patient?",
+          "question": "Which evidence shows that Lena is patient?",
+          "question_type": "text_evidence",
+          "visual_model": "character_trait_chart",
+          "support_type": "character_trait_chart",
+          "correct_answer": "took a slow breath and tried again",
+          "answer": "took a slow breath and tried again",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports took a slow breath and tried again.",
+          "feedback": "Yes \u2014 took a slow breath and tried again fits the story evidence.",
+          "question_audio": {
+            "text": "Which evidence shows that Lena is patient? Choices: took a slow breath and tried again, ignored everyone, forgot the problem",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "took a slow breath and tried again",
+            "ignored everyone",
+            "forgot the problem"
+          ],
+          "acceptable_answers": [
+            "took a slow breath and tried again",
+            "took a slow breath and tried again"
+          ],
+          "character": "Lena",
+          "trait": "patient",
+          "action_evidence": [
+            "took a slow breath and tried again"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL3_Q07",
+          "passage_title": "Marco\u2019s Missing Drum",
+          "passage": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+          "prompt": "Which trait best describes Marco?",
+          "question": "Which trait best describes Marco?",
+          "question_type": "multiple_choice",
+          "visual_model": "character_trait_chart",
+          "support_type": "character_trait_chart",
+          "correct_answer": "responsible",
+          "answer": "responsible",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports responsible.",
+          "feedback": "Yes \u2014 responsible fits the story evidence.",
+          "question_audio": {
+            "text": "Which trait best describes Marco? Choices: responsible, careless, boastful",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "responsible",
+            "careless",
+            "boastful"
+          ],
+          "character": "Marco",
+          "trait": "responsible",
+          "action_evidence": [
+            "searched the music room and asked classmates"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL3_Q08",
+          "passage_title": "The Garden Gate",
+          "passage": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+          "prompt": "Which evidence shows that Priya is helpful?",
+          "question": "Which evidence shows that Priya is helpful?",
+          "question_type": "text_evidence",
+          "visual_model": "character_trait_chart",
+          "support_type": "character_trait_chart",
+          "correct_answer": "built a small stick gate",
+          "answer": "built a small stick gate",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports built a small stick gate.",
+          "feedback": "Yes \u2014 built a small stick gate fits the story evidence.",
+          "question_audio": {
+            "text": "Which evidence shows that Priya is helpful? Choices: built a small stick gate, ignored everyone, forgot the problem",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "built a small stick gate",
+            "ignored everyone",
+            "forgot the problem"
+          ],
+          "acceptable_answers": [
+            "built a small stick gate",
+            "built a small stick gate"
+          ],
+          "character": "Priya",
+          "trait": "helpful",
+          "action_evidence": [
+            "built a small stick gate"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL3_Q09",
+          "passage_title": "Jamal\u2019s Library Card",
+          "passage": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+          "prompt": "Which trait best describes Jamal?",
+          "question": "Which trait best describes Jamal?",
+          "question_type": "multiple_choice",
+          "visual_model": "character_trait_chart",
+          "support_type": "character_trait_chart",
+          "correct_answer": "flexible",
+          "answer": "flexible",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports flexible.",
+          "feedback": "Yes \u2014 flexible fits the story evidence.",
+          "question_audio": {
+            "text": "Which trait best describes Jamal? Choices: flexible, careless, boastful",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "flexible",
+            "careless",
+            "boastful"
+          ],
+          "character": "Jamal",
+          "trait": "flexible",
+          "action_evidence": [
+            "chose a science book"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL3_Q10",
+          "passage_title": "The Quiet Goal",
+          "passage": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+          "prompt": "Which evidence shows that Nora is determined?",
+          "question": "Which evidence shows that Nora is determined?",
+          "question_type": "text_evidence",
+          "visual_model": "character_trait_chart",
+          "support_type": "character_trait_chart",
+          "correct_answer": "practiced aiming at the corner",
+          "answer": "practiced aiming at the corner",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports practiced aiming at the corner.",
+          "feedback": "Yes \u2014 practiced aiming at the corner fits the story evidence.",
+          "question_audio": {
+            "text": "Which evidence shows that Nora is determined? Choices: practiced aiming at the corner, ignored everyone, forgot the problem",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "practiced aiming at the corner",
+            "ignored everyone",
+            "forgot the problem"
+          ],
+          "acceptable_answers": [
+            "practiced aiming at the corner",
+            "practiced aiming at the corner"
+          ],
+          "character": "Nora",
+          "trait": "determined",
+          "action_evidence": [
+            "practiced aiming at the corner"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RC_002_LVL4",
+      "label": "Level 4: Theme / Lesson",
+      "focus": "Find the theme or lesson using story clues.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RC_002_LVL4_Q01",
+          "passage_title": "Lena and the Kite",
+          "passage": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+          "prompt": "Which theme is best supported by the story?",
+          "question": "Which theme is best supported by the story?",
+          "question_type": "multiple_choice",
+          "visual_model": "theme_tracker",
+          "support_type": "theme_tracker",
+          "correct_answer": "Keep trying and share success.",
+          "answer": "Keep trying and share success.",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "theme_detail_confusion",
+          "explanation": "The story clue supports Keep trying and share success..",
+          "feedback": "Yes \u2014 Keep trying and share success. fits the story evidence.",
+          "question_audio": {
+            "text": "Which theme is best supported by the story? Choices: Keep trying and share success., Winning is the only thing that matters., Never ask for help.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Keep trying and share success.",
+            "Winning is the only thing that matters.",
+            "Never ask for help."
+          ],
+          "theme": "Keep trying and share success.",
+          "theme_clues": [
+            "The kite string tangled",
+            "Lena tried again and helped her brother",
+            "took a slow breath and tried again"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL4_Q02",
+          "passage_title": "Marco\u2019s Missing Drum",
+          "passage": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+          "prompt": "What lesson does \u201cMarco\u2019s Missing Drum\u201d teach?",
+          "question": "What lesson does \u201cMarco\u2019s Missing Drum\u201d teach?",
+          "question_type": "short_response",
+          "visual_model": "theme_tracker",
+          "support_type": "theme_tracker",
+          "correct_answer": "Stay calm and solve problems step by step.",
+          "answer": "Stay calm and solve problems step by step.",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "theme_detail_confusion",
+          "explanation": "The story clue supports Stay calm and solve problems step by step..",
+          "feedback": "Yes \u2014 Stay calm and solve problems step by step. fits the story evidence.",
+          "question_audio": {
+            "text": "What lesson does \u201cMarco\u2019s Missing Drum\u201d teach?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "Stay calm and solve problems step by step.",
+            "stay calm and solve problems step by step."
+          ],
+          "theme": "Stay calm and solve problems step by step.",
+          "theme_clues": [
+            "Marco could not find his drum",
+            "He searched and remembered the bench",
+            "searched the music room and asked classmates"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL4_Q03",
+          "passage_title": "The Garden Gate",
+          "passage": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+          "prompt": "Which theme is best supported by the story?",
+          "question": "Which theme is best supported by the story?",
+          "question_type": "multiple_choice",
+          "visual_model": "theme_tracker",
+          "support_type": "theme_tracker",
+          "correct_answer": "Teamwork can protect something important.",
+          "answer": "Teamwork can protect something important.",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "theme_detail_confusion",
+          "explanation": "The story clue supports Teamwork can protect something important..",
+          "feedback": "Yes \u2014 Teamwork can protect something important. fits the story evidence.",
+          "question_audio": {
+            "text": "Which theme is best supported by the story? Choices: Teamwork can protect something important., Winning is the only thing that matters., Never ask for help.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Teamwork can protect something important.",
+            "Winning is the only thing that matters.",
+            "Never ask for help."
+          ],
+          "theme": "Teamwork can protect something important.",
+          "theme_clues": [
+            "Rain bent the bean plants",
+            "Priya and Omar built a stick gate",
+            "built a small stick gate"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL4_Q04",
+          "passage_title": "Jamal\u2019s Library Card",
+          "passage": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+          "prompt": "What lesson does \u201cJamal\u2019s Library Card\u201d teach?",
+          "question": "What lesson does \u201cJamal\u2019s Library Card\u201d teach?",
+          "question_type": "short_response",
+          "visual_model": "theme_tracker",
+          "support_type": "theme_tracker",
+          "correct_answer": "Being flexible can lead to a new discovery.",
+          "answer": "Being flexible can lead to a new discovery.",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "theme_detail_confusion",
+          "explanation": "The story clue supports Being flexible can lead to a new discovery..",
+          "feedback": "Yes \u2014 Being flexible can lead to a new discovery. fits the story evidence.",
+          "question_audio": {
+            "text": "What lesson does \u201cJamal\u2019s Library Card\u201d teach?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "Being flexible can lead to a new discovery.",
+            "being flexible can lead to a new discovery."
+          ],
+          "theme": "Being flexible can lead to a new discovery.",
+          "theme_clues": [
+            "Mia got the mystery book first",
+            "Jamal chose another book and learned about comets",
+            "chose a science book"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL4_Q05",
+          "passage_title": "The Quiet Goal",
+          "passage": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+          "prompt": "Which theme is best supported by the story?",
+          "question": "Which theme is best supported by the story?",
+          "question_type": "multiple_choice",
+          "visual_model": "theme_tracker",
+          "support_type": "theme_tracker",
+          "correct_answer": "Practice and teamwork matter more than showing off.",
+          "answer": "Practice and teamwork matter more than showing off.",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "theme_detail_confusion",
+          "explanation": "The story clue supports Practice and teamwork matter more than showing off..",
+          "feedback": "Yes \u2014 Practice and teamwork matter more than showing off. fits the story evidence.",
+          "question_audio": {
+            "text": "Which theme is best supported by the story? Choices: Practice and teamwork matter more than showing off., Winning is the only thing that matters., Never ask for help.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Practice and teamwork matter more than showing off.",
+            "Winning is the only thing that matters.",
+            "Never ask for help."
+          ],
+          "theme": "Practice and teamwork matter more than showing off.",
+          "theme_clues": [
+            "Nora missed two shots",
+            "She practiced and passed to Eli",
+            "practiced aiming at the corner"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL4_Q06",
+          "passage_title": "Lena and the Kite",
+          "passage": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+          "prompt": "What lesson does \u201cLena and the Kite\u201d teach?",
+          "question": "What lesson does \u201cLena and the Kite\u201d teach?",
+          "question_type": "short_response",
+          "visual_model": "theme_tracker",
+          "support_type": "theme_tracker",
+          "correct_answer": "Keep trying and share success.",
+          "answer": "Keep trying and share success.",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "theme_detail_confusion",
+          "explanation": "The story clue supports Keep trying and share success..",
+          "feedback": "Yes \u2014 Keep trying and share success. fits the story evidence.",
+          "question_audio": {
+            "text": "What lesson does \u201cLena and the Kite\u201d teach?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "Keep trying and share success.",
+            "keep trying and share success."
+          ],
+          "theme": "Keep trying and share success.",
+          "theme_clues": [
+            "The kite string tangled",
+            "Lena tried again and helped her brother",
+            "took a slow breath and tried again"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL4_Q07",
+          "passage_title": "Marco\u2019s Missing Drum",
+          "passage": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+          "prompt": "Which theme is best supported by the story?",
+          "question": "Which theme is best supported by the story?",
+          "question_type": "multiple_choice",
+          "visual_model": "theme_tracker",
+          "support_type": "theme_tracker",
+          "correct_answer": "Stay calm and solve problems step by step.",
+          "answer": "Stay calm and solve problems step by step.",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "theme_detail_confusion",
+          "explanation": "The story clue supports Stay calm and solve problems step by step..",
+          "feedback": "Yes \u2014 Stay calm and solve problems step by step. fits the story evidence.",
+          "question_audio": {
+            "text": "Which theme is best supported by the story? Choices: Stay calm and solve problems step by step., Winning is the only thing that matters., Never ask for help.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Stay calm and solve problems step by step.",
+            "Winning is the only thing that matters.",
+            "Never ask for help."
+          ],
+          "theme": "Stay calm and solve problems step by step.",
+          "theme_clues": [
+            "Marco could not find his drum",
+            "He searched and remembered the bench",
+            "searched the music room and asked classmates"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL4_Q08",
+          "passage_title": "The Garden Gate",
+          "passage": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+          "prompt": "What lesson does \u201cThe Garden Gate\u201d teach?",
+          "question": "What lesson does \u201cThe Garden Gate\u201d teach?",
+          "question_type": "short_response",
+          "visual_model": "theme_tracker",
+          "support_type": "theme_tracker",
+          "correct_answer": "Teamwork can protect something important.",
+          "answer": "Teamwork can protect something important.",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "theme_detail_confusion",
+          "explanation": "The story clue supports Teamwork can protect something important..",
+          "feedback": "Yes \u2014 Teamwork can protect something important. fits the story evidence.",
+          "question_audio": {
+            "text": "What lesson does \u201cThe Garden Gate\u201d teach?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "Teamwork can protect something important.",
+            "teamwork can protect something important."
+          ],
+          "theme": "Teamwork can protect something important.",
+          "theme_clues": [
+            "Rain bent the bean plants",
+            "Priya and Omar built a stick gate",
+            "built a small stick gate"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL4_Q09",
+          "passage_title": "Jamal\u2019s Library Card",
+          "passage": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+          "prompt": "Which theme is best supported by the story?",
+          "question": "Which theme is best supported by the story?",
+          "question_type": "multiple_choice",
+          "visual_model": "theme_tracker",
+          "support_type": "theme_tracker",
+          "correct_answer": "Being flexible can lead to a new discovery.",
+          "answer": "Being flexible can lead to a new discovery.",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "theme_detail_confusion",
+          "explanation": "The story clue supports Being flexible can lead to a new discovery..",
+          "feedback": "Yes \u2014 Being flexible can lead to a new discovery. fits the story evidence.",
+          "question_audio": {
+            "text": "Which theme is best supported by the story? Choices: Being flexible can lead to a new discovery., Winning is the only thing that matters., Never ask for help.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Being flexible can lead to a new discovery.",
+            "Winning is the only thing that matters.",
+            "Never ask for help."
+          ],
+          "theme": "Being flexible can lead to a new discovery.",
+          "theme_clues": [
+            "Mia got the mystery book first",
+            "Jamal chose another book and learned about comets",
+            "chose a science book"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL4_Q10",
+          "passage_title": "The Quiet Goal",
+          "passage": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+          "prompt": "What lesson does \u201cThe Quiet Goal\u201d teach?",
+          "question": "What lesson does \u201cThe Quiet Goal\u201d teach?",
+          "question_type": "short_response",
+          "visual_model": "theme_tracker",
+          "support_type": "theme_tracker",
+          "correct_answer": "Practice and teamwork matter more than showing off.",
+          "answer": "Practice and teamwork matter more than showing off.",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "theme_detail_confusion",
+          "explanation": "The story clue supports Practice and teamwork matter more than showing off..",
+          "feedback": "Yes \u2014 Practice and teamwork matter more than showing off. fits the story evidence.",
+          "question_audio": {
+            "text": "What lesson does \u201cThe Quiet Goal\u201d teach?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "Practice and teamwork matter more than showing off.",
+            "practice and teamwork matter more than showing off."
+          ],
+          "theme": "Practice and teamwork matter more than showing off.",
+          "theme_clues": [
+            "Nora missed two shots",
+            "She practiced and passed to Eli",
+            "practiced aiming at the corner"
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G3E_RC_002_MIXED",
+      "label": "Mixed",
+      "focus": "Interleave story elements, traits, plot, and theme.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 80,
+      "questions": [
+        {
+          "question_id": "G3E_RC_002_LVL5_Q01",
+          "passage_title": "Lena and the Kite",
+          "passage": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+          "prompt": "Who is the main character in \u201cLena and the Kite\u201d?",
+          "question": "Who is the main character in \u201cLena and the Kite\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Lena",
+          "answer": "Lena",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports Lena.",
+          "feedback": "Yes \u2014 Lena fits the story evidence.",
+          "question_audio": {
+            "text": "Who is the main character in \u201cLena and the Kite\u201d? Choices: Lena, a detail from another story, the title only",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Lena",
+            "a detail from another story",
+            "the title only"
+          ],
+          "character": "Lena",
+          "trait": "patient",
+          "action_evidence": [
+            "took a slow breath and tried again"
+          ],
+          "theme": "Keep trying and share success.",
+          "theme_clues": [
+            "The kite string tangled",
+            "Lena tried again and helped her brother"
+          ],
+          "events": [
+            "The kite string tangled",
+            "Lena tried again and helped her brother"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL5_Q02",
+          "passage_title": "Marco\u2019s Missing Drum",
+          "passage": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+          "prompt": "Which event solves the problem in \u201cMarco\u2019s Missing Drum\u201d?",
+          "question": "Which event solves the problem in \u201cMarco\u2019s Missing Drum\u201d?",
+          "question_type": "sequencing",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "He searched and remembered the bench",
+          "answer": "He searched and remembered the bench",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "The story clue supports He searched and remembered the bench.",
+          "feedback": "Yes \u2014 He searched and remembered the bench fits the story evidence.",
+          "question_audio": {
+            "text": "Which event solves the problem in \u201cMarco\u2019s Missing Drum\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "He searched and remembered the bench",
+            "he searched and remembered the bench"
+          ],
+          "character": "Marco",
+          "trait": "responsible",
+          "action_evidence": [
+            "searched the music room and asked classmates"
+          ],
+          "theme": "Stay calm and solve problems step by step.",
+          "theme_clues": [
+            "Marco could not find his drum",
+            "He searched and remembered the bench"
+          ],
+          "events": [
+            "Marco could not find his drum",
+            "He searched and remembered the bench"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL5_Q03",
+          "passage_title": "The Garden Gate",
+          "passage": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+          "prompt": "Which evidence best shows Priya\u2019s trait?",
+          "question": "Which evidence best shows Priya\u2019s trait?",
+          "question_type": "text_evidence",
+          "visual_model": "character_trait_chart",
+          "support_type": "character_trait_chart",
+          "correct_answer": "built a small stick gate",
+          "answer": "built a small stick gate",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "theme_detail_confusion",
+          "explanation": "The story clue supports built a small stick gate.",
+          "feedback": "Yes \u2014 built a small stick gate fits the story evidence.",
+          "question_audio": {
+            "text": "Which evidence best shows Priya\u2019s trait? Choices: built a small stick gate, a detail from another story, the title only",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "built a small stick gate",
+            "a detail from another story",
+            "the title only"
+          ],
+          "acceptable_answers": [
+            "built a small stick gate",
+            "built a small stick gate"
+          ],
+          "character": "Priya",
+          "trait": "helpful",
+          "action_evidence": [
+            "built a small stick gate"
+          ],
+          "theme": "Teamwork can protect something important.",
+          "theme_clues": [
+            "Rain bent the bean plants",
+            "Priya and Omar built a stick gate"
+          ],
+          "events": [
+            "Rain bent the bean plants",
+            "Priya and Omar built a stick gate"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL5_Q04",
+          "passage_title": "Jamal\u2019s Library Card",
+          "passage": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+          "prompt": "What is the theme of \u201cJamal\u2019s Library Card\u201d?",
+          "question": "What is the theme of \u201cJamal\u2019s Library Card\u201d?",
+          "question_type": "short_response",
+          "visual_model": "theme_tracker",
+          "support_type": "theme_tracker",
+          "correct_answer": "Being flexible can lead to a new discovery.",
+          "answer": "Being flexible can lead to a new discovery.",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The story clue supports Being flexible can lead to a new discovery..",
+          "feedback": "Yes \u2014 Being flexible can lead to a new discovery. fits the story evidence.",
+          "question_audio": {
+            "text": "What is the theme of \u201cJamal\u2019s Library Card\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "Being flexible can lead to a new discovery.",
+            "being flexible can lead to a new discovery."
+          ],
+          "character": "Jamal",
+          "trait": "flexible",
+          "action_evidence": [
+            "chose a science book"
+          ],
+          "theme": "Being flexible can lead to a new discovery.",
+          "theme_clues": [
+            "Mia got the mystery book first",
+            "Jamal chose another book and learned about comets"
+          ],
+          "events": [
+            "Mia got the mystery book first",
+            "Jamal chose another book and learned about comets"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL5_Q05",
+          "passage_title": "The Quiet Goal",
+          "passage": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+          "prompt": "Who is the main character in \u201cThe Quiet Goal\u201d?",
+          "question": "Who is the main character in \u201cThe Quiet Goal\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Nora",
+          "answer": "Nora",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports Nora.",
+          "feedback": "Yes \u2014 Nora fits the story evidence.",
+          "question_audio": {
+            "text": "Who is the main character in \u201cThe Quiet Goal\u201d? Choices: Nora, a detail from another story, the title only",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Nora",
+            "a detail from another story",
+            "the title only"
+          ],
+          "character": "Nora",
+          "trait": "determined",
+          "action_evidence": [
+            "practiced aiming at the corner"
+          ],
+          "theme": "Practice and teamwork matter more than showing off.",
+          "theme_clues": [
+            "Nora missed two shots",
+            "She practiced and passed to Eli"
+          ],
+          "events": [
+            "Nora missed two shots",
+            "She practiced and passed to Eli"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL5_Q06",
+          "passage_title": "Lena and the Kite",
+          "passage": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+          "prompt": "Which event solves the problem in \u201cLena and the Kite\u201d?",
+          "question": "Which event solves the problem in \u201cLena and the Kite\u201d?",
+          "question_type": "sequencing",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "Lena tried again and helped her brother",
+          "answer": "Lena tried again and helped her brother",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "The story clue supports Lena tried again and helped her brother.",
+          "feedback": "Yes \u2014 Lena tried again and helped her brother fits the story evidence.",
+          "question_audio": {
+            "text": "Which event solves the problem in \u201cLena and the Kite\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "On Saturday, Lena carried a paper kite to the windy hill. The string tangled twice, but she took a slow breath and tried again. When the kite finally rose, Lena smiled and helped her little brother hold the string.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "Lena tried again and helped her brother",
+            "lena tried again and helped her brother"
+          ],
+          "character": "Lena",
+          "trait": "patient",
+          "action_evidence": [
+            "took a slow breath and tried again"
+          ],
+          "theme": "Keep trying and share success.",
+          "theme_clues": [
+            "The kite string tangled",
+            "Lena tried again and helped her brother"
+          ],
+          "events": [
+            "The kite string tangled",
+            "Lena tried again and helped her brother"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL5_Q07",
+          "passage_title": "Marco\u2019s Missing Drum",
+          "passage": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+          "prompt": "Which evidence best shows Marco\u2019s trait?",
+          "question": "Which evidence best shows Marco\u2019s trait?",
+          "question_type": "text_evidence",
+          "visual_model": "character_trait_chart",
+          "support_type": "character_trait_chart",
+          "correct_answer": "searched the music room and asked classmates",
+          "answer": "searched the music room and asked classmates",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "theme_detail_confusion",
+          "explanation": "The story clue supports searched the music room and asked classmates.",
+          "feedback": "Yes \u2014 searched the music room and asked classmates fits the story evidence.",
+          "question_audio": {
+            "text": "Which evidence best shows Marco\u2019s trait? Choices: searched the music room and asked classmates, a detail from another story, the title only",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Before the school parade, Marco could not find his drum. He searched the music room, asked classmates, and remembered he left it under the bench. Marco thanked Ana for waiting and joined the line just in time.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "searched the music room and asked classmates",
+            "a detail from another story",
+            "the title only"
+          ],
+          "acceptable_answers": [
+            "searched the music room and asked classmates",
+            "searched the music room and asked classmates"
+          ],
+          "character": "Marco",
+          "trait": "responsible",
+          "action_evidence": [
+            "searched the music room and asked classmates"
+          ],
+          "theme": "Stay calm and solve problems step by step.",
+          "theme_clues": [
+            "Marco could not find his drum",
+            "He searched and remembered the bench"
+          ],
+          "events": [
+            "Marco could not find his drum",
+            "He searched and remembered the bench"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL5_Q08",
+          "passage_title": "The Garden Gate",
+          "passage": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+          "prompt": "What is the theme of \u201cThe Garden Gate\u201d?",
+          "question": "What is the theme of \u201cThe Garden Gate\u201d?",
+          "question_type": "short_response",
+          "visual_model": "theme_tracker",
+          "support_type": "theme_tracker",
+          "correct_answer": "Teamwork can protect something important.",
+          "answer": "Teamwork can protect something important.",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "sequence_order_error",
+          "explanation": "The story clue supports Teamwork can protect something important..",
+          "feedback": "Yes \u2014 Teamwork can protect something important. fits the story evidence.",
+          "question_audio": {
+            "text": "What is the theme of \u201cThe Garden Gate\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Rain bent the new bean plants in the school garden. Priya wanted to run inside, but she and Omar built a small stick gate to hold the stems up. By Friday, the beans stood tall.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "Teamwork can protect something important.",
+            "teamwork can protect something important."
+          ],
+          "character": "Priya",
+          "trait": "helpful",
+          "action_evidence": [
+            "built a small stick gate"
+          ],
+          "theme": "Teamwork can protect something important.",
+          "theme_clues": [
+            "Rain bent the bean plants",
+            "Priya and Omar built a stick gate"
+          ],
+          "events": [
+            "Rain bent the bean plants",
+            "Priya and Omar built a stick gate"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL5_Q09",
+          "passage_title": "Jamal\u2019s Library Card",
+          "passage": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+          "prompt": "Who is the main character in \u201cJamal\u2019s Library Card\u201d?",
+          "question": "Who is the main character in \u201cJamal\u2019s Library Card\u201d?",
+          "question_type": "multiple_choice",
+          "visual_model": "story_map",
+          "support_type": "story_map",
+          "correct_answer": "Jamal",
+          "answer": "Jamal",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "character_trait_confusion",
+          "explanation": "The story clue supports Jamal.",
+          "feedback": "Yes \u2014 Jamal fits the story evidence.",
+          "question_audio": {
+            "text": "Who is the main character in \u201cJamal\u2019s Library Card\u201d? Choices: Jamal, a detail from another story, the title only",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Jamal wanted the last mystery book, but Mia reached it first. Jamal felt disappointed, then asked Mia to tell him when she finished. He chose a science book and discovered facts about comets.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "choices": [
+            "Jamal",
+            "a detail from another story",
+            "the title only"
+          ],
+          "character": "Jamal",
+          "trait": "flexible",
+          "action_evidence": [
+            "chose a science book"
+          ],
+          "theme": "Being flexible can lead to a new discovery.",
+          "theme_clues": [
+            "Mia got the mystery book first",
+            "Jamal chose another book and learned about comets"
+          ],
+          "events": [
+            "Mia got the mystery book first",
+            "Jamal chose another book and learned about comets"
+          ]
+        },
+        {
+          "question_id": "G3E_RC_002_LVL5_Q10",
+          "passage_title": "The Quiet Goal",
+          "passage": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+          "prompt": "Which event solves the problem in \u201cThe Quiet Goal\u201d?",
+          "question": "Which event solves the problem in \u201cThe Quiet Goal\u201d?",
+          "question_type": "sequencing",
+          "visual_model": "event_cards",
+          "support_type": "event_cards",
+          "correct_answer": "She practiced and passed to Eli",
+          "answer": "She practiced and passed to Eli",
+          "hints": [
+            "Reread the story clue.",
+            "Match the answer to what the character does.",
+            "Check that your answer fits the whole story."
+          ],
+          "misconception_tag": "problem_solution_confusion",
+          "explanation": "The story clue supports She practiced and passed to Eli.",
+          "feedback": "Yes \u2014 She practiced and passed to Eli fits the story evidence.",
+          "question_audio": {
+            "text": "Which event solves the problem in \u201cThe Quiet Goal\u201d?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "playback_preference": "cached_audio_first"
+          },
+          "audio": {
+            "text": "Nora missed two soccer shots during recess. Instead of quitting, she practiced aiming at the corner of the goal. On the next turn, she passed to Eli for an easy score.",
+            "label": "Listen",
+            "type": "sentence",
+            "repeat_count": 1,
+            "student_prompt": "Listen, then read it yourself."
+          },
+          "acceptable_answers": [
+            "She practiced and passed to Eli",
+            "she practiced and passed to eli"
+          ],
+          "character": "Nora",
+          "trait": "determined",
+          "action_evidence": [
+            "practiced aiming at the corner"
+          ],
+          "theme": "Practice and teamwork matter more than showing off.",
+          "theme_clues": [
+            "Nora missed two shots",
+            "She practiced and passed to Eli"
+          ],
+          "events": [
+            "Nora missed two shots",
+            "She practiced and passed to Eli"
+          ]
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Read this page to enter the Story Elements, Theme, and Character Response mission. Think about how careful readers notice the author\u2019s clues before they answer. Press Start Mission when you are ready to read, listen, and build the skill step by step.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "Read this page to learn the strategy for characters, setting, plot, problem, solution, traits, and theme. Look at the model words and connect each vocabulary word to the reading job. Press Next to continue after you can explain the strategy in your own words.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Read this page while the worked example shows the prompt and model. Step one, read the text carefully. Step two, find the clue that answers the question. Step three, choose the answer and check why the final answer is supported. Press Next to continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "Read this page to try the demo with support. Use the visual model to organize the reading clues before answering. Press Next to continue when you can tell why the answer fits the text.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Read this page before practice. Listen to the passage when the Listen button helps, then press Read Question so the question is clear. Choose your answer when you are ready, and use the hint if you need help.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "Read this page before the challenge. This question asks you to use the same strategy with less help. Press Read Question, reread the important part of the text, and answer carefully, then continue.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "Read this page for the checkpoint. Show what you know by reading the text, pressing Read Question, and checking your evidence before you answer. Answer carefully, then continue to see your results.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "Read this page to celebrate your progress. The badge means you practiced reading closely and explaining your thinking. Press Next to see your profile and think about where you can use this skill next.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Read this page to review your learner profile. Look at the skill, the badge, and the next practice option. Continue to Skill Practice or go back to the hub when you are ready.",
+      "label": "Read This Page",
+      "type": "page",
+      "repeat_count": 1,
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}
