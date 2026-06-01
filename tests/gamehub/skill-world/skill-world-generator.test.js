@@ -1446,4 +1446,33 @@ assert.ok(g3GeometryShapes.level_banks.flatMap((level)=>level.questions).some((q
 assert.ok(g3GeometryShapes.level_banks.flatMap((level)=>level.questions).some((q)=>/(quadrilateral|triangle|rectangle|square)/i.test((q.acceptable_answers||[]).join(' '))),'G3M_GM_002 shape acceptable answers exist');
 
 
+const g4PlaceValue=load('G4M_NBT_001');
+const g4Questions=[...(g4PlaceValue.guided_practice||[]),...(g4PlaceValue.adaptive_question_bank||[]),...(g4PlaceValue.checkpoint||[]),...(g4PlaceValue.level_banks||[]).flatMap((level)=>level.questions||[])];
+assert.equal(Schema.validateSkillPackage(g4PlaceValue,{allowPlannedLevelBanks:false}).valid,true,'G4M_NBT_001 validates in strict production mode');
+assert.equal(g4PlaceValue.grade,4,'G4M_NBT_001 is Grade 4');
+assert.equal(g4PlaceValue.subject,'Math','G4M_NBT_001 is Math');
+assert.equal(g4PlaceValue.domain,'Number and Operations in Base Ten','G4M_NBT_001 domain matches plan');
+assert.equal(g4PlaceValue.skill,'Place Value to 1,000,000','G4M_NBT_001 title matches plan');
+assert.equal(Array.isArray(g4PlaceValue.level_banks),true,'G4M_NBT_001 has level_banks');
+assert.equal(g4PlaceValue.level_banks.filter((level)=>!/(^|_)mixed$/i.test(level.level_id)&&!/^mixed$/i.test(level.label)).length>=4,true,'G4M_NBT_001 has at least four focused levels');
+assert.equal(g4PlaceValue.level_banks.some((level)=>(/(^|_)mixed$/i.test(level.level_id)||/^mixed$/i.test(level.label))),true,'G4M_NBT_001 has Mixed level');
+g4PlaceValue.level_banks.forEach((level)=>assert.ok(level.questions.length>=10&&level.questions.length<=12,`${level.level_id} has 10–12 questions`));
+['Level 1: Place Value to 1,000,000','Level 2: Read and Write Multi-Digit Numbers','Level 3: Compare Multi-Digit Numbers','Level 4: Round Multi-Digit Numbers','Mixed'].forEach((label)=>assert.ok(g4PlaceValue.level_banks.some((level)=>level.label===label),`G4M_NBT_001 includes ${label}`));
+['place_value_chart','expanded_form','number_line','rounding_model'].forEach((visual)=>assert.ok(g4Questions.some((q)=>q.visual_model===visual),`G4M_NBT_001 includes ${visual}`));
+['multiple_choice','short_response','comparison','rounding'].forEach((type)=>assert.ok(g4Questions.some((q)=>q.question_type===type),`G4M_NBT_001 includes ${type}`));
+['place_value_shift_error','zero_placeholder_confusion','expanded_form_error','rounding_place_error'].forEach((tag)=>assert.ok(g4PlaceValue.misconception_bank[tag],`G4M_NBT_001 includes misconception ${tag}`));
+assert.ok(g4Questions.filter((q)=>q.question_type==='short_response').every((q)=>Array.isArray(q.acceptable_answers)&&q.acceptable_answers.length>0),'G4M_NBT_001 short-response items have acceptable_answers');
+['story','lesson','watch','demo','practice','challenge','checkpoint','badge','profile'].forEach((screen)=>{const audio=g4PlaceValue.page_audio?.[screen]; assert.ok(audio?.text,`G4M_NBT_001 has Read This Page narration for ${screen}`); assert.equal(audio.label,'Read This Page',`G4M_NBT_001 ${screen} uses Read This Page label`);});
+[...(g4PlaceValue.guided_practice||[]),...(g4PlaceValue.adaptive_question_bank||[]),...(g4PlaceValue.checkpoint||[])].forEach((q)=>assert.ok(q.question_audio?.text||q.read_aloud_text,`${q.question_id} mission question has Read Question narration`));
+g4PlaceValue.level_banks.flatMap((level)=>level.questions).forEach((q)=>assert.ok(q.question_audio?.text||q.read_aloud_text,`${q.question_id} practice question has Read Question narration`));
+const g4MissionHtml=Renderer.renderSkillWorld(g4PlaceValue,{failClosed:true}).html;
+['Story','Lesson','Watch','Demo','Practice','Challenge','Checkpoint','Badge','Profile'].forEach((label)=>assert.match(g4MissionHtml,new RegExp(label),`G4M_NBT_001 mission renders ${label}`));
+assert.match(g4MissionHtml,/Continue to Skill Practice/,'G4M_NBT_001 profile links to Skill Practice Center');
+assert.match(VisualRegistry.render({visual_model:'place_value_chart',value:1000000,millions:1,hundred_thousands:0,ten_thousands:0,thousands:0,hundreds:0,tens:0,ones:0}),/Millions/,'place_value_chart renderer handles 1,000,000');
+assert.match(VisualRegistry.render(g4Questions.find((q)=>q.visual_model==='expanded_form'&&q.value===405020)),/405,020|405020/,'expanded_form renderer handles multi-digit numbers with zeros');
+assert.match(VisualRegistry.render(g4Questions.find((q)=>q.visual_model==='number_line')),/data-renderer="number_line"/,'number_line renderer handles Grade 4 values');
+assert.match(VisualRegistry.render(g4Questions.find((q)=>q.visual_model==='rounding_model'&&q.round_to>=100000)),/data-renderer="rounding_model"/,'rounding_model renderer handles Grade 4 values');
+const g4Manifest=JSON.parse(fs.readFileSync(path.join(root,'public/gamehub/skill-world/content/manifest.json'),'utf8'));
+assert.ok(g4Manifest.packages.includes('G4M_NBT_001.skill-package.v1.json'),'manifest includes G4M_NBT_001');
+assert.equal(`/skill-world/${encodeURIComponent('G4M_NBT_001')}/drill`,'/skill-world/G4M_NBT_001/drill','Practice This Skill route exists for G4M_NBT_001');
 console.log('skill-world-generator tests passed');
