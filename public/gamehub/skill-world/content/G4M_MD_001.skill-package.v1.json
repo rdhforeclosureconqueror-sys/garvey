@@ -1,0 +1,2739 @@
+{
+  "skill_id": "G4M_MD_001",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production",
+    "source_docs": [
+      "docs/grade4_math_completion_plan.md",
+      "curriculum-framework/plans/grade4-math-completion-plan.v1.json"
+    ],
+    "source_plan": "curriculum-framework/plans/grade4-math-completion-plan.v1.json",
+    "readiness_checkpoint": "grade4_final_measurement_geometry_batch"
+  },
+  "grade": 4,
+  "subject": "Math",
+  "domain": "Measurement and Data",
+  "skill": "Measurement Conversion and Data",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    2,
+    5
+  ],
+  "game_theme": {
+    "title": "Measurement Conversion and Data",
+    "badge_name": "Measurement and Data Badge",
+    "mission_intro": "Use measurement conversions, word-problem models, line plots, area, and perimeter to help the Skill World crew organize a festival map."
+  },
+  "lesson": {
+    "story_mission": "The crew must label supplies, paths, and data displays with correct measurements.",
+    "mini_lesson": "Convert larger units to smaller units by multiplying. For data, read every fraction label on a line plot. For rectangles, area covers the inside and perimeter measures the outside path.",
+    "objective": "Convert measurements, solve measurement problems, and interpret line plots with fractions.",
+    "key_vocabulary": [
+      "convert",
+      "unit",
+      "line plot",
+      "fraction",
+      "area",
+      "perimeter"
+    ],
+    "concept_explanation": "Grade 4 measurement problems connect units, operations, data, and rectangle models. The unit label tells what the number means.",
+    "common_misconception": "Students may divide when converting larger units to smaller units, confuse units, misread fraction labels, or mix up area and perimeter.",
+    "real_world_connection": "These skills help with recipes, maps, building projects, sports fields, and science data.",
+    "lesson_summary": "Read the unit, choose the operation, use the model, and answer with the correct label.",
+    "visual_model": "measurement_conversion_table",
+    "audio": {
+      "text": "In this lesson, convert units, read fractional line plots, and distinguish area from perimeter with careful labels.",
+      "label": "Listen to Lesson",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G4M_MD_001_L1_Q1",
+      "question_id": "G4M_MD_001_L1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "measurement_conversion_table",
+      "prompt": "Convert 3 feet to inches.",
+      "answer": "36",
+      "correct_answer": "36",
+      "misconception_tag": "unit_conversion_direction_error",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is 36.",
+      "read_aloud_text": "Convert 3 feet to inches.",
+      "question_audio": {
+        "text": "Convert 3 feet to inches.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "36",
+        "36"
+      ],
+      "amount": 3,
+      "from_unit": "feet",
+      "to_unit": "inches",
+      "factor": 12,
+      "converted": 36,
+      "conversions": [
+        {
+          "from": "1 feet",
+          "factor": "× 12",
+          "to": "12 inches"
+        },
+        {
+          "from": "3 feet",
+          "factor": "× 12",
+          "to": "36 inches"
+        }
+      ],
+      "choices": [
+        "36",
+        "3 inches",
+        "15 inches",
+        "48 inches"
+      ]
+    },
+    {
+      "id": "G4M_MD_001_L1_Q2",
+      "question_id": "G4M_MD_001_L1_Q2",
+      "question_type": "short_response",
+      "visual_model": "measurement_conversion_table",
+      "prompt": "Convert 5 yards to feet.",
+      "answer": "15",
+      "correct_answer": "15",
+      "misconception_tag": "unit_conversion_direction_error",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is 15.",
+      "read_aloud_text": "Convert 5 yards to feet.",
+      "question_audio": {
+        "text": "Convert 5 yards to feet.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "15",
+        "15"
+      ],
+      "amount": 5,
+      "from_unit": "yards",
+      "to_unit": "feet",
+      "factor": 3,
+      "converted": 15,
+      "conversions": [
+        {
+          "from": "1 yards",
+          "factor": "× 3",
+          "to": "3 feet"
+        },
+        {
+          "from": "5 yards",
+          "factor": "× 3",
+          "to": "15 feet"
+        }
+      ]
+    }
+  ],
+  "hint_ladder": [
+    "Read the labels.",
+    "Choose the model.",
+    "Check the unit."
+  ],
+  "guided_practice": [
+    {
+      "id": "G4M_MD_001_L1_Q1",
+      "question_id": "G4M_MD_001_L1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "measurement_conversion_table",
+      "prompt": "Convert 3 feet to inches.",
+      "answer": "36",
+      "correct_answer": "36",
+      "misconception_tag": "unit_conversion_direction_error",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is 36.",
+      "read_aloud_text": "Convert 3 feet to inches.",
+      "question_audio": {
+        "text": "Convert 3 feet to inches.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "36",
+        "36"
+      ],
+      "amount": 3,
+      "from_unit": "feet",
+      "to_unit": "inches",
+      "factor": 12,
+      "converted": 36,
+      "conversions": [
+        {
+          "from": "1 feet",
+          "factor": "× 12",
+          "to": "12 inches"
+        },
+        {
+          "from": "3 feet",
+          "factor": "× 12",
+          "to": "36 inches"
+        }
+      ],
+      "choices": [
+        "36",
+        "3 inches",
+        "15 inches",
+        "48 inches"
+      ]
+    },
+    {
+      "id": "G4M_MD_001_L1_Q2",
+      "question_id": "G4M_MD_001_L1_Q2",
+      "question_type": "short_response",
+      "visual_model": "measurement_conversion_table",
+      "prompt": "Convert 5 yards to feet.",
+      "answer": "15",
+      "correct_answer": "15",
+      "misconception_tag": "unit_conversion_direction_error",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is 15.",
+      "read_aloud_text": "Convert 5 yards to feet.",
+      "question_audio": {
+        "text": "Convert 5 yards to feet.",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "15",
+        "15"
+      ],
+      "amount": 5,
+      "from_unit": "yards",
+      "to_unit": "feet",
+      "factor": 3,
+      "converted": 15,
+      "conversions": [
+        {
+          "from": "1 yards",
+          "factor": "× 3",
+          "to": "3 feet"
+        },
+        {
+          "from": "5 yards",
+          "factor": "× 3",
+          "to": "15 feet"
+        }
+      ]
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G4M_MD_001_L2_Q1",
+      "question_id": "G4M_MD_001_L2_Q1",
+      "question_type": "short_response",
+      "visual_model": "word_problem_model",
+      "prompt": "Maya has 3 feet of ribbon. She uses 14 inches. How many inches are left?",
+      "answer": "22",
+      "correct_answer": "22",
+      "misconception_tag": "measurement_unit_confusion",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is 22.",
+      "read_aloud_text": "Maya has 3 feet of ribbon. She uses 14 inches. How many inches are left?",
+      "question_audio": {
+        "text": "Maya has 3 feet of ribbon. She uses 14 inches. How many inches are left?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "22",
+        "22"
+      ],
+      "from_unit": "feet",
+      "to_unit": "inches",
+      "factor": 12,
+      "equation": "use 12 inches in 1 feet"
+    },
+    {
+      "id": "G4M_MD_001_L2_Q2",
+      "question_id": "G4M_MD_001_L2_Q2",
+      "question_type": "measurement",
+      "visual_model": "word_problem_model",
+      "prompt": "A recipe needs 2 quarts of juice. The pitcher has 9 cups. How many cups are left after the recipe?",
+      "answer": "1",
+      "correct_answer": "1",
+      "misconception_tag": "measurement_unit_confusion",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is 1.",
+      "read_aloud_text": "A recipe needs 2 quarts of juice. The pitcher has 9 cups. How many cups are left after the recipe?",
+      "question_audio": {
+        "text": "A recipe needs 2 quarts of juice. The pitcher has 9 cups. How many cups are left after the recipe?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "1",
+        "1"
+      ],
+      "from_unit": "quarts",
+      "to_unit": "cups",
+      "factor": 4,
+      "equation": "use 4 cups in 1 quarts"
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G4M_MD_001_L3_Q1",
+      "question_id": "G4M_MD_001_L3_Q1",
+      "question_type": "data_interpretation",
+      "visual_model": "line_plot",
+      "prompt": "How many measurements are 3/4 inch?",
+      "answer": "3",
+      "correct_answer": "3",
+      "misconception_tag": "line_plot_fraction_error",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is 3.",
+      "read_aloud_text": "How many measurements are 3/4 inch?",
+      "question_audio": {
+        "text": "How many measurements are 3/4 inch?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "3",
+        "3"
+      ],
+      "ticks": [
+        "1/4",
+        "1/2",
+        "3/4"
+      ],
+      "values": [
+        "1/4",
+        "1/2",
+        "1/2",
+        "3/4",
+        "3/4",
+        "3/4"
+      ],
+      "graph_title": "Ribbon Lengths in Inches"
+    },
+    {
+      "id": "G4M_MD_001_L3_Q2",
+      "question_id": "G4M_MD_001_L3_Q2",
+      "question_type": "short_response",
+      "visual_model": "line_plot",
+      "prompt": "How many measurements are at least 1/2 inch?",
+      "answer": "3",
+      "correct_answer": "3",
+      "misconception_tag": "line_plot_fraction_error",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is 3.",
+      "read_aloud_text": "How many measurements are at least 1/2 inch?",
+      "question_audio": {
+        "text": "How many measurements are at least 1/2 inch?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "3",
+        "3"
+      ],
+      "ticks": [
+        "0",
+        "1/4",
+        "1/2",
+        "3/4",
+        "1"
+      ],
+      "values": [
+        "1/4",
+        "1/4",
+        "1/2",
+        "3/4",
+        "1"
+      ],
+      "graph_title": "Ribbon Lengths in Inches"
+    }
+  ],
+  "misconception_bank": {
+    "unit_conversion_direction_error": "Converts in the wrong direction or divides instead of multiplying.",
+    "measurement_unit_confusion": "Uses the wrong unit label or conversion factor.",
+    "line_plot_fraction_error": "Misreads fractional labels or counts X marks incorrectly.",
+    "area_perimeter_confusion": "Uses area when perimeter is needed or perimeter when area is needed."
+  },
+  "level_banks": [
+    {
+      "level_id": "G4M_MD_001_LVL1",
+      "label": "Level 1: Convert Larger to Smaller Units",
+      "focus": "Convert larger units to smaller units.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_MD_001_L1_Q1",
+          "question_id": "G4M_MD_001_L1_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 3 feet to inches.",
+          "answer": "36",
+          "correct_answer": "36",
+          "misconception_tag": "unit_conversion_direction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 36.",
+          "read_aloud_text": "Convert 3 feet to inches.",
+          "question_audio": {
+            "text": "Convert 3 feet to inches.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "36",
+            "36"
+          ],
+          "amount": 3,
+          "from_unit": "feet",
+          "to_unit": "inches",
+          "factor": 12,
+          "converted": 36,
+          "conversions": [
+            {
+              "from": "1 feet",
+              "factor": "× 12",
+              "to": "12 inches"
+            },
+            {
+              "from": "3 feet",
+              "factor": "× 12",
+              "to": "36 inches"
+            }
+          ],
+          "choices": [
+            "36",
+            "3 inches",
+            "15 inches",
+            "48 inches"
+          ]
+        },
+        {
+          "id": "G4M_MD_001_L1_Q2",
+          "question_id": "G4M_MD_001_L1_Q2",
+          "question_type": "short_response",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 5 yards to feet.",
+          "answer": "15",
+          "correct_answer": "15",
+          "misconception_tag": "unit_conversion_direction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 15.",
+          "read_aloud_text": "Convert 5 yards to feet.",
+          "question_audio": {
+            "text": "Convert 5 yards to feet.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "15",
+            "15"
+          ],
+          "amount": 5,
+          "from_unit": "yards",
+          "to_unit": "feet",
+          "factor": 3,
+          "converted": 15,
+          "conversions": [
+            {
+              "from": "1 yards",
+              "factor": "× 3",
+              "to": "3 feet"
+            },
+            {
+              "from": "5 yards",
+              "factor": "× 3",
+              "to": "15 feet"
+            }
+          ]
+        },
+        {
+          "id": "G4M_MD_001_L1_Q3",
+          "question_id": "G4M_MD_001_L1_Q3",
+          "question_type": "measurement",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 4 pounds to ounces.",
+          "answer": "64",
+          "correct_answer": "64",
+          "misconception_tag": "unit_conversion_direction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 64.",
+          "read_aloud_text": "Convert 4 pounds to ounces.",
+          "question_audio": {
+            "text": "Convert 4 pounds to ounces.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "64",
+            "64"
+          ],
+          "amount": 4,
+          "from_unit": "pounds",
+          "to_unit": "ounces",
+          "factor": 16,
+          "converted": 64,
+          "conversions": [
+            {
+              "from": "1 pounds",
+              "factor": "× 16",
+              "to": "16 ounces"
+            },
+            {
+              "from": "4 pounds",
+              "factor": "× 16",
+              "to": "64 ounces"
+            }
+          ]
+        },
+        {
+          "id": "G4M_MD_001_L1_Q4",
+          "question_id": "G4M_MD_001_L1_Q4",
+          "question_type": "short_response",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 6 gallons to quarts.",
+          "answer": "24",
+          "correct_answer": "24",
+          "misconception_tag": "unit_conversion_direction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 24.",
+          "read_aloud_text": "Convert 6 gallons to quarts.",
+          "question_audio": {
+            "text": "Convert 6 gallons to quarts.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "24",
+            "24"
+          ],
+          "amount": 6,
+          "from_unit": "gallons",
+          "to_unit": "quarts",
+          "factor": 4,
+          "converted": 24,
+          "conversions": [
+            {
+              "from": "1 gallons",
+              "factor": "× 4",
+              "to": "4 quarts"
+            },
+            {
+              "from": "6 gallons",
+              "factor": "× 4",
+              "to": "24 quarts"
+            }
+          ]
+        },
+        {
+          "id": "G4M_MD_001_L1_Q5",
+          "question_id": "G4M_MD_001_L1_Q5",
+          "question_type": "measurement",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 2 hours to minutes.",
+          "answer": "120",
+          "correct_answer": "120",
+          "misconception_tag": "unit_conversion_direction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 120.",
+          "read_aloud_text": "Convert 2 hours to minutes.",
+          "question_audio": {
+            "text": "Convert 2 hours to minutes.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "120",
+            "120"
+          ],
+          "amount": 2,
+          "from_unit": "hours",
+          "to_unit": "minutes",
+          "factor": 60,
+          "converted": 120,
+          "conversions": [
+            {
+              "from": "1 hours",
+              "factor": "× 60",
+              "to": "60 minutes"
+            },
+            {
+              "from": "2 hours",
+              "factor": "× 60",
+              "to": "120 minutes"
+            }
+          ]
+        },
+        {
+          "id": "G4M_MD_001_L1_Q6",
+          "question_id": "G4M_MD_001_L1_Q6",
+          "question_type": "short_response",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 7 meters to centimeters.",
+          "answer": "700",
+          "correct_answer": "700",
+          "misconception_tag": "unit_conversion_direction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 700.",
+          "read_aloud_text": "Convert 7 meters to centimeters.",
+          "question_audio": {
+            "text": "Convert 7 meters to centimeters.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "700",
+            "700"
+          ],
+          "amount": 7,
+          "from_unit": "meters",
+          "to_unit": "centimeters",
+          "factor": 100,
+          "converted": 700,
+          "conversions": [
+            {
+              "from": "1 meters",
+              "factor": "× 100",
+              "to": "100 centimeters"
+            },
+            {
+              "from": "7 meters",
+              "factor": "× 100",
+              "to": "700 centimeters"
+            }
+          ]
+        },
+        {
+          "id": "G4M_MD_001_L1_Q7",
+          "question_id": "G4M_MD_001_L1_Q7",
+          "question_type": "measurement",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 8 kilometers to meters.",
+          "answer": "8000",
+          "correct_answer": "8000",
+          "misconception_tag": "unit_conversion_direction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 8000.",
+          "read_aloud_text": "Convert 8 kilometers to meters.",
+          "question_audio": {
+            "text": "Convert 8 kilometers to meters.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "8000",
+            "8000"
+          ],
+          "amount": 8,
+          "from_unit": "kilometers",
+          "to_unit": "meters",
+          "factor": 1000,
+          "converted": 8000,
+          "conversions": [
+            {
+              "from": "1 kilometers",
+              "factor": "× 1000",
+              "to": "1000 meters"
+            },
+            {
+              "from": "8 kilometers",
+              "factor": "× 1000",
+              "to": "8000 meters"
+            }
+          ]
+        },
+        {
+          "id": "G4M_MD_001_L1_Q8",
+          "question_id": "G4M_MD_001_L1_Q8",
+          "question_type": "short_response",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 9 liters to milliliters.",
+          "answer": "9000",
+          "correct_answer": "9000",
+          "misconception_tag": "unit_conversion_direction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 9000.",
+          "read_aloud_text": "Convert 9 liters to milliliters.",
+          "question_audio": {
+            "text": "Convert 9 liters to milliliters.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "9000",
+            "9000"
+          ],
+          "amount": 9,
+          "from_unit": "liters",
+          "to_unit": "milliliters",
+          "factor": 1000,
+          "converted": 9000,
+          "conversions": [
+            {
+              "from": "1 liters",
+              "factor": "× 1000",
+              "to": "1000 milliliters"
+            },
+            {
+              "from": "9 liters",
+              "factor": "× 1000",
+              "to": "9000 milliliters"
+            }
+          ]
+        },
+        {
+          "id": "G4M_MD_001_L1_Q9",
+          "question_id": "G4M_MD_001_L1_Q9",
+          "question_type": "measurement",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 10 feet to inches.",
+          "answer": "120",
+          "correct_answer": "120",
+          "misconception_tag": "unit_conversion_direction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 120.",
+          "read_aloud_text": "Convert 10 feet to inches.",
+          "question_audio": {
+            "text": "Convert 10 feet to inches.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "120",
+            "120"
+          ],
+          "amount": 10,
+          "from_unit": "feet",
+          "to_unit": "inches",
+          "factor": 12,
+          "converted": 120,
+          "conversions": [
+            {
+              "from": "1 feet",
+              "factor": "× 12",
+              "to": "12 inches"
+            },
+            {
+              "from": "10 feet",
+              "factor": "× 12",
+              "to": "120 inches"
+            }
+          ]
+        },
+        {
+          "id": "G4M_MD_001_L1_Q10",
+          "question_id": "G4M_MD_001_L1_Q10",
+          "question_type": "short_response",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 12 cups to fluid ounces.",
+          "answer": "96",
+          "correct_answer": "96",
+          "misconception_tag": "unit_conversion_direction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 96.",
+          "read_aloud_text": "Convert 12 cups to fluid ounces.",
+          "question_audio": {
+            "text": "Convert 12 cups to fluid ounces.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "96",
+            "96"
+          ],
+          "amount": 12,
+          "from_unit": "cups",
+          "to_unit": "fluid ounces",
+          "factor": 8,
+          "converted": 96,
+          "conversions": [
+            {
+              "from": "1 cups",
+              "factor": "× 8",
+              "to": "8 fluid ounces"
+            },
+            {
+              "from": "12 cups",
+              "factor": "× 8",
+              "to": "96 fluid ounces"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_MD_001_LVL2",
+      "label": "Level 2: Measurement Word Problems",
+      "focus": "Solve measurement word problems with unit labels.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_MD_001_L2_Q1",
+          "question_id": "G4M_MD_001_L2_Q1",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Maya has 3 feet of ribbon. She uses 14 inches. How many inches are left?",
+          "answer": "22",
+          "correct_answer": "22",
+          "misconception_tag": "measurement_unit_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 22.",
+          "read_aloud_text": "Maya has 3 feet of ribbon. She uses 14 inches. How many inches are left?",
+          "question_audio": {
+            "text": "Maya has 3 feet of ribbon. She uses 14 inches. How many inches are left?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "22",
+            "22"
+          ],
+          "from_unit": "feet",
+          "to_unit": "inches",
+          "factor": 12,
+          "equation": "use 12 inches in 1 feet"
+        },
+        {
+          "id": "G4M_MD_001_L2_Q2",
+          "question_id": "G4M_MD_001_L2_Q2",
+          "question_type": "measurement",
+          "visual_model": "word_problem_model",
+          "prompt": "A recipe needs 2 quarts of juice. The pitcher has 9 cups. How many cups are left after the recipe?",
+          "answer": "1",
+          "correct_answer": "1",
+          "misconception_tag": "measurement_unit_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 1.",
+          "read_aloud_text": "A recipe needs 2 quarts of juice. The pitcher has 9 cups. How many cups are left after the recipe?",
+          "question_audio": {
+            "text": "A recipe needs 2 quarts of juice. The pitcher has 9 cups. How many cups are left after the recipe?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "1",
+            "1"
+          ],
+          "from_unit": "quarts",
+          "to_unit": "cups",
+          "factor": 4,
+          "equation": "use 4 cups in 1 quarts"
+        },
+        {
+          "id": "G4M_MD_001_L2_Q3",
+          "question_id": "G4M_MD_001_L2_Q3",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "A hike is 4 kilometers. The class walked 1500 meters. How many meters remain?",
+          "answer": "2500",
+          "correct_answer": "2500",
+          "misconception_tag": "measurement_unit_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 2500.",
+          "read_aloud_text": "A hike is 4 kilometers. The class walked 1500 meters. How many meters remain?",
+          "question_audio": {
+            "text": "A hike is 4 kilometers. The class walked 1500 meters. How many meters remain?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "2500",
+            "2500"
+          ],
+          "from_unit": "kilometers",
+          "to_unit": "meters",
+          "factor": 1000,
+          "equation": "use 1000 meters in 1 kilometers"
+        },
+        {
+          "id": "G4M_MD_001_L2_Q4",
+          "question_id": "G4M_MD_001_L2_Q4",
+          "question_type": "measurement",
+          "visual_model": "word_problem_model",
+          "prompt": "A craft uses 5 yards of string. How many feet of string is that?",
+          "answer": "15",
+          "correct_answer": "15",
+          "misconception_tag": "measurement_unit_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 15.",
+          "read_aloud_text": "A craft uses 5 yards of string. How many feet of string is that?",
+          "question_audio": {
+            "text": "A craft uses 5 yards of string. How many feet of string is that?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "15",
+            "15"
+          ],
+          "from_unit": "yards",
+          "to_unit": "feet",
+          "factor": 3,
+          "equation": "use 3 feet in 1 yards"
+        },
+        {
+          "id": "G4M_MD_001_L2_Q5",
+          "question_id": "G4M_MD_001_L2_Q5",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Sam practiced for 2 hours and then 25 more minutes. How many minutes did Sam practice?",
+          "answer": "145",
+          "correct_answer": "145",
+          "misconception_tag": "measurement_unit_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 145.",
+          "read_aloud_text": "Sam practiced for 2 hours and then 25 more minutes. How many minutes did Sam practice?",
+          "question_audio": {
+            "text": "Sam practiced for 2 hours and then 25 more minutes. How many minutes did Sam practice?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "145",
+            "145"
+          ],
+          "from_unit": "hours",
+          "to_unit": "minutes",
+          "factor": 60,
+          "equation": "use 60 minutes in 1 hours"
+        },
+        {
+          "id": "G4M_MD_001_L2_Q6",
+          "question_id": "G4M_MD_001_L2_Q6",
+          "question_type": "measurement",
+          "visual_model": "word_problem_model",
+          "prompt": "A bag weighs 3 pounds. How many ounces is the bag?",
+          "answer": "48",
+          "correct_answer": "48",
+          "misconception_tag": "measurement_unit_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 48.",
+          "read_aloud_text": "A bag weighs 3 pounds. How many ounces is the bag?",
+          "question_audio": {
+            "text": "A bag weighs 3 pounds. How many ounces is the bag?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "48",
+            "48"
+          ],
+          "from_unit": "pounds",
+          "to_unit": "ounces",
+          "factor": 16,
+          "equation": "use 16 ounces in 1 pounds"
+        },
+        {
+          "id": "G4M_MD_001_L2_Q7",
+          "question_id": "G4M_MD_001_L2_Q7",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "The tank holds 6 gallons. How many quarts does it hold?",
+          "answer": "24",
+          "correct_answer": "24",
+          "misconception_tag": "measurement_unit_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 24.",
+          "read_aloud_text": "The tank holds 6 gallons. How many quarts does it hold?",
+          "question_audio": {
+            "text": "The tank holds 6 gallons. How many quarts does it hold?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "24",
+            "24"
+          ],
+          "from_unit": "gallons",
+          "to_unit": "quarts",
+          "factor": 4,
+          "equation": "use 4 quarts in 1 gallons"
+        },
+        {
+          "id": "G4M_MD_001_L2_Q8",
+          "question_id": "G4M_MD_001_L2_Q8",
+          "question_type": "measurement",
+          "visual_model": "word_problem_model",
+          "prompt": "Nia had 250 centimeters of tape and used 1 meter. How many centimeters remain?",
+          "answer": "150",
+          "correct_answer": "150",
+          "misconception_tag": "measurement_unit_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 150.",
+          "read_aloud_text": "Nia had 250 centimeters of tape and used 1 meter. How many centimeters remain?",
+          "question_audio": {
+            "text": "Nia had 250 centimeters of tape and used 1 meter. How many centimeters remain?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "150",
+            "150"
+          ],
+          "from_unit": "meters",
+          "to_unit": "centimeters",
+          "factor": 100,
+          "equation": "use 100 centimeters in 1 meters"
+        },
+        {
+          "id": "G4M_MD_001_L2_Q9",
+          "question_id": "G4M_MD_001_L2_Q9",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Four liters of water are poured into milliliter bottles. How many milliliters is that?",
+          "answer": "4000",
+          "correct_answer": "4000",
+          "misconception_tag": "measurement_unit_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 4000.",
+          "read_aloud_text": "Four liters of water are poured into milliliter bottles. How many milliliters is that?",
+          "question_audio": {
+            "text": "Four liters of water are poured into milliliter bottles. How many milliliters is that?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "4000",
+            "4000"
+          ],
+          "from_unit": "liters",
+          "to_unit": "milliliters",
+          "factor": 1000,
+          "equation": "use 1000 milliliters in 1 liters"
+        },
+        {
+          "id": "G4M_MD_001_L2_Q10",
+          "question_id": "G4M_MD_001_L2_Q10",
+          "question_type": "measurement",
+          "visual_model": "word_problem_model",
+          "prompt": "A board is 6 feet long and 18 inches are cut off. How many inches remain?",
+          "answer": "54",
+          "correct_answer": "54",
+          "misconception_tag": "measurement_unit_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 54.",
+          "read_aloud_text": "A board is 6 feet long and 18 inches are cut off. How many inches remain?",
+          "question_audio": {
+            "text": "A board is 6 feet long and 18 inches are cut off. How many inches remain?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "54",
+            "54"
+          ],
+          "from_unit": "feet",
+          "to_unit": "inches",
+          "factor": 12,
+          "equation": "use 12 inches in 1 feet"
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_MD_001_LVL3",
+      "label": "Level 3: Line Plots With Fractions",
+      "focus": "Interpret fractional line plot data.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_MD_001_L3_Q1",
+          "question_id": "G4M_MD_001_L3_Q1",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "How many measurements are 3/4 inch?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "How many measurements are 3/4 inch?",
+          "question_audio": {
+            "text": "How many measurements are 3/4 inch?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3",
+            "3"
+          ],
+          "ticks": [
+            "1/4",
+            "1/2",
+            "3/4"
+          ],
+          "values": [
+            "1/4",
+            "1/2",
+            "1/2",
+            "3/4",
+            "3/4",
+            "3/4"
+          ],
+          "graph_title": "Ribbon Lengths in Inches"
+        },
+        {
+          "id": "G4M_MD_001_L3_Q2",
+          "question_id": "G4M_MD_001_L3_Q2",
+          "question_type": "short_response",
+          "visual_model": "line_plot",
+          "prompt": "How many measurements are at least 1/2 inch?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "How many measurements are at least 1/2 inch?",
+          "question_audio": {
+            "text": "How many measurements are at least 1/2 inch?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3",
+            "3"
+          ],
+          "ticks": [
+            "0",
+            "1/4",
+            "1/2",
+            "3/4",
+            "1"
+          ],
+          "values": [
+            "1/4",
+            "1/4",
+            "1/2",
+            "3/4",
+            "1"
+          ],
+          "graph_title": "Ribbon Lengths in Inches"
+        },
+        {
+          "id": "G4M_MD_001_L3_Q3",
+          "question_id": "G4M_MD_001_L3_Q3",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "How many X marks are on the line plot?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "How many X marks are on the line plot?",
+          "question_audio": {
+            "text": "How many X marks are on the line plot?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "6",
+            "6"
+          ],
+          "ticks": [
+            "1/8",
+            "2/8",
+            "3/8",
+            "4/8"
+          ],
+          "values": [
+            "1/8",
+            "2/8",
+            "2/8",
+            "3/8",
+            "4/8",
+            "4/8"
+          ],
+          "graph_title": "Ribbon Lengths in Inches"
+        },
+        {
+          "id": "G4M_MD_001_L3_Q4",
+          "question_id": "G4M_MD_001_L3_Q4",
+          "question_type": "short_response",
+          "visual_model": "line_plot",
+          "prompt": "How many more marks are at 1 than at 3/4?",
+          "answer": "1",
+          "correct_answer": "1",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 1.",
+          "read_aloud_text": "How many more marks are at 1 than at 3/4?",
+          "question_audio": {
+            "text": "How many more marks are at 1 than at 3/4?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "1",
+            "1"
+          ],
+          "ticks": [
+            "1/2",
+            "3/4",
+            "1"
+          ],
+          "values": [
+            "1/2",
+            "1/2",
+            "3/4",
+            "1",
+            "1"
+          ],
+          "graph_title": "Ribbon Lengths in Inches"
+        },
+        {
+          "id": "G4M_MD_001_L3_Q5",
+          "question_id": "G4M_MD_001_L3_Q5",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "How many measurements are less than 1/2 inch?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "How many measurements are less than 1/2 inch?",
+          "question_audio": {
+            "text": "How many measurements are less than 1/2 inch?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3",
+            "3"
+          ],
+          "ticks": [
+            "0",
+            "1/4",
+            "1/2",
+            "3/4"
+          ],
+          "values": [
+            "0",
+            "1/4",
+            "1/4",
+            "1/2",
+            "3/4"
+          ],
+          "graph_title": "Ribbon Lengths in Inches"
+        },
+        {
+          "id": "G4M_MD_001_L3_Q6",
+          "question_id": "G4M_MD_001_L3_Q6",
+          "question_type": "short_response",
+          "visual_model": "line_plot",
+          "prompt": "What fraction label has exactly one mark?",
+          "answer": "1/2",
+          "correct_answer": "1/2",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 1/2.",
+          "read_aloud_text": "What fraction label has exactly one mark?",
+          "question_audio": {
+            "text": "What fraction label has exactly one mark?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "1/2",
+            "1/2"
+          ],
+          "ticks": [
+            "1/4",
+            "1/2",
+            "3/4"
+          ],
+          "values": [
+            "1/4",
+            "1/4",
+            "1/2",
+            "3/4"
+          ],
+          "graph_title": "Ribbon Lengths in Inches"
+        },
+        {
+          "id": "G4M_MD_001_L3_Q7",
+          "question_id": "G4M_MD_001_L3_Q7",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "Which fraction has the most marks?",
+          "answer": "2/8",
+          "correct_answer": "2/8",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 2/8.",
+          "read_aloud_text": "Which fraction has the most marks?",
+          "question_audio": {
+            "text": "Which fraction has the most marks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "2/8",
+            "2/8"
+          ],
+          "ticks": [
+            "1/8",
+            "2/8",
+            "3/8"
+          ],
+          "values": [
+            "1/8",
+            "2/8",
+            "2/8",
+            "2/8",
+            "3/8"
+          ],
+          "graph_title": "Ribbon Lengths in Inches"
+        },
+        {
+          "id": "G4M_MD_001_L3_Q8",
+          "question_id": "G4M_MD_001_L3_Q8",
+          "question_type": "short_response",
+          "visual_model": "line_plot",
+          "prompt": "How many measurements are 1/2 or 1?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "How many measurements are 1/2 or 1?",
+          "question_audio": {
+            "text": "How many measurements are 1/2 or 1?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "4",
+            "4"
+          ],
+          "ticks": [
+            "1/4",
+            "1/2",
+            "3/4",
+            "1"
+          ],
+          "values": [
+            "1/4",
+            "1/2",
+            "1/2",
+            "3/4",
+            "1",
+            "1"
+          ],
+          "graph_title": "Ribbon Lengths in Inches"
+        },
+        {
+          "id": "G4M_MD_001_L3_Q9",
+          "question_id": "G4M_MD_001_L3_Q9",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "How many measurements are not 3/4?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "How many measurements are not 3/4?",
+          "question_audio": {
+            "text": "How many measurements are not 3/4?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "2",
+            "2"
+          ],
+          "ticks": [
+            "1/2",
+            "3/4",
+            "1"
+          ],
+          "values": [
+            "1/2",
+            "3/4",
+            "3/4",
+            "1"
+          ],
+          "graph_title": "Ribbon Lengths in Inches"
+        },
+        {
+          "id": "G4M_MD_001_L3_Q10",
+          "question_id": "G4M_MD_001_L3_Q10",
+          "question_type": "short_response",
+          "visual_model": "line_plot",
+          "prompt": "How many more marks are at 1/2 than at 0?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "How many more marks are at 1/2 than at 0?",
+          "question_audio": {
+            "text": "How many more marks are at 1/2 than at 0?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "2",
+            "2"
+          ],
+          "ticks": [
+            "0",
+            "1/4",
+            "1/2"
+          ],
+          "values": [
+            "0",
+            "1/4",
+            "1/4",
+            "1/2",
+            "1/2",
+            "1/2"
+          ],
+          "graph_title": "Ribbon Lengths in Inches"
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_MD_001_LVL4",
+      "label": "Level 4: Area and Perimeter Word Problems",
+      "focus": "Solve rectangle area and perimeter word problems.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_MD_001_L4_Q1",
+          "question_id": "G4M_MD_001_L4_Q1",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "Find the area of a rectangle that is 8 feet long and 5 feet wide.",
+          "answer": "40",
+          "correct_answer": "40",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 40.",
+          "read_aloud_text": "Find the area of a rectangle that is 8 feet long and 5 feet wide.",
+          "question_audio": {
+            "text": "Find the area of a rectangle that is 8 feet long and 5 feet wide.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "40",
+            "40"
+          ],
+          "length": 8,
+          "width": 5,
+          "area": 40,
+          "perimeter": 26,
+          "unit": "square feet"
+        },
+        {
+          "id": "G4M_MD_001_L4_Q2",
+          "question_id": "G4M_MD_001_L4_Q2",
+          "question_type": "measurement",
+          "visual_model": "perimeter_path",
+          "prompt": "Find the perimeter of a rectangle that is 9 meters long and 4 meters wide.",
+          "answer": "26",
+          "correct_answer": "26",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 26.",
+          "read_aloud_text": "Find the perimeter of a rectangle that is 9 meters long and 4 meters wide.",
+          "question_audio": {
+            "text": "Find the perimeter of a rectangle that is 9 meters long and 4 meters wide.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "26",
+            "26"
+          ],
+          "length": 9,
+          "width": 4,
+          "area": 36,
+          "perimeter": 26,
+          "unit": "meters"
+        },
+        {
+          "id": "G4M_MD_001_L4_Q3",
+          "question_id": "G4M_MD_001_L4_Q3",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "A garden is 12 yards by 6 yards. What is its area?",
+          "answer": "72",
+          "correct_answer": "72",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 72.",
+          "read_aloud_text": "A garden is 12 yards by 6 yards. What is its area?",
+          "question_audio": {
+            "text": "A garden is 12 yards by 6 yards. What is its area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "72",
+            "72"
+          ],
+          "length": 12,
+          "width": 6,
+          "area": 72,
+          "perimeter": 36,
+          "unit": "square yards"
+        },
+        {
+          "id": "G4M_MD_001_L4_Q4",
+          "question_id": "G4M_MD_001_L4_Q4",
+          "question_type": "measurement",
+          "visual_model": "perimeter_path",
+          "prompt": "A poster is 7 inches by 3 inches. What is its perimeter?",
+          "answer": "20",
+          "correct_answer": "20",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 20.",
+          "read_aloud_text": "A poster is 7 inches by 3 inches. What is its perimeter?",
+          "question_audio": {
+            "text": "A poster is 7 inches by 3 inches. What is its perimeter?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "20",
+            "20"
+          ],
+          "length": 7,
+          "width": 3,
+          "area": 21,
+          "perimeter": 20,
+          "unit": "inches"
+        },
+        {
+          "id": "G4M_MD_001_L4_Q5",
+          "question_id": "G4M_MD_001_L4_Q5",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "A rug is 10 feet by 8 feet. What is its area?",
+          "answer": "80",
+          "correct_answer": "80",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 80.",
+          "read_aloud_text": "A rug is 10 feet by 8 feet. What is its area?",
+          "question_audio": {
+            "text": "A rug is 10 feet by 8 feet. What is its area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "80",
+            "80"
+          ],
+          "length": 10,
+          "width": 8,
+          "area": 80,
+          "perimeter": 36,
+          "unit": "square feet"
+        },
+        {
+          "id": "G4M_MD_001_L4_Q6",
+          "question_id": "G4M_MD_001_L4_Q6",
+          "question_type": "measurement",
+          "visual_model": "perimeter_path",
+          "prompt": "A field is 11 meters by 5 meters. What is its perimeter?",
+          "answer": "32",
+          "correct_answer": "32",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 32.",
+          "read_aloud_text": "A field is 11 meters by 5 meters. What is its perimeter?",
+          "question_audio": {
+            "text": "A field is 11 meters by 5 meters. What is its perimeter?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "32",
+            "32"
+          ],
+          "length": 11,
+          "width": 5,
+          "area": 55,
+          "perimeter": 32,
+          "unit": "meters"
+        },
+        {
+          "id": "G4M_MD_001_L4_Q7",
+          "question_id": "G4M_MD_001_L4_Q7",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "A square has side lengths of 6 centimeters. What is its area?",
+          "answer": "36",
+          "correct_answer": "36",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 36.",
+          "read_aloud_text": "A square has side lengths of 6 centimeters. What is its area?",
+          "question_audio": {
+            "text": "A square has side lengths of 6 centimeters. What is its area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "36",
+            "36"
+          ],
+          "length": 6,
+          "width": 6,
+          "area": 36,
+          "perimeter": 24,
+          "unit": "square centimeters"
+        },
+        {
+          "id": "G4M_MD_001_L4_Q8",
+          "question_id": "G4M_MD_001_L4_Q8",
+          "question_type": "measurement",
+          "visual_model": "perimeter_path",
+          "prompt": "A path is 14 yards by 2 yards. What is its perimeter?",
+          "answer": "32",
+          "correct_answer": "32",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 32.",
+          "read_aloud_text": "A path is 14 yards by 2 yards. What is its perimeter?",
+          "question_audio": {
+            "text": "A path is 14 yards by 2 yards. What is its perimeter?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "32",
+            "32"
+          ],
+          "length": 14,
+          "width": 2,
+          "area": 28,
+          "perimeter": 32,
+          "unit": "yards"
+        },
+        {
+          "id": "G4M_MD_001_L4_Q9",
+          "question_id": "G4M_MD_001_L4_Q9",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "A banner is 13 feet by 4 feet. What is its area?",
+          "answer": "52",
+          "correct_answer": "52",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 52.",
+          "read_aloud_text": "A banner is 13 feet by 4 feet. What is its area?",
+          "question_audio": {
+            "text": "A banner is 13 feet by 4 feet. What is its area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "52",
+            "52"
+          ],
+          "length": 13,
+          "width": 4,
+          "area": 52,
+          "perimeter": 34,
+          "unit": "square feet"
+        },
+        {
+          "id": "G4M_MD_001_L4_Q10",
+          "question_id": "G4M_MD_001_L4_Q10",
+          "question_type": "measurement",
+          "visual_model": "perimeter_path",
+          "prompt": "A court is 15 meters by 7 meters. What is its perimeter?",
+          "answer": "44",
+          "correct_answer": "44",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 44.",
+          "read_aloud_text": "A court is 15 meters by 7 meters. What is its perimeter?",
+          "question_audio": {
+            "text": "A court is 15 meters by 7 meters. What is its perimeter?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "44",
+            "44"
+          ],
+          "length": 15,
+          "width": 7,
+          "area": 105,
+          "perimeter": 44,
+          "unit": "meters"
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_MD_001_MIXED",
+      "label": "Mixed",
+      "focus": "Practice all measurement and data skills together.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_MD_001_MIX_Q1",
+          "question_id": "G4M_MD_001_MIX_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 3 feet to inches.",
+          "answer": "36",
+          "correct_answer": "36",
+          "misconception_tag": "unit_conversion_direction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 36.",
+          "read_aloud_text": "Convert 3 feet to inches.",
+          "question_audio": {
+            "text": "Convert 3 feet to inches.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "36",
+            "36"
+          ],
+          "amount": 3,
+          "from_unit": "feet",
+          "to_unit": "inches",
+          "factor": 12,
+          "converted": 36,
+          "conversions": [
+            {
+              "from": "1 feet",
+              "factor": "× 12",
+              "to": "12 inches"
+            },
+            {
+              "from": "3 feet",
+              "factor": "× 12",
+              "to": "36 inches"
+            }
+          ],
+          "choices": [
+            "36",
+            "3 inches",
+            "15 inches",
+            "48 inches"
+          ]
+        },
+        {
+          "id": "G4M_MD_001_MIX_Q2",
+          "question_id": "G4M_MD_001_MIX_Q2",
+          "question_type": "short_response",
+          "visual_model": "measurement_conversion_table",
+          "prompt": "Convert 5 yards to feet.",
+          "answer": "15",
+          "correct_answer": "15",
+          "misconception_tag": "unit_conversion_direction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 15.",
+          "read_aloud_text": "Convert 5 yards to feet.",
+          "question_audio": {
+            "text": "Convert 5 yards to feet.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "15",
+            "15"
+          ],
+          "amount": 5,
+          "from_unit": "yards",
+          "to_unit": "feet",
+          "factor": 3,
+          "converted": 15,
+          "conversions": [
+            {
+              "from": "1 yards",
+              "factor": "× 3",
+              "to": "3 feet"
+            },
+            {
+              "from": "5 yards",
+              "factor": "× 3",
+              "to": "15 feet"
+            }
+          ]
+        },
+        {
+          "id": "G4M_MD_001_MIX_Q3",
+          "question_id": "G4M_MD_001_MIX_Q3",
+          "question_type": "short_response",
+          "visual_model": "word_problem_model",
+          "prompt": "Maya has 3 feet of ribbon. She uses 14 inches. How many inches are left?",
+          "answer": "22",
+          "correct_answer": "22",
+          "misconception_tag": "measurement_unit_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 22.",
+          "read_aloud_text": "Maya has 3 feet of ribbon. She uses 14 inches. How many inches are left?",
+          "question_audio": {
+            "text": "Maya has 3 feet of ribbon. She uses 14 inches. How many inches are left?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "22",
+            "22"
+          ],
+          "from_unit": "feet",
+          "to_unit": "inches",
+          "factor": 12,
+          "equation": "use 12 inches in 1 feet"
+        },
+        {
+          "id": "G4M_MD_001_MIX_Q4",
+          "question_id": "G4M_MD_001_MIX_Q4",
+          "question_type": "measurement",
+          "visual_model": "word_problem_model",
+          "prompt": "A recipe needs 2 quarts of juice. The pitcher has 9 cups. How many cups are left after the recipe?",
+          "answer": "1",
+          "correct_answer": "1",
+          "misconception_tag": "measurement_unit_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 1.",
+          "read_aloud_text": "A recipe needs 2 quarts of juice. The pitcher has 9 cups. How many cups are left after the recipe?",
+          "question_audio": {
+            "text": "A recipe needs 2 quarts of juice. The pitcher has 9 cups. How many cups are left after the recipe?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "1",
+            "1"
+          ],
+          "from_unit": "quarts",
+          "to_unit": "cups",
+          "factor": 4,
+          "equation": "use 4 cups in 1 quarts"
+        },
+        {
+          "id": "G4M_MD_001_MIX_Q5",
+          "question_id": "G4M_MD_001_MIX_Q5",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "How many measurements are 3/4 inch?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "How many measurements are 3/4 inch?",
+          "question_audio": {
+            "text": "How many measurements are 3/4 inch?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3",
+            "3"
+          ],
+          "ticks": [
+            "1/4",
+            "1/2",
+            "3/4"
+          ],
+          "values": [
+            "1/4",
+            "1/2",
+            "1/2",
+            "3/4",
+            "3/4",
+            "3/4"
+          ],
+          "graph_title": "Ribbon Lengths in Inches"
+        },
+        {
+          "id": "G4M_MD_001_MIX_Q6",
+          "question_id": "G4M_MD_001_MIX_Q6",
+          "question_type": "short_response",
+          "visual_model": "line_plot",
+          "prompt": "How many measurements are at least 1/2 inch?",
+          "answer": "3",
+          "correct_answer": "3",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 3.",
+          "read_aloud_text": "How many measurements are at least 1/2 inch?",
+          "question_audio": {
+            "text": "How many measurements are at least 1/2 inch?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "3",
+            "3"
+          ],
+          "ticks": [
+            "0",
+            "1/4",
+            "1/2",
+            "3/4",
+            "1"
+          ],
+          "values": [
+            "1/4",
+            "1/4",
+            "1/2",
+            "3/4",
+            "1"
+          ],
+          "graph_title": "Ribbon Lengths in Inches"
+        },
+        {
+          "id": "G4M_MD_001_MIX_Q7",
+          "question_id": "G4M_MD_001_MIX_Q7",
+          "question_type": "data_interpretation",
+          "visual_model": "line_plot",
+          "prompt": "How many X marks are on the line plot?",
+          "answer": "6",
+          "correct_answer": "6",
+          "misconception_tag": "line_plot_fraction_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 6.",
+          "read_aloud_text": "How many X marks are on the line plot?",
+          "question_audio": {
+            "text": "How many X marks are on the line plot?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "6",
+            "6"
+          ],
+          "ticks": [
+            "1/8",
+            "2/8",
+            "3/8",
+            "4/8"
+          ],
+          "values": [
+            "1/8",
+            "2/8",
+            "2/8",
+            "3/8",
+            "4/8",
+            "4/8"
+          ],
+          "graph_title": "Ribbon Lengths in Inches"
+        },
+        {
+          "id": "G4M_MD_001_MIX_Q8",
+          "question_id": "G4M_MD_001_MIX_Q8",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "Find the area of a rectangle that is 8 feet long and 5 feet wide.",
+          "answer": "40",
+          "correct_answer": "40",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 40.",
+          "read_aloud_text": "Find the area of a rectangle that is 8 feet long and 5 feet wide.",
+          "question_audio": {
+            "text": "Find the area of a rectangle that is 8 feet long and 5 feet wide.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "40",
+            "40"
+          ],
+          "length": 8,
+          "width": 5,
+          "area": 40,
+          "perimeter": 26,
+          "unit": "square feet"
+        },
+        {
+          "id": "G4M_MD_001_MIX_Q9",
+          "question_id": "G4M_MD_001_MIX_Q9",
+          "question_type": "measurement",
+          "visual_model": "perimeter_path",
+          "prompt": "Find the perimeter of a rectangle that is 9 meters long and 4 meters wide.",
+          "answer": "26",
+          "correct_answer": "26",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 26.",
+          "read_aloud_text": "Find the perimeter of a rectangle that is 9 meters long and 4 meters wide.",
+          "question_audio": {
+            "text": "Find the perimeter of a rectangle that is 9 meters long and 4 meters wide.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "26",
+            "26"
+          ],
+          "length": 9,
+          "width": 4,
+          "area": 36,
+          "perimeter": 26,
+          "unit": "meters"
+        },
+        {
+          "id": "G4M_MD_001_MIX_Q10",
+          "question_id": "G4M_MD_001_MIX_Q10",
+          "question_type": "short_response",
+          "visual_model": "area_model",
+          "prompt": "A garden is 12 yards by 6 yards. What is its area?",
+          "answer": "72",
+          "correct_answer": "72",
+          "misconception_tag": "area_perimeter_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 72.",
+          "read_aloud_text": "A garden is 12 yards by 6 yards. What is its area?",
+          "question_audio": {
+            "text": "A garden is 12 yards by 6 yards. What is its area?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "72",
+            "72"
+          ],
+          "length": 12,
+          "width": 6,
+          "area": 72,
+          "perimeter": 36,
+          "unit": "square yards"
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Read this page to enter Measurement Conversion and Data. The crew has a real Grade 4 problem to solve, so notice the quantities, labels, and math words before you start. Think about what the question is asking and how a model can keep your work organized.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "Read this page for the main lesson on convert measurements, solve measurement problems, and interpret line plots with fractions. Use precise vocabulary, name the units or geometry attributes, and explain why each step makes sense. If a number, line, angle, or shape label matters, say it in your own words before answering.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Read this page while you watch the worked example. The model is not decoration; it shows how to connect the problem words to a mathematical relationship. Pause on each label and ask what it tells you to calculate, compare, measure, or classify.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "Read this page before the demo. Follow the first move, then predict the next move before checking the example. Good mathematicians use the visual evidence and the answer sentence together, not just a quick guess.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Read this page to practice with support. Press Read Question for each problem so you hear the full math wording clearly. Then use the model, choose or type your answer, and check whether your response includes the correct value, unit, or geometry word.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "Read this page for the challenge round. These problems may mix vocabulary, diagrams, and computation, so slow down and identify the exact relationship first. Press Read Question when you need the prompt spoken again, then explain your reasoning.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "Read this page for the checkpoint. This is your chance to show independent skill with the same careful habits: read the prompt, use the visual, answer with the correct label, and review your work. Use Read Question to hear each checkpoint item.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "Read this page to celebrate your progress. The badge means you practiced the lesson, watched models, tried challenges, and checked your understanding. Name one strategy you used today so it is ready for the next math mission.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Read this page to save your growth profile. Look at what you completed and notice which kinds of questions felt strongest. Your next practice should build on those strengths and revisit any unit labels, data labels, angle measures, or shape attributes that still need attention.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}

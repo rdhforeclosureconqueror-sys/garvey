@@ -357,7 +357,9 @@ test('Grade 4 division and fractions Skill World packages appear from manifest f
     ['G4M_NBT_004', { skill: 'Division With Remainders', domain: 'Number and Operations in Base Ten' }],
     ['G4M_FR_001', { skill: 'Fraction Equivalence and Ordering', domain: 'Number and Operations—Fractions' }],
     ['G4M_FR_002', { skill: 'Add and Subtract Fractions', domain: 'Number and Operations—Fractions' }],
-    ['G4M_FR_003', { skill: 'Multiply Fractions by Whole Numbers', domain: 'Number and Operations—Fractions' }]
+    ['G4M_FR_003', { skill: 'Multiply Fractions by Whole Numbers', domain: 'Number and Operations—Fractions' }],
+    ['G4M_MD_001', { skill: 'Measurement Conversion and Data', domain: 'Measurement and Data' }],
+    ['G4M_GM_001', { skill: 'Angles, Lines, and Shape Classification', domain: 'Geometry' }]
   ]);
   for (const skillId of expectedGrade4.keys()) {
     assert.ok(manifest.packages.includes(`${skillId}.skill-package.v1.json`), `manifest includes ${skillId}`);

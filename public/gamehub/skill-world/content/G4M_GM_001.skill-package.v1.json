@@ -1,0 +1,2293 @@
+{
+  "skill_id": "G4M_GM_001",
+  "metadata": {
+    "package_version": "skill-package.v1",
+    "production_status": "production",
+    "source_docs": [
+      "docs/grade4_math_completion_plan.md",
+      "curriculum-framework/plans/grade4-math-completion-plan.v1.json"
+    ],
+    "source_plan": "curriculum-framework/plans/grade4-math-completion-plan.v1.json",
+    "readiness_checkpoint": "grade4_final_measurement_geometry_batch"
+  },
+  "grade": 4,
+  "subject": "Math",
+  "domain": "Geometry",
+  "skill": "Angles, Lines, and Shape Classification",
+  "mastery_threshold": 0.8,
+  "difficulty_range": [
+    2,
+    5
+  ],
+  "game_theme": {
+    "title": "Angles, Lines, and Shape Classification",
+    "badge_name": "Geometry Badge",
+    "mission_intro": "Use points, lines, rays, angles, line relationships, symmetry, and shape attributes to help the Skill World crew design a safe city plaza."
+  },
+  "lesson": {
+    "story_mission": "The crew must label paths, corners, signs, and shapes in a city plaza.",
+    "mini_lesson": "Geometry uses exact words. Angles are made by rays with a shared vertex, protractors measure degrees, parallel lines never meet, perpendicular lines make right angles, and symmetry means matching halves.",
+    "objective": "Identify and classify angles, lines, line relationships, symmetry, and shapes.",
+    "key_vocabulary": [
+      "point",
+      "line",
+      "ray",
+      "angle",
+      "vertex",
+      "degrees",
+      "parallel",
+      "perpendicular",
+      "symmetry"
+    ],
+    "concept_explanation": "Grade 4 geometry connects diagrams to vocabulary. The marks, endpoints, angle openings, and side relationships show how to classify each figure.",
+    "common_misconception": "Students may judge angles by ray length, read the wrong protractor scale, confuse parallel and perpendicular lines, or choose a fold line that does not make matching halves.",
+    "real_world_connection": "These skills help with maps, architecture, art, robotics paths, and construction plans.",
+    "lesson_summary": "Name the parts of the figure, use measurement when needed, and classify by attributes instead of appearance.",
+    "visual_model": "angle_model",
+    "audio": {
+      "text": "In this lesson, use geometry vocabulary to read angles, line relationships, symmetry, and shape attributes precisely.",
+      "label": "Listen to Lesson",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  },
+  "worked_examples": [
+    {
+      "id": "G4M_GM_001_L1_Q1",
+      "question_id": "G4M_GM_001_L1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "angle_model",
+      "prompt": "Which figure is formed by two rays with the same endpoint?",
+      "answer": "angle",
+      "correct_answer": "angle",
+      "misconception_tag": "angle_size_confusion",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is angle.",
+      "read_aloud_text": "Which figure is formed by two rays with the same endpoint?",
+      "question_audio": {
+        "text": "Which figure is formed by two rays with the same endpoint?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "angle",
+        "segment",
+        "ray",
+        "parallel"
+      ],
+      "angle_degrees": 70,
+      "angle_type": "acute",
+      "relationship": "acute"
+    },
+    {
+      "id": "G4M_GM_001_L1_Q2",
+      "question_id": "G4M_GM_001_L1_Q2",
+      "question_type": "geometry_response",
+      "visual_model": "angle_model",
+      "prompt": "What do we call the shared endpoint of an angle?",
+      "answer": "vertex",
+      "correct_answer": "vertex",
+      "misconception_tag": "angle_size_confusion",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is vertex.",
+      "read_aloud_text": "What do we call the shared endpoint of an angle?",
+      "question_audio": {
+        "text": "What do we call the shared endpoint of an angle?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "vertex",
+        "vertex"
+      ],
+      "angle_degrees": 90,
+      "angle_type": "right",
+      "relationship": "right"
+    }
+  ],
+  "hint_ladder": [
+    "Name the parts.",
+    "Use the diagram labels.",
+    "Classify by attributes."
+  ],
+  "guided_practice": [
+    {
+      "id": "G4M_GM_001_L1_Q1",
+      "question_id": "G4M_GM_001_L1_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "angle_model",
+      "prompt": "Which figure is formed by two rays with the same endpoint?",
+      "answer": "angle",
+      "correct_answer": "angle",
+      "misconception_tag": "angle_size_confusion",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is angle.",
+      "read_aloud_text": "Which figure is formed by two rays with the same endpoint?",
+      "question_audio": {
+        "text": "Which figure is formed by two rays with the same endpoint?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "angle",
+        "segment",
+        "ray",
+        "parallel"
+      ],
+      "angle_degrees": 70,
+      "angle_type": "acute",
+      "relationship": "acute"
+    },
+    {
+      "id": "G4M_GM_001_L1_Q2",
+      "question_id": "G4M_GM_001_L1_Q2",
+      "question_type": "geometry_response",
+      "visual_model": "angle_model",
+      "prompt": "What do we call the shared endpoint of an angle?",
+      "answer": "vertex",
+      "correct_answer": "vertex",
+      "misconception_tag": "angle_size_confusion",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is vertex.",
+      "read_aloud_text": "What do we call the shared endpoint of an angle?",
+      "question_audio": {
+        "text": "What do we call the shared endpoint of an angle?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "vertex",
+        "vertex"
+      ],
+      "angle_degrees": 90,
+      "angle_type": "right",
+      "relationship": "right"
+    }
+  ],
+  "adaptive_question_bank": [
+    {
+      "id": "G4M_GM_001_L2_Q1",
+      "question_id": "G4M_GM_001_L2_Q1",
+      "question_type": "short_response",
+      "visual_model": "protractor_model",
+      "prompt": "What angle measure is shown on the protractor?",
+      "answer": "45",
+      "correct_answer": "45",
+      "misconception_tag": "protractor_reading_error",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is 45.",
+      "read_aloud_text": "What angle measure is shown on the protractor?",
+      "question_audio": {
+        "text": "What angle measure is shown on the protractor?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "45",
+        "45"
+      ],
+      "angle_degrees": 45,
+      "angle_type": "acute"
+    },
+    {
+      "id": "G4M_GM_001_L2_Q2",
+      "question_id": "G4M_GM_001_L2_Q2",
+      "question_type": "short_response",
+      "visual_model": "protractor_model",
+      "prompt": "What angle measure is shown on the protractor?",
+      "answer": "90",
+      "correct_answer": "90",
+      "misconception_tag": "protractor_reading_error",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is 90.",
+      "read_aloud_text": "What angle measure is shown on the protractor?",
+      "question_audio": {
+        "text": "What angle measure is shown on the protractor?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "acceptable_answers": [
+        "90",
+        "90"
+      ],
+      "angle_degrees": 90,
+      "angle_type": "right"
+    }
+  ],
+  "checkpoint": [
+    {
+      "id": "G4M_GM_001_L3_Q1",
+      "question_id": "G4M_GM_001_L3_Q1",
+      "question_type": "multiple_choice",
+      "visual_model": "line_relationships",
+      "prompt": "Lines that never meet and stay the same distance apart are called what?",
+      "answer": "parallel",
+      "correct_answer": "parallel",
+      "misconception_tag": "parallel_perpendicular_confusion",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is parallel.",
+      "read_aloud_text": "Lines that never meet and stay the same distance apart are called what?",
+      "question_audio": {
+        "text": "Lines that never meet and stay the same distance apart are called what?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "parallel",
+        "parallel",
+        "perpendicular",
+        "ray"
+      ],
+      "relationship": "parallel"
+    },
+    {
+      "id": "G4M_GM_001_L3_Q2",
+      "question_id": "G4M_GM_001_L3_Q2",
+      "question_type": "multiple_choice",
+      "visual_model": "line_relationships",
+      "prompt": "Lines that meet to form four right angles are called what?",
+      "answer": "perpendicular",
+      "correct_answer": "perpendicular",
+      "misconception_tag": "parallel_perpendicular_confusion",
+      "hints": [
+        "Read the problem and name what is being asked.",
+        "Use the visual model to organize the quantities or attributes.",
+        "Check that your answer includes the correct value and label."
+      ],
+      "feedback": {
+        "correct": "Yes! Your answer matches the model and the math relationship.",
+        "incorrect": "Try again. Reread the prompt and use the labels in the model."
+      },
+      "explanation": "The answer is perpendicular.",
+      "read_aloud_text": "Lines that meet to form four right angles are called what?",
+      "question_audio": {
+        "text": "Lines that meet to form four right angles are called what?",
+        "label": "Read Question",
+        "type": "question",
+        "repeat_count": 1,
+        "voice": "alloy",
+        "playback_preference": "cached_audio_first"
+      },
+      "choices": [
+        "perpendicular",
+        "parallel",
+        "perpendicular",
+        "ray"
+      ],
+      "relationship": "perpendicular"
+    }
+  ],
+  "misconception_bank": {
+    "angle_size_confusion": "Judges angle size by ray length or picture size instead of opening.",
+    "protractor_reading_error": "Reads the wrong protractor scale or misplaces the vertex.",
+    "parallel_perpendicular_confusion": "Confuses lines that never meet with lines that meet at right angles.",
+    "symmetry_line_error": "Chooses a fold line that does not make matching halves."
+  },
+  "level_banks": [
+    {
+      "level_id": "G4M_GM_001_LVL1",
+      "label": "Level 1: Points, Lines, Rays, and Angles",
+      "focus": "Identify basic geometry figures and angle types.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_GM_001_L1_Q1",
+          "question_id": "G4M_GM_001_L1_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "angle_model",
+          "prompt": "Which figure is formed by two rays with the same endpoint?",
+          "answer": "angle",
+          "correct_answer": "angle",
+          "misconception_tag": "angle_size_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is angle.",
+          "read_aloud_text": "Which figure is formed by two rays with the same endpoint?",
+          "question_audio": {
+            "text": "Which figure is formed by two rays with the same endpoint?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "angle",
+            "segment",
+            "ray",
+            "parallel"
+          ],
+          "angle_degrees": 70,
+          "angle_type": "acute",
+          "relationship": "acute"
+        },
+        {
+          "id": "G4M_GM_001_L1_Q2",
+          "question_id": "G4M_GM_001_L1_Q2",
+          "question_type": "geometry_response",
+          "visual_model": "angle_model",
+          "prompt": "What do we call the shared endpoint of an angle?",
+          "answer": "vertex",
+          "correct_answer": "vertex",
+          "misconception_tag": "angle_size_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is vertex.",
+          "read_aloud_text": "What do we call the shared endpoint of an angle?",
+          "question_audio": {
+            "text": "What do we call the shared endpoint of an angle?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "vertex",
+            "vertex"
+          ],
+          "angle_degrees": 90,
+          "angle_type": "right",
+          "relationship": "right"
+        },
+        {
+          "id": "G4M_GM_001_L1_Q3",
+          "question_id": "G4M_GM_001_L1_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "line_relationships",
+          "prompt": "Which object continues forever in both directions?",
+          "answer": "line",
+          "correct_answer": "line",
+          "misconception_tag": "angle_size_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is line.",
+          "read_aloud_text": "Which object continues forever in both directions?",
+          "question_audio": {
+            "text": "Which object continues forever in both directions?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "line",
+            "segment",
+            "ray",
+            "parallel"
+          ],
+          "angle_degrees": 0,
+          "angle_type": "line",
+          "relationship": "line"
+        },
+        {
+          "id": "G4M_GM_001_L1_Q4",
+          "question_id": "G4M_GM_001_L1_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "line_relationships",
+          "prompt": "Which object has one endpoint and continues in one direction?",
+          "answer": "ray",
+          "correct_answer": "ray",
+          "misconception_tag": "angle_size_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is ray.",
+          "read_aloud_text": "Which object has one endpoint and continues in one direction?",
+          "question_audio": {
+            "text": "Which object has one endpoint and continues in one direction?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "ray",
+            "segment",
+            "ray",
+            "parallel"
+          ],
+          "angle_degrees": 0,
+          "angle_type": "ray",
+          "relationship": "ray"
+        },
+        {
+          "id": "G4M_GM_001_L1_Q5",
+          "question_id": "G4M_GM_001_L1_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "angle_model",
+          "prompt": "Classify a 35 degree angle.",
+          "answer": "acute",
+          "correct_answer": "acute",
+          "misconception_tag": "angle_size_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is acute.",
+          "read_aloud_text": "Classify a 35 degree angle.",
+          "question_audio": {
+            "text": "Classify a 35 degree angle.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "acute",
+            "segment",
+            "ray",
+            "parallel"
+          ],
+          "angle_degrees": 35,
+          "angle_type": "acute",
+          "relationship": "acute"
+        },
+        {
+          "id": "G4M_GM_001_L1_Q6",
+          "question_id": "G4M_GM_001_L1_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "angle_model",
+          "prompt": "Classify a 90 degree angle.",
+          "answer": "right",
+          "correct_answer": "right",
+          "misconception_tag": "angle_size_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is right.",
+          "read_aloud_text": "Classify a 90 degree angle.",
+          "question_audio": {
+            "text": "Classify a 90 degree angle.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "right",
+            "segment",
+            "ray",
+            "parallel"
+          ],
+          "angle_degrees": 90,
+          "angle_type": "right",
+          "relationship": "right"
+        },
+        {
+          "id": "G4M_GM_001_L1_Q7",
+          "question_id": "G4M_GM_001_L1_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "angle_model",
+          "prompt": "Classify a 125 degree angle.",
+          "answer": "obtuse",
+          "correct_answer": "obtuse",
+          "misconception_tag": "angle_size_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is obtuse.",
+          "read_aloud_text": "Classify a 125 degree angle.",
+          "question_audio": {
+            "text": "Classify a 125 degree angle.",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "obtuse",
+            "segment",
+            "ray",
+            "parallel"
+          ],
+          "angle_degrees": 125,
+          "angle_type": "obtuse",
+          "relationship": "obtuse"
+        },
+        {
+          "id": "G4M_GM_001_L1_Q8",
+          "question_id": "G4M_GM_001_L1_Q8",
+          "question_type": "geometry_response",
+          "visual_model": "line_relationships",
+          "prompt": "How many endpoints does a line segment have?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "angle_size_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "How many endpoints does a line segment have?",
+          "question_audio": {
+            "text": "How many endpoints does a line segment have?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "2",
+            "2"
+          ],
+          "angle_degrees": 0,
+          "angle_type": "segment",
+          "relationship": "segment"
+        },
+        {
+          "id": "G4M_GM_001_L1_Q9",
+          "question_id": "G4M_GM_001_L1_Q9",
+          "question_type": "geometry_response",
+          "visual_model": "angle_model",
+          "prompt": "What is the point where two rays meet called?",
+          "answer": "vertex",
+          "correct_answer": "vertex",
+          "misconception_tag": "angle_size_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is vertex.",
+          "read_aloud_text": "What is the point where two rays meet called?",
+          "question_audio": {
+            "text": "What is the point where two rays meet called?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "vertex",
+            "vertex"
+          ],
+          "angle_degrees": 60,
+          "angle_type": "acute",
+          "relationship": "acute"
+        },
+        {
+          "id": "G4M_GM_001_L1_Q10",
+          "question_id": "G4M_GM_001_L1_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "line_relationships",
+          "prompt": "A straight path with arrows on both ends is a what?",
+          "answer": "line",
+          "correct_answer": "line",
+          "misconception_tag": "angle_size_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is line.",
+          "read_aloud_text": "A straight path with arrows on both ends is a what?",
+          "question_audio": {
+            "text": "A straight path with arrows on both ends is a what?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "line",
+            "segment",
+            "ray",
+            "parallel"
+          ],
+          "angle_degrees": 0,
+          "angle_type": "line",
+          "relationship": "line"
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_GM_001_LVL2",
+      "label": "Level 2: Measure and Draw Angles",
+      "focus": "Measure and classify angles with protractor models.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_GM_001_L2_Q1",
+          "question_id": "G4M_GM_001_L2_Q1",
+          "question_type": "short_response",
+          "visual_model": "protractor_model",
+          "prompt": "What angle measure is shown on the protractor?",
+          "answer": "45",
+          "correct_answer": "45",
+          "misconception_tag": "protractor_reading_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 45.",
+          "read_aloud_text": "What angle measure is shown on the protractor?",
+          "question_audio": {
+            "text": "What angle measure is shown on the protractor?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "45",
+            "45"
+          ],
+          "angle_degrees": 45,
+          "angle_type": "acute"
+        },
+        {
+          "id": "G4M_GM_001_L2_Q2",
+          "question_id": "G4M_GM_001_L2_Q2",
+          "question_type": "short_response",
+          "visual_model": "protractor_model",
+          "prompt": "What angle measure is shown on the protractor?",
+          "answer": "90",
+          "correct_answer": "90",
+          "misconception_tag": "protractor_reading_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 90.",
+          "read_aloud_text": "What angle measure is shown on the protractor?",
+          "question_audio": {
+            "text": "What angle measure is shown on the protractor?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "90",
+            "90"
+          ],
+          "angle_degrees": 90,
+          "angle_type": "right"
+        },
+        {
+          "id": "G4M_GM_001_L2_Q3",
+          "question_id": "G4M_GM_001_L2_Q3",
+          "question_type": "geometry_response",
+          "visual_model": "protractor_model",
+          "prompt": "What angle measure is shown on the protractor?",
+          "answer": "120",
+          "correct_answer": "120",
+          "misconception_tag": "protractor_reading_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 120.",
+          "read_aloud_text": "What angle measure is shown on the protractor?",
+          "question_audio": {
+            "text": "What angle measure is shown on the protractor?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "120",
+            "120"
+          ],
+          "angle_degrees": 120,
+          "angle_type": "obtuse"
+        },
+        {
+          "id": "G4M_GM_001_L2_Q4",
+          "question_id": "G4M_GM_001_L2_Q4",
+          "question_type": "short_response",
+          "visual_model": "protractor_model",
+          "prompt": "An angle opens to 30 degrees. What type is it?",
+          "answer": "acute",
+          "correct_answer": "acute",
+          "misconception_tag": "protractor_reading_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is acute.",
+          "read_aloud_text": "An angle opens to 30 degrees. What type is it?",
+          "question_audio": {
+            "text": "An angle opens to 30 degrees. What type is it?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "acute",
+            "acute"
+          ],
+          "angle_degrees": 30,
+          "angle_type": "acute"
+        },
+        {
+          "id": "G4M_GM_001_L2_Q5",
+          "question_id": "G4M_GM_001_L2_Q5",
+          "question_type": "short_response",
+          "visual_model": "protractor_model",
+          "prompt": "An angle opens to 150 degrees. What type is it?",
+          "answer": "obtuse",
+          "correct_answer": "obtuse",
+          "misconception_tag": "protractor_reading_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is obtuse.",
+          "read_aloud_text": "An angle opens to 150 degrees. What type is it?",
+          "question_audio": {
+            "text": "An angle opens to 150 degrees. What type is it?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "obtuse",
+            "obtuse"
+          ],
+          "angle_degrees": 150,
+          "angle_type": "obtuse"
+        },
+        {
+          "id": "G4M_GM_001_L2_Q6",
+          "question_id": "G4M_GM_001_L2_Q6",
+          "question_type": "geometry_response",
+          "visual_model": "protractor_model",
+          "prompt": "Draw or name an angle that measures 60 degrees. What is the measure?",
+          "answer": "60",
+          "correct_answer": "60",
+          "misconception_tag": "protractor_reading_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 60.",
+          "read_aloud_text": "Draw or name an angle that measures 60 degrees. What is the measure?",
+          "question_audio": {
+            "text": "Draw or name an angle that measures 60 degrees. What is the measure?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "60",
+            "60"
+          ],
+          "angle_degrees": 60,
+          "angle_type": "acute"
+        },
+        {
+          "id": "G4M_GM_001_L2_Q7",
+          "question_id": "G4M_GM_001_L2_Q7",
+          "question_type": "short_response",
+          "visual_model": "protractor_model",
+          "prompt": "Read the protractor. What is the angle measure?",
+          "answer": "75",
+          "correct_answer": "75",
+          "misconception_tag": "protractor_reading_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 75.",
+          "read_aloud_text": "Read the protractor. What is the angle measure?",
+          "question_audio": {
+            "text": "Read the protractor. What is the angle measure?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "75",
+            "75"
+          ],
+          "angle_degrees": 75,
+          "angle_type": "acute"
+        },
+        {
+          "id": "G4M_GM_001_L2_Q8",
+          "question_id": "G4M_GM_001_L2_Q8",
+          "question_type": "short_response",
+          "visual_model": "protractor_model",
+          "prompt": "Read the protractor. What is the angle measure?",
+          "answer": "105",
+          "correct_answer": "105",
+          "misconception_tag": "protractor_reading_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 105.",
+          "read_aloud_text": "Read the protractor. What is the angle measure?",
+          "question_audio": {
+            "text": "Read the protractor. What is the angle measure?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "105",
+            "105"
+          ],
+          "angle_degrees": 105,
+          "angle_type": "obtuse"
+        },
+        {
+          "id": "G4M_GM_001_L2_Q9",
+          "question_id": "G4M_GM_001_L2_Q9",
+          "question_type": "geometry_response",
+          "visual_model": "protractor_model",
+          "prompt": "An angle is 135 degrees. What type is it?",
+          "answer": "obtuse",
+          "correct_answer": "obtuse",
+          "misconception_tag": "protractor_reading_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is obtuse.",
+          "read_aloud_text": "An angle is 135 degrees. What type is it?",
+          "question_audio": {
+            "text": "An angle is 135 degrees. What type is it?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "obtuse",
+            "obtuse"
+          ],
+          "angle_degrees": 135,
+          "angle_type": "obtuse"
+        },
+        {
+          "id": "G4M_GM_001_L2_Q10",
+          "question_id": "G4M_GM_001_L2_Q10",
+          "question_type": "short_response",
+          "visual_model": "protractor_model",
+          "prompt": "An angle is 15 degrees. What type is it?",
+          "answer": "acute",
+          "correct_answer": "acute",
+          "misconception_tag": "protractor_reading_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is acute.",
+          "read_aloud_text": "An angle is 15 degrees. What type is it?",
+          "question_audio": {
+            "text": "An angle is 15 degrees. What type is it?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "acute",
+            "acute"
+          ],
+          "angle_degrees": 15,
+          "angle_type": "acute"
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_GM_001_LVL3",
+      "label": "Level 3: Parallel and Perpendicular Lines",
+      "focus": "Classify line relationships.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_GM_001_L3_Q1",
+          "question_id": "G4M_GM_001_L3_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "line_relationships",
+          "prompt": "Lines that never meet and stay the same distance apart are called what?",
+          "answer": "parallel",
+          "correct_answer": "parallel",
+          "misconception_tag": "parallel_perpendicular_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is parallel.",
+          "read_aloud_text": "Lines that never meet and stay the same distance apart are called what?",
+          "question_audio": {
+            "text": "Lines that never meet and stay the same distance apart are called what?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "parallel",
+            "parallel",
+            "perpendicular",
+            "ray"
+          ],
+          "relationship": "parallel"
+        },
+        {
+          "id": "G4M_GM_001_L3_Q2",
+          "question_id": "G4M_GM_001_L3_Q2",
+          "question_type": "multiple_choice",
+          "visual_model": "line_relationships",
+          "prompt": "Lines that meet to form four right angles are called what?",
+          "answer": "perpendicular",
+          "correct_answer": "perpendicular",
+          "misconception_tag": "parallel_perpendicular_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is perpendicular.",
+          "read_aloud_text": "Lines that meet to form four right angles are called what?",
+          "question_audio": {
+            "text": "Lines that meet to form four right angles are called what?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "perpendicular",
+            "parallel",
+            "perpendicular",
+            "ray"
+          ],
+          "relationship": "perpendicular"
+        },
+        {
+          "id": "G4M_GM_001_L3_Q3",
+          "question_id": "G4M_GM_001_L3_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "line_relationships",
+          "prompt": "Two streets cross but do not make right angles. What relationship is shown?",
+          "answer": "intersecting",
+          "correct_answer": "intersecting",
+          "misconception_tag": "parallel_perpendicular_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is intersecting.",
+          "read_aloud_text": "Two streets cross but do not make right angles. What relationship is shown?",
+          "question_audio": {
+            "text": "Two streets cross but do not make right angles. What relationship is shown?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "intersecting",
+            "parallel",
+            "perpendicular",
+            "ray"
+          ],
+          "relationship": "intersecting"
+        },
+        {
+          "id": "G4M_GM_001_L3_Q4",
+          "question_id": "G4M_GM_001_L3_Q4",
+          "question_type": "multiple_choice",
+          "visual_model": "line_relationships",
+          "prompt": "Which relationship shows railroad tracks?",
+          "answer": "parallel",
+          "correct_answer": "parallel",
+          "misconception_tag": "parallel_perpendicular_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is parallel.",
+          "read_aloud_text": "Which relationship shows railroad tracks?",
+          "question_audio": {
+            "text": "Which relationship shows railroad tracks?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "parallel",
+            "parallel",
+            "perpendicular",
+            "ray"
+          ],
+          "relationship": "parallel"
+        },
+        {
+          "id": "G4M_GM_001_L3_Q5",
+          "question_id": "G4M_GM_001_L3_Q5",
+          "question_type": "multiple_choice",
+          "visual_model": "line_relationships",
+          "prompt": "Which relationship shows a corner of a rectangle?",
+          "answer": "perpendicular",
+          "correct_answer": "perpendicular",
+          "misconception_tag": "parallel_perpendicular_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is perpendicular.",
+          "read_aloud_text": "Which relationship shows a corner of a rectangle?",
+          "question_audio": {
+            "text": "Which relationship shows a corner of a rectangle?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "perpendicular",
+            "parallel",
+            "perpendicular",
+            "ray"
+          ],
+          "relationship": "perpendicular"
+        },
+        {
+          "id": "G4M_GM_001_L3_Q6",
+          "question_id": "G4M_GM_001_L3_Q6",
+          "question_type": "short_response",
+          "visual_model": "line_relationships",
+          "prompt": "A ray starts at point A and goes through point B. What relationship model is shown?",
+          "answer": "ray",
+          "correct_answer": "ray",
+          "misconception_tag": "parallel_perpendicular_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is ray.",
+          "read_aloud_text": "A ray starts at point A and goes through point B. What relationship model is shown?",
+          "question_audio": {
+            "text": "A ray starts at point A and goes through point B. What relationship model is shown?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "ray",
+            "ray"
+          ],
+          "relationship": "ray"
+        },
+        {
+          "id": "G4M_GM_001_L3_Q7",
+          "question_id": "G4M_GM_001_L3_Q7",
+          "question_type": "short_response",
+          "visual_model": "line_relationships",
+          "prompt": "A line segment from C to D has how many endpoints?",
+          "answer": "2",
+          "correct_answer": "2",
+          "misconception_tag": "parallel_perpendicular_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 2.",
+          "read_aloud_text": "A line segment from C to D has how many endpoints?",
+          "question_audio": {
+            "text": "A line segment from C to D has how many endpoints?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "2",
+            "2"
+          ],
+          "relationship": "segment"
+        },
+        {
+          "id": "G4M_GM_001_L3_Q8",
+          "question_id": "G4M_GM_001_L3_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "line_relationships",
+          "prompt": "What line relationship makes a 90 degree angle?",
+          "answer": "perpendicular",
+          "correct_answer": "perpendicular",
+          "misconception_tag": "parallel_perpendicular_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is perpendicular.",
+          "read_aloud_text": "What line relationship makes a 90 degree angle?",
+          "question_audio": {
+            "text": "What line relationship makes a 90 degree angle?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "perpendicular",
+            "parallel",
+            "perpendicular",
+            "ray"
+          ],
+          "relationship": "perpendicular"
+        },
+        {
+          "id": "G4M_GM_001_L3_Q9",
+          "question_id": "G4M_GM_001_L3_Q9",
+          "question_type": "multiple_choice",
+          "visual_model": "line_relationships",
+          "prompt": "What line relationship never intersects?",
+          "answer": "parallel",
+          "correct_answer": "parallel",
+          "misconception_tag": "parallel_perpendicular_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is parallel.",
+          "read_aloud_text": "What line relationship never intersects?",
+          "question_audio": {
+            "text": "What line relationship never intersects?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "parallel",
+            "parallel",
+            "perpendicular",
+            "ray"
+          ],
+          "relationship": "parallel"
+        },
+        {
+          "id": "G4M_GM_001_L3_Q10",
+          "question_id": "G4M_GM_001_L3_Q10",
+          "question_type": "multiple_choice",
+          "visual_model": "line_relationships",
+          "prompt": "What is shown when two lines cross at one point?",
+          "answer": "intersecting",
+          "correct_answer": "intersecting",
+          "misconception_tag": "parallel_perpendicular_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is intersecting.",
+          "read_aloud_text": "What is shown when two lines cross at one point?",
+          "question_audio": {
+            "text": "What is shown when two lines cross at one point?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "intersecting",
+            "parallel",
+            "perpendicular",
+            "ray"
+          ],
+          "relationship": "intersecting"
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_GM_001_LVL4",
+      "label": "Level 4: Classify Shapes and Symmetry",
+      "focus": "Classify shapes and symmetry lines.",
+      "difficulty": 3,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_GM_001_L4_Q1",
+          "question_id": "G4M_GM_001_L4_Q1",
+          "question_type": "geometry_response",
+          "visual_model": "symmetry_model",
+          "prompt": "How many lines of symmetry does this rectangle model show?",
+          "answer": "1",
+          "correct_answer": "1",
+          "misconception_tag": "symmetry_line_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 1.",
+          "read_aloud_text": "How many lines of symmetry does this rectangle model show?",
+          "question_audio": {
+            "text": "How many lines of symmetry does this rectangle model show?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "1",
+            "1"
+          ],
+          "shape": "rectangle",
+          "symmetry_lines": 1,
+          "candidate_correct": true
+        },
+        {
+          "id": "G4M_GM_001_L4_Q2",
+          "question_id": "G4M_GM_001_L4_Q2",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "A square has four equal sides and four right angles. What shape is it?",
+          "answer": "square",
+          "correct_answer": "square",
+          "misconception_tag": "symmetry_line_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is square.",
+          "read_aloud_text": "A square has four equal sides and four right angles. What shape is it?",
+          "question_audio": {
+            "text": "A square has four equal sides and four right angles. What shape is it?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "square",
+            "square"
+          ],
+          "shape": "square",
+          "symmetry_lines": 0,
+          "candidate_correct": true
+        },
+        {
+          "id": "G4M_GM_001_L4_Q3",
+          "question_id": "G4M_GM_001_L4_Q3",
+          "question_type": "geometry_response",
+          "visual_model": "shape_identification",
+          "prompt": "A rhombus has two pairs of parallel sides. Is it a parallelogram?",
+          "answer": "yes",
+          "correct_answer": "yes",
+          "misconception_tag": "symmetry_line_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is yes.",
+          "read_aloud_text": "A rhombus has two pairs of parallel sides. Is it a parallelogram?",
+          "question_audio": {
+            "text": "A rhombus has two pairs of parallel sides. Is it a parallelogram?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "yes",
+            "yes"
+          ],
+          "shape": "rhombus",
+          "symmetry_lines": 1,
+          "candidate_correct": true
+        },
+        {
+          "id": "G4M_GM_001_L4_Q4",
+          "question_id": "G4M_GM_001_L4_Q4",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "Which shape has exactly three sides?",
+          "answer": "triangle",
+          "correct_answer": "triangle",
+          "misconception_tag": "symmetry_line_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is triangle.",
+          "read_aloud_text": "Which shape has exactly three sides?",
+          "question_audio": {
+            "text": "Which shape has exactly three sides?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "triangle",
+            "triangle"
+          ],
+          "shape": "triangle",
+          "symmetry_lines": 0,
+          "candidate_correct": true
+        },
+        {
+          "id": "G4M_GM_001_L4_Q5",
+          "question_id": "G4M_GM_001_L4_Q5",
+          "question_type": "geometry_response",
+          "visual_model": "symmetry_model",
+          "prompt": "Does the dashed line split the shape into matching halves?",
+          "answer": "yes",
+          "correct_answer": "yes",
+          "misconception_tag": "symmetry_line_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is yes.",
+          "read_aloud_text": "Does the dashed line split the shape into matching halves?",
+          "question_audio": {
+            "text": "Does the dashed line split the shape into matching halves?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "yes",
+            "yes"
+          ],
+          "shape": "rectangle",
+          "symmetry_lines": 1,
+          "candidate_correct": true
+        },
+        {
+          "id": "G4M_GM_001_L4_Q6",
+          "question_id": "G4M_GM_001_L4_Q6",
+          "question_type": "short_response",
+          "visual_model": "symmetry_model",
+          "prompt": "A circle can fold through its center many ways. Does it have line symmetry?",
+          "answer": "yes",
+          "correct_answer": "yes",
+          "misconception_tag": "symmetry_line_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is yes.",
+          "read_aloud_text": "A circle can fold through its center many ways. Does it have line symmetry?",
+          "question_audio": {
+            "text": "A circle can fold through its center many ways. Does it have line symmetry?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "yes",
+            "yes"
+          ],
+          "shape": "circle",
+          "symmetry_lines": 1,
+          "candidate_correct": true
+        },
+        {
+          "id": "G4M_GM_001_L4_Q7",
+          "question_id": "G4M_GM_001_L4_Q7",
+          "question_type": "geometry_response",
+          "visual_model": "shape_identification",
+          "prompt": "A trapezoid has how many pairs of parallel sides in Grade 4 classification?",
+          "answer": "1",
+          "correct_answer": "1",
+          "misconception_tag": "symmetry_line_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 1.",
+          "read_aloud_text": "A trapezoid has how many pairs of parallel sides in Grade 4 classification?",
+          "question_audio": {
+            "text": "A trapezoid has how many pairs of parallel sides in Grade 4 classification?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "1",
+            "1"
+          ],
+          "shape": "trapezoid",
+          "symmetry_lines": 1,
+          "candidate_correct": true
+        },
+        {
+          "id": "G4M_GM_001_L4_Q8",
+          "question_id": "G4M_GM_001_L4_Q8",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "A rectangle has two pairs of parallel sides. Is it a parallelogram?",
+          "answer": "yes",
+          "correct_answer": "yes",
+          "misconception_tag": "symmetry_line_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is yes.",
+          "read_aloud_text": "A rectangle has two pairs of parallel sides. Is it a parallelogram?",
+          "question_audio": {
+            "text": "A rectangle has two pairs of parallel sides. Is it a parallelogram?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "yes",
+            "yes"
+          ],
+          "shape": "rectangle",
+          "symmetry_lines": 1,
+          "candidate_correct": true
+        },
+        {
+          "id": "G4M_GM_001_L4_Q9",
+          "question_id": "G4M_GM_001_L4_Q9",
+          "question_type": "geometry_response",
+          "visual_model": "shape_identification",
+          "prompt": "How many right angles does a rectangle have?",
+          "answer": "4",
+          "correct_answer": "4",
+          "misconception_tag": "symmetry_line_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 4.",
+          "read_aloud_text": "How many right angles does a rectangle have?",
+          "question_audio": {
+            "text": "How many right angles does a rectangle have?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "4",
+            "4"
+          ],
+          "shape": "rectangle",
+          "symmetry_lines": 4,
+          "candidate_correct": true
+        },
+        {
+          "id": "G4M_GM_001_L4_Q10",
+          "question_id": "G4M_GM_001_L4_Q10",
+          "question_type": "short_response",
+          "visual_model": "symmetry_model",
+          "prompt": "If a fold line does not make matching halves, is it a line of symmetry?",
+          "answer": "no",
+          "correct_answer": "no",
+          "misconception_tag": "symmetry_line_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is no.",
+          "read_aloud_text": "If a fold line does not make matching halves, is it a line of symmetry?",
+          "question_audio": {
+            "text": "If a fold line does not make matching halves, is it a line of symmetry?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "no",
+            "no"
+          ],
+          "shape": "triangle",
+          "symmetry_lines": 0,
+          "candidate_correct": false
+        }
+      ]
+    },
+    {
+      "level_id": "G4M_GM_001_MIXED",
+      "label": "Mixed",
+      "focus": "Practice all geometry skills together.",
+      "difficulty": 4,
+      "question_count_required": 10,
+      "mastery_threshold": 0.8,
+      "questions": [
+        {
+          "id": "G4M_GM_001_MIX_Q1",
+          "question_id": "G4M_GM_001_MIX_Q1",
+          "question_type": "multiple_choice",
+          "visual_model": "angle_model",
+          "prompt": "Which figure is formed by two rays with the same endpoint?",
+          "answer": "angle",
+          "correct_answer": "angle",
+          "misconception_tag": "angle_size_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is angle.",
+          "read_aloud_text": "Which figure is formed by two rays with the same endpoint?",
+          "question_audio": {
+            "text": "Which figure is formed by two rays with the same endpoint?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "angle",
+            "segment",
+            "ray",
+            "parallel"
+          ],
+          "angle_degrees": 70,
+          "angle_type": "acute",
+          "relationship": "acute"
+        },
+        {
+          "id": "G4M_GM_001_MIX_Q2",
+          "question_id": "G4M_GM_001_MIX_Q2",
+          "question_type": "geometry_response",
+          "visual_model": "angle_model",
+          "prompt": "What do we call the shared endpoint of an angle?",
+          "answer": "vertex",
+          "correct_answer": "vertex",
+          "misconception_tag": "angle_size_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is vertex.",
+          "read_aloud_text": "What do we call the shared endpoint of an angle?",
+          "question_audio": {
+            "text": "What do we call the shared endpoint of an angle?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "vertex",
+            "vertex"
+          ],
+          "angle_degrees": 90,
+          "angle_type": "right",
+          "relationship": "right"
+        },
+        {
+          "id": "G4M_GM_001_MIX_Q3",
+          "question_id": "G4M_GM_001_MIX_Q3",
+          "question_type": "multiple_choice",
+          "visual_model": "line_relationships",
+          "prompt": "Which object continues forever in both directions?",
+          "answer": "line",
+          "correct_answer": "line",
+          "misconception_tag": "angle_size_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is line.",
+          "read_aloud_text": "Which object continues forever in both directions?",
+          "question_audio": {
+            "text": "Which object continues forever in both directions?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "line",
+            "segment",
+            "ray",
+            "parallel"
+          ],
+          "angle_degrees": 0,
+          "angle_type": "line",
+          "relationship": "line"
+        },
+        {
+          "id": "G4M_GM_001_MIX_Q4",
+          "question_id": "G4M_GM_001_MIX_Q4",
+          "question_type": "short_response",
+          "visual_model": "protractor_model",
+          "prompt": "What angle measure is shown on the protractor?",
+          "answer": "45",
+          "correct_answer": "45",
+          "misconception_tag": "protractor_reading_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 45.",
+          "read_aloud_text": "What angle measure is shown on the protractor?",
+          "question_audio": {
+            "text": "What angle measure is shown on the protractor?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "45",
+            "45"
+          ],
+          "angle_degrees": 45,
+          "angle_type": "acute"
+        },
+        {
+          "id": "G4M_GM_001_MIX_Q5",
+          "question_id": "G4M_GM_001_MIX_Q5",
+          "question_type": "short_response",
+          "visual_model": "protractor_model",
+          "prompt": "What angle measure is shown on the protractor?",
+          "answer": "90",
+          "correct_answer": "90",
+          "misconception_tag": "protractor_reading_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 90.",
+          "read_aloud_text": "What angle measure is shown on the protractor?",
+          "question_audio": {
+            "text": "What angle measure is shown on the protractor?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "90",
+            "90"
+          ],
+          "angle_degrees": 90,
+          "angle_type": "right"
+        },
+        {
+          "id": "G4M_GM_001_MIX_Q6",
+          "question_id": "G4M_GM_001_MIX_Q6",
+          "question_type": "multiple_choice",
+          "visual_model": "line_relationships",
+          "prompt": "Lines that never meet and stay the same distance apart are called what?",
+          "answer": "parallel",
+          "correct_answer": "parallel",
+          "misconception_tag": "parallel_perpendicular_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is parallel.",
+          "read_aloud_text": "Lines that never meet and stay the same distance apart are called what?",
+          "question_audio": {
+            "text": "Lines that never meet and stay the same distance apart are called what?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "parallel",
+            "parallel",
+            "perpendicular",
+            "ray"
+          ],
+          "relationship": "parallel"
+        },
+        {
+          "id": "G4M_GM_001_MIX_Q7",
+          "question_id": "G4M_GM_001_MIX_Q7",
+          "question_type": "multiple_choice",
+          "visual_model": "line_relationships",
+          "prompt": "Lines that meet to form four right angles are called what?",
+          "answer": "perpendicular",
+          "correct_answer": "perpendicular",
+          "misconception_tag": "parallel_perpendicular_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is perpendicular.",
+          "read_aloud_text": "Lines that meet to form four right angles are called what?",
+          "question_audio": {
+            "text": "Lines that meet to form four right angles are called what?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "perpendicular",
+            "parallel",
+            "perpendicular",
+            "ray"
+          ],
+          "relationship": "perpendicular"
+        },
+        {
+          "id": "G4M_GM_001_MIX_Q8",
+          "question_id": "G4M_GM_001_MIX_Q8",
+          "question_type": "multiple_choice",
+          "visual_model": "line_relationships",
+          "prompt": "Two streets cross but do not make right angles. What relationship is shown?",
+          "answer": "intersecting",
+          "correct_answer": "intersecting",
+          "misconception_tag": "parallel_perpendicular_confusion",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is intersecting.",
+          "read_aloud_text": "Two streets cross but do not make right angles. What relationship is shown?",
+          "question_audio": {
+            "text": "Two streets cross but do not make right angles. What relationship is shown?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "choices": [
+            "intersecting",
+            "parallel",
+            "perpendicular",
+            "ray"
+          ],
+          "relationship": "intersecting"
+        },
+        {
+          "id": "G4M_GM_001_MIX_Q9",
+          "question_id": "G4M_GM_001_MIX_Q9",
+          "question_type": "geometry_response",
+          "visual_model": "symmetry_model",
+          "prompt": "How many lines of symmetry does this rectangle model show?",
+          "answer": "1",
+          "correct_answer": "1",
+          "misconception_tag": "symmetry_line_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is 1.",
+          "read_aloud_text": "How many lines of symmetry does this rectangle model show?",
+          "question_audio": {
+            "text": "How many lines of symmetry does this rectangle model show?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "1",
+            "1"
+          ],
+          "shape": "rectangle",
+          "symmetry_lines": 1,
+          "candidate_correct": true
+        },
+        {
+          "id": "G4M_GM_001_MIX_Q10",
+          "question_id": "G4M_GM_001_MIX_Q10",
+          "question_type": "short_response",
+          "visual_model": "shape_identification",
+          "prompt": "A square has four equal sides and four right angles. What shape is it?",
+          "answer": "square",
+          "correct_answer": "square",
+          "misconception_tag": "symmetry_line_error",
+          "hints": [
+            "Read the problem and name what is being asked.",
+            "Use the visual model to organize the quantities or attributes.",
+            "Check that your answer includes the correct value and label."
+          ],
+          "feedback": {
+            "correct": "Yes! Your answer matches the model and the math relationship.",
+            "incorrect": "Try again. Reread the prompt and use the labels in the model."
+          },
+          "explanation": "The answer is square.",
+          "read_aloud_text": "A square has four equal sides and four right angles. What shape is it?",
+          "question_audio": {
+            "text": "A square has four equal sides and four right angles. What shape is it?",
+            "label": "Read Question",
+            "type": "question",
+            "repeat_count": 1,
+            "voice": "alloy",
+            "playback_preference": "cached_audio_first"
+          },
+          "acceptable_answers": [
+            "square",
+            "square"
+          ],
+          "shape": "square",
+          "symmetry_lines": 0,
+          "candidate_correct": true
+        }
+      ]
+    }
+  ],
+  "page_audio": {
+    "story": {
+      "text": "Read this page to enter Angles, Lines, and Shape Classification. The crew has a real Grade 4 problem to solve, so notice the quantities, labels, and math words before you start. Think about what the question is asking and how a model can keep your work organized.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "lesson": {
+      "text": "Read this page for the main lesson on points, lines, rays, angles, perpendicular and parallel lines, symmetry, and shape classification. Use precise vocabulary, name the units or geometry attributes, and explain why each step makes sense. If a number, line, angle, or shape label matters, say it in your own words before answering.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "watch": {
+      "text": "Read this page while you watch the worked example. The model is not decoration; it shows how to connect the problem words to a mathematical relationship. Pause on each label and ask what it tells you to calculate, compare, measure, or classify.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "demo": {
+      "text": "Read this page before the demo. Follow the first move, then predict the next move before checking the example. Good mathematicians use the visual evidence and the answer sentence together, not just a quick guess.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "practice": {
+      "text": "Read this page to practice with support. Press Read Question for each problem so you hear the full math wording clearly. Then use the model, choose or type your answer, and check whether your response includes the correct value, unit, or geometry word.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "challenge": {
+      "text": "Read this page for the challenge round. These problems may mix vocabulary, diagrams, and computation, so slow down and identify the exact relationship first. Press Read Question when you need the prompt spoken again, then explain your reasoning.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "checkpoint": {
+      "text": "Read this page for the checkpoint. This is your chance to show independent skill with the same careful habits: read the prompt, use the visual, answer with the correct label, and review your work. Use Read Question to hear each checkpoint item.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "badge": {
+      "text": "Read this page to celebrate your progress. The badge means you practiced the lesson, watched models, tried challenges, and checked your understanding. Name one strategy you used today so it is ready for the next math mission.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    },
+    "profile": {
+      "text": "Read this page to save your growth profile. Look at what you completed and notice which kinds of questions felt strongest. Your next practice should build on those strengths and revisit any unit labels, data labels, angle measures, or shape attributes that still need attention.",
+      "label": "Read This Page",
+      "type": "instruction",
+      "repeat_count": 1,
+      "voice": "alloy",
+      "playback_preference": "cached_audio_first"
+    }
+  }
+}
